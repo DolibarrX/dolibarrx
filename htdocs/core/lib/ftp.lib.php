@@ -83,7 +83,7 @@ function dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $sect
 							$error++;
 						}
 					} else {
-						dol_syslog('Failed to connect to FTP with login '.$ftp_user, LOG_DEBUG);
+						dol_syslog('Failed to connect to FTP with login ' . $ftp_user, LOG_DEBUG);
 						$mesg = $langs->transnoentitiesnoconv("FailedToConnectToFTPServerWithCredentials");
 						$ok = 0;
 						$error++;
@@ -108,7 +108,7 @@ function dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $sect
 				}
 			}
 		} else {
-			dol_syslog('FailedToConnectToFTPServer '.$ftp_server.' '.$ftp_port, LOG_ERR);
+			dol_syslog('FailedToConnectToFTPServer ' . $ftp_server . ' ' . $ftp_port, LOG_ERR);
 			$mesg = $langs->transnoentitiesnoconv("FailedToConnectToFTPServer", $ftp_server, $ftp_port);
 			$ok = 0;
 		}
@@ -168,16 +168,16 @@ function dol_ftp_delete($connect_id, $file, $newsection)
 	global $config;
 
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {
-		$newsection = ssh2_sftp_realpath($connect_id, ".").'/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169
+		$newsection = ssh2_sftp_realpath($connect_id, ".") . '/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169
 	}
 
 	// Remote file
 	$filename = $file;
-	$remotefile = $newsection.(preg_match('@[\\\/]$@', $newsection) ? '' : '/').$file;
+	$remotefile = $newsection . (preg_match('@[\\\/]$@', $newsection) ? '' : '/') . $file;
 	$newremotefileiso = mb_convert_encoding($remotefile, 'ISO-8859-1');
 
 	//print "x".$newremotefileiso;
-	dol_syslog("ftp/index.php ftp_delete ".$newremotefileiso);
+	dol_syslog("ftp/index.php ftp_delete " . $newremotefileiso);
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {
 		return ssh2_sftp_unlink($connect_id, $newremotefileiso);
 	} else {
@@ -199,16 +199,16 @@ function dol_ftp_get($connect_id, $localfile, $file, $newsection)
 	global $config;
 
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {
-		$newsection = ssh2_sftp_realpath($connect_id, ".").'/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169
+		$newsection = ssh2_sftp_realpath($connect_id, ".") . '/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169
 	}
 
 	// Remote file
 	$filename = $file;
-	$remotefile = $newsection.(preg_match('@[\\\/]$@', $newsection) ? '' : '/').$file;
+	$remotefile = $newsection . (preg_match('@[\\\/]$@', $newsection) ? '' : '/') . $file;
 	$newremotefileiso = mb_convert_encoding($remotefile, 'ISO-8859-1');
 
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {
-		return fopen('ssh2.sftp://'.intval($connect_id).$newremotefileiso, 'r');
+		return fopen('ssh2.sftp://' . intval($connect_id) . $newremotefileiso, 'r');
 	} else {
 		return ftp_get($connect_id, $localfile, $newremotefileiso, FTP_BINARY);
 	}
@@ -228,12 +228,12 @@ function dol_ftp_put($connect_id, $file, $localfile, $newsection)
 	global $config;
 
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {
-		$newsection = ssh2_sftp_realpath($connect_id, ".").'/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169
+		$newsection = ssh2_sftp_realpath($connect_id, ".") . '/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169
 	}
 
 	// Remote file
 	$filename = $file;
-	$remotefile = $newsection.(preg_match('@[\\\/]$@', $newsection) ? '' : '/').$file;
+	$remotefile = $newsection . (preg_match('@[\\\/]$@', $newsection) ? '' : '/') . $file;
 	$newremotefileiso = mb_convert_encoding($remotefile, 'ISO-8859-1');
 
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {
@@ -256,12 +256,12 @@ function dol_ftp_rmdir($connect_id, $file, $newsection)
 	global $config;
 
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {
-		$newsection = ssh2_sftp_realpath($connect_id, ".").'/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169
+		$newsection = ssh2_sftp_realpath($connect_id, ".") . '/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169
 	}
 
 	// Remote file
 	$filename = $file;
-	$remotefile = $newsection.(preg_match('@[\\\/]$@', $newsection) ? '' : '/').$file;
+	$remotefile = $newsection . (preg_match('@[\\\/]$@', $newsection) ? '' : '/') . $file;
 	$newremotefileiso = mb_convert_encoding($remotefile, 'ISO-8859-1');
 
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {
@@ -285,11 +285,11 @@ function dol_ftp_mkdir($connect_id, $newdir, $newsection)
 	global $config;
 
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {
-		$newsection = ssh2_sftp_realpath($connect_id, ".").'/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169
+		$newsection = ssh2_sftp_realpath($connect_id, ".") . '/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169
 	}
 
 	// Remote file
-	$newremotefileiso = $newsection.(preg_match('@[\\\/]$@', $newsection) ? '' : '/').$newdir;
+	$newremotefileiso = $newsection . (preg_match('@[\\\/]$@', $newsection) ? '' : '/') . $newdir;
 	$newremotefileiso = mb_convert_encoding($newremotefileiso, 'ISO-8859-1');
 
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {

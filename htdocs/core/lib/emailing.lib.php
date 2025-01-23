@@ -35,34 +35,34 @@ function emailing_prepare_head(Mailing $object)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT."/comm/mailing/card.php?id=".$object->id;
+	$head[$h][0] = DOL_URL_ROOT . "/comm/mailing/card.php?id=" . $object->id;
 	$head[$h][1] = $langs->trans("MailCard");
 	$head[$h][2] = 'card';
 	$h++;
 
 	if (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('mailing', 'mailing_advance', 'recipient'))) {
-		$head[$h][0] = DOL_URL_ROOT."/comm/mailing/cibles.php?id=".$object->id;
+		$head[$h][0] = DOL_URL_ROOT . "/comm/mailing/cibles.php?id=" . $object->id;
 		$head[$h][1] = $langs->trans("MailRecipients");
 		if ($object->nbemail > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$object->nbemail.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $object->nbemail . '</span>';
 		}
 		$head[$h][2] = 'targets';
 		$h++;
 	}
 
 	if (getDolGlobalString('EMAILING_USE_ADVANCED_SELECTOR')) {
-		$head[$h][0] = DOL_URL_ROOT."/comm/mailing/advtargetemailing.php?id=".$object->id;
+		$head[$h][0] = DOL_URL_ROOT . "/comm/mailing/advtargetemailing.php?id=" . $object->id;
 		$head[$h][1] = $langs->trans("MailAdvTargetRecipients");
 		$head[$h][2] = 'advtargets';
 		$h++;
 	}
 
-	$head[$h][0] = DOL_URL_ROOT."/comm/mailing/info.php?id=".$object->id;
+	$head[$h][0] = DOL_URL_ROOT . "/comm/mailing/info.php?id=" . $object->id;
 	$head[$h][1] = $langs->trans("Info");
 	$head[$h][2] = 'info';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT."/comm/mailing/note.php?id=".$object->id;
+	$head[$h][0] = DOL_URL_ROOT . "/comm/mailing/note.php?id=" . $object->id;
 	$head[$h][1] = $langs->trans("Note");
 	$head[$h][2] = 'note';
 	$h++;

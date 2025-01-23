@@ -43,7 +43,7 @@ if (defined('DOL_DEFAULT_TTF_BOLD')) {
 // Automatic-Detection of Font if running Windows
 // @CHANGE LDR
 if (isset($_SERVER['WINDIR']) && @file_exists($_SERVER['WINDIR'])) {
-	$font_loc = $_SERVER['WINDIR'].'\Fonts\arialbd.ttf';
+	$font_loc = $_SERVER['WINDIR'] . '\Fonts\arialbd.ttf';
 }
 if (empty($font_loc)) {
 	die('DOL_DEFAULT_TTF_BOLD must de defined with full path to a TTF font.');
@@ -88,11 +88,11 @@ function barcode_print($code, $encoding = "ANY", $scale = 2, $mode = "png", $fil
 	if (!$bars || !empty($bars['error'])) {
 		// Return error message instead of array
 		if (empty($bars['error'])) {
-			$error = 'Bad Value '.$code.' for encoding '.$encoding;
+			$error = 'Bad Value ' . $code . ' for encoding ' . $encoding;
 		} else {
 			$error = $bars['error'];
 		}
-		dol_syslog('barcode.lib.php::barcode_print '.$error, LOG_ERR);
+		dol_syslog('barcode.lib.php::barcode_print ' . $error, LOG_ERR);
 		return $error;
 	}
 	if (!$mode) {
@@ -134,30 +134,30 @@ function barcode_encode($code, $encoding)
 	global $genbarcode_loc;
 
 	if ((preg_match("/^upc$/i", $encoding))
-	&& (preg_match("/^[0-9]{11,12}$/", $code))
+		&& (preg_match("/^[0-9]{11,12}$/", $code))
 	) {
 		/* use built-in UPC-Encoder */
 		dol_syslog("barcode.lib.php::barcode_encode Use barcode_encode_upc");
 		$bars = barcode_encode_upc($code, $encoding);
 	} elseif ((preg_match("/^ean$/i", $encoding))
 
-	|| (($encoding) && (preg_match("/^isbn$/i", $encoding))
-	&& ((strlen($code) == 9 || strlen($code) == 10) ||
-	(((preg_match("/^978/", $code) && strlen($code) == 12) ||
-	(strlen($code) == 13)))))
+		|| (($encoding) && (preg_match("/^isbn$/i", $encoding))
+			&& ((strlen($code) == 9 || strlen($code) == 10) ||
+				(((preg_match("/^978/", $code) && strlen($code) == 12) ||
+					(strlen($code) == 13)))))
 
-	|| ((!isset($encoding) || !$encoding || (preg_match("/^ANY$/i", $encoding)))
-	&& (preg_match("/^[0-9]{12,13}$/", $code)))
+		|| ((!isset($encoding) || !$encoding || (preg_match("/^ANY$/i", $encoding)))
+			&& (preg_match("/^[0-9]{12,13}$/", $code)))
 	) {
 		/* use built-in EAN-Encoder */
 		dol_syslog("barcode.lib.php::barcode_encode Use barcode_encode_ean");
 		$bars = barcode_encode_ean($code, $encoding);
 	} elseif (file_exists($genbarcode_loc)) {	// For example C39
 		/* use genbarcode */
-		dol_syslog("barcode.lib.php::barcode_encode Use genbarcode ".$genbarcode_loc." code=".$code." encoding=".$encoding);
+		dol_syslog("barcode.lib.php::barcode_encode Use genbarcode " . $genbarcode_loc . " code=" . $code . " encoding=" . $encoding);
 		$bars = barcode_encode_genbarcode($code, $encoding);
 	} else {
-		print "barcode_encode needs an external program for encodings other then EAN/ISBN (code=".dol_escape_htmltag($code).", encoding=".dol_escape_htmltag($encoding).")<BR>\n";
+		print "barcode_encode needs an external program for encodings other then EAN/ISBN (code=" . dol_escape_htmltag($code) . ", encoding=" . dol_escape_htmltag($encoding) . ")<BR>\n";
 		print "<UL>\n";
 		print "<LI>download gnu-barcode from <A href=\"https://www.gnu.org/software/barcode/\">www.gnu.org/software/barcode/</A>\n";
 		print "<LI>compile and install them\n";
@@ -235,19 +235,19 @@ function barcode_encode_ean($ean, $encoding = "EAN-13")
 {
 	$ean = trim($ean);
 	if (preg_match("/[^0-9]/i", $ean)) {
-		return array("error" => "Invalid encoding/code. encoding=".$encoding." code=".$ean." (not a numeric)", "text" => "Invalid encoding/code. encoding=".$encoding." code=".$ean." (not a numeric)");
+		return array("error" => "Invalid encoding/code. encoding=" . $encoding . " code=" . $ean . " (not a numeric)", "text" => "Invalid encoding/code. encoding=" . $encoding . " code=" . $ean . " (not a numeric)");
 	}
 	$encoding = strtoupper($encoding);
 	if ($encoding == "ISBN") {
 		if (!preg_match("/^978/", $ean)) {
-			$ean = "978".$ean;
+			$ean = "978" . $ean;
 		}
 	}
 	if (preg_match("/^97[89]/", $ean)) {
 		$encoding = "ISBN";
 	}
 	if (strlen($ean) < 12 || strlen($ean) > 13) {
-		return array("error" => "Invalid encoding/code. encoding=".$encoding." code=".$ean." (must have 12/13 numbers)", "text" => "Invalid encoding/code. encoding=".$encoding." code=".$ean." (must have 12/13 numbers)");
+		return array("error" => "Invalid encoding/code. encoding=" . $encoding . " code=" . $ean . " (must have 12/13 numbers)", "text" => "Invalid encoding/code. encoding=" . $encoding . " code=" . $ean . " (must have 12/13 numbers)");
 	}
 
 	$ean = substr($ean, 0, 12);
@@ -262,7 +262,7 @@ function barcode_encode_ean($ean, $encoding = "EAN-13")
 		if ($a > 0) {
 			$text .= " ";
 		}
-		$text .= $pos.":12:".$ean[$a];
+		$text .= $pos . ":12:" . $ean[$a];
 		if ($a == 0) {
 			$pos += 12;
 		} elseif ($a == 6) {
@@ -291,14 +291,14 @@ function barcode_encode_upc($upc, $encoding = "UPC")
 {
 	$upc = trim($upc);
 	if (preg_match("/[^0-9]/i", $upc)) {
-		return array("error" => "Invalid encoding/code. encoding=".$encoding." code=".$upc." (not a numeric)", "text" => "Invalid encoding/code. encoding=".$encoding." code=".$upc." (not a numeric)");
+		return array("error" => "Invalid encoding/code. encoding=" . $encoding . " code=" . $upc . " (not a numeric)", "text" => "Invalid encoding/code. encoding=" . $encoding . " code=" . $upc . " (not a numeric)");
 	}
 	$encoding = strtoupper($encoding);
 	if (strlen($upc) < 11 || strlen($upc) > 12) {
-		return array("error" => "Invalid encoding/code. encoding=".$encoding." code=".$upc." (must have 11/12 numbers)", "text" => "Invalid encoding/code. encoding=".$encoding." code=".$upc." (must have 11/12 numbers)");
+		return array("error" => "Invalid encoding/code. encoding=" . $encoding . " code=" . $upc . " (must have 11/12 numbers)", "text" => "Invalid encoding/code. encoding=" . $encoding . " code=" . $upc . " (must have 11/12 numbers)");
 	}
 
-	$upc = substr("0".$upc, 0, 12);
+	$upc = substr("0" . $upc, 0, 12);
 	$eansum = barcode_gen_ean_sum($upc);
 	$upc .= $eansum;
 	$bars = barcode_gen_ean_bars($upc);
@@ -310,7 +310,7 @@ function barcode_encode_upc($upc, $encoding = "UPC")
 		if ($a > 1) {
 			$text .= " ";
 		}
-		$text .= $pos.":12:".$upc[$a];
+		$text .= $pos . ":12:" . $upc[$a];
 		if ($a == 1) {
 			$pos += 15;
 		} elseif ($a == 6) {
@@ -352,17 +352,17 @@ function barcode_encode_genbarcode($code, $encoding)
 	$code = dol_string_nospecial($code, "_");
 
 	$command = escapeshellarg($genbarcode_loc);
-	$paramclear = " ".escapeshellarg($code)." ".escapeshellarg(strtoupper($encoding));
+	$paramclear = " " . escapeshellarg($code) . " " . escapeshellarg(strtoupper($encoding));
 
-	$fullcommandclear = $command." ".$paramclear." 2>&1";
+	$fullcommandclear = $command . " " . $paramclear . " 2>&1";
 	//print $fullcommandclear."<br>\n";exit;
 
-	dol_syslog("Run command ".$fullcommandclear);
+	dol_syslog("Run command " . $fullcommandclear);
 
-	$outputfile = $config->user->dir_temp.'/genbarcode.tmp'; // File used with popen method
+	$outputfile = $config->user->dir_temp . '/genbarcode.tmp'; // File used with popen method
 
 	// Execute a CLI
-	include_once DOL_DOCUMENT_ROOT.'/core/class/utils.class.php';
+	include_once DOL_DOCUMENT_ROOT . '/core/class/utils.class.php';
 	$utils = new Utils($db);
 	$result = $utils->executeCLI($fullcommandclear, $outputfile);
 
@@ -372,7 +372,7 @@ function barcode_encode_genbarcode($code, $encoding)
 		$text = $tmparr[1];
 		$encoding = $tmparr[2];
 	} else {
-		dol_syslog("barcode.lib.php::barcode_encode_genbarcode failed to run ".$fullcommandclear, LOG_ERR);
+		dol_syslog("barcode.lib.php::barcode_encode_genbarcode failed to run " . $fullcommandclear, LOG_ERR);
 		return false;
 	}
 

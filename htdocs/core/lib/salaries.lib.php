@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2015	    Charlie BENKE           <charlie@patas-monkey.com>
  * Copyright (C) 2019	    Alexandre Spangaro      <aspangaro@open-dsi.fr>
@@ -35,7 +36,7 @@ function salaries_prepare_head($object)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/salaries/card.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/salaries/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Salary");
 	$head[$h][2] = 'card';
 	$h++;
@@ -43,8 +44,8 @@ function salaries_prepare_head($object)
 	if (isModEnabled('paymentbybanktransfer')) {
 		$nbStandingOrders = 0;
 		$sql = "SELECT COUNT(pfd.rowid) as nb";
-		$sql .= " FROM ".MAIN_DB_PREFIX."prelevement_demande as pfd";
-		$sql .= " WHERE pfd.fk_salary = ".((int) $object->id);
+		$sql .= " FROM " . MAIN_DB_PREFIX . "prelevement_demande as pfd";
+		$sql .= " WHERE pfd.fk_salary = " . ((int) $object->id);
 		$sql .= " AND type = 'ban'";
 		$resql = $db->query($sql);
 		if ($resql) {
@@ -56,10 +57,10 @@ function salaries_prepare_head($object)
 			dol_print_error($db);
 		}
 		$langs->load("banks");
-		$head[$h][0] = DOL_URL_ROOT.'/salaries/virement_request.php?id='.$object->id.'&type=bank-transfer';
+		$head[$h][0] = DOL_URL_ROOT . '/salaries/virement_request.php?id=' . $object->id . '&type=bank-transfer';
 		$head[$h][1] = $langs->trans('BankTransfer');
 		if ($nbStandingOrders > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbStandingOrders.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbStandingOrders . '</span>';
 		}
 		$head[$h][2] = 'request_virement';
 		$h++;
@@ -71,20 +72,20 @@ function salaries_prepare_head($object)
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
 	complete_head_from_modules($config, $langs, $object, $head, $h, 'salaries', 'add', 'core');
 
-	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $config->salaries->dir_output."/".dol_sanitizeFileName($object->ref);
+	require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
+	require_once DOL_DOCUMENT_ROOT . '/core/class/link.class.php';
+	$upload_dir = $config->salaries->dir_output . "/" . dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
-	$head[$h][0] = DOL_URL_ROOT.'/salaries/document.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/salaries/document.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans('Documents');
 	if (($nbFiles + $nbLinks) > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.($nbFiles + $nbLinks).'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . ($nbFiles + $nbLinks) . '</span>';
 	}
 	$head[$h][2] = 'documents';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/salaries/info.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/salaries/info.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Info");
 	$head[$h][2] = 'info';
 	$h++;
@@ -111,7 +112,7 @@ function salaries_admin_prepare_head()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/salaries/admin/salaries.php';
+	$head[$h][0] = DOL_URL_ROOT . '/salaries/admin/salaries.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");
 	$head[$h][2] = 'general';
 	$h++;
@@ -122,11 +123,11 @@ function salaries_admin_prepare_head()
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
 	complete_head_from_modules($config, $langs, null, $head, $h, 'salaries_admin');
 
-	$head[$h][0] = DOL_URL_ROOT.'/salaries/admin/salaries_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/salaries/admin/salaries_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsSalaries");
 	$nbExtrafields = $extrafields->attributes['salary']['count'];
 	if ($nbExtrafields > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'attributes';
 	$h++;

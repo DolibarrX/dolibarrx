@@ -93,7 +93,7 @@ function dol_setcache($memoryid, $data, $expire = 0, $filecache = 0, $replace = 
 			}
 		}
 
-		$memoryid = session_name().'_'.$memoryid;
+		$memoryid = session_name() . '_' . $memoryid;
 		//$dolmemcache->setOption(Memcached::OPT_COMPRESSION, false);
 		$dolmemcache->add($memoryid, $data, $expire); // This fails if key already exists
 		$rescode = $dolmemcache->getResultCode();
@@ -123,7 +123,7 @@ function dol_setcache($memoryid, $data, $expire = 0, $filecache = 0, $replace = 
 			}
 		}
 
-		$memoryid = session_name().'_'.$memoryid;
+		$memoryid = session_name() . '_' . $memoryid;
 		//$dolmemcache->setOption(Memcached::OPT_COMPRESSION, false);
 		$result = $dolmemcache->add($memoryid, $data, 0, $expire); // This fails if key already exists
 		if ($result) {
@@ -135,13 +135,13 @@ function dol_setcache($memoryid, $data, $expire = 0, $filecache = 0, $replace = 
 		// Using shmop
 		$result = dol_setshmop($memoryid, $data, $expire);
 	} elseif ($filecache > 0) {
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/security.lib.php';
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+		require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
+		require_once DOL_DOCUMENT_ROOT . '/core/lib/security.lib.php';
+		require_once DOL_DOCUMENT_ROOT . '/core/lib/date.lib.php';
 		$now = dol_now();
-		$memoryid = session_name().'_'.$memoryid;
+		$memoryid = session_name() . '_' . $memoryid;
 		$dircache = 'dolcache';
-		$pathcache = DOL_DATA_ROOT.'/'.$dircache;
+		$pathcache = DOL_DATA_ROOT . '/' . $dircache;
 		if (!dol_is_dir($pathcache)) {
 			$result = dol_mkdir($pathcache);
 			if ($result < 0) {
@@ -154,14 +154,14 @@ function dol_setcache($memoryid, $data, $expire = 0, $filecache = 0, $replace = 
 
 		$cachedata = array("expire" => $expire, "data" => $data);
 		$cachejson = dolEncrypt(json_encode($cachedata));
-		if (!dol_is_file($pathcache.'/'.$memoryid.'.cache') || $replace > 0) {
-			$result = file_put_contents($pathcache.'/'.$memoryid.'.cache', $cachejson);
+		if (!dol_is_file($pathcache . '/' . $memoryid . '.cache') || $replace > 0) {
+			$result = file_put_contents($pathcache . '/' . $memoryid . '.cache', $cachejson);
 		} else {
 			return 0;
 		}
 	} else {
 		// No intersession cache system available, we use at least the perpage cache
-		$config->cache['cachememory_'.$memoryid] = $data;
+		$config->cache['cachememory_' . $memoryid] = $data;
 		$result = is_array($data) ? count($data) : (is_scalar($data) ? strlen($data) : 0);
 	}
 
@@ -199,7 +199,7 @@ function dol_getcache($memoryid, $filecache = 0)
 			}
 		}
 
-		$memoryid = session_name().'_'.$memoryid;
+		$memoryid = session_name() . '_' . $memoryid;
 		//$m->setOption(Memcached::OPT_COMPRESSION, false);
 		//print "Get memoryid=".$memoryid;
 		$data = $m->get($memoryid);
@@ -225,7 +225,7 @@ function dol_getcache($memoryid, $filecache = 0)
 			}
 		}
 
-		$memoryid = session_name().'_'.$memoryid;
+		$memoryid = session_name() . '_' . $memoryid;
 		//$m->setOption(Memcached::OPT_COMPRESSION, false);
 		$data = $m->get($memoryid);
 		//print "memoryid=".$memoryid." - rescode=".$rescode." - data=".count($data)."\n<br>";
@@ -240,17 +240,17 @@ function dol_getcache($memoryid, $filecache = 0)
 		$data = dol_getshmop($memoryid);
 		return $data;
 	} elseif ($filecache > 0) {
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/security.lib.php';
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+		require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
+		require_once DOL_DOCUMENT_ROOT . '/core/lib/security.lib.php';
+		require_once DOL_DOCUMENT_ROOT . '/core/lib/date.lib.php';
 		$now = dol_now();
-		$memoryid = session_name().'_'.$memoryid;
+		$memoryid = session_name() . '_' . $memoryid;
 		$dircache = 'dolcache';
-		$pathcache = DOL_DATA_ROOT.'/'.$dircache;
-		if (!dol_is_file($pathcache.'/'.$memoryid.'.cache')) {
+		$pathcache = DOL_DATA_ROOT . '/' . $dircache;
+		if (!dol_is_file($pathcache . '/' . $memoryid . '.cache')) {
 			return null;
 		}
-		$data = file_get_contents($pathcache.'/'.$memoryid.'.cache');
+		$data = file_get_contents($pathcache . '/' . $memoryid . '.cache');
 		if (!$data) {
 			return -1;
 		}
@@ -258,7 +258,7 @@ function dol_getcache($memoryid, $filecache = 0)
 		if ($json->expire > $now) {
 			return $json->data;
 		} else {
-			$result = dol_delete_file($pathcache.'/'.$memoryid.'.cache');
+			$result = dol_delete_file($pathcache . '/' . $memoryid . '.cache');
 			if (!$result) {
 				return -2;
 			}
@@ -266,8 +266,8 @@ function dol_getcache($memoryid, $filecache = 0)
 		return null;
 	} else {
 		// No intersession cache system available, we use at least the perpage cache
-		if (isset($config->cache['cachememory_'.$memoryid])) {
-			return $config->cache['cachememory_'.$memoryid];
+		if (isset($config->cache['cachememory_' . $memoryid])) {
+			return $config->cache['cachememory_' . $memoryid];
 		}
 	}
 
@@ -345,7 +345,7 @@ function dol_setshmop($memoryid, $data, $expire)
 		shmop_close($handle);
 		return ($shm_bytes_written1 + $shm_bytes_written2);
 	} else {
-		print 'Error in shmop_open for memoryid='.$memoryid.' shmkey='.$shmkey.' 6+size=6+'.$size;
+		print 'Error in shmop_open for memoryid=' . $memoryid . ' shmkey=' . $shmkey . ' 6+size=6+' . $size;
 		return -1;
 	}
 }

@@ -65,8 +65,10 @@ function rebuildObjectClass($destdir, $module, $objectname, $newmask, $readdir =
 			setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentitiesnoconv("Label")), null, 'errors');
 			return -2;
 		}
-		if (!preg_match('/^(integer|price|sellist|varchar|double|text|html|duration|stars)/', $addfieldentry['type'])
-			&& !preg_match('/^(boolean|smallint|real|date|datetime|timestamp|phone|mail|url|ip|password)$/', $addfieldentry['type'])) {
+		if (
+			!preg_match('/^(integer|price|sellist|varchar|double|text|html|duration|stars)/', $addfieldentry['type'])
+			&& !preg_match('/^(boolean|smallint|real|date|datetime|timestamp|phone|mail|url|ip|password)$/', $addfieldentry['type'])
+		) {
 			setEventMessages($langs->trans('BadValueForType', $addfieldentry['type']), null, 'errors');
 			return -2;
 		}
@@ -79,8 +81,8 @@ function rebuildObjectClass($destdir, $module, $objectname, $newmask, $readdir =
 		}
 	}
 
-	$pathoffiletoeditsrc = $readdir.'/class/'.strtolower($objectname).'.class.php';
-	$pathoffiletoedittarget = $destdir.'/class/'.strtolower($objectname).'.class.php'.($readdir != $destdir ? '.new' : '');
+	$pathoffiletoeditsrc = $readdir . '/class/' . strtolower($objectname) . '.class.php';
+	$pathoffiletoedittarget = $destdir . '/class/' . strtolower($objectname) . '.class.php' . ($readdir != $destdir ? '.new' : '');
 	if (!dol_is_file($pathoffiletoeditsrc)) {
 		$langs->load("errors");
 		setEventMessages($langs->trans("ErrorFileNotFound", $pathoffiletoeditsrc), null, 'errors');
@@ -100,7 +102,7 @@ function rebuildObjectClass($destdir, $module, $objectname, $newmask, $readdir =
 		'@phan-var-force CommonObject $object';
 
 		// Backup old file
-		dol_copy($pathoffiletoedittarget, $pathoffiletoedittarget.'.back', $newmask, 1);
+		dol_copy($pathoffiletoedittarget, $pathoffiletoedittarget . '.back', $newmask, 1);
 
 		// Edit class files
 		$contentclass = file_get_contents(dol_osencode($pathoffiletoeditsrc));
@@ -122,67 +124,67 @@ function rebuildObjectClass($destdir, $module, $objectname, $newmask, $readdir =
 		dol_sort_array($object->fields, 'position');
 
 		$i = 0;
-		$texttoinsert = '// BEGIN MODULEBUILDER PROPERTIES'."\n";
-		$texttoinsert .= "\t".'/**'."\n";
-		$texttoinsert .= "\t".' * @inheritdoc'."\n";
-		$texttoinsert .= "\t".' * Array with all fields and their property. Do not use it as a static var. It may be modified by constructor.'."\n";
-		$texttoinsert .= "\t".' */'."\n";
-		$texttoinsert .= "\t".'public $fields = array('."\n";
+		$texttoinsert = '// BEGIN MODULEBUILDER PROPERTIES' . "\n";
+		$texttoinsert .= "\t" . '/**' . "\n";
+		$texttoinsert .= "\t" . ' * @inheritdoc' . "\n";
+		$texttoinsert .= "\t" . ' * Array with all fields and their property. Do not use it as a static var. It may be modified by constructor.' . "\n";
+		$texttoinsert .= "\t" . ' */' . "\n";
+		$texttoinsert .= "\t" . 'public $fields = array(' . "\n";
 
 		if (count($object->fields)) {
 			foreach ($object->fields as $key => $val) {
 				$i++;
-				$texttoinsert .= "\t\t".'"'.$key.'" => array(';
-				$texttoinsert .= '"type" => "'.dol_escape_php($val['type']).'",';
-				$texttoinsert .= ' "label" => "'.dol_escape_php($val['label']).'",';
+				$texttoinsert .= "\t\t" . '"' . $key . '" => array(';
+				$texttoinsert .= '"type" => "' . dol_escape_php($val['type']) . '",';
+				$texttoinsert .= ' "label" => "' . dol_escape_php($val['label']) . '",';
 				if (!empty($val['picto'])) {
-					$texttoinsert .= ' "picto" => "'.dol_escape_php($val['picto']).'",';
+					$texttoinsert .= ' "picto" => "' . dol_escape_php($val['picto']) . '",';
 				}
-				$texttoinsert .= ' "enabled" => "'.($val['enabled'] !== '' ? dol_escape_php($val['enabled']) : 1).'",';
-				$texttoinsert .= " 'position' => ".($val['position'] !== '' ? (int) $val['position'] : 50).",";
-				$texttoinsert .= " 'notnull' => ".(empty($val['notnull']) ? 0 : (int) $val['notnull']).",";
-				$texttoinsert .= ' "visible" => "'.($val['visible'] !== '' ? dol_escape_js($val['visible']) : -1).'",';
+				$texttoinsert .= ' "enabled" => "' . ($val['enabled'] !== '' ? dol_escape_php($val['enabled']) : 1) . '",';
+				$texttoinsert .= " 'position' => " . ($val['position'] !== '' ? (int) $val['position'] : 50) . ",";
+				$texttoinsert .= " 'notnull' => " . (empty($val['notnull']) ? 0 : (int) $val['notnull']) . ",";
+				$texttoinsert .= ' "visible" => "' . ($val['visible'] !== '' ? dol_escape_js($val['visible']) : -1) . '",';
 				if (!empty($val['noteditable'])) {
-					$texttoinsert .= ' "noteditable" => "'.dol_escape_php($val['noteditable']).'",';
+					$texttoinsert .= ' "noteditable" => "' . dol_escape_php($val['noteditable']) . '",';
 				}
 				if (!empty($val['alwayseditable'])) {
-					$texttoinsert .= ' "alwayseditable" => "'.dol_escape_php($val['alwayseditable']).'",';
+					$texttoinsert .= ' "alwayseditable" => "' . dol_escape_php($val['alwayseditable']) . '",';
 				}
 				if (array_key_exists('default', $val) && (!empty($val['default']) || $val['default'] === '0')) {
-					$texttoinsert .= ' "default" => "'.dol_escape_php($val['default']).'",';
+					$texttoinsert .= ' "default" => "' . dol_escape_php($val['default']) . '",';
 				}
 				if (!empty($val['index'])) {
-					$texttoinsert .= ' "index" => "'.(int) $val['index'].'",';
+					$texttoinsert .= ' "index" => "' . (int) $val['index'] . '",';
 				}
 				if (!empty($val['foreignkey'])) {
-					$texttoinsert .= ' "foreignkey" => "'.(int) $val['foreignkey'].'",';
+					$texttoinsert .= ' "foreignkey" => "' . (int) $val['foreignkey'] . '",';
 				}
 				if (!empty($val['searchall'])) {
-					$texttoinsert .= ' "searchall" => "'.(int) $val['searchall'].'",';
+					$texttoinsert .= ' "searchall" => "' . (int) $val['searchall'] . '",';
 				}
 				if (!empty($val['isameasure'])) {
-					$texttoinsert .= ' "isameasure" => "'.(int) $val['isameasure'].'",';
+					$texttoinsert .= ' "isameasure" => "' . (int) $val['isameasure'] . '",';
 				}
 				if (!empty($val['css'])) {
-					$texttoinsert .= ' "css" => "'.dol_escape_php($val['css']).'",';
+					$texttoinsert .= ' "css" => "' . dol_escape_php($val['css']) . '",';
 				}
 				if (!empty($val['cssview'])) {
-					$texttoinsert .= ' "cssview" => "'.dol_escape_php($val['cssview']).'",';
+					$texttoinsert .= ' "cssview" => "' . dol_escape_php($val['cssview']) . '",';
 				}
 				if (!empty($val['csslist'])) {
-					$texttoinsert .= ' "csslist" => "'.dol_escape_php($val['csslist']).'",';
+					$texttoinsert .= ' "csslist" => "' . dol_escape_php($val['csslist']) . '",';
 				}
 				if (!empty($val['help'])) {
-					$texttoinsert .= ' "help" => "'.dol_escape_php($val['help']).'",';
+					$texttoinsert .= ' "help" => "' . dol_escape_php($val['help']) . '",';
 				}
 				if (!empty($val['showoncombobox'])) {
-					$texttoinsert .= ' "showoncombobox" => "'.(int) $val['showoncombobox'].'",';
+					$texttoinsert .= ' "showoncombobox" => "' . (int) $val['showoncombobox'] . '",';
 				}
 				if (!empty($val['disabled'])) {
-					$texttoinsert .= ' "disabled" => "'.(int) $val['disabled'].'",';
+					$texttoinsert .= ' "disabled" => "' . (int) $val['disabled'] . '",';
 				}
 				if (!empty($val['autofocusoncreate'])) {
-					$texttoinsert .= ' "autofocusoncreate" => "'.(int) $val['autofocusoncreate'].'",';
+					$texttoinsert .= ' "autofocusoncreate" => "' . (int) $val['autofocusoncreate'] . '",';
 				}
 				if (!empty($val['arrayofkeyval'])) {
 					$texttoinsert .= ' "arrayofkeyval" => array(';
@@ -191,16 +193,16 @@ function rebuildObjectClass($destdir, $module, $objectname, $newmask, $readdir =
 						if ($i) {
 							$texttoinsert .= ", ";
 						}
-						$texttoinsert .= '"'.dol_escape_php($key2).'" => "'.dol_escape_php($val2).'"';
+						$texttoinsert .= '"' . dol_escape_php($key2) . '" => "' . dol_escape_php($val2) . '"';
 						$i++;
 					}
 					$texttoinsert .= '),';
 				}
 				if (!empty($val['validate'])) {
-					$texttoinsert .= ' "validate" => "'.(int) $val['validate'].'",';
+					$texttoinsert .= ' "validate" => "' . (int) $val['validate'] . '",';
 				}
 				if (!empty($val['comment'])) {
-					$texttoinsert .= ' "comment" => "'.dol_escape_php($val['comment']).'"';
+					$texttoinsert .= ' "comment" => "' . dol_escape_php($val['comment']) . '"';
 				}
 
 				$texttoinsert .= "),\n";
@@ -208,7 +210,7 @@ function rebuildObjectClass($destdir, $module, $objectname, $newmask, $readdir =
 			}
 		}
 
-		$texttoinsert .= "\t".');'."\n";
+		$texttoinsert .= "\t" . ');' . "\n";
 		//print ($texttoinsert);exit;
 
 		if (count($object->fields)) {
@@ -217,7 +219,7 @@ function rebuildObjectClass($destdir, $module, $objectname, $newmask, $readdir =
 			foreach ($object->fields as $key => $val) {
 				$i++;
 				//$typephp = $typetotypephp[$val['type']];
-				$texttoinsert .= "\t".'public $'.$key.";";
+				$texttoinsert .= "\t" . 'public $' . $key . ";";
 				//if ($key == 'rowid')  $texttoinsert.= ' AUTO_INCREMENT PRIMARY KEY';
 				//if ($key == 'entity') $texttoinsert.= ' DEFAULT 1';
 				//$texttoinsert.= ($val['notnull']?' NOT NULL':'');
@@ -226,7 +228,7 @@ function rebuildObjectClass($destdir, $module, $objectname, $newmask, $readdir =
 			}
 		}
 
-		$texttoinsert .= "\t".'// END MODULEBUILDER PROPERTIES';
+		$texttoinsert .= "\t" . '// END MODULEBUILDER PROPERTIES';
 
 		//print($texttoinsert);
 
@@ -264,7 +266,14 @@ function rebuildObjectClass($destdir, $module, $objectname, $newmask, $readdir =
  * 	@return	int						Return integer <=0 if KO, >0 if OK
  *  @see rebuildObjectClass()
  */
-function rebuildObjectSql($destdir, $module, $objectname, $newmask, $readdir = '', $object = null, $moduletype = 'external')
+function rebuildObjectSql(
+	$destdir,
+	$module,
+	$objectname,
+	$newmask,
+	$readdir = '',
+	$object = null,
+	$moduletype = 'external')
 {
 	global $db, $langs;
 
@@ -277,36 +286,36 @@ function rebuildObjectSql($destdir, $module, $objectname, $newmask, $readdir = '
 		$readdir = $destdir;
 	}
 
-	$pathoffiletoclasssrc = $readdir.'/class/'.strtolower($objectname).'.class.php';
+	$pathoffiletoclasssrc = $readdir . '/class/' . strtolower($objectname) . '.class.php';
 
 	// Edit .sql file
 	if ($moduletype == 'internal') {
-		$pathoffiletoeditsrc = '/../install/mysql/tables/llx_'.strtolower($module).'_'.strtolower($objectname).'.sql';
-		if (! dol_is_file($readdir.$pathoffiletoeditsrc)) {
-			$pathoffiletoeditsrc = '/../install/mysql/tables/llx_'.strtolower($module).'_'.strtolower($objectname).'-'.strtolower($module).'.sql';
-			if (! dol_is_file($readdir.$pathoffiletoeditsrc)) {
-				$pathoffiletoeditsrc = '/../install/mysql/tables/llx_'.strtolower($module).'-'.strtolower($module).'.sql';
-				if (! dol_is_file($readdir.$pathoffiletoeditsrc)) {
-					$pathoffiletoeditsrc = '/../install/mysql/tables/llx_'.strtolower($module).'.sql';
+		$pathoffiletoeditsrc = '/../install/mysql/tables/llx_' . strtolower($module) . '_' . strtolower($objectname) . '.sql';
+		if (! dol_is_file($readdir . $pathoffiletoeditsrc)) {
+			$pathoffiletoeditsrc = '/../install/mysql/tables/llx_' . strtolower($module) . '_' . strtolower($objectname) . '-' . strtolower($module) . '.sql';
+			if (! dol_is_file($readdir . $pathoffiletoeditsrc)) {
+				$pathoffiletoeditsrc = '/../install/mysql/tables/llx_' . strtolower($module) . '-' . strtolower($module) . '.sql';
+				if (! dol_is_file($readdir . $pathoffiletoeditsrc)) {
+					$pathoffiletoeditsrc = '/../install/mysql/tables/llx_' . strtolower($module) . '.sql';
 				}
 			}
 		}
 	} else {
-		$pathoffiletoeditsrc = '/sql/llx_'.strtolower($module).'_'.strtolower($objectname).'.sql';
-		if (! dol_is_file($readdir.$pathoffiletoeditsrc)) {
-			$pathoffiletoeditsrc = '/sql/llx_'.strtolower($module).'_'.strtolower($objectname).'-'.strtolower($module).'.sql';
-			if (! dol_is_file($readdir.$pathoffiletoeditsrc)) {
-				$pathoffiletoeditsrc = '/sql/llx_'.strtolower($module).'-'.strtolower($module).'.sql';
-				if (! dol_is_file($readdir.$pathoffiletoeditsrc)) {
-					$pathoffiletoeditsrc = '/sql/llx_'.strtolower($module).'.sql';
+		$pathoffiletoeditsrc = '/sql/llx_' . strtolower($module) . '_' . strtolower($objectname) . '.sql';
+		if (! dol_is_file($readdir . $pathoffiletoeditsrc)) {
+			$pathoffiletoeditsrc = '/sql/llx_' . strtolower($module) . '_' . strtolower($objectname) . '-' . strtolower($module) . '.sql';
+			if (! dol_is_file($readdir . $pathoffiletoeditsrc)) {
+				$pathoffiletoeditsrc = '/sql/llx_' . strtolower($module) . '-' . strtolower($module) . '.sql';
+				if (! dol_is_file($readdir . $pathoffiletoeditsrc)) {
+					$pathoffiletoeditsrc = '/sql/llx_' . strtolower($module) . '.sql';
 				}
 			}
 		}
 	}
 
 	// Complete path to be full path
-	$pathoffiletoedittarget = $destdir.$pathoffiletoeditsrc.($readdir != $destdir ? '.new' : '');
-	$pathoffiletoeditsrc = $readdir.$pathoffiletoeditsrc;
+	$pathoffiletoedittarget = $destdir . $pathoffiletoeditsrc . ($readdir != $destdir ? '.new' : '');
+	$pathoffiletoeditsrc = $readdir . $pathoffiletoeditsrc;
 
 	if (!dol_is_file($pathoffiletoeditsrc)) {
 		$langs->load("errors");
@@ -329,12 +338,12 @@ function rebuildObjectSql($destdir, $module, $objectname, $newmask, $readdir = '
 	}
 
 	// Backup old file
-	dol_copy($pathoffiletoedittarget, $pathoffiletoedittarget.'.back', $newmask, 1);
+	dol_copy($pathoffiletoedittarget, $pathoffiletoedittarget . '.back', $newmask, 1);
 
 	$contentsql = file_get_contents(dol_osencode($pathoffiletoeditsrc));
 
 	$i = 0;
-	$texttoinsert = '-- BEGIN MODULEBUILDER FIELDS'."\n";
+	$texttoinsert = '-- BEGIN MODULEBUILDER FIELDS' . "\n";
 	if (count($object->fields)) {
 		foreach ($object->fields as $key => $val) {
 			$i++;
@@ -360,7 +369,7 @@ function rebuildObjectSql($destdir, $module, $objectname, $newmask, $readdir = '
 				$type = 'varchar(32)';
 			}
 
-			$texttoinsert .= "\t".$key." ".$type;
+			$texttoinsert .= "\t" . $key . " " . $type;
 			if ($key == 'rowid') {
 				$texttoinsert .= ' AUTO_INCREMENT PRIMARY KEY';
 			} elseif ($type == 'timestamp') {
@@ -373,9 +382,9 @@ function rebuildObjectSql($destdir, $module, $objectname, $newmask, $readdir = '
 					if (preg_match('/^null$/i', $val['default'])) {
 						$texttoinsert .= " DEFAULT NULL";
 					} elseif (preg_match('/varchar/', $type)) {
-						$texttoinsert .= " DEFAULT '".$db->escape($val['default'])."'";
+						$texttoinsert .= " DEFAULT '" . $db->escape($val['default']) . "'";
 					} else {
-						$texttoinsert .= (($val['default'] > 0) ? ' DEFAULT '.$val['default'] : '');
+						$texttoinsert .= (($val['default'] > 0) ? ' DEFAULT ' . $val['default'] : '');
 					}
 				}
 			}
@@ -386,7 +395,7 @@ function rebuildObjectSql($destdir, $module, $objectname, $newmask, $readdir = '
 			$texttoinsert .= "\n";
 		}
 	}
-	$texttoinsert .= "\t".'-- END MODULEBUILDER FIELDS';
+	$texttoinsert .= "\t" . '-- END MODULEBUILDER FIELDS';
 
 	$contentsql = preg_replace('/-- BEGIN MODULEBUILDER FIELDS.*END MODULEBUILDER FIELDS/ims', $texttoinsert, $contentsql);
 
@@ -406,18 +415,18 @@ function rebuildObjectSql($destdir, $module, $objectname, $newmask, $readdir = '
 	$contentsql = file_get_contents(dol_osencode($pathoffiletoeditsrc));
 
 	$i = 0;
-	$texttoinsert = '-- BEGIN MODULEBUILDER INDEXES'."\n";
+	$texttoinsert = '-- BEGIN MODULEBUILDER INDEXES' . "\n";
 	if (count($object->fields)) {
 		foreach ($object->fields as $key => $val) {
 			$i++;
 			if (!empty($val['index'])) {
-				$texttoinsert .= "ALTER TABLE llx_".strtolower($module).'_'.strtolower($objectname)." ADD ".($key == 'ref' ? "UNIQUE INDEX uk_" : "INDEX idx_").strtolower($module).'_'.strtolower($objectname)."_".$key." (".$key.($key == 'ref' && array_key_exists('entity', $object->fields) ? ", entity" : "").");";
+				$texttoinsert .= "ALTER TABLE llx_" . strtolower($module) . '_' . strtolower($objectname) . " ADD " . ($key == 'ref' ? "UNIQUE INDEX uk_" : "INDEX idx_") . strtolower($module) . '_' . strtolower($objectname) . "_" . $key . " (" . $key . ($key == 'ref' && array_key_exists('entity', $object->fields) ? ", entity" : "") . ");";
 				$texttoinsert .= "\n";
 			}
 			if (!empty($val['foreignkey'])) {
 				$tmp = explode('.', $val['foreignkey']);
 				if (!empty($tmp[0]) && !empty($tmp[1])) {
-					$texttoinsert .= "ALTER TABLE llx_".strtolower($module).'_'.strtolower($objectname)." ADD CONSTRAINT llx_".strtolower($module).'_'.strtolower($objectname)."_".$key." FOREIGN KEY (".$key.") REFERENCES llx_".preg_replace('/^llx_/', '', $tmp[0])."(".$tmp[1].");";
+					$texttoinsert .= "ALTER TABLE llx_" . strtolower($module) . '_' . strtolower($objectname) . " ADD CONSTRAINT llx_" . strtolower($module) . '_' . strtolower($objectname) . "_" . $key . " FOREIGN KEY (" . $key . ") REFERENCES llx_" . preg_replace('/^llx_/', '', $tmp[0]) . "(" . $tmp[1] . ");";
 					$texttoinsert .= "\n";
 				}
 			}
@@ -449,7 +458,7 @@ function rebuildObjectSql($destdir, $module, $objectname, $newmask, $readdir = '
 function dolGetListOfObjectClasses($destdir)
 {
 	$objects = array();
-	$listofobject = dol_dir_list($destdir.'/class', 'files', 0, '\.class\.php$');
+	$listofobject = dol_dir_list($destdir . '/class', 'files', 0, '\.class\.php$');
 	foreach ($listofobject as $fileobj) {
 		if (preg_match('/^api_/', $fileobj['name'])) {
 			continue;
@@ -488,12 +497,16 @@ function checkExistComment($file, $number)
 	$content = file_get_contents($file);
 	if ($number === 0) {
 		$ret = 0;
-		if (strpos($content, '/* BEGIN MODULEBUILDER TOPMENU MYOBJECT */') !== false
-			|| strpos($content, '/* BEGIN MODULEBUILDER TOPMENU */') !== false) {
+		if (
+			strpos($content, '/* BEGIN MODULEBUILDER TOPMENU MYOBJECT */') !== false
+			|| strpos($content, '/* BEGIN MODULEBUILDER TOPMENU */') !== false
+		) {
 			$ret++;
 		}
-		if (strpos($content, '/* END MODULEBUILDER TOPMENU MYOBJECT */') !== false
-			|| strpos($content, '/* END MODULEBUILDER TOPMENU */') !== false) {
+		if (
+			strpos($content, '/* END MODULEBUILDER TOPMENU MYOBJECT */') !== false
+			|| strpos($content, '/* END MODULEBUILDER TOPMENU */') !== false
+		) {
 			$ret++;
 		}
 		if (strpos($content, '/* BEGIN MODULEBUILDER LEFTMENU MYOBJECT */') !== false) {
@@ -555,7 +568,7 @@ function deletePerms($file)
  * @param	int|string	$a	value 1
  * @param	int|string	$b	value 2
  * @return	int<-1,1> 		<=0 if str1 is less than str2; > 0 if str1 is greater than str2, and 0 if they are equal.
-*/
+ */
 function compareFirstValue($a, $b)
 {
 	return strcmp($a[0], $b[0]);
@@ -605,9 +618,9 @@ function reWriteAllPermissions($file, $permissions, $key, $right, $objectname, $
 		} else {
 			$permsToadd = array();
 			$perms = array(
-				'read' => 'Read '.$objectname.' object of '.ucfirst($module),
-				'write' => 'Create/Update '.$objectname.' object of '.ucfirst($module),
-				'delete' => 'Delete '.$objectname.' object of '.ucfirst($module)
+				'read' => 'Read ' . $objectname . ' object of ' . ucfirst($module),
+				'write' => 'Create/Update ' . $objectname . ' object of ' . ucfirst($module),
+				'delete' => 'Delete ' . $objectname . ' object of ' . ucfirst($module)
 			);
 			$i = 0;
 			foreach ($perms as $index => $value) {
@@ -628,9 +641,9 @@ function reWriteAllPermissions($file, $permissions, $key, $right, $objectname, $
 		$count_perms = count($permissions);
 		foreach (array_keys($permissions) as $i) {
 			$permissions[$i][0] = "\$this->rights[\$r][0] = \$this->numero . sprintf('%02d', \$r + 1)";
-			$permissions[$i][1] = "\$this->rights[\$r][1] = '".$permissions[$i][1]."'";
-			$permissions[$i][4] = "\$this->rights[\$r][4] = '".$permissions[$i][4]."'";
-			$permissions[$i][5] = "\$this->rights[\$r][5] = '".$permissions[$i][5]."';\n\t\t";
+			$permissions[$i][1] = "\$this->rights[\$r][1] = '" . $permissions[$i][1] . "'";
+			$permissions[$i][4] = "\$this->rights[\$r][4] = '" . $permissions[$i][4] . "'";
+			$permissions[$i][5] = "\$this->rights[\$r][5] = '" . $permissions[$i][5] . "';\n\t\t";
 		}
 		// for group permissions by object
 		$perms_grouped = array();
@@ -652,13 +665,13 @@ function reWriteAllPermissions($file, $permissions, $key, $right, $objectname, $
 			$p = 1;
 			foreach ($object as &$obj) {
 				if (str_contains($obj[5], 'read')) {
-					$obj[0] = "\$this->rights[\$r][0] = \$this->numero . sprintf('%02d', (".$o." * 10) + 0 + 1)";
+					$obj[0] = "\$this->rights[\$r][0] = \$this->numero . sprintf('%02d', (" . $o . " * 10) + 0 + 1)";
 				} elseif (str_contains($obj[5], 'write')) {
-					$obj[0] = "\$this->rights[\$r][0] = \$this->numero . sprintf('%02d', (".$o." * 10) + 1 + 1)";
+					$obj[0] = "\$this->rights[\$r][0] = \$this->numero . sprintf('%02d', (" . $o . " * 10) + 1 + 1)";
 				} elseif (str_contains($obj[5], 'delete')) {
-					$obj[0] = "\$this->rights[\$r][0] = \$this->numero . sprintf('%02d', (".$o." * 10) + 2 + 1)";
+					$obj[0] = "\$this->rights[\$r][0] = \$this->numero . sprintf('%02d', (" . $o . " * 10) + 2 + 1)";
 				} else {
-					$obj[0] = "\$this->rights[\$r][0] = \$this->numero . sprintf('%02d', (".$o." * 10) + ".$p." + 1)";
+					$obj[0] = "\$this->rights[\$r][0] = \$this->numero . sprintf('%02d', (" . $o . " * 10) + " . $p . " + 1)";
 					$p++;
 				}
 			}
@@ -669,14 +682,14 @@ function reWriteAllPermissions($file, $permissions, $key, $right, $objectname, $
 		//convert to string
 		foreach ($permissions as $perms) {
 			foreach ($perms as $per) {
-				$rights[] = implode(";\n\t\t", $per)."\$r++;\n";
+				$rights[] = implode(";\n\t\t", $per) . "\$r++;\n";
 			}
 		}
 		$rights_str = implode("\t\t", $rights);
 		// delete all permissions from file
 		deletePerms($file);
 		// rewrite all permissions again
-		dolReplaceInFile($file, array('/* BEGIN MODULEBUILDER PERMISSIONS */' => '/* BEGIN MODULEBUILDER PERMISSIONS */'."\n\t\t".$rights_str));
+		dolReplaceInFile($file, array('/* BEGIN MODULEBUILDER PERMISSIONS */' => '/* BEGIN MODULEBUILDER PERMISSIONS */' . "\n\t\t" . $rights_str));
 		return 1;
 	} else {
 		return -1;
@@ -739,7 +752,7 @@ function writePropsInAsciiDoc($file, $objectname, $destfile)
 {
 
 	// stock all properties in array
-	$attributesUnique = array('type','label', 'enabled', 'position', 'notnull', 'visible', 'noteditable', 'index', 'default' , 'foreignkey', 'arrayofkeyval', 'alwayseditable','validate', 'searchall','comment', 'isameasure', 'css', 'cssview','csslist', 'help', 'showoncombobox','picto' );
+	$attributesUnique = array('type', 'label', 'enabled', 'position', 'notnull', 'visible', 'noteditable', 'index', 'default', 'foreignkey', 'arrayofkeyval', 'alwayseditable', 'validate', 'searchall', 'comment', 'isameasure', 'css', 'cssview', 'csslist', 'help', 'showoncombobox', 'picto');
 
 	$start = "public \$fields = array(";
 	$end = ");";
@@ -767,7 +780,7 @@ function writePropsInAsciiDoc($file, $objectname, $destfile)
 	$table .= "|code";
 	// write all properties in the header of the table
 	foreach ($attributesUnique as $attUnique) {
-		$table .= "|".$attUnique;
+		$table .= "|" . $attUnique;
 	}
 	$table .= "\n";
 	$valuesModif = array();
@@ -836,8 +849,8 @@ function writePropsInAsciiDoc($file, $objectname, $destfile)
 function deletePropsAndPermsFromDoc($file, $objectname)
 {
 	if (dol_is_file($file)) {
-		$start = "== Table of fields and their properties for object *".ucfirst($objectname)."* : ";
-		$end = "__ end table for object ".ucfirst($objectname);
+		$start = "== Table of fields and their properties for object *" . ucfirst($objectname) . "* : ";
+		$end = "__ end table for object " . ucfirst($objectname);
 
 		$str = file_get_contents($file);
 
@@ -846,7 +859,7 @@ function deletePropsAndPermsFromDoc($file, $objectname)
 		file_put_contents($file, $new_contents);
 
 		//perms If Exist
-		$perms = "|*".strtolower($objectname)."*|";
+		$perms = "|*" . strtolower($objectname) . "*|";
 		$search_pattern_perms = '/' . preg_quote($perms, '/') . '.*?\n/';
 		$new_contents = preg_replace($search_pattern_perms, '', $new_contents);
 		file_put_contents($file, $new_contents);
@@ -919,9 +932,9 @@ function writePermsInAsciiDoc($file, $destfile)
 	$string = "[options='header',grid=rows,width=60%,caption=Organisation]\n";
 	$string .= "|===\n";
 	// header for table
-	$header = array($langs->trans('Objects'),$langs->trans('Permission'));
+	$header = array($langs->trans('Objects'), $langs->trans('Permission'));
 	foreach ($header as $h) {
-		$string .= "|".$h;
+		$string .= "|" . $h;
 	}
 	$string .= "\n";
 	//content table
@@ -967,9 +980,9 @@ function writePermsInAsciiDoc($file, $destfile)
 		$result[$key][] = $subarray;
 	}
 	foreach ($result as $i => $pems) {
-		$string .= "|*".$i."*|";
+		$string .= "|*" . $i . "*|";
 		foreach ($pems as $tab) {
-			$string .= $tab[0]." , ";
+			$string .= $tab[0] . " , ";
 		}
 		$string .= "\n";
 	}
@@ -1010,26 +1023,26 @@ function addObjectsToApiFile($srcfile, $file, $objects, $modulename)
 
 	// add properties and declare them in constructor
 	foreach ($content as $lineNumber => &$lineContent) {
-		if (preg_match('/'.$varcommented.'/', $lineContent)) {
+		if (preg_match('/' . $varcommented . '/', $lineContent)) {
 			$lineContent = '';
 			foreach ($objects as $objectname) {
-				$lineContent .= "\t * @var ".$objectname." \$".strtolower($objectname)." {@type ".$objectname."}". PHP_EOL;
+				$lineContent .= "\t * @var " . $objectname . " \$" . strtolower($objectname) . " {@type " . $objectname . "}" . PHP_EOL;
 			}
 			//var_dump($lineContent);exit;
-		} elseif (preg_match('/'.$props.'/', $lineContent)) {
+		} elseif (preg_match('/' . $props . '/', $lineContent)) {
 			$lineContent = '';
 			foreach ($objects as $objectname) {
-				$lineContent .= "\t/*".PHP_EOL."\t * @var mixed TODO: set type".PHP_EOL."\t */".PHP_EOL."\tpublic \$".strtolower($objectname).";". PHP_EOL;
+				$lineContent .= "\t/*" . PHP_EOL . "\t * @var mixed TODO: set type" . PHP_EOL . "\t */" . PHP_EOL . "\tpublic \$" . strtolower($objectname) . ";" . PHP_EOL;
 			}
-		} elseif (preg_match('/'.$constructObj.'/', $lineContent)) {
+		} elseif (preg_match('/' . $constructObj . '/', $lineContent)) {
 			$lineContent = '';
 			foreach ($objects as $objectname) {
-				$lineContent .= "\t\t\$this->".strtolower($objectname)." = new ".$objectname."(\$this->db);". PHP_EOL;
+				$lineContent .= "\t\t\$this->" . strtolower($objectname) . " = new " . $objectname . "(\$this->db);" . PHP_EOL;
 			}
-		} elseif (preg_match('/'.$includeClass.'/', $lineContent)) {
+		} elseif (preg_match('/' . $includeClass . '/', $lineContent)) {
 			$lineContent = '';
 			foreach ($objects as $objectname) {
-				$lineContent .= "dol_include_once('/".strtolower($modulename)."/class/".strtolower($objectname).".class.php');". PHP_EOL;
+				$lineContent .= "dol_include_once('/" . strtolower($modulename) . "/class/" . strtolower($objectname) . ".class.php');" . PHP_EOL;
 			}
 		}
 	}
@@ -1052,13 +1065,13 @@ function addObjectsToApiFile($srcfile, $file, $objects, $modulename)
 			'myobject' => strtolower($objectname),
 			'MyObject' => $objectname,
 			'MYOBJECT' => strtoupper($objectname),
-			'---Replace with your own copyright and developer email---' => dol_print_date($now, '%Y').' '.$user->getFullName($langs).($user->email ? ' <'.$user->email.'>' : '')
+			'---Replace with your own copyright and developer email---' => dol_print_date($now, '%Y') . ' ' . $user->getFullName($langs) . ($user->email ? ' <' . $user->email . '>' : '')
 		);
 		$contentReplaced = make_substitutions($allContent, $arrayreplacement, null);
 		//$contentReplaced = str_replace(["myobject","MyObject"], [strtolower($object),$object], $allContent);
 
 		dolReplaceInFile($file, array(
-			'/* BEGIN MODULEBUILDER API MYOBJECT */' => '/* BEGIN MODULEBUILDER API '.strtoupper($objectname).' */'.$contentReplaced."\t".'/* END MODULEBUILDER API '.strtoupper($objectname).' */'."\n\n\n\t".'/* BEGIN MODULEBUILDER API MYOBJECT */'
+			'/* BEGIN MODULEBUILDER API MYOBJECT */' => '/* BEGIN MODULEBUILDER API ' . strtoupper($objectname) . ' */' . $contentReplaced . "\t" . '/* END MODULEBUILDER API ' . strtoupper($objectname) . ' */' . "\n\n\n\t" . '/* BEGIN MODULEBUILDER API MYOBJECT */'
 		));
 	}
 
@@ -1085,20 +1098,20 @@ function removeObjectFromApiFile($file, $objects, $objectname)
 
 	$content = file($file);	// $content is an array
 
-	$includeClass = "dol_include_once\(\'\/\w+\/class\/".strtolower($objectname)."\.class\.php\'\);";
-	$props = 'public\s+\$'.strtolower($objectname);
-	$varcommented = '@var\s+\w+\s+\$'.strtolower($objectname).'\s+{@type\s+\w+}';
-	$constructObj = '\$this->'.strtolower($objectname).'\s+=\s+new\s+\w+\(\$this->db\);';
+	$includeClass = "dol_include_once\(\'\/\w+\/class\/" . strtolower($objectname) . "\.class\.php\'\);";
+	$props = 'public\s+\$' . strtolower($objectname);
+	$varcommented = '@var\s+\w+\s+\$' . strtolower($objectname) . '\s+{@type\s+\w+}';
+	$constructObj = '\$this->' . strtolower($objectname) . '\s+=\s+new\s+\w+\(\$this->db\);';
 
 	// add properties and declare them in constructor
 	foreach ($content as $lineNumber => &$lineContent) {
-		if (preg_match('/'.$varcommented.'/i', $lineContent)) {
+		if (preg_match('/' . $varcommented . '/i', $lineContent)) {
 			$lineContent = '';
-		} elseif (preg_match('/'.$props.'/i', $lineContent)) {
+		} elseif (preg_match('/' . $props . '/i', $lineContent)) {
 			$lineContent = '';
-		} elseif (preg_match('/'.$constructObj.'/i', $lineContent)) {
+		} elseif (preg_match('/' . $constructObj . '/i', $lineContent)) {
 			$lineContent = '';
-		} elseif (preg_match('/'.$includeClass.'/i', $lineContent)) {
+		} elseif (preg_match('/' . $includeClass . '/i', $lineContent)) {
 			$lineContent = '';
 		}
 	}
@@ -1107,8 +1120,8 @@ function removeObjectFromApiFile($file, $objects, $objectname)
 	file_put_contents($file, $allContent);
 
 	// for delete methods of object
-	$begin = '/* BEGIN MODULEBUILDER API '.strtoupper($objectname).' */';
-	$end = '/* END MODULEBUILDER API '.strtoupper($objectname).' */';
+	$begin = '/* BEGIN MODULEBUILDER API ' . strtoupper($objectname) . ' */';
+	$end = '/* END MODULEBUILDER API ' . strtoupper($objectname) . ' */';
 	$allContent = getFromFile($file, $begin, $end);
 	$check = dolReplaceInFile($file, array($allContent => ''));
 	if ($check) {
@@ -1188,37 +1201,37 @@ function reWriteAllMenus($file, $menus, $menuWantTo, $key, $action)
 		foreach ($menus as $index => $menu) {
 			$menu['position'] = "1000 + \$r";
 			if ($menu['type'] === 'left') {
-				$start = "\t\t".'/* BEGIN MODULEBUILDER LEFTMENU '.strtoupper(empty($menu['object']) ? $menu['titre'] : $menu['object']).' */';
-				$end   = "\t\t".'/* END MODULEBUILDER LEFTMENU '.strtoupper(empty($menu['object']) ? $menu['titre'] : $menu['object']).' */';
+				$start = "\t\t" . '/* BEGIN MODULEBUILDER LEFTMENU ' . strtoupper(empty($menu['object']) ? $menu['titre'] : $menu['object']) . ' */';
+				$end   = "\t\t" . '/* END MODULEBUILDER LEFTMENU ' . strtoupper(empty($menu['object']) ? $menu['titre'] : $menu['object']) . ' */';
 
 				$val_actuel = $menu;
 				$next_val = empty($menus[$index + 1]) ? null : $menus[$index + 1];
 				//var_dump(dol_escape_php($menu['perms'], 1)); exit;
 
-				$str_menu .= $start."\n";
+				$str_menu .= $start . "\n";
 				$str_menu .= "\t\t\$this->menu[\$r++] = array(\n";
-				$str_menu .= "\t\t\t'fk_menu' => '".dol_escape_php($menu['fk_menu'], 1)."',\n";
-				$str_menu .= "\t\t\t'type' => '".dol_escape_php($menu['type'], 1)."',\n";
-				$str_menu .= "\t\t\t'titre' => '".dol_escape_php($menu['titre'], 1)."',\n";
-				$str_menu .= "\t\t\t'mainmenu' => '".dol_escape_php($menu['mainmenu'], 1)."',\n";
-				$str_menu .= "\t\t\t'leftmenu' => '".dol_escape_php($menu['leftmenu'], 1)."',\n";
-				$str_menu .= "\t\t\t'url' => '".dol_escape_php($menu['url'], 1)."',\n";
-				$str_menu .= "\t\t\t'langs' => '".dol_escape_php($menu['langs'], 1)."',\n";
-				$str_menu .= "\t\t\t'position' => ".((int) $menu['position']).",\n";
-				$str_menu .= "\t\t\t'enabled' => '".dol_escape_php((string) $menu['enabled'], 1)."',\n";
-				$str_menu .= "\t\t\t'perms' => '".dol_escape_php($menu['perms'], 1)."',\n";
-				$str_menu .= "\t\t\t'target' => '".dol_escape_php($menu['target'], 1)."',\n";
-				$str_menu .= "\t\t\t'user' => ".((int) $menu['user']).",\n";
-				$str_menu .= "\t\t\t'object' => '".dol_escape_php($menu['object'], 1)."',\n";
+				$str_menu .= "\t\t\t'fk_menu' => '" . dol_escape_php($menu['fk_menu'], 1) . "',\n";
+				$str_menu .= "\t\t\t'type' => '" . dol_escape_php($menu['type'], 1) . "',\n";
+				$str_menu .= "\t\t\t'titre' => '" . dol_escape_php($menu['titre'], 1) . "',\n";
+				$str_menu .= "\t\t\t'mainmenu' => '" . dol_escape_php($menu['mainmenu'], 1) . "',\n";
+				$str_menu .= "\t\t\t'leftmenu' => '" . dol_escape_php($menu['leftmenu'], 1) . "',\n";
+				$str_menu .= "\t\t\t'url' => '" . dol_escape_php($menu['url'], 1) . "',\n";
+				$str_menu .= "\t\t\t'langs' => '" . dol_escape_php($menu['langs'], 1) . "',\n";
+				$str_menu .= "\t\t\t'position' => " . ((int) $menu['position']) . ",\n";
+				$str_menu .= "\t\t\t'enabled' => '" . dol_escape_php((string) $menu['enabled'], 1) . "',\n";
+				$str_menu .= "\t\t\t'perms' => '" . dol_escape_php($menu['perms'], 1) . "',\n";
+				$str_menu .= "\t\t\t'target' => '" . dol_escape_php($menu['target'], 1) . "',\n";
+				$str_menu .= "\t\t\t'user' => " . ((int) $menu['user']) . ",\n";
+				$str_menu .= "\t\t\t'object' => '" . dol_escape_php($menu['object'], 1) . "',\n";
 				$str_menu .= "\t\t);\n";
 
 				if (is_null($next_val) || $val_actuel['leftmenu'] !== $next_val['leftmenu']) {
-					$str_menu .= $end."\n";
+					$str_menu .= $end . "\n";
 				}
 			}
 		}
 
-		dolReplaceInFile($file, array('/* BEGIN MODULEBUILDER LEFTMENU MYOBJECT */' => $str_menu."\n\t\t/* BEGIN MODULEBUILDER LEFTMENU MYOBJECT */"));
+		dolReplaceInFile($file, array('/* BEGIN MODULEBUILDER LEFTMENU MYOBJECT */' => $str_menu . "\n\t\t/* BEGIN MODULEBUILDER LEFTMENU MYOBJECT */"));
 		return 1;
 	}
 	return -1;
@@ -1261,7 +1274,7 @@ function updateDictionaryInFile($module, $file, $dicts)
 		} elseif ($key === 'tabhelp') {
 			$helpItems = array();
 			foreach ($value as $helpValue) {
-				$helpItems[] = "array('code' => \$langs->trans('".$helpValue['code']."'), 'field2' => 'field2tooltip')";
+				$helpItems[] = "array('code' => \$langs->trans('" . $helpValue['code'] . "'), 'field2' => 'field2tooltip')";
 			}
 			$dicData .= "array(" . implode(",", $helpItems) . ")";
 		} else {
@@ -1288,7 +1301,7 @@ function updateDictionaryInFile($module, $file, $dicts)
 	$dicData .= (!$isEmpty ? "\t\t);" : '');
 
 	$stringDic = getFromFile($file, '/* BEGIN MODULEBUILDER DICTIONARIES */', '/* END MODULEBUILDER DICTIONARIES */');
-	$writeInfile = dolReplaceInFile($file, array($stringDic => $dicData."\n"));
+	$writeInfile = dolReplaceInFile($file, array($stringDic => $dicData . "\n"));
 
 	return $writeInfile;
 }
@@ -1344,12 +1357,12 @@ function createNewDictionnary($modulename, $file, $namedic, $dictionnaires = nul
 	}
 
 	// check if tablename exist in Database and create it if not
-	$checkTable = $db->DDLDescTable(MAIN_DB_PREFIX.strtolower($namedic));
+	$checkTable = $db->DDLDescTable(MAIN_DB_PREFIX . strtolower($namedic));
 	if ($checkTable && $db->num_rows($checkTable) > 0) {
 		setEventMessages($langs->trans("ErrorTableExist", $namedic), null, 'errors');
 		return -1;
 	} else {
-		$_results = $db->DDLCreateTable(MAIN_DB_PREFIX.strtolower($namedic), $columns, $primaryKey, "");
+		$_results = $db->DDLCreateTable(MAIN_DB_PREFIX . strtolower($namedic), $columns, $primaryKey, "");
 		if ($_results < 0) {
 			dol_print_error($db);
 			$langs->load("errors");
@@ -1358,10 +1371,10 @@ function createNewDictionnary($modulename, $file, $namedic, $dictionnaires = nul
 	}
 
 	// rewrite dictionary if
-	$dictionnaires['langs'] = $modulename.'@'.$modulename;
+	$dictionnaires['langs'] = $modulename . '@' . $modulename;
 	$dictionnaires['tabname'][] = strtolower($namedic);
 	$dictionnaires['tablib'][] = ucfirst(substr($namedic, 2));
-	$dictionnaires['tabsql'][] = 'SELECT t.rowid as rowid, t.code, t.label, t.active FROM '.MAIN_DB_PREFIX.strtolower($namedic).' as t';
+	$dictionnaires['tabsql'][] = 'SELECT t.rowid as rowid, t.code, t.label, t.active FROM ' . MAIN_DB_PREFIX . strtolower($namedic) . ' as t';
 	$dictionnaires['tabsqlsort'][] = (array_key_exists('label', $columns) ? 'label ASC' : '');
 	$dictionnaires['tabfield'][] = (array_key_exists('code', $columns) && array_key_exists('label', $columns) ? 'code,label' : '');
 	$dictionnaires['tabfieldvalue'][] = (array_key_exists('code', $columns) && array_key_exists('label', $columns) ? 'code,label' : '');
@@ -1406,12 +1419,12 @@ function writeApiUrlsInDoc($file_api, $file_doc)
 	}
 
 	// get urls by object
-	$str = $_SERVER['HTTP_HOST'].'/api/index.php/';
+	$str = $_SERVER['HTTP_HOST'] . '/api/index.php/';
 	$groupedUrls = array();
 	foreach ($urlValues as $url) {
 		if (preg_match('/(?:GET|POST|PUT|DELETE) (\w+)s/', $url, $matches)) {
 			$objectName = $matches[1];
-			$url = $str.trim(strstr($url, ' '));
+			$url = $str . trim(strstr($url, ' '));
 			$groupedUrls[$objectName][] = $url;
 		}
 	}
@@ -1427,7 +1440,7 @@ function writeApiUrlsInDoc($file_api, $file_doc)
 			$asciiDocTable .= "|$objectName | \n*$urlsList +\n";
 		}
 		$asciiDocTable .= "|===\n";
-		$file_write = dolReplaceInFile($file_doc, array('__API_DOC__' => '__API_DOC__'."\n".$asciiDocTable));
+		$file_write = dolReplaceInFile($file_doc, array('__API_DOC__' => '__API_DOC__' . "\n" . $asciiDocTable));
 		if ($file_write < 0) {
 			return -1;
 		}

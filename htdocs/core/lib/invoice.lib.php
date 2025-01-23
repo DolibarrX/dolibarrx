@@ -42,17 +42,17 @@ function facture_prepare_head($object)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/compta/facture/card.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/compta/facture/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans('CustomerInvoice');
 	$head[$h][2] = 'compta';
 	$h++;
 
 	if (!getDolGlobalString('MAIN_DISABLE_CONTACTS_TAB')) {
 		$nbContact = count($object->liste_contact(-1, 'internal')) + count($object->liste_contact(-1, 'external'));
-		$head[$h][0] = DOL_URL_ROOT.'/compta/facture/contact.php?id='.urlencode((string) ($object->id));
+		$head[$h][0] = DOL_URL_ROOT . '/compta/facture/contact.php?id=' . urlencode((string) ($object->id));
 		$head[$h][1] = $langs->trans('ContactsAddresses');
 		if ($nbContact > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbContact.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbContact . '</span>';
 		}
 		$head[$h][2] = 'contact';
 		$h++;
@@ -61,8 +61,8 @@ function facture_prepare_head($object)
 	if (isModEnabled('prelevement')) {
 		$nbStandingOrders = 0;
 		$sql = "SELECT COUNT(pfd.rowid) as nb";
-		$sql .= " FROM ".MAIN_DB_PREFIX."prelevement_demande as pfd";
-		$sql .= " WHERE pfd.fk_facture = ".((int) $object->id);
+		$sql .= " FROM " . MAIN_DB_PREFIX . "prelevement_demande as pfd";
+		$sql .= " WHERE pfd.fk_facture = " . ((int) $object->id);
 		$sql .= " AND type = 'ban'";
 		$resql = $db->query($sql);
 		if ($resql) {
@@ -75,10 +75,10 @@ function facture_prepare_head($object)
 		}
 		$langs->load("banks");
 
-		$head[$h][0] = DOL_URL_ROOT.'/compta/facture/prelevement.php?id='.urlencode((string) ($object->id));
+		$head[$h][0] = DOL_URL_ROOT . '/compta/facture/prelevement.php?id=' . urlencode((string) ($object->id));
 		$head[$h][1] = $langs->trans('StandingOrders');
 		if ($nbStandingOrders > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbStandingOrders.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbStandingOrders . '</span>';
 		}
 		$head[$h][2] = 'standingorders';
 		$h++;
@@ -98,49 +98,49 @@ function facture_prepare_head($object)
 		if (!empty($object->note_public)) {
 			$nbNote++;
 		}
-		$head[$h][0] = DOL_URL_ROOT.'/compta/facture/note.php?id='.$object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/compta/facture/note.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans('Notes');
 		if ($nbNote > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbNote.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbNote . '</span>';
 		}
 		$head[$h][2] = 'note';
 		$h++;
 	}
 
-	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $config->facture->dir_output."/".dol_sanitizeFileName($object->ref);
+	require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
+	require_once DOL_DOCUMENT_ROOT . '/core/class/link.class.php';
+	$upload_dir = $config->facture->dir_output . "/" . dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
-	$head[$h][0] = DOL_URL_ROOT.'/compta/facture/document.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/compta/facture/document.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans('Documents');
 	if (($nbFiles + $nbLinks) > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.($nbFiles + $nbLinks).'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . ($nbFiles + $nbLinks) . '</span>';
 	}
 	$head[$h][2] = 'documents';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/compta/facture/agenda.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/compta/facture/agenda.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Events");
 	if (isModEnabled('agenda') && ($user->hasRight('agenda', 'myactions', 'read') || $user->hasRight('agenda', 'allactions', 'read'))) {
 		$nbEvent = 0;
 		// Enable caching of thirdparty count actioncomm
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/memory.lib.php';
-		$cachekey = 'count_events_facture_'.$object->id;
+		require_once DOL_DOCUMENT_ROOT . '/core/lib/memory.lib.php';
+		$cachekey = 'count_events_facture_' . $object->id;
 		$dataretrieved = dol_getcache($cachekey);
 		if (!is_null($dataretrieved)) {
 			$nbEvent = $dataretrieved;
 		} else {
 			$sql = "SELECT COUNT(id) as nb";
-			$sql .= " FROM ".MAIN_DB_PREFIX."actioncomm";
-			$sql .= " WHERE fk_element = ".((int) $object->id);
+			$sql .= " FROM " . MAIN_DB_PREFIX . "actioncomm";
+			$sql .= " WHERE fk_element = " . ((int) $object->id);
 			$sql .= " AND elementtype = 'invoice'";
 			$resql = $db->query($sql);
 			if ($resql) {
 				$obj = $db->fetch_object($resql);
 				$nbEvent = $obj->nb;
 			} else {
-				dol_syslog('Failed to count actioncomm '.$db->lasterror(), LOG_ERR);
+				dol_syslog('Failed to count actioncomm ' . $db->lasterror(), LOG_ERR);
 			}
 			dol_setcache($cachekey, $nbEvent, 120);		// If setting cache fails, this is not a problem, so we do not test result.
 		}
@@ -148,7 +148,7 @@ function facture_prepare_head($object)
 		$head[$h][1] .= '/';
 		$head[$h][1] .= $langs->trans("Agenda");
 		if ($nbEvent > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbEvent.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbEvent . '</span>';
 		}
 	}
 	$head[$h][2] = 'agenda';
@@ -179,12 +179,12 @@ function invoice_admin_prepare_head()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/admin/invoice.php';
+	$head[$h][0] = DOL_URL_ROOT . '/admin/invoice.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");
 	$head[$h][2] = 'general';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/admin/payment.php';
+	$head[$h][0] = DOL_URL_ROOT . '/admin/payment.php';
 	$head[$h][1] = $langs->trans("Payments");
 	$head[$h][2] = 'payment';
 	$h++;
@@ -195,44 +195,44 @@ function invoice_admin_prepare_head()
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__'); to remove a tab
 	complete_head_from_modules($config, $langs, null, $head, $h, 'invoice_admin');
 
-	$head[$h][0] = DOL_URL_ROOT.'/compta/facture/admin/invoice_cust_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/compta/facture/admin/invoice_cust_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsCustomerInvoices");
 	$nbExtrafields = $extrafields->attributes['facture']['count'];
 	if ($nbExtrafields > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'attributes';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/compta/facture/admin/invoicedet_cust_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/compta/facture/admin/invoicedet_cust_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsLines");
 	$nbExtrafields = $extrafields->attributes['facturedet']['count'];
 	if ($nbExtrafields > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'attributeslines';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/compta/facture/admin/invoice_rec_cust_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/compta/facture/admin/invoice_rec_cust_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsCustomerInvoicesRec");
 	$nbExtrafields = $extrafields->attributes['facture_rec']['count'];
 	if ($nbExtrafields > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'attributesrec';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/compta/facture/admin/invoicedet_rec_cust_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/compta/facture/admin/invoicedet_rec_cust_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsLinesRec");
 	$nbExtrafields = $extrafields->attributes['facturedet_rec']['count'];
 	if ($nbExtrafields > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'attributeslinesrec';
 	$h++;
 
 	if (getDolGlobalInt('INVOICE_USE_SITUATION') > 0) {	// Warning, implementation with value 1 is seriously bugged and a new one not compatible is expected to become stable
-		$head[$h][0] = DOL_URL_ROOT.'/admin/invoice_situation.php';
+		$head[$h][0] = DOL_URL_ROOT . '/admin/invoice_situation.php';
 		$head[$h][1] = $langs->trans("InvoiceSituation");
 		$head[$h][2] = 'situation';
 		$h++;
@@ -267,17 +267,17 @@ function invoice_rec_prepare_head($object)
 	//count facture rec
 	$nbFacture = 0;
 	$sql = "SELECT COUNT(rowid) as nb";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture";
-	$sql .= " WHERE fk_fac_rec_source = ".((int) $object->id);
+	$sql .= " FROM " . MAIN_DB_PREFIX . "facture";
+	$sql .= " WHERE fk_fac_rec_source = " . ((int) $object->id);
 	$resql = $db->query($sql);
 	if ($resql) {
 		$obj = $db->fetch_object($resql);
 		$nbFacture = $obj->nb;
 	} else {
-		dol_syslog('Failed to count invoices with invoice model '.$db->lasterror(), LOG_ERR);
+		dol_syslog('Failed to count invoices with invoice model ' . $db->lasterror(), LOG_ERR);
 	}
 	if ($nbFacture > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbFacture.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbFacture . '</span>';
 	}
 	$head[$h][2] = 'generated';
 	$h++;
@@ -290,36 +290,36 @@ function invoice_rec_prepare_head($object)
 		if (!empty($object->note_public)) {
 			$nbNote++;
 		}
-		$head[$h][0] = DOL_URL_ROOT.'/compta/facture/note-rec.php?id='.$object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/compta/facture/note-rec.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans('Notes');
 		if ($nbNote > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbNote.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbNote . '</span>';
 		}
 		$head[$h][2] = 'note';
 		$h++;
 	}
 
-	$head[$h][0] = DOL_URL_ROOT.'/compta/facture/agenda-rec.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/compta/facture/agenda-rec.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Events");
 	if (isModEnabled('agenda') && ($user->hasRight('agenda', 'myactions', 'read') || $user->hasRight('agenda', 'allactions', 'read'))) {
 		$nbEvent = 0;
 		// Enable caching of thirdparty count actioncomm
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/memory.lib.php';
-		$cachekey = 'count_events_facturerec_'.$object->id;
+		require_once DOL_DOCUMENT_ROOT . '/core/lib/memory.lib.php';
+		$cachekey = 'count_events_facturerec_' . $object->id;
 		$dataretrieved = dol_getcache($cachekey);
 		if (!is_null($dataretrieved)) {
 			$nbEvent = $dataretrieved;
 		} else {
 			$sql = "SELECT COUNT(id) as nb";
-			$sql .= " FROM ".MAIN_DB_PREFIX."actioncomm";
-			$sql .= " WHERE fk_element = ".((int) $object->id);
+			$sql .= " FROM " . MAIN_DB_PREFIX . "actioncomm";
+			$sql .= " WHERE fk_element = " . ((int) $object->id);
 			$sql .= " AND elementtype = 'invoicerec'";
 			$resql = $db->query($sql);
 			if ($resql) {
 				$obj = $db->fetch_object($resql);
 				$nbEvent = $obj->nb;
 			} else {
-				dol_syslog('Failed to count actioncomm '.$db->lasterror(), LOG_ERR);
+				dol_syslog('Failed to count actioncomm ' . $db->lasterror(), LOG_ERR);
 			}
 			dol_setcache($cachekey, $nbEvent, 120);		// If setting cache fails, this is not a problem, so we do not test result.
 		}
@@ -327,7 +327,7 @@ function invoice_rec_prepare_head($object)
 		$head[$h][1] .= '/';
 		$head[$h][1] .= $langs->trans("Agenda");
 		if ($nbEvent > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbEvent.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbEvent . '</span>';
 		}
 	}
 	$head[$h][2] = 'agenda';
@@ -370,10 +370,10 @@ function supplier_invoice_rec_prepare_head($object)
 		if (!empty($object->note_public)) {
 			$nbNote++;
 		}
-		$head[$h][0] = DOL_URL_ROOT.'/fourn/facture/note-rec.php?id='.$object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/fourn/facture/note-rec.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans('Notes');
 		if ($nbNote > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbNote.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbNote . '</span>';
 		}
 		$head[$h][2] = 'note';
 		$h++;
@@ -384,17 +384,17 @@ function supplier_invoice_rec_prepare_head($object)
 	//count facture rec
 	$nbFactureFourn = 0;
 	$sql = "SELECT COUNT(rowid) as nb";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn";
-	$sql .= " WHERE fk_fac_rec_source = ".((int) $object->id);
+	$sql .= " FROM " . MAIN_DB_PREFIX . "facture_fourn";
+	$sql .= " WHERE fk_fac_rec_source = " . ((int) $object->id);
 	$resql = $db->query($sql);
 	if ($resql) {
 		$obj = $db->fetch_object($resql);
 		$nbFactureFourn = $obj->nb;
 	} else {
-		dol_syslog('Failed to count invoices with supplier invoice model '.$db->lasterror(), LOG_ERR);
+		dol_syslog('Failed to count invoices with supplier invoice model ' . $db->lasterror(), LOG_ERR);
 	}
 	if ($nbFactureFourn > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbFactureFourn.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbFactureFourn . '</span>';
 	}
 	$head[$h][2] = 'generated';
 	$h++;
@@ -424,7 +424,7 @@ function getNumberInvoicesPieChart($mode)
 		|| ($mode == 'suppliers' && (isModEnabled('fournisseur') || isModEnabled('supplier_invoice')) && $user->hasRight('fournisseur', 'facture', 'lire'))
 	) {
 		global $badgeStatus1, $badgeStatus3, $badgeStatus4, $badgeStatus8, $badgeStatus11;
-		include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
+		include DOL_DOCUMENT_ROOT . '/theme/' . $config->theme . '/theme_vars.inc.php';
 
 		$now = date_create(date('Y-m-d', dol_now()));
 		$datenowsub30 = date_create(date('Y-m-d', dol_now()));
@@ -441,26 +441,26 @@ function getNumberInvoicesPieChart($mode)
 		$amount_mode = (getDolGlobalInt('FACTURE_VALIDATED_IN_AMOUNT') == 1);
 
 		$sql = "SELECT";
-		$sql .= " sum(".$db->ifsql("f.date_lim_reglement < '".date_format($datenowsub30, 'Y-m-d')."'", $amount_mode ? "f.total_ht" : 1, 0).") as late30";
-		$sql .= ", sum(".$db->ifsql("f.date_lim_reglement < '".date_format($datenowsub15, 'Y-m-d')."' AND f.date_lim_reglement >= '".date_format($datenowsub30, 'Y-m-d')."'", $amount_mode ? "f.total_ht" : 1, 0).") as late15";
-		$sql .= ", sum(".$db->ifsql("f.date_lim_reglement < '".date_format($now, 'Y-m-d')."' AND f.date_lim_reglement >= '".date_format($datenowsub15, 'Y-m-d')."'", $amount_mode ? "f.total_ht" : 1, 0).") as latenow";
-		$sql .= ", sum(".$db->ifsql("f.date_lim_reglement >= '".date_format($now, 'Y-m-d')."' AND f.date_lim_reglement < '".date_format($datenowadd15, 'Y-m-d')."'", $amount_mode ? "f.total_ht" : 1, 0).") as notlatenow";
-		$sql .= ", sum(".$db->ifsql("f.date_lim_reglement >= '".date_format($datenowadd15, 'Y-m-d')."' AND f.date_lim_reglement < '".date_format($datenowadd30, 'Y-m-d')."'", $amount_mode ? "f.total_ht" : 1, 0).") as notlate15";
-		$sql .= ", sum(".$db->ifsql("f.date_lim_reglement >= '".date_format($datenowadd30, 'Y-m-d')."'", $amount_mode ? "f.total_ht" : 1, 0).") as notlate30";
+		$sql .= " sum(" . $db->ifsql("f.date_lim_reglement < '" . date_format($datenowsub30, 'Y-m-d') . "'", $amount_mode ? "f.total_ht" : 1, 0) . ") as late30";
+		$sql .= ", sum(" . $db->ifsql("f.date_lim_reglement < '" . date_format($datenowsub15, 'Y-m-d') . "' AND f.date_lim_reglement >= '" . date_format($datenowsub30, 'Y-m-d') . "'", $amount_mode ? "f.total_ht" : 1, 0) . ") as late15";
+		$sql .= ", sum(" . $db->ifsql("f.date_lim_reglement < '" . date_format($now, 'Y-m-d') . "' AND f.date_lim_reglement >= '" . date_format($datenowsub15, 'Y-m-d') . "'", $amount_mode ? "f.total_ht" : 1, 0) . ") as latenow";
+		$sql .= ", sum(" . $db->ifsql("f.date_lim_reglement >= '" . date_format($now, 'Y-m-d') . "' AND f.date_lim_reglement < '" . date_format($datenowadd15, 'Y-m-d') . "'", $amount_mode ? "f.total_ht" : 1, 0) . ") as notlatenow";
+		$sql .= ", sum(" . $db->ifsql("f.date_lim_reglement >= '" . date_format($datenowadd15, 'Y-m-d') . "' AND f.date_lim_reglement < '" . date_format($datenowadd30, 'Y-m-d') . "'", $amount_mode ? "f.total_ht" : 1, 0) . ") as notlate15";
+		$sql .= ", sum(" . $db->ifsql("f.date_lim_reglement >= '" . date_format($datenowadd30, 'Y-m-d') . "'", $amount_mode ? "f.total_ht" : 1, 0) . ") as notlate30";
 		if ($mode == 'customers') {
 			$element = 'invoice';
-			$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
+			$sql .= " FROM " . MAIN_DB_PREFIX . "facture as f";
 		} elseif ($mode == 'fourn' || $mode == 'suppliers') {
 			$element = 'supplier_invoice';
-			$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
+			$sql .= " FROM " . MAIN_DB_PREFIX . "facture_fourn as f";
 		} else {
 			return '';
 		}
-		$sql .= " WHERE f.entity IN (".getEntity($element).")";
+		$sql .= " WHERE f.entity IN (" . getEntity($element) . ")";
 		$sql .= " AND f.type <> 2";
 		$sql .= " AND f.fk_statut = 1";
 		if (isset($user->socid) && $user->socid > 0) {
-			$sql .= " AND f.fk_soc = ".((int) $user->socid);
+			$sql .= " AND f.fk_soc = " . ((int) $user->socid);
 		}
 
 		$resql = $db->query($sql);
@@ -499,12 +499,12 @@ function getNumberInvoicesPieChart($mode)
 				$mode == 'customers' ? $langs->trans('InvoiceNotLate30Days') : $langs->trans("InvoiceToPay30Days"),
 			);
 
-			$colorseries = array($badgeStatus8, $badgeStatus1, $badgeStatus3, $badgeStatus4, $badgeStatus11, '-'.$badgeStatus11);
+			$colorseries = array($badgeStatus8, $badgeStatus1, $badgeStatus3, $badgeStatus4, $badgeStatus11, '-' . $badgeStatus11);
 
 			$result = '<div class="div-table-responsive-no-min">';
 			$result .= '<table class="noborder nohover centpercent">';
 			$result .= '<tr class="liste_titre">';
-			$result .= '<td>'.$langs->trans("NbOfOpenInvoices").' - ';
+			$result .= '<td>' . $langs->trans("NbOfOpenInvoices") . ' - ';
 			if ($mode == 'customers') {
 				$result .= $langs->trans("CustomerInvoice");
 			} elseif ($mode == 'fourn' || $mode == 'suppliers') {
@@ -538,7 +538,7 @@ function getNumberInvoicesPieChart($mode)
 					return '';
 				}
 				$result .= '<tr maxwidth="255">';
-				$result .= '<td class="center">'.$dolgraph->show($total ? 0 : $langs->trans("NoOpenInvoice")).'</td>';
+				$result .= '<td class="center">' . $dolgraph->show($total ? 0 : $langs->trans("NoOpenInvoice")) . '</td>';
 				$result .= '</tr>';
 			} else {
 				// Print text lines
@@ -582,18 +582,18 @@ function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= ", sc.fk_soc, sc.fk_user ";
 		}
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture as f, ".MAIN_DB_PREFIX."societe as s LEFT JOIN ".MAIN_DB_PREFIX."c_country as cc ON cc.rowid = s.fk_pays";
+		$sql .= " FROM " . MAIN_DB_PREFIX . "facture as f, " . MAIN_DB_PREFIX . "societe as s LEFT JOIN " . MAIN_DB_PREFIX . "c_country as cc ON cc.rowid = s.fk_pays";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
-			$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
+			$sql .= ", " . MAIN_DB_PREFIX . "societe_commerciaux as sc";
 		}
-		$sql .= " WHERE s.rowid = f.fk_soc AND f.fk_statut = ".Facture::STATUS_DRAFT;
-		$sql .= " AND f.entity IN (".getEntity('invoice').")";
+		$sql .= " WHERE s.rowid = f.fk_soc AND f.fk_statut = " . Facture::STATUS_DRAFT;
+		$sql .= " AND f.entity IN (" . getEntity('invoice') . ")";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
-			$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
+			$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = " . ((int) $user->id);
 		}
 
 		if ($socid) {
-			$sql .= " AND f.fk_soc = ".((int) $socid);
+			$sql .= " AND f.fk_soc = " . ((int) $socid);
 		}
 		// Add where from hooks
 		$parameters = array();
@@ -624,8 +624,8 @@ function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
 			$result .= '<tr class="liste_titre">';
 			$result .= '<th colspan="3">';
 			$result .= $langs->trans("CustomersDraftInvoices");
-			$result .= '<a href="'.DOL_URL_ROOT.'/compta/facture/list.php?search_status='.Facture::STATUS_DRAFT.'">';
-			$result .= '<span class="badge marginleftonly">'.$num.'</span>';
+			$result .= '<a href="' . DOL_URL_ROOT . '/compta/facture/list.php?search_status=' . Facture::STATUS_DRAFT . '">';
+			$result .= '<span class="badge marginleftonly">' . $num . '</span>';
 			$result .= '</a>';
 			$result .= '</th>';
 			$result .= '</tr>';
@@ -676,7 +676,7 @@ function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
 					$result .= '<td class="nowrap tdoverflowmax100">';
 					$result .= $companystatic->getNomUrl(1, 'customer');
 					$result .= '</td>';
-					$result .= '<td class="nowrap right"><span class="amount">'.price($obj->total_ttc).'</span></td>';
+					$result .= '<td class="nowrap right"><span class="amount">' . price($obj->total_ttc) . '</span></td>';
 					$result .= '</tr>';
 					$tot_ttc += $obj->total_ttc;
 					$i++;
@@ -685,16 +685,16 @@ function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
 				if ($othernb) {
 					$result .= '<tr class="oddeven">';
 					$result .= '<td class="nowrap" colspan="3">';
-					$result .= '<span class="opacitymedium">'.$langs->trans("More").'...'.($othernb < $maxofloop ? ' ('.$othernb.')' : '').'</span>';
+					$result .= '<span class="opacitymedium">' . $langs->trans("More") . '...' . ($othernb < $maxofloop ? ' (' . $othernb . ')' : '') . '</span>';
 					$result .= '</td>';
 					$result .= "</tr>\n";
 				}
 
-				$result .= '<tr class="liste_total"><td class="left">'.$langs->trans("Total").'</td>';
-				$result .= '<td colspan="2" class="right">'.price($tot_ttc).'</td>';
+				$result .= '<tr class="liste_total"><td class="left">' . $langs->trans("Total") . '</td>';
+				$result .= '<td colspan="2" class="right">' . price($tot_ttc) . '</td>';
 				$result .= '</tr>';
 			} else {
-				$result .= '<tr class="oddeven"><td colspan="3"><span class="opacitymedium">'.$langs->trans("NoInvoice").'</span></td></tr>';
+				$result .= '<tr class="oddeven"><td colspan="3"><span class="opacitymedium">' . $langs->trans("NoInvoice") . '</span></td></tr>';
 			}
 			$result .= "</table></div>";
 			$db->free($resql);
@@ -730,17 +730,17 @@ function getDraftSupplierTable($maxCount = 500, $socid = 0)
 		$sql .= ", s.code_client, s.code_compta";
 		$sql .= ", s.code_fournisseur, s.code_compta_fournisseur";
 		$sql .= ", cc.rowid as country_id, cc.code as country_code";
-		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f, ".MAIN_DB_PREFIX."societe as s LEFT JOIN ".MAIN_DB_PREFIX."c_country as cc ON cc.rowid = s.fk_pays";
+		$sql .= " FROM " . MAIN_DB_PREFIX . "facture_fourn as f, " . MAIN_DB_PREFIX . "societe as s LEFT JOIN " . MAIN_DB_PREFIX . "c_country as cc ON cc.rowid = s.fk_pays";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
-			$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
+			$sql .= ", " . MAIN_DB_PREFIX . "societe_commerciaux as sc";
 		}
-		$sql .= " WHERE s.rowid = f.fk_soc AND f.fk_statut = ".FactureFournisseur::STATUS_DRAFT;
-		$sql .= " AND f.entity IN (".getEntity('invoice').')';
+		$sql .= " WHERE s.rowid = f.fk_soc AND f.fk_statut = " . FactureFournisseur::STATUS_DRAFT;
+		$sql .= " AND f.entity IN (" . getEntity('invoice') . ')';
 		if (!$user->hasRight('societe', 'client', 'voir')) {
-			$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
+			$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = " . ((int) $user->id);
 		}
 		if ($socid) {
-			$sql .= " AND f.fk_soc = ".((int) $socid);
+			$sql .= " AND f.fk_soc = " . ((int) $socid);
 		}
 		// Add where from hooks
 		$parameters = array();
@@ -758,8 +758,8 @@ function getDraftSupplierTable($maxCount = 500, $socid = 0)
 			$result .= '<tr class="liste_titre">';
 			$result .= '<th colspan="3">';
 			$result .= $langs->trans("SuppliersDraftInvoices");
-			$result .= '<a href="'.DOL_URL_ROOT.'/fourn/facture/list.php?search_status='.FactureFournisseur::STATUS_DRAFT.'">';
-			$result .= '<span class="badge marginleftonly">'.$num.'</span>';
+			$result .= '<a href="' . DOL_URL_ROOT . '/fourn/facture/list.php?search_status=' . FactureFournisseur::STATUS_DRAFT . '">';
+			$result .= '<span class="badge marginleftonly">' . $num . '</span>';
 			$result .= '</a>';
 			$result .= '</th>';
 			$result .= '</tr>';
@@ -811,7 +811,7 @@ function getDraftSupplierTable($maxCount = 500, $socid = 0)
 					$result .= '<td class="nowrap tdoverflowmax100">';
 					$result .= $companystatic->getNomUrl(1, 'supplier');
 					$result .= '</td>';
-					$result .= '<td class="right"><span class="amount">'.price($obj->total_ttc).'</span></td>';
+					$result .= '<td class="right"><span class="amount">' . price($obj->total_ttc) . '</span></td>';
 					$result .= '</tr>';
 					$tot_ttc += $obj->total_ttc;
 					$i++;
@@ -820,16 +820,16 @@ function getDraftSupplierTable($maxCount = 500, $socid = 0)
 				if ($othernb) {
 					$result .= '<tr class="oddeven">';
 					$result .= '<td class="nowrap" colspan="3">';
-					$result .= '<span class="opacitymedium">'.$langs->trans("More").'...'.($othernb < $maxofloop ? ' ('.$othernb.')' : '').'</span>';
+					$result .= '<span class="opacitymedium">' . $langs->trans("More") . '...' . ($othernb < $maxofloop ? ' (' . $othernb . ')' : '') . '</span>';
 					$result .= '</td>';
 					$result .= "</tr>\n";
 				}
 
-				$result .= '<tr class="liste_total"><td class="left">'.$langs->trans("Total").'</td>';
-				$result .= '<td colspan="2" class="right">'.price($tot_ttc).'</td>';
+				$result .= '<tr class="liste_total"><td class="left">' . $langs->trans("Total") . '</td>';
+				$result .= '<td colspan="2" class="right">' . price($tot_ttc) . '</td>';
 				$result .= '</tr>';
 			} else {
-				$result .= '<tr class="oddeven"><td colspan="3"><span class="opacitymedium">'.$langs->trans("NoInvoice").'</span></td></tr>';
+				$result .= '<tr class="oddeven"><td colspan="3"><span class="opacitymedium">' . $langs->trans("NoInvoice") . '</span></td></tr>';
 			}
 			$result .= "</table></div>";
 			$db->free($resql);
@@ -855,18 +855,18 @@ function getCustomerInvoiceLatestEditTable($maxCount = 5, $socid = 0)
 
 	$sql = "SELECT f.rowid, f.entity, f.ref, f.fk_statut as status, f.paye, f.type, f.total_ht, f.total_tva, f.total_ttc, f.datec,";
 	$sql .= " s.nom as socname, s.rowid as socid, s.canvas, s.client";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
-	$sql .= ", ".MAIN_DB_PREFIX."societe as s";
+	$sql .= " FROM " . MAIN_DB_PREFIX . "facture as f";
+	$sql .= ", " . MAIN_DB_PREFIX . "societe as s";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
-		$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
+		$sql .= ", " . MAIN_DB_PREFIX . "societe_commerciaux as sc";
 	}
 	$sql .= " WHERE f.fk_soc = s.rowid";
-	$sql .= " AND f.entity IN (".getEntity('facture').")";
+	$sql .= " AND f.entity IN (" . getEntity('facture') . ")";
 	if ($socid) {
-		$sql .= " AND f.fk_soc = ".((int) $socid);
+		$sql .= " AND f.fk_soc = " . ((int) $socid);
 	}
 	if (!$user->hasRight('societe', 'client', 'voir')) {
-		$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
+		$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = " . ((int) $user->id);
 	}
 	$sql .= " ORDER BY f.tms DESC";
 	$sql .= $db->plimit($maxCount, 0);
@@ -882,8 +882,8 @@ function getCustomerInvoiceLatestEditTable($maxCount = 5, $socid = 0)
 	$result .= '<table class="noborder centpercent">';
 
 	$result .= '<tr class="liste_titre">';
-	$result .= '<th colspan="3">'.$langs->trans("LastCustomersBills", $maxCount).'</th>';
-	$result .= '<th class="right">'.$langs->trans("AmountTTC").'</th>';
+	$result .= '<th colspan="3">' . $langs->trans("LastCustomersBills", $maxCount) . '</th>';
+	$result .= '<th class="right">' . $langs->trans("AmountTTC") . '</th>';
 	$result .= '<th class="right"></th>';
 	$result .= '</tr>';
 
@@ -917,7 +917,7 @@ function getCustomerInvoiceLatestEditTable($maxCount = 5, $socid = 0)
 		$companystatic->canvas	= $obj->canvas;
 
 		$filename = dol_sanitizeFileName($obj->ref);
-		$filedir = $config->propal->multidir_output[$obj->entity].'/'.$filename;
+		$filedir = $config->propal->multidir_output[$obj->entity] . '/' . $filename;
 
 		$result .= '<tr class="nowrap">';
 
@@ -925,21 +925,21 @@ function getCustomerInvoiceLatestEditTable($maxCount = 5, $socid = 0)
 		$result .= '<table class="nobordernopadding">';
 		$result .= '<tr class="nocellnopadd">';
 
-		$result .= '<td width="96" class="nobordernopadding nowrap">'.$objectstatic->getNomUrl(1).'</td>';
+		$result .= '<td width="96" class="nobordernopadding nowrap">' . $objectstatic->getNomUrl(1) . '</td>';
 		$result .= '<td width="16" class="nobordernopadding nowrap">&nbsp;</td>';
-		$result .= '<td width="16" class="nobordernopadding right">'.$formfile->getDocumentsLink($objectstatic->element, $filename, $filedir).'</td>';
+		$result .= '<td width="16" class="nobordernopadding right">' . $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir) . '</td>';
 
 		$result .= '</tr>';
 		$result .= '</table>';
 		$result .= '</td>';
 
-		$result .= '<td class="tdoverflowmax150">'.$companystatic->getNomUrl(1, 'customer').'</td>';
-		$result .= '<td>'.dol_print_date($db->jdate($obj->datec), 'day').'</td>';
-		$result .= '<td class="right amount">'.price($obj->total_ttc).'</td>';
+		$result .= '<td class="tdoverflowmax150">' . $companystatic->getNomUrl(1, 'customer') . '</td>';
+		$result .= '<td>' . dol_print_date($db->jdate($obj->datec), 'day') . '</td>';
+		$result .= '<td class="right amount">' . price($obj->total_ttc) . '</td>';
 
 		// Load amount of existing payment of invoice (needed for complete status)
 		$payment = $objectstatic->getSommePaiement();
-		$result .= '<td class="right">'.$objectstatic->getLibStatut(3, $payment).'</td>';
+		$result .= '<td class="right">' . $objectstatic->getLibStatut(3, $payment) . '</td>';
 
 		$result .= '</tr>';
 
@@ -964,18 +964,18 @@ function getPurchaseInvoiceLatestEditTable($maxCount = 5, $socid = 0)
 
 	$sql = "SELECT f.rowid, f.entity, f.ref, f.fk_statut as status, f.paye, f.total_ht, f.total_tva, f.total_ttc, f.type, f.ref_supplier, f.datec,";
 	$sql .= " s.nom as socname, s.rowid as socid, s.canvas, s.client";
-	$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
-	$sql .= ", ".MAIN_DB_PREFIX."societe as s";
+	$sql .= " FROM " . MAIN_DB_PREFIX . "facture_fourn as f";
+	$sql .= ", " . MAIN_DB_PREFIX . "societe as s";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
-		$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
+		$sql .= ", " . MAIN_DB_PREFIX . "societe_commerciaux as sc";
 	}
 	$sql .= " WHERE f.fk_soc = s.rowid";
-	$sql .= " AND f.entity IN (".getEntity('facture_fourn').")";
+	$sql .= " AND f.entity IN (" . getEntity('facture_fourn') . ")";
 	if ($socid) {
-		$sql .= " AND f.fk_soc = ".((int) $socid);
+		$sql .= " AND f.fk_soc = " . ((int) $socid);
 	}
 	if (!$user->hasRight('societe', 'client', 'voir')) {
-		$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
+		$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = " . ((int) $user->id);
 	}
 	$sql .= " ORDER BY f.tms DESC";
 	$sql .= $db->plimit($maxCount, 0);
@@ -991,12 +991,12 @@ function getPurchaseInvoiceLatestEditTable($maxCount = 5, $socid = 0)
 	$result = '<div class="div-table-responsive-no-min">';
 	$result .= '<table class="noborder centpercent">';
 	$result .= '<tr class="liste_titre">';
-	$result .= '<th colspan="3">'.$langs->trans("BoxTitleLastSupplierBills", $maxCount).' ';
-	$result .= '<a href="'.DOL_URL_ROOT.'/fourn/facture/list.php?sortfield=f.tms&sortorder=DESC">';
+	$result .= '<th colspan="3">' . $langs->trans("BoxTitleLastSupplierBills", $maxCount) . ' ';
+	$result .= '<a href="' . DOL_URL_ROOT . '/fourn/facture/list.php?sortfield=f.tms&sortorder=DESC">';
 	$result .= '<span class="badge">...</span>';
 	$result .= '</a>';
 	$result .= '</th>';
-	$result .= '<th class="right">'.$langs->trans("AmountTTC").'</th>';
+	$result .= '<th class="right">' . $langs->trans("AmountTTC") . '</th>';
 	$result .= '<th class="right"></th>';
 	$result .= '</tr>';
 
@@ -1031,7 +1031,7 @@ function getPurchaseInvoiceLatestEditTable($maxCount = 5, $socid = 0)
 		$companystatic->canvas = $obj->canvas;
 
 		$filename = dol_sanitizeFileName($obj->ref);
-		$filedir = $config->propal->multidir_output[$obj->entity].'/'.$filename;
+		$filedir = $config->propal->multidir_output[$obj->entity] . '/' . $filename;
 
 		$result .= '<tr class="nowrap">';
 
@@ -1039,21 +1039,21 @@ function getPurchaseInvoiceLatestEditTable($maxCount = 5, $socid = 0)
 		$result .= '<table class="nobordernopadding">';
 		$result .= '<tr class="nocellnopadd">';
 
-		$result .= '<td width="96" class="nobordernopadding nowrap">'.$objectstatic->getNomUrl(1).'</td>';
+		$result .= '<td width="96" class="nobordernopadding nowrap">' . $objectstatic->getNomUrl(1) . '</td>';
 		$result .= '<td width="16" class="nobordernopadding nowrap">&nbsp;</td>';
-		$result .= '<td width="16" class="nobordernopadding right">'.$formfile->getDocumentsLink($objectstatic->element, $filename, $filedir).'</td>';
+		$result .= '<td width="16" class="nobordernopadding right">' . $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir) . '</td>';
 
 		$result .= '</tr>';
 		$result .= '</table>';
 		$result .= '</td>';
 
-		$result .= '<td class="tdoverflowmax150">'.$companystatic->getNomUrl(1, 'supplier').'</td>';
+		$result .= '<td class="tdoverflowmax150">' . $companystatic->getNomUrl(1, 'supplier') . '</td>';
 
-		$result .= '<td title="'.$langs->trans("DateModification").': '.dol_print_date($db->jdate($obj->datec), 'dayhour').'">'.dol_print_date($db->jdate($obj->datec), 'day').'</td>';
+		$result .= '<td title="' . $langs->trans("DateModification") . ': ' . dol_print_date($db->jdate($obj->datec), 'dayhour') . '">' . dol_print_date($db->jdate($obj->datec), 'day') . '</td>';
 
-		$result .= '<td class="amount right">'.price($obj->total_ttc).'</td>';
+		$result .= '<td class="amount right">' . price($obj->total_ttc) . '</td>';
 
-		$result .= '<td class="right">'.$objectstatic->getLibStatut(3).'</td>';
+		$result .= '<td class="right">' . $objectstatic->getLibStatut(3) . '</td>';
 
 		$result .= '</tr>';
 
@@ -1089,18 +1089,18 @@ function getCustomerInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 		$sql .= ", s.code_fournisseur, s.code_compta_fournisseur";
 		$sql .= ", cc.rowid as country_id, cc.code as country_code";
 		$sql .= ", sum(pf.amount) as am";
-		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s LEFT JOIN ".MAIN_DB_PREFIX."c_country as cc ON cc.rowid = s.fk_pays,".MAIN_DB_PREFIX."facture as f";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement_facture as pf on f.rowid=pf.fk_facture";
+		$sql .= " FROM " . MAIN_DB_PREFIX . "societe as s LEFT JOIN " . MAIN_DB_PREFIX . "c_country as cc ON cc.rowid = s.fk_pays," . MAIN_DB_PREFIX . "facture as f";
+		$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "paiement_facture as pf on f.rowid=pf.fk_facture";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
-			$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
+			$sql .= ", " . MAIN_DB_PREFIX . "societe_commerciaux as sc";
 		}
-		$sql .= " WHERE s.rowid = f.fk_soc AND f.paye = 0 AND f.fk_statut = ".Facture::STATUS_VALIDATED;
-		$sql .= " AND f.entity IN (".getEntity('invoice').')';
+		$sql .= " WHERE s.rowid = f.fk_soc AND f.paye = 0 AND f.fk_statut = " . Facture::STATUS_VALIDATED;
+		$sql .= " AND f.entity IN (" . getEntity('invoice') . ')';
 		if (!$user->hasRight('societe', 'client', 'voir')) {
-			$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
+			$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = " . ((int) $user->id);
 		}
 		if ($socid) {
-			$sql .= " AND f.fk_soc = ".((int) $socid);
+			$sql .= " AND f.fk_soc = " . ((int) $socid);
 		}
 		// Add where from hooks
 		$parameters = array();
@@ -1125,18 +1125,18 @@ function getCustomerInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 
 			print '<tr class="liste_titre">';
 			print '<th colspan="2">';
-			print $langs->trans("BillsCustomersUnpaid", $num).' ';
-			print '<a href="'.DOL_URL_ROOT.'/compta/facture/list.php?search_status='.Facture::STATUS_VALIDATED.'">';
-			print '<span class="badge">'.$num.'</span>';
+			print $langs->trans("BillsCustomersUnpaid", $num) . ' ';
+			print '<a href="' . DOL_URL_ROOT . '/compta/facture/list.php?search_status=' . Facture::STATUS_VALIDATED . '">';
+			print '<span class="badge">' . $num . '</span>';
 			print '</a>';
 			print '</th>';
 
-			print '<th class="right">'.$langs->trans("DateDue").'</th>';
+			print '<th class="right">' . $langs->trans("DateDue") . '</th>';
 			if (getDolGlobalString('MAIN_SHOW_HT_ON_SUMMARY')) {
-				print '<th class="right">'.$langs->trans("AmountHT").'</th>';
+				print '<th class="right">' . $langs->trans("AmountHT") . '</th>';
 			}
-			print '<th class="right">'.$langs->trans("AmountTTC").'</th>';
-			print '<th class="right">'.$langs->trans("Received").'</th>';
+			print '<th class="right">' . $langs->trans("AmountTTC") . '</th>';
+			print '<th class="right">' . $langs->trans("Received") . '</th>';
 			print '<th width="16">&nbsp;</th>';
 			print '</tr>';
 			if ($num) {
@@ -1185,8 +1185,8 @@ function getCustomerInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 					print '</td>';
 					print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 					$filename = dol_sanitizeFileName($obj->ref);
-					$filedir = $config->facture->dir_output.'/'.dol_sanitizeFileName($obj->ref);
-					$urlsource = $_SERVER['PHP_SELF'].'?facid='.$obj->rowid;
+					$filedir = $config->facture->dir_output . '/' . dol_sanitizeFileName($obj->ref);
+					$urlsource = $_SERVER['PHP_SELF'] . '?facid=' . $obj->rowid;
 					print $formfile->getDocumentsLink($tmpinvoice->element, $filename, $filedir);
 					print '</td></tr></table>';
 
@@ -1201,11 +1201,11 @@ function getCustomerInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 					}
 					print '</td>';
 					if (getDolGlobalString('MAIN_SHOW_HT_ON_SUMMARY')) {
-						print '<td class="right"><span class="amount">'.price($obj->total_ht).'</span></td>';
+						print '<td class="right"><span class="amount">' . price($obj->total_ht) . '</span></td>';
 					}
-					print '<td class="nowrap right"><span class="amount">'.price($obj->total_ttc).'</span></td>';
-					print '<td class="nowrap right"><span class="amount">'.price($obj->am).'</span></td>';
-					print '<td>'.$tmpinvoice->getLibStatut(3, $obj->am).'</td>';
+					print '<td class="nowrap right"><span class="amount">' . price($obj->total_ttc) . '</span></td>';
+					print '<td class="nowrap right"><span class="amount">' . price($obj->am) . '</span></td>';
+					print '<td>' . $tmpinvoice->getLibStatut(3, $obj->am) . '</td>';
 					print '</tr>';
 
 					$total_ttc += $obj->total_ttc;
@@ -1221,19 +1221,19 @@ function getCustomerInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 						$colspan++;
 					}
 					print '<tr class="oddeven">';
-					print '<td class="nowrap" colspan="'.$colspan.'">';
-					print '<span class="opacitymedium">'.$langs->trans("More").'... ('.$othernb.')</span>';
+					print '<td class="nowrap" colspan="' . $colspan . '">';
+					print '<span class="opacitymedium">' . $langs->trans("More") . '... (' . $othernb . ')</span>';
 					print '</td>';
 					print "</tr>\n";
 				}
 
-				print '<tr class="liste_total"><td colspan="2">'.$langs->trans("Total").' &nbsp; <span style="font-weight: normal">('.$langs->trans("RemainderToTake").': '.price($total_ttc - $totalam).')</span> </td>';
+				print '<tr class="liste_total"><td colspan="2">' . $langs->trans("Total") . ' &nbsp; <span style="font-weight: normal">(' . $langs->trans("RemainderToTake") . ': ' . price($total_ttc - $totalam) . ')</span> </td>';
 				print '<td>&nbsp;</td>';
 				if (getDolGlobalString('MAIN_SHOW_HT_ON_SUMMARY')) {
-					print '<td class="right"><span class="amount">'.price($total).'</span></td>';
+					print '<td class="right"><span class="amount">' . price($total) . '</span></td>';
 				}
-				print '<td class="nowrap right"><span class="amount">'.price($total_ttc).'</span></td>';
-				print '<td class="nowrap right"><span class="amount">'.price($totalam).'</span></td>';
+				print '<td class="nowrap right"><span class="amount">' . price($total_ttc) . '</span></td>';
+				print '<td class="nowrap right"><span class="amount">' . price($totalam) . '</span></td>';
 				print '<td>&nbsp;</td>';
 				print '</tr>';
 			} else {
@@ -1241,7 +1241,7 @@ function getCustomerInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 				if (getDolGlobalString('MAIN_SHOW_HT_ON_SUMMARY')) {
 					$colspan++;
 				}
-				print '<tr class="oddeven"><td colspan="'.$colspan.'" class="opacitymedium">'.$langs->trans("NoInvoice").'</td></tr>';
+				print '<tr class="oddeven"><td colspan="' . $colspan . '" class="opacitymedium">' . $langs->trans("NoInvoice") . '</td></tr>';
 			}
 			print '</table></div><br>';
 			$db->free($resql);
@@ -1277,20 +1277,20 @@ function getPurchaseInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 		$sql .= ", s.code_client, s.code_compta";
 		$sql .= ", s.code_fournisseur, s.code_compta_fournisseur";
 		$sql .= ", sum(pf.amount) as am";
-		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."facture_fourn as ff";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiementfourn_facturefourn as pf on ff.rowid=pf.fk_facturefourn";
+		$sql .= " FROM " . MAIN_DB_PREFIX . "societe as s, " . MAIN_DB_PREFIX . "facture_fourn as ff";
+		$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "paiementfourn_facturefourn as pf on ff.rowid=pf.fk_facturefourn";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
-			$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
+			$sql .= ", " . MAIN_DB_PREFIX . "societe_commerciaux as sc";
 		}
 		$sql .= " WHERE s.rowid = ff.fk_soc";
-		$sql .= " AND ff.entity = ".$config->entity;
+		$sql .= " AND ff.entity = " . $config->entity;
 		$sql .= " AND ff.paye = 0";
-		$sql .= " AND ff.fk_statut = ".FactureFournisseur::STATUS_VALIDATED;
+		$sql .= " AND ff.fk_statut = " . FactureFournisseur::STATUS_VALIDATED;
 		if (!$user->hasRight('societe', 'client', 'voir')) {
-			$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
+			$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = " . ((int) $user->id);
 		}
 		if ($socid) {
-			$sql .= " AND ff.fk_soc = ".((int) $socid);
+			$sql .= " AND ff.fk_soc = " . ((int) $socid);
 		}
 		// Add where from hooks
 		$parameters = array();
@@ -1311,18 +1311,18 @@ function getPurchaseInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 
 			print '<tr class="liste_titre">';
 			print '<th colspan="2">';
-			print $langs->trans("BillsSuppliersUnpaid", $num).' ';
-			print '<a href="'.DOL_URL_ROOT.'/fourn/facture/list.php?search_status='.FactureFournisseur::STATUS_VALIDATED.'">';
-			print '<span class="badge">'.$num.'</span>';
+			print $langs->trans("BillsSuppliersUnpaid", $num) . ' ';
+			print '<a href="' . DOL_URL_ROOT . '/fourn/facture/list.php?search_status=' . FactureFournisseur::STATUS_VALIDATED . '">';
+			print '<span class="badge">' . $num . '</span>';
 			print '</a>';
 			print '</th>';
 
-			print '<th class="right">'.$langs->trans("DateDue").'</th>';
+			print '<th class="right">' . $langs->trans("DateDue") . '</th>';
 			if (getDolGlobalString('MAIN_SHOW_HT_ON_SUMMARY')) {
-				print '<th class="right">'.$langs->trans("AmountHT").'</th>';
+				print '<th class="right">' . $langs->trans("AmountHT") . '</th>';
 			}
-			print '<th class="right">'.$langs->trans("AmountTTC").'</th>';
-			print '<th class="right">'.$langs->trans("Paid").'</th>';
+			print '<th class="right">' . $langs->trans("AmountTTC") . '</th>';
+			print '<th class="right">' . $langs->trans("Paid") . '</th>';
 			print '<th width="16">&nbsp;</th>';
 			print "</tr>\n";
 
@@ -1368,14 +1368,14 @@ function getPurchaseInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 					print '<td class="nowrap tdoverflowmax100">';
 					print $facstatic->getNomUrl(1, '');
 					print '</td>';
-					print '<td class="nowrap tdoverflowmax100">'.$societestatic->getNomUrl(1, 'supplier').'</td>';
-					print '<td class="right">'.dol_print_date($db->jdate($obj->date_lim_reglement), 'day').'</td>';
+					print '<td class="nowrap tdoverflowmax100">' . $societestatic->getNomUrl(1, 'supplier') . '</td>';
+					print '<td class="right">' . dol_print_date($db->jdate($obj->date_lim_reglement), 'day') . '</td>';
 					if (getDolGlobalString('MAIN_SHOW_HT_ON_SUMMARY')) {
-						print '<td class="right"><span class="amount">'.price($obj->total_ht).'</span></td>';
+						print '<td class="right"><span class="amount">' . price($obj->total_ht) . '</span></td>';
 					}
-					print '<td class="nowrap right"><span class="amount">'.price($obj->total_ttc).'</span></td>';
-					print '<td class="nowrap right"><span class="amount">'.price($obj->am).'</span></td>';
-					print '<td>'.$facstatic->getLibStatut(3, $obj->am).'</td>';
+					print '<td class="nowrap right"><span class="amount">' . price($obj->total_ttc) . '</span></td>';
+					print '<td class="nowrap right"><span class="amount">' . price($obj->am) . '</span></td>';
+					print '<td>' . $facstatic->getLibStatut(3, $obj->am) . '</td>';
 					print '</tr>';
 					$total += $obj->total_ht;
 					$total_ttc += $obj->total_ttc;
@@ -1389,19 +1389,19 @@ function getPurchaseInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 						$colspan++;
 					}
 					print '<tr class="oddeven">';
-					print '<td class="nowrap" colspan="'.$colspan.'">';
-					print '<span class="opacitymedium">'.$langs->trans("More").'... ('.$othernb.')</span>';
+					print '<td class="nowrap" colspan="' . $colspan . '">';
+					print '<span class="opacitymedium">' . $langs->trans("More") . '... (' . $othernb . ')</span>';
 					print '</td>';
 					print "</tr>\n";
 				}
 
-				print '<tr class="liste_total"><td colspan="2">'.$langs->trans("Total").' &nbsp; <span style="font-weight: normal">('.$langs->trans("RemainderToPay").': '.price($total_ttc - $totalam).')</span> </td>';
+				print '<tr class="liste_total"><td colspan="2">' . $langs->trans("Total") . ' &nbsp; <span style="font-weight: normal">(' . $langs->trans("RemainderToPay") . ': ' . price($total_ttc - $totalam) . ')</span> </td>';
 				print '<td>&nbsp;</td>';
 				if (getDolGlobalString('MAIN_SHOW_HT_ON_SUMMARY')) {
-					print '<td class="right">'.price($total).'</td>';
+					print '<td class="right">' . price($total) . '</td>';
 				}
-				print '<td class="nowrap right">'.price($total_ttc).'</td>';
-				print '<td class="nowrap right">'.price($totalam).'</td>';
+				print '<td class="nowrap right">' . price($total_ttc) . '</td>';
+				print '<td class="nowrap right">' . price($totalam) . '</td>';
 				print '<td>&nbsp;</td>';
 				print '</tr>';
 			} else {
@@ -1409,7 +1409,7 @@ function getPurchaseInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 				if (getDolGlobalString('MAIN_SHOW_HT_ON_SUMMARY')) {
 					$colspan++;
 				}
-				print '<tr class="oddeven"><td colspan="'.$colspan.'" class="opacitymedium">'.$langs->trans("NoInvoice").'</td></tr>';
+				print '<tr class="oddeven"><td colspan="' . $colspan . '" class="opacitymedium">' . $langs->trans("NoInvoice") . '</td></tr>';
 			}
 			print '</table></div><br>';
 		} else {

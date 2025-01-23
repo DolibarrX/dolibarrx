@@ -35,12 +35,12 @@ function cronadmin_prepare_head()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/cron/admin/cron.php';
+	$head[$h][0] = DOL_URL_ROOT . '/cron/admin/cron.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");
 	$head[$h][2] = 'setup';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/cron/list.php?mode=modulesetup';
+	$head[$h][0] = DOL_URL_ROOT . '/cron/list.php?mode=modulesetup';
 	$head[$h][1] = $langs->trans("Module2300Name");
 	$head[$h][2] = 'jobs';
 	$h++;
@@ -65,12 +65,12 @@ function cron_prepare_head(Cronjob $object)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/cron/card.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/cron/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("CronTask");
 	$head[$h][2] = 'card';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/cron/info.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/cron/info.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Info");
 	$head[$h][2] = 'info';
 	$h++;
@@ -93,23 +93,23 @@ function dol_print_cron_urls()
 	global $dolibarr_main_url_root;
 
 	// Define $urlwithroot
-	$urlwithouturlroot = preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($dolibarr_main_url_root));
-	$urlwithroot = $urlwithouturlroot.DOL_URL_ROOT; // This is to use external domain name found into config file
+	$urlwithouturlroot = preg_replace('/' . preg_quote(DOL_URL_ROOT, '/') . '$/i', '', trim($dolibarr_main_url_root));
+	$urlwithroot = $urlwithouturlroot . DOL_URL_ROOT; // This is to use external domain name found into config file
 	//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 
 	// Cron launch
 	print '<div class="div-table-responsive-no-min">';
-	print $langs->trans("URLToLaunchCronJobs").':<br>';
-	$url = $urlwithroot.'/public/cron/cron_run_jobs_by_url.php?'.(!getDolGlobalString('CRON_KEY') ? '' : 'securitykey=' . getDolGlobalString('CRON_KEY').'&').'userlogin='.$user->login;
+	print $langs->trans("URLToLaunchCronJobs") . ':<br>';
+	$url = $urlwithroot . '/public/cron/cron_run_jobs_by_url.php?' . (!getDolGlobalString('CRON_KEY') ? '' : 'securitykey=' . getDolGlobalString('CRON_KEY') . '&') . 'userlogin=' . $user->login;
 	print '<div class="urllink">';
-	print '<input type="text" id="publicurlmember" class="quatrevingtpercentminusx" value="'.$url.'">';
-	print ' <a href="'.$url.'" target="_blank" rel="noopener noreferrer">'.img_picto('', 'globe')."</a>\n";
+	print '<input type="text" id="publicurlmember" class="quatrevingtpercentminusx" value="' . $url . '">';
+	print ' <a href="' . $url . '" target="_blank" rel="noopener noreferrer">' . img_picto('', 'globe') . "</a>\n";
 	print '</div>';
-	print '<br> '.$langs->trans("OrToLaunchASpecificJob").'<br>';
-	$url = $urlwithroot.'/public/cron/cron_run_jobs_by_url.php?'.(!getDolGlobalString('CRON_KEY') ? '' : 'securitykey=' . getDolGlobalString('CRON_KEY').'&').'userlogin='.$user->login.'&id=cronjobid';
+	print '<br> ' . $langs->trans("OrToLaunchASpecificJob") . '<br>';
+	$url = $urlwithroot . '/public/cron/cron_run_jobs_by_url.php?' . (!getDolGlobalString('CRON_KEY') ? '' : 'securitykey=' . getDolGlobalString('CRON_KEY') . '&') . 'userlogin=' . $user->login . '&id=cronjobid';
 	print '<div class="urllink">';
-	print '<input type="text" id="publicurlmemberall" class="quatrevingtpercentminusx" value="'.$url.'">';
-	print ' <a href="'.$url.'" target="_blank" rel="noopener noreferrer">'.img_picto('', 'globe')."</a>\n";
+	print '<input type="text" id="publicurlmemberall" class="quatrevingtpercentminusx" value="' . $url . '">';
+	print ' <a href="' . $url . '" target="_blank" rel="noopener noreferrer">' . img_picto('', 'globe') . "</a>\n";
 	print '</div>';
 	print '</div>';
 	print '<br>';
@@ -122,15 +122,15 @@ function dol_print_cron_urls()
 		$logintouse = $user->login;
 	}
 
-	print '<u>'.$langs->trans("FileToLaunchCronJobs").':</u><br>';
+	print '<u>' . $langs->trans("FileToLaunchCronJobs") . ':</u><br>';
 
 	$pathtoscript = '/pathtoscript';
 	if (getDolGlobalString('MAIN_DOL_SCRIPTS_ROOT')) {
 		$pathtoscript = getDolGlobalString('MAIN_DOL_SCRIPTS_ROOT');
 	}
 
-	$file = $pathtoscript.'/scripts/cron/cron_run_jobs.php '.(!getDolGlobalString('CRON_KEY') ? 'securitykey' : '' . getDolGlobalString('CRON_KEY')).' '.$logintouse.' [cronjobid]';
-	print '<textarea class="quatrevingtpercent">'.$file."</textarea><br>\n";
+	$file = $pathtoscript . '/scripts/cron/cron_run_jobs.php ' . (!getDolGlobalString('CRON_KEY') ? 'securitykey' : '' . getDolGlobalString('CRON_KEY')) . ' ' . $logintouse . ' [cronjobid]';
+	print '<textarea class="quatrevingtpercent">' . $file . "</textarea><br>\n";
 	print '<br>';
 
 	// Add note
@@ -142,11 +142,11 @@ function dol_print_cron_urls()
 		if (preg_match('/^mac/i', PHP_OS)) {
 			$linuxlike = 0;
 		}
-		print $langs->trans("Note").': ';
+		print $langs->trans("Note") . ': ';
 		if ($linuxlike) {
 			print $langs->trans("CronExplainHowToRunUnix");
 			print '<br>';
-			print '<textarea class="quatrevingtpercent">*/5 * * * * '.$pathtoscript.'/scripts/cron/cron_run_jobs.php '.(!getDolGlobalString('CRON_KEY') ? 'securitykey' : '' . getDolGlobalString('CRON_KEY')).' '.$logintouse.' &gt; '.DOL_DATA_ROOT.'/cron_run_jobs.php.log</textarea><br>';
+			print '<textarea class="quatrevingtpercent">*/5 * * * * ' . $pathtoscript . '/scripts/cron/cron_run_jobs.php ' . (!getDolGlobalString('CRON_KEY') ? 'securitykey' : '' . getDolGlobalString('CRON_KEY')) . ' ' . $logintouse . ' &gt; ' . DOL_DATA_ROOT . '/cron_run_jobs.php.log</textarea><br>';
 		} else {
 			print $langs->trans("CronExplainHowToRunWin");
 		}

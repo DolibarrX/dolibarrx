@@ -57,7 +57,7 @@ function accounting_prepare_head(AccountingAccount $object)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/accountancy/admin/card.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/accountancy/admin/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("AccountAccounting");
 	$head[$h][2] = 'card';
 	$h++;
@@ -187,28 +187,28 @@ function journalHead($nom, $variant, $period, $periodlink, $description, $buildd
 	print "\n\n<!-- start banner journal -->\n";
 
 	if (!is_empty($varlink)) {
-		$varlink = '?'.$varlink;
+		$varlink = '?' . $varlink;
 	}
 
 	$head = array();
 	$h = 0;
-	$head[$h][0] = $_SERVER["PHP_SELF"].$varlink;
+	$head[$h][0] = $_SERVER["PHP_SELF"] . $varlink;
 	$head[$h][1] = $langs->trans("Journalization");
 	$head[$h][2] = 'journal';
 
-	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].$varlink.'">';
-	print '<input type="hidden" name="token" value="'.newToken().'">';
+	print '<form method="POST" action="' . $_SERVER["PHP_SELF"] . $varlink . '">';
+	print '<input type="hidden" name="token" value="' . newToken() . '">';
 
 	print dol_get_fiche_head($head, 'journal');
 
 	foreach ($moreparam as $key => $value) {
-		print '<input type="hidden" name="'.$key.'" value="'.$value.'">';
+		print '<input type="hidden" name="' . $key . '" value="' . $value . '">';
 	}
 	print '<table class="border centpercent tableforfield">';
 
 	// Ligne de titre
 	print '<tr>';
-	print '<td class="titlefieldcreate">'.$langs->trans("Name").'</td>';
+	print '<td class="titlefieldcreate">' . $langs->trans("Name") . '</td>';
 	print '<td colspan="3">';
 	print $nom;
 	print '</td>';
@@ -217,7 +217,7 @@ function journalHead($nom, $variant, $period, $periodlink, $description, $buildd
 	// Calculation mode
 	if ($calcmode) {
 		print '<tr>';
-		print '<td>'.$langs->trans("CalculationMode").'</td>';
+		print '<td>' . $langs->trans("CalculationMode") . '</td>';
 		if (!$variant) {
 			print '<td colspan="3">';
 		} else {
@@ -225,7 +225,7 @@ function journalHead($nom, $variant, $period, $periodlink, $description, $buildd
 		}
 		print $calcmode;
 		if ($variant) {
-			print '</td><td colspan="2">'.$variant;
+			print '</td><td colspan="2">' . $variant;
 		}
 		print '</td>';
 		print '</tr>';
@@ -233,7 +233,7 @@ function journalHead($nom, $variant, $period, $periodlink, $description, $buildd
 
 	// Ligne de la periode d'analyse du rapport
 	print '<tr>';
-	print '<td>'.$langs->trans("ReportPeriod").'</td>';
+	print '<td>' . $langs->trans("ReportPeriod") . '</td>';
 	if (!$periodlink) {
 		print '<td colspan="3">';
 	} else {
@@ -243,23 +243,23 @@ function journalHead($nom, $variant, $period, $periodlink, $description, $buildd
 		print $period;
 	}
 	if ($periodlink) {
-		print '</td><td colspan="2">'.$periodlink;
+		print '</td><td colspan="2">' . $periodlink;
 	}
 	print '</td>';
 	print '</tr>';
 
 	// Ligne de description
 	print '<tr>';
-	print '<td>'.$langs->trans("ReportDescription").'</td>';
-	print '<td colspan="3">'.$description.'</td>';
+	print '<td>' . $langs->trans("ReportDescription") . '</td>';
+	print '<td colspan="3">' . $description . '</td>';
 	print '</tr>';
 
 
 	// more options
 	foreach ($moreoptions as $key => $value) {
 		print '<tr>';
-		print '<td>'.$langs->trans($key).'</td>';
-		print '<td colspan="3">'.$value.'</td>';
+		print '<td>' . $langs->trans($key) . '</td>';
+		print '<td colspan="3">' . $value . '</td>';
 		print '</tr>';
 	}
 
@@ -267,7 +267,7 @@ function journalHead($nom, $variant, $period, $periodlink, $description, $buildd
 
 	print dol_get_fiche_end();
 
-	print '<div class="center"><input type="submit" class="button" name="submit" value="'.$langs->trans("Refresh").'"></div>';
+	print '<div class="center"><input type="submit" class="button" name="submit" value="' . $langs->trans("Refresh") . '"></div>';
 
 	print '</form>';
 
@@ -291,8 +291,8 @@ function getDefaultDatesForTransfer()
 	// Period by default on transfer (0: previous month | 1: current month | 2: fiscal year)
 	$periodbydefaultontransfer = getDolGlobalInt('ACCOUNTING_DEFAULT_PERIOD_ON_TRANSFER', 0);
 	if ($periodbydefaultontransfer == 2) {	// fiscal year
-		$sql = "SELECT date_start, date_end FROM ".MAIN_DB_PREFIX."accounting_fiscalyear";
-		$sql .= " WHERE date_start < '".$db->idate(dol_now())."' AND date_end > '".$db->idate(dol_now())."'";
+		$sql = "SELECT date_start, date_end FROM " . MAIN_DB_PREFIX . "accounting_fiscalyear";
+		$sql .= " WHERE date_start < '" . $db->idate(dol_now()) . "' AND date_end > '" . $db->idate(dol_now()) . "'";
 		$sql .= $db->plimit(1);
 		$res = $db->query($sql);
 		if ($db->num_rows($res) > 0) {
@@ -360,18 +360,18 @@ function getCurrentPeriodOfFiscalYear($db, $config, $from_time = null, $gm = 'tz
 		$now_arr = dol_getdate($from_time);
 	}
 
-	include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+	include_once DOL_DOCUMENT_ROOT . '/core/lib/date.lib.php';
 
 	// Take the first period found
-	$sql  = "SELECT date_start, date_end FROM ".$db->prefix()."accounting_fiscalyear";
-	$sql .= " WHERE date_start <= '".$db->idate($from_time, $gm)."'";
+	$sql  = "SELECT date_start, date_end FROM " . $db->prefix() . "accounting_fiscalyear";
+	$sql .= " WHERE date_start <= '" . $db->idate($from_time, $gm) . "'";
 	if ($withenddateonly) {
-		$sql .= " AND (date_end >= '".$db->idate($from_time, $gm)."')";
+		$sql .= " AND (date_end >= '" . $db->idate($from_time, $gm) . "')";
 	} else {
-		$sql .= " AND (date_end >= '".$db->idate($from_time, $gm)."' OR date_end IS NULL)";
+		$sql .= " AND (date_end >= '" . $db->idate($from_time, $gm) . "' OR date_end IS NULL)";
 	}
 	//$sql .= " AND statut = 0"
-	$sql .= " AND entity IN (".getEntity('accounting_fiscalyear').")";
+	$sql .= " AND entity IN (" . getEntity('accounting_fiscalyear') . ")";
 	$sql .= $db->order('date_start', 'DESC');
 	$sql .= $db->plimit(1);
 

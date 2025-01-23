@@ -36,14 +36,14 @@ function show_skin($fuser, $edit = 0)
 	global $config, $langs, $db;
 	global $bc;
 
-	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
+	require_once DOL_DOCUMENT_ROOT . '/core/class/html.formother.class.php';
 
 	$formother = new FormOther($db);
 
 	$dirskins = array('/includes/ckeditor/ckeditor/skins');
 	if (!empty($config->modules_parts['theme'])) {		// Using this feature slow down application
 		foreach ($config->modules_parts['theme'] as $reldir) {
-			$dirskins = array_merge($dirskins, (array) ($reldir.'theme'));
+			$dirskins = array_merge($dirskins, (array) ($reldir . 'theme'));
 		}
 	}
 	$dirskins = array_unique($dirskins);
@@ -59,21 +59,21 @@ function show_skin($fuser, $edit = 0)
 	$var = false;
 
 	// Title
-	print '<tr class="liste_titre"><th width="35%">'.$langs->trans("DefaultSkin").'</th>';
+	print '<tr class="liste_titre"><th width="35%">' . $langs->trans("DefaultSkin") . '</th>';
 	print '<th class="right">';
 	print '</th></tr>';
 
 	print '<tr class="oddeven">';
-	print '<td>'.$langs->trans("ThemeDir").'</td>';
+	print '<td>' . $langs->trans("ThemeDir") . '</td>';
 	print '<td>';
 	foreach ($dirskins as $dirskin) {
-		echo '"'.$dirskin.'" ';
+		echo '"' . $dirskin . '" ';
 	}
 	print '</td>';
 	print '</tr>';
 
 	//
-	print '<tr class="oddeven"><td colspan="'.$colspan.'">';
+	print '<tr class="oddeven"><td colspan="' . $colspan . '">';
 
 	print '<table class="nobordernopadding" width="100%"><tr><td><div class="center">';
 
@@ -87,8 +87,10 @@ function show_skin($fuser, $edit = 0)
 			$handle = opendir($dirskin);
 			if (is_resource($handle)) {
 				while (($subdir = readdir($handle)) !== false) {
-					if (is_dir($dirskin."/".$subdir) && substr($subdir, 0, 1) != '.'
-							&& substr($subdir, 0, 3) != 'CVS' && !preg_match('/common|phones/i', $subdir)) {
+					if (
+						is_dir($dirskin . "/" . $subdir) && substr($subdir, 0, 1) != '.'
+						&& substr($subdir, 0, 3) != 'CVS' && !preg_match('/common|phones/i', $subdir)
+					) {
 						// Disable not stable themes (dir ends with _exp or _dev)
 						if (getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2 && preg_match('/_dev$/i', $subdir)) {
 							continue;
@@ -99,9 +101,9 @@ function show_skin($fuser, $edit = 0)
 
 						print '<div class="inline-block" style="margin-top: 10px; margin-bottom: 10px; margin-right: 20px; margin-left: 20px;">';
 						if ($subdir == $selected_theme) {
-							print '<input '.($edit ? '' : 'disabled').' type="radio" '.$bc[$var].' style="border: 0px;" checked name="fckeditor_skin" value="'.$subdir.'"> <b>'.$subdir.'</b>';
+							print '<input ' . ($edit ? '' : 'disabled') . ' type="radio" ' . $bc[$var] . ' style="border: 0px;" checked name="fckeditor_skin" value="' . $subdir . '"> <b>' . $subdir . '</b>';
 						} else {
-							print '<input '.($edit ? '' : 'disabled').' type="radio" '.$bc[$var].' style="border: 0px;" name="fckeditor_skin" value="'.$subdir.'"> '.$subdir;
+							print '<input ' . ($edit ? '' : 'disabled') . ' type="radio" ' . $bc[$var] . ' style="border: 0px;" name="fckeditor_skin" value="' . $subdir . '"> ' . $subdir;
 						}
 						print '</div>';
 

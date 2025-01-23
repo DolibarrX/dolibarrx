@@ -65,7 +65,7 @@ function checkLoginPassEntity($usertotest, $passwordtotest, $entitytotest, $auth
 		$entitytotest = 1;
 	}
 
-	dol_syslog("checkLoginPassEntity usertotest=".$usertotest." entitytotest=".$entitytotest." authmode=".implode(',', $authmode));
+	dol_syslog("checkLoginPassEntity usertotest=" . $usertotest . " entitytotest=" . $entitytotest . " authmode=" . implode(',', $authmode));
 	$login = '';
 
 	// Validation of login/pass/entity with standard modules
@@ -75,7 +75,7 @@ function checkLoginPassEntity($usertotest, $passwordtotest, $entitytotest, $auth
 			if ($test && $mode && !$login) {
 				// Validation of login/pass/entity for mode $mode
 				$mode = trim($mode);
-				$authfile = 'functions_'.$mode.'.php';
+				$authfile = 'functions_' . $mode . '.php';
 				$fullauthfile = '';
 
 				$dirlogin = array_merge(array("/core/login"), (array) $config->modules_parts['login']);
@@ -84,7 +84,7 @@ function checkLoginPassEntity($usertotest, $passwordtotest, $entitytotest, $auth
 					$newdir = dol_osencode($dir);
 
 					// Check if file found (do not use dol_is_file to avoid loading files.lib.php)
-					$tmpnewauthfile = $newdir.(preg_match('/\/$/', $newdir) ? '' : '/').$authfile;
+					$tmpnewauthfile = $newdir . (preg_match('/\/$/', $newdir) ? '' : '/') . $authfile;
 					if (is_file($tmpnewauthfile)) {
 						$fullauthfile = $tmpnewauthfile;
 					}
@@ -96,7 +96,7 @@ function checkLoginPassEntity($usertotest, $passwordtotest, $entitytotest, $auth
 				}
 				if ($fullauthfile && $result) {
 					// Call function to check user/password
-					$function = 'check_user_password_'.$mode;
+					$function = 'check_user_password_' . $mode;
 					$login = call_user_func($function, $usertotest, $passwordtotest, $entitytotest, $context);
 					if ($login && $login != '--bad-login-validity--') {
 						// Login is successful with this method
@@ -108,12 +108,12 @@ function checkLoginPassEntity($usertotest, $passwordtotest, $entitytotest, $auth
 						$dol_screenheight = GETPOST('screenheight');*/
 					}
 				} else {
-					dol_syslog("Authentication KO - failed to load file '".$authfile."'", LOG_ERR);
+					dol_syslog("Authentication KO - failed to load file '" . $authfile . "'", LOG_ERR);
 					sleep(1);
 					// Load translation files required by the page
 					$langs->loadLangs(array('other', 'main', 'errors'));
 
-					$_SESSION["dol_loginmesg"] = (empty($_SESSION["dol_loginmesg"]) ? '' : $_SESSION["dol_loginmesg"].', ').$langs->transnoentitiesnoconv("ErrorFailedToLoadLoginFileForMode", $mode);
+					$_SESSION["dol_loginmesg"] = (empty($_SESSION["dol_loginmesg"]) ? '' : $_SESSION["dol_loginmesg"] . ', ') . $langs->transnoentitiesnoconv("ErrorFailedToLoadLoginFileForMode", $mode);
 				}
 			}
 		}
@@ -151,7 +151,7 @@ if (!function_exists('dol_loginfunction')) {
 
 		// Title
 		$appli = constant('DOL_APPLICATION_TITLE');
-		$title = $appli.(getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') ? '' : ' '.constant('DOL_VERSION'));
+		$title = $appli . (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') ? '' : ' ' . constant('DOL_VERSION'));
 		if (getDolGlobalString('MAIN_APPLICATION_TITLE')) {
 			$title = getDolGlobalString('MAIN_APPLICATION_TITLE');
 		}
@@ -180,20 +180,20 @@ if (!function_exists('dol_loginfunction')) {
 		if (!empty($config->modules_parts['tpl'])) {	// Using this feature slow down application
 			$dirtpls = array_merge($config->modules_parts['tpl'], array('/core/tpl/'));
 			foreach ($dirtpls as $reldir) {
-				$tmp = dol_buildpath($reldir.'login.tpl.php');
+				$tmp = dol_buildpath($reldir . 'login.tpl.php');
 				if (file_exists($tmp)) {
 					$template_dir = preg_replace('/login\.tpl\.php$/', '', $tmp);
 					break;
 				}
 			}
 		} else {
-			$template_dir = DOL_DOCUMENT_ROOT."/core/tpl/";
+			$template_dir = DOL_DOCUMENT_ROOT . "/core/tpl/";
 		}
 
 		// Set cookie for timeout management. We set it as a cookie so we will be able to use it to set timeout on next page before the session start
 		// and the conf file is loaded.
 		$prefix = dol_getprefix('');
-		$sessiontimeout = 'DOLSESSTIMEOUT_'.$prefix;
+		$sessiontimeout = 'DOLSESSTIMEOUT_' . $prefix;
 
 		if (getDolGlobalString('MAIN_SESSION_TIMEOUT')) {
 			if (session_status() != PHP_SESSION_ACTIVE) {
@@ -257,17 +257,17 @@ if (!function_exists('dol_loginfunction')) {
 
 		// Show logo (search in order: small company logo, large company logo, theme logo, common logo)
 		$width = 0;
-		$urllogo = DOL_URL_ROOT.'/theme/common/login_logo.png';
+		$urllogo = DOL_URL_ROOT . '/theme/common/login_logo.png';
 
-		if (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
-			$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_small);
-		} elseif (!empty($mysoc->logo) && is_readable($config->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
-			$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/'.$mysoc->logo);
+		if (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output . '/logos/thumbs/' . $mysoc->logo_small)) {
+			$urllogo = DOL_URL_ROOT . '/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file=' . urlencode('logos/thumbs/' . $mysoc->logo_small);
+		} elseif (!empty($mysoc->logo) && is_readable($config->mycompany->dir_output . '/logos/' . $mysoc->logo)) {
+			$urllogo = DOL_URL_ROOT . '/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file=' . urlencode('logos/' . $mysoc->logo);
 			$width = 128;
-		} elseif (!empty($mysoc->logo_squarred_small) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_squarred_small)) {
-			$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_squarred_small);
-		} elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.svg')) {
-			$urllogo = DOL_URL_ROOT.'/theme/dolibarr_logo.svg';
+		} elseif (!empty($mysoc->logo_squarred_small) && is_readable($config->mycompany->dir_output . '/logos/thumbs/' . $mysoc->logo_squarred_small)) {
+			$urllogo = DOL_URL_ROOT . '/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file=' . urlencode('logos/thumbs/' . $mysoc->logo_squarred_small);
+		} elseif (is_readable(DOL_DOCUMENT_ROOT . '/theme/dolibarr_logo.svg')) {
+			$urllogo = DOL_URL_ROOT . '/theme/dolibarr_logo.svg';
 		}
 
 		// Security graphical code
@@ -305,9 +305,9 @@ if (!function_exists('dol_loginfunction')) {
 		// Set jquery theme
 		$dol_loginmesg = (!empty($_SESSION["dol_loginmesg"]) ? $_SESSION["dol_loginmesg"] : '');
 
-		$favicon = DOL_URL_ROOT.'/theme/dolibarr_256x256_color.png';
+		$favicon = DOL_URL_ROOT . '/theme/dolibarr_256x256_color.png';
 		if (!empty($mysoc->logo_squarred_mini)) {
-			$favicon = DOL_URL_ROOT.'/viewimage.php?cache=1&modulepart=mycompany&file='.urlencode('logos/thumbs/'.$mysoc->logo_squarred_mini);
+			$favicon = DOL_URL_ROOT . '/viewimage.php?cache=1&modulepart=mycompany&file=' . urlencode('logos/thumbs/' . $mysoc->logo_squarred_mini);
 		}
 		if (getDolGlobalString('MAIN_FAVICON_URL')) {
 			$favicon = getDolGlobalString('MAIN_FAVICON_URL');
@@ -326,7 +326,7 @@ if (!function_exists('dol_loginfunction')) {
 		$dol_use_jmobile = GETPOSTINT('dol_use_jmobile');
 
 		// Include login page template
-		include $template_dir.'login.tpl.php';
+		include $template_dir . 'login.tpl.php';
 
 		// Global html output events ($mesgs, $errors, $warnings)
 		dol_htmloutput_events(0);
@@ -345,7 +345,7 @@ if (!function_exists('dol_loginfunction')) {
  */
 function makesalt($type = CRYPT_SALT_LENGTH)
 {
-	dol_syslog("makesalt type=".$type);
+	dol_syslog("makesalt type=" . $type);
 	switch ($type) {
 		case 12:	// 8 + 4
 			$saltlen = 8;
@@ -369,8 +369,8 @@ function makesalt($type = CRYPT_SALT_LENGTH)
 		$salt .= chr(mt_rand(64, 126));
 	}
 
-	$result = $saltprefix.$salt.$saltsuffix;
-	dol_syslog("makesalt return=".$result);
+	$result = $saltprefix . $salt . $saltsuffix;
+	dol_syslog("makesalt return=" . $result);
 	return $result;
 }
 
@@ -382,12 +382,12 @@ function makesalt($type = CRYPT_SALT_LENGTH)
  */
 function encodedecode_dbpassconf($level = 0)
 {
-	dol_syslog("encodedecode_dbpassconf level=".$level, LOG_DEBUG);
+	dol_syslog("encodedecode_dbpassconf level=" . $level, LOG_DEBUG);
 	$config = '';
 	$passwd = '';
 	$passwd_crypted = '';
 
-	if ($fp = fopen(DOL_DOCUMENT_ROOT.'/conf/conf.php', 'r')) {
+	if ($fp = fopen(DOL_DOCUMENT_ROOT . '/conf/conf.php', 'r')) {
 		while (!feof($fp)) {
 			$buffer = fgets($fp, 4096);
 
@@ -440,10 +440,10 @@ function encodedecode_dbpassconf($level = 0)
 			if ($lineofpass) {
 				// Add value at end of file
 				if ($level == 0) {
-					$config .= '$dolibarr_main_db_pass=\''.$passwd.'\';'."\n";
+					$config .= '$dolibarr_main_db_pass=\'' . $passwd . '\';' . "\n";
 				}
 				if ($level == 1) {
-					$config .= '$dolibarr_main_db_pass=\''.$mode.$passwd_crypted.'\';'."\n";
+					$config .= '$dolibarr_main_db_pass=\'' . $mode . $passwd_crypted . '\';' . "\n";
 				}
 
 				//print 'passwd = '.$passwd.' - passwd_crypted = '.$passwd_crypted;
@@ -455,7 +455,7 @@ function encodedecode_dbpassconf($level = 0)
 		fclose($fp);
 
 		// Write new conf file
-		$file = DOL_DOCUMENT_ROOT.'/conf/conf.php';
+		$file = DOL_DOCUMENT_ROOT . '/conf/conf.php';
 		if ($fp = @fopen($file, 'w')) {
 			fwrite($fp, $config);
 			fflush($fp);
@@ -538,10 +538,10 @@ function getRandomPassword($generic = false, $replaceambiguouschars = null, $len
 			$generated_password = str_shuffle($randomCode);
 		}
 	} elseif (getDolGlobalString('USER_PASSWORD_GENERATED')) {
-		$nomclass = "modGeneratePass".ucfirst($config->global->USER_PASSWORD_GENERATED);
-		$nomfichier = $nomclass.".class.php";
+		$nomclass = "modGeneratePass" . ucfirst($config->global->USER_PASSWORD_GENERATED);
+		$nomfichier = $nomclass . ".class.php";
 		//print DOL_DOCUMENT_ROOT."/core/modules/security/generate/".$nomclass;
-		require_once DOL_DOCUMENT_ROOT."/core/modules/security/generate/".$nomfichier;
+		require_once DOL_DOCUMENT_ROOT . "/core/modules/security/generate/" . $nomfichier;
 		$genhandler = new $nomclass($db, $config, $langs, $user);
 		'@phan-var-force ModeleGenPassword $genhandler';
 		$generated_password = $genhandler->getNewGeneratedPassword();
@@ -580,25 +580,25 @@ function dolJSToSetRandomPassword($htmlname, $htmlnameofbutton = 'generate_token
 	$out = '';
 
 	if (!empty($config->use_javascript_ajax)) {
-		$out .= "\n".'<!-- Js code to suggest a security key -->';
-		$out .= '<script nonce="'.getNonce().'" type="text/javascript">';
+		$out .= "\n" . '<!-- Js code to suggest a security key -->';
+		$out .= '<script nonce="' . getNonce() . '" type="text/javascript">';
 		$out .= 'jQuery(document).ready(function () {
-            jQuery("#'.dol_escape_js($htmlnameofbutton).'").click(function() {
+            jQuery("#' . dol_escape_js($htmlnameofbutton) . '").click(function() {
 				var currenttoken = jQuery("meta[name=anti-csrf-currenttoken]").attr("content");
-				console.log("We click on the button '.dol_escape_js($htmlnameofbutton).' to suggest a key. anti-csrf-currenttoken is "+currenttoken+". We will fill '.dol_escape_js($htmlname).'");
-				jQuery.get( "'.DOL_URL_ROOT.'/core/ajax/security.php", {
+				console.log("We click on the button ' . dol_escape_js($htmlnameofbutton) . ' to suggest a key. anti-csrf-currenttoken is "+currenttoken+". We will fill ' . dol_escape_js($htmlname) . '");
+				jQuery.get( "' . DOL_URL_ROOT . '/core/ajax/security.php", {
             		action: \'getrandompassword\',
-            		generic: '.($generic ? '1' : '0').',
+            		generic: ' . ($generic ? '1' : '0') . ',
 					token: currenttoken
 				},
 				function(result) {
-					if (jQuery("input#'.dol_escape_js($htmlname).'").attr("type") == "password") {
-						jQuery("input#'.dol_escape_js($htmlname).'").attr("type", "text");
+					if (jQuery("input#' . dol_escape_js($htmlname) . '").attr("type") == "password") {
+						jQuery("input#' . dol_escape_js($htmlname) . '").attr("type", "text");
 					}
-					jQuery("#'.dol_escape_js($htmlname).'").val(result);
+					jQuery("#' . dol_escape_js($htmlname) . '").val(result);
 				});
             });
-		});'."\n";
+		});' . "\n";
 		$out .= '</script>';
 	}
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright (C) 2015		Charlie BENKE       	<charlie@patas-monkey.com>
  * Copyright (C) 2019		Alexandre Spangaro  	<aspangaro@open-dsi.fr>
@@ -32,12 +33,12 @@ function socialnetwork_prepare_head()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/admin/dict.php?id=38&from=socialnetworksetup';
-	$head[$h][1] = $langs->trans("Dictionary").' - '.$langs->trans("SocialNetworks");
+	$head[$h][0] = DOL_URL_ROOT . '/admin/dict.php?id=38&from=socialnetworksetup';
+	$head[$h][1] = $langs->trans("Dictionary") . ' - ' . $langs->trans("SocialNetworks");
 	$head[$h][2] = 'dict';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/admin/fediverse.php';
+	$head[$h][0] = DOL_URL_ROOT . '/admin/fediverse.php';
 	$head[$h][1] = $langs->trans("Fediverse");
 	$head[$h][2] = 'divers';
 	$h++;

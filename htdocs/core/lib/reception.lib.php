@@ -42,13 +42,13 @@ function reception_prepare_head(Reception $object)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT."/reception/card.php?id=".$object->id;
+	$head[$h][0] = DOL_URL_ROOT . "/reception/card.php?id=" . $object->id;
 	$head[$h][1] = $langs->trans("ReceptionCard");
 	$head[$h][2] = 'reception';
 	$h++;
 
 	if ($object->statut ==  Reception::STATUS_DRAFT || ($object->statut == Reception::STATUS_VALIDATED && !getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION'))) {
-		$head[$h][0] = DOL_URL_ROOT."/reception/dispatch.php?id=".$object->id;
+		$head[$h][0] = DOL_URL_ROOT . "/reception/dispatch.php?id=" . $object->id;
 		$head[$h][1] = $langs->trans("ReceptionDistribution");
 		$head[$h][2] = 'dispatch';
 		$h++;
@@ -61,10 +61,10 @@ function reception_prepare_head(Reception $object)
 			$objectsrc->fetch($object->origin_id);
 		}
 		$nbContact = count($objectsrc->liste_contact(-1, 'internal')) + count($objectsrc->liste_contact(-1, 'external'));
-		$head[$h][0] = DOL_URL_ROOT."/reception/contact.php?id=".$object->id;
+		$head[$h][0] = DOL_URL_ROOT . "/reception/contact.php?id=" . $object->id;
 		$head[$h][1] = $langs->trans("ContactsAddresses");
 		if ($nbContact > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbContact.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbContact . '</span>';
 		}
 		$head[$h][2] = 'contact';
 		$h++;
@@ -76,15 +76,15 @@ function reception_prepare_head(Reception $object)
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
 	complete_head_from_modules($config, $langs, $object, $head, $h, 'reception', 'add', 'core');
 
-	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $config->reception->dir_output."/".dol_sanitizeFileName($object->ref);
+	require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
+	require_once DOL_DOCUMENT_ROOT . '/core/class/link.class.php';
+	$upload_dir = $config->reception->dir_output . "/" . dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
-	$head[$h][0] = DOL_URL_ROOT.'/reception/document.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/reception/document.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans('Documents');
 	if (($nbFiles + $nbLinks) > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.($nbFiles + $nbLinks).'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . ($nbFiles + $nbLinks) . '</span>';
 	}
 	$head[$h][2] = 'documents';
 	$h++;
@@ -96,10 +96,10 @@ function reception_prepare_head(Reception $object)
 	if (!empty($object->note_public)) {
 		$nbNote++;
 	}
-	$head[$h][0] = DOL_URL_ROOT."/reception/note.php?id=".$object->id;
+	$head[$h][0] = DOL_URL_ROOT . "/reception/note.php?id=" . $object->id;
 	$head[$h][1] = $langs->trans("Notes");
 	if ($nbNote > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbNote.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbNote . '</span>';
 	}
 	$head[$h][2] = 'note';
 	$h++;
@@ -128,7 +128,7 @@ function reception_admin_prepare_head()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT."/admin/reception_setup.php";
+	$head[$h][0] = DOL_URL_ROOT . "/admin/reception_setup.php";
 	$head[$h][1] = $langs->trans("Reception");
 	$head[$h][2] = 'reception';
 	$h++;
@@ -136,22 +136,22 @@ function reception_admin_prepare_head()
 	complete_head_from_modules($config, $langs, null, $head, $h, 'reception_admin');
 
 	if (getDolGlobalString('MAIN_SUBMODULE_RECEPTION')) {
-		$head[$h][0] = DOL_URL_ROOT.'/admin/reception_extrafields.php';
+		$head[$h][0] = DOL_URL_ROOT . '/admin/reception_extrafields.php';
 		$head[$h][1] = $langs->trans("ExtraFields");
 		$nbExtrafields = $extrafields->attributes['reception']['count'];
 		if ($nbExtrafields > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 		}
 		$head[$h][2] = 'attributes_reception';
 		$h++;
 	}
 
 	if (getDolGlobalString('MAIN_SUBMODULE_RECEPTION')) {
-		$head[$h][0] = DOL_URL_ROOT.'/admin/receptiondet_batch_extrafields.php';
+		$head[$h][0] = DOL_URL_ROOT . '/admin/receptiondet_batch_extrafields.php';
 		$head[$h][1] = $langs->trans("ExtraFieldsLines");
 		$nbExtrafields = $extrafields->attributes['receptiondet_batch']['count'];
 		if ($nbExtrafields > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 		}
 		$head[$h][2] = 'attributeslines_reception';
 		$h++;

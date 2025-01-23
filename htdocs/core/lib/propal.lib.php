@@ -38,7 +38,7 @@ function propal_prepare_head($object)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/comm/propal/card.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/comm/propal/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans('Proposal');
 	$head[$h][2] = 'comm';
 	$h++;
@@ -47,7 +47,7 @@ function propal_prepare_head($object)
 		|| (getDolGlobalInt('MAIN_SUBMODULE_DELIVERY') && $user->hasRight('expedition', 'delivery', 'lire'))))) {
 		$langs->load("sendings");
 		$text = '';
-		$head[$h][0] = DOL_URL_ROOT.'/expedition/propal.php?id='.$object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/expedition/propal.php?id=' . $object->id;
 		if (getDolGlobalInt('MAIN_SUBMODULE_EXPEDITION')) {
 			$text = $langs->trans("Shipment");
 		}
@@ -64,10 +64,10 @@ function propal_prepare_head($object)
 
 	if (!getDolGlobalString('MAIN_DISABLE_CONTACTS_TAB')) {
 		$nbContact = count($object->liste_contact(-1, 'internal')) + count($object->liste_contact(-1, 'external'));
-		$head[$h][0] = DOL_URL_ROOT.'/comm/propal/contact.php?id='.$object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/comm/propal/contact.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans('ContactsAddresses');
 		if ($nbContact > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbContact.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbContact . '</span>';
 		}
 		$head[$h][2] = 'contact';
 		$h++;
@@ -87,50 +87,50 @@ function propal_prepare_head($object)
 		if (!empty($object->note_public)) {
 			$nbNote++;
 		}
-		$head[$h][0] = DOL_URL_ROOT.'/comm/propal/note.php?id='.$object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/comm/propal/note.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans('Notes');
 		if ($nbNote > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbNote.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbNote . '</span>';
 		}
 		$head[$h][2] = 'note';
 		$h++;
 	}
 
-	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $config->propal->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
+	require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
+	require_once DOL_DOCUMENT_ROOT . '/core/class/link.class.php';
+	$upload_dir = $config->propal->multidir_output[$object->entity] . "/" . dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
-	$head[$h][0] = DOL_URL_ROOT.'/comm/propal/document.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/comm/propal/document.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans('Documents');
 	if (($nbFiles + $nbLinks) > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.($nbFiles + $nbLinks).'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . ($nbFiles + $nbLinks) . '</span>';
 	}
 	$head[$h][2] = 'document';
 	$h++;
 
 
-	$head[$h][0] = DOL_URL_ROOT.'/comm/propal/agenda.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/comm/propal/agenda.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Events");
 	if (isModEnabled('agenda') && ($user->hasRight('agenda', 'myactions', 'read') || $user->hasRight('agenda', 'allactions', 'read'))) {
 		$nbEvent = 0;
 		// Enable caching of thirdparty count actioncomm
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/memory.lib.php';
-		$cachekey = 'count_events_propal_'.$object->id;
+		require_once DOL_DOCUMENT_ROOT . '/core/lib/memory.lib.php';
+		$cachekey = 'count_events_propal_' . $object->id;
 		$dataretrieved = dol_getcache($cachekey);
 		if (!is_null($dataretrieved)) {
 			$nbEvent = $dataretrieved;
 		} else {
 			$sql = "SELECT COUNT(id) as nb";
-			$sql .= " FROM ".MAIN_DB_PREFIX."actioncomm";
-			$sql .= " WHERE fk_element = ".((int) $object->id);
+			$sql .= " FROM " . MAIN_DB_PREFIX . "actioncomm";
+			$sql .= " WHERE fk_element = " . ((int) $object->id);
 			$sql .= " AND elementtype = 'propal'";
 			$resql = $db->query($sql);
 			if ($resql) {
 				$obj = $db->fetch_object($resql);
 				$nbEvent = $obj->nb;
 			} else {
-				dol_syslog('Failed to count actioncomm '.$db->lasterror(), LOG_ERR);
+				dol_syslog('Failed to count actioncomm ' . $db->lasterror(), LOG_ERR);
 			}
 			dol_setcache($cachekey, $nbEvent, 120);		// If setting cache fails, this is not a problem, so we do not test result.
 		}
@@ -138,7 +138,7 @@ function propal_prepare_head($object)
 		$head[$h][1] .= '/';
 		$head[$h][1] .= $langs->trans("Agenda");
 		if ($nbEvent > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbEvent.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbEvent . '</span>';
 		}
 	}
 	$head[$h][2] = 'agenda';
@@ -167,7 +167,7 @@ function propal_admin_prepare_head()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/admin/propal.php';
+	$head[$h][0] = DOL_URL_ROOT . '/admin/propal.php';
 	$head[$h][1] = $langs->trans("Miscellaneous");
 	$head[$h][2] = 'general';
 	$h++;
@@ -178,20 +178,20 @@ function propal_admin_prepare_head()
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
 	complete_head_from_modules($config, $langs, null, $head, $h, 'propal_admin');
 
-	$head[$h][0] = DOL_URL_ROOT.'/comm/admin/propal_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/comm/admin/propal_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields");
 	$nbExtrafields = $extrafields->attributes['propal']['count'];
 	if ($nbExtrafields > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'attributes';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/comm/admin/propaldet_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/comm/admin/propaldet_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsLines");
 	$nbExtrafields = $extrafields->attributes['propaldet']['count'];
 	if ($nbExtrafields > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'attributeslines';
 	$h++;
@@ -224,20 +224,20 @@ function getCustomerProposalPieChart($socid = 0)
 	$propalstatic = new Propal($db);
 
 	$sql = "SELECT count(p.rowid) as nb, p.fk_statut as status";
-	$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-	$sql .= ", ".MAIN_DB_PREFIX."propal as p";
+	$sql .= " FROM " . MAIN_DB_PREFIX . "societe as s";
+	$sql .= ", " . MAIN_DB_PREFIX . "propal as p";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
-		$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
+		$sql .= ", " . MAIN_DB_PREFIX . "societe_commerciaux as sc";
 	}
-	$sql .= " WHERE p.entity IN (".getEntity($propalstatic->element).")";
+	$sql .= " WHERE p.entity IN (" . getEntity($propalstatic->element) . ")";
 	$sql .= " AND p.fk_soc = s.rowid";
 	if ($user->socid) {
-		$sql .= ' AND p.fk_soc = '.((int) $user->socid);
+		$sql .= ' AND p.fk_soc = ' . ((int) $user->socid);
 	}
 	if (!$user->hasRight('societe', 'client', 'voir')) {
-		$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
+		$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = " . ((int) $user->id);
 	}
-	$sql .= " AND p.fk_statut IN (".$db->sanitize(implode(" ,", $listofstatus)).")";
+	$sql .= " AND p.fk_statut IN (" . $db->sanitize(implode(" ,", $listofstatus)) . ")";
 	$sql .= " GROUP BY p.fk_statut";
 	$resql = $db->query($sql);
 	if ($resql) {
@@ -262,19 +262,19 @@ function getCustomerProposalPieChart($socid = 0)
 		$db->free($resql);
 
 		global $badgeStatus0, $badgeStatus1, $badgeStatus4, $badgeStatus6, $badgeStatus9;
-		include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
+		include DOL_DOCUMENT_ROOT . '/theme/' . $config->theme . '/theme_vars.inc.php';
 
 		$result = '<div class="div-table-responsive-no-min">';
 		$result .= '<table class="noborder nohover centpercent">';
 
 		$result .=  '<tr class="liste_titre">';
-		$result .=  '<td colspan="2">'.$langs->trans("Statistics").' - '.$langs->trans("Proposals").'</td>';
+		$result .=  '<td colspan="2">' . $langs->trans("Statistics") . ' - ' . $langs->trans("Proposals") . '</td>';
 		$result .=  '</tr>';
 
 		foreach ($listofstatus as $status) {
 			$dataseries[] = array($propalstatic->LibStatut($status, 1), (isset($vals[$status]) ? (int) $vals[$status] : 0));
 			if ($status == Propal::STATUS_DRAFT) {
-				$colorseries[$status] = '-'.$badgeStatus0;
+				$colorseries[$status] = '-' . $badgeStatus0;
 			}
 			if ($status == Propal::STATUS_VALIDATED) {
 				$colorseries[$status] = $badgeStatus1;
@@ -291,8 +291,8 @@ function getCustomerProposalPieChart($socid = 0)
 
 			if (empty($config->use_javascript_ajax)) {
 				$result .=  '<tr class="oddeven">';
-				$result .=  '<td>'.$propalstatic->LibStatut($status, 0).'</td>';
-				$result .=  '<td class="right"><a href="list.php?statut='.$status.'">'.(isset($vals[$status]) ? $vals[$status] : 0).'</a></td>';
+				$result .=  '<td>' . $propalstatic->LibStatut($status, 0) . '</td>';
+				$result .=  '<td class="right"><a href="list.php?statut=' . $status . '">' . (isset($vals[$status]) ? $vals[$status] : 0) . '</a></td>';
 				$result .=  "</tr>\n";
 			}
 		}
@@ -301,7 +301,7 @@ function getCustomerProposalPieChart($socid = 0)
 			$result .=  '<tr>';
 			$result .=  '<td align="center" colspan="2">';
 
-			include_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
+			include_once DOL_DOCUMENT_ROOT . '/core/class/dolgraph.class.php';
 			$dolgraph = new DolGraph();
 			$dolgraph->SetData($dataseries);
 			$dolgraph->SetDataColor(array_values($colorseries));
@@ -326,8 +326,8 @@ function getCustomerProposalPieChart($socid = 0)
 		//}
 
 		$result .=  '<tr class="liste_total">';
-		$result .=  '<td>'.$langs->trans("Total").'</td>';
-		$result .=  '<td class="right">'.$total.'</td>';
+		$result .=  '<td>' . $langs->trans("Total") . '</td>';
+		$result .=  '<td class="right">' . $total . '</td>';
 		$result .=  '</tr>';
 
 		$result .=  '</table>';

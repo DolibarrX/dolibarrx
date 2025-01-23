@@ -38,22 +38,23 @@ function contact_prepare_head(Contact $object)
 	$tab = 0;
 	$head = array();
 
-	$head[$tab][0] = DOL_URL_ROOT.'/contact/card.php?id='.$object->id;
+	$head[$tab][0] = DOL_URL_ROOT . '/contact/card.php?id=' . $object->id;
 	$head[$tab][1] = $langs->trans("Contact");
 	$head[$tab][2] = 'card';
 	$tab++;
 
 	if ((isModEnabled('ldap') && getDolGlobalString('LDAP_CONTACT_ACTIVE'))
-		&& (!getDolGlobalString('MAIN_DISABLE_LDAP_TAB') || !empty($user->admin))) {
+		&& (!getDolGlobalString('MAIN_DISABLE_LDAP_TAB') || !empty($user->admin))
+	) {
 		$langs->load("ldap");
 
-		$head[$tab][0] = DOL_URL_ROOT.'/contact/ldap.php?id='.$object->id;
+		$head[$tab][0] = DOL_URL_ROOT . '/contact/ldap.php?id=' . $object->id;
 		$head[$tab][1] = $langs->trans("LDAPCard");
 		$head[$tab][2] = 'ldap';
 		$tab++;
 	}
 
-	$head[$tab][0] = DOL_URL_ROOT.'/contact/perso.php?id='.$object->id;
+	$head[$tab][0] = DOL_URL_ROOT . '/contact/perso.php?id=' . $object->id;
 	$head[$tab][1] = $langs->trans("PersonalInformations");
 	$head[$tab][2] = 'perso';
 	$tab++;
@@ -61,19 +62,19 @@ function contact_prepare_head(Contact $object)
 	if (isModEnabled('project') && $user->hasRight('project', 'lire')) {
 		$nbProject = 0;
 		// Enable caching of thirdrparty count projects
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/memory.lib.php';
-		$cachekey = 'count_projects_contact_'.$object->id;
+		require_once DOL_DOCUMENT_ROOT . '/core/lib/memory.lib.php';
+		$cachekey = 'count_projects_contact_' . $object->id;
 		$dataretrieved = dol_getcache($cachekey);
 
 		if (!is_null($dataretrieved)) {
 			$nbProject = $dataretrieved;
 		} else {
 			$sql = 'SELECT COUNT(n.rowid) as nb';
-			$sql .= ' FROM '.MAIN_DB_PREFIX.'projet as n';
-			$sql .= ' INNER JOIN '.MAIN_DB_PREFIX.'element_contact as cc ON (n.rowid = cc.element_id)';
-			$sql .= " WHERE cc.fk_socpeople = ".((int) $object->id);
-			$sql .= " AND cc.fk_c_type_contact IN (SELECT rowid FROM ".MAIN_DB_PREFIX."c_type_contact WHERE element='project' AND source='external')";
-			$sql .= " AND n.entity IN (".getEntity('project').")";
+			$sql .= ' FROM ' . MAIN_DB_PREFIX . 'projet as n';
+			$sql .= ' INNER JOIN ' . MAIN_DB_PREFIX . 'element_contact as cc ON (n.rowid = cc.element_id)';
+			$sql .= " WHERE cc.fk_socpeople = " . ((int) $object->id);
+			$sql .= " AND cc.fk_c_type_contact IN (SELECT rowid FROM " . MAIN_DB_PREFIX . "c_type_contact WHERE element='project' AND source='external')";
+			$sql .= " AND n.entity IN (" . getEntity('project') . ")";
 
 			$resql = $db->query($sql);
 			if ($resql) {
@@ -84,10 +85,10 @@ function contact_prepare_head(Contact $object)
 			}
 			dol_setcache($cachekey, $nbProject, 120);	// If setting cache fails, this is not a problem, so we do not test result.
 		}
-		$head[$tab][0] = DOL_URL_ROOT.'/contact/project.php?id='.$object->id;
+		$head[$tab][0] = DOL_URL_ROOT . '/contact/project.php?id=' . $object->id;
 		$head[$tab][1] = $langs->trans("Projects");
 		if ($nbProject > 0) {
-			$head[$tab][1] .= '<span class="badge marginleftonlyshort">'.$nbProject.'</span>';
+			$head[$tab][1] .= '<span class="badge marginleftonlyshort">' . $nbProject . '</span>';
 		}
 		$head[$tab][2] = 'project';
 		$tab++;
@@ -95,7 +96,7 @@ function contact_prepare_head(Contact $object)
 
 	// Related items
 	if (isModEnabled('order') || isModEnabled("propal") || isModEnabled('invoice') || isModEnabled('intervention') || isModEnabled("supplier_proposal") || isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) {
-		$head[$tab][0] = DOL_URL_ROOT.'/contact/consumption.php?id='.$object->id;
+		$head[$tab][0] = DOL_URL_ROOT . '/contact/consumption.php?id=' . $object->id;
 		$head[$tab][1] = $langs->trans("Referers");
 		$head[$tab][2] = 'consumption';
 		$tab++;
@@ -110,30 +111,30 @@ function contact_prepare_head(Contact $object)
 	// Notes
 	if (!getDolGlobalString('MAIN_DISABLE_NOTES_TAB')) {
 		$nbNote = (empty($object->note_private) ? 0 : 1) + (empty($object->note_public) ? 0 : 1);
-		$head[$tab][0] = DOL_URL_ROOT.'/contact/note.php?id='.$object->id;
+		$head[$tab][0] = DOL_URL_ROOT . '/contact/note.php?id=' . $object->id;
 		$head[$tab][1] = $langs->trans("Note");
 		if ($nbNote > 0) {
-			$head[$tab][1] .= '<span class="badge marginleftonlyshort">'.$nbNote.'</span>';
+			$head[$tab][1] .= '<span class="badge marginleftonlyshort">' . $nbNote . '</span>';
 		}
 		$head[$tab][2] = 'note';
 		$tab++;
 	}
 
-	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $config->societe->dir_output."/contact/".dol_sanitizeFileName($object->ref);
+	require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
+	require_once DOL_DOCUMENT_ROOT . '/core/class/link.class.php';
+	$upload_dir = $config->societe->dir_output . "/contact/" . dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
-	$head[$tab][0] = DOL_URL_ROOT.'/contact/document.php?id='.$object->id;
+	$head[$tab][0] = DOL_URL_ROOT . '/contact/document.php?id=' . $object->id;
 	$head[$tab][1] = $langs->trans("Documents");
 	if (($nbFiles + $nbLinks) > 0) {
-		$head[$tab][1] .= '<span class="badge marginleftonlyshort">'.($nbFiles + $nbLinks).'</span>';
+		$head[$tab][1] .= '<span class="badge marginleftonlyshort">' . ($nbFiles + $nbLinks) . '</span>';
 	}
 	$head[$tab][2] = 'documents';
 	$tab++;
 
 	// Agenda / Events
-	$head[$tab][0] = DOL_URL_ROOT.'/contact/agenda.php?id='.$object->id;
+	$head[$tab][0] = DOL_URL_ROOT . '/contact/agenda.php?id=' . $object->id;
 	$head[$tab][1] = $langs->trans("Events");
 	if (isModEnabled('agenda') && ($user->hasRight('agenda', 'myactions', 'read') || $user->hasRight('agenda', 'allactions', 'read'))) {
 		$head[$tab][1] .= '/';
@@ -179,23 +180,23 @@ function show_contacts_projects($config, $langs, $db, $object, $backtopage = '',
 
 		$newcardbutton = '';
 		if (isModEnabled('project') && $user->hasRight('projet', 'creer') && empty($nocreatelink)) {
-			$newcardbutton .= dolGetButtonTitle($langs->trans('AddProject'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/projet/card.php?socid='.$object->id.'&action=create&backtopage='.urlencode($backtopage));
+			$newcardbutton .= dolGetButtonTitle($langs->trans('AddProject'), '', 'fa fa-plus-circle', DOL_URL_ROOT . '/projet/card.php?socid=' . $object->id . '&action=create&backtopage=' . urlencode($backtopage));
 		}
 
 		print "\n";
-		print load_fiche_titre($langs->trans("ProjectsHavingThisContact"), $newcardbutton.$morehtmlright, '');
+		print load_fiche_titre($langs->trans("ProjectsHavingThisContact"), $newcardbutton . $morehtmlright, '');
 		print '<div class="div-table-responsive">';
-		print "\n".'<table class="noborder" width=100%>';
+		print "\n" . '<table class="noborder" width=100%>';
 
 		$sql  = 'SELECT p.rowid as id, p.entity, p.title, p.ref, p.public, p.dateo as do, p.datee as de, p.fk_statut as status, p.fk_opp_status, p.opp_amount, p.opp_percent, p.tms as date_modification, p.budget_amount';
 		$sql .= ', cls.code as opp_status_code, ctc.libelle as type_label';
-		$sql .= ' FROM '.MAIN_DB_PREFIX.'projet as p';
-		$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_lead_status as cls on p.fk_opp_status = cls.rowid';
-		$sql .= ' INNER JOIN '.MAIN_DB_PREFIX.'element_contact as cc ON (p.rowid = cc.element_id)';
-		$sql .= ' INNER JOIN '.MAIN_DB_PREFIX.'c_type_contact as ctc ON (ctc.rowid = cc.fk_c_type_contact)';
-		$sql .= " WHERE cc.fk_socpeople = ".((int) $object->id);
+		$sql .= ' FROM ' . MAIN_DB_PREFIX . 'projet as p';
+		$sql .= ' LEFT JOIN ' . MAIN_DB_PREFIX . 'c_lead_status as cls on p.fk_opp_status = cls.rowid';
+		$sql .= ' INNER JOIN ' . MAIN_DB_PREFIX . 'element_contact as cc ON (p.rowid = cc.element_id)';
+		$sql .= ' INNER JOIN ' . MAIN_DB_PREFIX . 'c_type_contact as ctc ON (ctc.rowid = cc.fk_c_type_contact)';
+		$sql .= " WHERE cc.fk_socpeople = " . ((int) $object->id);
 		$sql .= " AND ctc.element='project' AND ctc.source='external'";
-		$sql .= " AND p.entity IN (".getEntity('project').")";
+		$sql .= " AND p.entity IN (" . getEntity('project') . ")";
 		$sql .= " ORDER BY p.dateo DESC";
 
 		$result = $db->query($sql);
@@ -203,19 +204,19 @@ function show_contacts_projects($config, $langs, $db, $object, $backtopage = '',
 			$num = $db->num_rows($result);
 
 			print '<tr class="liste_titre">';
-			print '<td>'.$langs->trans("Ref").'</td>';
-			print '<td>'.$langs->trans("Name").'</td>';
-			print '<td>'.$langs->trans("ContactType").'</td>';
-			print '<td class="center">'.$langs->trans("DateStart").'</td>';
-			print '<td class="center">'.$langs->trans("DateEnd").'</td>';
-			print '<td class="right">'.$langs->trans("OpportunityAmountShort").'</td>';
-			print '<td class="center">'.$langs->trans("OpportunityStatusShort").'</td>';
-			print '<td class="right">'.$langs->trans("OpportunityProbabilityShort").'</td>';
-			print '<td class="right">'.$langs->trans("Status").'</td>';
+			print '<td>' . $langs->trans("Ref") . '</td>';
+			print '<td>' . $langs->trans("Name") . '</td>';
+			print '<td>' . $langs->trans("ContactType") . '</td>';
+			print '<td class="center">' . $langs->trans("DateStart") . '</td>';
+			print '<td class="center">' . $langs->trans("DateEnd") . '</td>';
+			print '<td class="right">' . $langs->trans("OpportunityAmountShort") . '</td>';
+			print '<td class="center">' . $langs->trans("OpportunityStatusShort") . '</td>';
+			print '<td class="right">' . $langs->trans("OpportunityProbabilityShort") . '</td>';
+			print '<td class="right">' . $langs->trans("Status") . '</td>';
 			print '</tr>';
 
 			if ($num > 0) {
-				require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
+				require_once DOL_DOCUMENT_ROOT . '/projet/class/project.class.php';
 
 				$projecttmp = new Project($db);
 
@@ -237,12 +238,12 @@ function show_contacts_projects($config, $langs, $db, $object, $backtopage = '',
 						print '</td>';
 
 						// Label
-						print '<td>'.dol_escape_htmltag($obj->title).'</td>';
-						print '<td>'.dol_escape_htmltag($obj->type_label).'</td>';
+						print '<td>' . dol_escape_htmltag($obj->title) . '</td>';
+						print '<td>' . dol_escape_htmltag($obj->type_label) . '</td>';
 						// Date start
-						print '<td class="center">'.dol_print_date($db->jdate($obj->do), "day").'</td>';
+						print '<td class="center">' . dol_print_date($db->jdate($obj->do), "day") . '</td>';
 						// Date end
-						print '<td class="center">'.dol_print_date($db->jdate($obj->de), "day").'</td>';
+						print '<td class="center">' . dol_print_date($db->jdate($obj->de), "day") . '</td>';
 						// Opp amount
 						print '<td class="right">';
 						if ($obj->opp_status_code) {
@@ -252,24 +253,24 @@ function show_contacts_projects($config, $langs, $db, $object, $backtopage = '',
 						// Opp status
 						print '<td class="center">';
 						if ($obj->opp_status_code) {
-							print $langs->trans("OppStatus".$obj->opp_status_code);
+							print $langs->trans("OppStatus" . $obj->opp_status_code);
 						}
 						print '</td>';
 						// Opp percent
 						print '<td class="right">';
 						if ($obj->opp_percent) {
-							print price($obj->opp_percent, 1, '', 1, 0).'%';
+							print price($obj->opp_percent, 1, '', 1, 0) . '%';
 						}
 						print '</td>';
 						// Status
-						print '<td class="right">'.$projecttmp->getLibStatut(5).'</td>';
+						print '<td class="right">' . $projecttmp->getLibStatut(5) . '</td>';
 
 						print '</tr>';
 					}
 					$i++;
 				}
 			} else {
-				print '<tr class="oddeven"><td colspan="8"><span class="opacitymedium">'.$langs->trans("None").'</span></td></tr>';
+				print '<tr class="oddeven"><td colspan="8"><span class="opacitymedium">' . $langs->trans("None") . '</span></td></tr>';
 			}
 			$db->free($result);
 		} else {

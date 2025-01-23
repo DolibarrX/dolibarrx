@@ -39,7 +39,7 @@ function dolStripPhpCode($str, $replacewith = '')
 
 	// Split on each opening tag
 	//$parts = explode('<?php', $str);
-	$parts = preg_split('/'.preg_quote('<?php', '/').'/i', $str);
+	$parts = preg_split('/' . preg_quote('<?php', '/') . '/i', $str);
 
 	if (!empty($parts)) {
 		$i = 0;
@@ -60,7 +60,7 @@ function dolStripPhpCode($str, $replacewith = '')
 				//append to out string
 				//$newstr .= '<span class="phptag" class="tooltip" title="'.dol_escape_htmltag(dolGetFirstLineOfText($phppart).'...').'">'.$replacewith.'<!-- '.$phppart.' --></span>'.implode('', $partlings);
 				//$newstr .= '<span>'.$replacewith.'<!-- '.$phppart.' --></span>'.implode('', $partlings);
-				$newstr .= '<span phptag>'.$replacewith.'</span>'.implode('', $partlings);
+				$newstr .= '<span phptag>' . $replacewith . '</span>' . implode('', $partlings);
 				//$newstr .= $replacewith.implode('', $partlings);
 			}
 		}
@@ -86,7 +86,7 @@ function dolKeepOnlyPhpCode($str)
 
 	// Split on each opening tag
 	//$parts = explode('<?php', $str);
-	$parts = preg_split('/'.preg_quote('<?php', '/').'/i', $str);
+	$parts = preg_split('/' . preg_quote('<?php', '/') . '/i', $str);
 
 	if (!empty($parts)) {
 		$i = 0;
@@ -99,9 +99,9 @@ function dolKeepOnlyPhpCode($str)
 			//split on closing tag
 			$partlings = explode('?>', $part, 2);
 			if (!empty($partlings)) {
-				$newstr .= $partlings[0].'?>';
+				$newstr .= $partlings[0] . '?>';
 			} else {
-				$newstr .= $part.'?>';
+				$newstr .= $part . '?>';
 			}
 		}
 	}
@@ -124,7 +124,7 @@ function dolWebsiteReplacementOfLinks($website, $content, $removephppart = 0, $c
 {
 	$nbrep = 0;
 
-	dol_syslog('dolWebsiteReplacementOfLinks start (contenttype='.$contenttype." containerid=".$containerid." USEDOLIBARREDITOR=".(defined('USEDOLIBARREDITOR') ? '1' : '')." USEDOLIBARRSERVER=".(defined('USEDOLIBARRSERVER') ? '1' : '').')', LOG_DEBUG);
+	dol_syslog('dolWebsiteReplacementOfLinks start (contenttype=' . $contenttype . " containerid=" . $containerid . " USEDOLIBARREDITOR=" . (defined('USEDOLIBARREDITOR') ? '1' : '') . " USEDOLIBARRSERVER=" . (defined('USEDOLIBARRSERVER') ? '1' : '') . ')', LOG_DEBUG);
 	//if ($contenttype == 'html') { print $content;exit; }
 
 	// Replace php code. Note $content may come from database and does not contain body tags.
@@ -132,7 +132,7 @@ function dolWebsiteReplacementOfLinks($website, $content, $removephppart = 0, $c
 	if ($removephppart) {
 		$replacewith = '';
 	}
-	$content = preg_replace('/value="<\?php((?!\?>).)*\?>\n*/ims', 'value="'.$replacewith.'"', $content);
+	$content = preg_replace('/value="<\?php((?!\?>).)*\?>\n*/ims', 'value="' . $replacewith . '"', $content);
 
 	$replacewith = '"callto=#';
 	if ($removephppart) {
@@ -178,43 +178,43 @@ function dolWebsiteReplacementOfLinks($website, $content, $removephppart = 0, $c
 	$content = str_replace('src="//', 'src="!~!~!~//', $content);
 	$content = str_replace('src="viewimage.php', 'src="!~!~!~/viewimage.php', $content);
 	$content = str_replace('src="/viewimage.php', 'src="!~!~!~/viewimage.php', $content);
-	$content = str_replace('src="'.DOL_URL_ROOT.'/viewimage.php', 'src="!~!~!~'.DOL_URL_ROOT.'/viewimage.php', $content);
+	$content = str_replace('src="' . DOL_URL_ROOT . '/viewimage.php', 'src="!~!~!~' . DOL_URL_ROOT . '/viewimage.php', $content);
 	$content = str_replace('href="document.php', 'href="!~!~!~/document.php', $content);
 	$content = str_replace('href="/document.php', 'href="!~!~!~/document.php', $content);
-	$content = str_replace('href="'.DOL_URL_ROOT.'/document.php', 'href="!~!~!~'.DOL_URL_ROOT.'/document.php', $content);
+	$content = str_replace('href="' . DOL_URL_ROOT . '/document.php', 'href="!~!~!~' . DOL_URL_ROOT . '/document.php', $content);
 
 	// Replace relative link '/' with dolibarr URL
-	$content = preg_replace('/(href=")\/(#[^\"<>]*)?\"/', '\1!~!~!~'.DOL_URL_ROOT.'/website/index.php?website='.$website->ref.'&pageid='.$website->fk_default_home.'\2"', $content, -1, $nbrep);
+	$content = preg_replace('/(href=")\/(#[^\"<>]*)?\"/', '\1!~!~!~' . DOL_URL_ROOT . '/website/index.php?website=' . $website->ref . '&pageid=' . $website->fk_default_home . '\2"', $content, -1, $nbrep);
 	// Replace relative link /xxx.php#aaa or /xxx.php with dolibarr URL (we discard param ?...)
-	$content = preg_replace('/(href=")\/?([^:\"\!]*)\.php(#[^\"<>]*)?\"/', '\1!~!~!~'.DOL_URL_ROOT.'/website/index.php?website='.$website->ref.'&pageref=\2\3"', $content, -1, $nbrep);
+	$content = preg_replace('/(href=")\/?([^:\"\!]*)\.php(#[^\"<>]*)?\"/', '\1!~!~!~' . DOL_URL_ROOT . '/website/index.php?website=' . $website->ref . '&pageref=\2\3"', $content, -1, $nbrep);
 	// Replace relative link /xxx.php?a=b&c=d#aaa or /xxx.php?a=b&c=d with dolibarr URL
-	$content = preg_replace('/(href=")\/?([^:\"\!]*)\.php\?([^#\"<>]*)(#[^\"<>]*)?\"/', '\1!~!~!~'.DOL_URL_ROOT.'/website/index.php?website='.$website->ref.'&pageref=\2&\3\4"', $content, -1, $nbrep);
+	$content = preg_replace('/(href=")\/?([^:\"\!]*)\.php\?([^#\"<>]*)(#[^\"<>]*)?\"/', '\1!~!~!~' . DOL_URL_ROOT . '/website/index.php?website=' . $website->ref . '&pageref=\2&\3\4"', $content, -1, $nbrep);
 
 	// Fix relative link into medias with correct URL after the DOL_URL_ROOT: ../url("medias/
-	$content = preg_replace('/url\((["\']?)\/?medias\//', 'url(\1!~!~!~'.DOL_URL_ROOT.'/viewimage.php?modulepart=medias&file=', $content, -1, $nbrep);
-	$content = preg_replace('/data-slide-bg=(["\']?)\/?medias\//', 'data-slide-bg=\1!~!~!~'.DOL_URL_ROOT.'/viewimage.php?modulepart=medias&file=', $content, -1, $nbrep);
+	$content = preg_replace('/url\((["\']?)\/?medias\//', 'url(\1!~!~!~' . DOL_URL_ROOT . '/viewimage.php?modulepart=medias&file=', $content, -1, $nbrep);
+	$content = preg_replace('/data-slide-bg=(["\']?)\/?medias\//', 'data-slide-bg=\1!~!~!~' . DOL_URL_ROOT . '/viewimage.php?modulepart=medias&file=', $content, -1, $nbrep);
 
 	// <img src="medias/...image.png... => <img src="dolibarr/viewimage.php/modulepart=medias&file=image.png...
 	// <img src="...image.png... => <img src="dolibarr/viewimage.php/modulepart=medias&file=image.png...
-	$content = preg_replace('/(<img[^>]*src=")\/?medias\//', '\1!~!~!~'.DOL_URL_ROOT.'/viewimage.php?modulepart=medias&file=', $content, -1, $nbrep);
+	$content = preg_replace('/(<img[^>]*src=")\/?medias\//', '\1!~!~!~' . DOL_URL_ROOT . '/viewimage.php?modulepart=medias&file=', $content, -1, $nbrep);
 	// <img src="image.png... => <img src="dolibarr/viewimage.php/modulepart=medias&file=image.png...
-	$content = preg_replace('/(<img[^>]*src=")\/?([^:\"\!]+)\"/', '\1!~!~!~'.DOL_URL_ROOT.'/viewimage.php?modulepart=medias&file=\2"', $content, -1, $nbrep);
+	$content = preg_replace('/(<img[^>]*src=")\/?([^:\"\!]+)\"/', '\1!~!~!~' . DOL_URL_ROOT . '/viewimage.php?modulepart=medias&file=\2"', $content, -1, $nbrep);
 	// <img src="viewimage.php/modulepart=medias&file=image.png" => <img src="dolibarr/viewimage.php/modulepart=medias&file=image.png"
-	$content = preg_replace('/(<img[^>]*src=")(\/?viewimage\.php)/', '\1!~!~!~'.DOL_URL_ROOT.'/viewimage.php', $content, -1, $nbrep);
+	$content = preg_replace('/(<img[^>]*src=")(\/?viewimage\.php)/', '\1!~!~!~' . DOL_URL_ROOT . '/viewimage.php', $content, -1, $nbrep);
 
 	// action="newpage.php" => action="dolibarr/website/index.php?website=...&pageref=newpage
-	$content = preg_replace('/(action=")\/?([^:\"]*)(\.php\")/', '\1!~!~!~'.DOL_URL_ROOT.'/website/index.php?website='.$website->ref.'&pageref=\2"', $content, -1, $nbrep);
+	$content = preg_replace('/(action=")\/?([^:\"]*)(\.php\")/', '\1!~!~!~' . DOL_URL_ROOT . '/website/index.php?website=' . $website->ref . '&pageref=\2"', $content, -1, $nbrep);
 
 	// Fix relative link /document.php with correct URL after the DOL_URL_ROOT:  ...href="/document.php?modulepart="
-	$content = preg_replace('/(href=")(\/?document\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~'.DOL_URL_ROOT.'\2\3', $content, -1, $nbrep);
-	$content = preg_replace('/(src=")(\/?document\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~'.DOL_URL_ROOT.'\2\3', $content, -1, $nbrep);
+	$content = preg_replace('/(href=")(\/?document\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~' . DOL_URL_ROOT . '\2\3', $content, -1, $nbrep);
+	$content = preg_replace('/(src=")(\/?document\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~' . DOL_URL_ROOT . '\2\3', $content, -1, $nbrep);
 
 	// Fix relative link /viewimage.php with correct URL after the DOL_URL_ROOT:  ...href="/viewimage.php?modulepart="
-	$content = preg_replace('/(url\(")(\/?viewimage\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~'.DOL_URL_ROOT.'\2\3', $content, -1, $nbrep);
+	$content = preg_replace('/(url\(")(\/?viewimage\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~' . DOL_URL_ROOT . '\2\3', $content, -1, $nbrep);
 
 	// Fix relative URL
-	$content = str_replace('src="!~!~!~/viewimage.php', 'src="!~!~!~'.DOL_URL_ROOT.'/viewimage.php', $content);
-	$content = str_replace('href="!~!~!~/document.php', 'href="!~!~!~'.DOL_URL_ROOT.'/document.php', $content);
+	$content = str_replace('src="!~!~!~/viewimage.php', 'src="!~!~!~' . DOL_URL_ROOT . '/viewimage.php', $content);
+	$content = str_replace('href="!~!~!~/document.php', 'href="!~!~!~' . DOL_URL_ROOT . '/document.php', $content);
 	// Remove the protection tag !~!~!~
 	$content = str_replace('!~!~!~', '', $content);
 
@@ -291,13 +291,13 @@ function dolWebsiteOutput($content, $contenttype = 'html', $containerid = 0)
 
 	$nbrep = 0;
 
-	dol_syslog("dolWebsiteOutput start - contenttype=".$contenttype." containerid=".$containerid." USEDOLIBARREDITOR=".(defined('USEDOLIBARREDITOR') ? '1' : '')." USEDOLIBARRSERVER=".(defined('USEDOLIBARRSERVER') ? '1' : '').' includehtmlcontentopened='.$includehtmlcontentopened);
+	dol_syslog("dolWebsiteOutput start - contenttype=" . $contenttype . " containerid=" . $containerid . " USEDOLIBARREDITOR=" . (defined('USEDOLIBARREDITOR') ? '1' : '') . " USEDOLIBARRSERVER=" . (defined('USEDOLIBARRSERVER') ? '1' : '') . ' includehtmlcontentopened=' . $includehtmlcontentopened);
 
 	//print $containerid.' '.$content;
 
 	// Define $urlwithroot
-	$urlwithouturlroot = preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($dolibarr_main_url_root));
-	$urlwithroot = $urlwithouturlroot.DOL_URL_ROOT; // This is to use external domain name found into config file
+	$urlwithouturlroot = preg_replace('/' . preg_quote(DOL_URL_ROOT, '/') . '$/i', '', trim($dolibarr_main_url_root));
+	$urlwithroot = $urlwithouturlroot . DOL_URL_ROOT; // This is to use external domain name found into config file
 	//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 
 	if (defined('USEDOLIBARREDITOR')) {		// REPLACEMENT OF LINKS When page called from Dolibarr editor
@@ -319,52 +319,52 @@ function dolWebsiteOutput($content, $contenttype = 'html', $containerid = 0)
 		$content = str_replace('href="//', 'href="!~!~!~//', $content);
 		$content = str_replace('src="//', 'src="!~!~!~//', $content);
 		$content = str_replace(array('src="viewimage.php', 'src="/viewimage.php'), 'src="!~!~!~/viewimage.php', $content);
-		$content = str_replace('src="'.DOL_URL_ROOT.'/viewimage.php', 'src="!~!~!~'.DOL_URL_ROOT.'/viewimage.php', $content);
+		$content = str_replace('src="' . DOL_URL_ROOT . '/viewimage.php', 'src="!~!~!~' . DOL_URL_ROOT . '/viewimage.php', $content);
 		$content = str_replace(array('href="document.php', 'href="/document.php'), 'href="!~!~!~/document.php', $content);
-		$content = str_replace('href="'.DOL_URL_ROOT.'/document.php', 'href="!~!~!~'.DOL_URL_ROOT.'/document.php', $content);
+		$content = str_replace('href="' . DOL_URL_ROOT . '/document.php', 'href="!~!~!~' . DOL_URL_ROOT . '/document.php', $content);
 
 		// Replace relative link / with dolibarr URL:  ...href="/"...
-		$content = preg_replace('/(href=")\/\"/', '\1!~!~!~'.DOL_URL_ROOT.'/public/website/index.php?website='.$website->ref.'"', $content, -1, $nbrep);
+		$content = preg_replace('/(href=")\/\"/', '\1!~!~!~' . DOL_URL_ROOT . '/public/website/index.php?website=' . $website->ref . '"', $content, -1, $nbrep);
 		// Replace relative link /xxx.php#aaa or /xxx.php with dolibarr URL:  ...href="....php" (we discard param ?...)
-		$content = preg_replace('/(href=")\/?([^:\"\!]*)\.php(#[^\"<>]*)?\"/', '\1!~!~!~'.DOL_URL_ROOT.'/public/website/index.php?website='.$website->ref.'&pageref=\2\3"', $content, -1, $nbrep);
+		$content = preg_replace('/(href=")\/?([^:\"\!]*)\.php(#[^\"<>]*)?\"/', '\1!~!~!~' . DOL_URL_ROOT . '/public/website/index.php?website=' . $website->ref . '&pageref=\2\3"', $content, -1, $nbrep);
 		// Replace relative link /xxx.php?a=b&c=d#aaa or /xxx.php?a=b&c=d with dolibarr URL
 		// Warning: we may replace twice if href="..." was inside an include (dolWebsiteOutput called by include and the by final page), that's why
 		// at end we replace the '!~!~!~' only if we are in final parent page.
-		$content = preg_replace('/(href=")\/?([^:\"\!]*)\.php\?([^#\"<>]*)(#[^\"<>]*)?\"/', '\1!~!~!~'.DOL_URL_ROOT.'/public/website/index.php?website='.$website->ref.'&pageref=\2&\3\4"', $content, -1, $nbrep);
+		$content = preg_replace('/(href=")\/?([^:\"\!]*)\.php\?([^#\"<>]*)(#[^\"<>]*)?\"/', '\1!~!~!~' . DOL_URL_ROOT . '/public/website/index.php?website=' . $website->ref . '&pageref=\2&\3\4"', $content, -1, $nbrep);
 		// Replace occurrence like _service_XXX.php with dolibarr URL
 		$content = preg_replace('/([\'"])_service_([^\'"]+)\.php\1/', '\1!~!~!~' . DOL_URL_ROOT . '/public/website/index.php?website=' . $website->ref . '&pageref=_service_\2\1', $content, -1, $nbrep);
 		// Replace occurrence like _library_XXX.php with dolibarr URL
 		$content = preg_replace('/([\'"])_library_([^\'"]+)\.php\1/', '\1!~!~!~' . DOL_URL_ROOT . '/public/website/index.php?website=' . $website->ref . '&pageref=_library_\2\1', $content, -1, $nbrep);
 		// Replace relative link without .php like /xxx#aaa or /xxx with dolibarr URL:  ...href="....php"
-		$content = preg_replace('/(href=")\/?([a-zA-Z0-9\-_#]+)(\"|\?)/', '\1!~!~!~'.DOL_URL_ROOT.'/public/website/index.php?website='.$website->ref.'&pageref=\2\3', $content, -1, $nbrep);
+		$content = preg_replace('/(href=")\/?([a-zA-Z0-9\-_#]+)(\"|\?)/', '\1!~!~!~' . DOL_URL_ROOT . '/public/website/index.php?website=' . $website->ref . '&pageref=\2\3', $content, -1, $nbrep);
 
 		// Fix relative link /document.php with correct URL after the DOL_URL_ROOT:  href="/document.php?modulepart=" => href="/dolibarr/document.php?modulepart="
-		$content = preg_replace('/(href=")(\/?document\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~'.DOL_URL_ROOT.'\2\3', $content, -1, $nbrep);
-		$content = preg_replace('/(src=")(\/?document\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~'.DOL_URL_ROOT.'\2\3', $content, -1, $nbrep);
+		$content = preg_replace('/(href=")(\/?document\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~' . DOL_URL_ROOT . '\2\3', $content, -1, $nbrep);
+		$content = preg_replace('/(src=")(\/?document\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~' . DOL_URL_ROOT . '\2\3', $content, -1, $nbrep);
 
 		// Fix relative link /viewimage.php with correct URL after the DOL_URL_ROOT: href="/viewimage.php?modulepart=" => href="/dolibarr/viewimage.php?modulepart="
-		$content = preg_replace('/(href=")(\/?viewimage\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~'.DOL_URL_ROOT.'\2\3', $content, -1, $nbrep);
-		$content = preg_replace('/(src=")(\/?viewimage\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~'.DOL_URL_ROOT.'\2\3', $content, -1, $nbrep);
-		$content = preg_replace('/(url\(")(\/?viewimage\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~'.DOL_URL_ROOT.'\2\3', $content, -1, $nbrep);
+		$content = preg_replace('/(href=")(\/?viewimage\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~' . DOL_URL_ROOT . '\2\3', $content, -1, $nbrep);
+		$content = preg_replace('/(src=")(\/?viewimage\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~' . DOL_URL_ROOT . '\2\3', $content, -1, $nbrep);
+		$content = preg_replace('/(url\(")(\/?viewimage\.php\?[^\"]*modulepart=[^\"]*)(\")/', '\1!~!~!~' . DOL_URL_ROOT . '\2\3', $content, -1, $nbrep);
 
 		// Fix relative link into medias with correct URL after the DOL_URL_ROOT: ../url("medias/
-		$content = preg_replace('/url\((["\']?)\/?medias\//', 'url(\1!~!~!~'.DOL_URL_ROOT.'/viewimage.php?modulepart=medias&file=', $content, -1, $nbrep);
-		$content = preg_replace('/data-slide-bg=(["\']?)\/?medias\//', 'data-slide-bg=\1!~!~!~'.DOL_URL_ROOT.'/viewimage.php?modulepart=medias&file=', $content, -1, $nbrep);
+		$content = preg_replace('/url\((["\']?)\/?medias\//', 'url(\1!~!~!~' . DOL_URL_ROOT . '/viewimage.php?modulepart=medias&file=', $content, -1, $nbrep);
+		$content = preg_replace('/data-slide-bg=(["\']?)\/?medias\//', 'data-slide-bg=\1!~!~!~' . DOL_URL_ROOT . '/viewimage.php?modulepart=medias&file=', $content, -1, $nbrep);
 
 		// <img src="medias/...image.png... => <img src="dolibarr/viewimage.php/modulepart=medias&file=image.png...
 		// <img src="...image.png... => <img src="dolibarr/viewimage.php/modulepart=medias&file=image.png...
-		$content = preg_replace('/(<img[^>]*src=")\/?medias\//', '\1!~!~!~'.DOL_URL_ROOT.'/viewimage.php?modulepart=medias&file=', $content, -1, $nbrep);
+		$content = preg_replace('/(<img[^>]*src=")\/?medias\//', '\1!~!~!~' . DOL_URL_ROOT . '/viewimage.php?modulepart=medias&file=', $content, -1, $nbrep);
 		// <img src="image.png... => <img src="dolibarr/viewimage.php/modulepart=medias&file=image.png...
-		$content = preg_replace('/(<img[^>]*src=")\/?([^:\"\!]+)\"/', '\1!~!~!~'.DOL_URL_ROOT.'/viewimage.php?modulepart=medias&file=\2"', $content, -1, $nbrep);
+		$content = preg_replace('/(<img[^>]*src=")\/?([^:\"\!]+)\"/', '\1!~!~!~' . DOL_URL_ROOT . '/viewimage.php?modulepart=medias&file=\2"', $content, -1, $nbrep);
 		// <img src="viewimage.php/modulepart=medias&file=image.png" => <img src="dolibarr/viewimage.php/modulepart=medias&file=image.png"
-		$content = preg_replace('/(<img[^>]*src=")(\/?viewimage\.php)/', '\1!~!~!~'.DOL_URL_ROOT.'/viewimage.php', $content, -1, $nbrep);
+		$content = preg_replace('/(<img[^>]*src=")(\/?viewimage\.php)/', '\1!~!~!~' . DOL_URL_ROOT . '/viewimage.php', $content, -1, $nbrep);
 
 		// action="newpage.php" => action="dolibarr/website/index.php?website=...&pageref=newpage
-		$content = preg_replace('/(action=")\/?([^:\"]*)(\.php\")/', '\1!~!~!~'.DOL_URL_ROOT.'/public/website/index.php?website='.$website->ref.'&pageref=\2"', $content, -1, $nbrep);
+		$content = preg_replace('/(action=")\/?([^:\"]*)(\.php\")/', '\1!~!~!~' . DOL_URL_ROOT . '/public/website/index.php?website=' . $website->ref . '&pageref=\2"', $content, -1, $nbrep);
 
 		// Fix relative URL
-		$content = str_replace('src="!~!~!~/viewimage.php', 'src="!~!~!~'.DOL_URL_ROOT.'/viewimage.php', $content);
-		$content = str_replace('href="!~!~!~/document.php', 'href="!~!~!~'.DOL_URL_ROOT.'/document.php', $content);
+		$content = str_replace('src="!~!~!~/viewimage.php', 'src="!~!~!~' . DOL_URL_ROOT . '/viewimage.php', $content);
+		$content = str_replace('href="!~!~!~/document.php', 'href="!~!~!~' . DOL_URL_ROOT . '/document.php', $content);
 
 		// Remove the protection tag !~!~!~, but only if this is the parent page and not an include
 		if (empty($includehtmlcontentopened)) {
@@ -373,7 +373,7 @@ function dolWebsiteOutput($content, $contenttype = 'html', $containerid = 0)
 	} else { // REPLACEMENT OF LINKS When page called from virtual host web server
 		$symlinktomediaexists = 1;
 		if ($website->virtualhost) {
-			$content = preg_replace('/^(<link[^>]*rel="canonical" href=")\//m', '\1'.$website->virtualhost.'/', $content, -1, $nbrep);
+			$content = preg_replace('/^(<link[^>]*rel="canonical" href=")\//m', '\1' . $website->virtualhost . '/', $content, -1, $nbrep);
 		}
 		//print 'rrrrrrrrr'.$website->virtualhost.$content;
 
@@ -459,14 +459,14 @@ function dolWebsiteIncrementCounter($websiteid, $websitepagetype, $websitepageid
 
 			$tmpnow = dol_getdate(dol_now('gmt'), true, 'gmt');
 
-			$sql = "UPDATE ".$db->prefix()."website SET ";
+			$sql = "UPDATE " . $db->prefix() . "website SET ";
 			$sql .= " pageviews_total = pageviews_total + 1,";
 			$sql .= " pageviews_month = pageviews_month + 1,";
 			// if last access was done during previous month, we save pageview_month into pageviews_previous_month
-			$sql .= " pageviews_previous_month = ".$db->ifsql("lastaccess < '".$db->idate(dol_mktime(0, 0, 0, $tmpnow['mon'], 1, $tmpnow['year'], 'gmt', 0), 'gmt')."'", 'pageviews_month', 'pageviews_previous_month').",";
-			$sql .= " lastaccess = '".$db->idate(dol_now('gmt'), 'gmt')."',";
-			$sql .= " lastpageid = ".((int) $websitepageid);
-			$sql .= " WHERE rowid = ".((int) $websiteid);
+			$sql .= " pageviews_previous_month = " . $db->ifsql("lastaccess < '" . $db->idate(dol_mktime(0, 0, 0, $tmpnow['mon'], 1, $tmpnow['year'], 'gmt', 0), 'gmt') . "'", 'pageviews_month', 'pageviews_previous_month') . ",";
+			$sql .= " lastaccess = '" . $db->idate(dol_now('gmt'), 'gmt') . "',";
+			$sql .= " lastpageid = " . ((int) $websitepageid);
+			$sql .= " WHERE rowid = " . ((int) $websiteid);
 
 			$resql = $db->query($sql);
 			if (! $resql) {
@@ -526,14 +526,14 @@ function redirectToContainer($containerref, $containeraliasalt = '', $containeri
 
 	// We make redirect using the alternative alias, we must find the real $containerref
 	if ($containeraliasalt) {
-		include_once DOL_DOCUMENT_ROOT.'/website/class/websitepage.class.php';
+		include_once DOL_DOCUMENT_ROOT . '/website/class/websitepage.class.php';
 		$tmpwebsitepage = new WebsitePage($db);
 		// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
 		$result = $tmpwebsitepage->fetch(0, $website->id, '', $containeraliasalt);
 		if ($result > 0) {
 			$containerref = $tmpwebsitepage->pageurl;
 		} else {
-			print "Error, page contains a redirect to the alternative alias '".$containeraliasalt."' that does not exists in web site (".$website->id." / ".$website->ref.")";
+			print "Error, page contains a redirect to the alternative alias '" . $containeraliasalt . "' that does not exists in web site (" . $website->id . " / " . $website->ref . ")";
 			exit;
 		}
 	}
@@ -542,15 +542,15 @@ function redirectToContainer($containerref, $containeraliasalt = '', $containeri
 		/*print '<div class="margintoponly marginleftonly">';
 		print "This page contains dynamic code that make a redirect to '".$containerref."' in your current context. Redirect has been canceled as it is not supported in edition mode.";
 		print '</div>';*/
-		$text = "This page contains dynamic code that make a redirect to '".$containerref."' in your current context. Redirect has been canceled as it is not supported in edition mode.";
-		setEventMessages($text, null, 'warnings', 'WEBSITEREDIRECTDISABLED'.$containerref);
+		$text = "This page contains dynamic code that make a redirect to '" . $containerref . "' in your current context. Redirect has been canceled as it is not supported in edition mode.";
+		setEventMessages($text, null, 'warnings', 'WEBSITEREDIRECTDISABLED' . $containerref);
 		return;
 	}
 
 	if (defined('USEDOLIBARRSERVER')) {	// When page called from Dolibarr server
 		// Check new container exists
 		if (!$containeraliasalt) {	// If containeraliasalt set, we already did the test
-			include_once DOL_DOCUMENT_ROOT.'/website/class/websitepage.class.php';
+			include_once DOL_DOCUMENT_ROOT . '/website/class/websitepage.class.php';
 			$tmpwebsitepage = new WebsitePage($db);
 			// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
 			$result = $tmpwebsitepage->fetch(0, $website->id, $containerref);
@@ -561,18 +561,18 @@ function redirectToContainer($containerref, $containeraliasalt = '', $containeri
 			$regtmp = array();
 			if (preg_match('/&pageref=([^&]+)/', $currenturi, $regtmp)) {
 				if ($regtmp[0] == $containerref) {
-					print "Error, page with uri '.$currenturi.' try a redirect to the same alias page '".$containerref."' in web site '".$website->ref."'";
+					print "Error, page with uri '.$currenturi.' try a redirect to the same alias page '" . $containerref . "' in web site '" . $website->ref . "'";
 					exit;
 				} else {
-					$newurl = preg_replace('/&pageref=([^&]+)/', '&pageref='.$containerref, $currenturi);
+					$newurl = preg_replace('/&pageref=([^&]+)/', '&pageref=' . $containerref, $currenturi);
 				}
 			} else {
-				$newurl = $currenturi.'&pageref='.urlencode($containerref);
+				$newurl = $currenturi . '&pageref=' . urlencode($containerref);
 			}
 		}
 	} else { // When page called from virtual host server
-		$newurl = '/'.$containerref.'.php';
-		$newurl .= (empty($_SERVER["QUERY_STRING"]) ? '' : '?'.$_SERVER["QUERY_STRING"]);
+		$newurl = '/' . $containerref . '.php';
+		$newurl .= (empty($_SERVER["QUERY_STRING"]) ? '' : '?' . $_SERVER["QUERY_STRING"]);
 	}
 
 	if ($newurl) {
@@ -583,10 +583,10 @@ function redirectToContainer($containerref, $containeraliasalt = '', $containeri
 		if ($permanent) {
 			header("Status: 301 Moved Permanently", false, 301);
 		}
-		header("Location: ".$newurl);
+		header("Location: " . $newurl);
 		exit;
 	} else {
-		print "Error, page contains a redirect to the alias page '".$containerref."' that does not exists in web site (".$website->id." / ".$website->ref.")";
+		print "Error, page contains a redirect to the alias page '" . $containerref . "' that does not exists in web site (" . $website->id . " / " . $website->ref . ")";
 		exit;
 	}
 }
@@ -614,11 +614,11 @@ function includeContainer($containerref, $once = 0, $cachedelay = 0)
 		$containerref .= '.php';
 	}
 
-	$fullpathfile = DOL_DATA_ROOT.($config->entity > 1 ? '/'.$config->entity : '').'/website/'.$websitekey.'/'.$containerref;
+	$fullpathfile = DOL_DATA_ROOT . ($config->entity > 1 ? '/' . $config->entity : '') . '/website/' . $websitekey . '/' . $containerref;
 	$fullpathcache = '';
 	// If we ask to use the cache delay
 	if ($cachedelay > 0 && !getDolGlobalString("WEBSITE_DISABLE_CACHE_OF_CONTAINERS")) {
-		$fullpathcache = DOL_DATA_ROOT.($config->entity > 1 ? '/'.$config->entity : '').'/website/temp/'.$websitekey.'-'.$websitepage->id.'-'.$containerref.'.cache';
+		$fullpathcache = DOL_DATA_ROOT . ($config->entity > 1 ? '/' . $config->entity : '') . '/website/temp/' . $websitekey . '-' . $websitepage->id . '-' . $containerref . '.cache';
 	}
 
 	if (empty($includehtmlcontentopened)) {
@@ -626,7 +626,7 @@ function includeContainer($containerref, $once = 0, $cachedelay = 0)
 	}
 	$includehtmlcontentopened++;
 	if ($includehtmlcontentopened > $MAXLEVEL) {
-		print 'ERROR: RECURSIVE CONTENT LEVEL. Depth of recursive call is more than the limit of '.((int) $MAXLEVEL).".\n";
+		print 'ERROR: RECURSIVE CONTENT LEVEL. Depth of recursive call is more than the limit of ' . ((int) $MAXLEVEL) . ".\n";
 		return;
 	}
 
@@ -634,7 +634,7 @@ function includeContainer($containerref, $once = 0, $cachedelay = 0)
 
 	// We don't print info messages for pages of type library or service
 	if (!empty($websitepage->type_container) && !in_array($websitepage->type_container, array('library', 'service'))) {
-		print "\n".'<!-- include '.$websitekey.'/'.$containerref.(is_object($websitepage) ? ' parent id='.$websitepage->id : '').' level='.$includehtmlcontentopened.' -->'."\n";
+		print "\n" . '<!-- include ' . $websitekey . '/' . $containerref . (is_object($websitepage) ? ' parent id=' . $websitepage->id : '') . ' level=' . $includehtmlcontentopened . ' -->' . "\n";
 	}
 
 	$tmpoutput = '';
@@ -670,7 +670,7 @@ function includeContainer($containerref, $once = 0, $cachedelay = 0)
 		ob_end_clean();
 
 		if (!$res) {
-			print 'ERROR: FAILED TO INCLUDE PAGE '.$containerref."(once=".$once.")\n";
+			print 'ERROR: FAILED TO INCLUDE PAGE ' . $containerref . "(once=" . $once . ")\n";
 		} else {
 			$tmpoutput = preg_replace(array('/^.*<body[^>]*>/ims', '/<\/body>.*$/ims'), array('', ''), $tmpoutput);
 
@@ -705,68 +705,68 @@ function getStructuredData($type, $data = array())
 	$type = strtolower($type);
 
 	if ($type == 'software') {
-		$ret = '<!-- Add structured data for entry in a software annuary -->'."\n";
-		$ret .= '<script nonce="'.getNonce().'" type="application/ld+json">'."\n";
+		$ret = '<!-- Add structured data for entry in a software annuary -->' . "\n";
+		$ret .= '<script nonce="' . getNonce() . '" type="application/ld+json">' . "\n";
 		$ret .= '{
 			"@context": "https://schema.org",
 			"@type": "SoftwareApplication",
-			"name": "'.dol_escape_json($data['name']).'",
-			"operatingSystem": "'.dol_escape_json($data['os']).'",
-			"applicationCategory": "https://schema.org/'.dol_escape_json($data['applicationCategory']).'",';
+			"name": "' . dol_escape_json($data['name']) . '",
+			"operatingSystem": "' . dol_escape_json($data['os']) . '",
+			"applicationCategory": "https://schema.org/' . dol_escape_json($data['applicationCategory']) . '",';
 		if (!empty($data['ratingcount'])) {
 			$ret .= '
 				"aggregateRating": {
 					"@type": "AggregateRating",
-					"ratingValue": "'.dol_escape_json($data['ratingvalue']).'",
-					"ratingCount": "'.dol_escape_json($data['ratingcount']).'"
+					"ratingValue": "' . dol_escape_json($data['ratingvalue']) . '",
+					"ratingCount": "' . dol_escape_json($data['ratingcount']) . '"
 				},';
 		}
 		$ret .= '
 			"offers": {
 				"@type": "Offer",
-				"price": "'.dol_escape_json($data['price']).'",
-				"priceCurrency": "'.dol_escape_json($data['currency'] ? $data['currency'] : $config->currency).'"
+				"price": "' . dol_escape_json($data['price']) . '",
+				"priceCurrency": "' . dol_escape_json($data['currency'] ? $data['currency'] : $config->currency) . '"
 			}
-		}'."\n";
-		$ret .= '</script>'."\n";
+		}' . "\n";
+		$ret .= '</script>' . "\n";
 	} elseif ($type == 'organization') {
 		$companyname = $mysoc->name;
 		$url = $mysoc->url;
 
-		$ret = '<!-- Add structured data for organization -->'."\n";
-		$ret .= '<script nonce="'.getNonce().'" type="application/ld+json">'."\n";
+		$ret = '<!-- Add structured data for organization -->' . "\n";
+		$ret .= '<script nonce="' . getNonce() . '" type="application/ld+json">' . "\n";
 		$ret .= '{
 			"@context": "https://schema.org",
 			"@type": "Organization",
-			"name": "'.dol_escape_json(!empty($data['name']) ? $data['name'] : $companyname).'",
-			"url": "'.dol_escape_json(!empty($data['url']) ? $data['url'] : $url).'",
-			"logo": "'.($data['logo'] ? dol_escape_json($data['logo']) : '/wrapper.php?modulepart=mycompany&file=logos%2F'.urlencode($mysoc->logo)).'",
+			"name": "' . dol_escape_json(!empty($data['name']) ? $data['name'] : $companyname) . '",
+			"url": "' . dol_escape_json(!empty($data['url']) ? $data['url'] : $url) . '",
+			"logo": "' . ($data['logo'] ? dol_escape_json($data['logo']) : '/wrapper.php?modulepart=mycompany&file=logos%2F' . urlencode($mysoc->logo)) . '",
 			"contactPoint": {
 				"@type": "ContactPoint",
 				"contactType": "Contact",
-				"email": "'.dol_escape_json(!empty($data['email']) ? $data['email'] : $mysoc->email).'"
-			}'."\n";
+				"email": "' . dol_escape_json(!empty($data['email']) ? $data['email'] : $mysoc->email) . '"
+			}' . "\n";
 		if (is_array($mysoc->socialnetworks) && count($mysoc->socialnetworks) > 0) {
 			$ret .= ",\n";
 			$ret .= '"sameAs": [';
 			$i = 0;
 			foreach ($mysoc->socialnetworks as $key => $value) {
 				if ($key == 'linkedin') {
-					$ret .= '"https://www.'.$key.'.com/company/'.dol_escape_json($value).'"';
+					$ret .= '"https://www.' . $key . '.com/company/' . dol_escape_json($value) . '"';
 				} elseif ($key == 'youtube') {
-					$ret .= '"https://www.'.$key.'.com/user/'.dol_escape_json($value).'"';
+					$ret .= '"https://www.' . $key . '.com/user/' . dol_escape_json($value) . '"';
 				} else {
-					$ret .= '"https://www.'.$key.'.com/'.dol_escape_json($value).'"';
+					$ret .= '"https://www.' . $key . '.com/' . dol_escape_json($value) . '"';
 				}
 				$i++;
 				if ($i < count($mysoc->socialnetworks)) {
 					$ret .= ', ';
 				}
 			}
-			$ret .= ']'."\n";
+			$ret .= ']' . "\n";
 		}
-		$ret .= '}'."\n";
-		$ret .= '</script>'."\n";
+		$ret .= '}' . "\n";
+		$ret .= '</script>' . "\n";
 	} elseif ($type == 'blogpost') {
 		if (!empty($websitepage->author_alias)) {
 			//include_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
@@ -781,118 +781,118 @@ function getStructuredData($type, $data = array())
 
 			$pageurl = str_replace('__WEBSITE_KEY__', $website->ref, $pageurl);
 			$title = str_replace('__WEBSITE_KEY__', $website->ref, $title);
-			$image = '/medias'.(preg_match('/^\//', $image) ? '' : '/').str_replace('__WEBSITE_KEY__', $website->ref, $image);
+			$image = '/medias' . (preg_match('/^\//', $image) ? '' : '/') . str_replace('__WEBSITE_KEY__', $website->ref, $image);
 			$companyname = str_replace('__WEBSITE_KEY__', $website->ref, $companyname);
 			$description = str_replace('__WEBSITE_KEY__', $website->ref, $description);
 
-			$ret = '<!-- Add structured data for blog post -->'."\n";
-			$ret .= '<script nonce="'.getNonce().'" type="application/ld+json">'."\n";
+			$ret = '<!-- Add structured data for blog post -->' . "\n";
+			$ret .= '<script nonce="' . getNonce() . '" type="application/ld+json">' . "\n";
 			$ret .= '{
 				  "@context": "https://schema.org",
 				  "@type": "NewsArticle",
 				  "mainEntityOfPage": {
 				    "@type": "WebPage",
-				    "@id": "'.dol_escape_json($pageurl).'"
+				    "@id": "' . dol_escape_json($pageurl) . '"
 				  },
-				  "headline": "'.dol_escape_json($title).'",
+				  "headline": "' . dol_escape_json($title) . '",
 				  "image": [
-				    "'.dol_escape_json($image).'"
+				    "' . dol_escape_json($image) . '"
 				   ],
-				  "dateCreated": "'.dol_print_date($websitepage->date_creation, 'dayhourrfc').'",
-				  "datePublished": "'.dol_print_date($websitepage->date_creation, 'dayhourrfc').'",
-				  "dateModified": "'.dol_print_date($websitepage->date_modification, 'dayhourrfc').'",
+				  "dateCreated": "' . dol_print_date($websitepage->date_creation, 'dayhourrfc') . '",
+				  "datePublished": "' . dol_print_date($websitepage->date_creation, 'dayhourrfc') . '",
+				  "dateModified": "' . dol_print_date($websitepage->date_modification, 'dayhourrfc') . '",
 				  "author": {
 				    "@type": "Person",
-				    "name": "'.dol_escape_json($websitepage->author_alias).'"
+				    "name": "' . dol_escape_json($websitepage->author_alias) . '"
 				  },
 				  "publisher": {
 				     "@type": "Organization",
-				     "name": "'.dol_escape_json($companyname).'",
+				     "name": "' . dol_escape_json($companyname) . '",
 				     "logo": {
 				        "@type": "ImageObject",
-				        "url": "/wrapper.php?modulepart=mycompany&file=logos%2F'.urlencode($mysoc->logo).'"
+				        "url": "/wrapper.php?modulepart=mycompany&file=logos%2F' . urlencode($mysoc->logo) . '"
 				     }
-				   },'."\n";
+				   },' . "\n";
 			if ($websitepage->keywords) {
 				$ret .= '"keywords": [';
 				$i = 0;
 				$arrayofkeywords = explode(',', $websitepage->keywords);
 				foreach ($arrayofkeywords as $keyword) {
-					$ret .= '"'.dol_escape_json($keyword).'"';
+					$ret .= '"' . dol_escape_json($keyword) . '"';
 					$i++;
 					if ($i < count($arrayofkeywords)) {
 						$ret .= ', ';
 					}
 				}
-				$ret .= '],'."\n";
+				$ret .= '],' . "\n";
 			}
-			$ret .= '"description": "'.dol_escape_json($description).'"';
-			$ret .= "\n".'}'."\n";
-			$ret .= '</script>'."\n";
+			$ret .= '"description": "' . dol_escape_json($description) . '"';
+			$ret .= "\n" . '}' . "\n";
+			$ret .= '</script>' . "\n";
 		} else {
-			$ret = '<!-- no structured data inserted inline inside blogpost because no author_alias defined -->'."\n";
+			$ret = '<!-- no structured data inserted inline inside blogpost because no author_alias defined -->' . "\n";
 		}
 	} elseif ($type == 'product') {
-		$ret = '<!-- Add structured data for product -->'."\n";
-		$ret .= '<script nonce="'.getNonce().'" type="application/ld+json">'."\n";
+		$ret = '<!-- Add structured data for product -->' . "\n";
+		$ret .= '<script nonce="' . getNonce() . '" type="application/ld+json">' . "\n";
 		$ret .= '{
 				"@context": "https://schema.org/",
 				"@type": "Product",
-				"name": "'.dol_escape_json($data['label']).'",
+				"name": "' . dol_escape_json($data['label']) . '",
 				"image": [
-					"'.dol_escape_json($data['image']).'",
+					"' . dol_escape_json($data['image']) . '",
 				],
-				"description": "'.dol_escape_json($data['description']).'",
-				"sku": "'.dol_escape_json($data['ref']).'",
+				"description": "' . dol_escape_json($data['description']) . '",
+				"sku": "' . dol_escape_json($data['ref']) . '",
 				"brand": {
 					"@type": "Thing",
-					"name": "'.dol_escape_json($data['brand']).'"
+					"name": "' . dol_escape_json($data['brand']) . '"
 				},
 				"author": {
 					"@type": "Person",
-					"name": "'.dol_escape_json($data['author']).'"
+					"name": "' . dol_escape_json($data['author']) . '"
 				}
 				},
 				"offers": {
 					"@type": "Offer",
 					"url": "https://example.com/anvil",
-					"priceCurrency": "'.dol_escape_json($data['currency'] ? $data['currency'] : $config->currency).'",
-					"price": "'.dol_escape_json($data['price']).'",
+					"priceCurrency": "' . dol_escape_json($data['currency'] ? $data['currency'] : $config->currency) . '",
+					"price": "' . dol_escape_json($data['price']) . '",
 					"itemCondition": "https://schema.org/UsedCondition",
 					"availability": "https://schema.org/InStock",
 					"seller": {
 						"@type": "Organization",
-						"name": "'.dol_escape_json($mysoc->name).'"
+						"name": "' . dol_escape_json($mysoc->name) . '"
 					}
 				}
-			}'."\n";
-		$ret .= '</script>'."\n";
+			}' . "\n";
+		$ret .= '</script>' . "\n";
 	} elseif ($type == 'qa') {
-		$ret = '<!-- Add structured data for QA -->'."\n";
-		$ret .= '<script nonce="'.getNonce().'" type="application/ld+json">'."\n";
+		$ret = '<!-- Add structured data for QA -->' . "\n";
+		$ret .= '<script nonce="' . getNonce() . '" type="application/ld+json">' . "\n";
 		$ret .= '{
 				"@context": "https://schema.org/",
 				"@type": "QAPage",
 				"mainEntity": {
 					"@type": "Question",
-					"name": "'.dol_escape_json($data['name']).'",
-					"text": "'.dol_escape_json($data['name']).'",
+					"name": "' . dol_escape_json($data['name']) . '",
+					"text": "' . dol_escape_json($data['name']) . '",
 					"answerCount": 1,
 					"author": {
 						"@type": "Person",
-						"name": "'.dol_escape_json($data['author']).'"
+						"name": "' . dol_escape_json($data['author']) . '"
 					}
 					"acceptedAnswer": {
 						"@type": "Answer",
-						"text": "'.dol_escape_json(dol_string_nohtmltag(dolStripPhpCode($data['description']))).'",
+						"text": "' . dol_escape_json(dol_string_nohtmltag(dolStripPhpCode($data['description']))) . '",
 						"author": {
 							"@type": "Person",
-							"name": "'.dol_escape_json($data['author']).'"
+							"name": "' . dol_escape_json($data['author']) . '"
 						}
 					}
 				}
-			}'."\n";
-		$ret .= '</script>'."\n";
+			}' . "\n";
+		$ret .= '</script>' . "\n";
 	} else {
 		$ret = '';
 	}
@@ -921,7 +921,7 @@ function getSocialNetworkHeaderCards($params = null)
 
 		$pageurl = str_replace('__WEBSITE_KEY__', $website->ref, $pageurl);
 		$title = str_replace('__WEBSITE_KEY__', $website->ref, $title);
-		$image = '/medias'.(preg_match('/^\//', $image) ? '' : '/').str_replace('__WEBSITE_KEY__', $website->ref, $image);
+		$image = '/medias' . (preg_match('/^\//', $image) ? '' : '/') . str_replace('__WEBSITE_KEY__', $website->ref, $image);
 		$companyname = str_replace('__WEBSITE_KEY__', $website->ref, $companyname);
 		$description = str_replace('__WEBSITE_KEY__', $website->ref, $description);
 
@@ -933,30 +933,30 @@ function getSocialNetworkHeaderCards($params = null)
 			$shortlangcode = substr($website->lang, 0, 2); // en_US or en-US -> en
 		}
 
-		$fullurl = $website->virtualhost.'/'.$websitepage->pageurl.'.php';
-		$canonicalurl = $website->virtualhost.(($websitepage->id == $website->fk_default_home) ? '/' : (($shortlangcode != substr($website->lang, 0, 2) ? '/'.$shortlangcode : '').'/'.$websitepage->pageurl.'.php'));
+		$fullurl = $website->virtualhost . '/' . $websitepage->pageurl . '.php';
+		$canonicalurl = $website->virtualhost . (($websitepage->id == $website->fk_default_home) ? '/' : (($shortlangcode != substr($website->lang, 0, 2) ? '/' . $shortlangcode : '') . '/' . $websitepage->pageurl . '.php'));
 		$hashtags = trim(implode(' #', array_map('trim', explode(',', $websitepage->keywords))));
 
 		// Open Graph
-		$out .= '<meta name="og:type" content="website">'."\n";	// TODO If blogpost, use type article
-		$out .= '<meta name="og:title" content="'.$websitepage->title.'">'."\n";
+		$out .= '<meta name="og:type" content="website">' . "\n";	// TODO If blogpost, use type article
+		$out .= '<meta name="og:title" content="' . $websitepage->title . '">' . "\n";
 		if ($websitepage->image) {
-			$out .= '<meta name="og:image" content="'.$website->virtualhost.$image.'">'."\n";
+			$out .= '<meta name="og:image" content="' . $website->virtualhost . $image . '">' . "\n";
 		}
-		$out .= '<meta name="og:url" content="'.$canonicalurl.'">'."\n";
+		$out .= '<meta name="og:url" content="' . $canonicalurl . '">' . "\n";
 
 		// Twitter
-		$out .= '<meta name="twitter:card" content="summary">'."\n";
+		$out .= '<meta name="twitter:card" content="summary">' . "\n";
 		if (!empty($params) && !empty($params['twitter_account'])) {
-			$out .= '<meta name="twitter:site" content="@'.$params['twitter_account'].'">'."\n";
-			$out .= '<meta name="twitter:creator" content="@'.$params['twitter_account'].'">'."\n";
+			$out .= '<meta name="twitter:site" content="@' . $params['twitter_account'] . '">' . "\n";
+			$out .= '<meta name="twitter:creator" content="@' . $params['twitter_account'] . '">' . "\n";
 		}
-		$out .= '<meta name="twitter:title" content="'.$websitepage->title.'">'."\n";
+		$out .= '<meta name="twitter:title" content="' . $websitepage->title . '">' . "\n";
 		if ($websitepage->description) {
-			$out .= '<meta name="twitter:description" content="'.$websitepage->description.'">'."\n";
+			$out .= '<meta name="twitter:description" content="' . $websitepage->description . '">' . "\n";
 		}
 		if ($websitepage->image) {
-			$out .= '<meta name="twitter:image" content="'.$website->virtualhost.$image.'">'."\n";
+			$out .= '<meta name="twitter:image" content="' . $website->virtualhost . $image . '">' . "\n";
 		}
 		//$out .= '<meta name="twitter:domain" content="'.getDomainFromURL($website->virtualhost, 1).'">';
 		/*
@@ -986,35 +986,35 @@ function getSocialNetworkSharingLinks($socialnetworks = '')
 	global $website, $websitepage; // Very important. Required to have var available when running included containers.
 	'@phan-var-force Website $website';
 
-	$out = '<!-- section for social network sharing of page -->'."\n";
+	$out = '<!-- section for social network sharing of page -->' . "\n";
 
 	if ($website->virtualhost) {
-		$fullurl = $website->virtualhost.'/'.$websitepage->pageurl.'.php';
+		$fullurl = $website->virtualhost . '/' . $websitepage->pageurl . '.php';
 		$hashtags = trim(implode(' #', array_map('trim', explode(',', $websitepage->keywords))));
 
-		$out .= '<div class="dol-social-share">'."\n";
+		$out .= '<div class="dol-social-share">' . "\n";
 
 		// Twitter
 		if (empty($socialnetworks) || preg_match('/twitter/', $socialnetworks)) {
-			$out .= '<div class="dol-social-share-tw">'."\n";
-			$out .= '<a href="https://twitter.com/share" class="twitter-share-button" data-url="'.$fullurl.'" data-text="'.dol_escape_htmltag($websitepage->description).'" data-lang="'.$websitepage->lang.'" data-size="small" data-related="" data-hashtags="'.preg_replace('/^#/', '', $hashtags).'" data-count="horizontal">Tweet</a>';
-			$out .= '<script nonce="'.getNonce().'">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document, \'script\', \'twitter-wjs\');</script>';
-			$out .= '</div>'."\n";
+			$out .= '<div class="dol-social-share-tw">' . "\n";
+			$out .= '<a href="https://twitter.com/share" class="twitter-share-button" data-url="' . $fullurl . '" data-text="' . dol_escape_htmltag($websitepage->description) . '" data-lang="' . $websitepage->lang . '" data-size="small" data-related="" data-hashtags="' . preg_replace('/^#/', '', $hashtags) . '" data-count="horizontal">Tweet</a>';
+			$out .= '<script nonce="' . getNonce() . '">!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\'http\':\'https\';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+\'://platform.twitter.com/widgets.js\';fjs.parentNode.insertBefore(js,fjs);}}(document, \'script\', \'twitter-wjs\');</script>';
+			$out .= '</div>' . "\n";
 		}
 
 		// Reddit
 		if (empty($socialnetworks) || preg_match('/reddit/', $socialnetworks)) {
-			$out .= '<div class="dol-social-share-reddit">'."\n";
-			$out .= '<a href="https://www.reddit.com/submit" target="_blank" rel="noopener noreferrer external" onclick="window.location = \'https://www.reddit.com/submit?url='.urlencode($fullurl).'\'; return false">';
+			$out .= '<div class="dol-social-share-reddit">' . "\n";
+			$out .= '<a href="https://www.reddit.com/submit" target="_blank" rel="noopener noreferrer external" onclick="window.location = \'https://www.reddit.com/submit?url=' . urlencode($fullurl) . '\'; return false">';
 			$out .= '<span class="dol-social-share-reddit-span">Reddit</span>';
 			$out .= '</a>';
-			$out .= '</div>'."\n";
+			$out .= '</div>' . "\n";
 		}
 
 		// Facebook
 		if (empty($socialnetworks) || preg_match('/facebook/', $socialnetworks)) {
-			$out .= '<div class="dol-social-share-fbl">'."\n";
-			$out .= '<a href="https://www.facebook.com/sharer/sharer.php?u='.urlencode($fullurl).'">';
+			$out .= '<div class="dol-social-share-fbl">' . "\n";
+			$out .= '<a href="https://www.facebook.com/sharer/sharer.php?u=' . urlencode($fullurl) . '">';
 			$out .= '<span class="dol-social-share-fbl-span">Facebook</span>';
 			$out .= '</a>';
 			$out .= '</div>';
@@ -1022,9 +1022,9 @@ function getSocialNetworkSharingLinks($socialnetworks = '')
 
 		$out .= "\n</div>\n";
 	} else {
-		$out .= '<!-- virtual host not defined in CMS. No way to add sharing buttons -->'."\n";
+		$out .= '<!-- virtual host not defined in CMS. No way to add sharing buttons -->' . "\n";
 	}
-	$out .= '<!-- section end for social network sharing of page -->'."\n";
+	$out .= '<!-- section end for social network sharing of page -->' . "\n";
 
 	return $out;
 }
@@ -1043,15 +1043,15 @@ function getNbOfImagePublicURLOfObject($object)
 
 	$nb = 0;
 
-	include_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
+	include_once DOL_DOCUMENT_ROOT . '/core/lib/images.lib.php';
 	$regexforimg = getListOfPossibleImageExt(0);
-	$regexforimg = '('.$regexforimg.')$';
+	$regexforimg = '(' . $regexforimg . ')$';
 
 	$sql = "SELECT COUNT(rowid) as nb";
-	$sql .= " FROM ".MAIN_DB_PREFIX."ecm_files";
-	$sql .= " WHERE entity IN (".getEntity($object->element).")";
-	$sql .= " AND src_object_type = '".$db->escape($object->element)."' AND src_object_id = ".((int) $object->id);	// Filter on object
-	$sql .= " AND ".$db->regexpsql('filename', $regexforimg, 1);
+	$sql .= " FROM " . MAIN_DB_PREFIX . "ecm_files";
+	$sql .= " WHERE entity IN (" . getEntity($object->element) . ")";
+	$sql .= " AND src_object_type = '" . $db->escape($object->element) . "' AND src_object_id = " . ((int) $object->id);	// Filter on object
+	$sql .= " AND " . $db->regexpsql('filename', $regexforimg, 1);
 	$sql .= " AND share IS NOT NULL";	// Only image that are public
 
 	$resql = $db->query($sql);
@@ -1081,15 +1081,15 @@ function getImagePublicURLOfObject($object, $no = 1, $extName = '')
 
 	$image_path = '';
 
-	include_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
+	include_once DOL_DOCUMENT_ROOT . '/core/lib/images.lib.php';
 	$regexforimg = getListOfPossibleImageExt(0);
-	$regexforimg = '('.$regexforimg.')$';
+	$regexforimg = '(' . $regexforimg . ')$';
 
 	$sql = "SELECT rowid, ref, share, filename, cover, position";
-	$sql .= " FROM ".MAIN_DB_PREFIX."ecm_files";
-	$sql .= " WHERE entity IN (".getEntity($object->element).")";
-	$sql .= " AND src_object_type = '".$db->escape($object->element)."' AND src_object_id = ".((int) $object->id);	// Filter on object
-	$sql .= " AND ".$db->regexpsql('filename', $regexforimg, 1);
+	$sql .= " FROM " . MAIN_DB_PREFIX . "ecm_files";
+	$sql .= " WHERE entity IN (" . getEntity($object->element) . ")";
+	$sql .= " AND src_object_type = '" . $db->escape($object->element) . "' AND src_object_id = " . ((int) $object->id);	// Filter on object
+	$sql .= " AND " . $db->regexpsql('filename', $regexforimg, 1);
 	$sql .= $db->order("cover,position,rowid", "ASC,ASC,ASC");
 
 	$resql = $db->query($sql);
@@ -1107,13 +1107,13 @@ function getImagePublicURLOfObject($object, $no = 1, $extName = '')
 					$found++;
 
 					if (defined('USEDOLIBARRSERVER') || defined('USEDOLIBARREDITOR')) {
-						$image_path = DOL_URL_ROOT.'/viewimage.php?hashp='.urlencode($obj->share);
+						$image_path = DOL_URL_ROOT . '/viewimage.php?hashp=' . urlencode($obj->share);
 					} else {
-						$image_path = '/wrapper.php?hashp='.urlencode($obj->share);
+						$image_path = '/wrapper.php?hashp=' . urlencode($obj->share);
 					}
 
 					if ($extName) {
-						$image_path .= '&extname='.urlencode($extName);
+						$image_path .= '&extname=' . urlencode($extName);
 					}
 				}
 			}
@@ -1124,7 +1124,7 @@ function getImagePublicURLOfObject($object, $no = 1, $extName = '')
 		}
 		if (!$found && $foundnotshared) {
 			if (defined('USEDOLIBARRSERVER') || defined('USEDOLIBARREDITOR')) {
-				$image_path = DOL_URL_ROOT.'/viewimage.php?modulepart=common&file=nophotopublic.png';
+				$image_path = DOL_URL_ROOT . '/viewimage.php?modulepart=common&file=nophotopublic.png';
 			} else {
 				$image_path = '/wrapper.php?modulepart=common&file=nophotopublic.png';
 			}
@@ -1133,7 +1133,7 @@ function getImagePublicURLOfObject($object, $no = 1, $extName = '')
 
 	if (empty($image_path)) {
 		if (defined('USEDOLIBARRSERVER') || defined('USEDOLIBARREDITOR')) {
-			$image_path = DOL_URL_ROOT.'/viewimage.php?modulepart=common&file=nophoto.png';
+			$image_path = DOL_URL_ROOT . '/viewimage.php?modulepart=common&file=nophoto.png';
 		} else {
 			$image_path = '/wrapper.php?modulepart=common&file=nophoto.png';
 		}
@@ -1155,14 +1155,14 @@ function getPublicFilesOfObject($object)
 
 	$files = array();
 
-	include_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
+	include_once DOL_DOCUMENT_ROOT . '/core/lib/images.lib.php';
 	$regexforimg = getListOfPossibleImageExt(0);
-	$regexforimg = '/('.$regexforimg.')$/i';
+	$regexforimg = '/(' . $regexforimg . ')$/i';
 
 	$sql = "SELECT rowid, ref, share, filename, cover, position";
-	$sql .= " FROM ".MAIN_DB_PREFIX."ecm_files";
-	$sql .= " WHERE entity IN (".getEntity($object->element).")";
-	$sql .= " AND src_object_type = '".$db->escape($object->element)."' AND src_object_id = ".((int) $object->id);
+	$sql .= " FROM " . MAIN_DB_PREFIX . "ecm_files";
+	$sql .= " WHERE entity IN (" . getEntity($object->element) . ")";
+	$sql .= " AND src_object_type = '" . $db->escape($object->element) . "' AND src_object_id = " . ((int) $object->id);
 	$sql .= $db->order("cover,position,rowid", "ASC,ASC,ASC");
 
 	$resql = $db->query($sql);
@@ -1177,12 +1177,12 @@ function getPublicFilesOfObject($object)
 					$files[$obj->rowid]['position'] = $obj->position;
 					if (defined('USEDOLIBARRSERVER') || defined('USEDOLIBARREDITOR')) {
 						if (preg_match($regexforimg, $obj->filename)) {
-							$files[$obj->rowid]['url'] = DOL_URL_ROOT.'/viewimage.php?hashp='.urlencode($obj->share);
+							$files[$obj->rowid]['url'] = DOL_URL_ROOT . '/viewimage.php?hashp=' . urlencode($obj->share);
 						} else {
-							$files[$obj->rowid]['url'] = DOL_URL_ROOT.'/document.php?hashp='.urlencode($obj->share);
+							$files[$obj->rowid]['url'] = DOL_URL_ROOT . '/document.php?hashp=' . urlencode($obj->share);
 						}
 					} else {
-						$files[$obj->rowid]['url'] = '/wrapper.php?hashp='.urlencode($obj->share);
+						$files[$obj->rowid]['url'] = '/wrapper.php?hashp=' . urlencode($obj->share);
 					}
 				}
 			}
@@ -1209,9 +1209,19 @@ function getPublicFilesOfObject($object)
  * @param	int<-1,1>	$status				0 or 1, or -1 for both
  * @return  array{list?:WebsitePage[],code?:string,message?:string}	Array with results of search
  */
-function getPagesFromSearchCriterias($type, $algo, $searchstring, $max = 25, $sortfield = 'date_creation', $sortorder = 'DESC', $langcode = '', $otherfilters = [], $status = 1)
+function getPagesFromSearchCriterias(
+	$type,
+	$algo,
+	$searchstring,
+	$max = 25,
+	$sortfield = 'date_creation',
+	$sortorder = 'DESC',
+	$langcode = '',
+	$otherfilters = [],
+	$status = 1)
 {
-	global $config, $db, $hookManager, $langs, $mysoc, $user, $website, $websitepage, $weblangs; // Very important. Required to have var available when running included containers.
+	global $config, $db, $hookManager, $langs, $mysoc, $user, $website, $websitepage, $weblangs;
+	// Very important. Required to have var available when running included containers.
 	'@phan-var-force Website $website';
 
 	$error = 0;
@@ -1252,39 +1262,39 @@ function getPagesFromSearchCriterias($type, $algo, $searchstring, $max = 25, $so
 	$found = 0;
 
 	if (!$error && (empty($max) || ($found < $max)) && (preg_match('/meta/', $algo) || preg_match('/content/', $algo))) {
-		include_once DOL_DOCUMENT_ROOT.'/website/class/websitepage.class.php';
+		include_once DOL_DOCUMENT_ROOT . '/website/class/websitepage.class.php';
 
-		$sql = 'SELECT wp.rowid FROM '.MAIN_DB_PREFIX.'website_page as wp';
+		$sql = 'SELECT wp.rowid FROM ' . MAIN_DB_PREFIX . 'website_page as wp';
 		if (is_array($otherfilters) && !empty($otherfilters['category'])) {
-			$sql .= ', '.MAIN_DB_PREFIX.'categorie_website_page as cwp';
+			$sql .= ', ' . MAIN_DB_PREFIX . 'categorie_website_page as cwp';
 		}
-		$sql .= " WHERE wp.fk_website = ".((int) $website->id);
+		$sql .= " WHERE wp.fk_website = " . ((int) $website->id);
 		if ($status >= 0) {
-			$sql .= " AND wp.status = ".((int) $status);
+			$sql .= " AND wp.status = " . ((int) $status);
 		}
 		if ($langcode) {
-			$sql .= " AND wp.lang = '".$db->escape($langcode)."'";
+			$sql .= " AND wp.lang = '" . $db->escape($langcode) . "'";
 		}
 		if ($type) {
 			$tmparrayoftype = explode(',', $type);
 			$typestring = '';
 			foreach ($tmparrayoftype as $tmptype) {
-				$typestring .= ($typestring ? ", " : "")."'".$db->escape(trim($tmptype))."'";
+				$typestring .= ($typestring ? ", " : "") . "'" . $db->escape(trim($tmptype)) . "'";
 			}
-			$sql .= " AND wp.type_container IN (".$db->sanitize($typestring, 1).")";
+			$sql .= " AND wp.type_container IN (" . $db->sanitize($typestring, 1) . ")";
 		}
 		$sql .= " AND (";
 		$searchalgo = '';
 		if (preg_match('/meta/', $algo)) {
-			$searchalgo .= ($searchalgo ? ' OR ' : '')."wp.title LIKE '%".$db->escape($db->escapeforlike($searchstring))."%' OR wp.description LIKE '%".$db->escape($db->escapeforlike($searchstring))."%'";
-			$searchalgo .= ($searchalgo ? ' OR ' : '')."wp.keywords LIKE '".$db->escape($db->escapeforlike($searchstring)).",%' OR wp.keywords LIKE '% ".$db->escape($db->escapeforlike($searchstring))."%'"; // TODO Use a better way to scan keywords
+			$searchalgo .= ($searchalgo ? ' OR ' : '') . "wp.title LIKE '%" . $db->escape($db->escapeforlike($searchstring)) . "%' OR wp.description LIKE '%" . $db->escape($db->escapeforlike($searchstring)) . "%'";
+			$searchalgo .= ($searchalgo ? ' OR ' : '') . "wp.keywords LIKE '" . $db->escape($db->escapeforlike($searchstring)) . ",%' OR wp.keywords LIKE '% " . $db->escape($db->escapeforlike($searchstring)) . "%'"; // TODO Use a better way to scan keywords
 		}
 		if (preg_match('/content/', $algo)) {
-			$searchalgo .= ($searchalgo ? ' OR ' : '')."wp.content LIKE '%".$db->escape($db->escapeforlike($searchstring))."%'";
+			$searchalgo .= ($searchalgo ? ' OR ' : '') . "wp.content LIKE '%" . $db->escape($db->escapeforlike($searchstring)) . "%'";
 		}
 		$sql .= $searchalgo;
 		if (is_array($otherfilters) && !empty($otherfilters['category'])) {
-			$sql .= ' AND cwp.fk_website_page = wp.rowid AND cwp.fk_categorie = '.((int) $otherfilters['category']);
+			$sql .= ' AND cwp.fk_website_page = wp.rowid AND cwp.fk_categorie = ' . ((int) $otherfilters['category']);
 		}
 		$sql .= ")";
 		$sql .= $db->order($sortfield, $sortorder);
@@ -1318,32 +1328,32 @@ function getPagesFromSearchCriterias($type, $algo, $searchstring, $max = 25, $so
 	if (!$error && (empty($max) || ($found < $max)) && (preg_match('/sitefiles/', $algo))) {
 		global $dolibarr_main_data_root;
 
-		$pathofwebsite = $dolibarr_main_data_root.($config->entity > 1 ? '/'.$config->entity : '').'/website/'.$website->ref;
-		$filehtmlheader = $pathofwebsite.'/htmlheader.html';
-		$filecss = $pathofwebsite.'/styles.css.php';
-		$filejs = $pathofwebsite.'/javascript.js.php';
-		$filerobot = $pathofwebsite.'/robots.txt';
-		$filehtaccess = $pathofwebsite.'/.htaccess';
-		$filemanifestjson = $pathofwebsite.'/manifest.json.php';
-		$filereadme = $pathofwebsite.'/README.md';
+		$pathofwebsite = $dolibarr_main_data_root . ($config->entity > 1 ? '/' . $config->entity : '') . '/website/' . $website->ref;
+		$filehtmlheader = $pathofwebsite . '/htmlheader.html';
+		$filecss = $pathofwebsite . '/styles.css.php';
+		$filejs = $pathofwebsite . '/javascript.js.php';
+		$filerobot = $pathofwebsite . '/robots.txt';
+		$filehtaccess = $pathofwebsite . '/.htaccess';
+		$filemanifestjson = $pathofwebsite . '/manifest.json.php';
+		$filereadme = $pathofwebsite . '/README.md';
 
 		$filecontent = file_get_contents($filehtmlheader);
-		if ((empty($max) || ($found < $max)) && preg_match('/'.preg_quote($searchstring, '/').'/', $filecontent)) {
+		if ((empty($max) || ($found < $max)) && preg_match('/' . preg_quote($searchstring, '/') . '/', $filecontent)) {
 			$arrayresult['list'][] = array('type' => 'website_htmlheadercontent');
 		}
 
 		$filecontent = file_get_contents($filecss);
-		if ((empty($max) || ($found < $max)) && preg_match('/'.preg_quote($searchstring, '/').'/', $filecontent)) {
+		if ((empty($max) || ($found < $max)) && preg_match('/' . preg_quote($searchstring, '/') . '/', $filecontent)) {
 			$arrayresult['list'][] = array('type' => 'website_csscontent');
 		}
 
 		$filecontent = file_get_contents($filejs);
-		if ((empty($max) || ($found < $max)) && preg_match('/'.preg_quote($searchstring, '/').'/', $filecontent)) {
+		if ((empty($max) || ($found < $max)) && preg_match('/' . preg_quote($searchstring, '/') . '/', $filecontent)) {
 			$arrayresult['list'][] = array('type' => 'website_jscontent');
 		}
 
 		$filerobot = file_get_contents($filerobot);
-		if ((empty($max) || ($found < $max)) && preg_match('/'.preg_quote($searchstring, '/').'/', $filecontent)) {
+		if ((empty($max) || ($found < $max)) && preg_match('/' . preg_quote($searchstring, '/') . '/', $filecontent)) {
 			$arrayresult['list'][] = array('type' => 'website_robotcontent');
 		}
 
@@ -1433,7 +1443,7 @@ function getAllImages($object, $objectpage, $urltograb, &$tmp, &$action, $modify
 
 	$error = 0;
 
-	dol_syslog("Call getAllImages with grabimagesinto=".$grabimagesinto);
+	dol_syslog("Call getAllImages with grabimagesinto=" . $grabimagesinto);
 
 	$alreadygrabbed = array();
 
@@ -1453,25 +1463,25 @@ function getAllImages($object, $objectpage, $urltograb, &$tmp, &$action, $modify
 
 		if (preg_match('/^\//', $regs[2][$key])) {
 			$urltograbdirrootwithoutslash = getRootURLFromURL($urltograb);
-			$urltograbbis = $urltograbdirrootwithoutslash.$regs[2][$key]; // We use dirroot
+			$urltograbbis = $urltograbdirrootwithoutslash . $regs[2][$key]; // We use dirroot
 		} else {
-			$urltograbbis = $urltograb.'/'.$regs[2][$key]; // We use dir of grabbed file
+			$urltograbbis = $urltograb . '/' . $regs[2][$key]; // We use dir of grabbed file
 		}
 
 		$linkwithoutdomain = $regs[2][$key];
-		$dirforimages = '/'.$objectpage->pageurl;
+		$dirforimages = '/' . $objectpage->pageurl;
 		if ($grabimagesinto == 'root') {
 			$dirforimages = '';
 		}
 
 		// Define $filetosave and $filename
-		$filetosave = $config->medias->multidir_output[$config->entity].'/image/'.$object->ref.$dirforimages.(preg_match('/^\//', $regs[2][$key]) ? '' : '/').$regs[2][$key];
+		$filetosave = $config->medias->multidir_output[$config->entity] . '/image/' . $object->ref . $dirforimages . (preg_match('/^\//', $regs[2][$key]) ? '' : '/') . $regs[2][$key];
 		if (preg_match('/^http/', $regs[2][$key])) {
 			$urltograbbis = $regs[2][$key];
 			$linkwithoutdomain = preg_replace('/^https?:\/\/[^\/]+\//i', '', $regs[2][$key]);
-			$filetosave = $config->medias->multidir_output[$config->entity].'/image/'.$object->ref.$dirforimages.(preg_match('/^\//', $linkwithoutdomain) ? '' : '/').$linkwithoutdomain;
+			$filetosave = $config->medias->multidir_output[$config->entity] . '/image/' . $object->ref . $dirforimages . (preg_match('/^\//', $linkwithoutdomain) ? '' : '/') . $linkwithoutdomain;
 		}
-		$filename = 'image/'.$object->ref.$dirforimages.(preg_match('/^\//', $linkwithoutdomain) ? '' : '/').$linkwithoutdomain;
+		$filename = 'image/' . $object->ref . $dirforimages . (preg_match('/^\//', $linkwithoutdomain) ? '' : '/') . $linkwithoutdomain;
 
 		// Clean the aa/bb/../cc into aa/cc
 		$filetosave = preg_replace('/\/[^\/]+\/\.\./', '', $filetosave);
@@ -1482,11 +1492,11 @@ function getAllImages($object, $objectpage, $urltograb, &$tmp, &$action, $modify
 				$tmpgeturl = getURLContent($urltograbbis, 'GET', '', 1, array(), array('http', 'https'), 0);
 				if ($tmpgeturl['curl_error_no']) {
 					$error++;
-					setEventMessages('Error getting '.$urltograbbis.': '.$tmpgeturl['curl_error_msg'], null, 'errors');
+					setEventMessages('Error getting ' . $urltograbbis . ': ' . $tmpgeturl['curl_error_msg'], null, 'errors');
 					$action = 'create';
 				} elseif ($tmpgeturl['http_code'] != '200') {
 					$error++;
-					setEventMessages('Error getting '.$urltograbbis.': '.$tmpgeturl['http_code'], null, 'errors');
+					setEventMessages('Error getting ' . $urltograbbis . ': ' . $tmpgeturl['http_code'], null, 'errors');
 					$action = 'create';
 				} else {
 					$alreadygrabbed[$urltograbbis] = 1; // Track that file was already grabbed.
@@ -1502,7 +1512,7 @@ function getAllImages($object, $objectpage, $urltograb, &$tmp, &$action, $modify
 		}
 
 		if ($modifylinks) {
-			$tmp = preg_replace('/'.preg_quote($regs[0][$key], '/').'/i', '<img'.$regs[1][$key].'src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=medias&file='.$filename.'"'.$regs[3][$key].'>', $tmp);
+			$tmp = preg_replace('/' . preg_quote($regs[0][$key], '/') . '/i', '<img' . $regs[1][$key] . 'src="' . DOL_URL_ROOT . '/viewimage.php?modulepart=medias&file=' . $filename . '"' . $regs[3][$key] . '>', $tmp);
 		}
 	}
 
@@ -1516,27 +1526,27 @@ function getAllImages($object, $objectpage, $urltograb, &$tmp, &$action, $modify
 
 		if (preg_match('/^\//', $regs[2][$key])) {
 			$urltograbdirrootwithoutslash = getRootURLFromURL($urltograb);
-			$urltograbbis = $urltograbdirrootwithoutslash.$regs[2][$key]; // We use dirroot
+			$urltograbbis = $urltograbdirrootwithoutslash . $regs[2][$key]; // We use dirroot
 		} else {
-			$urltograbbis = $urltograb.'/'.$regs[2][$key]; // We use dir of grabbed file
+			$urltograbbis = $urltograb . '/' . $regs[2][$key]; // We use dir of grabbed file
 		}
 
 		$linkwithoutdomain = $regs[2][$key];
 
-		$dirforimages = '/'.$objectpage->pageurl;
+		$dirforimages = '/' . $objectpage->pageurl;
 		if ($grabimagesinto == 'root') {
 			$dirforimages = '';
 		}
 
-		$filetosave = $config->medias->multidir_output[$config->entity].'/image/'.$object->ref.$dirforimages.(preg_match('/^\//', $regs[2][$key]) ? '' : '/').$regs[2][$key];
+		$filetosave = $config->medias->multidir_output[$config->entity] . '/image/' . $object->ref . $dirforimages . (preg_match('/^\//', $regs[2][$key]) ? '' : '/') . $regs[2][$key];
 
 		if (preg_match('/^http/', $regs[2][$key])) {
 			$urltograbbis = $regs[2][$key];
 			$linkwithoutdomain = preg_replace('/^https?:\/\/[^\/]+\//i', '', $regs[2][$key]);
-			$filetosave = $config->medias->multidir_output[$config->entity].'/image/'.$object->ref.$dirforimages.(preg_match('/^\//', $linkwithoutdomain) ? '' : '/').$linkwithoutdomain;
+			$filetosave = $config->medias->multidir_output[$config->entity] . '/image/' . $object->ref . $dirforimages . (preg_match('/^\//', $linkwithoutdomain) ? '' : '/') . $linkwithoutdomain;
 		}
 
-		$filename = 'image/'.$object->ref.$dirforimages.(preg_match('/^\//', $linkwithoutdomain) ? '' : '/').$linkwithoutdomain;
+		$filename = 'image/' . $object->ref . $dirforimages . (preg_match('/^\//', $linkwithoutdomain) ? '' : '/') . $linkwithoutdomain;
 
 		// Clean the aa/bb/../cc into aa/cc
 		$filetosave = preg_replace('/\/[^\/]+\/\.\./', '', $filetosave);
@@ -1547,11 +1557,11 @@ function getAllImages($object, $objectpage, $urltograb, &$tmp, &$action, $modify
 				$tmpgeturl = getURLContent($urltograbbis, 'GET', '', 1, array(), array('http', 'https'), 0);
 				if ($tmpgeturl['curl_error_no']) {
 					$error++;
-					setEventMessages('Error getting '.$urltograbbis.': '.$tmpgeturl['curl_error_msg'], null, 'errors');
+					setEventMessages('Error getting ' . $urltograbbis . ': ' . $tmpgeturl['curl_error_msg'], null, 'errors');
 					$action = 'create';
 				} elseif ($tmpgeturl['http_code'] != '200') {
 					$error++;
-					setEventMessages('Error getting '.$urltograbbis.': '.$tmpgeturl['http_code'], null, 'errors');
+					setEventMessages('Error getting ' . $urltograbbis . ': ' . $tmpgeturl['http_code'], null, 'errors');
 					$action = 'create';
 				} else {
 					$alreadygrabbed[$urltograbbis] = 1; // Track that file was already grabbed.
@@ -1567,7 +1577,7 @@ function getAllImages($object, $objectpage, $urltograb, &$tmp, &$action, $modify
 		}
 
 		if ($modifylinks) {
-			$tmp = preg_replace('/'.preg_quote($regs[0][$key], '/').'/i', 'background'.$regs[1][$key].'url("'.DOL_URL_ROOT.'/viewimage.php?modulepart=medias&file='.$filename.'")', $tmp);
+			$tmp = preg_replace('/' . preg_quote($regs[0][$key], '/') . '/i', 'background' . $regs[1][$key] . 'url("' . DOL_URL_ROOT . '/viewimage.php?modulepart=medias&file=' . $filename . '")', $tmp);
 		}
 	}
 }
@@ -1587,8 +1597,8 @@ function getNewsDetailsById($postId)
 	}
 
 	$sql = "SELECT p.title, p.description, p.date_creation, p.image
-            FROM ".MAIN_DB_PREFIX."website_page as p
-            WHERE p.rowid = ".(intval($postId));
+            FROM " . MAIN_DB_PREFIX . "website_page as p
+            WHERE p.rowid = " . (intval($postId));
 
 	$resql = $db->query($sql);
 	if ($resql) {

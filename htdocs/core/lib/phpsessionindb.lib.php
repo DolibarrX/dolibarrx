@@ -86,8 +86,8 @@ function dolSessionRead($sess_id)
 	global $sessionlastvalueread;
 	global $sessionidfound;
 
-	$sql = "SELECT session_id, session_variable FROM ".MAIN_DB_PREFIX."session";
-	$sql .= " WHERE session_id = '".$dbsession->escape($sess_id)."'";
+	$sql = "SELECT session_id, session_variable FROM " . MAIN_DB_PREFIX . "session";
+	$sql .= " WHERE session_id = '" . $dbsession->escape($sess_id) . "'";
 
 	// Execute the query
 	$resql = $dbsession->query($sql);
@@ -132,9 +132,9 @@ function dolSessionWrite($sess_id, $val)
 
 		if (empty($sessionidfound)) {
 			// No session found, insert a new one
-			$insert_query = "INSERT INTO ".MAIN_DB_PREFIX."session";
+			$insert_query = "INSERT INTO " . MAIN_DB_PREFIX . "session";
 			$insert_query .= "(session_id, session_variable, last_accessed, fk_user, remote_ip, user_agent)";
-			$insert_query .= " VALUES ('".$dbsession->escape($sess_id)."', '".$dbsession->escape($val)."', '".$dbsession->idate($time_stamp)."', 0, '".$dbsession->escape(getUserRemoteIP())."', '".$dbsession->escape(substr($_SERVER['HTTP_USER_AGENT'], 0, 255))."')";
+			$insert_query .= " VALUES ('" . $dbsession->escape($sess_id) . "', '" . $dbsession->escape($val) . "', '" . $dbsession->idate($time_stamp) . "', 0, '" . $dbsession->escape(getUserRemoteIP()) . "', '" . $dbsession->escape(substr($_SERVER['HTTP_USER_AGENT'], 0, 255)) . "')";
 
 			$result = $dbsession->query($insert_query);
 			if (!$result) {
@@ -167,12 +167,12 @@ function dolSessionWrite($sess_id, $val)
 			} else {
 			*/
 			// Existing session found - Update the session variables
-			$update_query = "UPDATE ".MAIN_DB_PREFIX."session";
-			$update_query .= " SET session_variable = '".$dbsession->escape($val)."',";
-			$update_query .= " last_accessed = '".$dbsession->idate($time_stamp)."',";
-			$update_query .= " remote_ip = '".$dbsession->escape(getUserRemoteIP())."',";
-			$update_query .= " user_agent = '".$dbsession->escape($_SERVER['HTTP_USER_AGENT'])."'";
-			$update_query .= " WHERE session_id = '".$dbsession->escape($sess_id)."'";
+			$update_query = "UPDATE " . MAIN_DB_PREFIX . "session";
+			$update_query .= " SET session_variable = '" . $dbsession->escape($val) . "',";
+			$update_query .= " last_accessed = '" . $dbsession->idate($time_stamp) . "',";
+			$update_query .= " remote_ip = '" . $dbsession->escape(getUserRemoteIP()) . "',";
+			$update_query .= " user_agent = '" . $dbsession->escape($_SERVER['HTTP_USER_AGENT']) . "'";
+			$update_query .= " WHERE session_id = '" . $dbsession->escape($sess_id) . "'";
 
 			$result = $dbsession->query($update_query);
 			if (!$result) {
@@ -213,8 +213,8 @@ function dolSessionDestroy($sess_id)
 
 	//var_dump('destroy');
 
-	$delete_query = "DELETE FROM ".MAIN_DB_PREFIX."session";
-	$delete_query .= " WHERE session_id = '".$dbsession->escape($sess_id)."'";
+	$delete_query = "DELETE FROM " . MAIN_DB_PREFIX . "session";
+	$delete_query .= " WHERE session_id = '" . $dbsession->escape($sess_id) . "'";
 	$dbsession->query($delete_query);
 
 	return true;
@@ -233,8 +233,8 @@ function dolSessionGC($max_lifetime)
 
 	$time_stamp = dol_now();
 
-	$delete_query = "DELETE FROM ".MAIN_DB_PREFIX."session";
-	$delete_query .= " WHERE last_accessed < '".$dbsession->idate($time_stamp - $max_lifetime)."'";
+	$delete_query = "DELETE FROM " . MAIN_DB_PREFIX . "session";
+	$delete_query .= " WHERE last_accessed < '" . $dbsession->idate($time_stamp - $max_lifetime) . "'";
 
 	$resql = $dbsession->query($delete_query);
 	if ($resql) {

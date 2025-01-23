@@ -38,7 +38,7 @@ function vat_prepare_head($object)
 	$tab = 0;
 	$head = array();
 
-	$head[$tab][0] = DOL_URL_ROOT.'/compta/tva/card.php?id='.$object->id;
+	$head[$tab][0] = DOL_URL_ROOT . '/compta/tva/card.php?id=' . $object->id;
 	$head[$tab][1] = $langs->trans('VATDeclaration');
 	$head[$tab][2] = 'card';
 	$tab++;
@@ -49,20 +49,20 @@ function vat_prepare_head($object)
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
 	complete_head_from_modules($config, $langs, $object, $head, $tab, 'vat');
 
-	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $config->tax->dir_output."/vat/".dol_sanitizeFileName($object->ref);
+	require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
+	require_once DOL_DOCUMENT_ROOT . '/core/class/link.class.php';
+	$upload_dir = $config->tax->dir_output . "/vat/" . dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
-	$head[$tab][0] = DOL_URL_ROOT.'/compta/tva/document.php?id='.$object->id;
+	$head[$tab][0] = DOL_URL_ROOT . '/compta/tva/document.php?id=' . $object->id;
 	$head[$tab][1] = $langs->trans("Documents");
 	if (($nbFiles + $nbLinks) > 0) {
-		$head[$tab][1] .= '<span class="badge marginleftonlyshort">'.($nbFiles + $nbLinks).'</span>';
+		$head[$tab][1] .= '<span class="badge marginleftonlyshort">' . ($nbFiles + $nbLinks) . '</span>';
 	}
 	$head[$tab][2] = 'documents';
 	$tab++;
 
-	$head[$tab][0] = DOL_URL_ROOT.'/compta/tva/info.php?id='.$object->id;
+	$head[$tab][0] = DOL_URL_ROOT . '/compta/tva/info.php?id=' . $object->id;
 	$head[$tab][1] = $langs->trans("Info");
 	$head[$tab][2] = 'info';
 	$tab++;

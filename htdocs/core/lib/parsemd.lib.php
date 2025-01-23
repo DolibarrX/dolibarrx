@@ -42,13 +42,13 @@ function dolMd2Html($content, $parser = 'parsedown', $replaceimagepath = null)
 
 	if (is_array($replaceimagepath)) {
 		foreach ($replaceimagepath as $key => $val) {
-			$keytoreplace = ']('.$key;
-			$valafter = ']('.$val;
-			$content = preg_replace('/'.preg_quote($keytoreplace, '/').'/m', $valafter, $content);
+			$keytoreplace = '](' . $key;
+			$valafter = '](' . $val;
+			$content = preg_replace('/' . preg_quote($keytoreplace, '/') . '/m', $valafter, $content);
 		}
 	}
 	if ($parser == 'parsedown') {
-		include_once DOL_DOCUMENT_ROOT.'/includes/parsedown/Parsedown.php';
+		include_once DOL_DOCUMENT_ROOT . '/includes/parsedown/Parsedown.php';
 		$parsedown = new Parsedown();
 		$parsedown->setSafeMode(true);		// This will escape HTML link <a href=""> into html entities but markdown links are ok
 
@@ -80,9 +80,9 @@ function dolMd2Asciidoc($content, $parser = 'dolibarr', $replaceimagepath = null
 {
 	if (is_array($replaceimagepath)) {
 		foreach ($replaceimagepath as $key => $val) {
-			$keytoreplace = ']('.$key;
-			$valafter = ']('.$val;
-			$content = preg_replace('/'.preg_quote($keytoreplace, '/').'/m', $valafter, $content);
+			$keytoreplace = '](' . $key;
+			$valafter = '](' . $val;
+			$content = preg_replace('/' . preg_quote($keytoreplace, '/') . '/m', $valafter, $content);
 		}
 	}
 	//if ($parser == 'dolibarr')

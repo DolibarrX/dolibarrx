@@ -49,7 +49,7 @@ function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 
 	$PROXY_USER = !getDolGlobalString('MAIN_PROXY_USER') ? 0 : $config->global->MAIN_PROXY_USER;
 	$PROXY_PASS = !getDolGlobalString('MAIN_PROXY_PASS') ? 0 : $config->global->MAIN_PROXY_PASS;
 
-	dol_syslog("getURLContent postorget=".$postorget." URL=".$url." param=".$param);
+	dol_syslog("getURLContent postorget=" . $postorget . " URL=" . $url . " param=" . $param);
 
 	//setting the curl parameters.
 	$ch = curl_init();
@@ -155,11 +155,11 @@ function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 
 
 	//if USE_PROXY constant set at begin of this method.
 	if ($USE_PROXY) {
-		dol_syslog("getURLContent set proxy to ".$PROXY_HOST.":".$PROXY_PORT." - ".$PROXY_USER.":".$PROXY_PASS);
+		dol_syslog("getURLContent set proxy to " . $PROXY_HOST . ":" . $PROXY_PORT . " - " . $PROXY_USER . ":" . $PROXY_PASS);
 		//curl_setopt ($ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP); // Curl 7.10
-		curl_setopt($ch, CURLOPT_PROXY, $PROXY_HOST.":".$PROXY_PORT);
+		curl_setopt($ch, CURLOPT_PROXY, $PROXY_HOST . ":" . $PROXY_PORT);
 		if ($PROXY_USER) {
-			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $PROXY_USER.":".$PROXY_PASS);
+			curl_setopt($ch, CURLOPT_PROXYUSERPWD, $PROXY_USER . ":" . $PROXY_PASS);
 		}
 	}
 
@@ -183,7 +183,7 @@ function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 
 		// Deny some reserved host names
 		if (in_array($hosttocheck, array('metadata.google.internal'))) {
 			$info['http_code'] = 400;
-			$info['content'] = 'Error bad hostname '.$hosttocheck.' (Used by Google metadata). This value for hostname is not allowed.';
+			$info['content'] = 'Error bad hostname ' . $hosttocheck . ' (Used by Google metadata). This value for hostname is not allowed.';
 			break;
 		}
 
@@ -254,13 +254,13 @@ function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 
 
 	$request = curl_getinfo($ch, CURLINFO_HEADER_OUT); // Reading of request must be done after sending request
 
-	dol_syslog("getURLContent request=".$request);
+	dol_syslog("getURLContent request=" . $request);
 	if (getDolGlobalInt('MAIN_CURL_DEBUG')) {
 		// This may contains binary data, so we don't output response by default.
-		dol_syslog("getURLContent request=".$request, LOG_DEBUG, 0, '_curl');
-		dol_syslog("getURLContent response =".$response, LOG_DEBUG, 0, '_curl');
+		dol_syslog("getURLContent request=" . $request, LOG_DEBUG, 0, '_curl');
+		dol_syslog("getURLContent response =" . $response, LOG_DEBUG, 0, '_curl');
 	}
-	dol_syslog("getURLContent response size=".strlen($response)); // This may contains binary data, so we don't output it
+	dol_syslog("getURLContent response size=" . strlen($response)); // This may contains binary data, so we don't output it
 
 	$rep = array();
 	if (curl_errno($ch)) {
@@ -271,7 +271,7 @@ function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 
 		$rep['curl_error_no'] = curl_errno($ch);
 		$rep['curl_error_msg'] = curl_error($ch);
 
-		dol_syslog("getURLContent response array is ".implode(',', $rep));
+		dol_syslog("getURLContent response array is " . implode(',', $rep));
 	} else {
 		//$info = curl_getinfo($ch);
 
@@ -279,7 +279,7 @@ function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 
 		$rep = $info;
 		//$rep['header_size']=$info['header_size'];
 		//$rep['http_code']=$info['http_code'];
-		dol_syslog("getURLContent http_code=".$rep['http_code']);
+		dol_syslog("getURLContent http_code=" . $rep['http_code']);
 
 		// Add more keys to $rep
 		if ($response) {
@@ -322,7 +322,7 @@ function isIPAllowed($iptocheck, $localurl)
 	if ($localurl == 1) {	// Only local url allowed (dangerous, may allow to get metadata on server or make internal port scanning)
 		// Deny ips NOT like 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 0.0.0.0/8, 169.254.0.0/16, 127.0.0.0/8 et 240.0.0.0/4, ::1/128, ::/128, ::ffff:0:0/96, fe80::/10...
 		if (filter_var($iptocheck, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
-			$errormsg = 'Error bad hostname '.$iptocheck.'. Must be a local URL.';
+			$errormsg = 'Error bad hostname ' . $iptocheck . '. Must be a local URL.';
 			return $errormsg;
 		}
 		if (getDolGlobalString('MAIN_SECURITY_ANTI_SSRF_SERVER_IP') && !in_array($iptocheck, explode(',', getDolGlobalString('MAIN_SECURITY_ANTI_SSRF_SERVER_IP')))) {
@@ -342,7 +342,7 @@ function isIPAllowed($iptocheck, $localurl)
 	);
 	foreach ($arrayofmetadataserver as $ipofmetadataserver => $nameofmetadataserver) {
 		if ($iptocheck == $ipofmetadataserver) {
-			$errormsg = 'Error bad hostname IP (Used by '.$nameofmetadataserver.' metadata server). This IP is forbidden.';
+			$errormsg = 'Error bad hostname IP (Used by ' . $nameofmetadataserver . ' metadata server). This IP is forbidden.';
 			return $errormsg;
 		}
 	}
@@ -361,17 +361,31 @@ function isIPAllowed($iptocheck, $localurl)
 function getDomainFromURL($url, $mode = 0)
 {
 	$arrayof2levetopdomain = array(
-		'co.at', 'or.at', 'gv.at',
-		'avocat.fr', 'aeroport.fr', 'veterinaire.fr',
-		'com.ng', 'gov.ng', 'gov.ua', 'com.ua', 'in.ua', 'org.ua', 'edu.ua', 'net.ua',
-		'net.uk', 'org.uk', 'gov.uk', 'co.uk',
+		'co.at',
+		'or.at',
+		'gv.at',
+		'avocat.fr',
+		'aeroport.fr',
+		'veterinaire.fr',
+		'com.ng',
+		'gov.ng',
+		'gov.ua',
+		'com.ua',
+		'in.ua',
+		'org.ua',
+		'edu.ua',
+		'net.ua',
+		'net.uk',
+		'org.uk',
+		'gov.uk',
+		'co.uk',
 		'com.mx'
 	);
 
 	// Set if tld is on 2 levels
 	$tldon2level = 0;
 	$parts = array_reverse(explode('.', $url));
-	if (!empty($parts[1]) && in_array($parts[1].'.'.$parts[0], $arrayof2levetopdomain)) {
+	if (!empty($parts[1]) && in_array($parts[1] . '.' . $parts[0], $arrayof2levetopdomain)) {
 		$tldon2level = 1;
 	}
 

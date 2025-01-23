@@ -88,7 +88,7 @@ function doc_getlinedesc($line, $outputlangs, $hideref = 0, $hidedesc = 0, $issu
 			$libelleproduitservice = $outputlangs->transnoentitiesnoconv("DiscountFromDeposit", $sourceref);
 			// Add date of deposit
 			if (getDolGlobalString('INVOICE_ADD_DEPOSIT_DATE')) {
-				$libelleproduitservice .= ' ('.dol_print_date($discount->datec, 'day', '', $outputlangs).')';
+				$libelleproduitservice .= ' (' . dol_print_date($discount->datec, 'day', '', $outputlangs) . ')';
 			}
 		} elseif ($desc == '(EXCESS RECEIVED)' && $line->fk_remise_except) {
 			$discount = new DiscountAbsolute($db);
@@ -117,21 +117,21 @@ function doc_getlinedesc($line, $outputlangs, $hideref = 0, $hidedesc = 0, $issu
 			$ref_prodserv = "";
 			if (getDolGlobalString('PRODUCT_ADD_TYPE_IN_DOCUMENTS')) {   // In standard mode, we do not show this
 				if ($prodser->isService()) {
-					$prefix_prodserv = $outputlangs->transnoentitiesnoconv("Service")." ";
+					$prefix_prodserv = $outputlangs->transnoentitiesnoconv("Service") . " ";
 				} else {
-					$prefix_prodserv = $outputlangs->transnoentitiesnoconv("Product")." ";
+					$prefix_prodserv = $outputlangs->transnoentitiesnoconv("Product") . " ";
 				}
 			}
 
 			if (empty($hideref)) {
 				if ($issupplierline) {
-					$ref_prodserv = $prodser->ref.' ('.$outputlangs->trans("SupplierRef").' '.$ref_supplier.')'; // Show local ref and supplier ref
+					$ref_prodserv = $prodser->ref . ' (' . $outputlangs->trans("SupplierRef") . ' ' . $ref_supplier . ')'; // Show local ref and supplier ref
 				} else {
 					$ref_prodserv = $prodser->ref; // Show local ref only
 				}
 			}
 
-			$libelleproduitservice = $prefix_prodserv.$ref_prodserv.($libelleproduitservice ? " - " : "").$libelleproduitservice;
+			$libelleproduitservice = $prefix_prodserv . $ref_prodserv . ($libelleproduitservice ? " - " : "") . $libelleproduitservice;
 		}
 	}
 
@@ -140,13 +140,13 @@ function doc_getlinedesc($line, $outputlangs, $hideref = 0, $hidedesc = 0, $issu
 		$period = '';
 		// Show duration if exists
 		if ($line->date_start && $line->date_end) {
-			$period = '('.$outputlangs->transnoentitiesnoconv('DateFromTo', dol_print_date($line->date_start, $format, false, $outputlangs), dol_print_date($line->date_end, $format, false, $outputlangs)).')';
+			$period = '(' . $outputlangs->transnoentitiesnoconv('DateFromTo', dol_print_date($line->date_start, $format, false, $outputlangs), dol_print_date($line->date_end, $format, false, $outputlangs)) . ')';
 		}
 		if ($line->date_start && !$line->date_end) {
-			$period = '('.$outputlangs->transnoentitiesnoconv('DateFrom', dol_print_date($line->date_start, $format, false, $outputlangs)).')';
+			$period = '(' . $outputlangs->transnoentitiesnoconv('DateFrom', dol_print_date($line->date_start, $format, false, $outputlangs)) . ')';
 		}
 		if (!$line->date_start && $line->date_end) {
-			$period = '('.$outputlangs->transnoentitiesnoconv('DateUntil', dol_print_date($line->date_end, $format, false, $outputlangs)).')';
+			$period = '(' . $outputlangs->transnoentitiesnoconv('DateUntil', dol_print_date($line->date_end, $format, false, $outputlangs)) . ')';
 		}
 		//print '>'.$outputlangs->charset_output.','.$period;
 		$libelleproduitservice = dol_concatdesc($libelleproduitservice, $period);

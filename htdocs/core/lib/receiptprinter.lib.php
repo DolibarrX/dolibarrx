@@ -38,18 +38,18 @@ function receiptprinteradmin_prepare_head($mode)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT."/admin/receiptprinter.php?mode=config";
+	$head[$h][0] = DOL_URL_ROOT . "/admin/receiptprinter.php?mode=config";
 	$head[$h][1] = $langs->trans("ListPrinters");
 	$head[$h][2] = 'config';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT."/admin/receiptprinter.php?mode=template";
+	$head[$h][0] = DOL_URL_ROOT . "/admin/receiptprinter.php?mode=template";
 	$head[$h][1] = $langs->trans("SetupReceiptTemplate");
 	$head[$h][2] = 'template';
 	$h++;
 
 	if ($mode == 'test') {
-		$head[$h][0] = DOL_URL_ROOT."/admin/receiptprinter.php?mode=test";
+		$head[$h][0] = DOL_URL_ROOT . "/admin/receiptprinter.php?mode=test";
 		$head[$h][1] = $langs->trans("TargetedPrinter");
 		$head[$h][2] = 'test';
 		$h++;

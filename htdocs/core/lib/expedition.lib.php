@@ -44,17 +44,17 @@ function expedition_prepare_head(Expedition $object)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT."/admin/confexped.php";
+	$head[$h][0] = DOL_URL_ROOT . "/admin/confexped.php";
 	$head[$h][1] = $langs->trans("Setup");
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT."/admin/expedition.php";
+	$head[$h][0] = DOL_URL_ROOT . "/admin/expedition.php";
 	$head[$h][1] = $langs->trans("Shipment");
 	$hselected = $h;
 	$h++;
 
 	if (getDolGlobalInt('MAIN_SUBMODULE_DELIVERY')) {
-		$head[$h][0] = DOL_URL_ROOT."/admin/delivery.php";
+		$head[$h][0] = DOL_URL_ROOT . "/admin/delivery.php";
 		$head[$h][1] = $langs->trans("Receivings");
 		$h++;
 	}
@@ -92,31 +92,31 @@ function expedition_admin_prepare_head()
 		$extrafields->fetch_name_optionals_label('expedition');
 		$extrafields->fetch_name_optionals_label('expeditiondet');
 
-		$head[$h][0] = DOL_URL_ROOT."/admin/expedition.php";
+		$head[$h][0] = DOL_URL_ROOT . "/admin/expedition.php";
 		$head[$h][1] = $langs->trans("Shipment");
 		$head[$h][2] = 'shipment';
 		$h++;
 
-		$head[$h][0] = DOL_URL_ROOT.'/admin/expedition_extrafields.php';
+		$head[$h][0] = DOL_URL_ROOT . '/admin/expedition_extrafields.php';
 		$head[$h][1] = $langs->trans("ExtraFields");
 		$nbExtrafields = $extrafields->attributes['expedition']['count'];
 		if ($nbExtrafields > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 		}
 		$head[$h][2] = 'attributes_shipment';
 		$h++;
 
-		$head[$h][0] = DOL_URL_ROOT.'/admin/expeditiondet_extrafields.php';
+		$head[$h][0] = DOL_URL_ROOT . '/admin/expeditiondet_extrafields.php';
 		$head[$h][1] = $langs->trans("ExtraFieldsLines");
 		$nbExtrafields = $extrafields->attributes['expeditiondet']['count'];
 		if ($nbExtrafields > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 		}
 		$head[$h][2] = 'attributeslines_shipment';
 		$h++;
 	}
 
-	$head[$h][0] = DOL_URL_ROOT."/admin/delivery.php";
+	$head[$h][0] = DOL_URL_ROOT . "/admin/delivery.php";
 	$head[$h][1] = $langs->trans("Receivings");
 	$head[$h][2] = 'receivings';
 	$h++;
@@ -125,20 +125,20 @@ function expedition_admin_prepare_head()
 		$extrafields->fetch_name_optionals_label('delivery');
 		$extrafields->fetch_name_optionals_label('deliverydet');
 
-		$head[$h][0] = DOL_URL_ROOT.'/admin/delivery_extrafields.php';
+		$head[$h][0] = DOL_URL_ROOT . '/admin/delivery_extrafields.php';
 		$head[$h][1] = $langs->trans("ExtraFields");
 		$nbExtrafields = $extrafields->attributes['delivery']['count'];
 		if ($nbExtrafields > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 		}
 		$head[$h][2] = 'attributes_receivings';
 		$h++;
 
-		$head[$h][0] = DOL_URL_ROOT.'/admin/deliverydet_extrafields.php';
+		$head[$h][0] = DOL_URL_ROOT . '/admin/deliverydet_extrafields.php';
 		$head[$h][1] = $langs->trans("ExtraFieldsLines");
 		$nbExtrafields = $extrafields->attributes['deliverydet']['count'];
 		if ($nbExtrafields > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 		}
 		$head[$h][2] = 'attributeslines_receivings';
 		$h++;

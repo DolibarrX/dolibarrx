@@ -37,7 +37,7 @@ global $_Avery_Labels;
 // Size of pages available on: http://www.worldlabel.com/Pages/pageaverylabels.htm
 // _PosX = marginLeft+(_COUNTX*(width+SpaceX));
 
-$sql = "SELECT rowid, code, name, paper_size, orientation, metric, leftmargin, topmargin, nx, ny, spacex, spacey, width, height, font_size, custom_x, custom_y, active FROM ".MAIN_DB_PREFIX."c_format_cards WHERE active=1 ORDER BY code ASC";
+$sql = "SELECT rowid, code, name, paper_size, orientation, metric, leftmargin, topmargin, nx, ny, spacex, spacey, width, height, font_size, custom_x, custom_y, active FROM " . MAIN_DB_PREFIX . "c_format_cards WHERE active=1 ORDER BY code ASC";
 $resql = $db->query($sql);
 if ($resql) {
 	while ($row = $db->fetch_array($resql)) {
@@ -63,5 +63,5 @@ if ($resql) {
 
 // We add characteristics to the name
 foreach ($_Avery_Labels as $key => $val) {
-	$_Avery_Labels[$key]['name'] .= ' ('.$_Avery_Labels[$key]['paper-size'].' - '.$_Avery_Labels[$key]['NX'].'x'.$_Avery_Labels[$key]['NY'].')';
+	$_Avery_Labels[$key]['name'] .= ' (' . $_Avery_Labels[$key]['paper-size'] . ' - ' . $_Avery_Labels[$key]['NX'] . 'x' . $_Avery_Labels[$key]['NY'] . ')';
 }

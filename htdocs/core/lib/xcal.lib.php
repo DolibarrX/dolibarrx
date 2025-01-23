@@ -37,7 +37,7 @@ function build_calfile($format, $title, $desc, $events_array, $outputfile)
 {
 	global $config, $langs;
 
-	dol_syslog("xcal.lib.php::build_calfile Build cal file ".$outputfile." to format ".$format);
+	dol_syslog("xcal.lib.php::build_calfile Build cal file " . $outputfile . " to format " . $format);
 
 	if (empty($outputfile)) {
 		// -1 = error
@@ -50,7 +50,7 @@ function build_calfile($format, $title, $desc, $events_array, $outputfile)
 	$calfileh = fopen($outputfile, "w");
 
 	if ($calfileh) {
-		include_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
+		include_once DOL_DOCUMENT_ROOT . "/core/lib/date.lib.php";
 
 		$now      = dol_now();
 		$encoding = "";
@@ -66,10 +66,10 @@ function build_calfile($format, $title, $desc, $events_array, $outputfile)
 		fwrite($calfileh, "VERSION:2.0\n");
 
 		fwrite($calfileh, "METHOD:PUBLISH\n");
-		fwrite($calfileh, "PRODID:-//DOLIBARR ".DOL_VERSION."\n");
+		fwrite($calfileh, "PRODID:-//DOLIBARR " . DOL_VERSION . "\n");
 		fwrite($calfileh, "CALSCALE:GREGORIAN\n");
-		fwrite($calfileh, "X-WR-CALNAME:".$encoding.format_cal($format, $title)."\n");
-		fwrite($calfileh, "X-WR-CALDESC:".$encoding.format_cal($format, $desc)."\n");
+		fwrite($calfileh, "X-WR-CALNAME:" . $encoding . format_cal($format, $title) . "\n");
+		fwrite($calfileh, "X-WR-CALDESC:" . $encoding . format_cal($format, $desc) . "\n");
 		//fwrite($calfileh,"X-WR-TIMEZONE:Europe/Paris\n");
 
 		if (getDolGlobalString('MAIN_AGENDA_EXPORT_CACHE') && getDolGlobalInt('MAIN_AGENDA_EXPORT_CACHE') > 60) {
@@ -77,7 +77,7 @@ function build_calfile($format, $title, $desc, $events_array, $outputfile)
 			$mm = convertSecondToTime($config->global->MAIN_AGENDA_EXPORT_CACHE, "min");
 			$ss = convertSecondToTime($config->global->MAIN_AGENDA_EXPORT_CACHE, "sec");
 
-			fwrite($calfileh, "X-PUBLISHED-TTL: P".$hh."H".$mm."M".$ss."S\n");
+			fwrite($calfileh, "X-PUBLISHED-TTL: P" . $hh . "H" . $mm . "M" . $ss . "S\n");
 		}
 
 		foreach ($events_array as $key => $event) {
@@ -150,15 +150,15 @@ function build_calfile($format, $title, $desc, $events_array, $outputfile)
 				$nbevents++;
 
 				fwrite($calfileh, "BEGIN:VEVENT\n");
-				fwrite($calfileh, "UID:".$uid."\n");
+				fwrite($calfileh, "UID:" . $uid . "\n");
 
 				if (!empty($email)) {
-					fwrite($calfileh, "ORGANIZER:MAILTO:".$email."\n");
-					fwrite($calfileh, "CONTACT:MAILTO:".$email."\n");
+					fwrite($calfileh, "ORGANIZER:MAILTO:" . $email . "\n");
+					fwrite($calfileh, "CONTACT:MAILTO:" . $email . "\n");
 				}
 
 				if (!empty($url)) {
-					fwrite($calfileh, "URL:".$url."\n");
+					fwrite($calfileh, "URL:" . $url . "\n");
 				}
 
 				if (is_array($assignedUsers)) {
@@ -167,23 +167,23 @@ function build_calfile($format, $title, $desc, $events_array, $outputfile)
 							continue;
 						}
 
-						fwrite($calfileh, "ATTENDEE;RSVP=TRUE:mailto:".$assignedUser->email."\n");
+						fwrite($calfileh, "ATTENDEE;RSVP=TRUE:mailto:" . $assignedUser->email . "\n");
 					}
 				}
 
 				if ($created) {
-					fwrite($calfileh, "CREATED:".dol_print_date($created, "dayhourxcard", true)."\n");
+					fwrite($calfileh, "CREATED:" . dol_print_date($created, "dayhourxcard", true) . "\n");
 				}
 
 				if ($modified) {
-					fwrite($calfileh, "LAST-MODIFIED:".dol_print_date($modified, "dayhourxcard", true)."\n");
+					fwrite($calfileh, "LAST-MODIFIED:" . dol_print_date($modified, "dayhourxcard", true) . "\n");
 				}
 
-				fwrite($calfileh, "SUMMARY:".$encoding.$summary."\n");
-				fwrite($calfileh, "DESCRIPTION:".$encoding.$description."\n");
+				fwrite($calfileh, "SUMMARY:" . $encoding . $summary . "\n");
+				fwrite($calfileh, "DESCRIPTION:" . $encoding . $description . "\n");
 
 				if (!empty($location)) {
-					fwrite($calfileh, "LOCATION:".$encoding.$location."\n");
+					fwrite($calfileh, "LOCATION:" . $encoding . $location . "\n");
 				}
 
 				if ($fulldayevent) {
@@ -197,7 +197,7 @@ function build_calfile($format, $title, $desc, $events_array, $outputfile)
 
 				// Date must be GMT dates
 				// Current date
-				fwrite($calfileh, "DTSTAMP:".dol_print_date($now, "dayhourxcard", 'gmt')."\n");
+				fwrite($calfileh, "DTSTAMP:" . dol_print_date($now, "dayhourxcard", 'gmt') . "\n");
 
 				// Start date
 				$prefix     = "";
@@ -218,7 +218,7 @@ function build_calfile($format, $title, $desc, $events_array, $outputfile)
 					}
 				}
 
-				fwrite($calfileh, "DTSTART".$prefix.":".$startdatef."\n");
+				fwrite($calfileh, "DTSTART" . $prefix . ":" . $startdatef . "\n");
 
 				// End date
 				if ($fulldayevent) {
@@ -245,15 +245,15 @@ function build_calfile($format, $title, $desc, $events_array, $outputfile)
 					$enddatef = dol_print_date($enddate + 1, "dayxcard", 'tzserver');
 				}
 
-				fwrite($calfileh, "DTEND".$prefix.":".$enddatef."\n");
+				fwrite($calfileh, "DTEND" . $prefix . ":" . $enddatef . "\n");
 				fwrite($calfileh, "STATUS:CONFIRMED\n");
 
 				if (!empty($transparency)) {
-					fwrite($calfileh, "TRANSP:".$transparency."\n");
+					fwrite($calfileh, "TRANSP:" . $transparency . "\n");
 				}
 
 				if (!empty($category)) {
-					fwrite($calfileh, "CATEGORIES:".$encoding.$category."\n");
+					fwrite($calfileh, "CATEGORIES:" . $encoding . $category . "\n");
 				}
 
 				fwrite($calfileh, "END:VEVENT\n");
@@ -264,33 +264,33 @@ function build_calfile($format, $title, $desc, $events_array, $outputfile)
 				$nbevents++;
 
 				fwrite($calfileh, "BEGIN:VJOURNAL\n");
-				fwrite($calfileh, "UID:".$uid."\n");
+				fwrite($calfileh, "UID:" . $uid . "\n");
 
 				if (!empty($email)) {
-					fwrite($calfileh, "ORGANIZER:MAILTO:".$email."\n");
-					fwrite($calfileh, "CONTACT:MAILTO:".$email."\n");
+					fwrite($calfileh, "ORGANIZER:MAILTO:" . $email . "\n");
+					fwrite($calfileh, "CONTACT:MAILTO:" . $email . "\n");
 				}
 
 				if (!empty($url)) {
-					fwrite($calfileh, "URL:".$url."\n");
+					fwrite($calfileh, "URL:" . $url . "\n");
 				}
 
 				if ($created) {
-					fwrite($calfileh, "CREATED:".dol_print_date($created, "dayhourxcard", 'gmt')."\n");
+					fwrite($calfileh, "CREATED:" . dol_print_date($created, "dayhourxcard", 'gmt') . "\n");
 				}
 
 				if ($modified) {
-					fwrite($calfileh, "LAST-MODIFIED:".dol_print_date($modified, "dayhourxcard", 'gmt')."\n");
+					fwrite($calfileh, "LAST-MODIFIED:" . dol_print_date($modified, "dayhourxcard", 'gmt') . "\n");
 				}
 
-				fwrite($calfileh, "SUMMARY:".$encoding.$summary."\n");
-				fwrite($calfileh, "DESCRIPTION:".$encoding.$description."\n");
+				fwrite($calfileh, "SUMMARY:" . $encoding . $summary . "\n");
+				fwrite($calfileh, "DESCRIPTION:" . $encoding . $description . "\n");
 				fwrite($calfileh, "STATUS:CONFIRMED\n");
-				fwrite($calfileh, "CATEGORIES:".$category."\n");
-				fwrite($calfileh, "LOCATION:".$location."\n");
+				fwrite($calfileh, "CATEGORIES:" . $category . "\n");
+				fwrite($calfileh, "LOCATION:" . $location . "\n");
 				fwrite($calfileh, "TRANSP:OPAQUE\n");
 				fwrite($calfileh, "CLASS:CONFIDENTIAL\n");
-				fwrite($calfileh, "DTSTAMP:".dol_print_date($startdate, "dayhourxcard", 'gmt')."\n");
+				fwrite($calfileh, "DTSTAMP:" . dol_print_date($startdate, "dayhourxcard", 'gmt') . "\n");
 
 				fwrite($calfileh, "END:VJOURNAL\n");
 			}
@@ -302,7 +302,7 @@ function build_calfile($format, $title, $desc, $events_array, $outputfile)
 		fclose($calfileh);
 		dolChmod($outputfile);
 	} else {
-		dol_syslog("xcal.lib.php::build_calfile Failed to open file ".$outputfile." for writing");
+		dol_syslog("xcal.lib.php::build_calfile Failed to open file " . $outputfile . " for writing");
 		return -2;
 	}
 
@@ -328,7 +328,7 @@ function build_rssfile($format, $title, $desc, $events_array, $outputfile, $filt
 	global $user, $config, $langs, $mysoc;
 	global $dolibarr_main_url_root;
 
-	dol_syslog("xcal.lib.php::build_rssfile Build rss file ".$outputfile." to format ".$format);
+	dol_syslog("xcal.lib.php::build_rssfile Build rss file " . $outputfile . " to format " . $format);
 
 	if (empty($outputfile)) {
 		// -1 = error
@@ -341,36 +341,36 @@ function build_rssfile($format, $title, $desc, $events_array, $outputfile, $filt
 
 	if ($fichier) {
 		// Print header
-		fwrite($fichier, '<?xml version="1.0" encoding="'.$langs->charset_output.'"?>');
+		fwrite($fichier, '<?xml version="1.0" encoding="' . $langs->charset_output . '"?>');
 		fwrite($fichier, "\n");
 
 		fwrite($fichier, '<rss version="2.0">');
 		fwrite($fichier, "\n");
 
 		fwrite($fichier, "<channel>\n");
-		fwrite($fichier, "<title>".dol_escape_xml($title)."</title>\n");
-		fwrite($fichier, "<description>".dol_escape_xml($title)."</description>\n");
+		fwrite($fichier, "<title>" . dol_escape_xml($title) . "</title>\n");
+		fwrite($fichier, "<description>" . dol_escape_xml($title) . "</description>\n");
 		if ($langcode) {
-			fwrite($fichier, "<language>".dol_escape_xml($langcode)."</language>\n");
+			fwrite($fichier, "<language>" . dol_escape_xml($langcode) . "</language>\n");
 		}
 
 		// Define $urlwithroot
-		$urlwithouturlroot = preg_replace("/".preg_quote(DOL_URL_ROOT, "/")."$/i", "", trim($dolibarr_main_url_root));
-		$urlwithroot       = $urlwithouturlroot.DOL_URL_ROOT; // This is to use external domain name found into config file
+		$urlwithouturlroot = preg_replace("/" . preg_quote(DOL_URL_ROOT, "/") . "$/i", "", trim($dolibarr_main_url_root));
+		$urlwithroot       = $urlwithouturlroot . DOL_URL_ROOT; // This is to use external domain name found into config file
 		//$urlwithroot=DOL_MAIN_URL_ROOT;                       // This is to use same domain name than current
 
 		// Url
 		if (empty($url)) {
-			$url = $urlwithroot."/public/agenda/agendaexport.php?format=rss&exportkey=".urlencode(getDolGlobalString('MAIN_AGENDA_XCAL_EXPORTKEY'));
+			$url = $urlwithroot . "/public/agenda/agendaexport.php?format=rss&exportkey=" . urlencode(getDolGlobalString('MAIN_AGENDA_XCAL_EXPORTKEY'));
 		}
-		fwrite($fichier, "<link><![CDATA[".$url."]]></link>\n");
+		fwrite($fichier, "<link><![CDATA[" . $url . "]]></link>\n");
 
 		// Image
 		if (!empty($mysoc->logo_squarred_small)) {
-			$urlimage = $urlwithroot.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_squarred_small);
+			$urlimage = $urlwithroot . '/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file=' . urlencode('logos/thumbs/' . $mysoc->logo_squarred_small);
 			//$urlimage = $GLOBALS['website']->virtualhost
-			if ($urlimage && (empty($GLOBALS['website']) || preg_match('/'.preg_quote($GLOBALS['website']->virtualhost, '/').'/', $urlwithroot))) {
-				fwrite($fichier, "<image><url><![CDATA[".$urlimage."]]></url><title>".htmlspecialchars($title)."</title><link><![CDATA[".$url."]]></link></image>\n");
+			if ($urlimage && (empty($GLOBALS['website']) || preg_match('/' . preg_quote($GLOBALS['website']->virtualhost, '/') . '/', $urlwithroot))) {
+				fwrite($fichier, "<image><url><![CDATA[" . $urlimage . "]]></url><title>" . htmlspecialchars($title) . "</title><link><![CDATA[" . $url . "]]></link></image>\n");
 			}
 		}
 
@@ -392,22 +392,22 @@ function build_rssfile($format, $title, $desc, $events_array, $outputfile, $filt
 					$tmpevent['uid'] = (string) $event->id;
 					$tmpevent['startdate'] = $event->date_creation;
 					$tmpevent['summary'] = $event->title;
-					$tmpevent['url'] = $event->fullpageurl ? $event->fullpageurl : $event->pageurl.'.php';
+					$tmpevent['url'] = $event->fullpageurl ? $event->fullpageurl : $event->pageurl . '.php';
 					$tmpevent['author'] = $event->author_alias ? $event->author_alias : 'unknown';
 					//$tmpevent['category'] = '';
 					$tmpevent['desc'] = $event->description;
 					if (!empty($event->image)) {
-						$tmpevent['image'] = $GLOBALS['website']->virtualhost.'/medias/'.$event->image;
+						$tmpevent['image'] = $GLOBALS['website']->virtualhost . '/medias/' . $event->image;
 					} else {
-						include_once DOL_DOCUMENT_ROOT.'/core/lib/website.lib.php';
+						include_once DOL_DOCUMENT_ROOT . '/core/lib/website.lib.php';
 						$tmpimage = getImageFromHtmlContent($event->content);
 						if ($tmpimage) {
 							if (strpos($tmpimage, '/') === 0) {				// If $tmpimage is an absolute path
-								$tmpevent['image'] = $GLOBALS['website']->virtualhost.$tmpimage;
+								$tmpevent['image'] = $GLOBALS['website']->virtualhost . $tmpimage;
 							} elseif (stripos($tmpimage, 'http') === 0) {	// If $tmpimage is a full URI
 								$tmpevent['image'] = $tmpimage;
 							} else {
-								$tmpevent['image'] = $GLOBALS['website']->virtualhost.'/medias/'.$tmpimage;
+								$tmpevent['image'] = $GLOBALS['website']->virtualhost . '/medias/' . $tmpimage;
 							} // TODO If $tmpimage is "data:..."
 						}
 					}
@@ -435,9 +435,9 @@ function build_rssfile($format, $title, $desc, $events_array, $outputfile, $filt
 						// Convert image "/medias/...." and "/viewimage.php?modulepart=medias&file=(.*)"
 						if (!empty($GLOBALS['website']->virtualhost)) {
 							if (preg_match('/^\/medias\//', $image)) {
-								$image = $GLOBALS['website']->virtualhost.$image;
+								$image = $GLOBALS['website']->virtualhost . $image;
 							} elseif (preg_match('/^\/viewimage\.php\?modulepart=medias&[^"]*file=([^&"]+)/', $image, $reg)) {
-								$image = $GLOBALS['website']->virtualhost.'/medias/'.$reg[1];
+								$image = $GLOBALS['website']->virtualhost . '/medias/' . $reg[1];
 							}
 						}
 					}
@@ -454,16 +454,16 @@ function build_rssfile($format, $title, $desc, $events_array, $outputfile, $filt
 				$description = dol_string_nohtmltag(preg_replace("/<br[\s\/]?>/i", "\n", $event["desc"]), 0);
 
 				fwrite($fichier, "<item>\n");
-				fwrite($fichier, "<title><![CDATA[".$summary."]]></title>\n");
-				fwrite($fichier, "<link><![CDATA[".$url."]]></link>\n");
+				fwrite($fichier, "<title><![CDATA[" . $summary . "]]></title>\n");
+				fwrite($fichier, "<link><![CDATA[" . $url . "]]></link>\n");
 				//fwrite($fichier, "<author><![CDATA[".$author."]]></author>\n");
 				if (!empty($category)) {
-					fwrite($fichier, "<category><![CDATA[".$category."]]></category>\n");
+					fwrite($fichier, "<category><![CDATA[" . $category . "]]></category>\n");
 				}
 				//fwrite($fichier, "<description><![CDATA[".$summary."]]></description>\n");
 				fwrite($fichier, "<description><![CDATA[");
 				if (!empty($image)) {
-					fwrite($fichier, '<p><img class="center" src="'.$image.'"/></p>');
+					fwrite($fichier, '<p><img class="center" src="' . $image . '"/></p>');
 				}
 
 				if ($description) {
@@ -473,9 +473,9 @@ function build_rssfile($format, $title, $desc, $events_array, $outputfile, $filt
 				//     fwrite($fichier, "NoDesc");
 
 				fwrite($fichier, "]]></description>\n");
-				fwrite($fichier, "<pubDate>".date("r", $startdate)."</pubDate>\n");
-				fwrite($fichier, '<guid isPermaLink="false"><![CDATA['.str_pad($uid, 10, "0", STR_PAD_LEFT).']]></guid>'."\n");
-				fwrite($fichier, '<source url="'.$url.'"><![CDATA[Dolibarr]]></source>'."\n");
+				fwrite($fichier, "<pubDate>" . date("r", $startdate) . "</pubDate>\n");
+				fwrite($fichier, '<guid isPermaLink="false"><![CDATA[' . str_pad($uid, 10, "0", STR_PAD_LEFT) . ']]></guid>' . "\n");
+				fwrite($fichier, '<source url="' . $url . '"><![CDATA[Dolibarr]]></source>' . "\n");
 				fwrite($fichier, "</item>\n");
 			}
 		}
@@ -541,7 +541,7 @@ function calEncode($line)
 
 			if ((mb_strlen($newpara, "UTF-8") + mb_strlen($char, "UTF-8")) >= 75) {
 				// CRLF + Space for cal
-				$out .= $newpara."\r\n ";
+				$out .= $newpara . "\r\n ";
 
 				$newpara = "";
 			}
@@ -559,7 +559,7 @@ function calEncode($line)
 
 			if ((dol_strlen($newpara) + dol_strlen($char)) >= 75) {
 				// CRLF + Space for cal
-				$out .= $newpara."\r\n ";
+				$out .= $newpara . "\r\n ";
 
 				$newpara = "";
 			}
@@ -597,13 +597,13 @@ function quotedPrintEncode($str, $forcal = 0)
 			$ascii = ord($char);
 
 			if ($ascii < 32 || $ascii === 61 || $ascii > 126) {
-				$char = "=".strtoupper(sprintf("%02X", $ascii));
+				$char = "=" . strtoupper(sprintf("%02X", $ascii));
 			}
 
 			// Do not use dol_strlen here, we need number of bytes
 			if ((strlen($newpara) + strlen($char)) >= 76) {
 				// New line with carray-return (CR) and line-feed (LF)
-				$out .= $newpara."=\r\n";
+				$out .= $newpara . "=\r\n";
 
 				// extra space for cal
 				if ($forcal) {

@@ -41,28 +41,28 @@ function categories_prepare_head(Categorie $object, $type)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/categories/viewcat.php?id='.$object->id.'&amp;type='.$type;
+	$head[$h][0] = DOL_URL_ROOT . '/categories/viewcat.php?id=' . $object->id . '&amp;type=' . $type;
 	$head[$h][1] = $langs->trans("Category");
 	$head[$h][2] = 'card';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/categories/photos.php?id='.$object->id.'&amp;type='.$type;
+	$head[$h][0] = DOL_URL_ROOT . '/categories/photos.php?id=' . $object->id . '&amp;type=' . $type;
 	$head[$h][1] = $langs->trans("Photos");
 	$head[$h][2] = 'photos';
 	$h++;
 
 	if (getDolGlobalInt('MAIN_MULTILANGS')) {
-		$head[$h][0] = DOL_URL_ROOT.'/categories/traduction.php?id='.$object->id.'&amp;type='.$type;
+		$head[$h][0] = DOL_URL_ROOT . '/categories/traduction.php?id=' . $object->id . '&amp;type=' . $type;
 		$head[$h][1] = $langs->trans("Translation");
 		$nbTranslations = (!is_null($object->multilangs) && is_countable($object->multilangs)) ? count($object->multilangs) : 0;
 		if ($nbTranslations > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbTranslations.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbTranslations . '</span>';
 		}
 		$head[$h][2] = 'translation';
 		$h++;
 	}
 
-	$head[$h][0] = DOL_URL_ROOT.'/categories/info.php?id='.$object->id.'&amp;type='.$type;
+	$head[$h][0] = DOL_URL_ROOT . '/categories/info.php?id=' . $object->id . '&amp;type=' . $type;
 	$head[$h][1] = $langs->trans("Info");
 	$head[$h][2] = 'info';
 	$h++;
@@ -71,9 +71,9 @@ function categories_prepare_head(Categorie $object, $type)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($config, $langs, $object, $head, $h, 'categories_'.$type);
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'categories_' . $type);
 
-	complete_head_from_modules($config, $langs, $object, $head, $h, 'categories_'.$type, 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'categories_' . $type, 'remove');
 
 	return $head;
 }
@@ -96,16 +96,16 @@ function categoriesadmin_prepare_head()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/categories/admin/categorie.php';
+	$head[$h][0] = DOL_URL_ROOT . '/categories/admin/categorie.php';
 	$head[$h][1] = $langs->trans("Setup");
 	$head[$h][2] = 'setup';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/categories/admin/categorie_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/categories/admin/categorie_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsCategories");
 	$nbExtrafields = $extrafields->attributes['categorie']['count'];
 	if ($nbExtrafields > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'attributes_categories';
 	$h++;

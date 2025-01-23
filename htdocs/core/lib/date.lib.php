@@ -92,11 +92,11 @@ function getServerTimeZoneInt($refgmtdate = 'now')
 		$monthref = dol_print_date($gmtnow, '%m');
 		$dayref = dol_print_date($gmtnow, '%d');
 		if ($refgmtdate == 'now') {
-			$newrefgmtdate = $yearref.'-'.$monthref.'-'.$dayref;
+			$newrefgmtdate = $yearref . '-' . $monthref . '-' . $dayref;
 		} elseif ($refgmtdate == 'summer') {
-			$newrefgmtdate = $yearref.'-08-01';
+			$newrefgmtdate = $yearref . '-08-01';
 		} else {
-			$newrefgmtdate = $yearref.'-01-01';
+			$newrefgmtdate = $yearref . '-01-01';
 		}
 		$newrefgmtdate .= 'T00:00:00+00:00';
 		$localtz = new DateTimeZone(getServerTimeZoneString());
@@ -283,7 +283,7 @@ function convertSecondToTime($iSecond, $format = 'all', $lengthOfDay = 86400, $l
 					if ($sWeek >= 2) {
 						$weekTranslate = $langs->trans("DurationWeeks");
 					}
-					$sTime .= $sWeek.' '.$weekTranslate.' ';
+					$sTime .= $sWeek . ' ' . $weekTranslate . ' ';
 				}
 			}
 		}
@@ -292,7 +292,7 @@ function convertSecondToTime($iSecond, $format = 'all', $lengthOfDay = 86400, $l
 			if ($sDay > 1) {
 				$dayTranslate = $langs->trans("Days");
 			}
-			$sTime .= $sDay.' '.$langs->trans("d").' ';
+			$sTime .= $sDay . ' ' . $langs->trans("d") . ' ';
 		}
 
 		if ($format == 'all') {
@@ -300,9 +300,9 @@ function convertSecondToTime($iSecond, $format = 'all', $lengthOfDay = 86400, $l
 				$sTime .= dol_print_date($iSecond, 'hourduration', true);
 			}
 		} elseif ($format == 'allhourminsec') {
-			return sprintf("%02d", ($sWeek * $lengthOfWeek * $nbHbyDay + $sDay * $nbHbyDay + (int) floor($iSecond / 3600))).':'.sprintf("%02d", ((int) floor(($iSecond % 3600) / 60))).':'.sprintf("%02d", ((int) ($iSecond % 60)));
+			return sprintf("%02d", ($sWeek * $lengthOfWeek * $nbHbyDay + $sDay * $nbHbyDay + (int) floor($iSecond / 3600))) . ':' . sprintf("%02d", ((int) floor(($iSecond % 3600) / 60))) . ':' . sprintf("%02d", ((int) ($iSecond % 60)));
 		} elseif ($format == 'allhourmin') {
-			return sprintf("%02d", ($sWeek * $lengthOfWeek * $nbHbyDay + $sDay * $nbHbyDay + (int) floor($iSecond / 3600))).':'.sprintf("%02d", ((int) floor(($iSecond % 3600) / 60)));
+			return sprintf("%02d", ($sWeek * $lengthOfWeek * $nbHbyDay + $sDay * $nbHbyDay + (int) floor($iSecond / 3600))) . ':' . sprintf("%02d", ((int) floor(($iSecond % 3600) / 60)));
 		} elseif ($format == 'allhour') {
 			return sprintf("%02d", ($sWeek * $lengthOfWeek * $nbHbyDay + $sDay * $nbHbyDay + (int) floor($iSecond / 3600)));
 		}
@@ -393,18 +393,18 @@ function dolSqlDateFilter($datefield, $day_date, $month_date, $year_date, $exclu
 			return " AND 1 = 2";
 		}
 		if ($year_date > 0 && empty($day_date)) {
-			$sqldate .= ($excludefirstand ? "" : " AND ").$datefield." BETWEEN '".$db->idate(dol_get_first_day($year_date, $month_date, $gm));
-			$sqldate .= "' AND '".$db->idate(dol_get_last_day($year_date, $month_date, $gm))."'";
+			$sqldate .= ($excludefirstand ? "" : " AND ") . $datefield . " BETWEEN '" . $db->idate(dol_get_first_day($year_date, $month_date, $gm));
+			$sqldate .= "' AND '" . $db->idate(dol_get_last_day($year_date, $month_date, $gm)) . "'";
 		} elseif ($year_date > 0 && !empty($day_date)) {
-			$sqldate .= ($excludefirstand ? "" : " AND ").$datefield." BETWEEN '".$db->idate(dol_mktime(0, 0, 0, $month_date, $day_date, $year_date, $gm));
-			$sqldate .= "' AND '".$db->idate(dol_mktime(23, 59, 59, $month_date, $day_date, $year_date, $gm))."'";
+			$sqldate .= ($excludefirstand ? "" : " AND ") . $datefield . " BETWEEN '" . $db->idate(dol_mktime(0, 0, 0, $month_date, $day_date, $year_date, $gm));
+			$sqldate .= "' AND '" . $db->idate(dol_mktime(23, 59, 59, $month_date, $day_date, $year_date, $gm)) . "'";
 		} else {
 			// This case is not reliable on TZ, but we should not need it.
-			$sqldate .= ($excludefirstand ? "" : " AND ")." date_format( ".$datefield.", '%c') = '".$db->escape($month_date)."'";
+			$sqldate .= ($excludefirstand ? "" : " AND ") . " date_format( " . $datefield . ", '%c') = '" . $db->escape($month_date) . "'";
 		}
 	} elseif ($year_date > 0) {
-		$sqldate .= ($excludefirstand ? "" : " AND ").$datefield." BETWEEN '".$db->idate(dol_get_first_day($year_date, 1, $gm));
-		$sqldate .= "' AND '".$db->idate(dol_get_last_day($year_date, 12, $gm))."'";
+		$sqldate .= ($excludefirstand ? "" : " AND ") . $datefield . " BETWEEN '" . $db->idate(dol_get_first_day($year_date, 1, $gm));
+		$sqldate .= "' AND '" . $db->idate(dol_get_last_day($year_date, 12, $gm)) . "'";
 	}
 	return $sqldate;
 }
@@ -449,7 +449,8 @@ function dol_stringtotime($string, $gm = 1)
 			$syear += 2000;
 		}
 		$string = sprintf("%04d%02d%02d%02d%02d%02d", $syear, $smonth, $sday, $shour, $smin, $ssec);
-	} elseif (preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})Z$/i', $string, $reg)	// Convert date with format YYYY-MM-DDTHH:MM:SSZ (RFC3339)
+	} elseif (
+		preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})Z$/i', $string, $reg)	// Convert date with format YYYY-MM-DDTHH:MM:SSZ (RFC3339)
 		|| preg_match('/^([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})$/i', $string, $reg)	// Convert date with format YYYY-MM-DD HH:MM:SS
 		|| preg_match('/^([0-9]{4})([0-9]{2})([0-9]{2})T([0-9]{2})([0-9]{2})([0-9]{2})Z$/i', $string, $reg)		// Convert date with format YYYYMMDDTHHMMSSZ
 	) {
@@ -463,7 +464,7 @@ function dol_stringtotime($string, $gm = 1)
 	}
 
 	$string = preg_replace('/([^0-9])/i', '', $string);
-	$tmp = $string.'000000';
+	$tmp = $string . '000000';
 	// Clean $gm
 	if ($gm === 1) {
 		$gm = 'gmt';
@@ -795,13 +796,13 @@ function num_public_holiday($timestampStart, $timestampEnd, $country_code = '', 
 
 	$country_id = dol_getIdFromCode($db, $country_code, 'c_country', 'code', 'rowid');
 
-	if (empty($config->cache['arrayOfActivePublicHolidays_'.$country_id])) {
+	if (empty($config->cache['arrayOfActivePublicHolidays_' . $country_id])) {
 		// Loop on public holiday defined into hrm_public_holiday for the day, month and year analyzed
 		$tmpArrayOfPublicHolidays = array();
 		$sql = "SELECT id, code, entity, fk_country, dayrule, year, month, day, active";
-		$sql .= " FROM ".MAIN_DB_PREFIX."c_hrm_public_holiday";
-		$sql .= " WHERE active = 1 and fk_country IN (0".($country_id > 0 ? ", ".$country_id : 0).")";
-		$sql .= " AND entity IN (0," .getEntity('holiday') .")";
+		$sql .= " FROM " . MAIN_DB_PREFIX . "c_hrm_public_holiday";
+		$sql .= " WHERE active = 1 and fk_country IN (0" . ($country_id > 0 ? ", " . $country_id : 0) . ")";
+		$sql .= " AND entity IN (0," . getEntity('holiday') . ")";
 
 		$resql = $db->query($sql);
 		if ($resql) {
@@ -814,18 +815,19 @@ function num_public_holiday($timestampStart, $timestampEnd, $country_code = '', 
 			}
 		} else {
 			dol_syslog($db->lasterror(), LOG_ERR);
-			return 'Error sql '.$db->lasterror();
+			return 'Error sql ' . $db->lasterror();
 		}
 
 		//var_dump($tmpArrayOfPublicHolidays);
-		$config->cache['arrayOfActivePublicHolidays_'.$country_id] = $tmpArrayOfPublicHolidays;
+		$config->cache['arrayOfActivePublicHolidays_' . $country_id] = $tmpArrayOfPublicHolidays;
 	}
 
-	$arrayOfPublicHolidays = $config->cache['arrayOfActivePublicHolidays_'.$country_id];
+	$arrayOfPublicHolidays = $config->cache['arrayOfActivePublicHolidays_' . $country_id];
 
 	$i = 0;
 	while ((($lastday == 0 && $timestampStart < $timestampEnd) || ($lastday && $timestampStart <= $timestampEnd))
-		&& ($i < 50000)) {		// Loop end when equals (Test on i is a security loop to avoid infinite loop)
+		&& ($i < 50000)
+	) {		// Loop end when equals (Test on i is a security loop to avoid infinite loop)
 		$ferie = false;
 		$specialdayrule = array();
 
@@ -1059,7 +1061,7 @@ function num_open_day($timestampStart, $timestampEnd, $inhour = 0, $lastday = 0,
 		$country_code = $mysoc->country_code;
 	}
 
-	dol_syslog('num_open_day timestampStart='.$timestampStart.' timestampEnd='.$timestampEnd.' bit='.$lastday.' country_code='.$country_code);
+	dol_syslog('num_open_day timestampStart=' . $timestampStart . ' timestampEnd=' . $timestampEnd . ' bit=' . $lastday . ' country_code=' . $country_code);
 
 	// Check parameters
 	if (!is_int($timestampStart) && !is_float($timestampStart)) {
@@ -1140,7 +1142,7 @@ function monthArray($outputlangs, $short = 0)
 			10 => $outputlangs->trans("MonthShort10"),
 			11 => $outputlangs->trans("MonthShort11"),
 			12 => $outputlangs->trans("MonthShort12")
-			);
+		);
 	}
 
 	return $montharray;
@@ -1178,7 +1180,7 @@ function getFirstDayOfEachWeek($TWeek, $year)
 		if (in_array('01', $TWeek) && in_array('52', $TWeek) && $weekNb == '01') {
 			$year++; //Si on a la 1re semaine et la semaine 52 c'est qu'on change d'année
 		}
-		$TFirstDayOfWeek[$weekNb] = date('d', strtotime($year.'W'.$weekNb));
+		$TFirstDayOfWeek[$weekNb] = date('d', strtotime($year . 'W' . $weekNb));
 	}
 	return $TFirstDayOfWeek;
 }
@@ -1194,7 +1196,7 @@ function getLastDayOfEachWeek($TWeek, $year)
 {
 	$TLastDayOfWeek = array();
 	foreach ($TWeek as $weekNb) {
-		$TLastDayOfWeek[$weekNb] = date('d', strtotime($year.'W'.$weekNb.'+6 days'));
+		$TLastDayOfWeek[$weekNb] = date('d', strtotime($year . 'W' . $weekNb . '+6 days'));
 	}
 	return $TLastDayOfWeek;
 }
@@ -1209,7 +1211,7 @@ function getLastDayOfEachWeek($TWeek, $year)
  */
 function getWeekNumber($day, $month, $year)
 {
-	$date = new DateTime($year.'-'.$month.'-'.$day);
+	$date = new DateTime($year . '-' . $month . '-' . $day);
 	$week = $date->format("W");
 	return $week;
 }

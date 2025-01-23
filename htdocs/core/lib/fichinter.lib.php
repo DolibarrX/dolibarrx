@@ -42,17 +42,17 @@ function fichinter_prepare_head($object)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/fichinter/card.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/fichinter/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Intervention");
 	$head[$h][2] = 'card';
 	$h++;
 
 	if (!getDolGlobalString('MAIN_DISABLE_CONTACTS_TAB')) {
 		$nbContact = count($object->liste_contact(-1, 'internal')) + count($object->liste_contact(-1, 'external'));
-		$head[$h][0] = DOL_URL_ROOT.'/fichinter/contact.php?id='.$object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/fichinter/contact.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans('InterventionContact');
 		if ($nbContact > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbContact.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbContact . '</span>';
 		}
 		$head[$h][2] = 'contact';
 		$h++;
@@ -66,7 +66,7 @@ function fichinter_prepare_head($object)
 
 	// Tab to link resources
 	if (isModEnabled('resource')) {
-		require_once DOL_DOCUMENT_ROOT.'/resource/class/dolresource.class.php';
+		require_once DOL_DOCUMENT_ROOT . '/resource/class/dolresource.class.php';
 		$objectres = new Dolresource($db);
 		$linked_resources = $objectres->getElementResources('fichinter', $object->id);
 		$nbResource = (is_array($linked_resources) ? count($linked_resources) : 0);
@@ -82,10 +82,10 @@ function fichinter_prepare_head($object)
 		// 	}
 		// }
 
-		$head[$h][0] = DOL_URL_ROOT.'/resource/element_resource.php?element=fichinter&element_id='.$object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/resource/element_resource.php?element=fichinter&element_id=' . $object->id;
 		$head[$h][1] = $langs->trans("Resources");
 		if ($nbResource > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbResource.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbResource . '</span>';
 		}
 		$head[$h][2] = 'resource';
 		$h++;
@@ -99,49 +99,49 @@ function fichinter_prepare_head($object)
 		if (!empty($object->note_public)) {
 			$nbNote++;
 		}
-		$head[$h][0] = DOL_URL_ROOT.'/fichinter/note.php?id='.$object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/fichinter/note.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans('Notes');
 		if ($nbNote > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbNote.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbNote . '</span>';
 		}
 		$head[$h][2] = 'note';
 		$h++;
 	}
 
-	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $config->ficheinter->dir_output."/".dol_sanitizeFileName($object->ref);
+	require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
+	require_once DOL_DOCUMENT_ROOT . '/core/class/link.class.php';
+	$upload_dir = $config->ficheinter->dir_output . "/" . dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
-	$head[$h][0] = DOL_URL_ROOT.'/fichinter/document.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/fichinter/document.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Documents");
 	if (($nbFiles + $nbLinks) > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.($nbFiles + $nbLinks).'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . ($nbFiles + $nbLinks) . '</span>';
 	}
 	$head[$h][2] = 'documents';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/fichinter/agenda.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/fichinter/agenda.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans('Events');
 	if (isModEnabled('agenda') && ($user->hasRight('agenda', 'myactions', 'read') || $user->hasRight('agenda', 'allactions', 'read'))) {
 		$nbEvent = 0;
 		// Enable caching of thirdparty count actioncomm
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/memory.lib.php';
-		$cachekey = 'count_events_fichinter_'.$object->id;
+		require_once DOL_DOCUMENT_ROOT . '/core/lib/memory.lib.php';
+		$cachekey = 'count_events_fichinter_' . $object->id;
 		$dataretrieved = dol_getcache($cachekey);
 		if (!is_null($dataretrieved)) {
 			$nbEvent = $dataretrieved;
 		} else {
 			$sql = "SELECT COUNT(id) as nb";
-			$sql .= " FROM ".MAIN_DB_PREFIX."actioncomm";
-			$sql .= " WHERE fk_element = ".((int) $object->id);
+			$sql .= " FROM " . MAIN_DB_PREFIX . "actioncomm";
+			$sql .= " WHERE fk_element = " . ((int) $object->id);
 			$sql .= " AND elementtype = 'fichinter'";
 			$resql = $db->query($sql);
 			if ($resql) {
 				$obj = $db->fetch_object($resql);
 				$nbEvent = $obj->nb;
 			} else {
-				dol_syslog('Failed to count actioncomm '.$db->lasterror(), LOG_ERR);
+				dol_syslog('Failed to count actioncomm ' . $db->lasterror(), LOG_ERR);
 			}
 			dol_setcache($cachekey, $nbEvent, 120);		// If setting cache fails, this is not a problem, so we do not test result.
 		}
@@ -149,7 +149,7 @@ function fichinter_prepare_head($object)
 		$head[$h][1] .= '/';
 		$head[$h][1] .= $langs->trans("Agenda");
 		if ($nbEvent > 0) {
-			$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbEvent.'</span>';
+			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbEvent . '</span>';
 		}
 	}
 	$head[$h][2] = 'agenda';
@@ -179,12 +179,12 @@ function fichinter_admin_prepare_head()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT."/admin/fichinter.php";
+	$head[$h][0] = DOL_URL_ROOT . "/admin/fichinter.php";
 	$head[$h][1] = $langs->trans("Interventions");
 	$head[$h][2] = 'ficheinter';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT."/admin/fichinter_xcal.php";
+	$head[$h][0] = DOL_URL_ROOT . "/admin/fichinter_xcal.php";
 	$head[$h][1] = $langs->trans("ExportCal");
 	$head[$h][2] = 'xcal';
 	$h++;
@@ -195,20 +195,20 @@ function fichinter_admin_prepare_head()
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
 	complete_head_from_modules($config, $langs, null, $head, $h, 'fichinter_admin');
 
-	$head[$h][0] = DOL_URL_ROOT.'/fichinter/admin/fichinter_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/fichinter/admin/fichinter_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields");
 	$nbExtrafields = $extrafields->attributes['fichinter']['count'];
 	if ($nbExtrafields > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'attributes';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/fichinter/admin/fichinterdet_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/fichinter/admin/fichinterdet_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsLines");
 	$nbExtrafields = $extrafields->attributes['fichinterdet']['count'];
 	if ($nbExtrafields > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'attributesdet';
 	$h++;
@@ -231,7 +231,7 @@ function fichinter_rec_prepare_head($object)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/fichinter/card-rec.php?id='.$object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/fichinter/card-rec.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("CardFichinter");
 	$head[$h][2] = 'card';
 	$h++;

@@ -41,7 +41,7 @@ function assetAdminPrepareHead()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/asset/admin/setup.php';
+	$head[$h][0] = DOL_URL_ROOT . '/asset/admin/setup.php';
 	$head[$h][1] = $langs->trans("Settings");
 	$head[$h][2] = 'settings';
 	$h++;
@@ -56,20 +56,20 @@ function assetAdminPrepareHead()
 	//); // to remove a tab
 	complete_head_from_modules($config, $langs, null, $head, $h, 'asset_admin');
 
-	$head[$h][0] = DOL_URL_ROOT.'/asset/admin/asset_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/asset/admin/asset_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields");
 	$nbExtrafields = $extrafields->attributes['asset']['count'];
 	if ($nbExtrafields > 0) {
-		$head[$h][1] .= ' <span class="badge">'.$nbExtrafields.'</span>';
+		$head[$h][1] .= ' <span class="badge">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'asset_extrafields';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/asset/admin/assetmodel_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/asset/admin/assetmodel_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsAssetModel");
 	$nbExtrafields = $extrafields->attributes['asset_model']['count'];
 	if ($nbExtrafields > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'assetmodel_extrafields';
 	$h++;

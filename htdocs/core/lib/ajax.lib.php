@@ -66,30 +66,30 @@ function ajax_autocompleter($selected, $htmlname, $url, $urloption = '', $minLen
 
 	// Input search_htmlname is original field
 	// Input htmlname is a second input field used when using ajax autocomplete.
-	$script = '<input type="hidden" name="'.$htmlname.'" id="'.$htmlname.'" value="'.$selected.'" '.($moreparams ? $moreparams : '').' />';
+	$script = '<input type="hidden" name="' . $htmlname . '" id="' . $htmlname . '" value="' . $selected . '" ' . ($moreparams ? $moreparams : '') . ' />';
 
-	$script .= '<!-- Javascript code for autocomplete of field '.$htmlname.' -->'."\n";
-	$script .= '<script>'."\n";
+	$script .= '<!-- Javascript code for autocomplete of field ' . $htmlname . ' -->' . "\n";
+	$script .= '<script>' . "\n";
 	$script .= '$(document).ready(function() {
-					var autoselect = '.((int) $autoselect).';
-					var options = '.json_encode($ajaxoptions).'; /* Option of actions to do after keyup, or after select */
+					var autoselect = ' . ((int) $autoselect) . ';
+					var options = ' . json_encode($ajaxoptions) . '; /* Option of actions to do after keyup, or after select */
 
 					/* Remove selected id as soon as we type or delete a char (it means old selection is wrong). Use keyup/down instead of change to avoid losing the product id. This is needed only for select of predefined product */
-					$("input#search_'.$htmlnamejquery.'").keydown(function(e) {
+					$("input#search_' . $htmlnamejquery . '").keydown(function(e) {
 						if (e.keyCode != 9)		/* If not "Tab" key */
 						{
 							if (e.keyCode == 13) { return false; } /* disable "ENTER" key useful for barcode readers */
-							console.log("Clear id previously selected for field '.$htmlname.'");
-							$("#'.$htmlnamejquery.'").val("");
+							console.log("Clear id previously selected for field ' . $htmlname . '");
+							$("#' . $htmlnamejquery . '").val("");
 						}
 					});
 
 					// Check options for secondary actions when keyup
-					$("input#search_'.$htmlnamejquery.'").keyup(function() {
+					$("input#search_' . $htmlnamejquery . '").keyup(function() {
 						    if ($(this).val().length == 0)
 						    {
-	                            $("#search_'.$htmlnamejquery.'").val("");
-	                            $("#'.$htmlnamejquery.'").val("").trigger("change");
+	                            $("#search_' . $htmlnamejquery . '").val("");
+	                            $("#' . $htmlnamejquery . '").val("").trigger("change");
 	                            if (options.option_disabled) {
 	    							$("#" + options.option_disabled).removeAttr("disabled");
 	    						}
@@ -121,16 +121,16 @@ function ajax_autocompleter($selected, $htmlname, $url, $urloption = '', $minLen
                     });
 
 					// Activate the autocomplete to execute the GET
-    				$("input#search_'.$htmlnamejquery.'").autocomplete({
+    				$("input#search_' . $htmlnamejquery . '").autocomplete({
     					source: function( request, response ) {
-    						$.get("'.$url.($urloption ? '?'.$urloption : '').'", { "'.str_replace('.', '_', $htmlname).'": request.term }, function(data){
+    						$.get("' . $url . ($urloption ? '?' . $urloption : '') . '", { "' . str_replace('.', '_', $htmlname) . '": request.term }, function(data){
 								if (data != null)
 								{
 									response($.map( data, function(item) {
 										console.log("Received answer from ajax GET, we populate array to return to the jquery autocomplete");
 										if (autoselect == 1 && data.length == 1) {
-											$("#search_'.$htmlnamejquery.'").val(item.value);
-											$("#'.$htmlnamejquery.'").val(item.key).trigger("change");
+											$("#search_' . $htmlnamejquery . '").val(item.value);
+											$("#' . $htmlnamejquery . '").val(item.key).trigger("change");
 										}
 										var label = "";
 										if (item.labelhtml != null) {
@@ -176,50 +176,50 @@ function ajax_autocompleter($selected, $htmlname, $url, $urloption = '', $minLen
 										}
 									}));
 								} else {
-									console.error("Error: Ajax url '.$url.($urloption ? '?'.$urloption : '').' has returned an empty page. Should be an empty json array.");
+									console.error("Error: Ajax url ' . $url . ($urloption ? '?' . $urloption : '') . ' has returned an empty page. Should be an empty json array.");
 								}
 							}, "json");
 						},
 						dataType: "json",
-    					minLength: '.((int) $minLength).',
+    					minLength: ' . ((int) $minLength) . ',
     					select: function( event, ui ) {		// Function ran once a new value has been selected into the javascript combo
-    						console.log("We will trigger change on input '.$htmlname.' because of the select definition of autocomplete code for input#search_'.$htmlname.'");
+    						console.log("We will trigger change on input ' . $htmlname . ' because of the select definition of autocomplete code for input#search_' . $htmlname . '");
     					    console.log("Selected id = "+ui.item.id+" - If this value is null, it means you select a record with key that is null so selection is not effective");
 
-							console.log("Before, we propagate some properties, retrieved by the ajax of the get, into the data-xxx properties of the component #'.$htmlnamejquery.'");
+							console.log("Before, we propagate some properties, retrieved by the ajax of the get, into the data-xxx properties of the component #' . $htmlnamejquery . '");
 							//console.log(ui.item);
 
 							// For supplier price and customer when price by quantity is off
-							$("#'.$htmlnamejquery.'").attr("data-up", ui.item.price_ht);
-							$("#'.$htmlnamejquery.'").attr("data-up-locale", ui.item.price_unit_ht_locale);
-							$("#'.$htmlnamejquery.'").attr("data-base", ui.item.pricebasetype);
-							$("#'.$htmlnamejquery.'").attr("data-qty", ui.item.qty);
-							$("#'.$htmlnamejquery.'").attr("data-discount", ui.item.discount);
-							$("#'.$htmlnamejquery.'").attr("data-description", ui.item.description);
-							$("#'.$htmlnamejquery.'").attr("data-ref-customer", ui.item.ref_customer);
-							$("#'.$htmlnamejquery.'").attr("data-tvatx", ui.item.tva_tx);
-							$("#'.$htmlnamejquery.'").attr("data-default-vat-code", ui.item.default_vat_code);
-							$("#'.$htmlnamejquery.'").attr("data-supplier-ref", ui.item.supplier_ref);	// supplier_ref of price
+							$("#' . $htmlnamejquery . '").attr("data-up", ui.item.price_ht);
+							$("#' . $htmlnamejquery . '").attr("data-up-locale", ui.item.price_unit_ht_locale);
+							$("#' . $htmlnamejquery . '").attr("data-base", ui.item.pricebasetype);
+							$("#' . $htmlnamejquery . '").attr("data-qty", ui.item.qty);
+							$("#' . $htmlnamejquery . '").attr("data-discount", ui.item.discount);
+							$("#' . $htmlnamejquery . '").attr("data-description", ui.item.description);
+							$("#' . $htmlnamejquery . '").attr("data-ref-customer", ui.item.ref_customer);
+							$("#' . $htmlnamejquery . '").attr("data-tvatx", ui.item.tva_tx);
+							$("#' . $htmlnamejquery . '").attr("data-default-vat-code", ui.item.default_vat_code);
+							$("#' . $htmlnamejquery . '").attr("data-supplier-ref", ui.item.supplier_ref);	// supplier_ref of price
 
 							// For multi-currency values
-							$("#'.$htmlnamejquery.'").attr("data-multicurrency-code", ui.item.multicurrency_code);
-							$("#'.$htmlnamejquery.'").attr("data-multicurrency-unitprice", ui.item.multicurrency_unitprice);
+							$("#' . $htmlnamejquery . '").attr("data-multicurrency-code", ui.item.multicurrency_code);
+							$("#' . $htmlnamejquery . '").attr("data-multicurrency-unitprice", ui.item.multicurrency_unitprice);
 		';
 	if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES_BY_QTY') || getDolGlobalString('PRODUIT_CUSTOMER_PRICES_BY_QTY_MULTIPRICES')) {
 		$script .= '
 							// For customer price when PRODUIT_CUSTOMER_PRICES_BY_QTY is on
 							console.log("PRODUIT_CUSTOMER_PRICES_BY_QTY is on, so we propagate also prices by quantity into data-pbqxxx properties");
-							$("#'.$htmlnamejquery.'").attr("data-pbq", ui.item.pbq);
-							$("#'.$htmlnamejquery.'").attr("data-pbqup", ui.item.price_ht);
-							$("#'.$htmlnamejquery.'").attr("data-pbqbase", ui.item.pricebasetype);
-							$("#'.$htmlnamejquery.'").attr("data-pbqqty", ui.item.qty);
-							$("#'.$htmlnamejquery.'").attr("data-pbqpercent", ui.item.discount);
+							$("#' . $htmlnamejquery . '").attr("data-pbq", ui.item.pbq);
+							$("#' . $htmlnamejquery . '").attr("data-pbqup", ui.item.price_ht);
+							$("#' . $htmlnamejquery . '").attr("data-pbqbase", ui.item.pricebasetype);
+							$("#' . $htmlnamejquery . '").attr("data-pbqqty", ui.item.qty);
+							$("#' . $htmlnamejquery . '").attr("data-pbqpercent", ui.item.discount);
 		';
 	}
 	$script .= '
 							// A new value has been selected, we trigger the handlers on #htmlnamejquery
-							console.log("Now, we trigger changes on #'.$htmlnamejquery.'");
-							$("#'.$htmlnamejquery.'").val(ui.item.id).trigger("change");	// Select new value
+							console.log("Now, we trigger changes on #' . $htmlnamejquery . '");
+							$("#' . $htmlnamejquery . '").val(ui.item.id).trigger("change");	// Select new value
 
 							// Complementary actions
 
@@ -273,14 +273,14 @@ function ajax_autocompleter($selected, $htmlname, $url, $urloption = '', $minLen
 									}
     							});
     						}
-    						console.log("ajax_autocompleter new value selected, we trigger change also on original component so on field #search_'.$htmlname.'");
+    						console.log("ajax_autocompleter new value selected, we trigger change also on original component so on field #search_' . $htmlname . '");
 
-    						$("#search_'.$htmlnamejquery.'").trigger("change");	// We have changed value of the combo select, we must be sure to trigger all js hook binded on this event. This is required to trigger other javascript change method binded on original field by other code.
+    						$("#search_' . $htmlnamejquery . '").trigger("change");	// We have changed value of the combo select, we must be sure to trigger all js hook binded on this event. This is required to trigger other javascript change method binded on original field by other code.
     					}
     					,delay: 500
-					}).data("'.$dataforrenderITem.'")._renderItem = function( ul, item ) {
+					}).data("' . $dataforrenderITem . '")._renderItem = function( ul, item ) {
 						return $("<li>")
-						.data( "'.$dataforitem.'", item ) // jQuery UI > 1.10.0
+						.data( "' . $dataforitem . '", item ) // jQuery UI > 1.10.0
 						.append( \'<a><span class="tag">\' + item.label + "</span></a>" )
 						.appendTo(ul);
 					};
@@ -307,23 +307,23 @@ function ajax_autocompleter($selected, $htmlname, $url, $urloption = '', $minLen
  */
 function ajax_multiautocompleter($htmlname, $fields, $url, $option = '', $minLength = 2, $autoselect = 0)
 {
-	$script = '<!-- Autocomplete -->'."\n";
+	$script = '<!-- Autocomplete -->' . "\n";
 	$script .= '<script>';
 	$script .= 'jQuery(document).ready(function() {
-					var fields = '.json_encode($fields).';
+					var fields = ' . json_encode($fields) . ';
 					var nboffields = fields.length;
-					var autoselect = '.$autoselect.';
+					var autoselect = ' . $autoselect . ';
 					//alert(fields + " " + nboffields);
 
 					// Activate the autocomplete to execute the GET
-					jQuery("input#'.$htmlname.'").autocomplete({
+					jQuery("input#' . $htmlname . '").autocomplete({
 						dataType: "json",
-						minLength: '.$minLength.',
+						minLength: ' . $minLength . ',
 						source: function( request, response ) {
-							jQuery.getJSON( "'.$url.($option ? '?'.$option : '').'", { '.$htmlname.': request.term }, function(data){
+							jQuery.getJSON( "' . $url . ($option ? '?' . $option : '') . '", { ' . $htmlname . ': request.term }, function(data){
 								response( jQuery.map( data, function( item ) {
 									if (autoselect == 1 && data.length == 1) {
-										jQuery("#'.$htmlname.'").val(item.value);
+										jQuery("#' . $htmlname . '").val(item.value);
 										// TODO move this to specific request
 										if (item.states) {
 											jQuery("#state_id").html(item.states);
@@ -416,15 +416,15 @@ function ajax_multiautocompleter($htmlname, $fields, $url, $option = '', $minLen
 function ajax_dialog($title, $message, $w = 350, $h = 150)
 {
 	$newtitle = dol_textishtml($title) ? dol_string_nohtmltag($title, 1) : $title;
-	$msg = '<div id="dialog-info" title="'.dol_escape_htmltag($newtitle).'">';
+	$msg = '<div id="dialog-info" title="' . dol_escape_htmltag($newtitle) . '">';
 	$msg .= $message;
-	$msg .= '</div>'."\n";
+	$msg .= '</div>' . "\n";
 	$msg .= '<script>
     jQuery(function() {
         jQuery("#dialog-info").dialog({
 	        resizable: false,
-	        height:'.$h.',
-	        width:'.$w.',
+	        height:' . $h . ',
+	        width:' . $w . ',
 	        modal: true,
 	        buttons: {
 	        	Ok: function() {
@@ -482,20 +482,20 @@ function ajax_combobox($htmlname, $events = array(), $minLengthToAutocomplete = 
 		$minLengthToAutocomplete = 0;
 	}
 
-	$moreselect2theme = ($morecss ? dol_escape_js(' '.$morecss) : '');
+	$moreselect2theme = ($morecss ? dol_escape_js(' ' . $morecss) : '');
 	$moreselect2theme = preg_replace('/widthcentpercentminus[^\s]*/', '', $moreselect2theme);
 
 	$tmpplugin = 'select2';
-	$msg = "\n".'<!-- JS CODE TO ENABLE '.$tmpplugin.' for id = '.$htmlname.' -->
+	$msg = "\n" . '<!-- JS CODE TO ENABLE ' . $tmpplugin . ' for id = ' . $htmlname . ' -->
 		<script>
 			$(document).ready(function () {
-				$(\''.(dol_escape_js(preg_match('/^\./', $htmlname) ? $htmlname : '#'.$htmlname)).'\').'.$tmpplugin.'({
+				$(\'' . (dol_escape_js(preg_match('/^\./', $htmlname) ? $htmlname : '#' . $htmlname)) . '\').' . $tmpplugin . '({
 					dir: \'ltr\',';
 	if (preg_match('/onrightofpage/', $morecss)) {	// when $morecss contains 'onrightofpage', the select2 component must also be inside a parent with class="parentonrightofpage"
-		$msg .= ' dropdownAutoWidth: true, dropdownParent: $(\'#'.$htmlname.'\').parent(), '."\n";
+		$msg .= ' dropdownAutoWidth: true, dropdownParent: $(\'#' . $htmlname . '\').parent(), ' . "\n";
 	}
-	$msg .= '		width: \''.dol_escape_js($widthTypeOfAutocomplete).'\',		/* off or resolve */
-					minimumInputLength: '.((int) $minLengthToAutocomplete).',
+	$msg .= '		width: \'' . dol_escape_js($widthTypeOfAutocomplete) . '\',		/* off or resolve */
+					minimumInputLength: ' . ((int) $minLengthToAutocomplete) . ',
 					language: (typeof select2arrayoflanguage === \'undefined\') ? \'en\' : select2arrayoflanguage,
 					matcher: function (params, data) {
 						if ($.trim(params.term) === "") {
@@ -509,7 +509,7 @@ function ajax_combobox($htmlname, $events = array(), $minLengthToAutocomplete = 
 						}
 						return data;
 					},
-					theme: \'default'.dol_escape_js($moreselect2theme).'\',		/* to add css on generated html components */
+					theme: \'default' . dol_escape_js($moreselect2theme) . '\',		/* to add css on generated html components */
 					containerCssClass: \':all:\',					/* Line to add class of origin SELECT propagated to the new <span class="select2-selection...> tag */
 					selectionCssClass: \':all:\',					/* Line to add class of origin SELECT propagated to the new <span class="select2-selection...> tag */
 					dropdownCssClass: \'ui-dialog\',
@@ -517,7 +517,7 @@ function ajax_combobox($htmlname, $events = array(), $minLengthToAutocomplete = 
 	 					/* Code to add class of origin OPTION propagated to the new select2 <li> tag */
 						if (data.element) { $(container).addClass($(data.element).attr("class")); }
 						//console.log("data html is "+$(data.element).attr("data-html"));
-						if (data.id == '.((int) $idforemptyvalue).' && $(data.element).attr("data-html") == undefined) {
+						if (data.id == ' . ((int) $idforemptyvalue) . ' && $(data.element).attr("data-html") == undefined) {
 							return \'&nbsp;\';
 						}
 						if ($(data.element).attr("data-html") != undefined) {
@@ -530,7 +530,7 @@ function ajax_combobox($htmlname, $events = array(), $minLengthToAutocomplete = 
 						return data.text;
 					},
 					templateSelection: function (selection) {		/* Format visible output of selected value */
-						if (selection.id == '.((int) $idforemptyvalue).') return \'<span class="placeholder">\'+selection.text+\'</span>\';
+						if (selection.id == ' . ((int) $idforemptyvalue) . ') return \'<span class="placeholder">\'+selection.text+\'</span>\';
 						return selection.text;
 					},
 					escapeMarkup: function(markup) {
@@ -540,9 +540,9 @@ function ajax_combobox($htmlname, $events = array(), $minLengthToAutocomplete = 
 	if ($forcefocus) {
 		$msg .= '.select2(\'focus\')';
 	}
-	$msg .= ';'."\n";
+	$msg .= ';' . "\n";
 
-	$msg .= '});'."\n";
+	$msg .= '});' . "\n";
 	$msg .= "</script>\n";
 
 	$msg .= ajax_event($htmlname, $events);
@@ -567,21 +567,21 @@ function ajax_event($htmlname, $events)
 		$out = '<!-- JS code to manage event for id = ' . $htmlname . ' -->
 	<script>
 		$(document).ready(function () {
-			jQuery("#'.$htmlname.'").change(function () {
-				var obj = '.json_encode($events) . ';
+			jQuery("#' . $htmlname . '").change(function () {
+				var obj = ' . json_encode($events) . ';
 		   		$.each(obj, function(key,values) {
 	    			if (values.method.length) {
-	    				runJsCodeForEvent'.$htmlname.'(values);
+	    				runJsCodeForEvent' . $htmlname . '(values);
 	    			}
 				});
 			});
-			function runJsCodeForEvent'.$htmlname.'(obj) {
-				var id = $("#'.$htmlname.'").val();
+			function runJsCodeForEvent' . $htmlname . '(obj) {
+				var id = $("#' . $htmlname . '").val();
 				var method = obj.method;
 				var url = obj.url;
 				var htmlname = obj.htmlname;
 				var showempty = obj.showempty;
-			    console.log("Run runJsCodeForEvent-'.$htmlname.' from ajax_combobox id="+id+" method="+method+" showempty="+showempty+" url="+url+" htmlname="+htmlname);
+			    console.log("Run runJsCodeForEvent-' . $htmlname . ' from ajax_combobox id="+id+" method="+method+" showempty="+showempty+" url="+url+" htmlname="+htmlname);
 				$.getJSON(url,
 						{
 							action: method,
@@ -655,9 +655,9 @@ function ajax_constantonoff($code, $input = array(), $entity = null, $revertonof
 
 	if (empty($config->use_javascript_ajax) || $forcenoajax) {
 		if (!getDolGlobalString($code)) {
-			$out = '<a '.($morecss ? 'class="'.$morecss.'" ' : '').'href="'.$_SERVER['PHP_SELF'].'?action=set_'.$code.'&token='.newToken().'&entity='.$entity.($mode ? '&mode='.$mode : '').($forcereload ? '&dol_resetcache=1' : '').'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+			$out = '<a ' . ($morecss ? 'class="' . $morecss . '" ' : '') . 'href="' . $_SERVER['PHP_SELF'] . '?action=set_' . $code . '&token=' . newToken() . '&entity=' . $entity . ($mode ? '&mode=' . $mode : '') . ($forcereload ? '&dol_resetcache=1' : '') . '">' . img_picto($langs->trans("Disabled"), 'off') . '</a>';
 		} else {
-			$out = '<a '.($morecss ? 'class="'.$morecss.'" ' : '').' href="'.$_SERVER['PHP_SELF'].'?action=del_'.$code.'&token='.newToken().'&entity='.$entity.($mode ? '&mode='.$mode : '').($forcereload ? '&dol_resetcache=1' : '').'">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
+			$out = '<a ' . ($morecss ? 'class="' . $morecss . '" ' : '') . ' href="' . $_SERVER['PHP_SELF'] . '?action=del_' . $code . '&token=' . newToken() . '&entity=' . $entity . ($mode ? '&mode=' . $mode : '') . ($forcereload ? '&dol_resetcache=1' : '') . '">' . img_picto($langs->trans("Enabled"), 'on') . '</a>';
 		}
 	} else {
 		$userconstid = 0;
@@ -669,20 +669,20 @@ function ajax_constantonoff($code, $input = array(), $entity = null, $revertonof
 			$userconst->fetch($userconstid);
 		}
 
-		$out = "\n<!-- Ajax code to switch constant ".$code." -->".'
+		$out = "\n<!-- Ajax code to switch constant " . $code . " -->" . '
 		<script>
 			$(document).ready(function() {
-				var input = '.json_encode($input).';
-				var url = \''.DOL_URL_ROOT.'/core/ajax/constantonoff.php\';
-				var code = \''.dol_escape_js($code).'\';
-				var entity = \''.dol_escape_js($entity).'\';
-				var strict = \''.dol_escape_js((string) $strict).'\';
-				var userid = \''.dol_escape_js((string) $user->id).'\';
-				var userconst = '.((int) $userconstid).';
-				var yesButton = \''.dol_escape_js($langs->transnoentities("Yes")).'\';
-				var noButton = \''.dol_escape_js($langs->transnoentities("No")).'\';
-				var token = \''.currentToken().'\';
-				var warning = \''.dol_escape_js($showwarning).'\';
+				var input = ' . json_encode($input) . ';
+				var url = \'' . DOL_URL_ROOT . '/core/ajax/constantonoff.php\';
+				var code = \'' . dol_escape_js($code) . '\';
+				var entity = \'' . dol_escape_js($entity) . '\';
+				var strict = \'' . dol_escape_js((string) $strict) . '\';
+				var userid = \'' . dol_escape_js((string) $user->id) . '\';
+				var userconst = ' . ((int) $userconstid) . ';
+				var yesButton = \'' . dol_escape_js($langs->transnoentities("Yes")) . '\';
+				var noButton = \'' . dol_escape_js($langs->transnoentities("No")) . '\';
+				var token = \'' . currentToken() . '\';
+				var warning = \'' . dol_escape_js($showwarning) . '\';
 
 				// Set constant
 				$("#set_" + code).click(function() {
@@ -695,7 +695,7 @@ function ajax_constantonoff($code, $input = array(), $entity = null, $revertonof
 						if (input.alert.set.noButton)  noButton = input.alert.set.noButton;
 						confirmConstantAction("set", url, code, input, input.alert.set, entity, yesButton, noButton, strict, userid, token);
 					} else {
-						setConstant(url, code, input, entity, 0, '.((int) $forcereload).', userid, token, 1, userconst);
+						setConstant(url, code, input, entity, 0, ' . ((int) $forcereload) . ', userid, token, 1, userconst);
 					}
 				});
 
@@ -707,23 +707,23 @@ function ajax_constantonoff($code, $input = array(), $entity = null, $revertonof
 						confirmConstantAction("del", url, code, input, input.alert.del, entity, yesButton, noButton, strict, userid, token);
 					} else {';
 		if (empty($setzeroinsteadofdel)) {
-			$out .= ' 	delConstant(url, code, input, entity, 0, '.((int) $forcereload).', userid, token, userconst);';
+			$out .= ' 	delConstant(url, code, input, entity, 0, ' . ((int) $forcereload) . ', userid, token, userconst);';
 		} else {
-			$out .= ' 	setConstant(url, code, input, entity, 0, '.((int) $forcereload).', userid, token, 0, userconst);';
+			$out .= ' 	setConstant(url, code, input, entity, 0, ' . ((int) $forcereload) . ', userid, token, 0, userconst);';
 		}
 		$out .= '	}
 				});
 			});
-		</script>'."\n";
+		</script>' . "\n";
 
 		if (!empty($userconst) && $userconst instanceof User) {
 			$value = getDolUserString($code, '', $userconst);
 		} else {
 			$value = getDolGlobalString($code);
 		}
-		$out .= '<div id="confirm_'.$code.'" title="" style="display: none;"></div>';
-		$out .= '<span id="set_'.$code.'" class="valignmiddle inline-block linkobject '.($value ? 'hideobject' : '').($morecss ? ' '.$morecss : '').'">'.($revertonoff ? img_picto($langs->trans("Enabled"), 'switch_on', '', 0, 0, 0, '', '', $marginleftonlyshort) : img_picto($langs->trans("Disabled"), 'switch_off', '', 0, 0, 0, '', '', $marginleftonlyshort)).'</span>';
-		$out .= '<span id="del_'.$code.'" class="valignmiddle inline-block linkobject '.($value ? '' : 'hideobject').($morecss ? ' '.$morecss : '').'">'.($revertonoff ? img_picto($langs->trans("Disabled"), 'switch_off'.$suffix, '', 0, 0, 0, '', '', $marginleftonlyshort) : img_picto($langs->trans("Enabled"), 'switch_on'.$suffix, '', 0, 0, 0, '', '', $marginleftonlyshort)).'</span>';
+		$out .= '<div id="confirm_' . $code . '" title="" style="display: none;"></div>';
+		$out .= '<span id="set_' . $code . '" class="valignmiddle inline-block linkobject ' . ($value ? 'hideobject' : '') . ($morecss ? ' ' . $morecss : '') . '">' . ($revertonoff ? img_picto($langs->trans("Enabled"), 'switch_on', '', 0, 0, 0, '', '', $marginleftonlyshort) : img_picto($langs->trans("Disabled"), 'switch_off', '', 0, 0, 0, '', '', $marginleftonlyshort)) . '</span>';
+		$out .= '<span id="del_' . $code . '" class="valignmiddle inline-block linkobject ' . ($value ? '' : 'hideobject') . ($morecss ? ' ' . $morecss : '') . '">' . ($revertonoff ? img_picto($langs->trans("Disabled"), 'switch_off' . $suffix, '', 0, 0, 0, '', '', $marginleftonlyshort) : img_picto($langs->trans("Enabled"), 'switch_on' . $suffix, '', 0, 0, 0, '', '', $marginleftonlyshort)) . '</span>';
 		$out .= "\n";
 	}
 
@@ -760,22 +760,22 @@ function ajax_object_onoff($object, $code, $field, $text_on, $text_off, $input =
 	if (!empty($config->use_javascript_ajax) && empty($forcenojs)) {
 		$out .= '<script>
         $(function() {
-            var input = '.json_encode($input).';
+            var input = ' . json_encode($input) . ';
 
             // Set constant
-            $("#set_'.$htmlname.'_'.$object->id.'").click(function() {
+            $("#set_' . $htmlname . '_' . $object->id . '").click(function() {
 				console.log("Click managed by ajax_object_onoff");
-                $.get( "'.DOL_URL_ROOT.'/core/ajax/objectonoff.php", {
+                $.get( "' . DOL_URL_ROOT . '/core/ajax/objectonoff.php", {
                     action: \'set\',
-                    field: \''.dol_escape_js($field).'\',
+                    field: \'' . dol_escape_js($field) . '\',
                     value: \'1\',
-                    element: \''.dol_escape_js((empty($object->module) || $object->module == $object->element) ? $object->element : $object->element.'@'.$object->module).'\',
-                    id: \''.((int) $object->id).'\',
-					token: \''.currentToken().'\'
+                    element: \'' . dol_escape_js((empty($object->module) || $object->module == $object->element) ? $object->element : $object->element . '@' . $object->module) . '\',
+                    id: \'' . ((int) $object->id) . '\',
+					token: \'' . currentToken() . '\'
                 },
                 function() {
-                    $("#set_'.$htmlname.'_'.$object->id.'").hide();
-                    $("#del_'.$htmlname.'_'.$object->id.'").show();
+                    $("#set_' . $htmlname . '_' . $object->id . '").hide();
+                    $("#del_' . $htmlname . '_' . $object->id . '").show();
                     // Enable another element
                     if (input.disabled && input.disabled.length > 0) {
                         $.each(input.disabled, function(key,value) {
@@ -795,19 +795,19 @@ function ajax_object_onoff($object, $code, $field, $text_on, $text_off, $input =
             });
 
             // Del constant
-            $("#del_'.$htmlname.'_'.$object->id.'").click(function() {
+            $("#del_' . $htmlname . '_' . $object->id . '").click(function() {
 				console.log("Click managed by ajax_object_onoff");
-                $.get( "'.DOL_URL_ROOT.'/core/ajax/objectonoff.php", {
+                $.get( "' . DOL_URL_ROOT . '/core/ajax/objectonoff.php", {
                     action: \'set\',
-                    field: \''.dol_escape_js($field).'\',
+                    field: \'' . dol_escape_js($field) . '\',
                     value: \'0\',
-                    element: \''.dol_escape_js((empty($object->module) || $object->module == $object->element) ? $object->element : $object->element.'@'.$object->module).'\',
-                    id: \''.((int) $object->id).'\',
-					token: \''.currentToken().'\'
+                    element: \'' . dol_escape_js((empty($object->module) || $object->module == $object->element) ? $object->element : $object->element . '@' . $object->module) . '\',
+                    id: \'' . ((int) $object->id) . '\',
+					token: \'' . currentToken() . '\'
                 },
                 function() {
-                    $("#del_'.$htmlname.'_'.$object->id.'").hide();
-                    $("#set_'.$htmlname.'_'.$object->id.'").show();
+                    $("#del_' . $htmlname . '_' . $object->id . '").hide();
+                    $("#set_' . $htmlname . '_' . $object->id . '").show();
                     // Disable another element
                     if (input.disabled && input.disabled.length > 0) {
                         $.each(input.disabled, function(key,value) {
@@ -851,11 +851,11 @@ function ajax_object_onoff($object, $code, $field, $text_on, $text_off, $input =
 	}
 
 	if (empty($config->use_javascript_ajax) || $forcenojs) {
-		$out .= '<a id="set_'.$htmlname.'_'.$object->id.'" class="linkobject '.($object->$code == 1 ? 'hideobject' : '').($morecss ? ' '.$morecss : '').'" href="'.DOL_URL_ROOT.'/core/ajax/objectonoff.php?action=set&token='.newToken().'&id='.((int) $object->id).'&element='.urlencode($object->element).'&field='.urlencode($field).'&value=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?id='.$object->id.($moreparam ? '&'.$moreparam : '')).'">'.img_picto($langs->trans($text_off), $switchoff, '', 0, 0, 0, '', $cssswitchoff).'</a>';
-		$out .= '<a id="del_'.$htmlname.'_'.$object->id.'" class="linkobject '.($object->$code == 1 ? '' : 'hideobject').($morecss ? ' '.$morecss : '').'" href="'.DOL_URL_ROOT.'/core/ajax/objectonoff.php?action=set&token='.newToken().'&id='.((int) $object->id).'&element='.urlencode($object->element).'&field='.urlencode($field).'&value=0&backtopage='.urlencode($_SERVER["PHP_SELF"].'?id='.$object->id.($moreparam ? '&'.$moreparam : '')).'">'.img_picto($langs->trans($text_on), $switchon, '', 0, 0, 0, '', $cssswitchon).'</a>';
+		$out .= '<a id="set_' . $htmlname . '_' . $object->id . '" class="linkobject ' . ($object->$code == 1 ? 'hideobject' : '') . ($morecss ? ' ' . $morecss : '') . '" href="' . DOL_URL_ROOT . '/core/ajax/objectonoff.php?action=set&token=' . newToken() . '&id=' . ((int) $object->id) . '&element=' . urlencode($object->element) . '&field=' . urlencode($field) . '&value=1&backtopage=' . urlencode($_SERVER["PHP_SELF"] . '?id=' . $object->id . ($moreparam ? '&' . $moreparam : '')) . '">' . img_picto($langs->trans($text_off), $switchoff, '', 0, 0, 0, '', $cssswitchoff) . '</a>';
+		$out .= '<a id="del_' . $htmlname . '_' . $object->id . '" class="linkobject ' . ($object->$code == 1 ? '' : 'hideobject') . ($morecss ? ' ' . $morecss : '') . '" href="' . DOL_URL_ROOT . '/core/ajax/objectonoff.php?action=set&token=' . newToken() . '&id=' . ((int) $object->id) . '&element=' . urlencode($object->element) . '&field=' . urlencode($field) . '&value=0&backtopage=' . urlencode($_SERVER["PHP_SELF"] . '?id=' . $object->id . ($moreparam ? '&' . $moreparam : '')) . '">' . img_picto($langs->trans($text_on), $switchon, '', 0, 0, 0, '', $cssswitchon) . '</a>';
 	} else {
-		$out .= '<span id="set_'.$htmlname.'_'.$object->id.'" class="linkobject '.($object->$code == 1 ? 'hideobject' : '').($morecss ? ' '.$morecss : '').'">'.img_picto($langs->trans($text_off), $switchoff, '', 0, 0, 0, '', $cssswitchoff).'</span>';
-		$out .= '<span id="del_'.$htmlname.'_'.$object->id.'" class="linkobject '.($object->$code == 1 ? '' : 'hideobject').($morecss ? ' '.$morecss : '').'">'.img_picto($langs->trans($text_on), $switchon, '', 0, 0, 0, '', $cssswitchon).'</span>';
+		$out .= '<span id="set_' . $htmlname . '_' . $object->id . '" class="linkobject ' . ($object->$code == 1 ? 'hideobject' : '') . ($morecss ? ' ' . $morecss : '') . '">' . img_picto($langs->trans($text_off), $switchoff, '', 0, 0, 0, '', $cssswitchoff) . '</span>';
+		$out .= '<span id="del_' . $htmlname . '_' . $object->id . '" class="linkobject ' . ($object->$code == 1 ? '' : 'hideobject') . ($morecss ? ' ' . $morecss : '') . '">' . img_picto($langs->trans($text_on), $switchon, '', 0, 0, 0, '', $cssswitchon) . '</span>';
 	}
 
 	return $out;

@@ -35,7 +35,7 @@ function dolBECalculateStructuredCommunication($invoice_number, $invoice_type)
 	$invoice_number = preg_replace('/[^0-9]/', '', $invoice_number); // Keep only numbers
 
 	// We complete with 0 and take the last 8 digits of the number are used to generate the reference base.
-	$invoice_number = substr('00000000'.$invoice_number, -8);
+	$invoice_number = substr('00000000' . $invoice_number, -8);
 
 	// Prefix with invoice type
 	switch ($invoice_type) {
@@ -59,7 +59,7 @@ function dolBECalculateStructuredCommunication($invoice_number, $invoice_type)
 	}
 
 	// Calculate module97
-	$invoice_number = $invoice_type.$invoice_number;
+	$invoice_number = $invoice_type . $invoice_number;
 	$mod97 = intval($invoice_number) % 97;
 	$controlKey = ($mod97 === 0) ? 97 : $mod97;
 
@@ -67,9 +67,9 @@ function dolBECalculateStructuredCommunication($invoice_number, $invoice_type)
 	$invoice_number .= $controlKey;
 
 	// Format reference as XXX/XXXX/XXXXX
-	$part1 = '+++'.substr($invoice_number, 0, 3);
+	$part1 = '+++' . substr($invoice_number, 0, 3);
 	$part2 = substr($invoice_number, 3, 4);
-	$part3 = substr($invoice_number, 7, 5).'+++'; // Includes last 3 digits + 2 check digits
+	$part3 = substr($invoice_number, 7, 5) . '+++'; // Includes last 3 digits + 2 check digits
 
 	$invoice_number = $part1 . '/' . $part2 . '/' . $part3;
 

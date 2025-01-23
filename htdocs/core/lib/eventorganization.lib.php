@@ -41,26 +41,26 @@ function eventorganizationAdminPrepareHead()
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT.'/admin/eventorganization.php';
+	$head[$h][0] = DOL_URL_ROOT . '/admin/eventorganization.php';
 	$head[$h][1] = $langs->trans("Settings");
 	$head[$h][2] = 'settings';
 	$h++;
 
 
-	$head[$h][0] = DOL_URL_ROOT.'/admin/eventorganization_confbooth_extrafields.php';
-	$head[$h][1] = $langs->trans("ExtraFields")." (".$langs->trans("EventOrganizationConfOrBooth").")";
+	$head[$h][0] = DOL_URL_ROOT . '/admin/eventorganization_confbooth_extrafields.php';
+	$head[$h][1] = $langs->trans("ExtraFields") . " (" . $langs->trans("EventOrganizationConfOrBooth") . ")";
 	$nbExtrafields = $extrafields->attributes['actioncomm']['count'];
 	if ($nbExtrafields > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'eventorganization_extrafields';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT.'/admin/eventorganization_confboothattendee_extrafields.php';
-	$head[$h][1] = $langs->trans("ExtraFields")." (".$langs->trans("Attendees").")";
+	$head[$h][0] = DOL_URL_ROOT . '/admin/eventorganization_confboothattendee_extrafields.php';
+	$head[$h][1] = $langs->trans("ExtraFields") . " (" . $langs->trans("Attendees") . ")";
 	$nbExtrafields = $extrafields->attributes['eventorganization_conferenceorboothattendee']['count'];
 	if ($nbExtrafields > 0) {
-		$head[$h][1] .= '<span class="badge marginleftonlyshort">'.$nbExtrafields.'</span>';
+		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
 	$head[$h][2] = 'conferenceorboothattendee_extrafields';
 	$h++;

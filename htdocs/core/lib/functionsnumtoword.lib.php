@@ -101,24 +101,24 @@ function dol_convertToWord($num, $langs, $currency = '', $centimes = false)
 		$num_length = strlen((string) $num);
 		$levels = (int) (($num_length + 2) / 3);
 		$max_length = $levels * 3;
-		$num = substr('00'.$num, -$max_length);
+		$num = substr('00' . $num, -$max_length);
 		$num_levels = str_split($num, 3);
 		$nboflevels = count($num_levels);
 		for ($i = 0; $i < $nboflevels; $i++) {
 			$levels--;
 			$hundreds = (int) ((int) $num_levels[$i] / 100);
-			$hundreds = ($hundreds ? ' '.$list1[$hundreds].' '.$langs->transnoentities('hundred').($hundreds == 1 ? '' : 's').' ' : '');
+			$hundreds = ($hundreds ? ' ' . $list1[$hundreds] . ' ' . $langs->transnoentities('hundred') . ($hundreds == 1 ? '' : 's') . ' ' : '');
 			$tens = (int) ((int) $num_levels[$i] % 100);
 			$singles = '';
 			if ($tens < 20) {
-				$tens = ($tens ? ' '.$list1[$tens].' ' : '');
+				$tens = ($tens ? ' ' . $list1[$tens] . ' ' : '');
 			} else {
 				$tens = (int) ($tens / 10);
-				$tens = ' '.$list2[$tens].' ';
+				$tens = ' ' . $list2[$tens] . ' ';
 				$singles = (int) ((int) $num_levels[$i] % 10);
-				$singles = ' '.$list1[$singles].' ';
+				$singles = ' ' . $list1[$singles] . ' ';
 			}
-			$words[] = $hundreds.$tens.$singles.(($levels && (int) ($num_levels[$i])) ? ' '.$list3[$levels].' ' : '');
+			$words[] = $hundreds . $tens . $singles . (($levels && (int) ($num_levels[$i])) ? ' ' . $list3[$levels] . ' ' : '');
 		} //end for loop
 		$commas = count($words);
 		if ($commas > 1) {
@@ -129,7 +129,7 @@ function dol_convertToWord($num, $langs, $currency = '', $centimes = false)
 		$concatWords = trim(preg_replace('/[ ]+/', ' ', $concatWords));
 
 		if (!empty($currency)) {
-			$concatWords .= ' '.$currency;
+			$concatWords .= ' ' . $currency;
 		}
 
 		// If we need to write cents call again this function for cents
@@ -137,12 +137,12 @@ function dol_convertToWord($num, $langs, $currency = '', $centimes = false)
 
 		if ($decimalpart) {
 			if (!empty($currency)) {
-				$concatWords .= ' '.$langs->transnoentities('and');
+				$concatWords .= ' ' . $langs->transnoentities('and');
 			}
 
-			$concatWords .= ' '.dol_convertToWord((float) $decimalpart, $langs, '', true);
+			$concatWords .= ' ' . dol_convertToWord((float) $decimalpart, $langs, '', true);
 			if (!empty($currency)) {
-				$concatWords .= ' '.$langs->transnoentities('centimes');
+				$concatWords .= ' ' . $langs->transnoentities('centimes');
 			}
 		}
 		return $concatWords;
@@ -176,7 +176,7 @@ function dolNumberToWord($numero, $langs, $numorcurrency = 'number')
 	$parte_decimal = '00';  // For static analysis, strnumber should contain '.'
 	for ($i = 0; $i < $len; $i++) {
 		if ($strnumber[$i] == '.') {
-			$parte_decimal = $strnumber[$i + 1].$strnumber[$i + 2];
+			$parte_decimal = $strnumber[$i + 1] . $strnumber[$i + 2];
 			break;
 		}
 	}
@@ -184,13 +184,13 @@ function dolNumberToWord($numero, $langs, $numorcurrency = 'number')
 	/* Dolibarr 3.6.2 doesn't have $langs->default, why ask $lang like a parameter in case it exists? */
 	if (((is_object($langs) && $langs->getDefaultLang(0) == 'es_MX') || (!is_object($langs) && $langs == 'es_MX')) && $numorcurrency == 'currency') {
 		if ($numero >= 1 && $numero < 2) {
-			return ("UN PESO ".$parte_decimal." / 100 M.N.");
+			return ("UN PESO " . $parte_decimal . " / 100 M.N.");
 		} elseif ($numero >= 0 && $numero < 1) {
-			return ("CERO PESOS ".$parte_decimal." / 100 M.N.");
+			return ("CERO PESOS " . $parte_decimal . " / 100 M.N.");
 		} elseif ($numero >= 1000000 && $numero < 1000001) {
-			return ("UN MILL&OacuteN DE PESOS ".$parte_decimal." / 100 M.N.");
+			return ("UN MILL&OacuteN DE PESOS " . $parte_decimal . " / 100 M.N.");
 		} elseif ($numero >= 1000000000000 && $numero < 1000000000001) {
-			return ("UN BILL&OacuteN DE PESOS ".$parte_decimal." / 100 M.N.");
+			return ("UN BILL&OacuteN DE PESOS " . $parte_decimal . " / 100 M.N.");
 		} else {
 			$entexto = "";
 			$number = $numero;
@@ -247,7 +247,7 @@ function dolNumberToWord($numero, $langs, $numorcurrency = 'number')
 			if (!$cdm && !$ddm && !$udm && !$c && !$d && !$u && $number > 1000000) {
 				$entexto .= " DE";
 			}
-			$entexto .= " PESOS ".$parte_decimal." / 100 M.N.";
+			$entexto .= " PESOS " . $parte_decimal . " / 100 M.N.";
 		}
 		return $entexto;
 	}
@@ -290,7 +290,7 @@ function hundreds2text($hundreds, $tens, $units)
 		if ($hundreds != 0) {
 			$entexto .= " ";
 		}
-		$entexto .= " ".$veintis[$units];
+		$entexto .= " " . $veintis[$units];
 		return $entexto;
 	} elseif ($tens == 1) {
 		if ($hundreds != 0) {
