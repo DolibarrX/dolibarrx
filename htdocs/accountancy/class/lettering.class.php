@@ -25,9 +25,9 @@
  * \brief 		File of class for lettering
  */
 
-include_once DOL_DOCUMENT_ROOT."/accountancy/class/bookkeeping.class.php";
-include_once DOL_DOCUMENT_ROOT."/societe/class/societe.class.php";
-include_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
+include_once DOL_DOCUMENT_ROOT . "/accountancy/class/bookkeeping.class.php";
+include_once DOL_DOCUMENT_ROOT . "/societe/class/societe.class.php";
+include_once DOL_DOCUMENT_ROOT . "/core/lib/date.lib.php";
 
 /**
  * Class Lettering
@@ -123,17 +123,17 @@ class Lettering extends BookKeeping
 		$sql = "SELECT DISTINCT bk.rowid, bk.doc_date, bk.doc_type, bk.doc_ref, bk.subledger_account, ";
 		$sql .= " bk.numero_compte , bk.label_compte, bk.debit , bk.credit, bk.montant ";
 		$sql .= " , bk.sens , bk.code_journal , bk.piece_num, bk.date_lettering, bu.url_id , bu.type ";
-		$sql .= " FROM ".MAIN_DB_PREFIX."accounting_bookkeeping as bk";
-		$sql .= " LEFT JOIN  ".MAIN_DB_PREFIX."bank_url as bu ON(bk.fk_doc = bu.fk_bank AND bu.type IN ('payment', 'payment_supplier') ) ";
+		$sql .= " FROM " . MAIN_DB_PREFIX . "accounting_bookkeeping as bk";
+		$sql .= " LEFT JOIN  " . MAIN_DB_PREFIX . "bank_url as bu ON(bk.fk_doc = bu.fk_bank AND bu.type IN ('payment', 'payment_supplier') ) ";
 		$sql .= " WHERE ( ";
 		if ($object->code_compta_client != "") {
-			$sql .= " bk.subledger_account = '".$this->db->escape($object->code_compta_client)."'  ";
+			$sql .= " bk.subledger_account = '" . $this->db->escape($object->code_compta_client) . "'  ";
 		}
 		if ($object->code_compta_client != "" && $object->code_compta_fournisseur != "") {
 			$sql .= " OR ";
 		}
 		if ($object->code_compta_fournisseur != "") {
-			$sql .= " bk.subledger_account = '".$this->db->escape($object->code_compta_fournisseur)."' ";
+			$sql .= " bk.subledger_account = '" . $this->db->escape($object->code_compta_fournisseur) . "' ";
 		}
 
 		$sql .= " ) AND (bk.date_lettering ='' OR bk.date_lettering IS NULL) ";
@@ -153,22 +153,22 @@ class Lettering extends BookKeeping
 
 				if ($obj->type == 'payment_supplier') {
 					$sql = 'SELECT DISTINCT bk.rowid, facf.ref, facf.ref_supplier, payf.fk_bank, facf.rowid as fact_id';
-					$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn facf ";
-					$sql .= " INNER JOIN ".MAIN_DB_PREFIX."paiementfourn_facturefourn as payfacf ON  payfacf.fk_facturefourn=facf.rowid";
-					$sql .= " INNER JOIN ".MAIN_DB_PREFIX."paiementfourn as payf ON  payfacf.fk_paiementfourn=payf.rowid";
-					$sql .= " INNER JOIN ".MAIN_DB_PREFIX."accounting_bookkeeping as bk ON (bk.fk_doc = payf.fk_bank AND bk.code_journal='".$this->db->escape($obj->code_journal)."')";
-					$sql .= " WHERE payfacf.fk_paiementfourn = '".$this->db->escape($obj->url_id)."' ";
-					$sql .= " AND facf.entity = ".$config->entity;
-					$sql .= " AND code_journal IN (SELECT code FROM ".MAIN_DB_PREFIX."accounting_journal WHERE nature=4 AND entity=".$config->entity.") ";
+					$sql .= " FROM " . MAIN_DB_PREFIX . "facture_fourn facf ";
+					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "paiementfourn_facturefourn as payfacf ON  payfacf.fk_facturefourn=facf.rowid";
+					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "paiementfourn as payf ON  payfacf.fk_paiementfourn=payf.rowid";
+					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "accounting_bookkeeping as bk ON (bk.fk_doc = payf.fk_bank AND bk.code_journal='" . $this->db->escape($obj->code_journal) . "')";
+					$sql .= " WHERE payfacf.fk_paiementfourn = '" . $this->db->escape($obj->url_id) . "' ";
+					$sql .= " AND facf.entity = " . $config->entity;
+					$sql .= " AND code_journal IN (SELECT code FROM " . MAIN_DB_PREFIX . "accounting_journal WHERE nature=4 AND entity=" . $config->entity . ") ";
 					$sql .= " AND ( ";
 					if ($object->code_compta_client != "") {
-						$sql .= "  bk.subledger_account = '".$this->db->escape($object->code_compta_client)."'  ";
+						$sql .= "  bk.subledger_account = '" . $this->db->escape($object->code_compta_client) . "'  ";
 					}
 					if ($object->code_compta_client != "" && $object->code_compta_fournisseur != "") {
 						$sql .= "  OR  ";
 					}
 					if ($object->code_compta_fournisseur != "") {
-						$sql .= "   bk.subledger_account = '".$this->db->escape($object->code_compta_fournisseur)."' ";
+						$sql .= "   bk.subledger_account = '" . $this->db->escape($object->code_compta_fournisseur) . "' ";
 					}
 					$sql .= " )  ";
 
@@ -185,19 +185,19 @@ class Lettering extends BookKeeping
 					}
 					if (count($ids_fact)) {
 						$sql = 'SELECT bk.rowid, facf.ref, facf.ref_supplier ';
-						$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn facf ";
-						$sql .= " INNER JOIN ".MAIN_DB_PREFIX."accounting_bookkeeping as bk ON(  bk.fk_doc = facf.rowid AND facf.rowid IN (".$this->db->sanitize(implode(',', $ids_fact))."))";
-						$sql .= " WHERE bk.code_journal IN (SELECT code FROM ".MAIN_DB_PREFIX."accounting_journal WHERE nature=3 AND entity=".$config->entity.") ";
-						$sql .= " AND facf.entity = ".$config->entity;
+						$sql .= " FROM " . MAIN_DB_PREFIX . "facture_fourn facf ";
+						$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "accounting_bookkeeping as bk ON(  bk.fk_doc = facf.rowid AND facf.rowid IN (" . $this->db->sanitize(implode(',', $ids_fact)) . "))";
+						$sql .= " WHERE bk.code_journal IN (SELECT code FROM " . MAIN_DB_PREFIX . "accounting_journal WHERE nature=3 AND entity=" . $config->entity . ") ";
+						$sql .= " AND facf.entity = " . $config->entity;
 						$sql .= " AND ( ";
 						if ($object->code_compta_client != "") {
-							$sql .= " bk.subledger_account = '".$this->db->escape($object->code_compta_client)."'  ";
+							$sql .= " bk.subledger_account = '" . $this->db->escape($object->code_compta_client) . "'  ";
 						}
 						if ($object->code_compta_client != "" && $object->code_compta_fournisseur != "") {
 							$sql .= " OR ";
 						}
 						if ($object->code_compta_fournisseur != "") {
-							$sql .= " bk.subledger_account = '".$this->db->escape($object->code_compta_fournisseur)."' ";
+							$sql .= " bk.subledger_account = '" . $this->db->escape($object->code_compta_fournisseur) . "' ";
 						}
 						$sql .= ") ";
 
@@ -214,22 +214,22 @@ class Lettering extends BookKeeping
 					}
 				} elseif ($obj->type == 'payment') {
 					$sql = 'SELECT DISTINCT bk.rowid, fac.ref, fac.ref, pay.fk_bank, fac.rowid as fact_id';
-					$sql .= " FROM ".MAIN_DB_PREFIX."facture fac ";
-					$sql .= " INNER JOIN ".MAIN_DB_PREFIX."paiement_facture as payfac ON  payfac.fk_facture=fac.rowid";
-					$sql .= " INNER JOIN ".MAIN_DB_PREFIX."paiement as pay ON  payfac.fk_paiement=pay.rowid";
-					$sql .= " INNER JOIN ".MAIN_DB_PREFIX."accounting_bookkeeping as bk ON (bk.fk_doc = pay.fk_bank AND bk.code_journal='".$this->db->escape($obj->code_journal)."')";
-					$sql .= " WHERE payfac.fk_paiement = '".$this->db->escape($obj->url_id)."' ";
-					$sql .= " AND bk.code_journal IN (SELECT code FROM ".MAIN_DB_PREFIX."accounting_journal WHERE nature=4 AND entity=".$config->entity.") ";
-					$sql .= " AND fac.entity IN (".getEntity('invoice', 0).")"; // We don't share object for accountancy
+					$sql .= " FROM " . MAIN_DB_PREFIX . "facture fac ";
+					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "paiement_facture as payfac ON  payfac.fk_facture=fac.rowid";
+					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "paiement as pay ON  payfac.fk_paiement=pay.rowid";
+					$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "accounting_bookkeeping as bk ON (bk.fk_doc = pay.fk_bank AND bk.code_journal='" . $this->db->escape($obj->code_journal) . "')";
+					$sql .= " WHERE payfac.fk_paiement = '" . $this->db->escape($obj->url_id) . "' ";
+					$sql .= " AND bk.code_journal IN (SELECT code FROM " . MAIN_DB_PREFIX . "accounting_journal WHERE nature=4 AND entity=" . $config->entity . ") ";
+					$sql .= " AND fac.entity IN (" . getEntity('invoice', 0) . ")"; // We don't share object for accountancy
 					$sql .= " AND ( ";
 					if ($object->code_compta_client != "") {
-						$sql .= "  bk.subledger_account = '".$this->db->escape($object->code_compta_client)."'  ";
+						$sql .= "  bk.subledger_account = '" . $this->db->escape($object->code_compta_client) . "'  ";
 					}
 					if ($object->code_compta_client != "" && $object->code_compta_fournisseur != "") {
 						$sql .= "  OR  ";
 					}
 					if ($object->code_compta_fournisseur != "") {
-						$sql .= "   bk.subledger_account = '".$this->db->escape($object->code_compta_fournisseur)."' ";
+						$sql .= "   bk.subledger_account = '" . $this->db->escape($object->code_compta_fournisseur) . "' ";
 					}
 					$sql .= " )";
 
@@ -245,19 +245,19 @@ class Lettering extends BookKeeping
 					}
 					if (count($ids_fact)) {
 						$sql = 'SELECT bk.rowid, fac.ref, fac.ref_supplier ';
-						$sql .= " FROM ".MAIN_DB_PREFIX."facture fac ";
-						$sql .= " INNER JOIN ".MAIN_DB_PREFIX."accounting_bookkeeping as bk ON(  bk.fk_doc = fac.rowid AND fac.rowid IN (".$this->db->sanitize(implode(',', $ids_fact))."))";
-						$sql .= " WHERE code_journal IN (SELECT code FROM ".MAIN_DB_PREFIX."accounting_journal WHERE nature=2 AND entity=".$config->entity.") ";
-						$sql .= " AND fac.entity IN (".getEntity('invoice', 0).")"; // We don't share object for accountancy
+						$sql .= " FROM " . MAIN_DB_PREFIX . "facture fac ";
+						$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "accounting_bookkeeping as bk ON(  bk.fk_doc = fac.rowid AND fac.rowid IN (" . $this->db->sanitize(implode(',', $ids_fact)) . "))";
+						$sql .= " WHERE code_journal IN (SELECT code FROM " . MAIN_DB_PREFIX . "accounting_journal WHERE nature=2 AND entity=" . $config->entity . ") ";
+						$sql .= " AND fac.entity IN (" . getEntity('invoice', 0) . ")"; // We don't share object for accountancy
 						$sql .= " AND ( ";
 						if ($object->code_compta_client != "") {
-							$sql .= "  bk.subledger_account = '".$this->db->escape($object->code_compta_client)."'  ";
+							$sql .= "  bk.subledger_account = '" . $this->db->escape($object->code_compta_client) . "'  ";
 						}
 						if ($object->code_compta_client != "" && $object->code_compta_fournisseur != "") {
 							$sql .= "  OR  ";
 						}
 						if ($object->code_compta_fournisseur != "") {
-							$sql .= "   bk.subledger_account = '".$this->db->escape($object->code_compta_fournisseur)."' ";
+							$sql .= "   bk.subledger_account = '" . $this->db->escape($object->code_compta_fournisseur) . "' ";
 						}
 						$sql .= " )  ";
 
@@ -282,8 +282,8 @@ class Lettering extends BookKeeping
 		}
 		if ($error) {
 			foreach ($this->errors as $errmsg) {
-				dol_syslog(__METHOD__.' '.$errmsg, LOG_ERR);
-				$this->error .= ($this->error ? ', '.$errmsg : $errmsg);
+				dol_syslog(__METHOD__ . ' ' . $errmsg, LOG_ERR);
+				$this->error .= ($this->error ? ', ' . $errmsg : $errmsg);
 			}
 			return -1 * $error;
 		} else {
@@ -365,7 +365,8 @@ class Lettering extends BookKeeping
 			$resql = $this->db->query($sql);
 			if ($resql) {
 				while ($obj = $this->db->fetch_object($resql)) {
-					if (!empty($obj->lettering_code) &&
+					if (
+						!empty($obj->lettering_code) &&
 						(($partial && preg_match('/^[a-z]+$/', $obj->lettering_code)) ||
 							(!$partial && preg_match('/^[A-Z]+$/', $obj->lettering_code)))
 					) {
@@ -443,24 +444,24 @@ class Lettering extends BookKeeping
 	{
 		$error = 0;
 
-		$sql = "UPDATE ".MAIN_DB_PREFIX."accounting_bookkeeping SET";
+		$sql = "UPDATE " . MAIN_DB_PREFIX . "accounting_bookkeeping SET";
 		$sql .= " lettering_code = NULL";
 		$sql .= ", date_lettering = NULL";
-		$sql .= " WHERE rowid IN (".$this->db->sanitize(implode(',', $ids)).")";
+		$sql .= " WHERE rowid IN (" . $this->db->sanitize(implode(',', $ids)) . ")";
 		$sql .= " AND subledger_account != ''";
 
-		dol_syslog(get_class($this)."::update", LOG_DEBUG);
+		dol_syslog(get_class($this) . "::update", LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if (!$resql) {
 			$error++;
-			$this->errors[] = "Error ".$this->db->lasterror();
+			$this->errors[] = "Error " . $this->db->lasterror();
 		}
 
 		// Commit or rollback
 		if ($error) {
 			foreach ($this->errors as $errmsg) {
-				dol_syslog(get_class($this)."::update ".$errmsg, LOG_ERR);
-				$this->error .= ($this->error ? ', '.$errmsg : $errmsg);
+				dol_syslog(get_class($this) . "::update " . $errmsg, LOG_ERR);
+				$this->error .= ($this->error ? ', ' . $errmsg : $errmsg);
 			}
 			return -1 * $error;
 		} else {
@@ -732,7 +733,7 @@ class Lettering extends BookKeeping
 	 */
 	public function getDocTypeAndFkDocFromBankLines($bank_ids)
 	{
-		dol_syslog(__METHOD__ . " - bank_ids=".json_encode($bank_ids), LOG_DEBUG);
+		dol_syslog(__METHOD__ . " - bank_ids=" . json_encode($bank_ids), LOG_DEBUG);
 
 		// Clean parameters
 		$bank_ids = is_array($bank_ids) ? $bank_ids : array();
@@ -777,7 +778,7 @@ class Lettering extends BookKeeping
 	{
 		global $langs;
 
-		dol_syslog(__METHOD__ . " - bank_ids=".json_encode($document_ids) . ", doc_type=$doc_type", LOG_DEBUG);
+		dol_syslog(__METHOD__ . " - bank_ids=" . json_encode($document_ids) . ", doc_type=$doc_type", LOG_DEBUG);
 
 		// Clean parameters
 		$document_ids = is_array($document_ids) ? $document_ids : array();
@@ -856,25 +857,25 @@ class Lettering extends BookKeeping
 		$element_by_link = array();
 		foreach ($doc_type_info['linked_info'] as $linked_info) {
 			if (empty($linked_info['fk_line_link'])) {
-				$sql = "SELECT DISTINCT tl2.".$this->db->sanitize($linked_info['fk_link'])." AS fk_link, tl2.".$this->db->sanitize($linked_info['fk_doc'])." AS fk_doc";
-				$sql .= " FROM ".MAIN_DB_PREFIX.$this->db->sanitize($linked_info['table'])." AS tl";
-				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX.$this->db->sanitize($linked_info['table'])." AS tl2 ON tl2.".$this->db->sanitize($linked_info['fk_link'])." = tl.".$this->db->sanitize($linked_info['fk_link']);
-				$sql .= " WHERE tl.".$this->db->sanitize($linked_info['fk_doc'])." IN (".$this->db->sanitize(implode(',', $document_ids)).")";
+				$sql = "SELECT DISTINCT tl2." . $this->db->sanitize($linked_info['fk_link']) . " AS fk_link, tl2." . $this->db->sanitize($linked_info['fk_doc']) . " AS fk_doc";
+				$sql .= " FROM " . MAIN_DB_PREFIX . $this->db->sanitize($linked_info['table']) . " AS tl";
+				$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . $this->db->sanitize($linked_info['table']) . " AS tl2 ON tl2." . $this->db->sanitize($linked_info['fk_link']) . " = tl." . $this->db->sanitize($linked_info['fk_link']);
+				$sql .= " WHERE tl." . $this->db->sanitize($linked_info['fk_doc']) . " IN (" . $this->db->sanitize(implode(',', $document_ids)) . ")";
 			} else {
 				$sql = "SELECT DISTINCT tl2.fk_link, tl2.fk_doc";
 				$sql .= " FROM (";
 				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
-				$sql .= "   SELECT DISTINCT " . $this->db->ifsql("tll.".$this->db->sanitize($linked_info['fk_table_link_line_parent'])." IS NOT NULL", "tll.".$this->db->sanitize($linked_info['fk_table_link_line_parent']), "tl.".$this->db->sanitize($linked_info['fk_link']))." AS fk_link, tl.".$this->db->sanitize($linked_info['fk_doc'])." AS fk_doc";
-				$sql .= "   FROM " . MAIN_DB_PREFIX .$this->db->sanitize($linked_info['table'])." AS tl";
+				$sql .= "   SELECT DISTINCT " . $this->db->ifsql("tll." . $this->db->sanitize($linked_info['fk_table_link_line_parent']) . " IS NOT NULL", "tll." . $this->db->sanitize($linked_info['fk_table_link_line_parent']), "tl." . $this->db->sanitize($linked_info['fk_link'])) . " AS fk_link, tl." . $this->db->sanitize($linked_info['fk_doc']) . " AS fk_doc";
+				$sql .= "   FROM " . MAIN_DB_PREFIX . $this->db->sanitize($linked_info['table']) . " AS tl";
 				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
-				$sql .= "   LEFT JOIN " . MAIN_DB_PREFIX . $this->db->sanitize($linked_info['table_link_line']) . " AS tll ON tll.".$this->db->sanitize($linked_info['fk_table_link_line']) . " = tl.".$this->db->sanitize($linked_info['fk_line_link']);
+				$sql .= "   LEFT JOIN " . MAIN_DB_PREFIX . $this->db->sanitize($linked_info['table_link_line']) . " AS tll ON tll." . $this->db->sanitize($linked_info['fk_table_link_line']) . " = tl." . $this->db->sanitize($linked_info['fk_line_link']);
 				$sql .= ") AS tl";
 				$sql .= " LEFT JOIN (";
 				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
-				$sql .= "   SELECT DISTINCT " . $this->db->ifsql("tll.".$this->db->sanitize($linked_info['fk_table_link_line_parent'])." IS NOT NULL", "tll.".$this->db->sanitize($linked_info['fk_table_link_line_parent']), "tl.".$this->db->sanitize($linked_info['fk_link']))." AS fk_link, tl.".$this->db->sanitize($linked_info['fk_doc'])." AS fk_doc";
-				$sql .= "   FROM " . MAIN_DB_PREFIX .$this->db->sanitize($linked_info['table'])." AS tl";
+				$sql .= "   SELECT DISTINCT " . $this->db->ifsql("tll." . $this->db->sanitize($linked_info['fk_table_link_line_parent']) . " IS NOT NULL", "tll." . $this->db->sanitize($linked_info['fk_table_link_line_parent']), "tl." . $this->db->sanitize($linked_info['fk_link'])) . " AS fk_link, tl." . $this->db->sanitize($linked_info['fk_doc']) . " AS fk_doc";
+				$sql .= "   FROM " . MAIN_DB_PREFIX . $this->db->sanitize($linked_info['table']) . " AS tl";
 				// @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset
-				$sql .= "   LEFT JOIN " . MAIN_DB_PREFIX . $this->db->sanitize($linked_info['table_link_line']) . " AS tll ON tll.".$this->db->sanitize($linked_info['fk_table_link_line']) . " = tl.".$this->db->sanitize($linked_info['fk_line_link']);
+				$sql .= "   LEFT JOIN " . MAIN_DB_PREFIX . $this->db->sanitize($linked_info['table_link_line']) . " AS tll ON tll." . $this->db->sanitize($linked_info['fk_table_link_line']) . " = tl." . $this->db->sanitize($linked_info['fk_line_link']);
 				$sql .= ") AS tl2 ON tl2.fk_link = tl.fk_link";
 				$sql .= " WHERE tl.fk_doc IN (" . $this->db->sanitize(implode(',', $document_ids)) . ")";
 				$sql .= " AND tl2.fk_doc IS NOT NULL";

@@ -53,8 +53,8 @@ class Accountancy extends DolibarrApi
 		global $db, $langs;
 		$this->db = $db;
 
-		require_once DOL_DOCUMENT_ROOT.'/accountancy/class/bookkeeping.class.php';
-		require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountancyexport.class.php';
+		require_once DOL_DOCUMENT_ROOT . '/accountancy/class/bookkeeping.class.php';
+		require_once DOL_DOCUMENT_ROOT . '/accountancy/class/accountancyexport.class.php';
 
 		$langs->load('accountancy');
 
@@ -224,7 +224,7 @@ class Accountancy extends DolibarrApi
 		$result = $bookkeeping->fetchAll($sortorder, $sortfield, 0, 0, $filter, 'AND', $alreadyexport);
 
 		if ($result < 0) {
-			throw new RestException(500, 'Error bookkeeping fetch all : '.$bookkeeping->errorsToString());
+			throw new RestException(500, 'Error bookkeeping fetch all : ' . $bookkeeping->errorsToString());
 		} else {
 			// export files then exit
 			if (empty($lettering)) {
@@ -268,7 +268,7 @@ class Accountancy extends DolibarrApi
 
 			if ($error) {
 				$this->db->rollback();
-				throw new RestException(500, 'Error accountancy export : '.implode(',', $accountancyexport->errors));
+				throw new RestException(500, 'Error accountancy export : ' . implode(',', $accountancyexport->errors));
 			} else {
 				$this->db->commit();
 				exit();

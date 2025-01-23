@@ -172,7 +172,8 @@ class AccountancyImport
 				if (empty($config->cache['accounting']['lastRecordCompareValues'])) {
 					$atLeastOneLastRecordChanged = true;
 				} else {
-					if ($arrayrecord[$codeJournalIndex]['val'] != $config->cache['accounting']['lastRecordCompareValues']['b.code_journal']
+					if (
+						$arrayrecord[$codeJournalIndex]['val'] != $config->cache['accounting']['lastRecordCompareValues']['b.code_journal']
 						|| $arrayrecord[$docDateIndex]['val'] != $config->cache['accounting']['lastRecordCompareValues']['b.doc_date']
 					) {
 						$atLeastOneLastRecordChanged = true;
@@ -185,8 +186,8 @@ class AccountancyImport
 					if (empty($config->cache['accounting']['nextPieceNum'])) {
 						// get last piece number from database
 						$sql = "SELECT MAX(piece_num) as last_piece_num";
-						$sql .= " FROM ".$this->db->prefix()."accounting_bookkeeping";
-						$sql .= " WHERE entity IN (".getEntity('accountingbookkeeping').")";
+						$sql .= " FROM " . $this->db->prefix() . "accounting_bookkeeping";
+						$sql .= " WHERE entity IN (" . getEntity('accountingbookkeeping') . ")";
 						$res = $this->db->query($sql);
 						if (!$res) {
 							$this->errors[] = $this->db->lasterror();

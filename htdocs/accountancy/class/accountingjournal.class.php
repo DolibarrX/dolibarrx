@@ -114,31 +114,31 @@ class AccountingJournal extends CommonObject
 	{
 		$valid_nature = array(1, 2, 3, 4, 5, 8, 9);
 		if (!in_array((int) $this->nature, $valid_nature)) {
-			$this->error = get_class($this)."::Create Error invalid field nature '" . strval($this->nature) . "'";
+			$this->error = get_class($this) . "::Create Error invalid field nature '" . strval($this->nature) . "'";
 			dol_syslog($this->error, LOG_ERR);
 			return -1;
 		}
 
-		$sql = "INSERT INTO ".MAIN_DB_PREFIX."accounting_journal";
+		$sql = "INSERT INTO " . MAIN_DB_PREFIX . "accounting_journal";
 		$sql .= " (entity, code, label, nature, active)";
 		$sql .= " VALUES ("
-			. ((int) $this->entity)           .",'"
-			. $this->db->escape($this->code)  ."','"
-			. $this->db->escape($this->label) ."',"
-			. ((int) $this->nature)           .","
-			. ((int) $this->active)           .")";
+			. ((int) $this->entity)           . ",'"
+			. $this->db->escape($this->code)  . "','"
+			. $this->db->escape($this->label) . "',"
+			. ((int) $this->nature)           . ","
+			. ((int) $this->active)           . ")";
 
-		dol_syslog(get_class($this)."::create", LOG_DEBUG);
+		dol_syslog(get_class($this) . "::create", LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if (!$resql) {
-			$this->error = get_class($this)."::Create Error: " . $this->db->lasterror();
+			$this->error = get_class($this) . "::Create Error: " . $this->db->lasterror();
 			dol_syslog($this->error, LOG_ERR);
 			return -1;
 		}
 
-		$id = $this->db->last_insert_id(MAIN_DB_PREFIX."accounting_journal");
+		$id = $this->db->last_insert_id(MAIN_DB_PREFIX . "accounting_journal");
 		if ($id <= 0) {
-			$this->error = get_class($this)."::Create Error " . $id . ": " . $this->db->lasterror();
+			$this->error = get_class($this) . "::Create Error " . $id . ": " . $this->db->lasterror();
 			dol_syslog($this->error, LOG_ERR);
 			return -2;
 		}
@@ -161,16 +161,16 @@ class AccountingJournal extends CommonObject
 
 		if ($rowid || $journal_code) {
 			$sql = "SELECT rowid, code, label, nature, active";
-			$sql .= " FROM ".MAIN_DB_PREFIX."accounting_journal";
+			$sql .= " FROM " . MAIN_DB_PREFIX . "accounting_journal";
 			$sql .= " WHERE";
 			if ($rowid) {
-				$sql .= " rowid = ".((int) $rowid);
+				$sql .= " rowid = " . ((int) $rowid);
 			} elseif ($journal_code) {
-				$sql .= " code = '".$this->db->escape($journal_code)."'";
-				$sql .= " AND entity  = ".$config->entity;
+				$sql .= " code = '" . $this->db->escape($journal_code) . "'";
+				$sql .= " AND entity  = " . $config->entity;
 			}
 
-			dol_syslog(get_class($this)."::fetch", LOG_DEBUG);
+			dol_syslog(get_class($this) . "::fetch", LOG_DEBUG);
 			$result = $this->db->query($sql);
 			if ($result) {
 				$obj = $this->db->fetch_object($result);
@@ -190,8 +190,8 @@ class AccountingJournal extends CommonObject
 					return 0;
 				}
 			} else {
-				$this->error = "Error ".$this->db->lasterror();
-				$this->errors[] = "Error ".$this->db->lasterror();
+				$this->error = "Error " . $this->db->lasterror();
+				$this->errors[] = "Error " . $this->db->lasterror();
 			}
 		}
 		return -1;
@@ -217,31 +217,31 @@ class AccountingJournal extends CommonObject
 
 		$result = '';
 
-		$url = DOL_URL_ROOT.'/accountancy/admin/journals_list.php?id=35';
+		$url = DOL_URL_ROOT . '/accountancy/admin/journals_list.php?id=35';
 
-		$label = '<u>'.$langs->trans("ShowAccountingJournal").'</u>';
+		$label = '<u>' . $langs->trans("ShowAccountingJournal") . '</u>';
 		if (!empty($this->code)) {
-			$label .= '<br><b>'.$langs->trans('Code').':</b> '.$this->code;
+			$label .= '<br><b>' . $langs->trans('Code') . ':</b> ' . $this->code;
 		}
 		if (!empty($this->label)) {
-			$label .= '<br><b>'.$langs->trans('Label').':</b> '.$langs->transnoentities($this->label);
+			$label .= '<br><b>' . $langs->trans('Label') . ':</b> ' . $langs->transnoentities($this->label);
 		}
 		if ($moretitle) {
-			$label .= ' - '.$moretitle;
+			$label .= ' - ' . $moretitle;
 		}
 
 		$linkclose = '';
 		if (empty($notooltip)) {
 			if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 				$label = $langs->trans("ShowAccountingJournal");
-				$linkclose .= ' alt="'.dolPrintHTMLForAttribute($label).'"';
+				$linkclose .= ' alt="' . dolPrintHTMLForAttribute($label) . '"';
 			}
-			$linkclose .= ' title="'.dolPrintHTMLForAttribute($label).'"';
+			$linkclose .= ' title="' . dolPrintHTMLForAttribute($label) . '"';
 			$linkclose .= ' class="classfortooltip"';
 		}
 
-		$linkstart = '<a href="'.$url.'"';
-		$linkstart .= $linkclose.'>';
+		$linkstart = '<a href="' . $url . '"';
+		$linkstart .= $linkclose . '>';
 		$linkend = '</a>';
 
 		if ($nourl) {
@@ -252,17 +252,17 @@ class AccountingJournal extends CommonObject
 
 		$label_link = $this->code;
 		if ($withlabel == 1 && !empty($this->label)) {
-			$label_link .= ' - '.($nourl ? '<span class="opacitymedium">' : '').$langs->transnoentities($this->label).($nourl ? '</span>' : '');
+			$label_link .= ' - ' . ($nourl ? '<span class="opacitymedium">' : '') . $langs->transnoentities($this->label) . ($nourl ? '</span>' : '');
 		}
 		if ($withlabel == 2 && !empty($this->nature)) {
-			$key = $langs->trans("AccountingJournalType".$this->nature);
-			$transferlabel = ($key != "AccountingJournalType".strtoupper($langs->trans($this->nature)) ? $key : $this->label);
-			$label_link .= ' - '.($nourl ? '<span class="opacitymedium">' : '').$transferlabel.($nourl ? '</span>' : '');
+			$key = $langs->trans("AccountingJournalType" . $this->nature);
+			$transferlabel = ($key != "AccountingJournalType" . strtoupper($langs->trans($this->nature)) ? $key : $this->label);
+			$label_link .= ' - ' . ($nourl ? '<span class="opacitymedium">' : '') . $transferlabel . ($nourl ? '</span>' : '');
 		}
 
 		$result .= $linkstart;
 		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="' . (($withpicto != 2) ? 'paddingright ' : '') . 'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 		}
 		if ($withpicto != 2) {
 			$result .= $label_link;
@@ -627,12 +627,12 @@ class AccountingJournal extends CommonObject
 							}
 
 							$lines = array();
-							$lines[0][$accountancy_code_value_asset_sold] = -((float) $element_static->acquisition_value_ht - $last_cumulative_amount_ht);
-							$lines[0][$accountancy_code_depreciation_asset] = - (float) $last_cumulative_amount_ht;
+							$lines[0][$accountancy_code_value_asset_sold] = - ((float) $element_static->acquisition_value_ht - $last_cumulative_amount_ht);
+							$lines[0][$accountancy_code_depreciation_asset] = -(float) $last_cumulative_amount_ht;
 							$lines[0][$accountancy_code_asset] = $element_static->acquisition_value_ht;
 
 							$disposal_amount_vat = $disposal_subject_to_vat ? (float) price2num($disposal_amount * $disposal_vat / 100, 'MT') : 0;
-							$lines[1][$accountancy_code_receivable_on_assignment] = -($disposal_amount + $disposal_amount_vat);
+							$lines[1][$accountancy_code_receivable_on_assignment] = - ($disposal_amount + $disposal_amount_vat);
 							if ($disposal_subject_to_vat) {
 								$lines[1][$accountancy_code_vat_collected] = $disposal_amount_vat;
 							}

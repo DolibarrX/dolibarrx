@@ -27,9 +27,9 @@
  *  \brief      File of class to manage accounting accounts
  */
 
-require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
-require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
-require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+require_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
+require_once DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php';
+require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
 
 /**
  * Class to manage accounting accounts
@@ -164,7 +164,7 @@ class AccountingAccount extends CommonObject
 		$this->db = $db;
 
 		$this->ismultientitymanaged = 1;
-		$this->next_prev_filter = "fk_pcg_version IN (SELECT pcg_version FROM ".$this->db->prefix()."accounting_system WHERE rowid = ".((int) getDolGlobalInt('CHARTOFACCOUNTS')).")"; // Used to add a filter in Form::showrefnav method
+		$this->next_prev_filter = "fk_pcg_version IN (SELECT pcg_version FROM " . $this->db->prefix() . "accounting_system WHERE rowid = " . ((int) getDolGlobalInt('CHARTOFACCOUNTS')) . ")"; // Used to add a filter in Form::showrefnav method
 	}
 
 	/**
@@ -183,23 +183,23 @@ class AccountingAccount extends CommonObject
 		if ($rowid || $account_number) {
 			$sql  = "SELECT a.rowid as rowid, a.datec, a.tms, a.fk_pcg_version, a.pcg_type, a.account_number, a.account_parent, a.label, a.labelshort, a.fk_accounting_category, a.fk_user_author, a.fk_user_modif, a.active, a.reconcilable";
 			$sql .= ", ca.label as category_label";
-			$sql .= " FROM ".$this->db->prefix().$this->table_element." as a";
-			$sql .= " LEFT JOIN ".$this->db->prefix()."c_accounting_category as ca ON a.fk_accounting_category = ca.rowid";
+			$sql .= " FROM " . $this->db->prefix() . $this->table_element . " as a";
+			$sql .= " LEFT JOIN " . $this->db->prefix() . "c_accounting_category as ca ON a.fk_accounting_category = ca.rowid";
 			$sql .= " WHERE";
 			if ($rowid) {
-				$sql .= " a.rowid = ".(int) $rowid;
+				$sql .= " a.rowid = " . (int) $rowid;
 			} elseif ($account_number) {
-				$sql .= " a.account_number = '".$this->db->escape($account_number)."'";
-				$sql .= " AND a.entity = ".$config->entity;
+				$sql .= " a.account_number = '" . $this->db->escape($account_number) . "'";
+				$sql .= " AND a.entity = " . $config->entity;
 			}
 			if (!empty($limittocurrentchart)) {
-				$sql .= ' AND a.fk_pcg_version IN (SELECT pcg_version FROM '.$this->db->prefix().'accounting_system WHERE rowid = '.((int) getDolGlobalInt('CHARTOFACCOUNTS')).')';
+				$sql .= ' AND a.fk_pcg_version IN (SELECT pcg_version FROM ' . $this->db->prefix() . 'accounting_system WHERE rowid = ' . ((int) getDolGlobalInt('CHARTOFACCOUNTS')) . ')';
 			}
 			if (!empty($limittoachartaccount)) {
-				$sql .= " AND a.fk_pcg_version = '".$this->db->escape($limittoachartaccount)."'";
+				$sql .= " AND a.fk_pcg_version = '" . $this->db->escape($limittoachartaccount) . "'";
 			}
 
-			dol_syslog(get_class($this)."::fetch rowid=".$rowid." account_number=".$account_number, LOG_DEBUG);
+			dol_syslog(get_class($this) . "::fetch rowid=" . $rowid . " account_number=" . $account_number, LOG_DEBUG);
 
 			$result = $this->db->query($sql);
 			if ($result) {
@@ -232,8 +232,8 @@ class AccountingAccount extends CommonObject
 					return 0;
 				}
 			} else {
-				$this->error = "Error ".$this->db->lasterror();
-				$this->errors[] = "Error ".$this->db->lasterror();
+				$this->error = "Error " . $this->db->lasterror();
+				$this->errors[] = "Error " . $this->db->lasterror();
 			}
 		}
 		return -1;
@@ -290,23 +290,23 @@ class AccountingAccount extends CommonObject
 		$sql .= ", active";
 		$sql .= ", reconcilable";
 		$sql .= ") VALUES (";
-		$sql .= " '".$this->db->idate($now)."'";
-		$sql .= ", ".((int) $config->entity);
-		$sql .= ", ".(empty($this->fk_pcg_version) ? 'NULL' : "'".$this->db->escape($this->fk_pcg_version)."'");
-		$sql .= ", ".(empty($this->pcg_type) ? 'NULL' : "'".$this->db->escape($this->pcg_type)."'");
-		$sql .= ", ".(empty($this->account_number) ? 'NULL' : "'".$this->db->escape($this->account_number)."'");
-		$sql .= ", ".(empty($this->account_parent) ? 0 : (int) $this->account_parent);
-		$sql .= ", ".(empty($this->label) ? "''" : "'".$this->db->escape($this->label)."'");
-		$sql .= ", ".(empty($this->labelshort) ? "''" : "'".$this->db->escape($this->labelshort)."'");
-		$sql .= ", ".(empty($this->account_category) ? 0 : (int) $this->account_category);
-		$sql .= ", ".((int) $user->id);
-		$sql .= ", ".(int) $this->active;
-		$sql .= ", ".(int) $this->reconcilable;
+		$sql .= " '" . $this->db->idate($now) . "'";
+		$sql .= ", " . ((int) $config->entity);
+		$sql .= ", " . (empty($this->fk_pcg_version) ? 'NULL' : "'" . $this->db->escape($this->fk_pcg_version) . "'");
+		$sql .= ", " . (empty($this->pcg_type) ? 'NULL' : "'" . $this->db->escape($this->pcg_type) . "'");
+		$sql .= ", " . (empty($this->account_number) ? 'NULL' : "'" . $this->db->escape($this->account_number) . "'");
+		$sql .= ", " . (empty($this->account_parent) ? 0 : (int) $this->account_parent);
+		$sql .= ", " . (empty($this->label) ? "''" : "'" . $this->db->escape($this->label) . "'");
+		$sql .= ", " . (empty($this->labelshort) ? "''" : "'" . $this->db->escape($this->labelshort) . "'");
+		$sql .= ", " . (empty($this->account_category) ? 0 : (int) $this->account_category);
+		$sql .= ", " . ((int) $user->id);
+		$sql .= ", " . (int) $this->active;
+		$sql .= ", " . (int) $this->reconcilable;
 		$sql .= ")";
 
 		$this->db->begin();
 
-		dol_syslog(get_class($this)."::create", LOG_DEBUG);
+		dol_syslog(get_class($this) . "::create", LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if (!$resql) {
 			$error++;
@@ -369,7 +369,7 @@ class AccountingAccount extends CommonObject
 		$sql .= " , reconcilable = " . (int) $this->reconcilable;
 		$sql .= " WHERE rowid = " . ((int) $this->id);
 
-		dol_syslog(get_class($this)."::update", LOG_DEBUG);
+		dol_syslog(get_class($this) . "::update", LOG_DEBUG);
 		$result = $this->db->query($sql);
 		if ($result) {
 			$this->db->commit();
@@ -397,13 +397,13 @@ class AccountingAccount extends CommonObject
 		global $langs;
 
 		// TODO Looks a stupid check
-		$sql = "(SELECT fk_code_ventilation FROM ".$this->db->prefix()."facturedet";
-		$sql .= " WHERE fk_code_ventilation=".((int) $this->id).")";
+		$sql = "(SELECT fk_code_ventilation FROM " . $this->db->prefix() . "facturedet";
+		$sql .= " WHERE fk_code_ventilation=" . ((int) $this->id) . ")";
 		$sql .= "UNION";
-		$sql .= " (SELECT fk_code_ventilation FROM ".$this->db->prefix()."facture_fourn_det";
-		$sql .= " WHERE fk_code_ventilation=".((int) $this->id).")";
+		$sql .= " (SELECT fk_code_ventilation FROM " . $this->db->prefix() . "facture_fourn_det";
+		$sql .= " WHERE fk_code_ventilation=" . ((int) $this->id) . ")";
 
-		dol_syslog(get_class($this)."::checkUsage", LOG_DEBUG);
+		dol_syslog(get_class($this) . "::checkUsage", LOG_DEBUG);
 		$resql = $this->db->query($sql);
 
 		if ($resql) {
@@ -628,11 +628,11 @@ class AccountingAccount extends CommonObject
 		if ($result > 0) {
 			$this->db->begin();
 
-			$sql = "UPDATE ".$this->db->prefix().$this->table_element;
-			$sql .= " SET ".$this->db->sanitize($fieldtouse)." = 0";
-			$sql .= " WHERE rowid = ".((int) $id);
+			$sql = "UPDATE " . $this->db->prefix() . $this->table_element;
+			$sql .= " SET " . $this->db->sanitize($fieldtouse) . " = 0";
+			$sql .= " WHERE rowid = " . ((int) $id);
 
-			dol_syslog(get_class($this)."::accountDeactivate ".$fieldtouse, LOG_DEBUG);
+			dol_syslog(get_class($this) . "::accountDeactivate " . $fieldtouse, LOG_DEBUG);
 			$result = $this->db->query($sql);
 
 			if ($result) {
@@ -666,11 +666,11 @@ class AccountingAccount extends CommonObject
 			$fieldtouse = 'reconcilable';
 		}
 
-		$sql = "UPDATE ".$this->db->prefix().$this->table_element;
-		$sql .= " SET ".$this->db->sanitize($fieldtouse)." = 1";
-		$sql .= " WHERE rowid = ".((int) $id);
+		$sql = "UPDATE " . $this->db->prefix() . $this->table_element;
+		$sql .= " SET " . $this->db->sanitize($fieldtouse) . " = 1";
+		$sql .= " WHERE rowid = " . ((int) $id);
 
-		dol_syslog(get_class($this)."::account_activate ".$fieldtouse, LOG_DEBUG);
+		dol_syslog(get_class($this) . "::account_activate " . $fieldtouse, LOG_DEBUG);
 		$result = $this->db->query($sql);
 		if ($result) {
 			$this->db->commit();
@@ -742,7 +742,7 @@ class AccountingAccount extends CommonObject
 		$hookManager->initHooks(array('accountancyBindingCalculation'));
 
 		// Execute hook accountancyBindingCalculation
-		$parameters = array('buyer' => $buyer, 'seller' => $seller, 'product' => $product, 'facture' => $facture, 'factureDet' => $factureDet ,'accountingAccount' => $accountingAccount, 0 => $type);
+		$parameters = array('buyer' => $buyer, 'seller' => $seller, 'product' => $product, 'facture' => $facture, 'factureDet' => $factureDet, 'accountingAccount' => $accountingAccount, 0 => $type);
 		$resHook = $hookManager->executeHooks('accountancyBindingCalculation', $parameters); // Note that $action and $object may have been modified by some hooks
 
 		$result = -1;  // Init for static analysis

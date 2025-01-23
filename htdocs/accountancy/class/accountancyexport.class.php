@@ -36,12 +36,12 @@
  * \brief 		Class accountancy export
  */
 
-require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/core/lib/accounting.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
+require_once DOL_DOCUMENT_ROOT . '/core/lib/functions.lib.php';
+require_once DOL_DOCUMENT_ROOT . '/core/lib/functions2.lib.php';
+require_once DOL_DOCUMENT_ROOT . '/core/class/hookmanager.class.php';
+require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
+require_once DOL_DOCUMENT_ROOT . '/core/lib/accounting.lib.php';
+require_once DOL_DOCUMENT_ROOT . '/core/lib/date.lib.php';
 
 /**
  * Manage the different format accountancy export
@@ -180,7 +180,7 @@ class AccountancyExport
 				$i++;
 				$listofexporttypes[$key] = array('id' => $key, 'label' => $val, 'position' => $i);
 			}
-			$listofexporttypes['separator_'.$i] = array('id' => 0, 'label' => '----------------', 'position' => $i, 'disabled' => 'disabled');
+			$listofexporttypes['separator_' . $i] = array('id' => 0, 'label' => '----------------', 'position' => $i, 'disabled' => 'disabled');
 			foreach ($listofspecialformatexport as $key => $val) {
 				$i++;
 				$listofexporttypes[$key] = array('id' => $key, 'label' => $val, 'position' => $i);
@@ -378,7 +378,7 @@ class AccountancyExport
 		global $search_date_end; 	// Used into /accountancy/tpl/export_journal.tpl.php
 
 		// Define name of file to save
-		$filename = 'general_ledger-'.$this->getFormatCode($formatexportset);
+		$filename = 'general_ledger-' . $this->getFormatCode($formatexportset);
 		$type_export = 'general_ledger';
 
 		$completefilename = '';
@@ -414,7 +414,7 @@ class AccountancyExport
 			top_httphead($mimetype, 1);
 		}
 
-		include DOL_DOCUMENT_ROOT.'/accountancy/tpl/export_journal.tpl.php';
+		include DOL_DOCUMENT_ROOT . '/accountancy/tpl/export_journal.tpl.php';
 
 		if ($outputMode == 1 || $outputMode == 2) {
 			if ($outputMode == 1) {
@@ -434,7 +434,7 @@ class AccountancyExport
 
 				// directory already created when module is enabled
 				$outputDir .= '/export';
-				$outputDir .= '/'.dol_sanitizePathName((string) $formatexportset);
+				$outputDir .= '/' . dol_sanitizePathName((string) $formatexportset);
 			}
 
 			if (!dol_is_dir($outputDir)) {
@@ -657,7 +657,7 @@ class AccountancyExport
 			$tab[] = dol_string_unaccent($line->label_operation);
 			$tab[] = dol_string_unaccent($line->doc_ref);
 
-			$output = implode($separator, $tab).$end_line;
+			$output = implode($separator, $tab) . $end_line;
 			if ($exportFile) {
 				fwrite($exportFile, $output);
 			} else {
@@ -722,7 +722,7 @@ class AccountancyExport
 			$tab[] = $line->doc_ref;
 			$tab[] = $line->label_operation;
 
-			$output = implode($separator, $tab).$end_line;
+			$output = implode($separator, $tab) . $end_line;
 			if ($exportFile) {
 				fwrite($exportFile, $output);
 			} else {
@@ -759,7 +759,7 @@ class AccountancyExport
 			$tab[] = 'E';
 			$tab[] = length_accounta($line->subledger_account);
 
-			$output = implode($separator, $tab).$end_line;
+			$output = implode($separator, $tab) . $end_line;
 			if ($exportFile) {
 				fwrite($exportFile, $output);
 			} else {
@@ -806,7 +806,7 @@ class AccountancyExport
 			$tab[] = price($line->credit);
 			$tab[] = dol_trunc($line->label_operation, 32);
 
-			$output = implode($separator, $tab).$end_line;
+			$output = implode($separator, $tab) . $end_line;
 			if ($exportFile) {
 				fwrite($exportFile, $output);
 			} else {
@@ -853,14 +853,14 @@ class AccountancyExport
 			$tab[] = str_pad($date_echeance, 8, ' ', STR_PAD_LEFT);
 			$tab[] = str_pad(self::trunc($line->doc_ref, 12), 12);
 			$tab[] = str_pad(self::trunc($code_compta, 11), 11);
-			$tab[] = str_pad(self::trunc(dol_string_unaccent($line->doc_ref).dol_string_unaccent($line->label_operation), 25), 25);
+			$tab[] = str_pad(self::trunc(dol_string_unaccent($line->doc_ref) . dol_string_unaccent($line->label_operation), 25), 25);
 			$tab[] = str_pad(price2fec(abs($line->debit - $line->credit)), 13, ' ', STR_PAD_LEFT);
 			$tab[] = str_pad($line->sens, 1);
 			$tab[] = str_repeat(' ', 18); // Analytical accounting - Not managed in Dolibarr
 			$tab[] = str_pad(self::trunc(dol_string_unaccent($line->label_operation), 34), 34);
 			$tab[] = 'O2003'; // 0 = EUR | 2003 = Format Ciel
 
-			$output = implode($tab).$end_line;
+			$output = implode($tab) . $end_line;
 			if ($exportFile) {
 				fwrite($exportFile, $output);
 			} else {
@@ -920,11 +920,11 @@ class AccountancyExport
 				$tab['lib_compte'] = str_pad(self::trunc($line->subledger_label, 30), 30);
 
 				if ($line->doc_type == 'customer_invoice') {
-					$tab['lib_alpha'] = strtoupper(str_pad('C'.self::trunc(dol_string_unaccent($line->subledger_label), 6), 7));
+					$tab['lib_alpha'] = strtoupper(str_pad('C' . self::trunc(dol_string_unaccent($line->subledger_label), 6), 7));
 					$tab['filler'] = str_repeat(' ', 52);
 					$tab['coll_compte'] = str_pad(self::trunc(getDolGlobalString('ACCOUNTING_ACCOUNT_CUSTOMER'), 8), 8);
 				} elseif ($line->doc_type == 'supplier_invoice') {
-					$tab['lib_alpha'] = strtoupper(str_pad('F'.self::trunc(dol_string_unaccent($line->subledger_label), 6), 7));
+					$tab['lib_alpha'] = strtoupper(str_pad('F' . self::trunc(dol_string_unaccent($line->subledger_label), 6), 7));
 					$tab['filler'] = str_repeat(' ', 52);
 					$tab['coll_compte'] = str_pad(self::trunc(getDolGlobalString('ACCOUNTING_ACCOUNT_SUPPLIER'), 8), 8);
 				} else {
@@ -965,7 +965,7 @@ class AccountancyExport
 			//$tab['date_ecriture'] = $date_ecriture;
 			$tab['date_ecriture'] = dol_print_date($line->doc_date, '%d%m%y');
 			$tab['filler'] = ' ';
-			$tab['libelle_ecriture'] = str_pad(self::trunc($line->doc_ref.' '.$line->label_operation, 20), 20);
+			$tab['libelle_ecriture'] = str_pad(self::trunc($line->doc_ref . ' ' . $line->label_operation, 20), 20);
 
 			// Credit invoice - invert sens
 			/*
@@ -1036,16 +1036,16 @@ class AccountancyExport
 					} elseif ($line->doc_type == 'expense_report') {
 						$objectDirPath = !empty($config->expensereport->multidir_output[$config->entity]) ? $config->expensereport->multidir_output[$config->entity] : $config->expensereport->dir_output;
 					} elseif ($line->doc_type == 'supplier_invoice') {
-						require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+						require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.facture.class.php';
 						$invoice = new FactureFournisseur($this->db);
 						$invoice->fetch($line->fk_doc);
 						$objectDirPath = !empty($config->fournisseur->facture->multidir_output[$config->entity]) ? $config->fournisseur->facture->multidir_output[$config->entity] : $config->fournisseur->facture->dir_output;
-						$objectDirPath .= '/'.rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
+						$objectDirPath .= '/' . rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
 					}
 					$arrayofinclusion = array();
 					// If it is a supplier invoice, we want to use last uploaded file
-					$arrayofinclusion[] = '^'.preg_quote($objectFileName, '/').(($line->doc_type == 'supplier_invoice') ? '.+' : '').'\.pdf$';
-					$fileFoundList = dol_dir_list($objectDirPath.'/'.$objectFileName, 'files', 0, implode('|', $arrayofinclusion), '(\.meta|_preview.*\.png)$', 'date', SORT_DESC, 0, 1);
+					$arrayofinclusion[] = '^' . preg_quote($objectFileName, '/') . (($line->doc_type == 'supplier_invoice') ? '.+' : '') . '\.pdf$';
+					$fileFoundList = dol_dir_list($objectDirPath . '/' . $objectFileName, 'files', 0, implode('|', $arrayofinclusion), '(\.meta|_preview.*\.png)$', 'date', SORT_DESC, 0, 1);
 					if (!empty($fileFoundList)) {
 						$attachmentFileNameTrunc = str_pad(self::trunc((string) $line->piece_num, 8), 8, '0', STR_PAD_LEFT);
 						foreach ($fileFoundList as $fileFound) {
@@ -1053,17 +1053,17 @@ class AccountancyExport
 								// skip native invoice pdfs (canelle)
 								// We want to retrieve an attachment representative of the supplier invoice, not a fake document generated by Dolibarr.
 								if ($line->doc_type == 'supplier_invoice') {
-									if ($fileFound['name'] === $objectFileName.'.pdf') {
+									if ($fileFound['name'] === $objectFileName . '.pdf') {
 										continue;
 									}
-								} elseif ($fileFound['name'] !== $objectFileName.'.pdf') {
+								} elseif ($fileFound['name'] !== $objectFileName . '.pdf') {
 									continue;
 								}
-								$fileFoundPath = $objectDirPath.'/'.$objectFileName.'/'.$fileFound['name'];
+								$fileFoundPath = $objectDirPath . '/' . $objectFileName . '/' . $fileFound['name'];
 								if (file_exists($fileFoundPath)) {
 									$archiveFileList[$attachmentFileKey] = array(
 										'path' => $fileFoundPath,
-										'name' => $attachmentFileNameTrunc.'.pdf',
+										'name' => $attachmentFileNameTrunc . '.pdf',
 									);
 									break;
 								}
@@ -1144,7 +1144,7 @@ class AccountancyExport
 				$tab['montant_crebit'] = str_pad(number_format($line->credit, 2, ',', ''), 13, ' ', STR_PAD_LEFT);
 			}
 
-			$tab['libelle_ecriture'] = str_pad(dol_trunc(dol_string_unaccent($line->doc_ref).' '.dol_string_unaccent($line->label_operation), 30, 'right', 'UTF-8', 1), 30);
+			$tab['libelle_ecriture'] = str_pad(dol_trunc(dol_string_unaccent($line->doc_ref) . ' ' . dol_string_unaccent($line->label_operation), 30, 'right', 'UTF-8', 1), 30);
 
 			$tab['lettrage'] = str_repeat(dol_trunc($line->lettering_code, 2, 'left', 'UTF-8', 1), 2);
 
@@ -1203,14 +1203,14 @@ class AccountancyExport
 				$tab[] = $line->subledger_account;
 			}
 			//$tab[] = substr(length_accountg($line->numero_compte), 0, 2) . $separator;
-			$tab[] = '"'.dol_trunc($line->label_operation, 40, 'right', 'UTF-8', 1).'"';
-			$tab[] = '"'.dol_trunc((string) $line->piece_num, 15, 'right', 'UTF-8', 1).'"';
+			$tab[] = '"' . dol_trunc($line->label_operation, 40, 'right', 'UTF-8', 1) . '"';
+			$tab[] = '"' . dol_trunc((string) $line->piece_num, 15, 'right', 'UTF-8', 1) . '"';
 			$tab[] = price2num(abs($line->debit - $line->credit));
 			$tab[] = $line->sens;
 			$tab[] = $date_document;
 			//print 'EUR';
 
-			$output = implode($separator, $tab).$end_line;
+			$output = implode($separator, $tab) . $end_line;
 			if ($exportFile) {
 				fwrite($exportFile, $output);
 			} else {
@@ -1258,7 +1258,7 @@ class AccountancyExport
 			$tab[] = $line->lettering_code;
 			$tab[] = $line->code_journal;
 
-			$output = implode($separator, $tab).$end_line;
+			$output = implode($separator, $tab) . $end_line;
 			if ($exportFile) {
 				fwrite($exportFile, $output);
 			} else {
@@ -1296,7 +1296,7 @@ class AccountancyExport
 			$tab[] = price($line->debit);
 			$tab[] = price($line->credit);
 
-			$output = implode($separator, $tab).$end_line;
+			$output = implode($separator, $tab) . $end_line;
 			if ($exportFile) {
 				fwrite($exportFile, $output);
 			} else {
@@ -1324,7 +1324,7 @@ class AccountancyExport
 			$tab[] = $line->piece_num;
 			$tab[] = $date_document;
 			$tab[] = $line->doc_ref;
-			$tab[] = preg_match('/'.$separator.'/', $line->label_operation) ? "'".$line->label_operation."'" : $line->label_operation;
+			$tab[] = preg_match('/' . $separator . '/', $line->label_operation) ? "'" . $line->label_operation . "'" : $line->label_operation;
 			$tab[] = length_accountg($line->numero_compte);
 			$tab[] = length_accounta($line->subledger_account);
 			$tab[] = price2num($line->debit);
@@ -1332,7 +1332,7 @@ class AccountancyExport
 			$tab[] = price2num($line->debit - $line->credit);
 			$tab[] = $line->code_journal;
 
-			$output = implode($separator, $tab).$this->end_line;
+			$output = implode($separator, $tab) . $this->end_line;
 			if ($exportFile) {
 				fwrite($exportFile, $output);
 			} else {
@@ -1383,7 +1383,7 @@ class AccountancyExport
 		$tab[] = "NumFacture";
 		$tab[] = "FichierFacture";
 
-		$output = implode($separator, $tab).$end_line;
+		$output = implode($separator, $tab) . $end_line;
 		if ($exportFile) {
 			fwrite($exportFile, $output);
 		} else {
@@ -1404,14 +1404,14 @@ class AccountancyExport
 				$refInvoice = '';
 				if ($line->doc_type == 'customer_invoice') {
 					// Customer invoice
-					require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+					require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
 					$invoice = new Facture($this->db);
 					$invoice->fetch($line->fk_doc);
 
 					$refInvoice = $invoice->ref;
 				} elseif ($line->doc_type == 'supplier_invoice') {
 					// Supplier invoice
-					require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+					require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.facture.class.php';
 					$invoice = new FactureFournisseur($this->db);
 					$invoice->fetch($line->fk_doc);
 
@@ -1504,12 +1504,12 @@ class AccountancyExport
 							'@phan-var-force FactureFournisseur $invoice';
 							/** @var FactureFournisseur $invoice */
 							$objectDirPath = !empty($config->fournisseur->facture->multidir_output[$config->entity]) ? $config->fournisseur->facture->multidir_output[$config->entity] : $config->fournisseur->facture->dir_output;
-							$objectDirPath .= '/'.rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
+							$objectDirPath .= '/' . rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
 						}
 						$arrayofinclusion = array();
 						// If it is a supplier invoice, we want to use last uploaded file
-						$arrayofinclusion[] = '^'.preg_quote($objectFileName, '/').(($line->doc_type == 'supplier_invoice') ? '.+' : '').'\.pdf$';
-						$fileFoundList = dol_dir_list($objectDirPath.'/'.$objectFileName, 'files', 0, implode('|', $arrayofinclusion), '(\.meta|_preview.*\.png)$', 'date', SORT_DESC, 0, 1);
+						$arrayofinclusion[] = '^' . preg_quote($objectFileName, '/') . (($line->doc_type == 'supplier_invoice') ? '.+' : '') . '\.pdf$';
+						$fileFoundList = dol_dir_list($objectDirPath . '/' . $objectFileName, 'files', 0, implode('|', $arrayofinclusion), '(\.meta|_preview.*\.png)$', 'date', SORT_DESC, 0, 1);
 						if (!empty($fileFoundList)) {
 							$attachmentFileNameTrunc = $line->doc_ref;
 							foreach ($fileFoundList as $fileFound) {
@@ -1517,17 +1517,17 @@ class AccountancyExport
 									// skip native invoice pdfs (canelle)
 									// We want to retrieve an attachment representative of the supplier invoice, not a fake document generated by Dolibarr.
 									if ($line->doc_type == 'supplier_invoice') {
-										if ($fileFound['name'] === $objectFileName.'.pdf') {
+										if ($fileFound['name'] === $objectFileName . '.pdf') {
 											continue;
 										}
-									} elseif ($fileFound['name'] !== $objectFileName.'.pdf') {
+									} elseif ($fileFound['name'] !== $objectFileName . '.pdf') {
 										continue;
 									}
-									$fileFoundPath = $objectDirPath.'/'.$objectFileName.'/'.$fileFound['name'];
+									$fileFoundPath = $objectDirPath . '/' . $objectFileName . '/' . $fileFound['name'];
 									if (file_exists($fileFoundPath)) {
 										$archiveFileList[$attachmentFileKey] = array(
 											'path' => $fileFoundPath,
-											'name' => $attachmentFileNameTrunc.'.pdf',
+											'name' => $attachmentFileNameTrunc . '.pdf',
 										);
 										break;
 									}
@@ -1543,7 +1543,7 @@ class AccountancyExport
 
 				$tab[] = $attachmentFileName;
 
-				$output = implode($separator, $tab).$end_line;
+				$output = implode($separator, $tab) . $end_line;
 
 				if ($exportFile) {
 					fwrite($exportFile, $output);
@@ -1598,7 +1598,7 @@ class AccountancyExport
 		$tab[] = "NumFacture";
 		$tab[] = "FichierFacture";
 
-		$output = implode($separator, $tab).$end_line;
+		$output = implode($separator, $tab) . $end_line;
 		if ($exportFile) {
 			fwrite($exportFile, $output);
 		} else {
@@ -1618,14 +1618,14 @@ class AccountancyExport
 				$refInvoice = '';
 				if ($line->doc_type == 'customer_invoice') {
 					// Customer invoice
-					require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
+					require_once DOL_DOCUMENT_ROOT . '/compta/facture/class/facture.class.php';
 					$invoice = new Facture($this->db);
 					$invoice->fetch($line->fk_doc);
 
 					$refInvoice = $invoice->ref;
 				} elseif ($line->doc_type == 'supplier_invoice') {
 					// Supplier invoice
-					require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
+					require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.facture.class.php';
 					$invoice = new FactureFournisseur($this->db);
 					$invoice->fetch($line->fk_doc);
 
@@ -1718,12 +1718,12 @@ class AccountancyExport
 							'@phan-var-force FactureFournisseur $invoice';
 							/** @var FactureFournisseur $invoice */
 							$objectDirPath = !empty($config->fournisseur->facture->multidir_output[$config->entity]) ? $config->fournisseur->facture->multidir_output[$config->entity] : $config->fournisseur->facture->dir_output;
-							$objectDirPath .= '/'.rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
+							$objectDirPath .= '/' . rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
 						}
 						$arrayofinclusion = array();
 						// If it is a supplier invoice, we want to use last uploaded file
-						$arrayofinclusion[] = '^'.preg_quote($objectFileName, '/').(($line->doc_type == 'supplier_invoice') ? '.+' : '').'\.pdf$';
-						$fileFoundList = dol_dir_list($objectDirPath.'/'.$objectFileName, 'files', 0, implode('|', $arrayofinclusion), '(\.meta|_preview.*\.png)$', 'date', SORT_DESC, 0, 1);
+						$arrayofinclusion[] = '^' . preg_quote($objectFileName, '/') . (($line->doc_type == 'supplier_invoice') ? '.+' : '') . '\.pdf$';
+						$fileFoundList = dol_dir_list($objectDirPath . '/' . $objectFileName, 'files', 0, implode('|', $arrayofinclusion), '(\.meta|_preview.*\.png)$', 'date', SORT_DESC, 0, 1);
 						if (!empty($fileFoundList)) {
 							$attachmentFileNameTrunc = $line->doc_ref;
 							foreach ($fileFoundList as $fileFound) {
@@ -1731,17 +1731,17 @@ class AccountancyExport
 									// skip native invoice pdfs (canelle)
 									// We want to retrieve an attachment representative of the supplier invoice, not a fake document generated by Dolibarr.
 									if ($line->doc_type == 'supplier_invoice') {
-										if ($fileFound['name'] === $objectFileName.'.pdf') {
+										if ($fileFound['name'] === $objectFileName . '.pdf') {
 											continue;
 										}
-									} elseif ($fileFound['name'] !== $objectFileName.'.pdf') {
+									} elseif ($fileFound['name'] !== $objectFileName . '.pdf') {
 										continue;
 									}
-									$fileFoundPath = $objectDirPath.'/'.$objectFileName.'/'.$fileFound['name'];
+									$fileFoundPath = $objectDirPath . '/' . $objectFileName . '/' . $fileFound['name'];
 									if (file_exists($fileFoundPath)) {
 										$archiveFileList[$attachmentFileKey] = array(
 											'path' => $fileFoundPath,
-											'name' => $attachmentFileNameTrunc.'.pdf',
+											'name' => $attachmentFileNameTrunc . '.pdf',
 										);
 										break;
 									}
@@ -1757,7 +1757,7 @@ class AccountancyExport
 
 				$tab[] = $attachmentFileName;
 
-				$output = implode($separator, $tab).$end_line;
+				$output = implode($separator, $tab) . $end_line;
 				if ($exportFile) {
 					fwrite($exportFile, $output);
 				} else {
@@ -1809,7 +1809,7 @@ class AccountancyExport
 		$tab[] = "OpId";
 		$tab[] = "Flag";
 
-		$output = implode($separator, $tab).$end_line;
+		$output = implode($separator, $tab) . $end_line;
 		if ($exportFile) {
 			fwrite($exportFile, $output);
 		} else {
@@ -1825,10 +1825,11 @@ class AccountancyExport
 				$sammelBuchung = true;
 			} elseif ($aIndex + 2 < $aSize && $objectLines[$aIndex + 2]->piece_num == $line->piece_num) {
 				$sammelBuchung = true;
-			} elseif ($aIndex + 1 < $aSize
-					&& $objectLines[$aIndex + 1]->piece_num == $line->piece_num
-					&& $aIndex - 1 < $aSize
-					&& $objectLines[$aIndex - 1]->piece_num == $line->piece_num
+			} elseif (
+				$aIndex + 1 < $aSize
+				&& $objectLines[$aIndex + 1]->piece_num == $line->piece_num
+				&& $aIndex - 1 < $aSize
+				&& $objectLines[$aIndex - 1]->piece_num == $line->piece_num
 			) {
 				$sammelBuchung = true;
 			}
@@ -1896,13 +1897,13 @@ class AccountancyExport
 				$line2 = "";
 			}
 			if (strlen($line1) > 0 && strlen($line2) > 0 && (strlen($line1) + strlen($line2)) < 27) {
-				$line1 = $line1.' / '.$line2;
+				$line1 = $line1 . ' / ' . $line2;
 				$line2 = "";
 			}
 
-			$tab[] = '"'.self::toAnsi($line1).'"';
+			$tab[] = '"' . self::toAnsi($line1) . '"';
 			// Tx2
-			$tab[] = '"'.self::toAnsi($line2).'"';
+			$tab[] = '"' . self::toAnsi($line2) . '"';
 			//PkKey
 			$tab[] = "0";
 			//OpId
@@ -1911,7 +1912,7 @@ class AccountancyExport
 			// Flag
 			$tab[] = "0";
 
-			$output = implode($separator, $tab).$end_line;
+			$output = implode($separator, $tab) . $end_line;
 			if ($exportFile) {
 				fwrite($exportFile, $output);
 			} else {
@@ -2054,7 +2055,7 @@ class AccountancyExport
 			// HEUK
 			$tab[] = "";
 
-			$output = implode($separator, $tab).$end_line;
+			$output = implode($separator, $tab) . $end_line;
 			if ($exportFile) {
 				fwrite($exportFile, $output);
 			} else {
@@ -2075,7 +2076,7 @@ class AccountancyExport
 	 */
 	public function exportLDCompta10($objectLines, $exportFile = null)
 	{
-		require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
+		require_once DOL_DOCUMENT_ROOT . '/core/lib/company.lib.php';
 
 		$separator = ';';
 		$end_line = "\r\n";
@@ -2085,8 +2086,8 @@ class AccountancyExport
 			// TYPE C
 			if ($last_codeinvoice != $line->doc_ref) {
 				//recherche societe en fonction de son code client
-				$sql = "SELECT code_client, fk_forme_juridique, nom, address, zip, town, fk_pays, phone, siret FROM ".MAIN_DB_PREFIX."societe";
-				$sql .= " WHERE code_client = '".$this->db->escape($line->thirdparty_code)."'";
+				$sql = "SELECT code_client, fk_forme_juridique, nom, address, zip, town, fk_pays, phone, siret FROM " . MAIN_DB_PREFIX . "societe";
+				$sql .= " WHERE code_client = '" . $this->db->escape($line->thirdparty_code) . "'";
 				$resql = $this->db->query($sql);
 
 				if ($resql && $this->db->num_rows($resql) > 0) {
@@ -2207,7 +2208,7 @@ class AccountancyExport
 					//CESC
 					$tab[] = "";
 
-					$output = implode($separator, $tab).$end_line;
+					$output = implode($separator, $tab) . $end_line;
 					if ($exportFile) {
 						fwrite($exportFile, $output);
 					} else {
@@ -2335,7 +2336,7 @@ class AccountancyExport
 			// HEUK
 			$tab[] = "";
 
-			$output = implode($separator, $tab).$end_line;
+			$output = implode($separator, $tab) . $end_line;
 			if ($exportFile) {
 				fwrite($exportFile, $output);
 			} else {
@@ -2371,14 +2372,14 @@ class AccountancyExport
 		$tab[] = self::trunc($langs->transnoentitiesnoconv('LabelOperation'), 60);
 		$tab[] = $langs->transnoentitiesnoconv('Amount');
 		$tab[] = 'S';
-		$tab[] = self::trunc($langs->transnoentitiesnoconv('Analytic').' 1', 15);
-		$tab[] = self::trunc($langs->transnoentitiesnoconv('AnalyticLabel').' 1', 60);
-		$tab[] = self::trunc($langs->transnoentitiesnoconv('Analytic').' 2', 15);
-		$tab[] = self::trunc($langs->transnoentitiesnoconv('AnalyticLabel').' 2', 60);
-		$tab[] = self::trunc($langs->transnoentitiesnoconv('Analytic').' 3', 15);
-		$tab[] = self::trunc($langs->transnoentitiesnoconv('AnalyticLabel').' 3', 60);
+		$tab[] = self::trunc($langs->transnoentitiesnoconv('Analytic') . ' 1', 15);
+		$tab[] = self::trunc($langs->transnoentitiesnoconv('AnalyticLabel') . ' 1', 60);
+		$tab[] = self::trunc($langs->transnoentitiesnoconv('Analytic') . ' 2', 15);
+		$tab[] = self::trunc($langs->transnoentitiesnoconv('AnalyticLabel') . ' 2', 60);
+		$tab[] = self::trunc($langs->transnoentitiesnoconv('Analytic') . ' 3', 15);
+		$tab[] = self::trunc($langs->transnoentitiesnoconv('AnalyticLabel') . ' 3', 60);
 
-		$output = implode($separator, $tab).$end_line;
+		$output = implode($separator, $tab) . $end_line;
 		if ($exportFile) {
 			fwrite($exportFile, $output);
 		} else {
@@ -2415,7 +2416,7 @@ class AccountancyExport
 			$tab[] = ""; //Analytic
 			$tab[] = ""; //Analytic
 
-			$output = implode($separator, $tab).$end_line;
+			$output = implode($separator, $tab) . $end_line;
 			if ($exportFile) {
 				fwrite($exportFile, $output);
 			} else {
@@ -2452,12 +2453,13 @@ class AccountancyExport
 
 				if (($line->doc_type == 'customer_invoice' || $line->doc_type == 'supplier_invoice') && $line->fk_doc > 0) {
 					if (($line->doc_type == 'customer_invoice' && !isset($invoices_infos[$line->fk_doc])) ||
-						($line->doc_type == 'supplier_invoice' && !isset($supplier_invoices_infos[$line->fk_doc]))) {
+						($line->doc_type == 'supplier_invoice' && !isset($supplier_invoices_infos[$line->fk_doc]))
+					) {
 						if ($line->doc_type == 'customer_invoice') {
 							// Get new customer invoice ref and company name
 							$sql = 'SELECT f.ref, s.nom FROM ' . MAIN_DB_PREFIX . 'facture as f';
 							$sql .= ' LEFT JOIN ' . MAIN_DB_PREFIX . 'societe AS s ON f.fk_soc = s.rowid';
-							$sql .= ' WHERE f.rowid = '.((int) $line->fk_doc);
+							$sql .= ' WHERE f.rowid = ' . ((int) $line->fk_doc);
 							$resql = $this->db->query($sql);
 							if ($resql) {
 								if ($obj = $this->db->fetch_object($resql)) {
@@ -2471,7 +2473,7 @@ class AccountancyExport
 							// Get new supplier invoice ref and company name
 							$sql = 'SELECT ff.ref, s.nom FROM ' . MAIN_DB_PREFIX . 'facture_fourn as ff';
 							$sql .= ' LEFT JOIN ' . MAIN_DB_PREFIX . 'societe AS s ON ff.fk_soc = s.rowid';
-							$sql .= ' WHERE ff.rowid = '.((int) $line->fk_doc);
+							$sql .= ' WHERE ff.rowid = ' . ((int) $line->fk_doc);
 							$resql = $this->db->query($sql);
 							if ($resql) {
 								if ($obj = $this->db->fetch_object($resql)) {
@@ -2522,7 +2524,7 @@ class AccountancyExport
 				//Date Echéance
 				$tab[] = $date_echeance;
 
-				$output = implode($separator, $tab).$end_line;
+				$output = implode($separator, $tab) . $end_line;
 				if ($exportFile) {
 					fwrite($exportFile, $output);
 				} else {
@@ -2561,7 +2563,7 @@ class AccountancyExport
 					$tab[] = substr(length_accountg($line->numero_compte), 0, 15);
 				}
 				$tab[] = "";
-				$tab[] = '"'.dol_trunc(str_replace('"', '', $line->label_operation), 40, 'right', 'UTF-8', 1).'"';
+				$tab[] = '"' . dol_trunc(str_replace('"', '', $line->label_operation), 40, 'right', 'UTF-8', 1) . '"';
 				$tab[] = '"' . dol_trunc(str_replace('"', '', $line->doc_ref), 40, 'right', 'UTF-8', 1) . '"';
 				$tab[] = '"' . dol_trunc(str_replace('"', '', (string) $line->piece_num), 10, 'right', 'UTF-8', 1) . '"';
 				$tab[] = price2num(abs($line->debit - $line->credit));
@@ -2571,7 +2573,7 @@ class AccountancyExport
 				$tab[] = "";
 				$tab[] = 'EUR';
 
-				$output = implode($separator, $tab).$end_line;
+				$output = implode($separator, $tab) . $end_line;
 				if ($exportFile) {
 					fwrite($exportFile, $output);
 				} else {
@@ -2582,14 +2584,14 @@ class AccountancyExport
 	}
 
 	/**
-	* Export format : iSuite Expert
-	*
-	* by OpenSolus [https://opensolus.fr]
-	*
+	 * Export format : iSuite Expert
+	 *
+	 * by OpenSolus [https://opensolus.fr]
+	 *
 	 * @param 	BookKeepingLine[]	$objectLines 	data
 	 * @param	?resource			$exportFile		[=null] File resource to export or print if null
 	 * @return 	void
-	*/
+	 */
 	public function exportiSuiteExpert($objectLines, $exportFile = null)
 	{
 		$separator = ';';
@@ -2634,7 +2636,7 @@ class AccountancyExport
 			$tab[] = price($line->montant);
 			$tab[] = $line->code_journal;
 
-			$output = implode($separator, $tab).$end_line;
+			$output = implode($separator, $tab) . $end_line;
 			if ($exportFile) {
 				fwrite($exportFile, $output);
 			} else {
