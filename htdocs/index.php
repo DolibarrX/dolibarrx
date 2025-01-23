@@ -468,16 +468,16 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 
 	//Remove any invalid response
 	//load_board can return an integer if failed, or WorkboardResponse if OK
-	$valid_dashboardlines = array();
+	$validDashboardLines = array();
 	foreach ($dashboardLines as $workboardid => $tmp) {
 		if ($tmp instanceof WorkboardResponse) {
 			$tmp->id = $workboardid; // Complete the object to add its id into its name
-			$valid_dashboardlines[$workboardid] = $tmp;
+			$validDashboardLines[$workboardid] = $tmp;
 		}
 	}
 
 	// We calculate $totallate. Must be defined before start of next loop because it is show in first fetch on next loop
-	foreach ($valid_dashboardlines as $board) {
+	foreach ($validDashboardLines as $board) {
 		if (is_numeric($board->nbtodo) && is_numeric($board->nbtodolate) && $board->nbtodolate > 0) {
 			$totaltodo += $board->nbtodo;
 			$totallate += $board->nbtodolate;
@@ -525,7 +525,7 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 	$nbworkboardempty = 0;
 	$isIntopOpenedDashBoard = $globalStatInTopOpenedDashBoard = array();
 	$openedDashBoard = '';
-	if (!empty($valid_dashboardlines)) {
+	if (!empty($validDashboardLines)) {
 		$boxwork .= '<tr class="nobottom nohover"><td class="tdboxstats nohover flexcontainer centpercent"><div style="display: flex: flex-wrap: wrap">';
 
 		foreach ($dashboardgroup as $groupKey => $groupElement) {
@@ -534,8 +534,8 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 			// Scan $groupElement and save the one with 'stats' that must be used for the open objects dashboard
 			if (!getDolGlobalString('MAIN_DISABLE_NEW_OPENED_DASH_BOARD')) {
 				foreach ($groupElement['stats'] as $infoKey) {
-					if (!empty($valid_dashboardlines[$infoKey])) {
-						$boards[] = $valid_dashboardlines[$infoKey];
+					if (!empty($validDashboardLines[$infoKey])) {
+						$boards[] = $validDashboardLines[$infoKey];
 						$isIntopOpenedDashBoard[] = $infoKey;
 					}
 				}
@@ -703,7 +703,7 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 		}
 
 		$nbworkboardcount = 0;
-		foreach ($valid_dashboardlines as $infoKey => $board) {
+		foreach ($validDashboardLines as $infoKey => $board) {
 			if (in_array($infoKey, $isIntopOpenedDashBoard)) {
 				// skip if info is present on top
 				continue;
