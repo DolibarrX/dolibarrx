@@ -540,27 +540,27 @@ if ($result) {
 print '<div class="clearboth"></div>';
 print '<div class="fichecenter fichecenterbis">';
 
-$boxlist = '<div class="twocolumns">';
+$boxList = '<div class="twocolumns">';
 
-$boxlist .= '<div class="firstcolumn fichehalfleft boxhalfleft" id="boxhalfleft">';
-$boxlist .= $thirdpartygraph;
-$boxlist .= '<br>';
-$boxlist .= $thirdpartycateggraph;
-$boxlist .= '<br>';
-$boxlist .= $resultBoxes['boxlista'];
-$boxlist .= '</div>'."\n";
+$boxList .= '<div class="firstcolumn fichehalfleft boxhalfleft" id="boxhalfleft">';
+$boxList .= $thirdpartygraph;
+$boxList .= '<br>';
+$boxList .= $thirdpartycateggraph;
+$boxList .= '<br>';
+$boxList .= $resultBoxes['boxlista'];
+$boxList .= '</div>'."\n";
 
-$boxlist .= '<div class="secondcolumn fichehalfright boxhalfright" id="boxhalfright">';
-$boxlist .= $lastmodified;
-$boxlist .= '<br>';
-$boxlist .= $lastmodifiedcontact;
-$boxlist .= '<br>';
-$boxlist .= $resultBoxes['boxlistb'];
-$boxlist .= '</div>'."\n";
+$boxList .= '<div class="secondcolumn fichehalfright boxhalfright" id="boxhalfright">';
+$boxList .= $lastmodified;
+$boxList .= '<br>';
+$boxList .= $lastmodifiedcontact;
+$boxList .= '<br>';
+$boxList .= $resultBoxes['boxlistb'];
+$boxList .= '</div>'."\n";
 
-$boxlist .= '</div>';
+$boxList .= '</div>';
 
-print $boxlist;
+print $boxList;
 
 print '</div>';
 

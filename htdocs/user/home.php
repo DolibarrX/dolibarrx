@@ -313,22 +313,22 @@ if ($permissiontoreadgroup) {
 print '<div class="clearboth"></div>';
 print '<div class="fichecenter fichecenterbis">';
 
-$boxlist = '<div class="twocolumns">';
+$boxList = '<div class="twocolumns">';
 
-$boxlist .= '<div class="firstcolumn fichehalfleft boxhalfleft" id="boxhalfleft">';
-$boxlist .= $searchbox;
-$boxlist .= $resultBoxes['boxlista'];
-$boxlist .= '</div>'."\n";
+$boxList .= '<div class="firstcolumn fichehalfleft boxhalfleft" id="boxhalfleft">';
+$boxList .= $searchbox;
+$boxList .= $resultBoxes['boxlista'];
+$boxList .= '</div>'."\n";
 
-$boxlist .= '<div class="secondcolumn fichehalfright boxhalfright" id="boxhalfright">';
-$boxlist .= $lastcreatedbox;
-$boxlist .= $lastgroupbox;
-$boxlist .= $resultBoxes['boxlistb'];
-$boxlist .= '</div>'."\n";
+$boxList .= '<div class="secondcolumn fichehalfright boxhalfright" id="boxhalfright">';
+$boxList .= $lastcreatedbox;
+$boxList .= $lastgroupbox;
+$boxList .= $resultBoxes['boxlistb'];
+$boxList .= '</div>'."\n";
 
-$boxlist .= '</div>';
+$boxList .= '</div>';
 
-print $boxlist;
+print $boxList;
 
 print '</div>';
 

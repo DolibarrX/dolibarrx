@@ -1377,8 +1377,8 @@ class FormOther
 		}
 
 		// Define boxlista and boxlistb
-		$boxlista = '';
-		$boxlistb = '';
+		$boxLista = '';
+		$boxListb = '';
 		$nbboxactivated = count($boxidactivatedforuser);
 
 		if ($nbboxactivated) {
@@ -1387,7 +1387,7 @@ class FormOther
 
 			$emptybox = new ModeleBoxes($db);
 
-			$boxlista .= "\n<!-- Box left container -->\n";
+			$boxLista .= "\n<!-- Box left container -->\n";
 
 			// Define $box_max_lines
 			$box_max_lines = getDolUserInt('MAIN_SIZE_SHORTLIST_LIMIT', getDolGlobalInt('MAIN_SIZE_SHORTLIST_LIMIT', 5));
@@ -1406,7 +1406,7 @@ class FormOther
 					//print 'box_order '.$boxactivated[$ii]->box_order.'<br>';
 					// Show box
 					$box->loadBox($box_max_lines);
-					$boxlista .= $box->showBox(null, null, 1);
+					$boxLista .= $box->showBox(null, null, 1);
 				}
 			}
 
@@ -1414,11 +1414,11 @@ class FormOther
 				$emptybox->box_id = 'A';
 				$emptybox->info_box_head = array();
 				$emptybox->info_box_contents = array();
-				$boxlista .= $emptybox->showBox(array(), array(), 1);
+				$boxLista .= $emptybox->showBox(array(), array(), 1);
 			}
-			$boxlista .= "<!-- End box left container -->\n";
+			$boxLista .= "<!-- End box left container -->\n";
 
-			$boxlistb .= "\n<!-- Box right container -->\n";
+			$boxListb .= "\n<!-- Box right container -->\n";
 
 			$ii = 0;
 			foreach ($boxactivated as $key => $box) {
@@ -1434,7 +1434,7 @@ class FormOther
 					//print 'box_order '.$boxactivated[$ii]->box_order.'<br>';
 					// Show box
 					$box->loadBox($box_max_lines);
-					$boxlistb .= $box->showBox(null, null, 1);
+					$boxListb .= $box->showBox(null, null, 1);
 				}
 			}
 
@@ -1442,13 +1442,13 @@ class FormOther
 				$emptybox->box_id = 'B';
 				$emptybox->info_box_head = array();
 				$emptybox->info_box_contents = array();
-				$boxlistb .= $emptybox->showBox(array(), array(), 1);
+				$boxListb .= $emptybox->showBox(array(), array(), 1);
 			}
 
-			$boxlistb .= "<!-- End box right container -->\n";
+			$boxListb .= "<!-- End box right container -->\n";
 		}
 
-		return array('selectboxlist' => count($boxactivated) ? $selectboxlist : '', 'boxactivated' => $boxactivated, 'boxlista' => $boxlista, 'boxlistb' => $boxlistb);
+		return array('selectboxlist' => count($boxactivated) ? $selectboxlist : '', 'boxactivated' => $boxactivated, 'boxlista' => $boxLista, 'boxlistb' => $boxListb);
 	}
 
 

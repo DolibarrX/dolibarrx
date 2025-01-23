@@ -248,7 +248,7 @@ $sql .= " ORDER BY note";
 dol_syslog("select rss boxes", LOG_DEBUG);
 $resql = $db->query($sql);
 if ($resql) {
-	$boxlist = InfoBox::listBoxes($db, 'activated', -1, null);
+	$boxList = InfoBox::listBoxes($db, 'activated', -1, null);
 	$num = $db->num_rows($resql);
 	$i = 0;
 
@@ -332,7 +332,7 @@ if ($resql) {
 		}
 
 		// Active
-		$active = _isInBoxList((int) $idrss, $boxlist) ? 'yes' : 'no';
+		$active = _isInBoxList((int) $idrss, $boxList) ? 'yes' : 'no';
 		print '<tr class="oddeven">';
 		print '<td>'.$langs->trans('WidgetAvailable').'</td>';
 		print '<td>'.yn($active);
@@ -360,12 +360,12 @@ $db->close();
  * Check if the given RSS feed if inside the list of boxes/widgets
  *
  * @param	int				$idrss		The id of the RSS feed
- * @param	ModeleBoxes[]	$boxlist	A list with boxes/widgets
+ * @param	ModeleBoxes[]	$boxList	A list with boxes/widgets
  * @return	bool						true if the rss feed is inside the box/widget list, otherwise false
  */
-function _isInBoxList($idrss, array $boxlist)
+function _isInBoxList($idrss, array $boxList)
 {
-	foreach ($boxlist as $box) {
+	foreach ($boxList as $box) {
 		if ($box->boxcode === "lastrssinfos" && strpos($box->note, (string) $idrss) !== false) {
 			return true;
 		}

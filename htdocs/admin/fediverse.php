@@ -456,7 +456,7 @@ $sql .= " ORDER BY note";
 dol_syslog("select socialnetworks boxes", LOG_DEBUG);
 $resql = $db->query($sql);
 if ($resql) {
-	$boxlist = InfoBox::listBoxes($db, 'activated', -1, null);
+	$boxList = InfoBox::listBoxes($db, 'activated', -1, null);
 	$num = $db->num_rows($resql);
 	$i = 0;
 	while ($i < $num) {
@@ -525,7 +525,7 @@ if ($resql) {
 		print '</tr>'."\n";
 
 		// Active
-		$active = _isInBoxListFediverse((int) $socialNetworkId, $boxlist) ? 'yes' : 'no';
+		$active = _isInBoxListFediverse((int) $socialNetworkId, $boxList) ? 'yes' : 'no';
 
 		print '<tr class="oddeven">';
 		print '<td>'.$langs->trans('WidgetAvailable').'</td>';
@@ -589,12 +589,12 @@ $db->close();
  * Check if the given fediverse feed if inside the list of boxes/widgets
  *
  * @param	int				$id			The id of the socialnetwork
- * @param	ModeleBoxes[]	$boxlist	A list with boxes/widgets
+ * @param	ModeleBoxes[]	$boxList	A list with boxes/widgets
  * @return	bool					True if the socialnetwork is inside the box/widget list, otherwise false
  */
-function _isInBoxListFediverse(int $id, array $boxlist)
+function _isInBoxListFediverse(int $id, array $boxList)
 {
-	foreach ($boxlist as $box) {
+	foreach ($boxList as $box) {
 		if ($box->boxcode === "lastfediverseinfos") {
 			return true;
 		}

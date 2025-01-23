@@ -88,16 +88,16 @@ llxHeader('', $langs->trans("AccountancyArea"), $help_url, '', 0, 0, '', '', '',
 
 $resultBoxes = FormOther::getBoxesArea($user, "27"); // Load $resultBoxes (selectboxlist + boxactivated + boxlista + boxlistb)
 
-$boxlist = '';
-$boxlist .= '<div class="twocolumns">';
-$boxlist .= '<div class="firstcolumn fichehalfleft boxhalfleft" id="boxhalfleft">';
-$boxlist .= $resultBoxes['boxlista'];
-$boxlist .= '</div>';
-$boxlist .= '<div class="secondcolumn fichehalfright boxhalfright" id="boxhalfright">';
-$boxlist .= $resultBoxes['boxlistb'];
-$boxlist .= '</div>';
-$boxlist .= "\n";
-$boxlist .= '</div>';
+$boxList = '';
+$boxList .= '<div class="twocolumns">';
+$boxList .= '<div class="firstcolumn fichehalfleft boxhalfleft" id="boxhalfleft">';
+$boxList .= $resultBoxes['boxlista'];
+$boxList .= '</div>';
+$boxList .= '<div class="secondcolumn fichehalfright boxhalfright" id="boxhalfright">';
+$boxList .= $resultBoxes['boxlistb'];
+$boxList .= '</div>';
+$boxList .= "\n";
+$boxList .= '</div>';
 
 if (isModEnabled('accounting')) {
 	$step = 0;
@@ -311,7 +311,7 @@ if (isModEnabled('accounting')) {
 /*
  * Show boxes
  */
-print $boxlist;
+print $boxList;
 
 // End of page
 llxFooter();

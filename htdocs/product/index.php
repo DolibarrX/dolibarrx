@@ -690,26 +690,26 @@ if (isModEnabled("invoice") && $user->hasRight('facture', 'lire') && getDolGloba
 print '<div class="clearboth"></div>';
 print '<div class="fichecenter fichecenterbis">';
 
-$boxlist = '<div class="twocolumns">';
+$boxList = '<div class="twocolumns">';
 
-$boxlist .= '<div class="firstcolumn fichehalfleft boxhalfleft" id="boxhalfleft">';
-$boxlist .= $graph;
-$boxlist .= $graphcat;
-$boxlist .= $activity;
-$boxlist .= '<br>';
-$boxlist .= $resultBoxes['boxlista'];
-$boxlist .= "</div>\n";
+$boxList .= '<div class="firstcolumn fichehalfleft boxhalfleft" id="boxhalfleft">';
+$boxList .= $graph;
+$boxList .= $graphcat;
+$boxList .= $activity;
+$boxList .= '<br>';
+$boxList .= $resultBoxes['boxlista'];
+$boxList .= "</div>\n";
 
-$boxlist .= '<div class="secondcolumn fichehalfright boxhalfright" id="boxhalfright">';
-$boxlist .= $lastmodified;
-$boxlist .= $latestwarehouse;
-$boxlist .= $latestmovement;
-$boxlist .= $resultBoxes['boxlistb'];
-$boxlist .= '</div>'."\n";
+$boxList .= '<div class="secondcolumn fichehalfright boxhalfright" id="boxhalfright">';
+$boxList .= $lastmodified;
+$boxList .= $latestwarehouse;
+$boxList .= $latestmovement;
+$boxList .= $resultBoxes['boxlistb'];
+$boxList .= '</div>'."\n";
 
-$boxlist .= "</div>\n";
+$boxList .= "</div>\n";
 
-print $boxlist;
+print $boxList;
 
 print '</div>';
 
