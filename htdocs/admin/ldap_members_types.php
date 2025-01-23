@@ -31,7 +31,7 @@
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/ldap.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/ldap.lib.php';
 
@@ -211,7 +211,7 @@ if (getDolGlobalInt('LDAP_MEMBER_TYPE_ACTIVE') === Ldap::SYNCHRO_DOLIBARR_TO_LDA
 if (function_exists("ldap_connect")) {
 	if ($action == 'testmembertype') {
 		// Create object
-		$object = new AdherentType($db);
+		$object = new MemberType($db);
 		$object->initAsSpecimen();
 
 		// Test synchro

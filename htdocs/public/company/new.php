@@ -56,7 +56,7 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT . '/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT . '/core/lib/payments.lib.php';
 require_once DOL_DOCUMENT_ROOT . '/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT . '/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT . '/members/class/member_type.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/html.formcompany.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/cunits.class.php';
@@ -309,7 +309,7 @@ if (empty($resHook) && $action == 'added') {	// Test on permission not required 
 
 $form = new Form($db);
 $formcompany = new FormCompany($db);
-$adht = new AdherentType($db);
+$adht = new MemberType($db);
 $formadmin = new FormAdmin($db);
 
 

@@ -30,7 +30,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formprojet.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 require_once DOL_DOCUMENT_ROOT.'/partnership/class/partnership.class.php';
 require_once DOL_DOCUMENT_ROOT.'/partnership/lib/partnership.lib.php';
 
@@ -64,7 +64,7 @@ if ($id > 0) {
 // Initialize a technical objects
 $object 		= new Partnership($db);
 $extrafields 	= new ExtraFields($db);
-$adht 			= new AdherentType($db);
+$adht 			= new MemberType($db);
 $diroutputmassaction = $config->partnership->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('partnershipthirdparty', 'globalcard')); // Note that conf->hooks_modules contains array
 

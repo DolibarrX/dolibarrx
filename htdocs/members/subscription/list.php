@@ -29,7 +29,7 @@
 // Load Dolibarr environment
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 
@@ -180,7 +180,7 @@ if (empty($resHook)) {
 $form = new Form($db);
 $subscription = new Subscription($db);
 $adherent = new Adherent($db);
-$adht = new AdherentType($db);
+$adht = new MemberType($db);
 $accountstatic = new Account($db);
 
 $now = dol_now();
@@ -634,7 +634,7 @@ while ($i < $imaxinloop) {
 	$adherent->datefin = $db->jdate($obj->datef);
 
 	$typeid = ($obj->fk_type > 0 ? $obj->fk_type : $adherent->typeid);
-	$adht = new AdherentType($db);
+	$adht = new MemberType($db);
 	$adht->fetch($typeid);
 
 	$adherent->need_subscription = $adht->subscription;

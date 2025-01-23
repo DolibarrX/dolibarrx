@@ -39,7 +39,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
 require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
@@ -662,7 +662,7 @@ if (empty($resHook)) {
 
 		$db->begin();
 
-		$adht = new AdherentType($db);
+		$adht = new MemberType($db);
 		$adht->fetch($object->typeid);
 
 		$result = $object->validate($user);
@@ -731,7 +731,7 @@ if (empty($resHook)) {
 		$error = 0;
 
 		if ($confirm == 'yes') {
-			$adht = new AdherentType($db);
+			$adht = new MemberType($db);
 			$adht->fetch($object->typeid);
 
 			$result = $object->resiliate($user);
@@ -798,7 +798,7 @@ if (empty($resHook)) {
 		$error = 0;
 
 		if ($confirm == 'yes') {
-			$adht = new AdherentType($db);
+			$adht = new MemberType($db);
 			$adht->fetch($object->typeid);
 
 			$result = $object->exclude($user);
@@ -978,7 +978,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			}
 		}
 
-		$adht = new AdherentType($db);
+		$adht = new MemberType($db);
 
 		print load_fiche_titre($langs->trans("NewMember"), '', $object->picto);
 
@@ -1225,7 +1225,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			exit;
 		}
 
-		$adht = new AdherentType($db);
+		$adht = new MemberType($db);
 		$adht->fetch($object->typeid);
 
 		// We set country_id, and country_code, country of the chosen country
@@ -1514,7 +1514,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			exit;
 		}
 
-		$adht = new AdherentType($db);
+		$adht = new MemberType($db);
 		$res = $adht->fetch($object->typeid);
 		if ($res < 0) {
 			dol_print_error($db);
@@ -1587,7 +1587,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		if ($action == 'valid') {
 			$langs->load("mails");
 
-			$adht = new AdherentType($db);
+			$adht = new MemberType($db);
 			$adht->fetch($object->typeid);
 
 			$subject = '';
@@ -1651,7 +1651,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		if ($action == 'resiliate') {
 			$langs->load("mails");
 
-			$adht = new AdherentType($db);
+			$adht = new MemberType($db);
 			$adht->fetch($object->typeid);
 
 			$subject = '';
@@ -1712,7 +1712,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		if ($action == 'exclude') {
 			$langs->load("mails");
 
-			$adht = new AdherentType($db);
+			$adht = new MemberType($db);
 			$adht->fetch($object->typeid);
 
 			$subject = '';

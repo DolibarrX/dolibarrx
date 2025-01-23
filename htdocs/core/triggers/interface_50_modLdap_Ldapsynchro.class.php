@@ -438,8 +438,8 @@ class InterfaceLdapsynchro extends DolibarrTriggers
 					// For member type
 					if (getDolGlobalString('LDAP_MEMBER_TYPE_ACTIVE') && getDolGlobalInt('LDAP_MEMBER_TYPE_ACTIVE') === Ldap::SYNCHRO_DOLIBARR_TO_LDAP) {
 						if ($object->typeid > 0) {
-							require_once DOL_DOCUMENT_ROOT."/members/class/adherent_type.class.php";
-							$membertype = new AdherentType($this->db);
+							require_once DOL_DOCUMENT_ROOT."/members/class/member_type.class.php";
+							$membertype = new MemberType($this->db);
 							$membertype->fetch($object->typeid);
 							$membertype->listMembersForMemberType('', 1);
 
@@ -552,12 +552,12 @@ class InterfaceLdapsynchro extends DolibarrTriggers
 
 					// For member type
 					if (getDolGlobalString('LDAP_MEMBER_TYPE_ACTIVE') && getDolGlobalInt('LDAP_MEMBER_TYPE_ACTIVE') === Ldap::SYNCHRO_DOLIBARR_TO_LDAP) {
-						require_once DOL_DOCUMENT_ROOT."/members/class/adherent_type.class.php";
+						require_once DOL_DOCUMENT_ROOT."/members/class/member_type.class.php";
 
 						/*
 						 * Change member info
 						 */
-						$newmembertype = new AdherentType($this->db);
+						$newmembertype = new MemberType($this->db);
 						$newmembertype->fetch($object->typeid);
 						$newmembertype->listMembersForMemberType('', 1);
 
@@ -581,7 +581,7 @@ class InterfaceLdapsynchro extends DolibarrTriggers
 							/*
 							 * Remove member in old member type
 							 */
-							$oldmembertype = new AdherentType($this->db);
+							$oldmembertype = new MemberType($this->db);
 							$oldmembertype->fetch($object->oldcopy->typeid);
 							$oldmembertype->listMembersForMemberType('', 1);
 
@@ -668,12 +668,12 @@ class InterfaceLdapsynchro extends DolibarrTriggers
 					// For member type
 					if (getDolGlobalString('LDAP_MEMBER_TYPE_ACTIVE') && getDolGlobalInt('LDAP_MEMBER_TYPE_ACTIVE') === Ldap::SYNCHRO_DOLIBARR_TO_LDAP) {
 						if ($object->typeid > 0) {
-							require_once DOL_DOCUMENT_ROOT."/members/class/adherent_type.class.php";
+							require_once DOL_DOCUMENT_ROOT."/members/class/member_type.class.php";
 
 							/*
 							 * Remove member in member type
 							 */
-							$membertype = new AdherentType($this->db);
+							$membertype = new MemberType($this->db);
 							$membertype->fetch($object->typeid);
 							$membertype->listMembersForMemberType('a.rowid != '.$object->id, 1); // remove deleted member from the list
 

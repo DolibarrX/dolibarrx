@@ -451,9 +451,9 @@ if ($ispaymentok) {
 
 		// Record subscription
 		include_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-		include_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 		include_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
-		$adht = new AdherentType($db);
+		$adht = new MemberType($db);
 		$object = new Adherent($db);
 
 		$result1 = $object->fetch((int) $tmptag['MEM']);

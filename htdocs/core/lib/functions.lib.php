@@ -13142,7 +13142,7 @@ function getElementProperties($elementType)
 		$classfile = 'adherent_type';
 		$module = 'adherent';
 		$subelement = 'adherent_type';
-		$classname = 'AdherentType';
+		$classname = 'MemberType';
 		$table_element = 'adherent_type';
 	} elseif ($elementType == 'bank_account') {
 		$classpath = 'compta/bank/class';

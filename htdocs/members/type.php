@@ -35,7 +35,7 @@
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 
@@ -101,7 +101,7 @@ $mail_valid = GETPOST("mail_valid", 'restricthtml');
 $caneditamount = GETPOSTINT("caneditamount");
 
 // Initialize a technical object
-$object = new AdherentType($db);
+$object = new MemberType($db);
 $extrafields = new ExtraFields($db);
 $hookManager->initHooks(array('membertypecard', 'globalcard'));
 
@@ -357,7 +357,7 @@ if (!$rowid && $action != 'create' && $action != 'edit') {
 		}
 		print "</tr>\n";
 
-		$membertype = new AdherentType($db);
+		$membertype = new MemberType($db);
 
 		$i = 0;
 		$savnbfield = 10;
@@ -548,7 +548,7 @@ if ($action == 'create') {
 // View
 if ($rowid > 0) {
 	if ($action != 'edit') {
-		$object = new AdherentType($db);
+		$object = new MemberType($db);
 		$object->fetch($rowid);
 		$object->fetch_optionals();
 
@@ -658,7 +658,7 @@ if ($rowid > 0) {
 
 		// Show list of members (nearly same code than in page list.php)
 
-		$membertypestatic = new AdherentType($db);
+		$membertypestatic = new MemberType($db);
 
 		$now = dol_now();
 
@@ -757,7 +757,7 @@ if ($rowid > 0) {
 			}
 
 			if ($type > 0) {
-				$membertype = new AdherentType($db);
+				$membertype = new MemberType($db);
 				$result = $membertype->fetch($type);
 				$titre .= " (".$membertype->label.")";
 			}
@@ -985,7 +985,7 @@ if ($rowid > 0) {
 	/* ************************************************************************** */
 
 	if ($action == 'edit') {
-		$object = new AdherentType($db);
+		$object = new MemberType($db);
 		$object->fetch($rowid);
 		$object->fetch_optionals();
 

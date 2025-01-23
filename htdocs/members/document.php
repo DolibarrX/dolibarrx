@@ -42,7 +42,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 
 // Load translation files required by the page
 $langs->loadLangs(array("companies", "members", "other"));
@@ -73,7 +73,7 @@ if (!$sortfield) {
 }
 
 $object = new Adherent($db);
-$membert = new AdherentType($db);
+$membert = new MemberType($db);
 $result = $object->fetch($id, $ref);
 if ($result < 0) {
 	dol_print_error($db);

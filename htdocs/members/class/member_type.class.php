@@ -23,18 +23,18 @@
  */
 
 /**
- *	\file       htdocs/members/class/adherent_type.class.php
+ *	\file       htdocs/members/class/member_type.class.php
  *	\ingroup    member
  *	\brief      File of class to manage members types
  */
 
-require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
+require_once DOL_DOCUMENT_ROOT . '/core/class/commonobject.class.php';
 
 
 /**
  *	Class to manage members type
  */
-class AdherentType extends CommonObject
+class MemberType extends CommonObject
 {
 	/**
 	 * @var string Name of table without prefix where object is stored
@@ -190,8 +190,8 @@ class AdherentType extends CommonObject
 		$current_lang = $langs->getDefaultLang();
 
 		$sql = "SELECT lang, label, description, email";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent_type_lang";
-		$sql .= " WHERE fk_type = ".((int) $this->id);
+		$sql .= " FROM " . MAIN_DB_PREFIX . "adherent_type_lang";
+		$sql .= " WHERE fk_type = " . ((int) $this->id);
 
 		$result = $this->db->query($sql);
 		if ($result) {
@@ -208,7 +208,7 @@ class AdherentType extends CommonObject
 			}
 			return 1;
 		} else {
-			$this->error = "Error: ".$this->db->lasterror()." - ".$sql;
+			$this->error = "Error: " . $this->db->lasterror() . " - " . $sql;
 			return -1;
 		}
 	}
@@ -229,49 +229,49 @@ class AdherentType extends CommonObject
 		foreach ($langs_available as $key => $value) {
 			if ($key == $current_lang) {
 				$sql = "SELECT rowid";
-				$sql .= " FROM ".MAIN_DB_PREFIX."adherent_type_lang";
-				$sql .= " WHERE fk_type = ".((int) $this->id);
-				$sql .= " AND lang = '".$this->db->escape($key)."'";
+				$sql .= " FROM " . MAIN_DB_PREFIX . "adherent_type_lang";
+				$sql .= " WHERE fk_type = " . ((int) $this->id);
+				$sql .= " AND lang = '" . $this->db->escape($key) . "'";
 
 				$result = $this->db->query($sql);
 
 				if ($this->db->num_rows($result)) { // if there is already a description line for this language
-					$sql2 = "UPDATE ".MAIN_DB_PREFIX."adherent_type_lang";
+					$sql2 = "UPDATE " . MAIN_DB_PREFIX . "adherent_type_lang";
 					$sql2 .= " SET";
-					$sql2 .= " label = '".$this->db->escape($this->label)."',";
-					$sql2 .= " description = '".$this->db->escape($this->description)."'";
-					$sql2 .= " WHERE fk_type = ".((int) $this->id)." AND lang='".$this->db->escape($key)."'";
+					$sql2 .= " label = '" . $this->db->escape($this->label) . "',";
+					$sql2 .= " description = '" . $this->db->escape($this->description) . "'";
+					$sql2 .= " WHERE fk_type = " . ((int) $this->id) . " AND lang='" . $this->db->escape($key) . "'";
 				} else {
-					$sql2 = "INSERT INTO ".MAIN_DB_PREFIX."adherent_type_lang (fk_type, lang, label, description";
+					$sql2 = "INSERT INTO " . MAIN_DB_PREFIX . "adherent_type_lang (fk_type, lang, label, description";
 					$sql2 .= ")";
-					$sql2 .= " VALUES(".((int) $this->id).",'".$this->db->escape($key)."','".$this->db->escape($this->label)."',";
-					$sql2 .= " '".$this->db->escape($this->description)."'";
+					$sql2 .= " VALUES(" . ((int) $this->id) . ",'" . $this->db->escape($key) . "','" . $this->db->escape($this->label) . "',";
+					$sql2 .= " '" . $this->db->escape($this->description) . "'";
 					$sql2 .= ")";
 				}
-				dol_syslog(get_class($this).'::setMultiLangs key = current_lang = '.$key);
+				dol_syslog(get_class($this) . '::setMultiLangs key = current_lang = ' . $key);
 				if (!$this->db->query($sql2)) {
 					$this->error = $this->db->lasterror();
 					return -1;
 				}
 			} elseif (isset($this->multilangs[$key])) {
 				$sql = "SELECT rowid";
-				$sql .= " FROM ".MAIN_DB_PREFIX."adherent_type_lang";
-				$sql .= " WHERE fk_type = ".((int) $this->id);
-				$sql .= " AND lang = '".$this->db->escape($key)."'";
+				$sql .= " FROM " . MAIN_DB_PREFIX . "adherent_type_lang";
+				$sql .= " WHERE fk_type = " . ((int) $this->id);
+				$sql .= " AND lang = '" . $this->db->escape($key) . "'";
 
 				$result = $this->db->query($sql);
 
 				if ($this->db->num_rows($result)) { // if there is already a description line for this language
-					$sql2 = "UPDATE ".MAIN_DB_PREFIX."adherent_type_lang";
+					$sql2 = "UPDATE " . MAIN_DB_PREFIX . "adherent_type_lang";
 					$sql2 .= " SET ";
-					$sql2 .= " label = '".$this->db->escape($this->multilangs["$key"]["label"])."',";
-					$sql2 .= " description = '".$this->db->escape($this->multilangs["$key"]["description"])."'";
-					$sql2 .= " WHERE fk_type = ".((int) $this->id)." AND lang='".$this->db->escape($key)."'";
+					$sql2 .= " label = '" . $this->db->escape($this->multilangs["$key"]["label"]) . "',";
+					$sql2 .= " description = '" . $this->db->escape($this->multilangs["$key"]["description"]) . "'";
+					$sql2 .= " WHERE fk_type = " . ((int) $this->id) . " AND lang='" . $this->db->escape($key) . "'";
 				} else {
-					$sql2 = "INSERT INTO ".MAIN_DB_PREFIX."adherent_type_lang (fk_type, lang, label, description";
+					$sql2 = "INSERT INTO " . MAIN_DB_PREFIX . "adherent_type_lang (fk_type, lang, label, description";
 					$sql2 .= ")";
-					$sql2 .= " VALUES(".((int) $this->id).",'".$this->db->escape($key)."','".$this->db->escape($this->multilangs["$key"]["label"])."',";
-					$sql2 .= " '".$this->db->escape($this->multilangs["$key"]["description"])."'";
+					$sql2 .= " VALUES(" . ((int) $this->id) . ",'" . $this->db->escape($key) . "','" . $this->db->escape($this->multilangs["$key"]["label"]) . "',";
+					$sql2 .= " '" . $this->db->escape($this->multilangs["$key"]["description"]) . "'";
 					$sql2 .= ")";
 				}
 
@@ -299,32 +299,32 @@ class AdherentType extends CommonObject
 	}
 
 	/**
-		* Delete a language for this member type
-		*
-		* @param string $langtodelete 	Language code to delete
-		* @param User   $user         	Object user making delete
-		* @return int                   Return integer <0 if KO, >0 if OK
-		*/
+	 * Delete a language for this member type
+	 *
+	 * @param string $langtodelete 	Language code to delete
+	 * @param User   $user         	Object user making delete
+	 * @return int                   Return integer <0 if KO, >0 if OK
+	 */
 	public function delMultiLangs($langtodelete, $user)
 	{
-		$sql = "DELETE FROM ".MAIN_DB_PREFIX."adherent_type_lang";
-		$sql .= " WHERE fk_type = ".((int) $this->id)." AND lang = '".$this->db->escape($langtodelete)."'";
+		$sql = "DELETE FROM " . MAIN_DB_PREFIX . "adherent_type_lang";
+		$sql .= " WHERE fk_type = " . ((int) $this->id) . " AND lang = '" . $this->db->escape($langtodelete) . "'";
 
-		dol_syslog(get_class($this).'::delMultiLangs', LOG_DEBUG);
+		dol_syslog(get_class($this) . '::delMultiLangs', LOG_DEBUG);
 		$result = $this->db->query($sql);
 		if ($result) {
 			// Call trigger
 			$result = $this->call_trigger('MEMBER_TYPE_DEL_MULTILANGS', $user);
 			if ($result < 0) {
 				$this->error = $this->db->lasterror();
-				dol_syslog(get_class($this).'::delMultiLangs error='.$this->error, LOG_ERR);
+				dol_syslog(get_class($this) . '::delMultiLangs error=' . $this->error, LOG_ERR);
 				return -1;
 			}
 			// End call triggers
 			return 1;
 		} else {
 			$this->error = $this->db->lasterror();
-			dol_syslog(get_class($this).'::delMultiLangs error='.$this->error, LOG_ERR);
+			dol_syslog(get_class($this) . '::delMultiLangs error=' . $this->error, LOG_ERR);
 			return -1;
 		}
 	}
@@ -347,20 +347,20 @@ class AdherentType extends CommonObject
 
 		$this->db->begin();
 
-		$sql = "INSERT INTO ".MAIN_DB_PREFIX."adherent_type (";
+		$sql = "INSERT INTO " . MAIN_DB_PREFIX . "adherent_type (";
 		$sql .= " morphy";
 		$sql .= ", libelle";
 		$sql .= ", entity";
 		$sql .= ") VALUES (";
-		$sql .= "'".$this->db->escape($this->morphy)."'";
-		$sql .= ", '".$this->db->escape($this->label)."'";
-		$sql .= ", ".((int) $config->entity);
+		$sql .= "'" . $this->db->escape($this->morphy) . "'";
+		$sql .= ", '" . $this->db->escape($this->label) . "'";
+		$sql .= ", " . ((int) $config->entity);
 		$sql .= ")";
 
 		dol_syslog("Adherent_type::create", LOG_DEBUG);
 		$result = $this->db->query($sql);
 		if ($result) {
-			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."adherent_type");
+			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX . "adherent_type");
 
 			$result = $this->update($user, 1);
 			if ($result < 0) {
@@ -381,7 +381,7 @@ class AdherentType extends CommonObject
 				$this->db->commit();
 				return $this->id;
 			} else {
-				dol_syslog(get_class($this)."::create ".$this->error, LOG_ERR);
+				dol_syslog(get_class($this) . "::create " . $this->error, LOG_ERR);
 				$this->db->rollback();
 				return -2;
 			}
@@ -413,19 +413,19 @@ class AdherentType extends CommonObject
 
 		$this->db->begin();
 
-		$sql = "UPDATE ".MAIN_DB_PREFIX."adherent_type ";
+		$sql = "UPDATE " . MAIN_DB_PREFIX . "adherent_type ";
 		$sql .= "SET ";
-		$sql .= "statut = ".((int) $this->status).",";
-		$sql .= "libelle = '".$this->db->escape($this->label)."',";
-		$sql .= "morphy = '".$this->db->escape($this->morphy)."',";
-		$sql .= "subscription = '".$this->db->escape($this->subscription)."',";
-		$sql .= "amount = ".((empty($this->amount) && $this->amount == '') ? "null" : ((float) $this->amount)).",";
-		$sql .= "caneditamount = ".((int) $this->caneditamount).",";
-		$sql .= "duration = '".$this->db->escape($this->duration_value.$this->duration_unit)."',";
-		$sql .= "note = '".$this->db->escape($this->note_public)."',";
-		$sql .= "vote = ".(int) $this->db->escape($this->vote).",";
-		$sql .= "mail_valid = '".$this->db->escape($this->mail_valid)."'";
-		$sql .= " WHERE rowid =".((int) $this->id);
+		$sql .= "statut = " . ((int) $this->status) . ",";
+		$sql .= "libelle = '" . $this->db->escape($this->label) . "',";
+		$sql .= "morphy = '" . $this->db->escape($this->morphy) . "',";
+		$sql .= "subscription = '" . $this->db->escape($this->subscription) . "',";
+		$sql .= "amount = " . ((empty($this->amount) && $this->amount == '') ? "null" : ((float) $this->amount)) . ",";
+		$sql .= "caneditamount = " . ((int) $this->caneditamount) . ",";
+		$sql .= "duration = '" . $this->db->escape($this->duration_value . $this->duration_unit) . "',";
+		$sql .= "note = '" . $this->db->escape($this->note_public) . "',";
+		$sql .= "vote = " . (int) $this->db->escape($this->vote) . ",";
+		$sql .= "mail_valid = '" . $this->db->escape($this->mail_valid) . "'";
+		$sql .= " WHERE rowid =" . ((int) $this->id);
 
 		$result = $this->db->query($sql);
 		if ($result) {
@@ -434,7 +434,7 @@ class AdherentType extends CommonObject
 			// Multilangs
 			if (getDolGlobalInt('MAIN_MULTILANGS')) {
 				if ($this->setMultiLangs($user) < 0) {
-					$this->error = $langs->trans("Error")." : ".$this->db->error()." - ".$sql;
+					$this->error = $langs->trans("Error") . " : " . $this->db->error() . " - " . $sql;
 					return -2;
 				}
 			}
@@ -461,7 +461,7 @@ class AdherentType extends CommonObject
 				return 1;
 			} else {
 				$this->db->rollback();
-				dol_syslog(get_class($this)."::update ".$this->error, LOG_ERR);
+				dol_syslog(get_class($this) . "::update " . $this->error, LOG_ERR);
 				return -$error;
 			}
 		} else {
@@ -481,8 +481,8 @@ class AdherentType extends CommonObject
 	{
 		$error = 0;
 
-		$sql = "DELETE FROM ".MAIN_DB_PREFIX."adherent_type";
-		$sql .= " WHERE rowid = ".((int) $this->id);
+		$sql = "DELETE FROM " . MAIN_DB_PREFIX . "adherent_type";
+		$sql .= " WHERE rowid = " . ((int) $this->id);
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -513,8 +513,8 @@ class AdherentType extends CommonObject
 	public function fetch($rowid)
 	{
 		$sql = "SELECT d.rowid, d.libelle as label, d.morphy, d.statut as status, d.duration, d.subscription, d.amount, d.caneditamount, d.mail_valid, d.note as note_public, d.vote";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent_type as d";
-		$sql .= " WHERE d.rowid = ".(int) $rowid;
+		$sql .= " FROM " . MAIN_DB_PREFIX . "adherent_type as d";
+		$sql .= " WHERE d.rowid = " . (int) $rowid;
 
 		dol_syslog("Adherent_type::fetch", LOG_DEBUG);
 
@@ -571,10 +571,10 @@ class AdherentType extends CommonObject
 		$adherenttypes = array();
 
 		$sql = "SELECT rowid, libelle as label";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent_type";
-		$sql .= " WHERE entity IN (".getEntity('member_type').")";
+		$sql .= " FROM " . MAIN_DB_PREFIX . "adherent_type";
+		$sql .= " WHERE entity IN (" . getEntity('member_type') . ")";
 		if ($status >= 0) {
-			$sql .= " AND statut = ".((int) $status);
+			$sql .= " AND statut = " . ((int) $status);
 		}
 
 		$resql = $this->db->query($sql);
@@ -607,10 +607,10 @@ class AdherentType extends CommonObject
 		$amountbytype = array();
 
 		$sql = "SELECT rowid, amount";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent_type";
-		$sql .= " WHERE entity IN (".getEntity('member_type').")";
+		$sql .= " FROM " . MAIN_DB_PREFIX . "adherent_type";
+		$sql .= " WHERE entity IN (" . getEntity('member_type') . ")";
 		if ($status !== null) {
-			$sql .= " AND statut = ".((int) $status);
+			$sql .= " AND statut = " . ((int) $status);
 		}
 
 		$resql = $this->db->query($sql);
@@ -647,14 +647,14 @@ class AdherentType extends CommonObject
 		$ret = array();
 
 		$sql = "SELECT a.rowid";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a";
-		$sql .= " WHERE a.entity IN (".getEntity('member').")";
-		$sql .= " AND a.fk_adherent_type = ".((int) $this->id);
+		$sql .= " FROM " . MAIN_DB_PREFIX . "adherent as a";
+		$sql .= " WHERE a.entity IN (" . getEntity('member') . ")";
+		$sql .= " AND a.fk_adherent_type = " . ((int) $this->id);
 		if (!empty($excludefilter)) {
-			$sql .= ' AND ('.$excludefilter.')';
+			$sql .= ' AND (' . $excludefilter . ')';
 		}
 
-		dol_syslog(get_class($this)."::listMembersForMemberType", LOG_DEBUG);
+		dol_syslog(get_class($this) . "::listMembersForMemberType", LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -716,16 +716,16 @@ class AdherentType extends CommonObject
 		$langs->load('members');
 
 		$datas = [];
-		$datas['picto'] = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("MemberType").'</u> '.$this->getLibStatut(4);
-		$datas['label'] = '<br>'.$langs->trans("Label").': '.$this->label;
+		$datas['picto'] = img_picto('', $this->picto) . ' <u class="paddingrightonly">' . $langs->trans("MemberType") . '</u> ' . $this->getLibStatut(4);
+		$datas['label'] = '<br>' . $langs->trans("Label") . ': ' . $this->label;
 		if (isset($this->subscription)) {
-			$datas['subscription'] = '<br>'.$langs->trans("SubscriptionRequired").': '.yn($this->subscription);
+			$datas['subscription'] = '<br>' . $langs->trans("SubscriptionRequired") . ': ' . yn($this->subscription);
 		}
 		if (isset($this->vote)) {
-			$datas['vote'] = '<br>'.$langs->trans("VoteAllowed").': '.yn($this->vote);
+			$datas['vote'] = '<br>' . $langs->trans("VoteAllowed") . ': ' . yn($this->vote);
 		}
 		if (isset($this->duration)) {
-			$datas['duration'] = '<br>'.$langs->trans("Duration").': '.$this->duration_value;
+			$datas['duration'] = '<br>' . $langs->trans("Duration") . ': ' . $this->duration_value;
 			if ($this->duration_value > 1) {
 				$dur = array("i" => $langs->trans("Minutes"), "h" => $langs->trans("Hours"), "d" => $langs->trans("Days"), "w" => $langs->trans("Weeks"), "m" => $langs->trans("Months"), "y" => $langs->trans("Years"));
 			} elseif ($this->duration_value > 0) {
@@ -762,13 +762,13 @@ class AdherentType extends CommonObject
 		];
 		if (getDolGlobalInt('MAIN_ENABLE_AJAX_TOOLTIP')) {
 			$classfortooltip = 'classforajaxtooltip';
-			$dataparams = ' data-params="'.dol_escape_htmltag(json_encode($params)).'"';
+			$dataparams = ' data-params="' . dol_escape_htmltag(json_encode($params)) . '"';
 			$label = '';
 		} else {
 			$label = implode($this->getTooltipContentArray($params));
 		}
 
-		$url = DOL_URL_ROOT.'/members/type.php?rowid='.((int) $this->id);
+		$url = DOL_URL_ROOT . '/members/type.php?rowid=' . ((int) $this->id);
 		if ($option != 'nolink') {
 			// Add param to save lastsearch_values or not
 			$add_save_lastsearch_values = ($save_lastsearch_value == 1 ? 1 : 0);
@@ -779,15 +779,15 @@ class AdherentType extends CommonObject
 				$url .= '&save_lastsearch_values=1';
 			}
 		}
-		$linkstart = '<a href="'.$url.'"';
-		$linkstart .= ($label ? ' title="'.dolPrintHTMLForAttribute($label).'"' : ' title="tocomplete"');
-		$linkstart .= $dataparams.' class="'.$classfortooltip.'">';
+		$linkstart = '<a href="' . $url . '"';
+		$linkstart .= ($label ? ' title="' . dolPrintHTMLForAttribute($label) . '"' : ' title="tocomplete"');
+		$linkstart .= $dataparams . ' class="' . $classfortooltip . '">';
 
 		$linkend = '</a>';
 
 		$result .= $linkstart;
 		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), (' class="'.(($withpicto != 2) ? 'paddingright' : '').'"'), 0, 0, $notooltip ? 0 : 1);
+			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), (' class="' . (($withpicto != 2) ? 'paddingright' : '') . '"'), 0, 0, $notooltip ? 0 : 1);
 		}
 		if ($withpicto != 2) {
 			$result .= ($maxlen ? dol_trunc($this->label, $maxlen) : $this->label);
@@ -853,13 +853,13 @@ class AdherentType extends CommonObject
 		// phpcs:enable
 		$dn = '';
 		if ($mode == 0) {
-			$dn = getDolGlobalString('LDAP_KEY_MEMBERS_TYPES') . "=".$info[getDolGlobalString('LDAP_KEY_MEMBERS_TYPES')]."," . getDolGlobalString('LDAP_MEMBER_TYPE_DN');
+			$dn = getDolGlobalString('LDAP_KEY_MEMBERS_TYPES') . "=" . $info[getDolGlobalString('LDAP_KEY_MEMBERS_TYPES')] . "," . getDolGlobalString('LDAP_MEMBER_TYPE_DN');
 		}
 		if ($mode == 1) {
 			$dn = getDolGlobalString('LDAP_MEMBER_TYPE_DN');
 		}
 		if ($mode == 2) {
-			$dn = getDolGlobalString('LDAP_KEY_MEMBERS_TYPES') . "=".$info[getDolGlobalString('LDAP_KEY_MEMBERS_TYPES')];
+			$dn = getDolGlobalString('LDAP_KEY_MEMBERS_TYPES') . "=" . $info[getDolGlobalString('LDAP_KEY_MEMBERS_TYPES')];
 		}
 		return $dn;
 	}
@@ -1016,28 +1016,28 @@ class AdherentType extends CommonObject
 		$return .= img_picto('', $this->picto);
 		$return .= '</span>';
 		$return .= '<div class="info-box-content">';
-		$return .= '<span class="info-box-ref inline-block tdoverflowmax150 valignmiddle">'.(method_exists($this, 'getNomUrl') ? $this->getNomUrl() : $this->ref).'</span>';
+		$return .= '<span class="info-box-ref inline-block tdoverflowmax150 valignmiddle">' . (method_exists($this, 'getNomUrl') ? $this->getNomUrl() : $this->ref) . '</span>';
 
 		//$return .= '<input id="cb'.$this->id.'" class="flat checkforselect fright" type="checkbox" name="toselect[]" value="'.$this->id.'"'.($selected ? ' checked="checked"' : '').'>';
 
 		if ($user->hasRight('adherent', 'configurer')) {
-			$return .= '<span class="right paddingleft"><a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=edit&rowid='.urlencode($this->ref).'">'.img_edit().'</a></span>';
+			$return .= '<span class="right paddingleft"><a class="editfielda" href="' . $_SERVER["PHP_SELF"] . '?action=edit&rowid=' . urlencode($this->ref) . '">' . img_edit() . '</a></span>';
 		} else {
 			$return .= '<span class="right">&nbsp;</span>';
 		}
 		if (property_exists($this, 'vote')) {
-			$return .= '<br><span class="info-box-label opacitymedium">'.$langs->trans("VoteAllowed").' : '.yn($this->vote).'</span>';
+			$return .= '<br><span class="info-box-label opacitymedium">' . $langs->trans("VoteAllowed") . ' : ' . yn($this->vote) . '</span>';
 		}
 		if (property_exists($this, 'amount')) {
 			if (is_null($this->amount) || $this->amount === '') {
 				$return .= '<br>';
 			} else {
-				$return .= '<br><span class="info-box-label opacitymedium">'.$langs->trans("Amount").'</span>';
-				$return .= '<span class="amount"> : '.price($this->amount).'</span>';
+				$return .= '<br><span class="info-box-label opacitymedium">' . $langs->trans("Amount") . '</span>';
+				$return .= '<span class="amount"> : ' . price($this->amount) . '</span>';
 			}
 		}
 		if (method_exists($this, 'getLibStatut')) {
-			$return .= '<br><div class="info-box-status">'.$this->getLibStatut(3).'</div>';
+			$return .= '<br><div class="info-box-status">' . $this->getLibStatut(3) . '</div>';
 		}
 		$return .= '</div>';
 		$return .= '</div>';

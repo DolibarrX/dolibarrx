@@ -30,7 +30,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/ldap.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/ldap.class.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 
 /**
  * @var Conf $conf
@@ -143,7 +143,7 @@ if (getDolGlobalString('LDAP_MEMBER_FIELD_PASSWORD')) {
 	print "</tr>\n";
 }
 
-$adht = new AdherentType($db);
+$adht = new MemberType($db);
 $adht->fetch($object->typeid);
 
 // Type

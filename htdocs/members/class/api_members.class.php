@@ -25,7 +25,7 @@ require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
 require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 
 
 /**
@@ -730,7 +730,7 @@ class Members extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$membertype = new AdherentType($this->db);
+		$membertype = new MemberType($this->db);
 		$result = $membertype->fetch($id);
 		if (!$result) {
 			throw new RestException(404, 'member type not found');
@@ -806,7 +806,7 @@ class Members extends DolibarrApi
 			$min = min($num, ($limit <= 0 ? $num : $limit));
 			while ($i < $min) {
 				$obj = $this->db->fetch_object($result);
-				$membertype = new AdherentType($this->db);
+				$membertype = new MemberType($this->db);
 				if ($membertype->fetch($obj->rowid)) {
 					$obj_ret[] = $this->_filterObjectProperties($this->_cleanObjectDatas($membertype), $properties);
 				}
@@ -857,7 +857,7 @@ class Members extends DolibarrApi
 		// Check mandatory fields
 		$result = $this->_validateType($request_data);
 
-		$membertype = new AdherentType($this->db);
+		$membertype = new MemberType($this->db);
 		foreach ($request_data as $field => $value) {
 			if ($field === 'caller') {
 				// Add a mention of caller so on trigger called after action, we can filter to avoid a loop if we try to sync back again with the caller
@@ -894,7 +894,7 @@ class Members extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$membertype = new AdherentType($this->db);
+		$membertype = new MemberType($this->db);
 		$result = $membertype->fetch($id);
 		if (!$result) {
 			throw new RestException(404, 'member type not found');
@@ -952,7 +952,7 @@ class Members extends DolibarrApi
 		if (!DolibarrApiAccess::$user->hasRight('adherent', 'configurer')) {
 			throw new RestException(403);
 		}
-		$membertype = new AdherentType($this->db);
+		$membertype = new MemberType($this->db);
 		$result = $membertype->fetch($id);
 		if ($result < 1) {
 			throw new RestException(404, 'member type not found');

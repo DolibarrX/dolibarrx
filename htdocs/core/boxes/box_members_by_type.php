@@ -76,7 +76,7 @@ class box_members_by_type extends ModeleBoxes
 		$this->max = $max;
 
 		include_once DOL_DOCUMENT_ROOT . '/members/class/adherent.class.php';
-		require_once DOL_DOCUMENT_ROOT . '/members/class/adherent_type.class.php';
+		require_once DOL_DOCUMENT_ROOT . '/members/class/member_type.class.php';
 		$staticmember = new Adherent($this->db);
 
 		$now = dol_now();
@@ -139,15 +139,15 @@ class box_members_by_type extends ModeleBoxes
 					'text' => $langs->trans("Total")
 				);
 				$line++;
-				$AdherentType = array();
+				$memberType = array();
 				foreach ($sumMembers as $key => $data) {
 					if ($key == 'total') {
 						break;
 					}
-					$adhtype = new AdherentType($this->db);
+					$adhtype = new MemberType($this->db);
 					$adhtype->id = (int) $key;
 					$adhtype->label = $data['label'];
-					$AdherentType[$key] = $adhtype;
+					$memberType[$key] = $adhtype;
 
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="tdoverflowmax150 maxwidth150onsmartphone"',

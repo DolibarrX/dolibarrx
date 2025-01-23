@@ -30,7 +30,7 @@
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 
 
 /**
@@ -56,7 +56,7 @@ $object = new Adherent($db);
 
 $result = $object->fetch($id);
 if ($result > 0) {
-	$adht = new AdherentType($db);
+	$adht = new MemberType($db);
 	$result = $adht->fetch($object->typeid);
 } else {
 	$adht = null;

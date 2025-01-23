@@ -1567,11 +1567,11 @@ if ($source == 'member' || $source == 'membersubscription') {
 	$langs->load("members");
 
 	require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-	require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
 
 	$member = new Adherent($db);
-	$adht = new AdherentType($db);
+	$adht = new MemberType($db);
 
 	$result = $member->fetch(0, $ref, 0, '', true, true);	// This fetch also ->last_subscription_amount
 	if ($result <= 0) {

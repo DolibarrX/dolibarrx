@@ -65,7 +65,7 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/cunits.class.php';
@@ -356,7 +356,7 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 				require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 				$object = $adh;
 
-				$adht = new AdherentType($db);
+				$adht = new MemberType($db);
 				$adht->fetch($object->typeid);
 
 				if ($object->email) {
@@ -520,7 +520,7 @@ if (empty($resHook) && $action == 'added') {	// Test on permission not required 
 
 $form = new Form($db);
 $formcompany = new FormCompany($db);
-$adht = new AdherentType($db);
+$adht = new MemberType($db);
 $extrafields->fetch_name_optionals_label($object->table_element); // fetch optionals attributes and labels
 
 
@@ -776,7 +776,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 
 	if (getDolGlobalString('MEMBER_NEWFORM_PAYONLINE')) {
 		$typeid = getDolGlobalInt('MEMBER_NEWFORM_FORCETYPE', GETPOSTINT('typeid'));
-		$adht = new AdherentType($db);
+		$adht = new MemberType($db);
 		$adht->fetch($typeid);
 		$caneditamount = $adht->caneditamount;
 		$amountbytype = $adht->amountByType(1);		// Load the array of amount per type

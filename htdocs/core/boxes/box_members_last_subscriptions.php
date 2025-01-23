@@ -78,10 +78,10 @@ class box_members_last_subscriptions extends ModeleBoxes
 		$this->max = $max;
 
 		include_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-		require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 		require_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
 		$staticmember = new Adherent($this->db);
-		$statictype = new AdherentType($this->db);
+		$statictype = new MemberType($this->db);
 		$subscriptionstatic = new Subscription($this->db);
 
 		$this->info_box_head = array('text' => $langs->trans("LastSubscriptionsModified", $max));

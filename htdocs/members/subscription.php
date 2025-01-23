@@ -34,7 +34,7 @@ require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
@@ -86,7 +86,7 @@ if (!$sortorder) {
 
 $object = new Adherent($db);
 $extrafields = new ExtraFields($db);
-$adht = new AdherentType($db);
+$adht = new MemberType($db);
 
 // fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -749,7 +749,7 @@ if ($action != 'addsubscription' && $action != 'create_thirdparty') {
 
 		$accountstatic = new Account($db);
 		$adh = new Adherent($db);
-		$adht = new AdherentType($db);
+		$adht = new MemberType($db);
 
 		$i = 0;
 		while ($i < $num) {
@@ -1146,7 +1146,7 @@ if (($action == 'addsubscription' || $action == 'create_thirdparty') && $user->h
 	if (!$object->email) {
 		print $langs->trans("NoEMail");
 	} else {
-		$adht = new AdherentType($db);
+		$adht = new MemberType($db);
 		$adht->fetch($object->typeid);
 
 		// Send subscription email

@@ -32,7 +32,7 @@
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 
@@ -92,7 +92,7 @@ $help_url = 'EN:Module_Foundations|FR:Module_Adh&eacute;rents|ES:M&oacute;dulo_M
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-member page-index');
 
 $staticmember = new Adherent($db);
-$statictype = new AdherentType($db);
+$statictype = new MemberType($db);
 $subscriptionstatic = new Subscription($db);
 
 print load_fiche_titre($langs->trans("MembersArea"), $resultBoxes['selectboxlist'], 'members');

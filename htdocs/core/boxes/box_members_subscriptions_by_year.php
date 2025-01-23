@@ -75,9 +75,9 @@ class box_members_subscriptions_by_year extends ModeleBoxes
 		$this->max = $max;
 
 		include_once DOL_DOCUMENT_ROOT . '/members/class/adherent.class.php';
-		require_once DOL_DOCUMENT_ROOT . '/members/class/adherent_type.class.php';
+		require_once DOL_DOCUMENT_ROOT . '/members/class/member_type.class.php';
 		$memberstatic = new Adherent($this->db);
-		$statictype = new AdherentType($this->db);
+		$statictype = new MemberType($this->db);
 
 		$this->info_box_head = array('text' => $langs->trans("BoxTitleMembersSubscriptionsByYear", $max));
 

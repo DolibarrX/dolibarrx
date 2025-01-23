@@ -27,7 +27,7 @@
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
 if (isModEnabled("bank")) {
 	require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
@@ -45,7 +45,7 @@ if (isModEnabled("bank")) {
 $langs->loadLangs(array("companies", "members", "bills", "users", "banks"));
 
 $adh = new Adherent($db);
-$adht = new AdherentType($db);
+$adht = new MemberType($db);
 $object = new Subscription($db);
 $errmsg = '';
 

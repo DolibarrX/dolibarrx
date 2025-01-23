@@ -31,7 +31,7 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 
 /**
  * @var Conf $conf
@@ -226,7 +226,7 @@ if (getDolGlobalString('MEMBER_ENABLE_PUBLIC')) {
 	print "</tr>\n";
 
 	// Force Type
-	$adht = new AdherentType($db);
+	$adht = new MemberType($db);
 	print '<tr class="oddeven drag" id="trforcetype"><td>';
 	print $langs->trans("ForceMemberType");
 	print '</td><td>';

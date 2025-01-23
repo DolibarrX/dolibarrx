@@ -27,7 +27,7 @@
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/ldap.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/ldap.lib.php';
 
@@ -51,7 +51,7 @@ $hookManager->initHooks(array('membertypeldapcard', 'globalcard'));
 // Security check
 $result = restrictedArea($user, 'adherent', $id, 'adherent_type');
 
-$object = new AdherentType($db);
+$object = new MemberType($db);
 $object->fetch($id);
 
 /*

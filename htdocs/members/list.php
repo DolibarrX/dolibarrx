@@ -34,7 +34,7 @@
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
@@ -356,7 +356,7 @@ if (empty($resHook)) {
 	// Create external user
 	if ($action == 'createsubscription_confirm' && $confirm == "yes" && $user->hasRight('adherent', 'creer')) {
 		$tmpmember = new Adherent($db);
-		$adht = new AdherentType($db);
+		$adht = new MemberType($db);
 		$nbcreated = 0;
 		$now = dol_now();
 		$amount = price2num(GETPOST('amount', 'alpha'));
@@ -397,7 +397,7 @@ if (empty($resHook)) {
 
 $form = new Form($db);
 $formother = new FormOther($db);
-$membertypestatic = new AdherentType($db);
+$membertypestatic = new MemberType($db);
 $memberstatic = new Adherent($db);
 
 $now = dol_now();
@@ -636,7 +636,7 @@ $arrayofselected = is_array($toselect) ? $toselect : array();
 
 
 if ($search_type > 0) {
-	$membertype = new AdherentType($db);
+	$membertype = new MemberType($db);
 	$result = $membertype->fetch($search_type);
 	$title .= " (".$membertype->label.")";
 }
@@ -789,7 +789,7 @@ $objecttmp = new Adherent($db);
 $trackid = 'mem'.$object->id;
 if ($massaction == 'createsubscription') {
 	$tmpmember = new Adherent($db);
-	$adht = new AdherentType($db);
+	$adht = new MemberType($db);
 	$amount = 0;
 	foreach ($toselect as $id) {
 		$now = dol_now();
