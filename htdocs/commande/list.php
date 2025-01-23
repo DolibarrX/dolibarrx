@@ -653,9 +653,9 @@ if (empty($reshook)) {
 					header('Location: '.DOL_URL_ROOT.'/compta/facture/card.php?id='.urlencode((string) $lastid));
 					exit;
 				}
-				$texttoshow = $langs->trans('BillXCreated', '{s1}');
-				$texttoshow = str_replace('{s1}', '<a href="'.DOL_URL_ROOT.'/compta/facture/card.php?id='.urlencode((string) ($lastid)).'">'.$lastref.'</a>', $texttoshow);
-				setEventMessages($texttoshow, null, 'mesgs');
+				$textToShow = $langs->trans('BillXCreated', '{s1}');
+				$textToShow = str_replace('{s1}', '<a href="'.DOL_URL_ROOT.'/compta/facture/card.php?id='.urlencode((string) ($lastid)).'">'.$lastref.'</a>', $textToShow);
+				setEventMessages($textToShow, null, 'mesgs');
 			} else {
 				if (getDolGlobalInt('MAIN_MASSACTION_CREATEBILLS_REDIRECT_IF_MANY') == 1) {
 					// Redirect to invoice list

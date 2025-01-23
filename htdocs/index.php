@@ -109,11 +109,11 @@ if (getDolGlobalString('MAIN_MOTD')) {
 	if (getDolGlobalString('MAIN_MOTD')) {
 		$substitutionArray = getCommonSubstitutionArray($langs);
 		complete_substitutions_array($substitutionArray, $langs);
-		$texttoshow = make_substitutions(getDolGlobalString('MAIN_MOTD'), $substitutionArray, $langs);
+		$textToShow = make_substitutions(getDolGlobalString('MAIN_MOTD'), $substitutionArray, $langs);
 
 		print "\n<!-- Start of welcome text -->\n";
 		print '<table class="centpercent notopnoleftnoright"><tr><td>';
-		print dol_htmlentitiesbr($texttoshow);
+		print dol_htmlentitiesbr($textToShow);
 		print '</td></tr></table><br>';
 		print "\n<!-- End of welcome text -->\n";
 	}

@@ -1083,16 +1083,16 @@ if ($action == 'create' || $action == 'presend') {
 		// Origin
 		/*
 		if ($object->email_msgid) {
-			$texttoshow = $langs->trans("CreatedByEmailCollector");
+			$textToShow = $langs->trans("CreatedByEmailCollector");
 		} elseif ($object->origin_email) {
-			$texttoshow = $langs->trans("FromPublicEmail");
+			$textToShow = $langs->trans("FromPublicEmail");
 		}
-		if ($texttoshow) {
+		if ($textToShow) {
 			print '<tr><td class="titlefield fieldname_email_origin">';
 			print $langs->trans("Origin");
 			print '</td>';
 			print '<td class="valuefield fieldname_email_origin">';
-			print $texttoshow;
+			print $textToShow;
 			print '</td></tr>';
 		}
 		*/

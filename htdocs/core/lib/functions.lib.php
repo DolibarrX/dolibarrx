@@ -13838,22 +13838,22 @@ function readfileLowMemory($fullpath_original_file_osencoded, $method = -1)
  *
  * @param 	string 		$valuetocopy 		The value to print
  * @param	int<0,1>	$showonlyonhover	Show the copy-paste button only on hover
- * @param	string		$texttoshow			Replace the value to show with this text. Use 'none' to show no text (only the copy-paste picto)
+ * @param	string		$textToShow			Replace the value to show with this text. Use 'none' to show no text (only the copy-paste picto)
  * @return 	string 							The string to print for the button
  */
-function showValueWithClipboardCPButton($valuetocopy, $showonlyonhover = 1, $texttoshow = '')
+function showValueWithClipboardCPButton($valuetocopy, $showonlyonhover = 1, $textToShow = '')
 {
 	global $langs;
 
 	$tag = 'span'; 	// Using div (like any style of type 'block') does not work when using the js copy code.
 
 	$result = '<span class="clipboardCP'.($showonlyonhover ? ' clipboardCPShowOnHover' : '').'">';
-	if ($texttoshow === 'none') {
+	if ($textToShow === 'none') {
 		$result .= '<'.$tag.' class="clipboardCPValue hidewithsize">'.dol_escape_htmltag($valuetocopy, 1, 1).'</'.$tag.'>';
 		$result .= '<span class="clipboardCPValueToPrint"></span>';
-	} elseif ($texttoshow) {
+	} elseif ($textToShow) {
 		$result .= '<'.$tag.' class="clipboardCPValue hidewithsize">'.dol_escape_htmltag($valuetocopy, 1, 1).'</'.$tag.'>';
-		$result .= '<span class="clipboardCPValueToPrint">'.dol_escape_htmltag($texttoshow, 1, 1).'</span>';
+		$result .= '<span class="clipboardCPValueToPrint">'.dol_escape_htmltag($textToShow, 1, 1).'</span>';
 	} else {
 		$result .= '<'.$tag.' class="clipboardCPValue">'.dol_escape_htmltag($valuetocopy, 1, 1).'</'.$tag.'>';
 	}

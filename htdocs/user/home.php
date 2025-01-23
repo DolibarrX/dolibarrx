@@ -195,14 +195,14 @@ if ($resql) {
 		}
 		$lastcreatedbox .= "</td>";
 		$lastcreatedbox .= '<td class="tdoverflowmax150" title="'.dol_escape_htmltag($obj->login).'">'.dol_escape_htmltag($obj->login).'</td>';
-		$texttoshow = '';
+		$textToShow = '';
 		if ($obj->fk_soc) {
-			$texttoshow .= $companystatic->getNomUrl(1);
+			$textToShow .= $companystatic->getNomUrl(1);
 		} else {
-			$texttoshow .= '<span class="opacitymedium">'.$langs->trans("InternalUser").'</span>';
+			$textToShow .= '<span class="opacitymedium">'.$langs->trans("InternalUser").'</span>';
 		}
 		if ($obj->ldap_sid) {
-			$texttoshow .= ' <span class="opacitymedium">('.$langs->trans("DomainUser").')</span>';
+			$textToShow .= ' <span class="opacitymedium">('.$langs->trans("DomainUser").')</span>';
 		}
 		$entity = $obj->entity;
 		$entitystring = '';
@@ -215,9 +215,9 @@ if ($resql) {
 				$entitystring = $mc->label;
 			}
 		}
-		$texttoshow .= ($entitystring ? ' <span class="opacitymedium">('.$entitystring.')</span>' : '');
-		$lastcreatedbox .= '<td class="tdoverflowmax150" title="'.dol_escape_htmltag(dol_string_nohtmltag($texttoshow)).'">';
-		$lastcreatedbox .= $texttoshow;
+		$textToShow .= ($entitystring ? ' <span class="opacitymedium">('.$entitystring.')</span>' : '');
+		$lastcreatedbox .= '<td class="tdoverflowmax150" title="'.dol_escape_htmltag(dol_string_nohtmltag($textToShow)).'">';
+		$lastcreatedbox .= $textToShow;
 		$lastcreatedbox .= '</td>';
 		$lastcreatedbox .= '<td class="center nowrap">'.dol_print_date($db->jdate($obj->datec), 'dayhour').'</td>';
 		$lastcreatedbox .= '<td class="right">';

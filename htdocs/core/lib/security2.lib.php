@@ -294,9 +294,9 @@ if (!function_exists('dol_loginfunction')) {
 		if (getDolGlobalString('MAIN_HOME')) {
 			$substitutionArray = getCommonSubstitutionArray($langs);
 			complete_substitutions_array($substitutionArray, $langs);
-			$texttoshow = make_substitutions(getDolGlobalString('MAIN_HOME'), $substitutionArray, $langs);
+			$textToShow = make_substitutions(getDolGlobalString('MAIN_HOME'), $substitutionArray, $langs);
 
-			$main_home = dol_htmlcleanlastbr($texttoshow);
+			$main_home = dol_htmlcleanlastbr($textToShow);
 		}
 
 		// Google AD

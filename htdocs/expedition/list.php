@@ -521,9 +521,9 @@ if (empty($reshook)) {
 			$db->commit();
 
 			if ($nb_bills_created == 1) {
-				$texttoshow = $langs->trans('BillXCreated', '{s1}');
-				$texttoshow = str_replace('{s1}', '<a href="'.DOL_URL_ROOT.'/compta/facture/card.php?id='.urlencode(strval($lastid)).'">'.$lastref.'</a>', $texttoshow);
-				setEventMessages($texttoshow, null, 'mesgs');
+				$textToShow = $langs->trans('BillXCreated', '{s1}');
+				$textToShow = str_replace('{s1}', '<a href="'.DOL_URL_ROOT.'/compta/facture/card.php?id='.urlencode(strval($lastid)).'">'.$lastref.'</a>', $textToShow);
+				setEventMessages($textToShow, null, 'mesgs');
 			} else {
 				setEventMessages($langs->trans('BillCreated', $nb_bills_created), null, 'mesgs');
 			}

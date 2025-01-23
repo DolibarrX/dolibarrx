@@ -6418,22 +6418,22 @@ if ($module == 'initmodule') {
 						print '</td>';
 
 						print '<td>';
-						$texttoshow = null;
+						$textToShow = null;
 						if ($cron['jobtype'] == 'method') {
 							$text = $langs->trans("CronClass");
-							$texttoshow = $langs->trans('CronModule').': '.$module.'<br>';
-							$texttoshow .= $langs->trans('CronClass').': '.$cron['class'].'<br>';
-							$texttoshow .= $langs->trans('CronObject').': '.$cron['objectname'].'<br>';
-							$texttoshow .= $langs->trans('CronMethod').': '.$cron['method'];
-							$texttoshow .= '<br>'.$langs->trans('CronArgs').': '.$cron['parameters'];
-							$texttoshow .= '<br>'.$langs->trans('Comment').': '.$langs->trans($cron['comment']);
+							$textToShow = $langs->trans('CronModule').': '.$module.'<br>';
+							$textToShow .= $langs->trans('CronClass').': '.$cron['class'].'<br>';
+							$textToShow .= $langs->trans('CronObject').': '.$cron['objectname'].'<br>';
+							$textToShow .= $langs->trans('CronMethod').': '.$cron['method'];
+							$textToShow .= '<br>'.$langs->trans('CronArgs').': '.$cron['parameters'];
+							$textToShow .= '<br>'.$langs->trans('Comment').': '.$langs->trans($cron['comment']);
 						} elseif ($cron['jobtype'] == 'command') {
 							$text = $langs->trans('CronCommand');
-							$texttoshow = $langs->trans('CronCommand').': '.dol_trunc($cron['command']);
-							$texttoshow .= '<br>'.$langs->trans('CronArgs').': '.$cron['parameters'];
-							$texttoshow .= '<br>'.$langs->trans('Comment').': '.$langs->trans($cron['comment']);
+							$textToShow = $langs->trans('CronCommand').': '.dol_trunc($cron['command']);
+							$textToShow .= '<br>'.$langs->trans('CronArgs').': '.$cron['parameters'];
+							$textToShow .= '<br>'.$langs->trans('Comment').': '.$langs->trans($cron['comment']);
 						}
-						print $form->textwithpicto($text, $texttoshow, 1);
+						print $form->textwithpicto($text, $textToShow, 1);
 						print '</td>';
 
 						print '<td>';

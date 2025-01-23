@@ -603,21 +603,21 @@ if ($num > 0) {
 		print '<td class="nowraponall">';
 		if ($obj->jobtype == 'method') {
 			$text = img_picto('', 'code');
-			$texttoshow = '<b>'.$langs->trans("CronType_method").'</b><br><br>';
-			$texttoshow .= $langs->trans('CronModule').': '.$obj->module_name.'<br>';
-			$texttoshow .= $langs->trans('CronClass').': '.$obj->classesname.'<br>';
-			$texttoshow .= $langs->trans('CronObject').': '.$obj->objectname.'<br>';
-			$texttoshow .= $langs->trans('CronMethod').': '.$obj->methodename;
-			$texttoshow .= '<br>'.$langs->trans('CronArgs').': '.$obj->params;
-			$texttoshow .= '<br>'.$langs->trans('Comment').': '.$langs->trans($obj->note);
+			$textToShow = '<b>'.$langs->trans("CronType_method").'</b><br><br>';
+			$textToShow .= $langs->trans('CronModule').': '.$obj->module_name.'<br>';
+			$textToShow .= $langs->trans('CronClass').': '.$obj->classesname.'<br>';
+			$textToShow .= $langs->trans('CronObject').': '.$obj->objectname.'<br>';
+			$textToShow .= $langs->trans('CronMethod').': '.$obj->methodename;
+			$textToShow .= '<br>'.$langs->trans('CronArgs').': '.$obj->params;
+			$textToShow .= '<br>'.$langs->trans('Comment').': '.$langs->trans($obj->note);
 		} elseif ($obj->jobtype == 'command') {
 			$text = img_picto('', 'terminal');
-			$texttoshow = '<b>'.$langs->trans('CronType_command').'</b><br><br>';
-			$texttoshow .= $langs->trans('CronCommand').': '.dol_trunc($obj->command);
-			$texttoshow .= '<br>'.$langs->trans('CronArgs').': '.$obj->params;
-			$texttoshow .= '<br>'.$langs->trans('Comment').': '.$langs->trans($obj->note);
+			$textToShow = '<b>'.$langs->trans('CronType_command').'</b><br><br>';
+			$textToShow .= $langs->trans('CronCommand').': '.dol_trunc($obj->command);
+			$textToShow .= '<br>'.$langs->trans('CronArgs').': '.$obj->params;
+			$textToShow .= '<br>'.$langs->trans('Comment').': '.$langs->trans($obj->note);
 		}
-		print '<span class="classfortooltip" title="'.dol_escape_htmltag($texttoshow, 1, 1).'">'.$text.'</a>';
+		print '<span class="classfortooltip" title="'.dol_escape_htmltag($textToShow, 1, 1).'">'.$text.'</a>';
 		print '</td>';
 
 		// Frequency

@@ -190,9 +190,9 @@ for ($i = 1; $i <= $produit_multiprices_limit; $i++) {
 					for ($j = 1; $j < $i; $j++) {
 						$return[$j] = $price_options[$j];
 					}
-					$texttoshow = $langs->trans('PercentVariationOver', '{s1}');
-					$texttoshow = str_replace('{s1}', Form::selectarray("fk_level[$i]", $return, (isset($rules[$i]) ? $rules[$i]->fk_level : null)), $texttoshow);
-					print $texttoshow;
+					$textToShow = $langs->trans('PercentVariationOver', '{s1}');
+					$textToShow = str_replace('{s1}', Form::selectarray("fk_level[$i]", $return, (isset($rules[$i]) ? $rules[$i]->fk_level : null)), $textToShow);
+					print $textToShow;
 					?>
 				</td>
 				<td style="text-align: center">

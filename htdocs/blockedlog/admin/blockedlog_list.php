@@ -643,11 +643,11 @@ if (is_array($blocks)) {
 			// Fingerprint
 			print '<td class="nowraponall">';
 			// Note: the previous line id is not necessarily id-1, so in texttoshow we say "on previous line" without giving id to avoid a search/fetch to get previous id.
-			$texttoshow = $langs->trans("Fingerprint").' - '.$langs->trans("SavedOnLine").' =<br>'.$block->signature;
-			$texttoshow .= '<br><br>'.$langs->trans("Fingerprint").' - Recalculated sha256('.$langs->trans("PreviousHash").' on previous line + data) =<br>'.$checkdetail[$block->id]['calculatedsignature'];
-			$texttoshow .= '<br><span class="opacitymedium">'.$langs->trans("PreviousHash").'='.$checkdetail[$block->id]['previoushash'].'</span>';
-			//$texttoshow .= '<br>keyforsignature='.$checkdetail[$block->id]['keyforsignature'];
-			print $form->textwithpicto(dol_trunc($block->signature, 8), $texttoshow, 1, 'help', '', 0, 2, 'fingerprint'.$block->id);
+			$textToShow = $langs->trans("Fingerprint").' - '.$langs->trans("SavedOnLine").' =<br>'.$block->signature;
+			$textToShow .= '<br><br>'.$langs->trans("Fingerprint").' - Recalculated sha256('.$langs->trans("PreviousHash").' on previous line + data) =<br>'.$checkdetail[$block->id]['calculatedsignature'];
+			$textToShow .= '<br><span class="opacitymedium">'.$langs->trans("PreviousHash").'='.$checkdetail[$block->id]['previoushash'].'</span>';
+			//$textToShow .= '<br>keyforsignature='.$checkdetail[$block->id]['keyforsignature'];
+			print $form->textwithpicto(dol_trunc($block->signature, 8), $textToShow, 1, 'help', '', 0, 2, 'fingerprint'.$block->id);
 			print '</td>';
 
 			// Status

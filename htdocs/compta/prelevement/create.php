@@ -178,13 +178,13 @@ if (empty($reshook)) {
 				}
 			} else {
 				if ($type != 'bank-transfer') {
-					$texttoshow = $langs->trans("DirectDebitOrderCreated", '{s}');
-					$texttoshow = str_replace('{s}', $bprev->getNomUrl(1), $texttoshow);
-					setEventMessages($texttoshow, null);
+					$textToShow = $langs->trans("DirectDebitOrderCreated", '{s}');
+					$textToShow = str_replace('{s}', $bprev->getNomUrl(1), $textToShow);
+					setEventMessages($textToShow, null);
 				} else {
-					$texttoshow = $langs->trans("CreditTransferOrderCreated", '{s}');
-					$texttoshow = str_replace('{s}', $bprev->getNomUrl(1), $texttoshow);
-					setEventMessages($texttoshow, null);
+					$textToShow = $langs->trans("CreditTransferOrderCreated", '{s}');
+					$textToShow = str_replace('{s}', $bprev->getNomUrl(1), $textToShow);
+					setEventMessages($textToShow, null);
 				}
 
 				header("Location: ".DOL_URL_ROOT.'/compta/prelevement/card.php?id='.urlencode((string) ($bprev->id)).'&type='.urlencode((string) ($type)));

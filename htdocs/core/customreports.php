@@ -1240,12 +1240,12 @@ if ($mode == 'graph') {
 
 		$px1->draw($filenamekey, $fileurlkey);
 
-		$texttoshow = $langs->trans("NoRecordFound");
+		$textToShow = $langs->trans("NoRecordFound");
 		if (!GETPOSTISSET('search_measures') || !GETPOSTISSET('search_xaxis')) {
-			$texttoshow = $langs->trans("SelectYourGraphOptionsFirst");
+			$textToShow = $langs->trans("SelectYourGraphOptionsFirst");
 		}
 
-		print $px1->show($totalnbofrecord ? 0 : $texttoshow);
+		print $px1->show($totalnbofrecord ? 0 : $textToShow);
 	}
 }
 

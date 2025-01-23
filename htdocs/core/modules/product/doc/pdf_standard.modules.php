@@ -299,29 +299,29 @@ class pdf_standard extends ModelePDFProduct
 
 				$outputlangs->load("other");
 				if ($object->weight) {
-					$texttoshow = $langs->trans("Weight").': '.dol_htmlentitiesbr($object->weight);
+					$textToShow = $langs->trans("Weight").': '.dol_htmlentitiesbr($object->weight);
 					if (isset($object->weight_units)) {
-						$texttoshow .= ' '.measuring_units_string($object->weight_units, 'weight', 0, 0, $outputlangs);
+						$textToShow .= ' '.measuring_units_string($object->weight_units, 'weight', 0, 0, $outputlangs);
 					}
-					$pdf->writeHTMLCell(190, 3, $this->marge_gauche, $nexY, $texttoshow, 0, 1);
+					$pdf->writeHTMLCell(190, 3, $this->marge_gauche, $nexY, $textToShow, 0, 1);
 					$nexY = $pdf->GetY();
 				}
 				if ($object->length) {
-					$texttoshow = $langs->trans("Length") . ' x ' . $langs->trans("Width") . ' x ' . $langs->trans("Height") . ': ' . ($object->length != '' ? $object->length : '?') . ' x ' . ($object->width != '' ? $object->width : '?') . ' x ' . ($object->height != '' ? $object->height : '?');
-					$texttoshow .= ' ' . measuringUnitString(0, "size", $object->length_units);
-					$pdf->writeHTMLCell(190, 3, $this->marge_gauche, $nexY, $texttoshow, 0, 1);
+					$textToShow = $langs->trans("Length") . ' x ' . $langs->trans("Width") . ' x ' . $langs->trans("Height") . ': ' . ($object->length != '' ? $object->length : '?') . ' x ' . ($object->width != '' ? $object->width : '?') . ' x ' . ($object->height != '' ? $object->height : '?');
+					$textToShow .= ' ' . measuringUnitString(0, "size", $object->length_units);
+					$pdf->writeHTMLCell(190, 3, $this->marge_gauche, $nexY, $textToShow, 0, 1);
 					$nexY = $pdf->GetY();
 				}
 				if ($object->surface) {
-					$texttoshow = $langs->trans("Surface") . ': ' . dol_htmlentitiesbr($object->surface);
-					$texttoshow .= ' ' . measuringUnitString(0, "surface", $object->surface_units);
-					$pdf->writeHTMLCell(190, 3, $this->marge_gauche, $nexY, $texttoshow, 0, 1);
+					$textToShow = $langs->trans("Surface") . ': ' . dol_htmlentitiesbr($object->surface);
+					$textToShow .= ' ' . measuringUnitString(0, "surface", $object->surface_units);
+					$pdf->writeHTMLCell(190, 3, $this->marge_gauche, $nexY, $textToShow, 0, 1);
 					$nexY = $pdf->GetY();
 				}
 				if ($object->volume) {
-					$texttoshow = $langs->trans("Volume") . ': ' . dol_htmlentitiesbr($object->volume);
-					$texttoshow .= ' ' . measuringUnitString(0, "volume", $object->volume_units);
-					$pdf->writeHTMLCell(190, 3, $this->marge_gauche, $nexY, $texttoshow, 0, 1);
+					$textToShow = $langs->trans("Volume") . ': ' . dol_htmlentitiesbr($object->volume);
+					$textToShow .= ' ' . measuringUnitString(0, "volume", $object->volume_units);
+					$pdf->writeHTMLCell(190, 3, $this->marge_gauche, $nexY, $textToShow, 0, 1);
 					$nexY = $pdf->GetY();
 				}
 

@@ -11290,8 +11290,8 @@ class Form
 		//$ret .= '<button type="submit" class="liste_titre button_search paddingleftonly" name="button_search_x" value="x"><span class="fa fa-search"></span></button>';
 
 		//$ret .= search_component_params
-		//$texttoshow = '<div class="opacitymedium inline-block search_component_searchtext">'.$langs->trans("Search").'</div>';
-		//$ret .= '<div class="search_component inline-block valignmiddle">'.$texttoshow.'</div>';
+		//$textToShow = '<div class="opacitymedium inline-block search_component_searchtext">'.$langs->trans("Search").'</div>';
+		//$ret .= '<div class="search_component inline-block valignmiddle">'.$textToShow.'</div>';
 
 		$show_search_component_params_hidden = 1;
 		if ($show_search_component_params_hidden) {

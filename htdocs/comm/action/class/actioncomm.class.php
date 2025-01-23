@@ -1652,10 +1652,10 @@ class ActionComm extends CommonObject
 		if (!empty($this->note_private)) {
 			$datas['description'] = '<br><hr>';
 			// Try to limit length of content
-			$texttoshow = dolGetFirstLineOfText($this->note_private, 10);
+			$textToShow = dolGetFirstLineOfText($this->note_private, 10);
 			// Restrict height of content into the tooltip
 			$datas['note'] = '<div class="tenlinesmax">';
-			$datas['note'] .= (dol_textishtml($texttoshow) ? str_replace(array("\r", "\n"), "", $texttoshow) : str_replace(array("\r", "\n"), '<br>', $texttoshow));
+			$datas['note'] .= (dol_textishtml($textToShow) ? str_replace(array("\r", "\n"), "", $textToShow) : str_replace(array("\r", "\n"), '<br>', $textToShow));
 			$datas['note'] .= '</div>';
 		}
 
@@ -1763,9 +1763,9 @@ class ActionComm extends CommonObject
 		}
 		if (!empty($this->note_private)) {
 			$tooltip .= '<br><hr>';
-			$texttoshow = dolGetFirstLineOfText($this->note_private, 8);	// Try to limit length of content
+			$textToShow = dolGetFirstLineOfText($this->note_private, 8);	// Try to limit length of content
 			$tooltip .= '<div class="tenlinesmax">';						// Restrict height of content into the tooltip
-			$tooltip .= (dol_textishtml($texttoshow) ? str_replace(array("\r", "\n"), "", $texttoshow) : str_replace(array("\r", "\n"), '<br>', $texttoshow));
+			$tooltip .= (dol_textishtml($textToShow) ? str_replace(array("\r", "\n"), "", $textToShow) : str_replace(array("\r", "\n"), '<br>', $textToShow));
 			$tooltip .= '</div>';
 		}
 
