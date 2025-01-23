@@ -1283,7 +1283,7 @@ class Asset extends CommonObject
 					$newlang = $this->thirdparty->default_lang;
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 				}
 				$model = $this->model_pdf;
@@ -1348,7 +1348,7 @@ class Asset extends CommonObject
 					$newlang = $this->thirdparty->default_lang;
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 				}
 				$model = $this->model_pdf;

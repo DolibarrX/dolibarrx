@@ -146,7 +146,7 @@ class DoliDBMysqli extends DoliDB
 						exit;
 					}
 
-					$collation = (empty($conf) ? 'utf8_unicode_ci' : $config->db->dolibarr_main_db_collation);
+					$collation = (empty($config) ? 'utf8_unicode_ci' : $config->db->dolibarr_main_db_collation);
 					if (preg_match('/latin1/', $collation)) {
 						$collation = 'utf8_unicode_ci';
 					}

@@ -41,7 +41,7 @@
 ';
 
 // Protection to avoid direct call of template
-if (empty($conf) || !is_object($conf)) {
+if (empty($config) || !is_object($config)) {
 	print "Error, template page can't be called as URL";
 	exit(1);
 }
@@ -86,7 +86,7 @@ if ($action == 'presend') {
 	}
 
 	if (!empty($newlang)) {
-		$outputlangs = new Translate('', $conf);
+		$outputlangs = new Translate('', $config);
 		$outputlangs->setDefaultLang($newlang);
 		// Load traductions files required by page
 		$outputlangs->loadLangs(array('commercial', 'bills', 'orders', 'contracts', 'main', 'members', 'propal', 'products', 'supplier_proposal', 'interventions', 'receptions', 'sendings'));

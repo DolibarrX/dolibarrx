@@ -35,7 +35,7 @@ $weblangs = null;
 $pagelangs = null;
 
 // Detection browser (copy of code from main.inc.php)
-if (isset($_SERVER["HTTP_USER_AGENT"]) && is_object($conf) && empty($config->browser->name)) {
+if (isset($_SERVER["HTTP_USER_AGENT"]) && is_object($config) && empty($config->browser->name)) {
 	$tmp = getBrowserInfo($_SERVER["HTTP_USER_AGENT"]);
 	$config->browser->name = $tmp['browsername'];
 	$config->browser->os = $tmp['browseros'];
@@ -64,10 +64,10 @@ if (is_null($websitepage)) {
 }
 // Define $weblangs
 if (is_null($weblangs)) {
-	$weblangs = new Translate('', $conf);
+	$weblangs = new Translate('', $config);
 }
 if (is_null($pagelangs)) {
-	$pagelangs = new Translate('', $conf);
+	$pagelangs = new Translate('', $config);
 }
 if (!empty($pageid) && $pageid > 0) {
 	$websitepage->fetch($pageid);

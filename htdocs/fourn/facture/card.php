@@ -260,7 +260,7 @@ if (empty($resHook)) {
 						$newlang = $object->thirdparty->default_lang;
 					}
 					if (!empty($newlang)) {
-						$outputlangs = new Translate("", $conf);
+						$outputlangs = new Translate("", $config);
 						$outputlangs->setDefaultLang($newlang);
 					}
 					$model = $object->model_pdf;
@@ -332,7 +332,7 @@ if (empty($resHook)) {
 			if (getDolGlobalInt('MAIN_MULTILANGS') && empty($newlang))
 				$newlang = $object->thirdparty->default_lang;
 			if (!empty($newlang)) {
-				$outputlangs = new Translate("", $conf);
+				$outputlangs = new Translate("", $config);
 				$outputlangs->setDefaultLang($newlang);
 			}
 			if (!getDolGlobalStringempty('MAIN_DISABLE_PDF_AUTOUPDATE')) {
@@ -403,7 +403,7 @@ if (empty($resHook)) {
 				$newlang = $object->thirdparty->default_lang;
 			}
 			if (!empty($newlang)) {
-				$outputlangs = new Translate("", $conf);
+				$outputlangs = new Translate("", $config);
 				$outputlangs->setDefaultLang($newlang);
 			}
 			if (!getDolGlobalString('MAIN_DISABLE_PDF_AUTOUPDATE')) {
@@ -577,7 +577,7 @@ if (empty($resHook)) {
 				$newlang = $object->thirdparty->default_lang;
 			}
 			if (!empty($newlang)) {
-				$outputlangs = new Translate("", $conf);
+				$outputlangs = new Translate("", $config);
 				$outputlangs->setDefaultLang($newlang);
 			}
 			$ret = $object->fetch($id); // Reload to get new records
@@ -1728,7 +1728,7 @@ if (empty($resHook)) {
 						$newlang = $object->thirdparty->default_lang;
 					}
 					if (!empty($newlang)) {
-						$outputlangs = new Translate("", $conf);
+						$outputlangs = new Translate("", $config);
 						$outputlangs->setDefaultLang($newlang);
 					}
 					$desc = (!empty($productsupplier->multilangs[$outputlangs->defaultlang]["description"])) ? $productsupplier->multilangs[$outputlangs->defaultlang]["description"] : $productsupplier->description;
@@ -1879,7 +1879,7 @@ if (empty($resHook)) {
 					$newlang = $object->thirdparty->default_lang;
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 				}
 				$model = $object->model_pdf;
@@ -1979,7 +1979,7 @@ if (empty($resHook)) {
 						$newlang = $object->thirdparty->default_lang;
 					}
 					if (!empty($newlang)) {
-						$outputlangs = new Translate("", $conf);
+						$outputlangs = new Translate("", $config);
 						$outputlangs->setDefaultLang($newlang);
 					}
 					$model = $object->model_pdf;

@@ -161,7 +161,7 @@ if (empty($resHook)) {
 			if (!getDolGlobalString('MAIN_DISABLE_PDF_AUTOUPDATE')) {
 				$outputlangs = $langs;
 				if (GETPOST('lang_id', 'aZ09')) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang(GETPOST('lang_id', 'aZ09'));
 				}
 

@@ -199,7 +199,7 @@ if (empty($resHook)) {
 					$newlang = $object->thirdparty->default_lang;
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 				}
 				$result = fichinter_create($db, $object, (!GETPOST('model', 'alpha')) ? $object->model_pdf : GETPOST('model', 'alpha'), $outputlangs);
@@ -224,7 +224,7 @@ if (empty($resHook)) {
 					$newlang = $object->thirdparty->default_lang;
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 				}
 				$result = fichinter_create($db, $object, (!GETPOST('model', 'alpha')) ? $object->model_pdf : GETPOST('model', 'alpha'), $outputlangs);
@@ -249,7 +249,7 @@ if (empty($resHook)) {
 					$newlang = $object->thirdparty->default_lang;
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 				}
 				$result = fichinter_create($db, $object, (!GETPOST('model', 'alpha')) ? $object->model_pdf : GETPOST('model', 'alpha'), $outputlangs);
@@ -274,7 +274,7 @@ if (empty($resHook)) {
 					$newlang = $object->thirdparty->default_lang;
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 				}
 				$result = fichinter_create($db, $object, (!GETPOST('model', 'alpha')) ? $object->model_pdf : GETPOST('model', 'alpha'), $outputlangs);
@@ -300,7 +300,7 @@ if (empty($resHook)) {
 					$newlang = $object->thirdparty->default_lang;
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 				}
 				$result = fichinter_create($db, $object, (!GETPOST('model', 'alpha')) ? $object->model_pdf : GETPOST('model', 'alpha'), $outputlangs);
@@ -421,7 +421,7 @@ if (empty($resHook)) {
 												$newlang = $srcobject->thirdparty->default_lang;
 											}
 											if (!empty($newlang)) {
-												$outputlangs = new Translate("", $conf);
+												$outputlangs = new Translate("", $config);
 												$outputlangs->setDefaultLang($newlang);
 											}
 											$label = (!empty($prod->multilangs[$outputlangs->defaultlang]["libelle"])) ? $prod->multilangs[$outputlangs->defaultlang]["libelle"] : $lines[$i]->product_label;
@@ -621,7 +621,7 @@ if (empty($resHook)) {
 				$newlang = $object->thirdparty->default_lang;
 			}
 			if (!empty($newlang)) {
-				$outputlangs = new Translate("", $conf);
+				$outputlangs = new Translate("", $config);
 				$outputlangs->setDefaultLang($newlang);
 			}
 
@@ -710,7 +710,7 @@ if (empty($resHook)) {
 			$newlang = $object->thirdparty->default_lang;
 		}
 		if (!empty($newlang)) {
-			$outputlangs = new Translate("", $conf);
+			$outputlangs = new Translate("", $config);
 			$outputlangs->setDefaultLang($newlang);
 		}
 		if (!getDolGlobalString('MAIN_DISABLE_PDF_AUTOUPDATE')) {
@@ -743,7 +743,7 @@ if (empty($resHook)) {
 			$newlang = $object->thirdparty->default_lang;
 		}
 		if (!empty($newlang)) {
-			$outputlangs = new Translate("", $conf);
+			$outputlangs = new Translate("", $config);
 			$outputlangs->setDefaultLang($newlang);
 		}
 		if (!getDolGlobalString('MAIN_DISABLE_PDF_AUTOUPDATE')) {
@@ -763,7 +763,7 @@ if (empty($resHook)) {
 			$newlang = $object->thirdparty->default_lang;
 		}
 		if (!empty($newlang)) {
-			$outputlangs = new Translate("", $conf);
+			$outputlangs = new Translate("", $config);
 			$outputlangs->setDefaultLang($newlang);
 		}
 		if (!getDolGlobalString('MAIN_DISABLE_PDF_AUTOUPDATE')) {
@@ -785,7 +785,7 @@ if (empty($resHook)) {
 			$newlang = $object->thirdparty->default_lang;
 		}
 		if (!empty($newlang)) {
-			$outputlangs = new Translate("", $conf);
+			$outputlangs = new Translate("", $config);
 			$outputlangs->setDefaultLang($newlang);
 		}
 		if (!getDolGlobalString('MAIN_DISABLE_PDF_AUTOUPDATE')) {

@@ -46,7 +46,7 @@ if (!defined('NOBROWSERNOTIF')) {
  * @var int $setnewpassword
  */
 // Protection to avoid direct call of template
-if (empty($conf) || !is_object($conf)) {
+if (empty($config) || !is_object($config)) {
 	print "Error, template page can't be called as URL";
 	exit(1);
 }

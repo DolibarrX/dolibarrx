@@ -1615,7 +1615,7 @@ class Thirdparties extends DolibarrApi
 			}
 		}
 		if (!empty($newlang)) {
-			$outputlangs = new Translate("", $conf);
+			$outputlangs = new Translate("", $config);
 			$outputlangs->setDefaultLang($newlang);
 		}
 

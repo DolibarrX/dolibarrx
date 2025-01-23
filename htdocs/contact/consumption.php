@@ -538,7 +538,7 @@ if ($sql_select && $documentstatic !== null) {
 					$newlang = $object->default_lang;
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 				}
 

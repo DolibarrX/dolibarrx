@@ -68,7 +68,7 @@ if (empty($dolibarr_nocache)) {
 	header('Cache-Control: no-cache');
 }
 
-//var_dump($conf);
+//var_dump($config);
 
 
 // Wrapper to show tooltips (html or onclick popup)

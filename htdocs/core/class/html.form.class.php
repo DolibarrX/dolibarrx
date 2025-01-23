@@ -7233,7 +7233,7 @@ class Form
 		global $config, $langs;
 
 		if ($gm === 'auto') {
-			$gm = (empty($conf) ? 'tzserver' : $config->tzuserinputkey);
+			$gm = (empty($config) ? 'tzserver' : $config->tzuserinputkey);
 		}
 
 		$retstring = '';

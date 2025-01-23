@@ -94,7 +94,7 @@ if ($dolibarr_main_db_type == 'mssql') {
 
 
 dolibarr_install_syslog("--- upgrade2: entering upgrade2.php page ".$versionfrom." ".$versionto." ".$enablemodules);
-if (!is_object($conf)) {
+if (!is_object($config)) {
 	dolibarr_install_syslog("upgrade2: conf file not initialized", LOG_ERR);
 }
 
@@ -261,57 +261,57 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			$beforeversionarray = explode('.', '2.7.9');
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
 				// Script pour V2 -> V2.1
-				migrate_paiements($db, $langs, $conf);
+				migrate_paiements($db, $langs, $config);
 
-				migrate_contracts_det($db, $langs, $conf);
+				migrate_contracts_det($db, $langs, $config);
 
-				migrate_contracts_date1($db, $langs, $conf);
+				migrate_contracts_date1($db, $langs, $config);
 
-				migrate_contracts_date2($db, $langs, $conf);
+				migrate_contracts_date2($db, $langs, $config);
 
-				migrate_contracts_date3($db, $langs, $conf);
+				migrate_contracts_date3($db, $langs, $config);
 
-				migrate_contracts_open($db, $langs, $conf);
+				migrate_contracts_open($db, $langs, $config);
 
-				migrate_modeles($db, $langs, $conf);
+				migrate_modeles($db, $langs, $config);
 
-				migrate_price_propal($db, $langs, $conf);
+				migrate_price_propal($db, $langs, $config);
 
-				migrate_price_commande($db, $langs, $conf);
+				migrate_price_commande($db, $langs, $config);
 
-				migrate_price_commande_fournisseur($db, $langs, $conf);
+				migrate_price_commande_fournisseur($db, $langs, $config);
 
-				migrate_price_contrat($db, $langs, $conf);
+				migrate_price_contrat($db, $langs, $config);
 
-				migrate_paiementfourn_facturefourn($db, $langs, $conf);
+				migrate_paiementfourn_facturefourn($db, $langs, $config);
 
 
 				// Script pour V2.1 -> V2.2
-				migrate_paiements_orphelins_1($db, $langs, $conf);
+				migrate_paiements_orphelins_1($db, $langs, $config);
 
-				migrate_paiements_orphelins_2($db, $langs, $conf);
+				migrate_paiements_orphelins_2($db, $langs, $config);
 
-				migrate_links_transfert($db, $langs, $conf);
+				migrate_links_transfert($db, $langs, $config);
 
 
 				// Script pour V2.2 -> V2.4
-				migrate_commande_expedition($db, $langs, $conf);
+				migrate_commande_expedition($db, $langs, $config);
 
-				migrate_commande_livraison($db, $langs, $conf);
+				migrate_commande_livraison($db, $langs, $config);
 
-				migrate_detail_livraison($db, $langs, $conf);
+				migrate_detail_livraison($db, $langs, $config);
 
 
 				// Script pour V2.5 -> V2.6
-				migrate_stocks($db, $langs, $conf);
+				migrate_stocks($db, $langs, $config);
 
 
 				// Script pour V2.6 -> V2.7
-				migrate_menus($db, $langs, $conf);
+				migrate_menus($db, $langs, $config);
 
-				migrate_commande_deliveryaddress($db, $langs, $conf);
+				migrate_commande_deliveryaddress($db, $langs, $config);
 
-				migrate_restore_missing_links($db, $langs, $conf);
+				migrate_restore_missing_links($db, $langs, $config);
 
 				migrate_rename_directories($db, $langs, $config, '/compta', '/banque');
 
@@ -323,7 +323,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			$beforeversionarray = explode('.', '2.8.9');
 			//print $versionto.' '.versioncompare($versiontoarray,$afterversionarray).' '.versioncompare($versiontoarray,$beforeversionarray);
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
-				migrate_price_facture($db, $langs, $conf); // Code of this function works for 2.8+ because need a field tva_tx
+				migrate_price_facture($db, $langs, $config); // Code of this function works for 2.8+ because need a field tva_tx
 
 				migrate_relationship_tables($db, $langs, $config, 'co_exp', 'fk_commande', 'commande', 'fk_expedition', 'shipping');
 
@@ -339,22 +339,22 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 
 				migrate_relationship_tables($db, $langs, $config, 'co_fa', 'fk_commande', 'commande', 'fk_facture', 'facture');
 
-				migrate_project_user_resp($db, $langs, $conf);
+				migrate_project_user_resp($db, $langs, $config);
 
-				migrate_project_task_actors($db, $langs, $conf);
+				migrate_project_task_actors($db, $langs, $config);
 			}
 
 			// Script for 2.9
 			$afterversionarray = explode('.', '2.8.9');
 			$beforeversionarray = explode('.', '2.9.9');
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
-				migrate_element_time($db, $langs, $conf);
+				migrate_element_time($db, $langs, $config);
 
-				migrate_customerorder_shipping($db, $langs, $conf);
+				migrate_customerorder_shipping($db, $langs, $config);
 
-				migrate_shipping_delivery($db, $langs, $conf);
+				migrate_shipping_delivery($db, $langs, $config);
 
-				migrate_shipping_delivery2($db, $langs, $conf);
+				migrate_shipping_delivery2($db, $langs, $config);
 			}
 
 			// Script for 3.0
@@ -370,25 +370,25 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
 				migrate_rename_directories($db, $langs, $config, '/rss', '/externalrss');
 
-				migrate_actioncomm_element($db, $langs, $conf);
+				migrate_actioncomm_element($db, $langs, $config);
 			}
 
 			// Script for 3.2
 			$afterversionarray = explode('.', '3.1.9');
 			$beforeversionarray = explode('.', '3.2.9');
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
-				migrate_price_contrat($db, $langs, $conf);
+				migrate_price_contrat($db, $langs, $config);
 
-				migrate_mode_reglement($db, $langs, $conf);
+				migrate_mode_reglement($db, $langs, $config);
 
-				migrate_clean_association($db, $langs, $conf);
+				migrate_clean_association($db, $langs, $config);
 			}
 
 			// Script for 3.3
 			$afterversionarray = explode('.', '3.2.9');
 			$beforeversionarray = explode('.', '3.3.9');
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
-				migrate_categorie_association($db, $langs, $conf);
+				migrate_categorie_association($db, $langs, $config);
 			}
 
 			// Script for 3.4
@@ -398,7 +398,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			$afterversionarray = explode('.', '3.6.9'); // target is after this
 			$beforeversionarray = explode('.', '3.7.9'); // target is before this
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
-				migrate_event_assignement($db, $langs, $conf);
+				migrate_event_assignement($db, $langs, $config);
 			}
 
 			// Scripts for 3.9
@@ -420,10 +420,10 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			$beforeversionarray = explode('.', '5.0.9');
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
 				// Migrate to add entity value into llx_societe_remise
-				migrate_remise_entity($db, $langs, $conf);
+				migrate_remise_entity($db, $langs, $config);
 
 				// Migrate to add entity value into llx_societe_remise_except
-				migrate_remise_except_entity($db, $langs, $conf);
+				migrate_remise_except_entity($db, $langs, $config);
 			}
 
 			// Scripts for 6.0
@@ -436,10 +436,10 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 					// Only if the transverse mode is not used
 					if (empty($multicompany_transverse_mode)) {
 						// Migrate to add entity value into llx_user_rights
-						migrate_user_rights_entity($db, $langs, $conf);
+						migrate_user_rights_entity($db, $langs, $config);
 
 						// Migrate to add entity value into llx_usergroup_rights
-						migrate_usergroup_rights_entity($db, $langs, $conf);
+						migrate_usergroup_rights_entity($db, $langs, $config);
 					}
 				}
 			}
@@ -449,9 +449,9 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			$beforeversionarray = explode('.', '7.0.9');
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
 				// Migrate contact association
-				migrate_event_assignement_contact($db, $langs, $conf);
+				migrate_event_assignement_contact($db, $langs, $config);
 
-				migrate_reset_blocked_log($db, $langs, $conf);
+				migrate_reset_blocked_log($db, $langs, $config);
 			}
 
 			// Scripts for 8.0
@@ -578,7 +578,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 				$error++;
 			}
 			// Reload menus (this must be always and only into last targeted version)
-			$result = migrate_reload_menu($db, $langs, $conf);
+			$result = migrate_reload_menu($db, $langs, $config);
 			if ($result < 0) {
 				$error++;
 			}
@@ -604,7 +604,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 
 		// Can call a dedicated external upgrade process with hook doUpgradeAfterDB()
 		if (!$error) {
-			$parameters = array('versionfrom' => $versionfrom, 'versionto' => $versionto, 'conf' => $conf);
+			$parameters = array('versionfrom' => $versionfrom, 'versionto' => $versionto, 'conf' => $config);
 			$object = new stdClass();
 			$action = "upgrade";
 			$resHook = $hookManager->executeHooks('doUpgradeAfterDB', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
@@ -668,15 +668,15 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 
 
 		// Actions for all versions (no database change but delete some files and directories)
-		migrate_delete_old_files($db, $langs, $conf);
-		migrate_delete_old_dir($db, $langs, $conf);
+		migrate_delete_old_files($db, $langs, $config);
+		migrate_delete_old_dir($db, $langs, $config);
 		// Actions for all versions (no database change but create some directories)
 		dol_mkdir(DOL_DATA_ROOT.'/bank');
 		// Actions for all versions (no database change but rename some directories)
 		migrate_rename_directories($db, $langs, $config, '/banque/bordereau', '/bank/checkdeposits');
 
 
-		$parameters = array('versionfrom' => $versionfrom, 'versionto' => $versionto, 'conf' => $conf);
+		$parameters = array('versionfrom' => $versionfrom, 'versionto' => $versionto, 'conf' => $config);
 		$object = new stdClass();
 		$action = "upgrade";
 		$resHook = $hookManager->executeHooks('doUpgradeAfterFiles', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
@@ -771,7 +771,7 @@ if ($ret) {
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_paiements($db, $langs, $conf)
+function migrate_paiements($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -851,7 +851,7 @@ function migrate_paiements($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_paiements_orphelins_1($db, $langs, $conf)
+function migrate_paiements_orphelins_1($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -961,7 +961,7 @@ function migrate_paiements_orphelins_1($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_paiements_orphelins_2($db, $langs, $conf)
+function migrate_paiements_orphelins_2($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -1085,7 +1085,7 @@ function migrate_paiements_orphelins_2($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_contracts_det($db, $langs, $conf)
+function migrate_contracts_det($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -1170,7 +1170,7 @@ function migrate_contracts_det($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_links_transfert($db, $langs, $conf)
+function migrate_links_transfert($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -1244,7 +1244,7 @@ function migrate_links_transfert($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_contracts_date1($db, $langs, $conf)
+function migrate_contracts_date1($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -1286,7 +1286,7 @@ function migrate_contracts_date1($db, $langs, $conf)
  * @param	Conf		$conf	Conf
  * @return	void
  */
-function migrate_contracts_date2($db, $langs, $conf)
+function migrate_contracts_date2($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -1354,7 +1354,7 @@ function migrate_contracts_date2($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_contracts_date3($db, $langs, $conf)
+function migrate_contracts_date3($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -1384,7 +1384,7 @@ function migrate_contracts_date3($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_contracts_open($db, $langs, $conf)
+function migrate_contracts_open($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -1447,7 +1447,7 @@ function migrate_contracts_open($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_paiementfourn_facturefourn($db, $langs, $conf)
+function migrate_paiementfourn_facturefourn($db, $langs, $config)
 {
 	global $bc;
 
@@ -1543,12 +1543,12 @@ function migrate_paiementfourn_facturefourn($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_price_facture($db, $langs, $conf)
+function migrate_price_facture($db, $langs, $config)
 {
 	$err = 0;
 
 	$tmpmysoc = new Societe($db);
-	$tmpmysoc->setMysoc($conf);
+	$tmpmysoc->setMysoc($config);
 
 	$db->begin();
 
@@ -1648,10 +1648,10 @@ function migrate_price_facture($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_price_propal($db, $langs, $conf)
+function migrate_price_propal($db, $langs, $config)
 {
 	$tmpmysoc = new Societe($db);
-	$tmpmysoc->setMysoc($conf);
+	$tmpmysoc->setMysoc($config);
 
 	$db->begin();
 
@@ -1729,12 +1729,12 @@ function migrate_price_propal($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_price_contrat($db, $langs, $conf)
+function migrate_price_contrat($db, $langs, $config)
 {
 	$db->begin();
 
 	$tmpmysoc = new Societe($db);
-	$tmpmysoc->setMysoc($conf);
+	$tmpmysoc->setMysoc($config);
 	if (empty($tmpmysoc->country_id)) {
 		$tmpmysoc->country_id = 0; // Ti not have this set to '' or will make sql syntax error.
 	}
@@ -1813,12 +1813,12 @@ function migrate_price_contrat($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_price_commande($db, $langs, $conf)
+function migrate_price_commande($db, $langs, $config)
 {
 	$db->begin();
 
 	$tmpmysoc = new Societe($db);
-	$tmpmysoc->setMysoc($conf);
+	$tmpmysoc->setMysoc($config);
 
 	print '<tr><td colspan="4">';
 
@@ -1904,14 +1904,14 @@ function migrate_price_commande($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_price_commande_fournisseur($db, $langs, $conf)
+function migrate_price_commande_fournisseur($db, $langs, $config)
 {
 	global $mysoc;
 
 	$db->begin();
 
 	$tmpmysoc = new Societe($db);
-	$tmpmysoc->setMysoc($conf);
+	$tmpmysoc->setMysoc($config);
 
 	print '<tr><td colspan="4">';
 
@@ -1997,7 +1997,7 @@ function migrate_price_commande_fournisseur($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_modeles($db, $langs, $conf)
+function migrate_modeles($db, $langs, $config)
 {
 	//print '<br>';
 	//print '<b>'.$langs->trans('UpdateModelsTable')."</b><br>\n";
@@ -2055,7 +2055,7 @@ function migrate_modeles($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_commande_expedition($db, $langs, $conf)
+function migrate_commande_expedition($db, $langs, $config)
 {
 	dolibarr_install_syslog("upgrade2::migrate_commande_expedition");
 
@@ -2120,7 +2120,7 @@ function migrate_commande_expedition($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_commande_livraison($db, $langs, $conf)
+function migrate_commande_livraison($db, $langs, $config)
 {
 	dolibarr_install_syslog("upgrade2::migrate_commande_livraison");
 
@@ -2200,7 +2200,7 @@ function migrate_commande_livraison($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_detail_livraison($db, $langs, $conf)
+function migrate_detail_livraison($db, $langs, $config)
 {
 	dolibarr_install_syslog("upgrade2::migrate_detail_livraison");
 
@@ -2302,7 +2302,7 @@ function migrate_detail_livraison($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_stocks($db, $langs, $conf)
+function migrate_stocks($db, $langs, $config)
 {
 	dolibarr_install_syslog("upgrade2::migrate_stocks");
 
@@ -2364,7 +2364,7 @@ function migrate_stocks($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_menus($db, $langs, $conf)
+function migrate_menus($db, $langs, $config)
 {
 	dolibarr_install_syslog("upgrade2::migrate_menus");
 
@@ -2431,7 +2431,7 @@ function migrate_menus($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_commande_deliveryaddress($db, $langs, $conf)
+function migrate_commande_deliveryaddress($db, $langs, $config)
 {
 	dolibarr_install_syslog("upgrade2::migrate_commande_deliveryaddress");
 
@@ -2501,7 +2501,7 @@ function migrate_commande_deliveryaddress($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	integer				Return integer <0 if KO, 0=Bad version, >0 if OK
  */
-function migrate_restore_missing_links($db, $langs, $conf)
+function migrate_restore_missing_links($db, $langs, $config)
 {
 	dolibarr_install_syslog("upgrade2::migrate_restore_missing_links");
 
@@ -2644,7 +2644,7 @@ function migrate_restore_missing_links($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_project_user_resp($db, $langs, $conf)
+function migrate_project_user_resp($db, $langs, $config)
 {
 	dolibarr_install_syslog("upgrade2::migrate_project_user_resp");
 
@@ -2725,7 +2725,7 @@ function migrate_project_user_resp($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_project_task_actors($db, $langs, $conf)
+function migrate_project_task_actors($db, $langs, $config)
 {
 	dolibarr_install_syslog("upgrade2::migrate_project_task_actors");
 
@@ -2886,7 +2886,7 @@ function migrate_relationship_tables($db, $langs, $config, $table, $fk_source, $
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_element_time($db, $langs, $conf)
+function migrate_element_time($db, $langs, $config)
 {
 	dolibarr_install_syslog("upgrade2::migrate_element_time");
 
@@ -2991,7 +2991,7 @@ function migrate_element_time($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_customerorder_shipping($db, $langs, $conf)
+function migrate_customerorder_shipping($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -3075,7 +3075,7 @@ function migrate_customerorder_shipping($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_shipping_delivery($db, $langs, $conf)
+function migrate_shipping_delivery($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -3170,7 +3170,7 @@ function migrate_shipping_delivery($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_shipping_delivery2($db, $langs, $conf)
+function migrate_shipping_delivery2($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -3243,7 +3243,7 @@ function migrate_shipping_delivery2($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_actioncomm_element($db, $langs, $conf)
+function migrate_actioncomm_element($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -3302,7 +3302,7 @@ function migrate_actioncomm_element($db, $langs, $conf)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_mode_reglement($db, $langs, $conf)
+function migrate_mode_reglement($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -3392,7 +3392,7 @@ function migrate_mode_reglement($db, $langs, $conf)
  * @param	Conf		$conf		Object conf
  * @return	void
  */
-function migrate_clean_association($db, $langs, $conf)
+function migrate_clean_association($db, $langs, $config)
 {
 	$result = $db->DDLDescTable(MAIN_DB_PREFIX."categorie_association");
 	if ($result) {	// result defined for version 3.2 or -
@@ -3467,7 +3467,7 @@ function migrate_clean_association($db, $langs, $conf)
  * @param	Conf		$conf			Object conf
  * @return	void
  */
-function migrate_categorie_association($db, $langs, $conf)
+function migrate_categorie_association($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -3533,7 +3533,7 @@ function migrate_categorie_association($db, $langs, $conf)
  * @param	Conf		$conf			Object conf
  * @return	void
  */
-function migrate_event_assignement($db, $langs, $conf)
+function migrate_event_assignement($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -3599,7 +3599,7 @@ function migrate_event_assignement($db, $langs, $conf)
  * @param	Conf		$conf			Object conf
  * @return	void
  */
-function migrate_event_assignement_contact($db, $langs, $conf)
+function migrate_event_assignement_contact($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -3666,7 +3666,7 @@ function migrate_event_assignement_contact($db, $langs, $conf)
  * @param	Conf		$conf			Object conf
  * @return	void
  */
-function migrate_reset_blocked_log($db, $langs, $conf)
+function migrate_reset_blocked_log($db, $langs, $config)
 {
 	global $user;
 
@@ -3765,7 +3765,7 @@ function migrate_reset_blocked_log($db, $langs, $conf)
  * @param	Conf		$conf			Object conf
  * @return	void
  */
-function migrate_remise_entity($db, $langs, $conf)
+function migrate_remise_entity($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -3831,7 +3831,7 @@ function migrate_remise_entity($db, $langs, $conf)
  * @param	Conf		$conf			Object conf
  * @return	void
  */
-function migrate_remise_except_entity($db, $langs, $conf)
+function migrate_remise_except_entity($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -3923,7 +3923,7 @@ function migrate_remise_except_entity($db, $langs, $conf)
  * @param	Conf		$conf			Object conf
  * @return	void
  */
-function migrate_user_rights_entity($db, $langs, $conf)
+function migrate_user_rights_entity($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -3988,7 +3988,7 @@ function migrate_user_rights_entity($db, $langs, $conf)
  * @param	Conf		$conf			Object conf
  * @return	void
  */
-function migrate_usergroup_rights_entity($db, $langs, $conf)
+function migrate_usergroup_rights_entity($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -4074,7 +4074,7 @@ function migrate_rename_directories($db, $langs, $config, $oldname, $newname)
  * @param	Conf		$conf		Object conf
  * @return	boolean
  */
-function migrate_delete_old_files($db, $langs, $conf)
+function migrate_delete_old_files($db, $langs, $config)
 {
 	$ret = true;
 
@@ -4179,7 +4179,7 @@ function migrate_delete_old_files($db, $langs, $conf)
  * @param	Conf		$conf		Object conf
  * @return	boolean
  */
-function migrate_delete_old_dir($db, $langs, $conf)
+function migrate_delete_old_dir($db, $langs, $config)
 {
 	$ret = true;
 
@@ -4363,7 +4363,7 @@ function migrate_reload_modules($db, $langs, $config, $listofmodule = array(), $
  * @param	Conf		$conf		Object conf
  * @return	int						Return integer <0 if KO, >0 if OK
  */
-function migrate_reload_menu($db, $langs, $conf)
+function migrate_reload_menu($db, $langs, $config)
 {
 	global $config;
 	dolibarr_install_syslog("upgrade2::migrate_reload_menu");

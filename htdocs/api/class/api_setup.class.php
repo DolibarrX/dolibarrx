@@ -829,7 +829,7 @@ class Setup extends DolibarrApi
 			// Load the translations if this is a new language.
 			if ($this->translations == null || $this->translations->getDefaultLang() !== $lang) {
 				global $config;
-				$this->translations = new Translate('', $conf);
+				$this->translations = new Translate('', $config);
 				$this->translations->setDefaultLang($lang);
 				$this->translations->loadLangs($dict);
 			}

@@ -53,7 +53,7 @@ if ($action == 'up' && $permissiontoedit) {
 		$newlang = $object->thirdparty->default_lang;
 	}
 	if (!empty($newlang)) {
-		$outputlangs = new Translate("", $conf);
+		$outputlangs = new Translate("", $config);
 		$outputlangs->setDefaultLang($newlang);
 	}
 
@@ -78,7 +78,7 @@ if ($action == 'down' && $permissiontoedit) {
 		$newlang = $object->thirdparty->default_lang;
 	}
 	if (!empty($newlang)) {
-		$outputlangs = new Translate("", $conf);
+		$outputlangs = new Translate("", $config);
 		$outputlangs->setDefaultLang($newlang);
 	}
 	if (!getDolGlobalString('MAIN_DISABLE_PDF_AUTOUPDATE')) {

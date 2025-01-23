@@ -622,7 +622,7 @@ if (empty($resHook)) {
 						$newlang = $object->thirdparty->default_lang;
 					}
 					if (!empty($newlang)) {
-						$outputlangs = new Translate("", $conf);
+						$outputlangs = new Translate("", $config);
 						$outputlangs->setDefaultLang($newlang);
 					}
 
@@ -647,7 +647,7 @@ if (empty($resHook)) {
 							$newlang = $object->thirdparty->default_lang;
 						}
 						if (!empty($newlang)) {
-							$outputlangs = new Translate("", $conf);
+							$outputlangs = new Translate("", $config);
 							$outputlangs->setDefaultLang($newlang);
 							$outputlangs->load('products');
 						}
@@ -726,7 +726,7 @@ if (empty($resHook)) {
 						if (getDolGlobalInt('MAIN_MULTILANGS') && empty($newlang) && GETPOST('lang_id','aZ09')) $newlang = GETPOST('lang_id','aZ09');
 						if (getDolGlobalInt('MAIN_MULTILANGS') && empty($newlang))	$newlang = $object->thirdparty->default_lang;
 						if (!empty($newlang)) {
-						$outputlangs = new Translate("", $conf);
+						$outputlangs = new Translate("", $config);
 						$outputlangs->setDefaultLang($newlang);
 						}
 						$model=$object->model_pdf;
@@ -942,7 +942,7 @@ if (empty($resHook)) {
 						if (getDolGlobalInt('MAIN_MULTILANGS') && empty($newlang))
 							$newlang = $object->thirdparty->default_lang;
 							if (!empty($newlang)) {
-								$outputlangs = new Translate("", $conf);
+								$outputlangs = new Translate("", $config);
 								$outputlangs->setDefaultLang($newlang);
 							}
 

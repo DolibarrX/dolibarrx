@@ -500,7 +500,7 @@ if ($action == 'confirm_deleteline' && $confirm == 'yes' && !empty($permissionto
 			$newlang = $object->thirdparty->default_lang;
 		}
 		if (!empty($newlang)) {
-			$outputlangs = new Translate("", $conf);
+			$outputlangs = new Translate("", $config);
 			$outputlangs->setDefaultLang($newlang);
 		}
 		if (!getDolGlobalString('MAIN_DISABLE_PDF_AUTOUPDATE')) {
@@ -545,7 +545,7 @@ if ($action == 'confirm_validate' && $confirm == 'yes' && $permissiontoadd) {
 					$newlang = !empty($object->thirdparty->default_lang) ? $object->thirdparty->default_lang : "";
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 				}
 
@@ -582,7 +582,7 @@ if ($action == 'confirm_close' && $confirm == 'yes' && $permissiontoadd) {
 					$newlang = $object->thirdparty->default_lang;
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 				}
 				$model = $object->model_pdf;
@@ -626,7 +626,7 @@ if ($action == 'confirm_reopen' && $confirm == 'yes' && $permissiontoadd) {
 					$newlang = $object->thirdparty->default_lang;
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 				}
 				$model = $object->model_pdf;

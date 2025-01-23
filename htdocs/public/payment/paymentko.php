@@ -202,7 +202,7 @@ if (!empty($_SESSION['ipaddress'])) {      // To avoid to make action twice
 			$myCompanyDefaultLang = getLanguageCodeFromCountryCode($mysoc->country_code);
 		}
 
-		$companylangs = new Translate('', $conf);
+		$companylangs = new Translate('', $config);
 		$companylangs->setDefaultLang($myCompanyDefaultLang);
 		$companylangs->loadLangs(array('main', 'members', 'bills', 'paypal', 'paybox', 'stripe'));
 

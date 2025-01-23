@@ -862,7 +862,7 @@ if (!$error && $massaction == "builddoc" && $permissiontoread && !GETPOST('butto
 	//	$newlang = $objecttmp->thirdparty->default_lang;
 	//}
 	if (!empty($newlang)) {
-		$outputlangs = new Translate("", $conf);
+		$outputlangs = new Translate("", $config);
 		$outputlangs->setDefaultLang($newlang);
 	}
 
@@ -1074,7 +1074,7 @@ if (!$error && $massaction == 'validate' && $permissiontoadd) {
 							}
 						}
 						if (!empty($newlang)) {
-							$outputlangs = new Translate("", $conf);
+							$outputlangs = new Translate("", $config);
 							$outputlangs->setDefaultLang($newlang);
 							$outputlangs->load('products');
 						}
@@ -1239,7 +1239,7 @@ EOPHAN;
 				$newlang = $objecttmp->thirdparty->default_lang; // for proposal, order, invoice, ...
 			}
 			if (!empty($newlang)) {
-				$outputlangs = new Translate("", $conf);
+				$outputlangs = new Translate("", $config);
 				$outputlangs->setDefaultLang($newlang);
 			}
 

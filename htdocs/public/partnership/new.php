@@ -361,7 +361,7 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 					include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
 					$formmail = new FormMail($db);
 					// Set output language
-					$outputlangs = new Translate('', $conf);
+					$outputlangs = new Translate('', $config);
 					$outputlangs->setDefaultLang(empty($object->thirdparty->default_lang) ? $mysoc->default_lang : $object->thirdparty->default_lang);
 					// Load traductions files required by page
 					$outputlangs->loadLangs(array("main", "members"));

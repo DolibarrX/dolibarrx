@@ -187,7 +187,7 @@ class Accountancy extends DolibarrApi
 			$doc_date_end = dol_mktime(23, 59, 59, 12, 31, $period_year); // last day of year
 		} elseif ($period == 'fiscalyear' || $period == 'lastfiscalyear' || $period == 'actualandlastfiscalyear') {
 			// find actual fiscal year
-			$cur_fiscal_period = getCurrentPeriodOfFiscalYear($this->db, $conf);
+			$cur_fiscal_period = getCurrentPeriodOfFiscalYear($this->db, $config);
 			$cur_fiscal_date_start = $cur_fiscal_period['date_start'];
 			$cur_fiscal_date_end = $cur_fiscal_period['date_end'];
 

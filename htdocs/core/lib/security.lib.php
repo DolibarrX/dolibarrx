@@ -1292,7 +1292,7 @@ function accessforbidden($message = '', $printheader = 1, $printfooter = 1, $sho
 
 	if (!is_object($langs)) {
 		include_once DOL_DOCUMENT_ROOT.'/core/class/translate.class.php';
-		$langs = new Translate('', $conf);
+		$langs = new Translate('', $config);
 		$langs->setDefaultLang();
 	}
 

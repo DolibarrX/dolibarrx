@@ -247,7 +247,7 @@ function rebuild_merge_pdf($db, $langs, $config, $diroutputpdf, $newlangid, $fil
 					$outputlangs = $langs;
 					if (!empty($newlangid)) {
 						if ($outputlangs->defaultlang != $newlangid) {
-							$outputlangs = new Translate("", $conf);
+							$outputlangs = new Translate("", $config);
 							$outputlangs->setDefaultLang($newlangid);
 						}
 					}

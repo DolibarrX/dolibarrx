@@ -274,13 +274,13 @@ print dol_get_fiche_head($head, $mode, '', -1, '');
 
 $langcode = GETPOSTISSET('langcode') ? GETPOST('langcode') : $langs->defaultlang;
 
-$newlang = new Translate('', $conf);
+$newlang = new Translate('', $config);
 $newlang->setDefaultLang($langcode);
 
-$langsenfileonly = new Translate('', $conf);
+$langsenfileonly = new Translate('', $config);
 $langsenfileonly->setDefaultLang('en_US');
 
-$newlangfileonly = new Translate('', $conf);
+$newlangfileonly = new Translate('', $config);
 $newlangfileonly->setDefaultLang($langcode);
 
 $recordtoshow = array();

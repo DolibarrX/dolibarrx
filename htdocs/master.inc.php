@@ -137,7 +137,7 @@ if (!defined('NOREQUIRESOC')) {
  * Create object $langs (must be before all other code)
  */
 if (!defined('NOREQUIRETRAN')) {
-	$langs = new Translate('', $conf); // Must be after reading conf
+	$langs = new Translate('', $config); // Must be after reading conf
 }
 
 /*
@@ -219,7 +219,7 @@ if (!defined('NOREQUIREDB') && !defined('NOREQUIRESOC')) {
 	require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 
 	$mysoc = new Societe($db);
-	$mysoc->setMysoc($conf);
+	$mysoc->setMysoc($config);
 
 	// We set some specific default values according to country
 

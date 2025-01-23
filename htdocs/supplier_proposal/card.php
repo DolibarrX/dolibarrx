@@ -223,7 +223,7 @@ if (empty($resHook)) {
 			// Define output language
 			$outputlangs = $langs;
 			if (getDolGlobalInt('MAIN_MULTILANGS')) {
-				$outputlangs = new Translate("", $conf);
+				$outputlangs = new Translate("", $config);
 				$newlang = (GETPOST('lang_id', 'aZ09') ? GETPOST('lang_id', 'aZ09') : $object->thirdparty->default_lang);
 				$outputlangs->setDefaultLang($newlang);
 			}
@@ -250,7 +250,7 @@ if (empty($resHook)) {
 					$newlang = $object->thirdparty->default_lang;
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 				}
 				$model = $object->model_pdf;
@@ -492,7 +492,7 @@ if (empty($resHook)) {
 								$newlang = $object->thirdparty->default_lang;
 							}
 							if (!empty($newlang)) {
-								$outputlangs = new Translate("", $conf);
+								$outputlangs = new Translate("", $config);
 								$outputlangs->setDefaultLang($newlang);
 							}
 							$model = $object->model_pdf;
@@ -564,7 +564,7 @@ if (empty($resHook)) {
 			// Define output language
 			$outputlangs = $langs;
 			if (getDolGlobalInt('MAIN_MULTILANGS')) {
-				$outputlangs = new Translate("", $conf);
+				$outputlangs = new Translate("", $config);
 				$newlang = (GETPOST('lang_id', 'aZ09') ? GETPOST('lang_id', 'aZ09') : $object->thirdparty->default_lang);
 				$outputlangs->setDefaultLang($newlang);
 			}
@@ -709,7 +709,7 @@ if (empty($resHook)) {
 							$newlang = $object->thirdparty->default_lang;
 						}
 						if (!empty($newlang)) {
-							$outputlangs = new Translate("", $conf);
+							$outputlangs = new Translate("", $config);
 							$outputlangs->setDefaultLang($newlang);
 						}
 						$desc = (!empty($productsupplier->multilangs[$outputlangs->defaultlang]["description"])) ? $productsupplier->multilangs[$outputlangs->defaultlang]["description"] : $productsupplier->description;
@@ -906,7 +906,7 @@ if (empty($resHook)) {
 						$newlang = $object->thirdparty->default_lang;
 					}
 					if (!empty($newlang)) {
-						$outputlangs = new Translate("", $conf);
+						$outputlangs = new Translate("", $config);
 						$outputlangs->setDefaultLang($newlang);
 					}
 					$model = $object->model_pdf;
@@ -1091,7 +1091,7 @@ if (empty($resHook)) {
 					// Define output language
 					$outputlangs = $langs;
 					if (getDolGlobalInt('MAIN_MULTILANGS')) {
-						$outputlangs = new Translate("", $conf);
+						$outputlangs = new Translate("", $config);
 						$newlang = (GETPOST('lang_id', 'aZ09') ? GETPOST('lang_id', 'aZ09') : $object->thirdparty->default_lang);
 						$outputlangs->setDefaultLang($newlang);
 					}

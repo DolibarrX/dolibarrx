@@ -587,7 +587,7 @@ if ($ispaymentok) {
 				}
 
 				// Set output language
-				$outputlangs = new Translate('', $conf);
+				$outputlangs = new Translate('', $config);
 				$outputlangs->setDefaultLang(empty($object->thirdparty->default_lang) ? $mysoc->default_lang : $object->thirdparty->default_lang);
 				$paymentdate = $now;
 				$amount = $FinalPaymentAmt;
@@ -1444,7 +1444,7 @@ if ($ispaymentok) {
 							include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
 							$formmail = new FormMail($db);
 							// Set output language
-							$outputlangs = new Translate('', $conf);
+							$outputlangs = new Translate('', $config);
 							$outputlangs->setDefaultLang(empty($thirdparty->default_lang) ? $mysoc->default_lang : $thirdparty->default_lang);
 							// Load traductions files required by page
 							$outputlangs->loadLangs(array("main", "members", "eventorganization"));
@@ -1673,7 +1673,7 @@ if ($ispaymentok) {
 										include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
 										$formmail = new FormMail($db);
 										// Set output language
-										$outputlangs = new Translate('', $conf);
+										$outputlangs = new Translate('', $config);
 										$outputlangs->setDefaultLang(empty($thirdparty->default_lang) ? $mysoc->default_lang : $thirdparty->default_lang);
 										// Load traductions files required by page
 										$outputlangs->loadLangs(array("main", "members", "eventorganization"));
@@ -1965,7 +1965,7 @@ if ($ispaymentok) {
 			$myCompanyDefaultLang = getLanguageCodeFromCountryCode($mysoc->country_code);
 		}
 
-		$companylangs = new Translate('', $conf);
+		$companylangs = new Translate('', $config);
 		$companylangs->setDefaultLang($myCompanyDefaultLang);
 		$companylangs->loadLangs(array('main', 'members', 'bills', 'paypal', 'paybox', 'stripe'));
 
@@ -2074,7 +2074,7 @@ if ($ispaymentok) {
 
 	// Send warning of error to administrator
 	if ($sendemail) {
-		$companylangs = new Translate('', $conf);
+		$companylangs = new Translate('', $config);
 		$companylangs->setDefaultLang($mysoc->default_lang);
 		$companylangs->loadLangs(array('main', 'members', 'bills', 'paypal', 'paybox', 'stripe'));
 

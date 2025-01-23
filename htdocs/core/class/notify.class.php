@@ -744,7 +744,7 @@ class Notify
 						// Set output language
 						$outputlangs = $langs;
 						if ($obj->default_lang && $obj->default_lang != $langs->defaultlang) {
-							$outputlangs = new Translate('', $conf);
+							$outputlangs = new Translate('', $config);
 							$outputlangs->setDefaultLang($obj->default_lang);
 							$outputlangs->loadLangs(array("main", "other"));
 						}
@@ -1281,7 +1281,7 @@ class Notify
 				}
 				if (!empty($mailTemplateLabel) && is_object($emailTemplate) && $emailTemplate->id > 0) {
 					if (property_exists($object, 'thirdparty') && $object->thirdparty instanceof Societe && $object->thirdparty->default_lang && $object->thirdparty->default_lang != $langs->defaultlang) {
-						$outputlangs = new Translate('', $conf);
+						$outputlangs = new Translate('', $config);
 						$outputlangs->setDefaultLang($object->thirdparty->default_lang);
 						$outputlangs->loadLangs(array('main', 'other'));
 					}

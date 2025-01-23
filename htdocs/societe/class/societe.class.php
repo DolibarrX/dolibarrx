@@ -4530,7 +4530,7 @@ class Societe extends CommonObject
 	 * 	@param	Conf	$conf		Conf object (possibility to use another entity)
 	 * 	@return	void
 	 */
-	public function setMysoc(Conf $conf)
+	public function setMysoc(Conf $config)
 	{
 		global $langs;
 
@@ -5356,7 +5356,7 @@ class Societe extends CommonObject
 			// Call triggers
 			include_once DOL_DOCUMENT_ROOT.'/core/class/interfaces.class.php';
 			$interface = new Interfaces($this->db);
-			$result = $interface->run_triggers('COMPANY_MODIFY', $this, $user, $langs, $conf);
+			$result = $interface->run_triggers('COMPANY_MODIFY', $this, $user, $langs, $config);
 			if ($result < 0) {
 				$this->errors = $interface->errors;
 				$this->db->rollback();

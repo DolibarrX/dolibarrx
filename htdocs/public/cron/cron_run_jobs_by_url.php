@@ -170,7 +170,7 @@ if (is_array($object->lines) && (count($object->lines) > 0)) {
 			echo " -> we change entity so we reload user and conf";
 
 			$config->entity = (empty($line->entity) ? 1 : $line->entity);
-			$config->setValues($db); // This make also the $mc->setValues($conf); that reload $mc->sharings
+			$config->setValues($db); // This make also the $mc->setValues($config); that reload $mc->sharings
 
 			// Force recheck that user is ok for the entity to process and reload permission for entity
 			if ($config->entity != $user->entity && $user->entity != 0) {

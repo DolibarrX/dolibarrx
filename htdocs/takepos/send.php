@@ -76,7 +76,7 @@ if ($action == "send" && $user->hasRight('takepos', 'run')) {
 	include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 	include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
 	$formmail = new FormMail($db);
-	$outputlangs = new Translate('', $conf);
+	$outputlangs = new Translate('', $config);
 	$model_id = getDolGlobalString('TAKEPOS_EMAIL_TEMPLATE_INVOICE');
 	$arraydefaultmessage = $formmail->getEMailTemplate($db, 'facture_send', $user, $outputlangs, $model_id);
 	$subject = $arraydefaultmessage->topic;

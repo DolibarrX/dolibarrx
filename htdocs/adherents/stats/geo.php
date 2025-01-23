@@ -164,7 +164,7 @@ if ($mode) {
 		//print $sql;
 	}
 
-	$langsen = new Translate('', $conf);
+	$langsen = new Translate('', $config);
 	$langsen->setDefaultLang('en_US');
 	$langsen->load("dict");
 	//print $langsen->trans("Country"."FI");exit;

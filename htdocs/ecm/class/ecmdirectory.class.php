@@ -809,7 +809,7 @@ class EcmDirectory extends CommonObject
 
 		include_once DOL_DOCUMENT_ROOT.'/core/class/interfaces.class.php';
 		$interface = new Interfaces($this->db);
-		$result = $interface->run_triggers($triggerName, $this, $user, $langs, $conf);
+		$result = $interface->run_triggers($triggerName, $this, $user, $langs, $config);
 		if ($result < 0) {
 			if (!empty($this->errors)) {
 				$this->errors = array_merge($this->errors, $interface->errors);

@@ -5392,7 +5392,7 @@ abstract class CommonObject
 						$newlang = $this->thirdparty->default_lang; // To use language of customer
 					}
 					if (!empty($newlang)) {
-						$outputlangs = new Translate("", $conf);
+						$outputlangs = new Translate("", $config);
 						$outputlangs->setDefaultLang($newlang);
 					}
 
@@ -6235,12 +6235,12 @@ abstract class CommonObject
 		}
 		if (!is_object($langs)) {	// If lang was not defined, we set it. It is required by run_triggers().
 			include_once DOL_DOCUMENT_ROOT.'/core/class/translate.class.php';
-			$langs = new Translate('', $conf);
+			$langs = new Translate('', $config);
 		}
 
 		include_once DOL_DOCUMENT_ROOT.'/core/class/interfaces.class.php';
 		$interface = new Interfaces($this->db);
-		$result = $interface->run_triggers($triggerName, $this, $user, $langs, $conf);
+		$result = $interface->run_triggers($triggerName, $this, $user, $langs, $config);
 
 		if ($result < 0) {
 			if (!empty($this->errors)) {

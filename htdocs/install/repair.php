@@ -76,7 +76,7 @@ if ($dolibarr_main_db_type == "mssql") {
 
 
 dolibarr_install_syslog("--- repair: entering upgrade.php page");
-if (!is_object($conf)) {
+if (!is_object($config)) {
 	dolibarr_install_syslog("repair: conf file not initialized", LOG_ERR);
 }
 

@@ -101,7 +101,7 @@ class Translate
 	 *  @param	string	$dir            Force directory that contains /langs subdirectory (value is sometimes '..' like into install/* pages or support/* pages). Use '' by default.
 	 *  @param  Conf	$conf			Object with Dolibarr configuration
 	 */
-	public function __construct($dir, $conf)
+	public function __construct($dir, $config)
 	{
 		if (!empty($config->file->character_set_client)) {
 			$this->charset_output = $config->file->character_set_client; // If charset output is forced

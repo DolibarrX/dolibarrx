@@ -74,7 +74,7 @@ class Interfaces
 	 *   @param     Conf		$conf       Object conf
 	 *   @return    int         			Nb of triggers ran if no error, -Nb of triggers with errors otherwise.
 	 */
-	public function run_triggers($action, $object, $user, $langs, $conf)
+	public function run_triggers($action, $object, $user, $langs, $config)
 	{
 		// phpcs:enable
 
@@ -84,17 +84,17 @@ class Interfaces
 		}
 
 		// Check parameters
-		if (!is_object($object) || !is_object($conf)) {	// Error
-			$error = 'function run_triggers called with wrong parameters action='.$action.' object='.((string) (int) is_object($object)).' user='.((string) (int) is_object($user)).' langs='.((string) (int) is_object($langs)).' conf='.((string) (int) is_object($conf));
+		if (!is_object($object) || !is_object($config)) {	// Error
+			$error = 'function run_triggers called with wrong parameters action='.$action.' object='.((string) (int) is_object($object)).' user='.((string) (int) is_object($user)).' langs='.((string) (int) is_object($langs)).' conf='.((string) (int) is_object($config));
 			dol_syslog(get_class($this).'::run_triggers '.$error, LOG_ERR);
 			$this->errors[] = $error;
 			return -1;
 		}
 		if (!is_object($langs)) {	// Warning
-			dol_syslog(get_class($this).'::run_triggers was called with wrong parameters action='.$action.' object='.((string) (int) is_object($object)).' user='.((string) (int) is_object($user)).' langs='.((string) (int) is_object($langs)).' conf='.((string) (int) is_object($conf)), LOG_WARNING);
+			dol_syslog(get_class($this).'::run_triggers was called with wrong parameters action='.$action.' object='.((string) (int) is_object($object)).' user='.((string) (int) is_object($user)).' langs='.((string) (int) is_object($langs)).' conf='.((string) (int) is_object($config)), LOG_WARNING);
 		}
 		if (!is_object($user)) {	    // Warning
-			dol_syslog(get_class($this).'::run_triggers was called with wrong parameters action='.$action.' object='.((string) (int) is_object($object)).' user='.((string) (int) is_object($user)).' langs='.((string) (int) is_object($langs)).' conf='.((string) (int) is_object($conf)), LOG_WARNING);
+			dol_syslog(get_class($this).'::run_triggers was called with wrong parameters action='.$action.' object='.((string) (int) is_object($object)).' user='.((string) (int) is_object($user)).' langs='.((string) (int) is_object($langs)).' conf='.((string) (int) is_object($config)), LOG_WARNING);
 			$user = new User($this->db);
 		}
 
@@ -195,11 +195,11 @@ class Interfaces
 
 				if (method_exists($objMod, 'runTrigger')) {	// New method to implement
 					//dol_syslog(get_class($this)."::run_triggers action=".$action." Launch runTrigger for file '".$files[$key]."'", LOG_DEBUG);
-					$result = $objMod->runTrigger($action, $object, $user, $langs, $conf);
+					$result = $objMod->runTrigger($action, $object, $user, $langs, $config);
 				} elseif (method_exists($objMod, 'run_trigger')) {	// Deprecated method
 					dol_syslog(get_class($this)."::run_triggers action=".$action." Launch old method run_trigger (rename your trigger into runTrigger) for file '".$files[$key]."'", LOG_WARNING);
 					// @phan-suppress-next-line PhanUndeclaredMethod
-					$result = $objMod->run_trigger($action, $object, $user, $langs, $conf);
+					$result = $objMod->run_trigger($action, $object, $user, $langs, $config);
 				} else {
 					dol_syslog(get_class($this)."::run_triggers action=".$action." A trigger was declared for class ".get_class($objMod)." but method runTrigger was not found", LOG_ERR);
 				}

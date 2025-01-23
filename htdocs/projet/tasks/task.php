@@ -229,7 +229,7 @@ if ($action == 'builddoc' && $user->hasRight('projet', 'creer')) {
 
 	$outputlangs = $langs;
 	if (GETPOST('lang_id', 'aZ09')) {
-		$outputlangs = new Translate("", $conf);
+		$outputlangs = new Translate("", $config);
 		$outputlangs->setDefaultLang(GETPOST('lang_id', 'aZ09'));
 	}
 	$result = $object->generateDocument($object->model_pdf, $outputlangs);

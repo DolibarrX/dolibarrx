@@ -171,7 +171,7 @@ class pdf_strato extends ModelePDFContract
 		global $outputlangsbis;
 		$outputlangsbis = null;
 		if (getDolGlobalString('PDF_USE_ALSO_LANGUAGE_CODE') && $outputlangs->defaultlang != getDolGlobalString('PDF_USE_ALSO_LANGUAGE_CODE')) {
-			$outputlangsbis = new Translate('', $conf);
+			$outputlangsbis = new Translate('', $config);
 			$outputlangsbis->setDefaultLang(getDolGlobalString('PDF_USE_ALSO_LANGUAGE_CODE'));
 			$outputlangsbis->loadLangs(array("main", "dict", "companies", "contracts", "compta"));
 		}

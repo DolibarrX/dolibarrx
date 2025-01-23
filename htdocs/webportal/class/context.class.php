@@ -249,7 +249,7 @@ class Context
 		// call triggers
 		//include_once DOL_DOCUMENT_ROOT . '/core/class/interfaces.class.php';
 		//$interface=new Interfaces($db);
-		//$interface->run_triggers('WebPortalInitController', $this, $logged_user, $langs, $conf);
+		//$interface->run_triggers('WebPortalInitController', $this, $logged_user, $langs, $config);
 
 		// search for controller
 		$this->controllerInstance = new Controller();

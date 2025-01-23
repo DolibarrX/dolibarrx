@@ -3457,7 +3457,7 @@ function dol_print_date($time, $format = '', $tzoutput = 'auto', $outputlangs = 
 	}
 
 	if ($tzoutput === 'auto') {
-		$tzoutput = (empty($conf) ? 'tzserver' : (isset($config->tzuserinputkey) ? $config->tzuserinputkey : 'tzserver'));
+		$tzoutput = (empty($config) ? 'tzserver' : (isset($config->tzuserinputkey) ? $config->tzuserinputkey : 'tzserver'));
 	}
 
 	// Clean parameters
@@ -3754,7 +3754,7 @@ function dol_mktime($hour, $minute, $second, $month, $day, $year, $gm = 'auto', 
 	//print "- ".$hour.",".$minute.",".$second.",".$month.",".$day.",".$year.",".$_SERVER["WINDIR"]." -";
 
 	if ($gm === 'auto') {
-		$gm = (empty($conf) ? 'tzserver' : $config->tzuserinputkey);
+		$gm = (empty($config) ? 'tzserver' : $config->tzuserinputkey);
 	}
 	//print 'gm:'.$gm.' gm === auto:'.($gm === 'auto').'<br>';exit;
 
@@ -6088,7 +6088,7 @@ function dol_print_error($db = null, $error = '', $errors = null)
 	// If error occurs before the $lang object was loaded
 	if (!$langs) {
 		require_once DOL_DOCUMENT_ROOT.'/core/class/translate.class.php';
-		$langs = new Translate('', $conf);
+		$langs = new Translate('', $config);
 		$langs->load("main");
 	}
 
@@ -15104,7 +15104,7 @@ function recordNotFound($message = '', $printheader = 1, $printfooter = 1, $show
 
 	if (!is_object($langs)) {
 		include_once DOL_DOCUMENT_ROOT.'/core/class/translate.class.php';
-		$langs = new Translate('', $conf);
+		$langs = new Translate('', $config);
 		$langs->setDefaultLang();
 	}
 

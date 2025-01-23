@@ -517,7 +517,7 @@ class FactureFournisseur extends CommonInvoice
 				$newlang = $this->default_lang; // for thirdparty  @phan-suppress-current-line PhanUndeclaredProperty
 			}
 			if (!empty($newlang)) {
-				$outputlangs = new Translate("", $conf);
+				$outputlangs = new Translate("", $config);
 				$outputlangs->setDefaultLang($newlang);
 			} // Array of possible substitutions (See also file mailing-send.php that should manage same substitutions)
 			$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $this);
@@ -3529,7 +3529,7 @@ class FactureFournisseur extends CommonInvoice
 					if ($res > 0) {
 						$tmpinvoice->fetch_thirdparty();
 
-						$outputlangs = new Translate('', $conf);
+						$outputlangs = new Translate('', $config);
 						if ($tmpinvoice->thirdparty->default_lang) {
 							$outputlangs->setDefaultLang($tmpinvoice->thirdparty->default_lang);
 							$outputlangs->loadLangs(array("main", "suppliers"));

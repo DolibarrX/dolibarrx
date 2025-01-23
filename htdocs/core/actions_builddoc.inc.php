@@ -88,7 +88,7 @@ if ($action == 'builddoc' && ($permissiontoadd || !empty($usercangeneretedoc))) 
 			$newlang = $object->default_lang; // for thirdparty
 		}
 		if (!empty($newlang)) {
-			$outputlangs = new Translate("", $conf);
+			$outputlangs = new Translate("", $config);
 			$outputlangs->setDefaultLang($newlang);
 		}
 

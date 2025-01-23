@@ -76,7 +76,7 @@ class DolConfigCollector extends ConfigCollector
 		$config = array(
 			'Dolibarr' => array(
 				'const' => $const['user'],
-				'$conf' => $this->objectToArray($conf),
+				'$conf' => $this->objectToArray($config),
 				'$user' => $this->objectToArray($user)
 			),
 			'PHP' => array(

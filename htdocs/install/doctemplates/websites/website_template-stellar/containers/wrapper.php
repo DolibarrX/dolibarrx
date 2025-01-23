@@ -150,7 +150,7 @@ if ($rss) {
 	}
 
 	if ($buildfile) {
-		$outputlangs = new Translate('', $conf);
+		$outputlangs = new Translate('', $config);
 		$outputlangs->setDefaultLang($l);
 		$outputlangs->loadLangs(array("main", "other"));
 		$title = $desc = $outputlangs->transnoentities('LatestBlogPosts');

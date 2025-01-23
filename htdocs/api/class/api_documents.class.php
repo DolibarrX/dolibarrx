@@ -143,7 +143,7 @@ class Documents extends DolibarrApi
 
 		$outputlangs = $langs;
 		if ($langcode && $langs->defaultlang != $langcode) {
-			$outputlangs = new Translate('', $conf);
+			$outputlangs = new Translate('', $config);
 			$outputlangs->setDefaultLang($langcode);
 		}
 

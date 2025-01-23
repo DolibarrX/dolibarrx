@@ -110,7 +110,7 @@ if ($action == 'confirm_valide' && $confirm == 'yes' && $user->rights->tax->char
 			$outputlangs = $langs;
 			if (!empty($_REQUEST['lang_id']))
 			{
-				$outputlangs = new Translate("",$conf);
+				$outputlangs = new Translate("",$config);
 				$outputlangs->setDefaultLang($_REQUEST['lang_id']);
 			}
 			if (empty($config->global->MAIN_DISABLE_PDF_AUTOUPDATE)) {

@@ -1866,7 +1866,7 @@ abstract class CommonInvoice extends CommonObject
 	{
 		global $config, $mysoc;
 
-		$tmplang = new Translate('', $conf);
+		$tmplang = new Translate('', $config);
 		$tmplang->setDefaultLang('en_US');
 		$tmplang->load("main");
 
@@ -1926,7 +1926,7 @@ abstract class CommonInvoice extends CommonObject
 	{
 		global $config, $mysoc;
 
-		$tmplang = new Translate('', $conf);
+		$tmplang = new Translate('', $config);
 		$tmplang->setDefaultLang('en_US');
 		$tmplang->load("main");
 

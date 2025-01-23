@@ -328,7 +328,7 @@ if (@file_exists($lockfile) || @file_exists($lockfile2)) {
 }
 if ($islocked) {	// Pages are locked
 	if (!isset($langs) || !is_object($langs)) {
-		$langs = new Translate('..', $conf);
+		$langs = new Translate('..', $config);
 		$langs->setDefaultLang('auto');
 	}
 	$langs->load("install");
@@ -403,7 +403,7 @@ foreach ($handlers as $handler) {
 }
 
 // Define object $langs
-$langs = new Translate('..', $conf);
+$langs = new Translate('..', $config);
 if (GETPOST('lang', 'aZ09')) {
 	$langs->setDefaultLang(GETPOST('lang', 'aZ09'));
 } else {

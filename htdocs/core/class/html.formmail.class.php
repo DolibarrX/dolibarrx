@@ -512,7 +512,7 @@ class FormMail extends Form
 				$newlang = $this->param['langsmodels'];
 			}
 			if (!empty($newlang)) {
-				$outputlangs = new Translate("", $conf);
+				$outputlangs = new Translate("", $config);
 				$outputlangs->setDefaultLang($newlang);
 				$outputlangs->load('other');
 			}

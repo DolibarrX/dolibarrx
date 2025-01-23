@@ -332,7 +332,7 @@ if (empty($resHook)) {
 				$newlang = $object->thirdparty->default_lang;
 			}
 			if (!empty($newlang)) {
-				$outputlangs = new Translate("", $conf);
+				$outputlangs = new Translate("", $config);
 				$outputlangs->setDefaultLang($newlang);
 				$outputlangs->load('products');
 			}
@@ -585,7 +585,7 @@ if (empty($resHook)) {
 					$newlang = $object->thirdparty->default_lang;
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 					$outputlangs->load('products');
 				}
@@ -670,7 +670,7 @@ if (empty($resHook)) {
 				$newlang = $object->thirdparty->default_lang;
 			}
 			if (!empty($newlang)) {
-				$outputlangs = new Translate("", $conf);
+				$outputlangs = new Translate("", $config);
 				$outputlangs->setDefaultLang($newlang);
 			}
 			$ret = $object->fetch($id); // Reload to get new records
@@ -725,7 +725,7 @@ if (empty($resHook)) {
 						$newlang = $object->thirdparty->default_lang;
 					}
 					if (!empty($newlang)) {
-						$outputlangs = new Translate("", $conf);
+						$outputlangs = new Translate("", $config);
 						$outputlangs->setDefaultLang($newlang);
 						$outputlangs->load('products');
 					}
@@ -816,7 +816,7 @@ if (empty($resHook)) {
 							$newlang = $object->thirdparty->default_lang;
 						}
 						if (!empty($newlang)) {
-							$outputlangs = new Translate("", $conf);
+							$outputlangs = new Translate("", $config);
 							$outputlangs->setDefaultLang($newlang);
 							$outputlangs->load('products');
 						}
@@ -2103,7 +2103,7 @@ if (empty($resHook)) {
 					$newlang = $object->thirdparty->default_lang;
 				}
 				if (!empty($newlang)) {
-					$outputlangs = new Translate("", $conf);
+					$outputlangs = new Translate("", $config);
 					$outputlangs->setDefaultLang($newlang);
 					$outputlangs->load('products');
 				}
@@ -2359,7 +2359,7 @@ if (empty($resHook)) {
 						$newlang = $object->thirdparty->default_lang;
 					}
 					if (!empty($newlang)) {
-						$outputlangs = new Translate("", $conf);
+						$outputlangs = new Translate("", $config);
 						$outputlangs->setDefaultLang($newlang);
 						$outputlangs->load('products');
 					}
@@ -2394,7 +2394,7 @@ if (empty($resHook)) {
 							$newlang = $object->thirdparty->default_lang;
 						}
 						if (!empty($newlang)) {
-							$outputlangs = new Translate("", $conf);
+							$outputlangs = new Translate("", $config);
 							$outputlangs->setDefaultLang($newlang);
 							$outputlangs->load('products');
 						}
@@ -2549,7 +2549,7 @@ if (empty($resHook)) {
 							$newlang = $object->thirdparty->default_lang;
 						}
 						if (!empty($newlang)) {
-							$outputlangs = new Translate("", $conf);
+							$outputlangs = new Translate("", $config);
 							$outputlangs->setDefaultLang($newlang);
 							$outputlangs->load('products');
 						}
@@ -2849,7 +2849,7 @@ if (empty($resHook)) {
 						$newlang = $object->thirdparty->default_lang;
 					}
 					if (!empty($newlang)) {
-						$outputlangs = new Translate("", $conf);
+						$outputlangs = new Translate("", $config);
 						$outputlangs->setDefaultLang($newlang);
 						$outputlangs->load('products');
 					}
