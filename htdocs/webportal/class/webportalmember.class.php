@@ -25,7 +25,7 @@
  */
 
 // Put here all includes required by your class file
-require_once DOL_DOCUMENT_ROOT . '/adherents/class/adherent.class.php';
+require_once DOL_DOCUMENT_ROOT . '/members/class/adherent.class.php';
 
 /**
  * Class for WebPortalMember
@@ -283,9 +283,9 @@ class WebPortalMember extends Adherent
 		}
 
 		$url = '';
-		//$url = DOL_URL_ROOT.'/adherents/card.php?rowid='.((int) $this->id);
+		//$url = DOL_URL_ROOT.'/members/card.php?rowid='.((int) $this->id);
 		//if ($option == 'subscription') {
-		//    $url = DOL_URL_ROOT.'/adherents/subscription.php?rowid='.((int) $this->id);
+		//    $url = DOL_URL_ROOT.'/members/subscription.php?rowid='.((int) $this->id);
 		//}
 
 		//if ($option != 'nolink') {
@@ -364,7 +364,7 @@ class WebPortalMember extends Adherent
 		//    if ($this->note_private) {
 		//        $notetoshow = $langs->trans("ViewPrivateNote").':<br>'.dol_string_nohtmltag($this->note_private, 1);
 		//        $result .= ' <span class="note inline-block">';
-		//        $result .= '<a href="'.DOL_URL_ROOT.'/adherents/note.php?id='.$this->id.'" class="classfortooltip" title="'.dol_escape_htmltag($notetoshow).'">';
+		//        $result .= '<a href="'.DOL_URL_ROOT.'/members/note.php?id='.$this->id.'" class="classfortooltip" title="'.dol_escape_htmltag($notetoshow).'">';
 		//        $result .= img_picto('', 'note');
 		//        $result .= '</a>';
 		//        $result .= '</span>';

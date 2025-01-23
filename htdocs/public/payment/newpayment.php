@@ -1566,9 +1566,9 @@ if ($source == 'member' || $source == 'membersubscription') {
 	$found = true;
 	$langs->load("members");
 
-	require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
-	require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
-	require_once DOL_DOCUMENT_ROOT.'/adherents/class/subscription.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
 
 	$member = new Adherent($db);
 	$adht = new AdherentType($db);

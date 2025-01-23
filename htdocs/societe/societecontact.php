@@ -216,8 +216,8 @@ if ($id > 0 || !empty($ref)) {
 
 		// additional list with adherents of company
 		if (isModEnabled('member') && $user->hasRight('adherent', 'lire')) {
-			require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
-			require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent_type.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/members/class/adherent_type.class.php';
 
 			$membertypestatic = new AdherentType($db);
 			$memberstatic = new Adherent($db);

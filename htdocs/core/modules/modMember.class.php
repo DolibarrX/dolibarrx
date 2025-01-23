@@ -61,7 +61,7 @@ class modMember extends DolibarrModules
 
 		// Data directories to create when module is enabled
 		$this->dirs = array(
-			"/adherent/temp",
+			"/members/temp",
 			"/doctemplates/members",
 		);
 
@@ -406,7 +406,7 @@ class modMember extends DolibarrModules
 		$this->cronjobs = array(
 			0=>array(
 				'label'=>'SendReminderForExpiredSubscriptionTitle',
-				'jobtype'=>'method', 'class'=>'adherents/class/adherent.class.php',
+				'jobtype'=>'method', 'class'=>'members/class/adherent.class.php',
 				'objectname'=>'Adherent',
 				'method'=>'sendReminderForExpiredSubscription',
 				'parameters'=>'10;0',

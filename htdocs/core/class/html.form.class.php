@@ -8284,7 +8284,7 @@ class Form
 			$placeholder = '';
 
 			if ($selected && empty($selected_input_value)) {
-				require_once DOL_DOCUMENT_ROOT . '/adherents/class/adherent.class.php';
+				require_once DOL_DOCUMENT_ROOT . '/members/class/adherent.class.php';
 				$adherenttmpselect = new Adherent($this->db);
 				$adherenttmpselect->fetch($selected);
 				$selected_input_value = $adherenttmpselect->ref;
@@ -8293,7 +8293,7 @@ class Form
 
 			$urloption = '';
 
-			$out .= ajax_autocompleter($selected, $htmlname, DOL_URL_ROOT . '/adherents/ajax/adherents.php', $urloption, $config->global->PRODUIT_USE_SEARCH_TO_SELECT, 1, $ajaxoptions);
+			$out .= ajax_autocompleter($selected, $htmlname, DOL_URL_ROOT . '/members/ajax/adherents.php', $urloption, $config->global->PRODUIT_USE_SEARCH_TO_SELECT, 1, $ajaxoptions);
 
 			if (empty($hidelabel)) {
 				$out .= $langs->trans("RefOrLabel") . ' : ';
@@ -8383,7 +8383,7 @@ class Form
 		dol_syslog(get_class($this) . "::selectMembersList search adherents", LOG_DEBUG);
 		$result = $this->db->query($sql);
 		if ($result) {
-			require_once DOL_DOCUMENT_ROOT . '/adherents/class/adherent.class.php';
+			require_once DOL_DOCUMENT_ROOT . '/members/class/adherent.class.php';
 			require_once DOL_DOCUMENT_ROOT . '/core/lib/member.lib.php';
 
 			$num = $this->db->num_rows($result);
