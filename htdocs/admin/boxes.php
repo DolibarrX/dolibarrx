@@ -108,11 +108,11 @@ if ($action == 'add') {
 						$resql = $db->query($sql);
 						if ($resql) {
 							while ($obj = $db->fetch_object($resql)) {
-								$boxorder = $obj->box_order;
-								if (preg_match('/A/', $boxorder)) {
+								$boxOrder = $obj->box_order;
+								if (preg_match('/A/', $boxOrder)) {
 									$nbboxonleft++;
 								}
-								if (preg_match('/B/', $boxorder)) {
+								if (preg_match('/B/', $boxOrder)) {
 									$nbboxonright++;
 								}
 								$arrayofexistingboxid[$obj->box_id] = 1;

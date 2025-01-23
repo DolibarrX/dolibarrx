@@ -219,11 +219,11 @@ class InfoBox
 	 *
 	 *  @param	DoliDB	$dbs			Database handler
 	 *  @param	int		$zone       	Key of area (0 for Homepage, ...)
-	 *  @param  string  $boxorder   	List of boxes with correct order 'A:123,456,...-B:789,321...'
+	 *  @param  string  $boxOrder   	List of boxes with correct order 'A:123,456,...-B:789,321...'
 	 *  @param  int     $userId     	Id of user
 	 *  @return int                   	Return integer <0 if KO, 0=Nothing done, > 0 if OK
 	 */
-	public static function saveboxorder($dbs, $zone, $boxorder, $userId = 0)
+	public static function saveboxorder($dbs, $zone, $boxOrder, $userId = 0)
 	{
 		global $conf;
 
@@ -261,7 +261,7 @@ class InfoBox
 		dol_syslog(self::class."::saveboxorder", LOG_DEBUG);
 		$result = $dbs->query($sql);
 		if ($result) {
-			$colonnes = explode('-', $boxorder);
+			$colonnes = explode('-', $boxOrder);
 			foreach ($colonnes as $collist) {
 				$part = explode(':', $collist);
 				$colonne = $part[0];

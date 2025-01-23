@@ -68,10 +68,10 @@ if (GETPOST('addbox')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/infobox.class.php';
 	$zone = GETPOSTINT('areacode');
 	$userId = GETPOSTINT('userid');
-	$boxorder = GETPOST('boxorder', 'aZ09');
-	$boxorder .= GETPOST('boxcombo', 'aZ09');
+	$boxOrder = GETPOST('boxorder', 'aZ09');
+	$boxOrder .= GETPOST('boxcombo', 'aZ09');
 
-	$result = InfoBox::saveboxorder($db, $zone, $boxorder, $userId);
+	$result = InfoBox::saveboxorder($db, $zone, $boxOrder, $userId);
 	if ($result > 0) {
 		setEventMessages($langs->trans("BoxAdded"), null);
 	}

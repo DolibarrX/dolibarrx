@@ -52,7 +52,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/infobox.class.php';
  */
 
 $boxid = GETPOSTINT('boxid');
-$boxorder = GETPOST('boxorder');
+$boxOrder = GETPOST('boxorder');
 $zone = GETPOST('zone');		// Can be key for zone
 if ($zone !== '') {
 	$zone = (int) $zone;
@@ -75,23 +75,23 @@ print '<!-- Ajax page called with url '.dol_escape_htmltag($_SERVER["PHP_SELF"])
 
 // Add a box
 if ($boxid > 0 && $zone != '' && $userId > 0) {
-	$tmp = explode('-', $boxorder);
+	$tmp = explode('-', $boxOrder);
 	$nbboxonleft = substr_count($tmp[0], ',');
 	$nbboxonright = substr_count($tmp[1], ',');
 	print $nbboxonleft.'-'.$nbboxonright;
 	if ($nbboxonleft > $nbboxonright) {
-		$boxorder = preg_replace('/B:/', 'B:'.$boxid.',', $boxorder); // Insert id of new box into list
+		$boxOrder = preg_replace('/B:/', 'B:'.$boxid.',', $boxOrder); // Insert id of new box into list
 	} else {
-		$boxorder = preg_replace('/^A:/', 'A:'.$boxid.',', $boxorder); // Insert id of new box into list
+		$boxOrder = preg_replace('/^A:/', 'A:'.$boxid.',', $boxOrder); // Insert id of new box into list
 	}
 }
 
 // Registering the location of boxes after a move
-if ($boxorder && $zone != '' && $userId > 0) {
+if ($boxOrder && $zone != '' && $userId > 0) {
 	// boxorder value is the target order: "A:idboxA1,idboxA2,A-B:idboxB1,idboxB2,B"
-	dol_syslog("AjaxBox boxorder=".$boxorder." zone=".$zone." userid=".$userId, LOG_DEBUG);
+	dol_syslog("AjaxBox boxorder=".$boxOrder." zone=".$zone." userid=".$userId, LOG_DEBUG);
 
-	$result = InfoBox::saveboxorder($db, (int) $zone, $boxorder, $userId);
+	$result = InfoBox::saveboxorder($db, (int) $zone, $boxOrder, $userId);
 	if ($result > 0) {
 		$langs->load("boxes");
 		if (!GETPOST('closing')) {

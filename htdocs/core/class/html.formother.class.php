@@ -1258,7 +1258,7 @@ class FormOther
 		// Define selectboxlist
 		$arrayboxtoactivatelabel = array();
 		if (!empty($user->conf->$confuserzone)) {
-			$boxorder = '';
+			$boxOrder = '';
 			$langs->load("boxes"); // Load label of boxes
 			foreach ($boxactivated as $box) {
 				if (!empty($boxidactivatedforuser[$box->id])) {
@@ -1273,10 +1273,10 @@ class FormOther
 				$arrayboxtoactivatelabel[$box->id] = array('label' => $label, 'data-html' => img_picto('', $box->boximg, 'class="pictofixedwidth valignmiddle"').'<span class="valignmiddle">'.$langs->trans($label).'</span>'); // We keep only boxes not shown for user, to show into combo list
 			}
 			foreach ($boxidactivatedforuser as $boxid) {
-				if (empty($boxorder)) {
-					$boxorder .= 'A:';
+				if (empty($boxOrder)) {
+					$boxOrder .= 'A:';
 				}
-				$boxorder .= $boxid.',';
+				$boxOrder .= $boxid.',';
 			}
 
 			//var_dump($boxidactivatedforuser);
@@ -1288,7 +1288,7 @@ class FormOther
 			$selectboxlist .= '<input type="hidden" name="addbox" value="addbox">';
 			$selectboxlist .= '<input type="hidden" name="userid" value="'.$user->id.'">';
 			$selectboxlist .= '<input type="hidden" name="areacode" value="'.$areacode.'">';
-			$selectboxlist .= '<input type="hidden" name="boxorder" value="'.$boxorder.'">';
+			$selectboxlist .= '<input type="hidden" name="boxorder" value="'.$boxOrder.'">';
 			$selectboxlist .= Form::selectarray('boxcombo', $arrayboxtoactivatelabel, -1, $langs->trans("ChooseBoxToAdd").'...', 0, 0, '', 0, 0, 0, 'ASC', 'maxwidth300 hideonprint', 0, 'hidden selected', 0, 0);
 			if (empty($config->use_javascript_ajax)) {
 				$selectboxlist .= ' <input type="submit" class="button" value="'.$langs->trans("AddBox").'">';
