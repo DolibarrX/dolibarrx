@@ -702,7 +702,7 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 			}
 		}
 
-		$nbworkboardcount = 0;
+		$nbWorkBoardCount = 0;
 		foreach ($validDashboardLines as $infoKey => $board) {
 			if (in_array($infoKey, $isIntopOpenedDashBoard)) {
 				// skip if info is present on top
@@ -712,7 +712,7 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 			if (empty($board->nbtodo)) {
 				$nbworkboardempty++;
 			}
-			$nbworkboardcount++;
+			$nbWorkBoardCount++;
 
 
 			$textlate = $langs->trans("NActionsLate", $board->nbtodolate);
@@ -786,7 +786,7 @@ print '<div class="fichecenter fichecenterbis">';
 $boxList = '<div class="twocolumns">';
 
 $boxList .= '<div class="firstcolumn fichehalfleft boxhalfleft" id="boxhalfleft">';
-if (!empty($nbworkboardcount)) {
+if (!empty($nbWorkBoardCount)) {
 	$boxList .= $boxwork;
 }
 
