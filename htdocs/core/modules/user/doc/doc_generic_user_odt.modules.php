@@ -374,7 +374,7 @@ class doc_generic_user_odt extends ModelePDFUser
 				$object->fetch_optionals();
 				// Call the ODTSubstitution hook
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs, 'substitutionarray' => &$tmparray);
-				$reshook = $hookManager->executeHooks('ODTSubstitution', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('ODTSubstitution', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				foreach ($tmparray as $key => $value) {
 					try {
 						if (preg_match('/logo$/', $key)) { // Image
@@ -403,7 +403,7 @@ class doc_generic_user_odt extends ModelePDFUser
 
 				// Call the beforeODTSave hook
 				$parameters = array('odfHandler' => &$odfHandler, 'file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
-				$reshook = $hookManager->executeHooks('beforeODTSave', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('beforeODTSave', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Write new file
 				if (getDolGlobalString('MAIN_ODT_AS_PDF')) {
@@ -424,7 +424,7 @@ class doc_generic_user_odt extends ModelePDFUser
 					}
 				}
 
-				$reshook = $hookManager->executeHooks('afterODTCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('afterODTCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 				dolChmod($file);
 

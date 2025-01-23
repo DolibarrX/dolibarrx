@@ -101,13 +101,13 @@ $result = restrictedArea($user, 'facture', $object->id, '', '', 'fk_soc', $field
 $error = 0;
 
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 $paiement_id = 0;
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if (($action == 'add_paiement' || ($action == 'confirm_paiement' && $confirm == 'yes')) && $usercanissuepayment) {
 		$datepaye = dol_mktime(12, 0, 0, GETPOSTINT('remonth'), GETPOSTINT('reday'), GETPOSTINT('reyear'));
 		$totalpayment = 0;
@@ -638,7 +638,7 @@ if ($result >= 0) {
 			print '<td class="right">'.$langs->trans('PaymentAmount').'</td>';
 
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $facture, $action); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $facture, $action); // Note that $action and $object may have been modified by hook
 
 			print '<td align="right">&nbsp;</td>';
 			print "</tr>\n";
@@ -832,7 +832,7 @@ if ($result >= 0) {
 				print "</td>";
 
 				$parameters = array();
-				$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $objp, $action); // Note that $action and $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $objp, $action); // Note that $action and $object may have been modified by hook
 
 				// Warning
 				print '<td align="center" width="16">';
@@ -931,10 +931,10 @@ if ($result >= 0) {
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm);
-	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		$formconfirm .= $hookManager->resPrint;
-	} elseif ($reshook > 0) {
+	} elseif ($resHook > 0) {
 		$formconfirm = $hookManager->resPrint;
 	}
 

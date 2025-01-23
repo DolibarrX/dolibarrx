@@ -2024,8 +2024,8 @@ class Expedition extends CommonObject
 		global $action;
 		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;

@@ -605,7 +605,7 @@ var closeBillParams="";
 function CloseBill() {
 	<?php
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('paramsForCloseBill', $parameters, $obj, $action);
+	$resHook = $hookManager->executeHooks('paramsForCloseBill', $parameters, $obj, $action);
 	if (getDolGlobalString('TAKEPOS_FORBID_SALES_TO_DEFAULT_CUSTOMER')) {
 		echo "customerAnchorTag = document.querySelector('a[id=\"customer\"]'); ";
 		echo "if (customerAnchorTag && customerAnchorTag.innerText.trim() === '".$langs->trans("Customer")."') { ";
@@ -1186,8 +1186,8 @@ if (!getDolGlobalString('TAKEPOS_HIDE_HEAD_BAR')) {
 			</div>
 			<div id="topnav-right" class="topnav-right">
 				<?php
-				$reshook = $hookManager->executeHooks('takepos_login_block_other');
-				if ($reshook == 0) {  //Search method
+				$resHook = $hookManager->executeHooks('takepos_login_block_other');
+				if ($resHook == 0) {  //Search method
 					?>
 					<div class="login_block_other takepos">
 					<input type="text" id="search" name="search" class="input-nobottom" onkeyup="Search2('<?php echo dol_escape_js($keyCodeForEnter); ?>', null);" placeholder="<?php echo dol_escape_htmltag($langs->trans("Search")); ?>" autofocus>
@@ -1457,15 +1457,15 @@ if ($resql) {
 }
 
 $parameters = array('menus' => $menus);
-$reshook = $hookManager->executeHooks('ActionButtons', $parameters);
-if ($reshook == 0) {  //add buttons
+$resHook = $hookManager->executeHooks('ActionButtons', $parameters);
+if ($resHook == 0) {  //add buttons
 	if (is_array($hookManager->resArray)) {
 		foreach ($hookManager->resArray as $resArray) {
 			foreach ($resArray as $butmenu) {
 				$menus[$r++] = $butmenu;
 			}
 		}
-	} elseif ($reshook == 1) {
+	} elseif ($resHook == 1) {
 		$r = 0; //replace buttons
 		if (is_array($hookManager->resArray)) {
 			foreach ($hookManager->resArray as $resArray) {

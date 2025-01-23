@@ -180,12 +180,12 @@ $term = empty($_SESSION["takeposterminal"]) ? 1 : $_SESSION["takeposterminal"];
  */
 $error = 0;
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Action to record a payment on a TakePOS invoice
 	if ($action == 'valid' && $user->hasRight('facture', 'creer')) {
 		$bankaccount = 0;
@@ -830,13 +830,13 @@ if (empty($reshook)) {
 
 			// complete line by hook
 			$parameters = array('prod' => $prod, 'line' => $line);
-			$reshook = $hookManager->executeHooks('completeTakePosAddLine', $parameters, $invoice, $action);    // Note that $action and $line may have been modified by some hooks
-			if ($reshook < 0) {
+			$resHook = $hookManager->executeHooks('completeTakePosAddLine', $parameters, $invoice, $action);    // Note that $action and $line may have been modified by some hooks
+			if ($resHook < 0) {
 				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			}
 
 
-			if (empty($reshook)) {
+			if (empty($resHook)) {
 				if (!empty($hookManager->resArray)) {
 					$line = $hookManager->resArray;
 				}
@@ -1745,8 +1745,8 @@ if (!$usediv) {
 
 // Complete header by hook
 $parameters = array();
-$reshook = $hookManager->executeHooks('completeTakePosInvoiceHeader', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('completeTakePosInvoiceHeader', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 print $hookManager->resPrint;
@@ -1912,8 +1912,8 @@ if ($placeid > 0) {
 
 				// complete line by hook
 				$parameters = array('line' => $line);
-				$reshook = $hookManager->executeHooks('completeTakePosInvoiceParentLine', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('completeTakePosInvoiceParentLine', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 				$htmlsupplements[$line->fk_parent_line] .= $hookManager->resPrint;
@@ -2025,8 +2025,8 @@ if ($placeid > 0) {
 
 				// complete line by hook
 				$parameters = array('line' => $line);
-				$reshook = $hookManager->executeHooks('completeTakePosInvoiceLine', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('completeTakePosInvoiceLine', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 				$htmlforlines .= $hookManager->resPrint;

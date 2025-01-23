@@ -610,11 +610,11 @@ if ($id) {
 				if ($action == 'edit' && ($rowid == (!empty($obj->rowid) ? $obj->rowid : $obj->code))) {
 					$tmpaction = 'edit';
 					$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-					$reshook = $hookManager->executeHooks('editWebsiteFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+					$resHook = $hookManager->executeHooks('editWebsiteFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 					$error = $hookManager->error;
 					$errors = $hookManager->errors;
 
-					if (empty($reshook)) {
+					if (empty($resHook)) {
 						fieldListWebsites($fieldlist, $obj, $tabname[$id], 'edit');
 					}
 
@@ -626,12 +626,12 @@ if ($id) {
 				} else {
 					$tmpaction = 'view';
 					$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-					$reshook = $hookManager->executeHooks('viewWebsiteFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+					$resHook = $hookManager->executeHooks('viewWebsiteFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 
 					$error = $hookManager->error;
 					$errors = $hookManager->errors;
 
-					if (empty($reshook)) {
+					if (empty($resHook)) {
 						foreach ($fieldlist as $field => $value) {
 							$showfield = 1;
 							$fieldname = $fieldlist[$field];

@@ -723,8 +723,8 @@ function show_stats_for_company($product, $socid)
 		print '</tr>';
 	}
 	$parameters = array('socid' => $socid);
-	$reshook = $hookManager->executeHooks('addMoreProductStat', $parameters, $product, $nblines); // Note that $action and $object may have been modified by some hooks
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('addMoreProductStat', $parameters, $product, $nblines); // Note that $action and $object may have been modified by some hooks
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
@@ -843,8 +843,8 @@ function show_stats_for_batch($batch, $socid)
 	}
 
 	$parameters = array('socid' => $socid);
-	$reshook = $hookManager->executeHooks('addMoreBatchProductStat', $parameters, $batch, $nblines); // Note that $action and $object may have been modified by some hooks
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('addMoreBatchProductStat', $parameters, $batch, $nblines); // Note that $action and $object may have been modified by some hooks
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 

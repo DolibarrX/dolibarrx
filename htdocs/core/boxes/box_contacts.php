@@ -112,8 +112,8 @@ class box_contacts extends ModeleBoxes
 			$sql .= " AND ((sp.fk_user_creat = ".((int) $user->id)." AND sp.priv = 1) OR sp.priv = 0)"; // check if this is a private contact
 			// Add where from hooks
 			$parameters = array('socid' => $user->socid, 'boxcode' => $this->boxcode);
-			$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $contactstatic); // Note that $action and $object may have been modified by hook
-			if (empty($reshook)) {
+			$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $contactstatic); // Note that $action and $object may have been modified by hook
+			if (empty($resHook)) {
 				if ($user->socid > 0) {
 					$sql .= " AND sp.fk_soc = ".((int) $user->socid);
 				}

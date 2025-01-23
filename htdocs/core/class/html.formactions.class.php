@@ -242,14 +242,14 @@ class FormActions
 				'urlbacktopage' => $urlbacktopage
 			);
 
-			$reshook = $hookManager->executeHooks('showActionsLoadFicheTitre', $parameters, $object);
+			$resHook = $hookManager->executeHooks('showActionsLoadFicheTitre', $parameters, $object);
 
-			if ($reshook < 0) {
+			if ($resHook < 0) {
 				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			}
 
 			$error = 0;
-			if (empty($reshook)) {
+			if (empty($resHook)) {
 				print '<!-- formactions->showactions -->' . "\n";
 				print load_fiche_titre($title, $morehtmlright, '', 0, '', '', $morehtmlcenter);
 			}

@@ -179,12 +179,12 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 }
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Selection of new fields
 	include DOL_DOCUMENT_ROOT.'/core/actions_changeselectedfields.inc.php';
 
@@ -258,7 +258,7 @@ $sql .= ' pl.rowid as lotid, pl.eatby, pl.sellby,';
 $sql .= ' SUM(pb.qty) as stock_physique, COUNT(pb.rowid) as nbinbatchtable';
 // Add fields from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= ' FROM '.MAIN_DB_PREFIX.'product as p';
 $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product_stock as ps on p.rowid = ps.fk_product'; // Detail for each warehouse
@@ -267,7 +267,7 @@ $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product_batch as pb on pb.fk_product_stock
 $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product_lot as pl on pl.fk_product = p.rowid AND pl.batch = pb.batch'; // Link on unique key
 // Add table from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " WHERE p.entity IN (".getEntity('product').") AND e.entity IN (".getEntity('stock').")";
 if (!empty($search_categ) && $search_categ != '-1') {
@@ -375,7 +375,7 @@ foreach ($search as $key => $val) {
 }
 // Add where from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 $sql .= " GROUP BY p.rowid, p.ref, p.label, p.barcode, p.price, p.price_ttc, p.price_base_type, p.entity,";
@@ -387,7 +387,7 @@ $sql .= " pb.batch, pb.eatby, pb.sellby,";
 $sql .= " pl.rowid, pl.eatby, pl.sellby";
 // Add GROUP BY from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListGroupBy', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListGroupBy', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql_having = '';
 if ($search_toolowstock) {
@@ -405,7 +405,7 @@ if ($search_stock_physique != '') {
 }
 // Add HAVING from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object); // Note that $action and $object may have been modified by hook
 if (!empty($hookManager->resPrint)) {
 	if (!empty($sql_having)) {
 		$sql_having .= " AND";
@@ -591,7 +591,7 @@ $moreforfilter .= '<label for="search_subjecttolotserial">'.$langs->trans("Subje
 print '<div class="liste_titre liste_titre_bydiv centpercent">';
 print $moreforfilter;
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 print '</div>';
 
@@ -652,7 +652,7 @@ print '<td class="liste_titre">&nbsp;</td>';
 print '<td class="liste_titre">&nbsp;</td>';
 print '<td class="liste_titre">&nbsp;</td>';
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListOption', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListOption', $parameters); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
@@ -695,7 +695,7 @@ print_liste_field_titre("ProductStatusOnSell", $_SERVER["PHP_SELF"], "p.tosell",
 print_liste_field_titre("ProductStatusOnBuy", $_SERVER["PHP_SELF"], "p.tobuy", "", $param, '', $sortfield, $sortorder, 'right ');
 // Hook fields
 $parameters = array('param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print_liste_field_titre('');
@@ -884,7 +884,7 @@ while ($i < $imaxinloop) {
 
 	// Fields values from hook
 	$parameters = array('obj' => $objp);
-	$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $product); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $product); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	// Action column

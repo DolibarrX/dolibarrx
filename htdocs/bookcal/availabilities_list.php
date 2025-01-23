@@ -113,10 +113,10 @@ $fieldstosearchall = array();
 // 	}
 // }
 // $parameters = array('fieldstosearchall'=>$fieldstosearchall);
-// $reshook = $hookManager->executeHooks('completeFieldsToSearchAll', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-// if ($reshook > 0) {
+// $resHook = $hookManager->executeHooks('completeFieldsToSearchAll', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+// if ($resHook > 0) {
 // 	$fieldstosearchall = empty($hookManager->resArray['fieldstosearchall']) ? array() : $hookManager->resArray['fieldstosearchall'];
-// } elseif ($reshook == 0) {
+// } elseif ($resHook == 0) {
 // 	$fieldstosearchall = array_merge($fieldstosearchall, empty($hookManager->resArray['fieldstosearchall']) ? array() : $hookManager->resArray['fieldstosearchall']);
 // }
 
@@ -190,12 +190,12 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 }
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Selection of new fields
 	include DOL_DOCUMENT_ROOT.'/core/actions_changeselectedfields.inc.php';
 
@@ -255,7 +255,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 }
 // Add fields from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
 //$sql .= ", COUNT(rc.rowid) as anotherfield";
@@ -272,7 +272,7 @@ if (isset($extrafields->attributes[$object->table_element]['label']) && is_array
 }
 // Add table from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 if ($object->ismultientitymanaged == 1  || $object->ismultientitymanaged != '') { // value is fk_bookcal_calendar@bookcal_calendar
 	$sql .= " WHERE bc.rowid = t.fk_bookcal_calendar";
@@ -317,7 +317,7 @@ if ($search_all) {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 /* If a group by is required
@@ -333,7 +333,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 }
 // Add groupby from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListGroupBy', $parameters, $object, $action);    // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListGroupBy', $parameters, $object, $action);    // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
 */
@@ -341,7 +341,7 @@ $sql = preg_replace('/,\s*$/', '', $sql);
 // Add HAVING from hooks
 /*
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= empty($hookManager->resPrint) ? "" : " HAVING 1=1 ".$hookManager->resPrint;
 */
 
@@ -444,7 +444,7 @@ foreach ($search as $key => $val) {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_param.tpl.php';
 // Add $param from hooks
 $parameters = array('param' => &$param);
-$reshook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $param .= $hookManager->resPrint;
 
 // List of mass actions available
@@ -507,8 +507,8 @@ $moreforfilter.= $langs->trans('MyFilter') . ': <input type="text" name="search_
 $moreforfilter.= '</div>';*/
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
 } else {
 	$moreforfilter = $hookManager->resPrint;
@@ -579,7 +579,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_input.tpl.php';
 
 // Fields from hook
 $parameters = array('arrayfields' => $arrayfields);
-$reshook = $hookManager->executeHooks('printFieldListOption', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListOption', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 /*if (!empty($arrayfields['anotherfield']['checked'])) {
 	print '<td class="liste_titre"></td>';
@@ -625,7 +625,7 @@ foreach ($object->fields as $key => $val) {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_title.tpl.php';
 // Hook fields
 $parameters = array('arrayfields' => $arrayfields, 'param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder, 'totalarray' => &$totalarray);
-$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 /*if (!empty($arrayfields['anotherfield']['checked'])) {
 	print '<th class="liste_titre right">'.$langs->trans("AnotherField").'</th>';
@@ -757,7 +757,7 @@ while ($i < $imaxinloop) {
 		include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_print_fields.tpl.php';
 		// Fields from hook
 		$parameters = array('arrayfields' => $arrayfields, 'object' => $object, 'obj' => $obj, 'i' => $i, 'totalarray' => &$totalarray);
-		$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		/*if (!empty($arrayfields['anotherfield']['checked'])) {
 			print '<td class="right">'.$obj->anotherfield.'</td>';
@@ -802,7 +802,7 @@ if ($num == 0) {
 $db->free($resql);
 
 $parameters = array('arrayfields' => $arrayfields, 'sql' => $sql);
-$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 
 print '</table>'."\n";

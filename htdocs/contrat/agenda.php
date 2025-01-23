@@ -114,12 +114,12 @@ $result = restrictedArea($user, 'contrat', $object->id);
  */
 
 $parameters = array('id' => $id, 'ref' => $ref);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Cancel
 	if (GETPOST('cancel', 'alpha') && !empty($backtopage)) {
 		header("Location: ".$backtopage);

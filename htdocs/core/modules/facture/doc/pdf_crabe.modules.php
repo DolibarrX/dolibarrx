@@ -295,7 +295,7 @@ class pdf_crabe extends ModelePDFFactures
 				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Set nblines with the new facture lines content after hook
 				$nblines = count($object->lines);
@@ -501,7 +501,7 @@ class pdf_crabe extends ModelePDFFactures
 					'outputlangs' => $outputlangs,
 					'hidedetails' => $hidedetails
 				);
-				$reshook = $hookManager->executeHooks('printUnderHeaderPDFline', $parameters, $this); // Note that $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('printUnderHeaderPDFline', $parameters, $this); // Note that $object may have been modified by hook
 				if (!empty($hookManager->resArray['extra_under_address_shift'])) {
 					$extra_under_address_shift += $hookManager->resArray['extra_under_address_shift'];
 				}
@@ -926,8 +926,8 @@ class pdf_crabe extends ModelePDFFactures
 				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					$this->error = $hookManager->error;
 					$this->errors = $hookManager->errors;
 				}

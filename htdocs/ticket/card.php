@@ -160,13 +160,13 @@ $upload_dir = $config->ticket->dir_output;
  */
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 $error = 0;
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Purge search criteria
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')) { // All test are required to be compatible with all browsers{
 		$actioncode = '';
@@ -820,10 +820,10 @@ if ($action == 'create' || $action == 'presend') {
 
 		// Call Hook formConfirm
 		$parameters = array('formConfirm' => $formconfirm);
-		$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			$formconfirm .= $hookManager->resPrint;
-		} elseif ($reshook > 0) {
+		} elseif ($resHook > 0) {
 			$formconfirm = $hookManager->resPrint;
 		}
 
@@ -1456,12 +1456,12 @@ if ($action == 'create' || $action == 'presend') {
 		if ($action != 'presend' && $action != 'presend_addmessage' && $action != 'editline') {
 			print '<div class="tabsAction">'."\n";
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			if ($reshook < 0) {
+			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			if ($resHook < 0) {
 				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			}
 
-			if (empty($reshook)) {
+			if (empty($resHook)) {
 				// Email
 				if (isset($object->status) && $object->status < Ticket::STATUS_CLOSED && $action != "presend" && $action != "presend_addmessage") {
 					print dolGetButtonAction('', $langs->trans('SendMail'), 'default', $_SERVER["PHP_SELF"].'?action=presend_addmessage&send_email=1&private_message=0&mode=init&token='.newToken().'&track_id='.$object->track_id.'#formmailbeforetitle', '');

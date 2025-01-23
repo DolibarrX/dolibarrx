@@ -115,12 +115,12 @@ $parameters = array(
 	'id' => $id,
 );
 // Note that $action and $object may have been modified by some hooks
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 // Add file in email form
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($cancel) {
 		$backtopage = getDolGlobalString('TICKET_URL_PUBLIC_INTERFACE', DOL_URL_ROOT.'/public/ticket/');
 

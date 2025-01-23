@@ -155,8 +155,8 @@ if ($cancel) {
 }
 
 $parameters = array('id' => $id, 'ref' => $ref, 'objcanvas' => $objcanvas);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
@@ -734,7 +734,7 @@ if ($id > 0 || $ref) {
 
 			// Hook formObject
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			print $hookManager->resPrint;
 
 			print '</table>';
@@ -766,10 +766,10 @@ if ($id > 0 || $ref) {
 			$text_stock_options .= (getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER') ? '- '.$langs->trans("ReStockOnDispatchOrder").'<br>' : '');
 			$text_stock_options .= (getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION') || getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION_CLOSE') ? '- '.$langs->trans("StockOnReception").'<br>' : '');
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('physicalStockTextStockOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('physicalStockTextStockOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			if ($resHook > 0) {
 				$text_stock_options = $hookManager->resPrint;
-			} elseif ($reshook == 0) {
+			} elseif ($resHook == 0) {
 				$text_stock_options .= $hookManager->resPrint;
 			} else {
 				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -861,10 +861,10 @@ if ($id > 0 || $ref) {
 				$helpondiff .= $langs->trans("ProductQtyToProduceByMO").': '.$object->stats_mrptoproduce['qty'];
 			}
 			$parameters = array('found' => &$found, 'id' => $object->id, 'includedraftpoforvirtual' => null);
-			$reshook = $hookManager->executeHooks('virtualStockHelpOnDiff', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('virtualStockHelpOnDiff', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			if ($resHook > 0) {
 				$helpondiff = $hookManager->resPrint;
-			} elseif ($reshook == 0) {
+			} elseif ($resHook == 0) {
 				$helpondiff .= $hookManager->resPrint;
 			} else {
 				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -941,8 +941,8 @@ if ($id > 0 || $ref) {
 
 $parameters = array();
 
-$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+if (empty($resHook)) {
 	if (empty($action) && $object->id) {
 		print "<div class=\"tabsAction\">\n";
 

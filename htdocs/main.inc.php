@@ -839,8 +839,8 @@ if (!defined('NOLOGIN')) {
 		$action = '';
 		$hookManager->initHooks(array('login'));
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('beforeLoginAuthentication', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('beforeLoginAuthentication', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook < 0) {
 			$test = false;
 			$error++;
 		}
@@ -916,8 +916,8 @@ if (!defined('NOLOGIN')) {
 				$action = '';
 				$hookManager->initHooks(array('login'));
 				$parameters = array('dol_authmode' => $authmode, 'dol_loginmesg' => $_SESSION["dol_loginmesg"]);
-				$reshook = $hookManager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					$error++;
 				}
 
@@ -1045,8 +1045,8 @@ if (!defined('NOLOGIN')) {
 				$action = '';
 				$hookManager->initHooks(array('login'));
 				$parameters = array('dol_authmode' => $dol_authmode, 'dol_loginmesg' => $_SESSION["dol_loginmesg"]);
-				$reshook = $hookManager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					$error++;
 				}
 
@@ -1115,8 +1115,8 @@ if (!defined('NOLOGIN')) {
 			$action = '';
 			$hookManager->initHooks(array('login'));
 			$parameters = array('dol_authmode' => $dol_authmode, 'dol_loginmesg' => $_SESSION["dol_loginmesg"]);
-			$reshook = $hookManager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
-			if ($reshook < 0) {
+			$resHook = $hookManager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+			if ($resHook < 0) {
 				$error++;
 			}
 
@@ -1199,8 +1199,8 @@ if (!defined('NOLOGIN')) {
 			$action = '';
 			$hookManager->initHooks(array('login'));
 			$parameters = array('dol_authmode' => (string) $dol_authmode, 'dol_loginmesg' => $_SESSION["dol_loginmesg"]);
-			$reshook = $hookManager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
-			if ($reshook < 0) {
+			$resHook = $hookManager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+			if ($resHook < 0) {
 				$error++;
 			}
 
@@ -1270,8 +1270,8 @@ if (!defined('NOLOGIN')) {
 
 			$action = '';
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('updateSession', $parameters, $user, $action);
-			if ($reshook < 0) {
+			$resHook = $hookManager->executeHooks('updateSession', $parameters, $user, $action);
+			if ($resHook < 0) {
 				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			}
 		}
@@ -1338,8 +1338,8 @@ if (!defined('NOLOGIN')) {
 		$action = '';
 		$hookManager->initHooks(array('login'));
 		$parameters = array('dol_authmode' => $dol_authmode, 'dol_loginfo' => $loginfo);
-		$reshook = $hookManager->executeHooks('afterLogin', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('afterLogin', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook < 0) {
 			$error++;
 		}
 
@@ -1671,8 +1671,8 @@ if (!function_exists("llxHeader")) {
 			'disablenoindex' => & $disablenoindex
 
 		);
-		$reshook = $hookManager->executeHooks('llxHeader', $parameters);
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('llxHeader', $parameters);
+		if ($resHook > 0) {
 			print $hookManager->resPrint;
 			return;
 		}
@@ -3133,9 +3133,9 @@ function printDropdownQuickadd($mode = 0)
 	// Allow the $items of the menu to be manipulated by modules
 	$parameters = array();
 	$hook_items = $items;
-	$reshook = $hookManager->executeHooks('menuDropdownQuickaddItems', $parameters, $hook_items); // Note that $action and $object may have been modified by some hooks
-	if (is_numeric($reshook) && !empty($hookManager->resArray) && is_array($hookManager->resArray)) {
-		if ($reshook == 0) {
+	$resHook = $hookManager->executeHooks('menuDropdownQuickaddItems', $parameters, $hook_items); // Note that $action and $object may have been modified by some hooks
+	if (is_numeric($resHook) && !empty($hookManager->resArray) && is_array($hookManager->resArray)) {
+		if ($resHook == 0) {
 			$items['items'] = array_merge($items['items'], $hookManager->resArray); // add
 		} else {
 			$items = $hookManager->resArray; // replace
@@ -3510,8 +3510,8 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
 
 			// Execute hook printSearchForm
 			$parameters = array('searchform' => $searchform);
-			$reshook = $hookManager->executeHooks('printSearchForm', $parameters); // Note that $action and $object may have been modified by some hooks
-			if (empty($reshook)) {
+			$resHook = $hookManager->executeHooks('printSearchForm', $parameters); // Note that $action and $object may have been modified by some hooks
+			if (empty($resHook)) {
 				$searchform .= $hookManager->resPrint;
 			} else {
 				$searchform = $hookManager->resPrint;
@@ -3671,8 +3671,8 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
 
 			// Execute hook printBugtrackInfo
 			$parameters = array('bugbaseurl' => $bugbaseurl);
-			$reshook = $hookManager->executeHooks('printBugtrackInfo', $parameters); // Note that $action and $object may have been modified by some hooks
-			if (empty($reshook)) {
+			$resHook = $hookManager->executeHooks('printBugtrackInfo', $parameters); // Note that $action and $object may have been modified by some hooks
+			if (empty($resHook)) {
 				$bugbaseurl .= $hookManager->resPrint;
 			} else {
 				$bugbaseurl = $hookManager->resPrint;
@@ -3693,7 +3693,7 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
 
 		// Execute hook printLeftBlock
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printLeftBlock', $parameters); // Note that $action and $object may have been modified by some hooks
+		$resHook = $hookManager->executeHooks('printLeftBlock', $parameters); // Note that $action and $object may have been modified by some hooks
 		print $hookManager->resPrint;
 
 		print '</div></div> <!-- End side-nav id-left -->'; // End div id="side-nav" div id="id-left"
@@ -3728,7 +3728,7 @@ function main_area($title = '')
 
 	$hookManager->initHooks(array('main'));
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printMainArea', $parameters); // Note that $action and $object may have been modified by some hooks
+	$resHook = $hookManager->executeHooks('printMainArea', $parameters); // Note that $action and $object may have been modified by some hooks
 	print $hookManager->resPrint;
 
 	if (getDolGlobalString('MAIN_ONLY_LOGIN_ALLOWED')) {
@@ -3738,8 +3738,8 @@ function main_area($title = '')
 	// Permit to add user company information on each printed document by setting SHOW_SOCINFO_ON_PRINT
 	if (getDolGlobalString('SHOW_SOCINFO_ON_PRINT') && GETPOST('optioncss', 'aZ09') == 'print' && empty(GETPOST('disable_show_socinfo_on_print', 'aZ09'))) {
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('showSocinfoOnPrint', $parameters);
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('showSocinfoOnPrint', $parameters);
+		if (empty($resHook)) {
 			print '<!-- Begin show mysoc info header -->'."\n";
 			print '<div id="mysoc-info-header">'."\n";
 			print '<table class="centpercent div-table-responsive">'."\n";
@@ -3888,10 +3888,10 @@ if (!function_exists("llxFooter")) {
 		// Hook to add more things on all pages within fiche DIV
 		$llxfooter = '';
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('llxFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('llxFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			$llxfooter .= $hookManager->resPrint;
-		} elseif ($reshook > 0) {
+		} elseif ($resHook > 0) {
 			$llxfooter = $hookManager->resPrint;
 		}
 		if ($llxfooter) {
@@ -4127,8 +4127,8 @@ if (!function_exists("llxFooter")) {
 		}
 
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('beforeBodyClose', $parameters); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('beforeBodyClose', $parameters); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			print $hookManager->resPrint;
 		}
 

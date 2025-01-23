@@ -428,7 +428,7 @@ if (isModEnabled('order')) {
 print '</div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookManager->executeHooks('dashboardOrders', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('dashboardOrders', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

@@ -115,7 +115,7 @@ if ($line->fk_product > 0) {
 if (is_object($hookManager)) {
 	$fk_parent_line = (GETPOST('fk_parent_line') ? GETPOST('fk_parent_line') : $line->fk_parent_line);
 	$parameters = array('line' => $line, 'fk_parent_line' => $fk_parent_line, 'var' => $var, 'dateSelector' => $dateSelector, 'seller' => $seller, 'buyer' => $buyer);
-	$reshook = $hookManager->executeHooks('formEditProductOptions', $parameters, $this, $action);
+	$resHook = $hookManager->executeHooks('formEditProductOptions', $parameters, $this, $action);
 }
 
 //Line extrafield

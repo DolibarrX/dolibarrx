@@ -933,8 +933,8 @@ class Project extends CommonObject
 			'fk_projet' => $projectkey,
 			'ids' => $ids,
 		);
-		$reshook = $hookManager->executeHooks('getElementList', $parameters);
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getElementList', $parameters);
+		if ($resHook > 0) {
 			$sql = $hookManager->resPrint;
 		} else {
 			$sql .= $hookManager->resPrint;
@@ -1515,8 +1515,8 @@ class Project extends CommonObject
 		global $action;
 		$hookManager->initHooks(array('projectdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;

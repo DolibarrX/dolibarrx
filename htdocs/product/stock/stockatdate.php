@@ -104,8 +104,8 @@ if (!$sortorder) {
 }
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
@@ -296,7 +296,7 @@ if (!empty($search_fk_warehouse)) {
 }
 // Add fields from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 $sql .= ' FROM '.MAIN_DB_PREFIX.'product as p';
@@ -305,7 +305,7 @@ if (!empty($search_fk_warehouse)) {
 }
 // Add fields from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListJoin', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListJoin', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= ' WHERE p.entity IN ('.getEntity('product').')';
 if ($productid > 0) {
@@ -327,7 +327,7 @@ $sql .= ' GROUP BY p.rowid, p.ref, p.label, p.description, p.price, p.pmp, p.pri
 $sql .= ' p.tms, p.duration, p.tobuy, p.stock';
 // Add where from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 if ($sortfield == 'stock_reel' && empty($search_fk_warehouse)) {
@@ -435,8 +435,8 @@ if ($ext == 'csv') {
 	print '</div>';
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		print $hookManager->resPrint;
 	}
 
@@ -517,7 +517,7 @@ if ($ext == 'csv') {
 	}
 	// Fields from hook
 	$parameters = array('param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-	$reshook = $hookManager->executeHooks('printFieldListOption', $parameters); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListOption', $parameters); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	print '<td class="liste_titre maxwidthsearch">';
@@ -554,7 +554,7 @@ if ($ext == 'csv') {
 
 	// Hook fields
 	$parameters = array('param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-	$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	print_liste_field_titre('', $_SERVER["PHP_SELF"], '', $param, '', '', $sortfield, $sortorder, 'right ');
@@ -746,7 +746,7 @@ while ($i < ($limit ? min($num, $limit) : $num)) {
 
 			// Fields from hook
 			$parameters = array('objp' => $objp);
-			$reshook = $hookManager->executeHooks('printFieldListValue', $parameters); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListValue', $parameters); // Note that $action and $object may have been modified by hook
 			print $hookManager->resPrint;
 
 			// Action
@@ -759,7 +759,7 @@ while ($i < ($limit ? min($num, $limit) : $num)) {
 }
 
 $parameters = array('sql' => $sql);
-$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListFooter', $parameters); // Note that $action and $object may have been modified by hook
 if ($ext != 'csv') {
 	print $hookManager->resPrint;
 }

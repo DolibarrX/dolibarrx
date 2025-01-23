@@ -58,13 +58,13 @@ if (!is_array($parameters)) {
 	$parameters = array();
 }
 $parameters['assetaccountancycodes'] = &$assetaccountancycodes;
-$reshook = $hookManager->executeHooks('formAssetAccountancyCodes', $parameters, $object, $action);
+$resHook = $hookManager->executeHooks('formAssetAccountancyCodes', $parameters, $object, $action);
 print $hookManager->resPrint;
-if ($reshook < 0) {
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	foreach ($assetaccountancycodes->accountancy_codes_fields as $mode_key => $mode_info) {
 		//if (empty($object->enabled_modes[$mode_key])) continue;
 		$width = ($mode_key == "economic")? "width50p pull-left" : "width50p";

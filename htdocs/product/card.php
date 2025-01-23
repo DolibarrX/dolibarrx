@@ -230,12 +230,12 @@ if (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !$user->hasRight('barcode',
 }
 
 $parameters = array('id' => $id, 'ref' => $ref, 'objcanvas' => $objcanvas);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$backurlforlist = DOL_URL_ROOT.'/product/list.php?type='.$type;
 
 	if (empty($backtopage) || ($cancel && empty($id))) {
@@ -376,14 +376,14 @@ if (empty($reshook)) {
 				// External modules should update their ones too
 				if (!$error) {
 					$parameters = array('soc_origin' => $productOrigin->id, 'soc_dest' => $object->id);
-					$reshook = $hookManager->executeHooks(
+					$resHook = $hookManager->executeHooks(
 						'replaceProduct',
 						$parameters,
 						$object,
 						$action
 					);
 
-					if ($reshook < 0) {
+					if ($resHook < 0) {
 						setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						$error++;
 					}
@@ -733,8 +733,8 @@ if (empty($reshook)) {
 				} else {
 					if ($object->error == 'ErrorProductAlreadyExists') {
 						// allow to hook on ErrorProductAlreadyExists in any module
-						$reshook = $hookManager->executeHooks('onProductAlreadyExists', $parameters, $object, $action);
-						if ($reshook < 0) {
+						$resHook = $hookManager->executeHooks('onProductAlreadyExists', $parameters, $object, $action);
+						if ($resHook < 0) {
 							setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						}
 						if ($object->error) {
@@ -1434,8 +1434,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 		// Call Hook tabContentCreateProduct
 		$parameters = array();
 		// Note that $action and $object may be modified by hook
-		$reshook = $hookManager->executeHooks('tabContentCreateProduct', $parameters, $object, $action);
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('tabContentCreateProduct', $parameters, $object, $action);
+		if (empty($resHook)) {
 			print '<table class="border centpercent">';
 
 			if (!getDolGlobalString('PRODUCT_GENERATE_REF_AFTER_FORM')) {
@@ -1736,9 +1736,9 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 			// Other attributes
 			$parameters = array('colspan' => ' colspan="2"', 'cols' => 2);
-			$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			print $hookManager->resPrint;
-			if (empty($reshook)) {
+			if (empty($resHook)) {
 				print $object->showOptionals($extrafields, 'create', $parameters);
 			}
 
@@ -1995,9 +1995,9 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			// Call Hook tabContentEditProduct
 			$parameters = array();
 			// Note that $action and $object may be modified by hook
-			$reshook = $hookManager->executeHooks('tabContentEditProduct', $parameters, $object, $action);
+			$resHook = $hookManager->executeHooks('tabContentEditProduct', $parameters, $object, $action);
 
-			if (empty($reshook)) {
+			if (empty($resHook)) {
 				print '<table class="border allwidth">';
 
 				// Ref
@@ -2366,9 +2366,9 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 				// Other attributes
 				$parameters = array('colspan' => ' colspan="2"', 'cols' => 2);
-				$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				print $hookManager->resPrint;
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					print $object->showOptionals($extrafields, 'edit', $parameters);
 				}
 
@@ -2523,8 +2523,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			// Call Hook tabContentViewProduct
 			$parameters = array();
 			// Note that $action and $object may be modified by hook
-			$reshook = $hookManager->executeHooks('tabContentViewProduct', $parameters, $object, $action);
-			if (empty($reshook)) {
+			$resHook = $hookManager->executeHooks('tabContentViewProduct', $parameters, $object, $action);
+			if (empty($resHook)) {
 				print '<div class="fichecenter">';
 				print '<div class="fichehalfleft">';
 
@@ -3000,10 +3000,10 @@ if (($action == 'clone' && (empty($config->use_javascript_ajax) || !empty($confi
 
 // Call Hook formConfirm
 $parameters = array('formConfirm' => $formconfirm, 'object' => $object);
-$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+if (empty($resHook)) {
 	$formconfirm .= $hookManager->resPrint;
-} elseif ($reshook > 0) {
+} elseif ($resHook > 0) {
 	$formconfirm = $hookManager->resPrint;
 }
 
@@ -3020,8 +3020,8 @@ if ($action != 'create' && $action != 'edit') {
 	print "\n".'<div class="tabsAction">'."\n";
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		if ($usercancreate) {
 			if (!isset($hookManager->resArray['no_button_edit']) || $hookManager->resArray['no_button_edit'] != 1) {
 				print dolGetButtonAction('', $langs->trans('Modify'), 'default', $_SERVER["PHP_SELF"].'?action=edit&token='.newToken().'&id='.$object->id, '', $usercancreate);

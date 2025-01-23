@@ -99,12 +99,12 @@ if ($cancel) {
 	$action = '';
 }
 
-$reshook = $hookManager->executeHooks('doActions', [], $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', [], $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Add subproduct to product
 	if ($action == 'add_prod' && ($user->hasRight('produit', 'creer') || $user->hasRight('service', 'creer'))) {
 		$error = 0;
@@ -179,7 +179,7 @@ if ($action == 'search') {
 	}
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 
 	$sql .= ' FROM '.MAIN_DB_PREFIX.'product as p';
@@ -190,7 +190,7 @@ if ($action == 'search') {
 	$sql .= ' WHERE p.entity IN ('.getEntity('product').')';
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 
 	if ($key != "") {
@@ -401,7 +401,7 @@ if ($id > 0 || !empty($ref)) {
 		}
 		// Hook fields
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		// Qty in kit
 		print '<th class="right">'.$langs->trans('Qty').'</th>';
@@ -483,7 +483,7 @@ if ($id > 0 || !empty($ref)) {
 
 					// Hook fields
 					$parameters = array();
-					$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $productstatic); // Note that $action and $object may have been modified by hook
+					$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $productstatic); // Note that $action and $object may have been modified by hook
 					print $hookManager->resPrint;
 
 					// Qty + IncDec
@@ -538,7 +538,7 @@ if ($id > 0 || !empty($ref)) {
 
 					// Hook fields
 					$parameters = array();
-					$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $productstatic); // Note that $action and $object may have been modified by hook
+					$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $productstatic); // Note that $action and $object may have been modified by hook
 					print $hookManager->resPrint;
 
 					// Qty in kit

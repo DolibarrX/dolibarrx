@@ -232,7 +232,7 @@ class pdf_standard_movementstock extends ModelePDFMovement
 		}
 		// Add fields from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 		$sql .= " FROM ".MAIN_DB_PREFIX."entrepot as e,";
 		$sql .= " ".MAIN_DB_PREFIX."product as p,";
@@ -300,7 +300,7 @@ class pdf_standard_movementstock extends ModelePDFMovement
 		include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 		$sql .= $this->db->order($sortfield, $sortorder);
 
@@ -384,7 +384,7 @@ class pdf_standard_movementstock extends ModelePDFMovement
 				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Create pdf instance
 				$pdf = pdf_getInstance($this->format);
@@ -760,8 +760,8 @@ class pdf_standard_movementstock extends ModelePDFMovement
 				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					$this->error = $hookManager->error;
 					$this->errors = $hookManager->errors;
 				}

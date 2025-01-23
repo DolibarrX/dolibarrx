@@ -568,8 +568,8 @@ class AccountingAccount extends CommonObject
 		global $action;
 		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;
@@ -743,10 +743,10 @@ class AccountingAccount extends CommonObject
 
 		// Execute hook accountancyBindingCalculation
 		$parameters = array('buyer' => $buyer, 'seller' => $seller, 'product' => $product, 'facture' => $facture, 'factureDet' => $factureDet ,'accountingAccount' => $accountingAccount, 0 => $type);
-		$reshook = $hookManager->executeHooks('accountancyBindingCalculation', $parameters); // Note that $action and $object may have been modified by some hooks
+		$resHook = $hookManager->executeHooks('accountancyBindingCalculation', $parameters); // Note that $action and $object may have been modified by some hooks
 
 		$result = -1;  // Init for static analysis
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			$const_name = '';
 			if ($type == 'customer') {
 				$const_name = "SOLD";

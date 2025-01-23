@@ -312,7 +312,7 @@ class FormListWebPortal
 		$sql .= ", t.entity as element_entity";
 		// Add fields from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 		$sql = preg_replace('/,\s*$/', '', $sql);
 
@@ -321,7 +321,7 @@ class FormListWebPortal
 		$sql .= " FROM " . $this->db->prefix() . $object->table_element . " as t";
 		// Add table from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 		if ($object->ismultientitymanaged == 1) {
 			$sql .= " WHERE t.entity IN (" . getEntity($object->element, (GETPOSTINT('search_current_entity') ? 0 : 1)) . ")";
@@ -367,7 +367,7 @@ class FormListWebPortal
 		//}
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 
 		// Count total nb of records
@@ -446,7 +446,7 @@ class FormListWebPortal
 		}
 		// Add $param from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		$param .= $hookManager->resPrint;
 
 		$url_file = $context->getControllerUrl($context->controller);
@@ -518,7 +518,7 @@ class FormListWebPortal
 		}
 		// Fields from hook
 		$parameters = array('arrayfields' => $arrayfields);
-		$reshook = $hookManager->executeHooks('printFieldListOption', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListOption', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		$html .= $hookManager->resPrint;
 		// Remain to pay
 		if (!empty($arrayfields['remain_to_pay']['checked'])) {
@@ -592,7 +592,7 @@ class FormListWebPortal
 
 		// Hook fields
 		$parameters = array('arrayfields' => $arrayfields, 'sortfield' => $sortfield, 'sortorder' => $sortorder, 'totalarray' => &$totalarray);
-		$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		$html .= $hookManager->resPrint;
 		$html .= '</tr>';
 
@@ -731,7 +731,7 @@ class FormListWebPortal
 			}
 			// Fields from hook
 			$parameters = array('arrayfields' => $arrayfields, 'object' => $object, 'obj' => $obj, 'i' => $i, 'totalarray' => &$totalarray);
-			$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			$html .= $hookManager->resPrint;
 
 			$html .= '</tr>';
@@ -783,7 +783,7 @@ class FormListWebPortal
 		$this->db->free($resql);
 
 		$parameters = array('arrayfields' => $arrayfields, 'sql' => $sql);
-		$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		$html .= $hookManager->resPrint;
 
 		$html .= '</table>';

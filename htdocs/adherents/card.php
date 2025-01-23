@@ -147,12 +147,12 @@ $linkofpubliclist = DOL_MAIN_URL_ROOT.'/public/members/public_list.php'.((isModE
  */
 
 $parameters = array('id' => $id, 'rowid' => $id, 'objcanvas' => $objcanvas, 'confirm' => $confirm);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$backurlforlist = DOL_URL_ROOT.'/adherents/list.php';
 
 	if (empty($backtopage) || ($cancel && empty($id))) {
@@ -1987,8 +1987,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		print '<div class="tabsAction">';
 		$isinspip = 0;
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+		if (empty($resHook)) {
 			if ($action != 'editlogin' && $action != 'editthirdparty') {
 				// Send
 				if (empty($user->socid)) {

@@ -96,8 +96,8 @@ $hookManager->initHooks(array('supplierbalencelist', 'globalcard'));
  */
 
 $parameters = array('socid' => $id);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object); // Note that $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object); // Note that $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
@@ -192,8 +192,8 @@ if ($id > 0) {
 				);
 
 				$parameters = array('socid' => $id, 'values' => &$values, 'fac' => $fac, 'userstatic' => $userstatic);
-				$reshook = $hookManager->executeHooks('facdao', $parameters, $object); // Note that $parameters['values'] and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('facdao', $parameters, $object); // Note that $parameters['values'] and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 
@@ -235,8 +235,8 @@ if ($id > 0) {
 						);
 
 						$parameters = array('socid' => $id, 'values' => &$values, 'fac' => $fac, 'userstatic' => $userstatic, 'paymentstatic' => $paymentstatic);
-						$reshook = $hookManager->executeHooks('paydao', $parameters, $object); // Note that $parameters['values'] and $object may have been modified by some hooks
-						if ($reshook < 0) {
+						$resHook = $hookManager->executeHooks('paydao', $parameters, $object); // Note that $parameters['values'] and $object may have been modified by some hooks
+						if ($resHook < 0) {
 							setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						}
 

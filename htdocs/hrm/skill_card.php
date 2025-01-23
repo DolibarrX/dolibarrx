@@ -114,12 +114,12 @@ $MaxNumberSkill = getDolGlobalInt('HRM_MAXRANK', Skill::DEFAULT_MAX_RANK_PER_SKI
  */
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$error = 0;
 
 	$backurlforlist = DOL_URL_ROOT.'/hrm/skill_list.php';
@@ -463,10 +463,10 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm, 'lineid' => $lineid);
-	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		$formconfirm .= $hookManager->resPrint;
-	} elseif ($reshook > 0) {
+	} elseif ($resHook > 0) {
 		$formconfirm = $hookManager->resPrint;
 	}
 
@@ -513,12 +513,12 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	if ($action != 'presend' && $action != 'editline') {
 		print '<div class="tabsAction">' . "\n";
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			// Back to draft
 			if ($object->status == $object::STATUS_VALIDATED) {
 				print dolGetButtonAction($langs->trans('SetToDraft'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=confirm_setdraft&confirm=yes&token=' . newToken(), '', $permissiontoadd);
@@ -703,8 +703,8 @@ if ($action != "create" && $action != "edit") {
 	$moreforfilter.= '</div>';*/
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $objectline); // Note that $action and $objectline may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $objectline); // Note that $action and $objectline may have been modified by hook
+	if (empty($resHook)) {
 		$moreforfilter .= $hookManager->resPrint;
 	} else {
 		$moreforfilter = $hookManager->resPrint;
@@ -837,7 +837,7 @@ if ($action != "create" && $action != "edit") {
 
 		// Fields from hook
 		$parameters = array('arrayfields' => $arrayfields, 'object' => $objectline, 'obj' => $obj, 'i' => $i, 'totalarray' => &$totalarray);
-		$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $objectline); // Note that $action and $objectline may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $objectline); // Note that $action and $objectline may have been modified by hook
 		print $hookManager->resPrint;
 		/*// Action column
 		print '<td class="nowrap center">';
@@ -870,7 +870,7 @@ if ($action != "create" && $action != "edit") {
 	}
 
 	$parameters = array('arrayfields' => $arrayfields, 'sql' => $sql);
-	$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters, $objectline); // Note that $action and $objectline may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListFooter', $parameters, $objectline); // Note that $action and $objectline may have been modified by hook
 	print $hookManager->resPrint;
 
 	print '</table>' . "\n";

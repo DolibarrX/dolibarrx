@@ -67,8 +67,8 @@ if (in_array($modulepart, array('product', 'produit', 'societe', 'user', 'ticket
 	$disablemove = 0;
 }
 $parameters = array();
-$reshook = $hookManager->executeHooks('isLinkedDocumentObjectNotMovable', $parameters, $object);
-if ($reshook) {
+$resHook = $hookManager->executeHooks('isLinkedDocumentObjectNotMovable', $parameters, $object);
+if ($resHook) {
 	$disablemove = $hookManager->resArray['disablemove'];
 }
 

@@ -105,7 +105,7 @@ class Client extends Societe
 		// Add where from hooks
 		if (is_object($hookManager)) {
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $this); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $this); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 		}
 		$sql .= " GROUP BY s.client";

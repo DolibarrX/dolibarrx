@@ -85,11 +85,11 @@ $usercancreate = (($object->type == Product::TYPE_PRODUCT && $user->hasRight('pr
  */
 
 $parameters = array('id'=>$id, 'ref'=>$ref);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// retour a l'affichage des traduction si annulation
 	if ($cancel == $langs->trans("Cancel")) {
 		$action = '';
@@ -243,8 +243,8 @@ print dol_get_fiche_end();
 print "\n".'<div class="tabsAction">'."\n";
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+if (empty($resHook)) {
 	if ($action == '') {
 		if ($user->hasRight('produit', 'creer') || $user->hasRight('service', 'creer')) {
 			print '<a class="butAction" href="' . DOL_URL_ROOT . '/product/traduction.php?action=add&token='.newToken().'&id=' . $object->id . '">' . $langs->trans("Add") . '</a>';
@@ -294,7 +294,7 @@ if ($action == 'edit') {
 	}
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 	print '<br>';
 
@@ -364,7 +364,7 @@ if ($action == 'add' && ($user->hasRight('produit', 'creer') || $user->hasRight(
 	print '</table>';
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 	print dol_get_fiche_end();
 

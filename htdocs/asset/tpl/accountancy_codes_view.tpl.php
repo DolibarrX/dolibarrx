@@ -53,13 +53,13 @@ if (!is_array($parameters)) {
 	$parameters = array();
 }
 $parameters['assetaccountancycodes'] = &$assetaccountancycodes;
-$reshook = $hookManager->executeHooks('formAssetAccountancyCodes', $parameters, $object, $action);
+$resHook = $hookManager->executeHooks('formAssetAccountancyCodes', $parameters, $object, $action);
 print $hookManager->resPrint;
-if ($reshook < 0) {
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if (isModEnabled('accounting')) {
 		require_once DOL_DOCUMENT_ROOT . '/accountancy/class/accountingaccount.class.php';
 	}

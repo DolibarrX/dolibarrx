@@ -190,12 +190,12 @@ $error = 0;
  */
 
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$backurlforlist = DOL_URL_ROOT.'/fourn/commande/list.php'.($socid > 0 ? '?socid='.((int) $socid) : '');
 
 	if (empty($backtopage) || ($cancel && empty($id))) {
@@ -1514,9 +1514,9 @@ if (empty($reshook)) {
 
 							// Hooks
 							$parameters = array('objFrom' => $srcobject);
-							$reshook = $hookManager->executeHooks('createFrom', $parameters, $object, $action); // Note that $action and $object may have been
+							$resHook = $hookManager->executeHooks('createFrom', $parameters, $object, $action); // Note that $action and $object may have been
 
-							if ($reshook < 0) {
+							if ($resHook < 0) {
 								setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 								$error++;
 							}
@@ -1752,8 +1752,8 @@ if ($action == 'create') {
 	// Call Hook tabContentCreateSupplierOrder
 	$parameters = array();
 	// Note that $action and $object may be modified by hook
-	$reshook = $hookManager->executeHooks('tabContentCreateSupplierOrder', $parameters, $object, $action);
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('tabContentCreateSupplierOrder', $parameters, $object, $action);
+	if (empty($resHook)) {
 		print '<table class="border centpercent">';
 
 		// Ref
@@ -1921,10 +1921,10 @@ if ($action == 'create') {
 
 		// Other options
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			print $object->showOptionals($extrafields, 'create');
 		}
 
@@ -2133,10 +2133,10 @@ if ($action == 'create') {
 	}
 
 	$parameters = array('formConfirm' => $formconfirm, 'lineid' => $lineid);
-	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		$formconfirm .= $hookManager->resPrint;
-	} elseif ($reshook > 0) {
+	} elseif ($resHook > 0) {
 		$formconfirm = $hookManager->resPrint;
 	}
 
@@ -2202,8 +2202,8 @@ if ($action == 'create') {
 	// Call Hook tabContentViewSupplierOrder
 	$parameters = array();
 	// Note that $action and $object may be modified by hook
-	$reshook = $hookManager->executeHooks('tabContentViewSupplierOrder', $parameters, $object, $action);
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('tabContentViewSupplierOrder', $parameters, $object, $action);
+	if (empty($resHook)) {
 		print '<div class="fichecenter">';
 		print '<div class="fichehalfleft">';
 		print '<div class="underbanner clearboth"></div>';
@@ -2513,11 +2513,11 @@ if ($action == 'create') {
 				// Add free products/services
 
 				$parameters = array();
-				$reshook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					$object->formAddObjectLine(1, $societe, $mysoc);
 				}
 			}
@@ -2538,9 +2538,9 @@ if ($action == 'create') {
 			print '<div class="tabsAction">';
 
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 			// modified by hook
-			if (empty($reshook)) {
+			if (empty($resHook)) {
 				$object->fetchObjectLinked(); // Links are used to show or not button, so we load them now.
 
 				// Validate

@@ -280,11 +280,11 @@ if ($action == 'confirm_deletefile' && $confirm == 'yes' && !empty($permissionto
 					}
 				}*/
 
-				$reshook = $hookManager->initHooks(array('actionlinkedfiles'));
+				$resHook = $hookManager->initHooks(array('actionlinkedfiles'));
 				$parameters = array('filenamefrom' => $filenamefrom, 'filenameto' => $filenameto, 'upload_dir' => $upload_dir);
-				$reshook = $hookManager->executeHooks('renameUploadedFile', $parameters, $object);
+				$resHook = $hookManager->executeHooks('renameUploadedFile', $parameters, $object);
 
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					if (preg_match('/^\./', $filenameto)) {
 						$langs->load("errors"); // lang must be loaded because we can't rely on loading during output, we need var substitution to be done now.
 						setEventMessages($langs->trans("ErrorFilenameCantStartWithDot", $filenameto), null, 'errors');

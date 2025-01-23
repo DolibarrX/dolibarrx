@@ -297,7 +297,7 @@ class pdf_eagle extends ModelePDFStockTransfer
 				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Set nblines with the new facture lines content after hook
 				$nblines = is_array($object->lines) ? count($object->lines) : 0;
@@ -746,8 +746,8 @@ class pdf_eagle extends ModelePDFStockTransfer
 				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					$this->error = $hookManager->error;
 					$this->errors = $hookManager->errors;
 				}

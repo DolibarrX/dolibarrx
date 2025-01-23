@@ -214,7 +214,7 @@ if ($action == 'create') {
 
 	// Other attributes
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	print '</table>';
@@ -279,7 +279,7 @@ if ($id) {
 
 	// Other attributes
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	print '</table>';

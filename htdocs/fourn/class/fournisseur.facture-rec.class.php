@@ -1377,7 +1377,7 @@ class FactureFournisseurRec extends CommonInvoice
 			'restrictioninvoiceid' => $restrictioninvoiceid,
 			'forcevalidation' => $forcevalidation,
 		);
-		$reshook = $hookManager->executeHooks('beforeCreationOfRecurringInvoices', $parameters, $sql); // note that $sql might be modified by hooks
+		$resHook = $hookManager->executeHooks('beforeCreationOfRecurringInvoices', $parameters, $sql); // note that $sql might be modified by hooks
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -1486,7 +1486,7 @@ class FactureFournisseurRec extends CommonInvoice
 					'facturerec' => $facturerec, // it's an object which PHP passes by "reference", so modifiable by hooks.
 					'this'       => $this, // it's an object which PHP passes by "reference", so modifiable by hooks.
 				);
-				$reshook = $hookManager->executeHooks('afterCreationOfRecurringInvoice', $parameters, $new_fac_fourn); // note: $facture can be modified by hooks (warning: $facture can be null)
+				$resHook = $hookManager->executeHooks('afterCreationOfRecurringInvoice', $parameters, $new_fac_fourn); // note: $facture can be modified by hooks (warning: $facture can be null)
 
 				$i++;
 			}
@@ -1570,8 +1570,8 @@ class FactureFournisseurRec extends CommonInvoice
 		global $action;
 		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;

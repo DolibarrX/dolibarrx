@@ -352,9 +352,9 @@ class AssetDepreciationOptions extends CommonObject
 
 		$hookManager->initHooks(array('assetdepreciationoptionsdao'));
 		$parameters = array('asset_id' => $asset_id, 'asset_model_id' => $asset_model_id);
-		$reshook = $hookManager->executeHooks('fetchDepreciationOptions', $parameters, $this); // Note that $action and $object may have been modified by some hooks
-		if (!empty($reshook)) {
-			return $reshook;
+		$resHook = $hookManager->executeHooks('fetchDepreciationOptions', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		if (!empty($resHook)) {
+			return $resHook;
 		}
 
 		// Check parameters
@@ -422,10 +422,10 @@ class AssetDepreciationOptions extends CommonObject
 
 		$hookManager->initHooks(array('assetdepreciationoptionsdao'));
 		$parameters = array('mode' => $mode);
-		$reshook = $hookManager->executeHooks('getGeneralDepreciationInfoForMode', $parameters, $this); // Note that $action and $object may have been modified by some hooks
-		if ($reshook < 0) {
-			return $reshook;
-		} elseif ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getGeneralDepreciationInfoForMode', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		if ($resHook < 0) {
+			return $resHook;
+		} elseif ($resHook > 0) {
 			return $hookManager->resArray;
 		}
 
@@ -462,9 +462,9 @@ class AssetDepreciationOptions extends CommonObject
 
 		$hookManager->initHooks(array('assetdepreciationoptionsdao'));
 		$parameters = array('user' => $user, 'asset_id' => $asset_id, 'asset_model_id' => $asset_model_id);
-		$reshook = $hookManager->executeHooks('updateDepreciationOptions', $parameters, $this); // Note that $action and $object may have been modified by some hooks
-		if (!empty($reshook)) {
-			return $reshook;
+		$resHook = $hookManager->executeHooks('updateDepreciationOptions', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		if (!empty($resHook)) {
+			return $resHook;
 		}
 
 		// Check parameters

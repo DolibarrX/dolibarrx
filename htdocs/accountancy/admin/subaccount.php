@@ -106,12 +106,12 @@ if (!GETPOST('confirmmassaction', 'alpha')) {
 }
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if (!empty($cancel)) {
 		$action = '';
 	}
@@ -567,7 +567,7 @@ if ($resql) {
 	$db->free($resql);
 
 	$parameters = array('arrayfields'=>$arrayfields, 'sql'=>$sql);
-	$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListFooter', $parameters); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	print "</table>";

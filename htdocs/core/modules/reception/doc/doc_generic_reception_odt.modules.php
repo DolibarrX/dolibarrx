@@ -327,7 +327,7 @@ class doc_generic_reception_odt extends ModelePdfReception
 
 				// Call the ODTSubstitution hook
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs, 'substitutionarray' => &$substitutionArray);
-				$reshook = $hookManager->executeHooks('ODTSubstitution', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('ODTSubstitution', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Line of free text
 				$newfreetext = '';
@@ -384,7 +384,7 @@ class doc_generic_reception_odt extends ModelePdfReception
 
 				// Call the ODTSubstitution hook
 				$parameters = array('odfHandler' => &$odfHandler, 'file' => $file, 'object' => $object, 'outputlangs' => $outputlangs, 'substitutionarray' => &$tmparray);
-				$reshook = $hookManager->executeHooks('ODTSubstitution', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('ODTSubstitution', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				foreach ($tmparray as $key => $value) {
 					try {
 						if (preg_match('/logo$/', $key)) { // Image
@@ -417,7 +417,7 @@ class doc_generic_reception_odt extends ModelePdfReception
 						complete_substitutions_array($tmparray, $outputlangs, $object, $line, "completesubstitutionarray_lines");
 						// Call the ODTSubstitutionLine hook
 						$parameters = array('odfHandler' => &$odfHandler, 'file' => $file, 'object' => $object, 'outputlangs' => $outputlangs, 'substitutionarray' => &$tmparray, 'line' => $line);
-						$reshook = $hookManager->executeHooks('ODTSubstitutionLine', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+						$resHook = $hookManager->executeHooks('ODTSubstitutionLine', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 						foreach ($tmparray as $key => $val) {
 							try {
 								$listlines->setVars($key, $val, true, 'UTF-8');
@@ -448,7 +448,7 @@ class doc_generic_reception_odt extends ModelePdfReception
 
 				// Call the beforeODTSave hook
 				$parameters = array('odfHandler' => &$odfHandler, 'file' => $file, 'object' => $object, 'outputlangs' => $outputlangs, 'substitutionarray' => &$tmparray);
-				$reshook = $hookManager->executeHooks('beforeODTSave', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('beforeODTSave', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Write new file
 				if (getDolGlobalString('MAIN_ODT_AS_PDF')) {
@@ -469,7 +469,7 @@ class doc_generic_reception_odt extends ModelePdfReception
 					}
 				}
 				$parameters = array('odfHandler' => &$odfHandler, 'file' => $file, 'object' => $object, 'outputlangs' => $outputlangs, 'substitutionarray' => &$tmparray);
-				$reshook = $hookManager->executeHooks('afterODTCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('afterODTCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 				dolChmod($file);
 

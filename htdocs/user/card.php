@@ -170,12 +170,12 @@ $ldap = null;
  */
 
 $parameters = array('id' => $id, 'socid' => $socid, 'group' => $group, 'caneditgroup' => $permissiontoeditgroup);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$backurlforlist = DOL_URL_ROOT.'/user/list.php';
 
 	if (empty($backtopage) || ($cancel && empty($id))) {
@@ -1221,8 +1221,8 @@ if ($action == 'create' || $action == 'adduserldap') {
 
 	// Other form for user password
 	$parameters = array('valuetoshow' => $valuetoshow, 'password' => $password, 'caneditpasswordandsee' => $permissiontoeditpasswordandsee, 'caneditpasswordandsend' => $permissiontoeditpasswordandsend);
-	$reshook = $hookManager->executeHooks('printUserPasswordField', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if ($reshook > 0) {
+	$resHook = $hookManager->executeHooks('printUserPasswordField', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if ($resHook > 0) {
 		$valuetoshow = $hookManager->resPrint; // to replace
 	} else {
 		$valuetoshow .= $hookManager->resPrint; // to add
@@ -2045,8 +2045,8 @@ if ($action == 'create' || $action == 'adduserldap') {
 
 			// Other form for user password
 			$parameters = array('valuetoshow' => $valuetoshow, 'caneditpasswordandsee' => $permissiontoeditpasswordandsee, 'caneditpasswordandsend' => $permissiontoeditpasswordandsend);
-			$reshook = $hookManager->executeHooks('printUserPasswordField', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('printUserPasswordField', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			if ($resHook > 0) {
 				$valuetoshow = $hookManager->resPrint; // to replace
 			} else {
 				$valuetoshow .= $hookManager->resPrint; // to add
@@ -2088,8 +2088,8 @@ if ($action == 'create' || $action == 'adduserldap') {
 
 			// Add more object block
 			$parameters = array('caneditpasswordandsee' => $permissiontoeditpasswordandsee, 'caneditpasswordandsend' => $permissiontoeditpasswordandsend);
-			$reshook = $hookManager->executeHooks('addMoreObjectBlock', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('addMoreObjectBlock', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			if ($resHook > 0) {
 				print $hookManager->resPrint;
 			}
 
@@ -2108,8 +2108,8 @@ if ($action == 'create' || $action == 'adduserldap') {
 			print '<div class="tabsAction">';
 
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			if (empty($reshook)) {
+			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			if (empty($resHook)) {
 				$params = array(
 					'attr' => array(
 						'title' => '',
@@ -2259,10 +2259,10 @@ if ($action == 'create' || $action == 'adduserldap') {
 
 					// Other form for add user to group
 					$parameters = array('caneditgroup' => $permissiontoeditgroup, 'groupslist' => $groupslist, 'exclude' => $exclude);
-					$reshook = $hookManager->executeHooks('formAddUserToGroup', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+					$resHook = $hookManager->executeHooks('formAddUserToGroup', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 					print $hookManager->resPrint;
 
-					if (empty($reshook)) {
+					if (empty($resHook)) {
 						if ($permissiontoeditgroup) {
 							print '<form action="'.$_SERVER['PHP_SELF'].'?id='.$id.'" method="POST">'."\n";
 							print '<input type="hidden" name="token" value="'.newToken().'" />';
@@ -2644,8 +2644,8 @@ if ($action == 'create' || $action == 'adduserldap') {
 			}
 			// Other form for user password
 			$parameters = array('valuetoshow' => $valuetoshow, 'caneditpasswordandsee' => $permissiontoeditpasswordandsee, 'caneditpasswordandsend' => $permissiontoeditpasswordandsend);
-			$reshook = $hookManager->executeHooks('printUserPasswordField', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('printUserPasswordField', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			if ($resHook > 0) {
 				$valuetoshow = $hookManager->resPrint; // to replace
 			} else {
 				$valuetoshow .= $hookManager->resPrint; // to add
@@ -2946,9 +2946,9 @@ if ($action == 'create' || $action == 'adduserldap') {
 			// Other attributes
 			$parameters = array('colspan' => ' colspan="2"');
 			//include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_edit.tpl.php';		// We do not use common tpl here because we need a special test on $permissiontoedit
-			$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			print $hookManager->resPrint;
-			if (empty($reshook)) {
+			if (empty($resHook)) {
 				if ($permissiontoedit) {
 					print $object->showOptionals($extrafields, 'edit');
 				} else {

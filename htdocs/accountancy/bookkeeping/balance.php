@@ -144,12 +144,12 @@ if (!$user->hasRight('accounting', 'mouvements', 'lire')) {
 $param = '';
 $urlparam = '';
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')) { // All tests are required to be compatible with all browsers
 		$show_subgroup = '';
 		$search_date_start = '';
@@ -302,15 +302,15 @@ if ($action != 'export_csv') {
 	$url_param = '';
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
-	if ($reshook < 0) {
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
 	$newcardbutton = empty($hookManager->resPrint) ? '' : $hookManager->resPrint;
 
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		$newcardbutton = '<input type="button" id="exportcsvbutton" name="exportcsvbutton" class="butAction" value="'.$langs->trans("Export").' (' . getDolGlobalString('ACCOUNTING_EXPORT_FORMAT').')" />';
 
 		print '<script type="text/javascript">
@@ -397,7 +397,7 @@ if ($action != 'export_csv') {
 	print '<div class="liste_titre liste_titre_bydiv centpercent">';
 	print $moreforfilter;
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	print '</div>';
 
@@ -420,7 +420,7 @@ if ($action != 'export_csv') {
 
 	// Fields from hook
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListOption', $parameters, $object); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListOption', $parameters, $object); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	// Action column
@@ -450,7 +450,7 @@ if ($action != 'export_csv') {
 
 	// Hook fields
 	$parameters = array('param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-	$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	// Action column
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
@@ -722,7 +722,7 @@ if ($action != 'export_csv') {
 	}
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	print "</table>";

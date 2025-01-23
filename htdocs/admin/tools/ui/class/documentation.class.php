@@ -174,8 +174,8 @@ class Documentation
 		);
 		$action = '';
 
-		$reshook = $hookManager->executeHooks('setMenu', $parameters, $this, $action);
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('setMenu', $parameters, $this, $action);
+		if ($resHook < 0) {
 			return false;
 		}
 	}

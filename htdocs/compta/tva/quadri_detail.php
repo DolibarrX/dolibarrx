@@ -431,7 +431,7 @@ if (!is_array($x_coll) || !is_array($x_paye)) {
 	$object = array(&$x_coll, &$x_paye, &$x_both);
 	// Initialize a technical object to manage hooks of expenses. Note that conf->hooks_modules contains array array
 	$hookManager->initHooks(array('externalbalance'));
-	$reshook = $hookManager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	$resHook = $hookManager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 	foreach (array_keys($x_coll) as $rate) {
 		$subtot_coll_total_ht = 0;

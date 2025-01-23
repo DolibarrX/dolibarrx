@@ -110,12 +110,12 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 
 $parameters = array();
 
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Selection of new fields
 	include DOL_DOCUMENT_ROOT.'/core/actions_changeselectedfields.inc.php';
 
@@ -157,8 +157,8 @@ $sql .= " ppf.fk_soc, ppf.ref_fourn, ppf.price as price, ppf.quantity as qty, pp
 $sql .= " s.rowid as socid, s.nom as name";
 // Add fields to SELECT from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 $sql .= $hookManager->resPrint;
@@ -193,8 +193,8 @@ if ($fourn_id > 0) {
 
 // Add WHERE filters from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 $sql .= $hookManager->resPrint;
@@ -352,8 +352,8 @@ print '<td></td>';
 print '<td></td>';
 // add filters from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $productstatic, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $productstatic, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 print $hookManager->resPrint;
@@ -387,8 +387,8 @@ print_liste_field_titre("QtyMin", $_SERVER["PHP_SELF"], "ppf.quantity", $param, 
 print_liste_field_titre("UnitPrice", $_SERVER["PHP_SELF"], "ppf.unitprice", $param, "", '', $sortfield, $sortorder, 'right ');
 // add header cells from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $productstatic, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $productstatic, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 print $hookManager->resPrint;
@@ -463,8 +463,8 @@ while ($i < $imaxinloop) {
 
 	// add additional columns from hooks
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $objp, $action);
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $objp, $action);
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 	print $hookManager->resPrint;
@@ -506,7 +506,7 @@ if ($num == 0) {
 $db->free($resql);
 
 $parameters = array('arrayfields' => $arrayfields, 'sql' => $sql);
-$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters, $productstatic, $action); // Note that $action and $productstatic may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListFooter', $parameters, $productstatic, $action); // Note that $action and $productstatic may have been modified by hook
 print $hookManager->resPrint;
 
 print '</table>'."\n";

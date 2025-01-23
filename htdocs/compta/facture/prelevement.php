@@ -110,12 +110,12 @@ if ($type == 'bank-transfer') {
  */
 
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($action == "new" && $usercancreate) {
 		if ($object->id > 0) {
 			$db->begin();
@@ -694,8 +694,8 @@ if ($object->id > 0) {
 
 	// Hook to change amount for other reasons, e.g. apply cash discount for payment before agreed date
 	$parameters = array('remaintopay' => $resteapayer);
-	$reshook = $hookManager->executeHooks('finalizeAmountOfInvoice', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-	if ($reshook > 0) {
+	$resHook = $hookManager->executeHooks('finalizeAmountOfInvoice', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	if ($resHook > 0) {
 		print $hookManager->resPrint;
 		if (!empty($remaintopay = $hookManager->resArray['remaintopay'])) {
 			$resteapayer = $remaintopay;

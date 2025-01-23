@@ -238,17 +238,17 @@ if (!function_exists('dol_loginfunction')) {
 
 		// Execute hook getLoginPageOptions (for table)
 		$parameters = array('entity' => GETPOSTINT('entity'), 'switchentity' => GETPOSTINT('switchentity'));
-		$reshook = $hookManager->executeHooks('getLoginPageOptions', $parameters); // Note that $action and $object may have been modified by some hooks.
+		$resHook = $hookManager->executeHooks('getLoginPageOptions', $parameters); // Note that $action and $object may have been modified by some hooks.
 		$morelogincontent = $hookManager->resPrint;
 
 		// Execute hook getLoginPageExtraOptions (eg for js)
 		$parameters = array('entity' => GETPOSTINT('entity'), 'switchentity' => GETPOSTINT('switchentity'));
-		$reshook = $hookManager->executeHooks('getLoginPageExtraOptions', $parameters); // Note that $action and $object may have been modified by some hooks.
+		$resHook = $hookManager->executeHooks('getLoginPageExtraOptions', $parameters); // Note that $action and $object may have been modified by some hooks.
 		$moreloginextracontent = $hookManager->resPrint;
 
 		//Redirect after connection
 		$parameters = array('entity' => GETPOSTINT('entity'), 'switchentity' => GETPOSTINT('switchentity'));
-		$reshook = $hookManager->executeHooks('redirectAfterConnection', $parameters); // Note that $action and $object may have been modified by some hooks.
+		$resHook = $hookManager->executeHooks('redirectAfterConnection', $parameters); // Note that $action and $object may have been modified by some hooks.
 		$php_self = $hookManager->resPrint;
 
 		// Login

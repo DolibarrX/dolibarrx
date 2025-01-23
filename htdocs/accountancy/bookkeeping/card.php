@@ -113,11 +113,11 @@ $permissiontodelete = $user->hasRight('accounting', 'mouvements', 'supprimer');
  */
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$error = 0;
 
 	if ($cancel) {
@@ -297,7 +297,7 @@ if (empty($reshook)) {
 
 				$action = 'create';
 			} else {
-				$reshook = $hookManager->executeHooks('afterCreateBookkeeping', $parameters, $object, $action);
+				$resHook = $hookManager->executeHooks('afterCreateBookkeeping', $parameters, $object, $action);
 
 				if ($mode != '_tmp') {
 					setEventMessages($langs->trans('RecordSaved'), null, 'mesgs');
@@ -491,7 +491,7 @@ if ($action == 'create') {
 	print '<td><input type="text" class="minwidth200 name="doc_type" value=""/></td>';
 	print '</tr>';
 	*/
-	$reshookAddLine = $hookManager->executeHooks('bookkeepingAddLine', $parameters, $object, $action);
+	$resHookAddLine = $hookManager->executeHooks('bookkeepingAddLine', $parameters, $object, $action);
 
 	print '</table>';
 
@@ -781,8 +781,8 @@ if ($action == 'create') {
 				print "\n".'<div class="tabsAction">'."\n";
 
 				$parameters = array();
-				$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-				if (empty($reshook)) {
+				$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				if (empty($resHook)) {
 					if ($permissiontodelete) {
 						if (!isset($hookManager->resArray['no_button_edit']) || $hookManager->resArray['no_button_edit'] != 1) {
 							print dolGetButtonAction('', $langs->trans('Delete'), 'delete', DOL_URL_ROOT.'/accountancy/bookkeeping/card.php?action=deletebookkeepingwriting&confirm=yes&token='.newToken().'&piece_num='.((int) $object->piece_num).'&toselect='.implode(',', $tmptoselect), '', $permissiontodelete);

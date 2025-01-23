@@ -175,7 +175,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 				$nblines = count($object->lines);
 
@@ -579,8 +579,8 @@ class pdf_storm extends ModelePDFDeliveryOrder
 				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					$this->error = $hookManager->error;
 					$this->errors = $hookManager->errors;
 				}
@@ -1017,10 +1017,10 @@ class pdf_storm extends ModelePDFDeliveryOrder
 			'hideref' => $hideref
 		);
 
-		$reshook = $hookManager->executeHooks('defineColumnField', $parameters, $this); // Note that $object may have been modified by hook
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('defineColumnField', $parameters, $this); // Note that $object may have been modified by hook
+		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
-		} elseif (empty($reshook)) {
+		} elseif (empty($resHook)) {
 			// @phan-suppress-next-line PhanPluginSuspiciousParamOrderInternal
 			$this->cols = array_replace($this->cols, $hookManager->resArray); // array_replace is used to preserve keys
 		} else {

@@ -92,12 +92,12 @@ $error = 0;
  */
 $parameters = array('id' => $id, 'ref' => $ref, 'cancel' => $cancel, 'backtopage' => $backtopage, 'socid' => $socid, 'label' => $label, 'description' => $description, 'color' => $color, 'position' => $position, 'visible' => $visible, 'parent' => $parent);
 // Note that $action and $object may be modified by some hooks
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($cancel) {
 		if ($backtopage) {
 			header("Location: ".$backtopage);
@@ -212,9 +212,9 @@ print ajax_combobox('parent');
 print '</td></tr>';
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
-if (empty($reshook)) {
+if (empty($resHook)) {
 	print $object->showOptionals($extrafields, 'edit', $parameters);
 }
 

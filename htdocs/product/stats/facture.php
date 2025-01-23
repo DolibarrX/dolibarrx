@@ -146,8 +146,8 @@ if ($id > 0 || !empty($ref)) {
 	$object = $product;
 
 	$parameters = array('id' => $id);
-	$reshook = $hookManager->executeHooks('doActions', $parameters, $product, $action); // Note that $action and $object may have been modified by some hooks
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('doActions', $parameters, $product, $action); // Note that $action and $object may have been modified by some hooks
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
@@ -171,9 +171,9 @@ if ($id > 0 || !empty($ref)) {
 		$picto = ($product->type == Product::TYPE_SERVICE ? 'service' : 'product');
 		print dol_get_fiche_head($head, 'referers', $titre, -1, $picto);
 
-		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $product, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $product, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
-		if ($reshook < 0) {
+		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
@@ -217,7 +217,7 @@ if ($id > 0 || !empty($ref)) {
 			}
 			// Add fields from hooks
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 			$sql = preg_replace('/,\s*$/', '', $sql);
 
@@ -232,7 +232,7 @@ if ($id > 0 || !empty($ref)) {
 			}
 			// Add table from hooks
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 
 			$sql .= " WHERE f.fk_soc = s.rowid";
@@ -256,12 +256,12 @@ if ($id > 0 || !empty($ref)) {
 			include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 			// Add where from hooks
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 
 			// Add HAVING from hooks
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListHaving', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			$sql .= empty($hookManager->resPrint) ? "" : " HAVING 1=1 ".$hookManager->resPrint;
 
 			$sql .= $db->order($sortfield, $sortorder);
@@ -293,7 +293,7 @@ if ($id > 0 || !empty($ref)) {
 				include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_param.tpl.php';
 				// Add $param from hooks
 				$parameters = array('param' => &$param);
-				$reshook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				$option .= $hookManager->resPrint;
 
 				print '<form method="post" action="'.$_SERVER ['PHP_SELF'].'?id='.$product->id.'" name="search_form">'."\n";
@@ -318,7 +318,7 @@ if ($id > 0 || !empty($ref)) {
 				print $form->selectDate($search_date_start ? $search_date_start : -1, 'search_date_start', 0, 0, 1, '', 1, 0, 0, '', '', '', '', 1, '', $langs->trans('From'));
 				print $form->selectDate($search_date_end ? $search_date_end : -1, 'search_date_end', 0, 0, 1, '', 1, 0, 0, '', '', '', '', 1, '', $langs->trans('to'));
 				$parameters = array();
-				$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				print $hookManager->resPrint;
 
 				print '<div style="vertical-align: middle; display: inline-block">';
@@ -341,7 +341,7 @@ if ($id > 0 || !empty($ref)) {
 				print_liste_field_titre("Status", $_SERVER["PHP_SELF"], "f.paye,f.fk_statut", "", $option, 'align="right"', $sortfield, $sortorder);
 				// Hook fields
 				$parameters = array('param' => $option, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-				$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				print $hookManager->resPrint;
 				print "</tr>\n";
 
@@ -374,7 +374,7 @@ if ($id > 0 || !empty($ref)) {
 						print '<td class="right">'.$invoicestatic->LibStatut($objp->paye, $objp->statut, 5, $paiement, $objp->type).'</td>';
 						// Fields from hook
 						$parameters = array();
-						$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+						$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 						print $hookManager->resPrint;
 						print "</tr>\n";
 						$i++;

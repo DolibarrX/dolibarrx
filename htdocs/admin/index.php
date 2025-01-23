@@ -141,9 +141,9 @@ print '<br>';
 // Add hook to add information
 $parameters = array();
 $object = new stdClass();
-$reshook = $hookManager->executeHooks('addHomeSetup', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$resHook = $hookManager->executeHooks('addHomeSetup', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 print $hookManager->resPrint;
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Show into other
 	//print '<span class="opacitymedium hideonsmartphone">'.$langs->trans("SetupDescription5")."</span><br>";
 	print '<br class="hideonsmartphone">';

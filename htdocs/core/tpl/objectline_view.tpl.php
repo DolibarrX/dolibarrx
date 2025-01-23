@@ -129,7 +129,7 @@ $coldisplay = 0;
 
 
 $parameters = ['line' => $line, 'i' =>& $i, 'coldisplay' =>& $coldisplay];
-$reshook = $hookManager->executeHooks('objectLineView_BeforeProduct', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('objectLineView_BeforeProduct', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 
 if (($line->info_bits & 2) == 2) {
@@ -275,10 +275,10 @@ if (($line->info_bits & 2) == 2) {
 
 
 	$parameters = ['line' => $line, 'i' =>& $i, 'coldisplay' =>& $coldisplay];
-	$reshook = $hookManager->executeHooks('objectLineView_BeforeProductExtrafield', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('objectLineView_BeforeProductExtrafield', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	// Line extrafield
-	if (!empty($extrafields) && empty($reshook)) {
+	if (!empty($extrafields) && empty($resHook)) {
 		$temps = $line->showOptionals($extrafields, 'view', array(), '', '', 1, 'line');
 		if (!empty($temps)) {
 			print '<div style="padding-top: 10px" id="extrafield_lines_area_'.$line->id.'" name="extrafield_lines_area_'.$line->id.'">';
@@ -289,9 +289,9 @@ if (($line->info_bits & 2) == 2) {
 }
 
 $parameters = ['line' => $line, 'i' =>& $i, 'coldisplay' =>& $coldisplay];
-$reshook = $hookManager->executeHooks('objectLineView_ProductSupplier', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('objectLineView_ProductSupplier', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($user->hasRight('fournisseur', 'lire') && isset($line->fk_fournprice) && $line->fk_fournprice > 0 && !getDolGlobalString('SUPPLIER_HIDE_SUPPLIER_OBJECTLINES')) {
 		require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.product.class.php';
 		$productfourn = new ProductFournisseur($this->db);

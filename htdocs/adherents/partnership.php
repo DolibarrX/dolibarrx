@@ -121,15 +121,15 @@ $result = restrictedArea($user, 'adherent', $id, '', '', 'socid', 'rowid', 0);
  */
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 $date_start = dol_mktime(0, 0, 0, GETPOSTINT('date_partnership_startmonth'), GETPOSTINT('date_partnership_startday'), GETPOSTINT('date_partnership_startyear'));
 $date_end = dol_mktime(0, 0, 0, GETPOSTINT('date_partnership_endmonth'), GETPOSTINT('date_partnership_endday'), GETPOSTINT('date_partnership_endyear'));
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$error = 0;
 
 	$backtopage = dol_buildpath('/partnership/partnership.php', 1).'?rowid='.($id > 0 ? $id : '__ID__');
@@ -220,12 +220,12 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	if ($action != 'presend') {
 		print '<div class="tabsAction">'."\n";
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			// Show
 			if ($permissiontoadd) {
 				print dolGetButtonAction($langs->trans('AddPartnership'), '', 'default', DOL_URL_ROOT.'/partnership/partnership_card.php?action=create&fk_member='.$object->id.'&backtopage='.urlencode(DOL_URL_ROOT.'/adherents/partnership.php?id='.$object->id), '', $permissiontoadd);

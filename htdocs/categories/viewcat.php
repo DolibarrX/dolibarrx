@@ -118,7 +118,7 @@ if ($confirm == 'no') {
 	}
 }
 $parameters = array('type' => $type, 'id' => $id, 'label' => $label);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 // Remove element from category
 if ($id > 0 && $removeelem > 0 && $action == 'unlink') {	// Test on permission not required here. Done later according to type of object.
 	$tmpobject = null;
@@ -342,11 +342,11 @@ print dol_get_fiche_end();
  */
 
 print "<div class='tabsAction'>\n";
-$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($user->hasRight('categorie', 'creer')) {
 		$socid = ($object->socid ? "&socid=".$object->socid : "");
 		print '<a class="butAction" href="edit.php?id='.$object->id.$socid.'&type='.$type.'">'.$langs->trans("Modify").'</a>';
@@ -1413,7 +1413,7 @@ if ($type == Categorie::TYPE_FICHINTER) {
 
 // Note that $action and $object may have been modified by some hooks
 $parameters = array('type' => $type, 'id' => $id, 'label' => $label);
-$reshook = $hookManager->executeHooks('addMoreCategoriesList', $parameters, $object, $action);
+$resHook = $hookManager->executeHooks('addMoreCategoriesList', $parameters, $object, $action);
 
 // End of page
 llxFooter();

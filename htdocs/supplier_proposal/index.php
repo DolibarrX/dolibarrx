@@ -401,7 +401,7 @@ if (isModEnabled('supplier_proposal') && $user->hasRight('supplier_proposal', 'l
 print '</div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookManager->executeHooks('dashboardSupplierProposal', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('dashboardSupplierProposal', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

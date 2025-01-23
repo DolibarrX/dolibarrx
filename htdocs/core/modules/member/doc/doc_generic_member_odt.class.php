@@ -350,7 +350,7 @@ class doc_generic_member_odt extends ModelePDFMember
 					'outputlangs' => $outputlangs,
 					'substitutionarray' => &$tmparray
 				);
-				$reshook = $hookManager->executeHooks('ODTSubstitution', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('ODTSubstitution', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				foreach ($tmparray as $key => $value) {
 					try {
 						if (preg_match('/logo$/', $key)) {
@@ -381,7 +381,7 @@ class doc_generic_member_odt extends ModelePDFMember
 
 				// Call the beforeODTSave hook
 				$parameters = array('odfHandler' => &$odfHandler, 'file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
-				$reshook = $hookManager->executeHooks('beforeODTSave', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('beforeODTSave', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Write new file
 				if (getDolGlobalString('MAIN_ODT_AS_PDF')) {
@@ -402,7 +402,7 @@ class doc_generic_member_odt extends ModelePDFMember
 					}
 				}
 
-				$reshook = $hookManager->executeHooks('afterODTCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('afterODTCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 				dolChmod($file);
 

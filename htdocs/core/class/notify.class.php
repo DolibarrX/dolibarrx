@@ -638,8 +638,8 @@ class Notify
 		$hookManager->initHooks(array('notification'));
 
 		$parameters = array('notifcode' => $notifcode);
-		$reshook = $hookManager->executeHooks('notifsupported', $parameters, $object, $action);
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('notifsupported', $parameters, $object, $action);
+		if (empty($resHook)) {
 			if (!empty($hookManager->resArray['arrayofnotifsupported'])) {
 				Notify::$arrayofnotifsupported = array_merge(Notify::$arrayofnotifsupported, $hookManager->resArray['arrayofnotifsupported']);
 			}
@@ -1002,8 +1002,8 @@ class Notify
 							$action = '';
 						}
 
-						$reshook = $hookManager->executeHooks('formatNotificationMessage', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-						if (empty($reshook)) {
+						$resHook = $hookManager->executeHooks('formatNotificationMessage', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+						if (empty($resHook)) {
 							if (!empty($hookManager->resArray['files'])) {
 								$filename_list = $hookManager->resArray['files']['file'];
 								$mimetype_list = $hookManager->resArray['files']['mimefile'];
@@ -1317,8 +1317,8 @@ class Notify
 
 				if ($sendto) {
 					$parameters = array('notifcode' => $notifcode, 'sendto' => $sendto, 'from' => $from, 'file' => $filename_list, 'mimefile' => $mimetype_list, 'filename' => $mimefilename_list, 'subject' => &$subject, 'message' => &$message);
-					$reshook = $hookManager->executeHooks('formatNotificationMessage', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-					if (empty($reshook)) {
+					$resHook = $hookManager->executeHooks('formatNotificationMessage', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+					if (empty($resHook)) {
 						if (!empty($hookManager->resArray['files'])) {
 							$filename_list = $hookManager->resArray['files']['file'];
 							$mimetype_list = $hookManager->resArray['files']['mimefile'];

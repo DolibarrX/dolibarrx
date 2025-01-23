@@ -123,7 +123,7 @@ if (!$user->hasRight('accounting', 'bind', 'write')) {
  * Actions
  */
 
-$reshook = $hookManager->executeHooks('doActions', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+$resHook = $hookManager->executeHooks('doActions', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
 
 $reload = false;
 

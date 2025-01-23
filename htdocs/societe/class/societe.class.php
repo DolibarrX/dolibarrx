@@ -3160,8 +3160,8 @@ class Societe extends CommonObject
 			'notooltip' => $notooltip,
 			'save_lastsearch_value' => $save_lastsearch_value
 		);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;
@@ -4131,8 +4131,8 @@ class Societe extends CommonObject
 
 		$hookManager->initHooks(array('idprofurl'));
 		$parameters = array('idprof' => $idprof, 'company' => $thirdparty);
-		$reshook = $hookManager->executeHooks('getIdProfUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('getIdProfUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if (empty($resHook)) {
 			if (getDolGlobalString('MAIN_DISABLEPROFIDRULES')) {
 				return '';
 			}
@@ -5692,9 +5692,9 @@ class Societe extends CommonObject
 			// External modules should update their ones too
 			if (!$error) {
 				$parameters = array('soc_origin' => $soc_origin->id, 'soc_dest' => $this->id);
-				$reshook = $hookManager->executeHooks('replaceThirdparty', $parameters, $this, $action);
+				$resHook = $hookManager->executeHooks('replaceThirdparty', $parameters, $this, $action);
 
-				if ($reshook < 0) {
+				if ($resHook < 0) {
 					$this->error = $hookManager->error;
 					$this->errors = $hookManager->errors;
 					$error++;

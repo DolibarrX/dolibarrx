@@ -662,8 +662,8 @@ class EmailCollector extends CommonObject
 
 		$hookManager->initHooks(array('emailcollectordao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;
@@ -3097,8 +3097,8 @@ class EmailCollector extends CommonObject
 								}
 								$hookManager->initHooks(array('emailcolector'));
 								$parameters = array('arrayobject' => $arrayobject);
-								$reshook = $hookManager->executeHooks('addmoduletoeamailcollectorjoinpiece', $parameters);    // Note that $action and $object may have been modified by some hooks
-								if ($reshook > 0) {
+								$resHook = $hookManager->executeHooks('addmoduletoeamailcollectorjoinpiece', $parameters);    // Note that $action and $object may have been modified by some hooks
+								if ($resHook > 0) {
 									$arrayobject = $hookManager->resArray;
 								}
 
@@ -3566,9 +3566,9 @@ class EmailCollector extends CommonObject
 								'header' => $header,
 								'attachments' => $attachments,
 							);
-							$reshook = $hookManager->executeHooks('doCollectImapOneCollector', $parameters, $this, $operation['type']);
+							$resHook = $hookManager->executeHooks('doCollectImapOneCollector', $parameters, $this, $operation['type']);
 
-							if ($reshook < 0) {
+							if ($resHook < 0) {
 								$errorforthisaction++;
 								$this->error = $hookManager->resPrint;
 							}

@@ -452,7 +452,7 @@ if ($action == "view_ticketlist") {
 
 				// allow to display information before list
 				$parameters = array('arrayfields' => $arrayfields);
-				$reshook = $hookManager->executeHooks('printFieldListHeader', $parameters, $object, $action);    // Note that $action and $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('printFieldListHeader', $parameters, $object, $action);    // Note that $action and $object may have been modified by hook
 				print $hookManager->resPrint;
 
 				print '<div class="div-table-responsive">';
@@ -521,7 +521,7 @@ if ($action == "view_ticketlist") {
 
 				// Fields from hook
 				$parameters = array('arrayfields' => $arrayfields);
-				$reshook = $hookManager->executeHooks('printFieldListOption', $parameters, $object); // Note that $action and $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('printFieldListOption', $parameters, $object); // Note that $action and $object may have been modified by hook
 				print $hookManager->resPrint;
 
 				// Status ticket
@@ -583,7 +583,7 @@ if ($action == "view_ticketlist") {
 
 				// Hook fields
 				$parameters = array('arrayfields' => $arrayfields, 'param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-				$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
 				print $hookManager->resPrint;
 
 				if (!empty($arrayfields['t.fk_statut']['checked'])) {

@@ -72,7 +72,7 @@ $nolinesbefore = (count($this->lines) == 0 || $forcetoshowtitlelines);
 		<?php
 		if (is_object($hookManager)) {
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('formCreateValueOptions', $parameters, $object, $action);
+			$resHook = $hookManager->executeHooks('formCreateValueOptions', $parameters, $object, $action);
 			if (!empty($hookManager->resPrint)) {
 				print $hookManager->resPrint;
 			}

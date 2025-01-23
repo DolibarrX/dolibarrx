@@ -176,12 +176,12 @@ $value_unit = price2num(GETPOST('value_unit', 'alpha'), 'MU');
 $qty = price2num(GETPOST('qty', 'alpha'));
 
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$backurlforlist = DOL_URL_ROOT.'/expensereport/list.php';
 
 	if (empty($backtopage) || ($cancel && empty($id))) {
@@ -1537,9 +1537,9 @@ if ($action == 'create') {
 
 	// Other attributes
 	$parameters = array('colspan' => ' colspan="3"', 'cols' => 3);
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by
 	print $hookManager->resPrint;
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		print $object->showOptionals($extrafields, 'create', $parameters);
 	}
 
@@ -1731,10 +1731,10 @@ if ($action == 'create') {
 
 			// Call Hook formConfirm
 			$parameters = array('formConfirm' => $formconfirm);
-			$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			if (empty($reshook)) {
+			$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			if (empty($resHook)) {
 				$formconfirm .= $hookManager->resPrint;
-			} elseif ($reshook > 0) {
+			} elseif ($resHook > 0) {
 				$formconfirm = $hookManager->resPrint;
 			}
 
@@ -2891,7 +2891,7 @@ if ($action != 'create' && $action != 'edit' && $action != 'editline') {
 	}
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 }
 
 print '</div>';

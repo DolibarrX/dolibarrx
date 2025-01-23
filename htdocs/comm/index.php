@@ -651,8 +651,8 @@ if (isModEnabled("societe") && $user->hasRight('societe', 'lire')) {
 	}
 	// Add where from hooks
 	$parameters = array('socid' => $socid);
-	$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $companystatic); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $companystatic); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		if ($socid > 0) {
 			$sql .= " AND s.rowid = ".((int) $socid);
 		}
@@ -943,8 +943,8 @@ if ((isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) && $use
 	}
 	// Add where from hooks
 	$parameters = array('socid' => $socid);
-	$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $companystatic); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $companystatic); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		if ($socid > 0) {
 			$sql .= " AND s.rowid = ".((int) $socid);
 		}
@@ -1359,7 +1359,7 @@ print '</div>';
 print '</div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookManager->executeHooks('dashboardCommercials', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('dashboardCommercials', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

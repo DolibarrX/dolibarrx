@@ -410,8 +410,8 @@ if (!getDolGlobalString('ECM_AUTO_TREE_HIDEN')) {
 	$sectionauto[] = array('position' => 220, 'level' => 1, 'module' => 'user', 'test' => 1, 'label' => $langs->trans("Users"), 'desc' => $langs->trans("ECMDocsBy", $langs->transnoentitiesnoconv("Users")));
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
-	if ($reshook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
+	$resHook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
+	if ($resHook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
 		$sectionauto[] = $hookManager->resArray;
 		$rowspan += count($hookManager->resArray);
 	}

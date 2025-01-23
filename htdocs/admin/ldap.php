@@ -60,12 +60,12 @@ $hookManager->initHooks(array('adminldap', 'globaladmin'));
  */
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($action == 'setvalue' && $user->admin) {
 		$error = 0;
 
@@ -193,7 +193,7 @@ if (isModEnabled('member')) {
 
 // Fields from hook
 $parameters = array();
-$reshook = $hookManager->executeHooks('addAdminLdapOptions', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('addAdminLdapOptions', $parameters); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 
 print '<tr class="liste_titre">';

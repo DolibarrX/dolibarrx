@@ -70,7 +70,7 @@ $coldisplay++;
 		<?php
 		if (is_object($hookManager)) {
 			$parameters = array('line' => $line);
-			$reshook = $hookManager->executeHooks('formEditProductOptions', $parameters, $object, $action);
+			$resHook = $hookManager->executeHooks('formEditProductOptions', $parameters, $object, $action);
 			if (!empty($hookManager->resPrint)) {
 				print $hookManager->resPrint;
 			}

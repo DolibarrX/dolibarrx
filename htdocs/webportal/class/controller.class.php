@@ -154,12 +154,12 @@ class Controller
 		/* Use $context singleton to modify menu, */
 		$parameters['controller'] = $context->controller;
 
-		$reshook = $hookManager->executeHooks('doActions', $parameters, $context, $context->action);    // Note that $action and $object may have been modified by hook
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('doActions', $parameters, $context, $context->action);    // Note that $action and $object may have been modified by hook
+		if ($resHook < 0) {
 			$context->setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
-		return $reshook;
+		return $resHook;
 	}
 
 	/**
@@ -177,12 +177,12 @@ class Controller
 		/* Use $context singleton to modify menu, */
 		$parameters['controller'] = $context->controller;
 
-		$reshook = $hookManager->executeHooks('PrintPageView', $parameters, $context, $context->action);    // Note that $action and $object may have been modified by hook
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('PrintPageView', $parameters, $context, $context->action);    // Note that $action and $object may have been modified by hook
+		if ($resHook < 0) {
 			$context->setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
-		return $reshook;
+		return $resHook;
 	}
 
 	/**

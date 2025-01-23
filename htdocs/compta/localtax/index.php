@@ -451,7 +451,7 @@ while ((($y < $yend) || ($y == $yend && $m <= $mend)) && $mcursor < 1000) {	// $
 
 	// Initialize a technical object to manage hooks of expenses. Note that conf->hooks_modules contains array array
 	$hookManager->initHooks(array('externalbalance'));
-	$reshook = $hookManager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	$resHook = $hookManager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 
 	print '<tr class="oddeven">';

@@ -130,8 +130,8 @@ $permissiontoadd = $usercancreate; // Used by the include of actions_addupdatede
  */
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
@@ -347,10 +347,10 @@ if ($id > 0 || !empty($ref)) {
 	// Call Hook formConfirm
 	$parameters = array('lineid' => $lineid);
 	// Note that $action and $object may be modified by hook
-	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action);
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action);
+	if (empty($resHook)) {
 		$formconfirm .= $hookManager->resPrint;
-	} elseif ($reshook > 0) {
+	} elseif ($resHook > 0) {
 		$formconfirm = $hookManager->resPrint;
 	}
 
@@ -495,13 +495,13 @@ if ($id > 0 || !empty($ref)) {
 		$sql .= " p.ref, p.label, p.tobatch, p.fk_default_warehouse";
 		// Enable hooks to alter the SQL query (SELECT)
 		$parameters = array();
-		$reshook = $hookManager->executeHooks(
+		$resHook = $hookManager->executeHooks(
 			'printFieldListSelect',
 			$parameters,
 			$object,
 			$action
 		);
-		if ($reshook < 0) {
+		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 		$sql .= $hookManager->resPrint;
@@ -513,13 +513,13 @@ if ($id > 0 || !empty($ref)) {
 		}
 		// Enable hooks to alter the SQL query (WHERE)
 		$parameters = array();
-		$reshook = $hookManager->executeHooks(
+		$resHook = $hookManager->executeHooks(
 			'printFieldListWhere',
 			$parameters,
 			$object,
 			$action
 		);
-		if ($reshook < 0) {
+		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 		$sql .= $hookManager->resPrint;
@@ -580,13 +580,13 @@ if ($id > 0 || !empty($ref)) {
 
 				// Enable hooks to append additional columns
 				$parameters = array();
-				$reshook = $hookManager->executeHooks(
+				$resHook = $hookManager->executeHooks(
 					'printFieldListTitle',
 					$parameters,
 					$object,
 					$action
 				);
-				if ($reshook < 0) {
+				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 				print $hookManager->resPrint;
@@ -722,13 +722,13 @@ if ($id > 0 || !empty($ref)) {
 										'suffix' => $suffix,
 										'objd' => $objd,
 									);
-									$reshook = $hookManager->executeHooks(
+									$resHook = $hookManager->executeHooks(
 										'printFieldListValue',
 										$parameters,
 										$object,
 										$action
 									);
-									if ($reshook < 0) {
+									if ($resHook < 0) {
 										setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 									}
 									print $hookManager->resPrint;
@@ -781,13 +781,13 @@ if ($id > 0 || !empty($ref)) {
 										'suffix' => $suffix,
 										'objd' => $objd,
 									);
-									$reshook = $hookManager->executeHooks(
+									$resHook = $hookManager->executeHooks(
 										'printFieldListValue',
 										$parameters,
 										$object,
 										$action
 									);
-									if ($reshook < 0) {
+									if ($resHook < 0) {
 										setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 									}
 									print $hookManager->resPrint;
@@ -864,13 +864,13 @@ if ($id > 0 || !empty($ref)) {
 									'suffix' => $suffix,
 									'objp' => $objp,
 								);
-								$reshook = $hookManager->executeHooks(
+								$resHook = $hookManager->executeHooks(
 									'printFieldListValue',
 									$parameters,
 									$object,
 									$action
 								);
-								if ($reshook < 0) {
+								if ($resHook < 0) {
 									setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 								}
 								print $hookManager->resPrint;
@@ -895,13 +895,13 @@ if ($id > 0 || !empty($ref)) {
 									'suffix' => $suffix,
 									'objp' => $objp,
 								);
-								$reshook = $hookManager->executeHooks(
+								$resHook = $hookManager->executeHooks(
 									'printFieldListValue',
 									$parameters,
 									$object,
 									$action
 								);
-								if ($reshook < 0) {
+								if ($resHook < 0) {
 									setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 								}
 								print $hookManager->resPrint;
@@ -954,13 +954,13 @@ if ($id > 0 || !empty($ref)) {
 									'suffix' => $suffix,
 									'objp' => $objp,
 								);
-								$reshook = $hookManager->executeHooks(
+								$resHook = $hookManager->executeHooks(
 									'printFieldListValue',
 									$parameters,
 									$object,
 									$action
 								);
-								if ($reshook < 0) {
+								if ($resHook < 0) {
 									setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 								}
 								print $hookManager->resPrint;
@@ -1037,13 +1037,13 @@ if ($id > 0 || !empty($ref)) {
 								'suffix' => $suffix,
 								'objp' => $objp,
 							);
-							$reshook = $hookManager->executeHooks(
+							$resHook = $hookManager->executeHooks(
 								'printFieldListValue',
 								$parameters,
 								$object,
 								$action
 							);
-							if ($reshook < 0) {
+							if ($resHook < 0) {
 								setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 							}
 							print $hookManager->resPrint;
@@ -1064,9 +1064,9 @@ if ($id > 0 || !empty($ref)) {
 		if ($nbproduct) {
 			print '<div class="center">';
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 			// modified by hook
-			if (empty($reshook)) {
+			if (empty($resHook)) {
 				/*$checkboxlabel = $langs->trans("CloseReceivedSupplierOrdersAutomatically", $langs->transnoentitiesnoconv('StatusOrderReceivedAll'));
 
 				if (empty($config->reception->enabled)) {

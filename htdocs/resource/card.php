@@ -90,12 +90,12 @@ $permissiontodelete = $user->hasRight('resource', 'delete');
  */
 
 $parameters = array('resource_id' => $id);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($cancel) {
 		if (!empty($backtopage)) {
 			header("Location: ".$backtopage);
@@ -362,9 +362,9 @@ if ($action == 'create' || $object->fetch($id, $ref) > 0) {
 
 		// Other attributes
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			print $object->showOptionals($extrafields, 'edit');
 		}
 
@@ -444,9 +444,9 @@ if ($action == 'create' || $object->fetch($id, $ref) > 0) {
 	 */
 	print '<div class="tabsAction">';
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 	// modified by hook
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		if ($action != "create" && $action != "edit") {
 			// Edit resource
 			if ($user->hasRight('resource', 'write')) {

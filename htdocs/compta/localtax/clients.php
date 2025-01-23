@@ -234,7 +234,7 @@ if ($calc == 0 || $calc == 2) {
 
 	// Initialize a technical object to manage hooks of expenses. Note that conf->hooks_modules contains array array
 	$hookManager->initHooks(array('externalbalance'));
-	$reshook = $hookManager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	$resHook = $hookManager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 	if (is_array($coll_list)) {
 		$total = 0;
@@ -300,7 +300,7 @@ if ($calc == 0 || $calc == 1) {
 	$parameters["direction"] = 'buy';
 	$parameters["type"] = 'localtax'.$local;
 
-	$reshook = $hookManager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	$resHook = $hookManager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 	if (is_array($coll_list)) {
 		$total = 0;
 		$totalamount = 0;

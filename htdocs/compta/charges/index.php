@@ -530,7 +530,7 @@ while ($j < $numlt) {
 print '</form>';
 
 $parameters = array('user' => $user);
-$reshook = $hookManager->executeHooks('dashboardSpecialBills', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('dashboardSpecialBills', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

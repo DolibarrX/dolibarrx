@@ -152,13 +152,13 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 }
 
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 $formquestion = array();
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if (($action == 'add_paiement' || ($action == 'confirm_paiement' && $confirm == 'yes')) && $permissiontoadd) {
 		$datepaye = GETPOSTDATE('re', '12:00:00');
 		$paiement_id = 0;
@@ -543,10 +543,10 @@ if ($action == 'create' || $action == 'confirm_paiement' || $action == 'add_paie
 				// 'ref' => $ref,
 				// 'objcanvas' => $objcanvas,
 			);
-			$reshook = $hookManager->executeHooks('paymentsupplierinvoices', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+			$resHook = $hookManager->executeHooks('paymentsupplierinvoices', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 			$error = $hookManager->error;
 			$errors = $hookManager->errors;
-			if (empty($reshook)) {
+			if (empty($resHook)) {
 				/*
 				 * All unpaid supplier invoices
 				 */

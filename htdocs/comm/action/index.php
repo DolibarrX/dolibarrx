@@ -248,8 +248,8 @@ $parameters = array(
 	'resourceid' => $resourceid,
 	'usergroup' => $usergroup,
 );
-$reshook = $hookManager->executeHooks('beforeAgenda', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('beforeAgenda', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
@@ -554,10 +554,10 @@ $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsm
 // Add more views from hooks
 $parameters = array();
 $object = null;
-$reshook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
+if (empty($resHook)) {
 	$viewmode .= $hookManager->resPrint;
-} elseif ($reshook > 1) {
+} elseif ($resHook > 1) {
 	$viewmode = $hookManager->resPrint;
 }
 
@@ -716,10 +716,10 @@ if (!empty($config->use_javascript_ajax)) {	// If javascript on
 
 	// Calendars from hooks
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addCalendarChoice', $parameters, $object, $action);
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('addCalendarChoice', $parameters, $object, $action);
+	if (empty($resHook)) {
 		$s .= $hookManager->resPrint;
-	} elseif ($reshook > 1) {
+	} elseif ($resHook > 1) {
 		$s = $hookManager->resPrint;
 	}
 
@@ -761,7 +761,7 @@ $sql .= ' a.fk_element, a.elementtype,';
 $sql .= ' ca.code as type_code, ca.libelle as type_label, ca.color as type_color, ca.type as type_type, ca.picto as type_picto';
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 $sql .= ' FROM '.MAIN_DB_PREFIX.'c_actioncomm as ca, '.MAIN_DB_PREFIX."actioncomm as a";
@@ -1040,9 +1040,9 @@ if ($resql) {
 		}
 
 		$parameters['obj'] = $obj;
-		$reshook = $hookManager->executeHooks('hookEventElements', $parameters, $event, $action); // Note that $action and $object may have been modified by some hooks
+		$resHook = $hookManager->executeHooks('hookEventElements', $parameters, $event, $action); // Note that $action and $object may have been modified by some hooks
 		$event = $hookManager->resPrint;
-		if ($reshook < 0) {
+		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
@@ -1506,7 +1506,7 @@ if (count($listofextcals)) {
 // Complete $eventarray with events coming from external module
 $parameters = array();
 $object = null;
-$reshook = $hookManager->executeHooks('getCalendarEvents', $parameters, $object, $action);
+$resHook = $hookManager->executeHooks('getCalendarEvents', $parameters, $object, $action);
 if (!empty($hookManager->resArray['eventarray'])) {
 	foreach ($hookManager->resArray['eventarray'] as $keyDate => $events) {
 		if (!isset($eventarray[$keyDate])) {
@@ -2161,12 +2161,12 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 					}
 
 					$parameters = array();
-					$reshook = $hookManager->executeHooks('eventOptions', $parameters, $event, $action); // Note that $action and $object may have been modified by some hooks
-					if ($reshook < 0) {
+					$resHook = $hookManager->executeHooks('eventOptions', $parameters, $event, $action); // Note that $action and $object may have been modified by some hooks
+					if ($resHook < 0) {
 						setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 					} else {
 						'@phan-var-force ActionComm $event';
-						if (empty($reshook)) {
+						if (empty($resHook)) {
 							// Other calendar
 							/*
 							if (empty($event->fulldayevent)) {
@@ -2291,7 +2291,7 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 							if ($linerelatedto) {
 								print ' '.$linerelatedto;
 							}
-						} elseif (!empty($reshook)) {
+						} elseif (!empty($resHook)) {
 							print $hookManager->resPrint;
 						}
 					}

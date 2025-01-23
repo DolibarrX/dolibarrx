@@ -115,11 +115,11 @@ $usercandelete = $user->hasRight('stock', 'supprimer');
 $error = 0;
 
 $parameters = array('context' => 'warehousecard', 'id' => $id, 'ref' => $ref);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$backurlforlist = DOL_URL_ROOT.'/product/stock/list.php';
 
 	if (empty($backtopage) || ($cancel && empty($id))) {
@@ -440,10 +440,10 @@ if ($action == 'create') {
 
 			// Call Hook formConfirm
 			$parameters = array('context' => 'warehousecard', 'formConfirm' => $formconfirm);
-			$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			if (empty($reshook)) {
+			$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			if (empty($resHook)) {
 				$formconfirm .= $hookManager->resPrint;
-			} elseif ($reshook > 0) {
+			} elseif ($resHook > 0) {
 				$formconfirm = $hookManager->resPrint;
 			}
 
@@ -600,8 +600,8 @@ if ($action == 'create') {
 			print "<div class=\"tabsAction\">\n";
 
 			$parameters = array('context' => 'warehousecard');
-			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			if (empty($reshook)) {
+			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			if (empty($resHook)) {
 				if (empty($action) || $action == 'classin') {
 					if ($user->hasRight('stock', 'creer')) {
 						print '<a class="butAction" href="card.php?action=edit&token='.newToken().'&id='.$object->id.'">'.$langs->trans("Modify").'</a>';
@@ -635,7 +635,7 @@ if ($action == 'create') {
 			print '<table class="noborder centpercent liste">';
 			print '<tr class="liste_titre">';
 			$parameters = array('context' => 'warehousecard', 'totalarray' => &$totalarray);
-			$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters); // Note that $action and $object may have been modified by hook
 			print $hookManager->resPrint;
 
 			print_liste_field_titre("Products", "", "p.ref", "&amp;id=".$id, "", "", $sortfield, $sortorder);
@@ -681,7 +681,7 @@ if ($action == 'create') {
 			}
 			// Hook fields
 			$parameters = array('context' => 'warehousecard', 'sortfield' => $sortfield, 'sortorder' => $sortorder, 'totalarray' => &$totalarray);
-			$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
 			print $hookManager->resPrint;
 			print "</tr>\n";
 
@@ -715,8 +715,8 @@ if ($action == 'create') {
 			$sql .= ", (ps.reel * p.pmp) as svalue";
 			// Add fields from hooks
 			$parameters = array('context' => 'warehousecard');
-			$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
-			if ($reshook > 0) {			//Note that $sql is replaced if reshook > 0
+			$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
+			if ($resHook > 0) {			//Note that $sql is replaced if reshook > 0
 				$sql = "";
 			}
 			$sql .= $hookManager->resPrint;
@@ -848,7 +848,7 @@ if ($action == 'create') {
 					}
 
 					$parameters = array('context' => 'warehousecard', 'obj' => $objp, 'totalarray' => &$totalarray);
-					$reshook = $hookManager->executeHooks('printFieldListValue', $parameters); // Note that $action and $object may have been modified by hook
+					$resHook = $hookManager->executeHooks('printFieldListValue', $parameters); // Note that $action and $object may have been modified by hook
 					print $hookManager->resPrint;
 
 					print "</tr>";
@@ -873,8 +873,8 @@ if ($action == 'create') {
 
 				$parameters = array('context' => 'warehousecard', 'totalarray' => &$totalarray);
 				// Note that $action and $object may have been modified by hook
-				$reshook = $hookManager->executeHooks('printFieldListTotal', $parameters, $object);
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('printFieldListTotal', $parameters, $object);
+				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors);
 				}
 
@@ -977,9 +977,9 @@ if ($action == 'create') {
 
 			// Other attributes
 			$parameters = array('context' => 'warehousecard', 'colspan' => ' colspan="3"', 'cols' => '3');
-			$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			print $hookManager->resPrint;
-			if (empty($reshook)) {
+			if (empty($resHook)) {
 				print $object->showOptionals($extrafields, 'edit', $parameters);
 			}
 

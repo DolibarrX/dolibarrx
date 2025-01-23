@@ -50,8 +50,8 @@ if ($object->element == 'mo') {
 
 	$hookManager->initHooks(array('LinesLinkedObjectBlock'));
 	$parameters = array('TMoChilds' => $TMoChilds);
-	$reshook = $hookManager->executeHooks('LinesLinkedObjectBlock', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('LinesLinkedObjectBlock', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		foreach ($TMoChilds as $key => $objectlink) {
 			$ilink++;
 

@@ -3223,8 +3223,8 @@ class User extends CommonObject
 		global $action;
 		$hookManager->initHooks(array('userdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;
@@ -3888,8 +3888,8 @@ class User extends CommonObject
 		$sql .= " FROM ".$this->db->prefix()."user as u";
 		// Add fields from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printUserListWhere', $parameters); // Note that $action and $object may have been modified by hook
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('printUserListWhere', $parameters); // Note that $action and $object may have been modified by hook
+		if ($resHook > 0) {
 			$sql .= $hookManager->resPrint;
 		} else {
 			$sql .= " WHERE u.entity IN (".getEntity('user').")";

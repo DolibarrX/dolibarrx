@@ -875,10 +875,10 @@ $parameters = array(
 	'paymentmethod' => $paymentmethod,
 	'validpaymentmethod' => &$validpaymentmethod
 );
-$reshook = $hookManager->executeHooks('doPayment', $parameters, $object, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doPayment', $parameters, $object, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
-} elseif ($reshook > 0) {
+} elseif ($resHook > 0) {
 	print $hookManager->resPrint;
 }
 
@@ -2153,10 +2153,10 @@ if ($action != 'dopayment') {
 			'source' => $source,
 			'object' => $object
 		];
-		$reshook = $hookManager->executeHooks('doCheckStatus', $parameters, $object, $action);
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('doCheckStatus', $parameters, $object, $action);
+		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
-		} elseif ($reshook > 0) {
+		} elseif ($resHook > 0) {
 			print $hookManager->resPrint;
 		}
 
@@ -2184,10 +2184,10 @@ if ($action != 'dopayment') {
 			$parameters = [
 				'paymentmethod' => $paymentmethod
 			];
-			$reshook = $hookManager->executeHooks('doAddButton', $parameters, $object, $action);
-			if ($reshook < 0) {
+			$resHook = $hookManager->executeHooks('doAddButton', $parameters, $object, $action);
+			if ($resHook < 0) {
 				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
-			} elseif ($reshook >= 0) {
+			} elseif ($resHook >= 0) {
 				print $hookManager->resPrint;
 			}
 
@@ -2816,10 +2816,10 @@ if (preg_match('/^dopayment/', $action)) {			// If we chose/clicked on the payme
 		'tag' => GETPOST("tag", 'alpha'),
 		'dopayment' => GETPOST('dopayment', 'alpha')
 	];
-	$reshook = $hookManager->executeHooks('doPayment', $parameters, $object, $action);
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('doPayment', $parameters, $object, $action);
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
-	} elseif ($reshook > 0) {
+	} elseif ($resHook > 0) {
 		print $hookManager->resPrint;
 	}
 }

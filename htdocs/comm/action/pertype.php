@@ -234,8 +234,8 @@ $parameters = array(
 	'usergroup' => $usergroup,
 );
 
-$reshook = $hookManager->executeHooks('beforeAgendaPerType', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('beforeAgendaPerType', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
@@ -426,10 +426,10 @@ if ($config->use_javascript_ajax) {
 
 		// Calendars from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('addCalendarChoice', $parameters, $object, $action);
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('addCalendarChoice', $parameters, $object, $action);
+		if (empty($resHook)) {
 			$s .= $hookManager->resPrint;
-		} elseif ($reshook > 1) {
+		} elseif ($resHook > 1) {
 			$s = $hookManager->resPrint;
 		}
 	}
@@ -472,10 +472,10 @@ $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsm
 // Add more views from hooks
 $parameters = array();
 $object = null;
-$reshook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
+if (empty($resHook)) {
 	$viewmode .= $hookManager->resPrint;
-} elseif ($reshook > 1) {
+} elseif ($resHook > 1) {
 	$viewmode = $hookManager->resPrint;
 }
 
@@ -1022,8 +1022,8 @@ function show_day_events_pertype($username, $day, $month, $year, $monthshown, $s
 				//if ($username->id != $event->userownerid) continue;	// We discard record if event is from another user than user we want to show
 
 				$parameters = array();
-				$reshook = $hookManager->executeHooks('formatEvent', $parameters, $event, $action); // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('formatEvent', $parameters, $event, $action); // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 

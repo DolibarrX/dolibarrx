@@ -118,12 +118,12 @@ if ($cancel) {
 }
 
 $parameters = array('id' => $id, 'ref' => $ref);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter', 'alpha')) { // All tests are required to be compatible with all browsers
 		$search_soc = '';
 	}
@@ -1571,8 +1571,8 @@ if (!$action || $action == 'delete' || $action == 'showlog_customer_price' || $a
 
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+	if (empty($resHook)) {
 		if ($object->isVariant()) {
 			if ($user->hasRight('produit', 'creer') || $user->hasRight('service', 'creer')) {
 				print '<div class="inline-block divButAction"><a class="butActionRefused classfortooltip" href="#" title="' . dol_escape_htmltag($langs->trans("NoEditVariants")) . '">' . $langs->trans("UpdateDefaultPrice") . '</a></div>';
@@ -1805,7 +1805,7 @@ if (($action == 'edit_price' || $action == 'edit_level_price') && $object->getRi
 			}
 		}
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 		print '</table>';
 		print '</div>';

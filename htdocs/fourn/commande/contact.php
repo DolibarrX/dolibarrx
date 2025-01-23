@@ -68,8 +68,8 @@ $permissiontoadd	= $usercancreate; // Used by the include of actions_addupdatede
  */
 
 $parameters = array('id'=>$id);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
@@ -77,7 +77,7 @@ if ($reshook < 0) {
  * Add a new contact
  */
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($action == 'addcontact' && ($user->hasRight("fournisseur", "commande", "creer") || $user->hasRight("supplier_order", "creer"))) {
 		$result = $object->fetch($id);
 

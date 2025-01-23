@@ -309,8 +309,8 @@ $parameters = array('ecmfile' => $ecmfile, 'modulepart' => $modulepart, 'origina
 	'entity' => $entity, 'fullpath_original_file' => $fullpath_original_file,
 	'filename' => $filename, 'fullpath_original_file_osencoded' => $fullpath_original_file_osencoded);
 $object = new stdClass();
-$reshook = $hookManager->executeHooks('downloadDocument', $parameters, $object, $action); // Note that $action and $object may have been
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('downloadDocument', $parameters, $object, $action); // Note that $action and $object may have been
+if ($resHook < 0) {
 	$errors = $hookManager->error.(is_array($hookManager->errors) ? (!empty($hookManager->error) ? ', ' : '').implode(', ', $hookManager->errors) : '');
 	dol_syslog("document.php - Errors when executing the hook 'downloadDocument' : ".$errors);
 	print "ErrorDownloadDocumentHooks: ".$errors;

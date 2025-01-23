@@ -149,8 +149,8 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 $hookManager->initHooks(array('actioncard', 'globalcard'));
 
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
@@ -178,7 +178,7 @@ $listResourceAssignedUpdated = false;
 $assignedtouser = array();
 
 // Remove user to assigned list
-if (empty($reshook) && (GETPOST('removedassigned') || GETPOST('removedassigned') == '0')) {
+if (empty($resHook) && (GETPOST('removedassigned') || GETPOST('removedassigned') == '0')) {
 	$idtoremove = GETPOST('removedassigned');
 
 	if (!empty($_SESSION['assignedtouser'])) {
@@ -205,7 +205,7 @@ if (empty($reshook) && (GETPOST('removedassigned') || GETPOST('removedassigned')
 	$listUserAssignedUpdated = true;
 }
 // Remove resource to assigned list
-if (empty($reshook) && (GETPOST('removedassignedresource') || GETPOST('removedassignedresource') == '0')) {
+if (empty($resHook) && (GETPOST('removedassignedresource') || GETPOST('removedassignedresource') == '0')) {
 	$idtoremove = GETPOST('removedassignedresource');
 
 	if (!empty($_SESSION['assignedtoresource'])) {
@@ -233,7 +233,7 @@ if (empty($reshook) && (GETPOST('removedassignedresource') || GETPOST('removedas
 }
 
 // Add user to assigned list
-if (empty($reshook) && (GETPOST('addassignedtouser') || GETPOST('updateassignedtouser'))) {
+if (empty($resHook) && (GETPOST('addassignedtouser') || GETPOST('updateassignedtouser'))) {
 	// Add a new user
 	if (GETPOST('assignedtouser') > 0) {
 		$assignedtouser = array();
@@ -255,7 +255,7 @@ if (empty($reshook) && (GETPOST('addassignedtouser') || GETPOST('updateassignedt
 }
 
 // Add resource to assigned list
-if (empty($reshook) && (GETPOST('addassignedtoresource') || GETPOST('updateassignedtoresource'))) {
+if (empty($resHook) && (GETPOST('addassignedtoresource') || GETPOST('updateassignedtoresource'))) {
 	// Add a new user
 	if (GETPOST('assignedtoresource') > 0) {
 		$assignedtoresource = array();
@@ -277,14 +277,14 @@ if (empty($reshook) && (GETPOST('addassignedtoresource') || GETPOST('updateassig
 }
 
 // Link to a project
-if (empty($reshook) && $action == 'classin' && ($user->hasRight('agenda', 'allactions', 'create') ||
+if (empty($resHook) && $action == 'classin' && ($user->hasRight('agenda', 'allactions', 'create') ||
 	(($object->authorid == $user->id || $object->userownerid == $user->id) && $user->hasRight('agenda', 'myactions', 'create')))) {
 	//$object->fetch($id);
 	$object->setProject(GETPOSTINT('projectid'));
 }
 
 // Action clone object
-if (empty($reshook) && $action == 'confirm_clone' && $confirm == 'yes' && $usercancreate) {
+if (empty($resHook) && $action == 'confirm_clone' && $confirm == 'yes' && $usercancreate) {
 	if (1 == 0 && !GETPOST('clone_content') && !GETPOST('clone_receivers')) {
 		setEventMessages($langs->trans("NoCloneOptionsSpecified"), null, 'errors');
 	} else {
@@ -307,7 +307,7 @@ if (empty($reshook) && $action == 'confirm_clone' && $confirm == 'yes' && $userc
 }
 
 // Add event
-if (empty($reshook) && $action == 'add' && $usercancreate) {
+if (empty($resHook) && $action == 'add' && $usercancreate) {
 	$error = 0;
 
 	if (empty($backtopage)) {
@@ -833,7 +833,7 @@ if (empty($reshook) && $action == 'add' && $usercancreate) {
 }
 
 // Action update event
-if (empty($reshook) && $action == 'update' && $usercancreate) {
+if (empty($resHook) && $action == 'update' && $usercancreate) {
 	if (empty($cancel)) {
 		$fulldayevent = GETPOST('fullday');
 		$aphour = GETPOSTINT('aphour');
@@ -1134,7 +1134,7 @@ if (empty($reshook) && $action == 'update' && $usercancreate) {
 }
 
 // Delete event
-if (empty($reshook) && $action == 'confirm_delete' && GETPOST("confirm") == 'yes') {
+if (empty($resHook) && $action == 'confirm_delete' && GETPOST("confirm") == 'yes') {
 	$object->fetch($id);
 	$object->fetch_optionals();
 	$object->fetch_userassigned();
@@ -1157,7 +1157,7 @@ if (empty($reshook) && $action == 'confirm_delete' && GETPOST("confirm") == 'yes
  * Action move update, used when user move an event in calendar by drag'n drop
  * TODO Move this into page comm/action/index that trigger this call by the drag and drop of event.
  */
-if (empty($reshook) && GETPOST('actionmove', 'alpha') == 'mupdate') {
+if (empty($resHook) && GETPOST('actionmove', 'alpha') == 'mupdate') {
 	$error = 0;
 
 	$shour = (int) dol_print_date($object->datep, "%H", 'tzuserrel');		// We take the date visible by user $newdate is also date visible by user.
@@ -1260,7 +1260,7 @@ if (empty($reshook) && GETPOST('actionmove', 'alpha') == 'mupdate') {
 // Actions to delete doc
 $upload_dir = $config->agenda->dir_output.'/'.dol_sanitizeFileName($object->ref);
 $permissiontoadd = ($user->hasRight('agenda', 'allactions', 'create') || (($object->authorid == $user->id || $object->userownerid == $user->id) && $user->hasRight('agenda', 'myactions', 'read')));
-if (empty($reshook)) {
+if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 }
 
@@ -1764,9 +1764,9 @@ if ($action == 'create') {
 
 	// Other attributes
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		print $object->showOptionals($extrafields, 'create', $parameters);
 	}
 
@@ -2319,9 +2319,9 @@ if ($id > 0) {
 
 		// Other attributes
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			print $object->showOptionals($extrafields, 'edit', $parameters);
 		}
 
@@ -2466,10 +2466,10 @@ if ($id > 0) {
 
 		// Call Hook formConfirm
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			$formconfirm .= $hookManager->resPrint;
-		} elseif ($reshook > 0) {
+		} elseif ($resHook > 0) {
 			$formconfirm = $hookManager->resPrint;
 		}
 
@@ -2509,10 +2509,10 @@ if ($id > 0) {
 
 		// Add more views from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
+		if (empty($resHook)) {
 			$linkback .= $hookManager->resPrint;
-		} elseif ($reshook > 1) {
+		} elseif ($resHook > 1) {
 			$linkback = $hookManager->resPrint;
 		}
 
@@ -2817,8 +2817,8 @@ if ($id > 0) {
 	print '<div class="tabsAction">';
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		if ($action != 'edit') {
 			if ($user->hasRight('agenda', 'allactions', 'create') ||
 			   (($object->authorid == $user->id || $object->userownerid == $user->id) && $user->hasRight('agenda', 'myactions', 'create'))) {

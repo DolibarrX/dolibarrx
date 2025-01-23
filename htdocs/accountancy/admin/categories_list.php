@@ -583,11 +583,11 @@ if ($tabname[$id]) {
 
 	$tmpaction = 'create';
 	$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-	$reshook = $hookManager->executeHooks('createDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+	$resHook = $hookManager->executeHooks('createDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 	$error = $hookManager->error;
 	$errors = $hookManager->errors;
 
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		fieldListAccountingCategories($fieldlist, $obj, $tabname[$id], 'add');
 	}
 
@@ -787,7 +787,7 @@ if ($resql) {
 			if ($action == 'edit' && ($rowid == (!empty($obj->rowid) ? $obj->rowid : $obj->code))) {
 				$tmpaction = 'edit';
 				$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-				$reshook = $hookManager->executeHooks('editDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('editDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 				$error = $hookManager->error;
 				$errors = $hookManager->errors;
 
@@ -797,7 +797,7 @@ if ($resql) {
 				}
 
 				// Show fields
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					fieldListAccountingCategories($fieldlist, $obj, $tabname[$id], 'edit');
 				}
 
@@ -834,7 +834,7 @@ if ($resql) {
 
 				$tmpaction = 'view';
 				$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-				$reshook = $hookManager->executeHooks('viewDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('viewDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 
 				$error = $hookManager->error;
 				$errors = $hookManager->errors;
@@ -853,7 +853,7 @@ if ($resql) {
 					print '</td>';
 				}
 
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					foreach ($fieldlist as $field => $value) {
 						$showfield = 1;
 						$title = '';

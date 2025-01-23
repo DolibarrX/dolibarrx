@@ -395,14 +395,14 @@ if ($nolinesbefore) {
 
 		if (is_object($hookManager) && empty($senderissupplier)) {
 			$parameters = array('fk_parent_line' => GETPOSTINT('fk_parent_line'));
-			$reshook = $hookManager->executeHooks('formCreateProductOptions', $parameters, $object, $action);
+			$resHook = $hookManager->executeHooks('formCreateProductOptions', $parameters, $object, $action);
 			if (!empty($hookManager->resPrint)) {
 				print $hookManager->resPrint;
 			}
 		}
 		if (is_object($hookManager) && !empty($senderissupplier)) {
 			$parameters = array('htmlname' => 'addproduct');
-			$reshook = $hookManager->executeHooks('formCreateProductSupplierOptions', $parameters, $object, $action);
+			$resHook = $hookManager->executeHooks('formCreateProductSupplierOptions', $parameters, $object, $action);
 			if (!empty($hookManager->resPrint)) {
 				print $hookManager->resPrint;
 			}

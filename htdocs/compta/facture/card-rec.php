@@ -164,12 +164,12 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 }
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$backurlforlist = DOL_URL_ROOT.'/compta/facture/invoicetemplate_list.php';
 
 	if (empty($backtopage) || ($cancel && empty($id))) {
@@ -1312,10 +1312,10 @@ if ($action == 'create') {
 
 		// Call Hook formConfirm
 		$parameters = array('formConfirm' => $formconfirm, 'lineid' => $lineid);
-		$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			$formconfirm .= $hookManager->resPrint;
-		} elseif ($reshook > 0) {
+		} elseif ($resHook > 0) {
 			$formconfirm = $hookManager->resPrint;
 		}
 
@@ -1712,11 +1712,11 @@ if ($action == 'create') {
 				// Add free products/services
 
 				$parameters = array();
-				$reshook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					$object->formAddObjectLine(0, $mysoc, $object->thirdparty);
 				} // No date selector for template invoice
 			}
@@ -1736,8 +1736,8 @@ if ($action == 'create') {
 		print '<div class="tabsAction">';
 
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			$params = array(
 				'attr' => array(
 					'class' => 'classfortooltip',

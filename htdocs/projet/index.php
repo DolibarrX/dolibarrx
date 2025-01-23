@@ -78,11 +78,11 @@ if (!$user->hasRight('projet', 'lire')) {
  */
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($action == 'refresh_search_project_user' && $user->hasRight('projet', 'lire')) {
 		$search_project_user = GETPOSTINT('search_project_user');
 		$tabparam = array("MAIN_SEARCH_PROJECT_USER_PROJECTSINDEX" => $search_project_user);
@@ -459,7 +459,7 @@ if ((!getDolGlobalInt('PROJECT_USE_OPPORTUNITIES') || getDolGlobalInt('PROJECT_S
 print '</div></div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookManager->executeHooks('dashboardProjects', $parameters, $projectstatic); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('dashboardProjects', $parameters, $projectstatic); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

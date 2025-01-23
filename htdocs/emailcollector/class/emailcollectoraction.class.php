@@ -330,8 +330,8 @@ class EmailCollectorAction extends CommonObject
 			/*
 			$hookManager->initHooks(array('emailcollectoractiondao'));
 			$parameters=array('id'=>$this->id);
-			$reshook=$hookManager->executeHooks('getnomurltooltip',$parameters,$this,$action);    // Note that $action and $object may have been modified by some hooks
-			if ($reshook > 0) $linkclose = $hookManager->resPrint;
+			$resHook=$hookManager->executeHooks('getnomurltooltip',$parameters,$this,$action);    // Note that $action and $object may have been modified by some hooks
+			if ($resHook > 0) $linkclose = $hookManager->resPrint;
 			*/
 		} else {
 			$linkclose = ($morecss ? ' class="'.$morecss.'"' : '');
@@ -354,8 +354,8 @@ class EmailCollectorAction extends CommonObject
 		global $action, $hookManager;
 		$hookManager->initHooks(array('emailcollectoractiondao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;

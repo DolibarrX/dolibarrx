@@ -163,8 +163,8 @@ if ($config->use_javascript_ajax && 1 == 2) {   // select2 is not best with smar
 
 // Execute hook printSearchForm
 $parameters = array('searchform'=>$searchform);
-$reshook = $hookManager->executeHooks('printSearchForm', $parameters); // Note that $action and $object may have been modified by some hooks
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('printSearchForm', $parameters); // Note that $action and $object may have been modified by some hooks
+if (empty($resHook)) {
 	$searchform .= $hookManager->resPrint;
 } else {
 	$searchform = $hookManager->resPrint;

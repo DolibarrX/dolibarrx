@@ -597,7 +597,7 @@ function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
 		}
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListWhereCustomerDraft', $parameters);
+		$resHook = $hookManager->executeHooks('printFieldListWhereCustomerDraft', $parameters);
 		$sql .= $hookManager->resPrint;
 
 		$sql .= " GROUP BY f.rowid, f.ref, f.datef, f.total_ht, f.total_tva, f.total_ttc, f.ref_client, f.type, f.fk_statut, f.paye,";
@@ -609,7 +609,7 @@ function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
 
 		// Add Group from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListGroupByCustomerDraft', $parameters);
+		$resHook = $hookManager->executeHooks('printFieldListGroupByCustomerDraft', $parameters);
 		$sql .= $hookManager->resPrint;
 
 		$resql = $db->query($sql);
@@ -744,7 +744,7 @@ function getDraftSupplierTable($maxCount = 500, $socid = 0)
 		}
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListWhereSupplierDraft', $parameters);
+		$resHook = $hookManager->executeHooks('printFieldListWhereSupplierDraft', $parameters);
 		$sql .= $hookManager->resPrint;
 		$resql = $db->query($sql);
 
@@ -1104,7 +1104,7 @@ function getCustomerInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 		}
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListWhereCustomerUnpaid', $parameters);
+		$resHook = $hookManager->executeHooks('printFieldListWhereCustomerUnpaid', $parameters);
 		$sql .= $hookManager->resPrint;
 
 		$sql .= " GROUP BY f.rowid, f.ref, f.fk_statut, f.datef, f.type, f.total_ht, f.total_tva, f.total_ttc, f.paye, f.tms, f.date_lim_reglement,";
@@ -1294,7 +1294,7 @@ function getPurchaseInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 		}
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListWhereSupplierUnpaid', $parameters);
+		$resHook = $hookManager->executeHooks('printFieldListWhereSupplierUnpaid', $parameters);
 		$sql .= $hookManager->resPrint;
 
 		$sql .= " GROUP BY ff.rowid, ff.ref, ff.fk_statut, ff.type, ff.libelle, ff.total_ht, ff.total_tva, ff.total_ttc, ff.paye, ff.date_lim_reglement,";

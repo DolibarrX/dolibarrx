@@ -171,8 +171,8 @@ $uploadform .= '</div>';
 
 // Execute hook printSearchForm
 $parameters = array('uploadform' => $uploadform);
-$reshook = $hookManager->executeHooks('printUploadForm', $parameters); // Note that $action and $object may have been modified by some hooks
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('printUploadForm', $parameters); // Note that $action and $object may have been modified by some hooks
+if (empty($resHook)) {
 	$uploadform .= $hookManager->resPrint;
 } else {
 	$uploadform = $hookManager->resPrint;

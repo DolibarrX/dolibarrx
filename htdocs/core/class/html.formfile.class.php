@@ -456,7 +456,7 @@ class FormFile
 		global $langs, $conf, $user, $hookManager;
 		global $form;
 
-		$reshook = 0;
+		$resHook = 0;
 		if (is_object($hookManager)) {
 			$parameters = array(
 				'modulepart' => &$modulepart,
@@ -477,14 +477,14 @@ class FormFile
 				'hideifempty' => &$hideifempty,
 				'removeaction' => &$removeaction
 			);
-			$reshook = $hookManager->executeHooks('showDocuments', $parameters, $object); // Note that parameters may have been updated by hook
+			$resHook = $hookManager->executeHooks('showDocuments', $parameters, $object); // Note that parameters may have been updated by hook
 			// May report error
-			if ($reshook < 0) {
+			if ($resHook < 0) {
 				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			}
 		}
 		// Remode default action if $reskook > 0
-		if ($reshook > 0) {
+		if ($resHook > 0) {
 			return $hookManager->resPrint;
 		}
 
@@ -898,7 +898,7 @@ class FormFile
 			// Execute hooks
 			$parameters = array('colspan' => ($colspan + $colspanmore), 'socid' => (isset($GLOBALS['socid']) ? $GLOBALS['socid'] : ''), 'id' => (isset($GLOBALS['id']) ? $GLOBALS['id'] : ''), 'modulepart' => $modulepart);
 			if (is_object($hookManager)) {
-				$reshook = $hookManager->executeHooks('formBuilddocOptions', $parameters, $GLOBALS['object']);
+				$resHook = $hookManager->executeHooks('formBuilddocOptions', $parameters, $GLOBALS['object']);
 				$out .= $hookManager->resPrint;
 			}
 		}
@@ -1349,10 +1349,10 @@ class FormFile
 				'title' => $title,
 				'url' => $url
 		);
-		$reshook = $hookManager->executeHooks('showFilesList', $parameters, $object);
+		$resHook = $hookManager->executeHooks('showFilesList', $parameters, $object);
 
-		if (!empty($reshook)) { // null or '' for bypass
-			return $reshook;
+		if (!empty($resHook)) { // null or '' for bypass
+			return $resHook;
 		} else {
 			if (!is_object($form)) {
 				include_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php'; // The component may be included into ajax page that does not include the Form class
@@ -1932,8 +1932,8 @@ class FormFile
 			$object_instance = new Mo($this->db);
 		} else {
 			$parameters = array('modulepart' => $modulepart);
-			$reshook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
-			if ($reshook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
+			$resHook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
+			if ($resHook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
 				if (array_key_exists('classpath', $hookManager->resArray) && !empty($hookManager->resArray['classpath'])) {
 					dol_include_once($hookManager->resArray['classpath']);
 					if (array_key_exists('classname', $hookManager->resArray) && !empty($hookManager->resArray['classname'])) {
@@ -2017,8 +2017,8 @@ class FormFile
 					$ref = (isset($reg[1]) ? $reg[1] : '');
 				} else {
 					$parameters = array('modulepart' => $modulepart, 'fileinfo' => $file);
-					$reshook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
-					if ($reshook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
+					$resHook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
+					if ($resHook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
 						if (array_key_exists('ref', $hookManager->resArray) && !empty($hookManager->resArray['ref'])) {
 							$ref = $hookManager->resArray['ref'];
 						}

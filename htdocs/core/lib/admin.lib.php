@@ -596,9 +596,9 @@ function dolibarr_del_const($db, $name, $entity = 1)
 		'entity' => $entity,
 	);
 
-	$reshook = $hookManager->executeHooks('dolibarrDelConst', $parameters); // Note that $action and $object may have been modified by some hooks
-	if ($reshook != 0) {
-		return $reshook;
+	$resHook = $hookManager->executeHooks('dolibarrDelConst', $parameters); // Note that $action and $object may have been modified by some hooks
+	if ($resHook != 0) {
+		return $resHook;
 	}
 
 	$sql = "DELETE FROM ".MAIN_DB_PREFIX."const";
@@ -697,9 +697,9 @@ function dolibarr_set_const($db, $name, $value, $type = 'chaine', $visible = 0, 
 		'entity' => $entity,
 	);
 
-	$reshook = $hookManager->executeHooks('dolibarrSetConst', $parameters); // Note that $action and $object may have been modified by some hooks
-	if ($reshook != 0) {
-		return $reshook;
+	$resHook = $hookManager->executeHooks('dolibarrSetConst', $parameters); // Note that $action and $object may have been modified by some hooks
+	if ($resHook != 0) {
+		return $resHook;
 	}
 
 	//dol_syslog("dolibarr_set_const name=$name, value=$value type=$type, visible=$visible, note=$note entity=$entity");

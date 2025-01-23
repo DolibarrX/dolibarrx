@@ -254,8 +254,8 @@ if (isModEnabled('partnership') && $user->hasRight('partnership', 'read')) {
 }
 
 $parameters = array('elementList' => $elementList);
-$reshook = $hookManager->executeHooks('emailElementlist', $parameters); // Note that $action and $object may have been modified by some hooks
-if ($reshook == 0) {
+$resHook = $hookManager->executeHooks('emailElementlist', $parameters); // Note that $action and $object may have been modified by some hooks
+if ($resHook == 0) {
 	foreach ($hookManager->resArray as $item => $value) {
 		$elementList[$item] = $value;
 	}
@@ -296,12 +296,12 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 }
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Selection of new fields
 	include DOL_DOCUMENT_ROOT.'/core/actions_changeselectedfields.inc.php';
 
@@ -683,7 +683,7 @@ if ($optioncss != '') {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_param.tpl.php';
 // Add $param from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object); // Note that $action and $object may have been modified by hook
 $param .= $hookManager->resPrint;
 
 
@@ -818,7 +818,7 @@ if ($action == 'create') {
 		'fieldlist' => $fieldlist,
 		'tabname' => $tabname[25]
 	);
-	$reshook = $hookManager->executeHooks('createEmailTemplateFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+	$resHook = $hookManager->executeHooks('createEmailTemplateFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 	$error = $hookManager->error;
 	$errors = $hookManager->errors;
 
@@ -826,7 +826,7 @@ if ($action == 'create') {
 	// Line to enter new values (input fields)
 	print '<tr class="oddeven">';
 
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		if ($action == 'edit') {
 			fieldList($fieldlist, $obj, $tabname[25], 'hide');
 		} else {
@@ -1100,7 +1100,7 @@ if ($num) {
 
 				$tmpaction = 'edit';
 				$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[25]);
-				$reshook = $hookManager->executeHooks('editEmailTemplateFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('editEmailTemplateFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 				$error = $hookManager->error;
 				$errors = $hookManager->errors;
 
@@ -1117,7 +1117,7 @@ if ($num) {
 					print '</td>';
 				}
 				// Show main fields
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					fieldList($fieldlist, $obj, $tabname[25], $action);
 				}
 				// Action column
@@ -1254,12 +1254,12 @@ if ($num) {
 
 				$tmpaction = 'view';
 				$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[25]);
-				$reshook = $hookManager->executeHooks('viewEmailTemplateFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('viewEmailTemplateFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 
 				$error = $hookManager->error;
 				$errors = $hookManager->errors;
 
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					foreach ($fieldlist as $field => $value) {
 						if (in_array($fieldlist[$field], array('content', 'content_lines'))) {
 							continue;

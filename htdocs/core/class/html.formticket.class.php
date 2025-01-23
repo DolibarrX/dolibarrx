@@ -777,8 +777,8 @@ class FormTicket
 
 		// Other attributes
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $ticketstat, $action); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $ticketstat, $action); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			if ($mode == 'create') {
 				print $object->showOptionals($extrafields, 'create');
 			} else {

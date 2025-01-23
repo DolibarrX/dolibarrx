@@ -151,12 +151,12 @@ $typeobject = null;
 
 $error = 0;
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($cancel) {
 		if ($origin && $origin_id > 0) {
 			if ($origin == 'commande') {
@@ -1119,10 +1119,10 @@ if ($action == 'create') {
 
 			// Other attributes
 			$parameters = array('objectsrc' => isset($objectsrc) ? $objectsrc : '', 'colspan' => ' colspan="3"', 'cols' => '3', 'socid' => $socid);
-			$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $expe, $action); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $expe, $action); // Note that $action and $object may have been modified by hook
 			print $hookManager->resPrint;
 
-			if (empty($reshook)) {
+			if (empty($resHook)) {
 				// copy from order
 				if ($object->fetch_optionals() > 0) {
 					$expe->array_options = array_merge($expe->array_options, $object->array_options);
@@ -1231,12 +1231,12 @@ if ($action == 'create') {
 				$line = $object->lines[$indiceAsked];
 
 				$parameters = array('i' => $indiceAsked, 'line' => $line, 'num' => $numAsked);
-				$reshook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action);
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action);
+				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					// Show product and description
 					$type = $line->product_type ? $line->product_type : $line->fk_product_type;
 					// Try to enhance type detection using date_start and date_end for free lines where type
@@ -1946,10 +1946,10 @@ if ($action == 'create') {
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm);
-	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		$formconfirm .= $hookManager->resPrint;
-	} elseif ($reshook > 0) {
+	} elseif ($resHook > 0) {
 		$formconfirm = $hookManager->resPrint;
 	}
 
@@ -2249,7 +2249,7 @@ if ($action == 'create') {
 
 	// Other attributes
 	$parameters = array('colspan' => ' colspan="3"', 'cols' => '3');
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	print "</table>";
@@ -2396,12 +2396,12 @@ if ($action == 'create') {
 	// Loop on each product to send/sent
 	for ($i = 0; $i < $num_prod; $i++) {
 		$parameters = array('i' => $i, 'line' => $lines[$i], 'line_id' => $line_id, 'num' => $num_prod, 'alreadysent' => $alreadysent, 'editColspan' => !empty($editColspan) ? $editColspan : 0, 'outputlangs' => $outputlangs);
-		$reshook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action);
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action);
+		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			print '<!-- origin line id = '.$lines[$i]->origin_line_id.' -->'; // id of order line
 			print '<tr class="oddeven" id="row-'.$lines[$i]->id.'" data-id="'.$lines[$i]->id.'" data-element="'.$lines[$i]->element.'" >';
 
@@ -2756,9 +2756,9 @@ if ($action == 'create') {
 		print '<div class="tabsAction">';
 
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 		// modified by hook
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			if ($object->status == Expedition::STATUS_DRAFT && $num_prod > 0) {
 				if ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('expedition', 'creer'))
 				 || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('expedition', 'shipping_advance', 'validate'))) {

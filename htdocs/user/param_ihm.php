@@ -100,12 +100,12 @@ $formadmin = new FormAdmin($db);
  */
 
 $parameters = array('id' => $socid);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($action == 'update' && ($caneditfield || !empty($user->admin))) {
 		if (!GETPOST("cancel")) {
 			$tabparam = array();
@@ -287,12 +287,12 @@ if (!getDolGlobalString('MAIN_NO_BOOKMARKS_FOR_LANDING_PAGES')) {
 }
 
 // Hook for insertion new items in the List of possible landing pages
-$reshook = $hookManager->executeHooks('addToLandingPageList', $tmparray, $object);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('addToLandingPageList', $tmparray, $object);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
-} elseif ($reshook > 0) {
+} elseif ($resHook > 0) {
 	$tmparray = $hookManager->resArray;
-} elseif ($reshook == 0) {
+} elseif ($resHook == 0) {
 	$tmparray = array_merge($tmparray, $hookManager->resArray);
 }
 

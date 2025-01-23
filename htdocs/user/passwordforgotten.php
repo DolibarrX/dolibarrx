@@ -91,14 +91,14 @@ if (GETPOST('dol_use_jmobile', 'alpha') || !empty($_SESSION['dol_use_jmobile']))
  */
 
 $parameters = array('username' => $username);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	$message = $hookManager->error;
 } else {
 	$message = '';
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Validate new password
 	if ($action == 'validatenewpassword' && $username && $passworduidhash) {	// Test on permission not required here. Security is managed by $passworduihash
 		$edituser = new User($db);
@@ -260,7 +260,7 @@ if (is_array($hookManager->resArray) && !empty($hookManager->resArray)) {
 
 // Execute hook getPasswordForgottenPageExtraOptions (eg for js)
 $parameters = array('entity' => GETPOSTINT('entity'));
-$reshook = $hookManager->executeHooks('getPasswordForgottenPageExtraOptions', $parameters); // Note that $action and $object may have been modified by some hooks.
+$resHook = $hookManager->executeHooks('getPasswordForgottenPageExtraOptions', $parameters); // Note that $action and $object may have been modified by some hooks.
 $moreloginextracontent = $hookManager->resPrint;
 
 if (empty($setnewpassword)) {

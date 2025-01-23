@@ -124,12 +124,12 @@ $result = restrictedArea($user, 'contact', $id, 'socpeople&societe', '', '', 'ro
  */
 
 $parameters = array('id' => $id, 'objcanvas' => $objcanvas);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$backurlforlist = DOL_URL_ROOT.'/contact/list.php';
 
 	if (empty($backtopage) || ($cancel && empty($id))) {
@@ -1548,8 +1548,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		print '<div class="tabsAction">';
 
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if (empty($reshook) && $action != 'presend') {
+		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if (empty($resHook) && $action != 'presend') {
 			if (empty($user->socid)) {
 				if (!empty($object->email)) {
 					$langs->load("mails");

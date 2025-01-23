@@ -154,12 +154,12 @@ $permissiontodelete = $user->hasRight('societe', 'supprimer');
  */
 
 $parameters = array('id' => $id);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Cancel
 	if (GETPOST('cancel', 'alpha') && !empty($backtopage)) {
 		header("Location: ".$backtopage);
@@ -228,7 +228,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 }
 // Add fields from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters, $objectwebsiteaccount, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $objectwebsiteaccount, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
 
@@ -240,7 +240,7 @@ if (isset($extrafields->attributes[$object->table_element]['label']) && is_array
 }
 // Add table from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 if ($objectwebsiteaccount->ismultientitymanaged == 1) {
 	$sql .= " WHERE t.entity IN (".getEntity('thirdpartyaccount').")";
@@ -290,7 +290,7 @@ if ($search_all) {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $objectwebsiteaccount, $action); // Note that $action and $objectwebsiteaccount may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $objectwebsiteaccount, $action); // Note that $action and $objectwebsiteaccount may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 /* If a group by is required
@@ -303,7 +303,7 @@ $sql .= $hookManager->resPrint;
  foreach ($extrafields->attributes[$object->table_element]['label'] as $key => $val) $sql.=($extrafields->attributes[$object->table_element]['type'][$key] != 'separate' ? "ef.".$key.', ' : '');
  // Add groupby from hooks
  $parameters=array();
- $reshook = $hookManager->executeHooks('printFieldListGroupBy',$parameters);    // Note that $action and $objectwebsiteaccount may have been modified by hook
+ $resHook = $hookManager->executeHooks('printFieldListGroupBy',$parameters);    // Note that $action and $objectwebsiteaccount may have been modified by hook
  $sql.=$hookManager->resPrint;
  */
 
@@ -483,8 +483,8 @@ $moreforfilter.= $langs->trans('MyFilter') . ': <input type="text" name="search_
 $moreforfilter.= '</div>';*/
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $objectwebsiteaccount, $action); // Note that $action and $objectwebsiteaccount may have been modified by hook
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $objectwebsiteaccount, $action); // Note that $action and $objectwebsiteaccount may have been modified by hook
+if (empty($resHook)) {
 	$moreforfilter .= $hookManager->resPrint;
 } else {
 	$moreforfilter = $hookManager->resPrint;
@@ -557,7 +557,7 @@ foreach ($objectwebsiteaccount->fields as $key => $val) {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_input.tpl.php';
 // Fields from hook
 $parameters = array('arrayfields' => $arrayfields);
-$reshook = $hookManager->executeHooks('printFieldListOption', $parameters, $objectwebsiteaccount, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListOption', $parameters, $objectwebsiteaccount, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
@@ -601,7 +601,7 @@ foreach ($objectwebsiteaccount->fields as $key => $val) {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_title.tpl.php';
 // Hook fields
 $parameters = array('arrayfields' => $arrayfields, 'param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder, 'totalarray' => &$totalarray);
-$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $objectwebsiteaccount, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $objectwebsiteaccount, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
@@ -718,7 +718,7 @@ while ($i < $imaxinloop) {
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_print_fields.tpl.php';
 	// Fields from hook
 	$parameters = array('arrayfields' => $arrayfields, 'object' => $objectwebsiteaccount, 'obj' => $obj, 'i' => $i, 'totalarray' => &$totalarray);
-	$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $objectwebsiteaccount, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $objectwebsiteaccount, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	// Action column
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
@@ -759,7 +759,7 @@ if ($num == 0) {
 $db->free($resql);
 
 $parameters = array('arrayfields' => $arrayfields, 'sql' => $sql);
-$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters, $objectwebsiteaccount, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListFooter', $parameters, $objectwebsiteaccount, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 
 print '</table>'."\n";

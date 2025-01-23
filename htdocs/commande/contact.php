@@ -67,12 +67,12 @@ $object = new Commande($db);
  */
 
 $parameters = array('id'=>$id);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Add new contact
 	if ($action == 'addcontact' && $user->hasRight('commande', 'creer')) {
 		$result = $object->fetch($id);

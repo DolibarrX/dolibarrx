@@ -2315,8 +2315,8 @@ class Product extends CommonObject
 		if (is_object($hookManager)) {
 			$parameters = array('thirdparty_seller' => $thirdparty_seller, 'thirdparty_buyer' => $thirdparty_buyer, 'pqp' => $pqp);
 			// Note that $action and $object may have been modified by some hooks
-			$reshook = $hookManager->executeHooks('getSellPrice', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('getSellPrice', $parameters, $this, $action);
+			if ($resHook > 0) {
 				return $hookManager->resArray;
 			}
 		}
@@ -2491,8 +2491,8 @@ class Product extends CommonObject
 				'fk_soc' => $fk_soc,
 			);
 			// Note that $action and $object may have been modified by some hooks
-			$reshook = $hookManager->executeHooks('getBuyPrice', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('getBuyPrice', $parameters, $this, $action);
+			if ($resHook > 0) {
 				return $hookManager->resArray;
 			}
 		}
@@ -3337,8 +3337,8 @@ class Product extends CommonObject
 		}
 
 		$parameters = array('socid' => $socid);
-		$reshook = $hookManager->executeHooks('loadStatsCustomerMO', $parameters, $this, $action);
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('loadStatsCustomerMO', $parameters, $this, $action);
+		if ($resHook > 0) {
 			$this->stats_mo = $hookManager->resArray['stats_mo'];
 		}
 
@@ -3406,8 +3406,8 @@ class Product extends CommonObject
 		}
 
 		$parameters = array('socid' => $socid);
-		$reshook = $hookManager->executeHooks('loadStatsCustomerMO', $parameters, $this, $action);
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('loadStatsCustomerMO', $parameters, $this, $action);
+		if ($resHook > 0) {
 			$this->stats_bom = $hookManager->resArray['stats_bom'];
 		}
 
@@ -3476,8 +3476,8 @@ class Product extends CommonObject
 			}
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookManager->executeHooks('loadStatsCustomerProposal', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('loadStatsCustomerProposal', $parameters, $this, $action);
+			if ($resHook > 0) {
 				$this->stats_propale = $hookManager->resArray['stats_propale'];
 			}
 
@@ -3530,8 +3530,8 @@ class Product extends CommonObject
 			$this->stats_proposal_supplier['qty'] = $obj->qty ? $obj->qty : 0;
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookManager->executeHooks('loadStatsSupplierProposal', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('loadStatsSupplierProposal', $parameters, $this, $action);
+			if ($resHook > 0) {
 				$this->stats_proposal_supplier = $hookManager->resArray['stats_proposal_supplier'];
 			}
 
@@ -3659,8 +3659,8 @@ class Product extends CommonObject
 			}
 
 			$parameters = array('socid' => $socid, 'filtrestatut' => $filtrestatut, 'forVirtualStock' => $forVirtualStock);
-			$reshook = $hookManager->executeHooks('loadStatsCustomerOrder', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('loadStatsCustomerOrder', $parameters, $this, $action);
+			if ($resHook > 0) {
 				$this->stats_commande = $hookManager->resArray['stats_commande'];
 			}
 			return 1;
@@ -3719,8 +3719,8 @@ class Product extends CommonObject
 			$this->stats_commande_fournisseur['qty'] = $obj->qty ? $obj->qty : 0;
 
 			$parameters = array('socid' => $socid, 'filtrestatut' => $filtrestatut, 'forVirtualStock' => $forVirtualStock);
-			$reshook = $hookManager->executeHooks('loadStatsSupplierOrder', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('loadStatsSupplierOrder', $parameters, $this, $action);
+			if ($resHook > 0) {
 				$this->stats_commande_fournisseur = $hookManager->resArray['stats_commande_fournisseur'];
 			}
 
@@ -3805,8 +3805,8 @@ class Product extends CommonObject
 			}
 
 			$parameters = array('socid' => $socid, 'filtrestatut' => $filtrestatut, 'forVirtualStock' => $forVirtualStock, 'filterShipmentStatus' => $filterShipmentStatus);
-			$reshook = $hookManager->executeHooks('loadStatsSending', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('loadStatsSending', $parameters, $this, $action);
+			if ($resHook > 0) {
 				$this->stats_expedition = $hookManager->resArray['stats_expedition'];
 			}
 
@@ -3866,8 +3866,8 @@ class Product extends CommonObject
 			$this->stats_reception['qty'] = $obj->qty ? $obj->qty : 0;
 
 			$parameters = array('socid' => $socid, 'filtrestatut' => $filtrestatut, 'forVirtualStock' => $forVirtualStock);
-			$reshook = $hookManager->executeHooks('loadStatsReception', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('loadStatsReception', $parameters, $this, $action);
+			if ($resHook > 0) {
 				$this->stats_reception = $hookManager->resArray['stats_reception'];
 			}
 
@@ -3993,8 +3993,8 @@ class Product extends CommonObject
 			}
 
 			$parameters = array('socid' => $socid, 'filtrestatut' => $filtrestatut, 'forVirtualStock' => $forVirtualStock);
-			$reshook = $hookManager->executeHooks('loadStatsInProduction', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('loadStatsInProduction', $parameters, $this, $action);
+			if ($resHook > 0) {
 				$this->stats_mrptoproduce = $hookManager->resArray['stats_mrptoproduce'];
 			}
 
@@ -4067,8 +4067,8 @@ class Product extends CommonObject
 			}
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookManager->executeHooks('loadStatsContract', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('loadStatsContract', $parameters, $this, $action);
+			if ($resHook > 0) {
 				$this->stats_contrat = $hookManager->resArray['stats_contrat'];
 			}
 
@@ -4141,8 +4141,8 @@ class Product extends CommonObject
 			}
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookManager->executeHooks('loadStatsCustomerInvoice', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('loadStatsCustomerInvoice', $parameters, $this, $action);
+			if ($resHook > 0) {
 				$this->stats_facture = $hookManager->resArray['stats_facture'];
 			}
 
@@ -4216,8 +4216,8 @@ class Product extends CommonObject
 			}
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookManager->executeHooks('loadStatsCustomerInvoiceRec', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('loadStatsCustomerInvoiceRec', $parameters, $this, $action);
+			if ($resHook > 0) {
 				$this->stats_facturerec = $hookManager->resArray['stats_facturerec'];
 			}
 
@@ -4269,8 +4269,8 @@ class Product extends CommonObject
 			$this->stats_facture_fournisseur['qty'] = $obj->qty ? (float) $obj->qty : 0.0;
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookManager->executeHooks('loadStatsSupplierInvoice', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('loadStatsSupplierInvoice', $parameters, $this, $action);
+			if ($resHook > 0) {
 				$this->stats_facture_fournisseur = $hookManager->resArray['stats_facture_fournisseur'];
 			}
 
@@ -5849,8 +5849,8 @@ class Product extends CommonObject
 		global $action;
 		$hookManager->initHooks(array('productdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result, 'label' => &$label);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;
@@ -6340,10 +6340,10 @@ class Product extends CommonObject
 
 		$parameters = array('id' => $this->id, 'includedraftpoforvirtual' => $includedraftpoforvirtual);
 		// Note that $action and $object may have been modified by some hooks
-		$reshook = $hookManager->executeHooks('loadvirtualstock', $parameters, $this, $action);
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('loadvirtualstock', $parameters, $this, $action);
+		if ($resHook > 0) {
 			$this->stock_theorique = $hookManager->resArray['stock_theorique'];
-		} elseif ($reshook == 0 && isset($hookManager->resArray['stock_stats_hook'])) {
+		} elseif ($resHook == 0 && isset($hookManager->resArray['stock_stats_hook'])) {
 			$this->stock_theorique += $hookManager->resArray['stock_stats_hook'];
 		}
 
@@ -6613,7 +6613,7 @@ class Product extends CommonObject
 		// Add where from hooks
 		if (is_object($hookManager)) {
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $this); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $this); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 		}
 		$sql .= ' GROUP BY fk_product_type';

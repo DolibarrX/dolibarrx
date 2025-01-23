@@ -121,8 +121,8 @@ if (!$user->hasRight('fournisseur', 'lire')) {
 }
 // Add where from hooks
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
+if (empty($resHook)) {
 	if ($socid > 0) {
 		$sql .= " AND s.rowid = ".((int) $socid);
 	}
@@ -316,8 +316,8 @@ if (!$user->hasRight('fournisseur', 'lire')) {
 }
 // Add where from hooks
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
+if (empty($resHook)) {
 	if ($socid > 0) {
 		$sql .= " AND s.rowid = ".((int) $socid);
 	}
@@ -440,8 +440,8 @@ if (!$user->hasRight('fournisseur', 'lire')) {
 }
 // Add where from hooks
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
+if (empty($resHook)) {
 	if ($socid > 0) {
 		$sql .= " AND s.rowid = ".((int) $socid);
 	}
@@ -565,7 +565,7 @@ print $boxlist;
 print '</div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookManager->executeHooks('dashboardThirdparties', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('dashboardThirdparties', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

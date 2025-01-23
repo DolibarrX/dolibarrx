@@ -138,11 +138,11 @@ $result = restrictedArea($user, 'contrat', $object->id);
  */
 
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$backurlforlist = DOL_URL_ROOT.'/contrat/list.php';
 
 	if (empty($backtopage) || ($cancel && empty($id))) {
@@ -431,9 +431,9 @@ if (empty($reshook)) {
 
 					// Hooks
 					$parameters = array('objFrom' => $srcobject);
-					$reshook = $hookManager->executeHooks('createFrom', $parameters, $object, $action); // Note that $action and $object may have been
+					$resHook = $hookManager->executeHooks('createFrom', $parameters, $object, $action); // Note that $action and $object may have been
 					// modified by hook
-					if ($reshook < 0) {
+					if ($resHook < 0) {
 						setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						$error++;
 					}
@@ -1317,11 +1317,11 @@ if ($action == 'create') {
 
 	// Other attributes
 	$parameters = array('objectsrc' => $objectsrc, 'colspan' => ' colspan="3"', 'cols' => '3');
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	// Other attributes
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		print $object->showOptionals($extrafields, 'create', $parameters);
 	}
 
@@ -1437,10 +1437,10 @@ if ($action == 'create') {
 			//'lineid' => $lineid,
 		);
 		// Note that $action and $object may have been modified by hook
-		$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action);
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action);
+		if (empty($resHook)) {
 			$formconfirm .= $hookManager->resPrint;
-		} elseif ($reshook > 0) {
+		} elseif ($resHook > 0) {
 			$formconfirm = $hookManager->resPrint;
 		}
 
@@ -2182,11 +2182,11 @@ if ($action == 'create') {
 				// Add free products/services
 
 				$parameters = array();
-				$reshook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					$object->formAddObjectLine(1, $mysoc, $soc);
 				}
 			}
@@ -2210,9 +2210,9 @@ if ($action == 'create') {
 			print '<div class="tabsAction">';
 
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
-			if (empty($reshook)) {
+			if (empty($resHook)) {
 				$params = array(
 					'attr' => array(
 						'title' => '',

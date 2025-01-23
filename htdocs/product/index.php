@@ -174,7 +174,7 @@ if ((isModEnabled("product") || isModEnabled("service")) && ($user->hasRight("pr
 	$sql .= ' WHERE p.entity IN ('.getEntity($product_static->element, 1).')';
 	// Add where from hooks
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $product_static); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $product_static); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 	$sql .= " GROUP BY p.fk_product_type, p.tosell, p.tobuy";
 	$result = $db->query($sql);
@@ -335,7 +335,7 @@ if ((isModEnabled("product") || isModEnabled("service")) && ($user->hasRight("pr
 
 	// Add where from hooks
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $product_static); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $product_static); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 	$sql .= $db->order("p.tms", "DESC");
 	$sql .= $db->plimit($max, 0);
@@ -714,7 +714,7 @@ print $boxlist;
 print '</div>';
 
 $parameters = array('type' => $type, 'user' => $user);
-$reshook = $hookManager->executeHooks('dashboardProductsServices', $parameters, $product_static); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('dashboardProductsServices', $parameters, $product_static); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

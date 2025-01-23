@@ -162,8 +162,8 @@ $arrayoftype = array(
 
 // Complete $arrayoftype by external modules
 $parameters = array('objecttype' => $objecttype, 'tabfamily' => $tabfamily);
-$reshook = $hookManager->executeHooks('loadDataForCustomReports', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('loadDataForCustomReports', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 } elseif (is_array($hookManager->resArray)) {
 	if (!empty($hookManager->resArray['title'])) {		// Add entries for tabs

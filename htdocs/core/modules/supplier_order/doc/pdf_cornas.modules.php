@@ -268,7 +268,7 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Set nblines with the new facture lines content after hook
 				$nblines = is_array($object->lines) ? count($object->lines) : 0;
@@ -677,7 +677,7 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 						'outputlangs' => $outputlangs,
 						'hidedetails' => $hidedetails
 					);
-					$reshook = $hookManager->executeHooks('printPDFline', $parameters, $this); // Note that $object may have been modified by hook
+					$resHook = $hookManager->executeHooks('printPDFline', $parameters, $this); // Note that $object may have been modified by hook
 
 
 					// Collecte des totaux par valeur de tva dans $this->tva["taux"]=total_tva
@@ -822,8 +822,8 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					$this->error = $hookManager->error;
 					$this->errors = $hookManager->errors;
 				}
@@ -1128,8 +1128,8 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 
 		$parameters = array('pdf' => &$pdf, 'object' => &$object, 'outputlangs' => $outputlangs, 'index' => &$index, 'posy' => $posy);
 
-		$reshook = $hookManager->executeHooks('afterPDFTotalTable', $parameters, $this); // Note that $action and $object may have been modified by some hooks
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('afterPDFTotalTable', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		if ($resHook < 0) {
 			$this->error = $hookManager->error;
 			$this->errors = $hookManager->errors;
 		}
@@ -1687,10 +1687,10 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 			'hideref' => $hideref
 		);
 
-		$reshook = $hookManager->executeHooks('defineColumnField', $parameters, $this); // Note that $object may have been modified by hook
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('defineColumnField', $parameters, $this); // Note that $object may have been modified by hook
+		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
-		} elseif (empty($reshook)) {
+		} elseif (empty($resHook)) {
 			// @phan-suppress-next-line PhanPluginSuspiciousParamOrderInternal
 			$this->cols = array_replace($this->cols, $hookManager->resArray); // array_replace is used to preserve keys
 		} else {

@@ -280,7 +280,7 @@ if ($result) {
 print '</div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookManager->executeHooks('dashboardExpenseReport', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('dashboardExpenseReport', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

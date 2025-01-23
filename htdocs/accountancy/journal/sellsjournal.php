@@ -100,7 +100,7 @@ $cptcli = 'NotDefined';
  * Actions
  */
 
-$reshook = $hookManager->executeHooks('doActions', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+$resHook = $hookManager->executeHooks('doActions', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
 
 $accountingaccount = new AccountingAccount($db);
 
@@ -160,7 +160,7 @@ if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 	$sql .= " p.accountancy_code_sell";
 }
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " FROM ".MAIN_DB_PREFIX."facturedet as fd";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = fd.fk_product";
@@ -174,7 +174,7 @@ if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
 }
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " WHERE fd.fk_code_ventilation > 0";
 $sql .= " AND f.entity IN (".getEntity('invoice', 0).')'; // We don't share object for accountancy, we use source object sharing
@@ -202,7 +202,7 @@ if ($in_bookkeeping == 'notyet') {
 	// $sql .= " AND fd.rowid NOT IN (SELECT fk_docdet FROM " . MAIN_DB_PREFIX . "accounting_bookkeeping as ab WHERE ab.doc_type='customer_invoice')";		// Useless, we save one line for all products with same account
 }
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " ORDER BY f.datef, f.ref";
 //print $sql;
@@ -401,7 +401,7 @@ if ($result) {
 			'tabcompany' => &$tabcompany,
 			'vatdata_cache' => &$vatdata_cache,
 		);
-		$reshook = $hookManager->executeHooks('processingJournalData', $parameters); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('processingJournalData', $parameters); // Note that $action and $object may have been modified by hook
 
 		$i++;
 
@@ -427,7 +427,7 @@ if ($result) {
 		'tabcompany' => &$tabcompany,
 		'vatdata_cache' => &$vatdata_cache,
 	);
-	$reshook = $hookManager->executeHooks('processedJournalData', $parameters); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('processedJournalData', $parameters); // Note that $action and $object may have been modified by hook
 } else {
 	dol_print_error($db);
 }

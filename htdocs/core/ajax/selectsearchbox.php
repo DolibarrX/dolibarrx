@@ -191,8 +191,8 @@ if (isModEnabled('holiday') && !getDolGlobalString('MAIN_SEARCHFORM_HOLIDAY_DISA
 
 // Execute hook addSearchEntry
 $parameters = array('search_boxvalue' => $search_boxvalue, 'arrayresult' => $arrayresult);
-$reshook = $hookManager->executeHooks('addSearchEntry', $parameters);
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('addSearchEntry', $parameters);
+if (empty($resHook)) {
 	$arrayresult = array_merge($arrayresult, $hookManager->resArray);
 } else {
 	$arrayresult = $hookManager->resArray;

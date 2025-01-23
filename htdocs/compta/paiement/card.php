@@ -111,12 +111,12 @@ $error = 0;
  * Actions
  */
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($action == 'setnote' && $user->hasRight('facture', 'paiement')) {
 		$db->begin();
 
@@ -515,7 +515,7 @@ if ($resql) {
 	print '<td class="right">'.$langs->trans('Status').'</td>';
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 	print "</tr>\n";
 
@@ -580,7 +580,7 @@ if ($resql) {
 			print '<td class="right">'.$invoice->getLibStatut(5, $alreadypayed).'</td>';
 
 			$parameters = array('fk_paiement' => (int) $object->id);
-			$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $objp, $action); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $objp, $action); // Note that $action and $object may have been modified by hook
 
 			print "</tr>\n";
 

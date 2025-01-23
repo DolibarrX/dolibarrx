@@ -86,12 +86,12 @@ $result = restrictedArea($user, 'expedition', $object->id, '');
  */
 
 $parameters = array('id'=>$id);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($action == 'addcontact' && $user->hasRight('expedition', 'creer')) {
 		if ($result > 0 && $id > 0) {
 			$contactid = (GETPOSTINT('userid') ? GETPOSTINT('userid') : GETPOSTINT('contactid'));

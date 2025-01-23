@@ -443,7 +443,7 @@ print "</table></div><br>";
 print '</div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookManager->executeHooks('dashboardOrdersSuppliers', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('dashboardOrdersSuppliers', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

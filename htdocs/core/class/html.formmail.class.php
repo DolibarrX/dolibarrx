@@ -496,9 +496,9 @@ class FormMail extends Form
 			'removefileaction' => $removefileaction,
 			'trackid' => $this->trackid
 		);
-		$reshook = $hookManager->executeHooks('getFormMail', $parameters, $this);
+		$resHook = $hookManager->executeHooks('getFormMail', $parameters, $this);
 
-		if (!empty($reshook)) {
+		if (!empty($resHook)) {
 			return $hookManager->resPrint;
 		} else {
 			$out = '';

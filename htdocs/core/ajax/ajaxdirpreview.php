@@ -238,8 +238,8 @@ if ($type == 'directory') {
 	);
 
 	$parameters = array('modulepart' => $module);
-	$reshook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
-	if ($reshook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
+	$resHook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
+	if ($resHook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
 		$automodules[] = $hookManager->resArray['module'];
 	}
 
@@ -292,8 +292,8 @@ if ($type == 'directory') {
 		$upload_dir = $config->mrp->dir_output;
 	} else {
 		$parameters = array('modulepart' => $module);
-		$reshook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
-		if ($reshook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
+		$resHook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
+		if ($resHook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
 			$upload_dir = $hookManager->resArray['directory'];
 		}
 	}

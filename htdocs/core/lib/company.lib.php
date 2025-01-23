@@ -69,13 +69,13 @@ function societe_prepare_head(Societe $object)
 			$sql .= " FROM ".MAIN_DB_PREFIX."socpeople as p";
 			// Add table from hooks
 			$parameters = array('contacttab' => true);
-			$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 			$sql .= " WHERE p.fk_soc = ".((int) $object->id);
 			$sql .= " AND p.entity IN (".getEntity($object->element).")";
 			// Add where from hooks
 			$parameters = array('contacttab' => true);
-			$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 			$resql = $db->query($sql);
 			if ($resql) {
@@ -1126,7 +1126,7 @@ function show_projects($conf, $langs, $db, $object, $backtopage = '', $nocreatel
 		}
 
 		$parameters = array('sql' => $sql, 'function' => 'show_projects');
-		$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 
 		print "</table>";
@@ -1400,7 +1400,7 @@ function show_contacts($conf, $langs, $db, $object, $backtopage = '', $showuserl
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 	// Add where from hooks
 	$parameters = array('socid' => $object->id);
-	$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
 	$sql .= $hookManager->resPrint;
 	if ($sortfield == "t.name") {
 		$sql .= " ORDER BY t.lastname $sortorder, t.firstname $sortorder";
@@ -1464,7 +1464,7 @@ function show_contacts($conf, $langs, $db, $object, $backtopage = '', $showuserl
 
 	// Fields from hook
 	$parameters = array('arrayfields' => $arrayfields);
-	$reshook = $hookManager->executeHooks('printFieldListOption', $parameters, $contactstatic); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListOption', $parameters, $contactstatic); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	// Action column
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
@@ -1511,7 +1511,7 @@ function show_contacts($conf, $langs, $db, $object, $backtopage = '', $showuserl
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_title.tpl.php';
 	// Hook fields
 	$parameters = array('arrayfields' => $arrayfields, 'param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-	$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	// Action column
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
@@ -1859,7 +1859,7 @@ function show_actions_done($conf, $langs, $db, $filterobj, $objcon = null, $nopr
 
 		// Fields from hook
 		$parameters = array('sql' => &$sql, 'filterobj' => $filterobj, 'objcon' => $objcon);
-		$reshook = $hookManager->executeHooks('showActionsDoneListSelect', $parameters);    // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('showActionsDoneListSelect', $parameters);    // Note that $action and $object may have been modified by hook
 		if (!empty($hookManager->resPrint)) {
 			$sql .= $hookManager->resPrint;
 		}
@@ -1883,7 +1883,7 @@ function show_actions_done($conf, $langs, $db, $filterobj, $objcon = null, $nopr
 
 		// Fields from hook
 		$parameters = array('sql' => &$sql, 'filterobj' => $filterobj, 'objcon' => $objcon);
-		$reshook = $hookManager->executeHooks('showActionsDoneListFrom', $parameters);    // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('showActionsDoneListFrom', $parameters);    // Note that $action and $object may have been modified by hook
 		if (!empty($hookManager->resPrint)) {
 			$sql .= $hookManager->resPrint;
 		}
@@ -2021,7 +2021,7 @@ function show_actions_done($conf, $langs, $db, $filterobj, $objcon = null, $nopr
 
 		// Fields from hook
 		$parameters = array('sql' => &$sql, 'filterobj' => $filterobj, 'objcon' => $objcon, 'module' => $module);
-		$reshook = $hookManager->executeHooks('showActionsDoneListWhere', $parameters);    // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('showActionsDoneListWhere', $parameters);    // Note that $action and $object may have been modified by hook
 		if (!empty($hookManager->resPrint)) {
 			$sql .= $hookManager->resPrint;
 		}

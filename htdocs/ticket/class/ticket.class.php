@@ -1541,9 +1541,9 @@ class Ticket extends CommonObject
 		);
 
 		// Note that $action and $object may have been modified by hook
-		$reshook = $hookManager->executeHooks('LibStatut', $parameters, $this);
+		$resHook = $hookManager->executeHooks('LibStatut', $parameters, $this);
 
-		if ($reshook > 0) {
+		if ($resHook > 0) {
 			return $hookManager->resPrint;
 		}
 
@@ -1675,8 +1675,8 @@ class Ticket extends CommonObject
 
 		$hookManager->initHooks(array('ticketdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;

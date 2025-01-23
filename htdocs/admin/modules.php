@@ -164,8 +164,8 @@ if (dol_is_file($dolibarrdataroot.'/installmodules.lock')) {
 $formconfirm = '';
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
@@ -792,7 +792,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 
 	print $moreforfilter;
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	$moreforfilter = '';
@@ -801,8 +801,8 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 
 	$object = new stdClass();
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('insertExtraHeader', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('insertExtraHeader', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 

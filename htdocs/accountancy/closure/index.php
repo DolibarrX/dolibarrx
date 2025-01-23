@@ -130,12 +130,12 @@ $accounting_groups_used_for_income_statement = array_filter(array_map('trim', ex
  */
 
 $parameters = array('fiscal_periods' => $fiscal_periods, 'last_fiscal_period' => $last_fiscal_period, 'current_fiscal_period' => $current_fiscal_period, 'next_fiscal_period' => $next_fiscal_period);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if (isset($current_fiscal_period)) {
 		if ($action == 'confirm_step_1' && $confirm == "yes" && $user->hasRight('accounting', 'fiscalyear', 'write')) {
 			$date_start = dol_mktime(0, 0, 0, GETPOSTINT('date_startmonth'), GETPOSTINT('date_startday'), GETPOSTINT('date_startyear'));
@@ -329,10 +329,10 @@ if (isset($current_fiscal_period)) {
 
 // Call Hook formConfirm
 $parameters = array('formConfirm' => $formconfirm, 'fiscal_periods' => $fiscal_periods, 'last_fiscal_period' => $last_fiscal_period, 'current_fiscal_period' => $current_fiscal_period, 'next_fiscal_period' => $next_fiscal_period);
-$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+if (empty($resHook)) {
 	$formconfirm .= $hookManager->resPrint;
-} elseif ($reshook > 0) {
+} elseif ($resHook > 0) {
 	$formconfirm = $hookManager->resPrint;
 }
 

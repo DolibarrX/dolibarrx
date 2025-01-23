@@ -696,11 +696,11 @@ class dolReceiptPrinter extends Printer
 
 		$parameters = array('object' => $object);
 		$action = '';
-		$reshook = $hookManager->executeHooks('sendToPrinterBefore', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook < 0) {
-			$this->error = "Error in hook dolReceiptPrinter sendToPrinterBefore ".$reshook;
+		$resHook = $hookManager->executeHooks('sendToPrinterBefore', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook < 0) {
+			$this->error = "Error in hook dolReceiptPrinter sendToPrinterBefore ".$resHook;
 			dol_syslog("dolReceiptPrinter::sendToPrinter: error=".$this->error, LOG_ERR);
-			return $reshook;
+			return $resHook;
 		}
 
 		// escape special characters for xml_parse_into_struct
@@ -963,9 +963,9 @@ class dolReceiptPrinter extends Printer
 					default:
 						$parameters = array('vals' => $vals[$tplline],'object' => $object,'nbcharactbyline' => $nbcharactbyline);
 						$action = '';
-						$reshook = $hookManager->executeHooks('sendToPrinterAfter', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+						$resHook = $hookManager->executeHooks('sendToPrinterAfter', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
-						if (!$reshook || $reshook < 0) {
+						if (!$resHook || $resHook < 0) {
 							$this->printer->text($vals[$tplline]['tag']);
 							$this->printer->text($vals[$tplline]['value']);
 							$this->errors[] = 'UnknowTag: &lt;'.strtolower($vals[$tplline]['tag']).'&gt;';

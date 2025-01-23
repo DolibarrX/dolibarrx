@@ -125,14 +125,14 @@ if ($result) {
 	$param = '';
 
 	$parameters = array('param' => $param);
-	$reshook = $hookManager->executeHooks('addMoreActionsButtonsList', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('addMoreActionsButtonsList', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
 	$newcardbutton = empty($hookManager->resPrint) ? '' : $hookManager->resPrint;
 
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		$newcardbutton .= dolGetButtonTitle($langs->trans('NewFiscalYear'), '', 'fa fa-plus-circle', 'fiscalyear_card.php?action=create', '', $user->hasRight('accounting', 'fiscalyear', 'write'));
 	}
 

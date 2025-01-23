@@ -105,12 +105,12 @@ if ($type == 'bank-transfer') {
  */
 
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($action == 'setbankaccount' && $permissiontoadd) {
 		$object->oldcopy = dol_clone($object, 2);
 		$object->fk_bank_account = GETPOSTINT('fk_bank_account');
@@ -358,7 +358,7 @@ if ($id > 0 || $ref) {
 
 	// Other attributes
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	print '</table>';
@@ -377,9 +377,9 @@ if ($id > 0 || $ref) {
 
 	// Call Hook formConfirm
 	/*$parameters = array('formConfirm' => $formconfirm);
-	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) $formconfirm.=$hookManager->resPrint;
-	elseif ($reshook > 0) $formconfirm=$hookManager->resPrint;*/
+	$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) $formconfirm.=$hookManager->resPrint;
+	elseif ($resHook > 0) $formconfirm=$hookManager->resPrint;*/
 
 	// Print form confirm
 	print $formconfirm;
@@ -426,8 +426,8 @@ if ($id > 0 || $ref) {
 	if ($action != 'settransmitted' && $action != 'setcredited') {
 		print "\n".'<div class="tabsAction">'."\n";
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			if (empty($object->date_trans)) {
 				if ($object->type == 'bank-transfer') {
 					print dolGetButtonAction($langs->trans("SetToStatusSent"), '', 'default', 'card.php?action=settransmitted&token='.newToken().'&id='.$object->id, '', $user->hasRight('paymentbybanktransfer', 'send'));

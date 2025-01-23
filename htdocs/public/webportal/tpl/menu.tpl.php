@@ -131,12 +131,12 @@ $parameters = array(
 	'maxTopMenu' => & $maxTopMenu
 );
 
-$reshook = $hookManager->executeHooks('PrintTopMenu', $parameters, $context, $context->action);    // Note that $action and $object may have been modified by hook
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('PrintTopMenu', $parameters, $context, $context->action);    // Note that $action and $object may have been modified by hook
+if ($resHook < 0) {
 	$context->setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if (!empty($hookManager->resArray)) {
 		// @phan-suppress-next-line PhanPluginSuspiciousParamOrderInternal
 		$navMenu = array_replace($navMenu, $hookManager->resArray);
@@ -203,7 +203,7 @@ if (empty($reshook)) {
 	</ul>
 	<ul class="menu-entries">
 	<?php
-	if (empty($context->doNotDisplayMenu) && empty($reshook) && !empty($navMenu)) {
+	if (empty($context->doNotDisplayMenu) && empty($resHook) && !empty($navMenu)) {
 		// show menu
 		print getNav($navMenu);
 	}
@@ -217,7 +217,7 @@ if (empty($reshook)) {
 	</ul>
 	<ul class="logout">
 	<?php
-	if (empty($context->doNotDisplayMenu) && empty($reshook) && !empty($navUserMenu)) {
+	if (empty($context->doNotDisplayMenu) && empty($resHook) && !empty($navUserMenu)) {
 		// show menu
 		uasort($navUserMenu, 'menuSortInv');
 		print getNav($navUserMenu);

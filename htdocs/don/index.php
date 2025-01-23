@@ -274,7 +274,7 @@ if ($resql) {
 print '</div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookManager->executeHooks('dashboardDonation', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('dashboardDonation', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 llxFooter();
 

@@ -57,9 +57,9 @@ if (!isset($parameters)) {
 @phan-var-force array<string,mixed> $parameters
 ';
 
-$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$params = array();
 	$params['cols'] = array_key_exists('colspanvalue', $parameters) ? $parameters['colspanvalue'] : '';
 	if (!empty($parameters['tdclass'])) {

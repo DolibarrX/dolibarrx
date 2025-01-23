@@ -146,8 +146,8 @@ if (GETPOST('roworder', 'alpha', 3) && GETPOST('table_element_line', 'aZ09', 3)
 	$row->table_element_line = $table_element_line;
 	$row->fk_element = $fk_element;
 	$row->id = $element_id;
-	$reshook = $hookManager->executeHooks('checkRowPerms', $parameters, $row, $action);
-	if ($reshook > 0) {
+	$resHook = $hookManager->executeHooks('checkRowPerms', $parameters, $row, $action);
+	if ($resHook > 0) {
 		$perm = $hookManager->resArray['perm'];
 	}
 

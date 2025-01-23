@@ -232,10 +232,10 @@ class FormMargin
 		print '<!-- displayMarginInfos() - Show margin table -->' . "\n";
 
 		$parameters = array('marginInfo' => &$marginInfo);
-		$reshook = $hookManager->executeHooks('displayMarginInfos', $parameters, $object, $action);
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('displayMarginInfos', $parameters, $object, $action);
+		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
-		} elseif (empty($reshook)) {
+		} elseif (empty($resHook)) {
 			$hidemargininfos = preg_replace('/[^a-zA-Z0-9_\-]/', '', $_COOKIE['DOLUSER_MARGININFO_HIDE_SHOW'] ?? ''); // Clean cookie
 
 			$buttonToShowHideMargin = '<span id="showMarginInfos" class="linkobject valignmiddle ' . (!empty($hidemargininfos) ? '' : 'hideobject') . '">';
@@ -321,7 +321,7 @@ class FormMargin
 			print $hookManager->resPrint;
 			print '</table>';
 			print '</div>';
-		} elseif ($reshook > 0) {
+		} elseif ($resHook > 0) {
 			print $hookManager->resPrint;
 		}
 	}

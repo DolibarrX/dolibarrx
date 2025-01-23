@@ -463,11 +463,11 @@ if ($id) {
 
 		$tmpaction = 'create';
 		$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-		$reshook = $hookManager->executeHooks('createDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+		$resHook = $hookManager->executeHooks('createDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 		$error = $hookManager->error;
 		$errors = $hookManager->errors;
 
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			fieldListJournal($fieldlist, $obj, $tabname[$id], 'add');
 		}
 
@@ -573,12 +573,12 @@ if ($id) {
 				if ($action == 'edit' && ($rowid == (!empty($obj->rowid) ? $obj->rowid : $obj->code))) {
 					$tmpaction = 'edit';
 					$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-					$reshook = $hookManager->executeHooks('editDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+					$resHook = $hookManager->executeHooks('editDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 					$error = $hookManager->error;
 					$errors = $hookManager->errors;
 
 					// Show fields
-					if (empty($reshook)) {
+					if (empty($resHook)) {
 						fieldListJournal($fieldlist, $obj, $tabname[$id], 'edit');
 					}
 
@@ -592,12 +592,12 @@ if ($id) {
 				} else {
 					$tmpaction = 'view';
 					$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-					$reshook = $hookManager->executeHooks('viewDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+					$resHook = $hookManager->executeHooks('viewDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 
 					$error = $hookManager->error;
 					$errors = $hookManager->errors;
 
-					if (empty($reshook)) {
+					if (empty($resHook)) {
 						$langs->load("accountancy");
 						foreach ($fieldlist as $field => $value) {
 							$showfield = 1;

@@ -80,10 +80,10 @@ $url = DOL_URL_ROOT.'/index.php'.($url ? '?'.$url : '');
 $tmpaction = 'view';
 $parameters = array();
 $object = new stdClass();
-$reshook = $hookManager->executeHooks('addDemoProfile', $parameters, $object, $tmpaction); // Note that $action and $object may have been modified by some hooks
+$resHook = $hookManager->executeHooks('addDemoProfile', $parameters, $object, $tmpaction); // Note that $action and $object may have been modified by some hooks
 $error = $hookManager->error;
 $errors = $hookManager->errors;
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$demoprofiles = array(
 		array(
 			'default' => '1', 'key' => 'profdemoservonly', 'label' => 'DemoCompanyServiceOnly',

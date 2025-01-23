@@ -172,8 +172,8 @@ if (GETPOST("account") || GETPOST("ref")) {
 
 	// others sql
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreSQL', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook) and isset($hookManager->resArray['sql'])) {
+	$resHook = $hookManager->executeHooks('addMoreSQL', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($resHook) and isset($hookManager->resArray['sql'])) {
 		$sqls[] = $hookManager->resArray['sql'];
 	}
 
@@ -325,8 +325,8 @@ if (GETPOST("account") || GETPOST("ref")) {
 			}
 
 			$parameters = array('obj' => $tmpobj, 'ref' => $ref, 'refcomp' => $refcomp, 'totalpayment' => $totalpayment);
-			$reshook = $hookManager->executeHooks('moreFamily', $parameters, $tmpobject, $action); // Note that $action and $tmpobject may have been modified by hook
-			if (empty($reshook)) {
+			$resHook = $hookManager->executeHooks('moreFamily', $parameters, $tmpobject, $action); // Note that $action and $tmpobject may have been modified by hook
+			if (empty($resHook)) {
 				$ref = isset($hookManager->resArray['ref']) ? $hookManager->resArray['ref'] : $ref;
 				$refcomp = isset($hookManager->resArray['refcomp']) ? $hookManager->resArray['refcomp'] : $refcomp;
 				$totalpayment = isset($hookManager->resArray['totalpayment']) ? $hookManager->resArray['totalpayment'] : $totalpayment;
@@ -377,8 +377,8 @@ if (GETPOST("account") || GETPOST("ref")) {
 
 	// Other lines
 	$parameters = array('solde' => $solde);
-	$reshook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		print $hookManager->resPrint;
 		$solde = isset($hookManager->resArray['solde']) ? $hookManager->resArray['solde'] : $solde;
 	}

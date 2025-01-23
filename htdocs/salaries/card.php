@@ -130,12 +130,12 @@ $upload_dir = $config->salaries->multidir_output[$config->entity];
 
 $parameters = array();
 // Note that $action and $object may be modified by some hooks
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$error = 0;
 
 	$backurlforlist = DOL_URL_ROOT.'/salaries/list.php';
@@ -679,9 +679,9 @@ if ($action == 'create' && $permissiontoadd) {
 
 	// Other attributes
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		print $object->showOptionals($extrafields, 'create');
 	}
 
@@ -810,10 +810,10 @@ if ($id > 0) {
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm);
-	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		$formconfirm .= $hookManager->resPrint;
-	} elseif ($reshook > 0) {
+	} elseif ($resHook > 0) {
 		$formconfirm = $hookManager->resPrint;
 	}
 
@@ -1126,8 +1126,8 @@ if ($id > 0) {
 	if ($action != 'edit') {
 		// Dynamic send mail button
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			if (empty($user->socid)) {
 				$canSendMail = true;
 
@@ -1238,7 +1238,7 @@ if ($id > 0) {
 
 	// Hook to add more things on page
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('salaryCardTabAddMore', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('salaryCardTabAddMore', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 }
 
 // End of page

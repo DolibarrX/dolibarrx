@@ -106,12 +106,12 @@ if ($object->id > 0) {
  */
 $error = 0;
 $parameters = array('id' => $id);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($cancel) {
 		$action = "";
 	}
@@ -602,8 +602,8 @@ if ($object->id > 0) {
 
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreBoxStatsSupplier', $parameters, $object, $action);
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('addMoreBoxStatsSupplier', $parameters, $object, $action);
+	if (empty($resHook)) {
 		$boxstat .= $hookManager->resPrint;
 	}
 
@@ -1039,8 +1039,8 @@ if ($object->id > 0) {
 
 	// Allow external modules to add their own shortlist of recent objects
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreRecentObjects', $parameters, $object, $action);
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('addMoreRecentObjects', $parameters, $object, $action);
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	} else {
 		print $hookManager->resPrint;
@@ -1058,9 +1058,9 @@ if ($object->id > 0) {
 	print '<div class="tabsAction">';
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 	// modified by hook
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		if ($object->status != 1) {
 			print dolGetButtonAction($langs->trans('ThirdPartyIsClosed'), $langs->trans('ThirdPartyIsClosed'), 'default', $_SERVER['PHP_SELF'].'#', '', false);
 		}

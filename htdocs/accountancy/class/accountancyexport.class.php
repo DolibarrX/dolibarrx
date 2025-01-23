@@ -189,7 +189,7 @@ class AccountancyExport
 
 		// allow modules to define export formats
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('getType', $parameters, $listofexporttypes);
+		$resHook = $hookManager->executeHooks('getType', $parameters, $listofexporttypes);
 
 		return $listofexporttypes;
 	}
@@ -228,7 +228,7 @@ class AccountancyExport
 		global $hookManager;
 		$code = $formatcode[$type];
 		$parameters = array('type' => $type);
-		$reshook = $hookManager->executeHooks('getFormatCode', $parameters, $code);
+		$resHook = $hookManager->executeHooks('getFormatCode', $parameters, $code);
 
 		return $code;
 	}
@@ -330,7 +330,7 @@ class AccountancyExport
 
 		global $hookManager;
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('getTypeConfig', $parameters, $exporttypes);
+		$resHook = $hookManager->executeHooks('getTypeConfig', $parameters, $exporttypes);
 		return $exporttypes;
 	}
 
@@ -543,8 +543,8 @@ class AccountancyExport
 				global $hookManager;
 				$parameters = array('format' => $formatexportset);
 				// file contents will be created in the hooked function via print
-				$reshook = $hookManager->executeHooks('export', $parameters, $TData);
-				if ($reshook != 1) {
+				$resHook = $hookManager->executeHooks('export', $parameters, $TData);
+				if ($resHook != 1) {
 					$this->errors[] = $langs->trans('accountancy_error_modelnotfound');
 				}
 				break;

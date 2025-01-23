@@ -569,7 +569,7 @@ if ($id > 0 || !empty($ref)) {
 if (is_object($hookManager)) {
 	$hookManager->initHooks(array('contacttpl'));
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('formContactTpl', $parameters, $object, $action);
+	$resHook = $hookManager->executeHooks('formContactTpl', $parameters, $object, $action);
 }
 
 // End of page

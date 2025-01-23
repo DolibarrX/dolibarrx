@@ -88,8 +88,8 @@ restrictedArea($user, 'barcode');
 $parameters = array();
 
 // Note that $action and $object may have been modified by some
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
@@ -97,7 +97,7 @@ if ($reshook < 0) {
  * Actions
  */
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if (GETPOST('submitproduct') && GETPOST('submitproduct')) {
 		$action = ''; // We reset because we don't want to build doc
 		if (GETPOSTINT('productid') > 0) {

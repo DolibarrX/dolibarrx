@@ -83,12 +83,12 @@ if (!isset($object->disposal_date) || $object->disposal_date === "") {
  */
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 /*
-if (empty($reshook)) {
+if (empty($resHook)) {
 }
 */
 

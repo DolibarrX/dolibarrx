@@ -71,12 +71,12 @@ $permissiontoedit = $user->hasRight('supplier_proposal', 'creer');
  */
 
 $parameters = array('id'=>$id);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	/*
 	 * Add a new contact
 	 */

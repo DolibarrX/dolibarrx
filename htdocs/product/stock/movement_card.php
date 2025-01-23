@@ -152,8 +152,8 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 }
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
@@ -416,7 +416,7 @@ $permissiontoadd = $user->hasRight('stock', 'creer');
 include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 
-if (empty($reshook) && $action != 'remove_file') {
+if (empty($resHook) && $action != 'remove_file') {
 	$objectclass = 'MouvementStock';
 	$objectlabel = 'Movements';
 	$permissiontoread = $user->hasRight('stock', 'lire');
@@ -458,7 +458,7 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 }
 // Add fields from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= " FROM ".MAIN_DB_PREFIX."entrepot as e,";
 $sql .= " ".MAIN_DB_PREFIX."product as p,";
@@ -518,7 +518,7 @@ if ($search_type_mouvement != '' && $search_type_mouvement != '-1') {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 // Add where from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= $db->order($sortfield, $sortorder);
 
@@ -779,8 +779,8 @@ if ($resql) {
 	$moreforfilter = '';
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		$moreforfilter .= $hookManager->resPrint;
 	} else {
 		$moreforfilter = $hookManager->resPrint;
@@ -908,7 +908,7 @@ if ($resql) {
 
 	// Fields from hook
 	$parameters = array('arrayfields' => $arrayfields);
-	$reshook = $hookManager->executeHooks('printFieldListOption', $parameters); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListOption', $parameters); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	// Date creation
 	if (!empty($arrayfields['m.datec']['checked'])) {
@@ -980,7 +980,7 @@ if ($resql) {
 
 	// Hook fields
 	$parameters = array('arrayfields' => $arrayfields, 'param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-	$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 	if (!empty($arrayfields['m.datec']['checked'])) {
 		print_liste_field_titre($arrayfields['m.datec']['label'], $_SERVER["PHP_SELF"], "m.datec", "", $param, '', $sortfield, $sortorder, 'center nowrap ');

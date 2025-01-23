@@ -977,8 +977,8 @@ class Fichinter extends CommonObject
 		global $action;
 		$hookManager->initHooks(array('interventiondao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;
@@ -1361,8 +1361,8 @@ class Fichinter extends CommonObject
 			if (is_object($hookManager)) {
 				$parameters = array('objFrom' => $objFrom);
 				$action = '';
-				$reshook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					$this->setErrorsFromObject($hookManager);
 					$error++;
 				}

@@ -128,12 +128,12 @@ $permissiondellink = $user->hasRight('projet', 'creer');	// Used by the include 
  */
 $error = 0;
 $parameters = array('id' => $socid, 'objcanvas' => $objcanvas);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$backurlforlist = DOL_URL_ROOT.'/projet/list.php';
 
 	// Cancel
@@ -911,9 +911,9 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 
 	// Other options
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		print $object->showOptionals($extrafields, 'create');
 	}
 
@@ -1018,10 +1018,10 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm);
-	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		$formconfirm .= $hookManager->resPrint;
-	} elseif ($reshook > 0) {
+	} elseif ($resHook > 0) {
 		$formconfirm = $hookManager->resPrint;
 	}
 
@@ -1324,9 +1324,9 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 
 		// Other options
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			print $object->showOptionals($extrafields, 'edit');
 		}
 
@@ -1603,9 +1603,9 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 
 	print '<div class="tabsAction">';
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 	// modified by hook
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		if ($action != "edit" && $action != 'presend') {
 			// Create event
 			/*if (isModEnabled('agenda') && !empty($config->global->MAIN_ADD_EVENT_ON_ELEMENT_CARD)) 				// Add hidden condition because this is not a
@@ -1812,7 +1812,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 
 	// Hook to add more things on page
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('mainCardTabAddMore', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('mainCardTabAddMore', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 } else {
 	print $langs->trans("RecordNotFound");
 }

@@ -471,7 +471,7 @@ print '</div></div></div>';
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
 $parameters = array('user' => $user);
-$reshook = $hookManager->executeHooks('dashboardHRM', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('dashboardHRM', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

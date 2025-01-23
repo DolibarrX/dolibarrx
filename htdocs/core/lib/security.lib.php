@@ -534,7 +534,7 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 	// Get more permissions checks from hooks
 	$parameters = array('features' => $features, 'originalfeatures' => $originalfeatures, 'objectid' => $objectid, 'dbt_select' => $dbt_select, 'idtype' => $dbt_select, 'isdraft' => $isdraft);
 	if (!empty($hookManager)) {
-		$reshook = $hookManager->executeHooks('restrictedArea', $parameters);
+		$resHook = $hookManager->executeHooks('restrictedArea', $parameters);
 
 		if (isset($hookManager->resArray['result'])) {
 			if ($hookManager->resArray['result'] == 0) {
@@ -545,7 +545,7 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 				}
 			}
 		}
-		if ($reshook > 0) {		// No other test done.
+		if ($resHook > 0) {		// No other test done.
 			return 1;
 		}
 	}
@@ -1323,9 +1323,9 @@ function accessforbidden($message = '', $printheader = 1, $printfooter = 1, $sho
 		}
 
 		$parameters = array('message' => $message, 'params' => $params);
-		$reshook = $hookManager->executeHooks('getAccessForbiddenMessage', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+		$resHook = $hookManager->executeHooks('getAccessForbiddenMessage', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 		print $hookManager->resPrint;
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			$langs->loadLangs(array("errors"));
 			if ($user->login) {
 				print $langs->trans("CurrentLogin").': <span class="error">'.$user->login.'</span><br>';

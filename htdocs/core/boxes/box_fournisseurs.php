@@ -91,8 +91,8 @@ class box_fournisseurs extends ModeleBoxes
 			}
 			// Add where from hooks
 			$parameters = array('socid' => $user->socid, 'boxcode' => $this->boxcode);
-			$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $thirdpartystatic); // Note that $action and $object may have been modified by hook
-			if (empty($reshook)) {
+			$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $thirdpartystatic); // Note that $action and $object may have been modified by hook
+			if (empty($resHook)) {
 				if ($user->socid > 0) {
 					$sql .= " AND s.rowid = ".((int) $user->socid);
 				}

@@ -962,8 +962,8 @@ class ProductAttribute extends CommonObject
 		} else {
 			$parameters = array('rowid' => $rowid, 'position' => $position);
 			$action = '';
-			$reshook = $hookManager->executeHooks('afterPositionOfAttributeUpdate', $parameters, $this, $action);
-			return ($reshook >= 0 ? 1 : -1);
+			$resHook = $hookManager->executeHooks('afterPositionOfAttributeUpdate', $parameters, $this, $action);
+			return ($resHook >= 0 ? 1 : -1);
 		}
 	}
 
@@ -1223,8 +1223,8 @@ class ProductAttribute extends CommonObject
 		global $action, $hookManager;
 		$hookManager->initHooks(array('variantsdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => $result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;
@@ -1375,8 +1375,8 @@ class ProductAttribute extends CommonObject
 		$num = count($this->lines);
 
 		$parameters = array('num' => $num, 'selected' => $selected, 'table_element_line' => $this->table_element_line);
-		$reshook = $hookManager->executeHooks('printObjectLineTitle', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('printObjectLineTitle', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if (empty($resHook)) {
 			// Output template part (modules that overwrite templates must declare this into descriptor)
 			// Use global variables + $dateSelector + $seller and $buyer
 			// Note: This is deprecated. If you need to overwrite the tpl file, use instead the hook.
@@ -1406,11 +1406,11 @@ class ProductAttribute extends CommonObject
 					// Add products/services form
 
 					$parameters = array();
-					$reshook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-					if ($reshook < 0) {
+					$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+					if ($resHook < 0) {
 						setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 					}
-					if (empty($reshook)) {
+					if (empty($resHook)) {
 						$object->formAddObjectLine(1, $mysoc, $buyer);
 					}
 				}
@@ -1423,9 +1423,9 @@ class ProductAttribute extends CommonObject
 		foreach ($this->lines as $line) {
 			if (is_object($hookManager)) {   // Old code is commented on preceding line.
 				$parameters = array('line' => $line, 'num' => $num, 'i' => $i, 'selected' => $selected, 'table_element_line' => $line->table_element);
-				$reshook = $hookManager->executeHooks('printObjectLine', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('printObjectLine', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 			}
-			if (empty($reshook)) {
+			if (empty($resHook)) {
 				$this->printObjectLine($action, $line, '', $num, $i, $dateSelector, $seller, $buyer, $selected, null, $defaulttpldir);
 			}
 

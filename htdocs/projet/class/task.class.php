@@ -1057,8 +1057,8 @@ class Task extends CommonObjectLine
 		}
 
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;
@@ -1243,7 +1243,7 @@ class Task extends CommonObjectLine
 
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 		if ($includebilltime) {
 			$sql .= " GROUP BY p.rowid, p.ref, p.title, p.public, p.fk_statut, p.usage_bill_time,";
@@ -2824,9 +2824,9 @@ class Task extends CommonObjectLine
 			// External modules should update their ones too
 			if (!$error) {
 				$parameters = array('task_origin' => $task_origin->id, 'task_dest' => $this->id);
-				$reshook = $hookManager->executeHooks('replaceThirdparty', $parameters, $this, $action);
+				$resHook = $hookManager->executeHooks('replaceThirdparty', $parameters, $this, $action);
 
-				if ($reshook < 0) {
+				if ($resHook < 0) {
 					$this->error = $hookManager->error;
 					$this->errors = $hookManager->errors;
 					$error++;

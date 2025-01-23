@@ -182,8 +182,8 @@ if (!isModEnabled('multicompany')) {
 
 	// Execute hook printBookmarks
 	$parameters = array('multicompany' => $multicompanyList);
-	$reshook = $hookManager->executeHooks('printMultiCompanyEntities', $parameters); // Note that $action and $object may have been modified by some hooks
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('printMultiCompanyEntities', $parameters); // Note that $action and $object may have been modified by some hooks
+	if (empty($resHook)) {
 		$multicompanyList .= $hookManager->resPrint;
 	} else {
 		$multicompanyList = $hookManager->resPrint;

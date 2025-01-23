@@ -129,12 +129,12 @@ $permissiontoadd = (($object->type == Product::TYPE_PRODUCT && $user->hasRight('
  */
 
 $parameters = array('id'=>$id);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Delete line if product propal merge is linked to a file
 	if (getDolGlobalString('PRODUIT_PDF_MERGE_PROPAL')) {
 		if ($action == 'confirm_deletefile' && $confirm == 'yes' && $permissiontoadd) {
@@ -227,9 +227,9 @@ if ($object->id > 0) {
 	print dol_get_fiche_head($head, 'documents', $titre, -1, $picto);
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
-	if ($reshook < 0) {
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 

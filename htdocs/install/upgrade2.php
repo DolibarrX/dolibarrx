@@ -188,8 +188,8 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 	$parameters = array('versionfrom' => $versionfrom, 'versionto' => $versionto);
 	$object = new stdClass();
 	$action = "upgrade";
-	$reshook = $hookManager->executeHooks('doUpgradeBefore', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-	if ($reshook >= 0 && is_array($hookManager->resArray)) {
+	$resHook = $hookManager->executeHooks('doUpgradeBefore', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	if ($resHook >= 0 && is_array($hookManager->resArray)) {
 		// Example: $hookManager->resArray = array(2, 3, 10);
 		$listofentities = array_unique(array_merge($listofentities, $hookManager->resArray));
 	}
@@ -607,18 +607,18 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			$parameters = array('versionfrom' => $versionfrom, 'versionto' => $versionto, 'conf' => $conf);
 			$object = new stdClass();
 			$action = "upgrade";
-			$reshook = $hookManager->executeHooks('doUpgradeAfterDB', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+			$resHook = $hookManager->executeHooks('doUpgradeAfterDB', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 			if ($hookManager->resNbOfHooks > 0) {
-				if ($reshook < 0) {
+				if ($resHook < 0) {
 					print '<tr><td colspan="4">';
 					print '<b>'.$langs->trans('UpgradeExternalModule').'</b>: ';
 					print $hookManager->error;
-					print "<!-- (".$reshook.") -->";
+					print "<!-- (".$resHook.") -->";
 					print '</td></tr>';
 				} else {
 					print '<tr class="trforrunsql"><td colspan="4">';
 					print '<b>'.$langs->trans('UpgradeExternalModule').' (DB)</b>: <span class="ok">OK</span>';
-					print "<!-- (".$reshook.") -->";
+					print "<!-- (".$resHook.") -->";
 					print '</td></tr>';
 				}
 			} else {
@@ -679,18 +679,18 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 		$parameters = array('versionfrom' => $versionfrom, 'versionto' => $versionto, 'conf' => $conf);
 		$object = new stdClass();
 		$action = "upgrade";
-		$reshook = $hookManager->executeHooks('doUpgradeAfterFiles', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+		$resHook = $hookManager->executeHooks('doUpgradeAfterFiles', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 		if ($hookManager->resNbOfHooks > 0) {
-			if ($reshook < 0) {
+			if ($resHook < 0) {
 				print '<tr><td colspan="4">';
 				print '<b>'.$langs->trans('UpgradeExternalModule').'</b>: ';
 				print $hookManager->error;
-				print "<!-- (".$reshook.") -->";
+				print "<!-- (".$resHook.") -->";
 				print '</td></tr>';
 			} else {
 				print '<tr class="trforrunsql"><td colspan="4">';
 				print '<b>'.$langs->trans('UpgradeExternalModule').' (Files)</b>: <span class="ok">OK</span>';
-				print "<!-- (".$reshook.") -->";
+				print "<!-- (".$resHook.") -->";
 				print '</td></tr>';
 			}
 		} else {

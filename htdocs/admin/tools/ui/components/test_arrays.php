@@ -272,7 +272,7 @@ $moreforfilter .= '</div>';
 print '<div class="liste_titre liste_titre_bydiv centpercent">';
 print $moreforfilter;
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 print '</div>';
 

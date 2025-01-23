@@ -134,12 +134,12 @@ if ($cancel) {
 
 $morehtmlright = '';
 $parameters = array('id' => $socid);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($cancel) {
 		$action = '';
 		if (!empty($backtopage)) {
@@ -1225,7 +1225,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 		print '<td>'.$langs->trans('DateModification').'</td>';
 		// Hook fields
 		$parameters = array('arrayfields' => array(), 'param' => '', 'sortfield' => '', 'sortorder' => '', 'linetype' => 'stripetitle');
-		$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		// Action column
 		print "<td></td>";
@@ -1332,7 +1332,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 							print '</td>';
 							// Fields from hook
 							$parameters = array('arrayfields' => array(), 'obj' => $obj, 'linetype' => 'stripecard');
-							$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
+							$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
 							print $hookManager->resPrint;
 							// Action column
 							print '<td class="right minwidth50 nowraponall">';
@@ -1483,7 +1483,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 
 				// Fields from hook
 				$parameters = array('arrayfields' => array(), 'stripesource' => $src, 'linetype' => 'stripecardremoteonly');
-				$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
 				print $hookManager->resPrint;
 
 				// Action column
@@ -1591,7 +1591,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 		print_liste_field_titre('', '', '', '', '', '', '', '', 'center ');
 		// Fields from hook
 		$parameters = array('arrayfields' => array(), 'linetype' => 'stripebantitle');
-		$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 		print_liste_field_titre('', $_SERVER["PHP_SELF"], "", '', '', '', '', '', 'maxwidthsearch ');
 		print "</tr>\n";
@@ -1747,7 +1747,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 
 			// Fields from hook
 			$parameters = array('arrayfields' => array(), 'stripe_card_ref' => $rib->stripe_card_ref, 'stripe_account' => $rib->stripe_account, 'linetype' => 'stripeban');
-			$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
 			print $hookManager->resPrint;
 
 			// Show online signature link
@@ -1882,7 +1882,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 
 			// Fields from hook
 			$parameters = array('arrayfields' => array(), 'stripe_card_ref' => $rib->stripe_card_ref, 'stripe_account' => $rib->stripe_account, 'linetype' => 'stripebanremoteonly');
-			$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
 			print $hookManager->resPrint;
 
 			// Action column
@@ -1916,7 +1916,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 
 	//Hook to display your print listing (list of CB card from Stancer Plugin for example)
 	$parameters = array('arrayfields' => array(), 'param' => '', 'sortfield' => '', 'sortorder' => '', 'linetype' => '');
-	$reshook = $hookManager->executeHooks('printNewTable', $parameters, $object);
+	$resHook = $hookManager->executeHooks('printNewTable', $parameters, $object);
 	print $hookManager->resPrint;
 
 	if (!getDolGlobalString('SOCIETE_DISABLE_BUILDDOC')) {

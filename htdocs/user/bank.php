@@ -953,7 +953,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 
 	// Add hook in fields
 	$parameters = array('colspan' => ' colspan="2"');
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 }
 
 // Edit

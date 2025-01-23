@@ -466,7 +466,7 @@ print '</div>';
 print '<div class="clearboth"></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookManager->executeHooks('dashboardTickets', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('dashboardTickets', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 
 // End of page

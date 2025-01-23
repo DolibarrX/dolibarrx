@@ -107,7 +107,7 @@ $permissiondellink = $user->hasRight('expedition', 'delivery', 'creer'); // Used
  */
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);       // Note that $action and $object may have been modified by some hooks
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);       // Note that $action and $object may have been modified by some hooks
 // Delete Link
 $permissiondellink = $user->hasRight('expedition', 'delivery', 'supprimer'); // Used by the include of actions_dellink.inc.php
 include DOL_DOCUMENT_ROOT.'/core/actions_dellink.inc.php';     // Must be 'include', not 'include_once'
@@ -539,12 +539,12 @@ if ($action == 'create') {
 			}
 			while ($i < $num_prod) {
 				$parameters = array('i' => $i, 'line' => $object->lines[$i], 'num' => $num_prod);
-				$reshook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action);
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action);
+				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					print '<tr class="oddeven">';
 					if ($object->lines[$i]->fk_product > 0) {
 						$product = new Product($db);

@@ -495,12 +495,12 @@ function getEntity($element, $shared = 1, $currentobject = null)
 		'currentobject' => $currentobject,
 		'out' => $out
 	);
-	$reshook = $hookManager->executeHooks('hookGetEntity', $parameters, $currentobject, $action); // Note that $action and $object may have been modified by some hooks
+	$resHook = $hookManager->executeHooks('hookGetEntity', $parameters, $currentobject, $action); // Note that $action and $object may have been modified by some hooks
 
-	if (is_numeric($reshook)) {
-		if ($reshook == 0 && !empty($hookManager->resPrint)) {
+	if (is_numeric($resHook)) {
+		if ($resHook == 0 && !empty($hookManager->resPrint)) {
 			$out .= ','.$hookManager->resPrint; // add
-		} elseif ($reshook == 1) {
+		} elseif ($resHook == 1) {
 			$out = $hookManager->resPrint; // replace
 		}
 	}
@@ -2869,8 +2869,8 @@ function dol_get_fiche_head($links = array(), $active = '', $title = '', $notab 
 		$out .= dragAndDropFileUpload("dragDropAreaTabBar");
 	}
 	$parameters = array('tabname' => $active, 'out' => $out);
-	$reshook = $hookManager->executeHooks('printTabsHead', $parameters); // This hook usage is called just before output the head of tabs. Take also a look at "completeTabsHead"
-	if ($reshook > 0) {
+	$resHook = $hookManager->executeHooks('printTabsHead', $parameters); // This hook usage is called just before output the head of tabs. Take also a look at "completeTabsHead"
+	if ($resHook > 0) {
 		$out = $hookManager->resPrint;
 	}
 
@@ -3266,12 +3266,12 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 	}
 
 	$parameters = array('morehtmlref' => &$morehtmlref, 'moreparam' => &$moreparam, 'morehtmlleft' => &$morehtmlleft, 'morehtmlstatus' => &$morehtmlstatus, 'morehtmlright' => &$morehtmlright);
-	$reshook = $hookManager->executeHooks('formDolBanner', $parameters, $object, $action);
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('formDolBanner', $parameters, $object, $action);
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
-	} elseif (empty($reshook)) {
+	} elseif (empty($resHook)) {
 		$morehtmlref .= $hookManager->resPrint;
-	} elseif ($reshook > 0) {
+	} elseif ($resHook > 0) {
 		$morehtmlref = $hookManager->resPrint;
 	}
 
@@ -3396,8 +3396,8 @@ function dol_format_address($object, $withcountry = 0, $sep = "\n", $outputlangs
 	}
 	if ($hookManager) {
 		$parameters = array('withcountry' => $withcountry, 'sep' => $sep, 'outputlangs' => $outputlangs,'mode' => $mode, 'extralangcode' => $extralangcode);
-		$reshook = $hookManager->executeHooks('formatAddress', $parameters, $object);
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('formatAddress', $parameters, $object);
+		if ($resHook > 0) {
 			$ret = '';
 		}
 		$ret .= $hookManager->resPrint;
@@ -4036,8 +4036,8 @@ function dol_print_email($email, $cid = 0, $socid = 0, $addlink = 0, $max = 64, 
 	if ($hookManager) {
 		$parameters = array('cid' => $cid, 'socid' => $socid, 'addlink' => $addlink, 'picto' => $withpicto);
 
-		$reshook = $hookManager->executeHooks('printEmail', $parameters, $email);
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('printEmail', $parameters, $email);
+		if ($resHook > 0) {
 			$rep = '';
 		}
 		$rep .= $hookManager->resPrint;
@@ -4177,8 +4177,8 @@ function dol_print_socialnetworks($value, $cid, $socid, $type, $dictsocialnetwor
 			'dictsocialnetworks' => $dictsocialnetworks,
 		);
 
-		$reshook = $hookManager->executeHooks('printSocialNetworks', $parameters);
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('printSocialNetworks', $parameters);
+		if ($resHook > 0) {
 			$htmllink = '';
 		}
 		$htmllink .= $hookManager->resPrint;
@@ -4539,10 +4539,10 @@ function dol_print_phone($phone, $countrycode = '', $cid = 0, $socid = 0, $addli
 
 	if ($hookManager) {
 		$parameters = array('countrycode' => $countrycode, 'cid' => $cid, 'socid' => $socid, 'titlealt' => $titlealt, 'picto' => $withpicto);
-		$reshook = $hookManager->executeHooks('printPhone', $parameters, $phone);
+		$resHook = $hookManager->executeHooks('printPhone', $parameters, $phone);
 		$rep .= $hookManager->resPrint;
 	}
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		$picto = '';
 		if ($withpicto) {
 			if ($withpicto == 'fax') {
@@ -4728,10 +4728,10 @@ function dol_print_address($address, $htmlid, $element, $id, $noprint = 0, $char
 	if ($address) {
 		if ($hookManager) {
 			$parameters = array('element' => $element, 'id' => $id);
-			$reshook = $hookManager->executeHooks('printAddress', $parameters, $address);
+			$resHook = $hookManager->executeHooks('printAddress', $parameters, $address);
 			$out .= $hookManager->resPrint;
 		}
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			if (empty($charfornl)) {
 				$out .= nl2br($address);
 			} else {
@@ -11302,8 +11302,8 @@ function complete_head_from_modules($conf, $langs, $object, &$head, &$h, $type, 
 	// No need to make a return $head. Var is modified as a reference
 	if (!empty($hookManager)) {
 		$parameters = array('object' => $object, 'mode' => $mode, 'head' => &$head, 'filterorigmodule' => $filterorigmodule);
-		$reshook = $hookManager->executeHooks('completeTabsHead', $parameters, $object);
-		if ($reshook > 0) {		// Hook ask to replace completely the array
+		$resHook = $hookManager->executeHooks('completeTabsHead', $parameters, $object);
+		if ($resHook > 0) {		// Hook ask to replace completely the array
 			$head = $hookManager->resArray;
 		} else {				// Hook
 			$head = array_merge($head, $hookManager->resArray);
@@ -11341,8 +11341,8 @@ function printCommonFooter($zone = 'private')
 	print '<div id="page_y" style="display: none;">'.(GETPOST('page_y') ? GETPOST('page_y') : '').'</div>'."\n";
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printCommonFooter', $parameters); // Note that $action and $object may have been modified by some hooks
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('printCommonFooter', $parameters); // Note that $action and $object may have been modified by some hooks
+	if (empty($resHook)) {
 		if (getDolGlobalString('MAIN_HTML_FOOTER')) {
 			print getDolGlobalString('MAIN_HTML_FOOTER') . "\n";
 		}
@@ -12894,12 +12894,12 @@ function dolGetButtonAction($label, $text = '', $actionType = 'default', $url = 
 		'params' => $params
 	);
 
-	$reshook = $hookManager->executeHooks('dolGetButtonAction', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('dolGetButtonAction', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		if (dol_textishtml($text)) {	// If content already HTML encoded
 			return '<' . $tag . ' ' . $compiledAttributes . '><span class="textbutton">' . $text . '</span></' . $tag . '>';
 		} else {
@@ -13502,9 +13502,9 @@ function getElementProperties($elementType)
 		'elementProperties' => $elementProperties
 	);
 
-	$reshook = $hookManager->executeHooks('getElementProperties', $parameters);
+	$resHook = $hookManager->executeHooks('getElementProperties', $parameters);
 
-	if ($reshook) {
+	if ($resHook) {
 		$elementProperties = $hookManager->resArray;
 	} elseif (!empty($hookManager->resArray) && is_array($hookManager->resArray)) { // resArray is always an array but for sécurity against misconfigured external modules
 		$elementProperties = array_replace($elementProperties, $hookManager->resArray);
@@ -15136,7 +15136,7 @@ function recordNotFound($message = '', $printheader = 1, $printfooter = 1, $show
 		}
 
 		$parameters = array('message' => $message, 'params' => $params);
-		$reshook = $hookManager->executeHooks('getErrorRecordNotFound', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+		$resHook = $hookManager->executeHooks('getErrorRecordNotFound', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 		print $hookManager->resPrint;
 	}
 

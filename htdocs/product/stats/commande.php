@@ -110,8 +110,8 @@ if ($id > 0 || !empty($ref)) {
 	$object = $product;
 
 	$parameters = array('id' => $id);
-	$reshook = $hookManager->executeHooks('doActions', $parameters, $product, $action); // Note that $action and $object may have been modified by some hooks
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('doActions', $parameters, $product, $action); // Note that $action and $object may have been modified by some hooks
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
@@ -123,9 +123,9 @@ if ($id > 0 || !empty($ref)) {
 		$picto = ($product->type == Product::TYPE_SERVICE ? 'service' : 'product');
 		print dol_get_fiche_head($head, 'referers', $titre, -1, $picto);
 
-		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $product, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $product, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
-		if ($reshook < 0) {
+		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 

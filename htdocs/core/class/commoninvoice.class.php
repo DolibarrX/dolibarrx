@@ -987,9 +987,9 @@ abstract class CommonInvoice extends CommonObject
 			'type'        => $type
 		);
 
-		$reshook = $hookManager->executeHooks('LibStatut', $parameters, $this); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('LibStatut', $parameters, $this); // Note that $action and $object may have been modified by hook
 
-		if ($reshook > 0) {
+		if ($resHook > 0) {
 			return $hookManager->resPrint;
 		}
 

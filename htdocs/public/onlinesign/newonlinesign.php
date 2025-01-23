@@ -396,10 +396,10 @@ if ($source == 'proposal') {
 
 	// Call Hook amountPropalSign
 	$parameters = array('source' => $source);
-	$reshook = $hookManager->executeHooks('amountPropalSign', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('amountPropalSign', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		$amount .= $hookManager->resPrint;
-	} elseif ($reshook > 0) {
+	} elseif ($resHook > 0) {
 		$amount = $hookManager->resPrint;
 	}
 
@@ -709,7 +709,7 @@ if ($source == 'proposal') {
 
 // Call Hook addFormSign
 $parameters = array('source' => $source);
-$reshook = $hookManager->executeHooks('addFormSign', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('addFormSign', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 if (!$found && !$mesg) {
 	$mesg = $langs->transnoentitiesnoconv("ErrorBadParameters");

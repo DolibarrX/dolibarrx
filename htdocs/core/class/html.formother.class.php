@@ -491,7 +491,7 @@ class FormOther
 
 		$out = '';
 
-		$reshook = $hookManager->executeHooks('addSQLWhereFilterOnSelectSalesRep', array(), $this, $action);
+		$resHook = $hookManager->executeHooks('addSQLWhereFilterOnSelectSalesRep', array(), $this, $action);
 
 		// Select each sales and print them in a select input
 		$out .= '<select class="flat'.($morecss ? ' '.$morecss : '').'" id="'.$htmlname.'" name="'.$htmlname.'">';
@@ -538,7 +538,7 @@ class FormOther
 		}
 
 		//Add hook to filter on user (for example on usergroup define in custom modules)
-		if (!empty($reshook)) {
+		if (!empty($resHook)) {
 			$sql_usr .= $hookManager->resArray[0];
 		}
 
@@ -561,7 +561,7 @@ class FormOther
 			$sql_usr .= " AND u2.rowid = sc.fk_user AND sc.fk_soc = ".((int) $user->socid);
 
 			//Add hook to filter on user (for example on usergroup define in custom modules)
-			if (!empty($reshook)) {
+			if (!empty($resHook)) {
 				$sql_usr .= $hookManager->resArray[1];
 			}
 		}

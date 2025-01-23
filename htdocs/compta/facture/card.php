@@ -203,12 +203,12 @@ $result = restrictedArea($user, 'facture', $object->id, '', '', 'fk_soc', 'rowid
 $error = 0;
 
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$backurlforlist = DOL_URL_ROOT.'/compta/facture/list.php';
 
 	if (empty($backtopage) || ($cancel && empty($id))) {
@@ -1930,9 +1930,9 @@ if (empty($reshook)) {
 
 						// Hooks
 						$parameters = array('origin_type' => $object->origin_type, 'origin_id' => $object->origin_id, 'objFrom' => $srcobject);
-						$reshook = $hookManager->executeHooks('createFrom', $parameters, $object, $action); // Note that $action and $object may have been
+						$resHook = $hookManager->executeHooks('createFrom', $parameters, $object, $action); // Note that $action and $object may have been
 						// modified by hook
-						if ($reshook < 0) {
+						if ($resHook < 0) {
 							setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 							$error++;
 						}
@@ -2078,9 +2078,9 @@ if (empty($reshook)) {
 
 					// Hooks
 					$parameters = array('origin_type' => $object->origin_type, 'origin_id' => $object->origin_id);
-					$reshook = $hookManager->executeHooks('createFrom', $parameters, $nextSituationInvoice, $action); // Note that $action and $object may have been
+					$resHook = $hookManager->executeHooks('createFrom', $parameters, $nextSituationInvoice, $action); // Note that $action and $object may have been
 					// modified by hook
-					if ($reshook < 0) {
+					if ($resHook < 0) {
 						setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						$error++;
 					}
@@ -3444,8 +3444,8 @@ if ($action == 'create') {
 	// Call Hook tabContentCreateInvoice
 	$parameters = array();
 	// Note that $action and $object may be modified by hook
-	$reshook = $hookManager->executeHooks('tabContentCreateInvoice', $parameters, $object, $action);
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('tabContentCreateInvoice', $parameters, $object, $action);
+	if (empty($resHook)) {
 		print '<table class="border centpercent">';
 
 		$exampletemplateinvoice = new FactureRec($db);
@@ -4069,9 +4069,9 @@ if ($action == 'create') {
 
 		// Other attributes
 		$parameters = array('objectsrc' => !empty($objectsrc) ? $objectsrc : 0, 'colspan' => ' colspan="2"', 'cols' => '2', 'socid' => $socid);
-		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			if (getDolGlobalString('THIRDPARTY_PROPAGATE_EXTRAFIELDS_TO_INVOICE') && !empty($soc->id)) {
 				// copy from thirdparty
 				$tpExtrafields = new ExtraFields($db);
@@ -4653,10 +4653,10 @@ if ($action == 'create') {
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm, 'lineid' => $lineid, 'remainingtopay' => &$resteapayer);
-	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($resHook)) {
 		$formconfirm .= $hookManager->resPrint;
-	} elseif ($reshook > 0) {
+	} elseif ($resHook > 0) {
 		$formconfirm = $hookManager->resPrint;
 	}
 
@@ -4715,8 +4715,8 @@ if ($action == 'create') {
 	// Call Hook tabContentViewInvoice
 	$parameters = array();
 	// Note that $action and $object may be modified by hook
-	$reshook = $hookManager->executeHooks('tabContentViewInvoice', $parameters, $object, $action);
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('tabContentViewInvoice', $parameters, $object, $action);
+	if (empty($resHook)) {
 		print '<div class="fichecenter">';
 		print '<div class="fichehalfleft">';
 		print '<div class="underbanner clearboth"></div>';
@@ -5754,16 +5754,16 @@ if ($action == 'create') {
 				// Add free products/services
 
 				$parameters = array();
-				$reshook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					$object->formAddObjectLine(1, $mysoc, $soc);
 				}
 			} else {
 				$parameters = array();
-				$reshook = $hookManager->executeHooks('formEditObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('formEditObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			}
 		}
 
@@ -5781,8 +5781,8 @@ if ($action == 'create') {
 		print '<div class="tabsAction">';
 
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			$params = array(
 				'attr' => array(
 					'class' => 'classfortooltip',

@@ -163,8 +163,8 @@ $listofchoices = array(
  */
 
 //$parameters = array('socid' => $id);
-//$reshook = $hookManager->executeHooks('doActions', $parameters, $object); // Note that $object may have been modified by some hooks
-//if ($reshook < 0) setEventMessages($hookManager->error, $hookManager->errors, 'errors');
+//$resHook = $hookManager->executeHooks('doActions', $parameters, $object); // Note that $object may have been modified by some hooks
+//if ($resHook < 0) setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 
 $filesarray = array();
 

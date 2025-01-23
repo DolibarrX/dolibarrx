@@ -166,7 +166,7 @@ if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
 	}
 	// Add where from hooks
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListWhereCustomerLastModified', $parameters);
+	$resHook = $hookManager->executeHooks('printFieldListWhereCustomerLastModified', $parameters);
 	$sql .= $hookManager->resPrint;
 
 	$sql .= " ORDER BY f.tms DESC";
@@ -317,7 +317,7 @@ if ((isModEnabled('fournisseur') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMO
 	}
 	// Add where from hooks
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListWhereSupplierLastModified', $parameters);
+	$resHook = $hookManager->executeHooks('printFieldListWhereSupplierLastModified', $parameters);
 	$sql .= $hookManager->resPrint;
 
 	$sql .= " ORDER BY ff.tms DESC";
@@ -438,7 +438,7 @@ if (isModEnabled('don') && $user->hasRight('don', 'lire')) {
 	$sql .= " WHERE d.entity IN (".getEntity('donation').")";
 	// Add where from hooks
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListWhereLastDonations', $parameters);
+	$resHook = $hookManager->executeHooks('printFieldListWhereLastDonations', $parameters);
 	$sql .= $hookManager->resPrint;
 
 	$sql .= $db->order("d.tms", "DESC");
@@ -533,7 +533,7 @@ if (isModEnabled('tax') && $user->hasRight('tax', 'charges', 'lire')) {
 		$sql .= " AND c.paye = 0";
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListWhereSocialContributions', $parameters);
+		$resHook = $hookManager->executeHooks('printFieldListWhereSocialContributions', $parameters);
 		$sql .= $hookManager->resPrint;
 
 		$sql .= " GROUP BY c.rowid, c.amount, c.date_ech, c.paye, cc.libelle";
@@ -641,7 +641,7 @@ if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("command
 
 	// Add where from hooks
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListWhereCustomerOrderToBill', $parameters);
+	$resHook = $hookManager->executeHooks('printFieldListWhereCustomerOrderToBill', $parameters);
 	$sql .= $hookManager->resPrint;
 
 	$sql .= " GROUP BY s.nom, s.email, s.rowid, s.code_client, s.code_compta, c.rowid, c.ref, c.facture, c.fk_statut, c.total_ht, c.total_tva, c.total_ttc, cc.rowid, cc.code";
@@ -790,7 +790,7 @@ if ($sql) {
 print '</div></div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookManager->executeHooks('dashboardAccountancy', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('dashboardAccountancy', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

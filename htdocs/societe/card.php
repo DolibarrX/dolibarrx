@@ -186,12 +186,12 @@ $result = restrictedArea($user, 'societe', $socid, '&societe', '', 'fk_soc', 'ro
 
 $parameters = array('id' => $socid, 'objcanvas' => $objcanvas);
 $current_logo = '';
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$backurlforlist = DOL_URL_ROOT.'/societe/list.php';
 
 	if (empty($backtopage) || ($cancel && empty($id))) {
@@ -1333,8 +1333,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 		// Call Hook tabContentCreateThirdparty
 		$parameters = array();
 		// Note that $action and $object may be modified by hook
-		$reshook = $hookManager->executeHooks('tabContentCreateThirdparty', $parameters, $object, $action);
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('tabContentCreateThirdparty', $parameters, $object, $action);
+		if (empty($resHook)) {
 			print '<table class="border centpercent">';
 
 			// Name, firstname
@@ -2276,8 +2276,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			// Call Hook tabContentEditThirdparty
 			$parameters = array();
 			// Note that $action and $object may be modified by hook
-			$reshook = $hookManager->executeHooks('tabContentEditThirdparty', $parameters, $object, $action);
-			if (empty($reshook)) {
+			$resHook = $hookManager->executeHooks('tabContentEditThirdparty', $parameters, $object, $action);
+			if (empty($resHook)) {
 				print '<table class="border centpercent">';
 
 				// Ref/ID
@@ -2911,10 +2911,10 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 		// Call Hook formConfirm
 		$parameters = array('formConfirm' => $formconfirm);
-		$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			$formconfirm .= $hookManager->resPrint;
-		} elseif ($reshook > 0) {
+		} elseif ($resHook > 0) {
 			$formconfirm = $hookManager->resPrint;
 		}
 
@@ -2930,8 +2930,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 		// Call Hook tabContentViewThirdparty
 		$parameters = array();
 		// Note that $action and $object may be modified by hook
-		$reshook = $hookManager->executeHooks('tabContentViewThirdparty', $parameters, $object, $action);
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('tabContentViewThirdparty', $parameters, $object, $action);
+		if (empty($resHook)) {
 			print '<div class="fichecenter">';
 			print '<div class="fichehalfleft">';
 
@@ -3402,8 +3402,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			print '<div class="tabsAction">'."\n";
 
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			if (empty($reshook)) {
+			$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			if (empty($resHook)) {
 				$at_least_one_email_contact = false;
 				$TContact = $object->contact_array_objects();
 				foreach ($TContact as &$contact) {

@@ -181,7 +181,7 @@ if (($action == 'send' || $action == 'relance') && !GETPOST('addfile') && !GETPO
 
 		if (is_object($hookManager)) {
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('initSendToSocid', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+			$resHook = $hookManager->executeHooks('initSendToSocid', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 		}
 	} else {
 		$thirdparty = $mysoc;

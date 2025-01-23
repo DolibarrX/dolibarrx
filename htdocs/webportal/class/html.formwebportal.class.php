@@ -526,7 +526,7 @@ class FormWebPortal extends Form
 			'searchkey' => $searchkey
 		);
 
-		$reshook = $hookManager->executeHooks('selectForFormsListWhere', $parameters); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('selectForFormsListWhere', $parameters); // Note that $action and $object may have been modified by hook
 		if (!empty($hookManager->resPrint)) {
 			$sql .= $hookManager->resPrint;
 		} else {

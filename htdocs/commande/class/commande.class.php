@@ -1314,8 +1314,8 @@ class Commande extends CommonOrder
 			if (is_object($hookManager)) {
 				$parameters = array('objFrom' => $objFrom);
 				$action = '';
-				$reshook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					$this->setErrorsFromObject($hookManager);
 					$error++;
 				}
@@ -1473,8 +1473,8 @@ class Commande extends CommonOrder
 
 			$parameters = array('objFrom' => $object);
 			$action = '';
-			$reshook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-			if ($reshook < 0) {
+			$resHook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+			if ($resHook < 0) {
 				$this->setErrorsFromObject($hookManager);
 				$error++;
 			}
@@ -3656,9 +3656,9 @@ class Commande extends CommonOrder
 			'donotshowbilled' => $donotshowbilled
 		);
 
-		$reshook = $hookManager->executeHooks('LibStatut', $parameters, $this); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('LibStatut', $parameters, $this); // Note that $action and $object may have been modified by hook
 
-		if ($reshook > 0) {
+		if ($resHook > 0) {
 			return $hookManager->resPrint;
 		}
 
@@ -3839,8 +3839,8 @@ class Commande extends CommonOrder
 		global $action;
 		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;

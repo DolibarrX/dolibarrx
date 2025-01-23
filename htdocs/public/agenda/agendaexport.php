@@ -188,8 +188,8 @@ if (!getDolGlobalString('MAIN_AGENDA_XCAL_EXPORTKEY')) {
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array of hooks
 $hookManager->initHooks(array('agendaexport'));
 
-$reshook = $hookManager->executeHooks('doActions', $filters); // Note that $action and $object may have been modified by some
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $filters); // Note that $action and $object may have been modified by some
+if ($resHook < 0) {
 	top_httphead();
 
 	llxHeaderVierge("");
@@ -199,7 +199,7 @@ if ($reshook < 0) {
 		print '<div class="error">'.$hookManager->error.'</div>';
 	}
 	llxFooterVierge();
-} elseif (empty($reshook)) {
+} elseif (empty($resHook)) {
 	// Check exportkey
 	if (!GETPOST("exportkey") || getDolGlobalString('MAIN_AGENDA_XCAL_EXPORTKEY') != GETPOST("exportkey")) {
 		$user->loadRights();

@@ -213,7 +213,7 @@ class pdf_paiement extends CommonDocGenerator
 		$hookManager->initHooks(array('pdfgeneration'));
 		$parameters = array('file' => $file, 'object' => $this, 'outputlangs' => $outputlangs);
 		global $action;
-		$reshook = $hookManager->executeHooks('beforePDFCreation', $parameters, $this, $action); // Note that $action and $this may have been modified by some hooks
+		$resHook = $hookManager->executeHooks('beforePDFCreation', $parameters, $this, $action); // Note that $action and $this may have been modified by some hooks
 
 		$pdf = pdf_getInstance($this->format);
 		$default_font_size = pdf_getPDFFontSize($outputlangs); // Must be after pdf_getInstance
@@ -406,8 +406,8 @@ class pdf_paiement extends CommonDocGenerator
 		$hookManager->initHooks(array('pdfgeneration'));
 		$parameters = array('file' => $file, 'object' => $this, 'outputlangs' => $outputlangs);
 		global $action;
-		$reshook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook < 0) {
 			$this->error = $hookManager->error;
 			$this->errors = $hookManager->errors;
 		}

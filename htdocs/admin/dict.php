@@ -779,8 +779,8 @@ $parameters = array(
 	'tabhelp'		=> $tabhelp,
 	'tabcomplete'	=> $tabcomplete
 );
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
@@ -790,7 +790,7 @@ if (GETPOST('button_removefilter', 'alpha') || GETPOST('button_removefilter.x', 
 	$search_active = '';
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Actions add or modify an entry into a dictionary
 	if (GETPOST('actionadd') || GETPOST('actionmodify')) {
 		$listfield = explode(',', str_replace(' ', '', $tabfield[$id]));
@@ -1807,7 +1807,7 @@ if ($id > 0) {
 
 				$tmpaction = 'create';
 				$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-				$reshook = $hookManager->executeHooks('createDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('createDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 				$error = $hookManager->error;
 				$errors = $hookManager->errors;
 
@@ -1815,7 +1815,7 @@ if ($id > 0) {
 					unset($fieldlist[2]); // Remove field ??? if dictionary Regions
 				}
 
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					dictFieldList($fieldlist, $obj, $tabname[$id], 'add');
 				}
 
@@ -2323,12 +2323,12 @@ if ($id > 0) {
 				if ($action == 'edit' && ($rowid == (!empty($obj->rowid) ? $obj->rowid : $obj->code))) {
 					$tmpaction = 'edit';
 					$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-					$reshook = $hookManager->executeHooks('editDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+					$resHook = $hookManager->executeHooks('editDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 					$error = $hookManager->error;
 					$errors = $hookManager->errors;
 
 					// Show fields
-					if (empty($reshook)) {
+					if (empty($resHook)) {
 						$withentity = dictFieldList($fieldlist, $obj, $tabname[$id], 'edit');
 					}
 
@@ -2345,14 +2345,14 @@ if ($id > 0) {
 				} else {
 					$tmpaction = 'view';
 					$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-					$reshook = $hookManager->executeHooks('viewDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+					$resHook = $hookManager->executeHooks('viewDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 
 					$error = $hookManager->error;
 					$errors = $hookManager->errors;
 
 					$langs->loadLangs(array("bills", "agenda", "propal"));
 
-					if (empty($reshook)) {
+					if (empty($resHook)) {
 						$withentity = null;
 
 						foreach ($fieldlist as $field => $value) {

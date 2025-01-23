@@ -833,10 +833,10 @@ foreach ($listofreferent as $key => $value) {
 		'dates' => $dates,
 		'datee' => $datee
 	);
-	$reshook = $hookManager->executeHooks('printOverviewProfit', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('printOverviewProfit', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
-	} elseif ($reshook > 0) {
+	} elseif ($resHook > 0) {
 		print $hookManager->resPrint;
 		continue;
 	}
@@ -1073,10 +1073,10 @@ foreach ($listofreferent as $key => $value) {
 		'dates' => $dates,
 		'datee' => $datee
 	);
-	$reshook = $hookManager->executeHooks('printOverviewDetail', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('printOverviewDetail', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
-	} elseif ($reshook > 0) {
+	} elseif ($resHook > 0) {
 		print $hookManager->resPrint;
 		continue;
 	}

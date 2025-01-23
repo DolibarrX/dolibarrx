@@ -668,8 +668,8 @@ class Inventory extends CommonObject
 		}
 
 		$parameters = array('status' => $status, 'mode' => $mode);
-		$reshook = $hookManager->executeHooks('LibStatut', $parameters, $this); // Note that $action and $object may have been modified by hook
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('LibStatut', $parameters, $this); // Note that $action and $object may have been modified by hook
+		if ($resHook > 0) {
 			return $hookManager->resPrint;
 		}
 		return dolGetStatus($labelStatus[$status], $labelStatusShort[$status], '', $statusType, $mode);

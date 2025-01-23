@@ -833,13 +833,13 @@ class Form
 
 		// Complete list with data from external modules. THe module can use $_SERVER['PHP_SELF'] to know on which page we are, or use the $parameters['currentcontext'] completed by executeHooks.
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('addMoreMassActions', $parameters); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('addMoreMassActions', $parameters); // Note that $action and $object may have been modified by hook
 		// check if there is a mass action
 
 		if (is_array($arrayofaction) && count($arrayofaction) == 0 && empty($hookManager->resPrint)) {
 			return;
 		}
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			$ret .= '<option value="0"' . ($disabled ? ' disabled="disabled"' : '') . '>-- ' . $langs->trans("SelectAction") . ' --</option>';
 			if (is_array($arrayofaction)) {
 				foreach ($arrayofaction as $code => $label) {
@@ -1579,7 +1579,7 @@ class Form
 		}
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('selectThirdpartyListWhere', $parameters); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('selectThirdpartyListWhere', $parameters); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 		// Add criteria
 		if ($filterkey && $filterkey != '') {
@@ -1832,7 +1832,7 @@ class Form
 		}
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('selectContactListWhere', $parameters); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('selectContactListWhere', $parameters); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 		$sql .= " ORDER BY sp.lastname ASC";
 
@@ -1983,7 +1983,7 @@ class Form
 				'showsoc' => $showsoc,
 			);
 
-			$reshook = $hookManager->executeHooks('afterSelectContactOptions', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+			$resHook = $hookManager->executeHooks('afterSelectContactOptions', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 			if ($htmlname != 'none' && !$options_only) {
 				$out .= '</select>';
@@ -2248,8 +2248,8 @@ class Form
 		}
 
 		//Add hook to filter on user (for example on usergroup define in custom modules)
-		$reshook = $hookManager->executeHooks('addSQLWhereFilterOnSelectUsers', array(), $this, $action);
-		if (!empty($reshook)) {
+		$resHook = $hookManager->executeHooks('addSQLWhereFilterOnSelectUsers', array(), $this, $action);
+		if (!empty($resHook)) {
 			$sql .= $hookManager->resPrint;
 		}
 
@@ -2971,8 +2971,8 @@ class Form
 
 		// Add select from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('selectProductsListSelect', $parameters); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('selectProductsListSelect', $parameters); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			$sql .= $selectFields.$selectFieldsGrouped.$hookManager->resPrint;
 		} else {
 			$sql .= $hookManager->resPrint;
@@ -3031,7 +3031,7 @@ class Form
 
 		// Add from (left join) from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('selectProductsListFrom', $parameters); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('selectProductsListFrom', $parameters); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 
 		if (count($warehouseStatusArray)) {
@@ -3101,7 +3101,7 @@ class Form
 
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('selectProductsListWhere', $parameters); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('selectProductsListWhere', $parameters); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 		// Add criteria on ref/label
 		if ($filterkey != '') {
@@ -3642,8 +3642,8 @@ class Form
 
 
 		$parameters = array('objp' => $objp);
-		$reshook = $hookManager->executeHooks('constructProductListOption', $parameters); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('constructProductListOption', $parameters); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			$opt .= $hookManager->resPrint;
 		} else {
 			$opt = $hookManager->resPrint;
@@ -3796,7 +3796,7 @@ class Form
 		}
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('selectSuppliersProductsListWhere', $parameters); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('selectSuppliersProductsListWhere', $parameters); // Note that $action and $object may have been modified by hook
 		$sql .= $hookManager->resPrint;
 		// Add criteria on ref/label
 		if ($filterkey != '') {
@@ -4118,7 +4118,7 @@ class Form
 					'outarrayentry' => &$outarrayentry,
 					'fk_soc' => $socid
 				);
-				$reshook = $hookManager->executeHooks('selectProduitsFournisseurListOption', $parameters, $this);
+				$resHook = $hookManager->executeHooks('selectProduitsFournisseurListOption', $parameters, $this);
 
 
 				// Add new entry
@@ -6933,10 +6933,10 @@ class Form
 			'mode' => $mode,
 			'type_vat' => $type_vat
 		);
-		$reshook = $hookManager->executeHooks('load_tva', $parameters);
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('load_tva', $parameters);
+		if ($resHook > 0) {
 			return $hookManager->resPrint;
-		} elseif ($reshook === 0) {
+		} elseif ($resHook === 0) {
 			$return .= $hookManager->resPrint;
 		}
 
@@ -8772,7 +8772,7 @@ class Form
 			'searchkey' => $searchkey
 		);
 
-		$reshook = $hookManager->executeHooks('selectForFormsListWhere', $parameters); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('selectForFormsListWhere', $parameters); // Note that $action and $object may have been modified by hook
 		if (!empty($hookManager->resPrint)) {
 			$sql .= $hookManager->resPrint;
 		} else {
@@ -9620,11 +9620,11 @@ class Form
 			'morehtmlright' => $morehtmlright,
 			'compatibleImportElementsList' => &$compatibleImportElementsList,
 		);
-		$reshook = $hookManager->executeHooks('showLinkedObjectBlock', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('showLinkedObjectBlock', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 		$nbofdifferenttypes = count($object->linkedObjects);
 
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			print '<!-- showLinkedObjectBlock -->';
 			print load_fiche_titre($langs->trans($title), $morehtmlright, '', 0, '', 'showlinkedobjectblock');
 
@@ -9888,19 +9888,19 @@ class Form
 			$possiblelinks['order_supplier']['sql'] = "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.ref, t.ref_supplier, t.total_ht FROM ".$this->db->prefix()."societe as s, ".$this->db->prefix().'commande_fournisseur as t WHERE t.fk_soc = s.rowid AND t.entity IN ('.getEntity('commande_fournisseur').')'.($dontIncludeCompletedItems ? ' AND t.billed < 1' : '');
 		}
 
-		$reshook = 0; // Ensure $reshook is defined for static analysis
+		$resHook = 0; // Ensure $resHook is defined for static analysis
 		if (!empty($listofidcompanytoscan)) {  // If empty, we don't have criteria to scan the object we can link to
 			// Can complete the possiblelink array
 			$hookManager->initHooks(array('commonobject'));
 			$parameters = array('listofidcompanytoscan' => $listofidcompanytoscan, 'possiblelinks' => $possiblelinks);
-			$reshook = $hookManager->executeHooks('showLinkToObjectBlock', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('showLinkToObjectBlock', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		}
 
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			if (is_array($hookManager->resArray) && count($hookManager->resArray)) {
 				$possiblelinks = array_merge($possiblelinks, $hookManager->resArray);
 			}
-		} elseif ($reshook > 0) {
+		} elseif ($resHook > 0) {
 			if (is_array($hookManager->resArray) && count($hookManager->resArray)) {
 				$possiblelinks = $hookManager->resArray;
 			}
@@ -10207,7 +10207,7 @@ class Form
 		// Add where from hooks
 		if (is_object($hookManager)) {
 			$parameters = array('showrefnav' => true);
-			$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
 			$object->next_prev_filter .= $hookManager->resPrint;
 		}
 
@@ -10264,8 +10264,8 @@ class Form
 
 		// Status
 		$parameters = array('morehtmlstatus' => $morehtmlstatus);
-		$reshook = $hookManager->executeHooks('moreHtmlStatus', $parameters, $object); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('moreHtmlStatus', $parameters, $object); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			$morehtmlstatus .= $hookManager->resPrint;
 		} else {
 			$morehtmlstatus = $hookManager->resPrint;
@@ -10275,10 +10275,10 @@ class Form
 		}
 
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('moreHtmlRef', $parameters, $object); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('moreHtmlRef', $parameters, $object); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			$morehtmlref .= $hookManager->resPrint;
-		} elseif ($reshook > 0) {
+		} elseif ($resHook > 0) {
 			$morehtmlref = $hookManager->resPrint;
 		}
 

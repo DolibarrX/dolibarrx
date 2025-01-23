@@ -134,13 +134,13 @@ $result = restrictedArea($user, 'adherent', $object->id, '', '', 'socid', 'rowid
  */
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 // Create third party from a member
-if (empty($reshook) && $action == 'confirm_create_thirdparty' && $confirm == 'yes' && $user->hasRight('societe', 'creer')) {
+if (empty($resHook) && $action == 'confirm_create_thirdparty' && $confirm == 'yes' && $user->hasRight('societe', 'creer')) {
 	if ($result > 0) {
 		// Creation of thirdparty
 		$company = new Societe($db);
@@ -157,7 +157,7 @@ if (empty($reshook) && $action == 'confirm_create_thirdparty' && $confirm == 'ye
 	}
 }
 
-if (empty($reshook) && $action == 'setuserid' && ($user->hasRight('user', 'self', 'creer') || $user->hasRight('user', 'user', 'creer'))) {
+if (empty($resHook) && $action == 'setuserid' && ($user->hasRight('user', 'self', 'creer') || $user->hasRight('user', 'user', 'creer'))) {
 	$error = 0;
 	if (!$user->hasRight('user', 'user', 'creer')) {    // If can edit only itself user, we can link to itself only
 		if (GETPOSTINT("userid") != $user->id && GETPOSTINT("userid") != $object->user_id) {
@@ -177,7 +177,7 @@ if (empty($reshook) && $action == 'setuserid' && ($user->hasRight('user', 'self'
 	}
 }
 
-if (empty($reshook) && $action == 'setsocid' && $permissiontoaddmember) {
+if (empty($resHook) && $action == 'setsocid' && $permissiontoaddmember) {
 	$error = 0;
 	if (GETPOSTINT('socid') != $object->socid) {    // If link differs from currently in database
 		$sql = "SELECT rowid FROM " . MAIN_DB_PREFIX . "adherent";
@@ -205,7 +205,7 @@ if (empty($reshook) && $action == 'setsocid' && $permissiontoaddmember) {
 	}
 }
 
-if (empty($reshook) && $user->hasRight('adherent', 'cotisation', 'creer') && $action == 'subscription' && !$cancel) {
+if (empty($resHook) && $user->hasRight('adherent', 'cotisation', 'creer') && $action == 'subscription' && !$cancel) {
 	$error = 0;
 
 	$langs->load("banks");
@@ -358,12 +358,12 @@ if (empty($reshook) && $user->hasRight('adherent', 'cotisation', 'creer') && $ac
 					'emetteur_banque' => $emetteur_banque,
 					'datesubend' => $datesubend
 				);
-				$reshook = $hookManager->executeHooks('sendMail', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('sendMail', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					$subject = '';
 					$msg = '';
 
@@ -1210,8 +1210,8 @@ if (($action == 'addsubscription' || $action == 'create_thirdparty') && $user->h
 
 	print '<div class="center">';
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action);
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action);
+	if (empty($resHook)) {
 		print '<input type="submit" class="button" name="add" value="'.$langs->trans("AddSubscription").'">';
 		print '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 		print '<input type="submit" class="button button-cancel" name="cancel" value="'.$langs->trans("Cancel").'">';

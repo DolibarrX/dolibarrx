@@ -665,7 +665,7 @@ if ($object->fetch($id) >= 0) {
 		}	// End foreach dir
 
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 
 		print '</div>';	// End table

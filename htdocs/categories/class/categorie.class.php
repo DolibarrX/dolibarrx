@@ -326,8 +326,8 @@ class Categorie extends CommonObject
 		if (is_object($hookManager)) {
 			$hookManager->initHooks(array('category'));
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('constructCategory', $parameters, $this); // Note that $action and $object may have been modified by some hooks
-			if ($reshook >= 0 && !empty($hookManager->resArray)) {
+			$resHook = $hookManager->executeHooks('constructCategory', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+			if ($resHook >= 0 && !empty($hookManager->resArray)) {
 				foreach ($hookManager->resArray as $mapList) {
 					$mapId = $mapList['id'];
 					$mapCode = $mapList['code'];
@@ -1852,8 +1852,8 @@ class Categorie extends CommonObject
 		global $action;
 		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;

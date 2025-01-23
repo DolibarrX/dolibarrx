@@ -155,8 +155,8 @@ if (!getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) {
 $hookManager->initHooks(array('fichinterexport'));
 
 // Note that $action and $object may have been modified by some
-$reshook = $hookManager->executeHooks('doActions', $filters);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $filters);
+if ($resHook < 0) {
 	top_httphead();
 
 	print '<html><title>Export fichinter cal</title><body>';
@@ -166,7 +166,7 @@ if ($reshook < 0) {
 		print '<div class="error">'.$hookManager->error.'</div>';
 	}
 	print '</body></html>';
-} elseif (empty($reshook)) {
+} elseif (empty($resHook)) {
 	// Check exportkey
 	if (!GETPOST("exportkey") || getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY') != GETPOST("exportkey")) {
 		top_httphead();
@@ -463,7 +463,7 @@ function build_exportfile($format, $type, $cachedelay, $filename, $filters)
 
 		$parameters = array('filters' => $filters);
 		// Note that $action and $object may have been modified by hook
-		$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters);
+		$resHook = $hookManager->executeHooks('printFieldListFrom', $parameters);
 		$sql .= $hookManager->resPrint;
 
 		$sql .= " WHERE f.entity IN (".getEntity('fichinter').")";
@@ -556,7 +556,7 @@ function build_exportfile($format, $type, $cachedelay, $filename, $filters)
 
 		$parameters = array('filters' => $filters);
 		// Note that $action and $object may have been modified by hook
-		$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters);
+		$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters);
 		$sql .= $hookManager->resPrint;
 
 		$sql .= " ORDER by fd.date";
@@ -656,8 +656,8 @@ function build_exportfile($format, $type, $cachedelay, $filename, $filters)
 
 			$parameters = array('filters' => $filters, 'eventarray' => &$eventarray);
 			// Note that $action and $object may have been modified by hook
-			$reshook = $hookManager->executeHooks('addMoreEventsExport', $parameters);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('addMoreEventsExport', $parameters);
+			if ($resHook > 0) {
 				$eventarray = $hookManager->resArray;
 			}
 		} else {

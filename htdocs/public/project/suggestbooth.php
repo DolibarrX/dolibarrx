@@ -201,13 +201,13 @@ function llxFooterVierge()
 
 $parameters = array();
 // Note that $action and $object may have been modified by some hooks
-$reshook = $hookManager->executeHooks('doActions', $parameters, $project, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $project, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 // Action called when page is submitted
-if (empty($reshook) && $action == 'add') {	// Test on permission not required here. This is an anonymous public ssubmission. Check is done on the secureket + mitigation.
+if (empty($resHook) && $action == 'add') {	// Test on permission not required here. This is an anonymous public ssubmission. Check is done on the secureket + mitigation.
 	$error = 0;
 
 	$urlback = '';

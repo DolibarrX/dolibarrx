@@ -156,8 +156,8 @@ if (!getDolGlobalString('MAIN_REMOVE_INSTALL_WARNING')) {
 
 	$object = new stdClass();
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('infoadmin', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-	if ($reshook == 0) {
+	$resHook = $hookManager->executeHooks('infoadmin', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	if ($resHook == 0) {
 		$message .= $hookManager->resPrint;
 	}
 	if ($message) {	// $message is an HTML string.
@@ -344,13 +344,13 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 	$object = new stdClass();
 	$parameters = array();
 	$action = '';
-	$reshook = $hookManager->executeHooks(
+	$resHook = $hookManager->executeHooks(
 		'addOpenElementsDashboardLine',
 		$parameters,
 		$object,
 		$action
 	); // Note that $action and $object may have been modified by some hooks
-	if ($reshook == 0) {
+	if ($resHook == 0) {
 		$dashboardlines = array_merge($dashboardlines, $hookManager->resArray);
 	}
 
@@ -457,8 +457,8 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 	$parameters = array(
 		'dashboardgroup' => $dashboardgroup
 	);
-	$reshook = $hookManager->executeHooks('addOpenElementsDashboardGroup', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-	if ($reshook == 0) {
+	$resHook = $hookManager->executeHooks('addOpenElementsDashboardGroup', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	if ($resHook == 0) {
 		$dashboardgroup = array_merge($dashboardgroup, $hookManager->resArray);
 	}
 

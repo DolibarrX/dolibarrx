@@ -64,9 +64,9 @@ if (!isset($parameters)) {
 @phan-var-force array<string,mixed> $parameters
 ';
 
-$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$params = array();
 	if (isset($tpl_context)) {
 		$params['tpl_context'] = $tpl_context;

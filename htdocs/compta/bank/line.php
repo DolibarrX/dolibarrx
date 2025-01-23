@@ -100,8 +100,8 @@ $extrafields->fetch_name_optionals_label($object->element);
 $error = 0;
 
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 if ($cancel) {
@@ -654,9 +654,9 @@ if ($result) {
 
 		// Other attributes
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $bankline, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $bankline, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
-		if (empty($reshook)) {
+		if (empty($resHook)) {
 			print $bankline->showOptionals($extrafields, ($objp->rappro ? 'view' : 'create'), $parameters);
 		}
 		print "</table>";

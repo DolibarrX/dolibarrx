@@ -104,12 +104,12 @@ $permissiondellink = $user->hasRight('expedition', 'creer'); // Used by the incl
  */
 $error = 0;
 $parameters = array('socid' => $socid);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	// Categorisation dans projet
 	if ($action == 'classin' && $permissiontoadd) {
 		$object->fetch($id);
@@ -270,10 +270,10 @@ if ($id > 0 || !empty($ref)) {
 
 		// Call Hook formConfirm
 		$parameters = array('formConfirm' => $formconfirm);
-		$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			$formconfirm .= $hookManager->resPrint;
-		} elseif ($reshook > 0) {
+		} elseif ($resHook > 0) {
 			$formconfirm = $hookManager->resPrint;
 		}
 
@@ -649,12 +649,12 @@ if ($id > 0 || !empty($ref)) {
 				$objp = $db->fetch_object($resql);
 
 				$parameters = array('i' => $i, 'line' => $objp, 'num' => $num);
-				$reshook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action);
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action);
+				if ($resHook < 0) {
 					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					// Show product and description
 					$type = isset($objp->type) ? $objp->type : $objp->product_type;
 

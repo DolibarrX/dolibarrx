@@ -287,7 +287,7 @@ $parameters = array(
 	//'type' => $type,
 	'user' => $user,
 );
-$reshook = $hookManager->executeHooks('dashboardMRP', $parameters, $object);
+$resHook = $hookManager->executeHooks('dashboardMRP', $parameters, $object);
 
 // End of page
 llxFooter();

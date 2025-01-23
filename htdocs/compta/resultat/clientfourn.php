@@ -1543,7 +1543,7 @@ $parameters["date_start"] = $date_start;
 $parameters["date_end"] = $date_end;
 // Initialize a technical object to manage hooks of expenses. Note that conf->hooks_modules contains array array
 $hookManager->initHooks(array('externalbalance'));
-$reshook = $hookManager->executeHooks('addBalanceLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$resHook = $hookManager->executeHooks('addBalanceLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 print $hookManager->resPrint;
 
 

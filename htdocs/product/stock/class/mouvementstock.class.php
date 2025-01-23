@@ -252,15 +252,15 @@ class MouvementStock extends CommonObject
 				'skip_batch'       => &$skip_batch,
 				'id_product_batch' => &$id_product_batch
 			);
-			$reshook = $hookManager->executeHooks('stockMovementCreate', $parameters, $this, $action);    // Note that $action and $object may have been modified by some hooks
+			$resHook = $hookManager->executeHooks('stockMovementCreate', $parameters, $this, $action);    // Note that $action and $object may have been modified by some hooks
 
-			if ($reshook < 0) {
+			if ($resHook < 0) {
 				if (!empty($hookManager->resPrint)) {
 					dol_print_error(null, $hookManager->resPrint);
 				}
-				return $reshook;
-			} elseif ($reshook > 0) {
-				return $reshook;
+				return $resHook;
+			} elseif ($resHook > 0) {
+				return $resHook;
 			}
 		}
 		// end hook at beginning

@@ -445,8 +445,8 @@ $parameters = array(
 	'massaction' => $massaction
 );
 
-$reshook = $hookManager->executeHooks('doPreMassActions', $parameters, $object, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doPreMassActions', $parameters, $object, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 } else {
 	print $hookManager->resPrint;

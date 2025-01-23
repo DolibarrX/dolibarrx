@@ -282,8 +282,8 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 	}*/
 	// Add fields from hooks
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters);
-	if ($reshook >= 0) {
+	$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters);
+	if ($resHook >= 0) {
 		$sql .= $hookManager->resPrint;
 	}
 
@@ -304,8 +304,8 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 
 	// Add tables from hooks
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListTables', $parameters);
-	if ($reshook >= 0) {
+	$resHook = $hookManager->executeHooks('printFieldListTables', $parameters);
+	if ($resHook >= 0) {
 		$sql .= $hookManager->resPrint;
 	}
 
@@ -320,8 +320,8 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 	$sql .= natural_search(array('ref', 'label', 'barcode'), $term);
 	// Add where from hooks
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters);
-	if ($reshook >= 0) {
+	$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters);
+	if ($resHook >= 0) {
 		$sql .= $hookManager->resPrint;
 	}
 
@@ -329,8 +329,8 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 		$sql .= ' GROUP BY p.rowid, p.ref, p.label, p.tosell, p.tobuy, p.barcode, p.price, p.price_ttc';
 		// Add fields from hooks
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters);
-		if ($reshook >= 0) {
+		$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters);
+		if ($resHook >= 0) {
 			$sql .= $hookManager->resPrint;
 		}
 		$sql .= ' HAVING SUM(ps.reel) > 0';
@@ -381,8 +381,8 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 			$parameters=array();
 			$parameters['row'] = $row;
 			$parameters['obj'] = $obj;
-			$reshook = $hookManager->executeHooks('completeAjaxReturnArray', $parameters);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('completeAjaxReturnArray', $parameters);
+			if ($resHook > 0) {
 				// replace
 				if (count($hookManager->resArray)) {
 					$row = $hookManager->resArray;

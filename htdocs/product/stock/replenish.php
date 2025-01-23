@@ -142,8 +142,8 @@ if ($mode == 'virtual') {
 }
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
@@ -385,7 +385,7 @@ if (getDolGlobalString('STOCK_ALLOW_ADD_LIMIT_STOCK_BY_WAREHOUSE') && $fk_entrep
 
 // Add fields from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 $list_warehouse = (empty($listofqualifiedwarehousesid) ? '0' : $listofqualifiedwarehousesid);
@@ -404,7 +404,7 @@ if (getDolGlobalString('STOCK_ALLOW_ADD_LIMIT_STOCK_BY_WAREHOUSE') && $fk_entrep
 }
 // Add fields from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListJoin', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListJoin', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 $sql .= ' WHERE p.entity IN (' . getEntity('product') . ')';
@@ -434,7 +434,7 @@ if ($fk_supplier > 0) {
 }
 // Add where from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 $sql .= ' GROUP BY p.rowid, p.ref, p.label, p.description, p.price';
@@ -662,8 +662,8 @@ print $langs->trans('Supplier') . ' ' . $form->select_company($fk_supplier, 'fk_
 print '</div>';
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters); // Note that $action and $object may have been modified by hook
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters); // Note that $action and $object may have been modified by hook
+if (empty($resHook)) {
 	print $hookManager->resPrint;
 }
 
@@ -811,7 +811,7 @@ print '</td>';
 print '<td class="liste_titre">&nbsp;</td>';
 // Fields from hook
 $parameters = array('param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-$reshook = $hookManager->executeHooks('printFieldListOption', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListOption', $parameters); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 
 print '<td class="liste_titre maxwidthsearch right">';
@@ -840,7 +840,7 @@ print_liste_field_titre('SupplierRef', $_SERVER["PHP_SELF"], '', $param, '', '',
 
 // Hook fields
 $parameters = array('param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 
 print "</tr>\n";
@@ -1004,7 +1004,7 @@ while ($i < ($limit ? min($num, $limit) : $num)) {
 
 		// Fields from hook
 		$parameters = array('objp' => $objp, 'i' => $i, 'tobuy' => $tobuy);
-		$reshook = $hookManager->executeHooks('printFieldListValue', $parameters); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListValue', $parameters); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 
 		print '</tr>';
@@ -1028,7 +1028,7 @@ if ($num == 0) {
 }
 
 $parameters = array('sql' => $sql);
-$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListFooter', $parameters); // Note that $action and $object may have been modified by hook
 print $hookManager->resPrint;
 
 print '</table>';

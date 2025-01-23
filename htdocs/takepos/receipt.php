@@ -114,7 +114,7 @@ jQuery(document).ready(function () {
 // Call to external receipt modules if exist
 $parameters = array();
 $hookManager->initHooks(array('takeposfrontend'));
-$reshook = $hookManager->executeHooks('TakeposReceipt', $parameters, $object);
+$resHook = $hookManager->executeHooks('TakeposReceipt', $parameters, $object);
 if (!empty($hookManager->resPrint)) {
 	print $hookManager->resPrint;
 	return;	// Receipt page can be called by the takepos/send.php page that use ob_start/end so we must use return and not exit to stop page

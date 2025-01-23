@@ -374,11 +374,11 @@ class PaiementFourn extends Paiement
 									$hookManager->initHooks(array('payment_supplierdao'));
 									$parameters = array('facid' => $facid, 'invoice' => $invoice, 'remaintopay' => $remaintopay);
 									$action = 'CLOSEPAIDSUPPLIERINVOICE';
-									$reshook = $hookManager->executeHooks('createPayment', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-									if ($reshook < 0) {
+									$resHook = $hookManager->executeHooks('createPayment', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+									if ($resHook < 0) {
 										$this->error = $hookManager->error;
 										$error++;
-									} elseif ($reshook == 0) {
+									} elseif ($resHook == 0) {
 										dol_syslog("Remain to pay for invoice " . $facid . " not null. We do nothing more.");
 									}
 								}
@@ -734,8 +734,8 @@ class PaiementFourn extends Paiement
 		global $action;
 		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;

@@ -166,12 +166,12 @@ $result = restrictedArea($user, 'societe', $object->id, '&societe', '', 'fk_soc'
 $error = 0;
 
 $parameters = array('id' => $id, 'socid' => $id);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if ($cancel) {
 		$action = "";
 	}
@@ -862,8 +862,8 @@ if ($object->id > 0) {
 	}
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreBoxStatsCustomer', $parameters, $object, $action);
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('addMoreBoxStatsCustomer', $parameters, $object, $action);
+	if (empty($resHook)) {
 		$boxstat .= $hookManager->resPrint;
 	}
 
@@ -1665,8 +1665,8 @@ if ($object->id > 0) {
 
 	// Allow external modules to add their own shortlist of recent objects
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreRecentObjects', $parameters, $object, $action);
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('addMoreRecentObjects', $parameters, $object, $action);
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	} else {
 		print $hookManager->resPrint;
@@ -1684,9 +1684,9 @@ if ($object->id > 0) {
 	print '<div class="tabsAction">';
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+	$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		if ($object->status != 1) {
 			print '<div class="inline-block divButAction"><a class="butActionRefused classfortooltip" title="'.dol_escape_js($langs->trans("ThirdPartyIsClosed")).'" href="#">'.$langs->trans("ThirdPartyIsClosed").'</a></div>';
 		}

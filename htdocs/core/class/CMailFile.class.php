@@ -842,14 +842,14 @@ class CMailFile
 
 			$parameters = array();
 			$action = '';
-			$reshook = $hookManager->executeHooks('sendMail', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-			if ($reshook < 0) {
-				$this->error = "Error in hook maildao sendMail ".$reshook;
+			$resHook = $hookManager->executeHooks('sendMail', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+			if ($resHook < 0) {
+				$this->error = "Error in hook maildao sendMail ".$resHook;
 				dol_syslog("CMailFile::sendfile: mail end error=".$this->error, LOG_ERR);
 
 				return false;
 			}
-			if ($reshook == 1) {	// Hook replace standard code
+			if ($resHook == 1) {	// Hook replace standard code
 				dol_syslog("A hook has replaced code to send email", LOG_DEBUG);
 				return true;
 			}
@@ -1414,9 +1414,9 @@ class CMailFile
 
 			$parameters = array('sent' => $res);
 			$action = '';
-			$reshook = $hookManager->executeHooks('sendMailAfter', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-			if ($reshook < 0) {
-				$this->error = "Error in hook maildao sendMailAfter ".$reshook;
+			$resHook = $hookManager->executeHooks('sendMailAfter', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+			if ($resHook < 0) {
+				$this->error = "Error in hook maildao sendMailAfter ".$resHook;
 				dol_syslog("CMailFile::sendfile: mail end error=".$this->error, LOG_ERR);
 
 				return false;

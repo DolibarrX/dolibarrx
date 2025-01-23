@@ -753,7 +753,7 @@ class FormCompany extends Form
 			}
 			// Add where from hooks
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('selectCompaniesForNewContactListWhere', $parameters); // Note that $action and $object may have been modified by hook
+			$resHook = $hookManager->executeHooks('selectCompaniesForNewContactListWhere', $parameters); // Note that $action and $object may have been modified by hook
 			$sql .= $hookManager->resPrint;
 			$sql .= " ORDER BY s.nom ASC";
 
@@ -1003,8 +1003,8 @@ class FormCompany extends Form
 
 		// Execute hook getInputIdProf to complete or replace $out
 		$parameters = array('formlength' => $formlength, 'selected' => $preselected, 'idprof' => $idprof, 'htmlname' => $htmlname, 'country_code' => $country_code);
-		$reshook = $hookManager->executeHooks('getInputIdProf', $parameters);
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('getInputIdProf', $parameters);
+		if (empty($resHook)) {
 			$out .= '<input type="text" ' . ($morecss ? 'class="' . $morecss . '" ' : '') . 'name="' . $htmlname . '" id="' . $htmlname . '" maxlength="' . $maxlength . '" value="' . $selected . '">';
 		}
 		$out .= $hookManager->resPrint;

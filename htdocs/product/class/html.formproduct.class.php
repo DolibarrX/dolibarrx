@@ -396,10 +396,10 @@ class FormProduct
 			'orderBy' => $orderBy
 		);
 
-		$reshook = $hookManager->executeHooks('selectWarehouses', $parameters, $this);
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('selectWarehouses', $parameters, $this);
+		if ($resHook > 0) {
 			$out = $hookManager->resPrint;
-		} elseif ($reshook == 0) {
+		} elseif ($resHook == 0) {
 			$out .= $hookManager->resPrint;
 		}
 
@@ -495,10 +495,10 @@ class FormProduct
 			'orderBy' => $orderBy
 		);
 
-		$reshook = $hookManager->executeHooks('selectWorkstations', $parameters, $this);
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('selectWorkstations', $parameters, $this);
+		if ($resHook > 0) {
 			$out = $hookManager->resPrint;
-		} elseif ($reshook == 0) {
+		} elseif ($resHook == 0) {
 			$out .= $hookManager->resPrint;
 		}
 
@@ -844,10 +844,10 @@ class FormProduct
 		}
 		$hookManager->initHooks(array('productdao'));
 		$parameters = array('productIdArray' => $productIdArray, 'htmlname' => $htmlname);
-		$reshook = $hookManager->executeHooks('selectLotDataList', $parameters, $this);
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('selectLotDataList', $parameters, $this);
+		if ($resHook < 0) {
 			return $hookManager->error;
-		} elseif ($reshook > 0) {
+		} elseif ($resHook > 0) {
 			return $hookManager->resPrint;
 		} else {
 			$out .= $hookManager->resPrint;
@@ -910,8 +910,8 @@ class FormProduct
 			}
 			$hookManager->initHooks(array('productdao'));
 			$parameters = array('productIdList' => $productIdList);
-			$reshook = $hookManager->executeHooks('loadLotStock', $parameters, $this);
-			if ($reshook < 0) {
+			$resHook = $hookManager->executeHooks('loadLotStock', $parameters, $this);
+			if ($resHook < 0) {
 				$this->error = $hookManager->error;
 				return -1;
 			}
@@ -919,7 +919,7 @@ class FormProduct
 				$this->cache_lot = $hookManager->resArray['batch_list'];
 				$batch_count = (int) $hookManager->resArray['batch_count'];
 			}
-			if ($reshook > 0) {
+			if ($resHook > 0) {
 				return $batch_count;
 			}
 

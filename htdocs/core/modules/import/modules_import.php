@@ -172,8 +172,8 @@ class ModeleImports
 		if (is_object($hookManager)) {
 			$hookManager->initHooks(array('import'));
 			$parameters = array();
-			$reshook = $hookManager->executeHooks('constructModeleImports', $parameters, $this);
-			if ($reshook >= 0 && !empty($hookManager->resArray)) {
+			$resHook = $hookManager->executeHooks('constructModeleImports', $parameters, $this);
+			if ($resHook >= 0 && !empty($hookManager->resArray)) {
 				foreach ($hookManager->resArray as $mapList) {
 					self::$mapTableToElement[$mapList['table']] = $mapList['element'];
 				}

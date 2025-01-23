@@ -115,8 +115,8 @@ if ($id > 0 || !empty($ref)) {
 	$result = $object->fetch($id, $objectid, $batch);
 
 	$parameters = array('id' => $id);
-	$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-	if ($reshook < 0) {
+	$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
@@ -134,9 +134,9 @@ if ($id > 0 || !empty($ref)) {
 		$morehtmlref = '';
 		print dol_get_fiche_head($head, 'referers', $langs->trans("Batch"), -1, $object->picto);
 
-		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
-		if ($reshook < 0) {
+		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 

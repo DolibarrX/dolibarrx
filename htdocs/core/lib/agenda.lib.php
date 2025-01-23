@@ -165,7 +165,7 @@ function print_actions_filter(
 	// Hooks
 	$parameters = array('canedit' => $canedit, 'pid' => $pid, 'socid' => $socid);
 	$object = null;  // Null on purpose: @phan-suppress-next-line PhanPluginConstantVariableNull
-	$reshook = $hookManager->executeHooks('searchAgendaFrom', $parameters, $object, $action); // Note that $action and $object may have been
+	$resHook = $hookManager->executeHooks('searchAgendaFrom', $parameters, $object, $action); // Note that $action and $object may have been
 
 	print '<div class="clearboth"></div>';
 }

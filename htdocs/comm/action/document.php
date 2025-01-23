@@ -189,10 +189,10 @@ if ($object->id > 0) {
 
 	// Add more views from hooks
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
-	if (empty($reshook)) {
+	$resHook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
+	if (empty($resHook)) {
 		$linkback .= $hookManager->resPrint;
-	} elseif ($reshook > 1) {
+	} elseif ($resHook > 1) {
 		$linkback = $hookManager->resPrint;
 	}
 

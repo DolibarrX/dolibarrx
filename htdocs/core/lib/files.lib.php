@@ -102,7 +102,7 @@ function dol_dir_list($utf8_path, $types = "all", $recursive = 0, $filter = "", 
 	$os_path = dol_osencode($utf8_path);
 	$now = dol_now();
 
-	$reshook = 0;
+	$resHook = 0;
 	$file_list = array();
 
 	if (!$nohook && $hookManager instanceof HookManager) {
@@ -122,11 +122,11 @@ function dol_dir_list($utf8_path, $types = "all", $recursive = 0, $filter = "", 
 			'loadsize' => $loadsize,
 			'mode' => $mode
 		);
-		$reshook = $hookManager->executeHooks('getDirList', $parameters, $object);
+		$resHook = $hookManager->executeHooks('getDirList', $parameters, $object);
 	}
 
 	// $hookManager->resArray may contain array stacked by other modules
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		if (!is_dir($os_path)) {
 			return array();
 		}
@@ -1362,18 +1362,18 @@ function dol_move_uploaded_file($src_file, $dest_file, $allowoverwrite, $disable
 	global $conf;
 	global $object, $hookManager;
 
-	$reshook = 0;
+	$resHook = 0;
 	$file_name = $dest_file;
 	$successcode = 1;
 
 	if (empty($nohook)) {
-		$reshook = $hookManager->initHooks(array('fileslib'));
+		$resHook = $hookManager->initHooks(array('fileslib'));
 
 		$parameters = array('dest_file' => $dest_file, 'src_file' => $src_file, 'file_name' => $file_name, 'varfiles' => $varfiles, 'allowoverwrite' => $allowoverwrite);
-		$reshook = $hookManager->executeHooks('moveUploadedFile', $parameters, $object);
+		$resHook = $hookManager->executeHooks('moveUploadedFile', $parameters, $object);
 	}
 
-	if (empty($reshook)) {
+	if (empty($resHook)) {
 		// If an upload error has been reported
 		if ($uploaderrorcode) {
 			switch ($uploaderrorcode) {
@@ -1435,13 +1435,13 @@ function dol_move_uploaded_file($src_file, $dest_file, $allowoverwrite, $disable
 		}
 	}
 
-	if ($reshook < 0) {	// At least one blocking error returned by one hook
+	if ($resHook < 0) {	// At least one blocking error returned by one hook
 		$errmsg = implode(',', $hookManager->errors);
 		if (empty($errmsg)) {
 			$errmsg = 'ErrorReturnedBySomeHooks'; // Should not occurs. Added if hook is bugged and does not set ->errors when there is error.
 		}
 		return $errmsg;
-	} elseif (empty($reshook)) {
+	} elseif (empty($resHook)) {
 		// The file functions must be in OS filesystem encoding.
 		$src_file_osencoded = dol_osencode($src_file);
 		$file_name_osencoded = dol_osencode($file_name);
@@ -1511,7 +1511,7 @@ function dol_delete_file($file, $disableglob = 0, $nophperrors = 0, $nohook = 0,
 		return false;
 	}
 
-	$reshook = 0;
+	$resHook = 0;
 	if (empty($nohook) && !empty($hookManager)) {
 		$hookManager->initHooks(array('fileslib'));
 
@@ -1520,12 +1520,12 @@ function dol_delete_file($file, $disableglob = 0, $nophperrors = 0, $nohook = 0,
 			'disableglob' => $disableglob,
 			'nophperrors' => $nophperrors
 		);
-		$reshook = $hookManager->executeHooks('deleteFile', $parameters, $object);
+		$resHook = $hookManager->executeHooks('deleteFile', $parameters, $object);
 	}
 
-	if (empty($nohook) && $reshook != 0) { // reshook = 0 to do standard actions, 1 = ok and replace, -1 = ko
-		dol_syslog("reshook=".$reshook);
-		if ($reshook < 0) {
+	if (empty($nohook) && $resHook != 0) { // reshook = 0 to do standard actions, 1 = ok and replace, -1 = ko
+		dol_syslog("reshook=".$resHook);
+		if ($resHook < 0) {
 			return false;
 		}
 		return true;
@@ -3587,8 +3587,8 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 			'refname' => '',
 			'mode' => $mode
 		);
-		$reshook = $hookManager->executeHooks('checkSecureAccess', $parameters, $object);
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('checkSecureAccess', $parameters, $object);
+		if ($resHook > 0) {
 			if (!empty($hookManager->resArray['original_file'])) {
 				$original_file = $hookManager->resArray['original_file'];
 			}

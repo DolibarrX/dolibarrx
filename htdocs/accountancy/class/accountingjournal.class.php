@@ -272,8 +272,8 @@ class AccountingJournal extends CommonObject
 		global $action;
 		$hookManager->initHooks(array('accountingjournaldao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;
@@ -367,12 +367,12 @@ class AccountingJournal extends CommonObject
 
 		$hookManager->initHooks(array('accountingjournaldao'));
 		$parameters = array('data' => &$data, 'user' => $user, 'type' => $type, 'date_start' => $date_start, 'date_end' => $date_end, 'in_bookkeeping' => $in_bookkeeping);
-		$reshook = $hookManager->executeHooks('getData', $parameters, $this); // Note that $action and $object may have been
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('getData', $parameters, $this); // Note that $action and $object may have been
+		if ($resHook < 0) {
 			$this->error = $hookManager->error;
 			$this->errors = $hookManager->errors;
 			return -1;
-		} elseif (empty($reshook)) {
+		} elseif (empty($resHook)) {
 			switch ($this->nature) {
 				case 1: // Various Journal
 					$data = $this->getAssetData($user, $type, $date_start, $date_end, $in_bookkeeping);
@@ -763,12 +763,12 @@ class AccountingJournal extends CommonObject
 
 		$hookManager->initHooks(array('accountingjournaldao'));
 		$parameters = array('journal_data' => &$journal_data);
-		$reshook = $hookManager->executeHooks('writeBookkeeping', $parameters, $this); // Note that $action and $object may have been
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('writeBookkeeping', $parameters, $this); // Note that $action and $object may have been
+		if ($resHook < 0) {
 			$this->error = $hookManager->error;
 			$this->errors = $hookManager->errors;
 			return -1;
-		} elseif (empty($reshook)) {
+		} elseif (empty($resHook)) {
 			// Clean parameters
 			if (!is_array($journal_data)) {
 				$journal_data = array();
@@ -909,12 +909,12 @@ class AccountingJournal extends CommonObject
 		// Hook
 		$hookManager->initHooks(array('accountingjournaldao'));
 		$parameters = array('journal_data' => &$journal_data, 'search_date_end' => &$search_date_end, 'sep' => &$sep, 'out' => &$out);
-		$reshook = $hookManager->executeHooks('exportCsv', $parameters, $this); // Note that $action and $object may have been
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('exportCsv', $parameters, $this); // Note that $action and $object may have been
+		if ($resHook < 0) {
 			$this->error = $hookManager->error;
 			$this->errors = $hookManager->errors;
 			return -1;
-		} elseif (empty($reshook)) {
+		} elseif (empty($resHook)) {
 			// Clean parameters
 			$journal_data = is_array($journal_data) ? $journal_data : array();
 

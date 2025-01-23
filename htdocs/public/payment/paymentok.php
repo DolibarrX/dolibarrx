@@ -380,8 +380,8 @@ $action = '';
 $parameters = [
 	'paymentmethod' => $paymentmethod,
 ];
-$reshook = $hookManager->executeHooks('isPaymentOK', $parameters, $object, $action);
-if ($reshook >= 0) {
+$resHook = $hookManager->executeHooks('isPaymentOK', $parameters, $object, $action);
+if ($resHook >= 0) {
 	if (isset($hookManager->resArray['ispaymentok'])) {
 		dol_syslog('ispaymentok overwrite by hook return with value='.$hookManager->resArray['ispaymentok'], LOG_DEBUG, 0, '_payment');
 		$ispaymentok = $hookManager->resArray['ispaymentok'];
@@ -610,8 +610,8 @@ if ($ispaymentok) {
 				$parameters = [
 					'paymentmethod' => $paymentmethod,
 				];
-				$reshook = $hookManager->executeHooks('getBankAccountPaymentMethod', $parameters, $object, $action);
-				if ($reshook >= 0) {
+				$resHook = $hookManager->executeHooks('getBankAccountPaymentMethod', $parameters, $object, $action);
+				if ($resHook >= 0) {
 					if (isset($hookManager->resArray['bankaccountid'])) {
 						dol_syslog('accountid overwrite by hook return with value='.$hookManager->resArray['bankaccountid'], LOG_DEBUG, 0, '_payment');
 						$accountid = $hookManager->resArray['bankaccountid'];
@@ -981,8 +981,8 @@ if ($ispaymentok) {
 					$parameters = [
 						'paymentmethod' => $paymentmethod,
 					];
-					$reshook = $hookManager->executeHooks('getBankAccountPaymentMethod', $parameters, $object, $action);
-					if ($reshook >= 0) {
+					$resHook = $hookManager->executeHooks('getBankAccountPaymentMethod', $parameters, $object, $action);
+					if ($resHook >= 0) {
 						if (isset($hookManager->resArray['bankaccountid'])) {
 							dol_syslog('bankaccountid overwrite by hook return with value='.$hookManager->resArray['bankaccountid'], LOG_DEBUG, 0, '_payment');
 							$bankaccountid = $hookManager->resArray['bankaccountid'];
@@ -1113,8 +1113,8 @@ if ($ispaymentok) {
 							$parameters = [
 								'paymentmethod' => $paymentmethod,
 							];
-							$reshook = $hookManager->executeHooks('getBankAccountPaymentMethod', $parameters, $object, $action);
-							if ($reshook >= 0) {
+							$resHook = $hookManager->executeHooks('getBankAccountPaymentMethod', $parameters, $object, $action);
+							if ($resHook >= 0) {
 								if (isset($hookManager->resArray['bankaccountid'])) {
 									dol_syslog('bankaccountid overwrite by hook return with value='.$hookManager->resArray['bankaccountid'], LOG_DEBUG, 0, '_payment');
 									$bankaccountid = $hookManager->resArray['bankaccountid'];
@@ -1250,8 +1250,8 @@ if ($ispaymentok) {
 					$parameters = [
 						'paymentmethod' => $paymentmethod,
 					];
-					$reshook = $hookManager->executeHooks('getBankAccountPaymentMethod', $parameters, $object, $action);
-					if ($reshook >= 0) {
+					$resHook = $hookManager->executeHooks('getBankAccountPaymentMethod', $parameters, $object, $action);
+					if ($resHook >= 0) {
 						if (isset($hookManager->resArray['bankaccountid'])) {
 							dol_syslog('bankaccountid overwrite by hook return with value='.$hookManager->resArray['bankaccountid'], LOG_DEBUG, 0, '_payment');
 							$bankaccountid = $hookManager->resArray['bankaccountid'];
@@ -1380,8 +1380,8 @@ if ($ispaymentok) {
 						$parameters = [
 							'paymentmethod' => $paymentmethod,
 						];
-						$reshook = $hookManager->executeHooks('getBankAccountPaymentMethod', $parameters, $object, $action);
-						if ($reshook >= 0) {
+						$resHook = $hookManager->executeHooks('getBankAccountPaymentMethod', $parameters, $object, $action);
+						if ($resHook >= 0) {
 							if (isset($hookManager->resArray['bankaccountid'])) {
 								dol_syslog('bankaccountid overwrite by hook return with value='.$hookManager->resArray['bankaccountid'], LOG_DEBUG, 0, '_payment');
 								$bankaccountid = $hookManager->resArray['bankaccountid'];
@@ -1613,8 +1613,8 @@ if ($ispaymentok) {
 						$parameters = [
 							'paymentmethod' => $paymentmethod,
 						];
-						$reshook = $hookManager->executeHooks('getBankAccountPaymentMethod', $parameters, $object, $action);
-						if ($reshook >= 0) {
+						$resHook = $hookManager->executeHooks('getBankAccountPaymentMethod', $parameters, $object, $action);
+						if ($resHook >= 0) {
 							if (isset($hookManager->resArray['bankaccountid'])) {
 								dol_syslog('bankaccountid overwrite by hook return with value='.$hookManager->resArray['bankaccountid'], LOG_DEBUG, 0, '_payment');
 								$bankaccountid = $hookManager->resArray['bankaccountid'];
@@ -1825,8 +1825,8 @@ if ($ispaymentok) {
 							$parameters = [
 								'paymentmethod' => $paymentmethod,
 							];
-							$reshook = $hookManager->executeHooks('getBankAccountPaymentMethod', $parameters, $object, $action);
-							if ($reshook >= 0) {
+							$resHook = $hookManager->executeHooks('getBankAccountPaymentMethod', $parameters, $object, $action);
+							if ($resHook >= 0) {
 								if (isset($hookManager->resArray['bankaccountid'])) {
 									dol_syslog('bankaccountid overwrite by hook return with value='.$hookManager->resArray['bankaccountid'], LOG_DEBUG, 0, '_payment');
 									$bankaccountid = $hookManager->resArray['bankaccountid'];

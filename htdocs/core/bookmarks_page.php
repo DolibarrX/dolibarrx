@@ -144,8 +144,8 @@ if (!isModEnabled('bookmark')) {
 
 // Execute hook printBookmarks
 $parameters = array('bookmarks'=>$bookmarkList);
-$reshook = $hookManager->executeHooks('printBookmarks', $parameters); // Note that $action and $object may have been modified by some hooks
-if (empty($reshook)) {
+$resHook = $hookManager->executeHooks('printBookmarks', $parameters); // Note that $action and $object may have been modified by some hooks
+if (empty($resHook)) {
 	$bookmarkList .= $hookManager->resPrint;
 } else {
 	$bookmarkList = $hookManager->resPrint;

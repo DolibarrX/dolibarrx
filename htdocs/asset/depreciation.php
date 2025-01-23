@@ -92,13 +92,13 @@ if ($result < 0) {
  */
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 /*
-if (empty($reshook)) {
+if (empty($resHook)) {
 }
 */
 
@@ -132,11 +132,11 @@ if ($id > 0 || !empty($ref)) {
 	print dol_get_fiche_end();
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('listAssetDeprecation', $parameters, $object, $action);
+	$resHook = $hookManager->executeHooks('listAssetDeprecation', $parameters, $object, $action);
 	print $hookManager->resPrint;
-	if ($reshook < 0) {
+	if ($resHook < 0) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
-	} elseif (empty($reshook)) {
+	} elseif (empty($resHook)) {
 		$bookkeeping_icon = '<i class="fas fa-save" title="'.$langs->trans('AssetDispatchedInBookkeeping').'"></i>';
 		$future_icon = '<i class="fas fa-clock" title="'.$langs->trans('AssetFutureDepreciationLine').'"></i>';
 		$now = dol_now();

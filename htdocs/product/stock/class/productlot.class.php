@@ -902,8 +902,8 @@ class Productlot extends CommonObject
 			//          }
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookManager->executeHooks('loadStatsLotExpedition', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('loadStatsLotExpedition', $parameters, $this, $action);
+			if ($resHook > 0) {
 				$this->stats_expedition = $hookManager->resArray['stats_expedition'];
 			}
 
@@ -976,8 +976,8 @@ class Productlot extends CommonObject
 			//          }
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookManager->executeHooks('loadStatsLotSupplierOrder', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('loadStatsLotSupplierOrder', $parameters, $this, $action);
+			if ($resHook > 0) {
 				$this->stats_supplier_order = $hookManager->resArray['stats_supplier_order'];
 			}
 
@@ -1049,8 +1049,8 @@ class Productlot extends CommonObject
 			//          }
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookManager->executeHooks('loadStatsLotReception', $parameters, $this, $action);
-			if ($reshook > 0) {
+			$resHook = $hookManager->executeHooks('loadStatsLotReception', $parameters, $this, $action);
+			if ($resHook > 0) {
 				$this->stats_expedition = $hookManager->resArray['stats_expedition'];
 			}
 
@@ -1111,8 +1111,8 @@ class Productlot extends CommonObject
 		}
 
 		$parameters = array('socid' => $socid);
-		$reshook = $hookManager->executeHooks('loadStatsCustomerMO', $parameters, $this, $action);
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('loadStatsCustomerMO', $parameters, $this, $action);
+		if ($resHook > 0) {
 			$this->stats_mo = $hookManager->resArray['stats_mo'];
 		}
 
@@ -1260,8 +1260,8 @@ class Productlot extends CommonObject
 		global $action;
 		$hookManager->initHooks(array('productlotdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => $result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;

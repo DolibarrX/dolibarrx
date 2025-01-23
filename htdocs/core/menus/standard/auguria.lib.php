@@ -503,12 +503,12 @@ function print_left_auguria_menu($db, $menu_array_before, $menu_array_after, &$t
 		'mainmenu' => $mainmenu,
 	);
 	$hook_items = $menu_array;
-	$reshook = $hookManager->executeHooks('menuLeftMenuItems', $parameters, $hook_items); // Note that $action and $object may have been modified by some hooks
+	$resHook = $hookManager->executeHooks('menuLeftMenuItems', $parameters, $hook_items); // Note that $action and $object may have been modified by some hooks
 
-	if (is_numeric($reshook)) {
-		if ($reshook == 0 && !empty($hookManager->resArray)) {
+	if (is_numeric($resHook)) {
+		if ($resHook == 0 && !empty($hookManager->resArray)) {
 			$menu_array[] = $hookManager->resArray; // add
-		} elseif ($reshook == 1) {
+		} elseif ($resHook == 1) {
 			$menu_array = $hookManager->resArray; // replace
 		}
 

@@ -328,7 +328,7 @@ class pdf_sponge extends ModelePDFFactures
 				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$resHook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Set nblines with the new facture lines content after hook
 				$nblines = count($object->lines);
@@ -510,7 +510,7 @@ class pdf_sponge extends ModelePDFFactures
 					'outputlangs' => $outputlangs,
 					'hidedetails' => $hidedetails
 				);
-				$reshook = $hookManager->executeHooks('printUnderHeaderPDFline', $parameters, $this); // Note that $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('printUnderHeaderPDFline', $parameters, $this); // Note that $object may have been modified by hook
 				if (!empty($hookManager->resArray['extra_under_address_shift'])) {
 					$extra_under_address_shift += $hookManager->resArray['extra_under_address_shift'];
 				}
@@ -860,7 +860,7 @@ class pdf_sponge extends ModelePDFFactures
 						'outputlangs' => $outputlangs,
 						'hidedetails' => $hidedetails
 					);
-					$reshook = $hookManager->executeHooks('printPDFline', $parameters, $this); // Note that $object may have been modified by hook
+					$resHook = $hookManager->executeHooks('printPDFline', $parameters, $this); // Note that $object may have been modified by hook
 
 
 					$sign = 1;
@@ -1084,8 +1084,8 @@ class pdf_sponge extends ModelePDFFactures
 				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					$this->error = $hookManager->error;
 					$this->errors = $hookManager->errors;
 				}
@@ -2116,8 +2116,8 @@ class pdf_sponge extends ModelePDFFactures
 
 		$parameters = array('pdf' => &$pdf, 'object' => &$object, 'outputlangs' => $outputlangs, 'index' => &$index, 'posy' => $posy);
 
-		$reshook = $hookManager->executeHooks('afterPDFTotalTable', $parameters, $this); // Note that $action and $object may have been modified by some hooks
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('afterPDFTotalTable', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		if ($resHook < 0) {
 			$this->error = $hookManager->error;
 			$this->errors = $hookManager->errors;
 		}
@@ -2858,10 +2858,10 @@ class pdf_sponge extends ModelePDFFactures
 			'hideref' => $hideref
 		);
 
-		$reshook = $hookManager->executeHooks('defineColumnField', $parameters, $this); // Note that $object may have been modified by hook
-		if ($reshook < 0) {
+		$resHook = $hookManager->executeHooks('defineColumnField', $parameters, $this); // Note that $object may have been modified by hook
+		if ($resHook < 0) {
 			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
-		} elseif (empty($reshook)) {
+		} elseif (empty($resHook)) {
 			// @phan-suppress-next-line PhanPluginSuspiciousParamOrderInternal
 			$this->cols = array_replace($this->cols, $hookManager->resArray); // array_replace is used to preserve keys
 		} else {

@@ -122,9 +122,9 @@ class AssetAccountancyCodes extends CommonObject
 
 		$hookManager->initHooks(array('assetaccountancycodesdao'));
 		$parameters = array('asset_id' => $asset_id, 'asset_model_id' => $asset_model_id);
-		$reshook = $hookManager->executeHooks('fetchAccountancyCodes', $parameters, $this); // Note that $action and $object may have been modified by some hooks
-		if (!empty($reshook)) {
-			return $reshook;
+		$resHook = $hookManager->executeHooks('fetchAccountancyCodes', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		if (!empty($resHook)) {
+			return $resHook;
 		}
 
 		// Check parameters
@@ -189,9 +189,9 @@ class AssetAccountancyCodes extends CommonObject
 
 		$hookManager->initHooks(array('assetaccountancycodesdao'));
 		$parameters = array('user' => $user, 'asset_id' => $asset_id, 'asset_model_id' => $asset_model_id);
-		$reshook = $hookManager->executeHooks('updateAccountancyCodes', $parameters, $this); // Note that $action and $object may have been modified by some hooks
-		if (!empty($reshook)) {
-			return $reshook;
+		$resHook = $hookManager->executeHooks('updateAccountancyCodes', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		if (!empty($resHook)) {
+			return $resHook;
 		}
 
 		// Check parameters

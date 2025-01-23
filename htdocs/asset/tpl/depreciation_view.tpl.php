@@ -57,13 +57,13 @@ if (!is_array($parameters)) {
 if (empty($parameters['assetdepreciationoptions'])) {
 	$parameters['assetdepreciationoptions'] = &$assetdepreciationoptions;
 }
-$reshook = $hookManager->executeHooks('formAssetDeprecationOptions', $parameters, $object, $action);
+$resHook = $hookManager->executeHooks('formAssetDeprecationOptions', $parameters, $object, $action);
 print $hookManager->resPrint;
-if ($reshook < 0) {
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	$class_type = get_class($object) == 'Asset' ? 0 : 1;
 	foreach ($assetdepreciationoptions->deprecation_options_fields as $mode_key => $mode_info) {
 		if (!empty($mode_info['enabled_field'])) {

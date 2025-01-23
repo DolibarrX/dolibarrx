@@ -60,15 +60,15 @@ if (!empty($cols)) {
 if (!empty($object->fk_soc)) {
 	$parameters['socid'] = $object->fk_soc;
 }
-$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action);
+$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action);
 print $hookManager->resPrint;
-if ($reshook < 0) {
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 
 //var_dump($extrafields->attributes[$object->table_element]);
-if (empty($reshook) && !empty($object->table_element) && isset($extrafields->attributes[$object->table_element]['label']) && is_array($extrafields->attributes[$object->table_element]['label'])) {
+if (empty($resHook) && !empty($object->table_element) && isset($extrafields->attributes[$object->table_element]['label']) && is_array($extrafields->attributes[$object->table_element]['label'])) {
 	$lastseparatorkeyfound = '';
 	$extrafields_collapse_num = '';
 	$extrafields_collapse_num_old = '';

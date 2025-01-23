@@ -182,13 +182,13 @@ function llxFooterVierge()
 
 $parameters = array();
 // Note that $action and $object may have been modified by some hooks
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 // Action called when page is submitted
-if (empty($reshook) && $action == 'add') {	// Test on permission not required here. This is an anonymous form. Check is done on constant to enable and mitigation.
+if (empty($resHook) && $action == 'add') {	// Test on permission not required here. This is an anonymous form. Check is done on constant to enable and mitigation.
 	$error = 0;
 	$urlback = '';
 
@@ -534,7 +534,7 @@ if (empty($reshook) && $action == 'add') {	// Test on permission not required he
 // Action called after a submitted was send and member created successfully
 // If PARTNERSHIP_URL_REDIRECT_SUBSCRIPTION is set to url we never go here because a redirect was done to this url.
 // backtopage parameter with an url was set on member submit page, we never go here because a redirect was done to this url.
-if (empty($reshook) && $action == 'added') {	// Test on permission not required here
+if (empty($resHook) && $action == 'added') {	// Test on permission not required here
 	llxHeaderVierge($langs->trans("NewPartnershipForm"));
 
 	// Si on a pas ete redirige

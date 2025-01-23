@@ -157,12 +157,12 @@ if ($action == "importSignature") {
 
 					if (dol_is_file($sourcefile)) {
 						$parameters = array('sourcefile' => $sourcefile, 'newpdffilename' => $newpdffilename);
-						$reshook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-						if ($reshook < 0) {
+						$resHook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+						if ($resHook < 0) {
 							setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						}
 
-						if (empty($reshook)) {
+						if (empty($resHook)) {
 							// We build the new PDF
 							$pdf = pdf_getInstance();
 							if (class_exists('TCPDF')) {
@@ -359,12 +359,12 @@ if ($action == "importSignature") {
 
 					if (dol_is_file($sourcefile)) {
 						$parameters = array('sourcefile' => $sourcefile, 'newpdffilename' => $newpdffilename);
-						$reshook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-						if ($reshook < 0) {
+						$resHook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+						if ($resHook < 0) {
 							setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						}
 
-						if (empty($reshook)) {
+						if (empty($resHook)) {
 							// We build the new PDF
 							$pdf = pdf_getInstance();
 							if (class_exists('TCPDF')) {
@@ -495,12 +495,12 @@ if ($action == "importSignature") {
 
 					if (dol_is_file($sourcefile)) {
 						$parameters = array('sourcefile' => $sourcefile, 'newpdffilename' => $newpdffilename);
-						$reshook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-						if ($reshook < 0) {
+						$resHook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+						if ($resHook < 0) {
 							setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						}
 
-						if (empty($reshook)) {
+						if (empty($resHook)) {
 							// We build the new PDF
 							$pdf = pdf_getInstance();
 							if (class_exists('TCPDF')) {
@@ -644,12 +644,12 @@ if ($action == "importSignature") {
 						}
 						if (dol_is_file($sourcefile)) {
 							$parameters = array('sourcefile' => $sourcefile, 'newpdffilename' => $newpdffilename);
-							$reshook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-							if ($reshook < 0) {
+							$resHook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+							if ($resHook < 0) {
 								setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 							}
 
-							if (empty($reshook)) {
+							if (empty($resHook)) {
 								// We build the new PDF
 								$pdf = pdf_getInstance();
 								if (class_exists('TCPDF')) {
@@ -845,12 +845,12 @@ if ($action == "importSignature") {
 
 					if (dol_is_file($sourcefile)) {
 						$parameters = array('sourcefile' => $sourcefile, 'newpdffilename' => $newpdffilename);
-						$reshook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-						if ($reshook < 0) {
+						$resHook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+						if ($resHook < 0) {
 							setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						}
 
-						if (empty($reshook)) {
+						if (empty($resHook)) {
 							// We build the new PDF
 							$pdf = pdf_getInstance();
 							if (class_exists('TCPDF')) {

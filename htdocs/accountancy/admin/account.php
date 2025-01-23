@@ -131,12 +131,12 @@ if (!GETPOST('confirmmassaction', 'alpha')) {
 }
 
 $parameters = array('chartofaccounts' => $chartofaccounts, 'permissiontoadd' => $permissiontoadd, 'permissiontodelete' => $permissiontodelete);
-$reshook = $hookManager->executeHooks('doActions', $parameters, $accounting, $action); // Note that $action and $object may have been monowraponalldified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $accounting, $action); // Note that $action and $object may have been monowraponalldified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	if (!empty($cancel)) {
 		$action = '';
 	}
@@ -256,7 +256,7 @@ $sql .= " a2.rowid as rowid2, a2.label as label2, a2.account_number as account_n
 
 // Add fields from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
 
@@ -266,7 +266,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as a2 ON a2.rowid = aa.
 
 // Add table from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 $sql .= " WHERE asy.rowid = ".((int) $pcgver);
@@ -323,7 +323,7 @@ if (strlen(trim($search_import_key))) {
 
 // Add where from hooks
 $parameters = array();
-$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 
 $sql .= $db->order($sortfield, $sortorder);
@@ -382,7 +382,7 @@ if ($resql) {
 
 	// Add $param from hooks
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	$param .= $hookManager->resPrint;
 
 	if (!empty($config->use_javascript_ajax)) {
@@ -463,11 +463,11 @@ if ($resql) {
 	print '<br>';
 
 	$parameters = array('chartofaccounts' => $chartofaccounts, 'permissiontoadd' => $permissiontoadd, 'permissiontodelete' => $permissiontodelete);
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $accounting, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $accounting, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	$parameters = array();
-	$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	print '<br>';
@@ -529,7 +529,7 @@ if ($resql) {
 
 	// Fields from hook
 	$parameters = array('arrayfields' => $arrayfields);
-	$reshook = $hookManager->executeHooks('printFieldListOption', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListOption', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	// Import key
@@ -591,7 +591,7 @@ if ($resql) {
 
 	// Hook fields
 	$parameters = array('arrayfields' => $arrayfields, 'param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-	$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	if (!empty($arrayfields['aa.import_key']['checked'])) {
@@ -732,7 +732,7 @@ if ($resql) {
 
 		// Fields from hook
 		$parameters = array('arrayfields' => $arrayfields, 'obj' => $obj, 'i' => $i, 'totalarray' => &$totalarray);
-		$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('printFieldListValue', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;
 
 		// Import id
@@ -826,7 +826,7 @@ if ($resql) {
 	$db->free($resql);
 
 	$parameters = array('arrayfields' => $arrayfields, 'sql' => $sql);
-	$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$resHook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	print $hookManager->resPrint;
 
 	print '</table>'."\n";

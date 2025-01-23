@@ -1913,14 +1913,14 @@ if ($step == 5 && $datatoimport) {
 					'nbok'                         => &$nbok,
 				);
 
-				$reshook = $hookManager->executeHooks('ImportInsert', $parameters);
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('ImportInsert', $parameters);
+				if ($resHook < 0) {
 					$arrayoferrors[$sourcelinenb][] = [
 						'lib' => implode("<br>", array_merge([$hookManager->error], $hookManager->errors))
 					];
 				}
 
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					// Run import
 					$result = $obj->import_insert($arrayrecord, $array_match_file_to_database, $objimport, count($fieldssource), $importid, $updatekeys);
 
@@ -2329,14 +2329,14 @@ if ($step == 6 && $datatoimport) {
 				'nbok'                         => &$nbok,
 			);
 
-			$reshook = $hookManager->executeHooks('ImportInsert', $parameters);
-			if ($reshook < 0) {
+			$resHook = $hookManager->executeHooks('ImportInsert', $parameters);
+			if ($resHook < 0) {
 				$arrayoferrors[$sourcelinenb][] = [
 					'lib' => implode("<br>", array_merge([$hookManager->error], $hookManager->errors))
 				];
 			}
 
-			if (empty($reshook)) {
+			if (empty($resHook)) {
 				// Run import
 				$result = $obj->import_insert($arrayrecord, $array_match_file_to_database, $objimport, count($fieldssource), $importid, $updatekeys);
 
@@ -2352,8 +2352,8 @@ if ($step == 6 && $datatoimport) {
 				}
 			}
 
-			$reshook = $hookManager->executeHooks('AfterImportInsert', $parameters);
-			if ($reshook < 0) {
+			$resHook = $hookManager->executeHooks('AfterImportInsert', $parameters);
+			if ($resHook < 0) {
 				$arrayoferrors[$sourcelinenb][] = [
 					'lib' => implode("<br>", array_merge([$hookManager->error], $hookManager->errors))
 				];

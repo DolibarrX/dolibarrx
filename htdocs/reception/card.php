@@ -186,12 +186,12 @@ $error = 0;
  */
 
 $parameters = array();
-$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-if ($reshook < 0) {
+$resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
-if (empty($reshook)) {
+if (empty($resHook)) {
 	/*
 	$backurlforlist = DOL_URL_ROOT.'/reception/list.php';
 
@@ -956,12 +956,12 @@ if ($action == 'create') {
 
 			// Other attributes
 			$parameters = array('objectsrc' => $objectsrc, 'colspan' => ' colspan="3"', 'cols' => '3', 'socid' => $socid);
-			$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $recept, $action); // Note that $action and $objectsrc may have been modified by hook
+			$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $recept, $action); // Note that $action and $objectsrc may have been modified by hook
 			print $hookManager->resPrint;
 
 			// Here $object can be of an object Reception
 			$extrafields->fetch_name_optionals_label($object->table_element);
-			if (empty($reshook) && !empty($extrafields->attributes[$object->table_element]['label'])) {
+			if (empty($resHook) && !empty($extrafields->attributes[$object->table_element]['label'])) {
 				// copy from order
 				if ($objectsrc->fetch_optionals() > 0) {
 					$recept->array_options = array_merge($recept->array_options, $objectsrc->array_options);
@@ -1441,10 +1441,10 @@ if ($action == 'create') {
 
 	if (!$formconfirm) {
 		$parameters = array('formConfirm' => $formconfirm);
-		$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			$formconfirm .= $hookManager->resPrint;
-		} elseif ($reshook > 0) {
+		} elseif ($resHook > 0) {
 			$formconfirm = $hookManager->resPrint;
 		}
 	}
@@ -2171,8 +2171,8 @@ if ($action == 'create') {
 		print '<div class="tabsAction">';
 
 		$parameters = array();
-		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		if (empty($reshook)) {
+		$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		if (empty($resHook)) {
 			if ($object->statut == Reception::STATUS_DRAFT && $num_prod > 0) {
 				if ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('reception', 'creer'))
 				 || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('reception', 'reception_advance', 'validate'))) {

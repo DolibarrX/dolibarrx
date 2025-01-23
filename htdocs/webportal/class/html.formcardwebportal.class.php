@@ -809,10 +809,10 @@ class FormCardWebPortal
 
 			// Call Hook formConfirm
 			$parameters = array('formConfirm' => $formconfirm);
-			$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			if (empty($reshook)) {
+			$resHook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			if (empty($resHook)) {
 				$formconfirm .= $hookManager->resPrint;
-			} elseif ($reshook > 0) {
+			} elseif ($resHook > 0) {
 				$formconfirm = $hookManager->resPrint;
 			}
 
@@ -837,12 +837,12 @@ class FormCardWebPortal
 			if ($action != 'presend' && $action != 'editline') {
 				$html .= '<div>' . "\n";
 				$parameters = array();
-				$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				if ($resHook < 0) {
 					$context->setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 
-				if (empty($reshook)) {
+				if (empty($resHook)) {
 					if ($permissiontoadd) {
 						$url_file = $context->getControllerUrl($context->controller, '', false);
 						$html .= '<a href="' . $url_file . '&id=' . $object->id . '&action=edit" role="button">' . $langs->trans('Modify') . '</a>';

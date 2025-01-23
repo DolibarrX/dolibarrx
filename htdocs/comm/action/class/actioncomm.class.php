@@ -755,8 +755,8 @@ class ActionComm extends CommonObject
 			if (is_object($hookManager)) {
 				$parameters = array('objFrom' => $objFrom);
 				$action = '';
-				$reshook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-				if ($reshook < 0) {
+				$resHook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				if ($resHook < 0) {
 					$this->setErrorsFromObject($hookManager);
 					$error++;
 				}
@@ -1341,7 +1341,7 @@ class ActionComm extends CommonObject
 		$sql .= " FROM ".MAIN_DB_PREFIX."actioncomm as a";
 		// Fields from hook
 		$parameters = array('sql' => &$sql, 'socid' => $socid, 'fk_element' => $fk_element, 'elementtype' => $elementtype);
-		$reshook = $hookManager->executeHooks('getActionsListFrom', $parameters);    // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('getActionsListFrom', $parameters);    // Note that $action and $object may have been modified by hook
 		if (!empty($hookManager->resPrint)) {
 			$sql .= $hookManager->resPrint;
 		}
@@ -1370,7 +1370,7 @@ class ActionComm extends CommonObject
 		}
 		// Fields where hook
 		$parameters = array('sql' => &$sql, 'socid' => $socid, 'fk_element' => $fk_element, 'elementtype' => $elementtype);
-		$reshook = $hookManager->executeHooks('getActionsListWhere', $parameters);    // Note that $action and $object may have been modified by hook
+		$resHook = $hookManager->executeHooks('getActionsListWhere', $parameters);    // Note that $action and $object may have been modified by hook
 		if (!empty($hookManager->resPrint)) {
 			$sql .= $hookManager->resPrint;
 		}
@@ -1857,8 +1857,8 @@ class ActionComm extends CommonObject
 		global $action;
 		$hookManager->initHooks(array('actiondao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
-		if ($reshook > 0) {
+		$resHook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		if ($resHook > 0) {
 			$result = $hookManager->resPrint;
 		} else {
 			$result .= $hookManager->resPrint;
@@ -2090,7 +2090,7 @@ class ActionComm extends CommonObject
 				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s on s.rowid = p.fk_soc";
 
 				$parameters = array('filters' => $filters);
-				$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
 				$sql .= $hookManager->resPrint;
 
 				$sql .= " WHERE p.entity IN (".getEntity('project').")";
@@ -2144,7 +2144,7 @@ class ActionComm extends CommonObject
 				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s on s.rowid = a.fk_soc";
 
 				$parameters = array('filters' => $filters);
-				$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
 				$sql .= $hookManager->resPrint;
 
 				// We must filter on assignment table
@@ -2261,7 +2261,7 @@ class ActionComm extends CommonObject
 				$sql .= " AND a.datep IS NOT NULL"; // To exclude corrupted events and avoid errors in lightning/sunbird import
 
 				$parameters = array('filters' => $filters);
-				$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
+				$resHook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
 				$sql .= $hookManager->resPrint;
 
 				$sql .= " ORDER by datep";
@@ -2354,8 +2354,8 @@ class ActionComm extends CommonObject
 				}
 
 				$parameters = array('filters' => $filters, 'eventarray' => &$eventarray);
-				$reshook = $hookManager->executeHooks('addMoreEventsExport', $parameters); // Note that $action and $object may have been modified by hook
-				if ($reshook > 0) {
+				$resHook = $hookManager->executeHooks('addMoreEventsExport', $parameters); // Note that $action and $object may have been modified by hook
+				if ($resHook > 0) {
 					$eventarray = $hookManager->resArray;
 				}
 			} else {

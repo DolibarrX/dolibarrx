@@ -381,7 +381,7 @@ if (!getDolGlobalString('MAIN_EXTRAFIELDS_DISABLED')) {
 		$parameters = array('array_query' => $advTarget->filtervalue);
 	}
 	// Other attributes
-	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $std_soc, $action_search);
+	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $std_soc, $action_search);
 	print $hookManager->resPrint;
 }
 
