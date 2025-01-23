@@ -451,7 +451,7 @@ class IntracommReport extends CommonObject
 	 */
 	public function getSQLFactLines($type, $period_reference, $exporttype = 'deb')
 	{
-		global $mysoc, $conf;
+		global $mysoc, $config;
 
 		if ($type == 'expedition' || $exporttype == 'des') {
 			$sql = "SELECT f.ref as refinvoice, f.total_ht";
@@ -551,7 +551,7 @@ class IntracommReport extends CommonObject
 	 */
 	public function addItemFraisDePort(&$declaration, &$TLinesFraisDePort, $type, &$categ_fraisdeport, $i)
 	{
-		global $conf;
+		global $config;
 
 		if ($type == 'expedition') {
 			$table = 'facture';

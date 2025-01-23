@@ -336,7 +336,7 @@ $server->register(
  */
 function getUser($authentication, $id, $ref = '', $ref_ext = '')
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: getUser login=".$authentication['login']." id=".$id." ref=".$ref." ref_ext=".$ref_ext);
 
@@ -694,7 +694,7 @@ function createUserFromThirdparty($authentication, $thirdpartywithuser)
  */
 function setUserPassword($authentication, $shortuser)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: setUserPassword login=".$authentication['login']);
 

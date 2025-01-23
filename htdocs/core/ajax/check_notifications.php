@@ -96,7 +96,7 @@ if ($action == 'stopreminder') {	// Test on permission not required here. Endpoi
 
 top_httphead('application/json');
 
-global $user, $db, $langs, $conf;
+global $user, $db, $langs, $config;
 
 $eventfound = array();
 //Uncomment this to force a test

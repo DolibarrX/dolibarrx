@@ -915,7 +915,7 @@ class FormCompany extends Form
 	public function select_ziptown($selected = '', $htmlname = 'zipcode', $fields = array(), $fieldsize = 0, $disableautocomplete = 0, $moreattrib = '', $morecss = '')
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$out = '';
 

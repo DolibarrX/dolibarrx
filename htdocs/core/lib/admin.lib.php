@@ -935,7 +935,7 @@ function security_prepare_head()
  */
 function modulehelp_prepare_head($object)
 {
-	global $langs, $conf;
+	global $langs, $config;
 	$h = 0;
 	$head = array();
 
@@ -973,7 +973,7 @@ function modulehelp_prepare_head($object)
  */
 function translation_prepare_head()
 {
-	global $langs, $conf;
+	global $langs, $config;
 	$h = 0;
 	$head = array();
 
@@ -1055,7 +1055,7 @@ function defaultvalues_prepare_head()
  */
 function listOfSessions()
 {
-	global $conf;
+	global $config;
 
 	$arrayofSessions = array();
 	// session.save_path can be returned empty so we set a default location and work from there
@@ -1111,7 +1111,7 @@ function listOfSessions()
  */
 function purgeSessions($mysessionid)
 {
-	global $conf;
+	global $config;
 
 	$sessPath = ini_get("session.save_path")."/";
 	dol_syslog('admin.lib:purgeSessions mysessionid='.$mysessionid.' sessPath='.$sessPath);
@@ -1308,7 +1308,7 @@ function activateModule($value, $withdeps = 1, $noconfverification = 0)
  */
 function unActivateModule($value, $requiredby = 1)
 {
-	global $db, $modules, $conf;
+	global $db, $modules, $config;
 
 	// Check parameters
 	if (empty($value)) {
@@ -1991,7 +1991,7 @@ function showModulesExludedForExternal($modules)
  */
 function addDocumentModel($name, $type, $label = '', $description = '')
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$db->begin();
 
@@ -2022,7 +2022,7 @@ function addDocumentModel($name, $type, $label = '', $description = '')
  */
 function delDocumentModel($name, $type)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$db->begin();
 
@@ -2080,7 +2080,7 @@ function phpinfo_array()
  */
 function company_admin_prepare_head()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$h = 0;
 	$head = array();

@@ -437,7 +437,7 @@ class AccountancyCategory // extends CommonObject
 	 */
 	public function display($id)
 	{
-		global $conf;
+		global $config;
 		$sql = "SELECT t.rowid, t.account_number, t.label";
 		$sql .= " FROM ".$this->db->prefix().$this->table_element." as t";
 		$sql .= " WHERE t.fk_accounting_category = ".((int) $id);
@@ -472,7 +472,7 @@ class AccountancyCategory // extends CommonObject
 	 */
 	public function getAccountsWithNoCategory($id)
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT aa.account_number as numero_compte, aa.label as label_compte";
 		$sql .= " FROM ".$this->db->prefix()."accounting_account as aa";
@@ -516,7 +516,7 @@ class AccountancyCategory // extends CommonObject
 	 */
 	public function updateAccAcc($id_cat, $cpts = array())
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/accounting.lib.php';
@@ -631,7 +631,7 @@ class AccountancyCategory // extends CommonObject
 	 */
 	public function getSumDebitCredit($cpt, $date_start, $date_end, $sens, $thirdparty_code = 'nofilter', $month = 0, $year = 0)
 	{
-		global $conf;
+		global $config;
 
 		$this->sdc = 0;
 		$this->sdcpermonth = array();
@@ -717,7 +717,7 @@ class AccountancyCategory // extends CommonObject
 	 */
 	public function getCatsCpts($catid = 0)
 	{
-		global $mysoc, $conf;
+		global $mysoc, $config;
 
 		if (empty($mysoc->country_id)) {
 			$this->error = "Error ".$this->db->lasterror();

@@ -66,7 +66,7 @@ abstract class ModeleGenPassword
 	/**
 	 * @var Conf dolibarr conf
 	 */
-	public $conf;
+	public $config;
 
 	/**
 	 * @var Translate Translate Object

@@ -69,7 +69,7 @@ class box_funnel_of_prospection extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $conf;
+		global $config;
 
 		// default values
 		$badgeStatus0 = '#cbd3d3'; // draft

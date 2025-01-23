@@ -323,7 +323,7 @@ class RejetPrelevement
 	 */
 	private function getListInvoices($amounts = 0)
 	{
-		global $conf;
+		global $config;
 
 		$arr = array();
 

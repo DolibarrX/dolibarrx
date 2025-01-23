@@ -118,7 +118,7 @@ class mod_contract_serpis extends ModelNumRefContracts
 	 */
 	public function getNextValue($objsoc, $contract)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";

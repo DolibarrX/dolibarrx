@@ -49,7 +49,7 @@ class Contacts extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 		$this->db = $db;
 
 		require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
@@ -175,7 +175,7 @@ class Contacts extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $thirdparty_ids = '', $category = 0, $sqlfilters = '', $includecount = 0, $includeroles = 0, $properties = '', $pagination_data = false)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$obj_ret = array();
 

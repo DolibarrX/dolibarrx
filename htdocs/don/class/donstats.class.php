@@ -80,7 +80,7 @@ class DonationStats extends Stats
 	 */
 	public function __construct($db, $socid, $mode, $userId = 0, $typentid = 0, $status = 4)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 

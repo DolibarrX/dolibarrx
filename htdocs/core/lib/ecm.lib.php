@@ -153,7 +153,7 @@ function ecm_file_prepare_head($object)
  */
 function ecm_prepare_head_fm($object)
 {
-	global $langs, $conf;
+	global $langs, $config;
 	$h = 0;
 	$head = array();
 

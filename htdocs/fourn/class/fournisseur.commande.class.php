@@ -774,7 +774,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function valid($user, $idwarehouse = 0, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error = 0;
@@ -1132,7 +1132,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function getNextNumRef($soc)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("orders");
 
 		if (getDolGlobalString('COMMANDE_SUPPLIER_ADDON_NUMBER')) {
@@ -1268,7 +1268,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function approve($user, $idwarehouse = 0, $secondlevel = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error = 0;
@@ -1459,7 +1459,7 @@ class CommandeFournisseur extends CommonOrder
 	public function Cancel($user, $idwarehouse = -1)
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		$error = 0;
 
@@ -1789,7 +1789,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function update(User $user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 
@@ -2002,7 +2002,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1 = 0.0, $txlocaltax2 = 0.0, $fk_product = 0, $fk_prod_fourn_price = 0, $ref_supplier = '', $remise_percent = 0.0, $price_base_type = 'HT', $pu_ttc = 0.0, $type = 0, $info_bits = 0, $notrigger = 0, $date_start = null, $date_end = null, $array_options = [], $fk_unit = null, $pu_ht_devise = 0, $origin = '', $origin_id = 0, $rang = -1, $special_code = 0)
 	{
-		global $langs, $mysoc, $conf;
+		global $langs, $mysoc, $config;
 
 		dol_syslog(get_class($this)."::addline $desc, $pu_ht, $qty, $txtva, $txlocaltax1, $txlocaltax2, $fk_product, $fk_prod_fourn_price, $ref_supplier, $remise_percent, $price_base_type, $pu_ttc, $type, $info_bits, $notrigger, $date_start, $date_end, $fk_unit, $pu_ht_devise, $origin, $origin_id");
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/price.lib.php';
@@ -2424,7 +2424,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function delete(User $user, $notrigger = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error = 0;
@@ -3153,7 +3153,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function initAsSpecimen()
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 
 		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.product.class.php';
 
@@ -3533,7 +3533,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function hasDelay()
 	{
-		global $conf;
+		global $config;
 
 		if ($this->statut == self::STATUS_ORDERSENT || $this->statut == self::STATUS_RECEIVED_PARTIALLY) {
 			$now = dol_now();

@@ -856,7 +856,7 @@ class Workstation extends CommonObject
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("workstation");
 
 		if (!getDolGlobalString('WORKSTATION_WORKSTATION_ADDON')) {

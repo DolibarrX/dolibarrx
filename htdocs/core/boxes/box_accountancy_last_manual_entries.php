@@ -61,7 +61,7 @@ class box_accountancy_last_manual_entries extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 
 		include_once DOL_DOCUMENT_ROOT.'/accountancy/class/bookkeeping.class.php';
 

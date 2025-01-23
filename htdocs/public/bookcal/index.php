@@ -626,7 +626,7 @@ llxFooter('', 'public');
  */
 function show_bookcal_day_events($day, $month, $year, $today = 0)
 {
-	global $conf;
+	global $config;
 	if ($config->use_javascript_ajax) {	// Enable the "Show more button..."
 		$config->global->MAIN_JS_SWITCH_AGENDA = 1;
 	}

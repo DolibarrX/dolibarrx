@@ -52,7 +52,7 @@ function is_empty($var, $allow_false = false, $allow_ws = false)
  */
 function accounting_prepare_head(AccountingAccount $object)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$h = 0;
 	$head = array();
@@ -131,7 +131,7 @@ function length_accountg($account)
  */
 function length_accounta($accounta)
 {
-	global $conf;
+	global $config;
 
 	if ($accounta < 0 || is_empty($accounta)) {
 		return '';
@@ -281,7 +281,7 @@ function journalHead($nom, $variant, $period, $periodlink, $description, $buildd
  */
 function getDefaultDatesForTransfer()
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$date_start = '';
 	$date_end = '';

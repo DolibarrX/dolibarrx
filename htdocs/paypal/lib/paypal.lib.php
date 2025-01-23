@@ -34,7 +34,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
  */
 function paypaladmin_prepare_head()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$h = 0;
 	$head = array();

@@ -243,7 +243,7 @@ class Don extends CommonObject
 	 */
 	public function initAsSpecimen()
 	{
-		global $conf;
+		global $config;
 
 		$now = dol_now();
 
@@ -876,7 +876,7 @@ class Don extends CommonObject
 	public function sum_donations($param)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$result = 0;
 

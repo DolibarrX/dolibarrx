@@ -34,7 +34,7 @@
  */
 function prelevement_prepare_head(BonPrelevement $object)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$salary = $object->checkIfSalaryBonPrelevement();
 
@@ -127,7 +127,7 @@ function prelevement_check_config($type = 'direct-debit')
  */
 function bon_prelevement_prepare_head(BonPrelevement $object, $nbOfInvoices, $nbOfSalaryInvoice)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$h = 0;
 	$head = array();

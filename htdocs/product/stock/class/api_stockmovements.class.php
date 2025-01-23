@@ -47,7 +47,7 @@ class StockMovements extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 		$this->db = $db;
 		$this->stockmovement = new MouvementStock($this->db);
 	}
@@ -96,7 +96,7 @@ class StockMovements extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $sqlfilters = '', $properties = '')
 	{
-		global $conf;
+		global $config;
 
 		$obj_ret = array();
 

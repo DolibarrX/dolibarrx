@@ -78,7 +78,7 @@ class WebPortalTheme
 	 */
 	public function __construct()
 	{
-		global $mysoc, $conf;
+		global $mysoc, $config;
 
 		$this->loadPrimaryColor();
 

@@ -79,7 +79,7 @@ class MyObjectTest extends PHPUnit\Framework\TestCase  // @phan-suppress-current
 
 		//$this->sharedFixture
 		global $conf, $user, $langs, $db;
-		$this->savconf = $conf;
+		$this->savconf = $config;
 		$this->savuser = $user;
 		$this->savlangs = $langs;
 		$this->savdb = $db;

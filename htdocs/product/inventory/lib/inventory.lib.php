@@ -30,7 +30,7 @@
  */
 function inventoryAdminPrepareHead()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$langs->load("inventory");
 
@@ -69,7 +69,7 @@ function inventoryAdminPrepareHead()
  */
 function inventoryPrepareHead(&$inventory, $title = 'Inventory', $get = '')
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$head = array(
 		array(dol_buildpath('/product/inventory/card.php?id='.$inventory->id.$get, 1), $langs->trans('Card'), 'card'),

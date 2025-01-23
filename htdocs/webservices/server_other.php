@@ -173,7 +173,7 @@ $server->register(
  */
 function getVersions($authentication)
 {
-	global $conf;
+	global $config;
 
 	dol_syslog("Function: getVersions login=".$authentication['login']);
 
@@ -218,7 +218,7 @@ function getVersions($authentication)
  */
 function getDocument($authentication, $modulepart, $file, $refname = '')
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: getDocument login=".$authentication['login'].' - modulepart='.$modulepart.' - file='.$file);
 

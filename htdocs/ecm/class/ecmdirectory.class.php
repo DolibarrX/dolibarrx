@@ -566,7 +566,7 @@ class EcmDirectory extends CommonObject
 	public function load_motherof()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$this->motherof = array();
 
@@ -642,7 +642,7 @@ class EcmDirectory extends CommonObject
 	public function get_full_arbo($force = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		if (empty($force) && !empty($this->full_arbo_loaded)) {
 			return $this->cats;
@@ -760,7 +760,7 @@ class EcmDirectory extends CommonObject
 	 */
 	public function refreshcachenboffile($all = 0)
 	{
-		global $conf;
+		global $config;
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$dir = $config->ecm->dir_output.'/'.$this->getRelativePath();
@@ -805,7 +805,7 @@ class EcmDirectory extends CommonObject
 	public function call_trigger($triggerName, $user)
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		include_once DOL_DOCUMENT_ROOT.'/core/class/interfaces.class.php';
 		$interface = new Interfaces($this->db);

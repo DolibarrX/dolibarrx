@@ -70,7 +70,7 @@ $shmoffset = 1000; // Max number of entries found into a language file. If too l
  */
 function dol_setcache($memoryid, $data, $expire = 0, $filecache = 0, $replace = 0)
 {
-	global $conf;
+	global $config;
 
 	$result = 0;
 
@@ -178,7 +178,7 @@ function dol_setcache($memoryid, $data, $expire = 0, $filecache = 0, $replace = 
  */
 function dol_getcache($memoryid, $filecache = 0)
 {
-	global $conf;
+	global $config;
 
 	if (strpos($memoryid, 'count_') === 0) {	// The memoryid key start with 'count_...'
 		if (!getDolGlobalString('MAIN_CACHE_COUNT')) {

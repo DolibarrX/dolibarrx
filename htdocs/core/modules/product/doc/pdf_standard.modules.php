@@ -623,7 +623,7 @@ class pdf_standard extends ModelePDFProduct
 	 */
 	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0, $currency = '')
 	{
-		global $conf;
+		global $config;
 
 		// Force to disable hidetop and hidebottom
 		$hidebottom = 0;
@@ -720,7 +720,7 @@ class pdf_standard extends ModelePDFProduct
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs, $titlekey = "")
 	{
-		global $conf;
+		global $config;
 
 		$ltrdirection = 'L';
 		if ($outputlangs->trans("DIRECTION") == 'rtl') {

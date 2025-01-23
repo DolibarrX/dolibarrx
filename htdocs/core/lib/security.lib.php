@@ -126,7 +126,7 @@ define('MAIN_SECURITY_REVERSIBLE_ALGO', 'AES-256-CTR');
  */
 function dolEncrypt($chain, $key = '', $ciphering = '', $forceseed = '')
 {
-	global $conf;
+	global $config;
 	global $dolibarr_disable_dolcrypt_for_debug;
 
 	if ($chain === '' || is_null($chain)) {
@@ -185,7 +185,7 @@ function dolEncrypt($chain, $key = '', $ciphering = '', $forceseed = '')
  */
 function dolDecrypt($chain, $key = '')
 {
-	global $conf;
+	global $config;
 
 	if ($chain === '' || is_null($chain)) {
 		return '';
@@ -932,7 +932,7 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
  */
 function checkUserAccessToObject($user, array $featuresarray, $object = 0, $tableandshare = '', $feature2 = '', $dbt_keyfield = '', $dbt_select = 'rowid', $parenttableforentity = '')
 {
-	global $db, $conf;
+	global $db, $config;
 
 	if (is_object($object)) {
 		$objectid = $object->id;

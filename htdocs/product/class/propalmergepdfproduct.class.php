@@ -182,7 +182,7 @@ class Propalmergepdfproduct extends CommonObject
 	 */
 	public function fetch($id)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$sql = "SELECT";
 		$sql .= " t.rowid,";
@@ -240,7 +240,7 @@ class Propalmergepdfproduct extends CommonObject
 	public function fetch_by_product($product_id, $lang = '')
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		$sql = "SELECT";
 		$sql .= " t.rowid,";

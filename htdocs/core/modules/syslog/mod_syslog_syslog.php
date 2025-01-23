@@ -111,7 +111,7 @@ class mod_syslog_syslog extends LogHandler
 	 */
 	public function export($content, $suffixinfilename = '')
 	{
-		global $conf;
+		global $config;
 
 		if (getDolGlobalString('MAIN_SYSLOG_DISABLE_SYSLOG')) {
 			return; // Global option to disable output of this handler

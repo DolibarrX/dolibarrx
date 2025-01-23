@@ -139,7 +139,7 @@ class mod_barcode_product_standard extends ModeleNumRefBarCode
 	 */
 	public function literalBarcodeType($db, $type = 0)
 	{
-		global $conf;
+		global $config;
 		$out = '';
 
 		$sql = "SELECT rowid, code, libelle as label";
@@ -321,7 +321,7 @@ class mod_barcode_product_standard extends ModeleNumRefBarCode
 	public function verif_syntax($codefortest, $typefortest)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$result = 0;
 

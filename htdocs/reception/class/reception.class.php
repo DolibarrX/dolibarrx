@@ -217,7 +217,7 @@ class Reception extends CommonObject
 	 */
 	public function getNextNumRef($soc)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("receptions");
 
 		if (getDolGlobalString('RECEPTION_ADDON_NUMBER')) {
@@ -267,7 +267,7 @@ class Reception extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$now = dol_now();
 
@@ -974,7 +974,7 @@ class Reception extends CommonObject
 	 */
 	public function update($user = null, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 
 		// Clean parameters

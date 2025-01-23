@@ -1240,7 +1240,7 @@ class SupplierProposal extends CommonObject
 	 */
 	public function fetch($rowid, $ref = '')
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT p.rowid, p.entity, p.ref, p.fk_soc as socid";
 		$sql .= ", p.total_ttc, p.total_tva, p.localtax1, p.localtax2, p.total_ht";
@@ -1669,7 +1669,7 @@ class SupplierProposal extends CommonObject
 	 */
 	public function reopen($user, $statut, $note = '', $notrigger = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$this->statut = $statut;
 		$error = 0;
@@ -1728,7 +1728,7 @@ class SupplierProposal extends CommonObject
 	 */
 	public function cloture($user, $status, $note)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$hidedetails = 0;
 		$hidedesc = 0;
 		$hideref = 0;
@@ -1801,7 +1801,7 @@ class SupplierProposal extends CommonObject
 	 */
 	public function updateOrCreatePriceFournisseur($user)
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog(get_class($this)."::updateOrCreatePriceFournisseur", LOG_DEBUG);
 		foreach ($this->lines as $product) {
@@ -1865,7 +1865,7 @@ class SupplierProposal extends CommonObject
 	 */
 	public function createPriceFournisseur($product, $user)
 	{
-		global $conf;
+		global $config;
 
 		$price = price2num($product->subprice * $product->qty, 'MU');
 		$qty = price2num($product->qty);
@@ -2339,7 +2339,7 @@ class SupplierProposal extends CommonObject
 	 */
 	public function initAsSpecimen()
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 
 		// Load array of products prodids
 		$num_prods = 0;

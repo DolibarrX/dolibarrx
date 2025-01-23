@@ -975,7 +975,7 @@ class Societe extends CommonObject
 	 */
 	public function create(User $user, $notrigger = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$error = 0;
 
@@ -1183,7 +1183,7 @@ class Societe extends CommonObject
 	 */
 	public function create_individual(User $user, $no_email = 0, $tags = array(), $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 
@@ -1900,7 +1900,7 @@ class Societe extends CommonObject
 	public function fetch($rowid, $ref = '', $ref_ext = '', $barcode = '', $idprof1 = '', $idprof2 = '', $idprof3 = '', $idprof4 = '', $idprof5 = '', $idprof6 = '', $email = '', $ref_alias = '', $is_client = 0, $is_supplier = 0)
 	{
 		global $langs;
-		global $conf;
+		global $config;
 
 		if (empty($rowid) && empty($ref) && empty($ref_ext) && empty($barcode) && empty($idprof1) && empty($idprof2) && empty($idprof3) && empty($idprof4) && empty($idprof5) && empty($idprof6) && empty($email) && empty($ref_alias)) {
 			return -1;
@@ -2665,7 +2665,7 @@ class Societe extends CommonObject
 	 */
 	public function getSalesRepresentatives(User $user, $mode = 0, $sortfield = null, $sortorder = null)
 	{
-		global $conf;
+		global $config;
 
 		$reparray = array();
 
@@ -3577,7 +3577,7 @@ class Societe extends CommonObject
 	public function get_codeclient($objsoc = null, $type = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		if (getDolGlobalString('SOCIETE_CODECLIENT_ADDON')) {
 			$module = getDolGlobalString('SOCIETE_CODECLIENT_ADDON');
 
@@ -3611,7 +3611,7 @@ class Societe extends CommonObject
 	public function get_codefournisseur($objsoc = null, $type = 1)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		if (getDolGlobalString('SOCIETE_CODECLIENT_ADDON')) {
 			$module = getDolGlobalString('SOCIETE_CODECLIENT_ADDON');
 
@@ -3642,7 +3642,7 @@ class Societe extends CommonObject
 	public function codeclient_modifiable()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		if (getDolGlobalString('SOCIETE_CODECLIENT_ADDON')) {
 			$module = getDolGlobalString('SOCIETE_CODECLIENT_ADDON');
 
@@ -3683,7 +3683,7 @@ class Societe extends CommonObject
 	public function codefournisseur_modifiable()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		if (getDolGlobalString('SOCIETE_CODECLIENT_ADDON')) {
 			$module = getDolGlobalString('SOCIETE_CODECLIENT_ADDON');
 
@@ -3730,7 +3730,7 @@ class Societe extends CommonObject
 	public function check_codeclient()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		if (getDolGlobalString('SOCIETE_CODECLIENT_ADDON')) {
 			$module = getDolGlobalString('SOCIETE_CODECLIENT_ADDON');
 
@@ -3772,7 +3772,7 @@ class Societe extends CommonObject
 	public function check_codefournisseur()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		if (getDolGlobalString('SOCIETE_CODECLIENT_ADDON')) {
 			$module = getDolGlobalString('SOCIETE_CODECLIENT_ADDON');
 
@@ -3811,7 +3811,7 @@ class Societe extends CommonObject
 	public function get_codecompta($type)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		if (getDolGlobalString('SOCIETE_CODECOMPTA_ADDON')) {
 			$module = getDolGlobalString('SOCIETE_CODECOMPTA_ADDON');
@@ -3967,7 +3967,7 @@ class Societe extends CommonObject
 	public function id_prof_verifiable($idprof)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		switch ($idprof) {
 			case 1:
@@ -4068,7 +4068,7 @@ class Societe extends CommonObject
 	public function id_prof_check($idprof, $soc)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		// load the library necessary to check the professional identifiers
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/profid.lib.php';
@@ -5333,7 +5333,7 @@ class Societe extends CommonObject
 	 */
 	public function setAccountancyCode($type, $value)
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 
 		$this->db->begin();
 

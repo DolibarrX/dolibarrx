@@ -156,7 +156,7 @@ class Events // extends CommonObject
 	 */
 	public function create($user)
 	{
-		global $conf;
+		global $config;
 
 		// Clean parameters
 		$this->description = trim($this->description);

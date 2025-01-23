@@ -619,7 +619,7 @@ class PropaleLigne extends CommonObjectLine
 	 */
 	public function delete(User $user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 		$this->db->begin();

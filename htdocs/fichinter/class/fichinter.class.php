@@ -412,7 +412,7 @@ class Fichinter extends CommonObject
 	 */
 	public function update($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		if (!is_numeric($this->duration)) {
 			$this->duration = 0;
@@ -603,7 +603,7 @@ class Fichinter extends CommonObject
 	 */
 	public function setValid($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error = 0;
@@ -721,7 +721,7 @@ class Fichinter extends CommonObject
 	 */
 	public function setClose($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 
@@ -801,7 +801,7 @@ class Fichinter extends CommonObject
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0, $moreparams = null)
 	{
-		global $conf;
+		global $config;
 
 		$outputlangs->load("interventions");
 

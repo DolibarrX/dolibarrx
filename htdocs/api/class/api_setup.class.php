@@ -828,7 +828,7 @@ class Setup extends DolibarrApi
 		if (!empty($lang)) {
 			// Load the translations if this is a new language.
 			if ($this->translations == null || $this->translations->getDefaultLang() !== $lang) {
-				global $conf;
+				global $config;
 				$this->translations = new Translate('', $conf);
 				$this->translations->setDefaultLang($lang);
 				$this->translations->loadLangs($dict);
@@ -1953,7 +1953,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getListOfsocialNetworks($sortfield = "rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $active = 1, $sqlfilters = '')
 	{
-		global $conf;
+		global $config;
 
 		if (!isModEnabled('socialnetworks')) {
 			throw new RestException(400, 'API not available: this dictionary is not enabled by setup');
@@ -2385,7 +2385,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getConf($constantname)
 	{
-		global $conf;
+		global $config;
 
 		if (!DolibarrApiAccess::$user->admin
 			&& (!getDolGlobalString('API_LOGINS_ALLOWED_FOR_CONST_READ') || DolibarrApiAccess::$user->login != getDolGlobalString('API_LOGINS_ALLOWED_FOR_CONST_READ'))) {
@@ -2416,7 +2416,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getCheckIntegrity($target)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		if (!DolibarrApiAccess::$user->admin
 			&& (!getDolGlobalString('API_LOGINS_ALLOWED_FOR_INTEGRITY_CHECK') || DolibarrApiAccess::$user->login != getDolGlobalString('API_LOGINS_ALLOWED_FOR_INTEGRITY_CHECK'))) {
@@ -2735,7 +2735,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getModules()
 	{
-		global $conf;
+		global $config;
 
 		if (!DolibarrApiAccess::$user->admin
 			&& (!getDolGlobalString('API_LOGINS_ALLOWED_FOR_GET_MODULES') || DolibarrApiAccess::$user->login != getDolGlobalString('API_LOGINS_ALLOWED_FOR_GET_MODULES'))) {

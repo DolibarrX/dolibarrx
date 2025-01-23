@@ -263,7 +263,7 @@ $server->register(
  */
 function createProject($authentication, $project)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: createProject login=".$authentication['login']);
 
@@ -359,7 +359,7 @@ function createProject($authentication, $project)
  */
 function getProject($authentication, $id = '', $ref = '')
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: getProject login=".$authentication['login']." id=".$id." ref=".$ref);
 

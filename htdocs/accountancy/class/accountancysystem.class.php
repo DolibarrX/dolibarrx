@@ -98,7 +98,7 @@ class AccountancySystem extends CommonObject
 	 */
 	public function fetch($rowid = 0, $ref = '')
 	{
-		global $conf;
+		global $config;
 
 		if ($rowid > 0 || $ref) {
 			$sql  = "SELECT a.rowid, a.pcg_version, a.label, a.active";

@@ -249,7 +249,7 @@ class printing_printgcp extends PrintingDriver
 	 */
 	public function getlistAvailablePrinters()
 	{
-		global $conf;
+		global $config;
 		$ret = array();
 
 		$keyforprovider = '';	// @FIXME
@@ -373,7 +373,7 @@ class printing_printgcp extends PrintingDriver
 	 */
 	public function sendPrintToPrinter($printerid, $printjobtitle, $filepath, $contenttype)
 	{
-		global $conf;
+		global $config;
 		// Check if printer id
 		if (empty($printerid)) {
 			return array('status' => 0, 'errorcode' => '', 'errormessage' => 'No provided printer ID');

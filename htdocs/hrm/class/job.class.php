@@ -954,7 +954,7 @@ class Job extends CommonObject
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("hrm");
 
 		if (!getDolGlobalString('hrm_JOB_ADDON')) {

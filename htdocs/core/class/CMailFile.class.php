@@ -1438,7 +1438,7 @@ class CMailFile
 	 */
 	public static function encodetorfc2822($stringtoencode)
 	{
-		global $conf;
+		global $config;
 		return '=?'.$config->file->character_set_client.'?B?'.base64_encode($stringtoencode).'?=';
 	}
 
@@ -1724,7 +1724,7 @@ class CMailFile
 	public function write_body($msgtext)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$out = '';
 
@@ -1900,7 +1900,7 @@ class CMailFile
 	public function check_server_port($host, $port)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$_retVal = 0;
 		$timeout = 5; // Timeout in seconds
@@ -2096,7 +2096,7 @@ class CMailFile
 	 */
 	private function findHtmlImagesIsSrcData($images_dir)
 	{
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 

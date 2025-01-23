@@ -1108,7 +1108,7 @@ abstract class CommonInvoice extends CommonObject
 	public function demande_prelevement(User $fuser, float $amount = 0, string $type = 'direct-debit', string $sourcetype = 'facture', int $checkduplicateamongall = 0, int $ribId = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$error = 0;
 

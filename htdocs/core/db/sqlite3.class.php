@@ -69,7 +69,7 @@ class DoliDBSqlite3 extends DoliDB
 	 */
 	public function __construct($type, $host, $user, $pass, $name = '', $port = 0)
 	{
-		global $conf;
+		global $config;
 
 		// Note that having "static" property for "$forcecharset" and "$forcecollate" will make error here in strict mode, so they are not static
 		if (!empty($config->db->character_set)) {
@@ -773,7 +773,7 @@ class DoliDBSqlite3 extends DoliDB
 	 */
 	public function encrypt($fieldorvalue, $withQuotes = 1)
 	{
-		global $conf;
+		global $config;
 
 		// Type of encryption (2: AES (recommended), 1: DES , 0: no encryption)
 		$cryptType = (!empty($config->db->dolibarr_main_db_encryption) ? $config->db->dolibarr_main_db_encryption : 0);
@@ -802,7 +802,7 @@ class DoliDBSqlite3 extends DoliDB
 	 */
 	public function decrypt($value)
 	{
-		global $conf;
+		global $config;
 
 		// Type of encryption (2: AES (recommended), 1: DES , 0: no encryption)
 		$cryptType = ($config->db->dolibarr_main_db_encryption ? $config->db->dolibarr_main_db_encryption : 0);

@@ -33,7 +33,7 @@
  */
 function loan_prepare_head($object)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$tab = 0;
 	$head = array();

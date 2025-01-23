@@ -31,7 +31,7 @@
  */
 function webportalAdminPrepareHead()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$langs->load("website");
 

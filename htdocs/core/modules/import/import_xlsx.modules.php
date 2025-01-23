@@ -198,7 +198,7 @@ class ImportXlsx extends ModeleImports
 	public function write_title_example($outputlangs, $headerlinefields)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		$this->workbook->getActiveSheet()->getStyle('1')->getFont()->setBold(true);
 		$this->workbook->getActiveSheet()->getStyle('1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_LEFT);
 

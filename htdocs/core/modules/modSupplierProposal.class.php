@@ -44,7 +44,7 @@ class modSupplierProposal extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 		$this->numero = 1120;

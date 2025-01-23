@@ -408,7 +408,7 @@ class Project extends CommonObject
 	 */
 	public function __construct($db)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 
@@ -418,7 +418,7 @@ class Project extends CommonObject
 		$this->labelStatusShort = array(0 => 'Draft', 1 => 'Opened', 2 => 'Closed');
 		$this->labelStatus = array(0 => 'Draft', 1 => 'Opened', 2 => 'Closed');
 
-		global $conf;
+		global $config;
 
 		if (!getDolGlobalString('MAIN_SHOW_TECHNICAL_ID')) {
 			$this->fields['rowid']['visible'] = 0;
@@ -599,7 +599,7 @@ class Project extends CommonObject
 	 */
 	public function update($user, $notrigger = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$error = 0;
 
@@ -978,7 +978,7 @@ class Project extends CommonObject
 	 */
 	public function delete($user, $notrigger = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error = 0;
@@ -1534,7 +1534,7 @@ class Project extends CommonObject
 	 */
 	public function initAsSpecimen()
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 
 		$now = dol_now();
 
@@ -1754,7 +1754,7 @@ class Project extends CommonObject
 	 */
 	public function createFromClone(User $user, $fromid, $clone_contact = false, $clone_task = true, $clone_project_file = false, $clone_task_file = false, $clone_note = true, $move_date = true, $notrigger = 0, $newthirdpartyid = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$error = 0;
 		$clone_project_id = 0;   // For static toolcheck
@@ -1982,7 +1982,7 @@ class Project extends CommonObject
 	 */
 	public function shiftTaskDate($old_project_dt_start)
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 
 		$error = 0;
 		$result = 0;
@@ -2404,7 +2404,7 @@ class Project extends CommonObject
 	 */
 	public function hasDelay()
 	{
-		global $conf;
+		global $config;
 
 		if (!($this->status == self::STATUS_VALIDATED)) {
 			return false;

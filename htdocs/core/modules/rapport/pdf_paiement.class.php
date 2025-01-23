@@ -105,7 +105,7 @@ class pdf_paiement extends CommonDocGenerator
 	 */
 	public function __construct($db)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		// Load translation files required by the page
 		$langs->loadLangs(array("bills", "compta", "main"));
@@ -507,7 +507,7 @@ class pdf_paiement extends CommonDocGenerator
 	public function Body(&$pdf, $page, $lines, $outputlangs)
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		$pdf->SetFont('', '', $default_font_size - 1);

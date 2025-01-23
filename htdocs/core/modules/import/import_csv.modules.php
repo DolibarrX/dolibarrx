@@ -259,7 +259,7 @@ class ImportCsv extends ModeleImports
 	public function import_read_record()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$arrayres = fgetcsv($this->handle, 100000, $this->separator, $this->enclosure, $this->escape);
 

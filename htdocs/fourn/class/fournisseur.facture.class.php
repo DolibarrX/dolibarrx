@@ -1445,7 +1445,7 @@ class FactureFournisseur extends CommonInvoice
 	 */
 	public function delete(User $user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$rowid = $this->id;
 
@@ -2610,7 +2610,7 @@ class FactureFournisseur extends CommonInvoice
 	public function list_replacable_supplier_invoices($socid = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$return = array();
 
@@ -2660,7 +2660,7 @@ class FactureFournisseur extends CommonInvoice
 	public function list_qualified_avoir_supplier_invoices($socid = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$return = array();
 
@@ -2976,7 +2976,7 @@ class FactureFournisseur extends CommonInvoice
 	 */
 	public function getNextNumRef($soc, $mode = 'next')
 	{
-		global $db, $langs, $conf;
+		global $db, $langs, $config;
 		$langs->load("orders");
 
 		// Clean parameters (if not defined or using deprecated value)
@@ -3028,7 +3028,7 @@ class FactureFournisseur extends CommonInvoice
 	 */
 	public function initAsSpecimen($option = '')
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 
 		$now = dol_now();
@@ -3323,7 +3323,7 @@ class FactureFournisseur extends CommonInvoice
 	 */
 	public function hasDelay()
 	{
-		global $conf;
+		global $config;
 
 		$now = dol_now();
 

@@ -106,7 +106,7 @@ abstract class ModelePDFFactures extends CommonDocGenerator
 	 */
 	private function getSwissQrBill(Facture $object, Translate $langs)
 	{
-		global $conf;
+		global $config;
 
 		if (getDolGlobalString('INVOICE_ADD_SWISS_QR_CODE') != 'bottom') {
 			return false;

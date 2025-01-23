@@ -458,7 +458,7 @@ function ajax_dialog($title, $message, $w = 350, $h = 150)
  */
 function ajax_combobox($htmlname, $events = array(), $minLengthToAutocomplete = 0, $forcefocus = 0, $widthTypeOfAutocomplete = 'resolve', $idforemptyvalue = '-1', $morecss = '')
 {
-	global $conf;
+	global $config;
 
 	// select2 can be disabled for smartphones
 	if (!empty($config->browser->layout) && $config->browser->layout == 'phone' && getDolGlobalString('MAIN_DISALLOW_SELECT2_WITH_SMARTPHONE')) {

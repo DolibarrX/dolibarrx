@@ -42,7 +42,7 @@ class modProductBatch extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$this->db = $db;
 		$this->numero = 39000;
@@ -131,7 +131,7 @@ class modProductBatch extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$sql = array();
 

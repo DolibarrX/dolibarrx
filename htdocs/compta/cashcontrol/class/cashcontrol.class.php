@@ -198,7 +198,7 @@ class CashControl extends CommonObject
 	 */
 	public function create(User $user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 

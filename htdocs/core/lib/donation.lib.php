@@ -70,7 +70,7 @@ function donation_admin_prepare_head()
  */
 function donation_prepare_head($object)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$h = 0;
 	$head = array();

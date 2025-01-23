@@ -280,7 +280,7 @@ class dolReceiptPrinter extends Printer
 	 */
 	public function listPrinters()
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 		$line = 0;
@@ -356,7 +356,7 @@ class dolReceiptPrinter extends Printer
 	 */
 	public function listPrintersTemplates()
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 		$line = 0;
@@ -448,7 +448,7 @@ class dolReceiptPrinter extends Printer
 	 */
 	public function addPrinter($name, $type, $profile, $parameter)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 		$sql = "INSERT INTO ".$this->db->prefix()."printer_receipt";
 		$sql .= " (name, fk_type, fk_profile, parameter, entity)";
@@ -498,7 +498,7 @@ class dolReceiptPrinter extends Printer
 	 */
 	public function deletePrinter($printerid)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 		$sql = 'DELETE FROM '.$this->db->prefix().'printer_receipt';
 		$sql .= ' WHERE rowid='.((int) $printerid);
@@ -519,7 +519,7 @@ class dolReceiptPrinter extends Printer
 	 */
 	public function addTemplate($name, $template)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 		$sql = "INSERT INTO ".$this->db->prefix()."printer_receipt_template";
 		$sql .= " (name, template, entity) VALUES ('".$this->db->escape($name)."'";
@@ -540,7 +540,7 @@ class dolReceiptPrinter extends Printer
 	 */
 	public function deleteTemplate($templateid)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 		$sql = 'DELETE FROM '.$this->db->prefix().'printer_receipt_template';
 		$sql .= " WHERE rowid = ".((int) $templateid);
@@ -563,7 +563,7 @@ class dolReceiptPrinter extends Printer
 	 */
 	public function updateTemplate($name, $template, $templateid)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 
 		$sql = "UPDATE ".$this->db->prefix()."printer_receipt_template";

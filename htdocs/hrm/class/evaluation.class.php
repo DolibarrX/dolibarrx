@@ -966,7 +966,7 @@ class Evaluation extends CommonObject
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("hrm");
 
 		if (!getDolGlobalString('HRMTEST_EVALUATION_ADDON')) {

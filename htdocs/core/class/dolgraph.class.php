@@ -203,7 +203,7 @@ class DolGraph
 	 */
 	public function __construct($library = 'auto')
 	{
-		global $conf;
+		global $config;
 		global $theme_bordercolor, $theme_datacolor, $theme_bgcolor;
 
 		// Some default values for the case it is not defined into the theme later.
@@ -1690,7 +1690,7 @@ class DolGraph
 	 */
 	public static function getDefaultGraphSizeForStats($direction, $defaultsize = '')
 	{
-		global $conf;
+		global $config;
 		$defaultsize = (int) $defaultsize;
 
 		if ($direction == 'width') {

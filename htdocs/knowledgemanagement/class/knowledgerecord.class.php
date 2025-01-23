@@ -1031,7 +1031,7 @@ class KnowledgeRecord extends CommonObject
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("knowledgemanagement");
 
 		if (!getDolGlobalString('KNOWLEDGEMANAGEMENT_KNOWLEDGERECORD_ADDON')) {

@@ -508,7 +508,7 @@ function getProductOrService($authentication, $id = 0, $ref = '', $ref_ext = '',
  */
 function createProductOrService($authentication, $product)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$now = dol_now();
 
@@ -674,7 +674,7 @@ function createProductOrService($authentication, $product)
  */
 function updateProductOrService($authentication, $product)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$now = dol_now();
 
@@ -841,7 +841,7 @@ function updateProductOrService($authentication, $product)
  */
 function deleteProductOrService($authentication, $listofidstring)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: deleteProductOrService login=".$authentication['login']);
 
@@ -928,7 +928,7 @@ function deleteProductOrService($authentication, $listofidstring)
  */
 function getListOfProductsOrServices($authentication, $filterproduct)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: getListOfProductsOrServices login=".$authentication['login']);
 

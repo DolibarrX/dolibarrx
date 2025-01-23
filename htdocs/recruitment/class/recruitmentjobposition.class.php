@@ -540,7 +540,7 @@ class RecruitmentJobPosition extends CommonObject
 	 */
 	public function validate($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -715,7 +715,7 @@ class RecruitmentJobPosition extends CommonObject
 	 */
 	public function cloture($user, $status, $note = "", $notrigger = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$error = 0;
 		$now = dol_now();
@@ -1031,7 +1031,7 @@ class RecruitmentJobPosition extends CommonObject
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("recruitment");
 
 		if (!getDolGlobalString('RECRUITMENT_RECRUITMENTJOBPOSITION_ADDON')) {

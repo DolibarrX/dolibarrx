@@ -106,7 +106,7 @@ class mailing_pomme extends MailingTargets
 	 */
 	public function getNbOfRecipients($sql = '')
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT count(distinct(u.email)) as nb";
 		$sql .= " FROM ".MAIN_DB_PREFIX."user as u";

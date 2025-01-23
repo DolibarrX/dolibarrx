@@ -46,7 +46,7 @@ class SupplierOrders extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 		$this->db = $db;
 		$this->order = new CommandeFournisseur($this->db);
 	}

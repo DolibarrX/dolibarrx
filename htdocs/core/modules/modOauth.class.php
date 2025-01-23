@@ -132,7 +132,7 @@ class modOauth extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf;
+		global $config;
 
 		// Clean before activation
 		$this->remove($options);

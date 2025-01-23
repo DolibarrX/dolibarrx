@@ -500,7 +500,7 @@ class Calendar extends CommonObject
 	 */
 	public function validate($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -985,7 +985,7 @@ class Calendar extends CommonObject
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("agenda");
 
 		if (getDolGlobalString('BOOKCAL_MYOBJECT_ADDON')) {

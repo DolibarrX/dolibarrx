@@ -128,7 +128,7 @@ class mod_expensereport_jade extends ModeleNumRefExpenseReport
 	 */
 	public function getNextValue($object)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		// For backward compatibility and restore old behavior to get ref of expense report
 		if (getDolGlobalString('EXPENSEREPORT_USE_OLD_NUMBERING_RULE')) {

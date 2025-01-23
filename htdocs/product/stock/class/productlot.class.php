@@ -508,7 +508,7 @@ class Productlot extends CommonObject
 	 */
 	public function fetch($id = 0, $product_id = 0, $batch = '')
 	{
-		global $conf;
+		global $config;
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
 		$sql = "SELECT";
@@ -1279,7 +1279,7 @@ class Productlot extends CommonObject
 	 */
 	public function initAsSpecimen()
 	{
-		global $conf;
+		global $config;
 
 		$now = dol_now();
 

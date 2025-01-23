@@ -116,7 +116,7 @@ $authBackend = new \Sabre\DAV\Auth\Backend\BasicCallBack(
 	 * @return bool					True if login ok, false if not
 	 */
 	static function ($username, $password) {
-		global $user, $conf;
+		global $user, $config;
 		global $dolibarr_main_authentication, $dolibarr_auto_user;
 
 		if (empty($user->login)) {

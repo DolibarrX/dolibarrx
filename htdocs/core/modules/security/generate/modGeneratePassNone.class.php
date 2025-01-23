@@ -53,7 +53,7 @@ class modGeneratePassNone extends ModeleGenPassword
 		$this->length2 = 0;
 
 		$this->db = $db;
-		$this->conf = $conf;
+		$this->conf = $config;
 		$this->langs = $langs;
 		$this->user = $user;
 	}

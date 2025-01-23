@@ -2354,7 +2354,7 @@ class FormFile
 	 */
 	public function showPreview($file, $modulepart, $relativepath, $ruleforpicto = 0, $param = '')
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$out = '';
 		if ($config->browser->layout != 'phone' && !empty($config->use_javascript_ajax)) {

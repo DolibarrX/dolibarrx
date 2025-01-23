@@ -152,7 +152,7 @@ class AdvanceTargetingMailing extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 
 		// Clean parameters
@@ -509,7 +509,7 @@ class AdvanceTargetingMailing extends CommonObject
 	 */
 	public function savequery($user, $arrayquery)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		if (!empty($arrayquery)) {
 			$result = $this->fetch_by_mailing($this->fk_element);
@@ -693,7 +693,7 @@ class AdvanceTargetingMailing extends CommonObject
 	public function query_contact($arrayquery, $withThirdpartyFilter = 0)
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		$sql = "SELECT";
 		$sql .= " t.rowid";

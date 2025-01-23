@@ -31,7 +31,7 @@
  */
 function emailcollectorPrepareHead($object)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$langs->load("emailcollector@emailcollector");
 

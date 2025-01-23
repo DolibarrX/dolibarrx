@@ -30,7 +30,7 @@
  */
 function aiAdminPrepareHead()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$langs->load("agenda");
 

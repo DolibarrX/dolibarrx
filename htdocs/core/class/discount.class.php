@@ -301,7 +301,7 @@ class DiscountAbsolute extends CommonObject
 	 */
 	public function create($user)
 	{
-		global $conf;
+		global $config;
 
 		// Clean parameters
 		$this->amount_ht = price2num($this->amount_ht);
@@ -612,7 +612,7 @@ class DiscountAbsolute extends CommonObject
 	 */
 	public function getAvailableDiscounts($company = null, $user = null, $filter = '', $maxvalue = 0, $discount_type = 0, $multicurrency = 0)
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog(get_class($this)."::getAvailableDiscounts discount_type=".$discount_type, LOG_DEBUG);
 

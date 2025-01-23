@@ -97,7 +97,7 @@ class DolLogsCollector extends MessagesCollector
 	 */
 	public function collect()
 	{
-		global $conf;
+		global $config;
 
 		$uselogfile =  getDolGlobalInt('DEBUGBAR_USE_LOG_FILE');
 

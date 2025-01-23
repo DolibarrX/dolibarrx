@@ -1347,7 +1347,7 @@ class Paiement extends CommonObject
 	 */
 	public function initAsSpecimen($option = '')
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 
 		$now = dol_now();
 		$arraynow = dol_getdate($now);

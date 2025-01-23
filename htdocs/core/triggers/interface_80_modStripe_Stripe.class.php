@@ -68,7 +68,7 @@ class InterfaceStripe extends DolibarrTriggers
 	{
 		// Put here code you want to execute when a Dolibarr business event occurs.
 		// Data and type of action are stored into $object and $action
-		global $langs, $db, $conf;
+		global $langs, $db, $config;
 
 		if (empty($config->stripe) || empty($config->stripe->enabled)) {
 			return 0;

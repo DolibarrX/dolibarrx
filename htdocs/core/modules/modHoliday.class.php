@@ -301,7 +301,7 @@ class modHoliday extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf;
+		global $config;
 
 		// Permissions
 		$this->remove($options);

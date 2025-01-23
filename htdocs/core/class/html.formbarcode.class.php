@@ -135,7 +135,7 @@ class FormBarCode
 	 */
 	public function selectBarcodeType($selected = 0, $htmlname = 'barcodetype_id', $useempty = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$out = '';
 
@@ -204,7 +204,7 @@ class FormBarCode
 	 */
 	public function formBarcodeType($page, $selected = 0, $htmlname = 'barcodetype_id')
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$out = '';
 		if ($htmlname != "none") {
 			$out .= '<form method="post" action="'.$page.'">';

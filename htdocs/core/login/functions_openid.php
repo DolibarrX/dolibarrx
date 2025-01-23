@@ -39,7 +39,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/class/openid.class.php';
  */
 function check_user_password_openid($usertotest, $passwordtotest, $entitytotest)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("functions_openid::check_user_password_openid usertotest=".$usertotest);
 

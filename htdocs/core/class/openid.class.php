@@ -379,7 +379,7 @@ class SimpleOpenID
 	public function GetOpenIDServer($url = '')
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 		if (empty($url)) {
@@ -502,7 +502,7 @@ class SimpleOpenID
 	 */
 	public function sendDiscoveryRequestToGetXRDS($url = '')
 	{
-		global $conf;
+		global $config;
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 		if (empty($url)) {

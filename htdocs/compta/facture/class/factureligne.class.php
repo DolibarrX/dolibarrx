@@ -535,7 +535,7 @@ class FactureLigne extends CommonInvoiceLine
 	 */
 	public function update($user = null, $notrigger = 0)
 	{
-		global $user, $conf;
+		global $user, $config;
 
 		$error = 0;
 

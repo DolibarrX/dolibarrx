@@ -164,7 +164,7 @@ $server->register(
  */
 function createPayment($authentication, $payment)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$now = dol_now();
 

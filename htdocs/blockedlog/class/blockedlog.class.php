@@ -162,7 +162,7 @@ class BlockedLog
 	 */
 	public function loadTrackedEvents()
 	{
-		global $conf;
+		global $config;
 
 		$this->trackedevents = array();
 
@@ -1089,7 +1089,7 @@ class BlockedLog
 	 */
 	public function getPreviousHash($withlock = 0, $beforeid = 0)
 	{
-		global $conf;
+		global $config;
 
 		$previoussignature = '';
 
@@ -1162,7 +1162,7 @@ class BlockedLog
 	 */
 	public function getLog($element, $fk_object, $limit = 0, $sortfield = '', $sortorder = '', $search_fk_user = -1, $search_start = -1, $search_end = -1, $search_ref = '', $search_amount = '', $search_code = '')
 	{
-		global $conf;
+		global $config;
 		//global $cachedlogs;
 
 		/* $cachedlogs allow fastest search */
@@ -1276,7 +1276,7 @@ class BlockedLog
 	 */
 	public function alreadyUsed($ignoresystem = 0)
 	{
-		global $conf;
+		global $config;
 
 		$result = false;
 

@@ -304,7 +304,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 	public function get_substitutionarray_project_reference($refdetail, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		return array(
 			'projref_type' => $refdetail['type'],

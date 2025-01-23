@@ -126,7 +126,7 @@ class mod_recruitmentcandidature_standard extends ModeleNumRefRecruitmentCandida
 	 */
 	public function getNextValue($object)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		// First we get the max value
 		$posindice = strlen($this->prefix) + 6;

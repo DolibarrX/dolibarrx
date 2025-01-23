@@ -169,7 +169,7 @@ function xyzToUnixTimestamp($mysqldate)
  */
 function displayBox($selectedDate, $month, $year)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	//print "$selectedDate,$month,$year";
 	$thedate = dol_mktime(12, 0, 0, $month, 1, $year);

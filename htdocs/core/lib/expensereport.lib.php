@@ -31,7 +31,7 @@
  */
 function expensereport_prepare_head($object)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$h = 0;
 	$head = array();
@@ -98,7 +98,7 @@ function expensereport_prepare_head($object)
  */
 function payment_expensereport_prepare_head(PaymentExpenseReport $object)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$h = 0;
 	$head = array();

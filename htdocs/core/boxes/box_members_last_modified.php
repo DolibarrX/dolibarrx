@@ -69,7 +69,7 @@ class box_members_last_modified extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 		$langs->load("boxes");
 
 		$this->max = $max;

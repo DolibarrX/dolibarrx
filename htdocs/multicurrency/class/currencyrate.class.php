@@ -96,7 +96,7 @@ class CurrencyRate extends CommonObjectLine
 	 */
 	public function create(User $user, int $fk_multicurrency, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog('CurrencyRate::create', LOG_DEBUG);
 

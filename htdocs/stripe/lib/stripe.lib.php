@@ -32,7 +32,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
  */
 function stripeadmin_prepare_head()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$h = 0;
 	$head = array();
@@ -65,7 +65,7 @@ function stripeadmin_prepare_head()
  */
 function html_print_stripe_footer($fromcompany, $langs)
 {
-	global $conf;
+	global $config;
 
 	// Juridical status
 	$line1 = "";

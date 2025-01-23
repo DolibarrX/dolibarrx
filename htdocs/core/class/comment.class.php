@@ -348,7 +348,7 @@ class Comment extends CommonObject
 	 */
 	public function fetchAllFor($element_type, $fk_element)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$this->comments = array();
 

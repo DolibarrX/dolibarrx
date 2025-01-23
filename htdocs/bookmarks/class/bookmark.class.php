@@ -112,7 +112,7 @@ class Bookmark extends CommonObject
 	 */
 	public function fetch($id)
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT rowid, fk_user, dateb as datec, url, target,";
 		$sql .= " title, position, favicon";
@@ -151,7 +151,7 @@ class Bookmark extends CommonObject
 	 */
 	public function create()
 	{
-		global $conf;
+		global $config;
 
 		// Clean parameters
 		$this->url = trim($this->url);

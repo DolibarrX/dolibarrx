@@ -216,7 +216,7 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 	 */
 	public function fetch($rowid)
 	{
-		global $conf;
+		global $config;
 
 		// Recupere liste des boites d'un user si ce dernier a sa propre liste
 		$sql = "SELECT b.rowid as id, b.box_id, b.position, b.box_order, b.fk_user";
@@ -255,7 +255,7 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 	 */
 	public function showBox($head = null, $contents = null, $nooutput = 0)
 	{
-		global $langs, $user, $conf;
+		global $langs, $user, $config;
 
 		if (!empty($this->hidden)) {
 			return "\n<!-- Box ".get_class($this)." hidden -->\n"; // Nothing done if hidden (for example when user has no permission)

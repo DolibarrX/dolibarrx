@@ -1106,7 +1106,7 @@ class AccountancyExport
 	 */
 	public function exportWinfic($objectLines, $exportFile = null)
 	{
-		global $conf;
+		global $config;
 
 		$end_line = "\r\n";
 		$index = 1;
@@ -1316,7 +1316,7 @@ class AccountancyExport
 	 */
 	public function exportConfigurable($objectLines, $exportFile = null)
 	{
-		global $conf;
+		global $config;
 
 		$separator = $this->separator;
 

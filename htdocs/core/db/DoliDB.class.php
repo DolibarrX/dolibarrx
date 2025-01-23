@@ -266,7 +266,7 @@ abstract class DoliDB implements Database
 	 */
 	public function plimit($limit = 0, $offset = 0)
 	{
-		global $conf;
+		global $config;
 		if (empty($limit)) {
 			return "";
 		}

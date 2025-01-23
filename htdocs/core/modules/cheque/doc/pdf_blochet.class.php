@@ -432,7 +432,7 @@ class BordereauChequeBlochet extends ModeleChequeReceipts
 	 */
 	protected function _pagefoot(&$pdf, $object, $outputlangs, $hidefreetext = 0)
 	{
-		global $conf;
+		global $config;
 
 		$showdetails = getDolGlobalInt('MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS', 0);
 

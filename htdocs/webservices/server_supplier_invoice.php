@@ -250,7 +250,7 @@ $server->register(
  */
 function getSupplierInvoice($authentication, $id = 0, $ref = '', $ref_ext = '')
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: getSupplierInvoice login=".$authentication['login']." id=".$id." ref=".$ref." ref_ext=".$ref_ext);
 
@@ -355,7 +355,7 @@ function getSupplierInvoice($authentication, $id = 0, $ref = '', $ref_ext = '')
  */
 function getSupplierInvoicesForThirdParty($authentication, $idthirdparty)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: getSupplierInvoicesForThirdParty login=".$authentication['login']." idthirdparty=".$idthirdparty);
 

@@ -222,7 +222,7 @@ class Holiday extends CommonObject
 	 */
 	public function getNextNumRef($objsoc)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("order");
 
 		if (!getDolGlobalString('HOLIDAY_ADDON')) {
@@ -299,7 +299,7 @@ class Holiday extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 
 		$now = dol_now();
@@ -1665,7 +1665,7 @@ class Holiday extends CommonObject
 	 */
 	public function updateSoldeCP($userID = 0, $nbHoliday = 0, $fk_type = 0)
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 
 		$error = 0;
 
@@ -1913,7 +1913,7 @@ class Holiday extends CommonObject
 	 */
 	public function fetchUsers($stringlist = true, $type = true, $filters = '')
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog(get_class($this)."::fetchUsers", LOG_DEBUG);
 
@@ -2396,7 +2396,7 @@ class Holiday extends CommonObject
 	 */
 	public function info($id)
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT f.rowid, f.statut as status,";
 		$sql .= " f.date_create as datec,";

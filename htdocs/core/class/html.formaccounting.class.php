@@ -480,7 +480,7 @@ class FormAccounting extends Form
 	public function select_auxaccount($selectid, $htmlname = 'account_num_aux', $showempty = 0, $morecss = 'minwidth100 maxwidth300 maxwidthonsmartphone', $usecache = '', $labelhtmlname = '')
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$aux_account = array();
 
@@ -573,7 +573,7 @@ class FormAccounting extends Form
 	public function selectyear_accountancy_bookkepping($selected = '', $htmlname = 'yearid', $useempty = 0, $output_format = 'html')
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$out_array = array();
 

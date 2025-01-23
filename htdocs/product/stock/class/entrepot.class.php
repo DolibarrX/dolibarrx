@@ -244,7 +244,7 @@ class Entrepot extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 
@@ -422,7 +422,7 @@ class Entrepot extends CommonObject
 	 */
 	public function delete($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 
@@ -515,7 +515,7 @@ class Entrepot extends CommonObject
 	 */
 	public function fetch($id, $ref = '')
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog(get_class($this)."::fetch id=".$id." ref=".$ref);
 
@@ -685,7 +685,7 @@ class Entrepot extends CommonObject
 	 */
 	public function nb_products()
 	{
-		global $conf;
+		global $config;
 		// phpcs:enable
 		$ret = array();
 

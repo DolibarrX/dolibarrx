@@ -393,7 +393,7 @@ class FormWebPortal extends Form
 	 */
 	public function selectForForms($objectdesc, $htmlname, $preselectedvalue, $showempty = '', $searchkey = '', $placeholder = '', $morecss = '', $moreparams = '', $forcecombo = 0, $disabled = 0, $selected_input_value = '', $objectfield = '')
 	{
-		global $conf;
+		global $config;
 
 		$objecttmp = null;
 

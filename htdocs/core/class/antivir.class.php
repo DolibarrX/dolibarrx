@@ -72,7 +72,7 @@ class AntiVir
 	public function dol_avscan_file($file)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		if (preg_match('/\.virus$/i', $file)) {
 			$this->errors[] = 'File has an extension saying file is a virus';

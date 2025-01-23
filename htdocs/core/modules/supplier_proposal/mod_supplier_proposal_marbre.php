@@ -133,7 +133,7 @@ class mod_supplier_proposal_marbre extends ModeleNumRefSupplierProposal
 	 */
 	public function getNextValue($objsoc, $supplier_proposal)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		// First, we get the max value
 		$posindice = strlen($this->prefix) + 6;

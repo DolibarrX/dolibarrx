@@ -78,7 +78,7 @@ function payment_prepare_head(Paiement $object)
  */
 function bankline_prepare_head($id)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$h = 0;
 	$head = array();
@@ -113,7 +113,7 @@ function bankline_prepare_head($id)
  */
 function payment_supplier_prepare_head(Paiement $object)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$h = 0;
 	$head = array();

@@ -142,7 +142,7 @@ class MailmanSpip
 	 */
 	private function callMailman($object, $url, $list)
 	{
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 		//Patterns that are going to be replaced with their original value

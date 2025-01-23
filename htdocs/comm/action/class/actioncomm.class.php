@@ -429,7 +429,7 @@ class ActionComm extends CommonObject
 	 */
 	public function create(User $user, $notrigger = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$error = 0;
 		$now = dol_now();
@@ -2584,7 +2584,7 @@ class ActionComm extends CommonObject
 	 */
 	public function hasDelay()
 	{
-		global $conf;
+		global $config;
 
 		$now = dol_now();
 

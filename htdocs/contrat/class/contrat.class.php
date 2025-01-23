@@ -317,7 +317,7 @@ class Contrat extends CommonObject
 	 */
 	public function getNextNumRef($soc)
 	{
-		global $db, $langs, $conf;
+		global $db, $langs, $config;
 		$langs->load("contracts");
 
 		if (getDolGlobalString('CONTRACT_ADDON')) {
@@ -525,7 +525,7 @@ class Contrat extends CommonObject
 	public function validate(User $user, $force_number = '', $notrigger = 0)
 	{
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-		global $conf;
+		global $config;
 
 		$now = dol_now();
 
@@ -1204,7 +1204,7 @@ class Contrat extends CommonObject
 	 */
 	public function delete($user)
 	{
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -1331,7 +1331,7 @@ class Contrat extends CommonObject
 	 */
 	public function update($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 
 		// Clean parameters
@@ -2447,7 +2447,7 @@ class Contrat extends CommonObject
 	 */
 	public function initAsSpecimen()
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 
 		// Load array of products prodids
 		$num_prods = 0;

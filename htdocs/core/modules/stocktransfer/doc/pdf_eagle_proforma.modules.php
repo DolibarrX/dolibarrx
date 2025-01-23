@@ -1136,7 +1136,7 @@ class pdf_eagle_proforma extends ModelePDFStockTransfer
 	 */
 	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0, $currency = '')
 	{
-		global $conf;
+		global $config;
 
 		// Force to disable hidetop and hidebottom
 		$hidebottom = 0;

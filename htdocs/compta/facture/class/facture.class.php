@@ -2463,7 +2463,7 @@ class Facture extends CommonInvoice
 	 */
 	public function fetchPreviousNextSituationInvoice()
 	{
-		global $conf;
+		global $config;
 
 		$this->tab_previous_situation_invoice = array();
 		$this->tab_next_situation_invoice = array();
@@ -2804,7 +2804,7 @@ class Facture extends CommonInvoice
 	 */
 	public function delete($user, $notrigger = 0, $idwarehouse = -1)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$rowid = $this->id;
@@ -4889,7 +4889,7 @@ class Facture extends CommonInvoice
 	public function list_replacable_invoices($socid = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$return = array();
 
@@ -4944,7 +4944,7 @@ class Facture extends CommonInvoice
 	public function list_qualified_avoir_invoices($socid = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$return = array();
 
@@ -5392,7 +5392,7 @@ class Facture extends CommonInvoice
 	public function get_prev_sits()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'facture';
 		$sql .= ' WHERE situation_cycle_ref = '.((int) $this->situation_cycle_ref);
@@ -5469,7 +5469,7 @@ class Facture extends CommonInvoice
 	public function is_last_in_cycle()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		if (!empty($this->situation_cycle_ref)) {
 			// No point in testing anything if we're not inside a cycle
@@ -5532,7 +5532,7 @@ class Facture extends CommonInvoice
 	 */
 	public function hasDelay()
 	{
-		global $conf;
+		global $config;
 
 		$now = dol_now();
 
@@ -5566,7 +5566,7 @@ class Facture extends CommonInvoice
 	 */
 	public function displayRetainedWarranty()
 	{
-		global $conf;
+		global $config;
 
 		// TODO : add a flag on invoices to store this conf : INVOICE_RETAINED_WARRANTY_LIMITED_TO_FINAL_SITUATION
 
@@ -5604,7 +5604,7 @@ class Facture extends CommonInvoice
 	 */
 	public function getRetainedWarrantyAmount($rounding = -1)
 	{
-		global $conf;
+		global $config;
 		if (empty($this->retained_warranty)) {
 			return -1;
 		}

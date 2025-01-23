@@ -352,7 +352,7 @@ function invoice_rec_prepare_head($object)
  */
 function supplier_invoice_rec_prepare_head($object)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$h = 0;
 	$head = array();

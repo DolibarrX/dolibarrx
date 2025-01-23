@@ -41,7 +41,7 @@ class modResource extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $langs, $conf;	// $langs may be used by the tpl files.
+		global $langs, $config;	// $langs may be used by the tpl files.
 
 		$this->db = $db;
 

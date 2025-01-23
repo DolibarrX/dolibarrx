@@ -65,7 +65,7 @@ class box_commandes extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 		$langs->load('orders');
 
 		$this->max = $max;

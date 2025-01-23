@@ -30,7 +30,7 @@
  */
 function fiscalyear_prepare_head(Fiscalyear $object)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$h = 0;
 	$head = array();

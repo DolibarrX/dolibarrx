@@ -860,7 +860,7 @@ class BOM extends CommonObject
 	 */
 	public function getNextNumRef($prod)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("mrp");
 
 		if (getDolGlobalString('BOM_ADDON')) {
@@ -909,7 +909,7 @@ class BOM extends CommonObject
 	 */
 	public function validate($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 

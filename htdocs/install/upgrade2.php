@@ -4365,7 +4365,7 @@ function migrate_reload_modules($db, $langs, $conf, $listofmodule = array(), $fo
  */
 function migrate_reload_menu($db, $langs, $conf)
 {
-	global $conf;
+	global $config;
 	dolibarr_install_syslog("upgrade2::migrate_reload_menu");
 
 	// Define list of menu handlers to initialize

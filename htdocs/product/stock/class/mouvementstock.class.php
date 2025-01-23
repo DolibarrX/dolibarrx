@@ -859,7 +859,7 @@ class MouvementStock extends CommonObject
 	 */
 	public function livraison($user, $fk_product, $entrepot_id, $qty, $price = 0, $label = '', $datem = '', $eatby = '', $sellby = '', $batch = '', $id_product_batch = 0, $inventorycode = '', $donotcleanemptylines = 0)
 	{
-		global $conf;
+		global $config;
 
 		$skip_batch = empty($config->productbatch->enabled);
 
@@ -886,7 +886,7 @@ class MouvementStock extends CommonObject
 	 */
 	public function reception($user, $fk_product, $entrepot_id, $qty, $price = 0, $label = '', $eatby = '', $sellby = '', $batch = '', $datem = '', $id_product_batch = 0, $inventorycode = '', $donotcleanemptylines = 0)
 	{
-		global $conf;
+		global $config;
 
 		$skip_batch = empty($config->productbatch->enabled);
 

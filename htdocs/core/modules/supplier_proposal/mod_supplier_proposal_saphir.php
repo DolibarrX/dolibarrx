@@ -131,7 +131,7 @@ class mod_supplier_proposal_saphir extends ModeleNumRefSupplierProposal
 	 */
 	public function getNextValue($objsoc, $supplier_proposal)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 

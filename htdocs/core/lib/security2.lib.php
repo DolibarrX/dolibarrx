@@ -575,7 +575,7 @@ function getRandomPassword($generic = false, $replaceambiguouschars = null, $len
  */
 function dolJSToSetRandomPassword($htmlname, $htmlnameofbutton = 'generate_token', $generic = 1)
 {
-	global $conf;
+	global $config;
 
 	$out = '';
 

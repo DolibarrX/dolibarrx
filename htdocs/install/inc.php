@@ -419,7 +419,7 @@ if (GETPOST('lang', 'aZ09')) {
  */
 function conf($dolibarr_main_document_root)
 {
-	global $conf;
+	global $config;
 	global $dolibarr_main_db_type;
 	global $dolibarr_main_db_host;
 	global $dolibarr_main_db_port;
@@ -534,7 +534,7 @@ function conf($dolibarr_main_document_root)
  */
 function pHeader($subtitle, $next, $action = 'set', $param = '', $forcejqueryurl = '', $csstable = 'main-inside')
 {
-	global $conf;
+	global $config;
 	global $langs;
 	$langs->load("main");
 	$langs->load("admin");

@@ -30,7 +30,7 @@
  */
 function bomAdminPrepareHead()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$langs->load("mrp");
 
@@ -78,7 +78,7 @@ function bomAdminPrepareHead()
  */
 function bomPrepareHead($object)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$langs->load("mrp");
 

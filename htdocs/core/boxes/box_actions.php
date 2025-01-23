@@ -211,7 +211,7 @@ class box_actions extends ModeleBoxes
 	 */
 	public function showBox($head = null, $contents = null, $nooutput = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$out = parent::showBox($this->info_box_head, $this->info_box_contents, 1);
 
 		if (getDolGlobalString('SHOW_DIALOG_HOMEPAGE')) {

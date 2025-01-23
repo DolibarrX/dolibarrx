@@ -49,7 +49,7 @@ class Contracts extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 		$this->db = $db;
 		$this->contract = new Contrat($this->db);
 	}
@@ -102,7 +102,7 @@ class Contracts extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $thirdparty_ids = '', $sqlfilters = '', $properties = '', $pagination_data = false)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		if (!DolibarrApiAccess::$user->hasRight('contrat', 'lire')) {
 			throw new RestException(403);

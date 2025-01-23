@@ -251,7 +251,7 @@ class modExpenseReport extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf;
+		global $config;
 
 		$result = $this->_load_tables('/install/mysql/', 'expensereport');
 		if ($result < 0) {

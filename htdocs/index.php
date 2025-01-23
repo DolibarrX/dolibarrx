@@ -827,7 +827,7 @@ $db->close();
  */
 function showWeather($totallate, $text, $options, $morecss = '')
 {
-	global $conf;
+	global $config;
 
 	$weather = getWeatherStatus($totallate);
 	return img_weather($text, $weather->picto, $options, 0, $morecss);

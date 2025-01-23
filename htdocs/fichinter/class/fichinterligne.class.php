@@ -311,7 +311,7 @@ class FichinterLigne extends CommonObjectLine
 	public function update_total()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$this->db->begin();
 

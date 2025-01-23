@@ -128,7 +128,7 @@ class mod_expedition_safor extends ModelNumRefExpedition
 	 */
 	public function getNextValue($objsoc, $shipment)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";

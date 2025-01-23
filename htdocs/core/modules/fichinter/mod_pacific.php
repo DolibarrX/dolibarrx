@@ -131,7 +131,7 @@ class mod_pacific extends ModeleNumRefFicheinter
 	 */
 	public function getNextValue($objsoc = '', $object = '')
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		// First, we get the max value
 		$posindice = strlen($this->prefix) + 6;

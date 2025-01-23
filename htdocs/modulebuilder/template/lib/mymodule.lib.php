@@ -28,7 +28,7 @@
  */
 function mymoduleAdminPrepareHead()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	// global $db;
 	// $extrafields = new ExtraFields($db);

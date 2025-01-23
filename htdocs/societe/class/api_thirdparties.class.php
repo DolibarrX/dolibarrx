@@ -453,7 +453,7 @@ class Thirdparties extends DolibarrApi
 	 */
 	public function setThirdpartyPriceLevel($id, $priceLevel)
 	{
-		global $conf;
+		global $config;
 
 		if (!isModEnabled('societe')) {
 			throw new RestException(501, 'Module "Thirdparties" needed for this request');

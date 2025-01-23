@@ -81,7 +81,7 @@ class ExpeditionStats extends Stats
 	 */
 	public function __construct($db, $socid, $mode, $userId = 0)
 	{
-		global $user, $conf;
+		global $user, $config;
 
 		$this->db = $db;
 

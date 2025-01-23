@@ -837,7 +837,7 @@ class BonPrelevement extends CommonObject
 	 */
 	private function getListInvoices($amounts = 0, $type = '')
 	{
-		global $conf;
+		global $config;
 
 		$arr = array();
 

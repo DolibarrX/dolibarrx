@@ -2024,7 +2024,7 @@ class Form
 	public function select_remises($selected, $htmlname, $filter, $socid, $maxvalue = 0)
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		// On recherche les remises
 		$sql = "SELECT re.rowid, re.amount_ht, re.amount_tva, re.amount_ttc,";
@@ -2680,7 +2680,7 @@ class Form
 	public function select_produits($selected = 0, $htmlname = 'productid', $filtertype = '', $limit = 0, $price_level = 0, $status = 1, $finished = 2, $selected_input_value = '', $hidelabel = 0, $ajaxoptions = array(), $socid = 0, $showempty = '1', $forcecombo = 0, $morecss = '', $hidepriceinlabel = 0, $warehouseStatus = '', $selected_combinations = null, $nooutput = 0, $status_purchase = -1, $warehouseId = 0)
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		$out = '';
 
@@ -3695,7 +3695,7 @@ class Form
 	public function select_produits_fournisseurs($socid, $selected = '', $htmlname = 'productid', $filtertype = '', $filtre = '', $ajaxoptions = array(), $hidelabel = 0, $alsoproductwithnosupplierprice = 0, $morecss = '', $placeholder = '')
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 		global $price_level, $status, $finished;
 
 		if (!isset($status)) {
@@ -4193,7 +4193,7 @@ class Form
 	public function select_product_fourn_price($productid, $htmlname = 'productfournpriceid', $selected_supplier = 0)
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		$langs->load('stocks');
 
@@ -4622,7 +4622,7 @@ class Form
 	 */
 	public function getSelectConditionsPaiements($selected = 0, $htmlname = 'condid', $filtertype = -1, $addempty = 0, $noinfoadmin = 0, $morecss = '', $deposit_percent = -1)
 	{
-		global $langs, $user, $conf;
+		global $langs, $user, $config;
 
 		$out = '';
 		dol_syslog(__METHOD__ . " selected=" . $selected . ", htmlname=" . $htmlname, LOG_DEBUG);
@@ -4717,7 +4717,7 @@ class Form
 	public function select_types_paiements($selected = '', $htmlname = 'paiementtype', $filtertype = '', $format = 0, $empty = 1, $noadmininfo = 0, $maxlength = 0, $active = 1, $morecss = '', $nooutput = 0)
 	{
 		// phpcs:enable
-		global $langs, $user, $conf;
+		global $langs, $user, $config;
 
 		$out = '';
 
@@ -5658,7 +5658,7 @@ class Form
 	 */
 	public function formconfirm($page, $title, $question, $action, $formquestion = '', $selectedchoice = '', $useajax = 0, $height = 0, $width = 500, $disableformtag = 0, $labelbuttonyes = 'Yes', $labelbuttonno = 'No')
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$more = '<!-- formconfirm - before call, page=' . dol_escape_htmltag($page) . ' -->';
 		$formconfirm = '';
@@ -6446,7 +6446,7 @@ class Form
 	public function form_multicurrency_rate($page, $rate = 0.0, $htmlname = 'multicurrency_tx', $currency = '')
 	{
 		// phpcs:enable
-		global $langs, $mysoc, $conf;
+		global $langs, $mysoc, $config;
 
 		if ($htmlname != "none") {
 			print '<form method="POST" action="' . $page . '">';
@@ -7816,7 +7816,7 @@ class Form
 	 */
 	public function selectTickets($selected = '', $htmlname = 'ticketid', $filtertype = '', $limit = 0, $status = 1, $selected_input_value = '', $hidelabel = 0, $ajaxoptions = array(), $socid = 0, $showempty = '1', $forcecombo = 0, $morecss = '', $selected_combinations = null, $nooutput = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$out = '';
 
@@ -7882,7 +7882,7 @@ class Form
 	 */
 	public function selectTicketsList($selected = '', $htmlname = 'ticketid', $filtertype = '', $limit = 20, $filterkey = '', $status = 1, $outputmode = 0, $showempty = '1', $forcecombo = 0, $morecss = '')
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$out = '';
 		$outarray = array();
@@ -8042,7 +8042,7 @@ class Form
 	 */
 	public function selectProjects($selected = '', $htmlname = 'projectid', $filtertype = '', $limit = 0, $status = 1, $selected_input_value = '', $hidelabel = 0, $ajaxoptions = array(), $socid = 0, $showempty = '1', $forcecombo = 0, $morecss = '', $selected_combinations = null, $nooutput = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$out = '';
 
@@ -8107,7 +8107,7 @@ class Form
 	 */
 	public function selectProjectsList($selected = '', $htmlname = 'projectid', $filtertype = '', $limit = 20, $filterkey = '', $status = 1, $outputmode = 0, $showempty = '1', $forcecombo = 0, $morecss = '')
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$out = '';
 		$outarray = array();
@@ -8271,7 +8271,7 @@ class Form
 	 */
 	public function selectMembers($selected = '', $htmlname = 'adherentid', $filtertype = '', $limit = 0, $status = 1, $selected_input_value = '', $hidelabel = 0, $ajaxoptions = array(), $socid = 0, $showempty = '1', $forcecombo = 0, $morecss = '', $selected_combinations = null, $nooutput = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$out = '';
 
@@ -8339,7 +8339,7 @@ class Form
 	 */
 	public function selectMembersList($selected = '', $htmlname = 'adherentid', $filtertype = '', $limit = 20, $filterkey = '', $status = 1, $outputmode = 0, $showempty = '1', $forcecombo = 0, $morecss = '')
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$out = '';
 		$outarray = array();
@@ -9072,7 +9072,7 @@ class Form
 	 */
 	public static function selectArrayAjax($htmlname, $url, $id = '', $moreparam = '', $moreparamtourl = '', $disabled = 0, $minimumInputLength = 1, $morecss = '', $callurlonselect = 0, $placeholder = '', $acceptdelayedhtml = 0)
 	{
-		global $conf;
+		global $config;
 		global $delayedhtmlcontent;    // Will be used later outside of this function
 
 		// TODO Use an internal dolibarr component instead of select2
@@ -9177,7 +9177,7 @@ class Form
 	 */
 	public static function selectArrayFilter($htmlname, $array, $id = '', $moreparam = '', $disableFiltering = 0, $disabled = 0, $minimumInputLength = 1, $morecss = '', $callurlonselect = 0, $placeholder = '', $acceptdelayedhtml = 0, $textfortitle = '')
 	{
-		global $conf;
+		global $config;
 		global $delayedhtmlcontent;    // Will be used later outside of this function
 
 		// TODO Use an internal dolibarr component instead of select2
@@ -10378,7 +10378,7 @@ class Form
 	 */
 	public function showbarcode(&$object, $width = 100, $morecss = '')
 	{
-		global $conf;
+		global $config;
 
 		//Check if barcode is filled in the card
 		if (empty($object->barcode)) {
@@ -10754,7 +10754,7 @@ class Form
 	 */
 	public function showCheckAddButtons($cssclass = 'checkforaction', $calljsfunction = 0, $massactionname = "massaction")
 	{
-		global $conf;
+		global $config;
 
 		$out = '';
 

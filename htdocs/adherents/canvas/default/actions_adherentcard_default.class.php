@@ -56,7 +56,7 @@ class ActionsAdherentCardDefault extends ActionsAdherentCardCommon
 	 */
 	private function getTitle($action)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$out = '';
 

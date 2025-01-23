@@ -890,7 +890,7 @@ class Skilldet extends CommonObjectLine
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("hrm");
 
 		if (!getDolGlobalString('hrm_SKILLDET_ADDON')) {

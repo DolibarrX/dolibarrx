@@ -121,7 +121,7 @@ class RemiseCheque extends CommonObject
 	 */
 	public function fetch($id, $ref = '')
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT bc.rowid, bc.datec, bc.fk_user_author, bc.fk_bank_account, bc.amount, bc.ref, bc.statut, bc.nbcheque, bc.ref_ext,";
 		$sql .= " bc.date_bordereau as date_bordereau, bc.type,";
@@ -177,7 +177,7 @@ class RemiseCheque extends CommonObject
 	 */
 	public function create($user, $account_id, $limit, $toRemise)
 	{
-		global $conf;
+		global $config;
 
 		$this->errno = 0;
 		$this->id = 0;
@@ -324,7 +324,7 @@ class RemiseCheque extends CommonObject
 	 */
 	public function delete($user)
 	{
-		global $conf;
+		global $config;
 
 		$this->errno = 0;
 
@@ -374,7 +374,7 @@ class RemiseCheque extends CommonObject
 	 */
 	public function validate($user)
 	{
-		global $conf;
+		global $config;
 
 		$this->errno = 0;
 
@@ -605,7 +605,7 @@ class RemiseCheque extends CommonObject
 	 */
 	public function generatePdf($model, $outputlangs)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		if (empty($model)) {
 			$model = 'blochet';
@@ -685,7 +685,7 @@ class RemiseCheque extends CommonObject
 	 */
 	public function updateAmount()
 	{
-		global $conf;
+		global $config;
 
 		$this->errno = 0;
 
@@ -912,7 +912,7 @@ class RemiseCheque extends CommonObject
 	 */
 	public function initAsSpecimen($option = '')
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 
 		$now = dol_now();
 		$arraynow = dol_getdate($now);

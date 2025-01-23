@@ -158,7 +158,7 @@ class FichinterRec extends Fichinter
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 		$now = dol_now();

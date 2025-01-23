@@ -1359,7 +1359,7 @@ function dolCheckOnFileName($src_file, $dest_file = '')
  */
 function dol_move_uploaded_file($src_file, $dest_file, $allowoverwrite, $disablevirusscan = 0, $uploaderrorcode = 0, $nohook = 0, $varfiles = 'addedfile', $upload_dir = '')
 {
-	global $conf;
+	global $config;
 	global $object, $hookManager;
 
 	$resHook = 0;
@@ -1703,7 +1703,7 @@ function dol_delete_dir_recursive($dir, $count = 0, $nophperrors = 0, $onlysub =
  */
 function dol_delete_preview($object)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	// Define parent dir of elements
 	$element = $object->element;
@@ -1781,7 +1781,7 @@ function dol_delete_preview($object)
  */
 function dol_meta_create($object)
 {
-	global $conf;
+	global $config;
 
 	// Create meta file
 	if (!getDolGlobalString('MAIN_DOC_CREATE_METAFILE')) {
@@ -2160,7 +2160,7 @@ function dol_remove_file_process($filenb, $donotupdatesession = 0, $donotdeletef
  */
 function addFileIntoDatabaseIndex($dir, $file, $fullpathorig = '', $mode = 'uploaded', $setsharekey = 0, $object = null, $forceFullTextIndexation = '')
 {
-	global $db, $user, $conf;
+	global $db, $user, $config;
 
 	$result = 0;
 	$error = 0;

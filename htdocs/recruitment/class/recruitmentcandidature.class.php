@@ -993,7 +993,7 @@ class RecruitmentCandidature extends CommonObject
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("recruitment@recruitment");
 
 		if (!getDolGlobalString('RECRUITMENT_RECRUITMENTCANDIDATURE_ADDON')) {

@@ -30,7 +30,7 @@
  */
 function bookcalAdminPrepareHead()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$langs->load("agenda");
 

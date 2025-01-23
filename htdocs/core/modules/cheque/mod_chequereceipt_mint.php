@@ -120,7 +120,7 @@ class mod_chequereceipt_mint extends ModeleNumRefChequeReceipts
 	 */
 	public function getNextValue($objsoc, $object)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		// First, we get the max value
 		$posindice = strlen($this->prefix) + 6;

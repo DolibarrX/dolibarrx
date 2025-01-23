@@ -356,7 +356,7 @@ class User extends CommonObject
 	/**
 	 * @var stdClass To store personal config
 	 */
-	public $conf;
+	public $config;
 
 	/**
 	 * @var array<string,array<string,mixed>>
@@ -780,7 +780,7 @@ class User extends CommonObject
 	 */
 	public function loadPersonalConf()
 	{
-		global $conf;
+		global $config;
 
 		// Load user->conf for user
 		$sql = "SELECT param, value FROM ".$this->db->prefix()."user_param";
@@ -816,7 +816,7 @@ class User extends CommonObject
 	 */
 	public function loadDefaultValues()
 	{
-		global $conf;
+		global $config;
 
 		if (getDolGlobalString('MAIN_ENABLE_DEFAULT_VALUES')) {
 			// Load user->default_values for user. TODO Save this in memcached ?
@@ -1303,7 +1303,7 @@ class User extends CommonObject
 	 */
 	public function loadRights($moduletag = '', $forcereload = 0)
 	{
-		global $conf;
+		global $config;
 
 		$alreadyloaded = false;
 
@@ -2047,7 +2047,7 @@ class User extends CommonObject
 	public function set_default_rights()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$rd = array();
 		$num = 0;
@@ -3414,7 +3414,7 @@ class User extends CommonObject
 	public function _load_ldap_dn($info, $mode = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		$dn = '';
 		if ($mode == 0) {
 			$dn = getDolGlobalString('LDAP_KEY_USERS') . "=".$info[getDolGlobalString('LDAP_KEY_USERS')]."," . getDolGlobalString('LDAP_USER_DN');
@@ -3712,7 +3712,7 @@ class User extends CommonObject
 	 */
 	public function getNbOfUsers($limitTo, $option = '', $admin = -1)
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT count(rowid) as nb";
 		$sql .= " FROM ".$this->db->prefix()."user";
@@ -3752,7 +3752,7 @@ class User extends CommonObject
 	{
 		// phpcs:enable
 		// TODO: Voir pourquoi le update met à jour avec toutes les valeurs vide (global $user écrase ?)
-		global $user, $conf;
+		global $user, $config;
 
 		$socialnetworks = getArrayOfSocialNetworks();
 
@@ -3832,7 +3832,7 @@ class User extends CommonObject
 	 */
 	private function loadParentOf()
 	{
-		global $conf;
+		global $config;
 
 		$this->parentof = array();
 
@@ -4068,7 +4068,7 @@ class User extends CommonObject
 	 */
 	public function loadStateBoard()
 	{
-		global $conf;
+		global $config;
 
 		$this->nb = array();
 
@@ -4183,7 +4183,7 @@ class User extends CommonObject
 	public function getOnlineVirtualCardUrl($mode = '', $typeofurl = 'external')
 	{
 		global $dolibarr_main_url_root;
-		global $conf;
+		global $config;
 
 		$encodedsecurekey = dol_hash($config->file->instance_unique_id.'uservirtualcard'.$this->id.'-'.$this->login, 'md5');
 		if (isModEnabled('multicompany')) {

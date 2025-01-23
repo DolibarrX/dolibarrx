@@ -706,7 +706,7 @@ class FormOther
 	 */
 	private function _pLineSelect(&$inc, $parent, $lines, $level = 0, $selectedtask = 0, $selectedproject = 0, $disablechildoftaskid = 0)
 	{
-		global $langs, $user, $conf;
+		global $langs, $user, $config;
 
 		$lastprojectid = 0;
 
@@ -866,7 +866,7 @@ class FormOther
 			dol_syslog(__METHOD__.": form_name parameter is deprecated", LOG_WARNING);
 		}
 
-		global $langs, $conf;
+		global $langs, $config;
 
 		$out = '';
 
@@ -1006,7 +1006,7 @@ class FormOther
 	public function CreateColorIcon($color, $module, $name, $x = 12, $y = 12)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$file = $config->$module->dir_temp.'/'.$name.'.png';
 
@@ -1468,7 +1468,7 @@ class FormOther
 	public function select_dictionary($htmlname, $dictionarytable, $keyfield = 'code', $labelfield = 'label', $selected = '', $useempty = 0, $moreattrib = '')
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		$langs->load("admin");
 

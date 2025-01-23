@@ -320,7 +320,7 @@ class doc_generic_task_odt extends ModelePDFTask
 	public function get_substitutionarray_taskstime($tasktime, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		return array(
 			'tasktime_rowid' => $tasktime['rowid'],

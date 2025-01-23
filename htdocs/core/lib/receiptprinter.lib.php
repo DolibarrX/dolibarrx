@@ -33,7 +33,7 @@
  */
 function receiptprinteradmin_prepare_head($mode)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$h = 0;
 	$head = array();

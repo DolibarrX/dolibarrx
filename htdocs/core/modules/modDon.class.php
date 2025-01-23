@@ -154,7 +154,7 @@ class modDon extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf;
+		global $config;
 
 		$result = $this->_load_tables('/install/mysql/', 'don');
 		if ($result < 0) {

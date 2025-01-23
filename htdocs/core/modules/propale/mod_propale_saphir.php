@@ -136,7 +136,7 @@ class mod_propale_saphir extends ModeleNumRefPropales
 	 */
 	public function getNextValue($objsoc, $propal)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 

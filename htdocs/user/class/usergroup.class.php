@@ -602,7 +602,7 @@ class UserGroup extends CommonObject
 	 */
 	public function loadRights($moduletag = '')
 	{
-		global $conf;
+		global $config;
 
 		if ($moduletag && isset($this->_tab_loaded[$moduletag]) && $this->_tab_loaded[$moduletag]) {
 			// Rights for this module are already loaded, so we leave
@@ -699,7 +699,7 @@ class UserGroup extends CommonObject
 	 */
 	public function create($notrigger = 0)
 	{
-		global $user, $conf;
+		global $user, $config;
 
 		$this->datec = dol_now();
 		if (!empty($this->name)) {
@@ -721,7 +721,7 @@ class UserGroup extends CommonObject
 	 */
 	public function update($notrigger = 0)
 	{
-		global $user, $conf;
+		global $user, $config;
 
 		if (!empty($this->name)) {
 			$this->nom = $this->name; // Field for 'name' is called 'nom' in database
@@ -919,7 +919,7 @@ class UserGroup extends CommonObject
 	public function _load_ldap_dn($info, $mode = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		$dn = '';
 		if ($mode == 0) {
 			$dn = getDolGlobalString('LDAP_KEY_GROUPS') . "=".$info[getDolGlobalString('LDAP_KEY_GROUPS')]."," . getDolGlobalString('LDAP_GROUP_DN');
@@ -944,7 +944,7 @@ class UserGroup extends CommonObject
 	public function _load_ldap_info()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$info = array();
 

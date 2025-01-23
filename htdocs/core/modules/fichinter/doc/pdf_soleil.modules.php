@@ -463,7 +463,7 @@ class pdf_soleil extends ModelePDFFicheinter
 	 */
 	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0, $object = null)
 	{
-		global $conf;
+		global $config;
 
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);

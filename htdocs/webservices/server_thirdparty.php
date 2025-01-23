@@ -321,7 +321,7 @@ $server->register(
  */
 function getThirdParty($authentication, $id = '', $ref = '', $ref_ext = '', $barcode = '', $profid1 = '', $profid2 = '')
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: getThirdParty login=".$authentication['login']." id=".$id." ref=".$ref." ref_ext=".$ref_ext." barcode=".$barcode." profid1=".$profid1." profid2=".$profid2);
 
@@ -443,7 +443,7 @@ function getThirdParty($authentication, $id = '', $ref = '', $ref_ext = '', $bar
  */
 function createThirdParty($authentication, $thirdparty)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$now = dol_now();
 
@@ -576,7 +576,7 @@ function createThirdParty($authentication, $thirdparty)
  */
 function updateThirdParty($authentication, $thirdparty)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$now = dol_now();
 
@@ -715,7 +715,7 @@ function updateThirdParty($authentication, $thirdparty)
  */
 function getListOfThirdParties($authentication, $filterthirdparty)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: getListOfThirdParties login=".$authentication['login']);
 
@@ -827,7 +827,7 @@ function getListOfThirdParties($authentication, $filterthirdparty)
  */
 function deleteThirdParty($authentication, $id = '', $ref = '', $ref_ext = '')
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: deleteThirdParty login=".$authentication['login']." id=".$id." ref=".$ref." ref_ext=".$ref_ext);
 

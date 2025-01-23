@@ -537,7 +537,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	protected function _init($array_sql, $options = '')
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		$err = 0;
 
 		$this->db->begin();
@@ -646,7 +646,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 */
 	protected function _remove($array_sql, $options = '')
 	{
-		global $conf;
+		global $config;
 		// phpcs:enable
 		$err = 0;
 
@@ -1095,7 +1095,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 */
 	public function getLastActivationDate()
 	{
-		global $conf;
+		global $config;
 
 		$err = 0;
 
@@ -1125,7 +1125,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 */
 	public function getLastActivationInfo()
 	{
-		global $conf;
+		global $config;
 
 		$err = 0;
 
@@ -1216,7 +1216,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	protected function _unactive()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$err = 0;
 
@@ -1253,7 +1253,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	protected function _load_tables($reldir, $onlywithsuffix = '')
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$error = 0;
 		$dirfound = 0;
@@ -1436,7 +1436,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		// phpcs:enable
 		include_once DOL_DOCUMENT_ROOT.'/core/class/infobox.class.php';
 
-		global $conf;
+		global $config;
 
 		$err = 0;
 
@@ -1532,7 +1532,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function delete_boxes()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$err = 0;
 
@@ -1726,7 +1726,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function delete_cronjobs()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$err = 0;
 
@@ -1757,7 +1757,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function delete_tabs()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$err = 0;
 
@@ -1783,7 +1783,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function insert_tabs()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$err = 0;
 
@@ -1850,7 +1850,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function insert_const()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$err = 0;
 
@@ -1924,7 +1924,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function delete_const()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$err = 0;
 
@@ -2130,7 +2130,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function delete_permissions()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$err = 0;
 
@@ -2264,7 +2264,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function delete_menus()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$err = 0;
 
@@ -2295,7 +2295,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function create_dirs()
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		$err = 0;
 		$name = '';
@@ -2364,7 +2364,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function insert_dirs($name, $dir)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$err = 0;
 
@@ -2403,7 +2403,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function delete_dirs()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$err = 0;
 
@@ -2543,7 +2543,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function delete_module_parts()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$err = 0;
 

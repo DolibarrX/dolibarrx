@@ -76,7 +76,7 @@ $error = 0;
 
 include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
 
-global $conf;
+global $config;
 
 if ($action == 'set_default') {
 	$ret = addDocumentModel($value, $type, $label, $scandir);

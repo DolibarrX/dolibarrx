@@ -495,7 +495,7 @@ class Ticket extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 
@@ -1818,7 +1818,7 @@ class Ticket extends CommonObject
 	 */
 	public function createTicketMessage($user, $notrigger = 0, $filename_list = array(), $mimetype_list = array(), $mimefilename_list = array(), $send_email = false, $public_area = 0)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 
 		$now = dol_now();
@@ -2467,7 +2467,7 @@ class Ticket extends CommonObject
 	 */
 	public function getDefaultRef($thirdparty = null)
 	{
-		global $conf;
+		global $config;
 
 		$defaultref = '';
 		$modele = getDolGlobalString('TICKET_ADDON', 'mod_ticket_simple');
@@ -2543,7 +2543,7 @@ class Ticket extends CommonObject
 	 */
 	public function copyFilesForTicket($forcetrackid = null)
 	{
-		global $conf;
+		global $config;
 
 		// Create form object
 		include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';

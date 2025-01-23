@@ -50,7 +50,7 @@ if (!defined('CDAV_URI_KEY')) {
  */
 function dav_admin_prepare_head()
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$h = 0;
 	$head = array();

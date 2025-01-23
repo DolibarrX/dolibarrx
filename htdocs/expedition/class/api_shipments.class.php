@@ -47,7 +47,7 @@ class Shipments extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 		$this->db = $db;
 		$this->shipment = new Expedition($this->db);
 	}

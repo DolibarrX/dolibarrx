@@ -31,7 +31,7 @@
  */
 function multicurrencyAdminPrepareHead()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$h = 0;
 	$head = array();

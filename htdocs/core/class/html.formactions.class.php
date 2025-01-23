@@ -69,7 +69,7 @@ class FormActions
 	public function form_select_status_action($formname, $selected, $canedit = 1, $htmlname = 'complete', $showempty = 0, $onlyselect = 0, $morecss = 'maxwidth100')
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		$listofstatus = array(
 			'na' => $langs->trans("ActionNotApplicable"),

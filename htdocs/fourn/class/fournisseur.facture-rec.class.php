@@ -339,7 +339,7 @@ class FactureFournisseurRec extends CommonInvoice
 	 */
 	public function create($user, $facFournId, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 		$now = dol_now();
@@ -1737,7 +1737,7 @@ class FactureFournisseurRec extends CommonInvoice
 	 */
 	public function initAsSpecimen($option = '')
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 
 		$now = dol_now();
 		$arraynow = dol_getdate($now);

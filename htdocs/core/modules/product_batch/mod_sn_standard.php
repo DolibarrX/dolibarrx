@@ -125,7 +125,7 @@ class mod_sn_standard extends ModeleNumRefBatch
 	 */
 	public function getNextValue($objsoc, $object)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		// First, we get the max value
 		$posindice = strlen($this->prefix) + 6;

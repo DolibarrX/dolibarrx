@@ -43,7 +43,7 @@ class Subscriptions extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 		$this->db = $db;
 	}
 
@@ -95,7 +95,7 @@ class Subscriptions extends DolibarrApi
 	 */
 	public function index($sortfield = "dateadh", $sortorder = 'ASC', $limit = 100, $page = 0, $sqlfilters = '', $properties = '', $pagination_data = false)
 	{
-		global $conf;
+		global $config;
 
 		$obj_ret = array();
 

@@ -2905,7 +2905,7 @@ function print_projecttasks_array($db, $form, $socid, $projectsListId, $mytasks 
  */
 function getTaskProgressView($task, $label = true, $progressNumber = true, $hideOnProgressNull = false, $spaced = false)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$out = '';
 

@@ -396,7 +396,7 @@ class pdf_ban extends ModeleBankAccountDoc
 	protected function _pagefoot(&$pdf, $object, $outputlangs, $hidefreetext = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$showdetails = !getDolGlobalString('MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS') ? 0 : $config->global->MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS;
 		return 1;

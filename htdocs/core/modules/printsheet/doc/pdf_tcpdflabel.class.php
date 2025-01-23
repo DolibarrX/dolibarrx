@@ -100,7 +100,7 @@ class pdf_tcpdflabel extends CommonStickerGenerator
 	 */
 	public function addSticker(&$pdf, $outputlangs, $param)
 	{
-		global $mysoc, $conf;
+		global $mysoc, $config;
 
 		$textleft = $param['textleft'];
 		$header = $param['textheader'];

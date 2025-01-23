@@ -61,7 +61,7 @@ class mod_codecompta_aquarium extends ModeleAccountancyCode
 	 */
 	public function __construct()
 	{
-		global $conf;
+		global $config;
 		if (!isset($config->global->COMPANY_AQUARIUM_MASK_CUSTOMER) || trim($config->global->COMPANY_AQUARIUM_MASK_CUSTOMER) == '') {
 			$config->global->COMPANY_AQUARIUM_MASK_CUSTOMER = '411';
 		}
@@ -155,7 +155,7 @@ class mod_codecompta_aquarium extends ModeleAccountancyCode
 	public function get_code($db, $societe, $type = '')
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$i = 0;
 		$this->db = $db;

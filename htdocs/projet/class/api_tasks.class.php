@@ -50,7 +50,7 @@ class Tasks extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 		$this->db = $db;
 		$this->task = new Task($this->db);
 	}
@@ -108,7 +108,7 @@ class Tasks extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $sqlfilters = '', $properties = '')
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		if (!DolibarrApiAccess::$user->hasRight('projet', 'lire')) {
 			throw new RestException(403);

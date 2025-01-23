@@ -122,7 +122,7 @@ class Translate
 	 */
 	public function setDefaultLang($srclang = 'en_US')
 	{
-		global $conf;
+		global $config;
 
 		//dol_syslog(get_class($this)."::setDefaultLang srclang=".$srclang,LOG_DEBUG);
 
@@ -482,7 +482,7 @@ class Translate
 	 */
 	public function loadFromDatabase($db)
 	{
-		global $conf;
+		global $config;
 
 		$domain = 'database';
 
@@ -1004,7 +1004,7 @@ class Translate
 	 */
 	public function getLabelFromNumber($number, $isamount = '')
 	{
-		global $conf;
+		global $config;
 
 		$newnumber = $number;
 

@@ -30,7 +30,7 @@
  */
 function establishment_prepare_head($object)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$langs->load('hrm');
 
@@ -67,7 +67,7 @@ function establishment_prepare_head($object)
  */
 function hrm_admin_prepare_head()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$langs->load('hrm');
 

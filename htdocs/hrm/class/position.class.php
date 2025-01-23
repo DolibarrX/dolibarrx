@@ -1012,7 +1012,7 @@ class Position extends CommonObject
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("hrm");
 
 		if (!getDolGlobalString('hrm_POSITION_ADDON')) {

@@ -387,7 +387,7 @@ class EvaluationLine extends CommonObjectLine
 	 */
 	public function fetchAll($sortorder = '', $sortfield = '', $limit = 0, $offset = 0, $filter = '', $filtermode = 'AND')
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
@@ -928,7 +928,7 @@ class EvaluationLine extends CommonObjectLine
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("hrm");
 
 		if (!getDolGlobalString('hrm_EVALUATIONLINE_ADDON')) {

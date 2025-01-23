@@ -111,7 +111,7 @@ class mod_reception_beryl extends ModelNumRefReception
 	 */
 	public function getNextValue($objsoc, $reception)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";

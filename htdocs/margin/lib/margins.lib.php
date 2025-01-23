@@ -31,7 +31,7 @@
  */
 function marges_admin_prepare_head()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$h = 0;
 	$head = array();
@@ -118,7 +118,7 @@ function marges_prepare_head()
  */
 function getMarginInfos($pv_ht, $remise_percent, $tva_tx, $localtax1_tx, $localtax2_tx, $fk_pa, $pa_ht)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$marge_tx_ret = '';
 	$marque_tx_ret = '';

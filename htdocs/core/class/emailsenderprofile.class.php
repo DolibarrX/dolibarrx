@@ -148,7 +148,7 @@ class EmailSenderProfile extends CommonObject
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 

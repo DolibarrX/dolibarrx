@@ -198,7 +198,7 @@ class MailingTargets // This can't be abstract as it is used for some method
 	 */
 	public function addTargetsToDatabase($mailing_id, $cibles)
 	{
-		global $conf;
+		global $config;
 
 		$this->db->begin();
 

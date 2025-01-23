@@ -100,7 +100,7 @@ class Lettering extends BookKeeping
 	 */
 	public function letteringThirdparty($socid)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 

@@ -456,7 +456,7 @@ class SupplierInvoiceLine extends CommonObjectLine
 	 */
 	public function update($notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$pu = price2num($this->subprice);
 		$qty = price2num($this->qty);

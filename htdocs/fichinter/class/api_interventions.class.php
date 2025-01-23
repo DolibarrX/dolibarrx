@@ -62,7 +62,7 @@ class Interventions extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 		$this->db = $db;
 		$this->fichinter = new Fichinter($this->db);
 	}

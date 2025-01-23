@@ -306,7 +306,7 @@ class Context
 	 */
 	public static function getRootConfigUrl()
 	{
-		global $conf;
+		global $config;
 
 		// Init de l'url de base
 		if (getDolGlobalString('WEBPORTAL_ROOT_URL')) {

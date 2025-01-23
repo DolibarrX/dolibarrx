@@ -108,7 +108,7 @@ class Stripe extends CommonObject
 	 */
 	public function getStripeAccount($mode = 'StripeTest', $fk_soc = 0, $entity = -1)
 	{
-		global $conf;
+		global $config;
 
 		$key = '';
 		if ($entity < 0) {
@@ -675,7 +675,7 @@ class Stripe extends CommonObject
 	 */
 	public function getSetupIntent($description, $object, $customer, $key, $status, $usethirdpartyemailforreceiptemail = 0, $confirmnow = false)
 	{
-		global $conf;
+		global $config;
 
 		$noidempotency_key = 1;
 
@@ -994,7 +994,7 @@ class Stripe extends CommonObject
 	 */
 	public function sepaStripe($cu, CompanyPaymentMode $object, $stripeacc = '', $status = 0, $createifnotlinkedtostripe = 0)
 	{
-		global $conf;
+		global $config;
 		$sepa = null;
 
 		$sql = "SELECT sa.stripe_card_ref, sa.proprio, sa.iban_prefix as iban, sa.rum"; // stripe_card_ref is 'src_...' for Stripe SEPA
@@ -1176,7 +1176,7 @@ class Stripe extends CommonObject
 	 */
 	public function createPaymentStripe($amount, $currency, $origin, $item, $source, $customer, $account, $status = 0, $usethirdpartyemailforreceiptemail = 0, $capture = true)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 

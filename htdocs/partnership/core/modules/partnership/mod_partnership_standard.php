@@ -126,7 +126,7 @@ class mod_partnership_standard extends ModeleNumRefPartnership
 	 */
 	public function getNextValue($object)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		// first we get the max value
 		$posindice = strlen($this->prefix) + 6;

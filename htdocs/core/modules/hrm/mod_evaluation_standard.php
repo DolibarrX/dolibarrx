@@ -127,7 +127,7 @@ class mod_evaluation_standard extends ModeleNumRefEvaluation
 	 */
 	public function getNextValue($object)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		// first we get the max value
 		$posindice = strlen($this->prefix) + 6;

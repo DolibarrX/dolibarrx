@@ -42,7 +42,7 @@
 function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 1, $addheaders = array(), $allowedschemes = array('http', 'https'), $localurl = 0, $ssl_verifypeer = -1)
 {
 	//declaring of global variables
-	global $conf;
+	global $config;
 	$USE_PROXY = !getDolGlobalString('MAIN_PROXY_USE') ? 0 : $config->global->MAIN_PROXY_USE;
 	$PROXY_HOST = !getDolGlobalString('MAIN_PROXY_HOST') ? 0 : $config->global->MAIN_PROXY_HOST;
 	$PROXY_PORT = !getDolGlobalString('MAIN_PROXY_PORT') ? 0 : $config->global->MAIN_PROXY_PORT;

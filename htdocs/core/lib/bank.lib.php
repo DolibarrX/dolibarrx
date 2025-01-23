@@ -293,7 +293,7 @@ function account_statement_prepare_head($object, $num)
  */
 function various_payment_prepare_head($object)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$h = 0;
 	$head = array();

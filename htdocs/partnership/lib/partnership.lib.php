@@ -83,7 +83,7 @@ function partnershipAdminPrepareHead()
  */
 function partnershipPrepareHead($object)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$langs->load("partnership");
 

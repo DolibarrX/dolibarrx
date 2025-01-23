@@ -54,7 +54,7 @@ class Projects extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 		$this->db = $db;
 		$this->project = new Project($this->db);
 		$this->task = new Task($this->db);
@@ -310,7 +310,7 @@ class Projects extends DolibarrApi
 	 */
 	public function post($request_data = null)
 	{
-		global $conf;
+		global $config;
 		if (!DolibarrApiAccess::$user->hasRight('projet', 'creer')) {
 			throw new RestException(403, "Insuffisant rights");
 		}

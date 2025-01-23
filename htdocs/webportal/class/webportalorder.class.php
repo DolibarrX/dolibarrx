@@ -269,7 +269,7 @@ class WebPortalOrder extends Commande
 	 */
 	public function getKanbanView($option = '', $arraydata = null)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$selected = (empty($arraydata['selected']) ? 0 : $arraydata['selected']);
 

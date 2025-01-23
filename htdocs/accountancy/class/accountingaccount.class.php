@@ -178,7 +178,7 @@ class AccountingAccount extends CommonObject
 	 */
 	public function fetch($rowid = 0, $account_number = null, $limittocurrentchart = 0, $limittoachartaccount = '')
 	{
-		global $conf;
+		global $config;
 
 		if ($rowid || $account_number) {
 			$sql  = "SELECT a.rowid as rowid, a.datec, a.tms, a.fk_pcg_version, a.pcg_type, a.account_number, a.account_parent, a.label, a.labelshort, a.fk_accounting_category, a.fk_user_author, a.fk_user_modif, a.active, a.reconcilable";
@@ -248,7 +248,7 @@ class AccountingAccount extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 		$now = dol_now();
 

@@ -82,7 +82,7 @@ class ExtraLanguages
 	public function fetch_name_extralanguages($elementtype, $forceload = false)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		if (empty($elementtype)) {
 			return array();

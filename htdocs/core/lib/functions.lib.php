@@ -135,7 +135,7 @@ if (!function_exists('str_contains')) {
  */
 function getMultidirOutput($object, $module = '', $forobject = 0, $mode = 'output')
 {
-	global $conf;
+	global $config;
 
 	if (!is_object($object) && empty($module)) {
 		return null;
@@ -228,7 +228,7 @@ function getMultidirVersion($object, $module = '', $forobject = 0)
  */
 function getDolGlobalString($key, $default = '')
 {
-	global $conf;
+	global $config;
 	return (string) (isset($config->global->$key) ? $config->global->$key : $default);
 }
 
@@ -243,7 +243,7 @@ function getDolGlobalString($key, $default = '')
  */
 function getDolGlobalInt($key, $default = 0)
 {
-	global $conf;
+	global $config;
 	return (int) (isset($config->global->$key) ? $config->global->$key : $default);
 }
 
@@ -258,7 +258,7 @@ function getDolGlobalInt($key, $default = 0)
  */
 function getDolGlobalFloat($key, $default = 0)
 {
-	global $conf;
+	global $config;
 	return (float) (isset($config->global->$key) ? $config->global->$key : $default);
 }
 
@@ -272,7 +272,7 @@ function getDolGlobalFloat($key, $default = 0)
  */
 function getDolGlobalBool($key, $default = false)
 {
-	global $conf;
+	global $config;
 	return (bool) ($config->global->$key ?? $default);
 }
 
@@ -357,7 +357,7 @@ define(
  */
 function isModEnabled($module)
 {
-	global $conf;
+	global $config;
 
 	// Fix old names (map to new names)
 	$arrayconv = MODULE_MAPPING;
@@ -805,7 +805,7 @@ function GETPOSTISARRAY($paramname, $method = 0)
  */
 function GETPOST($paramname, $check = 'alphanohtml', $method = 0, $filter = null, $options = null, $noreplace = 0)
 {
-	global $mysoc, $user, $conf;
+	global $mysoc, $user, $config;
 
 	if (empty($paramname)) {   // Explicit test for null for phan.
 		return 'BadFirstParameterForGETPOST';
@@ -1358,7 +1358,7 @@ if (!function_exists('dol_getprefix')) {
 	{
 		// If prefix is for email (we need to have $conf already loaded for this case)
 		if ($mode == 'email') {
-			global $conf;
+			global $config;
 
 			if (getDolGlobalString('MAIL_PREFIX_FOR_EMAIL_ID')) {	// If MAIL_PREFIX_FOR_EMAIL_ID is set
 				if (getDolGlobalString('MAIL_PREFIX_FOR_EMAIL_ID') != 'SERVER_NAME') {
@@ -1439,7 +1439,7 @@ function dol_include_once($relpath, $classname = '')
  */
 function dol_buildpath($path, $type = 0, $returnemptyifnotfound = 0)
 {
-	global $conf;
+	global $config;
 
 	$path = preg_replace('/^\//', '', $path);
 
@@ -1618,7 +1618,7 @@ function dol_clone($object, $native = 2)
  */
 function dol_size($size, $type = '')
 {
-	global $conf;
+	global $config;
 	if (empty($config->dol_optimize_smallscreen)) {
 		return $size;
 	}
@@ -2565,7 +2565,7 @@ function dolButtonToOpenExportDialog($name, $label, $buttonstring, $exportSiteNa
  */
 function dolButtonToOpenUrlInDialogPopup($name, $label, $buttonstring, $url, $disabled = '', $morecss = 'classlink button bordertransp', $jsonopen = '', $backtopagejsfields = '', $accesskey = '')
 {
-	global $conf;
+	global $config;
 
 	if (strpos($url, '?') > 0) {
 		$url .= '&dol_hide_topmenu=1&dol_hide_leftmenu=1&dol_openinpopup='.urlencode($name);
@@ -3750,7 +3750,7 @@ function dol_getdate($timestamp, $fast = false, $forcetimezone = '')
  */
 function dol_mktime($hour, $minute, $second, $month, $day, $year, $gm = 'auto', $check = 1)
 {
-	global $conf;
+	global $config;
 	//print "- ".$hour.",".$minute.",".$second.",".$month.",".$day.",".$year.",".$_SERVER["WINDIR"]." -";
 
 	if ($gm === 'auto') {
@@ -3966,7 +3966,7 @@ function dol_print_email($email, $cid = 0, $socid = 0, $addlink = 0, $max = 64, 
 {
 	global $user, $langs, $hookManager;
 
-	//global $conf; $config->global->AGENDA_ADDACTIONFOREMAIL = 1;
+	//global $config; $config->global->AGENDA_ADDACTIONFOREMAIL = 1;
 	//$showinvalid = 1; $email = 'rrrrr';
 
 	$newemail = dol_escape_htmltag($email);
@@ -4664,7 +4664,7 @@ function isHTTPS()
  */
 function dolGetCountryCodeFromIp($ip)
 {
-	global $conf;
+	global $config;
 
 	$countrycode = '';
 
@@ -4946,7 +4946,7 @@ function dol_substr($string, $start, $length = null, $stringencoding = '', $trun
  */
 function dol_trunc($string, $size = 40, $trunc = 'right', $stringencoding = 'UTF-8', $nodot = 0, $display = 0)
 {
-	global $conf;
+	global $config;
 
 	if (empty($size) || getDolGlobalString('MAIN_DISABLE_TRUNC')) {
 		return $string;
@@ -5072,7 +5072,7 @@ function getPictoForType($key, $morecss = '')
  */
 function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srconly = 0, $notitle = 0, $alt = '', $morecss = '', $marginleftonlyshort = 2)
 {
-	global $conf;
+	global $config;
 
 	// We forge fullpathpicto for image to $path/img/$picto. By default, we take DOL_URL_ROOT/theme/$config->theme/img/$picto
 	$url = DOL_URL_ROOT;
@@ -5458,7 +5458,7 @@ function img_object($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $src
  */
 function img_weather($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $morecss = '')
 {
-	global $conf;
+	global $config;
 
 	if (is_numeric($picto)) {
 		//$leveltopicto = array(0=>'weather-clear.png', 1=>'weather-few-clouds.png', 2=>'weather-clouds.png', 3=>'weather-many-clouds.png', 4=>'weather-storm.png');
@@ -5486,7 +5486,7 @@ function img_weather($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $mo
  */
 function img_picto_common($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $notitle = 0)
 {
-	global $conf;
+	global $config;
 
 	if (!preg_match('/(\.png|\.gif)$/i', $picto)) {
 		$picto .= '.png';
@@ -6838,7 +6838,7 @@ function vatrate($rate, $addpercent = false, $info_bits = 0, $usestarfornpr = 0,
  */
 function price($amount, $form = 0, $outlangs = '', $trunc = 1, $rounding = -1, $forcerounding = -1, $currency_code = '')
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	// Clean parameters
 	if (empty($amount)) {
@@ -6966,7 +6966,7 @@ function price($amount, $form = 0, $outlangs = '', $trunc = 1, $rounding = -1, $
  */
 function price2num($amount, $rounding = '', $option = 0)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	// Clean parameters
 	if (is_null($amount)) {
@@ -8073,7 +8073,7 @@ function dol_mkdir($dir, $dataroot = '', $newmask = '')
  */
 function dolChmod($filepath, $newmask = '')
 {
-	global $conf;
+	global $config;
 
 	if (!empty($newmask)) {
 		@chmod($filepath, octdec($newmask));
@@ -9998,7 +9998,7 @@ function get_date_range($date_start, $date_end, $format = '', $outputlangs = nul
  */
 function dolGetFirstLastname($firstname, $lastname, $nameorder = -1)
 {
-	global $conf;
+	global $config;
 
 	$ret = '';
 	// If order not defined, we use the setup
@@ -10519,7 +10519,7 @@ function dol_osencode($str)
  */
 function dol_getIdFromCode($db, $key, $tablename, $fieldkey = 'code', $fieldid = 'id', $entityfilter = 0, $filters = '', $useCache = true)
 {
-	global $conf;
+	global $config;
 
 	// If key empty
 	if ($key == '') {
@@ -10632,7 +10632,7 @@ function verifCond($strToEvaluate, $onlysimplestring = '1')
 function dol_eval($s, $returnvalue = 1, $hideerrors = 1, $onlysimplestring = '1')
 {
 	// Only this global variables can be read by eval function and returned to caller
-	global $conf;	// Read of const is done with getDolGlobalString() but we need $config->currency for example
+	global $config;	// Read of const is done with getDolGlobalString() but we need $config->currency for example
 	global $db, $langs, $user, $website, $websitepage;
 	global $action, $mainmenu, $leftmenu;
 	global $mysoc;
@@ -12449,7 +12449,7 @@ function colorIsLight($stringcolor)
  */
 function isVisibleToUserType($type_user, &$menuentry, &$listofmodulesforexternal)
 {
-	global $conf;
+	global $config;
 
 	//print 'type_user='.$type_user.' module='.$menuentry['module'].' enabled='.$menuentry['enabled'].' perms='.$menuentry['perms'];
 	//print 'ok='.in_array($menuentry['module'], $listofmodulesforexternal);
@@ -12576,7 +12576,7 @@ function dolGetBadge($label, $html = '', $type = 'primary', $mode = '', $url = '
  */
 function dolGetStatus($statusLabel = '', $statusLabelShort = '', $html = '', $statusType = 'status0', $displayMode = 0, $url = '', $params = array())
 {
-	global $conf;
+	global $config;
 
 	$return = '';
 	$dolGetBadgeParams = array();
@@ -13532,7 +13532,7 @@ function getElementProperties($elementType)
  */
 function fetchObjectByElement($element_id, $element_type, $element_ref = '', $useCache = 0, $maxCacheByType = 10)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$ret = 0;
 
@@ -13648,7 +13648,7 @@ function currentToken()
  */
 function getNonce()
 {
-	global $conf;
+	global $config;
 
 	if (empty($config->cache['nonce'])) {
 		$config->cache['nonce'] = dolGetRandomBytes(8);
@@ -14297,7 +14297,7 @@ function getActionCommEcmList($object)
  */
 function show_actions_messaging($conf, $langs, $db, $filterobj, $objcon = null, $noprint = 0, $actioncode = '', $donetodo = 'done', $filters = array(), $sortfield = 'a.datep,a.id', $sortorder = 'DESC')
 {
-	global $user, $conf;
+	global $user, $config;
 	global $form;
 
 	global $param, $massactionbutton;

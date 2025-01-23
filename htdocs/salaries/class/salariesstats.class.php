@@ -57,7 +57,7 @@ class SalariesStats extends Stats
 	 */
 	public function __construct($db, $socid = 0, $userId = 0)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 		$this->socid = $socid;

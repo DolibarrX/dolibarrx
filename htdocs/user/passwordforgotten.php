@@ -106,7 +106,7 @@ if (empty($resHook)) {
 		if ($result < 0) {
 			$message = '<div class="error">'.dol_escape_htmltag($langs->trans("ErrorTechnicalError")).'</div>';
 		} else {
-			global $conf;
+			global $config;
 
 			//print $edituser->pass_temp.'-'.$edituser->id.'-'.$config->file->instance_unique_id.' '.$passworduidhash;
 			if ($edituser->pass_temp && dol_verifyHash($edituser->pass_temp.'-'.$edituser->id.'-'.$config->file->instance_unique_id, $passworduidhash)) {

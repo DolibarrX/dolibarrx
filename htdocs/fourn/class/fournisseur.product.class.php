@@ -726,7 +726,7 @@ class ProductFournisseur extends Product
 	public function fetch_product_fournisseur_price($rowid, $ignore_expression = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$sql = "SELECT pfp.rowid, pfp.price, pfp.quantity, pfp.unitprice, pfp.remise_percent, pfp.remise, pfp.tva_tx, pfp.default_vat_code, pfp.info_bits as fourn_tva_npr, pfp.fk_availability,";
 		$sql .= " pfp.fk_soc, pfp.ref_fourn, pfp.desc_fourn, pfp.fk_product, pfp.charges, pfp.fk_supplier_price_expression, pfp.delivery_time_days,";
@@ -826,7 +826,7 @@ class ProductFournisseur extends Product
 	public function list_product_fournisseur_price($prodid, $sortfield = '', $sortorder = '', $limit = 0, $offset = 0, $socid = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$sql = "SELECT s.nom as supplier_name, s.rowid as fourn_id, p.ref as product_ref, p.tosell as status, p.tobuy as status_buy, ";
 		$sql .= " pfp.rowid as product_fourn_pri_id, pfp.entity, pfp.ref_fourn, pfp.desc_fourn, pfp.fk_product as product_fourn_id, pfp.fk_supplier_price_expression,";
@@ -1072,7 +1072,7 @@ class ProductFournisseur extends Product
 	 */
 	public function setSupplierPriceExpression($expression_id)
 	{
-		global $conf;
+		global $config;
 
 		// Clean parameters
 		$this->db->begin();

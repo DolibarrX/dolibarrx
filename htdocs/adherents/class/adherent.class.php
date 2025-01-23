@@ -1358,7 +1358,7 @@ class Adherent extends CommonObject
 	public function fetch_login($login)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."adherent";
 		$sql .= " WHERE login='".$this->db->escape($login)."'";
@@ -1386,7 +1386,7 @@ class Adherent extends CommonObject
 	public function fetch_name($firstname, $lastname)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."adherent";
 		$sql .= " WHERE firstname='".$this->db->escape($firstname)."'";
@@ -2008,7 +2008,7 @@ class Adherent extends CommonObject
 	 */
 	public function validate($user)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$error = 0;
 		$now = dol_now();
@@ -2061,7 +2061,7 @@ class Adherent extends CommonObject
 	 */
 	public function resiliate($user)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$error = 0;
 
@@ -2531,7 +2531,7 @@ class Adherent extends CommonObject
 	 */
 	public function loadStateBoard()
 	{
-		global $conf;
+		global $config;
 
 		$this->nb = array();
 
@@ -2753,7 +2753,7 @@ class Adherent extends CommonObject
 	public function _load_ldap_dn($info, $mode = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		$dn = '';
 		if ($mode == 0) {
 			$dn = getDolGlobalString('LDAP_KEY_MEMBERS') . "=".$info[getDolGlobalString('LDAP_KEY_MEMBERS')]."," . getDolGlobalString('LDAP_MEMBER_DN');
@@ -3020,7 +3020,7 @@ class Adherent extends CommonObject
 	 */
 	public function hasDelay()
 	{
-		global $conf;
+		global $config;
 
 		//Only valid members
 		if ($this->statut != self::STATUS_VALIDATED) {

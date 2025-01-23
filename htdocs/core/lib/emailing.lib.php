@@ -30,7 +30,7 @@
  */
 function emailing_prepare_head(Mailing $object)
 {
-	global $user, $langs, $conf;
+	global $user, $langs, $config;
 
 	$h = 0;
 	$head = array();

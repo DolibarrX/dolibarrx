@@ -206,7 +206,7 @@ class FormTicket
 	 */
 	public function __construct($db)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 

@@ -30,7 +30,7 @@
  */
 function takepos_admin_prepare_head()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$h = 0;
 	$head = array();

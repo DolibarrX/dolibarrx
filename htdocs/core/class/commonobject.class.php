@@ -903,7 +903,7 @@ abstract class CommonObject
 	 */
 	public static function isExistingObject($element, $id, $ref = '', $ref_ext = '')
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$sql = "SELECT rowid, ref, ref_ext";
 		$sql .= " FROM ".$db->prefix().$element;
@@ -2137,7 +2137,7 @@ abstract class CommonObject
 	 */
 	public function fetchObjectFrom($table, $field, $key, $element = null)
 	{
-		global $conf;
+		global $config;
 
 		$result = false;
 
@@ -4835,7 +4835,7 @@ abstract class CommonObject
 	 */
 	public function getCanvas($id = 0, $ref = '')
 	{
-		global $conf;
+		global $config;
 
 		if (empty($id) && empty($ref)) {
 			return 0;
@@ -5539,7 +5539,7 @@ abstract class CommonObject
 	 */
 	public function printOriginLine($line, $var, $restrictlist = '', $defaulttpldir = '/core/tpl', $selectedLines = array())
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		//var_dump($line);
 		if (!empty($line->date_start)) {
@@ -6227,7 +6227,7 @@ abstract class CommonObject
 	public function call_trigger($triggerName, $user)
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		if (!empty(self::TRIGGER_PREFIX) && strpos($triggerName, self::TRIGGER_PREFIX . '_') !== 0) {
 			dol_print_error(null, 'The trigger "' . $triggerName . '" does not start with "' . self::TRIGGER_PREFIX . '_" as required.');
@@ -6417,7 +6417,7 @@ abstract class CommonObject
 	 */
 	public function fetchNoCompute($id)
 	{
-		global $conf;
+		global $config;
 
 		$savDisableCompute = $config->disable_compute;
 		$config->disable_compute = 1;
@@ -6580,7 +6580,7 @@ abstract class CommonObject
 	 */
 	public function deleteExtraFields()
 	{
-		global $conf;
+		global $config;
 
 		if (getDolGlobalString('MAIN_EXTRAFIELDS_DISABLED')) {
 			return 0;
@@ -9658,7 +9658,7 @@ abstract class CommonObject
 	 */
 	public function defineBuyPrice($unitPrice = 0.0, $discountPercent = 0.0, $fk_product = 0)
 	{
-		global $conf;
+		global $config;
 
 		$buyPrice = 0;
 
@@ -10141,7 +10141,7 @@ abstract class CommonObject
 	 */
 	protected function setSaveQuery()
 	{
-		global $conf;
+		global $config;
 
 		$queryarray = array();
 		foreach ($this->fields as $field => $info) {	// Loop on definition of fields
@@ -11321,7 +11321,7 @@ abstract class CommonObject
 	 */
 	public function deleteEcmFiles($mode = 0)
 	{
-		global $conf;
+		global $config;
 
 		$this->db->begin();
 

@@ -131,7 +131,7 @@ class Fiscalyear extends CommonObject
 	 */
 	public function create($user)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 
@@ -464,7 +464,7 @@ class Fiscalyear extends CommonObject
 	 */
 	public function getAccountancyEntriesByFiscalYear($datestart = '', $dateend = '')
 	{
-		global $conf;
+		global $config;
 
 		if (empty($datestart)) {
 			$datestart = $this->date_start;
@@ -499,7 +499,7 @@ class Fiscalyear extends CommonObject
 	 */
 	public function getAccountancyMovementsByFiscalYear($datestart = '', $dateend = '')
 	{
-		global $conf;
+		global $config;
 
 		if (empty($datestart)) {
 			$datestart = $this->date_start;

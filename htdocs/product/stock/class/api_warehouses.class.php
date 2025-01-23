@@ -45,7 +45,7 @@ class Warehouses extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 		$this->db = $db;
 		$this->warehouse = new Entrepot($this->db);
 	}
@@ -96,7 +96,7 @@ class Warehouses extends DolibarrApi
 	 */
 	public function index($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $category = 0, $sqlfilters = '', $properties = '')
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$obj_ret = array();
 

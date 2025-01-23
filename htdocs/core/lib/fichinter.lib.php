@@ -226,7 +226,7 @@ function fichinter_admin_prepare_head()
  */
 function fichinter_rec_prepare_head($object)
 {
-	global $langs, $conf; //, $user;
+	global $langs, $config; //, $user;
 
 	$h = 0;
 	$head = array();

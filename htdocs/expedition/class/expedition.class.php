@@ -331,7 +331,7 @@ class Expedition extends CommonObject
 	 */
 	public function __construct($db)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 
@@ -361,7 +361,7 @@ class Expedition extends CommonObject
 	 */
 	public function getNextNumRef($soc)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("sendings");
 
 		if (getDolGlobalString('EXPEDITION_ADDON_NUMBER')) {
@@ -656,7 +656,7 @@ class Expedition extends CommonObject
 	 */
 	public function fetch($id, $ref = '', $ref_ext = '', $notused = '')
 	{
-		global $conf;
+		global $config;
 
 		// Check parameters
 		if (empty($id) && empty($ref) && empty($ref_ext)) {
@@ -795,7 +795,7 @@ class Expedition extends CommonObject
 	 */
 	public function valid($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -947,7 +947,7 @@ class Expedition extends CommonObject
 	public function create_delivery($user)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		if (getDolGlobalInt('MAIN_SUBMODULE_DELIVERY')) {
 			if ($this->statut == self::STATUS_VALIDATED || $this->statut == self::STATUS_CLOSED) {
@@ -1139,7 +1139,7 @@ class Expedition extends CommonObject
 	 */
 	public function update($user = null, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 
 		// Clean parameters
@@ -2087,7 +2087,7 @@ class Expedition extends CommonObject
 	 */
 	public function getKanbanView($option = '', $arraydata = null)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$selected = (empty($arraydata['selected']) ? 0 : $arraydata['selected']);
 

@@ -1780,7 +1780,7 @@ class Propal extends CommonObject
 	 */
 	public function update(User $user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 
@@ -2022,7 +2022,7 @@ class Propal extends CommonObject
 	 */
 	public function valid($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -2590,7 +2590,7 @@ class Propal extends CommonObject
 	 */
 	public function closeProposal($user, $status, $note_private = '', $notrigger = 0, $note_public = '')
 	{
-		global $langs,$conf;
+		global $langs,$config;
 
 		$error = 0;
 		$now = dol_now();
@@ -3069,7 +3069,7 @@ class Propal extends CommonObject
 	 */
 	public function delete($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error = 0;

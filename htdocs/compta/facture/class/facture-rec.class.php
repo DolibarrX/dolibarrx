@@ -306,7 +306,7 @@ class FactureRec extends CommonInvoice
 	 */
 	public function create($user, $facid, $notrigger = 0, $onlylines = array())
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 		$now = dol_now();
@@ -2433,7 +2433,7 @@ class FactureLigneRec extends CommonInvoiceLine
 	 */
 	public function update(User $user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 

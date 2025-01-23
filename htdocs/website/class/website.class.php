@@ -597,7 +597,7 @@ class Website extends CommonObject
 	 */
 	public function delete(User $user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
@@ -1452,7 +1452,7 @@ class Website extends CommonObject
 	 */
 	public function rebuildWebSiteFiles()
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 
@@ -1741,7 +1741,7 @@ class Website extends CommonObject
 	 */
 	public function overwriteTemplate(string $pathtotmpzip, $exportPath = '')
 	{
-		global $conf;
+		global $config;
 
 		//$error = 0;
 

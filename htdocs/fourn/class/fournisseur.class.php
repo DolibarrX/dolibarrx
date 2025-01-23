@@ -102,7 +102,7 @@ class Fournisseur extends Societe
 	 */
 	public function nbOfProductRefs()
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT count(pfp.rowid) as nb";
 		$sql .= " FROM ".MAIN_DB_PREFIX."product_fournisseur_price as pfp";
@@ -196,7 +196,7 @@ class Fournisseur extends Societe
 	public function ListArray()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		global $user;
 
 		$arr = array();

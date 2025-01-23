@@ -191,7 +191,7 @@ class FormAdmin
 	public function select_menu($selected, $htmlname, $dirmenuarray, $moreattrib = '')
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		// Clean parameters
 
@@ -311,7 +311,7 @@ class FormAdmin
 	public function select_menu_families($selected, $htmlname, $dirmenuarray)
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		//$expdevmenu=array('smartphone_backoffice.php','smartphone_frontoffice.php');  // Menu to disable if $config->global->MAIN_FEATURES_LEVEL is not set
 		$expdevmenu = array();

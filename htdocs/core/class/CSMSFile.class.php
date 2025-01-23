@@ -123,7 +123,7 @@ class CSMSFile
 	 */
 	public function __construct($to, $from, $msg, $deliveryreceipt = 0, $deferred = 0, $priority = 3, $class = 1)
 	{
-		global $conf;
+		global $config;
 
 		// Define the line ending (TODO: Why not use PHP_EOL?)
 		$this->eol = "\n";

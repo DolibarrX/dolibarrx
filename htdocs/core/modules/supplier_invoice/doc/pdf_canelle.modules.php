@@ -850,7 +850,7 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 	 */
 	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0, $currency = '')
 	{
-		global $conf;
+		global $config;
 
 		// Force to disable hidetop and hidebottom
 		$hidebottom = 0;
@@ -953,7 +953,7 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 	protected function _tableau_versements(&$pdf, $object, $posy, $outputlangs, $heightforfooter = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$sign = 1;
 		if ($object->type == 2 && getDolGlobalString('INVOICE_POSITIVE_CREDIT_NOTE')) {

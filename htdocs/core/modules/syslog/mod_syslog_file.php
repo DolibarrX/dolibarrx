@@ -110,7 +110,7 @@ class mod_syslog_file extends LogHandler
 	 */
 	private function getFilename($suffixinfilename = '')
 	{
-		global $conf;
+		global $config;
 
 		if (!getDolGlobalString('SYSLOG_FILE')) {
 			$tmp = DOL_DATA_ROOT.'/dolibarr.log';

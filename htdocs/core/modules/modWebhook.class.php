@@ -40,7 +40,7 @@ class modWebhook extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$this->db = $db;
 
 		// Id for module (must be unique).

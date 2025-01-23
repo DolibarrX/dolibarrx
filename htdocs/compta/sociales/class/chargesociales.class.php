@@ -279,7 +279,7 @@ class ChargeSociales extends CommonObject
 	 */
 	public function create($user)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 
 		$now = dol_now();
@@ -462,7 +462,7 @@ class ChargeSociales extends CommonObject
 	 */
 	public function solde($year = 0)
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT SUM(f.amount) as amount";
 		$sql .= " FROM ".MAIN_DB_PREFIX."chargesociales as f";

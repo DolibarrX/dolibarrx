@@ -894,7 +894,7 @@ class ExpenseReport extends CommonObject
 	 */
 	public function info($id)
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT f.rowid,";
 		$sql .= " f.date_create as datec,";
@@ -1206,7 +1206,7 @@ class ExpenseReport extends CommonObject
 	 */
 	public function delete($user = null, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error = 0;
@@ -1723,7 +1723,7 @@ class ExpenseReport extends CommonObject
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("trips");
 
 		if (getDolGlobalString('EXPENSEREPORT_ADDON')) {
@@ -2391,7 +2391,7 @@ class ExpenseReport extends CommonObject
 	 */
 	public function periodExists($fuser, $date_debut, $date_fin)
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT rowid, date_debut, date_fin";
 		$sql .= " FROM ".MAIN_DB_PREFIX.$this->table_element;
@@ -2649,7 +2649,7 @@ class ExpenseReport extends CommonObject
 	 */
 	public function hasDelay($option)
 	{
-		global $conf;
+		global $config;
 
 		// Only valid expenses reports
 		if ($option == 'toapprove' && $this->status != 2) {
@@ -2732,7 +2732,7 @@ class ExpenseReport extends CommonObject
 	 */
 	public function computeTotalKm($fk_cat, $qty, $tva)
 	{
-		global $langs, $db, $conf;
+		global $langs, $db, $config;
 
 		$cumulYearQty = 0;
 		$ranges = array();

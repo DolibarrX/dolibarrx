@@ -30,7 +30,7 @@
  */
 function trip_prepare_head(Deplacement $object)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$h = 0;
 	$head = array();

@@ -47,7 +47,7 @@ class AgendaEvents extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 		$this->db = $db;
 		$this->actioncomm = new ActionComm($this->db);
 	}
@@ -107,7 +107,7 @@ class AgendaEvents extends DolibarrApi
 	 */
 	public function index($sortfield = "t.id", $sortorder = 'ASC', $limit = 100, $page = 0, $user_ids = '', $sqlfilters = '', $properties = '', $pagination_data = false)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$obj_ret = array();
 

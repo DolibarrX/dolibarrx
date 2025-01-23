@@ -123,7 +123,7 @@ class mod_bom_standard extends ModeleNumRefBoms
 	 */
 	public function getNextValue($objprod, $object)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		// First we get the max value
 		$posindice = strlen($this->prefix) + 6;

@@ -90,7 +90,7 @@ class Link extends CommonObject
 	 */
 	public function create(User $user)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$error = 0;
 		$langs->load("errors");
@@ -167,7 +167,7 @@ class Link extends CommonObject
 	 */
 	public function update(User $user, $call_trigger = 1)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
 		$langs->load("errors");
@@ -247,7 +247,7 @@ class Link extends CommonObject
 	 */
 	public function fetchAll(&$links, $objecttype, $objectid, $sortfield = null, $sortorder = null)
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT rowid, entity, datea, url, label, objecttype, objectid FROM ".$this->db->prefix()."links";
 		$sql .= " WHERE objecttype = '".$this->db->escape($objecttype)."' AND objectid = ".((int) $objectid);
@@ -297,7 +297,7 @@ class Link extends CommonObject
 	 **/
 	public static function count($dbs, $objecttype, $objectid)
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT COUNT(rowid) as nb FROM ".$dbs->prefix()."links";
 		$sql .= " WHERE objecttype = '".$dbs->escape($objecttype)."' AND objectid = ".((int) $objectid);
@@ -323,7 +323,7 @@ class Link extends CommonObject
 	 **/
 	public function fetch($rowid = null)
 	{
-		global $conf;
+		global $config;
 
 		if (empty($rowid)) {
 			$rowid = $this->id;

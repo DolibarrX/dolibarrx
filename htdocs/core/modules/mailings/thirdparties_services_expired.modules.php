@@ -67,7 +67,7 @@ class mailing_thirdparties_services_expired extends MailingTargets
 	 */
 	public function __construct($db)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 
@@ -106,7 +106,7 @@ class mailing_thirdparties_services_expired extends MailingTargets
 	 */
 	public function add_to_target($mailing_id)
 	{
-		global $conf;
+		global $config;
 
 		// phpcs:enable
 		$key = GETPOSTINT('filter');
@@ -210,7 +210,7 @@ class mailing_thirdparties_services_expired extends MailingTargets
 	 */
 	public function getNbOfRecipients($sql = '')
 	{
-		global $conf;
+		global $config;
 
 		$now = dol_now();
 

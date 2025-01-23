@@ -83,7 +83,7 @@ function jsUnEscape($source)
  */
 function dolGetModulesDirs($subdir = '')
 {
-	global $conf;
+	global $config;
 
 	$modulesdir = array();
 
@@ -2069,7 +2069,7 @@ function dol_buildlogin($lastname, $firstname)
  */
 function getSoapParams()
 {
-	global $conf;
+	global $config;
 
 	$params = array();
 	$proxyuse = getDolGlobalString('MAIN_PROXY_USE');
@@ -2806,7 +2806,7 @@ function convertBackOfficeMediasLinksToPublicLinks($notetoshow)
  */
 function price2fec($amount)
 {
-	global $conf;
+	global $config;
 
 	// Clean parameters
 	if (empty($amount)) {

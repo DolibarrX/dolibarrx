@@ -43,7 +43,7 @@ class modFicheinter extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 		$this->numero = 70;
@@ -222,7 +222,7 @@ class modFicheinter extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf;
+		global $config;
 
 		// Permissions
 		$this->remove($options);

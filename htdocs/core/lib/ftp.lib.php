@@ -38,7 +38,7 @@
  */
 function dol_ftp_connect($ftp_server, $ftp_port, $ftp_user, $ftp_password, $section, $ftp_passive = 0)
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$ok = 1;
 	$error = 0;
@@ -144,7 +144,7 @@ function ftp_isdir($connect_id, $dir)
  */
 function dol_ftp_close($connect_id)
 {
-	global $conf;
+	global $config;
 
 	// Close FTP connection
 	if ($connect_id) {
@@ -165,7 +165,7 @@ function dol_ftp_close($connect_id)
  */
 function dol_ftp_delete($connect_id, $file, $newsection)
 {
-	global $conf;
+	global $config;
 
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {
 		$newsection = ssh2_sftp_realpath($connect_id, ".").'/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169
@@ -196,7 +196,7 @@ function dol_ftp_delete($connect_id, $file, $newsection)
  */
 function dol_ftp_get($connect_id, $localfile, $file, $newsection)
 {
-	global $conf;
+	global $config;
 
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {
 		$newsection = ssh2_sftp_realpath($connect_id, ".").'/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169
@@ -225,7 +225,7 @@ function dol_ftp_get($connect_id, $localfile, $file, $newsection)
  */
 function dol_ftp_put($connect_id, $file, $localfile, $newsection)
 {
-	global $conf;
+	global $config;
 
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {
 		$newsection = ssh2_sftp_realpath($connect_id, ".").'/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169
@@ -253,7 +253,7 @@ function dol_ftp_put($connect_id, $file, $localfile, $newsection)
  */
 function dol_ftp_rmdir($connect_id, $file, $newsection)
 {
-	global $conf;
+	global $config;
 
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {
 		$newsection = ssh2_sftp_realpath($connect_id, ".").'/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169
@@ -282,7 +282,7 @@ function dol_ftp_rmdir($connect_id, $file, $newsection)
  */
 function dol_ftp_mkdir($connect_id, $newdir, $newsection)
 {
-	global $conf;
+	global $config;
 
 	if (getDolGlobalString('FTP_CONNECT_WITH_SFTP')) {
 		$newsection = ssh2_sftp_realpath($connect_id, ".").'/./'; // workaround for bug https://bugs.php.net/bug.php?id=64169

@@ -30,7 +30,7 @@
  */
 function stocktransferAdminPrepareHead()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$langs->load("stocks");
 

@@ -36,7 +36,7 @@ class DolMemoryCollector extends MemoryCollector
 	 */
 	public function collect()
 	{
-		global $conf;
+		global $config;
 
 		$this->updatePeakUsage();
 		return array(

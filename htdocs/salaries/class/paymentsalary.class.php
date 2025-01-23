@@ -203,7 +203,7 @@ class PaymentSalary extends CommonObject
 	 */
 	public function create($user, $closepaidcontrib = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 

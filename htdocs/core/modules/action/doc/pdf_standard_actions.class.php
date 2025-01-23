@@ -283,7 +283,7 @@ class pdf_standard_actions
 	 */
 	private function _pages(&$pdf, $outputlangs)
 	{
-		global $conf;
+		global $config;
 
 		$height = 3; // height for text separation
 		$pagenb = 1;

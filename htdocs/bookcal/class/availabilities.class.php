@@ -999,7 +999,7 @@ class Availabilities extends CommonObject
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("agenda");
 
 		if (!getDolGlobalString('BOOKCAL_AVAILABILITIES_ADDON')) {

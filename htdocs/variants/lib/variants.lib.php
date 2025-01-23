@@ -32,7 +32,7 @@
  */
 function productAttributePrepareHead($object)
 {
-	global $langs, $conf;
+	global $langs, $config;
 	$langs->load("products");
 
 	$h = 0;

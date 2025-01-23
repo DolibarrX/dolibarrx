@@ -58,7 +58,7 @@ class DolGeoIP
 	 */
 	public function __construct($type, $datfile)
 	{
-		global $conf;
+		global $config;
 
 		$geoipversion = '2'; // 'php', or geoip version '2'
 		if (getDolGlobalString('GEOIP_VERSION')) {
@@ -127,7 +127,7 @@ class DolGeoIP
 	 */
 	public function getCountryCodeFromIP($ip)
 	{
-		global $conf;
+		global $config;
 
 		$geoipversion = '2'; // 'php', or '2'
 		if (getDolGlobalString('GEOIP_VERSION')) {
@@ -185,7 +185,7 @@ class DolGeoIP
 	 */
 	public function getCountryCodeFromName($name)
 	{
-		global $conf;
+		global $config;
 
 		$geoipversion = '2'; // 'php', or '2'
 		if (getDolGlobalString('GEOIP_VERSION')) {
@@ -216,7 +216,7 @@ class DolGeoIP
 	 */
 	public function getVersion()
 	{
-		global $conf;
+		global $config;
 
 		$geoipversion = '2'; // 'php', or '2'
 		if (getDolGlobalString('GEOIP_VERSION')) {

@@ -523,7 +523,7 @@ class Dolresource extends CommonObject
 	 */
 	public function delete(User $user, int $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 

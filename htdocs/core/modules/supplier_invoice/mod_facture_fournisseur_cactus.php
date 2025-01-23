@@ -191,7 +191,7 @@ class mod_facture_fournisseur_cactus extends ModeleNumRefSuppliersInvoices
 	 */
 	public function getNextValue($objsoc, $object, $mode = 'next')
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$prefix = $this->prefixinvoice;
 		if ($object->type == 2) {

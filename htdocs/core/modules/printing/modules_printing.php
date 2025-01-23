@@ -82,7 +82,7 @@ class PrintingDriver
 	 */
 	public static function listDrivers($db, $maxfilenamelength = 0)
 	{
-		global $conf;
+		global $config;
 
 		$type = 'printing';
 		$list = array();

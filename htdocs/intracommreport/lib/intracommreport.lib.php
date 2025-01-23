@@ -29,7 +29,7 @@
  */
 function intracommreportAdminPrepareHead()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	// global $db;
 	// $extrafields = new ExtraFields($db);
@@ -80,7 +80,7 @@ function intracommreportAdminPrepareHead()
  */
 function intracommreportPrepareHead($object)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$langs->load("mymodule@mymodule");
 

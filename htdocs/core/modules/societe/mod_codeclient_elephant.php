@@ -271,7 +271,7 @@ class mod_codeclient_elephant extends ModeleThirdPartyCode
 	public function verif_prefixIsUsed()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$mask = getDolGlobalString('COMPANY_ELEPHANT_MASK_CUSTOMER');
 		if (preg_match('/\{pre\}/i', $mask)) {
@@ -304,7 +304,7 @@ class mod_codeclient_elephant extends ModeleThirdPartyCode
 	 */
 	public function verif($db, &$code, $soc, $type)
 	{
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 

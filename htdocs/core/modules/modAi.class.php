@@ -40,7 +40,7 @@ class modAi extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 

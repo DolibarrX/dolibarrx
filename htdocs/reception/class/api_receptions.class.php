@@ -49,7 +49,7 @@ class Receptions extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 		$this->db = $db;
 		$this->reception = new Reception($this->db);
 	}

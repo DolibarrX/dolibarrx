@@ -94,7 +94,7 @@ class printing_printipp extends PrintingDriver
 	 */
 	public function __construct($db)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 		$this->host = getDolGlobalString('PRINTIPP_HOST');

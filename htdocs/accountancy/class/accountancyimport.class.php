@@ -152,7 +152,7 @@ class AccountancyImport
 	 */
 	public function computePieceNum(&$arrayrecord, $listfields, $record_key)
 	{
-		global $conf;
+		global $config;
 
 		$pieceNum = trim($arrayrecord[$record_key]['val']);
 

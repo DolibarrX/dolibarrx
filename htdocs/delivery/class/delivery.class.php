@@ -147,7 +147,7 @@ class Delivery extends CommonObject
 	 */
 	public function create($user)
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog("Delivery::create");
 
@@ -397,7 +397,7 @@ class Delivery extends CommonObject
 	 */
 	public function valid($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -552,7 +552,7 @@ class Delivery extends CommonObject
 	public function create_from_sending($user, $sending_id)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$expedition = new Expedition($this->db);
 		$result = $expedition->fetch($sending_id);
@@ -604,7 +604,7 @@ class Delivery extends CommonObject
 	public function update_line($id, $array_options = [])
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		$error = 0;
 
 		if ($id > 0 && !$error && !getDolGlobalString('MAIN_EXTRAFIELDS_DISABLED') && is_array($array_options) && count($array_options) > 0) { // For avoid conflicts if trigger used

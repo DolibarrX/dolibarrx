@@ -59,7 +59,7 @@ class Products extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$this->db = $db;
 		$this->product = new Product($this->db);
@@ -180,7 +180,7 @@ class Products extends DolibarrApi
 	 */
 	public function index($sortfield = "t.ref", $sortorder = 'ASC', $limit = 100, $page = 0, $mode = 0, $category = 0, $sqlfilters = '', $ids_only = false, $variant_filter = 0, $pagination_data = false, $includestockdata = 0, $properties = '')
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		if (!DolibarrApiAccess::$user->hasRight('produit', 'lire')) {
 			throw new RestException(403);
@@ -692,7 +692,7 @@ class Products extends DolibarrApi
 	 */
 	public function getCustomerPricesPerSegment($id)
 	{
-		global $conf;
+		global $config;
 
 		if (!DolibarrApiAccess::$user->hasRight('produit', 'lire')) {
 			throw new RestException(403);
@@ -734,7 +734,7 @@ class Products extends DolibarrApi
 	 */
 	public function getCustomerPricesPerCustomer($id, $thirdparty_id = '')
 	{
-		global $conf;
+		global $config;
 
 		if (!DolibarrApiAccess::$user->hasRight('produit', 'lire')) {
 			throw new RestException(403);
@@ -783,7 +783,7 @@ class Products extends DolibarrApi
 	 */
 	public function getCustomerPricesPerQuantity($id)
 	{
-		global $conf;
+		global $config;
 
 		if (!DolibarrApiAccess::$user->hasRight('produit', 'lire')) {
 			throw new RestException(403);
@@ -938,7 +938,7 @@ class Products extends DolibarrApi
 	 */
 	public function getSupplierProducts($sortfield = "t.ref", $sortorder = 'ASC', $limit = 100, $page = 0, $mode = 0, $category = 0, $supplier = 0, $sqlfilters = '')
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		if (!DolibarrApiAccess::$user->hasRight('produit', 'lire')) {
 			throw new RestException(403);

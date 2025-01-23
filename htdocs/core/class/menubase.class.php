@@ -178,7 +178,7 @@ class Menubase
 	 */
 	public function create($user = null)
 	{
-		global $conf;
+		global $config;
 
 		// Clean parameters
 		if (!isset($this->enabled)) {
@@ -517,7 +517,7 @@ class Menubase
 	 */
 	public function menuTopCharger($mymainmenu, $myleftmenu, $type_user, $menu_handler, &$tabMenu)
 	{
-		global $langs, $user, $conf; // To export to dol_eval function
+		global $langs, $user, $config; // To export to dol_eval function
 		global $mainmenu, $leftmenu; // To export to dol_eval function
 
 		$mainmenu = $mymainmenu; // To export to dol_eval function
@@ -547,7 +547,7 @@ class Menubase
 	 */
 	public function menuLeftCharger($newmenu, $mymainmenu, $myleftmenu, $type_user, $menu_handler, &$tabMenu)
 	{
-		global $langs, $user, $conf; // To export to dol_eval function
+		global $langs, $user, $config; // To export to dol_eval function
 		global $mainmenu, $leftmenu; // To export to dol_eval function
 
 		$mainmenu = $mymainmenu; // To export to dol_eval function
@@ -629,7 +629,7 @@ class Menubase
 	 */
 	public function menuLoad($mymainmenu, $myleftmenu, $type_user, $menu_handler, &$tabMenu)
 	{
-		global $langs, $user, $conf; // To export to dol_eval function
+		global $langs, $user, $config; // To export to dol_eval function
 		global $mainmenu, $leftmenu; // To export to dol_eval function
 
 		$mainmenu = $mymainmenu; // To export to dol_eval function

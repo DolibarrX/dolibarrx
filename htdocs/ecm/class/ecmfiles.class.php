@@ -209,7 +209,7 @@ class EcmFiles extends CommonObject
 	 */
 	public function create(User $user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
@@ -412,7 +412,7 @@ class EcmFiles extends CommonObject
 	 */
 	public function fetch($id, $ref = '', $relativepath = '', $hashoffile = '', $hashforshare = '', $src_object_type = '', $src_object_id = 0)
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
@@ -683,7 +683,7 @@ class EcmFiles extends CommonObject
 	 */
 	public function update(User $user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 

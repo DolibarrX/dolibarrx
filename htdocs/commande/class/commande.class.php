@@ -439,7 +439,7 @@ class Commande extends CommonOrder
 	 */
 	public function getNextNumRef($soc)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("order");
 
 		if (getDolGlobalString('COMMANDE_ADDON')) {
@@ -797,7 +797,7 @@ class Commande extends CommonOrder
 	 */
 	public function cloture($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 
@@ -2106,7 +2106,7 @@ class Commande extends CommonOrder
 	public function fetch_lines($only_product = 0, $loadalsotranslation = 0)
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		$this->lines = array();
 
@@ -4107,7 +4107,7 @@ class Commande extends CommonOrder
 	 */
 	public function hasDelay()
 	{
-		global $conf;
+		global $config;
 
 		if (!($this->statut > Commande::STATUS_DRAFT && $this->statut < Commande::STATUS_CLOSED)) {
 			return false; // Never late if not inside this status range

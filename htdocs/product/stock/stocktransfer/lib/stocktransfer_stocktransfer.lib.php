@@ -31,7 +31,7 @@
  */
 function stocktransferPrepareHead($object)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$langs->load("stocks");
 

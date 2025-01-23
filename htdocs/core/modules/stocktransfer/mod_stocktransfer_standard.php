@@ -128,7 +128,7 @@ class mod_stocktransfer_standard extends ModeleNumRefStockTransfer
 	 */
 	public function getNextValue($object)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		// first we get the max value
 		$posindice = strlen($this->prefix) + 6;

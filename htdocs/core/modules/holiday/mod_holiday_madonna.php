@@ -119,7 +119,7 @@ class mod_holiday_madonna extends ModelNumRefHolidays
 	 */
 	public function getNextValue($objsoc, $holiday)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";

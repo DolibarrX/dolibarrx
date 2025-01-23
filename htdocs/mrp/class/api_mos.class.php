@@ -47,7 +47,7 @@ class Mos extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 		$this->db = $db;
 		$this->mo = new Mo($this->db);
 	}

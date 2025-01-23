@@ -47,7 +47,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/lib/signature.lib.php';
  */
 function pdf_admin_prepare_head()
 {
-	global $langs, $conf;
+	global $langs, $config;
 
 	$h = 0;
 	$head = array();
@@ -127,7 +127,7 @@ function pdf_getFormat($outputlangs = null, $mode = 'setup')
  */
 function pdf_getInstance($format = '', $metric = 'mm', $pagetype = 'P')
 {
-	global $conf;
+	global $config;
 
 	// Define constant for TCPDF
 	if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
@@ -264,7 +264,7 @@ function pdf_getEncryption($pathoffile)
  */
 function pdf_getPDFFont($outputlangs)
 {
-	global $conf;
+	global $config;
 
 	if (getDolGlobalString('MAIN_PDF_FORCE_FONT')) {
 		return $config->global->MAIN_PDF_FORCE_FONT;
@@ -287,7 +287,7 @@ function pdf_getPDFFont($outputlangs)
  */
 function pdf_getPDFFontSize($outputlangs)
 {
-	global $conf;
+	global $config;
 
 	$size = 10; // By default, for FPDI or ISO language on TCPDF
 	if (class_exists('TCPDF')) {  // If TCPDF on, we can use an UTF8 font like DejaVuSans if required (slower)
@@ -312,7 +312,7 @@ function pdf_getPDFFontSize($outputlangs)
  */
 function pdf_getHeightForLogo($logo, $url = false)
 {
-	global $conf;
+	global $config;
 	$height = (!getDolGlobalString('MAIN_DOCUMENTS_LOGO_HEIGHT') ? 20 : $config->global->MAIN_DOCUMENTS_LOGO_HEIGHT);
 	$maxwidth = 130;
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
@@ -385,7 +385,7 @@ function pdfGetHeightForHtmlContent(&$pdf, $htmlcontent)
  */
 function pdfBuildThirdpartyName($thirdparty, Translate $outputlangs, $includealias = 0)
 {
-	global $conf;
+	global $config;
 
 	// Recipient name
 	$socname = '';
@@ -728,7 +728,7 @@ function pdf_build_address($outputlangs, $sourcecompany, $targetcompany = '', $t
  */
 function pdf_pagehead(&$pdf, $outputlangs, $page_height)
 {
-	global $conf;
+	global $config;
 
 	// Add a background image on document only if good setup of const
 	if (getDolGlobalString('MAIN_USE_BACKGROUND_ON_PDF') && (getDolGlobalString('MAIN_USE_BACKGROUND_ON_PDF') != '-1')) {		// Warning, this option make TCPDF generation being crazy and some content disappeared behind the image
@@ -849,7 +849,7 @@ function pdf_watermark(&$pdf, $outputlangs, $h, $w, $unit, $text)
  */
 function pdf_bank(&$pdf, $outputlangs, $curx, $cury, $account, $onlynumber = 0, $default_font_size = 10)
 {
-	global $mysoc, $conf;
+	global $mysoc, $config;
 
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formbank.class.php';
 
@@ -2088,7 +2088,7 @@ function pdf_getlineupexcltax($object, $i, $outputlangs, $hidedetails = 0)
  */
 function pdf_getlineupwithtax($object, $i, $outputlangs, $hidedetails = 0)
 {
-	global $hookManager, $conf;
+	global $hookManager, $config;
 
 	$sign = 1;
 	if (isset($object->type) && $object->type == 2 && getDolGlobalString('INVOICE_POSITIVE_CREDIT_NOTE')) {
@@ -2379,7 +2379,7 @@ function pdf_getlineprogress($object, $i, $outputlangs, $hidedetails = 0, $hookM
 	if (empty($hookManager)) {
 		global $hookManager;
 	}
-	global $conf;
+	global $config;
 
 	$resHook = 0;
 	$result = '';
@@ -2483,7 +2483,7 @@ function pdf_getlinetotalexcltax($object, $i, $outputlangs, $hidedetails = 0)
  */
 function pdf_getlinetotalwithtax($object, $i, $outputlangs, $hidedetails = 0)
 {
-	global $hookManager, $conf;
+	global $hookManager, $config;
 
 	$sign = 1;
 	if (isset($object->type) && $object->type == 2 && getDolGlobalString('INVOICE_POSITIVE_CREDIT_NOTE')) {

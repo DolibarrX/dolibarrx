@@ -609,7 +609,7 @@ class ExtraFields
 	private function delete_label($attrname, $elementtype = '')
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		if ($elementtype == 'thirdparty') {
 			$elementtype = 'societe';
@@ -982,7 +982,7 @@ class ExtraFields
 	public function fetch_name_optionals_label($elementtype, $forceload = false, $attrname = '')
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		if (empty($elementtype)) {
 			return array();

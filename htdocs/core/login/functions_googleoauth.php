@@ -39,7 +39,7 @@
  */
 function check_user_password_googleoauth($usertotest, $passwordtotest, $entitytotest)
 {
-	global $conf;
+	global $config;
 
 	dol_syslog("functions_googleoauth::check_user_password_googleoauth usertotest=".$usertotest." GETPOST('actionlogin')=".GETPOST('actionlogin'));
 

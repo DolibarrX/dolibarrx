@@ -318,7 +318,7 @@ class FactureFournisseurLigneRec extends CommonInvoiceLine
 	 */
 	public function update(User $user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 

@@ -113,7 +113,7 @@ function tax_prepare_head(ChargeSociales $object)
  */
 function tax_by_thirdparty($type, $db, $y, $date_start, $date_end, $modetax, $direction, $m = 0, $q = 0)
 {
-	global $conf;
+	global $config;
 
 	// If we use date_start and date_end, we must not use $y, $m, $q
 	if (($date_start || $date_end) && (!empty($y) || !empty($m) || !empty($q))) {
@@ -706,7 +706,7 @@ function tax_by_thirdparty($type, $db, $y, $date_start, $date_end, $modetax, $di
  */
 function tax_by_rate($type, $db, $y, $q, $date_start, $date_end, $modetax, $direction, $m = 0)
 {
-	global $conf;
+	global $config;
 
 	// If we use date_start and date_end, we must not use $y, $m, $q
 	if (($date_start || $date_end) && (!empty($y) || !empty($m) || !empty($q))) {

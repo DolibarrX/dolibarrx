@@ -1731,7 +1731,7 @@ $db->close();
  */
 function canApplySubtotalOn($tablename)
 {
-	global $conf;
+	global $config;
 
 	if (!getDolGlobalString('PROJECT_ADD_SUBTOTAL_LINES')) {
 		return false;

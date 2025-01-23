@@ -146,7 +146,7 @@ class Deplacement extends CommonObject
 	 */
 	public function create($user)
 	{
-		global $conf;
+		global $config;
 
 		// Check parameters
 		if (empty($this->type) || $this->type < 0) {

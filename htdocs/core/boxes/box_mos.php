@@ -64,7 +64,7 @@ class box_mos extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 
 		$this->max = $max;
 

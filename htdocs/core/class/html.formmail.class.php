@@ -1825,7 +1825,7 @@ class FormMail extends Form
 	 */
 	public function getEMailTemplate($dbs, $type_template, $user, $outputlangs, $id = 0, $active = 1, $label = '', $defaultfortype = -1)
 	{
-		global $conf;
+		global $config;
 
 		if ($id == -2 && empty($label)) {
 			$this->error = 'LabelIsMandatoryWhenIdIs-2or-3';
@@ -2003,7 +2003,7 @@ class FormMail extends Form
 	 */
 	public function fetchAllEMailTemplate($type_template, $user, $outputlangs, $active = 1)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$sql = "SELECT rowid, module, label, topic, content, content_lines, lang, fk_user, private, position";
 		$sql .= " FROM ".$this->db->prefix().'c_email_templates';

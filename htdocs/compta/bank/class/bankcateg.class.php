@@ -88,7 +88,7 @@ class BankCateg // extends CommonObject
 	 */
 	public function create(User $user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		include_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 		$cats = new Categorie($this->db);
@@ -148,7 +148,7 @@ class BankCateg // extends CommonObject
 	 */
 	public function fetch($id)
 	{
-		global $conf;
+		global $config;
 
 		include_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 		$cats = new Categorie($this->db);
@@ -188,7 +188,7 @@ class BankCateg // extends CommonObject
 	 */
 	public function update($user = null, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 
 		// Clean parameters
@@ -237,7 +237,7 @@ class BankCateg // extends CommonObject
 	 */
 	public function delete(User $user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 		$error = 0;
 
 		$this->db->begin();
@@ -341,7 +341,7 @@ class BankCateg // extends CommonObject
 	 */
 	public function fetchAll()
 	{
-		global $conf;
+		global $config;
 
 		include_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 		$cats = new Categorie($this->db);

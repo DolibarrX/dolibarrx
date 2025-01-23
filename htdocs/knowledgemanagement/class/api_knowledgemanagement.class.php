@@ -50,7 +50,7 @@ class KnowledgeManagement extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 		$this->db = $db;
 		$this->knowledgerecord = new KnowledgeRecord($this->db);
 	}

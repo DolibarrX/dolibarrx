@@ -31,7 +31,7 @@
  */
 function recruitmentjobpositionPrepareHead($object)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$langs->load("recruitment");
 

@@ -554,7 +554,7 @@ class Users extends DolibarrApi
 	 */
 	public function setGroup($id, $group, $entity = 1)
 	{
-		global $conf;
+		global $config;
 
 		if (!DolibarrApiAccess::$user->hasRight('user', 'user', 'creer') && empty(DolibarrApiAccess::$user->admin)) {
 			throw new RestException(403, 'setGroup on users not allowed for login '.DolibarrApiAccess::$user->login);

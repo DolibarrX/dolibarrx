@@ -438,7 +438,7 @@ function getListActionCommType($authentication)
  */
 function createActionComm($authentication, $actioncomm)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$now = dol_now();
 
@@ -522,7 +522,7 @@ function createActionComm($authentication, $actioncomm)
  */
 function updateActionComm($authentication, $actioncomm)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$now = dol_now();
 

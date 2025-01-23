@@ -508,7 +508,7 @@ class SMTPs
 	private function _server_authenticate()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 		// Send the RFC2554 specified EHLO.
@@ -1506,7 +1506,7 @@ class SMTPs
 	 */
 	public function getHeader()
 	{
-		global $conf;
+		global $config;
 
 		$_header = 'From: '.$this->getFrom('org')."\r\n"
 		. 'To: '.$this->getTo()."\r\n";
@@ -1633,7 +1633,7 @@ class SMTPs
 	 */
 	public function getBodyContent()
 	{
-		global $conf;
+		global $config;
 
 		// Generate a new Boundary string
 		$this->_setBoundary();

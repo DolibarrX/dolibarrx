@@ -1004,7 +1004,7 @@ class StockTransfer extends CommonObject
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("stocks");
 
 		if (!getDolGlobalString('STOCKTRANSFER_STOCKTRANSFER_ADDON')) {

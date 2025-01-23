@@ -32,7 +32,7 @@ require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
  */
 function dolDispatchToDo($order_id)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$dispatched = array();
 	$ordered = array();
@@ -113,7 +113,7 @@ function dispatchedOrders()
  */
 function ordered($product_id)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$sql = 'SELECT DISTINCT cfd.fk_product, SUM(cfd.qty) as qty FROM';
 	$sql .= ' '.MAIN_DB_PREFIX.'commande_fournisseurdet as cfd ';

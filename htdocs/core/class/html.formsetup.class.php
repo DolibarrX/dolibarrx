@@ -259,7 +259,7 @@ class FormSetup
 	 */
 	public function saveConfFromPost($noMessageInUpdate = false)
 	{
-		global $hookManager, $conf;
+		global $hookManager, $config;
 
 		$parameters = array();
 		$resHook = $hookManager->executeHooks('formSetupBeforeSaveConfFromPost', $parameters, $this); // Note that $action and $object may have been modified by some hooks
@@ -704,7 +704,7 @@ class FormSetupItem
 	 */
 	public function loadValueFromConf()
 	{
-		global $conf;
+		global $config;
 		if (isset($config->global->{$this->confKey})) {
 			$this->fieldValue = getDolGlobalString($this->confKey);
 			return true;
@@ -867,7 +867,7 @@ class FormSetupItem
 	 */
 	public function generateInputField()
 	{
-		global $conf;
+		global $config;
 
 		if (!empty($this->fieldOverride)) {
 			return $this->fieldOverride;
@@ -977,7 +977,7 @@ class FormSetupItem
 	 */
 	public function generateInputFieldHtml()
 	{
-		global $conf;
+		global $config;
 		require_once DOL_DOCUMENT_ROOT . '/core/class/doleditor.class.php';
 		$doleditor = new DolEditor($this->confKey, $this->fieldValue, '', 160, 'dolibarr_notes', '', false, false, isModEnabled('fckeditor'), ROWS_5, '90%');
 		return $doleditor->Create(1);
@@ -1046,7 +1046,7 @@ class FormSetupItem
 	 */
 	public function generateInputFieldSecureKey()
 	{
-		global $conf;
+		global $config;
 		$out = '<input type="text" class="flat minwidth150'.($this->cssClass ? ' '.$this->cssClass : '').'" id="'.$this->confKey.'" name="'.$this->confKey.'" value="'.(GETPOST($this->confKey, 'alpha') ? GETPOST($this->confKey, 'alpha') : $this->fieldValue).'">';
 
 		if (!empty($config->use_javascript_ajax) && empty($this->fieldParams['hideGenerateButton'])) {

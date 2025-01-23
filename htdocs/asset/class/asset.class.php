@@ -1587,7 +1587,7 @@ class Asset extends CommonObject
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("assets");
 
 		if (!getDolGlobalString('ASSET_ASSET_ADDON')) {

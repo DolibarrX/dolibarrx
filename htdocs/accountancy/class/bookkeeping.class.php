@@ -749,7 +749,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function fetch($id, $ref = null, $mode = '')
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
@@ -856,7 +856,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function fetchAllByAccount($sortorder = '', $sortfield = '', $limit = 0, $offset = 0, array $filter = array(), $filtermode = 'AND', $option = 0, $countonly = 0)
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
@@ -1056,7 +1056,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function fetchAll($sortorder = '', $sortfield = '', $limit = 0, $offset = 0, $filter = '', $filtermode = 'AND', $showAlreadyExportMovements = 1)
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
@@ -1244,7 +1244,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function fetchAllBalance($sortorder = '', $sortfield = '', $limit = 0, $offset = 0, $filter = '', $filtermode = 'AND', $option = 0)
 	{
-		global $conf;
+		global $config;
 
 		$this->lines = array();
 
@@ -1715,7 +1715,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function deleteMvtNum($piecenum, $mode = '')
 	{
-		global $conf;
+		global $config;
 
 		$sql_filter = $this->getCanModifyBookkeepingSQL();
 		if (!isset($sql_filter)) {
@@ -1849,7 +1849,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function fetchPerMvt($piecenum, $mode = '')
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT piece_num, doc_date, code_journal, journal_label, doc_ref, doc_type,";
 		$sql .= " date_creation, tms as date_modification, date_validated as date_validation, date_lim_reglement, import_key";
@@ -1897,7 +1897,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function getNextNumMvt($mode = '')
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT MAX(piece_num)+1 as max FROM ".$this->db->prefix().$this->table_element.$mode;
 		$sql .= " WHERE entity = " . ((int) $config->entity); // Do not use getEntity for accounting features
@@ -1931,7 +1931,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function fetchAllPerMvt($piecenum, $mode = '')
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT rowid, doc_date, doc_type,";
 		$sql .= " doc_ref, fk_doc, fk_docdet, thirdparty_code, subledger_account, subledger_label,";
@@ -2001,7 +2001,7 @@ class BookKeeping extends CommonObject
 	public function export_bookkeeping($model = 'ebp')
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$sql = "SELECT rowid, doc_date, doc_type,";
 		$sql .= " doc_ref, fk_doc, fk_docdet, thirdparty_code, subledger_account, subledger_label,";
@@ -2065,7 +2065,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function transformTransaction($direction = 0, $piece_num = '')
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 
@@ -2200,7 +2200,7 @@ class BookKeeping extends CommonObject
 	public function select_account($selectid, $htmlname = 'account', $showempty = 0, $event = array(), $select_in = 0, $select_out = 0, $aabase = '')
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/accounting.lib.php';
 
@@ -2265,7 +2265,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function getRootAccount($account = null)
 	{
-		global $conf;
+		global $config;
 		$pcgver = getDolGlobalInt('CHARTOFACCOUNTS');
 
 		$sql  = "SELECT root.rowid, root.account_number, root.label as label,";
@@ -2306,7 +2306,7 @@ class BookKeeping extends CommonObject
 	public function get_compte_desc($account = null)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$pcgver = getDolGlobalInt('CHARTOFACCOUNTS');
 		$sql  = "SELECT aa.account_number, aa.label, aa.rowid, aa.fk_pcg_version, cat.label as category";
@@ -2346,7 +2346,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function getCanModifyBookkeepingSQL($alias = '', $force = false)
 	{
-		global $conf;
+		global $config;
 
 		$alias = trim($alias);
 		$alias = !empty($alias) && strpos($alias, '.') === false ? $alias . "." : $alias;
@@ -2387,7 +2387,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function canModifyBookkeeping($id, $mode = '')
 	{
-		global $conf;
+		global $config;
 
 		if (getDolGlobalString('ACCOUNTANCY_FISCAL_PERIOD_MODE') == 'blockedonclosed') {
 			$result = $this->loadFiscalPeriods(false, 'closed');
@@ -2445,7 +2445,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function accountingLabelForOperation($thirdpartyname, $reference, $labelaccount)
 	{
-		global $conf;
+		global $config;
 
 		$accountingLabelOperation = '';
 
@@ -2484,7 +2484,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function validBookkeepingDate($date)
 	{
-		global $conf;
+		global $config;
 
 		if (getDolGlobalString('ACCOUNTANCY_FISCAL_PERIOD_MODE') == 'blockedonclosed') {
 			$result = $this->loadFiscalPeriods(false, 'closed');
@@ -2529,7 +2529,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function loadFiscalPeriods($force = false, $mode = 'active')
 	{
-		global $conf;
+		global $config;
 
 		if ($mode == 'active') {
 			if (!isset($config->cache['active_fiscal_period_cached']) || $force) {
@@ -2589,7 +2589,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function getFiscalPeriods($filter = '')
 	{
-		global $conf;
+		global $config;
 		$list = array();
 
 		$sql = "SELECT rowid, label, date_start, date_end, statut";
@@ -2629,7 +2629,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function getCountByMonthForFiscalPeriod($date_start, $date_end)
 	{
-		global $conf;
+		global $config;
 
 		$total = 0;
 		$list = array();
@@ -2694,7 +2694,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function validateMovementForFiscalPeriod($date_start, $date_end)
 	{
-		global $conf;
+		global $config;
 
 		$now = dol_now();
 
@@ -2725,7 +2725,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function accountingResult($date_start, $date_end)
 	{
-		global $conf;
+		global $config;
 
 		$this->db->begin();
 

@@ -190,7 +190,7 @@ class MultiCurrency extends CommonObject
 	{
 		dol_syslog('MultiCurrency::fetch', LOG_DEBUG);
 
-		global $conf;
+		global $config;
 
 		$sql = "SELECT";
 		$sql .= ' c.rowid, c.name, c.code, c.entity, c.date_create, c.fk_user';
@@ -503,7 +503,7 @@ class MultiCurrency extends CommonObject
 	 */
 	public static function getIdFromCode($dbs, $code)
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."multicurrency WHERE code = '".$dbs->escape($code)."' AND entity = ".((int) $config->entity);
 
@@ -620,7 +620,7 @@ class MultiCurrency extends CommonObject
 	 */
 	public function recalculRates(&$TRate)
 	{
-		global $conf;
+		global $config;
 
 		if ($config->currency != getDolGlobalString('MULTICURRENCY_APP_SOURCE')) {
 			$alternate_source = 'USD'.$config->currency;

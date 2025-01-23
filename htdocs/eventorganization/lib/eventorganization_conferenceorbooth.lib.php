@@ -32,7 +32,7 @@
  */
 function conferenceorboothPrepareHead($object, $with_project = 0)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$langs->load("eventorganization");
 
@@ -120,7 +120,7 @@ function conferenceorboothPrepareHead($object, $with_project = 0)
  */
 function conferenceorboothProjectPrepareHead($object)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$langs->load("eventorganization");
 
@@ -195,7 +195,7 @@ function conferenceorboothProjectPrepareHead($object)
  */
 function conferenceorboothAttendeePrepareHead($object)
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$langs->load("eventorganization");
 

@@ -474,7 +474,7 @@ class Account extends CommonObject
 	 */
 	public function canBeConciliated()
 	{
-		global $conf;
+		global $config;
 
 		if (empty($this->rappro)) {
 			return -1;
@@ -718,7 +718,7 @@ class Account extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$error = 0;
 
@@ -903,7 +903,7 @@ class Account extends CommonObject
 	 */
 	public function update($user, $notrigger = 0)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		if (empty($this->country_id) && !empty($this->country_code)) {
 			$country_id = getCountry($this->country_code, '3');
@@ -1777,7 +1777,7 @@ class Account extends CommonObject
 	 */
 	public function needIBAN()
 	{
-		global $conf;
+		global $config;
 
 		if (getDolGlobalString('MAIN_IBAN_IS_NEVER_MANDATORY')) {
 			return 0;
@@ -1923,7 +1923,7 @@ class Account extends CommonObject
 	 */
 	public static function getAccountNumberOrder()
 	{
-		global $conf;
+		global $config;
 
 		$fieldlists = array(
 				'BankCode',

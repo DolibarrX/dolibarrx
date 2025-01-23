@@ -114,7 +114,7 @@ class Dolistore
 	 */
 	public function getRemoteCategories()
 	{
-		global $conf;
+		global $config;
 
 		try {
 			$this->api = new PrestaShopWebservice(getDolGlobalString('MAIN_MODULE_DOLISTORE_API_SRV'), getDolGlobalString('MAIN_MODULE_DOLISTORE_API_KEY'), $this->debug_api);
@@ -155,7 +155,7 @@ class Dolistore
 	 */
 	public function getRemoteProducts($options = array('start' => 0, 'end' => 10, 'per_page' => 50, 'categorie' => 0, 'search' => ''))
 	{
-		global $conf;
+		global $config;
 
 		$this->start     = $options['start'];
 		$this->end       = $options['end'];

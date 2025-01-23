@@ -104,7 +104,7 @@ class modGeneratePassPerso extends ModeleGenPassword
 		$this->length = $langs->trans("SetupPerso");
 
 		$this->db = $db;
-		$this->conf = $conf;
+		$this->conf = $config;
 		$this->langs = $langs;
 		$this->user = $user;
 

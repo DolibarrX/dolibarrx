@@ -36,7 +36,7 @@ class InfoBox
 	 */
 	public static function getListOfPagesForBoxes()
 	{
-		global $conf;
+		global $config;
 
 		if (getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2) {
 			return array(
@@ -94,7 +94,7 @@ class InfoBox
 	 */
 	public static function listBoxes($dbs, $mode, $zone, $user = null, $excludelist = array(), $includehidden = 1)
 	{
-		global $conf;
+		global $config;
 
 		$boxes = array();
 
@@ -225,7 +225,7 @@ class InfoBox
 	 */
 	public static function saveboxorder($dbs, $zone, $boxOrder, $userId = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 

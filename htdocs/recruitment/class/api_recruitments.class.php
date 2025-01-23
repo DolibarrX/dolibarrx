@@ -260,7 +260,7 @@ class Recruitments extends DolibarrApi
 	 */
 	public function indexCandidature($sortfield = "t.rowid", $sortorder = 'ASC', $limit = 100, $page = 0, $sqlfilters = '', $properties = '', $pagination_data = false)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$obj_ret = array();
 		$tmpobject = new RecruitmentCandidature($this->db);

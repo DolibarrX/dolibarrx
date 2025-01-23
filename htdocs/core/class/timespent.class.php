@@ -377,7 +377,7 @@ class TimeSpent extends CommonObject
 	 */
 	public function fetchAll($sortorder = '', $sortfield = '', $limit = 0, $offset = 0, $filter = '', $filtermode = 'AND')
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
@@ -977,7 +977,7 @@ class TimeSpent extends CommonObject
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("timespent@timespent");
 
 		if (!getDolGlobalString('TIMESPENT_timespent_ADDON')) {

@@ -1740,7 +1740,7 @@ function show_contacts($conf, $langs, $db, $object, $backtopage = '', $showuserl
  */
 function show_actions_todo($conf, $langs, $db, $filterobj, $objcon = null, $noprint = 0, $actioncode = '')
 {
-	global $user, $conf;
+	global $user, $config;
 
 	$out = show_actions_done($conf, $langs, $db, $filterobj, $objcon, 1, $actioncode, 'todo');
 
@@ -2690,7 +2690,7 @@ function addMailingEventTypeSQL($actioncode, $objcon, $filterobj)
  */
 function htmlPrintOnlineFooter($fromcompany, $langs, $addformmessage = 0, $suffix = '', $object = null)
 {
-	global $conf;
+	global $config;
 
 	$reg = array();
 

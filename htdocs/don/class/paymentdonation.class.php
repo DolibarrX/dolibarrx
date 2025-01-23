@@ -619,7 +619,7 @@ class PaymentDonation extends CommonObject
 	 */
 	public function addPaymentToBank($user, $mode, $label, $accountid, $emetteur_nom, $emetteur_banque)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 		$amount = 0;

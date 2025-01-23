@@ -136,7 +136,7 @@ class modIntracommreport extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf;
+		global $config;
 
 		$result = $this->_load_tables('/install/mysql/', 'intracommreport');
 		if ($result < 0) {

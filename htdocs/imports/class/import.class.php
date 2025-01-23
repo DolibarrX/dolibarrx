@@ -177,7 +177,7 @@ class Import
 	public function load_arrays($user, $filter = '')
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		dol_syslog(get_class($this)."::load_arrays user=".$user->id." filter=".$filter);
 
@@ -352,7 +352,7 @@ class Import
 	 */
 	public function create($user)
 	{
-		global $conf;
+		global $config;
 
 		dol_syslog("Import.class.php::create");
 

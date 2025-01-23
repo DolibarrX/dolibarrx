@@ -199,7 +199,7 @@ class mod_codecompta_digitaria extends ModeleAccountancyCode
 	public function get_code($db, $societe, $type = '')
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		$i = 0;
 		$this->code = '';
 
@@ -285,7 +285,7 @@ class mod_codecompta_digitaria extends ModeleAccountancyCode
 	 */
 	public function checkIfAccountancyCodeIsAlreadyUsed($db, $code, $type = '')
 	{
-		global $conf;
+		global $config;
 
 		if ($type == 'supplier') {
 			if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {

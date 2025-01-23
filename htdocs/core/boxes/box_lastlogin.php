@@ -46,7 +46,7 @@ class box_lastlogin extends ModeleBoxes
 	 */
 	public function __construct($db, $param)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 	}

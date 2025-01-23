@@ -1306,7 +1306,7 @@ class Product extends CommonObject
 	public function check_barcode($valuetotest, $typefortest)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		if (isModEnabled('barcode') && getDolGlobalString('BARCODE_PRODUCT_ADDON_NUM')) {
 			$module = strtolower(getDolGlobalString('BARCODE_PRODUCT_ADDON_NUM'));
@@ -1769,7 +1769,7 @@ class Product extends CommonObject
 	 */
 	public function delete(User $user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error = 0;
@@ -2243,7 +2243,7 @@ class Product extends CommonObject
 	private function _log_price($user, $level = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$now = dol_now();
 
@@ -2871,7 +2871,7 @@ class Product extends CommonObject
 	{
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
-		global $conf;
+		global $config;
 
 		dol_syslog(get_class($this)."::fetch id=".$id." ref=".$ref." ref_ext=".$ref_ext);
 
@@ -5021,7 +5021,7 @@ class Product extends CommonObject
 	public function add_fournisseur($user, $id_fourn, $ref_fourn, $quantity)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$now = dol_now();
 
@@ -5117,7 +5117,7 @@ class Product extends CommonObject
 	public function list_suppliers()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$list = array();
 
@@ -6699,7 +6699,7 @@ class Product extends CommonObject
 	public function get_barcode($object, $type = '')
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$result = '';
 		if (getDolGlobalString('BARCODE_PRODUCT_ADDON_NUM')) {
@@ -7025,7 +7025,7 @@ class Product extends CommonObject
 	 */
 	public function getKanbanView($option = '', $arraydata = null)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$selected = (empty($arraydata['selected']) ? 0 : $arraydata['selected']);
 

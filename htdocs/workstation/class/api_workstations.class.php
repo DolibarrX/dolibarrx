@@ -47,7 +47,7 @@ class Workstations extends DolibarrApi
 	 */
 	public function __construct()
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		$this->db = $db;
 		$this->workstation = new Workstation($this->db);
@@ -107,7 +107,7 @@ class Workstations extends DolibarrApi
 	 */
 	public function index($sortfield = "t.ref", $sortorder = 'ASC', $limit = 100, $page = 0, $sqlfilters = '', $properties = '')
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		if (!DolibarrApiAccess::$user->rights->workstation->workstation->read) {
 			throw new RestException(403);

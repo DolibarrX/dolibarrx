@@ -159,7 +159,7 @@ class DoliDBPgsql extends DoliDB
 	 */
 	public function convertSQLFromMysql($line, $type = 'auto', $unescapeslashquot = false)
 	{
-		global $conf;
+		global $config;
 
 		// Removed empty line if this is a comment line for SVN tagging
 		if (preg_match('/^--\s\$Id/i', $line)) {
@@ -703,7 +703,7 @@ class DoliDBPgsql extends DoliDB
 	 */
 	public function plimit($limit = 0, $offset = 0)
 	{
-		global $conf;
+		global $config;
 		if (empty($limit)) {
 			return "";
 		}
@@ -877,7 +877,7 @@ class DoliDBPgsql extends DoliDB
 	 */
 	public function encrypt($fieldorvalue, $withQuotes = 1)
 	{
-		//global $conf;
+		//global $config;
 
 		// Type of encryption (2: AES (recommended), 1: DES , 0: no encryption)
 		//$cryptType = ($config->db->dolibarr_main_db_encryption ? $config->db->dolibarr_main_db_encryption : 0);
@@ -898,7 +898,7 @@ class DoliDBPgsql extends DoliDB
 	 */
 	public function decrypt($value)
 	{
-		//global $conf;
+		//global $config;
 
 		// Type of encryption (2: AES (recommended), 1: DES , 0: no encryption)
 		//$cryptType = ($config->db->dolibarr_main_db_encryption ? $config->db->dolibarr_main_db_encryption : 0);

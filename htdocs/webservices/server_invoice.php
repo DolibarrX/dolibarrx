@@ -313,7 +313,7 @@ $server->register(
  */
 function getInvoice($authentication, $id = 0, $ref = '', $ref_ext = '')
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: getInvoice login=".$authentication['login']." id=".$id." ref=".$ref." ref_ext=".$ref_ext);
 
@@ -422,7 +422,7 @@ function getInvoice($authentication, $id = 0, $ref = '', $ref_ext = '')
  */
 function getInvoicesForThirdParty($authentication, $idthirdparty)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: getInvoicesForThirdParty login=".$authentication['login']." idthirdparty=".$idthirdparty);
 
@@ -558,7 +558,7 @@ function getInvoicesForThirdParty($authentication, $idthirdparty)
  */
 function createInvoice($authentication, $invoice)
 {
-	global $db, $conf;
+	global $db, $config;
 
 	$now = dol_now();
 
@@ -679,7 +679,7 @@ function createInvoice($authentication, $invoice)
  */
 function createInvoiceFromOrder($authentication, $id_order = '', $ref_order = '', $ref_ext_order = '')
 {
-	global $db, $conf;
+	global $db, $config;
 
 	dol_syslog("Function: createInvoiceFromOrder login=".$authentication['login']." id=".$id_order.", ref=".$ref_order.", ref_ext=".$ref_ext_order);
 

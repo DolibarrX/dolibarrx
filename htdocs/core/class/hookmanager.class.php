@@ -105,7 +105,7 @@ class HookManager
 	 */
 	public function initHooks($arraycontext)
 	{
-		global $conf;
+		global $config;
 
 		// Test if there is at least one hook to manage
 		if (!is_array($config->modules_parts['hooks']) || empty($config->modules_parts['hooks'])) {

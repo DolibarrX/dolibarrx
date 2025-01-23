@@ -481,7 +481,7 @@ class Contact extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 		$now = dol_now();
@@ -605,7 +605,7 @@ class Contact extends CommonObject
 	 */
 	public function update($id, $user = null, $notrigger = 0, $action = 'update', $nosyncuser = 0)
 	{
-		global $conf;
+		global $config;
 
 		if (empty($this->country_id) && !empty($this->country_code)) {
 			$country_id = getCountry($this->country_code, '3');
@@ -793,7 +793,7 @@ class Contact extends CommonObject
 	public function _load_ldap_dn($info, $mode = 0)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		$dn = '';
 		if ($mode == 0) {
 			$dn = getDolGlobalString('LDAP_KEY_CONTACTS') . "=".$info[getDolGlobalString('LDAP_KEY_CONTACTS')]."," . getDolGlobalString('LDAP_CONTACT_DN');
@@ -1947,7 +1947,7 @@ class Contact extends CommonObject
 	 */
 	public function updateRoles()
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 

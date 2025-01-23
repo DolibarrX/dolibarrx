@@ -961,7 +961,7 @@ class SkillRank extends CommonObject
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("hrm");
 
 		if (!getDolGlobalString('hrm_SKILLRANK_ADDON')) {

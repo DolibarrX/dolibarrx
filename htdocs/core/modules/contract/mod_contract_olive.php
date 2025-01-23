@@ -102,7 +102,7 @@ class mod_contract_olive extends ModelNumRefContracts
 	 */
 	public function verif($db, &$code, $product, $type)
 	{
-		global $conf;
+		global $config;
 
 		$result = 0;
 		$code = strtoupper(trim($code));

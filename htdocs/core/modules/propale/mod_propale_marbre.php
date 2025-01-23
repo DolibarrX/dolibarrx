@@ -133,7 +133,7 @@ class mod_propale_marbre extends ModeleNumRefPropales
 	 */
 	public function getNextValue($objsoc, $propal)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		// First, we get the max value
 		$posindice = strlen($this->prefix) + 6;

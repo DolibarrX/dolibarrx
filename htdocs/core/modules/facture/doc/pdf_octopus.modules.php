@@ -1184,7 +1184,7 @@ class pdf_octopus extends ModelePDFFactures
 	 */
 	public function drawPaymentsTable(&$pdf, $object, $posy, $outputlangs)
 	{
-		global $conf;
+		global $config;
 
 		$sign = 1;
 		if ($object->type == 2 && getDolGlobalString('INVOICE_POSITIVE_CREDIT_NOTE')) {
@@ -2050,7 +2050,7 @@ class pdf_octopus extends ModelePDFFactures
 	 */
 	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0, $currency = '', $outputlangsbis = null)
 	{
-		global $conf;
+		global $config;
 
 		// Force to disable hidetop and hidebottom
 		$hidebottom = 0;

@@ -102,7 +102,7 @@ class LignePrelevement
 	 */
 	public function fetch($rowid)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 

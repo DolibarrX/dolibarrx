@@ -120,7 +120,7 @@ class ProductCombination
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 		$this->entity = $config->entity;
@@ -220,7 +220,7 @@ class ProductCombination
 	 */
 	public function saveCombinationPriceLevels($clean = 1)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 
@@ -266,7 +266,7 @@ class ProductCombination
 	 */
 	public function fetchByFkProductChild($productid, $donotloadpricelevel = 0)
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT rowid, fk_product_parent, fk_product_child, variation_price, variation_price_percentage, variation_weight";
 		$sql .= " FROM ".MAIN_DB_PREFIX."product_attribute_combination WHERE fk_product_child = ".((int) $productid)." AND entity IN (".getEntity('product').")";
@@ -306,7 +306,7 @@ class ProductCombination
 	 */
 	public function fetchAllByFkProductParent($fk_product_parent, $sort_by_ref = false)
 	{
-		global $conf;
+		global $config;
 
 		$sql = "SELECT pac.rowid, pac.fk_product_parent, pac.fk_product_child, pac.variation_price, pac.variation_price_percentage, pac.variation_ref_ext, pac.variation_weight";
 		$sql .= " FROM ".MAIN_DB_PREFIX."product_attribute_combination AS pac";
@@ -376,7 +376,7 @@ class ProductCombination
 	 */
 	public function create($user)
 	{
-		global $conf;
+		global $config;
 
 		/* $this->fk_product_child may be empty and will be filled later after subproduct has been created */
 
@@ -412,7 +412,7 @@ class ProductCombination
 	 */
 	public function update(User $user)
 	{
-		global $conf;
+		global $config;
 
 		$sql = "UPDATE ".MAIN_DB_PREFIX."product_attribute_combination";
 		$sql .= " SET fk_product_parent = ".(int) $this->fk_product_parent.", fk_product_child = ".(int) $this->fk_product_child.",";
@@ -514,7 +514,7 @@ class ProductCombination
 	 */
 	public function updateProperties(Product $parent, User $user)
 	{
-		global $conf;
+		global $config;
 
 		$this->db->begin();
 
@@ -755,7 +755,7 @@ class ProductCombination
 	 */
 	public function createProductCombination(User $user, Product $product, array $combinations, array $variations, $price_var_percent = false, $forced_pricevar = false, $forced_weightvar = false, $forced_refvar = false, $ref_ext = '')
 	{
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/variants/class/ProductAttribute.class.php';
 		require_once DOL_DOCUMENT_ROOT.'/variants/class/ProductAttributeValue.class.php';
@@ -1308,7 +1308,7 @@ class ProductCombinationLevel
 	 */
 	public function clean($fk_product_attribute_combination)
 	{
-		global $conf;
+		global $config;
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX.$this->table_element;
 		$sql .= " WHERE fk_product_attribute_combination = ".(int) $fk_product_attribute_combination;

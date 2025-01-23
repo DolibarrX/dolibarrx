@@ -550,7 +550,7 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 	 */
 	protected function printLine(&$pdf, $object, $linenumber, $curY, $default_font_size, $outputlangs, $hidedetails = 0)
 	{
-		global $conf;
+		global $config;
 		$pdf->SetFont('', '', $default_font_size - 1);
 		$pdf->SetTextColor(0, 0, 0);
 
@@ -886,7 +886,7 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 	 */
 	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0, $currency = '')
 	{
-		global $conf;
+		global $config;
 
 		// Force to disable hidetop and hidebottom
 		$hidebottom = 0;
@@ -1004,7 +1004,7 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 	 */
 	protected function tablePayments(&$pdf, $object, $posy, $outputlangs)
 	{
-		global $conf;
+		global $config;
 
 		$sign = 1;
 		$tab3_posx = $this->marge_gauche;

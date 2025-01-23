@@ -126,7 +126,7 @@ class mod_myobject_standard extends ModeleNumRefMyObject
 	 */
 	public function getNextValue($object)
 	{
-		global $db, $conf;
+		global $db, $config;
 
 		// first we get the max value
 		$posindice = strlen($this->prefix) + 6;

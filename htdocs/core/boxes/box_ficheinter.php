@@ -62,7 +62,7 @@ class box_ficheinter extends ModeleBoxes
 	 */
 	public function loadBox($max = 10)
 	{
-		global $user, $langs, $conf;
+		global $user, $langs, $config;
 
 		$this->max = $max;
 

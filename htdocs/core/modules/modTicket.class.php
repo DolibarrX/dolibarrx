@@ -41,7 +41,7 @@ class modTicket extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("ticket");
 
 		$this->db = $db;

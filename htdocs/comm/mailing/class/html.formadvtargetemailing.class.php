@@ -219,7 +219,7 @@ class FormAdvTargetEmailing extends Form
 	 */
 	public function multiselectselectSalesRepresentatives($htmlname, $selected_array, $user)
 	{
-		global $conf;
+		global $config;
 
 		$options_array = array();
 

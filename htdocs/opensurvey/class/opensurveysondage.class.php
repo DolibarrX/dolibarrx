@@ -227,7 +227,7 @@ class Opensurveysondage extends CommonObject
 	 */
 	public function create(User $user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 
 		$error = 0;
 
@@ -777,7 +777,7 @@ class Opensurveysondage extends CommonObject
 	public function LibStatut($status, $mode)
 	{
 		// phpcs:enable
-		global $langs, $conf;
+		global $langs, $config;
 
 		if (empty($this->labelStatus) || empty($this->labelStatusShort)) {
 			global $langs;

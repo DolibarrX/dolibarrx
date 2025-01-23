@@ -424,7 +424,7 @@ abstract class CommonDocGenerator
 	public function get_substitutionarray_mysoc($mysoc, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		if (empty($mysoc->forme_juridique) && !empty($mysoc->forme_juridique_code)) {
 			$mysoc->forme_juridique = getFormeJuridiqueLabel((string) $mysoc->forme_juridique_code);
@@ -614,7 +614,7 @@ abstract class CommonDocGenerator
 	public function get_substitutionarray_other($outputlangs)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$now = dol_now('gmt'); // gmt
 		$array_other = array(
@@ -1180,7 +1180,7 @@ abstract class CommonDocGenerator
 	public function fill_substitutionarray_with_extrafields($object, $array_to_fill, $extrafields, $array_key, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		if ($extrafields->attributes[$object->table_element]['count'] > 0) {
 			foreach ($extrafields->attributes[$object->table_element]['label'] as $key => $label) {
@@ -1930,7 +1930,7 @@ abstract class CommonDocGenerator
 	 */
 	public function pdfTabTitles(&$pdf, $tab_top, $tab_height, $outputlangs, $hidetop = 0)
 	{
-		global $hookManager, $conf;
+		global $hookManager, $config;
 
 		foreach ($this->cols as $colKey => $colDef) {
 			$parameters = array(

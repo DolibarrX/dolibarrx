@@ -221,7 +221,7 @@ class mod_codeproduct_elephant extends ModeleProductCode
 	public function verif_prefixIsUsed()
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 
 		$mask = getDolGlobalString('PRODUCT_ELEPHANT_MASK_PRODUCT');
 		if (preg_match('/\{pre\}/i', $mask)) {
@@ -253,7 +253,7 @@ class mod_codeproduct_elephant extends ModeleProductCode
 	 */
 	public function verif($db, &$code, $product, $type)
 	{
-		global $conf;
+		global $config;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 

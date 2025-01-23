@@ -40,7 +40,7 @@ class modUser extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 		$this->numero = 0;
@@ -376,7 +376,7 @@ class modUser extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf;
+		global $config;
 
 		// Permissions
 		$this->remove($options);

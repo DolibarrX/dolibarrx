@@ -61,7 +61,7 @@ class Documents extends DolibarrApi
 	 */
 	public function index($modulepart, $original_file = '')
 	{
-		global $conf;
+		global $config;
 
 		if (empty($modulepart)) {
 			throw new RestException(400, 'bad value for parameter modulepart');
@@ -315,7 +315,7 @@ class Documents extends DolibarrApi
 	 */
 	public function getDocumentsListByElement($modulepart, $id = 0, $ref = '', $sortfield = '', $sortorder = '')
 	{
-		global $conf;
+		global $config;
 
 		if (empty($modulepart)) {
 			throw new RestException(400, 'bad value for parameter modulepart');
@@ -676,7 +676,7 @@ class Documents extends DolibarrApi
 	 */
 	public function post($filename, $modulepart, $ref = '', $subdir = '', $filecontent = '', $fileencoding = '', $overwriteifexists = 0, $createdirifnotexists = 1, $position = 0, $cover = '', $array_options = [])
 	{
-		global $conf;
+		global $config;
 
 		$modulepartorig = $modulepart;
 

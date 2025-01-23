@@ -877,7 +877,7 @@ class Ldap
 	 */
 	public function dump($dn, $info)
 	{
-		global $conf;
+		global $config;
 		$ldapDirTemp = $config->ldap->dir_temp;
 		// Create content
 		$content = $this->dumpContent($dn, $info);
@@ -1600,7 +1600,7 @@ class Ldap
 	 */
 	private function convToOutputCharset($str, $pagecodefrom = 'UTF-8')
 	{
-		global $conf;
+		global $config;
 		if ($pagecodefrom == 'ISO-8859-1' && $config->file->character_set_client == 'UTF-8') {
 			$str = mb_convert_encoding($str, 'UTF-8', 'ISO-8859-1');
 		}
@@ -1619,7 +1619,7 @@ class Ldap
 	 */
 	public function convFromOutputCharset($str, $pagecodeto = 'UTF-8')
 	{
-		global $conf;
+		global $config;
 		if ($pagecodeto == 'ISO-8859-1' && $config->file->character_set_client == 'UTF-8') {
 			$str = mb_convert_encoding($str, 'ISO-8859-1');
 		}

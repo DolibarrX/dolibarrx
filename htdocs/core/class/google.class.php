@@ -65,7 +65,7 @@ class GoogleAPI
 	 */
 	public function getGeoCoordinatesOfAddress($address)
 	{
-		global $conf;
+		global $config;
 
 		$i = 0;
 

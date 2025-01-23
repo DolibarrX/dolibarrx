@@ -1429,7 +1429,7 @@ function getImageFromHtmlContent($htmlContent, $imageNumber = 1)
  */
 function getAllImages($object, $objectpage, $urltograb, &$tmp, &$action, $modifylinks = 0, $grabimages = 1, $grabimagesinto = 'subpage')
 {
-	global $conf;
+	global $config;
 
 	$error = 0;
 

@@ -169,7 +169,7 @@ class PaiementFourn extends Paiement
 	 */
 	public function create($user, $closepaidinvoices = 0, $thirdparty = null)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$error = 0;
 		$way = $this->getWay();
@@ -894,7 +894,7 @@ class PaiementFourn extends Paiement
 	 */
 	public function getWay()
 	{
-		global $conf;
+		global $config;
 
 		$way = 'dolibarr';
 		if (isModEnabled("multicurrency")) {

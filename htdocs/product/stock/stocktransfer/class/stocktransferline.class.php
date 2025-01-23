@@ -911,7 +911,7 @@ class StockTransferLine extends CommonObjectLine
 	 */
 	public function getNextNumRef()
 	{
-		global $langs, $conf;
+		global $langs, $config;
 		$langs->load("stocks");
 
 		if (!getDolGlobalString('STOCKTRANSFER_STOCKTRANSFERLINE_ADDON')) {

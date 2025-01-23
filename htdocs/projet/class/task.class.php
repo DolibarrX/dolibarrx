@@ -774,7 +774,7 @@ class Task extends CommonObjectLine
 	 */
 	public function delete($user, $notrigger = 0)
 	{
-		global $conf;
+		global $config;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error = 0;
@@ -1238,7 +1238,7 @@ class Task extends CommonObjectLine
 		// Add where from extra fields
 		$extrafieldsobjectkey = 'projet_task';
 		$extrafieldsobjectprefix = 'efpt.';
-		global $db, $conf; // needed for extrafields_list_search_sql.tpl
+		global $db, $config; // needed for extrafields_list_search_sql.tpl
 		include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 
 		// Add where from hooks
@@ -2230,7 +2230,7 @@ class Task extends CommonObjectLine
 	 */
 	public function createFromClone(User $user, $fromid, $project_id, $parent_task_id, $clone_change_dt = false, $clone_affectation = false, $clone_time = false, $clone_file = false, $clone_note = false, $clone_prog = false)
 	{
-		global $langs, $conf;
+		global $langs, $config;
 
 		$error = 0;
 
@@ -2690,7 +2690,7 @@ class Task extends CommonObjectLine
 	 */
 	public function hasDelay()
 	{
-		global $conf;
+		global $config;
 
 		if (!($this->progress >= 0 && $this->progress < 100)) {
 			return false;

@@ -531,7 +531,7 @@ class PartnershipUtils
 	 */
 	private function checkDolibarrBacklink($website = null)
 	{
-		global $conf;
+		global $config;
 
 		$found 		= 0;
 		$error 		= 0;

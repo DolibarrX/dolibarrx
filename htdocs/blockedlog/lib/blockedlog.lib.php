@@ -29,7 +29,7 @@
  */
 function blockedlogadmin_prepare_head()
 {
-	global $db, $langs, $conf;
+	global $db, $langs, $config;
 
 	$h = 0;
 	$head = array();

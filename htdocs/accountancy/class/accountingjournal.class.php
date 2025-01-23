@@ -157,7 +157,7 @@ class AccountingJournal extends CommonObject
 	 */
 	public function fetch($rowid = 0, $journal_code = null)
 	{
-		global $conf;
+		global $config;
 
 		if ($rowid || $journal_code) {
 			$sql = "SELECT rowid, code, label, nature, active";

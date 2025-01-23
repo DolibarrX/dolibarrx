@@ -42,7 +42,7 @@ class modComptabilite extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf;
+		global $config;
 
 		$this->db = $db;
 		$this->numero = 10;
@@ -112,7 +112,7 @@ class modComptabilite extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf;
+		global $config;
 
 		// Nettoyage avant activation
 		$this->remove($options);

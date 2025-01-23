@@ -727,7 +727,7 @@ class pdf_aurore extends ModelePDFSupplierProposal
 	protected function _tableau_info(&$pdf, $object, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf;
+		global $config;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		$diffsizetitle = (!getDolGlobalString('PDF_DIFFSIZE_TITLE') ? 3 : $config->global->PDF_DIFFSIZE_TITLE);
@@ -1127,7 +1127,7 @@ class pdf_aurore extends ModelePDFSupplierProposal
 	 */
 	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0, $currency = '')
 	{
-		global $conf;
+		global $config;
 
 		// Force to disable hidetop and hidebottom
 		$hidebottom = 0;
