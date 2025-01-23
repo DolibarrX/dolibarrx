@@ -1128,12 +1128,12 @@ function get_left_menu_home($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu =
 		$newmenu->add("/admin/index.php?mainmenu=home&amp;leftmenu=setup", $langs->trans("Setup"), 0, $user->admin, '', $mainmenu, 'setup', 0, '', '', '', '<i class="fa fa-tools fa-fw paddingright pictofixedwidth"></i>');
 
 		if ($usemenuhider || empty($leftmenu) || $leftmenu == "setup") {
-			// Define $nbmodulesnotautoenabled - TODO This code is at different places
-			$nbmodulesnotautoenabled = count($conf->modules);
+			// Define $nbModulesNotAutoEnabled - TODO This code is at different places
+			$nbModulesNotAutoEnabled = count($conf->modules);
 			$listofmodulesautoenabled = array('agenda', 'fckeditor', 'export', 'import');
 			foreach ($listofmodulesautoenabled as $moduleautoenable) {
 				if (in_array($moduleautoenable, $conf->modules)) {
-					$nbmodulesnotautoenabled--;
+					$nbModulesNotAutoEnabled--;
 				}
 			}
 
@@ -1146,7 +1146,7 @@ function get_left_menu_home($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu =
 			}
 			$newmenu->add("/admin/company.php?mainmenu=home", $langs->trans("MenuCompanySetup").$warnpicto, 1);
 			$warnpicto = '';
-			if ($nbmodulesnotautoenabled <= getDolGlobalInt('MAIN_MIN_NB_ENABLED_MODULE_FOR_WARNING', 1)) {	// If only user module enabled
+			if ($nbModulesNotAutoEnabled <= getDolGlobalInt('MAIN_MIN_NB_ENABLED_MODULE_FOR_WARNING', 1)) {	// If only user module enabled
 				$langs->load("errors");
 				$warnpicto = img_warning($langs->trans("WarningMandatorySetupNotComplete"));
 			}

@@ -114,19 +114,19 @@ print '<br>';
 
 print '<section class="setupsection">';
 
-// Define $nbmodulesnotautoenabled - TODO This code is at different places
-$nbmodulesnotautoenabled = count($conf->modules);
+// Define $nbModulesNotAutoEnabled - TODO This code is at different places
+$nbModulesNotAutoEnabled = count($conf->modules);
 $listofmodulesautoenabled = array('agenda', 'fckeditor', 'export', 'import');
 foreach ($listofmodulesautoenabled as $moduleautoenable) {
 	if (in_array($moduleautoenable, $conf->modules)) {
-		$nbmodulesnotautoenabled--;
+		$nbModulesNotAutoEnabled--;
 	}
 }
 
 // Show info setup module
 print img_picto('', 'cog', 'class="paddingright valignmiddle double"').' '.$langs->trans("SetupDescriptionLink", DOL_URL_ROOT.'/admin/modules.php?mainmenu=home', $langs->transnoentities("Setup"), $langs->transnoentities("Modules"));
 print '<br><br>'.$langs->trans("SetupDescription4b");
-if ($nbmodulesnotautoenabled <= getDolGlobalInt('MAIN_MIN_NB_ENABLED_MODULE_FOR_WARNING', 1)) {	// If only minimal initial modules enabled
+if ($nbModulesNotAutoEnabled <= getDolGlobalInt('MAIN_MIN_NB_ENABLED_MODULE_FOR_WARNING', 1)) {	// If only minimal initial modules enabled
 	$langs->load("errors");
 	$warnpicto = img_warning($langs->trans("WarningEnableYourModulesApplications"), 'style="padding-right: 6px;"');
 	print '<br><div class="warning"><a href="'.DOL_URL_ROOT.'/admin/modules.php?mainmenu=home">'.$warnpicto.$langs->trans("WarningEnableYourModulesApplications").'</a></div>';

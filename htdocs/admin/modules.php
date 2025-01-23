@@ -678,12 +678,12 @@ asort($orders);
 
 $nbofactivatedmodules = count($conf->modules);
 
-// Define $nbmodulesnotautoenabled - TODO This code is at different places
-$nbmodulesnotautoenabled = count($conf->modules);
+// Define $nbModulesNotAutoEnabled - TODO This code is at different places
+$nbModulesNotAutoEnabled = count($conf->modules);
 $listofmodulesautoenabled = array('agenda', 'fckeditor', 'export', 'import');
 foreach ($listofmodulesautoenabled as $moduleautoenable) {
 	if (in_array($moduleautoenable, $conf->modules)) {
-		$nbmodulesnotautoenabled--;
+		$nbModulesNotAutoEnabled--;
 	}
 }
 
@@ -696,7 +696,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 	$desc .= ' '.$langs->trans("ModulesDesc2", '{picto2}');
 	$desc = str_replace('{picto}', img_picto('', 'switch_off', 'class="size15x"'), $desc);
 	$desc = str_replace('{picto2}', img_picto('', 'setup', 'class="size15x"'), $desc);
-	if ($nbmodulesnotautoenabled <= getDolGlobalInt('MAIN_MIN_NB_ENABLED_MODULE_FOR_WARNING', 1)) {	// If only minimal initial modules enabled
+	if ($nbModulesNotAutoEnabled <= getDolGlobalInt('MAIN_MIN_NB_ENABLED_MODULE_FOR_WARNING', 1)) {	// If only minimal initial modules enabled
 		$deschelp .= '<div class="info hideonsmartphone">'.$desc."<br></div>\n";
 	}
 	if (getDolGlobalString('MAIN_SETUP_MODULES_INFO')) {	// Show a custom message
@@ -716,7 +716,7 @@ if ($mode == 'develop') {
 	$deschelp = '<div class="info hideonsmartphone">'.$langs->trans("ModulesDevelopDesc")."<br></div><br>\n";
 }
 
-$head = modules_prepare_head($nbofactivatedmodules, count($modules), $nbmodulesnotautoenabled);
+$head = modules_prepare_head($nbofactivatedmodules, count($modules), $nbModulesNotAutoEnabled);
 
 
 if ($mode == 'common' || $mode == 'commonkanban') {
