@@ -166,7 +166,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 	// To disable some code, so you can call step2 with url like
 	// http://localhost/dolibarrnew/install/step2.php?action=set&token='.newToken().'&createtables=0&createkeys=0&createfunctions=0&createdata=llx_20_c_departements
 	$createtables = GETPOSTISSET('createtables') ? GETPOST('createtables') : 1;
-	$createkeys = GETPOSTISSET('createkeys') ? GETPOST('createkeys') : 1;
+	$createKeys = GETPOSTISSET('createkeys') ? GETPOST('createkeys') : 1;
 	$createfunctions = GETPOSTISSET('createfunctions') ? GETPOST('createfunction') : 1;
 	$createdata = GETPOSTISSET('createdata') ? GETPOST('createdata') : 1;
 
@@ -282,7 +282,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 	 * To do after the files *.sql
 	 *
 	 ***************************************************************************************/
-	if ($ok && $createkeys) {
+	if ($ok && $createKeys) {
 		// We always choose in mysql directory (Conversion is done by driver to translate SQL syntax)
 		$dir = "mysql/tables/";
 
@@ -303,6 +303,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 
 		// Sort list of sql files on alphabetical order (load order is important)
 		sort($tabledata);
+
 		foreach ($tabledata as $file) {
 			$name = substr($file, 0, dol_strlen($file) - 4);
 			//print "<tr><td>Creation of table $name</td>";
@@ -363,6 +364,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 						$requestnb++;
 
 						dolibarr_install_syslog("step2: request: " . $buffer);
+
 						$resql = $db->query($buffer, 0, 'dml');
 						if ($resql) {
 							//print "<td>OK request ==== $buffer</td></tr>";
