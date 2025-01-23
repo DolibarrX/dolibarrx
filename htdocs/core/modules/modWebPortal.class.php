@@ -168,8 +168,8 @@ class modWebPortal extends DolibarrModules
 
 		// To avoid warnings
 		if (isModEnabled('webportal')) {
-			$conf->webportal = new stdClass();
-			$conf->webportal->enabled = 0;
+			$config->webportal = new stdClass();
+			$config->webportal->enabled = 0;
 		}
 
 		// Array to add new pages in new tabs

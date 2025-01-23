@@ -65,7 +65,7 @@ if ($user->socid > 0) {
 }
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -80,7 +80,7 @@ $pagenext = $page + 1;
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $object = new User($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->user->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->user->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('userlist'));
 
 // Fetch optionals attributes and labels
@@ -303,7 +303,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'User';
 	$objectlabel = 'User';
-	$uploaddir = $conf->user->dir_output;
+	$uploaddir = $config->user->dir_output;
 
 	global $error;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
@@ -347,9 +347,9 @@ if (empty($reshook)) {
 			}
 		}
 
-		if (!$error && !empty($conf->file->main_limit_users)) {
+		if (!$error && !empty($config->file->main_limit_users)) {
 			$nb = $object->getNbOfUsers("active");
-			if ($nb >= $conf->file->main_limit_users) {
+			if ($nb >= $config->file->main_limit_users) {
 				$error++;
 				setEventMessages($langs->trans("YourQuotaOfUsersIsReached"), null, 'errors');
 			}
@@ -581,7 +581,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&amp;contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&amp;limit='.((int) $limit);
 }
 if ($optioncss != '') {

@@ -223,8 +223,8 @@ class BlockedLog
 		}
 
 		// Cashdesk
-		// $conf->global->BANK_ENABLE_POS_CASHCONTROL must be set to 1 by all external POS modules
-		$moduleposenabled = (!empty($conf->cashdesk->enabled) || !empty($conf->takepos->enabled) || getDolGlobalString('BANK_ENABLE_POS_CASHCONTROL'));
+		// $config->global->BANK_ENABLE_POS_CASHCONTROL must be set to 1 by all external POS modules
+		$moduleposenabled = (!empty($config->cashdesk->enabled) || !empty($config->takepos->enabled) || getDolGlobalString('BANK_ENABLE_POS_CASHCONTROL'));
 		if ($moduleposenabled) {
 			$this->trackedevents['CASHCONTROL_VALIDATE'] = 'logCASHCONTROL_VALIDATE';
 		}
@@ -990,7 +990,7 @@ class BlockedLog
 		$sql .= "0,";
 		$sql .= $this->fk_user.",";
 		$sql .= "'".$this->db->escape($this->user_fullname)."',";
-		$sql .= ($this->entity ? $this->entity : $conf->entity);
+		$sql .= ($this->entity ? $this->entity : $config->entity);
 		$sql .= ")";
 
 		/*
@@ -1096,7 +1096,7 @@ class BlockedLog
 		// Fast search of previous record by searching with beforeid - 1. This is very fast and will work 99% of time.
 		if ($beforeid) {
 			$sql = "SELECT rowid, signature FROM ".MAIN_DB_PREFIX."blockedlog";
-			$sql .= " WHERE entity = ".((int) $conf->entity);
+			$sql .= " WHERE entity = ".((int) $config->entity);
 			$sql .= " AND rowid = ".((int) $beforeid - 1);
 			$sql .= ($withlock ? " FOR UPDATE " : "");
 
@@ -1117,7 +1117,7 @@ class BlockedLog
 			if ($beforeid) {
 				$sql.= $this->db->hintindex('entity_rowid', 1);
 			}
-			$sql .= " WHERE entity = ".((int) $conf->entity);
+			$sql .= " WHERE entity = ".((int) $config->entity);
 			if ($beforeid) {
 				$sql .= " AND rowid < ".(int) $beforeid;
 			}
@@ -1170,16 +1170,16 @@ class BlockedLog
 
 		if ($element == 'all') {
 			$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."blockedlog
-			 WHERE entity=".$conf->entity;
+			 WHERE entity=".$config->entity;
 		} elseif ($element == 'not_certified') {
 			$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."blockedlog
-			 WHERE entity=".$conf->entity." AND certified = 0";
+			 WHERE entity=".$config->entity." AND certified = 0";
 		} elseif ($element == 'just_certified') {
 			$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."blockedlog
-			 WHERE entity=".$conf->entity." AND certified = 1";
+			 WHERE entity=".$config->entity." AND certified = 1";
 		} else {
 			$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."blockedlog
-			 WHERE entity=".$conf->entity." AND element = '".$this->db->escape($element)."'";
+			 WHERE entity=".$config->entity." AND element = '".$this->db->escape($element)."'";
 		}
 
 		if ($fk_object) {
@@ -1259,12 +1259,12 @@ class BlockedLog
 
 			$fingerprint = dol_hash(print_r($mysoc, true).getRandomPassword(true), '5');
 
-			dolibarr_set_const($db, 'BLOCKEDLOG_ENTITY_FINGERPRINT', $fingerprint, 'chaine', 0, 'Numeric Unique Fingerprint', $conf->entity);
+			dolibarr_set_const($db, 'BLOCKEDLOG_ENTITY_FINGERPRINT', $fingerprint, 'chaine', 0, 'Numeric Unique Fingerprint', $config->entity);
 
-			$conf->global->BLOCKEDLOG_ENTITY_FINGERPRINT = $fingerprint;
+			$config->global->BLOCKEDLOG_ENTITY_FINGERPRINT = $fingerprint;
 		}
 
-		return $conf->global->BLOCKEDLOG_ENTITY_FINGERPRINT;
+		return $config->global->BLOCKEDLOG_ENTITY_FINGERPRINT;
 	}
 
 
@@ -1281,7 +1281,7 @@ class BlockedLog
 		$result = false;
 
 		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."blockedlog";
-		$sql .= " WHERE entity = ".$conf->entity;
+		$sql .= " WHERE entity = ".$config->entity;
 		if ($ignoresystem) {
 			$sql .= " AND action not in ('MODULE_SET','MODULE_RESET')";
 		}

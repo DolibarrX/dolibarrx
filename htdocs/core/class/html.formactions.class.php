@@ -79,7 +79,7 @@ class FormActions
 		);
 		// +ActionUncomplete
 
-		if (!empty($conf->use_javascript_ajax) || $onlyselect) {
+		if (!empty($config->use_javascript_ajax) || $onlyselect) {
 			//var_dump($selected);
 			if ($selected == 'done') {
 				$selected = '100';
@@ -109,7 +109,7 @@ class FormActions
 			print ' <input type="text" id="val'.$htmlname.'" name="percentage" class="flat" value="'.($selected >= 0 ? $selected : '').'" size="2"'.($canedit ? '' : ' disabled').'>%';
 		}
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print "\n";
 			print '<script nonce="'.getNonce().'" type="text/javascript">';
 			print "

@@ -80,7 +80,7 @@ $hookManager->initHooks(array('agendacontract', 'globalcard'));
 
 $result = restrictedArea($user, 'contrat', $fieldvalue, '', '', '', $fieldtype);
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -146,7 +146,7 @@ if (isModEnabled('project')) {
 
 if ($object->id > 0) {
 	// Load object modContract
-	$module = (getDolGlobalString('CONTRACT_ADDON') ? $conf->global->CONTRACT_ADDON : 'mod_contract_serpis');
+	$module = (getDolGlobalString('CONTRACT_ADDON') ? $config->global->CONTRACT_ADDON : 'mod_contract_serpis');
 	if (substr($module, 0, 13) == 'mod_contract_' && substr($module, -3) == 'php') {
 		$module = substr($module, 0, dol_strlen($module) - 4);
 	}
@@ -279,7 +279,7 @@ if ($object->id > 0) {
 		if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 			$param .= '&contextpage='.$contextpage;
 		}
-		if ($limit > 0 && $limit != $conf->liste_limit) {
+		if ($limit > 0 && $limit != $config->liste_limit) {
 			$param .= '&limit='.$limit;
 		}
 
@@ -289,7 +289,7 @@ if ($object->id > 0) {
 		$nbEvent = dol_getcache($cachekey);
 
 		$titlelist = $langs->trans("ActionsOnContract").(is_numeric($nbEvent) ? '<span class="opacitymedium colorblack paddingleft">('.$nbEvent.')</span>' : '');
-		if (!empty($conf->dol_optimize_smallscreen)) {
+		if (!empty($config->dol_optimize_smallscreen)) {
 			$titlelist = $langs->trans("Actions").(is_numeric($nbEvent) ? '<span class="opacitymedium colorblack paddingleft">('.$nbEvent.')</span>' : '');
 		}
 

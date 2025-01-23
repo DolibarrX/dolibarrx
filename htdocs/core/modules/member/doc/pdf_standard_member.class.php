@@ -109,13 +109,13 @@ class pdf_standard_member extends CommonStickerGenerator
 		$_PosY = $this->_Margin_Top + ($this->_COUNTY * ($this->_Height + $this->_Y_Space));
 
 		// Define logo
-		$logo = $conf->mycompany->dir_output.'/logos/'.$mysoc->logo;
+		$logo = $config->mycompany->dir_output.'/logos/'.$mysoc->logo;
 		if (!is_readable($logo)) {
 			$logo = '';
-			if (!empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
-				$logo = $conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small;
-			} elseif (!empty($mysoc->logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
-				$logo = $conf->mycompany->dir_output.'/logos/'.$mysoc->logo;
+			if (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
+				$logo = $config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small;
+			} elseif (!empty($mysoc->logo) && is_readable($config->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
+				$logo = $config->mycompany->dir_output.'/logos/'.$mysoc->logo;
 			}
 		}
 
@@ -124,7 +124,7 @@ class pdf_standard_member extends CommonStickerGenerator
 		$member->ref = (string) $idmember;
 
 		// Define photo
-		$dir = $conf->adherent->dir_output;
+		$dir = $config->adherent->dir_output;
 		if (!empty($photo)) {
 			$file = get_exdir(0, 0, 0, 0, $member, 'member').'photos/'.$photo;
 			$photo = $dir.'/'.$file;
@@ -135,8 +135,8 @@ class pdf_standard_member extends CommonStickerGenerator
 
 		// Define background image
 		$backgroundimage = '';
-		if (getDolGlobalString('ADHERENT_CARD_BACKGROUND') && file_exists($conf->adherent->dir_output.'/' . getDolGlobalString('ADHERENT_CARD_BACKGROUND'))) {
-			$backgroundimage = $conf->adherent->dir_output.'/' . getDolGlobalString('ADHERENT_CARD_BACKGROUND');
+		if (getDolGlobalString('ADHERENT_CARD_BACKGROUND') && file_exists($config->adherent->dir_output.'/' . getDolGlobalString('ADHERENT_CARD_BACKGROUND'))) {
+			$backgroundimage = $config->adherent->dir_output.'/' . getDolGlobalString('ADHERENT_CARD_BACKGROUND');
 		}
 
 		// Print lines
@@ -383,11 +383,11 @@ class pdf_standard_member extends CommonStickerGenerator
 
 
 		if (is_object($object)) {
-			$outputdir = $conf->adherent->dir_output;
+			$outputdir = $config->adherent->dir_output;
 			$dir = $outputdir."/".get_exdir(0, 0, 0, 0, $object, 'member');
 			$file = $dir.'/'.$filename;
 		} else {
-			$outputdir = $conf->adherent->dir_temp;
+			$outputdir = $config->adherent->dir_temp;
 			$dir = $outputdir;
 			$file = $dir.'/'.$filename;
 		}

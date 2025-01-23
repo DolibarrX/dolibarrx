@@ -103,7 +103,7 @@ if (empty($action) && empty($object->id)) {
 	accessforbidden('Object not found');
 }
 
-$upload_dir = $conf->mailing->dir_output."/".get_exdir($object->id, 2, 0, 1, $object, 'mailing');
+$upload_dir = $config->mailing->dir_output."/".get_exdir($object->id, 2, 0, 1, $object, 'mailing');
 
 //$permissiontoread = $user->hasRight('maling', 'read');
 $permissiontocreate = $user->hasRight('mailing', 'creer');
@@ -227,7 +227,7 @@ if (empty($reshook)) {
 					// Loop on each email and send it
 					$iforemailloop = 0;
 
-					while ($iforemailloop < $num && $iforemailloop < $conf->global->MAILING_LIMIT_SENDBYWEB) {
+					while ($iforemailloop < $num && $iforemailloop < $config->global->MAILING_LIMIT_SENDBYWEB) {
 						// Here code is common with same loop ino mailing-send.php
 						$res = 1;
 						$now = dol_now();
@@ -315,7 +315,7 @@ if (empty($reshook)) {
 							}
 						}
 						if (getDolGlobalString('MEMBER_ENABLE_PUBLIC')) {
-							$substitutionarray['__PUBLICLINK_NEWMEMBERFORM__'] = '<a target="_blank" rel="noopener noreferrer" href="'.DOL_MAIN_URL_ROOT.'/public/members/new.php'.((isModEnabled('multicompany')) ? '?entity='.$conf->entity : '').'">'.$langs->trans('BlankSubscriptionForm'). '</a>';
+							$substitutionarray['__PUBLICLINK_NEWMEMBERFORM__'] = '<a target="_blank" rel="noopener noreferrer" href="'.DOL_MAIN_URL_ROOT.'/public/members/new.php'.((isModEnabled('multicompany')) ? '?entity='.$config->entity : '').'">'.$langs->trans('BlankSubscriptionForm'). '</a>';
 						}
 						/* For backward compatibility, deprecated */
 						if (isModEnabled('paypal') && getDolGlobalString('PAYPAL_SECURITY_TOKEN')) {
@@ -424,8 +424,8 @@ if (empty($reshook)) {
 							}
 
 							if (getDolGlobalString('MAILING_DELAY')) {
-								dol_syslog("Wait a delay of MAILING_DELAY=".((float) $conf->global->MAILING_DELAY));
-								usleep((int) ((float) $conf->global->MAILING_DELAY * 1000000));
+								dol_syslog("Wait a delay of MAILING_DELAY=".((float) $config->global->MAILING_DELAY));
+								usleep((int) ((float) $config->global->MAILING_DELAY * 1000000));
 							}
 
 							//test if CHECK READ change statut prospect contact
@@ -481,7 +481,7 @@ if (empty($reshook)) {
 	if ($action == 'send' && ! $cancel && $permissiontovalidatesend) {
 		$error = 0;
 
-		$upload_dir = $conf->mailing->dir_output."/".get_exdir($object->id, 2, 0, 1, $object, 'mailing');
+		$upload_dir = $config->mailing->dir_output."/".get_exdir($object->id, 2, 0, 1, $object, 'mailing');
 
 		$object->sendto = GETPOST("sendto", 'alphawithlgt');
 		if (!$object->sendto) {
@@ -594,7 +594,7 @@ if (empty($reshook)) {
 
 	// Action update description of emailing
 	if (($action == 'settitle' || $action == 'setemail_from' || $action == 'setemail_replyto' || $action == 'setreplyto' || $action == 'setemail_errorsto' || $action == 'setevenunsubscribe') && $permissiontovalidatesend) {
-		$upload_dir = $conf->mailing->dir_output."/".get_exdir($object->id, 2, 0, 1, $object, 'mailing');
+		$upload_dir = $config->mailing->dir_output."/".get_exdir($object->id, 2, 0, 1, $object, 'mailing');
 
 		if ($action == 'settitle') {					// Test on permission already done
 			$object->title = trim(GETPOST('title', 'alpha'));
@@ -629,7 +629,7 @@ if (empty($reshook)) {
 	 * Action of adding a file in email form
 	 */
 	if (GETPOST('addfile') && $permissiontocreate) {
-		$upload_dir = $conf->mailing->dir_output."/".get_exdir($object->id, 2, 0, 1, $object, 'mailing');
+		$upload_dir = $config->mailing->dir_output."/".get_exdir($object->id, 2, 0, 1, $object, 'mailing');
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -641,7 +641,7 @@ if (empty($reshook)) {
 
 	// Action of file remove
 	if (GETPOST("removedfile") && $permissiontocreate) {
-		$upload_dir = $conf->mailing->dir_output."/".get_exdir($object->id, 2, 0, 1, $object, 'mailing');
+		$upload_dir = $config->mailing->dir_output."/".get_exdir($object->id, 2, 0, 1, $object, 'mailing');
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -900,7 +900,7 @@ if ($action == 'create') {	// aaa
 	print '</form>';
 } else {
 	if ($object->id > 0) {
-		$upload_dir = $conf->mailing->dir_output."/".get_exdir($object->id, 2, 0, 1, $object, 'mailing');
+		$upload_dir = $config->mailing->dir_output."/".get_exdir($object->id, 2, 0, 1, $object, 'mailing');
 
 		$head = emailing_prepare_head($object);
 
@@ -955,25 +955,25 @@ if ($action == 'create') {	// aaa
 					$action = '';
 				} elseif (getDolGlobalInt('MAILING_LIMIT_SENDBYWEB') < 0) {
 					if (getDolGlobalString('MAILING_LIMIT_WARNING_PHPMAIL') && $sendingmode == 'mail') {
-						setEventMessages($langs->transnoentitiesnoconv($conf->global->MAILING_LIMIT_WARNING_PHPMAIL), null, 'warnings');
+						setEventMessages($langs->transnoentitiesnoconv($config->global->MAILING_LIMIT_WARNING_PHPMAIL), null, 'warnings');
 					}
 					if (getDolGlobalString('MAILING_LIMIT_WARNING_NOPHPMAIL') && $sendingmode != 'mail') {
-						setEventMessages($langs->transnoentitiesnoconv($conf->global->MAILING_LIMIT_WARNING_NOPHPMAIL), null, 'warnings');
+						setEventMessages($langs->transnoentitiesnoconv($config->global->MAILING_LIMIT_WARNING_NOPHPMAIL), null, 'warnings');
 					}
 
 					// The feature is forbidden from GUI, we show just message to use from command line.
 					setEventMessages($langs->trans("MailingNeedCommand"), null, 'warnings');
 					setEventMessages('<textarea cols="60" rows="'.ROWS_1.'" wrap="soft">php ./scripts/emailings/mailing-send.php '.$object->id.'</textarea>', null, 'warnings');
-					if ($conf->file->mailing_limit_sendbyweb != '-1') {  // MAILING_LIMIT_SENDBYWEB was set to -1 in database, but it is allowed to increase it.
+					if ($config->file->mailing_limit_sendbyweb != '-1') {  // MAILING_LIMIT_SENDBYWEB was set to -1 in database, but it is allowed to increase it.
 						setEventMessages($langs->trans("MailingNeedCommand2"), null, 'warnings'); // You can send online with constant...
 					}
 					$action = '';
 				} else {
 					if (getDolGlobalString('MAILING_LIMIT_WARNING_PHPMAIL') && $sendingmode == 'mail') {
-						setEventMessages($langs->transnoentitiesnoconv($conf->global->MAILING_LIMIT_WARNING_PHPMAIL), null, 'warnings');
+						setEventMessages($langs->transnoentitiesnoconv($config->global->MAILING_LIMIT_WARNING_PHPMAIL), null, 'warnings');
 					}
 					if (getDolGlobalString('MAILING_LIMIT_WARNING_NOPHPMAIL') && $sendingmode != 'mail') {
-						setEventMessages($langs->transnoentitiesnoconv($conf->global->MAILING_LIMIT_WARNING_NOPHPMAIL), null, 'warnings');
+						setEventMessages($langs->transnoentitiesnoconv($config->global->MAILING_LIMIT_WARNING_NOPHPMAIL), null, 'warnings');
 					}
 
 					$text = '';
@@ -985,7 +985,7 @@ if ($action == 'create') {	// aaa
 					$text .= $langs->trans('ConfirmSendingEmailing').'<br>';
 					$text .= $langs->trans('LimitSendingEmailing', getDolGlobalString('MAILING_LIMIT_SENDBYWEB'));
 
-					if (!isset($conf->global->MAILING_LIMIT_SENDBYCLI) || getDolGlobalInt('MAILING_LIMIT_SENDBYCLI') >= 0) {
+					if (!isset($config->global->MAILING_LIMIT_SENDBYCLI) || getDolGlobalInt('MAILING_LIMIT_SENDBYCLI') >= 0) {
 						$text .= '<br><br>';
 						$text .= '<u>'.$langs->trans("AdvancedAlternative").':</u> '.$langs->trans("MailingNeedCommand");
 						$text .= '<br><textarea class="quatrevingtpercent" rows="'.ROWS_2.'" wrap="soft" disabled>php ./scripts/emailings/mailing-send.php '.$object->id.' '.$user->login.'</textarea>';
@@ -1181,7 +1181,7 @@ if ($action == 'create') {	// aaa
 					}
 
 					if (!getDolGlobalInt('EMAILINGS_SUPPORT_ALSO_SMS')) {
-						if (!empty($conf->use_javascript_ajax)) {
+						if (!empty($config->use_javascript_ajax)) {
 							print '<a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=edithtml&token='.newToken().'&id='.$object->id.'">'.$langs->trans("EditHTMLSource").'</a>';
 						}
 					}
@@ -1406,7 +1406,7 @@ if ($action == 'create') {	// aaa
 			$nbemail = ($object->nbemail ? $object->nbemail : 0);
 			if (is_numeric($nbemail)) {
 				$text = '';
-				if ((getDolGlobalString('MAILING_LIMIT_SENDBYWEB') && $conf->global->MAILING_LIMIT_SENDBYWEB < $nbemail) && ($object->status == 1 || $object->status == 2)) {
+				if ((getDolGlobalString('MAILING_LIMIT_SENDBYWEB') && $config->global->MAILING_LIMIT_SENDBYWEB < $nbemail) && ($object->status == 1 || $object->status == 2)) {
 					if (getDolGlobalInt('MAILING_LIMIT_SENDBYWEB') > 0) {
 						$text .= $langs->trans('LimitSendingEmailing', getDolGlobalString('MAILING_LIMIT_SENDBYWEB'));
 					} else {

@@ -95,7 +95,7 @@ if ($id > 0 || !empty($ref)) {
 	}
 }
 
-if (empty($conf->reception->enabled)) {
+if (empty($config->reception->enabled)) {
 	$permissiontoreceive = $user->hasRight("fournisseur", "commande", "receptionner");
 	$permissiontocontrol = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight("fournisseur", "commande", "receptionner")) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight("fournisseur", "commande_advance", "check")));
 } else {
@@ -257,7 +257,7 @@ if ($action == 'dispatch' && $permissiontoreceive) {
 			$fk_commandefourndet = "fk_commandefourndet_".$reg[1].'_'.$reg[2];
 
 			if (getDolGlobalString('SUPPLIER_ORDER_CAN_UPDATE_BUYINGPRICE_DURING_RECEIPT')) {
-				if (!isModEnabled("multicurrency") && empty($conf->dynamicprices->enabled)) {
+				if (!isModEnabled("multicurrency") && empty($config->dynamicprices->enabled)) {
 					$dto = GETPOSTINT("dto_".$reg[1].'_'.$reg[2]);
 					if (!empty($dto)) {
 						$unit_price = price2num((float) GETPOST("pu_".$reg[1]) * (100 - $dto) / 100, 'MU');
@@ -285,7 +285,7 @@ if ($action == 'dispatch' && $permissiontoreceive) {
 					}
 
 					if (!$error && getDolGlobalString('SUPPLIER_ORDER_CAN_UPDATE_BUYINGPRICE_DURING_RECEIPT')) {
-						if (!isModEnabled("multicurrency") && empty($conf->dynamicprices->enabled)) {
+						if (!isModEnabled("multicurrency") && empty($config->dynamicprices->enabled)) {
 							$dto = price2num(GETPOSTINT("dto_".$reg[1].'_'.$reg[2]), '');
 							if (empty($dto)) {
 								$dto = 0;
@@ -327,7 +327,7 @@ if ($action == 'dispatch' && $permissiontoreceive) {
 			$fk_commandefourndet = 'fk_commandefourndet_'.$reg[1].'_'.$reg[2];
 
 			if (getDolGlobalString('SUPPLIER_ORDER_CAN_UPDATE_BUYINGPRICE_DURING_RECEIPT')) {
-				if (!isModEnabled("multicurrency") && empty($conf->dynamicprices->enabled)) {
+				if (!isModEnabled("multicurrency") && empty($config->dynamicprices->enabled)) {
 					$dto = GETPOSTINT("dto_".$reg[1].'_'.$reg[2]);
 					if (!empty($dto)) {
 						$unit_price = price2num((float) GETPOST("pu_".$reg[1]) * (100 - $dto) / 100, 'MU');
@@ -373,7 +373,7 @@ if ($action == 'dispatch' && $permissiontoreceive) {
 					}
 
 					if (!$error && getDolGlobalString('SUPPLIER_ORDER_CAN_UPDATE_BUYINGPRICE_DURING_RECEIPT')) {
-						if (!isModEnabled("multicurrency") && empty($conf->dynamicprices->enabled)) {
+						if (!isModEnabled("multicurrency") && empty($config->dynamicprices->enabled)) {
 							$dto = GETPOSTINT("dto_".$reg[1].'_'.$reg[2]);
 							//update supplier price
 							if (GETPOSTISSET($saveprice)) {
@@ -661,14 +661,14 @@ if ($id > 0 || !empty($ref)) {
 		$listwarehouses = $entrepot->list_array(1);
 
 
-		if (empty($conf->reception->enabled)) {
+		if (empty($config->reception->enabled)) {
 			print '<form method="POST" action="dispatch.php?id='.$object->id.'">';
 		} else {
 			print '<form method="post" action="'.dol_buildpath('/reception/card.php', 1).'?originid='.$object->id.'&origin=supplierorder">';
 		}
 
 		print '<input type="hidden" name="token" value="'.newToken().'">';
-		if (empty($conf->reception->enabled)) {
+		if (empty($config->reception->enabled)) {
 			print '<input type="hidden" name="action" value="dispatch">';
 		} else {
 			print '<input type="hidden" name="action" value="create">';
@@ -774,7 +774,7 @@ if ($id > 0 || !empty($ref)) {
 				print '<td width="32"></td>';
 
 				if (getDolGlobalString('SUPPLIER_ORDER_CAN_UPDATE_BUYINGPRICE_DURING_RECEIPT')) {
-					if (!isModEnabled("multicurrency") && empty($conf->dynamicprices->enabled)) {
+					if (!isModEnabled("multicurrency") && empty($config->dynamicprices->enabled)) {
 						print '<td class="right">'.$langs->trans("Price").'</td>';
 						print '<td class="right">'.$langs->trans("ReductionShort").' (%)</td>';
 						print '<td class="right">'.$langs->trans("UpdatePrice").'</td>';
@@ -810,7 +810,7 @@ if ($id > 0 || !empty($ref)) {
 
 			$nbfreeproduct = 0; // Nb of lines of free products/services
 
-			$conf->cache['product'] = array();
+			$config->cache['product'] = array();
 
 			// Loop on each source order line (may be more or less than current number of lines in llx_commande_fournisseurdet)
 			while ($i < $num) {
@@ -841,12 +841,12 @@ if ($id > 0 || !empty($ref)) {
 						print '<input id="qty_dispatched'.$suffix.'" type="hidden" value="'.(float) $alreadydispatched.'">';
 						print '<tr class="oddeven">';
 
-						if (empty($conf->cache['product'][$objp->fk_product])) {
+						if (empty($config->cache['product'][$objp->fk_product])) {
 							$tmpproduct = new Product($db);
 							$tmpproduct->fetch($objp->fk_product);
-							$conf->cache['product'][$objp->fk_product] = $tmpproduct;
+							$config->cache['product'][$objp->fk_product] = $tmpproduct;
 						} else {
-							$tmpproduct = $conf->cache['product'][$objp->fk_product];
+							$tmpproduct = $config->cache['product'][$objp->fk_product];
 						}
 
 						$linktoprod = $tmpproduct->getNomUrl(1);
@@ -1030,7 +1030,7 @@ if ($id > 0 || !empty($ref)) {
 						print '</td>';
 
 						if (getDolGlobalString('SUPPLIER_ORDER_CAN_UPDATE_BUYINGPRICE_DURING_RECEIPT')) {
-							if (!isModEnabled("multicurrency") && empty($conf->dynamicprices->enabled)) {
+							if (!isModEnabled("multicurrency") && empty($config->dynamicprices->enabled)) {
 								// Price
 								print '<td class="right">';
 								print '<input id="pu'.$suffix.'" name="pu'.$suffix.'" type="text" size="8" value="'.price((GETPOST('pu'.$suffix) != '' ? price2num(GETPOST('pu'.$suffix)) : $up_ht_disc)).'">';
@@ -1099,7 +1099,7 @@ if ($id > 0 || !empty($ref)) {
 			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 			// modified by hook
 			if (empty($reshook)) {
-				if (empty($conf->reception->enabled)) {
+				if (empty($config->reception->enabled)) {
 					print $langs->trans("Comment").' : ';
 					print '<input type="text" class="minwidth400" maxlength="128" name="comment" value="';
 					print GETPOSTISSET("comment") ? GETPOST("comment") : $langs->trans("DispatchSupplierOrder", $object->ref);
@@ -1109,7 +1109,7 @@ if ($id > 0 || !empty($ref)) {
 					print '<input type="checkbox" checked="checked" name="closeopenorder"> '.$checkboxlabel;
 				}
 
-				$dispatchBt = empty($conf->reception->enabled) ? $langs->trans("Receive") : $langs->trans("CreateReception");
+				$dispatchBt = empty($config->reception->enabled) ? $langs->trans("Receive") : $langs->trans("CreateReception");
 
 				print '<br>';
 				print '<input type="hidden" name="backtopageforcancel" value="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'">';
@@ -1280,12 +1280,12 @@ if ($id > 0 || !empty($ref)) {
 
 				// Product
 				print '<td class="tdoverflowmax150">';
-				if (empty($conf->cache['product'][$objp->fk_product])) {
+				if (empty($config->cache['product'][$objp->fk_product])) {
 					$tmpproduct = new Product($db);
 					$tmpproduct->fetch($objp->fk_product);
-					$conf->cache['product'][$objp->fk_product] = $tmpproduct;
+					$config->cache['product'][$objp->fk_product] = $tmpproduct;
 				} else {
-					$tmpproduct = $conf->cache['product'][$objp->fk_product];
+					$tmpproduct = $config->cache['product'][$objp->fk_product];
 				}
 				print $tmpproduct->getNomUrl(1);
 				print ' - '.$objp->label;

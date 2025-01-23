@@ -127,7 +127,7 @@ class modWorkflow extends DolibarrModules
 								'langs'=>'@workflow',
 								'position'=>100,
 								'perms'=>'$user->rights->workflow->read',
-								'enabled'=>'$conf->workflow->enabled',
+								'enabled'=>'$config->workflow->enabled',
 								'target'=>'',
 								'user'=>0);
 		$r++;

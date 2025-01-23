@@ -108,7 +108,7 @@ class mod_delivery_jade extends ModeleNumRefDeliveryOrder
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max"; // This is standard SQL
 		$sql .= " FROM ".MAIN_DB_PREFIX."delivery";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {
@@ -143,7 +143,7 @@ class mod_delivery_jade extends ModeleNumRefDeliveryOrder
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max"; // This is standard SQL
 		$sql .= " FROM ".MAIN_DB_PREFIX."delivery";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		dol_syslog("mod_delivery_jade::getNextValue", LOG_DEBUG);

@@ -424,7 +424,7 @@ class FormWebPortal extends Form
 				$sharedentities = getEntity(strtolower($classname));
 				$filter = str_replace(
 					array('__ENTITY__', '__SHARED_ENTITIES__'),
-					array($conf->entity, $sharedentities),
+					array($config->entity, $sharedentities),
 					$filter
 				);
 			}
@@ -562,7 +562,7 @@ class FormWebPortal extends Form
 			// Warning: Do not use textifempty = ' ' or '&nbsp;' here, or search on key will search on ' key'. Seems it is no more true with selec2 v4
 			$textifempty = '&nbsp;';
 
-			//if (!empty($conf->use_javascript_ajax) || $forcecombo) $textifempty='';
+			//if (!empty($config->use_javascript_ajax) || $forcecombo) $textifempty='';
 			if (getDolGlobalString($confkeyforautocompletemode)) {
 				if ($showempty && !is_numeric($showempty)) {
 					$textifempty = $langs->trans($showempty);
@@ -760,7 +760,7 @@ class FormWebPortal extends Form
 				if (!empty($value)) {
 					$value = price($value); // $value in memory is a php numeric, we format it into user number format.
 				}
-				$addInputLabel = ' ' . $langs->getCurrencySymbol($conf->currency);
+				$addInputLabel = ' ' . $langs->getCurrencySymbol($config->currency);
 				$out = $this->inputType('text', $htmlName, $value, $htmlId, $morecss, $moreparam, '', $addInputLabel);
 				break;
 
@@ -868,7 +868,7 @@ class FormWebPortal extends Form
 					}
 					// Some tables may have field, some other not. For the moment we disable it.
 					if (in_array($InfoFieldList[0], array('tablewithentity'))) {
-						$sqlwhere .= " AND entity = " . ((int) $conf->entity);
+						$sqlwhere .= " AND entity = " . ((int) $config->entity);
 					}
 					$sql .= $sqlwhere;
 					//print $sql;
@@ -1131,7 +1131,7 @@ class FormWebPortal extends Form
 			$value = dol_print_ip($value, 0);
 		} elseif ($type == 'price') {
 			if (!is_null($value) && $value !== '') {
-				$value = price($value, 0, $langs, 0, 0, -1, $conf->currency);
+				$value = price($value, 0, $langs, 0, 0, -1, $config->currency);
 			} else {
 				// Resulting type must be string
 				$value = '';
@@ -1277,7 +1277,7 @@ class FormWebPortal extends Form
 				$sql .= ' as main';
 			}
 			// $sql.= " WHERE ".$selectkey."='".$this->db->escape($value)."'";
-			// $sql.= ' AND entity = '.$conf->entity;
+			// $sql.= ' AND entity = '.$config->entity;
 
 			dol_syslog(__METHOD__ . ' type=chkbxlst', LOG_DEBUG);
 			$resql = $this->db->query($sql);

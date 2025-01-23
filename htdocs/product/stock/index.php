@@ -175,10 +175,10 @@ if ($resql) {
 	print '<th>'.$langs->trans("Product").'</th>';
 	if (isModEnabled('productbatch')) {
 		print '<th>'.$langs->trans("Batch").'</th>';
-		/*if (empty($conf->global->PRODUCT_DISABLE_SELLBY)) {
+		/*if (empty($config->global->PRODUCT_DISABLE_SELLBY)) {
 			print '<th>'.$langs->trans("SellByDate").'</th>';
 		}
-		if (empty($conf->global->PRODUCT_DISABLE_EATBY)) {
+		if (empty($config->global->PRODUCT_DISABLE_EATBY)) {
 			print '<th>'.$langs->trans("EatByDate").'</th>';
 		}*/
 	}
@@ -217,10 +217,10 @@ if ($resql) {
 			print '<td>';
 			print $tmplotstatic->getNomUrl(0, 'nolink');
 			print '</td>';
-			/*if (empty($conf->global->PRODUCT_DISABLE_SELLBY)) {
+			/*if (empty($config->global->PRODUCT_DISABLE_SELLBY)) {
 				print '<td>'.dol_print_date($db->jdate($objp->sellby), 'day').'</td>';
 			}
-			if (empty($conf->global->PRODUCT_DISABLE_EATBY)) {
+			if (empty($config->global->PRODUCT_DISABLE_EATBY)) {
 				print '<td>'.dol_print_date($db->jdate($objp->eatby), 'day').'</td>';
 			}*/
 		}

@@ -70,16 +70,16 @@ if ($action == 'set_default') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
 		if (getDolGlobalString('USERGROUP_ADDON_PDF_ODT') == "$value") {
-			dolibarr_del_const($db, 'USERGROUP_ADDON_PDF_ODT', $conf->entity);
+			dolibarr_del_const($db, 'USERGROUP_ADDON_PDF_ODT', $config->entity);
 		}
 	}
 	$res = true;
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "USERGROUP_ADDON_PDF_ODT", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "USERGROUP_ADDON_PDF_ODT", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->USERGROUP_ADDON_PDF_ODT = $value;
+		$config->global->USERGROUP_ADDON_PDF_ODT = $value;
 	}
 
 	// On active le modele
@@ -90,7 +90,7 @@ if ($action == 'set_default') {
 	$res = true;
 } elseif (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -98,7 +98,7 @@ if ($action == 'set_default') {
 	}
 } elseif (preg_match('/del_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_del_const($db, $code, $conf->entity) > 0) {
+	if (dolibarr_del_const($db, $code, $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -121,7 +121,7 @@ $head = user_admin_prepare_head();
 print dol_get_fiche_head($head, 'usergroupcard', $langs->trans("MenuUsersAndGroups"), -1, 'user');
 
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 $form = new Form($db);
 
@@ -130,7 +130,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;

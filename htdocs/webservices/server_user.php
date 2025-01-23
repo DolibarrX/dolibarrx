@@ -341,7 +341,7 @@ function getUser($authentication, $id, $ref = '', $ref_ext = '')
 	dol_syslog("Function: getUser login=".$authentication['login']." id=".$id." ref=".$ref." ref_ext=".$ref_ext);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -431,7 +431,7 @@ function getListOfGroups($authentication)
 	dol_syslog("Function: getListOfGroups login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -447,10 +447,10 @@ function getListOfGroups($authentication)
 		$sql = "SELECT g.rowid, g.nom as name, g.entity, g.datec, COUNT(DISTINCT ugu.fk_user) as nb";
 		$sql .= " FROM ".MAIN_DB_PREFIX."usergroup as g";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."usergroup_user as ugu ON ugu.fk_usergroup = g.rowid";
-		if (isModEnabled('multicompany') && $conf->entity == 1 && (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') || ($user->admin && !$user->entity))) {
+		if (isModEnabled('multicompany') && $config->entity == 1 && (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') || ($user->admin && !$user->entity))) {
 			$sql .= " WHERE g.entity IS NOT NULL";
 		} else {
-			$sql .= " WHERE g.entity IN (0,".$conf->entity.")";
+			$sql .= " WHERE g.entity IN (0,".$config->entity.")";
 		}
 		$sql .= " GROUP BY g.rowid, g.nom, g.entity, g.datec";
 		$resql = $db->query($sql);
@@ -500,7 +500,7 @@ function createUserFromThirdparty($authentication, $thirdpartywithuser)
 	dol_syslog("Function: createUserFromThirdparty login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	$objectresp = array();
@@ -529,7 +529,7 @@ function createUserFromThirdparty($authentication, $thirdpartywithuser)
 			// If a contact / company already exists with the email, return the corresponding socid
 			$sql = "SELECT s.rowid as socid FROM ".MAIN_DB_PREFIX."societe as s";
 			$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."socpeople as sp ON sp.fk_soc = s.rowid";
-			$sql .= " WHERE s.entity=".$conf->entity;
+			$sql .= " WHERE s.entity=".$config->entity;
 			$sql .= " AND s.email='".$db->escape($thirdpartywithuser['email'])."'";
 			$sql .= " OR sp.email='".$db->escape($thirdpartywithuser['email'])."'";
 			$sql .= $db->plimit(1);
@@ -639,7 +639,7 @@ function createUserFromThirdparty($authentication, $thirdpartywithuser)
 								$edituser->setPassword($fuser, trim($thirdpartywithuser['password']));
 
 								if ($thirdpartywithuser['group_id'] > 0) {
-									$edituser->SetInGroup($thirdpartywithuser['group_id'], $conf->entity);
+									$edituser->SetInGroup($thirdpartywithuser['group_id'], $config->entity);
 								}
 							} else {
 								$error++;
@@ -699,7 +699,7 @@ function setUserPassword($authentication, $shortuser)
 	dol_syslog("Function: setUserPassword login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	$objectresp = array();

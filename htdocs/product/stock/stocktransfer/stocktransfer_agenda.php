@@ -61,7 +61,7 @@ if (GETPOST('actioncode', 'array')) {
 $search_rowid = GETPOST('search_rowid');
 $search_agenda_label = GETPOST('search_agenda_label');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST("sortfield", 'alpha');
 $sortorder = GETPOST("sortorder", 'alpha');
 $socid = GETPOSTINT('socid');
@@ -82,7 +82,7 @@ if (!$sortorder) {
 // Initialize a technical objects
 $object = new StockTransfer($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->stocktransfer->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->stocktransfer->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('stocktransferagenda', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -90,7 +90,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = (!empty($conf->stocktransfer->multidir_output[$object->entity]) ? $conf->stocktransfer->multidir_output[$object->entity] : $conf->stocktransfer->dir_output)."/".$object->id;
+	$upload_dir = (!empty($config->stocktransfer->multidir_output[$object->entity]) ? $config->stocktransfer->multidir_output[$object->entity] : $config->stocktransfer->dir_output)."/".$object->id;
 }
 
 $permissiontoread = $user->hasRight('stocktransfer', 'stocktransfer', 'read');
@@ -98,7 +98,7 @@ $permissiontoadd = $user->hasRight('stocktransfer', 'stocktransfer', 'write'); /
 $permissionnote = $user->hasRight('stocktransfer', 'stocktransfer', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiontodelete = $user->rights->stocktransfer->stocktransfer->delete || ($permissiontoadd && isset($object->status) && $object->status < $object::STATUS_TRANSFERED);
 $permissiondellink = $user->hasRight('stocktransfer', 'stocktransfer', 'write'); // Used by the include of actions_dellink.inc.php
-$upload_dir = $conf->stocktransfer->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->stocktransfer->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 // Security check - Protection if external user
 //if ($user->socid > 0) accessforbidden();
@@ -252,7 +252,7 @@ if ($object->id > 0) {
 		if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 			$param .= '&contextpage='.urlencode($contextpage);
 		}
-		if ($limit > 0 && $limit != $conf->liste_limit) {
+		if ($limit > 0 && $limit != $config->liste_limit) {
 			$param .= '&limit='.((int) $limit);
 		}
 

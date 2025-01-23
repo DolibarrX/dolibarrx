@@ -55,7 +55,7 @@ $action = GETPOST('action', 'aZ09');
 $confirm = GETPOST('confirm', 'alpha');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -104,7 +104,7 @@ if (($id > 0) || $ref) {
 }
 
 
-$upload_dir = $conf->holiday->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, '');
+$upload_dir = $config->holiday->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, '');
 $modulepart = 'holiday';
 
 // Protection if external user
@@ -213,8 +213,8 @@ if ($object->id) {
 	print '<tr>';
 	print '<td>';
 	$htmlhelp = $langs->trans('NbUseDaysCPHelp');
-	$includesaturday = (isset($conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY) ? $conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY : 1);
-	$includesunday   = (isset($conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY) ? $conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY : 1);
+	$includesaturday = (isset($config->global->MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY) ? $config->global->MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY : 1);
+	$includesunday   = (isset($config->global->MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY) ? $config->global->MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY : 1);
 	if ($includesaturday) {
 		$htmlhelp .= '<br>'.$langs->trans("DayIsANonWorkingDay", $langs->trans("Saturday"));
 	}

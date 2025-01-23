@@ -61,7 +61,7 @@ $hookManager->initHooks(array('productstatspropal'));
 $result = restrictedArea($user, 'produit|service', $fieldvalue, 'product&product', '', '', $fieldtype);
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -199,7 +199,7 @@ if ($id > 0 || !empty($ref)) {
 
 				$option = '&id='.$product->id;
 
-				if ($limit > 0 && $limit != $conf->liste_limit) {
+				if ($limit > 0 && $limit != $config->liste_limit) {
 					$option .= '&limit='.((int) $limit);
 				}
 				if (!empty($search_month)) {

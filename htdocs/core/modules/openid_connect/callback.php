@@ -35,8 +35,8 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
  */
 // Javascript code on logon page only to detect user tz, dst_observed, dst_first, dst_second
 $arrayofjs = array(
-	'/includes/jstz/jstz.min.js'.(empty($conf->dol_use_jmobile) ? '' : '?version='.urlencode(DOL_VERSION)),
-	'/core/js/dst.js'.(empty($conf->dol_use_jmobile) ? '' : '?version='.urlencode(DOL_VERSION))
+	'/includes/jstz/jstz.min.js'.(empty($config->dol_use_jmobile) ? '' : '?version='.urlencode(DOL_VERSION)),
+	'/core/js/dst.js'.(empty($config->dol_use_jmobile) ? '' : '?version='.urlencode(DOL_VERSION))
 );
 
 top_htmlhead('', '', 0, 0, $arrayofjs);

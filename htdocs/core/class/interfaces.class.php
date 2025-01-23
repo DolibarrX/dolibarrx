@@ -106,7 +106,7 @@ class Interfaces
 		$orders = array();
 		$i = 0;
 
-		$dirtriggers = array_merge(array('/core/triggers'), $conf->modules_parts['triggers']);
+		$dirtriggers = array_merge(array('/core/triggers'), $config->modules_parts['triggers']);
 		foreach ($dirtriggers as $reldir) {
 			$dir = dol_buildpath($reldir, 0);
 			$newdir = dol_osencode($dir);
@@ -268,7 +268,7 @@ class Interfaces
 		$orders = array();
 		$i = 0;
 
-		$dirtriggers = array_merge(array('/core/triggers/'), $conf->modules_parts['triggers']);
+		$dirtriggers = array_merge(array('/core/triggers/'), $config->modules_parts['triggers']);
 		if (is_array($forcedirtriggers)) {
 			$dirtriggers = $forcedirtriggers;
 		}

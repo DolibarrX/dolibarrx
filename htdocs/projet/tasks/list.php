@@ -132,9 +132,9 @@ if (!$user->hasRight('projet', 'lire')) {
 	accessforbidden();
 }
 
-$diroutputmassaction = $conf->project->dir_output.'/tasks/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->project->dir_output.'/tasks/temp/massgeneration/'.$user->id;
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -266,7 +266,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Task';
 	$objectlabel = 'Tasks';
-	$uploaddir = $conf->project->dir_output.'/tasks';
+	$uploaddir = $config->project->dir_output.'/tasks';
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -616,7 +616,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($search_date_startday) {
@@ -1483,7 +1483,7 @@ while ($i < $imaxinloop) {
 			if (!empty($arrayfields['t.budget_amount']['checked'])) {
 				print '<td class="center">';
 				if ($object->budget_amount) {
-					print '<span class="amount">'.price($object->budget_amount, 0, $langs, 1, 0, 0, $conf->currency).'</span>';
+					print '<span class="amount">'.price($object->budget_amount, 0, $langs, 1, 0, 0, $config->currency).'</span>';
 				}
 				print '</td>';
 				if (!$i) {
@@ -1640,7 +1640,7 @@ if (isset($totalarray['totaldurationeffectivefield']) || isset($totalarray['tota
 		} elseif (isset($totalarray['totalbilledfield']) && $totalarray['totalbilledfield'] == $i) {
 			print '<td class="center">'.convertSecondToTime($totalarray['totalbilled'], $plannedworkloadoutputformat).'</td>';
 		} elseif (isset($totalarray['totalbudget_amountfield']) && $totalarray['totalbudget_amountfield'] == $i) {
-			print '<td class="center">'.price((float) $totalarray['totalbudgetamount'], 0, $langs, 1, 0, 0, $conf->currency).'</td>';
+			print '<td class="center">'.price((float) $totalarray['totalbudgetamount'], 0, $langs, 1, 0, 0, $config->currency).'</td>';
 		} elseif (!empty($totalarray['pos'][$i])) {
 			print '<td class="right">';
 			// @phan-suppress-next-line PhanTypeInvalidDimOffset

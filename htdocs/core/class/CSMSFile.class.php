@@ -140,7 +140,7 @@ class CSMSFile
 			throw new Exception('No SMS Engine defined');
 		}
 
-		dol_syslog("CSMSFile::CSMSFile: MAIN_SMS_SENDMODE=".getDolGlobalString('MAIN_SMS_SENDMODE')." charset=".$conf->file->character_set_client." from=".$from.", to=".$to.", msg length=".strlen($msg), LOG_DEBUG);
+		dol_syslog("CSMSFile::CSMSFile: MAIN_SMS_SENDMODE=".getDolGlobalString('MAIN_SMS_SENDMODE')." charset=".$config->file->character_set_client." from=".$from.", to=".$to.", msg length=".strlen($msg), LOG_DEBUG);
 		dol_syslog("CSMSFile::CSMSFile: deferred=".$deferred." priority=".$priority." class=".$class, LOG_DEBUG);
 
 		// Action according to chosen sending method
@@ -179,8 +179,8 @@ class CSMSFile
 		if (!getDolGlobalString('MAIN_DISABLE_ALL_SMS')) {
 			// Action according to the chose sending method
 			if (getDolGlobalString('MAIN_SMS_SENDMODE')) {
-				$sendmode = getDolGlobalString('MAIN_SMS_SENDMODE');	// $conf->global->MAIN_SMS_SENDMODE looks like a value 'module'
-				$classmoduleofsender = getDolGlobalString('MAIN_MODULE_'.strtoupper($sendmode).'_SMS', $sendmode);	// $conf->global->MAIN_MODULE_XXX_SMS looks like a value 'class@module'
+				$sendmode = getDolGlobalString('MAIN_SMS_SENDMODE');	// $config->global->MAIN_SMS_SENDMODE looks like a value 'module'
+				$classmoduleofsender = getDolGlobalString('MAIN_MODULE_'.strtoupper($sendmode).'_SMS', $sendmode);	// $config->global->MAIN_MODULE_XXX_SMS looks like a value 'class@module'
 				if ($classmoduleofsender == 'ovh') {
 					$classmoduleofsender = 'ovhsms@ovh';	// For backward compatibility
 				}

@@ -125,7 +125,7 @@ if (GETPOST("button_delmvt_x") || GETPOST("button_delmvt.x") || GETPOST("button_
 }
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : getDolGlobalString('ACCOUNTING_LIMIT_LIST_VENTILATION', $conf->liste_limit);
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : getDolGlobalString('ACCOUNTING_LIMIT_LIST_VENTILATION', $config->liste_limit);
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $optioncss = GETPOST('optioncss', 'alpha');
@@ -436,7 +436,7 @@ if (empty($reshook)) {
 	$permissiontoread = $user->hasRight('societe', 'lire');
 	$permissiontodelete = $user->hasRight('societe', 'supprimer');
 	$permissiontoadd = $user->hasRight('societe', 'creer');
-	$uploaddir = $conf->societe->dir_output;
+	$uploaddir = $config->societe->dir_output;
 
 	global $error;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
@@ -652,7 +652,7 @@ if (!empty($socid)) {
 		print info_admin($langs->trans("WarningThisPageContainsOnlyEntriesTransferredInAccounting"));
 
 		// Choice of mode (customer / supplier)
-		if (!empty($conf->dol_use_jmobile)) {
+		if (!empty($config->dol_use_jmobile)) {
 			print "\n".'<div class="fichecenter"><div class="nowrap">'."\n";
 		}
 
@@ -695,7 +695,7 @@ if (!empty($socid)) {
 			}
 		}
 
-		if (!empty($conf->dol_use_jmobile)) {
+		if (!empty($config->dol_use_jmobile)) {
 			print '</div></div>';
 		} else {
 			print '<br>';
@@ -802,7 +802,7 @@ if (empty($reshook)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 
@@ -856,9 +856,9 @@ if ($type == 'sub') {
 
 if (empty($socid)) {
 	$stringforfirstkey = $langs->trans("KeyboardShortcut");
-	if ($conf->browser->name == 'chrome') {
+	if ($config->browser->name == 'chrome') {
 		$stringforfirstkey .= ' ALT +';
-	} elseif ($conf->browser->name == 'firefox') {
+	} elseif ($config->browser->name == 'firefox') {
 		$stringforfirstkey .= ' ALT + SHIFT +';
 	} else {
 		$stringforfirstkey .= ' CTL +';
@@ -1296,7 +1296,7 @@ while ($i < min($num, $limit)) {
 			//$modulepart = 'facture';
 
 			$filename = dol_sanitizeFileName($line->doc_ref);
-			$filedir = $conf->facture->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
+			$filedir = $config->facture->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$objectstatic->id;
 			$documentlink = $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir);
 		} elseif ($line->doc_type == 'supplier_invoice') {
@@ -1308,7 +1308,7 @@ while ($i < min($num, $limit)) {
 
 			$modulepart = 'invoice_supplier';
 			$filename = dol_sanitizeFileName($line->doc_ref);
-			$filedir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($line->fk_doc, 2, 0, 0, $objectstatic, $modulepart).dol_sanitizeFileName($line->doc_ref);
+			$filedir = $config->fournisseur->facture->dir_output.'/'.get_exdir($line->fk_doc, 2, 0, 0, $objectstatic, $modulepart).dol_sanitizeFileName($line->doc_ref);
 			$subdir = get_exdir($objectstatic->id, 2, 0, 0, $objectstatic, $modulepart).dol_sanitizeFileName($line->doc_ref);
 			$documentlink = $formfile->getDocumentsLink($objectstatic->element, $subdir, $filedir);
 		} elseif ($line->doc_type == 'expense_report') {
@@ -1320,7 +1320,7 @@ while ($i < min($num, $limit)) {
 			//$modulepart = 'expensereport';
 
 			$filename = dol_sanitizeFileName($line->doc_ref);
-			$filedir = $conf->expensereport->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
+			$filedir = $config->expensereport->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$objectstatic->id;
 			$documentlink = $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir);
 		} elseif ($line->doc_type == 'bank') {

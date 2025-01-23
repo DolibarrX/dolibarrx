@@ -84,16 +84,16 @@ print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
 print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("Database").'</td></tr>'."\n";
 print '<tr class="oddeven"><td width="300">'.$langs->trans("Version").'</td><td>'.$db::LABEL.' '.$db->getVersion().'</td></tr>'."\n";
-print '<tr class="oddeven"><td width="300">'.$langs->trans("DatabaseServer").'</td><td>'.$conf->db->host.'</td></tr>'."\n";
-print '<tr class="oddeven"><td width="300">'.$langs->trans("DatabasePort").'</td><td>'.(empty($conf->db->port) ? $langs->trans("Default") : $conf->db->port).'</td></tr>'."\n";
-print '<tr class="oddeven"><td width="300">'.$langs->trans("DatabaseName").'</td><td>'.$conf->db->name.'</td></tr>'."\n";
-print '<tr class="oddeven"><td width="300">'.$langs->trans("DriverType").'</td><td>'.$conf->db->type.($db->getDriverInfo() ? ' ('.$db->getDriverInfo().')' : '').'</td></tr>'."\n";
+print '<tr class="oddeven"><td width="300">'.$langs->trans("DatabaseServer").'</td><td>'.$config->db->host.'</td></tr>'."\n";
+print '<tr class="oddeven"><td width="300">'.$langs->trans("DatabasePort").'</td><td>'.(empty($config->db->port) ? $langs->trans("Default") : $config->db->port).'</td></tr>'."\n";
+print '<tr class="oddeven"><td width="300">'.$langs->trans("DatabaseName").'</td><td>'.$config->db->name.'</td></tr>'."\n";
+print '<tr class="oddeven"><td width="300">'.$langs->trans("DriverType").'</td><td>'.$config->db->type.($db->getDriverInfo() ? ' ('.$db->getDriverInfo().')' : '').'</td></tr>'."\n";
 // @phan-suppress-next-line PhanTypeSuspiciousStringExpression  (user is defined in the stdClass)
-print '<tr class="oddeven"><td width="300">'.$langs->trans("User").'</td><td>'.$conf->db->user.'</td></tr>'."\n";
+print '<tr class="oddeven"><td width="300">'.$langs->trans("User").'</td><td>'.$config->db->user.'</td></tr>'."\n";
 print '<tr class="oddeven"><td width="300">'.$langs->trans("Password").'</td><td>'.preg_replace('/./i', '*', $dolibarr_main_db_pass).'</td></tr>'."\n";
 print '<tr class="oddeven"><td width="300">'.$langs->trans("DBStoringCharset").'</td><td>'.$db->getDefaultCharacterSetDatabase();
 if ($db->type == 'mysqli') {
-	$tooltipexample = "<br>SHOW VARIABLES LIKE 'character_set_database' (cached)<br>You can avoid cache effect with:<br>SELECT DEFAULT_CHARACTER_SET_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = '".$db->escape($conf->db->name)."'";
+	$tooltipexample = "<br>SHOW VARIABLES LIKE 'character_set_database' (cached)<br>You can avoid cache effect with:<br>SELECT DEFAULT_CHARACTER_SET_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = '".$db->escape($config->db->name)."'";
 	print ' '.$form->textwithpicto('', $langs->transnoentitiesnoconv("HelpMariaDBToGetValue", $tooltipexample.'<br>'.$langs->transnoentitiesnoconv("HelpMariaDBToGetPossibleValues", "<br>SHOW CHARSET")));
 	// We can use $db->getDefaultCharacterSetDatabase(),  $db->getListOfCharacterSet(),
 }
@@ -103,10 +103,10 @@ $defaultcollation = $db->getDefaultCollationDatabase();
 print dolPrintHTML($defaultcollation);
 global $dolibarr_main_db_collation;
 if ($db->type == 'mysqli') {
-	if ($defaultcollation != $conf->db->dolibarr_main_db_collation) {
-		print img_warning('The database default value of collation '.$defaultcollation.' differs from conf setup '.$conf->db->dolibarr_main_db_collation);
+	if ($defaultcollation != $config->db->dolibarr_main_db_collation) {
+		print img_warning('The database default value of collation '.$defaultcollation.' differs from conf setup '.$config->db->dolibarr_main_db_collation);
 	}
-	$tooltipexample = "<br>SHOW VARIABLES LIKE 'collation_database' (cached)<br>You can avoid cache effect with:<br>SELECT DEFAULT_COLLATION_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = '".$db->escape($conf->db->name)."'";
+	$tooltipexample = "<br>SHOW VARIABLES LIKE 'collation_database' (cached)<br>You can avoid cache effect with:<br>SELECT DEFAULT_COLLATION_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = '".$db->escape($config->db->name)."'";
 	print ' '.$form->textwithpicto('', $langs->transnoentitiesnoconv("HelpMariaDBToGetValue", $tooltipexample.'<br>'.$langs->transnoentitiesnoconv("HelpMariaDBToGetPossibleValues", "<br>SHOW COLLATION")));
 	// We can use $db->getDefaultCollationDatabase(), $db->getListOfCollation();
 

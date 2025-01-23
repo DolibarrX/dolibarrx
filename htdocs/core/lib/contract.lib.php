@@ -86,7 +86,7 @@ function contract_prepare_head(Contrat $object)
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $conf->contrat->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->contrat->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
 	$head[$h][0] = DOL_URL_ROOT.'/contrat/document.php?id='.$object->id;

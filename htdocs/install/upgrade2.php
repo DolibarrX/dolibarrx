@@ -68,7 +68,7 @@ $error = 0;
 $err = error_reporting();
 error_reporting(0);
 if (getDolGlobalString('MAIN_OVERRIDE_TIME_LIMIT')) {
-	@set_time_limit((int) $conf->global->MAIN_OVERRIDE_TIME_LIMIT);
+	@set_time_limit((int) $config->global->MAIN_OVERRIDE_TIME_LIMIT);
 } else {
 	@set_time_limit(600);
 }
@@ -142,18 +142,18 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 	}
 
 	// $conf is already instantiated inside inc.php
-	$conf->db->type = $dolibarr_main_db_type;
-	$conf->db->host = $dolibarr_main_db_host;
-	$conf->db->port = $dolibarr_main_db_port;
-	$conf->db->name = $dolibarr_main_db_name;
-	$conf->db->user = $dolibarr_main_db_user;
-	$conf->db->pass = $dolibarr_main_db_pass;
+	$config->db->type = $dolibarr_main_db_type;
+	$config->db->host = $dolibarr_main_db_host;
+	$config->db->port = $dolibarr_main_db_port;
+	$config->db->name = $dolibarr_main_db_name;
+	$config->db->user = $dolibarr_main_db_user;
+	$config->db->pass = $dolibarr_main_db_pass;
 
-	$db = getDoliDBInstance($conf->db->type, $conf->db->host, $conf->db->user, $conf->db->pass, $conf->db->name, (int) $conf->db->port);
+	$db = getDoliDBInstance($config->db->type, $config->db->host, $config->db->user, $config->db->pass, $config->db->name, (int) $config->db->port);
 
 	if (!$db->connected) {
-		print '<tr><td colspan="4">'.$langs->trans("ErrorFailedToConnectToDatabase", $conf->db->name).'</td><td class="right">'.$langs->trans('Error').'</td></tr>';
-		dolibarr_install_syslog('upgrade2: failed to connect to database :'.$conf->db->name.' on '.$conf->db->host.' for user '.$conf->db->user, LOG_ERR);
+		print '<tr><td colspan="4">'.$langs->trans("ErrorFailedToConnectToDatabase", $config->db->name).'</td><td class="right">'.$langs->trans('Error').'</td></tr>';
+		dolibarr_install_syslog('upgrade2: failed to connect to database :'.$config->db->name.' on '.$config->db->host.' for user '.$config->db->user, LOG_ERR);
 		$error++;
 	}
 
@@ -168,14 +168,14 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 	if (empty($dolibarr_main_db_encryption)) {
 		$dolibarr_main_db_encryption = 0;
 	}
-	$conf->db->dolibarr_main_db_encryption = $dolibarr_main_db_encryption;
+	$config->db->dolibarr_main_db_encryption = $dolibarr_main_db_encryption;
 	if (empty($dolibarr_main_db_cryptkey)) {
 		$dolibarr_main_db_cryptkey = '';
 	}
-	$conf->db->dolibarr_main_db_cryptkey = $dolibarr_main_db_cryptkey;
+	$config->db->dolibarr_main_db_cryptkey = $dolibarr_main_db_cryptkey;
 
 	// Load global conf
-	$conf->setValues($db);
+	$config->setValues($db);
 
 
 	$listofentities = array(1);
@@ -230,12 +230,12 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 
 	foreach ($listofentities as $entity) {
 		// Set $conf context for entity
-		$conf->setEntityValues($db, $entity);
+		$config->setEntityValues($db, $entity);
 		// Reset forced setup after the setValues
 		if (defined('SYSLOG_FILE')) {
-			$conf->global->SYSLOG_FILE = constant('SYSLOG_FILE');
+			$config->global->SYSLOG_FILE = constant('SYSLOG_FILE');
 		}
-		$conf->global->MAIN_ENABLE_LOG_TO_HTML = 1;
+		$config->global->MAIN_ENABLE_LOG_TO_HTML = 1;
 
 		$versiontoarray = array();
 		$versionranarray = array();
@@ -245,9 +245,9 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 				print '<tr><td colspan="4">*** '.$langs->trans("Entity").' '.$entity.'</td></tr>'."\n";
 			}
 
-			// Current version is $conf->global->MAIN_VERSION_LAST_UPGRADE
+			// Current version is $config->global->MAIN_VERSION_LAST_UPGRADE
 			// Version to install is DOL_VERSION
-			$dolibarrlastupgradeversionarray = preg_split('/[\.-]/', isset($conf->global->MAIN_VERSION_LAST_UPGRADE) ? $conf->global->MAIN_VERSION_LAST_UPGRADE : (isset($conf->global->MAIN_VERSION_LAST_INSTALL) ? $conf->global->MAIN_VERSION_LAST_INSTALL : ''));
+			$dolibarrlastupgradeversionarray = preg_split('/[\.-]/', isset($config->global->MAIN_VERSION_LAST_UPGRADE) ? $config->global->MAIN_VERSION_LAST_UPGRADE : (isset($config->global->MAIN_VERSION_LAST_INSTALL) ? $config->global->MAIN_VERSION_LAST_INSTALL : ''));
 
 			// Chaque action de migration doit renvoyer une ligne sur 4 colonnes avec
 			// dans la 1ere colonne, la description de l'action a faire
@@ -622,8 +622,8 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 					print '</td></tr>';
 				}
 			} else {
-				//if (!empty($conf->modules))
-				if (!empty($conf->modules_parts['hooks'])) {     // If there is at least one module with one hook, we show message to say nothing was done
+				//if (!empty($config->modules))
+				if (!empty($config->modules_parts['hooks'])) {     // If there is at least one module with one hook, we show message to say nothing was done
 					print '<tr class="trforrunsql"><td colspan="4">';
 					print '<b>'.$langs->trans('UpgradeExternalModule').'</b>: '.$langs->trans("NodoUpgradeAfterDB");
 					print '</td></tr>';
@@ -653,12 +653,12 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 
 	foreach ($listofentities as $entity) {
 		// Set $conf context for entity
-		$conf->setEntityValues($db, $entity);
+		$config->setEntityValues($db, $entity);
 		// Reset forced setup after the setValues
 		if (defined('SYSLOG_FILE')) {
-			$conf->global->SYSLOG_FILE = constant('SYSLOG_FILE');
+			$config->global->SYSLOG_FILE = constant('SYSLOG_FILE');
 		}
-		$conf->global->MAIN_ENABLE_LOG_TO_HTML = 1;
+		$config->global->MAIN_ENABLE_LOG_TO_HTML = 1;
 
 
 		// Copy directory medias
@@ -694,8 +694,8 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 				print '</td></tr>';
 			}
 		} else {
-			//if (!empty($conf->modules))
-			if (!empty($conf->modules_parts['hooks'])) {     // If there is at least one module with one hook, we show message to say nothing was done
+			//if (!empty($config->modules))
+			if (!empty($config->modules_parts['hooks'])) {     // If there is at least one module with one hook, we show message to say nothing was done
 				print '<tr class="trforrunsql"><td colspan="4">';
 				print '<b>'.$langs->trans('UpgradeExternalModule').'</b>: '.$langs->trans("NodoUpgradeAfterFiles");
 				print '</td></tr>';
@@ -716,7 +716,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			print '<span class="error">'.$langs->trans("Error").'</span> - ';
 		}
 
-		//if (!empty($conf->use_javascript_ajax)) {		// use_javascript_ajax is not defined
+		//if (!empty($config->use_javascript_ajax)) {		// use_javascript_ajax is not defined
 		print '<script type="text/javascript">
 		jQuery(document).ready(function() {
 			function init_trrunsql()
@@ -4272,7 +4272,7 @@ function migrate_reload_modules($db, $langs, $conf, $listofmodule = array(), $fo
 	);
 
 	foreach ($listofmodule as $moduletoreload => $reloadmode) {	// reloadmodule can be 'noboxes', 'newboxdefonly', 'forceactivate'
-		if (empty($moduletoreload) || (empty($conf->global->$moduletoreload) && !$force)) {
+		if (empty($moduletoreload) || (empty($config->global->$moduletoreload) && !$force)) {
 			continue; // Discard reload if module not enabled
 		}
 
@@ -4420,9 +4420,9 @@ function migrate_productlot_path()
 		while ($obj = $db->fetch_object($resql)) {
 			$entity = (empty($obj->entity) ? 1 : $obj->entity);
 			if ($entity > 1) {
-				$dir = DOL_DATA_ROOT.'/'.$entity.'/'.$conf->productbatch->multidir_output[$entity];
+				$dir = DOL_DATA_ROOT.'/'.$entity.'/'.$config->productbatch->multidir_output[$entity];
 			} else {
-				$dir = $conf->productbatch->multidir_output[$entity];
+				$dir = $config->productbatch->multidir_output[$entity];
 			}
 
 			$lot = new Productlot($db);
@@ -4476,7 +4476,7 @@ function migrate_user_photospath()
 			if ($entity > 1) {
 				$dir = DOL_DATA_ROOT.'/'.$entity.'/users';
 			} else {
-				$dir = $conf->user->multidir_output[$entity]; // $conf->user->multidir_output[] for each entity is construct by the multicompany module
+				$dir = $config->user->multidir_output[$entity]; // $config->user->multidir_output[] for each entity is construct by the multicompany module
 			}
 
 			if ($dir) {

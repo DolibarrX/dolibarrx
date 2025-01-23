@@ -50,12 +50,12 @@ if (isModEnabled('project')) {
  * @var User $user
  */
 
-if (!isset($conf->global->AGENDA_MAX_EVENTS_DAY_VIEW)) {
-	$conf->global->AGENDA_MAX_EVENTS_DAY_VIEW = 3;
+if (!isset($config->global->AGENDA_MAX_EVENTS_DAY_VIEW)) {
+	$config->global->AGENDA_MAX_EVENTS_DAY_VIEW = 3;
 }
 
 if (!getDolGlobalString('AGENDA_EXT_NB')) {
-	$conf->global->AGENDA_EXT_NB = 5;
+	$config->global->AGENDA_EXT_NB = 5;
 }
 $MAXAGENDA = getDolGlobalString('AGENDA_EXT_NB');
 $DELAYFORCACHE = 300;	// 300 seconds
@@ -66,7 +66,7 @@ $check_holiday = GETPOSTINT('check_holiday');
 $filter = GETPOST("search_filter", 'alpha', 3) ? GETPOST("search_filter", 'alpha', 3) : GETPOST("filter", 'alpha', 3);
 $filtert = GETPOST("search_filtert", "intcomma", 3) ? GETPOST("search_filtert", "intcomma", 3) : GETPOST("filtert", "intcomma", 3);
 $usergroup = GETPOST("search_usergroup", "intcomma", 3) ? GETPOST("search_usergroup", "intcomma", 3) : GETPOST("usergroup", "intcomma", 3);
-$showbirthday = empty($conf->use_javascript_ajax) ? GETPOSTINT("showbirthday") : 1;
+$showbirthday = empty($config->use_javascript_ajax) ? GETPOSTINT("showbirthday") : 1;
 $search_categ_cus = GETPOST("search_categ_cus", 'intcomma', 3) ? GETPOST("search_categ_cus", 'intcomma', 3) : 0;
 
 // If no choice done on calendar owner (like on left menu link "Agenda"), we filter on current user by default.
@@ -82,7 +82,7 @@ $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTI
 if (empty($page) || $page == -1) {
 	$page = 0;
 }     // If $page is not defined, or '' or -1
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $offset = $limit * $page;
 if (!$sortorder) {
 	$sortorder = "ASC";
@@ -149,7 +149,7 @@ if (is_scalar($actioncode) && $actioncode == '-1') {
 }
 
 if ($status == '' && !GETPOSTISSET('search_status')) {
-	$status = ((!getDolGlobalString('AGENDA_DEFAULT_FILTER_STATUS') || $disabledefaultvalues) ? '' : $conf->global->AGENDA_DEFAULT_FILTER_STATUS);
+	$status = ((!getDolGlobalString('AGENDA_DEFAULT_FILTER_STATUS') || $disabledefaultvalues) ? '' : $config->global->AGENDA_DEFAULT_FILTER_STATUS);
 }
 
 $defaultview = getDolGlobalString('AGENDA_DEFAULT_VIEW', 'show_month');	// default for app
@@ -281,7 +281,7 @@ if (!getDolGlobalString('AGENDA_DISABLE_EXT')) {
 		$default = 'AGENDA_EXT_ACTIVEBYDEFAULT'.$i;
 		$buggedfile = 'AGENDA_EXT_BUGGEDFILE'.$i;
 		if (getDolGlobalString($source) && getDolGlobalString($name)) {
-			// Note: $conf->global->buggedfile can be empty or 'uselocalandtznodaylight' or 'uselocalandtzdaylight'
+			// Note: $config->global->buggedfile can be empty or 'uselocalandtznodaylight' or 'uselocalandtzdaylight'
 			$listofextcals[] = array(
 				'type' => 'globalsetup',
 				'src' => getDolGlobalString($source),
@@ -310,7 +310,7 @@ if (!getDolUserString('AGENDA_DISABLE_EXT')) {
 		$buggedfile = 'AGENDA_EXT_BUGGEDFILE_'.$user->id.'_'.$i;
 
 		if (getDolUserString($source) && getDolUserString($name)) {
-			// Note: $conf->global->buggedfile can be empty or 'uselocalandtznodaylight' or 'uselocalandtzdaylight'
+			// Note: $config->global->buggedfile can be empty or 'uselocalandtznodaylight' or 'uselocalandtzdaylight'
 			$listofextcals[] = array(
 				'type' => 'usersetup',
 				'src' => getDolUserString($source),
@@ -352,7 +352,7 @@ if (empty($mode) || $mode == 'show_month') {
 	$max_day_in_month = (int) date("t", dol_mktime(12, 0, 0, $month, 1, $year, 'gmt')); // Nb of days in next month
 	// tmpday is a negative or null cursor to know how many days before the 1st to show on month view (if tmpday=0, 1st is monday)
 	$tmpday = - (int) date("w", dol_mktime(12, 0, 0, $month, 1, $year, 'gmt')) + 2; // date('w') is 0 for sunday
-	$tmpday += ((isset($conf->global->MAIN_START_WEEK) ? $conf->global->MAIN_START_WEEK : 1) - 1);
+	$tmpday += ((isset($config->global->MAIN_START_WEEK) ? $config->global->MAIN_START_WEEK : 1) - 1);
 	if ($tmpday >= 1) {
 		$tmpday -= 7; // If tmpday is 0 we start with sunday, if -6, we start with monday of previous week.
 	}
@@ -480,7 +480,7 @@ if ($mode == 'show_day') {
 	$nav .= " &nbsp; <a href=\"?year=".$next_year."&month=".$next_month."&day=".$next_day.$param."\"><i class=\"fa fa-chevron-right\"></i></a>\n";
 	$picto = 'calendarday';
 }
-if (empty($conf->dol_optimize_smallscreen)) {
+if (empty($config->dol_optimize_smallscreen)) {
 	$nav .= ' &nbsp; <a href="?year='.$nowyear.'&month='.$nowmonth.'&day='.$nowday.$param.'" class="datenowlink">'.$langs->trans("Today").'</a> ';
 }
 $nav .= '</div>';
@@ -619,7 +619,7 @@ if (isModEnabled("bookcal")) {
 	}
 }
 
-if (!empty($conf->use_javascript_ajax)) {	// If javascript on
+if (!empty($config->use_javascript_ajax)) {	// If javascript on
 	$s .= "\n".'<!-- Div to calendars selectors -->'."\n";
 
 	$s .= '<script type="text/javascript">'."\n";
@@ -1220,7 +1220,7 @@ if (count($listofextcals)) {
 		$colorcal = $extcal['color'];
 		$buggedfile = $extcal['buggedfile'];
 
-		$pathforcachefile = dol_sanitizePathName($conf->user->dir_temp).'/'.dol_sanitizeFileName('extcal_'.$namecal.'_user'.$user->id).'.cache';
+		$pathforcachefile = dol_sanitizePathName($config->user->dir_temp).'/'.dol_sanitizeFileName('extcal_'.$namecal.'_user'.$user->id).'.cache';
 		//var_dump($pathforcachefile);exit;
 
 		$ical = new ICal();
@@ -1528,7 +1528,7 @@ $cachecontacts = array();
 $cacheusers = array();
 
 // Define theme_datacolor array
-$color_file = DOL_DOCUMENT_ROOT."/theme/".$conf->theme."/theme_vars.inc.php";
+$color_file = DOL_DOCUMENT_ROOT."/theme/".$config->theme."/theme_vars.inc.php";
 if (is_readable($color_file)) {
 	include $color_file;
 }
@@ -1568,8 +1568,8 @@ if (empty($mode) || $mode == 'show_month') {      // View by month
 	$i = 0;
 	while ($i < 7) {
 		print '  <td class="center bold uppercase tdfordaytitle'.($i == 0 ? ' borderleft' : '').'">';
-		$numdayinweek = (($i + (isset($conf->global->MAIN_START_WEEK) ? $conf->global->MAIN_START_WEEK : 1)) % 7);
-		if (!empty($conf->dol_optimize_smallscreen)) {
+		$numdayinweek = (($i + (isset($config->global->MAIN_START_WEEK) ? $config->global->MAIN_START_WEEK : 1)) % 7);
+		if (!empty($config->dol_optimize_smallscreen)) {
 			$labelshort = array(0 => 'SundayMin', 1 => 'MondayMin', 2 => 'TuesdayMin', 3 => 'WednesdayMin', 4 => 'ThursdayMin', 5 => 'FridayMin', 6 => 'SaturdayMin');
 			print $langs->trans($labelshort[$numdayinweek]);
 		} else {
@@ -1676,7 +1676,7 @@ if (empty($mode) || $mode == 'show_month') {      // View by month
 	print ' <tr class="liste_titre">';
 	$i = 0;
 	while ($i < 7) {
-		echo '  <td class="center bold uppercase tdfordaytitle">'.$langs->trans("Day".(($i + (isset($conf->global->MAIN_START_WEEK) ? $conf->global->MAIN_START_WEEK : 1)) % 7))."</td>\n";
+		echo '  <td class="center bold uppercase tdfordaytitle">'.$langs->trans("Day".(($i + (isset($config->global->MAIN_START_WEEK) ? $config->global->MAIN_START_WEEK : 1)) % 7))."</td>\n";
 		$i++;
 	}
 	echo " </tr>\n";
@@ -1853,8 +1853,8 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 	 @phan-var-force User[] $cacheusers
 	 @phan-var-force array<int<0,3>> $colorindexused';
 
-	if ($conf->use_javascript_ajax) {	// Enable the "Show more button..."
-		$conf->global->MAIN_JS_SWITCH_AGENDA = 1;
+	if ($config->use_javascript_ajax) {	// Enable the "Show more button..."
+		$config->global->MAIN_JS_SWITCH_AGENDA = 1;
 	}
 
 	$dateint = sprintf("%04d", $year).sprintf("%02d", $month).sprintf("%02d", $day);
@@ -2093,7 +2093,7 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 					//var_dump($event->transparency);
 					print '<table class="centpercent cal_event';
 					print(empty($event->transparency) ? ' cal_event_notbusy' : ' cal_event_busy');
-					//if (empty($event->transparency) && empty($conf->global->AGENDA_NO_TRANSPARENT_ON_NOT_BUSY)) print ' opacitymedium';	// Not busy
+					//if (empty($event->transparency) && empty($config->global->AGENDA_NO_TRANSPARENT_ON_NOT_BUSY)) print ' opacitymedium';	// Not busy
 					print '" style="'.$h;
 					$colortouse = $color;
 					// If colortouse is similar than background, we force to change it.

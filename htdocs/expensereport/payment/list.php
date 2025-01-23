@@ -81,7 +81,7 @@ $search_cheque_num		= GETPOST('search_cheque_num', 'alpha');
 $search_bank_account	= GETPOST('search_bank_account', 'int');
 $search_amount			= GETPOST('search_amount', 'alpha'); // alpha because we must be able to search on '< x'
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield				= GETPOST('sortfield', 'aZ09comma');
 $sortorder				= GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -310,7 +310,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {

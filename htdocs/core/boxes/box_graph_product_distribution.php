@@ -67,7 +67,7 @@ class box_graph_product_distribution extends ModeleBoxes
 		global $conf, $user, $langs;
 
 		$this->max = $max;
-		$dir = $conf->user->dir_temp;
+		$dir = $config->user->dir_temp;
 
 		$refreshaction = 'refresh_'.$this->boxcode;
 
@@ -143,7 +143,7 @@ class box_graph_product_distribution extends ModeleBoxes
 		$px3 = null;
 		$userid = 0; // No filter on user creation
 
-		$WIDTH = ($nbofgraph >= 2 || !empty($conf->dol_optimize_smallscreen)) ? '300' : '320';
+		$WIDTH = ($nbofgraph >= 2 || !empty($config->dol_optimize_smallscreen)) ? '300' : '320';
 		$HEIGHT = '150';	// Height require to have 5+1 entries into legend visible.
 
 		if (isModEnabled("propal") && $user->hasRight('propal', 'lire')) {
@@ -186,7 +186,7 @@ class box_graph_product_distribution extends ModeleBoxes
 					}
 					$px2->SetLegend($legend);
 					$px2->setShowLegend(2);
-					if (!empty($conf->dol_optimize_smallscreen)) {
+					if (!empty($config->dol_optimize_smallscreen)) {
 						$px2->SetWidth(320);
 					}
 					$px2->setShowPointValue($showpointvalue);
@@ -250,7 +250,7 @@ class box_graph_product_distribution extends ModeleBoxes
 					}
 					$px3->SetLegend($legend);
 					$px3->setShowLegend(2);
-					if (!empty($conf->dol_optimize_smallscreen)) {
+					if (!empty($config->dol_optimize_smallscreen)) {
 						$px3->SetWidth(320);
 					}
 					$px3->setShowPointValue($showpointvalue);
@@ -314,7 +314,7 @@ class box_graph_product_distribution extends ModeleBoxes
 					}
 					$px1->SetLegend($legend);
 					$px1->setShowLegend(2);
-					if (!empty($conf->dol_optimize_smallscreen)) {
+					if (!empty($config->dol_optimize_smallscreen)) {
 						$px1->SetWidth(320);
 					}
 					$px1->setShowPointValue($showpointvalue);
@@ -340,7 +340,7 @@ class box_graph_product_distribution extends ModeleBoxes
 			$langs->load("errors");
 			$mesg = $langs->trans("ReadPermissionNotAllowed");
 		}
-		if (empty($conf->use_javascript_ajax)) {
+		if (empty($config->use_javascript_ajax)) {
 			$langs->load("errors");
 			$mesg = $langs->trans("WarningFeatureDisabledWithDisplayOptimizedForBlindNoJs");
 		}

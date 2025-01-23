@@ -52,7 +52,7 @@ if (empty($sortorder)) {
 	$sortorder = 'desc';
 }
 
-$upload_dir = $conf->admin->dir_temp;
+$upload_dir = $config->admin->dir_temp;
 
 if (!$user->admin) {
 	accessforbidden();
@@ -100,11 +100,11 @@ if ($action == 'updateform') {
 			$tmpumask = '0664';
 		}
 
-		$res3 = dolibarr_set_const($db, 'MAIN_UPLOAD_DOC', GETPOST('MAIN_UPLOAD_DOC', 'alpha'), 'chaine', 0, '', $conf->entity);
-		$res4 = dolibarr_set_const($db, "MAIN_UMASK", $tmpumask, 'chaine', 0, '', $conf->entity);
-		$res5 = dolibarr_set_const($db, "MAIN_ANTIVIRUS_COMMAND", trim($antivircommand), 'chaine', 0, '', $conf->entity);
-		$res6 = dolibarr_set_const($db, "MAIN_ANTIVIRUS_PARAM", trim($antivirparam), 'chaine', 0, '', $conf->entity);
-		$res7 = dolibarr_set_const($db, "MAIN_FILE_EXTENSION_UPLOAD_RESTRICTION", GETPOST('MAIN_FILE_EXTENSION_UPLOAD_RESTRICTION', 'alpha'), 'chaine', 0, '', $conf->entity);
+		$res3 = dolibarr_set_const($db, 'MAIN_UPLOAD_DOC', GETPOST('MAIN_UPLOAD_DOC', 'alpha'), 'chaine', 0, '', $config->entity);
+		$res4 = dolibarr_set_const($db, "MAIN_UMASK", $tmpumask, 'chaine', 0, '', $config->entity);
+		$res5 = dolibarr_set_const($db, "MAIN_ANTIVIRUS_COMMAND", trim($antivircommand), 'chaine', 0, '', $config->entity);
+		$res6 = dolibarr_set_const($db, "MAIN_ANTIVIRUS_PARAM", trim($antivirparam), 'chaine', 0, '', $config->entity);
+		$res7 = dolibarr_set_const($db, "MAIN_FILE_EXTENSION_UPLOAD_RESTRICTION", GETPOST('MAIN_FILE_EXTENSION_UPLOAD_RESTRICTION', 'alpha'), 'chaine', 0, '', $config->entity);
 		if ($res3 && $res4 && $res5 && $res6 && $res7) {
 			setEventMessages($langs->trans("RecordModifiedSuccessfully"), null, 'mesgs');
 		}
@@ -112,7 +112,7 @@ if ($action == 'updateform') {
 } elseif ($action == 'deletefile') {
 	// Delete file
 	$langs->load("other");
-	$file = $conf->admin->dir_temp.'/'.GETPOST('urlfile', 'alpha');
+	$file = $config->admin->dir_temp.'/'.GETPOST('urlfile', 'alpha');
 	$ret = dol_delete_file($file);
 	if ($ret) {
 		setEventMessages($langs->trans("FileWasRemoved", GETPOST('urlfile', 'alpha')), null, 'mesgs');
@@ -190,7 +190,7 @@ print '</td>';
 print '<td>';
 if (ini_get('safe_mode') && getDolGlobalString('MAIN_ANTIVIRUS_COMMAND')) {
 	$langs->load("errors");
-	$basedir = preg_replace('/"/', '', dirname($conf->global->MAIN_ANTIVIRUS_COMMAND));
+	$basedir = preg_replace('/"/', '', dirname($config->global->MAIN_ANTIVIRUS_COMMAND));
 	$listdir = explode(';', ini_get('safe_mode_exec_dir'));
 	if (!in_array($basedir, $listdir)) {
 		print img_warning($langs->trans('WarningSafeModeOnCheckExecDir'));

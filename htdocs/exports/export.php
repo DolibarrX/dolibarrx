@@ -170,7 +170,7 @@ $formfile = new FormFile($db);
 $sqlusedforexport = '';
 
 $head = array();
-$upload_dir = $conf->export->dir_temp.'/'.$user->id;
+$upload_dir = $config->export->dir_temp.'/'.$user->id;
 
 $usefilters = 1;
 
@@ -1346,8 +1346,8 @@ if ($step == 5 && $datatoexport) {
 	}
 
 
-	if (!is_dir($conf->export->dir_temp)) {
-		dol_mkdir($conf->export->dir_temp);
+	if (!is_dir($config->export->dir_temp)) {
+		dol_mkdir($config->export->dir_temp);
 	}
 
 	// Show existing generated documents

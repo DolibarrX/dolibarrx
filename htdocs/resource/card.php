@@ -246,7 +246,7 @@ if ($action == 'create' || $object->fetch($id, $ref) > 0) {
 			accessforbidden('', 0);
 		}
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print '<script type="text/javascript">';
 			print '$(document).ready(function () {
                         $("#selectcountry_id").change(function() {
@@ -382,7 +382,7 @@ if ($action == 'create' || $object->fetch($id, $ref) > 0) {
 		$formconfirm = '';
 
 		// Confirm deleting resource line
-		if ($action == 'delete' || ($conf->use_javascript_ajax && empty($conf->dol_use_jmobile))) {
+		if ($action == 'delete' || ($config->use_javascript_ajax && empty($config->dol_use_jmobile))) {
 			$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"]."?id=".$object->id, $langs->trans("DeleteResource"), $langs->trans("ConfirmDeleteResource"), "confirm_delete_resource", '', 0, "action-delete");
 		}
 
@@ -458,7 +458,7 @@ if ($action == 'create' || $object->fetch($id, $ref) > 0) {
 		if ($action != "create" && $action != "edit") {
 			$deleteUrl = $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken();
 			$buttonId = 'action-delete-no-ajax';
-			if ($conf->use_javascript_ajax && empty($conf->dol_use_jmobile)) {	// We can't use preloaded confirm form with jmobile
+			if ($config->use_javascript_ajax && empty($config->dol_use_jmobile)) {	// We can't use preloaded confirm form with jmobile
 				$deleteUrl = '';
 				$buttonId = 'action-delete';
 			}

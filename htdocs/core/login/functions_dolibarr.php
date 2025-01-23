@@ -146,7 +146,7 @@ function check_user_password_dolibarr($usertotest, $passwordtotest, $entitytotes
 						global $mc;
 
 						if (!isset($mc)) {
-							unset($conf->multicompany->enabled); // Global not available, disable $conf->multicompany->enabled for safety
+							unset($config->multicompany->enabled); // Global not available, disable $config->multicompany->enabled for safety
 						} else {
 							$ret = $mc->checkRight($obj->rowid, $entitytotest);
 							if ($ret < 0) {

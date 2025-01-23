@@ -269,7 +269,7 @@ if ($result || !($id > 0)) {
 
 	// Choice of stats mode (byunit or bynumber)
 
-	if (!empty($conf->dol_use_jmobile)) {
+	if (!empty($config->dol_use_jmobile)) {
 		print "\n".'<div class="fichecenter"><div class="nowrap">'."\n";
 	}
 
@@ -291,7 +291,7 @@ if ($result || !($id > 0)) {
 		print '</span>';
 	}
 
-	if (!empty($conf->dol_use_jmobile)) {
+	if (!empty($config->dol_use_jmobile)) {
 		print '</div>'."\n".'<div class="nowrap">'."\n";
 	}
 
@@ -307,7 +307,7 @@ if ($result || !($id > 0)) {
 		print '</span>';
 	}
 
-	if (!empty($conf->dol_use_jmobile)) {
+	if (!empty($config->dol_use_jmobile)) {
 		print '</div>'."\n".'<div class="nowrap">'."\n";
 	}
 
@@ -330,7 +330,7 @@ if ($result || !($id > 0)) {
 	}
 
 	// End of choices
-	if (!empty($conf->dol_use_jmobile)) {
+	if (!empty($config->dol_use_jmobile)) {
 		print '</div></div>';
 	} else {
 		print '<br>';
@@ -338,7 +338,7 @@ if ($result || !($id > 0)) {
 	print '<br>';
 
 	// Generation of graphs
-	$dir = (!empty($conf->product->multidir_temp[$conf->entity]) ? $conf->product->multidir_temp[$conf->entity] : $conf->service->multidir_temp[$conf->entity]);
+	$dir = (!empty($config->product->multidir_temp[$config->entity]) ? $config->product->multidir_temp[$config->entity] : $config->service->multidir_temp[$config->entity]);
 	if ($object->id > 0) {  // We are on statistics for a dedicated product
 		if (!file_exists($dir.'/'.$object->id)) {
 			if (dol_mkdir($dir.'/'.$object->id) < 0) {

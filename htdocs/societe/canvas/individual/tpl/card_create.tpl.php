@@ -42,7 +42,7 @@ if (empty($conf) || !is_object($conf)) {
 
 <?php echo $this->control->tpl['error']; ?>
 
-<?php if ($conf->use_javascript_ajax) { ?>
+<?php if ($config->use_javascript_ajax) { ?>
 	<?php echo $this->control->tpl['ajax_selecttype']; ?>
 <br>
 	<?php echo $langs->trans("ThirdPartyType") ?>: &nbsp;
@@ -164,7 +164,7 @@ if (isModEnabled('barcode')) { ?>
 </tr>
 
 <tr>
-	<td><?php echo $langs->trans('EMail').($conf->global->SOCIETE_EMAIL_MANDATORY ? '*' : ''); ?></td>
+	<td><?php echo $langs->trans('EMail').($config->global->SOCIETE_EMAIL_MANDATORY ? '*' : ''); ?></td>
 	<td><input type="text" name="email" size="32" value="<?php echo $this->control->tpl['email']; ?>"></td>
 	<td><?php echo $langs->trans('Web'); ?></td>
 	<td><input type="text" name="url" size="32" value="<?php echo $this->control->tpl['url']; ?>"></td>

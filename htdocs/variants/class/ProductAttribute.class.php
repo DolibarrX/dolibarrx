@@ -168,7 +168,7 @@ class ProductAttribute extends CommonObject
 
 		$this->ismultientitymanaged = 1;
 		$this->isextrafieldmanaged = 1;
-		$this->entity = $conf->entity;
+		$this->entity = $config->entity;
 
 		if (!getDolGlobalString('MAIN_SHOW_TECHNICAL_ID') && isset($this->fields['rowid'])) {
 			$this->fields['rowid']['visible'] = 0;
@@ -1129,7 +1129,7 @@ class ProductAttribute extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -1193,7 +1193,7 @@ class ProductAttribute extends CommonObject
 				require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
 
 				list($class, $module) = explode('@', $this->picto);
-				$upload_dir = $conf->$module->multidir_output[$conf->entity] . "/$class/" . dol_sanitizeFileName($this->ref);
+				$upload_dir = $config->$module->multidir_output[$config->entity] . "/$class/" . dol_sanitizeFileName($this->ref);
 				$filearray = dol_dir_list($upload_dir, "files");
 				$filename = $filearray[0]['name'];
 				if (!empty($filename)) {
@@ -1201,9 +1201,9 @@ class ProductAttribute extends CommonObject
 
 					$pathtophoto = $class . '/' . $this->ref . '/thumbs/' . substr($filename, 0, $pospoint) . '_mini' . substr($filename, $pospoint);
 					if (!getDolGlobalString(strtoupper($module . '_' . $class) . '_FORMATLISTPHOTOSASUSERS')) {
-						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref"><img class="photo' . $module . '" alt="No photo" border="0" src="' . DOL_URL_ROOT . '/viewimage.php?modulepart=' . $module . '&entity=' . $conf->entity . '&file=' . urlencode($pathtophoto) . '"></div></div>';
+						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref"><img class="photo' . $module . '" alt="No photo" border="0" src="' . DOL_URL_ROOT . '/viewimage.php?modulepart=' . $module . '&entity=' . $config->entity . '&file=' . urlencode($pathtophoto) . '"></div></div>';
 					} else {
-						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="' . DOL_URL_ROOT . '/viewimage.php?modulepart=' . $module . '&entity=' . $conf->entity . '&file=' . urlencode($pathtophoto) . '"></div>';
+						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="' . DOL_URL_ROOT . '/viewimage.php?modulepart=' . $module . '&entity=' . $config->entity . '&file=' . urlencode($pathtophoto) . '"></div>';
 					}
 
 					$result .= '</div>';
@@ -1329,7 +1329,7 @@ class ProductAttribute extends CommonObject
 		// Output template part (modules that overwrite templates must declare this into descriptor)
 		// Use global variables + $dateSelector + $seller and $buyer
 		// Note: This is deprecated. If you need to overwrite the tpl file, use instead the hook 'formAddObjectLine'.
-		$dirtpls = array_merge($conf->modules_parts['tpl'], array($defaulttpldir));
+		$dirtpls = array_merge($config->modules_parts['tpl'], array($defaulttpldir));
 		foreach ($dirtpls as $module => $reldir) {
 			if (!empty($module)) {
 				$tpl = dol_buildpath($reldir . '/productattributevalueline_create.tpl.php');
@@ -1337,7 +1337,7 @@ class ProductAttribute extends CommonObject
 				$tpl = DOL_DOCUMENT_ROOT . $reldir . '/productattributevalueline_create.tpl.php';
 			}
 
-			if (empty($conf->file->strict_mode)) {
+			if (empty($config->file->strict_mode)) {
 				$res = @include $tpl;
 			} else {
 				$res = include $tpl; // for debug
@@ -1380,14 +1380,14 @@ class ProductAttribute extends CommonObject
 			// Output template part (modules that overwrite templates must declare this into descriptor)
 			// Use global variables + $dateSelector + $seller and $buyer
 			// Note: This is deprecated. If you need to overwrite the tpl file, use instead the hook.
-			$dirtpls = array_merge($conf->modules_parts['tpl'], array($defaulttpldir));
+			$dirtpls = array_merge($config->modules_parts['tpl'], array($defaulttpldir));
 			foreach ($dirtpls as $module => $reldir) {
 				if (!empty($module)) {
 					$tpl = dol_buildpath($reldir . '/productattributevalueline_title.tpl.php');
 				} else {
 					$tpl = DOL_DOCUMENT_ROOT . $reldir . '/productattributevalueline_title.tpl.php';
 				}
-				if (empty($conf->file->strict_mode)) {
+				if (empty($config->file->strict_mode)) {
 					$res = @include $tpl;
 				} else {
 					$res = include $tpl; // for debug
@@ -1462,7 +1462,7 @@ class ProductAttribute extends CommonObject
 			// Output template part (modules that overwrite templates must declare this into descriptor)
 			// Use global variables + $dateSelector + $seller and $buyer
 			// Note: This is deprecated. If you need to overwrite the tpl file, use instead the hook printObjectLine and printObjectSubLine.
-			$dirtpls = array_merge($conf->modules_parts['tpl'], array($defaulttpldir));
+			$dirtpls = array_merge($config->modules_parts['tpl'], array($defaulttpldir));
 			foreach ($dirtpls as $module => $reldir) {
 				if (!empty($module)) {
 					$tpl = dol_buildpath($reldir . '/productattributevalueline_view.tpl.php');
@@ -1470,7 +1470,7 @@ class ProductAttribute extends CommonObject
 					$tpl = DOL_DOCUMENT_ROOT . $reldir . '/productattributevalueline_view.tpl.php';
 				}
 
-				if (empty($conf->file->strict_mode)) {
+				if (empty($config->file->strict_mode)) {
 					$res = @include $tpl;
 				} else {
 					$res = include $tpl; // for debug
@@ -1486,7 +1486,7 @@ class ProductAttribute extends CommonObject
 			// Output template part (modules that overwrite templates must declare this into descriptor)
 			// Use global variables + $dateSelector + $seller and $buyer
 			// Note: This is deprecated. If you need to overwrite the tpl file, use instead the hook printObjectLine and printObjectSubLine.
-			$dirtpls = array_merge($conf->modules_parts['tpl'], array($defaulttpldir));
+			$dirtpls = array_merge($config->modules_parts['tpl'], array($defaulttpldir));
 			foreach ($dirtpls as $module => $reldir) {
 				if (!empty($module)) {
 					$tpl = dol_buildpath($reldir . '/productattributevalueline_edit.tpl.php');
@@ -1494,7 +1494,7 @@ class ProductAttribute extends CommonObject
 					$tpl = DOL_DOCUMENT_ROOT . $reldir . '/productattributevalueline_edit.tpl.php';
 				}
 
-				if (empty($conf->file->strict_mode)) {
+				if (empty($config->file->strict_mode)) {
 					$res = @include $tpl;
 				} else {
 					$res = include $tpl; // for debug

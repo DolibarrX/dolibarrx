@@ -523,7 +523,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "projects"));
 
-		if ($conf->project->dir_output) {
+		if ($config->project->dir_output) {
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
@@ -537,7 +537,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 
 			$object->fetch_thirdparty();
 
-			$dir = $conf->project->dir_output;
+			$dir = $config->project->dir_output;
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -574,11 +574,11 @@ class doc_generic_project_odt extends ModelePDFProjects
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->societe->dir_temp=".$conf->societe->dir_temp;
+				//print "conf->societe->dir_temp=".$config->societe->dir_temp;
 
-				dol_mkdir($conf->project->dir_temp);
-				if (!is_writable($conf->project->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->project->dir_temp);
+				dol_mkdir($config->project->dir_temp);
+				if (!is_writable($config->project->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->project->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -616,7 +616,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $conf->project->dir_temp,
+							'PATH_TO_TMP'	  => $config->project->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'
@@ -819,7 +819,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 						// Replace tags of project files
 						$listtasksfiles = $listlines->__get('tasksfiles');
 
-						$upload_dir = $conf->project->dir_output.'/'.dol_sanitizeFileName($object->ref).'/'.dol_sanitizeFileName($task->ref);
+						$upload_dir = $config->project->dir_output.'/'.dol_sanitizeFileName($object->ref).'/'.dol_sanitizeFileName($task->ref);
 						$filearray = dol_dir_list($upload_dir, "files", 0, '', '(\.meta|_preview.*\.png)$', 'name', SORT_ASC, 1);
 
 
@@ -852,7 +852,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 				try {
 					$listlines = $odfHandler->setSegment('projectfiles');
 
-					$upload_dir = $conf->project->dir_output.'/'.dol_sanitizeFileName($object->ref);
+					$upload_dir = $config->project->dir_output.'/'.dol_sanitizeFileName($object->ref);
 					$filearray = dol_dir_list($upload_dir, "files", 0, '', '(\.meta|_preview.*\.png)$', 'name', SORT_ASC, 1);
 
 					foreach ($filearray as $filedetail) {

@@ -171,7 +171,7 @@ if ($id > 0 || !empty($ref)) {
 	$absolute_discount = $object->thirdparty->getAvailableDiscounts();
 	print '. ';
 	if ($absolute_discount) {
-		print $langs->trans("CompanyHasAbsoluteDiscount", price($absolute_discount), $langs->trans("Currency".$conf->currency));
+		print $langs->trans("CompanyHasAbsoluteDiscount", price($absolute_discount), $langs->trans("Currency".$config->currency));
 	} else {
 		print $langs->trans("CompanyHasNoAbsoluteDiscount");
 	}

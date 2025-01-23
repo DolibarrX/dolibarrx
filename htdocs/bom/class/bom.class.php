@@ -870,7 +870,7 @@ class BOM extends CommonObject
 			$classname = getDolGlobalString('BOM_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/bom/");
 
@@ -966,14 +966,14 @@ class BOM extends CommonObject
 			if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 				// Now we rename also files into index
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'bom/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'bom/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'bom/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
 					$this->error = $this->db->lasterror();
 				}
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'bom/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filepath = 'bom/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filepath = 'bom/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
@@ -983,15 +983,15 @@ class BOM extends CommonObject
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($num);
-				$dirsource = $conf->bom->dir_output.'/'.$oldref;
-				$dirdest = $conf->bom->dir_output.'/'.$newref;
+				$dirsource = $config->bom->dir_output.'/'.$oldref;
+				$dirdest = $config->bom->dir_output.'/'.$newref;
 				if (!$error && file_exists($dirsource)) {
 					dol_syslog(get_class($this)."::validate() rename dir ".$dirsource." into ".$dirdest);
 
 					if (@rename($dirsource, $dirdest)) {
 						dol_syslog("Rename ok");
 						// Rename docs starting with $oldref with $newref
-						$listoffiles = dol_dir_list($conf->bom->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+						$listoffiles = dol_dir_list($config->bom->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 						foreach ($listoffiles as $fileentry) {
 							$dirsource = $fileentry['name'];
 							$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -1122,7 +1122,7 @@ class BOM extends CommonObject
 	{
 		global $db, $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -1382,7 +1382,7 @@ class BOM extends CommonObject
 	{
 		global $conf, $langs;
 
-		//$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
+		//$config->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
 
 		$error = 0;
 		$this->output = '';

@@ -118,7 +118,7 @@ $form->load_cache_conditions_paiements();
 if (getDolGlobalString('INVOICE_SITUATION_DEFAULT_RETAINED_WARRANTY_COND_ID') && isset($form->cache_conditions_paiements[getDolGlobalString('INVOICE_SITUATION_DEFAULT_RETAINED_WARRANTY_COND_ID')]['label'])) {
 	$item->fieldOutputOverride = $form->cache_conditions_paiements[getDolGlobalString('INVOICE_SITUATION_DEFAULT_RETAINED_WARRANTY_COND_ID')]['label'];
 }
-$item->fieldInputOverride = $form->getSelectConditionsPaiements($conf->global->INVOICE_SITUATION_DEFAULT_RETAINED_WARRANTY_COND_ID, 'INVOICE_SITUATION_DEFAULT_RETAINED_WARRANTY_COND_ID', -1, 1);
+$item->fieldInputOverride = $form->getSelectConditionsPaiements($config->global->INVOICE_SITUATION_DEFAULT_RETAINED_WARRANTY_COND_ID, 'INVOICE_SITUATION_DEFAULT_RETAINED_WARRANTY_COND_ID', -1, 1);
 
 
 /*
@@ -133,7 +133,7 @@ include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
  * View
  */
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 $help_url = 'EN:Invoice_Configuration|FR:Configuration_module_facture|ES:ConfiguracionFactura';
 

@@ -94,7 +94,7 @@ $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTI
 if (empty($page) || $page == -1) {
 	$page = 0;
 }     // If $page is not defined, or '' or -1
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $offset = $limit * $page;
 if (!$sortfield) {
 	$sortfield = 'p.ref';
@@ -450,7 +450,7 @@ if ($ext == 'csv') {
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	$param .= '&mode='.$mode;

@@ -88,7 +88,7 @@ $hookManager->initHooks(array('groupcard', 'globalcard'));
 $result = restrictedArea($user, 'user', $id, 'usergroup&usergroup', $feature2);
 
 // Users/Groups management only in master entity if transverse mode
-if (isModEnabled('multicompany') && $conf->entity > 1 && getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE')) {
+if (isModEnabled('multicompany') && $config->entity > 1 && getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE')) {
 	accessforbidden();
 }
 
@@ -147,10 +147,10 @@ if (empty($reshook)) {
 			if (isModEnabled('multicompany') && getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE')) {
 				$object->entity = 0;
 			} else {
-				if ($conf->entity == 1 && $user->admin && !$user->entity) {		// Same permissions test than the one used to show the combo of entities into the form
-					$object->entity = GETPOSTISSET("entity") ? GETPOST("entity") : $conf->entity;
+				if ($config->entity == 1 && $user->admin && !$user->entity) {		// Same permissions test than the one used to show the combo of entities into the form
+					$object->entity = GETPOSTISSET("entity") ? GETPOST("entity") : $config->entity;
 				} else {
-					$object->entity = $conf->entity;
+					$object->entity = $config->entity;
 				}
 			}
 
@@ -233,7 +233,7 @@ if (empty($reshook)) {
 	}
 
 	// Actions to build doc
-	$upload_dir = $conf->user->dir_output.'/usergroups';
+	$upload_dir = $config->user->dir_output.'/usergroups';
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 }
 
@@ -271,12 +271,12 @@ if ($action == 'create') {
 
 	// Multicompany
 	if (isModEnabled('multicompany') && is_object($mc)) {
-		if (!getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $conf->entity == 1 && $user->admin && !$user->entity) {
+		if (!getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $config->entity == 1 && $user->admin && !$user->entity) {
 			print "<tr>".'<td class="tdtop">'.$langs->trans("Entity").'</td>';
-			print "<td>".$mc->select_entities($conf->entity);
+			print "<td>".$mc->select_entities($config->entity);
 			print "</td></tr>\n";
 		} else {
-			print '<input type="hidden" name="entity" value="'.$conf->entity.'" />';
+			print '<input type="hidden" name="entity" value="'.$config->entity.'" />';
 		}
 	}
 
@@ -342,7 +342,7 @@ if ($action == 'create') {
 			}
 
 			// Multicompany
-			if (isModEnabled('multicompany') && is_object($mc) && !getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $conf->entity == 1 && $user->admin && !$user->entity) {
+			if (isModEnabled('multicompany') && is_object($mc) && !getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $config->entity == 1 && $user->admin && !$user->entity) {
 				$mc->getInfo($object->entity);
 				print "<tr>".'<td class="titlefield">'.$langs->trans("Entity").'</td>';
 				print '<td class="valeur">'.dol_escape_htmltag($mc->label);
@@ -417,7 +417,7 @@ if ($action == 'create') {
 					print '<td class="liste_titre">';
 					print $form->select_dolusers('', 'user', 1, $exclude, 0, '', '', $object->entity, 0, 0, '', 0, '', 'minwidth200 maxwidth500');
 					print ' &nbsp; ';
-					print '<input type="hidden" name="entity" value="'.$conf->entity.'">';
+					print '<input type="hidden" name="entity" value="'.$config->entity.'">';
 					print '<input type="submit" class="button buttongen button-add" value="'.$langs->trans("Add").'">';
 					print '</td></tr>'."\n";
 					print '</table>';
@@ -482,7 +482,7 @@ if ($action == 'create') {
 			 */
 
 			$filename = dol_sanitizeFileName($object->ref);
-			$filedir = $conf->user->dir_output."/usergroups/".dol_sanitizeFileName($object->ref);
+			$filedir = $config->user->dir_output."/usergroups/".dol_sanitizeFileName($object->ref);
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $user->hasRight("user", "user", "write");
 			$delallowed = $user->hasRight("user", "user", "delete");
@@ -524,12 +524,12 @@ if ($action == 'create') {
 
 			// Multicompany
 			if (isModEnabled('multicompany') && is_object($mc)) {
-				if (!getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $conf->entity == 1 && $user->admin && !$user->entity) {
+				if (!getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $config->entity == 1 && $user->admin && !$user->entity) {
 					print "<tr>".'<td class="tdtop">'.$langs->trans("Entity").'</td>';
 					print "<td>".$mc->select_entities($object->entity);
 					print "</td></tr>\n";
 				} else {
-					print '<input type="hidden" name="entity" value="'.$conf->entity.'" />';
+					print '<input type="hidden" name="entity" value="'.$config->entity.'" />';
 				}
 			}
 

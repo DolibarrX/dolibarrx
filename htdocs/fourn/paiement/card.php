@@ -151,7 +151,7 @@ if ($action == 'setdatep' && GETPOST('datepday') && $permissiontoadd) {
 }
 
 // Build document
-$upload_dir = $conf->fournisseur->payment->dir_output;
+$upload_dir = $config->fournisseur->payment->dir_output;
 include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 // Actions to send emails
@@ -230,7 +230,7 @@ if ($result > 0) {
 
 	// Amount
 	print '<tr><td>'.$langs->trans('Amount').'</td>';
-	print '<td><span class="amount">'.price($object->amount, 0, $langs, 0, 0, -1, $conf->currency).'</span></td></tr>';
+	print '<td><span class="amount">'.price($object->amount, 0, $langs, 0, 0, -1, $config->currency).'</span></td></tr>';
 
 	// Status of validation of payment
 	if (getDolGlobalString('BILL_ADD_PAYMENT_VALIDATION')) {
@@ -403,11 +403,11 @@ if ($result > 0) {
 		$modellist = ModelePDFSuppliersPayments::liste_modeles($db);
 		if (is_array($modellist)) {
 			$ref = dol_sanitizeFileName($object->ref);
-			$filedir = $conf->fournisseur->payment->dir_output.'/'.dol_sanitizeFileName($object->ref);
+			$filedir = $config->fournisseur->payment->dir_output.'/'.dol_sanitizeFileName($object->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$object->id;
 			$genallowed = ($user->hasRight("fournisseur", "facture", "lire") || $user->hasRight("supplier_invoice", "lire"));
 			$delallowed = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"));
-			$modelpdf = (!empty($object->model_pdf) ? $object->model_pdf : (!getDolGlobalString('SUPPLIER_PAYMENT_ADDON_PDF') ? '' : $conf->global->SUPPLIER_PAYMENT_ADDON_PDF));
+			$modelpdf = (!empty($object->model_pdf) ? $object->model_pdf : (!getDolGlobalString('SUPPLIER_PAYMENT_ADDON_PDF') ? '' : $config->global->SUPPLIER_PAYMENT_ADDON_PDF));
 
 			print $formfile->showdocuments('supplier_payment', $ref, $filedir, $urlsource, $genallowed, $delallowed, $modelpdf, 1, 0, 0, 40, 0, '', '', '', $object->thirdparty->default_lang);
 			$somethingshown = $formfile->numoffiles;
@@ -428,7 +428,7 @@ if ($result > 0) {
 	// Presend form
 	$modelmail = ''; //TODO: Add new 'payment receipt' model in email models
 	$defaulttopic = 'SendPaymentReceipt';
-	$diroutput = $conf->fournisseur->payment->dir_output;
+	$diroutput = $config->fournisseur->payment->dir_output;
 	$autocopy = 'MAIN_MAIL_AUTOCOPY_SUPPLIER_INVOICE_TO';
 	$trackid = 'pre'.$object->id;
 

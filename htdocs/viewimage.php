@@ -163,7 +163,7 @@ $hashp = GETPOST('hashp', 'aZ09', 1);
 $extname = GETPOST('extname', 'alpha', 1);
 $modulepart = GETPOST('modulepart', 'alpha', 1);
 $urlsource = GETPOST('urlsource', 'alpha');
-$entity = (GETPOSTINT('entity') ? GETPOSTINT('entity') : $conf->entity);
+$entity = (GETPOSTINT('entity') ? GETPOSTINT('entity') : $config->entity);
 
 // Security check
 if (empty($modulepart) && empty($hashp)) {
@@ -284,11 +284,11 @@ if (empty($modulepart)) {
 	httponly_accessforbidden('Bad value for parameter modulepart', 400);
 }
 
-// When logged in a different entity, medias cannot be accessed because $conf->$module->multidir_output
+// When logged in a different entity, medias cannot be accessed because $config->$module->multidir_output
 // is not set on the requested entity, but they are public documents, so reset entity
-if ($modulepart === 'medias' && $entity != $conf->entity) {
-	$conf->entity = $entity;
-	$conf->setValues($db);
+if ($modulepart === 'medias' && $entity != $config->entity) {
+	$config->entity = $entity;
+	$config->setValues($db);
 }
 
 $check_access = dol_check_secure_access_document($modulepart, $original_file, $entity, $user, $refname);
@@ -357,9 +357,9 @@ if ($modulepart == 'barcode') {
 	if (preg_match('/^virtualcard_([^_]+)_(\d+)\.vcf$/', $code, $reg)) {
 		$vcffile = '';
 		if ($reg[1] == 'user') {
-			$vcffile = $conf->user->dir_temp.'/'.$code;
+			$vcffile = $config->user->dir_temp.'/'.$code;
 		} elseif ($reg[1] == 'contact') {
-			$vcffile = $conf->contact->dir_temp.'/'.$code;
+			$vcffile = $config->contact->dir_temp.'/'.$code;
 		}
 
 		if ($vcffile) {
@@ -373,7 +373,7 @@ if ($modulepart == 'barcode') {
 		exit;
 	}
 
-	$dirbarcode = array_merge(array("/core/modules/barcode/doc/"), $conf->modules_parts['barcode']);
+	$dirbarcode = array_merge(array("/core/modules/barcode/doc/"), $config->modules_parts['barcode']);
 
 	$result = 0;
 

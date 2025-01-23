@@ -78,7 +78,7 @@ if ($action == 'updateMask') {
 	$res = 0;
 
 	if ($maskconstorder && preg_match('/_MASK$/', $maskconstorder)) {
-		$res = dolibarr_set_const($db, $maskconstorder, $maskorder, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstorder, $maskorder, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -99,7 +99,7 @@ if ($action == 'updateMask') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/commande/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -133,15 +133,15 @@ if ($action == 'updateMask') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
 		if (getDolGlobalString('COMMANDE_ADDON_PDF') == $value) {
-			dolibarr_del_const($db, 'COMMANDE_ADDON_PDF', $conf->entity);
+			dolibarr_del_const($db, 'COMMANDE_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "COMMANDE_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "COMMANDE_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// The constant that was read before the new set
 		// We therefore requires a variable to have a coherent view
-		$conf->global->COMMANDE_ADDON_PDF = $value;
+		$config->global->COMMANDE_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -153,10 +153,10 @@ if ($action == 'updateMask') {
 	// TODO Check if numbering module chosen can be activated
 	// by calling method canBeActivated
 
-	dolibarr_set_const($db, "COMMANDE_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "COMMANDE_ADDON", $value, 'chaine', 0, '', $config->entity);
 } elseif ($action == 'set_COMMANDE_DRAFT_WATERMARK') {
 	$draft = GETPOST("COMMANDE_DRAFT_WATERMARK");
-	$res = dolibarr_set_const($db, "COMMANDE_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "COMMANDE_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -170,7 +170,7 @@ if ($action == 'updateMask') {
 } elseif ($action == 'set_ORDER_FREE_TEXT') {
 	$freetext = GETPOST("ORDER_FREE_TEXT", 'restricthtml'); // No alpha here, we want exact string
 
-	$res = dolibarr_set_const($db, "ORDER_FREE_TEXT", $freetext, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "ORDER_FREE_TEXT", $freetext, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -185,8 +185,8 @@ if ($action == 'updateMask') {
 	$rib = GETPOST('rib', 'alpha');
 	$chq = GETPOST('chq', 'alpha');
 
-	$res = dolibarr_set_const($db, "FACTURE_RIB_NUMBER", $rib, 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, "FACTURE_CHQ_NUMBER", $chq, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "FACTURE_RIB_NUMBER", $rib, 'chaine', 0, '', $config->entity);
+	$res = dolibarr_set_const($db, "FACTURE_CHQ_NUMBER", $chq, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -201,7 +201,7 @@ if ($action == 'updateMask') {
 	$code = $reg[1];
 	$value = (GETPOST($code) ? GETPOST($code) : 1);
 
-	$res = dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -215,7 +215,7 @@ if ($action == 'updateMask') {
 	}
 } elseif (preg_match('/del_(.*)/', $action, $reg)) {
 	$code = $reg[1];
-	$res = dolibarr_del_const($db, $code, $conf->entity);
+	$res = dolibarr_del_const($db, $code, $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -231,7 +231,7 @@ if ($action == 'updateMask') {
 }
 /*elseif ($action == 'set_BANK_ASK_PAYMENT_BANK_DURING_ORDER') {
 	// Activate ask for payment bank
-	$res = dolibarr_set_const($db, "BANK_ASK_PAYMENT_BANK_DURING_ORDER", $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "BANK_ASK_PAYMENT_BANK_DURING_ORDER", $value, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -244,7 +244,7 @@ if ($action == 'updateMask') {
 	}
 } elseif ($action == 'set_WAREHOUSE_ASK_WAREHOUSE_DURING_ORDER') {
 	// Activate ask for warehouse
-	$res = dolibarr_set_const($db, "WAREHOUSE_ASK_WAREHOUSE_DURING_ORDER", $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "WAREHOUSE_ASK_WAREHOUSE_DURING_ORDER", $value, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -265,7 +265,7 @@ if ($action == 'updateMask') {
 
 $form = new Form($db);
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader("", $langs->trans("OrdersSetup"), '', '', 0, 0, '', '', '', 'mod-admin page-order');
 
@@ -337,7 +337,7 @@ foreach ($dirmodels as $reldir) {
 						print '</td>'."\n";
 
 						print '<td class="center">';
-						if ($conf->global->COMMANDE_ADDON == $file) {
+						if ($config->global->COMMANDE_ADDON == $file) {
 							print img_picto($langs->trans("Activated"), 'switch_on');
 						} else {
 							print '<a href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.urlencode($file).'">';
@@ -393,7 +393,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;
@@ -580,7 +580,7 @@ if (!isModEnabled('invoice')) {
 					$row = $db->fetch_row($resql);
 
 					print '<option value="'.$row[0].'"';
-					print $conf->global->FACTURE_RIB_NUMBER == $row[0] ? ' selected' : '';
+					print $config->global->FACTURE_RIB_NUMBER == $row[0] ? ' selected' : '';
 					print '>'.$row[1].'</option>';
 
 					$i++;
@@ -604,7 +604,7 @@ print "<td>";
 if (!isModEnabled('invoice')) {
 	print '<select class="flat" name="chq" id="chq">';
 	print '<option value="0">'.$langs->trans("DoNotSuggestPaymentMode").'</option>';
-	print '<option value="-1"'.($conf->global->FACTURE_CHQ_NUMBER ? ' selected' : '').'>'.$langs->trans("MenuCompanySetup").' ('.($mysoc->name ? $mysoc->name : $langs->trans("NotDefined")).')</option>';
+	print '<option value="-1"'.($config->global->FACTURE_CHQ_NUMBER ? ' selected' : '').'>'.$langs->trans("MenuCompanySetup").' ('.($mysoc->name ? $mysoc->name : $langs->trans("NotDefined")).')</option>';
 
 	$sql = "SELECT rowid, label";
 	$sql .= " FROM ".MAIN_DB_PREFIX."bank_account";
@@ -620,7 +620,7 @@ if (!isModEnabled('invoice')) {
 			$row = $db->fetch_row($resql);
 
 			print '<option value="'.$row[0].'"';
-			print $conf->global->FACTURE_CHQ_NUMBER == $row[0] ? ' selected' : '';
+			print $config->global->FACTURE_CHQ_NUMBER == $row[0] ? ' selected' : '';
 			print '>'.$langs->trans("OwnerOfBankAccount", $row[1]).'</option>';
 
 			$i++;
@@ -717,10 +717,10 @@ if (isModEnabled("banque")) {
 
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("BANK_ASK_PAYMENT_BANK_DURING_ORDER").'</td><td>&nbsp;</td><td class="center">';
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print ajax_constantonoff('BANK_ASK_PAYMENT_BANK_DURING_ORDER');
 	} else {
-		if (empty($conf->global->BANK_ASK_PAYMENT_BANK_DURING_ORDER)) {
+		if (empty($config->global->BANK_ASK_PAYMENT_BANK_DURING_ORDER)) {
 			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_BANK_ASK_PAYMENT_BANK_DURING_ORDER&token='.newToken().'&value=1">'.img_picto($langs->trans("Disabled"),'switch_off').'</a>';
 		} else {
 			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_BANK_ASK_PAYMENT_BANK_DURING_ORDER&token='.newToken().'&value=0">'.img_picto($langs->trans("Enabled"),'switch_on').'</a>';
@@ -737,10 +737,10 @@ if (isModEnabled("banque")) {
 if (isModEnabled('stock')) {
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("WAREHOUSE_ASK_WAREHOUSE_DURING_ORDER").'</td><td>&nbsp;</td><td class="center">';
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print ajax_constantonoff('WAREHOUSE_ASK_WAREHOUSE_DURING_ORDER');
 	} else {
-		if (empty($conf->global->WAREHOUSE_ASK_WAREHOUSE_DURING_ORDER)) {
+		if (empty($config->global->WAREHOUSE_ASK_WAREHOUSE_DURING_ORDER)) {
 			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_WAREHOUSE_ASK_WAREHOUSE_DURING_ORDER&token='.newToken().'&value=1">'.img_picto($langs->trans("Disabled"),'switch_off').'</a>';
 		} else {
 			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_WAREHOUSE_ASK_WAREHOUSE_DURING_ORDER&token='.newToken().'&value=0">'.img_picto($langs->trans("Enabled"),'switch_on').'</a>';

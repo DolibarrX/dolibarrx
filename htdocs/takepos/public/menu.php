@@ -42,7 +42,7 @@ require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
  * @var Societe $mysoc
  * @var Translate $langs
  */
-if (!$conf->global->TAKEPOS_QR_MENU) {
+if (!$config->global->TAKEPOS_QR_MENU) {
 	accessforbidden(); // If Restaurant Menu is disabled never allow NO LOGIN access
 }
 ?>
@@ -65,7 +65,7 @@ if (!$conf->global->TAKEPOS_QR_MENU) {
 
 <?php
 $categorie = new Categorie($db);
-$categories = $categorie->get_full_arbo('product', ((getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) ? $conf->global->TAKEPOS_ROOT_CATEGORY_ID : 0), 1);
+$categories = $categorie->get_full_arbo('product', ((getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) ? $config->global->TAKEPOS_ROOT_CATEGORY_ID : 0), 1);
 $levelofrootcategory = 0;
 if (getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) {
 	foreach ($categories as $key => $categorycursor) {
@@ -97,7 +97,7 @@ foreach ($maincategories as $cat) {
 
 	$object = new Categorie($db);
 	$result = $object->fetch($cat['id']);
-	$prods = $object->getObjectsInCateg("product", 0, 0, 0, $conf->global->TAKEPOS_SORTPRODUCTFIELD, 'ASC');
+	$prods = $object->getObjectsInCateg("product", 0, 0, 0, $config->global->TAKEPOS_SORTPRODUCTFIELD, 'ASC');
 	/** @var Product[] $prods */
 	foreach ($prods as $pro) {
 		print '
@@ -105,7 +105,7 @@ foreach ($maincategories as $cat) {
 			<div class="item">
                 <h4>'.$pro->label.'</h4>
                 <span class="dots"></span>
-                <span class="price">'.price($pro->price_ttc, 1, $langs, 1, -1, -1, $conf->currency).'</span>
+                <span class="price">'.price($pro->price_ttc, 1, $langs, 1, -1, -1, $config->currency).'</span>
             </div>
         </div>';
 	}

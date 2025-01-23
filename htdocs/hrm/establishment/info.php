@@ -55,7 +55,7 @@ if (GETPOST('actioncode', 'array')) {
 }
 $search_agenda_label = GETPOST('search_agenda_label');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -75,7 +75,7 @@ if (!$sortorder) {
 // Initialize a technical objects
 $object = new Establishment($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->hrm->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->hrm->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('hrmagenda', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -83,12 +83,12 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->hrm->multidir_output[$object->entity]."/".$object->id;
+	$upload_dir = $config->hrm->multidir_output[$object->entity]."/".$object->id;
 }
 
 $permissiontoread = $user->admin;
 $permissiontoadd = $user->hasRight('hrm', 'write'); // Used by the include of actions_addupdatedelete.inc.php
-$upload_dir = $conf->hrm->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 // Security check - Protection if external user
 //if ($user->socid > 0) accessforbidden();

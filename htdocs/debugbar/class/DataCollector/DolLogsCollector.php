@@ -106,7 +106,7 @@ class DolLogsCollector extends MessagesCollector
 		} else {
 			$log_levels = $this->getLevels();
 
-			foreach ($conf->logbuffer as $line) {
+			foreach ($config->logbuffer as $line) {
 				if ($this->nboflines >= $this->maxnboflines) {
 					break;
 				}

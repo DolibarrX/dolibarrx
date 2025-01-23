@@ -51,7 +51,7 @@ $backtopage = GETPOST('backtopage', 'alpha');
 // Initialize a technical objects
 $object = new Workstation($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->workstation->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->workstation->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('workstationnote', 'globalcard'));       // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels

@@ -54,10 +54,10 @@ $numero_ftp = GETPOST("numero_ftp");
 $file = GETPOST("file");
 $confirm = GETPOST('confirm');
 
-$upload_dir = $conf->ftp->dir_temp;
-$download_dir = $conf->ftp->dir_temp;
+$upload_dir = $config->ftp->dir_temp;
+$download_dir = $config->ftp->dir_temp;
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -343,7 +343,7 @@ if ($action == 'download' && $user->hasRight('ftp', 'read')) {
 llxHeader();
 
 // Add logic to shoow/hide buttons
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	?>
 <script type="text/javascript">
 jQuery(document).ready(function() {
@@ -440,7 +440,7 @@ if (!function_exists('ftp_connect')) {
 		print '<td class="liste_titre center">'.$langs->trans("Group").'</td>'."\n";
 		print '<td class="liste_titre center">'.$langs->trans("Permissions").'</td>'."\n";
 		print '<td class="liste_titre nowrap right">';
-		if ($conf->use_javascript_ajax) {
+		if ($config->use_javascript_ajax) {
 			print '<a href="#" id="checkall">'.$langs->trans("All").'</a> / <a href="#" id="checknone">'.$langs->trans("None").'</a> ';
 		}
 		print '<a href="'.$_SERVER["PHP_SELF"].'?action=refreshmanual&numero_ftp='.$numero_ftp.($section ? '&section='.urlencode($section) : '').'">'.img_picto($langs->trans("Refresh"), 'refresh').'</a>&nbsp;';

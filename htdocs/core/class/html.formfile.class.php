@@ -185,7 +185,7 @@ class FormFile
 			dol_syslog(__METHOD__.": using 2 for useajax is deprecated and should be not used", LOG_WARNING);
 		}
 
-		if (!empty($conf->browser->layout) && $conf->browser->layout != 'classic') {
+		if (!empty($config->browser->layout) && $config->browser->layout != 'classic') {
 			$useajax = 0;
 		}
 
@@ -265,7 +265,7 @@ class FormFile
 		}
 
 		if (getDolGlobalString('MAIN_UPLOAD_DOC')) {
-			if ($perm && empty($conf->dol_optimize_smallscreen)) {
+			if ($perm && empty($config->dol_optimize_smallscreen)) {
 				$langs->load('other');
 
 				$menudolibarrsetupmax = $langs->transnoentitiesnoconv("Home").' - '.$langs->transnoentitiesnoconv("Setup").' - '.$langs->transnoentitiesnoconv("Security");
@@ -501,7 +501,7 @@ class FormFile
 
 		// Add entity in $param if not already exists
 		if (!preg_match('/entity\=[0-9]+/', $param)) {
-			$param .= ($param ? '&' : '').'entity='.(empty($object->entity) ? $conf->entity : $object->entity);
+			$param .= ($param ? '&' : '').'entity='.(empty($object->entity) ? $config->entity : $object->entity);
 		}
 
 		$printer = 0;
@@ -806,7 +806,7 @@ class FormFile
 				$buttonlabel = $langs->trans('Generate');
 			}
 
-			if ($conf->browser->layout == 'phone') {
+			if ($config->browser->layout == 'phone') {
 				$urlsource .= '#'.$forname.'_form'; // So we switch to form after a generation
 			}
 			if (empty($noform)) {
@@ -836,11 +836,11 @@ class FormFile
 					$modelselected = $arraykeys[0];
 				}
 				$morecss = 'minwidth75 maxwidth200';
-				if ($conf->browser->layout == 'phone') {
+				if ($config->browser->layout == 'phone') {
 					$morecss = 'maxwidth100';
 				}
 				$out .= $form->selectarray('model', $modellist, $modelselected, $showempty, 0, 0, '', 0, 0, 0, '', $morecss, 1, '', 0, 0);
-				if ($conf->use_javascript_ajax) {
+				if ($config->use_javascript_ajax) {
 					$out .= ajax_combobox('model');
 				}
 				$out .= $form->textwithpicto('', $tooltipontemplatecombo, 1, 'help', 'marginrightonly', 0, 3, '', 0);
@@ -854,7 +854,7 @@ class FormFile
 				$formadmin = new FormAdmin($this->db);
 				$defaultlang = ($codelang && $codelang != 'auto') ? $codelang : $langs->getDefaultLang();
 				$morecss = 'maxwidth150';
-				if ($conf->browser->layout == 'phone') {
+				if ($config->browser->layout == 'phone') {
 					$morecss = 'maxwidth100';
 				}
 				$out .= $formadmin->select_language($defaultlang, 'lang_id', 0, array(), 0, 0, 0, $morecss);
@@ -869,14 +869,14 @@ class FormFile
 				$genbutton .= ' disabled';
 			}
 			$genbutton .= '>';
-			if ($allowgenifempty && !is_array($modellist) && empty($modellist) && empty($conf->dol_no_mouse_hover) && $modulepart != 'unpaid') {
+			if ($allowgenifempty && !is_array($modellist) && empty($modellist) && empty($config->dol_no_mouse_hover) && $modulepart != 'unpaid') {
 				$langs->load("errors");
 				$genbutton .= ' '.img_warning($langs->transnoentitiesnoconv("WarningNoDocumentModelActivated"));
 				/*if (empty($modellist)) {
 					$genbutton .= '<input type="hidden" name="model" value="auto">';
 				}*/
 			}
-			if (!$allowgenifempty && !is_array($modellist) && empty($modellist) && empty($conf->dol_no_mouse_hover) && $modulepart != 'unpaid') {
+			if (!$allowgenifempty && !is_array($modellist) && empty($modellist) && empty($config->dol_no_mouse_hover) && $modulepart != 'unpaid') {
 				$genbutton = '';
 			}
 			if (empty($modellist) && !$showempty && $modulepart != 'unpaid') {
@@ -970,7 +970,7 @@ class FormFile
 					$out .= '<tr class="oddeven'.((!$genallowed && $i == 1) ? ' trfirstline' : '').'">';
 
 					$documenturl = DOL_URL_ROOT.'/document.php';
-					if (isset($conf->global->DOL_URL_ROOT_DOCUMENT_PHP)) {
+					if (isset($config->global->DOL_URL_ROOT_DOCUMENT_PHP)) {
 						$documenturl = getDolGlobalString('DOL_URL_ROOT_DOCUMENT_PHP'); // To use another wrapper
 					}
 
@@ -1219,7 +1219,7 @@ class FormFile
 				}
 
 				// Preview
-				if (!empty($conf->use_javascript_ajax) && ($conf->browser->layout != 'phone')) {
+				if (!empty($config->use_javascript_ajax) && ($config->browser->layout != 'phone')) {
 					$tmparray = getAdvancedPreviewUrl($modulepart, $relativepath, 1, '&entity='.$entity);
 					if ($tmparray && $tmparray['url']) {
 						$tmpout .= '<li><a href="'.$tmparray['url'].'"'.($tmparray['css'] ? ' class="'.$tmparray['css'].'"' : '').($tmparray['mime'] ? ' mime="'.$tmparray['mime'].'"' : '').($tmparray['target'] ? ' target="'.$tmparray['target'].'"' : '').'>';
@@ -1389,7 +1389,7 @@ class FormFile
 
 			// Show title of list of existing files
 			$morehtmlright = '';
-			if (!empty($moreoptions['showhideaddbutton']) && $conf->use_javascript_ajax) {
+			if (!empty($moreoptions['showhideaddbutton']) && $config->use_javascript_ajax) {
 				$tmpurlforbutton = 'javascript:console.log("open add file form");jQuery(".divattachnewfile").toggle(); if (!jQuery(".divattachnewfile").is(":hidden")) { jQuery("input[type=\'file\']").click();}void(0);';
 				$morehtmlright .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', $tmpurlforbutton, '', $permtoeditline);
 			}
@@ -1398,7 +1398,7 @@ class FormFile
 				print load_fiche_titre($title ? $title : $langs->trans("AttachedFiles"), $morehtmlright, 'file-upload', 0, '', 'table-list-of-attached-files');
 			}
 			if (!empty($moreoptions) && $moreoptions['afteruploadtitle']) {
-				print '<div class="divattachnewfile'.((!empty($moreoptions['showhideaddbutton']) && $conf->use_javascript_ajax) ? ' hidden' : '').'">'.$moreoptions['afteruploadtitle'].'</div>';
+				print '<div class="divattachnewfile'.((!empty($moreoptions['showhideaddbutton']) && $config->use_javascript_ajax) ? ' hidden' : '').'">'.$moreoptions['afteruploadtitle'].'</div>';
 			}
 
 			// Show the table
@@ -1550,7 +1550,7 @@ class FormFile
 					}
 					// Preview link
 					if (!$editline) {
-						print $this->showPreview($file, $modulepart, $filepath, 0, '&entity='.(empty($object->entity) ? $conf->entity : $object->entity));
+						print $this->showPreview($file, $modulepart, $filepath, 0, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
 					}
 
 					print "</td>\n";
@@ -1588,9 +1588,9 @@ class FormFile
 							//print $file['path'].'/'.$smallfile.'<br>';
 
 
-							$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $conf->entity : $object->entity));
+							$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
 							if (empty($urlforhref)) {
-								$urlforhref = DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulepart).'&entity='.(empty($object->entity) ? $conf->entity : $object->entity).'&file='.urlencode($relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']));
+								$urlforhref = DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulepart).'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']));
 								print '<a href="'.$urlforhref.'" class="aphoto" target="_blank" rel="noopener noreferrer">';
 							} else {
 								print '<a href="'.$urlforhref['url'].'" class="'.$urlforhref['css'].'" target="'.$urlforhref['target'].'" mime="'.$urlforhref['mime'].'">';
@@ -1602,7 +1602,7 @@ class FormFile
 								//print ' style="max-height: '.$maxheightmini.'px"';
 								print ' style="max-height: 24px"';
 							}
-							print ' src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulepart).'&entity='.(empty($object->entity) ? $conf->entity : $object->entity).'&file='.urlencode($relativepath.$smallfile);
+							print ' src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulepart).'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.$smallfile);
 							if (!empty($filearray[$key]['date'])) {	// We know the date of file, we can use it as cache key so URL will be in browser cache as long as file date is not modified.
 								print '&cache='.urlencode((string) $filearray[$key]['date']);
 							}
@@ -1711,10 +1711,10 @@ class FormFile
 						// Output link to delete file
 						if ($permonobject) {
 							$useajax = 1;
-							if (!empty($conf->dol_use_jmobile)) {
+							if (!empty($config->dol_use_jmobile)) {
 								$useajax = 0;
 							}
-							if (empty($conf->use_javascript_ajax)) {
+							if (empty($config->use_javascript_ajax)) {
 								$useajax = 0;
 							}
 							if (getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
@@ -1726,7 +1726,7 @@ class FormFile
 						print "</td>";
 
 						if (empty($disablemove) && count($filearray) > 1) {
-							if ($nboffiles > 1 && $conf->browser->layout != 'phone') {
+							if ($nboffiles > 1 && $config->browser->layout != 'phone') {
 								print '<td class="linecolmove tdlineupdown center">';
 								if ($i > 0) {
 									print '<a class="lineupdown" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=up&rowid='.$object->id.'">'.img_up('default', 0, 'imgupforline').'</a>';
@@ -1736,7 +1736,7 @@ class FormFile
 								}
 								print '</td>';
 							} else {
-								print '<td'.(($conf->browser->layout != 'phone') ? ' class="linecolmove tdlineupdown center"' : ' class="linecolmove center"').'>';
+								print '<td'.(($config->browser->layout != 'phone') ? ' class="linecolmove tdlineupdown center"' : ' class="linecolmove center"').'>';
 								print '</td>';
 							}
 						}
@@ -1773,7 +1773,7 @@ class FormFile
 			print '</div>';
 
 			if ($nboflines > 1 && is_object($object)) {
-				if (!empty($conf->use_javascript_ajax) && $permtoeditline) {
+				if (!empty($config->use_javascript_ajax) && $permtoeditline) {
 					$table_element_line = 'ecm_files';	// used by ajaxrow.tpl.php
 					include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 				}
@@ -2034,7 +2034,7 @@ class FormFile
 				}
 
 				$found = 0;
-				if (!empty($conf->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref])) {
+				if (!empty($config->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref])) {
 					$found = 1;
 				} else {
 					//print 'Fetch '.$id." - ".$ref.' class='.get_class($object_instance).'<br>';
@@ -2059,24 +2059,24 @@ class FormFile
 
 					if ($result > 0) {  // Save object loaded into a cache
 						$found = 1;
-						$conf->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref] = clone $object_instance;
+						$config->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref] = clone $object_instance;
 					}
 					if ($result == 0) {
 						$found = 1;
-						$conf->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref] = 'notfound';
+						$config->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref] = 'notfound';
 						unset($filearray[$key]);
 					}
 				}
 
-				if ($found <= 0 || !is_object($conf->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref])) {
+				if ($found <= 0 || !is_object($config->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref])) {
 					continue; // We do not show orphelins files
 				}
 
 				print '<!-- Line list_of_autoecmfiles key='.$key.' -->'."\n";
 				print '<tr class="oddeven">';
 				print '<td>';
-				if ($found > 0 && is_object($conf->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref])) {
-					$tmpobject = $conf->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref];
+				if ($found > 0 && is_object($config->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref])) {
+					$tmpobject = $config->cache['modulepartobject'][$modulepart.'_'.$id.'_'.$ref];
 					//if (! in_array($tmpobject->element, array('expensereport'))) {
 					print $tmpobject->getNomUrl(1, 'document');
 					//} else {
@@ -2089,7 +2089,7 @@ class FormFile
 				//$modulesubdir=dol_sanitizeFileName($ref);
 				//$modulesubdir = dirname($relativefile);
 
-				//$filedir=$conf->$modulepart->dir_output . '/' . dol_sanitizeFileName($obj->ref);
+				//$filedir=$config->$modulepart->dir_output . '/' . dol_sanitizeFileName($obj->ref);
 				//$filedir = $file['path'];
 				//$urlsource=$_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 				//print $formfile->getDocumentsLink($modulepart, $filename, $filedir);
@@ -2223,7 +2223,7 @@ class FormFile
 		print '<!-- listOfLinks -->'."\n";
 
 		$morehtmlright = '';
-		if (!empty($moreoptions['showhideaddbutton']) && $conf->use_javascript_ajax) {
+		if (!empty($moreoptions['showhideaddbutton']) && $config->use_javascript_ajax) {
 			$morehtmlright .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', 'javascript:console.log("open addlink form"); jQuery(".divlinkfile").toggle(); void(0);', '', $permissiontoedit);
 		}
 
@@ -2231,7 +2231,7 @@ class FormFile
 		print load_fiche_titre($langs->trans("LinkedFiles"), $morehtmlright, 'link', 0, '', 'table-list-of-links');
 
 		if (!empty($moreoptions) && $moreoptions['afterlinktitle']) {
-			print '<div class="divlinkfile'.((!empty($moreoptions['showhideaddbutton']) && $conf->use_javascript_ajax) ? ' hidden' : '').'">'.$moreoptions['afterlinktitle'].'</div>';
+			print '<div class="divlinkfile'.((!empty($moreoptions['showhideaddbutton']) && $config->use_javascript_ajax) ? ' hidden' : '').'">'.$moreoptions['afterlinktitle'].'</div>';
 		}
 
 		print '<form action="'.$_SERVER['PHP_SELF'].($param ? '?'.$param : '').'" id="'.$htmlname.'" method="POST">';
@@ -2357,7 +2357,7 @@ class FormFile
 		global $langs, $conf;
 
 		$out = '';
-		if ($conf->browser->layout != 'phone' && !empty($conf->use_javascript_ajax)) {
+		if ($config->browser->layout != 'phone' && !empty($config->use_javascript_ajax)) {
 			$urladvancedpreview = getAdvancedPreviewUrl($modulepart, $relativepath, 1, $param); // Return if a file is qualified for preview.
 			if (count($urladvancedpreview)) {
 				$out .= '<a class="pictopreview '.$urladvancedpreview['css'].'" href="'.$urladvancedpreview['url'].'"'.(empty($urladvancedpreview['mime']) ? '' : ' mime="'.$urladvancedpreview['mime'].'"').' '.(empty($urladvancedpreview['target']) ? '' : ' target="'.$urladvancedpreview['target'].'"').'>';

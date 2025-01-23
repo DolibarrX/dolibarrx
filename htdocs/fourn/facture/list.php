@@ -124,7 +124,7 @@ if ($option == 'late') {
 $filter = GETPOST('filtre', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -150,7 +150,7 @@ if ($user->socid > 0) {
 	$socid = $user->socid;
 }
 
-$diroutputmassaction = $conf->fournisseur->facture->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->fournisseur->facture->dir_output.'/temp/massgeneration/'.$user->id;
 
 $now = dol_now();
 
@@ -324,7 +324,7 @@ if (empty($reshook)) {
 	$objectclass = 'FactureFournisseur';
 	$objectlabel = 'SupplierInvoices';
 
-	$uploaddir = $conf->fournisseur->facture->dir_output;
+	$uploaddir = $config->fournisseur->facture->dir_output;
 
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
@@ -650,7 +650,7 @@ if ($search_datelimit_end) {
 	$sql .= " AND f.date_lim_reglement <= '" . $db->idate($search_datelimit_end) . "'";
 }
 if ($option == 'late') {
-	$sql .= " AND f.date_lim_reglement < '".$db->idate(dol_now() - $conf->facture->fournisseur->warning_delay)."'";
+	$sql .= " AND f.date_lim_reglement < '".$db->idate(dol_now() - $config->facture->fournisseur->warning_delay)."'";
 }
 if ($search_label) {
 	$sql .= natural_search('f.libelle', $search_label);
@@ -858,7 +858,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -1214,7 +1214,7 @@ if (!empty($arrayfields['country.code_iso']['checked'])) {
 // Company type
 if (!empty($arrayfields['typent.code']['checked'])) {
 	print '<td class="liste_titre maxwidthonsmartphone center">';
-	print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $conf->global->SOCIETE_SORT_ON_TYPEENT), '', 1);
+	print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $config->global->SOCIETE_SORT_ON_TYPEENT), '', 1);
 	print '</td>';
 }
 // Condition of payment
@@ -1691,7 +1691,7 @@ while ($i < $imaxinloop) {
 			print $facturestatic->getNomUrl(1, '', 0, 0, '', 0, -1, 1);
 
 			$filename = dol_sanitizeFileName($obj->ref);
-			$filedir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($obj->facid, 2, 0, 0, $facturestatic, 'invoice_supplier').dol_sanitizeFileName($obj->ref);
+			$filedir = $config->fournisseur->facture->dir_output.'/'.get_exdir($obj->facid, 2, 0, 0, $facturestatic, 'invoice_supplier').dol_sanitizeFileName($obj->ref);
 			$subdir = get_exdir($obj->facid, 2, 0, 0, $facturestatic, 'invoice_supplier').dol_sanitizeFileName($obj->ref);
 			print $formfile->getDocumentsLink('facture_fournisseur', $subdir, $filedir);
 			print '</td></tr></table>';
@@ -1922,7 +1922,7 @@ while ($i < $imaxinloop) {
 		if (!empty($arrayfields['f.nb_docs']['checked'])) {
 			require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 			require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-			$upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($facturestatic->id, 2, 0, 0, $facturestatic, 'invoice_supplier').$facturestatic->ref;
+			$upload_dir = $config->fournisseur->facture->dir_output.'/'.get_exdir($facturestatic->id, 2, 0, 0, $facturestatic, 'invoice_supplier').$facturestatic->ref;
 			$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 			$nbLinks = Link::count($db, $facturestatic->element, $facturestatic->id);
 			$nbTotal = $nbFiles + $nbLinks;

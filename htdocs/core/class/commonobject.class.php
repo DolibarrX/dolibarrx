@@ -921,7 +921,7 @@ abstract class CommonObject
 			return -1;
 		}
 		if ($ref || $ref_ext) {		// Because the same ref can exists in 2 different entities, we force the current one in priority
-			$sql .= " AND entity = ".((int) $conf->entity);
+			$sql .= " AND entity = ".((int) $config->entity);
 		}
 
 		dol_syslog(get_class()."::isExistingObject", LOG_DEBUG);
@@ -2146,7 +2146,7 @@ abstract class CommonObject
 		if (!empty($element)) {
 			$sql .= " AND entity IN (".getEntity($element).")";
 		} else {
-			$sql .= " AND entity = ".((int) $conf->entity);
+			$sql .= " AND entity = ".((int) $config->entity);
 		}
 
 		dol_syslog(get_class($this).'::fetchObjectFrom', LOG_DEBUG);
@@ -2420,7 +2420,7 @@ abstract class CommonObject
 		}
 		if (isset($this->ismultientitymanaged) && $this->ismultientitymanaged == 1) {
 			if ($this->element == 'user' && getDolGlobalInt('MULTICOMPANY_TRANSVERSE_MODE')) {
-				if (!empty($user->admin) && empty($user->entity) && $conf->entity == 1) {
+				if (!empty($user->admin) && empty($user->entity) && $config->entity == 1) {
 					$sql .= " AND te.entity IS NOT NULL"; // Show all users
 				} else {
 					$sql .= " AND te.rowid IN (SELECT ug.fk_user FROM ".$this->db->prefix()."usergroup_user as ug WHERE ug.entity IN (".getEntity('usergroup')."))";
@@ -2506,7 +2506,7 @@ abstract class CommonObject
 		}
 		if (isset($this->ismultientitymanaged) && $this->ismultientitymanaged == 1) {
 			if ($this->element == 'user' && getDolGlobalInt('MULTICOMPANY_TRANSVERSE_MODE')) {
-				if (!empty($user->admin) && empty($user->entity) && $conf->entity == 1) {
+				if (!empty($user->admin) && empty($user->entity) && $config->entity == 1) {
 					$sql .= " AND te.entity IS NOT NULL"; // Show all users
 				} else {
 					$sql .= " AND te.rowid IN (SELECT ug.fk_user FROM ".$this->db->prefix()."usergroup_user as ug WHERE ug.entity IN (".getEntity('usergroup')."))";
@@ -3886,7 +3886,7 @@ abstract class CommonObject
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/price.lib.php';
 
 		$forcedroundingmode = $roundingadjust;
-		if ($forcedroundingmode == 'auto' && isset($conf->global->{$roundTotalConstName})) {
+		if ($forcedroundingmode == 'auto' && isset($config->global->{$roundTotalConstName})) {
 			$forcedroundingmode = getDolGlobalString($roundTotalConstName);
 		} elseif ($forcedroundingmode == 'auto') {
 			$forcedroundingmode = '0';
@@ -5218,7 +5218,7 @@ abstract class CommonObject
 		// Output template part (modules that overwrite templates must declare this into descriptor)
 		// Use global variables + $dateSelector + $seller and $buyer
 		// Note: This is deprecated. If you need to overwrite the tpl file, use instead the hook 'formAddObjectLine'.
-		$dirtpls = array_merge($conf->modules_parts['tpl'], array($defaulttpldir));
+		$dirtpls = array_merge($config->modules_parts['tpl'], array($defaulttpldir));
 		foreach ($dirtpls as $module => $reldir) {
 			if (!empty($module)) {
 				$tpl = dol_buildpath($reldir.'/objectline_create.tpl.php');
@@ -5226,7 +5226,7 @@ abstract class CommonObject
 				$tpl = DOL_DOCUMENT_ROOT.$reldir.'/objectline_create.tpl.php';
 			}
 
-			if (empty($conf->file->strict_mode)) {
+			if (empty($config->file->strict_mode)) {
 				$res = @include $tpl;
 			} else {
 				$res = include $tpl; // for debug
@@ -5287,7 +5287,7 @@ abstract class CommonObject
 			// Output template part (modules that overwrite templates must declare this into descriptor)
 			// Use global variables + $dateSelector + $seller and $buyer
 			// Note: This is deprecated. If you need to overwrite the tpl file, use instead the hook.
-			$dirtpls = array_merge($conf->modules_parts['tpl'], array($defaulttpldir));
+			$dirtpls = array_merge($config->modules_parts['tpl'], array($defaulttpldir));
 			foreach ($dirtpls as $module => $reldir) {
 				$res = 0;
 				if (!empty($module)) {
@@ -5296,7 +5296,7 @@ abstract class CommonObject
 					$tpl = DOL_DOCUMENT_ROOT.$reldir.'/objectline_title.tpl.php';
 				}
 				if (file_exists($tpl)) {
-					if (empty($conf->file->strict_mode)) {
+					if (empty($config->file->strict_mode)) {
 						$res = @include $tpl;
 					} else {
 						$res = include $tpl; // for debug
@@ -5417,7 +5417,7 @@ abstract class CommonObject
 			}
 			$disableedit = ($qty_shipped > 0) && ($qty_shipped >= $line->qty);
 
-			$dirtpls = array_merge($conf->modules_parts['tpl'], array($defaulttpldir));
+			$dirtpls = array_merge($config->modules_parts['tpl'], array($defaulttpldir));
 			foreach ($dirtpls as $module => $reldir) {
 				$res = 0;
 				if (!empty($module)) {
@@ -5427,7 +5427,7 @@ abstract class CommonObject
 				}
 				//var_dump($tpl);
 				if (file_exists($tpl)) {
-					if (empty($conf->file->strict_mode)) {
+					if (empty($config->file->strict_mode)) {
 						$res = @include $tpl;
 					} else {
 						$res = include $tpl; // for debug
@@ -5448,7 +5448,7 @@ abstract class CommonObject
 			// Output template part (modules that overwrite templates must declare this into descriptor)
 			// Use global variables + $dateSelector + $seller and $buyer
 			// Note: This is deprecated. If you need to overwrite the tpl file, use instead the hook printObjectLine and printObjectSubLine.
-			$dirtpls = array_merge($conf->modules_parts['tpl'], array($defaulttpldir));
+			$dirtpls = array_merge($config->modules_parts['tpl'], array($defaulttpldir));
 			foreach ($dirtpls as $module => $reldir) {
 				if (!empty($module)) {
 					$tpl = dol_buildpath($reldir.'/objectline_edit.tpl.php');
@@ -5456,7 +5456,7 @@ abstract class CommonObject
 					$tpl = DOL_DOCUMENT_ROOT.$reldir.'/objectline_edit.tpl.php';
 				}
 
-				if (empty($conf->file->strict_mode)) {
+				if (empty($config->file->strict_mode)) {
 					$res = @include $tpl;
 				} else {
 					$res = include $tpl; // for debug
@@ -5654,7 +5654,7 @@ abstract class CommonObject
 
 		// Output template part (modules that overwrite templates must declare this into descriptor)
 		// Use global variables + $dateSelector + $seller and $buyer
-		$dirtpls = array_merge($conf->modules_parts['tpl'], array($defaulttpldir));
+		$dirtpls = array_merge($config->modules_parts['tpl'], array($defaulttpldir));
 		foreach ($dirtpls as $module => $reldir) {
 			if (!empty($module)) {
 				$tpl = dol_buildpath($reldir.'/originproductline.tpl.php');
@@ -5662,7 +5662,7 @@ abstract class CommonObject
 				$tpl = DOL_DOCUMENT_ROOT.$reldir.'/originproductline.tpl.php';
 			}
 
-			if (empty($conf->file->strict_mode)) {
+			if (empty($config->file->strict_mode)) {
 				$res = @include $tpl;
 			} else {
 				$res = include $tpl; // for debug
@@ -5827,8 +5827,8 @@ abstract class CommonObject
 		$classname = '';
 		$filefound = '';
 		$dirmodels = array('/');
-		if (is_array($conf->modules_parts['models'])) {
-			$dirmodels = array_merge($dirmodels, $conf->modules_parts['models']);
+		if (is_array($config->modules_parts['models'])) {
+			$dirmodels = array_merge($dirmodels, $config->modules_parts['models']);
 		}
 		foreach ($dirmodels as $reldir) {
 			foreach (array('doc', 'pdf') as $prefix) {
@@ -6069,7 +6069,7 @@ abstract class CommonObject
 					return -1;
 				}
 			} else {
-				$ecmfile->entity = $conf->entity;
+				$ecmfile->entity = $config->entity;
 				$ecmfile->filepath = $rel_dir;
 				$ecmfile->filename = $filename;
 				$ecmfile->label = md5_file(dol_osencode($destfull)); // hash of file content
@@ -6166,7 +6166,7 @@ abstract class CommonObject
 	 * Return values in this order:
 	 * 1) If parameter is available into POST, we return it first.
 	 * 2) If not but an alternate value was provided as parameter of function, we return it.
-	 * 3) If not but a constant $conf->global->OBJECTELEMENT_FIELDNAME is set, we return it (It is better to use the dedicated table).
+	 * 3) If not but a constant $config->global->OBJECTELEMENT_FIELDNAME is set, we return it (It is better to use the dedicated table).
 	 * 4) Return value found into database (TODO No yet implemented)
 	 *
 	 * @param   string              $fieldname          Name of field
@@ -6204,7 +6204,7 @@ abstract class CommonObject
 		}
 
 		// TODO Ad here a scan into table llx_overwrite_default with a filter on $this->element and $fieldname
-		// store content into $conf->cache['overwrite_default']
+		// store content into $config->cache['overwrite_default']
 
 		return '';
 	}
@@ -6419,12 +6419,12 @@ abstract class CommonObject
 	{
 		global $conf;
 
-		$savDisableCompute = $conf->disable_compute;
-		$conf->disable_compute = 1;
+		$savDisableCompute = $config->disable_compute;
+		$config->disable_compute = 1;
 
 		$ret = $this->fetch($id);	/* @phpstan-ignore-line */
 
-		$conf->disable_compute = $savDisableCompute;
+		$config->disable_compute = $savDisableCompute;
 
 		return $ret;
 	}
@@ -6547,8 +6547,8 @@ abstract class CommonObject
 				if (is_array($extrafields->attributes[$this->table_element]['label'])) {
 					foreach ($extrafields->attributes[$this->table_element]['label'] as $key => $val) {
 						if (!empty($extrafields->attributes[$this->table_element]) && !empty($extrafields->attributes[$this->table_element]['computed'][$key])) {
-							//var_dump($conf->disable_compute);
-							if (empty($conf->disable_compute)) {
+							//var_dump($config->disable_compute);
+							if (empty($config->disable_compute)) {
 								global $objectoffield;        // We set a global variable to $objectoffield so
 								$objectoffield = $this;        // we can use it inside computed formula
 								$this->array_options['options_' . $key] = dol_eval($extrafields->attributes[$this->table_element]['computed'][$key], 1, 0, '2');
@@ -7718,7 +7718,7 @@ abstract class CommonObject
 			if (!empty($value)) {		// $value in memory is a php numeric, we format it into user number format.
 				$value = price($value);
 			}
-			$out = '<input type="text" class="flat '.$morecss.' maxwidthonsmartphone" name="'.$keyprefix.$key.$keysuffix.'" id="'.$keyprefix.$key.$keysuffix.'" value="'.$value.'" '.($moreparam ? $moreparam : '').'> '.$langs->getCurrencySymbol($conf->currency);
+			$out = '<input type="text" class="flat '.$morecss.' maxwidthonsmartphone" name="'.$keyprefix.$key.$keysuffix.'" id="'.$keyprefix.$key.$keysuffix.'" value="'.$value.'" '.($moreparam ? $moreparam : '').'> '.$langs->getCurrencySymbol($config->currency);
 		} elseif ($type == 'stars') {
 			$out = '<input type="hidden" class="flat '.$morecss.'" name="'.$keyprefix.$key.$keysuffix.'" id="'.$keyprefix.$key.$keysuffix.'" value="'.dol_escape_htmltag($value).'"'.($moreparam ? $moreparam : '').($autofocusoncreate ? ' autofocus' : '').'>';
 			$out .= '<div class="star-selection" id="'.$keyprefix.$key.$keysuffix.'_selection">';
@@ -7765,7 +7765,7 @@ abstract class CommonObject
 			$out = '<input type="text" class="flat '.$morecss.' maxwidthonsmartphone" name="'.$keyprefix.$key.$keysuffix.'" id="'.$keyprefix.$key.$keysuffix.'" value="'.$value.'" '.($moreparam ? $moreparam : '').'> ';
 		} elseif ($type == 'select') {	// combo list
 			$out = '';
-			if (!empty($conf->use_javascript_ajax) && !getDolGlobalString('MAIN_EXTRAFIELDS_DISABLE_SELECT2')) {
+			if (!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_EXTRAFIELDS_DISABLE_SELECT2')) {
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 				$out .= ajax_combobox($keyprefix.$key.$keysuffix, array(), 0);
 			}
@@ -7797,7 +7797,7 @@ abstract class CommonObject
 			$out .= '</select>';
 		} elseif ($type == 'sellist') {
 			$out = '';
-			if (!empty($conf->use_javascript_ajax) && !getDolGlobalString('MAIN_EXTRAFIELDS_DISABLE_SELECT2')) {
+			if (!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_EXTRAFIELDS_DISABLE_SELECT2')) {
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 				$out .= ajax_combobox($keyprefix.$key.$keysuffix, array(), 0);
 			}
@@ -7927,7 +7927,7 @@ abstract class CommonObject
 
 					// Some tables may have field, some other not. For the moment we disable it.
 					if (in_array($InfoFieldList[0], array('tablewithentity'))) {
-						$sqlwhere .= " AND entity = " . ((int) $conf->entity);
+						$sqlwhere .= " AND entity = " . ((int) $config->entity);
 					}
 					$sql .= $sqlwhere;
 
@@ -8161,7 +8161,7 @@ abstract class CommonObject
 
 					// Some tables may have field, some other not. For the moment we disable it.
 					if (in_array($InfoFieldList[0], array('tablewithentity'))) {
-						$sqlwhere .= " AND entity = " . ((int) $conf->entity);
+						$sqlwhere .= " AND entity = " . ((int) $config->entity);
 					}
 					// $sql.=preg_replace('/^ AND /','',$sqlwhere);
 					// print $sql;
@@ -8313,7 +8313,7 @@ abstract class CommonObject
 			$newInput = '<span><a class="'.dol_escape_htmltag($keyprefix.$key.$keysuffix).'_del" href="javascript:;"><span class="fa fa-minus-circle valignmiddle"></span></a> ';
 			$newInput .= $this->showInputField($newval, $keyprefix.$key.$keysuffix.'[]', '', $moreparam, '', '', $morecss).'<br></span>';
 
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				$out .= '
 					<script nonce="'.getNonce().'">
 					$(document).ready(function() {
@@ -8573,7 +8573,7 @@ abstract class CommonObject
 			</script>';
 		} elseif ($type == 'price') {
 			if (!is_null($value) && $value !== '') {
-				$value = price($value, 0, $langs, 0, 0, -1, $conf->currency);
+				$value = price($value, 0, $langs, 0, 0, -1, $config->currency);
 			}
 		} elseif ($type == 'select') {
 			$value = isset($param['options'][(string) $value]) ? $param['options'][(string) $value] : '';
@@ -8620,7 +8620,7 @@ abstract class CommonObject
 				$sql .= " WHERE ".$selectkey." = '".$this->db->escape($value)."'";
 			}
 
-			//$sql.= ' AND entity = '.$conf->entity;
+			//$sql.= ' AND entity = '.$config->entity;
 
 			dol_syslog(get_class($this).':showOutputField:$type=sellist', LOG_DEBUG);
 			$resql = $this->db->query($sql);
@@ -8723,7 +8723,7 @@ abstract class CommonObject
 				$sql .= ' as main';
 			}
 			// $sql.= " WHERE ".$selectkey."='".$this->db->escape($value)."'";
-			// $sql.= ' AND entity = '.$conf->entity;
+			// $sql.= ' AND entity = '.$config->entity;
 
 			dol_syslog(get_class($this).':showOutputField:$type=chkbxlst', LOG_DEBUG);
 			$resql = $this->db->query($sql);
@@ -9456,7 +9456,7 @@ abstract class CommonObject
 				}
 				$out .= "\n";
 				// Add code to manage list depending on others
-				if (!empty($conf->use_javascript_ajax)) {
+				if (!empty($config->use_javascript_ajax)) {
 					$out .= $this->getJSListDependancies();
 				}
 
@@ -9662,7 +9662,7 @@ abstract class CommonObject
 
 		$buyPrice = 0;
 
-		if (($unitPrice > 0) && (isset($conf->global->ForceBuyingPriceIfNull) && getDolGlobalInt('ForceBuyingPriceIfNull') > 0)) {
+		if (($unitPrice > 0) && (isset($config->global->ForceBuyingPriceIfNull) && getDolGlobalInt('ForceBuyingPriceIfNull') > 0)) {
 			// When ForceBuyingPriceIfNull is set
 			$buyPrice = $unitPrice * (1 - $discountPercent / 100);
 		} else {
@@ -9695,7 +9695,7 @@ abstract class CommonObject
 					}
 				}
 
-				if (empty($buyPrice) && isset($conf->global->MARGIN_TYPE) && in_array($conf->global->MARGIN_TYPE, array('1', 'pmp', 'costprice'))) {
+				if (empty($buyPrice) && isset($config->global->MARGIN_TYPE) && in_array($config->global->MARGIN_TYPE, array('1', 'pmp', 'costprice'))) {
 					require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.product.class.php';
 					$productFournisseur = new ProductFournisseur($this->db);
 					if (($result = $productFournisseur->find_min_price_product_fournisseur($fk_product)) > 0) {
@@ -10169,7 +10169,7 @@ abstract class CommonObject
 				}
 			} elseif ($this->isInt($info) || $this->isFloat($info)) {
 				if ($field == 'entity' && is_null($this->{$field})) {
-					$queryarray[$field] = ((int) $conf->entity);
+					$queryarray[$field] = ((int) $config->entity);
 				} else {
 					// $this->{$field} may be null, '', 0, '0', 123, '123'
 					if ((isset($this->{$field}) && ((string) $this->{$field}) != '') || !empty($info['notnull'])) {
@@ -11362,7 +11362,7 @@ abstract class CommonObject
 			// Delete ecm_files_extrafields with mode 0 (using name)
 			$sql = "DELETE FROM ".$this->db->prefix()."ecm_files_extrafields WHERE fk_object IN (";
 			$sql .= " SELECT rowid FROM ".$this->db->prefix()."ecm_files WHERE filename LIKE '".$this->db->escape($this->ref)."%'";
-			$sql .= " AND filepath = '".$this->db->escape($element)."/".$this->db->escape($this->ref)."' AND entity = ".((int) $conf->entity); // No need of getEntity here
+			$sql .= " AND filepath = '".$this->db->escape($element)."/".$this->db->escape($this->ref)."' AND entity = ".((int) $config->entity); // No need of getEntity here
 			$sql .= ")";
 
 			if (!$this->db->query($sql)) {
@@ -11374,7 +11374,7 @@ abstract class CommonObject
 			// Delete ecm_files with mode 0 (using name)
 			$sql = "DELETE FROM ".$this->db->prefix()."ecm_files";
 			$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%'";
-			$sql .= " AND filepath = '".$this->db->escape($element)."/".$this->db->escape($this->ref)."' AND entity = ".((int) $conf->entity); // No need of getEntity here
+			$sql .= " AND filepath = '".$this->db->escape($element)."/".$this->db->escape($this->ref)."' AND entity = ".((int) $config->entity); // No need of getEntity here
 
 			if (!$this->db->query($sql)) {
 				$this->error = $this->db->lasterror();

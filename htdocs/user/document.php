@@ -92,7 +92,7 @@ if ($user->id != $id && !$permissiontoread) {
 }
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -113,9 +113,9 @@ $object = new User($db);
 if ($id > 0 || !empty($ref)) {
 	$result = $object->fetch($id, $ref, '', 1);
 	$object->loadRights();
-	//$upload_dir = $conf->user->multidir_output[$object->entity] . "/" . $object->id ;
-	// For users, the upload_dir is always $conf->user->entity for the moment
-	$upload_dir = $conf->user->dir_output."/".$object->id;
+	//$upload_dir = $config->user->multidir_output[$object->entity] . "/" . $object->id ;
+	// For users, the upload_dir is always $config->user->entity for the moment
+	$upload_dir = $config->user->dir_output."/".$object->id;
 }
 
 /*

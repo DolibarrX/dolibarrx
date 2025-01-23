@@ -93,7 +93,7 @@ if (empty($accounting_product_mode)) {
 	$accounting_product_mode = 'ACCOUNTANCY_SELL';
 }
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : getDolGlobalInt('ACCOUNTING_LIMIT_LIST_VENTILATION', $conf->liste_limit);
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : getDolGlobalInt('ACCOUNTING_LIMIT_LIST_VENTILATION', $config->liste_limit);
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -190,7 +190,7 @@ if ($action == 'update' && $permissiontobind) {
 		$error = 0;
 
 		if (in_array($accounting_product_mode, $accounting_product_modes)) {
-			if (!dolibarr_set_const($db, 'ACCOUNTING_PRODUCT_MODE', $accounting_product_mode, 'chaine', 0, '', $conf->entity)) {
+			if (!dolibarr_set_const($db, 'ACCOUNTING_PRODUCT_MODE', $accounting_product_mode, 'chaine', 0, '', $config->entity)) {
 				$error++;
 			}
 		} else {
@@ -226,7 +226,7 @@ if ($action == 'update' && $permissiontobind) {
 				} else {
 					if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 						$sql_exists  = "SELECT rowid FROM " . MAIN_DB_PREFIX . "product_perentity";
-						$sql_exists .= " WHERE fk_product = " . ((int) $productid) . " AND entity = " . ((int) $conf->entity);
+						$sql_exists .= " WHERE fk_product = " . ((int) $productid) . " AND entity = " . ((int) $config->entity);
 						$resql_exists = $db->query($sql_exists);
 						if (!$resql_exists) {
 							$msg .= '<div><span class="error">'.$langs->trans("ErrorDB").' : '.$langs->trans("Product").' '.$productid.' '.$langs->trans("NotVentilatedinAccount").' : id='.$accounting_account_id.'<br> <pre>'.json_encode($resql_exists).'</pre></span></div>';
@@ -236,7 +236,7 @@ if ($action == 'update' && $permissiontobind) {
 							if ($nb_exists <= 0) {
 								// insert
 								$sql  = "INSERT INTO " . MAIN_DB_PREFIX . "product_perentity (fk_product, entity, " . $db->sanitize($accountancy_field_name) . ")";
-								$sql .= " VALUES (" . ((int) $productid) . ", " . ((int) $conf->entity) . ", '" . $db->escape($accounting->account_number) . "')";
+								$sql .= " VALUES (" . ((int) $productid) . ", " . ((int) $config->entity) . ", '" . $db->escape($accounting->account_number) . "')";
 							} else {
 								$obj_exists = $db->fetch_object($resql_exists);
 								// update
@@ -346,7 +346,7 @@ $sql .= " p.tms, p.fk_product_type as product_type,";
 $sql .= " aa.rowid as aaid";
 $sql .= " FROM ".MAIN_DB_PREFIX."product as p";
 if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
-	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $conf->entity);
+	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "accounting_account as aa ON aa.account_number = ppe." . $db->sanitize($accountancy_field_name) . " AND aa.fk_pcg_version = '" . $db->escape($pcgvercode) . "'";
 } else {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "accounting_account as aa ON aa.account_number = p." . $db->sanitize($accountancy_field_name) . " AND aa.fk_pcg_version = '" . $db->escape($pcgvercode) . "'";
@@ -442,7 +442,7 @@ if ($resql) {
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($searchCategoryProductOperator == 1) {

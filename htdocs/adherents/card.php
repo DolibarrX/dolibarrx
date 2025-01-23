@@ -139,7 +139,7 @@ if (!$user->hasRight('adherent', 'creer') && $action == 'edit') {
 	accessforbidden('Not enough permission');
 }
 
-$linkofpubliclist = DOL_MAIN_URL_ROOT.'/public/members/public_list.php'.((isModEnabled('multicompany')) ? '?entity='.$conf->entity : '');
+$linkofpubliclist = DOL_MAIN_URL_ROOT.'/public/members/public_list.php'.((isModEnabled('multicompany')) ? '?entity='.$config->entity : '');
 
 
 /*
@@ -202,7 +202,7 @@ if (empty($reshook)) {
 			if ($socid != $object->socid) {	// If link differs from currently in database
 				$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."adherent";
 				$sql .= " WHERE socid = ".((int) $socid);
-				$sql .= " AND entity = ".$conf->entity;
+				$sql .= " AND entity = ".$config->entity;
 				$resql = $db->query($sql);
 				if ($resql) {
 					$obj = $db->fetch_object($resql);
@@ -393,13 +393,13 @@ if (empty($reshook)) {
 					$object->setCategories($categories);
 
 					// Logo/Photo save
-					$dir = $conf->adherent->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member').'/photos';
+					$dir = $config->adherent->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member').'/photos';
 					$file_OK = is_uploaded_file($_FILES['photo']['tmp_name']);
 					if ($file_OK) {
 						if (GETPOST('deletephoto')) {
 							require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-							$fileimg = $conf->adherent->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member').'/photos/'.$object->photo;
-							$dirthumbs = $conf->adherent->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member').'/photos/thumbs';
+							$fileimg = $config->adherent->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member').'/photos/'.$object->photo;
+							$dirthumbs = $config->adherent->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member').'/photos/thumbs';
 							dol_delete_file($fileimg);
 							dol_delete_dir_recursive($dirthumbs);
 						}
@@ -905,7 +905,7 @@ if (empty($reshook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_printing.inc.php';
 
 	// Actions to build doc
-	$upload_dir = $conf->adherent->dir_output;
+	$upload_dir = $config->adherent->dir_output;
 	$permissiontoadd = $user->hasRight('adherent', 'creer');
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
@@ -982,7 +982,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 		print load_fiche_titre($langs->trans("NewMember"), '', $object->picto);
 
-		if ($conf->use_javascript_ajax) {
+		if ($config->use_javascript_ajax) {
 			print "\n".'<script type="text/javascript">'."\n";
 			print 'jQuery(document).ready(function () {
 						jQuery("#selectcountry_id").change(function() {
@@ -1060,7 +1060,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		print '<span id="spannature2" class="nonature-back spannature paddinglarge marginrightonly"><label for="moralinput" class="valignmiddle">'.$morphys["mor"].'<input id="moralinput" class="flat checkforselect marginleftonly valignmiddle" type="radio" name="morphy" value="mor"'.($checkednature == "mor" ? ' checked="checked"' : '').'></label></span>';
 
 		// Add js to manage the background of nature
-		if ($conf->use_javascript_ajax) {
+		if ($config->use_javascript_ajax) {
 			print '<script>
 				function refreshNatureCss() {
 					jQuery(".spannature").each(function( index ) {
@@ -1250,7 +1250,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		$head = member_prepare_head($object);
 
 
-		if ($conf->use_javascript_ajax) {
+		if ($config->use_javascript_ajax) {
 			print "\n".'<script type="text/javascript">';
 			print 'jQuery(document).ready(function () {
 				jQuery("#selectcountry_id").change(function() {
@@ -2118,7 +2118,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 			// Generated documents
 			$filename = dol_sanitizeFileName($object->ref);
-			$filedir = $conf->adherent->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member');
+			$filedir = $config->adherent->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member');
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$object->id;
 			$genallowed = $user->hasRight('adherent', 'lire');
 			$delallowed = $user->hasRight('adherent', 'creer');
@@ -2168,7 +2168,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		// Presend form
 		$modelmail = 'member';
 		$defaulttopic = 'CardContent';
-		$diroutput = $conf->adherent->dir_output;
+		$diroutput = $config->adherent->dir_output;
 		$trackid = 'mem'.$object->id;
 
 		include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

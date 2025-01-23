@@ -637,7 +637,7 @@ function showWebsiteTemplates(Website $website)
 							}
 
 							$originalimgfile = basename($file);
-							$entity = $conf->entity;
+							$entity = $config->entity;
 							$modulepart = 'doctemplateswebsite';
 							$cache = '';
 							$title = $file;
@@ -818,7 +818,7 @@ function checkPHPCode(&$phpfullcodestringold, &$phpfullcodestring)
 		}
 	}
 
-	// No need to block $conf->global->aaa() because PHP try to run the method aaa of $conf->global and not the function into $conf->global->aaa.
+	// No need to block $config->global->aaa() because PHP try to run the method aaa of $config->global and not the function into $config->global->aaa.
 
 	// Then check if installmodules.lock does not block dynamic PHP code change.
 	if ($phpfullcodestringold != $phpfullcodestringnew) {

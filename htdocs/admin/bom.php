@@ -69,7 +69,7 @@ if ($action == 'updateMask') {
 	$res = 0;
 
 	if ($maskconstbom && preg_match('/_MASK$/', $maskconstbom)) {
-		$res = dolibarr_set_const($db, $maskconstbom, $maskbom, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstbom, $maskbom, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -90,7 +90,7 @@ if ($action == 'updateMask') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/bom/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -122,16 +122,16 @@ if ($action == 'updateMask') {
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->BOM_ADDON_PDF == "$value") {
-			dolibarr_del_const($db, 'BOM_ADDON_PDF', $conf->entity);
+		if ($config->global->BOM_ADDON_PDF == "$value") {
+			dolibarr_del_const($db, 'BOM_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "BOM_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "BOM_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// The constant that was read before the new set
 		// We therefore requires a variable to have a coherent view
-		$conf->global->BOM_ADDON_PDF = $value;
+		$config->global->BOM_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -143,10 +143,10 @@ if ($action == 'updateMask') {
 	// TODO Check if numbering module chosen can be activated
 	// by calling method canBeActivated
 
-	dolibarr_set_const($db, "BOM_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "BOM_ADDON", $value, 'chaine', 0, '', $config->entity);
 } elseif ($action == 'set_BOM_DRAFT_WATERMARK') {
 	$draft = GETPOST("BOM_DRAFT_WATERMARK");
-	$res = dolibarr_set_const($db, "BOM_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "BOM_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -160,7 +160,7 @@ if ($action == 'updateMask') {
 } elseif ($action == 'set_BOM_FREE_TEXT') {
 	$freetext = GETPOST("BOM_FREE_TEXT", 'restricthtml'); // No alpha here, we want exact string
 
-	$res = dolibarr_set_const($db, "BOM_FREE_TEXT", $freetext, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "BOM_FREE_TEXT", $freetext, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -180,7 +180,7 @@ if ($action == 'updateMask') {
 
 $form = new Form($db);
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader("", $langs->trans("BOMsSetup"), '', '', 0, 0, '', '', '', 'mod-admin page-bom');
 
@@ -253,7 +253,7 @@ foreach ($dirmodels as $reldir) {
 						print '</td>'."\n";
 
 						print '<td class="center">';
-						if ($conf->global->BOM_ADDON == $file) {
+						if ($config->global->BOM_ADDON == $file) {
 							print img_picto($langs->trans("Activated"), 'switch_on');
 						} else {
 							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.urlencode($file).'">';
@@ -310,7 +310,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;
@@ -399,7 +399,7 @@ foreach ($dirmodels as $reldir) {
 
 								// Default
 								print '<td class="center">';
-								if ($conf->global->BOM_ADDON_PDF == $name) {
+								if ($config->global->BOM_ADDON_PDF == $name) {
 									print img_picto($langs->trans("Default"), 'on');
 								} else {
 									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&amp;label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';

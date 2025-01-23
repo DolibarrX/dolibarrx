@@ -66,7 +66,7 @@ $error = 0;
 if (in_array($action, array('setBANK_DISABLE_DIRECT_INPUT'))) {
 	$constname = preg_replace('/^set/', '', $action);
 	$constvalue = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, $constname, $constvalue, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, $constname, $constvalue, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -80,7 +80,7 @@ if (in_array($action, array('setBANK_DISABLE_DIRECT_INPUT'))) {
 
 // Order display of bank account
 if ($action == 'setbankorder') {
-	if (dolibarr_set_const($db, "BANK_SHOW_ORDER_OPTION", GETPOST('value', 'alpha'), 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, "BANK_SHOW_ORDER_OPTION", GETPOST('value', 'alpha'), 'chaine', 0, '', $config->entity) > 0) {
 	} else {
 		dol_print_error($db);
 	}
@@ -88,12 +88,12 @@ if ($action == 'setbankorder') {
 
 // Auto report last num releve on conciliate
 if ($action == 'setreportlastnumreleve') {
-	if (dolibarr_set_const($db, "BANK_REPORT_LAST_NUM_RELEVE", 1, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, "BANK_REPORT_LAST_NUM_RELEVE", 1, 'chaine', 0, '', $config->entity) > 0) {
 	} else {
 		dol_print_error($db);
 	}
 } elseif ($action == 'unsetreportlastnumreleve') {
-	if (dolibarr_set_const($db, "BANK_REPORT_LAST_NUM_RELEVE", 0, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, "BANK_REPORT_LAST_NUM_RELEVE", 0, 'chaine', 0, '', $config->entity) > 0) {
 	} else {
 		dol_print_error($db);
 	}
@@ -101,12 +101,12 @@ if ($action == 'setreportlastnumreleve') {
 
 // Colorize movements
 if ($action == 'setbankcolorizemovement') {
-	if (dolibarr_set_const($db, "BANK_COLORIZE_MOVEMENT", 1, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, "BANK_COLORIZE_MOVEMENT", 1, 'chaine', 0, '', $config->entity) > 0) {
 	} else {
 		dol_print_error($db);
 	}
 } elseif ($action == 'unsetbankcolorizemovement') {
-	if (dolibarr_set_const($db, "BANK_COLORIZE_MOVEMENT", 0, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, "BANK_COLORIZE_MOVEMENT", 0, 'chaine', 0, '', $config->entity) > 0) {
 	} else {
 		dol_print_error($db);
 	}
@@ -126,7 +126,7 @@ if ($actionsave) {
 			$color = '';
 		}
 
-		$res = dolibarr_set_const($db, 'BANK_COLORIZE_MOVEMENT_COLOR'.$i, $color, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, 'BANK_COLORIZE_MOVEMENT_COLOR'.$i, $color, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
@@ -158,7 +158,7 @@ if ($action == 'specimen') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/bank/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -192,16 +192,16 @@ if ($action == 'set') {
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->BANKADDON_PDF == "$value") {
-			dolibarr_del_const($db, 'BANKADDON_PDF', $conf->entity);
+		if ($config->global->BANKADDON_PDF == "$value") {
+			dolibarr_del_const($db, 'BANKADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "BANKADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "BANKADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// The constant that was read before the new set
 		// We therefore requires a variable to have a coherent view
-		$conf->global->BANKADDON_PDF = $value;
+		$config->global->BANKADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -220,7 +220,7 @@ if ($action == 'set') {
 $form = new Form($db);
 $formother = new FormOther($db);
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader("", $langs->trans("BankSetupModule"), '', '', 0, 0, '', '', '', 'mod-admin page-bank');
 
@@ -302,7 +302,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;

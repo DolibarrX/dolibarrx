@@ -302,7 +302,7 @@ class EmailCollector extends CommonObject
 		// List of oauth services
 		$oauthservices = array();
 
-		foreach ($conf->global as $key => $val) {
+		foreach ($config->global as $key => $val) {
 			if (!empty($val) && preg_match('/^OAUTH_.*_ID$/', $key)) {
 				$key = preg_replace('/^OAUTH_/', '', $key);
 				$key = preg_replace('/_ID$/', '', $key);
@@ -611,7 +611,7 @@ class EmailCollector extends CommonObject
 	{
 		global $conf, $langs, $action, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -1132,7 +1132,7 @@ class EmailCollector extends CommonObject
 		global $db, $conf, $langs, $user;
 		global $hookManager;
 
-		//$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
+		//$config->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
 
 		require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
 		if (getDolGlobalString('MAIN_IMAP_USE_PHPIMAP')) {
@@ -2957,7 +2957,7 @@ class EmailCollector extends CommonObject
 												// There is an attachment for the ticket -> store attachment
 												$ticket = new Ticket($this->db);
 												$ticket->fetch($fk_element_id);
-												$destdir = $conf->ticket->dir_output.'/'.$ticket->ref;
+												$destdir = $config->ticket->dir_output.'/'.$ticket->ref;
 												if (!dol_is_dir($destdir)) {
 													dol_mkdir($destdir);
 												}
@@ -3193,7 +3193,7 @@ class EmailCollector extends CommonObject
 								$projecttocreate->opp_percent = $percent_opp_status;
 								$projecttocreate->description = dol_concatdesc(dolGetFirstLineOfText(dol_string_nohtmltag($description, 2), 10), '...'.$langs->transnoentities("SeePrivateNote").'...');
 								$projecttocreate->note_private = $descriptionfull;
-								$projecttocreate->entity = $conf->entity;
+								$projecttocreate->entity = $config->entity;
 								// Fields when action is an email (content should be added into agenda event)
 								$projecttocreate->email_date    = $dateemail;
 								$projecttocreate->email_msgid   = $msgid;
@@ -3222,7 +3222,7 @@ class EmailCollector extends CommonObject
 									$file = '';
 									$classname = '';
 									$reldir = '';
-									$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+									$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 									foreach ($dirmodels as $reldir) {
 										$file = dol_buildpath($reldir."core/modules/project/".$modele.'.php', 0);
 										if (file_exists($file)) {
@@ -3271,7 +3271,7 @@ class EmailCollector extends CommonObject
 											$operationslog .= '<br>'.$this->error;
 										} else {
 											if ($attachments) {
-												$destdir = $conf->project->dir_output.'/'.$projecttocreate->ref;
+												$destdir = $config->project->dir_output.'/'.$projecttocreate->ref;
 												if (!dol_is_dir($destdir)) {
 													dol_mkdir($destdir);
 												}
@@ -3342,7 +3342,7 @@ class EmailCollector extends CommonObject
 								$tickettocreate->fk_project = $projectstatic->id;
 								$tickettocreate->notify_tiers_at_create = getDolGlobalInt('TICKET_CHECK_NOTIFY_THIRDPARTY_AT_CREATION');
 								$tickettocreate->note_private = $descriptionfull;
-								$tickettocreate->entity = $conf->entity;
+								$tickettocreate->entity = $config->entity;
 								// Fields when action is an email (content should be added into agenda event)
 								$tickettocreate->email_date    = $dateemail;
 								$tickettocreate->email_msgid   = $msgid;
@@ -3373,7 +3373,7 @@ class EmailCollector extends CommonObject
 									$file = '';
 									$classname = '';
 									$reldir = '';
-									$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+									$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 									foreach ($dirmodels as $reldir) {
 										$file = dol_buildpath($reldir."core/modules/ticket/".$modele.'.php', 0);
 										if (file_exists($file)) {
@@ -3421,7 +3421,7 @@ class EmailCollector extends CommonObject
 											$this->errors = $tickettocreate->errors;
 										} else {
 											if ($attachments) {
-												$destdir = $conf->ticket->dir_output.'/'.$tickettocreate->ref;
+												$destdir = $config->ticket->dir_output.'/'.$tickettocreate->ref;
 												if (!dol_is_dir($destdir)) {
 													dol_mkdir($destdir);
 												}
@@ -3473,7 +3473,7 @@ class EmailCollector extends CommonObject
 								$candidaturetocreate->fk_project = $projectstatic->id;
 								$candidaturetocreate->description = $description;
 								$candidaturetocreate->note_private = $descriptionfull;
-								$candidaturetocreate->entity = $conf->entity;
+								$candidaturetocreate->entity = $config->entity;
 								$candidaturetocreate->email_msgid = $msgid;
 								$candidaturetocreate->email_date = $dateemail;		// date of email
 								$candidaturetocreate->status = $candidaturetocreate::STATUS_DRAFT;
@@ -3488,11 +3488,11 @@ class EmailCollector extends CommonObject
 								 {
 								 // Get next Ref
 								 $defaultref = '';
-								 $modele = empty($conf->global->CANDIDATURE_ADDON) ? 'mod_candidature_simple' : $conf->global->CANDIDATURE_ADDON;
+								 $modele = empty($config->global->CANDIDATURE_ADDON) ? 'mod_candidature_simple' : $config->global->CANDIDATURE_ADDON;
 
 								 // Search template files
 								 $file = ''; $classname = ''; $filefound = 0; $reldir = '';
-								 $dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+								 $dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 								 foreach ($dirmodels as $reldir)
 								 {
 								 $file = dol_buildpath($reldir."core/modules/ticket/".$modele.'.php', 0);

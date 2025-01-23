@@ -221,7 +221,7 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 		// Recupere liste des boites d'un user si ce dernier a sa propre liste
 		$sql = "SELECT b.rowid as id, b.box_id, b.position, b.box_order, b.fk_user";
 		$sql .= " FROM ".MAIN_DB_PREFIX."boxes as b";
-		$sql .= " WHERE b.entity = ".$conf->entity;
+		$sql .= " WHERE b.entity = ".$config->entity;
 		$sql .= " AND b.rowid = ".((int) $rowid);
 
 		dol_syslog(get_class($this)."::fetch rowid=".((int) $rowid));
@@ -267,7 +267,7 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 
 		$cachetime = 900; // 900 : 15mn
 		$cachedir = DOL_DATA_ROOT.'/users/temp/widgets';
-		$fileid = get_class($this).'id-'.$this->box_id.'-e'.$conf->entity.'-u'.$user->id.'-s'.$user->socid.'.cache';
+		$fileid = get_class($this).'id-'.$this->box_id.'-e'.$config->entity.'-u'.$user->id.'-s'.$user->socid.'.cache';
 		$filename = '/box-'.$fileid;
 		$refresh = dol_cache_refresh($cachedir, $filename, $cachetime);
 		$out = '';
@@ -304,7 +304,7 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 					$out .= ' colspan="'.$nbcol.'"';
 				}
 				$out .= '>';
-				if (!empty($conf->use_javascript_ajax)) {
+				if (!empty($config->use_javascript_ajax)) {
 					//$out.= '<table summary="" class="nobordernopadding" width="100%"><tr><td class="tdoverflowmax150 maxwidth150onsmartphone">';
 					$out .= '<div class="tdoverflowmax400 maxwidth250onsmartphone float">';
 				}
@@ -312,12 +312,12 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 					$s = dol_trunc($head['text'], isset($head['limit']) ? $head['limit'] : $MAXLENGTHBOX);
 					$out .= $s;
 				}
-				if (!empty($conf->use_javascript_ajax)) {
+				if (!empty($config->use_javascript_ajax)) {
 					$out .= '</div>';
 				}
 				//$out.= '</td>';
 
-				if (!empty($conf->use_javascript_ajax)) {
+				if (!empty($config->use_javascript_ajax)) {
 					$sublink = '';
 					if (!empty($head['sublink'])) {
 						$sublink .= '<a href="'.$head['sublink'].'"'.(empty($head['target']) ? '' : ' target="'.$head['target'].'"').'>';
@@ -501,8 +501,8 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 		$orders = array();
 		$i = 0;
 
-		//$dirwidget=array_merge(array('/core/boxes/'), $conf->modules_parts['widgets']);
-		$dirwidget = array('/core/boxes/'); // $conf->modules_parts['widgets'] is not required
+		//$dirwidget=array_merge(array('/core/boxes/'), $config->modules_parts['widgets']);
+		$dirwidget = array('/core/boxes/'); // $config->modules_parts['widgets'] is not required
 		if (is_array($forcedirwidget)) {
 			$dirwidget = $forcedirwidget;
 		}

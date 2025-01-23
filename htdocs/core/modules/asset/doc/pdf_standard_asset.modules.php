@@ -188,16 +188,16 @@ class pdf_standard_asset extends ModelePDFAsset
 			$hidetop = getDolGlobalString('MAIN_PDF_DISABLE_COL_HEAD_TITLE');
 		}
 
-		if ($conf->asset->dir_output.'/asset') {
+		if ($config->asset->dir_output.'/asset') {
 			$object->fetch_thirdparty();
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->asset->dir_output.'/asset';
+				$dir = $config->asset->dir_output.'/asset';
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->asset->dir_output.'/asset/'.$objectref;
+				$dir = $config->asset->dir_output.'/asset/'.$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 			if (!file_exists($dir)) {
@@ -238,9 +238,9 @@ class pdf_standard_asset extends ModelePDFAsset
 
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$logodir = $conf->mycompany->dir_output;
-					if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-						$logodir = $conf->mycompany->multidir_output[$object->entity];
+					$logodir = $config->mycompany->dir_output;
+					if (!empty($config->mycompany->multidir_output[$object->entity])) {
+						$logodir = $config->mycompany->multidir_output[$object->entity];
 					}
 					$pagecount = $pdf->setSourceFile($logodir .'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
@@ -263,7 +263,7 @@ class pdf_standard_asset extends ModelePDFAsset
 				$cert = empty($user->conf->CERTIFICATE_CRT) ? '' : $user->conf->CERTIFICATE_CRT;
 				// If user has no certificate, we try to take the company one
 				if (!$cert) {
-					$cert = !getDolGlobalString('CERTIFICATE_CRT') ? '' : $conf->global->CERTIFICATE_CRT;
+					$cert = !getDolGlobalString('CERTIFICATE_CRT') ? '' : $config->global->CERTIFICATE_CRT;
 				}
 				// If a certificate is found
 				if ($cert) {
@@ -674,7 +674,7 @@ class pdf_standard_asset extends ModelePDFAsset
 
 				// Display payment area
 				/*
-				if (($deja_regle || $amount_credit_notes_included || $amount_deposits_included) && empty($conf->global->INVOICE_NO_PAYMENT_DETAILS))
+				if (($deja_regle || $amount_credit_notes_included || $amount_deposits_included) && empty($config->global->INVOICE_NO_PAYMENT_DETAILS))
 				{
 					$posy = $this->drawPaymentsTable($pdf, $object, $posy, $outputlangs);
 				}
@@ -754,7 +754,7 @@ class pdf_standard_asset extends ModelePDFAsset
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)
@@ -770,7 +770,7 @@ class pdf_standard_asset extends ModelePDFAsset
 			$pdf->SetXY($this->page_largeur - $this->marge_droite - ($pdf->GetStringWidth($titre) + 3), $tab_top - 4);
 			$pdf->MultiCell(($pdf->GetStringWidth($titre) + 3), 2, $titre);
 
-			//$conf->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
+			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
 				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, $this->tabTitleHeight, $this->corner_radius, '1001', 'F', null, explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
@@ -814,7 +814,7 @@ class pdf_standard_asset extends ModelePDFAsset
 
 		// Show Draft Watermark
 		if ($object->status == $object::STATUS_DRAFT && (getDolGlobalString('FACTURE_DRAFT_WATERMARK'))) {
-			pdf_watermark($pdf, $outputlangs, $this->page_hauteur, $this->page_largeur, 'mm', $conf->global->FACTURE_DRAFT_WATERMARK);
+			pdf_watermark($pdf, $outputlangs, $this->page_hauteur, $this->page_largeur, 'mm', $config->global->FACTURE_DRAFT_WATERMARK);
 		}
 
 		$pdf->SetTextColor(0, 0, 60);
@@ -830,9 +830,9 @@ class pdf_standard_asset extends ModelePDFAsset
 		// Logo
 		if (!getDolGlobalInt('PDF_DISABLE_MYCOMPANY_LOGO')) {
 			if ($this->emetteur->logo) {
-				$logodir = $conf->mycompany->dir_output;
-				if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-					$logodir = $conf->mycompany->multidir_output[$object->entity];
+				$logodir = $config->mycompany->dir_output;
+				if (!empty($config->mycompany->multidir_output[$object->entity])) {
+					$logodir = $config->mycompany->multidir_output[$object->entity];
 				}
 				if (!getDolGlobalInt('MAIN_PDF_USE_LARGE_LOGO')) {
 					$logo = $logodir.'/logos/thumbs/'.$this->emetteur->logo_small;
@@ -993,7 +993,7 @@ class pdf_standard_asset extends ModelePDFAsset
 			}
 
 			// Recipient name
-			if ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
+			if ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
 				$thirdparty = $object->contact;
 			} else {
 				$thirdparty = $object->thirdparty;

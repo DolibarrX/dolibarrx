@@ -355,8 +355,8 @@ class modCommande extends DolibarrModules
 		$this->import_convertvalue_array[$r] = array(
 			'c.ref' => array(
 				'rule' => 'getrefifauto',
-				'class' => (!getDolGlobalString('COMMANDE_ADDON') ? 'mod_commande_marbre' : $conf->global->COMMANDE_ADDON),
-				'path' => "/core/modules/commande/".(!getDolGlobalString('COMMANDE_ADDON') ? 'mod_commande_marbre' : $conf->global->COMMANDE_ADDON).'.php',
+				'class' => (!getDolGlobalString('COMMANDE_ADDON') ? 'mod_commande_marbre' : $config->global->COMMANDE_ADDON),
+				'path' => "/core/modules/commande/".(!getDolGlobalString('COMMANDE_ADDON') ? 'mod_commande_marbre' : $config->global->COMMANDE_ADDON).'.php',
 				'classobject' => 'Commande',
 				'pathobject' => '/commande/class/commande.class.php',
 			),
@@ -475,8 +475,8 @@ class modCommande extends DolibarrModules
 		}
 
 		$sql = array(
-				"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[0][2])."' AND type = 'order' AND entity = ".((int) $conf->entity),
-				"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[0][2])."', 'order', ".((int) $conf->entity).")"
+				"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[0][2])."' AND type = 'order' AND entity = ".((int) $config->entity),
+				"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[0][2])."', 'order', ".((int) $config->entity).")"
 		);
 
 		return $this->_init($sql, $options);

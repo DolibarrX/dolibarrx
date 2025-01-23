@@ -115,7 +115,7 @@ print '</span>';
 
 <table class="centpercent"><tr><td class="tdtop">
 
-<?php if ($conf->use_javascript_ajax) { ?>
+<?php if ($config->use_javascript_ajax) { ?>
 <div id="div_container_exportoptions">
 <fieldset id="exportoptions">
 	<legend><?php echo $langs->trans("ImportMethod"); ?></legend>

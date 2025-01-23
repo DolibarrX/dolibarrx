@@ -244,7 +244,7 @@ class pdf_crabe extends ModelePDFFactures
 				$objphoto->fetch($object->lines[$i]->fk_product);
 
 				$pdir = get_exdir($object->lines[$i]->fk_product, 2, 0, 0, $objphoto, 'product').$object->lines[$i]->fk_product."/photos/";
-				$dir = $conf->product->dir_output.'/'.$pdir;
+				$dir = $config->product->dir_output.'/'.$pdir;
 
 				$realpath = '';
 				foreach ($objphoto->liste_photos($dir, 1) as $key => $obj) {
@@ -263,7 +263,7 @@ class pdf_crabe extends ModelePDFFactures
 			$this->posxpicture = $this->posxtva;
 		}
 
-		if ($conf->facture->dir_output) {
+		if ($config->facture->dir_output) {
 			$object->fetch_thirdparty();
 
 			$deja_regle = $object->getSommePaiement((isModEnabled("multicurrency") && $object->multicurrency_tx != 1) ? 1 : 0);
@@ -272,11 +272,11 @@ class pdf_crabe extends ModelePDFFactures
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = empty($conf->facture->multidir_output[$object->entity]) ? $conf->facture->dir_output : $conf->facture->multidir_output[$object->entity];
+				$dir = empty($config->facture->multidir_output[$object->entity]) ? $config->facture->dir_output : $config->facture->multidir_output[$object->entity];
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = (empty($conf->facture->multidir_output[$object->entity]) ? $conf->facture->dir_output : $conf->facture->multidir_output[$object->entity])."/".$objectref;
+				$dir = (empty($config->facture->multidir_output[$object->entity]) ? $config->facture->dir_output : $config->facture->multidir_output[$object->entity])."/".$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 			if (!file_exists($dir)) {
@@ -333,9 +333,9 @@ class pdf_crabe extends ModelePDFFactures
 
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$logodir = $conf->mycompany->dir_output;
-					if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-						$logodir = $conf->mycompany->multidir_output[$object->entity];
+					$logodir = $config->mycompany->dir_output;
+					if (!empty($config->mycompany->multidir_output[$object->entity])) {
+						$logodir = $config->mycompany->multidir_output[$object->entity];
 					}
 					$pagecount = $pdf->setSourceFile($logodir.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
@@ -893,9 +893,9 @@ class pdf_crabe extends ModelePDFFactures
 
 				// Add terms to sale
 				if (!empty($mysoc->termsofsale) && getDolGlobalInt('MAIN_PDF_ADD_TERMSOFSALE_INVOICE')) {
-					$termsofsale = $conf->mycompany->dir_output.'/'.$mysoc->termsofsale;
-					if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-						$termsofsale = $conf->mycompany->multidir_output[$object->entity].'/'.$mysoc->termsofsale;
+					$termsofsale = $config->mycompany->dir_output.'/'.$mysoc->termsofsale;
+					if (!empty($config->mycompany->multidir_output[$object->entity])) {
+						$termsofsale = $config->mycompany->multidir_output[$object->entity].'/'.$mysoc->termsofsale;
 					}
 					if (file_exists($termsofsale) && is_readable($termsofsale)) {
 						$pagecount = $pdf->setSourceFile($termsofsale);
@@ -1864,7 +1864,7 @@ class pdf_crabe extends ModelePDFFactures
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)
@@ -2001,9 +2001,9 @@ class pdf_crabe extends ModelePDFFactures
 		// Logo
 		if (!getDolGlobalInt('PDF_DISABLE_MYCOMPANY_LOGO')) {
 			if ($this->emetteur->logo) {
-				$logodir = $conf->mycompany->dir_output;
-				if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-					$logodir = $conf->mycompany->multidir_output[$object->entity];
+				$logodir = $config->mycompany->dir_output;
+				if (!empty($config->mycompany->multidir_output[$object->entity])) {
+					$logodir = $config->mycompany->multidir_output[$object->entity];
 				}
 				if (!getDolGlobalInt('MAIN_PDF_USE_LARGE_LOGO')) {
 					$logo = $logodir.'/logos/thumbs/'.$this->emetteur->logo_small;
@@ -2270,7 +2270,7 @@ class pdf_crabe extends ModelePDFFactures
 			}
 
 			// Recipient name
-			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
+			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
 				$thirdparty = $object->contact;
 			} else {
 				$thirdparty = $object->thirdparty;

@@ -60,7 +60,7 @@ if ($user->socid) {
 }
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -95,7 +95,7 @@ $permissiontoadd = $user->hasRight('banque', 'modifier');	// Used by the include
 
 if ($object->id > 0) {
 	$object->fetch_thirdparty();
-	$upload_dir = $conf->bank->dir_output."/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->bank->dir_output."/".dol_sanitizeFileName($object->ref);
 }
 
 include DOL_DOCUMENT_ROOT.'/core/actions_linkedfiles.inc.php';
@@ -114,7 +114,7 @@ $form = new Form($db);
 
 if ($id > 0 || !empty($ref)) {
 	if ($object->fetch($id, $ref)) {
-		$upload_dir = $conf->bank->dir_output.'/'.$object->ref;
+		$upload_dir = $config->bank->dir_output.'/'.$object->ref;
 
 		// Onglets
 		$head = bank_prepare_head($object);

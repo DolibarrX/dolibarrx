@@ -1661,7 +1661,7 @@ if (empty($reshook)) {
 								$descline = '(DEPOSIT)';
 								//$descline.= ' - '.$langs->trans($arraylist[$typeamount]);
 								if ($typeamount == 'amount') {
-									$descline .= ' ('.price($valuedeposit, 0, $langs, 0, - 1, - 1, (!empty($object->multicurrency_code) ? $object->multicurrency_code : $conf->currency)).')';
+									$descline .= ' ('.price($valuedeposit, 0, $langs, 0, - 1, - 1, (!empty($object->multicurrency_code) ? $object->multicurrency_code : $config->currency)).')';
 								} elseif ($typeamount == 'variable') {
 									$descline .= ' ('.$valuedeposit.'%)';
 								}
@@ -1698,7 +1698,7 @@ if (empty($reshook)) {
 									null,
 									0,
 									'',
-									(!empty($conf->global->MAIN_DEPOSIT_MULTI_TVA) ? 0 : 1)
+									(!empty($config->global->MAIN_DEPOSIT_MULTI_TVA) ? 0 : 1)
 								);
 							}
 
@@ -1754,8 +1754,8 @@ if (empty($reshook)) {
 										continue;
 									}
 									// Don't add closed lines when coming from a contract (Set constant to '0,5' to exclude also inactive lines)
-									if (!isset($conf->global->CONTRACT_EXCLUDE_SERVICES_STATUS_FOR_INVOICE)) {
-										$conf->global->CONTRACT_EXCLUDE_SERVICES_STATUS_FOR_INVOICE = '5';
+									if (!isset($config->global->CONTRACT_EXCLUDE_SERVICES_STATUS_FOR_INVOICE)) {
+										$config->global->CONTRACT_EXCLUDE_SERVICES_STATUS_FOR_INVOICE = '5';
 									}
 									if ($srcobject->element == 'contrat' && in_array($lines[$i]->statut, explode(',', getDolGlobalString('CONTRACT_EXCLUDE_SERVICES_STATUS_FOR_INVOICE')))) {
 										continue;
@@ -2514,11 +2514,11 @@ if (empty($reshook)) {
 			// Check price is not lower than minimum (check is done only for standard or replacement invoices)
 			if ($usermustrespectpricemin && ($object->type == Facture::TYPE_STANDARD || $object->type == Facture::TYPE_REPLACEMENT)) {
 				if ($pu_equivalent && $price_min && (((float) price2num($pu_equivalent) * (1 - $remise_percent / 100)) < (float) price2num($price_min)) && $price_base_type == 'HT') {
-					$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+					$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 					setEventMessages($mesg, null, 'errors');
 					$error++;
 				} elseif ($pu_equivalent_ttc && $price_min_ttc && (((float) price2num($pu_equivalent_ttc) * (1 - $remise_percent / 100)) < (float) price2num($price_min_ttc)) && $price_base_type == 'TTC') {
-					$mesg = $langs->trans("CantBeLessThanMinPriceInclTax", price(price2num($price_min_ttc, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+					$mesg = $langs->trans("CantBeLessThanMinPriceInclTax", price(price2num($price_min_ttc, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 					setEventMessages($mesg, null, 'errors');
 					$error++;
 				}
@@ -2731,12 +2731,12 @@ if (empty($reshook)) {
 			// Check price is not lower than minimum (check is done only for standard or replacement invoices)
 			if ($usermustrespectpricemin && ($object->type == Facture::TYPE_STANDARD || $object->type == Facture::TYPE_REPLACEMENT)) {
 				if ($pu_equivalent && $price_min && (((float) price2num($pu_equivalent) * (1 - (float) $remise_percent / 100)) < (float) price2num($price_min)) && $price_base_type == 'HT') {
-					$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+					$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 					setEventMessages($mesg, null, 'errors');
 					$error++;
 					$action = 'editline';
 				} elseif ($pu_equivalent_ttc && $price_min_ttc && (((float) price2num($pu_equivalent_ttc) * (1 - (float) $remise_percent / 100)) < (float) price2num($price_min_ttc)) && $price_base_type == 'TTC') {
-					$mesg = $langs->trans("CantBeLessThanMinPriceInclTax", price(price2num($price_min_ttc, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+					$mesg = $langs->trans("CantBeLessThanMinPriceInclTax", price(price2num($price_min_ttc, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 					setEventMessages($mesg, null, 'errors');
 					$error++;
 					$action = 'editline';
@@ -3120,7 +3120,7 @@ if (empty($reshook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_sendmails.inc.php';
 
 	// Actions to build doc
-	$upload_dir = $conf->invoice->multidir_output[!empty($object->entity) ? $object->entity : $conf->entity];
+	$upload_dir = $config->invoice->multidir_output[!empty($object->entity) ? $object->entity : $config->entity];
 	$permissiontoadd = $usercancreate;
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
@@ -3236,7 +3236,7 @@ if ($action == 'create') {
 		$res = $soc->fetch($socid);
 	}
 
-	$currency_code = $conf->currency;
+	$currency_code = $config->currency;
 
 	$cond_reglement_id = GETPOSTINT('cond_reglement_id');
 	$mode_reglement_id = GETPOSTINT('mode_reglement_id');
@@ -3402,7 +3402,7 @@ if ($action == 'create') {
 	$note_public = $object->getDefaultCreateValueFor('note_public', ((!empty($origin) && !empty($originid) && is_object($objectsrc) && getDolGlobalString('FACTURE_REUSE_NOTES_ON_CREATE_FROM')) ? $objectsrc->note_public : null));
 	$note_private = $object->getDefaultCreateValueFor('note_private', ((!empty($origin) && !empty($originid) && is_object($objectsrc) && getDolGlobalString('FACTURE_REUSE_NOTES_ON_CREATE_FROM')) ? $objectsrc->note_private : null));
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 		print ajax_combobox('fac_replacement');
 		print ajax_combobox('fac_avoir');
@@ -3465,12 +3465,12 @@ if ($action == 'create') {
 			$arrayoutstandingbills = $soc->getOutstandingBills();
 			$outstandingBills = $arrayoutstandingbills['opened'];
 			print ' - <span class="opacitymedium">'.$langs->trans('CurrentOutstandingBill').':</span> ';
-			print '<span class="amount">'.price($outstandingBills, 0, $langs, 0, 0, -1, $conf->currency).'</span>';
+			print '<span class="amount">'.price($outstandingBills, 0, $langs, 0, 0, -1, $config->currency).'</span>';
 			if ($soc->outstanding_limit != '') {
 				if ($outstandingBills > $soc->outstanding_limit) {
 					print img_warning($langs->trans("OutstandingBillReached"));
 				}
-				print ' / '.price($soc->outstanding_limit, 0, $langs, 0, 0, -1, $conf->currency);
+				print ' / '.price($soc->outstanding_limit, 0, $langs, 0, 0, -1, $config->currency);
 			}
 			print '</td>';
 			print '</tr>'."\n";
@@ -4295,7 +4295,7 @@ if ($action == 'create') {
 		// Code to fix case of corrupted data
 		// TODO We should not need this. Also data comes from a not reliable value of $object->multicurrency_total_ttc that may be wrong if it was
 		// calculated by summing lines that were in a currency for some of them and into another for others (lines from discount/down payment into another currency for example)
-		if ($resteapayer == 0 && $multicurrency_resteapayer != 0 && $object->multicurrency_code != $conf->currency) {
+		if ($resteapayer == 0 && $multicurrency_resteapayer != 0 && $object->multicurrency_code != $config->currency) {
 			$resteapayer = price2num((float) $multicurrency_resteapayer / $object->multicurrency_tx, 'MT');
 		}
 	}
@@ -4366,7 +4366,7 @@ if ($action == 'create') {
 				$formproduct = new FormProduct($db);
 				$label = $object->type == Facture::TYPE_CREDIT_NOTE ? $langs->trans("SelectWarehouseForStockDecrease") : $langs->trans("SelectWarehouseForStockIncrease");
 				$forcecombo = 0;
-				if ($conf->browser->name == 'ie') {
+				if ($config->browser->name == 'ie') {
 					$forcecombo = 1; // There is a bug in IE10 that make combo inside popup crazy
 				}
 				$formquestion = array(
@@ -4557,11 +4557,11 @@ if ($action == 'create') {
 		$i++;
 		// Texte
 		$i = 0;
-		$close[$i]['reason'] = $form->textwithpicto($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonDiscount", $resteapayer, $langs->trans("Currency".$conf->currency)), $close[$i]['label'], 1);
+		$close[$i]['reason'] = $form->textwithpicto($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonDiscount", $resteapayer, $langs->trans("Currency".$config->currency)), $close[$i]['label'], 1);
 		$i++;
-		$close[$i]['reason'] = $form->textwithpicto($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonBadCustomer", $resteapayer, $langs->trans("Currency".$conf->currency)), $close[$i]['label'], 1);
+		$close[$i]['reason'] = $form->textwithpicto($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonBadCustomer", $resteapayer, $langs->trans("Currency".$config->currency)), $close[$i]['label'], 1);
 		$i++;
-		$close[$i]['reason'] = $form->textwithpicto($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonBankCharge", $resteapayer, $langs->trans("Currency".$conf->currency)), $close[$i]['label'], 1);
+		$close[$i]['reason'] = $form->textwithpicto($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonBankCharge", $resteapayer, $langs->trans("Currency".$config->currency)), $close[$i]['label'], 1);
 		$i++;
 		$close[$i]['reason'] = $form->textwithpicto($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonWithholdingTax"), $close[$i]['label'], 1);
 		$i++;
@@ -5071,8 +5071,8 @@ if ($action == 'create') {
 		print '<tr>';
 		// Amount HT
 		print '<td class="titlefieldmiddle">' . $langs->trans('AmountHT') . '</td>';
-		print '<td class="nowrap amountcard right">' . price($sign * $object->total_ht, 0, $langs, 0, -1, -1, $conf->currency) . '</td>';
-		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+		print '<td class="nowrap amountcard right">' . price($sign * $object->total_ht, 0, $langs, 0, -1, -1, $config->currency) . '</td>';
+		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 			// Multicurrency Amount HT
 			print '<td class="nowrap amountcard right">' . price($sign * $object->multicurrency_total_ht, 0, $langs, 0, -1, -1, $object->multicurrency_code) . '</td>';
 		}
@@ -5081,8 +5081,8 @@ if ($action == 'create') {
 		print '<tr>';
 		// Amount VAT
 		print '<td>' . $langs->trans('AmountVAT') . '</td>';
-		print '<td class="nowrap amountcard right">' . price($sign * $object->total_tva, 0, $langs, 0, -1, -1, $conf->currency) . '</td>';
-		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+		print '<td class="nowrap amountcard right">' . price($sign * $object->total_tva, 0, $langs, 0, -1, -1, $config->currency) . '</td>';
+		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 			// Multicurrency Amount VAT
 			print '<td class="nowrap amountcard right">' . price($sign * $object->multicurrency_total_tva, 0, $langs, 0, -1, -1, $object->multicurrency_code) . '</td>';
 		}
@@ -5092,8 +5092,8 @@ if ($action == 'create') {
 		if (($mysoc->localtax1_assuj == "1" && $mysoc->useLocalTax(1)) || $object->total_localtax1 != 0) {
 			print '<tr>';
 			print '<td class="titlefieldmiddle">' . $langs->transcountry("AmountLT1", $mysoc->country_code) . '</td>';
-			print '<td class="nowrap amountcard right">' . price($sign * $object->total_localtax1, 0, $langs, 0, -1, -1, $conf->currency) . '</td>';
-			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+			print '<td class="nowrap amountcard right">' . price($sign * $object->total_localtax1, 0, $langs, 0, -1, -1, $config->currency) . '</td>';
+			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 				$object->multicurrency_total_localtax1 = (float) price2num($object->total_localtax1 * $object->multicurrency_tx, 'MT');
 
 				print '<td class="nowrap amountcard right">' . price($sign * $object->multicurrency_total_localtax1, 0, $langs, 0, -1, -1, $object->multicurrency_code) . '</td>';
@@ -5104,8 +5104,8 @@ if ($action == 'create') {
 		if (($mysoc->localtax2_assuj == "1" && $mysoc->useLocalTax(2)) || $object->total_localtax2 != 0) {
 			print '<tr>';
 			print '<td>' . $langs->transcountry("AmountLT2", $mysoc->country_code) . '</td>';
-			print '<td class="nowrap amountcard right">' . price($sign * $object->total_localtax2, 0, $langs, 0, -1, -1, $conf->currency) . '</td>';
-			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+			print '<td class="nowrap amountcard right">' . price($sign * $object->total_localtax2, 0, $langs, 0, -1, -1, $config->currency) . '</td>';
+			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 				$object->multicurrency_total_localtax2 = (float) price2num($object->total_localtax2 * $object->multicurrency_tx, 'MT');
 
 				print '<td class="nowrap amountcard right">' . price($sign * $object->multicurrency_total_localtax2, 0, $langs, 0, -1, -1, $object->multicurrency_code) . '</td>';
@@ -5161,7 +5161,7 @@ if ($action == 'create') {
 					}
 				</script>";
 			} else {
-				print price($object->revenuestamp, 1, '', 1, -1, -1, $conf->currency);
+				print price($object->revenuestamp, 1, '', 1, -1, -1, $config->currency);
 			}
 			print '</td></tr>';
 		}
@@ -5169,8 +5169,8 @@ if ($action == 'create') {
 		print '<tr>';
 		// Amount TTC
 		print '<td>' . $langs->trans('AmountTTC') . '</td>';
-		print '<td class="nowrap amountcard right">' . price($sign * $object->total_ttc, 0, $langs, 0, -1, -1, $conf->currency) . '</td>';
-		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+		print '<td class="nowrap amountcard right">' . price($sign * $object->total_ttc, 0, $langs, 0, -1, -1, $config->currency) . '</td>';
+		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 			// Multicurrency Amount TTC
 			print '<td class="nowrap amountcard right">' . price($sign * $object->multicurrency_total_ttc, 0, $langs, 0, -1, -1, $object->multicurrency_code) . '</td>';
 		}
@@ -5577,7 +5577,7 @@ if ($action == 'create') {
 			print '<td class="right'.($resteapayeraffiche ? ' amountremaintopay' : (' '.$cssforamountpaymentcomplete)).'">'.price($resteapayeraffiche).'</td><td>&nbsp;</td></tr>';
 
 			// Remainder to pay Multicurrency
-			if ($object->multicurrency_code != $conf->currency || $object->multicurrency_tx != 1) {
+			if ($object->multicurrency_code != $config->currency || $object->multicurrency_tx != 1) {
 				print '<tr><td colspan="'.$nbcols.'" class="right">';
 				print '<span class="opacitymedium">';
 				print $langs->trans('RemainderToPayMulticurrency');
@@ -5587,8 +5587,8 @@ if ($action == 'create') {
 				print '</span>';
 				print '</td>';
 				print '<td class="right'.($resteapayeraffiche ? ' amountremaintopay' : (' '.$cssforamountpaymentcomplete)).'">';
-				//print (empty($object->multicurrency_code) ? $conf->currency : $object->multicurrency_code).' ';
-				print price(price2num($object->multicurrency_tx * $resteapayeraffiche, 'MT'), 1, $langs, 1, -1, -1, (empty($object->multicurrency_code) ? $conf->currency : $object->multicurrency_code)).'</td><td>&nbsp;</td></tr>';
+				//print (empty($object->multicurrency_code) ? $config->currency : $object->multicurrency_code).' ';
+				print price(price2num($object->multicurrency_tx * $resteapayeraffiche, 'MT'), 1, $langs, 1, -1, -1, (empty($object->multicurrency_code) ? $config->currency : $object->multicurrency_code)).'</td><td>&nbsp;</td></tr>';
 			}
 
 			// Retained warranty : usually use on construction industry
@@ -5634,7 +5634,7 @@ if ($action == 'create') {
 			print '<td class="nowrap">&nbsp;</td></tr>';
 
 			// Remainder to pay back Multicurrency
-			if ($object->multicurrency_code != $conf->currency || $object->multicurrency_tx != 1) {
+			if ($object->multicurrency_code != $config->currency || $object->multicurrency_tx != 1) {
 				print '<tr><td colspan="'.$nbcols.'" class="right">';
 				print '<span class="opacitymedium">'.$langs->trans('RemainderToPayBackMulticurrency');
 				if ($resteapayeraffiche > 0) {
@@ -5642,7 +5642,7 @@ if ($action == 'create') {
 				}
 				print '</span>';
 				print '</td>';
-				print '<td class="right'.($resteapayeraffiche ? ' amountremaintopayback' : (' '.$cssforamountpaymentcomplete)).'">'.(!empty($object->multicurrency_code) ? $object->multicurrency_code : $conf->currency).' '.price(price2num($sign * $object->multicurrency_tx * $resteapayeraffiche, 'MT')).'</td><td>&nbsp;</td></tr>';
+				print '<td class="right'.($resteapayeraffiche ? ' amountremaintopayback' : (' '.$cssforamountpaymentcomplete)).'">'.(!empty($object->multicurrency_code) ? $object->multicurrency_code : $config->currency).' '.price(price2num($sign * $object->multicurrency_tx * $resteapayeraffiche, 'MT')).'</td><td>&nbsp;</td></tr>';
 			}
 
 			// Sold credit note
@@ -5736,7 +5736,7 @@ if ($action == 'create') {
 		<input type="hidden" name="backtopage" value="'.$backtopage.'">
 		';
 
-		if (!empty($conf->use_javascript_ajax) && $object->status == 0) {
+		if (!empty($config->use_javascript_ajax) && $object->status == 0) {
 			include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 		}
 
@@ -5933,20 +5933,20 @@ if ($action == 'create') {
 
 				// For standard invoice with excess received
 				if (($object->type == Facture::TYPE_STANDARD || $object->type == Facture::TYPE_SITUATION) && $object->status == Facture::STATUS_VALIDATED && empty($object->paye) && $resteapayer < 0 && $usercancreate && empty($discount->id)) {
-					print '<a class="butAction'.($conf->use_javascript_ajax ? ' reposition' : '').'" href="'.$_SERVER["PHP_SELF"].'?facid='.$object->id.'&action=converttoreduc&token='.newToken().'">'.$langs->trans('ConvertExcessReceivedToReduc').'</a>';
+					print '<a class="butAction'.($config->use_javascript_ajax ? ' reposition' : '').'" href="'.$_SERVER["PHP_SELF"].'?facid='.$object->id.'&action=converttoreduc&token='.newToken().'">'.$langs->trans('ConvertExcessReceivedToReduc').'</a>';
 				}
 				// For credit note
 				if ($object->type == Facture::TYPE_CREDIT_NOTE && $object->status == Facture::STATUS_VALIDATED && $object->paye == 0 && $usercancreate
 					&& (getDolGlobalString('INVOICE_ALLOW_REUSE_OF_CREDIT_WHEN_PARTIALLY_REFUNDED') || $sumofpayment == 0) && $object->total_ht < 0
 				) {
-					print '<a class="butAction classfortooltip'.($conf->use_javascript_ajax ? ' reposition' : '').'" href="'.$_SERVER["PHP_SELF"].'?facid='.$object->id.'&action=converttoreduc&token='.newToken().'" title="'.dol_escape_htmltag($langs->trans("ConfirmConvertToReduc2")).'">'.$langs->trans('ConvertToReduc').'</a>';
+					print '<a class="butAction classfortooltip'.($config->use_javascript_ajax ? ' reposition' : '').'" href="'.$_SERVER["PHP_SELF"].'?facid='.$object->id.'&action=converttoreduc&token='.newToken().'" title="'.dol_escape_htmltag($langs->trans("ConfirmConvertToReduc2")).'">'.$langs->trans('ConvertToReduc').'</a>';
 				}
 				// For down payment invoice (deposit)
 
 				if ($object->type == Facture::TYPE_DEPOSIT && $usercancreate && $object->status > Facture::STATUS_DRAFT && empty($discount->id)) {
 					// We can close a down payment only if paid amount is same than amount of down payment (by definition). We can bypass this if hidden and unstable option DEPOSIT_AS_CREDIT_AVAILABLE_EVEN_UNPAID is set.
 					if (price2num($object->total_ttc, 'MT') == price2num($sumofpaymentall, 'MT') || getDolGlobalInt('DEPOSIT_AS_CREDIT_AVAILABLE_EVEN_UNPAID') || ($object->type == Facture::STATUS_ABANDONED && in_array($object->close_code, array('bankcharge', 'discount_vat', 'other')))) {
-						print '<a class="butAction'.($conf->use_javascript_ajax ? ' reposition' : '').'" href="'.$_SERVER["PHP_SELF"].'?facid='.$object->id.'&action=converttoreduc&token='.newToken().'">'.$langs->trans('ConvertToReduc').'</a>';
+						print '<a class="butAction'.($config->use_javascript_ajax ? ' reposition' : '').'" href="'.$_SERVER["PHP_SELF"].'?facid='.$object->id.'&action=converttoreduc&token='.newToken().'">'.$langs->trans('ConvertToReduc').'</a>';
 					} else {
 						print '<span class="butActionRefused classfortooltip" title="'.$langs->trans("AmountPaidMustMatchAmountOfDownPayment").'">'.$langs->trans('ConvertToReduc').'</span>';
 					}
@@ -5974,13 +5974,13 @@ if ($action == 'create') {
 			if ($object->status == Facture::STATUS_VALIDATED && $object->paye == 0 && $resteapayer > 0 && (!getDolGlobalString('INVOICE_CAN_SET_PAID_EVEN_IF_PARTIALLY_PAID') || $resteapayer != $object->total_ttc) && $usercanissuepayment) {
 				if ($totalpaid > 0 || $totalcreditnotes > 0) {
 					// If one payment or one credit note was linked to this invoice
-					print '<a class="butAction'.($conf->use_javascript_ajax ? ' reposition' : '').'" href="'.$_SERVER['PHP_SELF'].'?facid='.$object->id.'&action=paid&token='.newToken().'">'.$langs->trans('ClassifyPaidPartially').'</a>';
+					print '<a class="butAction'.($config->use_javascript_ajax ? ' reposition' : '').'" href="'.$_SERVER['PHP_SELF'].'?facid='.$object->id.'&action=paid&token='.newToken().'">'.$langs->trans('ClassifyPaidPartially').'</a>';
 				} else {
 					if (!getDolGlobalString('INVOICE_CAN_NEVER_BE_CANCELED')) {
 						if ($objectidnext) {
 							print '<span class="butActionRefused classfortooltip" title="'.$langs->trans("DisabledBecauseReplacedInvoice").'">'.$langs->trans('ClassifyCanceled').'</span>';
 						} else {
-							print '<a class="butAction'.($conf->use_javascript_ajax ? ' reposition' : '').'" href="'.$_SERVER['PHP_SELF'].'?facid='.$object->id.'&action=canceled">'.$langs->trans('ClassifyCanceled').'</a>';
+							print '<a class="butAction'.($config->use_javascript_ajax ? ' reposition' : '').'" href="'.$_SERVER['PHP_SELF'].'?facid='.$object->id.'&action=canceled">'.$langs->trans('ClassifyCanceled').'</a>';
 						}
 					}
 				}
@@ -6093,7 +6093,7 @@ if ($action == 'create') {
 
 		// Generated documents
 		$filename = dol_sanitizeFileName($object->ref);
-		$filedir = $conf->invoice->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
+		$filedir = $config->invoice->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
 		$urlsource = $_SERVER['PHP_SELF'].'?facid='.$object->id;
 		$genallowed = $usercanread;
 		$delallowed = $usercancreate;
@@ -6170,7 +6170,7 @@ if ($action == 'create') {
 	// Presend form
 	$modelmail = 'facture_send';
 	$defaulttopic = 'SendBillRef';
-	$diroutput = $conf->invoice->multidir_output[$object->entity];
+	$diroutput = $config->invoice->multidir_output[$object->entity];
 	$trackid = 'inv'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

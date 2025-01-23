@@ -145,7 +145,7 @@ class pdf_merou extends ModelePdfExpedition
 		// Load traductions files required by page
 		$outputlangs->loadLangs(array("main", "bills", "products", "dict", "companies", "propal", "deliveries", "sendings", "productbatch"));
 
-		if ($conf->expedition->dir_output) {
+		if ($config->expedition->dir_output) {
 			$object->fetch_thirdparty();
 
 			$origin = $object->origin;
@@ -171,11 +171,11 @@ class pdf_merou extends ModelePdfExpedition
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->expedition->dir_output."/sending";
+				$dir = $config->expedition->dir_output."/sending";
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$expref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->expedition->dir_output."/sending/".$expref;
+				$dir = $config->expedition->dir_output."/sending/".$expref;
 				$file = $dir."/".$expref.".pdf";
 			}
 
@@ -216,7 +216,7 @@ class pdf_merou extends ModelePdfExpedition
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
+					$pagecount = $pdf->setSourceFile($config->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -498,7 +498,7 @@ class pdf_merou extends ModelePdfExpedition
 
 		//Affiche le filigrane brouillon - Print Draft Watermark
 		if ($object->statut == 0 && (getDolGlobalString('SENDING_DRAFT_WATERMARK'))) {
-			pdf_watermark($pdf, $outputlangs, $this->page_hauteur, $this->page_largeur, 'mm', $conf->global->SENDING_DRAFT_WATERMARK);
+			pdf_watermark($pdf, $outputlangs, $this->page_hauteur, $this->page_largeur, 'mm', $config->global->SENDING_DRAFT_WATERMARK);
 		}
 
 		$posy = $this->marge_haute;
@@ -515,9 +515,9 @@ class pdf_merou extends ModelePdfExpedition
 		//*********************LOGO****************************
 		$pdf->SetXY(11, 7);
 		if ($this->emetteur->logo) {
-			$logodir = $conf->mycompany->dir_output;
-			if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-				$logodir = $conf->mycompany->multidir_output[$object->entity];
+			$logodir = $config->mycompany->dir_output;
+			if (!empty($config->mycompany->multidir_output[$object->entity])) {
+				$logodir = $config->mycompany->multidir_output[$object->entity];
 			}
 			if (!getDolGlobalInt('MAIN_PDF_USE_LARGE_LOGO')) {
 				$logo = $logodir.'/logos/thumbs/'.$this->emetteur->logo_small;
@@ -650,7 +650,7 @@ class pdf_merou extends ModelePdfExpedition
 		}
 
 		// Recipient name
-		if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
+		if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
 			$thirdparty = $object->contact;
 		} else {
 			$thirdparty = $object->thirdparty;

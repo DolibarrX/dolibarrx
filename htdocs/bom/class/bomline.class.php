@@ -360,7 +360,7 @@ class BOMLine extends CommonObjectLine
 	{
 		global $db, $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

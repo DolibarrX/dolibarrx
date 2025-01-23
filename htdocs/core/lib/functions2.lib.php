@@ -87,7 +87,7 @@ function dolGetModulesDirs($subdir = '')
 
 	$modulesdir = array();
 
-	foreach ($conf->file->dol_document_root as $type => $dirroot) {
+	foreach ($config->file->dol_document_root as $type => $dirroot) {
 		// Default core/modules dir
 		if ($type === 'main') {
 			$modulesdir[$dirroot.'/core/modules'.$subdir.'/'] = $dirroot.'/core/modules'.$subdir.'/';
@@ -1776,7 +1776,7 @@ function dol_set_user_param($db, $conf, &$user, $tab)
 	// We remove old parameters for all keys in $tab
 	$sql = "DELETE FROM ".MAIN_DB_PREFIX."user_param";
 	$sql .= " WHERE fk_user = ".((int) $user->id);
-	$sql .= " AND entity = ".((int) $conf->entity);
+	$sql .= " AND entity = ".((int) $config->entity);
 	$sql .= " AND param in (";
 	$i = 0;
 	foreach ($tab as $key => $value) {
@@ -1807,7 +1807,7 @@ function dol_set_user_param($db, $conf, &$user, $tab)
 		}
 		if ($forcevalue == 1 || $value) {
 			$sql = "INSERT INTO ".MAIN_DB_PREFIX."user_param(fk_user,entity,param,value)";
-			$sql .= " VALUES (".((int) $user->id).",".((int) $conf->entity).",";
+			$sql .= " VALUES (".((int) $user->id).",".((int) $config->entity).",";
 			$sql .= " '".$db->escape($key)."','".$db->escape($value)."')";
 
 			dol_syslog("functions2.lib::dol_set_user_param", LOG_DEBUG);
@@ -1928,7 +1928,7 @@ function getListOfModels($db, $type, $maxfilenamelength = 0)
 	$sql = "SELECT nom as id, nom as doc_template_name, libelle as label, description as description";
 	$sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 	$sql .= " WHERE type = '".$db->escape($type)."'";
-	$sql .= " AND entity IN (0,".$conf->entity.")";
+	$sql .= " AND entity IN (0,".$config->entity.")";
 	$sql .= " ORDER BY description DESC";
 
 	dol_syslog('/core/lib/function2.lib.php::getListOfModels', LOG_DEBUG);
@@ -2039,7 +2039,7 @@ function is_ip($ip)
  */
 function dol_buildlogin($lastname, $firstname)
 {
-	//$conf->global->MAIN_BUILD_LOGIN_RULE = 'f.lastname';
+	//$config->global->MAIN_BUILD_LOGIN_RULE = 'f.lastname';
 	$charforseparator = getDolGlobalString("MAIN_USER_SEPARATOR_CHAR_FOR_GENERATED_LOGIN", '.');
 	if ($charforseparator == 'none') {
 		$charforseparator = '';
@@ -2073,10 +2073,10 @@ function getSoapParams()
 
 	$params = array();
 	$proxyuse = getDolGlobalString('MAIN_PROXY_USE');
-	$proxyhost = (!$proxyuse ? false : $conf->global->MAIN_PROXY_HOST);
-	$proxyport = (!$proxyuse ? false : $conf->global->MAIN_PROXY_PORT);
-	$proxyuser = (!$proxyuse ? false : $conf->global->MAIN_PROXY_USER);
-	$proxypass = (!$proxyuse ? false : $conf->global->MAIN_PROXY_PASS);
+	$proxyhost = (!$proxyuse ? false : $config->global->MAIN_PROXY_HOST);
+	$proxyport = (!$proxyuse ? false : $config->global->MAIN_PROXY_PORT);
+	$proxyuser = (!$proxyuse ? false : $config->global->MAIN_PROXY_USER);
+	$proxypass = (!$proxyuse ? false : $config->global->MAIN_PROXY_PASS);
 	$timeout = getDolGlobalInt('MAIN_USE_CONNECT_TIMEOUT', 10); // Connection timeout
 	$response_timeout = getDolGlobalInt('MAIN_USE_RESPONSE_TIMEOUT', 30); // Response timeout
 	//print extension_loaded('soap');
@@ -2815,11 +2815,11 @@ function price2fec($amount)
 	$amount = (is_numeric($amount) ? $amount : 0); // Check if amount is numeric, for example, an error occurred when amount value = o (letter) instead 0 (number)
 
 	// Output decimal number by default
-	$nbdecimal = (!getDolGlobalString('ACCOUNTING_FEC_DECIMAL_LENGTH') ? 2 : $conf->global->ACCOUNTING_FEC_DECIMAL_LENGTH);
+	$nbdecimal = (!getDolGlobalString('ACCOUNTING_FEC_DECIMAL_LENGTH') ? 2 : $config->global->ACCOUNTING_FEC_DECIMAL_LENGTH);
 
 	// Output separators by default
-	$dec = (!getDolGlobalString('ACCOUNTING_FEC_DECIMAL_SEPARATOR') ? ',' : $conf->global->ACCOUNTING_FEC_DECIMAL_SEPARATOR);
-	$thousand = (!getDolGlobalString('ACCOUNTING_FEC_THOUSAND_SEPARATOR') ? '' : $conf->global->ACCOUNTING_FEC_THOUSAND_SEPARATOR);
+	$dec = (!getDolGlobalString('ACCOUNTING_FEC_DECIMAL_SEPARATOR') ? ',' : $config->global->ACCOUNTING_FEC_DECIMAL_SEPARATOR);
+	$thousand = (!getDolGlobalString('ACCOUNTING_FEC_THOUSAND_SEPARATOR') ? '' : $config->global->ACCOUNTING_FEC_THOUSAND_SEPARATOR);
 
 	// Format number
 	$output = number_format($amount, $nbdecimal, $dec, $thousand);

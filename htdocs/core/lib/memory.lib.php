@@ -161,7 +161,7 @@ function dol_setcache($memoryid, $data, $expire = 0, $filecache = 0, $replace = 
 		}
 	} else {
 		// No intersession cache system available, we use at least the perpage cache
-		$conf->cache['cachememory_'.$memoryid] = $data;
+		$config->cache['cachememory_'.$memoryid] = $data;
 		$result = is_array($data) ? count($data) : (is_scalar($data) ? strlen($data) : 0);
 	}
 
@@ -266,8 +266,8 @@ function dol_getcache($memoryid, $filecache = 0)
 		return null;
 	} else {
 		// No intersession cache system available, we use at least the perpage cache
-		if (isset($conf->cache['cachememory_'.$memoryid])) {
-			return $conf->cache['cachememory_'.$memoryid];
+		if (isset($config->cache['cachememory_'.$memoryid])) {
+			return $config->cache['cachememory_'.$memoryid];
 		}
 	}
 

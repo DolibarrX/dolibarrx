@@ -190,7 +190,7 @@ if ($object->id > 0) {
 
 
 	// Contacts lines (modules that overwrite templates must declare this into descriptor)
-	$dirtpls = array_merge($conf->modules_parts['tpl'], array('/core/tpl'));
+	$dirtpls = array_merge($config->modules_parts['tpl'], array('/core/tpl'));
 	foreach ($dirtpls as $reldir) {
 		$res = @include dol_buildpath($reldir.'/contacts.tpl.php');
 		if ($res) {

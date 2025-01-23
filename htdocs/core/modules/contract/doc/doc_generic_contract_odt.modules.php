@@ -121,7 +121,7 @@ class doc_generic_contract_odt extends ModelePDFContract
 		// List of directories area
 		$texte .= '<tr><td>';
 		$texttitle = $langs->trans("ListOfDirectories");
-		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($conf->global->CONTRACT_ADDON_PDF_ODT_PATH)));
+		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($config->global->CONTRACT_ADDON_PDF_ODT_PATH)));
 		$listoffiles = array();
 		foreach ($listofdir as $key => $tmpdir) {
 			$tmpdir = trim($tmpdir);
@@ -235,7 +235,7 @@ class doc_generic_contract_odt extends ModelePDFContract
 		// Load translation files required by page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills", "deliveries"));
 
-		if ($conf->contract->multidir_output[$object->entity]) {
+		if ($config->contract->multidir_output[$object->entity]) {
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
@@ -249,7 +249,7 @@ class doc_generic_contract_odt extends ModelePDFContract
 
 			$object->fetch_thirdparty();
 
-			$dir = $conf->contract->multidir_output[$object->entity];
+			$dir = $config->contract->multidir_output[$object->entity];
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -287,11 +287,11 @@ class doc_generic_contract_odt extends ModelePDFContract
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->contrat->dir_temp=".$conf->contrat->dir_temp;
+				//print "conf->contrat->dir_temp=".$config->contrat->dir_temp;
 
-				dol_mkdir($conf->contract->dir_temp);
-				if (!is_writable($conf->contract->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->contrat->dir_temp);
+				dol_mkdir($config->contract->dir_temp);
+				if (!is_writable($config->contract->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->contrat->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -308,7 +308,7 @@ class doc_generic_contract_odt extends ModelePDFContract
 				$contactobject = null;
 				if (!empty($usecontact)) {
 					// We can use the company of contact instead of thirdparty company
-					if ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
+					if ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
 						$object->contact->fetch_thirdparty();
 						$socobject = $object->contact->thirdparty;
 						$contactobject = $object->contact;
@@ -361,7 +361,7 @@ class doc_generic_contract_odt extends ModelePDFContract
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $conf->contrat->dir_temp,
+							'PATH_TO_TMP'	  => $config->contrat->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'

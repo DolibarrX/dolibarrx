@@ -106,7 +106,7 @@ $action = GETPOST('action', 'aZ09');
 $suffix = GETPOST("suffix", 'aZ09');
 $amount = price2num(GETPOST("amount", 'alpha'));
 if (!GETPOST("currency", 'alpha')) {
-	$currency = $conf->currency;
+	$currency = $config->currency;
 } else {
 	$currency = GETPOST("currency", 'aZ09');
 }
@@ -359,10 +359,10 @@ if (getDolGlobalString('PAYMENT_SECURITY_TOKEN')) {
 				$tokenisok = dol_verifyHash(getDolGlobalString('PAYMENT_SECURITY_TOKEN') . $source.$REF, $SECUREKEY, '2');
 			}
 		} else {
-			$tokenisok = dol_verifyHash($conf->global->PAYMENT_SECURITY_TOKEN, $SECUREKEY, '2');
+			$tokenisok = dol_verifyHash($config->global->PAYMENT_SECURITY_TOKEN, $SECUREKEY, '2');
 		}
 	} else {
-		$tokenisok = ($conf->global->PAYMENT_SECURITY_TOKEN == $SECUREKEY);
+		$tokenisok = ($config->global->PAYMENT_SECURITY_TOKEN == $SECUREKEY);
 	}
 
 	if (! $tokenisok) {
@@ -514,7 +514,7 @@ if ($action == 'dopayment') {	// Test on permission not required here (anonymous
 			dol_syslog("newpayment.php call paybox api and do redirect", LOG_DEBUG);
 
 			include_once DOL_DOCUMENT_ROOT.'/paybox/lib/paybox.lib.php';
-			print_paybox_redirect((float) $PRICE, $conf->currency, $email, $urlok, $urlko, $FULLTAG);
+			print_paybox_redirect((float) $PRICE, $config->currency, $email, $urlok, $urlko, $FULLTAG);
 
 			session_destroy();
 			exit;
@@ -571,7 +571,7 @@ if ($action == 'charge' && isModEnabled('stripe')) {	// Test on permission not r
 		try {
 			$metadata = array(
 				'dol_version' => DOL_VERSION,
-				'dol_entity'  => $conf->entity,
+				'dol_entity'  => $config->entity,
 				'dol_company' => $mysoc->name, // Useful when using multicompany
 				'dol_tax_num' => $vatnumber,
 				'ipaddress' => getUserRemoteIP()
@@ -792,7 +792,7 @@ if ($action == 'charge' && isModEnabled('stripe')) {	// Test on permission not r
 		$stripe = new Stripe($db);
 		$stripeacc = $stripe->getStripeAccount($service);
 
-		// We go here if $conf->global->STRIPE_USE_INTENT_WITH_AUTOMATIC_CONFIRMATION is set.
+		// We go here if $config->global->STRIPE_USE_INTENT_WITH_AUTOMATIC_CONFIRMATION is set.
 		// In such a case, payment is always ok when we call the "charge" action.
 		$paymentintent_id = GETPOST("paymentintent_id", "alpha");
 
@@ -895,10 +895,10 @@ if (getDolGlobalString('ONLINE_PAYMENT_CSS_URL')) {
 	$head = '<link rel="stylesheet" type="text/css" href="' . getDolGlobalString('ONLINE_PAYMENT_CSS_URL').'?lang='.(!empty($getpostlang) ? $getpostlang : $langs->defaultlang).'">'."\n";
 }
 
-$conf->dol_hide_topmenu = 1;
-$conf->dol_hide_leftmenu = 1;
+$config->dol_hide_topmenu = 1;
+$config->dol_hide_leftmenu = 1;
 
-$replacemainarea = (empty($conf->dol_hide_leftmenu) ? '<div>' : '').'<div>';
+$replacemainarea = (empty($config->dol_hide_leftmenu) ? '<div>' : '').'<div>';
 llxHeader($head, $langs->trans("PaymentForm"), '', '', 0, 0, '', '', '', 'onlinepaymentbody', $replacemainarea);
 
 dol_syslog("newpayment.php show page source=".$source." paymentmethod=".$paymentmethod.' amount='.$amount.' newamount='.GETPOST("newamount", 'alpha')." ref=".$ref, LOG_DEBUG, 0, '_payment');
@@ -954,12 +954,12 @@ if (getDolGlobalString($paramlogo)) {
 // Define urllogo
 $urllogo = '';
 $urllogofull = '';
-if (!empty($logosmall) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$logosmall)) {
-	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$conf->entity.'&amp;file='.urlencode('logos/thumbs/'.$logosmall);
-	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$conf->entity.'&file='.urlencode('logos/thumbs/'.$logosmall);
-} elseif (!empty($logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$logo)) {
-	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$conf->entity.'&amp;file='.urlencode('logos/'.$logo);
-	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$conf->entity.'&file='.urlencode('logos/'.$logo);
+if (!empty($logosmall) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$logosmall)) {
+	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$config->entity.'&amp;file='.urlencode('logos/thumbs/'.$logosmall);
+	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$config->entity.'&file='.urlencode('logos/thumbs/'.$logosmall);
+} elseif (!empty($logo) && is_readable($config->mycompany->dir_output.'/logos/'.$logo)) {
+	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$config->entity.'&amp;file='.urlencode('logos/'.$logo);
+	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$config->entity.'&file='.urlencode('logos/'.$logo);
 }
 
 // Output html code for logo
@@ -1013,7 +1013,7 @@ print '<table id="dolpublictable" summary="Payment form" class="center">'."\n";
 $text = '';
 if (getDolGlobalString('PAYMENT_NEWFORM_TEXT')) {
 	$langs->load("members");
-	if (preg_match('/^\((.*)\)$/', $conf->global->PAYMENT_NEWFORM_TEXT, $reg)) {
+	if (preg_match('/^\((.*)\)$/', $config->global->PAYMENT_NEWFORM_TEXT, $reg)) {
 		$text .= $langs->trans($reg[1])."<br>\n";
 	} else {
 		$text .= getDolGlobalString('PAYMENT_NEWFORM_TEXT') . "<br>\n";
@@ -2244,7 +2244,7 @@ if ($action != 'dopayment') {
 
 			if ((empty($paymentmethod) || $paymentmethod == 'paypal') && isModEnabled('paypal')) {
 				if (!getDolGlobalString('PAYPAL_API_INTEGRAL_OR_PAYPALONLY')) {
-					$conf->global->PAYPAL_API_INTEGRAL_OR_PAYPALONLY = 'integral';
+					$config->global->PAYPAL_API_INTEGRAL_OR_PAYPALONLY = 'integral';
 				}
 
 				$showbutton = 1;
@@ -2397,8 +2397,8 @@ if (preg_match('/^dopayment/', $action)) {			// If we chose/clicked on the payme
 		}
 
 		// Note:
-		// $conf->global->STRIPE_USE_INTENT_WITH_AUTOMATIC_CONFIRMATION = 1 = use intent object (default value, suggest card payment mode only)
-		// $conf->global->STRIPE_USE_INTENT_WITH_AUTOMATIC_CONFIRMATION = 2 = use payment object (suggest both card payment mode but also sepa, ...)
+		// $config->global->STRIPE_USE_INTENT_WITH_AUTOMATIC_CONFIRMATION = 1 = use intent object (default value, suggest card payment mode only)
+		// $config->global->STRIPE_USE_INTENT_WITH_AUTOMATIC_CONFIRMATION = 2 = use payment object (suggest both card payment mode but also sepa, ...)
 
 		print '
 		<table id="dolpaymenttable" summary="Payment form" class="center centpercent">
@@ -2431,7 +2431,7 @@ if (preg_match('/^dopayment/', $action)) {			// If we chose/clicked on the payme
 
 		print '<br>';
 		print '<button class="button buttonpayment" style="text-align: center; padding-left: 0; padding-right: 0;" id="buttontopay" data-secret="'.(is_object($paymentintent) ? $paymentintent->client_secret : '').'">'.$langs->trans("ValidatePayment").'</button>';
-		print '<img id="hourglasstopay" class="hidden" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/working.gif">';
+		print '<img id="hourglasstopay" class="hidden" src="'.DOL_URL_ROOT.'/theme/'.$config->theme.'/img/working.gif">';
 
 		print '</td></tr></tbody>';
 		print '</table>';
@@ -2472,7 +2472,7 @@ if (preg_match('/^dopayment/', $action)) {			// If we chose/clicked on the payme
 				}
 
 				$ipaddress = getUserRemoteIP();
-				$metadata = array('dol_version' => DOL_VERSION, 'dol_entity' => $conf->entity, 'ipaddress' => $ipaddress);
+				$metadata = array('dol_version' => DOL_VERSION, 'dol_entity' => $config->entity, 'ipaddress' => $ipaddress);
 				if (is_object($object)) {
 					$metadata['dol_type'] = $object->element;
 					$metadata['dol_id'] = $object->id;

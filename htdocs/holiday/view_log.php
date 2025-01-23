@@ -72,7 +72,7 @@ $search_prev_solde  = GETPOST('search_prev_solde', 'alphanohtml');
 $search_new_solde   = GETPOST('search_new_solde', 'alphanohtml');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -92,7 +92,7 @@ if (!$sortorder) {
 // Initialize a technical objects
 $object = new Holiday($db);
 $extrafields = new ExtraFields($db);
-//$diroutputmassaction = $conf->mymodule->dir_output . '/temp/massgeneration/'.$user->id;
+//$diroutputmassaction = $config->mymodule->dir_output . '/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('leavemovementlist')); // Note that conf->hooks_modules contains array
 
 $arrayfields = array();
@@ -159,7 +159,7 @@ if (empty($reshook)) {
 	$objectlabel='MyObject';
 	$permissiontoread = $user->rights->mymodule->read;
 	$permissiontodelete = $user->rights->mymodule->delete;
-	$uploaddir = $conf->mymodule->dir_output;
+	$uploaddir = $config->mymodule->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 	*/
 }
@@ -254,7 +254,7 @@ $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if (!empty($search_id)) {

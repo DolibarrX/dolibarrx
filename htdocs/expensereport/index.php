@@ -47,7 +47,7 @@ $langs->loadLangs(array('companies', 'users', 'trips'));
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
 $hookManager->initHooks(array('expensereportindex'));
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -63,7 +63,7 @@ if (!$sortorder) {
 if (!$sortfield) {
 	$sortfield = "d.tms";
 }
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 
 $max = getDolGlobalInt('MAIN_SIZE_SHORTLIST_LIMIT', 5);
 
@@ -166,14 +166,14 @@ if (count($dataseries) > ($KEEPNFIRST + 1)) {
 	}
 }
 
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print '<tr><td class="center" colspan="4">';
 
 	include_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
 	$dolgraph = new DolGraph();
 	$dolgraph->SetData($dataseries);
 	$dolgraph->setHeight(350);
-	$dolgraph->combine = !getDolGlobalString('MAIN_EXPENSEREPORT_COMBINE_GRAPH_STAT') ? 0.05 : $conf->global->MAIN_EXPENSEREPORT_COMBINE_GRAPH_STAT;
+	$dolgraph->combine = !getDolGlobalString('MAIN_EXPENSEREPORT_COMBINE_GRAPH_STAT') ? 0.05 : $config->global->MAIN_EXPENSEREPORT_COMBINE_GRAPH_STAT;
 	$dolgraph->setShowLegend(2);
 	$dolgraph->setShowPercent(1);
 	$dolgraph->SetType(array('pie'));
@@ -186,7 +186,7 @@ if ($conf->use_javascript_ajax) {
 
 print '<tr class="liste_total">';
 print '<td>'.$langs->trans("Total").'</td>';
-print '<td class="right" colspan="3">'.price($totalsum, 1, $langs, 0, 0, 0, $conf->currency).'</td>';
+print '<td class="right" colspan="3">'.price($totalsum, 1, $langs, 0, 0, 0, $config->currency).'</td>';
 print '</tr>';
 
 print '</table>';

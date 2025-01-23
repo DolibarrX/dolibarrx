@@ -57,7 +57,7 @@ $action = GETPOST('action', 'aZ09');
 $confirm = GETPOST('confirm', 'alpha');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -80,7 +80,7 @@ if ($id > 0) {
 	$object->fetch($id);
 }
 
-$upload_dir = $conf->tax->dir_output.'/'.dol_sanitizeFileName($object->ref);
+$upload_dir = $config->tax->dir_output.'/'.dol_sanitizeFileName($object->ref);
 $modulepart = 'tax';
 
 // Security check

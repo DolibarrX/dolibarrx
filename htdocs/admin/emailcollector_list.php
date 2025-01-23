@@ -61,7 +61,7 @@ $mode       = GETPOST('mode', 'aZ');
 $id = GETPOSTINT('id');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -78,7 +78,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new EmailCollector($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->emailcollector->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->emailcollector->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('emailcollectorlist')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -199,7 +199,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'EmailCollector';
 	$objectlabel = 'EmailCollector';
-	$uploaddir = $conf->emailcollector->dir_output;
+	$uploaddir = $config->emailcollector->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -344,7 +344,7 @@ $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 foreach ($search as $key => $val) {
@@ -716,11 +716,11 @@ print '<tr class="oddeven"><td>';
 print $langs->trans("MAIN_IMAP_USE_PHPIMAP");
 print '</td>';
 print '<td class="left">';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_IMAP_USE_PHPIMAP');
 } else {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-	print $form->selectarray("MAIN_IMAP_USE_PHPIMAP", $arrval, $conf->global->MAIN_IMAP_USE_PHPIMAP);
+	print $form->selectarray("MAIN_IMAP_USE_PHPIMAP", $arrval, $config->global->MAIN_IMAP_USE_PHPIMAP);
 }
 print '</td>';
 print '</tr>';
@@ -728,7 +728,7 @@ print '</tr>';
 // MAIN_EMAILCOLLECTOR_MAIL_WITHOUT_HEADER: Hide e-mail headers from collected messages
 print '<tr class="oddeven"><td>'.$form->textwithpicto($langs->trans("EmailCollectorHideMailHeaders"), $langs->transnoentitiesnoconv("EmailCollectorHideMailHeadersHelp")).'</td>';
 print '<td class="left">';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_EMAILCOLLECTOR_MAIL_WITHOUT_HEADER');
 } else {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));

@@ -70,7 +70,7 @@ class InterfaceStripe extends DolibarrTriggers
 		// Data and type of action are stored into $object and $action
 		global $langs, $db, $conf;
 
-		if (empty($conf->stripe) || empty($conf->stripe->enabled)) {
+		if (empty($config->stripe) || empty($config->stripe->enabled)) {
 			return 0;
 		}
 
@@ -229,7 +229,7 @@ class InterfaceStripe extends DolibarrTriggers
 						$card = $stripe->cardStripe($customer, $object, $stripeacc, $servicestatus);
 						if ($card) {
 							// @phpstan-ignore-next-line @phan-suppress-next-line PhanTypeMismatchPropertyProbablyReal
-							$card->metadata = array('dol_id' => $object->id, 'dol_version' => DOL_VERSION, 'dol_entity' => $conf->entity, 'ipaddress' => (empty($_SERVER['REMOTE_ADDR']) ? '' : $_SERVER['REMOTE_ADDR']));
+							$card->metadata = array('dol_id' => $object->id, 'dol_version' => DOL_VERSION, 'dol_entity' => $config->entity, 'ipaddress' => (empty($_SERVER['REMOTE_ADDR']) ? '' : $_SERVER['REMOTE_ADDR']));
 							try {
 								// @phan-suppress-next-line PhanDeprecatedFunction
 								$card->save();

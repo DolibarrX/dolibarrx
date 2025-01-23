@@ -51,7 +51,7 @@ $id = (GETPOSTINT('socid') ? GETPOSTINT('socid') : GETPOSTINT('id'));
 $ref = GETPOST('ref', 'alpha');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -72,7 +72,7 @@ if (!$sortfield) {
 // Initialize a technical objects
 $object = new Partnership($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->partnership->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->partnership->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('partnershipdocument', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -80,7 +80,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
 
-$upload_dir = $conf->partnership->multidir_output[$object->entity ?: $conf->entity]."/partnership/".get_exdir(0, 0, 0, 1, $object);
+$upload_dir = $config->partnership->multidir_output[$object->entity ?: $config->entity]."/partnership/".get_exdir(0, 0, 0, 1, $object);
 
 $permissiontoread = $user->hasRight('partnership', 'read');
 $permissiontoadd = $user->hasRight('partnership', 'write'); // Used by the include of actions_addupdatedelete.inc.php
@@ -90,7 +90,7 @@ $managedfor = getDolGlobalString('PARTNERSHIP_IS_MANAGED_FOR', 'thirdparty');
 //if ($user->socid > 0) accessforbidden();
 //if ($user->socid > 0) $socid = $user->socid;
 //$result = restrictedArea($user, 'partnership', $object->id);
-if (empty($conf->partnership->enabled)) {
+if (empty($config->partnership->enabled)) {
 	accessforbidden();
 }
 if (empty($permissiontoread)) {

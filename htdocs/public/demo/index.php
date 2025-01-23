@@ -47,11 +47,11 @@ require_once '../../core/lib/functions2.lib.php';
  */
 $langs->loadLangs(array("main", "install", "other"));
 
-$conf->dol_hide_topmenu = GETPOSTINT('dol_hide_topmenu');
-$conf->dol_hide_leftmenu = GETPOSTINT('dol_hide_leftmenu');
-$conf->dol_optimize_smallscreen = GETPOSTINT('dol_optimize_smallscreen');
-$conf->dol_no_mouse_hover = GETPOSTINT('dol_no_mouse_hover');
-$conf->dol_use_jmobile = GETPOSTINT('dol_use_jmobile');
+$config->dol_hide_topmenu = GETPOSTINT('dol_hide_topmenu');
+$config->dol_hide_leftmenu = GETPOSTINT('dol_hide_leftmenu');
+$config->dol_optimize_smallscreen = GETPOSTINT('dol_optimize_smallscreen');
+$config->dol_no_mouse_hover = GETPOSTINT('dol_no_mouse_hover');
+$config->dol_use_jmobile = GETPOSTINT('dol_use_jmobile');
 
 // Security check
 global $dolibarr_main_demo;
@@ -70,11 +70,11 @@ $alwayshiddencheckedmodules = array();
 $alwayshiddenuncheckedmodules = array();
 
 $url = '';
-$url .= ($url ? '&' : '').($conf->dol_hide_topmenu ? 'dol_hide_topmenu='.$conf->dol_hide_topmenu : '');
-$url .= ($url ? '&' : '').($conf->dol_hide_leftmenu ? 'dol_hide_leftmenu='.$conf->dol_hide_leftmenu : '');
-$url .= ($url ? '&' : '').($conf->dol_optimize_smallscreen ? 'dol_optimize_smallscreen='.$conf->dol_optimize_smallscreen : '');
-$url .= ($url ? '&' : '').($conf->dol_no_mouse_hover ? 'dol_no_mouse_hover='.$conf->dol_no_mouse_hover : '');
-$url .= ($url ? '&' : '').($conf->dol_use_jmobile ? 'dol_use_jmobile='.$conf->dol_use_jmobile : '');
+$url .= ($url ? '&' : '').($config->dol_hide_topmenu ? 'dol_hide_topmenu='.$config->dol_hide_topmenu : '');
+$url .= ($url ? '&' : '').($config->dol_hide_leftmenu ? 'dol_hide_leftmenu='.$config->dol_hide_leftmenu : '');
+$url .= ($url ? '&' : '').($config->dol_optimize_smallscreen ? 'dol_optimize_smallscreen='.$config->dol_optimize_smallscreen : '');
+$url .= ($url ? '&' : '').($config->dol_no_mouse_hover ? 'dol_no_mouse_hover='.$config->dol_no_mouse_hover : '');
+$url .= ($url ? '&' : '').($config->dol_use_jmobile ? 'dol_use_jmobile='.$config->dol_use_jmobile : '');
 $url = DOL_URL_ROOT.'/index.php'.($url ? '?'.$url : '');
 
 $tmpaction = 'view';
@@ -142,7 +142,7 @@ if (empty($reshook)) {
 }
 
 // Search modules
-$dirlist = $conf->file->dol_document_root;
+$dirlist = $config->file->dol_document_root;
 
 
 // Search modules dirs
@@ -338,11 +338,11 @@ foreach ($demoprofiles as $profilearray) {
 		print '<input type="hidden" name="urlfrom" value="'.dol_escape_htmltag($urlfrom).'">'."\n";
 		print '<input type="hidden" name="token" value="'.newToken().'">'."\n";
 		print '<input type="hidden" name="username" value="demo">'."\n";
-		print '<input type="hidden" name="dol_hide_topmenu" value="'.$conf->dol_hide_topmenu.'">'."\n";
-		print '<input type="hidden" name="dol_hide_leftmenu" value="'.$conf->dol_hide_leftmenu.'">'."\n";
-		print '<input type="hidden" name="dol_optimize_smallscreen" value="'.$conf->dol_optimize_smallscreen.'">'."\n";
-		print '<input type="hidden" name="dol_no_mouse_hover" value="'.$conf->dol_no_mouse_hover.'">'."\n";
-		print '<input type="hidden" name="dol_use_jmobile" value="'.$conf->dol_use_jmobile.'">'."\n";
+		print '<input type="hidden" name="dol_hide_topmenu" value="'.$config->dol_hide_topmenu.'">'."\n";
+		print '<input type="hidden" name="dol_hide_leftmenu" value="'.$config->dol_hide_leftmenu.'">'."\n";
+		print '<input type="hidden" name="dol_optimize_smallscreen" value="'.$config->dol_optimize_smallscreen.'">'."\n";
+		print '<input type="hidden" name="dol_no_mouse_hover" value="'.$config->dol_no_mouse_hover.'">'."\n";
+		print '<input type="hidden" name="dol_use_jmobile" value="'.$config->dol_use_jmobile.'">'."\n";
 
 		print '<div id="div'.$profilearray['key'].'" summary="Dolibarr online demonstration for profile '.$profilearray['label'].'" class="center inline-block CTable CTableRow'.($i % 2 == 0 ? '1' : '0').'">'."\n";
 
@@ -374,7 +374,7 @@ foreach ($demoprofiles as $profilearray) {
 
 			$listofdisabledmodules = explode(',', $profilearray['disablemodules']);
 			$j = 0;
-			//$nbcolsmod = empty($conf->dol_optimize_smallscreen) ? 4 : 3;
+			//$nbcolsmod = empty($config->dol_optimize_smallscreen) ? 4 : 3;
 			//var_dump($modules);
 			foreach ($orders as $index => $key) { // Loop on qualified (enabled) modules
 				//print $index.' '.$key;
@@ -452,7 +452,7 @@ print '<br>';
 // TODO Replace this with a hook
 // Google Adsense (need Google module)
 if (isModEnabled('google') && getDolGlobalString('MAIN_GOOGLE_AD_CLIENT') && getDolGlobalString('MAIN_GOOGLE_AD_SLOT')) {
-	if (empty($conf->dol_use_jmobile)) {
+	if (empty($config->dol_use_jmobile)) {
 		print '<div align="center">'."\n";
 		print '<script><!--'."\n";
 		print 'google_ad_client = "' . getDolGlobalString('MAIN_GOOGLE_AD_CLIENT').'";'."\n";

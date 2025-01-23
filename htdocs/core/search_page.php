@@ -128,7 +128,7 @@ $hookManager->initHooks(array('searchform'));
 // Define $searchform
 $searchform = '';
 
-if ($conf->use_javascript_ajax && 1 == 2) {   // select2 is not best with smartphone
+if ($config->use_javascript_ajax && 1 == 2) {   // select2 is not best with smartphone
 	if (!is_object($form)) {
 		$form = new Form($db);
 	}
@@ -174,7 +174,7 @@ $searchform .= '<br>';
 
 
 // Add search on URL
-if ($conf->dol_use_jmobile) {
+if ($config->dol_use_jmobile) {
 	$ret = '';
 	$ret .= '<form action="'.$_SERVER["PHP_SELF"].'" method="POST" class="searchform nowraponall tagtr">';
 	$ret .= '<input type="hidden" name="token" value="'.newToken().'">';

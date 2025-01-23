@@ -58,7 +58,7 @@ $mode       = GETPOST('mode', 'aZ'); // The output mode ('list', 'kanban', 'hier
 $id = GETPOSTINT('id');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -138,7 +138,7 @@ $permissiontoadd = $user->hasRight('stocktransfer', 'stocktransfer', 'write');
 $permissiontodelete = $user->hasRight('stocktransfer', 'stocktransfer', 'delete');
 
 // Security check
-if (empty($conf->stocktransfer->enabled)) {
+if (empty($config->stocktransfer->enabled)) {
 	accessforbidden('Module not enabled');
 }
 
@@ -195,7 +195,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'StockTransfer';
 	$objectlabel = 'StockTransfer';
-	$uploaddir = $conf->stocktransfer->dir_output;
+	$uploaddir = $config->stocktransfer->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -378,7 +378,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {

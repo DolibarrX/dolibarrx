@@ -205,7 +205,7 @@ $tagidfortablednd = 'tablelines3';
 if (!isset($moreforfilter)) {
 	$moreforfilter = '';
 }
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 }
 
@@ -352,7 +352,7 @@ $(document).ready(function(){
 <?php
 	$tasksarray = array(1, 2, 3); // To force having several lines
 $tagidfortablednd = 'tablelines';
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 }
 ?>

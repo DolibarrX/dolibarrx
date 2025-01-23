@@ -54,13 +54,13 @@ $forcereloadpage = !getDolGlobalString('MAIN_FORCE_RELOAD_PAGE') ? 0 : 1;
 $tagidfortablednd = (empty($tagidfortablednd) ? 'tablelines' : $tagidfortablednd);
 $filepath = (empty($filepath) ? '' : $filepath);
 
-if (GETPOST('action', 'aZ09') != 'editline' && $nboflines > 1 && $conf->browser->layout != 'phone') { ?>
+if (GETPOST('action', 'aZ09') != 'editline' && $nboflines > 1 && $config->browser->layout != 'phone') { ?>
 <script>
 $(document).ready(function(){
 	$(".imgupforline").hide();
 	$(".imgdownforline").hide();
 	$(".lineupdown").removeAttr('href');
-	$(".tdlineupdown").css("background-image",'url(<?php echo DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/grip.png'; ?>)');
+	$(".tdlineupdown").css("background-image",'url(<?php echo DOL_URL_ROOT.'/theme/'.$config->theme.'/img/grip.png'; ?>)');
 	$(".tdlineupdown").css("background-repeat","no-repeat");
 	$(".tdlineupdown").css("background-position","center center");
 

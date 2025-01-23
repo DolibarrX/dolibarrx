@@ -59,7 +59,7 @@ $search_accountparent = GETPOST('search_accountparent', 'alpha');
 $search_pcgtype = GETPOST('search_pcgtype', 'alpha');
 $search_import_key = GETPOST('search_import_key', 'alpha');
 $toselect = GETPOST('toselect', 'array');
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $confirm = GETPOST('confirm', 'alpha');
 
 $chartofaccounts = GETPOSTINT('chartofaccounts');
@@ -77,7 +77,7 @@ if (!$permissiontoadd) {
 // now $permissiontoadd or $user->hasRight('accounting', 'chartofaccount') are always equal to 1
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -142,7 +142,7 @@ if (empty($reshook)) {
 	}
 
 	$objectclass = 'AccountingAccount';
-	$uploaddir = $conf->accounting->multidir_output[$conf->entity];
+	$uploaddir = $config->accounting->multidir_output[$config->entity];
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	if ($action == "delete") {
@@ -191,9 +191,9 @@ if (empty($reshook)) {
 				if (preg_match('/-- ADD (\d+) to rowid/ims', $tmp, $reg)) {
 					$offsetforchartofaccount += $reg[1];
 				}
-				$offsetforchartofaccount += ($conf->entity * 100000000);
+				$offsetforchartofaccount += ($config->entity * 100000000);
 
-				$result = run_sql($sqlfile, 1, $conf->entity, 1, '', 'default', 32768, 0, $offsetforchartofaccount);
+				$result = run_sql($sqlfile, 1, $config->entity, 1, '', 'default', 32768, 0, $offsetforchartofaccount);
 
 				if ($result > 0) {
 					setEventMessages($langs->trans("ChartLoaded"), null, 'mesgs');
@@ -202,7 +202,7 @@ if (empty($reshook)) {
 				}
 			}
 
-			if (!dolibarr_set_const($db, 'CHARTOFACCOUNTS', $chartofaccounts, 'chaine', 0, '', $conf->entity)) {
+			if (!dolibarr_set_const($db, 'CHARTOFACCOUNTS', $chartofaccounts, 'chaine', 0, '', $config->entity)) {
 				$error++;
 			}
 		} else {
@@ -261,8 +261,8 @@ $sql .= $hookManager->resPrint;
 $sql = preg_replace('/,\s*$/', '', $sql);
 
 $sql .= " FROM ".MAIN_DB_PREFIX."accounting_account as aa";
-$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_system as asy ON aa.fk_pcg_version = asy.pcg_version AND aa.entity = ".((int) $conf->entity);
-$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as a2 ON a2.rowid = aa.account_parent AND a2.entity = ".((int) $conf->entity);
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_system as asy ON aa.fk_pcg_version = asy.pcg_version AND aa.entity = ".((int) $config->entity);
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as a2 ON a2.rowid = aa.account_parent AND a2.entity = ".((int) $config->entity);
 
 // Add table from hooks
 $parameters = array();
@@ -355,7 +355,7 @@ if ($resql) {
 	if (/* !empty($contextpage) &&  */$contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($search_account) {
@@ -385,7 +385,7 @@ if ($resql) {
 	$reshook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	$param .= $hookManager->resPrint;
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print '<!-- Add javascript to reload page when we click "Change plan" -->
 			<script type="text/javascript">
 			$(document).ready(function () {
@@ -458,7 +458,7 @@ if ($resql) {
 	}
 	print "</select>";
 	print ajax_combobox("chartofaccounts");
-	print '<input type="'.(empty($conf->use_javascript_ajax) ? 'submit' : 'button').'" class="button button-edit small" name="change_chart" id="change_chart" value="'.dol_escape_htmltag($langs->trans("ChangeAndLoad")).'">';
+	print '<input type="'.(empty($config->use_javascript_ajax) ? 'submit' : 'button').'" class="button button-edit small" name="change_chart" id="change_chart" value="'.dol_escape_htmltag($langs->trans("ChangeAndLoad")).'">';
 
 	print '<br>';
 

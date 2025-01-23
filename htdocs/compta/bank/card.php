@@ -391,7 +391,7 @@ llxHeader("", $title, $help_url);
 if ($action == 'create') {
 	print load_fiche_titre($langs->trans("NewFinancialAccount"), '', 'bank_account');
 
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print "\n".'<script type="text/javascript">';
 		print 'jQuery(document).ready(function () {
                     jQuery("#type").change(function() {
@@ -435,11 +435,11 @@ if ($action == 'create') {
 	print '<td>';
 	$selectedcode = $object->currency_code;
 	if (!$selectedcode) {
-		$selectedcode = $conf->currency;
+		$selectedcode = $config->currency;
 	}
 	print $form->selectCurrency((GETPOSTISSET("account_currency_code") ? GETPOST("account_currency_code") : $selectedcode), 'account_currency_code');
-	//print $langs->trans("Currency".$conf->currency);
-	//print '<input type="hidden" name="account_currency_code" value="'.$conf->currency.'">';
+	//print $langs->trans("Currency".$config->currency);
+	//print '<input type="hidden" name="account_currency_code" value="'.$config->currency.'">';
 	print '</td></tr>';
 
 	// Status
@@ -721,7 +721,7 @@ if ($action == 'create') {
 		print '<td>';
 		$selectedcode = $object->currency_code;
 		if (!$selectedcode) {
-			$selectedcode = $conf->currency;
+			$selectedcode = $config->currency;
 		}
 		print $langs->trans("Currency".$selectedcode);
 		print '</td></tr>';
@@ -931,7 +931,7 @@ if ($action == 'create') {
 	if (GETPOSTINT('id') && $action == 'edit' && $user->hasRight('banque', 'configurer')) {
 		print load_fiche_titre($langs->trans("EditFinancialAccount"), '', 'bank_account');
 
-		if ($conf->use_javascript_ajax) {
+		if ($config->use_javascript_ajax) {
 			print "\n".'<script type="text/javascript">';
 			print 'jQuery(document).ready(function () {
                         jQuery("#type").change(function() {
@@ -982,12 +982,12 @@ if ($action == 'create') {
 		print '<td class="maxwidth200onsmartphone">';
 		$selectedcode = $object->currency_code;
 		if (!$selectedcode) {
-			$selectedcode = $conf->currency;
+			$selectedcode = $config->currency;
 		}
 		print img_picto('', 'multicurrency', 'class="pictofixedwidth"');
 		print $form->selectCurrency((GETPOSTISSET("account_currency_code") ? GETPOST("account_currency_code") : $selectedcode), 'account_currency_code');
-		//print $langs->trans("Currency".$conf->currency);
-		//print '<input type="hidden" name="account_currency_code" value="'.$conf->currency.'">';
+		//print $langs->trans("Currency".$config->currency);
+		//print '<input type="hidden" name="account_currency_code" value="'.$config->currency.'">';
 		print '</td></tr>';
 
 		// Status

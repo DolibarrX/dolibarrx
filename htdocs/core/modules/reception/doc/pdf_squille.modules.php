@@ -182,10 +182,10 @@ class pdf_squille extends ModelePdfReception
 
 				if (getDolGlobalInt('PRODUCT_USE_OLD_PATH_FOR_PHOTO')) {
 					$pdir = get_exdir($object->lines[$i]->fk_product, 2, 0, 0, $objphoto, 'product').$object->lines[$i]->fk_product."/photos/";
-					$dir = $conf->product->dir_output.'/'.$pdir;
+					$dir = $config->product->dir_output.'/'.$pdir;
 				} else {
 					$pdir = get_exdir(0, 2, 0, 0, $objphoto, 'product');
-					$dir = $conf->product->dir_output.'/'.$pdir;
+					$dir = $config->product->dir_output.'/'.$pdir;
 				}
 
 				$realpath = '';
@@ -216,14 +216,14 @@ class pdf_squille extends ModelePdfReception
 			$this->posxpicture = $this->posxweightvol;
 		}
 
-		if ($conf->reception->dir_output) {
+		if ($config->reception->dir_output) {
 			// Definition de $dir et $file
 			if ($object->specimen) {
-				$dir = $conf->reception->dir_output;
+				$dir = $config->reception->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$rcpref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->reception->dir_output."/".$rcpref;
+				$dir = $config->reception->dir_output."/".$rcpref;
 				$file = $dir."/".$rcpref.".pdf";
 			}
 
@@ -262,7 +262,7 @@ class pdf_squille extends ModelePdfReception
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (!getDolGlobalString('MAIN_DISABLE_FPDI') && getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
+					$pagecount = $pdf->setSourceFile($config->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -396,7 +396,7 @@ class pdf_squille extends ModelePdfReception
 						if (!preg_match('/^\w+$/', $newcode) || dol_strlen($newcode) > 32) {
 							$newcode = dol_hash($newcode, 'md5');
 						}
-						$barcode_path = $conf->barcode->dir_temp . '/barcode_' . $newcode . '_' . $encoding . '.png';
+						$barcode_path = $config->barcode->dir_temp . '/barcode_' . $newcode . '_' . $encoding . '.png';
 					}
 
 					if ($result > 0) {
@@ -925,9 +925,9 @@ class pdf_squille extends ModelePdfReception
 
 		// Logo
 		if ($this->emetteur->logo) {
-			$logodir = $conf->mycompany->dir_output;
-			if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-				$logodir = $conf->mycompany->multidir_output[$object->entity];
+			$logodir = $config->mycompany->dir_output;
+			if (!empty($config->mycompany->multidir_output[$object->entity])) {
+				$logodir = $config->mycompany->multidir_output[$object->entity];
 			}
 			if (!getDolGlobalInt('MAIN_PDF_USE_LARGE_LOGO')) {
 				$logo = $logodir.'/logos/thumbs/'.$this->emetteur->logo_small;
@@ -1074,7 +1074,7 @@ class pdf_squille extends ModelePdfReception
 			}
 
 			// Recipient name
-			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
+			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
 				$thirdparty = $object->contact;
 			} else {
 				$thirdparty = $object->thirdparty;

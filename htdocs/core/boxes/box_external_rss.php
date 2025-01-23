@@ -88,7 +88,7 @@ class box_external_rss extends ModeleBoxes
 		$url = getDolGlobalString($keyforparamurl);
 
 		$rssparser = new RssParser($this->db);
-		$result = $rssparser->parser($url, $this->max, $cachedelay, $conf->externalrss->dir_temp);
+		$result = $rssparser->parser($url, $this->max, $cachedelay, $config->externalrss->dir_temp);
 
 		// INFO on channel
 		$description = $rssparser->getDescription();
@@ -161,9 +161,9 @@ class box_external_rss extends ModeleBoxes
 			}
 
 			$isutf8 = utf8_check($title);
-			if (!$isutf8 && $conf->file->character_set_client == 'UTF-8') {
+			if (!$isutf8 && $config->file->character_set_client == 'UTF-8') {
 				$title = mb_convert_encoding($title, 'UTF-8', 'ISO-8859-1');
-			} elseif ($isutf8 && $conf->file->character_set_client == 'ISO-8859-1') {
+			} elseif ($isutf8 && $config->file->character_set_client == 'ISO-8859-1') {
 				$title = mb_convert_encoding($title, 'ISO-8859-1');
 			}
 
@@ -173,9 +173,9 @@ class box_external_rss extends ModeleBoxes
 			$tooltip = $title;
 			$description = !empty($item['description']) ? $item['description'] : '';
 			$isutf8 = utf8_check($description);
-			if (!$isutf8 && $conf->file->character_set_client == 'UTF-8') {
+			if (!$isutf8 && $config->file->character_set_client == 'UTF-8') {
 				$description = mb_convert_encoding($description, 'UTF-8', 'ISO-8859-1');
-			} elseif ($isutf8 && $conf->file->character_set_client == 'ISO-8859-1') {
+			} elseif ($isutf8 && $config->file->character_set_client == 'ISO-8859-1') {
 				$description = mb_convert_encoding($description, 'ISO-8859-1');
 			}
 			$description = preg_replace("/([[:alnum:]])\?([[:alnum:]])/", "\\1'\\2", $description);

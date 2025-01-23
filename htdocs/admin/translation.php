@@ -60,7 +60,7 @@ if ($mode == 'searchkey') {
 }
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -113,9 +113,9 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 
 if ($action == 'setMAIN_ENABLE_OVERWRITE_TRANSLATION') {
 	if (GETPOST('value')) {
-		dolibarr_set_const($db, 'MAIN_ENABLE_OVERWRITE_TRANSLATION', 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'MAIN_ENABLE_OVERWRITE_TRANSLATION', 1, 'chaine', 0, '', $config->entity);
 	} else {
-		dolibarr_set_const($db, 'MAIN_ENABLE_OVERWRITE_TRANSLATION', 0, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'MAIN_ENABLE_OVERWRITE_TRANSLATION', 0, 'chaine', 0, '', $config->entity);
 	}
 }
 
@@ -169,7 +169,7 @@ if ($action == 'add') {
 	if (!$error) {
 		$db->begin();
 
-		$sql = "INSERT INTO ".MAIN_DB_PREFIX."overwrite_trans(lang, transkey, transvalue, entity) VALUES ('".$db->escape($langcode)."','".$db->escape($transkey)."','".$db->escape($transvalue)."', ".((int) $conf->entity).")";
+		$sql = "INSERT INTO ".MAIN_DB_PREFIX."overwrite_trans(lang, transkey, transvalue, entity) VALUES ('".$db->escape($langcode)."','".$db->escape($transkey)."','".$db->escape($transvalue)."', ".((int) $config->entity).")";
 		$result = $db->query($sql);
 		if ($result) {
 			$db->commit();
@@ -241,7 +241,7 @@ print '<br>';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if (isset($optioncss) && $optioncss != '') {
@@ -291,7 +291,7 @@ $modulesdir = dolGetModulesDirs();
 $listoffiles = array();
 $listoffilesexternalmodules = array();
 
-// Search into dir of modules (the $modulesdir is already a list that loop on $conf->file->dol_document_root)
+// Search into dir of modules (the $modulesdir is already a list that loop on $config->file->dol_document_root)
 $i = 0;
 foreach ($modulesdir as $keydir => $tmpsearchdir) {
 	$searchdir = $tmpsearchdir; // $searchdir can be '.../htdocs/core/modules/' or '.../htdocs/custom/mymodule/core/modules/'
@@ -385,7 +385,7 @@ if ($mode == 'overwrite') {
 	print '<input type="text" class="quatrevingtpercent"'.$disablededit.' name="transvalue" id="transvalue" value="'.(!empty($transvalue) ? $transvalue : "").'">';
 	print '</td>';
 	print '<td class="center">';
-	print '<input type="hidden" name="entity" value="'.$conf->entity.'">';
+	print '<input type="hidden" name="entity" value="'.$config->entity.'">';
 	print '<input type="submit" class="button"'.$disabled.' value="'.$langs->trans("Add").'" name="add" title="'.dol_escape_htmltag($langs->trans("YouMustEnableTranslationOverwriteBefore")).'">';
 	print "</td>\n";
 	print '</tr>';
@@ -533,11 +533,11 @@ if ($mode == 'searchkey') {
 	/*if (isModEnabled('multicompany') && !$user->entity)
 	{
 		print '</td><td>';
-		print '<input type="text" class="flat" size="1" name="entitysearch" value="'.$conf->entity.'">';
+		print '<input type="text" class="flat" size="1" name="entitysearch" value="'.$config->entity.'">';
 	}
 	else
 	{*/
-	print '<input type="hidden" name="entitysearch" value="'.$conf->entity.'">';
+	print '<input type="hidden" name="entitysearch" value="'.$config->entity.'">';
 	//}
 	print '</td>';
 	// Action column
@@ -611,9 +611,9 @@ if ($mode == 'searchkey') {
 					$obj = $db->fetch_object($result);
 				}
 				if (is_object($obj)) {
-					print '<a class="editfielda reposition marginrightonly" href="'.$_SERVER['PHP_SELF'].'?rowid='.$obj->rowid.'&entity='.$conf->entity.'&mode=overwrite&action=edit&token='.newToken().'">'.img_edit().'</a>';
+					print '<a class="editfielda reposition marginrightonly" href="'.$_SERVER['PHP_SELF'].'?rowid='.$obj->rowid.'&entity='.$config->entity.'&mode=overwrite&action=edit&token='.newToken().'">'.img_edit().'</a>';
 					print ' ';
-					print '<a class="marginleftonly marginrightonly" href="'.$_SERVER['PHP_SELF'].'?rowid='.$obj->rowid.'&entity='.$conf->entity.'&mode='.urlencode($mode).'&action=delete&token='.newToken().'&mode='.urlencode($mode).'">'.img_delete().'</a>';
+					print '<a class="marginleftonly marginrightonly" href="'.$_SERVER['PHP_SELF'].'?rowid='.$obj->rowid.'&entity='.$config->entity.'&mode='.urlencode($mode).'&action=delete&token='.newToken().'&mode='.urlencode($mode).'">'.img_delete().'</a>';
 					print '&nbsp;&nbsp;';
 					$htmltext = $langs->trans("OriginalValueWas", '<i>'.$newlangfileonly->tab_translate[$key].'</i>');
 					print $form->textwithpicto('', $htmltext, 1, 'info');
@@ -643,9 +643,9 @@ if ($mode == 'searchkey') {
 				$obj = $db->fetch_object($result);
 			}
 			if (is_object($obj)) {
-				print '<a class="editfielda reposition marginrightonly" href="'.$_SERVER['PHP_SELF'].'?rowid='.$obj->rowid.'&entity='.$conf->entity.'&mode=overwrite&action=edit&token='.newToken().'">'.img_edit().'</a>';
+				print '<a class="editfielda reposition marginrightonly" href="'.$_SERVER['PHP_SELF'].'?rowid='.$obj->rowid.'&entity='.$config->entity.'&mode=overwrite&action=edit&token='.newToken().'">'.img_edit().'</a>';
 				print ' ';
-				print '<a class="marginleftonly marginrightonly" href="'.$_SERVER['PHP_SELF'].'?rowid='.$obj->rowid.'&entity='.$conf->entity.'&mode='.urlencode($mode).'&action=delete&token='.newToken().'&mode='.urlencode($mode).'">'.img_delete().'</a>';
+				print '<a class="marginleftonly marginrightonly" href="'.$_SERVER['PHP_SELF'].'?rowid='.$obj->rowid.'&entity='.$config->entity.'&mode='.urlencode($mode).'&action=delete&token='.newToken().'&mode='.urlencode($mode).'">'.img_delete().'</a>';
 				print '&nbsp;&nbsp;';
 
 				// @phan-suppress-next-line PhanPluginSuspiciousParamPosition

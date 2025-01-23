@@ -138,9 +138,9 @@ class modStockTransfer extends DolibarrModules
 		// );
 		$this->const = array();
 
-		if (!isset($conf->stocktransfer) || !isset($conf->stocktransfer->enabled)) {
-			$conf->stocktransfer = new stdClass();
-			$conf->stocktransfer->enabled = 0;
+		if (!isset($config->stocktransfer) || !isset($config->stocktransfer->enabled)) {
+			$config->stocktransfer = new stdClass();
+			$config->stocktransfer->enabled = 0;
 		}
 
 		// Array to add new pages in new tabs
@@ -193,7 +193,7 @@ class modStockTransfer extends DolibarrModules
 			// Name of columns with primary key (try to always name it 'rowid')
 			'tabrowid'=>array("rowid", "rowid", "rowid"),
 			// Condition to show each dictionary
-			'tabcond'=>array($conf->stocktransfer->enabled, $conf->stocktransfer->enabled, $conf->stocktransfer->enabled)
+			'tabcond'=>array($config->stocktransfer->enabled, $config->stocktransfer->enabled, $config->stocktransfer->enabled)
 		);
 		*/
 
@@ -222,13 +222,13 @@ class modStockTransfer extends DolibarrModules
 			//      'frequency' => 2,
 			//      'unitfrequency' => 3600,
 			//      'status' => 0,
-			//      'test' => '$conf->stocktransfer->enabled',
+			//      'test' => '$config->stocktransfer->enabled',
 			//      'priority' => 50,
 			//  ),
 		);
 		// Example: $this->cronjobs=array(
-		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->stocktransfer->enabled', 'priority'=>50),
-		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->stocktransfer->enabled', 'priority'=>50)
+		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$config->stocktransfer->enabled', 'priority'=>50),
+		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$config->stocktransfer->enabled', 'priority'=>50)
 		// );
 
 		// Permissions provided by this module
@@ -268,7 +268,7 @@ class modStockTransfer extends DolibarrModules
 			'url'=>'/stocktransfer/stocktransferindex.php',
 			'langs'=>'stocktransfer@stocktransfer', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000 + $r,
-			'enabled'=>'$conf->stocktransfer->enabled', // Define condition to show or hide menu entry. Use '$conf->stocktransfer->enabled' if entry must be visible if module is enabled.
+			'enabled'=>'$config->stocktransfer->enabled', // Define condition to show or hide menu entry. Use '$config->stocktransfer->enabled' if entry must be visible if module is enabled.
 			'perms'=>'1', // Use 'perms'=>'$user->rights->stocktransfer->stocktransfer->read' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>2, // 0=Menu for internal users, 1=external users, 2=both
@@ -284,7 +284,7 @@ class modStockTransfer extends DolibarrModules
 			'url'=>'/stocktransfer/stocktransferindex.php',
 			'langs'=>'stocktransfer@stocktransfer',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000+$r,
-			'enabled'=>'$conf->stocktransfer->enabled',  // Define condition to show or hide menu entry. Use '$conf->stocktransfer->enabled' if entry must be visible if module is enabled.
+			'enabled'=>'$config->stocktransfer->enabled',  // Define condition to show or hide menu entry. Use '$config->stocktransfer->enabled' if entry must be visible if module is enabled.
 			'perms'=>'$user->rights->stocktransfer->stocktransfer->read',			                // Use 'perms'=>'$user->rights->stocktransfer->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>2,				                // 0=Menu for internal users, 1=external users, 2=both
@@ -298,7 +298,7 @@ class modStockTransfer extends DolibarrModules
 			'url'=>'/stocktransfer/stocktransfer_list.php',
 			'langs'=>'stocktransfer@stocktransfer',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000+$r,
-			'enabled'=>'$conf->stocktransfer->enabled',  // Define condition to show or hide menu entry. Use '$conf->stocktransfer->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled'=>'$config->stocktransfer->enabled',  // Define condition to show or hide menu entry. Use '$config->stocktransfer->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms'=>'$user->rights->stocktransfer->stocktransfer->read',			                // Use 'perms'=>'$user->rights->stocktransfer->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>2,				                // 0=Menu for internal users, 1=external users, 2=both
@@ -312,7 +312,7 @@ class modStockTransfer extends DolibarrModules
 			'url'=>'/stocktransfer/stocktransfer_card.php?action=create',
 			'langs'=>'stocktransfer@stocktransfer',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000+$r,
-			'enabled'=>'$conf->stocktransfer->enabled',  // Define condition to show or hide menu entry. Use '$conf->stocktransfer->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled'=>'$config->stocktransfer->enabled',  // Define condition to show or hide menu entry. Use '$config->stocktransfer->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms'=>'$user->rights->stocktransfer->stocktransfer->write',			                // Use 'perms'=>'$user->rights->stocktransfer->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>2,				                // 0=Menu for internal users, 1=external users, 2=both
@@ -331,8 +331,8 @@ class modStockTransfer extends DolibarrModules
 			// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'langs'=>'stocktransfer@stocktransfer',
 			'position'=>1100+$r,
-			// Define condition to show or hide menu entry. Use '$conf->stocktransfer->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-			'enabled'=>'$conf->stocktransfer->enabled',
+			// Define condition to show or hide menu entry. Use '$config->stocktransfer->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled'=>'$config->stocktransfer->enabled',
 			// Use 'perms'=>'$user->rights->stocktransfer->level1->level2' if you want your menu with a permission rules
 			'perms'=>'1',
 			'target'=>'',
@@ -351,8 +351,8 @@ class modStockTransfer extends DolibarrModules
 			// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'langs'=>'stocktransfer@stocktransfer',
 			'position'=>1100+$r,
-			// Define condition to show or hide menu entry. Use '$conf->stocktransfer->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-			'enabled'=>'$conf->stocktransfer->enabled',
+			// Define condition to show or hide menu entry. Use '$config->stocktransfer->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled'=>'$config->stocktransfer->enabled',
 			// Use 'perms'=>'$user->rights->stocktransfer->level1->level2' if you want your menu with a permission rules
 			'perms'=>'1',
 			'target'=>'',

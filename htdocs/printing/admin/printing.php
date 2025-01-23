@@ -80,7 +80,7 @@ if ($action == 'setconst' && $user->admin) {
 	foreach ($_POST['setupdriver'] as $setupconst) {
 		'@phan-var-force array<string,string> $setupconst';
 		//print '<pre>'.print_r($setupconst, true).'</pre>';
-		$result = dolibarr_set_const($db, $setupconst['varname'], $setupconst['value'], 'chaine', 0, '', $conf->entity);
+		$result = dolibarr_set_const($db, $setupconst['varname'], $setupconst['value'], 'chaine', 0, '', $config->entity);
 		if (!($result > 0)) {
 			$error++;
 		}
@@ -99,7 +99,7 @@ if ($action == 'setconst' && $user->admin) {
 if ($action == 'setvalue' && $user->admin) {
 	$db->begin();
 
-	$result = dolibarr_set_const($db, $varname, $value, 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, $varname, $value, 'chaine', 0, '', $config->entity);
 	if (!($result > 0)) {
 		$error++;
 	}
@@ -146,8 +146,8 @@ if ($mode == 'setup' && $user->admin) {
 	$submit_enabled = 0;
 
 	if (!empty($driver)) {
-		if (!empty($conf->modules_parts['printing'])) {
-			$dirmodels = array_merge(array('/core/modules/printing/'), (array) $conf->modules_parts['printing']);
+		if (!empty($config->modules_parts['printing'])) {
+			$dirmodels = array_merge(array('/core/modules/printing/'), (array) $config->modules_parts['printing']);
 		} else {
 			$dirmodels = array('/core/modules/printing/');
 		}
@@ -281,8 +281,8 @@ if ($mode == 'config' && $user->admin) {
 	$object = new PrintingDriver($db);
 	$result = $object->listDrivers($db, 10);
 
-	if (!empty($conf->modules_parts['printing'])) {
-		$dirmodels = array_merge(array('/core/modules/printing/'), (array) $conf->modules_parts['printing']);
+	if (!empty($config->modules_parts['printing'])) {
+		$dirmodels = array_merge(array('/core/modules/printing/'), (array) $config->modules_parts['printing']);
 	} else {
 		$dirmodels = array('/core/modules/printing/');
 	}
@@ -303,7 +303,7 @@ if ($mode == 'config' && $user->admin) {
 		print '<tr class="oddeven">';
 		print '<td>'.img_picto('', $printer->picto).' '.$langs->trans($printer->desc).'</td>';
 		print '<td class="center">';
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print ajax_constantonoff($printer->active);
 		} else {
 			if (!getDolGlobalString($printer->conf)) {
@@ -329,8 +329,8 @@ if ($mode == 'test' && $user->admin) {
 
 	print '<table class="noborder centpercent">';
 	if (!empty($driver)) {
-		if (!empty($conf->modules_parts['printing'])) {
-			$dirmodels = array_merge(array('/core/modules/printing/'), (array) $conf->modules_parts['printing']);
+		if (!empty($config->modules_parts['printing'])) {
+			$dirmodels = array_merge(array('/core/modules/printing/'), (array) $config->modules_parts['printing']);
 		} else {
 			$dirmodels = array('/core/modules/printing/');
 		}

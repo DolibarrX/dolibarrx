@@ -181,7 +181,7 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 
 		$object->factures = array();
 
-		if ($conf->fournisseur->payment->dir_output) {
+		if ($config->fournisseur->payment->dir_output) {
 			$object->fetch_thirdparty();
 			/**
 			 *	Supplier invoice list
@@ -205,12 +205,12 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->fournisseur->payment->dir_output;
+				$dir = $config->fournisseur->payment->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
 				//$objectrefsupplier = dol_sanitizeFileName($object->ref_supplier);
-				$dir = $conf->fournisseur->payment->dir_output.'/'.$objectref;
+				$dir = $config->fournisseur->payment->dir_output.'/'.$objectref;
 				$file = $dir."/".$objectref.".pdf";
 				//if (getDolGlobalString('SUPPLIER_REF_IN_NAME')) {
 				//	$file = $dir."/".$objectref.($objectrefsupplier ? "_".$objectrefsupplier : "").".pdf";
@@ -254,7 +254,7 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
+					$pagecount = $pdf->setSourceFile($config->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -523,7 +523,7 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 		$posy += 20;
 
 		// translate amount
-		$currency = $conf->currency;
+		$currency = $config->currency;
 		$translateinletter = strtoupper(dol_convertToWord((float) price2num($object->amount, 'MT'), $outputlangs, $currency));
 		$pdf->SetXY($this->marge_gauche + 50, $posy);
 		$pdf->SetFont('', '', $default_font_size - 3);
@@ -575,7 +575,7 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)
@@ -629,7 +629,7 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 		$pdf->SetXY($this->marge_gauche, $posy);
 
 		// Logo
-		$logo = $conf->mycompany->dir_output.'/logos/'.$mysoc->logo;
+		$logo = $config->mycompany->dir_output.'/logos/'.$mysoc->logo;
 		if ($mysoc->logo) {
 			if (is_readable($logo)) {
 				$height = pdf_getHeightForLogo($logo);

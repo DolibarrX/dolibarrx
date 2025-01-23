@@ -98,9 +98,9 @@ class modProductBatch extends DolibarrModules
 		$this->tabs = array();
 
 		// Dictionaries
-		if (!isset($conf->productbatch->enabled)) {
-			$conf->productbatch = new stdClass();
-			$conf->productbatch->enabled = 0;
+		if (!isset($config->productbatch->enabled)) {
+			$config->productbatch = new stdClass();
+			$config->productbatch->enabled = 0;
 		}
 		$this->dictionaries = array();
 
@@ -138,7 +138,7 @@ class modProductBatch extends DolibarrModules
 		if (isModEnabled('cashdesk')) {
 			if (!getDolGlobalString('CASHDESK_NO_DECREASE_STOCK')) {
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-				$res = dolibarr_set_const($db, "CASHDESK_NO_DECREASE_STOCK", 1, 'chaine', 0, '', $conf->entity);
+				$res = dolibarr_set_const($db, "CASHDESK_NO_DECREASE_STOCK", 1, 'chaine', 0, '', $config->entity);
 			}
 		}
 

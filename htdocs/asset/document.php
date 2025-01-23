@@ -51,7 +51,7 @@ $id = GETPOSTINT('id');
 $ref = GETPOST('ref', 'alpha');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST("sortfield", 'alpha');
 $sortorder = GETPOST("sortorder", 'alpha');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -71,7 +71,7 @@ if (!$sortfield) {
 // Initialize a technical objects
 $object = new Asset($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->asset->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->asset->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('assetdocument', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -81,7 +81,7 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'inclu
 
 $upload_dir = null;
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->asset->multidir_output[$object->entity ? $object->entity : $conf->entity]."/".get_exdir(0, 0, 0, 1, $object);
+	$upload_dir = $config->asset->multidir_output[$object->entity ? $object->entity : $config->entity]."/".get_exdir(0, 0, 0, 1, $object);
 }
 
 $permissiontoadd = $user->hasRight('asset', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles.inc.php

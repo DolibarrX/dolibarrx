@@ -649,8 +649,8 @@ class Partnership extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership->partnership_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership->partnership_advance->validate))))
 		 {
 		 $this->error='NotEnoughPermissions';
 		 dol_syslog(get_class($this)."::valid ".$this->error, LOG_ERR);
@@ -707,14 +707,14 @@ class Partnership extends CommonObject
 			if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 				// Now we rename also files into index
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'partnership/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'partnership/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'partnership/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
 					$this->error = $this->db->lasterror();
 				}
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'partnership/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filepath = 'partnership/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filepath = 'partnership/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
@@ -724,15 +724,15 @@ class Partnership extends CommonObject
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($num);
-				$dirsource = $conf->partnership->dir_output.'/partnership/'.$oldref;
-				$dirdest = $conf->partnership->dir_output.'/partnership/'.$newref;
+				$dirsource = $config->partnership->dir_output.'/partnership/'.$oldref;
+				$dirdest = $config->partnership->dir_output.'/partnership/'.$newref;
 				if (!$error && file_exists($dirsource)) {
 					dol_syslog(get_class($this)."::validate() rename dir ".$dirsource." into ".$dirdest);
 
 					if (@rename($dirsource, $dirdest)) {
 						dol_syslog("Rename ok");
 						// Rename docs starting with $oldref with $newref
-						$listoffiles = dol_dir_list($conf->partnership->dir_output.'/partnership/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+						$listoffiles = dol_dir_list($config->partnership->dir_output.'/partnership/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 						foreach ($listoffiles as $fileentry) {
 							$dirsource = $fileentry['name'];
 							$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -781,8 +781,8 @@ class Partnership extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership->partnership_advance->accept))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership->partnership_advance->accept))))
 		 {
 		 $this->error='NotEnoughPermissions';
 		 dol_syslog(get_class($this)."::valid ".$this->error, LOG_ERR);
@@ -833,14 +833,14 @@ class Partnership extends CommonObject
 			if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 				// Now we rename also files into index
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'partnership/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'partnership/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'partnership/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
 					$this->error = $this->db->lasterror();
 				}
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'partnership/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filepath = 'partnership/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filepath = 'partnership/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
@@ -850,15 +850,15 @@ class Partnership extends CommonObject
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($num);
-				$dirsource = $conf->partnership->dir_output.'/partnership/'.$oldref;
-				$dirdest = $conf->partnership->dir_output.'/partnership/'.$newref;
+				$dirsource = $config->partnership->dir_output.'/partnership/'.$oldref;
+				$dirdest = $config->partnership->dir_output.'/partnership/'.$newref;
 				if (!$error && file_exists($dirsource)) {
 					dol_syslog(get_class($this)."::accept() rename dir ".$dirsource." into ".$dirdest);
 
 					if (@rename($dirsource, $dirdest)) {
 						dol_syslog("Rename ok");
 						// Rename docs starting with $oldref with $newref
-						$listoffiles = dol_dir_list($conf->partnership->dir_output.'/partnership/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+						$listoffiles = dol_dir_list($config->partnership->dir_output.'/partnership/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 						foreach ($listoffiles as $fileentry) {
 							$dirsource = $fileentry['name'];
 							$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -901,8 +901,8 @@ class Partnership extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -953,8 +953,8 @@ class Partnership extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -977,8 +977,8 @@ class Partnership extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->partnership_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -1023,7 +1023,7 @@ class Partnership extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -1091,7 +1091,7 @@ class Partnership extends CommonObject
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 				list($class, $module) = explode('@', $this->picto);
-				$upload_dir = $conf->$module->multidir_output[$conf->entity]."/$class/".dol_sanitizeFileName($this->ref);
+				$upload_dir = $config->$module->multidir_output[$config->entity]."/$class/".dol_sanitizeFileName($this->ref);
 				$filearray = dol_dir_list($upload_dir, "files");
 				$filename = $filearray[0]['name'];
 				if (!empty($filename)) {
@@ -1099,9 +1099,9 @@ class Partnership extends CommonObject
 
 					$pathtophoto = $class.'/'.$this->ref.'/thumbs/'.substr($filename, 0, $pospoint).'_mini'.substr($filename, $pospoint);
 					if (!getDolGlobalString(strtoupper($module.'_'.$class).'_FORMATLISTPHOTOSASUSERS')) {
-						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref"><img class="photo'.$module.'" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$conf->entity.'&file='.urlencode($pathtophoto).'"></div></div>';
+						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref"><img class="photo'.$module.'" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$config->entity.'&file='.urlencode($pathtophoto).'"></div></div>';
 					} else {
-						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$conf->entity.'&file='.urlencode($pathtophoto).'"></div>';
+						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$config->entity.'&file='.urlencode($pathtophoto).'"></div>';
 					}
 
 					$result .= '</div>';
@@ -1273,7 +1273,7 @@ class Partnership extends CommonObject
 		$langs->load("partnership");
 
 		if (!getDolGlobalString('PARTNERSHIP_ADDON')) {
-			$conf->global->PARTNERSHIP_ADDON = 'mod_partnership_standard';
+			$config->global->PARTNERSHIP_ADDON = 'mod_partnership_standard';
 		}
 
 		if (getDolGlobalString('PARTNERSHIP_ADDON')) {
@@ -1283,7 +1283,7 @@ class Partnership extends CommonObject
 			$classname = getDolGlobalString('PARTNERSHIP_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/partnership/");
 
@@ -1366,7 +1366,7 @@ class Partnership extends CommonObject
 	 */
 	public function doScheduledJob()
 	{
-		//$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
+		//$config->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
 
 		$error = 0;
 		$this->output = '';

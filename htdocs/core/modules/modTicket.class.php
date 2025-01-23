@@ -132,9 +132,9 @@ class modTicket extends DolibarrModules
 		*/
 
 		// Dictionaries
-		if (!isset($conf->ticket->enabled)) {
-			$conf->ticket = new stdClass();
-			$conf->ticket->enabled = 0;
+		if (!isset($config->ticket->enabled)) {
+			$config->ticket = new stdClass();
+			$config->ticket->enabled = 0;
 		}
 
 		// Dictionary of ticket types
@@ -434,9 +434,9 @@ class modTicket extends DolibarrModules
 			array("sql" => "insert into ".$this->db->prefix()."c_type_contact(rowid, element, source, code, libelle, active ) values (110122, 'ticket',  'external', 'SUPPORTCLI', 'Contact client suivi incident', 1);", "ignoreerror" => 1),
 			array("sql" => "insert into ".$this->db->prefix()."c_type_contact(rowid, element, source, code, libelle, active ) values (110123, 'ticket',  'external', 'CONTRIBUTOR', 'Intervenant', 1);", "ignoreerror" => 1),
 			// remove old settings
-			"DELETE FROM ".$this->db->prefix()."document_model WHERE nom = 'TICKET_ADDON_PDF_ODT_PATH' AND type = 'ticket' AND entity = ".((int) $conf->entity),
+			"DELETE FROM ".$this->db->prefix()."document_model WHERE nom = 'TICKET_ADDON_PDF_ODT_PATH' AND type = 'ticket' AND entity = ".((int) $config->entity),
 			// activate default odt templates
-			array("sql" => "INSERT INTO ".$this->db->prefix()."document_model (nom, type, libelle, entity, description) VALUES('generic_ticket_odt','ticket','ODT templates',".((int) $conf->entity).",'TICKET_ADDON_PDF_ODT_PATH');", "ignoreerror" => 1),
+			array("sql" => "INSERT INTO ".$this->db->prefix()."document_model (nom, type, libelle, entity, description) VALUES('generic_ticket_odt','ticket','ODT templates',".((int) $config->entity).",'TICKET_ADDON_PDF_ODT_PATH');", "ignoreerror" => 1),
 		);
 
 		return $this->_init($sql, $options);

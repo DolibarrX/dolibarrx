@@ -165,13 +165,13 @@ $sql .= $hookManager->resPrint;
 $sql .= " FROM ".MAIN_DB_PREFIX."facturedet as fd";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = fd.fk_product";
 if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
-	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $conf->entity);
+	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 }
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON aa.rowid = fd.fk_code_ventilation";
 $sql .= " JOIN ".MAIN_DB_PREFIX."facture as f ON f.rowid = fd.fk_facture";
 $sql .= " JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = f.fk_soc";
 if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
-	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $conf->entity);
+	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
 }
 $parameters = array();
 $reshook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
@@ -572,7 +572,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 					$bookkeeping->code_journal = $journal;
 					$bookkeeping->journal_label = $langs->transnoentities($journal_label);
 					$bookkeeping->fk_user_author = $user->id;
-					$bookkeeping->entity = $conf->entity;
+					$bookkeeping->entity = $config->entity;
 
 					$totaldebit += $bookkeeping->debit;
 					$totalcredit += $bookkeeping->credit;
@@ -622,7 +622,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 				$bookkeeping->code_journal = $journal;
 				$bookkeeping->journal_label = $langs->transnoentities($journal_label);
 				$bookkeeping->fk_user_author = $user->id;
-				$bookkeeping->entity = $conf->entity;
+				$bookkeeping->entity = $config->entity;
 
 				$totaldebit += $bookkeeping->debit;
 				$totalcredit += $bookkeeping->credit;
@@ -654,12 +654,12 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 		// Product / Service
 		if (!$errorforline) {
 			foreach ($tabht[$key] as $k => $mt) {
-				if (empty($conf->cache['accountingaccountincurrententity'][$k])) {
+				if (empty($config->cache['accountingaccountincurrententity'][$k])) {
 					$accountingaccount = new AccountingAccount($db);
 					$accountingaccount->fetch(0, $k, true);
-					$conf->cache['accountingaccountincurrententity'][$k] = $accountingaccount;
+					$config->cache['accountingaccountincurrententity'][$k] = $accountingaccount;
 				} else {
-					$accountingaccount = $conf->cache['accountingaccountincurrententity'][$k];
+					$accountingaccount = $config->cache['accountingaccountincurrententity'][$k];
 				}
 
 				$label_account = $accountingaccount->label;
@@ -700,7 +700,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 					$bookkeeping->code_journal = $journal;
 					$bookkeeping->journal_label = $langs->transnoentities($journal_label);
 					$bookkeeping->fk_user_author = $user->id;
-					$bookkeeping->entity = $conf->entity;
+					$bookkeeping->entity = $config->entity;
 
 					$totaldebit += $bookkeeping->debit;
 					$totalcredit += $bookkeeping->credit;
@@ -769,7 +769,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 						$bookkeeping->code_journal = $journal;
 						$bookkeeping->journal_label = $langs->transnoentities($journal_label);
 						$bookkeeping->fk_user_author = $user->id;
-						$bookkeeping->entity = $conf->entity;
+						$bookkeeping->entity = $config->entity;
 
 						$totaldebit += $bookkeeping->debit;
 						$totalcredit += $bookkeeping->credit;
@@ -825,7 +825,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 						$bookkeeping->code_journal = $journal;
 						$bookkeeping->journal_label = $langs->transnoentities($journal_label);
 						$bookkeeping->fk_user_author = $user->id;
-						$bookkeeping->entity = $conf->entity;
+						$bookkeeping->entity = $config->entity;
 
 						$totaldebit += $bookkeeping->debit;
 						$totalcredit += $bookkeeping->credit;
@@ -1090,9 +1090,9 @@ if (empty($action) || $action == 'view') {
 	journalHead($nom, $nomlink, $period, $periodlink, $description, $builddate, $exportlink, array('action' => ''), '', $varlink);
 
 	if (getDolGlobalString('ACCOUNTANCY_FISCAL_PERIOD_MODE') != 'blockedonclosed') {
-		// Test that setup is complete (we are in accounting, so test on entity is always on $conf->entity only, no sharing allowed)
+		// Test that setup is complete (we are in accounting, so test on entity is always on $config->entity only, no sharing allowed)
 		// Fiscal period test
-		$sql = "SELECT COUNT(rowid) as nb FROM ".MAIN_DB_PREFIX."accounting_fiscalyear WHERE entity = ".((int) $conf->entity);
+		$sql = "SELECT COUNT(rowid) as nb FROM ".MAIN_DB_PREFIX."accounting_fiscalyear WHERE entity = ".((int) $config->entity);
 		$resql = $db->query($sql);
 		if ($resql) {
 			$obj = $db->fetch_object($resql);
@@ -1306,12 +1306,12 @@ if (empty($action) || $action == 'view') {
 
 		// Product / Service
 		foreach ($tabht[$key] as $k => $mt) {
-			if (empty($conf->cache['accountingaccountincurrententity'][$k])) {
+			if (empty($config->cache['accountingaccountincurrententity'][$k])) {
 				$accountingaccount = new AccountingAccount($db);
 				$accountingaccount->fetch(0, $k, true);
-				$conf->cache['accountingaccountincurrententity'][$k] = $accountingaccount;
+				$config->cache['accountingaccountincurrententity'][$k] = $accountingaccount;
 			} else {
-				$accountingaccount = $conf->cache['accountingaccountincurrententity'][$k];
+				$accountingaccount = $config->cache['accountingaccountincurrententity'][$k];
 			}
 
 			print '<tr class="oddeven">';

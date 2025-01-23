@@ -100,7 +100,7 @@ print '<br>';
 print $langs->trans("CurrentVersion").' : <strong>'.DOL_VERSION.'</strong><br>';
 
 if (function_exists('curl_init')) {
-	$conf->global->MAIN_USE_RESPONSE_TIMEOUT = 10;
+	$config->global->MAIN_USE_RESPONSE_TIMEOUT = 10;
 
 	if ($action == 'getlastversion') {
 		if ($sfurl == 'xml_not_available') {

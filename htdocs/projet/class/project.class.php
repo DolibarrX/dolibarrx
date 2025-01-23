@@ -436,7 +436,7 @@ class Project extends CommonObject
 			$this->fields['usage_task']['visible'] = 0;
 		}
 
-		if (empty($conf->eventorganization->enabled)) {
+		if (empty($config->eventorganization->enabled)) {
 			$this->fields['usage_organize_event']['visible'] = 0;
 			$this->fields['accept_conference_suggestions']['enabled'] = 0;
 			$this->fields['accept_booth_suggestions']['enabled'] = 0;
@@ -620,7 +620,7 @@ class Project extends CommonObject
 			return -3;
 		}
 
-		$this->entity = ((isset($this->entity) && is_numeric($this->entity)) ? $this->entity : $conf->entity);
+		$this->entity = ((isset($this->entity) && is_numeric($this->entity)) ? $this->entity : $config->entity);
 
 		if (dol_strlen(trim($this->ref)) > 0) {
 			$this->db->begin();
@@ -682,9 +682,9 @@ class Project extends CommonObject
 
 				if (!$error && (is_object($this->oldcopy) && $this->oldcopy->ref !== $this->ref)) {
 					// We remove directory
-					if ($conf->project->dir_output) {
-						$olddir = $conf->project->dir_output."/".dol_sanitizeFileName($this->oldcopy->ref);
-						$newdir = $conf->project->dir_output."/".dol_sanitizeFileName($this->ref);
+					if ($config->project->dir_output) {
+						$olddir = $config->project->dir_output."/".dol_sanitizeFileName($this->oldcopy->ref);
+						$newdir = $config->project->dir_output."/".dol_sanitizeFileName($this->ref);
 						if (file_exists($olddir)) {
 							include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 							$res = @rename($olddir, $newdir);
@@ -1098,8 +1098,8 @@ class Project extends CommonObject
 		if (empty($error)) {
 			// We remove directory
 			$projectref = dol_sanitizeFileName($this->ref);
-			if ($conf->project->dir_output) {
-				$dir = $conf->project->dir_output."/".$projectref;
+			if ($config->project->dir_output) {
+				$dir = $config->project->dir_output."/".$projectref;
 				if (file_exists($dir)) {
 					$res = @dol_delete_dir_recursive($dir);
 					if (!$res) {
@@ -1239,7 +1239,7 @@ class Project extends CommonObject
 		$sql = "UPDATE ".MAIN_DB_PREFIX."projet";
 		$sql .= " SET fk_statut = ".self::STATUS_VALIDATED;
 		$sql .= " WHERE rowid = ".((int) $this->id);
-		//$sql .= " AND entity = ".((int) $conf->entity);	// Disabled, when we use the ID for the where, we must not add any other search condition
+		//$sql .= " AND entity = ".((int) $config->entity);	// Disabled, when we use the ID for the where, we must not add any other search condition
 
 		dol_syslog(get_class($this)."::setValid", LOG_DEBUG);
 		$resql = $this->db->query($sql);
@@ -1428,7 +1428,7 @@ class Project extends CommonObject
 	{
 		global $conf, $langs, $user, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -1541,7 +1541,7 @@ class Project extends CommonObject
 		// Initialise parameters
 		$this->id = 0;
 		$this->ref = 'SPECIMEN';
-		$this->entity = $conf->entity;
+		$this->entity = $config->entity;
 		$this->specimen = 1;
 		$this->socid = 1;
 		$this->date_c = $now;
@@ -1802,7 +1802,7 @@ class Project extends CommonObject
 		$file = '';
 		$classname = '';
 		$filefound = 0;
-		$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+		$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 		foreach ($dirmodels as $reldir) {
 			$file = dol_buildpath($reldir."core/modules/project/".$obj.'.php', 0);
 			if (file_exists($file)) {
@@ -1892,8 +1892,8 @@ class Project extends CommonObject
 			if ($clone_project_file) {
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
-				$clone_project_dir = $conf->project->dir_output."/".dol_sanitizeFileName($defaultref);
-				$ori_project_dir = $conf->project->dir_output."/".dol_sanitizeFileName($orign_project_ref);
+				$clone_project_dir = $config->project->dir_output."/".dol_sanitizeFileName($defaultref);
+				$ori_project_dir = $config->project->dir_output."/".dol_sanitizeFileName($orign_project_ref);
 
 				if (dol_mkdir($clone_project_dir) >= 0) {
 					$filearray = dol_dir_list($ori_project_dir, "files", 0, '', '(\.meta|_preview.*\.png)$', '', SORT_ASC, 1);
@@ -2282,7 +2282,7 @@ class Project extends CommonObject
 		//$socid=$user->socid;
 
 		$response = new WorkboardResponse();
-		$response->warning_delay = $conf->project->warning_delay / 60 / 60 / 24;
+		$response->warning_delay = $config->project->warning_delay / 60 / 60 / 24;
 		$response->label = $langs->trans("OpenedProjects");
 		$response->labelShort = $langs->trans("Opened");
 		$response->url = DOL_URL_ROOT.'/projet/list.php?search_project_user=-1&search_status=1&mainmenu=project';
@@ -2415,7 +2415,7 @@ class Project extends CommonObject
 
 		$now = dol_now();
 
-		return ($this->date_end) < ($now - $conf->project->warning_delay);
+		return ($this->date_end) < ($now - $config->project->warning_delay);
 	}
 
 
@@ -2526,7 +2526,7 @@ class Project extends CommonObject
 		$selected = (empty($arraydata['selected']) ? 0 : $arraydata['selected']);
 
 		if (empty($size)) {
-			if (empty($conf->dol_optimize_smallscreen)) {
+			if (empty($config->dol_optimize_smallscreen)) {
 				$size = 'large';
 			} else {
 				$size = 'small';

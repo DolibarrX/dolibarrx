@@ -69,7 +69,7 @@ $dateinput = dol_mktime(0, 0, 0, GETPOSTINT('dateinputmonth'), GETPOSTINT('datei
 $rateinput = (float) price2num(GETPOST('rateinput', 'alpha'));
 $rateindirectinput = (float) price2num(GETPOST('rateinidirectinput', 'alpha'));
 $optioncss = GETPOST('optioncss', 'alpha');
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $page = GETPOSTINT("page");
 if (empty($page) || $page == -1) {
 	$page = 0;
@@ -156,7 +156,7 @@ if ($action == "create" && $user->hasRight('multicurrency', 'currency', 'read'))
 		$fk_currency = $currency_static->getIdFromCode($db, $multicurrency_code);
 
 		$currencyRate_static->fk_multicurrency = $fk_currency;
-		$currencyRate_static->entity = $conf->entity;
+		$currencyRate_static->entity = $config->entity;
 		$currencyRate_static->date_sync = $dateinput;
 		$currencyRate_static->rate = $rateinput;
 		$currencyRate_static->rate_indirect = $rateindirectinput;
@@ -262,7 +262,7 @@ if (empty($reshook)) {
 
 	// Mass actions
 	$objectclass = "CurrencyRate";
-	$uploaddir = $conf->multicurrency->multidir_output; // define only because core/actions_massactions.inc.php want it
+	$uploaddir = $config->multicurrency->multidir_output; // define only because core/actions_massactions.inc.php want it
 	$permissiontoread = $user->admin;
 	$permissiontodelete = $user->admin;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
@@ -303,13 +303,13 @@ if (!in_array($action, array("updateRate", "deleteRate"))) {
 	print '</td>';
 
 	print '<td> '.$langs->trans('Currency').'</td>';
-	print '<td>'.$form->selectMultiCurrency((GETPOSTISSET('multicurrency_code') ? GETPOST('multicurrency_code', 'alpha') : $multicurrency_code), 'multicurrency_code', 1, " code != '".$db->escape($conf->currency)."'", true).'</td>';
+	print '<td>'.$form->selectMultiCurrency((GETPOSTISSET('multicurrency_code') ? GETPOST('multicurrency_code', 'alpha') : $multicurrency_code), 'multicurrency_code', 1, " code != '".$db->escape($config->currency)."'", true).'</td>';
 
-	print ' <td>'.$langs->trans('Rate').' / '.$langs->getCurrencySymbol($conf->currency).'</td>';
+	print ' <td>'.$langs->trans('Rate').' / '.$langs->getCurrencySymbol($config->currency).'</td>';
 	print ' <td><input type="text" min="0" step="any" class="maxwidth75" id="rateinput" name="rateinput" value="'.dol_escape_htmltag((string) $rateinput).'"></td>';
 
 	if (getDolGlobalString('MULTICURRENCY_USE_RATE_INDIRECT')) {
-		print ' <td>'.$langs->trans('RateIndirect').' / '.$langs->getCurrencySymbol($conf->currency).'</td>';
+		print ' <td>'.$langs->trans('RateIndirect').' / '.$langs->getCurrencySymbol($config->currency).'</td>';
 		print ' <td><input type="text" min="0" step="any" class="maxwidth75" id="rateindirectinput" name="rateindirectinput" value="'.dol_escape_htmltag((string) $rateindirectinput).'"></td>';
 		// LRR Calculate Rate Direct
 		print '<script type="text/javascript">';
@@ -362,7 +362,7 @@ if ($search_rate) {
 if ($search_code) {
 	$sql .= natural_search('m.code', $search_code);
 }
-$sql .= " WHERE m.code <> '".$db->escape($conf->currency)."'";
+$sql .= " WHERE m.code <> '".$db->escape($config->currency)."'";
 
 // Add where from hooks
 $parameters = array();
@@ -404,7 +404,7 @@ if ($resql) {
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($sall) {
@@ -505,7 +505,7 @@ if ($resql) {
 	// code
 	if (!empty($arrayfields['m.code']['checked'])) {
 		print '<td class="liste_titre" align="left">';
-		print  $form->selectMultiCurrency($multicurrency_code, 'search_code', 1, " code != '".$conf->currency."'", true);
+		print  $form->selectMultiCurrency($multicurrency_code, 'search_code', 1, " code != '".$config->currency."'", true);
 		print '</td>';
 	}
 	// rate
@@ -570,7 +570,7 @@ if ($resql) {
 				print '</td>';
 			}
 			print '<td><input class="minwidth200" name="dateinput" value="'. date('Y-m-d', dol_stringtotime($obj->date_sync)) .'" type="date"></td>';
-			print '<td>' . $form->selectMultiCurrency($obj->code, 'multicurrency_code', 1, " code != '".$conf->currency."'", true) . '</td>';
+			print '<td>' . $form->selectMultiCurrency($obj->code, 'multicurrency_code', 1, " code != '".$config->currency."'", true) . '</td>';
 			print '<td><input type="text" min="0" step="any" class="maxwidth100" name="rateinput" value="' . dol_escape_htmltag($obj->rate) . '">';
 			print '<input type="hidden" name="page" value="'.dol_escape_htmltag((string) $page).'">';
 			print '<input type="hidden" name="id_rate" value="'.dol_escape_htmltag($obj->rowid).'">';

@@ -204,7 +204,7 @@ class Export
 						if ($part == 'propale') {
 							$part = 'propal';
 						}
-						if (empty($conf->$part->enabled)) {
+						if (empty($config->$part->enabled)) {
 							$enabled = false;
 						}
 
@@ -664,7 +664,7 @@ class Export
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
 	 *      Build export file.
-	 *      File is built into directory $conf->export->dir_temp.'/'.$user->id
+	 *      File is built into directory $config->export->dir_temp.'/'.$user->id
 	 *      Arrays this->array_export_xxx are already loaded for required datatoexport
 	 *
 	 *      @param      User		$user               User that export
@@ -741,7 +741,7 @@ class Export
 				$filename .= dol_print_date(dol_now(), '%Y%m%d%_%H%M');
 			}
 			$filename .= '.'.$objmodel->getDriverExtension();
-			$dirname = $conf->export->dir_temp.'/'.$user->id;
+			$dirname = $config->export->dir_temp.'/'.$user->id;
 
 			$outputlangs = clone $langs; // We clone to have an object we can modify (for example to change output charset by csv handler) without changing original value
 

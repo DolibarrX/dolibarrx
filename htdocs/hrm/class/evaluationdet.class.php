@@ -513,8 +513,8 @@ class EvaluationLine extends CommonObjectLine
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->evaluationdet->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->evaluationdet->evaluationdet_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->evaluationdet->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->evaluationdet->evaluationdet_advance->validate))))
 		 {
 		 $this->error='NotEnoughPermissions';
 		 dol_syslog(get_class($this)."::valid ".$this->error, LOG_ERR);
@@ -571,14 +571,14 @@ class EvaluationLine extends CommonObjectLine
 			if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 				// Now we rename also files into index
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'evaluationline/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'evaluationline/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'evaluationline/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
 					$this->error = $this->db->lasterror();
 				}
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'evaluationline/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filepath = 'evaluationline/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filepath = 'evaluationline/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
@@ -588,15 +588,15 @@ class EvaluationLine extends CommonObjectLine
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($num);
-				$dirsource = $conf->hrm->dir_output.'/evaluationline/'.$oldref;
-				$dirdest = $conf->hrm->dir_output.'/evaluationline/'.$newref;
+				$dirsource = $config->hrm->dir_output.'/evaluationline/'.$oldref;
+				$dirdest = $config->hrm->dir_output.'/evaluationline/'.$newref;
 				if (!$error && file_exists($dirsource)) {
 					dol_syslog(get_class($this)."::validate() rename dir ".$dirsource." into ".$dirdest);
 
 					if (@rename($dirsource, $dirdest)) {
 						dol_syslog("Rename ok");
 						// Rename docs starting with $oldref with $newref
-						$listoffiles = dol_dir_list($conf->hrm->dir_output.'/evaluationline/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+						$listoffiles = dol_dir_list($config->hrm->dir_output.'/evaluationline/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 						foreach ($listoffiles as $fileentry) {
 							$dirsource = $fileentry['name'];
 							$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -639,8 +639,8 @@ class EvaluationLine extends CommonObjectLine
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->hrm_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->hrm_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -663,8 +663,8 @@ class EvaluationLine extends CommonObjectLine
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->hrm_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->hrm_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -687,8 +687,8 @@ class EvaluationLine extends CommonObjectLine
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->hrm_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->hrm->hrm_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -711,7 +711,7 @@ class EvaluationLine extends CommonObjectLine
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -772,7 +772,7 @@ class EvaluationLine extends CommonObjectLine
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 				list($class, $module) = explode('@', $this->picto);
-				$upload_dir = $conf->$module->multidir_output[$conf->entity]."/$class/".dol_sanitizeFileName($this->ref);
+				$upload_dir = $config->$module->multidir_output[$config->entity]."/$class/".dol_sanitizeFileName($this->ref);
 				$filearray = dol_dir_list($upload_dir, "files");
 				$filename = $filearray[0]['name'];
 				if (!empty($filename)) {
@@ -780,9 +780,9 @@ class EvaluationLine extends CommonObjectLine
 
 					$pathtophoto = $class.'/'.$this->ref.'/thumbs/'.substr($filename, 0, $pospoint).'_mini'.substr($filename, $pospoint);
 					if (!getDolGlobalString(strtoupper($module.'_'.$class).'_FORMATLISTPHOTOSASUSERS')) {
-						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref"><img class="photo'.$module.'" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$conf->entity.'&file='.urlencode($pathtophoto).'"></div></div>';
+						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref"><img class="photo'.$module.'" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$config->entity.'&file='.urlencode($pathtophoto).'"></div></div>';
 					} else {
-						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$conf->entity.'&file='.urlencode($pathtophoto).'"></div>';
+						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$config->entity.'&file='.urlencode($pathtophoto).'"></div>';
 					}
 
 					$result .= '</div>';
@@ -932,7 +932,7 @@ class EvaluationLine extends CommonObjectLine
 		$langs->load("hrm");
 
 		if (!getDolGlobalString('hrm_EVALUATIONLINE_ADDON')) {
-			$conf->global->hrm_EVALUATIONLINE_ADDON = 'mod_evaluationdet_standard';
+			$config->global->hrm_EVALUATIONLINE_ADDON = 'mod_evaluationdet_standard';
 		}
 
 		if (getDolGlobalString('hrm_EVALUATIONLINE_ADDON')) {
@@ -942,7 +942,7 @@ class EvaluationLine extends CommonObjectLine
 			$classname = getDolGlobalString('hrm_EVALUATIONLINE_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/hrm/");
 

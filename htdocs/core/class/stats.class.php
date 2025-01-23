@@ -119,7 +119,7 @@ abstract class Stats
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 		}
 
-		$newpathofdestfile = $conf->user->dir_temp.'/'.get_class($this).'_'.__FUNCTION__.'_'.(empty($this->cachefilesuffix) ? '' : $this->cachefilesuffix.'_').$langs->defaultlang.'_entity.'.$conf->entity.'_user'.$user->id.'.cache';
+		$newpathofdestfile = $config->user->dir_temp.'/'.get_class($this).'_'.__FUNCTION__.'_'.(empty($this->cachefilesuffix) ? '' : $this->cachefilesuffix.'_').$langs->defaultlang.'_entity.'.$config->entity.'_user'.$user->id.'.cache';
 		$newmask = '0644';
 
 		$nowgmt = dol_now();
@@ -167,8 +167,8 @@ abstract class Stats
 		// Save cache file
 		if (empty($foundintocache) && ($cachedelay > 0 || $cachedelay == -1)) {
 			dol_syslog(get_class($this).'::'.__FUNCTION__." save cache file ".$newpathofdestfile." onto disk.");
-			if (!dol_is_dir($conf->user->dir_temp)) {
-				dol_mkdir($conf->user->dir_temp);
+			if (!dol_is_dir($config->user->dir_temp)) {
+				dol_mkdir($config->user->dir_temp);
 			}
 			$fp = @fopen($newpathofdestfile, 'w');
 			if ($fp) {
@@ -221,7 +221,7 @@ abstract class Stats
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 		}
 
-		$newpathofdestfile = $conf->user->dir_temp.'/'.get_class($this).'_'.__FUNCTION__.'_'.(empty($this->cachefilesuffix) ? '' : $this->cachefilesuffix.'_').$langs->defaultlang.'_entity.'.$conf->entity.'_user'.$user->id.'.cache';
+		$newpathofdestfile = $config->user->dir_temp.'/'.get_class($this).'_'.__FUNCTION__.'_'.(empty($this->cachefilesuffix) ? '' : $this->cachefilesuffix.'_').$langs->defaultlang.'_entity.'.$config->entity.'_user'.$user->id.'.cache';
 		$newmask = '0644';
 
 		$nowgmt = dol_now();
@@ -269,8 +269,8 @@ abstract class Stats
 		// Save cache file
 		if (empty($foundintocache) && ($cachedelay > 0 || $cachedelay == -1)) {
 			dol_syslog(get_class($this).'::'.__FUNCTION__." save cache file ".$newpathofdestfile." onto disk.");
-			if (!dol_is_dir($conf->user->dir_temp)) {
-				dol_mkdir($conf->user->dir_temp);
+			if (!dol_is_dir($config->user->dir_temp)) {
+				dol_mkdir($config->user->dir_temp);
 			}
 			$fp = @fopen($newpathofdestfile, 'w');
 			if ($fp) {
@@ -346,7 +346,7 @@ abstract class Stats
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 		}
 
-		$newpathofdestfile = $conf->user->dir_temp.'/'.get_class($this).'_'.__FUNCTION__.'_'.(empty($this->cachefilesuffix) ? '' : $this->cachefilesuffix.'_').$langs->defaultlang.'_entity.'.$conf->entity.'_user'.$user->id.'.cache';
+		$newpathofdestfile = $config->user->dir_temp.'/'.get_class($this).'_'.__FUNCTION__.'_'.(empty($this->cachefilesuffix) ? '' : $this->cachefilesuffix.'_').$langs->defaultlang.'_entity.'.$config->entity.'_user'.$user->id.'.cache';
 		$newmask = '0644';
 
 		$nowgmt = dol_now();
@@ -376,8 +376,8 @@ abstract class Stats
 		// Save cache file
 		if (empty($foundintocache) && ($cachedelay > 0 || $cachedelay == -1)) {
 			dol_syslog(get_class($this).'::'.__FUNCTION__." save cache file ".$newpathofdestfile." onto disk.");
-			if (!dol_is_dir($conf->user->dir_temp)) {
-				dol_mkdir($conf->user->dir_temp);
+			if (!dol_is_dir($config->user->dir_temp)) {
+				dol_mkdir($config->user->dir_temp);
 			}
 			$fp = @fopen($newpathofdestfile, 'w');
 			if ($fp) {

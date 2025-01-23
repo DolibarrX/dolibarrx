@@ -89,7 +89,7 @@ if (!empty($inputalsopricewithtax)) {
 if (in_array($object->element, array('propal', 'supplier_proposal', 'facture', 'facturerec', 'invoice', 'commande', 'order', 'order_supplier', 'invoice_supplier', 'invoice_supplier_rec'))) {
 	$colspan++; // With this, there is a column move button
 }
-if (isModEnabled("multicurrency") && $object->multicurrency_code != $conf->currency) {
+if (isModEnabled("multicurrency") && $object->multicurrency_code != $config->currency) {
 	$colspan += 2;
 }
 if (isModEnabled('asset') && $object->element == 'invoice_supplier') {
@@ -176,12 +176,12 @@ $coldisplay++;
 		if (getDolGlobalString('MAIN_INPUT_DESC_HEIGHT')) {
 			$nbrows = getDolGlobalString('MAIN_INPUT_DESC_HEIGHT');
 		}
-		$enable = (isset($conf->global->FCKEDITOR_ENABLE_DETAILS) ? $conf->global->FCKEDITOR_ENABLE_DETAILS : 0);
+		$enable = (isset($config->global->FCKEDITOR_ENABLE_DETAILS) ? $config->global->FCKEDITOR_ENABLE_DETAILS : 0);
 		$toolbarname = 'dolibarr_details';
 		if (getDolGlobalString('FCKEDITOR_ENABLE_DETAILS_FULL')) {
 			$toolbarname = 'dolibarr_notes';
 		}
-		$doleditor = new DolEditor('product_desc', GETPOSTISSET('product_desc') ? GETPOST('product_desc', 'restricthtml') : $line->description, '', (!getDolGlobalString('MAIN_DOLEDITOR_HEIGHT') ? 164 : $conf->global->MAIN_DOLEDITOR_HEIGHT), $toolbarname, '', false, true, $enable, $nbrows, '98%');
+		$doleditor = new DolEditor('product_desc', GETPOSTISSET('product_desc') ? GETPOST('product_desc', 'restricthtml') : $line->description, '', (!getDolGlobalString('MAIN_DOLEDITOR_HEIGHT') ? 164 : $config->global->MAIN_DOLEDITOR_HEIGHT), $toolbarname, '', false, true, $enable, $nbrows, '98%');
 		$doleditor->Create();
 	} else {
 		print '<textarea id="product_desc" class="flat" name="product_desc" readonly style="width: 200px; height:80px;">';
@@ -247,7 +247,7 @@ $coldisplay++;
 	}
 	print '></td>';
 
-	if (isModEnabled("multicurrency") && $object->multicurrency_code != $conf->currency) {
+	if (isModEnabled("multicurrency") && $object->multicurrency_code != $config->currency) {
 		$coldisplay++;
 		print '<td class="right"><input rel="'.$object->multicurrency_tx.'" type="text" class="flat right width50" id="multicurrency_subprice" name="multicurrency_subprice" value="'.(GETPOSTISSET('multicurrency_subprice') ? GETPOST('multicurrency_subprice', 'alpha') : price($line->multicurrency_subprice)).'" /></td>';
 	}
@@ -401,7 +401,7 @@ $coldisplay++;
 			}
 		}
 	}
-	$hourmin = (isset($conf->global->MAIN_USE_HOURMIN_IN_DATE_RANGE) ? $conf->global->MAIN_USE_HOURMIN_IN_DATE_RANGE : '');
+	$hourmin = (isset($config->global->MAIN_USE_HOURMIN_IN_DATE_RANGE) ? $config->global->MAIN_USE_HOURMIN_IN_DATE_RANGE : '');
 	print $form->selectDate($line->date_start, 'date_start', $hourmin, $hourmin, $line->date_start ? 0 : 1, "updateline", 1, 0);
 	print ' '.$langs->trans('to').' ';
 	print $form->selectDate($line->date_end, 'date_end', $hourmin, $hourmin, $line->date_end ? 0 : 1, "updateline", 1, 0);
@@ -428,12 +428,12 @@ $coldisplay++;
 		<?php
 	}
 	if (!$line->date_start) {
-		if (isset($conf->global->MAIN_DEFAULT_DATE_START_HOUR)) {
+		if (isset($config->global->MAIN_DEFAULT_DATE_START_HOUR)) {
 			print 'jQuery("#date_starthour").val("' . getDolGlobalString('MAIN_DEFAULT_DATE_START_HOUR').'");';
 		}
 
 
-		if (isset($conf->global->MAIN_DEFAULT_DATE_START_MIN)) {
+		if (isset($config->global->MAIN_DEFAULT_DATE_START_MIN)) {
 			print 'jQuery("#date_startmin").val("' . getDolGlobalString('MAIN_DEFAULT_DATE_START_MIN').'");';
 		}
 
@@ -448,10 +448,10 @@ $coldisplay++;
 		}
 	}
 	if (!$line->date_end) {
-		if (isset($conf->global->MAIN_DEFAULT_DATE_END_HOUR)) {
+		if (isset($config->global->MAIN_DEFAULT_DATE_END_HOUR)) {
 			print 'jQuery("#date_endhour").val("' . getDolGlobalString('MAIN_DEFAULT_DATE_END_HOUR').'");';
 		}
-		if (isset($conf->global->MAIN_DEFAULT_DATE_END_MIN)) {
+		if (isset($config->global->MAIN_DEFAULT_DATE_END_MIN)) {
 			print 'jQuery("#date_endmin").val("' . getDolGlobalString('MAIN_DEFAULT_DATE_END_MIN').'");';
 		}
 

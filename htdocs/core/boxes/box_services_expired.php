@@ -82,7 +82,7 @@ class box_services_expired extends ModeleBoxes
 				$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 			}
 			$sql .= " WHERE cd.statut = 4 AND cd.date_fin_validite <= '".$this->db->idate($now)."'";
-			$sql .= " AND c.entity = ".$conf->entity;
+			$sql .= " AND c.entity = ".$config->entity;
 			$sql .= " AND c.fk_soc=s.rowid AND cd.fk_contrat=c.rowid AND c.statut > 0";
 			if ($user->socid) {
 				$sql .= ' AND c.fk_soc = '.((int) $user->socid);
@@ -127,7 +127,7 @@ class box_services_expired extends ModeleBoxes
 					$contract->ref_supplier = $objp->ref_supplier;
 
 					$dateline = $this->db->jdate($objp->date_line);
-					if (($dateline + $conf->contrat->services->expires->warning_delay) < $now) {
+					if (($dateline + $config->contrat->services->expires->warning_delay) < $now) {
 						$late = img_warning($langs->trans("Late"));
 					}
 

@@ -63,19 +63,19 @@ if ($reshook < 0) {
 
 if (($action == 'update' && !GETPOST("cancel", 'alpha'))
 || ($action == 'updateedit')) {
-	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_NAME", GETPOST("nom", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_ADDRESS", GETPOST("address", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_TOWN", GETPOST("town", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_ZIP", GETPOST("zipcode", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_STATE", GETPOSTINT("state_id"), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_REGION", GETPOST("region_code", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_COUNTRY", GETPOSTINT('country_id'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_PHONE", GETPOST("phone", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_FAX", GETPOST("fax", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_MAIL", GETPOST("mail", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_WEB", GETPOST("web", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_CODE", GETPOST("code", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_NOTE", GETPOST("note", 'restricthtml'), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_NAME", GETPOST("nom", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_ADDRESS", GETPOST("address", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_TOWN", GETPOST("town", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_ZIP", GETPOST("zipcode", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_STATE", GETPOSTINT("state_id"), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_REGION", GETPOST("region_code", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_COUNTRY", GETPOSTINT('country_id'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_PHONE", GETPOST("phone", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_FAX", GETPOST("fax", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_MAIL", GETPOST("mail", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_WEB", GETPOST("web", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_CODE", GETPOST("code", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_INFO_ACCOUNTANT_NOTE", GETPOST("note", 'restricthtml'), 'chaine', 0, '', $config->entity);
 
 	if ($action != 'updateedit' && !$error) {
 		setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
@@ -110,7 +110,7 @@ print "<br><br>\n";
 /**
  * Edit parameters
  */
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	print "\n".'<script type="text/javascript">';
 	print '$(document).ready(function () {
 		  $("#selectcountry_id").change(function() {

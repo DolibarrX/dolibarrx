@@ -76,7 +76,7 @@ if (!empty($backtopagejsfields)) {
 // Initialize a technical objects
 $object = new IntracommReport($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->intracommreport->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->intracommreport->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($object->element.'card', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -117,7 +117,7 @@ if ($enablepermissioncheck) {
 	$permissiondellink = 1;
 }
 
-$upload_dir = $conf->intracommreport->multidir_output[isset($object->entity) ? $object->entity : 1].'/intracommreport';
+$upload_dir = $config->intracommreport->multidir_output[isset($object->entity) ? $object->entity : 1].'/intracommreport';
 
 // Security check (enable the most restrictive one)
 //if ($user->socid > 0) accessforbidden();
@@ -313,7 +313,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	$formconfirm = '';
 
 	// Confirmation to delete (using preloaded confirm popup)
-	if ($action == 'delete' || ($conf->use_javascript_ajax && empty($conf->dol_use_jmobile))) {
+	if ($action == 'delete' || ($config->use_javascript_ajax && empty($config->dol_use_jmobile))) {
 		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id, $langs->trans('DeleteIntraCommReport'), $langs->trans('ConfirmDeleteObject'), 'confirm_delete', '', 0, 'action-delete');
 	}
 	// Confirmation to delete line
@@ -422,7 +422,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		<input type="hidden" name="id" value="' . $object->id.'">
 		';
 
-		if (!empty($conf->use_javascript_ajax) && $object->status == 0) {
+		if (!empty($config->use_javascript_ajax) && $object->status == 0) {
 			include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 		}
 
@@ -522,7 +522,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			// Delete (with preloaded confirm popup)
 			$deleteUrl = $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken();
 			$buttonId = 'action-delete-no-ajax';
-			if ($conf->use_javascript_ajax && empty($conf->dol_use_jmobile)) {	// We can use preloaded confirm if not jmobile
+			if ($config->use_javascript_ajax && empty($config->dol_use_jmobile)) {	// We can use preloaded confirm if not jmobile
 				$deleteUrl = '';
 				$buttonId = 'action-delete';
 			}
@@ -548,7 +548,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if ($includedocgeneration) {
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $conf->intracommreport->dir_output.'/'.$object->element.'/'.$objref;
+			$filedir = $config->intracommreport->dir_output.'/'.$object->element.'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $permissiontoread; // If you can read, you can build the PDF to read content
 			$delallowed = $permissiontoadd; // If you can create/edit, you can remove a file on card
@@ -589,7 +589,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Presend form
 	$modelmail = 'intracommreport';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->intracommreport->dir_output;
+	$diroutput = $config->intracommreport->dir_output;
 	$trackid = 'intracommreport'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

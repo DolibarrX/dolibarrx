@@ -107,7 +107,7 @@ $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTI
 if (empty($page) || $page == -1) {
 	$page = 0;
 }     // If $page is not defined, or '' or -1
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $offset = $limit * $page;
 
 if (!$sortfield) {
@@ -214,7 +214,7 @@ if ($action == 'order' && GETPOST('valid') && $user->hasRight('fournisseur', 'co
 						$tva = $line->tva_tx / 100;
 
 						// If we use multicurrency
-						if (isModEnabled('multicurrency') && !empty($productsupplier->fourn_multicurrency_code) && $productsupplier->fourn_multicurrency_code != $conf->currency) {
+						if (isModEnabled('multicurrency') && !empty($productsupplier->fourn_multicurrency_code) && $productsupplier->fourn_multicurrency_code != $config->currency) {
 							$line->multicurrency_code 		= $productsupplier->fourn_multicurrency_code;
 							$line->fk_multicurrency 		= (int) $productsupplier->fourn_multicurrency_id;
 							$line->multicurrency_subprice 	= $productsupplier->fourn_multicurrency_unitprice;
@@ -648,7 +648,7 @@ print '<input type="hidden" name="salert" value="' . $salert . '">';
 print '<input type="hidden" name="includeproductswithoutdesiredqty" value="' . $includeproductswithoutdesiredqty . '">';
 print '<input type="hidden" name="draftorder" value="' . $draftorder . '">';
 print '<input type="hidden" name="mode" value="' . $mode . '">';
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	print '<input type="hidden" name="limit" value="' . $limit . '">';
 }
 if (getDolGlobalString('STOCK_ALLOW_ADD_LIMIT_STOCK_BY_WAREHOUSE')) {
@@ -711,7 +711,7 @@ if ($search_ref || $search_label || $sall || $salert || $draftorder || GETPOST('
 		$filters .= '&fk_entrepot='.urlencode((string) ($fk_entrepot));
 	}
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$filters .= '&limit=' . ((int) $limit);
 }
 if (!empty($includeproductswithoutdesiredqty)) {

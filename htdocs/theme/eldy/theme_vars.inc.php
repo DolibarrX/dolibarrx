@@ -27,7 +27,7 @@
  *  \ingroup    core
  *
  *  To include file, do this:
- *              $var_file = DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+ *              $var_file = DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
  *              if (is_readable($var_file)) include $var_file;
  */
 

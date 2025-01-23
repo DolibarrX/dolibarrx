@@ -77,7 +77,7 @@ $form = new Form($db);
 llxHeader();
 
 $title = $langs->trans("SalariesStatistics");
-$dir = $conf->salaries->dir_temp;
+$dir = $config->salaries->dir_temp;
 
 print load_fiche_titre($title, '', 'salary');
 

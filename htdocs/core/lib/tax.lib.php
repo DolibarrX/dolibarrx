@@ -57,7 +57,7 @@ function tax_prepare_head(ChargeSociales $object)
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $conf->tax->dir_output."/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->tax->dir_output."/".dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
 	$head[$h][0] = DOL_URL_ROOT.'/compta/sociales/document.php?id='.$object->id;
@@ -576,7 +576,7 @@ function tax_by_thirdparty($type, $db, $y, $date_start, $date_end, $modetax, $di
 		$sql .= " FROM ".MAIN_DB_PREFIX."expensereport as e";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."expensereport_det as d ON d.fk_expensereport = e.rowid ";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."payment_expensereport as p ON p.fk_expensereport = e.rowid ";
-		$sql .= " WHERE e.entity = ".$conf->entity;
+		$sql .= " WHERE e.entity = ".$config->entity;
 		$sql .= " AND e.fk_statut in (6)";
 		if ($y && $m) {
 			$sql .= " AND p.datep >= '".$db->idate(dol_get_first_day($y, $m, false))."'";
@@ -1165,7 +1165,7 @@ function tax_by_rate($type, $db, $y, $q, $date_start, $date_end, $modetax, $dire
 		$sql .= " FROM ".MAIN_DB_PREFIX."expensereport as e";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."expensereport_det as d ON d.fk_expensereport = e.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."payment_expensereport as p ON p.fk_expensereport = e.rowid";
-		$sql .= " WHERE e.entity = ".$conf->entity;
+		$sql .= " WHERE e.entity = ".$config->entity;
 		$sql .= " AND e.fk_statut in (6)";
 		if ($y && $m) {
 			$sql .= " AND p.datep >= '".$db->idate(dol_get_first_day($y, $m, false))."'";

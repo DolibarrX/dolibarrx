@@ -88,8 +88,8 @@ class PrintingDriver
 		$list = array();
 
 		$listoffiles = array();
-		if (!empty($conf->modules_parts['printing'])) {
-			$dirmodels = array_merge(array('/core/modules/printing/'), (array) $conf->modules_parts['printing']);
+		if (!empty($config->modules_parts['printing'])) {
+			$dirmodels = array_merge(array('/core/modules/printing/'), (array) $config->modules_parts['printing']);
 		} else {
 			$dirmodels = array('/core/modules/printing/');
 		}

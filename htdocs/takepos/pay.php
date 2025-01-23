@@ -539,8 +539,8 @@ if (getDolGlobalString('TAKEPOS_CUSTOMER_DISPLAY')) {
 <?php
 $showothercurrency = 0;
 $sessioncurrency = $_SESSION["takeposcustomercurrency"] ?? '';
-print '<!-- conf->currency = '.$conf->currency.' - sessioncurrency = '.$sessioncurrency.' -->'."\n";
-if (isModEnabled('multicurrency') && $sessioncurrency != "" && $conf->currency != $sessioncurrency) {
+print '<!-- conf->currency = '.$config->currency.' - sessioncurrency = '.$sessioncurrency.' -->'."\n";
+if (isModEnabled('multicurrency') && $sessioncurrency != "" && $config->currency != $sessioncurrency) {
 	// Only show customer currency if multicurrency module is enabled, if currency selected and if this currency selected is not the same as main currency
 	$showothercurrency = 1;
 	include_once DOL_DOCUMENT_ROOT . '/multicurrency/class/multicurrency.class.php';
@@ -552,7 +552,7 @@ if (isModEnabled('multicurrency') && $sessioncurrency != "" && $conf->currency !
 <div style="position:relative; padding-top: 20px; left:5%; height:140px; width:90%;">
 	<div class="paymentbordline paymentbordlinetotal center">
 		<span class="takepospay colorwhite"><?php echo $langs->trans('TotalTTC'); ?>: <span id="totaldisplay" class="colorwhite"><?php
-		echo price($invoice->total_ttc, 1, '', 1, -1, -1, $conf->currency);
+		echo price($invoice->total_ttc, 1, '', 1, -1, -1, $config->currency);
 		if ($showothercurrency) {
 			print ' &nbsp; <span id="linecolht-span-total opacitymedium" style="font-size:0.9em; font-style:italic;">(' . price($invoice->total_ht * $multicurrency->rate->rate) . ' ' . $sessioncurrency . ')</span>';
 		}
@@ -561,7 +561,7 @@ if (isModEnabled('multicurrency') && $sessioncurrency != "" && $conf->currency !
 	<?php if ($remaintopay != $invoice->total_ttc) { ?>
 		<div class="paymentbordline paymentbordlineremain center">
 			<span class="takepospay colorwhite"><?php echo $langs->trans('RemainToPay'); ?>: <span id="remaintopaydisplay" class="colorwhite"><?php
-			echo price($remaintopay, 1, '', 1, -1, -1, $conf->currency);
+			echo price($remaintopay, 1, '', 1, -1, -1, $config->currency);
 			if ($showothercurrency) {
 				print ' &nbsp; <span id="linecolht-span-total opacitymedium" style="font-size:0.9em; font-style:italic;">(' . price($remaintopay * $multicurrency->rate->rate) . ' ' . $sessioncurrency . ')</span>';
 			}
@@ -570,7 +570,7 @@ if (isModEnabled('multicurrency') && $sessioncurrency != "" && $conf->currency !
 	<?php } ?>
 	<div class="paymentbordline paymentbordlinereceived center">
 		<span class="takepospay colorwhite"><?php echo $langs->trans("Received"); ?>: <span class="change1 colorred"><?php
-		echo price(0, 1, '', 1, -1, -1, $conf->currency);
+		echo price(0, 1, '', 1, -1, -1, $config->currency);
 		if ($showothercurrency) {
 			print ' &nbsp; <span id="linecolht-span-total opacitymedium" style="font-size:0.9em; font-style:italic;">(' . price(0 * $multicurrency->rate->rate) . ' ' . $sessioncurrency . ')</span>';
 		}
@@ -578,7 +578,7 @@ if (isModEnabled('multicurrency') && $sessioncurrency != "" && $conf->currency !
 	</div>
 	<div class="paymentbordline paymentbordlinechange center">
 		<span class="takepospay colorwhite"><?php echo $langs->trans("Change"); ?>: <span class="change2 colorwhite"><?php
-		echo price(0, 1, '', 1, -1, -1, $conf->currency);
+		echo price(0, 1, '', 1, -1, -1, $config->currency);
 		if ($showothercurrency) {
 			print ' &nbsp; <span id="linecolht-span-total opacitymedium" style="font-size:0.9em; font-style:italic;">(' . price(0 * $multicurrency->rate->rate) . ' ' . $sessioncurrency . ')</span>';
 		}
@@ -627,15 +627,15 @@ print '<button type="button" class="calcbutton" onclick="addreceived('.($numpad 
 	$paycode = $arrayOfValidPaymentModes[0]->code;
 	$payIcon = '';
 	if ($paycode == 'LIQ') {
-		if (!isset($conf->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
+		if (!isset($config->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
 			$payIcon = 'coins';
 		}
 	} elseif ($paycode == 'CB') {
-		if (!isset($conf->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
+		if (!isset($config->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
 			$payIcon = 'credit-card';
 		}
 	} elseif ($paycode == 'CHQ') {
-		if (!isset($conf->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
+		if (!isset($config->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
 			$payIcon = 'money-check';
 		}
 	}
@@ -653,15 +653,15 @@ print '<button type="button" class="calcbutton" onclick="addreceived('.($numpad 
 	$paycode = $arrayOfValidPaymentModes[1]->code;
 	$payIcon = '';
 	if ($paycode == 'LIQ') {
-		if (!isset($conf->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
+		if (!isset($config->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
 			$payIcon = 'coins';
 		}
 	} elseif ($paycode == 'CB') {
-		if (!isset($conf->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
+		if (!isset($config->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
 			$payIcon = 'credit-card';
 		}
 	} elseif ($paycode == 'CHQ') {
-		if (!isset($conf->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
+		if (!isset($config->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
 			$payIcon = 'money-check';
 		}
 	}
@@ -680,15 +680,15 @@ print '<button type="button" class="calcbutton" onclick="addreceived('.($numpad 
 	$paycode = $arrayOfValidPaymentModes[2]->code;
 	$payIcon = '';
 	if ($paycode == 'LIQ') {
-		if (!isset($conf->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
+		if (!isset($config->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
 			$payIcon = 'coins';
 		}
 	} elseif ($paycode == 'CB') {
-		if (!isset($conf->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
+		if (!isset($config->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
 			$payIcon = 'credit-card';
 		}
 	} elseif ($paycode == 'CHQ') {
-		if (!isset($conf->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
+		if (!isset($config->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
 			$payIcon = 'money-check';
 		}
 	}
@@ -708,15 +708,15 @@ while ($i < count($arrayOfValidPaymentModes)) {
 	$paycode = $arrayOfValidPaymentModes[$i]->code;
 	$payIcon = '';
 	if ($paycode == 'LIQ') {
-		if (!isset($conf->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
+		if (!isset($config->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
 			$payIcon = 'coins';
 		}
 	} elseif ($paycode == 'CB') {
-		if (!isset($conf->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
+		if (!isset($config->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
 			$payIcon = 'credit-card';
 		}
 	} elseif ($paycode == 'CHQ') {
-		if (!isset($conf->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
+		if (!isset($config->global->TAKEPOS_NUMPAD_USE_PAYMENT_ICON) || getDolGlobalString('TAKEPOS_NUMPAD_USE_PAYMENT_ICON')) {
 			$payIcon = 'money-check';
 		}
 	}

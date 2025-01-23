@@ -55,7 +55,7 @@ $object->fetch($id, '', true);
 $object->loadRights();
 
 // Users/Groups management only in master entity if transverse mode
-if (isModEnabled('multicompany') && $conf->entity > 1 && getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE')) {
+if (isModEnabled('multicompany') && $config->entity > 1 && getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE')) {
 	accessforbidden();
 }
 

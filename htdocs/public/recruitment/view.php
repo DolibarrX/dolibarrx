@@ -222,10 +222,10 @@ if (getDolGlobalString('MAIN_RECRUITMENT_CSS_URL')) {
 	$head = '<link rel="stylesheet" type="text/css" href="' . getDolGlobalString('MAIN_RECRUITMENT_CSS_URL').'?lang='.$langs->defaultlang.'">'."\n";
 }
 
-$conf->dol_hide_topmenu = 1;
-$conf->dol_hide_leftmenu = 1;
+$config->dol_hide_topmenu = 1;
+$config->dol_hide_leftmenu = 1;
 
-if (!$conf->global->RECRUITMENT_ENABLE_PUBLIC_INTERFACE) {
+if (!$config->global->RECRUITMENT_ENABLE_PUBLIC_INTERFACE) {
 	$langs->load("errors");
 	print '<div class="error">'.$langs->trans('ErrorPublicInterfaceNotEnabled').'</div>';
 	$db->close();
@@ -235,7 +235,7 @@ if (!$conf->global->RECRUITMENT_ENABLE_PUBLIC_INTERFACE) {
 $arrayofjs = array();
 $arrayofcss = array();
 
-$replacemainarea = (empty($conf->dol_hide_leftmenu) ? '<div>' : '').'<div>';
+$replacemainarea = (empty($config->dol_hide_leftmenu) ? '<div>' : '').'<div>';
 llxHeader($head, $langs->trans("PositionToBeFilled"), '', '', 0, 0, '', '', '', 'onlinepaymentbody', $replacemainarea, 1, 1);
 dol_htmloutput_errors($errmsg);
 
@@ -265,12 +265,12 @@ if (getDolGlobalString($paramlogo)) {
 // Define urllogo
 $urllogo = '';
 $urllogofull = '';
-if (!empty($logosmall) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$logosmall)) {
-	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$conf->entity.'&amp;file='.urlencode('logos/thumbs/'.$logosmall);
-	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$conf->entity.'&file='.urlencode('logos/thumbs/'.$logosmall);
-} elseif (!empty($logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$logo)) {
-	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$conf->entity.'&amp;file='.urlencode('logos/'.$logo);
-	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$conf->entity.'&file='.urlencode('logos/'.$logo);
+if (!empty($logosmall) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$logosmall)) {
+	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$config->entity.'&amp;file='.urlencode('logos/thumbs/'.$logosmall);
+	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$config->entity.'&file='.urlencode('logos/thumbs/'.$logosmall);
+} elseif (!empty($logo) && is_readable($config->mycompany->dir_output.'/logos/'.$logo)) {
+	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$config->entity.'&amp;file='.urlencode('logos/'.$logo);
+	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$config->entity.'&file='.urlencode('logos/'.$logo);
 }
 // Output html code for logo
 if ($urllogo) {
@@ -303,7 +303,7 @@ print '<table id="dolpaymenttable" summary="Job position offer" class="center">'
 $text = '';
 if (getDolGlobalString('RECRUITMENT_NEWFORM_TEXT')) {
 	$reg = array();
-	if (preg_match('/^\((.*)\)$/', $conf->global->RECRUITMENT_NEWFORM_TEXT, $reg)) {
+	if (preg_match('/^\((.*)\)$/', $config->global->RECRUITMENT_NEWFORM_TEXT, $reg)) {
 		$text .= $langs->trans($reg[1])."<br>\n";
 	} else {
 		$text .= getDolGlobalString('RECRUITMENT_NEWFORM_TEXT') . "<br>\n";

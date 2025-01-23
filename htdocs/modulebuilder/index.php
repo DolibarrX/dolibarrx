@@ -427,7 +427,7 @@ if ($dirins && $action == 'initmodule' && $modulename && $user->hasRight("module
 		if (getDolGlobalString('MODULEBUILDER_SPECIFIC_README')) {
 			setEventMessages($langs->trans("ContentOfREADMECustomized"), null, 'warnings');
 			dol_delete_file($destdir.'/README.md');
-			file_put_contents($destdir.'/README.md', $conf->global->MODULEBUILDER_SPECIFIC_README);
+			file_put_contents($destdir.'/README.md', $config->global->MODULEBUILDER_SPECIFIC_README);
 		}
 		// for create file to add properties
 		// file_put_contents($destdir.'/'.strtolower($modulename).'propertycard.php','');
@@ -1131,7 +1131,7 @@ if ($dirins && $action == 'initobject' && $module && $objectname && $user->hasRi
 			 *         Note: Filter can be a string like "(t.ref:like:'SO-%') or (t.date_creation:<:'20160101') or (t.nature:is:NULL)"
 			 *  'label' the translation key.
 			 *  'picto' is code of a picto to show before value in forms
-			 *  'enabled' is a condition when the field must be managed (Example: 1 or '$conf->global->MY_SETUP_PARAM' or 'isModEnabled("multicurrency")' ...)
+			 *  'enabled' is a condition when the field must be managed (Example: 1 or '$config->global->MY_SETUP_PARAM' or 'isModEnabled("multicurrency")' ...)
 			 *  'position' is the sort order of field.
 			 *  'notnull' is set to 1 if not null in database. Set to -1 if we must set data to null if empty ('' or 0).
 			 *  'visible' says if field is visible in list (Examples: 0=Not visible, 1=Visible on list and create/update/view forms, 2=Visible on list only, 3=Visible on create/update/view form only (not list), 4=Visible on list and update/view form only (not create). 5=Visible on list and view only (not create/not update). Using a negative value means field is not shown by default on list but can be selected for viewing)
@@ -1698,7 +1698,7 @@ if ($dirins && $action == 'initobject' && $module && $objectname && $user->hasRi
 	// check if module is enabled
 	if (isModEnabled(strtolower($module))) {
 		$result = unActivateModule(strtolower($module));
-		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 		if ($result) {
 			setEventMessages($result, null, 'errors');
 		}
@@ -2137,7 +2137,7 @@ if ($dirins && $action == 'confirm_deleteobject' && $objectname && $user->hasRig
 	// check if module is enabled
 	if (isModEnabled(strtolower($module))) {
 		$result = unActivateModule(strtolower($module));
-		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 		if ($result) {
 			setEventMessages($result, null, 'errors');
 		}
@@ -2450,7 +2450,7 @@ if ($dirins && $action == 'addright' && !empty($module) && empty($cancel) && $us
 
 		if (isModEnabled(strtolower($module))) {
 			$result = unActivateModule(strtolower($module));
-			dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 			if ($result) {
 				setEventMessages($result, null, 'errors');
 			}
@@ -2570,7 +2570,7 @@ if ($dirins && GETPOST('action') == 'update_right' && GETPOST('modifyright') && 
 	if (!$error) {
 		if (isModEnabled(strtolower($module))) {
 			$result = unActivateModule(strtolower($module));
-			dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 			if ($result) {
 				setEventMessages($result, null, 'errors');
 			}
@@ -2621,7 +2621,7 @@ if ($dirins && $action == 'confirm_deleteright' && !empty($module) && GETPOSTINT
 		// check if module is enabled
 		if (isModEnabled(strtolower($module))) {
 			$result = unActivateModule(strtolower($module));
-			dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 			if ($result) {
 				setEventMessages($result, null, 'errors');
 			}
@@ -2765,7 +2765,7 @@ if ($dirins && $action == 'confirm_deletemenu' && GETPOSTINT('menukey') && $user
 	// check if module is enabled
 	if (isModEnabled(strtolower($module))) {
 		$result = unActivateModule(strtolower($module));
-		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 		if ($result) {
 			setEventMessages($result, null, 'errors');
 		}
@@ -2828,7 +2828,7 @@ if ($dirins && $action == 'addmenu' && empty($cancel) && $user->hasRight("module
 	// check if module is enabled
 	if (isModEnabled(strtolower($module))) {
 		$result = unActivateModule(strtolower($module));
-		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 		if ($result) {
 			setEventMessages($result, null, 'errors');
 		}
@@ -2988,7 +2988,7 @@ if ($dirins && $action == "update_menu" && GETPOSTINT('menukey') && GETPOST('tab
 	if (empty($cancel)) {
 		if (isModEnabled(strtolower($module))) {
 			$result = unActivateModule(strtolower($module));
-			dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 			if ($result) {
 				setEventMessages($result, null, 'errors');
 			}
@@ -3091,7 +3091,7 @@ if ($dirins && $action == "update_menu" && GETPOSTINT('menukey') && GETPOST('tab
 if ($dirins && $action == "update_props_module" && !empty(GETPOST('keydescription', 'alpha')) && empty($cancel) && $user->hasRight("modulebuilder", "run")) {
 	if (isModEnabled(strtolower($module))) {
 		$result = unActivateModule(strtolower($module));
-		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 		if ($result) {
 			setEventMessages($result, null, 'errors');
 		}

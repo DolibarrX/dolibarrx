@@ -182,7 +182,7 @@ if ($resql) {
 
 $colorseries = array();
 
-include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 
 print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder nohover centpercent">';
@@ -205,7 +205,7 @@ foreach ($listofstatus as $status) {
 		$colorseries[$status.$bool_str] = $badgeStatus6;
 	}
 
-	if (empty($conf->use_javascript_ajax)) {
+	if (empty($config->use_javascript_ajax)) {
 		print '<tr class="oddeven">';
 		print '<td>'.$staticcontratligne->LibStatut($status, 0, ($bool ? 1 : 0)).'</td>';
 		print '<td class="right"><a href="services_list.php?search_status='.((int) $status).($bool ? '&filter=expired' : '').'">'.($nb[$status.$bool_str] ? $nb[$status.$bool_str] : 0).' '.$staticcontratligne->LibStatut($status, 3, ($bool ? 1 : 0)).'</a></td>';
@@ -217,7 +217,7 @@ foreach ($listofstatus as $status) {
 		$bool = false;
 	}
 }
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	print '<tr class="impair"><td class="center" colspan="2">';
 
 	include_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
@@ -237,7 +237,7 @@ $listofstatus = array(0, 4, 4, 5);
 $bool = false;
 foreach ($listofstatus as $status) {
 	$bool_str = (string) $bool;
-	if (empty($conf->use_javascript_ajax)) {
+	if (empty($config->use_javascript_ajax)) {
 		print '<tr class="oddeven">';
 		print '<td>'.$staticcontratligne->LibStatut($status, 0, ($bool ? 1 : 0)).'</td>';
 		print '<td class="right"><a href="services_list.php?search_status='.((int) $status).($bool ? '&filter=expired' : '').'">'.($nb[$status.$bool_str] ? $nb[$status.$bool_str] : 0).' '.$staticcontratligne->LibStatut($status, 3, ($bool ? 1 : 0)).'</a></td>';
@@ -331,7 +331,7 @@ $sql = 'SELECT ';
 $sql .= " sum(".$db->ifsql("cd.statut=0", 1, 0).') as nb_initial,';
 $sql .= " sum(".$db->ifsql("cd.statut=4 AND (cd.date_fin_validite IS NULL OR cd.date_fin_validite >= '".$db->idate($now)."')", 1, 0).') as nb_running,';
 $sql .= " sum(".$db->ifsql("cd.statut=4 AND (cd.date_fin_validite IS NOT NULL AND cd.date_fin_validite < '".$db->idate($now)."')", 1, 0).') as nb_expired,';
-$sql .= " sum(".$db->ifsql("cd.statut=4 AND (cd.date_fin_validite IS NOT NULL AND cd.date_fin_validite < '".$db->idate($now - $conf->contrat->services->expires->warning_delay)."')", 1, 0).') as nb_late,';
+$sql .= " sum(".$db->ifsql("cd.statut=4 AND (cd.date_fin_validite IS NOT NULL AND cd.date_fin_validite < '".$db->idate($now - $config->contrat->services->expires->warning_delay)."')", 1, 0).') as nb_late,';
 $sql .= " sum(".$db->ifsql("cd.statut=5", 1, 0).') as nb_closed,';
 $sql .= " c.rowid as cid, c.ref, c.datec, c.tms, c.statut,";
 $sql .= " s.nom as name, s.name_alias, s.logo, s.rowid as socid, s.client, s.fournisseur, s.code_client, s.code_fournisseur, s.code_compta as code_compta_client, s.code_compta_fournisseur";

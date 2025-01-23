@@ -65,7 +65,7 @@ if (empty($date_start) || empty($date_end)) { // We define date_start and date_e
 			$date_start = dol_get_first_day($year_start, GETPOSTINT("month"), false);
 			$date_end = dol_get_last_day($year_start, GETPOSTINT("month"), false);
 		} else {
-			$date_start = dol_get_first_day($year_start, $conf->global->SOCIETE_FISCAL_MONTH_START, false);
+			$date_start = dol_get_first_day($year_start, $config->global->SOCIETE_FISCAL_MONTH_START, false);
 			$date_end = dol_time_plus_duree($date_start, 1, 'y') - 1;
 		}
 	} else {
@@ -310,7 +310,7 @@ $subtotal = 0;
 $i = 0;
 $mcursor = 0;
 while ((($y < $yend) || ($y == $yend && $m <= $mend)) && $mcursor < 1000) {	// $mcursor is to avoid too large loop
-	//$m = $conf->global->SOCIETE_FISCAL_MONTH_START + ($mcursor % 12);
+	//$m = $config->global->SOCIETE_FISCAL_MONTH_START + ($mcursor % 12);
 	if ($m == 13) {
 		$y++;
 	}
@@ -583,7 +583,7 @@ $sql = '';
 
 $sql .= "SELECT SUM(amount) as mm, date_format(f.datev,'%Y-%m') as dm, 'claimed' as mode";
 $sql .= " FROM ".MAIN_DB_PREFIX."localtax as f";
-$sql .= " WHERE f.entity = ".$conf->entity;
+$sql .= " WHERE f.entity = ".$config->entity;
 $sql .= " AND (f.datev >= '".$db->idate($date_start)."' AND f.datev <= '".$db->idate($date_end)."')";
 $sql .= " AND localtaxtype=".((int) $localTaxType);
 $sql .= " GROUP BY dm";
@@ -592,7 +592,7 @@ $sql .= " UNION ";
 
 $sql .= "SELECT SUM(amount) as mm, date_format(f.datep,'%Y-%m') as dm, 'paid' as mode";
 $sql .= " FROM ".MAIN_DB_PREFIX."localtax as f";
-$sql .= " WHERE f.entity = ".$conf->entity;
+$sql .= " WHERE f.entity = ".$config->entity;
 $sql .= " AND (f.datep >= '".$db->idate($date_start)."' AND f.datep <= '".$db->idate($date_end)."')";
 $sql .= " AND localtaxtype=".((int) $localTaxType);
 $sql .= " GROUP BY dm";

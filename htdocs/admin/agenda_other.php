@@ -75,7 +75,7 @@ $reg = array();
 if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
 	$value = (GETPOST($code, 'alpha') ? GETPOST($code, 'alpha') : 1);
-	if (dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -85,7 +85,7 @@ if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 
 if (preg_match('/del_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_del_const($db, $code, $conf->entity) > 0) {
+	if (dolibarr_del_const($db, $code, $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -95,13 +95,13 @@ if (preg_match('/del_([a-z0-9_\-]+)/i', $action, $reg)) {
 if ($action == 'set') {
 	$getDefaultFilter = GETPOST('AGENDA_DEFAULT_FILTER_TYPE');
 	$defaultfilter = (is_array($getDefaultFilter)) ? implode(',', $getDefaultFilter) : $getDefaultFilter;
-	dolibarr_set_const($db, 'AGENDA_USE_EVENT_TYPE_DEFAULT', GETPOST('AGENDA_USE_EVENT_TYPE_DEFAULT'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, 'AGENDA_DEFAULT_FILTER_TYPE', $defaultfilter, 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, 'AGENDA_DEFAULT_FILTER_STATUS', GETPOST('AGENDA_DEFAULT_FILTER_STATUS'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, 'AGENDA_DEFAULT_VIEW', GETPOST('AGENDA_DEFAULT_VIEW'), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, 'AGENDA_USE_EVENT_TYPE_DEFAULT', GETPOST('AGENDA_USE_EVENT_TYPE_DEFAULT'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, 'AGENDA_DEFAULT_FILTER_TYPE', $defaultfilter, 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, 'AGENDA_DEFAULT_FILTER_STATUS', GETPOST('AGENDA_DEFAULT_FILTER_STATUS'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, 'AGENDA_DEFAULT_VIEW', GETPOST('AGENDA_DEFAULT_VIEW'), 'chaine', 0, '', $config->entity);
 
 	$defaultValues = new DefaultValues($db);
-	$result = $defaultValues->fetchAll('', '', 0, 0, array('t.page' => 'comm/action/card.php', 't.param' => 'complete', 't.user_id' => '0', 't.type' => 'createform', 't.entity' => $conf->entity));
+	$result = $defaultValues->fetchAll('', '', 0, 0, array('t.page' => 'comm/action/card.php', 't.param' => 'complete', 't.user_id' => '0', 't.type' => 'createform', 't.entity' => $config->entity));
 	if (!is_array($result) && $result < 0) {
 		setEventMessages($defaultValues->error, $defaultValues->errors, 'errors');
 	} elseif (count($result) > 0) {
@@ -114,7 +114,7 @@ if ($action == 'set') {
 		}
 	}
 	$defaultValues->type = 'createform';
-	$defaultValues->entity = $conf->entity;
+	$defaultValues->entity = $config->entity;
 	$defaultValues->user_id = 0;
 	$defaultValues->page = 'comm/action/card.php';
 	$defaultValues->param = 'complete';
@@ -137,7 +137,7 @@ if ($action == 'set') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/action/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -170,16 +170,16 @@ if ($action == 'set') {
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->ACTION_EVENT_ADDON_PDF == "$value") {
-			dolibarr_del_const($db, 'ACTION_EVENT_ADDON_PDF', $conf->entity);
+		if ($config->global->ACTION_EVENT_ADDON_PDF == "$value") {
+			dolibarr_del_const($db, 'ACTION_EVENT_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "ACTION_EVENT_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "ACTION_EVENT_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->ACTION_EVENT_ADDON_PDF = $value;
+		$config->global->ACTION_EVENT_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -197,7 +197,7 @@ if ($action == 'set') {
 $form = new Form($db);
 $formactions = new FormActions($db);
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 $wikihelp = 'EN:Module_Agenda_En|FR:Module_Agenda|ES:Módulo_Agenda|DE:Modul_Terminplanung';
 llxHeader('', $langs->trans("AgendaSetup"), $wikihelp, '', 0, 0, '', '', '', 'mod-admin page-agenda_other');
@@ -222,7 +222,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = 'action'";
-$sql .= " AND entity = ".((int) $conf->entity);
+$sql .= " AND entity = ".((int) $config->entity);
 
 $resql = $db->query($sql);
 if ($resql) {
@@ -290,7 +290,7 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
 						// Active
 						if (in_array($name, $def)) {
 							print '<td class="center">'."\n";
-							if ($conf->global->ACTION_EVENT_ADDON_PDF != "$name") {
+							if ($config->global->ACTION_EVENT_ADDON_PDF != "$name") {
 								print '<a href="'.$_SERVER["PHP_SELF"].'?action=del&token='.newToken().'&value='.$name.'&scan_dir='.$module->scandir.'&label='.urlencode($module->name).'&type=action">';
 								print img_picto($langs->trans("Enabled"), 'switch_on');
 								print '</a>';
@@ -306,7 +306,7 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
 
 						// Default
 						print '<td class="center">';
-						if ($conf->global->ACTION_EVENT_ADDON_PDF == "$name") {
+						if ($config->global->ACTION_EVENT_ADDON_PDF == "$name") {
 							print img_picto($langs->trans("Default"), 'on');
 						} else {
 							print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&amp;scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'&amp;type=action"" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
@@ -391,7 +391,7 @@ print '<td class="center">&nbsp;</td>'."\n";
 print '<td class="right nowrap">'."\n";
 $defval = 'na';
 $defaultValues = new DefaultValues($db);
-$result = $defaultValues->fetchAll('', '', 0, 0, array('t.page' => 'comm/action/card.php', 't.param' => 'complete', 't.user_id' => '0', 't.type' => 'createform', 't.entity' => $conf->entity));
+$result = $defaultValues->fetchAll('', '', 0, 0, array('t.page' => 'comm/action/card.php', 't.param' => 'complete', 't.user_id' => '0', 't.type' => 'createform', 't.entity' => $config->entity));
 if (!is_array($result) && $result < 0) {
 	setEventMessages($defaultValues->error, $defaultValues->errors, 'errors');
 } elseif (count($result) > 0) {

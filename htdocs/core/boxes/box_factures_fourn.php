@@ -97,7 +97,7 @@ class box_factures_fourn extends ModeleBoxes
 				$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 			}
 			$sql .= " WHERE f.fk_soc = s.rowid";
-			$sql .= " AND f.entity = ".$conf->entity;
+			$sql .= " AND f.entity = ".$config->entity;
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 			}
@@ -179,7 +179,7 @@ class box_factures_fourn extends ModeleBoxes
 
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="nowraponall right amount"',
-						'text' => price($objp->total_ht, 0, $langs, 0, -1, -1, $conf->currency),
+						'text' => price($objp->total_ht, 0, $langs, 0, -1, -1, $config->currency),
 					);
 
 					$this->info_box_contents[$line][] = array(

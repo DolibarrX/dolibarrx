@@ -66,10 +66,10 @@ function print_paybox_redirect($PRICE, $CURRENCY, $EMAIL, $urlok, $urlko, $TAG)
 	}
 
 	$URLPAYBOX = "";
-	if ($conf->global->PAYBOX_CGI_URL_V1) {
+	if ($config->global->PAYBOX_CGI_URL_V1) {
 		$URLPAYBOX = getDolGlobalString('PAYBOX_CGI_URL_V1');
 	}
-	if ($conf->global->PAYBOX_CGI_URL_V2) {
+	if ($config->global->PAYBOX_CGI_URL_V2) {
 		$URLPAYBOX = getDolGlobalString('PAYBOX_CGI_URL_V2');
 	}
 
@@ -90,7 +90,7 @@ function print_paybox_redirect($PRICE, $CURRENCY, $EMAIL, $urlok, $urlko, $TAG)
 		return -1;
 	}
 
-	$conf->global->PAYBOX_HASH = 'sha512';
+	$config->global->PAYBOX_HASH = 'sha512';
 
 	// Definition des parameters vente produit pour paybox
 	$IBS_CMD = $TAG;
@@ -151,7 +151,7 @@ function print_paybox_redirect($PRICE, $CURRENCY, $EMAIL, $urlok, $urlko, $TAG)
 	// "&PBX_HASH=".$PBX_HASH;
 	// "&PBX_TIME=".$PBX_TIME;
 
-	$binKey = pack("H*", dol_decode($conf->global->PAYBOX_HMAC_KEY));
+	$binKey = pack("H*", dol_decode($config->global->PAYBOX_HMAC_KEY));
 
 	$hmac = strtoupper(hash_hmac($PBX_HASH, $msg, $binKey));
 

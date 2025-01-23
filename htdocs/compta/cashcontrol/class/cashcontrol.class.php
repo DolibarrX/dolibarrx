@@ -230,7 +230,7 @@ class CashControl extends CommonObject
 		$sql .= ", card";
 		$sql .= ") VALUES (";
 		//$sql .= "'(PROV)', ";
-		$sql .= ((int) $conf->entity);
+		$sql .= ((int) $config->entity);
 		$sql .= ", ".(is_numeric($this->opening) ? price2num($this->opening, 'MT') : 0);
 		$sql .= ", 0"; // Draft by default
 		$sql .= ", '".$this->db->idate(dol_now())."'";
@@ -434,7 +434,7 @@ class CashControl extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

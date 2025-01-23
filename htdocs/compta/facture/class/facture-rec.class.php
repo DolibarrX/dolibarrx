@@ -373,7 +373,7 @@ class FactureRec extends CommonInvoice
 			$sql .= "'".$this->db->escape($this->titre ? $this->titre : $this->title)."'";
 			$sql .= ", ".((int) $this->socid);
 			$sql .= ", ".($this->subtype ? "'".$this->db->escape($this->subtype)."'" : "null");
-			$sql .= ", ".((int) $conf->entity);
+			$sql .= ", ".((int) $config->entity);
 			$sql .= ", '".$this->db->idate($now)."'";
 			$sql .= ", ".(!empty($facsrc->total_ttc) ? ((float) $facsrc->total_ttc) : '0');
 			//$sql .= ", ".(!empty($facsrc->remise_absolue) ? ((float) $this->remise_absolue) : '0');
@@ -1344,7 +1344,7 @@ class FactureRec extends CommonInvoice
 	 *  Create all recurrents invoices (for all entities if multicompany is used).
 	 *  A result may also be provided into this->output.
 	 *
-	 *  WARNING: This method change temporarily context $conf->entity to be in correct context for each recurring invoice found.
+	 *  WARNING: This method change temporarily context $config->entity to be in correct context for each recurring invoice found.
 	 *
 	 *  @param	int		$restrictioninvoiceid		0=All qualified template invoices found. > 0 = restrict action on invoice ID
 	 *  @param	int		$forcevalidation		1=Force validation of invoice whatever is template auto_validate flag.
@@ -1374,7 +1374,7 @@ class FactureRec extends CommonInvoice
 		$sql .= " AND (date_when IS NULL OR date_when <= '".$this->db->idate($today)."')";
 		$sql .= ' AND (nb_gen_done < nb_gen_max OR nb_gen_max = 0)';
 		$sql .= ' AND suspended = 0';
-		$sql .= ' AND entity = '.$conf->entity; // MUST STAY = $conf->entity here
+		$sql .= ' AND entity = '.$config->entity; // MUST STAY = $config->entity here
 		if ($restrictioninvoiceid > 0) {
 			$sql .= ' AND rowid = '.((int) $restrictioninvoiceid);
 		}
@@ -1397,7 +1397,7 @@ class FactureRec extends CommonInvoice
 				$this->output .= $langs->trans("NoQualifiedRecurringInvoiceTemplateFound");
 			}
 
-			$saventity = $conf->entity;
+			$saventity = $config->entity;
 
 			while ($i < $num) {     // Loop on each template invoice. If $num = 0, test is false at first pass.
 				$line = $this->db->fetch_object($resql);
@@ -1412,7 +1412,7 @@ class FactureRec extends CommonInvoice
 
 				if ($facturerec->id > 0) {
 					// Set entity context
-					$conf->entity = $facturerec->entity;
+					$config->entity = $facturerec->entity;
 
 					dol_syslog("createRecurringInvoices Process invoice template id=".$facturerec->id.", ref=".$facturerec->ref.", entity=".$facturerec->entity);
 
@@ -1468,9 +1468,9 @@ class FactureRec extends CommonInvoice
 					}
 				} else {
 					$error++;
-					$this->error = "Failed to load invoice template with id=".$line->rowid.", entity=".$conf->entity."\n";
-					$this->errors[] = "Failed to load invoice template with id=".$line->rowid.", entity=".$conf->entity;
-					dol_syslog("createRecurringInvoices Failed to load invoice template with id=".$line->rowid.", entity=".$conf->entity);
+					$this->error = "Failed to load invoice template with id=".$line->rowid.", entity=".$config->entity."\n";
+					$this->errors[] = "Failed to load invoice template with id=".$line->rowid.", entity=".$config->entity;
+					dol_syslog("createRecurringInvoices Failed to load invoice template with id=".$line->rowid.", entity=".$config->entity);
 				}
 
 				if (!$error && $invoiceidgenerated >= 0) {
@@ -1496,7 +1496,7 @@ class FactureRec extends CommonInvoice
 				$i++;
 			}
 
-			$conf->entity = $saventity; // Restore entity context
+			$config->entity = $saventity; // Restore entity context
 		} else {
 			dol_print_error($this->db);
 		}

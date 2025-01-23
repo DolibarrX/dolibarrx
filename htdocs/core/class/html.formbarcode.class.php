@@ -67,7 +67,7 @@ class FormBarCode
 
 		$disable = '';
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print "\n".'<script nonce="'.getNonce().'" type="text/javascript">';
 			print 'jQuery(document).ready(function () {
                         jQuery("#select'.$idForm.'").change(function() {
@@ -86,14 +86,14 @@ class FormBarCode
 			$disable = 'disabled';
 		}
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			$select_encoder = '<form action="'.DOL_URL_ROOT.'/admin/barcode.php" method="POST" id="form'.$idForm.'">';
 			$select_encoder .= '<input type="hidden" name="token" value="'.newToken().'">';
 			$select_encoder .= '<input type="hidden" name="action" value="update">';
 			$select_encoder .= '<input type="hidden" name="code_id" value="'.$code_id.'">';
 		}
 
-		$selectname = (!empty($conf->use_javascript_ajax) ? 'coder' : 'coder'.$code_id);
+		$selectname = (!empty($config->use_javascript_ajax) ? 'coder' : 'coder'.$code_id);
 		$select_encoder .= '<select id="select'.$idForm.'" class="flat" name="'.$selectname.'">';
 		$select_encoder .= '<option value="0"'.($selected == 0 ? ' selected' : '').' '.$disable.'>'.$langs->trans('Disable').'</option>';
 		$select_encoder .= '<option value="-1" disabled>--------------------</option>';
@@ -102,7 +102,7 @@ class FormBarCode
 		}
 		$select_encoder .= '</select>';
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			$select_encoder .= '</form>';
 		}
 
@@ -142,7 +142,7 @@ class FormBarCode
 		$sql = "SELECT rowid, code, libelle as label";
 		$sql .= " FROM ".$this->db->prefix()."c_barcode_type";
 		$sql .= " WHERE coder <> '0'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 		$sql .= " ORDER BY code";
 
 		$result = $this->db->query($sql);

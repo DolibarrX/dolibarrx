@@ -281,7 +281,7 @@ if (empty($reshook)) {
 			$object->date_debut = $date_debut;
 			$object->date_fin = $date_fin;
 			$object->halfday = $halfday;
-			$object->entity = $conf->entity;
+			$object->entity = $config->entity;
 
 			$result = $object->create($user);
 			if ($result <= 0) {
@@ -964,7 +964,7 @@ if (empty($reshook)) {
 	 include DOL_DOCUMENT_ROOT.'/core/actions_sendmails.inc.php';
 
 	 // Actions to build doc
-	 $upload_dir = $conf->holiday->dir_output;
+	 $upload_dir = $config->holiday->dir_output;
 	 $permissiontoadd = $user->rights->holiday->creer;
 	 include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 	 */
@@ -1079,10 +1079,10 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 		print '<td class="titlefield fieldrequired tdtop">'.$langs->trans("User").'</td>';
 		print '<td><div class="inline-block">';
 		if ($permissiontoadd && !$permissiontoaddall) {
-			print img_picto('', 'user', 'class="pictofixedwidth"').$form->select_dolusers(($fuserid ? $fuserid : $user->id), 'fuserid', 0, '', 0, 'hierarchyme', '', '0,'.$conf->entity, 0, 0, $morefilter, 0, '', 'minwidth200 maxwidth500 inline-block');
+			print img_picto('', 'user', 'class="pictofixedwidth"').$form->select_dolusers(($fuserid ? $fuserid : $user->id), 'fuserid', 0, '', 0, 'hierarchyme', '', '0,'.$config->entity, 0, 0, $morefilter, 0, '', 'minwidth200 maxwidth500 inline-block');
 			//print '<input type="hidden" name="fuserid" value="'.($fuserid?$fuserid:$user->id).'">';
 		} else {
-			print img_picto('', 'user', 'class="pictofixedwidth"').$form->select_dolusers($fuserid ? $fuserid : $user->id, 'fuserid', 0, '', 0, '', '', '0,'.$conf->entity, 0, 0, $morefilter, 0, '', 'minwidth200 maxwidth500 inline-block');
+			print img_picto('', 'user', 'class="pictofixedwidth"').$form->select_dolusers($fuserid ? $fuserid : $user->id, 'fuserid', 0, '', 0, '', '', '0,'.$config->entity, 0, 0, $morefilter, 0, '', 'minwidth200 maxwidth500 inline-block');
 		}
 		print '</div>';
 
@@ -1107,7 +1107,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 			print $form->textwithtooltip($langs->trans('SoldeCPUser', round($nb_holiday, 5)).' '.img_picto('', 'help'), $htmltooltip);
 
 			print '</div>';
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				print '<script>';
 				print '$( document ).ready(function() {
 					jQuery("#fuserid").change(function() {
@@ -1201,7 +1201,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 			if (GETPOSTINT('valideur') > 0) {
 				$defaultselectuser = GETPOSTINT('valideur');
 			}
-			$s = $form->select_dolusers($defaultselectuser, "valideur", 1, '', 0, $include_users, '', '0,'.$conf->entity, 0, 0, '', 0, '', 'minwidth200 maxwidth500');
+			$s = $form->select_dolusers($defaultselectuser, "valideur", 1, '', 0, $include_users, '', '0,'.$config->entity, 0, 0, '', 0, '', 'minwidth200 maxwidth500');
 			print img_picto('', 'user', 'class="pictofixedwidth"').$form->textwithpicto($s, $langs->trans("AnyOtherInThisListCanValidate"));
 		}
 
@@ -1658,7 +1658,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 			if ($includedocgeneration) {
 				$objref = dol_sanitizeFileName($object->ref);
 				$relativepath = $objref.'/'.$objref.'.pdf';
-				$filedir = $conf->holiday->dir_output.'/'.$object->element.'/'.$objref;
+				$filedir = $config->holiday->dir_output.'/'.$object->element.'/'.$objref;
 				$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 				$genallowed = ($user->hasRight('holiday', 'read') && $object->fk_user == $user->id) || $user->hasRight('holiday', 'readall'); // If you can read, you can build the PDF to read content
 				$delallowed = ($user->hasRight('holiday', 'write') && $object->fk_user == $user->id) || $user->hasRight('holiday', 'writeall_advance'); // If you can create/edit, you can remove a file on card

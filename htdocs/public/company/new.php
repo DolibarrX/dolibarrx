@@ -129,9 +129,9 @@ function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $
 	// Define urllogo
 	$urllogo = DOL_URL_ROOT . '/theme/common/login_logo.png';
 
-	if (!empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output . '/logos/thumbs/' . $mysoc->logo_small)) {
+	if (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output . '/logos/thumbs/' . $mysoc->logo_small)) {
 		$urllogo = DOL_URL_ROOT . '/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file=' . urlencode('logos/thumbs/' . $mysoc->logo_small);
-	} elseif (!empty($mysoc->logo) && is_readable($conf->mycompany->dir_output . '/logos/' . $mysoc->logo)) {
+	} elseif (!empty($mysoc->logo) && is_readable($config->mycompany->dir_output . '/logos/' . $mysoc->logo)) {
 		$urllogo = DOL_URL_ROOT . '/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file=' . urlencode('logos/' . $mysoc->logo);
 	} elseif (is_readable(DOL_DOCUMENT_ROOT . '/theme/dolibarr_logo.svg')) {
 		$urllogo = DOL_URL_ROOT . '/theme/dolibarr_logo.svg';
@@ -175,7 +175,7 @@ function llxFooterVierge()
 
 	printCommonFooter('public');
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print "\n" . '<!-- Includes JS Footer of Dolibarr -->' . "\n";
 		print '<script src="' . DOL_URL_ROOT . '/core/js/lib_foot.js.php?lang=' . $langs->defaultlang . '"></script>' . "\n";
 	}
@@ -428,14 +428,14 @@ print '<td>' . img_picto('', 'object_phoning_fax', 'class="pictofixedwidth"') . 
 print '</tr>';
 
 // Email / Web
-print '<tr><td>' . $form->editfieldkey('EMail', 'email', '', $objectsoc, 0, 'string', '', !getDolGlobalString('SOCIETE_EMAIL_MANDATORY') ? '' : $conf->global->SOCIETE_EMAIL_MANDATORY) . '</td>';
+print '<tr><td>' . $form->editfieldkey('EMail', 'email', '', $objectsoc, 0, 'string', '', !getDolGlobalString('SOCIETE_EMAIL_MANDATORY') ? '' : $config->global->SOCIETE_EMAIL_MANDATORY) . '</td>';
 print '<td>' . img_picto('', 'object_email', 'class="pictofixedwidth"') . ' <input type="text" class="maxwidth200 widthcentpercentminusx" name="email" id="email" value="' . $objectsoc->email . '"></td>';
 if (isModEnabled('mailing') && getDolGlobalString('THIRDPARTY_SUGGEST_ALSO_ADDRESS_CREATION')) {
-	if ($conf->browser->layout == 'phone') {
+	if ($config->browser->layout == 'phone') {
 		print '</tr><tr>';
 	}
 	print '<td class="individualline noemail">' . $form->editfieldkey($langs->trans('No_Email') . ' (' . $langs->trans('Contact') . ')', 'contact_no_email', '', $objectsoc, 0) . '</td>';
-	print '<td class="individualline" ' . (($conf->browser->layout == 'phone') /* || !isModEnabled('mailing') */ ? ' colspan="3"' : '') . '>' . $form->selectyesno('contact_no_email', (GETPOSTISSET("contact_no_email") ? GETPOST("contact_no_email", 'alpha') : (empty($objectsoc->no_email) ? 0 : 1)), 1, false, 1) . '</td>';
+	print '<td class="individualline" ' . (($config->browser->layout == 'phone') /* || !isModEnabled('mailing') */ ? ' colspan="3"' : '') . '>' . $form->selectyesno('contact_no_email', (GETPOSTISSET("contact_no_email") ? GETPOST("contact_no_email", 'alpha') : (empty($objectsoc->no_email) ? 0 : 1)), 1, false, 1) . '</td>';
 }
 print '</tr>';
 

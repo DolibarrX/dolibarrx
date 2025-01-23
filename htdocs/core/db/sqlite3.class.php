@@ -72,11 +72,11 @@ class DoliDBSqlite3 extends DoliDB
 		global $conf;
 
 		// Note that having "static" property for "$forcecharset" and "$forcecollate" will make error here in strict mode, so they are not static
-		if (!empty($conf->db->character_set)) {
-			$this->forcecharset = $conf->db->character_set;
+		if (!empty($config->db->character_set)) {
+			$this->forcecharset = $config->db->character_set;
 		}
-		if (!empty($conf->db->dolibarr_main_db_collation)) {
-			$this->forcecollate = $conf->db->dolibarr_main_db_collation;
+		if (!empty($config->db->dolibarr_main_db_collation)) {
+			$this->forcecollate = $config->db->dolibarr_main_db_collation;
 		}
 
 		$this->database_user = $user;
@@ -500,7 +500,7 @@ class DoliDBSqlite3 extends DoliDB
 					$errormsg .= ' ('.$this->lasterrno.')';
 				}
 
-				if ($conf->global->SYSLOG_LEVEL < LOG_DEBUG) {
+				if ($config->global->SYSLOG_LEVEL < LOG_DEBUG) {
 					dol_syslog(get_class($this)."::query SQL Error query: ".$query, LOG_ERR); // Log of request was not yet done previously
 				}
 				dol_syslog(get_class($this)."::query SQL Error message: ".$errormsg, LOG_ERR);
@@ -776,10 +776,10 @@ class DoliDBSqlite3 extends DoliDB
 		global $conf;
 
 		// Type of encryption (2: AES (recommended), 1: DES , 0: no encryption)
-		$cryptType = (!empty($conf->db->dolibarr_main_db_encryption) ? $conf->db->dolibarr_main_db_encryption : 0);
+		$cryptType = (!empty($config->db->dolibarr_main_db_encryption) ? $config->db->dolibarr_main_db_encryption : 0);
 
 		//Encryption key
-		$cryptKey = (!empty($conf->db->dolibarr_main_db_cryptkey) ? $conf->db->dolibarr_main_db_cryptkey : '');
+		$cryptKey = (!empty($config->db->dolibarr_main_db_cryptkey) ? $config->db->dolibarr_main_db_cryptkey : '');
 
 		$escapedstringwithquotes = ($withQuotes ? "'" : "").$this->escape($fieldorvalue).($withQuotes ? "'" : "");
 
@@ -805,10 +805,10 @@ class DoliDBSqlite3 extends DoliDB
 		global $conf;
 
 		// Type of encryption (2: AES (recommended), 1: DES , 0: no encryption)
-		$cryptType = ($conf->db->dolibarr_main_db_encryption ? $conf->db->dolibarr_main_db_encryption : 0);
+		$cryptType = ($config->db->dolibarr_main_db_encryption ? $config->db->dolibarr_main_db_encryption : 0);
 
 		//Encryption key
-		$cryptKey = (!empty($conf->db->dolibarr_main_db_cryptkey) ? $conf->db->dolibarr_main_db_cryptkey : '');
+		$cryptKey = (!empty($config->db->dolibarr_main_db_cryptkey) ? $config->db->dolibarr_main_db_cryptkey : '');
 
 		$return = $value;
 

@@ -46,7 +46,7 @@ class Fichinter extends CommonObject
 		'rowid' => array('type' => 'integer', 'label' => 'TechnicalID', 'enabled' => 1, 'visible' => -1, 'notnull' => 1, 'position' => 10),
 		'fk_soc' => array('type' => 'integer:Societe:societe/class/societe.class.php', 'label' => 'ThirdParty', 'enabled' => 'isModEnabled("societe")', 'visible' => -1, 'notnull' => 1, 'position' => 15),
 		'fk_projet' => array('type' => 'integer:Project:projet/class/project.class.php:1:(fk_statut:=:1)', 'label' => 'Fk projet', 'enabled' => 'isModEnabled("project")', 'visible' => -1, 'position' => 20),
-		'fk_contrat' => array('type' => 'integer', 'label' => 'Fk contrat', 'enabled' => '$conf->contrat->enabled', 'visible' => -1, 'position' => 25),
+		'fk_contrat' => array('type' => 'integer', 'label' => 'Fk contrat', 'enabled' => '$config->contrat->enabled', 'visible' => -1, 'position' => 25),
 		'ref' => array('type' => 'varchar(30)', 'label' => 'Ref', 'enabled' => 1, 'visible' => -1, 'notnull' => 1, 'showoncombobox' => 1, 'position' => 30),
 		'ref_ext' => array('type' => 'varchar(255)', 'label' => 'RefExt', 'enabled' => 1, 'visible' => 0, 'position' => 35),
 		'ref_client' => array('type' => 'varchar(255)', 'label' => 'RefCustomer', 'enabled' => 1, 'visible' => -1, 'position' => 36),
@@ -663,7 +663,7 @@ class Fichinter extends CommonObject
 						$this->error = $this->db->lasterror();
 					}
 					$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'ficheinter/".$this->db->escape($this->newref)."'";
-					$sql .= " WHERE filepath = 'ficheinter/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+					$sql .= " WHERE filepath = 'ficheinter/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 					$resql = $this->db->query($sql);
 					if (!$resql) {
 						$error++;
@@ -673,15 +673,15 @@ class Fichinter extends CommonObject
 					// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 					$oldref = dol_sanitizeFileName($this->ref);
 					$newref = dol_sanitizeFileName($num);
-					$dirsource = $conf->ficheinter->dir_output.'/'.$oldref;
-					$dirdest = $conf->ficheinter->dir_output.'/'.$newref;
+					$dirsource = $config->ficheinter->dir_output.'/'.$oldref;
+					$dirdest = $config->ficheinter->dir_output.'/'.$newref;
 					if (!$error && file_exists($dirsource)) {
 						dol_syslog(get_class($this)."::setValid rename dir ".$dirsource." into ".$dirdest);
 
 						if (@rename($dirsource, $dirdest)) {
 							dol_syslog("Rename ok");
 							// Rename docs starting with $oldref with $newref
-							$listoffiles = dol_dir_list($conf->ficheinter->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+							$listoffiles = dol_dir_list($config->ficheinter->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 							foreach ($listoffiles as $fileentry) {
 								$dirsource = $fileentry['name'];
 								$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -738,7 +738,7 @@ class Fichinter extends CommonObject
 			$sql .= " fk_user_modif = " . ((int) $user->id);
 			$sql .= " WHERE rowid = " . ((int) $this->id);
 			$sql .= " AND fk_statut > " . self::STATUS_DRAFT;
-			$sql .= " AND entity = " . ((int) $conf->entity);
+			$sql .= " AND entity = " . ((int) $config->entity);
 
 			if ($this->db->query($sql)) {
 				if (!$notrigger) {
@@ -906,7 +906,7 @@ class Fichinter extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -1007,7 +1007,7 @@ class Fichinter extends CommonObject
 			$classname = "mod_" . getDolGlobalString('FICHEINTER_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/fichinter/");
@@ -1170,9 +1170,9 @@ class Fichinter extends CommonObject
 
 			// Remove directory with files
 			$fichinterref = dol_sanitizeFileName($this->ref);
-			if ($conf->ficheinter->dir_output) {
-				$dir = $conf->ficheinter->dir_output."/".$fichinterref;
-				$file = $conf->ficheinter->dir_output."/".$fichinterref."/".$fichinterref.".pdf";
+			if ($config->ficheinter->dir_output) {
+				$dir = $config->ficheinter->dir_output."/".$fichinterref;
+				$file = $config->ficheinter->dir_output."/".$fichinterref."/".$fichinterref.".pdf";
 				if (file_exists($file)) {
 					dol_delete_preview($this);
 

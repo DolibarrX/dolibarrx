@@ -166,14 +166,14 @@ $sql .= $hookManager->resPrint;
 $sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn_det as fd";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = fd.fk_product";
 if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
-	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $conf->entity);
+	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 }
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON aa.rowid = fd.fk_code_ventilation";
 $sql .= " JOIN ".MAIN_DB_PREFIX."facture_fourn as f ON f.rowid = fd.fk_facture_fourn";
 $sql .= " JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = f.fk_soc";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as co ON co.rowid = s.fk_pays ";
 if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
-	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $conf->entity);
+	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
 }
 $parameters = array();
 $reshook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
@@ -226,7 +226,7 @@ $cpttva = getDolGlobalString('ACCOUNTING_VAT_BUY_ACCOUNT', 'NotDefined');
 $rcctva = getDolGlobalString('ACCOUNTING_VAT_BUY_REVERSE_CHARGES_CREDIT', 'NotDefined');
 $rcdtva = getDolGlobalString('ACCOUNTING_VAT_BUY_REVERSE_CHARGES_DEBIT', 'NotDefined');
 $noTaxDispatchingKeepWithLines = getDolGlobalInt('ACCOUNTING_PURCHASES_DO_NOT_DISPATCH_TAXES'); //If enabled, Tax will NOT get split off from the base entry and credited to a separate tax account (good for non-VAT countries like USA)
-$country_code_in_EEC = getCountriesInEEC();		// This make a database call but there is a cache done into $conf->cache['country_code_in_EEC']
+$country_code_in_EEC = getCountriesInEEC();		// This make a database call but there is a cache done into $config->cache['country_code_in_EEC']
 
 $result = $db->query($sql);
 if ($result) {
@@ -514,7 +514,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 				$bookkeeping->code_journal = $journal;
 				$bookkeeping->journal_label = $langs->transnoentities($journal_label);
 				$bookkeeping->fk_user_author = $user->id;
-				$bookkeeping->entity = $conf->entity;
+				$bookkeeping->entity = $config->entity;
 
 				$totaldebit += $bookkeeping->debit;
 				$totalcredit += $bookkeeping->credit;
@@ -546,12 +546,12 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 		// Product / Service
 		if (!$errorforline) {
 			foreach ($tabht[$key] as $k => $mt) {
-				if (empty($conf->cache['accountingaccountincurrententity'][$k])) {
+				if (empty($config->cache['accountingaccountincurrententity'][$k])) {
 					$accountingaccount = new AccountingAccount($db);
 					$accountingaccount->fetch(0, $k, true);
-					$conf->cache['accountingaccountincurrententity'][$k] = $accountingaccount;
+					$config->cache['accountingaccountincurrententity'][$k] = $accountingaccount;
 				} else {
-					$accountingaccount = $conf->cache['accountingaccountincurrententity'][$k];
+					$accountingaccount = $config->cache['accountingaccountincurrententity'][$k];
 				}
 
 				$label_account = $accountingaccount->label;
@@ -592,7 +592,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 					$bookkeeping->code_journal = $journal;
 					$bookkeeping->journal_label = $langs->transnoentities($journal_label);
 					$bookkeeping->fk_user_author = $user->id;
-					$bookkeeping->entity = $conf->entity;
+					$bookkeeping->entity = $config->entity;
 
 					$totaldebit += $bookkeeping->debit;
 					$totalcredit += $bookkeeping->credit;
@@ -684,7 +684,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 						$bookkeeping->code_journal = $journal;
 						$bookkeeping->journal_label = $langs->transnoentities($journal_label);
 						$bookkeeping->fk_user_author = $user->id;
-						$bookkeeping->entity = $conf->entity;
+						$bookkeeping->entity = $config->entity;
 
 						$totaldebit += $bookkeeping->debit;
 						$totalcredit += $bookkeeping->credit;
@@ -736,7 +736,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 					$bookkeeping->code_journal = $journal;
 					$bookkeeping->journal_label = $langs->transnoentities($journal_label);
 					$bookkeeping->fk_user_author = $user->id;
-					$bookkeeping->entity = $conf->entity;
+					$bookkeeping->entity = $config->entity;
 
 					$totaldebit += $bookkeeping->debit;
 					$totalcredit += $bookkeeping->credit;
@@ -998,9 +998,9 @@ if (empty($action) || $action == 'view') {
 	journalHead($nom, $nomlink, $period, $periodlink, $description, $builddate, $exportlink, array('action' => ''), '', $varlink);
 
 	if (getDolGlobalString('ACCOUNTANCY_FISCAL_PERIOD_MODE') != 'blockedonclosed') {
-		// Test that setup is complete (we are in accounting, so test on entity is always on $conf->entity only, no sharing allowed)
+		// Test that setup is complete (we are in accounting, so test on entity is always on $config->entity only, no sharing allowed)
 		// Fiscal period test
-		$sql = "SELECT COUNT(rowid) as nb FROM ".MAIN_DB_PREFIX."accounting_fiscalyear WHERE entity = ".((int) $conf->entity);
+		$sql = "SELECT COUNT(rowid) as nb FROM ".MAIN_DB_PREFIX."accounting_fiscalyear WHERE entity = ".((int) $config->entity);
 		$resql = $db->query($sql);
 		if ($resql) {
 			$obj = $db->fetch_object($resql);
@@ -1183,12 +1183,12 @@ if (empty($action) || $action == 'view') {
 
 		// Product / Service
 		foreach ($tabht[$key] as $k => $mt) {
-			if (empty($conf->cache['accountingaccountincurrententity'][$k])) {
+			if (empty($config->cache['accountingaccountincurrententity'][$k])) {
 				$accountingaccount = new AccountingAccount($db);
 				$accountingaccount->fetch(0, $k, true);
-				$conf->cache['accountingaccountincurrententity'][$k] = $accountingaccount;
+				$config->cache['accountingaccountincurrententity'][$k] = $accountingaccount;
 			} else {
-				$accountingaccount = $conf->cache['accountingaccountincurrententity'][$k];
+				$accountingaccount = $config->cache['accountingaccountincurrententity'][$k];
 			}
 
 			print '<tr class="oddeven">';

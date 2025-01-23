@@ -48,7 +48,7 @@ if (!$user->admin) {
 
 '@phan-var-force WebsitePage $objectpage';
 
-$conf->dol_hide_leftmenu = 1; // Force hide of left menu.
+$config->dol_hide_leftmenu = 1; // Force hide of left menu.
 
 $error = 0;
 $website = GETPOST('website', 'alpha');

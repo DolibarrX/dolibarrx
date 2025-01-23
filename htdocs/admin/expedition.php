@@ -62,7 +62,7 @@ $scandir = GETPOST('scan_dir', 'alpha');
 $type = 'shipping';
 
 if (!getDolGlobalString('EXPEDITION_ADDON_NUMBER')) {
-	$conf->global->EXPEDITION_ADDON_NUMBER = 'mod_expedition_safor';
+	$config->global->EXPEDITION_ADDON_NUMBER = 'mod_expedition_safor';
 }
 
 
@@ -77,7 +77,7 @@ if ($action == 'updateMask') {
 	$maskconst = GETPOST('maskconstexpedition', 'aZ09');
 	$maskvalue = GETPOST('maskexpedition', 'alpha');
 	if (!empty($maskconst) && preg_match('/_MASK$/', $maskconst)) {
-		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $config->entity);
 	}
 
 	if (isset($res)) {
@@ -89,14 +89,14 @@ if ($action == 'updateMask') {
 	}
 } elseif ($action == 'set_param') {
 	$freetext = GETPOST('SHIPPING_FREE_TEXT', 'restricthtml'); // No alpha here, we want exact string
-	$res = dolibarr_set_const($db, "SHIPPING_FREE_TEXT", $freetext, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "SHIPPING_FREE_TEXT", $freetext, 'chaine', 0, '', $config->entity);
 	if ($res <= 0) {
 		$error++;
 		setEventMessages($langs->trans("Error"), null, 'errors');
 	}
 
 	$draft = GETPOST('SHIPPING_DRAFT_WATERMARK', 'alpha');
-	$res = dolibarr_set_const($db, "SHIPPING_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "SHIPPING_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $config->entity);
 	if ($res <= 0) {
 		$error++;
 		setEventMessages($langs->trans("Error"), null, 'errors');
@@ -114,7 +114,7 @@ if ($action == 'updateMask') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/expedition/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -147,15 +147,15 @@ if ($action == 'updateMask') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
 		if (getDolGlobalString('EXPEDITION_ADDON_PDF') == "$value") {
-			dolibarr_del_const($db, 'EXPEDITION_ADDON_PDF', $conf->entity);
+			dolibarr_del_const($db, 'EXPEDITION_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "EXPEDITION_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "EXPEDITION_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->EXPEDITION_ADDON_PDF = $value;
+		$config->global->EXPEDITION_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -164,7 +164,7 @@ if ($action == 'updateMask') {
 		$ret = addDocumentModel($value, $type, $label, $scandir);
 	}
 } elseif ($action == 'setmodel') {
-	dolibarr_set_const($db, "EXPEDITION_ADDON_NUMBER", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "EXPEDITION_ADDON_NUMBER", $value, 'chaine', 0, '', $config->entity);
 }
 
 
@@ -172,7 +172,7 @@ if ($action == 'updateMask') {
  * View
  */
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 $form = new Form($db);
 
@@ -243,7 +243,7 @@ foreach ($dirmodels as $reldir) {
 						print '</td>'."\n";
 
 						print '<td class="center">';
-						if ($conf->global->EXPEDITION_ADDON_NUMBER == "$file") {
+						if ($config->global->EXPEDITION_ADDON_NUMBER == "$file") {
 							print img_picto($langs->trans("Activated"), 'switch_on');
 						} else {
 							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmodel&token='.newToken().'&value='.urlencode($file).'&label='.urlencode($module->name).'">';
@@ -299,7 +299,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 
 $resql = $db->query($sql);
 if ($resql) {

@@ -224,7 +224,7 @@ class doc_generic_ticket_odt extends ModelePDFTicket
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "companies", "bills", "dict"));
 
-		if ($conf->ticket->dir_output) {
+		if ($config->ticket->dir_output) {
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
@@ -238,7 +238,7 @@ class doc_generic_ticket_odt extends ModelePDFTicket
 
 			$object->fetch_thirdparty();
 
-			$dir = $conf->ticket->dir_output;
+			$dir = $config->ticket->dir_output;
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -276,11 +276,11 @@ class doc_generic_ticket_odt extends ModelePDFTicket
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->ticket->dir_temp=".$conf->ticket->dir_temp;
+				//print "conf->ticket->dir_temp=".$config->ticket->dir_temp;
 
-				dol_mkdir($conf->ticket->dir_temp);
-				if (!is_writable($conf->ticket->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->ticket->dir_temp);
+				dol_mkdir($config->ticket->dir_temp);
+				if (!is_writable($config->ticket->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->ticket->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -296,7 +296,7 @@ class doc_generic_ticket_odt extends ModelePDFTicket
 				// Recipient name
 				if (!empty($usecontact)) {
 					// We can use the company of contact instead of thirdparty company
-					if ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
+					if ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
 						$object->contact->fetch_thirdparty();
 						$socobject = $object->contact->thirdparty;
 						$contactobject = $object->contact;
@@ -315,7 +315,7 @@ class doc_generic_ticket_odt extends ModelePDFTicket
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $conf->ticket->dir_temp,
+							'PATH_TO_TMP'	  => $config->ticket->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'

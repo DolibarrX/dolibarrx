@@ -208,7 +208,7 @@ class Import
 				if ($part === 'propale') {
 					$part = 'propal';
 				}
-				if (empty($conf->$part->enabled)) {
+				if (empty($config->$part->enabled)) {
 					$enabled = false;
 				}
 

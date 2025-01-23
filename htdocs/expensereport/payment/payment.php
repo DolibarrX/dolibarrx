@@ -186,7 +186,7 @@ if ($action == 'create' || empty($action)) {
 	$total = $expensereport->total_ttc;
 
 	// autofill remainder amount
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print "\n".'<script type="text/javascript">';
 		//Add js for AutoFill
 		print ' $(document).ready(function () {';
@@ -219,7 +219,7 @@ if ($action == 'create' || empty($action)) {
 	print '<table class="border centpercent">'."\n";
 
 	print '<tr><td class="titlefield">'.$langs->trans("Period").'</td><td>'.get_date_range($expensereport->date_debut, $expensereport->date_fin, "", $langs, 0).'</td></tr>';
-	print '<tr><td>'.$langs->trans("Amount").'</td><td><span class="amount">'.price($expensereport->total_ttc, 0, $langs, 1, -1, -1, $conf->currency).'</span></td></tr>';
+	print '<tr><td>'.$langs->trans("Amount").'</td><td><span class="amount">'.price($expensereport->total_ttc, 0, $langs, 1, -1, -1, $config->currency).'</span></td></tr>';
 
 	$sql = "SELECT sum(p.amount) as total";
 	$sql .= " FROM ".MAIN_DB_PREFIX."payment_expensereport as p, ".MAIN_DB_PREFIX."expensereport as e";
@@ -231,8 +231,8 @@ if ($action == 'create' || empty($action)) {
 		$sumpaid = $obj->total;
 		$db->free($resql);
 	}
-	print '<tr><td>'.$langs->trans("AlreadyPaid").'</td><td><span class="amount">'.price($sumpaid, 0, $langs, 1, -1, -1, $conf->currency).'</span></td></tr>';
-	print '<tr><td class="tdtop">'.$langs->trans("RemainderToPay").'</td><td><span class="amount">'.price($total - $sumpaid, 0, $langs, 1, -1, -1, $conf->currency).'</span></td></tr>';
+	print '<tr><td>'.$langs->trans("AlreadyPaid").'</td><td><span class="amount">'.price($sumpaid, 0, $langs, 1, -1, -1, $config->currency).'</span></td></tr>';
+	print '<tr><td class="tdtop">'.$langs->trans("RemainderToPay").'</td><td><span class="amount">'.price($total - $sumpaid, 0, $langs, 1, -1, -1, $config->currency).'</span></td></tr>';
 
 	print '</table>';
 
@@ -313,7 +313,7 @@ if ($action == 'create' || empty($action)) {
 		if ($sumpaid < $objp->total_ttc) {
 			$namef = "amount_".$objp->id;
 			$nameRemain = "remain_".$objp->id; // autofill remainder amount
-			if (!empty($conf->use_javascript_ajax)) { // autofill remainder amount
+			if (!empty($config->use_javascript_ajax)) { // autofill remainder amount
 				print img_picto("Auto fill", 'rightarrow', "class='AutoFillAmount' data-rowid='".$namef."' data-value='".($objp->total_ttc - $sumpaid)."'"); // autofill remainder amount
 			}
 			$remaintopay = $objp->total_ttc - $sumpaid; // autofill remainder amount

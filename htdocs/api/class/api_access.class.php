@@ -141,11 +141,11 @@ class DolibarrApiAccess implements iAuthenticate
 					$stored_key = dolDecrypt($obj->api_key);
 					$userentity = $obj->entity;
 
-					if (!defined("DOLENTITY") && $conf->entity != ($obj->entity ? $obj->entity : 1)) {		// If API was not forced with HTTP_DOLENTITY, and user is on another entity, so we reset entity to entity of user
-						$conf->entity = ($obj->entity ? $obj->entity : 1);
+					if (!defined("DOLENTITY") && $config->entity != ($obj->entity ? $obj->entity : 1)) {		// If API was not forced with HTTP_DOLENTITY, and user is on another entity, so we reset entity to entity of user
+						$config->entity = ($obj->entity ? $obj->entity : 1);
 						// We must also reload global conf to get params from the entity
-						dol_syslog("Entity was not set on http header with HTTP_DOLAPIENTITY (recommended for performance purpose), so we switch now on entity of user (".$conf->entity.") and we have to reload configuration.", LOG_WARNING);
-						$conf->setValues($this->db);
+						dol_syslog("Entity was not set on http header with HTTP_DOLAPIENTITY (recommended for performance purpose), so we switch now on entity of user (".$config->entity.") and we have to reload configuration.", LOG_WARNING);
+						$config->setValues($this->db);
 					}
 				} elseif ($nbrows > 1) {
 					throw new RestException(503, 'Error when fetching user api_key : More than 1 user with this apikey');
@@ -159,7 +159,7 @@ class DolibarrApiAccess implements iAuthenticate
 				return false;
 			}
 
-			$genericmessageerroruser = 'Error user not valid (not found with api key or bad status or bad validity dates) (conf->entity='.$conf->entity.')';
+			$genericmessageerroruser = 'Error user not valid (not found with api key or bad status or bad validity dates) (conf->entity='.$config->entity.')';
 
 			if (!$login) {
 				dol_syslog("functions_isallowed::check_user_api_key Authentication KO for api key: Error when searching login user from api key", LOG_NOTICE);
@@ -168,7 +168,7 @@ class DolibarrApiAccess implements iAuthenticate
 			}
 
 			$fuser = new User($this->db);
-			$result = $fuser->fetch(0, $login, '', 0, (empty($userentity) ? -1 : $conf->entity)); // If user is not entity 0, we search in working entity $conf->entity  (that may have been forced to a different value than user entity)
+			$result = $fuser->fetch(0, $login, '', 0, (empty($userentity) ? -1 : $config->entity)); // If user is not entity 0, we search in working entity $config->entity  (that may have been forced to a different value than user entity)
 			if ($result <= 0) {
 				dol_syslog("functions_isallowed::check_user_api_key Authentication KO for '".$login."': Failed to fetch on entity", LOG_NOTICE);
 				sleep(1); // Anti brute force protection. Must be same delay when user and password are not valid.

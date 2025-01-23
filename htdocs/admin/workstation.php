@@ -52,7 +52,7 @@ $value = GETPOST('value', 'alpha');
 $error = 0;
 $setupnotempty = 0;
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 // Access control
 if (!$user->admin) {
@@ -82,7 +82,7 @@ if ($action == 'updateMask') {
 	$res = 0;
 
 	if ($maskconst && preg_match('/_MASK$/', $maskconst)) {
-		$res = dolibarr_set_const($db, $maskconst, $maskorder, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconst, $maskorder, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -105,7 +105,7 @@ if ($action == 'updateMask') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/workstation/doc/pdf_".$modele."_".strtolower($tmpobjectkey).".modules.php", 0);
 		if (file_exists($file)) {
@@ -139,16 +139,16 @@ if ($action == 'updateMask') {
 	if ($ret > 0) {
 		$constforval = strtoupper($tmpobjectkey).'_ADDON_PDF';
 		if (getDolGlobalString($constforval) == "$value") {
-			dolibarr_del_const($db, $constforval, $conf->entity);
+			dolibarr_del_const($db, $constforval, $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
 	$constforval = strtoupper($tmpobjectkey).'_ADDON_PDF';
-	if (dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $config->entity)) {
 		// The constant that was read before the new set
 		// We therefore requires a variable to have a coherent view
-		$conf->global->$constforval = $value;
+		$config->global->$constforval = $value;
 	}
 
 	// On active le modele
@@ -160,7 +160,7 @@ if ($action == 'updateMask') {
 	// TODO Check if numbering module chosen can be activated
 	// by calling method canBeActivated
 	$constforval = 'WORKSTATION_'.strtoupper($tmpobjectkey)."_ADDON";
-	dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $config->entity);
 }
 
 
@@ -358,7 +358,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 		$sql = "SELECT nom";
 		$sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 		$sql .= " WHERE type = '".$db->escape($type)."'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 		$resql = $db->query($sql);
 		if ($resql) {
 			$i = 0;

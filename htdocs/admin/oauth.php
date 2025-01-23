@@ -75,13 +75,13 @@ if ($action == 'add') {		// $provider is OAUTH_XXX
 			setEventMessages($langs->trans("AOAuthEntryForThisProviderAndLabelAlreadyHasAKey"), null, 'errors');
 			$error++;
 		} else {
-			dolibarr_set_const($db, $constname, $langs->trans('ToComplete'), 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, $constname, $langs->trans('ToComplete'), 'chaine', 0, '', $config->entity);
 			setEventMessages($langs->trans("OAuthProviderAdded"), null);
 		}
 	}
 }
 if ($action == 'update') {
-	foreach ($conf->global as $key => $val) {
+	foreach ($config->global as $key => $val) {
 		if (!empty($val) && preg_match('/^OAUTH_.+_ID$/', $key)) {
 			$constvalue = str_replace('_ID', '', $key);
 			$newconstvalue = $constvalue;
@@ -90,28 +90,28 @@ if ($action == 'update') {
 			}
 
 			if (GETPOSTISSET($constvalue.'_ID')) {
-				if (!dolibarr_set_const($db, $newconstvalue.'_ID', GETPOST($constvalue.'_ID'), 'chaine', 0, '', $conf->entity)) {
+				if (!dolibarr_set_const($db, $newconstvalue.'_ID', GETPOST($constvalue.'_ID'), 'chaine', 0, '', $config->entity)) {
 					$error++;
 				}
 			}
 			// If we reset this provider, we also remove the secret
 			if (GETPOSTISSET($constvalue.'_SECRET')) {
-				if (!dolibarr_set_const($db, $newconstvalue.'_SECRET', GETPOST($constvalue.'_ID') ? GETPOST($constvalue.'_SECRET') : '', 'chaine', 0, '', $conf->entity)) {
+				if (!dolibarr_set_const($db, $newconstvalue.'_SECRET', GETPOST($constvalue.'_ID') ? GETPOST($constvalue.'_SECRET') : '', 'chaine', 0, '', $config->entity)) {
 					$error++;
 				}
 			}
 			if (GETPOSTISSET($constvalue.'_URL')) {
-				if (!dolibarr_set_const($db, $newconstvalue.'_URL', GETPOST($constvalue.'_URL'), 'chaine', 0, '', $conf->entity)) {
+				if (!dolibarr_set_const($db, $newconstvalue.'_URL', GETPOST($constvalue.'_URL'), 'chaine', 0, '', $config->entity)) {
 					$error++;
 				}
 			}
 			if (GETPOSTISSET($constvalue.'_URLAUTHORIZE')) {
-				if (!dolibarr_set_const($db, $newconstvalue.'_URLAUTHORIZE', GETPOST($constvalue.'_URLAUTHORIZE'), 'chaine', 0, '', $conf->entity)) {
+				if (!dolibarr_set_const($db, $newconstvalue.'_URLAUTHORIZE', GETPOST($constvalue.'_URLAUTHORIZE'), 'chaine', 0, '', $config->entity)) {
 					$error++;
 				}
 			}
 			if (GETPOSTISSET($constvalue.'_TENANT')) {
-				if (!dolibarr_set_const($db, $constvalue.'_TENANT', GETPOST($constvalue.'_TENANT'), 'chaine', 0, '', $conf->entity)) {
+				if (!dolibarr_set_const($db, $constvalue.'_TENANT', GETPOST($constvalue.'_TENANT'), 'chaine', 0, '', $config->entity)) {
 					$error++;
 				}
 			}
@@ -121,22 +121,22 @@ if ($action == 'update') {
 				} else {
 					$scopestring = GETPOST($constvalue.'_SCOPE');
 				}
-				if (!dolibarr_set_const($db, $newconstvalue.'_SCOPE', $scopestring, 'chaine', 0, '', $conf->entity)) {
+				if (!dolibarr_set_const($db, $newconstvalue.'_SCOPE', $scopestring, 'chaine', 0, '', $config->entity)) {
 					$error++;
 				}
 			} elseif ($newconstvalue !== $constvalue) {
-				if (!dolibarr_set_const($db, $newconstvalue.'_SCOPE', '', 'chaine', 0, '', $conf->entity)) {
+				if (!dolibarr_set_const($db, $newconstvalue.'_SCOPE', '', 'chaine', 0, '', $config->entity)) {
 					$error++;
 				}
 			}
 
 			// If name changed, we have to delete old const and proceed few other changes
 			if ($constvalue !== $newconstvalue) {
-				dolibarr_del_const($db, $constvalue.'_ID', $conf->entity);
-				dolibarr_del_const($db, $constvalue.'_SECRET', $conf->entity);
-				dolibarr_del_const($db, $constvalue.'_URL', $conf->entity);
-				dolibarr_del_const($db, $constvalue.'_URLAUTHORIZE', $conf->entity);
-				dolibarr_del_const($db, $constvalue.'_SCOPE', $conf->entity);
+				dolibarr_del_const($db, $constvalue.'_ID', $config->entity);
+				dolibarr_del_const($db, $constvalue.'_SECRET', $config->entity);
+				dolibarr_del_const($db, $constvalue.'_URL', $config->entity);
+				dolibarr_del_const($db, $constvalue.'_URLAUTHORIZE', $config->entity);
+				dolibarr_del_const($db, $constvalue.'_SCOPE', $config->entity);
 
 				// Update name of token
 				$oldname = preg_replace('/^OAUTH_/', '', $constvalue);
@@ -157,7 +157,7 @@ if ($action == 'update') {
 
 				// Update other const that was using the renamed key as token (might not be exhaustive)
 				if (getDolGlobalString('MAIN_MAIL_SMTPS_OAUTH_SERVICE') == $oldname) {
-					if (!dolibarr_set_const($db, 'MAIN_MAIL_SMTPS_OAUTH_SERVICE', strtoupper($oldprovider).'-'.$newlabel, 'chaine', 0, '', $conf->entity)) {
+					if (!dolibarr_set_const($db, 'MAIN_MAIL_SMTPS_OAUTH_SERVICE', strtoupper($oldprovider).'-'.$newlabel, 'chaine', 0, '', $config->entity)) {
 						$error++;
 					}
 				}
@@ -212,12 +212,12 @@ if ($action == 'delete_entry') {
 
 	$globalkey = empty($provider) ? $label : $label.'-'.$provider;
 
-	if (!dolibarr_del_const($db, $globalkey.'_NAME', $conf->entity)
-		|| !dolibarr_del_const($db, $globalkey.'_ID', $conf->entity)
-		|| !dolibarr_del_const($db, $globalkey.'_SECRET', $conf->entity)
-		|| !dolibarr_del_const($db, $globalkey.'_URL', $conf->entity)
-		|| !dolibarr_del_const($db, $globalkey.'_URLAUTHORIZE', $conf->entity)
-		|| !dolibarr_del_const($db, $globalkey.'_SCOPE', $conf->entity)) {
+	if (!dolibarr_del_const($db, $globalkey.'_NAME', $config->entity)
+		|| !dolibarr_del_const($db, $globalkey.'_ID', $config->entity)
+		|| !dolibarr_del_const($db, $globalkey.'_SECRET', $config->entity)
+		|| !dolibarr_del_const($db, $globalkey.'_URL', $config->entity)
+		|| !dolibarr_del_const($db, $globalkey.'_URLAUTHORIZE', $config->entity)
+		|| !dolibarr_del_const($db, $globalkey.'_SCOPE', $config->entity)) {
 		setEventMessages($langs->trans("ErrorInEntryDeletion"), null, 'errors');
 		$error++;
 	} else {
@@ -305,7 +305,7 @@ print '</form>';
 
 $listinsetup = [];
 // Define $listinsetup
-foreach ($conf->global as $key => $val) {
+foreach ($config->global as $key => $val) {
 	if (!empty($val) && preg_match('/^OAUTH_.*_ID$/', $key)) {
 		$provider = preg_replace('/_ID$/', '', $key);
 		$listinsetup[] = array(

@@ -78,7 +78,7 @@ if (!$user->hasRight('takepos', 'run') && !defined('INCLUDE_PHONEPAGE_FROM_PUBLI
 	accessforbidden('No permission to use the TakePOS');
 }
 
-if ((getDolGlobalString('TAKEPOS_PHONE_BASIC_LAYOUT') == 1 && $conf->browser->layout == 'phone') || defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE')) {
+if ((getDolGlobalString('TAKEPOS_PHONE_BASIC_LAYOUT') == 1 && $config->browser->layout == 'phone') || defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE')) {
 	// DIRECT LINK TO THIS PAGE FROM MOBILE AND NO TERMINAL SELECTED
 	if ($_SESSION["takeposterminal"] == "") {
 		if (getDolGlobalString('TAKEPOS_NUM_TERMINALS') == "1") {
@@ -263,7 +263,7 @@ if (empty($reshook)) {
 			// The case for isModEnabled('productbatch') is processed few lines later.
 			$savconst = getDolGlobalString('STOCK_CALCULATE_ON_BILL');
 
-			$conf->global->STOCK_CALCULATE_ON_BILL = 1;	// To force the change of stock during invoice validation
+			$config->global->STOCK_CALCULATE_ON_BILL = 1;	// To force the change of stock during invoice validation
 
 			$constantforkey = 'CASHDESK_ID_WAREHOUSE'.(isset($_SESSION["takeposterminal"]) ? $_SESSION["takeposterminal"] : '');
 			dol_syslog("Validate invoice with stock change. Warehouse defined into constant ".$constantforkey." = ".getDolGlobalString($constantforkey));
@@ -274,7 +274,7 @@ if (empty($reshook)) {
 			$res = $invoice->validate($user, '', getDolGlobalInt($constantforkey), 0, $batch_rule);
 
 			// Restore setup
-			$conf->global->STOCK_CALCULATE_ON_BILL = $savconst;
+			$config->global->STOCK_CALCULATE_ON_BILL = $savconst;
 		} else {
 			// Validation of invoice with no change into stock (because param $idwarehouse is not fill)
 			$res = $invoice->validate($user);
@@ -526,7 +526,7 @@ if (empty($reshook)) {
 			// If module stock is enabled and we do not setup takepo to disable stock decrease
 			// The case for isModEnabled('productbatch') is processed few lines later.
 			$savconst = getDolGlobalString('STOCK_CALCULATE_ON_BILL');
-			$conf->global->STOCK_CALCULATE_ON_BILL = 1;	// We force setup to have update of stock on invoice validation/unvalidation
+			$config->global->STOCK_CALCULATE_ON_BILL = 1;	// We force setup to have update of stock on invoice validation/unvalidation
 
 			$constantforkey = 'CASHDESK_ID_WAREHOUSE'.(isset($_SESSION["takeposterminal"]) ? $_SESSION["takeposterminal"] : '');
 
@@ -542,7 +542,7 @@ if (empty($reshook)) {
 			}
 
 			// Restore setup
-			$conf->global->STOCK_CALCULATE_ON_BILL = $savconst;
+			$config->global->STOCK_CALCULATE_ON_BILL = $savconst;
 		} else {
 			$res = $creditnote->validate($user);
 		}
@@ -619,7 +619,7 @@ if (empty($reshook)) {
 
 		$invoice->module_source = 'takepos';
 		$invoice->pos_source =  isset($_SESSION["takeposterminal"]) ? $_SESSION["takeposterminal"] : '' ;
-		$invoice->entity = !empty($_SESSION["takeposinvoiceentity"]) ? $_SESSION["takeposinvoiceentity"] : $conf->entity;
+		$invoice->entity = !empty($_SESSION["takeposinvoiceentity"]) ? $_SESSION["takeposinvoiceentity"] : $config->entity;
 
 		if ($invoice->socid <= 0) {
 			$langs->load('errors');
@@ -1026,7 +1026,7 @@ if (empty($reshook)) {
 				// Check min price
 				if ($usercanproductignorepricemin && (!empty($price_min) && ((float) price2num($pu_ht) * (1 - (float) price2num($line->remise_percent) / 100) < price2num($price_min)))) {
 					$langs->load("products");
-					dol_htmloutput_errors($langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $conf->currency)));
+					dol_htmloutput_errors($langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $config->currency)));
 					// echo $langs->trans("CantBeLessThanMinPrice");
 				} else {
 					$permissiontoupdateline = ($user->hasRight('takepos', 'editlines') && ($user->hasRight('takepos', 'editorderedlines') || $line->special_code != "4"));
@@ -1078,7 +1078,7 @@ if (empty($reshook)) {
 				// Check min price
 				if ($usercanproductignorepricemin && (!empty($price_min) && ((float) price2num($line->subprice) * (1 - (float) price2num($number) / 100) < (float) price2num($price_min)))) {
 					$langs->load("products");
-					dol_htmloutput_errors($langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $conf->currency)));
+					dol_htmloutput_errors($langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $config->currency)));
 				} else {
 					$permissiontoupdateline = ($user->hasRight('takepos', 'editlines') && ($user->hasRight('takepos', 'editorderedlines') || $line->special_code != "4"));
 					if (defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE')) {
@@ -1254,7 +1254,7 @@ if (empty($reshook)) {
 		$sectionwithinvoicelink .= $invoice->getNomUrl(1, '', 0, 0, '', 0, 0, -1, '_backoffice')." - ";
 		$remaintopay = $invoice->getRemainToPay();
 		if ($remaintopay > 0) {
-			$sectionwithinvoicelink .= $langs->trans('RemainToPay').': <span class="amountremaintopay" style="font-size: unset">'.price($remaintopay, 1, $langs, 1, -1, -1, $conf->currency).'</span>';
+			$sectionwithinvoicelink .= $langs->trans('RemainToPay').': <span class="amountremaintopay" style="font-size: unset">'.price($remaintopay, 1, $langs, 1, -1, -1, $config->currency).'</span>';
 		} else {
 			if ($invoice->paye) {
 				$sectionwithinvoicelink .= '<span class="amountpaymentcomplete" style="font-size: unset">'.$langs->trans("Paid").'</span>';
@@ -1301,7 +1301,7 @@ if (empty($reshook)) {
 $form = new Form($db);
 
 // llxHeader
-if ((getDolGlobalString('TAKEPOS_PHONE_BASIC_LAYOUT') == 1 && $conf->browser->layout == 'phone') || defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE')) {
+if ((getDolGlobalString('TAKEPOS_PHONE_BASIC_LAYOUT') == 1 && $config->browser->layout == 'phone') || defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE')) {
 	$title = 'TakePOS - Dolibarr '.DOL_VERSION;
 	if (getDolGlobalString('MAIN_APPLICATION_TITLE')) {
 		$title = 'TakePOS - ' . getDolGlobalString('MAIN_APPLICATION_TITLE');
@@ -1615,14 +1615,14 @@ $( document ).ready(function() {
 				$s .= $langs->trans("StockChangeDisabled").'<br>'.$langs->trans("NoWarehouseDefinedForTerminal");
 				$s .= '</span>';
 				print "$('#infowarehouse').html('".dol_escape_js($s)."');";
-				if (!empty($conf->dol_optimize_smallscreen)) {
+				if (!empty($config->dol_optimize_smallscreen)) {
 					print '$("#infowarehouse").css("display", "none");';
 				}
 			}
 		} else {
 			$s = '<span class="small hideonsmartphone">'.$langs->trans("StockChangeDisabled").'</span>';
 			print "$('#infowarehouse').html('".dol_escape_js($s)."');";
-			if (!empty($conf->dol_optimize_smallscreen)) {
+			if (!empty($config->dol_optimize_smallscreen)) {
 				print '$("#infowarehouse").css("display", "none");';
 			}
 		}
@@ -1691,7 +1691,7 @@ if (getDolGlobalString('TAKEPOS_CUSTOMER_DISPLAY')) {
 <?php
 // Add again js for footer because this content is injected into index.php page so all init
 // for tooltip and other js beautifiers must be reexecuted too.
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	print "\n".'<!-- Includes JS Footer of Dolibarr -->'."\n";
 	print '<script src="'.DOL_URL_ROOT.'/core/js/lib_foot.js.php?lang='.$langs->defaultlang.'"></script>'."\n";
 }
@@ -1762,8 +1762,8 @@ if (empty($_SESSION["basiclayout"]) || $_SESSION["basiclayout"] != 1) {
 		print '<span class="opacitymedium small">' . $langs->trans('TotalHTShort') . '</span><br>';
 		// In phone version only show when it is invoice page
 		if (empty($mobilepage) || $mobilepage == "invoice") {
-			print '<span id="linecolht-span-total" style="font-size:1.3em; font-weight: bold;">' . price($invoice->total_ht, 1, '', 1, -1, -1, $conf->currency) . '</span>';
-			if (isModEnabled('multicurrency') && !empty($_SESSION["takeposcustomercurrency"]) && $conf->currency != $_SESSION["takeposcustomercurrency"]) {
+			print '<span id="linecolht-span-total" style="font-size:1.3em; font-weight: bold;">' . price($invoice->total_ht, 1, '', 1, -1, -1, $config->currency) . '</span>';
+			if (isModEnabled('multicurrency') && !empty($_SESSION["takeposcustomercurrency"]) && $config->currency != $_SESSION["takeposcustomercurrency"]) {
 				//Only show customer currency if multicurrency module is enabled, if currency selected and if this currency selected is not the same as main currency
 				include_once DOL_DOCUMENT_ROOT . '/multicurrency/class/multicurrency.class.php';
 				$multicurrency = new MultiCurrency($db);
@@ -1777,8 +1777,8 @@ if (empty($_SESSION["basiclayout"]) || $_SESSION["basiclayout"] != 1) {
 	print '<span class="opacitymedium small">'.$langs->trans('TotalTTCShort').'</span><br>';
 	// In phone version only show when it is invoice page
 	if (empty($mobilepage) || $mobilepage == "invoice") {
-		print '<span id="linecolht-span-total" style="font-size:1.3em; font-weight: bold;">'.price($invoice->total_ttc, 1, '', 1, -1, -1, $conf->currency).'</span>';
-		if (isModEnabled('multicurrency') && !empty($_SESSION["takeposcustomercurrency"]) && $conf->currency != $_SESSION["takeposcustomercurrency"]) {
+		print '<span id="linecolht-span-total" style="font-size:1.3em; font-weight: bold;">'.price($invoice->total_ttc, 1, '', 1, -1, -1, $config->currency).'</span>';
+		if (isModEnabled('multicurrency') && !empty($_SESSION["takeposcustomercurrency"]) && $config->currency != $_SESSION["takeposcustomercurrency"]) {
 			//Only show customer currency if multicurrency module is enabled, if currency selected and if this currency selected is not the same as main currency
 			include_once DOL_DOCUMENT_ROOT.'/multicurrency/class/multicurrency.class.php';
 			$multicurrency = new MultiCurrency($db);
@@ -1839,12 +1839,12 @@ if (!empty($_SESSION["basiclayout"]) && $_SESSION["basiclayout"] == 1) {
 			$htmlforlines .= '>';
 			if (defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE')) {
 				$htmlforlines .= '<img class="imgwrapper" width="33%" src="'.DOL_URL_ROOT.'/takepos/public/auto_order.php?genimg=pro&query=pro&id='.$row->id.'"><br>';
-				$htmlforlines .= $row->label.' '.price($row->price_ttc, 1, $langs, 1, -1, -1, $conf->currency);
+				$htmlforlines .= $row->label.' '.price($row->price_ttc, 1, $langs, 1, -1, -1, $config->currency);
 				$htmlforlines .= '</div>'."\n";
 			} else {
 				$htmlforlines .= '<td class="left">';
 				$htmlforlines .= $row->label;
-				$htmlforlines .= '<div class="right">'.price($row->price_ttc, 1, $langs, 1, -1, -1, $conf->currency).'</div>';
+				$htmlforlines .= '<div class="right">'.price($row->price_ttc, 1, $langs, 1, -1, -1, $config->currency).'</div>';
 				$htmlforlines .= '</td>';
 				$htmlforlines .= '</tr>'."\n";
 			}
@@ -2080,8 +2080,8 @@ if ($placeid > 0) {
 				$htmlforlines .= '</td>';
 				if (getDolGlobalInt('TAKEPOS_SHOW_HT')) {
 					$htmlforlines .= '<td class="right classfortooltip" title="'.$moreinfo.'">';
-					$htmlforlines .= price($line->total_ht, 1, '', 1, -1, -1, $conf->currency);
-					if (isModEnabled('multicurrency') && !empty($_SESSION["takeposcustomercurrency"]) && $conf->currency != $_SESSION["takeposcustomercurrency"]) {
+					$htmlforlines .= price($line->total_ht, 1, '', 1, -1, -1, $config->currency);
+					if (isModEnabled('multicurrency') && !empty($_SESSION["takeposcustomercurrency"]) && $config->currency != $_SESSION["takeposcustomercurrency"]) {
 						//Only show customer currency if multicurrency module is enabled, if currency selected and if this currency selected is not the same as main currency
 						include_once DOL_DOCUMENT_ROOT.'/multicurrency/class/multicurrency.class.php';
 						$multicurrency = new MultiCurrency($db);
@@ -2091,8 +2091,8 @@ if ($placeid > 0) {
 					$htmlforlines .= '</td>';
 				}
 				$htmlforlines .= '<td class="right classfortooltip" title="'.$moreinfo.'">';
-				$htmlforlines .= price($line->total_ttc, 1, '', 1, -1, -1, $conf->currency);
-				if (isModEnabled('multicurrency') && !empty($_SESSION["takeposcustomercurrency"]) && $conf->currency != $_SESSION["takeposcustomercurrency"]) {
+				$htmlforlines .= price($line->total_ttc, 1, '', 1, -1, -1, $config->currency);
+				if (isModEnabled('multicurrency') && !empty($_SESSION["takeposcustomercurrency"]) && $config->currency != $_SESSION["takeposcustomercurrency"]) {
 					//Only show customer currency if multicurrency module is enabled, if currency selected and if this currency selected is not the same as main currency
 					include_once DOL_DOCUMENT_ROOT.'/multicurrency/class/multicurrency.class.php';
 					$multicurrency = new MultiCurrency($db);
@@ -2150,6 +2150,6 @@ if ($action == "search") {
 print '</div>';
 
 // llxFooter
-if ((getDolGlobalString('TAKEPOS_PHONE_BASIC_LAYOUT') == 1 && $conf->browser->layout == 'phone') || defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE')) {
+if ((getDolGlobalString('TAKEPOS_PHONE_BASIC_LAYOUT') == 1 && $config->browser->layout == 'phone') || defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE')) {
 	print '</body></html>';
 }

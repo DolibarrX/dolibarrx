@@ -75,7 +75,7 @@ if (in_array($object->element, array('propal', 'commande', 'facture', 'order_sup
 	}
 	if (GETPOST('mode', 'aZ09') == 'servicedateforalllines') {
 		print '&nbsp;&nbsp;<div class="classvatforalllines inline-block nowraponall">';
-		$hourmin = (isset($conf->global->MAIN_USE_HOURMIN_IN_DATE_RANGE) ? $conf->global->MAIN_USE_HOURMIN_IN_DATE_RANGE : '');
+		$hourmin = (isset($config->global->MAIN_USE_HOURMIN_IN_DATE_RANGE) ? $config->global->MAIN_USE_HOURMIN_IN_DATE_RANGE : '');
 		print $langs->trans('ServiceLimitedDuration').' '.$langs->trans('From').' ';
 		print $form->selectDate('', 'alldate_start', $hourmin, $hourmin, 1, "updatealllines", 1, 0);
 		print ' '.$langs->trans('to').' ';
@@ -120,7 +120,7 @@ print '</th>';
 print '<th class="linecoluht right nowraponall">'.$langs->trans('PriceUHT').'</th>';
 
 // Multicurrency
-if (isModEnabled("multicurrency") && $this->multicurrency_code != $conf->currency) {
+if (isModEnabled("multicurrency") && $this->multicurrency_code != $config->currency) {
 	print '<th class="linecoluht_currency right" style="width: 80px">'.$langs->trans('PriceUHTCurrency', $this->multicurrency_code).'</th>';
 }
 
@@ -199,7 +199,7 @@ if ($usemargins && isModEnabled('margin') && empty($user->socid)) {
 print '<th class="linecolht right">'.$langs->trans('TotalHTShort').'</th>';
 
 // Multicurrency
-if (isModEnabled("multicurrency") && $this->multicurrency_code != $conf->currency) {
+if (isModEnabled("multicurrency") && $this->multicurrency_code != $config->currency) {
 	print '<th class="linecoltotalht_currency right">'.$langs->trans('TotalHTShortCurrency', $this->multicurrency_code).'</th>';
 }
 

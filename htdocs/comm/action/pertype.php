@@ -48,8 +48,8 @@ require_once DOL_DOCUMENT_ROOT.'/user/class/usergroup.class.php';
  * @var User $user
  */
 
-if (!isset($conf->global->AGENDA_MAX_EVENTS_DAY_VIEW)) {
-	$conf->global->AGENDA_MAX_EVENTS_DAY_VIEW = 3;
+if (!isset($config->global->AGENDA_MAX_EVENTS_DAY_VIEW)) {
+	$config->global->AGENDA_MAX_EVENTS_DAY_VIEW = 3;
 }
 
 $action = GETPOST('action', 'aZ09');
@@ -61,7 +61,7 @@ $filtert = GETPOSTINT("search_filtert", 3) ? GETPOSTINT("search_filtert", 3) : G
 $usergroup = GETPOSTINT("search_usergroup", 3) ? GETPOSTINT("search_usergroup", 3) : GETPOSTINT("usergroup", 3);
 //if (! ($usergroup > 0) && ! ($filtert > 0)) $filtert = $user->id;
 
-// $showbirthday = empty($conf->use_javascript_ajax)?GETPOST("showbirthday","int"):1;
+// $showbirthday = empty($config->use_javascript_ajax)?GETPOST("showbirthday","int"):1;
 $showbirthday = 0;    // will be hidden here
 
 // If not choice done on calendar owner, we filter on user.
@@ -76,7 +76,7 @@ $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTI
 if (empty($page) || $page == -1) {
 	$page = 0;
 }     // If $page is not defined, or '' or -1
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $offset = $limit * $page;
 if (!$sortorder) {
 	$sortorder = "ASC";
@@ -116,7 +116,7 @@ $day = GETPOSTINT("day") ? GETPOSTINT("day") : date("d");
 $pid = GETPOSTISSET("search_projectid") ? GETPOSTINT("search_projectid", 3) : GETPOSTINT("projectid", 3);
 $status = GETPOSTISSET("search_status") ? GETPOST("search_status", 'aZ09') : GETPOST("status", 'aZ09');
 $type = GETPOSTISSET("search_type") ? GETPOST("search_type", 'alpha') : GETPOST("type", 'alpha');
-$maxprint = ((GETPOSTINT("maxprint") != '') ? GETPOSTINT("maxprint") : $conf->global->AGENDA_MAX_EVENTS_DAY_VIEW);
+$maxprint = ((GETPOSTINT("maxprint") != '') ? GETPOSTINT("maxprint") : $config->global->AGENDA_MAX_EVENTS_DAY_VIEW);
 $optioncss = GETPOST('optioncss', 'aZ'); // Option for the css output (always '' except when 'print')
 
 // Set actioncode (this code must be same for setting actioncode into peruser, listacton and index)
@@ -137,7 +137,7 @@ if ($dateselect > 0) {
 }
 
 // working hours
-$tmp = !getDolGlobalString('MAIN_DEFAULT_WORKING_HOURS') ? '9-18' : $conf->global->MAIN_DEFAULT_WORKING_HOURS;
+$tmp = !getDolGlobalString('MAIN_DEFAULT_WORKING_HOURS') ? '9-18' : $config->global->MAIN_DEFAULT_WORKING_HOURS;
 $tmp = str_replace(' ', '', $tmp); // FIX 7533
 $tmparray = explode('-', $tmp);
 $begin_h = GETPOSTINT('begin_h') != '' ? GETPOSTINT('begin_h') : ($tmparray[0] != '' ? $tmparray[0] : 9);
@@ -372,7 +372,7 @@ $nav = '<div class="navselectiondate inline-block nowraponall">';
 $nav .= "<a href=\"?year=".$prev_year."&amp;month=".$prev_month."&amp;day=".$prev_day.$param."\">".img_previous($langs->trans("Previous"))."</a>\n";
 $nav .= " <span id=\"month_name\">".dol_print_date(dol_mktime(0, 0, 0, $first_month, $first_day, $first_year), "%Y")."</span> \n";
 $nav .= "<a href=\"?year=".$next_year."&amp;month=".$next_month."&amp;day=".$next_day.$param."\">".img_next($langs->trans("Next"))."</a>\n";
-if (empty($conf->dol_optimize_smallscreen)) {
+if (empty($config->dol_optimize_smallscreen)) {
 	$nav .= " &nbsp; (<a href=\"?year=".$nowyear."&amp;month=".$nowmonth."&amp;day=".$nowday.$param.'" class="datenowlink">'.$langs->trans("Today")."</a>)";
 }
 $nav .= '</div>';
@@ -393,7 +393,7 @@ print '<form method="POST" id="searchFormList" class="listactionsfilter" action=
 
 $showextcals = $listofextcals;
 // Legend
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	$s = '';
 	$s .= '<script type="text/javascript">'."\n";
 	$s .= 'jQuery(document).ready(function () {'."\n";
@@ -405,7 +405,7 @@ if ($conf->use_javascript_ajax) {
 	}
 	$s .= '});'."\n";
 	$s .= '</script>'."\n";
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		$s .= '<div class="nowrap clear float"><input type="checkbox" id="check_mytasks" name="check_mytasks" checked disabled> '.$langs->trans("LocalAgenda").' &nbsp; </div>';
 		if (is_array($showextcals) && count($showextcals) > 0) {
 			foreach ($showextcals as $val) {
@@ -770,7 +770,7 @@ $cachecontacts = array();
 $cacheusers = array();
 
 // Define theme_datacolor array
-$color_file = DOL_DOCUMENT_ROOT."/theme/".$conf->theme."/theme_vars.inc.php";
+$color_file = DOL_DOCUMENT_ROOT."/theme/".$config->theme."/theme_vars.inc.php";
 if (is_readable($color_file)) {
 	include $color_file;
 }

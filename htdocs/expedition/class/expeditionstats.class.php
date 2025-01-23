@@ -95,8 +95,8 @@ class ExpeditionStats extends Stats
 		$this->field = 'weight'; // Warning, unit of weight is NOT USED AND MUST BE
 		$this->where .= " c.fk_statut > 0"; // Not draft and not cancelled
 
-		//$this->where.= " AND c.fk_soc = s.rowid AND c.entity = ".$conf->entity;
-		$this->where .= " AND c.entity = ".$conf->entity;
+		//$this->where.= " AND c.fk_soc = s.rowid AND c.entity = ".$config->entity;
+		$this->where .= " AND c.entity = ".$config->entity;
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$this->where .= " AND c.fk_soc = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 		}

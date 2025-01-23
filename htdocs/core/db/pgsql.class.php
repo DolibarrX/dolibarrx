@@ -83,11 +83,11 @@ class DoliDBPgsql extends DoliDB
 		global $conf, $langs;
 
 		// Note that having "static" property for "$forcecharset" and "$forcecollate" will make error here in strict mode, so they are not static
-		if (!empty($conf->db->character_set)) {
-			$this->forcecharset = $conf->db->character_set;
+		if (!empty($config->db->character_set)) {
+			$this->forcecharset = $config->db->character_set;
 		}
-		if (!empty($conf->db->dolibarr_main_db_collation)) {
-			$this->forcecollate = $conf->db->dolibarr_main_db_collation;
+		if (!empty($config->db->dolibarr_main_db_collation)) {
+			$this->forcecollate = $config->db->dolibarr_main_db_collation;
 		}
 
 		$this->database_user = $user;
@@ -708,7 +708,7 @@ class DoliDBPgsql extends DoliDB
 			return "";
 		}
 		if ($limit < 0) {
-			$limit = $conf->liste_limit;
+			$limit = $config->liste_limit;
 		}
 		if ($offset > 0) {
 			return " LIMIT ".$limit." OFFSET ".$offset." ";
@@ -880,10 +880,10 @@ class DoliDBPgsql extends DoliDB
 		//global $conf;
 
 		// Type of encryption (2: AES (recommended), 1: DES , 0: no encryption)
-		//$cryptType = ($conf->db->dolibarr_main_db_encryption ? $conf->db->dolibarr_main_db_encryption : 0);
+		//$cryptType = ($config->db->dolibarr_main_db_encryption ? $config->db->dolibarr_main_db_encryption : 0);
 
 		//Encryption key
-		//$cryptKey = (!empty($conf->db->dolibarr_main_db_cryptkey) ? $conf->db->dolibarr_main_db_cryptkey : '');
+		//$cryptKey = (!empty($config->db->dolibarr_main_db_cryptkey) ? $config->db->dolibarr_main_db_cryptkey : '');
 
 		$return = $fieldorvalue;
 		return ($withQuotes ? "'" : "").$this->escape($return).($withQuotes ? "'" : "");
@@ -901,10 +901,10 @@ class DoliDBPgsql extends DoliDB
 		//global $conf;
 
 		// Type of encryption (2: AES (recommended), 1: DES , 0: no encryption)
-		//$cryptType = ($conf->db->dolibarr_main_db_encryption ? $conf->db->dolibarr_main_db_encryption : 0);
+		//$cryptType = ($config->db->dolibarr_main_db_encryption ? $config->db->dolibarr_main_db_encryption : 0);
 
 		//Encryption key
-		//$cryptKey = (!empty($conf->db->dolibarr_main_db_cryptkey) ? $conf->db->dolibarr_main_db_cryptkey : '');
+		//$cryptKey = (!empty($config->db->dolibarr_main_db_cryptkey) ? $config->db->dolibarr_main_db_cryptkey : '');
 
 		$return = $value;
 		return $return;

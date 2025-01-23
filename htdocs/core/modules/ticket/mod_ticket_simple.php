@@ -101,7 +101,7 @@ class mod_ticket_simple extends ModeleNumRefTicket
 		$sql .= " FROM ".MAIN_DB_PREFIX."ticket";
 		$search = $this->prefix."____-%";
 		$sql .= " WHERE ref LIKE '".$db->escape($search)."'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 		$resql = $db->query($sql);
 		if ($resql) {
 			$row = $db->fetch_row($resql);

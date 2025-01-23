@@ -70,7 +70,7 @@ if ($user->socid) {
 $hookManager->initHooks(array('productdocuments'));
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -93,16 +93,16 @@ if ($id > 0 || !empty($ref)) {
 	$result = $object->fetch($id, $ref);
 
 	if (isModEnabled("product")) {
-		$upload_dir = $conf->product->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, 'product');
+		$upload_dir = $config->product->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, 'product');
 	} elseif (isModEnabled("service")) {
-		$upload_dir = $conf->service->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, 'product');
+		$upload_dir = $config->service->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, 'product');
 	}
 
 	if (getDolGlobalInt('PRODUCT_USE_OLD_PATH_FOR_PHOTO')) {    // For backward compatibility, we scan also old dirs
 		if (isModEnabled("product")) {
-			$upload_dirold = $conf->product->multidir_output[$object->entity].'/'.substr(substr("000".$object->id, -2), 1, 1).'/'.substr(substr("000".$object->id, -2), 0, 1).'/'.$object->id."/photos";
+			$upload_dirold = $config->product->multidir_output[$object->entity].'/'.substr(substr("000".$object->id, -2), 1, 1).'/'.substr(substr("000".$object->id, -2), 0, 1).'/'.$object->id."/photos";
 		} else {
-			$upload_dirold = $conf->service->multidir_output[$object->entity].'/'.substr(substr("000".$object->id, -2), 1, 1).'/'.substr(substr("000".$object->id, -2), 0, 1).'/'.$object->id."/photos";
+			$upload_dirold = $config->service->multidir_output[$object->entity].'/'.substr(substr("000".$object->id, -2), 1, 1).'/'.substr(substr("000".$object->id, -2), 0, 1).'/'.$object->id."/photos";
 		}
 	}
 }

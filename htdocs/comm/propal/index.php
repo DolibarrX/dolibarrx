@@ -115,7 +115,7 @@ if (isModEnabled("propal")) {
 	$resql = $db->query($sql);
 	if ($resql) {
 		$num = $db->num_rows($resql);
-		$nbofloop = min($num, (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD));
+		$nbofloop = min($num, (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD));
 		startSimpleTable("DraftPropals", "comm/propal/list.php", "search_status=".Propal::STATUS_DRAFT, 2, $num);
 
 		$total = 0;
@@ -224,7 +224,7 @@ if ($resql) {
 			$companystatic->code_compta_client = $obj->code_compta_client;
 
 			$filename = dol_sanitizeFileName($obj->ref);
-			$filedir = $conf->propal->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
+			$filedir = $config->propal->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 
 			print '<tr class="oddeven">';
@@ -295,7 +295,7 @@ if (isModEnabled("propal") && $user->hasRight('propal', 'lire')) {
 	if ($resql) {
 		$total = 0;
 		$num = $db->num_rows($resql);
-		$nbofloop = min($num, (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD));
+		$nbofloop = min($num, (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD));
 		startSimpleTable("ProposalsOpened", "comm/propal/list.php", "search_status=".Propal::STATUS_VALIDATED, 4, $num);
 
 		if ($num > 0) {
@@ -318,10 +318,10 @@ if (isModEnabled("propal") && $user->hasRight('propal', 'lire')) {
 				$companystatic->code_compta_client = $obj->code_compta_client;
 
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->propal->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->propal->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->propalid;
 
-				$warning = ($db->jdate($obj->dfv) < ($now - $conf->propal->cloture->warning_delay)) ? img_warning($langs->trans("Late")) : '';
+				$warning = ($db->jdate($obj->dfv) < ($now - $config->propal->cloture->warning_delay)) ? img_warning($langs->trans("Late")) : '';
 
 				print '<tr class="oddeven">';
 

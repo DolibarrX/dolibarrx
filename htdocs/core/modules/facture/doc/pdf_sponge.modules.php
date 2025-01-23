@@ -264,10 +264,10 @@ class pdf_sponge extends ModelePDFFactures
 				$arephoto = false;
 				foreach ($pdir as $midir) {
 					if (!$arephoto) {
-						if ($conf->entity != $objphoto->entity) {
-							$dir = $conf->product->multidir_output[$objphoto->entity].'/'.$midir; //Check repertories of current entities
+						if ($config->entity != $objphoto->entity) {
+							$dir = $config->product->multidir_output[$objphoto->entity].'/'.$midir; //Check repertories of current entities
 						} else {
-							$dir = $conf->product->dir_output.'/'.$midir; //Check repertory of the current product
+							$dir = $config->product->dir_output.'/'.$midir; //Check repertory of the current product
 						}
 
 						foreach ($objphoto->liste_photos($dir, 1) as $key => $obj) {
@@ -296,7 +296,7 @@ class pdf_sponge extends ModelePDFFactures
 
 		//if (count($realpatharray) == 0) $this->posxpicture=$this->posxtva;
 
-		if ($conf->facture->multidir_output[$conf->entity]) {
+		if ($config->facture->multidir_output[$config->entity]) {
 			$object->fetch_thirdparty();
 
 			$deja_regle = $object->getSommePaiement((isModEnabled("multicurrency") && $object->multicurrency_tx != 1) ? 1 : 0);
@@ -305,11 +305,11 @@ class pdf_sponge extends ModelePDFFactures
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->facture->multidir_output[$conf->entity];
+				$dir = $config->facture->multidir_output[$config->entity];
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->facture->multidir_output[$object->entity]."/".$objectref;
+				$dir = $config->facture->multidir_output[$object->entity]."/".$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 			if (!file_exists($dir)) {
@@ -359,9 +359,9 @@ class pdf_sponge extends ModelePDFFactures
 
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$logodir = $conf->mycompany->dir_output;
-					if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-						$logodir = $conf->mycompany->multidir_output[$object->entity];
+					$logodir = $config->mycompany->dir_output;
+					if (!empty($config->mycompany->multidir_output[$object->entity])) {
+						$logodir = $config->mycompany->multidir_output[$object->entity];
 					}
 					$pagecount = $pdf->setSourceFile($logodir.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
@@ -1053,9 +1053,9 @@ class pdf_sponge extends ModelePDFFactures
 				}
 				// Add terms to sale
 				if (!empty($mysoc->termsofsale) && getDolGlobalInt('MAIN_PDF_ADD_TERMSOFSALE_INVOICE')) {
-					$termsofsale = $conf->mycompany->dir_output.'/'.$mysoc->termsofsale;
-					if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-						$termsofsale = $conf->mycompany->multidir_output[$object->entity].'/'.$mysoc->termsofsale;
+					$termsofsale = $config->mycompany->dir_output.'/'.$mysoc->termsofsale;
+					if (!empty($config->mycompany->multidir_output[$object->entity])) {
+						$termsofsale = $config->mycompany->multidir_output[$object->entity].'/'.$mysoc->termsofsale;
 					}
 					if (file_exists($termsofsale) && is_readable($termsofsale)) {
 						$pagecount = $pdf->setSourceFile($termsofsale);
@@ -2165,7 +2165,7 @@ class pdf_sponge extends ModelePDFFactures
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)
@@ -2188,7 +2188,7 @@ class pdf_sponge extends ModelePDFFactures
 			$pdf->SetXY($this->page_largeur - $this->marge_droite - ($pdf->GetStringWidth($titre) + 3), $tab_top - 4);
 			$pdf->MultiCell(($pdf->GetStringWidth($titre) + 3), 2, $titre);
 
-			//$conf->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
+			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
 				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, $this->tabTitleHeight, $this->corner_radius, '1001', 'F', null, explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
@@ -2249,9 +2249,9 @@ class pdf_sponge extends ModelePDFFactures
 		// Logo
 		if (!getDolGlobalInt('PDF_DISABLE_MYCOMPANY_LOGO')) {
 			if ($this->emetteur->logo) {
-				$logodir = $conf->mycompany->dir_output;
-				if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-					$logodir = $conf->mycompany->multidir_output[$object->entity];
+				$logodir = $config->mycompany->dir_output;
+				if (!empty($config->mycompany->multidir_output[$object->entity])) {
+					$logodir = $config->mycompany->multidir_output[$object->entity];
 				}
 				if (!getDolGlobalInt('MAIN_PDF_USE_LARGE_LOGO')) {
 					$logo = $logodir.'/logos/thumbs/'.$this->emetteur->logo_small;
@@ -2518,7 +2518,7 @@ class pdf_sponge extends ModelePDFFactures
 			}
 
 			// Recipient name
-			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
+			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
 				$thirdparty = $object->contact;
 			} else {
 				$thirdparty = $object->thirdparty;

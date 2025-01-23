@@ -318,7 +318,7 @@ function getInvoice($authentication, $id = 0, $ref = '', $ref_ext = '')
 	dol_syslog("Function: getInvoice login=".$authentication['login']." id=".$id." ref=".$ref." ref_ext=".$ref_ext);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -427,7 +427,7 @@ function getInvoicesForThirdParty($authentication, $idthirdparty)
 	dol_syslog("Function: getInvoicesForThirdParty login=".$authentication['login']." idthirdparty=".$idthirdparty);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -564,7 +564,7 @@ function createInvoice($authentication, $invoice)
 
 	dol_syslog("Function: createInvoice login=".$authentication['login']." id=".$invoice['id'].", ref=".$invoice['ref'].", ref_ext=".$invoice['ref_ext']);
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -684,7 +684,7 @@ function createInvoiceFromOrder($authentication, $id_order = '', $ref_order = ''
 	dol_syslog("Function: createInvoiceFromOrder login=".$authentication['login']." id=".$id_order.", ref=".$ref_order.", ref_ext=".$ref_ext_order);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -766,7 +766,7 @@ function updateInvoice($authentication, $invoice)
 			", ref=".$invoice['ref'].", ref_ext=".$invoice['ref_ext']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication

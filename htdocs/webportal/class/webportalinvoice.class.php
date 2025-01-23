@@ -195,7 +195,7 @@ class WebPortalInvoice extends Facture
 	{
 		global $langs, $conf;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

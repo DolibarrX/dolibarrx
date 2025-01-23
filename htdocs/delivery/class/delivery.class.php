@@ -181,7 +181,7 @@ class Delivery extends CommonObject
 		$sql .= ", fk_incoterms, location_incoterms";
 		$sql .= ") VALUES (";
 		$sql .= "'(PROV)'";
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ", ".((int) $this->socid);
 		$sql .= ", '".$this->db->escape($this->ref_customer)."'";
 		$sql .= ", '".$this->db->idate($now)."'";
@@ -436,7 +436,7 @@ class Delivery extends CommonObject
 					$sql .= " FROM ".MAIN_DB_PREFIX."delivery";
 					$sql .= " WHERE ref = '".$this->db->escape($numref)."'";
 					$sql .= " AND fk_statut <> 0";
-					$sql .= " AND entity = ".((int) $conf->entity);
+					$sql .= " AND entity = ".((int) $config->entity);
 
 					$resql = $this->db->query($sql);
 					if ($resql) {
@@ -477,14 +477,14 @@ class Delivery extends CommonObject
 						if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 							// Now we rename also files into index
 							$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'expedition/receipt/".$this->db->escape($this->newref)."'";
-							$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'expedition/receipt/".$this->db->escape($this->ref)."' and entity = ".((int) $conf->entity);
+							$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'expedition/receipt/".$this->db->escape($this->ref)."' and entity = ".((int) $config->entity);
 							$resql = $this->db->query($sql);
 							if (!$resql) {
 								$error++;
 								$this->error = $this->db->lasterror();
 							}
 							$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'expedition/receipt/".$this->db->escape($this->newref)."'";
-							$sql .= " WHERE filepath = 'expedition/receipt/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+							$sql .= " WHERE filepath = 'expedition/receipt/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 							$resql = $this->db->query($sql);
 							if (!$resql) {
 								$error++;
@@ -494,15 +494,15 @@ class Delivery extends CommonObject
 							// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 							$oldref = dol_sanitizeFileName($this->ref);
 							$newref = dol_sanitizeFileName($numref);
-							$dirsource = $conf->expedition->dir_output.'/receipt/'.$oldref;
-							$dirdest = $conf->expedition->dir_output.'/receipt/'.$newref;
+							$dirsource = $config->expedition->dir_output.'/receipt/'.$oldref;
+							$dirdest = $config->expedition->dir_output.'/receipt/'.$newref;
 							if (!$error && file_exists($dirsource)) {
 								dol_syslog(get_class($this)."::valid rename dir ".$dirsource." into ".$dirdest);
 
 								if (@rename($dirsource, $dirdest)) {
 									dol_syslog("Rename ok");
 									// Rename docs starting with $oldref with $newref
-									$listoffiles = dol_dir_list($conf->expedition->dir_output.'/receipt/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+									$listoffiles = dol_dir_list($config->expedition->dir_output.'/receipt/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 									foreach ($listoffiles as $fileentry) {
 										$dirsource = $fileentry['name'];
 										$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -705,8 +705,8 @@ class Delivery extends CommonObject
 
 					// Deleting pdf folder's draft On efface le repertoire de pdf provisoire
 					$ref = dol_sanitizeFileName($this->ref);
-					if (!empty($conf->expedition->dir_output)) {
-						$dir = $conf->expedition->dir_output.'/receipt/'.$ref;
+					if (!empty($config->expedition->dir_output)) {
+						$dir = $config->expedition->dir_output.'/receipt/'.$ref;
 						$file = $dir.'/'.$ref.'.pdf';
 						if (file_exists($file)) {
 							if (!dol_delete_file($file)) {

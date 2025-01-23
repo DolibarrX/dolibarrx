@@ -326,7 +326,7 @@ function getThirdParty($authentication, $id = '', $ref = '', $ref_ext = '', $bar
 	dol_syslog("Function: getThirdParty login=".$authentication['login']." id=".$id." ref=".$ref." ref_ext=".$ref_ext." barcode=".$barcode." profid1=".$profid1." profid2=".$profid2);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -450,7 +450,7 @@ function createThirdParty($authentication, $thirdparty)
 	dol_syslog("Function: createThirdParty login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -583,7 +583,7 @@ function updateThirdParty($authentication, $thirdparty)
 	dol_syslog("Function: updateThirdParty login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -720,7 +720,7 @@ function getListOfThirdParties($authentication, $filterthirdparty)
 	dol_syslog("Function: getListOfThirdParties login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -739,7 +739,7 @@ function getListOfThirdParties($authentication, $filterthirdparty)
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON s.fk_pays = c.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe_extrafields as extra ON s.rowid=fk_object";
 
-		$sql .= " WHERE entity=".$conf->entity;
+		$sql .= " WHERE entity=".$config->entity;
 		foreach ($filterthirdparty as $key => $val) {
 			if ($key == 'name' && $val != '') {
 				$sql .= " AND s.name LIKE '%".$db->escape($val)."%'";
@@ -832,7 +832,7 @@ function deleteThirdParty($authentication, $id = '', $ref = '', $ref_ext = '')
 	dol_syslog("Function: deleteThirdParty login=".$authentication['login']." id=".$id." ref=".$ref." ref_ext=".$ref_ext);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication

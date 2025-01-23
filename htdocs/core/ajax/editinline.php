@@ -94,7 +94,7 @@ if (!empty($action) && $action === 'updatedElementContent' && $usercanmodify && 
 	$res = $objectpage->update($user);
 	if ($res) {
 		global $dolibarr_main_data_root;
-		$pathofwebsite = $dolibarr_main_data_root.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/'.$website_ref;
+		$pathofwebsite = $dolibarr_main_data_root.($config->entity > 1 ? '/'.$config->entity : '').'/website/'.$website_ref;
 		$filetpl = $pathofwebsite.'/page'.$objectpage->id.'.tpl.php';
 
 		$result = dolSavePageContent($filetpl, $objectwebsite, $objectpage, 1);

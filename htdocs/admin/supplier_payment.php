@@ -69,7 +69,7 @@ if ($action == 'updateMask') {
 	$res = 0;
 
 	if ($maskconstsupplierpayment && preg_match('/_MASK$/', $maskconstsupplierpayment)) {
-		$res = dolibarr_set_const($db, $maskconstsupplierpayment, $masksupplierpayment, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstsupplierpayment, $masksupplierpayment, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -82,7 +82,7 @@ if ($action == 'updateMask') {
 		setEventMessages($langs->trans("Error"), null, 'errors');
 	}
 } elseif ($action == 'setmod') {
-	dolibarr_set_const($db, "SUPPLIER_PAYMENT_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "SUPPLIER_PAYMENT_ADDON", $value, 'chaine', 0, '', $config->entity);
 } elseif ($action == 'set') {
 	// Activate a model
 	$ret = addDocumentModel($value, $type, $label, $scandir);
@@ -90,15 +90,15 @@ if ($action == 'updateMask') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
 		if (getDolGlobalString("FACTURE_ADDON_PDF") == "$value") {
-			dolibarr_del_const($db, 'SUPPLIER_PAYMENT_ADDON_PDF', $conf->entity);
+			dolibarr_del_const($db, 'SUPPLIER_PAYMENT_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "SUPPLIER_PAYMENT_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "SUPPLIER_PAYMENT_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->FACTURE_ADDON_PDF = $value;
+		$config->global->FACTURE_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -107,7 +107,7 @@ if ($action == 'updateMask') {
 		$ret = addDocumentModel($value, $type, $label, $scandir);
 	}
 } elseif ($action == 'unsetdoc') {
-	dolibarr_del_const($db, "SUPPLIER_PAYMENT_ADDON_PDF", $conf->entity);
+	dolibarr_del_const($db, "SUPPLIER_PAYMENT_ADDON_PDF", $config->entity);
 } elseif ($action == 'specimen') {
 	$modele = GETPOST('module', 'alpha');
 
@@ -117,7 +117,7 @@ if ($action == 'updateMask') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/supplier_payment/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -144,7 +144,7 @@ if ($action == 'updateMask') {
 		dol_syslog($langs->trans("ErrorModuleNotFound"), LOG_ERR);
 	}
 } elseif ($action == 'setparams') {
-	$res = dolibarr_set_const($db, "PAYMENTS_FOURN_REPORT_GROUP_BY_MOD", GETPOSTINT('PAYMENTS_FOURN_REPORT_GROUP_BY_MOD'), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PAYMENTS_FOURN_REPORT_GROUP_BY_MOD", GETPOSTINT('PAYMENTS_FOURN_REPORT_GROUP_BY_MOD'), 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -162,7 +162,7 @@ if ($action == 'updateMask') {
  * View
  */
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader('', $langs->trans("SupplierPaymentSetup"), 'EN:Supplier_Payment_Configuration|FR:Configuration_module_paiement_fournisseur', '', 0, 0, '', '', '', 'mod-admin page-supplier_payment');
 
@@ -182,7 +182,7 @@ print dol_get_fiche_head($head, 'supplierpayment', $langs->trans("Suppliers"), -
  */
 
 if (!getDolGlobalString('SUPPLIER_PAYMENT_ADDON')) {
-	$conf->global->SUPPLIER_PAYMENT_ADDON = 'mod_supplier_payment_bronan';
+	$config->global->SUPPLIER_PAYMENT_ADDON = 'mod_supplier_payment_bronan';
 }
 
 print load_fiche_titre($langs->trans("PaymentsNumberingModule"), '', '');
@@ -192,7 +192,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;
@@ -383,7 +383,7 @@ foreach ($dirmodels as $reldir) {
 					// Active
 					if (in_array($name, $def)) {
 						print '<td class="center">'."\n";
-						//if ($conf->global->SUPPLIER_PAYMENT_ADDON_PDF != "$name")
+						//if ($config->global->SUPPLIER_PAYMENT_ADDON_PDF != "$name")
 						//{
 						// Even if choice is the default value, we allow to disable it: For supplier invoice, we accept to have no doc generation at all
 						print '<a href="'.$_SERVER["PHP_SELF"].'?action=del&amp;value='.$name.'&amp;scandir='.$module->scandir.'&amp;label='.urlencode($module->name).'&amp;type=SUPPLIER_PAYMENT">';

@@ -83,7 +83,7 @@ $action = GETPOST('action', 'aZ09');
 // Initialize a technical objects
 $object = new MyObject($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->mymodule->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->mymodule->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($object->element.'contact', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -229,7 +229,7 @@ if ($object->id) {
 	print '<br>';
 
 	// Contacts lines (modules that overwrite templates must declare this into descriptor)
-	$dirtpls = array_merge($conf->modules_parts['tpl'], array('/core/tpl'));
+	$dirtpls = array_merge($config->modules_parts['tpl'], array('/core/tpl'));
 	foreach ($dirtpls as $reldir) {
 		$res = @include dol_buildpath($reldir.'/contacts.tpl.php');
 		if ($res) {

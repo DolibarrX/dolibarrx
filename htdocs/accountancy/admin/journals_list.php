@@ -235,7 +235,7 @@ if (GETPOST('actionadd', 'alpha') || GETPOST('actionmodify', 'alpha')) {
 			}
 			$i++;
 		}
-		$sql .= ",1,".$conf->entity.")";
+		$sql .= ",1,".$config->entity.")";
 
 		dol_syslog("actionadd", LOG_DEBUG);
 		$result = $db->query($sql);
@@ -276,7 +276,7 @@ if (GETPOST('actionadd', 'alpha') || GETPOST('actionmodify', 'alpha')) {
 			$i++;
 		}
 		$sql .= " WHERE ".$db->sanitize($rowidcol)." = ".((int) $rowid);
-		$sql .= " AND entity = ".((int) $conf->entity);
+		$sql .= " AND entity = ".((int) $config->entity);
 
 		dol_syslog("actionmodify", LOG_DEBUG);
 		//print $sql;
@@ -295,7 +295,7 @@ if ($action == 'confirm_delete' && $confirm == 'yes') {       // delete
 	}
 
 	$sql = "DELETE from ".$db->sanitize($tabname[$id])." WHERE ".$db->sanitize($rowidcol)." = ".((int) $rowid);
-	$sql .= " AND entity = ".((int) $conf->entity);
+	$sql .= " AND entity = ".((int) $config->entity);
 
 	dol_syslog("delete", LOG_DEBUG);
 	$result = $db->query($sql);
@@ -322,7 +322,7 @@ if ($action == $acts[0]) {
 	} elseif ($code) {
 		$sql = "UPDATE ".$db->sanitize($tabname[$id])." SET active = 1 WHERE code = '".$db->escape($code)."'";
 	}
-	$sql .= " AND entity = ".$conf->entity;
+	$sql .= " AND entity = ".$config->entity;
 
 	$result = $db->query($sql);
 	if (!$result) {
@@ -344,7 +344,7 @@ if ($action == $acts[1]) {
 	} elseif ($code) {
 		$sql = "UPDATE ".$db->sanitize($tabname[$id])." SET active = 0 WHERE code='".$db->escape($code)."'";
 	}
-	$sql .= " AND entity = ".$conf->entity;
+	$sql .= " AND entity = ".$config->entity;
 
 	$result = $db->query($sql);
 	if (!$result) {
@@ -387,7 +387,7 @@ if ($action == 'delete') {
 if ($id) {
 	// Complete requete recherche valeurs avec critere de tri
 	$sql = $tabsql[$id];
-	$sql .= " WHERE a.entity = ".((int) $conf->entity);
+	$sql .= " WHERE a.entity = ".((int) $config->entity);
 
 	// If sort order is "country", we use country_code instead
 	if ($sortfield == 'country') {

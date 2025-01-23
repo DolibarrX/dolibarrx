@@ -77,15 +77,15 @@ if ($user->socid > 0) {
 
 // Maximum elements of the tables
 $max = getDolGlobalInt('MAIN_SIZE_SHORTLIST_LIMIT', 5);
-$maxDraftCount = !getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD;
+$maxDraftCount = !getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD;
 $maxLatestEditCount = 5;
-$maxOpenCount = !getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD;
+$maxOpenCount = !getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD;
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
 $hookManager->initHooks(array('invoiceindex'));
 
 
-$maxofloop = (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD);
+$maxofloop = (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD);
 
 
 /*
@@ -193,7 +193,7 @@ if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
 		print '</tr>';
 		if ($num) {
 			$total_ttc = $totalam = $total_ht = 0;
-			while ($i < $num && $i < $conf->liste_limit) {
+			while ($i < $num && $i < $config->liste_limit) {
 				$obj = $db->fetch_object($resql);
 
 				if ($i >= $max) {
@@ -245,7 +245,7 @@ if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
 				}
 				print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->facture->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->facture->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?facid='.$obj->rowid;
 				print $formfile->getDocumentsLink($tmpinvoice->element, $filename, $filedir);
 				print '</td></tr></table>';
@@ -714,7 +714,7 @@ if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("command
 				print '</td>';
 				print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->commande->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->commande->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 				print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
 				print '</td></tr></table>';

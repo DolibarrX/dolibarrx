@@ -119,7 +119,7 @@ class html_generic extends ModeleDon
 
 		$now = dol_now();
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 
 		$donmodel = DOL_DOCUMENT_ROOT."/core/modules/dons/html_generic.html";
 		$form = implode('', file($donmodel));
@@ -132,7 +132,7 @@ class html_generic extends ModeleDon
 
 		$form = str_replace('__PAYMENTMODE_LABEL__', $this->getDonationPaymentType($don), $form);
 		$form = str_replace('__AMOUNT__', price($don->amount), $form);
-		$form = str_replace('__CURRENCY_CODE__', $conf->currency, $form);
+		$form = str_replace('__CURRENCY_CODE__', $config->currency, $form);
 		if (isModEnabled("societe") && getDolGlobalString('DONATION_USE_THIRDPARTIES') && $don->socid > 0 && $don->thirdparty) {
 			$form = str_replace('__DONOR_FULL_NAME__', $don->thirdparty->name, $form);
 			$form = str_replace('__DONOR_FULL_ADDRESS__', $don->thirdparty->getFullAddress(1, ", ", 1), $form);
@@ -200,7 +200,7 @@ class html_generic extends ModeleDon
 
 		$outputlangs = $this->loadTranslationFiles($outputlangs);
 
-		if (!empty($conf->don->dir_output)) {
+		if (!empty($config->don->dir_output)) {
 			// Definition of the object don (for upward compatibility)
 			if (!is_object($don)) {
 				$don = new Don($this->db);
@@ -210,11 +210,11 @@ class html_generic extends ModeleDon
 
 			// Definition of $dir and $file
 			if (!empty($don->specimen)) {
-				$dir = $conf->don->dir_output;
+				$dir = $config->don->dir_output;
 				$file = $dir."/SPECIMEN.html";
 			} else {
 				$donref = dol_sanitizeFileName($don->ref);
-				$dir = $conf->don->dir_output."/".$donref;
+				$dir = $config->don->dir_output."/".$donref;
 				$file = $dir."/".$donref.".html";
 			}
 

@@ -358,7 +358,7 @@ class Comment extends CommonObject
 			$sql .= " FROM ".$this->db->prefix().$this->table_element." as c";
 			$sql .= " WHERE c.fk_element = ".((int) $fk_element);
 			$sql .= " AND c.element_type = '".$this->db->escape($element_type)."'";
-			$sql .= " AND c.entity = ".$conf->entity;
+			$sql .= " AND c.entity = ".$config->entity;
 			$sql .= " ORDER BY c.tms DESC";
 
 			dol_syslog(get_class($this).'::'.__METHOD__, LOG_DEBUG);

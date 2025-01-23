@@ -303,7 +303,7 @@ class ChargeSociales extends CommonObject
 		$sql .= ", '".$this->db->idate($this->period)."'";
 		$sql .= ", '".price2num($newamount)."'";
 		$sql .= ", ".($this->fk_project > 0 ? ((int) $this->fk_project) : 'NULL');
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ", ".((int) $user->id);
 		$sql .= ", ".($this->fk_user > 0 ? ((int) $this->fk_user) : 'NULL');
 		$sql .= ", '".$this->db->idate($now)."'";
@@ -466,7 +466,7 @@ class ChargeSociales extends CommonObject
 
 		$sql = "SELECT SUM(f.amount) as amount";
 		$sql .= " FROM ".MAIN_DB_PREFIX."chargesociales as f";
-		$sql .= " WHERE f.entity = ".((int) $conf->entity);
+		$sql .= " WHERE f.entity = ".((int) $config->entity);
 		$sql .= " AND paye = 0";
 
 		if ($year) {	// TODO Fix to use date function
@@ -640,7 +640,7 @@ class ChargeSociales extends CommonObject
 	{
 		global $langs, $conf, $user, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -850,7 +850,7 @@ class ChargeSociales extends CommonObject
 		}
 		if (property_exists($this, 'amount')) {
 			$return .= '<br>';
-			$return .= '<span class="info-box-label amount">'.price($this->amount, 0, $langs, 1, -1, -1, $conf->currency).'</span>';
+			$return .= '<span class="info-box-label amount">'.price($this->amount, 0, $langs, 1, -1, -1, $config->currency).'</span>';
 		}
 		if (method_exists($this, 'LibStatut')) {
 			$return .= '<br><div class="info-box-status">'.$this->getLibStatut(3, $this->alreadypaid).'</div>';

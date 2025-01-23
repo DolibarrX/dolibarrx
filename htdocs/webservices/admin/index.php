@@ -53,7 +53,7 @@ if ($actionsave) {
 
 	$db->begin();
 
-	$i += dolibarr_set_const($db, 'WEBSERVICES_KEY', GETPOST("WEBSERVICES_KEY"), 'chaine', 0, '', $conf->entity);
+	$i += dolibarr_set_const($db, 'WEBSERVICES_KEY', GETPOST("WEBSERVICES_KEY"), 'chaine', 0, '', $config->entity);
 
 	if ($i >= 1) {
 		$db->commit();
@@ -93,8 +93,8 @@ print "</tr>";
 
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("KeyForWebServicesAccess").'</td>';
-print '<td><input type="text" class="flat" id="WEBSERVICES_KEY" name="WEBSERVICES_KEY" value="'.(GETPOST('WEBSERVICES_KEY') ? GETPOST('WEBSERVICES_KEY') : (getDolGlobalString('WEBSERVICES_KEY') ? $conf->global->WEBSERVICES_KEY : '')).'" size="40">';
-if (!empty($conf->use_javascript_ajax)) {
+print '<td><input type="text" class="flat" id="WEBSERVICES_KEY" name="WEBSERVICES_KEY" value="'.(GETPOST('WEBSERVICES_KEY') ? GETPOST('WEBSERVICES_KEY') : (getDolGlobalString('WEBSERVICES_KEY') ? $config->global->WEBSERVICES_KEY : '')).'" size="40">';
+if (!empty($config->use_javascript_ajax)) {
 	print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
 }
 print '</td>';

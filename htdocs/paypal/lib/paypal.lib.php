@@ -85,7 +85,7 @@ function print_paypal_redirect($paymentAmount, $currencyCodeType, $paymentType, 
 	//'-------------------------------------------------
 
 	if (!getDolGlobalString('PAYPAL_API_INTEGRAL_OR_PAYPALONLY')) {
-		$conf->global->PAYPAL_API_INTEGRAL_OR_PAYPALONLY = 'integral';
+		$config->global->PAYPAL_API_INTEGRAL_OR_PAYPALONLY = 'integral';
 	}
 
 	$solutionType = 'Sole';
@@ -486,7 +486,7 @@ function hash_call($methodName, $nvpStr)
 	curl_setopt($ch, CURLOPT_URL, $API_Endpoint);
 	curl_setopt($ch, CURLOPT_VERBOSE, 1);
 	// TLSv1 by default or change to TLSv1.2 in module configuration
-	curl_setopt($ch, CURLOPT_SSLVERSION, (!getDolGlobalString('PAYPAL_SSLVERSION') ? 1 : $conf->global->PAYPAL_SSLVERSION));
+	curl_setopt($ch, CURLOPT_SSLVERSION, (!getDolGlobalString('PAYPAL_SSLVERSION') ? 1 : $config->global->PAYPAL_SSLVERSION));
 
 	$ssl_verifypeer = -1;
 

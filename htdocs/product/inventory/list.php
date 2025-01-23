@@ -55,7 +55,7 @@ $mode       = GETPOST('mode', 'aZ'); // The output mode ('list', 'kanban', 'hier
 $id = GETPOSTINT('id');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -71,7 +71,7 @@ $pagenext = $page + 1;
 $object = new Inventory($db);
 $extrafields = new ExtraFields($db);
 // no inventory docs yet
-// $diroutputmassaction = $conf->inventory->dir_output.'/temp/massgeneration/'.$user->id;
+// $diroutputmassaction = $config->inventory->dir_output.'/temp/massgeneration/'.$user->id;
 $diroutputmassaction = null;
 $hookManager->initHooks(array('inventorylist')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
@@ -196,7 +196,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Inventory';
 	$objectlabel = 'Inventory';
-	$uploaddir = $conf->stock->dir_output;
+	$uploaddir = $config->stock->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -392,7 +392,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 foreach ($search as $key => $val) {

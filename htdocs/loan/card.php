@@ -504,7 +504,7 @@ if ($id > 0) {
 			print '<input name="capital" size="10" value="'.$object->capital.'"></td></tr>';
 			print '</td></tr>';
 		} else {
-			print '<tr><td class="titlefield">'.$langs->trans("LoanCapital").'</td><td><span class="amount">'.price($object->capital, 0, $outputlangs, 1, -1, -1, $conf->currency).'</span></td></tr>';
+			print '<tr><td class="titlefield">'.$langs->trans("LoanCapital").'</td><td><span class="amount">'.price($object->capital, 0, $outputlangs, 1, -1, -1, $config->currency).'</span></td></tr>';
 		}
 
 		// Insurance
@@ -513,7 +513,7 @@ if ($id > 0) {
 			print '<input name="insurance_amount" size="10" value="'.$object->insurance_amount.'"></td></tr>';
 			print '</td></tr>';
 		} else {
-			print '<tr><td class="titlefield">'.$langs->trans("Insurance").'</td><td><span class="amount">'.price($object->insurance_amount, 0, $outputlangs, 1, -1, -1, $conf->currency).'</span></td></tr>';
+			print '<tr><td class="titlefield">'.$langs->trans("Insurance").'</td><td><span class="amount">'.price($object->insurance_amount, 0, $outputlangs, 1, -1, -1, $config->currency).'</span></td></tr>';
 		}
 
 		// Date start
@@ -700,7 +700,7 @@ if ($id > 0) {
 			print '<td class="right">'.$langs->trans("Total").'</td>';
 			print '</tr>';
 
-			$conf->cache['bankaccount'] = array();
+			$config->cache['bankaccount'] = array();
 
 			while ($i < $num) {
 				$objp = $db->fetch_object($resql);
@@ -710,19 +710,19 @@ if ($id > 0) {
 				print '<td>'.dol_print_date($db->jdate($objp->dp), 'day')."</td>\n";
 				print "<td>".$objp->paiement_type.' '.$objp->num_payment."</td>\n";
 				print "<td>";
-				if (!empty($conf->cache['bankaccount'][$objp->fk_account])) {
-					$tmpbank = $conf->cache['bankaccount'][$objp->fk_account];
+				if (!empty($config->cache['bankaccount'][$objp->fk_account])) {
+					$tmpbank = $config->cache['bankaccount'][$objp->fk_account];
 				} else {
 					$tmpbank = new Account($db);
 					$tmpbank->fetch($objp->fk_account);
-					$conf->cache['bankaccount'][$objp->fk_account] = $tmpbank;
+					$config->cache['bankaccount'][$objp->fk_account] = $tmpbank;
 				}
 				print $tmpbank->getNomUrl(1);
 				print "</td>\n";
-				print '<td class="nowrap right"><span class="amount">'.price($objp->amount_insurance, 0, $outputlangs, 1, -1, -1, $conf->currency)."</span></td>\n";
-				print '<td class="nowrap right"><span class="amount">'.price($objp->amount_interest, 0, $outputlangs, 1, -1, -1, $conf->currency)."</span></td>\n";
-				print '<td class="nowrap right"><span class="amount">'.price($objp->amount_capital, 0, $outputlangs, 1, -1, -1, $conf->currency)."</span></td>\n";
-				print '<td class="nowrap right"><span class="amount">'.price($objp->amount_insurance + $objp->amount_interest + $objp->amount_capital, 0, $outputlangs, 1, -1, -1, $conf->currency)."</span></td>\n";
+				print '<td class="nowrap right"><span class="amount">'.price($objp->amount_insurance, 0, $outputlangs, 1, -1, -1, $config->currency)."</span></td>\n";
+				print '<td class="nowrap right"><span class="amount">'.price($objp->amount_interest, 0, $outputlangs, 1, -1, -1, $config->currency)."</span></td>\n";
+				print '<td class="nowrap right"><span class="amount">'.price($objp->amount_capital, 0, $outputlangs, 1, -1, -1, $config->currency)."</span></td>\n";
+				print '<td class="nowrap right"><span class="amount">'.price($objp->amount_insurance + $objp->amount_interest + $objp->amount_capital, 0, $outputlangs, 1, -1, -1, $config->currency)."</span></td>\n";
 				print "</tr>";
 				$total_capital += $objp->amount_capital;
 				$i++;
@@ -731,14 +731,14 @@ if ($id > 0) {
 			$totalpaid = $total_capital;
 
 			if ($object->paid == 0 || $object->paid == 2) {
-				print '<tr><td colspan="6" class="right">'.$langs->trans("AlreadyPaid").' :</td><td class="nowrap right">'.price($totalpaid, 0, $langs, 0, -1, -1, $conf->currency).'</td><td>&nbsp;</td></tr>';
-				print '<tr><td colspan="6" class="right">'.$langs->trans("AmountExpected").' :</td><td class="nowrap right">'.price($object->capital, 0, $outputlangs, 1, -1, -1, $conf->currency).'</td><td>&nbsp;</td></tr>';
+				print '<tr><td colspan="6" class="right">'.$langs->trans("AlreadyPaid").' :</td><td class="nowrap right">'.price($totalpaid, 0, $langs, 0, -1, -1, $config->currency).'</td><td>&nbsp;</td></tr>';
+				print '<tr><td colspan="6" class="right">'.$langs->trans("AmountExpected").' :</td><td class="nowrap right">'.price($object->capital, 0, $outputlangs, 1, -1, -1, $config->currency).'</td><td>&nbsp;</td></tr>';
 
 				$staytopay = $object->capital - $totalpaid;
 
 				print '<tr><td colspan="6" class="right">'.$langs->trans("RemainderToPay").' :</td>';
 				print '<td class="nowrap right'.($staytopay ? ' amountremaintopay' : ' amountpaymentcomplete').'">';
-				print price($staytopay, 0, $langs, 0, -1, -1, $conf->currency);
+				print price($staytopay, 0, $langs, 0, -1, -1, $config->currency);
 				print '</td>';
 				print '<td>&nbsp;</td>';
 				print '</tr>';

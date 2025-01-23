@@ -81,7 +81,7 @@ global $langs, $conf, $db;
 $langs->loadLangs(array("admin", "cron", "dict"));
 
 // Security check
-if (empty($conf->cron->enabled)) {
+if (empty($config->cron->enabled)) {
 	httponly_accessforbidden('Module Cron not enabled');
 }
 
@@ -165,23 +165,23 @@ if (is_array($object->lines) && (count($object->lines) > 0)) {
 		echo "cron_run_jobs.php cronjobid: ".$line->id." priority=".$line->priority." entity=".$line->entity." label=".$line->label;
 
 		// Force reload of setup for the current entity
-		if ($line->entity != $conf->entity) {
+		if ($line->entity != $config->entity) {
 			dol_syslog("cron_run_jobs.php we work on another entity so we reload user and conf", LOG_DEBUG);
 			echo " -> we change entity so we reload user and conf";
 
-			$conf->entity = (empty($line->entity) ? 1 : $line->entity);
-			$conf->setValues($db); // This make also the $mc->setValues($conf); that reload $mc->sharings
+			$config->entity = (empty($line->entity) ? 1 : $line->entity);
+			$config->setValues($db); // This make also the $mc->setValues($conf); that reload $mc->sharings
 
 			// Force recheck that user is ok for the entity to process and reload permission for entity
-			if ($conf->entity != $user->entity && $user->entity != 0) {
-				$result = $user->fetch(0, $userlogin, '', 0, $conf->entity);
+			if ($config->entity != $user->entity && $user->entity != 0) {
+				$result = $user->fetch(0, $userlogin, '', 0, $config->entity);
 				if ($result < 0) {
 					echo "\nUser Error: ".$user->error."\n";
 					dol_syslog("cron_run_jobs.php:: User Error:".$user->error, LOG_ERR);
 					exit(-1);
 				} else {
 					if ($result == 0) {
-						echo "\nUser login: ".$userlogin." does not exists for entity ".$conf->entity."\n";
+						echo "\nUser login: ".$userlogin." does not exists for entity ".$config->entity."\n";
 						dol_syslog("User login:".$userlogin." does not exists", LOG_ERR);
 						exit(-1);
 					}

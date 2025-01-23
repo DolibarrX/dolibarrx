@@ -50,7 +50,7 @@ $constname = GETPOST('constname', 'alphanohtml');
 $constvalue = GETPOST('constvalue', 'restricthtml'); // We should be able to send everything here
 $constnote = GETPOST('constnote', 'alpha');
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -171,7 +171,7 @@ $wikihelp = 'EN:Setup_Other|FR:Paramétrage_Divers|ES:Configuración_Varios';
 llxHeader('', $langs->trans("Setup"), $wikihelp, '', 0, 0, '', '', '', 'mod-admin page-const');
 
 // Add logic to show/hide buttons
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	?>
 <script type="text/javascript">
 jQuery(document).ready(function() {
@@ -237,12 +237,12 @@ print '</td>';
 // Limit to superadmin
 if (isModEnabled('multicompany') && !$user->entity) {
 	print '<td>';
-	print '<input type="text" class="flat" size="1" name="entity" value="' . $conf->entity . '">';
+	print '<input type="text" class="flat" size="1" name="entity" value="' . $config->entity . '">';
 	print '</td>';
 	print '<td class="center">';
 } else {
 	print '<td class="center">';
-	print '<input type="hidden" name="entity" value="' . $conf->entity . '">';
+	print '<input type="hidden" name="entity" value="' . $config->entity . '">';
 }
 print '<input type="submit" class="button button-add small" id="add" name="add" value="'.$langs->trans("Add").'">';
 print "</td>\n";
@@ -259,7 +259,7 @@ $sql .= ", note";
 $sql .= ", tms";
 $sql .= ", entity";
 $sql .= " FROM ".MAIN_DB_PREFIX."const";
-$sql .= " WHERE entity IN (".$db->sanitize($user->entity.",".$conf->entity).")";
+$sql .= " WHERE entity IN (".$db->sanitize($user->entity.",".$config->entity).")";
 if ((empty($user->entity) || $user->admin) && $debug) {
 } elseif (!GETPOST('visible') || GETPOST('visible') != 'all') {
 	// to force for superadmin to debug
@@ -314,7 +314,7 @@ if ($result) {
 			print '<input type="hidden" name="const['.$i.'][entity]" value="'.((int) $obj->entity).'">';
 		}
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print '<input type="checkbox" class="flat checkboxfordelete" id="check_'.$i.'" name="const['.$i.'][check]" value="1">';
 		} else {
 			print '<a href="'.$_SERVER['PHP_SELF'].'?rowid='.$obj->rowid.'&entity='.$obj->entity.'&action=delete&token='.newToken().((empty($user->entity) && $debug) ? '&debug=1' : '').'">'.img_delete().'</a>';
@@ -331,7 +331,7 @@ if ($result) {
 print '</table>';
 print '</div>';
 
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print '<br>';
 	print '<div id="updateconst" class="right">';
 	print '<input type="submit" class="button button-edit marginbottomonly" name="update" value="'.$langs->trans("Modify").'">';

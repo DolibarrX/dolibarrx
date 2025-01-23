@@ -42,7 +42,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 $langs->loadLangs(array('admin', 'blockedlog', 'other'));
 
 // Access Control
-if (!$user->admin || empty($conf->blockedlog->enabled)) {
+if (!$user->admin || empty($config->blockedlog->enabled)) {
 	accessforbidden();
 }
 
@@ -64,7 +64,7 @@ if (preg_match('/set_(.*)/', $action, $reg)) {
 		$values = implode(',', $values);
 	}
 
-	if (dolibarr_set_const($db, $code, $values, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, $code, $values, 'chaine', 0, '', $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"].($withtab ? '?withtab='.$withtab : ''));
 		exit;
 	} else {

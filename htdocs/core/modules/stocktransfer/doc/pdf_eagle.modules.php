@@ -227,10 +227,10 @@ class pdf_eagle extends ModelePDFStockTransfer
 				$objphoto->fetch($object->lines[$i]->fk_product);
 				if (getDolGlobalInt('PRODUCT_USE_OLD_PATH_FOR_PHOTO')) {
 					$pdir = get_exdir($object->lines[$i]->fk_product, 2, 0, 0, $objphoto, 'product').$object->lines[$i]->fk_product."/photos/";
-					$dir = $conf->product->dir_output.'/'.$pdir;
+					$dir = $config->product->dir_output.'/'.$pdir;
 				} else {
 					$pdir = get_exdir(0, 2, 0, 0, $objphoto, 'product').dol_sanitizeFileName($objphoto->ref).'/';
-					$dir = $conf->product->dir_output.'/'.$pdir;
+					$dir = $config->product->dir_output.'/'.$pdir;
 				}
 
 				$realpath = '';
@@ -270,14 +270,14 @@ class pdf_eagle extends ModelePDFStockTransfer
 			} // width of images
 		}
 
-		if ($conf->stocktransfer->dir_output) {
+		if ($config->stocktransfer->dir_output) {
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->stocktransfer->dir_output;
+				$dir = $config->stocktransfer->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$stocktransferref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->stocktransfer->dir_output.'/'.$object->element."/".$stocktransferref;
+				$dir = $config->stocktransfer->dir_output.'/'.$object->element."/".$stocktransferref;
 				$file = $dir."/".$stocktransferref.".pdf";
 			}
 
@@ -319,7 +319,7 @@ class pdf_eagle extends ModelePDFStockTransfer
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (!getDolGlobalString('MAIN_DISABLE_FPDI') && getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
+					$pagecount = $pdf->setSourceFile($config->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -457,7 +457,7 @@ class pdf_eagle extends ModelePDFStockTransfer
 						if (!preg_match('/^\w+$/', $newcode) || dol_strlen($newcode) > 32) {
 							$newcode = dol_hash($newcode, 'md5');
 						}
-						$barcode_path = $conf->barcode->dir_temp . '/barcode_' . $newcode . '_' . $encoding . '.png';
+						$barcode_path = $config->barcode->dir_temp . '/barcode_' . $newcode . '_' . $encoding . '.png';
 					}
 
 					if ($result > 0) {
@@ -1026,7 +1026,7 @@ class pdf_eagle extends ModelePDFStockTransfer
 
 		// Show Draft Watermark
 		if ($object->statut == 0 && (getDolGlobalString('STOCKTRANSFER_DRAFT_WATERMARK'))) {
-			pdf_watermark($pdf, $outputlangs, $this->page_hauteur, $this->page_largeur, 'mm', $conf->global->SHIPPING_DRAFT_WATERMARK);
+			pdf_watermark($pdf, $outputlangs, $this->page_hauteur, $this->page_largeur, 'mm', $config->global->SHIPPING_DRAFT_WATERMARK);
 		}
 
 		//Prepare next
@@ -1041,7 +1041,7 @@ class pdf_eagle extends ModelePDFStockTransfer
 		$pdf->SetXY($this->marge_gauche, $posy);
 
 		// Logo
-		$logo = $conf->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
+		$logo = $config->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
 		if ($this->emetteur->logo) {
 			if (is_readable($logo)) {
 				$height = pdf_getHeightForLogo($logo);
@@ -1218,7 +1218,7 @@ class pdf_eagle extends ModelePDFStockTransfer
 
 			//Recipient name
 			// On peut utiliser le nom de la societe du contact
-			if ($usecontact/* && !empty($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT)*/) {
+			if ($usecontact/* && !empty($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT)*/) {
 				$thirdparty = $object->contact;
 			} else {
 				$thirdparty = $object->thirdparty;

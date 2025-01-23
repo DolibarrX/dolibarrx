@@ -66,7 +66,7 @@ $summaryonly = GETPOSTINT('summaryonly');		// May be used for ticket Z
 $object = new CashControl($db);
 $object->fetch($id);
 
-//$limit = GETPOST('limit')?GETPOST('limit', 'int'):$conf->liste_limit;
+//$limit = GETPOST('limit')?GETPOST('limit', 'int'):$config->liste_limit;
 $sortorder = 'ASC';
 $sortfield = 'b.datev,b.dateo,b.rowid';
 
@@ -104,8 +104,8 @@ if (!$user->hasRight('cashdesk', 'run') && !$user->hasRight('takepos', 'run')) {
 $title = $langs->trans("CashControl");
 $param = '';
 
-$conf->dol_hide_topmenu = 1;
-$conf->dol_hide_leftmenu = 1;
+$config->dol_hide_topmenu = 1;
+$config->dol_hide_leftmenu = 1;
 
 llxHeader('', $title, '', '', 0, 0, array(), array(), $param);
 
@@ -133,9 +133,9 @@ elseif ($syear && $smonth && ! $sday) $sql.= " AND dateo BETWEEN '".$db->idate(d
 elseif ($syear && $smonth && $sday)   $sql.= " AND dateo BETWEEN '".$db->idate(dol_mktime(0, 0, 0, $smonth, $sday, $syear))."' AND '".$db->idate(dol_mktime(23, 59, 59, $smonth, $sday, $syear))."'";
 else dol_print_error(null, 'Year not defined');
 // Define filter on bank account
-$sql.=" AND (b.fk_account = ".((int) $conf->global->CASHDESK_ID_BANKACCOUNT_CASH);
-$sql.=" OR b.fk_account = ".((int) $conf->global->CASHDESK_ID_BANKACCOUNT_CB);
-$sql.=" OR b.fk_account = ".((int) $conf->global->CASHDESK_ID_BANKACCOUNT_CHEQUE);
+$sql.=" AND (b.fk_account = ".((int) $config->global->CASHDESK_ID_BANKACCOUNT_CASH);
+$sql.=" OR b.fk_account = ".((int) $config->global->CASHDESK_ID_BANKACCOUNT_CB);
+$sql.=" OR b.fk_account = ".((int) $config->global->CASHDESK_ID_BANKACCOUNT_CHEQUE);
 $sql.=")";
 */
 $sql = "SELECT f.rowid as facid, f.ref, f.datef as do, pf.amount as amount, b.fk_account as bankid, cp.code";
@@ -144,7 +144,7 @@ $sql .= " WHERE pf.fk_facture = f.rowid AND p.rowid = pf.fk_paiement AND cp.id =
 $sql .= " AND f.module_source = '".$db->escape($posmodule)."'";
 $sql .= " AND f.pos_source = '".$db->escape($terminalid)."'";
 //$sql .= " AND f.paye = 1";
-$sql .= " AND p.entity = ".$conf->entity; // Never share entities for features related to accountancy
+$sql .= " AND p.entity = ".$config->entity; // Never share entities for features related to accountancy
 /*if ($key == 'cash')       $sql.=" AND cp.code = 'LIQ'";
 elseif ($key == 'cheque') $sql.=" AND cp.code = 'CHQ'";
 elseif ($key == 'card')   $sql.=" AND cp.code = 'CB'";

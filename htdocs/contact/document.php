@@ -61,7 +61,7 @@ if (!empty($canvas)) {
 }
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -91,7 +91,7 @@ if ($id > 0) {
 	$object->fetch($id);
 }
 
-$upload_dir = $conf->societe->multidir_output[$object->entity].'/contact/'.dol_sanitizeFileName($object->ref);
+$upload_dir = $config->societe->multidir_output[$object->entity].'/contact/'.dol_sanitizeFileName($object->ref);
 $modulepart = 'contact';
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
@@ -169,7 +169,7 @@ if ($object->id) {
 
 	// Company
 	/*
-	if (empty($conf->global->SOCIETE_DISABLE_CONTACTS))
+	if (empty($config->global->SOCIETE_DISABLE_CONTACTS))
 	{
 		if ($object->socid > 0)
 		{

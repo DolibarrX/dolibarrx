@@ -58,7 +58,7 @@ $mode       = GETPOST('mode', 'alpha'); // mode view for result
 
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -78,7 +78,7 @@ if (!$sortorder) {
 // Initialize a technical objects
 $object = new PaymentSalary($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->user->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->user->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('salarieslist')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -213,7 +213,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'PaymentSalary';
 	$objectlabel = 'SalariesPayments';
-	$uploaddir = $conf->salaries->dir_output;
+	$uploaddir = $config->salaries->dir_output;
 
 	global $error;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
@@ -348,7 +348,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($search_type_id) {

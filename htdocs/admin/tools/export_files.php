@@ -68,7 +68,7 @@ if ($page < 0) {
 } elseif (empty($page)) {
 	$page = 0;
 }
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $offset = $limit * $page;
 
 if (!$user->admin) {
@@ -84,7 +84,7 @@ $errormsg = '';
 
 if ($action == 'delete') {
 	$filerelative = dol_sanitizeFileName(GETPOST('urlfile', 'alpha'));
-	$filepath = $conf->admin->dir_output.'/'.$filerelative;
+	$filepath = $config->admin->dir_output.'/'.$filerelative;
 	$ret = dol_delete_file($filepath, 1);
 	if ($ret) {
 		setEventMessages($langs->trans("FileWasRemoved", $filerelative), null, 'mesgs');
@@ -132,7 +132,7 @@ $dump_buffer_len = 0;
 $time_start = time();
 
 
-$outputdir  = $conf->admin->dir_output.'/documents';
+$outputdir  = $config->admin->dir_output.'/documents';
 $result = dol_mkdir($outputdir);
 
 $utils = new Utils($db);
@@ -178,7 +178,7 @@ if ($compression == 'zip') {
 } elseif (in_array($compression, array('gz', 'bz', 'zstd'))) {
 	$userlogin = ($user->login ? $user->login : 'unknown');
 
-	$outputfile = $conf->admin->dir_temp.'/export_files.'.$userlogin.'.out'; // File used with popen method
+	$outputfile = $config->admin->dir_temp.'/export_files.'.$userlogin.'.out'; // File used with popen method
 
 	$file .= '.tar';
 

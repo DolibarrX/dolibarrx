@@ -269,7 +269,7 @@ if ($id > 0 || !empty($ref)) {
 			// Budget
 			print '<tr><td>'.$langs->trans("Budget").'</td><td>';
 			if (isset($projectstatic->budget_amount) && strcmp($projectstatic->budget_amount, '')) {
-				print price($projectstatic->budget_amount, 0, $langs, 1, 0, 0, $conf->currency);
+				print price($projectstatic->budget_amount, 0, $langs, 1, 0, 0, $config->currency);
 			}
 			print '</td></tr>';
 
@@ -369,7 +369,7 @@ if ($id > 0 || !empty($ref)) {
 		 */
 		/*
 		// Contacts lines (modules that overwrite templates must declare this into descriptor)
-		$dirtpls=array_merge($conf->modules_parts['tpl'],array('/core/tpl'));
+		$dirtpls=array_merge($config->modules_parts['tpl'],array('/core/tpl'));
 		foreach($dirtpls as $reldir)
 		{
 			$res=@include dol_buildpath($reldir.'/contacts.tpl.php');
@@ -408,7 +408,7 @@ if ($id > 0 || !empty($ref)) {
 			print '</td>';
 
 			print '<td>';
-			print $conf->global->MAIN_INFO_SOCIETE_NOM;
+			print $config->global->MAIN_INFO_SOCIETE_NOM;
 			print '</td>';
 
 			print '<td>';
@@ -496,7 +496,7 @@ if ($id > 0 || !empty($ref)) {
 					print $companystatic->getNomUrl(1);
 				}
 				if ($tab[$i]['socid'] < 0) {
-					print $conf->global->MAIN_INFO_SOCIETE_NOM;
+					print $config->global->MAIN_INFO_SOCIETE_NOM;
 				}
 				if (!$tab[$i]['socid']) {
 					print '&nbsp;';

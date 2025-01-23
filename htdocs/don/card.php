@@ -90,7 +90,7 @@ $search_array_options = $extrafields->getOptionalsFromPost($object->table_elemen
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array($object->element.'card', 'globalcard'));
 
-$upload_dir = $conf->don->dir_output;
+$upload_dir = $config->don->dir_output;
 
 
 // Security check
@@ -406,12 +406,12 @@ if ($action == 'create') {
 			$arrayoutstandingbills = $soc->getOutstandingBills();
 			$outstandingBills = $arrayoutstandingbills['opened'];
 			print ' ('.$langs->trans('CurrentOutstandingBill').': ';
-			print price($outstandingBills, 0, $langs, 0, 0, -1, $conf->currency);
+			print price($outstandingBills, 0, $langs, 0, 0, -1, $config->currency);
 			if ($soc->outstanding_limit != '') {
 				if ($outstandingBills > $soc->outstanding_limit) {
 					print img_warning($langs->trans("OutstandingBillReached"));
 				}
-				print ' / '.price($soc->outstanding_limit, 0, $langs, 0, 0, -1, $conf->currency);
+				print ' / '.price($soc->outstanding_limit, 0, $langs, 0, 0, -1, $config->currency);
 			}
 			print ')';
 			print '</td>';
@@ -447,7 +447,7 @@ if ($action == 'create') {
 	print '</td>';
 
 	// Amount
-	print "<tr>".'<td class="fieldrequired">'.$langs->trans("Amount").'</td><td><input type="text" name="amount" value="'.dol_escape_htmltag(GETPOST("amount")).'" size="10"> '.$langs->trans("Currency".$conf->currency).'</td></tr>';
+	print "<tr>".'<td class="fieldrequired">'.$langs->trans("Amount").'</td><td><input type="text" name="amount" value="'.dol_escape_htmltag(GETPOST("amount")).'" size="10"> '.$langs->trans("Currency".$config->currency).'</td></tr>';
 
 	// Public donation
 	print '<tr><td class="fieldrequired">'.$langs->trans("PublicDonation")."</td><td>";
@@ -570,10 +570,10 @@ if (!empty($id) && $action == 'edit') {
 
 	// Amount
 	if ($object->status == 0) {
-		print "<tr>".'<td class="fieldrequired">'.$langs->trans("Amount").'</td><td><input type="text" name="amount" size="10" value="'.price($object->amount).'"> '.$langs->trans("Currency".$conf->currency).'</td></tr>';
+		print "<tr>".'<td class="fieldrequired">'.$langs->trans("Amount").'</td><td><input type="text" name="amount" size="10" value="'.price($object->amount).'"> '.$langs->trans("Currency".$config->currency).'</td></tr>';
 	} else {
 		print '<tr><td>'.$langs->trans("Amount").'</td><td>';
-		print price($object->amount, 0, $langs, 0, 0, -1, $conf->currency);
+		print price($object->amount, 0, $langs, 0, 0, -1, $config->currency);
 		print '</td></tr>';
 	}
 
@@ -745,7 +745,7 @@ if (!empty($id) && $action != 'edit') {
 	print "</td>";
 
 	print '<tr><td>'.$langs->trans("Amount").'</td><td colspan="2">';
-	print price($object->amount, 0, $langs, 0, 0, -1, $conf->currency);
+	print price($object->amount, 0, $langs, 0, 0, -1, $config->currency);
 	print '</td></tr>';
 
 	print '<tr><td>'.$langs->trans("PublicDonation").'</td><td colspan="2">';
@@ -935,7 +935,7 @@ if (!empty($id) && $action != 'edit') {
 	 * Generated documents
 	 */
 	$filename = dol_sanitizeFileName((string) $object->id);
-	$filedir = $conf->don->dir_output."/".dol_sanitizeFileName((string) $object->id);
+	$filedir = $config->don->dir_output."/".dol_sanitizeFileName((string) $object->id);
 	$urlsource = $_SERVER['PHP_SELF'].'?rowid='.$object->id;
 	$genallowed	= (($object->paid == 0 || $user->admin) && $user->hasRight('don', 'lire'));
 	$delallowed	= $user->hasRight('don', 'creer');

@@ -97,7 +97,7 @@ if ($action == 'updateall') {
 		$typetouse = empty($oldtypetonewone[$consttype]) ? $consttype : $oldtypetonewone[$consttype];
 		$constvalue = preg_replace('/:member$/', '', $constvalue);
 
-		$res = dolibarr_set_const($db, $constname, $constvalue, $consttype, 0, $constnote, $conf->entity);
+		$res = dolibarr_set_const($db, $constname, $constvalue, $consttype, 0, $constnote, $config->entity);
 		if ($res <= 0) {
 			$error++;
 			$action = 'list';
@@ -125,7 +125,7 @@ if ($action == 'update' || $action == 'add') {
 	$typetouse = empty($oldtypetonewone[$consttype]) ? $consttype : $oldtypetonewone[$consttype];
 	$constvalue = preg_replace('/:member$/', '', $constvalue);
 
-	$res = dolibarr_set_const($db, $constname, $constvalue, $typetouse, 0, $constnote, $conf->entity);
+	$res = dolibarr_set_const($db, $constname, $constvalue, $typetouse, 0, $constnote, $config->entity);
 
 	if (!($res > 0)) {
 		$error++;

@@ -313,7 +313,7 @@ function project_prepare_head(Project $project, $moreparam = '')
 	} else {
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 		require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-		$upload_dir = $conf->project->multidir_output[empty($project->entity) ? 1 : $project->entity]."/".dol_sanitizeFileName($project->ref);
+		$upload_dir = $config->project->multidir_output[empty($project->entity) ? 1 : $project->entity]."/".dol_sanitizeFileName($project->ref);
 		$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 		$nbLinks = Link::count($db, $project->element, $project->id);
 		$totalAttached = $nbFiles + $nbLinks;
@@ -441,7 +441,7 @@ function task_prepare_head($object)
 	}
 
 	$head[$h][0] = DOL_URL_ROOT.'/projet/tasks/document.php?id='.$object->id.(GETPOST('withproject') ? '&withproject=1' : '');
-	$filesdir = $conf->project->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->project->ref).'/'.dol_sanitizeFileName($object->ref);
+	$filesdir = $config->project->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->project->ref).'/'.dol_sanitizeFileName($object->ref);
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	include_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
 	$nbFiles = count(dol_dir_list($filesdir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
@@ -552,7 +552,7 @@ function project_admin_prepare_head()
 	$head[$h][2] = 'attributes';
 	$h++;
 
-	if (empty($conf->global->PROJECT_HIDE_TASKS)) {
+	if (empty($config->global->PROJECT_HIDE_TASKS)) {
 		$head[$h][0] = DOL_URL_ROOT . '/projet/admin/project_task_extrafields.php';
 		$head[$h][1] = $langs->trans("ExtraFieldsProjectTask");
 		$nbExtrafields = $extrafields->attributes['projet_task']['count'];
@@ -898,7 +898,7 @@ function projectLinesa(&$inc, $parent, &$lines, &$level, $var, $showproject, &$t
 				if (count($arrayfields) > 0 && !empty($arrayfields['t.budget_amount']['checked'])) {
 					print '<td class="center">';
 					if ($lines[$i]->budget_amount) {
-						print '<span class="amount">'.price($lines[$i]->budget_amount, 0, $langs, 1, 0, 0, $conf->currency).'</span>';
+						print '<span class="amount">'.price($lines[$i]->budget_amount, 0, $langs, 1, 0, 0, $config->currency).'</span>';
 						$total_budget_amount += $lines[$i]->budget_amount;
 					}
 					print '</td>';
@@ -1057,7 +1057,7 @@ function projectLinesa(&$inc, $parent, &$lines, &$level, $var, $showproject, &$t
 			$totalCalculatedProgress = round(100 * $total_projectlinesa_spent / $total_projectlinesa_planned, 2);
 
 			// this conf is actually hidden, by default we use 10% for "be careful or warning"
-			$warningRatio = getDolGlobalString('PROJECT_TIME_SPEND_WARNING_PERCENT') ? (1 + $conf->global->PROJECT_TIME_SPEND_WARNING_PERCENT / 100) : 1.10;
+			$warningRatio = getDolGlobalString('PROJECT_TIME_SPEND_WARNING_PERCENT') ? (1 + $config->global->PROJECT_TIME_SPEND_WARNING_PERCENT / 100) : 1.10;
 
 			// define progress color according to time spend vs workload
 			$progressBarClass = 'progress-bar-info';
@@ -1124,7 +1124,7 @@ function projectLinesa(&$inc, $parent, &$lines, &$level, $var, $showproject, &$t
 		if (count($arrayfields) > 0 && !empty($arrayfields['t.budget_amount']['checked'])) {
 			print '<td class="nowrap liste_total center">';
 			if (strcmp((string) $total_budget_amount, '')) {
-				print price($total_budget_amount, 0, $langs, 1, 0, 0, $conf->currency);
+				print price($total_budget_amount, 0, $langs, 1, 0, 0, $config->currency);
 			}
 			print '</td>';
 		}
@@ -1525,7 +1525,7 @@ function projectLinesPerDay(&$inc, $parent, $fuser, $lines, &$level, &$projectsr
 						print '<span class="secondary">'.$projectstatic->title.'</span>';
 					}
 					/*
-					$colspan=5+(empty($conf->global->PROJECT_TIMESHEET_DISABLEBREAK_ON_PROJECT)?0:2);
+					$colspan=5+(empty($config->global->PROJECT_TIMESHEET_DISABLEBREAK_ON_PROJECT)?0:2);
 					print '<table class="">';
 
 					print '<tr class="liste_titre">';
@@ -1555,7 +1555,7 @@ function projectLinesPerDay(&$inc, $parent, $fuser, $lines, &$level, &$projectsr
 					if (!empty($arrayfields['p.opp_amount']['checked']))
 					{
 						print '<td class="nowrap">';
-						print price($lines[$i]->opp_amount, 0, $langs, 1, 0, -1, $conf->currency);
+						print price($lines[$i]->opp_amount, 0, $langs, 1, 0, -1, $config->currency);
 						print "</td>\n";
 					}
 					if (!empty($arrayfields['p.opp_percent']['checked']))
@@ -1567,7 +1567,7 @@ function projectLinesPerDay(&$inc, $parent, $fuser, $lines, &$level, &$projectsr
 					if (!empty($arrayfields['p.budget_amount']['checked']))
 					{
 						print '<td class="nowrap">';
-						print price($lines[$i]->budget_amount, 0, $langs, 1, 0, 0, $conf->currency);
+						print price($lines[$i]->budget_amount, 0, $langs, 1, 0, 0, $config->currency);
 						print "</td>\n";
 					}
 					if (!empty($arrayfields['p.usage_bill_time']['checked']))
@@ -1930,7 +1930,7 @@ function projectLinesPerWeek(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &$
 						print '<span class="secondary">'.$projectstatic->title.'</span>';
 					}
 
-					/*$colspan=5+(empty($conf->global->PROJECT_TIMESHEET_DISABLEBREAK_ON_PROJECT)?0:2);
+					/*$colspan=5+(empty($config->global->PROJECT_TIMESHEET_DISABLEBREAK_ON_PROJECT)?0:2);
 					print '<table class="">';
 
 					print '<tr class="liste_titre">';
@@ -1960,7 +1960,7 @@ function projectLinesPerWeek(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &$
 					if (!empty($arrayfields['p.opp_amount']['checked']))
 					{
 						print '<td class="nowrap">';
-						print price($lines[$i]->opp_amount, 0, $langs, 1, 0, -1, $conf->currency);
+						print price($lines[$i]->opp_amount, 0, $langs, 1, 0, -1, $config->currency);
 						print "</td>\n";
 					}
 					if (!empty($arrayfields['p.opp_percent']['checked']))
@@ -1972,7 +1972,7 @@ function projectLinesPerWeek(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &$
 					if (!empty($arrayfields['p.budget_amount']['checked']))
 					{
 						print '<td class="nowrap">';
-						print price($lines[$i]->budget_amount, 0, $langs, 1, 0, 0, $conf->currency);
+						print price($lines[$i]->budget_amount, 0, $langs, 1, 0, 0, $config->currency);
 						print "</td>\n";
 					}
 					if (!empty($arrayfields['p.usage_bill_time']['checked']))
@@ -2148,7 +2148,7 @@ function projectLinesPerWeek(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &$
 					}
 
 					$tableCell = '<td class="center hide'.$idw.($cssonholiday ? ' '.$cssonholiday : '').($cssweekend ? ' '.$cssweekend : '').($j <= 1 ? ' borderleft' : '').'">';
-					//$tableCell .= 'idw='.$idw.' '.$conf->global->MAIN_START_WEEK.' '.$numstartworkingday.'-'.$numendworkingday;
+					//$tableCell .= 'idw='.$idw.' '.$config->global->MAIN_START_WEEK.' '.$numstartworkingday.'-'.$numendworkingday;
 					$placeholder = '';
 					if ($alreadyspent) {
 						$tableCell .= '<span class="timesheetalreadyrecorded" title="texttoreplace"><input type="text" class="center smallpadd width40" disabled id="timespent['.$inc.']['.$idw.']" name="task['.$lines[$i]->id.']['.$idw.']" value="'.$alreadyspent.'"></span>';
@@ -2564,7 +2564,7 @@ function print_projecttasks_array($db, $form, $socid, $projectsListId, $mytasks 
 	global $langs, $conf, $user;
 	global $theme_datacolor;
 
-	$maxofloop = (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD);
+	$maxofloop = (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD);
 
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 
@@ -2683,7 +2683,7 @@ function print_projecttasks_array($db, $form, $socid, $projectsListId, $mytasks 
 		$total_declaredprogressworkload = 0;
 
 		$num = $db->num_rows($resql);
-		$nbofloop = min($num, (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD));
+		$nbofloop = min($num, (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD));
 		$i = 0;
 
 		print '<tr class="liste_titre">';
@@ -2799,7 +2799,7 @@ function print_projecttasks_array($db, $form, $socid, $projectsListId, $mytasks 
 					print '<td class="right">';
 					if ($objp->opp_percent && $objp->opp_amount) {
 						$opp_weighted_amount = $objp->opp_percent * $objp->opp_amount / 100;
-						$alttext = $langs->trans("OpportunityWeightedAmount").' '.price($opp_weighted_amount, 0, '', 1, -1, 0, $conf->currency);
+						$alttext = $langs->trans("OpportunityWeightedAmount").' '.price($opp_weighted_amount, 0, '', 1, -1, 0, $config->currency);
 						$ponderated_opp_amount += price2num($opp_weighted_amount);
 					}
 					if ($objp->opp_amount) {
@@ -2856,8 +2856,8 @@ function print_projecttasks_array($db, $form, $socid, $projectsListId, $mytasks 
 				print '<td class="liste_total"></td>';
 			}
 			print '<td class="liste_total right">';
-			//$form->textwithpicto(price($ponderated_opp_amount, 0, '', 1, -1, -1, $conf->currency), $langs->trans("OpportunityPonderatedAmountDesc"), 1);
-			print $form->textwithpicto(price($total_opp_amount, 0, '', 1, -1, 0), $langs->trans("OpportunityPonderatedAmountDesc").' : '.price($ponderated_opp_amount, 0, '', 1, -1, 0, $conf->currency));
+			//$form->textwithpicto(price($ponderated_opp_amount, 0, '', 1, -1, -1, $config->currency), $langs->trans("OpportunityPonderatedAmountDesc"), 1);
+			print $form->textwithpicto(price($total_opp_amount, 0, '', 1, -1, 0), $langs->trans("OpportunityPonderatedAmountDesc").' : '.price($ponderated_opp_amount, 0, '', 1, -1, 0, $config->currency));
 			print '</td>';
 		}
 		if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
@@ -2933,7 +2933,7 @@ function getTaskProgressView($task, $label = true, $progressNumber = true, $hide
 		$progressCalculated = round(100 * (float) $task->duration_effective / (float) $task->planned_workload, 2);
 
 		// this conf is actually hidden, by default we use 10% for "be careful or warning"
-		$warningRatio = getDolGlobalString('PROJECT_TIME_SPEND_WARNING_PERCENT') ? (1 + $conf->global->PROJECT_TIME_SPEND_WARNING_PERCENT / 100) : 1.10;
+		$warningRatio = getDolGlobalString('PROJECT_TIME_SPEND_WARNING_PERCENT') ? (1 + $config->global->PROJECT_TIME_SPEND_WARNING_PERCENT / 100) : 1.10;
 
 		$diffTitle = '<br>'.$langs->trans('ProgressDeclared').' : '.$task->progress.(isset($task->progress) ? '%' : '');
 		$diffTitle .= '<br>'.$langs->trans('ProgressCalculated').' : '.$progressCalculated.(isset($progressCalculated) ? '%' : '');
@@ -3050,7 +3050,7 @@ function getTaskProgressBadge($task, $label = '', $tooltip = '')
 			$progressCalculated = round(100 * (float) $task->duration_effective / (float) $task->planned_workload, 2);
 
 			// this conf is actually hidden, by default we use 10% for "be careful or warning"
-			$warningRatio = getDolGlobalString('PROJECT_TIME_SPEND_WARNING_PERCENT') ? (1 + $conf->global->PROJECT_TIME_SPEND_WARNING_PERCENT / 100) : 1.10;
+			$warningRatio = getDolGlobalString('PROJECT_TIME_SPEND_WARNING_PERCENT') ? (1 + $config->global->PROJECT_TIME_SPEND_WARNING_PERCENT / 100) : 1.10;
 
 			if ((float) $progressCalculated > (float) ($task->progress * $warningRatio)) {
 				$badgeClass .= 'badge-danger';

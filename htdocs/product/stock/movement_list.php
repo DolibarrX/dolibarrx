@@ -101,7 +101,7 @@ $search_fk_project = GETPOST("search_fk_project");
 $type = GETPOSTINT("type");
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -125,7 +125,7 @@ $pdluoid = GETPOSTINT('pdluoid');
 // Initialize a technical objects
 $object = new MouvementStock($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->stock->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->stock->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($contextpage)); 	// Note that conf->hooks_modules contains array of activated contexes
 
 $formfile = new FormFile($db);
@@ -182,7 +182,7 @@ if (!$user->hasRight('stock', 'mouvement', 'lire')) {
 	accessforbidden();
 }
 
-$uploaddir = $conf->stock->dir_output.'/movements';
+$uploaddir = $config->stock->dir_output.'/movements';
 
 $permissiontoread = $user->hasRight('stock', 'mouvement', 'lire');
 $permissiontoadd = $user->hasRight('stock', 'mouvement', 'creer');
@@ -938,7 +938,7 @@ if ($warehouse->id > 0) {
 
 	// Value
 	print '<tr><td class="titlefield">'.$langs->trans("EstimatedStockValueShort").'</td><td>';
-	print price((empty($calcproducts['value']) ? '0' : price2num($calcproducts['value'], 'MT')), 0, $langs, 0, -1, -1, $conf->currency);
+	print price((empty($calcproducts['value']) ? '0' : price2num($calcproducts['value'], 'MT')), 0, $langs, 0, -1, -1, $config->currency);
 	print "</td></tr>";
 
 	// Last movement
@@ -1026,7 +1026,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($id > 0) {

@@ -66,7 +66,7 @@ $permissiontoread = $user->admin;
 $permissiontoadd = $user->admin; // Used by the include of actions_addupdatedelete.inc.php
 $permissiontodelete = $user->admin;
 
-$upload_dir = $conf->hrm->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 // Security check - Protection if external user
 //if ($user->socid > 0) accessforbidden();
@@ -111,7 +111,7 @@ if ($action == 'confirm_delete' && $confirm == "yes" && $permissiontodelete) {
 			$object->status = GETPOSTINT('status');
 			$object->fk_user_author	= $user->id;
 			$object->datec = dol_now();
-			$object->entity = GETPOSTINT('entity') > 0 ? GETPOSTINT('entity') : $conf->entity;
+			$object->entity = GETPOSTINT('entity') > 0 ? GETPOSTINT('entity') : $config->entity;
 
 			$id = $object->create($user);
 
@@ -147,7 +147,7 @@ if ($action == 'confirm_delete' && $confirm == "yes" && $permissiontodelete) {
 			$object->country_id     = GETPOSTINT('country_id');
 			$object->fk_user_mod = $user->id;
 			$object->status         = GETPOSTINT('status');
-			$object->entity         = GETPOSTINT('entity') > 0 ? GETPOSTINT('entity') : $conf->entity;
+			$object->entity         = GETPOSTINT('entity') > 0 ? GETPOSTINT('entity') : $config->entity;
 
 			$result = $object->update($user);
 
@@ -198,7 +198,7 @@ if ($action == 'create') {
 		print '<tr>';
 		print '<td>'.$form->editfieldkey('Parent', 'entity', '', $object, 0, 'string', '', 1).'</td>';
 		print '<td class="maxwidthonsmartphone">';
-		print $form->selectEstablishments(GETPOST('entity', 'int') > 0 ?GETPOST('entity', 'int') : $conf->entity, 'entity', 1);
+		print $form->selectEstablishments(GETPOST('entity', 'int') > 0 ?GETPOST('entity', 'int') : $config->entity, 'entity', 1);
 		print '</td>';
 		print '</tr>';
 	} */
@@ -301,7 +301,7 @@ if ((!empty($id) || !empty($ref)) && $action == 'edit') {
 			if (isModEnabled('multicompany')) {
 				print '<tr><td>'.$form->editfieldkey('Parent', 'entity', '', $object, 0, 'string', '', 1).'</td>';
 				print '<td class="maxwidthonsmartphone">';
-				print $object->entity > 0 ? $object->entity : $conf->entity;
+				print $object->entity > 0 ? $object->entity : $config->entity;
 				print '</td></tr>';
 			}*/
 

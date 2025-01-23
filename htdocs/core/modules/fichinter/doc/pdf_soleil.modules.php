@@ -156,16 +156,16 @@ class pdf_soleil extends ModelePDFFicheinter
 			$this->watermark = getDolGlobalString('FICHINTER_DRAFT_WATERMARK');
 		}
 
-		if ($conf->ficheinter->dir_output) {
+		if ($config->ficheinter->dir_output) {
 			$object->fetch_thirdparty();
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->ficheinter->dir_output;
+				$dir = $config->ficheinter->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->ficheinter->dir_output."/".$objectref;
+				$dir = $config->ficheinter->dir_output."/".$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 
@@ -208,7 +208,7 @@ class pdf_soleil extends ModelePDFFicheinter
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
+					$pagecount = $pdf->setSourceFile($config->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -281,7 +281,7 @@ class pdf_soleil extends ModelePDFFicheinter
 				$pdf->SetXY($this->marge_gauche, $tab_top + 5);
 				$text = $object->description;
 				if ($object->duration > 0) {
-					$totaltime = convertSecondToTime($object->duration, 'all', $conf->global->MAIN_DURATION_OF_WORKDAY);
+					$totaltime = convertSecondToTime($object->duration, 'all', $config->global->MAIN_DURATION_OF_WORKDAY);
 					$text .= ($text ? ' - ' : '').$langs->trans("Total").": ".$totaltime;
 				}
 				$desc = dol_htmlentitiesbr($text, 1);
@@ -479,7 +479,7 @@ class pdf_soleil extends ModelePDFFicheinter
 		$text=$object->description;
 		if ($object->duration > 0)
 		{
-			$totaltime=convertSecondToTime($object->duration,'all',$conf->global->MAIN_DURATION_OF_WORKDAY);
+			$totaltime=convertSecondToTime($object->duration,'all',$config->global->MAIN_DURATION_OF_WORKDAY);
 			$text.=($text?' - ':'').$langs->trans("Total").": ".$totaltime;
 		}
 		$desc=dol_htmlentitiesbr($text,1);
@@ -551,7 +551,7 @@ class pdf_soleil extends ModelePDFFicheinter
 		$pdf->SetXY($this->marge_gauche, $posy);
 
 		// Logo
-		$logo = $conf->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
+		$logo = $config->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
 		if ($this->emetteur->logo) {
 			if (is_readable($logo)) {
 				$height = pdf_getHeightForLogo($logo);
@@ -671,7 +671,7 @@ class pdf_soleil extends ModelePDFFicheinter
 			}
 
 			// Recipient name
-			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
+			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
 				$thirdparty = $object->contact;
 			} else {
 				$thirdparty = $object->thirdparty;

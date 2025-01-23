@@ -77,7 +77,7 @@ class ProjectStats extends Stats
 
 		$this->from = MAIN_DB_PREFIX.$this->project->table_element;
 		$this->field = 'opp_amount';
-		$this->where = " entity = ".$conf->entity;
+		$this->where = " entity = ".$config->entity;
 		if ($this->socid > 0) {
 			$this->where .= " AND fk_soc = ".((int) $this->socid);
 		}
@@ -132,7 +132,7 @@ class ProjectStats extends Stats
 				if ($i < $limit || $num == $limit) {
 					$label = (($langs->trans("OppStatus".$row[2]) != "OppStatus".$row[2]) ? $langs->trans("OppStatus".$row[2]) : $row[2]);
 					$result[$i] = array(
-					$label.' ('.price(price2num($row[0], 'MT'), 1, $langs, 1, -1, -1, $conf->currency).')',
+					$label.' ('.price(price2num($row[0], 'MT'), 1, $langs, 1, -1, -1, $config->currency).')',
 					$row[0]
 					);
 				} else {
@@ -331,7 +331,7 @@ class ProjectStats extends Stats
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 		}
 
-		$newpathofdestfile = $conf->user->dir_temp.'/'.get_class($this).'_'.__FUNCTION__.'_'.(empty($this->cachefilesuffix) ? '' : $this->cachefilesuffix.'_').$langs->defaultlang.'_user'.$user->id.'.cache';
+		$newpathofdestfile = $config->user->dir_temp.'/'.get_class($this).'_'.__FUNCTION__.'_'.(empty($this->cachefilesuffix) ? '' : $this->cachefilesuffix.'_').$langs->defaultlang.'_user'.$user->id.'.cache';
 		$newmask = '0644';
 
 		$nowgmt = dol_now();
@@ -376,8 +376,8 @@ class ProjectStats extends Stats
 		// Save cache file
 		if (empty($foundintocache) && ($cachedelay > 0 || $cachedelay == -1)) {
 			dol_syslog(get_class($this).'::'.__FUNCTION__." save cache file ".$newpathofdestfile." onto disk.");
-			if (!dol_is_dir($conf->user->dir_temp)) {
-				dol_mkdir($conf->user->dir_temp);
+			if (!dol_is_dir($config->user->dir_temp)) {
+				dol_mkdir($config->user->dir_temp);
 			}
 			$fp = fopen($newpathofdestfile, 'w');
 			if ($fp) {
@@ -442,7 +442,7 @@ class ProjectStats extends Stats
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 		}
 
-		$newpathofdestfile = $conf->user->dir_temp.'/'.get_class($this).'_'.__FUNCTION__.'_'.(empty($this->cachefilesuffix) ? '' : $this->cachefilesuffix.'_').$langs->defaultlang.'_user'.$user->id.'.cache';
+		$newpathofdestfile = $config->user->dir_temp.'/'.get_class($this).'_'.__FUNCTION__.'_'.(empty($this->cachefilesuffix) ? '' : $this->cachefilesuffix.'_').$langs->defaultlang.'_user'.$user->id.'.cache';
 		$newmask = '0644';
 
 		$nowgmt = dol_now();
@@ -487,8 +487,8 @@ class ProjectStats extends Stats
 		// Save cache file
 		if (empty($foundintocache) && ($cachedelay > 0 || $cachedelay == - 1)) {
 			dol_syslog(get_class($this).'::'.__FUNCTION__." save cache file ".$newpathofdestfile." onto disk.");
-			if (!dol_is_dir($conf->user->dir_temp)) {
-				dol_mkdir($conf->user->dir_temp);
+			if (!dol_is_dir($config->user->dir_temp)) {
+				dol_mkdir($config->user->dir_temp);
 			}
 			$fp = fopen($newpathofdestfile, 'w');
 			if ($fp) {

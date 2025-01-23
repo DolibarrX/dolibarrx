@@ -72,7 +72,7 @@ if (!$year) {
 }
 $optioncss = GETPOST('optioncss', 'aZ'); // Option for the css output (always '' except when 'print')
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -109,7 +109,7 @@ $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.$contextpage;
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.$limit;
 }
 if ($sortfield) {
@@ -459,7 +459,7 @@ while ($j < $numlt) {
 
 	$sql = "SELECT pv.rowid, pv.amount, pv.label, pv.datev as dm, pv.datep as dp";
 	$sql .= " FROM ".MAIN_DB_PREFIX."localtax as pv";
-	$sql .= " WHERE pv.entity = ".$conf->entity." AND localtaxtype = ".((int) $j);
+	$sql .= " WHERE pv.entity = ".$config->entity." AND localtaxtype = ".((int) $j);
 	if ($year > 0) {
 		// If period defined, we use it as dat criteria, if not  we use date echeance,
 		// so we are compatible when period is not mandatory

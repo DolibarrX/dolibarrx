@@ -91,7 +91,7 @@ $extrafields = new ExtraFields($db);
 
 // Clean param
 if ((getDolGlobalString('PRODUIT_MULTIPRICES') || getDolGlobalString('PRODUIT_CUSTOMER_PRICES_BY_QTY_MULTIPRICES') || getDolGlobalString('PRODUIT_CUSTOMER_PRICES_AND_MULTIPRICES')) && !getDolGlobalString('PRODUIT_MULTIPRICES_LIMIT')) {
-	$conf->global->PRODUIT_MULTIPRICES_LIMIT = 5;
+	$config->global->PRODUIT_MULTIPRICES_LIMIT = 5;
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
@@ -131,7 +131,7 @@ if (empty($reshook)) {
 	if ($action == 'setlabelsellingprice' && $user->admin) {
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 		$keyforlabel = 'PRODUIT_MULTIPRICES_LABEL'.GETPOST('pricelevel');
-		dolibarr_set_const($db, $keyforlabel, GETPOST('labelsellingprice', 'alpha'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, $keyforlabel, GETPOST('labelsellingprice', 'alpha'), 'chaine', 0, '', $config->entity);
 		$action = '';
 	}
 
@@ -2012,7 +2012,7 @@ if (($action == 'edit_price' || $action == 'edit_level_price') && $object->getRi
 if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT_CUSTOMER_PRICES_AND_MULTIPRICES')) {
 	$prodcustprice = new ProductCustomerPrice($db);
 
-	$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+	$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 	$sortfield = GETPOST('sortfield', 'aZ09comma');
 	$sortorder = GETPOST('sortorder', 'aZ09comma');
 	$page = (GETPOSTINT("page") ? GETPOSTINT("page") : 0);
@@ -2306,10 +2306,10 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 		// Count total nb of records
 		$nbtotalofrecords = '';
 		if (!getDolGlobalInt('MAIN_DISABLE_FULL_SCANLIST')) {
-			$nbtotalofrecords = $prodcustprice->fetchAllLog($sortorder, $sortfield, $conf->liste_limit, $offset, $filter);
+			$nbtotalofrecords = $prodcustprice->fetchAllLog($sortorder, $sortfield, $config->liste_limit, $offset, $filter);
 		}
 
-		$result = $prodcustprice->fetchAllLog($sortorder, $sortfield, $conf->liste_limit, $offset, $filter);
+		$result = $prodcustprice->fetchAllLog($sortorder, $sortfield, $config->liste_limit, $offset, $filter);
 		if ($result < 0) {
 			setEventMessages($prodcustprice->error, $prodcustprice->errors, 'errors');
 		}
@@ -2439,7 +2439,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 			$nbtotalofrecords = $prodcustprice->fetchAll($sortorder, $sortfield, 0, 0, $filter);
 		}
 
-		$result = $prodcustprice->fetchAll($sortorder, $sortfield, $conf->liste_limit, $offset, $filter);
+		$result = $prodcustprice->fetchAll($sortorder, $sortfield, $config->liste_limit, $offset, $filter);
 		if ($result < 0) {
 			setEventMessages($prodcustprice->error, $prodcustprice->errors, 'errors');
 		}
@@ -2901,7 +2901,7 @@ if ((!getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || $action == 'showlog_defau
 				$total_ttc = $resultarray[2];
 
 				// Price
-				if (!empty($objp->fk_price_expression) && !empty($conf->dynamicprices->enabled)) {
+				if (!empty($objp->fk_price_expression) && !empty($config->dynamicprices->enabled)) {
 					$price_expression = new PriceExpression($db);
 					$res = $price_expression->fetch($objp->fk_price_expression);
 					$title = $price_expression->title;

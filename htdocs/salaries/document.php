@@ -63,7 +63,7 @@ $label = GETPOST('label', 'alphanohtml');
 $projectid = (GETPOSTINT('projectid') ? GETPOSTINT('projectid') : GETPOSTINT('fk_project'));
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -108,7 +108,7 @@ if ($id > 0 || !empty($ref)) {
 	}
 }
 
-$upload_dir = $conf->salaries->dir_output.'/'.dol_sanitizeFileName((string) $object->id);
+$upload_dir = $config->salaries->dir_output.'/'.dol_sanitizeFileName((string) $object->id);
 $modulepart = 'salaries';
 
 // Security check
@@ -235,7 +235,7 @@ if ($object->id) {
 	print dol_print_date($object->dateep, 'day');
 	print '</td></tr>';
 
-	print '<tr><td>' . $langs->trans("Amount") . '</td><td><span class="amount">' . price($object->amount, 0, $langs, 1, -1, -1, $conf->currency) . '</span></td></tr>';
+	print '<tr><td>' . $langs->trans("Amount") . '</td><td><span class="amount">' . price($object->amount, 0, $langs, 1, -1, -1, $config->currency) . '</span></td></tr>';
 
 	print '<tr><td class="titlefield">'.$langs->trans("NbOfAttachedFiles").'</td><td>'.count($filearray).'</td></tr>';
 

@@ -73,7 +73,7 @@ if ($search_accountancy_code_end == - 1) {
 $search_not_reconciled = GETPOST('search_not_reconciled', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -338,7 +338,7 @@ if ($action != 'export_csv') {
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 
@@ -473,7 +473,7 @@ if ($action != 'export_csv') {
 	if (getDolGlobalString('ACCOUNTANCY_SHOW_OPENING_BALANCE')) {
 		$sql = "SELECT t.numero_compte, (SUM(t.debit) - SUM(t.credit)) as opening_balance";
 		$sql .= " FROM " . MAIN_DB_PREFIX . "accounting_bookkeeping as t";
-		$sql .= " WHERE t.entity = " . $conf->entity;        // Never do sharing into accounting features
+		$sql .= " WHERE t.entity = " . $config->entity;        // Never do sharing into accounting features
 		$sql .= " AND t.doc_date < '" . $db->idate($search_date_start) . "'";
 		$sql .= " GROUP BY t.numero_compte";
 

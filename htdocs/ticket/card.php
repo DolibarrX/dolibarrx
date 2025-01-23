@@ -151,7 +151,7 @@ $permissiontoread   = $user->hasRight('ticket', 'read');
 $permissiontoadd    = $user->hasRight('ticket', 'write');
 $permissiontodelete = $user->hasRight('ticket', 'delete');
 
-$upload_dir = $conf->ticket->dir_output;
+$upload_dir = $config->ticket->dir_output;
 
 
 
@@ -1589,7 +1589,7 @@ if ($action == 'create' || $action == 'presend') {
 			if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 				$param .= '&contextpage='.$contextpage;
 			}
-			if ($limit > 0 && $limit != $conf->liste_limit) {
+			if ($limit > 0 && $limit != $config->liste_limit) {
 				$param .= '&limit='.$limit;
 			}
 			if ($actioncode) {

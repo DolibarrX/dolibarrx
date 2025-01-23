@@ -105,7 +105,7 @@ if (empty($dateop)) {
 	$dateop = -1;
 }
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -245,7 +245,7 @@ if (empty($reshook)) {
 	$objectlabel = 'BankTransaction';
 	$permissiontoread = $user->hasRight('banque', 'lire');
 	$permissiontodelete = $user->hasRight('banque', 'modifier');
-	$uploaddir = $conf->bank->dir_output;
+	$uploaddir = $config->bank->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -453,7 +453,7 @@ $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($id > 0) {
@@ -1077,11 +1077,11 @@ if ($resql) {
 	$moreforfilter = '';
 	$moreforfilter .= '<div class="divsearchfield">';
 	$moreforfilter .= $langs->trans('DateOperationShort');
-	$moreforfilter .= ($conf->browser->layout == 'phone' ? '<br>' : ' ');
+	$moreforfilter .= ($config->browser->layout == 'phone' ? '<br>' : ' ');
 	$moreforfilter .= '<div class="nowrap inline-block">';
 	$moreforfilter .= $form->selectDate($search_dt_start, 'search_start_dt', 0, 0, 1, "search_form", 1, 0, 0, '', '', '', '', 1, '', $langs->trans('From'));
 	$moreforfilter .= '</div>';
-	$moreforfilter .= ($conf->browser->layout == 'phone' ? '' : ' ');
+	$moreforfilter .= ($config->browser->layout == 'phone' ? '' : ' ');
 	$moreforfilter .= '<div class="nowrap inline-block">';
 	$moreforfilter .= $form->selectDate($search_dt_end, 'search_end_dt', 0, 0, 1, "search_form", 1, 0, 0, '', '', '', '', 1, '', $langs->trans('to'));
 	$moreforfilter .= '</div>';
@@ -1089,11 +1089,11 @@ if ($resql) {
 
 	$moreforfilter .= '<div class="divsearchfield">';
 	$moreforfilter .= $langs->trans('DateValueShort');
-	$moreforfilter .= ($conf->browser->layout == 'phone' ? '<br>' : ' ');
+	$moreforfilter .= ($config->browser->layout == 'phone' ? '<br>' : ' ');
 	$moreforfilter .= '<div class="nowrap inline-block">';
 	$moreforfilter .= $form->selectDate($search_dv_start, 'search_start_dv', 0, 0, 1, "search_form", 1, 0, 0, '', '', '', '', 1, '', $langs->trans('From'));
 	$moreforfilter .= '</div>';
-	$moreforfilter .= ($conf->browser->layout == 'phone' ? '' : ' ');
+	$moreforfilter .= ($config->browser->layout == 'phone' ? '' : ' ');
 	$moreforfilter .= '<div class="nowrap inline-block">';
 	$moreforfilter .= $form->selectDate($search_dv_end, 'search_end_dv', 0, 0, 1, "search_form", 1, 0, 0, '', '', '', '', 1, '', $langs->trans('to'));
 	$moreforfilter .= '</div>';
@@ -1784,12 +1784,12 @@ if ($resql) {
 						|| ($type_link == 'payment_sc' && $user->hasRight('tax', 'charges', 'lire'))
 						|| ($type_link == 'payment_expensereport' && $user->hasRight('expensereport', 'lire')))) {
 				// Get object user from cache or load it
-				if (!empty($conf->cache['user'][$userlinked_id])) {
-					$tmpuser = $conf->cache['user'][$userlinked_id];
+				if (!empty($config->cache['user'][$userlinked_id])) {
+					$tmpuser = $config->cache['user'][$userlinked_id];
 				} else {
 					$tmpuser = new User($db);
 					$tmpuser->fetch($userlinked_id);
-					$conf->cache['user'][$userlinked_id] = $tmpuser;
+					$config->cache['user'][$userlinked_id] = $tmpuser;
 				}
 				print $tmpuser->getNomUrl(-1);
 			} elseif ($thirdstr) {
@@ -1939,7 +1939,7 @@ if ($resql) {
 				print '</a>';
 			}
 			if ($bankaccount->canBeConciliated() > 0 && empty($objp->conciliated)) {
-				if ($db->jdate($objp->dv) < ($now - $conf->bank->rappro->warning_delay)) {
+				if ($db->jdate($objp->dv) < ($now - $config->bank->rappro->warning_delay)) {
 					print ' '.img_warning($langs->trans("ReconciliationLate"));
 				}
 			}

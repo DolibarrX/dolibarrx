@@ -52,13 +52,13 @@ $syslogModules = array();
 $activeModules = array();
 
 if (getDolGlobalString('SYSLOG_HANDLERS')) {
-	$activeModules = json_decode($conf->global->SYSLOG_HANDLERS);
+	$activeModules = json_decode($config->global->SYSLOG_HANDLERS);
 	if (!is_array($activeModules)) {
 		$activeModules = array();
 	}
 }
 
-$dirsyslogs = array_merge(array('/core/modules/syslog/'), $conf->modules_parts['syslog']);
+$dirsyslogs = array_merge(array('/core/modules/syslog/'), $config->modules_parts['syslog']);
 foreach ($dirsyslogs as $reldir) {
 	$dir = dol_buildpath($reldir, 0);
 	$newdir = dol_osencode($dir);
@@ -315,20 +315,20 @@ print "</tr>\n";
 
 print '<tr class="oddeven"><td>'.$langs->trans("SyslogLevel").'</td>';
 print '<td colspan="2"><select class="flat minwidth400" id="level" name="level" '.$optionmc.'>';
-print '<option value="'.LOG_EMERG.'" '.($conf->global->SYSLOG_LEVEL == LOG_EMERG ? 'SELECTED' : '').'>LOG_EMERG ('.LOG_EMERG.')</option>';
-print '<option value="'.LOG_ALERT.'" '.($conf->global->SYSLOG_LEVEL == LOG_ALERT ? 'SELECTED' : '').'>LOG_ALERT ('.LOG_ALERT.')</option>';
-print '<option value="'.LOG_CRIT.'" '.($conf->global->SYSLOG_LEVEL == LOG_CRIT ? 'SELECTED' : '').'>LOG_CRIT ('.LOG_CRIT.')</option>';
-print '<option value="'.LOG_ERR.'" '.($conf->global->SYSLOG_LEVEL == LOG_ERR ? 'SELECTED' : '').'>LOG_ERR ('.LOG_ERR.')</option>';
-print '<option value="'.LOG_WARNING.'" '.($conf->global->SYSLOG_LEVEL == LOG_WARNING ? 'SELECTED' : '').'">LOG_WARNING ('.LOG_WARNING.')</option>';
-print '<option value="'.LOG_NOTICE.'" '.($conf->global->SYSLOG_LEVEL == LOG_NOTICE ? 'SELECTED' : '').' data-html="'.dol_escape_htmltag('LOG_NOTICE ('.LOG_NOTICE.') - <span class="opacitymedium">'.$langs->trans("RecommendedForProduction").'</span>').'">LOG_NOTICE ('.LOG_NOTICE.')</option>';
-print '<option value="'.LOG_INFO.'" '.($conf->global->SYSLOG_LEVEL == LOG_INFO ? 'SELECTED' : '').'>LOG_INFO ('.LOG_INFO.')</option>';
-print '<option value="'.LOG_DEBUG.'" '.($conf->global->SYSLOG_LEVEL >= LOG_DEBUG ? 'SELECTED' : '').' data-html="'.dol_escape_htmltag('LOG_DEBUG ('.LOG_DEBUG.') - <span class="opacitymedium">'.$langs->trans("RecommendedForDebug").'</span>').'">LOG_DEBUG ('.LOG_DEBUG.')</option>';
+print '<option value="'.LOG_EMERG.'" '.($config->global->SYSLOG_LEVEL == LOG_EMERG ? 'SELECTED' : '').'>LOG_EMERG ('.LOG_EMERG.')</option>';
+print '<option value="'.LOG_ALERT.'" '.($config->global->SYSLOG_LEVEL == LOG_ALERT ? 'SELECTED' : '').'>LOG_ALERT ('.LOG_ALERT.')</option>';
+print '<option value="'.LOG_CRIT.'" '.($config->global->SYSLOG_LEVEL == LOG_CRIT ? 'SELECTED' : '').'>LOG_CRIT ('.LOG_CRIT.')</option>';
+print '<option value="'.LOG_ERR.'" '.($config->global->SYSLOG_LEVEL == LOG_ERR ? 'SELECTED' : '').'>LOG_ERR ('.LOG_ERR.')</option>';
+print '<option value="'.LOG_WARNING.'" '.($config->global->SYSLOG_LEVEL == LOG_WARNING ? 'SELECTED' : '').'">LOG_WARNING ('.LOG_WARNING.')</option>';
+print '<option value="'.LOG_NOTICE.'" '.($config->global->SYSLOG_LEVEL == LOG_NOTICE ? 'SELECTED' : '').' data-html="'.dol_escape_htmltag('LOG_NOTICE ('.LOG_NOTICE.') - <span class="opacitymedium">'.$langs->trans("RecommendedForProduction").'</span>').'">LOG_NOTICE ('.LOG_NOTICE.')</option>';
+print '<option value="'.LOG_INFO.'" '.($config->global->SYSLOG_LEVEL == LOG_INFO ? 'SELECTED' : '').'>LOG_INFO ('.LOG_INFO.')</option>';
+print '<option value="'.LOG_DEBUG.'" '.($config->global->SYSLOG_LEVEL >= LOG_DEBUG ? 'SELECTED' : '').' data-html="'.dol_escape_htmltag('LOG_DEBUG ('.LOG_DEBUG.') - <span class="opacitymedium">'.$langs->trans("RecommendedForDebug").'</span>').'">LOG_DEBUG ('.LOG_DEBUG.')</option>';
 print '</select>';
 
 print ajax_combobox("level");
 print '</td></tr>';
 
-if (!empty($conf->loghandlers['mod_syslog_file']) && isModEnabled('cron')) {
+if (!empty($config->loghandlers['mod_syslog_file']) && isModEnabled('cron')) {
 	print '<tr class="oddeven"><td>'.$langs->trans("SyslogFileNumberOfSaves").'</td>';
 	print '<td colspan="2"><input class="width50" type="number" name="file_saves" placeholder="14" min="0" step="1" value="'.getDolGlobalString('SYSLOG_FILE_SAVES').'" />';
 	print ' &nbsp; (<a href="'.dol_buildpath('/cron/list.php', 1).'?search_label=CompressSyslogs&status=-1">'.$langs->trans('ConfigureCleaningCronjobToSetFrequencyOfSaves').'</a>)</td></tr>';

@@ -549,44 +549,44 @@ if ($id > 0 || !empty($ref)) {
 
 		print '<table class="border centpercent tableforfield">';
 
-		if (isModEnabled("multicurrency") && ($object->multicurrency_code != $conf->currency)) {
+		if (isModEnabled("multicurrency") && ($object->multicurrency_code != $config->currency)) {
 			// Multicurrency Amount HT
 			print '<tr><td class="titlefieldmiddle">'.$form->editfieldkey('MulticurrencyAmountHT', 'multicurrency_total_ht', '', $object, 0).'</td>';
-			print '<td class="nowrap">'.price($object->multicurrency_total_ht, 0, $langs, 0, - 1, - 1, (!empty($object->multicurrency_code) ? $object->multicurrency_code : $conf->currency)).'</td>';
+			print '<td class="nowrap">'.price($object->multicurrency_total_ht, 0, $langs, 0, - 1, - 1, (!empty($object->multicurrency_code) ? $object->multicurrency_code : $config->currency)).'</td>';
 			print '</tr>';
 
 			// Multicurrency Amount VAT
 			print '<tr><td>'.$form->editfieldkey('MulticurrencyAmountVAT', 'multicurrency_total_tva', '', $object, 0).'</td>';
-			print '<td class="nowrap">'.price($object->multicurrency_total_tva, 0, $langs, 0, - 1, - 1, (!empty($object->multicurrency_code) ? $object->multicurrency_code : $conf->currency)).'</td>';
+			print '<td class="nowrap">'.price($object->multicurrency_total_tva, 0, $langs, 0, - 1, - 1, (!empty($object->multicurrency_code) ? $object->multicurrency_code : $config->currency)).'</td>';
 			print '</tr>';
 
 			// Multicurrency Amount TTC
 			print '<tr><td>'.$form->editfieldkey('MulticurrencyAmountTTC', 'multicurrency_total_ttc', '', $object, 0).'</td>';
-			print '<td class="nowrap">'.price($object->multicurrency_total_ttc, 0, $langs, 0, - 1, - 1, (!empty($object->multicurrency_code) ? $object->multicurrency_code : $conf->currency)).'</td>';
+			print '<td class="nowrap">'.price($object->multicurrency_total_ttc, 0, $langs, 0, - 1, - 1, (!empty($object->multicurrency_code) ? $object->multicurrency_code : $config->currency)).'</td>';
 			print '</tr>';
 		}
 
 		// Total HT
 		print '<tr><td class="titlefieldmiddle">'.$langs->trans('AmountHT').'</td>';
-		print '<td>'.price($object->total_ht, 0, '', 1, -1, -1, $conf->currency).'</td>';
+		print '<td>'.price($object->total_ht, 0, '', 1, -1, -1, $config->currency).'</td>';
 		print '</tr>';
 
 		// Total VAT
-		print '<tr><td>'.$langs->trans('AmountVAT').'</td><td>'.price($object->total_tva, 0, '', 1, -1, -1, $conf->currency).'</td>';
+		print '<tr><td>'.$langs->trans('AmountVAT').'</td><td>'.price($object->total_tva, 0, '', 1, -1, -1, $config->currency).'</td>';
 		print '</tr>';
 
 		// Amount Local Taxes
 		if ($mysoc->localtax1_assuj == "1" || $object->total_localtax1 != 0) { 		// Localtax1
 			print '<tr><td>'.$langs->transcountry("AmountLT1", $mysoc->country_code).'</td>';
-			print '<td>'.price($object->total_localtax1, 1, '', 1, - 1, - 1, $conf->currency).'</td></tr>';
+			print '<td>'.price($object->total_localtax1, 1, '', 1, - 1, - 1, $config->currency).'</td></tr>';
 		}
 		if ($mysoc->localtax2_assuj == "1" || $object->total_localtax2 != 0) { 		// Localtax2 IRPF
 			print '<tr><td>'.$langs->transcountry("AmountLT2", $mysoc->country_code).'</td>';
-			print '<td>'.price($object->total_localtax2, 1, '', 1, - 1, - 1, $conf->currency).'</td></tr>';
+			print '<td>'.price($object->total_localtax2, 1, '', 1, - 1, - 1, $config->currency).'</td></tr>';
 		}
 
 		// Total TTC
-		print '<tr><td>'.$langs->trans('AmountTTC').'</td><td>'.price($object->total_ttc, 0, '', 1, -1, -1, $conf->currency).'</td>';
+		print '<tr><td>'.$langs->trans('AmountTTC').'</td><td>'.price($object->total_ttc, 0, '', 1, -1, -1, $config->currency).'</td>';
 		print '</tr>';
 
 		print '</table>';
@@ -732,7 +732,7 @@ if ($id > 0 || !empty($ref)) {
 						$text = $product_static->getNomUrl(1);
 						$text .= ' - '.$label;
 						$description = (getDolGlobalInt('PRODUIT_DESC_IN_FORM_ACCORDING_TO_DEVICE') ? '' : dol_htmlentitiesbr($objp->description)).'<br>';
-						$description .= $product_static->show_photos('product', $conf->product->multidir_output[$product_static->entity], 1, 1, 0, 0, 0, 80);
+						$description .= $product_static->show_photos('product', $config->product->multidir_output[$product_static->entity], 1, 1, 0, 0, 0, 80);
 						print $form->textwithtooltip($text, $description, 3, '', '', $i);
 
 						// Show range

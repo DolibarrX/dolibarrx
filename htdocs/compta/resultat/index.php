@@ -55,7 +55,7 @@ $date_endyear = GETPOSTINT('date_endyear');
 $nbofyear = 4;
 
 // Change this to test different cases of setup
-//$conf->global->SOCIETE_FISCAL_MONTH_START = 7;
+//$config->global->SOCIETE_FISCAL_MONTH_START = 7;
 
 
 // Date range
@@ -936,8 +936,8 @@ if (isModEnabled('accounting') && ($modecompta == 'BOOKKEEPING')) {
 
 	$sql = "SELECT b.doc_ref, b.numero_compte, b.subledger_account, b.subledger_label, aa.pcg_type, date_format(b.doc_date,'%Y-%m') as dm, sum(b.debit) as debit, sum(b.credit) as credit, sum(b.montant) as amount";
 	$sql .= " FROM ".MAIN_DB_PREFIX."accounting_bookkeeping as b, ".MAIN_DB_PREFIX."accounting_account as aa";
-	$sql .= " WHERE b.entity = ".$conf->entity;
-	$sql .= " AND aa.entity = ".$conf->entity;
+	$sql .= " WHERE b.entity = ".$config->entity;
+	$sql .= " AND aa.entity = ".$config->entity;
 	$sql .= " AND b.numero_compte = aa.account_number";
 	$sql .= " AND ".$predefinedgroupwhere;
 	$sql .= " AND fk_pcg_version = '".$db->escape($charofaccountstring)."'";
@@ -1044,7 +1044,7 @@ print '</tr>';
 
 
 // Loop on each month
-$nb_mois_decalage = $conf->global->SOCIETE_FISCAL_MONTH_START ? ($conf->global->SOCIETE_FISCAL_MONTH_START - 1) : 0;
+$nb_mois_decalage = $config->global->SOCIETE_FISCAL_MONTH_START ? ($config->global->SOCIETE_FISCAL_MONTH_START - 1) : 0;
 for ($mois = 1 + $nb_mois_decalage; $mois <= 12 + $nb_mois_decalage; $mois++) {
 	$mois_modulo = $mois;
 	if ($mois > 12) {

@@ -149,9 +149,9 @@ class FormResource
 			}
 			$out .= '</select>'."\n";
 
-			if (!empty($conf->use_javascript_ajax) && getDolGlobalString('RESOURCE_USE_SEARCH_TO_SELECT') && !$forcecombo) {
-				//$minLength = (is_numeric($conf->global->RESOURCE_USE_SEARCH_TO_SELECT)?$conf->global->RESOURCE_USE_SEARCH_TO_SELECT:2);
-				$out .= ajax_combobox($htmlname, $event, $conf->global->RESOURCE_USE_SEARCH_TO_SELECT);
+			if (!empty($config->use_javascript_ajax) && getDolGlobalString('RESOURCE_USE_SEARCH_TO_SELECT') && !$forcecombo) {
+				//$minLength = (is_numeric($config->global->RESOURCE_USE_SEARCH_TO_SELECT)?$config->global->RESOURCE_USE_SEARCH_TO_SELECT:2);
+				$out .= ajax_combobox($htmlname, $event, $config->global->RESOURCE_USE_SEARCH_TO_SELECT);
 			} else {
 				$out .= ajax_combobox($htmlname);
 			}
@@ -280,7 +280,7 @@ class FormResource
 			$size = 'size="' . $fieldsize . '"';
 		}
 
-		if ($conf->use_javascript_ajax && empty($disableautocomplete)) {
+		if ($config->use_javascript_ajax && empty($disableautocomplete)) {
 			$out .= ajax_multiautocompleter($htmlname, $fields, DOL_URL_ROOT . '/core/ajax/ziptown.php') . "\n";
 			$moreattrib .= ' autocomplete="off"';
 		}

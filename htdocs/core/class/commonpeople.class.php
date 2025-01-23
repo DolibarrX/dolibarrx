@@ -189,7 +189,7 @@ trait CommonPeople
 		$outdone = 0;
 		$coords = $this->getFullAddress(1, ', ', getDolGlobalInt('MAIN_SHOW_REGION_IN_STATE_SELECT'));
 		if ($coords) {
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				// Add picto with tooltip on map
 				$namecoords = '';
 				if ($this->element == 'contact' && getDolGlobalString('MAIN_SHOW_COMPANY_NAME_IN_BANNER_ADDRESS')) {
@@ -232,7 +232,7 @@ trait CommonPeople
 					foreach ($arrayoflangcode as $extralangcode) {
 						$s = picto_from_langcode($extralangcode, 'class="pictoforlang paddingright"');
 						// This also call dol_format_address()
-						$coords = $this->getFullAddress(1, ', ', $conf->global->MAIN_SHOW_REGION_IN_STATE_SELECT, $extralangcode);
+						$coords = $this->getFullAddress(1, ', ', $config->global->MAIN_SHOW_REGION_IN_STATE_SELECT, $extralangcode);
 						$htmltext .= $s.dol_print_address($coords, 'address_'.$htmlkey.'_'.$this->id, $this->element, $this->id, 1, ', ');
 					}
 					$out .= $form->textwithpicto('', $htmltext, -1, 'language', 'opacitymedium paddingleft');

@@ -121,7 +121,7 @@ if ($action == "importSignature") {
 			$object = new Propal($db);
 			$object->fetch(0, $ref);
 
-			$upload_dir = !empty($conf->propal->multidir_output[$object->entity]) ? $conf->propal->multidir_output[$object->entity] : $conf->propal->dir_output;
+			$upload_dir = !empty($config->propal->multidir_output[$object->entity]) ? $config->propal->multidir_output[$object->entity] : $config->propal->dir_output;
 			$upload_dir .= '/' . dol_sanitizeFileName($object->ref) . '/';
 
 			$default_font_size = pdf_getPDFFontSize($langs);    // Must be after pdf_getInstance
@@ -327,7 +327,7 @@ if ($action == "importSignature") {
 			$object = new Contrat($db);
 			$object->fetch(0, $ref);
 
-			$upload_dir = !empty($conf->contrat->multidir_output[$object->entity]) ? $conf->contrat->multidir_output[$object->entity] : $conf->contrat->dir_output;
+			$upload_dir = !empty($config->contrat->multidir_output[$object->entity]) ? $config->contrat->multidir_output[$object->entity] : $config->contrat->dir_output;
 			$upload_dir .= '/' . dol_sanitizeFileName($object->ref) . '/';
 
 			$date = dol_print_date(dol_now(), "%Y%m%d%H%M%S");
@@ -458,7 +458,7 @@ if ($action == "importSignature") {
 			$object = new Fichinter($db);
 			$object->fetch(0, $ref);
 
-			$upload_dir = !empty($conf->ficheinter->multidir_output[$object->entity]) ? $conf->ficheinter->multidir_output[$object->entity] : $conf->ficheinter->dir_output;
+			$upload_dir = !empty($config->ficheinter->multidir_output[$object->entity]) ? $config->ficheinter->multidir_output[$object->entity] : $config->ficheinter->dir_output;
 			$upload_dir .= '/'.dol_sanitizeFileName($object->ref).'/';
 
 			$langs->loadLangs(array("main", "companies"));
@@ -598,7 +598,7 @@ if ($action == "importSignature") {
 			if (!empty($object->id)) {
 				$object->fetch_thirdparty();
 
-				$upload_dir = $conf->societe->multidir_output[$object->thirdparty->entity] . '/' . dol_sanitizeFileName((string) $object->thirdparty->id) . '/';
+				$upload_dir = $config->societe->multidir_output[$object->thirdparty->entity] . '/' . dol_sanitizeFileName((string) $object->thirdparty->id) . '/';
 
 				$default_font_size = pdf_getPDFFontSize($langs);    // Must be after pdf_getInstance
 				$default_font = pdf_getPDFFont($langs);    // Must be after pdf_getInstance
@@ -685,8 +685,8 @@ if ($action == "importSignature") {
 								$classname = '';
 								$filefound = '';
 								$dirmodels = array('/');
-								if (is_array($conf->modules_parts['models'])) {
-									$dirmodels = array_merge($dirmodels, $conf->modules_parts['models']);
+								if (is_array($config->modules_parts['models'])) {
+									$dirmodels = array_merge($dirmodels, $config->modules_parts['models']);
 								}
 								foreach ($dirmodels as $reldir) {
 									$file = "pdf_" . $last_modelpdf . ".modules.php";
@@ -801,7 +801,7 @@ if ($action == "importSignature") {
 			$object = new Expedition($db);
 			$object->fetch(0, $ref);
 
-			$upload_dir = $conf->expedition->dir_output."/sending/";
+			$upload_dir = $config->expedition->dir_output."/sending/";
 			$upload_dir .= '/'.dol_sanitizeFileName($object->ref).'/';
 
 			$langs->loadLangs(array("main", "companies"));

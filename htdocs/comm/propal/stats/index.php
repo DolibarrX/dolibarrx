@@ -99,14 +99,14 @@ $langs->loadLangs(array('propal', 'other', 'companies'));
 
 $picto = 'propal';
 $title = $langs->trans("ProposalsStatistics");
-$dir = $conf->propal->dir_temp;
+$dir = $config->propal->dir_temp;
 $cat_type = Categorie::TYPE_CUSTOMER;
 $cat_label = $langs->trans("Category").' '.lcfirst($langs->trans("Customer"));
 
 if ($mode == 'supplier') {
 	$picto = 'supplier_proposal';
 	$title = $langs->trans("ProposalsStatisticsSuppliers");
-	$dir = $conf->supplier_proposal->dir_temp;
+	$dir = $config->supplier_proposal->dir_temp;
 	$cat_type = Categorie::TYPE_SUPPLIER;
 	$cat_label = $langs->trans("Category").' '.lcfirst($langs->trans("Supplier"));
 }
@@ -286,7 +286,7 @@ print $form->select_company($socid, 'socid', $filter, 1, 0, 0, array(), 0, 'widt
 print '</td></tr>';
 // ThirdParty Type
 print '<tr><td>'.$langs->trans("ThirdPartyType").'</td><td>';
-$sortparam_typent = (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $conf->global->SOCIETE_SORT_ON_TYPEENT); // NONE means we keep sort of original array, so we sort on position. ASC, means next function will sort on label.
+$sortparam_typent = (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $config->global->SOCIETE_SORT_ON_TYPEENT); // NONE means we keep sort of original array, so we sort on position. ASC, means next function will sort on label.
 print $form->selectarray("typent_id", $formcompany->typent_array(0), $typent_id, 1, 0, 0, '', 0, 0, 0, $sortparam_typent, '', 1);
 if ($user->admin) {
 	print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);

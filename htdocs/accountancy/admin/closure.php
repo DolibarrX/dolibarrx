@@ -64,7 +64,7 @@ if ($action == 'update') {
 	$defaultjournal = GETPOST('ACCOUNTING_CLOSURE_DEFAULT_JOURNAL', 'alpha');
 
 	if (!empty($defaultjournal)) {
-		if (!dolibarr_set_const($db, 'ACCOUNTING_CLOSURE_DEFAULT_JOURNAL', $defaultjournal, 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'ACCOUNTING_CLOSURE_DEFAULT_JOURNAL', $defaultjournal, 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
 	} else {
@@ -73,7 +73,7 @@ if ($action == 'update') {
 
 	$accountinggroupsusedforbalancesheetaccount = GETPOST('ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_BALANCE_SHEET_ACCOUNT', 'alphanohtml');
 	if (!empty($accountinggroupsusedforbalancesheetaccount)) {
-		if (!dolibarr_set_const($db, 'ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_BALANCE_SHEET_ACCOUNT', $accountinggroupsusedforbalancesheetaccount, 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_BALANCE_SHEET_ACCOUNT', $accountinggroupsusedforbalancesheetaccount, 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
 	} else {
@@ -82,7 +82,7 @@ if ($action == 'update') {
 
 	$accountinggroupsusedforincomestatement = GETPOST('ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_INCOME_STATEMENT', 'alpha');
 	if (!empty($accountinggroupsusedforincomestatement)) {
-		if (!dolibarr_set_const($db, 'ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_INCOME_STATEMENT', $accountinggroupsusedforincomestatement, 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_INCOME_STATEMENT', $accountinggroupsusedforincomestatement, 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
 	} else {
@@ -91,7 +91,7 @@ if ($action == 'update') {
 
 	foreach ($list_account_main as $constname) {
 		$constvalue = GETPOST($constname, 'alpha');
-		if (!dolibarr_set_const($db, $constname, $constvalue, 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, $constname, $constvalue, 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
 	}

@@ -48,7 +48,7 @@ $month = GETPOSTINT('month');
 $year = GETPOSTINT('year');
 
 $optioncss = GETPOST('optioncss', 'alpha');
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -125,7 +125,7 @@ if ($resql) {
 	$num = $db->num_rows($resql);
 
 	$param = '';
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.$limit;
 	}
 
@@ -176,10 +176,10 @@ if ($resql) {
 
 			$name = "actions-".$obj->month."-".$obj->year.".pdf";
 			$relativepath = $name;
-			$file = $conf->agenda->dir_temp."/".$name;
+			$file = $config->agenda->dir_temp."/".$name;
 			$modulepart = 'actionsreport';
 			$documenturl = DOL_URL_ROOT.'/document.php';
-			if (isset($conf->global->DOL_URL_ROOT_DOCUMENT_PHP)) {
+			if (isset($config->global->DOL_URL_ROOT_DOCUMENT_PHP)) {
 				$documenturl = getDolGlobalString('DOL_URL_ROOT_DOCUMENT_PHP'); // To use another wrapper
 			}
 

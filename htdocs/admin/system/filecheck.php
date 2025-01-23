@@ -75,7 +75,7 @@ if (!getDolGlobalString('MAIN_VERSION_LAST_UPGRADE')) {
 	}
 } else {
 	// Compare version with last upgrade database version
-	if (DOL_VERSION != $conf->global->MAIN_VERSION_LAST_UPGRADE) {
+	if (DOL_VERSION != $config->global->MAIN_VERSION_LAST_UPGRADE) {
 		print ' '.img_warning($langs->trans("RunningUpdateProcessMayBeRequired", DOL_VERSION, getDolGlobalString('MAIN_VERSION_LAST_UPGRADE')));
 	}
 }
@@ -163,11 +163,11 @@ if (GETPOST('target') == 'local') {
 	if (dol_is_file($xmlfile)) {
 		// If file is a zip file (.../filelist-x.y.z.xml.zip), we uncompress it before
 		if (preg_match('/\.zip$/i', $xmlfile)) {
-			dol_mkdir($conf->admin->dir_temp);
+			dol_mkdir($config->admin->dir_temp);
 			$xmlfilenew = preg_replace('/\.zip$/i', '', $xmlfile);
-			$result = dol_uncompress($xmlfile, $conf->admin->dir_temp);
+			$result = dol_uncompress($xmlfile, $config->admin->dir_temp);
 			if (empty($result['error'])) {
-				$xmlfile = $conf->admin->dir_temp.'/'.basename($xmlfilenew);
+				$xmlfile = $config->admin->dir_temp.'/'.basename($xmlfilenew);
 			} else {
 				print $langs->trans('FailedToUncompressFile').': '.$xmlfile;
 				$error++;

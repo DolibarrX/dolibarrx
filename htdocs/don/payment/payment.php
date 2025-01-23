@@ -175,7 +175,7 @@ if ($action == 'create') {
 
 	print load_fiche_titre($langs->trans("DoPayment"));
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print "\n".'<script type="text/javascript">';
 		//Add js for AutoFill
 		print ' $(document).ready(function () {';
@@ -265,7 +265,7 @@ if ($action == 'create') {
 		print '<td class="center">';
 		if ($sumpaid < $objp->amount) {
 			$namef = "amount_".$objp->id;
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				print img_picto("Auto fill", 'rightarrow', "class='AutoFillAmount' data-rowname='".$namef."' data-value='".price($objp->amount - $sumpaid)."'");
 			}
 			print '<input type="text" size="8" name="'.$namef.'">';

@@ -63,7 +63,7 @@ if (empty($action) && $file_manager) {
 }
 $pageid  = GETPOSTINT('pageid');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -111,7 +111,7 @@ $permissiontouploadfile = ($user->hasRight('ecm', 'setup') || $user->hasRight('m
 $permissiontoadd = $permissiontouploadfile;	// Used by the include of actions_addupdatedelete.inc.php and actions_linkedfiles
 
 
-$diroutput = $conf->medias->multidir_output[$conf->entity];
+$diroutput = $config->medias->multidir_output[$config->entity];
 
 $relativepath = $section_dir;
 $upload_dir = preg_replace('/\/$/', '', $diroutput).'/'.preg_replace('/^\//', '', $relativepath);
@@ -176,11 +176,11 @@ if ($action == 'refreshmanual' && $permissiontoread) {
 	// This part of code is same than into file ecm/ajax/ecmdatabase.php TODO Remove duplicate
 	clearstatcache();
 
-	$diroutputslash = str_replace('\\', '/', $conf->ecm->dir_output);
+	$diroutputslash = str_replace('\\', '/', $config->ecm->dir_output);
 	$diroutputslash .= '/';
 
 	// Scan directory tree on disk
-	$disktree = dol_dir_list($conf->ecm->dir_output, 'directories', 1, '', '^temp$', '', 0, 0);
+	$disktree = dol_dir_list($config->ecm->dir_output, 'directories', 1, '', '^temp$', '', 0, 0);
 
 	// Scan directory tree in database
 	$sqltree = $ecmdirstatic->get_full_arbo(0);
@@ -193,7 +193,7 @@ if ($action == 'refreshmanual' && $permissiontoread) {
 	foreach ($disktree as $dirdesc) {    // Loop on tree onto disk
 		$dirisindatabase = 0;
 		foreach ($sqltree as $dirsqldesc) {
-			if ($conf->ecm->dir_output.'/'.$dirsqldesc['fullrelativename'] == $dirdesc['fullname']) {
+			if ($config->ecm->dir_output.'/'.$dirsqldesc['fullrelativename'] == $dirdesc['fullname']) {
 				$dirisindatabase = 1;
 				break;
 			}
@@ -268,7 +268,7 @@ if ($action == 'refreshmanual' && $permissiontoread) {
 
 	// Loop now on each sql tree to check if dir exists
 	foreach ($sqltree as $dirdesc) {    // Loop on each sqltree to check dir is on disk
-		$dirtotest = $conf->ecm->dir_output.'/'.$dirdesc['fullrelativename'];
+		$dirtotest = $config->ecm->dir_output.'/'.$dirdesc['fullrelativename'];
 		if (!dol_is_dir($dirtotest)) {
 			$ecmdirtmp->id = $dirdesc['id'];
 			$ecmdirtmp->delete($user, 'databaseonly');
@@ -307,7 +307,7 @@ if (!getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
 }
 
 $moreheadjs .= '<script type="text/javascript">'."\n";
-$moreheadjs .= 'var indicatorBlockUI = \''.DOL_URL_ROOT."/theme/".$conf->theme."/img/working.gif".'\';'."\n";
+$moreheadjs .= 'var indicatorBlockUI = \''.DOL_URL_ROOT."/theme/".$config->theme."/img/working.gif".'\';'."\n";
 $moreheadjs .= '</script>'."\n";
 
 llxHeader($moreheadcss.$moreheadjs, $langs->trans("ECMArea"), '', '', 0, 0, $morejs, '', '', 'mod-ecm page-index_medias');

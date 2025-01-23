@@ -70,10 +70,10 @@ if (!$sortfield) {
 if (empty($page) || $page == -1) {
 	$page = 0;
 }
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $offset = $limit * $page;
 
-$upload_dir = $conf->bank->multidir_output[$object->entity ? $object->entity : $conf->entity]."/checkdeposits";
+$upload_dir = $config->bank->multidir_output[$object->entity ? $object->entity : $config->entity]."/checkdeposits";
 
 // filter by dates from / to
 $search_date_start_day = GETPOSTINT('search_date_start_day');
@@ -547,7 +547,7 @@ if ($action == 'new') {
 		print '<td class="center">'.$langs->trans("Payment")."</td>\n";
 		print '<td class="center">'.$langs->trans("LineRecord")."</td>\n";
 		print '<td class="center">'.$langs->trans("Select")."<br>";
-		if ($conf->use_javascript_ajax) {
+		if ($config->use_javascript_ajax) {
 			print '<a href="#" id="checkall_'.$bid.'">'.$langs->trans("All").'</a> / <a href="#" id="checknone_'.$bid.'">'.$langs->trans("None").'</a>';
 		}
 		print '</td>';
@@ -560,7 +560,7 @@ if ($action == 'new') {
 				print '<td>'.$value["numero"]."</td>\n";
 				print '<td>'.$value["emetteur"]."</td>\n";
 				print '<td>'.$value["banque"]."</td>\n";
-				print '<td class="right"><span class="amount">'.price($value["amount"], 0, $langs, 1, -1, -1, $conf->currency).'</span></td>';
+				print '<td class="right"><span class="amount">'.price($value["amount"], 0, $langs, 1, -1, -1, $config->currency).'</span></td>';
 
 				// Link to payment
 				print '<td class="center">';

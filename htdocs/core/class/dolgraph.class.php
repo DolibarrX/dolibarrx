@@ -212,12 +212,12 @@ class DolGraph
 		$this->bgcolor = array(235, 235, 224);
 
 		// For small screen, we prefer a default with of 300
-		if (!empty($conf->dol_optimize_smallscreen)) {
+		if (!empty($config->dol_optimize_smallscreen)) {
 			$this->width = 300;
 		}
 
 		// Load color of the theme
-		$color_file = DOL_DOCUMENT_ROOT . '/theme/' . $conf->theme . '/theme_vars.inc.php';
+		$color_file = DOL_DOCUMENT_ROOT . '/theme/' . $config->theme . '/theme_vars.inc.php';
 		if (is_readable($color_file)) {
 			include $color_file;
 			if (isset($theme_bordercolor)) {
@@ -234,7 +234,7 @@ class DolGraph
 
 		$this->_library = $library;
 		if ($this->_library == 'auto') {
-			$this->_library = (!getDolGlobalString('MAIN_JS_GRAPH') ? 'chart' : $conf->global->MAIN_JS_GRAPH);
+			$this->_library = (!getDolGlobalString('MAIN_JS_GRAPH') ? 'chart' : $config->global->MAIN_JS_GRAPH);
 		}
 	}
 
@@ -1694,13 +1694,13 @@ class DolGraph
 		$defaultsize = (int) $defaultsize;
 
 		if ($direction == 'width') {
-			if (empty($conf->dol_optimize_smallscreen)) {
+			if (empty($config->dol_optimize_smallscreen)) {
 				return ($defaultsize ? $defaultsize : 500);
 			} else {
 				return (empty($_SESSION['dol_screenwidth']) ? 280 : ($_SESSION['dol_screenwidth'] - 40));
 			}
 		} elseif ($direction == 'height') {
-			return (empty($conf->dol_optimize_smallscreen) ? ($defaultsize ? $defaultsize : 220) : 200);
+			return (empty($config->dol_optimize_smallscreen) ? ($defaultsize ? $defaultsize : 220) : 200);
 		}
 		return 0;
 	}

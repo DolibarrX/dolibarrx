@@ -84,7 +84,7 @@ $search_users = GETPOST('search_users', 'intcomma');
 $search_type = GETPOST('search_type', 'alpha');
 $search_account = GETPOST('search_account', 'alpha');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST("sortorder", 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -188,7 +188,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'ChargeSociales';
 	$objectlabel = 'ChargeSociales';
-	$uploaddir = $conf->tax->dir_output;
+	$uploaddir = $config->tax->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -231,7 +231,7 @@ if (isModEnabled('project')) {
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiementcharge as pc ON pc.fk_charge = cs.rowid";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as u ON (cs.fk_user = u.rowid)";
 $sql .= " WHERE cs.fk_type = c.id";
-$sql .= " AND cs.entity = ".((int) $conf->entity);
+$sql .= " AND cs.entity = ".((int) $config->entity);
 // Search criteria
 if ($search_ref) {
 	$sql .= " AND cs.ref = '".$db->escape($search_ref)."'";
@@ -324,7 +324,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($search_ref) {

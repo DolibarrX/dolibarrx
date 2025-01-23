@@ -91,7 +91,7 @@ $form = new Form($db);
 llxHeader();
 
 $title = $langs->trans("TripsAndExpensesStatistics");
-$dir = $conf->deplacement->dir_temp;
+$dir = $config->deplacement->dir_temp;
 
 print load_fiche_titre($title, $mesg);
 

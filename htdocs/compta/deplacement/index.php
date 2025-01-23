@@ -47,7 +47,7 @@ if ($user->socid) {
 }
 $result = restrictedArea($user, 'deplacement', '', '');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -63,7 +63,7 @@ if (!$sortorder) {
 if (!$sortfield) {
 	$sortfield = "d.dated";
 }
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 
 
 /*
@@ -84,7 +84,7 @@ llxHeader('', $langs->trans("TripsAndExpenses"), $help_url);
 $totalnb = 0;
 $sql = "SELECT count(d.rowid) as nb, sum(d.km) as km, d.type";
 $sql .= " FROM ".MAIN_DB_PREFIX."deplacement as d";
-$sql .= " WHERE d.entity = ".$conf->entity;
+$sql .= " WHERE d.entity = ".$config->entity;
 if (!$user->hasRight('deplacement', 'readall') && !$user->hasRight('deplacement', 'lire_tous')) {
 	$sql .= ' AND d.fk_user IN ('.$db->sanitize(implode(',', $childids)).')';
 }
@@ -129,7 +129,7 @@ foreach ($listoftype as $code => $label) {
 	$dataseries[] = array($label, (isset($nb[$code]) ? (int) $nb[$code] : 0));
 }
 
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print '<tr><td align="center" colspan="4">';
 
 	include_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
@@ -164,7 +164,7 @@ $langs->load("boxes");
 $sql = "SELECT u.rowid as uid, u.lastname, u.firstname, d.rowid, d.dated as date, d.tms as dm, d.km, d.fk_statut";
 $sql .= " FROM ".MAIN_DB_PREFIX."deplacement as d, ".MAIN_DB_PREFIX."user as u";
 $sql .= " WHERE u.rowid = d.fk_user";
-$sql .= " AND d.entity = ".$conf->entity;
+$sql .= " AND d.entity = ".$config->entity;
 if (!$user->hasRight('deplacement', 'readall') && !$user->hasRight('deplacement', 'lire_tous')) {
 	$sql .= ' AND d.fk_user IN ('.$db->sanitize(implode(',', $childids)).')';
 }

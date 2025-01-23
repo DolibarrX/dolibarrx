@@ -102,7 +102,7 @@ $extrafields = new ExtraFields($db);
 $user->loadDefaultValues();
 
 // Security check
-if (empty($conf->project->enabled)) {
+if (empty($config->project->enabled)) {
 	httponly_accessforbidden('Module Project not enabled');
 }
 
@@ -130,9 +130,9 @@ function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $
 	// Define urllogo
 	$urllogo = DOL_URL_ROOT.'/theme/common/login_logo.png';
 
-	if (!empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
+	if (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
 		$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_small);
-	} elseif (!empty($mysoc->logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
+	} elseif (!empty($mysoc->logo) && is_readable($config->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
 		$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/'.$mysoc->logo);
 	} elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.svg')) {
 		$urllogo = DOL_URL_ROOT.'/theme/dolibarr_logo.svg';
@@ -210,10 +210,10 @@ if (getDolGlobalString('ONLINE_PAYMENT_CSS_URL')) {
 	$head = '<link rel="stylesheet" type="text/css" href="' . getDolGlobalString('ONLINE_PAYMENT_CSS_URL').'?lang='.$langs->defaultlang.'">'."\n";
 }
 
-$conf->dol_hide_topmenu = 1;
-$conf->dol_hide_leftmenu = 1;
+$config->dol_hide_topmenu = 1;
+$config->dol_hide_leftmenu = 1;
 
-$replacemainarea = (empty($conf->dol_hide_leftmenu) ? '<div>' : '').'<div>';
+$replacemainarea = (empty($config->dol_hide_leftmenu) ? '<div>' : '').'<div>';
 
 //llxHeader($head, $langs->trans("SuggestForm"), '', '', 0, 0, '', '', '', 'onlinepaymentbody', $replacemainarea);
 

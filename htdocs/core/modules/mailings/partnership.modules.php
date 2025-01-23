@@ -103,7 +103,7 @@ class mailing_partnership extends MailingTargets
 			$sql .= " AND p.status = ".GETPOSTINT('filter_status_partnership');
 		}
 		if (empty($this->evenunsubscribe)) {
-			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $conf->entity).")";
+			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $config->entity).")";
 		}
 
 		$sql .= " UNION ";
@@ -122,7 +122,7 @@ class mailing_partnership extends MailingTargets
 			$sql .= " AND p.status = ".GETPOSTINT('filter_status_partnership');
 		}
 		if (empty($this->evenunsubscribe)) {
-			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $conf->entity).")";
+			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $config->entity).")";
 		}
 
 		$sql .= " ORDER BY email";
@@ -206,7 +206,7 @@ class mailing_partnership extends MailingTargets
 		$sql .= " WHERE s.rowid = p.fk_soc AND s.email <> ''";
 		$sql .= " AND s.entity IN (".getEntity('societe').")";
 		if (empty($this->evenunsubscribe)) {
-			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $conf->entity).")";
+			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $config->entity).")";
 		}
 
 		$sql .= " UNION ";
@@ -216,7 +216,7 @@ class mailing_partnership extends MailingTargets
 		$sql .= " WHERE s.rowid = p.fk_member AND s.email <> ''";
 		$sql .= " AND s.entity IN (".getEntity('member').")";
 		if (empty($this->evenunsubscribe)) {
-			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $conf->entity).")";
+			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $config->entity).")";
 		}
 
 		//print $sql;
@@ -243,7 +243,7 @@ class mailing_partnership extends MailingTargets
 		$sql = "SELECT rowid, label, code, active";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_partnership_type";
 		$sql .= " WHERE active = 1";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 		$sql .= " ORDER BY label";
 
 		//print $sql;
@@ -251,7 +251,7 @@ class mailing_partnership extends MailingTargets
 		if ($resql) {
 			$num = $this->db->num_rows($resql);
 
-			if (empty($conf->partnership->enabled)) {
+			if (empty($config->partnership->enabled)) {
 				$num = 0;   // Force empty list if category module is not enabled
 			}
 

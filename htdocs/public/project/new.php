@@ -90,7 +90,7 @@ $object = new Project($db);
 $user->loadDefaultValues();
 
 // Security check
-if (empty($conf->project->enabled)) {
+if (empty($config->project->enabled)) {
 	httponly_accessforbidden('Module Project not enabled');
 }
 
@@ -117,9 +117,9 @@ function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $
 	// Define urllogo
 	$urllogo = DOL_URL_ROOT.'/theme/common/login_logo.png';
 
-	if (!empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
+	if (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
 		$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_small);
-	} elseif (!empty($mysoc->logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
+	} elseif (!empty($mysoc->logo) && is_readable($config->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
 		$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/'.$mysoc->logo);
 	} elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.svg')) {
 		$urllogo = DOL_URL_ROOT.'/theme/dolibarr_logo.svg';
@@ -273,7 +273,7 @@ if (empty($reshook) && $action == 'add') {	// Test on permission not required he
 		$classname = '';
 		$reldir = '';
 		$filefound = 0;
-		$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+		$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 		foreach ($dirmodels as $reldir) {
 			$file = dol_buildpath($reldir."core/modules/project/".$modele.'.php', 0);
 			if (file_exists($file)) {
@@ -531,9 +531,9 @@ print '</td></tr>';
 print '<tr><td>'.$langs->trans('Country').'</td><td>';
 $country_id = GETPOST('country_id');
 if (!$country_id && getDolGlobalString('PROJECT_NEWFORM_FORCECOUNTRYCODE')) {
-	$country_id = getCountry($conf->global->PROJECT_NEWFORM_FORCECOUNTRYCODE, '2', $db, $langs);
+	$country_id = getCountry($config->global->PROJECT_NEWFORM_FORCECOUNTRYCODE, '2', $db, $langs);
 }
-if (!$country_id && !empty($conf->geoipmaxmind->enabled)) {
+if (!$country_id && !empty($config->geoipmaxmind->enabled)) {
 	$country_code = dol_user_country();
 	//print $country_code;
 	if ($country_code) {

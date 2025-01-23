@@ -114,7 +114,7 @@ abstract class ActionsAdherentCardCommon
 		$this->tpl['errors'] = $this->errors;
 
 		if ($action == 'create' || $action == 'edit') {
-			if ($conf->use_javascript_ajax) {
+			if ($config->use_javascript_ajax) {
 				$this->tpl['ajax_selectcountry'] = "\n".'<script type="text/javascript">
 				jQuery(document).ready(function () {
 						jQuery("#selectcountry_id").change(function() {

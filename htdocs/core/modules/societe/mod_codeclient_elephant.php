@@ -85,7 +85,7 @@ class mod_codeclient_elephant extends ModeleThirdPartyCode
 
 		$langs->load("companies");
 
-		$disabled = ((!empty($mc->sharings['referent']) && $mc->sharings['referent'] != $conf->entity) ? ' disabled' : '');
+		$disabled = ((!empty($mc->sharings['referent']) && $mc->sharings['referent'] != $config->entity) ? ' disabled' : '');
 
 		$texte = $langs->trans('GenericNumRefModelDesc')."<br>\n";
 		$texte .= '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
@@ -128,9 +128,9 @@ class mod_codeclient_elephant extends ModeleThirdPartyCode
 			if (!is_numeric($datedb) && GETPOSTISSET('value3')) {
 				if (GETPOST('value4') == 1) {
 					$dateinput = GETPOSTDATE('value3');
-					$res = dolibarr_set_const($this->db, 'COMPANY_ELEPHANT_DATE_START', $dateinput, 'chaine', 0, '', $conf->entity);
+					$res = dolibarr_set_const($this->db, 'COMPANY_ELEPHANT_DATE_START', $dateinput, 'chaine', 0, '', $config->entity);
 				} else {
-					$res = dolibarr_set_const($this->db, 'COMPANY_ELEPHANT_DATE_START', '', 'chaine', 0, '', $conf->entity);
+					$res = dolibarr_set_const($this->db, 'COMPANY_ELEPHANT_DATE_START', '', 'chaine', 0, '', $config->entity);
 				}
 			} else {
 				$dateinput = $datedb;
@@ -322,10 +322,10 @@ class mod_codeclient_elephant extends ModeleThirdPartyCode
 			// Get Mask value
 			$mask = '';
 			if ($type == 0) {
-				$mask = !getDolGlobalString('COMPANY_ELEPHANT_MASK_CUSTOMER') ? '' : $conf->global->COMPANY_ELEPHANT_MASK_CUSTOMER;
+				$mask = !getDolGlobalString('COMPANY_ELEPHANT_MASK_CUSTOMER') ? '' : $config->global->COMPANY_ELEPHANT_MASK_CUSTOMER;
 			}
 			if ($type == 1) {
-				$mask = !getDolGlobalString('COMPANY_ELEPHANT_MASK_SUPPLIER') ? '' : $conf->global->COMPANY_ELEPHANT_MASK_SUPPLIER;
+				$mask = !getDolGlobalString('COMPANY_ELEPHANT_MASK_SUPPLIER') ? '' : $config->global->COMPANY_ELEPHANT_MASK_SUPPLIER;
 			}
 			if (!$mask) {
 				$this->error = 'NotConfigured';

@@ -157,9 +157,9 @@ class modBookCal extends DolibarrModules
 			'fr_FR:ParentCompany'=>'Maison mère ou revendeur'
 		)*/
 
-		if (!isset($conf->bookcal) || !isset($conf->bookcal->enabled)) {
-			$conf->bookcal = new stdClass();
-			$conf->bookcal->enabled = 0;
+		if (!isset($config->bookcal) || !isset($config->bookcal->enabled)) {
+			$config->bookcal = new stdClass();
+			$config->bookcal->enabled = 0;
 		}
 
 		// Array to add new pages in new tabs
@@ -212,7 +212,7 @@ class modBookCal extends DolibarrModules
 			// Name of columns with primary key (try to always name it 'rowid')
 			'tabrowid'=>array("rowid", "rowid", "rowid"),
 			// Condition to show each dictionary
-			'tabcond'=>array($conf->bookcal->enabled, $conf->bookcal->enabled, $conf->bookcal->enabled)
+			'tabcond'=>array($config->bookcal->enabled, $config->bookcal->enabled, $config->bookcal->enabled)
 			// Help tooltip for each fields of the dictionary
 			'tabhelp'=>array(array('code'=>$langs->trans('CodeTooltipHelp')))
 		);
@@ -243,13 +243,13 @@ class modBookCal extends DolibarrModules
 			//      'frequency' => 2,
 			//      'unitfrequency' => 3600,
 			//      'status' => 0,
-			//      'test' => '$conf->bookcal->enabled',
+			//      'test' => '$config->bookcal->enabled',
 			//      'priority' => 50,
 			//  ),
 		);
 		// Example: $this->cronjobs=array(
-		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->bookcal->enabled', 'priority'=>50),
-		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->bookcal->enabled', 'priority'=>50)
+		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$config->bookcal->enabled', 'priority'=>50),
+		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$config->bookcal->enabled', 'priority'=>50)
 		// );
 
 		// Permissions provided by this module
@@ -305,7 +305,7 @@ class modBookCal extends DolibarrModules
 			'url'=>'/bookcal/bookcalindex.php',
 			'langs'=>'bookcal', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000 + $r,
-			'enabled'=>'$conf->bookcal->enabled', // Define condition to show or hide menu entry. Use '$conf->bookcal->enabled' if entry must be visible if module is enabled.
+			'enabled'=>'$config->bookcal->enabled', // Define condition to show or hide menu entry. Use '$config->bookcal->enabled' if entry must be visible if module is enabled.
 			'perms'=>'$user->rights->bookcal->availabilities->read', // Use 'perms'=>'$user->rights->bookcal->availabilities->read' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>2, // 0=Menu for internal users, 1=external users, 2=both
@@ -340,8 +340,8 @@ class modBookCal extends DolibarrModules
 			// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'langs' => 'bookcal',
 			'position' => 1100 + $r,
-			// Define condition to show or hide menu entry. Use '$conf->bookcal->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-			'enabled' => '$conf->bookcal->enabled',
+			// Define condition to show or hide menu entry. Use '$config->bookcal->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => '$config->bookcal->enabled',
 			// Use 'perms'=>'$user->rights->bookcal->level1->level2' if you want your menu with a permission rules
 			'perms' => '$user->rights->bookcal->calendar->read',
 			'target' => '',
@@ -360,8 +360,8 @@ class modBookCal extends DolibarrModules
 			// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'langs' => 'bookcal',
 			'position' => 1100 + $r,
-			// Define condition to show or hide menu entry. Use '$conf->bookcal->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-			'enabled' => '$conf->bookcal->enabled',
+			// Define condition to show or hide menu entry. Use '$config->bookcal->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => '$config->bookcal->enabled',
 			// Use 'perms'=>'$user->rights->bookcal->level1->level2' if you want your menu with a permission rules
 			'perms' => '$user->rights->bookcal->calendar->read',
 			'target' => '',
@@ -381,7 +381,7 @@ class modBookCal extends DolibarrModules
 			'url'=>'/bookcal/bookcalindex.php',
 			'langs'=>'bookcal@bookcal',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000+$r,
-			'enabled'=>'$conf->bookcal->enabled',  // Define condition to show or hide menu entry. Use '$conf->bookcal->enabled' if entry must be visible if module is enabled.
+			'enabled'=>'$config->bookcal->enabled',  // Define condition to show or hide menu entry. Use '$config->bookcal->enabled' if entry must be visible if module is enabled.
 			'perms'=>'$user->rights->bookcal->availabilities->read',			                // Use 'perms'=>'$user->rights->bookcal->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>2,				                // 0=Menu for internal users, 1=external users, 2=both
@@ -395,7 +395,7 @@ class modBookCal extends DolibarrModules
 			'url'=>'/bookcal/availabilities_list.php',
 			'langs'=>'bookcal@bookcal',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000+$r,
-			'enabled'=>'$conf->bookcal->enabled',  // Define condition to show or hide menu entry. Use '$conf->bookcal->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled'=>'$config->bookcal->enabled',  // Define condition to show or hide menu entry. Use '$config->bookcal->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms'=>'$user->rights->bookcal->availabilities->read',			                // Use 'perms'=>'$user->rights->bookcal->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>2,				                // 0=Menu for internal users, 1=external users, 2=both
@@ -409,7 +409,7 @@ class modBookCal extends DolibarrModules
 			'url'=>'/bookcal/availabilities_card.php?action=create',
 			'langs'=>'bookcal@bookcal',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000+$r,
-			'enabled'=>'$conf->bookcal->enabled',  // Define condition to show or hide menu entry. Use '$conf->bookcal->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled'=>'$config->bookcal->enabled',  // Define condition to show or hide menu entry. Use '$config->bookcal->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms'=>'$user->rights->bookcal->availabilities->write',			                // Use 'perms'=>'$user->rights->bookcal->level1->level2' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>2,				                // 0=Menu for internal users, 1=external users, 2=both
@@ -428,8 +428,8 @@ class modBookCal extends DolibarrModules
 			// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'langs' => 'bookcal',
 			'position' => 1200 + $r,
-			// Define condition to show or hide menu entry. Use '$conf->bookcal->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-			'enabled' => '$conf->bookcal->enabled',
+			// Define condition to show or hide menu entry. Use '$config->bookcal->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => '$config->bookcal->enabled',
 			// Use 'perms'=>'$user->rights->bookcal->level1->level2' if you want your menu with a permission rules
 			'perms' => '$user->rights->bookcal->availabilities->read',
 			'target' => '',
@@ -448,8 +448,8 @@ class modBookCal extends DolibarrModules
 			// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'langs' => 'bookcal',
 			'position' => 1200 + $r,
-			// Define condition to show or hide menu entry. Use '$conf->bookcal->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-			'enabled' => '$conf->bookcal->enabled',
+			// Define condition to show or hide menu entry. Use '$config->bookcal->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => '$config->bookcal->enabled',
 			// Use 'perms'=>'$user->rights->bookcal->level1->level2' if you want your menu with a permission rules
 			'perms' => '$user->rights->bookcal->availabilities->read',
 			'target' => '',
@@ -513,8 +513,8 @@ class modBookCal extends DolibarrModules
 		$this->import_convertvalue_array[$r] = array(
 			't.ref' => array(
 				'rule'=>'getrefifauto',
-				'class'=>(empty($conf->global->BOOKCAL_AVAILABILITIES_ADDON) ? 'mod_availabilities_standard' : $conf->global->BOOKCAL_AVAILABILITIES_ADDON),
-				'path'=>"/core/modules/commande/".(empty($conf->global->BOOKCAL_AVAILABILITIES_ADDON) ? 'mod_availabilities_standard' : $conf->global->BOOKCAL_AVAILABILITIES_ADDON).'.php'
+				'class'=>(empty($config->global->BOOKCAL_AVAILABILITIES_ADDON) ? 'mod_availabilities_standard' : $config->global->BOOKCAL_AVAILABILITIES_ADDON),
+				'path'=>"/core/modules/commande/".(empty($config->global->BOOKCAL_AVAILABILITIES_ADDON) ? 'mod_availabilities_standard' : $config->global->BOOKCAL_AVAILABILITIES_ADDON).'.php'
 				'classobject'=>'Availabilities',
 				'pathobject'=>'/bookcal/class/availabilities.class.php',
 			),

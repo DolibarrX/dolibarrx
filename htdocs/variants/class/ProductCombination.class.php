@@ -123,7 +123,7 @@ class ProductCombination
 		global $conf;
 
 		$this->db = $db;
-		$this->entity = $conf->entity;
+		$this->entity = $config->entity;
 	}
 
 	/**
@@ -856,7 +856,7 @@ class ProductCombination
 			}
 
 			if ($forced_refvar === false) {
-				if (isset($conf->global->PRODUIT_ATTRIBUTES_SEPARATOR)) {
+				if (isset($config->global->PRODUIT_ATTRIBUTES_SEPARATOR)) {
 					$newproduct->ref .= getDolGlobalString('PRODUIT_ATTRIBUTES_SEPARATOR') . $prodattrval->ref;
 				} else {
 					$newproduct->ref .= '_'.$prodattrval->ref;

@@ -86,7 +86,7 @@ $permissiontoadd = $user->hasRight('stocktransfer', 'stocktransfer', 'write'); /
 $permissionnote = $user->hasRight('stocktransfer', 'stocktransfer', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiontodelete = $user->rights->stocktransfer->stocktransfer->delete || ($permissiontoadd && isset($object->status) && $object->status < $object::STATUS_TRANSFERED);
 $permissiondellink = $user->hasRight('stocktransfer', 'stocktransfer', 'write'); // Used by the include of actions_dellink.inc.php
-$upload_dir = $conf->stocktransfer->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->stocktransfer->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 // Security check - Protection if external user
 //if ($user->socid > 0) accessforbidden();
@@ -184,7 +184,7 @@ if ($object->id > 0) {
 
 	$user->rights->stocktransfer->write = $user->hasRight('stocktransfer', 'stocktransfer', 'write');
 	// Contacts lines (modules that overwrite templates must declare this into descriptor)
-	$dirtpls = array_merge($conf->modules_parts['tpl'], array('/core/tpl'));
+	$dirtpls = array_merge($config->modules_parts['tpl'], array('/core/tpl'));
 	foreach ($dirtpls as $reldir) {
 		$res = @include dol_buildpath($reldir.'/contacts.tpl.php');
 		if ($res) {

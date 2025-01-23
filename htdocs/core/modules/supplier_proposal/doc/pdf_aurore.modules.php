@@ -206,10 +206,10 @@ class pdf_aurore extends ModelePDFSupplierProposal
 
 				if (getDolGlobalInt('PRODUCT_USE_OLD_PATH_FOR_PHOTO')) {
 					$pdir = get_exdir($object->lines[$i]->fk_product, 2, 0, 0, $objphoto, 'product').$object->lines[$i]->fk_product."/photos/";
-					$dir = $conf->product->dir_output.'/'.$pdir;
+					$dir = $config->product->dir_output.'/'.$pdir;
 				} else {
 					$pdir = get_exdir(0, 0, 0, 0, $objphoto, 'product');
-					$dir = $conf->product->dir_output.'/'.$pdir;
+					$dir = $config->product->dir_output.'/'.$pdir;
 				}
 
 				$realpath = '';
@@ -236,18 +236,18 @@ class pdf_aurore extends ModelePDFSupplierProposal
 			$this->posxpicture = $this->posxup;
 		}
 
-		if ($conf->supplier_proposal->dir_output) {
+		if ($config->supplier_proposal->dir_output) {
 			$object->fetch_thirdparty();
 
 			// $deja_regle = 0;
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->supplier_proposal->dir_output;
+				$dir = $config->supplier_proposal->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->supplier_proposal->dir_output."/".$objectref;
+				$dir = $config->supplier_proposal->dir_output."/".$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 
@@ -287,7 +287,7 @@ class pdf_aurore extends ModelePDFSupplierProposal
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
+					$pagecount = $pdf->setSourceFile($config->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -730,7 +730,7 @@ class pdf_aurore extends ModelePDFSupplierProposal
 		global $conf;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
-		$diffsizetitle = (!getDolGlobalString('PDF_DIFFSIZE_TITLE') ? 3 : $conf->global->PDF_DIFFSIZE_TITLE);
+		$diffsizetitle = (!getDolGlobalString('PDF_DIFFSIZE_TITLE') ? 3 : $config->global->PDF_DIFFSIZE_TITLE);
 
 		$pdf->SetFont('', '', $default_font_size - 1);
 
@@ -851,7 +851,7 @@ class pdf_aurore extends ModelePDFSupplierProposal
 			// If payment mode not forced or forced to VIR, show payment with BAN
 			if (empty($object->mode_reglement_code) || $object->mode_reglement_code == 'VIR') {
 				if (!empty($object->fk_bank) || getDolGlobalInt('FACTURE_RIB_NUMBER')) {
-					$bankid = (empty($object->fk_bank) ? $conf->global->FACTURE_RIB_NUMBER : $object->fk_bank);
+					$bankid = (empty($object->fk_bank) ? $config->global->FACTURE_RIB_NUMBER : $object->fk_bank);
 					$account = new Account($this->db);
 					$account->fetch($bankid);
 
@@ -1135,7 +1135,7 @@ class pdf_aurore extends ModelePDFSupplierProposal
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)
@@ -1147,7 +1147,7 @@ class pdf_aurore extends ModelePDFSupplierProposal
 			$pdf->SetXY($this->page_largeur - $this->marge_droite - ($pdf->GetStringWidth($titre) + 3), $tab_top - 4);
 			$pdf->MultiCell(($pdf->GetStringWidth($titre) + 3), 2, $titre);
 
-			//$conf->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
+			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
 				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, 5, $this->corner_radius, '1001', 'F', array(), explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
@@ -1235,9 +1235,9 @@ class pdf_aurore extends ModelePDFSupplierProposal
 		// Logo
 		if (!getDolGlobalInt('PDF_DISABLE_MYCOMPANY_LOGO')) {
 			if ($this->emetteur->logo) {
-				$logodir = $conf->mycompany->dir_output;
-				if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-					$logodir = $conf->mycompany->multidir_output[$object->entity];
+				$logodir = $config->mycompany->dir_output;
+				if (!empty($config->mycompany->multidir_output[$object->entity])) {
+					$logodir = $config->mycompany->multidir_output[$object->entity];
 				}
 				if (!getDolGlobalInt('MAIN_PDF_USE_LARGE_LOGO')) {
 					$logo = $logodir.'/logos/thumbs/'.$this->emetteur->logo_small;
@@ -1375,7 +1375,7 @@ class pdf_aurore extends ModelePDFSupplierProposal
 
 			// Recipient name
 			if (!empty($usecontact)) {
-				if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
+				if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
 					$socname = $object->contact;
 				} else {
 					$socname = $object->thirdparty;

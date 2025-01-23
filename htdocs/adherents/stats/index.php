@@ -84,7 +84,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-member page-stats');
 
 print load_fiche_titre($title, '', $memberstatic->picto);
 
-$dir = $conf->adherent->dir_temp;
+$dir = $config->adherent->dir_temp;
 
 dol_mkdir($dir);
 

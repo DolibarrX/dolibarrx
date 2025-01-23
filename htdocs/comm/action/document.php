@@ -76,7 +76,7 @@ if ($id > 0) {
 $hookManager->initHooks(array('actioncard', 'globalcard'));
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -93,7 +93,7 @@ if (!$sortfield) {
 	$sortfield = "name";
 }
 
-$upload_dir = $conf->agenda->dir_output.'/'.dol_sanitizeFileName($object->ref);
+$upload_dir = $config->agenda->dir_output.'/'.dol_sanitizeFileName($object->ref);
 $modulepart = 'actions';
 
 $result = restrictedArea($user, 'agenda', $id, 'actioncomm&societe', 'myactions|allactions', 'fk_soc', 'id');

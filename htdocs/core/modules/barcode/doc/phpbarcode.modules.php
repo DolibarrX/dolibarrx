@@ -189,12 +189,12 @@ class modPhpbarcode extends ModeleBarCode
 	{
 		global $conf, $langs;
 
-		dol_mkdir($conf->barcode->dir_temp);
-		if (!is_writable($conf->barcode->dir_temp)) {
+		dol_mkdir($config->barcode->dir_temp);
+		if (!is_writable($config->barcode->dir_temp)) {
 			if ($langs instanceof Translate) {
-				$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->barcode->dir_temp);
+				$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->barcode->dir_temp);
 			} else {
-				$this->error = "ErrorFailedToWriteInTempDirectory ".$conf->barcode->dir_temp;
+				$this->error = "ErrorFailedToWriteInTempDirectory ".$config->barcode->dir_temp;
 			}
 			dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 			return -1;
@@ -206,7 +206,7 @@ class modPhpbarcode extends ModeleBarCode
 		}
 
 		global $filebarcode;
-		$filebarcode = $conf->barcode->dir_temp . '/barcode_' . $newcode . '_' . $encoding . '.png';
+		$filebarcode = $config->barcode->dir_temp . '/barcode_' . $newcode . '_' . $encoding . '.png';
 
 		$result = $this->buildBarCode($code, $encoding, $readable, $scale, $nooutputiferror);
 

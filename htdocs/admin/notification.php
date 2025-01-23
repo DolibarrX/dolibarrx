@@ -77,13 +77,13 @@ if ($action == 'settemplates' && $user->admin) {
 				$consttype = 'emailtemplate:'.$tmparray[1];
 				//var_dump($constvalue);
 				//var_dump($consttype);
-				$res = dolibarr_set_const($db, $triggername.'_TEMPLATE', $constvalue, $consttype, 0, '', $conf->entity);
+				$res = dolibarr_set_const($db, $triggername.'_TEMPLATE', $constvalue, $consttype, 0, '', $config->entity);
 				if ($res < 0) {
 					$error++;
 					break;
 				}
 			} else {
-				$res = dolibarr_del_const($db, $triggername.'_TEMPLATE', $conf->entity);
+				$res = dolibarr_del_const($db, $triggername.'_TEMPLATE', $config->entity);
 			}
 		}
 	}
@@ -103,12 +103,12 @@ if ($action == 'settemplates' && $user->admin) {
 if ($action == 'setvalue' && $user->admin) {
 	$db->begin();
 
-	$result = dolibarr_set_const($db, "NOTIFICATION_EMAIL_FROM", GETPOST("email_from", "alphawithlgt"), 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, "NOTIFICATION_EMAIL_FROM", GETPOST("email_from", "alphawithlgt"), 'chaine', 0, '', $config->entity);
 	if ($result < 0) {
 		$error++;
 	}
 
-	$result = dolibarr_set_const($db, "NOTIFICATION_EMAIL_DISABLE_CONFIRM_MESSAGE", GETPOST("notif_disable", "alphawithlgt"), 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, "NOTIFICATION_EMAIL_DISABLE_CONFIRM_MESSAGE", GETPOST("notif_disable", "alphawithlgt"), 'chaine', 0, '', $config->entity);
 	if ($result < 0) {
 		$error++;
 	}
@@ -142,7 +142,7 @@ if ($action == 'setfixednotif' && $user->admin) {
 			//print $shortkey.'<br>';
 
 			if (preg_match('/^NOTIF_(.*)_old_(.*)_key/', $key, $reg)) {
-				dolibarr_del_const($db, 'NOTIFICATION_FIXEDEMAIL_'.$reg[1].'_THRESHOLD_HIGHER_'.$reg[2], $conf->entity);
+				dolibarr_del_const($db, 'NOTIFICATION_FIXEDEMAIL_'.$reg[1].'_THRESHOLD_HIGHER_'.$reg[2], $config->entity);
 
 				$newkey = 'NOTIFICATION_FIXEDEMAIL_'.$reg[1].'_THRESHOLD_HIGHER_'.((int) GETPOST($shortkey.'_amount'));
 				$newval = GETPOST($shortkey.'_key');
@@ -154,7 +154,7 @@ if ($action == 'setfixednotif' && $user->admin) {
 			}
 
 			if ($newkey && $newval) {
-				$result = dolibarr_set_const($db, $newkey, $newval, 'chaine', 0, '', $conf->entity);
+				$result = dolibarr_set_const($db, $newkey, $newval, 'chaine', 0, '', $config->entity);
 			}
 		}
 	}
@@ -221,7 +221,7 @@ print '</tr>';
 print '<tr class="oddeven"><td>';
 print $langs->trans("NotificationDisableConfirmMessageUser").'</td>';
 print '<td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('NOTIFICATION_EMAIL_DISABLE_CONFIRM_MESSAGE_USER');
 } else {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -234,7 +234,7 @@ print '</tr>';
 print '<tr class="oddeven"><td>';
 print $langs->trans("NotificationDisableConfirmMessageContact").'</td>';
 print '<td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('NOTIFICATION_EMAIL_DISABLE_CONFIRM_MESSAGE_CONTACT');
 } else {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -247,7 +247,7 @@ print '</tr>';
 print '<tr class="oddeven"><td>';
 print $langs->trans("NotificationDisableConfirmMessageFix").'</td>';
 print '<td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('NOTIFICATION_EMAIL_DISABLE_CONFIRM_MESSAGE_FIX');
 } else {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -471,7 +471,7 @@ foreach ($listofnotifiedevents as $notifiedevent) {
 	print '<td>';
 	$inputfieldalreadyshown = 0;
 	// Notification with threshold
-	foreach ($conf->global as $key => $val) {
+	foreach ($config->global as $key => $val) {
 		if ($val == '' || !preg_match('/^NOTIFICATION_FIXEDEMAIL_'.preg_quote($notifiedevent['code'], '/').'_THRESHOLD_HIGHER_(.*)/', $key, $reg)) {
 			continue;
 		}
@@ -506,7 +506,7 @@ foreach ($listofnotifiedevents as $notifiedevent) {
 	print '<td>';
 	// Notification with threshold
 	$inputfieldalreadyshown = 0;
-	foreach ($conf->global as $key => $val) {
+	foreach ($config->global as $key => $val) {
 		if ($val == '' || !preg_match('/^NOTIFICATION_FIXEDEMAIL_'.$notifiedevent['code'].'_THRESHOLD_HIGHER_(.*)/', $key, $reg)) {
 			continue;
 		}

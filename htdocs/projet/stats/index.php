@@ -77,7 +77,7 @@ $includeuserlist = array();
 llxHeader('', $langs->trans('Projects'), '', '', 0, 0, '', '', '', 'mod-project page-stats');
 
 $title = $langs->trans("ProjectsStatistics");
-$dir = $conf->project->dir_output.'/temp';
+$dir = $config->project->dir_output.'/temp';
 
 print load_fiche_titre($title, '', 'project');
 
@@ -107,7 +107,7 @@ if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 $data = $stats_project->getNbByMonthWithPrevYear($endyear, $startyear);
 //var_dump($data);
 
-$filenamenb = $conf->project->dir_output."/stats/projectnbprevyear-".$year.".png";
+$filenamenb = $config->project->dir_output."/stats/projectnbprevyear-".$year.".png";
 $fileurlnb = DOL_URL_ROOT.'/viewimage.php?modulepart=projectstats&amp;file=projectnbprevyear-'.$year.'.png';
 
 $px1 = new DolGraph();
@@ -140,7 +140,7 @@ if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 	//var_dump($data);
 	// $data = array(array('Lib',val1,val2,val3),...)
 
-	$filenamenb = $conf->project->dir_output."/stats/projectamountprevyear-".$year.".png";
+	$filenamenb = $config->project->dir_output."/stats/projectamountprevyear-".$year.".png";
 	$fileurlnb = DOL_URL_ROOT.'/viewimage.php?modulepart=projectstats&amp;file=projectamountprevyear-'.$year.'.png';
 
 	$px2 = new DolGraph();
@@ -176,7 +176,7 @@ if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 	//var_dump($data);
 	// $data = array(array('Lib',val1,val2,val3),...)
 
-	$filenamenb = $conf->project->dir_output."/stats/projecttransrateprevyear-".$year.".png";
+	$filenamenb = $config->project->dir_output."/stats/projecttransrateprevyear-".$year.".png";
 	$fileurlnb = DOL_URL_ROOT.'/viewimage.php?modulepart=projectstats&amp;file=projecttransrateprevyear-'.$year.'.png';
 
 	$px3 = new DolGraph();

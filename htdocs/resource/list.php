@@ -94,7 +94,7 @@ if (empty($sortfield)) {
 }
 
 // Load variable for pagination
-$limit	= GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit	= GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 
 $page	= GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
 if (empty($page) || $page == -1) {
@@ -197,7 +197,7 @@ if (!$permissiontoread) {
 // Mass actions
 $objectclass = 'Dolresource';
 $objectlabel = 'Resources';
-$uploaddir = $conf->resource->dir_output;
+$uploaddir = $config->resource->dir_output;
 include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 /*
@@ -374,7 +374,7 @@ $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($search_ref != '') {

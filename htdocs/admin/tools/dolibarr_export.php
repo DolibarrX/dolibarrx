@@ -53,7 +53,7 @@ if (!$sortfield) {
 if (empty($page) || $page == -1) {
 	$page = 0;
 }
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $offset = $limit * $page;
 
 if (!$user->admin) {
@@ -67,7 +67,7 @@ if (!$user->admin) {
 
 if ($action == 'deletefile') {
 	if (preg_match('/^backup\//', GETPOST('urlfile', 'alpha'))) {
-		$file = $conf->admin->dir_output.'/backup/'.basename(GETPOST('urlfile', 'alpha'));
+		$file = $config->admin->dir_output.'/backup/'.basename(GETPOST('urlfile', 'alpha'));
 		$ret = dol_delete_file($file, 1);
 		if ($ret) {
 			setEventMessages($langs->trans("FileWasRemoved", GETPOST('urlfile')), null, 'mesgs');
@@ -75,7 +75,7 @@ if ($action == 'deletefile') {
 			setEventMessages($langs->trans("ErrorFailToDeleteFile", GETPOST('urlfile')), null, 'errors');
 		}
 	} else {
-		$file = $conf->admin->dir_output.'/documents/'.basename(GETPOST('urlfile', 'alpha'));
+		$file = $config->admin->dir_output.'/documents/'.basename(GETPOST('urlfile', 'alpha'));
 		$ret = dol_delete_file($file, 1);
 		if ($ret) {
 			setEventMessages($langs->trans("FileWasRemoved", GETPOST('urlfile')), null, 'mesgs');
@@ -612,7 +612,7 @@ print "</div> 	<!-- end div fichehalfleft -->\n";
 
 print '<div id="backupdatabaseright" class="fichehalfright">';
 
-$filearray = dol_dir_list($conf->admin->dir_output.'/backup', 'files', 0, '', '', $sortfield, (strtolower($sortorder) == 'asc' ? SORT_ASC : SORT_DESC), 1);
+$filearray = dol_dir_list($config->admin->dir_output.'/backup', 'files', 0, '', '', $sortfield, (strtolower($sortorder) == 'asc' ? SORT_ASC : SORT_DESC), 1);
 $result = $formfile->list_of_documents($filearray, null, 'systemtools', '', 1, 'backup/', 1, 3, $langs->trans("NoBackupFileAvailable"), 0, $langs->trans("PreviousDumpFiles"), '', 0, -1, '', '', 'ASC', 1, 0, -1, 'style="height:250px; overflow: auto;"');
 print '<br>';
 
@@ -691,7 +691,7 @@ print '</div>';
 
 print '<div id="backupfileright" class="fichehalfright">';
 
-$filearray = dol_dir_list($conf->admin->dir_output.'/documents', 'files', 0, '', '', $sortfield, (strtolower($sortorder) == 'asc' ? SORT_ASC : SORT_DESC), 1);
+$filearray = dol_dir_list($config->admin->dir_output.'/documents', 'files', 0, '', '', $sortfield, (strtolower($sortorder) == 'asc' ? SORT_ASC : SORT_DESC), 1);
 $result = $formfile->list_of_documents($filearray, null, 'systemtools', '', 1, 'documents/', 1, 3, $langs->trans("NoBackupFileAvailable"), 0, $langs->trans("PreviousArchiveFiles"), '', 0, -1, '', '', 'ASC', 1, 0, -1, 'style="height:250px; overflow: auto;"');
 print '<br>';
 

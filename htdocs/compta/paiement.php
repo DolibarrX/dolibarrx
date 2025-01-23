@@ -380,7 +380,7 @@ if ($result >= 0) {
 	}
 
 	// Add realtime total information
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print "\n".'<script type="text/javascript">';
 		print '$(document).ready(function () {
             			setPaiementCode();
@@ -687,9 +687,9 @@ if ($result >= 0) {
 				}
 
 				// Full amount tooltip
-				$tooltiponfullamount = $langs->trans('AmountHT') . ": " . price($objp->total_ht, 0, $langs, 0, -1, -1, $conf->currency) . "<br>";
-				$tooltiponfullamount .= $langs->trans('AmountVAT') . ": " . price($objp->total_tva, 0, $langs, 0, -1, -1, $conf->currency) . "<br>";
-				$tooltiponfullamount .= $langs->trans('AmountTTC') . ": " . price($objp->total_ttc, 0, $langs, 0, -1, -1, $conf->currency) . "<br>";
+				$tooltiponfullamount = $langs->trans('AmountHT') . ": " . price($objp->total_ht, 0, $langs, 0, -1, -1, $config->currency) . "<br>";
+				$tooltiponfullamount .= $langs->trans('AmountVAT') . ": " . price($objp->total_tva, 0, $langs, 0, -1, -1, $config->currency) . "<br>";
+				$tooltiponfullamount .= $langs->trans('AmountTTC') . ": " . price($objp->total_ttc, 0, $langs, 0, -1, -1, $config->currency) . "<br>";
 
 				print '<tr class="oddeven'.(($invoice->id == $facid) ? ' highlight' : '').'">';
 
@@ -725,14 +725,14 @@ if ($result >= 0) {
 				// Multicurrency full amount
 				if (isModEnabled('multicurrency')) {
 					print '<td class="right">';
-					if ($objp->multicurrency_code && $objp->multicurrency_code != $conf->currency) {
+					if ($objp->multicurrency_code && $objp->multicurrency_code != $config->currency) {
 						print '<span class="amount classfortooltip" title="'.$tooltiponmulticurrencyfullamount.'">' . price($sign * $objp->multicurrency_total_ttc);
 					}
 					print '</span></td>';
 
 					// Multicurrency Price
 					print '<td class="right">';
-					if ($objp->multicurrency_code && $objp->multicurrency_code != $conf->currency) {
+					if ($objp->multicurrency_code && $objp->multicurrency_code != $config->currency) {
 						print price($sign * $multicurrency_payment);
 						if ($multicurrency_creditnotes) {
 							print '+'.price($multicurrency_creditnotes);
@@ -745,7 +745,7 @@ if ($result >= 0) {
 
 					// Multicurrency remain to pay
 					print '<td class="right">';
-					if ($objp->multicurrency_code && $objp->multicurrency_code != $conf->currency) {
+					if ($objp->multicurrency_code && $objp->multicurrency_code != $config->currency) {
 						print price($sign * (float) $multicurrency_remaintopay);
 					}
 					print '</td>';
@@ -756,9 +756,9 @@ if ($result >= 0) {
 					$namef = 'multicurrency_amount_'.$objp->facid;
 					$nameRemain = 'multicurrency_remain_'.$objp->facid;
 
-					if ($objp->multicurrency_code && $objp->multicurrency_code != $conf->currency) {
+					if ($objp->multicurrency_code && $objp->multicurrency_code != $config->currency) {
 						if ($action != 'add_paiement') {
-							if (!empty($conf->use_javascript_ajax)) {
+							if (!empty($config->use_javascript_ajax)) {
 								print img_picto("Auto fill", 'rightarrow', "class='AutoFillAmount' data-rowname='".$namef."' data-value='".($sign * (float) $multicurrency_remaintopay)."'");
 							}
 							print '<input type="text" class="maxwidth75 multicurrency_amount" name="'.$namef.'" value="'.(GETPOST($namef) != '0' ? GETPOST($namef) : '').'">';
@@ -806,7 +806,7 @@ if ($result >= 0) {
 					}
 					if ($numdirectdebitopen) {
 						$langs->load("withdrawals");
-						print img_warning($langs->trans("WarningSomeDirectDebitOrdersAlreadyExists", $numdirectdebitopen, price(price2num($totaldirectdebit, 'MT'), 0, $langs, 1, -1, -1, $conf->currency)), '', 'classfortooltip');
+						print img_warning($langs->trans("WarningSomeDirectDebitOrdersAlreadyExists", $numdirectdebitopen, price(price2num($totaldirectdebit, 'MT'), 0, $langs, 1, -1, -1, $config->currency)), '', 'classfortooltip');
 					}
 				}
 				print '</td>';
@@ -820,7 +820,7 @@ if ($result >= 0) {
 				$nameRemain = 'remain_'.$objp->facid;
 
 				if ($action != 'add_paiement') {
-					if (!empty($conf->use_javascript_ajax)) {
+					if (!empty($config->use_javascript_ajax)) {
 						print img_picto("Auto fill", 'rightarrow', "class='AutoFillAmount' data-rowname='".$namef."' data-value='".($sign * (float) $remaintopay)."'");
 					}
 					print '<input type="text" class="maxwidth75 amount" id="'.$namef.'" name="'.$namef.'" value="'.dol_escape_htmltag(GETPOST($namef)).'">';
@@ -917,7 +917,7 @@ if ($result >= 0) {
 		print '<br>';
 		$text = '';
 		if (!empty($totalpayment)) {
-			$text = $langs->trans('ConfirmCustomerPayment', $totalpayment, $langs->transnoentitiesnoconv("Currency".$conf->currency));
+			$text = $langs->trans('ConfirmCustomerPayment', $totalpayment, $langs->transnoentitiesnoconv("Currency".$config->currency));
 		}
 		if (!empty($multicurrency_totalpayment)) {
 			$text .= '<br>'.$langs->trans('ConfirmCustomerPayment', $multicurrency_totalpayment, $langs->transnoentitiesnoconv("paymentInInvoiceCurrency"));

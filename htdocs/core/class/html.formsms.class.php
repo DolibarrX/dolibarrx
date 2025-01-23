@@ -257,8 +257,8 @@ function limitChars(textarea, limit, infodiv)
 				$resultsender = array();
 				$sms = null;
 				if (getDolGlobalString('MAIN_SMS_SENDMODE')) {
-					$sendmode = getDolGlobalString('MAIN_SMS_SENDMODE');	// $conf->global->MAIN_SMS_SENDMODE looks like a value 'module'
-					$classmoduleofsender = getDolGlobalString('MAIN_MODULE_'.strtoupper($sendmode).'_SMS', $sendmode);	// $conf->global->MAIN_MODULE_XXX_SMS looks like a value 'class@module'
+					$sendmode = getDolGlobalString('MAIN_SMS_SENDMODE');	// $config->global->MAIN_SMS_SENDMODE looks like a value 'module'
+					$classmoduleofsender = getDolGlobalString('MAIN_MODULE_'.strtoupper($sendmode).'_SMS', $sendmode);	// $config->global->MAIN_MODULE_XXX_SMS looks like a value 'class@module'
 					if ($classmoduleofsender == 'ovh') {
 						$classmoduleofsender = 'ovhsms@ovh';	// For backward compatibility
 					}

@@ -139,12 +139,12 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->product->multidir_output[$object->entity]; // By default
+		$dir = $config->product->multidir_output[$object->entity]; // By default
 		if ($object->type == Product::TYPE_PRODUCT) {
-			$dir = $conf->product->multidir_output[$object->entity];
+			$dir = $config->product->multidir_output[$object->entity];
 		}
 		if ($object->type == Product::TYPE_SERVICE) {
-			$dir = $conf->service->multidir_output[$object->entity];
+			$dir = $config->service->multidir_output[$object->entity];
 		}
 	}
 } elseif ($modulepart == 'project') {
@@ -155,7 +155,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->project->multidir_output[$object->entity]; // By default
+		$dir = $config->project->multidir_output[$object->entity]; // By default
 	}
 } elseif ($modulepart == 'propal') {
 	require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
@@ -165,7 +165,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->propal->multidir_output[$object->entity]; // By default
+		$dir = $config->propal->multidir_output[$object->entity]; // By default
 	}
 } elseif ($modulepart == 'holiday') {
 	require_once DOL_DOCUMENT_ROOT.'/holiday/class/holiday.class.php';
@@ -175,7 +175,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->$modulepart->dir_output; // By default
+		$dir = $config->$modulepart->dir_output; // By default
 	}
 } elseif ($modulepart == 'member') {
 	require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherent.class.php';
@@ -185,7 +185,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->adherent->dir_output; // By default
+		$dir = $config->adherent->dir_output; // By default
 	}
 } elseif ($modulepart == 'societe') {
 	require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
@@ -195,7 +195,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->$modulepart->dir_output;
+		$dir = $config->$modulepart->dir_output;
 	}
 } elseif ($modulepart == 'user') {
 	require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
@@ -205,7 +205,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->$modulepart->dir_output; // By default
+		$dir = $config->$modulepart->dir_output; // By default
 	}
 } elseif ($modulepart == 'expensereport') {
 	require_once DOL_DOCUMENT_ROOT.'/expensereport/class/expensereport.class.php';
@@ -215,7 +215,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->expensereport->dir_output; // By default
+		$dir = $config->expensereport->dir_output; // By default
 	}
 } elseif ($modulepart == 'tax') {
 	require_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php';
@@ -225,7 +225,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->$modulepart->dir_output; // By default
+		$dir = $config->$modulepart->dir_output; // By default
 	}
 } elseif ($modulepart == 'ticket') {
 	require_once DOL_DOCUMENT_ROOT.'/ticket/class/ticket.class.php';
@@ -235,7 +235,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->$modulepart->dir_output; // By default
+		$dir = $config->$modulepart->dir_output; // By default
 	}
 } elseif ($modulepart == 'bom') {
 	require_once DOL_DOCUMENT_ROOT.'/bom/class/bom.class.php';
@@ -245,7 +245,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->$modulepart->dir_output; // By default
+		$dir = $config->$modulepart->dir_output; // By default
 	}
 } elseif ($modulepart == 'mrp') {
 	require_once DOL_DOCUMENT_ROOT.'/mrp/class/mo.class.php';
@@ -255,7 +255,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->$modulepart->dir_output; // By default
+		$dir = $config->$modulepart->dir_output; // By default
 	}
 } elseif ($modulepart == 'bank') {
 	require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
@@ -265,7 +265,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->bank->dir_output; // By default
+		$dir = $config->bank->dir_output; // By default
 	}
 } elseif ($modulepart == 'facture') {
 	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
@@ -275,7 +275,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->$modulepart->dir_output; // By default
+		$dir = $config->$modulepart->dir_output; // By default
 	}
 } elseif ($modulepart == 'facture_fourn' || $modulepart == 'facture_fournisseur') {
 	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
@@ -285,7 +285,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $conf->fournisseur->dir_output.'/facture'; // By default
+		$dir = $config->fournisseur->dir_output.'/facture'; // By default
 	}
 } elseif ($modulepart == 'medias') {
 	$dir = $dolibarr_main_data_root.'/'.$modulepart;
@@ -542,7 +542,7 @@ print '<br>'."\n";
 
 print '<br>'."\n";
 
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	$infoarray = dol_getImageSize($dir."/".GETPOST("file"));
 	$height = $infoarray['height'];
 	$width = $infoarray['width'];
@@ -567,7 +567,7 @@ if (!empty($conf->use_javascript_ajax)) {
 	print $langs->trans("DefineNewAreaToPick").'...<br>';
 	print '<br><div class="center">';
 
-	if (empty($conf->dol_no_mouse_hover)) {
+	if (empty($config->dol_no_mouse_hover)) {
 		print '<div style="border: 1px solid #888888; width: '.$widthforcrop.'px;">';
 		print '<img src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulepart).'&entity='.((int) $object->entity).'&file='.urlencode($original_file).'" alt="" id="cropbox" width="'.$widthforcrop.'px"/>';
 		print '</div>';

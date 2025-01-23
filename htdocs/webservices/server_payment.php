@@ -172,7 +172,7 @@ function createPayment($authentication, $payment)
 			   ", ref=".$payment->ref.", ref_ext=".$payment->ref_ext);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication

@@ -103,7 +103,7 @@ class InfoBox
 			$sql .= " d.rowid as box_id, d.file, d.note, d.tms";
 			$sql .= " FROM ".$dbs->prefix()."boxes as b, ".$dbs->prefix()."boxes_def as d";
 			$sql .= " WHERE b.box_id = d.rowid";
-			$sql .= " AND b.entity IN (0,".$conf->entity.")";
+			$sql .= " AND b.entity IN (0,".$config->entity.")";
 			if ($zone >= 0) {
 				$sql .= " AND b.position = ".((int) $zone);
 			}
@@ -116,7 +116,7 @@ class InfoBox
 		} else { // available
 			$sql = "SELECT d.rowid as box_id, d.file, d.note, d.tms";
 			$sql .= " FROM ".$dbs->prefix()."boxes_def as d";
-			$sql .= " WHERE d.entity IN (0, ".$conf->entity.")";
+			$sql .= " WHERE d.entity IN (0, ".$config->entity.")";
 		}
 
 		dol_syslog(self::class."::listBoxes get default box list for mode=".$mode." userid=".(is_object($user) ? $user->id : ''), LOG_DEBUG);
@@ -183,7 +183,7 @@ class InfoBox
 									if (!empty($tmpmodule) && isModEnabled($tmpmodule)) {
 										$tmpenabled = 1;
 									}
-									//print $boxname.'-'.$module.'-module enabled='.(empty($conf->$tmpmodule->enabled)?0:1).'<br>';
+									//print $boxname.'-'.$module.'-module enabled='.(empty($config->$tmpmodule->enabled)?0:1).'<br>';
 								}
 								if (empty($tmpenabled)) {	// We found at least one module required that is disabled
 									$enabled = 0;
@@ -254,7 +254,7 @@ class InfoBox
 
 		// Delete all lines
 		$sql = "DELETE FROM ".$dbs->prefix()."boxes";
-		$sql .= " WHERE entity = ".$conf->entity;
+		$sql .= " WHERE entity = ".$config->entity;
 		$sql .= " AND fk_user = ".((int) $userid);
 		$sql .= " AND position = ".((int) $zone);
 
@@ -283,7 +283,7 @@ class InfoBox
 						$sql .= " ".((int) $zone).",";
 						$sql .= " '".$dbs->escape($colonne.$ii)."',";
 						$sql .= " ".((int) $userid).",";
-						$sql .= " ".((int) $conf->entity);
+						$sql .= " ".((int) $config->entity);
 						$sql .= ")";
 
 						$result = $dbs->query($sql);

@@ -44,7 +44,7 @@ $langs->loadLangs(array('admin', 'users', 'other'));
 
 $action = GETPOST('action', 'aZ09');
 
-$entity = $conf->entity;
+$entity = $config->entity;
 
 if (!$user->admin) {
 	accessforbidden();
@@ -58,14 +58,14 @@ if (!$user->admin) {
 if ($action == 'add') {
 	$sql = "UPDATE ".MAIN_DB_PREFIX."rights_def SET bydefault=1";
 	$sql .= " WHERE id = ".GETPOSTINT("pid");
-	$sql .= " AND entity = ".$conf->entity;
+	$sql .= " AND entity = ".$config->entity;
 	$db->query($sql);
 }
 
 if ($action == 'remove') {
 	$sql = "UPDATE ".MAIN_DB_PREFIX."rights_def SET bydefault=0";
 	$sql .= " WHERE id = ".GETPOSTINT('pid');
-	$sql .= " AND entity = ".$conf->entity;
+	$sql .= " AND entity = ".$config->entity;
 	$db->query($sql);
 }
 
@@ -145,7 +145,7 @@ if ($user->admin) {
 }
 print '</tr>'."\n";
 
-//print "xx".$conf->global->MAIN_USE_ADVANCED_PERMS;
+//print "xx".$config->global->MAIN_USE_ADVANCED_PERMS;
 $sql = "SELECT r.id, r.libelle as label, r.module, r.perms, r.subperms, r.module_position, r.bydefault";
 $sql .= " FROM ".MAIN_DB_PREFIX."rights_def as r";
 $sql .= " WHERE r.libelle NOT LIKE 'tou%'"; // On ignore droits "tous"

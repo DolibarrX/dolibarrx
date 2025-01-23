@@ -104,7 +104,7 @@ class mod_propale_marbre extends ModeleNumRefPropales
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
 		$sql .= " FROM ".MAIN_DB_PREFIX."propal";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {

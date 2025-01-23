@@ -231,8 +231,8 @@ class PaiementFourn extends Paiement
 			// We must check that the currency of invoices is the same than the currency of the bank
 			$bankaccount = new Account($this->db);
 			$bankaccount->fetch($this->fk_account);
-			$bankcurrencycode = empty($bankaccount->currency_code) ? $conf->currency : $bankaccount->currency_code;
-			if ($currencyofpayment != $bankcurrencycode && $currencyofpayment != $conf->currency && $bankcurrencycode != $conf->currency) {
+			$bankcurrencycode = empty($bankaccount->currency_code) ? $config->currency : $bankaccount->currency_code;
+			if ($currencyofpayment != $bankcurrencycode && $currencyofpayment != $config->currency && $bankcurrencycode != $config->currency) {
 				$langs->load("errors");
 				$this->error = $langs->trans('ErrorYouTryToPayInvoicesInACurrencyFromBankWithAnotherCurrency', $currencyofpayment, $bankcurrencycode);
 				return -1;
@@ -262,7 +262,7 @@ class PaiementFourn extends Paiement
 
 			$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'paiementfourn (';
 			$sql .= 'ref, entity, datec, datep, amount, multicurrency_amount, fk_paiement, num_paiement, note, fk_user_author, fk_bank)';
-			$sql .= " VALUES ('".$this->db->escape($ref)."', ".((int) $conf->entity).", '".$this->db->idate($now)."',";
+			$sql .= " VALUES ('".$this->db->escape($ref)."', ".((int) $config->entity).", '".$this->db->idate($now)."',";
 			$sql .= " '".$this->db->idate($this->datepaye)."', ".((float) $total).", ".((float) $mtotal).", ".((int) $this->paiementid).", '".$this->db->escape($this->num_payment)."', '".$this->db->escape($this->note_private)."', ".((int) $user->id).", 0)";
 
 			$resql = $this->db->query($sql);
@@ -680,7 +680,7 @@ class PaiementFourn extends Paiement
 	{
 		global $langs, $conf, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -703,7 +703,7 @@ class PaiementFourn extends Paiement
 			$label .= '<br><strong>'.$langs->trans("Date").':</strong> '.dol_print_date($dateofpayment, 'dayhour', 'tzuser');
 		}
 		if ($this->amount) {
-			$label .= '<br><strong>'.$langs->trans("Amount").':</strong> '.price($this->amount, 0, $langs, 1, -1, -1, $conf->currency);
+			$label .= '<br><strong>'.$langs->trans("Amount").':</strong> '.price($this->amount, 0, $langs, 1, -1, -1, $config->currency);
 		}
 
 		$linkclose = '';
@@ -783,11 +783,11 @@ class PaiementFourn extends Paiement
 
 		// Clean parameters (if not defined or using deprecated value)
 		if (!getDolGlobalString('SUPPLIER_PAYMENT_ADDON')) {
-			$conf->global->SUPPLIER_PAYMENT_ADDON = 'mod_supplier_payment_bronan';
+			$config->global->SUPPLIER_PAYMENT_ADDON = 'mod_supplier_payment_bronan';
 		} elseif (getDolGlobalString('SUPPLIER_PAYMENT_ADDON') == 'brodator') {
-			$conf->global->SUPPLIER_PAYMENT_ADDON = 'mod_supplier_payment_brodator';
+			$config->global->SUPPLIER_PAYMENT_ADDON = 'mod_supplier_payment_brodator';
 		} elseif (getDolGlobalString('SUPPLIER_PAYMENT_ADDON') == 'bronan') {
-			$conf->global->SUPPLIER_PAYMENT_ADDON = 'mod_supplier_payment_bronan';
+			$config->global->SUPPLIER_PAYMENT_ADDON = 'mod_supplier_payment_bronan';
 		}
 
 		if (getDolGlobalString('SUPPLIER_PAYMENT_ADDON')) {
@@ -797,7 +797,7 @@ class PaiementFourn extends Paiement
 			$classname = getDolGlobalString('SUPPLIER_PAYMENT_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/supplier_payment/");
@@ -814,7 +814,7 @@ class PaiementFourn extends Paiement
 				$classname = "mod_supplier_payment_" . getDolGlobalString('SUPPLIER_PAYMENT_ADDON');
 				$classname = preg_replace('/\-.*$/', '', $classname);
 				// Include file with class
-				foreach ($conf->file->dol_document_root as $dirroot) {
+				foreach ($config->file->dol_document_root as $dirroot) {
 					$dir = $dirroot."/core/modules/supplier_payment/";
 
 					// Load file with numbering class (if found)

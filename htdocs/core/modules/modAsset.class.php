@@ -115,8 +115,8 @@ class modAsset extends DolibarrModules
 
 
 		if (!isModEnabled('asset')) {
-			$conf->asset = new stdClass();
-			$conf->asset->enabled = 0;
+			$config->asset = new stdClass();
+			$config->asset->enabled = 0;
 		}
 
 

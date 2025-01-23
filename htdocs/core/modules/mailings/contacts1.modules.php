@@ -106,7 +106,7 @@ class mailing_contacts1 extends MailingTargets
 		$sql .= " WHERE c.entity IN (".getEntity('contact').")";
 		$sql .= " AND c.email <> ''"; // Note that null != '' is false
 		if (empty($this->evenunsubscribe)) {
-			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = c.email and mu.entity = ".((int) $conf->entity).")";
+			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = c.email and mu.entity = ".((int) $config->entity).")";
 		}
 		// exclude unsubscribed users
 		$sql .= " AND c.statut = 1";
@@ -394,7 +394,7 @@ class mailing_contacts1 extends MailingTargets
 		$sql .= " AND sp.email <> ''";
 
 		if (empty($this->evenunsubscribe)) {
-			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = sp.email and mu.entity = ".((int) $conf->entity).")";
+			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = sp.email and mu.entity = ".((int) $config->entity).")";
 		}
 		// Exclude unsubscribed email addresses
 		$sql .= " AND sp.statut = 1";

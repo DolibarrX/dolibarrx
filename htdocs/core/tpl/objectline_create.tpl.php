@@ -79,7 +79,7 @@ if (empty($inputalsopricewithtax)) {
 }
 // Define colspan for the button 'Add'
 $colspan = 3; // Columns: total ht + col edit + col delete
-if (isModEnabled("multicurrency") && $this->multicurrency_code != $conf->currency) {
+if (isModEnabled("multicurrency") && $this->multicurrency_code != $config->currency) {
 	$colspan++; //Add column for Total (currency) if required
 }
 if (in_array($object->element, array('propal', 'commande', 'order', 'facture', 'facturerec', 'invoice', 'supplier_proposal', 'order_supplier', 'invoice_supplier', 'invoice_supplier_rec'))) {
@@ -132,7 +132,7 @@ if ($nolinesbefore) {
 		} ?>
 		<td class="linecolvat right"><span id="title_vat"><?php echo $langs->trans('VAT'); ?></span></td>
 		<td class="linecoluht right"><span id="title_up_ht"><?php echo $langs->trans('PriceUHT'); ?></span></td>
-		<?php if (isModEnabled("multicurrency") && $this->multicurrency_code != $conf->currency) { ?>
+		<?php if (isModEnabled("multicurrency") && $this->multicurrency_code != $config->currency) { ?>
 			<td class="linecoluht_currency right"><span id="title_up_ht_currency"><?php echo $langs->trans('PriceUHTCurrency'); ?></span></td>
 		<?php } ?>
 		<?php if (!empty($inputalsopricewithtax) && !getDolGlobalInt('MAIN_NO_INPUT_PRICE_WITH_TAX')) { ?>
@@ -243,7 +243,7 @@ if ($nolinesbefore) {
 			print '<label for="prod_entry_mode_predef">';
 			print '<input type="radio" class="prod_entry_mode_predef" name="prod_entry_mode" id="prod_entry_mode_predef" value="predef"'.(GETPOST('prod_entry_mode') == 'predef' ? ' checked' : '').'> ';
 			$labelforradio = '';
-			if (empty($conf->dol_optimize_smallscreen)) {
+			if (empty($config->dol_optimize_smallscreen)) {
 				if (isModEnabled("product") && !isModEnabled('service')) {
 					$labelforradio = $langs->trans('PredefinedProducts');
 				} elseif ((!isModEnabled('product') && isModEnabled('service')) || ($object->element == 'contrat' && !getDolGlobalString('CONTRACT_SUPPORT_PRODUCTS'))) {
@@ -475,7 +475,7 @@ if ($nolinesbefore) {
 	</td>
 
 	<?php
-	if (isModEnabled("multicurrency") && $this->multicurrency_code != $conf->currency) {
+	if (isModEnabled("multicurrency") && $this->multicurrency_code != $config->currency) {
 		$coldisplay++; ?>
 		<td class="nobottom linecoluht_currency right">
 			<input type="text" name="multicurrency_price_ht" id="multicurrency_price_ht" class="flat right width50" value="<?php echo(GETPOSTISSET("multicurrency_price_ht") ? GETPOST("multicurrency_price_ht", 'alpha', 2) : ''); ?>">
@@ -499,7 +499,7 @@ if ($nolinesbefore) {
 	if (getDolGlobalInt('PRODUCT_USE_UNITS')) {
 		$coldisplay++;
 		print '<td class="nobottom linecoluseunit left">';
-		print $form->selectUnits(empty($line->fk_unit) ? $conf->global->PRODUCT_USE_UNITS : $line->fk_unit, "units");
+		print $form->selectUnits(empty($line->fk_unit) ? $config->global->PRODUCT_USE_UNITS : $line->fk_unit, "units");
 		print '</td>';
 	}
 	$remise_percent = $buyer->remise_percent;
@@ -613,18 +613,18 @@ if ((isModEnabled("service") || ($object->element == 'contrat')) && $dateSelecto
 	}
 
 	if (!$date_start) {
-		if (isset($conf->global->MAIN_DEFAULT_DATE_START_HOUR)) {
+		if (isset($config->global->MAIN_DEFAULT_DATE_START_HOUR)) {
 			print 'jQuery("#date_starthour").val("' . getDolGlobalString('MAIN_DEFAULT_DATE_START_HOUR').'");';
 		}
-		if (isset($conf->global->MAIN_DEFAULT_DATE_START_MIN)) {
+		if (isset($config->global->MAIN_DEFAULT_DATE_START_MIN)) {
 			print 'jQuery("#date_startmin").val("' . getDolGlobalString('MAIN_DEFAULT_DATE_START_MIN').'");';
 		}
 	}
 	if (!$date_end) {
-		if (isset($conf->global->MAIN_DEFAULT_DATE_END_HOUR)) {
+		if (isset($config->global->MAIN_DEFAULT_DATE_END_HOUR)) {
 			print 'jQuery("#date_endhour").val("' . getDolGlobalString('MAIN_DEFAULT_DATE_END_HOUR').'");';
 		}
-		if (isset($conf->global->MAIN_DEFAULT_DATE_END_MIN)) {
+		if (isset($config->global->MAIN_DEFAULT_DATE_END_MIN)) {
 			print 'jQuery("#date_endmin").val("' . getDolGlobalString('MAIN_DEFAULT_DATE_END_MIN').'");';
 		}
 	}
@@ -989,7 +989,7 @@ if (!empty($usemargins) && $user->hasRight('margins', 'creer')) {
 
 						/* setup of margin calculation */
 						var defaultbuyprice = '<?php
-						if (isset($conf->global->MARGIN_TYPE)) {
+						if (isset($config->global->MARGIN_TYPE)) {
 							if (getDolGlobalString('MARGIN_TYPE') == '1') {
 								print 'bestsupplierprice';
 							}
@@ -1154,7 +1154,7 @@ if (!empty($usemargins) && $user->hasRight('margins', 'creer')) {
 
 				var has_multicurrency_up = false;
 				<?php
-				if (isModEnabled('multicurrency') && $object->multicurrency_code != $conf->currency) {
+				if (isModEnabled('multicurrency') && $object->multicurrency_code != $config->currency) {
 					?>
 					var object_multicurrency_code = '<?php print dol_escape_js($object->multicurrency_code); ?>';
 

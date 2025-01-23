@@ -77,7 +77,7 @@ $search_country = GETPOST('search_country', 'aZ09');
 $search_tvaintra = GETPOST('search_tvaintra', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : getDolGlobalString('ACCOUNTING_LIMIT_LIST_VENTILATION', $conf->liste_limit);
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : getDolGlobalString('ACCOUNTING_LIMIT_LIST_VENTILATION', $config->liste_limit);
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -179,7 +179,7 @@ if (is_array($changeaccount) && count($changeaccount) > 0 && $user->hasRight('ac
 if (GETPOST('sortfield') == 'f.datef, f.ref, l.rowid') {
 	$value = (GETPOST('sortorder') == 'asc,asc,asc' ? 0 : 1);
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-	$res = dolibarr_set_const($db, "ACCOUNTING_LIST_SORT_VENTILATION_DONE", $value, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "ACCOUNTING_LIST_SORT_VENTILATION_DONE", $value, 'yesno', 0, '', $config->entity);
 }
 
 
@@ -238,13 +238,13 @@ $sql .= $hookManager->resPrint;
 $sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn_det as l";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = l.fk_product";
 if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
-	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $conf->entity);
+	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 }
 $sql .= " INNER JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON aa.rowid = l.fk_code_ventilation";
 $sql .= " INNER JOIN ".MAIN_DB_PREFIX."facture_fourn as f ON f.rowid = l.fk_facture_fourn";
 $sql .= " INNER JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = f.fk_soc";
 if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
-	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $conf->entity);
+	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
 }
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as co ON co.rowid = s.fk_pays ";
 $sql .= " WHERE f.rowid = l.fk_facture_fourn and f.fk_statut >= 1 AND l.fk_code_ventilation <> 0 ";
@@ -341,7 +341,7 @@ if ($result) {
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($search_societe) {

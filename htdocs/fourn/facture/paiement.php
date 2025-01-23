@@ -76,7 +76,7 @@ $search_amount = GETPOST('search_amount', 'alpha'); // alpha because we must be 
 $search_company = GETPOST('search_company', 'alpha');
 $search_payment_num = GETPOST('search_payment_num', 'alpha');
 
-$limit = GETPOSTINT('limit') ? GETPOST('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOST('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -421,7 +421,7 @@ if ($action == 'create' || $action == 'confirm_paiement' || $action == 'add_paie
 			print load_fiche_titre($langs->trans('DoPayment'));
 
 			// Add realtime total information
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				print "\n".'<script type="text/javascript">';
 				print '$(document).ready(function () {
 
@@ -556,7 +556,7 @@ if ($action == 'create' || $action == 'confirm_paiement' || $action == 'add_paie
 				$sql .= ' SUM(pf.amount) as am, SUM(pf.multicurrency_amount) as multicurrency_am';
 				$sql .= ' FROM '.MAIN_DB_PREFIX.'facture_fourn as f';
 				$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'paiementfourn_facturefourn as pf ON pf.fk_facturefourn = f.rowid';
-				$sql .= " WHERE f.entity = ".((int) $conf->entity);
+				$sql .= " WHERE f.entity = ".((int) $config->entity);
 				$sql .= ' AND f.fk_soc = '.((int) $object->socid);
 				$sql .= ' AND f.paye = 0';
 				$sql .= ' AND f.fk_statut = 1'; // Status=0 => unvalidated, Status=2 => canceled
@@ -579,7 +579,7 @@ if ($action == 'create' || $action == 'confirm_paiement' || $action == 'add_paie
 						$i = 0;
 						print '<br>';
 
-						if (!empty($conf->use_javascript_ajax)) {
+						if (!empty($config->use_javascript_ajax)) {
 							//Add js for AutoFill
 							print "\n".'<script type="text/javascript">';
 							print ' $(document).ready(function () {';
@@ -687,13 +687,13 @@ if ($action == 'create' || $action == 'confirm_paiement' || $action == 'add_paie
 								print '<td class="center">'.$objp->multicurrency_code."</td>\n";
 
 								print '<td class="right">';
-								if ($objp->multicurrency_code && $objp->multicurrency_code != $conf->currency) {
+								if ($objp->multicurrency_code && $objp->multicurrency_code != $config->currency) {
 									print price($objp->multicurrency_total_ttc);
 								}
 								print '</td>';
 
 								print '<td class="right">';
-								if ($objp->multicurrency_code && $objp->multicurrency_code != $conf->currency) {
+								if ($objp->multicurrency_code && $objp->multicurrency_code != $config->currency) {
 									print price($sign * $multicurrency_payment);
 									if ($multicurrency_creditnotes) {
 										print '+'.price($multicurrency_creditnotes);
@@ -705,7 +705,7 @@ if ($action == 'create' || $action == 'confirm_paiement' || $action == 'add_paie
 								print '</td>';
 
 								print '<td class="right">';
-								if ($objp->multicurrency_code && $objp->multicurrency_code != $conf->currency) {
+								if ($objp->multicurrency_code && $objp->multicurrency_code != $config->currency) {
 									print price($sign * (float) $multicurrency_remaintopay);
 								}
 								print '</td>';
@@ -714,9 +714,9 @@ if ($action == 'create' || $action == 'confirm_paiement' || $action == 'add_paie
 								// Add remind multicurrency amount
 								$namef = 'multicurrency_amount_'.$objp->facid;
 								$nameRemain = 'multicurrency_remain_'.$objp->facid;
-								if ($objp->multicurrency_code && $objp->multicurrency_code != $conf->currency) {
+								if ($objp->multicurrency_code && $objp->multicurrency_code != $config->currency) {
 									if ($action != 'add_paiement') {
-										if (!empty($conf->use_javascript_ajax)) {
+										if (!empty($config->use_javascript_ajax)) {
 											print img_picto("Auto fill", 'rightarrow', "class='AutoFillAmount' data-rowname='".$namef."' data-value='".($sign * (float) $multicurrency_remaintopay)."'");
 										}
 										print '<input type=hidden class="multicurrency_remain" name="'.$nameRemain.'" value="'.$multicurrency_remaintopay.'">';
@@ -761,7 +761,7 @@ if ($action == 'create' || $action == 'confirm_paiement' || $action == 'add_paie
 								}
 								if ($numdirectdebitopen) {
 									$langs->load("withdrawals");
-									print img_warning($langs->trans("WarningSomeCreditTransferAlreadyExists", $numdirectdebitopen, price(price2num($totaldirectdebit, 'MT'), 0, $langs, 1, -1, -1, $conf->currency)), '', 'classfortooltip');
+									print img_warning($langs->trans("WarningSomeCreditTransferAlreadyExists", $numdirectdebitopen, price(price2num($totaldirectdebit, 'MT'), 0, $langs, 1, -1, -1, $config->currency)), '', 'classfortooltip');
 								}
 							}
 							print '</td>';
@@ -773,7 +773,7 @@ if ($action == 'create' || $action == 'confirm_paiement' || $action == 'add_paie
 							$nameRemain = 'remain_'.$objp->facid;
 
 							if ($action != 'add_paiement') {
-								if (!empty($conf->use_javascript_ajax)) {
+								if (!empty($config->use_javascript_ajax)) {
 									print img_picto("Auto fill", 'rightarrow', "class='AutoFillAmount' data-rowname='".$namef."' data-value='".($sign * (float) $remaintopay)."'");
 								}
 								print '<input type="hidden" class="remain" name="'.$nameRemain.'" value="'.$remaintopay.'">';
@@ -842,7 +842,7 @@ if ($action == 'create' || $action == 'confirm_paiement' || $action == 'add_paie
 				print '<br>';
 				$text = '';
 				if (!empty($totalpayment)) {
-					$text = $langs->trans('ConfirmSupplierPayment', price($totalpayment), $langs->transnoentitiesnoconv("Currency".$conf->currency));
+					$text = $langs->trans('ConfirmSupplierPayment', price($totalpayment), $langs->transnoentitiesnoconv("Currency".$config->currency));
 				}
 				if (!empty($multicurrency_totalpayment)) {
 					$text .= '<br>'.$langs->trans('ConfirmSupplierPayment', price($multicurrency_totalpayment), $langs->transnoentitiesnoconv("paymentInInvoiceCurrency"));

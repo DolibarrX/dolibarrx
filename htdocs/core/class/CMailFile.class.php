@@ -229,7 +229,7 @@ class CMailFile
 	{
 		global $conf, $dolibarr_main_data_root, $user;
 
-		dol_syslog("CMailFile::CMailfile: charset=".$conf->file->character_set_client." from=$from, to=$to, addr_cc=$addr_cc, addr_bcc=$addr_bcc, errors_to=$errors_to, replyto=$replyto trackid=$trackid sendcontext=$sendcontext");
+		dol_syslog("CMailFile::CMailfile: charset=".$config->file->character_set_client." from=$from, to=$to, addr_cc=$addr_cc, addr_bcc=$addr_bcc, errors_to=$errors_to, replyto=$replyto trackid=$trackid sendcontext=$sendcontext");
 		dol_syslog("CMailFile::CMailfile: subject=".$subject.", deliveryreceipt=".$deliveryreceipt.", msgishtml=".$msgishtml, LOG_DEBUG);
 
 
@@ -560,7 +560,7 @@ class CMailFile
 
 			require_once DOL_DOCUMENT_ROOT.'/core/class/smtps.class.php';
 			$smtps = new SMTPs();
-			$smtps->setCharSet($conf->file->character_set_client);
+			$smtps->setCharSet($config->file->character_set_client);
 
 			// Encode subject if required.
 			$subjecttouse = $this->subject;
@@ -696,8 +696,8 @@ class CMailFile
 						$adressEmailFrom = array();
 						$emailMatchs = preg_match_all($regexp, $from, $adressEmailFrom);
 						$adressEmailFrom = reset($adressEmailFrom);
-						if ($emailMatchs !== false && filter_var($conf->global->MAIN_MAIL_SMTPS_ID, FILTER_VALIDATE_EMAIL) && $conf->global->MAIN_MAIL_SMTPS_ID !== $adressEmailFrom) {
-							$this->message->setFrom($conf->global->MAIN_MAIL_SMTPS_ID);
+						if ($emailMatchs !== false && filter_var($config->global->MAIN_MAIL_SMTPS_ID, FILTER_VALIDATE_EMAIL) && $config->global->MAIN_MAIL_SMTPS_ID !== $adressEmailFrom) {
+							$this->message->setFrom($config->global->MAIN_MAIL_SMTPS_ID);
 						} else {
 							$this->message->setFrom($this->getArrayAddress($this->addr_from));
 						}
@@ -735,7 +735,7 @@ class CMailFile
 			}
 
 			try {
-				$this->message->setCharSet($conf->file->character_set_client);
+				$this->message->setCharSet($config->file->character_set_client);
 			} catch (Exception $e) {
 				$this->errors[] = $e->getMessage();
 			}
@@ -881,36 +881,36 @@ class CMailFile
 
 			// Check number of recipient is lower or equal than MAIL_MAX_NB_OF_RECIPIENTS_IN_SAME_EMAIL
 			if (!getDolGlobalString('MAIL_MAX_NB_OF_RECIPIENTS_TO_IN_SAME_EMAIL')) {
-				$conf->global->MAIL_MAX_NB_OF_RECIPIENTS_TO_IN_SAME_EMAIL = 10;
+				$config->global->MAIL_MAX_NB_OF_RECIPIENTS_TO_IN_SAME_EMAIL = 10;
 			}
 			$tmparray1 = explode(',', $this->addr_to);
-			if (count($tmparray1) > $conf->global->MAIL_MAX_NB_OF_RECIPIENTS_TO_IN_SAME_EMAIL) {
+			if (count($tmparray1) > $config->global->MAIL_MAX_NB_OF_RECIPIENTS_TO_IN_SAME_EMAIL) {
 				$this->error = 'Too much recipients in to:';
 				dol_syslog("CMailFile::sendfile: mail end error=".$this->error, LOG_WARNING);
 				return false;
 			}
 			if (!getDolGlobalString('MAIL_MAX_NB_OF_RECIPIENTS_CC_IN_SAME_EMAIL')) {
-				$conf->global->MAIL_MAX_NB_OF_RECIPIENTS_CC_IN_SAME_EMAIL = 10;
+				$config->global->MAIL_MAX_NB_OF_RECIPIENTS_CC_IN_SAME_EMAIL = 10;
 			}
 			$tmparray2 = explode(',', $this->addr_cc);
-			if (count($tmparray2) > $conf->global->MAIL_MAX_NB_OF_RECIPIENTS_CC_IN_SAME_EMAIL) {
+			if (count($tmparray2) > $config->global->MAIL_MAX_NB_OF_RECIPIENTS_CC_IN_SAME_EMAIL) {
 				$this->error = 'Too much recipients in cc:';
 				dol_syslog("CMailFile::sendfile: mail end error=".$this->error, LOG_WARNING);
 				return false;
 			}
 			if (!getDolGlobalString('MAIL_MAX_NB_OF_RECIPIENTS_BCC_IN_SAME_EMAIL')) {
-				$conf->global->MAIL_MAX_NB_OF_RECIPIENTS_BCC_IN_SAME_EMAIL = 10;
+				$config->global->MAIL_MAX_NB_OF_RECIPIENTS_BCC_IN_SAME_EMAIL = 10;
 			}
 			$tmparray3 = explode(',', $this->addr_bcc);
-			if (count($tmparray3) > $conf->global->MAIL_MAX_NB_OF_RECIPIENTS_BCC_IN_SAME_EMAIL) {
+			if (count($tmparray3) > $config->global->MAIL_MAX_NB_OF_RECIPIENTS_BCC_IN_SAME_EMAIL) {
 				$this->error = 'Too much recipients in bcc:';
 				dol_syslog("CMailFile::sendfile: mail end error=".$this->error, LOG_WARNING);
 				return false;
 			}
 			if (!getDolGlobalString('MAIL_MAX_NB_OF_RECIPIENTS_IN_SAME_EMAIL')) {
-				$conf->global->MAIL_MAX_NB_OF_RECIPIENTS_IN_SAME_EMAIL = 10;
+				$config->global->MAIL_MAX_NB_OF_RECIPIENTS_IN_SAME_EMAIL = 10;
 			}
-			if ((count($tmparray1) + count($tmparray2) + count($tmparray3)) > $conf->global->MAIL_MAX_NB_OF_RECIPIENTS_IN_SAME_EMAIL) {
+			if ((count($tmparray1) + count($tmparray2) + count($tmparray3)) > $config->global->MAIL_MAX_NB_OF_RECIPIENTS_IN_SAME_EMAIL) {
 				$this->error = 'Too much recipients in to:, cc:, bcc:';
 				dol_syslog("CMailFile::sendfile: mail end error=".$this->error, LOG_WARNING);
 				return false;
@@ -958,7 +958,7 @@ class CMailFile
 				}
 
 				// Force parameters
-				//dol_syslog("CMailFile::sendfile conf->global->".$keyforsmtpserver."=".getDolGlobalString($keyforsmtpserver)." cpnf->global->".$keyforsmtpport."=".$conf->global->$keyforsmtpport, LOG_DEBUG);
+				//dol_syslog("CMailFile::sendfile conf->global->".$keyforsmtpserver."=".getDolGlobalString($keyforsmtpserver)." cpnf->global->".$keyforsmtpport."=".$config->global->$keyforsmtpport, LOG_DEBUG);
 				if (getDolGlobalString($keyforsmtpserver)) {
 					ini_set('SMTP', getDolGlobalString($keyforsmtpserver));
 				}
@@ -987,7 +987,7 @@ class CMailFile
 						// So forcing using the option -f of sendmail is possible if constant MAIN_MAIL_ALLOW_SENDMAIL_F is defined.
 						// Having this variable defined may create problems with some sendmail (option -f refused)
 						// Having this variable not defined may create problems with some other sendmail (option -f required)
-						$additionnalparam .= ($additionnalparam ? ' ' : '').(getDolGlobalString('MAIN_MAIL_ERRORS_TO') ? '-f'.$this->getValidAddress($conf->global->MAIN_MAIL_ERRORS_TO, 2) : ($this->addr_from != '' ? '-f'.$this->getValidAddress($this->addr_from, 2) : ''));
+						$additionnalparam .= ($additionnalparam ? ' ' : '').(getDolGlobalString('MAIN_MAIL_ERRORS_TO') ? '-f'.$this->getValidAddress($config->global->MAIN_MAIL_ERRORS_TO, 2) : ($this->addr_from != '' ? '-f'.$this->getValidAddress($this->addr_from, 2) : ''));
 					}
 					if (getDolGlobalString('MAIN_MAIL_SENDMAIL_FORCE_BA')) {    // To force usage of -ba option. This option tells sendmail to read From: or Sender: to setup sender
 						$additionnalparam .= ($additionnalparam ? ' ' : '').'-ba';
@@ -1066,11 +1066,11 @@ class CMailFile
 				$this->smtps->setTransportType(0); // Only this method is coded in SMTPs library
 
 				// Clean parameters
-				if (empty($conf->global->$keyforsmtpserver)) {
-					$conf->global->$keyforsmtpserver = ini_get('SMTP');
+				if (empty($config->global->$keyforsmtpserver)) {
+					$config->global->$keyforsmtpserver = ini_get('SMTP');
 				}
-				if (empty($conf->global->$keyforsmtpport)) {
-					$conf->global->$keyforsmtpport = ini_get('smtp_port');
+				if (empty($config->global->$keyforsmtpport)) {
+					$config->global->$keyforsmtpport = ini_get('smtp_port');
 				}
 
 				// If we use SSL/TLS
@@ -1241,11 +1241,11 @@ class CMailFile
 				require_once DOL_DOCUMENT_ROOT.'/includes/swiftmailer/lib/swift_required.php';
 
 				// Clean parameters
-				if (empty($conf->global->$keyforsmtpserver)) {
-					$conf->global->$keyforsmtpserver = ini_get('SMTP');
+				if (empty($config->global->$keyforsmtpserver)) {
+					$config->global->$keyforsmtpserver = ini_get('SMTP');
 				}
-				if (empty($conf->global->$keyforsmtpport)) {
-					$conf->global->$keyforsmtpport = ini_get('smtp_port');
+				if (empty($config->global->$keyforsmtpport)) {
+					$config->global->$keyforsmtpport = ini_get('smtp_port');
 				}
 
 				// If we use SSL/TLS
@@ -1439,7 +1439,7 @@ class CMailFile
 	public static function encodetorfc2822($stringtoencode)
 	{
 		global $conf;
-		return '=?'.$conf->file->character_set_client.'?B?'.base64_encode($stringtoencode).'?=';
+		return '=?'.$config->file->character_set_client.'?B?'.base64_encode($stringtoencode).'?=';
 	}
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
@@ -1761,7 +1761,7 @@ class CMailFile
 
 		if ($this->msgishtml) {
 			if ($this->atleastoneimage) {
-				$out .= "Content-Type: text/plain; charset=".$conf->file->character_set_client.$this->eol;
+				$out .= "Content-Type: text/plain; charset=".$config->file->character_set_client.$this->eol;
 				//$out.= "Content-Transfer-Encoding: 7bit".$this->eol;
 				$out .= $this->eol.($strContentAltText ? $strContentAltText : strip_tags($strContent)).$this->eol; // Add plain text message
 				$out .= "--".$this->alternative_boundary.$this->eol;
@@ -1774,13 +1774,13 @@ class CMailFile
 				$out .= "Content-Type: multipart/alternative;".$this->eol." boundary=\"".$this->alternative_boundary."\"".$this->eol;
 				$out .= $this->eol;
 				$out .= "--".$this->alternative_boundary.$this->eol;
-				$out .= "Content-Type: text/plain; charset=".$conf->file->character_set_client.$this->eol;
+				$out .= "Content-Type: text/plain; charset=".$config->file->character_set_client.$this->eol;
 				//$out.= "Content-Transfer-Encoding: 7bit".$this->eol;
 				$out .= $this->eol.$strContentAltText.$this->eol;
 				$out .= "--".$this->alternative_boundary.$this->eol;
 			}
 
-			$out .= "Content-Type: text/html; charset=".$conf->file->character_set_client.$this->eol;
+			$out .= "Content-Type: text/html; charset=".$config->file->character_set_client.$this->eol;
 			//$out.= "Content-Transfer-Encoding: 7bit".$this->eol;	// TODO Use base64
 			$out .= $this->eol.$strContent.$this->eol;
 
@@ -1788,7 +1788,7 @@ class CMailFile
 				$out .= "--".$this->alternative_boundary."--".$this->eol;
 			}
 		} else {
-			$out .= "Content-Type: text/plain; charset=".$conf->file->character_set_client.$this->eol;
+			$out .= "Content-Type: text/plain; charset=".$config->file->character_set_client.$this->eol;
 			//$out.= "Content-Transfer-Encoding: 7bit".$this->eol;
 			$out .= $this->eol.$strContent.$this->eol;
 		}
@@ -2104,8 +2104,8 @@ class CMailFile
 		$extensions = array_keys($this->image_types);
 
 		if (empty($images_dir)) {
-			//$images_dir = $conf->admin->dir_output.'/temp/'.uniqid('cmailfile');
-			$images_dir = $conf->admin->dir_output.'/temp/cmailfile';
+			//$images_dir = $config->admin->dir_output.'/temp/'.uniqid('cmailfile');
+			$images_dir = $config->admin->dir_output.'/temp/cmailfile';
 		}
 
 		if ($images_dir && !dol_is_dir($images_dir)) {

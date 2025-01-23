@@ -58,44 +58,44 @@ function rebuild_merge_pdf($db, $langs, $conf, $diroutputpdf, $newlangid, $filte
 		require_once DOL_DOCUMENT_ROOT."/core/modules/facture/modules_facture.php";
 
 		$table = "facture";
-		$dir_output = $conf->facture->dir_output;
+		$dir_output = $config->facture->dir_output;
 		$date = "datef";
 
 		if ($diroutputpdf == 'auto') {
-			$diroutputpdf = $conf->invoice->dir_output.'/temp';
+			$diroutputpdf = $config->invoice->dir_output.'/temp';
 		}
 	} elseif ($mode == 'order') {
 		require_once DOL_DOCUMENT_ROOT."/commande/class/commande.class.php";
 		require_once DOL_DOCUMENT_ROOT."/core/modules/commande/modules_commande.php";
 
 		$table = "commande";
-		$dir_output = $conf->order->dir_output;
+		$dir_output = $config->order->dir_output;
 		$date = "date";
 
 		if ($diroutputpdf == 'auto') {
-			$diroutputpdf = $conf->order->dir_output.'/temp';
+			$diroutputpdf = $config->order->dir_output.'/temp';
 		}
 	} elseif ($mode == 'proposal') {
 		require_once DOL_DOCUMENT_ROOT."/comm/propal/class/propal.class.php";
 		require_once DOL_DOCUMENT_ROOT."/core/modules/propale/modules_propale.php";
 
 		$table = "propal";
-		$dir_output = $conf->propal->dir_output;
+		$dir_output = $config->propal->dir_output;
 		$date = "datep";
 
 		if ($diroutputpdf == 'auto') {
-			$diroutputpdf = $conf->propal->dir_output.'/temp';
+			$diroutputpdf = $config->propal->dir_output.'/temp';
 		}
 	} elseif ($mode == 'shipment') {
 		require_once DOL_DOCUMENT_ROOT."/expedition/class/expedition.class.php";
 		require_once DOL_DOCUMENT_ROOT."/core/modules/expedition/modules_expedition.php";
 
 		$table = "propal";
-		$dir_output = $conf->shipment->dir_output;
+		$dir_output = $config->shipment->dir_output;
 		$date = "date";
 
 		if ($diroutputpdf == 'auto') {
-			$diroutputpdf = $conf->shipment->dir_output.'/temp';
+			$diroutputpdf = $config->shipment->dir_output.'/temp';
 		}
 	} else {
 		print "Bad value for mode";

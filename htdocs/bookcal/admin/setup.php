@@ -81,7 +81,7 @@ $item->defaultFieldValue = 'MyBigCompany public interface for Bookcal';
 $setupnotempty = + count($formSetup->items);
 
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 
 /*
@@ -100,7 +100,7 @@ if ($action == 'updateMask') {
 	$maskvalue = GETPOST('maskvalue', 'alpha');
 
 	if ($maskconst && preg_match('/_MASK$/', $maskconst)) {
-		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
@@ -116,7 +116,7 @@ if ($action == 'updateMask') {
 	$tmpobjectkey = GETPOST('object', 'aZ09');
 	if (!empty($tmpobjectkey)) {
 		$constforval = 'BOOKCAL_'.strtoupper($tmpobjectkey)."_ADDON";
-		dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $config->entity);
 	}
 } elseif ($action == 'set') {
 	// Activate a model
@@ -128,7 +128,7 @@ if ($action == 'updateMask') {
 		if (!empty($tmpobjectkey)) {
 			$constforval = 'BOOKCAL_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
 			if (getDolGlobalString($constforval) == "$value") {
-				dolibarr_del_const($db, $constforval, $conf->entity);
+				dolibarr_del_const($db, $constforval, $config->entity);
 			}
 		}
 	}
@@ -137,10 +137,10 @@ if ($action == 'updateMask') {
 	$tmpobjectkey = GETPOST('object', 'aZ09');
 	if (!empty($tmpobjectkey)) {
 		$constforval = 'BOOKCAL_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
-		if (dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $conf->entity)) {
+		if (dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $config->entity)) {
 			// The constant that was read before the new set
 			// We therefore requires a variable to have a coherent view
-			$conf->global->$constforval = $value;
+			$config->global->$constforval = $value;
 		}
 
 		// We disable/enable the document template (into llx_document_model table)
@@ -153,7 +153,7 @@ if ($action == 'updateMask') {
 	$tmpobjectkey = GETPOST('object', 'aZ09');
 	if (!empty($tmpobjectkey)) {
 		$constforval = 'BOOKCAL_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
-		dolibarr_del_const($db, $constforval, $conf->entity);
+		dolibarr_del_const($db, $constforval, $config->entity);
 	}
 }
 

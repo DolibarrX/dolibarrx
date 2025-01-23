@@ -192,7 +192,7 @@ class pdf_standard_actions
 		// Load traductions files required by page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills", "products"));
 
-		$dir = $conf->agenda->dir_temp."/";
+		$dir = $config->agenda->dir_temp."/";
 		$file = $dir."actions-".sprintf("%02d", $this->month)."-".sprintf("%04d", $this->year).".pdf";
 
 		if (!file_exists($dir)) {
@@ -302,7 +302,7 @@ class pdf_standard_actions
 		$sql .= " WHERE c.id=a.fk_action AND a.fk_user_author = u.rowid";
 		$sql .= " AND a.datep BETWEEN '".$this->db->idate(dol_get_first_day($this->year, $this->month, false))."'";
 		$sql .= " AND '".$this->db->idate(dol_get_last_day($this->year, $this->month, false))."'";
-		$sql .= " AND a.entity = ".$conf->entity;
+		$sql .= " AND a.entity = ".$config->entity;
 		$sql .= " ORDER BY a.datep DESC";
 
 		$eventstatic = new ActionComm($this->db);

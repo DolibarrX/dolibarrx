@@ -131,9 +131,9 @@ print '<tr><td>'.$langs->trans('Date').'</td><td>'.dol_print_date($payment->date
 print '<tr><td>'.$langs->trans('Mode').'</td><td>'.$langs->trans("PaymentType".$payment->type_code).'</td></tr>';
 
 // Amount
-print '<tr><td>'.$langs->trans('LoanCapital').'</td><td>'.price($payment->amount_capital, 0, $langs, 1, -1, -1, $conf->currency).'</td></tr>';
-print '<tr><td>'.$langs->trans('Insurance').'</td><td>'.price($payment->amount_insurance, 0, $langs, 1, -1, -1, $conf->currency).'</td></tr>';
-print '<tr><td>'.$langs->trans('Interest').'</td><td>'.price($payment->amount_interest, 0, $langs, 1, -1, -1, $conf->currency).'</td></tr>';
+print '<tr><td>'.$langs->trans('LoanCapital').'</td><td>'.price($payment->amount_capital, 0, $langs, 1, -1, -1, $config->currency).'</td></tr>';
+print '<tr><td>'.$langs->trans('Insurance').'</td><td>'.price($payment->amount_insurance, 0, $langs, 1, -1, -1, $config->currency).'</td></tr>';
+print '<tr><td>'.$langs->trans('Interest').'</td><td>'.price($payment->amount_interest, 0, $langs, 1, -1, -1, $config->currency).'</td></tr>';
 
 // Note Private
 print '<tr><td>'.$langs->trans('NotePrivate').'</td><td>'.nl2br($payment->note_private).'</td></tr>';
@@ -169,7 +169,7 @@ $disable_delete = 0;
 $sql = 'SELECT l.rowid as id, l.label, l.paid, l.capital as capital, pl.amount_capital, pl.amount_insurance, pl.amount_interest';
 $sql .= ' FROM '.MAIN_DB_PREFIX.'payment_loan as pl,'.MAIN_DB_PREFIX.'loan as l';
 $sql .= ' WHERE pl.fk_loan = l.rowid';
-$sql .= ' AND l.entity = '.((int) $conf->entity);
+$sql .= ' AND l.entity = '.((int) $config->entity);
 $sql .= ' AND pl.rowid = '.((int) $payment->id);
 
 dol_syslog("loan/payment/card.php", LOG_DEBUG);

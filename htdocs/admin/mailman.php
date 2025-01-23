@@ -72,7 +72,7 @@ if ($action == 'update' || $action == 'add') {
 			$constname = $tmparray[$key];
 			$constvalue = $tmpvalue[$key];
 			$constnote = $tmpnote[$key];
-			$res = dolibarr_set_const($db, $constname, $constvalue, 'chaine', 0, $constnote, $conf->entity);
+			$res = dolibarr_set_const($db, $constname, $constvalue, 'chaine', 0, $constnote, $config->entity);
 
 			if (!($res > 0)) {
 				$error++;
@@ -89,7 +89,7 @@ if ($action == 'update' || $action == 'add') {
 
 // Action to activate a submodule of the 'adherent' module
 if ($action == 'set') {
-	$result = dolibarr_set_const($db, GETPOST("name", 'aZ09'), GETPOST("value"), '', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, GETPOST("name", 'aZ09'), GETPOST("value"), '', 0, '', $config->entity);
 	if ($result < 0) {
 		dol_print_error($db);
 	}
@@ -97,7 +97,7 @@ if ($action == 'set') {
 
 // Action to deactivate a submodule of the 'adherent' module
 if ($action == 'unset') {
-	$result = dolibarr_del_const($db, GETPOST("name", 'aZ09'), $conf->entity);
+	$result = dolibarr_del_const($db, GETPOST("name", 'aZ09'), $config->entity);
 	if ($result < 0) {
 		dol_print_error($db);
 	}

@@ -77,7 +77,7 @@ $sql .= " WHERE cf.fk_soc = s.rowid ";
 if (!$user->hasRight("societe", "client", "voir") && !$socid) {
 	$sql .= " AND sc.fk_user = ".((int) $user->id);
 }
-$sql .= " AND cf.entity = ".$conf->entity;
+$sql .= " AND cf.entity = ".$config->entity;
 $sql .= " GROUP BY cf.fk_statut";
 
 $resql = $db->query($sql);
@@ -123,7 +123,7 @@ if (isModEnabled("supplier_order")) {
 	if (!$user->hasRight("societe", "client", "voir") && !$socid) {
 		$sql .= " AND sc.fk_user = ".((int) $user->id);
 	}
-	$sql .= " AND cf.entity = ".$conf->entity;
+	$sql .= " AND cf.entity = ".$config->entity;
 	$sql .= " AND cf.fk_statut = 0";
 	if ($socid) {
 		$sql .= " AND cf.fk_soc = ".((int) $socid);
@@ -179,7 +179,7 @@ if (isModEnabled("supplier_invoice") && ($user->hasRight('fournisseur', 'facture
 	if (!$user->hasRight("societe", "client", "voir") && !$socid) {
 		$sql .= " AND sc.fk_user = ".((int) $user->id);
 	}
-	$sql .= " AND ff.entity = ".$conf->entity;
+	$sql .= " AND ff.entity = ".$config->entity;
 	$sql .= " AND ff.fk_statut = 0";
 	if ($socid) {
 		$sql .= " AND f.fk_soc = ".((int) $socid);
@@ -247,7 +247,7 @@ if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
 $sql .= ", st.libelle as stcomm";
 $sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
 if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
-	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $conf->entity);
+	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
 }
 $sql .= ", ".MAIN_DB_PREFIX."c_stcomm as st";
 if (!$user->hasRight("societe", "client", "voir") && !$socid) {

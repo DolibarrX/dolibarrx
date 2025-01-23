@@ -116,7 +116,7 @@ class doc_generic_bom_odt extends ModelePDFBom
 		// List of directories area
 		$texte .= '<tr><td>';
 		$texttitle = $langs->trans("ListOfDirectories");
-		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($conf->global->BOM_ADDON_PDF_ODT_PATH)));
+		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($config->global->BOM_ADDON_PDF_ODT_PATH)));
 		$listoffiles = array();
 		foreach ($listofdir as $key => $tmpdir) {
 			$tmpdir = trim($tmpdir);
@@ -230,7 +230,7 @@ class doc_generic_bom_odt extends ModelePDFBom
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills"));
 
-		if ($conf->bom->dir_output) {
+		if ($config->bom->dir_output) {
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
@@ -246,7 +246,7 @@ class doc_generic_bom_odt extends ModelePDFBom
 			$object->fetch_product();
 			$object->calculateCosts();
 
-			$dir = $conf->bom->multidir_output[isset($object->entity) ? $object->entity : 1];
+			$dir = $config->bom->multidir_output[isset($object->entity) ? $object->entity : 1];
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -281,9 +281,9 @@ class doc_generic_bom_odt extends ModelePDFBom
 				}
 				$file = $dir . '/' . $filename;
 
-				dol_mkdir($conf->bom->dir_temp);
-				if (!is_writable($conf->bom->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->bom->dir_temp);
+				dol_mkdir($config->bom->dir_temp);
+				if (!is_writable($config->bom->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->bom->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -300,7 +300,7 @@ class doc_generic_bom_odt extends ModelePDFBom
 				$contactobject = null;
 				if (!empty($usecontact)) {
 					// We can use the company of contact instead of thirdparty company
-					if ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
+					if ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
 						$object->contact->fetch_thirdparty();
 						$socobject = $object->contact->thirdparty;
 						$contactobject = $object->contact;
@@ -335,7 +335,7 @@ class doc_generic_bom_odt extends ModelePDFBom
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $conf->bom->dir_temp,
+							'PATH_TO_TMP'	  => $config->bom->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'

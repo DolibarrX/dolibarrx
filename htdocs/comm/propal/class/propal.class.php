@@ -497,7 +497,7 @@ class Propal extends CommonObject
 			$localtax2_tx = get_localtax($tva_tx, 2, $mysoc, $this->thirdparty, $tva_npr);
 
 			// multiprices
-			if ($conf->global->PRODUIT_MULTIPRICES && $this->thirdparty->price_level) {
+			if ($config->global->PRODUIT_MULTIPRICES && $this->thirdparty->price_level) {
 				$price = $prod->multiprices[$this->thirdparty->price_level];
 			} else {
 				$price = $prod->price;
@@ -1128,7 +1128,7 @@ class Propal extends CommonObject
 			$this->fk_multicurrency = MultiCurrency::getIdFromCode($this->db, $this->multicurrency_code);
 		}
 		if (empty($this->fk_multicurrency)) {
-			$this->multicurrency_code = $conf->currency;
+			$this->multicurrency_code = $config->currency;
 			$this->fk_multicurrency = 0;
 			$this->multicurrency_tx = 1;
 		}
@@ -2086,14 +2086,14 @@ class Propal extends CommonObject
 			if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 				// Now we rename also files into index
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'propale/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'propale/".$this->db->escape($this->ref)."' and entity = ".((int) $conf->entity);
+				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'propale/".$this->db->escape($this->ref)."' and entity = ".((int) $config->entity);
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
 					$this->error = $this->db->lasterror();
 				}
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'propale/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filepath = 'propale/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filepath = 'propale/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
@@ -2103,8 +2103,8 @@ class Propal extends CommonObject
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($num);
-				$dirsource = $conf->propal->multidir_output[$this->entity].'/'.$oldref;
-				$dirdest = $conf->propal->multidir_output[$this->entity].'/'.$newref;
+				$dirsource = $config->propal->multidir_output[$this->entity].'/'.$oldref;
+				$dirdest = $config->propal->multidir_output[$this->entity].'/'.$newref;
 				if (!$error && file_exists($dirsource)) {
 					dol_syslog(get_class($this)."::validate rename dir ".$dirsource." into ".$dirdest);
 					if (@rename($dirsource, $dirdest)) {
@@ -2629,7 +2629,7 @@ class Propal extends CommonObject
 
 			if ($status == self::STATUS_SIGNED) {	// Status self::STATUS_SIGNED
 				$trigger_name = 'PROPAL_CLOSE_SIGNED';	// used later in call_trigger()
-				$modelpdf = getDolGlobalString('PROPALE_ADDON_PDF_ODT_TOBILL') ? $conf->global->PROPALE_ADDON_PDF_ODT_TOBILL : $this->model_pdf;
+				$modelpdf = getDolGlobalString('PROPALE_ADDON_PDF_ODT_TOBILL') ? $config->global->PROPALE_ADDON_PDF_ODT_TOBILL : $this->model_pdf;
 
 				// The connected company is classified as a client
 				$soc = new Societe($this->db);
@@ -3147,8 +3147,8 @@ class Propal extends CommonObject
 		if (!$error) {
 			// We remove directory
 			$ref = dol_sanitizeFileName($this->ref);
-			if ($conf->propal->multidir_output[$this->entity] && !empty($this->ref)) {
-				$dir = $conf->propal->multidir_output[$this->entity]."/".$ref;
+			if ($config->propal->multidir_output[$this->entity] && !empty($this->ref)) {
+				$dir = $config->propal->multidir_output[$this->entity]."/".$ref;
 				$file = $dir."/".$ref.".pdf";
 				if (file_exists($file)) {
 					dol_delete_preview($this);
@@ -3469,13 +3469,13 @@ class Propal extends CommonObject
 			$status = 0;
 			$label = $labelShort = '';
 			if ($mode == 'opened') {
-				$delay_warning = $conf->propal->cloture->warning_delay;
+				$delay_warning = $config->propal->cloture->warning_delay;
 				$status = self::STATUS_VALIDATED;
 				$label = $langs->transnoentitiesnoconv("PropalsToClose");
 				$labelShort = $langs->transnoentitiesnoconv("ToAcceptRefuse");
 			}
 			if ($mode == 'signed') {
-				$delay_warning = $conf->propal->facturation->warning_delay;
+				$delay_warning = $config->propal->facturation->warning_delay;
 				$status = self::STATUS_SIGNED;
 				$label = $langs->trans("PropalsToBill"); // We set here bill but may be billed or ordered
 				$labelShort = $langs->trans("ToBill");
@@ -3562,7 +3562,7 @@ class Propal extends CommonObject
 		$this->note_private = 'This is a comment (private)';
 
 		$this->multicurrency_tx = 1;
-		$this->multicurrency_code = $conf->currency;
+		$this->multicurrency_code = $config->currency;
 
 		// Lines
 		$nbp = min(1000, GETPOSTINT('nblines') ? GETPOSTINT('nblines') : 5);	// We can force the nb of lines to test from command line (but not more than 1000)
@@ -3673,7 +3673,7 @@ class Propal extends CommonObject
 			$file = $classname.".php";
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/propale/");
 
@@ -3750,13 +3750,13 @@ class Propal extends CommonObject
 				}
 			}
 			if (!empty($this->total_ht)) {
-				$datas['amountht'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['amountht'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->total_tva)) {
-				$datas['vat'] = '<br><b>'.$langs->trans('VAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['vat'] = '<br><b>'.$langs->trans('VAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->total_ttc)) {
-				$datas['amountttc'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['amountttc'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->date)) {
 				$datas['date'] = '<br><b>'.$langs->trans('Date').':</b> '.dol_print_date($this->date, 'day');
@@ -3784,7 +3784,7 @@ class Propal extends CommonObject
 	{
 		global $langs, $conf, $user, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

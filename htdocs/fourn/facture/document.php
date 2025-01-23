@@ -64,7 +64,7 @@ $hookManager->initHooks(array('invoicesuppliercarddocument'));
 $result = restrictedArea($user, 'fournisseur', $id, 'facture_fourn', 'facture');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -85,7 +85,7 @@ $object = new FactureFournisseur($db);
 if ($object->fetch($id, $ref)) {
 	$object->fetch_thirdparty();
 	$ref = dol_sanitizeFileName($object->ref);
-	$upload_dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($object->id, 2, 0, 0, $object, 'invoice_supplier').$ref;
+	$upload_dir = $config->fournisseur->facture->dir_output.'/'.get_exdir($object->id, 2, 0, 0, $object, 'invoice_supplier').$ref;
 }
 
 $permissiontoadd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer")); // Used by the include of actions_setnotes.inc.php
@@ -214,22 +214,22 @@ if ($object->id > 0) {
 	print '</td>';
 
 	// Amount
-	print '<tr><td>'.$langs->trans('AmountHT').'</td><td>'.price($object->total_ht, 1, $langs, 0, -1, -1, $conf->currency).'</td></tr>';
-	print '<tr><td>'.$langs->trans('AmountVAT').'</td><td>'.price($object->total_tva, 1, $langs, 0, -1, -1, $conf->currency).'</td></tr>';
+	print '<tr><td>'.$langs->trans('AmountHT').'</td><td>'.price($object->total_ht, 1, $langs, 0, -1, -1, $config->currency).'</td></tr>';
+	print '<tr><td>'.$langs->trans('AmountVAT').'</td><td>'.price($object->total_tva, 1, $langs, 0, -1, -1, $config->currency).'</td></tr>';
 
 	// Amount Local Taxes
 	//TODO: Place into a function to control showing by country or study better option
 	if ($mysoc->localtax1_assuj == "1") { //Localtax1
 		print '<tr><td>'.$langs->transcountry("AmountLT1", $mysoc->country_code).'</td>';
-		print '<td>'.price($object->total_localtax1, 1, $langs, 0, -1, -1, $conf->currency).'</td>';
+		print '<td>'.price($object->total_localtax1, 1, $langs, 0, -1, -1, $config->currency).'</td>';
 		print '</tr>';
 	}
 	if ($mysoc->localtax2_assuj == "1") { //Localtax2
 		print '<tr><td>'.$langs->transcountry("AmountLT2", $mysoc->country_code).'</td>';
-		print '<td>'.price($object->total_localtax2, 1, $langs, 0, -1, -1, $conf->currency).'</td>';
+		print '<td>'.price($object->total_localtax2, 1, $langs, 0, -1, -1, $config->currency).'</td>';
 		print '</tr>';
 	}
-	print '<tr><td>'.$langs->trans('AmountTTC').'</td><td>'.price($object->total_ttc, 1, $langs, 0, -1, -1, $conf->currency).'</td></tr>';
+	print '<tr><td>'.$langs->trans('AmountTTC').'</td><td>'.price($object->total_ttc, 1, $langs, 0, -1, -1, $config->currency).'</td></tr>';
 
 	print '</table><br>';
 
@@ -256,7 +256,7 @@ if ($object->id > 0) {
 	$param = '&facid='.$object->id;
 
 	$defaulttpldir = '/core/tpl';
-	$dirtpls = array_merge($conf->modules_parts['tpl'], array($defaulttpldir));
+	$dirtpls = array_merge($config->modules_parts['tpl'], array($defaulttpldir));
 	foreach ($dirtpls as $module => $reldir) {
 		if (!empty($module)) {
 			$tpl = dol_buildpath($reldir.'/document_actions_post_headers.tpl.php');
@@ -264,7 +264,7 @@ if ($object->id > 0) {
 			$tpl = DOL_DOCUMENT_ROOT.$reldir.'/document_actions_post_headers.tpl.php';
 		}
 
-		if (empty($conf->file->strict_mode)) {
+		if (empty($config->file->strict_mode)) {
 			$res = @include $tpl;
 		} else {
 			$res = include $tpl; // for debug

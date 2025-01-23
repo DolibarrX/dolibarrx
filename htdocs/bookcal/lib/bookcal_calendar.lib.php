@@ -85,7 +85,7 @@ function calendarPrepareHead($object)
 	if ($showtabofpagedocument) {
 		require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
 		require_once DOL_DOCUMENT_ROOT . '/core/class/link.class.php';
-		$upload_dir = $conf->bookcal->dir_output . "/calendar/" . dol_sanitizeFileName($object->ref);
+		$upload_dir = $config->bookcal->dir_output . "/calendar/" . dol_sanitizeFileName($object->ref);
 		$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 		$nbLinks = Link::count($db, $object->element, $object->id);
 		$head[$h][0] = DOL_URL_ROOT . '/bookcal/calendar_document.php?id=' . $object->id;

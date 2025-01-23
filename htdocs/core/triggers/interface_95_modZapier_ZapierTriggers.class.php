@@ -60,7 +60,7 @@ class InterfaceZapierTriggers extends DolibarrTriggers
 	 */
 	public function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
 	{
-		if (empty($conf->zapier) || empty($conf->zapier->enabled)) {
+		if (empty($config->zapier) || empty($config->zapier->enabled)) {
 			// Module not active, we do nothing
 			return 0;
 		}

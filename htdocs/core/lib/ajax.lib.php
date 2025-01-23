@@ -461,14 +461,14 @@ function ajax_combobox($htmlname, $events = array(), $minLengthToAutocomplete = 
 	global $conf;
 
 	// select2 can be disabled for smartphones
-	if (!empty($conf->browser->layout) && $conf->browser->layout == 'phone' && getDolGlobalString('MAIN_DISALLOW_SELECT2_WITH_SMARTPHONE')) {
+	if (!empty($config->browser->layout) && $config->browser->layout == 'phone' && getDolGlobalString('MAIN_DISALLOW_SELECT2_WITH_SMARTPHONE')) {
 		return '';
 	}
 
 	if (getDolGlobalString('MAIN_DISABLE_AJAX_COMBOX')) {
 		return '';
 	}
-	if (empty($conf->use_javascript_ajax)) {
+	if (empty($config->use_javascript_ajax)) {
 		return '';
 	}
 	if (!getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT') && !defined('REQUIRE_JQUERY_MULTISELECT')) {
@@ -648,12 +648,12 @@ function ajax_constantonoff($code, $input = array(), $entity = null, $revertonof
 {
 	global $conf, $langs, $user, $db;
 
-	$entity = ((isset($entity) && is_numeric($entity) && $entity >= 0) ? $entity : $conf->entity);
+	$entity = ((isset($entity) && is_numeric($entity) && $entity >= 0) ? $entity : $config->entity);
 	if (!isset($input)) {
 		$input = array();
 	}
 
-	if (empty($conf->use_javascript_ajax) || $forcenoajax) {
+	if (empty($config->use_javascript_ajax) || $forcenoajax) {
 		if (!getDolGlobalString($code)) {
 			$out = '<a '.($morecss ? 'class="'.$morecss.'" ' : '').'href="'.$_SERVER['PHP_SELF'].'?action=set_'.$code.'&token='.newToken().'&entity='.$entity.($mode ? '&mode='.$mode : '').($forcereload ? '&dol_resetcache=1' : '').'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
 		} else {
@@ -757,7 +757,7 @@ function ajax_object_onoff($object, $code, $field, $text_on, $text_off, $input =
 
 	$out = '';
 
-	if (!empty($conf->use_javascript_ajax) && empty($forcenojs)) {
+	if (!empty($config->use_javascript_ajax) && empty($forcenojs)) {
 		$out .= '<script>
         $(function() {
             var input = '.json_encode($input).';
@@ -850,7 +850,7 @@ function ajax_object_onoff($object, $code, $field, $text_on, $text_off, $input =
 		}
 	}
 
-	if (empty($conf->use_javascript_ajax) || $forcenojs) {
+	if (empty($config->use_javascript_ajax) || $forcenojs) {
 		$out .= '<a id="set_'.$htmlname.'_'.$object->id.'" class="linkobject '.($object->$code == 1 ? 'hideobject' : '').($morecss ? ' '.$morecss : '').'" href="'.DOL_URL_ROOT.'/core/ajax/objectonoff.php?action=set&token='.newToken().'&id='.((int) $object->id).'&element='.urlencode($object->element).'&field='.urlencode($field).'&value=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?id='.$object->id.($moreparam ? '&'.$moreparam : '')).'">'.img_picto($langs->trans($text_off), $switchoff, '', 0, 0, 0, '', $cssswitchoff).'</a>';
 		$out .= '<a id="del_'.$htmlname.'_'.$object->id.'" class="linkobject '.($object->$code == 1 ? '' : 'hideobject').($morecss ? ' '.$morecss : '').'" href="'.DOL_URL_ROOT.'/core/ajax/objectonoff.php?action=set&token='.newToken().'&id='.((int) $object->id).'&element='.urlencode($object->element).'&field='.urlencode($field).'&value=0&backtopage='.urlencode($_SERVER["PHP_SELF"].'?id='.$object->id.($moreparam ? '&'.$moreparam : '')).'">'.img_picto($langs->trans($text_on), $switchon, '', 0, 0, 0, '', $cssswitchon).'</a>';
 	} else {

@@ -276,7 +276,7 @@ class ImportCsv extends ModeleImports
 		if ($arrayres && is_array($arrayres)) {
 			foreach ($arrayres as $key => $val) {
 				if (getDolGlobalString('IMPORT_CSV_FORCE_CHARSET')) {	// Forced charset
-					if (strtolower($conf->global->IMPORT_CSV_FORCE_CHARSET) == 'utf8') {
+					if (strtolower($config->global->IMPORT_CSV_FORCE_CHARSET) == 'utf8') {
 						$newarrayres[$key]['val'] = $val;
 						$newarrayres[$key]['type'] = (dol_strlen($val) ? 1 : -1); // If empty we consider it's null
 					} else {
@@ -1049,7 +1049,7 @@ class ImportCsv extends ModeleImports
 							$sqlend = ") VALUES(".implode(', ', $listvalues).", '".$this->db->escape($importid)."'";
 							if (!empty($tablewithentity_cache[$tablename])) {
 								$sqlstart .= ", entity";
-								$sqlend .= ", ".$conf->entity;
+								$sqlend .= ", ".$config->entity;
 							}
 							if (!empty($objimport->array_import_tables_creator[0][$alias])) {
 								$sqlstart .= ", ".$objimport->array_import_tables_creator[0][$alias];

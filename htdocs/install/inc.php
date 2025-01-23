@@ -257,7 +257,7 @@ if (!defined('DONOTLOADCONF') && file_exists($conffile) && filesize($conffile) >
 	}
 }
 
-$conf->global->MAIN_ENABLE_LOG_TO_HTML = 1;
+$config->global->MAIN_ENABLE_LOG_TO_HTML = 1;
 
 // Define prefix
 if (!isset($dolibarr_main_db_prefix) || !$dolibarr_main_db_prefix) {
@@ -276,32 +276,32 @@ if ($suburi == '/') {
 define('DOL_URL_ROOT', $suburi); // URL relative root ('', '/dolibarr', ...)
 
 
-if (empty($conf->file->character_set_client)) {
-	$conf->file->character_set_client = "utf-8";
+if (empty($config->file->character_set_client)) {
+	$config->file->character_set_client = "utf-8";
 }
-if (empty($conf->db->character_set)) {
-	$conf->db->character_set = 'utf8';
+if (empty($config->db->character_set)) {
+	$config->db->character_set = 'utf8';
 }
-if (empty($conf->db->dolibarr_main_db_collation)) {
-	$conf->db->dolibarr_main_db_collation = 'utf8_unicode_ci';
+if (empty($config->db->dolibarr_main_db_collation)) {
+	$config->db->dolibarr_main_db_collation = 'utf8_unicode_ci';
 }
-if (empty($conf->db->dolibarr_main_db_encryption)) {
-	$conf->db->dolibarr_main_db_encryption = 0;
+if (empty($config->db->dolibarr_main_db_encryption)) {
+	$config->db->dolibarr_main_db_encryption = 0;
 }
-if (empty($conf->db->dolibarr_main_db_cryptkey)) {
-	$conf->db->dolibarr_main_db_cryptkey = '';
+if (empty($config->db->dolibarr_main_db_cryptkey)) {
+	$config->db->dolibarr_main_db_cryptkey = '';
 }
-if (empty($conf->db->user)) {
-	$conf->db->user = '';
+if (empty($config->db->user)) {
+	$config->db->user = '';
 }
 
 // Define an array of document root directories
-$conf->file->dol_document_root = array(DOL_DOCUMENT_ROOT);
+$config->file->dol_document_root = array(DOL_DOCUMENT_ROOT);
 if (!empty($dolibarr_main_document_root_alt)) {
 	// dolibarr_main_document_root_alt contains several directories
 	$values = preg_split('/[;,]/', $dolibarr_main_document_root_alt);
 	foreach ($values as $value) {
-		$conf->file->dol_document_root[] = $value;
+		$config->file->dol_document_root[] = $value;
 	}
 }
 
@@ -358,8 +358,8 @@ if ($islocked) {	// Pages are locked
 
 
 // Force usage of log file for install and upgrades
-$conf->modules['syslog'] = 'syslog';
-$conf->global->SYSLOG_LEVEL = constant('LOG_DEBUG');
+$config->modules['syslog'] = 'syslog';
+$config->global->SYSLOG_LEVEL = constant('LOG_DEBUG');
 if (!defined('SYSLOG_HANDLERS')) {
 	define('SYSLOG_HANDLERS', '["mod_syslog_file"]');
 }
@@ -378,7 +378,7 @@ if (!defined('SYSLOG_FILE')) {	// To avoid warning on systems with constant alre
 	//print 'SYSLOG_FILE='.SYSLOG_FILE;exit;
 }
 if (defined('SYSLOG_FILE')) {
-	$conf->global->SYSLOG_FILE = constant('SYSLOG_FILE');
+	$config->global->SYSLOG_FILE = constant('SYSLOG_FILE');
 }
 if (!defined('SYSLOG_FILE_NO_ERROR')) {
 	define('SYSLOG_FILE_NO_ERROR', 1);
@@ -397,8 +397,8 @@ foreach ($handlers as $handler) {
 		throw new Exception('Log handler does not extend LogHandler');
 	}
 
-	if (empty($conf->loghandlers[$handler])) {
-		$conf->loghandlers[$handler] = $loghandlerinstance;
+	if (empty($config->loghandlers[$handler])) {
+		$config->loghandlers[$handler] = $loghandlerinstance;
 	}
 }
 
@@ -438,43 +438,43 @@ function conf($dolibarr_main_document_root)
 	}
 
 	$conf = new Conf();
-	$conf->db->type = trim($dolibarr_main_db_type);
-	$conf->db->host = trim($dolibarr_main_db_host);
-	$conf->db->port = trim($dolibarr_main_db_port);
-	$conf->db->name = trim($dolibarr_main_db_name);
-	$conf->db->user = trim($dolibarr_main_db_user);
-	$conf->db->pass = (empty($dolibarr_main_db_pass) ? '' : trim($dolibarr_main_db_pass));
+	$config->db->type = trim($dolibarr_main_db_type);
+	$config->db->host = trim($dolibarr_main_db_host);
+	$config->db->port = trim($dolibarr_main_db_port);
+	$config->db->name = trim($dolibarr_main_db_name);
+	$config->db->user = trim($dolibarr_main_db_user);
+	$config->db->pass = (empty($dolibarr_main_db_pass) ? '' : trim($dolibarr_main_db_pass));
 
 	// Mysql driver support has been removed in favor of mysqli
-	if ($conf->db->type == 'mysql') {
-		$conf->db->type = 'mysqli';
+	if ($config->db->type == 'mysql') {
+		$config->db->type = 'mysqli';
 	}
 	if (empty($character_set_client)) {
 		$character_set_client = "UTF-8";
 	}
-	$conf->file->character_set_client = strtoupper($character_set_client);
+	$config->file->character_set_client = strtoupper($character_set_client);
 	// Unique id of instance
-	$conf->file->instance_unique_id = empty($dolibarr_main_instance_unique_id) ? (empty($dolibarr_main_cookie_cryptkey) ? '' : $dolibarr_main_cookie_cryptkey) : $dolibarr_main_instance_unique_id;
+	$config->file->instance_unique_id = empty($dolibarr_main_instance_unique_id) ? (empty($dolibarr_main_cookie_cryptkey) ? '' : $dolibarr_main_cookie_cryptkey) : $dolibarr_main_instance_unique_id;
 	if (empty($dolibarr_main_db_character_set)) {
-		$dolibarr_main_db_character_set = ($conf->db->type == 'mysqli' ? 'utf8' : '');
+		$dolibarr_main_db_character_set = ($config->db->type == 'mysqli' ? 'utf8' : '');
 	}
-	$conf->db->character_set = $dolibarr_main_db_character_set;
+	$config->db->character_set = $dolibarr_main_db_character_set;
 	if (empty($dolibarr_main_db_collation)) {
-		$dolibarr_main_db_collation = ($conf->db->type == 'mysqli' ? 'utf8_unicode_ci' : '');
+		$dolibarr_main_db_collation = ($config->db->type == 'mysqli' ? 'utf8_unicode_ci' : '');
 	}
-	$conf->db->dolibarr_main_db_collation = $dolibarr_main_db_collation;
+	$config->db->dolibarr_main_db_collation = $dolibarr_main_db_collation;
 	if (empty($dolibarr_main_db_encryption)) {
 		$dolibarr_main_db_encryption = 0;
 	}
-	$conf->db->dolibarr_main_db_encryption = $dolibarr_main_db_encryption;
+	$config->db->dolibarr_main_db_encryption = $dolibarr_main_db_encryption;
 	if (empty($dolibarr_main_db_cryptkey)) {
 		$dolibarr_main_db_cryptkey = '';
 	}
-	$conf->db->dolibarr_main_db_cryptkey = $dolibarr_main_db_cryptkey;
+	$config->db->dolibarr_main_db_cryptkey = $dolibarr_main_db_cryptkey;
 
 	// Force usage of log file for install and upgrades
-	$conf->modules['syslog'] = 'syslog';
-	$conf->global->SYSLOG_LEVEL = constant('LOG_DEBUG');
+	$config->modules['syslog'] = 'syslog';
+	$config->global->SYSLOG_LEVEL = constant('LOG_DEBUG');
 	if (!defined('SYSLOG_HANDLERS')) {
 		define('SYSLOG_HANDLERS', '["mod_syslog_file"]');
 	}
@@ -493,7 +493,7 @@ function conf($dolibarr_main_document_root)
 		//print 'SYSLOG_FILE='.SYSLOG_FILE;exit;
 	}
 	if (defined('SYSLOG_FILE')) {
-		$conf->global->SYSLOG_FILE = constant('SYSLOG_FILE');
+		$config->global->SYSLOG_FILE = constant('SYSLOG_FILE');
 	}
 	if (!defined('SYSLOG_FILE_NO_ERROR')) {
 		define('SYSLOG_FILE_NO_ERROR', 1);
@@ -512,8 +512,8 @@ function conf($dolibarr_main_document_root)
 			throw new Exception('Log handler does not extend LogHandler');
 		}
 
-		if (empty($conf->loghandlers[$handler])) {
-			$conf->loghandlers[$handler] = $loghandlerinstance;
+		if (empty($config->loghandlers[$handler])) {
+			$config->loghandlers[$handler] = $loghandlerinstance;
 		}
 	}
 
@@ -551,14 +551,14 @@ function pHeader($subtitle, $next, $action = 'set', $param = '', $forcejqueryurl
 	}
 
 	// We force the content charset
-	header("Content-type: text/html; charset=".$conf->file->character_set_client);
+	header("Content-type: text/html; charset=".$config->file->character_set_client);
 	header("X-Content-Type-Options: nosniff");
 	header("X-Frame-Options: SAMEORIGIN"); // Frames allowed only if on same domain (stop some XSS attacks)
 
 	print '<!DOCTYPE HTML>'."\n";
 	print '<html>'."\n";
 	print '<head>'."\n";
-	print '<meta charset="'.$conf->file->character_set_client.'">'."\n";
+	print '<meta charset="'.$config->file->character_set_client.'">'."\n";
 	print '<meta name="viewport" content="width=device-width, initial-scale=1.0">'."\n";
 	print '<meta name="generator" content="Dolibarr installer">'."\n";
 	print '<link rel="stylesheet" type="text/css" href="default.css">'."\n";
@@ -666,11 +666,11 @@ function pFooter($nonext = 0, $setuplang = '', $jscheckfunction = '', $withpleas
 	print '</form><br>'."\n";
 
 	// If there is some logs in buffer to show
-	if (isset($conf->logbuffer) && count($conf->logbuffer)) {
+	if (isset($config->logbuffer) && count($config->logbuffer)) {
 		print "\n";
 		print "<!-- Start of log output\n";
 		//print '<div class="hidden">'."\n";
-		foreach ($conf->logbuffer as $logline) {
+		foreach ($config->logbuffer as $logline) {
 			print $logline."<br>\n";
 		}
 		//print '</div>'."\n";

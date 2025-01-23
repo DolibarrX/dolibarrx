@@ -175,7 +175,7 @@ class Deplacement extends CommonObject
 		$sql .= ", fk_soc";
 		$sql .= ") VALUES (";
 		$sql .= " '".$this->db->idate($now)."'";
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ", ".((int) $user->id);
 		$sql .= ", ".((int) $this->fk_user);
 		$sql .= ", '".$this->db->escape($this->type)."'";

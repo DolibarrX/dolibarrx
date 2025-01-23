@@ -1146,8 +1146,8 @@ abstract class CommonInvoice extends CommonObject
 
 					// We can also use bcadd to avoid pb with floating points
 					// For example print 239.2 - 229.3 - 9.9; does not return 0.
-					//$resteapayer=bcadd($this->total_ttc,$totalpaid,$conf->global->MAIN_MAX_DECIMALS_TOT);
-					//$resteapayer=bcadd($resteapayer,$totalavoir,$conf->global->MAIN_MAX_DECIMALS_TOT);
+					//$resteapayer=bcadd($this->total_ttc,$totalpaid,$config->global->MAIN_MAX_DECIMALS_TOT);
+					//$resteapayer=bcadd($resteapayer,$totalavoir,$config->global->MAIN_MAX_DECIMALS_TOT);
 					if (empty($amount)) {
 						$amount = price2num($this->total_ttc - $totalpaid - $totalcreditnotes - $totaldeposits, 'MT');
 					}
@@ -1175,7 +1175,7 @@ abstract class CommonInvoice extends CommonObject
 						$sql .= ", '".$this->db->escape($bac->cle_rib)."'";
 						$sql .= ", '".$this->db->escape($sourcetype)."'";
 						$sql .= ", 'ban'";
-						$sql .= ", ".((int) $conf->entity);
+						$sql .= ", ".((int) $config->entity);
 						if (!empty($bac->id)) {
 							$sql .= ", '".$this->db->escape($bac->id)."'";
 						}
@@ -1325,7 +1325,7 @@ abstract class CommonInvoice extends CommonObject
 
 					$now = dol_now();
 
-					$currency = $conf->currency;
+					$currency = $config->currency;
 
 					$errorforinvoice = 0;     // We reset the $errorforinvoice at each invoice loop
 
@@ -1480,8 +1480,8 @@ abstract class CommonInvoice extends CommonObject
 									 }*/
 								}
 
-								// $nbhoursbetweentries = (empty($conf->global->SELLYOURSAAS_NBHOURSBETWEENTRIES) ? 49 : $conf->global->SELLYOURSAAS_NBHOURSBETWEENTRIES);				// Must have more that 48 hours + 1 between each try (so 1 try every 3 daily batch)
-								// $nbdaysbeforeendoftries = (empty($conf->global->SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES) ? 35 : $conf->global->SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES);
+								// $nbhoursbetweentries = (empty($config->global->SELLYOURSAAS_NBHOURSBETWEENTRIES) ? 49 : $config->global->SELLYOURSAAS_NBHOURSBETWEENTRIES);				// Must have more that 48 hours + 1 between each try (so 1 try every 3 daily batch)
+								// $nbdaysbeforeendoftries = (empty($config->global->SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES) ? 35 : $config->global->SELLYOURSAAS_NBDAYSBEFOREENDOFTRIES);
 								$postactionmessages = [];
 
 								if ($resultthirdparty > 0 && !empty($customer)) {
@@ -1527,7 +1527,7 @@ abstract class CommonInvoice extends CommonObject
 												$charge->failure_message = $stripe->error;
 												$charge->failure_declinecode = $stripe->declinecode;
 												$stripefailurecode = $stripe->code;
-												$stripefailuremessage = 'Action required. Contact the support at ';// . $conf->global->SELLYOURSAAS_MAIN_EMAIL;
+												$stripefailuremessage = 'Action required. Contact the support at ';// . $config->global->SELLYOURSAAS_MAIN_EMAIL;
 												$stripefailuredeclinecode = $stripe->declinecode;
 											} else {
 												dol_syslog(var_export($paymentintent, true), LOG_DEBUG);
@@ -2002,7 +2002,7 @@ abstract class CommonInvoice extends CommonObject
 		$s .= "\n";
 		// Amount of payment (to do?)
 		$s .= price($pricewithtaxstring, 0, 'none', 0, 0, 2)."\n";
-		$s .= ($this->multicurrency_code ? $this->multicurrency_code : $conf->currency)."\n";
+		$s .= ($this->multicurrency_code ? $this->multicurrency_code : $config->currency)."\n";
 		// Buyer
 		$s .= "S\n";
 		$s .= dol_trunc($this->thirdparty->name, 70, 'right', 'UTF-8', 1)."\n";

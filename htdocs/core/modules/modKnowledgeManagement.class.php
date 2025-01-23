@@ -163,9 +163,9 @@ class modKnowledgeManagement extends DolibarrModules
 			'fr_FR:ParentCompany'=>'Maison mère ou revendeur'
 		)*/
 
-		if (!isset($conf->knowledgemanagement) || !isset($conf->knowledgemanagement->enabled)) {
-			$conf->knowledgemanagement = new stdClass();
-			$conf->knowledgemanagement->enabled = 0;
+		if (!isset($config->knowledgemanagement) || !isset($config->knowledgemanagement->enabled)) {
+			$config->knowledgemanagement = new stdClass();
+			$config->knowledgemanagement->enabled = 0;
 		}
 
 		// Array to add new pages in new tabs
@@ -226,13 +226,13 @@ class modKnowledgeManagement extends DolibarrModules
 			//      'frequency' => 2,
 			//      'unitfrequency' => 3600,
 			//      'status' => 0,
-			//      'test' => '$conf->knowledgemanagement->enabled',
+			//      'test' => '$config->knowledgemanagement->enabled',
 			//      'priority' => 50,
 			//  ),
 		);
 		// Example: $this->cronjobs=array(
-		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->knowledgemanagement->enabled', 'priority'=>50),
-		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->knowledgemanagement->enabled', 'priority'=>50)
+		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$config->knowledgemanagement->enabled', 'priority'=>50),
+		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$config->knowledgemanagement->enabled', 'priority'=>50)
 		// );
 
 		// Permissions provided by this module
@@ -278,7 +278,7 @@ class modKnowledgeManagement extends DolibarrModules
 			'url'=>'/knowledgemanagement/knowledgerecord_list.php',
 			'langs'=>'knowledgemanagement', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>1000 + $r,
-			'enabled'=>'$conf->knowledgemanagement->enabled', // Define condition to show or hide menu entry. Use '$conf->knowledgemanagement->enabled' if entry must be visible if module is enabled.
+			'enabled'=>'$config->knowledgemanagement->enabled', // Define condition to show or hide menu entry. Use '$config->knowledgemanagement->enabled' if entry must be visible if module is enabled.
 			'perms'=>'1', // Use 'perms'=>'$user->hasRight('knowledgemanagement', 'knowledgerecord', 'read')' if you want your menu with a permission rules
 			'target'=>'',
 			'user'=>2, // 0=Menu for internal users, 1=external users, 2=both
@@ -299,8 +299,8 @@ class modKnowledgeManagement extends DolibarrModules
 			// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'langs' => 'knowledgemanagement',
 			'position' => 101,
-			// Define condition to show or hide menu entry. Use '$conf->knowledgemanagement->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-			'enabled' => '$conf->knowledgemanagement->enabled',
+			// Define condition to show or hide menu entry. Use '$config->knowledgemanagement->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => '$config->knowledgemanagement->enabled',
 			// Use 'perms'=>'$user->rights->knowledgemanagement->level1->level2' if you want your menu with a permission rules
 			'perms' => '$user->rights->knowledgemanagement->knowledgerecord->read',
 			'target' => '',
@@ -319,8 +319,8 @@ class modKnowledgeManagement extends DolibarrModules
 			// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'langs' => 'knowledgemanagement',
 			'position' => 111,
-			// Define condition to show or hide menu entry. Use '$conf->knowledgemanagement->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-			'enabled' => '$conf->knowledgemanagement->enabled',
+			// Define condition to show or hide menu entry. Use '$config->knowledgemanagement->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => '$config->knowledgemanagement->enabled',
 			// Use 'perms'=>'$user->rights->knowledgemanagement->level1->level2' if you want your menu with a permission rules
 			'perms' => '$user->rights->knowledgemanagement->knowledgerecord->read',
 			'target' => '',
@@ -339,8 +339,8 @@ class modKnowledgeManagement extends DolibarrModules
 			// Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'langs' => 'knowledgemanagement',
 			'position' => 110,
-			// Define condition to show or hide menu entry. Use '$conf->knowledgemanagement->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
-			'enabled' => '$conf->knowledgemanagement->enabled',
+			// Define condition to show or hide menu entry. Use '$config->knowledgemanagement->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => '$config->knowledgemanagement->enabled',
 			// Use 'perms'=>'$user->rights->knowledgemanagement->level1->level2' if you want your menu with a permission rules
 			'perms' => '$user->hasRight("knowledgemanagement", "knowledgerecord", "write")',
 			'target' => '',
@@ -355,7 +355,7 @@ class modKnowledgeManagement extends DolibarrModules
 			'url' => '/categories/index.php?type=13',
 			'langs' => 'knowledgemanagement',
 			'position' => 112,
-			'enabled' => '$conf->knowledgemanagement->enabled',
+			'enabled' => '$config->knowledgemanagement->enabled',
 			'perms' => '$user->rights->knowledgemanagement->knowledgerecord->read',
 			'target' => '',
 			'user' => 0
@@ -435,11 +435,11 @@ class modKnowledgeManagement extends DolibarrModules
 		// Create extrafields during init
 		//include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		//$extrafields = new ExtraFields($this->db);
-		//$result1=$extrafields->addExtraField('knowledgemanagement_myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'knowledgemanagement@knowledgemanagement', '$conf->knowledgemanagement->enabled');
-		//$result2=$extrafields->addExtraField('knowledgemanagement_myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'knowledgemanagement@knowledgemanagement', '$conf->knowledgemanagement->enabled');
-		//$result3=$extrafields->addExtraField('knowledgemanagement_myattr3', "New Attr 3 label", 'varchar', 1, 10, 'bank_account', 0, 0, '', '', 1, '', 0, 0, '', '', 'knowledgemanagement@knowledgemanagement', '$conf->knowledgemanagement->enabled');
-		//$result4=$extrafields->addExtraField('knowledgemanagement_myattr4', "New Attr 4 label", 'select',  1,  3, 'thirdparty',   0, 1, '', array('options'=>array('code1'=>'Val1','code2'=>'Val2','code3'=>'Val3')), 1,'', 0, 0, '', '', 'knowledgemanagement@knowledgemanagement', '$conf->knowledgemanagement->enabled');
-		//$result5=$extrafields->addExtraField('knowledgemanagement_myattr5', "New Attr 5 label", 'text',    1, 10, 'user',         0, 0, '', '', 1, '', 0, 0, '', '', 'knowledgemanagement@knowledgemanagement', '$conf->knowledgemanagement->enabled');
+		//$result1=$extrafields->addExtraField('knowledgemanagement_myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'knowledgemanagement@knowledgemanagement', '$config->knowledgemanagement->enabled');
+		//$result2=$extrafields->addExtraField('knowledgemanagement_myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'knowledgemanagement@knowledgemanagement', '$config->knowledgemanagement->enabled');
+		//$result3=$extrafields->addExtraField('knowledgemanagement_myattr3', "New Attr 3 label", 'varchar', 1, 10, 'bank_account', 0, 0, '', '', 1, '', 0, 0, '', '', 'knowledgemanagement@knowledgemanagement', '$config->knowledgemanagement->enabled');
+		//$result4=$extrafields->addExtraField('knowledgemanagement_myattr4', "New Attr 4 label", 'select',  1,  3, 'thirdparty',   0, 1, '', array('options'=>array('code1'=>'Val1','code2'=>'Val2','code3'=>'Val3')), 1,'', 0, 0, '', '', 'knowledgemanagement@knowledgemanagement', '$config->knowledgemanagement->enabled');
+		//$result5=$extrafields->addExtraField('knowledgemanagement_myattr5', "New Attr 5 label", 'text',    1, 10, 'user',         0, 0, '', '', 1, '', 0, 0, '', '', 'knowledgemanagement@knowledgemanagement', '$config->knowledgemanagement->enabled');
 
 		// Permissions
 		$this->remove($options);
@@ -469,10 +469,10 @@ class modKnowledgeManagement extends DolibarrModules
 				}
 
 				$sql = array_merge($sql, array(
-					"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'standard_".strtolower($myTmpObjectKey)."' AND type = '".strtolower($myTmpObjectKey)."' AND entity = ".((int) $conf->entity),
-					"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('standard_".strtolower($myTmpObjectKey)."','".strtolower($myTmpObjectKey)."',".((int) $conf->entity).")",
-					"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'generic_".strtolower($myTmpObjectKey)."_odt' AND type = '".strtolower($myTmpObjectKey)."' AND entity = ".((int) $conf->entity),
-					"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('generic_".strtolower($myTmpObjectKey)."_odt', '".strtolower($myTmpObjectKey)."', ".((int) $conf->entity).")"
+					"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'standard_".strtolower($myTmpObjectKey)."' AND type = '".strtolower($myTmpObjectKey)."' AND entity = ".((int) $config->entity),
+					"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('standard_".strtolower($myTmpObjectKey)."','".strtolower($myTmpObjectKey)."',".((int) $config->entity).")",
+					"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'generic_".strtolower($myTmpObjectKey)."_odt' AND type = '".strtolower($myTmpObjectKey)."' AND entity = ".((int) $config->entity),
+					"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('generic_".strtolower($myTmpObjectKey)."_odt', '".strtolower($myTmpObjectKey)."', ".((int) $config->entity).")"
 				));
 			}
 		}

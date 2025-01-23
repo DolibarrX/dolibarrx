@@ -95,7 +95,7 @@ class modExternalRss extends DolibarrModules
 		$this->boxes = array();
 		$sql = "select name, value from ".MAIN_DB_PREFIX."const";
 		$sql .= " WHERE name like 'EXTERNAL_RSS_TITLE_%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 		$result = $this->db->query($sql);
 		if ($result) {
 			while ($obj = $this->db->fetch_object($result)) {

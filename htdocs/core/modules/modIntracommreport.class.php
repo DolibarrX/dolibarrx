@@ -86,9 +86,9 @@ class modIntracommreport extends DolibarrModules
 		$this->boxes = array();
 
 		// Dictionaries
-		if (!isset($conf->intracommreport->enabled)) {
-			$conf->intracommreport = new stdClass();
-			$conf->intracommreport->enabled = 0;
+		if (!isset($config->intracommreport->enabled)) {
+			$config->intracommreport = new stdClass();
+			$config->intracommreport->enabled = 0;
 		}
 		$this->dictionaries = array();
 

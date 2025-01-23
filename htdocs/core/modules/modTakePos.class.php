@@ -123,8 +123,8 @@ class modTakePos extends DolibarrModules
 
 		// To avoid warning
 		if (!isModEnabled('takepos')) {
-			$conf->takepos = new stdClass();
-			$conf->takepos->enabled = 0;
+			$config->takepos = new stdClass();
+			$config->takepos->enabled = 0;
 		}
 
 
@@ -223,7 +223,7 @@ class modTakePos extends DolibarrModules
 								'url'=>'/takepos/index.php',
 								'langs'=>'cashdesk', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 								'position'=>1000 + $r,
-								'enabled'=>'isModEnabled("takepos")', // Define condition to show or hide menu entry. Use '$conf->takepos->enabled' if entry must be visible if module is enabled.
+								'enabled'=>'isModEnabled("takepos")', // Define condition to show or hide menu entry. Use '$config->takepos->enabled' if entry must be visible if module is enabled.
 								'perms'=>'$user->hasRight("takepos", "run")', // Use 'perms'=>'$user->rights->takepos->level1->level2' if you want your menu with a permission rules
 								'target'=>'takepos',
 								'user'=>2); // 0=Menu for internal users, 1=external users, 2=both
@@ -239,7 +239,7 @@ class modTakePos extends DolibarrModules
 								'url'=>'/takepos/myobject_list.php',
 								'langs'=>'cashdesk',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 								'position'=>1000+$r,
-								'enabled'=>'$conf->takepos->enabled',  // Define condition to show or hide menu entry. Use '$conf->takepos->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+								'enabled'=>'$config->takepos->enabled',  // Define condition to show or hide menu entry. Use '$config->takepos->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 								'perms'=>'1',			                // Use 'perms'=>'$user->rights->takepos->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
@@ -251,7 +251,7 @@ class modTakePos extends DolibarrModules
 								'url'=>'/takepos/myobject_page.php?action=create',
 								'langs'=>'cashdesk',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 								'position'=>1000+$r,
-								'enabled'=>'$conf->takepos->enabled',  // Define condition to show or hide menu entry. Use '$conf->takepos->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+								'enabled'=>'$config->takepos->enabled',  // Define condition to show or hide menu entry. Use '$config->takepos->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 								'perms'=>'1',			                // Use 'perms'=>'$user->rights->takepos->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
@@ -272,7 +272,7 @@ class modTakePos extends DolibarrModules
 
 		$langs->load("cashdesk");
 
-		dolibarr_set_const($this->db, "TAKEPOS_PRINT_METHOD", "browser", 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($this->db, "TAKEPOS_PRINT_METHOD", "browser", 'chaine', 0, '', $config->entity);
 
 		// Default customer for Point of sale
 		if (!getDolGlobalInt('CASHDESK_ID_THIRDPARTY1')) {	// If a customer has already ben set into the TakePos setup page
@@ -292,7 +292,7 @@ class modTakePos extends DolibarrModules
 			}
 			if ($searchcompanyid > 0) {
 				// We already have or we have create a thirdparty with id = $searchcompanyid, so we link use it into setup
-				dolibarr_set_const($this->db, "CASHDESK_ID_THIRDPARTY1", $searchcompanyid, 'chaine', 0, '', $conf->entity);
+				dolibarr_set_const($this->db, "CASHDESK_ID_THIRDPARTY1", $searchcompanyid, 'chaine', 0, '', $config->entity);
 			} else {
 				setEventMessages($societe->error, $societe->errors, 'errors');
 			}
@@ -311,7 +311,7 @@ class modTakePos extends DolibarrModules
 				$result = $category->create($user);
 
 				if ($result > 0) {
-					dolibarr_set_const($this->db, 'TAKEPOS_ROOT_CATEGORY_ID', $result, 'chaine', 0, 'Id of category for products visible in TakePOS', $conf->entity);
+					dolibarr_set_const($this->db, 'TAKEPOS_ROOT_CATEGORY_ID', $result, 'chaine', 0, 'Id of category for products visible in TakePOS', $config->entity);
 
 					/* TODO Create a generic product only if there is no product yet. If 0 product,  we create 1. If there is already product, it is better to show a message to ask to add product in the category */
 					/*
@@ -345,7 +345,7 @@ class modTakePos extends DolibarrModules
 				$searchaccountid = $cashaccount->create($user);
 			}
 			if ($searchaccountid > 0) {
-				dolibarr_set_const($this->db, "CASHDESK_ID_BANKACCOUNT_CASH1", $searchaccountid, 'chaine', 0, '', $conf->entity);
+				dolibarr_set_const($this->db, "CASHDESK_ID_BANKACCOUNT_CASH1", $searchaccountid, 'chaine', 0, '', $config->entity);
 			} else {
 				setEventMessages($cashaccount->error, $cashaccount->errors, 'errors');
 			}

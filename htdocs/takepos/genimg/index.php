@@ -62,7 +62,7 @@ if ($query == "cat") {
 	$object = new Categorie($db);
 	$result = $object->fetch($id);
 
-	$upload_dir = $conf->categorie->multidir_output[$object->entity];
+	$upload_dir = $config->categorie->multidir_output[$object->entity];
 	$pdir = get_exdir($object->id, 2, 0, 0, $object, 'category').$object->id."/photos/";
 	$dir = $upload_dir.'/'.$pdir;
 
@@ -83,7 +83,7 @@ if ($query == "cat") {
 
 	$objProd = new Product($db);
 	$objProd->fetch($id);
-	$image = $objProd->show_photos('product', $conf->product->multidir_output[$objProd->entity], 'small', 1);
+	$image = $objProd->show_photos('product', $config->product->multidir_output[$objProd->entity], 'small', 1);
 
 	$match = array();
 	preg_match('@src="([^"]+)"@', $image, $match);

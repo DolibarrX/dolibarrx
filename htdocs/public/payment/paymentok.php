@@ -216,13 +216,13 @@ if (getDolGlobalString('ONLINE_PAYMENT_CSS_URL')) {
 	$head = '<link rel="stylesheet" type="text/css" href="' . getDolGlobalString('ONLINE_PAYMENT_CSS_URL').'?lang='.$langs->defaultlang.'">'."\n";
 }
 
-$conf->dol_hide_topmenu = 1;
-$conf->dol_hide_leftmenu = 1;
+$config->dol_hide_topmenu = 1;
+$config->dol_hide_leftmenu = 1;
 
 
 // Show header
 if (empty($doactionsthenredirect)) {
-	$replacemainarea = (empty($conf->dol_hide_leftmenu) ? '<div>' : '').'<div>';
+	$replacemainarea = (empty($config->dol_hide_leftmenu) ? '<div>' : '').'<div>';
 	llxHeader($head, $langs->trans("PaymentForm"), '', '', 0, 0, '', '', '', 'onlinepaymentbody', $replacemainarea);
 
 
@@ -245,12 +245,12 @@ if (empty($doactionsthenredirect)) {
 	// Define urllogo
 	$urllogo = '';
 	$urllogofull = '';
-	if (!empty($logosmall) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$logosmall)) {
-		$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$conf->entity.'&amp;file='.urlencode('logos/thumbs/'.$logosmall);
-		$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$conf->entity.'&file='.urlencode('logos/thumbs/'.$logosmall);
-	} elseif (!empty($logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$logo)) {
-		$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$conf->entity.'&amp;file='.urlencode('logos/'.$logo);
-		$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$conf->entity.'&file='.urlencode('logos/'.$logo);
+	if (!empty($logosmall) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$logosmall)) {
+		$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$config->entity.'&amp;file='.urlencode('logos/thumbs/'.$logosmall);
+		$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$config->entity.'&file='.urlencode('logos/thumbs/'.$logosmall);
+	} elseif (!empty($logo) && is_readable($config->mycompany->dir_output.'/logos/'.$logo)) {
+		$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$config->entity.'&amp;file='.urlencode('logos/'.$logo);
+		$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$config->entity.'&file='.urlencode('logos/'.$logo);
 	}
 
 	// Output html code for logo
@@ -537,9 +537,9 @@ if ($ispaymentok) {
 				}
 
 				// Security protection:
-				if ($currencyCodeType && $currencyCodeType != $conf->currency) {	// Check that currency is the good one
+				if ($currencyCodeType && $currencyCodeType != $config->currency) {	// Check that currency is the good one
 					$error++;
-					$errmsg = 'Value of currencyCodeType ('.$currencyCodeType.') differs from value expected for membership ('.$conf->currency.'). May be a hack to try to pay a different amount ?';
+					$errmsg = 'Value of currencyCodeType ('.$currencyCodeType.') differs from value expected for membership ('.$config->currency.'). May be a hack to try to pay a different amount ?';
 					$postactionmessages[] = $errmsg;
 					$ispostactionok = -1;
 					dol_syslog("Failed to validate member (bad currency check): ".$errmsg, LOG_ERR, 0, '_payment');
@@ -746,7 +746,7 @@ if ($ispaymentok) {
 										}
 									} else {
 										$sql = "INSERT INTO ".MAIN_DB_PREFIX."societe_account (fk_soc, login, key_account, site, site_account, status, entity, date_creation, fk_user_creat)";
-										$sql .= " VALUES (".((int) $thirdparty_id).", '', '".$db->escape($stripecu)."', 'stripe', '".$db->escape($stripearrayofkeysbyenv[$servicestatus]['publishable_key'])."', ".((int) $servicestatus).", ".((int) $conf->entity).", '".$db->idate(dol_now())."', 0)";
+										$sql .= " VALUES (".((int) $thirdparty_id).", '', '".$db->escape($stripecu)."', 'stripe', '".$db->escape($stripearrayofkeysbyenv[$servicestatus]['publishable_key'])."', ".((int) $servicestatus).", ".((int) $config->entity).", '".$db->idate(dol_now())."', 0)";
 										$resql = $db->query($sql);
 										if (!$resql) {	// should not happen
 											$error++;
@@ -859,7 +859,7 @@ if ($ispaymentok) {
 						$listofnames = array();
 						$listofmimes = array();
 						if (is_object($object->invoice)) {
-							$invoicediroutput = $conf->facture->dir_output;
+							$invoicediroutput = $config->facture->dir_output;
 							$fileparams = dol_most_recent_file($invoicediroutput.'/'.$object->invoice->ref, preg_quote($object->invoice->ref, '/').'[^\-]+');
 							$file = $fileparams['fullname'];
 
@@ -939,12 +939,12 @@ if ($ispaymentok) {
 				include_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
 				$paiement = new Paiement($db);
 				$paiement->datepaye = $now;
-				if ($currencyCodeType == $conf->currency) {
+				if ($currencyCodeType == $config->currency) {
 					$paiement->amounts = array($object->id => $FinalPaymentAmt); // Array with all payments dispatching with invoice id
 				} else {
 					$paiement->multicurrency_amounts = array($object->id => $FinalPaymentAmt); // Array with all payments dispatching
 
-					$postactionmessages[] = 'Payment was done in a currency ('.$currencyCodeType.') other than the expected currency of company ('.$conf->currency.')';
+					$postactionmessages[] = 'Payment was done in a currency ('.$currencyCodeType.') other than the expected currency of company ('.$config->currency.')';
 					$ispostactionok = -1;
 					$error++; // Not yet supported
 				}
@@ -1072,12 +1072,12 @@ if ($ispaymentok) {
 						include_once DOL_DOCUMENT_ROOT . '/compta/paiement/class/paiement.class.php';
 						$paiement = new Paiement($db);
 						$paiement->datepaye = $now;
-						if ($currencyCodeType == $conf->currency) {
+						if ($currencyCodeType == $config->currency) {
 							$paiement->amounts = array($invoice->id => $FinalPaymentAmt); // Array with all payments dispatching with invoice id
 						} else {
 							$paiement->multicurrency_amounts = array($invoice->id => $FinalPaymentAmt); // Array with all payments dispatching
 
-							$postactionmessages[] = 'Payment was done in a currency ('.$currencyCodeType.') other than the expected currency of company ('.$conf->currency.')';
+							$postactionmessages[] = 'Payment was done in a currency ('.$currencyCodeType.') other than the expected currency of company ('.$config->currency.')';
 							$ispostactionok = -1;
 							$error++;
 						}
@@ -1203,11 +1203,11 @@ if ($ispaymentok) {
 
 				$totalpaid = $FinalPaymentAmt;
 
-				if ($currencyCodeType == $conf->currency) {
+				if ($currencyCodeType == $config->currency) {
 					$paiement->amounts = array($object->id => $totalpaid); // Array with all payments dispatching with donation
 				} else {
 					// PaymentDonation does not support multi currency
-					$postactionmessages[] = 'Payment donation can\'t be paid with different currency than '.$conf->currency;
+					$postactionmessages[] = 'Payment donation can\'t be paid with different currency than '.$config->currency;
 					$ispostactionok = -1;
 					$error++; // Not yet supported
 				}
@@ -1339,12 +1339,12 @@ if ($ispaymentok) {
 					include_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
 					$paiement = new Paiement($db);
 					$paiement->datepaye = $now;
-					if ($currencyCodeType == $conf->currency) {
+					if ($currencyCodeType == $config->currency) {
 						$paiement->amounts = array($object->id => $FinalPaymentAmt); // Array with all payments dispatching with invoice id
 					} else {
 						$paiement->multicurrency_amounts = array($object->id => $FinalPaymentAmt); // Array with all payments dispatching
 
-						$postactionmessages[] = 'Payment was done in a currency ('.$currencyCodeType.') other than the expected currency of company ('.$conf->currency.')';
+						$postactionmessages[] = 'Payment was done in a currency ('.$currencyCodeType.') other than the expected currency of company ('.$config->currency.')';
 						$ispostactionok = -1;
 						$error++; // Not yet supported
 					}
@@ -1480,7 +1480,7 @@ if ($ispaymentok) {
 								$cc = ($cc ? ', ' : '').$attendeetovalidate->email_company;
 							}
 
-							$from = getDolGlobalString('MAILING_EMAIL_FROM') ? $conf->global->MAILING_EMAIL_FROM : getDolGlobalString("MAIN_MAIL_EMAIL_FROM");
+							$from = getDolGlobalString('MAILING_EMAIL_FROM') ? $config->global->MAILING_EMAIL_FROM : getDolGlobalString("MAIN_MAIL_EMAIL_FROM");
 
 							$urlback = $_SERVER["REQUEST_URI"];
 
@@ -1492,7 +1492,7 @@ if ($ispaymentok) {
 							$listofnames = array();
 							$listofmimes = array();
 							if (is_object($object)) {
-								$invoicediroutput = $conf->facture->dir_output;
+								$invoicediroutput = $config->facture->dir_output;
 								$fileparams = dol_most_recent_file($invoicediroutput.'/'.$object->ref, preg_quote($object->ref, '/').'[^\-]+');
 								$file = $fileparams['fullname'];
 
@@ -1572,12 +1572,12 @@ if ($ispaymentok) {
 					include_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
 					$paiement = new Paiement($db);
 					$paiement->datepaye = $now;
-					if ($currencyCodeType == $conf->currency) {
+					if ($currencyCodeType == $config->currency) {
 						$paiement->amounts = array($object->id => $FinalPaymentAmt); // Array with all payments dispatching with invoice id
 					} else {
 						$paiement->multicurrency_amounts = array($object->id => $FinalPaymentAmt); // Array with all payments dispatching
 
-						$postactionmessages[] = 'Payment was done in a currency ('.$currencyCodeType.') other than the expected currency of company ('.$conf->currency.')';
+						$postactionmessages[] = 'Payment was done in a currency ('.$currencyCodeType.') other than the expected currency of company ('.$config->currency.')';
 						$ispostactionok = -1;
 						$error++; // Not yet supported
 					}
@@ -1784,12 +1784,12 @@ if ($ispaymentok) {
 						include_once DOL_DOCUMENT_ROOT . '/compta/paiement/class/paiement.class.php';
 						$paiement = new Paiement($db);
 						$paiement->datepaye = $now;
-						if ($currencyCodeType == $conf->currency) {
+						if ($currencyCodeType == $config->currency) {
 							$paiement->amounts = array($invoice->id => $FinalPaymentAmt); // Array with all payments dispatching with invoice id
 						} else {
 							$paiement->multicurrency_amounts = array($invoice->id => $FinalPaymentAmt); // Array with all payments dispatching
 
-							$postactionmessages[] = 'Payment was done in a currency ('.$currencyCodeType.') other than the expected currency of company ('.$conf->currency.')';
+							$postactionmessages[] = 'Payment was done in a currency ('.$currencyCodeType.') other than the expected currency of company ('.$config->currency.')';
 							$ispostactionok = -1;
 							$error++;
 						}
@@ -2079,7 +2079,7 @@ if ($ispaymentok) {
 		$companylangs->loadLangs(array('main', 'members', 'bills', 'paypal', 'paybox', 'stripe'));
 
 		$sendto = $sendemail;
-		$from = getDolGlobalString('MAILING_EMAIL_FROM') ? $conf->global->MAILING_EMAIL_FROM : getDolGlobalString("MAIN_MAIL_EMAIL_FROM");
+		$from = getDolGlobalString('MAILING_EMAIL_FROM') ? $config->global->MAILING_EMAIL_FROM : getDolGlobalString("MAIN_MAIL_EMAIL_FROM");
 		// Define $urlwithroot
 		$urlwithouturlroot = preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($dolibarr_main_url_root));
 		$urlwithroot = $urlwithouturlroot.DOL_URL_ROOT; // This is to use external domain name found into config file

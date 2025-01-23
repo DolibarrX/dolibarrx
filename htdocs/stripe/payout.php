@@ -50,7 +50,7 @@ if ($user->socid) {
 }
 //$result = restrictedArea($user, 'salaries', '', '', '');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $rowid = GETPOST("rowid", 'alpha');
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');

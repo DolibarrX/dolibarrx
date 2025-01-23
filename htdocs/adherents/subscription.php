@@ -64,7 +64,7 @@ $typeid = GETPOSTINT('typeid');
 $cancel = GETPOST('cancel');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -400,7 +400,7 @@ if (empty($reshook) && $user->hasRight('adherent', 'cotisation', 'creer') && $ac
 					$listofnames = array();
 					$listofmimes = array();
 					if (is_object($object->invoice) && (!is_object($arraydefaultmessage) || intval($arraydefaultmessage->joinfiles))) {
-						$invoicediroutput = $conf->facture->dir_output;
+						$invoicediroutput = $config->facture->dir_output;
 						$fileparams = dol_most_recent_file($invoicediroutput.'/'.$object->invoice->ref, preg_quote($object->invoice->ref, '/').'[^\-]+');
 						$file = $fileparams['fullname'];
 
@@ -455,7 +455,7 @@ $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 $param .= '&id='.$rowid;
@@ -605,7 +605,7 @@ if (getDolGlobalInt('MAIN_MULTILANGS')) {
 }
 
 // Public
-$linkofpubliclist = DOL_MAIN_URL_ROOT.'/public/members/public_list.php'.((isModEnabled('multicompany')) ? '?entity='.$conf->entity : '');
+$linkofpubliclist = DOL_MAIN_URL_ROOT.'/public/members/public_list.php'.((isModEnabled('multicompany')) ? '?entity='.$config->entity : '');
 print '<tr><td>'.$form->textwithpicto($langs->trans("MembershipPublic"), $langs->trans("Public", getDolGlobalString('MAIN_INFO_SOCIETE_NOM'), $linkofpubliclist), 1, 'help', '', 0, 3, 'publicfile').'</td><td class="valeur">'.yn($object->public).'</td></tr>';
 
 // Other attributes
@@ -869,7 +869,7 @@ if (($action == 'addsubscription' || $action == 'create_thirdparty') && $user->h
 
 	print "\n\n<!-- Form add subscription -->\n";
 
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		//var_dump($bankdirect.'-'.$bankviainvoice.'-'.$invoiceonly);
 		print "\n".'<script type="text/javascript">';
 		print '$(document).ready(function () {
@@ -1015,7 +1015,7 @@ if (($action == 'addsubscription' || $action == 'create_thirdparty') && $user->h
 
 	if ($adht->subscription) {
 		// Amount
-		print '<tr><td class="fieldrequired">'.$langs->trans("Amount").'</td><td><input type="text" name="subscription" size="6" value="'.(GETPOSTISSET('subscription') ? GETPOST('subscription') : price($adht->amount, 0, '', 0)).'"> '.$langs->trans("Currency".$conf->currency) .'</td></tr>';
+		print '<tr><td class="fieldrequired">'.$langs->trans("Amount").'</td><td><input type="text" name="subscription" size="6" value="'.(GETPOSTISSET('subscription') ? GETPOST('subscription') : price($adht->amount, 0, '', 0)).'"> '.$langs->trans("Currency".$config->currency) .'</td></tr>';
 
 		// Label
 		print '<tr><td>'.$langs->trans("Label").'</td>';

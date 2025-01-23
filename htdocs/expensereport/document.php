@@ -55,7 +55,7 @@ $confirm = GETPOST('confirm', 'alpha');
 $childids = $user->getAllChildIds(1);
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -78,7 +78,7 @@ if (!$object->fetch($id, $ref) > 0) {
 	dol_print_error($db);
 }
 
-$upload_dir = $conf->expensereport->dir_output.'/'.dol_sanitizeFileName($object->ref);
+$upload_dir = $config->expensereport->dir_output.'/'.dol_sanitizeFileName($object->ref);
 $modulepart = 'trip';
 
 // Load object

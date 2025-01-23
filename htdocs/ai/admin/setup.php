@@ -102,7 +102,7 @@ foreach ($arrayofia as $ia => $ialabel) {
 $setupnotempty = + count($formSetup->items);
 
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 // Access control
 if (!$user->admin) {

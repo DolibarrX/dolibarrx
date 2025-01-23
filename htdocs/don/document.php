@@ -59,7 +59,7 @@ $confirm = GETPOST('confirm', 'alpha');
 $projectid = (GETPOST('projectid') ? GETPOSTINT('projectid') : 0);
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -82,7 +82,7 @@ if ($id > 0 || !empty($ref)) {
 }
 
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->don->multidir_output[$object->entity ? $object->entity : $conf->entity]."/".get_exdir(0, 0, 0, 1, $object);
+	$upload_dir = $config->don->multidir_output[$object->entity ? $object->entity : $config->entity]."/".get_exdir(0, 0, 0, 1, $object);
 }
 
 $modulepart = 'don';

@@ -102,7 +102,7 @@ $object = new ActionComm($db);
 
 // Not older than
 if (!getDolGlobalString('MAIN_AGENDA_EXPORT_PAST_DELAY')) {
-	$conf->global->MAIN_AGENDA_EXPORT_PAST_DELAY = 100; // default limit
+	$config->global->MAIN_AGENDA_EXPORT_PAST_DELAY = 100; // default limit
 }
 
 // Define format, type and filter
@@ -333,7 +333,7 @@ if ($format == 'ical' || $format == 'vcal') {
 		header("X-Frame-Options: SAMEORIGIN"); // By default, frames allowed only if on same domain (stop some XSS attacks)
 
 		// Clean parameters
-		$outputfile = $conf->agenda->dir_temp.'/'.$filename;
+		$outputfile = $config->agenda->dir_temp.'/'.$filename;
 		$result = readfile($outputfile);
 		if (!$result) {
 			print 'File '.$outputfile.' was empty.';
@@ -386,7 +386,7 @@ if ($format == 'rss') {
 		header("X-Frame-Options: SAMEORIGIN"); // By default, frames allowed only if on same domain (stop some XSS attacks)
 
 		// Clean parameters
-		$outputfile = $conf->agenda->dir_temp.'/'.$filename;
+		$outputfile = $config->agenda->dir_temp.'/'.$filename;
 		$result = readfile($outputfile);
 		if (!$result) {
 			print 'File '.$outputfile.' was empty.';

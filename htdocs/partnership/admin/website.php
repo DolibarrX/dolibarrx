@@ -61,16 +61,16 @@ if (!$user->admin) {
 
 if ($action == 'setPARTNERSHIP_ENABLE_PUBLIC') {
 	if (GETPOST('value')) {
-		dolibarr_set_const($db, 'PARTNERSHIP_ENABLE_PUBLIC', 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'PARTNERSHIP_ENABLE_PUBLIC', 1, 'chaine', 0, '', $config->entity);
 	} else {
-		dolibarr_set_const($db, 'PARTNERSHIP_ENABLE_PUBLIC', 0, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'PARTNERSHIP_ENABLE_PUBLIC', 0, 'chaine', 0, '', $config->entity);
 	}
 }
 
 if ($action == 'update') {
 	$public = GETPOST('PARTNERSHIP_ENABLE_PUBLIC');
 
-	$res = dolibarr_set_const($db, "PARTNERSHIP_ENABLE_PUBLIC", $public, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PARTNERSHIP_ENABLE_PUBLIC", $public, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -109,7 +109,7 @@ print '<input type="hidden" name="token" value="'.newToken().'">';
 
 print dol_get_fiche_head($head, 'website', $langs->trans("Partnerships"), -1, 'partnership');
 
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print "\n".'<script type="text/javascript" language="javascript">';
 	print 'jQuery(document).ready(function () {
                 function initemail()
@@ -183,7 +183,7 @@ if (getDolGlobalString('PARTNERSHIP_ENABLE_PUBLIC')) {
 	print '<tr class="oddeven" id="tramount"><td>';
 	print $langs->trans("DefaultAmount");
 	print '</td><td class="right">';
-	print '<input type="text" class="right width75" id="PARTNERSHIP_NEWFORM_AMOUNT" name="PARTNERSHIP_NEWFORM_AMOUNT" value="'.(!empty($conf->global->PARTNERSHIP_NEWFORM_AMOUNT) ? $conf->global->PARTNERSHIP_NEWFORM_AMOUNT : '').'">';
+	print '<input type="text" class="right width75" id="PARTNERSHIP_NEWFORM_AMOUNT" name="PARTNERSHIP_NEWFORM_AMOUNT" value="'.(!empty($config->global->PARTNERSHIP_NEWFORM_AMOUNT) ? $config->global->PARTNERSHIP_NEWFORM_AMOUNT : '').'">';
 	print "</td></tr>\n";
 
 	// Jump to an online payment page
@@ -202,7 +202,7 @@ if (getDolGlobalString('PARTNERSHIP_ENABLE_PUBLIC')) {
 	if (isModEnabled('stripe')) {
 		$listofval['stripe'] = 'Stripe';
 	}
-	print $form->selectarray("PARTNERSHIP_NEWFORM_PAYONLINE", $listofval, (!empty($conf->global->PARTNERSHIP_NEWFORM_PAYONLINE) ? $conf->global->PARTNERSHIP_NEWFORM_PAYONLINE : ''), 0);
+	print $form->selectarray("PARTNERSHIP_NEWFORM_PAYONLINE", $listofval, (!empty($config->global->PARTNERSHIP_NEWFORM_PAYONLINE) ? $config->global->PARTNERSHIP_NEWFORM_PAYONLINE : ''), 0);
 	print "</td></tr>\n";
 
 
@@ -226,7 +226,7 @@ if (getDolGlobalString('PARTNERSHIP_ENABLE_PUBLIC')) {
 	//print $langs->trans('FollowingLinksArePublic').'<br>';
 	print img_picto('', 'globe').' <span class="opacitymedium">'.$langs->trans('BlankSubscriptionForm').'</span><br>';
 	if (isModEnabled('multicompany')) {
-		$entity_qr = '?entity='.$conf->entity;
+		$entity_qr = '?entity='.$config->entity;
 	} else {
 		$entity_qr = '';
 	}

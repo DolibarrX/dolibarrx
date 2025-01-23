@@ -537,7 +537,7 @@ class ProductFournisseur extends Product
 			$sql .= " multicurrency_tx = ".(isset($multicurrency_tx) ? "'".$this->db->escape($multicurrency_tx)."'" : '1').",";
 			$sql .= " fk_multicurrency = ".(isset($fk_multicurrency) ? (int) $fk_multicurrency : 'null').",";
 			$sql .= " multicurrency_code = ".(isset($multicurrency_code) ? "'".$this->db->escape($multicurrency_code)."'" : 'null').",";
-			$sql .= " entity = ".((int) $conf->entity).",";
+			$sql .= " entity = ".((int) $config->entity).",";
 			$sql .= " tva_tx = ".((float) price2num($tva_tx)).",";
 			// TODO Add localtax1 and localtax2
 			//$sql.= " localtax1_tx=".($localtax1>=0?$localtax1:'NULL').",";
@@ -608,7 +608,7 @@ class ProductFournisseur extends Product
 
 			// Delete price for this quantity
 			$sql = "DELETE FROM  ".MAIN_DB_PREFIX."product_fournisseur_price";
-			$sql .= " WHERE fk_soc = ".((int) $fourn->id)." AND ref_fourn = '".$this->db->escape($ref_fourn)."' AND quantity = ".((float) $qty)." AND entity = ".((int) $conf->entity);
+			$sql .= " WHERE fk_soc = ".((int) $fourn->id)." AND ref_fourn = '".$this->db->escape($ref_fourn)."' AND quantity = ".((float) $qty)." AND entity = ".((int) $config->entity);
 			$resql = $this->db->query($sql);
 			if ($resql) {
 				// Add price for this quantity to supplier
@@ -640,7 +640,7 @@ class ProductFournisseur extends Product
 				$sql .= " ".((int) $availability).",";
 				$sql .= " ".($newdefaultvatcode ? "'".$this->db->escape($newdefaultvatcode)."'" : "null").",";
 				$sql .= " ".((int) $newnpr).",";
-				$sql .= $conf->entity.",";
+				$sql .= $config->entity.",";
 				$sql .= ($delivery_time_days != '' ? ((int) $delivery_time_days) : 'null').",";
 				$sql .= (empty($supplier_reputation) ? 'NULL' : "'".$this->db->escape($supplier_reputation)."'").",";
 				$sql .= (empty($barcode) ? 'NULL' : "'".$this->db->escape($barcode)."'").",";
@@ -1146,7 +1146,7 @@ class ProductFournisseur extends Product
 			}
 			$out .= '</table>';
 		} else {
-			$out = ($showunitprice ? price($this->fourn_unitprice * (1 - $this->fourn_remise_percent / 100) + $this->fourn_remise, 0, $langs, 1, -1, -1, $conf->currency).' '.$langs->trans("HT") : '');
+			$out = ($showunitprice ? price($this->fourn_unitprice * (1 - $this->fourn_remise_percent / 100) + $this->fourn_remise, 0, $langs, 1, -1, -1, $config->currency).' '.$langs->trans("HT") : '');
 			if ($user->hasRight("fournisseur", "read")) {	// Without permission, never show the best supplier seller
 				$out .= ($showunitprice ? ' &nbsp; <span class="opacitymedium">(</span>' : '');
 				$out .= ($showsuptitle ? '<span class="opacitymedium">'.$langs->trans("Supplier").'</span>: ' : '').$this->getSocNomUrl(1, 'supplier', $maxlen, $notooltip).' / <span class="opacitymedium">'.$langs->trans("SupplierRef").'</span>: '.$this->ref_supplier;
@@ -1272,8 +1272,8 @@ class ProductFournisseur extends Product
 			$out .= '<td class="liste_titre">'.$langs->trans("User").'</td></tr>';
 			foreach ($productFournLogList as $productFournLog) {
 				$out .= '<tr><td>'.dol_print_date($productFournLog['datec'], 'dayhour', 'tzuser').'</td>';
-				$out .= '<td class="right">'.price($productFournLog['price'], 0, $langs, 1, -1, -1, $conf->currency);
-				if ($productFournLog['multicurrency_code'] != $conf->currency) {
+				$out .= '<td class="right">'.price($productFournLog['price'], 0, $langs, 1, -1, -1, $config->currency);
+				if ($productFournLog['multicurrency_code'] != $config->currency) {
 					$out .= ' ('.price($productFournLog['multicurrency_price'], 0, $langs, 1, -1, -1, $productFournLog['multicurrency_code']).')';
 				}
 				$out .= '</td>';
@@ -1304,7 +1304,7 @@ class ProductFournisseur extends Product
 	{
 		global $db, $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -1317,7 +1317,7 @@ class ProductFournisseur extends Product
 		}
 
 		if (!empty($this->entity)) {
-			$tmpphoto = $this->show_photos('product', $conf->product->multidir_output[$this->entity], 1, 1, 0, 0, 0, 80);
+			$tmpphoto = $this->show_photos('product', $config->product->multidir_output[$this->entity], 1, 1, 0, 0, 0, 80);
 			if ($this->nbphoto > 0) {
 				$label .= '<div class="photointooltip">';
 				$label .= $tmpphoto;

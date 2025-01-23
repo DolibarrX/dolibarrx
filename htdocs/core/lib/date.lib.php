@@ -680,7 +680,7 @@ function dol_get_first_day_week($day, $month, $year, $gm = false)
 	$date = dol_mktime(0, 0, 0, $month, $day, $year, $gm);
 
 	//Checking conf of start week
-	$start_week = (isset($conf->global->MAIN_START_WEEK) ? $conf->global->MAIN_START_WEEK : 1);
+	$start_week = (isset($config->global->MAIN_START_WEEK) ? $config->global->MAIN_START_WEEK : 1);
 
 	$tmparray = dol_getdate($date, true); // detail of current day
 
@@ -795,7 +795,7 @@ function num_public_holiday($timestampStart, $timestampEnd, $country_code = '', 
 
 	$country_id = dol_getIdFromCode($db, $country_code, 'c_country', 'code', 'rowid');
 
-	if (empty($conf->cache['arrayOfActivePublicHolidays_'.$country_id])) {
+	if (empty($config->cache['arrayOfActivePublicHolidays_'.$country_id])) {
 		// Loop on public holiday defined into hrm_public_holiday for the day, month and year analyzed
 		$tmpArrayOfPublicHolidays = array();
 		$sql = "SELECT id, code, entity, fk_country, dayrule, year, month, day, active";
@@ -818,10 +818,10 @@ function num_public_holiday($timestampStart, $timestampEnd, $country_code = '', 
 		}
 
 		//var_dump($tmpArrayOfPublicHolidays);
-		$conf->cache['arrayOfActivePublicHolidays_'.$country_id] = $tmpArrayOfPublicHolidays;
+		$config->cache['arrayOfActivePublicHolidays_'.$country_id] = $tmpArrayOfPublicHolidays;
 	}
 
-	$arrayOfPublicHolidays = $conf->cache['arrayOfActivePublicHolidays_'.$country_id];
+	$arrayOfPublicHolidays = $config->cache['arrayOfActivePublicHolidays_'.$country_id];
 
 	$i = 0;
 	while ((($lastday == 0 && $timestampStart < $timestampEnd) || ($lastday && $timestampStart <= $timestampEnd))

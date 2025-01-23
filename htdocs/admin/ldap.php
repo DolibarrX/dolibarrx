@@ -71,49 +71,49 @@ if (empty($reshook)) {
 
 		$db->begin();
 
-		if (!dolibarr_set_const($db, 'LDAP_SERVER_TYPE', GETPOST("type", 'aZ09'), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_SERVER_TYPE', GETPOST("type", 'aZ09'), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
-		if (!dolibarr_set_const($db, 'LDAP_USERACCOUNTCONTROL', GETPOSTINT("userAccountControl"), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_USERACCOUNTCONTROL', GETPOSTINT("userAccountControl"), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
-		if (!dolibarr_set_const($db, 'LDAP_SERVER_PROTOCOLVERSION', GETPOST("LDAP_SERVER_PROTOCOLVERSION", 'aZ09'), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_SERVER_PROTOCOLVERSION', GETPOST("LDAP_SERVER_PROTOCOLVERSION", 'aZ09'), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
-		if (!dolibarr_set_const($db, 'LDAP_SERVER_HOST', GETPOST("host", 'alphanohtml'), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_SERVER_HOST', GETPOST("host", 'alphanohtml'), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
-		if (!dolibarr_set_const($db, 'LDAP_SERVER_HOST_SLAVE', GETPOST("slave", 'alphanohtml'), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_SERVER_HOST_SLAVE', GETPOST("slave", 'alphanohtml'), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
-		if (!dolibarr_set_const($db, 'LDAP_SERVER_PORT', GETPOSTINT("port"), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_SERVER_PORT', GETPOSTINT("port"), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
-		if (!dolibarr_set_const($db, 'LDAP_SERVER_DN', GETPOST("dn", 'alphanohtml'), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_SERVER_DN', GETPOST("dn", 'alphanohtml'), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
-		if (!dolibarr_set_const($db, 'LDAP_ADMIN_DN', GETPOST("admin", 'alphanohtml'), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_ADMIN_DN', GETPOST("admin", 'alphanohtml'), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
-		if (!dolibarr_set_const($db, 'LDAP_ADMIN_PASS', GETPOST("pass", 'none'), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_ADMIN_PASS', GETPOST("pass", 'none'), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
-		if (!dolibarr_set_const($db, 'LDAP_SERVER_USE_TLS', GETPOST("usetls", 'aZ09'), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_SERVER_USE_TLS', GETPOST("usetls", 'aZ09'), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
-		if (!dolibarr_set_const($db, 'LDAP_SYNCHRO_ACTIVE', GETPOST("activesynchro", 'aZ09'), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_SYNCHRO_ACTIVE', GETPOST("activesynchro", 'aZ09'), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
-		if (!dolibarr_set_const($db, 'LDAP_CONTACT_ACTIVE', GETPOST("activecontact", 'aZ09'), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_CONTACT_ACTIVE', GETPOST("activecontact", 'aZ09'), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
-		if (!dolibarr_set_const($db, 'LDAP_MEMBER_ACTIVE', GETPOST("activemembers", 'aZ09'), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_MEMBER_ACTIVE', GETPOST("activemembers", 'aZ09'), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
-		if (!dolibarr_set_const($db, 'LDAP_MEMBER_TYPE_ACTIVE', GETPOST("activememberstypes", 'aZ09'), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_MEMBER_TYPE_ACTIVE', GETPOST("activememberstypes", 'aZ09'), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
-		if (!dolibarr_set_const($db, 'LDAP_PASSWORD_HASH_TYPE', GETPOST("LDAP_PASSWORD_HASH_TYPE", 'aZ09'), 'chaine', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, 'LDAP_PASSWORD_HASH_TYPE', GETPOST("LDAP_PASSWORD_HASH_TYPE", 'aZ09'), 'chaine', 0, '', $config->entity)) {
 			$error++;
 		}
 
@@ -298,11 +298,11 @@ if (function_exists("ldap_connect")) {
 			if (getDolGlobalString('LDAP_ADMIN_DN') && getDolGlobalString('LDAP_ADMIN_PASS')) {
 				if ($result == 2) {
 					print img_picto('', 'info').' ';
-					print '<span class="ok">'.$langs->trans("LDAPBindOK", $ldap->connectedServer, getDolGlobalString('LDAP_SERVER_PORT'), getDolGlobalString('LDAP_ADMIN_DN'), preg_replace('/./i', '*', $conf->global->LDAP_ADMIN_PASS)).'</span>';
+					print '<span class="ok">'.$langs->trans("LDAPBindOK", $ldap->connectedServer, getDolGlobalString('LDAP_SERVER_PORT'), getDolGlobalString('LDAP_ADMIN_DN'), preg_replace('/./i', '*', $config->global->LDAP_ADMIN_PASS)).'</span>';
 					print '<br>';
 				} else {
 					print img_picto('', 'error').' ';
-					print '<span class="error">'.$langs->trans("LDAPBindKO", $ldap->connectedServer, getDolGlobalString('LDAP_SERVER_PORT'), getDolGlobalString('LDAP_ADMIN_DN'), preg_replace('/./i', '*', $conf->global->LDAP_ADMIN_PASS)).'</span>';
+					print '<span class="error">'.$langs->trans("LDAPBindKO", $ldap->connectedServer, getDolGlobalString('LDAP_SERVER_PORT'), getDolGlobalString('LDAP_ADMIN_DN'), preg_replace('/./i', '*', $config->global->LDAP_ADMIN_PASS)).'</span>';
 					print '<br>';
 					print $langs->trans("Error").' '.$ldap->error;
 					print '<br>';

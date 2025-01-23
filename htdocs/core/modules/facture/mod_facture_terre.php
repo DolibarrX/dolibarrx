@@ -131,7 +131,7 @@ class mod_facture_terre extends ModeleNumRefFactures
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max"; // This is standard SQL
 		$sql .= " FROM ".MAIN_DB_PREFIX."facture";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefixinvoice)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {
@@ -154,7 +154,7 @@ class mod_facture_terre extends ModeleNumRefFactures
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max"; // This is standard SQL
 		$sql .= " FROM ".MAIN_DB_PREFIX."facture";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefixcreditnote)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {
@@ -176,7 +176,7 @@ class mod_facture_terre extends ModeleNumRefFactures
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max"; // This is standard SQL
 		$sql .= " FROM ".MAIN_DB_PREFIX."facture";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefixdeposit)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {

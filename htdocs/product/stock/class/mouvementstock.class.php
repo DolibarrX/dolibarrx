@@ -171,7 +171,7 @@ class MouvementStock extends CommonObject
 		'fk_origin' => array('type' => 'integer', 'label' => 'Fk origin', 'enabled' => 1, 'visible' => -1, 'position' => 60),
 		'origintype' => array('type' => 'varchar(32)', 'label' => 'Origintype', 'enabled' => 1, 'visible' => -1, 'position' => 65),
 		'model_pdf' => array('type' => 'varchar(255)', 'label' => 'Model pdf', 'enabled' => 1, 'visible' => 0, 'position' => 70),
-		'fk_projet' => array('type' => 'integer:Project:projet/class/project.class.php:1:(fk_statut:=:1)', 'label' => 'Project', 'enabled' => '$conf->project->enabled', 'visible' => -1, 'notnull' => 1, 'position' => 75),
+		'fk_projet' => array('type' => 'integer:Project:projet/class/project.class.php:1:(fk_statut:=:1)', 'label' => 'Project', 'enabled' => '$config->project->enabled', 'visible' => -1, 'notnull' => 1, 'position' => 75),
 		'inventorycode' => array('type' => 'varchar(128)', 'label' => 'InventoryCode', 'enabled' => 1, 'visible' => -1, 'position' => 80),
 		'batch' => array('type' => 'varchar(30)', 'label' => 'Batch', 'enabled' => 1, 'visible' => -1, 'position' => 85),
 		'eatby' => array('type' => 'date', 'label' => 'Eatby', 'enabled' => 1, 'visible' => -1, 'position' => 90),
@@ -425,7 +425,7 @@ class MouvementStock extends CommonObject
 					$productlot = new Productlot($this->db);
 					$productlot->origin_type = !empty($this->origin_type) ? $this->origin_type : '';
 					$productlot->origin_id = !empty($this->origin_id) ? $this->origin_id : 0;
-					$productlot->entity = $conf->entity;
+					$productlot->entity = $config->entity;
 					$productlot->fk_product = $fk_product;
 					$productlot->batch = $batch;
 					// If we are here = first time we manage this batch, so we used dates provided by users to create lot
@@ -861,7 +861,7 @@ class MouvementStock extends CommonObject
 	{
 		global $conf;
 
-		$skip_batch = empty($conf->productbatch->enabled);
+		$skip_batch = empty($config->productbatch->enabled);
 
 		return $this->_create($user, $fk_product, $entrepot_id, (0 - $qty), 2, $price, $label, $inventorycode, $datem, $eatby, $sellby, $batch, $skip_batch, $id_product_batch, 0, $donotcleanemptylines);
 	}
@@ -888,7 +888,7 @@ class MouvementStock extends CommonObject
 	{
 		global $conf;
 
-		$skip_batch = empty($conf->productbatch->enabled);
+		$skip_batch = empty($config->productbatch->enabled);
 
 		return $this->_create($user, $fk_product, $entrepot_id, $qty, 3, $price, $label, $inventorycode, $datem, $eatby, $sellby, $batch, $skip_batch, $id_product_batch, 0, $donotcleanemptylines);
 	}

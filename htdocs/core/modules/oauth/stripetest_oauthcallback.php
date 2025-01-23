@@ -103,7 +103,7 @@ if (GETPOST('state')) {
 //$apiService = $serviceFactory->createService('StripeTest', $credentials, $storage, $requestedpermissionsarray);
 
 $servicesuffix = ($keyforprovider ? '-'.$keyforprovider : '');
-$sql = "INSERT INTO ".MAIN_DB_PREFIX."oauth_token SET service = 'StripeTest".$db->escape($servicesuffix)."', entity = ".((int) $conf->entity);
+$sql = "INSERT INTO ".MAIN_DB_PREFIX."oauth_token SET service = 'StripeTest".$db->escape($servicesuffix)."', entity = ".((int) $config->entity);
 $db->query($sql);
 
 // access type needed to have oauth provider refreshing token

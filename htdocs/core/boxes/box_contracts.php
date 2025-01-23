@@ -84,7 +84,7 @@ class box_contracts extends ModeleBoxes
 				$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 			}
 			$sql .= " WHERE c.fk_soc = s.rowid";
-			$sql .= " AND c.entity = ".$conf->entity;
+			$sql .= " AND c.entity = ".$config->entity;
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 			}
@@ -135,7 +135,7 @@ class box_contracts extends ModeleBoxes
 					$thirdpartytmp->code_compta_fournisseur = $objp->code_compta_fournisseur;
 
 					// fin_validite is no more on contract but on services
-					// if ($objp->fk_statut == 1 && $dateterm < ($now - $conf->contrat->cloture->warning_delay)) { $late = img_warning($langs->trans("Late")); }
+					// if ($objp->fk_statut == 1 && $dateterm < ($now - $config->contrat->cloture->warning_delay)) { $late = img_warning($langs->trans("Late")); }
 
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="nowraponall"',

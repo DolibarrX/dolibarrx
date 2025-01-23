@@ -38,7 +38,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/fiscalyear.class.php';
 $action = GETPOST('action', 'aZ09');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -103,7 +103,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-accountancy page-adm
 
 $sql = "SELECT f.rowid, f.label, f.date_start, f.date_end, f.statut as status, f.entity";
 $sql .= " FROM ".MAIN_DB_PREFIX."accounting_fiscalyear as f";
-$sql .= " WHERE f.entity = ".$conf->entity;
+$sql .= " WHERE f.entity = ".$config->entity;
 $sql .= $db->order($sortfield, $sortorder);
 
 // Count total nb of records

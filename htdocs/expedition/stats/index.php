@@ -75,7 +75,7 @@ llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-expedition page-stats_index');
 
 print load_fiche_titre($langs->trans("StatisticsOfSendings"), '', 'dolly');
 
-$dir = (!empty($conf->expedition->multidir_temp[$conf->entity]) ? $conf->expedition->multidir_temp[$conf->entity] : $conf->service->multidir_temp[$conf->entity]);
+$dir = (!empty($config->expedition->multidir_temp[$config->entity]) ? $config->expedition->multidir_temp[$config->entity] : $config->service->multidir_temp[$config->entity]);
 dol_mkdir($dir);
 
 $stats = new ExpeditionStats($db, $socid, '', ($userid > 0 ? $userid : 0));
@@ -337,7 +337,7 @@ print '<td width="40%" class="center">'.$langs->trans("NbOfSendings").'</td></tr
 $sql = "SELECT count(*) as nb, date_format(date_expedition,'%Y') as dm";
 $sql.= " FROM ".MAIN_DB_PREFIX."expedition";
 $sql.= " WHERE fk_statut > 0";
-$sql.= " AND entity = ".$conf->entity;
+$sql.= " AND entity = ".$config->entity;
 $sql.= " GROUP BY dm DESC";
 
 $resql=$db->query($sql);

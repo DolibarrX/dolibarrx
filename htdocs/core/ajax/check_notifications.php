@@ -69,7 +69,7 @@ if ($action == 'stopreminder') {	// Test on permission not required here. Endpoi
 	// Set the reminder as done
 	$sql = 'UPDATE '.MAIN_DB_PREFIX.'actioncomm_reminder SET status = 1';
 	$sql .= ' WHERE status = 0 AND rowid IN ('.$db->sanitize($db->escape($listofreminderid)).')';
-	$sql .= ' AND fk_user = '.((int) $user->id).' AND entity = '.((int) $conf->entity);
+	$sql .= ' AND fk_user = '.((int) $user->id).' AND entity = '.((int) $config->entity);
 	$resql = $db->query($sql);
 	if (!$resql) {
 		dol_print_error($db);
@@ -80,7 +80,7 @@ if ($action == 'stopreminder') {	// Test on permission not required here. Endpoi
 	// Clean database
 	$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'actioncomm_reminder';
 	$sql .= " WHERE dateremind < '".$db->idate(dol_time_plus_duree(dol_now(), -1, 'm'))."'";
-	$sql .= " AND fk_user = ".((int) $user->id).' AND entity = '.((int) $conf->entity);
+	$sql .= " AND fk_user = ".((int) $user->id).' AND entity = '.((int) $config->entity);
 	$resql = $db->query($sql);
 	if (!$resql) {
 		dol_print_error($db);
@@ -104,14 +104,14 @@ $eventfound = array();
 
 // TODO Remove use of $_SESSION['auto_check_events_not_before']. Seems not used.
 if (empty($_SESSION['auto_check_events_not_before']) || $time >= $_SESSION['auto_check_events_not_before'] || GETPOSTINT('forcechecknow')) {
-	/*$time_update = (int) $conf->global->MAIN_BROWSER_NOTIFICATION_FREQUENCY; // Always defined
+	/*$time_update = (int) $config->global->MAIN_BROWSER_NOTIFICATION_FREQUENCY; // Always defined
 	if (!empty($_SESSION['auto_check_events_not_before']))
 	{
 		// We start scan from the not before so if two tabs were opened at different moments and we close one (so the js timer),
 		// then we are not losing periods
 		$starttime = $_SESSION['auto_check_events_not_before'];
 		// Protection to avoid too long sessions
-		if ($starttime < ($time - (int) $conf->global->MAIN_SESSION_TIMEOUT))
+		if ($starttime < ($time - (int) $config->global->MAIN_SESSION_TIMEOUT))
 		{
 			dol_syslog("We ask to check browser notification on a too large period. We fix this with current date.");
 			$starttime = $time;
@@ -138,7 +138,7 @@ if (empty($_SESSION['auto_check_events_not_before']) || $time >= $_SESSION['auto
 	$sql .= ' INNER JOIN '.MAIN_DB_PREFIX.'actioncomm_reminder as ar ON a.id = ar.fk_actioncomm AND ar.fk_user = '.((int) $user->id);
 	$sql .= " AND ar.typeremind = 'browser' AND ar.dateremind < '".$db->idate(dol_now())."'";
 	$sql .= " AND ar.status = 0";
-	$sql .= " AND ar.entity = ".((int) $conf->entity);	// No sharing of entity for alerts
+	$sql .= " AND ar.entity = ".((int) $config->entity);	// No sharing of entity for alerts
 	$sql .= $db->order('datep', 'ASC');
 	$sql .= $db->plimit(10); // Avoid too many notification at once
 

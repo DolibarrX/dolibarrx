@@ -258,7 +258,7 @@ if ($action == 'confirm_deletefile' && $confirm == 'yes' && !empty($permissionto
 			// Because if we put the documents directory into a directory inside web root (very bad), this allows to execute on demand arbitrary code.
 			if (isAFileWithExecutableContent($filenameto) && !getDolGlobalString('MAIN_DOCUMENT_IS_OUTSIDE_WEBROOT_SO_NOEXE_NOT_REQUIRED')) {
 				// $upload_dir ends with a slash, so be must be sure the medias dir to compare to ends with slash too.
-				$publicmediasdirwithslash = $conf->medias->multidir_output[$conf->entity];
+				$publicmediasdirwithslash = $config->medias->multidir_output[$config->entity];
 				if (!preg_match('/\/$/', $publicmediasdirwithslash)) {
 					$publicmediasdirwithslash .= '/';
 				}
@@ -273,10 +273,10 @@ if ($action == 'confirm_deletefile' && $confirm == 'yes' && !empty($permissionto
 				$destpath = $upload_dir.'/'.$filenameto;
 				/* disabled. Too many bugs. All files of an object must remain into directory of object. link with event should be done in llx_ecm_files with column agenda_id.
 				if ($modulepart == "ticket" && !dol_is_file($srcpath)) {
-					$srcbis = $conf->agenda->dir_output.'/'.GETPOST('section_dir').$filenamefrom;
+					$srcbis = $config->agenda->dir_output.'/'.GETPOST('section_dir').$filenamefrom;
 					if (dol_is_file($srcbis)) {
 						$srcpath = $srcbis;
-						$destpath = $conf->agenda->dir_output.'/'.GETPOST('section_dir').$filenameto;
+						$destpath = $config->agenda->dir_output.'/'.GETPOST('section_dir').$filenameto;
 					}
 				}*/
 

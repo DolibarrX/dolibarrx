@@ -43,7 +43,7 @@ if (!$user->admin) {
 	accessforbidden();
 }
 
-$upload_dir = $conf->admin->dir_temp;
+$upload_dir = $config->admin->dir_temp;
 
 
 /*
@@ -63,13 +63,13 @@ if (GETPOST('action', 'aZ09') == 'set_proxy') {
 
 	if (!$error) {
 		$result = 0;
-		$result += dolibarr_set_const($db, 'MAIN_USE_CONNECT_TIMEOUT', GETPOST("MAIN_USE_CONNECT_TIMEOUT"), 'chaine', 0, '', $conf->entity);
-		$result += dolibarr_set_const($db, 'MAIN_USE_RESPONSE_TIMEOUT', GETPOST("MAIN_USE_RESPONSE_TIMEOUT"), 'chaine', 0, '', $conf->entity);
-		$result += dolibarr_set_const($db, 'MAIN_PROXY_USE', GETPOST("MAIN_PROXY_USE"), 'chaine', 0, '', $conf->entity);
-		$result += dolibarr_set_const($db, 'MAIN_PROXY_HOST', GETPOST("MAIN_PROXY_HOST"), 'chaine', 0, '', $conf->entity);
-		$result += dolibarr_set_const($db, 'MAIN_PROXY_PORT', GETPOST("MAIN_PROXY_PORT"), 'chaine', 0, '', $conf->entity);
-		$result += dolibarr_set_const($db, 'MAIN_PROXY_USER', GETPOST("MAIN_PROXY_USER"), 'chaine', 0, '', $conf->entity);
-		$result += dolibarr_set_const($db, 'MAIN_PROXY_PASS', GETPOST("MAIN_PROXY_PASS"), 'chaine', 0, '', $conf->entity);
+		$result += dolibarr_set_const($db, 'MAIN_USE_CONNECT_TIMEOUT', GETPOST("MAIN_USE_CONNECT_TIMEOUT"), 'chaine', 0, '', $config->entity);
+		$result += dolibarr_set_const($db, 'MAIN_USE_RESPONSE_TIMEOUT', GETPOST("MAIN_USE_RESPONSE_TIMEOUT"), 'chaine', 0, '', $config->entity);
+		$result += dolibarr_set_const($db, 'MAIN_PROXY_USE', GETPOST("MAIN_PROXY_USE"), 'chaine', 0, '', $config->entity);
+		$result += dolibarr_set_const($db, 'MAIN_PROXY_HOST', GETPOST("MAIN_PROXY_HOST"), 'chaine', 0, '', $config->entity);
+		$result += dolibarr_set_const($db, 'MAIN_PROXY_PORT', GETPOST("MAIN_PROXY_PORT"), 'chaine', 0, '', $config->entity);
+		$result += dolibarr_set_const($db, 'MAIN_PROXY_USER', GETPOST("MAIN_PROXY_USER"), 'chaine', 0, '', $config->entity);
+		$result += dolibarr_set_const($db, 'MAIN_PROXY_PASS', GETPOST("MAIN_PROXY_PASS"), 'chaine', 0, '', $config->entity);
 		if ($result < 5) {
 			dol_print_error($db);
 		}
@@ -108,7 +108,7 @@ print dol_get_fiche_head($head, 'proxy', '', -1);
 
 print '<br>';
 
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print "\n".'<script type="text/javascript">';
 	print 'jQuery(document).ready(function () {
                 function initfields()
@@ -145,7 +145,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("ConnectionTimeout").'</td><td class="right">';
 print '</td>';
 print '<td class="nowrap">';
-print '<input class="flat" name="MAIN_USE_CONNECT_TIMEOUT" type="text" size="4" value="'.(GETPOSTISSET("MAIN_USE_CONNECT_TIMEOUT") ? GETPOST("MAIN_USE_CONNECT_TIMEOUT") : $conf->global->MAIN_USE_CONNECT_TIMEOUT).'">';
+print '<input class="flat" name="MAIN_USE_CONNECT_TIMEOUT" type="text" size="4" value="'.(GETPOSTISSET("MAIN_USE_CONNECT_TIMEOUT") ? GETPOST("MAIN_USE_CONNECT_TIMEOUT") : $config->global->MAIN_USE_CONNECT_TIMEOUT).'">';
 print ' '.strtolower($langs->trans("Seconds"));
 print '</td>';
 print '</tr>';
@@ -165,7 +165,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("MAIN_PROXY_USE").'</td><td class="right">';
 print '</td>';
 print '<td class="nowrap">';
-print $form->selectyesno('MAIN_PROXY_USE', (getDolGlobalString('MAIN_PROXY_USE') ? $conf->global->MAIN_PROXY_USE : 0), 1);
+print $form->selectyesno('MAIN_PROXY_USE', (getDolGlobalString('MAIN_PROXY_USE') ? $config->global->MAIN_PROXY_USE : 0), 1);
 print '</td>';
 print '</tr>';
 
@@ -174,7 +174,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("MAIN_PROXY_HOST").'</td><td class="right">';
 print '</td>';
 print '<td class="nowrap">';
-print '<input class="flat" name="MAIN_PROXY_HOST" type="text" size="16" value="'.(getDolGlobalString('MAIN_PROXY_HOST') ? $conf->global->MAIN_PROXY_HOST : '').'">';
+print '<input class="flat" name="MAIN_PROXY_HOST" type="text" size="16" value="'.(getDolGlobalString('MAIN_PROXY_HOST') ? $config->global->MAIN_PROXY_HOST : '').'">';
 print '</td>';
 print '</tr>';
 
@@ -183,7 +183,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("MAIN_PROXY_PORT").'</td><td class="right">';
 print '</td>';
 print '<td class="nowrap">';
-print '<input class="flat" name="MAIN_PROXY_PORT" type="text" size="4" value="'.(getDolGlobalString('MAIN_PROXY_PORT') ? $conf->global->MAIN_PROXY_PORT : '').'">';
+print '<input class="flat" name="MAIN_PROXY_PORT" type="text" size="4" value="'.(getDolGlobalString('MAIN_PROXY_PORT') ? $config->global->MAIN_PROXY_PORT : '').'">';
 print '</td>';
 print '</tr>';
 
@@ -192,7 +192,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("MAIN_PROXY_USER").'</td><td class="right">';
 print '</td>';
 print '<td class="nowrap">';
-print '<input class="flat" name="MAIN_PROXY_USER" type="text" size="16" value="'.(getDolGlobalString('MAIN_PROXY_USER') ? $conf->global->MAIN_PROXY_USER : '').'">';
+print '<input class="flat" name="MAIN_PROXY_USER" type="text" size="16" value="'.(getDolGlobalString('MAIN_PROXY_USER') ? $config->global->MAIN_PROXY_USER : '').'">';
 print '</td>';
 print '</tr>';
 
@@ -201,7 +201,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("MAIN_PROXY_PASS").'</td><td class="right">';
 print '</td>';
 print '<td class="nowrap">';
-print '<input class="flat" name="MAIN_PROXY_PASS" type="text" size="16" value="'.(getDolGlobalString('MAIN_PROXY_PASS') ? $conf->global->MAIN_PROXY_PASS : '').'">';
+print '<input class="flat" name="MAIN_PROXY_PASS" type="text" size="16" value="'.(getDolGlobalString('MAIN_PROXY_PASS') ? $config->global->MAIN_PROXY_PASS : '').'">';
 print '</td>';
 print '</tr>';
 

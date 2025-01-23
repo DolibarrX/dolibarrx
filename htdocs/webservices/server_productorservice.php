@@ -372,11 +372,11 @@ function getProductOrService($authentication, $id = 0, $ref = '', $ref_ext = '',
 
 	dol_syslog("Function: getProductOrService login=".$authentication['login']." id=".$id." ref=".$ref." ref_ext=".$ref_ext);
 
-	$langcode = ($lang ? $lang : (!getDolGlobalString('MAIN_LANG_DEFAULT') ? 'auto' : $conf->global->MAIN_LANG_DEFAULT));
+	$langcode = ($lang ? $lang : (!getDolGlobalString('MAIN_LANG_DEFAULT') ? 'auto' : $config->global->MAIN_LANG_DEFAULT));
 	$langs->setDefaultLang($langcode);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -393,7 +393,7 @@ function getProductOrService($authentication, $id = 0, $ref = '', $ref_ext = '',
 	}
 
 	if (!$error) {
-		$langcode = ($lang ? $lang : (!getDolGlobalString('MAIN_LANG_DEFAULT') ? 'auto' : $conf->global->MAIN_LANG_DEFAULT));
+		$langcode = ($lang ? $lang : (!getDolGlobalString('MAIN_LANG_DEFAULT') ? 'auto' : $config->global->MAIN_LANG_DEFAULT));
 		$langs->setDefaultLang($langcode);
 
 		$fuser->loadRights();
@@ -406,7 +406,7 @@ function getProductOrService($authentication, $id = 0, $ref = '', $ref_ext = '',
 			if ($result > 0) {
 				$product->load_stock();
 
-				$dir = (!empty($conf->product->dir_output) ? $conf->product->dir_output : $conf->service->dir_output);
+				$dir = (!empty($config->product->dir_output) ? $config->product->dir_output : $config->service->dir_output);
 				$pdir = get_exdir($product->id, 2, 0, 0, $product, 'product').$product->ref."/";
 				$dir = $dir.'/'.$pdir;
 
@@ -515,7 +515,7 @@ function createProductOrService($authentication, $product)
 	dol_syslog("Function: createProductOrService login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -681,7 +681,7 @@ function updateProductOrService($authentication, $product)
 	dol_syslog("Function: updateProductOrService login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -846,7 +846,7 @@ function deleteProductOrService($authentication, $listofidstring)
 	dol_syslog("Function: deleteProductOrService login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -933,7 +933,7 @@ function getListOfProductsOrServices($authentication, $filterproduct)
 	dol_syslog("Function: getListOfProductsOrServices login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -948,7 +948,7 @@ function getListOfProductsOrServices($authentication, $filterproduct)
 	if (!$error) {
 		$sql = "SELECT rowid, ref, ref_ext";
 		$sql .= " FROM ".MAIN_DB_PREFIX."product";
-		$sql .= " WHERE entity=".$conf->entity;
+		$sql .= " WHERE entity=".$config->entity;
 		foreach ($filterproduct as $key => $val) {
 			if ($key == 'type' && $val >= 0) {
 				$sql .= " AND fk_product_type = ".((int) $val);
@@ -1005,13 +1005,13 @@ function getProductsForCategory($authentication, $id, $lang = '')
 {
 	global $db, $conf, $langs;
 
-	$langcode = ($lang ? $lang : (!getDolGlobalString('MAIN_LANG_DEFAULT') ? 'auto' : $conf->global->MAIN_LANG_DEFAULT));
+	$langcode = ($lang ? $lang : (!getDolGlobalString('MAIN_LANG_DEFAULT') ? 'auto' : $config->global->MAIN_LANG_DEFAULT));
 	$langs->setDefaultLang($langcode);
 
 	dol_syslog("Function: getProductsForCategory login=".$authentication['login']." id=".$id);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	$objectresp = array();
@@ -1030,7 +1030,7 @@ function getProductsForCategory($authentication, $id, $lang = '')
 
 
 	if (!$error) {
-		$langcode = ($lang ? $lang : (!getDolGlobalString('MAIN_LANG_DEFAULT') ? 'auto' : $conf->global->MAIN_LANG_DEFAULT));
+		$langcode = ($lang ? $lang : (!getDolGlobalString('MAIN_LANG_DEFAULT') ? 'auto' : $config->global->MAIN_LANG_DEFAULT));
 		$langs->setDefaultLang($langcode);
 
 		$fuser->loadRights();
@@ -1056,7 +1056,7 @@ function getProductsForCategory($authentication, $id, $lang = '')
 					while ($rec = $db->fetch_array($res)) {
 						$tmpproduct->fetch($rec['fk_'.$field]);
 						if ($tmpproduct->status > 0) {
-							$dir = (!empty($conf->product->dir_output) ? $conf->product->dir_output : $conf->service->dir_output);
+							$dir = (!empty($config->product->dir_output) ? $config->product->dir_output : $config->service->dir_output);
 							$pdir = get_exdir($tmpproduct->id, 2, 0, 0, $tmpproduct, 'product').$tmpproduct->id."/photos/";
 							$dir = $dir.'/'.$pdir;
 

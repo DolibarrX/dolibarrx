@@ -474,7 +474,7 @@ class Salary extends CommonObject
 		$sql .= ", '".$this->db->escape($user->id)."'";
 		$sql .= ", '".$this->db->idate($now)."'";
 		$sql .= ", NULL";
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ")";
 
 		dol_syslog(get_class($this)."::create", LOG_DEBUG);
@@ -579,7 +579,7 @@ class Salary extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1;
 		} // Force disable tooltips
 
@@ -955,8 +955,8 @@ class Salary extends CommonObject
 
 					// We can also use bcadd to avoid pb with floating points
 					// For example print 239.2 - 229.3 - 9.9; does not return 0.
-					//$resteapayer=bcadd($this->total_ttc,$totalpaid,$conf->global->MAIN_MAX_DECIMALS_TOT);
-					//$resteapayer=bcadd($resteapayer,$totalavoir,$conf->global->MAIN_MAX_DECIMALS_TOT);
+					//$resteapayer=bcadd($this->total_ttc,$totalpaid,$config->global->MAIN_MAX_DECIMALS_TOT);
+					//$resteapayer=bcadd($resteapayer,$totalavoir,$config->global->MAIN_MAX_DECIMALS_TOT);
 					// if (empty($amount)) {
 					// 	$amount = price2num($this->total_ttc - $totalpaid - $totalcreditnotes - $totaldeposits, 'MT');
 					// }
@@ -979,7 +979,7 @@ class Salary extends CommonObject
 						$sql .= ", '".$this->db->escape($bac->cle_rib)."'";
 						$sql .= ", '".$this->db->escape($sourcetype)."'";
 						$sql .= ", 'ban'";
-						$sql .= ", ".((int) $conf->entity);
+						$sql .= ", ".((int) $config->entity);
 						$sql .= ")";
 
 						dol_syslog(get_class($this)."::demande_prelevement", LOG_DEBUG);

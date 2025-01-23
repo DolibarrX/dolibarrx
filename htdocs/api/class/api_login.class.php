@@ -41,7 +41,7 @@ class Login
 		global $db;
 		$this->db = $db;
 
-		//$conf->global->API_DISABLE_LOGIN_API = 1;
+		//$config->global->API_DISABLE_LOGIN_API = 1;
 		if (getDolGlobalString('API_DISABLE_LOGIN_API')) {
 			throw new RestException(403, "Error login APIs are disabled. You must get the token from backoffice to be able to use APIs");
 		}

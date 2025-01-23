@@ -347,7 +347,7 @@ if ($action == 'create') {
 			print '<input type="hidden" name="backtopageforcancel" value="' . $backtopageforcancel . '">';
 		}
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			include DOL_DOCUMENT_ROOT . '/core/tpl/ajaxrow.tpl.php';
 		}
 

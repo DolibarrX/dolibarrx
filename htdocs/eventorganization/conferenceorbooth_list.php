@@ -67,7 +67,7 @@ $projectid = GETPOSTINT('projectid');
 $projectref = GETPOST('ref', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -83,7 +83,7 @@ $pagenext = $page + 1;
 $object = new ConferenceOrBooth($db);
 $project = new Project($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->eventorganization->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->eventorganization->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($contextpage)); // Note that conf->hooks_modules contains array of activated contexes
 
 // Fetch optionals attributes and labels
@@ -231,7 +231,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'ConferenceOrBooth';
 	$objectlabel = 'ConferenceOrBooth';
-	$uploaddir = $conf->eventorganization->dir_output;
+	$uploaddir = $config->eventorganization->dir_output;
 	include DOL_DOCUMENT_ROOT.'/eventorganization/core/actions_massactions_mail.inc.php';
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
@@ -399,7 +399,7 @@ if ($projectid > 0) {
 	// Budget
 	print '<tr><td>'.$langs->trans("Budget").'</td><td>';
 	if (strcmp($project->budget_amount, '')) {
-		print '<span class="amount">'.price($project->budget_amount, 0, $langs, 1, 0, 0, $conf->currency).'</span>';
+		print '<span class="amount">'.price($project->budget_amount, 0, $langs, 1, 0, 0, $config->currency).'</span>';
 	}
 	print '</td></tr>';
 
@@ -500,7 +500,7 @@ if ($projectid > 0) {
 	$urlwithroot = $urlwithouturlroot.DOL_URL_ROOT;
 
 	// Show message
-	$message = '<a target="_blank" rel="noopener noreferrer" href="'.$urlwithroot.'/public/agenda/agendaexport.php?format=ical'.($conf->entity > 1 ? "&entity=".$conf->entity : "");
+	$message = '<a target="_blank" rel="noopener noreferrer" href="'.$urlwithroot.'/public/agenda/agendaexport.php?format=ical'.($config->entity > 1 ? "&entity=".$config->entity : "");
 	$message .= '&exportkey='.urlencode(getDolGlobalString('MAIN_AGENDA_XCAL_EXPORTKEY', '...'));
 	$message .= "&project=".$projectid.'&module='.urlencode('project@eventorganization').'&file='.urlencode('calendar-'.$project->ref.'.ics').'&output=file">'.$langs->trans('DownloadICSLink').img_picto('', 'download', 'class="paddingleft"').'</a>';
 	print $message;
@@ -519,7 +519,7 @@ if ($projectid > 0) {
 	$urlwithroot = $urlwithouturlroot.DOL_URL_ROOT;
 
 	// Show message
-	$message = '<a target="_blank" rel="noopener noreferrer" href="'.$urlwithroot.'/public/agenda/agendaexport.php?format=ical'.($conf->entity > 1 ? "&entity=".$conf->entity : "");
+	$message = '<a target="_blank" rel="noopener noreferrer" href="'.$urlwithroot.'/public/agenda/agendaexport.php?format=ical'.($config->entity > 1 ? "&entity=".$config->entity : "");
 	$message .= '&exportkey='.urlencode(getDolGlobalString('MAIN_AGENDA_XCAL_EXPORTKEY', '...'));
 	$message .= "&project=".$projectid.'&module='.urlencode('conforbooth@eventorganization').'&file='.urlencode('calendar-'.$project->ref.'-conforbooth.ics').'&status='.ConferenceOrBooth::STATUS_CONFIRMED.'&output=file">'.$langs->trans('DownloadICSLink').img_picto('', 'download', 'class="paddingleft"').'</a>';
 	print $message;
@@ -705,7 +705,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {

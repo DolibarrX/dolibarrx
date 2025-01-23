@@ -77,7 +77,7 @@ class box_accountancy_last_manual_entries extends ModeleBoxes
 			$sql .= ", b.code_journal";
 			$sql .= " FROM ".MAIN_DB_PREFIX."accounting_bookkeeping as b";
 			$sql .= " WHERE b.fk_doc = 0";
-			$sql .= " AND b.entity = ".$conf->entity;
+			$sql .= " AND b.entity = ".$config->entity;
 			$sql .= " ORDER BY b.piece_num DESC ";
 			$sql .= $this->db->plimit($max, 0);
 
@@ -125,7 +125,7 @@ class box_accountancy_last_manual_entries extends ModeleBoxes
 
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="nowraponall right amount"',
-						'text' => price($amount, 0, $langs, 0, -1, -1, $conf->currency),
+						'text' => price($amount, 0, $langs, 0, -1, -1, $config->currency),
 					);
 
 					$line++;

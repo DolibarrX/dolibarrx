@@ -54,7 +54,7 @@ $def = array();
 $action = GETPOST('action', 'alpha');
 
 if (!getDolGlobalString('AGENDA_EXT_NB')) {
-	$conf->global->AGENDA_EXT_NB = 5;
+	$config->global->AGENDA_EXT_NB = 5;
 }
 $MAXAGENDA = getDolGlobalString('AGENDA_EXT_NB');
 
@@ -77,7 +77,7 @@ if (preg_match('/set_(.*)/', $action, $reg)) {
 	$code = $reg[1];
 	$value = (GETPOST($code) ? GETPOST($code) : 1);
 
-	$res = dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 		$errors[] = $db->lasterror();
@@ -97,7 +97,7 @@ if (preg_match('/set_(.*)/', $action, $reg)) {
 
 	$code = $reg[1];
 
-	$res = dolibarr_del_const($db, $code, $conf->entity);
+	$res = dolibarr_del_const($db, $code, $config->entity);
 	if (!($res > 0)) {
 		$error++;
 		$errors[] = $db->lasterror();
@@ -116,7 +116,7 @@ if (preg_match('/set_(.*)/', $action, $reg)) {
 	$db->begin();
 
 	$disableext = GETPOST('AGENDA_DISABLE_EXT', 'alpha');
-	$res = dolibarr_set_const($db, 'AGENDA_DISABLE_EXT', $disableext, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'AGENDA_DISABLE_EXT', $disableext, 'chaine', 0, '', $config->entity);
 
 	$i = 1;
 	$errorsaved = 0;
@@ -141,23 +141,23 @@ if (preg_match('/set_(.*)/', $action, $reg)) {
 
 		//print '-name='.$name.'-color='.$color;
 		// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
-		$res = dolibarr_set_const($db, 'AGENDA_EXT_NAME'.$i, $name, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, 'AGENDA_EXT_NAME'.$i, $name, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
-		$res = dolibarr_set_const($db, 'AGENDA_EXT_SRC'.$i, $src, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, 'AGENDA_EXT_SRC'.$i, $src, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
-		$res = dolibarr_set_const($db, 'AGENDA_EXT_OFFSETTZ'.$i, $offsettz, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, 'AGENDA_EXT_OFFSETTZ'.$i, $offsettz, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
-		$res = dolibarr_set_const($db, 'AGENDA_EXT_COLOR'.$i, $color, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, 'AGENDA_EXT_COLOR'.$i, $color, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
-		$res = dolibarr_set_const($db, 'AGENDA_EXT_ENABLED'.$i, $enabled, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, 'AGENDA_EXT_ENABLED'.$i, $enabled, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
@@ -166,12 +166,12 @@ if (preg_match('/set_(.*)/', $action, $reg)) {
 
 	// Save nb of agenda
 	if (!$error) {
-		$res = dolibarr_set_const($db, 'AGENDA_EXT_NB', GETPOSTINT('AGENDA_EXT_NB'), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, 'AGENDA_EXT_NB', GETPOSTINT('AGENDA_EXT_NB'), 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
 		if (!getDolGlobalString('AGENDA_EXT_NB')) {
-			$conf->global->AGENDA_EXT_NB = 5;
+			$config->global->AGENDA_EXT_NB = 5;
 		}
 		$MAXAGENDA = getDolGlobalInt('AGENDA_EXT_NB', 5);
 	}
@@ -235,7 +235,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("ExtSitesEnableThisTool")."</td>";
 print '<td class="center">';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('AGENDA_DISABLE_EXT', array('enabled' => array(0 => '.hideifnotset')), null, 1);
 } else {
 	if (!getDolGlobalString('AGENDA_DISABLE_EXT')) {
@@ -296,7 +296,7 @@ while ($i <= $MAXAGENDA) {
 	print '</td>';
 	// Calendar active by default
 	print '<td class="nowrap right">';
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print ajax_constantonoff('AGENDA_EXT_ACTIVEBYDEFAULT' . $key);
 	} else {
 		// @phan-suppress-next-line PhanPluginSuspiciousParamPosition

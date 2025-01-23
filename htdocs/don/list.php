@@ -65,7 +65,7 @@ $search_amount = GETPOST('search_amount', 'alpha');
 $moreforfilter = GETPOST('moreforfilter', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -80,7 +80,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new Don($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->don->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->don->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($contextpage)); 	// Note that conf->hooks_modules contains array of activated contexes
 
 // Fetch optionals attributes and labels
@@ -287,7 +287,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {

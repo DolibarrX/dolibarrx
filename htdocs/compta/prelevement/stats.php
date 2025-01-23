@@ -79,7 +79,7 @@ if ($type == 'bank-transfer') {
 } else {
 	$sql .= " AND pb.type = 'debit-order'";
 }
-$sql .= " AND pb.entity = ".$conf->entity;
+$sql .= " AND pb.entity = ".$config->entity;
 $total = 0;
 $nbtotal = 0;
 $resql = $db->query($sql);
@@ -108,7 +108,7 @@ $sql = "SELECT sum(pl.amount), count(pl.amount), pl.statut";
 $sql .= " FROM ".MAIN_DB_PREFIX."prelevement_lignes as pl";
 $sql .= ", ".MAIN_DB_PREFIX."prelevement_bons as pb";
 $sql .= " WHERE pl.fk_prelevement_bons = pb.rowid";
-$sql .= " AND pb.entity = ".$conf->entity;
+$sql .= " AND pb.entity = ".$config->entity;
 if ($type == 'bank-transfer') {
 	$sql .= " AND pb.type = 'bank-transfer'";
 } else {
@@ -183,7 +183,7 @@ $sql = "SELECT sum(pl.amount), count(pl.amount)";
 $sql .= " FROM ".MAIN_DB_PREFIX."prelevement_lignes as pl";
 $sql .= ", ".MAIN_DB_PREFIX."prelevement_bons as pb";
 $sql .= " WHERE pl.fk_prelevement_bons = pb.rowid";
-$sql .= " AND pb.entity = ".$conf->entity;
+$sql .= " AND pb.entity = ".$config->entity;
 $sql .= " AND pl.statut = 3";
 if ($type == 'bank-transfer') {
 	$sql .= " AND pb.type = 'bank-transfer'";
@@ -211,7 +211,7 @@ $sql .= " FROM ".MAIN_DB_PREFIX."prelevement_lignes as pl";
 $sql .= ", ".MAIN_DB_PREFIX."prelevement_bons as pb";
 $sql .= ", ".MAIN_DB_PREFIX."prelevement_rejet as pr";
 $sql .= " WHERE pl.fk_prelevement_bons = pb.rowid";
-$sql .= " AND pb.entity = ".$conf->entity;
+$sql .= " AND pb.entity = ".$config->entity;
 $sql .= " AND pl.statut = 3";
 $sql .= " AND pr.fk_prelevement_lignes = pl.rowid";
 if ($type == 'bank-transfer') {

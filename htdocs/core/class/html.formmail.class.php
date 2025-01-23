@@ -323,7 +323,7 @@ class FormMail extends Form
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		// Set tmp user directory
-		$vardir = $conf->user->dir_output."/".$user->id;
+		$vardir = $config->user->dir_output."/".$user->id;
 		$upload_dir = $vardir.'/temp/'; // TODO Add $keytoavoidconflict in upload_dir path
 		if (is_dir($upload_dir)) {
 			dol_delete_dir_recursive($upload_dir);
@@ -708,7 +708,7 @@ class FormMail extends Form
 
 						// Add also company main email
 						if (getDolGlobalString('MAIN_INFO_SOCIETE_MAIL')) {
-							$s = (!getDolGlobalString('MAIN_INFO_SOCIETE_NOM') ? $conf->global->MAIN_INFO_SOCIETE_EMAIL : $conf->global->MAIN_INFO_SOCIETE_NOM).' &lt;' . getDolGlobalString('MAIN_INFO_SOCIETE_MAIL').'&gt;';
+							$s = (!getDolGlobalString('MAIN_INFO_SOCIETE_NOM') ? $config->global->MAIN_INFO_SOCIETE_EMAIL : $config->global->MAIN_INFO_SOCIETE_NOM).' &lt;' . getDolGlobalString('MAIN_INFO_SOCIETE_MAIL').'&gt;';
 							$liste['company'] = array('label' => $s, 'data-html' => $s);
 						}
 
@@ -939,7 +939,7 @@ class FormMail extends Form
 						foreach ($listofpaths as $key => $val) {
 							$relativepathtofile = substr($val, (strlen(DOL_DATA_ROOT) - strlen($val)));
 
-							$entity = (isset($this->param['object_entity']) ? $this->param['object_entity'] : $conf->entity);
+							$entity = (isset($this->param['object_entity']) ? $this->param['object_entity'] : $config->entity);
 							if ($entity > 1) {
 								$relativepathtofile = str_replace('/'.$entity.'/', '/', $relativepathtofile);
 							}
@@ -954,7 +954,7 @@ class FormMail extends Form
 							$out .= ' '.$formfile->showPreview(array(), $formfile_params[2], $formfile_params[4], 0, ($entity == 1 ? '' : 'entity='.((int) $entity)));
 
 							if (!$this->withfilereadonly) {
-								$out .= ' <input type="image" style="border: 0px;" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/delete.png" value="'.($key + 1).'" class="removedfile input-nobottom" id="removedfile_'.$key.'" name="removedfile_'.$key.'" />';
+								$out .= ' <input type="image" style="border: 0px;" src="'.DOL_URL_ROOT.'/theme/'.$config->theme.'/img/delete.png" value="'.($key + 1).'" class="removedfile input-nobottom" id="removedfile_'.$key.'" name="removedfile_'.$key.'" />';
 								//$out.= ' <a href="'.$_SERVER["PHP_SELF"].'?removedfile='.($key+1).'&id=removedfile_'.$key.'">'.img_delete($langs->trans("Remove"), 'id="removedfile_'.$key.'" name="removedfile_'.$key.'"', 'removedfile input-nobottom').'</a>';
 							}
 							$out .= '<br></div>';
@@ -1138,7 +1138,7 @@ class FormMail extends Form
 				$out .= '<div class="center">';
 				$out .= '<input type="submit" class="button button-add" id="sendmail" name="sendmail" value="'.$langs->trans("SendMail").'"';
 				// Add a javascript test to avoid to forget to submit file before sending email
-				if ($this->withfile == 2 && $conf->use_javascript_ajax) {
+				if ($this->withfile == 2 && $config->use_javascript_ajax) {
 					$out .= ' onClick="if (document.mailform.addedfile.value != \'\') { alert(\''.dol_escape_js($langs->trans("FileWasNotUploaded")).'\'); return false; } else { return true; }"';
 				}
 				$out .= ' />';
@@ -1888,7 +1888,7 @@ class FormMail extends Form
 				// If template is for a module, check module is enabled; if not, take next template
 				if ($obj->module) {
 					$tempmodulekey = $obj->module;
-					if (empty($conf->$tempmodulekey) || !isModEnabled($tempmodulekey)) {
+					if (empty($config->$tempmodulekey) || !isModEnabled($tempmodulekey)) {
 						continue;
 					}
 				}
@@ -2025,7 +2025,7 @@ class FormMail extends Form
 				// If template is for a module, check module is enabled.
 				if ($obj->module) {
 					$tempmodulekey = $obj->module;
-					if (empty($conf->$tempmodulekey) || !isModEnabled($tempmodulekey)) {
+					if (empty($config->$tempmodulekey) || !isModEnabled($tempmodulekey)) {
 						continue;
 					}
 				}

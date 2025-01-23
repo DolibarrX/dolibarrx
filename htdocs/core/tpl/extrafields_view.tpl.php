@@ -277,7 +277,7 @@ if (empty($reshook) && !empty($object->table_element) && isset($extrafields->att
 
 	// Add code to manage list depending on others
 	// TODO Test/enhance this with a more generic solution
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print "\n";
 		print '
 				<script>

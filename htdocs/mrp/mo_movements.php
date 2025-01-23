@@ -78,7 +78,7 @@ $search_batch = trim(GETPOST("search_batch", 'alpha'));
 $search_qty = trim(GETPOST("search_qty", 'alpha'));
 $search_type_mouvement = GETPOST('search_type_mouvement', "intcomma");
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $page  = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
@@ -96,7 +96,7 @@ if (!$sortorder) {
 // Initialize a technical objects
 $object = new Mo($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->mrp->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->mrp->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('mocard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -163,7 +163,7 @@ $permissionnote = $user->hasRight('mrp', 'write'); // Used by the include of act
 $permissiondellink = $user->hasRight('mrp', 'write'); // Used by the include of actions_dellink.inc.php
 $permissiontoadd = $user->hasRight('mrp', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissiontodelete = $user->hasRight('mrp', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
-$upload_dir = $conf->mrp->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->mrp->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 $permissiontoproduce = $permissiontoadd;
 $permissiontoupdatecost = $user->hasRight('bom', 'write'); // User who can define cost must have knowledge of pricing
@@ -309,7 +309,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		$formquestion = array();
 		/*
 		$forcecombo=0;
-		if ($conf->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
+		if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
 		$formquestion = array(
 			// 'text' => $langs->trans("ConfirmClone"),
 			// array('type' => 'checkbox', 'name' => 'clone_content', 'label' => $langs->trans("CloneMainAttributes"), 'value' => 1),
@@ -529,7 +529,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($id > 0) {

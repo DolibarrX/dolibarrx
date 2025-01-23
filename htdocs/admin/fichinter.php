@@ -76,7 +76,7 @@ if ($action == 'updateMask') {
 	$res = 0;
 
 	if ($maskconst && preg_match('/_MASK$/', $maskconst)) {
-		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -97,7 +97,7 @@ if ($action == 'updateMask') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/fichinter/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -129,16 +129,16 @@ if ($action == 'updateMask') {
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->FICHEINTER_ADDON_PDF == "$value") {
-			dolibarr_del_const($db, 'FICHEINTER_ADDON_PDF', $conf->entity);
+		if ($config->global->FICHEINTER_ADDON_PDF == "$value") {
+			dolibarr_del_const($db, 'FICHEINTER_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "FICHEINTER_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "FICHEINTER_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->FICHEINTER_ADDON_PDF = $value;
+		$config->global->FICHEINTER_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -150,10 +150,10 @@ if ($action == 'updateMask') {
 	// TODO Verify if the chosen numbering module can be activated
 	// by calling method canBeActivated
 
-	dolibarr_set_const($db, "FICHEINTER_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "FICHEINTER_ADDON", $value, 'chaine', 0, '', $config->entity);
 } elseif ($action == 'set_FICHINTER_FREE_TEXT') {
 	$freetext = GETPOST('FICHINTER_FREE_TEXT', 'restricthtml'); // No alpha here, we want exact string
-	$res = dolibarr_set_const($db, "FICHINTER_FREE_TEXT", $freetext, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "FICHINTER_FREE_TEXT", $freetext, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -166,7 +166,7 @@ if ($action == 'updateMask') {
 	}
 } elseif ($action == 'set_FICHINTER_DRAFT_WATERMARK') {
 	$draft = GETPOST('FICHINTER_DRAFT_WATERMARK', 'alpha');
-	$res = dolibarr_set_const($db, "FICHINTER_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "FICHINTER_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -179,7 +179,7 @@ if ($action == 'updateMask') {
 	}
 } elseif ($action == 'set_FICHINTER_PRINT_PRODUCTS') {
 	$val = GETPOST('FICHINTER_PRINT_PRODUCTS', 'alpha');
-	$res = dolibarr_set_const($db, "FICHINTER_PRINT_PRODUCTS", ($val == 'on' ? 1 : 0), 'bool', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "FICHINTER_PRINT_PRODUCTS", ($val == 'on' ? 1 : 0), 'bool', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -192,7 +192,7 @@ if ($action == 'updateMask') {
 	}
 } elseif ($action == 'set_FICHINTER_USE_SERVICE_DURATION') {
 	$val = GETPOST('FICHINTER_USE_SERVICE_DURATION', 'alpha');
-	$res = dolibarr_set_const($db, "FICHINTER_USE_SERVICE_DURATION", ($val == 'on' ? 1 : 0), 'bool', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "FICHINTER_USE_SERVICE_DURATION", ($val == 'on' ? 1 : 0), 'bool', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -205,7 +205,7 @@ if ($action == 'updateMask') {
 	}
 } elseif ($action == 'set_FICHINTER_WITHOUT_DURATION') {
 	$val = GETPOST('FICHINTER_WITHOUT_DURATION', 'alpha');
-	$res = dolibarr_set_const($db, "FICHINTER_WITHOUT_DURATION", ($val == 'on' ? 1 : 0), 'bool', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "FICHINTER_WITHOUT_DURATION", ($val == 'on' ? 1 : 0), 'bool', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -218,7 +218,7 @@ if ($action == 'updateMask') {
 	}
 } elseif ($action == 'set_FICHINTER_DATE_WITHOUT_HOUR') {
 	$val = GETPOST('FICHINTER_DATE_WITHOUT_HOUR', 'alpha');
-	$res = dolibarr_set_const($db, "FICHINTER_DATE_WITHOUT_HOUR", ($val == 'on' ? 1 : 0), 'bool', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "FICHINTER_DATE_WITHOUT_HOUR", ($val == 'on' ? 1 : 0), 'bool', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -231,7 +231,7 @@ if ($action == 'updateMask') {
 	}
 } elseif ($action == "set_FICHINTER_ALLOW_ONLINE_SIGN") {
 	$val = GETPOST('FICHINTER_ALLOW_ONLINE_SIGN', 'alpha');
-	$res = dolibarr_set_const($db, "FICHINTER_ALLOW_ONLINE_SIGN", ($val == 'on' ? 1 : 0), 'bool', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "FICHINTER_ALLOW_ONLINE_SIGN", ($val == 'on' ? 1 : 0), 'bool', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -244,7 +244,7 @@ if ($action == 'updateMask') {
 	}
 } elseif ($action == "set_FICHINTER_ALLOW_EXTERNAL_DOWNLOAD") {
 	$val = GETPOST('FICHINTER_ALLOW_EXTERNAL_DOWNLOAD', 'alpha');
-	$res = dolibarr_set_const($db, "FICHINTER_ALLOW_EXTERNAL_DOWNLOAD", ($val == 'on' ? 1 : 0), 'bool', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "FICHINTER_ALLOW_EXTERNAL_DOWNLOAD", ($val == 'on' ? 1 : 0), 'bool', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -263,7 +263,7 @@ if ($action == 'updateMask') {
  * View
  */
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-admin page-fichinter');
 
@@ -338,7 +338,7 @@ foreach ($dirmodels as $reldir) {
 						print '</td>'."\n";
 
 						print '<td class="center">';
-						if ($conf->global->FICHEINTER_ADDON == $classname) {
+						if ($config->global->FICHEINTER_ADDON == $classname) {
 							print img_picto($langs->trans("Activated"), 'switch_on');
 						} else {
 							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.urlencode($classname).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
@@ -394,7 +394,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;
@@ -483,7 +483,7 @@ foreach ($dirmodels as $reldir) {
 
 							// Default
 							print "<td align=\"center\">";
-							if ($conf->global->FICHEINTER_ADDON_PDF == "$name") {
+							if ($config->global->FICHEINTER_ADDON_PDF == "$name") {
 								print img_picto($langs->trans("Default"), 'on');
 							} else {
 								print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';

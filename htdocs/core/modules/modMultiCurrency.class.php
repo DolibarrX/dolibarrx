@@ -126,9 +126,9 @@ class modMultiCurrency extends DolibarrModules
 		$this->tabs = array();
 
 		// Dictionaries
-		if (!isset($conf->multicurrency->enabled)) {
-			$conf->multicurrency = new stdClass();
-			$conf->multicurrency->enabled = 0;
+		if (!isset($config->multicurrency->enabled)) {
+			$config->multicurrency = new stdClass();
+			$config->multicurrency->enabled = 0;
 		}
 		$this->dictionaries = array();
 
@@ -219,7 +219,7 @@ class modMultiCurrency extends DolibarrModules
 		//							'url'=>'/multicurrency/pagetop.php',
 		//							'langs'=>'mylangfile@multicurrency',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		//							'position'=>100,
-		//							'enabled'=>'$conf->multicurrency->enabled',	// Define condition to show or hide menu entry. Use '$conf->multicurrency->enabled' if entry must be visible if module is enabled.
+		//							'enabled'=>'$config->multicurrency->enabled',	// Define condition to show or hide menu entry. Use '$config->multicurrency->enabled' if entry must be visible if module is enabled.
 		//							'perms'=>'1',			                // Use 'perms'=>'$user->rights->multicurrency->level1->level2' if you want your menu with a permission rules
 		//							'target'=>'',
 		//							'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
@@ -234,7 +234,7 @@ class modMultiCurrency extends DolibarrModules
 		//							'url'=>'/multicurrency/pagelevel2.php',
 		//							'langs'=>'mylangfile@multicurrency',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		//							'position'=>100,
-		//							'enabled'=>'$conf->multicurrency->enabled',  // Define condition to show or hide menu entry. Use '$conf->multicurrency->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+		//							'enabled'=>'$config->multicurrency->enabled',  // Define condition to show or hide menu entry. Use '$config->multicurrency->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 		//							'perms'=>'1',			                // Use 'perms'=>'$user->rights->multicurrency->level1->level2' if you want your menu with a permission rules
 		//							'target'=>'',
 		//							'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
@@ -334,11 +334,11 @@ class modMultiCurrency extends DolibarrModules
 
 		$multicurrency = new MultiCurrency($this->db);
 
-		if (! $multicurrency->checkCodeAlreadyExists($conf->currency)) {
+		if (! $multicurrency->checkCodeAlreadyExists($config->currency)) {
 			$langs->loadCacheCurrencies('');
 
-			$multicurrency->code = $conf->currency;
-			$multicurrency->name = $langs->cache_currencies[$conf->currency]['label'].' ('.$langs->getCurrencySymbol($conf->currency).')';
+			$multicurrency->code = $config->currency;
+			$multicurrency->name = $langs->cache_currencies[$config->currency]['label'].' ('.$langs->getCurrencySymbol($config->currency).')';
 			$r = $multicurrency->create($user);
 
 			if ($r > 0) {

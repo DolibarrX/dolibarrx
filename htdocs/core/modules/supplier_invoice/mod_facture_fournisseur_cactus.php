@@ -119,7 +119,7 @@ class mod_facture_fournisseur_cactus extends ModeleNumRefSuppliersInvoices
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
 		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefixinvoice)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 		$resql = $db->query($sql);
 		if ($resql) {
 			$row = $db->fetch_row($resql);
@@ -141,7 +141,7 @@ class mod_facture_fournisseur_cactus extends ModeleNumRefSuppliersInvoices
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max"; // This is standard SQL
 		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefixcreditnote)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {
@@ -163,7 +163,7 @@ class mod_facture_fournisseur_cactus extends ModeleNumRefSuppliersInvoices
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max"; // This is standard SQL
 		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefixdeposit)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {
@@ -205,7 +205,7 @@ class mod_facture_fournisseur_cactus extends ModeleNumRefSuppliersInvoices
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max"; // This is standard SQL
 		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn";
 		$sql .= " WHERE ref LIKE '".$db->escape($prefix)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		dol_syslog(get_class($this)."::getNextValue", LOG_DEBUG);
@@ -231,7 +231,7 @@ class mod_facture_fournisseur_cactus extends ModeleNumRefSuppliersInvoices
 			$sql = "SELECT ref as ref";
 			$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn";
 			$sql .= " WHERE ref LIKE '".$db->escape($prefix)."____-".$num."'";
-			$sql .= " AND entity = ".$conf->entity;
+			$sql .= " AND entity = ".$config->entity;
 
 			dol_syslog(get_class($this)."::getNextValue", LOG_DEBUG);
 			$resql = $db->query($sql);

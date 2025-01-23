@@ -102,7 +102,7 @@ print load_fiche_titre($langs->trans("MembersArea"), $resultboxes['selectboxlist
  */
 
 $boxgraph = '';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	$year = idate('Y');
 	$numberyears = getDolGlobalInt("MAIN_NB_OF_YEAR_IN_MEMBERSHIP_WIDGET_GRAPH");
 
@@ -142,7 +142,7 @@ if ($conf->use_javascript_ajax) {
 	 * @var string $badgeStatus6
 	 * @var string $badgeStatus8
 	 */
-	include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+	include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 
 	include_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
 	$dolgraph = new DolGraph();

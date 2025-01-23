@@ -96,7 +96,7 @@ function llxFooterVierge()
 
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
 if (empty($page) || $page == -1) {
 	$page = 0;
@@ -167,7 +167,7 @@ if (!getDolGlobalInt('MAIN_DISABLE_FULL_SCANLIST')) {
 }
 
 $sql .= $db->order($sortfield, $sortorder);
-$sql .= $db->plimit($conf->liste_limit + 1, $offset);
+$sql .= $db->plimit($config->liste_limit + 1, $offset);
 
 
 $result = $db->query($sql);
@@ -190,7 +190,7 @@ if ($result) {
 	print_liste_field_titre("Photo", $_SERVER["PHP_SELF"], "", "", $param, '', $sortfield, $sortorder, 'center public_');
 	print "</tr>\n";
 
-	while ($i < $num && $i < $conf->liste_limit) {
+	while ($i < $num && $i < $config->liste_limit) {
 		$objp = $db->fetch_object($result);
 
 		print '<tr class="oddeven">';

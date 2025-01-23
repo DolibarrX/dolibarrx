@@ -50,7 +50,7 @@ if ($user->socid) {
 }
 //$result = restrictedArea($user, 'salaries', '', '', '');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $rowid = GETPOST("rowid", 'alpha');
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
@@ -146,7 +146,7 @@ if (!$rowid) {
 
 
 		//if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) $param .= '&contextpage='.urlencode($contextpage);
-		if ($limit > 0 && $limit != $conf->liste_limit) {
+		if ($limit > 0 && $limit != $config->liste_limit) {
 			$param .= '&limit='.((int) $limit);
 		}
 		$param .= '&starting_after_'.($page + 1).'='.$list->data[($limit - 1)]->id;

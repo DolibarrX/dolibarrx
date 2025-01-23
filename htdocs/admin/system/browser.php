@@ -54,11 +54,11 @@ print load_fiche_titre($langs->trans("InfoBrowser"), '', 'title_setup');
 print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
 print '<tr class="liste_titre"><td>'.$langs->trans("Parameter").'</td><td colspan="2"></td></tr>'."\n";
-print '<tr class="oddeven"><td width="300">'.$langs->trans("UserAgent").'</td><td colspan="2">'.dol_escape_htmltag($conf->browser->ua).'</td></tr>'."\n";
-print '<tr class="oddeven"><td width="300">'.$langs->trans("BrowserName").'</td><td colspan="2">'.$conf->browser->name.'</td></tr>'."\n";
-print '<tr class="oddeven"><td width="300">'.$langs->trans("BrowserOS").'</td><td colspan="2">'.$conf->browser->os.'</td></tr>'."\n";
-print '<tr class="oddeven"><td width="300">'.$langs->trans("Version").'</td><td colspan="2">'.$conf->browser->version.'</td></tr>'."\n";
-print '<tr class="oddeven"><td width="300">'.$langs->trans("Layout").' (phone/tablet/classic)</td><td colspan="2">'.$conf->browser->layout.'</td></tr>'."\n";
+print '<tr class="oddeven"><td width="300">'.$langs->trans("UserAgent").'</td><td colspan="2">'.dol_escape_htmltag($config->browser->ua).'</td></tr>'."\n";
+print '<tr class="oddeven"><td width="300">'.$langs->trans("BrowserName").'</td><td colspan="2">'.$config->browser->name.'</td></tr>'."\n";
+print '<tr class="oddeven"><td width="300">'.$langs->trans("BrowserOS").'</td><td colspan="2">'.$config->browser->os.'</td></tr>'."\n";
+print '<tr class="oddeven"><td width="300">'.$langs->trans("Version").'</td><td colspan="2">'.$config->browser->version.'</td></tr>'."\n";
+print '<tr class="oddeven"><td width="300">'.$langs->trans("Layout").' (phone/tablet/classic)</td><td colspan="2">'.$config->browser->layout.'</td></tr>'."\n";
 print '<tr class="oddeven"><td width="300">'.$langs->trans("IPAddress").'</td><td colspan="2">'.dol_escape_htmltag($_SERVER['REMOTE_ADDR']);
 if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
 	print ' (HTTP_CLIENT_IP='.dol_escape_htmltag($_SERVER['HTTP_CLIENT_IP']).')';

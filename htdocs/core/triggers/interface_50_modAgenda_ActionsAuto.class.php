@@ -88,7 +88,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 		}
 
 		$key = 'MAIN_AGENDA_ACTIONAUTO_'.$action;
-		//var_dump($action.' - '.$key.' - '.$conf->global->$key);exit;
+		//var_dump($action.' - '.$key.' - '.$config->global->$key);exit;
 
 		// Do not log events not enabled for this action
 		// GUI allow to set this option only if entry exists into table llx_c_action_trigger

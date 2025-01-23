@@ -56,7 +56,7 @@ $search_employee    = GETPOST('search_employee', "intcomma");
 $search_type        = GETPOST('search_type', "intcomma");
 $search_description = GETPOST('search_description', 'alphanohtml');
 
-$limit       = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit       = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield   = GETPOST('sortfield', 'aZ09comma');
 $sortorder   = GETPOST('sortorder', 'aZ09comma');
 
@@ -201,7 +201,7 @@ $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if (!empty($search_ref)) {

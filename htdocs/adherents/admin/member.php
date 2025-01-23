@@ -85,16 +85,16 @@ if ($action == 'set_default') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
 		if (getDolGlobalString('MEMBER_ADDON_PDF_ODT') == "$value") {
-			dolibarr_del_const($db, 'MEMBER_ADDON_PDF_ODT', $conf->entity);
+			dolibarr_del_const($db, 'MEMBER_ADDON_PDF_ODT', $config->entity);
 		}
 	}
 	$res = true;
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "MEMBER_ADDON_PDF_ODT", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "MEMBER_ADDON_PDF_ODT", $value, 'chaine', 0, '', $config->entity)) {
 		// The constant that was read ahead of the new set
 		// we therefore go through a variable to have a consistent display
-		$conf->global->MEMBER_ADDON_PDF_ODT = $value;
+		$config->global->MEMBER_ADDON_PDF_ODT = $value;
 	}
 
 	// We activate the model
@@ -105,7 +105,7 @@ if ($action == 'set_default') {
 	$res = true;
 } elseif (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -113,7 +113,7 @@ if ($action == 'set_default') {
 	}
 } elseif (preg_match('/del_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_del_const($db, $code, $conf->entity) > 0) {
+	if (dolibarr_del_const($db, $code, $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -122,22 +122,22 @@ if ($action == 'set_default') {
 } elseif ($action == 'updatemainoptions') {
 	$db->begin();
 	$res1 = $res2 = $res3 = $res4 = $res5 = $res6 = $res7 = $res8 = $res9 = 0;
-	$res1 = dolibarr_set_const($db, 'ADHERENT_LOGIN_NOT_REQUIRED', GETPOST('ADHERENT_LOGIN_NOT_REQUIRED', 'alpha') ? 0 : 1, 'chaine', 0, '', $conf->entity);
-	$res2 = dolibarr_set_const($db, 'ADHERENT_MAIL_REQUIRED', GETPOST('ADHERENT_MAIL_REQUIRED', 'alpha'), 'chaine', 0, '', $conf->entity);
-	$res3 = dolibarr_set_const($db, 'ADHERENT_DEFAULT_SENDINFOBYMAIL', GETPOST('ADHERENT_DEFAULT_SENDINFOBYMAIL', 'alpha'), 'chaine', 0, '', $conf->entity);
-	$res3 = dolibarr_set_const($db, 'ADHERENT_CREATE_EXTERNAL_USER_LOGIN', GETPOST('ADHERENT_CREATE_EXTERNAL_USER_LOGIN', 'alpha'), 'chaine', 0, '', $conf->entity);
-	$res4 = dolibarr_set_const($db, 'ADHERENT_BANK_USE', GETPOST('ADHERENT_BANK_USE', 'alpha'), 'chaine', 0, '', $conf->entity);
+	$res1 = dolibarr_set_const($db, 'ADHERENT_LOGIN_NOT_REQUIRED', GETPOST('ADHERENT_LOGIN_NOT_REQUIRED', 'alpha') ? 0 : 1, 'chaine', 0, '', $config->entity);
+	$res2 = dolibarr_set_const($db, 'ADHERENT_MAIL_REQUIRED', GETPOST('ADHERENT_MAIL_REQUIRED', 'alpha'), 'chaine', 0, '', $config->entity);
+	$res3 = dolibarr_set_const($db, 'ADHERENT_DEFAULT_SENDINFOBYMAIL', GETPOST('ADHERENT_DEFAULT_SENDINFOBYMAIL', 'alpha'), 'chaine', 0, '', $config->entity);
+	$res3 = dolibarr_set_const($db, 'ADHERENT_CREATE_EXTERNAL_USER_LOGIN', GETPOST('ADHERENT_CREATE_EXTERNAL_USER_LOGIN', 'alpha'), 'chaine', 0, '', $config->entity);
+	$res4 = dolibarr_set_const($db, 'ADHERENT_BANK_USE', GETPOST('ADHERENT_BANK_USE', 'alpha'), 'chaine', 0, '', $config->entity);
 	if (GETPOSTISSET('MEMBER_PUBLIC_ENABLED')) {
-		$res7 = dolibarr_set_const($db, 'MEMBER_PUBLIC_ENABLED', GETPOST('MEMBER_PUBLIC_ENABLED', 'alpha'), 'chaine', 0, '', $conf->entity);
+		$res7 = dolibarr_set_const($db, 'MEMBER_PUBLIC_ENABLED', GETPOST('MEMBER_PUBLIC_ENABLED', 'alpha'), 'chaine', 0, '', $config->entity);
 	}
-	$res8 = dolibarr_set_const($db, 'MEMBER_SUBSCRIPTION_START_FIRST_DAY_OF', GETPOST('MEMBER_SUBSCRIPTION_START_FIRST_DAY_OF', 'alpha'), 'chaine', 0, '', $conf->entity);
-	$res9 = dolibarr_set_const($db, 'MEMBER_SUBSCRIPTION_START_AFTER', GETPOST('MEMBER_SUBSCRIPTION_START_AFTER', 'alpha'), 'chaine', 0, '', $conf->entity);
+	$res8 = dolibarr_set_const($db, 'MEMBER_SUBSCRIPTION_START_FIRST_DAY_OF', GETPOST('MEMBER_SUBSCRIPTION_START_FIRST_DAY_OF', 'alpha'), 'chaine', 0, '', $config->entity);
+	$res9 = dolibarr_set_const($db, 'MEMBER_SUBSCRIPTION_START_AFTER', GETPOST('MEMBER_SUBSCRIPTION_START_AFTER', 'alpha'), 'chaine', 0, '', $config->entity);
 	// Use vat for invoice creation
 	if (isModEnabled('invoice')) {
-		$res4 = dolibarr_set_const($db, 'ADHERENT_VAT_FOR_SUBSCRIPTIONS', GETPOST('ADHERENT_VAT_FOR_SUBSCRIPTIONS', 'alpha'), 'chaine', 0, '', $conf->entity);
-		$res5 = dolibarr_set_const($db, 'ADHERENT_PRODUCT_ID_FOR_SUBSCRIPTIONS', GETPOST('ADHERENT_PRODUCT_ID_FOR_SUBSCRIPTIONS', 'alpha'), 'chaine', 0, '', $conf->entity);
+		$res4 = dolibarr_set_const($db, 'ADHERENT_VAT_FOR_SUBSCRIPTIONS', GETPOST('ADHERENT_VAT_FOR_SUBSCRIPTIONS', 'alpha'), 'chaine', 0, '', $config->entity);
+		$res5 = dolibarr_set_const($db, 'ADHERENT_PRODUCT_ID_FOR_SUBSCRIPTIONS', GETPOST('ADHERENT_PRODUCT_ID_FOR_SUBSCRIPTIONS', 'alpha'), 'chaine', 0, '', $config->entity);
 		if (isModEnabled("product") || isModEnabled("service")) {
-			$res6 = dolibarr_set_const($db, 'ADHERENT_PRODUCT_ID_FOR_SUBSCRIPTIONS', GETPOST('ADHERENT_PRODUCT_ID_FOR_SUBSCRIPTIONS', 'alpha'), 'chaine', 0, '', $conf->entity);
+			$res6 = dolibarr_set_const($db, 'ADHERENT_PRODUCT_ID_FOR_SUBSCRIPTIONS', GETPOST('ADHERENT_PRODUCT_ID_FOR_SUBSCRIPTIONS', 'alpha'), 'chaine', 0, '', $config->entity);
 		}
 	}
 	if ($res1 < 0 || $res2 < 0 || $res3 < 0 || $res4 < 0 || $res5 < 0 || $res6 < 0 || $res7 < 0 || $res8 < 0 || $res9 < 0) {
@@ -150,11 +150,11 @@ if ($action == 'set_default') {
 } elseif ($action == 'updatememberscards') {
 	$db->begin();
 	$res1 = $res2 = $res3 = $res4 = 0;
-	$res1 = dolibarr_set_const($db, 'ADHERENT_CARD_TYPE', GETPOST('ADHERENT_CARD_TYPE'), 'chaine', 0, '', $conf->entity);
-	$res2 = dolibarr_set_const($db, 'ADHERENT_CARD_HEADER_TEXT', GETPOST('ADHERENT_CARD_HEADER_TEXT', 'alpha'), 'chaine', 0, '', $conf->entity);
-	$res3 = dolibarr_set_const($db, 'ADHERENT_CARD_TEXT', GETPOST('ADHERENT_CARD_TEXT', 'alpha'), 'chaine', 0, '', $conf->entity);
-	$res3 = dolibarr_set_const($db, 'ADHERENT_CARD_TEXT_RIGHT', GETPOST('ADHERENT_CARD_TEXT_RIGHT', 'alpha'), 'chaine', 0, '', $conf->entity);
-	$res4 = dolibarr_set_const($db, 'ADHERENT_CARD_FOOTER_TEXT', GETPOST('ADHERENT_CARD_FOOTER_TEXT', 'alpha'), 'chaine', 0, '', $conf->entity);
+	$res1 = dolibarr_set_const($db, 'ADHERENT_CARD_TYPE', GETPOST('ADHERENT_CARD_TYPE'), 'chaine', 0, '', $config->entity);
+	$res2 = dolibarr_set_const($db, 'ADHERENT_CARD_HEADER_TEXT', GETPOST('ADHERENT_CARD_HEADER_TEXT', 'alpha'), 'chaine', 0, '', $config->entity);
+	$res3 = dolibarr_set_const($db, 'ADHERENT_CARD_TEXT', GETPOST('ADHERENT_CARD_TEXT', 'alpha'), 'chaine', 0, '', $config->entity);
+	$res3 = dolibarr_set_const($db, 'ADHERENT_CARD_TEXT_RIGHT', GETPOST('ADHERENT_CARD_TEXT_RIGHT', 'alpha'), 'chaine', 0, '', $config->entity);
+	$res4 = dolibarr_set_const($db, 'ADHERENT_CARD_FOOTER_TEXT', GETPOST('ADHERENT_CARD_FOOTER_TEXT', 'alpha'), 'chaine', 0, '', $config->entity);
 
 	if ($res1 < 0 || $res2 < 0 || $res3 < 0 || $res4 < 0) {
 		setEventMessages('ErrorFailedToSaveDate', null, 'errors');
@@ -166,8 +166,8 @@ if ($action == 'set_default') {
 } elseif ($action == 'updatememberstickets') {
 	$db->begin();
 	$res1 = $res2 = 0;
-	$res1 = dolibarr_set_const($db, 'ADHERENT_ETIQUETTE_TYPE', GETPOST('ADHERENT_ETIQUETTE_TYPE'), 'chaine', 0, '', $conf->entity);
-	$res2 = dolibarr_set_const($db, 'ADHERENT_ETIQUETTE_TEXT', GETPOST('ADHERENT_ETIQUETTE_TEXT', 'alpha'), 'chaine', 0, '', $conf->entity);
+	$res1 = dolibarr_set_const($db, 'ADHERENT_ETIQUETTE_TYPE', GETPOST('ADHERENT_ETIQUETTE_TYPE'), 'chaine', 0, '', $config->entity);
+	$res2 = dolibarr_set_const($db, 'ADHERENT_ETIQUETTE_TEXT', GETPOST('ADHERENT_ETIQUETTE_TEXT', 'alpha'), 'chaine', 0, '', $config->entity);
 
 	if ($res1 < 0 || $res2 < 0) {
 		setEventMessages('ErrorFailedToSaveDate', null, 'errors');
@@ -177,7 +177,7 @@ if ($action == 'set_default') {
 		$db->commit();
 	}
 } elseif ($action == 'setcodemember') {
-	$result = dolibarr_set_const($db, "MEMBER_CODEMEMBER_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, "MEMBER_CODEMEMBER_ADDON", $value, 'chaine', 0, '', $config->entity);
 	if ($result <= 0) {
 		dol_print_error($db);
 	}
@@ -200,7 +200,7 @@ if ($action == 'set_default') {
 
 	$consttype = GETPOSTINT('consttype');
 	$constnote = GETPOST('constnote');
-	$res = dolibarr_set_const($db, $constname, $constvalue, $choices[$consttype], 0, $constnote, $conf->entity);
+	$res = dolibarr_set_const($db, $constname, $constvalue, $choices[$consttype], 0, $constnote, $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -215,7 +215,7 @@ if ($action == 'set_default') {
 
 // Action to enable of a submodule of the adherent module
 if ($action == 'set') {
-	$result = dolibarr_set_const($db, GETPOST('name', 'alpha'), GETPOST('value'), '', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, GETPOST('name', 'alpha'), GETPOST('value'), '', 0, '', $config->entity);
 	if ($result < 0) {
 		print $db->error();
 	}
@@ -223,7 +223,7 @@ if ($action == 'set') {
 
 // Action to disable a submodule of the adherent module
 if ($action == 'unset') {
-	$result = dolibarr_del_const($db, GETPOST('name', 'alpha'), $conf->entity);
+	$result = dolibarr_del_const($db, GETPOST('name', 'alpha'), $config->entity);
 	if ($result < 0) {
 		print $db->error();
 	}
@@ -251,8 +251,8 @@ $head = member_admin_prepare_head();
 
 print dol_get_fiche_head($head, 'general', $langs->trans("Members"), -1, 'user');
 
-$dirModMember = array_merge(array('/core/modules/member/'), $conf->modules_parts['member']);
-foreach ($conf->modules_parts['models'] as $mo) {
+$dirModMember = array_merge(array('/core/modules/member/'), $config->modules_parts['member']);
+foreach ($config->modules_parts['models'] as $mo) {
 	//Add more models
 	$dirModMember[] = $mo.'core/modules/member/';
 }
@@ -319,7 +319,7 @@ foreach ($arrayofmodules as $file => $modCodeMember) {
 		print img_picto($langs->trans("Activated"), 'switch_on');
 		print "</td>\n";
 	} else {
-		$disabled = isModEnabled('multicompany') && ((is_object($mc) && !empty($mc->sharings['referent']) && $mc->sharings['referent'] != $conf->entity));
+		$disabled = isModEnabled('multicompany') && ((is_object($mc) && !empty($mc->sharings['referent']) && $mc->sharings['referent'] != $config->entity));
 		print '<td class="center">';
 		if (!$disabled) {
 			print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setcodemember&token='.newToken().'&value='.urlencode($file).'">';
@@ -349,14 +349,14 @@ print "<br>";
 
 // Document templates for documents generated from member record
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 // Defined model definition table
 $def = array();
 $sql = "SELECT nom as name";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;
@@ -552,7 +552,7 @@ print "</td></tr>\n";
 
 // Publish member information on public annuary
 /* Feature disabled by default for security purpose.
-	$linkofpubliclist = DOL_MAIN_URL_ROOT.'/public/members/public_list.php'.((isModEnabled('multicompany')) ? '?entity='.((int) $conf->entity) : '');
+	$linkofpubliclist = DOL_MAIN_URL_ROOT.'/public/members/public_list.php'.((isModEnabled('multicompany')) ? '?entity='.((int) $config->entity) : '');
 	print '<tr class="oddeven"><td>'.$langs->trans("Public", getDolGlobalString('MAIN_INFO_SOCIETE_NOM'), $linkofpubliclist).'</td><td>';
 	print $form->selectyesno('MEMBER_PUBLIC_ENABLED', getDolGlobalInt('MEMBER_PUBLIC_ENABLED'), 1, false, 0, 1);
 	print "</td></tr>\n";

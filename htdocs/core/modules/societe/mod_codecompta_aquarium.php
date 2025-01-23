@@ -62,11 +62,11 @@ class mod_codecompta_aquarium extends ModeleAccountancyCode
 	public function __construct()
 	{
 		global $conf;
-		if (!isset($conf->global->COMPANY_AQUARIUM_MASK_CUSTOMER) || trim($conf->global->COMPANY_AQUARIUM_MASK_CUSTOMER) == '') {
-			$conf->global->COMPANY_AQUARIUM_MASK_CUSTOMER = '411';
+		if (!isset($config->global->COMPANY_AQUARIUM_MASK_CUSTOMER) || trim($config->global->COMPANY_AQUARIUM_MASK_CUSTOMER) == '') {
+			$config->global->COMPANY_AQUARIUM_MASK_CUSTOMER = '411';
 		}
-		if (!isset($conf->global->COMPANY_AQUARIUM_MASK_SUPPLIER) || trim($conf->global->COMPANY_AQUARIUM_MASK_SUPPLIER) == '') {
-			$conf->global->COMPANY_AQUARIUM_MASK_SUPPLIER = '401';
+		if (!isset($config->global->COMPANY_AQUARIUM_MASK_SUPPLIER) || trim($config->global->COMPANY_AQUARIUM_MASK_SUPPLIER) == '') {
+			$config->global->COMPANY_AQUARIUM_MASK_SUPPLIER = '401';
 		}
 
 		if (getDolGlobalString('COMPANY_AQUARIUM_NO_PREFIX')) {
@@ -174,10 +174,10 @@ class mod_codecompta_aquarium extends ModeleAccountancyCode
 			return -1;
 		}
 
-		//$conf->global->COMPANY_AQUARIUM_CLEAN_REGEX='^..(..)..';
+		//$config->global->COMPANY_AQUARIUM_CLEAN_REGEX='^..(..)..';
 
 		// Remove special char if COMPANY_AQUARIUM_REMOVE_SPECIAL is set to 1 or not set (default)
-		if (!isset($conf->global->COMPANY_AQUARIUM_REMOVE_SPECIAL) || getDolGlobalString('COMPANY_AQUARIUM_REMOVE_SPECIAL')) {
+		if (!isset($config->global->COMPANY_AQUARIUM_REMOVE_SPECIAL) || getDolGlobalString('COMPANY_AQUARIUM_REMOVE_SPECIAL')) {
 			$codetouse = preg_replace('/([^a-z0-9])/i', '', $codetouse);
 		}
 		// Remove special alpha if COMPANY_AQUARIUM_REMOVE_ALPHA is set to 1
@@ -185,7 +185,7 @@ class mod_codecompta_aquarium extends ModeleAccountancyCode
 			$codetouse = preg_replace('/([a-z])/i', '', $codetouse);
 		}
 		// Apply a regex replacement pattern on code if COMPANY_AQUARIUM_CLEAN_REGEX is set. Value must be a regex with parenthesis. The part into parenthesis is kept, the rest removed.
-		if (getDolGlobalString('COMPANY_AQUARIUM_CLEAN_REGEX')) {	// Example: $conf->global->COMPANY_AQUARIUM_CLEAN_REGEX='^..(..)..';
+		if (getDolGlobalString('COMPANY_AQUARIUM_CLEAN_REGEX')) {	// Example: $config->global->COMPANY_AQUARIUM_CLEAN_REGEX='^..(..)..';
 			$codetouse = preg_replace('/' . getDolGlobalString('COMPANY_AQUARIUM_CLEAN_REGEX').'/', '\1\2\3', $codetouse);
 		}
 

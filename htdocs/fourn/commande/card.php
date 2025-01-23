@@ -1284,7 +1284,7 @@ if (empty($reshook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_sendmails.inc.php';
 
 	// Actions to build doc
-	$upload_dir = $conf->fournisseur->commande->dir_output;
+	$upload_dir = $config->fournisseur->commande->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 
@@ -1612,7 +1612,7 @@ if ($action == 'create') {
 
 	dol_htmloutput_events();
 
-	$currency_code = $conf->currency;
+	$currency_code = $config->currency;
 
 	$societe = '';
 	$objectsrc = null;
@@ -2058,7 +2058,7 @@ if ($action == 'create') {
 			require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 			$formproduct = new FormProduct($db);
 			$forcecombo = 0;
-			if ($conf->browser->name == 'ie') {
+			if ($config->browser->name == 'ie') {
 				$forcecombo = 1; // There is a bug in IE10 that make combo inside popup crazy
 			}
 			$formquestion = array(
@@ -2151,7 +2151,7 @@ if ($action == 'create') {
 	$morehtmlref = '<div class="refidno">';
 	// Ref supplier
 	$morehtmlref .= $form->editfieldkey("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, $usercancreate, 'string', '', 0, 1);
-	$morehtmlref .= $form->editfieldval("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, $usercancreate, 'string'.(isset($conf->global->THIRDPARTY_REF_INPUT_SIZE) ? ':' . getDolGlobalString('THIRDPARTY_REF_INPUT_SIZE') : ''), '', null, null, '', 1);
+	$morehtmlref .= $form->editfieldval("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, $usercancreate, 'string'.(isset($config->global->THIRDPARTY_REF_INPUT_SIZE) ? ':' . getDolGlobalString('THIRDPARTY_REF_INPUT_SIZE') : ''), '', null, null, '', 1);
 	// Thirdparty
 	$morehtmlref .= '<br>';
 	if (getDolGlobalString('MAIN_CAN_EDIT_SUPPLIER_ON_SUPPLIER_ORDER') && !empty($usercancreate) && $action == 'edit_thirdparty') {
@@ -2390,8 +2390,8 @@ if ($action == 'create') {
 		print '<tr>';
 		// Amount HT
 		print '<td class="titlefieldmiddle">' . $langs->trans('AmountHT') . '</td>';
-		print '<td class="nowrap amountcard right">' . price($object->total_ht, 0, $langs, 0, -1, -1, $conf->currency) . '</td>';
-		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+		print '<td class="nowrap amountcard right">' . price($object->total_ht, 0, $langs, 0, -1, -1, $config->currency) . '</td>';
+		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 			// Multicurrency Amount HT
 			print '<td class="nowrap amountcard right">' . price($object->multicurrency_total_ht, 0, $langs, 0, -1, -1, $object->multicurrency_code) . '</td>';
 		}
@@ -2400,8 +2400,8 @@ if ($action == 'create') {
 		print '<tr>';
 		// Amount VAT
 		print '<td class="titlefieldmiddle">' . $langs->trans('AmountVAT') . '</td>';
-		print '<td class="nowrap amountcard right">' . price($object->total_tva, 0, $langs, 0, -1, -1, $conf->currency) . '</td>';
-		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+		print '<td class="nowrap amountcard right">' . price($object->total_tva, 0, $langs, 0, -1, -1, $config->currency) . '</td>';
+		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 			// Multicurrency Amount VAT
 			print '<td class="nowrap amountcard right">' . price($object->multicurrency_total_tva, 0, $langs, 0, -1, -1, $object->multicurrency_code) . '</td>';
 		}
@@ -2411,8 +2411,8 @@ if ($action == 'create') {
 		if ($mysoc->localtax1_assuj == "1" || $object->total_localtax1 != 0) {
 			print '<tr>';
 			print '<td class="titlefieldmiddle">' . $langs->transcountry("AmountLT1", $mysoc->country_code) . '</td>';
-			print '<td class="nowrap amountcard right">' . price($object->total_localtax1, 0, $langs, 0, -1, -1, $conf->currency) . '</td>';
-			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+			print '<td class="nowrap amountcard right">' . price($object->total_localtax1, 0, $langs, 0, -1, -1, $config->currency) . '</td>';
+			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 				print '<td class="nowrap amountcard right">' . price($object->total_localtax1, 0, $langs, 0, -1, -1, $object->multicurrency_code) . '</td>';
 			}
 			print '</tr>';
@@ -2420,8 +2420,8 @@ if ($action == 'create') {
 			if ($mysoc->localtax2_assuj == "1" || $object->total_localtax2 != 0) {
 				print '<tr>';
 				print '<td>' . $langs->transcountry("AmountLT2", $mysoc->country_code) . '</td>';
-				print '<td class="nowrap amountcard right">' . price($object->total_localtax2, 0, $langs, 0, -1, -1, $conf->currency) . '</td>';
-				if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+				print '<td class="nowrap amountcard right">' . price($object->total_localtax2, 0, $langs, 0, -1, -1, $config->currency) . '</td>';
+				if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 					print '<td class="nowrap amountcard right">' . price($object->total_localtax2, 0, $langs, 0, -1, -1, $object->multicurrency_code) . '</td>';
 				}
 				print '</tr>';
@@ -2436,8 +2436,8 @@ if ($action == 'create') {
 		print '<tr>';
 		// Amount TTC
 		print '<td>' . $langs->trans('AmountTTC') . '</td>';
-		print '<td class="nowrap amountcard right">' . price($object->total_ttc, 0, $langs, 0, -1, -1, $conf->currency) . $alert . '</td>';
-		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+		print '<td class="nowrap amountcard right">' . price($object->total_ttc, 0, $langs, 0, -1, -1, $config->currency) . $alert . '</td>';
+		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 			// Multicurrency Amount TTC
 			print '<td class="nowrap amountcard right">' . price($object->multicurrency_total_ttc, 0, $langs, 0, -1, -1, $object->multicurrency_code) . '</td>';
 		}
@@ -2483,7 +2483,7 @@ if ($action == 'create') {
 		<input type="hidden" name="socid" value="'.$societe->id.'">
 		';
 
-		if (!empty($conf->use_javascript_ajax) && $object->statut == 0) {
+		if (!empty($config->use_javascript_ajax) && $object->statut == 0) {
 			include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 		}
 
@@ -2572,7 +2572,7 @@ if ($action == 'create') {
 				// Approve
 				if ($object->statut == CommandeFournisseur::STATUS_VALIDATED) {
 					if ($usercanapprove) {
-						if (getDolGlobalString('SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED') && $object->total_ht >= $conf->global->SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED && !empty($object->user_approve_id)) {
+						if (getDolGlobalString('SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED') && $object->total_ht >= $config->global->SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED && !empty($object->user_approve_id)) {
 							print '<a class="butActionRefused classfortooltip" href="#" title="'.dol_escape_htmltag($langs->trans("FirstApprovalAlreadyDone")).'">'.$langs->trans("ApproveOrder").'</a>';
 						} else {
 							print '<a class="butAction"	href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=approve">'.$langs->trans("ApproveOrder").'</a>';
@@ -2583,7 +2583,7 @@ if ($action == 'create') {
 				}
 
 				// Second approval (if option SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED is set)
-				if (getDolGlobalString('SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED') && $object->total_ht >= $conf->global->SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED) {
+				if (getDolGlobalString('SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED') && $object->total_ht >= $config->global->SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED) {
 					if ($object->statut == CommandeFournisseur::STATUS_VALIDATED) {
 						if ($usercanapprovesecond) {
 							if (!empty($object->user_approve_id2)) {
@@ -2776,13 +2776,13 @@ if ($action == 'create') {
 
 			// Generated documents
 			$objref = dol_sanitizeFileName($object->ref);
-			$file = $conf->fournisseur->dir_output.'/commande/'.$objref.'/'.$objref.'.pdf';
+			$file = $config->fournisseur->dir_output.'/commande/'.$objref.'/'.$objref.'.pdf';
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $conf->fournisseur->dir_output.'/commande/'.$objref;
+			$filedir = $config->fournisseur->dir_output.'/commande/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $usercanread;
 			$delallowed = $usercancreate;
-			$modelpdf = (!empty($object->model_pdf) ? $object->model_pdf : (!getDolGlobalString('COMMANDE_SUPPLIER_ADDON_PDF') ? '' : $conf->global->COMMANDE_SUPPLIER_ADDON_PDF));
+			$modelpdf = (!empty($object->model_pdf) ? $object->model_pdf : (!getDolGlobalString('COMMANDE_SUPPLIER_ADDON_PDF') ? '' : $config->global->COMMANDE_SUPPLIER_ADDON_PDF));
 
 			print $formfile->showdocuments('commande_fournisseur', $objref, $filedir, $urlsource, $genallowed, $delallowed, $modelpdf, 1, 0, 0, 0, 0, '', '', '', $object->thirdparty->default_lang, '', $object);
 			$somethingshown = $formfile->numoffiles;
@@ -3027,7 +3027,7 @@ if ($action == 'create') {
 		// Presend form
 		$modelmail = 'order_supplier_send';
 		$defaulttopic = 'SendOrderRef';
-		$diroutput = $conf->fournisseur->commande->dir_output;
+		$diroutput = $config->fournisseur->commande->dir_output;
 		$autocopy = 'MAIN_MAIL_AUTOCOPY_SUPPLIER_ORDER_TO';
 		$trackid = 'sord'.$object->id;
 

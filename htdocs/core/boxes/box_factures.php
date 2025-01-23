@@ -183,7 +183,7 @@ class box_factures extends ModeleBoxes
 
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="right nowraponall amount"',
-						'text' => price($objp->total_ht, 0, $langs, 0, -1, -1, $conf->currency),
+						'text' => price($objp->total_ht, 0, $langs, 0, -1, -1, $config->currency),
 					);
 
 					$this->info_box_contents[$line][] = array(

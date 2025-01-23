@@ -168,7 +168,7 @@ class BonPrelevement extends CommonObject
 	 *		Note: Filter must be a Dolibarr filter syntax string. Example: "(t.ref:like:'SO-%') or (t.date_creation:<:'20160101') or (t.status:!=:0) or (t.nature:is:NULL)"
 	 *  'label' the translation key.
 	 *  'picto' is code of a picto to show before value in forms
-	 *  'enabled' is a condition when the field must be managed (Example: 1 or '$conf->global->MY_SETUP_PARAM' or 'isModEnabled("multicurrency")' ...)
+	 *  'enabled' is a condition when the field must be managed (Example: 1 or '$config->global->MY_SETUP_PARAM' or 'isModEnabled("multicurrency")' ...)
 	 *  'position' is the sort order of field.
 	 *  'notnull' is set to 1 if not null in database. Set to -1 if we must set data to null if empty ('' or 0).
 	 *  'visible' says if field is visible in list (Examples: 0=Not visible, 1=Visible on list and create/update/view forms, 2=Visible on list only, 3=Visible on create/update/view form only (not list), 4=Visible on list and update/view form only (not create). 5=Visible on list and view only (not create/not update). Using a negative value means field is not shown by default on list but can be selected for viewing)
@@ -581,7 +581,7 @@ class BonPrelevement extends CommonObject
 			$sql .= ", statut = " . self::STATUS_CREDITED;
 			$sql .= ", date_credit = '" . $this->db->idate($date) . "'";
 			$sql .= " WHERE rowid = " . ((int) $this->id);
-			$sql .= " AND entity = " . ((int) $conf->entity);
+			$sql .= " AND entity = " . ((int) $config->entity);
 			$sql .= " AND statut = " . self::STATUS_TRANSFERED;
 
 			$resql = $this->db->query($sql);
@@ -791,7 +791,7 @@ class BonPrelevement extends CommonObject
 			$sql .= " , method_trans = " . ((int) $method);
 			$sql .= " , statut = " . self::STATUS_TRANSFERED;
 			$sql .= " WHERE rowid = " . ((int) $this->id);
-			$sql .= " AND entity = " . ((int) $conf->entity);
+			$sql .= " AND entity = " . ((int) $config->entity);
 			$sql .= " AND statut = " . self::STATUS_DRAFT;
 
 			if ($this->db->query($sql)) {
@@ -863,7 +863,7 @@ class BonPrelevement extends CommonObject
 		$sql .= " WHERE p.fk_prelevement_lignes = pl.rowid";
 		$sql .= " AND pl.fk_prelevement_bons = pb.rowid";
 		$sql .= " AND pb.rowid = " . ((int) $this->id);
-		$sql .= " AND pb.entity = " . ((int) $conf->entity);
+		$sql .= " AND pb.entity = " . ((int) $config->entity);
 		if ($amounts) {
 			if ($this->type == 'bank-transfer') {
 				if ($type == 'salary') {
@@ -1347,7 +1347,7 @@ class BonPrelevement extends CommonObject
 				$sql = "SELECT substring(ref from char_length(ref) - 1)";	// To extract "YYMMXX" from "TYYMMXX"
 				$sql .= " FROM " . MAIN_DB_PREFIX . "prelevement_bons";
 				$sql .= " WHERE ref LIKE '_" . $this->db->escape($ref) . "%'";
-				$sql .= " AND entity = " . ((int) $conf->entity);
+				$sql .= " AND entity = " . ((int) $config->entity);
 				$sql .= " ORDER BY ref DESC LIMIT 1";
 
 				dol_syslog(get_class($this) . " get next free number", LOG_DEBUG);
@@ -1359,21 +1359,21 @@ class BonPrelevement extends CommonObject
 					// Build the new ref
 					$ref = "T" . $ref . sprintf("%02d", (intval($row[0]) + 1));
 
-					// $conf->abc->dir_output may be:
+					// $config->abc->dir_output may be:
 					// /home/ldestailleur/git/dolibarr_15.0/documents/abc/
 					// or
 					// /home/ldestailleur/git/dolibarr_15.0/documents/X/abc with X >= 2 with multicompany.
 					if ($type != 'bank-transfer') {
-						$dir = $conf->prelevement->dir_output . '/receipts';
+						$dir = $config->prelevement->dir_output . '/receipts';
 					} else {
-						$dir = $conf->paymentbybanktransfer->dir_output . '/receipts';
+						$dir = $config->paymentbybanktransfer->dir_output . '/receipts';
 					}
 					if (!is_dir($dir)) {
 						dol_mkdir($dir);
 					}
 
 					if (isModEnabled('multicompany')) {
-						$labelentity = $conf->entity;
+						$labelentity = $config->entity;
 						$this->filename = $dir . '/' . $ref . '-' . $labelentity . '.xml';
 					} else {
 						$this->filename = $dir . '/' . $ref . '.xml';
@@ -1384,7 +1384,7 @@ class BonPrelevement extends CommonObject
 					$sql .= "ref, entity, datec, type, fk_bank_account";
 					$sql .= ") VALUES (";
 					$sql .= "'" . $this->db->escape($ref) . "'";
-					$sql .= ", " . ((int) $conf->entity);
+					$sql .= ", " . ((int) $config->entity);
 					$sql .= ", '" . $this->db->idate($now) . "'";
 					$sql .= ", '" . ($type == 'bank-transfer' ? 'bank-transfer' : 'debit-order') . "'";
 					$sql .= ", " . ((int) $fk_bank_account);
@@ -1504,7 +1504,7 @@ class BonPrelevement extends CommonObject
 				$sql = "UPDATE " . MAIN_DB_PREFIX . "prelevement_bons";
 				$sql .= " SET amount = " . price2num($this->total);
 				$sql .= " WHERE rowid = " . ((int) $this->id);
-				$sql .= " AND entity = " . ((int) $conf->entity);
+				$sql .= " AND entity = " . ((int) $config->entity);
 				$resql = $this->db->query($sql);
 
 				if (!$resql) {
@@ -1623,7 +1623,7 @@ class BonPrelevement extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -2322,7 +2322,7 @@ class BonPrelevement extends CommonObject
 			$XML_DEBITOR .= '			<DrctDbtTxInf>' . $CrLf;
 			$XML_DEBITOR .= '				<PmtId>' . $CrLf;
 			// Add EndToEndId. Must be a unique ID for each payment (for example by including bank, buyer or seller, date, checksum)
-			$XML_DEBITOR .= '					<EndToEndId>' . ((getDolGlobalString('PRELEVEMENT_END_TO_END') != "") ? $conf->global->PRELEVEMENT_END_TO_END : ('DD-' . dol_trunc($row_idfac . '-' . $row_ref, 20, 'right', 'UTF-8', 1)) . '-' . $Rowing) . '</EndToEndId>' . $CrLf; // ISO20022 states that EndToEndId has a MaxLength of 35 characters
+			$XML_DEBITOR .= '					<EndToEndId>' . ((getDolGlobalString('PRELEVEMENT_END_TO_END') != "") ? $config->global->PRELEVEMENT_END_TO_END : ('DD-' . dol_trunc($row_idfac . '-' . $row_ref, 20, 'right', 'UTF-8', 1)) . '-' . $Rowing) . '</EndToEndId>' . $CrLf; // ISO20022 states that EndToEndId has a MaxLength of 35 characters
 			$XML_DEBITOR .= '				</PmtId>' . $CrLf;
 			$XML_DEBITOR .= '				<InstdAmt Ccy="EUR">' . $row_somme . '</InstdAmt>' . $CrLf;
 			$XML_DEBITOR .= '				<DrctDbtTx>' . $CrLf;
@@ -2382,7 +2382,7 @@ class BonPrelevement extends CommonObject
 			$XML_CREDITOR .= '			<CdtTrfTxInf>' . $CrLf;
 			$XML_CREDITOR .= '				<PmtId>' . $CrLf;
 			// Add EndToEndId. Must be a unique ID for each payment (for example by including bank, buyer or seller, date, checksum)
-			$XML_CREDITOR .= '					<EndToEndId>' . ((getDolGlobalString('PRELEVEMENT_END_TO_END') != "") ? $conf->global->PRELEVEMENT_END_TO_END : ('CT-' . dol_trunc($row_idfac . '-' . $row_ref, 20, 'right', 'UTF-8', 1)) . '-' . $Rowing) . '</EndToEndId>' . $CrLf; // ISO20022 states that EndToEndId has a MaxLength of 35 characters
+			$XML_CREDITOR .= '					<EndToEndId>' . ((getDolGlobalString('PRELEVEMENT_END_TO_END') != "") ? $config->global->PRELEVEMENT_END_TO_END : ('CT-' . dol_trunc($row_idfac . '-' . $row_ref, 20, 'right', 'UTF-8', 1)) . '-' . $Rowing) . '</EndToEndId>' . $CrLf; // ISO20022 states that EndToEndId has a MaxLength of 35 characters
 			$XML_CREDITOR .= '				</PmtId>' . $CrLf;
 			if (!empty($this->sepa_xml_pti_in_ctti)) {
 				$XML_CREDITOR .= '				<PmtTpInf>' . $CrLf;
@@ -2633,8 +2633,8 @@ class BonPrelevement extends CommonObject
 				 $XML_SEPA_INFO .= '				<Nm>'.dolEscapeXML(strtoupper(dol_string_nospecial(dol_string_unaccent($this->raison_sociale), ' '))).'</Nm>'.$CrLf;
 				 $XML_SEPA_INFO .= '				<PstlAdr>'.$CrLf;
 				 $XML_SEPA_INFO .= '					<Ctry>'.$country[1].'</Ctry>'.$CrLf;
-				 $XML_SEPA_INFO .= '					<AdrLine>'.dolEscapeXML(dol_trunc(dol_string_nospecial(dol_string_unaccent($conf->global->MAIN_INFO_SOCIETE_ADDRESS), ' '), 70, 'right', 'UTF-8', 1)).'</AdrLine>'.$CrLf;
-				 $XML_SEPA_INFO .= '					<AdrLine>'.dolEscapeXML(dol_trunc(dol_string_nospecial(dol_string_unaccent($conf->global->MAIN_INFO_SOCIETE_ZIP.' '.$conf->global->MAIN_INFO_SOCIETE_TOWN), ' '), 70, 'right', 'UTF-8', 1)).'</AdrLine>'.$CrLf;
+				 $XML_SEPA_INFO .= '					<AdrLine>'.dolEscapeXML(dol_trunc(dol_string_nospecial(dol_string_unaccent($config->global->MAIN_INFO_SOCIETE_ADDRESS), ' '), 70, 'right', 'UTF-8', 1)).'</AdrLine>'.$CrLf;
+				 $XML_SEPA_INFO .= '					<AdrLine>'.dolEscapeXML(dol_trunc(dol_string_nospecial(dol_string_unaccent($config->global->MAIN_INFO_SOCIETE_ZIP.' '.$config->global->MAIN_INFO_SOCIETE_TOWN), ' '), 70, 'right', 'UTF-8', 1)).'</AdrLine>'.$CrLf;
 				 $XML_SEPA_INFO .= '				</PstlAdr>'.$CrLf;
 				 $XML_SEPA_INFO .= '			</UltmtCdtr>'.$CrLf;*/
 				$XML_SEPA_INFO .= '			<ChrgBr>SLEV</ChrgBr>' . $CrLf; // Field "Responsible of fees". Must be SLEV
@@ -2699,8 +2699,8 @@ class BonPrelevement extends CommonObject
 				 $XML_SEPA_INFO .= '				<Nm>'.dolEscapeXML(strtoupper(dol_string_nospecial(dol_string_unaccent($this->raison_sociale), ' '))).'</Nm>'.$CrLf;
 				 $XML_SEPA_INFO .= '				<PstlAdr>'.$CrLf;
 				 $XML_SEPA_INFO .= '					<Ctry>'.$country[1].'</Ctry>'.$CrLf;
-				 $XML_SEPA_INFO .= '					<AdrLine>'.dolEscapeXML(dol_trunc(dol_string_nospecial(dol_string_unaccent($conf->global->MAIN_INFO_SOCIETE_ADDRESS), ' '), 70, 'right', 'UTF-8', 1)).'</AdrLine>'.$CrLf;
-				 $XML_SEPA_INFO .= '					<AdrLine>'.dolEscapeXML(dol_trunc(dol_string_nospecial(dol_string_unaccent($conf->global->MAIN_INFO_SOCIETE_ZIP.' '.$conf->global->MAIN_INFO_SOCIETE_TOWN), ' '), 70, 'right', 'UTF-8', 1)).'</AdrLine>'.$CrLf;
+				 $XML_SEPA_INFO .= '					<AdrLine>'.dolEscapeXML(dol_trunc(dol_string_nospecial(dol_string_unaccent($config->global->MAIN_INFO_SOCIETE_ADDRESS), ' '), 70, 'right', 'UTF-8', 1)).'</AdrLine>'.$CrLf;
+				 $XML_SEPA_INFO .= '					<AdrLine>'.dolEscapeXML(dol_trunc(dol_string_nospecial(dol_string_unaccent($config->global->MAIN_INFO_SOCIETE_ZIP.' '.$config->global->MAIN_INFO_SOCIETE_TOWN), ' '), 70, 'right', 'UTF-8', 1)).'</AdrLine>'.$CrLf;
 				 $XML_SEPA_INFO .= '				</PstlAdr>'.$CrLf;
 				 $XML_SEPA_INFO .= '			</UltmtCdtr>'.$CrLf;*/
 				$XML_SEPA_INFO .= '			<ChrgBr>SLEV</ChrgBr>' . $CrLf; // Field "Responsible of fees". Must be SLEV
@@ -2871,12 +2871,12 @@ class BonPrelevement extends CommonObject
 
 		 $response = new WorkboardResponse();
 		 if ($mode == 'direct_debit') {
-		 $response->warning_delay = $conf->prelevement->warning_delay / 60 / 60 / 24;
+		 $response->warning_delay = $config->prelevement->warning_delay / 60 / 60 / 24;
 		 $response->label = $langs->trans("PendingDirectDebitToComplete");
 		 $response->labelShort = $langs->trans("PendingDirectDebitToCompleteShort");
 		 $response->url = DOL_URL_ROOT.'/compta/prelevement/index.php?leftmenu=checks&mainmenu=bank';
 		 } else {
-		 $response->warning_delay = $conf->paymentbybanktransfer->warning_delay / 60 / 60 / 24;
+		 $response->warning_delay = $config->paymentbybanktransfer->warning_delay / 60 / 60 / 24;
 		 $response->label = $langs->trans("PendingCreditTransferToComplete");
 		 $response->labelShort = $langs->trans("PendingCreditTransferToCompleteShort");
 		 $response->url = DOL_URL_ROOT.'/compta/paymentbybanktransfer/index.php?leftmenu=checks&mainmenu=bank';
@@ -2886,7 +2886,7 @@ class BonPrelevement extends CommonObject
 		 while ($obj = $this->db->fetch_object($resql)) {
 		 $response->nbtodo++;
 
-		 if ($this->db->jdate($obj->datefin) < ($now - $conf->withdraw->warning_delay)) {
+		 if ($this->db->jdate($obj->datefin) < ($now - $config->withdraw->warning_delay)) {
 		 $response->nbtodolate++;
 		 }
 		 }

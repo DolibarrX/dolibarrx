@@ -64,7 +64,7 @@ $hideref = (GETPOSTINT('hideref') ? GETPOSTINT('hideref') : (getDolGlobalString(
 // Initialize a technical objects
 $object = new BOM($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->bom->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->bom->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('bomcard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -102,7 +102,7 @@ $permissionnote = $user->hasRight('bom', 'write'); // Used by the include of act
 $permissiondellink = $user->hasRight('bom', 'write'); // Used by the include of actions_dellink.inc.php
 $permissiontoadd = $user->hasRight('bom', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissiontodelete = $user->hasRight('bom', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
-$upload_dir = $conf->bom->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->bom->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 
 /*
@@ -620,7 +620,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
     	<input type="hidden" name="id" value="' . $object->id . '">
     	';
 
-		if (!empty($conf->use_javascript_ajax) && $object->status == 0) {
+		if (!empty($config->use_javascript_ajax) && $object->status == 0) {
 			include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 		}
 
@@ -673,7 +673,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		<input type="hidden" name="page_y" value="">    		<input type="hidden" name="id" value="' . $object->id . '">
     	';
 
-		if (!empty($conf->use_javascript_ajax) && $object->status == 0) {
+		if (!empty($config->use_javascript_ajax) && $object->status == 0) {
 			$tagidfortablednd = 'tablelinesservice';
 			include DOL_DOCUMENT_ROOT . '/core/tpl/ajaxrow.tpl.php';
 		}
@@ -811,7 +811,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		// Documents
 		$objref = dol_sanitizeFileName($object->ref);
 		$relativepath = $objref.'/'.$objref.'.pdf';
-		$filedir = $conf->bom->dir_output.'/'.$objref;
+		$filedir = $config->bom->dir_output.'/'.$objref;
 		$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 		$genallowed = $user->hasRight('bom', 'read'); // If you can read, you can build the PDF to read content
 		$delallowed = $user->hasRight('bom', 'write'); // If you can create/edit, you can remove a file on card
@@ -848,7 +848,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Presend form
 	$modelmail = 'bom';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->bom->dir_output;
+	$diroutput = $config->bom->dir_output;
 	$trackid = 'bom'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

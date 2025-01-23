@@ -61,7 +61,7 @@ $search_facture = GETPOST('search_facture', 'alpha');
 $search_societe = GETPOST('search_societe', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -194,7 +194,7 @@ if ($sourcetype != 'salary') {
 	$sql .= " WHERE s.rowid = pd.fk_salary";
 	$sql .= " AND u.rowid = s.fk_user";
 	$sql .= " AND s.entity IN (".getEntity("salary").")";
-	/*if (empty($conf->global->WITHDRAWAL_ALLOW_ANY_INVOICE_STATUS)) {
+	/*if (empty($config->global->WITHDRAWAL_ALLOW_ANY_INVOICE_STATUS)) {
 		$sql .= " AND s.statut = ".Salary::STATUS_UNPAID;
 	}*/
 	if (!$status) {
@@ -355,9 +355,9 @@ while ($i < min($num, $limit)) {
 	print '<td class="right">';
 	print '<span class="amount">';
 	if ($obj->amount != $obj->total_ttc) {
-		print price($obj->amount, 1, $langs, 1, -1, -1, $conf->currency).' / '.price($obj->total_ttc, 1, $langs, 1, -1, -1, $conf->currency);
+		print price($obj->amount, 1, $langs, 1, -1, -1, $config->currency).' / '.price($obj->total_ttc, 1, $langs, 1, -1, -1, $config->currency);
 	} else {
-		print price($obj->total_ttc, 1, $langs, 1, -1, -1, $conf->currency);
+		print price($obj->total_ttc, 1, $langs, 1, -1, -1, $config->currency);
 	}
 	print '</span>';
 	print '</td>';

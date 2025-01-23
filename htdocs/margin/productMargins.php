@@ -52,7 +52,7 @@ $socid = 0;
 $mesg = '';
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -161,7 +161,7 @@ print '<table class="border centpercent">';
 
 // Total Margin
 print '<tr><td class="titlefield">'.$langs->trans("TotalMargin").'</td><td colspan="4">';
-print '<span id="totalMargin" class="amount"></span> <span class="amount">'.$langs->getCurrencySymbol($conf->currency).'</span>'; // set by jquery (see below)
+print '<span id="totalMargin" class="amount"></span> <span class="amount">'.$langs->getCurrencySymbol($config->currency).'</span>'; // set by jquery (see below)
 print '</td></tr>';
 
 // Margin Rate
@@ -236,7 +236,7 @@ if ($id > 0) {
 }
 $sql .= $db->order($sortfield, $sortorder);
 // TODO: calculate total to display then restore pagination
-//$sql.= $db->plimit($conf->liste_limit +1, $offset);
+//$sql.= $db->plimit($config->liste_limit +1, $offset);
 
 $param = '&id='.((int) $id);
 if (GETPOSTINT('startdatemonth')) {
@@ -268,7 +268,7 @@ if ($result) {
 	// @phan-suppress-next-line PhanPluginSuspiciousParamPosition, PhanPluginSuspiciousParamOrder
 	print_barre_liste($langs->trans("MarginDetails"), $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, '', $num, $num, '', 0, '', '', 0, 1);
 
-	//var_dump($conf->global->MARGIN_TYPE);
+	//var_dump($config->global->MARGIN_TYPE);
 	if (getDolGlobalString('MARGIN_TYPE') == "1") {
 		$labelcostprice = 'BuyingPrice';
 	} else { // value is 'costprice' or 'pmp'
@@ -305,7 +305,7 @@ if ($result) {
 	$cumul_qty = 0;
 
 	if ($num > 0) {
-		while ($i < $num /*&& $i < $conf->liste_limit*/) {
+		while ($i < $num /*&& $i < $config->liste_limit*/) {
 			$objp = $db->fetch_object($result);
 			$qty = $objp->product_qty;
 			$pa = $objp->buying_price;

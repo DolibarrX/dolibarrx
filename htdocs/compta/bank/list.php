@@ -82,9 +82,9 @@ if ($user->socid) {
 	$socid = $user->socid;
 }
 
-$diroutputmassaction = $conf->bank->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->bank->dir_output.'/temp/massgeneration/'.$user->id;
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -184,7 +184,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Account';
 	$objectlabel = 'FinancialAccount';
-	$uploaddir = $conf->banque->dir_output;
+	$uploaddir = $config->banque->dir_output;
 	include DOL_DOCUMENT_ROOT . '/core/actions_massactions.inc.php';
 }
 
@@ -330,7 +330,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {

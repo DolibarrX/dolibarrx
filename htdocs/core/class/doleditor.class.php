@@ -133,7 +133,7 @@ class DolEditor
 
 		// Name of extended editor to use (FCKEDITOR_EDITORNAME can be 'ckeditor' or 'fckeditor')
 		$defaulteditor = 'ckeditor';
-		$this->tool = !getDolGlobalString('FCKEDITOR_EDITORNAME') ? $defaulteditor : $conf->global->FCKEDITOR_EDITORNAME;
+		$this->tool = !getDolGlobalString('FCKEDITOR_EDITORNAME') ? $defaulteditor : $config->global->FCKEDITOR_EDITORNAME;
 		$this->uselocalbrowser = $uselocalbrowser;
 		$this->readonly = $readonly;
 
@@ -144,8 +144,8 @@ class DolEditor
 		if ($okforextendededitor === 'ace') {
 			$this->tool = 'ace';
 		}
-		//if ($conf->dol_use_jmobile) $this->tool = 'textarea';       // ckeditor and ace seems ok with mobile
-		if (empty($conf->use_javascript_ajax)) {	// If no javascript, we force use of textarea
+		//if ($config->dol_use_jmobile) $this->tool = 'textarea';       // ckeditor and ace seems ok with mobile
+		if (empty($config->use_javascript_ajax)) {	// If no javascript, we force use of textarea
 			$this->tool = 'textarea';
 		}
 
@@ -211,7 +211,7 @@ class DolEditor
 		if (is_string($restrictContent)) {
 			$extraAllowedContent = $restrictContent;
 		}
-		if (isset($conf->global->FCKEDITOR_ALLOW_ANY_CONTENT)) {
+		if (isset($config->global->FCKEDITOR_ALLOW_ANY_CONTENT)) {
 			$restrictContent = !getDolGlobalString('FCKEDITOR_ALLOW_ANY_CONTENT'); // Only predefined list of html tags are allowed or all
 		}
 
@@ -232,7 +232,7 @@ class DolEditor
 			$out .= htmlspecialchars($this->content);
 			$out .= '</textarea>';
 
-			if ($this->tool == 'ckeditor' && !empty($conf->use_javascript_ajax) && isModEnabled('fckeditor')) {
+			if ($this->tool == 'ckeditor' && !empty($config->use_javascript_ajax) && isModEnabled('fckeditor')) {
 				if (!defined('REQUIRE_CKEDITOR')) {
 					define('REQUIRE_CKEDITOR', '1');
 				}
@@ -243,7 +243,7 @@ class DolEditor
 				if (!getDolGlobalString('FCKEDITOR_ENABLE_SPECIALCHAR')) {
 					$pluginstodisable .= ',specialchar';
 				}
-				if (!empty($conf->dol_optimize_smallscreen)) {
+				if (!empty($config->dol_optimize_smallscreen)) {
 					$pluginstodisable .= ',scayt,wsc,find,undo';
 				}
 				if (!getDolGlobalString('FCKEDITOR_ENABLE_WSC')) {	// spellchecker has end of life december 2021

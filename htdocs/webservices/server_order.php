@@ -386,7 +386,7 @@ function getOrder($authentication, $id = 0, $ref = '', $ref_ext = '')
 	dol_syslog("Function: getOrder login=".$authentication['login']." id=".$id." ref=".$ref." ref_ext=".$ref_ext);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -529,7 +529,7 @@ function getOrdersForThirdParty($authentication, $idthirdparty)
 	dol_syslog("Function: getOrdersForThirdParty login=".$authentication['login']." idthirdparty=".$idthirdparty);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -557,7 +557,7 @@ function getOrdersForThirdParty($authentication, $idthirdparty)
 
 		$sql = 'SELECT c.rowid as orderid';
 		$sql .= ' FROM '.MAIN_DB_PREFIX.'commande as c';
-		$sql .= " WHERE c.entity = ".$conf->entity;
+		$sql .= " WHERE c.entity = ".$config->entity;
 		if ($idthirdparty != 'all') {
 			$sql .= " AND c.fk_soc = ".((int) $idthirdparty);
 		}
@@ -688,7 +688,7 @@ function createOrder($authentication, $order)
 	dol_syslog("Function: createOrder login=".$authentication['login']." socid :".$order['socid']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -835,7 +835,7 @@ function validOrder($authentication, $id = 0, $id_warehouse = 0)
 	$errorlabel = '';
 	$error = 0;
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 	$fuser = check_authentication($authentication, $error, $errorcode, $errorlabel);
 
@@ -899,7 +899,7 @@ function updateOrder($authentication, $order)
 	dol_syslog("Function: updateOrder login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication

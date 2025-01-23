@@ -407,7 +407,7 @@ print $tooltiponpriceend;
 
 	<td class="linecoluht nowraponall right"><?php $coldisplay++; ?><?php print price($sign * $line->subprice); ?></td>
 
-<?php if (isModEnabled("multicurrency") && $this->multicurrency_code != $conf->currency) { ?>
+<?php if (isModEnabled("multicurrency") && $this->multicurrency_code != $config->currency) { ?>
 	<td class="linecoluht_currency nowraponall right"><?php $coldisplay++; ?><?php print price($sign * $line->multicurrency_subprice); ?></td>
 <?php }
 
@@ -492,7 +492,7 @@ if ($usemargins && isModEnabled('margin') && empty($user->socid)) {
 if ($line->special_code == 3) {
 	$coldisplay++;
 	$colspanOptions	= '';
-	if (isModEnabled('multicurrency') && $object->multicurrency_code != $conf->currency) {
+	if (isModEnabled('multicurrency') && $object->multicurrency_code != $config->currency) {
 		$coldisplay++;
 		$colspanOptions	= ' colspan="2"';
 	}
@@ -504,7 +504,7 @@ if ($line->special_code == 3) {
 	print price($sign * $line->total_ht);
 	print $tooltiponpriceend;
 	print '</td>';
-	if (isModEnabled("multicurrency") && $this->multicurrency_code != $conf->currency) {
+	if (isModEnabled("multicurrency") && $this->multicurrency_code != $config->currency) {
 		print '<td class="linecolutotalht_currency nowrap right">';
 		print $tooltiponpricemultiprice;
 		print price($sign * $line->multicurrency_total_ht);
@@ -561,7 +561,7 @@ if ($this->status == 0 && $tmppermtoedit && $action != 'selectlines') {
 			}
 			$sql = "SELECT COUNT(*) AS found";
 			$sql .= " FROM " . MAIN_DB_PREFIX . "accounting_account";
-			$sql .= " WHERE pcg_type = '" . $this->db->escape($conf->global->ASSET_ACCOUNTANCY_CATEGORY) . "'";
+			$sql .= " WHERE pcg_type = '" . $this->db->escape($config->global->ASSET_ACCOUNTANCY_CATEGORY) . "'";
 			$sql .= " AND (" . implode(' OR ', $filters). ")";
 			$resql_asset = $this->db->query($sql);
 			if (!$resql_asset) {
@@ -597,7 +597,7 @@ if ($this->status == 0 && $tmppermtoedit && $action != 'selectlines') {
 	print '</td>';
 
 	// Move up-down picto
-	if ($num > 1 && $conf->browser->layout != 'phone' && ((property_exists($this, 'situation_counter') && $this->situation_counter == 1) || empty($this->situation_cycle_ref)) && empty($disablemove)) {
+	if ($num > 1 && $config->browser->layout != 'phone' && ((property_exists($this, 'situation_counter') && $this->situation_counter == 1) || empty($this->situation_cycle_ref)) && empty($disablemove)) {
 		print '<td class="linecolmove tdlineupdown center">';
 		$coldisplay++;
 		if ($i > 0) { ?>
@@ -612,7 +612,7 @@ if ($this->status == 0 && $tmppermtoedit && $action != 'selectlines') {
 		<?php }
 		print '</td>';
 	} else {
-		print '<td '.(($conf->browser->layout != 'phone' && empty($disablemove)) ? ' class="linecolmove tdlineupdown center"' : ' class="linecolmove center"').'></td>';
+		print '<td '.(($config->browser->layout != 'phone' && empty($disablemove)) ? ' class="linecolmove tdlineupdown center"' : ' class="linecolmove center"').'></td>';
 		$coldisplay++;
 	}
 } else {

@@ -80,7 +80,7 @@ $hookManager->initHooks(array('taxcard', 'globalcard'));
 // Initialize a technical objects
 $object = new ChargeSociales($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->tax->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->tax->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('taxsocialcontributioncard', 'globalcard'));
 
 if (empty($action) && empty($id) && empty($ref)) {
@@ -97,7 +97,7 @@ $permissiontoadd = $user->hasRight('tax', 'charges', 'creer'); // Used by the in
 $permissiontodelete = $user->rights->tax->charges->supprimer || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_UNPAID);
 $permissionnote = $user->hasRight('tax', 'charges', 'creer'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('tax', 'charges', 'creer'); // Used by the include of actions_dellink.inc.php
-$upload_dir = $conf->tax->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->tax->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 // Security check
 $socid = GETPOSTINT('socid');
@@ -633,7 +633,7 @@ if ($id > 0) {
 			print '<input type="text" name="amount" size="12" class="flat" value="'.price($object->amount).'">';
 			print "</td></tr>";
 		} else {
-			print '<tr><td>'.$langs->trans("AmountTTC").'</td><td><span class="amount">'.price($object->amount, 0, $langs, 1, -1, -1, $conf->currency).'</span></td></tr>';
+			print '<tr><td>'.$langs->trans("AmountTTC").'</td><td><span class="amount">'.price($object->amount, 0, $langs, 1, -1, -1, $config->currency).'</span></td></tr>';
 		}
 
 		// Mode of payment
@@ -864,7 +864,7 @@ if ($id > 0) {
 			if ($includedocgeneration) {
 				$objref = dol_sanitizeFileName($object->ref);
 				$relativepath = $objref.'/'.$objref.'.pdf';
-				$filedir = $conf->tax->dir_output.'/'.$objref;
+				$filedir = $config->tax->dir_output.'/'.$objref;
 				$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 				$genallowed = 0;
 				$delallowed = $user->hasRight('tax', 'charges', 'creer'); // If you can create/edit, you can remove a file on card
@@ -900,7 +900,7 @@ if ($id > 0) {
 		// Presend form
 		$modelmail = 'sc';
 		$defaulttopic = 'InformationMessage';
-		$diroutput = $conf->tax->dir_output;
+		$diroutput = $config->tax->dir_output;
 		$trackid = 'sc'.$object->id;
 
 		include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

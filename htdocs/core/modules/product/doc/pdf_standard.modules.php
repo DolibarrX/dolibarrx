@@ -148,14 +148,14 @@ class pdf_standard extends ModelePDFProduct
 			$nblines = 0;
 		}
 
-		if ($conf->product->dir_output) {
+		if ($config->product->dir_output) {
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->product->dir_output;
+				$dir = $config->product->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->product->dir_output."/".$objectref;
+				$dir = $config->product->dir_output."/".$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 
@@ -200,7 +200,7 @@ class pdf_standard extends ModelePDFProduct
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
+					$pagecount = $pdf->setSourceFile($config->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -256,10 +256,10 @@ class pdf_standard extends ModelePDFProduct
 				$arephoto = false;
 				foreach ($pdir as $midir) {
 					if (!$arephoto) {
-						if ($conf->entity != $object->entity) {
-							$dir = $conf->product->multidir_output[$object->entity].'/'.$midir; //Check repertories of current entities
+						if ($config->entity != $object->entity) {
+							$dir = $config->product->multidir_output[$object->entity].'/'.$midir; //Check repertories of current entities
 						} else {
-							$dir = $conf->product->dir_output.'/'.$midir; //Check repertory of the current product
+							$dir = $config->product->dir_output.'/'.$midir; //Check repertory of the current product
 						}
 						foreach ($object->liste_photos($dir, 1) as $key => $obj) {
 							if (!getDolGlobalInt('CAT_HIGH_QUALITY_IMAGES')) {		// If CAT_HIGH_QUALITY_IMAGES not defined, we use thumb if defined and then original photo
@@ -422,7 +422,7 @@ class pdf_standard extends ModelePDFProduct
 					$pdf->SetFont('','',  $default_font_size - 1);   // On repositionne la police par default
 
 					// VAT Rate
-					if (empty($conf->global->MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT) && empty($conf->global->MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT_COLUMN))
+					if (empty($config->global->MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT) && empty($config->global->MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT_COLUMN))
 					{
 						$vat_rate = pdf_getlinevatrate($object, $i, $outputlangs, $hidedetails);
 						$pdf->SetXY($this->posxtva, $curY);
@@ -440,7 +440,7 @@ class pdf_standard extends ModelePDFProduct
 					$pdf->MultiCell($this->posxunit-$this->posxqty-0.8, 4, $qty, 0, 'R');  // Enough for 6 chars
 
 					// Unit
-					if($conf->global->PRODUCT_USE_UNITS)
+					if($config->global->PRODUCT_USE_UNITS)
 					{
 						$unit = pdf_getlineunit($object, $i, $outputlangs, $hidedetails);
 						$pdf->SetXY($this->posxunit, $curY);
@@ -631,7 +631,7 @@ class pdf_standard extends ModelePDFProduct
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)
@@ -643,7 +643,7 @@ class pdf_standard extends ModelePDFProduct
 			$pdf->SetXY($this->page_largeur - $this->marge_droite - ($pdf->GetStringWidth($titre) + 3), $tab_top - 4);
 			$pdf->MultiCell(($pdf->GetStringWidth($titre) + 3), 2, $titre);
 
-			//$conf->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
+			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
 				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, 5, $this->corner_radius, '1001', 'F', array(), explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
@@ -758,9 +758,9 @@ class pdf_standard extends ModelePDFProduct
 		// Logo
 		if (!getDolGlobalInt('PDF_DISABLE_MYCOMPANY_LOGO')) {
 			if ($this->emetteur->logo) {
-				$logodir = $conf->mycompany->dir_output;
-				if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-					$logodir = $conf->mycompany->multidir_output[$object->entity];
+				$logodir = $config->mycompany->dir_output;
+				if (!empty($config->mycompany->multidir_output[$object->entity])) {
+					$logodir = $config->mycompany->multidir_output[$object->entity];
 				}
 				if (!getDolGlobalInt('MAIN_PDF_USE_LARGE_LOGO')) {
 					$logo = $logodir.'/logos/thumbs/'.$this->emetteur->logo_small;

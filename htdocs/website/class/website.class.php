@@ -190,7 +190,7 @@ class Website extends CommonObject
 
 		// Check parameters
 		if (empty($this->entity)) {
-			$this->entity = $conf->entity;
+			$this->entity = $config->entity;
 		}
 		if (empty($this->lang)) {
 			$this->error = $langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("MainLanguage"));
@@ -241,20 +241,20 @@ class Website extends CommonObject
 			// Create a subdirectory for each language (except main language)
 			$tmplangarray = explode(',', $this->otherlang);
 			if (is_array($tmplangarray)) {
-				dol_mkdir($conf->website->dir_output.'/'.$this->ref);
+				dol_mkdir($config->website->dir_output.'/'.$this->ref);
 				foreach ($tmplangarray as $val) {
 					if (trim($val) == $this->lang) {
 						continue;
 					}
-					dol_mkdir($conf->website->dir_output.'/'.$this->ref.'/'.trim($val), DOL_DATA_ROOT);
+					dol_mkdir($config->website->dir_output.'/'.$this->ref.'/'.trim($val), DOL_DATA_ROOT);
 				}
 			}
 
 			// Create subdirectory for images and js into documents/medias directory
-			dol_mkdir($conf->medias->multidir_output[$conf->entity].'/image/'.$this->ref, DOL_DATA_ROOT);
-			dol_mkdir($conf->medias->multidir_output[$conf->entity].'/js/'.$this->ref, DOL_DATA_ROOT);
+			dol_mkdir($config->medias->multidir_output[$config->entity].'/image/'.$this->ref, DOL_DATA_ROOT);
+			dol_mkdir($config->medias->multidir_output[$config->entity].'/js/'.$this->ref, DOL_DATA_ROOT);
 
-			$pathofwebsite = $conf->website->dir_output.'/'.$this->ref;
+			$pathofwebsite = $config->website->dir_output.'/'.$this->ref;
 
 			// Check symlink documents/website/mywebsite/medias to point to documents/medias and restore it if ko.
 			// Recreate also dir of website if not found.
@@ -282,8 +282,8 @@ class Website extends CommonObject
 		if (!$error) {
 			$stringtodolibarrfile = "# Some properties for Dolibarr web site CMS\n";
 			$stringtodolibarrfile .= "param=value\n";
-			//print $conf->website->dir_output.'/'.$this->ref.'/.dolibarr';exit;
-			file_put_contents($conf->website->dir_output.'/'.$this->ref.'/.dolibarr', $stringtodolibarrfile);
+			//print $config->website->dir_output.'/'.$this->ref.'/.dolibarr';exit;
+			file_put_contents($config->website->dir_output.'/'.$this->ref.'/.dolibarr', $stringtodolibarrfile);
 		}
 
 		// Commit or rollback
@@ -561,12 +561,12 @@ class Website extends CommonObject
 			// Create subdirectory per language
 			$tmplangarray = explode(',', $this->otherlang);
 			if (is_array($tmplangarray)) {
-				dol_mkdir($conf->website->dir_output.'/'.$this->ref);
+				dol_mkdir($config->website->dir_output.'/'.$this->ref);
 				foreach ($tmplangarray as $val) {
 					if (trim($val) == $this->lang) {
 						continue;
 					}
-					dol_mkdir($conf->website->dir_output.'/'.$this->ref.'/'.trim($val));
+					dol_mkdir($config->website->dir_output.'/'.$this->ref.'/'.trim($val));
 				}
 			}
 
@@ -636,7 +636,7 @@ class Website extends CommonObject
 		}
 
 		if (!$error && !empty($this->ref)) {
-			$pathofwebsite = DOL_DATA_ROOT.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/'.$this->ref;
+			$pathofwebsite = DOL_DATA_ROOT.($config->entity > 1 ? '/'.$config->entity : '').'/website/'.$this->ref;
 
 			dol_delete_dir_recursive($pathofwebsite);
 		}
@@ -683,7 +683,7 @@ class Website extends CommonObject
 		}
 
 		if (!$error && !empty($this->ref)) {
-			$pathofwebsite = DOL_DATA_ROOT.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/'.$this->ref;
+			$pathofwebsite = DOL_DATA_ROOT.($config->entity > 1 ? '/'.$config->entity : '').'/website/'.$this->ref;
 			// Delete content of website directory without deleting the website directory
 			dol_delete_dir_recursive($pathofwebsite, 0, 0, 1);
 
@@ -757,8 +757,8 @@ class Website extends CommonObject
 		$oldidforhome = $object->fk_default_home;
 		$oldref = $object->ref;
 
-		$pathofwebsiteold = $dolibarr_main_data_root.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/'.dol_sanitizeFileName($oldref);
-		$pathofwebsitenew = $dolibarr_main_data_root.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/'.dol_sanitizeFileName($newref);
+		$pathofwebsiteold = $dolibarr_main_data_root.($config->entity > 1 ? '/'.$config->entity : '').'/website/'.dol_sanitizeFileName($oldref);
+		$pathofwebsitenew = $dolibarr_main_data_root.($config->entity > 1 ? '/'.$config->entity : '').'/website/'.dol_sanitizeFileName($newref);
 		dol_delete_dir_recursive($pathofwebsitenew);
 
 		$fileindex = $pathofwebsitenew.'/index.php';
@@ -1010,14 +1010,14 @@ class Website extends CommonObject
 			return '';
 		}
 
-		dol_syslog("Create temp dir ".$conf->website->dir_temp);
-		dol_mkdir($conf->website->dir_temp);
-		if (!is_writable($conf->website->dir_temp)) {
-			setEventMessages("Temporary dir ".$conf->website->dir_temp." is not writable", null, 'errors');
+		dol_syslog("Create temp dir ".$config->website->dir_temp);
+		dol_mkdir($config->website->dir_temp);
+		if (!is_writable($config->website->dir_temp)) {
+			setEventMessages("Temporary dir ".$config->website->dir_temp." is not writable", null, 'errors');
 			return '';
 		}
 
-		$destdir = $conf->website->dir_temp.'/'.$website->ref;
+		$destdir = $config->website->dir_temp.'/'.$website->ref;
 		dol_syslog("Clear temp dir ".$destdir);
 		$count = 0;
 		$countreallydeleted = 0;
@@ -1045,52 +1045,52 @@ class Website extends CommonObject
 
 		// Create output directories
 		dol_syslog("Create containers dir");
-		dol_mkdir($conf->website->dir_temp.'/'.$website->ref.'/containers');
-		dol_mkdir($conf->website->dir_temp.'/'.$website->ref.'/medias/image/websitekey');
-		dol_mkdir($conf->website->dir_temp.'/'.$website->ref.'/medias/js/websitekey');
+		dol_mkdir($config->website->dir_temp.'/'.$website->ref.'/containers');
+		dol_mkdir($config->website->dir_temp.'/'.$website->ref.'/medias/image/websitekey');
+		dol_mkdir($config->website->dir_temp.'/'.$website->ref.'/medias/js/websitekey');
 
 		// Copy files into 'containers'
-		$srcdir = $conf->website->dir_output.'/'.$website->ref;
-		$destdir = $conf->website->dir_temp.'/'.$website->ref.'/containers';
+		$srcdir = $config->website->dir_output.'/'.$website->ref;
+		$destdir = $config->website->dir_temp.'/'.$website->ref.'/containers';
 
 		dol_syslog("Copy pages from ".$srcdir." into ".$destdir);
 		dolCopyDir($srcdir, $destdir, '0', 1, $arrayreplacementinfilename, 2, array('old', 'back'), 1);
 
 		// Copy file README.md and LICENSE from directory containers into directory root
-		if (dol_is_file($conf->website->dir_temp.'/'.$website->ref.'/containers/README.md')) {
-			dol_copy($conf->website->dir_temp.'/'.$website->ref.'/containers/README.md', $conf->website->dir_temp.'/'.$website->ref.'/README.md');
+		if (dol_is_file($config->website->dir_temp.'/'.$website->ref.'/containers/README.md')) {
+			dol_copy($config->website->dir_temp.'/'.$website->ref.'/containers/README.md', $config->website->dir_temp.'/'.$website->ref.'/README.md');
 		}
-		if (dol_is_file($conf->website->dir_temp.'/'.$website->ref.'/containers/LICENSE')) {
-			dol_copy($conf->website->dir_temp.'/'.$website->ref.'/containers/LICENSE', $conf->website->dir_temp.'/'.$website->ref.'/LICENSE');
+		if (dol_is_file($config->website->dir_temp.'/'.$website->ref.'/containers/LICENSE')) {
+			dol_copy($config->website->dir_temp.'/'.$website->ref.'/containers/LICENSE', $config->website->dir_temp.'/'.$website->ref.'/LICENSE');
 		}
 
 		// Copy files into medias/image
 		$srcdir = DOL_DATA_ROOT.'/medias/image/'.$website->ref;
-		$destdir = $conf->website->dir_temp.'/'.$website->ref.'/medias/image/websitekey';
+		$destdir = $config->website->dir_temp.'/'.$website->ref.'/medias/image/websitekey';
 
 		dol_syslog("Copy content from ".$srcdir." into ".$destdir);
 		dolCopyDir($srcdir, $destdir, '0', 1, $arrayreplacementinfilename);
 
 		// Copy files into medias/js
 		$srcdir = DOL_DATA_ROOT.'/medias/js/'.$website->ref;
-		$destdir = $conf->website->dir_temp.'/'.$website->ref.'/medias/js/websitekey';
+		$destdir = $config->website->dir_temp.'/'.$website->ref.'/medias/js/websitekey';
 
 		dol_syslog("Copy content from ".$srcdir." into ".$destdir);
 		dolCopyDir($srcdir, $destdir, '0', 1, $arrayreplacementinfilename);
 
 		// Make some replacement into some files
-		$cssindestdir = $conf->website->dir_temp.'/'.$website->ref.'/containers/styles.css.php';
+		$cssindestdir = $config->website->dir_temp.'/'.$website->ref.'/containers/styles.css.php';
 		if (dol_is_file($cssindestdir)) {
 			dolReplaceInFile($cssindestdir, $arrayreplacementincss);
 		}
 
-		$htmldeaderindestdir = $conf->website->dir_temp.'/'.$website->ref.'/containers/htmlheader.html';
+		$htmldeaderindestdir = $config->website->dir_temp.'/'.$website->ref.'/containers/htmlheader.html';
 		if (dol_is_file($htmldeaderindestdir)) {
 			dolReplaceInFile($htmldeaderindestdir, $arrayreplacementincss);
 		}
 
 		// Build the website_page.sql file
-		$filesql = $conf->website->dir_temp.'/'.$website->ref.'/website_pages.sql';
+		$filesql = $config->website->dir_temp.'/'.$website->ref.'/website_pages.sql';
 		$fp = fopen($filesql, "w");
 		if (empty($fp)) {
 			setEventMessages("Failed to create file ".$filesql, null, 'errors');
@@ -1134,15 +1134,15 @@ class Website extends CommonObject
 			if (!getDolGlobalInt('WEBSITE_EXPORT_KEEP_FILES_OF_PAGES')) {
 				// We don't need to keep the PHP files of pages and aliases (they are regenerated at import) so we remove them.
 				// Delete the pageX.tpl.php page
-				dol_delete_file($conf->website->dir_temp.'/'.$website->ref.'/containers/page'.$objectpageold->id.'.tpl.php', 0, 0, 0, null, false, 0);
+				dol_delete_file($config->website->dir_temp.'/'.$website->ref.'/containers/page'.$objectpageold->id.'.tpl.php', 0, 0, 0, null, false, 0);
 				// Delete the alias page
-				dol_delete_file($conf->website->dir_temp.'/'.$website->ref.'/containers/'.$objectpageold->pageurl.'.php', 0, 0, 0, null, false, 0);
-				dol_delete_file($conf->website->dir_temp.'/'.$website->ref.'/containers/*/'.$objectpageold->pageurl.'.php', 0, 0, 0, null, false, 0);
+				dol_delete_file($config->website->dir_temp.'/'.$website->ref.'/containers/'.$objectpageold->pageurl.'.php', 0, 0, 0, null, false, 0);
+				dol_delete_file($config->website->dir_temp.'/'.$website->ref.'/containers/*/'.$objectpageold->pageurl.'.php', 0, 0, 0, null, false, 0);
 				// Delete alternative alias pages
 				$arrayofaliases = explode(',', $objectpageold->aliasalt);
 				foreach ($arrayofaliases as $tmpaliasalt) {
-					dol_delete_file($conf->website->dir_temp.'/'.$website->ref.'/containers/'.trim($tmpaliasalt).'.php', 0, 0, 0, null, false, 0);
-					dol_delete_file($conf->website->dir_temp.'/'.$website->ref.'/containers/*/'.trim($tmpaliasalt).'.php', 0, 0, 0, null, false, 0);
+					dol_delete_file($config->website->dir_temp.'/'.$website->ref.'/containers/'.trim($tmpaliasalt).'.php', 0, 0, 0, null, false, 0);
+					dol_delete_file($config->website->dir_temp.'/'.$website->ref.'/containers/*/'.trim($tmpaliasalt).'.php', 0, 0, 0, null, false, 0);
 				}
 			}
 
@@ -1232,9 +1232,9 @@ class Website extends CommonObject
 		dolChmod($filesql);
 
 		// Build zip file
-		$filedir  = $conf->website->dir_temp.'/'.$website->ref.'/.';
-		$fileglob = $conf->website->dir_temp.'/'.$website->ref.'/website_'.$website->ref.'-*.zip';
-		$filename = $conf->website->dir_temp.'/'.$website->ref.'/website_'.$website->ref.'-'.dol_print_date(dol_now(), 'dayhourlog').'-V'.((float) DOL_VERSION).'.zip';
+		$filedir  = $config->website->dir_temp.'/'.$website->ref.'/.';
+		$fileglob = $config->website->dir_temp.'/'.$website->ref.'/website_'.$website->ref.'-*.zip';
+		$filename = $config->website->dir_temp.'/'.$website->ref.'/website_'.$website->ref.'-'.dol_print_date(dol_now(), 'dayhourlog').'-V'.((float) DOL_VERSION).'.zip';
 
 		dol_delete_file($fileglob, 0);
 
@@ -1269,8 +1269,8 @@ class Website extends CommonObject
 			return -2;
 		}
 
-		dol_delete_dir_recursive($conf->website->dir_temp."/".$object->ref);
-		dol_mkdir($conf->website->dir_temp.'/'.$object->ref);
+		dol_delete_dir_recursive($config->website->dir_temp."/".$object->ref);
+		dol_mkdir($config->website->dir_temp.'/'.$object->ref);
 
 		$filename = basename($pathtofile);
 		$reg = array();
@@ -1280,7 +1280,7 @@ class Website extends CommonObject
 		}
 
 		// Uncompress the zip
-		$result = dol_uncompress($pathtofile, $conf->website->dir_temp.'/'.$object->ref);
+		$result = dol_uncompress($pathtofile, $config->website->dir_temp.'/'.$object->ref);
 
 		if (!empty($result['error'])) {
 			$this->errors[] = 'Failed to unzip file '.$pathtofile;
@@ -1297,17 +1297,17 @@ class Website extends CommonObject
 
 
 		// Copy containers directory
-		dolCopyDir($conf->website->dir_temp.'/'.$object->ref.'/containers', $conf->website->dir_output.'/'.$object->ref, '0', 1); // Overwrite if exists
+		dolCopyDir($config->website->dir_temp.'/'.$object->ref.'/containers', $config->website->dir_output.'/'.$object->ref, '0', 1); // Overwrite if exists
 
 		// Make replacement into css and htmlheader file
-		$cssindestdir = $conf->website->dir_output.'/'.$object->ref.'/styles.css.php';
+		$cssindestdir = $config->website->dir_output.'/'.$object->ref.'/styles.css.php';
 		$result = dolReplaceInFile($cssindestdir, $arrayreplacement);
 
-		$htmldeaderindestdir = $conf->website->dir_output.'/'.$object->ref.'/htmlheader.html';
+		$htmldeaderindestdir = $config->website->dir_output.'/'.$object->ref.'/htmlheader.html';
 		$result = dolReplaceInFile($htmldeaderindestdir, $arrayreplacement);
 
 		// Now generate the master.inc.php page
-		$filemaster = $conf->website->dir_output.'/'.$object->ref.'/master.inc.php';
+		$filemaster = $config->website->dir_output.'/'.$object->ref.'/master.inc.php';
 		$result = dolSaveMasterFile($filemaster);
 		if (!$result) {
 			$this->errors[] = 'Failed to write file '.$filemaster;
@@ -1315,10 +1315,10 @@ class Website extends CommonObject
 		}
 
 		// Copy dir medias/image/websitekey
-		if (dol_is_dir($conf->website->dir_temp.'/'.$object->ref.'/medias/image/websitekey')) {
-			$result = dolCopyDir($conf->website->dir_temp.'/'.$object->ref.'/medias/image/websitekey', $conf->website->dir_output.'/'.$object->ref.'/medias/image/'.$object->ref, '0', 1);
+		if (dol_is_dir($config->website->dir_temp.'/'.$object->ref.'/medias/image/websitekey')) {
+			$result = dolCopyDir($config->website->dir_temp.'/'.$object->ref.'/medias/image/websitekey', $config->website->dir_output.'/'.$object->ref.'/medias/image/'.$object->ref, '0', 1);
 			if ($result < 0) {
-				$this->error = 'Failed to copy files into '.$conf->website->dir_output.'/'.$object->ref.'/medias/image/'.$object->ref.'.';
+				$this->error = 'Failed to copy files into '.$config->website->dir_output.'/'.$object->ref.'/medias/image/'.$object->ref.'.';
 				dol_syslog($this->error, LOG_WARNING);
 				$this->errors[] = $this->error;
 				return -5;
@@ -1326,17 +1326,17 @@ class Website extends CommonObject
 		}
 
 		// Copy dir medias/js/websitekey
-		if (dol_is_dir($conf->website->dir_temp.'/'.$object->ref.'/medias/js/websitekey')) {
-			$result = dolCopyDir($conf->website->dir_temp.'/'.$object->ref.'/medias/js/websitekey', $conf->website->dir_output.'/'.$object->ref.'/medias/js/'.$object->ref, '0', 1);
+		if (dol_is_dir($config->website->dir_temp.'/'.$object->ref.'/medias/js/websitekey')) {
+			$result = dolCopyDir($config->website->dir_temp.'/'.$object->ref.'/medias/js/websitekey', $config->website->dir_output.'/'.$object->ref.'/medias/js/'.$object->ref, '0', 1);
 			if ($result < 0) {
-				$this->error = 'Failed to copy files into '.$conf->website->dir_output.'/'.$object->ref.'/medias/js/'.$object->ref.'.';
+				$this->error = 'Failed to copy files into '.$config->website->dir_output.'/'.$object->ref.'/medias/js/'.$object->ref.'.';
 				dol_syslog($this->error, LOG_WARNING);
 				$this->errors[] = $this->error;
 				return -6;
 			}
 		}
 
-		$sqlfile = $conf->website->dir_temp."/".$object->ref.'/website_pages.sql';
+		$sqlfile = $config->website->dir_temp."/".$object->ref.'/website_pages.sql';
 
 		$result = dolReplaceInFile($sqlfile, $arrayreplacement);
 
@@ -1378,7 +1378,7 @@ class Website extends CommonObject
 
 					dol_syslog("In sql source file, we have the page ID ".$oldid." to replace with the new ID ".$newid.", and we must create the shortcut aliases: ".$reg[3]);
 
-					//dol_move($conf->website->dir_output.'/'.$object->ref.'/page'.$oldid.'.tpl.php', $conf->website->dir_output.'/'.$object->ref.'/page'.$newid.'.tpl.php', 0, 1, 0, 0);
+					//dol_move($config->website->dir_output.'/'.$object->ref.'/page'.$oldid.'.tpl.php', $config->website->dir_output.'/'.$object->ref.'/page'.$newid.'.tpl.php', 0, 1, 0, 0);
 				} elseif (preg_match('/^-- Page ID (\d+).*Aliases\s(.*)\s--;/i', $buf, /** @var string[] $reg */ $reg)) {
 					// Example of line: "-- Page ID 1__+MAX_llx_website_page__ - Aliases about-us --;"
 					$newid = ((int) $reg[1] + $maxrowid);
@@ -1391,7 +1391,7 @@ class Website extends CommonObject
 					$objectpagestatic->fetch($newid);
 
 					// We regenerate the pageX.tpl.php
-					$filetpl = $conf->website->dir_output.'/'.$object->ref.'/page'.$newid.'.tpl.php';
+					$filetpl = $config->website->dir_output.'/'.$object->ref.'/page'.$newid.'.tpl.php';
 					$result = dolSavePageContent($filetpl, $object, $objectpagestatic);
 					if (!$result) {
 						$this->errors[] = 'Failed to write file '.basename($filetpl);
@@ -1402,7 +1402,7 @@ class Website extends CommonObject
 					if (is_array($aliasesarray)) {
 						foreach ($aliasesarray as $aliasshortcuttocreate) {
 							if (trim($aliasshortcuttocreate)) {
-								$filealias = $conf->website->dir_output.'/'.$object->ref.'/'.trim($aliasshortcuttocreate).'.php';
+								$filealias = $config->website->dir_output.'/'.$object->ref.'/'.trim($aliasshortcuttocreate).'.php';
 								$result = dolSavePageAlias($filealias, $object, $objectpagestatic);
 								if (!$result) {
 									$this->errors[] = 'Failed to write file '.basename($filealias);
@@ -1430,7 +1430,7 @@ class Website extends CommonObject
 		}
 
 		// Regenerate the index.php page to point to the new index page
-		$pathofwebsite = $conf->website->dir_output.'/'.$object->ref;
+		$pathofwebsite = $config->website->dir_output.'/'.$object->ref;
 		dolSaveIndexPage($pathofwebsite, $pathofwebsite.'/index.php', $pathofwebsite.'/page'.$object->fk_default_home.'.tpl.php', $pathofwebsite.'/wrapper.php', $object);
 
 		//$this->initFilesStatus($pathofwebsite);
@@ -1485,7 +1485,7 @@ class Website extends CommonObject
 
 			$aliasesarray = explode(',', $objectpagestatic->aliasalt);
 
-			$filetpl = $conf->website->dir_output.'/'.$object->ref.'/page'.$newid.'.tpl.php';
+			$filetpl = $config->website->dir_output.'/'.$object->ref.'/page'.$newid.'.tpl.php';
 			$result = dolSavePageContent($filetpl, $object, $objectpagestatic);
 			if (!$result) {
 				$this->errors[] = 'Failed to write file '.basename($filetpl);
@@ -1501,7 +1501,7 @@ class Website extends CommonObject
 			if (is_array($aliasesarray)) {
 				foreach ($aliasesarray as $aliasshortcuttocreate) {
 					if (trim($aliasshortcuttocreate)) {
-						$filealias = $conf->website->dir_output.'/'.$object->ref.'/'.trim($aliasshortcuttocreate).'.php';
+						$filealias = $config->website->dir_output.'/'.$object->ref.'/'.trim($aliasshortcuttocreate).'.php';
 						$result = dolSavePageAlias($filealias, $object, $objectpagestatic);	// This includes also a copy into sublanguage directories.
 						if (!$result) {
 							$this->errors[] = 'Failed to write file '.basename($filealias);
@@ -1516,7 +1516,7 @@ class Website extends CommonObject
 
 		if (!$error) {
 			// Save index.php and wrapper.php
-			$pathofwebsite = $conf->website->dir_output.'/'.$object->ref;
+			$pathofwebsite = $config->website->dir_output.'/'.$object->ref;
 			$fileindex = $pathofwebsite.'/index.php';
 			$filetpl = '';
 			if ($object->fk_default_home > 0) {
@@ -1527,7 +1527,7 @@ class Website extends CommonObject
 		}
 
 		// Erase cache files
-		$filecacheglob = $conf->website->dir_output.'/temp/'.$object->ref.'-*.php.cache';
+		$filecacheglob = $config->website->dir_output.'/temp/'.$object->ref.'-*.php.cache';
 		dol_delete_file($filecacheglob, 0, 1, 1, null, false, 0, 1);
 
 		if ($error) {
@@ -1754,8 +1754,8 @@ class Website extends CommonObject
 			setEventMessages("To export the website template into a directory of the server, the name of the directory/template must be provided.", null, 'errors');
 			return -1;
 		}
-		if (!is_writable($conf->website->dir_temp)) {
-			setEventMessages("Temporary dir ".$conf->website->dir_temp." is not writable", null, 'errors');
+		if (!is_writable($config->website->dir_temp)) {
+			setEventMessages("Temporary dir ".$config->website->dir_temp." is not writable", null, 'errors');
 			return -1;
 		}
 

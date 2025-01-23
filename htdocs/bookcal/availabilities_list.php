@@ -59,7 +59,7 @@ $optioncss  = GETPOST('optioncss', 'aZ'); // Option for the css output (always '
 $mode       = GETPOST('mode', 'aZ'); // The output mode ('list', 'kanban', 'hierarchy', 'calendar', ...)
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -74,7 +74,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new Availabilities($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->bookcal->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->bookcal->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($contextpage)); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -219,7 +219,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Availabilities';
 	$objectlabel = 'Availabilities';
-	$uploaddir = $conf->bookcal->dir_output;
+	$uploaddir = $config->bookcal->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	// You can add more action here
@@ -419,7 +419,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {

@@ -97,9 +97,9 @@ class modVariants extends DolibarrModules
 		);
 
 		// Dictionaries
-		if (!isset($conf->variants->enabled)) {
-			$conf->variants = new stdClass();
-			$conf->variants->enabled = 0;
+		if (!isset($config->variants->enabled)) {
+			$config->variants = new stdClass();
+			$config->variants->enabled = 0;
 		}
 		$this->dictionaries = array();
 

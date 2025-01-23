@@ -114,7 +114,7 @@ class Link extends CommonObject
 		$this->db->begin();
 
 		$sql = "INSERT INTO ".$this->db->prefix()."links (entity, datea, url, label, objecttype, objectid)";
-		$sql .= " VALUES (".$conf->entity.", '".$this->db->idate($this->datea)."'";
+		$sql .= " VALUES (".$config->entity.", '".$this->db->idate($this->datea)."'";
 		$sql .= ", '".$this->db->escape($this->url)."'";
 		$sql .= ", '".$this->db->escape($this->label)."'";
 		$sql .= ", '".$this->db->escape($this->objecttype)."'";
@@ -192,7 +192,7 @@ class Link extends CommonObject
 		$this->db->begin();
 
 		$sql  = "UPDATE ".$this->db->prefix()."links SET ";
-		$sql .= "entity = ".((int) $conf->entity);
+		$sql .= "entity = ".((int) $config->entity);
 		$sql .= ", datea = '".$this->db->idate(dol_now())."'";
 		$sql .= ", url = '".$this->db->escape($this->url)."'";
 		$sql .= ", label = '".$this->db->escape($this->label)."'";
@@ -251,8 +251,8 @@ class Link extends CommonObject
 
 		$sql = "SELECT rowid, entity, datea, url, label, objecttype, objectid FROM ".$this->db->prefix()."links";
 		$sql .= " WHERE objecttype = '".$this->db->escape($objecttype)."' AND objectid = ".((int) $objectid);
-		if ($conf->entity != 0) {
-			$sql .= " AND entity = ".((int) $conf->entity);
+		if ($config->entity != 0) {
+			$sql .= " AND entity = ".((int) $config->entity);
 		}
 		if ($sortfield) {
 			if (empty($sortorder)) {
@@ -301,8 +301,8 @@ class Link extends CommonObject
 
 		$sql = "SELECT COUNT(rowid) as nb FROM ".$dbs->prefix()."links";
 		$sql .= " WHERE objecttype = '".$dbs->escape($objecttype)."' AND objectid = ".((int) $objectid);
-		if ($conf->entity != 0) {
-			$sql .= " AND entity = ".$conf->entity;
+		if ($config->entity != 0) {
+			$sql .= " AND entity = ".$config->entity;
 		}
 
 		$resql = $dbs->query($sql);
@@ -331,8 +331,8 @@ class Link extends CommonObject
 
 		$sql = "SELECT rowid, entity, datea, url, label, objecttype, objectid FROM ".$this->db->prefix()."links";
 		$sql .= " WHERE rowid = ".((int) $rowid);
-		if ($conf->entity != 0) {
-			$sql .= " AND entity = ".$conf->entity;
+		if ($config->entity != 0) {
+			$sql .= " AND entity = ".$config->entity;
 		}
 
 		dol_syslog(get_class($this)."::fetch", LOG_DEBUG);

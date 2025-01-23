@@ -199,7 +199,7 @@ if ($action == 'add' && $user->hasRight('banque', 'transfer')) {
 				}
 
 				if (!$error) {
-					$mesg = $langs->trans("TransferFromToDone", '{s1}', '{s2}', $amount[$n], $langs->transnoentitiesnoconv("Currency".$conf->currency));
+					$mesg = $langs->trans("TransferFromToDone", '{s1}', '{s2}', $amount[$n], $langs->transnoentitiesnoconv("Currency".$config->currency));
 					$mesg = str_replace('{s1}', '<a href="bankentries_list.php?id='.$tmpaccountfrom->id.'&sortfield=b.datev,b.dateo,b.rowid&sortorder=desc">'.$tmpaccountfrom->label.'</a>', $mesg);
 					$mesg = str_replace('{s2}', '<a href="bankentries_list.php?id='.$tmpaccountto->id.'">'.$tmpaccountto->label.'</a>', $mesg);
 					setEventMessages($mesg, null, 'mesgs');

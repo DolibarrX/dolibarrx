@@ -114,7 +114,7 @@ class modBarcode extends DolibarrModules
 			'url'=>'/barcode/printsheet.php?mainmenu=tools&leftmenu=barcodeprint',
 			'langs'=>'products', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>200,
-			'enabled'=>'isModEnabled("barcode")', // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled'=>'isModEnabled("barcode")', // Define condition to show or hide menu entry. Use '$config->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms'=>'$user->hasRight("barcode", "read")',
 			'target'=>'',
 			'user'=>0, // 0=Menu for internal users, 1=external users, 2=both
@@ -129,7 +129,7 @@ class modBarcode extends DolibarrModules
 			'url'=>'/barcode/codeinit.php?mainmenu=home&leftmenu=admintools',
 			'langs'=>'products', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>300,
-			'enabled'=>'isModEnabled("barcode") && preg_match(\'/^(admintools|all)/\',$leftmenu)', // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled'=>'isModEnabled("barcode") && preg_match(\'/^(admintools|all)/\',$leftmenu)', // Define condition to show or hide menu entry. Use '$config->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms'=>'$user->admin',
 			'target'=>'',
 			'user'=>0, // 0=Menu for internal users, 1=external users, 2=both

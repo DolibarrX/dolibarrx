@@ -56,7 +56,7 @@ if (!$user->admin) {
 $reg = array();
 if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -67,7 +67,7 @@ if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 // delete
 if (preg_match('/del_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_del_const($db, $code, $conf->entity) > 0) {
+	if (dolibarr_del_const($db, $code, $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -104,7 +104,7 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("ECMAutoTree").'</td>';
 print '<td class="center">';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('ECM_AUTO_TREE_HIDEN', array(), null, 1);
 } else {
 	if (!getDolGlobalString('ECM_AUTO_TREE_HIDEN')) {

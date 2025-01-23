@@ -303,7 +303,7 @@ class EcmFiles extends CommonObject
 			return --$error;
 		}
 		if (!isset($this->entity)) {
-			$this->entity = $conf->entity;
+			$this->entity = $config->entity;
 		}
 		// Put here code to add control on parameters values
 
@@ -457,17 +457,17 @@ class EcmFiles extends CommonObject
 			if ($filename != '*') {
 				$sql .= " AND t.filename = '".$this->db->escape($filename)."'";
 			}
-			$sql .= " AND t.entity = ".$conf->entity; // unique key include the entity so each company has its own index
+			$sql .= " AND t.entity = ".$config->entity; // unique key include the entity so each company has its own index
 			$filterfound++;
 		}
 		if (!empty($ref)) {		// hash of file path
 			$sql .= " AND t.ref = '".$this->db->escape($ref)."'";
-			$sql .= " AND t.entity = ".$conf->entity; // unique key include the entity so each company has its own index
+			$sql .= " AND t.entity = ".$config->entity; // unique key include the entity so each company has its own index
 			$filterfound++;
 		}
 		if (!empty($hashoffile)) {	// hash of content
 			$sql .= " AND t.label = '".$this->db->escape($hashoffile)."'";
-			$sql .= " AND t.entity = ".$conf->entity; // unique key include the entity so each company has its own index
+			$sql .= " AND t.entity = ".$config->entity; // unique key include the entity so each company has its own index
 			$filterfound++;
 		}
 		if (!empty($hashforshare)) {
@@ -476,12 +476,12 @@ class EcmFiles extends CommonObject
 			} else {
 				$sql .= " AND t.share IS NOT NULL AND t.share <> ''";
 			}
-			//$sql .= " AND t.entity = ".$conf->entity;							// hashforshare already unique
+			//$sql .= " AND t.entity = ".$config->entity;							// hashforshare already unique
 			$filterfound++;
 		}
 		if ($src_object_type && $src_object_id) {
 			$sql .= " AND t.src_object_type = '".$this->db->escape($src_object_type)."' AND t.src_object_id = ".((int) $src_object_id);
-			$sql .= " AND t.entity = ".((int) $conf->entity);
+			$sql .= " AND t.entity = ".((int) $config->entity);
 			$filterfound++;
 		}
 		if ($id > 0 || empty($filterfound)) {
@@ -746,7 +746,7 @@ class EcmFiles extends CommonObject
 		$sql .= " ref = '".$this->db->escape(dol_hash($this->filepath."/".$this->filename, '3'))."',";
 		$sql .= ' label = '.(isset($this->label) ? "'".$this->db->escape($this->label)."'" : "null").',';
 		$sql .= ' share = '.(!empty($this->share) ? "'".$this->db->escape($this->share)."'" : "null").',';
-		$sql .= ' entity = '.(isset($this->entity) ? $this->entity : $conf->entity).',';
+		$sql .= ' entity = '.(isset($this->entity) ? $this->entity : $config->entity).',';
 		$sql .= ' filename = '.(isset($this->filename) ? "'".$this->db->escape($this->filename)."'" : "null").',';
 		$sql .= ' filepath = '.(isset($this->filepath) ? "'".$this->db->escape($this->filepath)."'" : "null").',';
 		$sql .= ' fullpath_orig = '.(isset($this->fullpath_orig) ? "'".$this->db->escape($this->fullpath_orig)."'" : "null").',';
@@ -985,7 +985,7 @@ class EcmFiles extends CommonObject
 	{
 		global $conf, $hookManager, $langs;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

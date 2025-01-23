@@ -56,14 +56,14 @@ if (GETPOST('actioncode', 'array')) {
 		$actioncode = '0';
 	}
 } else {
-	$actioncode = GETPOST("actioncode", "alpha", 3) ? GETPOST("actioncode", "alpha", 3) : (GETPOST("actioncode") == '0' ? '0' : (!getDolGlobalString('AGENDA_DEFAULT_FILTER_TYPE_FOR_OBJECT') ? '' : $conf->global->AGENDA_DEFAULT_FILTER_TYPE_FOR_OBJECT));
+	$actioncode = GETPOST("actioncode", "alpha", 3) ? GETPOST("actioncode", "alpha", 3) : (GETPOST("actioncode") == '0' ? '0' : (!getDolGlobalString('AGENDA_DEFAULT_FILTER_TYPE_FOR_OBJECT') ? '' : $config->global->AGENDA_DEFAULT_FILTER_TYPE_FOR_OBJECT));
 }
 
 $search_rowid = GETPOST('search_rowid');
 $search_agenda_label = GETPOST('search_agenda_label');
 
 // Load variables for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -83,7 +83,7 @@ if (!$sortorder) {
 // Initialize a technical objects
 $object = new Workstation($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->workstation->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->workstation->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('workstationagenda', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -245,7 +245,7 @@ if ($object->id > 0) {
 		if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 			$param .= '&contextpage='.urlencode($contextpage);
 		}
-		if ($limit > 0 && $limit != $conf->liste_limit) {
+		if ($limit > 0 && $limit != $config->liste_limit) {
 			$param .= '&limit='.((int) $limit);
 		}
 

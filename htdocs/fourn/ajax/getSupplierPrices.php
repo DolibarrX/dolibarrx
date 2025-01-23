@@ -85,17 +85,17 @@ if ($idprod > 0) {
 			$title = $productSupplier->fourn_name.' - '.$productSupplier->fourn_ref.' - ';
 
 			if ($productSupplier->fourn_qty == 1) {
-				$title .= price($price, 0, $langs, 0, 0, -1, $conf->currency)."/";
+				$title .= price($price, 0, $langs, 0, 0, -1, $config->currency)."/";
 			}
 			$title .= $productSupplier->fourn_qty.' '.($productSupplier->fourn_qty == 1 ? $langs->trans("Unit") : $langs->trans("Units"));
 
 			if ($productSupplier->fourn_qty > 1) {
 				$title .= " - ";
-				$title .= price($unitprice, 0, $langs, 0, 0, -1, $conf->currency)."/".$langs->trans("Unit");
+				$title .= price($unitprice, 0, $langs, 0, 0, -1, $config->currency)."/".$langs->trans("Unit");
 				$price = $unitprice;
 			}
 
-			$label = price($price, 0, $langs, 0, 0, -1, $conf->currency)."/".$langs->trans("Unit");
+			$label = price($price, 0, $langs, 0, 0, -1, $config->currency)."/".$langs->trans("Unit");
 			if ($productSupplier->fourn_ref) {
 				$label .= ' ('.$productSupplier->fourn_ref.')';
 			}
@@ -122,7 +122,7 @@ if ($idprod > 0) {
 			}
 		}
 
-		$prices[] = array("id" => 'pmpprice', "price" => price2num($price), "label" => $langs->trans("PMPValueShort").': '.price($price, 0, $langs, 0, 0, -1, $conf->currency), "title" => $langs->trans("PMPValueShort").': '.price($price, 0, $langs, 0, 0, -1, $conf->currency));  // For price field, we must use price2num(), for label or title, price()
+		$prices[] = array("id" => 'pmpprice', "price" => price2num($price), "label" => $langs->trans("PMPValueShort").': '.price($price, 0, $langs, 0, 0, -1, $config->currency), "title" => $langs->trans("PMPValueShort").': '.price($price, 0, $langs, 0, 0, -1, $config->currency));  // For price field, we must use price2num(), for label or title, price()
 	}
 
 	// Add price for costprice (at end)
@@ -141,7 +141,7 @@ if ($idprod > 0) {
 		}
 	}
 
-	$prices[] = array("id" => 'costprice', "price" => price2num($price), "label" => $langs->trans("CostPrice").': '.price($price, 0, $langs, 0, 0, -1, $conf->currency), "title" => $langs->trans("PMPValueShort").': '.price($price, 0, $langs, 0, 0, -1, $conf->currency)); // For price field, we must use price2num(), for label or title, price()
+	$prices[] = array("id" => 'costprice', "price" => price2num($price), "label" => $langs->trans("CostPrice").': '.price($price, 0, $langs, 0, 0, -1, $config->currency), "title" => $langs->trans("PMPValueShort").': '.price($price, 0, $langs, 0, 0, -1, $config->currency)); // For price field, we must use price2num(), for label or title, price()
 }
 
 echo json_encode($prices);

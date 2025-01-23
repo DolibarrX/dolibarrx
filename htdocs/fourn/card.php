@@ -437,7 +437,7 @@ if ($object->id > 0) {
 		dol_print_error($db, $object->error);
 	}
 	if ($amount_discount > 0) {
-		print '<a href="'.DOL_URL_ROOT.'/comm/remx.php?id='.$object->id.'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?socid='.$object->id).'&action=create&token='.newToken().'">'.price($amount_discount, 1, $langs, 1, -1, -1, $conf->currency).'</a>';
+		print '<a href="'.DOL_URL_ROOT.'/comm/remx.php?id='.$object->id.'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?socid='.$object->id).'&action=create&token='.newToken().'">'.price($amount_discount, 1, $langs, 1, -1, -1, $config->currency).'</a>';
 	}
 	//else print $langs->trans("DiscountNone");
 	print '</td>';
@@ -517,7 +517,7 @@ if ($object->id > 0) {
 		}
 		$boxstat .= '<div class="boxstats" title="'.dol_escape_htmltag($text).'">';
 		$boxstat .= '<span class="boxstatstext">'.img_object("", $icon).' <span>'.$text.'</span></span><br>';
-		$boxstat .= '<span class="boxstatsindicator">'.price($outstandingTotal, 1, $langs, 1, -1, -1, $conf->currency).'</span>';
+		$boxstat .= '<span class="boxstatsindicator">'.price($outstandingTotal, 1, $langs, 1, -1, -1, $config->currency).'</span>';
 		$boxstat .= '</div>';
 		if ($link) {
 			$boxstat .= '</a>';
@@ -538,7 +538,7 @@ if ($object->id > 0) {
 		}
 		$boxstat .= '<div class="boxstats" title="'.dol_escape_htmltag($text).'">';
 		$boxstat .= '<span class="boxstatstext">'.img_object("", $icon).' <span>'.$text.'</span></span><br>';
-		$boxstat .= '<span class="boxstatsindicator">'.price($outstandingTotal, 1, $langs, 1, -1, -1, $conf->currency).'</span>';
+		$boxstat .= '<span class="boxstatsindicator">'.price($outstandingTotal, 1, $langs, 1, -1, -1, $config->currency).'</span>';
 		$boxstat .= '</div>';
 		if ($link) {
 			$boxstat .= '</a>';
@@ -560,7 +560,7 @@ if ($object->id > 0) {
 		}
 		$boxstat .= '<div class="boxstats" title="'.dol_escape_htmltag($text).'">';
 		$boxstat .= '<span class="boxstatstext">'.img_object("", $icon).' <span>'.$text.'</span></span><br>';
-		$boxstat .= '<span class="boxstatsindicator">'.price($outstandingTotal, 1, $langs, 1, -1, -1, $conf->currency).'</span>';
+		$boxstat .= '<span class="boxstatsindicator">'.price($outstandingTotal, 1, $langs, 1, -1, -1, $config->currency).'</span>';
 		$boxstat .= '</div>';
 		if ($link) {
 			$boxstat .= '</a>';
@@ -575,7 +575,7 @@ if ($object->id > 0) {
 		}
 		$boxstat .= '<div class="boxstats" title="'.dol_escape_htmltag($text).'">';
 		$boxstat .= '<span class="boxstatstext">'.img_object("", $icon).' <span>'.$text.'</span></span><br>';
-		$boxstat .= '<span class="boxstatsindicator'.($outstandingOpened > 0 ? ' amountremaintopay' : '').'">'.price($outstandingOpened, 1, $langs, 1, -1, -1, $conf->currency).$warn.'</span>';
+		$boxstat .= '<span class="boxstatsindicator'.($outstandingOpened > 0 ? ' amountremaintopay' : '').'">'.price($outstandingOpened, 1, $langs, 1, -1, -1, $config->currency).$warn.'</span>';
 		$boxstat .= '</div>';
 		if ($link) {
 			$boxstat .= '</a>';
@@ -592,7 +592,7 @@ if ($object->id > 0) {
 			}
 			$boxstat .= '<div class="boxstats" title="'.dol_escape_htmltag($text).'">';
 			$boxstat .= '<span class="boxstatstext">'.img_object("", $icon).' <span>'.$text.'</span></span><br>';
-			$boxstat .= '<span class="boxstatsindicator'.($outstandingOpenedLate > 0 ? ' amountremaintopay' : '').'">'.price($outstandingOpenedLate, 1, $langs, 1, -1, -1, $conf->currency).$warn.'</span>';
+			$boxstat .= '<span class="boxstatsindicator'.($outstandingOpenedLate > 0 ? ' amountremaintopay' : '').'">'.price($outstandingOpenedLate, 1, $langs, 1, -1, -1, $config->currency).$warn.'</span>';
 			$boxstat .= '</div>';
 			if ($link) {
 				$boxstat .= '</a>';

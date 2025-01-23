@@ -253,7 +253,7 @@ class Don extends CommonObject
 		$sql = "SELECT rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe";
 		$sql .= " WHERE client IN (1, 3)";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 		$sql .= " LIMIT 10";
 
 		$resql = $this->db->query($sql);
@@ -428,7 +428,7 @@ class Don extends CommonObject
 		$sql .= ", phone_mobile";
 		$sql .= ") VALUES (";
 		$sql .= "'".$this->db->idate($this->date ? $this->date : $now)."'";
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ", ".((float) $this->amount);
 		$sql .= ", ".($this->modepaymentid ? $this->modepaymentid : "null");
 		$sql .= ", ".($this->socid > 0 ? $this->socid : "null");
@@ -883,7 +883,7 @@ class Don extends CommonObject
 		$sql = "SELECT sum(amount) as total";
 		$sql .= " FROM ".MAIN_DB_PREFIX."don";
 		$sql .= " WHERE fk_statut = ".((int) $param);
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -935,7 +935,7 @@ class Don extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -1069,8 +1069,8 @@ class Don extends CommonObject
 		$classname = '';
 		$filefound = 0;
 		$dirmodels = array('/');
-		if (is_array($conf->modules_parts['models'])) {
-			$dirmodels = array_merge($dirmodels, $conf->modules_parts['models']);
+		if (is_array($config->modules_parts['models'])) {
+			$dirmodels = array_merge($dirmodels, $config->modules_parts['models']);
 		}
 		foreach ($dirmodels as $reldir) {
 			foreach (array('html', 'doc', 'pdf') as $prefix) {
@@ -1196,7 +1196,7 @@ class Don extends CommonObject
 			$return .= '<br><span class="opacitymedium">'.$langs->trans("Company").'</span> : <span class="info-box-label">'.$this->societe.'</span>';
 		}
 		if (!empty($this->amount)) {
-			$return .= '<br><span class="info-box-label amount">'.price($this->amount, 1, $langs, 1, -1, -1, $conf->currency).'</span>';
+			$return .= '<br><span class="info-box-label amount">'.price($this->amount, 1, $langs, 1, -1, -1, $config->currency).'</span>';
 		}
 		if (isset($this->status)) {
 			$return .= '<br><div class="info-box-status">'.$this->getLibStatut(3).'</div>';

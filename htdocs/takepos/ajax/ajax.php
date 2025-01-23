@@ -120,8 +120,8 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 				unset($prod->fields);
 				unset($prod->db);
 
-				$prod->price_formated = price(price2num(empty($prod->multiprices[$pricelevel]) ? $prod->price : $prod->multiprices[$pricelevel], 'MT'), 1, $langs, 1, -1, -1, $conf->currency);
-				$prod->price_ttc_formated = price(price2num(empty($prod->multiprices_ttc[$pricelevel]) ? $prod->price_ttc : $prod->multiprices_ttc[$pricelevel], 'MT'), 1, $langs, 1, -1, -1, $conf->currency);
+				$prod->price_formated = price(price2num(empty($prod->multiprices[$pricelevel]) ? $prod->price : $prod->multiprices[$pricelevel], 'MT'), 1, $langs, 1, -1, -1, $config->currency);
+				$prod->price_ttc_formated = price(price2num(empty($prod->multiprices_ttc[$pricelevel]) ? $prod->price_ttc : $prod->multiprices_ttc[$pricelevel], 'MT'), 1, $langs, 1, -1, -1, $config->currency);
 
 				$res[] = $prod;
 			}
@@ -160,7 +160,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 	$filteroncategids = '';
 	if (getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) {	// A root category is defined, we must filter on products inside this category tree
 		$object = new Categorie($db);
-		//$result = $object->fetch($conf->global->TAKEPOS_ROOT_CATEGORY_ID);
+		//$result = $object->fetch($config->global->TAKEPOS_ROOT_CATEGORY_ID);
 		$arrayofcateg = $object->get_full_arbo('product', getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID'), 1);
 		if (is_array($arrayofcateg) && count($arrayofcateg) > 0) {
 			foreach ($arrayofcateg as $val) {
@@ -228,7 +228,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 
 						$ig = '../public/theme/common/nophoto.png';
 						if (!getDolGlobalString('TAKEPOS_HIDE_PRODUCT_IMAGES')) {
-							$image = $objProd->show_photos('product', $conf->product->multidir_output[$objProd->entity], 'small', 1);
+							$image = $objProd->show_photos('product', $config->product->multidir_output[$objProd->entity], 'small', 1);
 
 							$match = array();
 							preg_match('@src="([^"]+)"@', $image, $match);
@@ -290,7 +290,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 	$sql .= ' FROM '.MAIN_DB_PREFIX.'product as p';
 	/* this will be possible when field archive will be supported into llx_product_price
 	if (getDolGlobalString('PRODUIT_MULTIPRICES')) {
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product_price as pp ON pp.fk_product = p.rowid AND pp.entity = ".((int) $conf->entity)." AND pp.price_level = ".((int) $pricelevel);
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product_price as pp ON pp.fk_product = p.rowid AND pp.entity = ".((int) $config->entity)." AND pp.price_level = ".((int) $pricelevel);
 		$sql .= " AND archive = 0";
 	}*/
 	if (getDolGlobalInt('TAKEPOS_PRODUCT_IN_STOCK') == 1) {
@@ -346,7 +346,7 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 		while ($obj = $db->fetch_object($resql)) {
 			$objProd = new Product($db);
 			$objProd->fetch($obj->rowid);
-			$image = $objProd->show_photos('product', $conf->product->multidir_output[$objProd->entity], 'small', 1);
+			$image = $objProd->show_photos('product', $config->product->multidir_output[$objProd->entity], 'small', 1);
 
 			$match = array();
 			preg_match('@src="([^"]+)"@', $image, $match);
@@ -374,8 +374,8 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 				'object' => 'product',
 				'img' => $ig,
 				'qty' => 1,
-				'price_formated' => price(price2num(empty($objProd->multiprices[$pricelevel]) ? $obj->price : $objProd->multiprices[$pricelevel], 'MT'), 1, $langs, 1, -1, -1, $conf->currency),
-				'price_ttc_formated' => price(price2num(empty($objProd->multiprices_ttc[$pricelevel]) ? $obj->price_ttc : $objProd->multiprices_ttc[$pricelevel], 'MT'), 1, $langs, 1, -1, -1, $conf->currency)
+				'price_formated' => price(price2num(empty($objProd->multiprices[$pricelevel]) ? $obj->price : $objProd->multiprices[$pricelevel], 'MT'), 1, $langs, 1, -1, -1, $config->currency),
+				'price_ttc_formated' => price(price2num(empty($objProd->multiprices_ttc[$pricelevel]) ? $obj->price_ttc : $objProd->multiprices_ttc[$pricelevel], 'MT'), 1, $langs, 1, -1, -1, $config->currency)
 			);
 			// Add entries to row from hooks
 			$parameters=array();

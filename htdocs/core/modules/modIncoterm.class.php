@@ -80,9 +80,9 @@ class modIncoterm extends DolibarrModules
 		$this->tabs = array();
 
 		// Dictionaries
-		if (!isset($conf->incoterm->enabled)) {
-			$conf->incoterm = new stdClass();
-			$conf->incoterm->enabled = 0;
+		if (!isset($config->incoterm->enabled)) {
+			$config->incoterm = new stdClass();
+			$config->incoterm->enabled = 0;
 		}
 		$this->dictionaries = array(
 			'langs' => 'incoterm',
@@ -94,7 +94,7 @@ class modIncoterm extends DolibarrModules
 			'tabfieldvalue' => array("code,libelle"), // List of fields (list of fields to edit a record)
 			'tabfieldinsert' => array("code,libelle"), // List of fields (list of fields for insert)
 			'tabrowid' => array("rowid"), // Name of columns with primary key (try to always name it 'rowid')
-			'tabcond' => array($conf->incoterm->enabled),
+			'tabcond' => array($config->incoterm->enabled),
 			'tabhelp' => array(array())
 		);
 

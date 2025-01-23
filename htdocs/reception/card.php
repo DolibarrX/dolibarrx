@@ -615,7 +615,7 @@ if (empty($reshook)) {
 		// Delete file in doc form
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
-		$upload_dir = $conf->reception->dir_output;
+		$upload_dir = $config->reception->dir_output;
 		$file = $upload_dir.'/'.GETPOST('file');
 		$ret = dol_delete_file($file, 0, 0, 0, $object);
 		if ($ret) {
@@ -1776,7 +1776,7 @@ if ($action == 'create') {
 		if (!isModEnabled('stock')) {
 			$editColspan--;
 		}
-		if (empty($conf->productbatch->enabled)) {
+		if (empty($config->productbatch->enabled)) {
 			$editColspan--;
 		}
 		print '<td class="center" colspan="'.$editColspan.'">';
@@ -2008,7 +2008,7 @@ if ($action == 'create') {
 					// Warehouse source
 					print '<td>'.$formproduct->selectWarehouses($lines[$i]->fk_entrepot, 'entl'.$line_id, '', 1, 0, $lines[$i]->fk_product, '', 1).'</td>';
 					// Batch number management
-					if ($conf->productbatch->enabled && !empty($lines[$i]->product->status_batch)) {
+					if ($config->productbatch->enabled && !empty($lines[$i]->product->status_batch)) {
 						print '<td class="nowraponall left"><input name="batch'.$line_id.'" id="batch'.$line_id.'" type="text" value="'.$lines[$i]->batch.'"><br>';
 						if (!getDolGlobalString('PRODUCT_DISABLE_SELLBY')) {
 							print $langs->trans('SellByDate').' : ';
@@ -2240,7 +2240,7 @@ if ($action == 'create') {
 		print '<div class="fichecenter"><div class="fichehalfleft">';
 
 		$objectref = dol_sanitizeFileName($object->ref);
-		$filedir = $conf->reception->dir_output."/".$objectref;
+		$filedir = $config->reception->dir_output."/".$objectref;
 
 		$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 
@@ -2261,7 +2261,7 @@ if ($action == 'create') {
 	// Presend form
 	$modelmail = 'shipping_send';
 	$defaulttopic = 'SendReceptionRef';
-	$diroutput = $conf->reception->dir_output;
+	$diroutput = $config->reception->dir_output;
 	$trackid = 'rec'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

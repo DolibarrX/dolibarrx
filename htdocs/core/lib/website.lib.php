@@ -614,11 +614,11 @@ function includeContainer($containerref, $once = 0, $cachedelay = 0)
 		$containerref .= '.php';
 	}
 
-	$fullpathfile = DOL_DATA_ROOT.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/'.$websitekey.'/'.$containerref;
+	$fullpathfile = DOL_DATA_ROOT.($config->entity > 1 ? '/'.$config->entity : '').'/website/'.$websitekey.'/'.$containerref;
 	$fullpathcache = '';
 	// If we ask to use the cache delay
 	if ($cachedelay > 0 && !getDolGlobalString("WEBSITE_DISABLE_CACHE_OF_CONTAINERS")) {
-		$fullpathcache = DOL_DATA_ROOT.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/temp/'.$websitekey.'-'.$websitepage->id.'-'.$containerref.'.cache';
+		$fullpathcache = DOL_DATA_ROOT.($config->entity > 1 ? '/'.$config->entity : '').'/website/temp/'.$websitekey.'-'.$websitepage->id.'-'.$containerref.'.cache';
 	}
 
 	if (empty($includehtmlcontentopened)) {
@@ -725,7 +725,7 @@ function getStructuredData($type, $data = array())
 			"offers": {
 				"@type": "Offer",
 				"price": "'.dol_escape_json($data['price']).'",
-				"priceCurrency": "'.dol_escape_json($data['currency'] ? $data['currency'] : $conf->currency).'"
+				"priceCurrency": "'.dol_escape_json($data['currency'] ? $data['currency'] : $config->currency).'"
 			}
 		}'."\n";
 		$ret .= '</script>'."\n";
@@ -856,7 +856,7 @@ function getStructuredData($type, $data = array())
 				"offers": {
 					"@type": "Offer",
 					"url": "https://example.com/anvil",
-					"priceCurrency": "'.dol_escape_json($data['currency'] ? $data['currency'] : $conf->currency).'",
+					"priceCurrency": "'.dol_escape_json($data['currency'] ? $data['currency'] : $config->currency).'",
 					"price": "'.dol_escape_json($data['price']).'",
 					"itemCondition": "https://schema.org/UsedCondition",
 					"availability": "https://schema.org/InStock",
@@ -1318,7 +1318,7 @@ function getPagesFromSearchCriterias($type, $algo, $searchstring, $max = 25, $so
 	if (!$error && (empty($max) || ($found < $max)) && (preg_match('/sitefiles/', $algo))) {
 		global $dolibarr_main_data_root;
 
-		$pathofwebsite = $dolibarr_main_data_root.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/'.$website->ref;
+		$pathofwebsite = $dolibarr_main_data_root.($config->entity > 1 ? '/'.$config->entity : '').'/website/'.$website->ref;
 		$filehtmlheader = $pathofwebsite.'/htmlheader.html';
 		$filecss = $pathofwebsite.'/styles.css.php';
 		$filejs = $pathofwebsite.'/javascript.js.php';
@@ -1465,11 +1465,11 @@ function getAllImages($object, $objectpage, $urltograb, &$tmp, &$action, $modify
 		}
 
 		// Define $filetosave and $filename
-		$filetosave = $conf->medias->multidir_output[$conf->entity].'/image/'.$object->ref.$dirforimages.(preg_match('/^\//', $regs[2][$key]) ? '' : '/').$regs[2][$key];
+		$filetosave = $config->medias->multidir_output[$config->entity].'/image/'.$object->ref.$dirforimages.(preg_match('/^\//', $regs[2][$key]) ? '' : '/').$regs[2][$key];
 		if (preg_match('/^http/', $regs[2][$key])) {
 			$urltograbbis = $regs[2][$key];
 			$linkwithoutdomain = preg_replace('/^https?:\/\/[^\/]+\//i', '', $regs[2][$key]);
-			$filetosave = $conf->medias->multidir_output[$conf->entity].'/image/'.$object->ref.$dirforimages.(preg_match('/^\//', $linkwithoutdomain) ? '' : '/').$linkwithoutdomain;
+			$filetosave = $config->medias->multidir_output[$config->entity].'/image/'.$object->ref.$dirforimages.(preg_match('/^\//', $linkwithoutdomain) ? '' : '/').$linkwithoutdomain;
 		}
 		$filename = 'image/'.$object->ref.$dirforimages.(preg_match('/^\//', $linkwithoutdomain) ? '' : '/').$linkwithoutdomain;
 
@@ -1528,12 +1528,12 @@ function getAllImages($object, $objectpage, $urltograb, &$tmp, &$action, $modify
 			$dirforimages = '';
 		}
 
-		$filetosave = $conf->medias->multidir_output[$conf->entity].'/image/'.$object->ref.$dirforimages.(preg_match('/^\//', $regs[2][$key]) ? '' : '/').$regs[2][$key];
+		$filetosave = $config->medias->multidir_output[$config->entity].'/image/'.$object->ref.$dirforimages.(preg_match('/^\//', $regs[2][$key]) ? '' : '/').$regs[2][$key];
 
 		if (preg_match('/^http/', $regs[2][$key])) {
 			$urltograbbis = $regs[2][$key];
 			$linkwithoutdomain = preg_replace('/^https?:\/\/[^\/]+\//i', '', $regs[2][$key]);
-			$filetosave = $conf->medias->multidir_output[$conf->entity].'/image/'.$object->ref.$dirforimages.(preg_match('/^\//', $linkwithoutdomain) ? '' : '/').$linkwithoutdomain;
+			$filetosave = $config->medias->multidir_output[$config->entity].'/image/'.$object->ref.$dirforimages.(preg_match('/^\//', $linkwithoutdomain) ? '' : '/').$linkwithoutdomain;
 		}
 
 		$filename = 'image/'.$object->ref.$dirforimages.(preg_match('/^\//', $linkwithoutdomain) ? '' : '/').$linkwithoutdomain;

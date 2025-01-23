@@ -68,7 +68,7 @@ $hookManager->initHooks(array('productlotdocuments'));
 $result = restrictedArea($user, 'produit|service');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -98,7 +98,7 @@ if ($id || $ref) {
 	$object->fetch($id, $productid, $batch);
 
 	if (isModEnabled('productbatch')) {
-		$upload_dir = $conf->productbatch->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, $modulepart);
+		$upload_dir = $config->productbatch->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, $modulepart);
 		$filearray = dol_dir_list($upload_dir, "files");
 	}
 }
@@ -108,7 +108,7 @@ $usercancreate = $user->hasRight('produit', 'creer');
 $usercandelete = $user->hasRight('produit', 'supprimer');
 
 if (empty($upload_dir)) {
-	$upload_dir = $conf->productbatch->multidir_output[$conf->entity];
+	$upload_dir = $config->productbatch->multidir_output[$config->entity];
 }
 
 $permissiontoread = $usercanread;

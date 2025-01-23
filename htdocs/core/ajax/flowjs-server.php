@@ -71,8 +71,8 @@ if ($action != 'upload') {
 	httponly_accessforbidden("Param action must be 'upload'");
 }
 
-if (!empty($conf->$module->dir_temp)) {
-	$upload_dir = $conf->$module->dir_temp;
+if (!empty($config->$module->dir_temp)) {
+	$upload_dir = $config->$module->dir_temp;
 } else {
 	httponly_accessforbidden("Param module does not has a dir_temp directory. Module does not exists or is not activated.");
 }

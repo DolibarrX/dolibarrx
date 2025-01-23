@@ -138,7 +138,7 @@ $permissiontoclonesuperadmin = ($permissiontoadd && empty($user->entity));
 $permissiontocloneadmin = ($permissiontoadd && !empty($user->admin));
 $permissiontocloneuser = $permissiontoadd;
 // Can clone only in master entity if transverse mode is used
-if (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $conf->entity > 1) {
+if (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $config->entity > 1) {
 	$permissiontoclonesuperadmin = false;
 	$permissiontocloneadmin = false;
 	$permissiontocloneuser = false;
@@ -220,9 +220,9 @@ if (empty($reshook)) {
 		if ($id != $user->id) {
 			$object->fetch($id);
 
-			if (!empty($conf->file->main_limit_users)) {
+			if (!empty($config->file->main_limit_users)) {
 				$nb = $object->getNbOfUsers("active");
-				if ($nb >= $conf->file->main_limit_users) {
+				if ($nb >= $config->file->main_limit_users) {
 					$error++;
 					setEventMessages($langs->trans("YourQuotaOfUsersIsReached"), null, 'errors');
 				}
@@ -274,9 +274,9 @@ if (empty($reshook)) {
 			$action = "create"; // Go back to create page
 		}
 
-		if (!empty($conf->file->main_limit_users)) { // If option to limit users is set
+		if (!empty($config->file->main_limit_users)) { // If option to limit users is set
 			$nb = $object->getNbOfUsers("active");
-			if ($nb >= $conf->file->main_limit_users) {
+			if ($nb >= $config->file->main_limit_users) {
 				$error++;
 				setEventMessages($langs->trans("YourQuotaOfUsersIsReached"), null, 'errors');
 				$action = "create"; // Go back to create page
@@ -620,15 +620,15 @@ if (empty($reshook)) {
 
 				if (!$error && !count($object->errors)) {
 					if (!empty($object->oldcopy->photo) && (GETPOST('deletephoto') || ($object->photo != $object->oldcopy->photo))) {
-						$fileimg = $conf->user->dir_output.'/'.get_exdir(0, 0, 0, 0, $object, 'user').'photos/'.$object->oldcopy->photo;
+						$fileimg = $config->user->dir_output.'/'.get_exdir(0, 0, 0, 0, $object, 'user').'photos/'.$object->oldcopy->photo;
 						dol_delete_file($fileimg);
 
-						$dirthumbs = $conf->user->dir_output.'/'.get_exdir(0, 0, 0, 0, $object, 'user').'photos/thumbs';
+						$dirthumbs = $config->user->dir_output.'/'.get_exdir(0, 0, 0, 0, $object, 'user').'photos/thumbs';
 						dol_delete_dir_recursive($dirthumbs);
 					}
 
 					if (isset($_FILES['photo']['tmp_name']) && trim($_FILES['photo']['tmp_name'])) {
-						$dir = $conf->user->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'user').'/photos';
+						$dir = $config->user->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'user').'/photos';
 
 						dol_mkdir($dir);
 						$mesgs = null;
@@ -862,7 +862,7 @@ if (empty($reshook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_sendmails.inc.php';
 
 	// Actions to build doc
-	$upload_dir = $conf->user->dir_output;
+	$upload_dir = $config->user->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 }
 
@@ -998,7 +998,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 	if (!empty($ldap_sid)) {
 		print '<input type="hidden" name="ldap_sid" value="'.dol_escape_htmltag($ldap_sid).'">';
 	}
-	print '<input type="hidden" name="entity" value="'.$conf->entity.'">';
+	print '<input type="hidden" name="entity" value="'.$config->entity.'">';
 
 	print dol_get_fiche_head(array(), '', '', 0, '');
 
@@ -1048,7 +1048,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 	}
 	print '</td></tr>';
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		// Add code to generate the login when creating a new user.
 		// Best rule to generate would be to use the same rule than dol_buildlogin() but currently it is a PHP function not available in js.
 		// TODO Implement a dol_buildlogin in javascript.
@@ -1095,7 +1095,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 		print $form->selectyesno('admin', GETPOST('admin'), 1, false, 0, 1);
 
 		if (isModEnabled('multicompany') && !$user->entity) {
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				print '<script type="text/javascript">
                             $(function() {
                                 $("select[name=admin]").change(function() {
@@ -1147,7 +1147,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 	// Hierarchy
 	print '<tr><td class="titlefieldcreate">'.$langs->trans("HierarchicalResponsible").'</td>';
 	print '<td>';
-	print img_picto('', 'user', 'class="pictofixedwidth"').$form->select_dolusers($object->fk_user, 'fk_user', 1, array($object->id), 0, '', 0, $conf->entity, 0, 0, '', 0, '', 'maxwidth300 widthcentpercentminusx');
+	print img_picto('', 'user', 'class="pictofixedwidth"').$form->select_dolusers($object->fk_user, 'fk_user', 1, array($object->id), 0, '', 0, $config->entity, 0, 0, '', 0, '', 'maxwidth300 widthcentpercentminusx');
 	print '</td>';
 	print "</tr>\n";
 
@@ -1158,7 +1158,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 		print $form->textwithpicto($text, $langs->trans("ValidatorIsSupervisorByDefault"), 1, 'help');
 		print '</td>';
 		print '<td>';
-		print img_picto('', 'user', 'class="pictofixedwidth"').$form->select_dolusers($object->fk_user_expense_validator, 'fk_user_expense_validator', 1, array($object->id), 0, '', 0, $conf->entity, 0, 0, '', 0, '', 'maxwidth300 widthcentpercentminusx');
+		print img_picto('', 'user', 'class="pictofixedwidth"').$form->select_dolusers($object->fk_user_expense_validator, 'fk_user_expense_validator', 1, array($object->id), 0, '', 0, $config->entity, 0, 0, '', 0, '', 'maxwidth300 widthcentpercentminusx');
 		print '</td>';
 		print "</tr>\n";
 	}
@@ -1170,7 +1170,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 		print $form->textwithpicto($text, $langs->trans("ValidatorIsSupervisorByDefault"), 1, 'help');
 		print '</td>';
 		print '<td>';
-		print img_picto('', 'user', 'class="pictofixedwidth"').$form->select_dolusers($object->fk_user_holiday_validator, 'fk_user_holiday_validator', 1, array($object->id), 0, '', 0, $conf->entity, 0, 0, '', 0, '', 'maxwidth300 widthcentpercentminusx');
+		print img_picto('', 'user', 'class="pictofixedwidth"').$form->select_dolusers($object->fk_user_holiday_validator, 'fk_user_holiday_validator', 1, array($object->id), 0, '', 0, $config->entity, 0, 0, '', 0, '', 'maxwidth300 widthcentpercentminusx');
 		print '</td>';
 		print "</tr>\n";
 	}
@@ -1213,7 +1213,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 		} else {
 			// We do not use a field password but a field text to show new password to use.
 			$valuetoshow .= ($valuetoshow ? ' + '.$langs->trans("DolibarrPassword") : '').'<input class="minwidth300 maxwidth400 widthcentpercentminusx" maxlength="128" type="text" id="password" name="password" value="'.dol_escape_htmltag($password).'" autocomplete="new-password">';
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				$valuetoshow .= img_picto($langs->transnoentities('Generate'), 'refresh', 'id="generate_password" class="linkobject paddingleft"');
 			}
 		}
@@ -1237,7 +1237,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 		print '<tr><td>'.$langs->trans("ApiKey").'</td>';
 		print '<td>';
 		print '<input class="minwidth300 maxwidth400 widthcentpercentminusx" minlength="12" maxlength="128" type="text" id="api_key" name="api_key" value="'.GETPOST('api_key', 'alphanohtml').'" autocomplete="off">';
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print img_picto($langs->transnoentities('Generate'), 'refresh', 'id="generate_api_key" class="linkobject paddingleft"');
 		}
 		print '</td></tr>';
@@ -1396,12 +1396,12 @@ if ($action == 'create' || $action == 'adduserldap') {
 	if (isModEnabled('multicompany') && is_object($mc)) {
 		// This is now done with hook formObjectOptions. Keep this code for backward compatibility with old multicompany module
 		if (!method_exists($mc, 'formObjectOptions')) {
-			if (!getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $conf->entity == 1 && $user->admin && !$user->entity) {	// condition must be same for create and edit mode
+			if (!getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $config->entity == 1 && $user->admin && !$user->entity) {	// condition must be same for create and edit mode
 				print "<tr>".'<td>'.$langs->trans("Entity").'</td>';
-				print "<td>".$mc->select_entities($conf->entity);
+				print "<td>".$mc->select_entities($config->entity);
 				print "</td></tr>\n";
 			} else {
-				print '<input type="hidden" name="entity" value="'.$conf->entity.'" />';
+				print '<input type="hidden" name="entity" value="'.$config->entity.'" />';
 			}
 		}
 	}
@@ -1466,7 +1466,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 		print $form->textwithpicto($text, $langs->trans("THMDescription"), 1, 'help', 'classthm');
 		print '</td>';
 		print '<td>';
-		print '<input size="8" type="text" name="thm" value="'.dol_escape_htmltag(GETPOST('thm')).'"> '.$langs->getCurrencySymbol($conf->currency);
+		print '<input size="8" type="text" name="thm" value="'.dol_escape_htmltag(GETPOST('thm')).'"> '.$langs->getCurrencySymbol($config->currency);
 		print '</td>';
 		print "</tr>\n";
 
@@ -1476,14 +1476,14 @@ if ($action == 'create' || $action == 'adduserldap') {
 		print $form->textwithpicto($text, $langs->trans("TJMDescription"), 1, 'help', 'classtjm');
 		print '</td>';
 		print '<td>';
-		print '<input size="8" type="text" name="tjm" value="'.dol_escape_htmltag(GETPOST('tjm')).'"> '.$langs->getCurrencySymbol($conf->currency);
+		print '<input size="8" type="text" name="tjm" value="'.dol_escape_htmltag(GETPOST('tjm')).'"> '.$langs->getCurrencySymbol($config->currency);
 		print '</td>';
 		print "</tr>\n";
 
 		// Salary
 		print '<tr><td>'.$langs->trans("Salary").'</td>';
 		print '<td>';
-		print img_picto('', 'salary', 'class="pictofixedwidth paddingright"').'<input class="width100" type="text" name="salary" value="'.dol_escape_htmltag(GETPOST('salary')).'"> '.$langs->getCurrencySymbol($conf->currency);
+		print img_picto('', 'salary', 'class="pictofixedwidth paddingright"').'<input class="width100" type="text" name="salary" value="'.dol_escape_htmltag(GETPOST('salary')).'"> '.$langs->getCurrencySymbol($config->currency);
 		print '</td>';
 		print "</tr>\n";
 	}
@@ -1624,8 +1624,8 @@ if ($action == 'create' || $action == 'adduserldap') {
 		/**
 		 * Confirmation clone
 		 */
-		if (($action == 'clone' && (empty($conf->use_javascript_ajax) || !empty($conf->dol_use_jmobile)))		// Output when action = clone if jmobile or no js
-		|| (!empty($conf->use_javascript_ajax) && empty($conf->dol_use_jmobile))) {							// Always output when not jmobile nor js
+		if (($action == 'clone' && (empty($config->use_javascript_ajax) || !empty($config->dol_use_jmobile)))		// Output when action = clone if jmobile or no js
+		|| (!empty($config->use_javascript_ajax) && empty($config->dol_use_jmobile))) {							// Always output when not jmobile nor js
 			// Define confirmation messages
 			$formquestionclone = array(
 			'text' => $langs->trans("ConfirmClone"),
@@ -1789,7 +1789,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				// Salary
 				print '<tr><td>'.$langs->trans("Salary").'</td>';
 				print '<td>';
-				print($object->salary != '' ? img_picto('', 'salary', 'class="pictofixedwidth paddingright"').'<span class="amount">'.price($object->salary, 0, $langs, 1, -1, -1, $conf->currency) : '').'</span>';
+				print($object->salary != '' ? img_picto('', 'salary', 'class="pictofixedwidth paddingright"').'<span class="amount">'.price($object->salary, 0, $langs, 1, -1, -1, $config->currency) : '').'</span>';
 				print '</td>';
 				print "</tr>\n";
 
@@ -1799,7 +1799,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				print $form->textwithpicto($text, $langs->trans("THMDescription"), 1, 'help', 'classthm');
 				print '</td>';
 				print '<td>';
-				print($object->thm != '' ? price($object->thm, 0, $langs, 1, -1, -1, $conf->currency) : '');
+				print($object->thm != '' ? price($object->thm, 0, $langs, 1, -1, -1, $config->currency) : '');
 				print '</td>';
 				print "</tr>\n";
 
@@ -1809,7 +1809,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				print $form->textwithpicto($text, $langs->trans("TJMDescription"), 1, 'help', 'classtjm');
 				print '</td>';
 				print '<td>';
-				print($object->tjm != '' ? price($object->tjm, 0, $langs, 1, -1, -1, $conf->currency) : '');
+				print($object->tjm != '' ? price($object->tjm, 0, $langs, 1, -1, -1, $config->currency) : '');
 				print '</td>';
 				print "</tr>\n";
 			}
@@ -1888,7 +1888,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				print '</td></tr>';
 			}
 
-			if (isset($conf->file->main_authentication) && preg_match('/openid/', $conf->file->main_authentication) && getDolGlobalString('MAIN_OPENIDURL_PERUSER')) {
+			if (isset($config->file->main_authentication) && preg_match('/openid/', $config->file->main_authentication) && getDolGlobalString('MAIN_OPENIDURL_PERUSER')) {
 				print '<tr><td>'.$langs->trans("OpenIDURL").'</td>';
 				print '<td>'.$object->openid.'</td>';
 				print "</tr>\n";
@@ -1898,7 +1898,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 			if (isModEnabled('multicompany') && is_object($mc)) {
 				// This is now done with hook formObjectOptions. Keep this code for backward compatibility with old multicompany module
 				if (!method_exists($mc, 'formObjectOptions')) {
-					if (isModEnabled('multicompany') && !getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $conf->entity == 1 && $user->admin && !$user->entity) {
+					if (isModEnabled('multicompany') && !getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $config->entity == 1 && $user->admin && !$user->entity) {
 						print '<tr><td>'.$langs->trans("Entity").'</td><td>';
 						if (empty($object->entity)) {
 							print $langs->trans("AllEntities");
@@ -2130,7 +2130,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 					print dolGetButtonAction('', $langs->trans('SendMail'), 'default', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=presend&mode=init#formmailbeforetitle', '', $canSendMail, $params);
 				}
 
-				if ($permissiontoedit && (!isModEnabled('multicompany') || !$user->entity || ($object->entity == $conf->entity) || (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $object->entity == 1))) {
+				if ($permissiontoedit && (!isModEnabled('multicompany') || !$user->entity || ($object->entity == $config->entity) || (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $object->entity == 1))) {
 					if (getDolGlobalString('MAIN_ONLY_LOGIN_ALLOWED')) {
 						$params['attr']['title'] = $langs->trans('DisabledInMonoUserMode');
 						print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER['PHP_SELF'].'#', '', false, $params);
@@ -2139,7 +2139,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 						print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=edit&token='.newToken(), '', true, $params);
 					}
 				} elseif ($permissiontoeditpasswordandsee && !$object->ldap_sid &&
-				(!isModEnabled('multicompany') || !$user->entity || ($object->entity == $conf->entity) || (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $object->entity == 1))) {
+				(!isModEnabled('multicompany') || !$user->entity || ($object->entity == $config->entity) || (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $object->entity == 1))) {
 					unset($params['attr']['title']);
 					print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=edit', '', true, $params);
 				}
@@ -2157,7 +2157,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 					$cloneButtonId = '';
 					$cloneUserUrl = '';
 
-					if (!empty($conf->use_javascript_ajax) && empty($conf->dol_use_jmobile)) {
+					if (!empty($config->use_javascript_ajax) && empty($config->dol_use_jmobile)) {
 						$cloneUserUrl = '';
 						$cloneButtonId = 'action-clone';
 					}
@@ -2169,7 +2169,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 						$params['attr']['title'] = $langs->trans('UserDisabled');
 						print dolGetButtonAction($langs->trans('ReinitPassword'), '', 'default', $_SERVER['PHP_SELF'].'#', '', false, $params);
 					} elseif (($user->id != $id && $permissiontoeditpasswordandsee) && $object->login && !$object->ldap_sid &&
-					((!isModEnabled('multicompany') && $object->entity == $user->entity) || !$user->entity || ($object->entity == $conf->entity) || (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $object->entity == 1))) {
+					((!isModEnabled('multicompany') && $object->entity == $user->entity) || !$user->entity || ($object->entity == $config->entity) || (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $object->entity == 1))) {
 						unset($params['attr']['title']);
 						print dolGetButtonAction($langs->trans('ReinitPassword'), '', 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=password&token='.newToken(), '', true, $params);
 					}
@@ -2178,7 +2178,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 						$params['attr']['title'] = $langs->trans('UserDisabled');
 						print dolGetButtonAction($langs->trans('SendNewPassword'), '', 'default', $_SERVER['PHP_SELF'].'#', '', false, $params);
 					} elseif (($user->id != $id && $permissiontoeditpasswordandsend) && $object->login && !$object->ldap_sid &&
-					((!isModEnabled('multicompany') && $object->entity == $user->entity) || !$user->entity || ($object->entity == $conf->entity) || (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $object->entity == 1))) {
+					((!isModEnabled('multicompany') && $object->entity == $user->entity) || !$user->entity || ($object->entity == $config->entity) || (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $object->entity == 1))) {
 						if ($object->email) {
 							unset($params['attr']['title']);
 							print dolGetButtonAction($langs->trans('SendNewPassword'), '', 'default', $_SERVER['PHP_SELF'].'?id='.$object->id.'&action=passwordsend&token='.newToken(), '', true, $params);
@@ -2190,13 +2190,13 @@ if ($action == 'create' || $action == 'adduserldap') {
 				}
 
 				if ($user->id != $id && $permissiontodisable && $object->statut == 0 &&
-				((!isModEnabled('multicompany') && $object->entity == $user->entity) || !$user->entity || ($object->entity == $conf->entity) || (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $object->entity == 1))) {
+				((!isModEnabled('multicompany') && $object->entity == $user->entity) || !$user->entity || ($object->entity == $config->entity) || (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $object->entity == 1))) {
 					unset($params['attr']['title']);
 					print dolGetButtonAction($langs->trans('Reactivate'), '', 'default', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=enable&token='.newToken(), '', true, $params);
 				}
 				// Disable user
 				if ($user->id != $id && $permissiontodisable && $object->statut == 1 &&
-				((!isModEnabled('multicompany') && $object->entity == $user->entity) || !$user->entity || ($object->entity == $conf->entity) || (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $object->entity == 1))) {
+				((!isModEnabled('multicompany') && $object->entity == $user->entity) || !$user->entity || ($object->entity == $config->entity) || (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $object->entity == 1))) {
 					unset($params['attr']['title']);
 					print dolGetButtonAction($langs->trans('DisableUser'), '', 'default', $_SERVER['PHP_SELF'] . '?id=' . $object->id . '&action=disable&token='.newToken(), '', true, $params);
 				} else {
@@ -2207,7 +2207,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				}
 				// Delete
 				if ($user->id != $id && $permissiontodisable &&
-				((!isModEnabled('multicompany') && $object->entity == $user->entity) || !$user->entity || ($object->entity == $conf->entity) || (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $object->entity == 1))) {
+				((!isModEnabled('multicompany') && $object->entity == $user->entity) || !$user->entity || ($object->entity == $config->entity) || (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $object->entity == 1))) {
 					if ($user->admin || !$object->admin) { // If user edited is admin, delete is possible on for an admin
 						unset($params['attr']['title']);
 						print dolGetButtonAction($langs->trans('DeleteUser'), '', 'default', $_SERVER['PHP_SELF'].'?action=delete&token='.newToken().'&id='.$object->id, '', true, $params);
@@ -2230,7 +2230,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 			// Presend form
 			$modelmail = 'user';
 			$defaulttopic = 'Information';
-			$diroutput = $conf->user->dir_output;
+			$diroutput = $config->user->dir_output;
 			$trackid = 'use'.$object->id;
 
 			include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';
@@ -2277,7 +2277,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 						if ($permissiontoeditgroup) {
 							print $form->select_dolgroups(0, 'group', 1, $exclude, 0, '', array(), $object->entity, false, 'maxwidth150');
 							print ' &nbsp; ';
-							print '<input type="hidden" name="entity" value="'.$conf->entity.'" />';
+							print '<input type="hidden" name="entity" value="'.$config->entity.'" />';
 							print '<input type="submit" class="button buttongen button-add reposition" value="'.$langs->trans("Add").'" />';
 						}
 						print '</th></tr>'."\n";
@@ -2409,7 +2409,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 					print $form->selectyesno('admin', $object->admin, 1, false, 0, 1);
 
 					if (isModEnabled('multicompany') && !$user->entity) {
-						if ($conf->use_javascript_ajax) {
+						if ($config->use_javascript_ajax) {
 							print '<script type="text/javascript">
 									$(function() {
 										var admin = $("select[name=admin]").val();
@@ -2635,7 +2635,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 			if (preg_match('/dolibarr/', $dolibarr_main_authentication) || preg_match('/forceuser/', $dolibarr_main_authentication)) {
 				if ($permissiontoeditpasswordandsee) {
 					$valuetoshow .= ($valuetoshow ? (' '.$langs->trans("or").' ') : '').'<input maxlength="128" type="password" class="flat" id="password" name="password" value="'.dol_escape_htmltag($object->pass).'" autocomplete="new-password">';
-					if (!empty($conf->use_javascript_ajax)) {
+					if (!empty($config->use_javascript_ajax)) {
 						$valuetoshow .= img_picto((getDolGlobalString('USER_PASSWORD_GENERATED') === 'none' ? $langs->transnoentities('NoPasswordGenerationRuleConfigured') : $langs->transnoentities('Generate')), 'refresh', 'id="generate_password" class="paddingleft'.(getDolGlobalString('USER_PASSWORD_GENERATED') === 'none' ? ' opacitymedium' : ' linkobject').'"');
 					}
 				} else {
@@ -2660,7 +2660,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				print '<td>';
 				if ($permissiontoeditpasswordandsee || $user->hasRight("api", "apikey", "generate")) {
 					print '<input class="minwidth300 maxwidth400 widthcentpercentminusx" minlength="12" maxlength="128" type="text" id="api_key" name="api_key" value="'.$object->api_key.'" autocomplete="off">';
-					if (!empty($conf->use_javascript_ajax)) {
+					if (!empty($config->use_javascript_ajax)) {
 						print img_picto($langs->transnoentities('Generate'), 'refresh', 'id="generate_api_key" class="linkobject paddingleft"');
 					}
 				}
@@ -2668,7 +2668,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 			}
 
 			// OpenID url
-			if (isset($conf->file->main_authentication) && preg_match('/openid/', $conf->file->main_authentication) && getDolGlobalString('MAIN_OPENIDURL_PERUSER')) {
+			if (isset($config->file->main_authentication) && preg_match('/openid/', $config->file->main_authentication) && getDolGlobalString('MAIN_OPENIDURL_PERUSER')) {
 				print "<tr>".'<td>'.$langs->trans("OpenIDURL").'</td>';
 				print '<td>';
 				if ($permissiontoedit) {
@@ -2933,12 +2933,12 @@ if ($action == 'create' || $action == 'adduserldap') {
 			if (isModEnabled('multicompany') && is_object($mc)) {
 				// This is now done with hook formObjectOptions. Keep this code for backward compatibility with old multicompany module
 				if (!method_exists($mc, 'formObjectOptions')) {
-					if (empty($conf->multicompany->transverse_mode) && $conf->entity == 1 && $user->admin && !$user->entity) {
+					if (empty($config->multicompany->transverse_mode) && $config->entity == 1 && $user->admin && !$user->entity) {
 						print "<tr>".'<td>'.$langs->trans("Entity").'</td>';
 						print "<td>".$mc->select_entities($object->entity, 'entity', '', 0, 1, false, false, 1); // last parameter 1 means, show also a choice 0=>'all entities'
 						print "</td></tr>\n";
 					} else {
-						print '<input type="hidden" name="entity" value="'.$conf->entity.'" />';
+						print '<input type="hidden" name="entity" value="'.$config->entity.'" />';
 					}
 				}
 			}
@@ -3024,7 +3024,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				if ($permissiontoedit) {
 					print '<input size="8" type="text" name="thm" value="'.price2num(GETPOST('thm') ? GETPOST('thm') : $object->thm).'">';
 				} else {
-					print($object->thm != '' ? price($object->thm, 0, $langs, 1, -1, -1, $conf->currency) : '');
+					print($object->thm != '' ? price($object->thm, 0, $langs, 1, -1, -1, $config->currency) : '');
 				}
 				print '</td>';
 				print "</tr>\n";
@@ -3038,7 +3038,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				if ($permissiontoedit) {
 					print '<input size="8" type="text" name="tjm" value="'.price2num(GETPOST('tjm') ? GETPOST('tjm') : $object->tjm).'">';
 				} else {
-					print($object->tjm != '' ? price($object->tjm, 0, $langs, 1, -1, -1, $conf->currency) : '');
+					print($object->tjm != '' ? price($object->tjm, 0, $langs, 1, -1, -1, $config->currency) : '');
 				}
 				print '</td>';
 				print "</tr>\n";
@@ -3094,7 +3094,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 
 			// Generated documents
 			$filename = dol_sanitizeFileName($object->ref);
-			$filedir = $conf->user->dir_output."/".dol_sanitizeFileName($object->ref);
+			$filedir = $config->user->dir_output."/".dol_sanitizeFileName($object->ref);
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $user->hasRight("user", "user", "read");
 			$delallowed = $user->hasRight("user", "user", "write");

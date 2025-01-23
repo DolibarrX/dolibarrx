@@ -121,7 +121,7 @@ $search_date_modif_endday = GETPOSTINT('search_date_modif_endday');
 $search_date_modif_end = dol_mktime(23, 59, 59, $search_date_modif_endmonth, $search_date_modif_endday, $search_date_modif_endyear);	// Use tzserver
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -149,7 +149,7 @@ $hookManager->initHooks(array('contractlist'));
 
 $result = restrictedArea($user, 'contrat', $id);
 
-$diroutputmassaction = $conf->contrat->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->contrat->dir_output.'/temp/massgeneration/'.$user->id;
 
 $staticcontrat = new Contrat($db);
 $staticcontratligne = new ContratLigne($db);
@@ -297,7 +297,7 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 if (empty($reshook)) {
 	$objectclass = 'Contrat';
 	$objectlabel = 'Contracts';
-	$uploaddir = $conf->contrat->dir_output;
+	$uploaddir = $config->contrat->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -328,7 +328,7 @@ $sql .= " MIN(".$db->ifsql("cd.statut=4", "cd.date_fin_validite", "null").") as 
 $sql .= " SUM(".$db->ifsql("cd.statut=0", 1, 0).') as nb_initial,';
 $sql .= " SUM(".$db->ifsql("cd.statut=4 AND (cd.date_fin_validite IS NULL OR cd.date_fin_validite >= '".$db->idate($now)."')", 1, 0).') as nb_running,';
 $sql .= " SUM(".$db->ifsql("cd.statut=4 AND (cd.date_fin_validite IS NOT NULL AND cd.date_fin_validite < '".$db->idate($now)."')", 1, 0).') as nb_expired,';
-$sql .= " SUM(".$db->ifsql("cd.statut=4 AND (cd.date_fin_validite IS NOT NULL AND cd.date_fin_validite < '".$db->idate($now - $conf->contrat->services->expires->warning_delay)."')", 1, 0).') as nb_late,';
+$sql .= " SUM(".$db->ifsql("cd.statut=4 AND (cd.date_fin_validite IS NOT NULL AND cd.date_fin_validite < '".$db->idate($now - $config->contrat->services->expires->warning_delay)."')", 1, 0).') as nb_late,';
 $sql .= " SUM(".$db->ifsql("cd.statut=5", 1, 0).') as nb_closed';
 // Add fields from extrafields
 if (!empty($extrafields->attributes[$object->table_element]['label'])) {
@@ -631,7 +631,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($search_all != '') {
@@ -934,7 +934,7 @@ if (!empty($arrayfields['country.code_iso']['checked'])) {
 // Company type
 if (!empty($arrayfields['typent.code']['checked'])) {
 	print '<td class="liste_titre maxwidthonsmartphone center">';
-	print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $conf->global->SOCIETE_SORT_ON_TYPEENT), '', 1);
+	print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $config->global->SOCIETE_SORT_ON_TYPEENT), '', 1);
 	print '</td>';
 }
 if (!empty($arrayfields['sale_representative']['checked'])) {
@@ -1200,7 +1200,7 @@ while ($i < $imaxinloop) {
 			}
 
 			$filename = dol_sanitizeFileName($obj->ref);
-			$filedir = $conf->contrat->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
+			$filedir = $config->contrat->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 			print $formfile->getDocumentsLink($contracttmp->element, $filename, $filedir);
 			print '</td>';

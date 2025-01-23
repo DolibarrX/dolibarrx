@@ -341,8 +341,8 @@ class Commande extends CommonOrder
 		'fk_input_reason' => array('type' => 'integer', 'label' => 'InputReason', 'enabled' => 1, 'visible' => -1, 'position' => 210),
 		//'fk_delivery_address' =>array('type'=>'integer', 'label'=>'DeliveryAddress', 'enabled'=>1, 'visible'=>-1, 'position'=>215),
 		'extraparams' => array('type' => 'varchar(255)', 'label' => 'Extraparams', 'enabled' => 1, 'visible' => -1, 'position' => 225),
-		'fk_incoterms' => array('type' => 'integer', 'label' => 'IncotermCode', 'enabled' => '$conf->incoterm->enabled', 'visible' => -1, 'position' => 230),
-		'location_incoterms' => array('type' => 'varchar(255)', 'label' => 'IncotermLabel', 'enabled' => '$conf->incoterm->enabled', 'visible' => -1, 'position' => 235),
+		'fk_incoterms' => array('type' => 'integer', 'label' => 'IncotermCode', 'enabled' => '$config->incoterm->enabled', 'visible' => -1, 'position' => 230),
+		'location_incoterms' => array('type' => 'varchar(255)', 'label' => 'IncotermLabel', 'enabled' => '$config->incoterm->enabled', 'visible' => -1, 'position' => 235),
 		'fk_multicurrency' => array('type' => 'integer', 'label' => 'Fk multicurrency', 'enabled' => 'isModEnabled("multicurrency")', 'visible' => -1, 'position' => 240),
 		'multicurrency_code' => array('type' => 'varchar(255)', 'label' => 'MulticurrencyCurrency', 'enabled' => 'isModEnabled("multicurrency")', 'visible' => -1, 'position' => 245),
 		'multicurrency_tx' => array('type' => 'double(24,8)', 'label' => 'MulticurrencyRate', 'enabled' => 'isModEnabled("multicurrency")', 'visible' => -1, 'position' => 250, 'isameasure' => 1),
@@ -449,7 +449,7 @@ class Commande extends CommonOrder
 			$classname = getDolGlobalString('COMMANDE_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/commande/");
 
@@ -590,14 +590,14 @@ class Commande extends CommonOrder
 			if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 				// Now we rename also files into index
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'commande/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'commande/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'commande/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
 					$this->error = $this->db->lasterror();
 				}
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'commande/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filepath = 'commande/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filepath = 'commande/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
@@ -607,15 +607,15 @@ class Commande extends CommonOrder
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($num);
-				$dirsource = $conf->commande->multidir_output[$this->entity].'/'.$oldref;
-				$dirdest = $conf->commande->multidir_output[$this->entity].'/'.$newref;
+				$dirsource = $config->commande->multidir_output[$this->entity].'/'.$oldref;
+				$dirdest = $config->commande->multidir_output[$this->entity].'/'.$newref;
 				if (!$error && file_exists($dirsource)) {
 					dol_syslog(get_class($this)."::valid rename dir ".$dirsource." into ".$dirdest);
 
 					if (@rename($dirsource, $dirdest)) {
 						dol_syslog("Rename ok");
 						// Rename docs starting with $oldref with $newref
-						$listoffiles = dol_dir_list($conf->commande->multidir_output[$this->entity].'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+						$listoffiles = dol_dir_list($config->commande->multidir_output[$this->entity].'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 						foreach ($listoffiles as $fileentry) {
 							$dirsource = $fileentry['name'];
 							$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -946,7 +946,7 @@ class Commande extends CommonOrder
 			$this->fk_multicurrency = MultiCurrency::getIdFromCode($this->db, $this->multicurrency_code);
 		}
 		if (empty($this->fk_multicurrency)) {
-			$this->multicurrency_code = $conf->currency;
+			$this->multicurrency_code = $config->currency;
 			$this->fk_multicurrency = 0;
 			$this->multicurrency_tx = 1;
 		}
@@ -1442,7 +1442,7 @@ class Commande extends CommonOrder
 				$this->fk_multicurrency = MultiCurrency::getIdFromCode($this->db, $this->multicurrency_code);
 			}
 			if (empty($this->fk_multicurrency)) {
-				$this->multicurrency_code = $conf->currency;
+				$this->multicurrency_code = $config->currency;
 				$this->fk_multicurrency = 0;
 				$this->multicurrency_tx = 1;
 			}
@@ -1813,7 +1813,7 @@ class Commande extends CommonOrder
 			$localtax2_tx = get_localtax($tva_tx, 2, $this->thirdparty, $mysoc, $tva_npr);
 
 			// multiprix
-			if ($conf->global->PRODUIT_MULTIPRICES && $this->thirdparty->price_level) {
+			if ($config->global->PRODUIT_MULTIPRICES && $this->thirdparty->price_level) {
 				$price = $prod->multiprices[$this->thirdparty->price_level];
 			} else {
 				$price = $prod->price;
@@ -3439,8 +3439,8 @@ class Commande extends CommonOrder
 		if (!$error) {
 			// We remove directory
 			$ref = dol_sanitizeFileName($this->ref);
-			if ($conf->commande->multidir_output[$this->entity] && !empty($this->ref)) {
-				$dir = $conf->commande->multidir_output[$this->entity]."/".$ref;
+			if ($config->commande->multidir_output[$this->entity] && !empty($this->ref)) {
+				$dir = $config->commande->multidir_output[$this->entity]."/".$ref;
 				$file = $dir."/".$ref.".pdf";
 				if (file_exists($file)) {
 					dol_delete_preview($this);
@@ -3520,7 +3520,7 @@ class Commande extends CommonOrder
 			$delay_warning = 0;
 			$label = $labelShort = $url = '';
 			if ($mode == 'toship') {
-				$delay_warning = $conf->commande->client->warning_delay / 60 / 60 / 24;
+				$delay_warning = $config->commande->client->warning_delay / 60 / 60 / 24;
 				$url = DOL_URL_ROOT.'/commande/list.php?search_status=-2&mainmenu=commercial&leftmenu=orders';
 				$label = $langs->transnoentitiesnoconv("OrdersToProcess");
 				$labelShort = $langs->transnoentitiesnoconv("Opened");
@@ -3707,13 +3707,13 @@ class Commande extends CommonOrder
 				}
 			}
 			if (!empty($this->total_ht)) {
-				$datas['AmountHT'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['AmountHT'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->total_tva)) {
-				$datas['VAT'] = '<br><b>'.$langs->trans('VAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['VAT'] = '<br><b>'.$langs->trans('VAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->total_ttc)) {
-				$datas['AmountTTC'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['AmountTTC'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->date)) {
 				$datas['Date'] = '<br><b>'.$langs->trans('Date').':</b> '.dol_print_date($this->date, 'day');
@@ -3743,7 +3743,7 @@ class Commande extends CommonOrder
 	{
 		global $conf, $langs, $user, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -3927,7 +3927,7 @@ class Commande extends CommonOrder
 		$this->id = 0;
 		$this->ref = 'SPECIMEN';
 		$this->specimen = 1;
-		$this->entity = $conf->entity;
+		$this->entity = $config->entity;
 		$this->socid = 1;
 		$this->date = time();
 		$this->date_lim_reglement = $this->date + 3600 * 24 * 30;
@@ -3940,7 +3940,7 @@ class Commande extends CommonOrder
 		$this->note_private = 'This is a comment (private)';
 
 		$this->multicurrency_tx = 1;
-		$this->multicurrency_code = $conf->currency;
+		$this->multicurrency_code = $config->currency;
 
 		$this->status = $this::STATUS_DRAFT;
 
@@ -4115,7 +4115,7 @@ class Commande extends CommonOrder
 
 		$now = dol_now();
 
-		return max($this->date, $this->delivery_date) < ($now - $conf->commande->client->warning_delay);
+		return max($this->date, $this->delivery_date) < ($now - $config->commande->client->warning_delay);
 	}
 
 	/**
@@ -4132,7 +4132,7 @@ class Commande extends CommonOrder
 		} else {
 			$text = $text = $langs->trans("DeliveryDate").' '.dol_print_date($this->delivery_date, 'day');
 		}
-		$text .= ' '.($conf->commande->client->warning_delay > 0 ? '+' : '-').' '.round(abs($conf->commande->client->warning_delay) / 3600 / 24, 1).' '.$langs->trans("days").' < '.$langs->trans("Today");
+		$text .= ' '.($config->commande->client->warning_delay > 0 ? '+' : '-').' '.round(abs($config->commande->client->warning_delay) / 3600 / 24, 1).' '.$langs->trans("days").' < '.$langs->trans("Today");
 
 		return $text;
 	}

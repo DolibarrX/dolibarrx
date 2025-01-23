@@ -119,7 +119,7 @@ class box_task extends ModeleBoxes
 			$boxcontent .= '<button type="submit" class="button buttongen button-save">'.$langs->trans("Refresh").'</button>';
 			$boxcontent .= '</form>'."\n";
 			$boxcontent .= '</div>'."\n";
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				$boxcontent .= '<script nonce="'.getNonce().'" type="text/javascript">
 						jQuery(document).ready(function() {
 							jQuery("#idsubimg'.$this->boxcode.'").click(function() {
@@ -158,7 +158,7 @@ class box_task extends ModeleBoxes
 			}
 
 			$sql .= " WHERE ";
-			$sql .= " pt.entity = ".$conf->entity;
+			$sql .= " pt.entity = ".$config->entity;
 			$sql .= " AND p.fk_statut = ".Project::STATUS_VALIDATED;
 			$sql .= " AND (pt.progress < 100 OR pt.progress IS NULL ) "; // 100% is done and not displayed
 			$sql .= " AND p.usage_task = 1 ";

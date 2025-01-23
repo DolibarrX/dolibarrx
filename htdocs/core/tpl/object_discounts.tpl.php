@@ -57,7 +57,7 @@ if ($fixedDiscount > 0) {
 	$translationKey = (empty($discount_type)) ? 'CompanyHasRelativeDiscount' : 'HasRelativeDiscountFromSupplier';
 	print $langs->trans($translationKey, $fixedDiscount);
 } else {
-	if ($conf->dol_optimize_smallscreen) {
+	if ($config->dol_optimize_smallscreen) {
 		$translationKey = 'RelativeDiscount';
 	} else {
 		$translationKey = (empty($discount_type)) ? 'CompanyHasNoRelativeDiscount' : 'HasNoRelativeDiscountFromSupplier';
@@ -73,7 +73,7 @@ if ($absolute_discount > 0) {
 	print '<!-- absolute_discount -->';
 	if (!empty($cannotApplyDiscount) || !$isInvoice || $isNewObject || $object->statut > $objclassname::STATUS_DRAFT || $object->type == $objclassname::TYPE_CREDIT_NOTE || $object->type == $objclassname::TYPE_DEPOSIT) {
 		$translationKey = empty($discount_type) ? 'CompanyHasDownPaymentOrCommercialDiscount' : 'HasDownPaymentOrCommercialDiscountFromSupplier';
-		$text = $langs->trans($translationKey, price($absolute_discount, 0, $langs, 1, -1, -1, $conf->currency)).'.';
+		$text = $langs->trans($translationKey, price($absolute_discount, 0, $langs, 1, -1, -1, $config->currency)).'.';
 
 		if ($isInvoice && !$isNewObject && $object->statut > $objclassname::STATUS_DRAFT && $object->type != $objclassname::TYPE_CREDIT_NOTE && $object->type != $objclassname::TYPE_DEPOSIT) {
 			$text = $form->textwithpicto($text, $langs->trans('AbsoluteDiscountUse'));
@@ -102,7 +102,7 @@ if ($absolute_creditnote > 0) {
 	// If validated, we show link "add credit note to payment"
 	if (!empty($cannotApplyDiscount) || !$isInvoice || $isNewObject || $object->statut != $objclassname::STATUS_VALIDATED || $object->type == $objclassname::TYPE_CREDIT_NOTE) {
 		$translationKey = empty($discount_type) ? 'CompanyHasCreditNote' : 'HasCreditNoteFromSupplier';
-		$text = $langs->trans($translationKey, price($absolute_creditnote, 0, $langs, 1, -1, -1, $conf->currency));
+		$text = $langs->trans($translationKey, price($absolute_creditnote, 0, $langs, 1, -1, -1, $config->currency));
 
 		if ($isInvoice && !$isNewObject && $object->statut == $objclassname::STATUS_DRAFT && $object->type != $objclassname::TYPE_DEPOSIT) {
 			$text = $form->textwithpicto($text, $langs->trans('CreditNoteDepositUse'));
@@ -125,7 +125,7 @@ if ($absolute_creditnote > 0) {
 }
 
 if ($absolute_discount <= 0 && $absolute_creditnote <= 0) {
-	if ($conf->dol_optimize_smallscreen) {
+	if ($config->dol_optimize_smallscreen) {
 		$translationKey = 'AbsoluteDiscount';
 	} else {
 		$translationKey = !empty($discount_type) ? 'HasNoAbsoluteDiscountFromSupplier' : 'CompanyHasNoAbsoluteDiscount';

@@ -70,7 +70,7 @@ if ($action == 'update' && !empty($arrayofparameters) && is_array($arrayofparame
 				$val_const = GETPOST($key, 'alpha');
 			}
 
-			$result = dolibarr_set_const($db, $key, $val_const, 'chaine', 0, '', $conf->entity);
+			$result = dolibarr_set_const($db, $key, $val_const, 'chaine', 0, '', $config->entity);
 			if ($result < 0) {
 				$error++;
 				break;
@@ -109,7 +109,7 @@ if ($action == 'deletefile' && $modulepart == 'doctemplates' && !empty($user->ad
 			}
 		} else {
 			$upload_dir = $tmpdir;
-			break;	// So we take the first directory found into setup $conf->global->$keyforuploaddir
+			break;	// So we take the first directory found into setup $config->global->$keyforuploaddir
 		}
 	}
 
@@ -132,7 +132,7 @@ if ($action == 'setModuleOptions' && !empty($user->admin)) {
 				$param = GETPOST("param".$reg[1], 'aZ09');
 				$value = GETPOST("value".$reg[1], 'alpha');
 				if ($param) {
-					$res = dolibarr_set_const($db, $param, $value, 'chaine', 0, '', $conf->entity);
+					$res = dolibarr_set_const($db, $param, $value, 'chaine', 0, '', $config->entity);
 					if (!($res > 0)) {
 						$error++;
 					}
@@ -167,7 +167,7 @@ if ($action == 'setModuleOptions' && !empty($user->admin)) {
 				}
 			} else {
 				$upload_dir = $tmpdir;
-				break;	// So we take the first directory found into setup $conf->global->$keyforuploaddir
+				break;	// So we take the first directory found into setup $config->global->$keyforuploaddir
 			}
 		}
 

@@ -67,7 +67,7 @@ class box_graph_nb_tickets_type extends ModeleBoxes
 		global $theme_datacolor, $badgeStatus8;
 
 		require_once DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php";
-		require_once DOL_DOCUMENT_ROOT."/theme/".$conf->theme."/theme_vars.inc.php";
+		require_once DOL_DOCUMENT_ROOT."/theme/".$config->theme."/theme_vars.inc.php";
 
 
 		$badgeStatus8 = '#993013';
@@ -154,7 +154,7 @@ class box_graph_nb_tickets_type extends ModeleBoxes
 					}
 					$px1->SetData($data);
 					$px1->setShowLegend(2);
-					if (!empty($conf->dol_optimize_smallscreen)) {
+					if (!empty($config->dol_optimize_smallscreen)) {
 						$px1->SetWidth(320);
 					}
 					$px1->SetType(array('pie'));

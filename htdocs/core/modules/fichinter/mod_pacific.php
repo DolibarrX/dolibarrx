@@ -103,7 +103,7 @@ class mod_pacific extends ModeleNumRefFicheinter
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
 		$sql .= " FROM ".MAIN_DB_PREFIX."fichinter";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
-		$sql .= " WHERE entity = ".$conf->entity;
+		$sql .= " WHERE entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {
@@ -138,7 +138,7 @@ class mod_pacific extends ModeleNumRefFicheinter
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
 		$sql .= " FROM ".MAIN_DB_PREFIX."fichinter";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {

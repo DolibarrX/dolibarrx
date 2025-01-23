@@ -47,7 +47,7 @@ $export_type = GETPOST('export_type', 'alpha');
 $file = dol_sanitizeFileName(GETPOST('filename_template', 'alpha'));
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -82,7 +82,7 @@ if ($file && !$what) {
 }
 
 if ($action == 'delete') {
-	$file = $conf->admin->dir_output.'/'.dol_sanitizeFileName(GETPOST('urlfile'));
+	$file = $config->admin->dir_output.'/'.dol_sanitizeFileName(GETPOST('urlfile'));
 	$ret = dol_delete_file($file, 1);
 	if ($ret) {
 		setEventMessages($langs->trans("FileWasRemoved", GETPOST('urlfile')), null, 'mesgs');
@@ -118,7 +118,7 @@ $dump_buffer_len = 0;
 $time_start = time();
 
 
-$outputdir  = $conf->admin->dir_output.'/backup';
+$outputdir  = $config->admin->dir_output.'/backup';
 $result = dol_mkdir($outputdir);
 
 
@@ -143,7 +143,7 @@ if ($what == 'mysql') {
 	}
 
 	if (!$errormsg && $cmddump) {
-		dolibarr_set_const($db, 'SYSTEMTOOLS_MYSQLDUMP', $cmddump, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'SYSTEMTOOLS_MYSQLDUMP', $cmddump, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!$errormsg) {
@@ -182,7 +182,7 @@ if ($what == 'postgresql') {
 	} */
 
 	if (!$errormsg && $cmddump) {
-		dolibarr_set_const($db, 'SYSTEMTOOLS_POSTGRESQLDUMP', $cmddump, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'SYSTEMTOOLS_POSTGRESQLDUMP', $cmddump, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!$errormsg) {

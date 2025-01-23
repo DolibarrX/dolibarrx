@@ -101,24 +101,24 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 header('Cache-Control: Public, must-revalidate');
 
 if (GETPOST('dol_hide_topmenu')) {
-	$conf->dol_hide_topmenu = 1;
+	$config->dol_hide_topmenu = 1;
 }
 if (GETPOST('dol_hide_leftmenu')) {
-	$conf->dol_hide_leftmenu = 1;
+	$config->dol_hide_leftmenu = 1;
 }
 if (GETPOST('dol_optimize_smallscreen')) {
-	$conf->dol_optimize_smallscreen = 1;
+	$config->dol_optimize_smallscreen = 1;
 }
 if (GETPOST('dol_no_mouse_hover')) {
-	$conf->dol_no_mouse_hover = 1;
+	$config->dol_no_mouse_hover = 1;
 }
 if (GETPOST('dol_use_jmobile')) {
-	$conf->dol_use_jmobile = 1;
+	$config->dol_use_jmobile = 1;
 }
 
 // If we force to use jmobile, then we reenable javascript
-if (!empty($conf->dol_use_jmobile)) {
-	$conf->use_javascript_ajax = 1;
+if (!empty($config->dol_use_jmobile)) {
+	$config->use_javascript_ajax = 1;
 }
 
 $php_self = empty($php_self) ? dol_escape_htmltag($_SERVER['PHP_SELF']) : $php_self;
@@ -142,7 +142,7 @@ $php_self = preg_replace('/(&amp;)+/', '&amp;', $php_self);
 
 // Javascript code on logon page only to detect user tz, dst_observed, dst_first, dst_second
 $arrayofjs = array(
-	'/core/js/dst.js'.(empty($conf->dol_use_jmobile) ? '' : '?version='.urlencode(DOL_VERSION))
+	'/core/js/dst.js'.(empty($config->dol_use_jmobile) ? '' : '?version='.urlencode(DOL_VERSION))
 );
 
 // We display application title instead Login term
@@ -162,7 +162,7 @@ if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 }
 
 // If OpenID Connect is set as an authentication
-if (getDolGlobalInt('MAIN_MODULE_OPENIDCONNECT', 0) > 0 && isset($conf->file->main_authentication) && preg_match('/openid_connect/', $conf->file->main_authentication)) {
+if (getDolGlobalInt('MAIN_MODULE_OPENIDCONNECT', 0) > 0 && isset($config->file->main_authentication) && preg_match('/openid_connect/', $config->file->main_authentication)) {
 	// Set a cookie to transfer rollback page information
 	$prefix = dol_getprefix('');
 	if (empty($_COOKIE["DOL_rollback_url_$prefix"])) {
@@ -170,7 +170,7 @@ if (getDolGlobalInt('MAIN_MODULE_OPENIDCONNECT', 0) > 0 && isset($conf->file->ma
 	}
 
 	// Auto redirect if OpenID Connect is the only authentication
-	if ($conf->file->main_authentication === 'openid_connect') {
+	if ($config->file->main_authentication === 'openid_connect') {
 		// Avoid redirection hell
 		if (empty(GETPOST('openid_mode'))) {
 			dol_include_once('/core/lib/openid_connect.lib.php');
@@ -189,8 +189,8 @@ top_htmlhead('', $titleofloginpage, 0, 0, $arrayofjs, array(), 1, $disablenofoll
 $helpcenterlink = getDolGlobalString('MAIN_HELPCENTER_LINKTOUSE');
 
 $colorbackhmenu1 = '60,70,100'; // topmenu
-if (!isset($conf->global->THEME_ELDY_TOPMENU_BACK1)) {
-	$conf->global->THEME_ELDY_TOPMENU_BACK1 = $colorbackhmenu1;
+if (!isset($config->global->THEME_ELDY_TOPMENU_BACK1)) {
+	$config->global->THEME_ELDY_TOPMENU_BACK1 = $colorbackhmenu1;
 }
 $colorbackhmenu1 = getDolUserString('THEME_ELDY_ENABLE_PERSONALIZED') ? getDolUserString('THEME_ELDY_TOPMENU_BACK1', $colorbackhmenu1) : getDolGlobalString('THEME_ELDY_TOPMENU_BACK1', $colorbackhmenu1);
 $colorbackhmenu1 = implode(',', colorStringToArray($colorbackhmenu1)); // Normalize value to 'x,y,z'
@@ -198,7 +198,7 @@ $colorbackhmenu1 = implode(',', colorStringToArray($colorbackhmenu1)); // Normal
 print "<!-- BEGIN PHP TEMPLATE LOGIN.TPL.PHP -->\n";
 
 if (getDolGlobalString('ADD_UNSPLASH_LOGIN_BACKGROUND')) {
-	// For example $conf->global->ADD_UNSPLASH_LOGIN_BACKGROUND = 'https://source.unsplash.com/random'?>
+	// For example $config->global->ADD_UNSPLASH_LOGIN_BACKGROUND = 'https://source.unsplash.com/random'?>
 	<body class="body bodylogin" style="background-image: url('<?php echo dol_escape_htmltag(getDolGlobalString('ADD_UNSPLASH_LOGIN_BACKGROUND')); ?>'); background-repeat: no-repeat; background-position: center center; background-attachment: fixed; background-size: cover; background-color: #ffffff;">
 	<?php
 } else {
@@ -208,7 +208,7 @@ if (getDolGlobalString('ADD_UNSPLASH_LOGIN_BACKGROUND')) {
 }
 ?>
 
-<?php if (empty($conf->dol_use_jmobile)) { ?>
+<?php if (empty($config->dol_use_jmobile)) { ?>
 <script>
 $(document).ready(function () {
 	/* Set focus on correct field */
@@ -221,7 +221,7 @@ $(document).ready(function () {
 
 <div class="login_center center"<?php
 if (!getDolGlobalString('ADD_UNSPLASH_LOGIN_BACKGROUND')) {
-	$backstyle = 'background: linear-gradient('.((!empty($conf->browser->layout) && $conf->browser->layout == 'phone') ? '0deg' : '4deg').', rgb(240,240,240) 52%, rgb('.$colorbackhmenu1.') 52.1%);';
+	$backstyle = 'background: linear-gradient('.((!empty($config->browser->layout) && $config->browser->layout == 'phone') ? '0deg' : '4deg').', rgb(240,240,240) 52%, rgb('.$colorbackhmenu1.') 52.1%);';
 	// old style:  $backstyle = 'background-image: linear-gradient(rgb('.$colorbackhmenu1.',0.3), rgb(240,240,240));';
 	$backstyle = getDolGlobalString('MAIN_LOGIN_BACKGROUND_STYLE', $backstyle);
 	print !getDolGlobalString('MAIN_LOGIN_BACKGROUND') ? ' style="background-size: cover; background-position: center center; background-attachment: fixed; background-repeat: no-repeat; '.$backstyle.'"' : '';
@@ -282,7 +282,7 @@ if ($disablenofollow) {
 <div class="tagtable left centpercent" title="<?php echo $langs->trans("EnterLoginDetail"); ?>">
 
 <!-- Login -->
-<?php if (!isset($conf->file->main_authentication) || $conf->file->main_authentication != 'googleoauth') { ?>
+<?php if (!isset($config->file->main_authentication) || $config->file->main_authentication != 'googleoauth') { ?>
 <div class="trinputlogin">
 <div class="tagtd nowraponall center valignmiddle tdinputlogin">
 	<?php if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
@@ -318,7 +318,7 @@ if (!empty($captcha)) {
 	}
 
 	// List of directories where we can find captcha handlers
-	$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), (isset($conf->modules_parts['captcha']) && is_array($conf->modules_parts['captcha'])) ? $conf->modules_parts['captcha'] : array());
+	$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), (isset($config->modules_parts['captcha']) && is_array($config->modules_parts['captcha'])) ? $config->modules_parts['captcha'] : array());
 	$fullpathclassfile = '';
 	foreach ($dirModCaptcha as $dir) {
 		$fullpathclassfile = dol_buildpath($dir."modCaptcha".ucfirst($captcha).'.class.php', 0, 2);
@@ -378,7 +378,7 @@ if (!empty($morelogincontent)) {
 
 
 <!-- Button Connection -->
-<?php if (!isset($conf->file->main_authentication) || $conf->file->main_authentication != 'googleoauth') { ?>
+<?php if (!isset($config->file->main_authentication) || $config->file->main_authentication != 'googleoauth') { ?>
 <br>
 <div id="login-submit-wrapper">
 <input type="submit" class="button" value="&nbsp; <?php echo $langs->trans('Connection'); ?> &nbsp;" tabindex="5" />
@@ -387,7 +387,7 @@ if (!empty($morelogincontent)) {
 
 
 <?php
-if (isset($conf->file->main_authentication) && $conf->file->main_authentication == 'googleoauth') {
+if (isset($config->file->main_authentication) && $config->file->main_authentication == 'googleoauth') {
 	$forgetpasslink = '';
 }
 
@@ -430,7 +430,7 @@ if ($forgetpasslink || $helpcenterlink) {
 	echo '</div>';
 }
 
-if (getDolGlobalInt('MAIN_MODULE_OPENIDCONNECT', 0) > 0 && isset($conf->file->main_authentication) && preg_match('/openid/', $conf->file->main_authentication)) {
+if (getDolGlobalInt('MAIN_MODULE_OPENIDCONNECT', 0) > 0 && isset($config->file->main_authentication) && preg_match('/openid/', $config->file->main_authentication)) {
 	dol_include_once('/core/lib/openid_connect.lib.php');
 	$langs->load("users");
 
@@ -453,7 +453,7 @@ if (getDolGlobalInt('MAIN_MODULE_OPENIDCONNECT', 0) > 0 && isset($conf->file->ma
 	print '</div>';
 }
 
-if (isset($conf->file->main_authentication) && preg_match('/google/', $conf->file->main_authentication) && strpos($conf->browser->ua, 'DoliDroid') === false) {
+if (isset($config->file->main_authentication) && preg_match('/google/', $config->file->main_authentication) && strpos($config->browser->ua, 'DoliDroid') === false) {
 	$langs->load("users");
 
 	echo '<div class="center" style="margin-top: 20px; margin-bottom: 10px">';
@@ -502,7 +502,7 @@ if (!empty($_SESSION['dol_loginmesg'])) {
 	$message = $_SESSION['dol_loginmesg'];	// By default this is an error message
 }
 if (!empty($message)) {
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		if (preg_match('/<!-- warning -->/', $message)) {	// if it contains this comment, this is a warning message
 			$message = str_replace('<!-- warning -->', '', $message);
 			dol_htmloutput_mesg($message, array(), 'warning');

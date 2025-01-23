@@ -147,9 +147,9 @@ class modMrp extends DolibarrModules
 			'fr_FR:ParentCompany'=>'Maison mère ou revendeur'
 		)*/
 
-		if (!isset($conf->mrp) || !isset($conf->mrp->enabled)) {
-			$conf->mrp = new stdClass();
-			$conf->mrp->enabled = 0;
+		if (!isset($config->mrp) || !isset($config->mrp->enabled)) {
+			$config->mrp = new stdClass();
+			$config->mrp->enabled = 0;
 		}
 
 		// Array to add new pages in new tabs
@@ -203,13 +203,13 @@ class modMrp extends DolibarrModules
 			//      'frequency' => 2,
 			//      'unitfrequency' => 3600,
 			//      'status' => 0,
-			//      'test' => '$conf->mrp->enabled',
+			//      'test' => '$config->mrp->enabled',
 			//      'priority' => 50,
 			//  ),
 		);
 		// Example: $this->cronjobs=array(
-		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->mrp->enabled', 'priority'=>50),
-		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->mrp->enabled', 'priority'=>50)
+		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$config->mrp->enabled', 'priority'=>50),
+		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$config->mrp->enabled', 'priority'=>50)
 		// );
 
 		// Permissions provided by this module
@@ -460,7 +460,7 @@ class modMrp extends DolibarrModules
 
 		// Add extra fields
 		$import_extrafield_sample = array();
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'mrp_mo' AND entity IN (0, ".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'mrp_mo' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 
 		if ($resql) {
@@ -549,8 +549,8 @@ class modMrp extends DolibarrModules
 		}
 
 		$sql = array(
-			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape('vinci')."' AND type = 'mrp' AND entity = ".((int) $conf->entity),
-			"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape('vinci')."','mrp',".((int) $conf->entity).")"
+			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape('vinci')."' AND type = 'mrp' AND entity = ".((int) $config->entity),
+			"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape('vinci')."','mrp',".((int) $config->entity).")"
 		);
 
 		return $this->_init($sql, $options);

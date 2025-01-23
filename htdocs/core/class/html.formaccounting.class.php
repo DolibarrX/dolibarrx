@@ -99,7 +99,7 @@ class FormAccounting extends Form
 			$sql = "SELECT rowid, code, label, nature, entity, active";
 			$sql .= " FROM ".$this->db->prefix()."accounting_journal";
 			$sql .= " WHERE active = 1";
-			$sql .= " AND entity = ".((int) $conf->entity);
+			$sql .= " AND entity = ".((int) $config->entity);
 			if ($nature && is_numeric($nature)) {
 				$sql .= " AND nature = ".((int) $nature);
 			}
@@ -179,7 +179,7 @@ class FormAccounting extends Form
 			$sql = "SELECT rowid, code, label, nature, entity, active";
 			$sql .= " FROM ".$this->db->prefix()."accounting_journal";
 			$sql .= " WHERE active = 1";
-			$sql .= " AND entity = ".$conf->entity;
+			$sql .= " AND entity = ".$config->entity;
 			if ($nature && is_numeric($nature)) {
 				$sql .= " AND nature = ".((int) $nature);
 			}
@@ -399,7 +399,7 @@ class FormAccounting extends Form
 			} elseif ($active === '0') {
 				$sql .= " AND aa.active = 0";
 			}
-			$sql .= " AND aa.entity=".((int) $conf->entity);
+			$sql .= " AND aa.entity=".((int) $config->entity);
 			$sql .= " ORDER BY aa.account_number";
 
 			dol_syslog(get_class($this)."::select_account", LOG_DEBUG);
@@ -544,7 +544,7 @@ class FormAccounting extends Form
 		$out = '';
 		$out .= Form::selectarray($htmlname, $aux_account, $selectid, ($showempty ? (is_numeric($showempty) ? 1 : $showempty) : 0), 0, 0, '', 0, 0, 0, '', $morecss, 1);
 		//automatic filling if we give the name of the subledger_label input
-		if (!empty($conf->use_javascript_ajax) && !empty($labelhtmlname)) {
+		if (!empty($config->use_javascript_ajax) && !empty($labelhtmlname)) {
 			$out .= '<script nonce="'.getNonce().'">
 				jQuery(document).ready(() => {
 					$("#'.$htmlname.'").on("select2:select", function(e) {

@@ -108,9 +108,9 @@ class modDav extends DolibarrModules
 		);
 
 
-		if (!isset($conf->dav) || !isset($conf->dav->enabled)) {
-			$conf->dav = new stdClass();
-			$conf->dav->enabled = 0;
+		if (!isset($config->dav) || !isset($config->dav->enabled)) {
+			$config->dav = new stdClass();
+			$config->dav->enabled = 0;
 		}
 
 
@@ -207,7 +207,7 @@ class modDav extends DolibarrModules
 								'url'=>'/dav/davindex.php',
 								'langs'=>'dav@dav',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 								'position'=>1000+$r,
-								'enabled'=>'$conf->dav->enabled',	// Define condition to show or hide menu entry. Use '$conf->dav->enabled' if entry must be visible if module is enabled.
+								'enabled'=>'$config->dav->enabled',	// Define condition to show or hide menu entry. Use '$config->dav->enabled' if entry must be visible if module is enabled.
 								'perms'=>'1',			                // Use 'perms'=>'$user->rights->dav->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
@@ -223,7 +223,7 @@ class modDav extends DolibarrModules
 								'url'=>'/dav/myobject_list.php',
 								'langs'=>'dav@dav',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 								'position'=>1000+$r,
-								'enabled'=>'$conf->dav->enabled',  // Define condition to show or hide menu entry. Use '$conf->dav->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+								'enabled'=>'$config->dav->enabled',  // Define condition to show or hide menu entry. Use '$config->dav->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 								'perms'=>'1',			                // Use 'perms'=>'$user->rights->dav->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
@@ -235,7 +235,7 @@ class modDav extends DolibarrModules
 								'url'=>'/dav/myobject_page.php?action=create',
 								'langs'=>'dav@dav',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 								'position'=>1000+$r,
-								'enabled'=>'$conf->dav->enabled',  // Define condition to show or hide menu entry. Use '$conf->dav->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+								'enabled'=>'$config->dav->enabled',  // Define condition to show or hide menu entry. Use '$config->dav->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 								'perms'=>'1',			                // Use 'perms'=>'$user->rights->dav->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
@@ -256,11 +256,11 @@ class modDav extends DolibarrModules
 		include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		$extrafields = new ExtraFields($this->db);
 
-		//$result1=$extrafields->addExtraField('myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'dav@dav', '$conf->dav->enabled');
-		//$result2=$extrafields->addExtraField('myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'dav@dav', '$conf->dav->enabled');
-		//$result3=$extrafields->addExtraField('myattr3', "New Attr 3 label", 'varchar', 1, 10, 'bank_account', 0, 0, '', '', 1, '', 0, 0, '', '', 'dav@dav', '$conf->dav->enabled');
-		//$result4=$extrafields->addExtraField('myattr4', "New Attr 4 label", 'select',  1,  3, 'thirdparty',   0, 1, '', array('options'=>array('code1'=>'Val1','code2'=>'Val2','code3'=>'Val3')), 1 '', 0, 0, '', '', 'dav@dav', '$conf->dav->enabled');
-		//$result5=$extrafields->addExtraField('myattr5', "New Attr 5 label", 'text',    1, 10, 'user',         0, 0, '', '', 1, '', 0, 0, '', '', 'dav@dav', '$conf->dav->enabled');
+		//$result1=$extrafields->addExtraField('myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'dav@dav', '$config->dav->enabled');
+		//$result2=$extrafields->addExtraField('myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'dav@dav', '$config->dav->enabled');
+		//$result3=$extrafields->addExtraField('myattr3', "New Attr 3 label", 'varchar', 1, 10, 'bank_account', 0, 0, '', '', 1, '', 0, 0, '', '', 'dav@dav', '$config->dav->enabled');
+		//$result4=$extrafields->addExtraField('myattr4', "New Attr 4 label", 'select',  1,  3, 'thirdparty',   0, 1, '', array('options'=>array('code1'=>'Val1','code2'=>'Val2','code3'=>'Val3')), 1 '', 0, 0, '', '', 'dav@dav', '$config->dav->enabled');
+		//$result5=$extrafields->addExtraField('myattr5', "New Attr 5 label", 'text',    1, 10, 'user',         0, 0, '', '', 1, '', 0, 0, '', '', 'dav@dav', '$config->dav->enabled');
 
 		$sql = array();
 

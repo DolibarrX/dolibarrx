@@ -257,7 +257,7 @@ if ($action == 'update_extras_line' && $permissiontoadd) {
 
 
 // Actions to build doc
-$upload_dir = $conf->expedition->dir_output.'/receipt';
+$upload_dir = $config->expedition->dir_output.'/receipt';
 include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 include DOL_DOCUMENT_ROOT.'/core/actions_printing.inc.php';
@@ -681,7 +681,7 @@ if ($action == 'create') {
 			 */
 
 			$objectref = dol_sanitizeFileName($object->ref);
-			$filedir = $conf->expedition->dir_output."/receipt/".$objectref;
+			$filedir = $config->expedition->dir_output."/receipt/".$objectref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 
 			$genallowed = $user->hasRight('expedition', 'delivery', 'lire');

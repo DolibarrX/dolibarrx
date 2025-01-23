@@ -82,7 +82,7 @@ $search_dateclose_end = dol_mktime(23, 59, 59, GETPOSTINT('search_dateclose_endm
 
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -97,7 +97,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new Ticket($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->ticket->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->ticket->dir_output.'/temp/massgeneration/'.$user->id;
 if ($socid > 0) {
 	$hookManager->initHooks(array('thirdpartyticket', 'globalcard'));
 } elseif ($projectid > 0) {
@@ -249,7 +249,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Ticket';
 	$objectlabel = 'Ticket';
-	$uploaddir = $conf->ticket->dir_output;
+	$uploaddir = $config->ticket->dir_output;
 
 	global $error;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
@@ -348,7 +348,7 @@ $moretitle = '';
 if ($socid > 0) {
 	$socstatic->fetch($socid);
 	$moretitle = $langs->trans("ThirdParty") . ' - ';
-	if (getDolGlobalString('MAIN_HTML_TITLE') && preg_match('/thirdpartynameonly/', $conf->global->MAIN_HTML_TITLE) && $socstatic->name) {
+	if (getDolGlobalString('MAIN_HTML_TITLE') && preg_match('/thirdpartynameonly/', $config->global->MAIN_HTML_TITLE) && $socstatic->name) {
 		$moretitle = $socstatic->name . ' - ';
 	}
 }
@@ -663,7 +663,7 @@ if (!empty($mode)) {
 if (/* !empty($contextpage) && */ $contextpage != $_SERVER["PHP_SELF"]) { // $contextpage can't be empty
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 foreach ($search as $key => $val) {
@@ -1130,23 +1130,23 @@ while ($i < $imaxinloop) {
 					print dol_print_date($db->jdate($obj->$key), 'dayhour', 'tzuser');
 				} elseif ($key == 'fk_user_create') {
 					if ($object->fk_user_create > 0) {
-						if (isset($conf->cache['user'][$object->fk_user_create])) {
-							$user_temp = $conf->cache['user'][$object->fk_user_create];
+						if (isset($config->cache['user'][$object->fk_user_create])) {
+							$user_temp = $config->cache['user'][$object->fk_user_create];
 						} else {
 							$user_temp = new User($db);
 							$user_temp->fetch($object->fk_user_create);
-							$conf->cache['user'][$object->fk_user_create] = $user_temp;
+							$config->cache['user'][$object->fk_user_create] = $user_temp;
 						}
 						print $user_temp->getNomUrl(-1);
 					}
 				} elseif ($key == 'fk_user_assign') {
 					if ($object->fk_user_assign > 0) {
-						if (isset($conf->cache['user'][$object->fk_user_assign])) {
-							$user_temp = $conf->cache['user'][$object->fk_user_assign];
+						if (isset($config->cache['user'][$object->fk_user_assign])) {
+							$user_temp = $config->cache['user'][$object->fk_user_assign];
 						} else {
 							$user_temp = new User($db);
 							$user_temp->fetch($object->fk_user_assign);
-							$conf->cache['user'][$object->fk_user_assign] = $user_temp;
+							$config->cache['user'][$object->fk_user_assign] = $user_temp;
 						}
 						print $user_temp->getNomUrl(-1);
 					}

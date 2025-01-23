@@ -64,24 +64,24 @@ if ($action == "set") {
 	$id = GETPOSTINT('PRELEVEMENT_ID_BANKACCOUNT');
 	$account = new Account($db);
 	if ($account->fetch($id) > 0) {
-		$res = dolibarr_set_const($db, "PRELEVEMENT_ID_BANKACCOUNT", $id, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_ID_BANKACCOUNT", $id, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
 		/*
-		$res = dolibarr_set_const($db, "PRELEVEMENT_CODE_BANQUE", $account->code_banque,'chaine',0,'',$conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_CODE_BANQUE", $account->code_banque,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
-		$res = dolibarr_set_const($db, "PRELEVEMENT_CODE_GUICHET", $account->code_guichet,'chaine',0,'',$conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_CODE_GUICHET", $account->code_guichet,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
-		$res = dolibarr_set_const($db, "PRELEVEMENT_NUMERO_COMPTE", $account->number,'chaine',0,'',$conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_NUMERO_COMPTE", $account->number,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
-		$res = dolibarr_set_const($db, "PRELEVEMENT_NUMBER_KEY", $account->cle_rib,'chaine',0,'',$conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_NUMBER_KEY", $account->cle_rib,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
-		$res = dolibarr_set_const($db, "PRELEVEMENT_IBAN", $account->iban,'chaine',0,'',$conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_IBAN", $account->iban,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
-		$res = dolibarr_set_const($db, "PRELEVEMENT_BIC", $account->bic,'chaine',0,'',$conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_BIC", $account->bic,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
-		$res = dolibarr_set_const($db, "PRELEVEMENT_RAISON_SOCIALE", $account->owner_address,'chaine',0,'',$conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_RAISON_SOCIALE", $account->owner_address,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
 		*/
 	} else {
@@ -89,29 +89,29 @@ if ($action == "set") {
 	}
 
 	/* Moved to account
-	$res = dolibarr_set_const($db, "PRELEVEMENT_ICS", GETPOST("PRELEVEMENT_ICS"), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PRELEVEMENT_ICS", GETPOST("PRELEVEMENT_ICS"), 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) $error++;
 	*/
 	if (GETPOST("PRELEVEMENT_USER") > 0) {
-		$res = dolibarr_set_const($db, "PRELEVEMENT_USER", GETPOST("PRELEVEMENT_USER"), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_USER", GETPOST("PRELEVEMENT_USER"), 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
 	}
 	if (GETPOST("PRELEVEMENT_END_TO_END") || GETPOST("PRELEVEMENT_END_TO_END") == "") {
-		$res = dolibarr_set_const($db, "PRELEVEMENT_END_TO_END", GETPOST("PRELEVEMENT_END_TO_END"), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_END_TO_END", GETPOST("PRELEVEMENT_END_TO_END"), 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
 	}
 	if (GETPOST("PRELEVEMENT_USTRD") || GETPOST("PRELEVEMENT_USTRD") == "") {
-		$res = dolibarr_set_const($db, "PRELEVEMENT_USTRD", GETPOST("PRELEVEMENT_USTRD"), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_USTRD", GETPOST("PRELEVEMENT_USTRD"), 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
 	}
 
-	$res = dolibarr_set_const($db, "PRELEVEMENT_ADDDAYS", GETPOST("PRELEVEMENT_ADDDAYS"), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PRELEVEMENT_ADDDAYS", GETPOST("PRELEVEMENT_ADDDAYS"), 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -148,7 +148,7 @@ if ($action == "deletenotif") {
 
 $form = new Form($db);
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader('', $langs->trans("WithdrawalsSetup"), '', '', 0, 0, '', '', '', 'mod-admin page-prelevement');
 
@@ -185,7 +185,7 @@ $htmltext = $langs->trans("AskThisIDToYourBank");
 print $form->textwithpicto($langs->trans("ICS"), $htmltext);
 print '</td>';
 print '<td class="left">';
-print '<input type="text" name="PRELEVEMENT_ICS" value="'.$conf->global->PRELEVEMENT_ICS.'" size="15" >';
+print '<input type="text" name="PRELEVEMENT_ICS" value="'.$config->global->PRELEVEMENT_ICS.'" size="15" >';
 print '</td>';
 print '</td></tr>';
 */
@@ -220,7 +220,7 @@ print '</td></tr>';
 print '<tr class="oddeven"><td>'.$langs->trans("ADDDAYS").'</td>';
 print '<td>';
 if (!getDolGlobalString('PRELEVEMENT_ADDDAYS')) {
-	$conf->global->PRELEVEMENT_ADDDAYS = 0;
+	$config->global->PRELEVEMENT_ADDDAYS = 0;
 }
 print '<input type="text" name="PRELEVEMENT_ADDDAYS" value="'.getDolGlobalString('PRELEVEMENT_ADDDAYS').'"  class="width50"></td>';
 print '</td></tr>';
@@ -246,7 +246,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql.= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql.= " WHERE type = '".$db->escape($type)."'";
-$sql.= " AND entity = ".$conf->entity;
+$sql.= " AND entity = ".$config->entity;
 $resql=$db->query($sql);
 if ($resql)
 {
@@ -309,8 +309,8 @@ foreach ($dirmodels as $reldir)
 							$module = new $classname($db);
 
 							$modulequalified=1;
-							if ($module->version == 'development' && $conf->global->MAIN_FEATURES_LEVEL < 2) $modulequalified=0;
-							if ($module->version == 'experimental' && $conf->global->MAIN_FEATURES_LEVEL < 1) $modulequalified=0;
+							if ($module->version == 'development' && $config->global->MAIN_FEATURES_LEVEL < 2) $modulequalified=0;
+							if ($module->version == 'experimental' && $config->global->MAIN_FEATURES_LEVEL < 1) $modulequalified=0;
 
 							if ($modulequalified) {
 								print '<tr class="oddeven"><td width="100">';
@@ -338,7 +338,7 @@ foreach ($dirmodels as $reldir)
 
 								// Default
 								print '<td class="center">';
-								if ($conf->global->PAYMENTORDER_ADDON_PDF == $name)
+								if ($config->global->PAYMENTORDER_ADDON_PDF == $name)
 								{
 									print img_picto($langs->trans("Default"),'on');
 								}
@@ -482,7 +482,7 @@ if (isModEnabled('notification') )
 	$sql.= " ".MAIN_DB_PREFIX."c_action_trigger as ad";
 	$sql.= " WHERE u.rowid = nd.fk_user";
 	$sql.= " AND nd.fk_action = ad.rowid";
-	$sql.= " AND u.entity IN (0,".$conf->entity.")";
+	$sql.= " AND u.entity IN (0,".$config->entity.")";
 
 	$resql = $db->query($sql);
 	if ($resql)

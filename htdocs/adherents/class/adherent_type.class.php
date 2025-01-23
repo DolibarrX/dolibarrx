@@ -354,7 +354,7 @@ class AdherentType extends CommonObject
 		$sql .= ") VALUES (";
 		$sql .= "'".$this->db->escape($this->morphy)."'";
 		$sql .= ", '".$this->db->escape($this->label)."'";
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ")";
 
 		dol_syslog("Adherent_type::create", LOG_DEBUG);

@@ -496,12 +496,12 @@ print '<br>';
 print '<strong>'.$langs->trans("DriverType").'</strong>';
 print '<br>';
 print '<div class="divsection">';
-if ($conf->db->type == 'mysql' || $conf->db->type == 'mysqli') {
-	$test = ($conf->db->type == 'mysqli');
+if ($config->db->type == 'mysql' || $config->db->type == 'mysqli') {
+	$test = ($config->db->type == 'mysqli');
 	if ($test) {
-		print img_picto('', 'tick.png', 'class="pictofixedwidth"').' '.$langs->trans("YouUseBestDriver", $conf->db->type);
+		print img_picto('', 'tick.png', 'class="pictofixedwidth"').' '.$langs->trans("YouUseBestDriver", $config->db->type);
 	} else {
-		print img_picto('', 'warning.png', 'class="pictofixedwidth"').' '.$langs->trans("YouDoNotUseBestDriver", $conf->db->type, 'mysqli');
+		print img_picto('', 'warning.png', 'class="pictofixedwidth"').' '.$langs->trans("YouDoNotUseBestDriver", $config->db->type, 'mysqli');
 	}
 	print '<br>';
 }
@@ -663,10 +663,10 @@ print '</div>';
 print '<br>';
 print '<strong>'.$langs->trans("Browser").'</strong><br>';
 print '<div class="divsection">';
-if (!in_array($conf->browser->name, array('chrome', 'opera', 'safari', 'firefox'))) {
-	print img_picto('', 'warning.png', 'class="pictofixedwidth"').' '.$langs->trans("BrowserIsKO", $conf->browser->name);
+if (!in_array($config->browser->name, array('chrome', 'opera', 'safari', 'firefox'))) {
+	print img_picto('', 'warning.png', 'class="pictofixedwidth"').' '.$langs->trans("BrowserIsKO", $config->browser->name);
 } else {
-	print img_picto('', 'tick.png', 'class="pictofixedwidth"').' '.$langs->trans("BrowserIsOK", $conf->browser->name);
+	print img_picto('', 'tick.png', 'class="pictofixedwidth"').' '.$langs->trans("BrowserIsOK", $config->browser->name);
 }
 print '<br>';
 print '</div>';

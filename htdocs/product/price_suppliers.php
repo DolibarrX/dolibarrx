@@ -91,7 +91,7 @@ if (!$user->hasRight('fournisseur', 'lire') && (!isModEnabled('margin') && !$use
 	accessforbidden();
 }
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTINT("page") ? GETPOSTINT("page") : 0;
@@ -696,7 +696,7 @@ if ($id > 0 || $ref) {
 					print '<td>';
 					$currencycodetouse = GETPOST('multicurrency_code') ? GETPOST('multicurrency_code') : (isset($object->fourn_multicurrency_code) ? $object->fourn_multicurrency_code : '');
 					if (empty($currencycodetouse) && $object->fourn_multicurrency_tx == 1) {
-						$currencycodetouse = $conf->currency;
+						$currencycodetouse = $config->currency;
 					}
 					print $form->selectMultiCurrency($currencycodetouse, "multicurrency_code", 1);
 					print ' &nbsp; &nbsp; '.$langs->trans("CurrencyRate").' ';
@@ -728,7 +728,7 @@ if ($id > 0 || $ref) {
 					print '</td></tr>';
 
 					$currencies = array();
-					$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."multicurrency WHERE entity = ".((int) $conf->entity);
+					$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."multicurrency WHERE entity = ".((int) $config->entity);
 					$resql = $db->query($sql);
 					if ($resql) {
 						$currency = new MultiCurrency($db);
@@ -942,7 +942,7 @@ if ($id > 0 || $ref) {
 				if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 					$param .= '&contextpage='.urlencode($contextpage);
 				}
-				if ($limit > 0 && $limit != $conf->liste_limit) {
+				if ($limit > 0 && $limit != $config->liste_limit) {
 					$param .= '&limit='.((int) $limit);
 				}
 				$param .= '&ref='.urlencode($object->ref);
@@ -1068,7 +1068,7 @@ if ($id > 0 || $ref) {
 					print_liste_field_titre("Currency", $_SERVER["PHP_SELF"], "", "", $param, '', $sortfield, $sortorder, 'right ');
 					$nbfields++;
 				}
-				if (!empty($arrayfields['pfp.charges']['checked'])) {	// possible only when $conf->global->PRODUCT_CHARGES is set
+				if (!empty($arrayfields['pfp.charges']['checked'])) {	// possible only when $config->global->PRODUCT_CHARGES is set
 					print_liste_field_titre("Charges", $_SERVER["PHP_SELF"], "pfp.charges", "", $param, '', $sortfield, $sortorder, 'right ');
 					$nbfields++;
 				}

@@ -76,7 +76,7 @@ if ($action == "split" && $user->hasRight('takepos', 'run')) {
 			$invoice->date = dol_now();
 			$invoice->module_source = 'takepos';
 			$invoice->pos_source = $_SESSION["takeposterminal"];
-			$invoice->entity = !empty($_SESSION["takeposinvoiceentity"]) ? $_SESSION["takeposinvoiceentity"] : $conf->entity;
+			$invoice->entity = !empty($_SESSION["takeposinvoiceentity"]) ? $_SESSION["takeposinvoiceentity"] : $config->entity;
 			if ($invoice->socid <= 0) {
 				$langs->load('errors');
 				dol_htmloutput_errors($langs->trans("ErrorModuleSetupNotComplete", "TakePos"), [], 1);
@@ -106,7 +106,7 @@ if ($action == "split" && $user->hasRight('takepos', 'run')) {
 			$invoice->date = dol_now();
 			$invoice->module_source = 'takepos';
 			$invoice->pos_source = $_SESSION["takeposterminal"];
-			$invoice->entity = !empty($_SESSION["takeposinvoiceentity"]) ? $_SESSION["takeposinvoiceentity"] : $conf->entity;
+			$invoice->entity = !empty($_SESSION["takeposinvoiceentity"]) ? $_SESSION["takeposinvoiceentity"] : $config->entity;
 			if ($invoice->socid <= 0) {
 				$langs->load('errors');
 				dol_htmloutput_errors($langs->trans("ErrorModuleSetupNotComplete", "TakePos"), [], 1);

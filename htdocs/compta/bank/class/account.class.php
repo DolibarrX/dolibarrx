@@ -806,7 +806,7 @@ class Account extends CommonObject
 		$sql .= "'".$this->db->idate($now)."'";
 		$sql .= ", '".$this->db->escape($this->ref)."'";
 		$sql .= ", '".$this->db->escape($this->label)."'";
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ", '".$this->db->escape($this->account_number)."'";
 		$sql .= ", ".($this->fk_accountancy_journal > 0 ? ((int) $this->fk_accountancy_journal) : "null");
 		$sql .= ", '".$this->db->escape($this->bank)."'";
@@ -979,7 +979,7 @@ class Account extends CommonObject
 
 			if (!$error && !empty($this->oldref) && $this->oldref !== $this->ref) {
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'bank/".$this->db->escape($this->ref)."'";
-				$sql .= " WHERE filepath = 'bank/".$this->db->escape($this->oldref)."' and src_object_type='bank_account' and entity = ".((int) $conf->entity);
+				$sql .= " WHERE filepath = 'bank/".$this->db->escape($this->oldref)."' and src_object_type='bank_account' and entity = ".((int) $config->entity);
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
@@ -989,8 +989,8 @@ class Account extends CommonObject
 				// We rename directory in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->oldref);
 				$newref = dol_sanitizeFileName($this->ref);
-				$dirsource = $conf->bank->dir_output.'/'.$oldref;
-				$dirdest = $conf->bank->dir_output.'/'.$newref;
+				$dirsource = $config->bank->dir_output.'/'.$oldref;
+				$dirdest = $config->bank->dir_output.'/'.$newref;
 				if (file_exists($dirsource)) {
 					dol_syslog(get_class($this)."::update rename dir ".$dirsource." into ".$dirdest, LOG_DEBUG);
 					if (@rename($dirsource, $dirdest)) {
@@ -1063,7 +1063,7 @@ class Account extends CommonObject
 		$sql .= ",state_id = ".($this->state_id > 0 ? $this->state_id : "null");
 		$sql .= ",fk_pays = ".($this->country_id > 0 ? $this->country_id : "null");
 		$sql .= " WHERE rowid = ".((int) $this->id);
-		$sql .= " AND entity = ".((int) $conf->entity);
+		$sql .= " AND entity = ".((int) $config->entity);
 
 		dol_syslog(get_class($this)."::update_bban", LOG_DEBUG);
 
@@ -1409,7 +1409,7 @@ class Account extends CommonObject
 			require_once DOL_DOCUMENT_ROOT.'/core/class/workboardresponse.class.php';
 
 			$response = new WorkboardResponse();
-			$response->warning_delay = $conf->bank->rappro->warning_delay / 60 / 60 / 24;
+			$response->warning_delay = $config->bank->rappro->warning_delay / 60 / 60 / 24;
 			$response->label = $langs->trans("TransactionsToConciliate");
 			$response->labelShort = $langs->trans("TransactionsToConciliateShort");
 			$response->url = DOL_URL_ROOT.'/compta/bank/list.php?leftmenu=bank&amp;mainmenu=bank';
@@ -1417,7 +1417,7 @@ class Account extends CommonObject
 
 			while ($obj = $this->db->fetch_object($resql)) {
 				$response->nbtodo++;
-				if ($this->db->jdate($obj->datefin) < ($now - $conf->bank->rappro->warning_delay)) {
+				if ($this->db->jdate($obj->datefin) < ($now - $config->bank->rappro->warning_delay)) {
 					$response->nbtodolate++;
 				}
 			}
@@ -1562,7 +1562,7 @@ class Account extends CommonObject
 	{
 		global $conf, $langs;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -1731,7 +1731,7 @@ class Account extends CommonObject
 		$outdone = 0;
 		$coords = $this->getFullAddress(1, ', ', getDolGlobalInt('MAIN_SHOW_REGION_IN_STATE_SELECT'));
 		if ($coords) {
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				// hideonsmatphone because copyToClipboard call jquery dialog that does not work with jmobile
 				$out .= '<a href="#" class="hideonsmartphone" onclick="return copyToClipboard(\''.dol_escape_js($coords).'\',\''.dol_escape_js($langs->trans("HelpCopyToClipboard")).'\');">';
 				$out .= img_picto($langs->trans("Address"), 'map-marker-alt');
@@ -1946,7 +1946,7 @@ class Account extends CommonObject
 				//Replace the old AccountNumber key with the new BankAccountNumber key
 				$fieldlists = explode(
 					' ',
-					preg_replace('/ ?[^Bank]AccountNumber ?/', 'BankAccountNumber', $conf->global->BANK_SHOW_ORDER_OPTION)
+					preg_replace('/ ?[^Bank]AccountNumber ?/', 'BankAccountNumber', $config->global->BANK_SHOW_ORDER_OPTION)
 				);
 			}
 		}
@@ -2776,7 +2776,7 @@ class AccountLine extends CommonObjectLine
 		$label = img_picto('', $this->picto).' <u>'.$langs->trans("BankTransactionLine").'</u>:<br>';
 		$label .= '<b>'.$langs->trans("Ref").':</b> '.$this->ref;
 		if ($this->amount) {
-			$label .= '<br><strong>'.$langs->trans("Amount").':</strong> '.price($this->amount, 0, $langs, 1, -1, -1, $conf->currency);
+			$label .= '<br><strong>'.$langs->trans("Amount").':</strong> '.price($this->amount, 0, $langs, 1, -1, -1, $config->currency);
 		}
 
 		$linkstart = '<a href="'.DOL_URL_ROOT.'/compta/bank/line.php?rowid='.((int) $this->id).'&save_lastsearch_values=1" title="'.dol_escape_htmltag($label, 1).'" class="classfortooltip">';

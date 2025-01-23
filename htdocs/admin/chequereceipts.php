@@ -55,7 +55,7 @@ $value = GETPOST('value', 'alpha');
 
 
 if (!getDolGlobalString('CHEQUERECEIPTS_ADDON')) {
-	$conf->global->CHEQUERECEIPTS_ADDON = 'mod_chequereceipts_mint.php';
+	$config->global->CHEQUERECEIPTS_ADDON = 'mod_chequereceipts_mint.php';
 }
 
 
@@ -72,7 +72,7 @@ if ($action == 'updateMask') {
 	$res = 0;
 
 	if ($maskconstchequereceipts && preg_match('/_MASK$/', $maskconstchequereceipts)) {
-		$res = dolibarr_set_const($db, $maskconstchequereceipts, $maskchequereceipts, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstchequereceipts, $maskchequereceipts, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -87,13 +87,13 @@ if ($action == 'updateMask') {
 }
 
 if ($action == 'setmod') {
-	dolibarr_set_const($db, "CHEQUERECEIPTS_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "CHEQUERECEIPTS_ADDON", $value, 'chaine', 0, '', $config->entity);
 }
 
 if ($action == 'set_BANK_CHEQUERECEIPT_FREE_TEXT') {
 	$freetext = GETPOST('BANK_CHEQUERECEIPT_FREE_TEXT', 'restricthtml'); // No alpha here, we want exact string
 
-	$res = dolibarr_set_const($db, "BANK_CHEQUERECEIPT_FREE_TEXT", $freetext, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "BANK_CHEQUERECEIPT_FREE_TEXT", $freetext, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -110,7 +110,7 @@ if ($action == 'set_BANK_CHEQUERECEIPT_FREE_TEXT') {
  * View
  */
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 llxHeader("", $langs->trans("BankSetupModule"), '', '', 0, 0, '', '', '', 'mod-admin page-chequereceipts');
 
 $form = new Form($db);
@@ -199,7 +199,7 @@ foreach ($dirmodels as $reldir) {
 							print '</td>'."\n";
 
 							print '<td class="center">';
-							if ($conf->global->CHEQUERECEIPTS_ADDON == $file || getDolGlobalString('CHEQUERECEIPTS_ADDON') . '.php' == $file) {
+							if ($config->global->CHEQUERECEIPTS_ADDON == $file || getDolGlobalString('CHEQUERECEIPTS_ADDON') . '.php' == $file) {
 								print img_picto($langs->trans("Activated"), 'switch_on');
 							} else {
 								print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.preg_replace('/\.php$/', '', $file).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';

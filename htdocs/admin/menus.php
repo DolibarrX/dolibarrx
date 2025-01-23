@@ -51,7 +51,7 @@ if (!$user->admin) {
 
 $dirstandard = array();
 $dirsmartphone = array();
-$dirmenus = array_merge(array("/core/menus/"), (array) $conf->modules_parts['menus']);
+$dirmenus = array_merge(array("/core/menus/"), (array) $config->modules_parts['menus']);
 foreach ($dirmenus as $dirmenu) {
 	$dirstandard[] = $dirmenu.'standard';
 	$dirsmartphone[] = $dirmenu.'smartphone';
@@ -75,11 +75,11 @@ error_reporting($err);
 if ($action == 'update' && !$cancel) {
 	$_SESSION["mainmenu"] = "home"; // The menu manager may have changed
 
-	dolibarr_set_const($db, "MAIN_MENU_STANDARD", GETPOST('MAIN_MENU_STANDARD', 'alpha'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_MENU_SMARTPHONE", GETPOST('MAIN_MENU_SMARTPHONE', 'alpha'), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_MENU_STANDARD", GETPOST('MAIN_MENU_STANDARD', 'alpha'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_MENU_SMARTPHONE", GETPOST('MAIN_MENU_SMARTPHONE', 'alpha'), 'chaine', 0, '', $config->entity);
 
-	dolibarr_set_const($db, "MAIN_MENUFRONT_STANDARD", GETPOST('MAIN_MENUFRONT_STANDARD', 'alpha'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_MENUFRONT_SMARTPHONE", GETPOST('MAIN_MENUFRONT_SMARTPHONE', 'alpha'), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_MENUFRONT_STANDARD", GETPOST('MAIN_MENUFRONT_STANDARD', 'alpha'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_MENUFRONT_SMARTPHONE", GETPOST('MAIN_MENUFRONT_SMARTPHONE', 'alpha'), 'chaine', 0, '', $config->entity);
 
 	// Define list of menu handlers to initialize
 	$listofmenuhandler = array();
@@ -95,7 +95,7 @@ if ($action == 'update' && !$cancel) {
 	// Initialize menu handlers
 	foreach ($listofmenuhandler as $key => $val) {
 		// Load sql init_menu_handler.sql file
-		$dirmenus = array_merge(array("/core/menus/"), (array) $conf->modules_parts['menus']);
+		$dirmenus = array_merge(array("/core/menus/"), (array) $config->modules_parts['menus']);
 		foreach ($dirmenus as $dirmenu) {
 			$file = 'init_menu_'.$key.'.sql';
 			$fullpath = dol_buildpath($dirmenu.$file);
@@ -195,7 +195,7 @@ print '<tr class="oddeven"><td>'.$langs->trans("DefaultMenuSmartphoneManager").'
 print '<td>';
 $formadmin->select_menu(getDolGlobalString('MAIN_MENU_SMARTPHONE_FORCED', getDolGlobalString('MAIN_MENU_SMARTPHONE')), 'MAIN_MENU_SMARTPHONE', array_merge($dirstandard, $dirsmartphone), !getDolGlobalString('MAIN_MENU_SMARTPHONE_FORCED') ? '' : ' disabled');
 
-if (getDolGlobalString('MAIN_MENU_SMARTPHONE_FORCED') && preg_match('/smartphone/', $conf->global->MAIN_MENU_SMARTPHONE_FORCED)
+if (getDolGlobalString('MAIN_MENU_SMARTPHONE_FORCED') && preg_match('/smartphone/', $config->global->MAIN_MENU_SMARTPHONE_FORCED)
 	|| (!getDolGlobalString('MAIN_MENU_SMARTPHONE_FORCED') && getDolGlobalString('MAIN_MENU_SMARTPHONE') && preg_match('/smartphone/', getDolGlobalString('MAIN_MENU_SMARTPHONE')))) {
 	print ' '.img_warning($langs->transnoentitiesnoconv("ThisForceAlsoTheme"));
 }
@@ -204,7 +204,7 @@ print '</td>';
 print '<td>';
 $formadmin->select_menu(getDolGlobalString('MAIN_MENUFRONT_SMARTPHONE_FORCED', getDolGlobalString('MAIN_MENUFRONT_SMARTPHONE')), 'MAIN_MENUFRONT_SMARTPHONE', array_merge($dirstandard, $dirsmartphone), !getDolGlobalString('MAIN_MENUFRONT_SMARTPHONE_FORCED') ? '' : ' disabled');
 
-if (getDolGlobalString('MAIN_MENU_SMARTPHONE_FORCED') && preg_match('/smartphone/', $conf->global->MAIN_MENUFRONT_SMARTPHONE_FORCED)
+if (getDolGlobalString('MAIN_MENU_SMARTPHONE_FORCED') && preg_match('/smartphone/', $config->global->MAIN_MENUFRONT_SMARTPHONE_FORCED)
 	|| (!getDolGlobalString('MAIN_MENUFRONT_SMARTPHONE_FORCED') && getDolGlobalString('MAIN_MENU_SMARTPHONE') && preg_match('/smartphone/', getDolGlobalString('MAIN_MENUFRONT_SMARTPHONE')))) {
 	print ' '.img_warning($langs->transnoentitiesnoconv("ThisForceAlsoTheme"));
 }

@@ -132,8 +132,8 @@ if (empty($endyear)) {
 $startyear = $endyear - 1;
 
 // Change default WIDTH and HEIGHT (we need a smaller than default for both desktop and smartphone)
-$WIDTH = (($shownb && $showtot) || !empty($conf->dol_optimize_smallscreen)) ? '100%' : '80%';
-if (empty($conf->dol_optimize_smallscreen)) {
+$WIDTH = (($shownb && $showtot) || !empty($config->dol_optimize_smallscreen)) ? '100%' : '80%';
+if (empty($config->dol_optimize_smallscreen)) {
 	$HEIGHT = '200';
 } else {
 	$HEIGHT = '160';
@@ -215,7 +215,7 @@ if ($result) {
 		}
 	}
 
-	include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';	// This define $badgeStatusX
+	include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';	// This define $badgeStatusX
 
 	$dataseries = array();
 	$colorseries = array();

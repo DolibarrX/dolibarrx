@@ -150,9 +150,9 @@ if ($search_option == 'late') {
 	$search_status = '1,2';
 }
 
-$diroutputmassaction = $conf->fournisseur->commande->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->fournisseur->commande->dir_output.'/temp/massgeneration/'.$user->id;
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -347,7 +347,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'CommandeFournisseur';
 	$objectlabel = 'SupplierOrders';
-	$uploaddir = $conf->fournisseur->commande->dir_output;
+	$uploaddir = $config->fournisseur->commande->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	if ($action == 'validate' && $permissiontovalidate) {
@@ -614,7 +614,7 @@ if (empty($reshook)) {
 
 				// Fac builddoc
 				$donotredirect = 1;
-				$upload_dir = $conf->fournisseur->facture->dir_output;
+				$upload_dir = $config->fournisseur->facture->dir_output;
 				$permissiontoadd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"));
 				//include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 			}
@@ -641,7 +641,7 @@ if (empty($reshook)) {
 			if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 				$param .= '&contextpage='.urlencode($contextpage);
 			}
-			if ($limit > 0 && $limit != $conf->liste_limit) {
+			if ($limit > 0 && $limit != $config->liste_limit) {
 				$param .= '&limit='.((int) $limit);
 			}
 			if ($search_all) {
@@ -892,7 +892,7 @@ if ($search_status != '' && $search_status != '-1') {
 	$sql .= " AND cf.fk_statut IN (".$db->sanitize($db->escape($search_status)).")";
 }
 if ($search_option == 'late') {
-	$sql .= " AND cf.date_commande < '".$db->idate(dol_now() - $conf->order->fournisseur->warning_delay)."'";
+	$sql .= " AND cf.date_commande < '".$db->idate(dol_now() - $config->order->fournisseur->warning_delay)."'";
 }
 if ($search_date_order_start) {
 	$sql .= " AND cf.date_commande >= '".$db->idate($search_date_order_start)."'";
@@ -1066,7 +1066,7 @@ if ($resql) {
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($search_all) {
@@ -1448,7 +1448,7 @@ if ($resql) {
 	// Company type
 	if (!empty($arrayfields['typent.code']['checked'])) {
 		print '<td class="liste_titre maxwidthonsmartphone center">';
-		print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $conf->global->SOCIETE_SORT_ON_TYPEENT), '', 1);
+		print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $config->global->SOCIETE_SORT_ON_TYPEENT), '', 1);
 		print '</td>';
 	}
 	// Date order
@@ -1815,7 +1815,7 @@ if ($resql) {
 				print $objectstatic->getNomUrl(1, '', 0, -1, 1);
 				// Other picto tool
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->fournisseur->commande->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->fournisseur->commande->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 				print $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir);
 
 				print '</td>'."\n";

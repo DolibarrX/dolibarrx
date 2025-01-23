@@ -56,7 +56,7 @@ $scandir = GETPOST('scan_dir', 'alpha');
 $type = 'contract';
 
 if (!getDolGlobalString('CONTRACT_ADDON')) {
-	$conf->global->CONTRACT_ADDON = 'mod_contract_serpis';
+	$config->global->CONTRACT_ADDON = 'mod_contract_serpis';
 }
 
 
@@ -73,7 +73,7 @@ if ($action == 'updateMask') {
 	$maskvalue = GETPOST('maskcontract', 'alpha');
 	$res = 0;
 	if ($maskconst && preg_match('/_MASK$/', $maskconst)) {
-		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -94,7 +94,7 @@ if ($action == 'updateMask') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/contract/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -127,16 +127,16 @@ if ($action == 'updateMask') {
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->CONTRACT_ADDON_PDF == "$value") {
-			dolibarr_del_const($db, 'CONTRACT_ADDON_PDF', $conf->entity);
+		if ($config->global->CONTRACT_ADDON_PDF == "$value") {
+			dolibarr_del_const($db, 'CONTRACT_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "CONTRACT_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "CONTRACT_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->CONTRACT_ADDON_PDF = $value;
+		$config->global->CONTRACT_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -145,21 +145,21 @@ if ($action == 'updateMask') {
 		$ret = addDocumentModel($value, $type, $label, $scandir);
 	}
 } elseif ($action == 'unsetdoc') {
-	dolibarr_del_const($db, "CONTRACT_ADDON_PDF", $conf->entity);
+	dolibarr_del_const($db, "CONTRACT_ADDON_PDF", $config->entity);
 } elseif ($action == 'setmod') {
 	// TODO Verify si the chosen numbering module can be activated by
 	// the method call canBeActivated
 
-	dolibarr_set_const($db, "CONTRACT_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "CONTRACT_ADDON", $value, 'chaine', 0, '', $config->entity);
 } elseif ($action == 'set_other') {
 	$freetext = GETPOST('CONTRACT_FREE_TEXT', 'restricthtml'); // No alpha here, we want exact string
-	$res1 = dolibarr_set_const($db, "CONTRACT_FREE_TEXT", $freetext, 'chaine', 0, '', $conf->entity);
+	$res1 = dolibarr_set_const($db, "CONTRACT_FREE_TEXT", $freetext, 'chaine', 0, '', $config->entity);
 
 	$draft = GETPOST('CONTRACT_DRAFT_WATERMARK', 'alpha');
-	$res2 = dolibarr_set_const($db, "CONTRACT_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $conf->entity);
+	$res2 = dolibarr_set_const($db, "CONTRACT_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $config->entity);
 
 	$value = GETPOST('activate_hideClosedServiceByDefault', 'alpha');
-	$res3 = dolibarr_set_const($db, "CONTRACT_HIDE_CLOSED_SERVICES_BY_DEFAULT", $value, 'chaine', 0, '', $conf->entity);
+	$res3 = dolibarr_set_const($db, "CONTRACT_HIDE_CLOSED_SERVICES_BY_DEFAULT", $value, 'chaine', 0, '', $config->entity);
 
 	if (!($res1 > 0) || !($res2 > 0) || !($res3 > 0)) {
 		$error++;
@@ -171,14 +171,14 @@ if ($action == 'updateMask') {
 		setEventMessages($langs->trans("Error"), null, 'errors');
 	}
 } elseif ($action == "allowonlinesign") {
-	if (!dolibarr_set_const($db, "CONTRACT_ALLOW_ONLINESIGN", $value, 'int', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, "CONTRACT_ALLOW_ONLINESIGN", $value, 'int', 0, '', $config->entity)) {
 		$error++;
 	}
 } elseif (preg_match('/set_(.*)/', $action, $reg)) {
 	$code = $reg[1];
 	$value = (GETPOST($code) ? GETPOST($code) : 1);
 
-	$res = dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -192,7 +192,7 @@ if ($action == 'updateMask') {
 	}
 } elseif (preg_match('/del_(.*)/', $action, $reg)) {
 	$code = $reg[1];
-	$res = dolibarr_del_const($db, $code, $conf->entity);
+	$res = dolibarr_del_const($db, $code, $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -213,7 +213,7 @@ if ($action == 'updateMask') {
  * View
  */
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-admin page-contract');
 
@@ -287,7 +287,7 @@ foreach ($dirmodels as $reldir) {
 						print '</td>'."\n";
 
 						print '<td class="center">';
-						if ($conf->global->CONTRACT_ADDON == "$file") {
+						if ($config->global->CONTRACT_ADDON == "$file") {
 							print img_picto($langs->trans("Activated"), 'switch_on');
 						} else {
 							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.urlencode($file).'">';
@@ -341,7 +341,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;
@@ -540,7 +540,7 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("AllowOnlineSign").'</td>';
 print '<td class="right">';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('CONTRACT_ALLOW_ONLINESIGN', array(), null, 0, 0, 0, 2, 0, 1, '', '', 'inline-block', 0, $langs->trans("WarningOnlineSignature"));
 } else {
 	if (getDolGlobalString('CONTRACT_ALLOW_ONLINESIGN')) {

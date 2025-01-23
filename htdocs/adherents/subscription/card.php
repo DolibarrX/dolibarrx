@@ -394,7 +394,7 @@ if ($rowid && $action != 'edit') {
 	// Generated documents
 	/*
 	$filename = dol_sanitizeFileName($object->ref);
-	$filedir = $conf->facture->dir_output . '/' . dol_sanitizeFileName($object->ref);
+	$filedir = $config->facture->dir_output . '/' . dol_sanitizeFileName($object->ref);
 	$urlsource = $_SERVER['PHP_SELF'] . '?facid=' . $object->id;
 	$genallowed = $user->hasRight('facture', 'lire');
 	$delallowed = $user->hasRight('facture', 'creer');

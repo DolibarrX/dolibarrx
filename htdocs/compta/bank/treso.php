@@ -132,7 +132,7 @@ if (GETPOST("account") || GETPOST("ref")) {
 	$sql .= " s.rowid as socid, s.nom as name, s.fournisseur";
 	$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as ff";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON ff.fk_soc = s.rowid";
-	$sql .= " WHERE ff.entity = ".$conf->entity;
+	$sql .= " WHERE ff.entity = ".$config->entity;
 	$sql .= " AND ff.paye = 0 AND fk_statut = 1"; // Not paid
 	$sql .= " AND (ff.fk_account IN (0, ".$object->id.") OR ff.fk_account IS NULL)"; // Id bank account of supplier invoice
 	$sql .= " ORDER BY dlr ASC";
@@ -143,7 +143,7 @@ if (GETPOST("account") || GETPOST("ref")) {
 	$sql .= " 0 as socid, 'noname' as name, 0 as fournisseur";
 	$sql .= " FROM ".MAIN_DB_PREFIX."chargesociales as cs";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_chargesociales as ccs ON cs.fk_type = ccs.id";
-	$sql .= " WHERE cs.entity = ".$conf->entity;
+	$sql .= " WHERE cs.entity = ".$config->entity;
 	$sql .= " AND cs.paye = 0"; // Not paid
 	$sql .= " AND (cs.fk_account IN (0, ".$object->id.") OR cs.fk_account IS NULL)"; // Id bank account of social contribution
 	$sql .= " ORDER BY dlr ASC";
@@ -154,7 +154,7 @@ if (GETPOST("account") || GETPOST("ref")) {
 	$sql .= " s.rowid as socid, CONCAT(s.firstname, ' ', s.lastname) as name, 0 as fournisseur";
 	$sql .= " FROM ".MAIN_DB_PREFIX."salary as sa";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as s ON sa.fk_user = s.rowid";
-	$sql .= " WHERE sa.entity = ".$conf->entity;
+	$sql .= " WHERE sa.entity = ".$config->entity;
 	$sql .= " AND sa.paye = 0"; // Not paid
 	$sql .= " AND (sa.fk_account IN (0, ".$object->id.") OR sa.fk_account IS NULL)"; // Id bank account of salary
 	$sql .= " ORDER BY dlr ASC";
@@ -164,7 +164,7 @@ if (GETPOST("account") || GETPOST("ref")) {
 	$sql = " SELECT 'vat' as family, t.rowid as objid, t.label as ref, (-1*t.amount) as total_ttc, t.datev as dlr,";
 	$sql .= " 0 as socid, 'noname' as name, 0 as fournisseur";
 	$sql .= " FROM ".MAIN_DB_PREFIX."tva as t";
-	$sql .= " WHERE t.entity = ".$conf->entity;
+	$sql .= " WHERE t.entity = ".$config->entity;
 	$sql .= " AND t.paye = 0"; // Not paid
 	$sql .= " AND (t.fk_account IN (-1, 0, ".$object->id.") OR t.fk_account IS NULL)"; // Id bank account of vat
 	$sql .= " ORDER BY dlr ASC";

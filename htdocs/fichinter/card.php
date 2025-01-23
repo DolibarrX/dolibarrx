@@ -430,7 +430,7 @@ if (empty($reshook)) {
 											$label = $lines[$i]->product_label;
 										}
 
-										if ($prod->duration_value && $conf->global->FICHINTER_USE_SERVICE_DURATION) {
+										if ($prod->duration_value && $config->global->FICHINTER_USE_SERVICE_DURATION) {
 											switch ($prod->duration_unit) {
 												default:
 												case 'h':
@@ -806,7 +806,7 @@ if (empty($reshook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_sendmails.inc.php';
 
 	// Actions to build doc
-	$upload_dir = $conf->ficheinter->dir_output;
+	$upload_dir = $config->ficheinter->dir_output;
 	$permissiontoadd = $user->hasRight('ficheinter', 'creer');
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
@@ -962,7 +962,7 @@ if ($action == 'create') {
 		$projectid = GETPOSTINT('projectid');
 	}
 
-	if (!$conf->global->FICHEINTER_ADDON) {
+	if (!$config->global->FICHEINTER_ADDON) {
 		dol_print_error($db, $langs->trans("Error")." ".$langs->trans("Error_FICHEINTER_ADDON_NotDefined"));
 		exit;
 	}
@@ -1041,7 +1041,7 @@ if ($action == 'create') {
 		print '<td>'.$langs->trans("DefaultModel").'</td>';
 		print '<td>';
 		$liste = ModelePDFFicheinter::liste_modeles($db);
-		print $form->selectarray('model', $liste, $conf->global->FICHEINTER_ADDON_PDF);
+		print $form->selectarray('model', $liste, $config->global->FICHEINTER_ADDON_PDF);
 		print "</td></tr>";
 
 		// Public note
@@ -1418,7 +1418,7 @@ if ($action == 'create') {
 	if (!getDolGlobalString('FICHINTER_DISABLE_DETAILS') || getDolGlobalString('FICHINTER_DISABLE_DETAILS') == '2') {
 		// Duration in time
 		print '<tr><td class="titlefield">'.$langs->trans("TotalDuration").'</td>';
-		print '<td>'.convertSecondToTime($object->duration, 'all', $conf->global->MAIN_DURATION_OF_WORKDAY).' ('.convertDurationtoHour($object->duration, "s").' '.$langs->trans("h").')</td>';
+		print '<td>'.convertSecondToTime($object->duration, 'all', $config->global->MAIN_DURATION_OF_WORKDAY).' ('.convertDurationtoHour($object->duration, "s").' '.$langs->trans("h").')</td>';
 		print '</tr>';
 	}
 
@@ -1865,7 +1865,7 @@ if ($action == 'create') {
 		 * Built documents
 		 */
 		$filename = dol_sanitizeFileName($object->ref);
-		$filedir = $conf->ficheinter->dir_output."/".$filename;
+		$filedir = $config->ficheinter->dir_output."/".$filename;
 		$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 		$genallowed = $user->hasRight('ficheinter', 'lire');
 		$delallowed = $user->hasRight('ficheinter', 'creer');
@@ -1916,7 +1916,7 @@ if ($action == 'create') {
 	// Presend form
 	$modelmail = 'fichinter_send';
 	$defaulttopic = 'SendInterventionRef';
-	$diroutput = $conf->ficheinter->dir_output;
+	$diroutput = $config->ficheinter->dir_output;
 	$trackid = 'int'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

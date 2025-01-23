@@ -260,7 +260,7 @@ class doc_generic_usergroup_odt extends ModelePDFUserGroup
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "companies", "bills", "dict"));
 
-		if ($conf->user->dir_output) {
+		if ($config->user->dir_output) {
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
@@ -272,7 +272,7 @@ class doc_generic_usergroup_odt extends ModelePDFUserGroup
 				}
 			}
 
-			$dir = $conf->user->dir_output.'/usergroups';
+			$dir = $config->user->dir_output.'/usergroups';
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -310,11 +310,11 @@ class doc_generic_usergroup_odt extends ModelePDFUserGroup
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->user->dir_temp=".$conf->user->dir_temp;
+				//print "conf->user->dir_temp=".$config->user->dir_temp;
 
-				dol_mkdir($conf->user->dir_temp);
-				if (!is_writable($conf->user->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->user->dir_temp);
+				dol_mkdir($config->user->dir_temp);
+				if (!is_writable($config->user->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->user->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -330,7 +330,7 @@ class doc_generic_usergroup_odt extends ModelePDFUserGroup
 				// Recipient name
 				if (!empty($usecontact)) {
 					// We can use the company of contact instead of thirdparty company
-					if ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
+					if ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
 						$object->contact->fetch_thirdparty();
 						$socobject = $object->contact->thirdparty;
 						$contactobject = $object->contact;
@@ -368,7 +368,7 @@ class doc_generic_usergroup_odt extends ModelePDFUserGroup
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $conf->user->dir_temp,
+							'PATH_TO_TMP'	  => $config->user->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'

@@ -118,7 +118,7 @@ if ($id > 0) {
 	print "<div class=\"graph\">\n";
 	$year = dol_print_date(dol_now('gmt'), "%Y", 'gmt');
 
-	$file = $conf->stock->dir_temp.'/entrepot-'.$entrepot->id.'-'.($year).'.png';
+	$file = $config->stock->dir_temp.'/entrepot-'.$entrepot->id.'-'.($year).'.png';
 
 	// TODO Build graph in $file from a table called llx_stock_log
 

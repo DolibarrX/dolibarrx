@@ -104,7 +104,7 @@ if ($action == 'confirm_delete' && $confirm == "yes" && $permissiontodelete) {
 
 // Execute jobs
 if ($action == 'confirm_execute' && $confirm == "yes" && $permissiontoexecute) {
-	if (getDolGlobalString('CRON_KEY') && $conf->global->CRON_KEY != $securitykey) {
+	if (getDolGlobalString('CRON_KEY') && $config->global->CRON_KEY != $securitykey) {
 		setEventMessages('Security key '.$securitykey.' is wrong', null, 'errors');
 	} else {
 		$now = dol_now(); // Date we start
@@ -273,7 +273,7 @@ if ($action == 'create') {
 	print load_fiche_titre($langs->trans("CronTask"), '', 'title_setup');
 }
 
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print "\n".'<script type="text/javascript">';
 	print 'jQuery(document).ready(function () {
                     function initfields()

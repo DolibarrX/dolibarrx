@@ -111,7 +111,7 @@ class FormSocialContrib
 				if ($user->admin && $help) {
 					print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);
 				}
-				if (!empty($conf->use_javascript_ajax)) {
+				if (!empty($config->use_javascript_ajax)) {
 					print ajax_combobox($htmlname);
 				}
 			} else {

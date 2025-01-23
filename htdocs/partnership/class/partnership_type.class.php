@@ -256,7 +256,7 @@ class PartnershipType extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -319,7 +319,7 @@ class PartnershipType extends CommonObject
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 				list($class, $module) = explode('@', $this->picto);
-				$upload_dir = $conf->$module->multidir_output[$conf->entity]."/$class/".dol_sanitizeFileName($this->ref);
+				$upload_dir = $config->$module->multidir_output[$config->entity]."/$class/".dol_sanitizeFileName($this->ref);
 				$filearray = dol_dir_list($upload_dir, "files");
 				$filename = $filearray[0]['name'];
 				if (!empty($filename)) {
@@ -327,9 +327,9 @@ class PartnershipType extends CommonObject
 
 					$pathtophoto = $class.'/'.$this->ref.'/thumbs/'.substr($filename, 0, $pospoint).'_mini'.substr($filename, $pospoint);
 					if (!getDolGlobalString(strtoupper($module.'_'.$class).'_FORMATLISTPHOTOSASUSERS')) {
-						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref"><img class="photo'.$module.'" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$conf->entity.'&file='.urlencode($pathtophoto).'"></div></div>';
+						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref"><img class="photo'.$module.'" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$config->entity.'&file='.urlencode($pathtophoto).'"></div></div>';
 					} else {
-						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$conf->entity.'&file='.urlencode($pathtophoto).'"></div>';
+						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$config->entity.'&file='.urlencode($pathtophoto).'"></div>';
 					}
 
 					$result .= '</div>';

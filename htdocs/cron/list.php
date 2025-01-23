@@ -52,7 +52,7 @@ $contextpage = GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : 'cr
 
 $id = GETPOSTINT('id');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -78,9 +78,9 @@ $search_lastresult = GETPOST("search_lastresult", "alphawithlgt");
 $search_processing = GETPOST("search_processing", 'int');
 $securitykey = GETPOST('securitykey', 'alpha');
 
-$outputdir = $conf->cron->dir_output;
+$outputdir = $config->cron->dir_output;
 if (empty($outputdir)) {
-	$outputdir = $conf->cronjob->dir_output;
+	$outputdir = $config->cronjob->dir_output;
 }
 $diroutputmassaction = $outputdir.'/temp/massgeneration/'.$user->id;
 
@@ -161,7 +161,7 @@ if (empty($reshook)) {
 
 	// Execute jobs
 	if ($action == 'confirm_execute' && $confirm == "yes" && $permissiontoexecute) {
-		if (getDolGlobalString('CRON_KEY') && $conf->global->CRON_KEY != $securitykey) {
+		if (getDolGlobalString('CRON_KEY') && $config->global->CRON_KEY != $securitykey) {
 			setEventMessages('Security key '.$securitykey.' is wrong', null, 'errors');
 			$action = '';
 		} else {
@@ -195,7 +195,7 @@ if (empty($reshook)) {
 			if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 				$param .= '&contextpage='.urlencode($contextpage);
 			}
-			if ($limit > 0 && $limit != $conf->liste_limit) {
+			if ($limit > 0 && $limit != $config->liste_limit) {
 				$param .= '&limit='.((int) $limit);
 			}
 			if ($search_label) {
@@ -215,7 +215,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'CronJob';
 	$objectlabel = 'CronJob';
-	$uploaddir = $conf->cron->dir_output;
+	$uploaddir = $config->cron->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 	if ($massaction && $permissiontoadd) {
 		$tmpcron = new Cronjob($db);
@@ -296,7 +296,7 @@ $sql .= " t.nbrun,";
 $sql .= " t.libname,";
 $sql .= " t.test";
 $sql .= " FROM ".MAIN_DB_PREFIX."cronjob as t";
-$sql .= " WHERE entity IN (0,".$conf->entity.")";
+$sql .= " WHERE entity IN (0,".$config->entity.")";
 if (!empty($TTestNotAllowed)) {
 	$sql .= ' AND t.rowid NOT IN ('.$db->sanitize(implode(',', $TTestNotAllowed)).')';
 }
@@ -352,7 +352,7 @@ $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($search_status) {

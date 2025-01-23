@@ -216,10 +216,10 @@ class UserGroup extends CommonObject
 		$sql .= " ".$this->db->prefix()."usergroup_user as ug";
 		$sql .= " WHERE ug.fk_usergroup = g.rowid";
 		$sql .= " AND ug.fk_user = ".((int) $userid);
-		if (isModEnabled('multicompany') && $conf->entity == 1 && $user->admin && !$user->entity) {
+		if (isModEnabled('multicompany') && $config->entity == 1 && $user->admin && !$user->entity) {
 			$sql .= " AND g.entity IS NOT NULL";
 		} else {
-			$sql .= " AND g.entity IN (0,".$conf->entity.")";
+			$sql .= " AND g.entity IN (0,".$config->entity.")";
 		}
 		$sql .= " ORDER BY g.nom";
 
@@ -276,10 +276,10 @@ class UserGroup extends CommonObject
 		if (!empty($this->id)) {
 			$sql .= " AND ug.fk_usergroup = ".((int) $this->id);
 		}
-		if (isModEnabled('multicompany') && $conf->entity == 1 && $user->admin && !$user->entity) {
+		if (isModEnabled('multicompany') && $config->entity == 1 && $user->admin && !$user->entity) {
 			$sql .= " AND u.entity IS NOT NULL";
 		} else {
-			$sql .= " AND u.entity IN (0,".$conf->entity.")";
+			$sql .= " AND u.entity IN (0,".$config->entity.")";
 		}
 		if (!empty($excludefilter)) {
 			$sql .= ' AND ('.$excludefilter.')';
@@ -341,7 +341,7 @@ class UserGroup extends CommonObject
 	{
 		global $conf, $user, $langs;
 
-		$entity = (!empty($entity) ? $entity : $conf->entity);
+		$entity = (!empty($entity) ? $entity : $config->entity);
 
 		dol_syslog(get_class($this)."::addrights $rid, $allmodule, $allperms, $entity");
 		$error = 0;
@@ -467,7 +467,7 @@ class UserGroup extends CommonObject
 		$error = 0;
 		$wherefordel = '';
 
-		$entity = (!empty($entity) ? $entity : $conf->entity);
+		$entity = (!empty($entity) ? $entity : $config->entity);
 
 		$this->db->begin();
 
@@ -618,8 +618,8 @@ class UserGroup extends CommonObject
 		$sql = "SELECT r.module, r.perms, r.subperms ";
 		$sql .= " FROM ".$this->db->prefix()."usergroup_rights as u, ".$this->db->prefix()."rights_def as r";
 		$sql .= " WHERE r.id = u.fk_id";
-		$sql .= " AND r.entity = ".((int) $conf->entity);
-		$sql .= " AND u.entity = ".((int) $conf->entity);
+		$sql .= " AND r.entity = ".((int) $config->entity);
+		$sql .= " AND u.entity = ".((int) $config->entity);
 		$sql .= " AND u.fk_usergroup = ".((int) $this->id);
 		$sql .= " AND r.perms IS NOT NULL";
 		if ($moduletag) {
@@ -707,7 +707,7 @@ class UserGroup extends CommonObject
 		}
 
 		if (!isset($this->entity)) {
-			$this->entity = $conf->entity; // If not defined, we use default value
+			$this->entity = $config->entity; // If not defined, we use default value
 		}
 
 		return $this->createCommon($user, $notrigger);
@@ -955,7 +955,7 @@ class UserGroup extends CommonObject
 		if ($this->name && getDolGlobalString('LDAP_GROUP_FIELD_FULLNAME')) {
 			$info[getDolGlobalString('LDAP_GROUP_FIELD_FULLNAME')] = $this->name;
 		}
-		//if ($this->name && !empty($conf->global->LDAP_GROUP_FIELD_NAME)) $info[$conf->global->LDAP_GROUP_FIELD_NAME] = $this->name;
+		//if ($this->name && !empty($config->global->LDAP_GROUP_FIELD_NAME)) $info[$config->global->LDAP_GROUP_FIELD_NAME] = $this->name;
 		if ($this->note && getDolGlobalString('LDAP_GROUP_FIELD_DESCRIPTION')) {
 			$info[getDolGlobalString('LDAP_GROUP_FIELD_DESCRIPTION')] = dol_string_nohtmltag($this->note, 2);
 		}

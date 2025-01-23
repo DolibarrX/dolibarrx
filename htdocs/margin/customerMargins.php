@@ -43,7 +43,7 @@ require_once DOL_DOCUMENT_ROOT.'/margin/lib/margins.lib.php';
 $langs->loadLangs(array('companies', 'bills', 'products', 'margins'));
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -198,7 +198,7 @@ print '<table class="border centpercent">';
 
 // Total Margin
 print '<tr><td class="titlefield">'.$langs->trans("TotalMargin").'</td><td colspan="4">';
-print '<span id="totalMargin" class="amount"></span> <span class="amount">'.$langs->getCurrencySymbol($conf->currency).'</span>'; // set by jquery (see below)
+print '<span id="totalMargin" class="amount"></span> <span class="amount">'.$langs->getCurrencySymbol($config->currency).'</span>'; // set by jquery (see below)
 print '</td></tr>';
 
 // Margin Rate
@@ -281,7 +281,7 @@ if ($client) {
 }
 $sql .= $db->order($sortfield, $sortorder);
 // TODO: calculate total to display then restore pagination
-//$sql.= $db->plimit($conf->liste_limit +1, $offset);
+//$sql.= $db->plimit($config->liste_limit +1, $offset);
 
 $param = '&socid='.((int) $socid);
 if (GETPOSTINT('startdatemonth')) {
@@ -353,7 +353,7 @@ if ($result) {
 	$cumul_vente = 0;
 
 	if ($num > 0) {
-		while ($i < $num /*&& $i < $conf->liste_limit*/) {
+		while ($i < $num /*&& $i < $config->liste_limit*/) {
 			$objp = $db->fetch_object($result);
 
 			$pa = $objp->buying_price;

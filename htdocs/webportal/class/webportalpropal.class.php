@@ -197,7 +197,7 @@ class WebPortalPropal extends Propal
 	{
 		global $conf, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -281,7 +281,7 @@ class WebPortalPropal extends Propal
 		}
 		if (property_exists($this, 'amount')) {
 			$return .= '<br>';
-			$return .= '<span class="info-box-label amount">' . price($this->amount, 0, $langs, 1, -1, -1, $conf->currency) . '</span>';
+			$return .= '<span class="info-box-label amount">' . price($this->amount, 0, $langs, 1, -1, -1, $config->currency) . '</span>';
 		}
 		if (method_exists($this, 'getLibStatut')) {
 			$return .= '<br><div class="info-box-status margintoponly">' . $this->getLibStatut(3) . '</div>';

@@ -59,7 +59,7 @@ $dol_openinpopup = GETPOST('dol_openinpopup', 'aZ09');
 // Initialize a technical objects
 $object = new Partnership($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->partnership->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->partnership->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('partnershipcard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -90,7 +90,7 @@ $permissiontoadd 		= $user->hasRight('partnership', 'write'); // Used by the inc
 $permissiontodelete 	= $user->hasRight('partnership', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 $permissionnote 		= $user->hasRight('partnership', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink 		= $user->hasRight('partnership', 'write'); // Used by the include of actions_dellink.inc.php
-$upload_dir 			= $conf->partnership->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir 			= $config->partnership->multidir_output[isset($object->entity) ? $object->entity : 1];
 $managedfor 			= getDolGlobalString('PARTNERSHIP_IS_MANAGED_FOR', 'thirdparty');
 
 // Security check (enable the most restrictive one)
@@ -435,7 +435,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	 $morehtmlref .= $form->editfieldval("RefCustomer", 'ref_client', $object->ref_client, $object, 0, 'string', '', null, null, '', 1);
 	 // Thirdparty
 		$morehtmlref .= '<br>'.$object->thirdparty->getNomUrl(1, 'customer');
-		if (empty($conf->global->MAIN_DISABLE_OTHER_LINK) && $object->thirdparty->id > 0) {
+		if (empty($config->global->MAIN_DISABLE_OTHER_LINK) && $object->thirdparty->id > 0) {
 			$morehtmlref .= ' (<a href="'.DOL_URL_ROOT.'/commande/list.php?socid='.$object->thirdparty->id.'&search_societe='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherOrders").'</a>)';
 		}
 	 // Project
@@ -536,7 +536,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		<input type="hidden" name="id" value="' . $object->id.'">
 		';
 
-		if (!empty($conf->use_javascript_ajax) && $object->status == 0) {
+		if (!empty($config->use_javascript_ajax) && $object->status == 0) {
 			include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 		}
 
@@ -656,7 +656,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if ($includedocgeneration) {
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $conf->partnership->dir_output.'/'.$object->element.'/'.$objref;
+			$filedir = $config->partnership->dir_output.'/'.$object->element.'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $permissiontoread; // If you can read, you can build the PDF to read content
 			$delallowed = $permissiontoadd; // If you can create/edit, you can remove a file on card
@@ -694,7 +694,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Presend form
 	$modelmail = 'partnership_send';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->partnership->dir_output;
+	$diroutput = $config->partnership->dir_output;
 	$trackid = 'pship'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

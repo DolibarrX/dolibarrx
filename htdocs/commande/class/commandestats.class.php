@@ -126,7 +126,7 @@ class CommandeStats extends Stats
 			//$this->where .= " c.fk_statut > 2"; // Only approved & ordered
 			$this->categ_link = MAIN_DB_PREFIX.'categorie_fournisseur';
 		}
-		//$this->where.= " AND c.fk_soc = s.rowid AND c.entity = ".$conf->entity;
+		//$this->where.= " AND c.fk_soc = s.rowid AND c.entity = ".$config->entity;
 		$this->where .= ($this->where ? ' AND ' : '').'c.entity IN ('.getEntity('commande').')';
 
 		if ($this->socid) {

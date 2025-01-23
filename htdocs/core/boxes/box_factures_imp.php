@@ -102,7 +102,7 @@ class box_factures_imp extends ModeleBoxes
 			$sql1 .= ", SUM(pf.amount) as am";
 			$sql2 = " FROM ".MAIN_DB_PREFIX."societe as s";
 			if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
-				$sql2 .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $conf->entity);
+				$sql2 .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
 			}
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql2 .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
@@ -201,7 +201,7 @@ class box_factures_imp extends ModeleBoxes
 
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="nowraponall right amount"',
-						'text' => price($objp->total_ht, 0, $langs, 0, -1, -1, $conf->currency),
+						'text' => price($objp->total_ht, 0, $langs, 0, -1, -1, $config->currency),
 					);
 
 					$this->info_box_contents[$line][] = array(
@@ -245,7 +245,7 @@ class box_factures_imp extends ModeleBoxes
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="right liste_total" ',
-						'text' => price($totalamount, 0, $langs, 0, -1, -1, $conf->currency),
+						'text' => price($totalamount, 0, $langs, 0, -1, -1, $config->currency),
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="liste_total"',

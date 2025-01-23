@@ -119,9 +119,9 @@ function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $
 	// Define urllogo
 	$urllogo = DOL_URL_ROOT.'/theme/common/login_logo.png';
 
-	if (!empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
+	if (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
 		$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_small);
-	} elseif (!empty($mysoc->logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
+	} elseif (!empty($mysoc->logo) && is_readable($config->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
 		$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/'.$mysoc->logo);
 	} elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.svg')) {
 		$urllogo = DOL_URL_ROOT.'/theme/dolibarr_logo.svg';
@@ -165,7 +165,7 @@ function llxFooterVierge()
 
 	printCommonFooter('public');
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print "\n".'<!-- Includes JS Footer of Dolibarr -->'."\n";
 		print '<script src="'.DOL_URL_ROOT.'/core/js/lib_foot.js.php?lang='.$langs->defaultlang.'"></script>'."\n";
 	}
@@ -239,7 +239,7 @@ if (empty($reshook) && $action == 'add') {	// Test on permission not required he
 		$partnership->fk_user_creat          = 0;
 		$partnership->fk_type                = GETPOSTINT('partnershiptype');
 		$partnership->url                    = GETPOST('url');
-		//$partnership->typeid               = $conf->global->PARTNERSHIP_NEWFORM_FORCETYPE ? $conf->global->PARTNERSHIP_NEWFORM_FORCETYPE : GETPOST('typeid', 'int');
+		//$partnership->typeid               = $config->global->PARTNERSHIP_NEWFORM_FORCETYPE ? $config->global->PARTNERSHIP_NEWFORM_FORCETYPE : GETPOST('typeid', 'int');
 		$partnership->ip = getUserRemoteIP();
 
 		$nb_post_max = getDolGlobalInt("MAIN_SECURITY_MAX_POST_ON_PUBLIC_PAGES_BY_IP_ADDRESS", 200);
@@ -367,7 +367,7 @@ if (empty($reshook) && $action == 'add') {	// Test on permission not required he
 					$outputlangs->loadLangs(array("main", "members"));
 					// Get email content from template
 					$arraydefaultmessage = null;
-					$labeltouse = $conf->global->PARTNERSHIP_EMAIL_TEMPLATE_AUTOREGISTER;
+					$labeltouse = $config->global->PARTNERSHIP_EMAIL_TEMPLATE_AUTOREGISTER;
 
 					if (!empty($labeltouse)) {
 						$arraydefaultmessage = $formmail->getEMailTemplate($db, 'member', $user, $outputlangs, 0, 1, $labeltouse);
@@ -663,9 +663,9 @@ print '<tr><td>'.$langs->trans('Country').'</td><td>';
 print img_picto('', 'country', 'class="pictofixedwidth"');
 $country_id = GETPOSTINT('country_id');
 if (!$country_id && getDolGlobalString('PARTNERSHIP_NEWFORM_FORCECOUNTRYCODE')) {
-	$country_id = getCountry($conf->global->PARTNERSHIP_NEWFORM_FORCECOUNTRYCODE, '2', $db, $langs);
+	$country_id = getCountry($config->global->PARTNERSHIP_NEWFORM_FORCECOUNTRYCODE, '2', $db, $langs);
 }
-if (!$country_id && !empty($conf->geoipmaxmind->enabled)) {
+if (!$country_id && !empty($config->geoipmaxmind->enabled)) {
 	$country_code = dol_user_country();
 	//print $country_code;
 	if ($country_code) {

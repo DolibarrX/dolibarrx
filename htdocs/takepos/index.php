@@ -90,7 +90,7 @@ $categorie = new Categorie($db);
 
 $maxcategbydefaultforthisdevice = 12;
 $maxproductbydefaultforthisdevice = 24;
-if ($conf->browser->layout == 'phone') {
+if ($config->browser->layout == 'phone') {
 	$maxcategbydefaultforthisdevice = 8;
 	$maxproductbydefaultforthisdevice = 16;
 	//REDIRECT TO BASIC LAYOUT IF TERMINAL SELECTED AND BASIC MOBILE LAYOUT FORCED
@@ -102,8 +102,8 @@ if ($conf->browser->layout == 'phone') {
 } else {
 	unset($_SESSION["basiclayout"]);
 }
-$MAXCATEG = (!getDolGlobalString('TAKEPOS_NB_MAXCATEG') ? $maxcategbydefaultforthisdevice : $conf->global->TAKEPOS_NB_MAXCATEG);
-$MAXPRODUCT = (!getDolGlobalString('TAKEPOS_NB_MAXPRODUCT') ? $maxproductbydefaultforthisdevice : $conf->global->TAKEPOS_NB_MAXPRODUCT);
+$MAXCATEG = (!getDolGlobalString('TAKEPOS_NB_MAXCATEG') ? $maxcategbydefaultforthisdevice : $config->global->TAKEPOS_NB_MAXCATEG);
+$MAXPRODUCT = (!getDolGlobalString('TAKEPOS_NB_MAXPRODUCT') ? $maxproductbydefaultforthisdevice : $config->global->TAKEPOS_NB_MAXPRODUCT);
 
 $term = empty($_SESSION['takeposterminal']) ? 1 : $_SESSION['takeposterminal'];
 
@@ -151,7 +151,7 @@ $categories = $categorie->get_full_arbo('product', ((getDolGlobalInt('TAKEPOS_RO
 
 
 // Search root category to know its level
-//$conf->global->TAKEPOS_ROOT_CATEGORY_ID=0;
+//$config->global->TAKEPOS_ROOT_CATEGORY_ID=0;
 $levelofrootcategory = 0;
 if (getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) {
 	foreach ($categories as $key => $categorycursor) {
@@ -218,7 +218,7 @@ function ClearSearch(clearSearchResults) {
 	$("#qty").html("<?php echo $langs->trans("Qty"); ?>").removeClass('clicked');
 	$("#price").html("<?php echo $langs->trans("Price"); ?>").removeClass('clicked');
 	$("#reduction").html("<?php echo $langs->trans("LineDiscountShort"); ?>").removeClass('clicked');
-	<?php if ($conf->browser->layout == 'classic') { ?>
+	<?php if ($config->browser->layout == 'classic') { ?>
 	setFocusOnSearchField();
 	<?php } ?>
 	if (clearSearchResults) {
@@ -229,7 +229,7 @@ function ClearSearch(clearSearchResults) {
 // Set the focus on search field but only on desktop. On tablet or smartphone, we don't to avoid to have the keyboard open automatically
 function setFocusOnSearchField() {
 	console.log("Call setFocusOnSearchField in page index.php");
-	<?php if ($conf->browser->layout == 'classic') { ?>
+	<?php if ($config->browser->layout == 'classic') { ?>
 		console.log("has keyboard from localStorage, so we can force focus on search field");
 		$("#search").focus();
 	<?php } ?>
@@ -668,7 +668,7 @@ function Refresh() {
 }
 
 function New() {
-	// If we go here,it means $conf->global->TAKEPOS_BAR_RESTAURANT is not defined
+	// If we go here,it means $config->global->TAKEPOS_BAR_RESTAURANT is not defined
 	invoiceid = $("#invoiceid").val();		// This is a hidden field added by invoice.php
 
 	console.log("New with place = <?php echo $place; ?>, js place="+place+", invoiceid="+invoiceid);
@@ -964,7 +964,7 @@ function OpenDrawer(){
 		type: "POST",
 		data: { token: 'notrequired' },
 		<?php
-		if (getDolGlobalString('TAKEPOS_PRINT_SERVER') && filter_var($conf->global->TAKEPOS_PRINT_SERVER, FILTER_VALIDATE_URL) == true) {
+		if (getDolGlobalString('TAKEPOS_PRINT_SERVER') && filter_var($config->global->TAKEPOS_PRINT_SERVER, FILTER_VALIDATE_URL) == true) {
 			echo "url: '".getDolGlobalString('TAKEPOS_PRINT_SERVER', 'localhost')."/printer/drawer.php',";
 		} else {
 			echo "url: 'http://".getDolGlobalString('TAKEPOS_PRINT_SERVER', 'localhost').":8111/print',";
@@ -1060,7 +1060,7 @@ $( document ).ready(function() {
 
 	if (getDolGlobalString('TAKEPOS_CONTROL_CASH_OPENING')) {
 		$sql = "SELECT rowid, status FROM ".MAIN_DB_PREFIX."pos_cash_fence WHERE";
-		$sql .= " entity = ".((int) $conf->entity)." AND ";
+		$sql .= " entity = ".((int) $config->entity)." AND ";
 		$sql .= " posnumber = ".((int) $_SESSION["takeposterminal"])." AND ";
 		$sql .= " date_creation > '".$db->idate(dol_get_first_hour(dol_now()))."'";
 		$resql = $db->query($sql);
@@ -1194,7 +1194,7 @@ if (!getDolGlobalString('TAKEPOS_HIDE_HEAD_BAR')) {
 					<a onclick="ClearSearch(false);" class="nohover"><span class="fa fa-backspace"></span></a>
 					<a href="<?php echo DOL_URL_ROOT.'/'; ?>" target="backoffice" rel="opener"><!-- we need rel="opener" here, we are on same domain and we need to be able to reuse this tab several times -->
 					<span class="fas fa-home"></span></a>
-					<?php if (empty($conf->dol_use_jmobile)) { ?>
+					<?php if (empty($config->dol_use_jmobile)) { ?>
 					<a class="hideonsmartphone" onclick="FullScreen();" title="<?php echo dol_escape_htmltag($langs->trans("ClickFullScreenEscapeToLeave")); ?>"><span class="fa fa-expand-arrows-alt"></span></a>
 					<?php } ?>
 					</div>
@@ -1410,7 +1410,7 @@ if (getDolGlobalString('TAKEPOS_BAR_RESTAURANT')) {
 	//Button to print receipt before payment
 	if (getDolGlobalString('TAKEPOS_BAR_RESTAURANT')) {
 		if (getDolGlobalString('TAKEPOS_PRINT_METHOD') == "takeposconnector") {
-			if (getDolGlobalString('TAKEPOS_PRINT_SERVER') && filter_var($conf->global->TAKEPOS_PRINT_SERVER, FILTER_VALIDATE_URL) == true) {
+			if (getDolGlobalString('TAKEPOS_PRINT_SERVER') && filter_var($config->global->TAKEPOS_PRINT_SERVER, FILTER_VALIDATE_URL) == true) {
 				$menus[$r++] = array('title' => '<span class="fa fa-receipt paddingrightonly"></span><div class="trunc">'.$langs->trans("Receipt").'</div>', 'action' => 'TakeposConnector(placeid);');
 			} else {
 				$menus[$r++] = array('title' => '<span class="fa fa-receipt paddingrightonly"></span><div class="trunc">'.$langs->trans("Receipt").'</div>', 'action' => 'TakeposPrinting(placeid);');
@@ -1440,7 +1440,7 @@ if (getDolGlobalInt('TAKEPOS_PRINTER_TO_USE'.$term) > 0 || getDolGlobalString('T
 }
 
 $sql = "SELECT rowid, status, entity FROM ".MAIN_DB_PREFIX."pos_cash_fence WHERE";
-$sql .= " entity = ".((int) $conf->entity)." AND ";
+$sql .= " entity = ".((int) $config->entity)." AND ";
 $sql .= " posnumber = ".((int) empty($_SESSION["takeposterminal"]) ? 0 : $_SESSION["takeposterminal"])." AND ";
 $sql .= " date_creation > '".$db->idate(dol_get_first_hour(dol_now()))."'";
 

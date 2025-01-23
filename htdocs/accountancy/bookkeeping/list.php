@@ -148,7 +148,7 @@ $search_lettering_code = GETPOST('search_lettering_code', 'alpha');
 $search_not_reconciled = GETPOST('search_not_reconciled', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : getDolGlobalString('ACCOUNTING_LIMIT_LIST_VENTILATION', $conf->liste_limit);
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : getDolGlobalString('ACCOUNTING_LIMIT_LIST_VENTILATION', $config->liste_limit);
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $optioncss = GETPOST('optioncss', 'alpha');
@@ -494,7 +494,7 @@ if (empty($reshook)) {
 	$permissiontoread = $user->hasRight('societe', 'lire');
 	$permissiontodelete = $user->hasRight('societe', 'supprimer');
 	$permissiontoadd = $user->hasRight('societe', 'creer');
-	$uploaddir = $conf->societe->dir_output;
+	$uploaddir = $config->societe->dir_output;
 
 	global $error;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
@@ -793,7 +793,7 @@ print $formconfirm;
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 
@@ -1200,12 +1200,12 @@ while ($i < min($num, $limit)) {
 
 	// Journal code
 	if (!empty($arrayfields['t.code_journal']['checked'])) {
-		if (empty($conf->cache['accountingjournal'][$line->code_journal])) {
+		if (empty($config->cache['accountingjournal'][$line->code_journal])) {
 			$accountingjournal = new AccountingJournal($db);
 			$accountingjournal->fetch(0, $line->code_journal);
-			$conf->cache['accountingjournal'][$line->code_journal] = $accountingjournal;
+			$config->cache['accountingjournal'][$line->code_journal] = $accountingjournal;
 		} else {
-			$accountingjournal = $conf->cache['accountingjournal'][$line->code_journal];
+			$accountingjournal = $config->cache['accountingjournal'][$line->code_journal];
 		}
 
 		$journaltoshow = (($accountingjournal->id > 0) ? $accountingjournal->getNomUrl(0, 0, 0, '', 0) : $line->code_journal);
@@ -1237,7 +1237,7 @@ while ($i < min($num, $limit)) {
 			//$modulepart = 'facture';
 
 			$filename = dol_sanitizeFileName($line->doc_ref);
-			$filedir = $conf->facture->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
+			$filedir = $config->facture->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$objectstatic->id;
 			$documentlink = $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir);
 		} elseif ($line->doc_type === 'supplier_invoice') {
@@ -1250,7 +1250,7 @@ while ($i < min($num, $limit)) {
 			$modulepart = 'invoice_supplier';
 			$filename = dol_sanitizeFileName($line->doc_ref);
 
-			//$filedir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($line->fk_doc, 2, 0, 0, $objectstatic, $modulepart).dol_sanitizeFileName($line->doc_ref);
+			//$filedir = $config->fournisseur->facture->dir_output.'/'.get_exdir($line->fk_doc, 2, 0, 0, $objectstatic, $modulepart).dol_sanitizeFileName($line->doc_ref);
 			//$subdir = get_exdir($objectstatic->id, 2, 0, 0, $objectstatic, $modulepart).dol_sanitizeFileName($line->doc_ref);
 			$filedir = getMultidirOutput($objectstatic, '', 1).dol_sanitizeFileName($line->doc_ref);
 			$subdir = getMultidirOutput($objectstatic, '', 1, 'outputrel').dol_sanitizeFileName($line->doc_ref);
@@ -1270,7 +1270,7 @@ while ($i < min($num, $limit)) {
 			//$modulepart = 'expensereport';
 
 			$filename = dol_sanitizeFileName($line->doc_ref);
-			$filedir = $conf->expensereport->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
+			$filedir = $config->expensereport->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$objectstatic->id;
 			$documentlink = $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir);
 		} elseif ($line->doc_type === 'bank') {

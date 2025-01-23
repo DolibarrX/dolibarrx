@@ -53,7 +53,7 @@ $extrafields = new ExtraFields($db);
 $hookManager->initHooks(array('bomnote', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Massactions
-$diroutputmassaction = $conf->bom->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->bom->dir_output.'/temp/massgeneration/'.$user->id;
 
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -66,7 +66,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = (!empty($conf->bom->multidir_output[$object->entity]) ? $conf->bom->multidir_output[$object->entity] : $conf->bom->dir_output)."/".$object->id;
+	$upload_dir = (!empty($config->bom->multidir_output[$object->entity]) ? $config->bom->multidir_output[$object->entity] : $config->bom->dir_output)."/".$object->id;
 }
 
 $permissionnote = $user->hasRight('bom', 'write'); // Used by the include of actions_setnotes.inc.php

@@ -72,18 +72,18 @@ include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
 // Shipment note
 if (isModEnabled('shipping') && !getDolGlobalString('MAIN_SUBMODULE_EXPEDITION')) {
 	// This option should always be set to on when module is on.
-	dolibarr_set_const($db, "MAIN_SUBMODULE_EXPEDITION", "1", 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_SUBMODULE_EXPEDITION", "1", 'chaine', 0, '', $config->entity);
 }
 /*
  if ($action == 'activate_sending')
  {
- dolibarr_set_const($db, "MAIN_SUBMODULE_EXPEDITION", "1",'chaine',0,'',$conf->entity);
+ dolibarr_set_const($db, "MAIN_SUBMODULE_EXPEDITION", "1",'chaine',0,'',$config->entity);
  header("Location: confexped.php");
  exit;
  }
  if ($action == 'disable_sending')
  {
- dolibarr_del_const($db, "MAIN_SUBMODULE_EXPEDITION",$conf->entity);
+ dolibarr_del_const($db, "MAIN_SUBMODULE_EXPEDITION",$config->entity);
  header("Location: confexped.php");
  exit;
  }
@@ -91,12 +91,12 @@ if (isModEnabled('shipping') && !getDolGlobalString('MAIN_SUBMODULE_EXPEDITION')
 
 // Delivery note
 if ($action == 'activate_delivery') {
-	dolibarr_set_const($db, "MAIN_SUBMODULE_EXPEDITION", "1", 'chaine', 0, '', $conf->entity); // We must also enable this
-	dolibarr_set_const($db, "MAIN_SUBMODULE_DELIVERY", "1", 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_SUBMODULE_EXPEDITION", "1", 'chaine', 0, '', $config->entity); // We must also enable this
+	dolibarr_set_const($db, "MAIN_SUBMODULE_DELIVERY", "1", 'chaine', 0, '', $config->entity);
 	header("Location: delivery.php");
 	exit;
 } elseif ($action == 'disable_delivery') {
-	dolibarr_del_const($db, "MAIN_SUBMODULE_DELIVERY", $conf->entity);
+	dolibarr_del_const($db, "MAIN_SUBMODULE_DELIVERY", $config->entity);
 	header("Location: delivery.php");
 	exit;
 }
@@ -108,7 +108,7 @@ if ($action == 'updateMask') {
 	$res = 0;
 
 	if ($maskconstdelivery && preg_match('/_MASK$/', $maskconstdelivery)) {
-		$res = dolibarr_set_const($db, $maskconstdelivery, $maskdelivery, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstdelivery, $maskdelivery, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -124,7 +124,7 @@ if ($action == 'updateMask') {
 
 if ($action == 'set_DELIVERY_FREE_TEXT') {
 	$free = GETPOST('DELIVERY_FREE_TEXT', 'restricthtml'); // No alpha here, we want exact string
-	$res = dolibarr_set_const($db, "DELIVERY_FREE_TEXT", $free, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "DELIVERY_FREE_TEXT", $free, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -146,7 +146,7 @@ if ($action == 'specimen') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/delivery/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -182,16 +182,16 @@ if ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
 		if (getDolGlobalString('DELIVERY_ADDON_PDF') == $value) {
-			dolibarr_del_const($db, 'DELIVERY_ADDON_PDF', $conf->entity);
+			dolibarr_del_const($db, 'DELIVERY_ADDON_PDF', $config->entity);
 		}
 	}
 }
 
 if ($action == 'setdoc') {
-	if (dolibarr_set_const($db, "DELIVERY_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "DELIVERY_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->DELIVERY_ADDON_PDF = $value;
+		$config->global->DELIVERY_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -205,7 +205,7 @@ if ($action == 'setmod') {
 	// TODO Verify if the chosen numbering module can be activated
 	// by calling method canBeActivated
 
-	dolibarr_set_const($db, "DELIVERY_ADDON_NUMBER", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "DELIVERY_ADDON_NUMBER", $value, 'chaine', 0, '', $config->entity);
 }
 
 
@@ -214,7 +214,7 @@ if ($action == 'setmod') {
  * View
  */
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-admin page-delivery');
 
@@ -301,7 +301,7 @@ if (getDolGlobalString('MAIN_SUBMODULE_DELIVERY')) {
 							print '</td>'."\n";
 
 							print '<td class="center">';
-							if ($conf->global->DELIVERY_ADDON_NUMBER == "$file") {
+							if ($config->global->DELIVERY_ADDON_NUMBER == "$file") {
 								print img_picto($langs->trans("Activated"), 'switch_on');
 							} else {
 								print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.urlencode($file).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
@@ -356,7 +356,7 @@ if (getDolGlobalString('MAIN_SUBMODULE_DELIVERY')) {
 	$sql = "SELECT nom";
 	$sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 	$sql .= " WHERE type = '".$db->escape($type)."'";
-	$sql .= " AND entity = ".$conf->entity;
+	$sql .= " AND entity = ".$config->entity;
 
 	$resql = $db->query($sql);
 	if ($resql) {

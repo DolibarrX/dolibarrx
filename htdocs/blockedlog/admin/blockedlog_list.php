@@ -49,7 +49,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 $langs->loadLangs(array('admin', 'bills', 'blockedlog', 'other'));
 
 // Access Control
-if ((!$user->admin && !$user->hasRight('blockedlog', 'read')) || empty($conf->blockedlog->enabled)) {
+if ((!$user->admin && !$user->hasRight('blockedlog', 'read')) || empty($config->blockedlog->enabled)) {
 	accessforbidden();
 }
 
@@ -93,7 +93,7 @@ if (($search_start == -1 || empty($search_start)) && !GETPOSTISSET('search_start
 }
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -177,7 +177,7 @@ if ($action === 'downloadblockchain') {
 		// Get the ID of the first line qualified
 		$sql = "SELECT rowid,date_creation,tms,user_fullname,action,amounts,element,fk_object,date_object,ref_object,signature,fk_user,object_data";
 		$sql .= " FROM ".MAIN_DB_PREFIX."blockedlog";
-		$sql .= " WHERE entity = ".$conf->entity;
+		$sql .= " WHERE entity = ".$config->entity;
 		if (GETPOSTINT('monthtoexport') > 0 || GETPOSTINT('yeartoexport') > 0) {
 			$dates = dol_get_first_day(GETPOSTINT('yeartoexport'), GETPOSTINT('monthtoexport') ? GETPOSTINT('monthtoexport') : 1);
 			$datee = dol_get_last_day(GETPOSTINT('yeartoexport'), GETPOSTINT('monthtoexport') ? GETPOSTINT('monthtoexport') : 12);
@@ -212,7 +212,7 @@ if ($action === 'downloadblockchain') {
 		$object->id = 0;
 		$object->element = 'module';
 		$object->ref = 'systemevent';
-		$object->entity = $conf->entity;
+		$object->entity = $config->entity;
 		$object->date = dol_now();
 
 		$object->label = 'Export unalterable logs - Period: year='.GETPOSTINT('yeartoexport').(GETPOSTINT('monthtoexport') ? ' month='.GETPOSTINT('monthtoexport') : '');
@@ -238,7 +238,7 @@ if ($action === 'downloadblockchain') {
 		// Now restart request with all data = no limit(1) in sql request
 		$sql = "SELECT rowid, date_creation, tms, user_fullname, action, amounts, element, fk_object, date_object, ref_object, signature, fk_user, object_data, object_version";
 		$sql .= " FROM ".MAIN_DB_PREFIX."blockedlog";
-		$sql .= " WHERE entity = ".((int) $conf->entity);
+		$sql .= " WHERE entity = ".((int) $config->entity);
 		if (GETPOSTINT('monthtoexport') > 0 || GETPOSTINT('yeartoexport') > 0) {
 			$dates = dol_get_first_day(GETPOSTINT('yeartoexport'), GETPOSTINT('monthtoexport') ? GETPOSTINT('monthtoexport') : 1);
 			$datee = dol_get_last_day(GETPOSTINT('yeartoexport'), GETPOSTINT('monthtoexport') ? GETPOSTINT('monthtoexport') : 12);
@@ -394,7 +394,7 @@ $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($search_id != '') {
@@ -713,7 +713,7 @@ print '<script type="text/javascript">
 jQuery(document).ready(function () {
 	jQuery("#dialogforpopup").dialog(
 	{ closeOnEscape: true, classes: { "ui-dialog": "highlight" },
-	maxHeight: window.innerHeight-60, height: window.innerHeight-60, width: '.($conf->browser->layout == 'phone' ? 400 : 700).',
+	maxHeight: window.innerHeight-60, height: window.innerHeight-60, width: '.($config->browser->layout == 'phone' ? 400 : 700).',
 	modal: true,
 	autoOpen: false }).css("z-index: 5000");
 

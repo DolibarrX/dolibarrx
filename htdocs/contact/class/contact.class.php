@@ -616,7 +616,7 @@ class Contact extends CommonObject
 
 		$this->id = $id;
 
-		$this->entity = ((isset($this->entity) && is_numeric($this->entity)) ? $this->entity : $conf->entity);
+		$this->entity = ((isset($this->entity) && is_numeric($this->entity)) ? $this->entity : $config->entity);
 
 		// Clean parameters
 		$this->ref_ext = (empty($this->ref_ext) ? '' : trim($this->ref_ext));
@@ -1539,7 +1539,7 @@ class Contact extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -1990,7 +1990,7 @@ class Contact extends CommonObject
 						$sql .= "fk_soc,";
 						$sql .= "fk_c_type_contact,";
 						$sql .= "fk_socpeople) ";
-						$sql .= " VALUES (".$conf->entity.",";
+						$sql .= " VALUES (".$config->entity.",";
 						$sql .= "'".$this->db->idate(dol_now())."',";
 						$sql .= $socid.", ";
 						$sql .= $idrole." , ";

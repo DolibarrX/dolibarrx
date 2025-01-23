@@ -55,7 +55,7 @@ $id			= GETPOSTINT('id');
 $ref		= GETPOST('ref');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -103,7 +103,7 @@ $result = restrictedArea($user, 'commande', $id, '');
 
 if ($object->fetch($id)) {
 	$object->fetch_thirdparty();
-	$upload_dir = $conf->commande->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->commande->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
 }
 
 include DOL_DOCUMENT_ROOT.'/core/actions_linkedfiles.inc.php';
@@ -122,7 +122,7 @@ if ($id > 0 || !empty($ref)) {
 	if ($object->fetch($id, $ref)) {
 		$object->fetch_thirdparty();
 
-		$upload_dir = $conf->commande->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
+		$upload_dir = $config->commande->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
 
 		$head = commande_prepare_head($object);
 		print dol_get_fiche_head($head, 'documents', $langs->trans('CustomerOrder'), -1, 'order');
@@ -191,7 +191,7 @@ if ($id > 0 || !empty($ref)) {
 		$modulepart = 'commande';
 		$permissiontoadd = $user->hasRight('commande', 'creer');
 		$permtoedit = $user->hasRight('commande', 'creer');
-		$param = '&id='.$object->id.'&entity='.(empty($object->entity) ? $conf->entity : $object->entity);
+		$param = '&id='.$object->id.'&entity='.(empty($object->entity) ? $config->entity : $object->entity);
 		include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';
 	} else {
 		dol_print_error($db);

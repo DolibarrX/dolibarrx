@@ -71,7 +71,7 @@ $qty = GETPOST('qty');
 $idline = GETPOST('idline');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -222,7 +222,7 @@ if ($action == 'createmovements' && $user->hasRight('stock', 'mouvement', 'creer
 
 				//print 'price src='.$pricesrc.', price dest='.$pricedest;exit;
 
-				if (empty($conf->productbatch->enabled) || !$product->hasbatch()) {	// If product does not need lot/serial
+				if (empty($config->productbatch->enabled) || !$product->hasbatch()) {	// If product does not need lot/serial
 					// Remove stock if source warehouse defined
 					if ($id_sw > 0) {
 						$result1 = $product->correct_stock(
@@ -330,10 +330,10 @@ if ($action == 'createmovements' && $user->hasRight('stock', 'mouvement', 'creer
 }
 
 if ($action == 'importCSV' && $user->hasRight('stock', 'mouvement', 'creer')) {
-	dol_mkdir($conf->stock->dir_temp);
+	dol_mkdir($config->stock->dir_temp);
 	$nowyearmonth = dol_print_date(dol_now(), '%Y%m%d%H%M%S');
 
-	$fullpath = $conf->stock->dir_temp."/".$user->id.'-csvfiletotimport.csv';
+	$fullpath = $config->stock->dir_temp."/".$user->id.'-csvfiletotimport.csv';
 	$resultupload = dol_move_uploaded_file($_FILES['userfile']['tmp_name'], $fullpath, 1);
 	if (is_numeric($resultupload) && $resultupload > 0) {
 		dol_syslog("File ".$fullpath." was added for import");
@@ -532,7 +532,7 @@ if ($action == 'confirm_deletefile' && $confirm == 'yes') {
 		$param .= '&endatlinenb='.urlencode($endatlinenb);
 	}
 
-	$file = $conf->stock->dir_temp.'/'.GETPOST('urlfile');
+	$file = $config->stock->dir_temp.'/'.GETPOST('urlfile');
 	$ret = dol_delete_file($file);
 	if ($ret) {
 		setEventMessages($langs->trans("FileWasRemoved", GETPOST('urlfile')), null, 'mesgs');
@@ -578,7 +578,7 @@ print '<br>';
 print '<form name="userfile" action="'.$_SERVER["PHP_SELF"].'" enctype="multipart/form-data" method="POST">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="action" value="importCSV">';
-if (!empty($conf->dol_optimize_smallscreen)) {
+if (!empty($config->dol_optimize_smallscreen)) {
 	print '<br>';
 }
 print '<span class="opacitymedium">';

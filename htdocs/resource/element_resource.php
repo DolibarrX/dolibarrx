@@ -654,7 +654,7 @@ if (!$ret) {
 
 			// Output template part (modules that overwrite templates must declare this into descriptor)
 			$defaulttpldir = '/core/tpl';
-			$dirtpls = array_merge($conf->modules_parts['tpl'], array($defaulttpldir), array($path.$defaulttpldir));
+			$dirtpls = array_merge($config->modules_parts['tpl'], array($defaulttpldir), array($path.$defaulttpldir));
 
 			foreach ($dirtpls as $module => $reldir) {
 				if (file_exists(dol_buildpath($reldir.'/resource_'.$element_prop['element'].'_add.tpl.php'))) {
@@ -662,7 +662,7 @@ if (!$ret) {
 				} else {
 					$tpl = DOL_DOCUMENT_ROOT.$reldir.'/resource_add.tpl.php';
 				}
-				if (empty($conf->file->strict_mode)) {
+				if (empty($config->file->strict_mode)) {
 					$res = @include $tpl;
 				} else {
 					$res = include $tpl; // for debug
@@ -679,7 +679,7 @@ if (!$ret) {
 					} else {
 						$tpl = DOL_DOCUMENT_ROOT.$reldir.'/resource_view.tpl.php';
 					}
-					if (empty($conf->file->strict_mode)) {
+					if (empty($config->file->strict_mode)) {
 						$res = @include $tpl;
 					} else {
 						$res = include $tpl; // for debug

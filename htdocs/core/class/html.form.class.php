@@ -353,7 +353,7 @@ class Form
 				} elseif (preg_match('/^url/', $typeofdata)) {
 					$ret .= dol_print_url($value, '_blank', 32, 1);
 				} elseif (preg_match('/^(amount|numeric)/', $typeofdata)) {
-					$ret .= ($value != '' ? price($value, 0, $langs, 0, -1, -1, $conf->currency) : '');
+					$ret .= ($value != '' ? price($value, 0, $langs, 0, -1, -1, $config->currency) : '');
 				} elseif (preg_match('/^checkbox/', $typeofdata)) {
 					$tmp = explode(':', $typeofdata);
 					$ret .= '<input type="checkbox" disabled id="' . $htmlname . '" name="' . $htmlname . '" value="' . $value . '"' . ($value ? ' checked' : '') . ($tmp[1] ? $tmp[1] : '') . '/>';
@@ -760,7 +760,7 @@ class Form
 		// Clean parameters
 		$tooltiptrigger = preg_replace('/[^a-z0-9]/i', '', $tooltiptrigger);
 
-		if (preg_match('/onsmartphone$/', $tooltiptrigger) && empty($conf->dol_no_mouse_hover)) {
+		if (preg_match('/onsmartphone$/', $tooltiptrigger) && empty($config->dol_no_mouse_hover)) {
 			$tooltiptrigger = preg_replace('/^.*onsmartphone$/', '', $tooltiptrigger);
 		}
 		$alt = '';
@@ -769,7 +769,7 @@ class Form
 		}
 
 		// If info or help with no javascript, show only text
-		if (empty($conf->use_javascript_ajax)) {
+		if (empty($config->use_javascript_ajax)) {
 			if ($type == 'info' || $type == 'infoclickable' || $type == 'help' || $type == 'helpclickable') {
 				return $text;
 			} else {
@@ -779,13 +779,13 @@ class Form
 		}
 
 		// If info or help with smartphone, show only text (tooltip hover can't works)
-		if (!empty($conf->dol_no_mouse_hover) && empty($tooltiptrigger)) {
+		if (!empty($config->dol_no_mouse_hover) && empty($tooltiptrigger)) {
 			if ($type == 'info' || $type == 'infoclickable' || $type == 'help' || $type == 'helpclickable') {
 				return $text;
 			}
 		}
 		// If info or help with smartphone, show only text (tooltip on click does not works with dialog on smaprtphone)
-		//if (!empty($conf->dol_no_mouse_hover) && !empty($tooltiptrigger))
+		//if (!empty($config->dol_no_mouse_hover) && !empty($tooltiptrigger))
 		//{
 		//if ($type == 'info' || $type == 'help') return '<a href="'..'">'.$text.'</a>';
 		//}
@@ -829,7 +829,7 @@ class Form
 
 		$disabled = 0;
 		$ret = '<div class="centpercent center">';
-		$ret .= '<select class="flat' . (empty($conf->use_javascript_ajax) ? '' : ' hideobject') . ' ' . $name . ' ' . $name . 'select valignmiddle alignstart" id="' . $name . '" name="' . $name . '"' . ($disabled ? ' disabled="disabled"' : '') . '>';
+		$ret .= '<select class="flat' . (empty($config->use_javascript_ajax) ? '' : ' hideobject') . ' ' . $name . ' ' . $name . 'select valignmiddle alignstart" id="' . $name . '" name="' . $name . '"' . ($disabled ? ' disabled="disabled"' : '') . '>';
 
 		// Complete list with data from external modules. THe module can use $_SERVER['PHP_SELF'] to know on which page we are, or use the $parameters['currentcontext'] completed by executeHooks.
 		$parameters = array();
@@ -851,16 +851,16 @@ class Form
 
 		$ret .= '</select>';
 
-		if (empty($conf->dol_optimize_smallscreen)) {
+		if (empty($config->dol_optimize_smallscreen)) {
 			$ret .= ajax_combobox('.' . $name . 'select');
 		}
 
 		// Warning: if you set submit button to disabled, post using 'Enter' will no more work if there is no another input submit. So we add a hidden button
 		$ret .= '<input type="submit" name="confirmmassactioninvisible" style="display: none" tabindex="-1">'; // Hidden button BEFORE so it is the one used when we submit with ENTER.
-		$ret .= '<input type="submit" disabled name="confirmmassaction"' . (empty($conf->use_javascript_ajax) ? '' : ' style="display: none"') . ' class="reposition button smallpaddingimp' . (empty($conf->use_javascript_ajax) ? '' : ' hideobject') . ' ' . $name . ' ' . $name . 'confirmed" value="' . dol_escape_htmltag($langs->trans("Confirm")) . '">';
+		$ret .= '<input type="submit" disabled name="confirmmassaction"' . (empty($config->use_javascript_ajax) ? '' : ' style="display: none"') . ' class="reposition button smallpaddingimp' . (empty($config->use_javascript_ajax) ? '' : ' hideobject') . ' ' . $name . ' ' . $name . 'confirmed" value="' . dol_escape_htmltag($langs->trans("Confirm")) . '">';
 		$ret .= '</div>';
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			$ret .= '<!-- JS CODE TO ENABLE mass action select -->
     		<script nonce="' . getNonce() . '">
                         function initCheckForSelect(mode, name, cssclass)	/* mode is 0 during init of page or click all, 1 when we click on 1 checkboxi, "name" refers to the class of the massaction button, "cssclass" to the class of the checkfor select boxes */
@@ -1087,7 +1087,7 @@ class Form
 		dol_syslog(get_class($this) . "::select_incoterm", LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			if ($conf->use_javascript_ajax && !$forcecombo) {
+			if ($config->use_javascript_ajax && !$forcecombo) {
 				include_once DOL_DOCUMENT_ROOT . '/core/lib/ajax.lib.php';
 				$out .= ajax_combobox($htmlname, $events);
 			}
@@ -1127,7 +1127,7 @@ class Form
 			$out .= '</select>';
 			$out .= ajax_combobox($htmlname);
 
-			if ($conf->use_javascript_ajax && empty($disableautocomplete)) {
+			if ($config->use_javascript_ajax && empty($disableautocomplete)) {
 				$out .= ajax_multiautocompleter('location_incoterms', array(), DOL_URL_ROOT . '/core/ajax/locationincoterms.php') . "\n";
 				$moreattrib .= ' autocomplete="off"';
 			}
@@ -1340,7 +1340,7 @@ class Form
 
 		$out = '';
 
-		if (!empty($conf->use_javascript_ajax) && getDolGlobalString('COMPANY_USE_SEARCH_TO_SELECT') && !$forcecombo) {
+		if (!empty($config->use_javascript_ajax) && getDolGlobalString('COMPANY_USE_SEARCH_TO_SELECT') && !$forcecombo) {
 			if (is_null($ajaxoptions)) {
 				$ajaxoptions = array();
 			}
@@ -1425,10 +1425,10 @@ class Form
 
 		$sav = getDolGlobalString('CONTACT_USE_SEARCH_TO_SELECT');
 		if ($nokeyifsocid && $socid > 0) {
-			$conf->global->CONTACT_USE_SEARCH_TO_SELECT = 0;
+			$config->global->CONTACT_USE_SEARCH_TO_SELECT = 0;
 		}
 
-		if (!empty($conf->use_javascript_ajax) && getDolGlobalString('CONTACT_USE_SEARCH_TO_SELECT') && !$forcecombo) {
+		if (!empty($config->use_javascript_ajax) && getDolGlobalString('CONTACT_USE_SEARCH_TO_SELECT') && !$forcecombo) {
 			if (is_null($events)) {
 				$events = array();
 			}
@@ -1468,7 +1468,7 @@ class Form
 			$out .= $this->selectcontacts($socid, $selected, $htmlname, $showempty, $exclude, $limitto, $showfunction, $morecss, $options_only, $showsoc, $forcecombo, $events, $moreparam, $htmlid, $multiple, $disableifempty);
 		}
 
-		$conf->global->CONTACT_USE_SEARCH_TO_SELECT = $sav;
+		$config->global->CONTACT_USE_SEARCH_TO_SELECT = $sav;
 
 		return $out;
 	}
@@ -1621,7 +1621,7 @@ class Form
 			$textifempty = (($showempty && !is_numeric($showempty)) ? $langs->trans($showempty) : '');
 			if (getDolGlobalString('COMPANY_USE_SEARCH_TO_SELECT')) {
 				// Do not use textifempty = ' ' or '&nbsp;' here, or search on key will search on ' key'.
-				//if (!empty($conf->use_javascript_ajax) || $forcecombo) $textifempty='';
+				//if (!empty($config->use_javascript_ajax) || $forcecombo) $textifempty='';
 				if ($showempty && !is_numeric($showempty)) {
 					$textifempty = $langs->trans($showempty);
 				} else {
@@ -1989,7 +1989,7 @@ class Form
 				$out .= '</select>';
 			}
 
-			if ($conf->use_javascript_ajax && !$forcecombo && !$options_only) {
+			if ($config->use_javascript_ajax && !$forcecombo && !$options_only) {
 				include_once DOL_DOCUMENT_ROOT . '/core/lib/ajax.lib.php';
 				$out .= ajax_combobox($htmlid, $events, getDolGlobalInt("CONTACT_USE_SEARCH_TO_SELECT"));
 			}
@@ -2031,7 +2031,7 @@ class Form
 		$sql .= " re.description, re.fk_facture_source";
 		$sql .= " FROM " . $this->db->prefix() . "societe_remise_except as re";
 		$sql .= " WHERE re.fk_soc = " . (int) $socid;
-		$sql .= " AND re.entity = " . $conf->entity;
+		$sql .= " AND re.entity = " . $config->entity;
 		if ($filter) {
 			$sql .= " AND " . $filter;
 		}
@@ -2188,8 +2188,8 @@ class Form
 		$outarray2 = array();
 
 		// Do we want to show the label of entity into the combo list ?
-		$showlabelofentity = isModEnabled('multicompany') && !getDolGlobalInt('MULTICOMPANY_TRANSVERSE_MODE') && $conf->entity == 1 && !empty($user->admin) && empty($user->entity);
-		$userissuperadminentityone = isModEnabled('multicompany') && $conf->entity == 1 && $user->admin && empty($user->entity);
+		$showlabelofentity = isModEnabled('multicompany') && !getDolGlobalInt('MULTICOMPANY_TRANSVERSE_MODE') && $config->entity == 1 && !empty($user->admin) && empty($user->entity);
+		$userissuperadminentityone = isModEnabled('multicompany') && $config->entity == 1 && $user->admin && empty($user->entity);
 
 		// Forge request to select users
 		$sql = "SELECT DISTINCT u.rowid, u.lastname as lastname, u.firstname, u.statut as status, u.login, u.admin, u.entity, u.gender, u.photo";
@@ -2270,7 +2270,7 @@ class Form
 				$out .= '<select class="flat' . ($morecss ? ' ' . $morecss : ' minwidth200') . '" id="' . $htmlname . '" name="' . $htmlname . ($multiple ? '[]' : '') . '" ' . ($multiple ? 'multiple' : '') . ' ' . ($disabled ? ' disabled' : '') . '>';
 				if ($show_empty && !$multiple) {
 					$textforempty = ' ';
-					if (!empty($conf->use_javascript_ajax)) {
+					if (!empty($config->use_javascript_ajax)) {
 						$textforempty = '&nbsp;'; // If we use ajaxcombo, we need &nbsp; here to avoid to have an empty element that is too small.
 					}
 					if (!is_numeric($show_empty)) {
@@ -2358,7 +2358,7 @@ class Form
 							$moreinfo .= ($moreinfo ? ' - ' : ' (') . $langs->trans("AllEntities");
 							$moreinfohtml .= ($moreinfohtml ? ' - ' : ' <span class="opacitymedium">(') . $langs->trans("AllEntities");
 						} else {
-							if ($obj->entity != $conf->entity) {
+							if ($obj->entity != $config->entity) {
 								$moreinfo .= ($moreinfo ? ' - ' : ' (') . ($obj->label ? $obj->label : $langs->trans("EntityNameNotDefined"));
 								$moreinfohtml .= ($moreinfohtml ? ' - ' : ' <span class="opacitymedium">(').($obj->label ? $obj->label : $langs->trans("EntityNameNotDefined"));
 							}
@@ -2698,7 +2698,7 @@ class Form
 			}
 		}
 
-		if (!empty($conf->use_javascript_ajax) && getDolGlobalString('PRODUIT_USE_SEARCH_TO_SELECT')) {
+		if (!empty($config->use_javascript_ajax) && getDolGlobalString('PRODUIT_USE_SEARCH_TO_SELECT')) {
 			$placeholder = (is_numeric($showempty) ? '' : 'placeholder="'.dolPrintHTML($showempty).'"');
 
 			if ($selected && empty($selected_input_value)) {
@@ -3194,7 +3194,7 @@ class Form
 
 			$textifempty = '';
 			// Do not use textifempty = ' ' or '&nbsp;' here, or search on key will search on ' key'.
-			//if (!empty($conf->use_javascript_ajax) || $forcecombo) $textifempty='';
+			//if (!empty($config->use_javascript_ajax) || $forcecombo) $textifempty='';
 			if (getDolGlobalString('PRODUIT_USE_SEARCH_TO_SELECT')) {
 				if ($showempty && !is_numeric($showempty)) {
 					$textifempty = $langs->trans($showempty);
@@ -3339,7 +3339,7 @@ class Form
 		$outqty = 1;
 		$outdiscount = 0;
 
-		$maxlengtharticle = (!getDolGlobalString('PRODUCT_MAX_LENGTH_COMBO') ? 48 : $conf->global->PRODUCT_MAX_LENGTH_COMBO);
+		$maxlengtharticle = (!getDolGlobalString('PRODUCT_MAX_LENGTH_COMBO') ? 48 : $config->global->PRODUCT_MAX_LENGTH_COMBO);
 
 		$label = $objp->label;
 		if (!empty($objp->label_translated)) {
@@ -3511,11 +3511,11 @@ class Form
 				if ($objp2) {
 					$found = 1;
 					if ($objp2->price_base_type == 'HT') {
-						$labeltoshowprice .= ' - ' . price($objp2->price, 1, $langs, 0, 0, -1, $conf->currency) . ' ' . $langs->trans("HT");
-						$labeltoshowhtmlprice .= ' - ' . price($objp2->price, 0, $langs, 0, 0, -1, $conf->currency) . ' ' . $langs->transnoentities("HT");
+						$labeltoshowprice .= ' - ' . price($objp2->price, 1, $langs, 0, 0, -1, $config->currency) . ' ' . $langs->trans("HT");
+						$labeltoshowhtmlprice .= ' - ' . price($objp2->price, 0, $langs, 0, 0, -1, $config->currency) . ' ' . $langs->transnoentities("HT");
 					} else {
-						$labeltoshowprice .= ' - ' . price($objp2->price_ttc, 1, $langs, 0, 0, -1, $conf->currency) . ' ' . $langs->trans("TTC");
-						$labeltoshowhtmlprice .= ' - ' . price($objp2->price_ttc, 0, $langs, 0, 0, -1, $conf->currency) . ' ' . $langs->transnoentities("TTC");
+						$labeltoshowprice .= ' - ' . price($objp2->price_ttc, 1, $langs, 0, 0, -1, $config->currency) . ' ' . $langs->trans("TTC");
+						$labeltoshowhtmlprice .= ' - ' . price($objp2->price_ttc, 0, $langs, 0, 0, -1, $config->currency) . ' ' . $langs->transnoentities("TTC");
 					}
 					$outprice_ht = price($objp2->price);
 					$outprice_ttc = price($objp2->price_ttc);
@@ -3539,13 +3539,13 @@ class Form
 			$outqty = $objp->quantity;
 			$outdiscount = $objp->remise_percent;
 			if ($objp->quantity == 1) {
-				$labeltoshowprice .= ' - ' . price($objp->unitprice, 1, $langs, 0, 0, -1, $conf->currency) . "/";
-				$labeltoshowhtmlprice .= ' - ' . price($objp->unitprice, 0, $langs, 0, 0, -1, $conf->currency) . "/";
+				$labeltoshowprice .= ' - ' . price($objp->unitprice, 1, $langs, 0, 0, -1, $config->currency) . "/";
+				$labeltoshowhtmlprice .= ' - ' . price($objp->unitprice, 0, $langs, 0, 0, -1, $config->currency) . "/";
 				$labeltoshowprice .= $langs->trans("Unit"); // Do not use strtolower because it breaks utf8 encoding
 				$labeltoshowhtmlprice .= $langs->transnoentities("Unit");
 			} else {
-				$labeltoshowprice .= ' - ' . price($objp->price, 1, $langs, 0, 0, -1, $conf->currency) . "/" . $objp->quantity;
-				$labeltoshowhtmlprice .= ' - ' . price($objp->price, 0, $langs, 0, 0, -1, $conf->currency) . "/" . $objp->quantity;
+				$labeltoshowprice .= ' - ' . price($objp->price, 1, $langs, 0, 0, -1, $config->currency) . "/" . $objp->quantity;
+				$labeltoshowhtmlprice .= ' - ' . price($objp->price, 0, $langs, 0, 0, -1, $config->currency) . "/" . $objp->quantity;
 				$labeltoshowprice .= $langs->trans("Units"); // Do not use strtolower because it breaks utf8 encoding
 				$labeltoshowhtmlprice .= $langs->transnoentities("Units");
 			}
@@ -3557,8 +3557,8 @@ class Form
 			$outdefault_vat_code = $objp->default_vat_code;        // This value is the value on product when constructProductListOption is called by select_produits_list even if other field $objp-> are from table price_by_qty
 		}
 		if (empty($hidepriceinlabel) && !empty($objp->quantity) && $objp->quantity >= 1) {
-			$labeltoshowprice .= " (" . price($objp->unitprice, 1, $langs, 0, 0, -1, $conf->currency) . "/" . $langs->trans("Unit") . ")"; // Do not use strtolower because it breaks utf8 encoding
-			$labeltoshowhtmlprice .= " (" . price($objp->unitprice, 0, $langs, 0, 0, -1, $conf->currency) . "/" . $langs->transnoentities("Unit") . ")"; // Do not use strtolower because it breaks utf8 encoding
+			$labeltoshowprice .= " (" . price($objp->unitprice, 1, $langs, 0, 0, -1, $config->currency) . "/" . $langs->trans("Unit") . ")"; // Do not use strtolower because it breaks utf8 encoding
+			$labeltoshowhtmlprice .= " (" . price($objp->unitprice, 0, $langs, 0, 0, -1, $config->currency) . "/" . $langs->transnoentities("Unit") . ")"; // Do not use strtolower because it breaks utf8 encoding
 		}
 		if (empty($hidepriceinlabel) && !empty($objp->remise_percent) && $objp->remise_percent >= 1) {
 			$labeltoshowprice .= " - " . $langs->trans("Discount") . " : " . vatrate($objp->remise_percent) . ' %';
@@ -3571,11 +3571,11 @@ class Form
 				$found = 1;
 
 				if ($objp->custprice_base_type == 'HT') {
-					$labeltoshowprice .= ' - ' . price($objp->custprice, 1, $langs, 0, 0, -1, $conf->currency) . ' ' . $langs->trans("HT");
-					$labeltoshowhtmlprice .= ' - ' . price($objp->custprice, 0, $langs, 0, 0, -1, $conf->currency) . ' ' . $langs->transnoentities("HT");
+					$labeltoshowprice .= ' - ' . price($objp->custprice, 1, $langs, 0, 0, -1, $config->currency) . ' ' . $langs->trans("HT");
+					$labeltoshowhtmlprice .= ' - ' . price($objp->custprice, 0, $langs, 0, 0, -1, $config->currency) . ' ' . $langs->transnoentities("HT");
 				} else {
-					$labeltoshowprice .= ' - ' . price($objp->custprice_ttc, 1, $langs, 0, 0, -1, $conf->currency) . ' ' . $langs->trans("TTC");
-					$labeltoshowhtmlprice .= ' - ' . price($objp->custprice_ttc, 0, $langs, 0, 0, -1, $conf->currency) . ' ' . $langs->transnoentities("TTC");
+					$labeltoshowprice .= ' - ' . price($objp->custprice_ttc, 1, $langs, 0, 0, -1, $config->currency) . ' ' . $langs->trans("TTC");
+					$labeltoshowhtmlprice .= ' - ' . price($objp->custprice_ttc, 0, $langs, 0, 0, -1, $config->currency) . ' ' . $langs->transnoentities("TTC");
 				}
 
 				$outprice_ht = price($objp->custprice);
@@ -3589,11 +3589,11 @@ class Form
 		// If level no defined or multiprice not found, we used the default price
 		if (empty($hidepriceinlabel) && !$found) {
 			if ($objp->price_base_type == 'HT') {
-				$labeltoshowprice .= ' - ' . price($objp->price, 1, $langs, 0, 0, -1, $conf->currency) . ' ' . $langs->trans("HT");
-				$labeltoshowhtmlprice .= ' - ' . price($objp->price, 0, $langs, 0, 0, -1, $conf->currency) . ' ' . $langs->transnoentities("HT");
+				$labeltoshowprice .= ' - ' . price($objp->price, 1, $langs, 0, 0, -1, $config->currency) . ' ' . $langs->trans("HT");
+				$labeltoshowhtmlprice .= ' - ' . price($objp->price, 0, $langs, 0, 0, -1, $config->currency) . ' ' . $langs->transnoentities("HT");
 			} else {
-				$labeltoshowprice .= ' - ' . price($objp->price_ttc, 1, $langs, 0, 0, -1, $conf->currency) . ' ' . $langs->trans("TTC");
-				$labeltoshowhtmlprice .= ' - ' . price($objp->price_ttc, 0, $langs, 0, 0, -1, $conf->currency) . ' ' . $langs->transnoentities("TTC");
+				$labeltoshowprice .= ' - ' . price($objp->price_ttc, 1, $langs, 0, 0, -1, $config->currency) . ' ' . $langs->trans("TTC");
+				$labeltoshowhtmlprice .= ' - ' . price($objp->price_ttc, 0, $langs, 0, 0, -1, $config->currency) . ' ' . $langs->transnoentities("TTC");
 			}
 			$outprice_ht = price($objp->price);
 			$outprice_ttc = price($objp->price_ttc);
@@ -3703,7 +3703,7 @@ class Form
 		}
 
 		$selected_input_value = '';
-		if (!empty($conf->use_javascript_ajax) && getDolGlobalString('PRODUIT_USE_SEARCH_TO_SELECT')) {
+		if (!empty($config->use_javascript_ajax) && getDolGlobalString('PRODUIT_USE_SEARCH_TO_SELECT')) {
 			if ($selected > 0) {
 				require_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
 				$producttmpselect = new Product($this->db);
@@ -3751,7 +3751,7 @@ class Form
 		$out = '';
 		$outarray = array();
 
-		$maxlengtharticle = (!getDolGlobalString('PRODUCT_MAX_LENGTH_COMBO') ? 48 : $conf->global->PRODUCT_MAX_LENGTH_COMBO);
+		$maxlengtharticle = (!getDolGlobalString('PRODUCT_MAX_LENGTH_COMBO') ? 48 : $config->global->PRODUCT_MAX_LENGTH_COMBO);
 
 		$langs->load('stocks');
 		// Units
@@ -3983,20 +3983,20 @@ class Form
 						}
 					}
 					if ($objp->quantity == 1) {
-						$optlabel .= ' - ' . price($objp->fprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 1, $langs, 0, 0, -1, $conf->currency) . "/";
-						$outvallabel .= ' - ' . price($objp->fprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 0, $langs, 0, 0, -1, $conf->currency) . "/";
+						$optlabel .= ' - ' . price($objp->fprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 1, $langs, 0, 0, -1, $config->currency) . "/";
+						$outvallabel .= ' - ' . price($objp->fprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 0, $langs, 0, 0, -1, $config->currency) . "/";
 						$optlabel .= $langs->trans("Unit"); // Do not use strtolower because it breaks utf8 encoding
 						$outvallabel .= $langs->transnoentities("Unit");
 					} else {
-						$optlabel .= ' - ' . price($objp->fprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 1, $langs, 0, 0, -1, $conf->currency) . "/" . $objp->quantity;
-						$outvallabel .= ' - ' . price($objp->fprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 0, $langs, 0, 0, -1, $conf->currency) . "/" . $objp->quantity;
+						$optlabel .= ' - ' . price($objp->fprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 1, $langs, 0, 0, -1, $config->currency) . "/" . $objp->quantity;
+						$outvallabel .= ' - ' . price($objp->fprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 0, $langs, 0, 0, -1, $config->currency) . "/" . $objp->quantity;
 						$optlabel .= ' ' . $langs->trans("Units"); // Do not use strtolower because it breaks utf8 encoding
 						$outvallabel .= ' ' . $langs->transnoentities("Units");
 					}
 
 					if ($objp->quantity > 1) {
-						$optlabel .= " (" . price($objp->unitprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 1, $langs, 0, 0, -1, $conf->currency) . "/" . $langs->trans("Unit") . ")"; // Do not use strtolower because it breaks utf8 encoding
-						$outvallabel .= " (" . price($objp->unitprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 0, $langs, 0, 0, -1, $conf->currency) . "/" . $langs->transnoentities("Unit") . ")"; // Do not use strtolower because it breaks utf8 encoding
+						$optlabel .= " (" . price($objp->unitprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 1, $langs, 0, 0, -1, $config->currency) . "/" . $langs->trans("Unit") . ")"; // Do not use strtolower because it breaks utf8 encoding
+						$outvallabel .= " (" . price($objp->unitprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 0, $langs, 0, 0, -1, $config->currency) . "/" . $langs->transnoentities("Unit") . ")"; // Do not use strtolower because it breaks utf8 encoding
 					}
 					if ($objp->remise_percent >= 1) {
 						$optlabel .= " - " . $langs->trans("Discount") . " : " . vatrate($objp->remise_percent) . ' %';
@@ -4257,7 +4257,7 @@ class Form
 						}
 					}
 					if ($objp->quantity == 1) {
-						$opt .= price($objp->fprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 1, $langs, 0, 0, -1, $conf->currency) . "/";
+						$opt .= price($objp->fprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 1, $langs, 0, 0, -1, $config->currency) . "/";
 					}
 
 					$opt .= $objp->quantity . ' ';
@@ -4269,7 +4269,7 @@ class Form
 					}
 					if ($objp->quantity > 1) {
 						$opt .= " - ";
-						$opt .= price($objp->unitprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 1, $langs, 0, 0, -1, $conf->currency) . "/" . $langs->trans("Unit");
+						$opt .= price($objp->unitprice * (getDolGlobalString('DISPLAY_DISCOUNTED_SUPPLIER_PRICE') ? (1 - $objp->remise_percent / 100) : 1), 1, $langs, 0, 0, -1, $config->currency) . "/" . $langs->trans("Unit");
 					}
 					if ($objp->duration) {
 						$opt .= " - " . $objp->duration;
@@ -4351,7 +4351,7 @@ class Form
 		// phpcs:enable
 		global $langs;
 
-		$num = count($this->cache_availability);    // TODO Use $conf->cache['availability'] instead of $this->cache_availability
+		$num = count($this->cache_availability);    // TODO Use $config->cache['availability'] instead of $this->cache_availability
 		if ($num > 0) {
 			return 0; // Cache already loaded
 		}
@@ -4435,7 +4435,7 @@ class Form
 	{
 		global $langs;
 
-		$num = count($this->cache_demand_reason);    // TODO Use $conf->cache['input_reason'] instead of $this->cache_demand_reason
+		$num = count($this->cache_demand_reason);    // TODO Use $config->cache['input_reason'] instead of $this->cache_demand_reason
 		if ($num > 0) {
 			return 0; // Cache already loaded
 		}
@@ -4532,7 +4532,7 @@ class Form
 		// phpcs:enable
 		global $langs;
 
-		$num = count($this->cache_types_paiements);        // TODO Use $conf->cache['payment_mode'] instead of $this->cache_types_paiements
+		$num = count($this->cache_types_paiements);        // TODO Use $config->cache['payment_mode'] instead of $this->cache_types_paiements
 		if ($num > 0) {
 			return $num; // Cache already loaded
 		}
@@ -4852,7 +4852,7 @@ class Form
 		// phpcs:enable
 		global $langs;
 
-		$num = count($this->cache_transport_mode);        // TODO Use $conf->cache['payment_mode'] instead of $this->cache_transport_mode
+		$num = count($this->cache_transport_mode);        // TODO Use $config->cache['payment_mode'] instead of $this->cache_transport_mode
 		if ($num > 0) {
 			return $num; // Cache already loaded
 		}
@@ -5528,7 +5528,7 @@ class Form
 			$cate_arbo = array();
 			$sql = "SELECT c.label, c.rowid";
 			$sql .= " FROM " . $this->db->prefix() . "categorie as c";
-			$sql .= " WHERE entity = " . $conf->entity . " AND type = " . ((int) $cat->getMapId()[$type]);
+			$sql .= " WHERE entity = " . $config->entity . " AND type = " . ((int) $cat->getMapId()[$type]);
 			$sql .= " ORDER BY c.label";
 			$result = $this->db->query($sql);
 			if ($result) {
@@ -5667,7 +5667,7 @@ class Form
 
 		// Clean parameters
 		$newselectedchoice = empty($selectedchoice) ? "no" : $selectedchoice;
-		if ($conf->browser->layout == 'phone') {
+		if ($config->browser->layout == 'phone') {
 			$width = '95%';
 		}
 
@@ -5821,10 +5821,10 @@ class Form
 		// JQUERY method dialog is broken with smartphone, we use standard HTML.
 		// Note: When using dol_use_jmobile or no js, you must also check code for button use a GET url with action=xxx and check that you also output the confirm code when action=xxx
 		// See page product/card.php for example
-		if (!empty($conf->dol_use_jmobile)) {
+		if (!empty($config->dol_use_jmobile)) {
 			$useajax = 0;
 		}
-		if (empty($conf->use_javascript_ajax)) {
+		if (empty($config->use_javascript_ajax)) {
 			$useajax = 0;
 		}
 
@@ -6031,7 +6031,7 @@ class Form
 			}
 			$formconfirm .= '<br>';
 
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				$formconfirm .= '<!-- code to disable button to avoid double clic -->';
 				$formconfirm .= '<script nonce="' . getNonce() . '" type="text/javascript">' . "\n";
 				$formconfirm .= '
@@ -6464,7 +6464,7 @@ class Form
 			if (!empty($rate)) {
 				print price($rate, 1, $langs, 0, 0);
 				if ($currency && $rate != 1) {
-					print ' &nbsp; <span class="opacitymedium">(' . price($rate, 1, $langs, 0, 0) . ' ' . $currency . ' = 1 ' . $conf->currency . ')</span>';
+					print ' &nbsp; <span class="opacitymedium">(' . price($rate, 1, $langs, 0, 0) . ' ' . $currency . ' = 1 ' . $config->currency . ')</span>';
 				}
 			} else {
 				print 1;
@@ -6527,7 +6527,7 @@ class Form
 					}
 				}
 			}
-			print $langs->trans($translationKey, price($amount, 0, $langs, 0, 0, -1, $conf->currency));
+			print $langs->trans($translationKey, price($amount, 0, $langs, 0, 0, -1, $config->currency));
 			if (empty($hidelist)) {
 				print ' ';
 			}
@@ -6775,8 +6775,8 @@ class Form
 			$out .= '<option value="">&nbsp;</option>';
 		}
 		// If company current currency not in table, we add it into list. Should always be available.
-		if (!in_array($conf->currency, $TCurrency) && !$excludeConfCurrency) {
-			$TCurrency[$conf->currency] = $conf->currency;
+		if (!in_array($config->currency, $TCurrency) && !$excludeConfCurrency) {
+			$TCurrency[$config->currency] = $config->currency;
 		}
 		if (count($TCurrency) > 0) {
 			foreach ($langs->cache_currencies as $code_iso => $currency) {
@@ -7233,7 +7233,7 @@ class Form
 		global $conf, $langs;
 
 		if ($gm === 'auto') {
-			$gm = (empty($conf) ? 'tzserver' : $conf->tzuserinputkey);
+			$gm = (empty($conf) ? 'tzserver' : $config->tzuserinputkey);
 		}
 
 		$retstring = '';
@@ -7314,7 +7314,7 @@ class Form
 
 		// You can set MAIN_POPUP_CALENDAR to 'eldy' or 'jquery'
 		$usecalendar = 'combo';
-		if (!empty($conf->use_javascript_ajax) && (!getDolGlobalString('MAIN_POPUP_CALENDAR') || getDolGlobalString('MAIN_POPUP_CALENDAR') != "none")) {
+		if (!empty($config->use_javascript_ajax) && (!getDolGlobalString('MAIN_POPUP_CALENDAR') || getDolGlobalString('MAIN_POPUP_CALENDAR') != "none")) {
 			$usecalendar = ((!getDolGlobalString('MAIN_POPUP_CALENDAR') || getDolGlobalString('MAIN_POPUP_CALENDAR') == 'eldy') ? 'jquery' : getDolGlobalString("MAIN_POPUP_CALENDAR"));
 		}
 		if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
@@ -7326,9 +7326,9 @@ class Form
 			// Show date with popup
 			if ($usecalendar != 'combo') {
 				$formated_date = '';
-				//print "e".$set_time." t ".$conf->format_date_short;
+				//print "e".$set_time." t ".$config->format_date_short;
 				if (strval($set_time) != '' && $set_time != -1) {
-					//$formated_date=dol_print_date($set_time,$conf->format_date_short);
+					//$formated_date=dol_print_date($set_time,$config->format_date_short);
 					$formated_date = dol_print_date($set_time, $langs->trans("FormatDateShortInput"), $gm); // FormatDateShortInput for dol_print_date / FormatDateShortJavaInput that is same for javascript
 				}
 
@@ -7367,7 +7367,7 @@ class Form
 							autoclose: true,
 							todayHighlight: true,
 							yearRange: '" . $minYear . ":" . $maxYear . "',";
-						if (!empty($conf->dol_use_jmobile)) {
+						if (!empty($config->dol_use_jmobile)) {
 							$retstring .= "
 								beforeShow: function (input, datePicker) {
 									input.disabled = true;
@@ -7379,7 +7379,7 @@ class Form
 						}
 						// Note: We don't need monthNames, monthNamesShort, dayNames, dayNamesShort, dayNamesMin, they are set globally on datepicker component in lib_head.js.php
 						if (!getDolGlobalString('MAIN_POPUP_CALENDAR_ON_FOCUS')) {
-							$buttonImage = $calendarpicto ?: DOL_URL_ROOT . "/theme/" . dol_escape_js($conf->theme) . "/img/object_calendarday.png";
+							$buttonImage = $calendarpicto ?: DOL_URL_ROOT . "/theme/" . dol_escape_js($config->theme) . "/img/object_calendarday.png";
 							$retstring .= "
 								showOn: 'button',	/* both has problem with autocompletion */
 								buttonImage: '" . $buttonImage . "',
@@ -7481,11 +7481,11 @@ class Form
 					$hour = "0" . $hour;
 				}
 				$retstring .= '<option value="' . $hour . '"' . (($hour == $shour) ? ' selected' : '') . '>' . $hour;
-				//$retstring .= (empty($conf->dol_optimize_smallscreen) ? '' : 'H');
+				//$retstring .= (empty($config->dol_optimize_smallscreen) ? '' : 'H');
 				$retstring .= '</option>';
 			}
 			$retstring .= '</select>';
-			//if ($m && empty($conf->dol_optimize_smallscreen)) $retstring .= ":";
+			//if ($m && empty($config->dol_optimize_smallscreen)) $retstring .= ":";
 			if ($m) {
 				$retstring .= ":";
 			}
@@ -7511,7 +7511,7 @@ class Form
 		}
 
 		// Add a "Now" link
-		if (!empty($conf->use_javascript_ajax) && $addnowlink && !$disabled) {
+		if (!empty($config->use_javascript_ajax) && $addnowlink && !$disabled) {
 			// Script which will be inserted in the onClick of the "Now" link
 			$reset_scripts = "";
 			if ($addnowlink == 2) { // local computer time
@@ -7598,7 +7598,7 @@ class Form
 		}
 
 		// Add a "Plus one hour" link
-		if ($conf->use_javascript_ajax && $addplusone && !$disabled) {
+		if ($config->use_javascript_ajax && $addplusone && !$disabled) {
 			// Script which will be inserted in the onClick of the "Add plusone" link
 			$reset_scripts = "";
 
@@ -7628,7 +7628,7 @@ class Form
 				}
 			}
 			// If reset_scripts is not empty, print the link with the reset_scripts in the onClick
-			if ($reset_scripts && empty($conf->dol_optimize_smallscreen)) {
+			if ($reset_scripts && empty($config->dol_optimize_smallscreen)) {
 				$retstring .= ' <button class="dpInvisibleButtons datenowlink" id="' . $prefix . 'ButtonPlusOne" type="button" name="_useless2" value="plusone" onClick="' . $reset_scripts . '">';
 				$retstring .= $langs->trans("DateStartPlusOne");
 				$retstring .= '</button> ';
@@ -7636,7 +7636,7 @@ class Form
 		}
 
 		// Add a link to set data
-		if ($conf->use_javascript_ajax && !empty($adddateof) && !$disabled) {
+		if ($config->use_javascript_ajax && !empty($adddateof) && !$disabled) {
 			if (!is_array($adddateof)) {
 				$arrayofdateof = array(array('adddateof' => $adddateof, 'labeladddateof' => $labeladddateof));
 			} else {
@@ -7825,7 +7825,7 @@ class Form
 			$ajaxoptions = array();
 		}
 
-		if (!empty($conf->use_javascript_ajax) && getDolGlobalString('TICKET_USE_SEARCH_TO_SELECT')) {
+		if (!empty($config->use_javascript_ajax) && getDolGlobalString('TICKET_USE_SEARCH_TO_SELECT')) {
 			$placeholder = '';
 
 			if ($selected && empty($selected_input_value)) {
@@ -7837,7 +7837,7 @@ class Form
 			}
 
 			$urloption = '';
-			$out .= ajax_autocompleter($selected, $htmlname, DOL_URL_ROOT . '/ticket/ajax/tickets.php', $urloption, $conf->global->PRODUIT_USE_SEARCH_TO_SELECT, 1, $ajaxoptions);
+			$out .= ajax_autocompleter($selected, $htmlname, DOL_URL_ROOT . '/ticket/ajax/tickets.php', $urloption, $config->global->PRODUIT_USE_SEARCH_TO_SELECT, 1, $ajaxoptions);
 
 			if (empty($hidelabel)) {
 				$out .= $langs->trans("RefOrLabel") . ' : ';
@@ -7940,7 +7940,7 @@ class Form
 
 			$textifempty = '';
 			// Do not use textifempty = ' ' or '&nbsp;' here, or search on key will search on ' key'.
-			//if (!empty($conf->use_javascript_ajax) || $forcecombo) $textifempty='';
+			//if (!empty($config->use_javascript_ajax) || $forcecombo) $textifempty='';
 			if (getDolGlobalString('TICKET_USE_SEARCH_TO_SELECT')) {
 				if ($showempty && !is_numeric($showempty)) {
 					$textifempty = $langs->trans($showempty);
@@ -8051,7 +8051,7 @@ class Form
 			$ajaxoptions = array();
 		}
 
-		if (!empty($conf->use_javascript_ajax) && getDolGlobalString('TICKET_USE_SEARCH_TO_SELECT')) {
+		if (!empty($config->use_javascript_ajax) && getDolGlobalString('TICKET_USE_SEARCH_TO_SELECT')) {
 			$placeholder = '';
 
 			if ($selected && empty($selected_input_value)) {
@@ -8063,7 +8063,7 @@ class Form
 			}
 
 			$urloption = '';
-			$out .= ajax_autocompleter($selected, $htmlname, DOL_URL_ROOT . '/projet/ajax/projects.php', $urloption, $conf->global->PRODUIT_USE_SEARCH_TO_SELECT, 1, $ajaxoptions);
+			$out .= ajax_autocompleter($selected, $htmlname, DOL_URL_ROOT . '/projet/ajax/projects.php', $urloption, $config->global->PRODUIT_USE_SEARCH_TO_SELECT, 1, $ajaxoptions);
 
 			if (empty($hidelabel)) {
 				$out .= $langs->trans("RefOrLabel") . ' : ';
@@ -8165,7 +8165,7 @@ class Form
 
 			$textifempty = '';
 			// Do not use textifempty = ' ' or '&nbsp;' here, or search on key will search on ' key'.
-			//if (!empty($conf->use_javascript_ajax) || $forcecombo) $textifempty='';
+			//if (!empty($config->use_javascript_ajax) || $forcecombo) $textifempty='';
 			if (getDolGlobalString('PROJECT_USE_SEARCH_TO_SELECT')) {
 				if ($showempty && !is_numeric($showempty)) {
 					$textifempty = $langs->trans($showempty);
@@ -8280,7 +8280,7 @@ class Form
 			$ajaxoptions = array();
 		}
 
-		if (!empty($conf->use_javascript_ajax) && getDolGlobalString('TICKET_USE_SEARCH_TO_SELECT')) {
+		if (!empty($config->use_javascript_ajax) && getDolGlobalString('TICKET_USE_SEARCH_TO_SELECT')) {
 			$placeholder = '';
 
 			if ($selected && empty($selected_input_value)) {
@@ -8293,7 +8293,7 @@ class Form
 
 			$urloption = '';
 
-			$out .= ajax_autocompleter($selected, $htmlname, DOL_URL_ROOT . '/adherents/ajax/adherents.php', $urloption, $conf->global->PRODUIT_USE_SEARCH_TO_SELECT, 1, $ajaxoptions);
+			$out .= ajax_autocompleter($selected, $htmlname, DOL_URL_ROOT . '/adherents/ajax/adherents.php', $urloption, $config->global->PRODUIT_USE_SEARCH_TO_SELECT, 1, $ajaxoptions);
 
 			if (empty($hidelabel)) {
 				$out .= $langs->trans("RefOrLabel") . ' : ';
@@ -8392,14 +8392,14 @@ class Form
 
 			if (!$forcecombo) {
 				include_once DOL_DOCUMENT_ROOT . '/core/lib/ajax.lib.php';
-				$out .= ajax_combobox($htmlname, $events, getDolGlobalString('PROJECT_USE_SEARCH_TO_SELECT') ? $conf->global->PROJECT_USE_SEARCH_TO_SELECT : '');
+				$out .= ajax_combobox($htmlname, $events, getDolGlobalString('PROJECT_USE_SEARCH_TO_SELECT') ? $config->global->PROJECT_USE_SEARCH_TO_SELECT : '');
 			}
 
 			$out .= '<select class="flat' . ($morecss ? ' ' . $morecss : '') . '" name="' . $htmlname . '" id="' . $htmlname . '">';
 
 			$textifempty = '';
 			// Do not use textifempty = ' ' or '&nbsp;' here, or search on key will search on ' key'.
-			//if (!empty($conf->use_javascript_ajax) || $forcecombo) $textifempty='';
+			//if (!empty($config->use_javascript_ajax) || $forcecombo) $textifempty='';
 			if (getDolGlobalString('PROJECT_USE_SEARCH_TO_SELECT')) {
 				if ($showempty && !is_numeric($showempty)) {
 					$textifempty = $langs->trans($showempty);
@@ -8600,7 +8600,7 @@ class Form
 		$sharedentities = (is_object($objecttmp) && property_exists($objecttmp, 'element')) ? getEntity($objecttmp->element) : strtolower($classname);
 		$filter = str_replace(
 			array('__ENTITY__', '__SHARED_ENTITIES__', '__USER_ID__'),
-			array($conf->entity, $sharedentities, $user->id),
+			array($config->entity, $sharedentities, $user->id),
 			$filter
 		);
 
@@ -8624,7 +8624,7 @@ class Form
 
 		// Generate the combo HTML component
 		$out = '';
-		if (!empty($conf->use_javascript_ajax) && getDolGlobalString($confkeyforautocompletemode) && !$forcecombo) {
+		if (!empty($config->use_javascript_ajax) && getDolGlobalString($confkeyforautocompletemode) && !$forcecombo) {
 			// No immediate load of all database
 			$placeholder = '';
 
@@ -8828,7 +8828,7 @@ class Form
 			// Warning: Do not use textifempty = ' ' or '&nbsp;' here, or search on key will search on ' key'. Seems it is no more true with selec2 v4
 			$textifempty = '&nbsp;';
 
-			//if (!empty($conf->use_javascript_ajax) || $forcecombo) $textifempty='';
+			//if (!empty($config->use_javascript_ajax) || $forcecombo) $textifempty='';
 			if (getDolGlobalInt($confkeyforautocompletemode)) {
 				if ($showempty && !is_numeric($showempty)) {
 					$textifempty = $langs->trans($showempty);
@@ -8948,7 +8948,7 @@ class Form
 
 		if ($show_empty) {
 			$textforempty = ' ';
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				$textforempty = '&nbsp;'; // If we use ajaxcombo, we need &nbsp; here to avoid to have an empty element that is too small.
 			}
 			if (!is_numeric($show_empty)) {
@@ -9083,7 +9083,7 @@ class Form
 		$out = '<select type="text" class="' . $htmlname . ($morecss ? ' ' . $morecss : '') . '" ' . ($moreparam ? $moreparam . ' ' : '') . 'name="' . $htmlname . '"></select>';
 
 		$outdelayed = '';
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			$tmpplugin = 'select2';
 			$outdelayed = "\n" . '<!-- JS CODE TO ENABLE ' . $tmpplugin . ' for id ' . $htmlname . ' -->
 		    	<script nonce="' . getNonce() . '">
@@ -9198,7 +9198,7 @@ class Form
 		}
 
 		$outdelayed = '';
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			$tmpplugin = 'select2';
 			$outdelayed = "\n" . '<!-- JS CODE TO ENABLE ' . $tmpplugin . ' for id ' . $htmlname . ' -->
 				<script nonce="' . getNonce() . '">
@@ -9310,7 +9310,7 @@ class Form
 		}
 
 		$useenhancedmultiselect = 0;
-		if (!empty($conf->use_javascript_ajax) && !defined('MAIN_DO_NOT_USE_JQUERY_MULTISELECT') && (getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT') || defined('REQUIRE_JQUERY_MULTISELECT'))) {
+		if (!empty($config->use_javascript_ajax) && !defined('MAIN_DO_NOT_USE_JQUERY_MULTISELECT') && (getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT') || defined('REQUIRE_JQUERY_MULTISELECT'))) {
 			if ($addjscombo) {
 				$useenhancedmultiselect = 1;	// Use the js multiselect in one line. Possible only if $addjscombo not 0.
 			}
@@ -9363,11 +9363,11 @@ class Form
 		$out .= '</select>' . "\n";
 
 		// Add code for jquery to use multiselect
-		if (!empty($conf->use_javascript_ajax) && getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT') || defined('REQUIRE_JQUERY_MULTISELECT')) {
+		if (!empty($config->use_javascript_ajax) && getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT') || defined('REQUIRE_JQUERY_MULTISELECT')) {
 			$out .= "\n" . '<!-- JS CODE TO ENABLE select for id ' . $htmlname . ', addjscombo=' . $addjscombo . ' -->';
 			$out .= "\n" . '<script nonce="' . getNonce() . '">' . "\n";
 			if ($addjscombo == 1) {
-				$tmpplugin = !getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT') ? constant('REQUIRE_JQUERY_MULTISELECT') : $conf->global->MAIN_USE_JQUERY_MULTISELECT;
+				$tmpplugin = !getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT') ? constant('REQUIRE_JQUERY_MULTISELECT') : $config->global->MAIN_USE_JQUERY_MULTISELECT;
 				$out .= 'function formatResult(record, container) {' . "\n";
 				// If property data-html set, we decode html entities and use this.
 				// Note that HTML content must have been sanitized from js with dol_escape_htmltag(xxx, 0, 0, '', 0, 1) when building the select option.
@@ -9727,7 +9727,7 @@ class Form
 				$linkedObjectBlock = $objects;
 
 				// Output template part (modules that overwrite templates must declare this into descriptor)
-				$dirtpls = array_merge($conf->modules_parts['tpl'], array('/' . $tplpath . '/tpl'));
+				$dirtpls = array_merge($config->modules_parts['tpl'], array('/' . $tplpath . '/tpl'));
 				foreach ($dirtpls as $reldir) {
 					$reldir = rtrim($reldir, '/');
 					if ($nboftypesoutput == ($nbofdifferenttypes - 1)) {    // No more type to show after
@@ -9919,7 +9919,7 @@ class Form
 			}
 
 			if (!empty($possiblelink['perms']) && (empty($restrictlinksto) || in_array($key, $restrictlinksto)) && (empty($excludelinksto) || !in_array($key, $excludelinksto))) {
-				$htmltoenteralink .= '<div id="' . $key . 'list"' . (empty($conf->use_javascript_ajax) ? '' : ' style="display:none"') . '>';
+				$htmltoenteralink .= '<div id="' . $key . 'list"' . (empty($config->use_javascript_ajax) ? '' : ' style="display:none"') . '>';
 
 				// Section for free ref input
 				if (!getDolGlobalString('MAIN_HIDE_LINK_BY_REF_IN_LINKTO')) {
@@ -10000,7 +10000,7 @@ class Form
 						if ($num) {
 							$htmltoenteralink .= '<input type="submit" class="button valignmiddle marginleftonly marginrightonly smallpaddingimp" value="' . $langs->trans('ToLink') . '">';
 						}
-						if (empty($conf->use_javascript_ajax)) {
+						if (empty($config->use_javascript_ajax)) {
 							$htmltoenteralink .= '<input type="submit" class="button button-cancel marginleftonly marginrightonly smallpaddingimp" name="cancel" value="' . $langs->trans("Cancel") . '"></div>';
 						} else {
 							$htmltoenteralink .= '<input type="submit" onclick="jQuery(\'#' . $key . 'list\').toggle(); return false;" class="button button-cancel marginleftonly marginrightonly smallpaddingimp" name="cancel" value="' . $langs->trans("Cancel") . '"></div>';
@@ -10029,7 +10029,7 @@ class Form
 			$linktoelem = '
 			<dl class="dropdown" id="linktoobjectname">
 			';
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				$linktoelem .= '<dt><a href="#linktoobjectname"><span class="fas fa-link paddingrightonly"></span>' . $langs->trans("LinkTo") . '...</a></dt>';
 			}
 			$linktoelem .= '<dd>
@@ -10043,7 +10043,7 @@ class Form
 			$linktoelem = '';
 		}
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print '<!-- Add js to show linkto box -->
 				<script nonce="' . getNonce() . '">
 				jQuery(document).ready(function() {
@@ -10228,9 +10228,9 @@ class Form
 			// accesskey is for Windows or Linux:  ALT + key for chrome, ALT + SHIFT + KEY for firefox
 			// accesskey is for Mac:               CTRL + key for all browsers
 			$stringforfirstkey = $langs->trans("KeyboardShortcut");
-			if ($conf->browser->name == 'chrome') {
+			if ($config->browser->name == 'chrome') {
 				$stringforfirstkey .= ' ALT +';
-			} elseif ($conf->browser->name == 'firefox') {
+			} elseif ($config->browser->name == 'firefox') {
 				$stringforfirstkey .= ' ALT + SHIFT +';
 			} else {
 				$stringforfirstkey .= ' CTL +';
@@ -10284,14 +10284,14 @@ class Form
 
 		// Left part of banner
 		if ($morehtmlleft) {
-			if ($conf->browser->layout == 'phone') {
+			if ($config->browser->layout == 'phone') {
 				$ret .= '<!-- morehtmlleft --><div class="floatleft">' . $morehtmlleft . '</div>';
 			} else {
 				$ret .= '<!-- morehtmlleft --><div class="inline-block floatleft">' . $morehtmlleft . '</div>';
 			}
 		}
 
-		//if ($conf->browser->layout == 'phone') $ret.='<div class="clearboth"></div>';
+		//if ($config->browser->layout == 'phone') $ret.='<div class="clearboth"></div>';
 		$ret .= '<div class="inline-block floatleft valignmiddle maxwidth750 marginbottomonly refid' . (($shownav && ($previous_ref || $next_ref)) ? ' refidpadding' : '') . '">';
 
 		// For thirdparty, contact, user, member, the ref is the id, so we show something else
@@ -10424,7 +10424,7 @@ class Form
 	{
 		global $conf, $langs;
 
-		$entity = (empty($object->entity) ? $conf->entity : $object->entity);
+		$entity = (empty($object->entity) ? $config->entity : $object->entity);
 		$id = (empty($object->id) ? $object->rowid : $object->id);  // @phan-suppress-current-line PhanUndeclaredProperty (->rowid)
 
 		$dir = '';
@@ -10434,7 +10434,7 @@ class Form
 		$email = '';
 		$capture = '';
 		if ($modulepart == 'societe') {
-			$dir = $conf->societe->multidir_output[$entity];
+			$dir = $config->societe->multidir_output[$entity];
 			if (!empty($object->logo)) {
 				if (dolIsAllowedForPreview($object->logo)) {
 					if ((string) $imagesize == 'mini') {
@@ -10449,7 +10449,7 @@ class Form
 			}
 			$email = $object->email;
 		} elseif ($modulepart == 'contact') {
-			$dir = $conf->societe->multidir_output[$entity] . '/contact';
+			$dir = $config->societe->multidir_output[$entity] . '/contact';
 			if (!empty($object->photo)) {
 				if (dolIsAllowedForPreview($object->photo)) {
 					if ((string) $imagesize == 'mini') {
@@ -10465,7 +10465,7 @@ class Form
 			$email = $object->email;
 			$capture = 'user';
 		} elseif ($modulepart == 'userphoto') {
-			$dir = $conf->user->dir_output;
+			$dir = $config->user->dir_output;
 			if (!empty($object->photo)) {
 				if (dolIsAllowedForPreview($object->photo)) {
 					if ((string) $imagesize == 'mini') {
@@ -10484,7 +10484,7 @@ class Form
 			$email = $object->email;
 			$capture = 'user';
 		} elseif ($modulepart == 'memberphoto') {
-			$dir = $conf->adherent->dir_output;
+			$dir = $config->adherent->dir_output;
 			if (!empty($object->photo)) {
 				if (dolIsAllowedForPreview($object->photo)) {
 					if ((string) $imagesize == 'mini') {
@@ -10646,11 +10646,11 @@ class Form
 
 		// Build sql to search groups
 		$sql = "SELECT ug.rowid, ug.nom as name";
-		if (isModEnabled('multicompany') && $conf->entity == 1 && $user->admin && !$user->entity) {
+		if (isModEnabled('multicompany') && $config->entity == 1 && $user->admin && !$user->entity) {
 			$sql .= ", e.label";
 		}
 		$sql .= " FROM " . $this->db->prefix() . "usergroup as ug ";
-		if (isModEnabled('multicompany') && $conf->entity == 1 && $user->admin && !$user->entity) {
+		if (isModEnabled('multicompany') && $config->entity == 1 && $user->admin && !$user->entity) {
 			$sql .= " LEFT JOIN " . $this->db->prefix() . "entity as e ON e.rowid=ug.entity";
 			if ($force_entity) {
 				$sql .= " WHERE ug.entity IN (0, " . $force_entity . ")";
@@ -10658,7 +10658,7 @@ class Form
 				$sql .= " WHERE ug.entity IS NOT NULL";
 			}
 		} else {
-			$sql .= " WHERE ug.entity IN (0, " . $conf->entity . ")";
+			$sql .= " WHERE ug.entity IN (0, " . $config->entity . ")";
 		}
 		if (is_array($exclude) && $excludeGroups) {
 			$sql .= " AND ug.rowid NOT IN (" . $this->db->sanitize($excludeGroups) . ")";
@@ -10692,7 +10692,7 @@ class Form
 
 					$label = $obj->name;
 					$labelhtml = $obj->name;
-					if (isModEnabled('multicompany') && !getDolGlobalInt('MULTICOMPANY_TRANSVERSE_MODE') && $conf->entity == 1) {
+					if (isModEnabled('multicompany') && !getDolGlobalInt('MULTICOMPANY_TRANSVERSE_MODE') && $config->entity == 1) {
 						$label .= " (" . $obj->label . ")";
 						$labelhtml .= ' <span class="opacitymedium">(' . $obj->label . ')</span>';
 					}
@@ -10758,7 +10758,7 @@ class Form
 
 		$out = '';
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			$out .= '<div class="inline-block checkallactions"><input type="checkbox" id="' . $cssclass . 's" name="' . $cssclass . 's" class="checkallactions"></div>';
 		}
 		$out .= '<script nonce="' . getNonce() . '">
@@ -10913,7 +10913,7 @@ class Form
 
 		$out = '';
 		$sql = "SELECT rowid, range_ik FROM " . $this->db->prefix() . "c_exp_tax_range";
-		$sql .= " WHERE entity = " . $conf->entity . " AND active = 1";
+		$sql .= " WHERE entity = " . $config->entity . " AND active = 1";
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -11040,7 +11040,7 @@ class Form
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			// Use select2 selector
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				include_once DOL_DOCUMENT_ROOT . '/core/lib/ajax.lib.php';
 				$comboenhancement = ajax_combobox($htmlname, array(), 0, $forcefocus);
 				$out .= $comboenhancement;
@@ -11163,7 +11163,7 @@ class Form
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			// Use select2 selector
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				include_once DOL_DOCUMENT_ROOT . '/core/lib/ajax.lib.php';
 				$comboenhancement = ajax_combobox($htmlname, array(), 0, $forcefocus);
 				$out .= $comboenhancement;

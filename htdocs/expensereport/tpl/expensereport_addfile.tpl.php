@@ -31,7 +31,7 @@ $formfile->form_attach_new_file(
 	0,
 	0,
 	$permission,
-	$conf->browser->layout == 'phone' ? 40 : 60,
+	$config->browser->layout == 'phone' ? 40 : 60,
 	$object,
 	'',
 	1,

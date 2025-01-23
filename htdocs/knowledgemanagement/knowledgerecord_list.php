@@ -65,7 +65,7 @@ if (GETPOSTISSET('formfilteraction')) {
 	$searchCategoryKnowledgemanagementOperator = getDolGlobalString('MAIN_SEARCH_CAT_OR_BY_DEFAULT');
 }
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -80,7 +80,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new KnowledgeRecord($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->knowledgemanagement->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->knowledgemanagement->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('knowledgerecordlist')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -150,7 +150,7 @@ $permissiontovalidate =  ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $pe
 
 
 // Security check
-if (empty($conf->knowledgemanagement->enabled)) {
+if (empty($config->knowledgemanagement->enabled)) {
 	accessforbidden('Module not enabled');
 }
 $socid = 0;
@@ -209,7 +209,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'KnowledgeRecord';
 	$objectlabel = 'KnowledgeRecord';
-	$uploaddir = $conf->knowledgemanagement->dir_output;
+	$uploaddir = $config->knowledgemanagement->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -409,7 +409,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 foreach ($search as $key => $val) {
@@ -734,34 +734,34 @@ while ($i < $imaxinloop) {
 					print $object->showOutputField($val, $key, $object->id, '');
 				} elseif ($key == 'fk_user_creat') {
 					if ($object->fk_user_creat > 0) {
-						if (isset($conf->cache['user'][$object->fk_user_creat])) {
-							$user_temp = $conf->cache['user'][$object->fk_user_creat];
+						if (isset($config->cache['user'][$object->fk_user_creat])) {
+							$user_temp = $config->cache['user'][$object->fk_user_creat];
 						} else {
 							$user_temp = new User($db);
 							$user_temp->fetch($object->fk_user_creat);
-							$conf->cache['user'][$object->fk_user_creat] = $user_temp;
+							$config->cache['user'][$object->fk_user_creat] = $user_temp;
 						}
 						print $user_temp->getNomUrl(-1);
 					}
 				} elseif ($key == 'fk_user_modif') {
 					if ($object->fk_user_modif > 0) {
-						if (isset($conf->cache['user'][$object->fk_user_modif])) {
-							$user_temp = $conf->cache['user'][$object->fk_user_modif];
+						if (isset($config->cache['user'][$object->fk_user_modif])) {
+							$user_temp = $config->cache['user'][$object->fk_user_modif];
 						} else {
 							$user_temp = new User($db);
 							$user_temp->fetch($object->fk_user_modif);
-							$conf->cache['user'][$object->fk_user_modif] = $user_temp;
+							$config->cache['user'][$object->fk_user_modif] = $user_temp;
 						}
 						print $user_temp->getNomUrl(-1);
 					}
 				} elseif ($key == 'fk_user_valid') {
 					if ($object->fk_user_valid > 0) {
-						if (isset($conf->cache['user'][$object->fk_user_valid])) {
-							$user_temp = $conf->cache['user'][$object->fk_user_valid];
+						if (isset($config->cache['user'][$object->fk_user_valid])) {
+							$user_temp = $config->cache['user'][$object->fk_user_valid];
 						} else {
 							$user_temp = new User($db);
 							$user_temp->fetch($object->fk_user_valid);
-							$conf->cache['user'][$object->fk_user_valid] = $user_temp;
+							$config->cache['user'][$object->fk_user_valid] = $user_temp;
 						}
 						print $user_temp->getNomUrl(-1);
 					}

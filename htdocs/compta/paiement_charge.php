@@ -165,7 +165,7 @@ if ($action == 'create') {
 	$charge->paiementtype = $charge->mode_reglement_id ? $charge->mode_reglement_id : $charge->paiementtype;
 
 	$total = $charge->amount;
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print "\n".'<script type="text/javascript">';
 
 		//Add js for AutoFill
@@ -197,7 +197,7 @@ if ($action == 'create') {
 	print '<tr><td>'.$langs->trans("Type")."</td><td>".$charge->type_label."</td></tr>\n";
 	print '<tr><td>'.$langs->trans("Period")."</td><td>".dol_print_date($charge->period, 'day')."</td></tr>\n";
 	/*print '<tr><td>'.$langs->trans("DateDue")."</td><td>".dol_print_date($charge->date_ech,'day')."</td></tr>\n";
-	print '<tr><td>'.$langs->trans("Amount")."</td><td>".price($charge->amount,0,$outputlangs,1,-1,-1,$conf->currency).'</td></tr>';*/
+	print '<tr><td>'.$langs->trans("Amount")."</td><td>".price($charge->amount,0,$outputlangs,1,-1,-1,$config->currency).'</td></tr>';*/
 
 	$sql = "SELECT sum(p.amount) as total";
 	$sql .= " FROM ".MAIN_DB_PREFIX."paiementcharge as p";
@@ -209,8 +209,8 @@ if ($action == 'create') {
 		$sumpaid = $obj->total;
 		$db->free($resql);
 	}
-	/*print '<tr><td>'.$langs->trans("AlreadyPaid").'</td><td>'.price($sumpaid,0,$outputlangs,1,-1,-1,$conf->currency).'</td></tr>';
-	print '<tr><td class="tdtop">'.$langs->trans("RemainderToPay").'</td><td>'.price($total-$sumpaid,0,$outputlangs,1,-1,-1,$conf->currency).'</td></tr>';*/
+	/*print '<tr><td>'.$langs->trans("AlreadyPaid").'</td><td>'.price($sumpaid,0,$outputlangs,1,-1,-1,$config->currency).'</td></tr>';
+	print '<tr><td class="tdtop">'.$langs->trans("RemainderToPay").'</td><td>'.price($total-$sumpaid,0,$outputlangs,1,-1,-1,$config->currency).'</td></tr>';*/
 
 	print '<tr><td class="fieldrequired">'.$langs->trans("Date").'</td><td>';
 	$datepaye = dol_mktime(12, 0, 0, GETPOSTINT("remonth"), GETPOSTINT("reday"), GETPOSTINT("reyear"));
@@ -234,7 +234,7 @@ if ($action == 'create') {
 
 	// Number
 	print '<tr><td>'.$langs->trans('Numero');
-	if (empty($conf->dol_optimize_smallscreen)) {
+	if (empty($config->dol_optimize_smallscreen)) {
 		print ' <em>('.$langs->trans("ChequeOrTransferNumber").')</em>';
 	}
 	print '</td>';
@@ -291,7 +291,7 @@ if ($action == 'create') {
 		if ($sumpaid < $objp->amount) {
 			$namef = "amount_".$objp->id;
 			$nameRemain = "remain_".$objp->id;
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				print img_picto("Auto fill", 'rightarrow', "class='AutoFillAmount' data-rowid='".$namef."' data-value='".($objp->amount - $sumpaid)."'");
 			}
 			$remaintopay = $objp->amount - $sumpaid;

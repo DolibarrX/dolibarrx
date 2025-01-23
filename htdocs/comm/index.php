@@ -76,7 +76,7 @@ if (!empty($user->socid) && $user->socid > 0) {
 $total = 0;
 
 $max = getDolGlobalInt('MAIN_SIZE_SHORTLIST_LIMIT', 5);
-$maxofloop = (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD);
+$maxofloop = (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD);
 $now = dol_now();
 
 //restrictedArea($user, 'societe', $socid, '&societe', '', 'fk_soc', 'rowid', 0);
@@ -793,7 +793,7 @@ if (isModEnabled('propal') && is_object($propalstatic)) {
 				$companystatic->code_compta_client = $obj->code_compta_client;
 
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->propal->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->propal->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 
 				print '<tr class="oddeven">';
@@ -894,7 +894,7 @@ if (isModEnabled('order')) {
 
 				print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->commande->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->commande->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 				print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
 				print '</td></tr></table>';
@@ -984,10 +984,10 @@ if ((isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) && $use
 
 				$obj = $companystatic;
 				$s = '';
-				/*if (($obj->client == 2 || $obj->client == 3) && empty($conf->global->SOCIETE_DISABLE_PROSPECTS)) {
+				/*if (($obj->client == 2 || $obj->client == 3) && empty($config->global->SOCIETE_DISABLE_PROSPECTS)) {
 					$s .= '<a class="customer-back opacitymedium" title="'.$langs->trans("Prospect").'" href="'.DOL_URL_ROOT.'/comm/card.php?socid='.$companystatic->id.'">'.dol_substr($langs->trans("Prospect"), 0, 1).'</a>';
 				}
-				if (($obj->client == 1 || $obj->client == 3) && empty($conf->global->SOCIETE_DISABLE_CUSTOMERS))
+				if (($obj->client == 1 || $obj->client == 3) && empty($config->global->SOCIETE_DISABLE_CUSTOMERS))
 				{
 					$s .= '<a class="customer-back" title="'.$langs->trans("Customer").'" href="'.DOL_URL_ROOT.'/comm/card.php?socid='.$companystatic->id.'">'.dol_substr($langs->trans("Customer"), 0, 1).'</a>';
 				}*/
@@ -1143,7 +1143,7 @@ if (isModEnabled("propal") && $user->hasRight("propal", "lire")) {
 	if ($resql) {
 		$total = $total_ttc = 0;
 		$num = $db->num_rows($resql);
-		$nbofloop = min($num, (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD));
+		$nbofloop = min($num, (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD));
 		startSimpleTable("ProposalsOpened", "comm/propal/list.php", "search_status=1", 4, $num);
 
 		if ($num > 0) {
@@ -1184,9 +1184,9 @@ if (isModEnabled("propal") && $user->hasRight("propal", "lire")) {
 				$companystatic->canvas = $obj->canvas;
 
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->propal->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->propal->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
 				//$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->propalid;
-				$warning = ($db->jdate($obj->dfv) < ($now - $conf->propal->cloture->warning_delay)) ? img_warning($langs->trans("Late")) : '';
+				$warning = ($db->jdate($obj->dfv) < ($now - $config->propal->cloture->warning_delay)) ? img_warning($langs->trans("Late")) : '';
 
 				print '<tr class="oddeven">';
 
@@ -1263,7 +1263,7 @@ if (isModEnabled('order') && $user->hasRight('commande', 'lire') && is_object($o
 	if ($resql) {
 		$total = $total_ttc = 0;
 		$num = $db->num_rows($resql);
-		$nbofloop = min($num, (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD));
+		$nbofloop = min($num, (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD));
 		startSimpleTable("OrdersOpened", "commande/list.php", "search_status=".Commande::STATUS_VALIDATED, 4, $num);
 
 		if ($num > 0) {
@@ -1305,9 +1305,9 @@ if (isModEnabled('order') && $user->hasRight('commande', 'lire') && is_object($o
 				$companystatic->canvas = $obj->canvas;
 
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->commande->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->commande->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 				//$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->propalid;
-				//$warning = ($db->jdate($obj->dfv) < ($now - $conf->propal->cloture->warning_delay)) ? img_warning($langs->trans("Late")) : '';
+				//$warning = ($db->jdate($obj->dfv) < ($now - $config->propal->cloture->warning_delay)) ? img_warning($langs->trans("Late")) : '';
 
 				print '<tr class="oddeven">';
 

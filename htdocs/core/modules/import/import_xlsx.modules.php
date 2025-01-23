@@ -1127,7 +1127,7 @@ class ImportXlsx extends ModeleImports
 							$sqlend = ") VALUES(" . implode(', ', $listvalues) . ", '" . $this->db->escape($importid) . "'";
 							if (!empty($tablewithentity_cache[$tablename])) {
 								$sqlstart .= ", entity";
-								$sqlend .= ", " . $conf->entity;
+								$sqlend .= ", " . $config->entity;
 							}
 							if (!empty($objimport->array_import_tables_creator[0][$alias])) {
 								$sqlstart .= ", " . $objimport->array_import_tables_creator[0][$alias];

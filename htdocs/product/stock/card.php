@@ -71,7 +71,7 @@ $socid = GETPOSTINT('socid');
 $ref = GETPOST('ref', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 if (!$sortfield) {
@@ -277,7 +277,7 @@ if (empty($reshook)) {
 
 
 	// Actions to build doc
-	$upload_dir = $conf->stock->dir_output;
+	$upload_dir = $config->stock->dir_output;
 	$permissiontoadd = $user->hasRight('stock', 'creer');
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 }
@@ -547,7 +547,7 @@ if ($action == 'create') {
 
 			// Value
 			print '<tr><td class="titlefield">'.$langs->trans("EstimatedStockValueShort").'</td><td>';
-			print price((empty($calcproducts['value']) ? '0' : price2num($calcproducts['value'], 'MT')), 0, $langs, 0, -1, -1, $conf->currency);
+			print price((empty($calcproducts['value']) ? '0' : price2num($calcproducts['value'], 'MT')), 0, $langs, 0, -1, -1, $config->currency);
 			print "</td></tr>";
 
 			// Last movement
@@ -731,7 +731,7 @@ if ($action == 'create') {
 			$sql .= " AND ps.fk_entrepot = ".((int) $object->id);
 
 			if ($separatedPMP) {
-				$sql .= " AND pa.fk_product = p.rowid AND pa.entity = ".(int) $conf->entity;
+				$sql .= " AND pa.fk_product = p.rowid AND pa.entity = ".(int) $config->entity;
 			}
 
 			$sql .= $db->order($sortfield, $sortorder);
@@ -1022,7 +1022,7 @@ if ($action != 'create' && $action != 'edit' && $action != 'delete') {
 	// Documents
 	$objectref = dol_sanitizeFileName($object->ref);
 	$relativepath = $object->ref.'/'.$objectref.'.pdf';
-	$filedir = $conf->stock->dir_output.'/'.$objectref;
+	$filedir = $config->stock->dir_output.'/'.$objectref;
 	$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 	$genallowed = $usercanread;
 	$delallowed = $usercancreate;

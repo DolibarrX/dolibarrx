@@ -66,14 +66,14 @@ $permissiontoread = $user->hasRight('hrm', 'all', 'read');
 $permissiontoadd = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissiontodelete = $user->hasRight('hrm', 'all', 'delete');
 $permissiondellink = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_dellink.inc.php
-$upload_dir = $conf->hrm->multidir_output[isset($object->entity) ? $object->entity : 1] . '/position';
+$upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->entity : 1] . '/position';
 
 // Security check (enable the most restrictive one)
 //if ($user->socid > 0) accessforbidden();
 //if ($user->socid > 0) $socid = $user->socid;
 //$isdraft = (($object->status == $object::STATUS_DRAFT) ? 1 : 0);
 //restrictedArea($user, $object->element, $object->id, $object->table_element, '', 'fk_soc', 'rowid', $isdraft);
-if (empty($conf->hrm->enabled)) {
+if (empty($config->hrm->enabled)) {
 	accessforbidden();
 }
 if (!$permissiontoread || ($action === 'create' && !$permissiontoadd)) {
@@ -106,7 +106,7 @@ $backtopageforcancel = GETPOST('backtopageforcancel', 'alpha');
 
 $extrafields = new ExtraFields($db);
 
-$diroutputmassaction = $conf->hrm->dir_output . '/temp/massgeneration/' . $user->id;
+$diroutputmassaction = $config->hrm->dir_output . '/temp/massgeneration/' . $user->id;
 $hookManager->initHooks(array('positioncard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -353,13 +353,13 @@ function displayPositionCard(&$object)
 //	$formfile = new FormFile($db);
 //	print '<div class="fichecenter"><div class="fichehalfleft">';
 //
-//	if (empty($conf->global->SOCIETE_DISABLE_BUILDDOC)) {
+//	if (empty($config->global->SOCIETE_DISABLE_BUILDDOC)) {
 //		print '<a name="builddoc"></a>'; // ancre
 //
 //		/*
 //		 * Generated documents
 //		 */
-//		$filedir = $conf->societe->multidir_output[$object->entity].'/'.$object->id;
+//		$filedir = $config->societe->multidir_output[$object->entity].'/'.$object->id;
 //		$urlsource = $_SERVER["PHP_SELF"]."?socid=".$object->id;
 //		$genallowed = $user->hasRight('societe', 'lire');
 //		$delallowed = $user->hasRight('societe', 'creer');

@@ -96,7 +96,7 @@ $datestart_dtend = dol_mktime(23, 59, 59, GETPOSTINT('datestart_dtendmonth'), GE
 $dateend_dtstart = dol_mktime(0, 0, 0, GETPOSTINT('dateend_dtstartmonth'), GETPOSTINT('dateend_dtstartday'), GETPOSTINT('dateend_dtstartyear'), 'tzuserrel');
 $dateend_dtend = dol_mktime(23, 59, 59, GETPOSTINT('dateend_dtendmonth'), GETPOSTINT('dateend_dtendday'), GETPOSTINT('dateend_dtendyear'), 'tzuserrel');
 if ($search_status == '' && !GETPOSTISSET('search_status')) {
-	$search_status = ((!getDolGlobalString('AGENDA_DEFAULT_FILTER_STATUS') || $disabledefaultvalues) ? '' : $conf->global->AGENDA_DEFAULT_FILTER_STATUS);
+	$search_status = ((!getDolGlobalString('AGENDA_DEFAULT_FILTER_STATUS') || $disabledefaultvalues) ? '' : $config->global->AGENDA_DEFAULT_FILTER_STATUS);
 }
 if (empty($mode) && !GETPOSTISSET('mode')) {
 	$mode = getDolGlobalString('AGENDA_DEFAULT_VIEW', 'show_list');
@@ -105,7 +105,7 @@ if (empty($mode) && !GETPOSTISSET('mode')) {
 $filter = GETPOST("search_filter", 'alpha', 3) ? GETPOST("search_filter", 'alpha', 3) : GETPOST("filter", 'alpha', 3);
 $filtert = GETPOST("search_filtert", "intcomma", 3) ? GETPOST("search_filtert", "intcomma", 3) : GETPOST("filtert", "intcomma", 3);
 $usergroup = GETPOSTINT("search_usergroup", 3) ? GETPOSTINT("search_usergroup", 3) : GETPOSTINT("usergroup", 3);
-$showbirthday = empty($conf->use_javascript_ajax) ? (GETPOSTINT("search_showbirthday") ? GETPOSTINT("search_showbirthday") : GETPOSTINT("showbirthday")) : 1;
+$showbirthday = empty($config->use_javascript_ajax) ? (GETPOSTINT("search_showbirthday") ? GETPOSTINT("search_showbirthday") : GETPOSTINT("showbirthday")) : 1;
 $search_categ_cus = GETPOST("search_categ_cus", "intcomma", 3) ? GETPOST("search_categ_cus", "intcomma", 3) : 0;
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
@@ -124,7 +124,7 @@ if (empty($filtert) && !getDolGlobalString('AGENDA_ALL_CALENDARS')) {
 }
 
 // Pagination parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -314,7 +314,7 @@ $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($actioncode != '') {

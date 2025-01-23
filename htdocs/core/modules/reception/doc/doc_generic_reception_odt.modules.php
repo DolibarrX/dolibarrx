@@ -118,7 +118,7 @@ class doc_generic_reception_odt extends ModelePdfReception
 		// List of directories area
 		$texte .= '<tr><td>';
 		$texttitle = $langs->trans("ListOfDirectories");
-		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($conf->global->RECEPTION_ADDON_PDF_ODT_PATH)));
+		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($config->global->RECEPTION_ADDON_PDF_ODT_PATH)));
 		$listoffiles = array();
 		foreach ($listofdir as $key => $tmpdir) {
 			$tmpdir = trim($tmpdir);
@@ -230,7 +230,7 @@ class doc_generic_reception_odt extends ModelePdfReception
 
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills"));
 
-		if ($conf->reception->dir_output) {
+		if ($config->reception->dir_output) {
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
@@ -244,7 +244,7 @@ class doc_generic_reception_odt extends ModelePdfReception
 
 			$object->fetch_thirdparty();
 
-			$dir = !empty($conf->reception->multidir_output[$object->entity]) ? $conf->reception->multidir_output[$object->entity] : $conf->reception->dir_output;
+			$dir = !empty($config->reception->multidir_output[$object->entity]) ? $config->reception->multidir_output[$object->entity] : $config->reception->dir_output;
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -281,11 +281,11 @@ class doc_generic_reception_odt extends ModelePdfReception
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->societe->dir_temp=".$conf->societe->dir_temp;
+				//print "conf->societe->dir_temp=".$config->societe->dir_temp;
 
-				dol_mkdir($conf->reception->dir_temp);
-				if (!is_writable($conf->reception->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->reception->dir_temp);
+				dol_mkdir($config->reception->dir_temp);
+				if (!is_writable($config->reception->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->reception->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -302,7 +302,7 @@ class doc_generic_reception_odt extends ModelePdfReception
 				$contactobject = null;
 				if (!empty($usecontact)) {
 					// We can use the company of contact instead of thirdparty company
-					if ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
+					if ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
 						$object->contact->fetch_thirdparty();
 						$socobject = $object->contact->thirdparty;
 						$contactobject = $object->contact;
@@ -342,7 +342,7 @@ class doc_generic_reception_odt extends ModelePdfReception
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $conf->reception->dir_temp,
+							'PATH_TO_TMP'	  => $config->reception->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'

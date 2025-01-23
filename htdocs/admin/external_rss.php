@@ -112,12 +112,12 @@ if ($action == 'add' || GETPOST("modify")) {
 			//print $sql;exit;
 		}
 
-		$result1 = dolibarr_set_const($db, "EXTERNAL_RSS_TITLE_".GETPOSTINT("norss"), GETPOST($external_rss_title), 'chaine', 0, '', $conf->entity);
+		$result1 = dolibarr_set_const($db, "EXTERNAL_RSS_TITLE_".GETPOSTINT("norss"), GETPOST($external_rss_title), 'chaine', 0, '', $config->entity);
 		$result2 = 0;
 		if ($result1) {
 			$consttosave = "EXTERNAL_RSS_URLRSS_".GETPOSTINT("norss");
 			$urltosave = GETPOST($external_rss_urlrss, 'alpha');
-			$result2 = dolibarr_set_const($db, $consttosave, $urltosave, 'chaine', 0, '', $conf->entity);
+			$result2 = dolibarr_set_const($db, $consttosave, $urltosave, 'chaine', 0, '', $config->entity);
 			//var_dump($result2);exit;
 		}
 
@@ -148,7 +148,7 @@ if (GETPOST("delete")) {
 				$obj = $db->fetch_object($resql);
 
 				$sql = "DELETE FROM ".MAIN_DB_PREFIX."boxes";
-				$sql .= " WHERE entity = ".$conf->entity;
+				$sql .= " WHERE entity = ".$config->entity;
 				$sql .= " AND box_id = ".((int) $obj->rowid);
 				$resql = $db->query($sql);
 
@@ -173,10 +173,10 @@ if (GETPOST("delete")) {
 		}
 
 
-		$result1 = dolibarr_del_const($db, "EXTERNAL_RSS_TITLE_".GETPOSTINT("norss"), $conf->entity);
+		$result1 = dolibarr_del_const($db, "EXTERNAL_RSS_TITLE_".GETPOSTINT("norss"), $config->entity);
 		$result2 = 0;
 		if ($result1) {
-			$result2 = dolibarr_del_const($db, "EXTERNAL_RSS_URLRSS_".GETPOSTINT("norss"), $conf->entity);
+			$result2 = dolibarr_del_const($db, "EXTERNAL_RSS_URLRSS_".GETPOSTINT("norss"), $config->entity);
 		}
 
 		if ($result1 && $result2) {
@@ -262,7 +262,7 @@ if ($resql) {
 		//print "x".$idrss;
 
 		$rssparser = new RssParser($db);
-		$result = $rssparser->parser(getDolGlobalString($keyrssurl), 5, 300, $conf->externalrss->dir_temp);
+		$result = $rssparser->parser(getDolGlobalString($keyrssurl), 5, 300, $config->externalrss->dir_temp);
 
 		print "<br>";
 		print '<form name="externalrssconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">'."\n";

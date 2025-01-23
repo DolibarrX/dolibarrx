@@ -311,8 +311,8 @@ class Ticket extends CommonObject
 		'severity_code' => array('type' => 'varchar(32)', 'label' => 'Severity', 'visible' => 1, 'enabled' => 1, 'position' => 22, 'notnull' => -1, 'help' => "", 'css' => 'maxwidth100'),
 		'fk_soc' => array('type' => 'integer:Societe:societe/class/societe.class.php', 'label' => 'ThirdParty', 'visible' => 1, 'enabled' => 'isModEnabled("societe")', 'position' => 50, 'notnull' => -1, 'index' => 1, 'searchall' => 1, 'help' => "OrganizationEventLinkToThirdParty", 'css' => 'tdoverflowmax150 maxwidth150onsmartphone'),
 		'notify_tiers_at_create' => array('type' => 'integer', 'label' => 'NotifyThirdparty', 'visible' => -1, 'enabled' => 0, 'position' => 51, 'notnull' => 1, 'index' => 1),
-		'fk_project' => array('type' => 'integer:Project:projet/class/project.class.php', 'label' => 'Project', 'visible' => -1, 'enabled' => '$conf->project->enabled', 'position' => 52, 'notnull' => -1, 'index' => 1, 'help' => "LinkToProject"),
-		'fk_contract' => array('type' => 'integer:Contrat:contrat/class/contrat.class.php', 'label' => 'Contract', 'visible' => -1, 'enabled' => '$conf->contract->enabled', 'position' => 53, 'notnull' => -1, 'index' => 1, 'help' => "LinkToContract"),
+		'fk_project' => array('type' => 'integer:Project:projet/class/project.class.php', 'label' => 'Project', 'visible' => -1, 'enabled' => '$config->project->enabled', 'position' => 52, 'notnull' => -1, 'index' => 1, 'help' => "LinkToProject"),
+		'fk_contract' => array('type' => 'integer:Contrat:contrat/class/contrat.class.php', 'label' => 'Contract', 'visible' => -1, 'enabled' => '$config->contract->enabled', 'position' => 53, 'notnull' => -1, 'index' => 1, 'help' => "LinkToContract"),
 		//'timing' => array('type'=>'varchar(20)', 'label'=>'Timing', 'visible'=>-1, 'enabled'=>1, 'position'=>42, 'notnull'=>-1, 'help'=>""),	// what is this ?
 		'datec' => array('type' => 'datetime', 'label' => 'DateCreation', 'visible' => 1, 'enabled' => 1, 'position' => 500, 'notnull' => 1, 'csslist' => 'nowraponall'),
 		'tms' => array('type' => 'timestamp', 'label' => 'DateModification', 'visible' => -1, 'enabled' => 1, 'position' => 501, 'notnull' => 1),
@@ -1440,7 +1440,7 @@ class Ticket extends CommonObject
 	{
 		global $conf, $langs;
 
-		if (!empty($conf->cache['severity_tickets']) && count($conf->cache['severity_tickets'])) {
+		if (!empty($config->cache['severity_tickets']) && count($config->cache['severity_tickets'])) {
 			// Cache already loaded
 			return 0;
 		}
@@ -1458,11 +1458,11 @@ class Ticket extends CommonObject
 			while ($i < $num) {
 				$obj = $this->db->fetch_object($resql);
 
-				$conf->cache['severity_tickets'][$obj->rowid]['code'] = $obj->code;
+				$config->cache['severity_tickets'][$obj->rowid]['code'] = $obj->code;
 				$label = ($langs->trans("TicketSeverityShort".$obj->code) != "TicketSeverityShort".$obj->code ? $langs->trans("TicketSeverityShort".$obj->code) : ($obj->label != '-' ? $obj->label : ''));
-				$conf->cache['severity_tickets'][$obj->rowid]['label'] = $label;
-				$conf->cache['severity_tickets'][$obj->rowid]['use_default'] = $obj->use_default;
-				$conf->cache['severity_tickets'][$obj->rowid]['pos'] = $obj->pos;
+				$config->cache['severity_tickets'][$obj->rowid]['label'] = $label;
+				$config->cache['severity_tickets'][$obj->rowid]['use_default'] = $obj->use_default;
+				$config->cache['severity_tickets'][$obj->rowid]['pos'] = $obj->pos;
 				$i++;
 			}
 			return $num;
@@ -1612,7 +1612,7 @@ class Ticket extends CommonObject
 	{
 		global $action, $conf, $hookManager, $langs;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -1899,7 +1899,7 @@ class Ticket extends CommonObject
 				// If there is some files, we must now link them to the event, so we can show them per event.
 				foreach ($attachedfiles['paths'] as $key => $filespath) {
 					// Disabled the move into another directory, Files for a ticket should be stored into ticket directory. It generates too much troubles.
-					$destdir = $conf->ticket->dir_output.'/'.$this->ref;
+					$destdir = $config->ticket->dir_output.'/'.$this->ref;
 					//$destfile = $destdir.'/'.$attachedfiles['names'][$key];
 					//if (dol_mkdir($destdir) >= 0) {
 					//require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
@@ -2476,7 +2476,7 @@ class Ticket extends CommonObject
 		$file = '';
 		$classname = '';
 		$reldir = '';
-		$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+		$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 		foreach ($dirmodels as $reldir) {
 			$file = dol_buildpath($reldir."core/modules/ticket/".$modele.'.php', 0);
 			if (file_exists($file)) {
@@ -2564,7 +2564,7 @@ class Ticket extends CommonObject
 		$mimetype = $attachedfiles['mimes'];
 
 		// Copy files into ticket directory
-		$destdir = $conf->ticket->dir_output.'/'.$this->ref;
+		$destdir = $config->ticket->dir_output.'/'.$this->ref;
 
 		if (!dol_is_dir($destdir)) {
 			dol_mkdir($destdir);
@@ -3074,10 +3074,10 @@ class Ticket extends CommonObject
 
 				$old_MAIN_MAIL_AUTOCOPY_TO = getDolGlobalString('MAIN_MAIL_AUTOCOPY_TO');
 				if (getDolGlobalString('TICKET_DISABLE_MAIL_AUTOCOPY_TO')) {
-					$conf->global->MAIN_MAIL_AUTOCOPY_TO = '';
+					$config->global->MAIN_MAIL_AUTOCOPY_TO = '';
 				}
 
-				$upload_dir_tmp = $conf->user->dir_output."/".$user->id.'/temp';
+				$upload_dir_tmp = $config->user->dir_output."/".$user->id.'/temp';
 
 				include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 				$trackid = "tic".$this->id;
@@ -3125,7 +3125,7 @@ class Ticket extends CommonObject
 				}
 
 				if (getDolGlobalString('TICKET_DISABLE_MAIL_AUTOCOPY_TO')) {
-					$conf->global->MAIN_MAIL_AUTOCOPY_TO = $old_MAIN_MAIL_AUTOCOPY_TO;
+					$config->global->MAIN_MAIL_AUTOCOPY_TO = $old_MAIN_MAIL_AUTOCOPY_TO;
 				}
 			}
 		} else {
@@ -3175,7 +3175,7 @@ class Ticket extends CommonObject
 			$status = '';
 			if ($mode == 'opened') {
 				$status = 'openall';
-				//$delay_warning = $conf->ticket->warning_delay;
+				//$delay_warning = $config->ticket->warning_delay;
 				$delay_warning = 0;
 				$label = $langs->trans("MenuListNonClosed");
 				$labelShort = $langs->trans("MenuListNonClosed");

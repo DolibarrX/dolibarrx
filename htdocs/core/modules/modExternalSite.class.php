@@ -113,7 +113,7 @@ class modExternalSite extends DolibarrModules
 			'langs' => 'other',
 			'position' => 100,
 			'perms' => '',
-			'enabled' => '$conf->externalsite->enabled',
+			'enabled' => '$config->externalsite->enabled',
 			'target' => '',
 			'user' => 2
 		);

@@ -138,7 +138,7 @@ foreach ($arrayofpaymentmodetomanage as $val) {
 	$sql .= " FROM ".MAIN_DB_PREFIX."bordereau_cheque as bc, ".MAIN_DB_PREFIX."bank_account as ba";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_journal as aj ON aj.rowid = ba.fk_accountancy_journal";
 	$sql .= " WHERE ba.rowid = bc.fk_bank_account";
-	$sql .= " AND bc.entity = ".((int) $conf->entity);
+	$sql .= " AND bc.entity = ".((int) $config->entity);
 	$sql .= " AND bc.type = '".$db->escape($val)."'";
 	$sql .= " ORDER BY bc.date_bordereau DESC, rowid DESC";
 	$sql .= $db->plimit($max);

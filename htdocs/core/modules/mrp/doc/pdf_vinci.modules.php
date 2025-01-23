@@ -175,7 +175,7 @@ class pdf_vinci extends ModelePDFMo
 			$hidetop = getDolGlobalString('MAIN_PDF_DISABLE_COL_HEAD_TITLE');
 		}
 
-		if ($conf->mrp->dir_output) {
+		if ($config->mrp->dir_output) {
 			$object->fetch_thirdparty();
 
 			$deja_regle = 0;
@@ -186,11 +186,11 @@ class pdf_vinci extends ModelePDFMo
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->mrp->dir_output;
+				$dir = $config->mrp->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->mrp->dir_output.'/'.$objectref;
+				$dir = $config->mrp->dir_output.'/'.$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 
@@ -231,7 +231,7 @@ class pdf_vinci extends ModelePDFMo
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
+					$pagecount = $pdf->setSourceFile($config->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -929,7 +929,7 @@ class pdf_vinci extends ModelePDFMo
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)
@@ -942,7 +942,7 @@ class pdf_vinci extends ModelePDFMo
 			$pdf->SetXY($this->page_largeur - $this->marge_droite - ($pdf->GetStringWidth($title) + 3), $tab_top - 4);
 			$pdf->MultiCell(($pdf->GetStringWidth($title) + 3), 2, $title);
 
-			//$conf->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
+			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
 				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, $this->tabTitleHeight, $this->corner_radius, '1001', 'F', null, explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
@@ -1024,7 +1024,7 @@ class pdf_vinci extends ModelePDFMo
 		$pdf->SetXY($this->marge_gauche, $posy);
 
 		// Logo
-		$logo = $conf->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
+		$logo = $config->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
 		if ($this->emetteur->logo) {
 			if (is_readable($logo)) {
 				$height = pdf_getHeightForLogo($logo);
@@ -1231,7 +1231,7 @@ class pdf_vinci extends ModelePDFMo
 			}
 
 			// Recipient name
-			if ($usecontact && ($object->contact->fk_soc != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
+			if ($usecontact && ($object->contact->fk_soc != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
 				$thirdparty = $object->contact;
 			} else {
 				$thirdparty = $object->thirdparty;

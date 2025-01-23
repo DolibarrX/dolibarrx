@@ -229,9 +229,9 @@ if ($id > 0 || !empty($ref)) {
 				// Opportunity Amount
 				print '<tr><td>'.$langs->trans("OpportunityAmount").'</td><td>';
 				if (strcmp($projectstatic->opp_amount, '')) {
-					print price($projectstatic->opp_amount, 0, $langs, 1, 0, -1, $conf->currency);
+					print price($projectstatic->opp_amount, 0, $langs, 1, 0, -1, $config->currency);
 					if (strcmp($projectstatic->opp_percent, '')) {
-						print ' &nbsp; &nbsp; &nbsp; <span title="'.dol_escape_htmltag($langs->trans('OpportunityWeightedAmount')).'"><span class="opacitymedium">'.$langs->trans("OpportunityWeightedAmountShort").'</span>: <span class="amount">'.price($projectstatic->opp_amount * $projectstatic->opp_percent / 100, 0, $langs, 1, 0, -1, $conf->currency).'</span></span>';
+						print ' &nbsp; &nbsp; &nbsp; <span title="'.dol_escape_htmltag($langs->trans('OpportunityWeightedAmount')).'"><span class="opacitymedium">'.$langs->trans("OpportunityWeightedAmountShort").'</span>: <span class="amount">'.price($projectstatic->opp_amount * $projectstatic->opp_percent / 100, 0, $langs, 1, 0, -1, $config->currency).'</span></span>';
 					}
 				}
 				print '</td></tr>';
@@ -240,7 +240,7 @@ if ($id > 0 || !empty($ref)) {
 			// Budget
 			print '<tr><td>'.$langs->trans("Budget").'</td><td>';
 			if (strcmp($projectstatic->budget_amount, '')) {
-				print price($projectstatic->budget_amount, 0, $langs, 1, 0, 0, $conf->currency);
+				print price($projectstatic->budget_amount, 0, $langs, 1, 0, 0, $config->currency);
 			}
 			print '</td></tr>';
 

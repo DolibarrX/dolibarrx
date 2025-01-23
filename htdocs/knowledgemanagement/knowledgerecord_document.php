@@ -51,7 +51,7 @@ $id = (GETPOSTINT('socid') ? GETPOSTINT('socid') : GETPOSTINT('id'));
 $ref = GETPOST('ref', 'alpha');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -72,7 +72,7 @@ if (!$sortfield) {
 // Initialize a technical objects
 $object = new KnowledgeRecord($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->knowledgemanagement->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->knowledgemanagement->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('knowledgerecorddocument', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -81,7 +81,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
 
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->knowledgemanagement->multidir_output[$object->entity ? $object->entity : $conf->entity]."/knowledgerecord/".get_exdir(0, 0, 0, 1, $object);
+	$upload_dir = $config->knowledgemanagement->multidir_output[$object->entity ? $object->entity : $config->entity]."/knowledgerecord/".get_exdir(0, 0, 0, 1, $object);
 }
 
 // Security check - Protection if external user

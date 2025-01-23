@@ -71,7 +71,7 @@ class InterfaceNotification extends DolibarrTriggers
 	{
 		global $hookManager;
 
-		if (empty($conf->notification) || !isModEnabled('notification')) {
+		if (empty($config->notification) || !isModEnabled('notification')) {
 			return 0; // Module not active, we do nothing
 		}
 
@@ -169,7 +169,7 @@ class InterfaceNotification extends DolibarrTriggers
 						$qualified = 0;
 					} elseif (($element == 'expense_report' || $element == 'expensereport') && !isModEnabled('expensereport')) {
 						$qualified = 0;
-					} elseif (!in_array($element, array('order_supplier', 'invoice_supplier', 'withdraw', 'shipping', 'member', 'expense_report', 'expensereport')) && empty($conf->$element->enabled)) {
+					} elseif (!in_array($element, array('order_supplier', 'invoice_supplier', 'withdraw', 'shipping', 'member', 'expense_report', 'expensereport')) && empty($config->$element->enabled)) {
 						$qualified = 0;
 					}
 				}

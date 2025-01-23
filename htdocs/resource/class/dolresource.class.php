@@ -127,7 +127,7 @@ class Dolresource extends CommonObject
 	public $objelement;
 
 	/**
-	 * @var array<int,array{code:string,label:string,active:int}>	Cache of type of resources. TODO Use $conf->cache['type_of_resources'] instead
+	 * @var array<int,array{code:string,label:string,active:int}>	Cache of type of resources. TODO Use $config->cache['type_of_resources'] instead
 	 */
 	public $cache_code_type_resource;
 
@@ -425,9 +425,9 @@ class Dolresource extends CommonObject
 
 		if (!$error && (is_object($this->oldcopy) && $this->oldcopy->ref !== $this->ref)) {
 			// We remove directory
-			if (!empty($conf->resource->dir_output)) {
-				$olddir = $conf->resource->dir_output."/".dol_sanitizeFileName($this->oldcopy->ref);
-				$newdir = $conf->resource->dir_output."/".dol_sanitizeFileName($this->ref);
+			if (!empty($config->resource->dir_output)) {
+				$olddir = $config->resource->dir_output."/".dol_sanitizeFileName($this->oldcopy->ref);
+				$newdir = $config->resource->dir_output."/".dol_sanitizeFileName($this->ref);
 				if (file_exists($olddir)) {
 					$res = @rename($olddir, $newdir);
 					if (!$res) {
@@ -572,8 +572,8 @@ class Dolresource extends CommonObject
 		if (!$error) {
 			// We remove directory
 			dol_sanitizeFileName($this->ref);
-			if (!empty($conf->resource->dir_output)) {
-				$dir = $conf->resource->dir_output."/".dol_sanitizeFileName($this->ref);
+			if (!empty($config->resource->dir_output)) {
+				$dir = $config->resource->dir_output."/".dol_sanitizeFileName($this->ref);
 				if (file_exists($dir)) {
 					$res = @dol_delete_dir_recursive($dir);
 					if (!$res) {

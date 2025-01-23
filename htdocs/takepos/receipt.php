@@ -265,7 +265,7 @@ if (getDolGlobalString('TAKEPOS_SHOW_DATE_OF_PRINING')) {
 		echo $langs->trans("TotalHT");
 					  } ?></th>
 	<td class="right"><?php if ($gift != 1) {
-		echo price($object->total_ht, 1, '', 1, - 1, - 1, $conf->currency)."\n";
+		echo price($object->total_ht, 1, '', 1, - 1, - 1, $config->currency)."\n";
 					  } ?></td>
 </tr>
 <?php if (getDolGlobalString('TAKEPOS_TICKET_VAT_GROUPPED')) {
@@ -284,7 +284,7 @@ if (getDolGlobalString('TAKEPOS_SHOW_DATE_OF_PRINING')) {
 			echo $langs->trans("VAT").' '.vatrate($key, true);
 						  } ?></th>
 		<td align="right"><?php if ($gift != 1) {
-			echo price($val, 1, '', 1, - 1, - 1, $conf->currency)."\n";
+			echo price($val, 1, '', 1, - 1, - 1, $config->currency)."\n";
 						  } ?></td>
 	</tr>
 		<?php
@@ -292,7 +292,7 @@ if (getDolGlobalString('TAKEPOS_SHOW_DATE_OF_PRINING')) {
 } else { ?>
 <tr>
 	<th class="right"><?php if ($gift != 1) {
-		echo $langs->trans("TotalVAT").'</th><td class="right">'.price($object->total_tva, 1, '', 1, - 1, - 1, $conf->currency)."\n";
+		echo $langs->trans("TotalVAT").'</th><td class="right">'.price($object->total_tva, 1, '', 1, - 1, - 1, $config->currency)."\n";
 					  } ?></th>
 </tr>
 <?php }
@@ -302,24 +302,24 @@ if (getDolGlobalString('TAKEPOS_SHOW_DATE_OF_PRINING')) {
 if (price2num($object->total_localtax1, 'MU') || $mysoc->useLocalTax(1)) { ?>
 <tr>
 	<th class="right"><?php if ($gift != 1) {
-		echo ''.$langs->trans("TotalLT1").'</th><td class="right">'.price($object->total_localtax1, 1, '', 1, - 1, - 1, $conf->currency)."\n";
+		echo ''.$langs->trans("TotalLT1").'</th><td class="right">'.price($object->total_localtax1, 1, '', 1, - 1, - 1, $config->currency)."\n";
 					  } ?></th>
 </tr>
 <?php } ?>
 <?php if (price2num($object->total_localtax2, 'MU') || $mysoc->useLocalTax(2)) { ?>
 <tr>
 	<th class="right"><?php if ($gift != 1) {
-		echo ''.$langs->trans("TotalLT2").'</th><td class="right">'.price($object->total_localtax2, 1, '', 1, - 1, - 1, $conf->currency)."\n";
+		echo ''.$langs->trans("TotalLT2").'</th><td class="right">'.price($object->total_localtax2, 1, '', 1, - 1, - 1, $config->currency)."\n";
 					  } ?></th>
 </tr>
 <?php } ?>
 <tr>
 	<th class="right"><?php if ($gift != 1) {
-		echo ''.$langs->trans("TotalTTC").'</th><td class="right">'.price($object->total_ttc, 1, '', 1, - 1, - 1, $conf->currency)."\n";
+		echo ''.$langs->trans("TotalTTC").'</th><td class="right">'.price($object->total_ttc, 1, '', 1, - 1, - 1, $config->currency)."\n";
 					  } ?></th>
 </tr>
 <?php
-if (isModEnabled('multicurrency') && !empty($_SESSION["takeposcustomercurrency"]) && $_SESSION["takeposcustomercurrency"] != "" && $conf->currency != $_SESSION["takeposcustomercurrency"]) {
+if (isModEnabled('multicurrency') && !empty($_SESSION["takeposcustomercurrency"]) && $_SESSION["takeposcustomercurrency"] != "" && $config->currency != $_SESSION["takeposcustomercurrency"]) {
 	//Only show customer currency if multicurrency module is enabled, if currency selected and if this currency selected is not the same as main currency
 	include_once DOL_DOCUMENT_ROOT.'/multicurrency/class/multicurrency.class.php';
 	$multicurrency = new MultiCurrency($db);
@@ -340,7 +340,7 @@ if (getDolGlobalString('TAKEPOS_PRINT_PAYMENT_METHOD')) {
 		echo '</td>';
 		echo '<td class="right">';
 		$amount_payment = 0;
-		echo price($amount_payment, 1, '', 1, - 1, - 1, $conf->currency);
+		echo price($amount_payment, 1, '', 1, - 1, - 1, $config->currency);
 		echo '</td>';
 		echo '</tr>';
 	} else {
@@ -370,7 +370,7 @@ if (getDolGlobalString('TAKEPOS_PRINT_PAYMENT_METHOD')) {
 				//print "xx ".$row->multicurrency_amount." - ".$row->amount." - ".$amount_payment." - ".$object->multicurrency_tx;
 				if ((!isModEnabled('multicurrency') || $object->multicurrency_tx == 1) && $row->code == "LIQ" && $row->pos_change > 0) {
 					$amount_payment += $row->pos_change; // Show amount with excess received if it's cash payment
-					$currency = $conf->currency;
+					$currency = $config->currency;
 				} else {
 					// We do not show change if payment into a different currency because not yet supported
 					$currency = $row->multicurrency_code;

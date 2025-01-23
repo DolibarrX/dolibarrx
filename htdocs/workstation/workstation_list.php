@@ -61,7 +61,7 @@ $id = GETPOSTINT('id');
 $ref = GETPOST('ref', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -76,7 +76,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new Workstation($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->workstation->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->workstation->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('workstationlist'));         // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -214,7 +214,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Workstation';
 	$objectlabel = 'Workstation';
-	$uploaddir = $conf->workstation->dir_output;
+	$uploaddir = $config->workstation->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -404,7 +404,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -564,14 +564,14 @@ foreach ($object->fields as $key => $val) {
 // usergroups
 if (!empty($arrayfields['wug.fk_usergroup']['checked'])) {
 	print '<td class="liste_titre minwidth100">';
-	print $form->select_dolgroups($groups, 'groups', 1, '', 0, '', '', $conf->entity, true);
+	print $form->select_dolgroups($groups, 'groups', 1, '', 0, '', '', $config->entity, true);
 	print '</td>';
 }
 
 // resources
 if (!empty($arrayfields['wr.fk_resource']['checked'])) {
 	print '<td class="liste_titre">';
-	print $formresource->select_resource_list($resources, 'resources', [], '', 0, '', '', $conf->entity, true, 0, '', true);
+	print $formresource->select_resource_list($resources, 'resources', [], '', 0, '', '', $config->entity, true, 0, '', true);
 	print '</td>';
 }
 

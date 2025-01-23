@@ -93,7 +93,7 @@ if (version_compare(phpversion(), '7.0', '>=')) {
 // List of oauth services
 $oauthservices = array();
 
-foreach ($conf->global as $key => $val) {
+foreach ($config->global as $key => $val) {
 	if (!empty($val) && preg_match('/^OAUTH_.*_ID$/', $key)) {
 		$key = preg_replace('/^OAUTH_/', '', $key);
 		$key = preg_replace('/_ID$/', '', $key);

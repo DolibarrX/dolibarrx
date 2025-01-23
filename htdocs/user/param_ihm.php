@@ -87,7 +87,7 @@ $object->loadRights();
 // Liste des zone de recherche permanentes supportees
 /* deprecated
 $searchform=array("main_searchform_societe","main_searchform_contact","main_searchform_produitservice");
-$searchformconst=array($conf->global->MAIN_SEARCHFORM_SOCIETE,$conf->global->MAIN_SEARCHFORM_CONTACT,$conf->global->MAIN_SEARCHFORM_PRODUITSERVICE);
+$searchformconst=array($config->global->MAIN_SEARCHFORM_SOCIETE,$config->global->MAIN_SEARCHFORM_CONTACT,$config->global->MAIN_SEARCHFORM_PRODUITSERVICE);
 $searchformtitle=array($langs->trans("Companies"),$langs->trans("Contacts"),$langs->trans("ProductsAndServices"));
 */
 
@@ -330,7 +330,7 @@ if ($action == 'edit') {
 	print dol_get_fiche_end();
 
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print '<script type="text/javascript">
         jQuery(document).ready(function() {
         	function init_myfunc()
@@ -396,7 +396,7 @@ if ($action == 'edit') {
 	// Landing page
 	print '<tr class="oddeven"><td>'.$langs->trans("LandingPage").'</td>';
 	print '<td>';
-	print(!getDolGlobalString('MAIN_LANDING_PAGE') ? '' : $conf->global->MAIN_LANDING_PAGE);
+	print(!getDolGlobalString('MAIN_LANDING_PAGE') ? '' : $config->global->MAIN_LANDING_PAGE);
 	print '</td>';
 	print '<td class="nowrap" width="20%"><input class="oddeven" name="check_MAIN_LANDING_PAGE" id="check_MAIN_LANDING_PAGE" type="checkbox" '.(!empty($object->conf->MAIN_LANDING_PAGE) ? " checked" : "");
 	print empty($dolibarr_main_demo) ? '' : ' disabled="disabled"'; // Disabled for demo
@@ -518,7 +518,7 @@ if ($action == 'edit') {
 	// Landing page
 	print '<tr class="oddeven"><td>'.$langs->trans("LandingPage").'</td>';
 	print '<td>';
-	print(!getDolGlobalString('MAIN_LANDING_PAGE') ? '' : $conf->global->MAIN_LANDING_PAGE);
+	print(!getDolGlobalString('MAIN_LANDING_PAGE') ? '' : $config->global->MAIN_LANDING_PAGE);
 	print '</td>';
 	print '<td class="nowrap"><input class="oddeven" name="check_MAIN_LANDING_PAGE" disabled id="check_MAIN_LANDING_PAGE" type="checkbox" '.(!empty($object->conf->MAIN_LANDING_PAGE) ? " checked" : "");
 	print empty($dolibarr_main_demo) ? '' : ' disabled="disabled"'; // Disabled for demo

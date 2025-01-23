@@ -68,7 +68,7 @@ $langs->loadLangs(array("companies", "members", "banks"));
 $memberstatic = new Adherent($db);
 
 $arrayjs = array('https://www.google.com/jsapi');
-if (!empty($conf->dol_use_jmobile)) {
+if (!empty($config->dol_use_jmobile)) {
 	$arrayjs = array();
 }
 
@@ -269,7 +269,7 @@ if ($mode && !count($data)) {
 // Show graphics
 if (getDolGlobalString("GOOGLE_SHOW_COUNTRY_GRAPH") && $mode == 'memberbycountry') {
 	global $theme_bordercolor, $theme_datacolor, $theme_bgcolor, $theme_bgcoloronglet;
-	$color_file = DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+	$color_file = DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 	if (is_readable($color_file)) {
 		include $color_file;
 	}

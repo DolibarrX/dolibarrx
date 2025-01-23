@@ -307,13 +307,13 @@ class IntracommReport extends CommonObject
 		$e = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" standalone="yes"?><INSTAT></INSTAT>');
 
 		$envelope = $e->addChild('Envelope');
-		$envelope->addChild('envelopeId', $conf->global->INTRACOMMREPORT_NUM_AGREMENT);
+		$envelope->addChild('envelopeId', $config->global->INTRACOMMREPORT_NUM_AGREMENT);
 		$date_time = $envelope->addChild('DateTime');
 		$date_time->addChild('date', date('Y-m-d'));
 		$date_time->addChild('time', date('H:i:s'));
 		$party = $envelope->addChild('Party');
-		$party->addAttribute('partyType', $conf->global->INTRACOMMREPORT_TYPE_ACTEUR);
-		$party->addAttribute('partyRole', $conf->global->INTRACOMMREPORT_ROLE_ACTEUR);
+		$party->addAttribute('partyType', $config->global->INTRACOMMREPORT_TYPE_ACTEUR);
+		$party->addAttribute('partyRole', $config->global->INTRACOMMREPORT_ROLE_ACTEUR);
 		$party->addChild('partyId', $party_id);
 		$party->addChild('partyName', $declarant);
 		$envelope->addChild('softwareUsed', 'Dolibarr');
@@ -330,7 +330,7 @@ class IntracommReport extends CommonObject
 		$functionCode = $function->addChild('functionCode', $mode);
 		$declaration->addChild('declarationTypeCode', getDolGlobalString('INTRACOMMREPORT_NIV_OBLIGATION_'.strtoupper($type)));
 		$declaration->addChild('flowCode', ($type == 'introduction' ? 'A' : 'D'));
-		$declaration->addChild('currencyCode', $conf->global->MAIN_MONNAIE);
+		$declaration->addChild('currencyCode', $config->global->MAIN_MONNAIE);
 		/********************************************************************/
 
 		/**************Ajout des lignes de factures**************************/
@@ -479,7 +479,7 @@ class IntracommReport extends CommonObject
 				LEFT JOIN ".MAIN_DB_PREFIX."c_country c ON (c.rowid = s.fk_pays)
 				WHERE f.fk_statut > 0
 				AND l.product_type = ".($exporttype == "des" ? 1 : 0)."
-				AND f.entity = ".((int) $conf->entity)."
+				AND f.entity = ".((int) $config->entity)."
 				AND (s.fk_pays <> ".((int) $mysoc->country_id)." OR s.fk_pays IS NULL)
 				AND f.datef BETWEEN '".$this->db->escape($period_reference)."-01' AND '".$this->db->escape($period_reference)."-".date('t')."'";
 
@@ -571,7 +571,7 @@ class IntracommReport extends CommonObject
 					INNER JOIN ".MAIN_DB_PREFIX.$table." f ON (f.rowid = d.".$this->db->escape($field_link).")
 					INNER JOIN ".MAIN_DB_PREFIX."product p ON (p.rowid = d.fk_product)
 					WHERE d.fk_product IS NOT NULL
-					AND f.entity = ".((int) $conf->entity)."
+					AND f.entity = ".((int) $config->entity)."
 					AND ".$more_sql." = '".$this->db->escape($res->refinvoice)."'
 					AND d.total_ht =
 					(
@@ -671,7 +671,7 @@ class IntracommReport extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -739,7 +739,7 @@ class IntracommReport extends CommonObject
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 				list($class, $module) = explode('@', $this->picto);
-				$upload_dir = $conf->$module->multidir_output[$conf->entity]."/$class/".dol_sanitizeFileName($this->ref);
+				$upload_dir = $config->$module->multidir_output[$config->entity]."/$class/".dol_sanitizeFileName($this->ref);
 				$filearray = dol_dir_list($upload_dir, "files");
 				$filename = $filearray[0]['name'];
 				if (!empty($filename)) {
@@ -747,9 +747,9 @@ class IntracommReport extends CommonObject
 
 					$pathtophoto = $class.'/'.$this->ref.'/thumbs/'.substr($filename, 0, $pospoint).'_mini'.substr($filename, $pospoint);
 					if (!getDolGlobalString(strtoupper($module.'_'.$class).'_FORMATLISTPHOTOSASUSERS')) {
-						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref"><img class="photo'.$module.'" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$conf->entity.'&file='.urlencode($pathtophoto).'"></div></div>';
+						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref"><img class="photo'.$module.'" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$config->entity.'&file='.urlencode($pathtophoto).'"></div></div>';
 					} else {
-						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$conf->entity.'&file='.urlencode($pathtophoto).'"></div>';
+						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$config->entity.'&file='.urlencode($pathtophoto).'"></div>';
 					}
 
 					$result .= '</div>';

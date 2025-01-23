@@ -207,10 +207,10 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 
 				if (getDolGlobalInt('PRODUCT_USE_OLD_PATH_FOR_PHOTO')) {
 					$pdir = get_exdir($objphoto->id, 2, 0, 0, $objphoto, 'product').$object->lines[$i]->fk_product."/photos/";
-					$dir = $conf->product->dir_output.'/'.$pdir;
+					$dir = $config->product->dir_output.'/'.$pdir;
 				} else {
 					$pdir = get_exdir($objphoto->id, 0, 0, 0, $objphoto, 'product');
-					$dir = $conf->product->dir_output.'/'.$pdir;
+					$dir = $config->product->dir_output.'/'.$pdir;
 				}
 				$realpath = '';
 				foreach ($objphoto->liste_photos($dir, 1) as $key => $obj) {
@@ -236,7 +236,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 			$this->posxpicture = $this->posxtva;
 		}
 
-		if ($conf->fournisseur->commande->dir_output) {
+		if ($config->fournisseur->commande->dir_output) {
 			$object->fetch_thirdparty();
 
 			$deja_regle = 0;
@@ -247,12 +247,12 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->fournisseur->commande->dir_output;
+				$dir = $config->fournisseur->commande->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
 				$objectrefsupplier = dol_sanitizeFileName($object->ref_supplier);
-				$dir = $conf->fournisseur->commande->dir_output.'/'.$objectref;
+				$dir = $config->fournisseur->commande->dir_output.'/'.$objectref;
 				$file = $dir."/".$objectref.".pdf";
 				if (getDolGlobalString('SUPPLIER_REF_IN_NAME')) {
 					$file = $dir."/".$objectref.($objectrefsupplier ? "_".$objectrefsupplier : "").".pdf";
@@ -296,7 +296,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
+					$pagecount = $pdf->setSourceFile($config->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -740,7 +740,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 		global $conf, $mysoc;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
-		$diffsizetitle = (!getDolGlobalString('PDF_DIFFSIZE_TITLE') ? 3 : $conf->global->PDF_DIFFSIZE_TITLE);
+		$diffsizetitle = (!getDolGlobalString('PDF_DIFFSIZE_TITLE') ? 3 : $config->global->PDF_DIFFSIZE_TITLE);
 
 		// If France, show VAT mention if not applicable
 		if ($this->emetteur->country_code == 'FR' && empty($mysoc->tva_assuj)) {
@@ -1016,7 +1016,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)
@@ -1028,7 +1028,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 			$pdf->SetXY($this->page_largeur - $this->marge_droite - ($pdf->GetStringWidth($titre) + 3), $tab_top - 4);
 			$pdf->MultiCell(($pdf->GetStringWidth($titre) + 3), 2, $titre);
 
-			//$conf->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
+			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
 				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, 5, $this->corner_radius, '1001', 'F', null, explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
@@ -1139,9 +1139,9 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 		// Logo
 		if (!getDolGlobalInt('PDF_DISABLE_MYCOMPANY_LOGO')) {
 			if ($this->emetteur->logo) {
-				$logodir = $conf->mycompany->dir_output;
-				if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-					$logodir = $conf->mycompany->multidir_output[$object->entity];
+				$logodir = $config->mycompany->dir_output;
+				if (!empty($config->mycompany->multidir_output[$object->entity])) {
+					$logodir = $config->mycompany->multidir_output[$object->entity];
 				}
 				if (!getDolGlobalInt('MAIN_PDF_USE_LARGE_LOGO')) {
 					$logo = $logodir.'/logos/thumbs/'.$this->emetteur->logo_small;
@@ -1321,7 +1321,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 			}
 
 			// Recipient name
-			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
+			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
 				$thirdparty = $object->contact;
 			} else {
 				$thirdparty = $object->thirdparty;

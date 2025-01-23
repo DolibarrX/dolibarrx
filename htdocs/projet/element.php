@@ -341,9 +341,9 @@ if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 	// Opportunity Amount
 	print '<tr><td>'.$langs->trans("OpportunityAmount").'</td><td>';
 	if (!is_null($object->opp_amount) && strcmp($object->opp_amount, '')) {
-		print '<span class="amount">'.price($object->opp_amount, 0, $langs, 1, 0, 0, $conf->currency).'</span>';
+		print '<span class="amount">'.price($object->opp_amount, 0, $langs, 1, 0, 0, $config->currency).'</span>';
 		if (strcmp($object->opp_percent, '')) {
-			print ' &nbsp; &nbsp; &nbsp; <span title="'.dol_escape_htmltag($langs->trans('OpportunityWeightedAmount')).'"><span class="opacitymedium">'.$langs->trans("OpportunityWeightedAmountShort").'</span>: <span class="amount">'.price($object->opp_amount * $object->opp_percent / 100, 0, $langs, 1, 0, -1, $conf->currency).'</span></span>';
+			print ' &nbsp; &nbsp; &nbsp; <span title="'.dol_escape_htmltag($langs->trans('OpportunityWeightedAmount')).'"><span class="opacitymedium">'.$langs->trans("OpportunityWeightedAmountShort").'</span>: <span class="amount">'.price($object->opp_amount * $object->opp_percent / 100, 0, $langs, 1, 0, -1, $config->currency).'</span></span>';
 		}
 	}
 	print '</td></tr>';
@@ -352,7 +352,7 @@ if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 // Budget
 print '<tr><td>'.$langs->trans("Budget").'</td><td>';
 if (!is_null($object->budget_amount) && strcmp($object->budget_amount, '')) {
-	print '<span class="amount">'.price($object->budget_amount, 0, $langs, 1, 0, 0, $conf->currency).'</span>';
+	print '<span class="amount">'.price($object->budget_amount, 0, $langs, 1, 0, 0, $config->currency).'</span>';
 }
 print '</td></tr>';
 
@@ -1342,8 +1342,8 @@ foreach ($listofreferent as $key => $value) {
 
 					$element_doc = $element->element;
 					$filename = dol_sanitizeFileName($element->ref);
-					if (!empty($conf->$element_doc)) {
-						$confelementdoc = $conf->$element_doc;
+					if (!empty($config->$element_doc)) {
+						$confelementdoc = $config->$element_doc;
 						$filedir = $confelementdoc->multidir_output[$element->entity].'/'.dol_sanitizeFileName($element->ref);
 					} else {
 						$filedir = '';
@@ -1351,11 +1351,11 @@ foreach ($listofreferent as $key => $value) {
 
 					if ($element_doc === 'order_supplier') {
 						$element_doc = 'commande_fournisseur';
-						$filedir = $conf->fournisseur->commande->multidir_output[$element->entity].'/'.dol_sanitizeFileName($element->ref);
+						$filedir = $config->fournisseur->commande->multidir_output[$element->entity].'/'.dol_sanitizeFileName($element->ref);
 					} elseif ($element_doc === 'invoice_supplier') {
 						$element_doc = 'facture_fournisseur';
 						$filename = get_exdir($element->id, 2, 0, 0, $element, 'invoice_supplier').dol_sanitizeFileName($element->ref);
-						$filedir = $conf->fournisseur->facture->multidir_output[$element->entity].'/'.$filename;
+						$filedir = $config->fournisseur->facture->multidir_output[$element->entity].'/'.$filename;
 					}
 
 					print '<div class="inline-block valignmiddle">';
@@ -1477,7 +1477,7 @@ foreach ($listofreferent as $key => $value) {
 				// Add duration and store it in counter for fichinter
 				if ($tablename == 'fichinter') {
 					print '<td>';
-					print convertSecondToTime($element->duration, 'all', $conf->global->MAIN_DURATION_OF_WORKDAY);
+					print convertSecondToTime($element->duration, 'all', $config->global->MAIN_DURATION_OF_WORKDAY);
 					$total_duration += $element->duration;
 					print '</td>';
 				}
@@ -1499,7 +1499,7 @@ foreach ($listofreferent as $key => $value) {
 							$total_ht_by_line = price2num($tmpprojtime['amount'], 'MT');
 							if ($tmpprojtime['nblinesnull'] > 0) {
 								$langs->load("errors");
-								$warning = $langs->trans("WarningSomeLinesWithNullHourlyRate", $conf->currency);
+								$warning = $langs->trans("WarningSomeLinesWithNullHourlyRate", $config->currency);
 							}
 						} else {
 							$othermessage = $form->textwithpicto($langs->trans("NotAvailable"), $langs->trans("ModuleSalaryToDefineHourlyRateMustBeEnabled"));
@@ -1667,7 +1667,7 @@ foreach ($listofreferent as $key => $value) {
 				//elseif (empty($value['disableamount']) && in_array($tablename, array('projet_task'))) print '<td class="right" width="100">'.$langs->trans("Total").' : '.price($total_ht).'</td>';
 				// If fichinter add the total_duration
 				if ($tablename == 'fichinter') {
-					print '<td class="left">'.convertSecondToTime($total_duration, 'all', $conf->global->MAIN_DURATION_OF_WORKDAY).'</td>';
+					print '<td class="left">'.convertSecondToTime($total_duration, 'all', $config->global->MAIN_DURATION_OF_WORKDAY).'</td>';
 				}
 				print '<td class="right">';
 				if (empty($value['disableamount'])) {
@@ -1710,7 +1710,7 @@ foreach ($listofreferent as $key => $value) {
 }
 
 // Enhance with select2
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 	$comboenhancement = ajax_combobox('.elementselect');
 

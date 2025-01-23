@@ -95,7 +95,7 @@ class HookManager
 	/**
 	 *	Init array $this->hooks with instantiated action controllers.
 	 *  First, a hook is declared by a module by adding a constant MAIN_MODULE_MYMODULENAME_HOOKS with value 'nameofcontext1:nameofcontext2:...' into $this->const of module descriptor file.
-	 *  This makes $conf->hooks_modules loaded with an entry ('modulename'=>array(nameofcontext1,nameofcontext2,...))
+	 *  This makes $config->hooks_modules loaded with an entry ('modulename'=>array(nameofcontext1,nameofcontext2,...))
 	 *  When initHooks function is called, with initHooks(list_of_contexts), an array $this->hooks is defined with instance of controller
 	 *  class found into file /mymodule/class/actions_mymodule.class.php (if module has declared the context as a managed context).
 	 *  Then when a hook executeHooks('aMethod'...) is called, the method aMethod found into class will be executed.
@@ -108,7 +108,7 @@ class HookManager
 		global $conf;
 
 		// Test if there is at least one hook to manage
-		if (!is_array($conf->modules_parts['hooks']) || empty($conf->modules_parts['hooks'])) {
+		if (!is_array($config->modules_parts['hooks']) || empty($config->modules_parts['hooks'])) {
 			return 0;
 		}
 
@@ -122,7 +122,7 @@ class HookManager
 		$foundcontextmodule = false;
 
 		// Loop on each module that bring hooks. Add an entry into $arraytolog if we found a module that ask to act in the context $arraycontext
-		foreach ($conf->modules_parts['hooks'] as $module => $hooks) {
+		foreach ($config->modules_parts['hooks'] as $module => $hooks) {
 			if (!isModEnabled($module)) {
 				continue;
 			}

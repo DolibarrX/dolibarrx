@@ -267,7 +267,7 @@ class Opensurveysondage extends CommonObject
 		$sql .= " ".((int) $this->allow_comments).",";
 		$sql .= " ".((int) $this->allow_spy).",";
 		$sql .= " '".$this->db->escape($this->sujet)."',";
-		$sql .= " ".((int) $conf->entity);
+		$sql .= " ".((int) $config->entity);
 		$sql .= ")";
 
 		$this->db->begin();
@@ -541,7 +541,7 @@ class Opensurveysondage extends CommonObject
 	{
 		global $conf, $hookManager, $langs;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

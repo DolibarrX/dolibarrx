@@ -63,12 +63,12 @@ if ($action == 'set') {
 		$error++;
 	}
 
-	$res1 = dolibarr_set_const($db, "GEOIP_VERSION", GETPOST('geoipversion', 'aZ09'), 'chaine', 0, '', $conf->entity);
+	$res1 = dolibarr_set_const($db, "GEOIP_VERSION", GETPOST('geoipversion', 'aZ09'), 'chaine', 0, '', $config->entity);
 	if (!($res1 > 0)) {
 		$error++;
 	}
 
-	$res2 = dolibarr_set_const($db, "GEOIPMAXMIND_COUNTRY_DATAFILE", $gimcdf, 'chaine', 0, '', $conf->entity);
+	$res2 = dolibarr_set_const($db, "GEOIPMAXMIND_COUNTRY_DATAFILE", $gimcdf, 'chaine', 0, '', $config->entity);
 	if (!($res2 > 0)) {
 		$error++;
 	}
@@ -80,8 +80,8 @@ if ($action == 'set') {
 	}
 }
 
-if (!isset($conf->global->GEOIP_VERSION)) {
-	$conf->global->GEOIP_VERSION = '2';
+if (!isset($config->global->GEOIP_VERSION)) {
+	$config->global->GEOIP_VERSION = '2';
 }
 
 
@@ -100,7 +100,7 @@ print '<br>';
 $version = '';
 $geoip = '';
 if (getDolGlobalString('GEOIPMAXMIND_COUNTRY_DATAFILE')) {
-	$geoip = new DolGeoIP('country', $conf->global->GEOIPMAXMIND_COUNTRY_DATAFILE);
+	$geoip = new DolGeoIP('country', $config->global->GEOIPMAXMIND_COUNTRY_DATAFILE);
 }
 
 // Mode
@@ -118,7 +118,7 @@ print "</tr>\n";
 print '<tr class="oddeven"><td>'.$langs->trans("GeoIPLibVersion").'</td>';
 print '<td>';
 $arrayofvalues = array('php' => 'Native PHP functions', '1' => 'Embedded GeoIP v1', '2' => 'Embedded GeoIP v2');
-print $form->selectarray('geoipversion', $arrayofvalues, (isset($conf->global->GEOIP_VERSION) ? $conf->global->GEOIP_VERSION : '2'));
+print $form->selectarray('geoipversion', $arrayofvalues, (isset($config->global->GEOIP_VERSION) ? $config->global->GEOIP_VERSION : '2'));
 if (getDolGlobalString('GEOIP_VERSION') == 'php') {
 	if ($geoip) {
 		$version = $geoip->getVersion();

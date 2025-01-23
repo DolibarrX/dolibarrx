@@ -57,7 +57,7 @@ $action = GETPOST('action', 'aZ09');
 $confirm = GETPOST('confirm', 'alpha');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -82,7 +82,7 @@ if ($object->fetch($id, $ref) < 0) {
 	exit;
 }
 
-$upload_dir = $conf->fournisseur->commande->dir_output.'/'.dol_sanitizeFileName($object->ref);
+$upload_dir = $config->fournisseur->commande->dir_output.'/'.dol_sanitizeFileName($object->ref);
 $object->fetch_thirdparty();
 
 // Security check

@@ -98,7 +98,7 @@ class FormProjets extends Form
 
 		$out = '';
 
-		if (!empty($conf->use_javascript_ajax) && getDolGlobalString('PROJECT_USE_SEARCH_TO_SELECT')) {
+		if (!empty($config->use_javascript_ajax) && getDolGlobalString('PROJECT_USE_SEARCH_TO_SELECT')) {
 			$placeholder = '';
 
 			if ($selected && empty($selected_input_value)) {
@@ -113,7 +113,7 @@ class FormProjets extends Form
 			}
 			$out .= '<input type="text" class="minwidth200' . ($morecss ? ' ' . $morecss : '') . '" name="search_' . $htmlname . '" id="search_' . $htmlname . '" value="' . $selected_input_value . '"' . $placeholder . ' />';
 
-			$out .= ajax_autocompleter($selected, $htmlname, DOL_URL_ROOT . '/projet/ajax/projects.php', $urloption, $conf->global->PROJECT_USE_SEARCH_TO_SELECT, 0, array());
+			$out .= ajax_autocompleter($selected, $htmlname, DOL_URL_ROOT . '/projet/ajax/projects.php', $urloption, $config->global->PROJECT_USE_SEARCH_TO_SELECT, 0, array());
 		} else {
 			$out .= $this->select_projects_list($socid, $selected, $htmlname, $maxlength, $option_only, $show_empty, abs($discard_closed), $forcefocus, $disabled, 0, $filterkey, 1, $forceaddid, $htmlid, $morecss, $morefilter);
 		}
@@ -210,7 +210,7 @@ class FormProjets extends Form
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				$morecss .= ' minwidth100';
 			}
 			if (empty($option_only)) {
@@ -304,7 +304,7 @@ class FormProjets extends Form
 				}
 
 				// Use select2 selector
-				if (!empty($conf->use_javascript_ajax)) {
+				if (!empty($config->use_javascript_ajax)) {
 					include_once DOL_DOCUMENT_ROOT . '/core/lib/ajax.lib.php';
 					$comboenhancement = ajax_combobox($htmlid, array(), 0, $forcefocus);
 					$out .= $comboenhancement;
@@ -393,7 +393,7 @@ class FormProjets extends Form
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			// Use select2 selector
-			if (empty($option_only) && !empty($conf->use_javascript_ajax)) {
+			if (empty($option_only) && !empty($config->use_javascript_ajax)) {
 				include_once DOL_DOCUMENT_ROOT . '/core/lib/ajax.lib.php';
 				$comboenhancement = ajax_combobox($htmlname, [], 0, $forcefocus);
 				$out .= $comboenhancement;
@@ -406,9 +406,9 @@ class FormProjets extends Form
 			if (!empty($show_empty)) {
 				$out .= '<option value="0" class="optiongrey">';
 				if (!is_numeric($show_empty)) {
-					//if (!empty($conf->use_javascript_ajax)) $out .= '<span class="opacitymedium">';
+					//if (!empty($config->use_javascript_ajax)) $out .= '<span class="opacitymedium">';
 					$out .= $show_empty;
-					//if (!empty($conf->use_javascript_ajax)) $out .= '</span>';
+					//if (!empty($config->use_javascript_ajax)) $out .= '</span>';
 				} else {
 					$out .= '&nbsp;';
 				}
@@ -858,7 +858,7 @@ class FormProjets extends Form
 			$resql = $this->db->query($sql);
 			if ($resql) {
 				// Use select2 selector
-				if (!empty($conf->use_javascript_ajax)) {
+				if (!empty($config->use_javascript_ajax)) {
 					include_once DOL_DOCUMENT_ROOT . '/core/lib/ajax.lib.php';
 					$comboenhancement = ajax_combobox($htmlNameInvoice, array(array('method' => 'getLines', 'url' => dol_buildpath('/core/ajax/ajaxinvoiceline.php', 1), 'htmlname' => $htmlNameInvoiceLine)), 0, 0);
 					$out .= $comboenhancement;
@@ -910,7 +910,7 @@ class FormProjets extends Form
 		if ($resql) {
 			// Use select2 selector
 			if (empty($lineOnly)) {
-				if (!empty($conf->use_javascript_ajax)) {
+				if (!empty($config->use_javascript_ajax)) {
 					include_once DOL_DOCUMENT_ROOT . '/core/lib/ajax.lib.php';
 					$comboenhancement = ajax_combobox($htmlNameInvoiceLine, [], 0, 0);
 					$out .= $comboenhancement;

@@ -55,7 +55,7 @@ $search_name = GETPOST('search_name', 'alpha');
 $search_supervisor = GETPOST('search_supervisor', "intcomma");
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $toselect   = GETPOST('toselect', 'array'); // Array of ids of elements selected into a list
@@ -146,7 +146,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Holiday';
 	$objectlabel = 'Holiday';
-	$uploaddir = $conf->holiday->dir_output;
+	$uploaddir = $config->holiday->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	// If there is an update action

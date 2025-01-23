@@ -50,7 +50,7 @@ $langs->loadLangs(array('banks', 'categories', 'withdrawals', 'companies'));
 $type = GETPOST('type', 'aZ09');
 
 // Get supervariables
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -113,7 +113,7 @@ $sql .= " , ".MAIN_DB_PREFIX."societe as s";
 $sql .= " WHERE pr.fk_prelevement_lignes = pl.rowid";
 $sql .= " AND pl.fk_prelevement_bons = p.rowid";
 $sql .= " AND pl.fk_soc = s.rowid";
-$sql .= " AND p.entity = ".((int) $conf->entity);
+$sql .= " AND p.entity = ".((int) $config->entity);
 if ($type == 'bank-transfer') {
 	$sql .= " AND p.type = 'bank-transfer'";
 } else {
@@ -134,7 +134,7 @@ if ($type == 'bank-transfer') {
 	$sql .= " WHERE pr.fk_prelevement_lignes = pl.rowid";
 	$sql .= " AND pl.fk_prelevement_bons = p.rowid";
 	$sql .= " AND pl.fk_user = u.rowid";
-	$sql .= " AND p.entity = ".((int) $conf->entity);
+	$sql .= " AND p.entity = ".((int) $config->entity);
 	$sql .= " AND p.type = 'bank-transfer'";
 	if ($socid) {
 		$sql .= " AND s.rowid = ".((int) $socid);

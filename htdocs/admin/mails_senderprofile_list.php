@@ -57,7 +57,7 @@ $mode = GETPOST('mode', 'aZ'); // The output mode ('list', 'kanban', 'hierarchy'
 $id = GETPOSTINT('id');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -72,7 +72,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new EmailSenderProfile($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->admin->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->admin->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('emailsenderprofilelist')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -208,7 +208,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'EmailSenderProfile';
 	$objectlabel = 'EmailSenderProfile';
-	$uploaddir = $conf->admin->dir_output.'/senderprofiles';
+	$uploaddir = $config->admin->dir_output.'/senderprofiles';
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	if ($action == 'delete') {
@@ -392,7 +392,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {

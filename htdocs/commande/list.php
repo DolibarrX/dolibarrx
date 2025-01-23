@@ -151,10 +151,10 @@ $search_deliveryyear = '';
 
 $search_import_key  = trim(GETPOST("search_import_key", "alpha"));
 
-$diroutputmassaction = $conf->commande->multidir_output[$conf->entity].'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->commande->multidir_output[$config->entity].'/temp/massgeneration/'.$user->id;
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -376,7 +376,7 @@ if (empty($reshook)) {
 		$permissiontocancel = $user->hasRight("commande", "creer");
 		$permissiontosendbymail = $user->hasRight("commande", "creer");
 	}
-	$uploaddir = $conf->commande->multidir_output[$conf->entity];
+	$uploaddir = $config->commande->multidir_output[$config->entity];
 	$triggersendname = 'ORDER_SENTBYMAIL';
 	$year = "";
 	$month = "";
@@ -631,7 +631,7 @@ if (empty($reshook)) {
 
 				// Builddoc
 				$donotredirect = 1;
-				$upload_dir = $conf->facture->dir_output;
+				$upload_dir = $config->facture->dir_output;
 				$permissiontoadd = $user->hasRight('facture', 'creer');
 
 				// Call action to build doc
@@ -673,7 +673,7 @@ if (empty($reshook)) {
 			if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 				$param .= '&contextpage='.urlencode($contextpage);
 			}
-			if ($limit > 0 && $limit != $conf->liste_limit) {
+			if ($limit > 0 && $limit != $config->liste_limit) {
 				$param .= '&limit='.((int) $limit);
 			}
 			if ($optioncss != '') {
@@ -998,7 +998,7 @@ if ($search_status != '') {
 	}
 }
 if ($search_option == 'late') {
-	$sql .= " AND c.date_commande < '".$db->idate(dol_now() - $conf->commande->client->warning_delay)."'";
+	$sql .= " AND c.date_commande < '".$db->idate(dol_now() - $config->commande->client->warning_delay)."'";
 }
 if ($search_datecloture_start) {
 	$sql .= " AND c.date_cloture >= '".$db->idate($search_datecloture_start)."'";
@@ -1280,7 +1280,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -1532,7 +1532,7 @@ if ($massaction == 'createbills') {
 	} else {
 		print $form->selectyesno('validate_invoices', 0, 1);
 	}
-	if (!empty($conf->workflow->enabled) && getDolGlobalString('WORKFLOW_INVOICE_AMOUNT_CLASSIFY_BILLED_ORDER')) {
+	if (!empty($config->workflow->enabled) && getDolGlobalString('WORKFLOW_INVOICE_AMOUNT_CLASSIFY_BILLED_ORDER')) {
 		print ' &nbsp; &nbsp; <span class="opacitymedium">'.$langs->trans("IfValidateInvoiceIsNoOrderStayUnbilled").'</span>';
 	} else {
 		print ' &nbsp; &nbsp; <span class="opacitymedium">'.$langs->trans("OptionToSetOrderBilledNotEnabled").'</span>';
@@ -1720,7 +1720,7 @@ if (!empty($arrayfields['country.code_iso']['checked'])) {
 // Company type
 if (!empty($arrayfields['typent.code']['checked'])) {
 	print '<td class="liste_titre maxwidthonsmartphone" align="center">';
-	print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $conf->global->SOCIETE_SORT_ON_TYPEENT), '', 1);
+	print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $config->global->SOCIETE_SORT_ON_TYPEENT), '', 1);
 	print '</td>';
 }
 // Date order
@@ -2295,7 +2295,7 @@ while ($i < $imaxinloop) {
 			print $generic_commande->getNomUrl(1, $getNomUrlOption, 0, 0, 0, 1, 1);
 
 			$filename = dol_sanitizeFileName($obj->ref);
-			$filedir = $conf->commande->multidir_output[$conf->entity].'/'.dol_sanitizeFileName($obj->ref);
+			$filedir = $config->commande->multidir_output[$config->entity].'/'.dol_sanitizeFileName($obj->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 			print $formfile->getDocumentsLink($generic_commande->element, $filename, $filedir);
 

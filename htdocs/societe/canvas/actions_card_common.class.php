@@ -142,7 +142,7 @@ abstract class ActionsCardCommon
 		}
 
 		if ($action == 'create') {
-			if ($conf->use_javascript_ajax) {
+			if ($config->use_javascript_ajax) {
 				$this->tpl['ajax_selecttype'] = "\n".'<script type="text/javascript">
 				$(document).ready(function () {
 		              $("#radiocompany").click(function() {
@@ -163,7 +163,7 @@ abstract class ActionsCardCommon
 		}
 
 		if ($action == 'create' || $action == 'edit') {
-			if ($conf->use_javascript_ajax) {
+			if ($config->use_javascript_ajax) {
 				$this->tpl['ajax_selectcountry'] = "\n".'<script type="text/javascript">
 				$(document).ready(function () {
 						$("#selectcountry_id").change(function() {
@@ -180,7 +180,7 @@ abstract class ActionsCardCommon
 			if (substr($module, 0, 15) == 'mod_codeclient_' && substr($module, -3) == 'php') {
 				$module = substr($module, 0, dol_strlen($module) - 4);
 			}
-			$dirsociete = array_merge(array('/core/modules/societe/'), $conf->modules_parts['societe']);
+			$dirsociete = array_merge(array('/core/modules/societe/'), $config->modules_parts['societe']);
 			foreach ($dirsociete as $dirroot) {
 				$res = dol_include_once($dirroot.$module.'.php');
 				if ($res) {
@@ -220,7 +220,7 @@ abstract class ActionsCardCommon
 				if (substr($module, 0, 15) == 'mod_codeclient_' && substr($module, -3) == 'php') {
 					$module = substr($module, 0, dol_strlen($module) - 4);
 				}
-				$dirsociete = array_merge(array('/core/modules/societe/'), $conf->modules_parts['societe']);
+				$dirsociete = array_merge(array('/core/modules/societe/'), $config->modules_parts['societe']);
 				foreach ($dirsociete as $dirroot) {
 					$res = dol_include_once($dirroot.$module.'.php');
 					if ($res) {

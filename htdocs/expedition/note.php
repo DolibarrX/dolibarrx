@@ -70,7 +70,7 @@ if ($id > 0 || !empty($ref)) {
 		$objectsrc->fetch($object->origin_object->id);
 	}
 
-	$upload_dir = $conf->expedition->dir_output."/sending/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->expedition->dir_output."/sending/".dol_sanitizeFileName($object->ref);
 }
 
 $permissionnote = $user->hasRight('expedition', 'creer'); // Used by the include of actions_setnotes.inc.php

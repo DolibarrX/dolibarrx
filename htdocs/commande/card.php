@@ -1141,11 +1141,11 @@ if (empty($reshook)) {
 			// Check price is not lower than minimum
 			if ($usermustrespectpricemin) {
 				if ($pu_equivalent && $price_min && (((float) price2num($pu_equivalent) * (1 - $remise_percent / 100)) < (float) price2num($price_min)) && $price_base_type == 'HT') {
-					$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+					$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 					setEventMessages($mesg, null, 'errors');
 					$error++;
 				} elseif ($pu_equivalent_ttc && $price_min_ttc && (((float) price2num($pu_equivalent_ttc) * (1 - $remise_percent / 100)) < (float) price2num($price_min_ttc)) && $price_base_type == 'TTC') {
-					$mesg = $langs->trans("CantBeLessThanMinPriceInclTax", price(price2num($price_min_ttc, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+					$mesg = $langs->trans("CantBeLessThanMinPriceInclTax", price(price2num($price_min_ttc, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 					setEventMessages($mesg, null, 'errors');
 					$error++;
 				}
@@ -1310,12 +1310,12 @@ if (empty($reshook)) {
 			// Check price is not lower than minimum
 			if ($usermustrespectpricemin) {
 				if ($pu_equivalent && $price_min && (((float) price2num($pu_equivalent) * (1 - $remise_percent / 100)) < (float) price2num($price_min)) && $price_base_type == 'HT') {
-					$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+					$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 					setEventMessages($mesg, null, 'errors');
 					$error++;
 					$action = 'editline';
 				} elseif ($pu_equivalent_ttc && $price_min_ttc && (((float) price2num($pu_equivalent_ttc) * (1 - $remise_percent / 100)) < (float) price2num($price_min_ttc)) && $price_base_type == 'TTC') {
-					$mesg = $langs->trans("CantBeLessThanMinPriceInclTax", price(price2num($price_min_ttc, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+					$mesg = $langs->trans("CantBeLessThanMinPriceInclTax", price(price2num($price_min_ttc, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 					setEventMessages($mesg, null, 'errors');
 					$error++;
 					$action = 'editline';
@@ -1699,7 +1699,7 @@ if (empty($reshook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_printing.inc.php';
 
 	// Actions to build doc
-	$upload_dir = !empty($conf->commande->multidir_output[$object->entity]) ? $conf->commande->multidir_output[$object->entity] : $conf->commande->dir_output;
+	$upload_dir = !empty($config->commande->multidir_output[$object->entity]) ? $config->commande->multidir_output[$object->entity] : $config->commande->dir_output;
 	$permissiontoadd = $usercancreate;
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
@@ -1783,7 +1783,7 @@ if ($action == 'create' && $usercancreate) {
 
 	//$remise_absolue = 0;
 
-	$currency_code = $conf->currency;
+	$currency_code = $config->currency;
 
 	$cond_reglement_id = GETPOSTINT('cond_reglement_id');
 	$deposit_percent = GETPOSTFLOAT('cond_reglement_id_deposit_percent');
@@ -1816,7 +1816,7 @@ if ($action == 'create' && $usercancreate) {
 			}
 			/*if (!$dateorder) {
 				// Do not set 0 here (0 for a date is 1970)
-				$dateorder = (empty($dateinvoice) ? (empty($conf->global->MAIN_AUTOFILL_DATE_ORDER) ?-1 : '') : $dateorder);
+				$dateorder = (empty($dateinvoice) ? (empty($config->global->MAIN_AUTOFILL_DATE_ORDER) ?-1 : '') : $dateorder);
 			}*/
 		} else {
 			// For compatibility
@@ -2311,7 +2311,7 @@ if ($action == 'create' && $usercancreate) {
 				require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 				$formproduct = new FormProduct($db);
 				$forcecombo = 0;
-				if ($conf->browser->name == 'ie') {
+				if ($config->browser->name == 'ie') {
 					$forcecombo = 1; // There is a bug in IE10 that make combo inside popup crazy
 				}
 				$formquestion = array(
@@ -2474,7 +2474,7 @@ if ($action == 'create' && $usercancreate) {
 				require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 				$formproduct = new FormProduct($db);
 				$forcecombo = 0;
-				if ($conf->browser->name == 'ie') {
+				if ($config->browser->name == 'ie') {
 					$forcecombo = 1; // There is a bug in IE10 that make combo inside popup crazy
 				}
 				$formquestion = array(
@@ -2513,7 +2513,7 @@ if ($action == 'create' && $usercancreate) {
 				require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 				$formproduct = new FormProduct($db);
 				$forcecombo = 0;
-				if ($conf->browser->name == 'ie') {
+				if ($config->browser->name == 'ie') {
 					$forcecombo = 1; // There is a bug in IE10 that make combo inside popup crazy
 				}
 				$formquestion = array(
@@ -2563,7 +2563,7 @@ if ($action == 'create' && $usercancreate) {
 		$morehtmlref = '<div class="refidno">';
 		// Ref customer
 		$morehtmlref .= $form->editfieldkey("RefCustomer", 'ref_client', $object->ref_client, $object, $usercancreate, 'string', '', 0, 1);
-		$morehtmlref .= $form->editfieldval("RefCustomer", 'ref_client', $object->ref_client, $object, $usercancreate, 'string'.(isset($conf->global->THIRDPARTY_REF_INPUT_SIZE) ? ':' . getDolGlobalString('THIRDPARTY_REF_INPUT_SIZE') : ''), '', null, null, '', 1);
+		$morehtmlref .= $form->editfieldval("RefCustomer", 'ref_client', $object->ref_client, $object, $usercancreate, 'string'.(isset($config->global->THIRDPARTY_REF_INPUT_SIZE) ? ':' . getDolGlobalString('THIRDPARTY_REF_INPUT_SIZE') : ''), '', null, null, '', 1);
 		// Thirdparty
 		$morehtmlref .= '<br>'.$soc->getNomUrl(1, 'customer');
 		if (!getDolGlobalString('MAIN_DISABLE_OTHER_LINK') && $object->thirdparty->id > 0) {
@@ -2613,7 +2613,7 @@ if ($action == 'create' && $usercancreate) {
 				print '</td><td class="valuefield">';
 				$arrayoutstandingbills = $soc->getOutstandingBills();
 				print price($arrayoutstandingbills['opened']).' / ';
-				print price($soc->outstanding_limit, 0, '', 1, - 1, - 1, $conf->currency);
+				print price($soc->outstanding_limit, 0, '', 1, - 1, - 1, $config->currency);
 				print '</td>';
 				print '</tr>';
 			}
@@ -2792,13 +2792,13 @@ if ($action == 'create' && $usercancreate) {
 			if ($totalWeight) {
 				print '<tr><td>'.$langs->trans("CalculatedWeight").'</td>';
 				print '<td class="valuefield">';
-				print showDimensionInBestUnit($totalWeight, 0, "weight", $langs, getDolGlobalInt('MAIN_WEIGHT_DEFAULT_ROUND', -1), isset($conf->global->MAIN_WEIGHT_DEFAULT_UNIT) ? $conf->global->MAIN_WEIGHT_DEFAULT_UNIT : 'no');
+				print showDimensionInBestUnit($totalWeight, 0, "weight", $langs, getDolGlobalInt('MAIN_WEIGHT_DEFAULT_ROUND', -1), isset($config->global->MAIN_WEIGHT_DEFAULT_UNIT) ? $config->global->MAIN_WEIGHT_DEFAULT_UNIT : 'no');
 				print '</td></tr>';
 			}
 			if ($totalVolume) {
 				print '<tr><td>'.$langs->trans("CalculatedVolume").'</td>';
 				print '<td class="valuefield">';
-				print showDimensionInBestUnit($totalVolume, 0, "volume", $langs, getDolGlobalInt('MAIN_VOLUME_DEFAULT_ROUND', -1), isset($conf->global->MAIN_VOLUME_DEFAULT_UNIT) ? $conf->global->MAIN_VOLUME_DEFAULT_UNIT : 'no');
+				print showDimensionInBestUnit($totalVolume, 0, "volume", $langs, getDolGlobalInt('MAIN_VOLUME_DEFAULT_ROUND', -1), isset($config->global->MAIN_VOLUME_DEFAULT_UNIT) ? $config->global->MAIN_VOLUME_DEFAULT_UNIT : 'no');
 				print '</td></tr>';
 			}
 
@@ -2854,8 +2854,8 @@ if ($action == 'create' && $usercancreate) {
 
 			print '<tr>';
 			print '<td class="titlefieldmiddle">' . $langs->trans('AmountHT') . '</td>';
-			print '<td class="nowrap amountcard right">' . price($object->total_ht, 0, $langs, 0, -1, -1, $conf->currency) . '</td>';
-			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+			print '<td class="nowrap amountcard right">' . price($object->total_ht, 0, $langs, 0, -1, -1, $config->currency) . '</td>';
+			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 				// Multicurrency Amount HT
 				print '<td class="nowrap amountcard right">' . price($object->multicurrency_total_ht, 0, $langs, 0, -1, -1, $object->multicurrency_code) . '</td>';
 			}
@@ -2863,8 +2863,8 @@ if ($action == 'create' && $usercancreate) {
 
 			print '<tr>';
 			print '<td class="titlefieldmiddle">' . $langs->trans('AmountVAT') . '</td>';
-			print '<td class="nowrap amountcard right">' . price($object->total_tva, 0, $langs, 0, -1, -1, $conf->currency) . '</td>';
-			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+			print '<td class="nowrap amountcard right">' . price($object->total_tva, 0, $langs, 0, -1, -1, $config->currency) . '</td>';
+			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 				// Multicurrency Amount VAT
 				print '<td class="nowrap amountcard right">' . price($object->multicurrency_total_tva, 0, $langs, 0, -1, -1, $object->multicurrency_code) . '</td>';
 			}
@@ -2874,8 +2874,8 @@ if ($action == 'create' && $usercancreate) {
 			if ($mysoc->localtax1_assuj == "1" || $object->total_localtax1 != 0) {
 				print '<tr>';
 				print '<td class="titlefieldmiddle">' . $langs->transcountry("AmountLT1", $mysoc->country_code) . '</td>';
-				print '<td class="nowrap amountcard right">' . price($object->total_localtax1, 0, $langs, 0, -1, -1, $conf->currency) . '</td>';
-				if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+				print '<td class="nowrap amountcard right">' . price($object->total_localtax1, 0, $langs, 0, -1, -1, $config->currency) . '</td>';
+				if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 					$object->multicurrency_total_localtax1 = price2num($object->total_localtax1 * $object->multicurrency_tx, 'MT');
 
 					print '<td class="nowrap amountcard right">' . price($object->multicurrency_total_localtax1, 0, $langs, 0, -1, -1, $object->multicurrency_code) . '</td>';
@@ -2887,8 +2887,8 @@ if ($action == 'create' && $usercancreate) {
 			if ($mysoc->localtax2_assuj == "1" || $object->total_localtax2 != 0) {
 				print '<tr>';
 				print '<td>' . $langs->transcountry("AmountLT2", $mysoc->country_code) . '</td>';
-				print '<td class="nowrap amountcard right">' . price($object->total_localtax2, 0, $langs, 0, -1, -1, $conf->currency) . '</td>';
-				if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+				print '<td class="nowrap amountcard right">' . price($object->total_localtax2, 0, $langs, 0, -1, -1, $config->currency) . '</td>';
+				if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 					$object->multicurrency_total_localtax2 = price2num($object->total_localtax2 * $object->multicurrency_tx, 'MT');
 
 					print '<td class="nowrap amountcard right">' . price($object->multicurrency_total_localtax2, 0, $langs, 0, -1, -1, $object->multicurrency_code) . '</td>';
@@ -2898,8 +2898,8 @@ if ($action == 'create' && $usercancreate) {
 
 			print '<tr>';
 			print '<td>' . $langs->trans('AmountTTC') . '</td>';
-			print '<td class="valuefield nowrap right amountcard">' . price($object->total_ttc, 1, '', 1, -1, -1, $conf->currency) . '</td>';
-			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+			print '<td class="valuefield nowrap right amountcard">' . price($object->total_ttc, 1, '', 1, -1, -1, $config->currency) . '</td>';
+			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 				// Multicurrency Amount TTC
 				print '<td class="valuefield nowrap right amountcard">' . price($object->multicurrency_total_ttc, 1, '', 1, -1, -1, $object->multicurrency_code) . '</td>';
 			}
@@ -2954,7 +2954,7 @@ if ($action == 'create' && $usercancreate) {
 			<input type="hidden" name="backtopage" value="'.$backtopage.'">
 				';
 
-			if (!empty($conf->use_javascript_ajax) && $object->statut == Commande::STATUS_DRAFT) {
+			if (!empty($config->use_javascript_ajax) && $object->statut == Commande::STATUS_DRAFT) {
 				include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 			}
 
@@ -3128,7 +3128,7 @@ if ($action == 'create' && $usercancreate) {
 				);
 				/*
 				 if (isModEnabled('facture') && $object->statut > Commande::STATUS_DRAFT && !$object->billed && $object->total_ttc >= 0) {
-				 if (isModEnabled('facture') && $user->hasRight('facture', 'creer') && empty($conf->global->WORKFLOW_DISABLE_CREATE_INVOICE_FROM_ORDER)) {
+				 if (isModEnabled('facture') && $user->hasRight('facture', 'creer') && empty($config->global->WORKFLOW_DISABLE_CREATE_INVOICE_FROM_ORDER)) {
 				 print dolGetButtonAction('', $langs->trans('CreateBill'), 'default', DOL_URL_ROOT.'/compta/facture/card.php?action=create&amp;token='.newToken().'&amp;origin='.urlencode($object->element).'&amp;originid='.$object->id.'&amp;socid='.$object->socid, '');
 				 }
 				 }*/
@@ -3194,7 +3194,7 @@ if ($action == 'create' && $usercancreate) {
 			// Documents
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $conf->commande->multidir_output[$object->entity].'/'.$objref;
+			$filedir = $config->commande->multidir_output[$object->entity].'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $usercanread;
 			$delallowed = $usercancreate;

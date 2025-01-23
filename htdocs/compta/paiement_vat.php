@@ -166,7 +166,7 @@ if ($action == 'create') {
 	$tva->paiementtype = $tva->type_payment;
 
 	$total = $tva->amount;
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print "\n".'<script type="text/javascript">';
 
 		//Add js for AutoFill
@@ -198,7 +198,7 @@ if ($action == 'create') {
 	print '<tr><td>'.$langs->trans("Period")."</td><td>".dol_print_date($tva->datev, 'day')."</td></tr>\n";
 	print '<tr><td>'.$langs->trans("Label").'</td><td>'.$tva->label."</td></tr>\n";
 	/*print '<tr><td>'.$langs->trans("DateDue")."</td><td>".dol_print_date($tva->date_ech,'day')."</td></tr>\n";
-	print '<tr><td>'.$langs->trans("Amount")."</td><td>".price($tva->amount,0,$outputlangs,1,-1,-1,$conf->currency).'</td></tr>';*/
+	print '<tr><td>'.$langs->trans("Amount")."</td><td>".price($tva->amount,0,$outputlangs,1,-1,-1,$config->currency).'</td></tr>';*/
 
 	$sql = "SELECT sum(p.amount) as total";
 	$sql .= " FROM ".MAIN_DB_PREFIX."payment_vat as p";
@@ -210,8 +210,8 @@ if ($action == 'create') {
 		$sumpaid = $obj->total;
 		$db->free($resql);
 	}
-	/*print '<tr><td>'.$langs->trans("AlreadyPaid").'</td><td>'.price($sumpaid,0,$outputlangs,1,-1,-1,$conf->currency).'</td></tr>';
-	print '<tr><td class="tdtop">'.$langs->trans("RemainderToPay").'</td><td>'.price($total-$sumpaid,0,$outputlangs,1,-1,-1,$conf->currency).'</td></tr>';*/
+	/*print '<tr><td>'.$langs->trans("AlreadyPaid").'</td><td>'.price($sumpaid,0,$outputlangs,1,-1,-1,$config->currency).'</td></tr>';
+	print '<tr><td class="tdtop">'.$langs->trans("RemainderToPay").'</td><td>'.price($total-$sumpaid,0,$outputlangs,1,-1,-1,$config->currency).'</td></tr>';*/
 
 	print '<tr><td class="fieldrequired">'.$langs->trans("Date").'</td><td>';
 	$datepaye = dol_mktime(12, 0, 0, GETPOSTINT("remonth"), GETPOSTINT("reday"), GETPOSTINT("reyear"));
@@ -291,7 +291,7 @@ if ($action == 'create') {
 			$namef = "amount_".$objp->id;
 			$nameRemain = "remain_".$objp->id;
 			/* Disabled, we autofil the amount with remain to pay by default
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 					print img_picto("Auto fill", 'rightarrow', "class='AutoFillAmount' data-rowid='".$namef."' data-value='".($objp->amount - $sumpaid)."'");
 			} */
 			$remaintopay = (float) $objp->amount - $sumpaid;

@@ -59,7 +59,7 @@ $search_company = GETPOST('search_company', 'alpha');
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 if (empty($page) || $page == -1) {
 	$page = 0;
 }     // If $page is not defined, or '' or -1
@@ -108,7 +108,7 @@ $sql .= " FROM ".MAIN_DB_PREFIX."user as u";
 $sql .= ", ".MAIN_DB_PREFIX."deplacement as d";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON d.fk_soc = s.rowid";
 $sql .= " WHERE d.fk_user = u.rowid";
-$sql .= " AND d.entity = ".$conf->entity;
+$sql .= " AND d.entity = ".$config->entity;
 if (!$user->hasRight('deplacement', 'readall') && !$user->hasRight('deplacement', 'lire_tous')) {
 	$sql .= ' AND d.fk_user IN ('.$db->sanitize(implode(',', $childids)).')';
 }

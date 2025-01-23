@@ -90,7 +90,7 @@ $actl[1] = img_picto($langs->trans("Activated"), 'switch_on', 'class="size15x"')
 $listoffset = GETPOST('listoffset', 'alpha');
 $listlimit = GETPOST('listlimit', 'alpha') > 0 ? GETPOST('listlimit', 'alpha') : 1000;
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -394,7 +394,7 @@ if (empty($reshook)) {
 
 				// Clean input variables
 				if ($value == 'entity') {
-					$_POST[$keycode] = $conf->entity;
+					$_POST[$keycode] = $config->entity;
 				}
 				if ($value == 'fk_user' && !($_POST[$keycode] > 0)) {
 					$_POST[$keycode] = '';
@@ -468,7 +468,7 @@ if (empty($reshook)) {
 					if ($field == 'entity') {
 						// entity not present on listfieldmodify array
 						$keycode = $field;
-						$_POST[$keycode] = $conf->entity;
+						$_POST[$keycode] = $config->entity;
 					} else {
 						$keycode = $listfieldvalue[$i];
 					}
@@ -660,7 +660,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if (!empty($search) && is_array($search)) {
@@ -989,7 +989,7 @@ foreach ($fieldlist as $field => $value) {
 		print '<td class="liste_titre"></td>';
 	}
 }
-/*if (empty($conf->global->MAIN_EMAIL_TEMPLATES_FOR_OBJECT_LINES)) {
+/*if (empty($config->global->MAIN_EMAIL_TEMPLATES_FOR_OBJECT_LINES)) {
 	print '<td class="liste_titre"></td>';
 }*/
 // Status
@@ -1202,7 +1202,7 @@ if ($num) {
 				// If template is for a module, check module is enabled.
 				if ($obj->module) {
 					$tempmodulekey = $obj->module;
-					if (empty($conf->$tempmodulekey) || !isModEnabled($tempmodulekey)) {
+					if (empty($config->$tempmodulekey) || !isModEnabled($tempmodulekey)) {
 						$i++;
 						continue;
 					}

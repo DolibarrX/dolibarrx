@@ -75,7 +75,7 @@ if (empty($dolibarr_nocache)) {
 print "\n/* JS CODE TO ENABLE Tooltips on all object with class classfortooltip */
 jQuery(document).ready(function () {\n";
 
-if (empty($conf->dol_no_mouse_hover)) {
+if (empty($config->dol_no_mouse_hover)) {
 	print '
 	/* for standard tooltip */
 	jQuery(".classfortooltip").tooltip({
@@ -140,7 +140,7 @@ if (empty($conf->dol_no_mouse_hover)) {
 print '
 	jQuery(".classfortooltiponclicktext").dialog({
 		closeOnEscape: true, classes: { "ui-dialog": "highlight" },
-		maxHeight: window.innerHeight-60, width: '.($conf->browser->layout == 'phone' ? max((empty($_SESSION['dol_screenwidth']) ? 0 : $_SESSION['dol_screenwidth']) - 20, 320) : 700).',
+		maxHeight: window.innerHeight-60, width: '.($config->browser->layout == 'phone' ? max((empty($_SESSION['dol_screenwidth']) ? 0 : $_SESSION['dol_screenwidth']) - 20, 320) : 700).',
 		modal: true,
 		autoOpen: false
 	}).css("z-index: 5000");
@@ -227,7 +227,7 @@ if (!defined('JS_JQUERY_DISABLE_DROPDOWN')) {
 }
 
 // Wrapper to manage document_preview
-if ($conf->browser->layout != 'phone') {
+if ($config->browser->layout != 'phone') {
 	print "\n/* JS CODE TO ENABLE document_preview */\n"; // Function document_preview is into header
 	print '		jQuery(document).ready(function () {
 					// Click on the preview picto

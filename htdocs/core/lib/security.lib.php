@@ -113,11 +113,11 @@ define('MAIN_SECURITY_REVERSIBLE_ALGO', 'AES-256-CTR');
 
 /**
  *	Encode a string with a symmetric encryption. Used to encrypt sensitive data into database.
- *  Note: If a backup is restored onto another instance with a different $conf->file->instance_unique_id, then decoded value will differ.
+ *  Note: If a backup is restored onto another instance with a different $config->file->instance_unique_id, then decoded value will differ.
  *  This function is called for example by dol_set_const() when saving a sensible data into database, like into configuration table llx_const, or societe_rib, ...
  *
  *	@param   string		$chain		String to encode
- *	@param   string		$key		If '', we use $conf->file->instance_unique_id (so $dolibarr_main_instance_unique_id in conf.php)
+ *	@param   string		$key		If '', we use $config->file->instance_unique_id (so $dolibarr_main_instance_unique_id in conf.php)
  *  @param	 string		$ciphering	Default ciphering algorithm
  *  @param	 string		$forceseed	To force the seed
  *	@return  string					encoded string
@@ -140,7 +140,7 @@ function dolEncrypt($chain, $key = '', $ciphering = '', $forceseed = '')
 	}
 
 	if (empty($key)) {
-		$key = $conf->file->instance_unique_id;
+		$key = $config->file->instance_unique_id;
 	}
 	if (empty($ciphering)) {
 		$ciphering = constant('MAIN_SECURITY_REVERSIBLE_ALGO');
@@ -175,10 +175,10 @@ function dolEncrypt($chain, $key = '', $ciphering = '', $forceseed = '')
 
 /**
  *	Decode a string with a symmetric encryption. Used to decrypt sensitive data saved into database.
- *  Note: If a backup is restored onto another instance with a different $conf->file->instance_unique_id, then decoded value will differ.
+ *  Note: If a backup is restored onto another instance with a different $config->file->instance_unique_id, then decoded value will differ.
  *
  *	@param   string		$chain		string to decode
- *	@param   string		$key		If '', we use $conf->file->instance_unique_id
+ *	@param   string		$key		If '', we use $config->file->instance_unique_id
  *	@return  string					encoded string
  *  @since v17
  *  @see dolEncrypt(), dol_hash()
@@ -192,12 +192,12 @@ function dolDecrypt($chain, $key = '')
 	}
 
 	if (empty($key)) {
-		if (!empty($conf->file->dolcrypt_key)) {
+		if (!empty($config->file->dolcrypt_key)) {
 			// If dolcrypt_key is defined, we used it in priority
-			$key = $conf->file->dolcrypt_key;
+			$key = $config->file->dolcrypt_key;
 		} else {
 			// We fall back on the instance_unique_id
-			$key = !empty($conf->file->instance_unique_id) ? $conf->file->instance_unique_id : "";
+			$key = !empty($config->file->instance_unique_id) ? $config->file->instance_unique_id : "";
 		}
 	}
 
@@ -1011,7 +1011,7 @@ function checkUserAccessToObject($user, array $featuresarray, $object = 0, $tabl
 			$sql .= " FROM ".MAIN_DB_PREFIX.$dbtablename." as dbt";
 			if (($feature == 'user' || $feature == 'usergroup') && isModEnabled('multicompany')) {	// Special for multicompany
 				if (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE')) {
-					if ($conf->entity == 1 && $user->admin && !$user->entity) {
+					if ($config->entity == 1 && $user->admin && !$user->entity) {
 						$sql .= " WHERE dbt.".$dbt_select." IN (".$db->sanitize($objectid, 1).")";
 						$sql .= " AND dbt.entity IS NOT NULL";
 					} else {

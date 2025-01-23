@@ -76,7 +76,7 @@ print $langs->trans("LastStepDesc").'<br><br>';
 
 print '<table cellspacing="0" cellpadding="2">';
 
-$db = getDoliDBInstance($conf->db->type, $conf->db->host, $conf->db->user, $conf->db->pass, $conf->db->name, (int) $conf->db->port);
+$db = getDoliDBInstance($config->db->type, $config->db->host, $config->db->user, $config->db->pass, $config->db->name, (int) $config->db->port);
 
 if ($db->ok) {
 	print '<tr><td><label for="login">'.$langs->trans("Login").' :</label></td><td>';

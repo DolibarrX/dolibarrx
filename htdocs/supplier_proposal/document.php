@@ -63,7 +63,7 @@ if (!empty($user->socid)) {
 $result = restrictedArea($user, 'supplier_proposal', $id);
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -84,7 +84,7 @@ $object = new SupplierProposal($db);
 $object->fetch($id, $ref);
 if ($object->id > 0) {
 	$object->fetch_thirdparty();
-	$upload_dir = $conf->supplier_proposal->dir_output.'/'.dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->supplier_proposal->dir_output.'/'.dol_sanitizeFileName($object->ref);
 }
 
 $permissiontoadd = $user->hasRight('supplier_proposal', 'creer');
@@ -111,7 +111,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-supplierproposal pag
 $form = new Form($db);
 
 if ($object->id > 0) {
-	$upload_dir = $conf->supplier_proposal->dir_output.'/'.dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->supplier_proposal->dir_output.'/'.dol_sanitizeFileName($object->ref);
 
 	$head = supplier_proposal_prepare_head($object);
 	print dol_get_fiche_head($head, 'document', $langs->trans('CommRequest'), -1, 'supplier_proposal');

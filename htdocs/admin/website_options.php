@@ -49,7 +49,7 @@ $confirm = GETPOST('confirm', 'alpha');
 $backtopage = GETPOST('backtopage', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -141,7 +141,7 @@ print '</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 
 print '<td align="center" width="100">';
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	print ajax_constantonoff('WEBSITE_USE_WEBSITE_ACCOUNTS');
 } else {
 	if (!getDolGlobalString('WEBSITE_USE_WEBSITE_ACCOUNTS')) {
@@ -155,7 +155,7 @@ print '</td></tr>';
 
 print '</table>';
 
-if (empty($conf->use_javascript_ajax)) {
+if (empty($config->use_javascript_ajax)) {
 	print '<div class="tabsAction">';
 	print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=edit&token='.newToken().'">'.$langs->trans("Modify").'</a>';
 	print '</div>';

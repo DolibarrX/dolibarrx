@@ -129,7 +129,7 @@ class box_graph_orders_supplier_permonth extends ModeleBoxes
 			$startyear = $endyear - getDolGlobalInt('MAIN_NB_OF_YEAR_IN_WIDGET_GRAPH', 3) + 1;
 
 			$mode = 'supplier';
-			$WIDTH = (($shownb && $showtot) || !empty($conf->dol_optimize_smallscreen)) ? '256' : '320';
+			$WIDTH = (($shownb && $showtot) || !empty($config->dol_optimize_smallscreen)) ? '256' : '320';
 			$HEIGHT = '192';
 
 			$stats = new CommandeStats($this->db, $socid, $mode, 0);
@@ -216,7 +216,7 @@ class box_graph_orders_supplier_permonth extends ModeleBoxes
 				}
 			}
 
-			if (empty($conf->use_javascript_ajax)) {
+			if (empty($config->use_javascript_ajax)) {
 				$langs->load("errors");
 				$mesg = $langs->trans("WarningFeatureDisabledWithDisplayOptimizedForBlindNoJs");
 			}

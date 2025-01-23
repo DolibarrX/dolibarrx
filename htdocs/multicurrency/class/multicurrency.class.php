@@ -126,7 +126,7 @@ class MultiCurrency extends CommonObject
 		}
 
 		if (empty($this->entity) || $this->entity <= 0) {
-			$this->entity = $conf->entity;
+			$this->entity = $config->entity;
 		}
 		$now = dol_now();
 
@@ -196,7 +196,7 @@ class MultiCurrency extends CommonObject
 		$sql .= ' c.rowid, c.name, c.code, c.entity, c.date_create, c.fk_user';
 		$sql .= ' FROM '.MAIN_DB_PREFIX.$this->table_element.' AS c';
 		if (!empty($code)) {
-			$sql .= ' WHERE c.code = \''.$this->db->escape($code).'\' AND c.entity = '.$conf->entity;
+			$sql .= ' WHERE c.code = \''.$this->db->escape($code).'\' AND c.entity = '.$config->entity;
 		} else {
 			$sql .= ' WHERE c.rowid = '.((int) $id);
 		}
@@ -505,7 +505,7 @@ class MultiCurrency extends CommonObject
 	{
 		global $conf;
 
-		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."multicurrency WHERE code = '".$dbs->escape($code)."' AND entity = ".((int) $conf->entity);
+		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."multicurrency WHERE code = '".$dbs->escape($code)."' AND entity = ".((int) $config->entity);
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 		$resql = $dbs->query($sql);
@@ -622,8 +622,8 @@ class MultiCurrency extends CommonObject
 	{
 		global $conf;
 
-		if ($conf->currency != getDolGlobalString('MULTICURRENCY_APP_SOURCE')) {
-			$alternate_source = 'USD'.$conf->currency;
+		if ($config->currency != getDolGlobalString('MULTICURRENCY_APP_SOURCE')) {
+			$alternate_source = 'USD'.$config->currency;
 			if (!empty($TRate->$alternate_source)) {
 				$coef = 1 / $TRate->$alternate_source;
 				foreach ($TRate as $attr => &$rate) {
@@ -667,7 +667,7 @@ class MultiCurrency extends CommonObject
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';
 
 		$urlendpoint = 'http://api.currencylayer.com/live?access_key='.$key;
-		$urlendpoint .= '&source=' . (!getDolGlobalString('MULTICURRENCY_APP_SOURCE') ? 'USD' : $conf->global->MULTICURRENCY_APP_SOURCE);
+		$urlendpoint .= '&source=' . (!getDolGlobalString('MULTICURRENCY_APP_SOURCE') ? 'USD' : $config->global->MULTICURRENCY_APP_SOURCE);
 
 		dol_syslog("Call url endpoint ".$urlendpoint);
 

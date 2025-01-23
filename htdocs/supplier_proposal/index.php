@@ -115,7 +115,7 @@ if ($resql) {
 	}
 	$db->free($resql);
 
-	include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+	include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 
 	print '<div class="div-table-responsive-no-min">';
 	print '<table class="noborder centpercent">';
@@ -139,14 +139,14 @@ if ($resql) {
 			$colorseries[$status] = $badgeStatus6;
 		}
 
-		if (empty($conf->use_javascript_ajax)) {
+		if (empty($config->use_javascript_ajax)) {
 			print '<tr class="oddeven">';
 			print '<td>'.$supplier_proposalstatic->LibStatut($status, 0).'</td>';
 			print '<td class="right"><a href="list.php?statut='.$status.'">'.(isset($vals[$status]) ? $vals[$status] : 0).'</a></td>';
 			print "</tr>\n";
 		}
 	}
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print '<tr><td class="center" colspan="2">';
 
 		include_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
@@ -181,7 +181,7 @@ if (isModEnabled('supplier_proposal')) {
 		$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	}
 	$sql .= " WHERE c.fk_soc = s.rowid";
-	$sql .= " AND c.entity = ".$conf->entity;
+	$sql .= " AND c.entity = ".$config->entity;
 	$sql .= " AND c.fk_statut = 0";
 	if ($socid) {
 		$sql .= " AND c.fk_soc = ".((int) $socid);
@@ -239,7 +239,7 @@ if (!$user->hasRight('societe', 'client', 'voir')) {
 	$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 }
 $sql .= " WHERE c.fk_soc = s.rowid";
-$sql .= " AND c.entity = ".$conf->entity;
+$sql .= " AND c.entity = ".$config->entity;
 //$sql.= " AND c.fk_statut > 2";
 if ($socid) {
 	$sql .= " AND c.fk_soc = ".((int) $socid);
@@ -280,7 +280,7 @@ if ($resql) {
 
 			print '<td width="16" class="right nobordernopadding">';
 			$filename = dol_sanitizeFileName($obj->ref);
-			$filedir = $conf->supplier_proposal->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+			$filedir = $config->supplier_proposal->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 			print $formfile->getDocumentsLink($supplier_proposalstatic->element, $filename, $filedir);
 			print '</td></tr></table>';
@@ -342,7 +342,7 @@ if (isModEnabled('supplier_proposal') && $user->hasRight('supplier_proposal', 'l
 			print ' <a href="'.DOL_URL_ROOT.'/supplier_proposal/list.php?search_status=1" alt="'.$langs->trans("GoOnList").'"><span class="badge">'.$num.'</span></a>';
 			print '</th></tr>';
 
-			$nbofloop = min($num, (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD));
+			$nbofloop = min($num, (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD));
 			while ($i < $nbofloop) {
 				$obj = $db->fetch_object($result);
 
@@ -359,13 +359,13 @@ if (isModEnabled('supplier_proposal') && $user->hasRight('supplier_proposal', 'l
 				print $supplier_proposalstatic->getNomUrl(1);
 				print '</td>';
 				print '<td width="18" class="nobordernopadding nowrap">';
-				if ($db->jdate($obj->dfv) < ($now - $conf->supplier_proposal->cloture->warning_delay)) {
+				if ($db->jdate($obj->dfv) < ($now - $config->supplier_proposal->cloture->warning_delay)) {
 					print img_warning($langs->trans("Late"));
 				}
 				print '</td>';
 				print '<td width="16" class="center nobordernopadding">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->supplier_proposal->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->supplier_proposal->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->supplier_proposalid;
 				print $formfile->getDocumentsLink($supplier_proposalstatic->element, $filename, $filedir);
 				print '</td></tr></table>';

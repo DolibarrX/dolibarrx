@@ -59,7 +59,7 @@ class mod_facture_mars extends ModeleNumRefFactures
 	{
 		global $conf, $mysoc;
 
-		if ((float) $conf->global->MAIN_VERSION_LAST_INSTALL >= 16.0 && $mysoc->country_code != 'FR') {
+		if ((float) $config->global->MAIN_VERSION_LAST_INSTALL >= 16.0 && $mysoc->country_code != 'FR') {
 			$this->prefixinvoice = 'IN'; // We use correct standard code "IN = Invoice"
 			$this->prefixreplacement = 'IR';
 			$this->prefixdeposit = 'ID';
@@ -115,7 +115,7 @@ class mod_facture_mars extends ModeleNumRefFactures
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED) as max"; // This is standard SQL
 		$sql .= " FROM ".MAIN_DB_PREFIX."facture";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefixinvoice)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {
@@ -138,7 +138,7 @@ class mod_facture_mars extends ModeleNumRefFactures
 		$sql = "SELECT MAX(SUBSTRING(ref FROM ".$posindice.")) as max"; // This is standard SQL
 		$sql .= " FROM ".MAIN_DB_PREFIX."facture";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefixcreditnote)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {

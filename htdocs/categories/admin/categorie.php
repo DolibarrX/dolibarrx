@@ -52,7 +52,7 @@ $action = GETPOST('action', 'aZ09');
 $reg = array();
 if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -62,7 +62,7 @@ if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 
 if (preg_match('/del_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_del_const($db, $code, $conf->entity) > 0) {
+	if (dolibarr_del_const($db, $code, $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -106,7 +106,7 @@ print '<td>'.$langs->trans("CategorieRecursiv").'</td>';
 print '<td align="center" width="20">'.$form->textwithpicto('', $langs->trans("CategorieRecursivHelp"), 1, 'help').'</td>';
 
 print '<td align="center" width="100">';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('CATEGORIE_RECURSIV_ADD');
 } else {
 	if (!getDolGlobalString('CATEGORIE_RECURSIV_ADD')) {

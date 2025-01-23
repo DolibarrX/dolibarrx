@@ -58,7 +58,7 @@ $action = GETPOST('action', 'aZ09');
 $confirm = GETPOST('confirm', 'alpha');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -78,7 +78,7 @@ if (!$sortfield) {
 $object = new Facture($db);
 if ($object->fetch($id, $ref)) {
 	$object->fetch_thirdparty();
-	$upload_dir = $conf->facture->dir_output."/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->facture->dir_output."/".dol_sanitizeFileName($object->ref);
 }
 
 $permissiontoadd = $user->hasRight('facture', 'creer');
@@ -127,7 +127,7 @@ if ($id > 0 || !empty($ref)) {
 	if ($object->fetch($id, $ref) > 0) {
 		$object->fetch_thirdparty();
 
-		$upload_dir = $conf->facture->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
+		$upload_dir = $config->facture->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
 
 		$head = facture_prepare_head($object);
 		print dol_get_fiche_head($head, 'documents', $langs->trans('InvoiceCustomer'), -1, 'bill');

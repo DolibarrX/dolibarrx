@@ -98,10 +98,10 @@ if (getDolGlobalString('EXPENSEREPORT_PREFILL_DATES_WITH_CURRENT_MONTH')) {
 $rootfordata = DOL_DATA_ROOT;
 $rootforuser = DOL_DATA_ROOT;
 // If multicompany module is enabled, we redefine the root of data
-if (isModEnabled('multicompany') && !empty($conf->entity) && $conf->entity > 1) {
-	$rootfordata .= '/'.$conf->entity;
+if (isModEnabled('multicompany') && !empty($config->entity) && $config->entity > 1) {
+	$rootfordata .= '/'.$config->entity;
 }
-$conf->expensereport->dir_output = $rootfordata.'/expensereport';
+$config->expensereport->dir_output = $rootfordata.'/expensereport';
 
 // Define $urlwithroot
 $urlwithouturlroot = preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($dolibarr_main_url_root));
@@ -130,7 +130,7 @@ $permissionnote = $user->hasRight('expensereport', 'creer'); // Used by the incl
 $permissiondellink = $user->hasRight('expensereport', 'creer'); // Used by the include of actions_dellink.inc.php
 $permissiontoadd = $user->hasRight('expensereport', 'creer'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 
-$upload_dir = $conf->expensereport->dir_output.'/'.dol_sanitizeFileName($object->ref);
+$upload_dir = $config->expensereport->dir_output.'/'.dol_sanitizeFileName($object->ref);
 
 $projectRequired = isModEnabled('project') && getDolGlobalString('EXPENSEREPORT_PROJECT_IS_REQUIRED');
 $fileRequired = getDolGlobalString('EXPENSEREPORT_FILE_IS_REQUIRED');
@@ -458,7 +458,7 @@ if (empty($reshook)) {
 				if($resultPDF):
 				// ATTACHMENT
 				array_push($filename,dol_sanitizeFileName($object->ref).".pdf");
-				array_push($filedir,$conf->expensereport->dir_output . "/" . dol_sanitizeFileName($object->ref) . "/" . dol_sanitizeFileName($object->ref).".pdf");
+				array_push($filedir,$config->expensereport->dir_output . "/" . dol_sanitizeFileName($object->ref) . "/" . dol_sanitizeFileName($object->ref).".pdf");
 				array_push($mimetype,"application/pdf");
 				*/
 
@@ -570,7 +570,7 @@ if (empty($reshook)) {
 					   // ATTACHMENT
 					   $filename=array(); $filedir=array(); $mimetype=array();
 					   array_push($filename,dol_sanitizeFileName($object->ref).".pdf");
-					   array_push($filedir,$conf->expensereport->dir_output . "/" . dol_sanitizeFileName($object->ref) . "/" . dol_sanitizeFileName($object->ref_number).".pdf");
+					   array_push($filedir,$config->expensereport->dir_output . "/" . dol_sanitizeFileName($object->ref) . "/" . dol_sanitizeFileName($object->ref_number).".pdf");
 					   array_push($mimetype,"application/pdf");
 				}
 				*/
@@ -687,7 +687,7 @@ if (empty($reshook)) {
 					// ATTACHMENT
 					$filename=array(); $filedir=array(); $mimetype=array();
 					array_push($filename,dol_sanitizeFileName($object->ref).".pdf");
-					array_push($filedir, $conf->expensereport->dir_output."/".dol_sanitizeFileName($object->ref)."/".dol_sanitizeFileName($object->ref).".pdf");
+					array_push($filedir, $config->expensereport->dir_output."/".dol_sanitizeFileName($object->ref)."/".dol_sanitizeFileName($object->ref).".pdf");
 					array_push($mimetype,"application/pdf");
 				}
 				*/
@@ -797,7 +797,7 @@ if (empty($reshook)) {
 					// ATTACHMENT
 					$filename=array(); $filedir=array(); $mimetype=array();
 					array_push($filename,dol_sanitizeFileName($object->ref).".pdf");
-					array_push($filedir, $conf->expensereport->dir_output."/".dol_sanitizeFileName($object->ref)."/".dol_sanitizeFileName($object->ref).".pdf");
+					array_push($filedir, $config->expensereport->dir_output."/".dol_sanitizeFileName($object->ref)."/".dol_sanitizeFileName($object->ref).".pdf");
 					array_push($mimetype,"application/pdf");
 				}
 				*/
@@ -913,7 +913,7 @@ if (empty($reshook)) {
 							// ATTACHMENT
 							$filename=array(); $filedir=array(); $mimetype=array();
 							array_push($filename,dol_sanitizeFileName($object->ref).".pdf");
-							array_push($filedir, $conf->expensereport->dir_output."/".dol_sanitizeFileName($object->ref)."/".dol_sanitizeFileName($object->ref).".pdf");
+							array_push($filedir, $config->expensereport->dir_output."/".dol_sanitizeFileName($object->ref)."/".dol_sanitizeFileName($object->ref).".pdf");
 							array_push($mimetype,"application/pdf");
 						}
 						*/
@@ -1132,7 +1132,7 @@ if (empty($reshook)) {
 			$arrayoffiles = GETPOST('attachfile', 'array');
 			if (is_array($arrayoffiles) && !empty($arrayoffiles[0])) {
 				include_once DOL_DOCUMENT_ROOT.'/ecm/class/ecmfiles.class.php';
-				$entityprefix = ($conf->entity != '1') ? $conf->entity.'/' : '';
+				$entityprefix = ($config->entity != '1') ? $config->entity.'/' : '';
 				$relativepath = 'expensereport/'.$object->ref.'/'.$arrayoffiles[0];
 				$ecmfiles = new EcmFiles($db);
 				$ecmfiles->fetch(0, '', $relativepath);
@@ -1409,7 +1409,7 @@ if (empty($reshook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_sendmails.inc.php';
 
 	// Actions to build doc
-	$upload_dir = $conf->expensereport->dir_output;
+	$upload_dir = $config->expensereport->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 }
 
@@ -1474,7 +1474,7 @@ if ($action == 'create') {
 	if (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('expensereport', 'writeall_advance')) {
 		$include_users = array();
 	}
-	$s = $form->select_dolusers($defaultselectuser, "fk_user_author", 0, "", 0, $include_users, '', '0,'.$conf->entity);
+	$s = $form->select_dolusers($defaultselectuser, "fk_user_author", 0, "", 0, $include_users, '', '0,'.$config->entity);
 	print $s;
 	print '</td>';
 	print '</tr>';
@@ -1906,7 +1906,7 @@ if ($action == 'create') {
 			// Amount
 			print '<tr>';
 			print '<td class="titlefieldmiddle">'.$langs->trans("AmountHT").'</td>';
-			print '<td class="nowrap amountcard">'.price($object->total_ht, 1, '', 1, - 1, - 1, $conf->currency).'</td>';
+			print '<td class="nowrap amountcard">'.price($object->total_ht, 1, '', 1, - 1, - 1, $config->currency).'</td>';
 			$rowspan = 5;
 			if ($object->status <= ExpenseReport::STATUS_VALIDATED) {
 				$rowspan++;
@@ -1924,22 +1924,22 @@ if ($action == 'create') {
 
 			print '<tr>';
 			print '<td>'.$langs->trans("AmountVAT").'</td>';
-			print '<td class="nowrap amountcard">'.price($object->total_tva, 1, '', 1, -1, -1, $conf->currency).'</td>';
+			print '<td class="nowrap amountcard">'.price($object->total_tva, 1, '', 1, -1, -1, $config->currency).'</td>';
 			print '</tr>';
 
 			// Amount Local Taxes
 			if ($mysoc->localtax1_assuj == "1" || $object->total_localtax1 != 0) { 		// Localtax1
 				print '<tr><td>'.$langs->transcountry("AmountLT1", $mysoc->country_code).'</td>';
-				print '<td class="valuefield">'.price($object->total_localtax1, 1, '', 1, -1, -1, $conf->currency).'</td></tr>';
+				print '<td class="valuefield">'.price($object->total_localtax1, 1, '', 1, -1, -1, $config->currency).'</td></tr>';
 			}
 			if ($mysoc->localtax2_assuj == "1" || $object->total_localtax2 != 0) { 		// Localtax2 IRPF
 				print '<tr><td>'.$langs->transcountry("AmountLT2", $mysoc->country_code).'</td>';
-				print '<td class="valuefield">'.price($object->total_localtax2, 1, '', 1, -1, -1, $conf->currency).'</td></tr>';
+				print '<td class="valuefield">'.price($object->total_localtax2, 1, '', 1, -1, -1, $config->currency).'</td></tr>';
 			}
 
 			print '<tr>';
 			print '<td>'.$langs->trans("AmountTTC").'</td>';
-			print '<td class="nowrap amountcard">'.price($object->total_ttc, 1, '', 1, -1, -1, $conf->currency).'</td>';
+			print '<td class="nowrap amountcard">'.price($object->total_ttc, 1, '', 1, -1, -1, $config->currency).'</td>';
 			print '</tr>';
 
 			// List of payments already done
@@ -2244,23 +2244,23 @@ if ($action == 'create') {
 								$fileinfo = pathinfo($ecmfilesstatic->filepath.'/'.$ecmfilesstatic->filename);
 								if (image_format_supported($fileinfo['basename']) > 0) {
 									$minifile = getImageFileNameForSize($fileinfo['basename'], '_mini'); // For new thumbs using same ext (in lower case however) than original
-									if (!dol_is_file($conf->expensereport->dir_output.'/'.$relativepath.'/'.$minifile)) {
+									if (!dol_is_file($config->expensereport->dir_output.'/'.$relativepath.'/'.$minifile)) {
 										$minifile = getImageFileNameForSize($fileinfo['basename'], '_mini', '.png'); // For backward compatibility of old thumbs that were created with filename in lower case and with .png extension
 									}
 									//print $file['path'].'/'.$minifile.'<br>';
-									$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.'/'.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $conf->entity : $object->entity));
+									$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.'/'.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
 									if (empty($urlforhref)) {
-										$urlforhref = DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.(empty($object->entity) ? $conf->entity : $object->entity).'&file='.urlencode($relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']));
+										$urlforhref = DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']));
 										print '<a href="'.$urlforhref.'" class="aphoto" target="_blank" rel="noopener noreferrer">';
 									} else {
 										print '<a href="'.$urlforhref['url'].'" class="'.$urlforhref['css'].'" target="'.$urlforhref['target'].'" mime="'.$urlforhref['mime'].'">';
 									}
-									print '<img class="photo" height="'.$maxheightmini.'" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.(empty($object->entity) ? $conf->entity : $object->entity).'&file='.urlencode($relativepath.'/'.$minifile).'" title="">';
+									print '<img class="photo" height="'.$maxheightmini.'" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.'/'.$minifile).'" title="">';
 									print '</a>';
 								} else {
 									if (preg_match('/\.pdf$/i', $ecmfilesstatic->filename)) {
-										$filepdf = $conf->expensereport->dir_output.'/'.$relativepath.'/'.$ecmfilesstatic->filename;
-										$fileimage = $conf->expensereport->dir_output.'/'.$relativepath.'/'.$ecmfilesstatic->filename.'_preview.png';
+										$filepdf = $config->expensereport->dir_output.'/'.$relativepath.'/'.$ecmfilesstatic->filename;
+										$fileimage = $config->expensereport->dir_output.'/'.$relativepath.'/'.$ecmfilesstatic->filename.'_preview.png';
 										$relativepathimage = $relativepath.'/'.$ecmfilesstatic->filename.'_preview.png';
 
 										$pdfexists = file_exists($filepdf);
@@ -2279,10 +2279,10 @@ if ($action == 'create') {
 
 										if ($pdfexists && !$error) {
 											$heightforphotref = 70;
-											if (!empty($conf->dol_optimize_smallscreen)) {
+											if (!empty($config->dol_optimize_smallscreen)) {
 												$heightforphotref = 60;
 											}
-											$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.'/'.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $conf->entity : $object->entity));
+											$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.'/'.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
 											print '<a href="'.$urlforhref['url'].'" class="'.$urlforhref['css'].'" target="'.$urlforhref['target'].'" mime="'.$urlforhref['mime'].'">';
 											// If the preview file is found we display the thumb
 											if (file_exists($fileimage)) {
@@ -2484,7 +2484,7 @@ if ($action == 'create') {
 					require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 					require_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
 					require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-					$upload_dir = $conf->expensereport->dir_output."/".dol_sanitizeFileName($object->ref);
+					$upload_dir = $config->expensereport->dir_output."/".dol_sanitizeFileName($object->ref);
 					$arrayoffiles = dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png|'.preg_quote(dol_sanitizeFileName($object->ref.'.pdf'), '/').')$');
 					$nbFiles = count($arrayoffiles);
 					$nbLinks = Link::count($db, $object->element, $object->id);
@@ -2608,7 +2608,7 @@ if ($action == 'create') {
 				$defaultvat = -1;
 				if (getDolGlobalString('EXPENSEREPORT_NO_DEFAULT_VAT')) {
 					// If option to have no default VAT on expense report is on, we force MAIN_VAT_DEFAULT_IF_AUTODETECT_FAILS
-					$conf->global->MAIN_VAT_DEFAULT_IF_AUTODETECT_FAILS = 'none';
+					$config->global->MAIN_VAT_DEFAULT_IF_AUTODETECT_FAILS = 'none';
 				}
 				print $form->load_tva('vatrate', (!empty($vatrate) ? $vatrate : $defaultvat), $mysoc, '', 0, 0, '', false, 1);
 				print '</td>';
@@ -2759,7 +2759,7 @@ if ($action != 'create' && $action != 'edit' && $action != 'editline') {
 	// Send
 	if (empty($user->socid)) {
 		if ($object->status > ExpenseReport::STATUS_DRAFT) {
-			//if ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) || $user->rights->expensereport->expensereport_advance->send)) {
+			//if ((empty($config->global->MAIN_USE_ADVANCED_PERMS) || $user->rights->expensereport->expensereport_advance->send)) {
 			print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=presend&mode=init#formmailbeforetitle">'.$langs->trans('SendMail').'</a></div>';
 			//} else
 			//	print '<div class="inline-block divButAction"><a class="butActionRefused classfortooltip" href="#">' . $langs->trans('SendMail') . '</a></div>';
@@ -2912,7 +2912,7 @@ if ($action != 'presend') {
 
 	if ($user->hasRight('expensereport', 'creer') && $action != 'create' && $action != 'edit') {
 		$filename = dol_sanitizeFileName($object->ref);
-		$filedir = $conf->expensereport->dir_output."/".dol_sanitizeFileName($object->ref);
+		$filedir = $config->expensereport->dir_output."/".dol_sanitizeFileName($object->ref);
 		$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 		$genallowed	= $user->hasRight('expensereport', 'creer');
 		$delallowed	= $user->hasRight('expensereport', 'creer');
@@ -2946,7 +2946,7 @@ if ($action != 'presend') {
 // Presend form
 $modelmail = 'expensereport_send';
 $defaulttopic = 'SendExpenseReportRef';
-$diroutput = $conf->expensereport->dir_output;
+$diroutput = $config->expensereport->dir_output;
 $trackid = 'exp'.$object->id;
 
 include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

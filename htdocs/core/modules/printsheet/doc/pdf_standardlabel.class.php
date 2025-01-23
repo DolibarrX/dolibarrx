@@ -80,13 +80,13 @@ class pdf_standardlabel extends CommonStickerGenerator
 		$_PosY = $this->_Margin_Top + ($this->_COUNTY * ($this->_Height + $this->_Y_Space));
 
 		// Define logo
-		$logo = $conf->mycompany->dir_output.'/logos/'.$mysoc->logo;
+		$logo = $config->mycompany->dir_output.'/logos/'.$mysoc->logo;
 		if (!is_readable($logo)) {
 			$logo = '';
-			if (!empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
-				$logo = $conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small;
-			} elseif (!empty($mysoc->logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
-				$logo = $conf->mycompany->dir_output.'/logos/'.$mysoc->logo;
+			if (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
+				$logo = $config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small;
+			} elseif (!empty($mysoc->logo) && is_readable($config->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
+				$logo = $config->mycompany->dir_output.'/logos/'.$mysoc->logo;
 			}
 		}
 
@@ -271,7 +271,7 @@ class pdf_standardlabel extends CommonStickerGenerator
 		$title = $outputlangs->transnoentities('Labels');
 		$keywords = $title." ".$outputlangs->convToOutputCharset($mysoc->name);
 
-		$dir = (empty($outputdir) ? $conf->adherent->dir_temp : $outputdir);
+		$dir = (empty($outputdir) ? $config->adherent->dir_temp : $outputdir);
 		$file = $dir."/".$filename;
 
 		if (!file_exists($dir)) {

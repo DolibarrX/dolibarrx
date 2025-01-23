@@ -54,7 +54,7 @@ $backtopageforcancel = GETPOST('backtopageforcancel', 'alpha');
 // Initialize a technical objects
 $object = new Asset($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->asset->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->asset->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('assetcard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -83,7 +83,7 @@ $permissiontoadd = $user->hasRight('asset', 'write'); // Used by the include of 
 $permissiontodelete = $user->hasRight('asset', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 $permissionnote = $user->hasRight('asset', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('asset', 'write'); // Used by the include of actions_dellink.inc.php
-$upload_dir = $conf->asset->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->asset->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 // Security check (enable the most restrictive one)
 if ($user->socid > 0) {
@@ -408,7 +408,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if ($includedocgeneration) {
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $conf->asset->dir_output.'/'.$objref;
+			$filedir = $config->asset->dir_output.'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $user->hasRight('asset', 'read'); // If you can read, you can build the PDF to read content
 			$delallowed = $user->hasRight('asset', 'write'); // If you can create/edit, you can remove a file on card
@@ -447,7 +447,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Presend form
 	$modelmail = 'asset';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->asset->dir_output;
+	$diroutput = $config->asset->dir_output;
 	$trackid = 'asset'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

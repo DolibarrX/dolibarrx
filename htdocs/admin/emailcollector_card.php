@@ -76,7 +76,7 @@ $operationid = GETPOSTINT('operationid');
 // Initialize a technical objects
 $object = new EmailCollector($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->emailcollector->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->emailcollector->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('emailcollectorcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -857,7 +857,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	print '</table>';
 	print '</div>';
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		$urltorefreshaftermove = DOL_URL_ROOT.'/admin/emailcollector_card.php?id='.$id;
 		include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 	}

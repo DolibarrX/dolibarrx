@@ -108,14 +108,14 @@ if ($id || $ref) {
 		$batch = $tmp[1];
 	}
 	$object->fetch($id, $productid, $batch);
-	$upload_dir = $conf->productbatch->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, $modulepart);
+	$upload_dir = $config->productbatch->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, $modulepart);
 	$filearray = dol_dir_list($upload_dir, "files");
 }
 
 // Initialize a technical object to manage hooks of modules. Note that conf->hooks_modules contains array array
 $hookManager->initHooks(array('productlotcard', 'globalcard'));
 
-$upload_dir = $conf->productbatch->multidir_output[$conf->entity];
+$upload_dir = $config->productbatch->multidir_output[$config->entity];
 
 $usercanread = $user->hasRight('produit', 'lire');
 $usercancreate = $user->hasRight('produit', 'creer');
@@ -603,7 +603,7 @@ if ($action != 'presend') {
 	if ($includedocgeneration) {
 		$objref = dol_sanitizeFileName($object->ref);
 		$relativepath = $object->id.'/'.$objref.'.pdf';
-		$filedir = $conf->productbatch->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, 'product_batch');
+		$filedir = $config->productbatch->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, 'product_batch');
 		$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 		$genallowed = $usercanread; // If you can read, you can build the PDF to read content
 		$delallowed = $usercancreate; // If you can create/edit, you can remove a file on card

@@ -143,7 +143,7 @@ $search_lettering_code = GETPOST('search_lettering_code', 'alpha');
 $search_not_reconciled = GETPOST('search_not_reconciled', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : getDolGlobalString('ACCOUNTING_LIMIT_LIST_VENTILATION', $conf->liste_limit);
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : getDolGlobalString('ACCOUNTING_LIMIT_LIST_VENTILATION', $config->liste_limit);
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $optioncss = GETPOST('optioncss', 'alpha');
@@ -469,7 +469,7 @@ if (empty($reshook)) {
 
 	if ($action == 'setreexport' && $user->hasRight('accounting', 'mouvements', 'export')) {
 		$setreexport = GETPOSTINT('value');
-		if (!dolibarr_set_const($db, "ACCOUNTING_REEXPORT", $setreexport, 'yesno', 0, '', $conf->entity)) {
+		if (!dolibarr_set_const($db, "ACCOUNTING_REEXPORT", $setreexport, 'yesno', 0, '', $config->entity)) {
 			$error++;
 		}
 
@@ -490,7 +490,7 @@ if (empty($reshook)) {
 	$permissiontoread = ($user->hasRight('societe', 'lire') == 1);
 	$permissiontodelete = ($user->hasRight('societe', 'supprimer') == 1);
 	$permissiontoadd = ($user->hasRight('societe', 'creer') == 1);
-	$uploaddir = $conf->societe->dir_output;
+	$uploaddir = $config->societe->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -821,7 +821,7 @@ if ($action == 'export_file') {
 	}
 
 	// If 1 or not set, we check by default.
-	$checked = (!isset($conf->global->ACCOUNTING_DEFAULT_NOT_NOTIFIED_EXPORT_DATE) || getDolGlobalString('ACCOUNTING_DEFAULT_NOT_NOTIFIED_EXPORT_DATE'));
+	$checked = (!isset($config->global->ACCOUNTING_DEFAULT_NOT_NOTIFIED_EXPORT_DATE) || getDolGlobalString('ACCOUNTING_DEFAULT_NOT_NOTIFIED_EXPORT_DATE'));
 	$form_question['notifiedexportdate'] = array(
 		'name' => 'notifiedexportdate',
 		'type' => 'checkbox',
@@ -867,7 +867,7 @@ print $formconfirm;
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.urlencode($limit);
 }
 
@@ -1281,7 +1281,7 @@ while ($i < min($num, $limit)) {
 
 			if ($objectstatic->id > 0) {
 				$filename = dol_sanitizeFileName($line->doc_ref);
-				$filedir = $conf->invoice->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
+				$filedir = $config->invoice->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$objectstatic->id;
 				$documentlink = $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir);
 			}
@@ -1295,7 +1295,7 @@ while ($i < min($num, $limit)) {
 			if ($objectstatic->id > 0) {
 				$modulepart = 'invoice_supplier';
 				$filename = dol_sanitizeFileName($line->doc_ref);
-				$filedir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($line->fk_doc, 2, 0, 0, $objectstatic, $objectstatic->element).dol_sanitizeFileName($line->doc_ref);
+				$filedir = $config->fournisseur->facture->dir_output.'/'.get_exdir($line->fk_doc, 2, 0, 0, $objectstatic, $objectstatic->element).dol_sanitizeFileName($line->doc_ref);
 				$subdir = get_exdir($objectstatic->id, 2, 0, 0, $objectstatic, $objectstatic->element).dol_sanitizeFileName($line->doc_ref);
 				$documentlink = $formfile->getDocumentsLink($objectstatic->element, $subdir, $filedir);
 			}
@@ -1308,7 +1308,7 @@ while ($i < min($num, $limit)) {
 
 			if ($objectstatic->id > 0) {
 				$filename = dol_sanitizeFileName($line->doc_ref);
-				$filedir = $conf->expensereport->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
+				$filedir = $config->expensereport->dir_output.'/'.dol_sanitizeFileName($line->doc_ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$objectstatic->id;
 				$documentlink = $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir);
 			}

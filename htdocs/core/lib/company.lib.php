@@ -430,7 +430,7 @@ function societe_prepare_head(Societe $object)
 		} else {
 			require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 			require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-			$upload_dir = $conf->societe->multidir_output[$object->entity]."/".$object->id;
+			$upload_dir = $config->societe->multidir_output[$object->entity]."/".$object->id;
 			$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 			$nbLinks = Link::count($db, $object->element, $object->id);
 			$totalAttached = $nbFiles + $nbLinks;
@@ -791,8 +791,8 @@ function getFormeJuridiqueLabel($code)
 		return '';
 	}
 
-	if (!empty($conf->cache["legalform_".$langs->defaultlang.'_'.$code])) {
-		return $conf->cache["legalform_".$langs->defaultlang.'_'.$code];
+	if (!empty($config->cache["legalform_".$langs->defaultlang.'_'.$code])) {
+		return $config->cache["legalform_".$langs->defaultlang.'_'.$code];
 	}
 
 	$sql = "SELECT libelle as label FROM ".MAIN_DB_PREFIX."c_forme_juridique";
@@ -808,7 +808,7 @@ function getFormeJuridiqueLabel($code)
 
 			$label = ($obj->label != '-' ? $obj->label : '');
 
-			$conf->cache["legalform_".$langs->defaultlang.'_'.$code] = $label;
+			$config->cache["legalform_".$langs->defaultlang.'_'.$code] = $label;
 
 			return $langs->trans($label);
 		} else {
@@ -833,9 +833,9 @@ function getCountriesInEEC()
 	global $conf, $db;
 	$country_code_in_EEC = array();
 
-	if (!empty($conf->cache['country_code_in_EEC'])) {
+	if (!empty($config->cache['country_code_in_EEC'])) {
 		// Use of cache to reduce number of database requests
-		$country_code_in_EEC = $conf->cache['country_code_in_EEC'];
+		$country_code_in_EEC = $config->cache['country_code_in_EEC'];
 	} else {
 		$sql = "SELECT cc.code FROM ".MAIN_DB_PREFIX."c_country as cc";
 		$sql .= " WHERE cc.eec = 1";
@@ -852,7 +852,7 @@ function getCountriesInEEC()
 		} else {
 			dol_print_error($db);
 		}
-		$conf->cache['country_code_in_EEC'] = $country_code_in_EEC;
+		$config->cache['country_code_in_EEC'] = $country_code_in_EEC;
 	}
 	return $country_code_in_EEC;
 }
@@ -869,7 +869,7 @@ function isInEEC($object)
 		return false;
 	}
 
-	$country_code_in_EEC = getCountriesInEEC();		// This make a database call but there is a cache done into $conf->cache['country_code_in_EEC']
+	$country_code_in_EEC = getCountriesInEEC();		// This make a database call but there is a cache done into $config->cache['country_code_in_EEC']
 
 	//print "dd".$object->country_code;
 	return in_array($object->country_code, $country_code_in_EEC);
@@ -1240,7 +1240,7 @@ function show_contacts($conf, $langs, $db, $object, $backtopage = '', $showuserl
 		't.rowid' => array('label' => "TechnicalID", 'checked' => (getDolGlobalString('MAIN_SHOW_TECHNICAL_ID') ? 1 : 0), 'enabled' => (getDolGlobalString('MAIN_SHOW_TECHNICAL_ID') ? 1 : 0), 'position' => 1),
 		't.name' => array('label' => "Name", 'checked' => 1, 'position' => 10),
 		't.poste' => array('label' => "PostOrFunction", 'checked' => 1, 'position' => 20),
-		't.address' => array('label' => (empty($conf->dol_optimize_smallscreen) ? $langs->trans("Address").' / '.$langs->trans("Phone").' / '.$langs->trans("Email") : $langs->trans("Address")), 'checked' => 1, 'position' => 30),
+		't.address' => array('label' => (empty($config->dol_optimize_smallscreen) ? $langs->trans("Address").' / '.$langs->trans("Phone").' / '.$langs->trans("Email") : $langs->trans("Address")), 'checked' => 1, 'position' => 30),
 		't.note_private' => array('label' => 'NotePrivate', 'checked' => 0, 'position' => 35),
 		'sc.role' => array('label' => "ContactByDefaultFor", 'checked' => 1, 'position' => 40),
 		't.birthday' => array('label' => "Birthday", 'checked' => 0, 'position' => 45),
@@ -2375,7 +2375,7 @@ function show_actions_done($conf, $langs, $db, $filterobj, $objcon = null, $nopr
 
 			$out .= '<td class="tdoverflowmax125" title="'.$labelOfTypeToShowLong.'">';
 			$out .= $actionstatic->getTypePicto();
-			//if (empty($conf->dol_optimize_smallscreen)) {
+			//if (empty($config->dol_optimize_smallscreen)) {
 			$out .= $labelOfTypeToShow;
 			//}
 			$out .= '</td>';
@@ -2701,7 +2701,7 @@ function htmlPrintOnlineFooter($fromcompany, $langs, $addformmessage = 0, $suffi
 	}
 	// Capital
 	if ($fromcompany->capital) {
-		$line1 .= ($line1 ? " - " : "").$langs->transnoentities("CapitalOf", $fromcompany->capital)." ".$langs->transnoentities("Currency".$conf->currency);
+		$line1 .= ($line1 ? " - " : "").$langs->transnoentities("CapitalOf", $fromcompany->capital)." ".$langs->transnoentities("Currency".$config->currency);
 	}
 	// Prof Id 1
 	if ($fromcompany->idprof1 && ($fromcompany->country_code != 'FR' || !$fromcompany->idprof2)) {

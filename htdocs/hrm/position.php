@@ -72,7 +72,7 @@ $start_date = dol_mktime(0, 0, 0, GETPOSTINT('date_startmonth'), GETPOSTINT('dat
 
 
 // Load variable for pagination
-$limit 	     = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit 	     = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield   = GETPOST('sortfield', 'aZ09comma');
 $sortorder   = GETPOST('sortorder', 'aZ09comma');
 $page 	     = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -89,7 +89,7 @@ $pagenext   = $page + 1;
 $object = new Job($db);
 $objectposition = new Position($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->hrm->dir_output . '/temp/massgeneration/' . $user->id;
+$diroutputmassaction = $config->hrm->dir_output . '/temp/massgeneration/' . $user->id;
 $hookManager->initHooks(array('jobpositioncard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 
@@ -160,7 +160,7 @@ include DOL_DOCUMENT_ROOT . '/core/actions_fetchobject.inc.php'; // Must be 'inc
 $permissiontoread = $user->hasRight('hrm', 'all', 'read');
 $permissiontoadd = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissiontodelete = $user->hasRight('hrm', 'all', 'delete');
-$upload_dir = $conf->hrm->multidir_output[isset($object->entity) ? $object->entity : 1] . '/position';
+$upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->entity : 1] . '/position';
 
 // Security check (enable the most restrictive one)
 //if ($user->socid > 0) accessforbidden();
@@ -235,7 +235,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Position';
 	$objectlabel = 'Position';
-	$uploaddir = $conf->hrm->dir_output;
+	$uploaddir = $config->hrm->dir_output;
 	include DOL_DOCUMENT_ROOT . '/core/actions_massactions.inc.php';
 
 	include DOL_DOCUMENT_ROOT . '/core/actions_addupdatedelete.inc.php';
@@ -461,7 +461,7 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage=' . urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	foreach ($search as $key => $val) {

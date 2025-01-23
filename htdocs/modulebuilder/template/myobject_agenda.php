@@ -113,7 +113,7 @@ if (GETPOST('actioncode', 'array')) {
 $search_rowid = GETPOST('search_rowid');
 $search_agenda_label = GETPOST('search_agenda_label');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -133,7 +133,7 @@ if (!$sortorder) {
 // Initialize a technical objects
 $object = new MyObject($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->mymodule->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->mymodule->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($object->element.'agenda', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -141,7 +141,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->mymodule->multidir_output[!empty($object->entity) ? $object->entity : $conf->entity]."/".$object->id;
+	$upload_dir = $config->mymodule->multidir_output[!empty($object->entity) ? $object->entity : $config->entity]."/".$object->id;
 }
 
 // There is several ways to check permission.
@@ -316,7 +316,7 @@ if ($object->id > 0) {
 		if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 			$param .= '&contextpage='.urlencode($contextpage);
 		}
-		if ($limit > 0 && $limit != $conf->liste_limit) {
+		if ($limit > 0 && $limit != $config->liste_limit) {
 			$param .= '&limit='.((int) $limit);
 		}
 
@@ -326,7 +326,7 @@ if ($object->id > 0) {
 		//$cachekey = 'count_events_myobject_'.$object->id;
 		//$nbEvent = dol_getcache($cachekey);
 		$titlelist = $langs->trans("Actions").(is_numeric($nbEvent) ? '<span class="opacitymedium colorblack paddingleft">('.$nbEvent.')</span>' : '');
-		if (!empty($conf->dol_optimize_smallscreen)) {
+		if (!empty($config->dol_optimize_smallscreen)) {
 			$titlelist = $langs->trans("Actions").(is_numeric($nbEvent) ? '<span class="opacitymedium colorblack paddingleft">('.$nbEvent.')</span>' : '');
 		}
 

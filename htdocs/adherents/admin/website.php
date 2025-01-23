@@ -61,9 +61,9 @@ $error = 0;
 
 if ($action == 'setMEMBER_ENABLE_PUBLIC') {
 	if (GETPOST('value')) {
-		dolibarr_set_const($db, 'MEMBER_ENABLE_PUBLIC', 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'MEMBER_ENABLE_PUBLIC', 1, 'chaine', 0, '', $config->entity);
 	} else {
-		dolibarr_set_const($db, 'MEMBER_ENABLE_PUBLIC', 0, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'MEMBER_ENABLE_PUBLIC', 0, 'chaine', 0, '', $config->entity);
 	}
 }
 
@@ -82,22 +82,22 @@ if ($action == 'update') {
 	$forcetype = GETPOSTINT('MEMBER_NEWFORM_FORCETYPE');
 	$forcemorphy = GETPOST('MEMBER_NEWFORM_FORCEMORPHY', 'aZ09');
 
-	$res = dolibarr_set_const($db, "MEMBER_ENABLE_PUBLIC", $public, 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, "MEMBER_NEWFORM_AMOUNT", $amount, 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, "MEMBER_MIN_AMOUNT", $minamount, 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, "MEMBER_COUNTERS_ARE_PUBLIC", $publiccounters, 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, "MEMBER_SKIP_TABLE", $showtable ? 0 : 1, 'chaine', 0, '', $conf->entity); // Logic is reversed for retrocompatibility: "skip -> show"
-	$res = dolibarr_set_const($db, "MEMBER_HIDE_VOTE_ALLOWED", $showvoteallowed ? 0 : 1, 'chaine', 0, '', $conf->entity); // Logic is reversed for retrocompatibility: "hide -> show"
-	$res = dolibarr_set_const($db, "MEMBER_NEWFORM_PAYONLINE", $payonline, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "MEMBER_ENABLE_PUBLIC", $public, 'chaine', 0, '', $config->entity);
+	$res = dolibarr_set_const($db, "MEMBER_NEWFORM_AMOUNT", $amount, 'chaine', 0, '', $config->entity);
+	$res = dolibarr_set_const($db, "MEMBER_MIN_AMOUNT", $minamount, 'chaine', 0, '', $config->entity);
+	$res = dolibarr_set_const($db, "MEMBER_COUNTERS_ARE_PUBLIC", $publiccounters, 'chaine', 0, '', $config->entity);
+	$res = dolibarr_set_const($db, "MEMBER_SKIP_TABLE", $showtable ? 0 : 1, 'chaine', 0, '', $config->entity); // Logic is reversed for retrocompatibility: "skip -> show"
+	$res = dolibarr_set_const($db, "MEMBER_HIDE_VOTE_ALLOWED", $showvoteallowed ? 0 : 1, 'chaine', 0, '', $config->entity); // Logic is reversed for retrocompatibility: "hide -> show"
+	$res = dolibarr_set_const($db, "MEMBER_NEWFORM_PAYONLINE", $payonline, 'chaine', 0, '', $config->entity);
 	if ($forcetype < 0) {
-		$res = dolibarr_del_const($db, "MEMBER_NEWFORM_FORCETYPE", $conf->entity);
+		$res = dolibarr_del_const($db, "MEMBER_NEWFORM_FORCETYPE", $config->entity);
 	} else {
-		$res = dolibarr_set_const($db, "MEMBER_NEWFORM_FORCETYPE", $forcetype, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "MEMBER_NEWFORM_FORCETYPE", $forcetype, 'chaine', 0, '', $config->entity);
 	}
 	if ($forcemorphy == '-1') {
-		$res = dolibarr_del_const($db, "MEMBER_NEWFORM_FORCEMORPHY", $conf->entity);
+		$res = dolibarr_del_const($db, "MEMBER_NEWFORM_FORCEMORPHY", $config->entity);
 	} else {
-		$res = dolibarr_set_const($db, "MEMBER_NEWFORM_FORCEMORPHY", $forcemorphy, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "MEMBER_NEWFORM_FORCEMORPHY", $forcemorphy, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -137,7 +137,7 @@ print '<input type="hidden" name="token" value="'.newToken().'">';
 
 print dol_get_fiche_head($head, 'website', $langs->trans("Members"), -1, 'user');
 
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print "\n".'<script type="text/javascript">';
 	print 'jQuery(document).ready(function () {
                 function initemail()
@@ -199,7 +199,7 @@ if (getDolGlobalString('MEMBER_ENABLE_PUBLIC')) {
 	//print $langs->trans('FollowingLinksArePublic').'<br>';
 	print img_picto('', 'globe').' <span class="opacitymedium">'.$langs->trans('BlankSubscriptionForm').'</span><br>';
 	if (isModEnabled('multicompany')) {
-		$entity_qr = '?entity='.((int) $conf->entity);
+		$entity_qr = '?entity='.((int) $config->entity);
 	} else {
 		$entity_qr = '';
 	}

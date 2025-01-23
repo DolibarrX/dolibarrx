@@ -60,7 +60,7 @@ $extrafields = new ExtraFields($db);
 $hookManager->initHooks(array('bomnetneeds')); // Note that conf->hooks_modules contains array
 
 // Massaction
-$diroutputmassaction = $conf->bom->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->bom->dir_output.'/temp/massgeneration/'.$user->id;
 
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -97,7 +97,7 @@ $permissionnote = $user->hasRight('bom', 'write'); // Used by the include of act
 $permissiondellink = $user->hasRight('bom', 'write'); // Used by the include of actions_dellink.inc.php
 $permissiontoadd = $user->hasRight('bom', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissiontodelete = $user->hasRight('bom', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
-$upload_dir = $conf->bom->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->bom->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 
 /*

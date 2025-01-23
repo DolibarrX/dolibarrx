@@ -63,9 +63,9 @@ print load_fiche_titre($langs->trans("StatisticsOfSendings").' '.$year, $mesg);
 $stats = new ExpeditionStats($db, $socid, $mode);
 $data = $stats->getNbByMonth($year);
 
-dol_mkdir($conf->expedition->dir_temp);
+dol_mkdir($config->expedition->dir_temp);
 
-$filename = $conf->expedition->dir_temp."/expedition".$year.".png";
+$filename = $config->expedition->dir_temp."/expedition".$year.".png";
 $fileurl = DOL_URL_ROOT.'/viewimage.php?modulepart=expeditionstats&file=expedition'.$year.'.png';
 
 $px = new DolGraph();

@@ -86,7 +86,7 @@ if ($user->hasRight('banque', 'consolidate') && $action == 'dvprev' && !empty($d
 }
 
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -201,7 +201,7 @@ $sqlrequestforbankline = $sql;
 if ($action == 'confirm_editbankreceipt' && !empty($oldbankreceipt) && !empty($newbankreceipt) && $user->hasRight('banque', 'consolidate')) {
 	// Test to check newbankreceipt does not exists yet
 	$sqltest = "SELECT b.rowid FROM ".MAIN_DB_PREFIX."bank as b, ".MAIN_DB_PREFIX."bank_account as ba";
-	$sqltest .= " WHERE b.fk_account = ba.rowid AND ba.entity = ".((int) $conf->entity);
+	$sqltest .= " WHERE b.fk_account = ba.rowid AND ba.entity = ".((int) $config->entity);
 	$sqltest .= " AND num_releve = '".$db->escape($newbankreceipt)."'";
 	$sqltest .= $db->plimit(1);	// Need the first one only
 
@@ -254,7 +254,7 @@ $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.$contextpage;
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.$limit;
 }
 if ($id > 0) {
@@ -405,7 +405,7 @@ if (empty($numref)) {
 				$balancestart[$objp->numr] = $obj->amount;
 				$db->free($resqlstart);
 			}
-			print '<td class="right"><span class="amount">'.price($balancestart[$objp->numr], 0, $langs, 1, -1, -1, empty($object->currency_code) ? $conf->currency : $object->currency_code).'</span></td>';
+			print '<td class="right"><span class="amount">'.price($balancestart[$objp->numr], 0, $langs, 1, -1, -1, empty($object->currency_code) ? $config->currency : $object->currency_code).'</span></td>';
 
 			// Calculate end amount
 			$sql = "SELECT sum(b.amount) as amount";
@@ -418,7 +418,7 @@ if (empty($numref)) {
 				$content[$objp->numr] = $obj->amount;
 				$db->free($resqlend);
 			}
-			print '<td class="right"><span class="amount">'.price(($balancestart[$objp->numr] + $content[$objp->numr]), 0, $langs, 1, -1, -1, empty($object->currency_code) ? $conf->currency : $object->currency_code).'</span></td>';
+			print '<td class="right"><span class="amount">'.price(($balancestart[$objp->numr] + $content[$objp->numr]), 0, $langs, 1, -1, -1, empty($object->currency_code) ? $config->currency : $object->currency_code).'</span></td>';
 
 			print '<td class="center">';
 			if ($user->hasRight('banque', 'consolidate') && $action != 'editbankreceipt') {
@@ -678,7 +678,7 @@ if (empty($numref)) {
 				$sql .= " FROM ".MAIN_DB_PREFIX."categorie as ct";
 				$sql .= ", ".MAIN_DB_PREFIX."category_bankline as cl";
 				$sql .= " WHERE ct.rowid = cl.fk_categ";
-				$sql .= " AND ct.entity = ".((int) $conf->entity);
+				$sql .= " AND ct.entity = ".((int) $config->entity);
 				$sql .= " AND cl.lineid = ".((int) $objp->rowid);
 
 				$resc = $db->query($sql);

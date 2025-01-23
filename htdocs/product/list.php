@@ -129,10 +129,10 @@ if (isModEnabled('variants')) {
 	$show_childproducts = GETPOST('search_show_childproducts');
 }
 
-$diroutputmassaction = $conf->product->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->product->dir_output.'/temp/massgeneration/'.$user->id;
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -407,7 +407,7 @@ if (empty($reshook)) {
 	$permissiontoread = $user->hasRight($rightskey, 'lire');
 	$permissiontodelete = $user->hasRight($rightskey, 'supprimer');
 	$permissiontoadd = $user->hasRight($rightskey, 'creer');
-	$uploaddir = $conf->product->dir_output;
+	$uploaddir = $config->product->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	if ($massaction == 'switchonsalestatus' && $permissiontoadd) {
@@ -499,7 +499,7 @@ if (isModEnabled('workstation')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "workstation_workstation as ws ON (p.fk_default_workstation = ws.rowid)";
 }
 if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
-	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $conf->entity);
+	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 }
 if (!empty($extrafields->attributes[$object->table_element]['label']) && is_array($extrafields->attributes[$object->table_element]['label']) && count($extrafields->attributes[$object->table_element]['label'])) {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product_extrafields as ef on (p.rowid = ef.fk_object)";
@@ -771,7 +771,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -1717,7 +1717,7 @@ while ($i < $imaxinloop) {
 		if (!empty($arrayfields['thumbnail']['checked'])) {
 			$product_thumbnail_html = '';
 			if (!empty($product_static->entity)) {
-				$product_thumbnail = $product_static->show_photos('product', $conf->product->multidir_output[$product_static->entity], 1, 1, 0, 0, 0, 80);
+				$product_thumbnail = $product_static->show_photos('product', $config->product->multidir_output[$product_static->entity], 1, 1, 0, 0, 0, 80);
 				if ($product_static->nbphoto > 0) {
 					$product_thumbnail_html = $product_thumbnail;
 				}
@@ -1801,12 +1801,12 @@ while ($i < $imaxinloop) {
 		if (!empty($arrayfields['pac.fk_product_parent']['checked'])) {
 			print '<td class="nowraponall">';
 			if ($obj->fk_product_parent > 0) {
-				if (!empty($conf->cache['product'][$obj->fk_product_parent])) {
-					$product_parent_static = $conf->cache['product'][$obj->fk_product_parent];
+				if (!empty($config->cache['product'][$obj->fk_product_parent])) {
+					$product_parent_static = $config->cache['product'][$obj->fk_product_parent];
 				} else {
 					$product_parent_static = new Product($db);
 					$product_parent_static->fetch($obj->fk_product_parent);
-					$conf->cache['product'][$obj->fk_product_parent] = $product_parent_static;
+					$config->cache['product'][$obj->fk_product_parent] = $product_parent_static;
 				}
 				print $product_parent_static->getNomUrl(1);
 			}
@@ -2283,7 +2283,7 @@ while ($i < $imaxinloop) {
 		// Status (to sell)
 		if (!empty($arrayfields['p.tosell']['checked'])) {
 			print '<td class="center nowrap">';
-			if (!empty($conf->use_javascript_ajax) && $user->hasRight("produit", "creer") && getDolGlobalString('MAIN_DIRECT_STATUS_UPDATE')) {
+			if (!empty($config->use_javascript_ajax) && $user->hasRight("produit", "creer") && getDolGlobalString('MAIN_DIRECT_STATUS_UPDATE')) {
 				print ajax_object_onoff($product_static, 'status', 'tosell', 'ProductStatusOnSell', 'ProductStatusNotOnSell');
 			} else {
 				print $product_static->LibStatut($product_static->status, 5, 0);
@@ -2296,7 +2296,7 @@ while ($i < $imaxinloop) {
 		// Status (to buy)
 		if (!empty($arrayfields['p.tobuy']['checked'])) {
 			print '<td class="center nowrap">';
-			if (!empty($conf->use_javascript_ajax) && $user->hasRight("produit", "creer") && getDolGlobalString('MAIN_DIRECT_STATUS_UPDATE')) {
+			if (!empty($config->use_javascript_ajax) && $user->hasRight("produit", "creer") && getDolGlobalString('MAIN_DIRECT_STATUS_UPDATE')) {
 				print ajax_object_onoff($product_static, 'status_buy', 'tobuy', 'ProductStatusOnBuy', 'ProductStatusNotOnBuy');
 			} else {
 				print $product_static->LibStatut($product_static->status_buy, 5, 1);

@@ -60,7 +60,7 @@ $boxes = array();
  */
 
 if ($action == 'addconst') {
-	dolibarr_set_const($db, "MAIN_ACTIVATE_FILECACHE", GETPOST("MAIN_ACTIVATE_FILECACHE", 'alpha'), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_ACTIVATE_FILECACHE", GETPOST("MAIN_ACTIVATE_FILECACHE", 'alpha'), 'chaine', 0, '', $config->entity);
 }
 
 if ($action == 'add') {
@@ -79,7 +79,7 @@ if ($action == 'add') {
 					$sql = "SELECT fk_user";
 					$sql .= " FROM ".MAIN_DB_PREFIX."user_param";
 					$sql .= " WHERE param = 'MAIN_BOXES_".$db->escape($pos)."' AND value = '1'";
-					$sql .= " AND entity = ".$conf->entity;
+					$sql .= " AND entity = ".$config->entity;
 					dol_syslog("boxes.php search fk_user to activate box for", LOG_DEBUG);
 					$resql = $db->query($sql);
 					if ($resql) {
@@ -103,7 +103,7 @@ if ($action == 'add') {
 						$arrayofexistingboxid = array();
 						$nbboxonleft = $nbboxonright = 0;
 						$sql = "SELECT box_id, box_order FROM ".MAIN_DB_PREFIX."boxes";
-						$sql .= " WHERE position = ".((int) $pos)." AND fk_user = ".((int) $fk_user)." AND entity = ".((int) $conf->entity);
+						$sql .= " WHERE position = ".((int) $pos)." AND fk_user = ".((int) $fk_user)." AND entity = ".((int) $config->entity);
 						dol_syslog("boxes.php activate box", LOG_DEBUG);
 						$resql = $db->query($sql);
 						if ($resql) {
@@ -125,7 +125,7 @@ if ($action == 'add') {
 							$sql = "INSERT INTO ".MAIN_DB_PREFIX."boxes (";
 							$sql .= "box_id, position, box_order, fk_user, entity";
 							$sql .= ") VALUES (";
-							$sql .= ((int) $boxid['value']).", ".((int) $pos).", '".(($nbboxonleft > $nbboxonright) ? 'B01' : 'A01')."', ".((int) $fk_user).", ".$conf->entity;
+							$sql .= ((int) $boxid['value']).", ".((int) $pos).", '".(($nbboxonleft > $nbboxonright) ? 'B01' : 'A01')."', ".((int) $fk_user).", ".$config->entity;
 							$sql .= ")";
 
 							dol_syslog("boxes.php activate box", LOG_DEBUG);
@@ -160,7 +160,7 @@ if ($action == 'delete') {
 		$db->begin();
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."boxes";
-		$sql .= " WHERE entity = ".$conf->entity;
+		$sql .= " WHERE entity = ".$config->entity;
 		$sql .= " AND box_id=".((int) $obj->box_id);
 
 		$resql = $db->query($sql);
@@ -237,7 +237,7 @@ $sql = "SELECT b.rowid, b.box_id, b.position, b.box_order,";
 $sql .= " bd.rowid as boxid";
 $sql .= " FROM ".MAIN_DB_PREFIX."boxes as b, ".MAIN_DB_PREFIX."boxes_def as bd";
 $sql .= " WHERE b.box_id = bd.rowid";
-$sql .= " AND b.entity IN (0,".$conf->entity.")";
+$sql .= " AND b.entity IN (0,".$config->entity.")";
 $sql .= " AND b.fk_user=0";
 $sql .= " ORDER by b.position, b.box_order";
 //print $sql;
@@ -273,7 +273,7 @@ if ($resql) {
 		// This occurs just after an insert.
 		$sql = "SELECT box_order";
 		$sql .= " FROM ".MAIN_DB_PREFIX."boxes";
-		$sql .= " WHERE entity = ".$conf->entity;
+		$sql .= " WHERE entity = ".$config->entity;
 		$sql .= " AND LENGTH(box_order) <= 2";
 
 		dol_syslog("Execute requests to renumber box order", LOG_DEBUG);
@@ -283,21 +283,21 @@ if ($resql) {
 				if (dol_strlen($record['box_order']) == 1) {
 					if (preg_match("/[13579]{1}/", substr($record['box_order'], -1))) {
 						$box_order = "A0".$record['box_order'];
-						$sql = "UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$db->escape($box_order)."' WHERE entity = ".$conf->entity." AND box_order = '".$db->escape($record['box_order'])."'";
+						$sql = "UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$db->escape($box_order)."' WHERE entity = ".$config->entity." AND box_order = '".$db->escape($record['box_order'])."'";
 						$resql = $db->query($sql);
 					} elseif (preg_match("/[02468]{1}/", substr($record['box_order'], -1))) {
 						$box_order = "B0".$record['box_order'];
-						$sql = "UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$db->escape($box_order)."' WHERE entity = ".$conf->entity." AND box_order = '".$db->escape($record['box_order'])."'";
+						$sql = "UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$db->escape($box_order)."' WHERE entity = ".$config->entity." AND box_order = '".$db->escape($record['box_order'])."'";
 						$resql = $db->query($sql);
 					}
 				} elseif (dol_strlen($record['box_order']) == 2) {
 					if (preg_match("/[13579]{1}/", substr($record['box_order'], -1))) {
 						$box_order = "A".$record['box_order'];
-						$sql = "UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$db->escape($box_order)."' WHERE entity = ".$conf->entity." AND box_order = '".$db->escape($record['box_order'])."'";
+						$sql = "UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$db->escape($box_order)."' WHERE entity = ".$config->entity." AND box_order = '".$db->escape($record['box_order'])."'";
 						$resql = $db->query($sql);
 					} elseif (preg_match("/[02468]{1}/", substr($record['box_order'], -1))) {
 						$box_order = "B".$record['box_order'];
-						$sql = "UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$db->escape($box_order)."' WHERE entity = ".$conf->entity." AND box_order = '".$db->escape($record['box_order'])."'";
+						$sql = "UPDATE ".MAIN_DB_PREFIX."boxes SET box_order = '".$db->escape($box_order)."' WHERE entity = ".$config->entity." AND box_order = '".$db->escape($record['box_order'])."'";
 						$resql = $db->query($sql);
 					}
 				}
@@ -460,7 +460,7 @@ print '</tr>';
 
 // Activate FileCache (so content of file boxes are stored into a cache file int boxes/temp for 3600 seconds)
 print '<tr class="oddeven"><td>'.$langs->trans("EnableFileCache").'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_ACTIVATE_FILECACHE', array(), null, 0, 0, 0, 2, 0, 1);
 } else {
 	print $form->selectyesno('MAIN_ACTIVATE_FILECACHE', getDolGlobalInt('MAIN_ACTIVATE_FILECACHE', 0), 1);

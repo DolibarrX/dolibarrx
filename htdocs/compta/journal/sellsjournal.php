@@ -137,7 +137,7 @@ $sql .= " ct.accountancy_code_sell as account_tva, ct.recuperableonly";
 $sql .= " FROM ".MAIN_DB_PREFIX."facturedet as fd";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = fd.fk_product";
 if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
-	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $conf->entity);
+	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 }
 $sql .= " JOIN ".MAIN_DB_PREFIX."facture as f ON f.rowid = fd.fk_facture";
 $sql .= " JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = f.fk_soc";
@@ -180,17 +180,17 @@ if ($result) {
 	while ($i < $num) {
 		$obj = $db->fetch_object($result);
 		// les variables
-		$cptcli = ((getDolGlobalString('ACCOUNTING_ACCOUNT_CUSTOMER') != "") ? $conf->global->ACCOUNTING_ACCOUNT_CUSTOMER : $langs->trans("CodeNotDef"));
+		$cptcli = ((getDolGlobalString('ACCOUNTING_ACCOUNT_CUSTOMER') != "") ? $config->global->ACCOUNTING_ACCOUNT_CUSTOMER : $langs->trans("CodeNotDef"));
 		$compta_soc = (!empty($obj->code_compta_client) ? $obj->code_compta_client : $cptcli);
 		$compta_prod = $obj->accountancy_code_sell;
 		if (empty($compta_prod)) {
 			if ($obj->product_type == 0) {
-				$compta_prod = (getDolGlobalString('ACCOUNTING_PRODUCT_SOLD_ACCOUNT') ? $conf->global->ACCOUNTING_PRODUCT_SOLD_ACCOUNT : $langs->trans("CodeNotDef"));
+				$compta_prod = (getDolGlobalString('ACCOUNTING_PRODUCT_SOLD_ACCOUNT') ? $config->global->ACCOUNTING_PRODUCT_SOLD_ACCOUNT : $langs->trans("CodeNotDef"));
 			} else {
-				$compta_prod = (getDolGlobalString('ACCOUNTING_SERVICE_SOLD_ACCOUNT') ? $conf->global->ACCOUNTING_SERVICE_SOLD_ACCOUNT : $langs->trans("CodeNotDef"));
+				$compta_prod = (getDolGlobalString('ACCOUNTING_SERVICE_SOLD_ACCOUNT') ? $config->global->ACCOUNTING_SERVICE_SOLD_ACCOUNT : $langs->trans("CodeNotDef"));
 			}
 		}
-		$cpttva = (getDolGlobalString('ACCOUNTING_VAT_SOLD_ACCOUNT') ? $conf->global->ACCOUNTING_VAT_SOLD_ACCOUNT : $langs->trans("CodeNotDef"));
+		$cpttva = (getDolGlobalString('ACCOUNTING_VAT_SOLD_ACCOUNT') ? $config->global->ACCOUNTING_VAT_SOLD_ACCOUNT : $langs->trans("CodeNotDef"));
 		$compta_tva = (!empty($obj->account_tva) ? $obj->account_tva : $cpttva);
 
 		$account_localtax1 = getLocalTaxesFromRate($obj->tva_tx, 1, $obj->thirdparty, $mysoc);

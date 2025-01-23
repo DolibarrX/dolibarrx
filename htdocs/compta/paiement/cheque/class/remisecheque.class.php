@@ -128,7 +128,7 @@ class RemiseCheque extends CommonObject
 		$sql .= " ba.label as account_label";
 		$sql .= " FROM ".MAIN_DB_PREFIX."bordereau_cheque as bc";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank_account as ba ON bc.fk_bank_account = ba.rowid";
-		$sql .= " WHERE bc.entity = ".$conf->entity;
+		$sql .= " WHERE bc.entity = ".$config->entity;
 		if ($id) {
 			$sql .= " AND bc.rowid = ".((int) $id);
 		}
@@ -213,7 +213,7 @@ class RemiseCheque extends CommonObject
 		$sql .= ", 0";
 		$sql .= ", 0";
 		$sql .= ", 0";
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ", 0";
 		$sql .= ", ''";
 		$sql .= ", '".$this->db->escape($this->type)."'";
@@ -332,7 +332,7 @@ class RemiseCheque extends CommonObject
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."bordereau_cheque";
 		$sql .= " WHERE rowid = ".((int) $this->id);
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -386,7 +386,7 @@ class RemiseCheque extends CommonObject
 			$sql = "UPDATE ".MAIN_DB_PREFIX."bordereau_cheque";
 			$sql .= " SET statut = 1, ref = '".$this->db->escape($numref)."'";
 			$sql .= " WHERE rowid = ".((int) $this->id);
-			$sql .= " AND entity = ".((int) $conf->entity);
+			$sql .= " AND entity = ".((int) $config->entity);
 			$sql .= " AND statut = 0";
 
 			dol_syslog("RemiseCheque::Validate", LOG_DEBUG);
@@ -434,11 +434,11 @@ class RemiseCheque extends CommonObject
 
 		// Clean parameters (if not defined or using deprecated value)
 		if (!getDolGlobalString('CHEQUERECEIPTS_ADDON')) {
-			$conf->global->CHEQUERECEIPTS_ADDON = 'mod_chequereceipt_mint';
+			$config->global->CHEQUERECEIPTS_ADDON = 'mod_chequereceipt_mint';
 		} elseif (getDolGlobalString('CHEQUERECEIPTS_ADDON') == 'thyme') {
-			$conf->global->CHEQUERECEIPTS_ADDON = 'mod_chequereceipt_thyme';
+			$config->global->CHEQUERECEIPTS_ADDON = 'mod_chequereceipt_thyme';
 		} elseif (getDolGlobalString('CHEQUERECEIPTS_ADDON') == 'mint') {
-			$conf->global->CHEQUERECEIPTS_ADDON = 'mod_chequereceipt_mint';
+			$config->global->CHEQUERECEIPTS_ADDON = 'mod_chequereceipt_mint';
 		}
 
 		if (getDolGlobalString('CHEQUERECEIPTS_ADDON')) {
@@ -448,7 +448,7 @@ class RemiseCheque extends CommonObject
 			$classname = getDolGlobalString('CHEQUERECEIPTS_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/cheque/");
@@ -465,7 +465,7 @@ class RemiseCheque extends CommonObject
 				$classname = "mod_chequereceipt_" . getDolGlobalString('CHEQUERECEIPTS_ADDON');
 				$classname = preg_replace('/\-.*$/', '', $classname);
 				// Include file with class
-				foreach ($conf->file->dol_document_root as $dirroot) {
+				foreach ($config->file->dol_document_root as $dirroot) {
 					$dir = $dirroot."/core/modules/cheque/";
 
 					// Load file with numbering class (if found)
@@ -536,7 +536,7 @@ class RemiseCheque extends CommonObject
 			$now = dol_now();
 
 			$response = new WorkboardResponse();
-			$response->warning_delay = $conf->bank->cheque->warning_delay / 60 / 60 / 24;
+			$response->warning_delay = $config->bank->cheque->warning_delay / 60 / 60 / 24;
 			$response->label = $langs->trans("BankChecksToReceipt");
 			$response->labelShort = $langs->trans("BankChecksToReceiptShort");
 			$response->url = DOL_URL_ROOT.'/compta/paiement/cheque/index.php?leftmenu=checks&amp;mainmenu=bank';
@@ -545,7 +545,7 @@ class RemiseCheque extends CommonObject
 			while ($obj = $this->db->fetch_object($resql)) {
 				$response->nbtodo++;
 
-				if ($this->db->jdate($obj->datefin) < ($now - $conf->bank->cheque->warning_delay)) {
+				if ($this->db->jdate($obj->datefin) < ($now - $config->bank->cheque->warning_delay)) {
 					$response->nbtodolate++;
 				}
 			}
@@ -632,7 +632,7 @@ class RemiseCheque extends CommonObject
 			$sql .= " WHERE b.fk_account = ba.rowid";
 			$sql .= " AND b.fk_bordereau = bc.rowid";
 			$sql .= " AND bc.rowid = ".((int) $this->id);
-			$sql .= " AND bc.entity = ".$conf->entity;
+			$sql .= " AND bc.entity = ".$config->entity;
 			$sql .= " ORDER BY b.dateo ASC, b.rowid ASC";
 
 			dol_syslog("RemiseCheque::generatePdf", LOG_DEBUG);
@@ -662,7 +662,7 @@ class RemiseCheque extends CommonObject
 			// output format that does not support UTF8.
 			$sav_charset_output = $outputlangs->charset_output;
 
-			$result = $docmodel->write_file($this, $conf->bank->dir_output.'/checkdeposits', $this->ref, $outputlangs);
+			$result = $docmodel->write_file($this, $config->bank->dir_output.'/checkdeposits', $this->ref, $outputlangs);
 			if ($result > 0) {
 				//$outputlangs->charset_output=$sav_charset_output;
 				return 1;
@@ -709,7 +709,7 @@ class RemiseCheque extends CommonObject
 			$sql .= " SET amount = ".price2num($total);
 			$sql .= ", nbcheque = ".((int) $nb);
 			$sql .= " WHERE rowid = ".((int) $this->id);
-			$sql .= " AND entity = ".((int) $conf->entity);
+			$sql .= " AND entity = ".((int) $config->entity);
 
 			$resql = $this->db->query($sql);
 			if (!$resql) {

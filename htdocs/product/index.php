@@ -201,7 +201,7 @@ if ((isModEnabled("product") || isModEnabled("service")) && ($user->hasRight("pr
 		}
 	}
 
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		$graph .= '<div class="div-table-responsive-no-min">';
 		$graph .= '<table class="noborder centpercent">';
 		$graph .= '<tr class="liste_titre"><th>'.$langs->trans("Statistics").'</th></tr>';
@@ -267,7 +267,7 @@ if (isModEnabled('category') && getDolGlobalString('CATEGORY_GRAPHSTATS_ON_PRODU
 	if ($result) {
 		$num = $db->num_rows($result);
 		$i = 0;
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			$dataseries = array();
 			$rest = 0;
 			$nbmax = 10;
@@ -628,10 +628,10 @@ if (isModEnabled('stock') && $user->hasRight('stock', 'mouvement', 'read')) {
 				$latestmovement .= '<td>';
 				$latestmovement .= $tmplotstatic->getNomUrl(0, 'nolink');
 				$latestmovement .= '</td>';
-				/*if (empty($conf->global->PRODUCT_DISABLE_SELLBY)) {
+				/*if (empty($config->global->PRODUCT_DISABLE_SELLBY)) {
 				 print '<td>'.dol_print_date($db->jdate($objp->sellby), 'day').'</td>';
 				 }
-				 if (empty($conf->global->PRODUCT_DISABLE_EATBY)) {
+				 if (empty($config->global->PRODUCT_DISABLE_EATBY)) {
 				 print '<td>'.dol_print_date($db->jdate($objp->eatby), 'day').'</td>';
 				 }*/
 			}

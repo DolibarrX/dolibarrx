@@ -144,7 +144,7 @@ try {
 $langs->load("main");
 
 
-if (isModEnabled('multicompany') && !empty($conf->stripeconnect->enabled) && is_object($mc)) {
+if (isModEnabled('multicompany') && !empty($config->stripeconnect->enabled) && is_object($mc)) {
 	$sql = "SELECT entity";
 	$sql .= " FROM ".MAIN_DB_PREFIX."oauth_token";
 	$sql .= " WHERE service = '".$db->escape($service)."' and tokenstring LIKE '%".$db->escape($db->escapeforlike($event->account))."%'";
@@ -182,7 +182,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 	// When a payout is created by Stripe to transfer money to your account
 	$error = 0;
 
-	$result = dolibarr_set_const($db, $service."_NEXTPAYOUT", date('Y-m-d H:i:s', $event->data->object->arrival_date), 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, $service."_NEXTPAYOUT", date('Y-m-d H:i:s', $event->data->object->arrival_date), 'chaine', 0, '', $config->entity);
 
 	if ($result > 0) {
 		$subject = '['.$societeName.'] Notification - Stripe payout scheduled';
@@ -224,7 +224,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 } elseif ($event->type == 'payout.paid' && getDolGlobalString('STRIPE_AUTO_RECORD_PAYOUT')) {
 	// When a payout to transfer money to your account is completely done
 	$error = 0;
-	$result = dolibarr_set_const($db, $service."_NEXTPAYOUT", 0, 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, $service."_NEXTPAYOUT", 0, 'chaine', 0, '', $config->entity);
 	if ($result) {
 		$langs->load("errors");
 
@@ -336,7 +336,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 	$db->query($sql);
 	$db->commit();
 } elseif ($event->type == 'payment_intent.succeeded') {
-	// Called when making payment with PaymentIntent method ($conf->global->STRIPE_USE_NEW_CHECKOUT is on).
+	// Called when making payment with PaymentIntent method ($config->global->STRIPE_USE_NEW_CHECKOUT is on).
 
 	//dol_syslog("object = ".var_export($event->data, true));
 	include_once DOL_DOCUMENT_ROOT . '/compta/paiement/class/paiement.class.php';
@@ -441,12 +441,12 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 			$paiement = new Paiement($db);
 			$paiement->datepaye = $now;
 			$paiement->date = $now;
-			if ($currencyCodeType == $conf->currency) {
+			if ($currencyCodeType == $config->currency) {
 				$paiement->amounts = [$invoice_id => $payment_amount];   // Array with all payments dispatching with invoice id
 			} else {
 				$paiement->multicurrency_amounts = [$invoice_id => $payment_amount];   // Array with all payments dispatching
 
-				$postactionmessages[] = 'Payment was done in a currency ('.$currencyCodeType.') other than the expected currency of company ('.$conf->currency.')';
+				$postactionmessages[] = 'Payment was done in a currency ('.$currencyCodeType.') other than the expected currency of company ('.$config->currency.')';
 				$ispostactionok = -1;
 				// Not yet supported, so error
 				$error++;
@@ -709,7 +709,7 @@ if ($event->type == 'payout.created' && getDolGlobalString('STRIPE_AUTO_RECORD_P
 			return -1;
 		}
 	}
-} elseif ($event->type == 'checkout.session.completed') {		// Called when making payment with new Checkout method ($conf->global->STRIPE_USE_NEW_CHECKOUT is on).
+} elseif ($event->type == 'checkout.session.completed') {		// Called when making payment with new Checkout method ($config->global->STRIPE_USE_NEW_CHECKOUT is on).
 	// TODO: create fees
 } elseif ($event->type == 'payment_method.attached') {
 	// When we link a payment method with a customer on Stripe side

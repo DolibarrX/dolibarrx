@@ -119,8 +119,8 @@ function doc_label_pdf_create($db, $arrayofrecords, $modele, $outputlangs, $outp
 	$file = '';
 	$classname = '';
 	$dirmodels = array('/');
-	if (is_array($conf->modules_parts['models'])) {
-		$dirmodels = array_merge($dirmodels, $conf->modules_parts['models']);
+	if (is_array($config->modules_parts['models'])) {
+		$dirmodels = array_merge($dirmodels, $config->modules_parts['models']);
 	}
 	foreach ($dirmodels as $reldir) {
 		foreach (array('doc', 'pdf') as $prefix) {

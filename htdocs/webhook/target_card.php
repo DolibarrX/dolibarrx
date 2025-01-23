@@ -58,7 +58,7 @@ $lineid   = GETPOSTINT('lineid');
 // Initialize a technical objects
 $object = new Target($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->webhook->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->webhook->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('targetcard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -100,7 +100,7 @@ if ($enablepermissioncheck) {
 	$permissiondellink = 1;
 }
 
-$upload_dir = $conf->webhook->multidir_output[isset($object->entity) ? $object->entity : 1].'/target';
+$upload_dir = $config->webhook->multidir_output[isset($object->entity) ? $object->entity : 1].'/target';
 
 // Security check (enable the most restrictive one)
 //if ($user->socid > 0) accessforbidden();
@@ -344,7 +344,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		$formquestion = array();
 		/*
 		$forcecombo=0;
-		if ($conf->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
+		if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
 		$formquestion = array(
 			// 'text' => $langs->trans("ConfirmClone"),
 			// array('type' => 'checkbox', 'name' => 'clone_content', 'label' => $langs->trans("CloneMainAttributes"), 'value' => 1),
@@ -453,7 +453,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		<input type="hidden" name="id" value="' . $object->id.'">
 		';
 
-		if (!empty($conf->use_javascript_ajax) && $object->status == 0) {
+		if (!empty($config->use_javascript_ajax) && $object->status == 0) {
 			include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 		}
 
@@ -609,7 +609,7 @@ if ($action == "test") {
 	print '</div>';
 	print '</form>';
 
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print '<script>
 		$("#triggercode").change(function(){
 			console.log("We change trigger code");

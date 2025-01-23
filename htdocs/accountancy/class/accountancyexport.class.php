@@ -419,17 +419,17 @@ class AccountancyExport
 		if ($outputMode == 1 || $outputMode == 2) {
 			if ($outputMode == 1) {
 				// uses the temp directory by default to write files
-				if (!empty($conf->accounting->multidir_temp[$conf->entity])) {
-					$outputDir = $conf->accounting->multidir_temp[$conf->entity];
+				if (!empty($config->accounting->multidir_temp[$config->entity])) {
+					$outputDir = $config->accounting->multidir_temp[$config->entity];
 				} else {
-					$outputDir = $conf->accounting->dir_temp;
+					$outputDir = $config->accounting->dir_temp;
 				}
 			} else {
 				// uses the default export directory "accounting/export"
-				if (!empty($conf->accounting->multidir_output[$conf->entity])) {
-					$outputDir = $conf->accounting->multidir_output[$conf->entity];
+				if (!empty($config->accounting->multidir_output[$config->entity])) {
+					$outputDir = $config->accounting->multidir_output[$config->entity];
 				} else {
-					$outputDir = $conf->accounting->dir_output;
+					$outputDir = $config->accounting->dir_output;
 				}
 
 				// directory already created when module is enabled
@@ -1005,7 +1005,7 @@ class AccountancyExport
 			$tab['affaire'] = str_repeat(' ', 10);
 			$tab['quantity1'] = str_repeat(' ', 10);
 			$tab['num_piece2'] = str_pad(self::trunc((string) $line->piece_num, 8), 8);
-			$tab['devis'] = str_pad($conf->currency, 3);
+			$tab['devis'] = str_pad($config->currency, 3);
 			$tab['code_journal2'] = str_pad(self::trunc($line->code_journal, 3), 3);
 			$tab['filler3'] = str_repeat(' ', 3);
 
@@ -1032,14 +1032,14 @@ class AccountancyExport
 					$objectDirPath = '';
 					$objectFileName = dol_sanitizeFileName($line->doc_ref);
 					if ($line->doc_type == 'customer_invoice') {
-						$objectDirPath = !empty($conf->invoice->multidir_output[$conf->entity]) ? $conf->invoice->multidir_output[$conf->entity] : $conf->invoice->dir_output;
+						$objectDirPath = !empty($config->invoice->multidir_output[$config->entity]) ? $config->invoice->multidir_output[$config->entity] : $config->invoice->dir_output;
 					} elseif ($line->doc_type == 'expense_report') {
-						$objectDirPath = !empty($conf->expensereport->multidir_output[$conf->entity]) ? $conf->expensereport->multidir_output[$conf->entity] : $conf->expensereport->dir_output;
+						$objectDirPath = !empty($config->expensereport->multidir_output[$config->entity]) ? $config->expensereport->multidir_output[$config->entity] : $config->expensereport->dir_output;
 					} elseif ($line->doc_type == 'supplier_invoice') {
 						require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 						$invoice = new FactureFournisseur($this->db);
 						$invoice->fetch($line->fk_doc);
-						$objectDirPath = !empty($conf->fournisseur->facture->multidir_output[$conf->entity]) ? $conf->fournisseur->facture->multidir_output[$conf->entity] : $conf->fournisseur->facture->dir_output;
+						$objectDirPath = !empty($config->fournisseur->facture->multidir_output[$config->entity]) ? $config->fournisseur->facture->multidir_output[$config->entity] : $config->fournisseur->facture->dir_output;
 						$objectDirPath .= '/'.rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
 					}
 					$arrayofinclusion = array();
@@ -1501,13 +1501,13 @@ class AccountancyExport
 						$objectDirPath = '';
 						$objectFileName = dol_sanitizeFileName($line->doc_ref);
 						if ($line->doc_type == 'customer_invoice') {
-							$objectDirPath = !empty($conf->invoice->multidir_output[$conf->entity]) ? $conf->invoice->multidir_output[$conf->entity] : $conf->invoice->dir_output;
+							$objectDirPath = !empty($config->invoice->multidir_output[$config->entity]) ? $config->invoice->multidir_output[$config->entity] : $config->invoice->dir_output;
 						} elseif ($line->doc_type == 'expense_report') {
-							$objectDirPath = !empty($conf->expensereport->multidir_output[$conf->entity]) ? $conf->expensereport->multidir_output[$conf->entity] : $conf->expensereport->dir_output;
+							$objectDirPath = !empty($config->expensereport->multidir_output[$config->entity]) ? $config->expensereport->multidir_output[$config->entity] : $config->expensereport->dir_output;
 						} elseif ($line->doc_type == 'supplier_invoice') {
 							'@phan-var-force FactureFournisseur $invoice';
 							/** @var FactureFournisseur $invoice */
-							$objectDirPath = !empty($conf->fournisseur->facture->multidir_output[$conf->entity]) ? $conf->fournisseur->facture->multidir_output[$conf->entity] : $conf->fournisseur->facture->dir_output;
+							$objectDirPath = !empty($config->fournisseur->facture->multidir_output[$config->entity]) ? $config->fournisseur->facture->multidir_output[$config->entity] : $config->fournisseur->facture->dir_output;
 							$objectDirPath .= '/'.rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
 						}
 						$arrayofinclusion = array();
@@ -1715,13 +1715,13 @@ class AccountancyExport
 						$objectDirPath = '';
 						$objectFileName = dol_sanitizeFileName($line->doc_ref);
 						if ($line->doc_type == 'customer_invoice') {
-							$objectDirPath = !empty($conf->invoice->multidir_output[$conf->entity]) ? $conf->invoice->multidir_output[$conf->entity] : $conf->invoice->dir_output;
+							$objectDirPath = !empty($config->invoice->multidir_output[$config->entity]) ? $config->invoice->multidir_output[$config->entity] : $config->invoice->dir_output;
 						} elseif ($line->doc_type == 'expense_report') {
-							$objectDirPath = !empty($conf->expensereport->multidir_output[$conf->entity]) ? $conf->expensereport->multidir_output[$conf->entity] : $conf->expensereport->dir_output;
+							$objectDirPath = !empty($config->expensereport->multidir_output[$config->entity]) ? $config->expensereport->multidir_output[$config->entity] : $config->expensereport->dir_output;
 						} elseif ($line->doc_type == 'supplier_invoice') {
 							'@phan-var-force FactureFournisseur $invoice';
 							/** @var FactureFournisseur $invoice */
-							$objectDirPath = !empty($conf->fournisseur->facture->multidir_output[$conf->entity]) ? $conf->fournisseur->facture->multidir_output[$conf->entity] : $conf->fournisseur->facture->dir_output;
+							$objectDirPath = !empty($config->fournisseur->facture->multidir_output[$config->entity]) ? $config->fournisseur->facture->multidir_output[$config->entity] : $config->fournisseur->facture->dir_output;
 							$objectDirPath .= '/'.rtrim(get_exdir($invoice->id, 2, 0, 0, $invoice, 'invoice_supplier'), '/');
 						}
 						$arrayofinclusion = array();

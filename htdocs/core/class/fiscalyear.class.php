@@ -152,7 +152,7 @@ class Fiscalyear extends CommonObject
 		$sql .= ", '".$this->db->idate($this->date_start)."'";
 		$sql .= ", ".($this->date_end ? "'".$this->db->idate($this->date_end)."'" : "null");
 		$sql .= ", 0";
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ", '".$this->db->idate($now)."'";
 		$sql .= ", ".((int) $user->id);
 		$sql .= ")";
@@ -315,7 +315,7 @@ class Fiscalyear extends CommonObject
 			$this->ref = (string) $this->id;
 		}
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 		$option = '';

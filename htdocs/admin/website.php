@@ -59,7 +59,7 @@ $actl[0] = img_picto($langs->trans("Disabled"), 'switch_off', 'class="size15x"')
 $actl[1] = img_picto($langs->trans("Activated"), 'switch_on', 'class="size15x"');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -120,7 +120,7 @@ $tabcond[1] = (isModEnabled('website'));
 
 // List of help for fields
 $tabhelp = array();
-$tabhelp[1] = array('ref' => $langs->trans("EnterAnyCode"), 'virtualhost' => $langs->trans("SetHereVirtualHost", DOL_DATA_ROOT.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/<i>websiteref</i>'));
+$tabhelp[1] = array('ref' => $langs->trans("EnterAnyCode"), 'virtualhost' => $langs->trans("SetHereVirtualHost", DOL_DATA_ROOT.($config->entity > 1 ? '/'.$config->entity : '').'/website/<i>websiteref</i>'));
 
 // List of check for fields (NOT USED YET)
 $tabfieldcheck = array();
@@ -208,7 +208,7 @@ if (GETPOST('actionadd', 'alpha') || GETPOST('actionmodify', 'alpha')) {
 		$i = 0;
 		foreach ($listfieldinsert as $f => $value) {
 			if ($value == 'entity') {
-				$_POST[$listfieldvalue[$i]] = $conf->entity;
+				$_POST[$listfieldvalue[$i]] = $config->entity;
 			}
 			if ($value == 'ref') {
 				$_POST[$listfieldvalue[$i]] = strtolower(GETPOST($listfieldvalue[$i]));
@@ -263,7 +263,7 @@ if (GETPOST('actionadd', 'alpha') || GETPOST('actionmodify', 'alpha')) {
 		$i = 0;
 		foreach ($listfieldmodify as $field) {
 			if ($field == 'entity') {
-				$_POST[$listfieldvalue[$i]] = $conf->entity;
+				$_POST[$listfieldvalue[$i]] = $config->entity;
 			}
 			if ($i) {
 				$sql .= ",";
@@ -284,8 +284,8 @@ if (GETPOST('actionadd', 'alpha') || GETPOST('actionmodify', 'alpha')) {
 		if ($resql) {
 			$newname = dol_sanitizeFileName(GETPOST('ref', 'aZ09'));
 			if ($newname != $website->ref) {
-				$srcfile = DOL_DATA_ROOT.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/'.$website->ref;
-				$destfile = DOL_DATA_ROOT.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/'.$newname;
+				$srcfile = DOL_DATA_ROOT.($config->entity > 1 ? '/'.$config->entity : '').'/website/'.$website->ref;
+				$destfile = DOL_DATA_ROOT.($config->entity > 1 ? '/'.$config->entity : '').'/website/'.$newname;
 
 				if (dol_is_dir($destfile)) {
 					$error++;
@@ -345,7 +345,7 @@ if ($action == 'confirm_delete' && $confirm == 'yes') {       // delete
 		}
 
 		if ($website->ref) {
-			dol_delete_dir_recursive($conf->website->dir_output.'/'.$website->ref);
+			dol_delete_dir_recursive($config->website->dir_output.'/'.$website->ref);
 		}
 	} else {
 		dol_print_error($db, 'Failed to load website with id '.$rowid);

@@ -92,7 +92,7 @@ if (empty($tag) || ($unsuscrib != '1')) {
  */
 
 $head = '';
-$replacemainarea = (empty($conf->dol_hide_leftmenu) ? '<div>' : '').'<div>';
+$replacemainarea = (empty($config->dol_hide_leftmenu) ? '<div>' : '').'<div>';
 
 llxHeader($head, $langs->trans("MailUnsubcribe"), '', '', 0, 0, '', '', '', 'onlinepaymentbody', $replacemainarea);
 

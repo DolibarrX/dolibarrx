@@ -49,8 +49,8 @@ require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
  * @var User $user
  */
 
-if (!isset($conf->global->AGENDA_MAX_EVENTS_DAY_VIEW)) {
-	$conf->global->AGENDA_MAX_EVENTS_DAY_VIEW = 3;
+if (!isset($config->global->AGENDA_MAX_EVENTS_DAY_VIEW)) {
+	$config->global->AGENDA_MAX_EVENTS_DAY_VIEW = 3;
 }
 
 $action = GETPOST('action', 'aZ09');
@@ -61,11 +61,11 @@ $filter = GETPOST("search_filter", 'alpha', 3) ? GETPOST("search_filter", 'alpha
 $filtert = GETPOSTINT("search_filtert", 3) ? GETPOSTINT("search_filtert", 3) : GETPOSTINT("filtert", 3);
 $usergroup = GETPOSTINT("search_usergroup", 3) ? GETPOSTINT("search_usergroup", 3) : GETPOSTINT("usergroup", 3);
 //if (! ($usergroup > 0) && ! ($filtert > 0)) $filtert = $user->id;
-//$showbirthday = empty($conf->use_javascript_ajax)?GETPOST("showbirthday","int"):1;
+//$showbirthday = empty($config->use_javascript_ajax)?GETPOST("showbirthday","int"):1;
 $showbirthday = 0;
 
 // If not choice done on calendar owner, we filter on user.
-/*if (empty($filtert) && empty($conf->global->AGENDA_ALL_CALENDARS))
+/*if (empty($filtert) && empty($config->global->AGENDA_ALL_CALENDARS))
 {
 	$filtert = $user->id;
 }*/
@@ -76,7 +76,7 @@ $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTI
 if (empty($page) || $page == -1) {
 	$page = 0;
 }     // If $page is not defined, or '' or -1
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $offset = $limit * $page;
 if (!$sortorder) {
 	$sortorder = "ASC";
@@ -113,7 +113,7 @@ $day = GETPOSTINT("day") ? GETPOSTINT("day") : idate("d");
 $pid = GETPOSTISSET("search_projectid") ? GETPOSTINT("search_projectid", 3) : GETPOSTINT("projectid", 3);
 $status = GETPOSTISSET("search_status") ? GETPOST("search_status", 'aZ09') : GETPOST("status", 'aZ09'); // status may be 0, 50, 100, 'todo', 'na' or -1
 $type = GETPOSTISSET("search_type") ? GETPOST("search_type", 'alpha') : GETPOST("type", 'alpha');
-$maxprint = ((GETPOSTINT("maxprint") != '') ? GETPOSTINT("maxprint") : $conf->global->AGENDA_MAX_EVENTS_DAY_VIEW);
+$maxprint = ((GETPOSTINT("maxprint") != '') ? GETPOSTINT("maxprint") : $config->global->AGENDA_MAX_EVENTS_DAY_VIEW);
 $optioncss = GETPOST('optioncss', 'aZ'); // Option for the css output (always '' except when 'print')
 $search_categ_cus = GETPOSTINT("search_categ_cus", 3) ? GETPOSTINT("search_categ_cus", 3) : 0;
 // Set actioncode (this code must be same for setting actioncode into peruser, listacton and index)
@@ -133,7 +133,7 @@ if ($dateselect > 0) {
 	$year = GETPOSTINT('dateselectyear');
 }
 
-$tmp = !getDolGlobalString('MAIN_DEFAULT_WORKING_HOURS') ? '9-18' : $conf->global->MAIN_DEFAULT_WORKING_HOURS;
+$tmp = !getDolGlobalString('MAIN_DEFAULT_WORKING_HOURS') ? '9-18' : $config->global->MAIN_DEFAULT_WORKING_HOURS;
 $tmp = str_replace(' ', '', $tmp); // FIX 7533
 $tmparray = explode('-', $tmp);
 $begin_h = GETPOSTISSET('begin_h') ? GETPOSTINT('begin_h') : ($tmparray[0] != '' ? $tmparray[0] : 9);
@@ -148,7 +148,7 @@ if ($end_h <= $begin_h) {
 	$end_h = $begin_h + 1;
 }
 
-$tmp = !getDolGlobalString('MAIN_DEFAULT_WORKING_DAYS') ? '1-5' : $conf->global->MAIN_DEFAULT_WORKING_DAYS;
+$tmp = !getDolGlobalString('MAIN_DEFAULT_WORKING_DAYS') ? '1-5' : $config->global->MAIN_DEFAULT_WORKING_DAYS;
 $tmp = str_replace(' ', '', $tmp); // FIX 7533
 $tmparray = explode('-', $tmp);
 $begin_d = GETPOSTISSET('begin_d') ? GETPOSTINT('begin_d') : ($tmparray[0] != '' ? $tmparray[0] : 1);
@@ -164,7 +164,7 @@ if ($end_d < $begin_d) {
 }
 
 if ($status == '' && !GETPOSTISSET('search_status')) {
-	$status = ((!getDolGlobalString('AGENDA_DEFAULT_FILTER_STATUS') || $disabledefaultvalues) ? '' : $conf->global->AGENDA_DEFAULT_FILTER_STATUS);
+	$status = ((!getDolGlobalString('AGENDA_DEFAULT_FILTER_STATUS') || $disabledefaultvalues) ? '' : $config->global->AGENDA_DEFAULT_FILTER_STATUS);
 }
 
 if (empty($mode) && !GETPOSTISSET('mode')) {
@@ -359,7 +359,7 @@ $next_day   = $next['day'];
 // Define firstdaytoshow and lastdaytoshow. Warning: lastdaytoshow is last second to show + 1
 // $firstdaytoshow and lastdaytoshow become a gmt dates to use to search/compare because first_xxx are in tz idea and we used tzuserrel
 $firstdaytoshow = dol_mktime(0, 0, 0, $first_month, $first_day, $first_year, 'tzuserrel');
-$nb_weeks_to_show = (getDolGlobalString('AGENDA_NB_WEEKS_IN_VIEW_PER_USER')) ? ((int) $conf->global->AGENDA_NB_WEEKS_IN_VIEW_PER_USER * 7) : 7;
+$nb_weeks_to_show = (getDolGlobalString('AGENDA_NB_WEEKS_IN_VIEW_PER_USER')) ? ((int) $config->global->AGENDA_NB_WEEKS_IN_VIEW_PER_USER * 7) : 7;
 $lastdaytoshow = dol_time_plus_duree($firstdaytoshow, $nb_weeks_to_show, 'd');
 //print $firstday.'-'.$first_month.'-'.$first_year;
 //print dol_print_date($firstdaytoshow, 'dayhour', 'gmt');
@@ -376,7 +376,7 @@ $nav .= "<a href=\"?year=".$prev_year."&amp;month=".$prev_month."&amp;day=".$pre
 $nav .= " <span id=\"month_name\">".dol_print_date(dol_mktime(0, 0, 0, $first_month, $first_day, $first_year), "%Y").", ".$langs->trans("Week")." ".$week;
 $nav .= " </span>\n";
 $nav .= " &nbsp; <a href=\"?year=".$next_year."&amp;month=".$next_month."&amp;day=".$next_day.$param."\"><i class=\"fa fa-chevron-right\" title=\"".dol_escape_htmltag($langs->trans("Next"))."\"></i></a>\n";
-if (empty($conf->dol_optimize_smallscreen)) {
+if (empty($config->dol_optimize_smallscreen)) {
 	$nav .= " &nbsp; <a href=\"?year=".$nowyear."&amp;month=".$nowmonth."&amp;day=".$nowday.$param.'" class="datenowlink">'.$langs->trans("Today").'</a> ';
 }
 $nav .= '</div>';
@@ -396,7 +396,7 @@ print '<form method="POST" id="searchFormList" class="listactionsfilter" action=
 
 $showextcals = $listofextcals;
 // Legend
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	$s = '';
 	$s .= '<script type="text/javascript">'."\n";
 	$s .= 'jQuery(document).ready(function () {'."\n";
@@ -408,7 +408,7 @@ if ($conf->use_javascript_ajax) {
 	}
 	$s .= '});'."\n";
 	$s .= '</script>'."\n";
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		$s .= '<div class="nowrap clear float"><input type="checkbox" id="check_mytasks" name="check_mytasks" checked disabled> '.$langs->trans("LocalAgenda").' &nbsp; </div>';
 		if (is_array($showextcals) && count($showextcals) > 0) {
 			foreach ($showextcals as $val) {
@@ -807,7 +807,7 @@ $cachecontacts = array();
 $cacheusers = array();
 
 // Define theme_datacolor array
-$color_file = DOL_DOCUMENT_ROOT."/theme/".$conf->theme."/theme_vars.inc.php";
+$color_file = DOL_DOCUMENT_ROOT."/theme/".$config->theme."/theme_vars.inc.php";
 if (is_readable($color_file)) {
 	include $color_file;
 }
@@ -856,7 +856,7 @@ while ($currentdaytoshow < $lastdaytoshow) {
 		print "\n";
 		print '<div class="ui-grid-a  inline-block"><div class="ui-block-a nowraponall">';
 		print '<input type="number" class="short" name="begin_d" value="'.$begin_d.'" min="1" max="7">';
-		if (empty($conf->dol_use_jmobile)) {
+		if (empty($config->dol_use_jmobile)) {
 			print ' - ';
 		} else {
 			print '</div><div class="ui-block-b">';
@@ -873,7 +873,7 @@ while ($currentdaytoshow < $lastdaytoshow) {
 			continue;
 		}
 		echo '<td align="center" colspan="'.($end_h - $begin_h).'">';
-		echo '<span class="bold spandayofweek">'.$langs->trans("Day".(($i + (isset($conf->global->MAIN_START_WEEK) ? $conf->global->MAIN_START_WEEK : 1)) % 7)).'</span>';
+		echo '<span class="bold spandayofweek">'.$langs->trans("Day".(($i + (isset($config->global->MAIN_START_WEEK) ? $config->global->MAIN_START_WEEK : 1)) % 7)).'</span>';
 		print "<br>";
 		if ($i) {
 			print dol_print_date(dol_time_plus_duree($currentdaytoshow, $i, 'd'), 'day', 'tzuserrel');
@@ -895,13 +895,13 @@ while ($currentdaytoshow < $lastdaytoshow) {
 	print "\n";
 	print '<div class="ui-grid-a inline-block"><div class="ui-block-a nowraponall">';
 	print '<input type="number" class="short" name="begin_h" value="'.$begin_h.'" min="0" max="23">';
-	if (empty($conf->dol_use_jmobile)) {
+	if (empty($config->dol_use_jmobile)) {
 		print ' - ';
 	} else {
 		print '</div><div class="ui-block-b">';
 	}
 	print '<input type="number" class="short" name="end_h" value="'.$end_h.'" min="1" max="24">';
-	if (empty($conf->dol_use_jmobile)) {
+	if (empty($config->dol_use_jmobile)) {
 		print ' '.$langs->trans("H");
 	}
 	print '</div></div>';

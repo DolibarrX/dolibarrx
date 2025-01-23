@@ -463,12 +463,12 @@ class Users extends DolibarrApi
 	 */
 	public function setPassword($id, $send_password = false)
 	{
-		//$conf->global->API_DISABLE_LOGIN_API = 1;
+		//$config->global->API_DISABLE_LOGIN_API = 1;
 		if (getDolGlobalString('API_DISABLE_LOGIN_API')) {
 			throw new RestException(403, "Error: login and password reset APIs are disabled. You can get access token from the backoffice to get access permission but permission and password manipulation from APIs are forbidden.");
 		}
 
-		//$conf->global->API_ALLOW_PASSWORD_RESET = 1;
+		//$config->global->API_ALLOW_PASSWORD_RESET = 1;
 		if (!getDolGlobalString('API_ALLOW_PASSWORD_RESET')) {
 			throw new RestException(403, "Error: password reset APIs are disabled by default. To allow this, the option API_ALLOW_PASSWORD_RESET must be set.");
 		}
@@ -570,11 +570,11 @@ class Users extends DolibarrApi
 		}
 
 		if (isModEnabled('multicompany') && getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && !empty(DolibarrApiAccess::$user->admin) && empty(DolibarrApiAccess::$user->entity)) {
-			$entity = (!empty($entity) ? $entity : $conf->entity);
+			$entity = (!empty($entity) ? $entity : $config->entity);
 		} else {
 			// When using API, action is done on entity of logged user because a user of entity X with permission to create user should not be able to
 			// hack the security by giving himself permissions on another entity.
-			$entity = (DolibarrApiAccess::$user->entity > 0 ? DolibarrApiAccess::$user->entity : $conf->entity);
+			$entity = (DolibarrApiAccess::$user->entity > 0 ? DolibarrApiAccess::$user->entity : $config->entity);
 		}
 
 		$result = $this->useraccount->SetInGroup($group, $entity);

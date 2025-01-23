@@ -77,7 +77,7 @@ if ($action == 'editsalesrepresentatives') {
 			$userstatic->job = $val['job'];
 			$userstatic->entity = $val['entity'];
 			$userstatic->gender = $val['gender'];
-			print $userstatic->getNomUrl(-1, '', 0, 0, ($nbofsalesrepresentative > 1 ? 16 : (empty($conf->dol_optimize_smallscreen) ? 24 : 20)));
+			print $userstatic->getNomUrl(-1, '', 0, 0, ($nbofsalesrepresentative > 1 ? 16 : (empty($config->dol_optimize_smallscreen) ? 24 : 20)));
 			print ' ';
 		}
 	} else {

@@ -143,7 +143,7 @@ class AccountancyReport // extends CommonObject
 		$sql .= " " . (!isset($this->label) ? 'NULL' : "'" . $this->db->escape($this->label) . "'") . ",";
 		$sql .= " " . (!isset($this->fk_country) ? 'NULL' : ((int) $this->fk_country)) . ",";
 		$sql .= " " . (!isset($this->active) ? 'NULL' : ((int) $this->active));
-		$sql .= ", " . ((int) $conf->entity);
+		$sql .= ", " . ((int) $config->entity);
 		$sql .= ")";
 
 		$this->db->begin();

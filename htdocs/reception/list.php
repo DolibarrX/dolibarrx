@@ -89,7 +89,7 @@ $search_billed = GETPOST("search_billed", 'intcomma');
 $search_status = GETPOST('search_status', 'intcomma');
 $search_all = GETPOST('search_all', 'alphanohtml');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -107,7 +107,7 @@ $offset = $limit * $page;
 $pageprev = $page - 1;
 $pagenext = $page + 1;
 
-$diroutputmassaction = $conf->reception->multidir_output[$conf->entity].'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->reception->multidir_output[$config->entity].'/temp/massgeneration/'.$user->id;
 $object = new Reception($db);
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
@@ -223,7 +223,7 @@ if (empty($reshook)) {
 	$permissiontoread = $user->hasRight('reception', 'lire');
 	$permissiontoadd = $user->hasRight('reception', 'creer');
 	$permissiontodelete = $user->hasRight('reception', 'supprimer');
-	$uploaddir = $conf->reception->multidir_output[$conf->entity];
+	$uploaddir = $config->reception->multidir_output[$config->entity];
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	if ($massaction == 'confirm_createbills' && ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer"))) {
@@ -560,7 +560,7 @@ if (empty($reshook)) {
 
 				// Fac builddoc
 				$donotredirect = 1;
-				$upload_dir = $conf->fournisseur->facture->dir_output;
+				$upload_dir = $config->fournisseur->facture->dir_output;
 				$permissiontoadd = ($user->hasRight('fournisseur', 'facture', 'creer') || $user->hasRight('supplier_invoice', 'creer'));
 
 				// Call action to build doc
@@ -764,7 +764,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($search_all) {
@@ -1030,7 +1030,7 @@ if (!empty($arrayfields['country.code_iso']['checked'])) {
 // Company type
 if (!empty($arrayfields['typent.code']['checked'])) {
 	print '<td class="liste_titre maxwidthonsmartphone center">';
-	print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $conf->global->SOCIETE_SORT_ON_TYPEENT), '', 1);
+	print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $config->global->SOCIETE_SORT_ON_TYPEENT), '', 1);
 	print '</td>';
 }
 // Date delivery planned
@@ -1254,7 +1254,7 @@ while ($i < $imaxinloop) {
 			print '<td class="nowraponall">';
 			print $reception->getNomUrl(1);
 			$filename = dol_sanitizeFileName($reception->ref);
-			$filedir = $conf->reception->dir_output.'/'.dol_sanitizeFileName($reception->ref);
+			$filedir = $config->reception->dir_output.'/'.dol_sanitizeFileName($reception->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$reception->id;
 			print $formfile->getDocumentsLink($reception->element, $filename, $filedir);
 			print "</td>\n";
@@ -1338,7 +1338,7 @@ while ($i < $imaxinloop) {
 			print '<td class="center">';
 			print dol_print_date($db->jdate($obj->delivery_date), "day");
 			/*$now = time();
-			if ( ($now - $db->jdate($obj->date_reception)) > $conf->warnings->lim && $obj->statutid == 1 )
+			if ( ($now - $db->jdate($obj->date_reception)) > $config->warnings->lim && $obj->statutid == 1 )
 			{
 			}*/
 			print "</td>\n";

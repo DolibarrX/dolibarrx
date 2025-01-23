@@ -84,7 +84,7 @@ if (getDolGlobalString('MAIN_APPLICATION_TITLE')) {
 }
 
 // llxHeader
-if (empty($mobilepage) && (empty($action) || ((getDolGlobalString('TAKEPOS_PHONE_BASIC_LAYOUT') == 1 && $conf->browser->layout == 'phone') || defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE')))) {
+if (empty($mobilepage) && (empty($action) || ((getDolGlobalString('TAKEPOS_PHONE_BASIC_LAYOUT') == 1 && $config->browser->layout == 'phone') || defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE')))) {
 	$head = '<meta name="apple-mobile-web-app-title" content="TakePOS"/>
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="mobile-web-app-capable" content="yes">
@@ -112,7 +112,7 @@ if ($action == "productinfo" && $user->hasRight('takepos', 'run')) {
 	print "<br><b>".$prod->label."</b><br>";
 	print '<img class="imgwrapper" width="60%" src="'.DOL_URL_ROOT.'/takepos/public/auto_order.php?genimg=pro&query=pro&id='.$idproduct.'">';
 	print "<br>".$prod->description;
-	print "<br><b>".price($prod->price_ttc, 1, $langs, 1, -1, -1, $conf->currency)."</b>";
+	print "<br><b>".price($prod->price_ttc, 1, $langs, 1, -1, -1, $config->currency)."</b>";
 	print '<br>';
 } elseif ($action == "publicpreorder" && $user->hasRight('takepos', 'run')) {
 	print '<button type="button" class="publicphonebutton2 phoneblue total" onclick="TakeposPrintingOrder();">'.$langs->trans('Confirm').'</button>';
@@ -167,7 +167,7 @@ if ($action == "productinfo" && $user->hasRight('takepos', 'run')) {
 			print "<b>".$prod->label."</b><br>";
 			print '<img class="imgwrapper" width="60%" src="'.DOL_URL_ROOT.'/takepos/public/auto_order.php?genimg=pro&query=pro&id='.$line->fk_product.'">';
 			print "<br>".$prod->description;
-			print "<br><b>".price($prod->price_ttc, 1, $langs, 1, -1, -1, $conf->currency)."</b>";
+			print "<br><b>".price($prod->price_ttc, 1, $langs, 1, -1, -1, $config->currency)."</b>";
 			print '<br>';
 			print '<button type="button" class="publicphonebutton2 phonered width24" onclick="SetQty(place, '.$selectedline.', '.($line->qty - 1).')">-</button>';
 			print '<button type="button" class="publicphonebutton2 phonegreen width24" onclick="SetQty(place, '.$selectedline.', '.($line->qty + 1).')">+</button>';
@@ -204,10 +204,10 @@ if ($action == "productinfo" && $user->hasRight('takepos', 'run')) {
 	<script type="text/javascript">
 	<?php
 	$categorie = new Categorie($db);
-	$categories = $categorie->get_full_arbo('product', ((getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) ? $conf->global->TAKEPOS_ROOT_CATEGORY_ID : 0), 1);
+	$categories = $categorie->get_full_arbo('product', ((getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) ? $config->global->TAKEPOS_ROOT_CATEGORY_ID : 0), 1);
 
 	// Search root category to know its level
-	//$conf->global->TAKEPOS_ROOT_CATEGORY_ID=0;
+	//$config->global->TAKEPOS_ROOT_CATEGORY_ID=0;
 	$levelofrootcategory = 0;
 	if (getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) {
 		foreach ($categories as $key => $categorycursor) {

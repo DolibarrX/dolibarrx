@@ -74,7 +74,7 @@ $sql = "SELECT sum(d.amount) as somme, count(*) as nombre, c.label, c.rowid ";
 $sql .= " FROM ".MAIN_DB_PREFIX."categorie as c";
 $sql .= ", ".MAIN_DB_PREFIX."category_bankline as l";
 $sql .= ", ".MAIN_DB_PREFIX."bank as d";
-$sql .= " WHERE c.entity = ".$conf->entity;
+$sql .= " WHERE c.entity = ".$config->entity;
 $sql .= " AND c.rowid = l.fk_categ";
 $sql .= " AND d.rowid = l.lineid";
 $sql .= " GROUP BY c.label, c.rowid";

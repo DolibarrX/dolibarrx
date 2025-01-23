@@ -56,7 +56,7 @@ if ($action == 'addcomment') {
 		$comment->fk_element = GETPOSTINT('id');
 		$comment->element_type = GETPOST('comment_element_type', 'alpha');
 		$comment->fk_user_author = $user->id;
-		$comment->entity = $conf->entity;
+		$comment->entity = $config->entity;
 		if ($comment->create($user) > 0) {
 			setEventMessages($langs->trans("CommentAdded"), null, 'mesgs');
 			header('Location: '.$varpage.'?id='.$id.($withproject ? '&withproject=1' : ''));

@@ -282,7 +282,7 @@ function getActionComm($authentication, $id)
 	dol_syslog("Function: getActionComm login=".$authentication['login']." id=".$id);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -384,7 +384,7 @@ function getListActionCommType($authentication)
 	dol_syslog("Function: getListActionCommType login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -445,7 +445,7 @@ function createActionComm($authentication, $actioncomm)
 	dol_syslog("Function: createActionComm login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -529,7 +529,7 @@ function updateActionComm($authentication, $actioncomm)
 	dol_syslog("Function: updateActionComm login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication

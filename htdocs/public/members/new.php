@@ -132,9 +132,9 @@ function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $
 	// Define urllogo
 	$urllogo = DOL_URL_ROOT.'/theme/common/login_logo.png';
 
-	if (!empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
+	if (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
 		$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_small);
-	} elseif (!empty($mysoc->logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
+	} elseif (!empty($mysoc->logo) && is_readable($config->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
 		$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/'.$mysoc->logo);
 	} elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.svg')) {
 		$urllogo = DOL_URL_ROOT.'/theme/dolibarr_logo.svg';
@@ -178,7 +178,7 @@ function llxFooterVierge()
 
 	printCommonFooter('public');
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print "\n".'<!-- Includes JS Footer of Dolibarr -->'."\n";
 		print '<script src="'.DOL_URL_ROOT.'/core/js/lib_foot.js.php?lang='.$langs->defaultlang.'"></script>'."\n";
 	}
@@ -418,13 +418,13 @@ if (empty($reshook) && $action == 'add') {	// Test on permission not required he
 						$appli .= " ".DOL_VERSION;
 					}
 
-					$to = $adh->makeSubstitution($conf->global->MAIN_INFO_SOCIETE_MAIL);
+					$to = $adh->makeSubstitution($config->global->MAIN_INFO_SOCIETE_MAIL);
 					$from = getDolGlobalString('ADHERENT_MAIL_FROM');
 					$mailfile = new CMailFile(
 						'['.$appli.'] ' . getDolGlobalString('ADHERENT_AUTOREGISTER_NOTIF_MAIL_SUBJECT'),
 						$to,
 						$from,
-						$adh->makeSubstitution($conf->global->ADHERENT_AUTOREGISTER_NOTIF_MAIL),
+						$adh->makeSubstitution($config->global->ADHERENT_AUTOREGISTER_NOTIF_MAIL),
 						array(),
 						array(),
 						array(),
@@ -460,7 +460,7 @@ if (empty($reshook) && $action == 'add') {	// Test on permission not required he
 
 				if (getDolGlobalString('MEMBER_NEWFORM_PAYONLINE') && getDolGlobalString('MEMBER_NEWFORM_PAYONLINE') != '-1') {
 					if (empty($adht->caneditamount)) {			// If edition of amount not allowed
-						// TODO Check amount is same than the amount required for the type of member or if not defined as the default amount into $conf->global->MEMBER_NEWFORM_AMOUNT
+						// TODO Check amount is same than the amount required for the type of member or if not defined as the default amount into $config->global->MEMBER_NEWFORM_AMOUNT
 						// It is not so important because a test is done on return of payment validation.
 					}
 
@@ -619,7 +619,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 		print $form->selectarray("morphy", $morphys, GETPOST('morphy'), 1);
 		print '</td></tr>'."\n";
 	} else {
-		//print $morphys[$conf->global->MEMBER_NEWFORM_FORCEMORPHY];
+		//print $morphys[$config->global->MEMBER_NEWFORM_FORCEMORPHY];
 		print '<input type="hidden" id="morphy" name="morphy" value="' . getDolGlobalString('MEMBER_NEWFORM_FORCEMORPHY').'">';
 	}
 
@@ -675,9 +675,9 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 	print img_picto('', 'country', 'class="pictofixedwidth paddingright"');
 	$country_id = GETPOSTINT('country_id');
 	if (!$country_id && getDolGlobalString('MEMBER_NEWFORM_FORCECOUNTRYCODE')) {
-		$country_id = getCountry($conf->global->MEMBER_NEWFORM_FORCECOUNTRYCODE, '2', $db, $langs);
+		$country_id = getCountry($config->global->MEMBER_NEWFORM_FORCECOUNTRYCODE, '2', $db, $langs);
 	}
-	if (!$country_id && !empty($conf->geoipmaxmind->enabled)) {
+	if (!$country_id && !empty($config->geoipmaxmind->enabled)) {
 		$country_code = dol_user_country();
 		//print $country_code;
 		if ($country_code) {
@@ -712,7 +712,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 
 	// Public
 	if (getDolGlobalString('MEMBER_PUBLIC_ENABLED')) {
-		$linkofpubliclist = DOL_MAIN_URL_ROOT.'/public/members/public_list.php'.((isModEnabled('multicompany')) ? '?entity='.$conf->entity : '');
+		$linkofpubliclist = DOL_MAIN_URL_ROOT.'/public/members/public_list.php'.((isModEnabled('multicompany')) ? '?entity='.$config->entity : '');
 		$publiclabel = $langs->trans("Public", getDolGlobalString('MAIN_INFO_SOCIETE_NOM'), $linkofpubliclist);
 		print '<tr><td>'.$form->textwithpicto($langs->trans("MembershipPublic"), $publiclabel).'</td><td><input type="checkbox" name="public"></td></tr>'."\n";
 	}
@@ -798,7 +798,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 		// Clean the amount
 		$amount = price2num($amount);
 		$showedamount = $amount > 0 ? $amount : 0;
-		// $conf->global->MEMBER_NEWFORM_PAYONLINE is 'paypal', 'paybox' or 'stripe'
+		// $config->global->MEMBER_NEWFORM_PAYONLINE is 'paypal', 'paybox' or 'stripe'
 		print '<tr><td>'.$langs->trans("Subscription");
 		if (getDolGlobalString('MEMBER_EXT_URL_SUBSCRIPTION_INFO')) {
 			print ' - <a href="' . getDolGlobalString('MEMBER_EXT_URL_SUBSCRIPTION_INFO').'" rel="external" target="_blank" rel="noopener noreferrer">'.$langs->trans("SeeHere").'</a>';
@@ -811,13 +811,13 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 
 		if ($caneditamount) {
 			print '<input type="text" name="amount" id="amount" class="flat amount width50" value="'.$showedamount.'">';
-			print ' '.$langs->trans("Currency".$conf->currency).'<span class="opacitymedium hideifautoturnover"> - ';
-			print $amount > 0 ? $langs->trans("AnyAmountWithAdvisedAmount", price($amount, 0, $langs, 1, -1, -1, $conf->currency)) : $langs->trans("AnyAmountWithoutAdvisedAmount");
+			print ' '.$langs->trans("Currency".$config->currency).'<span class="opacitymedium hideifautoturnover"> - ';
+			print $amount > 0 ? $langs->trans("AnyAmountWithAdvisedAmount", price($amount, 0, $langs, 1, -1, -1, $config->currency)) : $langs->trans("AnyAmountWithoutAdvisedAmount");
 			print '</span>';
 		} else {
 			print '<input type="hidden" name="amount" id="amount" class="flat amount" value="'.$showedamount.'">';
 			print '<input type="text" name="amount" id="amounthidden" class="flat amount width50" disabled value="'.$showedamount.'">';
-			print ' '.$langs->trans("Currency".$conf->currency);
+			print ' '.$langs->trans("Currency".$config->currency);
 		}
 		print '</td></tr>';
 	}
@@ -931,7 +931,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 
 			if ($objp->subscription) {
 				if ($displayedamount > 0 || !$caneditamount) {
-					print price($displayedamount, 1, $langs, 1, 0, -1, $conf->currency);
+					print price($displayedamount, 1, $langs, 1, 0, -1, $config->currency);
 				}
 				if ($caneditamount && $displayedamount > 0) {
 					print $form->textwithpicto('', $langs->transnoentities("CanEditAmountShortForValues"), 1, 'help', '', 0, 3);

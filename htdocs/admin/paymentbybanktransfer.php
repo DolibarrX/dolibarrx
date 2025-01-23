@@ -63,36 +63,36 @@ if ($action == "set") {
 	$id = GETPOSTINT('PAYMENTBYBANKTRANSFER_ID_BANKACCOUNT');
 	$account = new Account($db);
 	if ($account->fetch($id) > 0) {
-		$res = dolibarr_set_const($db, "PAYMENTBYBANKTRANSFER_ID_BANKACCOUNT", $id, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "PAYMENTBYBANKTRANSFER_ID_BANKACCOUNT", $id, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
 		/*
-		$res = dolibarr_set_const($db, "PRELEVEMENT_CODE_BANQUE", $account->code_banque,'chaine',0,'',$conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_CODE_BANQUE", $account->code_banque,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
-		$res = dolibarr_set_const($db, "PRELEVEMENT_CODE_GUICHET", $account->code_guichet,'chaine',0,'',$conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_CODE_GUICHET", $account->code_guichet,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
-		$res = dolibarr_set_const($db, "PRELEVEMENT_NUMERO_COMPTE", $account->number,'chaine',0,'',$conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_NUMERO_COMPTE", $account->number,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
-		$res = dolibarr_set_const($db, "PRELEVEMENT_NUMBER_KEY", $account->cle_rib,'chaine',0,'',$conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_NUMBER_KEY", $account->cle_rib,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
-		$res = dolibarr_set_const($db, "PRELEVEMENT_IBAN", $account->iban,'chaine',0,'',$conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_IBAN", $account->iban,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
-		$res = dolibarr_set_const($db, "PRELEVEMENT_BIC", $account->bic,'chaine',0,'',$conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_BIC", $account->bic,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
-		$res = dolibarr_set_const($db, "PRELEVEMENT_RAISON_SOCIALE", $account->owner_address,'chaine',0,'',$conf->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_RAISON_SOCIALE", $account->owner_address,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
 		*/
 	} else {
 		$error++;
 	}
 	/* Moved to account
-	$res = dolibarr_set_const($db, "PAYMENTBYBANKTRANSFER_ICS", GETPOST("PAYMENTBYBANKTRANSFER_ICS"), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PAYMENTBYBANKTRANSFER_ICS", GETPOST("PAYMENTBYBANKTRANSFER_ICS"), 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) $error++;
 	*/
 
 	if (GETPOST("PAYMENTBYBANKTRANSFER_USER") > 0) {
-		$res = dolibarr_set_const($db, "PAYMENTBYBANKTRANSFER_USER", GETPOST("PAYMENTBYBANKTRANSFER_USER"), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "PAYMENTBYBANKTRANSFER_USER", GETPOST("PAYMENTBYBANKTRANSFER_USER"), 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
@@ -100,17 +100,17 @@ if ($action == "set") {
 	/*
 	if (GETPOST("PAYMENTBYBANKTRANSFER_END_TO_END") || GETPOST("PAYMENTBYBANKTRANSFER_END_TO_END") == "")
 	{
-		$res = dolibarr_set_const($db, "PAYMENTBYBANKTRANSFER_END_TO_END", GETPOST("PAYMENTBYBANKTRANSFER_END_TO_END"), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "PAYMENTBYBANKTRANSFER_END_TO_END", GETPOST("PAYMENTBYBANKTRANSFER_END_TO_END"), 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) $error++;
 	}
 	if (GETPOST("PAYMENTBYBANKTRANSFER_USTRD") || GETPOST("PAYMENTBYBANKTRANSFER_USTRD") == "")
 	{
-		$res = dolibarr_set_const($db, "PAYMENTBYBANKTRANSFER_USTRD", GETPOST("PAYMENTBYBANKTRANSFER_USTRD"), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "PAYMENTBYBANKTRANSFER_USTRD", GETPOST("PAYMENTBYBANKTRANSFER_USTRD"), 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) $error++;
 	}
 	*/
 	if (GETPOST("PAYMENTBYBANKTRANSFER_ADDDAYS") || GETPOST("PAYMENTBYBANKTRANSFER_ADDDAYS") == "") {
-		$res = dolibarr_set_const($db, "PAYMENTBYBANKTRANSFER_ADDDAYS", GETPOST("PAYMENTBYBANKTRANSFER_ADDDAYS"), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "PAYMENTBYBANKTRANSFER_ADDDAYS", GETPOST("PAYMENTBYBANKTRANSFER_ADDDAYS"), 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
@@ -146,7 +146,7 @@ if ($action == "deletenotif") {
 
 $form = new Form($db);
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader('', $langs->trans("CreditTransferSetup"), '', '', 0, 0, '', '', '', 'mod-admin page-paymentbybanktransfer');
 
@@ -169,14 +169,14 @@ print "</tr>";
 print '<tr class="oddeven"><td class="fieldrequired">'.$langs->trans("BankToPayCreditTransfer").'</td>';
 print '<td>';
 print img_picto('', 'bank_account', 'class="pictofixedwidth"');
-print $form->select_comptes($conf->global->PAYMENTBYBANKTRANSFER_ID_BANKACCOUNT, 'PAYMENTBYBANKTRANSFER_ID_BANKACCOUNT', 0, "courant=1", 1, '', 0, 'minwidth200', 1);
+print $form->select_comptes($config->global->PAYMENTBYBANKTRANSFER_ID_BANKACCOUNT, 'PAYMENTBYBANKTRANSFER_ID_BANKACCOUNT', 0, "courant=1", 1, '', 0, 'minwidth200', 1);
 print '</td></tr>';
 
 /* Moved to bank account data
 // ICS
 print '<tr class="oddeven"><td class="fieldrequired">'.$langs->trans("ICS").'</td>';
 print '<td>';
-print '<input type="text" name="PAYMENTBYBANKTRANSFER_ICS" value="'.$conf->global->PAYMENTBYBANKTRANSFER_ICS.'" size="15" ></td>';
+print '<input type="text" name="PAYMENTBYBANKTRANSFER_ICS" value="'.$config->global->PAYMENTBYBANKTRANSFER_ICS.'" size="15" ></td>';
 print '</td></tr>';
 */
 
@@ -184,7 +184,7 @@ print '</td></tr>';
 print '<tr class="oddeven"><td class="fieldrequired">'.$langs->trans("ResponsibleUser").'</td>';
 print '<td>';
 print img_picto('', 'user', 'class="pictofixedwidth"');
-print $form->select_dolusers($conf->global->PAYMENTBYBANKTRANSFER_USER, 'PAYMENTBYBANKTRANSFER_USER', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'minwidth200 maxwidth500');
+print $form->select_dolusers($config->global->PAYMENTBYBANKTRANSFER_USER, 'PAYMENTBYBANKTRANSFER_USER', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'minwidth200 maxwidth500');
 print '</td>';
 print '</tr>';
 
@@ -192,21 +192,21 @@ print '</tr>';
 //EntToEnd
 print '<tr class="oddeven"><td>'.$langs->trans("END_TO_END").'</td>';
 print '<td>';
-print '<input type="text" name="PRELEVEMENT_END_TO_END" value="'.$conf->global->PRELEVEMENT_END_TO_END.'" class="width100"></td>';
+print '<input type="text" name="PRELEVEMENT_END_TO_END" value="'.$config->global->PRELEVEMENT_END_TO_END.'" class="width100"></td>';
 print '</td></tr>';
 
 //USTRD
 print '<tr class="oddeven"><td>'.$langs->trans("USTRD").'</td>';
 print '<td>';
-print '<input type="text" name="CREDITTRANSFER_USTRD" value="'.$conf->global->CREDITTRANSFER_USTRD.'" class="width100"></td>';
+print '<input type="text" name="CREDITTRANSFER_USTRD" value="'.$config->global->CREDITTRANSFER_USTRD.'" class="width100"></td>';
 print '</td></tr>';
 */
 
 //ADDDAYS
 print '<tr class="oddeven"><td>'.$langs->trans("ADDDAYS").'</td>';
 print '<td class="left">';
-if (!$conf->global->PAYMENTBYBANKTRANSFER_ADDDAYS) {
-	$conf->global->PAYMENTBYBANKTRANSFER_ADDDAYS = 0;
+if (!$config->global->PAYMENTBYBANKTRANSFER_ADDDAYS) {
+	$config->global->PAYMENTBYBANKTRANSFER_ADDDAYS = 0;
 }
 print '<input type="text" name="PAYMENTBYBANKTRANSFER_ADDDAYS" value="' . getDolGlobalString('PAYMENTBYBANKTRANSFER_ADDDAYS').'" class="width50"></td>';
 print '</td></tr>';
@@ -231,7 +231,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql.= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql.= " WHERE type = '".$db->escape($type)."'";
-$sql.= " AND entity = ".$conf->entity;
+$sql.= " AND entity = ".$config->entity;
 $resql=$db->query($sql);
 if ($resql)
 {
@@ -294,8 +294,8 @@ foreach ($dirmodels as $reldir)
 							$module = new $classname($db);
 
 							$modulequalified=1;
-							if ($module->version == 'development'  && $conf->global->MAIN_FEATURES_LEVEL < 2) $modulequalified=0;
-							if ($module->version == 'experimental' && $conf->global->MAIN_FEATURES_LEVEL < 1) $modulequalified=0;
+							if ($module->version == 'development'  && $config->global->MAIN_FEATURES_LEVEL < 2) $modulequalified=0;
+							if ($module->version == 'experimental' && $config->global->MAIN_FEATURES_LEVEL < 1) $modulequalified=0;
 
 							if ($modulequalified) {
 								print '<tr class="oddeven"><td width="100">';
@@ -323,7 +323,7 @@ foreach ($dirmodels as $reldir)
 
 								// Default
 								print '<td class="center">';
-								if ($conf->global->PAYMENTORDER_ADDON_PDF == $name)
+								if ($config->global->PAYMENTORDER_ADDON_PDF == $name)
 								{
 									print img_picto($langs->trans("Default"),'on');
 								}
@@ -467,7 +467,7 @@ if (isModEnabled('notification'))
 	$sql.= " ".MAIN_DB_PREFIX."c_action_trigger as ad";
 	$sql.= " WHERE u.rowid = nd.fk_user";
 	$sql.= " AND nd.fk_action = ad.rowid";
-	$sql.= " AND u.entity IN (0,".$conf->entity.")";
+	$sql.= " AND u.entity IN (0,".$config->entity.")";
 
 	$resql = $db->query($sql);
 	if ($resql)

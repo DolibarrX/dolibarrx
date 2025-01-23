@@ -90,7 +90,7 @@ class AntiVir
 		// Run CLI command.
 		include_once DOL_DOCUMENT_ROOT.'/core/class/utils.class.php';
 		$utils = new Utils($this->db);
-		$outputfile = $conf->user->dir_temp.'/antivir.tmp';
+		$outputfile = $config->user->dir_temp.'/antivir.tmp';
 
 		$result = $utils->executeCLI($fullcommand, $outputfile);
 

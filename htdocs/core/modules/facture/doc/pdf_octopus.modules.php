@@ -181,8 +181,8 @@ class pdf_octopus extends ModelePDFFactures
 		// for retro compatibility
 		if (getDolGlobalString('INVOICE_USE_SITUATION_RETAINED_WARRANTY') && !getDolGlobalString('INVOICE_USE_RETAINED_WARRANTY')) {
 			// before it was only for final situation invoice
-			$conf->global->INVOICE_USE_RETAINED_WARRANTY = getDolGlobalString('INVOICE_USE_SITUATION_RETAINED_WARRANTY');
-			$conf->global->USE_RETAINED_WARRANTY_ONLY_FOR_SITUATION_FINAL = 1;
+			$config->global->INVOICE_USE_RETAINED_WARRANTY = getDolGlobalString('INVOICE_USE_SITUATION_RETAINED_WARRANTY');
+			$config->global->USE_RETAINED_WARRANTY_ONLY_FOR_SITUATION_FINAL = 1;
 		}
 
 		// If hidden option INVOICE_USE_SITUATION is set to 2, we can show the invoice situation template
@@ -338,10 +338,10 @@ class pdf_octopus extends ModelePDFFactures
 				$arephoto = false;
 				foreach ($pdir as $midir) {
 					if (!$arephoto) {
-						if ($conf->entity != $objphoto->entity) {
-							$dir = $conf->product->multidir_output[$objphoto->entity].'/'.$midir; //Check repertories of current entities
+						if ($config->entity != $objphoto->entity) {
+							$dir = $config->product->multidir_output[$objphoto->entity].'/'.$midir; //Check repertories of current entities
 						} else {
-							$dir = $conf->product->dir_output.'/'.$midir; //Check repertory of the current product
+							$dir = $config->product->dir_output.'/'.$midir; //Check repertory of the current product
 						}
 
 						foreach ($objphoto->liste_photos($dir, 1) as $key => $obj) {
@@ -370,7 +370,7 @@ class pdf_octopus extends ModelePDFFactures
 
 		//if (count($realpatharray) == 0) $this->posxpicture=$this->posxtva;
 
-		if ($conf->facture->multidir_output[$conf->entity]) {
+		if ($config->facture->multidir_output[$config->entity]) {
 			$object->fetch_thirdparty();
 
 			$deja_regle = $object->getSommePaiement((isModEnabled("multicurrency") && $object->multicurrency_tx != 1) ? 1 : 0);
@@ -379,11 +379,11 @@ class pdf_octopus extends ModelePDFFactures
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->facture->multidir_output[$conf->entity];
+				$dir = $config->facture->multidir_output[$config->entity];
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->facture->multidir_output[$object->entity]."/".$objectref;
+				$dir = $config->facture->multidir_output[$object->entity]."/".$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 			if (!file_exists($dir)) {
@@ -434,9 +434,9 @@ class pdf_octopus extends ModelePDFFactures
 
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$logodir = $conf->mycompany->dir_output;
-					if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-						$logodir = $conf->mycompany->multidir_output[$object->entity];
+					$logodir = $config->mycompany->dir_output;
+					if (!empty($config->mycompany->multidir_output[$object->entity])) {
+						$logodir = $config->mycompany->multidir_output[$object->entity];
 					}
 					$pagecount = $pdf->setSourceFile($logodir.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$this->tplidx = $pdf->importPage(1);
@@ -2056,7 +2056,7 @@ class pdf_octopus extends ModelePDFFactures
 		$hidebottom = 0;
 		$hidetop = 0;
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)
@@ -2171,9 +2171,9 @@ class pdf_octopus extends ModelePDFFactures
 		// Logo
 		if (!getDolGlobalInt('PDF_DISABLE_MYCOMPANY_LOGO')) {
 			if ($this->emetteur->logo) {
-				$logodir = $conf->mycompany->dir_output;
-				if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-					$logodir = $conf->mycompany->multidir_output[$object->entity];
+				$logodir = $config->mycompany->dir_output;
+				if (!empty($config->mycompany->multidir_output[$object->entity])) {
+					$logodir = $config->mycompany->multidir_output[$object->entity];
 				}
 				if (!getDolGlobalInt('MAIN_PDF_USE_LARGE_LOGO')) {
 					$logo = $logodir.'/logos/thumbs/'.$this->emetteur->logo_small;
@@ -2437,7 +2437,7 @@ class pdf_octopus extends ModelePDFFactures
 			}
 
 			// Recipient name
-			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
+			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
 				$thirdparty = $object->contact;
 			} else {
 				$thirdparty = $object->thirdparty;
@@ -2865,7 +2865,7 @@ class pdf_octopus extends ModelePDFFactures
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)

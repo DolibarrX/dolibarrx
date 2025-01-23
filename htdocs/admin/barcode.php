@@ -60,22 +60,22 @@ include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
 
 if ($action == 'setbarcodeproducton') {
 	$barcodenumberingmodule = GETPOST('value', 'alpha');
-	$res = dolibarr_set_const($db, "BARCODE_PRODUCT_ADDON_NUM", $barcodenumberingmodule, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "BARCODE_PRODUCT_ADDON_NUM", $barcodenumberingmodule, 'chaine', 0, '', $config->entity);
 	if ($barcodenumberingmodule == 'mod_barcode_product_standard' && !getDolGlobalString('BARCODE_STANDARD_PRODUCT_MASK')) {
-		$res = dolibarr_set_const($db, "BARCODE_STANDARD_PRODUCT_MASK", '04{0000000000}', 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "BARCODE_STANDARD_PRODUCT_MASK", '04{0000000000}', 'chaine', 0, '', $config->entity);
 	}
 } elseif ($action == 'setbarcodeproductoff') {
-	$res = dolibarr_del_const($db, "BARCODE_PRODUCT_ADDON_NUM", $conf->entity);
+	$res = dolibarr_del_const($db, "BARCODE_PRODUCT_ADDON_NUM", $config->entity);
 }
 
 if ($action == 'setbarcodethirdpartyon') {
 	$barcodenumberingmodule = GETPOST('value', 'alpha');
-	$res = dolibarr_set_const($db, "BARCODE_THIRDPARTY_ADDON_NUM", $barcodenumberingmodule, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "BARCODE_THIRDPARTY_ADDON_NUM", $barcodenumberingmodule, 'chaine', 0, '', $config->entity);
 	if ($barcodenumberingmodule == 'mod_barcode_thirdparty_standard' && !getDolGlobalString('BARCODE_STANDARD_THIRDPARTY_MASK')) {
-		$res = dolibarr_set_const($db, "BARCODE_STANDARD_THIRDPARTY_MASK", '04{0000000000}', 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "BARCODE_STANDARD_THIRDPARTY_MASK", '04{0000000000}', 'chaine', 0, '', $config->entity);
 	}
 } elseif ($action == 'setbarcodethirdpartyoff') {
-	$res = dolibarr_del_const($db, "BARCODE_THIRDPARTY_ADDON_NUM", $conf->entity);
+	$res = dolibarr_del_const($db, "BARCODE_THIRDPARTY_ADDON_NUM", $config->entity);
 }
 
 if ($action == 'setcoder') {
@@ -84,7 +84,7 @@ if ($action == 'setcoder') {
 	$sqlp = "UPDATE ".MAIN_DB_PREFIX."c_barcode_type";
 	$sqlp .= " SET coder = '".$db->escape($coder)."'";
 	$sqlp .= " WHERE rowid = ".((int) $code_id);
-	$sqlp .= " AND entity = ".$conf->entity;
+	$sqlp .= " AND entity = ".$config->entity;
 
 	$resql = $db->query($sqlp);
 	if (!$resql) {
@@ -92,11 +92,11 @@ if ($action == 'setcoder') {
 	}
 } elseif ($action == 'update') {
 	$location = GETPOST('GENBARCODE_LOCATION', 'alpha');
-	$res = dolibarr_set_const($db, "GENBARCODE_LOCATION", $location, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "GENBARCODE_LOCATION", $location, 'chaine', 0, '', $config->entity);
 	$coder_id = GETPOST('PRODUIT_DEFAULT_BARCODE_TYPE', 'alpha');
-	$res = dolibarr_set_const($db, "PRODUIT_DEFAULT_BARCODE_TYPE", $coder_id, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PRODUIT_DEFAULT_BARCODE_TYPE", $coder_id, 'chaine', 0, '', $config->entity);
 	$coder_id = GETPOST('GENBARCODE_BARCODETYPE_THIRDPARTY', 'alpha');
-	$res = dolibarr_set_const($db, "GENBARCODE_BARCODETYPE_THIRDPARTY", $coder_id, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "GENBARCODE_BARCODETYPE_THIRDPARTY", $coder_id, 'chaine', 0, '', $config->entity);
 
 	if ($res > 0) {
 		setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
@@ -106,7 +106,7 @@ if ($action == 'setcoder') {
 } elseif ($action == 'updateengine') {
 	$sql = "SELECT rowid, coder";
 	$sql .= " FROM ".MAIN_DB_PREFIX."c_barcode_type";
-	$sql .= " WHERE entity = ".$conf->entity;
+	$sql .= " WHERE entity = ".$config->entity;
 	$sql .= " ORDER BY code";
 
 	$resql = $db->query($sql);
@@ -124,7 +124,7 @@ if ($action == 'setcoder') {
 				$sqlp = "UPDATE ".MAIN_DB_PREFIX."c_barcode_type";
 				$sqlp .= " SET coder = '".$db->escape($coder)."'";
 				$sqlp .= " WHERE rowid = ".((int) $code_id);
-				$sqlp .= " AND entity = ".$conf->entity;
+				$sqlp .= " AND entity = ".$config->entity;
 
 				$upsql = $db->query($sqlp);
 				if (!$upsql) {
@@ -158,7 +158,7 @@ clearstatcache();
 
 
 // Scan list of all barcode included provided by external modules
-$dirbarcode = array_merge(array("/core/modules/barcode/doc/"), $conf->modules_parts['barcode']);
+$dirbarcode = array_merge(array("/core/modules/barcode/doc/"), $config->modules_parts['barcode']);
 
 foreach ($dirbarcode as $reldir) {
 	$dir = dol_buildpath($reldir);
@@ -218,7 +218,7 @@ if (isModEnabled('product')) {
 	print '<td class="center" width="60">'.$langs->trans("ShortInfo").'</td>';
 	print "</tr>\n";
 
-	$dirbarcodenum = array_merge(array('/core/modules/barcode/'), $conf->modules_parts['barcode']);
+	$dirbarcodenum = array_merge(array('/core/modules/barcode/'), $config->modules_parts['barcode']);
 
 	foreach ($dirbarcodenum as $dirroot) {
 		$dir = dol_buildpath($dirroot, 0);
@@ -281,7 +281,7 @@ if (isModEnabled('societe')) {
 	print '<td class="center" width="60">'.$langs->trans("ShortInfo").'</td>';
 	print "</tr>\n";
 
-	$dirbarcodenum = array_merge(array('/core/modules/barcode/'), $conf->modules_parts['barcode']);
+	$dirbarcodenum = array_merge(array('/core/modules/barcode/'), $config->modules_parts['barcode']);
 
 	foreach ($dirbarcodenum as $dirroot) {
 		$dir = dol_buildpath($dirroot, 0);
@@ -308,7 +308,7 @@ if (isModEnabled('societe')) {
 					print '</td>';
 					print '<td class="nowrap">'.$modBarCode->getExample($langs)."</td>\n";
 
-					if (getDolGlobalString('BARCODE_THIRDPARTY_ADDON_NUM') && $conf->global->BARCODE_THIRDPARTY_ADDON_NUM == "$file") {
+					if (getDolGlobalString('BARCODE_THIRDPARTY_ADDON_NUM') && $config->global->BARCODE_THIRDPARTY_ADDON_NUM == "$file") {
 						print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setbarcodethirdpartyoff&token='.newToken().'&amp;value='.urlencode($file).'">';
 						print img_picto($langs->trans("Activated"), 'switch_on');
 						print '</a></td>';
@@ -338,7 +338,7 @@ if (isModEnabled('societe')) {
 print '<br>';
 print load_fiche_titre($langs->trans("BarcodeEncodeModule"), '', '');
 
-if (empty($conf->use_javascript_ajax)) {
+if (empty($config->use_javascript_ajax)) {
 	print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST" id="form_engine">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="updateengine">';
@@ -355,7 +355,7 @@ print "</tr>\n";
 
 $sql = "SELECT rowid, code as encoding, libelle as label, coder, example";
 $sql .= " FROM ".MAIN_DB_PREFIX."c_barcode_type";
-$sql .= " WHERE entity = ".$conf->entity;
+$sql .= " WHERE entity = ".$config->entity;
 $sql .= " ORDER BY code";
 
 dol_syslog("admin/barcode.php", LOG_DEBUG);
@@ -430,7 +430,7 @@ if ($resql) {
 print "</table>\n";
 print '</div>';
 
-if (empty($conf->use_javascript_ajax)) {
+if (empty($config->use_javascript_ajax)) {
 	print $form->buttonsSaveCancel("Save", '');
 }
 
@@ -460,7 +460,7 @@ if (!isset($_SERVER['WINDIR'])) {
 	print '<td>'.$langs->trans("GenbarcodeLocation").'</td>';
 	print '<td width="60" class="center">';
 	print '<input type="text" size="40" name="GENBARCODE_LOCATION" value="'.getDolGlobalString('GENBARCODE_LOCATION').'">';
-	if (getDolGlobalString('GENBARCODE_LOCATION') && !@file_exists($conf->global->GENBARCODE_LOCATION)) {
+	if (getDolGlobalString('GENBARCODE_LOCATION') && !@file_exists($config->global->GENBARCODE_LOCATION)) {
 		$langs->load("errors");
 		print '<br><span class="error">'.$langs->trans("ErrorFileNotFound", getDolGlobalString('GENBARCODE_LOCATION')).'</span>';
 	}

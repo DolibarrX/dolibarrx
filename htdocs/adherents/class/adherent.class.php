@@ -469,7 +469,7 @@ class Adherent extends CommonObject
 		}
 
 		// Envoi mail confirmation
-		$from = $conf->email_from;
+		$from = $config->email_from;
 		if (getDolGlobalString('ADHERENT_MAIL_FROM')) {
 			$from = getDolGlobalString('ADHERENT_MAIL_FROM');
 		}
@@ -1326,7 +1326,7 @@ class Adherent extends CommonObject
 		if ($thirdpartyid > 0) {
 			$sql = "UPDATE ".MAIN_DB_PREFIX."adherent SET fk_soc = null";
 			$sql .= " WHERE fk_soc = ".((int) $thirdpartyid);
-			$sql .= " AND entity = ".$conf->entity;
+			$sql .= " AND entity = ".$config->entity;
 			dol_syslog(get_class($this)."::setThirdPartyId", LOG_DEBUG);
 			$resql = $this->db->query($sql);
 		}
@@ -1362,7 +1362,7 @@ class Adherent extends CommonObject
 
 		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."adherent";
 		$sql .= " WHERE login='".$this->db->escape($login)."'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -1391,7 +1391,7 @@ class Adherent extends CommonObject
 		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."adherent";
 		$sql .= " WHERE firstname='".$this->db->escape($firstname)."'";
 		$sql .= " AND lastname='".$this->db->escape($lastname)."'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -2596,12 +2596,12 @@ class Adherent extends CommonObject
 			$labelShort = '';
 
 			if ($mode == 'expired') {
-				$warning_delay = $conf->adherent->subscription->warning_delay / 60 / 60 / 24;
+				$warning_delay = $config->adherent->subscription->warning_delay / 60 / 60 / 24;
 				$label = $langs->trans("MembersWithSubscriptionToReceive");
 				$labelShort = $langs->trans("MembersWithSubscriptionToReceiveShort");
 				$url = DOL_URL_ROOT.'/adherents/list.php?mainmenu=members&amp;statut='.self::STATUS_VALIDATED.'&amp;filter=outofdate';
 			} elseif ($mode == 'shift') {
-				$warning_delay = $conf->adherent->subscription->warning_delay / 60 / 60 / 24;
+				$warning_delay = $config->adherent->subscription->warning_delay / 60 / 60 / 24;
 				$url = DOL_URL_ROOT.'/adherents/list.php?mainmenu=members&amp;statut='.self::STATUS_DRAFT;
 				$label = $langs->trans("MembersListToValid");
 				$labelShort = $langs->trans("ToValidate");
@@ -3032,7 +3032,7 @@ class Adherent extends CommonObject
 
 		$now = dol_now();
 
-		return $this->datefin < ($now - $conf->adherent->subscription->warning_delay);
+		return $this->datefin < ($now - $config->adherent->subscription->warning_delay);
 	}
 
 
@@ -3087,7 +3087,7 @@ class Adherent extends CommonObject
 			$datetosearchforend = dol_time_plus_duree(dol_mktime(23, 59, 59, $tmp['mon'], $tmp['mday'], $tmp['year'], 'tzserver'), (int) $daysbeforeend, 'd');
 
 			$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'adherent';
-			$sql .= " WHERE entity = ".((int) $conf->entity); // Do not use getEntity('adherent').")" here, we want the batch to be on its entity only;
+			$sql .= " WHERE entity = ".((int) $config->entity); // Do not use getEntity('adherent').")" here, we want the batch to be on its entity only;
 			$sql .= " AND statut = 1";
 			$sql .= " AND datefin >= '".$this->db->idate($datetosearchfor)."'";
 			$sql .= " AND datefin <= '".$this->db->idate($datetosearchforend)."'";

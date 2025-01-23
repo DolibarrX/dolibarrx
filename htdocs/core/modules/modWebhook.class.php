@@ -162,9 +162,9 @@ class modWebhook extends DolibarrModules
 			'fr_FR:ParentCompany'=>'Maison mère ou revendeur'
 		)*/
 
-		if (!isset($conf->webhook) || !isset($conf->webhook->enabled)) {
-			$conf->webhook = new stdClass();
-			$conf->webhook->enabled = 0;
+		if (!isset($config->webhook) || !isset($config->webhook->enabled)) {
+			$config->webhook = new stdClass();
+			$config->webhook->enabled = 0;
 		}
 
 		// Array to add new pages in new tabs
@@ -217,7 +217,7 @@ class modWebhook extends DolibarrModules
 			// Name of columns with primary key (try to always name it 'rowid')
 			'tabrowid'=>array("rowid", "rowid", "rowid"),
 			// Condition to show each dictionary
-			'tabcond'=>array($conf->webhook->enabled, $conf->webhook->enabled, $conf->webhook->enabled)
+			'tabcond'=>array($config->webhook->enabled, $config->webhook->enabled, $config->webhook->enabled)
 		);
 		*/
 
@@ -246,13 +246,13 @@ class modWebhook extends DolibarrModules
 			//      'frequency' => 2,
 			//      'unitfrequency' => 3600,
 			//      'status' => 0,
-			//      'test' => '$conf->webhook->enabled',
+			//      'test' => '$config->webhook->enabled',
 			//      'priority' => 50,
 			//  ),
 		);
 		// Example: $this->cronjobs=array(
-		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->webhook->enabled', 'priority'=>50),
-		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->webhook->enabled', 'priority'=>50)
+		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$config->webhook->enabled', 'priority'=>50),
+		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$config->webhook->enabled', 'priority'=>50)
 		// );
 
 		// Permissions provided by this module

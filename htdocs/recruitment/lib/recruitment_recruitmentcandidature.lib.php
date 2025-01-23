@@ -43,7 +43,7 @@ function recruitmentCandidaturePrepareHead($object)
 	$head[$h][2] = 'card';
 	$h++;
 
-	//  if ($conf->global->MAIN_FEATURES_LEVEL >= 2) {
+	//  if ($config->global->MAIN_FEATURES_LEVEL >= 2) {
 	//      $head[$h][0] = DOL_URL_ROOT.'/recruitment/recruitmentrating_card.php?id='.$object->id;
 	//      $head[$h][1] = $langs->trans("Rating");
 	//      $head[$h][2] = 'rating';
@@ -69,7 +69,7 @@ function recruitmentCandidaturePrepareHead($object)
 
 	require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT . '/core/class/link.class.php';
-	$upload_dir = $conf->recruitment->dir_output . "/recruitmentcandidature/" . dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->recruitment->dir_output . "/recruitmentcandidature/" . dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
 	$head[$h][0] = DOL_URL_ROOT . '/recruitment/recruitmentcandidature_document.php?id=' . $object->id;

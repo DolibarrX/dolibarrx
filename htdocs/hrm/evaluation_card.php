@@ -67,7 +67,7 @@ $lineid = GETPOSTINT('lineid');
 // Initialize a technical objects
 $object = new Evaluation($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->hrm->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->hrm->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('evaluationcard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -98,7 +98,7 @@ $permissiontovalidate = (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user-
 $permissiontoclose = $user->hasRight('hrm', 'evaluation', 'write');
 $permissiontodelete = $user->hasRight('hrm', 'evaluation', 'delete')/* || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT)*/;
 $permissiondellink = $user->hasRight('hrm', 'evaluation', 'write'); // Used by the include of actions_dellink.inc.php
-$upload_dir = $conf->hrm->multidir_output[isset($object->entity) ? $object->entity : 1].'/evaluation';
+$upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->entity : 1].'/evaluation';
 
 // Security check (enable the most restrictive one)
 //if ($user->socid > 0) accessforbidden();
@@ -237,7 +237,7 @@ if (empty($reshook)) {
 		// Delete file in doc form
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
-		$upload_dir = $conf->hrm->dir_output;
+		$upload_dir = $config->hrm->dir_output;
 		$file = $upload_dir.'/'.GETPOST('file');
 		$ret = dol_delete_file($file, 0, 0, 0, $object);
 		if ($ret) {
@@ -489,11 +489,11 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		<input type="hidden" name="id" value="' . $object->id.'">
 		';
 
-		if (!empty($conf->use_javascript_ajax) && $object->status == 0) {
+		if (!empty($config->use_javascript_ajax) && $object->status == 0) {
 			include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 		}
 
-		$conf->modules_parts['tpl']['hrm'] = '/hrm/core/tpl/'; // Pour utilisation du tpl hrm sur cet écran
+		$config->modules_parts['tpl']['hrm'] = '/hrm/core/tpl/'; // Pour utilisation du tpl hrm sur cet écran
 
 		print '<div class="div-table-responsive-no-min">';
 		if (!empty($object->lines) || ($object->status == $object::STATUS_DRAFT && $permissiontoadd && $action != 'selectlines' && $action != 'editline')) {
@@ -714,7 +714,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if ($user->hasRight('hrm', 'evaluation', 'read')) {
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $conf->hrm->dir_output.'/'.$object->element.'/'.$objref;
+			$filedir = $config->hrm->dir_output.'/'.$object->element.'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $user->hasRight('hrm', 'evaluation', 'read'); // If you can read, you can build the PDF to read content
 			$delallowed = $user->hasRight('hrm', 'evaluation', 'write'); // If you can create/edit, you can remove a file on card
@@ -752,7 +752,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Presend form
 	$modelmail = 'evaluation';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->hrm->dir_output;
+	$diroutput = $config->hrm->dir_output;
 	$trackid = 'evaluation'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

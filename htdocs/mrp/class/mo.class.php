@@ -88,13 +88,13 @@ class Mo extends CommonObject
 		'rowid' => array('type' => 'integer', 'label' => 'TechnicalID', 'enabled' => 1, 'visible' => -2, 'position' => 1, 'notnull' => 1, 'index' => 1, 'comment' => "Id",),
 		'entity' => array('type' => 'integer', 'label' => 'Entity', 'enabled' => 1, 'visible' => 0, 'position' => 5, 'notnull' => 1, 'default' => '1', 'index' => 1),
 		'ref' => array('type' => 'varchar(128)', 'label' => 'Ref', 'enabled' => 1, 'visible' => 4, 'position' => 10, 'notnull' => 1, 'default' => '(PROV)', 'index' => 1, 'searchall' => 1, 'comment' => "Reference of object", 'showoncombobox' => 1, 'noteditable' => 1),
-		'fk_bom' => array('type' => 'integer:Bom:bom/class/bom.class.php:0:(t.status:=:1)', 'filter' => 'active=1', 'label' => 'BOM', 'enabled' => '$conf->bom->enabled', 'visible' => 1, 'position' => 33, 'notnull' => -1, 'index' => 1, 'comment' => "Original BOM", 'css' => 'minwidth100 maxwidth500', 'csslist' => 'tdoverflowmax150', 'picto' => 'bom'),
+		'fk_bom' => array('type' => 'integer:Bom:bom/class/bom.class.php:0:(t.status:=:1)', 'filter' => 'active=1', 'label' => 'BOM', 'enabled' => '$config->bom->enabled', 'visible' => 1, 'position' => 33, 'notnull' => -1, 'index' => 1, 'comment' => "Original BOM", 'css' => 'minwidth100 maxwidth500', 'csslist' => 'tdoverflowmax150', 'picto' => 'bom'),
 		'mrptype' => array('type' => 'integer', 'label' => 'Type', 'enabled' => 1, 'visible' => 1, 'position' => 34, 'notnull' => 1, 'default' => '0', 'arrayofkeyval' => array(0 => 'Manufacturing', 1 => 'Disassemble'), 'css' => 'minwidth150', 'csslist' => 'minwidth150 center'),
 		'fk_product' => array('type' => 'integer:Product:product/class/product.class.php:0', 'label' => 'Product', 'enabled' => 'isModEnabled("product")', 'visible' => 1, 'position' => 35, 'notnull' => 1, 'index' => 1, 'comment' => "Product to produce", 'css' => 'maxwidth300', 'csslist' => 'tdoverflowmax100', 'picto' => 'product'),
 		'qty' => array('type' => 'real', 'label' => 'QtyToProduce', 'enabled' => 1, 'visible' => 1, 'position' => 40, 'notnull' => 1, 'comment' => "Qty to produce", 'css' => 'width75', 'default' => '1', 'isameasure' => 1),
 		'label' => array('type' => 'varchar(255)', 'label' => 'Label', 'enabled' => 1, 'visible' => 1, 'position' => 42, 'notnull' => -1, 'searchall' => 1, 'showoncombobox' => 2, 'css' => 'maxwidth300', 'csslist' => 'tdoverflowmax200', 'alwayseditable' => 1),
 		'fk_soc' => array('type' => 'integer:Societe:societe/class/societe.class.php:1', 'label' => 'ThirdParty', 'picto' => 'company', 'enabled' => 'isModEnabled("societe")', 'visible' => -1, 'position' => 50, 'notnull' => -1, 'index' => 1, 'css' => 'maxwidth400', 'csslist' => 'tdoverflowmax150'),
-		'fk_project' => array('type' => 'integer:Project:projet/class/project.class.php:1:(fk_statut:=:1)', 'label' => 'Project', 'picto' => 'project', 'enabled' => '$conf->project->enabled', 'visible' => -1, 'position' => 51, 'notnull' => -1, 'index' => 1, 'css' => 'minwidth200 maxwidth400', 'csslist' => 'tdoverflowmax100'),
+		'fk_project' => array('type' => 'integer:Project:projet/class/project.class.php:1:(fk_statut:=:1)', 'label' => 'Project', 'picto' => 'project', 'enabled' => '$config->project->enabled', 'visible' => -1, 'position' => 51, 'notnull' => -1, 'index' => 1, 'css' => 'minwidth200 maxwidth400', 'csslist' => 'tdoverflowmax100'),
 		'fk_warehouse' => array('type' => 'integer:Entrepot:product/stock/class/entrepot.class.php:0', 'label' => 'WarehouseForProduction', 'picto' => 'stock', 'enabled' => 'isModEnabled("stock")', 'visible' => 1, 'position' => 52, 'css' => 'maxwidth400', 'csslist' => 'tdoverflowmax200'),
 		'note_public' => array('type' => 'html', 'label' => 'NotePublic', 'enabled' => 1, 'visible' => 0, 'position' => 61, 'notnull' => -1,),
 		'note_private' => array('type' => 'html', 'label' => 'NotePrivate', 'enabled' => 1, 'visible' => 0, 'position' => 62, 'notnull' => -1,),
@@ -1049,7 +1049,7 @@ class Mo extends CommonObject
 			$classname = getDolGlobalString('MRP_MO_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/mrp/");
 
@@ -1100,8 +1100,8 @@ class Mo extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mrp->create))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mrp->mrp_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mrp->create))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mrp->mrp_advance->validate))))
 		 {
 		 $this->error='NotEnoughPermissions';
 		 dol_syslog(get_class($this)."::valid ".$this->error, LOG_ERR);
@@ -1153,14 +1153,14 @@ class Mo extends CommonObject
 			if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 				// Now we rename also files into index
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'mrp/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'mrp/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'mrp/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
 					$this->error = $this->db->lasterror();
 				}
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'mrp/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filepath = 'mrp/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filepath = 'mrp/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
@@ -1170,15 +1170,15 @@ class Mo extends CommonObject
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($num);
-				$dirsource = $conf->mrp->dir_output.'/'.$oldref;
-				$dirdest = $conf->mrp->dir_output.'/'.$newref;
+				$dirsource = $config->mrp->dir_output.'/'.$oldref;
+				$dirdest = $config->mrp->dir_output.'/'.$newref;
 				if (!$error && file_exists($dirsource)) {
 					dol_syslog(get_class($this)."::validate() rename dir ".$dirsource." into ".$dirdest);
 
 					if (@rename($dirsource, $dirdest)) {
 						dol_syslog("Rename ok");
 						// Rename docs starting with $oldref with $newref
-						$listoffiles = dol_dir_list($conf->mrp->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+						$listoffiles = dol_dir_list($config->mrp->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 						foreach ($listoffiles as $fileentry) {
 							$dirsource = $fileentry['name'];
 							$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -1220,8 +1220,8 @@ class Mo extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mymodule->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mymodule->mymodule_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mymodule->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mymodule->mymodule_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -1245,8 +1245,8 @@ class Mo extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mymodule->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mymodule->mymodule_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mymodule->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mymodule->mymodule_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -1292,8 +1292,8 @@ class Mo extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mymodule->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mymodule->mymodule_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mymodule->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->mymodule->mymodule_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -1470,7 +1470,7 @@ class Mo extends CommonObject
 	{
 		global $conf, $langs, $action, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

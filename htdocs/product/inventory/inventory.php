@@ -54,7 +54,7 @@ $backtopage = GETPOST('backtopage', 'alpha');
 $listoffset = GETPOST('listoffset', 'alpha');
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
-$limit = GETPOSTINT('limit') > 0 ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') > 0 ? GETPOSTINT('limit') : $config->liste_limit;
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
 if (empty($page) || $page == -1) {
 	$page = 0;
@@ -79,7 +79,7 @@ if (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) {
 // Initialize a technical objects
 $object = new Inventory($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->stock->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->stock->dir_output.'/temp/massgeneration/'.$user->id;
 
 // Default sort order (if not yet defined by previous GETPOST)
 if (!$sortfield) {
@@ -118,7 +118,7 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'inclu
 //Parameters Page
 $paramwithsearch = '&sortfield=' . urlencode($sortfield);
 $paramwithsearch .= '&sortorder=' . urlencode($sortorder);
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$paramwithsearch .= '&limit='.((int) $limit);
 }
 
@@ -258,7 +258,7 @@ if (empty($reshook)) {
 							break;
 						}
 						if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
-							$sqlpmp = 'UPDATE '.MAIN_DB_PREFIX.'product_perentity SET pmp = '.((float) $line->pmp_real).' WHERE fk_product = '.((int) $line->fk_product).' AND entity='.$conf->entity;
+							$sqlpmp = 'UPDATE '.MAIN_DB_PREFIX.'product_perentity SET pmp = '.((float) $line->pmp_real).' WHERE fk_product = '.((int) $line->fk_product).' AND entity='.$config->entity;
 							$resqlpmp = $db->query($sqlpmp);
 							if (! $resqlpmp) {
 								$error++;
@@ -461,7 +461,7 @@ if ($object->id <= 0) {
 }
 
 $param = '';
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit=' . ((int) $limit);
 }
 
@@ -653,7 +653,7 @@ if ($action != 'record') {
 
 if ($object->status == Inventory::STATUS_VALIDATED) {
 	print '<center>';
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		if ($permissiontoupdatestock) {
 			// Link to launch scan tool
 			if (isModEnabled('barcode') || isModEnabled('productbatch')) {

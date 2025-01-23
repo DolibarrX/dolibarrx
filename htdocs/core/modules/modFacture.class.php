@@ -125,7 +125,7 @@ class modFacture extends DolibarrModules
 				'unitfrequency' => 3600 * 24,
 				'priority' => 51,
 				'status' => 1,
-				'test' => '$conf->facture->enabled',
+				'test' => '$config->facture->enabled',
 				'datestart' => $datestart
 			),
 			1 => array(
@@ -140,7 +140,7 @@ class modFacture extends DolibarrModules
 				'unitfrequency' => 3600 * 24,
 				'priority' => 50,
 				'status' => 0,
-				'test' => '$conf->facture->enabled',
+				'test' => '$config->facture->enabled',
 				'datestart' => $datestart
 			),
 		);
@@ -273,7 +273,7 @@ class modFacture extends DolibarrModules
 		}
 		// Add extra fields
 		$import_extrafield_sample = array();
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'facture' AND entity IN (0, ".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'facture' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -401,7 +401,7 @@ class modFacture extends DolibarrModules
 		}
 		// Add extra fields
 		$import_extrafield_sample = array();
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'facture_det' AND entity IN (0, ".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'facture_det' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -545,7 +545,7 @@ class modFacture extends DolibarrModules
 			$this->export_fields_array[$r]['f.multicurrency_total_ttc'] = 'MulticurrencyAmountTTC';
 		}
 		// Add POS fields
-		if (!empty($conf->cashdesk->enabled) || !empty($conf->takepos->enabled) || getDolGlobalString('INVOICE_SHOW_POS')) {
+		if (!empty($config->cashdesk->enabled) || !empty($config->takepos->enabled) || getDolGlobalString('INVOICE_SHOW_POS')) {
 			$this->export_fields_array[$r]['f.module_source'] = 'Module';
 			$this->export_fields_array[$r]['f.pos_source'] = 'POSTerminal';
 		}
@@ -658,7 +658,7 @@ class modFacture extends DolibarrModules
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'facturedet_extrafields as extra2 on fd.rowid = extra2.fk_object';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product as p on (fd.fk_product = p.rowid)';
 		if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
-			$this->export_sql_end[$r] .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $conf->entity);
+			$this->export_sql_end[$r] .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 		}
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product_extrafields as extra3 on p.rowid = extra3.fk_object';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'accounting_account as aa on fd.fk_code_ventilation = aa.rowid';
@@ -705,7 +705,7 @@ class modFacture extends DolibarrModules
 			$this->export_fields_array[$r]['f.multicurrency_total_ttc'] = 'MulticurrencyAmountTTC';
 			$this->export_examplevalues_array[$r]['f.multicurrency_code'] = 'EUR';
 		}
-		if (!empty($conf->cashdesk->enabled) || !empty($conf->takepos->enabled) || getDolGlobalString('INVOICE_SHOW_POS')) {
+		if (!empty($config->cashdesk->enabled) || !empty($config->takepos->enabled) || getDolGlobalString('INVOICE_SHOW_POS')) {
 			$this->export_fields_array[$r]['f.module_source'] = 'POSModule';
 			$this->export_fields_array[$r]['f.pos_source'] = 'POSTerminal';
 		}
@@ -720,7 +720,7 @@ class modFacture extends DolibarrModules
 			'pj.ref' => 'Text', 'pj.title' => 'Text', 'p.amount' => 'Numeric', 'pf.amount' => 'Numeric', 'p.rowid' => 'Numeric', 'p.ref' => 'Text', 'p.title' => 'Text', 'p.datep' => 'Date', 'p.num_paiement' => 'Numeric',
 			'p.fk_bank' => 'Numeric', 'p.note' => 'Text', 'pt.code' => 'Text', 'pt.libelle' => 'Text', 'ba.ref' => 'Text'
 		);
-		if (!empty($conf->cashdesk->enabled) || !empty($conf->takepos->enabled) || getDolGlobalString('INVOICE_SHOW_POS')) {
+		if (!empty($config->cashdesk->enabled) || !empty($config->takepos->enabled) || getDolGlobalString('INVOICE_SHOW_POS')) {
 			$this->export_fields_array[$r]['f.module_source'] = 'POSModule';
 			$this->export_fields_array[$r]['f.pos_source'] = 'POSTerminal';
 		}
@@ -795,8 +795,8 @@ class modFacture extends DolibarrModules
 		}
 
 		$sql = array(
-			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[1][2])."' AND type = 'invoice' AND entity = ".((int) $conf->entity),
-			"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[1][2])."','invoice',".((int) $conf->entity).")"
+			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[1][2])."' AND type = 'invoice' AND entity = ".((int) $config->entity),
+			"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[1][2])."','invoice',".((int) $config->entity).")"
 		);
 
 		return $this->_init($sql, $options);

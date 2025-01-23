@@ -101,7 +101,7 @@ class ActionsCardCompany extends ActionsCardCommon
 		$this->tpl['profid3'] 	= $this->object->idprof3;
 		$this->tpl['profid4'] 	= $this->object->idprof4;
 
-		if ($conf->use_javascript_ajax && !getDolGlobalString('MAIN_DISABLEVATCHECK')) {
+		if ($config->use_javascript_ajax && !getDolGlobalString('MAIN_DISABLEVATCHECK')) {
 			$js = "\n";
 			$js .= '<script type="text/javascript">';
 			$js .= "function CheckVAT(a) {\n";
@@ -132,7 +132,7 @@ class ActionsCardCompany extends ActionsCardCommon
 			if (!getDolGlobalString('MAIN_DISABLEVATCHECK')) {
 				$s .= ' ';
 
-				if ($conf->use_javascript_ajax) {
+				if ($config->use_javascript_ajax) {
 					$s .= '<a href="#" onclick="CheckVAT(document.formsoc.tva_intra.value);">'.$langs->trans("VATIntraCheck").'</a>';
 					$this->tpl['tva_intra'] = $form->textwithpicto($s, $langs->trans("VATIntraCheckDesc", $langs->transnoentitiesnoconv("VATIntraCheck")), 1);
 				} else {
@@ -160,7 +160,7 @@ class ActionsCardCompany extends ActionsCardCommon
 				if (!getDolGlobalString('MAIN_DISABLEVATCHECK')) {
 					$s .= ' &nbsp; ';
 
-					if ($conf->use_javascript_ajax) {
+					if ($config->use_javascript_ajax) {
 						$s .= '<a href="#" onclick="CheckVAT(document.formsoc.tva_intra.value);">'.$langs->trans("VATIntraCheck").'</a>';
 						$this->tpl['tva_intra'] = $form->textwithpicto($s, $langs->trans("VATIntraCheckDesc", $langs->transnoentitiesnoconv("VATIntraCheck")), 1);
 					} else {

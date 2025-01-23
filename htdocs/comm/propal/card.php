@@ -1453,11 +1453,11 @@ if (empty($reshook)) {
 			// Check price is not lower than minimum
 			if ($usermustrespectpricemin) {
 				if ($pu_equivalent && $price_min && (((float) price2num($pu_equivalent) * (1 - $remise_percent / 100)) < price2num($price_min)) && $price_base_type == 'HT') {
-					$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+					$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 					setEventMessages($mesg, null, 'errors');
 					$error++;
 				} elseif ($pu_equivalent_ttc && $price_min_ttc && (((float) price2num($pu_equivalent_ttc) * (1 - $remise_percent / 100)) < price2num($price_min_ttc)) && $price_base_type == 'TTC') {
-					$mesg = $langs->trans("CantBeLessThanMinPriceInclTax", price(price2num($price_min_ttc, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+					$mesg = $langs->trans("CantBeLessThanMinPriceInclTax", price(price2num($price_min_ttc, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 					setEventMessages($mesg, null, 'errors');
 					$error++;
 				}
@@ -1627,12 +1627,12 @@ if (empty($reshook)) {
 			// Check price is not lower than minimum
 			if ($usermustrespectpricemin) {
 				if ($pu_equivalent && $price_min && (((float) price2num($pu_equivalent) * (1 - (float) $remise_percent / 100)) < (float) price2num($price_min)) && $price_base_type == 'HT') {
-					$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+					$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 					setEventMessages($mesg, null, 'errors');
 					$error++;
 					$action = 'editline';
 				} elseif ($pu_equivalent_ttc && $price_min_ttc && (((float) price2num($pu_equivalent_ttc) * (1 - (float) $remise_percent / 100)) < (float) price2num($price_min_ttc)) && $price_base_type == 'TTC') {
-					$mesg = $langs->trans("CantBeLessThanMinPriceInclTax", price(price2num($price_min_ttc, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+					$mesg = $langs->trans("CantBeLessThanMinPriceInclTax", price(price2num($price_min_ttc, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 					setEventMessages($mesg, null, 'errors');
 					$error++;
 					$action = 'editline';
@@ -1835,7 +1835,7 @@ if (empty($reshook)) {
 	}
 
 	// Actions to build doc
-	$upload_dir = !empty($conf->propal->multidir_output[$object->entity]) ? $conf->propal->multidir_output[$object->entity] : $conf->propal->dir_output;
+	$upload_dir = !empty($config->propal->multidir_output[$object->entity]) ? $config->propal->multidir_output[$object->entity] : $config->propal->dir_output;
 	$permissiontoadd = $usercancreate;
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 }
@@ -1866,7 +1866,7 @@ $now = dol_now();
 
 // Add new proposal
 if ($action == 'create') {
-	$currency_code = $conf->currency;
+	$currency_code = $config->currency;
 
 	print load_fiche_titre($langs->trans("NewProp"), '', 'propal');
 
@@ -1875,7 +1875,7 @@ if ($action == 'create') {
 		$res = $soc->fetch($socid);
 	}
 
-	$currency_code = $conf->currency;
+	$currency_code = $config->currency;
 
 	$cond_reglement_id = GETPOSTINT('cond_reglement_id');
 	$deposit_percent = GETPOST('cond_reglement_id_deposit_percent', 'alpha');
@@ -2094,7 +2094,7 @@ if ($action == 'create') {
 		print '</td></tr>';
 
 		// Validaty duration
-		print '<tr class="field_duree_validitee"><td class="titlefieldcreate fieldrequired">'.$langs->trans("ValidityDuration").'</td><td class="valuefieldcreate">'.img_picto('', 'clock', 'class="pictofixedwidth"').'<input name="duree_validite" class="width50" value="'.(GETPOSTISSET('duree_validite') ? GETPOST('duree_validite', 'alphanohtml') : $conf->global->PROPALE_VALIDITY_DURATION).'"> '.$langs->trans("days").'</td></tr>';
+		print '<tr class="field_duree_validitee"><td class="titlefieldcreate fieldrequired">'.$langs->trans("ValidityDuration").'</td><td class="valuefieldcreate">'.img_picto('', 'clock', 'class="pictofixedwidth"').'<input name="duree_validite" class="width50" value="'.(GETPOSTISSET('duree_validite') ? GETPOST('duree_validite', 'alphanohtml') : $config->global->PROPALE_VALIDITY_DURATION).'"> '.$langs->trans("days").'</td></tr>';
 
 		// Terms of payment
 		print '<tr class="field_cond_reglement_id"><td class="nowrap">'.$langs->trans('PaymentConditionsShort').'</td><td>';
@@ -2196,7 +2196,7 @@ if ($action == 'create') {
 		print '<td class="valuefieldcreate">';
 		print img_picto('', 'pdf', 'class="pictofixedwidth"');
 		$liste = ModelePDFPropales::liste_modeles($db);
-		$preselected = (getDolGlobalString('PROPALE_ADDON_PDF_ODT_DEFAULT') ? $conf->global->PROPALE_ADDON_PDF_ODT_DEFAULT : getDolGlobalString("PROPALE_ADDON_PDF"));
+		$preselected = (getDolGlobalString('PROPALE_ADDON_PDF_ODT_DEFAULT') ? $config->global->PROPALE_ADDON_PDF_ODT_DEFAULT : getDolGlobalString("PROPALE_ADDON_PDF"));
 		print $form->selectarray('model', $liste, $preselected, 0, 0, 0, '', 0, 0, 0, '', 'maxwidth200 widthcentpercentminusx', 1);
 		print "</td></tr>";
 
@@ -2213,7 +2213,7 @@ if ($action == 'create') {
 		print '<tr class="field_note_public">';
 		print '<td class="titlefieldcreate tdtop">'.$langs->trans('NotePublic').'</td>';
 		print '<td class="valuefieldcreate">';
-		$note_public = $object->getDefaultCreateValueFor('note_public', (!empty($objectsrc) ? $objectsrc->note_public : (getDolGlobalString('PROPALE_ADDON_NOTE_PUBLIC_DEFAULT') ? $conf->global->PROPALE_ADDON_NOTE_PUBLIC_DEFAULT : null)), 'restricthtml');
+		$note_public = $object->getDefaultCreateValueFor('note_public', (!empty($objectsrc) ? $objectsrc->note_public : (getDolGlobalString('PROPALE_ADDON_NOTE_PUBLIC_DEFAULT') ? $config->global->PROPALE_ADDON_NOTE_PUBLIC_DEFAULT : null)), 'restricthtml');
 		$doleditor = new DolEditor('note_public', $note_public, '', 80, 'dolibarr_notes', 'In', false, false, !getDolGlobalString('FCKEDITOR_ENABLE_NOTE_PUBLIC') ? 0 : 1, ROWS_3, '90%');
 		print $doleditor->Create(1);
 
@@ -2262,16 +2262,16 @@ if ($action == 'create') {
 			}
 
 			print '<tr><td>'.$langs->trans($newclassname).'</td><td>'.$objectsrc->getNomUrl(1).'</td></tr>';
-			print '<tr><td>'.$langs->trans('AmountHT').'</td><td>'.price($objectsrc->total_ht, 0, $langs, 1, -1, -1, $conf->currency).'</td></tr>';
-			print '<tr><td>'.$langs->trans('AmountVAT').'</td><td>'.price($objectsrc->total_tva, 0, $langs, 1, -1, -1, $conf->currency)."</td></tr>";
+			print '<tr><td>'.$langs->trans('AmountHT').'</td><td>'.price($objectsrc->total_ht, 0, $langs, 1, -1, -1, $config->currency).'</td></tr>';
+			print '<tr><td>'.$langs->trans('AmountVAT').'</td><td>'.price($objectsrc->total_tva, 0, $langs, 1, -1, -1, $config->currency)."</td></tr>";
 			if ($mysoc->localtax1_assuj == "1" || $objectsrc->total_localtax1 != 0) { 		// Localtax1
-				print '<tr><td>'.$langs->transcountry("AmountLT1", $mysoc->country_code).'</td><td>'.price($objectsrc->total_localtax1, 0, $langs, 1, -1, -1, $conf->currency)."</td></tr>";
+				print '<tr><td>'.$langs->transcountry("AmountLT1", $mysoc->country_code).'</td><td>'.price($objectsrc->total_localtax1, 0, $langs, 1, -1, -1, $config->currency)."</td></tr>";
 			}
 
 			if ($mysoc->localtax2_assuj == "1" || $objectsrc->total_localtax2 != 0) { 		// Localtax2
-				print '<tr><td>'.$langs->transcountry("AmountLT2", $mysoc->country_code).'</td><td>'.price($objectsrc->total_localtax2, 0, $langs, 1, -1, -1, $conf->currency)."</td></tr>";
+				print '<tr><td>'.$langs->transcountry("AmountLT2", $mysoc->country_code).'</td><td>'.price($objectsrc->total_localtax2, 0, $langs, 1, -1, -1, $config->currency)."</td></tr>";
 			}
-			print '<tr><td>'.$langs->trans('AmountTTC').'</td><td>'.price($objectsrc->total_ttc, 0, $langs, 1, -1, -1, $conf->currency)."</td></tr>";
+			print '<tr><td>'.$langs->trans('AmountTTC').'</td><td>'.price($objectsrc->total_ttc, 0, $langs, 1, -1, -1, $config->currency)."</td></tr>";
 
 			if (isModEnabled("multicurrency")) {
 				print '<tr><td>'.$langs->trans('MulticurrencyAmountHT').'</td><td>'.price($objectsrc->multicurrency_total_ht).'</td></tr>';
@@ -2623,7 +2623,7 @@ if ($action == 'create') {
 	$morehtmlref = '<div class="refidno">';
 	// Ref customer
 	$morehtmlref .= $form->editfieldkey("RefCustomer", 'ref_client', $object->ref_client, $object, $usercancreate, 'string', '', 0, 1);
-	$morehtmlref .= $form->editfieldval("RefCustomer", 'ref_client', $object->ref_client, $object, $usercancreate, 'string'.(isset($conf->global->THIRDPARTY_REF_INPUT_SIZE) ? ':' . getDolGlobalString('THIRDPARTY_REF_INPUT_SIZE') : ''), '', null, null, '', 1);
+	$morehtmlref .= $form->editfieldval("RefCustomer", 'ref_client', $object->ref_client, $object, $usercancreate, 'string'.(isset($config->global->THIRDPARTY_REF_INPUT_SIZE) ? ':' . getDolGlobalString('THIRDPARTY_REF_INPUT_SIZE') : ''), '', null, null, '', 1);
 	// Thirdparty
 	$morehtmlref .= '<br>'.$soc->getNomUrl(1, 'customer');
 	if (!getDolGlobalString('MAIN_DISABLE_OTHER_LINK') && $soc->id > 0) {
@@ -2744,7 +2744,7 @@ if ($action == 'create') {
 		} else {
 			if (!empty($object->fin_validite)) {
 				print dol_print_date($object->fin_validite, 'day');
-				if ($object->status == Propal::STATUS_VALIDATED && $object->fin_validite < ($now - $conf->propal->cloture->warning_delay)) {
+				if ($object->status == Propal::STATUS_VALIDATED && $object->fin_validite < ($now - $config->propal->cloture->warning_delay)) {
 					print img_warning($langs->trans("Late"));
 				}
 			} else {
@@ -2886,7 +2886,7 @@ if ($action == 'create') {
 			$arrayoutstandingbills = $soc->getOutstandingBills();
 			print($arrayoutstandingbills['opened'] > $soc->outstanding_limit ? img_warning() : '');
 			print price($arrayoutstandingbills['opened']).' / ';
-			print price($soc->outstanding_limit, 0, $langs, 1, - 1, - 1, $conf->currency);
+			print price($soc->outstanding_limit, 0, $langs, 1, - 1, - 1, $config->currency);
 			print '</td>';
 			print '</tr>';
 		}
@@ -2966,16 +2966,16 @@ if ($action == 'create') {
 
 		print '<tr>';
 		print '<td class="titlefieldmiddle">' . $langs->trans('AmountHT') . '</td>';
-		print '<td class="nowrap amountcard right">' . price($object->total_ht, 0, $langs, 1, -1, -1, $conf->currency) . '</td>';
-		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+		print '<td class="nowrap amountcard right">' . price($object->total_ht, 0, $langs, 1, -1, -1, $config->currency) . '</td>';
+		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 			print '<td class="nowrap amountcard right">' . price($object->multicurrency_total_ht, 0, $langs, 1, -1, -1, $object->multicurrency_code) . '</td>';
 		}
 		print '</tr>';
 
 		print '<tr>';
 		print '<td>' . $langs->trans('AmountVAT') . '</td>';
-		print '<td class="nowrap amountcard right">' . price($object->total_tva, 0, $langs, 1, -1, -1, $conf->currency) . '</td>';
-		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+		print '<td class="nowrap amountcard right">' . price($object->total_tva, 0, $langs, 1, -1, -1, $config->currency) . '</td>';
+		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 			print '<td class="nowrap amountcard right">' . price($object->multicurrency_total_tva, 0, $langs, 1, -1, -1, $object->multicurrency_code) . '</td>';
 		}
 		print '</tr>';
@@ -2983,8 +2983,8 @@ if ($action == 'create') {
 		if ($mysoc->localtax1_assuj == "1" || $object->total_localtax1 != 0) {
 			print '<tr>';
 			print '<td>' . $langs->transcountry("AmountLT1", $mysoc->country_code) . '</td>';
-			print '<td class="nowrap amountcard right">' . price($object->total_localtax1, 0, $langs, 1, -1, -1, $conf->currency) . '</td>';
-			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+			print '<td class="nowrap amountcard right">' . price($object->total_localtax1, 0, $langs, 1, -1, -1, $config->currency) . '</td>';
+			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 				$object->multicurrency_total_localtax1 = price2num($object->total_localtax1 * $object->multicurrency_tx, 'MT');
 
 				print '<td class="nowrap amountcard right">' . price($object->multicurrency_total_localtax1, 0, $langs, 1, -1, -1, $object->multicurrency_code) . '</td>';
@@ -2995,8 +2995,8 @@ if ($action == 'create') {
 		if ($mysoc->localtax2_assuj == "1" || $object->total_localtax2 != 0) {
 			print '<tr>';
 			print '<td>' . $langs->transcountry("AmountLT2", $mysoc->country_code) . '</td>';
-			print '<td class="nowrap amountcard right">' . price($object->total_localtax2, 0, $langs, 1, -1, -1, $conf->currency) . '</td>';
-			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+			print '<td class="nowrap amountcard right">' . price($object->total_localtax2, 0, $langs, 1, -1, -1, $config->currency) . '</td>';
+			if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 				$object->multicurrency_total_localtax2 = price2num($object->total_localtax2 * $object->multicurrency_tx, 'MT');
 
 				print '<td class="nowrap amountcard right">' . price($object->multicurrency_total_localtax2, 0, $langs, 1, -1, -1, $object->multicurrency_code) . '</td>';
@@ -3006,8 +3006,8 @@ if ($action == 'create') {
 
 		print '<tr>';
 		print '<td>' . $langs->trans('AmountTTC') . '</td>';
-		print '<td class="nowrap amountcard right">' . price($object->total_ttc, 0, $langs, 1, -1, -1, $conf->currency) . '</td>';
-		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $conf->currency)) {
+		print '<td class="nowrap amountcard right">' . price($object->total_ttc, 0, $langs, 1, -1, -1, $config->currency) . '</td>';
+		if (isModEnabled("multicurrency") && ($object->multicurrency_code && $object->multicurrency_code != $config->currency)) {
 			print '<td class="nowrap amountcard right">' . price($object->multicurrency_total_ttc, 0, $langs, 1, -1, -1, $object->multicurrency_code) . '</td>';
 		}
 		print '</tr>';
@@ -3057,7 +3057,7 @@ if ($action == 'create') {
 		<input type="hidden" name="id" value="' . $object->id.'">
 		';
 
-		if (!empty($conf->use_javascript_ajax) && $object->status == Propal::STATUS_DRAFT) {
+		if (!empty($config->use_javascript_ajax) && $object->status == Propal::STATUS_DRAFT) {
 			include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 		}
 
@@ -3121,7 +3121,7 @@ if ($action == 'create') {
 					}
 				}
 				// Create event
-				/*if (isModEnabled('agenda') && !empty($conf->global->MAIN_ADD_EVENT_ON_ELEMENT_CARD)) 	// Add hidden condition because this is not a "workflow" action so should appears somewhere else on page.
+				/*if (isModEnabled('agenda') && !empty($config->global->MAIN_ADD_EVENT_ON_ELEMENT_CARD)) 	// Add hidden condition because this is not a "workflow" action so should appears somewhere else on page.
 				{
 					print '<a class="butAction" href="' . DOL_URL_ROOT . '/comm/action/card.php?action=create&amp;origin=' . $object->element . '&amp;originid=' . $object->id . '&amp;socid=' . $object->socid . '">' . $langs->trans("AddAction") . '</a></div>';
 				}*/
@@ -3291,7 +3291,7 @@ if ($action == 'create') {
 		 * Generated documents
 		 */
 		$objref = dol_sanitizeFileName($object->ref);
-		$filedir = $conf->propal->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
+		$filedir = $config->propal->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
 		$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 		$genallowed = $usercanread;
 		$delallowed = $usercancreate;
@@ -3336,7 +3336,7 @@ if ($action == 'create') {
 	// Presend form
 	$modelmail = 'propal_send';
 	$defaulttopic = 'SendPropalRef';
-	$diroutput = $conf->propal->multidir_output[$object->entity];
+	$diroutput = $config->propal->multidir_output[$object->entity];
 	$trackid = 'pro'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

@@ -76,25 +76,25 @@ if ($action == 'setvalue') {
 		$mailingdelay = 0.001;
 	}
 
-	$res = dolibarr_set_const($db, "MAILING_EMAIL_FROM", $mailfrom, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "MAILING_EMAIL_FROM", $mailfrom, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
-	$res = dolibarr_set_const($db, "MAILING_EMAIL_ERRORSTO", $mailerror, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "MAILING_EMAIL_ERRORSTO", $mailerror, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
-	$res = dolibarr_set_const($db, "MAILING_DELAY", $mailingdelay, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "MAILING_DELAY", $mailingdelay, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
-	$res = dolibarr_set_const($db, "MAILING_CONTACT_DEFAULT_BULK_STATUS", $contactbulkdefault, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "MAILING_CONTACT_DEFAULT_BULK_STATUS", $contactbulkdefault, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
 
 	// Create temporary encryption key if needed
-	$res = dolibarr_set_const($db, "MAILING_EMAIL_UNSUBSCRIBE_KEY", $checkread_key, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "MAILING_EMAIL_UNSUBSCRIBE_KEY", $checkread_key, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -110,7 +110,7 @@ if ($action == 'setvalue') {
 }
 if ($action == 'setonsearchandlistgooncustomerorsuppliercard') {
 	$setonsearchandlistgooncustomerorsuppliercard = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "SOCIETE_ON_SEARCH_AND_LIST_GO_ON_CUSTOMER_OR_SUPPLIER_CARD", $setonsearchandlistgooncustomerorsuppliercard, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "SOCIETE_ON_SEARCH_AND_LIST_GO_ON_CUSTOMER_OR_SUPPLIER_CARD", $setonsearchandlistgooncustomerorsuppliercard, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -152,7 +152,7 @@ print '<tr class="oddeven"><td>';
 $help = img_help(1, $langs->trans("EMailHelpMsgSPFDKIM"));
 print $langs->trans("MailingEMailFrom").' '.$help.'</td><td>';
 print '<input class="minwidth100" type="text" name="MAILING_EMAIL_FROM" value="' . getDolGlobalString('MAILING_EMAIL_FROM').'">';
-if (getDolGlobalString('MAILING_EMAIL_FROM') && !isValidEmail($conf->global->MAILING_EMAIL_FROM)) {
+if (getDolGlobalString('MAILING_EMAIL_FROM') && !isValidEmail($config->global->MAILING_EMAIL_FROM)) {
 	print ' '.img_warning($langs->trans("BadEMail"));
 }
 print '</td>';
@@ -183,7 +183,7 @@ print '</tr>';
 print '<tr class="oddeven"><td>';
 print $langs->trans("ActivateCheckReadKey").'</td><td>';
 print '<input class="minwidth100 maxwdith250 widthcentpercentminusx" type="text" name="MAILING_EMAIL_UNSUBSCRIBE_KEY" id="MAILING_EMAIL_UNSUBSCRIBE_KEY" value="'.getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY').'">';
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
 }
 print '</td>';
@@ -201,7 +201,7 @@ print '<td class="hideonsmartphone"></td>';
 print '</tr>';
 
 
-if (!empty($conf->use_javascript_ajax) && getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 1) {
+if (!empty($config->use_javascript_ajax) && getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 1) {
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("MailAdvTargetRecipients").'</td><td>';
 	print ajax_constantonoff('EMAILING_USE_ADVANCED_SELECTOR');

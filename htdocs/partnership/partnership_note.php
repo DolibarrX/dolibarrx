@@ -50,7 +50,7 @@ $backtopage = GETPOST('backtopage', 'alpha');
 // Initialize a technical objects
 $object = new Partnership($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->partnership->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->partnership->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('partnershipnote', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -63,7 +63,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->partnership->multidir_output[$object->entity]."/".$object->id;
+	$upload_dir = $config->partnership->multidir_output[$object->entity]."/".$object->id;
 }
 
 $permissiontoread = $user->hasRight('partnership', 'read');
@@ -75,7 +75,7 @@ $managedfor = getDolGlobalString('PARTNERSHIP_IS_MANAGED_FOR', 'thirdparty');
 //if ($user->socid > 0) accessforbidden();
 //if ($user->socid > 0) $socid = $user->socid;
 //$result = restrictedArea($user, 'partnership', $object->id);
-if (empty($conf->partnership->enabled)) {
+if (empty($config->partnership->enabled)) {
 	accessforbidden();
 }
 if (empty($permissiontoread)) {

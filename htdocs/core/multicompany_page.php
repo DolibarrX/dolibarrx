@@ -172,7 +172,7 @@ if (!isModEnabled('multicompany')) {
 		$multicompanyList .= '<img class="photocontact photorefnoborder valignmiddle marginrightonly" alt="" src="'.$urlforimage.'">';
 
 		$multicompanyList .= dol_escape_htmltag($entitycursor);
-		if ($conf->entity == $entityid) {
+		if ($config->entity == $entityid) {
 			$multicompanyList .= ' <span class="opacitymedium">'.img_picto($langs->trans("Currently"), 'tick').'</span>';
 		}
 		$multicompanyList .= '</a>';

@@ -63,7 +63,7 @@ $toselect   = GETPOST('toselect', 'array'); // Array of ids of elements selected
 $optioncss  = GETPOST('optioncss', 'aZ'); // Option for the css output (always '' except when 'print')
 $mode       = GETPOST('mode', 'aZ'); // The output mode ('list', 'kanban', 'hierarchy', 'calendar', ...)
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -85,7 +85,7 @@ if (!$sortorder) {
 $object = new Societe($db);
 $objectwebsiteaccount = new SocieteAccount($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = isModEnabled('website') ? $conf->website->dir_output.'/temp/massgeneration/'.$user->id : '';
+$diroutputmassaction = isModEnabled('website') ? $config->website->dir_output.'/temp/massgeneration/'.$user->id : '';
 $hookManager->initHooks(array('websitethirdpartylist')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -190,7 +190,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'WebsiteAccount';
 	$objectlabel = 'WebsiteAccount';
-	$uploaddir = empty($conf->societe->multidir_output[$object->entity]) ? $conf->societe->dir_output : $conf->societe->multidir_output[$object->entity];
+	$uploaddir = empty($config->societe->multidir_output[$object->entity]) ? $config->societe->dir_output : $config->societe->multidir_output[$object->entity];
 
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
@@ -348,7 +348,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {

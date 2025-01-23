@@ -271,7 +271,7 @@ abstract class DoliDB implements Database
 			return "";
 		}
 		if ($limit < 0) {
-			$limit = $conf->liste_limit;
+			$limit = $config->liste_limit;
 		}
 		if ($offset > 0) {
 			return " LIMIT ".((int) $offset).",".((int) $limit)." ";

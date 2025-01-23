@@ -58,7 +58,7 @@ $search_account = GETPOST('search_account', 'alpha');
 $search_amount = GETPOST('search_amount', 'alpha');
 $mode = GETPOST('mode', 'alpha');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -168,7 +168,7 @@ $sqlfields = $sql; // $sql fields to remove for count total
 $sql .= " FROM ".MAIN_DB_PREFIX."bordereau_cheque as bc,";
 $sql .= " ".MAIN_DB_PREFIX."bank_account as ba";
 $sql .= " WHERE bc.fk_bank_account = ba.rowid";
-$sql .= " AND bc.entity = ".((int) $conf->entity);
+$sql .= " AND bc.entity = ".((int) $config->entity);
 
 // Search criteria
 if ($search_ref) {
@@ -249,7 +249,7 @@ if ($resql) {
 	if ($search_date_endyear) {
 		$param .= '&search_date_endyear='.urlencode((string) ($search_date_endyear));
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.$limit;
 	}
 	if ($search_amount != '') {

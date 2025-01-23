@@ -53,7 +53,7 @@ $optioncss  = GETPOST('optioncss', 'aZ'); // Option for the css output (always '
 $mode       = GETPOST('mode', 'aZ'); // The output mode ('list', 'kanban', 'hierarchy', 'calendar', ...)
 
 // Load variable for pagination
-$limit 		= GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit 		= GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield 	= GETPOST('sortfield', 'aZ09comma');
 $sortorder 	= GETPOST('sortorder', 'aZ09comma');
 $page 		= GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -147,7 +147,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Mailing';
 	$objectlabel = 'Mailing';
-	$uploaddir = $conf->mailing->dir_output;
+	$uploaddir = $config->mailing->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -174,7 +174,7 @@ if ($filteremail) {
 	$sqlfields = $sql; // $sql fields to remove for count total
 
 	$sql .= " FROM ".MAIN_DB_PREFIX."mailing as m, ".MAIN_DB_PREFIX."mailing_cibles as mc";
-	$sql .= " WHERE m.rowid = mc.fk_mailing AND m.entity = ".$conf->entity;
+	$sql .= " WHERE m.rowid = mc.fk_mailing AND m.entity = ".$config->entity;
 	$sql .= " AND mc.email = '".$db->escape($filteremail)."'";
 	if ($search_ref) {
 		$sql .= " AND m.rowid = '".$db->escape($search_ref)."'";
@@ -197,7 +197,7 @@ if ($filteremail) {
 	$sqlfields = $sql; // $sql fields to remove for count total
 
 	$sql .= " FROM ".MAIN_DB_PREFIX."mailing as m";
-	$sql .= " WHERE m.entity = ".((int) $conf->entity);
+	$sql .= " WHERE m.entity = ".((int) $config->entity);
 	if ($search_ref) {
 		$sql .= " AND m.rowid = '".$db->escape($search_ref)."'";
 	}
@@ -289,7 +289,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -549,9 +549,9 @@ while ($i < $imaxinloop) {
 	if (!$filteremail) {
 		print '<td class="center nowraponall">';
 		$nbemail = $obj->nbemail;
-		/*if ($obj->status != 3 && !empty($conf->global->MAILING_LIMIT_SENDBYWEB) && $conf->global->MAILING_LIMIT_SENDBYWEB < $nbemail)
+		/*if ($obj->status != 3 && !empty($config->global->MAILING_LIMIT_SENDBYWEB) && $config->global->MAILING_LIMIT_SENDBYWEB < $nbemail)
 		{
-			$text=$langs->trans('LimitSendingEmailing',$conf->global->MAILING_LIMIT_SENDBYWEB);
+			$text=$langs->trans('LimitSendingEmailing',$config->global->MAILING_LIMIT_SENDBYWEB);
 			print $form->textwithpicto($nbemail,$text,1,'warning');
 		}
 		else

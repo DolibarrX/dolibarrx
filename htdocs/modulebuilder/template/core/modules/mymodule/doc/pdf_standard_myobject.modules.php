@@ -231,10 +231,10 @@ class pdf_standard_myobject extends ModelePDFMyObject
 				$arephoto = false;
 				foreach ($pdir as $midir) {
 					if (!$arephoto) {
-						if ($conf->entity != $objphoto->entity) {
-							$dir = $conf->product->multidir_output[$objphoto->entity].'/'.$midir; //Check repertories of current entities
+						if ($config->entity != $objphoto->entity) {
+							$dir = $config->product->multidir_output[$objphoto->entity].'/'.$midir; //Check repertories of current entities
 						} else {
-							$dir = $conf->product->dir_output.'/'.$midir; //Check repertory of the current product
+							$dir = $config->product->dir_output.'/'.$midir; //Check repertory of the current product
 						}
 
 						foreach ($objphoto->liste_photos($dir, 1) as $key => $obj) {
@@ -321,9 +321,9 @@ class pdf_standard_myobject extends ModelePDFMyObject
 
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$logodir = $conf->mycompany->dir_output;
-					if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-						$logodir = $conf->mycompany->multidir_output[$object->entity];
+					$logodir = $config->mycompany->dir_output;
+					if (!empty($config->mycompany->multidir_output[$object->entity])) {
+						$logodir = $config->mycompany->multidir_output[$object->entity];
 					}
 					$pagecount = $pdf->setSourceFile($logodir.'/'.getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
@@ -876,7 +876,7 @@ class pdf_standard_myobject extends ModelePDFMyObject
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)
@@ -892,7 +892,7 @@ class pdf_standard_myobject extends ModelePDFMyObject
 			$pdf->SetXY($this->page_largeur - $this->marge_droite - ($pdf->GetStringWidth($titre) + 3), $tab_top - 4);
 			$pdf->MultiCell(($pdf->GetStringWidth($titre) + 3), 2, $titre);
 
-			//$conf->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
+			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
 				$pdf->Rect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, $this->tabTitleHeight, 'F', array(), explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
@@ -958,7 +958,7 @@ class pdf_standard_myobject extends ModelePDFMyObject
 		// Logo
 		if (!getDolGlobalInt('PDF_DISABLE_MYCOMPANY_LOGO')) {
 			if ($this->emetteur->logo) {
-				$logodir = $conf->mycompany->dir_output;
+				$logodir = $config->mycompany->dir_output;
 				if (!empty(getMultidirOutput($object, 'mycompany'))) {
 					$logodir = getMultidirOutput($object, 'mycompany');
 				}

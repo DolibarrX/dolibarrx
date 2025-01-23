@@ -61,7 +61,7 @@ print load_fiche_titre($langs->trans("SetupArea"), '', 'tools');
 
 
 if (getDolGlobalString('MAIN_MOTD_SETUPPAGE')) {
-	$conf->global->MAIN_MOTD_SETUPPAGE = preg_replace('/<br(\s[\sa-zA-Z_="]*)?\/?>/i', '<br>', getDolGlobalString('MAIN_MOTD_SETUPPAGE'));
+	$config->global->MAIN_MOTD_SETUPPAGE = preg_replace('/<br(\s[\sa-zA-Z_="]*)?\/?>/i', '<br>', getDolGlobalString('MAIN_MOTD_SETUPPAGE'));
 	if (getDolGlobalString('MAIN_MOTD_SETUPPAGE')) {
 		$i = 0;
 		$reg = array();
@@ -70,13 +70,13 @@ if (getDolGlobalString('MAIN_MOTD_SETUPPAGE')) {
 			if (!empty($tmp[1])) {
 				$langs->load($tmp[1]);
 			}
-			$conf->global->MAIN_MOTD_SETUPPAGE = preg_replace('/__\('.preg_quote($reg[1]).'\)__/i', $langs->trans($tmp[0]), getDolGlobalString('MAIN_MOTD_SETUPPAGE'));
+			$config->global->MAIN_MOTD_SETUPPAGE = preg_replace('/__\('.preg_quote($reg[1]).'\)__/i', $langs->trans($tmp[0]), getDolGlobalString('MAIN_MOTD_SETUPPAGE'));
 			$i++;
 		}
 
 		print "\n<!-- Start of welcome text for setup page -->\n";
 		print '<table width="100%" class="notopnoleftnoright"><tr><td>';
-		print dol_htmlentitiesbr($conf->global->MAIN_MOTD_SETUPPAGE);
+		print dol_htmlentitiesbr($config->global->MAIN_MOTD_SETUPPAGE);
 		print '</td></tr></table><br>';
 		print "\n<!-- End of welcome text for setup page -->\n";
 	}
@@ -115,10 +115,10 @@ print '<br>';
 print '<section class="setupsection">';
 
 // Define $nbModulesNotAutoEnabled - TODO This code is at different places
-$nbModulesNotAutoEnabled = count($conf->modules);
+$nbModulesNotAutoEnabled = count($config->modules);
 $listOfModulesAutoEnabled = array('agenda', 'fckeditor', 'export', 'import');
 foreach ($listOfModulesAutoEnabled as $moduleAutoEnable) {
-	if (in_array($moduleAutoEnable, $conf->modules)) {
+	if (in_array($moduleAutoEnable, $config->modules)) {
 		$nbModulesNotAutoEnabled--;
 	}
 }

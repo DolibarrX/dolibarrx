@@ -51,7 +51,7 @@ if (!$user->admin) {
 
 $dirstandard = array();
 $dirsmartphone = array();
-$dirmenus = array_merge(array("/core/menus/"), (array) $conf->modules_parts['menus']);
+$dirmenus = array_merge(array("/core/menus/"), (array) $config->modules_parts['menus']);
 foreach ($dirmenus as $dirmenu) {
 	$dirstandard[] = $dirmenu.'standard';
 	$dirsmartphone[] = $dirmenu.'smartphone';

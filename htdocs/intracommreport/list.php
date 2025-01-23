@@ -70,10 +70,10 @@ if ((string) $type == '0') {
 	}
 }
 
-$diroutputmassaction = $conf->product->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->product->dir_output.'/temp/massgeneration/'.$user->id;
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -89,7 +89,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new IntracommReport($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->mymodule->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->mymodule->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($contextpage)); 	// Note that conf->hooks_modules contains array of activated contexes
 
 // Fetch optionals attributes and labels
@@ -229,7 +229,7 @@ if (empty($reshook)) {
 		$objectlabel = 'Products';
 	}
 
-	$uploaddir = $conf->product->dir_output;
+	$uploaddir = $config->product->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -440,7 +440,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -546,7 +546,7 @@ if (!empty($moreforfilter)) {
 }
 
 $varpage = empty($contextpage) ? $_SERVER["PHP_SELF"] : $contextpage;
-$htmlofselectarray = $form->multiSelectArrayWithCheckbox('selectedfields', $arrayfields, $varpage, $conf->main_checkbox_left_column);  // This also change content of $arrayfields with user setup
+$htmlofselectarray = $form->multiSelectArrayWithCheckbox('selectedfields', $arrayfields, $varpage, $config->main_checkbox_left_column);  // This also change content of $arrayfields with user setup
 $selectedfields = ($mode != 'kanban' ? $htmlofselectarray : '');
 $selectedfields .= (count($arrayofmassactions) ? $form->showCheckAddButtons('checkforselect', 1) : '');
 
@@ -557,7 +557,7 @@ print '<table class="tagtable nobottomiftotal liste'.($moreforfilter ? " listwit
 // --------------------------------------------------------------------
 print '<tr class="liste_titre_filter">';
 // Action column
-if ($conf->main_checkbox_left_column) {
+if ($config->main_checkbox_left_column) {
 	print '<td class="liste_titre center maxwidthsearch">';
 	$searchpicto = $form->showFilterButtons('left');
 	print $searchpicto;
@@ -609,7 +609,7 @@ print $hookManager->resPrint;
  print '<td class="liste_titre"></td>';
  }*/
 // Action column
-if (!$conf->main_checkbox_left_column) {
+if (!$config->main_checkbox_left_column) {
 	print '<td class="liste_titre center maxwidthsearch">';
 	$searchpicto = $form->showFilterButtons();
 	print $searchpicto;
@@ -624,7 +624,7 @@ $totalarray['nbfield'] = 0;
 // --------------------------------------------------------------------
 print '<tr class="liste_titre">';
 // Action column
-if ($conf->main_checkbox_left_column) {
+if ($config->main_checkbox_left_column) {
 	print getTitleFieldOfList($selectedfields, 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'center maxwidthsearch ')."\n";
 	$totalarray['nbfield']++;
 }
@@ -656,7 +656,7 @@ print $hookManager->resPrint;
  $totalarray['nbfield']++;
  }*/
 // Action column
-if (!$conf->main_checkbox_left_column) {
+if (!$config->main_checkbox_left_column) {
 	print getTitleFieldOfList($selectedfields, 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'center maxwidthsearch ')."\n";
 	$totalarray['nbfield']++;
 }
@@ -692,12 +692,12 @@ while ($i < $imaxinloop) {
 	/*
 	 $object->thirdparty = null;
 	 if ($obj->fk_soc > 0) {
-	 if (!empty($conf->cache['thirdparty'][$obj->fk_soc])) {
-	 $companyobj = $conf->cache['thirdparty'][$obj->fk_soc];
+	 if (!empty($config->cache['thirdparty'][$obj->fk_soc])) {
+	 $companyobj = $config->cache['thirdparty'][$obj->fk_soc];
 	 } else {
 	 $companyobj = new Societe($db);
 	 $companyobj->fetch($obj->fk_soc);
-	 $conf->cache['thirdparty'][$obj->fk_soc] = $companyobj;
+	 $config->cache['thirdparty'][$obj->fk_soc] = $companyobj;
 	 }
 
 	 $object->thirdparty = $companyobj;
@@ -728,7 +728,7 @@ while ($i < $imaxinloop) {
 		print '<tr data-rowid="'.$object->id.'" class="oddeven">';
 
 		// Action column
-		if ($conf->main_checkbox_left_column) {
+		if ($config->main_checkbox_left_column) {
 			print '<td class="nowrap center">';
 			if ($massactionbutton || $massaction) { // If we are in select mode (massactionbutton defined) or if we have already selected and sent an action ($massaction) defined
 				$selected = 0;
@@ -805,7 +805,7 @@ while ($i < $imaxinloop) {
 		 }*/
 
 		// Action column
-		if (empty($conf->main_checkbox_left_column)) {
+		if (empty($config->main_checkbox_left_column)) {
 			print '<td class="nowrap center">';
 			if ($massactionbutton || $massaction) { // If we are in select mode (massactionbutton defined) or if we have already selected and sent an action ($massaction) defined
 				$selected = 0;

@@ -160,7 +160,7 @@ if ($result) {
 $thirdpartygraph = '<div class="div-table-responsive-no-min">';
 $thirdpartygraph .= '<table class="noborder nohover centpercent">'."\n";
 $thirdpartygraph .= '<tr class="liste_titre"><th colspan="2">'.$langs->trans("Statistics").'</th></tr>';
-if (!empty($conf->use_javascript_ajax) && ((round($third['prospect']) ? 1 : 0) + (round($third['customer']) ? 1 : 0) + (round($third['supplier']) ? 1 : 0) + (round($third['other']) ? 1 : 0) >= 2)) {
+if (!empty($config->use_javascript_ajax) && ((round($third['prospect']) ? 1 : 0) + (round($third['customer']) ? 1 : 0) + (round($third['supplier']) ? 1 : 0) + (round($third['other']) ? 1 : 0) >= 2)) {
 	$thirdpartygraph .= '<tr><td class="center" colspan="2">';
 	$dataseries = array();
 	if (isModEnabled('societe') && $user->hasRight('societe', 'lire') && !getDolGlobalString('SOCIETE_DISABLE_PROSPECTS') && !getDolGlobalString('SOCIETE_DISABLE_PROSPECTS_STATS')) {
@@ -234,7 +234,7 @@ if (isModEnabled('category') && getDolGlobalString('CATEGORY_GRAPHSTATS_ON_THIRD
 	if ($result) {
 		$num = $db->num_rows($result);
 		$i = 0;
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			$dataseries = array();
 			$rest = 0;
 			$nbmax = 10;
@@ -301,7 +301,7 @@ $sql .= ", s.entity";
 $sql .= ", s.canvas, s.tms as date_modification, s.status as status";
 $sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
 if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
-	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $conf->entity);
+	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
 }
 // TODO Replace this
 if (!$user->hasRight('societe', 'client', 'voir')) {
@@ -424,7 +424,7 @@ $sql .= ", sp.rowid as cid, sp.canvas as ccanvas, sp.email as cemail, sp.firstna
 $sql .= ", sp.address as caddress, sp.phone as cphone";
 $sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."socpeople as sp";
 if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
-	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $conf->entity);
+	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = s.rowid AND spe.entity = " . ((int) $config->entity);
 }
 // TODO Replace this
 if (!$user->hasRight('societe', 'client', 'voir')) {

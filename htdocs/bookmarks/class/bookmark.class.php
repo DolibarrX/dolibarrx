@@ -118,7 +118,7 @@ class Bookmark extends CommonObject
 		$sql .= " title, position, favicon";
 		$sql .= " FROM ".MAIN_DB_PREFIX."bookmark";
 		$sql .= " WHERE rowid = ".((int) $id);
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		dol_syslog("Bookmark::fetch", LOG_DEBUG);
 		$resql = $this->db->query($sql);
@@ -172,7 +172,7 @@ class Bookmark extends CommonObject
 		$sql .= " '".$this->db->idate($now)."',";
 		$sql .= " '".$this->db->escape($this->url)."', '".$this->db->escape($this->target)."',";
 		$sql .= " '".$this->db->escape($this->title)."', '".$this->db->escape($this->favicon)."', ".(int) $this->position;
-		$sql .= ", ".(int) $conf->entity;
+		$sql .= ", ".(int) $config->entity;
 		$sql .= ")";
 
 		dol_syslog("Bookmark::create", LOG_DEBUG);
@@ -292,7 +292,7 @@ class Bookmark extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

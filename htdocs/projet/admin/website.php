@@ -65,19 +65,19 @@ $error = 0;
 
 if ($action == 'setPROJECT_ENABLE_PUBLIC') {
 	if (GETPOST('value')) {
-		dolibarr_set_const($db, 'PROJECT_ENABLE_PUBLIC', 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'PROJECT_ENABLE_PUBLIC', 1, 'chaine', 0, '', $config->entity);
 	} else {
-		dolibarr_set_const($db, 'PROJECT_ENABLE_PUBLIC', 0, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'PROJECT_ENABLE_PUBLIC', 0, 'chaine', 0, '', $config->entity);
 	}
 }
 
 if ($action == 'update') {
 	$public = GETPOST('PROJECT_ENABLE_PUBLIC');
 	$defaultoppstatus = GETPOSTINT('PROJECT_DEFAULT_OPPORTUNITY_STATUS_FOR_ONLINE_LEAD');
-	$res = dolibarr_set_const($db, "PROJET_VISIBILITY", $visibility, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PROJET_VISIBILITY", $visibility, 'chaine', 0, '', $config->entity);
 
-	$res = dolibarr_set_const($db, "PROJECT_ENABLE_PUBLIC", $public, 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, "PROJECT_DEFAULT_OPPORTUNITY_STATUS_FOR_ONLINE_LEAD", $defaultoppstatus, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PROJECT_ENABLE_PUBLIC", $public, 'chaine', 0, '', $config->entity);
+	$res = dolibarr_set_const($db, "PROJECT_DEFAULT_OPPORTUNITY_STATUS_FOR_ONLINE_LEAD", $defaultoppstatus, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -183,7 +183,7 @@ if (getDolGlobalString('PROJECT_ENABLE_PUBLIC')) {
 	//print $langs->trans('FollowingLinksArePublic').'<br>';
 	print img_picto('', 'globe').' <span class="opacitymedium">'.$langs->trans('BlankSubscriptionForm').'</span><br>';
 	if (isModEnabled('multicompany')) {
-		$entity_qr = '?entity='.$conf->entity;
+		$entity_qr = '?entity='.$config->entity;
 	} else {
 		$entity_qr = '';
 	}

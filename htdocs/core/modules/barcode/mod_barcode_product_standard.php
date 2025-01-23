@@ -73,7 +73,7 @@ class mod_barcode_product_standard extends ModeleNumRefBarCode
 
 		$langs->load("products");
 
-		$disabled = ((!empty($mc->sharings['referent']) && $mc->sharings['referent'] != $conf->entity) ? ' disabled' : '');
+		$disabled = ((!empty($mc->sharings['referent']) && $mc->sharings['referent'] != $config->entity) ? ' disabled' : '');
 
 		$texte = $langs->trans('GenericNumRefModelDesc')."<br>\n";
 		$texte .= '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
@@ -145,7 +145,7 @@ class mod_barcode_product_standard extends ModeleNumRefBarCode
 		$sql = "SELECT rowid, code, libelle as label";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_barcode_type";
 		$sql .= " WHERE rowid = ".(int) $type;
-		$sql .= " AND entity = ".((int) $conf->entity);
+		$sql .= " AND entity = ".((int) $config->entity);
 		$result = $db->query($sql);
 		if ($result) {
 			$num = $db->num_rows($result);
@@ -326,7 +326,7 @@ class mod_barcode_product_standard extends ModeleNumRefBarCode
 		$result = 0;
 
 		// Get Mask value
-		$mask = !getDolGlobalString('BARCODE_STANDARD_PRODUCT_MASK') ? '' : $conf->global->BARCODE_STANDARD_PRODUCT_MASK;
+		$mask = !getDolGlobalString('BARCODE_STANDARD_PRODUCT_MASK') ? '' : $config->global->BARCODE_STANDARD_PRODUCT_MASK;
 		if (!$mask) {
 			$this->error = 'NotConfigured';
 			return -1;

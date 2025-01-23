@@ -178,7 +178,7 @@ class pdf_strato extends ModelePDFContract
 
 		$nblines = count($object->lines);
 
-		if ($conf->contract->multidir_output[$conf->entity]) {
+		if ($config->contract->multidir_output[$config->entity]) {
 			$object->fetch_thirdparty();
 
 			// Definition of $dir and $file
@@ -231,9 +231,9 @@ class pdf_strato extends ModelePDFContract
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$logodir = $conf->mycompany->dir_output;
-					if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-						$logodir = $conf->mycompany->multidir_output[$object->entity];
+					$logodir = $config->mycompany->dir_output;
+					if (!empty($config->mycompany->multidir_output[$object->entity])) {
+						$logodir = $config->mycompany->multidir_output[$object->entity];
 					}
 					$pagecount = $pdf->setSourceFile($logodir.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
@@ -550,7 +550,7 @@ class pdf_strato extends ModelePDFContract
 		$text=$object->description;
 		if ($object->duree > 0)
 		{
-			$totaltime=convertSecondToTime($object->duree,'all',$conf->global->MAIN_DURATION_OF_WORKDAY);
+			$totaltime=convertSecondToTime($object->duree,'all',$config->global->MAIN_DURATION_OF_WORKDAY);
 			$text.=($text?' - ':'').$langs->trans("Total").": ".$totaltime;
 		}
 		$desc=dol_htmlentitiesbr($text,1);
@@ -644,7 +644,7 @@ class pdf_strato extends ModelePDFContract
 		// Logo
 		if (!getDolGlobalString('PDF_DISABLE_MYCOMPANY_LOGO')) {
 			if ($this->emetteur->logo) {
-				$logodir = $conf->mycompany->dir_output;
+				$logodir = $config->mycompany->dir_output;
 				if (getMultidirOutput($object, 'mycompany')) {
 					$logodir = getMultidirOutput($object, 'mycompany');
 				}
@@ -774,7 +774,7 @@ class pdf_strato extends ModelePDFContract
 			$this->recipient = $object->thirdparty;
 
 			// Recipient name
-			if ($usecontact && ($object->contact->socid != $object->thirdparty->id) && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
+			if ($usecontact && ($object->contact->socid != $object->thirdparty->id) && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
 				$thirdparty = $object->contact;
 			} else {
 				$thirdparty = $object->thirdparty;

@@ -94,7 +94,7 @@ class box_services_contracts extends ModeleBoxes
 				$sql .= " INNER JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 			}
 			$sql .= ")";
-			$sql .= " WHERE c.entity = ".$conf->entity;
+			$sql .= " WHERE c.entity = ".$config->entity;
 			if ($user->socid) {
 				$sql .= " AND s.rowid = ".((int) $user->socid);
 			}
@@ -143,7 +143,7 @@ class box_services_contracts extends ModeleBoxes
 					$thirdpartytmp->code_compta_fournisseur = $objp->code_compta_fournisseur;
 
 					$dateline = $this->db->jdate($objp->date_line);
-					if ($contractstatic->status == Contrat::STATUS_VALIDATED && $objp->contractline_status == ContratLigne::STATUS_OPEN && !empty($dateline) && ($dateline + $conf->contrat->services->expires->warning_delay) < $now) {
+					if ($contractstatic->status == Contrat::STATUS_VALIDATED && $objp->contractline_status == ContratLigne::STATUS_OPEN && !empty($dateline) && ($dateline + $config->contrat->services->expires->warning_delay) < $now) {
 						$late = img_warning($langs->trans("Late"));
 					}
 

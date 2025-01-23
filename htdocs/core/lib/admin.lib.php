@@ -220,11 +220,11 @@ function run_sql($sqlfile, $silent = 1, $entity = 0, $usesavepoint = 1, $handler
 							if (!count($versionrequest) || !count($versionarray) || versioncompare($versionrequest, $versionarray) > 0) {
 								$qualified = 0;
 							}
-						} else { // This is a test on a constant. For example when we have -- VMYSQLUTF8UNICODE, we test constant $conf->global->UTF8UNICODE
-							$dbcollation = strtoupper(preg_replace('/_/', '', $conf->db->dolibarr_main_db_collation));
+						} else { // This is a test on a constant. For example when we have -- VMYSQLUTF8UNICODE, we test constant $config->global->UTF8UNICODE
+							$dbcollation = strtoupper(preg_replace('/_/', '', $config->db->dolibarr_main_db_collation));
 							//var_dump($reg[2]);
 							//var_dump($dbcollation);
-							if (empty($conf->db->dolibarr_main_db_collation) || ($reg[2] != $dbcollation)) {
+							if (empty($config->db->dolibarr_main_db_collation) || ($reg[2] != $dbcollation)) {
 								$qualified = 0;
 							}
 							//var_dump($qualified);
@@ -413,7 +413,7 @@ function run_sql($sqlfile, $silent = 1, $entity = 0, $usesavepoint = 1, $handler
 				$sql = preg_replace('/__DATABASE__/i', $db->escape($database), $sql);
 			}
 
-			$newsql = preg_replace('/__ENTITY__/i', (!empty($entity) ? $entity : (string) $conf->entity), $sql);
+			$newsql = preg_replace('/__ENTITY__/i', (!empty($entity) ? $entity : (string) $config->entity), $sql);
 
 			// Add log of request
 			if (!$silent) {
@@ -534,7 +534,7 @@ function run_sql($sqlfile, $silent = 1, $entity = 0, $usesavepoint = 1, $handler
 			print '<span class="error">'.$langs->trans("Error").'</span>';
 		}
 
-		//if (!empty($conf->use_javascript_ajax)) {		// use_javascript_ajax is not defined
+		//if (!empty($config->use_javascript_ajax)) {		// use_javascript_ajax is not defined
 		print '<script type="text/javascript">
 		jQuery(document).ready(function() {
 			function init_trrunsql'.$keyforsql.'()
@@ -614,7 +614,7 @@ function dolibarr_del_const($db, $name, $entity = 1)
 	dol_syslog("admin.lib::dolibarr_del_const", LOG_DEBUG);
 	$resql = $db->query($sql);
 	if ($resql) {
-		$conf->global->$name = '';
+		$config->global->$name = '';
 		return 1;
 	} else {
 		dol_print_error($db);
@@ -741,7 +741,7 @@ function dolibarr_set_const($db, $name, $value, $type = 'chaine', $visible = 0, 
 
 	if ($resql) {
 		$db->commit();
-		$conf->global->$name = $value;
+		$config->global->$name = $value;
 		return 1;
 	} else {
 		$db->rollback();
@@ -899,7 +899,7 @@ function security_prepare_head()
 	$sql = "SELECT COUNT(r.id) as nb";
 	$sql .= " FROM ".MAIN_DB_PREFIX."rights_def as r";
 	$sql .= " WHERE r.libelle NOT LIKE 'tou%'"; // On ignore droits "tous"
-	$sql .= " AND entity = ".((int) $conf->entity);
+	$sql .= " AND entity = ".((int) $config->entity);
 	$sql .= " AND bydefault = 1";
 	if (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) {
 		$sql .= " AND r.perms NOT LIKE '%_advance'"; // Hide advanced perms if option is not enabled
@@ -1022,7 +1022,7 @@ function defaultvalues_prepare_head()
 	$head[$h][2] = 'sortorder';
 	$h++;
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		$head[$h][0] = DOL_URL_ROOT."/admin/defaultvalues.php?mode=focus";
 		$head[$h][1] = $langs->trans("DefaultFocus");
 		$head[$h][2] = 'focus';
@@ -1080,7 +1080,7 @@ function listOfSessions()
 					// dol_screenheight|s:3:"971";dol_company|s:12:"MyBigCompany";dol_entity|i:1;mainmenu|s:4:"home";leftmenuopened|s:10:"admintools";idmenu|s:0:"";leftmenu|s:10:"admintools";';
 
 					if (preg_match('/dol_login/i', $sessValues) && // limit to dolibarr session
-						(preg_match('/dol_entity\|i:'.$conf->entity.';/i', $sessValues) || preg_match('/dol_entity\|s:([0-9]+):"'.$conf->entity.'"/i', $sessValues)) && // limit to current entity
+						(preg_match('/dol_entity\|i:'.$config->entity.';/i', $sessValues) || preg_match('/dol_entity\|s:([0-9]+):"'.$config->entity.'"/i', $sessValues)) && // limit to current entity
 					preg_match('/dol_company\|s:([0-9]+):"('.getDolGlobalString('MAIN_INFO_SOCIETE_NOM').')"/i', $sessValues)) { // limit to company name
 						$tmp = explode('_', $file);
 						$idsess = $tmp[1];
@@ -1127,7 +1127,7 @@ function purgeSessions($mysessionid)
 					$sessValues = file_get_contents($fullpath); // get raw session data
 
 					if (preg_match('/dol_login/i', $sessValues) && // limit to dolibarr session
-					(preg_match('/dol_entity\|i:('.$conf->entity.')/', $sessValues) || preg_match('/dol_entity\|s:([0-9]+):"('.$conf->entity.')"/i', $sessValues)) && // limit to current entity
+					(preg_match('/dol_entity\|i:('.$config->entity.')/', $sessValues) || preg_match('/dol_entity\|s:([0-9]+):"('.$config->entity.')"/i', $sessValues)) && // limit to current entity
 					preg_match('/dol_company\|s:([0-9]+):"(' . getDolGlobalString('MAIN_INFO_SOCIETE_NOM').')"/i', $sessValues)) { // limit to company name
 						$tmp = explode('_', $file);
 						$idsess = $tmp[1];
@@ -1213,7 +1213,7 @@ function activateModule($value, $withdeps = 1, $noconfverification = 0)
 	}
 
 	// Test if javascript requirement ok
-	if (!empty($objMod->need_javascript_ajax) && empty($conf->use_javascript_ajax)) {
+	if (!empty($objMod->need_javascript_ajax) && empty($config->use_javascript_ajax)) {
 		$ret['errors'][] = $langs->trans("ErrorModuleRequireJavascript");
 		return $ret;
 	}
@@ -1780,7 +1780,7 @@ function form_constantes($tableau, $strictw3c = 2, $helptext = '', $text = 'Valu
 		$sql .= ", note";
 		$sql .= " FROM ".MAIN_DB_PREFIX."const";
 		$sql .= " WHERE ".$db->decrypt('name')." = '".$db->escape($const)."'";
-		$sql .= " AND entity IN (0, ".$conf->entity.")";
+		$sql .= " AND entity IN (0, ".$config->entity.")";
 		$sql .= " ORDER BY name ASC, entity DESC";
 		$result = $db->query($sql);
 
@@ -1954,7 +1954,7 @@ function showModulesExludedForExternal($modules)
 			$modulename = strtolower($module->name);
 			//print 'modulename='.$modulename;
 
-			//if (empty($conf->global->$moduleconst)) continue;
+			//if (empty($config->global->$moduleconst)) continue;
 			if (!in_array($modulename, $listofmodules)) {
 				continue;
 			}
@@ -1996,7 +1996,7 @@ function addDocumentModel($name, $type, $label = '', $description = '')
 	$db->begin();
 
 	$sql = "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity, libelle, description)";
-	$sql .= " VALUES ('".$db->escape($name)."','".$db->escape($type)."',".((int) $conf->entity).", ";
+	$sql .= " VALUES ('".$db->escape($name)."','".$db->escape($type)."',".((int) $config->entity).", ";
 	$sql .= ($label ? "'".$db->escape($label)."'" : 'null').", ";
 	$sql .= (!empty($description) ? "'".$db->escape($description)."'" : "null");
 	$sql .= ")";
@@ -2029,7 +2029,7 @@ function delDocumentModel($name, $type)
 	$sql = "DELETE FROM ".MAIN_DB_PREFIX."document_model";
 	$sql .= " WHERE nom = '".$db->escape($name)."'";
 	$sql .= " AND type = '".$db->escape($type)."'";
-	$sql .= " AND entity = ".((int) $conf->entity);
+	$sql .= " AND entity = ".((int) $config->entity);
 
 	dol_syslog("admin.lib::delDocumentModel", LOG_DEBUG);
 	$resql = $db->query($sql);

@@ -153,14 +153,14 @@ class pdf_standard_stock extends ModelePDFStock
 		// Load traductions files required by page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills", "stocks", "orders", "deliveries"));
 
-		if ($conf->stock->dir_output) {
+		if ($config->stock->dir_output) {
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->stock->dir_output;
+				$dir = $config->stock->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->stock->dir_output."/".$objectref;
+				$dir = $config->stock->dir_output."/".$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 
@@ -207,7 +207,7 @@ class pdf_standard_stock extends ModelePDFStock
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (!getDolGlobalString('MAIN_DISABLE_FPDI') && getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
+					$pagecount = $pdf->setSourceFile($config->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -602,7 +602,7 @@ class pdf_standard_stock extends ModelePDFStock
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)
@@ -614,7 +614,7 @@ class pdf_standard_stock extends ModelePDFStock
 			$pdf->SetXY($this->page_largeur - $this->marge_droite - ($pdf->GetStringWidth($titre) + 3), $tab_top - 4);
 			$pdf->MultiCell(($pdf->GetStringWidth($titre) + 3), 2, $titre);
 
-			//$conf->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
+			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
 				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, 5, $this->corner_radius, '1001', 'F', array(), explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
@@ -709,7 +709,7 @@ class pdf_standard_stock extends ModelePDFStock
 
 		// Show Draft Watermark
 		if ($object->statut == 0 && (getDolGlobalString('STOCK_DRAFT_WATERMARK'))) {
-			pdf_watermark($pdf, $outputlangs, $this->page_hauteur, $this->page_largeur, 'mm', $conf->global->STOCK_DRAFT_WATERMARK);
+			pdf_watermark($pdf, $outputlangs, $this->page_hauteur, $this->page_largeur, 'mm', $config->global->STOCK_DRAFT_WATERMARK);
 		}
 
 		$pdf->SetTextColor(0, 0, 60);
@@ -722,7 +722,7 @@ class pdf_standard_stock extends ModelePDFStock
 
 		// Logo
 		$height = 0;
-		$logo = $conf->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
+		$logo = $config->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
 		if ($this->emetteur->logo) {
 			if (is_readable($logo)) {
 				$height = pdf_getHeightForLogo($logo);
@@ -795,7 +795,7 @@ class pdf_standard_stock extends ModelePDFStock
 			$nexY = $pdf->GetY();
 
 			// Value
-			$pdf->writeHTMLCell(190, 2, $this->marge_gauche, $nexY, '<b>'.$outputlangs->transnoentities("EstimatedStockValueShort").' : </b>'.price((empty($calcproducts['value']) ? '0' : price2num($calcproducts['value'], 'MT')), 0, $langs, 0, -1, -1, $conf->currency), 0, 1);
+			$pdf->writeHTMLCell(190, 2, $this->marge_gauche, $nexY, '<b>'.$outputlangs->transnoentities("EstimatedStockValueShort").' : </b>'.price((empty($calcproducts['value']) ? '0' : price2num($calcproducts['value'], 'MT')), 0, $langs, 0, -1, -1, $config->currency), 0, 1);
 			$nexY = $pdf->GetY();
 
 			// Value

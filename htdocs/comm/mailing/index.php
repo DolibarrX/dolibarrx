@@ -170,7 +170,7 @@ print '</div><div class="secondcolumn fichehalfright boxhalfright" id="boxhalfri
 $limit = 10;
 $sql  = "SELECT m.rowid, m.titre as title, m.nbemail, m.statut as status, m.date_creat, m.messtype";
 $sql .= " FROM ".MAIN_DB_PREFIX."mailing as m";
-$sql .= " WHERE m.entity = ".$conf->entity;
+$sql .= " WHERE m.entity = ".$config->entity;
 $sql .= " ORDER BY m.date_creat DESC";
 $sql .= " LIMIT ".$limit;
 $result = $db->query($sql);

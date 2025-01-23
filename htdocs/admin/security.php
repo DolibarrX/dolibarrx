@@ -58,7 +58,7 @@ $allow_disable_encryption = false;
  */
 
 if ($action == 'setgeneraterule') {
-	if (!dolibarr_set_const($db, 'USER_PASSWORD_GENERATED', GETPOST("value", "alphanohtml"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'USER_PASSWORD_GENERATED', GETPOST("value", "alphanohtml"), 'chaine', 0, '', $config->entity)) {
 		dol_print_error($db);
 	}
 }
@@ -69,7 +69,7 @@ if ($action == 'activate_encrypt') {
 	$db->begin();
 
 	// On old version, a bug created the constant into user entity, so we delete it to be sure such entry won't exists. We want it in entity 0 or nowhere.
-	dolibarr_del_const($db, "DATABASE_PWD_ENCRYPTED", $conf->entity);
+	dolibarr_del_const($db, "DATABASE_PWD_ENCRYPTED", $config->entity);
 	// We set entity=0 (all) because DATABASE_PWD_ENCRYPTED is a setup into conf file, so always shared for everybody
 	$entityforall = 0;
 	dolibarr_set_const($db, "DATABASE_PWD_ENCRYPTED", "1", 'chaine', 0, '', $entityforall);
@@ -116,7 +116,7 @@ if ($action == 'activate_encrypt') {
 	// By default, $allow_disable_encryption is false we do not allow to disable encryption because passwords can't be decoded once encrypted.
 	// We set entity=0 (all) because DATABASE_PWD_ENCRYPTED is a setup into conf file, so always shared for everybody
 	if ($allow_disable_encryption) {
-		dolibarr_del_const($db, "DATABASE_PWD_ENCRYPTED", $conf->entity);
+		dolibarr_del_const($db, "DATABASE_PWD_ENCRYPTED", $config->entity);
 		dolibarr_del_const($db, "DATABASE_PWD_ENCRYPTED", 0);
 	}
 }
@@ -139,7 +139,7 @@ if ($action == 'activate_encryptdbpassconf') {
 		sleep(3); // Don't know why but we need to wait file is completely saved before making the reload. Even with flush and clearstatcache, we need to wait.
 
 		// database value not required
-		// dolibarr_del_const($db, "MAIN_DATABASE_PWD_CONFIG_ENCRYPTED",$conf->entity);
+		// dolibarr_del_const($db, "MAIN_DATABASE_PWD_CONFIG_ENCRYPTED",$config->entity);
 		header("Location: security.php");
 		exit;
 	} else {
@@ -149,9 +149,9 @@ if ($action == 'activate_encryptdbpassconf') {
 }
 
 if ($action == 'activate_MAIN_SECURITY_DISABLEFORGETPASSLINK') {
-	dolibarr_set_const($db, "MAIN_SECURITY_DISABLEFORGETPASSLINK", '1', 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_SECURITY_DISABLEFORGETPASSLINK", '1', 'chaine', 0, '', $config->entity);
 } elseif ($action == 'disable_MAIN_SECURITY_DISABLEFORGETPASSLINK') {
-	dolibarr_del_const($db, "MAIN_SECURITY_DISABLEFORGETPASSLINK", $conf->entity);
+	dolibarr_del_const($db, "MAIN_SECURITY_DISABLEFORGETPASSLINK", $config->entity);
 }
 
 if ($action == 'updatepattern') {
@@ -168,7 +168,7 @@ if ($action == 'updatepattern') {
 	}
 
 	if (!$patternInError) {
-		dolibarr_set_const($db, "USER_PASSWORD_PATTERN", $pattern, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "USER_PASSWORD_PATTERN", $pattern, 'chaine', 0, '', $config->entity);
 		setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
 		header("Location: security.php");
 		exit;
@@ -271,7 +271,7 @@ foreach ($arrayhandler as $key => $module) {
 		print '</td>'."\n";
 
 		print '<td class="center">';
-		if ($conf->global->USER_PASSWORD_GENERATED == $key) {
+		if ($config->global->USER_PASSWORD_GENERATED == $key) {
 			//print img_picto('', 'tick');
 			print img_picto($langs->trans("Enabled"), 'switch_on');
 		} else {

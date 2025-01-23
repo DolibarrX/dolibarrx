@@ -57,7 +57,7 @@ $action = GETPOST('action', 'aZ09');
 // Initialize a technical objects
 $object = new Evaluation($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->hrm->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->hrm->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('evaluationcontact', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -73,7 +73,7 @@ $permission = $user->hasRight('hrm', 'evaluation', 'write');
 //if ($user->socid > 0) $socid = $user->socid;
 //$isdraft = (($object->status == $object::STATUS_DRAFT) ? 1 : 0);
 //restrictedArea($user, $object->element, $object->id, $object->table_element, '', 'fk_soc', 'rowid', $isdraft);
-//if (empty($conf->hrm->enabled)) accessforbidden();
+//if (empty($config->hrm->enabled)) accessforbidden();
 //if (!$permissiontoread) accessforbidden();
 
 
@@ -164,7 +164,7 @@ if ($object->id) {
 	print '<br>';
 
 	// Contacts lines (modules that overwrite templates must declare this into descriptor)
-	$dirtpls = array_merge($conf->modules_parts['tpl'], array('/core/tpl'));
+	$dirtpls = array_merge($config->modules_parts['tpl'], array('/core/tpl'));
 	foreach ($dirtpls as $reldir) {
 		$res = @include dol_buildpath($reldir.'/contacts.tpl.php');
 		if ($res) {

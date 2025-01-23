@@ -64,7 +64,7 @@ $lineid   = GETPOSTINT('lineid');
 // Initialize a technical objects
 $object = new Job($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->hrm->dir_output . '/temp/massgeneration/' . $user->id;
+$diroutputmassaction = $config->hrm->dir_output . '/temp/massgeneration/' . $user->id;
 $hookManager->initHooks(array('jobcard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -92,14 +92,14 @@ include DOL_DOCUMENT_ROOT . '/core/actions_fetchobject.inc.php'; // Must be 'inc
 $permissiontoread = $user->hasRight('hrm', 'all', 'read');
 $permissiontoadd  = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissiontodelete = $user->hasRight('hrm', 'all', 'delete');
-$upload_dir = $conf->hrm->multidir_output[isset($object->entity) ? $object->entity : 1] . '/job';
+$upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->entity : 1] . '/job';
 
 // Security check (enable the most restrictive one)
 //if ($user->socid > 0) accessforbidden();
 //if ($user->socid > 0) $socid = $user->socid;
 //$isdraft = (($object->status == $object::STATUS_DRAFT) ? 1 : 0);
 //restrictedArea($user, $object->element, $object->id, $object->table_element, '', 'fk_soc', 'rowid', $isdraft);
-if (empty($conf->hrm->enabled)) {
+if (empty($config->hrm->enabled)) {
 	accessforbidden();
 }
 if (!$permissiontoread || ($action === 'create' && !$permissiontoadd)) {
@@ -357,7 +357,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		$formquestion = array();
 		/*
 		$forcecombo=0;
-		if ($conf->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
+		if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
 		$formquestion = array(
 			// 'text' => $langs->trans("ConfirmClone"),
 			// array('type' => 'checkbox', 'name' => 'clone_content', 'label' => $langs->trans("CloneMainAttributes"), 'value' => 1),
@@ -433,7 +433,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		<input type="hidden" name="id" value="' . $object->id . '">
 		';
 
-		if (!empty($conf->use_javascript_ajax) && $object->status == 0) {
+		if (!empty($config->use_javascript_ajax) && $object->status == 0) {
 			include DOL_DOCUMENT_ROOT . '/core/tpl/ajaxrow.tpl.php';
 		}
 
@@ -513,7 +513,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if ($includedocgeneration) {
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref . '/' . $objref . '.pdf';
-			$filedir = $conf->hrm->dir_output . '/' . $object->element . '/' . $objref;
+			$filedir = $config->hrm->dir_output . '/' . $object->element . '/' . $objref;
 			$urlsource = $_SERVER["PHP_SELF"] . "?id=" . $object->id;
 			$genallowed = $user->hasRight('hrm', 'job', 'read'); // If you can read, you can build the PDF to read content
 			$delallowed = $user->hasRight('hrm', 'job', 'write'); // If you can create/edit, you can remove a file on card
@@ -545,7 +545,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Presend form
 	$modelmail = 'job';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->hrm->dir_output;
+	$diroutput = $config->hrm->dir_output;
 	$trackid = 'job' . $object->id;
 
 	include DOL_DOCUMENT_ROOT . '/core/tpl/card_presend.tpl.php';

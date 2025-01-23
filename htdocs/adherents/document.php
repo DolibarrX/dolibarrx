@@ -54,7 +54,7 @@ $action = GETPOST('action', 'aZ09');
 $confirm = GETPOST('confirm', 'alpha');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -79,7 +79,7 @@ if ($result < 0) {
 	dol_print_error($db);
 	exit;
 }
-$upload_dir = $conf->adherent->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'member');
+$upload_dir = $config->adherent->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'member');
 
 // Fetch object
 if ($id > 0 || !empty($ref)) {

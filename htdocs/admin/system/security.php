@@ -438,7 +438,7 @@ print '<br>';
 
 $sessiontimeout = ini_get("session.gc_maxlifetime");
 if (!getDolGlobalString('MAIN_SESSION_TIMEOUT')) {
-	$conf->global->MAIN_SESSION_TIMEOUT = $sessiontimeout;
+	$config->global->MAIN_SESSION_TIMEOUT = $sessiontimeout;
 }
 print '<strong>'.$langs->trans("SessionTimeOut").'</strong>';
 if (!ini_get("session.gc_probability")) {
@@ -493,9 +493,9 @@ print '<br>';
 $tabConf = explode(";", getDolGlobalString('USER_PASSWORD_PATTERN'));
 
 print '<strong>'.$langs->trans("PasswordLength").'</strong>: ';
-print empty($conf->global->DATABASE_PWD_ENCRYPTED) ? '' : img_picto('', 'tick').' ';
-print yn(empty($conf->global->DATABASE_PWD_ENCRYPTED) ? 0 : 1);
-if (empty($conf->global->DATABASE_PWD_ENCRYPTED)) {
+print empty($config->global->DATABASE_PWD_ENCRYPTED) ? '' : img_picto('', 'tick').' ';
+print yn(empty($config->global->DATABASE_PWD_ENCRYPTED) ? 0 : 1);
+if (empty($config->global->DATABASE_PWD_ENCRYPTED)) {
 	print ' <span class="opacitymedium">('.$langs->trans("Recommended").' '.yn(1).')</span>';
 }
 print '<br>';
@@ -744,7 +744,7 @@ print '<strong>MAIN_EXEC_USE_POPEN</strong> = ';
 if (!getDolGlobalString('MAIN_EXEC_USE_POPEN')) {
 	print '<span class="opacitymedium">'.$langs->trans("Undefined").'</span>';
 } else {
-	print $conf->global->MAIN_EXEC_USE_POPEN;
+	print $config->global->MAIN_EXEC_USE_POPEN;
 }
 if ($execmethod == 1) {
 	print '<span class="opacitymedium"> &nbsp; &nbsp; "exec" PHP method will be used for shell commands';
@@ -769,13 +769,13 @@ print ' &nbsp; <span class="opacitymedium">('.$langs->trans("Recommended").": 1 
 $savMAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES = getDolGlobalString('MAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES');
 $savMAIN_RESTRICTHTML_ONLY_VALID_HTML = getDolGlobalString('MAIN_RESTRICTHTML_ONLY_VALID_HTML');
 $savMAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY = getDolGlobalString('MAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY');
-$conf->global->MAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES = 0;
-$conf->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML = 1;
-$conf->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY = 0;
+$config->global->MAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES = 0;
+$config->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML = 1;
+$config->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY = 0;
 $result = dol_htmlwithnojs('<img onerror<=alert(document.domain)> src=>0xbeefed');
-$conf->global->MAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES = $savMAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES;
-$conf->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML = $savMAIN_RESTRICTHTML_ONLY_VALID_HTML;
-$conf->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY = $savMAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY;
+$config->global->MAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES = $savMAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES;
+$config->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML = $savMAIN_RESTRICTHTML_ONLY_VALID_HTML;
+$config->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY = $savMAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY;
 
 if ($result == 'InvalidHTMLStringCantBeCleaned') {
 	print ' &nbsp; - &nbsp; '.img_warning().' Your libxml seems to old to work correctly with this option. Disable it !';
@@ -793,13 +793,13 @@ if (extension_loaded('tidy') && class_exists("tidy")) {
 	$savMAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES = getDolGlobalString('MAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES');
 	$savMAIN_RESTRICTHTML_ONLY_VALID_HTML = getDolGlobalString('MAIN_RESTRICTHTML_ONLY_VALID_HTML');
 	$savMAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY = getDolGlobalString('MAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY');
-	$conf->global->MAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES = 0;
-	$conf->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML = 0;
-	$conf->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY = 1;
+	$config->global->MAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES = 0;
+	$config->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML = 0;
+	$config->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY = 1;
 	$result = dol_htmlwithnojs('<img onerror<=alert(document.domain)> src=>0xbeefed');
-	$conf->global->MAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES = $savMAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES;
-	$conf->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML = $savMAIN_RESTRICTHTML_ONLY_VALID_HTML;
-	$conf->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY = $savMAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY;
+	$config->global->MAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES = $savMAIN_RESTRICTHTML_REMOVE_ALSO_BAD_ATTRIBUTES;
+	$config->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML = $savMAIN_RESTRICTHTML_ONLY_VALID_HTML;
+	$config->global->MAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY = $savMAIN_RESTRICTHTML_ONLY_VALID_HTML_TIDY;
 
 	if ($result == 'InvalidHTMLStringCantBeCleaned') {
 		print ' &nbsp; - &nbsp; '.img_warning().' Your libxml seems to old to work correctly with this option. Disable it !';

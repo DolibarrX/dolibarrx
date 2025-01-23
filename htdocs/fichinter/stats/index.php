@@ -72,7 +72,7 @@ $form = new Form($db);
 $objectstatic = new Fichinter($db);
 
 $title = $langs->trans("InterventionStatistics");
-$dir = $conf->ficheinter->dir_temp;
+$dir = $config->ficheinter->dir_temp;
 
 llxHeader('', $title, '', '', 0, 0, '', '', '', 'mod-fichinter page-stats_index');
 

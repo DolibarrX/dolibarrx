@@ -72,7 +72,7 @@ $urlwithroot = DOL_MAIN_URL_ROOT; // This is to use same domain name than curren
 
 // Security check
 global $conf;
-$encodedsecurekey = dol_hash($conf->file->instance_unique_id.'uservirtualcard'.$object->id.'-'.$object->login, 'md5');
+$encodedsecurekey = dol_hash($config->file->instance_unique_id.'uservirtualcard'.$object->id.'-'.$object->login, 'md5');
 if ($encodedsecurekey != $securekey) {
 	httponly_accessforbidden('Bad value for securitykey or public profile not enabled');
 }
@@ -104,7 +104,7 @@ $v = new vCard();
 $company = $mysoc;
 
 $modulepart = 'userphotopublic';
-$dir = $conf->user->dir_output;
+$dir = $config->user->dir_output;
 
 // Show logo (search order: logo defined by ONLINE_SIGN_LOGO_suffix, then ONLINE_SIGN_LOGO_, then small company logo, large company logo, theme logo, common logo)
 // Define logo and logosmall
@@ -122,11 +122,11 @@ if (!empty($object->photo)) {
 $urllogo = '';
 $urllogofull = '';
 if (!empty($logosmall) && is_readable($dir.'/'.$logosmall)) {
-	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulepart).($conf->entity > 1 ? '&amp;entity='.$conf->entity : '').'&amp;securekey='.urlencode($securekey).'&amp;file='.urlencode($logosmall);
-	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart='.$modulepart.($conf->entity > 1 ? '&entity='.$conf->entity : '').'&securekey='.urlencode($securekey).'&file='.urlencode($logosmall);
+	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulepart).($config->entity > 1 ? '&amp;entity='.$config->entity : '').'&amp;securekey='.urlencode($securekey).'&amp;file='.urlencode($logosmall);
+	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart='.$modulepart.($config->entity > 1 ? '&entity='.$config->entity : '').'&securekey='.urlencode($securekey).'&file='.urlencode($logosmall);
 } elseif (!empty($logo) && is_readable($dir.'/'.$logo)) {
-	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulepart).($conf->entity > 1 ? '&amp;entity='.$conf->entity : '').'&amp;securekey='.urlencode($securekey).'&amp;file='.urlencode($logo);
-	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart='.$modulepart.($conf->entity > 1 ? '&entity='.$conf->entity : '').'&securekey='.urlencode($securekey).'&file='.urlencode($logo);
+	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart='.urlencode($modulepart).($config->entity > 1 ? '&amp;entity='.$config->entity : '').'&amp;securekey='.urlencode($securekey).'&amp;file='.urlencode($logo);
+	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart='.$modulepart.($config->entity > 1 ? '&entity='.$config->entity : '').'&securekey='.urlencode($securekey).'&file='.urlencode($logo);
 }
 
 // Clean data we don't want on public page
@@ -238,8 +238,8 @@ if (getDolGlobalString('MAIN_USER_PROFILE_CSS_URL')) {
 	$head = '<link rel="stylesheet" type="text/css" href="' . getDolGlobalString('MAIN_USER_PROFILE_CSS_URL').'?lang='.$langs->defaultlang.'">'."\n";
 }
 
-$conf->dol_hide_topmenu = 1;
-$conf->dol_hide_leftmenu = 1;
+$config->dol_hide_topmenu = 1;
+$config->dol_hide_leftmenu = 1;
 
 if (!getDolUserInt('USER_ENABLE_PUBLIC', 0, $object)) {
 	$langs->load("errors");
@@ -251,7 +251,7 @@ if (!getDolUserInt('USER_ENABLE_PUBLIC', 0, $object)) {
 $arrayofjs = array();
 $arrayofcss = array();
 
-$replacemainarea = (empty($conf->dol_hide_leftmenu) ? '<div>' : '').'<div>';
+$replacemainarea = (empty($config->dol_hide_leftmenu) ? '<div>' : '').'<div>';
 llxHeader($head, $object->getFullName($langs).' - '.$langs->trans("PublicVirtualCard"), '', '', 0, 0, $arrayofjs, $arrayofcss, '', 'onlinepaymentbody'.(GETPOST('mode') == 'preview' ? ' scalepreview cursorpointer virtualcardpreview' : ''), $replacemainarea, 1, 1);
 
 print '
@@ -271,7 +271,7 @@ print '<form id="dolpaymentform" class="center" name="paymentform" action="'.$_S
 print '<input type="hidden" name="token" value="'.newToken().'">'."\n";
 print '<input type="hidden" name="action" value="dosubmit">'."\n";
 print '<input type="hidden" name="securekey" value="'.$securekey.'">'."\n";
-print '<input type="hidden" name="entity" value="'.$conf->entity.'" />';
+print '<input type="hidden" name="entity" value="'.$config->entity.'" />';
 print "\n";
 
 // Output html code for logo
@@ -295,7 +295,7 @@ if (!getDolUserInt('USER_PUBLIC_HIDE_COMPANY', 0, $object)) {
 
 
 print '</div>';
-/*if (empty($conf->global->MAIN_HIDE_POWERED_BY)) {
+/*if (empty($config->global->MAIN_HIDE_POWERED_BY)) {
 	print '<div class="poweredbypublicpayment opacitymedium right"><a class="poweredbyhref" href="https://www.dolibarr.org?utm_medium=website&utm_source=poweredby" target="dolibarr" rel="noopener">'.$langs->trans("PoweredBy").'<br><img class="poweredbyimg" src="'.DOL_URL_ROOT.'/theme/dolibarr_logo.svg" width="80px"></a></div>';
 }*/
 print '</div>';
@@ -315,14 +315,14 @@ $socialnetworksdict = getArrayOfSocialNetworks();
 // Show barcode
 $showbarcode = GETPOST('nobarcode') ? 0 : 1;
 if ($showbarcode) {
-	$outdir = $conf->user->dir_temp;
+	$outdir = $config->user->dir_temp;
 
 	$filename = $v->buildVCardString($object, $company, $langs, '', $outdir);
 
 	print '<br>';
 	print '<div class="floatleft inline-block valignmiddle paddingleft paddingright">';
 	//print '<!-- filename = '.dol_escape_htmltag($filename).' -->';
-	print '<img style="max-width: 100%" src="'.$dolibarr_main_url_root.'/viewimage.php?modulepart=barcode&entity='.((int) $conf->entity).'&generator=tcpdfbarcode&encoding=QRCODE&code='.urlencode(basename($filename)).'">';
+	print '<img style="max-width: 100%" src="'.$dolibarr_main_url_root.'/viewimage.php?modulepart=barcode&entity='.((int) $config->entity).'&generator=tcpdfbarcode&encoding=QRCODE&code='.urlencode(basename($filename)).'">';
 	print '</div>';
 	print '<br>';
 }
@@ -479,12 +479,12 @@ if (!getDolUserInt('USER_PUBLIC_HIDE_COMPANY', 0, $object)) {
 	// Define urllogo
 	$urllogo = '';
 	$urllogofull = '';
-	if (!empty($logosmall) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$logosmall)) {
-		$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany'.($conf->entity > 1 ? '&amp;entity='.$conf->entity : '').'&amp;file='.urlencode('logos/thumbs/'.$logosmall);
-		$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany'.($conf->entity > 1 ? '&entity='.$conf->entity : '').'&file='.urlencode('logos/thumbs/'.$logosmall);
-	} elseif (!empty($logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$logo)) {
-		$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany'.($conf->entity > 1 ? '&amp;entity='.$conf->entity : '').'&amp;file='.urlencode('logos/'.$logo);
-		$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany'.($conf->entity > 1 ? '&entity='.$conf->entity : '').'&file='.urlencode('logos/'.$logo);
+	if (!empty($logosmall) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$logosmall)) {
+		$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany'.($config->entity > 1 ? '&amp;entity='.$config->entity : '').'&amp;file='.urlencode('logos/thumbs/'.$logosmall);
+		$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany'.($config->entity > 1 ? '&entity='.$config->entity : '').'&file='.urlencode('logos/thumbs/'.$logosmall);
+	} elseif (!empty($logo) && is_readable($config->mycompany->dir_output.'/logos/'.$logo)) {
+		$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany'.($config->entity > 1 ? '&amp;entity='.$config->entity : '').'&amp;file='.urlencode('logos/'.$logo);
+		$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany'.($config->entity > 1 ? '&entity='.$config->entity : '').'&file='.urlencode('logos/'.$logo);
 	}
 	// Output html code for logo
 	if ($urllogo) {

@@ -61,20 +61,20 @@ if ($action == 'setvalue' && $user->admin) {
 	$error = 0;
 	$db->begin();
 
-	if (!dolibarr_set_const($db, 'LDAP_MEMBER_TYPE_DN', GETPOST("membertype"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_MEMBER_TYPE_DN', GETPOST("membertype"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_MEMBER_TYPE_OBJECT_CLASS', GETPOST("objectclass"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_MEMBER_TYPE_OBJECT_CLASS', GETPOST("objectclass"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
 
-	if (!dolibarr_set_const($db, 'LDAP_MEMBER_TYPE_FIELD_FULLNAME', GETPOST("fieldfullname"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_MEMBER_TYPE_FIELD_FULLNAME', GETPOST("fieldfullname"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_MEMBER_TYPE_FIELD_DESCRIPTION', GETPOST("fielddescription"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_MEMBER_TYPE_FIELD_DESCRIPTION', GETPOST("fielddescription"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_MEMBER_TYPE_FIELD_GROUPMEMBERS', GETPOST("fieldmembertypemembers"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_MEMBER_TYPE_FIELD_GROUPMEMBERS', GETPOST("fieldmembertypemembers"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
 
@@ -84,7 +84,7 @@ if ($action == 'setvalue' && $user->admin) {
 	if ($key) {
 		$valkey = getDolGlobalString($key);
 	}
-	if (!dolibarr_set_const($db, 'LDAP_KEY_MEMBERS_TYPES', $valkey, 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_KEY_MEMBERS_TYPES', $valkey, 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
 
@@ -167,21 +167,21 @@ print "</tr>\n";
 print '<tr class="oddeven"><td>'.$langs->trans("LDAPFieldName").'</td><td>';
 print '<input size="25" type="text" name="fieldfullname" value="' . getDolGlobalString('LDAP_MEMBER_TYPE_FIELD_FULLNAME').'">';
 print '</td><td>'.$langs->trans("LDAPFieldCommonNameExample").'</td>';
-print '<td class="right"><input type="radio" name="key" value="LDAP_MEMBER_TYPE_FIELD_FULLNAME"'.(($conf->global->LDAP_KEY_MEMBERS_TYPES && $conf->global->LDAP_KEY_MEMBERS_TYPES == $conf->global->LDAP_MEMBER_TYPE_FIELD_FULLNAME) ? ' checked' : '')."></td>";
+print '<td class="right"><input type="radio" name="key" value="LDAP_MEMBER_TYPE_FIELD_FULLNAME"'.(($config->global->LDAP_KEY_MEMBERS_TYPES && $config->global->LDAP_KEY_MEMBERS_TYPES == $config->global->LDAP_MEMBER_TYPE_FIELD_FULLNAME) ? ' checked' : '')."></td>";
 print '</tr>';
 
 // Description
 print '<tr class="oddeven"><td>'.$langs->trans("LDAPFieldDescription").'</td><td>';
 print '<input size="25" type="text" name="fielddescription" value="' . getDolGlobalString('LDAP_MEMBER_TYPE_FIELD_DESCRIPTION').'">';
 print '</td><td>'.$langs->trans("LDAPFieldDescriptionExample").'</td>';
-print '<td class="right"><input type="radio" name="key" value="LDAP_MEMBER_TYPE_FIELD_DESCRIPTION"'.(($conf->global->LDAP_KEY_MEMBERS_TYPES && $conf->global->LDAP_KEY_MEMBER_TYPES == $conf->global->LDAP_MEMBER_TYPE_FIELD_DESCRIPTION) ? ' checked' : '')."></td>";
+print '<td class="right"><input type="radio" name="key" value="LDAP_MEMBER_TYPE_FIELD_DESCRIPTION"'.(($config->global->LDAP_KEY_MEMBERS_TYPES && $config->global->LDAP_KEY_MEMBER_TYPES == $config->global->LDAP_MEMBER_TYPE_FIELD_DESCRIPTION) ? ' checked' : '')."></td>";
 print '</tr>';
 
 // User group
 print '<tr class="oddeven"><td>'.$langs->trans("LDAPFieldGroupMembers").'</td><td>';
 print '<input size="25" type="text" name="fieldmembertypemembers" value="' . getDolGlobalString('LDAP_MEMBER_TYPE_FIELD_GROUPMEMBERS').'">';
 print '</td><td>'.$langs->trans("LDAPFieldGroupMembersExample").'</td>';
-print '<td class="right"><input type="radio" name="key" value="LDAP_MEMBER_TYPE_FIELD_GROUPMEMBERS"'.(($conf->global->LDAP_KEY_MEMBERS_TYPES && $conf->global->LDAP_KEY_MEMBERS_TYPES == $conf->global->LDAP_MEMBER_TYPE_FIELD_GROUPMEMBERS) ? ' checked' : '')."></td>";
+print '<td class="right"><input type="radio" name="key" value="LDAP_MEMBER_TYPE_FIELD_GROUPMEMBERS"'.(($config->global->LDAP_KEY_MEMBERS_TYPES && $config->global->LDAP_KEY_MEMBERS_TYPES == $config->global->LDAP_MEMBER_TYPE_FIELD_GROUPMEMBERS) ? ' checked' : '')."></td>";
 print '</tr>';
 
 print '</table>';
@@ -239,7 +239,7 @@ if (function_exists("ldap_connect")) {
 				print '<span class="error">'.$langs->trans("LDAPSynchroKOMayBePermissions");
 				print ': '.$ldap->error;
 				print '</span><br>';
-				print $langs->trans("ErrorLDAPMakeManualTest", $conf->ldap->dir_temp).'<br>';
+				print $langs->trans("ErrorLDAPMakeManualTest", $config->ldap->dir_temp).'<br>';
 			}
 
 			print "<br>\n";
@@ -251,7 +251,7 @@ if (function_exists("ldap_connect")) {
 			print '<span class="error">'.$langs->trans("LDAPSynchroKO");
 			print ': '.$ldap->error;
 			print '</span><br>';
-			print $langs->trans("ErrorLDAPMakeManualTest", $conf->ldap->dir_temp).'<br>';
+			print $langs->trans("ErrorLDAPMakeManualTest", $config->ldap->dir_temp).'<br>';
 		}
 	}
 }

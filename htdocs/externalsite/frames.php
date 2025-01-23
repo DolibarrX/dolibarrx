@@ -87,7 +87,7 @@ if (!empty($keyforcontent)) {
 			<title>Dolibarr frame for external web site</title>
 			</head>
 
-			<frameset ".(empty($conf->global->MAIN_MENU_INVERT)?"rows":"cols")."=\"".$heightforframes.",*\" border=0 framespacing=0 frameborder=0>
+			<frameset ".(empty($config->global->MAIN_MENU_INVERT)?"rows":"cols")."=\"".$heightforframes.",*\" border=0 framespacing=0 frameborder=0>
 				<frame name=\"barre\" src=\"frametop.php?mainmenu=".$mainmenu."&leftmenu=".$leftmenu."&idmenu=".$idmenu.($theme?'&theme='.$theme:'').($codelang?'&lang='.$codelang:'')."&nobackground=1\" noresize scrolling=\"NO\" noborder>
 			  ";
 					print '<frame name="main" src="';
@@ -119,7 +119,7 @@ if (!empty($keyforcontent)) {
 	print '<div>';
 	llxFooter();
 } else {
-	if (preg_match('/^\//', $conf->global->EXTERNALSITE_URL) || preg_match('/^http/i', $conf->global->EXTERNALSITE_URL)) {
+	if (preg_match('/^\//', $config->global->EXTERNALSITE_URL) || preg_match('/^http/i', $config->global->EXTERNALSITE_URL)) {
 		print "
 	<html>
 	<head>
@@ -130,7 +130,7 @@ if (!empty($keyforcontent)) {
 	    <frame name=\"barre\" src=\"frametop.php?mainmenu=".$mainmenu."&leftmenu=".$leftmenu."&idmenu=".$idmenu.($theme ? '&theme='.$theme : '').($codelang ? '&lang='.$codelang : '')."&nobackground=1\" noresize scrolling=\"NO\" noborder>
 	  ";
 		print '<frame name="main" src="';
-		print $conf->global->EXTERNALSITE_URL;
+		print $config->global->EXTERNALSITE_URL;
 		print '">';
 		print "
 	    <noframes>
@@ -154,7 +154,7 @@ if (!empty($keyforcontent)) {
 	} else {
 		llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-externalsite page-frames');
 		print '<div class="framecontent" style="height: '.($_SESSION['dol_screenheight'] - 90).'px">';
-		print $conf->global->EXTERNALSITE_URL;
+		print $config->global->EXTERNALSITE_URL;
 		print '<div>';
 		llxFooter();
 	}

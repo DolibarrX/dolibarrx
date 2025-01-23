@@ -112,7 +112,7 @@ class DocumentController extends Controller
 		$action = GETPOST('action', 'aZ09');
 		$original_file = GETPOST('file', 'alphanohtml'); // Do not use urldecode here ($_GET are already decoded by PHP).
 		$modulepart = GETPOST('modulepart', 'alpha');
-		$entity = GETPOSTINT('entity') ? GETPOSTINT('entity') : $conf->entity;
+		$entity = GETPOSTINT('entity') ? GETPOSTINT('entity') : $config->entity;
 		$socId = GETPOSTINT('soc_id');
 
 		// Security check
@@ -174,8 +174,8 @@ class DocumentController extends Controller
 			&& ($context->logged_thirdparty && $context->logged_thirdparty->id > 0)
 			&& $context->logged_thirdparty->id == $socId
 		) {
-			if (isModEnabled($moduleName) && isset($conf->{$moduleName}->multidir_output[$entity])) {
-				$original_file = $conf->{$moduleName}->multidir_output[$entity] . '/' . $original_file;
+			if (isModEnabled($moduleName) && isset($config->{$moduleName}->multidir_output[$entity])) {
+				$original_file = $config->{$moduleName}->multidir_output[$entity] . '/' . $original_file;
 				$accessallowed = 1;
 			}
 		}

@@ -571,10 +571,10 @@ class modStock extends DolibarrModules
 		$sql = array();
 
 		$sql = array(
-			 "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[1][2])."' AND type = 'stock' AND entity = ".((int) $conf->entity),
-			 "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[1][2])."','stock',".((int) $conf->entity).")",
-			 "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[2][2])."' AND type = 'mouvement' AND entity = ".((int) $conf->entity),
-			 "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[2][2])."','mouvement',".((int) $conf->entity).")",
+			 "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[1][2])."' AND type = 'stock' AND entity = ".((int) $config->entity),
+			 "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[1][2])."','stock',".((int) $config->entity).")",
+			 "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[2][2])."' AND type = 'mouvement' AND entity = ".((int) $config->entity),
+			 "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[2][2])."','mouvement',".((int) $config->entity).")",
 		);
 
 		return $this->_init($sql, $options);

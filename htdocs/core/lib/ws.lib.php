@@ -41,7 +41,7 @@ function check_authentication($authentication, &$error, &$errorcode, &$errorlabe
 
 	$fuser = new User($db);
 
-	if (!$error && ($authentication['dolibarrkey'] != $conf->global->WEBSERVICES_KEY)) {
+	if (!$error && ($authentication['dolibarrkey'] != $config->global->WEBSERVICES_KEY)) {
 		$error++;
 		$errorcode = 'BAD_VALUE_FOR_SECURITY_KEY';
 		$errorlabel = 'Value provided into dolibarrkey entry field does not match security key defined in Webservice module setup';

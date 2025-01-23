@@ -139,7 +139,7 @@ class box_propales extends ModeleBoxes
 					$societestatic->entity = $objp->entity;
 
 					$late = '';
-					if ($objp->status == 1 && $dateterm < ($now - $conf->propal->cloture->warning_delay)) {
+					if ($objp->status == 1 && $dateterm < ($now - $config->propal->cloture->warning_delay)) {
 						$late = img_warning($langs->trans("Late"));
 					}
 
@@ -158,7 +158,7 @@ class box_propales extends ModeleBoxes
 
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="nowraponall right amount"',
-						'text' => price($objp->total_ht, 0, $langs, 0, -1, -1, $conf->currency),
+						'text' => price($objp->total_ht, 0, $langs, 0, -1, -1, $config->currency),
 					);
 
 					$this->info_box_contents[$line][] = array(

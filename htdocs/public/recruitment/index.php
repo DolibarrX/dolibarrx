@@ -59,12 +59,12 @@ $langs->loadLangs(array("companies", "other", "recruitment"));
 $action   = GETPOST('action', 'aZ09');
 $cancel   = GETPOST('cancel', 'alpha');
 $SECUREKEY = GETPOST("securekey");
-$entity = GETPOSTINT('entity') ? GETPOSTINT('entity') : $conf->entity;
+$entity = GETPOSTINT('entity') ? GETPOSTINT('entity') : $config->entity;
 $backtopage = '';
 $suffix = "";
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -90,7 +90,7 @@ $object = new RecruitmentJobPosition($db);
 $urlwithroot = DOL_MAIN_URL_ROOT; // This is to use same domain name than current. For Paypal payment, we can use internal URL like localhost.
 
 // Security check
-if (empty($conf->recruitment->enabled)) {
+if (empty($config->recruitment->enabled)) {
 	httponly_accessforbidden('Module Recruitment not enabled');
 }
 
@@ -111,8 +111,8 @@ if (getDolGlobalString('MAIN_RECRUITMENT_CSS_URL')) {
 	$head = '<link rel="stylesheet" type="text/css" href="' . getDolGlobalString('MAIN_RECRUITMENT_CSS_URL').'?lang='.$langs->defaultlang.'">'."\n";
 }
 
-$conf->dol_hide_topmenu = 1;
-$conf->dol_hide_leftmenu = 1;
+$config->dol_hide_topmenu = 1;
+$config->dol_hide_leftmenu = 1;
 
 if (!getDolGlobalString('RECRUITMENT_ENABLE_PUBLIC_INTERFACE')) {
 	$langs->load("errors");
@@ -124,7 +124,7 @@ if (!getDolGlobalString('RECRUITMENT_ENABLE_PUBLIC_INTERFACE')) {
 $arrayofjs = array();
 $arrayofcss = array();
 
-$replacemainarea = (empty($conf->dol_hide_leftmenu) ? '<div>' : '').'<div>';
+$replacemainarea = (empty($config->dol_hide_leftmenu) ? '<div>' : '').'<div>';
 llxHeader($head, $langs->trans("PositionToBeFilled"), '', '', 0, 0, '', '', '', 'onlinepaymentbody', $replacemainarea, 1, 1);
 
 
@@ -154,12 +154,12 @@ if (getDolGlobalString($paramlogo)) {
 // Define urllogo
 $urllogo = '';
 $urllogofull = '';
-if (!empty($logosmall) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$logosmall)) {
-	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$conf->entity.'&amp;file='.urlencode('logos/thumbs/'.$logosmall);
-	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$conf->entity.'&file='.urlencode('logos/thumbs/'.$logosmall);
-} elseif (!empty($logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$logo)) {
-	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$conf->entity.'&amp;file='.urlencode('logos/'.$logo);
-	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$conf->entity.'&file='.urlencode('logos/'.$logo);
+if (!empty($logosmall) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$logosmall)) {
+	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$config->entity.'&amp;file='.urlencode('logos/thumbs/'.$logosmall);
+	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$config->entity.'&file='.urlencode('logos/thumbs/'.$logosmall);
+} elseif (!empty($logo) && is_readable($config->mycompany->dir_output.'/logos/'.$logo)) {
+	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$config->entity.'&amp;file='.urlencode('logos/'.$logo);
+	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$config->entity.'&file='.urlencode('logos/'.$logo);
 }
 // Output html code for logo
 if ($urllogo) {
@@ -204,7 +204,7 @@ if (is_array($results)) {
 			$text = '';
 			if (getDolGlobalString('RECRUITMENT_NEWFORM_TEXT')) {
 				$reg = array();
-				if (preg_match('/^\((.*)\)$/', $conf->global->RECRUITMENT_NEWFORM_TEXT, $reg)) {
+				if (preg_match('/^\((.*)\)$/', $config->global->RECRUITMENT_NEWFORM_TEXT, $reg)) {
 					$text .= $langs->trans($reg[1])."<br>\n";
 				} else {
 					$text .= getDolGlobalString('RECRUITMENT_NEWFORM_TEXT') . "<br>\n";

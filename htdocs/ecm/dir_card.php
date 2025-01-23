@@ -57,7 +57,7 @@ if (empty($module)) {
 }
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -88,14 +88,14 @@ if ($module == 'ecm') {
 	$result = $ecmdir->fetch($section);
 	if ($result > 0) {
 		$relativepath = $ecmdir->getRelativePath();
-		$upload_dir = $conf->ecm->dir_output.'/'.$relativepath;
+		$upload_dir = $config->ecm->dir_output.'/'.$relativepath;
 	} else {
 		$relativepath = $section;
-		$upload_dir = $conf->ecm->dir_output.'/'.$relativepath;
+		$upload_dir = $config->ecm->dir_output.'/'.$relativepath;
 	}
 } else { // For example $module == 'medias'
 	$relativepath = $section;
-	$upload_dir = $conf->medias->multidir_output[$conf->entity].'/'.$relativepath;
+	$upload_dir = $config->medias->multidir_output[$config->entity].'/'.$relativepath;
 }
 
 // Permissions
@@ -203,10 +203,10 @@ if ($action == 'update' && !GETPOST('cancel', 'alpha') && $permissiontoadd) {
 	if ($module == 'ecm') {
 		$oldlabel = $ecmdir->label;
 		$olddir = $ecmdir->getRelativePath(0);
-		$olddir = $conf->ecm->dir_output.'/'.$olddir;
+		$olddir = $config->ecm->dir_output.'/'.$olddir;
 	} else {
 		$olddir = GETPOST('section', 'alpha');
-		$olddir = $conf->medias->multidir_output[$conf->entity].'/'.$relativepath;
+		$olddir = $config->medias->multidir_output[$config->entity].'/'.$relativepath;
 	}
 
 	if ($module == 'ecm') {
@@ -236,11 +236,11 @@ if ($action == 'update' && !GETPOST('cancel', 'alpha') && $permissiontoadd) {
 		$result = $ecmdir->update($user);
 		if ($result > 0) {
 			$newdir = $ecmdir->getRelativePath(1);
-			$newdir = $conf->ecm->dir_output.'/'.$newdir;
+			$newdir = $config->ecm->dir_output.'/'.$newdir;
 			// Try to rename file if changed
 			if (($oldlabel != $ecmdir->label && file_exists($olddir)) || ($olddir != $newdir && file_exists($olddir))) {
 				$newdir = $ecmdir->getRelativePath(1); // return "xxx/zzz/" from ecm directory
-				$newdir = $conf->ecm->dir_output.'/'.$newdir;
+				$newdir = $config->ecm->dir_output.'/'.$newdir;
 				//print $olddir.'-'.$newdir;
 				$result = @rename($olddir, $newdir);
 				if (!$result) {
@@ -255,7 +255,7 @@ if ($action == 'update' && !GETPOST('cancel', 'alpha') && $permissiontoadd) {
 
 				// Set new value after renaming
 				$relativepath = $ecmdir->getRelativePath();
-				$upload_dir = $conf->ecm->dir_output.'/'.$relativepath;
+				$upload_dir = $config->ecm->dir_output.'/'.$relativepath;
 			} else {
 				$db->rollback();
 			}
@@ -264,7 +264,7 @@ if ($action == 'update' && !GETPOST('cancel', 'alpha') && $permissiontoadd) {
 			setEventMessages($ecmdir->error, $ecmdir->errors, 'errors');
 		}
 	} else {
-		$newdir = $conf->medias->multidir_output[$conf->entity].'/'.GETPOST('oldrelparentdir', 'alpha').'/'.GETPOST('label', 'alpha');
+		$newdir = $config->medias->multidir_output[$config->entity].'/'.GETPOST('oldrelparentdir', 'alpha').'/'.GETPOST('label', 'alpha');
 
 		$result = @rename($olddir, $newdir);
 		if (!$result) {
@@ -276,7 +276,7 @@ if ($action == 'update' && !GETPOST('cancel', 'alpha') && $permissiontoadd) {
 		if (!$error) {
 			// Set new value after renaming
 			$relativepath = GETPOST('oldrelparentdir', 'alpha').'/'.GETPOST('label', 'alpha');
-			$upload_dir = $conf->medias->multidir_output[$conf->entity].'/'.$relativepath;
+			$upload_dir = $config->medias->multidir_output[$config->entity].'/'.$relativepath;
 			$section = $relativepath;
 		}
 	}

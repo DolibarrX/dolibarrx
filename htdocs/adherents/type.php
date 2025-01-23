@@ -70,7 +70,7 @@ $status = GETPOST('status', 'alpha');
 $optioncss = GETPOST('optioncss', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -306,7 +306,7 @@ if (!$rowid && $action != 'create' && $action != 'edit') {
 		if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 			$param .= '&contextpage='.$contextpage;
 		}
-		if ($limit > 0 && $limit != $conf->liste_limit) {
+		if ($limit > 0 && $limit != $config->liste_limit) {
 			$param .= '&limit='.$limit;
 		}
 
@@ -769,7 +769,7 @@ if ($rowid > 0) {
 			if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 				$param .= '&contextpage='.urlencode($contextpage);
 			}
-			if ($limit > 0 && $limit != $conf->liste_limit) {
+			if ($limit > 0 && $limit != $config->liste_limit) {
 				$param .= '&limit='.((int) $limit);
 			}
 			if (!empty($status)) {
@@ -837,9 +837,9 @@ if ($rowid > 0) {
 
 			if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 				print '<td class="liste_titre center nowraponall">';
-				print '<input type="image" class="liste_titre" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/search.png" name="button_search" value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
+				print '<input type="image" class="liste_titre" src="'.DOL_URL_ROOT.'/theme/'.$config->theme.'/img/search.png" name="button_search" value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
 				print '&nbsp; ';
-				print '<input type="image" class="liste_titre" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/searchclear.png" name="button_removefilter" value="'.dol_escape_htmltag($langs->trans("RemoveFilter")).'" title="'.dol_escape_htmltag($langs->trans("RemoveFilter")).'">';
+				print '<input type="image" class="liste_titre" src="'.DOL_URL_ROOT.'/theme/'.$config->theme.'/img/searchclear.png" name="button_removefilter" value="'.dol_escape_htmltag($langs->trans("RemoveFilter")).'" title="'.dol_escape_htmltag($langs->trans("RemoveFilter")).'">';
 				print '</td>';
 			}
 

@@ -101,7 +101,7 @@ class mod_expensereport_jade extends ModeleNumRefExpenseReport
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
 		$sql .= " FROM ".MAIN_DB_PREFIX."expensereport";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {
@@ -138,8 +138,8 @@ class mod_expensereport_jade extends ModeleNumRefExpenseReport
 				$fuser->fetch($object->fk_user_author);
 			}
 
-			$expld_car = (!getDolGlobalString('NDF_EXPLODE_CHAR')) ? "-" : $conf->global->NDF_EXPLODE_CHAR;
-			$num_car = (!getDolGlobalString('NDF_NUM_CAR_REF')) ? "5" : $conf->global->NDF_NUM_CAR_REF;
+			$expld_car = (!getDolGlobalString('NDF_EXPLODE_CHAR')) ? "-" : $config->global->NDF_EXPLODE_CHAR;
+			$num_car = (!getDolGlobalString('NDF_NUM_CAR_REF')) ? "5" : $config->global->NDF_NUM_CAR_REF;
 
 			$sql = 'SELECT MAX(de.ref_number_int) as max';
 			$sql .= ' FROM '.MAIN_DB_PREFIX.'expensereport de';
@@ -186,7 +186,7 @@ class mod_expensereport_jade extends ModeleNumRefExpenseReport
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
 		$sql .= " FROM ".MAIN_DB_PREFIX."expensereport";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {

@@ -151,8 +151,8 @@ class Productlot extends CommonObject
 		'fk_product'    => array('type' => 'integer:Product:product/class/product.class.php', 'label' => 'Product', 'enabled' => 1, 'visible' => 1, 'position' => 5, 'notnull' => 1, 'index' => 1, 'searchall' => 1, 'picto' => 'product', 'css' => 'maxwidth500 widthcentpercentminusxx', 'csslist' => 'maxwidth150'),
 		'batch'         => array('type' => 'varchar(30)', 'label' => 'Batch', 'enabled' => 1, 'visible' => 1, 'notnull' => 1, 'showoncombobox' => 1, 'index' => 1, 'position' => 10, 'comment' => 'Batch', 'searchall' => 1, 'picto' => 'lot', 'validate' => 1),
 		'entity'        => array('type' => 'integer', 'label' => 'Entity', 'enabled' => 1, 'visible' => 0, 'default' => '1', 'notnull' => 1, 'index' => 1, 'position' => 20),
-		'sellby'        => array('type' => 'date', 'label' => 'SellByDate', 'enabled' => 'empty($conf->global->PRODUCT_DISABLE_SELLBY)?1:0', 'visible' => 1, 'notnull' => 0, 'position' => 60),
-		'eatby'         => array('type' => 'date', 'label' => 'EatByDate', 'enabled' => 'empty($conf->global->PRODUCT_DISABLE_EATBY)?1:0', 'visible' => 1, 'notnull' => 0, 'position' => 62),
+		'sellby'        => array('type' => 'date', 'label' => 'SellByDate', 'enabled' => 'empty($config->global->PRODUCT_DISABLE_SELLBY)?1:0', 'visible' => 1, 'notnull' => 0, 'position' => 60),
+		'eatby'         => array('type' => 'date', 'label' => 'EatByDate', 'enabled' => 'empty($config->global->PRODUCT_DISABLE_EATBY)?1:0', 'visible' => 1, 'notnull' => 0, 'position' => 62),
 		'eol_date'        => array('type' => 'date', 'label' => 'EndOfLife', 'enabled' => 'getDolGlobalInt("PRODUCT_LOT_ENABLE_QUALITY_CONTROL")?1:0', 'visible' => 'getDolGlobalInt("PRODUCT_LOT_ENABLE_QUALITY_CONTROL")?5:0', 'position' => 70),
 		'manufacturing_date' => array('type' => 'date', 'label' => 'ManufacturingDate', 'enabled' => 'getDolGlobalInt("PRODUCT_LOT_ENABLE_TRACEABILITY")?1:0', 'visible' => 'getDolGlobalInt("PRODUCT_LOT_ENABLE_TRACEABILITY")?5:0', 'position' => 80),
 		'scrapping_date'     => array('type' => 'date', 'label' => 'DestructionDate', 'enabled' => 'getDolGlobalInt("PRODUCT_LOT_ENABLE_TRACEABILITY")?1:0', 'visible' => 'getDolGlobalInt("PRODUCT_LOT_ENABLE_TRACEABILITY")?5:0', 'position' => 90),
@@ -435,7 +435,7 @@ class Productlot extends CommonObject
 			$sql .= 'fk_user_modif,';
 			$sql .= 'import_key';
 			$sql .= ') VALUES (';
-			$sql .= ' ' . (!isset($this->entity) ? $conf->entity : $this->entity) . ',';
+			$sql .= ' ' . (!isset($this->entity) ? $config->entity : $this->entity) . ',';
 			$sql .= ' ' . (!isset($this->fk_product) ? 'NULL' : $this->fk_product) . ',';
 			$sql .= ' ' . (!isset($this->batch) ? 'NULL' : "'" . $this->db->escape($this->batch) . "'") . ',';
 			$sql .= ' ' . (!isset($this->eatby) || dol_strlen($this->eatby) == 0 ? 'NULL' : "'" . $this->db->idate($this->eatby) . "'") . ',';
@@ -551,7 +551,7 @@ class Productlot extends CommonObject
 				//$this->ref = $obj->fk_product.'_'.$obj->batch;
 
 				$this->batch = $obj->batch;
-				$this->entity = (!empty($obj->entity) ? $obj->entity : $conf->entity); // Prevent "null" entity
+				$this->entity = (!empty($obj->entity) ? $obj->entity : $config->entity); // Prevent "null" entity
 				$this->fk_product = $obj->fk_product;
 				$this->eatby = $this->db->jdate($obj->eatby);
 				$this->sellby = $this->db->jdate($obj->sellby);
@@ -1288,7 +1288,7 @@ class Productlot extends CommonObject
 		$this->ref = 'SPECIMEN';
 		$this->specimen = 1;
 
-		$this->entity = $conf->entity;
+		$this->entity = $config->entity;
 		$this->fk_product = 0;
 		$this->batch = 'ABCD123456';
 		$this->eatby = $now - 100000;

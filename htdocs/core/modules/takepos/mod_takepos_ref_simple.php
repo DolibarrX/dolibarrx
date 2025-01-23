@@ -105,7 +105,7 @@ class mod_takepos_ref_simple extends ModeleNumRefTakepos
 		$sql  = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
 		$sql .= " FROM ".MAIN_DB_PREFIX."facture";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix.$pos_source."-____-%")."'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {

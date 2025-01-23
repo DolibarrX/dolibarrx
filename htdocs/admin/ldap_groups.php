@@ -62,26 +62,26 @@ if ($action == 'setvalue' && $user->admin) {
 	$error = 0;
 	$db->begin();
 
-	if (!dolibarr_set_const($db, 'LDAP_GROUP_DN', GETPOST("group", 'alphanohtml'), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_GROUP_DN', GETPOST("group", 'alphanohtml'), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_GROUP_OBJECT_CLASS', GETPOST("objectclass", 'alphanohtml'), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_GROUP_OBJECT_CLASS', GETPOST("objectclass", 'alphanohtml'), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_GROUP_FILTER', GETPOST("filter"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_GROUP_FILTER', GETPOST("filter"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_GROUP_FIELD_FULLNAME', GETPOST("fieldfullname", 'alphanohtml'), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_GROUP_FIELD_FULLNAME', GETPOST("fieldfullname", 'alphanohtml'), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	//if (! dolibarr_set_const($db, 'LDAP_GROUP_FIELD_NAME',GETPOST("fieldname", 'alphanohtml'),'chaine',0,'',$conf->entity)) $error++;
-	if (!dolibarr_set_const($db, 'LDAP_GROUP_FIELD_DESCRIPTION', GETPOST("fielddescription", 'alphanohtml'), 'chaine', 0, '', $conf->entity)) {
+	//if (! dolibarr_set_const($db, 'LDAP_GROUP_FIELD_NAME',GETPOST("fieldname", 'alphanohtml'),'chaine',0,'',$config->entity)) $error++;
+	if (!dolibarr_set_const($db, 'LDAP_GROUP_FIELD_DESCRIPTION', GETPOST("fielddescription", 'alphanohtml'), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_GROUP_FIELD_GROUPMEMBERS', GETPOST("fieldgroupmembers", 'alphanohtml'), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_GROUP_FIELD_GROUPMEMBERS', GETPOST("fieldgroupmembers", 'alphanohtml'), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_GROUP_FIELD_GROUPID', GETPOST("fieldgroupid", 'alphanohtml'), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_GROUP_FIELD_GROUPID', GETPOST("fieldgroupid", 'alphanohtml'), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
 
@@ -91,7 +91,7 @@ if ($action == 'setvalue' && $user->admin) {
 	if ($key) {
 		$valkey = getDolGlobalString($key);
 	}
-	if (!dolibarr_set_const($db, 'LDAP_KEY_GROUPS', $valkey, 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_KEY_GROUPS', $valkey, 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
 
@@ -188,9 +188,9 @@ print '</tr>';
 // Name
 /*
 print '<tr class="oddeven"><td>'.$langs->trans("LDAPFieldName").'</td><td>';
-print '<input size="25" type="text" name="fieldname" value="'.$conf->global->LDAP_GROUP_FIELD_NAME.'">';
+print '<input size="25" type="text" name="fieldname" value="'.$config->global->LDAP_GROUP_FIELD_NAME.'">';
 print '</td><td>'.$langs->trans("LDAPFieldNameExample").'</td>';
-print '<td class="right"><input type="radio" name="key" value="'.$conf->global->LDAP_GROUP_FIELD_NAME.'"'.($conf->global->LDAP_KEY_GROUPS==$conf->global->LDAP_GROUP_FIELD_NAME?' checked':'')."></td>";
+print '<td class="right"><input type="radio" name="key" value="'.$config->global->LDAP_GROUP_FIELD_NAME.'"'.($config->global->LDAP_KEY_GROUPS==$config->global->LDAP_GROUP_FIELD_NAME?' checked':'')."></td>";
 print '</tr>';
 */
 
@@ -277,7 +277,7 @@ if (function_exists("ldap_connect")) {
 				print '<span class="error">'.$langs->trans("LDAPSynchroKOMayBePermissions");
 				print ': '.$ldap->error;
 				print '</span><br>';
-				print $langs->trans("ErrorLDAPMakeManualTest", $conf->ldap->dir_temp).'<br>';
+				print $langs->trans("ErrorLDAPMakeManualTest", $config->ldap->dir_temp).'<br>';
 			}
 
 			print "<br>\n";
@@ -289,7 +289,7 @@ if (function_exists("ldap_connect")) {
 			print '<span class="error">'.$langs->trans("LDAPSynchroKO");
 			print ': '.$ldap->error;
 			print '</span><br>';
-			print $langs->trans("ErrorLDAPMakeManualTest", $conf->ldap->dir_temp).'<br>';
+			print $langs->trans("ErrorLDAPMakeManualTest", $config->ldap->dir_temp).'<br>';
 		}
 	}
 
@@ -314,7 +314,7 @@ if (function_exists("ldap_connect")) {
 
 			// Get from LDAP database an array of results
 			$ldapgroups = $ldap->getRecords('*', getDolGlobalString('LDAP_GROUP_DN'), getDolGlobalString('LDAP_KEY_GROUPS'), $required_fields, 'group');
-			//$ldapgroups = $ldap->getRecords('*', $conf->global->LDAP_GROUP_DN, $conf->global->LDAP_KEY_GROUPS, '', 'group');
+			//$ldapgroups = $ldap->getRecords('*', $config->global->LDAP_GROUP_DN, $config->global->LDAP_KEY_GROUPS, '', 'group');
 
 			$liste = array();
 			if (is_array($ldapgroups)) {
@@ -345,7 +345,7 @@ if (function_exists("ldap_connect")) {
 			print '<span class="error">'.$langs->trans("LDAPSynchroKO");
 			print ': '.$ldap->error;
 			print '</span><br>';
-			print $langs->trans("ErrorLDAPMakeManualTest", $conf->ldap->dir_temp).'<br>';
+			print $langs->trans("ErrorLDAPMakeManualTest", $config->ldap->dir_temp).'<br>';
 		}
 	}
 }

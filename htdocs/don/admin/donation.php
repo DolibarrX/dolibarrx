@@ -93,10 +93,10 @@ if ($action == 'specimen') {
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "DON_ADDON_MODEL", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "DON_ADDON_MODEL", $value, 'chaine', 0, '', $config->entity)) {
 		// The constant that was read before the new set
 		// So we go through a variable for a coherent display
-		$conf->global->DON_ADDON_MODEL = $value;
+		$config->global->DON_ADDON_MODEL = $value;
 	}
 
 	// It enables the model
@@ -110,8 +110,8 @@ if ($action == 'specimen') {
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->DON_ADDON_MODEL == "$value") {
-			dolibarr_del_const($db, 'DON_ADDON_MODEL', $conf->entity);
+		if ($config->global->DON_ADDON_MODEL == "$value") {
+			dolibarr_del_const($db, 'DON_ADDON_MODEL', $config->entity);
 		}
 	}
 }
@@ -120,7 +120,7 @@ if ($action == 'specimen') {
 if ($action == 'set_DONATION_ACCOUNTINGACCOUNT') {
 	$account = GETPOST('DONATION_ACCOUNTINGACCOUNT', 'alpha');
 
-	$res = dolibarr_set_const($db, "DONATION_ACCOUNTINGACCOUNT", $account, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "DONATION_ACCOUNTINGACCOUNT", $account, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -138,7 +138,7 @@ if ($action == 'set_DONATION_ACCOUNTINGACCOUNT') {
 if ($action == 'set_DONATION_MESSAGE') {
 	$freemessage = GETPOST('DONATION_MESSAGE', 'restricthtml'); // No alpha here, we want exact string
 
-	$res = dolibarr_set_const($db, "DONATION_MESSAGE", $freemessage, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "DONATION_MESSAGE", $freemessage, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -157,7 +157,7 @@ if ($action == 'set_DONATION_MESSAGE') {
 $reg = array();
 if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -167,7 +167,7 @@ if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 
 if (preg_match('/del_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_del_const($db, $code, $conf->entity) > 0) {
+	if (dolibarr_del_const($db, $code, $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -262,7 +262,7 @@ if (is_resource($handle)) {
 
 				// Active
 				if (in_array($name, $def)) {
-					if ($conf->global->DON_ADDON_MODEL == $name) {
+					if ($config->global->DON_ADDON_MODEL == $name) {
 						print "<td class=\"center\">\n";
 						print img_picto($langs->trans("Enabled"), 'switch_on');
 						print '</td>';
@@ -278,7 +278,7 @@ if (is_resource($handle)) {
 				}
 
 				// Default
-				if ($conf->global->DON_ADDON_MODEL == "$name") {
+				if ($config->global->DON_ADDON_MODEL == "$name") {
 					print "<td class=\"center\">";
 					print img_picto($langs->trans("Default"), 'on');
 					print '</td>';
@@ -333,11 +333,11 @@ if (isModEnabled("societe")) {
 	print $langs->trans("DonationUseThirdparties");
 	print '</td>';
 	print '<td class="center">';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('DONATION_USE_THIRDPARTIES');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("DONATION_USE_THIRDPARTIES", $arrval, $conf->global->DONATION_USE_THIRDPARTIES);
+		print $form->selectarray("DONATION_USE_THIRDPARTIES", $arrval, $config->global->DONATION_USE_THIRDPARTIES);
 	}
 	print "</td>\n";
 	print "</tr>\n";
@@ -354,7 +354,7 @@ print '<label for="DONATION_ACCOUNTINGACCOUNT">'.$label.'</label></td>';
 print '<td class="center">';
 if (isModEnabled('accounting')) {
 	/** @var FormAccounting $formaccounting */
-	print $formaccounting->select_account($conf->global->DONATION_ACCOUNTINGACCOUNT, 'DONATION_ACCOUNTINGACCOUNT', 1, array(), 1, 1);
+	print $formaccounting->select_account($config->global->DONATION_ACCOUNTINGACCOUNT, 'DONATION_ACCOUNTINGACCOUNT', 1, array(), 1, 1);
 } else {
 	print '<input type="text" size="10" id="DONATION_ACCOUNTINGACCOUNT" name="DONATION_ACCOUNTINGACCOUNT" value="' . getDolGlobalString('DONATION_ACCOUNTINGACCOUNT').'">';
 }
@@ -380,7 +380,7 @@ print '</form>';
 /*
  *  French params
  */
-if (preg_match('/fr/i', $conf->global->MAIN_INFO_SOCIETE_COUNTRY)) {
+if (preg_match('/fr/i', $config->global->MAIN_INFO_SOCIETE_COUNTRY)) {
 	print '<br>';
 	print load_fiche_titre($langs->trans("FrenchOptions"), '', '');
 
@@ -393,33 +393,33 @@ if (preg_match('/fr/i', $conf->global->MAIN_INFO_SOCIETE_COUNTRY)) {
 	print '<tr class="oddeven">';
 	print '<td width="80%">'.$langs->trans("DONATION_ART200").'</td>';
 	print '<td class="center">';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('DONATION_ART200');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("DONATION_ART200", $arrval, $conf->global->DONATION_ART200);
+		print $form->selectarray("DONATION_ART200", $arrval, $config->global->DONATION_ART200);
 	}
 	print '</td></tr>';
 
 	print '<tr class="oddeven">';
 	print '<td width="80%">'.$langs->trans("DONATION_ART238").'</td>';
 	print '<td class="center">';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('DONATION_ART238');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("DONATION_ART238", $arrval, $conf->global->DONATION_ART238);
+		print $form->selectarray("DONATION_ART238", $arrval, $config->global->DONATION_ART238);
 	}
 	print '</td></tr>';
 
 	print '<tr class="oddeven">';
 	print '<td width="80%">'.$langs->trans("DONATION_ART978").'</td>';
 	print '<td class="center">';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('DONATION_ART978');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("DONATION_ART978", $arrval, $conf->global->DONATION_ART978);
+		print $form->selectarray("DONATION_ART978", $arrval, $config->global->DONATION_ART978);
 	}
 	print '</td></tr>';
 	print "</table>\n";

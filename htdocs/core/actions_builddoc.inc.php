@@ -27,7 +27,7 @@
 // $id must be defined
 // $object must be defined and must have a method generateDocument().
 // $permissiontoadd must be defined
-// $upload_dir must be defined (example $conf->project->dir_output . "/";)
+// $upload_dir must be defined (example $config->project->dir_output . "/";)
 // $hidedetails, $hidedesc, $hideref and $moreparams may have been set or not.
 /**
  * @var Conf $conf

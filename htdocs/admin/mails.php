@@ -99,37 +99,37 @@ if ($action == 'update' && !$cancel) {
 	}
 
 	if (!$error) {
-		dolibarr_set_const($db, "MAIN_DISABLE_ALL_MAILS", GETPOSTINT("MAIN_DISABLE_ALL_MAILS"), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_MAIL_FORCE_SENDTO", GETPOST("MAIN_MAIL_FORCE_SENDTO", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_MAIL_ENABLED_USER_DEST_SELECT", GETPOSTINT("MAIN_MAIL_ENABLED_USER_DEST_SELECT"), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, 'MAIN_MAIL_NO_WITH_TO_SELECTED', GETPOSTINT('MAIN_MAIL_NO_WITH_TO_SELECTED'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_DISABLE_ALL_MAILS", GETPOSTINT("MAIN_DISABLE_ALL_MAILS"), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_FORCE_SENDTO", GETPOST("MAIN_MAIL_FORCE_SENDTO", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_ENABLED_USER_DEST_SELECT", GETPOSTINT("MAIN_MAIL_ENABLED_USER_DEST_SELECT"), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, 'MAIN_MAIL_NO_WITH_TO_SELECTED', GETPOSTINT('MAIN_MAIL_NO_WITH_TO_SELECTED'), 'chaine', 0, '', $config->entity);
 		// Send mode parameters
-		dolibarr_set_const($db, "MAIN_MAIL_SENDMODE", GETPOST("MAIN_MAIL_SENDMODE", 'aZ09'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_MAIL_SMTP_PORT", GETPOSTINT("MAIN_MAIL_SMTP_PORT"), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_MAIL_SMTP_SERVER", GETPOST("MAIN_MAIL_SMTP_SERVER", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_MAIL_SMTPS_ID", GETPOST("MAIN_MAIL_SMTPS_ID", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_SENDMODE", GETPOST("MAIN_MAIL_SENDMODE", 'aZ09'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_SMTP_PORT", GETPOSTINT("MAIN_MAIL_SMTP_PORT"), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_SMTP_SERVER", GETPOST("MAIN_MAIL_SMTP_SERVER", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_SMTPS_ID", GETPOST("MAIN_MAIL_SMTPS_ID", 'alphanohtml'), 'chaine', 0, '', $config->entity);
 		if (GETPOSTISSET("MAIN_MAIL_SMTPS_PW")) {
-			dolibarr_set_const($db, "MAIN_MAIL_SMTPS_PW", GETPOST("MAIN_MAIL_SMTPS_PW", 'password'), 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, "MAIN_MAIL_SMTPS_PW", GETPOST("MAIN_MAIL_SMTPS_PW", 'password'), 'chaine', 0, '', $config->entity);
 		}
 		if (GETPOSTISSET("MAIN_MAIL_SMTPS_AUTH_TYPE")) {
-			dolibarr_set_const($db, "MAIN_MAIL_SMTPS_AUTH_TYPE", GETPOST("MAIN_MAIL_SMTPS_AUTH_TYPE", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, "MAIN_MAIL_SMTPS_AUTH_TYPE", GETPOST("MAIN_MAIL_SMTPS_AUTH_TYPE", 'alphanohtml'), 'chaine', 0, '', $config->entity);
 		}
 		if (GETPOSTISSET("MAIN_MAIL_SMTPS_OAUTH_SERVICE")) {
-			dolibarr_set_const($db, "MAIN_MAIL_SMTPS_OAUTH_SERVICE", GETPOST("MAIN_MAIL_SMTPS_OAUTH_SERVICE", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, "MAIN_MAIL_SMTPS_OAUTH_SERVICE", GETPOST("MAIN_MAIL_SMTPS_OAUTH_SERVICE", 'alphanohtml'), 'chaine', 0, '', $config->entity);
 		}
-		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_TLS", GETPOSTINT("MAIN_MAIL_EMAIL_TLS"), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_STARTTLS", GETPOSTINT("MAIN_MAIL_EMAIL_STARTTLS"), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_SMTP_ALLOW_SELF_SIGNED", GETPOSTINT("MAIN_MAIL_EMAIL_SMTP_ALLOW_SELF_SIGNED"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_TLS", GETPOSTINT("MAIN_MAIL_EMAIL_TLS"), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_STARTTLS", GETPOSTINT("MAIN_MAIL_EMAIL_STARTTLS"), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_SMTP_ALLOW_SELF_SIGNED", GETPOSTINT("MAIN_MAIL_EMAIL_SMTP_ALLOW_SELF_SIGNED"), 'chaine', 0, '', $config->entity);
 
-		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_DKIM_ENABLED", GETPOSTINT("MAIN_MAIL_EMAIL_DKIM_ENABLED"), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_DKIM_DOMAIN", GETPOST("MAIN_MAIL_EMAIL_DKIM_DOMAIN", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_DKIM_SELECTOR", GETPOST("MAIN_MAIL_EMAIL_DKIM_SELECTOR", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_DKIM_PRIVATE_KEY", GETPOST("MAIN_MAIL_EMAIL_DKIM_PRIVATE_KEY", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_DKIM_ENABLED", GETPOSTINT("MAIN_MAIL_EMAIL_DKIM_ENABLED"), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_DKIM_DOMAIN", GETPOST("MAIN_MAIL_EMAIL_DKIM_DOMAIN", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_DKIM_SELECTOR", GETPOST("MAIN_MAIL_EMAIL_DKIM_SELECTOR", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_DKIM_PRIVATE_KEY", GETPOST("MAIN_MAIL_EMAIL_DKIM_PRIVATE_KEY", 'alphanohtml'), 'chaine', 0, '', $config->entity);
 		// Content parameters
-		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_FROM", GETPOST("MAIN_MAIL_EMAIL_FROM", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_MAIL_ERRORS_TO", GETPOST("MAIN_MAIL_ERRORS_TO", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_MAIL_AUTOCOPY_TO", GETPOST("MAIN_MAIL_AUTOCOPY_TO", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, 'MAIN_MAIL_DEFAULT_FROMTYPE', GETPOST('MAIN_MAIL_DEFAULT_FROMTYPE', 'alphanohtml'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_EMAIL_FROM", GETPOST("MAIN_MAIL_EMAIL_FROM", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_ERRORS_TO", GETPOST("MAIN_MAIL_ERRORS_TO", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_MAIL_AUTOCOPY_TO", GETPOST("MAIN_MAIL_AUTOCOPY_TO", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, 'MAIN_MAIL_DEFAULT_FROMTYPE', GETPOST('MAIN_MAIL_DEFAULT_FROMTYPE', 'alphanohtml'), 'chaine', 0, '', $config->entity);
 
 
 		header("Location: ".$_SERVER["PHP_SELF"]."?mainmenu=home&leftmenu=setup");
@@ -138,7 +138,7 @@ if ($action == 'update' && !$cancel) {
 }
 
 if ($action == 'disablephpmailwarning' && !$cancel) {
-	dolibarr_set_const($db, 'MAIN_HIDE_WARNING_TO_ENCOURAGE_SMTP_SETUP', 1, 'chaine', 1, '', $conf->entity);
+	dolibarr_set_const($db, 'MAIN_HIDE_WARNING_TO_ENCOURAGE_SMTP_SETUP', 1, 'chaine', 1, '', $config->entity);
 
 	setEventMessages($langs->trans("WarningDisabled"), null, 'mesgs');
 }
@@ -177,7 +177,7 @@ if (preg_match('/^mac/i', PHP_OS)) {
 }
 
 if (!getDolGlobalString('MAIN_MAIL_SENDMODE')) {
-	$conf->global->MAIN_MAIL_SENDMODE = 'mail';
+	$config->global->MAIN_MAIL_SENDMODE = 'mail';
 }
 
 $port = getDolGlobalInt('MAIN_MAIL_SMTP_PORT', (int) ini_get('smtp_port'));
@@ -208,7 +208,7 @@ if (version_compare(phpversion(), '7.0', '>=')) {
 // List of oauth services
 $oauthservices = array();
 
-foreach ($conf->global as $key => $val) {
+foreach ($config->global as $key => $val) {
 	if (!empty($val) && preg_match('/^OAUTH_.*_ID$/', $key)) {
 		$key = preg_replace('/^OAUTH_/', '', $key);
 		$key = preg_replace('/_ID$/', '', $key);
@@ -225,7 +225,7 @@ foreach ($conf->global as $key => $val) {
 }
 
 if ($action == 'edit') {
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print "\n".'<script type="text/javascript">';
 		print 'jQuery(document).ready(function () {
                     function initfields()
@@ -404,7 +404,7 @@ if ($action == 'edit') {
 
 	// Host server
 	print '<tr class="oddeven hideonmodemail">';
-	if (!$conf->use_javascript_ajax && $linuxlike && getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail') == 'mail') {
+	if (!$config->use_javascript_ajax && $linuxlike && getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail') == 'mail') {
 		print '<td>';
 		print $langs->trans("MAIN_MAIL_SMTP_SERVER_NotAvailableOnLinuxLike");
 		print '</td><td>';
@@ -438,7 +438,7 @@ if ($action == 'edit') {
 
 	// Port
 	print '<tr class="oddeven hideonmodemail"><td>';
-	if (!$conf->use_javascript_ajax && $linuxlike && getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail') == 'mail') {
+	if (!$config->use_javascript_ajax && $linuxlike && getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail') == 'mail') {
 		print $langs->trans("MAIN_MAIL_SMTP_PORT_NotAvailableOnLinuxLike");
 		print '</td><td>';
 		print '<span class="opacitymedium">'.$langs->trans("SeeLocalSendMailSetup").'</span>';
@@ -466,7 +466,7 @@ if ($action == 'edit') {
 	print '</td></tr>';
 
 	// Auth mode
-	if (!empty($conf->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
+	if (!empty($config->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
 		print '<tr class="oddeven smtp_auth_method"><td>'.$langs->trans("MAIN_MAIL_SMTPS_AUTH_TYPE").'</td><td>';
 		$vartosmtpstype = 'MAIN_MAIL_SMTPS_AUTH_TYPE';
 		if (!isModEnabled('multicompany') || ($user->admin && !$user->entity)) {
@@ -494,7 +494,7 @@ if ($action == 'edit') {
 	}
 
 	// ID
-	if (!empty($conf->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
+	if (!empty($config->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
 		$mainstmpid = getDolGlobalString('MAIN_MAIL_SMTPS_ID');
 		print '<tr class="drag drop oddeven"><td>'.$langs->trans("MAIN_MAIL_SMTPS_ID").'</td><td>';
 		// SuperAdministrator access only
@@ -510,7 +510,7 @@ if ($action == 'edit') {
 
 
 	// PW
-	if (!empty($conf->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
+	if (!empty($config->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
 		$mainsmtppw = getDolGlobalString('MAIN_MAIL_SMTPS_PW');
 		print '<tr class="drag drop oddeven smtp_pw"><td>';
 		print $form->textwithpicto($langs->trans("MAIN_MAIL_SMTPS_PW"), $langs->trans("WithGMailYouCanCreateADedicatedPassword"));
@@ -527,7 +527,7 @@ if ($action == 'edit') {
 	}
 
 	// OAUTH service provider
-	if (!empty($conf->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
+	if (!empty($config->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
 		print '<tr class="oddeven smtp_oauth_service"><td>'.$langs->trans("MAIN_MAIL_SMTPS_OAUTH_SERVICE").'</td><td>';
 
 		// SuperAdministrator access only
@@ -547,7 +547,7 @@ if ($action == 'edit') {
 
 	// TLS
 	print '<tr class="oddeven hideonmodemail"><td>'.$langs->trans("MAIN_MAIL_EMAIL_TLS").'</td><td>';
-	if (!empty($conf->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
+	if (!empty($config->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
 		if (function_exists('openssl_open')) {
 			print $form->selectyesno('MAIN_MAIL_EMAIL_TLS', (getDolGlobalString('MAIN_MAIL_EMAIL_TLS') ? getDolGlobalString('MAIN_MAIL_EMAIL_TLS') : 0), 1);
 		} else {
@@ -560,7 +560,7 @@ if ($action == 'edit') {
 
 	// STARTTLS
 	print '<tr class="oddeven hideonmodemail"><td>'.$langs->trans("MAIN_MAIL_EMAIL_STARTTLS").'</td><td>';
-	if (!empty($conf->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
+	if (!empty($config->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
 		if (function_exists('openssl_open')) {
 			print $form->selectyesno('MAIN_MAIL_EMAIL_STARTTLS', (getDolGlobalString('MAIN_MAIL_EMAIL_STARTTLS') ? getDolGlobalString('MAIN_MAIL_EMAIL_STARTTLS') : 0), 1);
 		} else {
@@ -573,7 +573,7 @@ if ($action == 'edit') {
 
 	// SMTP_ALLOW_SELF_SIGNED
 	print '<tr class="oddeven hideonmodemail"><td>'.$langs->trans("MAIN_MAIL_EMAIL_SMTP_ALLOW_SELF_SIGNED").'</td><td>';
-	if (!empty($conf->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
+	if (!empty($config->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
 		if (function_exists('openssl_open')) {
 			print $form->selectyesno('MAIN_MAIL_EMAIL_SMTP_ALLOW_SELF_SIGNED', (getDolGlobalString('MAIN_MAIL_EMAIL_SMTP_ALLOW_SELF_SIGNED') ? getDolGlobalString('MAIN_MAIL_EMAIL_SMTP_ALLOW_SELF_SIGNED') : 0), 1);
 		} else {
@@ -586,7 +586,7 @@ if ($action == 'edit') {
 
 	// DKIM
 	print '<tr class="oddeven dkim"><td>'.$langs->trans("MAIN_MAIL_EMAIL_DKIM_ENABLED").'</td><td>';
-	if (!empty($conf->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('swiftmailer')))) {
+	if (!empty($config->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('swiftmailer')))) {
 		if (function_exists('openssl_open')) {
 			print $form->selectyesno('MAIN_MAIL_EMAIL_DKIM_ENABLED', (getDolGlobalString('MAIN_MAIL_EMAIL_DKIM_ENABLED') ? getDolGlobalString('MAIN_MAIL_EMAIL_DKIM_ENABLED') : 0), 1);
 		} else {
@@ -677,7 +677,7 @@ if ($action == 'edit') {
 	print "<br>\n";
 
 	print $langs->trans("MAIN_DISABLE_ALL_MAILS");
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print ajax_constantonoff('MAIN_DISABLE_ALL_MAILS', array(), null, 0, 0, 1, 2, 0, 0, '_red').'</a>';
 	} else {
 		print yn(getDolGlobalString('MAIN_DISABLE_ALL_MAILS'));

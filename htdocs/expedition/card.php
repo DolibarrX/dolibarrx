@@ -138,7 +138,7 @@ $result = restrictedArea($user, 'expedition', $object->id, '');
 $permissiondellink = $user->hasRight('expedition', 'delivery', 'creer'); // Used by the include of actions_dellink.inc.php
 $permissiontoadd = $user->hasRight('expedition', 'creer');
 
-$upload_dir = $conf->expedition->dir_output.'/sending';
+$upload_dir = $config->expedition->dir_output.'/sending';
 
 $editColspan = 0;
 $objectsrc = null;
@@ -831,7 +831,7 @@ if (empty($reshook)) {
 									unset($_POST[$qty]);
 								}
 							}
-						} elseif (!isModEnabled('stock') && empty($conf->productbatch->enabled)) { // both product batch and stock are not activated.
+						} elseif (!isModEnabled('stock') && empty($config->productbatch->enabled)) { // both product batch and stock are not activated.
 							$qty = "qtyl".$line_id;
 							$line->id = $line_id;
 							$line->qty = GETPOSTFLOAT($qty);
@@ -1148,7 +1148,7 @@ if ($action == 'create') {
 				print "<tr><td>".$langs->trans("DefaultModel")."</td>";
 				print '<td colspan="3">';
 				print img_picto('', 'pdf', 'class="pictofixedwidth"');
-				print $form->selectarray('model', $list, $conf->global->EXPEDITION_ADDON_PDF);
+				print $form->selectarray('model', $list, $config->global->EXPEDITION_ADDON_PDF);
 				print "</td></tr>\n";
 			}
 
@@ -1194,7 +1194,7 @@ if ($action == 'create') {
 				print '<td class="center">'.$langs->trans("QtyOrdered").'</td>';
 				print '<td class="center">'.$langs->trans("QtyShipped").'</td>';
 				print '<td class="center">'.$langs->trans("QtyToShip");
-				if (empty($conf->productbatch->enabled)) {
+				if (empty($config->productbatch->enabled)) {
 					print '<br><a href="#" id="autofill" class="opacitymedium link cursor cursorpointer">'.img_picto($langs->trans("Autofill"), 'autofill', 'class="paddingrightonly"').'</a>';
 					print ' / ';
 				} else {
@@ -1203,7 +1203,7 @@ if ($action == 'create') {
 				print '<span id="autoreset" class="opacitymedium link cursor cursorpointer">'.img_picto($langs->trans("Reset"), 'eraser').'</span>';
 				print '</td>';
 				if (isModEnabled('stock')) {
-					if (empty($conf->productbatch->enabled)) {
+					if (empty($config->productbatch->enabled)) {
 						print '<td class="left">'.$langs->trans("Warehouse").' ('.$langs->trans("Stock").')</td>';
 					} else {
 						print '<td class="left">'.$langs->trans("Warehouse").' / '.$langs->trans("Batch").' ('.$langs->trans("Stock").')</td>';
@@ -1352,7 +1352,7 @@ if ($action == 'create') {
 						if ($deliverableQty < 0) {
 							$deliverableQty = 0;
 						}
-						if (empty($conf->productbatch->enabled) || !$product->hasbatch()) {
+						if (empty($config->productbatch->enabled) || !$product->hasbatch()) {
 							// Quantity to send
 							print '<td class="center">';
 							if ($line->product_type == Product::TYPE_PRODUCT || getDolGlobalString('STOCK_SUPPORTS_SERVICES') || ($line->product_type == Product::TYPE_SERVICE && getDolGlobalString('SHIPMENT_SUPPORTS_SERVICES'))) {
@@ -1541,7 +1541,7 @@ if ($action == 'create') {
 						}
 					} else {
 						// ship from multiple locations
-						if (empty($conf->productbatch->enabled) || !$product->hasbatch()) {
+						if (empty($config->productbatch->enabled) || !$product->hasbatch()) {
 							print '<!-- Case warehouse not already known and product does not need lot -->';
 							print '<td></td><td></td>';
 							if (getDolGlobalString('SHIPPING_DISPLAY_STOCK_ENTRY_DATE')) {
@@ -1555,7 +1555,7 @@ if ($action == 'create') {
 							$nbofsuggested = 0;
 
 							foreach ($product->stock_warehouse as $warehouse_id => $stock_warehouse) {
-								if ($stock_warehouse->real > 0 || !empty($conf->global->STOCK_ALLOW_NEGATIVE_TRANSFER)) {
+								if ($stock_warehouse->real > 0 || !empty($config->global->STOCK_ALLOW_NEGATIVE_TRANSFER)) {
 									$nbofsuggested++;
 								}
 							}
@@ -1568,7 +1568,7 @@ if ($action == 'create') {
 								}
 
 								$tmpwarehouseObject->fetch($warehouse_id);
-								if ($stock_warehouse->real > 0 || !empty($conf->global->STOCK_ALLOW_NEGATIVE_TRANSFER)) {
+								if ($stock_warehouse->real > 0 || !empty($config->global->STOCK_ALLOW_NEGATIVE_TRANSFER)) {
 									$stock = + $stock_warehouse->real; // Convert it to number
 									$deliverableQty = min($quantityToBeDelivered, $stock);
 									$deliverableQty = max(0, $deliverableQty);
@@ -1680,7 +1680,7 @@ if ($action == 'create') {
 							// Define nb of lines suggested for this order line
 							$nbofsuggested = 0;
 							foreach ($product->stock_warehouse as $warehouse_id => $stock_warehouse) {
-								if (($stock_warehouse->real > 0 || !empty($conf->global->STOCK_ALLOW_NEGATIVE_TRANSFER)) && (count($stock_warehouse->detail_batch))) {
+								if (($stock_warehouse->real > 0 || !empty($config->global->STOCK_ALLOW_NEGATIVE_TRANSFER)) && (count($stock_warehouse->detail_batch))) {
 									$nbofsuggested += count($stock_warehouse->detail_batch);
 								}
 							}
@@ -1693,7 +1693,7 @@ if ($action == 'create') {
 								}
 
 								$tmpwarehouseObject->fetch($warehouse_id);
-								if (($stock_warehouse->real > 0 || !empty($conf->global->STOCK_ALLOW_NEGATIVE_TRANSFER)) && (count($stock_warehouse->detail_batch))) {
+								if (($stock_warehouse->real > 0 || !empty($config->global->STOCK_ALLOW_NEGATIVE_TRANSFER)) && (count($stock_warehouse->detail_batch))) {
 									foreach ($stock_warehouse->detail_batch as $dbatch) {
 										$batchStock = + $dbatch->qty; // To get a numeric
 										if (isset($alreadyQtyBatchSetted[$line->fk_product][$dbatch->batch][intval($warehouse_id)])) {
@@ -1976,7 +1976,7 @@ if ($action == 'create') {
 	$morehtmlref = '<div class="refidno">';
 	// Ref customer shipment
 	$morehtmlref .= $form->editfieldkey("RefCustomer", 'ref_customer', $object->ref_customer, $object, $user->hasRight('expedition', 'creer'), 'string', '', 0, 1);
-	$morehtmlref .= $form->editfieldval("RefCustomer", 'ref_customer', $object->ref_customer, $object, $user->hasRight('expedition', 'creer'), 'string'.(isset($conf->global->THIRDPARTY_REF_INPUT_SIZE) ? ':' . getDolGlobalString('THIRDPARTY_REF_INPUT_SIZE') : ''), '', null, null, '', 1);
+	$morehtmlref .= $form->editfieldval("RefCustomer", 'ref_customer', $object->ref_customer, $object, $user->hasRight('expedition', 'creer'), 'string'.(isset($config->global->THIRDPARTY_REF_INPUT_SIZE) ? ':' . getDolGlobalString('THIRDPARTY_REF_INPUT_SIZE') : ''), '', null, null, '', 1);
 	// Thirdparty
 	$morehtmlref .= '<br>'.$object->thirdparty->getNomUrl(1);
 	// Project
@@ -2106,7 +2106,7 @@ if ($action == 'create') {
 		if (!empty($object->trueWeight)) {
 			print ' ('.$langs->trans("SumOfProductWeights").': ';
 		}
-		print showDimensionInBestUnit($totalWeight, 0, "weight", $langs, getDolGlobalInt('MAIN_WEIGHT_DEFAULT_ROUND', -1), isset($conf->global->MAIN_WEIGHT_DEFAULT_UNIT) ? $conf->global->MAIN_WEIGHT_DEFAULT_UNIT : 'no');
+		print showDimensionInBestUnit($totalWeight, 0, "weight", $langs, getDolGlobalInt('MAIN_WEIGHT_DEFAULT_ROUND', -1), isset($config->global->MAIN_WEIGHT_DEFAULT_UNIT) ? $config->global->MAIN_WEIGHT_DEFAULT_UNIT : 'no');
 		if (!empty($object->trueWeight)) {
 			print ')';
 		}
@@ -2292,7 +2292,7 @@ if ($action == 'create') {
 		if (!isModEnabled('stock')) {
 			$editColspan--;
 		}
-		if (empty($conf->productbatch->enabled)) {
+		if (empty($config->productbatch->enabled)) {
 			$editColspan--;
 		}
 		print '<td class="center linecoleditlineotherinfo" colspan="'.$editColspan.'">';
@@ -2591,7 +2591,7 @@ if ($action == 'create') {
 						print '<td></td>';
 						print '</tr>';
 					}
-				} elseif (!isModEnabled('stock') && empty($conf->productbatch->enabled)) { // both product batch and stock are not activated.
+				} elseif (!isModEnabled('stock') && empty($config->productbatch->enabled)) { // both product batch and stock are not activated.
 					print '<!-- case edit 7 -->';
 					print '<tr>';
 					// Qty to ship or shipped
@@ -2841,7 +2841,7 @@ if ($action == 'create') {
 		print '<div class="fichecenter"><div class="fichehalfleft">';
 
 		$objectref = dol_sanitizeFileName($object->ref);
-		$filedir = $conf->expedition->dir_output."/sending/".$objectref;
+		$filedir = $config->expedition->dir_output."/sending/".$objectref;
 
 		$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 
@@ -2891,7 +2891,7 @@ if ($action == 'create') {
 	// Presend form
 	$modelmail = 'shipping_send';
 	$defaulttopic = 'SendShippingRef';
-	$diroutput = $conf->expedition->dir_output.'/sending';
+	$diroutput = $config->expedition->dir_output.'/sending';
 	$trackid = 'shi'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

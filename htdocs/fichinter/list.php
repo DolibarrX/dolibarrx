@@ -90,10 +90,10 @@ $search_date_end = dol_mktime(23, 59, 59, $search_date_endmonth, $search_date_en
 $optioncss = GETPOST('optioncss', 'alpha');
 $socid = GETPOSTINT('socid');
 
-$diroutputmassaction = $conf->ficheinter->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->ficheinter->dir_output.'/temp/massgeneration/'.$user->id;
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -143,7 +143,7 @@ $arrayfields = array(
 	'f.ref_client' => array('label' => 'RefCustomer', 'checked' => 1),
 	's.nom' => array('label' => 'ThirdParty', 'checked' => 1),
 	'pr.ref' => array('label' => 'Project', 'checked' => 1, 'enabled' => (!isModEnabled('project') ? 0 : 1)),
-	'c.ref' => array('label' => 'Contract', 'checked' => 1, 'enabled' => (empty($conf->contrat->enabled) ? 0 : 1)),
+	'c.ref' => array('label' => 'Contract', 'checked' => 1, 'enabled' => (empty($config->contrat->enabled) ? 0 : 1)),
 	'f.description' => array('label' => 'Description', 'checked' => 1),
 	'f.datec' => array('label' => 'DateCreation', 'checked' => 0, 'position' => 500),
 	'f.tms' => array('label' => 'DateModificationShort', 'checked' => 0, 'position' => 500),
@@ -222,7 +222,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Fichinter';
 	$objectlabel = 'Interventions';
-	$uploaddir = $conf->ficheinter->dir_output;
+	$uploaddir = $config->ficheinter->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -446,7 +446,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($search_all) {
@@ -875,7 +875,7 @@ while ($i < $imaxinloop) {
 			print '</td>';
 			// Warning
 			$warnornote = '';
-			//if ($obj->fk_statut == 1 && $db->jdate($obj->dfv) < ($now - $conf->fichinter->warning_delay)) $warnornote.=img_warning($langs->trans("Late"));
+			//if ($obj->fk_statut == 1 && $db->jdate($obj->dfv) < ($now - $config->fichinter->warning_delay)) $warnornote.=img_warning($langs->trans("Late"));
 			if (!empty($obj->note_private)) {
 				$warnornote .= ($warnornote ? ' ' : '');
 				$warnornote .= '<span class="note">';
@@ -891,7 +891,7 @@ while ($i < $imaxinloop) {
 			// Other picto tool
 			print '<td width="16" class="right nobordernopadding hideonsmartphone">';
 			$filename = dol_sanitizeFileName($obj->ref);
-			$filedir = $conf->ficheinter->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+			$filedir = $config->ficheinter->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 			print $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir);
 			print '</td></tr></table>';

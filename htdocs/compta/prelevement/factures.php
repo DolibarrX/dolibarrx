@@ -58,7 +58,7 @@ $userid = GETPOSTINT('userid');
 $type = GETPOST('type', 'aZ09');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -193,13 +193,13 @@ if ($id > 0 || $ref) {
 	print $langs->trans($labelfororderfield).'</td><td>';
 
 	if (isModEnabled('multicompany')) {
-		$labelentity = $conf->entity;
+		$labelentity = $config->entity;
 		$relativepath = 'receipts/'.$object->ref.'-'.$labelentity.'.xml';
 
 		if ($type != 'bank-transfer') {
-			$dir = $conf->prelevement->dir_output;
+			$dir = $config->prelevement->dir_output;
 		} else {
-			$dir = $conf->paymentbybanktransfer->dir_output;
+			$dir = $config->paymentbybanktransfer->dir_output;
 		}
 		if (!dol_is_file($dir.'/'.$relativepath)) {	// For backward compatibility
 			$relativepath = 'receipts/'.$object->ref.'.xml';
@@ -291,7 +291,7 @@ if ($resql) {
 	$i = 0;
 
 	$param = "&id=".((int) $id);
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 

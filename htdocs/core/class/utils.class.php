@@ -174,12 +174,12 @@ class Utils
 						$result = dol_delete_dir_recursive($filesarray[$key]['fullname'], $startcount, 1, 0, $tmpcountdeleted);
 
 						$excluded = [
-							$conf->user->dir_temp,
+							$config->user->dir_temp,
 						];
 						if (isModEnabled('api')) {
-							$excluded[] = $conf->api->dir_temp;
+							$excluded[] = $config->api->dir_temp;
 						}
-						// The 2 directories $conf->api->dir_temp and $conf->user->dir_temp are recreated at end, so we do not count them
+						// The 2 directories $config->api->dir_temp and $config->user->dir_temp are recreated at end, so we do not count them
 						if (!in_array($filesarray[$key]['fullname'], $excluded)) {
 							$count += $result;
 							$countdeleted += $tmpcountdeleted;
@@ -221,9 +221,9 @@ class Utils
 
 		// Recreate temp dir that are not automatically recreated by core code for performance purpose, we need them
 		if (isModEnabled('api')) {
-			dol_mkdir($conf->api->dir_temp);
+			dol_mkdir($config->api->dir_temp);
 		}
-		dol_mkdir($conf->user->dir_temp);
+		dol_mkdir($config->user->dir_temp);
 
 		//return $count;
 		return 0; // This function can be called by cron so must return 0 if OK
@@ -288,7 +288,7 @@ class Utils
 			$file = $prefix.'_'.$dolibarr_main_db_name.'_'.dol_sanitizeFileName(DOL_VERSION).'_'.dol_print_date(dol_now('gmt'), "dayhourlogsmall", 'tzuser').'.'.$ext;
 		}
 
-		$outputdir = $conf->admin->dir_output.'/backup';
+		$outputdir = $config->admin->dir_output.'/backup';
 		$result = dol_mkdir($outputdir);
 		$errormsg = '';
 
@@ -315,7 +315,7 @@ class Utils
 				$outputfile .= '.zst';
 			}
 			$outputerror = $outputfile.'.err';
-			dol_mkdir($conf->admin->dir_output.'/backup');
+			dol_mkdir($config->admin->dir_output.'/backup');
 
 			// Parameters execution
 			$command = $cmddump;
@@ -460,7 +460,7 @@ class Utils
 					// TODO Replace this exec with Utils->executeCLI() function.
 					// We must check that the case for $lowmemorydump works too...
 					//$utils = new Utils($db);
-					//$outputfile = $conf->admin->dir_temp.'/dump.tmp';
+					//$outputfile = $config->admin->dir_temp.'/dump.tmp';
 					//$utils->executeCLI($fullcommandclear, $outputfile, 0);
 
 					if ($retval != 0) {
@@ -596,7 +596,7 @@ class Utils
 				$outputfile .= '.bz2';
 			}
 			$outputerror = $outputfile.'.err';
-			dol_mkdir($conf->admin->dir_output.'/backup');
+			dol_mkdir($config->admin->dir_output.'/backup');
 
 			if ($compression == 'gz' or $compression == 'bz') {
 				$this->backupTables($outputfiletemp);
@@ -624,7 +624,7 @@ class Utils
 				$outputfile .= '.bz2';
 			}
 			$outputerror = $outputfile.'.err';
-			dol_mkdir($conf->admin->dir_output.'/backup');
+			dol_mkdir($config->admin->dir_output.'/backup');
 
 			// Parameters execution
 			$command = $cmddump;
@@ -685,7 +685,7 @@ class Utils
 
 		// Clean old files
 		if (!$errormsg && $keeplastnfiles > 0) {
-			$tmpfiles = dol_dir_list($conf->admin->dir_output.'/backup', 'files', 0, '', '(\.err|\.old|\.sav)$', 'date', SORT_DESC);
+			$tmpfiles = dol_dir_list($config->admin->dir_output.'/backup', 'files', 0, '', '(\.err|\.old|\.sav)$', 'date', SORT_DESC);
 			$i = 0;
 			if (is_array($tmpfiles)) {
 				foreach ($tmpfiles as $key => $val) {
@@ -708,7 +708,7 @@ class Utils
 	 *
 	 * @param 	string		$command			Command line to execute.
 	 * 											Warning: The command line is sanitize by escapeshellcmd(), except if $noescapecommand set, so can't contains any redirection char '>'. Use param $redirectionfile if you need it.
-	 * @param 	string		$outputfile			A path for an output file (used only when method is 2). For example: $conf->admin->dir_temp.'/out.tmp';
+	 * @param 	string		$outputfile			A path for an output file (used only when method is 2). For example: $config->admin->dir_temp.'/out.tmp';
 	 * @param	int<0,2>	$execmethod			0=Use default method (that is 1 by default), 1=Use the PHP 'exec', 2=Use the 'popen' method
 	 * @param	?string		$redirectionfile	If defined, a redirection of output to this file is added.
 	 * @param	int<0,1>	$noescapecommand	1=Do not escape command. Warning: Using this parameter needs you already have sanitized the $command parameter. If not, it will lead to security vulnerability.
@@ -990,7 +990,7 @@ class Utils
 
 	/**
 	 * This saves syslog files and compresses older ones.
-	 * Nb of archive to keep is defined into $conf->global->SYSLOG_FILE_SAVES
+	 * Nb of archive to keep is defined into $config->global->SYSLOG_FILE_SAVES
 	 * CAN BE A CRON TASK
 	 *
 	 * @return	int						0 if OK, < 0 if KO
@@ -999,7 +999,7 @@ class Utils
 	{
 		global $conf;
 
-		if (empty($conf->loghandlers['mod_syslog_file'])) { // File Syslog disabled
+		if (empty($config->loghandlers['mod_syslog_file'])) { // File Syslog disabled
 			return 0;
 		}
 
@@ -1016,7 +1016,7 @@ class Utils
 			$mainlogdir = DOL_DATA_ROOT;
 			$mainlog = 'dolibarr.log';
 		} else {
-			$mainlogfull = str_replace('DOL_DATA_ROOT', DOL_DATA_ROOT, $conf->global->SYSLOG_FILE);
+			$mainlogfull = str_replace('DOL_DATA_ROOT', DOL_DATA_ROOT, $config->global->SYSLOG_FILE);
 			$mainlogdir = dirname($mainlogfull);
 			$mainlog = basename($mainlogfull);
 		}
@@ -1092,7 +1092,7 @@ class Utils
 				$newlog = fopen($logpath.'/'.$logname, 'a+');
 				fclose($newlog);
 
-				//var_dump($logpath.'/'.$logname." - ".octdec(empty($conf->global->MAIN_UMASK)?'0664':$conf->global->MAIN_UMASK));
+				//var_dump($logpath.'/'.$logname." - ".octdec(empty($config->global->MAIN_UMASK)?'0664':$config->global->MAIN_UMASK));
 				dolChmod($logpath.'/'.$logname);
 			}
 		}
@@ -1338,11 +1338,11 @@ class Utils
 		$tmpfiles = array();
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 		if ($filename) {
-			if (dol_is_file($conf->admin->dir_output.'/backup/'.$filename)) {
-				$tmpfiles = dol_most_recent_file($conf->admin->dir_output.'/backup', $filename);
+			if (dol_is_file($config->admin->dir_output.'/backup/'.$filename)) {
+				$tmpfiles = dol_most_recent_file($config->admin->dir_output.'/backup', $filename);
 			}
 		} else {
-			$tmpfiles = dol_most_recent_file($conf->admin->dir_output.'/backup', $filter);
+			$tmpfiles = dol_most_recent_file($config->admin->dir_output.'/backup', $filter);
 		}
 		if ($tmpfiles && is_array($tmpfiles)) {
 			foreach ($tmpfiles as $key => $val) {

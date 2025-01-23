@@ -80,7 +80,7 @@ function recruitmentjobpositionPrepareHead($object)
 
 	require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT . '/core/class/link.class.php';
-	$upload_dir = $conf->recruitment->dir_output . "/recruitmentjobposition/" . dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->recruitment->dir_output . "/recruitmentjobposition/" . dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
 	$head[$h][0] = DOL_URL_ROOT . '/recruitment/recruitmentjobposition_document.php?id=' . $object->id;
@@ -145,7 +145,7 @@ function getPublicJobPositionUrl($mode, $ref = '', $localorexternal = 0)
 
 	// For multicompany
 	if (!empty($out) && isModEnabled('multicompany')) {
-		$out .= "&entity=" . $conf->entity; // Check the entity because we may have the same reference in several entities
+		$out .= "&entity=" . $config->entity; // Check the entity because we may have the same reference in several entities
 	}
 
 	return $out;

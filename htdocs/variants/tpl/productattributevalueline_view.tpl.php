@@ -91,7 +91,7 @@ if ($user->hasRight('variants', 'write') && $action != 'selectlines') {
 	}
 	print '</td>';
 
-	if ($num > 1 && $conf->browser->layout != 'phone' && empty($disablemove)) {
+	if ($num > 1 && $config->browser->layout != 'phone' && empty($disablemove)) {
 		print '<td class="linecolmove tdlineupdown center width25">';
 		$coldisplay++;
 		if ($i > 0) { ?>
@@ -106,7 +106,7 @@ if ($user->hasRight('variants', 'write') && $action != 'selectlines') {
 		<?php }
 		print '</td>';
 	} else {
-		print '<td '.(($conf->browser->layout != 'phone' && empty($disablemove)) ? ' class="linecolmove tdlineupdown center"' : ' class="linecolmove center"').'></td>';
+		print '<td '.(($config->browser->layout != 'phone' && empty($disablemove)) ? ' class="linecolmove tdlineupdown center"' : ' class="linecolmove center"').'></td>';
 		$coldisplay++;
 	}
 } else {

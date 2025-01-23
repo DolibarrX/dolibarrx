@@ -96,7 +96,7 @@ class mod_recruitmentcandidature_standard extends ModeleNumRefRecruitmentCandida
 		$sql .= " FROM ".MAIN_DB_PREFIX."recruitment_recruitmentcandidature";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		if ($object->ismultientitymanaged == 1) {
-			$sql .= " AND entity = ".$conf->entity;
+			$sql .= " AND entity = ".$config->entity;
 		} elseif ($object->ismultientitymanaged == 2) {
 			// TODO
 		}
@@ -134,7 +134,7 @@ class mod_recruitmentcandidature_standard extends ModeleNumRefRecruitmentCandida
 		$sql .= " FROM ".MAIN_DB_PREFIX."recruitment_recruitmentcandidature";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		if ($object->ismultientitymanaged == 1) {
-			$sql .= " AND entity = ".$conf->entity;
+			$sql .= " AND entity = ".$config->entity;
 		} elseif ($object->ismultientitymanaged == 2) {
 			// TODO
 		}

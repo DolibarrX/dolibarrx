@@ -120,7 +120,7 @@ foreach ($arrayofparameters as $title => $tab) {
 				$val_const = GETPOST($key, 'alpha');
 			}
 
-			$result = dolibarr_set_const($db, $key, $val_const, 'chaine', 0, '', $conf->entity);
+			$result = dolibarr_set_const($db, $key, $val_const, 'chaine', 0, '', $config->entity);
 			if ($result < 0) {
 				$error++;
 				break;

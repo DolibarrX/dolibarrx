@@ -317,7 +317,7 @@ class FormProduct
 		$this->loadWarehouses($fk_product, '', $filterstatus, true, $exclude, $stockMin, $orderBy);
 		$nbofwarehouses = count($this->cache_warehouses);
 
-		if ($conf->use_javascript_ajax && !$forcecombo) {
+		if ($config->use_javascript_ajax && !$forcecombo) {
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 			$comboenhancement = ajax_combobox($htmlname, $events);
 			$out .= $comboenhancement;
@@ -440,7 +440,7 @@ class FormProduct
 		$this->loadWorkstations($fk_product);
 		$nbofworkstations = count($this->cache_workstations);
 
-		if ($conf->use_javascript_ajax && !$forcecombo) {
+		if ($config->use_javascript_ajax && !$forcecombo) {
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 			$comboenhancement = ajax_combobox($htmlname, $events);
 			$out .= $comboenhancement;
@@ -747,7 +747,7 @@ class FormProduct
 
 		$nboflot = $this->loadLotStock($productIdArray);
 
-		if ($conf->use_javascript_ajax && !$forcecombo) {
+		if ($config->use_javascript_ajax && !$forcecombo) {
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 			$comboenhancement = ajax_combobox($htmlname, $events);
 			$out .= $comboenhancement;
@@ -861,7 +861,7 @@ class FormProduct
 						$label = $arraytypes['entrepot_label'] . ' - ';
 						$label .= $arraytypes['batch'];
 						// Notice: Chrome show 1 line with value and 1 for label. Firefox show only 1 line with label
-						$out .= '<option data-warehouse="'.dol_escape_htmltag($label).'" value="' . $arraytypes['batch'] . '">' . ($conf->browser->name === 'chrome' ? '' : $arraytypes['batch']) . ' (' . $langs->trans('Stock Total') . ': ' . $arraytypes['qty'] . ')</option>';
+						$out .= '<option data-warehouse="'.dol_escape_htmltag($label).'" value="' . $arraytypes['batch'] . '">' . ($config->browser->name === 'chrome' ? '' : $arraytypes['batch']) . ' (' . $langs->trans('Stock Total') . ': ' . $arraytypes['qty'] . ')</option>';
 					}
 				}
 			}

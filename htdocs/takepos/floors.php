@@ -121,7 +121,7 @@ if ($action == "updatename" && $user->hasRight('takepos', 'run')) {
 }
 
 if ($action == "add" && $user->hasRight('takepos', 'run')) {
-	$sql = "INSERT INTO ".MAIN_DB_PREFIX."takepos_floor_tables(entity, label, leftpos, toppos, floor) VALUES (".$conf->entity.", '', '45', '45', ".((int) $floor).")";
+	$sql = "INSERT INTO ".MAIN_DB_PREFIX."takepos_floor_tables(entity, label, leftpos, toppos, floor) VALUES (".$config->entity.", '', '45', '45', ".((int) $floor).")";
 	$asdf = $db->query($sql);
 	$db->query("UPDATE ".MAIN_DB_PREFIX."takepos_floor_tables SET label = rowid WHERE label = ''"); // No empty table names
 }

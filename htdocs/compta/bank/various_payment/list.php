@@ -54,7 +54,7 @@ $massaction = GETPOST('massaction', 'aZ09');
 $toselect = GETPOST('toselect', 'array'); // Array of ids of elements selected into a list
 $contextpage = GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : 'directdebitcredittransferlist'; // To manage different context of search
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $search_ref = GETPOST('search_ref', 'alpha');
 $search_user = GETPOST('search_user', 'alpha');
 $search_label = GETPOST('search_label', 'alpha');
@@ -102,7 +102,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new PaymentVarious($db);
 $extrafields = new ExtraFields($db);
-//$diroutputmassaction = $conf->mymodule->dir_output.'/temp/massgeneration/'.$user->id;
+//$diroutputmassaction = $config->mymodule->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($contextpage)); 	// Note that conf->hooks_modules contains array of activated contexes
 
 // Fetch optionals attributes and labels
@@ -391,7 +391,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {

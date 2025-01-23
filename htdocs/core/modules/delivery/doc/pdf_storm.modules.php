@@ -146,16 +146,16 @@ class pdf_storm extends ModelePDFDeliveryOrder
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills", "products", "sendings", "deliveries"));
 
-		if ($conf->expedition->dir_output) {
+		if ($config->expedition->dir_output) {
 			$object->fetch_thirdparty();
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->expedition->dir_output."/receipt";
+				$dir = $config->expedition->dir_output."/receipt";
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->expedition->dir_output."/receipt/".$objectref;
+				$dir = $config->expedition->dir_output."/receipt/".$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 
@@ -205,7 +205,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 						$arephoto = false;
 						foreach ($pdir as $midir) {
 							if (!$arephoto) {
-								$dir = $conf->product->dir_output.'/'.$midir;
+								$dir = $config->product->dir_output.'/'.$midir;
 
 								foreach ($objphoto->liste_photos($dir, 1) as $key => $obj) {
 									if (!getDolGlobalInt('CAT_HIGH_QUALITY_IMAGES')) {		// If CAT_HIGH_QUALITY_IMAGES not defined, we use thumb if defined and then original photo
@@ -250,7 +250,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
+					$pagecount = $pdf->setSourceFile($config->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -661,7 +661,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 		$pdf->SetFont('', '', $default_font_size - 2);
 
 		if (empty($hidetop)) {
-			//$conf->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
+			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
 				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, 5, $this->corner_radius, '1001', 'F', null, explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
@@ -713,7 +713,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 		$pdf->SetXY($this->marge_gauche, $posy);
 
 		// Logo
-		$logo = $conf->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
+		$logo = $config->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
 		if ($this->emetteur->logo) {
 			if (is_readable($logo)) {
 				$height = pdf_getHeightForLogo($logo);
@@ -813,7 +813,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 			}
 
 			// Recipient name
-			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
+			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
 				$thirdparty = $object->contact;
 			} else {
 				$thirdparty = $object->thirdparty;

@@ -89,7 +89,7 @@ $datecontrat = '';
 $moreparam = '';
 $note_public = '';
 $note_private = '';
-$usehm = (getDolGlobalString('MAIN_USE_HOURMIN_IN_DATE_RANGE') ? $conf->global->MAIN_USE_HOURMIN_IN_DATE_RANGE : 0);
+$usehm = (getDolGlobalString('MAIN_USE_HOURMIN_IN_DATE_RANGE') ? $config->global->MAIN_USE_HOURMIN_IN_DATE_RANGE : 0);
 
 // Security check
 if ($user->socid) {
@@ -654,7 +654,7 @@ if (empty($reshook)) {
 
 			if (((getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !$user->hasRight('produit', 'ignore_price_min_advance'))
 				|| !getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) && ($price_min && ((float) price2num($pu_ht) * (1 - (float) price2num($remise_percent) / 100) < (float) price2num($price_min)))) {
-				$object->error = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+				$object->error = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 				$result = -1;
 			} else {
 				// Insert line
@@ -1008,8 +1008,8 @@ if (empty($reshook)) {
 				$action = 'editref';
 			} else {
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-				$old_filedir = $conf->contrat->multidir_output[$object->entity].'/'.dol_sanitizeFileName($old_ref);
-				$new_filedir = $conf->contrat->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
+				$old_filedir = $config->contrat->multidir_output[$object->entity].'/'.dol_sanitizeFileName($old_ref);
+				$new_filedir = $config->contrat->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
 
 				// Rename directory of contract with new name
 				dol_move_dir($old_filedir, $new_filedir);
@@ -1046,7 +1046,7 @@ if (empty($reshook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_printing.inc.php';
 
 	// Actions to build doc
-	$upload_dir = $conf->contrat->multidir_output[!empty($object->entity) ? $object->entity : $conf->entity];
+	$upload_dir = $config->contrat->multidir_output[!empty($object->entity) ? $object->entity : $config->entity];
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 	// Actions to send emails
@@ -1131,7 +1131,7 @@ if (isModEnabled('project')) {
 }
 
 // Load object modContract
-$module = (getDolGlobalString('CONTRACT_ADDON') ? $conf->global->CONTRACT_ADDON : 'mod_contract_serpis');
+$module = (getDolGlobalString('CONTRACT_ADDON') ? $config->global->CONTRACT_ADDON : 'mod_contract_serpis');
 if (substr($module, 0, 13) == 'mod_contract_' && substr($module, -3) == 'php') {
 	$module = substr($module, 0, dol_strlen($module) - 4);
 }
@@ -1266,7 +1266,7 @@ if ($action == 'create') {
 		}
 		$absolute_discount = $soc->getAvailableDiscounts();
 		if ($absolute_discount) {
-			print $langs->trans("CompanyHasAbsoluteDiscount", price($absolute_discount), $langs->trans("Currency".$conf->currency)).'.';
+			print $langs->trans("CompanyHasAbsoluteDiscount", price($absolute_discount), $langs->trans("Currency".$config->currency)).'.';
 		} else {
 			print '<span class="hideonsmartphone">'.$langs->trans("CompanyHasNoAbsoluteDiscount").'.</span>';
 		}
@@ -1472,7 +1472,7 @@ if ($action == 'create') {
 		$morehtmlref .= '<div class="refidno">';
 		// Ref customer
 		$morehtmlref .= $form->editfieldkey("RefCustomer", 'ref_customer', $object->ref_customer, $object, $user->hasRight('contrat', 'creer'), 'string', '', 0, 1);
-		$morehtmlref .= $form->editfieldval("RefCustomer", 'ref_customer', $object->ref_customer, $object, $user->hasRight('contrat', 'creer'), 'string'.(isset($conf->global->THIRDPARTY_REF_INPUT_SIZE) ? ':' . getDolGlobalString('THIRDPARTY_REF_INPUT_SIZE') : ''), '', null, null, '', 1, 'getFormatedCustomerRef');
+		$morehtmlref .= $form->editfieldval("RefCustomer", 'ref_customer', $object->ref_customer, $object, $user->hasRight('contrat', 'creer'), 'string'.(isset($config->global->THIRDPARTY_REF_INPUT_SIZE) ? ':' . getDolGlobalString('THIRDPARTY_REF_INPUT_SIZE') : ''), '', null, null, '', 1, 'getFormatedCustomerRef');
 		// Ref supplier
 		$morehtmlref .= '<br>';
 		$morehtmlref .= $form->editfieldkey("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, $user->hasRight('contrat', 'creer'), 'string', '', 0, 1);
@@ -1524,7 +1524,7 @@ if ($action == 'create') {
 		}
 		$absolute_discount = $object->thirdparty->getAvailableDiscounts();
 		if ($absolute_discount) {
-			print $langs->trans("CompanyHasAbsoluteDiscount", price($absolute_discount), $langs->trans("Currency".$conf->currency)).'.';
+			print $langs->trans("CompanyHasAbsoluteDiscount", price($absolute_discount), $langs->trans("Currency".$config->currency)).'.';
 		} else {
 			print '<span class="hideonsmartphone">'.$langs->trans("CompanyHasNoAbsoluteDiscount").'.</span>';
 		}
@@ -1639,7 +1639,7 @@ if ($action == 'create') {
 				}
 				//
 
-				if ($nbofservices > 1 && $conf->browser->layout != 'phone' && $user->hasRight('contrat', 'creer')) {
+				if ($nbofservices > 1 && $config->browser->layout != 'phone' && $user->hasRight('contrat', 'creer')) {
 					print '<td width="30" class="linecolmove tdlineupdown center">';
 					if ($cursorline > 1) {
 						print '<a class="lineupdown reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=up&token='.newToken().'&rowid='.$objp->rowid.'">';
@@ -1768,8 +1768,8 @@ if ($action == 'create') {
 						if ($objp->date_start) {
 							print dol_print_date($db->jdate($objp->date_start), 'day');
 							// Warning si date prevu passee et pas en service
-							if ($objp->statut == 0 && $db->jdate($objp->date_start) < ($now - $conf->contrat->services->inactifs->warning_delay)) {
-								$warning_delay = $conf->contrat->services->inactifs->warning_delay / 3600 / 24;
+							if ($objp->statut == 0 && $db->jdate($objp->date_start) < ($now - $config->contrat->services->inactifs->warning_delay)) {
+								$warning_delay = $config->contrat->services->inactifs->warning_delay / 3600 / 24;
 								$textlate = $langs->trans("Late").' = '.$langs->trans("DateReference").' > '.$langs->trans("DateToday").' '.(ceil($warning_delay) >= 0 ? '+' : '').ceil($warning_delay).' '.$langs->trans("days");
 								print " ".img_warning($textlate);
 							}
@@ -1780,8 +1780,8 @@ if ($action == 'create') {
 						print $langs->trans("DateEndPlanned").': ';
 						if ($objp->date_end) {
 							print dol_print_date($db->jdate($objp->date_end), 'day');
-							if ($objp->statut == 4 && $db->jdate($objp->date_end) < ($now - $conf->contrat->services->expires->warning_delay)) {
-								$warning_delay = $conf->contrat->services->expires->warning_delay / 3600 / 24;
+							if ($objp->statut == 4 && $db->jdate($objp->date_end) < ($now - $config->contrat->services->expires->warning_delay)) {
+								$warning_delay = $config->contrat->services->expires->warning_delay / 3600 / 24;
 								$textlate = $langs->trans("Late").' = '.$langs->trans("DateReference").' > '.$langs->trans("DateToday").' '.(ceil($warning_delay) >= 0 ? '+' : '').ceil($warning_delay).' '.$langs->trans("days");
 								print " ".img_warning($textlate);
 							}
@@ -2176,7 +2176,7 @@ if ($action == 'create') {
 			if ($action != 'editline') {
 				$forcetoshowtitlelines = 1;
 				if (empty($object->multicurrency_code)) {
-					$object->multicurrency_code = $conf->currency; // TODO Remove this when multicurrency supported on contracts
+					$object->multicurrency_code = $config->currency; // TODO Remove this when multicurrency supported on contracts
 				}
 
 				// Add free products/services
@@ -2348,7 +2348,7 @@ if ($action == 'create') {
 			 * Generated documents
 			 */
 			$filename = dol_sanitizeFileName($object->ref);
-			$filedir = $conf->contrat->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
+			$filedir = $config->contrat->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $user->hasRight('contrat', 'lire');
 			$delallowed = $user->hasRight('contrat', 'creer');
@@ -2394,7 +2394,7 @@ if ($action == 'create') {
 		// Presend form
 		$modelmail = 'contract';
 		$defaulttopic = 'SendContractRef';
-		$diroutput = $conf->contrat->multidir_output[$object->entity];
+		$diroutput = $config->contrat->multidir_output[$object->entity];
 		$trackid = 'con'.$object->id;
 
 		include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

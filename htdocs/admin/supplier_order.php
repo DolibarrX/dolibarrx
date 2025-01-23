@@ -81,7 +81,7 @@ if ($action == 'updateMask') {
 	$res = 0;
 
 	if ($maskconstorder && preg_match('/_MASK$/', $maskconstorder)) {
-		$res = dolibarr_set_const($db, $maskconstorder, $maskvalue, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstorder, $maskvalue, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -105,7 +105,7 @@ if ($action == 'specimen') {  // For orders
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/supplier_order/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -137,16 +137,16 @@ if ($action == 'specimen') {  // For orders
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->COMMANDE_SUPPLIER_ADDON_PDF == "$value") {
-			dolibarr_del_const($db, 'COMMANDE_SUPPLIER_ADDON_PDF', $conf->entity);
+		if ($config->global->COMMANDE_SUPPLIER_ADDON_PDF == "$value") {
+			dolibarr_del_const($db, 'COMMANDE_SUPPLIER_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "COMMANDE_SUPPLIER_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "COMMANDE_SUPPLIER_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->COMMANDE_SUPPLIER_ADDON_PDF = $value;
+		$config->global->COMMANDE_SUPPLIER_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -155,12 +155,12 @@ if ($action == 'specimen') {  // For orders
 		$ret = addDocumentModel($value, $type, $label, $scandir);
 	}
 } elseif ($action == 'unsetdoc') {
-	dolibarr_del_const($db, "COMMANDE_SUPPLIER_ADDON_PDF", $conf->entity);
+	dolibarr_del_const($db, "COMMANDE_SUPPLIER_ADDON_PDF", $config->entity);
 } elseif ($action == 'setmod') {
 	// TODO Verify if the chosen numbering module can be activated
 	// by calling method canBeActivated
 
-	dolibarr_set_const($db, "COMMANDE_SUPPLIER_ADDON_NUMBER", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "COMMANDE_SUPPLIER_ADDON_NUMBER", $value, 'chaine', 0, '', $config->entity);
 } elseif ($action == 'addcat') {
 	$fourn = new Fournisseur($db);
 	$fourn->CreateCategory($user, GETPOST('cat', 'alphanohtml'));
@@ -169,14 +169,14 @@ if ($action == 'specimen') {  // For orders
 	$doubleapproval = GETPOST('SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED', 'alpha');
 	$doubleapproval = price2num($doubleapproval);
 
-	$res1 = dolibarr_set_const($db, "SUPPLIER_ORDER_FREE_TEXT", $freetext, 'chaine', 0, '', $conf->entity);
-	$res2 = dolibarr_set_const($db, "SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED", $doubleapproval, 'chaine', 0, '', $conf->entity);
+	$res1 = dolibarr_set_const($db, "SUPPLIER_ORDER_FREE_TEXT", $freetext, 'chaine', 0, '', $config->entity);
+	$res2 = dolibarr_set_const($db, "SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED", $doubleapproval, 'chaine', 0, '', $config->entity);
 
 	// TODO We add/delete permission here until permission can have a condition on a global var
 	include_once DOL_DOCUMENT_ROOT.'/core/modules/modFournisseur.class.php';
 	$newmodule = new modFournisseur($db);
 
-	if ($conf->global->SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED) {
+	if ($config->global->SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED) {
 		// clear default rights array
 		$newmodule->rights = array();
 		// add new right
@@ -199,7 +199,7 @@ if ($action == 'specimen') {  // For orders
 	}
 } elseif ($action == 'set_BANK_ASK_PAYMENT_BANK_DURING_SUPPLIER_ORDER') {
 	// Activate ask for payment bank
-	$res = dolibarr_set_const($db, "BANK_ASK_PAYMENT_BANK_DURING_SUPPLIER_ORDER", $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "BANK_ASK_PAYMENT_BANK_DURING_SUPPLIER_ORDER", $value, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -219,7 +219,7 @@ if ($action == 'specimen') {  // For orders
 
 $form = new Form($db);
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-admin page-supplier_order');
 
@@ -293,7 +293,7 @@ foreach ($dirmodels as $reldir) {
 						print '</td>'."\n";
 
 						print '<td class="center">';
-						if ($conf->global->COMMANDE_SUPPLIER_ADDON_NUMBER == "$file") {
+						if ($config->global->COMMANDE_SUPPLIER_ADDON_NUMBER == "$file") {
 							print img_picto($langs->trans("Activated"), 'switch_on');
 						} else {
 							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.urlencode($file).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
@@ -347,7 +347,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = 'order_supplier'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 
 $resql = $db->query($sql);
 if ($resql) {
@@ -412,7 +412,7 @@ foreach ($dirmodels as $reldir) {
 					// Active
 					if (in_array($name, $def)) {
 						print '<td class="center">'."\n";
-						if ($conf->global->COMMANDE_SUPPLIER_ADDON_PDF != "$name") {
+						if ($config->global->COMMANDE_SUPPLIER_ADDON_PDF != "$name") {
 							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=del&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'&type=order_supplier">';
 							print img_picto($langs->trans("Enabled"), 'switch_on');
 							print '</a>';
@@ -428,7 +428,7 @@ foreach ($dirmodels as $reldir) {
 
 					// Default
 					print '<td class="center">';
-					if ($conf->global->COMMANDE_SUPPLIER_ADDON_PDF == "$name") {
+					if ($config->global->COMMANDE_SUPPLIER_ADDON_PDF == "$name") {
 						print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=unsetdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'&type=order_supplier" alt="'.$langs->trans("Disable").'">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
 					} else {
 						print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'&type=order_supplier" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
@@ -497,13 +497,13 @@ if (isModEnabled('banque')) {
 
 print '<tr class="oddeven"><td>';
 print $langs->trans("BANK_ASK_PAYMENT_BANK_DURING_SUPPLIER_ORDER").'</td><td>&nbsp;</td><td align="center">';
-if (!empty($conf->use_javascript_ajax))
+if (!empty($config->use_javascript_ajax))
 {
 print ajax_constantonoff('BANK_ASK_PAYMENT_BANK_DURING_SUPPLIER_ORDER');
 }
 else
 {
-if (empty($conf->global->BANK_ASK_PAYMENT_BANK_DURING_ORDER))
+if (empty($config->global->BANK_ASK_PAYMENT_BANK_DURING_ORDER))
 {
 print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_BANK_ASK_PAYMENT_BANK_DURING_SUPPLIER_ORDER&token='.newToken().'&value=1">'.img_picto($langs->trans("Disabled"),'switch_off').'</a>';
 }
@@ -552,11 +552,11 @@ print '<td class="center">';
 if (isModEnabled('reception')) {
 	print '<span class="opacitymedium">'.$langs->trans("FeatureNotAvailableWithReceptionModule").'</span>';
 } else {
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('SUPPLIER_ORDER_USE_DISPATCH_STATUS');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("SUPPLIER_ORDER_USE_DISPATCH_STATUS", $arrval, $conf->global->SUPPLIER_ORDER_USE_DISPATCH_STATUS);
+		print $form->selectarray("SUPPLIER_ORDER_USE_DISPATCH_STATUS", $arrval, $config->global->SUPPLIER_ORDER_USE_DISPATCH_STATUS);
 	}
 }
 print "</td>\n";

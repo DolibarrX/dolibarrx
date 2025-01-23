@@ -61,9 +61,9 @@ $arrayofparameters = array(
 );
 
 // To fix when dire does not exists
-dol_mkdir($conf->dav->dir_output.'/temp');
-dol_mkdir($conf->dav->dir_output.'/public');
-dol_mkdir($conf->dav->dir_output.'/private');
+dol_mkdir($config->dav->dir_output.'/temp');
+dol_mkdir($config->dav->dir_output.'/public');
+dol_mkdir($config->dav->dir_output.'/private');
 
 
 /*
@@ -207,7 +207,7 @@ $message .= ajax_autoselect('webdavpublicurl');
 
 $message .= '<br>';
 if (getDolGlobalString('DAV_ALLOW_PUBLIC_DIR')) {
-	$urlEntity = (isModEnabled('multicompany') ? '?entity=' . $conf->entity : '');
+	$urlEntity = (isModEnabled('multicompany') ? '?entity=' . $config->entity : '');
 	$url = '<a href="' . $urlwithroot . '/dav/fileserver.php/public/' . $urlEntity . '" target="_blank" rel="noopener noreferrer">' . $urlwithroot . '/dav/fileserver.php/public/' . $urlEntity . '</a>';
 
 	$message .= img_picto('', 'globe') . ' ' . str_replace('{url}', $url, $langs->trans("WebDavServer", 'WebDAV public', ''));

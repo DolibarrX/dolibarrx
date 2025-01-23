@@ -248,7 +248,7 @@ class doc_generic_recruitmentjobposition_odt extends ModelePDFRecruitmentJobPosi
 
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills"));
 
-		if ($conf->recruitment->dir_output) {
+		if ($config->recruitment->dir_output) {
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
@@ -260,7 +260,7 @@ class doc_generic_recruitmentjobposition_odt extends ModelePDFRecruitmentJobPosi
 				}
 			}
 
-			$dir = $conf->recruitment->multidir_output[isset($object->entity) ? $object->entity : 1].'/recruitmentjobposition/';
+			$dir = $config->recruitment->multidir_output[isset($object->entity) ? $object->entity : 1].'/recruitmentjobposition/';
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -297,11 +297,11 @@ class doc_generic_recruitmentjobposition_odt extends ModelePDFRecruitmentJobPosi
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->societe->dir_temp=".$conf->societe->dir_temp;
+				//print "conf->societe->dir_temp=".$config->societe->dir_temp;
 
-				dol_mkdir($conf->recruitment->dir_temp);
-				if (!is_writable($conf->recruitment->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->recruitment->dir_temp);
+				dol_mkdir($config->recruitment->dir_temp);
+				if (!is_writable($config->recruitment->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->recruitment->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -318,7 +318,7 @@ class doc_generic_recruitmentjobposition_odt extends ModelePDFRecruitmentJobPosi
 				$contactobject = null;
 				if (!empty($usecontact)) {
 					// We can use the company of contact instead of thirdparty company
-					if ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
+					if ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
 						$object->contact->fetch_thirdparty();
 						$socobject = $object->contact->thirdparty;
 						$contactobject = $object->contact;
@@ -357,7 +357,7 @@ class doc_generic_recruitmentjobposition_odt extends ModelePDFRecruitmentJobPosi
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $conf->recruitment->dir_temp,
+							'PATH_TO_TMP'	  => $config->recruitment->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'

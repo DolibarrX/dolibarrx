@@ -59,7 +59,7 @@ if ($user->socid) {
 }
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -137,7 +137,7 @@ $permissiontoadd = $user->hasRight('banque', 'modifier');	// Used by the include
 
 if (!empty($numref)) {
 	$object->fetch_thirdparty();
-	$upload_dir = $conf->bank->dir_output."/".$id."/statement/".dol_sanitizeFileName($numref);
+	$upload_dir = $config->bank->dir_output."/".$id."/statement/".dol_sanitizeFileName($numref);
 }
 $backtopage = $_SERVER['PHP_SELF']."?account=".urlencode((string) ($id))."&num=".urlencode((string) ($numref));
 include DOL_DOCUMENT_ROOT.'/core/actions_linkedfiles.inc.php';
@@ -155,7 +155,7 @@ llxHeader('', $title, $helpurl);
 
 if ($id > 0 || !empty($ref)) {
 	if ($object->fetch($id, $ref)) {
-		$upload_dir = $conf->bank->dir_output."/".$id."/statement/".dol_sanitizeFileName($numref);
+		$upload_dir = $config->bank->dir_output."/".$id."/statement/".dol_sanitizeFileName($numref);
 
 		// Onglets
 		$head = account_statement_prepare_head($object, $numref);

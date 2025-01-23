@@ -67,9 +67,9 @@ if (empty($module)) {
 	$module = 'ecm';
 }
 
-$upload_dir = $conf->ecm->dir_output.'/'.$section;
+$upload_dir = $config->ecm->dir_output.'/'.$section;
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -269,7 +269,7 @@ print '</td><td class="tdtop">';
 
 // Right area
 $relativepath = $ecmdir->getRelativePath();
-$upload_dir = $conf->ecm->dir_output.'/'.$relativepath;
+$upload_dir = $config->ecm->dir_output.'/'.$relativepath;
 $filearray = dol_dir_list($upload_dir, "files", 0, '', '(\.meta|_preview.*\.png)$', $sortfield, (strtolower($sortorder) == 'desc' ? SORT_DESC : SORT_ASC), 1);
 
 $formfile = new FormFile($db);

@@ -183,7 +183,7 @@ if (empty($reshook)) {
 		$bankaccount->fetch($object->fk_account);
 
 		// Check currency
-		$currencyofpayment = $conf->currency;	// The currency of various payment is not yet asked, so we suppose it is the main company currency
+		$currencyofpayment = $config->currency;	// The currency of various payment is not yet asked, so we suppose it is the main company currency
 
 		//var_dump($currencyofpayment); var_dump($bankaccount->currency_code);
 
@@ -399,7 +399,7 @@ foreach ($arrayofbankcategs as $bankcategory) {
 // Create mode
 if ($action == 'create') {
 	// Update fields properties in realtime
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print "\n".'<script type="text/javascript">';
 		print '$(document).ready(function () {
             			setPaymentType();
@@ -524,7 +524,7 @@ if ($action == 'create') {
 	print $hookManager->resPrint;
 
 	// Category
-	if (is_array($options) && count($options) && $conf->categorie->enabled) {
+	if (is_array($options) && count($options) && $config->categorie->enabled) {
 		print '<tr><td>'.$langs->trans("RubriquesTransactions").'</td><td>';
 		print img_picto('', 'category').Form::selectarray('category_transaction', $options, GETPOST('category_transaction'), 1, 0, 0, '', 0, 0, 0, '', 'minwidth300', 1);
 		print '</td></tr>';
@@ -678,7 +678,7 @@ if ($id) {
 	}
 	print '<tr><td>'.$langs->trans("Sens").'</td><td>'.$sens.'</td></tr>';
 
-	print '<tr><td>'.$langs->trans("Amount").'</td><td><span class="amount">'.price($object->amount, 0, $langs, 1, -1, -1, $conf->currency).'</span></td></tr>';
+	print '<tr><td>'.$langs->trans("Amount").'</td><td><span class="amount">'.price($object->amount, 0, $langs, 1, -1, -1, $config->currency).'</span></td></tr>';
 
 	// Account of Chart of account
 	$editvalue = '';

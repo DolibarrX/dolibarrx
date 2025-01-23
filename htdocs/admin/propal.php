@@ -75,7 +75,7 @@ if ($action == 'updateMask') {
 	$res = 0;
 
 	if ($maskconstpropal && preg_match('/_MASK$/', $maskconstpropal)) {
-		$res = dolibarr_set_const($db, $maskconstpropal, $maskpropal, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstpropal, $maskpropal, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -96,7 +96,7 @@ if ($action == 'updateMask') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/propale/doc/pdf_".$modele.".modules.php");
 		if (file_exists($file)) {
@@ -127,8 +127,8 @@ if ($action == 'updateMask') {
 	$rib = GETPOST('rib', 'alpha');
 	$chq = GETPOST('chq', 'alpha');
 
-	$res = dolibarr_set_const($db, "FACTURE_RIB_NUMBER", $rib, 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, "FACTURE_CHQ_NUMBER", $chq, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "FACTURE_RIB_NUMBER", $rib, 'chaine', 0, '', $config->entity);
+	$res = dolibarr_set_const($db, "FACTURE_CHQ_NUMBER", $chq, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -142,21 +142,21 @@ if ($action == 'updateMask') {
 } elseif ($action == 'update') {
 	if (GETPOSTISSET('PROPALE_VALIDITY_DURATION')) {
 		$value = GETPOST('PROPALE_VALIDITY_DURATION');
-		$res = dolibarr_set_const($db, "PROPALE_VALIDITY_DURATION", $value, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "PROPALE_VALIDITY_DURATION", $value, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
 	}
 	if (GETPOSTISSET('PROPALE_DRAFT_WATERMARK')) {
 		$draft = GETPOST('PROPALE_DRAFT_WATERMARK', 'alpha');
-		$res = dolibarr_set_const($db, "PROPALE_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "PROPALE_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
 	}
 	if (GETPOSTISSET('PROPOSAL_FREE_TEXT')) {
 		$freetext = GETPOST('PROPOSAL_FREE_TEXT', 'restricthtml'); // No alpha here, we want exact string
-		$res = dolibarr_set_const($db, "PROPOSAL_FREE_TEXT", $freetext, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "PROPOSAL_FREE_TEXT", $freetext, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
@@ -168,7 +168,7 @@ if ($action == 'updateMask') {
 		setEventMessages($langs->trans("Error"), null, 'errors');
 	}
 } elseif ($action == 'set_BANK_ASK_PAYMENT_BANK_DURING_PROPOSAL') {
-	$res = dolibarr_set_const($db, "BANK_ASK_PAYMENT_BANK_DURING_PROPOSAL", $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "BANK_ASK_PAYMENT_BANK_DURING_PROPOSAL", $value, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -185,13 +185,13 @@ if ($action == 'updateMask') {
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->PROPALE_ADDON_PDF == "$value") {
-			dolibarr_del_const($db, 'PROPALE_ADDON_PDF', $conf->entity);
+		if ($config->global->PROPALE_ADDON_PDF == "$value") {
+			dolibarr_del_const($db, 'PROPALE_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
-	if (dolibarr_set_const($db, "PROPALE_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
-		$conf->global->PROPALE_ADDON_PDF = $value;
+	if (dolibarr_set_const($db, "PROPALE_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
+		$config->global->PROPALE_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -203,12 +203,12 @@ if ($action == 'updateMask') {
 	// TODO Verify if the chosen numbering module can be active
 	// by calling method canBeActivated
 
-	dolibarr_set_const($db, "PROPALE_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "PROPALE_ADDON", $value, 'chaine', 0, '', $config->entity);
 } elseif (preg_match('/set_(.*)/', $action, $reg)) {
 	$code = $reg[1];
 	$value = (GETPOST($code) ? GETPOST($code) : 1);
 
-	$res = dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -222,7 +222,7 @@ if ($action == 'updateMask') {
 	}
 } elseif (preg_match('/del_(.*)/', $action, $reg)) {
 	$code = $reg[1];
-	$res = dolibarr_del_const($db, $code, $conf->entity);
+	$res = dolibarr_del_const($db, $code, $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -244,7 +244,7 @@ if ($action == 'updateMask') {
 
 $form = new Form($db);
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader('', $langs->trans("PropalSetup"), '', '', 0, 0, '', '', '', 'mod-admin page-propal');
 
@@ -316,7 +316,7 @@ foreach ($dirmodels as $reldir) {
 						print '</td>'."\n";
 
 						print '<td class="center">';
-						if ($conf->global->PROPALE_ADDON == "$file") {
+						if ($config->global->PROPALE_ADDON == "$file") {
 							print img_picto($langs->trans("Activated"), 'switch_on');
 						} else {
 							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.urlencode($file).'">';
@@ -371,7 +371,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;
@@ -460,7 +460,7 @@ foreach ($dirmodels as $reldir) {
 
 								// Default
 								print "<td align=\"center\">";
-								if ($conf->global->PROPALE_ADDON_PDF == "$name") {
+								if ($config->global->PROPALE_ADDON_PDF == "$name") {
 									print img_picto($langs->trans("Default"), 'on');
 								} else {
 									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.$name.'&scan_dir='.$module->scandir.'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
@@ -555,7 +555,7 @@ if (!isModEnabled('invoice')) {
 					$row = $db->fetch_row($resql);
 
 					print '<option value="'.$row[0].'"';
-					print $conf->global->FACTURE_RIB_NUMBER == $row[0] ? ' selected' : '';
+					print $config->global->FACTURE_RIB_NUMBER == $row[0] ? ' selected' : '';
 					print '>'.$row[1].'</option>';
 
 					$i++;
@@ -579,7 +579,7 @@ print "<td>";
 if (!isModEnabled('invoice')) {
 	print '<select class="flat" name="chq" id="chq">';
 	print '<option value="0">'.$langs->trans("DoNotSuggestPaymentMode").'</option>';
-	print '<option value="-1"'.($conf->global->FACTURE_CHQ_NUMBER ? ' selected' : '').'>'.$langs->trans("MenuCompanySetup").' ('.($mysoc->name ? $mysoc->name : $langs->trans("NotDefined")).')</option>';
+	print '<option value="-1"'.($config->global->FACTURE_CHQ_NUMBER ? ' selected' : '').'>'.$langs->trans("MenuCompanySetup").' ('.($mysoc->name ? $mysoc->name : $langs->trans("NotDefined")).')</option>';
 
 	$sql = "SELECT rowid, label";
 	$sql .= " FROM ".MAIN_DB_PREFIX."bank_account";
@@ -595,7 +595,7 @@ if (!isModEnabled('invoice')) {
 			$row = $db->fetch_row($resql);
 
 			print '<option value="'.$row[0].'"';
-			print $conf->global->FACTURE_CHQ_NUMBER == $row[0] ? ' selected' : '';
+			print $config->global->FACTURE_CHQ_NUMBER == $row[0] ? ' selected' : '';
 			print '>'.$langs->trans("OwnerOfBankAccount", $row[1]).'</option>';
 
 			$i++;
@@ -687,13 +687,13 @@ if (isModEnabled('facture'))
 
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("BANK_ASK_PAYMENT_BANK_DURING_PROPOSAL").'</td><td>&nbsp;</td><td class="right">';
-	if (!empty($conf->use_javascript_ajax))
+	if (!empty($config->use_javascript_ajax))
 	{
 		print ajax_constantonoff('BANK_ASK_PAYMENT_BANK_DURING_PROPOSAL');
 	}
 	else
 	{
-		if (empty($conf->global->BANK_ASK_PAYMENT_BANK_DURING_PROPOSAL))
+		if (empty($config->global->BANK_ASK_PAYMENT_BANK_DURING_PROPOSAL))
 		{
 			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_BANK_ASK_PAYMENT_BANK_DURING_PROPOSAL&token='.newToken().'&value=1">'.img_picto($langs->trans("Disabled"),'switch_off').'</a>';
 		}
@@ -730,7 +730,7 @@ print '<br><br>';
 
 print '<table class="noborder centpercent">';
 
-print "<tr class=\"oddeven trfirstline\">\n  <td>".$langs->trans("PathToDocuments")."</td>\n  <td>".$conf->propal->multidir_output[$conf->entity]."</td>\n</tr>\n";
+print "<tr class=\"oddeven trfirstline\">\n  <td>".$langs->trans("PathToDocuments")."</td>\n  <td>".$config->propal->multidir_output[$config->entity]."</td>\n</tr>\n";
 
 print '<tr class="oddeven lastline"><td>';
 print $langs->trans("YouMayFindNotificationsFeaturesIntoModuleNotification").'<br>';

@@ -190,7 +190,7 @@ class Tva extends CommonObject
 		$sql .= "fk_user_creat,";
 		$sql .= "fk_user_modif";
 		$sql .= ") VALUES (";
-		$sql .= " ".((int) $conf->entity).", ";
+		$sql .= " ".((int) $config->entity).", ";
 		$sql .= " '".$this->db->idate($now)."',";
 		$sql .= " '".$this->db->idate($this->datep)."',";
 		$sql .= " '".$this->db->idate($this->datev)."',";
@@ -649,7 +649,7 @@ class Tva extends CommonObject
 		}
 		$sql .= ", '".$this->db->escape($user->id)."'";
 		$sql .= ", NULL";
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ")";
 
 		dol_syslog(get_class($this)."::addPayment", LOG_DEBUG);
@@ -753,7 +753,7 @@ class Tva extends CommonObject
 	{
 		global $langs, $conf;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

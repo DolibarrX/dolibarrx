@@ -243,10 +243,10 @@ class pdf_azur extends ModelePDFPropales
 				$realpath = '';
 				foreach ($pdir as $midir) {
 					if (!$arephoto) {
-						if ($conf->entity != $objphoto->entity) {
-							$dir = $conf->product->multidir_output[$objphoto->entity].'/'.$midir; //Check repertories of current entities
+						if ($config->entity != $objphoto->entity) {
+							$dir = $config->product->multidir_output[$objphoto->entity].'/'.$midir; //Check repertories of current entities
 						} else {
-							$dir = $conf->product->dir_output.'/'.$midir; //Check repertory of the current product
+							$dir = $config->product->dir_output.'/'.$midir; //Check repertory of the current product
 						}
 						foreach ($objphoto->liste_photos($dir, 1) as $key => $obj) {
 							if (!getDolGlobalInt('CAT_HIGH_QUALITY_IMAGES')) {		// If CAT_HIGH_QUALITY_IMAGES not defined, we use thumb if defined and then original photo
@@ -276,18 +276,18 @@ class pdf_azur extends ModelePDFPropales
 			$this->posxpicture = $this->posxtva;
 		}
 
-		if ($conf->propal->multidir_output[$conf->entity]) {
+		if ($config->propal->multidir_output[$config->entity]) {
 			$object->fetch_thirdparty();
 
 			$deja_regle = 0;
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->propal->multidir_output[$conf->entity];
+				$dir = $config->propal->multidir_output[$config->entity];
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->propal->multidir_output[$object->entity]."/".$objectref;
+				$dir = $config->propal->multidir_output[$object->entity]."/".$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 
@@ -325,9 +325,9 @@ class pdf_azur extends ModelePDFPropales
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$logodir = $conf->mycompany->dir_output;
-					if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-						$logodir = $conf->mycompany->multidir_output[$object->entity];
+					$logodir = $config->mycompany->dir_output;
+					if (!empty($config->mycompany->multidir_output[$object->entity])) {
+						$logodir = $config->mycompany->multidir_output[$object->entity];
 					}
 					$pagecount = $pdf->setSourceFile($logodir.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
@@ -767,9 +767,9 @@ class pdf_azur extends ModelePDFPropales
 
 				// Add terms to sale
 				if (!empty($mysoc->termsofsale) && getDolGlobalInt('MAIN_PDF_ADD_TERMSOFSALE_PROPAL')) {
-					$termsofsale = $conf->mycompany->dir_output.'/'.$mysoc->termsofsale;
-					if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-						$termsofsale = $conf->mycompany->multidir_output[$object->entity].'/'.$mysoc->termsofsale;
+					$termsofsale = $config->mycompany->dir_output.'/'.$mysoc->termsofsale;
+					if (!empty($config->mycompany->multidir_output[$object->entity])) {
+						$termsofsale = $config->mycompany->multidir_output[$object->entity].'/'.$mysoc->termsofsale;
 					}
 					if (file_exists($termsofsale) && is_readable($termsofsale)) {
 						$pagecount = $pdf->setSourceFile($termsofsale);
@@ -807,10 +807,10 @@ class pdf_azur extends ModelePDFPropales
 							$product = new Product($this->db);
 							$product->fetch($line->fk_product);
 
-							if ($product->entity != $conf->entity) {
+							if ($product->entity != $config->entity) {
 								$entity_product_file = $product->entity;
 							} else {
-								$entity_product_file = $conf->entity;
+								$entity_product_file = $config->entity;
 							}
 
 							// If PDF is selected and file is not empty
@@ -819,15 +819,15 @@ class pdf_azur extends ModelePDFPropales
 									if (!empty($linefile->id) && !empty($linefile->file_name)) {
 										if (getDolGlobalInt('PRODUCT_USE_OLD_PATH_FOR_PHOTO')) {
 											if (isModEnabled("product")) {
-												$filetomerge_dir = $conf->product->multidir_output[$entity_product_file].'/'.get_exdir($product->id, 2, 0, 0, $product, 'product').$product->id."/photos";
+												$filetomerge_dir = $config->product->multidir_output[$entity_product_file].'/'.get_exdir($product->id, 2, 0, 0, $product, 'product').$product->id."/photos";
 											} elseif (isModEnabled("service")) {
-												$filetomerge_dir = $conf->service->multidir_output[$entity_product_file].'/'.get_exdir($product->id, 2, 0, 0, $product, 'product').$product->id."/photos";
+												$filetomerge_dir = $config->service->multidir_output[$entity_product_file].'/'.get_exdir($product->id, 2, 0, 0, $product, 'product').$product->id."/photos";
 											}
 										} else {
 											if (isModEnabled("product")) {
-												$filetomerge_dir = $conf->product->multidir_output[$entity_product_file].'/'.get_exdir(0, 0, 0, 0, $product, 'product');
+												$filetomerge_dir = $config->product->multidir_output[$entity_product_file].'/'.get_exdir(0, 0, 0, 0, $product, 'product');
 											} elseif (isModEnabled("service")) {
-												$filetomerge_dir = $conf->service->multidir_output[$entity_product_file].'/'.get_exdir(0, 0, 0, 0, $product, 'product');
+												$filetomerge_dir = $config->service->multidir_output[$entity_product_file].'/'.get_exdir(0, 0, 0, 0, $product, 'product');
 											}
 										}
 
@@ -919,7 +919,7 @@ class pdf_azur extends ModelePDFPropales
 
 		$pdf->SetFont('', '', $default_font_size - 1);
 
-		$diffsizetitle = (!getDolGlobalString('PDF_DIFFSIZE_TITLE') ? 3 : $conf->global->PDF_DIFFSIZE_TITLE);
+		$diffsizetitle = (!getDolGlobalString('PDF_DIFFSIZE_TITLE') ? 3 : $config->global->PDF_DIFFSIZE_TITLE);
 
 		// If France, show VAT mention if not applicable
 		if ($this->emetteur->country_code == 'FR' && empty($mysoc->tva_assuj)) {
@@ -1433,7 +1433,7 @@ class pdf_azur extends ModelePDFPropales
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)
@@ -1445,7 +1445,7 @@ class pdf_azur extends ModelePDFPropales
 			$pdf->SetXY($this->page_largeur - $this->marge_droite - ($pdf->GetStringWidth($titre) + 3), $tab_top - 4);
 			$pdf->MultiCell(($pdf->GetStringWidth($titre) + 3), 2, $titre);
 
-			//$conf->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
+			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
 				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, 5, $this->corner_radius, '1001', 'F', null, explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
@@ -1563,9 +1563,9 @@ class pdf_azur extends ModelePDFPropales
 		// Logo
 		if (!getDolGlobalInt('PDF_DISABLE_MYCOMPANY_LOGO')) {
 			if ($this->emetteur->logo) {
-				$logodir = $conf->mycompany->dir_output;
-				if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-					$logodir = $conf->mycompany->multidir_output[$object->entity];
+				$logodir = $config->mycompany->dir_output;
+				if (!empty($config->mycompany->multidir_output[$object->entity])) {
+					$logodir = $config->mycompany->multidir_output[$object->entity];
 				}
 				if (!getDolGlobalInt('MAIN_PDF_USE_LARGE_LOGO')) {
 					$logo = $logodir.'/logos/thumbs/'.$this->emetteur->logo_small;
@@ -1754,7 +1754,7 @@ class pdf_azur extends ModelePDFPropales
 			}
 
 			// Recipient name
-			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
+			if ($usecontact && ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT')))) {
 				$thirdparty = $object->contact;
 			} else {
 				$thirdparty = $object->thirdparty;

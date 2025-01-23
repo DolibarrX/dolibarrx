@@ -68,7 +68,7 @@ if (isModEnabled('category')) {
 }
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -90,7 +90,7 @@ if (!$sortorder) {
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $object = new Entrepot($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->stock->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->stock->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($contextpage));
 
 // Fetch optionals attributes and labels
@@ -195,7 +195,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Entrepot';
 	$objectlabel = 'Warehouse';
-	$uploaddir = $conf->stock->dir_output;
+	$uploaddir = $config->stock->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -251,7 +251,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON ps.fk_product = p.rowid";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as c_dep ON c_dep.rowid = t.fk_departement";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as ccount ON ccount.rowid = t.fk_pays";
 if ($separatedPMP) {
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product_perentity as pa ON pa.fk_product = p.rowid AND pa.fk_product = ps.fk_product AND pa.entity = ". (int) $conf->entity;
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product_perentity as pa ON pa.fk_product = p.rowid AND pa.fk_product = ps.fk_product AND pa.entity = ". (int) $config->entity;
 }
 $sql .= " WHERE t.entity IN (".getEntity('stock').")";
 foreach ($search as $key => $val) {
@@ -423,7 +423,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {

@@ -61,7 +61,7 @@ $result = restrictedArea($user, 'resource', $id, 'resource');
 
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -84,7 +84,7 @@ $object = new Dolresource($db);
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'.
 
-$upload_dir = $conf->resource->dir_output.'/'.dol_sanitizeFileName($object->ref);
+$upload_dir = $config->resource->dir_output.'/'.dol_sanitizeFileName($object->ref);
 $modulepart = 'resource';
 
 $result = restrictedArea($user, 'resource', $object->id, 'resource');

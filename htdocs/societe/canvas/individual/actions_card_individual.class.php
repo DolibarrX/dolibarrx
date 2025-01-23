@@ -99,7 +99,7 @@ class ActionsCardIndividual extends ActionsCardCommon
 			$this->tpl['select_civility'] = $formcompany->select_civility(GETPOST('civility_id'));
 		} else {
 			// Confirm delete third party
-			if ($action == 'delete' || $conf->use_javascript_ajax) {
+			if ($action == 'delete' || $config->use_javascript_ajax) {
 				$this->tpl['action_delete'] = $form->formconfirm($_SERVER["PHP_SELF"]."?socid=".$this->object->id, $langs->trans("DeleteAnIndividual"), $langs->trans("ConfirmDeleteIndividual"), "confirm_delete", '', 0, "1,action-delete");
 			}
 		}

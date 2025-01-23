@@ -79,7 +79,7 @@ $form = new Form($db);
 $tmpexpensereport = new ExpenseReport($db);
 
 $title = $langs->trans("TripsAndExpensesStatistics");
-$dir = $conf->expensereport->dir_temp;
+$dir = $config->expensereport->dir_temp;
 
 llxHeader('', $title);
 

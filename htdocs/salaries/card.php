@@ -121,7 +121,7 @@ $permissiontoread = $user->hasRight('salaries', 'read');
 $permissiontoadd = $user->hasRight('salaries', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissiontodelete = $user->hasRight('salaries', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_UNPAID);
 
-$upload_dir = $conf->salaries->multidir_output[$conf->entity];
+$upload_dir = $config->salaries->multidir_output[$config->entity];
 
 
 /*
@@ -542,7 +542,7 @@ if ($action == 'create' && $permissiontoadd) {
 
 	print load_fiche_titre($langs->trans("NewSalary"), '', 'salary');
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print "\n".'<script type="text/javascript">';
 		print /** @lang JavaScript */'
 			$(document).ready(function () {
@@ -945,7 +945,7 @@ if ($id > 0) {
 	if ($action == 'edit') {
 		print '<tr><td class="fieldrequired">' . $langs->trans("Amount") . '</td><td><input name="amount" size="10" value="' . price($object->amount) . '"></td></tr>';
 	} else {
-		print '<tr><td>' . $langs->trans("Amount") . '</td><td><span class="amount">' . price($object->amount, 0, $langs, 1, -1, -1, $conf->currency) . '</span></td></tr>';
+		print '<tr><td>' . $langs->trans("Amount") . '</td><td><span class="amount">' . price($object->amount, 0, $langs, 1, -1, -1, $config->currency) . '</span></td></tr>';
 	}
 
 	// Default mode of payment
@@ -1191,7 +1191,7 @@ if ($id > 0) {
 		if ($includedocgeneration) {
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $conf->salaries->dir_output.'/'.$objref;
+			$filedir = $config->salaries->dir_output.'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			//$genallowed = $permissiontoread; // If you can read, you can build the PDF to read content
 			$genallowed = 0; // If you can read, you can build the PDF to read content
@@ -1231,7 +1231,7 @@ if ($id > 0) {
 	// Presend form
 	$modelmail = 'salary';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->salaries->dir_output;
+	$diroutput = $config->salaries->dir_output;
 	$trackid = 'salary'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

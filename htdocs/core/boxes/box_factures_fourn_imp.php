@@ -186,7 +186,7 @@ class box_factures_fourn_imp extends ModeleBoxes
 
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="nowraponall right amount"',
-						'text' => price($objp->total_ht, 0, $langs, 0, -1, -1, $conf->currency),
+						'text' => price($objp->total_ht, 0, $langs, 0, -1, -1, $config->currency),
 					);
 
 					$this->info_box_contents[$line][] = array(
@@ -230,7 +230,7 @@ class box_factures_fourn_imp extends ModeleBoxes
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="right liste_total" ',
-						'text' => price($totalamount, 0, $langs, 0, -1, -1, $conf->currency),
+						'text' => price($totalamount, 0, $langs, 0, -1, -1, $config->currency),
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="liste_total"',

@@ -67,7 +67,7 @@ include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
 if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
 	$value = (GETPOST($code, 'alpha') ? GETPOST($code, 'alpha') : 1);
-	if (dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -77,7 +77,7 @@ if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 
 if (preg_match('/del_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_del_const($db, $code, $conf->entity) > 0) {
+	if (dolibarr_del_const($db, $code, $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -85,14 +85,14 @@ if (preg_match('/del_([a-z0-9_\-]+)/i', $action, $reg)) {
 	}
 }
 if ($action == 'set') {
-	dolibarr_set_const($db, 'AGENDA_USE_EVENT_TYPE_DEFAULT', GETPOST('AGENDA_USE_EVENT_TYPE_DEFAULT'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, 'AGENDA_DEFAULT_FILTER_TYPE', GETPOST('AGENDA_DEFAULT_FILTER_TYPE'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, 'AGENDA_DEFAULT_FILTER_STATUS', GETPOST('AGENDA_DEFAULT_FILTER_STATUS'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, 'AGENDA_DEFAULT_VIEW', GETPOST('AGENDA_DEFAULT_VIEW'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, 'AGENDA_DEFAULT_REMINDER_OFFSET', GETPOSTINT('AGENDA_DEFAULT_REMINDER_OFFSET'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, 'AGENDA_DEFAULT_REMINDER_OFFSET_UNIT', GETPOST('AGENDA_DEFAULT_REMINDER_OFFSET_UNIT_type_duration'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, 'AGENDA_DEFAULT_REMINDER_EMAIL_MODEL', GETPOSTINT('AGENDA_DEFAULT_REMINDER_EMAIL_MODELmodel_mail'), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, 'AGENDA_DEFAULT_REMINDER_EVENT_TYPES', json_encode(GETPOST('AGENDA_DEFAULT_REMINDER_EVENT_TYPES')), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, 'AGENDA_USE_EVENT_TYPE_DEFAULT', GETPOST('AGENDA_USE_EVENT_TYPE_DEFAULT'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, 'AGENDA_DEFAULT_FILTER_TYPE', GETPOST('AGENDA_DEFAULT_FILTER_TYPE'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, 'AGENDA_DEFAULT_FILTER_STATUS', GETPOST('AGENDA_DEFAULT_FILTER_STATUS'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, 'AGENDA_DEFAULT_VIEW', GETPOST('AGENDA_DEFAULT_VIEW'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, 'AGENDA_DEFAULT_REMINDER_OFFSET', GETPOSTINT('AGENDA_DEFAULT_REMINDER_OFFSET'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, 'AGENDA_DEFAULT_REMINDER_OFFSET_UNIT', GETPOST('AGENDA_DEFAULT_REMINDER_OFFSET_UNIT_type_duration'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, 'AGENDA_DEFAULT_REMINDER_EMAIL_MODEL', GETPOSTINT('AGENDA_DEFAULT_REMINDER_EMAIL_MODELmodel_mail'), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, 'AGENDA_DEFAULT_REMINDER_EVENT_TYPES', json_encode(GETPOST('AGENDA_DEFAULT_REMINDER_EVENT_TYPES')), 'chaine', 0, '', $config->entity);
 } elseif ($action == 'specimen') {  // For orders
 	$modele = GETPOST('module', 'alpha');
 
@@ -105,7 +105,7 @@ if ($action == 'set') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/action/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -139,16 +139,16 @@ if ($action == 'set') {
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->ACTION_EVENT_ADDON_PDF == "$value") {
-			dolibarr_del_const($db, 'ACTION_EVENT_ADDON_PDF', $conf->entity);
+		if ($config->global->ACTION_EVENT_ADDON_PDF == "$value") {
+			dolibarr_del_const($db, 'ACTION_EVENT_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "ACTION_EVENT_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "ACTION_EVENT_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// The constant that has been read in front of the new set
 		// is therefore passed through a variable to have a coherent display
-		$conf->global->ACTION_EVENT_ADDON_PDF = $value;
+		$config->global->ACTION_EVENT_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -164,7 +164,7 @@ if ($action == 'set') {
  */
 
 $formactions = new FormActions($db);
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-admin page-agenda_reminder');
 
 $linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';

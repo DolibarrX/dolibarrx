@@ -617,7 +617,7 @@ class FormTicket
 					$out .= '<div id="attachfile_'.$key.'">';
 					$out .= img_mime($listofnames[$key]).' '.$listofnames[$key];
 					if (!$this->withfilereadonly) {
-						$out .= ' <input type="image" style="border: 0px;" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/delete.png" value="'.($key + 1).'" class="removedfile" id="removedfile_'.$key.'" name="removedfile_'.$key.'" />';
+						$out .= ' <input type="image" style="border: 0px;" src="'.DOL_URL_ROOT.'/theme/'.$config->theme.'/img/delete.png" value="'.($key + 1).'" class="removedfile" id="removedfile_'.$key.'" name="removedfile_'.$key.'" />';
 					}
 					$out .= '<br></div>';
 				}
@@ -663,7 +663,7 @@ class FormTicket
 				print img_picto('', 'company', 'class="paddingright"');
 				print $form->select_company($this->withfromsocid, 'socid', '', 1, 1, 0, $events, 0, 'minwidth200');
 				print '</td></tr>';
-				if (!empty($conf->use_javascript_ajax) && getDolGlobalString('COMPANY_USE_SEARCH_TO_SELECT')) {
+				if (!empty($config->use_javascript_ajax) && getDolGlobalString('COMPANY_USE_SEARCH_TO_SELECT')) {
 					$htmlname = 'socid';
 					print '<script nonce="'.getNonce().'" type="text/javascript">
                     $(document).ready(function () {
@@ -795,7 +795,7 @@ class FormTicket
 			$captcha = getDolGlobalString('MAIN_SECURITY_ENABLECAPTCHA_HANDLER', 'standard');
 
 			// List of directories where we can find captcha handlers
-			$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), is_array($conf->modules_parts['captcha']) ? $conf->modules_parts['captcha'] : array());
+			$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), is_array($config->modules_parts['captcha']) ? $config->modules_parts['captcha'] : array());
 
 			$fullpathclassfile = '';
 			foreach ($dirModCaptcha as $dir) {
@@ -1113,7 +1113,7 @@ class FormTicket
 			$sql = "SELECT ctc.rowid, ctc.code, ctc.label, ctc.fk_parent, ctc.public, ";
 			$sql .= $this->db->ifsql("ctc.rowid NOT IN (SELECT ctcfather.rowid FROM ".MAIN_DB_PREFIX."c_ticket_category as ctcfather JOIN ".MAIN_DB_PREFIX."c_ticket_category as ctcjoin ON ctcfather.rowid = ctcjoin.fk_parent WHERE ctcjoin.active > 0)", "'NOTPARENT'", "'PARENT'")." as isparent";
 			$sql .= " FROM ".$this->db->prefix()."c_ticket_category as ctc";
-			$sql .= " WHERE ctc.active > 0 AND ctc.entity = ".((int) $conf->entity);
+			$sql .= " WHERE ctc.active > 0 AND ctc.entity = ".((int) $config->entity);
 			$public = ($filtertype == 'public=1' || $filtertype == '(public:=:1)');
 			if ($public) {
 				$sql .= " AND ctc.public = 1";
@@ -1174,7 +1174,7 @@ class FormTicket
 				$sql = "SELECT ctc.rowid, ctc.code, ctc.label, ctc.fk_parent, ctc.public, ctcjoin.code as codefather";
 				$sql .= " FROM ".$this->db->prefix()."c_ticket_category as ctc";
 				$sql .= " JOIN ".$this->db->prefix()."c_ticket_category as ctcjoin ON ctc.fk_parent = ctcjoin.rowid";
-				$sql .= " WHERE ctc.active > 0 AND ctc.entity = ".((int) $conf->entity);
+				$sql .= " WHERE ctc.active > 0 AND ctc.entity = ".((int) $config->entity);
 				$sql .= " AND ctc.rowid NOT IN (".$this->db->sanitize(implode(',', $arrayidusedconcat)).")";
 
 				$public = ($filtertype == 'public=1' || $filtertype == '(public:=:1)');
@@ -1353,8 +1353,8 @@ class FormTicket
 			print '<option value="">'.((is_numeric($empty) || $empty == 'ifone') ? '&nbsp;' : $empty).'</option>';
 		}
 
-		if (is_array($conf->cache['severity_tickets']) && count($conf->cache['severity_tickets'])) {
-			foreach ($conf->cache['severity_tickets'] as $id => $arrayseverities) {
+		if (is_array($config->cache['severity_tickets']) && count($config->cache['severity_tickets'])) {
+			foreach ($config->cache['severity_tickets'] as $id => $arrayseverities) {
 				// On passe si on a demande de filtrer sur des modes de paiments particuliers
 				if (count($filterarray) && !in_array($arrayseverities['type'], $filterarray)) {
 					continue;
@@ -1388,7 +1388,7 @@ class FormTicket
 					print ' selected="selected"';
 				} elseif ($arrayseverities['use_default'] == "1" && empty($selected)) {
 					print ' selected="selected"';
-				} elseif (count($conf->cache['severity_tickets']) == 1 && (!$empty || $empty == 'ifone')) {	// If only 1 choice, we autoselect it
+				} elseif (count($config->cache['severity_tickets']) == 1 && (!$empty || $empty == 'ifone')) {	// If only 1 choice, we autoselect it
 					print ' selected="selected"';
 				}
 
@@ -1436,7 +1436,7 @@ class FormTicket
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		// Set tmp user directory
-		$vardir = $conf->user->dir_output."/".$user->id;
+		$vardir = $config->user->dir_output."/".$user->id;
 		$upload_dir = $vardir.'/temp/'; // TODO Add $keytoavoidconflict in upload_dir path
 		if (is_dir($upload_dir)) {
 			dol_delete_dir_recursive($upload_dir);
@@ -1747,8 +1747,8 @@ class FormTicket
 		// Intro
 		// External users can't send message email
 		/*
-		if ($user->rights->ticket->write && !$user->socid && !empty($conf->global->TICKET_MESSAGE_MAIL_INTRO)) {
-			$mail_intro = GETPOST('mail_intro') ? GETPOST('mail_intro') : $conf->global->TICKET_MESSAGE_MAIL_INTRO;
+		if ($user->rights->ticket->write && !$user->socid && !empty($config->global->TICKET_MESSAGE_MAIL_INTRO)) {
+			$mail_intro = GETPOST('mail_intro') ? GETPOST('mail_intro') : $config->global->TICKET_MESSAGE_MAIL_INTRO;
 			print '<tr class="email_line"><td><label for="mail_intro">';
 			print $form->textwithpicto($langs->trans("TicketMessageMailIntro"), $langs->trans("TicketMessageMailIntroHelp"), 1, 'help');
 			print '</label>';
@@ -1791,7 +1791,7 @@ class FormTicket
 					$out .= '<div id="attachfile_'.$key.'">';
 					$out .= img_mime($listofnames[$key]).' '.$listofnames[$key];
 					if (!$this->withfilereadonly) {
-						$out .= ' <input type="image" style="border: 0px;" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/delete.png" value="'.($key + 1).'" class="removedfile reposition" id="removedfile_'.$key.'" name="removedfile_'.$key.'" />';
+						$out .= ' <input type="image" style="border: 0px;" src="'.DOL_URL_ROOT.'/theme/'.$config->theme.'/img/delete.png" value="'.($key + 1).'" class="removedfile reposition" id="removedfile_'.$key.'" name="removedfile_'.$key.'" />';
 					}
 					$out .= '<br></div>';
 				}
@@ -1862,8 +1862,8 @@ class FormTicket
 
 		// Footer
 		// External users can't send message email
-		/*if ($user->rights->ticket->write && !$user->socid && !empty($conf->global->TICKET_MESSAGE_MAIL_SIGNATURE)) {
-			$mail_signature = GETPOST('mail_signature') ? GETPOST('mail_signature') : $conf->global->TICKET_MESSAGE_MAIL_SIGNATURE;
+		/*if ($user->rights->ticket->write && !$user->socid && !empty($config->global->TICKET_MESSAGE_MAIL_SIGNATURE)) {
+			$mail_signature = GETPOST('mail_signature') ? GETPOST('mail_signature') : $config->global->TICKET_MESSAGE_MAIL_SIGNATURE;
 			print '<tr class="email_line"><td><label for="mail_intro">'.$langs->trans("TicketMessageMailFooter").'</label>';
 			print $form->textwithpicto('', $langs->trans("TicketMessageMailFooterHelp"), 1, 'help');
 			print '</td><td>';
@@ -1879,7 +1879,7 @@ class FormTicket
 		print '<br><center>';
 		print '<input type="submit" class="button" name="btn_add_message" value="'.$langs->trans("Add").'"';
 		// Add a javascript test to avoid to forget to submit file before sending email
-		if ($this->withfile == 2 && !empty($conf->use_javascript_ajax)) {
+		if ($this->withfile == 2 && !empty($config->use_javascript_ajax)) {
 			print ' onClick="if (document.ticket.addedfile.value != \'\') { alert(\''.dol_escape_js($langs->trans("FileWasNotUploaded")).'\'); return false; } else { return true; }"';
 		}
 		print ' />';

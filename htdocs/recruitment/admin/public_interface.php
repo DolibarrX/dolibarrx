@@ -56,16 +56,16 @@ $error = 0;
 
 if ($action == 'setRECRUITMENT_ENABLE_PUBLIC_INTERFACE') {
 	if (GETPOST('value')) {
-		dolibarr_set_const($db, 'RECRUITMENT_ENABLE_PUBLIC_INTERFACE', 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'RECRUITMENT_ENABLE_PUBLIC_INTERFACE', 1, 'chaine', 0, '', $config->entity);
 	} else {
-		dolibarr_set_const($db, 'RECRUITMENT_ENABLE_PUBLIC_INTERFACE', 0, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'RECRUITMENT_ENABLE_PUBLIC_INTERFACE', 0, 'chaine', 0, '', $config->entity);
 	}
 }
 
 if ($action == 'update') {
 	$public = GETPOST('RECRUITMENT_ENABLE_PUBLIC_INTERFACE');
 
-	$res = dolibarr_set_const($db, "RECRUITMENT_ENABLE_PUBLIC_INTERFACE", $public, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "RECRUITMENT_ENABLE_PUBLIC_INTERFACE", $public, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -155,7 +155,7 @@ if (getDolGlobalString('RECRUITMENT_ENABLE_PUBLIC_INTERFACE')) {
 	//print $langs->trans('FollowingLinksArePublic').'<br>';
 	print img_picto('', 'globe').' <span class="opacitymedium">'.$langs->trans('BlankSubscriptionForm').'</span><br>';
 	if (isModEnabled('multicompany')) {
-		$entity_qr = '?entity='.$conf->entity;
+		$entity_qr = '?entity='.$config->entity;
 	} else {
 		$entity_qr = '';
 	}

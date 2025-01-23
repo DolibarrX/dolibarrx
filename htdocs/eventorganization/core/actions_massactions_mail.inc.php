@@ -32,7 +32,7 @@
 // $parameters, $object, $action must be defined for the hook.
 
 // $permissiontoread, $permissiontoadd, $permissiontodelete, $permissiontoclose may be defined
-// $uploaddir may be defined (example to $conf->project->dir_output."/";)
+// $uploaddir may be defined (example to $config->project->dir_output."/";)
 // $toselect may be defined
 // $diroutputmassaction may be defined
 /**
@@ -66,7 +66,7 @@ if (empty($objectclass) || empty($uploaddir)) {
 $error = 0;
 
 // Mass actions. Controls on number of lines checked.
-$maxformassaction = (!getDolGlobalString('MAIN_LIMIT_FOR_MASS_ACTIONS') ? 1000 : $conf->global->MAIN_LIMIT_FOR_MASS_ACTIONS);
+$maxformassaction = (!getDolGlobalString('MAIN_LIMIT_FOR_MASS_ACTIONS') ? 1000 : $config->global->MAIN_LIMIT_FOR_MASS_ACTIONS);
 if (!empty($massaction) && is_array($toselect) && count($toselect) < 1) {
 	$error++;
 	setEventMessages($langs->trans("NoRecordSelected"), null, "warnings");
@@ -213,8 +213,8 @@ if (!$error && $massaction == 'confirm_presend_attendees') {
 			if (getDolGlobalString('MAIN_AGENDA_XCAL_EXPORTKEY')) {
 				$urlwithouturlroot = preg_replace('/' . preg_quote(DOL_URL_ROOT, '/') . '$/i', '', trim($dolibarr_main_url_root));
 				$urlwithroot = $urlwithouturlroot . DOL_URL_ROOT;
-				$url_link = $urlwithroot . '/public/agenda/agendaexport.php?format=ical' . ($conf->entity > 1 ? "&entity=" . $conf->entity : "");
-				$url_link .= '&exportkey=' . ($conf->global->MAIN_AGENDA_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_AGENDA_XCAL_EXPORTKEY')) : '...');
+				$url_link = $urlwithroot . '/public/agenda/agendaexport.php?format=ical' . ($config->entity > 1 ? "&entity=" . $config->entity : "");
+				$url_link .= '&exportkey=' . ($config->global->MAIN_AGENDA_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_AGENDA_XCAL_EXPORTKEY')) : '...');
 				$url_link .= "&project=" . $listofselectedref[$email]->fk_project . '&module=' . urlencode('@eventorganization') . '&status=' . ConferenceOrBooth::STATUS_CONFIRMED;
 				$html_link = '<a href="' . $url_link . '">' . $langs->trans('DownloadICSLink') . '</a>';
 			}

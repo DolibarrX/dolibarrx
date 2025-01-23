@@ -53,7 +53,7 @@ require_once DOL_DOCUMENT_ROOT.'/blockedlog/class/blockedlog.class.php';
 $id = GETPOSTINT('id');
 $block = new BlockedLog($db);
 
-if ((!$user->admin && !$user->hasRight('blockedlog', 'read')) || empty($conf->blockedlog->enabled)) {
+if ((!$user->admin && !$user->hasRight('blockedlog', 'read')) || empty($config->blockedlog->enabled)) {
 	accessforbidden();
 }
 

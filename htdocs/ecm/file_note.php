@@ -59,7 +59,7 @@ if ($user->socid > 0) {
 
 $backtopage = GETPOST('backtopage', 'alpha');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -95,9 +95,9 @@ if (!($result > 0)) {
 	exit;
 }
 $relativepath = $ecmdir->getRelativePath();
-$upload_dir = $conf->ecm->dir_output.'/'.$relativepath;
+$upload_dir = $config->ecm->dir_output.'/'.$relativepath;
 
-$fullpath = $conf->ecm->dir_output.'/'.$relativepath.$urlfile;
+$fullpath = $config->ecm->dir_output.'/'.$relativepath.$urlfile;
 
 $relativetodocument = 'ecm/'.$relativepath; // $relativepath is relative to ECM dir, we need relative to document
 $filepath = $relativepath.$urlfile;

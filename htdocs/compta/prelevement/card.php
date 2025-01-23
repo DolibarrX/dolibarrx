@@ -54,7 +54,7 @@ $type = GETPOST('type', 'aZ09');
 $date_trans = dol_mktime(GETPOSTINT('date_transhour'), GETPOSTINT('date_transmin'), GETPOSTINT('date_transsec'), GETPOSTINT('date_transmonth'), GETPOSTINT('date_transday'), GETPOSTINT('date_transyear'));
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -134,7 +134,7 @@ if (empty($reshook)) {
 		/*
 		if ($_FILES['userfile']['name'] && basename($_FILES['userfile']['name'],".ps") == $object->ref)
 		{
-			$dir = $conf->prelevement->dir_output.'/receipts';
+			$dir = $config->prelevement->dir_output.'/receipts';
 
 			if (dol_move_uploaded_file($_FILES['userfile']['tmp_name'], $dir . "/" . dol_unescapefile($_FILES['userfile']['name']),1) > 0)
 			{
@@ -336,13 +336,13 @@ if ($id > 0 || $ref) {
 	}
 
 	if (isModEnabled('multicompany')) {
-		$labelentity = $conf->entity;
+		$labelentity = $config->entity;
 		$relativepath = 'receipts/'.$object->ref.'-'.$labelentity.'.xml';
 
 		if ($type != 'bank-transfer') {
-			$dir = $conf->prelevement->dir_output;
+			$dir = $config->prelevement->dir_output;
 		} else {
-			$dir = $conf->paymentbybanktransfer->dir_output;
+			$dir = $config->paymentbybanktransfer->dir_output;
 		}
 		if (!dol_is_file($dir.'/'.$relativepath)) {	// For backward compatibility
 			$relativepath = 'receipts/'.$object->ref.'.xml';
@@ -475,7 +475,7 @@ if ($id > 0 || $ref) {
 		$sql .= ", ".MAIN_DB_PREFIX."user as u";
 		$sql .= " WHERE pl.fk_prelevement_bons = ".((int) $id);
 		$sql .= " AND pl.fk_prelevement_bons = pb.rowid";
-		$sql .= " AND pb.entity = ".((int) $conf->entity);	// No sharing of entity here
+		$sql .= " AND pb.entity = ".((int) $config->entity);	// No sharing of entity here
 		$sql .= " AND pl.fk_user = u.rowid";
 		if ($socid) {
 			$sql .= " AND u.rowid = ".((int) $socid);
@@ -489,7 +489,7 @@ if ($id > 0 || $ref) {
 		$sql .= ", ".MAIN_DB_PREFIX."societe as s";
 		$sql .= " WHERE pl.fk_prelevement_bons = ".((int) $id);
 		$sql .= " AND pl.fk_prelevement_bons = pb.rowid";
-		$sql .= " AND pb.entity = ".((int) $conf->entity);	// No sharing of entity here
+		$sql .= " AND pb.entity = ".((int) $config->entity);	// No sharing of entity here
 		$sql .= " AND pl.fk_soc = s.rowid";
 		if ($socid) {
 			$sql .= " AND s.rowid = ".((int) $socid);
@@ -517,7 +517,7 @@ if ($id > 0 || $ref) {
 		$i = 0;
 
 		$urladd = "&id=".urlencode((string) ($id));
-		if ($limit > 0 && $limit != $conf->liste_limit) {
+		if ($limit > 0 && $limit != $config->liste_limit) {
 			$urladd .= '&limit='.((int) $limit);
 		}
 

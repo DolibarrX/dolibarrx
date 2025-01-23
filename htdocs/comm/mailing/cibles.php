@@ -58,7 +58,7 @@ $massaction = GETPOST('massaction', 'alpha'); // The bulk action (combo box choi
 $mode       = GETPOST('mode', 'aZ'); // The display mode ('list', 'kanban', 'hierarchy', 'calendar', 'gantt', ...)
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -289,7 +289,7 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 
 // Action update description of emailing
 if (($action == 'settitle' || $action == 'setemail_from' || $action == 'setreplyto' || $action == 'setemail_errorsto' || $action == 'setevenunsubscribe') && $permissiontocreate) {
-	$upload_dir = $conf->mailing->dir_output."/".get_exdir($object->id, 2, 0, 1, $object, 'mailing');
+	$upload_dir = $config->mailing->dir_output."/".get_exdir($object->id, 2, 0, 1, $object, 'mailing');
 
 	if ($action == 'settitle') {					// Test on permission already done
 		$object->title = trim(GETPOST('title', 'alpha'));
@@ -582,7 +582,7 @@ if ($object->fetch($id) >= 0) {
 
 				// Check dependencies
 				foreach ($obj->require_module as $key) {
-					if (empty($conf->$key->enabled) || (empty($user->admin) && $obj->require_admin)) {
+					if (empty($config->$key->enabled) || (empty($user->admin) && $obj->require_admin)) {
 						$qualified = 0;
 						//print "Les prerequis d'activation du module mailing ne sont pas respectes. Il ne sera pas actif";
 						break;
@@ -745,7 +745,7 @@ if ($object->fetch($id) >= 0) {
 
 		$param = "&id=".$object->id;
 		//if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) $param.='&contextpage='.urlencode($contextpage);
-		if ($limit > 0 && $limit != $conf->liste_limit) {
+		if ($limit > 0 && $limit != $config->liste_limit) {
 			$param .= '&limit='.((int) $limit);
 		}
 		if ($search_lastname) {
@@ -803,7 +803,7 @@ if ($object->fetch($id) >= 0) {
 		}
 
 		$varpage = empty($contextpage) ? $_SERVER["PHP_SELF"] : $contextpage;
-		$htmlofselectarray = $form->multiSelectArrayWithCheckbox('selectedfields', $arrayfields, $varpage, $conf->main_checkbox_left_column);  // This also change content of $arrayfields with user setup
+		$htmlofselectarray = $form->multiSelectArrayWithCheckbox('selectedfields', $arrayfields, $varpage, $config->main_checkbox_left_column);  // This also change content of $arrayfields with user setup
 		$selectedfields = ($mode != 'kanban' ? $htmlofselectarray : '');
 		$selectedfields .= (count($arrayofmassactions) ? $form->showCheckAddButtons('checkforselect', 1) : '');
 
@@ -814,7 +814,7 @@ if ($object->fetch($id) >= 0) {
 		print '<tr class="liste_titre_filter">';
 
 		// Action column
-		if ($conf->main_checkbox_left_column) {
+		if ($config->main_checkbox_left_column) {
 			print '<td class="liste_titre maxwidthsearch">';
 			$searchpicto = $form->showFilterButtons('left');
 			print $searchpicto;
@@ -857,7 +857,7 @@ if ($object->fetch($id) >= 0) {
 		print '</td>';
 
 		// Action column
-		if (empty($conf->main_checkbox_left_column)) {
+		if (empty($config->main_checkbox_left_column)) {
 			print '<td class="liste_titre maxwidthsearch">';
 			$searchpicto = $form->showFilterButtons();
 			print $searchpicto;
@@ -872,7 +872,7 @@ if ($object->fetch($id) >= 0) {
 
 		print '<tr class="liste_titre">';
 		// Action column
-		if ($conf->main_checkbox_left_column) {
+		if ($config->main_checkbox_left_column) {
 			print getTitleFieldOfList($selectedfields, 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'center maxwidthsearch ')."\n";
 			$totalarray['nbfield']++;
 		}
@@ -887,7 +887,7 @@ if ($object->fetch($id) >= 0) {
 		print_liste_field_titre("DateSending", $_SERVER["PHP_SELF"], "mc.date_envoi", $param, '', '', $sortfield, $sortorder, 'center ');
 		print_liste_field_titre("Status", $_SERVER["PHP_SELF"], "mc.statut", $param, '', '', $sortfield, $sortorder, 'center ');
 		// Action column
-		if (!$conf->main_checkbox_left_column) {
+		if (!$config->main_checkbox_left_column) {
 			print getTitleFieldOfList($selectedfields, 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'center maxwidthsearch ')."\n";
 			$totalarray['nbfield']++;
 		}

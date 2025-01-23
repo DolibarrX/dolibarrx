@@ -81,7 +81,7 @@ $search_batch = trim(GETPOST("search_batch", 'alpha'));
 $search_qty = trim(GETPOST("search_qty", 'alpha'));
 $search_type_mouvement = GETPOST('search_type_mouvement', "intcomma");
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
@@ -411,7 +411,7 @@ if ($action == "transfert_stock" && !$cancel && $usercancreate) {
  */
 // The builddoc action for object of a movement must be on the movement card
 // Actions to build doc
-$upload_dir = $conf->stock->dir_output."movement/";
+$upload_dir = $config->stock->dir_output."movement/";
 $permissiontoadd = $user->hasRight('stock', 'creer');
 include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
@@ -421,7 +421,7 @@ if (empty($reshook) && $action != 'remove_file') {
 	$objectlabel = 'Movements';
 	$permissiontoread = $user->hasRight('stock', 'lire');
 	$permissiontodelete = $user->hasRight('stock', 'supprimer');
-	$uploaddir = $conf->stock->dir_output."/movement/";
+	$uploaddir = $config->stock->dir_output."/movement/";
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -625,7 +625,7 @@ if ($resql) {
 
 		// Value
 		print '<tr><td class="titlefield">'.$langs->trans("EstimatedStockValueShort").'</td><td>';
-		print price((empty($calcproducts['value']) ? '0' : price2num($calcproducts['value'], 'MT')), 0, $langs, 0, -1, -1, $conf->currency);
+		print price((empty($calcproducts['value']) ? '0' : price2num($calcproducts['value'], 'MT')), 0, $langs, 0, -1, -1, $config->currency);
 		print "</td></tr>";
 
 		// Last movement
@@ -697,7 +697,7 @@ if ($resql) {
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($id > 0) {
@@ -809,7 +809,7 @@ if ($resql) {
 	if (!empty($arrayfields['m.datem']['checked'])) {
 		print '<td class="liste_titre nowraponall">';
 		print '<input class="flat" type="text" size="2" maxlength="2" placeholder="'.dol_escape_htmltag($langs->trans("Month")).'" name="month" value="'.$month.'">';
-		if (empty($conf->productbatch->enabled)) {
+		if (empty($config->productbatch->enabled)) {
 			print '&nbsp;';
 		}
 		//else print '<br>';
@@ -1209,7 +1209,7 @@ if ($action != 'create' && $action != 'edit' && $action != 'delete' && $id > 0) 
 		$objectref .= "_".$search_type_mouvement;
 	}
 	$relativepath = $comref.'/'.$objectref.'.pdf';
-	$filedir = $conf->stock->dir_output.'/movement/'.$objectref;
+	$filedir = $config->stock->dir_output.'/movement/'.$objectref;
 
 	$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id."&search_inventorycode=".$search_inventorycode."&search_type_mouvement=$search_type_mouvement";
 	$genallowed = $usercanread;

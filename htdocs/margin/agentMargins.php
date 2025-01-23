@@ -46,7 +46,7 @@ $langs->loadLangs(array('companies', 'bills', 'products', 'margins'));
 $mesg = '';
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -168,7 +168,7 @@ $sql .= " sum(".$db->ifsql('(d.total_ht < 0 OR (d.total_ht = 0 AND f.type = 2))'
 
 $sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
 $sql .= ", ".MAIN_DB_PREFIX."facture as f";
-$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_contact e ON e.element_id = f.rowid and e.statut = 4 and e.fk_c_type_contact = ".(!getDolGlobalString('AGENT_CONTACT_TYPE') ? -1 : $conf->global->AGENT_CONTACT_TYPE);
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_contact e ON e.element_id = f.rowid and e.statut = 4 and e.fk_c_type_contact = ".(!getDolGlobalString('AGENT_CONTACT_TYPE') ? -1 : $config->global->AGENT_CONTACT_TYPE);
 $sql .= ", ".MAIN_DB_PREFIX."facturedet as d";
 $sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 $sql .= ", ".MAIN_DB_PREFIX."user as u";
@@ -208,7 +208,7 @@ if (getDolGlobalInt('ForceBuyingPriceIfNull') == 2) {
 $sql .= " GROUP BY s.rowid, s.nom, s.code_client, s.client, u.rowid, u.login, u.lastname, u.firstname";
 $sql .= $db->order($sortfield, $sortorder);
 // TODO: calculate total to display then restore pagination
-//$sql.= $db->plimit($conf->liste_limit +1, $offset);
+//$sql.= $db->plimit($config->liste_limit +1, $offset);
 
 
 print '<br>';

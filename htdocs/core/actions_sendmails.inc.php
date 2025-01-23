@@ -59,7 +59,7 @@ if (GETPOST('addfile', 'alpha')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 	// Set tmp user directory
-	$vardir = $conf->user->dir_output."/".$user->id;
+	$vardir = $config->user->dir_output."/".$user->id;
 	$upload_dir_tmp = $vardir.'/temp'; // TODO Add $keytoavoidconflict in upload_dir path
 
 	dol_add_file_process($upload_dir_tmp, 1, 0, 'addedfile', '', null, $trackid, 0);
@@ -75,7 +75,7 @@ if (GETPOST('removedfile') && !GETPOST('removAll')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 	// Set tmp user directory
-	$vardir = $conf->user->dir_output."/".$user->id;
+	$vardir = $config->user->dir_output."/".$user->id;
 	$upload_dir_tmp = $vardir.'/temp'; // TODO Add $keytoavoidconflict in upload_dir path
 
 	// TODO Delete only files that was uploaded from email form. This can be addressed by adding the trackid into the temp path then changing donotdeletefile to 2 instead of 1 to say "delete only if into temp dir"
@@ -129,7 +129,7 @@ if (($action == 'send' || $action == 'relance') && !GETPOST('addfile') && !GETPO
 	}
 
 	// Set tmp user directory (used to convert images embedded as img src=data:image)
-	$vardir = $conf->user->dir_output."/".$user->id;
+	$vardir = $config->user->dir_output."/".$user->id;
 	$upload_dir_tmp = $vardir.'/temp'; // TODO Add $keytoavoidconflict in upload_dir path
 
 	$subject = '';
@@ -307,11 +307,11 @@ if (($action == 'send' || $action == 'relance') && !GETPOST('addfile') && !GETPO
 			$reg = array();
 			$fromtype = GETPOST('fromtype', 'alpha');
 			if ($fromtype === 'robot') {
-				$from = dol_string_nospecial($conf->global->MAIN_MAIL_EMAIL_FROM, ' ', array(",")).' <' . getDolGlobalString('MAIN_MAIL_EMAIL_FROM').'>';
+				$from = dol_string_nospecial($config->global->MAIN_MAIL_EMAIL_FROM, ' ', array(",")).' <' . getDolGlobalString('MAIN_MAIL_EMAIL_FROM').'>';
 			} elseif ($fromtype === 'user') {
 				$from = dol_string_nospecial($user->getFullName($langs), ' ', array(",")).' <'.$user->email.'>';
 			} elseif ($fromtype === 'company') {
-				$from = dol_string_nospecial($conf->global->MAIN_INFO_SOCIETE_NOM, ' ', array(",")).' <' . getDolGlobalString('MAIN_INFO_SOCIETE_MAIL').'>';
+				$from = dol_string_nospecial($config->global->MAIN_INFO_SOCIETE_NOM, ' ', array(",")).' <' . getDolGlobalString('MAIN_INFO_SOCIETE_MAIL').'>';
 			} elseif (preg_match('/user_aliases_(\d+)/', $fromtype, $reg)) {
 				$tmp = explode(',', $user->email_aliases);
 				$from = trim($tmp[((int) $reg[1] - 1)]);

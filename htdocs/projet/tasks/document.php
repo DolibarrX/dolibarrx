@@ -55,7 +55,7 @@ $withproject = GETPOSTINT('withproject');
 $project_ref = GETPOST('project_ref', 'alpha');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -120,7 +120,7 @@ if ($id > 0 || !empty($ref)) {
 
 	$object->project = clone $projectstatic;
 
-	$upload_dir = $conf->project->multidir_output[$projectstatic->entity].'/'.dol_sanitizeFileName($projectstatic->ref).'/'.dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->project->multidir_output[$projectstatic->entity].'/'.dol_sanitizeFileName($projectstatic->ref).'/'.dol_sanitizeFileName($object->ref);
 }
 
 include DOL_DOCUMENT_ROOT.'/core/actions_linkedfiles.inc.php';
@@ -226,7 +226,7 @@ if ($object->id > 0) {
 		// Budget
 		print '<tr><td>'.$langs->trans("Budget").'</td><td>';
 		if (isset($projectstatic->budget_amount) && strcmp($projectstatic->budget_amount, '')) {
-			print price($projectstatic->budget_amount, 0, $langs, 1, 0, 0, $conf->currency);
+			print price($projectstatic->budget_amount, 0, $langs, 1, 0, 0, $config->currency);
 		}
 		print '</td></tr>';
 

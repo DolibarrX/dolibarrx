@@ -73,7 +73,7 @@ if (!isset($section)) {
 }
 
 // Confirm remove file (for non javascript users)
-if (($action == 'delete' || $action == 'file_manager_delete') && empty($conf->use_javascript_ajax)) {
+if (($action == 'delete' || $action == 'file_manager_delete') && empty($config->use_javascript_ajax)) {
 	// TODO Add website, pageid, filemanager if defined
 	print $form->formconfirm($_SERVER["PHP_SELF"].'?section='.$section.'&urlfile='.urlencode(GETPOST("urlfile")), $langs->trans('DeleteFile'), $langs->trans('ConfirmDeleteFile'), 'confirm_deletefile', '', '', 1);
 }
@@ -100,7 +100,7 @@ if ($permtoadd) {
 	print '</a>';
 }
 if ($module == 'ecm') {
-	$tmpurl = ((!empty($conf->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) ? '#' : ($_SERVER["PHP_SELF"].'?action=refreshmanual'.($module ? '&amp;module='.$module : '').($section ? '&amp;section='.$section : '')));
+	$tmpurl = ((!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) ? '#' : ($_SERVER["PHP_SELF"].'?action=refreshmanual'.($module ? '&amp;module='.$module : '').($section ? '&amp;section='.$section : '')));
 	print '<a id="arefreshbutton" href="'.$tmpurl.'" class="inline-block valignmiddle toolbarbutton paddingtop" title="'.dol_escape_htmltag($langs->trans('ReSyncListOfDir')).'">';
 	print img_picto('', 'refresh', 'id="refreshbutton"', 0, 0, 0, '', 'size15x marginrightonly');
 	print '</a>';
@@ -164,7 +164,7 @@ $nameforformuserfile = 'formuserfileecm';
 print '<div class="inline-block valignmiddle floatright">';
 
 // Zone to attach a new file
-if ((!empty($conf->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) || !empty($section)) {
+if ((!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) || !empty($section)) {
 	if ((empty($section) || $section == -1) && ($module != 'medias')) {
 		?>
 		<script>
@@ -236,9 +236,9 @@ if ($action == 'convertimgwebp' && $permtoadd) {
 	$file = GETPOST('filetoregenerate', 'alpha');
 
 	if ($module == 'medias') {
-		$imagefolder = $conf->website->dir_output.'/'.$websitekey.'/medias/'.dol_sanitizePathName(GETPOST('section_dir', 'alpha'));
+		$imagefolder = $config->website->dir_output.'/'.$websitekey.'/medias/'.dol_sanitizePathName(GETPOST('section_dir', 'alpha'));
 	} else {
-		$imagefolder = $conf->ecm->dir_output.'/'.dol_sanitizePathName(GETPOST('section_dir', 'alpha'));
+		$imagefolder = $config->ecm->dir_output.'/'.dol_sanitizePathName(GETPOST('section_dir', 'alpha'));
 	}
 
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
@@ -302,7 +302,7 @@ if (empty($action) || $action == 'editfile' || $action == 'file_manager' || preg
 	$htmltooltip = $langs->trans("ECMAreaDesc2a");
 	$htmltooltip .= '<br>'.$langs->trans("ECMAreaDesc2b");
 
-	if (!empty($conf->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
+	if (!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
 		// Show the link to "Root"
 		if ($showroot) {
 			print '<tr class="oddeven nohover"><td><div style="padding-left: 5px; padding-right: 5px;"><a href="'.$_SERVER["PHP_SELF"].'?file_manager=1'.(!empty($websitekey) ? '&website='.urlencode($websitekey) : '').'&pageid='.urlencode((string) $pageid).'">';
@@ -385,7 +385,7 @@ include DOL_DOCUMENT_ROOT.'/core/ajax/ajaxdirpreview.php'; // Show content of a 
 <?php
 
 
-if (!empty($conf->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) { // Show filtree when ajax is enabled
+if (!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) { // Show filtree when ajax is enabled
 	//var_dump($modulepart);
 	// Variables that may be defined:
 	// $_GET['modulepart'], $_GET['openeddir'], $_GET['sortfield'], $_GET['sortorder']

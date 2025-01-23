@@ -112,7 +112,7 @@ class Stripe extends CommonObject
 
 		$key = '';
 		if ($entity < 0) {
-			$entity = $conf->entity;
+			$entity = $config->entity;
 		}
 
 		$sql = "SELECT tokenstring";
@@ -145,7 +145,7 @@ class Stripe extends CommonObject
 			dol_print_error($this->db);
 		}
 
-		dol_syslog("No dedicated Stripe Connect account available for entity ".$conf->entity);
+		dol_syslog("No dedicated Stripe Connect account available for entity ".$config->entity);
 
 		return $key;
 	}
@@ -228,7 +228,7 @@ class Stripe extends CommonObject
 				$dataforcustomer = array(
 					"email" => $object->email,
 					"description" => $object->name,
-					"metadata" => array('dol_id' => $object->id, 'dol_version' => DOL_VERSION, 'dol_entity' => $conf->entity, 'ipaddress' => $ipaddress)
+					"metadata" => array('dol_id' => $object->id, 'dol_version' => DOL_VERSION, 'dol_entity' => $config->entity, 'ipaddress' => $ipaddress)
 				);
 
 				$vatcleaned = $object->tva_intra ? $object->tva_intra : null;
@@ -270,7 +270,7 @@ class Stripe extends CommonObject
 
 					// Create customer in Dolibarr
 					$sql = "INSERT INTO ".MAIN_DB_PREFIX."societe_account (fk_soc, login, key_account, site, site_account, status, entity, date_creation, fk_user_creat)";
-					$sql .= " VALUES (".((int) $object->id).", '', '".$this->db->escape($customer->id)."', 'stripe', '".$this->db->escape($stripearrayofkeysbyenv[$status]['publishable_key'])."', ".((int) $status).", ".((int) $conf->entity).", '".$this->db->idate(dol_now())."', ".((int) $user->id).")";
+					$sql .= " VALUES (".((int) $object->id).", '', '".$this->db->escape($customer->id)."', 'stripe', '".$this->db->escape($stripearrayofkeysbyenv[$status]['publishable_key'])."', ".((int) $status).", ".((int) $config->entity).", '".$this->db->idate(dol_now())."', ".((int) $user->id).")";
 					$resql = $this->db->query($sql);
 					if (!$resql) {
 						$this->error = $this->db->lasterror();
@@ -451,7 +451,7 @@ class Stripe extends CommonObject
 		if (empty($paymentintent)) {
 			// Try to create intent. See https://stripe.com/docs/api/payment_intents/create
 			$ipaddress = getUserRemoteIP();
-			$metadata = array('dol_version' => DOL_VERSION, 'dol_entity' => $conf->entity, 'ipaddress' => $ipaddress, 'dol_noidempotency' => (int) $noidempotency_key);
+			$metadata = array('dol_version' => DOL_VERSION, 'dol_entity' => $config->entity, 'ipaddress' => $ipaddress, 'dol_noidempotency' => (int) $noidempotency_key);
 			if (is_object($object)) {
 				$metadata['dol_type'] = $object->element;
 				$metadata['dol_id'] = $object->id;
@@ -541,7 +541,7 @@ class Stripe extends CommonObject
 				$description .= ' - '.$payment_method;
 			}
 
-			if ($conf->entity != getDolGlobalInt('STRIPECONNECT_PRINCIPAL') && $stripefee > 0) {
+			if ($config->entity != getDolGlobalInt('STRIPECONNECT_PRINCIPAL') && $stripefee > 0) {
 				$dataforintent["application_fee_amount"] = $stripefee;
 			}
 			if ($usethirdpartyemailforreceiptemail && is_object($object) && $object->thirdparty->email) {
@@ -616,7 +616,7 @@ class Stripe extends CommonObject
 					if (!$error && !$paymentintentalreadyexists) {
 						$now = dol_now();
 						$sql = "INSERT INTO ".MAIN_DB_PREFIX."prelevement_demande (date_demande, fk_user_demande, ext_payment_id, fk_facture, sourcetype, entity, ext_payment_site, amount)";
-						$sql .= " VALUES ('".$this->db->idate($now)."', ".((int) $user->id).", '".$this->db->escape($paymentintent->id)."', ".((int) $object->id).", '".$this->db->escape($object->element)."', ".((int) $conf->entity).", '".$this->db->escape($service)."', ".((float) $amount).")";
+						$sql .= " VALUES ('".$this->db->idate($now)."', ".((int) $user->id).", '".$this->db->escape($paymentintent->id)."', ".((int) $object->id).", '".$this->db->escape($object->element)."', ".((int) $config->entity).", '".$this->db->escape($service)."', ".((float) $amount).")";
 						$resql = $this->db->query($sql);
 						if (!$resql) {
 							$error++;
@@ -693,7 +693,7 @@ class Stripe extends CommonObject
 
 		if (empty($setupintent)) {  // @phan-suppress-current-line PhanPluginConstantVariableNull
 			$ipaddress = getUserRemoteIP();
-			$metadata = array('dol_version' => DOL_VERSION, 'dol_entity' => $conf->entity, 'ipaddress' => $ipaddress, 'dol_noidempotency' => (int) $noidempotency_key);
+			$metadata = array('dol_version' => DOL_VERSION, 'dol_entity' => $config->entity, 'ipaddress' => $ipaddress, 'dol_noidempotency' => (int) $noidempotency_key);
 			if (is_object($object)) {
 				$metadata['dol_type'] = $object->element;
 				$metadata['dol_id'] = $object->id;
@@ -795,7 +795,7 @@ class Stripe extends CommonObject
 					{
 						$now=dol_now();
 						$sql = "INSERT INTO " . MAIN_DB_PREFIX . "prelevement_demande (date_demande, fk_user_demande, ext_payment_id, fk_facture, sourcetype, entity, ext_payment_site)";
-						$sql .= " VALUES ('".$this->db->idate($now)."', ".((int) $user->id).", '".$this->db->escape($setupintent->id)."', ".((int) $object->id).", '".$this->db->escape($object->element)."', " . ((int) $conf->entity) . ", '" . $this->db->escape($service) . "', ".((float) $amount).")";
+						$sql .= " VALUES ('".$this->db->idate($now)."', ".((int) $user->id).", '".$this->db->escape($setupintent->id)."', ".((int) $object->id).", '".$this->db->escape($object->element)."', " . ((int) $config->entity) . ", '" . $this->db->escape($service) . "', ".((float) $amount).")";
 						$resql = $this->db->query($sql);
 						if (! $resql)
 						{
@@ -903,7 +903,7 @@ class Stripe extends CommonObject
 							'dol_type' => $object->element,
 							'dol_id' => $object->id,
 							'dol_version' => DOL_VERSION,
-							'dol_entity' => $conf->entity,
+							'dol_entity' => $config->entity,
 							'ipaddress' => $ipaddress
 						)
 					);
@@ -1039,7 +1039,7 @@ class Stripe extends CommonObject
 				} elseif ($createifnotlinkedtostripe) {
 					$iban = dolDecrypt($obj->iban);
 					$ipaddress = getUserRemoteIP();
-					$metadata = array('dol_version' => DOL_VERSION, 'dol_entity' => $conf->entity, 'ipaddress' => $ipaddress);
+					$metadata = array('dol_version' => DOL_VERSION, 'dol_entity' => $config->entity, 'ipaddress' => $ipaddress);
 					if (is_object($object)) {
 						$metadata['dol_type'] = $object->element;
 						$metadata['dol_id'] = $object->id;
@@ -1240,7 +1240,7 @@ class Stripe extends CommonObject
 			"dol_thirdparty_id" => (string) $societe->id,
 			'dol_thirdparty_name' => $societe->name,
 			'dol_version' => DOL_VERSION,
-			'dol_entity' => $conf->entity,
+			'dol_entity' => $config->entity,
 			'ipaddress' => $ipaddress
 		);
 		$return = new Stripe($this->db);
@@ -1249,7 +1249,7 @@ class Stripe extends CommonObject
 			global $stripearrayofkeysbyenv;
 			\Stripe\Stripe::setApiKey($stripearrayofkeysbyenv[$status]['secret_key']);
 
-			if (empty($conf->stripeconnect->enabled)) {	// With a common Stripe account
+			if (empty($config->stripeconnect->enabled)) {	// With a common Stripe account
 				if (preg_match('/pm_/i', $source)) {
 					$stripecard = $source;
 					$amountstripe = $stripeamount;
@@ -1308,10 +1308,10 @@ class Stripe extends CommonObject
 				}
 			} else {
 				// With Stripe Connect
-				$fee = $amount * ($conf->global->STRIPE_APPLICATION_FEE_PERCENT / 100) + $conf->global->STRIPE_APPLICATION_FEE;
-				if ($fee >= $conf->global->STRIPE_APPLICATION_FEE_MAXIMAL && $conf->global->STRIPE_APPLICATION_FEE_MAXIMAL > $conf->global->STRIPE_APPLICATION_FEE_MINIMAL) {
+				$fee = $amount * ($config->global->STRIPE_APPLICATION_FEE_PERCENT / 100) + $config->global->STRIPE_APPLICATION_FEE;
+				if ($fee >= $config->global->STRIPE_APPLICATION_FEE_MAXIMAL && $config->global->STRIPE_APPLICATION_FEE_MAXIMAL > $config->global->STRIPE_APPLICATION_FEE_MINIMAL) {
 					$fee = getDolGlobalString('STRIPE_APPLICATION_FEE_MAXIMAL');
-				} elseif ($fee < $conf->global->STRIPE_APPLICATION_FEE_MINIMAL) {
+				} elseif ($fee < $config->global->STRIPE_APPLICATION_FEE_MINIMAL) {
 					$fee = getDolGlobalString('STRIPE_APPLICATION_FEE_MINIMAL');
 				}
 
@@ -1331,7 +1331,7 @@ class Stripe extends CommonObject
 					"source" => "$source",
 					"customer" => "$customer"
 				);
-				if ($conf->entity != $conf->global->STRIPECONNECT_PRINCIPAL && $stripefee > 0) {
+				if ($config->entity != $config->global->STRIPECONNECT_PRINCIPAL && $stripefee > 0) {
 					$paymentarray["application_fee_amount"] = $stripefee;
 				}
 				if ($societe->email && $usethirdpartyemailforreceiptemail) {
@@ -1405,7 +1405,7 @@ class Stripe extends CommonObject
 			$return->message = $err['message'];
 			$body = "Error: <br>".$return->id." ".$return->message." ";
 			$subject = '[Alert] Payment error using Stripe';
-			$cmailfile = new CMailFile($subject, $conf->global->ONLINE_PAYMENT_SENDEMAIL, $conf->global->MAIN_INFO_SOCIETE_MAIL, $body);
+			$cmailfile = new CMailFile($subject, $config->global->ONLINE_PAYMENT_SENDEMAIL, $config->global->MAIN_INFO_SOCIETE_MAIL, $body);
 			$cmailfile->sendfile();
 
 			$error++;

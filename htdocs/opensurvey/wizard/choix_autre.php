@@ -156,7 +156,7 @@ print '</table>'."\n";
 //ajout de cases supplementaires
 print '<table><tr>'."\n";
 print '<td class="center">'.$langs->trans("5MoreChoices").'... ';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print '<div id="addchoice" class="inline-block">';
 	print img_picto('', 'add', '', 0, 0, 0, '', 'valignmiddle btnTitle-icon cursorpointer');
 	print '</div>';

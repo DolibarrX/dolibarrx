@@ -515,7 +515,7 @@ class Facture extends CommonInvoice
 			$this->fk_multicurrency = 0;
 		}
 		if (empty($this->fk_multicurrency)) {
-			$this->multicurrency_code = $conf->currency;
+			$this->multicurrency_code = $config->currency;
 			$this->fk_multicurrency = 0;
 			$this->multicurrency_tx = 1;
 		}
@@ -1852,7 +1852,7 @@ class Facture extends CommonInvoice
 				$tva, // vat rate
 				0, // localtax1_tx
 				0, // localtax2_tx
-				(!getDolGlobalString('INVOICE_PRODUCTID_DEPOSIT') ? 0 : $conf->global->INVOICE_PRODUCTID_DEPOSIT), // fk_product
+				(!getDolGlobalString('INVOICE_PRODUCTID_DEPOSIT') ? 0 : $config->global->INVOICE_PRODUCTID_DEPOSIT), // fk_product
 				0, // remise_percent
 				0, // date_start
 				0, // date_end
@@ -2006,23 +2006,23 @@ class Facture extends CommonInvoice
 				$datas['date'] = '<br><b>'.$langs->trans('Date').':</b> '.dol_print_date($this->date, 'day');
 			}
 			if (!empty($this->total_ht)) {
-				$datas['amountht'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['amountht'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->total_tva)) {
-				$datas['amountvat'] = '<br><b>'.$langs->trans('AmountVAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['amountvat'] = '<br><b>'.$langs->trans('AmountVAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->revenuestamp) && $this->revenuestamp != 0) {
-				$datas['amountrevenustamp'] = '<br><b>'.$langs->trans('RevenueStamp').':</b> '.price($this->revenuestamp, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['amountrevenustamp'] = '<br><b>'.$langs->trans('RevenueStamp').':</b> '.price($this->revenuestamp, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->total_localtax1) && $this->total_localtax1 != 0) {
 				// We keep test != 0 because $this->total_localtax1 can be '0.00000000'
-				$datas['amountlt1'] = '<br><b>'.$langs->transcountry('AmountLT1', $mysoc->country_code).':</b> '.price($this->total_localtax1, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['amountlt1'] = '<br><b>'.$langs->transcountry('AmountLT1', $mysoc->country_code).':</b> '.price($this->total_localtax1, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->total_localtax2) && $this->total_localtax2 != 0) {
-				$datas['amountlt2'] = '<br><b>'.$langs->transcountry('AmountLT2', $mysoc->country_code).':</b> '.price($this->total_localtax2, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['amountlt2'] = '<br><b>'.$langs->transcountry('AmountLT2', $mysoc->country_code).':</b> '.price($this->total_localtax2, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->total_ttc)) {
-				$datas['amountttc'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['amountttc'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $config->currency);
 			}
 		}
 
@@ -2047,7 +2047,7 @@ class Facture extends CommonInvoice
 	{
 		global $langs, $conf, $user;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -2939,9 +2939,9 @@ class Facture extends CommonInvoice
 
 					// On efface le repertoire de pdf provisoire
 					$ref = dol_sanitizeFileName($this->ref);
-					if ($conf->facture->dir_output && !empty($this->ref)) {
-						$dir = $conf->facture->dir_output."/".$ref;
-						$file = $conf->facture->dir_output."/".$ref."/".$ref.".pdf";
+					if ($config->facture->dir_output && !empty($this->ref)) {
+						$dir = $config->facture->dir_output."/".$ref;
+						$file = $config->facture->dir_output."/".$ref."/".$ref.".pdf";
 						if (file_exists($file)) {	// We must delete all files before deleting directory
 							$ret = dol_delete_preview($this);
 
@@ -3587,14 +3587,14 @@ class Facture extends CommonInvoice
 				if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 					// Now we rename also files into index
 					$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'facture/".$this->db->escape($this->newref)."'";
-					$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'facture/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+					$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'facture/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 					$resql = $this->db->query($sql);
 					if (!$resql) {
 						$error++;
 						$this->error = $this->db->lasterror();
 					}
 					$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'facture/".$this->db->escape($this->newref)."'";
-					$sql .= " WHERE filepath = 'facture/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+					$sql .= " WHERE filepath = 'facture/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 					$resql = $this->db->query($sql);
 					if (!$resql) {
 						$error++;
@@ -3604,15 +3604,15 @@ class Facture extends CommonInvoice
 					// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 					$oldref = dol_sanitizeFileName($this->ref);
 					$newref = dol_sanitizeFileName($num);
-					$dirsource = $conf->facture->dir_output.'/'.$oldref;
-					$dirdest = $conf->facture->dir_output.'/'.$newref;
+					$dirsource = $config->facture->dir_output.'/'.$oldref;
+					$dirdest = $config->facture->dir_output.'/'.$newref;
 					if (!$error && file_exists($dirsource)) {
 						dol_syslog(get_class($this)."::validate rename dir ".$dirsource." into ".$dirdest);
 
 						if (@rename($dirsource, $dirdest)) {
 							dol_syslog("Rename ok");
 							// Rename docs starting with $oldref with $newref
-							$listoffiles = dol_dir_list($conf->facture->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+							$listoffiles = dol_dir_list($config->facture->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 							foreach ($listoffiles as $fileentry) {
 								$dirsource = $fileentry['name'];
 								$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -4674,7 +4674,7 @@ class Facture extends CommonInvoice
 
 			// Clean parameters (if not defined or using deprecated value)
 			if (!getDolGlobalString('TAKEPOS_REF_ADDON')) {
-				$conf->global->TAKEPOS_REF_ADDON = 'mod_takepos_ref_simple';
+				$config->global->TAKEPOS_REF_ADDON = 'mod_takepos_ref_simple';
 			}
 
 			$addon = getDolGlobalString('TAKEPOS_REF_ADDON');
@@ -4687,11 +4687,11 @@ class Facture extends CommonInvoice
 
 			// Clean parameters (if not defined or using deprecated value)
 			if (!getDolGlobalString('FACTURE_ADDON')) {
-				$conf->global->FACTURE_ADDON = 'mod_facture_terre';
+				$config->global->FACTURE_ADDON = 'mod_facture_terre';
 			} elseif (getDolGlobalString('FACTURE_ADDON') == 'terre') {
-				$conf->global->FACTURE_ADDON = 'mod_facture_terre';
+				$config->global->FACTURE_ADDON = 'mod_facture_terre';
 			} elseif (getDolGlobalString('FACTURE_ADDON') == 'mercure') {
-				$conf->global->FACTURE_ADDON = 'mod_facture_mercure';
+				$config->global->FACTURE_ADDON = 'mod_facture_mercure';
 			}
 
 			$addon = getDolGlobalString('FACTURE_ADDON');
@@ -4707,7 +4707,7 @@ class Facture extends CommonInvoice
 
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir.'core/modules/'.$moduleName.'/');
 
@@ -4723,7 +4723,7 @@ class Facture extends CommonInvoice
 				$classname = 'mod_'.$moduleName.'_'.$addon;
 				$classname = preg_replace('/\-.*$/', '', $classname);
 				// Include file with class
-				foreach ($conf->file->dol_document_root as $dirroot) {
+				foreach ($config->file->dol_document_root as $dirroot) {
 					$dir = $dirroot.'/core/modules/'.$moduleName.'/';
 
 					// Load file with numbering class (if found)
@@ -5043,7 +5043,7 @@ class Facture extends CommonInvoice
 			$now = dol_now();
 
 			$response = new WorkboardResponse();
-			$response->warning_delay = $conf->facture->client->warning_delay / 60 / 60 / 24;
+			$response->warning_delay = $config->facture->client->warning_delay / 60 / 60 / 24;
 			$response->label = $langs->trans("CustomerBillsUnpaid");
 			$response->labelShort = $langs->trans("Unpaid");
 			$response->url = DOL_URL_ROOT.'/compta/facture/list.php?search_status=1&mainmenu=billing&leftmenu=customers_bills';
@@ -5158,7 +5158,7 @@ class Facture extends CommonInvoice
 		$this->fk_user_author = $user->id;
 
 		$this->multicurrency_tx = 1;
-		$this->multicurrency_code = $conf->currency;
+		$this->multicurrency_code = $config->currency;
 
 		$this->fk_incoterms = 0;
 		$this->location_incoterms = '';
@@ -5397,7 +5397,7 @@ class Facture extends CommonInvoice
 		$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'facture';
 		$sql .= ' WHERE situation_cycle_ref = '.((int) $this->situation_cycle_ref);
 		$sql .= ' AND situation_counter < '.((int) $this->situation_counter);
-		$sql .= ' AND entity = '.($this->entity > 0 ? $this->entity : $conf->entity);
+		$sql .= ' AND entity = '.($this->entity > 0 ? $this->entity : $config->entity);
 		$resql = $this->db->query($sql);
 		$res = array();
 		if ($resql && $this->db->num_rows($resql) > 0) {
@@ -5475,7 +5475,7 @@ class Facture extends CommonInvoice
 			// No point in testing anything if we're not inside a cycle
 			$sql = 'SELECT max(situation_counter) FROM '.MAIN_DB_PREFIX.'facture';
 			$sql .= ' WHERE situation_cycle_ref = '.((int) $this->situation_cycle_ref);
-			$sql .= ' AND entity = '.($this->entity > 0 ? $this->entity : $conf->entity);
+			$sql .= ' AND entity = '.($this->entity > 0 ? $this->entity : $config->entity);
 			$resql = $this->db->query($sql);
 
 			if ($resql && $this->db->num_rows($resql) > 0 && $res = $this->db->fetch_array($resql)) {
@@ -5541,15 +5541,15 @@ class Facture extends CommonInvoice
 			return false;
 		}
 
-		$hasDelay = $this->date_lim_reglement < ($now - $conf->facture->client->warning_delay);
+		$hasDelay = $this->date_lim_reglement < ($now - $config->facture->client->warning_delay);
 		if ($hasDelay && !empty($this->retained_warranty) && !empty($this->retained_warranty_date_limit)) {
 			$totalpaid = $this->getSommePaiement();
 			$totalpaid = (float) $totalpaid;
 			$RetainedWarrantyAmount = $this->getRetainedWarrantyAmount();
 			if ($totalpaid >= 0 && $RetainedWarrantyAmount >= 0) {
-				if (($totalpaid < $this->total_ttc - $RetainedWarrantyAmount) && $this->date_lim_reglement < ($now - $conf->facture->client->warning_delay)) {
+				if (($totalpaid < $this->total_ttc - $RetainedWarrantyAmount) && $this->date_lim_reglement < ($now - $config->facture->client->warning_delay)) {
 					$hasDelay = 1;
-				} elseif ($totalpaid < $this->total_ttc && $this->retained_warranty_date_limit < ($now - $conf->facture->client->warning_delay)) {
+				} elseif ($totalpaid < $this->total_ttc && $this->retained_warranty_date_limit < ($now - $config->facture->client->warning_delay)) {
 					$hasDelay = 1;
 				} else {
 					$hasDelay = 0;
@@ -5599,7 +5599,7 @@ class Facture extends CommonInvoice
 	}
 
 	/**
-	 * @param	int			$rounding		Minimum number of decimal to show. If 0, no change, if -1, we use min($conf->global->MAIN_MAX_DECIMALS_UNIT,$conf->global->MAIN_MAX_DECIMALS_TOT)
+	 * @param	int			$rounding		Minimum number of decimal to show. If 0, no change, if -1, we use min($config->global->MAIN_MAX_DECIMALS_UNIT,$config->global->MAIN_MAX_DECIMALS_TOT)
 	 * @return float or -1 if not available
 	 */
 	public function getRetainedWarrantyAmount($rounding = -1)
@@ -5754,7 +5754,7 @@ class Facture extends CommonInvoice
 			$this->output .= 'Bad value for parameter datetouse. Must be "duedate" or "invoicedate"';
 			return 0;
 		}
-		/*if (empty($conf->global->FACTURE_REMINDER_EMAIL)) {
+		/*if (empty($config->global->FACTURE_REMINDER_EMAIL)) {
 			$langs->load("bills");
 			$this->output .= $langs->trans('EventRemindersByEmailNotEnabled', $langs->transnoentitiesnoconv("Facture"));
 			return 0;

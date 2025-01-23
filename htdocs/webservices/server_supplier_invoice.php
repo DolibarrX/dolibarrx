@@ -255,7 +255,7 @@ function getSupplierInvoice($authentication, $id = 0, $ref = '', $ref_ext = '')
 	dol_syslog("Function: getSupplierInvoice login=".$authentication['login']." id=".$id." ref=".$ref." ref_ext=".$ref_ext);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -360,7 +360,7 @@ function getSupplierInvoicesForThirdParty($authentication, $idthirdparty)
 	dol_syslog("Function: getSupplierInvoicesForThirdParty login=".$authentication['login']." idthirdparty=".$idthirdparty);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -382,7 +382,7 @@ function getSupplierInvoicesForThirdParty($authentication, $idthirdparty)
 
 		$sql = "SELECT f.rowid as facid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
-		$sql .= " WHERE f.entity = ".((int) $conf->entity);
+		$sql .= " WHERE f.entity = ".((int) $config->entity);
 		if ($idthirdparty != 'all') {
 			$sql .= " AND f.fk_soc = ".((int) $idthirdparty);
 		}

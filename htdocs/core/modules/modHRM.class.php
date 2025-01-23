@@ -119,9 +119,9 @@ class modHRM extends DolibarrModules
 		$r = 0;
 
 
-		if (!isset($conf->hrm) || !isset($conf->hrm->enabled)) {
-			$conf->hrm = new stdClass();
-			$conf->hrm->enabled = 0;
+		if (!isset($config->hrm) || !isset($config->hrm->enabled)) {
+			$config->hrm = new stdClass();
+			$config->hrm->enabled = 0;
 		}
 
 		// Array to add new pages in new tabs
@@ -183,7 +183,7 @@ class modHRM extends DolibarrModules
 			//      'frequency' => 2,
 			//      'unitfrequency' => 3600,
 			//      'status' => 0,
-			//      'test' => '$conf->hrm->enabled',
+			//      'test' => '$config->hrm->enabled',
 			//      'priority' => 50,
 			//  ),
 		);
@@ -297,8 +297,8 @@ class modHRM extends DolibarrModules
 		}
 
 		$sql = array(
-			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'standard_evaluation' AND type='evaluation' AND entity = ".((int) $conf->entity),
-			"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('standard_evaluation','evaluation',".((int) $conf->entity).")"
+			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'standard_evaluation' AND type='evaluation' AND entity = ".((int) $config->entity),
+			"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('standard_evaluation','evaluation',".((int) $config->entity).")"
 		);
 
 		return $this->_init($sql, $options);

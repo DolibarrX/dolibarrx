@@ -146,7 +146,7 @@ class modProjet extends DolibarrModules
 			'frequency' => 1,
 			'unitfrequency' => 86400 * 7,
 			'status' => 0,
-			'test' => '$conf->projet->enabled',
+			'test' => '$config->projet->enabled',
 		);
 		// Permissions
 		$this->rights = array();
@@ -304,7 +304,7 @@ class modProjet extends DolibarrModules
 		$this->import_fields_array[$r] = array('t.ref'=>'ProjectRef*', 't.title'=>'Label*', 't.description'=>"Description", 't.fk_soc' => 'ThirdPartyName', 't.public'=>"Public", 't.fk_statut'=>"Status");
 		$this->import_fields_array[$r] = array_merge($this->import_fields_array[$r], array('t.fk_opp_status'=>"OpportunityStatus", 't.opp_percent'=>"OpportunityProbability", 't.opp_amount'=>"OpportunityAmount", 't.note_public'=>"NotePublic", 't.note_private'=>"NotePrivate", 't.budget_amount'=>"Budget", 't.dateo'=>"DateStart", 't.datee'=>"DateEnd"));
 		// Add extra fields
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'projet' AND entity IN (0,".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'projet' AND entity IN (0,".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {    // This can fail when class is used on old database (during migration for example)
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -339,7 +339,7 @@ class modProjet extends DolibarrModules
 			$this->import_tables_array[$r] = array('t'=>MAIN_DB_PREFIX.'projet_task', 'extra'=>MAIN_DB_PREFIX.'projet_task_extrafields'); // List of tables to insert into (insert done in same order)
 			$this->import_fields_array[$r] = array('t.fk_projet'=>'ProjectRef*', 't.ref'=>'RefTask*', 't.label'=>'LabelTask*', 't.dateo'=>"DateStart", 't.datee'=>"DateEnd", 't.planned_workload'=>"PlannedWorkload", 't.progress'=>"Progress", 't.note_private'=>"NotePrivate", 't.note_public'=>"NotePublic", 't.datec'=>"DateCreation");
 			// Add extra fields
-			$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'projet_task' AND entity IN (0,".$conf->entity.")";
+			$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'projet_task' AND entity IN (0,".$config->entity.")";
 			$resql = $this->db->query($sql);
 			if ($resql) {    // This can fail when class is used on old database (during migration for example)
 				while ($obj = $this->db->fetch_object($resql)) {
@@ -352,7 +352,7 @@ class modProjet extends DolibarrModules
 			$this->import_fieldshidden_array[$r] = array('t.fk_user_creat'=>'user->id', 'extra.fk_object'=>'lastrowid-'.MAIN_DB_PREFIX.'projet_task'); // aliastable.field => ('user->id' or 'lastrowid-'.tableparent)
 			$this->import_convertvalue_array[$r] = array(
 				't.fk_projet'=>array('rule'=>'fetchidfromref', 'classfile'=>'/projet/class/project.class.php', 'class'=>'Project', 'method'=>'fetch', 'element'=>'Project'),
-				't.ref'=>array('rule'=>'getrefifauto', 'class'=>(!getDolGlobalString('PROJECT_TASK_ADDON') ? 'mod_task_simple' : $conf->global->PROJECT_TASK_ADDON), 'path'=>"/core/modules/project/task/".(!getDolGlobalString('PROJECT_TASK_ADDON') ? 'mod_task_simple' : $conf->global->PROJECT_TASK_ADDON).'.php')
+				't.ref'=>array('rule'=>'getrefifauto', 'class'=>(!getDolGlobalString('PROJECT_TASK_ADDON') ? 'mod_task_simple' : $config->global->PROJECT_TASK_ADDON), 'path'=>"/core/modules/project/task/".(!getDolGlobalString('PROJECT_TASK_ADDON') ? 'mod_task_simple' : $config->global->PROJECT_TASK_ADDON).'.php')
 			);
 			//$this->import_convertvalue_array[$r]=array('s.fk_soc'=>array('rule'=>'lastrowid',table='t');
 			$this->import_regex_array[$r] = array('t.dateo'=>'^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$', 't.datee'=>'^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$', 't.datec'=>'^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]( [0-9][0-9]:[0-9][0-9]:[0-9][0-9])?$');
@@ -409,12 +409,12 @@ class modProjet extends DolibarrModules
 		}
 
 		$sql = array();
-		$sql[] = "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[3][2])."' AND type = 'task' AND entity = ".((int) $conf->entity);
-		$sql[] = "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[3][2])."','task',".((int) $conf->entity).")";
-		$sql[] = "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'beluga' AND type = 'project' AND entity = ".((int) $conf->entity);
-		$sql[] = "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('beluga','project',".((int) $conf->entity).")";
-		$sql[] = "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'baleine' AND type = 'project' AND entity = ".((int) $conf->entity);
-		$sql[] = "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('baleine','project',".((int) $conf->entity).")";
+		$sql[] = "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[3][2])."' AND type = 'task' AND entity = ".((int) $config->entity);
+		$sql[] = "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[3][2])."','task',".((int) $config->entity).")";
+		$sql[] = "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'beluga' AND type = 'project' AND entity = ".((int) $config->entity);
+		$sql[] = "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('beluga','project',".((int) $config->entity).")";
+		$sql[] = "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'baleine' AND type = 'project' AND entity = ".((int) $config->entity);
+		$sql[] = "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('baleine','project',".((int) $config->entity).")";
 
 
 		return $this->_init($sql, $options);

@@ -149,10 +149,10 @@ function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $
 		if (getDolGlobalInt('BOOKCAL_SHOW_COMPANY_LOGO')) {
 			$urllogo = DOL_URL_ROOT.'/theme/common/login_logo.png';
 
-			if (!empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
-				$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$conf->entity.'&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_small);
-			} elseif (!empty($mysoc->logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
-				$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$conf->entity.'&amp;file='.urlencode('logos/'.$mysoc->logo);
+			if (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
+				$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$config->entity.'&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_small);
+			} elseif (!empty($mysoc->logo) && is_readable($config->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
+				$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$config->entity.'&amp;file='.urlencode('logos/'.$mysoc->logo);
 			} elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.svg')) {
 				$urllogo = DOL_URL_ROOT.'/theme/dolibarr_logo.svg';
 			}
@@ -164,7 +164,7 @@ function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $
 	print '<div class="backgreypublicpayment">';
 	print '<div class="logopublicpayment">';
 	if ($urllogo) {
-		print '<a href="'.(getDolGlobalString('BOOKCAL_PUBLIC_INTERFACE_TOPIC') ? getDolGlobalString('BOOKCAL_PUBLIC_INTERFACE_TOPIC') : dol_buildpath('/public/ticket/index.php?entity='.$conf->entity, 1)).'">';
+		print '<a href="'.(getDolGlobalString('BOOKCAL_PUBLIC_INTERFACE_TOPIC') ? getDolGlobalString('BOOKCAL_PUBLIC_INTERFACE_TOPIC') : dol_buildpath('/public/ticket/index.php?entity='.$config->entity, 1)).'">';
 		print '<img id="dolpaymentlogo" src="'.$urllogo.'">';
 		print '</a>';
 	}
@@ -339,7 +339,7 @@ if ($action == 'afteradd') {
 		$nav .= ' <span id="month_name">'.dol_print_date(dol_mktime(0, 0, 0, $month, 1, $year), "%b %Y");
 		$nav .= " </span>\n";
 		$nav .= ' &nbsp; <a href="?id='.$id."&year=".$next_year."&month=".$next_month.$param.'"><i class="fa fa-chevron-right"></i></a>'."\n";
-		if (empty($conf->dol_optimize_smallscreen)) {
+		if (empty($config->dol_optimize_smallscreen)) {
 			$nav .= ' &nbsp; <a href="?id='.$id."&year=".$nowyear."&amp;month=".$nowmonth."&amp;day=".$nowday.$param.'" class="datenowlink">'.$langs->trans("Today").'</a> ';
 		}
 		$nav .= $form->selectDate($dateselect, 'dateselect', 0, 0, 1, '', 1, 0);
@@ -407,8 +407,8 @@ if ($action == 'afteradd') {
 		print '  <td class="center hideonsmartphone">#</td>';
 		$i = 0;
 		while ($i < 7) {
-			$numdayinweek = (($i + (isset($conf->global->MAIN_START_WEEK) ? $conf->global->MAIN_START_WEEK : 1)) % 7);
-			if (!empty($conf->dol_optimize_smallscreen)) {
+			$numdayinweek = (($i + (isset($config->global->MAIN_START_WEEK) ? $config->global->MAIN_START_WEEK : 1)) % 7);
+			if (!empty($config->dol_optimize_smallscreen)) {
 				print '  <td class="center bold uppercase tdfordaytitle'.($i == 0 ? ' borderleft' : '').'">';
 				$labelshort = array(0 => 'SundayMin', 1 => 'MondayMin', 2 => 'TuesdayMin', 3 => 'WednesdayMin', 4 => 'ThursdayMin', 5 => 'FridayMin', 6 => 'SaturdayMin');
 				print $langs->trans($labelshort[$numdayinweek]);
@@ -627,8 +627,8 @@ llxFooter('', 'public');
 function show_bookcal_day_events($day, $month, $year, $today = 0)
 {
 	global $conf;
-	if ($conf->use_javascript_ajax) {	// Enable the "Show more button..."
-		$conf->global->MAIN_JS_SWITCH_AGENDA = 1;
+	if ($config->use_javascript_ajax) {	// Enable the "Show more button..."
+		$config->global->MAIN_JS_SWITCH_AGENDA = 1;
 	}
 
 	$dateint = sprintf("%04d", $year).'_'.sprintf("%02d", $month).'_'.sprintf("%02d", $day);

@@ -123,7 +123,7 @@ class doc_generic_mo_odt extends ModelePDFMo
 		// List of directories area
 		$texte .= '<tr><td>';
 		$texttitle = $langs->trans("ListOfDirectories");
-		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($conf->global->MRP_MO_ADDON_PDF_ODT_PATH)));
+		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($config->global->MRP_MO_ADDON_PDF_ODT_PATH)));
 		$listoffiles = array();
 		foreach ($listofdir as $key => $tmpdir) {
 			$tmpdir = trim($tmpdir);
@@ -225,7 +225,7 @@ class doc_generic_mo_odt extends ModelePDFMo
 
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills"));
 
-		if ($conf->mrp->dir_output) {
+		if ($config->mrp->dir_output) {
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
@@ -239,7 +239,7 @@ class doc_generic_mo_odt extends ModelePDFMo
 
 			$object->fetch_thirdparty();
 
-			$dir = $conf->mrp->multidir_output[isset($object->entity) ? $object->entity : 1];
+			$dir = $config->mrp->multidir_output[isset($object->entity) ? $object->entity : 1];
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -276,11 +276,11 @@ class doc_generic_mo_odt extends ModelePDFMo
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->societe->dir_temp=".$conf->societe->dir_temp;
+				//print "conf->societe->dir_temp=".$config->societe->dir_temp;
 
-				dol_mkdir($conf->mrp->dir_temp);
-				if (!is_writable($conf->mrp->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->mrp->dir_temp);
+				dol_mkdir($config->mrp->dir_temp);
+				if (!is_writable($config->mrp->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->mrp->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -297,7 +297,7 @@ class doc_generic_mo_odt extends ModelePDFMo
 				$contactobject = null;
 				if (!empty($usecontact)) {
 					// We can use the company of contact instead of thirdparty company
-					if ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
+					if ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
 						$object->contact->fetch_thirdparty();
 						$socobject = $object->contact->thirdparty;
 						$contactobject = $object->contact;
@@ -332,7 +332,7 @@ class doc_generic_mo_odt extends ModelePDFMo
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $conf->mrp->dir_temp,
+							'PATH_TO_TMP'	  => $config->mrp->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'

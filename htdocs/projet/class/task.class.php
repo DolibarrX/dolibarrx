@@ -431,7 +431,7 @@ class Task extends CommonObjectLine
 		$sql .= ", priority";
 		$sql .= ", billable";
 		$sql .= ") VALUES (";
-		$sql .= (!empty($this->entity) ? (int) $this->entity : (int) $conf->entity);
+		$sql .= (!empty($this->entity) ? (int) $this->entity : (int) $config->entity);
 		$sql .= ", ".((int) $this->fk_project);
 		$sql .= ", ".(!empty($this->ref) ? "'".$this->db->escape($this->ref)."'" : 'null');
 		$sql .= ", ".((int) $this->fk_task_parent);
@@ -732,12 +732,12 @@ class Task extends CommonObjectLine
 
 		if (!$error && (is_object($this->oldcopy) && $this->oldcopy->ref !== $this->ref)) {
 			// We remove directory
-			if ($conf->project->dir_output) {
+			if ($config->project->dir_output) {
 				$project = new Project($this->db);
 				$project->fetch($this->fk_project);
 
-				$olddir = $conf->project->dir_output.'/'.dol_sanitizeFileName($project->ref).'/'.dol_sanitizeFileName($this->oldcopy->ref);
-				$newdir = $conf->project->dir_output.'/'.dol_sanitizeFileName($project->ref).'/'.dol_sanitizeFileName($this->ref);
+				$olddir = $config->project->dir_output.'/'.dol_sanitizeFileName($project->ref).'/'.dol_sanitizeFileName($this->oldcopy->ref);
+				$newdir = $config->project->dir_output.'/'.dol_sanitizeFileName($project->ref).'/'.dol_sanitizeFileName($this->ref);
 				if (file_exists($olddir)) {
 					include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 					$res = dol_move_dir($olddir, $newdir);
@@ -861,11 +861,11 @@ class Task extends CommonObjectLine
 			return -1 * $error;
 		} else {
 			//Delete associated link file
-			if ($conf->project->dir_output) {
+			if ($config->project->dir_output) {
 				$projectstatic = new Project($this->db);
 				$projectstatic->fetch($this->fk_project);
 
-				$dir = $conf->project->dir_output."/".dol_sanitizeFileName($projectstatic->ref).'/'.dol_sanitizeFileName((string) $this->id);
+				$dir = $config->project->dir_output."/".dol_sanitizeFileName($projectstatic->ref).'/'.dol_sanitizeFileName((string) $this->id);
 				dol_syslog(get_class($this)."::delete dir=".$dir, LOG_DEBUG);
 				if (file_exists($dir)) {
 					require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
@@ -997,7 +997,7 @@ class Task extends CommonObjectLine
 	{
 		global $action, $conf, $hookManager, $langs;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -2053,7 +2053,7 @@ class Task extends CommonObjectLine
 
 		if (getDolGlobalString('PROJECT_TIMESHEET_PREVENT_AFTER_MONTHS')) {
 			require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
-			$restrictBefore = dol_time_plus_duree(dol_now(), - $conf->global->PROJECT_TIMESHEET_PREVENT_AFTER_MONTHS, 'm');
+			$restrictBefore = dol_time_plus_duree(dol_now(), - $config->global->PROJECT_TIMESHEET_PREVENT_AFTER_MONTHS, 'm');
 
 			if ($this->timespent_date < $restrictBefore) {
 				$this->error = $langs->trans('TimeRecordingRestrictedToNMonthsBack', getDolGlobalString('PROJECT_TIMESHEET_PREVENT_AFTER_MONTHS'));
@@ -2154,7 +2154,7 @@ class Task extends CommonObjectLine
 
 		if (getDolGlobalString('PROJECT_TIMESHEET_PREVENT_AFTER_MONTHS')) {
 			require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
-			$restrictBefore = dol_time_plus_duree(dol_now(), - $conf->global->PROJECT_TIMESHEET_PREVENT_AFTER_MONTHS, 'm');
+			$restrictBefore = dol_time_plus_duree(dol_now(), - $config->global->PROJECT_TIMESHEET_PREVENT_AFTER_MONTHS, 'm');
 
 			if ($this->timespent_date < $restrictBefore) {
 				$this->error = $langs->trans('TimeRecordingRestrictedToNMonthsBack', getDolGlobalString('PROJECT_TIMESHEET_PREVENT_AFTER_MONTHS'));
@@ -2254,7 +2254,7 @@ class Task extends CommonObjectLine
 		$origin_task->fetch($fromid);
 
 		$defaultref = '';
-		$obj = !getDolGlobalString('PROJECT_TASK_ADDON') ? 'mod_task_simple' : $conf->global->PROJECT_TASK_ADDON;
+		$obj = !getDolGlobalString('PROJECT_TASK_ADDON') ? 'mod_task_simple' : $config->global->PROJECT_TASK_ADDON;
 		if (getDolGlobalString('PROJECT_TASK_ADDON') && is_readable(DOL_DOCUMENT_ROOT."/core/modules/project/task/" . getDolGlobalString('PROJECT_TASK_ADDON').".php")) {
 			require_once DOL_DOCUMENT_ROOT."/core/modules/project/task/" . getDolGlobalString('PROJECT_TASK_ADDON').'.php';
 			$modTask = new $obj();
@@ -2353,8 +2353,8 @@ class Task extends CommonObjectLine
 					$clone_project_ref = $ori_project_ref;
 				}
 
-				$clone_task_dir = $conf->project->dir_output."/".dol_sanitizeFileName($clone_project_ref)."/".dol_sanitizeFileName($clone_task_ref);
-				$ori_task_dir = $conf->project->dir_output."/".dol_sanitizeFileName($ori_project_ref)."/".dol_sanitizeFileName((string) $fromid);
+				$clone_task_dir = $config->project->dir_output."/".dol_sanitizeFileName($clone_project_ref)."/".dol_sanitizeFileName($clone_task_ref);
+				$ori_task_dir = $config->project->dir_output."/".dol_sanitizeFileName($ori_project_ref)."/".dol_sanitizeFileName((string) $fromid);
 
 				$filearray = dol_dir_list($ori_task_dir, "files", 0, '', '(\.meta|_preview.*\.png)$', '', SORT_ASC, 1);
 				foreach ($filearray as $file) {
@@ -2598,7 +2598,7 @@ class Task extends CommonObjectLine
 			$task_static = new Task($this->db);
 
 			$response = new WorkboardResponse();
-			$response->warning_delay = $conf->project->task->warning_delay / 60 / 60 / 24;
+			$response->warning_delay = $config->project->task->warning_delay / 60 / 60 / 24;
 			$response->label = $langs->trans("OpenedTasks");
 			if ($user->hasRight("projet", "all", "lire")) {
 				$response->url = DOL_URL_ROOT.'/projet/tasks/list.php?mainmenu=project';
@@ -2700,7 +2700,7 @@ class Task extends CommonObjectLine
 
 		$datetouse = ($this->date_end > 0) ? $this->date_end : ((isset($this->datee) && $this->datee > 0) ? $this->datee : 0);
 
-		return ($datetouse > 0 && ($datetouse < ($now - $conf->project->task->warning_delay)));
+		return ($datetouse > 0 && ($datetouse < ($now - $config->project->task->warning_delay)));
 	}
 
 	/**
@@ -2731,7 +2731,7 @@ class Task extends CommonObjectLine
 			$return .= '<br><span class="info-box-status ">'.$arraydata['projectlink'].'</span>';
 		}
 		//if (property_exists($this, 'budget_amount')) {
-		//$return .= '<br><span class="info-box-label amount">'.$langs->trans("Budget").' : '.price($this->budget_amount, 0, $langs, 1, 0, 0, $conf->currency).'</span>';
+		//$return .= '<br><span class="info-box-label amount">'.$langs->trans("Budget").' : '.price($this->budget_amount, 0, $langs, 1, 0, 0, $config->currency).'</span>';
 		//}
 		if (property_exists($this, 'duration_effective')) {
 			$return .= '<br><div class="info-box-label progressinkanban paddingtop">'.getTaskProgressView($this, false, true).'</div>';

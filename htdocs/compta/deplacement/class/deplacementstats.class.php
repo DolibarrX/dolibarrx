@@ -79,7 +79,7 @@ class DeplacementStats extends Stats
 		$this->field = 'km';
 
 		$this->where = " fk_statut > 0";
-		$this->where .= " AND entity = ".$conf->entity;
+		$this->where .= " AND entity = ".$config->entity;
 		if ($this->socid > 0) {
 			$this->where .= " AND fk_soc = ".((int) $this->socid);
 		}

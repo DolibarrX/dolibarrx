@@ -89,9 +89,9 @@ class html_cerfafr extends ModeleDon
 		// Load traductions files required by page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills", "products", "donations"));
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 
-		if (!empty($conf->don->dir_output)) {
+		if (!empty($config->don->dir_output)) {
 			// Definition of the object don (for upward compatibility)
 			if (!is_object($don)) {
 				$don = new Don($this->db);
@@ -101,11 +101,11 @@ class html_cerfafr extends ModeleDon
 
 			// Definition of $dir and $file
 			if (!empty($don->specimen)) {
-				$dir = $conf->don->dir_output;
+				$dir = $config->don->dir_output;
 				$file = $dir."/SPECIMEN.html";
 			} else {
 				$donref = dol_sanitizeFileName($don->ref);
-				$dir = $conf->don->dir_output."/".$donref;
+				$dir = $config->don->dir_output."/".$donref;
 				$file = $dir."/".$donref.".html";
 			}
 
@@ -158,7 +158,7 @@ class html_cerfafr extends ModeleDon
 				$form = str_replace('__AMOUNT__', price($don->amount), $form);
 				$form = str_replace('__AMOUNTLETTERS__', $this->amountToLetters($don->amount), $form);
 				$form = str_replace('__CURRENCY__', $outputlangs->transnoentitiesnoconv("Currency".$currency), $form);
-				$form = str_replace('__CURRENCYCODE__', $conf->currency, $form);
+				$form = str_replace('__CURRENCYCODE__', $config->currency, $form);
 				$form = str_replace('__MAIN_INFO_SOCIETE_NOM__', $mysoc->name, $form);
 				$form = str_replace('__MAIN_INFO_SOCIETE_ADDRESS__', $mysoc->address, $form);
 				$form = str_replace('__MAIN_INFO_SOCIETE_ZIP__', $mysoc->zip, $form);
@@ -190,7 +190,7 @@ class html_cerfafr extends ModeleDon
 				$form = str_replace('__Signature__', $outputlangs->trans("Signature"), $form);
 				$form = str_replace('__Message__', $outputlangs->trans("Message"), $form);
 				$form = str_replace('__IConfirmDonationReception__', $outputlangs->trans("IConfirmDonationReception"), $form);
-				$form = str_replace('__DonationMessage__', $conf->global->DONATION_MESSAGE, $form);
+				$form = str_replace('__DonationMessage__', $config->global->DONATION_MESSAGE, $form);
 
 				$form = str_replace('__ModePaiement__', $ModePaiement, $form);
 

@@ -74,7 +74,7 @@ $right = ($langs->trans("DIRECTION") == 'rtl' ? 'left' : 'right');
 $left = ($langs->trans("DIRECTION") == 'rtl' ? 'right' : 'left');
 
 //var_dump($langs->defaultlang);
-//var_dump($conf->format_date_short_java);
+//var_dump($config->format_date_short_java);
 //var_dump($langs->trans("FormatDateShortJava"));
 
 
@@ -224,7 +224,7 @@ function displayBox($selectedDate, $month, $year)
 	</tr>
 	<tr class="dpDayNames">
 	<?php
-	$startday = isset($conf->global->MAIN_START_WEEK) ? $conf->global->MAIN_START_WEEK : 1;
+	$startday = isset($config->global->MAIN_START_WEEK) ? $config->global->MAIN_START_WEEK : 1;
 	$day_names = array('ShortSunday', 'ShortMonday', 'ShortTuesday', 'ShortWednesday', 'ShortThursday', 'ShortFriday', 'ShortSaturday');
 	for ($i = 0; $i < 7; $i++) {
 		echo '<td width="', (int) (($i + 1) * 100 / 7) - (int) ($i * 100 / 7), '%">', $langs->trans($day_names[($i + $startday) % 7]), '</td>', "\n";
@@ -243,7 +243,7 @@ function displayBox($selectedDate, $month, $year)
 		//print_r($mydate);
 		if ($mydate < $firstdate) {	// At first run
 			echo "<tr class=\"dpWeek\">";
-			//echo $conf->global->MAIN_START_WEEK.' '.$firstdate["wday"].' '.$startday;
+			//echo $config->global->MAIN_START_WEEK.' '.$firstdate["wday"].' '.$startday;
 			$cols = 0;
 			for ($i = 0; $i < 7; $i++) {
 				$w = ($i + $startday) % 7;

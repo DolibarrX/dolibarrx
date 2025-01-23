@@ -53,7 +53,7 @@ $scandir = GETPOST('scan_dir', 'alpha');
 $type = 'invoice';
 
 if (!getDolGlobalString('PAYMENT_ADDON')) {
-	$conf->global->PAYMENT_ADDON = 'mod_payment_cicada.php';
+	$config->global->PAYMENT_ADDON = 'mod_payment_cicada.php';
 }
 
 
@@ -69,7 +69,7 @@ if ($action == 'updateMask') {
 	$res = 0;
 
 	if ($maskconstpayment && preg_match('/_MASK$/', $maskconstpayment)) {
-		$res = dolibarr_set_const($db, $maskconstpayment, $maskpayment, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstpayment, $maskpayment, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -84,17 +84,17 @@ if ($action == 'updateMask') {
 }
 
 if ($action == 'setmod') {
-	dolibarr_set_const($db, "PAYMENT_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "PAYMENT_ADDON", $value, 'chaine', 0, '', $config->entity);
 }
 
 if ($action == 'setparams') {
 	$freetext = GETPOST('FACTURE_PAYMENTS_ON_DIFFERENT_THIRDPARTIES_BILLS', 'restricthtml'); // No alpha here, we want exact string
-	$res = dolibarr_set_const($db, "FACTURE_PAYMENTS_ON_DIFFERENT_THIRDPARTIES_BILLS", $freetext, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "FACTURE_PAYMENTS_ON_DIFFERENT_THIRDPARTIES_BILLS", $freetext, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
 
-	$res = dolibarr_set_const($db, "PAYMENTS_REPORT_GROUP_BY_MOD", GETPOSTINT('PAYMENTS_REPORT_GROUP_BY_MOD'), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PAYMENTS_REPORT_GROUP_BY_MOD", GETPOSTINT('PAYMENTS_REPORT_GROUP_BY_MOD'), 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -112,7 +112,7 @@ if ($action == 'setparams') {
  * View
  */
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader('', $langs->trans("BillsSetup"), 'EN:Invoice_Configuration|FR:Configuration_module_facture|ES:ConfiguracionFactura', '', 0, 0, '', '', '', 'mod-admin page-payment');
 
@@ -202,8 +202,8 @@ foreach ($dirmodels as $reldir) {
 							print '</td>'."\n";
 
 							print '<td class="center">';
-							//print "> ".$conf->global->PAYMENT_ADDON." - ".$file;
-							if ($conf->global->PAYMENT_ADDON == $file || getDolGlobalString('PAYMENT_ADDON') . '.php' == $file) {
+							//print "> ".$config->global->PAYMENT_ADDON." - ".$file;
+							if ($config->global->PAYMENT_ADDON == $file || getDolGlobalString('PAYMENT_ADDON') . '.php' == $file) {
 								print img_picto($langs->trans("Activated"), 'switch_on');
 							} else {
 								print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.preg_replace('/\.php$/', '', $file).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';

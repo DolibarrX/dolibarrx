@@ -107,7 +107,7 @@ $search_unit_frequency = GETPOST('search_unit_frequency', 'alpha');
 $search_nb_gen_done = GETPOST('search_nb_gen_done', 'alpha');
 $search_status = GETPOST('search_status', 'intcomma');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -259,7 +259,7 @@ if (empty($reshook)) {
 	$objectlabel='MyObject';
 	$permissiontoread = $user->hasRight("mymodule", "read");
 	$permissiontodelete = $user->hasRight("mymodule", "delete");
-	$uploaddir = $conf->mymodule->dir_output;
+	$uploaddir = $config->mymodule->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';*/
 }
 
@@ -444,7 +444,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($socid > 0) {

@@ -77,7 +77,7 @@ if ($action == "create" || $action == "add") {
 }
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -348,7 +348,7 @@ if ($action == 'create') {
 		if (!getDolGlobalString('FICHINTER_DISABLE_DETAILS') || getDolGlobalString('FICHINTER_DISABLE_DETAILS') == '2') {
 			// Duration
 			print '<tr><td>'.$langs->trans("TotalDuration").'</td>';
-			print '<td colspan="3">'.convertSecondToTime($object->duration, 'all', $conf->global->MAIN_DURATION_OF_WORKDAY).'</td>';
+			print '<td colspan="3">'.convertSecondToTime($object->duration, 'all', $config->global->MAIN_DURATION_OF_WORKDAY).'</td>';
 			print '</tr>';
 		}
 
@@ -570,7 +570,7 @@ if ($action == 'create') {
 				// Duration
 				print '<tr><td class="titlefield">'.$langs->trans("TotalDuration").'</td>';
 				print '<td colspan="3">';
-				print convertSecondToTime($object->duration, 'all', $conf->global->MAIN_DURATION_OF_WORKDAY);
+				print convertSecondToTime($object->duration, 'all', $config->global->MAIN_DURATION_OF_WORKDAY);
 				print '</td></tr>';
 			}
 
@@ -797,7 +797,7 @@ if ($action == 'create') {
 			$sql .= " , ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 		}
 		$sql .= " WHERE f.fk_soc = s.rowid";
-		$sql .= " AND f.entity = ".$conf->entity;
+		$sql .= " AND f.entity = ".$config->entity;
 		if (!empty($socid)) {
 			$sql .= " AND s.rowid = ".((int) $socid);
 		}

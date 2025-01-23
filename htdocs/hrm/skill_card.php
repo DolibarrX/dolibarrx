@@ -62,7 +62,7 @@ $lineid   = GETPOSTINT('lineid');
 // Initialize a technical objects
 $object = new Skill($db);
 $extrafields = new ExtraFields($db);
-//$diroutputmassaction = $conf->hrm->dir_output.'/temp/massgeneration/'.$user->id;
+//$diroutputmassaction = $config->hrm->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('skillcard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -92,14 +92,14 @@ $permissiontoread   = $user->hasRight('hrm', 'all', 'read');
 $permissiontoadd    = $user->hasRight('hrm', 'all', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissiontodelete = $user->hasRight('hrm', 'all', 'delete');
 
-$upload_dir = $conf->hrm->multidir_output[isset($object->entity) ? $object->entity : 1] . '/skill';
+$upload_dir = $config->hrm->multidir_output[isset($object->entity) ? $object->entity : 1] . '/skill';
 
 // Security check (enable the most restrictive one)
 //if ($user->socid > 0) accessforbidden();
 //if ($user->socid > 0) $socid = $user->socid;
 //$isdraft = (($object->status == $object::STATUS_DRAFT) ? 1 : 0);
 //restrictedArea($user, $object->element, $object->id, $object->table_element, '', 'fk_soc', 'rowid', $isdraft);
-if (empty($conf->hrm->enabled)) {
+if (empty($config->hrm->enabled)) {
 	accessforbidden();
 }
 if (!$permissiontoread || ($action === 'create' && !$permissiontoadd)) {
@@ -450,7 +450,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		$formquestion = array();
 		/*
 		$forcecombo=0;
-		if ($conf->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
+		if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
 		$formquestion = array(
 			// 'text' => $langs->trans("ConfirmClone"),
 			// array('type' => 'checkbox', 'name' => 'clone_content', 'label' => $langs->trans("CloneMainAttributes"), 'value' => 1),
@@ -578,7 +578,7 @@ if ($action != "create" && $action != "edit") {
 
 	// Initialize a technical objects
 	$objectline = new Skilldet($db);
-	//  $diroutputmassaction = $conf->hrm->dir_output . '/temp/massgeneration/' . $user->id;
+	//  $diroutputmassaction = $config->hrm->dir_output . '/temp/massgeneration/' . $user->id;
 	//  $hookManager->initHooks(array('skilldetlist')); // Note that conf->hooks_modules contains array
 
 	// Default sort order (if not yet defined by previous GETPOST)

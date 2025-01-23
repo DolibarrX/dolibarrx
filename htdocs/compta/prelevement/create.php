@@ -64,7 +64,7 @@ $format = GETPOST('format', 'aZ09');
 $id_bankaccount = GETPOSTINT('id_bankaccount');
 $executiondate = dol_mktime(0, 0, 0, GETPOSTINT('remonth'), GETPOSTINT('reday'), GETPOSTINT('reyear'));
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
 if (empty($page) || $page == -1) {
 	$page = 0;
@@ -116,7 +116,7 @@ if (empty($reshook)) {
 		//var_dump($default_account);var_dump(getDolGlobalString($default_account));var_dump($id_bankaccount);exit;
 
 		if ($id_bankaccount != getDolGlobalInt($default_account)) {
-			$res = dolibarr_set_const($db, $default_account, $id_bankaccount, 'chaine', 0, '', $conf->entity); // Set as default
+			$res = dolibarr_set_const($db, $default_account, $id_bankaccount, 'chaine', 0, '', $config->entity); // Set as default
 		}
 		require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 		$bank = new Account($db);
@@ -195,9 +195,9 @@ if (empty($reshook)) {
 
 	$objectclass = "BonPrelevement";
 	if ($type == 'bank-transfer') {
-		$uploaddir = $conf->paymentbybanktransfer->dir_output;
+		$uploaddir = $config->paymentbybanktransfer->dir_output;
 	} else {
-		$uploaddir = $conf->prelevement->dir_output;
+		$uploaddir = $config->prelevement->dir_output;
 	}
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
@@ -280,7 +280,7 @@ print '</td></tr>';
 
 print '<tr><td>'.$langs->trans("AmountTotal").'</td>';
 print '<td class="amount nowraponall">';
-print price($pricetowithdraw, 0, $langs, 1, -1, -1, $conf->currency);
+print price($pricetowithdraw, 0, $langs, 1, -1, -1, $config->currency);
 print '</td>';
 print '</tr>';
 
@@ -432,7 +432,7 @@ if ($sourcetype != 'salary') {
 	$sql .= " ".MAIN_DB_PREFIX."prelevement_demande as pd";
 	$sql .= " WHERE s.fk_user = u.rowid";
 	$sql .= " AND s.entity IN (".getEntity('salary').")";
-	/*if (empty($conf->global->WITHDRAWAL_ALLOW_ANY_INVOICE_STATUS)) {
+	/*if (empty($config->global->WITHDRAWAL_ALLOW_ANY_INVOICE_STATUS)) {
 		$sql .= " AND s.fk_statut = ".Facture::STATUS_VALIDATED;
 	}*/
 	$sql .= " AND s.amount > 0";
@@ -464,7 +464,7 @@ if ($resql) {
 	if ($type) {
 		$param .= '&type=' . urlencode((string) $type);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($socid) {
@@ -660,7 +660,7 @@ if ($resql) {
 
 			// Amount
 			print '<td class="right amount">';
-			print price($obj->amount, 0, $langs, 0, 0, -1, $conf->currency);
+			print price($obj->amount, 0, $langs, 0, 0, -1, $config->currency);
 			print '</td>';
 			// Date
 			print '<td class="right">';
@@ -743,7 +743,7 @@ if ($result)
 
 		print '<td class="center">'.dol_print_date($db->jdate($obj->datec),'day')."</td>\n";
 
-		print '<td class="right"><span class="amount">'.price($obj->amount,0,$langs,0,0,-1,$conf->currency)."</span></td>\n";
+		print '<td class="right"><span class="amount">'.price($obj->amount,0,$langs,0,0,-1,$config->currency)."</span></td>\n";
 
 		print "</tr>\n";
 		$i++;

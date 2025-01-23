@@ -449,7 +449,7 @@ require_once 'master.inc.php';
 // Uncomment this and set session.save_handler = user to use local session storing
 // include DOL_DOCUMENT_ROOT.'/core/lib/phpsessionindb.inc.php
 
-// If software has been locked. Only login $conf->global->MAIN_ONLY_LOGIN_ALLOWED is allowed.
+// If software has been locked. Only login $config->global->MAIN_ONLY_LOGIN_ALLOWED is allowed.
 if (getDolGlobalString('MAIN_ONLY_LOGIN_ALLOWED')) {
 	$ok = 0;
 	if ((!session_id() || !isset($_SESSION["dol_login"])) && !isset($_POST["username"]) && !empty($_SERVER["GATEWAY_INTERFACE"])) {
@@ -489,9 +489,9 @@ if (isModEnabled('debugbar') && !GETPOST('dol_use_jmobile') && empty($_SESSION['
 	$debugbar = new DolibarrDebugBar();
 	$renderer = $debugbar->getJavascriptRenderer();
 	if (!getDolGlobalString('MAIN_HTML_HEADER')) {
-		$conf->global->MAIN_HTML_HEADER = '';
+		$config->global->MAIN_HTML_HEADER = '';
 	}
-	$conf->global->MAIN_HTML_HEADER .= $renderer->renderHead();
+	$config->global->MAIN_HTML_HEADER .= $renderer->renderHead();
 
 	'@phan-var-force array{time:DebugBar\DataCollector\TimeDataCollector} $debugbar';
 	$debugbar['time']->startMeasure('pageaftermaster', 'Page generation (after environment init)');
@@ -500,35 +500,35 @@ if (isModEnabled('debugbar') && !GETPOST('dol_use_jmobile') && empty($_SESSION['
 // Detection browser
 if (isset($_SERVER["HTTP_USER_AGENT"])) {
 	$tmp = getBrowserInfo($_SERVER["HTTP_USER_AGENT"]);
-	$conf->browser->name = $tmp['browsername'];
-	$conf->browser->os = $tmp['browseros'];
-	$conf->browser->version = $tmp['browserversion'];
-	$conf->browser->ua = $tmp['browserua'];
-	$conf->browser->layout = $tmp['layout']; // 'classic', 'phone', 'tablet'
-	//var_dump($conf->browser);
+	$config->browser->name = $tmp['browsername'];
+	$config->browser->os = $tmp['browseros'];
+	$config->browser->version = $tmp['browserversion'];
+	$config->browser->ua = $tmp['browserua'];
+	$config->browser->layout = $tmp['layout']; // 'classic', 'phone', 'tablet'
+	//var_dump($config->browser);
 
-	if ($conf->browser->layout == 'phone') {
-		$conf->dol_no_mouse_hover = 1;
+	if ($config->browser->layout == 'phone') {
+		$config->dol_no_mouse_hover = 1;
 	}
 }
 
 // If theme is forced
 if (GETPOST('theme', 'aZ09')) {
-	$conf->theme = GETPOST('theme', 'aZ09');
-	$conf->css = "/theme/".$conf->theme."/style.css.php";
+	$config->theme = GETPOST('theme', 'aZ09');
+	$config->css = "/theme/".$config->theme."/style.css.php";
 }
 
 // Set global MAIN_OPTIMIZEFORTEXTBROWSER (must be before login part)
-if (GETPOSTINT('textbrowser') || (!empty($conf->browser->name) && $conf->browser->name == 'textbrowser')) {   // If we must enable text browser
-	$conf->global->MAIN_OPTIMIZEFORTEXTBROWSER = 2;
+if (GETPOSTINT('textbrowser') || (!empty($config->browser->name) && $config->browser->name == 'textbrowser')) {   // If we must enable text browser
+	$config->global->MAIN_OPTIMIZEFORTEXTBROWSER = 2;
 }
 
-// Force HTTPS if required ($conf->file->main_force_https is 0/1 or 'https dolibarr root url')
+// Force HTTPS if required ($config->file->main_force_https is 0/1 or 'https dolibarr root url')
 // $_SERVER["HTTPS"] is 'on' when link is https, otherwise $_SERVER["HTTPS"] is empty or 'off'
-if (!empty($conf->file->main_force_https) && !isHTTPS() && !defined('NOHTTPSREDIRECT')) {
+if (!empty($config->file->main_force_https) && !isHTTPS() && !defined('NOHTTPSREDIRECT')) {
 	$newurl = '';
-	if (is_numeric($conf->file->main_force_https)) {
-		if ($conf->file->main_force_https == '1' && !empty($_SERVER["SCRIPT_URI"])) {	// If SCRIPT_URI supported by server
+	if (is_numeric($config->file->main_force_https)) {
+		if ($config->file->main_force_https == '1' && !empty($_SERVER["SCRIPT_URI"])) {	// If SCRIPT_URI supported by server
 			if (preg_match('/^http:/i', $_SERVER["SCRIPT_URI"]) && !preg_match('/^https:/i', $_SERVER["SCRIPT_URI"])) {	// If link is http
 				$newurl = preg_replace('/^http:/i', 'https:', $_SERVER["SCRIPT_URI"]);
 			}
@@ -539,7 +539,7 @@ if (!empty($conf->file->main_force_https) && !isHTTPS() && !defined('NOHTTPSREDI
 		}
 	} else {
 		// Check HTTPS environment variable (Apache/mod_ssl only)
-		$newurl = $conf->file->main_force_https.$_SERVER["REQUEST_URI"];
+		$newurl = $config->file->main_force_https.$_SERVER["REQUEST_URI"];
 	}
 	// Start redirect
 	if ($newurl) {
@@ -630,7 +630,7 @@ if (!defined('NOTOKENRENEWAL') && !defined('NOSESSION')) {
 	}
 }
 
-//dol_syslog("CSRF info: ".defined('NOCSRFCHECK')." - ".$dolibarr_nocsrfcheck." - ".$conf->global->MAIN_SECURITY_CSRF_WITH_TOKEN." - ".$_SERVER['REQUEST_METHOD']." - ".GETPOST('token', 'alpha'));
+//dol_syslog("CSRF info: ".defined('NOCSRFCHECK')." - ".$dolibarr_nocsrfcheck." - ".$config->global->MAIN_SECURITY_CSRF_WITH_TOKEN." - ".$_SERVER['REQUEST_METHOD']." - ".GETPOST('token', 'alpha'));
 
 // Check validity of token, only if option MAIN_SECURITY_CSRF_WITH_TOKEN enabled or if constant CSRFCHECK_WITH_TOKEN is set into page
 if ((!defined('NOCSRFCHECK') && empty($dolibarr_nocsrfcheck) && getDolGlobalInt('MAIN_SECURITY_CSRF_WITH_TOKEN')) || defined('CSRFCHECK_WITH_TOKEN')) {
@@ -735,16 +735,16 @@ if (!empty($_SESSION["disablemodules"])) {
 	$disabled_modules = explode(',', $_SESSION["disablemodules"]);
 	foreach ($disabled_modules as $module) {
 		if ($module) {
-			if (empty($conf->$module)) {
-				$conf->$module = new stdClass(); // To avoid warnings
+			if (empty($config->$module)) {
+				$config->$module = new stdClass(); // To avoid warnings
 			}
-			$conf->$module->enabled = false;
+			$config->$module->enabled = false;
 			foreach ($modulepartkeys as $modulepartkey) {
-				unset($conf->modules_parts[$modulepartkey][$module]);
+				unset($config->modules_parts[$modulepartkey][$module]);
 			}
 			if ($module == 'fournisseur') {		// Special case
-				$conf->supplier_order->enabled = 0;
-				$conf->supplier_invoice->enabled = 0;
+				$config->supplier_order->enabled = 0;
+				$config->supplier_invoice->enabled = 0;
 			}
 		}
 	}
@@ -753,7 +753,7 @@ if (!empty($_SESSION["disablemodules"])) {
 // Set current modulepart
 $modulepart = explode("/", $_SERVER["PHP_SELF"]);
 if (is_array($modulepart) && count($modulepart) > 0) {
-	foreach ($conf->modules as $module) {
+	foreach ($config->modules as $module) {
 		if (in_array($module, $modulepart)) {
 			$modulepart = $module;
 			break;
@@ -854,7 +854,7 @@ if (!defined('NOLOGIN')) {
 			$captcha = getDolGlobalString('MAIN_SECURITY_ENABLECAPTCHA_HANDLER', 'standard');
 
 			// List of directories where we can find captcha handlers
-			$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), isset($conf->modules_parts['captcha']) && is_array($conf->modules_parts['captcha']) ? $conf->modules_parts['captcha'] : array());
+			$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), isset($config->modules_parts['captcha']) && is_array($config->modules_parts['captcha']) ? $config->modules_parts['captcha'] : array());
 			$fullpathclassfile = '';
 			foreach ($dirModCaptcha as $dir) {
 				$fullpathclassfile = dol_buildpath($dir."modCaptcha".ucfirst($captcha).'.class.php', 0, 2);
@@ -932,7 +932,7 @@ if (!defined('NOLOGIN')) {
 		// TODO Remove use of $_COOKIE['login_dolibarr'] by replacing line with $usertotest = GETPOST("username", "alpha", $allowedmethodtopostusername); ?
 		$usertotest = (!empty($_COOKIE['login_dolibarr']) ? preg_replace('/[^a-zA-Z0-9_@\-\.]/', '', $_COOKIE['login_dolibarr']) : GETPOST("username", "alpha", $allowedmethodtopostusername));
 		$passwordtotest = GETPOST('password', 'password', $allowedmethodtopostusername);
-		$entitytotest = (GETPOSTINT('entity') ? GETPOSTINT('entity') : (!empty($conf->entity) ? $conf->entity : 1));
+		$entitytotest = (GETPOSTINT('entity') ? GETPOSTINT('entity') : (!empty($config->entity) ? $config->entity : 1));
 
 		// Define if we received the correct data to go into the test of the login with the checkLoginPassEntity().
 		$goontestloop = false;
@@ -996,7 +996,7 @@ if (!defined('NOLOGIN')) {
 			}
 
 			if ($login) {
-				$dol_authmode = $conf->authmode; // This property is defined only when logged, to say what mode was successfully used
+				$dol_authmode = $config->authmode; // This property is defined only when logged, to say what mode was successfully used
 				$dol_tz = empty($_POST["tz"]) ? (empty($_SESSION["tz"]) ? '' : $_SESSION["tz"]) : $_POST["tz"];
 				$dol_tz_string = empty($_POST["tz_string"]) ? (empty($_SESSION["tz_string"]) ? '' : $_SESSION["tz_string"]) : $_POST["tz_string"];
 				$dol_tz_string = preg_replace('/\s*\(.+\)$/', '', $dol_tz_string);
@@ -1242,7 +1242,7 @@ if (!defined('NOLOGIN')) {
 					$_SESSION['lastsearch_contextpage_'.$relativepathstring] = $_SESSION['lastsearch_contextpage_tmp_'.$relativepathstring];
 					unset($_SESSION['lastsearch_contextpage_tmp_'.$relativepathstring]);
 				}
-				if (!empty($_SESSION['lastsearch_limit_tmp_'.$relativepathstring]) && $_SESSION['lastsearch_limit_tmp_'.$relativepathstring] != $conf->liste_limit) {
+				if (!empty($_SESSION['lastsearch_limit_tmp_'.$relativepathstring]) && $_SESSION['lastsearch_limit_tmp_'.$relativepathstring] != $config->liste_limit) {
 					$_SESSION['lastsearch_limit_'.$relativepathstring] = $_SESSION['lastsearch_limit_tmp_'.$relativepathstring];
 					unset($_SESSION['lastsearch_limit_tmp_'.$relativepathstring]);
 				}
@@ -1296,7 +1296,7 @@ if (!defined('NOLOGIN')) {
 		$_SESSION["dol_screenwidth"] = isset($dol_screenwidth) ? $dol_screenwidth : '';
 		$_SESSION["dol_screenheight"] = isset($dol_screenheight) ? $dol_screenheight : '';
 		$_SESSION["dol_company"] = getDolGlobalString("MAIN_INFO_SOCIETE_NOM");
-		$_SESSION["dol_entity"] = $conf->entity;
+		$_SESSION["dol_entity"] = $config->entity;
 		// Store value into session (values stored only if defined)
 		if (!empty($dol_hide_topmenu)) {
 			$_SESSION['dol_hide_topmenu'] = $dol_hide_topmenu;
@@ -1321,7 +1321,7 @@ if (!defined('NOLOGIN')) {
 		$user->update_last_login_date();
 
 		$loginfo = 'TZ='.$_SESSION["dol_tz"].';TZString='.$_SESSION["dol_tz_string"].';Screen='.$_SESSION["dol_screenwidth"].'x'.$_SESSION["dol_screenheight"];
-		$loginfo .= ' - authmode='.$dol_authmode.' - entity='.$conf->entity;
+		$loginfo .= ' - authmode='.$dol_authmode.' - entity='.$config->entity;
 
 		// Call triggers for the "security events" log
 		$user->context['audit'] = $loginfo;
@@ -1353,7 +1353,7 @@ if (!defined('NOLOGIN')) {
 		}
 
 		// Change landing page if defined.
-		$landingpage = (empty($user->conf->MAIN_LANDING_PAGE) ? (!getDolGlobalString('MAIN_LANDING_PAGE') ? '' : $conf->global->MAIN_LANDING_PAGE) : $user->conf->MAIN_LANDING_PAGE);
+		$landingpage = (empty($user->conf->MAIN_LANDING_PAGE) ? (!getDolGlobalString('MAIN_LANDING_PAGE') ? '' : $config->global->MAIN_LANDING_PAGE) : $user->conf->MAIN_LANDING_PAGE);
 		if (!empty($landingpage)) {    // Example: /index.php
 			$newpath = dol_buildpath($landingpage, 1);
 			if ($_SERVER["PHP_SELF"] != $newpath) {   // not already on landing page (avoid infinite loop)
@@ -1402,28 +1402,28 @@ if (!defined('NOLOGIN')) {
 
 	// Set liste_limit from user setup
 	if (isset($user->conf->MAIN_SIZE_LISTE_LIMIT)) {	// If a user setup exists
-		$conf->liste_limit = getDolUserInt('MAIN_SIZE_LISTE_LIMIT'); // Can be 0
+		$config->liste_limit = getDolUserInt('MAIN_SIZE_LISTE_LIMIT'); // Can be 0
 	}
-	if ((int) $conf->liste_limit <= 0) {
+	if ((int) $config->liste_limit <= 0) {
 		// Mode automatic. Similar code than into conf.class.php
-		$conf->liste_limit = 15;
+		$config->liste_limit = 15;
 		if (!empty($_SESSION['dol_screenheight']) && $_SESSION['dol_screenheight'] < 700) {
-			$conf->liste_limit = 8;
+			$config->liste_limit = 8;
 		} elseif (!empty($_SESSION['dol_screenheight']) && $_SESSION['dol_screenheight'] < 910) {
-			$conf->liste_limit = 10;
+			$config->liste_limit = 10;
 		} elseif (!empty($_SESSION['dol_screenheight']) && $_SESSION['dol_screenheight'] > 1130) {
-			$conf->liste_limit = 20;
+			$config->liste_limit = 20;
 		}
 	}
 	// Set main_checkbox_left_column from user setup
 	if (isset($user->conf->MAIN_CHECKBOX_LEFT_COLUMN)) {	// If a user setup exists
-		$conf->main_checkbox_left_column = getDolUserInt('MAIN_CHECKBOX_LEFT_COLUMN'); // Can be 0
+		$config->main_checkbox_left_column = getDolUserInt('MAIN_CHECKBOX_LEFT_COLUMN'); // Can be 0
 	}
 
 	// Replace conf->css by personalized value if theme not forced
 	if (!getDolGlobalString('MAIN_FORCETHEME') && getDolUserString('MAIN_THEME')) {
-		$conf->theme = getDolUserString('MAIN_THEME');
-		$conf->css = "/theme/".$conf->theme."/style.css.php";
+		$config->theme = getDolUserString('MAIN_THEME');
+		$config->css = "/theme/".$config->theme."/style.css.php";
 	}
 } else {
 	// We may have NOLOGIN set, but NOREQUIREUSER not
@@ -1435,69 +1435,69 @@ if (!defined('NOLOGIN')) {
 
 // Case forcing style from url
 if (GETPOST('theme', 'aZ09')) {
-	$conf->theme = GETPOST('theme', 'aZ09', 1);
-	$conf->css = "/theme/".$conf->theme."/style.css.php";
+	$config->theme = GETPOST('theme', 'aZ09', 1);
+	$config->css = "/theme/".$config->theme."/style.css.php";
 }
 
 // Set javascript option
 if (GETPOSTINT('nojs')) {  // If javascript was not disabled on URL
-	$conf->use_javascript_ajax = 0;
+	$config->use_javascript_ajax = 0;
 } else {
 	if (getDolUserString('MAIN_DISABLE_JAVASCRIPT')) {
-		$conf->use_javascript_ajax = !getDolUserString('MAIN_DISABLE_JAVASCRIPT') ? 1 : 0;
+		$config->use_javascript_ajax = !getDolUserString('MAIN_DISABLE_JAVASCRIPT') ? 1 : 0;
 	}
 }
 
 // Set MAIN_OPTIMIZEFORTEXTBROWSER for user (must be after login part)
 if (!getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') && getDolUserString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
-	$conf->global->MAIN_OPTIMIZEFORTEXTBROWSER = getDolUserString('MAIN_OPTIMIZEFORTEXTBROWSER');
+	$config->global->MAIN_OPTIMIZEFORTEXTBROWSER = getDolUserString('MAIN_OPTIMIZEFORTEXTBROWSER');
 	if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') == 1) {
-		$conf->global->THEME_TOPMENU_DISABLE_IMAGE = 1;
+		$config->global->THEME_TOPMENU_DISABLE_IMAGE = 1;
 	}
 }
-//var_dump($conf->global->THEME_TOPMENU_DISABLE_IMAGE);
+//var_dump($config->global->THEME_TOPMENU_DISABLE_IMAGE);
 //var_dump($user->conf->THEME_TOPMENU_DISABLE_IMAGE);
 
 // set MAIN_OPTIMIZEFORCOLORBLIND for user
-$conf->global->MAIN_OPTIMIZEFORCOLORBLIND = getDolUserString('MAIN_OPTIMIZEFORCOLORBLIND');
+$config->global->MAIN_OPTIMIZEFORCOLORBLIND = getDolUserString('MAIN_OPTIMIZEFORCOLORBLIND');
 
 // Set terminal output option according to conf->browser.
 if (GETPOSTINT('dol_hide_leftmenu') || !empty($_SESSION['dol_hide_leftmenu'])) {
-	$conf->dol_hide_leftmenu = 1;
+	$config->dol_hide_leftmenu = 1;
 }
 if (GETPOSTINT('dol_hide_topmenu') || !empty($_SESSION['dol_hide_topmenu'])) {
-	$conf->dol_hide_topmenu = 1;
+	$config->dol_hide_topmenu = 1;
 }
 if (GETPOSTINT('dol_optimize_smallscreen') || !empty($_SESSION['dol_optimize_smallscreen'])) {
-	$conf->dol_optimize_smallscreen = 1;
+	$config->dol_optimize_smallscreen = 1;
 }
 if (GETPOSTINT('dol_no_mouse_hover') || !empty($_SESSION['dol_no_mouse_hover'])) {
-	$conf->dol_no_mouse_hover = 1;
+	$config->dol_no_mouse_hover = 1;
 }
 if (GETPOSTINT('dol_use_jmobile') || !empty($_SESSION['dol_use_jmobile'])) {
-	$conf->dol_use_jmobile = 1;
+	$config->dol_use_jmobile = 1;
 }
 // If not on Desktop
-if (!empty($conf->browser->layout) && $conf->browser->layout != 'classic') {
-	$conf->dol_no_mouse_hover = 1;
+if (!empty($config->browser->layout) && $config->browser->layout != 'classic') {
+	$config->dol_no_mouse_hover = 1;
 }
 
 // If on smartphone or optimized for small screen
-if ((!empty($conf->browser->layout) && $conf->browser->layout == 'phone')
+if ((!empty($config->browser->layout) && $config->browser->layout == 'phone')
 			|| (!empty($_SESSION['dol_screenwidth']) && $_SESSION['dol_screenwidth'] < 400)
 			|| (!empty($_SESSION['dol_screenheight']) && $_SESSION['dol_screenheight'] < 400
 				|| getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER'))
 ) {
-	$conf->dol_optimize_smallscreen = 1;
+	$config->dol_optimize_smallscreen = 1;
 
 	if (getDolGlobalInt('PRODUIT_DESC_IN_FORM') == 1) {
-		$conf->global->PRODUIT_DESC_IN_FORM_ACCORDING_TO_DEVICE = 0;
+		$config->global->PRODUIT_DESC_IN_FORM_ACCORDING_TO_DEVICE = 0;
 	}
 }
 // Replace themes bugged with jmobile with eldy
-if (!empty($conf->dol_use_jmobile) && in_array($conf->theme, array('bureau2crea', 'cameleo', 'amarok'))) {
-	$conf->theme = 'eldy';
-	$conf->css = "/theme/".$conf->theme."/style.css.php";
+if (!empty($config->dol_use_jmobile) && in_array($config->theme, array('bureau2crea', 'cameleo', 'amarok'))) {
+	$config->theme = 'eldy';
+	$config->css = "/theme/".$config->theme."/style.css.php";
 }
 
 if (!defined('NOREQUIRETRAN')) {
@@ -1558,7 +1558,7 @@ $warnings = array();
 $errors = array();
 
 // Constants used to defined number of lines in textarea
-if (empty($conf->browser->firefox)) {
+if (empty($config->browser->firefox)) {
 	define('ROWS_1', 1);
 	define('ROWS_2', 2);
 	define('ROWS_3', 3);
@@ -1585,21 +1585,21 @@ $heightforframes = 50;
 // Init menu manager
 if (!defined('NOREQUIREMENU')) {
 	if (empty($user->socid)) {    // If internal user or not defined
-		$conf->standard_menu = getDolGlobalString('MAIN_MENU_STANDARD_FORCED', getDolGlobalString('MAIN_MENU_STANDARD', 'eldy_menu.php'));
+		$config->standard_menu = getDolGlobalString('MAIN_MENU_STANDARD_FORCED', getDolGlobalString('MAIN_MENU_STANDARD', 'eldy_menu.php'));
 	} else {
 		// If external user
-		$conf->standard_menu = getDolGlobalString('MAIN_MENUFRONT_STANDARD_FORCED', getDolGlobalString('MAIN_MENUFRONT_STANDARD', 'eldy_menu.php'));
+		$config->standard_menu = getDolGlobalString('MAIN_MENUFRONT_STANDARD_FORCED', getDolGlobalString('MAIN_MENUFRONT_STANDARD', 'eldy_menu.php'));
 	}
 
 	// Load the menu manager (only if not already done)
-	$file_menu = $conf->standard_menu;
+	$file_menu = $config->standard_menu;
 	if (GETPOST('menu', 'alpha')) {
 		$file_menu = GETPOST('menu', 'alpha'); // example: menu=eldy_menu.php
 	}
 
 	if (!class_exists('MenuManager')) {
 		$menufound = 0;
-		$dirmenus = array_merge(array("/core/menus/"), (array) $conf->modules_parts['menus']);
+		$dirmenus = array_merge(array("/core/menus/"), (array) $config->modules_parts['menus']);
 		foreach ($dirmenus as $dirmenu) {
 			$menufound = dol_include_once($dirmenu."standard/".$file_menu);
 			if (class_exists('MenuManager')) {
@@ -1682,7 +1682,7 @@ if (!function_exists("llxHeader")) {
 
 		$tmpcsstouse = 'sidebar-collapse'.($morecssonbody ? ' '.$morecssonbody : '');
 		// If theme MD and classic layer, we open the menulayer by default.
-		if ($conf->theme == 'md' && !in_array($conf->browser->layout, array('phone', 'tablet')) && !getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
+		if ($config->theme == 'md' && !in_array($config->browser->layout, array('phone', 'tablet')) && !getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 			global $mainmenu;
 			if ($mainmenu != 'website') {
 				$tmpcsstouse = $morecssonbody; // We do not use sidebar-collpase by default to have menuhider open by default.
@@ -1696,11 +1696,11 @@ if (!function_exists("llxHeader")) {
 		print '<body id="mainbody" class="'.$tmpcsstouse.'">'."\n";
 
 		// top menu and left menu area
-		if ((empty($conf->dol_hide_topmenu) || GETPOSTINT('dol_invisible_topmenu')) && !GETPOST('dol_openinpopup', 'aZ09')) {
+		if ((empty($config->dol_hide_topmenu) || GETPOSTINT('dol_invisible_topmenu')) && !GETPOST('dol_openinpopup', 'aZ09')) {
 			top_menu($head, $title, $target, $disablejs, $disablehead, $arrayofjs, $arrayofcss, $morequerystring, $help_url);
 		}
 
-		if (empty($conf->dol_hide_leftmenu) && !GETPOST('dol_openinpopup', 'aZ09')) {
+		if (empty($config->dol_hide_leftmenu) && !GETPOST('dol_openinpopup', 'aZ09')) {
 			left_menu('', $help_url, '', array(), 1, $title, 1); // $menumanager is retrieved with a global $menumanager inside this function
 		}
 
@@ -1727,7 +1727,7 @@ function top_httphead($contenttype = 'text/html', $forcenocache = 0)
 	global $db, $conf, $hookManager;
 
 	if ($contenttype == 'text/html') {
-		header("Content-Type: text/html; charset=".$conf->file->character_set_client);
+		header("Content-Type: text/html; charset=".$config->file->character_set_client);
 	} else {
 		header("Content-Type: ".$contenttype);
 	}
@@ -1867,8 +1867,8 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 
 	top_httphead();
 
-	if (empty($conf->css)) {
-		$conf->css = '/theme/eldy/style.css.php'; // If not defined, eldy by default
+	if (empty($config->css)) {
+		$config->css = '/theme/eldy/style.css.php'; // If not defined, eldy by default
 	}
 
 	print '<!doctype html>'."\n";
@@ -1883,7 +1883,7 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 		}
 		$hookManager->initHooks(array("main"));
 
-		$ext = 'layout='.(empty($conf->browser->layout) ? '' : $conf->browser->layout).'&amp;version='.urlencode(DOL_VERSION);
+		$ext = 'layout='.(empty($config->browser->layout) ? '' : $config->browser->layout).'&amp;version='.urlencode(DOL_VERSION);
 
 		print "<head>\n";
 
@@ -1910,13 +1910,13 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 		if (getDolGlobalString('MAIN_FAVICON_URL')) {
 			$favicon = getDolGlobalString('MAIN_FAVICON_URL');
 		}
-		if (empty($conf->dol_use_jmobile)) {
+		if (empty($config->dol_use_jmobile)) {
 			print '<link rel="shortcut icon" type="image/x-icon" href="'.$favicon.'"/>'."\n"; // Not required into an Android webview
 			print '<link rel="apple-touch-icon" href="'.$appletouchicon.'"/>'."\n";
 		}
 
 		// Mobile appli like icon
-		$manifest = DOL_URL_ROOT.'/theme/'.$conf->theme.'/manifest.json.php';
+		$manifest = DOL_URL_ROOT.'/theme/'.$config->theme.'/manifest.json.php';
 		$parameters = array('manifest' => $manifest);
 		$resHook = $hookManager->executeHooks('hookSetManifest', $parameters); // Note that $action and $object may have been modified by some hooks
 		if ($resHook > 0) {
@@ -1973,10 +1973,10 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 		// Refresh value of MAIN_IHM_PARAMS_REV before forging the parameter line.
 		if (GETPOST('dol_resetcache')) {
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-			dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 		}
 
-		$themeparam = '?lang='.$langs->defaultlang.'&amp;theme='.$conf->theme.(GETPOST('optioncss', 'aZ09') ? '&amp;optioncss='.GETPOST('optioncss', 'aZ09', 1) : '').(empty($user->id) ? '' : ('&amp;userid='.$user->id)).'&amp;entity='.$conf->entity;
+		$themeparam = '?lang='.$langs->defaultlang.'&amp;theme='.$config->theme.(GETPOST('optioncss', 'aZ09') ? '&amp;optioncss='.GETPOST('optioncss', 'aZ09', 1) : '').(empty($user->id) ? '' : ('&amp;userid='.$user->id)).'&amp;entity='.$config->entity;
 
 		$themeparam .= ($ext ? '&amp;'.$ext : '').'&amp;revision='.getDolGlobalInt("MAIN_IHM_PARAMS_REV");
 		if (GETPOSTISSET('dol_hide_topmenu')) {
@@ -1996,7 +1996,7 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 		}
 		if (GETPOSTISSET('dol_use_jmobile')) {
 			$themeparam .= '&amp;dol_use_jmobile='.GETPOSTINT('dol_use_jmobile');
-			$conf->dol_use_jmobile = GETPOSTINT('dol_use_jmobile');
+			$config->dol_use_jmobile = GETPOSTINT('dol_use_jmobile');
 		}
 		if (GETPOSTISSET('THEME_DARKMODEENABLED')) {
 			$themeparam .= '&amp;THEME_DARKMODEENABLED='.GETPOSTINT('THEME_DARKMODEENABLED');
@@ -2010,7 +2010,7 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 			print '<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@200;300;400;500;600&display=swap" rel="stylesheet">'."\n";
 		}
 
-		if (!defined('DISABLE_JQUERY') && !$disablejs && $conf->use_javascript_ajax) {
+		if (!defined('DISABLE_JQUERY') && !$disablejs && $config->use_javascript_ajax) {
 			print '<!-- Includes CSS for JQuery (Ajax library) -->'."\n";
 			$jquerytheme = 'base';
 			if (getDolGlobalString('MAIN_USE_JQUERY_THEME')) {
@@ -2025,7 +2025,7 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 				print '<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/plugins/jnotify/jquery.jnotify-alt.min.css'.($ext ? '?'.$ext : '').'">'."\n"; // JNotify
 			}
 			if (!defined('DISABLE_SELECT2') && (getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT') || defined('REQUIRE_JQUERY_MULTISELECT'))) {     // jQuery plugin "mutiselect", "multiple-select", "select2"...
-				$tmpplugin = !getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT') ? constant('REQUIRE_JQUERY_MULTISELECT') : $conf->global->MAIN_USE_JQUERY_MULTISELECT;
+				$tmpplugin = !getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT') ? constant('REQUIRE_JQUERY_MULTISELECT') : $config->global->MAIN_USE_JQUERY_MULTISELECT;
 				print '<link rel="stylesheet" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/plugins/'.$tmpplugin.'/dist/css/'.$tmpplugin.'.css'.($ext ? '?'.$ext : '').'">'."\n";
 			}
 		}
@@ -2037,13 +2037,13 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 		}
 
 		print '<!-- Includes CSS for Dolibarr theme -->'."\n";
-		// Output style sheets (optioncss='print' or ''). Note: $conf->css looks like '/theme/eldy/style.css.php'
-		$themepath = dol_buildpath($conf->css, 1);
+		// Output style sheets (optioncss='print' or ''). Note: $config->css looks like '/theme/eldy/style.css.php'
+		$themepath = dol_buildpath($config->css, 1);
 		$themesubdir = '';
-		if (!empty($conf->modules_parts['theme'])) {	// This slow down
-			foreach ($conf->modules_parts['theme'] as $reldir) {
-				if (file_exists(dol_buildpath($reldir.$conf->css, 0))) {
-					$themepath = dol_buildpath($reldir.$conf->css, 1);
+		if (!empty($config->modules_parts['theme'])) {	// This slow down
+			foreach ($config->modules_parts['theme'] as $reldir) {
+				if (file_exists(dol_buildpath($reldir.$config->css, 0))) {
+					$themepath = dol_buildpath($reldir.$config->css, 1);
 					$themesubdir = $reldir;
 					break;
 				}
@@ -2063,8 +2063,8 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 		}
 
 		// CSS forced by modules (relative url starting with /)
-		if (!empty($conf->modules_parts['css'])) {
-			$arraycss = (array) $conf->modules_parts['css'];
+		if (!empty($config->modules_parts['css'])) {
+			$arraycss = (array) $config->modules_parts['css'];
 			foreach ($arraycss as $modcss => $filescss) {
 				$filescss = (array) $filescss; // To be sure filecss is an array
 				foreach ($filescss as $cssfile) {
@@ -2110,7 +2110,7 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 		}
 
 		// Output standard javascript links
-		if (!defined('DISABLE_JQUERY') && !$disablejs && !empty($conf->use_javascript_ajax)) {
+		if (!defined('DISABLE_JQUERY') && !$disablejs && !empty($config->use_javascript_ajax)) {
 			// JQuery. Must be before other includes
 			print '<!-- Includes JS for JQuery -->'."\n";
 			if (defined('JS_JQUERY') && constant('JS_JQUERY')) {
@@ -2149,7 +2149,7 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 				print 'var placeholderInPlace = \'&nbsp;\';'."\n"; // If we put another string than $langs->trans("ClickToEdit") here, nothing is shown. If we put empty string, there is error, Why ?
 				print 'var cancelInPlace = \''.$langs->trans("Cancel").'\';'."\n";
 				print 'var submitInPlace = \''.$langs->trans('Ok').'\';'."\n";
-				print 'var indicatorInPlace = \'<img src="'.DOL_URL_ROOT."/theme/".$conf->theme."/img/working.gif".'">\';'."\n";
+				print 'var indicatorInPlace = \'<img src="'.DOL_URL_ROOT."/theme/".$config->theme."/img/working.gif".'">\';'."\n";
 				print 'var withInPlace = 300;'; // width in pixel for default string edit
 				print '</script>'."\n";
 				print '<script nonce="'.getNonce().'" src="'.DOL_URL_ROOT.'/core/js/editinplace.js'.($ext ? '?'.$ext : '').'"></script>'."\n";
@@ -2162,7 +2162,7 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 			}
 			if (!defined('DISABLE_SELECT2') && (getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT') || defined('REQUIRE_JQUERY_MULTISELECT'))) {
 				// jQuery plugin "mutiselect", "multiple-select", "select2", ...
-				$tmpplugin = !getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT') ? constant('REQUIRE_JQUERY_MULTISELECT') : $conf->global->MAIN_USE_JQUERY_MULTISELECT;
+				$tmpplugin = !getDolGlobalString('MAIN_USE_JQUERY_MULTISELECT') ? constant('REQUIRE_JQUERY_MULTISELECT') : $config->global->MAIN_USE_JQUERY_MULTISELECT;
 				print '<script nonce="'.getNonce().'" src="'.DOL_URL_ROOT.'/includes/jquery/plugins/'.$tmpplugin.'/dist/js/'.$tmpplugin.'.full.min.js'.($ext ? '?'.$ext : '').'"></script>'."\n"; // We include full because we need the support of containerCssClass
 			}
 			if (!defined('DISABLE_MULTISELECT')) {     // jQuery plugin "mutiselect" to select with checkboxes. Can be removed once we have an enhanced search tool
@@ -2170,7 +2170,7 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 			}
 		}
 
-		if (!$disablejs && !empty($conf->use_javascript_ajax)) {
+		if (!$disablejs && !empty($config->use_javascript_ajax)) {
 			// CKEditor
 			if (empty($disableforlogin) && (isModEnabled('fckeditor') && (!getDolGlobalString('FCKEDITOR_EDITORNAME') || getDolGlobalString('FCKEDITOR_EDITORNAME') == 'ckeditor') && !defined('DISABLE_CKEDITOR')) || defined('FORCE_CKEDITOR')) {
 				print '<!-- Includes JS for CKEditor -->'."\n";
@@ -2183,7 +2183,7 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 				print '<script nonce="'.getNonce().'">';
 				print '/* enable ckeditor by main.inc.php */';
 				print 'var CKEDITOR_BASEPATH = \''.dol_escape_js($pathckeditor).'\';'."\n";
-				print 'var ckeditorConfig = \''.dol_escape_js(dol_buildpath($themesubdir.'/theme/'.$conf->theme.'/ckeditor/config.js'.($ext ? '?'.$ext : ''), 1)).'\';'."\n"; // $themesubdir='' in standard usage
+				print 'var ckeditorConfig = \''.dol_escape_js(dol_buildpath($themesubdir.'/theme/'.$config->theme.'/ckeditor/config.js'.($ext ? '?'.$ext : ''), 1)).'\';'."\n"; // $themesubdir='' in standard usage
 				print 'var ckeditorFilebrowserBrowseUrl = \''.DOL_URL_ROOT.'/core/filemanagerdol/browser/default/browser.php?Connector='.DOL_URL_ROOT.'/core/filemanagerdol/connectors/php/connector.php\';'."\n";
 				print 'var ckeditorFilebrowserImageBrowseUrl = \''.DOL_URL_ROOT.'/core/filemanagerdol/browser/default/browser.php?Type=Image&Connector='.DOL_URL_ROOT.'/core/filemanagerdol/connectors/php/connector.php\';'."\n";
 				print '</script>'."\n";
@@ -2203,11 +2203,11 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 				if (isModEnabled('agenda') && getDolGlobalString('AGENDA_REMINDER_BROWSER')) {
 					$enablebrowsernotif = true;
 				}
-				if ($conf->browser->layout == 'phone') {
+				if ($config->browser->layout == 'phone') {
 					$enablebrowsernotif = false;
 				}
 				if ($enablebrowsernotif) {
-					print '<!-- Includes JS of Dolibarr (browser layout = '.$conf->browser->layout.')-->'."\n";
+					print '<!-- Includes JS of Dolibarr (browser layout = '.$config->browser->layout.')-->'."\n";
 					print '<script nonce="'.getNonce().'" src="'.DOL_URL_ROOT.'/core/js/lib_notification.js.php?lang='.$langs->defaultlang.($ext ? '&amp;'.$ext : '').'"></script>'."\n";
 				}
 			}
@@ -2223,8 +2223,8 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 			}
 
 			// JS forced by modules (relative url starting with /)
-			if (!empty($conf->modules_parts['js'])) {		// $conf->modules_parts['js'] is array('module'=>array('file1','file2'))
-				$arrayjs = (array) $conf->modules_parts['js'];
+			if (!empty($config->modules_parts['js'])) {		// $config->modules_parts['js'] is array('module'=>array('file1','file2'))
+				$arrayjs = (array) $config->modules_parts['js'];
 				foreach ($arrayjs as $modjs => $filesjs) {
 					$filesjs = (array) $filesjs; // To be sure filejs is an array
 					foreach ($filesjs as $jsfile) {
@@ -2254,9 +2254,9 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 
 		//If you want to load custom javascript file from your selected theme directory
 		if (getDolGlobalString('ALLOW_THEME_JS')) {
-			$theme_js = dol_buildpath('/theme/'.$conf->theme.'/'.$conf->theme.'.js', 0);
+			$theme_js = dol_buildpath('/theme/'.$config->theme.'/'.$config->theme.'.js', 0);
 			if (file_exists($theme_js)) {
-				print '<script nonce="'.getNonce().'" src="'.DOL_URL_ROOT.'/theme/'.$conf->theme.'/'.$conf->theme.'.js'.($ext ? '?'.$ext : '').'"></script>'."\n";
+				print '<script nonce="'.getNonce().'" src="'.DOL_URL_ROOT.'/theme/'.$config->theme.'/'.$config->theme.'.js'.($ext ? '?'.$ext : '').'"></script>'."\n";
 			}
 		}
 
@@ -2274,7 +2274,7 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 		print "</head>\n\n";
 	}
 
-	$conf->headerdone = 1; // To tell header was output
+	$config->headerdone = 1; // To tell header was output
 }
 
 
@@ -2308,7 +2308,7 @@ function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead
 	$toprightmenu = '';
 
 	// For backward compatibility with old modules
-	if (empty($conf->headerdone)) {
+	if (empty($config->headerdone)) {
 		$disablenofollow = 0;
 		top_htmlhead($head, $title, $disablejs, $disablehead, $arrayofjs, $arrayofcss, 0, $disablenofollow);
 		print '<body id="mainbody">';
@@ -2317,7 +2317,7 @@ function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead
 	/*
 	 * Top menu
 	 */
-	if ((empty($conf->dol_hide_topmenu) || GETPOSTINT('dol_invisible_topmenu')) && (!defined('NOREQUIREMENU') || !constant('NOREQUIREMENU'))) {
+	if ((empty($config->dol_hide_topmenu) || GETPOSTINT('dol_invisible_topmenu')) && (!defined('NOREQUIREMENU') || !constant('NOREQUIREMENU'))) {
 		if (!isset($form) || !is_object($form)) {
 			include_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 			$form = new Form($db);
@@ -2359,9 +2359,9 @@ function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead
 		if (!getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 			//$logouthtmltext=$appli.'<br>';
 			$stringforfirstkey = $langs->trans("KeyboardShortcut");
-			if ($conf->browser->name == 'chrome') {
+			if ($config->browser->name == 'chrome') {
 				$stringforfirstkey .= ' ALT +';
-			} elseif ($conf->browser->name == 'firefox') {
+			} elseif ($config->browser->name == 'firefox') {
 				$stringforfirstkey .= ' ALT + SHIFT +';
 			} else {
 				$stringforfirstkey .= ' CTL +';
@@ -2564,7 +2564,7 @@ function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead
 		print "<!-- End top horizontal menu -->\n\n";
 	}
 
-	if (empty($conf->dol_hide_leftmenu) && empty($conf->dol_use_jmobile)) {
+	if (empty($config->dol_hide_leftmenu) && empty($config->dol_use_jmobile)) {
 		print '<!-- Begin div id-container --><div id="id-container" class="id-container">';
 	}
 }
@@ -2584,7 +2584,7 @@ function top_menu_user($hideloginname = 0, $urllogout = '')
 	global $menumanager;
 
 	// Return empty in some case
-	if ($conf->browser->name == 'textbrowser') {
+	if ($config->browser->name == 'textbrowser') {
 		return '';
 	}
 
@@ -2639,7 +2639,7 @@ function top_menu_user($hideloginname = 0, $urllogout = '')
 	$dropdownBody .= '<br><b>'.$langs->trans("VATIntraShort").'</b>: <span>'.dol_print_profids(getDolGlobalString("MAIN_INFO_TVAINTRA"), 'VAT').'</span>';
 	$dropdownBody .= '<br><b>'.$langs->trans("Country").'</b>: <span>'.($mysoc->country_code ? $langs->trans("Country".$mysoc->country_code) : '').'</span>';
 	if (isModEnabled('multicurrency')) {
-		$dropdownBody .= '<br><b>'.$langs->trans("Currency").'</b>: <span>'.$conf->currency.'</span>';
+		$dropdownBody .= '<br><b>'.$langs->trans("Currency").'</b>: <span>'.$config->currency.'</span>';
 	}
 	$dropdownBody .= '</div>';
 
@@ -2666,12 +2666,12 @@ function top_menu_user($hideloginname = 0, $urllogout = '')
 	$dropdownBody .= '<br><u>'.$langs->trans("Session").'</u>';
 	$dropdownBody .= '<br><b>'.$langs->trans("IPAddress").'</b>: '.dol_escape_htmltag($_SERVER["REMOTE_ADDR"]);
 	if (getDolGlobalString('MAIN_MODULE_MULTICOMPANY')) {
-		$dropdownBody .= '<br><b>'.$langs->trans("ConnectedOnMultiCompany").':</b> '.$conf->entity.' (user entity '.$user->entity.')';
+		$dropdownBody .= '<br><b>'.$langs->trans("ConnectedOnMultiCompany").':</b> '.$config->entity.' (user entity '.$user->entity.')';
 	}
 	$dropdownBody .= '<br><b>'.$langs->trans("AuthenticationMode").':</b> '.$_SESSION["dol_authmode"].(empty($dolibarr_main_demo) ? '' : ' (demo)');
 	$dropdownBody .= '<br><b>'.$langs->trans("ConnectedSince").':</b> '.dol_print_date($user->datelastlogin, "dayhour", 'tzuser');
 	$dropdownBody .= '<br><b>'.$langs->trans("PreviousConnexion").':</b> '.dol_print_date($user->datepreviouslogin, "dayhour", 'tzuser');
-	$dropdownBody .= '<br><b>'.$langs->trans("CurrentTheme").':</b> '.$conf->theme;
+	$dropdownBody .= '<br><b>'.$langs->trans("CurrentTheme").':</b> '.$config->theme;
 	// @phan-suppress-next-line PhanRedefinedClassReference
 	$dropdownBody .= '<br><b>'.$langs->trans("CurrentMenuManager").':</b> '.(isset($menumanager) ? $menumanager->name : 'unknown');
 	$langFlag = picto_from_langcode($langs->getDefaultLang());
@@ -2684,10 +2684,10 @@ function top_menu_user($hideloginname = 0, $urllogout = '')
 	//if ($_SESSION['dol_dst'] > 0) $dropdownBody .= yn(1);
 	//else $dropdownBody .= yn(0);
 
-	$dropdownBody .= '<br><b>'.$langs->trans("Browser").':</b> '.$conf->browser->name.($conf->browser->version ? ' '.$conf->browser->version : '').' <small class="opacitymedium">('.dol_escape_htmltag($_SERVER['HTTP_USER_AGENT']).')</small>';
-	$dropdownBody .= '<br><b>'.$langs->trans("Layout").':</b> '.$conf->browser->layout;
+	$dropdownBody .= '<br><b>'.$langs->trans("Browser").':</b> '.$config->browser->name.($config->browser->version ? ' '.$config->browser->version : '').' <small class="opacitymedium">('.dol_escape_htmltag($_SERVER['HTTP_USER_AGENT']).')</small>';
+	$dropdownBody .= '<br><b>'.$langs->trans("Layout").':</b> '.$config->browser->layout;
 	$dropdownBody .= '<br><b>'.$langs->trans("Screen").':</b> '.$_SESSION['dol_screenwidth'].' x '.$_SESSION['dol_screenheight'];
-	if ($conf->browser->layout == 'phone') {
+	if ($config->browser->layout == 'phone') {
 		$dropdownBody .= '<br><b>'.$langs->trans("Phone").':</b> '.$langs->trans("Yes");
 	}
 	if (!empty($_SESSION["disablemodules"])) {
@@ -2713,9 +2713,9 @@ function top_menu_user($hideloginname = 0, $urllogout = '')
 	// accesskey is for Windows or Linux:  ALT + key for chrome, ALT + SHIFT + KEY for firefox
 	// accesskey is for Mac:               CTRL + key for all browsers
 	$stringforfirstkey = $langs->trans("KeyboardShortcut");
-	if ($conf->browser->name == 'chrome') {
+	if ($config->browser->name == 'chrome') {
 		$stringforfirstkey .= ' ALT +';
-	} elseif ($conf->browser->name == 'firefox') {
+	} elseif ($config->browser->name == 'firefox') {
 		$stringforfirstkey .= ' ALT + SHIFT +';
 	} else {
 		$stringforfirstkey .= ' CTL +';
@@ -2804,7 +2804,7 @@ function top_menu_user($hideloginname = 0, $urllogout = '')
 		</div>';
 	}
 
-	if (!defined('JS_JQUERY_DISABLE_DROPDOWN') && !empty($conf->use_javascript_ajax)) {    // This may be set by some pages that use different jquery version to avoid errors
+	if (!defined('JS_JQUERY_DISABLE_DROPDOWN') && !empty($config->use_javascript_ajax)) {    // This may be set by some pages that use different jquery version to avoid errors
 		$btnUser .= '
         <!-- Code to show/hide the user drop-down -->
         <script>
@@ -2823,7 +2823,7 @@ function top_menu_user($hideloginname = 0, $urllogout = '')
 		';
 
 
-		//if ($conf->theme != 'md') {
+		//if ($config->theme != 'md') {
 		$btnUser .= '
 	            jQuery("#topmenu-login-dropdown .dropdown-toggle").on("click", function(event) {
 					console.log("Click on #topmenu-login-dropdown .dropdown-toggle");
@@ -2871,19 +2871,19 @@ function top_menu_quickadd()
 	// accesskey is for Windows or Linux:  ALT + key for chrome, ALT + SHIFT + KEY for firefox
 	// accesskey is for Mac:               CTRL + key for all browsers
 	$stringforfirstkey = $langs->trans("KeyboardShortcut");
-	if ($conf->browser->os === 'macintosh') {
+	if ($config->browser->os === 'macintosh') {
 		$stringforfirstkey .= ' CTL +';
 	} else {
-		if ($conf->browser->name == 'chrome') {
+		if ($config->browser->name == 'chrome') {
 			$stringforfirstkey .= ' ALT +';
-		} elseif ($conf->browser->name == 'firefox') {
+		} elseif ($config->browser->name == 'firefox') {
 			$stringforfirstkey .= ' ALT + SHIFT +';
 		} else {
 			$stringforfirstkey .= ' CTL +';
 		}
 	}
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		$html .= '<!-- div for quick add link -->
     <div id="topmenu-quickadd-dropdown" class="atoplogin dropdown inline-block">
         <a accesskey="a" class="dropdown-toggle login-dropdown-a nofocusvisible" data-toggle="dropdown" href="#" title="'.$langs->trans('QuickAdd').' ('.$stringforfirstkey.' a)"><i class="fa fa-plus-circle"></i></a>
@@ -2908,7 +2908,7 @@ function top_menu_quickadd()
 
             // Key map shortcut
             $(document).keydown(function(event){
-				var ostype = \''.dol_escape_js($conf->browser->os).'\';
+				var ostype = \''.dol_escape_js($config->browser->os).'\';
 				if (ostype === "macintosh") {
 					if ( event.which === 65 && event.ctrlKey ) {
 						console.log(\'control + a : trigger open quick add dropdown\');
@@ -2957,12 +2957,12 @@ function top_menu_importfile()
 	// accesskey is for Windows or Linux:  ALT + key for chrome, ALT + SHIFT + KEY for firefox
 	// accesskey is for Mac:               CTRL + key for all browsers
 	$stringforfirstkey = $langs->trans("KeyboardShortcut");
-	if ($conf->browser->os === 'macintosh') {
+	if ($config->browser->os === 'macintosh') {
 		$stringforfirstkey .= ' CTL +';
 	} else {
-		if ($conf->browser->name == 'chrome') {
+		if ($config->browser->name == 'chrome') {
 			$stringforfirstkey .= ' ALT +';
-		} elseif ($conf->browser->name == 'firefox') {
+		} elseif ($config->browser->name == 'firefox') {
 			$stringforfirstkey .= ' ALT + SHIFT +';
 		} else {
 			$stringforfirstkey .= ' CTL +';
@@ -2970,7 +2970,7 @@ function top_menu_importfile()
 	}
 
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		$urlforuploadpage = DOL_URL_ROOT.'/core/upload_page.php';
 		if (!is_numeric(getDolGlobalString('MAIN_USE_TOP_MENU_IMPORT_FILE'))) {
 			$urlforuploadpage = getDolGlobalString('MAIN_USE_TOP_MENU_IMPORT_FILE');
@@ -3186,7 +3186,7 @@ function top_menu_bookmark()
 		return '';
 	}
 	/*
-	if ($conf->browser->name == 'textbrowser') {
+	if ($config->browser->name == 'textbrowser') {
 		return $html;
 	}
 	*/
@@ -3194,19 +3194,19 @@ function top_menu_bookmark()
 	// accesskey is for Windows or Linux:  ALT + key for chrome, ALT + SHIFT + KEY for firefox
 	// accesskey is for Mac:               CTRL + key for all browsers
 	$stringforfirstkey = $langs->trans("KeyboardShortcut");
-	if ($conf->browser->os === 'macintosh') {
+	if ($config->browser->os === 'macintosh') {
 		$stringforfirstkey .= ' CTL +';
 	} else {
-		if ($conf->browser->name == 'chrome') {
+		if ($config->browser->name == 'chrome') {
 			$stringforfirstkey .= ' ALT +';
-		} elseif ($conf->browser->name == 'firefox') {
+		} elseif ($config->browser->name == 'firefox') {
 			$stringforfirstkey .= ' ALT + SHIFT +';
 		} else {
 			$stringforfirstkey .= ' CTL +';
 		}
 	}
 
-	if (!defined('JS_JQUERY_DISABLE_DROPDOWN') && !empty($conf->use_javascript_ajax)) {	    // This may be set by some pages that use different jquery version to avoid errors
+	if (!defined('JS_JQUERY_DISABLE_DROPDOWN') && !empty($config->use_javascript_ajax)) {	    // This may be set by some pages that use different jquery version to avoid errors
 		include_once DOL_DOCUMENT_ROOT.'/bookmarks/bookmarks.lib.php';
 		$langs->load("bookmarks");
 
@@ -3242,7 +3242,7 @@ function top_menu_bookmark()
 
 	            // Key map shortcut
 	            jQuery(document).keydown(function(event) {
-					var ostype = \''.dol_escape_js($conf->browser->os).'\';
+					var ostype = \''.dol_escape_js($config->browser->os).'\';
 					if (ostype === "macintosh") {
 						if ( event.which === 66 && event.ctrlKey ) {
 							console.log("Click on control + b : trigger open bookmark dropdown");
@@ -3288,9 +3288,9 @@ function top_menu_search()
 	// accesskey is for Windows or Linux:  ALT + key for chrome, ALT + SHIFT + KEY for firefox
 	// accesskey is for Mac:               CTRL + key for all browsers
 	$stringforfirstkey = $langs->trans("KeyboardShortcut");
-	if ($conf->browser->name == 'chrome') {
+	if ($config->browser->name == 'chrome') {
 		$stringforfirstkey .= ' ALT +';
-	} elseif ($conf->browser->name == 'firefox') {
+	} elseif ($config->browser->name == 'firefox') {
 		$stringforfirstkey .= ' ALT + SHIFT +';
 	} else {
 		$stringforfirstkey .= ' CTL +';
@@ -3333,9 +3333,9 @@ function top_menu_search()
 	// accesskey is for Windows or Linux:  ALT + key for chrome, ALT + SHIFT + KEY for firefox
 	// accesskey is for Mac:               CTRL + key for all browsers
 	$stringforfirstkey = $langs->trans("KeyboardShortcut");
-	if ($conf->browser->name == 'chrome') {
+	if ($config->browser->name == 'chrome') {
 		$stringforfirstkey .= ' ALT +';
-	} elseif ($conf->browser->name == 'firefox') {
+	} elseif ($config->browser->name == 'firefox') {
 		$stringforfirstkey .= ' ALT + SHIFT +';
 	} else {
 		$stringforfirstkey .= ' CTL +';
@@ -3463,7 +3463,7 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
 		dol_syslog("Deprecated parameter menu_array_before was used when calling main::left_menu function. Menu entries of module should now be defined into module descriptor and not provided when calling left_menu.", LOG_WARNING);
 	}
 
-	if (empty($conf->dol_hide_leftmenu) && (!defined('NOREQUIREMENU') || !constant('NOREQUIREMENU'))) {
+	if (empty($config->dol_hide_leftmenu) && (!defined('NOREQUIREMENU') || !constant('NOREQUIREMENU'))) {
 		// Instantiate hooks for external modules
 		$hookManager->initHooks(array('leftblock'));
 
@@ -3476,21 +3476,21 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
 		$selected = -1;
 		if (!getDolGlobalString('MAIN_USE_TOP_MENU_SEARCH_DROPDOWN')) {
 			// Select with select2 is awful on smartphone. TODO Is this still true with select2 v4 ?
-			if ($conf->browser->layout == 'phone') {
-				$conf->global->MAIN_USE_OLD_SEARCH_FORM = 1;
+			if ($config->browser->layout == 'phone') {
+				$config->global->MAIN_USE_OLD_SEARCH_FORM = 1;
 			}
 
 			$usedbyinclude = 1;
 			$arrayresult = array();
 			include DOL_DOCUMENT_ROOT.'/core/ajax/selectsearchbox.php'; // This make initHooks('searchform') then set $arrayresult
 
-			if ($conf->use_javascript_ajax && !getDolGlobalString('MAIN_USE_OLD_SEARCH_FORM')) {
+			if ($config->use_javascript_ajax && !getDolGlobalString('MAIN_USE_OLD_SEARCH_FORM')) {
 				// accesskey is for Windows or Linux:  ALT + key for chrome, ALT + SHIFT + KEY for firefox
 				// accesskey is for Mac:               CTRL + key for all browsers
 				$stringforfirstkey = $langs->trans("KeyboardShortcut");
-				if ($conf->browser->name == 'chrome') {
+				if ($config->browser->name == 'chrome') {
 					$stringforfirstkey .= ' ALT +';
-				} elseif ($conf->browser->name == 'firefox') {
+				} elseif ($config->browser->name == 'firefox') {
 					$stringforfirstkey .= ' ALT + SHIFT +';
 				} else {
 					$stringforfirstkey .= ' CTL +';
@@ -3518,10 +3518,10 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
 			}
 
 			// Force special value for $searchform for text browsers or very old search form
-			if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') || empty($conf->use_javascript_ajax)) {
+			if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') || empty($config->use_javascript_ajax)) {
 				$urltosearch = DOL_URL_ROOT.'/core/search_page.php?showtitlebefore=1';
 				$searchform = '<div class="blockvmenuimpair blockvmenusearchphone"><div id="divsearchforms1"><a href="'.$urltosearch.'" accesskey="s" alt="'.dol_escape_htmltag($langs->trans("ShowSearchFields")).'">'.$langs->trans("Search").'...</a></div></div>';
-			} elseif ($conf->use_javascript_ajax && getDolGlobalString('MAIN_USE_OLD_SEARCH_FORM')) {
+			} elseif ($config->use_javascript_ajax && getDolGlobalString('MAIN_USE_OLD_SEARCH_FORM')) {
 				$searchform = '<div class="blockvmenuimpair blockvmenusearchphone"><div id="divsearchforms1"><a href="#" alt="'.dol_escape_htmltag($langs->trans("ShowSearchFields")).'">'.$langs->trans("Search").'...</a></div><div id="divsearchforms2" style="display: none">'.$searchform.'</div>';
 				$searchform .= '<script>
             	jQuery(document).ready(function () {
@@ -3718,7 +3718,7 @@ function main_area($title = '')
 {
 	global $conf, $langs, $hookManager;
 
-	if (empty($conf->dol_hide_leftmenu) && !GETPOST('dol_openinpopup', 'aZ09')) {
+	if (empty($config->dol_hide_leftmenu) && !GETPOST('dol_openinpopup', 'aZ09')) {
 		print '<div id="id-right">';
 	}
 
@@ -3883,7 +3883,7 @@ if (!function_exists("llxFooter")) {
 		global $contextpage, $page, $limit, $mode;
 		global $dolibarr_distrib;
 
-		$ext = 'layout='.urlencode($conf->browser->layout).'&version='.urlencode(DOL_VERSION);
+		$ext = 'layout='.urlencode($config->browser->layout).'&version='.urlencode(DOL_VERSION);
 
 		// Hook to add more things on all pages within fiche DIV
 		$llxfooter = '';
@@ -3941,7 +3941,7 @@ if (!function_exists("llxFooter")) {
 			if (!empty($page) && $page > 0) {
 				$_SESSION['lastsearch_page_tmp_'.$relativepathstring] = $page;
 			}
-			if (!empty($limit) && $limit != $conf->liste_limit) {
+			if (!empty($limit) && $limit != $config->liste_limit) {
 				$_SESSION['lastsearch_limit_tmp_'.$relativepathstring] = $limit;
 			}
 			if (!empty($mode)) {
@@ -3957,7 +3957,7 @@ if (!function_exists("llxFooter")) {
 		// Core error message
 		if (getDolGlobalString('MAIN_CORE_ERROR')) {
 			// Ajax version
-			if ($conf->use_javascript_ajax) {
+			if ($config->use_javascript_ajax) {
 				$title = img_warning().' '.$langs->trans('CoreErrorTitle');
 				print ajax_dialog($title, $langs->trans('CoreErrorMessage'));
 			} else {
@@ -3973,11 +3973,11 @@ if (!function_exists("llxFooter")) {
 
 		print '</div> <!-- End div class="fiche" -->'."\n"; // End div fiche
 
-		if (empty($conf->dol_hide_leftmenu) && !GETPOST('dol_openinpopup', 'aZ09')) {
+		if (empty($config->dol_hide_leftmenu) && !GETPOST('dol_openinpopup', 'aZ09')) {
 			print '</div> <!-- End div id-right -->'."\n"; // End div id-right
 		}
 
-		if (empty($conf->dol_hide_leftmenu) && empty($conf->dol_use_jmobile)) {
+		if (empty($config->dol_hide_leftmenu) && empty($config->dol_use_jmobile)) {
 			print '</div> <!-- End div id-container -->'."\n"; // End div container
 		}
 
@@ -3992,7 +3992,7 @@ if (!function_exists("llxFooter")) {
 			print $delayedhtmlcontent;
 		}
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print "\n".'<!-- Includes JS Footer of Dolibarr -->'."\n";
 			print '<script src="'.DOL_URL_ROOT.'/core/js/lib_foot.js.php?lang='.$langs->defaultlang.($ext ? '&'.$ext : '').'"></script>'."\n";
 		}
@@ -4040,11 +4040,11 @@ if (!function_exists("llxFooter")) {
 		// You can use &forceping=1 in parameters to force the ping if the ping was already sent.
 		$forceping = GETPOST('forceping', 'alpha');
 		if (($_SERVER["PHP_SELF"] == DOL_URL_ROOT.'/index.php') || $forceping) {
-			//print '<!-- instance_unique_id='.$conf->file->instance_unique_id.' MAIN_FIRST_PING_OK_ID='.$conf->global->MAIN_FIRST_PING_OK_ID.' -->';
-			$hash_unique_id = dol_hash('dolibarr'.$conf->file->instance_unique_id, 'sha256');	// Note: if the global salt changes, this hash changes too so ping may be counted twice. We don't mind. It is for statistics purpose only.
+			//print '<!-- instance_unique_id='.$config->file->instance_unique_id.' MAIN_FIRST_PING_OK_ID='.$config->global->MAIN_FIRST_PING_OK_ID.' -->';
+			$hash_unique_id = dol_hash('dolibarr'.$config->file->instance_unique_id, 'sha256');	// Note: if the global salt changes, this hash changes too so ping may be counted twice. We don't mind. It is for statistics purpose only.
 
 			if (!getDolGlobalString('MAIN_FIRST_PING_OK_DATE')
-				|| (!empty($conf->file->instance_unique_id) && ($hash_unique_id != $conf->global->MAIN_FIRST_PING_OK_ID) && (getDolGlobalString('MAIN_FIRST_PING_OK_ID') != 'disabled'))
+				|| (!empty($config->file->instance_unique_id) && ($hash_unique_id != $config->global->MAIN_FIRST_PING_OK_ID) && (getDolGlobalString('MAIN_FIRST_PING_OK_ID') != 'disabled'))
 			|| $forceping) {
 				// No ping done if we are into an alpha version
 				if (strpos('alpha', DOL_VERSION) > 0 && !$forceping) {
@@ -4052,7 +4052,7 @@ if (!function_exists("llxFooter")) {
 				} elseif (empty($_COOKIE['DOLINSTALLNOPING_'.$hash_unique_id]) || $forceping) {	// Cookie is set when we uncheck the checkbox in the installation wizard.
 					// MAIN_LAST_PING_KO_DATE
 					// Disable ping if MAIN_LAST_PING_KO_DATE is set and is recent (this month)
-					if (getDolGlobalString('MAIN_LAST_PING_KO_DATE') && substr($conf->global->MAIN_LAST_PING_KO_DATE, 0, 6) == dol_print_date(dol_now(), '%Y%m') && !$forceping) {
+					if (getDolGlobalString('MAIN_LAST_PING_KO_DATE') && substr($config->global->MAIN_LAST_PING_KO_DATE, 0, 6) == dol_print_date(dol_now(), '%Y%m') && !$forceping) {
 						print "\n<!-- NO JS CODE TO ENABLE the anonymous Ping. An error already occurred this month, we will try later. -->\n";
 					} else {
 						include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
@@ -4082,7 +4082,7 @@ if (!function_exists("llxFooter")) {
 										  hash_unique_id: '<?php echo dol_escape_js($hash_unique_id); ?>',
 										  action: 'dolibarrping',
 										  version: '<?php echo (float) DOL_VERSION; ?>',
-										  entity: '<?php echo (int) $conf->entity; ?>',
+										  entity: '<?php echo (int) $config->entity; ?>',
 										  dbtype: '<?php echo dol_escape_js($db->type); ?>',
 										  country_code: '<?php echo $mysoc->country_code ? dol_escape_js($mysoc->country_code) : 'unknown'; ?>',
 										  php_version: '<?php echo dol_escape_js(phpversion()); ?>',
@@ -4120,8 +4120,8 @@ if (!function_exists("llxFooter")) {
 					$now = dol_now();
 					print "\n<!-- NO JS CODE TO ENABLE the anonymous Ping. It was disabled -->\n";
 					include_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-					dolibarr_set_const($db, 'MAIN_FIRST_PING_OK_DATE', dol_print_date($now, 'dayhourlog', 'gmt'), 'chaine', 0, '', $conf->entity);
-					dolibarr_set_const($db, 'MAIN_FIRST_PING_OK_ID', 'disabled', 'chaine', 0, '', $conf->entity);
+					dolibarr_set_const($db, 'MAIN_FIRST_PING_OK_DATE', dol_print_date($now, 'dayhourlog', 'gmt'), 'chaine', 0, '', $config->entity);
+					dolibarr_set_const($db, 'MAIN_FIRST_PING_OK_ID', 'disabled', 'chaine', 0, '', $config->entity);
 				}
 			}
 		}

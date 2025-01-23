@@ -419,7 +419,7 @@ class FactureFournisseur extends CommonInvoice
 			$this->fk_multicurrency = MultiCurrency::getIdFromCode($this->db, $this->multicurrency_code);
 		}
 		if (empty($this->fk_multicurrency)) {
-			$this->multicurrency_code = $conf->currency;
+			$this->multicurrency_code = $config->currency;
 			$this->fk_multicurrency = 0;
 			$this->multicurrency_tx = 1;
 		}
@@ -1527,11 +1527,11 @@ class FactureFournisseur extends CommonInvoice
 			$this->deleteEcmFiles(1); // Deleting files physically is done later with the dol_delete_dir_recursive
 
 			// We remove directory
-			if ($conf->fournisseur->facture->dir_output) {
+			if ($config->fournisseur->facture->dir_output) {
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 				$ref = dol_sanitizeFileName($this->ref);
-				$dir = $conf->fournisseur->facture->dir_output.'/'.get_exdir($this->id, 2, 0, 0, $this, 'invoice_supplier').$ref;
+				$dir = $config->fournisseur->facture->dir_output.'/'.get_exdir($this->id, 2, 0, 0, $this, 'invoice_supplier').$ref;
 				$file = $dir."/".$ref.".pdf";
 				if (file_exists($file)) {
 					if (!dol_delete_file($file, 0, 0, 0, $this)) { // For triggers
@@ -1926,14 +1926,14 @@ class FactureFournisseur extends CommonInvoice
 				if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 					// Now we rename also files into index
 					$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'fournisseur/facture/".get_exdir($this->id, 2, 0, 0, $this, 'invoice_supplier').$this->db->escape($this->newref)."'";
-					$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'fournisseur/facture/".get_exdir($this->id, 2, 0, 0, $this, 'invoice_supplier').$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+					$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'fournisseur/facture/".get_exdir($this->id, 2, 0, 0, $this, 'invoice_supplier').$this->db->escape($this->ref)."' and entity = ".$config->entity;
 					$resql = $this->db->query($sql);
 					if (!$resql) {
 						$error++;
 						$this->error = $this->db->lasterror();
 					}
 					$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'fournisseur/facture/".get_exdir($this->id, 2, 0, 0, $this, 'invoice_supplier').$this->db->escape($this->newref)."'";
-					$sql .= " WHERE filepath = 'fournisseur/facture/".get_exdir($this->id, 2, 0, 0, $this, 'invoice_supplier').$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+					$sql .= " WHERE filepath = 'fournisseur/facture/".get_exdir($this->id, 2, 0, 0, $this, 'invoice_supplier').$this->db->escape($this->ref)."' and entity = ".$config->entity;
 					$resql = $this->db->query($sql);
 					if (!$resql) {
 						$error++;
@@ -1942,15 +1942,15 @@ class FactureFournisseur extends CommonInvoice
 
 					// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 					$oldref = dol_sanitizeFileName($this->ref);
-					$dirsource = $conf->fournisseur->facture->dir_output.'/'.get_exdir($this->id, 2, 0, 0, $this, 'invoice_supplier').$oldref;
-					$dirdest = $conf->fournisseur->facture->dir_output.'/'.get_exdir($this->id, 2, 0, 0, $this, 'invoice_supplier').$this->newref;
+					$dirsource = $config->fournisseur->facture->dir_output.'/'.get_exdir($this->id, 2, 0, 0, $this, 'invoice_supplier').$oldref;
+					$dirdest = $config->fournisseur->facture->dir_output.'/'.get_exdir($this->id, 2, 0, 0, $this, 'invoice_supplier').$this->newref;
 					if (!$error && file_exists($dirsource)) {
 						dol_syslog(get_class($this)."::validate rename dir ".$dirsource." into ".$dirdest);
 
 						if (@rename($dirsource, $dirdest)) {
 							dol_syslog("Rename ok");
 							// Rename docs starting with $oldref with $this->newref
-							$listoffiles = dol_dir_list($conf->fournisseur->facture->dir_output.'/'.get_exdir($this->id, 2, 0, 0, $this, 'invoice_supplier').$this->newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+							$listoffiles = dol_dir_list($config->fournisseur->facture->dir_output.'/'.get_exdir($this->id, 2, 0, 0, $this, 'invoice_supplier').$this->newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 							foreach ($listoffiles as $fileentry) {
 								$dirsource = $fileentry['name'];
 								$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $this->newref, $dirsource);
@@ -2620,7 +2620,7 @@ class FactureFournisseur extends CommonInvoice
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiementfourn_facturefourn as pf ON f.rowid = pf.fk_facturefourn";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture_fourn as ff ON f.rowid = ff.fk_facture_source";
 		$sql .= " WHERE (f.fk_statut = ".self::STATUS_VALIDATED." OR (f.fk_statut = ".self::STATUS_ABANDONED." AND f.close_code = '".self::CLOSECODE_ABANDONED."'))";
-		$sql .= " AND f.entity = ".$conf->entity;
+		$sql .= " AND f.entity = ".$config->entity;
 		$sql .= " AND f.paye = 0"; // Pas classee payee completement
 		$sql .= " AND pf.fk_paiementfourn IS NULL"; // Aucun paiement deja fait
 		$sql .= " AND ff.fk_statut IS NULL"; // Renvoi vrai si pas facture de replacement
@@ -2667,7 +2667,7 @@ class FactureFournisseur extends CommonInvoice
 		$sql = "SELECT f.rowid as rowid, f.ref, f.fk_statut, f.type, f.subtype, f.paye, pf.fk_paiementfourn";
 		$sql .= " FROM ".MAIN_DB_PREFIX."facture_fourn as f";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiementfourn_facturefourn as pf ON f.rowid = pf.fk_facturefourn";
-		$sql .= " WHERE f.entity = ".$conf->entity;
+		$sql .= " WHERE f.entity = ".$config->entity;
 		$sql .= " AND f.fk_statut in (".self::STATUS_VALIDATED.",".self::STATUS_CLOSED.")";
 		$sql .= " AND NOT EXISTS (SELECT rowid from ".MAIN_DB_PREFIX."facture_fourn as ff WHERE f.rowid = ff.fk_facture_source";
 		$sql .= " AND ff.type=".self::TYPE_REPLACEMENT.")";
@@ -2720,7 +2720,7 @@ class FactureFournisseur extends CommonInvoice
 		}
 		$sql .= ' WHERE ff.paye = 0';
 		$sql .= " AND ff.fk_statut IN (".self::STATUS_VALIDATED.")";
-		$sql .= " AND ff.entity = ".$conf->entity;
+		$sql .= " AND ff.entity = ".$config->entity;
 		if ($user->socid) {
 			$sql .= ' AND ff.fk_soc = '.((int) $user->socid);
 		}
@@ -2731,7 +2731,7 @@ class FactureFournisseur extends CommonInvoice
 			$now = dol_now();
 
 			$response = new WorkboardResponse();
-			$response->warning_delay = $conf->facture->fournisseur->warning_delay / 60 / 60 / 24;
+			$response->warning_delay = $config->facture->fournisseur->warning_delay / 60 / 60 / 24;
 			$response->label = $langs->trans("SupplierBillsToPay");
 			$response->labelShort = $langs->trans("StatusToPay");
 
@@ -2825,23 +2825,23 @@ class FactureFournisseur extends CommonInvoice
 			$datas['date_echeance'] = '<br><b>'.$langs->trans('DateDue').':</b> '.dol_print_date($this->date_echeance, 'day');
 		}
 		if (!empty($this->total_ht)) {
-			$datas['amountht'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $conf->currency);
+			$datas['amountht'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $config->currency);
 		}
 		if (!empty($this->total_tva)) {
-			$datas['totaltva'] = '<br><b>'.$langs->trans('AmountVAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $conf->currency);
+			$datas['totaltva'] = '<br><b>'.$langs->trans('AmountVAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $config->currency);
 		}
 		if (!empty($this->total_localtax1) && $this->total_localtax1 != 0) {
 			// We keep test != 0 because $this->total_localtax1 can be '0.00000000'
-			$datas['amountlt1'] = '<br><b>'.$langs->transcountry('AmountLT1', $mysoc->country_code).':</b> '.price($this->total_localtax1, 0, $langs, 0, -1, -1, $conf->currency);
+			$datas['amountlt1'] = '<br><b>'.$langs->transcountry('AmountLT1', $mysoc->country_code).':</b> '.price($this->total_localtax1, 0, $langs, 0, -1, -1, $config->currency);
 		}
 		if (!empty($this->total_localtax2) && $this->total_localtax2 != 0) {
-			$datas['amountlt2'] = '<br><b>'.$langs->transcountry('AmountLT2', $mysoc->country_code).':</b> '.price($this->total_localtax2, 0, $langs, 0, -1, -1, $conf->currency);
+			$datas['amountlt2'] = '<br><b>'.$langs->transcountry('AmountLT2', $mysoc->country_code).':</b> '.price($this->total_localtax2, 0, $langs, 0, -1, -1, $config->currency);
 		}
 		if (!empty($this->revenuestamp)) {
-			$datas['amountrevenustamp'] = '<br><b>'.$langs->trans('RevenueStamp').':</b> '.price($this->revenuestamp, 0, $langs, 0, -1, -1, $conf->currency);
+			$datas['amountrevenustamp'] = '<br><b>'.$langs->trans('RevenueStamp').':</b> '.price($this->revenuestamp, 0, $langs, 0, -1, -1, $config->currency);
 		}
 		if (!empty($this->total_ttc)) {
-			$datas['totalttc'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $conf->currency);
+			$datas['totalttc'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $config->currency);
 		}
 		return $datas;
 	}
@@ -2981,7 +2981,7 @@ class FactureFournisseur extends CommonInvoice
 
 		// Clean parameters (if not defined or using deprecated value)
 		if (!getDolGlobalString('INVOICE_SUPPLIER_ADDON_NUMBER')) {
-			$conf->global->INVOICE_SUPPLIER_ADDON_NUMBER = 'mod_facture_fournisseur_cactus';
+			$config->global->INVOICE_SUPPLIER_ADDON_NUMBER = 'mod_facture_fournisseur_cactus';
 		}
 
 		$mybool = false;
@@ -2990,7 +2990,7 @@ class FactureFournisseur extends CommonInvoice
 		$classname = getDolGlobalString('INVOICE_SUPPLIER_ADDON_NUMBER');
 
 		// Include file with class
-		$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+		$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 		foreach ($dirmodels as $reldir) {
 			$dir = dol_buildpath($reldir."core/modules/supplier_invoice/");
@@ -3068,7 +3068,7 @@ class FactureFournisseur extends CommonInvoice
 		$this->note_private = 'This is a comment (private)';
 
 		$this->multicurrency_tx = 1;
-		$this->multicurrency_code = $conf->currency;
+		$this->multicurrency_code = $config->currency;
 
 		$xnbp = 0;
 		if (empty($option) || $option != 'nolines') {
@@ -3140,7 +3140,7 @@ class FactureFournisseur extends CommonInvoice
 			$sql .= " WHERE sc.fk_user = ".((int) $user->id);
 			$clause = "AND";
 		}
-		$sql .= " ".$clause." f.entity = ".((int) $conf->entity);
+		$sql .= " ".$clause." f.entity = ".((int) $config->entity);
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -3333,7 +3333,7 @@ class FactureFournisseur extends CommonInvoice
 
 		$status = isset($this->status) ? $this->status : $this->statut;
 
-		return ($status == self::STATUS_VALIDATED) && ($this->date_echeance < ($now - $conf->facture->fournisseur->warning_delay));
+		return ($status == self::STATUS_VALIDATED) && ($this->date_echeance < ($now - $config->facture->fournisseur->warning_delay));
 	}
 
 	/**
@@ -3464,7 +3464,7 @@ class FactureFournisseur extends CommonInvoice
 
 		$langs->load('bills');
 
-		if (!isModEnabled(empty($conf->global->MAIN_USE_NEW_SUPPLIERMOD) ? 'fournisseur' : 'supplier_invoice')) {	// Should not happen. If module disabled, cron job should not be visible.
+		if (!isModEnabled(empty($config->global->MAIN_USE_NEW_SUPPLIERMOD) ? 'fournisseur' : 'supplier_invoice')) {	// Should not happen. If module disabled, cron job should not be visible.
 			$this->output .= $langs->trans('ModuleNotEnabled', $langs->transnoentitiesnoconv('Suppliers'));
 			return 0;
 		}
@@ -3621,7 +3621,7 @@ class FactureFournisseur extends CommonInvoice
 							}
 
 							// Errors Recipient
-							$errors_to = $conf->global->MAIN_MAIL_ERRORS_TO;
+							$errors_to = $config->global->MAIN_MAIL_ERRORS_TO;
 
 							$trackid = 'inv'.$tmpinvoice->id;
 							$sendcontext = 'standard';

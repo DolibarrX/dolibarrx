@@ -65,9 +65,9 @@ if ($user->socid > 0) {
 
 // Maximum elements of the tables
 $max = getDolGlobalInt('MAIN_SIZE_SHORTLIST_LIMIT', 5);
-$maxDraftCount = !getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD;
+$maxDraftCount = !getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD;
 $maxLatestEditCount = 5;
-$maxOpenCount = !getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD;
+$maxOpenCount = !getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD;
 
 
 /*
@@ -220,7 +220,7 @@ if ($resql) {
 
 			print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 			$filename = dol_sanitizeFileName($obj->ref);
-			$filedir = $conf->commande->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
+			$filedir = $config->commande->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 			print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
 			print '</td></tr></table>';
@@ -307,7 +307,7 @@ if (isModEnabled('order')) {
 
 				print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->commande->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->commande->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 				print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
 				print '</td></tr></table>';
@@ -396,7 +396,7 @@ if (isModEnabled('order')) {
 
 				print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->commande->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->commande->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 				print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
 				print '</td></tr></table>';

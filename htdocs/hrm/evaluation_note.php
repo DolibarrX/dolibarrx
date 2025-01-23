@@ -56,7 +56,7 @@ $backtopage = GETPOST('backtopage', 'alpha');
 // Initialize a technical objects
 $object = new Evaluation($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->hrm->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->hrm->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('evaluationnote', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -65,7 +65,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->hrm->multidir_output[!empty($object->entity) ? $object->entity : $conf->entity]."/".$object->id;
+	$upload_dir = $config->hrm->multidir_output[!empty($object->entity) ? $object->entity : $config->entity]."/".$object->id;
 }
 
 // Permissions
@@ -77,7 +77,7 @@ $permissiontoread = $user->hasRight('hrm', 'evaluation', 'read');  // Used by th
 //if ($user->socid > 0) $socid = $user->socid;
 //$isdraft = (($object->status == $object::STATUS_DRAFT) ? 1 : 0);
 //restrictedArea($user, $object->element, $object->id, $object->table_element, '', 'fk_soc', 'rowid', $isdraft);
-//if (empty($conf->hrm->enabled)) accessforbidden();
+//if (empty($config->hrm->enabled)) accessforbidden();
 //if (!$permissiontoread) accessforbidden();
 
 

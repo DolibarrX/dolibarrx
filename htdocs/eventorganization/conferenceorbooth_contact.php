@@ -70,7 +70,7 @@ $withproject = GETPOSTINT('withproject');
 $object = new ConferenceOrBooth($db);
 $extrafields = new ExtraFields($db);
 $projectstatic = new Project($db);
-$diroutputmassaction = $conf->eventorganization->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->eventorganization->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('conferenceorboothcontact', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -94,7 +94,7 @@ $permissiontoadd = $user->hasRight('eventorganization', 'write'); // Used by the
 $permissiontodelete = $user->hasRight('eventorganization', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 $permissionnote = $user->hasRight('eventorganization', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('eventorganization', 'write'); // Used by the include of actions_dellink.inc.php
-$upload_dir = $conf->eventorganization->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->eventorganization->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 // Security check
 if ($user->socid > 0) {
@@ -273,7 +273,7 @@ if (!empty($withproject)) {
 	// Budget
 	print '<tr><td>'.$langs->trans("Budget").'</td><td>';
 	if (strcmp($projectstatic->budget_amount, '')) {
-		print price($projectstatic->budget_amount, 0, $langs, 1, 0, 0, $conf->currency);
+		print price($projectstatic->budget_amount, 0, $langs, 1, 0, 0, $config->currency);
 	}
 	print '</td></tr>';
 
@@ -339,7 +339,7 @@ if (!empty($withproject)) {
 	$urlwithroot = $urlwithouturlroot.DOL_URL_ROOT;
 
 	// Show message
-	$message = '<a target="_blank" rel="noopener noreferrer" href="'.$urlwithroot.'/public/agenda/agendaexport.php?format=ical'.($conf->entity > 1 ? "&entity=".$conf->entity : "");
+	$message = '<a target="_blank" rel="noopener noreferrer" href="'.$urlwithroot.'/public/agenda/agendaexport.php?format=ical'.($config->entity > 1 ? "&entity=".$config->entity : "");
 	$message .= '&exportkey='.urlencode(getDolGlobalString('MAIN_AGENDA_XCAL_EXPORTKEY', '...'));
 	$message .= "&project=".$projectstatic->id.'&module='.urlencode('@eventorganization').'&status='.ConferenceOrBooth::STATUS_CONFIRMED.'">'.$langs->trans('DownloadICSLink').img_picto('', 'download', 'class="paddingleft"').'</a>';
 	print $message;
@@ -448,7 +448,7 @@ if ($object->id) {
 	print '<br>';
 
 	// Contacts lines (modules that overwrite templates must declare this into descriptor)
-	$dirtpls = array_merge($conf->modules_parts['tpl'], array('/core/tpl'));
+	$dirtpls = array_merge($config->modules_parts['tpl'], array('/core/tpl'));
 	foreach ($dirtpls as $reldir) {
 		$res = @include dol_buildpath($reldir.'/contacts.tpl.php');
 		if ($res) {

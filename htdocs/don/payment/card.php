@@ -133,7 +133,7 @@ print '<tr><td>'.$langs->trans('Mode').'</td><td>'.$langs->trans("PaymentType".$
 print '<tr><td>'.$langs->trans('Numero').'</td><td>'.dol_escape_htmltag($object->num_payment).'</td></tr>';
 
 // Amount
-print '<tr><td>'.$langs->trans('Amount').'</td><td>'.price($object->amount, 0, $outputlangs, 1, -1, -1, $conf->currency).'</td></tr>';
+print '<tr><td>'.$langs->trans('Amount').'</td><td>'.price($object->amount, 0, $outputlangs, 1, -1, -1, $config->currency).'</td></tr>';
 
 // Note public
 print '<tr><td>'.$langs->trans('Note').'</td><td class="valeur sensiblehtmlcontent">'.dol_string_onlythesehtmltags(dol_htmlcleanlastbr($object->note_public)).'</td></tr>';
@@ -164,7 +164,7 @@ $disable_delete = 0;
 $sql = 'SELECT d.rowid as did, d.paid, d.amount as d_amount, pd.amount';
 $sql .= ' FROM '.MAIN_DB_PREFIX.'payment_donation as pd,'.MAIN_DB_PREFIX.'don as d';
 $sql .= ' WHERE pd.fk_donation = d.rowid';
-$sql .= ' AND d.entity = '.$conf->entity;
+$sql .= ' AND d.entity = '.$config->entity;
 $sql .= ' AND pd.rowid = '.((int) $id);
 
 dol_syslog("don/payment/card.php", LOG_DEBUG);

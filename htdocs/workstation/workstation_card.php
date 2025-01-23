@@ -69,7 +69,7 @@ $resources	= GETPOST('resources', 'array:int');
 $object = new Workstation($db);
 
 //$extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->workstation->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->workstation->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($object->element.'card', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -324,7 +324,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	$formconfirm = '';
 
 	// Confirmation to delete (using preloaded confirm popup)
-	if ($action == 'delete' || ($conf->use_javascript_ajax && empty($conf->dol_use_jmobile))) {
+	if ($action == 'delete' || ($config->use_javascript_ajax && empty($config->dol_use_jmobile))) {
 		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id, $langs->trans('DeleteWorkstation'), $langs->trans('ConfirmDeleteObject'), 'confirm_delete', '', 0, 'action-delete');
 	}
 	// Clone confirmation
@@ -487,7 +487,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			// Delete (with preloaded confirm popup)
 			$deleteUrl = $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken();
 			$buttonId = 'action-delete-no-ajax';
-			if ($conf->use_javascript_ajax && empty($conf->dol_use_jmobile)) {	// We can use preloaded confirm if not jmobile
+			if ($config->use_javascript_ajax && empty($config->dol_use_jmobile)) {	// We can use preloaded confirm if not jmobile
 				$deleteUrl = '';
 				$buttonId = 'action-delete';
 			}

@@ -62,7 +62,7 @@ $search_import_key = GETPOSTINT('search_import_key');
 $show_files = GETPOSTINT('show_files');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -77,7 +77,7 @@ $pagenext = $page + 1;
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
 $object = new Productlot($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->productbatch->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->productbatch->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('product_lotlist'));
 
 // Fetch optionals attributes and labels
@@ -140,14 +140,14 @@ $usercanread = $user->hasRight('produit', 'lire');
 $usercancreate = $user->hasRight('produit', 'creer');
 $usercandelete = $user->hasRight('produit', 'supprimer');
 
-$upload_dir = $conf->productbatch->multidir_output[$conf->entity];
+$upload_dir = $config->productbatch->multidir_output[$config->entity];
 
 $permissiontoread = $usercanread;
 $permissiontoadd = $usercancreate;
 //$permissiontodelete = $usercandelete;
 
 // Security check
-if (empty($conf->productbatch->enabled)) {
+if (empty($config->productbatch->enabled)) {
 	accessforbidden('Module not enabled');
 }
 $socid = 0;
@@ -203,7 +203,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'ProductLot';
 	$objectlabel = 'LotSerial';
-	$uploaddir = $conf->productbatch->dir_output;
+	$uploaddir = $config->productbatch->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -386,7 +386,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 foreach ($search as $key => $val) {

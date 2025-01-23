@@ -122,7 +122,7 @@ if ($dolibarr_main_db_character_set != 'utf8mb4') {
 	print '<img src="../theme/eldy/img/warning.png" class="pictofortooltip valignmiddle" title="If you switch to utf8mb4, you must also check the value for $dolibarr_main_db_character_set and $dolibarr_main_db_collation into conf/conf.php file.">';
 }
 print "<br>\n";
-print "Option force_collation_from_conf_on_tables (force ".$conf->db->character_set."/".$conf->db->dolibarr_main_db_collation." + row=dynamic), for mysql/mariadb only is ".(GETPOST('force_collation_from_conf_on_tables', 'alpha') ? GETPOST('force_collation_from_conf_on_tables', 'alpha') : 'undefined')."<br>\n";
+print "Option force_collation_from_conf_on_tables (force ".$config->db->character_set."/".$config->db->dolibarr_main_db_collation." + row=dynamic), for mysql/mariadb only is ".(GETPOST('force_collation_from_conf_on_tables', 'alpha') ? GETPOST('force_collation_from_conf_on_tables', 'alpha') : 'undefined')."<br>\n";
 
 // Rebuild sequence
 print 'Option rebuild_sequences, for postgresql only, is '.(GETPOST('rebuild_sequences', 'alpha') ? GETPOST('rebuild_sequences', 'alpha') : 'undefined').'<br>'."\n";
@@ -146,18 +146,18 @@ if (preg_match('/crypted:/i', $dolibarr_main_db_pass) || !empty($dolibarr_main_d
 }
 
 // $conf is already instancied inside inc.php
-$conf->db->type = $dolibarr_main_db_type;
-$conf->db->host = $dolibarr_main_db_host;
-$conf->db->port = $dolibarr_main_db_port;
-$conf->db->name = $dolibarr_main_db_name;
-$conf->db->user = $dolibarr_main_db_user;
-$conf->db->pass = $dolibarr_main_db_pass;
+$config->db->type = $dolibarr_main_db_type;
+$config->db->host = $dolibarr_main_db_host;
+$config->db->port = $dolibarr_main_db_port;
+$config->db->name = $dolibarr_main_db_name;
+$config->db->user = $dolibarr_main_db_user;
+$config->db->pass = $dolibarr_main_db_pass;
 
 // For encryption
-$conf->db->dolibarr_main_db_encryption = isset($dolibarr_main_db_encryption) ? $dolibarr_main_db_encryption : 0;
-$conf->db->dolibarr_main_db_cryptkey = isset($dolibarr_main_db_cryptkey) ? $dolibarr_main_db_cryptkey : '';
+$config->db->dolibarr_main_db_encryption = isset($dolibarr_main_db_encryption) ? $dolibarr_main_db_encryption : 0;
+$config->db->dolibarr_main_db_cryptkey = isset($dolibarr_main_db_cryptkey) ? $dolibarr_main_db_cryptkey : '';
 
-$db = getDoliDBInstance($conf->db->type, $conf->db->host, $conf->db->user, $conf->db->pass, $conf->db->name, (int) $conf->db->port);
+$db = getDoliDBInstance($config->db->type, $config->db->host, $config->db->user, $config->db->pass, $config->db->name, (int) $config->db->port);
 
 if ($db->connected) {
 	print '<tr><td class="nowrap">';
@@ -193,12 +193,12 @@ if ($ok) {
 	//print '<td class="right">'.join('.',$versionarray).'</td></tr>';
 }
 
-$conf->setValues($db);
+$config->setValues($db);
 // Reset forced setup after the setValues
 if (defined('SYSLOG_FILE')) {
-	$conf->global->SYSLOG_FILE = constant('SYSLOG_FILE');
+	$config->global->SYSLOG_FILE = constant('SYSLOG_FILE');
 }
-$conf->global->MAIN_ENABLE_LOG_TO_HTML = 1;
+$config->global->MAIN_ENABLE_LOG_TO_HTML = 1;
 
 
 /* Start action here */
@@ -773,8 +773,8 @@ if ($ok && GETPOST('clean_menus', 'alpha')) {
 						}
 
 						$result = 0;
-						if (!empty($conf->$tmpname)) {
-							$result = $conf->$tmpname->enabled;
+						if (!empty($config->$tmpname)) {
+							$result = $config->$tmpname->enabled;
 						}
 						if ($result) {
 							$moduleok++;
@@ -829,24 +829,24 @@ if ($ok && GETPOST('clean_orphelin_dir', 'alpha')) {
 	$listmodulepart = array('company', 'invoice', 'invoice_supplier', 'propal', 'order', 'order_supplier', 'contract', 'tax');
 	foreach ($listmodulepart as $modulepart) {
 		$filearray = array();
-		$upload_dir = isset($conf->$modulepart->dir_output) ? $conf->$modulepart->dir_output : '';
+		$upload_dir = isset($config->$modulepart->dir_output) ? $config->$modulepart->dir_output : '';
 		if ($modulepart == 'company') {
-			$upload_dir = $conf->societe->dir_output; // TODO change for multicompany sharing
+			$upload_dir = $config->societe->dir_output; // TODO change for multicompany sharing
 		}
 		if ($modulepart == 'invoice') {
-			$upload_dir = $conf->facture->dir_output;
+			$upload_dir = $config->facture->dir_output;
 		}
 		if ($modulepart == 'invoice_supplier') {
-			$upload_dir = $conf->fournisseur->facture->dir_output;
+			$upload_dir = $config->fournisseur->facture->dir_output;
 		}
 		if ($modulepart == 'order') {
-			$upload_dir = $conf->commande->dir_output;
+			$upload_dir = $config->commande->dir_output;
 		}
 		if ($modulepart == 'order_supplier') {
-			$upload_dir = $conf->fournisseur->commande->dir_output;
+			$upload_dir = $config->fournisseur->commande->dir_output;
 		}
 		if ($modulepart == 'contract') {
-			$upload_dir = $conf->contrat->dir_output;
+			$upload_dir = $config->contrat->dir_output;
 		}
 
 		if (empty($upload_dir)) {
@@ -1258,7 +1258,7 @@ if ($ok && GETPOST('clean_perm_table', 'alpha')) {
 	print '<tr><td colspan="2"><br>*** Clean table user_rights from lines of external modules no more enabled</td></tr>';
 
 	$listofmods = '';
-	foreach ($conf->modules as $key => $val) {
+	foreach ($config->modules as $key => $val) {
 		$listofmods .= ($listofmods ? ',' : '')."'".$db->escape($val)."'";
 	}
 
@@ -1317,7 +1317,7 @@ if ($ok && GETPOST('force_utf8_on_tables', 'alpha')) {
 		// First loop to delete foreign keys
 		foreach ($listoftables as $table) {
 			// do not convert llx_const if mysql encrypt/decrypt is used
-			if ($conf->db->dolibarr_main_db_encryption != 0 && preg_match('/\_const$/', $table[0])) {
+			if ($config->db->dolibarr_main_db_encryption != 0 && preg_match('/\_const$/', $table[0])) {
 				continue;
 			}
 			if ($table[1] == 'VIEW') {
@@ -1351,7 +1351,7 @@ if ($ok && GETPOST('force_utf8_on_tables', 'alpha')) {
 
 		foreach ($listoftables as $table) {
 			// do not convert llx_const if mysql encrypt/decrypt is used
-			if ($conf->db->dolibarr_main_db_encryption != 0 && preg_match('/\_const$/', $table[0])) {
+			if ($config->db->dolibarr_main_db_encryption != 0 && preg_match('/\_const$/', $table[0])) {
 				continue;
 			}
 			if ($table[1] == 'VIEW') {
@@ -1447,7 +1447,7 @@ if ($ok && GETPOST('force_utf8mb4_on_tables', 'alpha')) {
 		// First loop to delete foreign keys
 		foreach ($listoftables as $table) {
 			// do not convert llx_const if mysql encrypt/decrypt is used
-			if ($conf->db->dolibarr_main_db_encryption != 0 && preg_match('/\_const$/', $table[0])) {
+			if ($config->db->dolibarr_main_db_encryption != 0 && preg_match('/\_const$/', $table[0])) {
 				continue;
 			}
 			if ($table[1] == 'VIEW') {
@@ -1481,7 +1481,7 @@ if ($ok && GETPOST('force_utf8mb4_on_tables', 'alpha')) {
 
 		foreach ($listoftables as $table) {
 			// do not convert llx_const if mysql encrypt/decrypt is used
-			if ($conf->db->dolibarr_main_db_encryption != 0 && preg_match('/\_const$/', $table[0])) {
+			if ($config->db->dolibarr_main_db_encryption != 0 && preg_match('/\_const$/', $table[0])) {
 				continue;
 			}
 			if ($table[1] == 'VIEW') {
@@ -1555,7 +1555,7 @@ if ($ok && GETPOST('force_utf8mb4_on_tables', 'alpha')) {
 }
 
 if ($ok && GETPOST('force_collation_from_conf_on_tables', 'alpha')) {
-	print '<tr><td colspan="2"><br>*** Force page code and collation of tables into '.$conf->db->character_set.'/'.$conf->db->dolibarr_main_db_collation.' and row_format=dynamic (for mysql/mariadb only)</td></tr>';
+	print '<tr><td colspan="2"><br>*** Force page code and collation of tables into '.$config->db->character_set.'/'.$config->db->dolibarr_main_db_collation.' and row_format=dynamic (for mysql/mariadb only)</td></tr>';
 
 	if ($db->type == "mysql" || $db->type == "mysqli") {
 		$force_collation_from_conf_on_tables = GETPOST('force_collation_from_conf_on_tables', 'alpha');
@@ -1571,7 +1571,7 @@ if ($ok && GETPOST('force_collation_from_conf_on_tables', 'alpha')) {
 
 		foreach ($listoftables as $table) {
 			// do not convert collation on llx_const if mysql encrypt/decrypt is used
-			if ($conf->db->dolibarr_main_db_encryption != 0 && preg_match('/\_const$/', $table[0])) {
+			if ($config->db->dolibarr_main_db_encryption != 0 && preg_match('/\_const$/', $table[0])) {
 				continue;
 			}
 			if ($table[1] == 'VIEW') {
@@ -1582,7 +1582,7 @@ if ($ok && GETPOST('force_collation_from_conf_on_tables', 'alpha')) {
 			print '<tr><td colspan="2">';
 			print $table[0];
 			$sql1 = "ALTER TABLE ".$table[0]." ROW_FORMAT=dynamic";
-			$sql2 = "ALTER TABLE ".$table[0]." CONVERT TO CHARACTER SET ".$conf->db->character_set." COLLATE ".$conf->db->dolibarr_main_db_collation;
+			$sql2 = "ALTER TABLE ".$table[0]." CONVERT TO CHARACTER SET ".$config->db->character_set." COLLATE ".$config->db->dolibarr_main_db_collation;
 			print '<!-- '.$sql1.' -->';
 			print '<!-- '.$sql2.' -->';
 			if ($force_collation_from_conf_on_tables == 'confirmed') {

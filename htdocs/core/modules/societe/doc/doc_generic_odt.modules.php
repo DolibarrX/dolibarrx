@@ -238,8 +238,8 @@ class doc_generic_odt extends ModeleThirdPartyDoc
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "projects"));
 
-		if ($conf->societe->multidir_output[$object->entity]) {
-			$dir = $conf->societe->multidir_output[$object->entity];
+		if ($config->societe->multidir_output[$object->entity]) {
+			$dir = $config->societe->multidir_output[$object->entity];
 			$objectref = dol_sanitizeFileName((string) $object->id);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -280,12 +280,12 @@ class doc_generic_odt extends ModeleThirdPartyDoc
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->societe->dir_temp=".$conf->societe->dir_temp;
+				//print "conf->societe->dir_temp=".$config->societe->dir_temp;
 				//exit;
 
-				dol_mkdir($conf->societe->multidir_temp[$object->entity]);
-				if (!is_writable($conf->societe->multidir_temp[$object->entity])) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->societe->multidir_temp[$object->entity]);
+				dol_mkdir($config->societe->multidir_temp[$object->entity]);
+				if (!is_writable($config->societe->multidir_temp[$object->entity])) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->societe->multidir_temp[$object->entity]);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -296,7 +296,7 @@ class doc_generic_odt extends ModeleThirdPartyDoc
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $conf->societe->multidir_temp[$object->entity],
+							'PATH_TO_TMP'	  => $config->societe->multidir_temp[$object->entity],
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'

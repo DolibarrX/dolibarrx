@@ -55,7 +55,7 @@ $ref = GETPOST('ref', 'alpha');
 // $result = restrictedArea($user, 'bom', $id);
 
 // Load variables for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -76,7 +76,7 @@ if (!$sortfield) {
 // Initialize a technical objects
 $object = new BOM($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->bom->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->bom->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('bomdocument', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -86,7 +86,7 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'inclu
 
 $upload_dir = null;
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->bom->multidir_output[$object->entity ? $object->entity : 1]."/".get_exdir(0, 0, 0, 1, $object);
+	$upload_dir = $config->bom->multidir_output[$object->entity ? $object->entity : 1]."/".get_exdir(0, 0, 0, 1, $object);
 }
 
 // Security check - Protection if external user

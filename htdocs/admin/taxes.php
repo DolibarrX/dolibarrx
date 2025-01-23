@@ -85,7 +85,7 @@ if ($action == 'update') {
 
 	$db->begin();
 
-	$res = dolibarr_set_const($db, 'TAX_MODE', $tax_mode, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'TAX_MODE', $tax_mode, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -117,28 +117,28 @@ if ($action == 'update') {
 			break;
 	}
 
-	$res = dolibarr_set_const($db, 'TAX_MODE_SELL_PRODUCT', $valuesellproduct, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'TAX_MODE_SELL_PRODUCT', $valuesellproduct, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
-	$res = dolibarr_set_const($db, 'TAX_MODE_BUY_PRODUCT', $valuebuyproduct, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'TAX_MODE_BUY_PRODUCT', $valuebuyproduct, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
-	$res = dolibarr_set_const($db, 'TAX_MODE_SELL_SERVICE', $valuesellservice, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'TAX_MODE_SELL_SERVICE', $valuesellservice, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
-	$res = dolibarr_set_const($db, 'TAX_MODE_BUY_SERVICE', $valuebuyservice, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'TAX_MODE_BUY_SERVICE', $valuebuyservice, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
 
-	dolibarr_set_const($db, "MAIN_INFO_TVAINTRA", GETPOST("tva", 'alpha'), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_INFO_TVAINTRA", GETPOST("tva", 'alpha'), 'chaine', 0, '', $config->entity);
 
-	dolibarr_set_const($db, "MAIN_INFO_VAT_RETURN", GETPOST("MAIN_INFO_VAT_RETURN", 'alpha'), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_INFO_VAT_RETURN", GETPOST("MAIN_INFO_VAT_RETURN", 'alpha'), 'chaine', 0, '', $config->entity);
 
-	dolibarr_set_const($db, "MAIN_INFO_TVA_DAY_DEADLINE_SUBMISSION", GETPOSTINT("deadline_day_vat"), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_INFO_TVA_DAY_DEADLINE_SUBMISSION", GETPOSTINT("deadline_day_vat"), 'chaine', 0, '', $config->entity);
 
 	if (!$error) {
 		$db->commit();
@@ -149,7 +149,7 @@ if ($action == 'update') {
 	}
 } elseif (preg_match('/^(set|del)_?([A-Z_]+)$/', $action, $reg)) {
 	// Set boolean (on/off) constants
-	if (!dolibarr_set_const($db, $reg[2], ($reg[1] === 'set' ? '1' : '0'), 'chaine', 0, '', $conf->entity) > 0) {
+	if (!dolibarr_set_const($db, $reg[2], ($reg[1] === 'set' ? '1' : '0'), 'chaine', 0, '', $config->entity) > 0) {
 		dol_print_error($db);
 	}
 }
@@ -187,7 +187,7 @@ if (empty($mysoc->tva_assuj)) {
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td><label for="activate_MAIN_INFO_VAT_RETURN">'.$langs->trans("VATPaymentFrequency").'</label></td>';
-	if (!$conf->use_javascript_ajax) {
+	if (!$config->use_javascript_ajax) {
 		print '<td class="nowrap right">';
 		print $langs->trans("NotAvailableWhenAjaxDisabled");
 		print "</td>";
@@ -205,7 +205,7 @@ if (empty($mysoc->tva_assuj)) {
 	print '</tr>';
 
 	print '<tr class="oddeven"><td><label for="deadline_day_vat">'.$langs->trans("DeadlineDayVATSubmission").'</label></td><td>';
-	print '<input placeholder="'.$langs->trans("Example").':21" name="deadline_day_vat" id="deadline_day_vat" class="minwidth200" value="'.(getDolGlobalString('MAIN_INFO_TVA_DAY_DEADLINE_SUBMISSION') ? $conf->global->MAIN_INFO_TVA_DAY_DEADLINE_SUBMISSION : '').'">';
+	print '<input placeholder="'.$langs->trans("Example").':21" name="deadline_day_vat" id="deadline_day_vat" class="minwidth200" value="'.(getDolGlobalString('MAIN_INFO_TVA_DAY_DEADLINE_SUBMISSION') ? $config->global->MAIN_INFO_TVA_DAY_DEADLINE_SUBMISSION : '').'">';
 	print '</td></tr>';
 
 	$key = 'CREATE_NEW_VAT_WITHOUT_AUTO_PAYMENT';

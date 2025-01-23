@@ -147,26 +147,26 @@ $modules = array(
 
 $labelmeteo = array(0 => $langs->trans("No"), 1 => $langs->trans("Yes"), 2 => $langs->trans("OnMobileOnly"));
 
-if (!isset($conf->global->MAIN_DELAY_MEMBERS)) {
-	$conf->global->MAIN_DELAY_MEMBERS = 0; // Must be same value than into conf.class.php
+if (!isset($config->global->MAIN_DELAY_MEMBERS)) {
+	$config->global->MAIN_DELAY_MEMBERS = 0; // Must be same value than into conf.class.php
 }
-if (!isset($conf->global->MAIN_DELAY_ACTIONS_TODO)) {
-	$conf->global->MAIN_DELAY_ACTIONS_TODO = 7; // Must be same value than into conf.class.php
+if (!isset($config->global->MAIN_DELAY_ACTIONS_TODO)) {
+	$config->global->MAIN_DELAY_ACTIONS_TODO = 7; // Must be same value than into conf.class.php
 }
-if (!isset($conf->global->MAIN_DELAY_ORDERS_TO_PROCESS)) {
-	$conf->global->MAIN_DELAY_ORDERS_TO_PROCESS = 2;
+if (!isset($config->global->MAIN_DELAY_ORDERS_TO_PROCESS)) {
+	$config->global->MAIN_DELAY_ORDERS_TO_PROCESS = 2;
 }
-if (!isset($conf->global->MAIN_DELAY_SUPPLIER_ORDERS_TO_PROCESS)) {
-	$conf->global->MAIN_DELAY_SUPPLIER_ORDERS_TO_PROCESS = 7;
+if (!isset($config->global->MAIN_DELAY_SUPPLIER_ORDERS_TO_PROCESS)) {
+	$config->global->MAIN_DELAY_SUPPLIER_ORDERS_TO_PROCESS = 7;
 }
-if (!isset($conf->global->MAIN_DELAY_ORDERS_TO_PROCESS)) {
-	$conf->global->MAIN_DELAY_ORDERS_TO_PROCESS = 2;
+if (!isset($config->global->MAIN_DELAY_ORDERS_TO_PROCESS)) {
+	$config->global->MAIN_DELAY_ORDERS_TO_PROCESS = 2;
 }
-if (!isset($conf->global->MAIN_DELAY_ORDERS_TO_PROCESS)) {
-	$conf->global->MAIN_DELAY_ORDERS_TO_PROCESS = 2;
+if (!isset($config->global->MAIN_DELAY_ORDERS_TO_PROCESS)) {
+	$config->global->MAIN_DELAY_ORDERS_TO_PROCESS = 2;
 }
-if (!isset($conf->global->MAIN_DELAY_ORDERS_TO_PROCESS)) {
-	$conf->global->MAIN_DELAY_ORDERS_TO_PROCESS = 2;
+if (!isset($config->global->MAIN_DELAY_ORDERS_TO_PROCESS)) {
+	$config->global->MAIN_DELAY_ORDERS_TO_PROCESS = 2;
 }
 
 
@@ -180,14 +180,14 @@ if ($action == 'update') {
 		if (isModEnabled($module)) {
 			foreach ($delays as $delay) {
 				if (GETPOST($delay['code']) != '') {
-					dolibarr_set_const($db, $delay['code'], GETPOST($delay['code']), 'chaine', 0, '', $conf->entity);
+					dolibarr_set_const($db, $delay['code'], GETPOST($delay['code']), 'chaine', 0, '', $config->entity);
 				}
 			}
 		}
 	}
 
-	dolibarr_set_const($db, "MAIN_DISABLE_METEO", GETPOST("MAIN_DISABLE_METEO"), 'chaine', 0, '', $conf->entity);
-	dolibarr_set_const($db, "MAIN_USE_METEO_WITH_PERCENTAGE", GETPOST("MAIN_USE_METEO_WITH_PERCENTAGE"), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_DISABLE_METEO", GETPOST("MAIN_DISABLE_METEO"), 'chaine', 0, '', $config->entity);
+	dolibarr_set_const($db, "MAIN_USE_METEO_WITH_PERCENTAGE", GETPOST("MAIN_USE_METEO_WITH_PERCENTAGE"), 'chaine', 0, '', $config->entity);
 
 	// For update value with percentage
 	$plus = '';
@@ -197,7 +197,7 @@ if ($action == 'update') {
 	// Update values
 	for ($i = 0; $i < 4; $i++) {
 		if (GETPOSTISSET('MAIN_METEO'.$plus.'_LEVEL'.$i)) {
-			dolibarr_set_const($db, 'MAIN_METEO'.$plus.'_LEVEL'.$i, GETPOSTINT('MAIN_METEO'.$plus.'_LEVEL'.$i), 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'MAIN_METEO'.$plus.'_LEVEL'.$i, GETPOSTINT('MAIN_METEO'.$plus.'_LEVEL'.$i), 'chaine', 0, '', $config->entity);
 		}
 	}
 
@@ -253,7 +253,7 @@ if ($action == 'edit') {
 
 	print '<tr class="oddeven">';
 	print '<td>'.$langs->trans("MAIN_DISABLE_METEO").'</td><td class="right">';
-	print $form->selectarray('MAIN_DISABLE_METEO', $labelmeteo, (!getDolGlobalString('MAIN_DISABLE_METEO') ? 0 : $conf->global->MAIN_DISABLE_METEO));
+	print $form->selectarray('MAIN_DISABLE_METEO', $labelmeteo, (!getDolGlobalString('MAIN_DISABLE_METEO') ? 0 : $config->global->MAIN_DISABLE_METEO));
 	print '</td></tr>';
 
 	print '</table>';
@@ -312,7 +312,7 @@ if (!getDolGlobalString('MAIN_DISABLE_METEO') || getDolGlobalInt('MAIN_DISABLE_M
 			$str_mode_enabled = $str_mode_percentage;
 		}
 		print '<br><a href="#" onclick="return false;" id="change_mode">'.$str_mode_enabled.'</a>';
-		print '<input type="hidden" id="MAIN_USE_METEO_WITH_PERCENTAGE" name="MAIN_USE_METEO_WITH_PERCENTAGE" value="'.(getDolGlobalString('MAIN_USE_METEO_WITH_PERCENTAGE') ? $conf->global->MAIN_USE_METEO_WITH_PERCENTAGE : '').'" />';
+		print '<input type="hidden" id="MAIN_USE_METEO_WITH_PERCENTAGE" name="MAIN_USE_METEO_WITH_PERCENTAGE" value="'.(getDolGlobalString('MAIN_USE_METEO_WITH_PERCENTAGE') ? $config->global->MAIN_USE_METEO_WITH_PERCENTAGE : '').'" />';
 
 		print '<br><br>';
 	} else {

@@ -235,16 +235,16 @@ class doc_generic_supplier_order_odt extends ModelePDFSuppliersOrders
 
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills"));
 
-		if ($conf->fournisseur->commande->dir_output) {
+		if ($config->fournisseur->commande->dir_output) {
 			$object->fetch_thirdparty();
 
 			if ($object->specimen) {
-				$dir = $conf->fournisseur->commande->dir_output;
+				$dir = $config->fournisseur->commande->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
 				$objectrefsupplier = dol_sanitizeFileName($object->ref_supplier);
-				$dir = $conf->fournisseur->commande->dir_output.'/'.$objectref;
+				$dir = $config->fournisseur->commande->dir_output.'/'.$objectref;
 				$file = $dir."/".$objectref.".pdf";
 				if (getDolGlobalString('SUPPLIER_REF_IN_NAME')) {
 					$file = $dir."/".$objectref.($objectrefsupplier ? "_".$objectrefsupplier : "").".pdf";
@@ -281,11 +281,11 @@ class doc_generic_supplier_order_odt extends ModelePDFSuppliersOrders
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->societe->dir_temp=".$conf->societe->dir_temp;
+				//print "conf->societe->dir_temp=".$config->societe->dir_temp;
 
-				dol_mkdir($conf->fournisseur->commande->dir_temp);
-				if (!is_writable($conf->fournisseur->commande->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->fournisseur->commande->dir_temp);
+				dol_mkdir($config->fournisseur->commande->dir_temp);
+				if (!is_writable($config->fournisseur->commande->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->fournisseur->commande->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -302,7 +302,7 @@ class doc_generic_supplier_order_odt extends ModelePDFSuppliersOrders
 				$contactobject = null;
 				if (!empty($usecontact)) {
 					// We can use the company of contact instead of thirdparty company
-					if ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
+					if ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
 						$object->contact->fetch_thirdparty();
 						$socobject = $object->contact->thirdparty;
 						$contactobject = $object->contact;
@@ -340,7 +340,7 @@ class doc_generic_supplier_order_odt extends ModelePDFSuppliersOrders
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $conf->fournisseur->dir_temp,
+							'PATH_TO_TMP'	  => $config->fournisseur->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'

@@ -75,7 +75,7 @@ if ($action == 'updateMask') {
 	$res = 0;
 
 	if ($maskconst && preg_match('/_MASK$/', $maskconst)) {
-		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -97,7 +97,7 @@ if ($action == 'updateMask') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/expensereport/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -127,21 +127,21 @@ if ($action == 'updateMask') {
 	// Activate a model
 	$ret = addDocumentModel($value, $type, $label, $scandir);
 	if ($ret > 0 && !getDolGlobalString('EXPENSEREPORT_ADDON_PDF')) {
-		dolibarr_set_const($db, 'EXPENSEREPORT_ADDON_PDF', $value, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'EXPENSEREPORT_ADDON_PDF', $value, 'chaine', 0, '', $config->entity);
 	}
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->EXPENSEREPORT_ADDON_PDF == "$value") {
-			dolibarr_del_const($db, 'EXPENSEREPORT_ADDON_PDF', $conf->entity);
+		if ($config->global->EXPENSEREPORT_ADDON_PDF == "$value") {
+			dolibarr_del_const($db, 'EXPENSEREPORT_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "EXPENSEREPORT_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "EXPENSEREPORT_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->EXPENSEREPORT_ADDON_PDF = $value;
+		$config->global->EXPENSEREPORT_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -153,29 +153,29 @@ if ($action == 'updateMask') {
 	// TODO Verifier si module numerotation choisi peut etre active
 	// par appel method canBeActivated
 
-	dolibarr_set_const($db, "EXPENSEREPORT_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "EXPENSEREPORT_ADDON", $value, 'chaine', 0, '', $config->entity);
 } elseif ($action == 'setoptions') {
 	$db->begin();
 
 	$freetext = GETPOST('EXPENSEREPORT_FREE_TEXT', 'restricthtml'); // No alpha here, we want exact string
-	$res1 = dolibarr_set_const($db, "EXPENSEREPORT_FREE_TEXT", $freetext, 'chaine', 0, '', $conf->entity);
+	$res1 = dolibarr_set_const($db, "EXPENSEREPORT_FREE_TEXT", $freetext, 'chaine', 0, '', $config->entity);
 
 	$draft = GETPOST('EXPENSEREPORT_DRAFT_WATERMARK', 'alpha');
-	$res2 = dolibarr_set_const($db, "EXPENSEREPORT_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $conf->entity);
+	$res2 = dolibarr_set_const($db, "EXPENSEREPORT_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $config->entity);
 
 	$res3 = 0;
 	if (isModEnabled('project') && GETPOSTISSET('EXPENSEREPORT_PROJECT_IS_REQUIRED')) {  // Option may not be provided
-		$res3 = dolibarr_set_const($db, 'EXPENSEREPORT_PROJECT_IS_REQUIRED', GETPOSTINT('EXPENSEREPORT_PROJECT_IS_REQUIRED'), 'chaine', 0, '', $conf->entity);
+		$res3 = dolibarr_set_const($db, 'EXPENSEREPORT_PROJECT_IS_REQUIRED', GETPOSTINT('EXPENSEREPORT_PROJECT_IS_REQUIRED'), 'chaine', 0, '', $config->entity);
 	}
 
 	$dates = GETPOSTINT('EXPENSEREPORT_PREFILL_DATES_WITH_CURRENT_MONTH');
-	$res4 = dolibarr_set_const($db, 'EXPENSEREPORT_PREFILL_DATES_WITH_CURRENT_MONTH', intval($dates), 'chaine', 0, '', $conf->entity);
+	$res4 = dolibarr_set_const($db, 'EXPENSEREPORT_PREFILL_DATES_WITH_CURRENT_MONTH', intval($dates), 'chaine', 0, '', $config->entity);
 
 	$amounts = GETPOSTINT('EXPENSEREPORT_FORCE_LINE_AMOUNTS_INCLUDING_TAXES_ONLY');
-	$res5 = dolibarr_set_const($db, 'EXPENSEREPORT_FORCE_LINE_AMOUNTS_INCLUDING_TAXES_ONLY', intval($amounts), 'chaine', 0, '', $conf->entity);
+	$res5 = dolibarr_set_const($db, 'EXPENSEREPORT_FORCE_LINE_AMOUNTS_INCLUDING_TAXES_ONLY', intval($amounts), 'chaine', 0, '', $config->entity);
 
 	$linesblocked = GETPOSTINT('EXPENSEREPORT_BLOCK_LINE_CREATION_IF_NOT_BETWEEN_DATES');
-	$res6 = dolibarr_set_const($db, 'EXPENSEREPORT_BLOCK_LINE_CREATION_IF_NOT_BETWEEN_DATES', intval($linesblocked), 'chaine', 0, '', $conf->entity);
+	$res6 = dolibarr_set_const($db, 'EXPENSEREPORT_BLOCK_LINE_CREATION_IF_NOT_BETWEEN_DATES', intval($linesblocked), 'chaine', 0, '', $config->entity);
 
 	if (!($res1 > 0) || !($res2 > 0) || !($res3 >= 0) || !($res4 > 0) || !($res5 > 0) || !($res6 > 0)) {
 		$error++;
@@ -195,7 +195,7 @@ if ($action == 'updateMask') {
  * View
  */
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader('', $langs->trans("ExpenseReportsSetup"), '', '', 0, 0, '', '', '', 'mod-admin page-expensereport');
 
@@ -269,7 +269,7 @@ foreach ($dirmodels as $reldir) {
 						print '</td>'."\n";
 
 						print '<td class="center">';
-						if ($conf->global->EXPENSEREPORT_ADDON == $file) {
+						if ($config->global->EXPENSEREPORT_ADDON == $file) {
 							print img_picto($langs->trans("Activated"), 'switch_on');
 						} else {
 							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.urlencode($file).'">';
@@ -323,7 +323,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;
@@ -409,7 +409,7 @@ foreach ($dirmodels as $reldir) {
 
 							// Default
 							print '<td class="center">';
-							if ($conf->global->EXPENSEREPORT_ADDON_PDF == "$name") {
+							if ($config->global->EXPENSEREPORT_ADDON_PDF == "$name") {
 								print img_picto($langs->trans("Default"), 'on');
 							} else {
 								print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.$name.'&scan_dir='.$module->scandir.'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';

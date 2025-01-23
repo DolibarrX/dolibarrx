@@ -618,7 +618,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 			if (GETPOSTINT('valideur') > 0) {
 				$defaultselectuser = GETPOSTINT('valideur');
 			}
-			$s = $form->select_dolusers($defaultselectuser, "valideur", 1, '', 0, $include_users, '', '0,'.$conf->entity, 0, 0, '', 0, '', 'minwidth200 maxwidth500');
+			$s = $form->select_dolusers($defaultselectuser, "valideur", 1, '', 0, $include_users, '', '0,'.$config->entity, 0, 0, '', 0, '', 'minwidth200 maxwidth500');
 			print img_picto('', 'user').$form->textwithpicto($s, $langs->trans("AnyOtherInThisListCanValidate"));
 		}
 

@@ -260,7 +260,7 @@ class CActionComm
 								$tmpobject = $regs[1];
 								$tmpmodule = $regs[2];
 								//var_dump($user->$tmpmodule);
-								if ($tmpmodule && isset($conf->$tmpmodule) && isModEnabled($tmpmodule) && ($user->hasRight($tmpmodule, 'read') || $user->hasRight($tmpmodule, 'lire') || $user->hasRight($tmpmodule, $tmpobject, 'read') || $user->hasRight($tmpmodule, $tmpobject, 'lire'))) {
+								if ($tmpmodule && isset($config->$tmpmodule) && isModEnabled($tmpmodule) && ($user->hasRight($tmpmodule, 'read') || $user->hasRight($tmpmodule, 'lire') || $user->hasRight($tmpmodule, $tmpobject, 'read') || $user->hasRight($tmpmodule, $tmpobject, 'lire'))) {
 									$qualified = 1;
 								}
 							}
@@ -269,7 +269,7 @@ class CActionComm
 						if (! in_array($obj->type, array('system', 'systemauto', 'module', 'moduleauto'))) {
 							$tmpmodule = $obj->module;
 							//var_dump($tmpmodule);
-							if ($tmpmodule && isset($conf->$tmpmodule) && isModEnabled($tmpmodule)) {
+							if ($tmpmodule && isset($config->$tmpmodule) && isModEnabled($tmpmodule)) {
 								$qualified = 1;
 							}
 						}

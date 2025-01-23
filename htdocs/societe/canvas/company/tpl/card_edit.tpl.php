@@ -168,7 +168,7 @@ if (isModEnabled('barcode')) { ?>
 </tr>
 
 <tr>
-	<td><?php echo $langs->trans('EMail').($conf->global->SOCIETE_EMAIL_MANDATORY ? '*' : ''); ?></td>
+	<td><?php echo $langs->trans('EMail').($config->global->SOCIETE_EMAIL_MANDATORY ? '*' : ''); ?></td>
 	<td><input type="text" name="email" size="32" value="<?php echo $this->control->tpl['email']; ?>"></td>
 	<td><?php echo $langs->trans('Web'); ?></td>
 	<td><input type="text" name="url" size="32" value="<?php echo $this->control->tpl['url']; ?>"></td>
@@ -207,7 +207,7 @@ for ($i = 1; $i <= 4; $i++) {
 
 <tr>
 	<td><?php echo $langs->trans('Capital'); ?></td>
-	<td colspan="3"><input type="text" name="capital" size="10" value="<?php echo $this->control->tpl['capital']; ?>"> <?php echo $langs->trans("Currency".$conf->currency); ?></td>
+	<td colspan="3"><input type="text" name="capital" size="10" value="<?php echo $this->control->tpl['capital']; ?>"> <?php echo $langs->trans("Currency".$config->currency); ?></td>
 </tr>
 
 <tr>

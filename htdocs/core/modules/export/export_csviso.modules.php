@@ -48,7 +48,7 @@ class ExportCsvIso extends ExportCsv
 			$this->separator = getDolGlobalString('EXPORT_CSV_SEPARATOR_TO_USE');
 		}
 
-		$conf->global->EXPORT_CSV_FORCE_CHARSET = 'ISO-8859-1';
+		$config->global->EXPORT_CSV_FORCE_CHARSET = 'ISO-8859-1';
 
 		$this->escape = '"';
 		$this->enclosure = '"';
@@ -77,7 +77,7 @@ class ExportCsvIso extends ExportCsv
 	public function write_title($array_export_fields_label, $array_selected_sorted, $outputlangs, $array_types)
 	{
 		global $conf;
-		$conf->global->EXPORT_CSV_FORCE_CHARSET = 'ISO-8859-1';
+		$config->global->EXPORT_CSV_FORCE_CHARSET = 'ISO-8859-1';
 
 		return parent::write_title($array_export_fields_label, $array_selected_sorted, $outputlangs, $array_types);
 	}
@@ -95,7 +95,7 @@ class ExportCsvIso extends ExportCsv
 	public function write_record($array_selected_sorted, $objp, $outputlangs, $array_types)
 	{
 		global $conf;
-		$conf->global->EXPORT_CSV_FORCE_CHARSET = 'ISO-8859-1';
+		$config->global->EXPORT_CSV_FORCE_CHARSET = 'ISO-8859-1';
 
 		return parent::write_record($array_selected_sorted, $objp, $outputlangs, $array_types);
 	}

@@ -143,7 +143,7 @@ $catTypeID = $cats->getMapId()[Categorie::TYPE_BANK_LINE];
 
 $sql = "SELECT rowid, label";
 $sql .= " FROM ".MAIN_DB_PREFIX."categorie";
-$sql .= " WHERE entity = ".$conf->entity." AND type = " . ((int) $catTypeID);
+$sql .= " WHERE entity = ".$config->entity." AND type = " . ((int) $catTypeID);
 $sql .= " ORDER BY rowid";
 
 $result = $db->query($sql);

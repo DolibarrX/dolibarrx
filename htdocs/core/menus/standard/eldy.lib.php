@@ -557,17 +557,17 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 	// Output menu entries
 	// Show logo company
 	if (!getDolGlobalString('MAIN_MENU_INVERT') && empty($noout) && getDolGlobalString('MAIN_SHOW_LOGO') && !getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
-		//$mysoc->logo_mini=(empty($conf->global->MAIN_INFO_SOCIETE_LOGO_MINI)?'':$conf->global->MAIN_INFO_SOCIETE_LOGO_MINI);
-		$mysoc->logo_squarred_mini = (!getDolGlobalString('MAIN_INFO_SOCIETE_LOGO_SQUARRED_MINI') ? '' : $conf->global->MAIN_INFO_SOCIETE_LOGO_SQUARRED_MINI);
+		//$mysoc->logo_mini=(empty($config->global->MAIN_INFO_SOCIETE_LOGO_MINI)?'':$config->global->MAIN_INFO_SOCIETE_LOGO_MINI);
+		$mysoc->logo_squarred_mini = (!getDolGlobalString('MAIN_INFO_SOCIETE_LOGO_SQUARRED_MINI') ? '' : $config->global->MAIN_INFO_SOCIETE_LOGO_SQUARRED_MINI);
 
 		$logoContainerAdditionalClass = 'backgroundforcompanylogo';
 		if (getDolGlobalString('MAIN_INFO_SOCIETE_LOGO_NO_BACKGROUND')) {
 			$logoContainerAdditionalClass = '';
 		}
 
-		if (!empty($mysoc->logo_squarred_mini) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_squarred_mini)) {
+		if (!empty($mysoc->logo_squarred_mini) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_squarred_mini)) {
 			$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_squarred_mini);
-			/*} elseif (!empty($mysoc->logo_mini) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_mini))
+			/*} elseif (!empty($mysoc->logo_mini) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_mini))
 			{
 			$urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_mini);
 			}*/
@@ -653,7 +653,7 @@ function print_text_menu_entry($text, $showmode, $url, $id, $idsel, $classname, 
 	$classnameimg = str_replace('class="', 'class="tmenuimage ', $classname);
 	$classnametxt = str_replace('class="', 'class="tmenulabel ', $classname);
 
-	//$conf->global->THEME_TOPMENU_DISABLE_IMAGE=1;
+	//$config->global->THEME_TOPMENU_DISABLE_IMAGE=1;
 	if ($showmode == 1) {
 		print '<a '.$classnameimg.' tabindex="-1" href="'.$url.'"'.($atarget ? ' target="'.$atarget.'"' : '').' title="'.dol_escape_htmltag($text).'">';
 		print '<div class="'.$id.' '.$idsel.' topmenuimage">';
@@ -877,7 +877,7 @@ function print_left_eldy_menu($db, $menu_array_before, $menu_array_after, &$tabM
 				//print $paramkey;
 				if (getDolGlobalString($paramkey)) {
 					$link = "/ftp/index.php?idmenu=".$_SESSION["idmenu"]."&numero_ftp=".$i;
-					$newmenu->add($link, dol_trunc($conf->global->$paramkey, 24));
+					$newmenu->add($link, dol_trunc($config->global->$paramkey, 24));
 				}
 				$i++;
 			}
@@ -1129,10 +1129,10 @@ function get_left_menu_home($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu =
 
 		if ($usemenuhider || empty($leftmenu) || $leftmenu == "setup") {
 			// Define $nbModulesNotAutoEnabled - TODO This code is at different places
-			$nbModulesNotAutoEnabled = count($conf->modules);
+			$nbModulesNotAutoEnabled = count($config->modules);
 			$listOfModulesAutoEnabled = array('agenda', 'fckeditor', 'export', 'import');
 			foreach ($listOfModulesAutoEnabled as $moduleAutoEnable) {
-				if (in_array($moduleAutoEnable, $conf->modules)) {
+				if (in_array($moduleAutoEnable, $config->modules)) {
 					$nbModulesNotAutoEnabled--;
 				}
 			}
@@ -1262,7 +1262,7 @@ function get_left_menu_thridparties($mainmenu, &$newmenu, $usemenuhider = 1, $le
 
 			if ($user->hasRight('societe', 'creer')) {
 				$newmenu->add("/societe/card.php?action=create", $langs->trans("MenuNewThirdParty"), 1);
-				if (!$conf->use_javascript_ajax) {
+				if (!$config->use_javascript_ajax) {
 					$newmenu->add("/societe/card.php?action=create&amp;private=1", $langs->trans("MenuNewPrivateIndividual"), 1);
 				}
 			}
@@ -1741,7 +1741,7 @@ function get_left_menu_accountancy($mainmenu, &$newmenu, $usemenuhider = 1, $lef
 				// Multi journal
 				$sql = "SELECT rowid, code, label, nature";
 				$sql .= " FROM ".MAIN_DB_PREFIX."accounting_journal";
-				$sql .= " WHERE entity = ".((int) $conf->entity);
+				$sql .= " WHERE entity = ".((int) $config->entity);
 				$sql .= " AND active = 1";
 				$sql .= " ORDER BY nature ASC, label DESC";
 
@@ -1851,7 +1851,7 @@ function get_left_menu_accountancy($mainmenu, &$newmenu, $usemenuhider = 1, $lef
 					// Multi personalized reports
 					$sql = "SELECT rowid, code, label";
 					$sql .= " FROM ".MAIN_DB_PREFIX."c_accounting_report";
-					$sql .= " WHERE entity = ".((int) $conf->entity);
+					$sql .= " WHERE entity = ".((int) $config->entity);
 					$sql .= " AND fk_country = ".((int) $mysoc->country_id);
 					$sql .= " AND active = 1";
 					$sql .= " ORDER BY label DESC";

@@ -113,7 +113,7 @@ if ($action == 'confirm_valide' && $confirm == 'yes' && $user->rights->tax->char
 				$outputlangs = new Translate("",$conf);
 				$outputlangs->setDefaultLang($_REQUEST['lang_id']);
 			}
-			if (empty($conf->global->MAIN_DISABLE_PDF_AUTOUPDATE)) {
+			if (empty($config->global->MAIN_DISABLE_PDF_AUTOUPDATE)) {
 				$fac->generateDocument($fac->model_pdf, $outputlangs);
 			}
 		}
@@ -184,7 +184,7 @@ print '<tr><td>'.$langs->trans('Mode').'</td><td>'.$langs->trans("PaymentType".$
 print '<tr><td>'.$langs->trans('Numero').'</td><td>'.dol_escape_htmltag($object->num_payment).'</td></tr>';
 
 // Montant
-print '<tr><td>'.$langs->trans('Amount').'</td><td>'.price($object->amount, 0, $outputlangs, 1, -1, -1, $conf->currency).'</td></tr>';
+print '<tr><td>'.$langs->trans('Amount').'</td><td>'.price($object->amount, 0, $outputlangs, 1, -1, -1, $config->currency).'</td></tr>';
 
 // Note
 print '<tr><td>'.$langs->trans('Note').'</td><td class="wordbreak sensiblehtmlcontent">'.dol_string_onlythesehtmltags(dol_htmlcleanlastbr($object->note_private)).'</td></tr>';
@@ -219,7 +219,7 @@ $disable_delete = 0;
 $sql = 'SELECT f.rowid as scid, f.label as label, f.paye, f.amount as tva_amount, pf.amount';
 $sql .= ' FROM '.MAIN_DB_PREFIX.'payment_vat as pf,'.MAIN_DB_PREFIX.'tva as f';
 $sql .= ' WHERE pf.fk_tva = f.rowid';
-$sql .= ' AND f.entity = '.$conf->entity;
+$sql .= ' AND f.entity = '.$config->entity;
 $sql .= ' AND pf.rowid = '.((int) $object->id);
 
 dol_syslog("compta/payment_vat/card.php", LOG_DEBUG);

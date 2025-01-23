@@ -225,16 +225,16 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 			$hidetop = getDolGlobalString('MAIN_PDF_DISABLE_COL_HEAD_TITLE');
 		}
 
-		if ($conf->recruitment->dir_output.'/recruitmentjobposition') {
+		if ($config->recruitment->dir_output.'/recruitmentjobposition') {
 			$object->fetch_thirdparty();
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->recruitment->dir_output.'/recruitmentjobposition';
+				$dir = $config->recruitment->dir_output.'/recruitmentjobposition';
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->recruitment->dir_output.'/recruitmentjobposition/'.$objectref;
+				$dir = $config->recruitment->dir_output.'/recruitmentjobposition/'.$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 			if (!file_exists($dir)) {
@@ -270,9 +270,9 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$logodir = $conf->mycompany->dir_output;
-					if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-						$logodir = $conf->mycompany->multidir_output[$object->entity];
+					$logodir = $config->mycompany->dir_output;
+					if (!empty($config->mycompany->multidir_output[$object->entity])) {
+						$logodir = $config->mycompany->multidir_output[$object->entity];
 					}
 					$pagecount = $pdf->setSourceFile($logodir.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
@@ -295,7 +295,7 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 				$cert = empty($user->conf->CERTIFICATE_CRT) ? '' : $user->conf->CERTIFICATE_CRT;
 				// If user has no certificate, we try to take the company one
 				if (!$cert) {
-					$cert = !getDolGlobalString('CERTIFICATE_CRT') ? '' : $conf->global->CERTIFICATE_CRT;
+					$cert = !getDolGlobalString('CERTIFICATE_CRT') ? '' : $config->global->CERTIFICATE_CRT;
 				}
 				// If a certificate is found
 				if ($cert) {
@@ -606,7 +606,7 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 
 				// Display payment area
 				/*
-				if (($deja_regle || $amount_credit_notes_included || $amount_deposits_included) && empty($conf->global->INVOICE_NO_PAYMENT_DETAILS))
+				if (($deja_regle || $amount_credit_notes_included || $amount_deposits_included) && empty($config->global->INVOICE_NO_PAYMENT_DETAILS))
 				{
 					$posy = $this->drawPaymentsTable($pdf, $object, $posy, $outputlangs);
 				}
@@ -686,7 +686,7 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)
@@ -694,7 +694,7 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 		$pdf->SetFont('', '', $default_font_size - 2);
 
 		if (empty($hidetop)) {
-			//$conf->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
+			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
 				$pdf->Rect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, $this->tabTitleHeight, 'F', null, explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
@@ -753,9 +753,9 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 		// Logo
 		if (!getDolGlobalInt('PDF_DISABLE_MYCOMPANY_LOGO')) {
 			if ($this->emetteur->logo) {
-				$logodir = $conf->mycompany->dir_output;
-				if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-					$logodir = $conf->mycompany->multidir_output[$object->entity];
+				$logodir = $config->mycompany->dir_output;
+				if (!empty($config->mycompany->multidir_output[$object->entity])) {
+					$logodir = $config->mycompany->multidir_output[$object->entity];
 				}
 				if (!getDolGlobalInt('MAIN_PDF_USE_LARGE_LOGO')) {
 					$logo = $logodir.'/logos/thumbs/'.$this->emetteur->logo_small;
@@ -909,7 +909,7 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 			}
 
 			// Recipient name
-			/*if ($usecontact && $object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || !empty($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT))) {
+			/*if ($usecontact && $object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || !empty($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT))) {
 				$thirdparty = $object->contact;
 			} else {
 				$thirdparty = $object->thirdparty;
@@ -922,9 +922,9 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 			$carac_client = pdf_build_address($outputlangs, $this->emetteur, $object->thirdparty, ($usecontact ? $object->contact : ''), $usecontact, 'target', $object);
 
 			// Show recipient
-			$widthrecbox = !empty($conf->global->MAIN_PDF_USE_ISO_LOCATION) ? 92 : 100;
+			$widthrecbox = !empty($config->global->MAIN_PDF_USE_ISO_LOCATION) ? 92 : 100;
 			if ($this->page_largeur < 210) $widthrecbox = 84; // To work with US executive format
-			$posy = !empty($conf->global->MAIN_PDF_USE_ISO_LOCATION) ? 40 : 42;
+			$posy = !empty($config->global->MAIN_PDF_USE_ISO_LOCATION) ? 40 : 42;
 			$posy += $top_shift;
 			$posx = $this->page_largeur - $this->marge_droite - $widthrecbox;
 			if (getDolGlobalString('MAIN_INVERT_SENDER_RECIPIENT')) $posx = $this->marge_gauche;
@@ -968,7 +968,7 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 	protected function _pagefoot(&$pdf, $object, $outputlangs, $hidefreetext = 0)
 	{
 		global $conf;
-		$showdetails = !getDolGlobalString('MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS') ? 0 : $conf->global->MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS;
+		$showdetails = !getDolGlobalString('MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS') ? 0 : $config->global->MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS;
 		return pdf_pagefoot($pdf, $outputlangs, 'INVOICE_FREE_TEXT', $this->emetteur, $this->marge_basse, $this->marge_gauche, $this->page_hauteur, $object, $showdetails, $hidefreetext);
 	}
 
@@ -1046,7 +1046,7 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 			'border-left' => true, // add left line separator
 		);
 
-		if (empty($conf->global->MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT) && empty($conf->global->MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT_COLUMN))
+		if (empty($config->global->MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT) && empty($config->global->MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT_COLUMN))
 		{
 			$this->cols['vat']['status'] = true;
 		}

@@ -79,14 +79,14 @@ class FormContract
 		$sql = "SELECT c.rowid, c.ref, c.fk_soc, c.statut,";
 		$sql .= " c.ref_customer, c.ref_supplier";
 		$sql .= " FROM ".$this->db->prefix()."contrat as c";
-		$sql .= " WHERE c.entity = ".$conf->entity;
+		$sql .= " WHERE c.entity = ".$config->entity;
 		//if ($contratListId) $sql.= " AND c.rowid IN (".$this->db->sanitize($contratListId).")";
 		if ($socid > 0) {
 			// CONTRACT_ALLOW_TO_LINK_FROM_OTHER_COMPANY is 'all' or a list of ids separated by coma.
 			if (!getDolGlobalString('CONTRACT_ALLOW_TO_LINK_FROM_OTHER_COMPANY')) {
 				$sql .= " AND (c.fk_soc=".((int) $socid)." OR c.fk_soc IS NULL)";
 			} elseif (getDolGlobalString('CONTRACT_ALLOW_TO_LINK_FROM_OTHER_COMPANY') != 'all') {
-				$sql .= " AND (c.fk_soc IN (".$this->db->sanitize(((int) $socid).",".((int) $conf->global->CONTRACT_ALLOW_TO_LINK_FROM_OTHER_COMPANY)).")";
+				$sql .= " AND (c.fk_soc IN (".$this->db->sanitize(((int) $socid).",".((int) $config->global->CONTRACT_ALLOW_TO_LINK_FROM_OTHER_COMPANY)).")";
 				$sql .= " OR c.fk_soc IS NULL)";
 			}
 		}
@@ -158,7 +158,7 @@ class FormContract
 			$ret .= '</select>';
 			$this->db->free($resql);
 
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				// Make select dynamic
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 				$ret .= ajax_combobox($htmlname);

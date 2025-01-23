@@ -78,7 +78,7 @@ $formcompany = new FormCompany($db);
 
 llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-don page-stats_index');
 
-$dir = $conf->don->dir_temp;
+$dir = $config->don->dir_temp;
 
 print load_fiche_titre($langs->trans("DonationsStatistics"), '', 'donation');
 
@@ -215,7 +215,7 @@ print '<table class="noborder centpercent">';
 print '<tr class="liste_titre"><td class="liste_titre" colspan="2">'.$langs->trans("Filter").'</td></tr>';
 
 // Company
-if (empty(!$conf->global->DONATION_USE_THIRDPARTIES)) {
+if (empty(!$config->global->DONATION_USE_THIRDPARTIES)) {
 	print '<tr><td>'.$langs->trans("ThirdParty").'</td><td>';
 	print img_picto('', 'company', 'class="pictofixedwidth"');
 	print $form->select_company($socid, 'socid', '', 1, 0, 0, array(), 0, 'widthcentpercentminusx maxwidth300', '');
@@ -224,7 +224,7 @@ if (empty(!$conf->global->DONATION_USE_THIRDPARTIES)) {
 
 // ThirdParty Type
 print '<tr><td>'.$langs->trans("ThirdPartyType").'</td><td>';
-$sortparam_typent = (empty($conf->global->SOCIETE_SORT_ON_TYPEENT) ? 'ASC' : $conf->global->SOCIETE_SORT_ON_TYPEENT);
+$sortparam_typent = (empty($config->global->SOCIETE_SORT_ON_TYPEENT) ? 'ASC' : $config->global->SOCIETE_SORT_ON_TYPEENT);
 print $form->selectarray("typent_id", $formcompany->typent_array(0), $typent_id, 1, 0, 0, '', 0, 0, 0, $sortparam_typent, '', 1);
 if ($user->admin) {
 	print ' '.info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);

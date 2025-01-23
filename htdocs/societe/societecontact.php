@@ -53,7 +53,7 @@ $ref = GETPOST('ref', 'alpha');
 $action = GETPOST('action', 'aZ09');
 $massaction = GETPOST('massaction', 'alpha');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -206,7 +206,7 @@ if ($id > 0 || !empty($ref)) {
 		print '<br>';
 
 		// Contacts lines (modules that overwrite templates must declare this into descriptor)
-		$dirtpls = array_merge($conf->modules_parts['tpl'], array('/core/tpl'));
+		$dirtpls = array_merge($config->modules_parts['tpl'], array('/core/tpl'));
 		foreach ($dirtpls as $reldir) {
 			$res = @include dol_buildpath($reldir.'/contacts.tpl.php');
 			if ($res) {
@@ -258,7 +258,7 @@ if ($id > 0 || !empty($ref)) {
 					print "</tr>\n";
 
 					$i = 0;
-					while ($i < $num && $i < $conf->liste_limit) {
+					while ($i < $num && $i < $config->liste_limit) {
 						$objp = $db->fetch_object($resql);
 
 						$datefin = $db->jdate($objp->datefin);

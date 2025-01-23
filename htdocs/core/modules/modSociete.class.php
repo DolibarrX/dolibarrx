@@ -621,7 +621,7 @@ class modSociete extends DolibarrModules
 			}
 		}
 		// Add extra fields
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'societe' AND entity IN (0, ".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'societe' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {    // This can fail when class is used on old database (during migration for example)
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -861,7 +861,7 @@ class modSociete extends DolibarrModules
 			}
 		}
 		// Add extra fields
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'socpeople' AND entity IN (0, ".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'socpeople' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {    // This can fail when class is used on an old database (during a migration for example)
 			while ($obj = $this->db->fetch_object($resql)) {

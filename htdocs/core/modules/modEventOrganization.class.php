@@ -150,9 +150,9 @@ class modEventOrganization extends DolibarrModules
 			'fr_FR:ParentCompany'=>'Maison mère ou revendeur'
 		)*/
 
-		if (!isset($conf->eventorganization) || !isset($conf->eventorganization->enabled)) {
-			$conf->eventorganization = new stdClass();
-			$conf->eventorganization->enabled = 0;
+		if (!isset($config->eventorganization) || !isset($config->eventorganization->enabled)) {
+			$config->eventorganization = new stdClass();
+			$config->eventorganization->enabled = 0;
 		}
 
 		// Array to add new pages in new tabs
@@ -240,7 +240,7 @@ class modEventOrganization extends DolibarrModules
 			'url' => '',
 			'langs' => 'eventorganization',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position' => 1000 + $r,
-			'enabled' => 'isModEnabled("eventorganization")',  // Define condition to show or hide menu entry. Use '$conf->eventorganization->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => 'isModEnabled("eventorganization")',  // Define condition to show or hide menu entry. Use '$config->eventorganization->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms' => '$user->hasRight("eventorganization", "read")',			                // Use 'perms'=>'$user->rights->eventorganization->level1->level2' if you want your menu with a permission rules
 			'target' => '',
 			'user' => 2,				                // 0=Menu for internal users, 1=external users, 2=both
@@ -252,7 +252,7 @@ class modEventOrganization extends DolibarrModules
 			'url' => '/projet/card.php?leftmenu=projects&action=create&usage_organize_event=1&usage_opportunity=0',
 			'langs' => 'eventorganization@eventorganization',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position' => 1000 + $r,
-			'enabled' => 'isModEnabled("eventorganization")',  // Define condition to show or hide menu entry. Use '$conf->eventorganization->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => 'isModEnabled("eventorganization")',  // Define condition to show or hide menu entry. Use '$config->eventorganization->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms' => '$user->hasRight("eventorganization", "write")',			                // Use 'perms'=>'$user->rights->eventorganization->level1->level2' if you want your menu with a permission rules
 			'target' => '',
 			'user' => 2,				                // 0=Menu for internal users, 1=external users, 2=both
@@ -264,7 +264,7 @@ class modEventOrganization extends DolibarrModules
 			'url' => '/projet/list.php?search_usage_event_organization=1&search_status=99&mainmenu=project&contextpage=organizedevents',
 			'langs' => 'eventorganization@eventorganization',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position' => 1000 + $r,
-			'enabled' => 'isModEnabled("eventorganization")',  // Define condition to show or hide menu entry. Use '$conf->eventorganization->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => 'isModEnabled("eventorganization")',  // Define condition to show or hide menu entry. Use '$config->eventorganization->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms' => '$user->hasRight("eventorganization", "write")',			                // Use 'perms'=>'$user->rights->eventorganization->level1->level2' if you want your menu with a permission rules
 			'target' => '',
 			'user' => 2,				                // 0=Menu for internal users, 1=external users, 2=both
@@ -279,7 +279,7 @@ class modEventOrganization extends DolibarrModules
 			'url' => '',
 			'langs' => 'eventorganization',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position' => 1000 + $r,
-			'enabled' => 'isModEnabled("eventorganization")',  // Define condition to show or hide menu entry. Use '$conf->eventorganization->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => 'isModEnabled("eventorganization")',  // Define condition to show or hide menu entry. Use '$config->eventorganization->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms' => '$user->hasRight("eventorganization", "read")',			                // Use 'perms'=>'$user->rights->eventorganization->level1->level2' if you want your menu with a permission rules
 			'target' => '',
 			'user' => 2,				                // 0=Menu for internal users, 1=external users, 2=both
@@ -291,7 +291,7 @@ class modEventOrganization extends DolibarrModules
 			'url' => '/eventorganization/conferenceorbooth_card.php?leftmenu=projects&action=create',
 			'langs' => 'eventorganization',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position' => 1000 + $r,
-			'enabled' => 'isModEnabled("eventorganization")',  // Define condition to show or hide menu entry. Use '$conf->eventorganization->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => 'isModEnabled("eventorganization")',  // Define condition to show or hide menu entry. Use '$config->eventorganization->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms' => '$user->hasRight("eventorganization", "write")',			                // Use 'perms'=>'$user->rights->eventorganization->level1->level2' if you want your menu with a permission rules
 			'target' => '',
 			'user' => 2,				                // 0=Menu for internal users, 1=external users, 2=both
@@ -303,7 +303,7 @@ class modEventOrganization extends DolibarrModules
 			'url' => '/eventorganization/conferenceorbooth_list.php?mainmenu=project',
 			'langs' => 'eventorganization',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position' => 1000 + $r,
-			'enabled' => 'isModEnabled("eventorganization")',  // Define condition to show or hide menu entry. Use '$conf->eventorganization->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => 'isModEnabled("eventorganization")',  // Define condition to show or hide menu entry. Use '$config->eventorganization->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms' => '$user->hasRight("eventorganization", "read")',			                // Use 'perms'=>'$user->rights->eventorganization->level1->level2' if you want your menu with a permission rules
 			'target' => '',
 			'user' => 2,				                // 0=Menu for internal users, 1=external users, 2=both
@@ -463,10 +463,10 @@ class modEventOrganization extends DolibarrModules
 				}
 
 				$sql = array_merge($sql, array(
-					"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'standard_".strtolower($myTmpObjectKey)."' AND type = '".$this->db->escape(strtolower($myTmpObjectKey))."' AND entity = ".((int) $conf->entity),
-					"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('standard_".strtolower($myTmpObjectKey)."','".$this->db->escape(strtolower($myTmpObjectKey))."',".((int) $conf->entity).")",
-					"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'generic_".strtolower($myTmpObjectKey)."_odt' AND type = '".$this->db->escape(strtolower($myTmpObjectKey))."' AND entity = ".((int) $conf->entity),
-					"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('generic_".strtolower($myTmpObjectKey)."_odt', '".$this->db->escape(strtolower($myTmpObjectKey))."', ".((int) $conf->entity).")"
+					"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'standard_".strtolower($myTmpObjectKey)."' AND type = '".$this->db->escape(strtolower($myTmpObjectKey))."' AND entity = ".((int) $config->entity),
+					"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('standard_".strtolower($myTmpObjectKey)."','".$this->db->escape(strtolower($myTmpObjectKey))."',".((int) $config->entity).")",
+					"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'generic_".strtolower($myTmpObjectKey)."_odt' AND type = '".$this->db->escape(strtolower($myTmpObjectKey))."' AND entity = ".((int) $config->entity),
+					"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('generic_".strtolower($myTmpObjectKey)."_odt', '".$this->db->escape(strtolower($myTmpObjectKey))."', ".((int) $config->entity).")"
 				));
 			}
 		}
@@ -485,19 +485,19 @@ class modEventOrganization extends DolibarrModules
 
 		$template = $formmail->getEMailTemplate($this->db, 'conferenceorbooth', $user, $langs, 0, 1, '(EventOrganizationEmailAskConf)');
 		if ($template->id > 0) {
-			dolibarr_set_const($this->db, 'EVENTORGANIZATION_TEMPLATE_EMAIL_ASK_CONF', $template->id, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($this->db, 'EVENTORGANIZATION_TEMPLATE_EMAIL_ASK_CONF', $template->id, 'chaine', 0, '', $config->entity);
 		}
 		$template = $formmail->getEMailTemplate($this->db, 'conferenceorbooth', $user, $langs, 0, 1, '(EventOrganizationEmailAskBooth)');
 		if ($template->id > 0) {
-			dolibarr_set_const($this->db, 'EVENTORGANIZATION_TEMPLATE_EMAIL_ASK_BOOTH', $template->id, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($this->db, 'EVENTORGANIZATION_TEMPLATE_EMAIL_ASK_BOOTH', $template->id, 'chaine', 0, '', $config->entity);
 		}
 		$template = $formmail->getEMailTemplate($this->db, 'conferenceorbooth', $user, $langs, 0, 1, '(EventOrganizationEmailBoothPayment)');
 		if ($template->id > 0) {
-			dolibarr_set_const($this->db, 'EVENTORGANIZATION_TEMPLATE_EMAIL_AFT_SUBS_BOOTH', $template->id, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($this->db, 'EVENTORGANIZATION_TEMPLATE_EMAIL_AFT_SUBS_BOOTH', $template->id, 'chaine', 0, '', $config->entity);
 		}
 		$template = $formmail->getEMailTemplate($this->db, 'conferenceorbooth', $user, $langs, 0, 1, '(EventOrganizationEmailRegistrationPayment)');
 		if ($template->id > 0) {
-			dolibarr_set_const($this->db, 'EVENTORGANIZATION_TEMPLATE_EMAIL_AFT_SUBS_EVENT', $template->id, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($this->db, 'EVENTORGANIZATION_TEMPLATE_EMAIL_AFT_SUBS_EVENT', $template->id, 'chaine', 0, '', $config->entity);
 		}
 
 		return $init;

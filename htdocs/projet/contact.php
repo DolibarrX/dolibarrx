@@ -453,9 +453,9 @@ if ($id > 0 || !empty($ref)) {
 		// Opportunity Amount
 		print '<tr><td>'.$langs->trans("OpportunityAmount").'</td><td>';
 		if (strcmp($object->opp_amount, '')) {
-			print '<span class="amount">'.price($object->opp_amount, 0, $langs, 1, 0, -1, $conf->currency).'</span>';
+			print '<span class="amount">'.price($object->opp_amount, 0, $langs, 1, 0, -1, $config->currency).'</span>';
 			if (strcmp($object->opp_percent, '')) {
-				print ' &nbsp; &nbsp; &nbsp; <span title="'.dol_escape_htmltag($langs->trans('OpportunityWeightedAmount')).'"><span class="opacitymedium">'.$langs->trans("OpportunityWeightedAmountShort").'</span>: <span class="amount">'.price($object->opp_amount * $object->opp_percent / 100, 0, $langs, 1, 0, -1, $conf->currency).'</span></span>';
+				print ' &nbsp; &nbsp; &nbsp; <span title="'.dol_escape_htmltag($langs->trans('OpportunityWeightedAmount')).'"><span class="opacitymedium">'.$langs->trans("OpportunityWeightedAmountShort").'</span>: <span class="amount">'.price($object->opp_amount * $object->opp_percent / 100, 0, $langs, 1, 0, -1, $config->currency).'</span></span>';
 			}
 		}
 		print '</td></tr>';
@@ -464,7 +464,7 @@ if ($id > 0 || !empty($ref)) {
 	// Budget
 	print '<tr><td>'.$langs->trans("Budget").'</td><td>';
 	if (!is_null($object->budget_amount) && strcmp($object->budget_amount, '')) {
-		print '<span class="amount">'.price($object->budget_amount, 0, $langs, 1, 0, 0, $conf->currency).'</span>';
+		print '<span class="amount">'.price($object->budget_amount, 0, $langs, 1, 0, 0, $config->currency).'</span>';
 	}
 	print '</td></tr>';
 
@@ -516,7 +516,7 @@ if ($id > 0 || !empty($ref)) {
 	print '<br>';
 
 	// Contacts lines (modules that overwrite templates must declare this into descriptor)
-	$dirtpls = array_merge($conf->modules_parts['tpl'], array('/core/tpl'));
+	$dirtpls = array_merge($config->modules_parts['tpl'], array('/core/tpl'));
 	foreach ($dirtpls as $reldir) {
 		$res = @include dol_buildpath($reldir.'/contacts.tpl.php');
 		if ($res) {

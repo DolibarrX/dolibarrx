@@ -588,7 +588,7 @@ class User extends CommonObject
 
 		if ($entity < 0) {
 			if ((!isModEnabled('multicompany') || !getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE')) && (!empty($user->entity))) {
-				$sql .= " WHERE u.entity IN (0, ".((int) $conf->entity).")";
+				$sql .= " WHERE u.entity IN (0, ".((int) $config->entity).")";
 			} else {
 				$sql .= " WHERE u.entity IS NOT NULL"; // multicompany is on in transverse mode or user making fetch is on entity 0, so user is allowed to fetch anywhere into database
 			}
@@ -600,7 +600,7 @@ class User extends CommonObject
 				if ($entity != '' && $entity == 0) {	// If $entity = 0
 					$sql .= " WHERE u.entity = 0";
 				} else {								// if $entity is -1 or > 0
-					$sql .= " WHERE u.entity IN (0, ".((int) ($entity > 0 ? $entity : $conf->entity)).")";
+					$sql .= " WHERE u.entity IN (0, ".((int) ($entity > 0 ? $entity : $config->entity)).")";
 				}
 			}
 		}
@@ -785,7 +785,7 @@ class User extends CommonObject
 		// Load user->conf for user
 		$sql = "SELECT param, value FROM ".$this->db->prefix()."user_param";
 		$sql .= " WHERE fk_user = ".((int) $this->id);
-		$sql .= " AND entity = ".((int) $conf->entity);
+		$sql .= " AND entity = ".((int) $config->entity);
 		//dol_syslog(get_class($this).'::fetch load personalized conf', LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -823,8 +823,8 @@ class User extends CommonObject
 			require_once DOL_DOCUMENT_ROOT.'/core/class/defaultvalues.class.php';
 
 			$defaultValues = new DefaultValues($this->db);
-			$result = $defaultValues->fetchAll('', '', 0, 0, '(t.user_id:in:0,'.$this->id.') AND (entity:in:'.(isset($this->entity) ? $this->entity : $conf->entity).','.$conf->entity.')');	// User 0 (all) + me (if defined)
-			//$result = $defaultValues->fetchAll('', '', 0, 0, array('t.user_id'=>array(0, $this->id), 'entity'=>array((isset($this->entity) ? $this->entity : $conf->entity), $conf->entity)));	// User 0 (all) + me (if defined)
+			$result = $defaultValues->fetchAll('', '', 0, 0, '(t.user_id:in:0,'.$this->id.') AND (entity:in:'.(isset($this->entity) ? $this->entity : $config->entity).','.$config->entity.')');	// User 0 (all) + me (if defined)
+			//$result = $defaultValues->fetchAll('', '', 0, 0, array('t.user_id'=>array(0, $this->id), 'entity'=>array((isset($this->entity) ? $this->entity : $config->entity), $config->entity)));	// User 0 (all) + me (if defined)
 
 			if (!is_array($result) && $result < 0) {
 				setEventMessages($defaultValues->error, $defaultValues->errors, 'errors');
@@ -925,10 +925,10 @@ class User extends CommonObject
 			}
 		}
 
-		// In $conf->modules, we have 'accounting', 'product', 'facture', ...
+		// In $config->modules, we have 'accounting', 'product', 'facture', ...
 		// In $user->rights, we have 'accounting', 'produit', 'facture', ...
 		//var_dump($this->rights->$rightsPath);
-		//var_dump($conf->modules);
+		//var_dump($config->modules);
 		//if ($module == 'fournisseur') { var_dump($module.' '.isModEnabled($module).' '.$rightsPath.' '.$permlevel1.' '.$permlevel2); }
 
 		if (!isModEnabled($module)) {
@@ -1026,7 +1026,7 @@ class User extends CommonObject
 	{
 		global $conf, $user, $langs;
 
-		$entity = (empty($entity) ? $conf->entity : $entity);
+		$entity = (empty($entity) ? $config->entity : $entity);
 
 		dol_syslog(get_class($this)."::addrights $rid, $allmodule, $allperms, $entity, $notrigger for user id=".$this->id);
 
@@ -1171,7 +1171,7 @@ class User extends CommonObject
 
 		$error = 0;
 		$wherefordel = '';
-		$entity = (!empty($entity) ? $entity : $conf->entity);
+		$entity = (!empty($entity) ? $entity : $config->entity);
 
 		$this->db->begin();
 
@@ -1340,11 +1340,11 @@ class User extends CommonObject
 				// @FIXME Test on MULTICOMPANY_BACKWARD_COMPATIBILITY is a very strange business rules because the select should be always the
 				// same than into user->loadRights() in user/perms.php and user/group/perms.php
 				// We should never use and remove this case.
-				$sql .= " AND r.entity IN (0,".(isModEnabled('multicompany') && getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') ? "1," : "").$conf->entity.")";
+				$sql .= " AND r.entity IN (0,".(isModEnabled('multicompany') && getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') ? "1," : "").$config->entity.")";
 			} else {
 				// On table r=rights_def, the unique key is (id, entity) because id is hard coded into module descriptor and inserted during module activation.
 				// So we must include the filter on entity on both table r. and ur.
-				$sql .= " AND r.entity = ".((int) $conf->entity)." AND ur.entity = ".((int) $conf->entity);
+				$sql .= " AND r.entity = ".((int) $config->entity)." AND ur.entity = ".((int) $config->entity);
 			}
 			$sql .= " AND ur.fk_user = ".((int) $this->id);
 			$sql .= " AND r.perms IS NOT NULL";
@@ -1405,17 +1405,17 @@ class User extends CommonObject
 				// same than into user->loadRights() in user/perms.php and user/group/perms.php
 				// We should never use and remove this case.
 				if (isModEnabled('multicompany') && getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE')) {
-					$sql .= " AND gu.entity IN (0,".$conf->entity.")";
+					$sql .= " AND gu.entity IN (0,".$config->entity.")";
 				} else {
-					$sql .= " AND r.entity = ".((int) $conf->entity);
+					$sql .= " AND r.entity = ".((int) $config->entity);
 				}
 			} else {
-				$sql .= " AND gr.entity = ".((int) $conf->entity);	// Only groups created in current entity
+				$sql .= " AND gr.entity = ".((int) $config->entity);	// Only groups created in current entity
 				// The entity on the table gu=usergroup_user should be useless and should never be used because it is already into gr and r.
 				// but when using MULTICOMPANY_TRANSVERSE_MODE, we may have inserted record that make rubbish result here due to the duplicate record of
 				// other entities, so we are forced to add a filter on gu here
-				$sql .= " AND gu.entity IN (0,".$conf->entity.")";
-				$sql .= " AND r.entity = ".((int) $conf->entity);	// Only permission of modules enabled in current entity
+				$sql .= " AND gu.entity IN (0,".$config->entity.")";
+				$sql .= " AND r.entity = ".((int) $config->entity);	// Only permission of modules enabled in current entity
 			}
 			// End of strange business rule
 			$sql .= " AND gr.fk_usergroup = gu.fk_usergroup";
@@ -1739,7 +1739,7 @@ class User extends CommonObject
 		$this->civility_code = trim((string) $this->civility_code);
 		$this->login = trim((string) $this->login);
 		if (!isset($this->entity)) {
-			$this->entity = $conf->entity; // If not defined, we use default value
+			$this->entity = $config->entity; // If not defined, we use default value
 		}
 		dol_syslog(get_class($this)."::create login=".$this->login.", user=".(is_object($user) ? $user->id : ''), LOG_DEBUG);
 
@@ -2053,7 +2053,7 @@ class User extends CommonObject
 		$num = 0;
 		$sql = "SELECT id FROM ".$this->db->prefix()."rights_def";
 		$sql .= " WHERE bydefault = 1";
-		$sql .= " AND entity = ".((int) $conf->entity);
+		$sql .= " AND entity = ".((int) $config->entity);
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -2514,7 +2514,7 @@ class User extends CommonObject
 		if (empty($passwordalreadycrypted)) {
 			if (getDolGlobalString('USER_PASSWORD_GENERATED')) {
 				// Add a check on rules for password syntax using the setup of the password generator
-				$modGeneratePassClass = 'modGeneratePass'.ucfirst($conf->global->USER_PASSWORD_GENERATED);
+				$modGeneratePassClass = 'modGeneratePass'.ucfirst($config->global->USER_PASSWORD_GENERATED);
 
 				include_once DOL_DOCUMENT_ROOT.'/core/modules/security/generate/'.$modGeneratePassClass.'.class.php';
 				if (class_exists($modGeneratePassClass)) {
@@ -2702,9 +2702,9 @@ class User extends CommonObject
 			$mesg .= "--\n";
 			$mesg .= $user->getFullName($outputlangs); // Username that send the email (not the user for who we want to reset password)
 		} else {
-			//print $password.'-'.$this->id.'-'.$conf->file->instance_unique_id;
+			//print $password.'-'.$this->id.'-'.$config->file->instance_unique_id;
 			$url = $urlwithroot.'/user/passwordforgotten.php?action=validatenewpassword';
-			$url .= '&username='.urlencode($this->login)."&passworduidhash=".urlencode(dol_hash($password.'-'.$this->id.'-'.$conf->file->instance_unique_id));
+			$url .= '&username='.urlencode($this->login)."&passworduidhash=".urlencode(dol_hash($password.'-'.$this->id.'-'.$config->file->instance_unique_id));
 			if (isModEnabled('multicompany')) {
 				$url .= '&entity='.(!empty($this->entity) ? $this->entity : 1);
 			}
@@ -2729,7 +2729,7 @@ class User extends CommonObject
 		$mailfile = new CMailFile(
 			$subject,
 			$this->email,
-			$conf->global->MAIN_MAIL_EMAIL_FROM,
+			$config->global->MAIN_MAIL_EMAIL_FROM,
 			$mesg,
 			array(),
 			array(),
@@ -3071,20 +3071,20 @@ class User extends CommonObject
 			$data['session'] = '<br><u>'.$langs->trans("Session").'</u>';
 			$data['ip'] = '<br><b>'.$langs->trans("IPAddress").'</b>: '.dol_string_nohtmltag(getUserRemoteIP());
 			if (getDolGlobalString('MAIN_MODULE_MULTICOMPANY')) {
-				$data['multicompany'] = '<br><b>'.$langs->trans("ConnectedOnMultiCompany").':</b> '.$conf->entity.' (User entity '.$this->entity.')';
+				$data['multicompany'] = '<br><b>'.$langs->trans("ConnectedOnMultiCompany").':</b> '.$config->entity.' (User entity '.$this->entity.')';
 			}
 			$data['authentication'] = '<br><b>'.$langs->trans("AuthenticationMode").':</b> '.dol_string_nohtmltag($_SESSION["dol_authmode"].(empty($dolibarr_main_demo) ? '' : ' (demo)'));
 			$data['connectedsince'] = '<br><b>'.$langs->trans("ConnectedSince").':</b> '.dol_print_date($this->datelastlogin, "dayhour", 'tzuser');
 			$data['previousconnexion'] = '<br><b>'.$langs->trans("PreviousConnexion").':</b> '.dol_print_date($this->datepreviouslogin, "dayhour", 'tzuser');
-			$data['currenttheme'] = '<br><b>'.$langs->trans("CurrentTheme").':</b> '.dol_string_nohtmltag($conf->theme);
+			$data['currenttheme'] = '<br><b>'.$langs->trans("CurrentTheme").':</b> '.dol_string_nohtmltag($config->theme);
 			// @phan-suppress-next-line PhanRedefinedClassReference
 			$data['currentmenumanager'] = '<br><b>'.$langs->trans("CurrentMenuManager").':</b> '.dol_string_nohtmltag($menumanager->name);
 			$s = picto_from_langcode($langs->getDefaultLang());
 			$data['currentuserlang'] = '<br><b>'.$langs->trans("CurrentUserLanguage").':</b> '.dol_string_nohtmltag(($s ? $s.' ' : '').$langs->getDefaultLang());
-			$data['browser'] = '<br><b>'.$langs->trans("Browser").':</b> '.dol_string_nohtmltag($conf->browser->name.($conf->browser->version ? ' '.$conf->browser->version : '').' ('.$_SERVER['HTTP_USER_AGENT'].')');
-			$data['layout'] = '<br><b>'.$langs->trans("Layout").':</b> '.dol_string_nohtmltag($conf->browser->layout);
+			$data['browser'] = '<br><b>'.$langs->trans("Browser").':</b> '.dol_string_nohtmltag($config->browser->name.($config->browser->version ? ' '.$config->browser->version : '').' ('.$_SERVER['HTTP_USER_AGENT'].')');
+			$data['layout'] = '<br><b>'.$langs->trans("Layout").':</b> '.dol_string_nohtmltag($config->browser->layout);
 			$data['screen'] = '<br><b>'.$langs->trans("Screen").':</b> '.dol_string_nohtmltag($_SESSION['dol_screenwidth'].' x '.$_SESSION['dol_screenheight']);
-			if ($conf->browser->layout == 'phone') {
+			if ($config->browser->layout == 'phone') {
 				$data['phone'] = '<br><b>'.$langs->trans("Phone").':</b> '.$langs->trans("Yes");
 			}
 			if (!empty($_SESSION["disablemodules"])) {
@@ -3469,7 +3469,7 @@ class User extends CommonObject
 				$info[getDolGlobalString($constname)] = $this->$varname;
 
 				// Check if it is the LDAP key and if its value has been changed
-				if (getDolGlobalString('LDAP_KEY_USERS') && $conf->global->LDAP_KEY_USERS == getDolGlobalString($constname)) {
+				if (getDolGlobalString('LDAP_KEY_USERS') && $config->global->LDAP_KEY_USERS == getDolGlobalString($constname)) {
 					if (is_object($this->oldcopy) && !$this->oldcopy->isEmpty() && $this->$varname != $this->oldcopy->$varname) {
 						$keymodified = true; // For check if LDAP key has been modified
 					}
@@ -3582,7 +3582,7 @@ class User extends CommonObject
 			}
 		}
 		if (getDolGlobalString('LDAP_FIELD_HOMEDIRECTORY') && getDolGlobalString('LDAP_FIELD_HOMEDIRECTORYPREFIX')) {
-			$info[getDolGlobalString('LDAP_FIELD_HOMEDIRECTORY')] = "{$conf->global->LDAP_FIELD_HOMEDIRECTORYPREFIX}/$this->login";
+			$info[getDolGlobalString('LDAP_FIELD_HOMEDIRECTORY')] = "{$config->global->LDAP_FIELD_HOMEDIRECTORYPREFIX}/$this->login";
 		}
 
 		return $info;
@@ -4185,9 +4185,9 @@ class User extends CommonObject
 		global $dolibarr_main_url_root;
 		global $conf;
 
-		$encodedsecurekey = dol_hash($conf->file->instance_unique_id.'uservirtualcard'.$this->id.'-'.$this->login, 'md5');
+		$encodedsecurekey = dol_hash($config->file->instance_unique_id.'uservirtualcard'.$this->id.'-'.$this->login, 'md5');
 		if (isModEnabled('multicompany')) {
-			$entity_qr = '&entity='.((int) $conf->entity);
+			$entity_qr = '&entity='.((int) $config->entity);
 		} else {
 			$entity_qr = '';
 		}
@@ -4225,7 +4225,7 @@ class User extends CommonObject
 
 		if ($entityfilter) {
 			if (getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE')) {
-				if (!empty($user->admin) && empty($user->entity) && $conf->entity == 1) {
+				if (!empty($user->admin) && empty($user->entity) && $config->entity == 1) {
 					$sql .= " WHERE t.entity IS NOT NULL"; // Show all users
 				} else {
 					$sql .= ",".$this->db->prefix()."usergroup_user as ug";

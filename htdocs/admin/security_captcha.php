@@ -56,7 +56,7 @@ $handler = GETPOST('handler', 'aZ09');
 if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
 	$value = (GETPOST($code, 'alpha') ? GETPOST($code, 'alpha') : 1);
-	if (dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -64,14 +64,14 @@ if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	}
 } elseif (preg_match('/del_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_del_const($db, $code, $conf->entity) > 0) {
+	if (dolibarr_del_const($db, $code, $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
 		dol_print_error($db);
 	}
 } elseif ($action == 'setcaptchahandler') {
-	if (!dolibarr_set_const($db, 'MAIN_SECURITY_ENABLECAPTCHA_HANDLER', GETPOST("value", "aZ09"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'MAIN_SECURITY_ENABLECAPTCHA_HANDLER', GETPOST("value", "aZ09"), 'chaine', 0, '', $config->entity)) {
 		dol_print_error($db);
 	}
 }
@@ -91,7 +91,7 @@ print load_fiche_titre($langs->trans("SecuritySetup"), '', 'title_setup');
 print '<span class="opacitymedium">'.$langs->trans("CaptchaDesc")."</span><br>\n";
 print "<br>\n";
 
-$dirModCaptcha = array_merge(array('/core/modules/security/captcha/'), (isset($conf->modules_parts['captcha']) && is_array($conf->modules_parts['captcha'])) ? $conf->modules_parts['captcha'] : array());
+$dirModCaptcha = array_merge(array('/core/modules/security/captcha/'), (isset($config->modules_parts['captcha']) && is_array($config->modules_parts['captcha'])) ? $config->modules_parts['captcha'] : array());
 
 // Load array with all captcha generation modules
 $arrayhandler = array();
@@ -136,7 +136,7 @@ print '<br>';
 
 
 print $langs->trans("UseCaptchaCode");
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	print ajax_constantonoff('MAIN_SECURITY_ENABLECAPTCHA', array(), null, 0, 0, 1);
 } else {
 	if (!getDolGlobalString('MAIN_SECURITY_ENABLECAPTCHA')) {
@@ -149,7 +149,7 @@ if (!empty($conf->use_javascript_ajax)) {
 if (isModEnabled('ticket')) {
 	print '<br>';
 	print $langs->trans("TicketUseCaptchaCodeHelp");
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print ajax_constantonoff('MAIN_SECURITY_ENABLECAPTCHA_TICKET', array(), null, 0, 0, 1);
 	} else {
 		if (!getDolGlobalString('MAIN_SECURITY_ENABLECAPTCHA_TICKET')) {

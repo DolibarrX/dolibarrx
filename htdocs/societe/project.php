@@ -109,7 +109,7 @@ if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predel
 // Mass actions
 $objectclass = 'Project';
 $objectlabel = 'Project';
-$uploaddir = $conf->societe->dir_output;
+$uploaddir = $config->societe->dir_output;
 include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
@@ -189,7 +189,7 @@ if ($socid) {
 	$backtopage = $_SERVER['PHP_SELF'].'?socid='.$object->id;
 	$newcardbutton = dolGetButtonTitle($langs->trans("NewProject"), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/projet/card.php?action=create&socid='.$object->id.'&backtopageforcancel='.urlencode($backtopage), '', 1, $params);
 
-	if (empty($conf->dol_optimize_smallscreen)) {
+	if (empty($config->dol_optimize_smallscreen)) {
 		print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'?socid='.$object->id.'">';
 		print '<input type="hidden" name="token" value="'.newToken().'">';
 		print '<div class="nobordernopadding center valignmiddle col-center">'.$massactionbutton.'</div>';
@@ -201,7 +201,7 @@ if ($socid) {
 	$arrayofselected = is_array($toselect) ? $toselect : array();
 	$result = show_projects($conf, $langs, $db, $object, $_SERVER["PHP_SELF"].'?socid='.$object->id, 1, $newcardbutton);
 
-	if (empty($conf->dol_optimize_smallscreen)) {
+	if (empty($config->dol_optimize_smallscreen)) {
 		print '</form>';
 	}
 }

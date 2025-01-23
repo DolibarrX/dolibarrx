@@ -57,7 +57,7 @@ $search_title = GETPOST('search_title', 'alpha');
 $search_status = GETPOST('search_status', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -73,7 +73,7 @@ $object = new Opensurveysondage($db);
 $opensurvey_static = new Opensurveysondage($db);
 
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->opensurvey->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->opensurvey->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('surveylist')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -161,7 +161,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Opensurveysondage';
 	$objectlabel = 'Opensurveysondage';
-	$uploaddir = $conf->opensurvey->dir_output;
+	$uploaddir = $config->opensurvey->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -253,7 +253,7 @@ $param = '';
 if (/* !empty($contextpage) && */ $contextpage != $_SERVER["PHP_SELF"]) { // $contextpage can't be empty
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 $fieldtosortuser = !getDolGlobalString('MAIN_FIRSTNAME_NAME_POSITION') ? 'firstname' : 'lastname';

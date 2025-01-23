@@ -379,7 +379,7 @@ class doc_generic_task_odt extends ModelePDFTask
 		// List of directories area
 		$texte .= '<tr><td>';
 		$texttitle = $langs->trans("ListOfDirectories");
-		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($conf->global->PROJECT_TASK_ADDON_PDF_ODT_PATH)));
+		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($config->global->PROJECT_TASK_ADDON_PDF_ODT_PATH)));
 		$listoffiles = array();
 		foreach ($listofdir as $key => $tmpdir) {
 			$tmpdir = trim($tmpdir);
@@ -481,7 +481,7 @@ class doc_generic_task_odt extends ModelePDFTask
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "projects"));
 
-		if ($conf->project->dir_output) {
+		if ($config->project->dir_output) {
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
@@ -496,7 +496,7 @@ class doc_generic_task_odt extends ModelePDFTask
 			$project->fetch($object->fk_project);
 			$project->fetch_thirdparty();
 
-			$dir = $conf->project->dir_output."/".$project->ref."/";
+			$dir = $config->project->dir_output."/".$project->ref."/";
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -523,11 +523,11 @@ class doc_generic_task_odt extends ModelePDFTask
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->societe->dir_temp=".$conf->societe->dir_temp;
+				//print "conf->societe->dir_temp=".$config->societe->dir_temp;
 
-				dol_mkdir($conf->project->dir_temp);
-				if (!is_writable($conf->project->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->project->dir_temp);
+				dol_mkdir($config->project->dir_temp);
+				if (!is_writable($config->project->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->project->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -552,7 +552,7 @@ class doc_generic_task_odt extends ModelePDFTask
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $conf->project->dir_temp,
+							'PATH_TO_TMP'	  => $config->project->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'
@@ -729,7 +729,7 @@ class doc_generic_task_odt extends ModelePDFTask
 						dol_syslog($e->getMessage(), LOG_INFO);
 					}
 					if ($foundtagforlines) {
-						$upload_dir = $conf->project->dir_output.'/'.dol_sanitizeFileName($project->ref).'/'.dol_sanitizeFileName($object->ref);
+						$upload_dir = $config->project->dir_output.'/'.dol_sanitizeFileName($project->ref).'/'.dol_sanitizeFileName($object->ref);
 						$filearray = dol_dir_list($upload_dir, "files", 0, '', '(\.meta|_preview.*\.png)$', 'name', SORT_ASC, 1);
 
 						foreach ($filearray as $filedetail) {
@@ -767,7 +767,7 @@ class doc_generic_task_odt extends ModelePDFTask
 				}
 				if ($foundtagforlines) {
 					try {
-						$upload_dir = $conf->project->dir_output.'/'.dol_sanitizeFileName($object->ref);
+						$upload_dir = $config->project->dir_output.'/'.dol_sanitizeFileName($object->ref);
 						$filearray = dol_dir_list($upload_dir, "files", 0, '', '(\.meta|_preview.*\.png)$', 'name', SORT_ASC, 1);
 
 						foreach ($filearray as $filedetail) {

@@ -118,7 +118,7 @@ class modFTP extends DolibarrModules
 							  'url'=>'/ftp/index.php',
 							  'langs'=>'ftp',
 							  'position'=>100,
-							  'enabled'=>'$conf->ftp->enabled',
+							  'enabled'=>'$config->ftp->enabled',
 							  'perms'=>'$user->rights->ftp->read || $user->rights->ftp->write || $user->rights->ftp->setup',
 							  'target'=>'',
 							  'user'=>2); // 0=Menu for internal users, 1=external users, 2=both

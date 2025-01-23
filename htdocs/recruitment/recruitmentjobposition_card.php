@@ -57,7 +57,7 @@ $lineid = GETPOSTINT('lineid');
 // Initialize a technical objects
 $object = new RecruitmentJobPosition($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->recruitment->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->recruitment->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('recruitmentjobpositioncard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -87,7 +87,7 @@ $permissiontoadd = $user->hasRight('recruitment', 'recruitmentjobposition', 'wri
 $permissiontodelete = $user->hasRight('recruitment', 'recruitmentjobposition', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 $permissionnote = $user->hasRight('recruitment', 'recruitmentjobposition', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('recruitment', 'recruitmentjobposition', 'write'); // Used by the include of actions_dellink.inc.php
-$upload_dir = $conf->recruitment->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->recruitment->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 $usercanclose = $permissiontoadd;
 
@@ -481,7 +481,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if ($includedocgeneration) {
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $conf->recruitment->dir_output.'/'.$object->element.'/'.$objref;
+			$filedir = $config->recruitment->dir_output.'/'.$object->element.'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $user->hasRight('recruitment', 'recruitmentjobposition', 'read'); // If you can read, you can build the PDF to read content
 			$delallowed = $user->hasRight('recruitment', 'recruitmentjobposition', 'write'); // If you can create/edit, you can remove a file on card
@@ -534,7 +534,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Presend form
 	$modelmail = 'recruitmentjobposition';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->recruitment->dir_output;
+	$diroutput = $config->recruitment->dir_output;
 	$trackid = 'recruitmentjobposition'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

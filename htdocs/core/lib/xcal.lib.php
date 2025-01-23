@@ -24,7 +24,7 @@
 
 /**
  *	Build a file from an array of events
- *  All input params and data must be encoded in $conf->charset_output
+ *  All input params and data must be encoded in $config->charset_output
  *
  *  @param      string  $format             "vcal" or "ical"
  *  @param      string  $title              Title of export
@@ -73,9 +73,9 @@ function build_calfile($format, $title, $desc, $events_array, $outputfile)
 		//fwrite($calfileh,"X-WR-TIMEZONE:Europe/Paris\n");
 
 		if (getDolGlobalString('MAIN_AGENDA_EXPORT_CACHE') && getDolGlobalInt('MAIN_AGENDA_EXPORT_CACHE') > 60) {
-			$hh = convertSecondToTime($conf->global->MAIN_AGENDA_EXPORT_CACHE, "hour");
-			$mm = convertSecondToTime($conf->global->MAIN_AGENDA_EXPORT_CACHE, "min");
-			$ss = convertSecondToTime($conf->global->MAIN_AGENDA_EXPORT_CACHE, "sec");
+			$hh = convertSecondToTime($config->global->MAIN_AGENDA_EXPORT_CACHE, "hour");
+			$mm = convertSecondToTime($config->global->MAIN_AGENDA_EXPORT_CACHE, "min");
+			$ss = convertSecondToTime($config->global->MAIN_AGENDA_EXPORT_CACHE, "sec");
 
 			fwrite($calfileh, "X-PUBLISHED-TTL: P".$hh."H".$mm."M".$ss."S\n");
 		}
@@ -311,7 +311,7 @@ function build_calfile($format, $title, $desc, $events_array, $outputfile)
 
 /**
  *  Build a file from an array of events.
- *  All input data must be encoded in $conf->charset_output
+ *  All input data must be encoded in $config->charset_output
  *
  *  @param      string	$format             "rss"
  *  @param      string	$title              Title of export

@@ -52,7 +52,7 @@ $socid = GETPOSTINT('socid');
 
 $type = GETPOST('type', 'aZ09');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -346,7 +346,7 @@ if ($id) {
 	$result = $db->query($sql);
 
 	$sql .= $db->order($sortfield, $sortorder);
-	$sql .= $db->plimit($conf->liste_limit + 1, $offset);
+	$sql .= $db->plimit($config->liste_limit + 1, $offset);
 
 	$result = $db->query($sql);
 
@@ -372,7 +372,7 @@ if ($id) {
 
 		$total = 0;
 
-		while ($i < min($num, $conf->liste_limit)) {
+		while ($i < min($num, $config->liste_limit)) {
 			$obj = $db->fetch_object($result);
 
 			print '<tr class="oddeven"><td>';

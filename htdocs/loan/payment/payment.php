@@ -282,10 +282,10 @@ if ($action == 'create') {
 	}
 	print '<tr><td>'.$langs->trans("DateStart").'</td><td colspan="2">'.dol_print_date($loan->datestart, 'day')."</td></tr>\n";
 	print '<tr><td>'.$langs->trans("Label").'</td><td colspan="2">'.$loan->label."</td></tr>\n";
-	print '<tr><td>'.$langs->trans("Amount").'</td><td colspan="2">'.price($loan->capital, 0, $outputlangs, 1, -1, -1, $conf->currency).'</td></tr>';
+	print '<tr><td>'.$langs->trans("Amount").'</td><td colspan="2">'.price($loan->capital, 0, $outputlangs, 1, -1, -1, $config->currency).'</td></tr>';
 
-	print '<tr><td>'.$langs->trans("AlreadyPaid").'</td><td colspan="2">'.price($sumpaid, 0, $outputlangs, 1, -1, -1, $conf->currency).'</td></tr>';
-	print '<tr><td class="tdtop">'.$langs->trans("RemainderToPay").'</td><td colspan="2">'.price($total - $sumpaid, 0, $outputlangs, 1, -1, -1, $conf->currency).'</td></tr>';
+	print '<tr><td>'.$langs->trans("AlreadyPaid").'</td><td colspan="2">'.price($sumpaid, 0, $outputlangs, 1, -1, -1, $config->currency).'</td></tr>';
+	print '<tr><td class="tdtop">'.$langs->trans("RemainderToPay").'</td><td colspan="2">'.price($total - $sumpaid, 0, $outputlangs, 1, -1, -1, $config->currency).'</td></tr>';
 	print '</tr>';
 
 	print '</table>';

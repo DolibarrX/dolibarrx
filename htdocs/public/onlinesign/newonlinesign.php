@@ -238,10 +238,10 @@ if (getDolGlobalString('MAIN_SIGN_CSS_URL')) {
 	$head = '<link rel="stylesheet" type="text/css" href="' . getDolGlobalString('MAIN_SIGN_CSS_URL').'?lang='.$langs->defaultlang.'">'."\n";
 }
 
-$conf->dol_hide_topmenu = 1;
-$conf->dol_hide_leftmenu = 1;
+$config->dol_hide_topmenu = 1;
+$config->dol_hide_leftmenu = 1;
 
-$replacemainarea = (empty($conf->dol_hide_leftmenu) ? '<div>' : '').'<div>';
+$replacemainarea = (empty($config->dol_hide_leftmenu) ? '<div>' : '').'<div>';
 llxHeader($head, $langs->trans("OnlineSignature"), '', '', 0, 0, '', '', '', 'onlinepaymentbody', $replacemainarea, 1);
 
 if ($action == 'refusepropal') {
@@ -289,12 +289,12 @@ if (getDolGlobalString($paramlogo)) {
 // Define urllogo
 $urllogo = '';
 $urllogofull = '';
-if (!empty($logosmall) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$logosmall)) {
-	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$conf->entity.'&amp;file='.urlencode('logos/thumbs/'.$logosmall);
-	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$conf->entity.'&file='.urlencode('logos/thumbs/'.$logosmall);
-} elseif (!empty($logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$logo)) {
-	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$conf->entity.'&amp;file='.urlencode('logos/'.$logo);
-	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$conf->entity.'&file='.urlencode('logos/'.$logo);
+if (!empty($logosmall) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$logosmall)) {
+	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$config->entity.'&amp;file='.urlencode('logos/thumbs/'.$logosmall);
+	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$config->entity.'&file='.urlencode('logos/thumbs/'.$logosmall);
+} elseif (!empty($logo) && is_readable($config->mycompany->dir_output.'/logos/'.$logo)) {
+	$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$config->entity.'&amp;file='.urlencode('logos/'.$logo);
+	$urllogofull = $dolibarr_main_url_root.'/viewimage.php?modulepart=mycompany&entity='.$config->entity.'&file='.urlencode('logos/'.$logo);
 }
 // Output html code for logo
 if ($urllogo) {
@@ -318,7 +318,7 @@ if ($source == 'proposal' && getDolGlobalString('PROPOSAL_IMAGE_PUBLIC_SIGN')) {
 $text = '';
 if (getDolGlobalString('ONLINE_SIGN_NEWFORM_TEXT')) {
 	$reg = array();
-	if (preg_match('/^\((.*)\)$/', $conf->global->ONLINE_SIGN_NEWFORM_TEXT, $reg)) {
+	if (preg_match('/^\((.*)\)$/', $config->global->ONLINE_SIGN_NEWFORM_TEXT, $reg)) {
 		$text .= $langs->trans($reg[1])."<br>\n";
 	} else {
 		$text .= getDolGlobalString('ONLINE_SIGN_NEWFORM_TEXT') . "<br>\n";
@@ -388,8 +388,8 @@ if ($source == 'proposal') {
 
 	$amount = '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("Amount");
 	$amount .= '</td><td class="CTableRow2">';
-	$amount .= '<b>'.price($object->total_ttc, 0, $langs, 1, -1, -1, $conf->currency).'</b>';
-	if ($object->multicurrency_code != $conf->currency) {
+	$amount .= '<b>'.price($object->total_ttc, 0, $langs, 1, -1, -1, $config->currency).'</b>';
+	if ($object->multicurrency_code != $config->currency) {
 		$amount .= ' ('.price($object->multicurrency_total_ttc, 0, $langs, 1, -1, -1, $object->multicurrency_code).')';
 	}
 	$amount .= '</td></tr>'."\n";
@@ -582,7 +582,7 @@ if ($source == 'proposal') {
 	print '</td><td class="CTableRow2">' . $text;
 
 	$last_main_doc_file = $object->last_main_doc;
-	$diroutput = $conf->societe->multidir_output[$object->thirdparty->entity].'/'
+	$diroutput = $config->societe->multidir_output[$object->thirdparty->entity].'/'
 			.dol_sanitizeFileName((string) $object->thirdparty->id).'/';
 	if ((empty($last_main_doc_file) ||
 		!dol_is_file($diroutput
@@ -755,7 +755,7 @@ if ($action == "dosign" && empty($cancel)) {
 	print '<script language="JavaScript" type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/plugins/jSignature/jSignature.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {
-	  $("#signature").jSignature({ color:"#000", lineWidth:0, '.(empty($conf->dol_optimize_smallscreen) ? '' : 'width: 280, ').'height: 180});
+	  $("#signature").jSignature({ color:"#000", lineWidth:0, '.(empty($config->dol_optimize_smallscreen) ? '' : 'width: 280, ').'height: 180});
 
 	  $("#signature").on("change",function(){
 		$("#clearsignature").css("display","");

@@ -78,7 +78,7 @@ $fichinterStatic = new Fichinter($db);
 
 // Not older than
 if (!getDolGlobalString('MAIN_FICHINTER_EXPORT_PAST_DELAY')) {
-	$conf->global->MAIN_FICHINTER_EXPORT_PAST_DELAY = 100; // default limit
+	$config->global->MAIN_FICHINTER_EXPORT_PAST_DELAY = 100; // default limit
 }
 
 // Define format, type and filter
@@ -286,7 +286,7 @@ if ($format == 'ical' || $format == 'vcal') {
 		header("X-Frame-Options: SAMEORIGIN");
 
 		// Clean parameters
-		$outputfile = $conf->agenda->dir_temp.'/'.$filename;
+		$outputfile = $config->agenda->dir_temp.'/'.$filename;
 		$result = readfile($outputfile);
 		if (!$result) {
 			print 'File '.$outputfile.' was empty.';
@@ -340,7 +340,7 @@ if ($format == 'rss') {
 		header("X-Frame-Options: SAMEORIGIN");
 
 		// Clean parameters
-		$outputfile = $conf->agenda->dir_temp.'/'.$filename;
+		$outputfile = $config->agenda->dir_temp.'/'.$filename;
 		$result = readfile($outputfile);
 		if (!$result) {
 			print 'File '.$outputfile.' was empty.';
@@ -412,8 +412,8 @@ function build_exportfile($format, $type, $cachedelay, $filename, $filters)
 	}
 
 	// Create dir and define output file (definitive and temporary)
-	$result = dol_mkdir($conf->agenda->dir_temp);
-	$outputfile = $conf->agenda->dir_temp.'/'.$filename;
+	$result = dol_mkdir($config->agenda->dir_temp);
+	$outputfile = $config->agenda->dir_temp.'/'.$filename;
 
 	$result = 0;
 
@@ -700,7 +700,7 @@ function build_exportfile($format, $type, $cachedelay, $filename, $filters)
 
 		// Create temp file
 		// Temporary file (allow call of function by different threads
-		$outputfiletmp = tempnam($conf->fichinter->dir_temp, 'tmp');
+		$outputfiletmp = tempnam($config->fichinter->dir_temp, 'tmp');
 		dolChmod($outputfiletmp);
 
 		// Write file

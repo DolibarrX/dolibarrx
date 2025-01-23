@@ -44,7 +44,7 @@ $sref = GETPOST("sref", 'alpha');
 $snom = GETPOST("snom", 'alpha');
 $sall = trim(GETPOST('search_all', 'alphanohtml'));
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -147,8 +147,8 @@ if ($result) {
 
 		print '<tr class="liste_total">';
 		print '<td colspan="2" class="right">'.$langs->trans("Total").'</td>';
-		print '<td class="right">'.price(price2num($total, 'MT'), 1, $langs, 0, 0, -1, $conf->currency).'</td>';
-		print '<td class="right">'.price(price2num($totalsell, 'MT'), 1, $langs, 0, 0, -1, $conf->currency).'</td>';
+		print '<td class="right">'.price(price2num($total, 'MT'), 1, $langs, 0, 0, -1, $config->currency).'</td>';
+		print '<td class="right">'.price(price2num($totalsell, 'MT'), 1, $langs, 0, 0, -1, $config->currency).'</td>';
 		print '<td class="right">&nbsp;</td>';
 		print "</tr>\n";
 	}
@@ -160,13 +160,13 @@ if ($result) {
 	print '<br>';
 
 	$file = 'entrepot-'.$year.'.png';
-	if (file_exists($conf->stock->dir_temp.'/'.$file)) {
+	if (file_exists($config->stock->dir_temp.'/'.$file)) {
 		$url = DOL_URL_ROOT.'/viewimage.php?modulepart=graph_stock&amp;file='.$file;
 		print '<img src="'.$url.'">';
 	}
 
 	$file = 'entrepot-'.((int) $year - 1).'.png';
-	if (file_exists($conf->stock->dir_temp.'/'.$file)) {
+	if (file_exists($config->stock->dir_temp.'/'.$file)) {
 		$url = DOL_URL_ROOT.'/viewimage.php?modulepart=graph_stock&amp;file='.$file;
 		print '<br><img src="'.$url.'">';
 	}

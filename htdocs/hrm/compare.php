@@ -63,7 +63,7 @@ $job = new Job($db);
 $permissiontoread = $user->hasRight('hrm', 'evaluation', 'read') || $user->hasRight('hrm', 'compare_advance', 'read');
 $permissiontoadd = 0;
 
-if (empty($conf->hrm->enabled)) {
+if (empty($config->hrm->enabled)) {
 	accessforbidden();
 }
 if (!$permissiontoread || ($action === 'create' && !$permissiontoadd)) {
@@ -446,7 +446,7 @@ function displayUsersListWithPicto(&$TUser, $fk_usergroup = 0, $namelist = 'list
 
 		$sql = "SELECT u.rowid FROM " . MAIN_DB_PREFIX . "user u
 		LEFT JOIN " . MAIN_DB_PREFIX . "usergroup_user as ugu ON (u.rowid = ugu.fk_user)
-		WHERE u.statut > 0 AND ugu.entity = ".((int) $conf->entity);
+		WHERE u.statut > 0 AND ugu.entity = ".((int) $config->entity);
 		$sql .= " AND ugu.fk_usergroup=" . ((int) $fk_usergroup);
 
 		$res = $db->query($sql);

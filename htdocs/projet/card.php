@@ -476,7 +476,7 @@ if (empty($reshook)) {
 			require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 			$langs->load("other");
-			$upload_dir = $conf->project->multidir_output[$object->entity];
+			$upload_dir = $config->project->multidir_output[$object->entity];
 			$file = $upload_dir.'/'.GETPOST('file');
 			$ret = dol_delete_file($file, 0, 0, 0, $object);
 			if ($ret) {
@@ -629,7 +629,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 	$classname = '';
 	$reldir = '';
 	$filefound = 0;
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/project/".$modele.'.php', 0);
 		if (file_exists($file)) {
@@ -784,7 +784,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 			$filter = getDolGlobalString('PROJECT_FILTER_FOR_THIRDPARTY_LIST');
 		}
 		$text = img_picto('', 'company', 'class="pictofixedwidth"').$form->select_company(GETPOSTINT('socid'), 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
-		if (!getDolGlobalString('PROJECT_CAN_ALWAYS_LINK_TO_ALL_SUPPLIERS') && empty($conf->dol_use_jmobile)) {
+		if (!getDolGlobalString('PROJECT_CAN_ALWAYS_LINK_TO_ALL_SUPPLIERS') && empty($config->dol_use_jmobile)) {
 			$texthelp = $langs->trans("IfNeedToUseOtherObjectKeepEmpty");
 			print $form->textwithtooltip($text.' '.img_help(), $texthelp, 1);
 		} else {
@@ -852,7 +852,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		// Opportunity amount
 		print '<tr class="classuseopportunity"><td>'.$langs->trans("OpportunityAmount").'</td>';
 		print '<td><input class="width75 right" type="text" name="opp_amount" value="'.dol_escape_htmltag(GETPOSTISSET('opp_amount') ? GETPOST('opp_amount') : '').'">';
-		print ' '.$langs->getCurrencySymbol($conf->currency);
+		print ' '.$langs->getCurrencySymbol($config->currency);
 		print '</td>';
 		print '</tr>';
 	}
@@ -860,7 +860,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 	// Budget
 	print '<tr><td>'.$langs->trans("Budget").'</td>';
 	print '<td><input class="width75 right" type="text" name="budget_amount" value="'.dol_escape_htmltag(GETPOSTISSET('budget_amount') ? GETPOST('budget_amount') : '').'">';
-	print ' '.$langs->getCurrencySymbol($conf->currency);
+	print ' '.$langs->getCurrencySymbol($config->currency);
 	print '</td>';
 	print '</tr>';
 
@@ -1201,7 +1201,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 			}
 			$text = img_picto('', 'company', 'class="pictofixedwidth"');
 			$text .= $form->select_company(!empty($object->thirdparty->id) ? $object->thirdparty->id : "", 'socid', $filter, 'None', 1, 0, array(), 0, 'minwidth300');
-			if (!getDolGlobalString('PROJECT_CAN_ALWAYS_LINK_TO_ALL_SUPPLIERS') && empty($conf->dol_use_jmobile)) {
+			if (!getDolGlobalString('PROJECT_CAN_ALWAYS_LINK_TO_ALL_SUPPLIERS') && empty($config->dol_use_jmobile)) {
 				$texthelp = $langs->trans("IfNeedToUseOtherObjectKeepEmpty");
 				print $form->textwithtooltip($text.' '.img_help(), $texthelp, 1, 0, '', '', 2);
 			} else {
@@ -1260,7 +1260,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 			// Opportunity amount
 			print '<tr class="classuseopportunity'.$classfortr.'"><td>'.$langs->trans("OpportunityAmount").'</td>';
 			print '<td><input class="width75 right" type="text" name="opp_amount" value="'.(GETPOSTISSET('opp_amount') ? GETPOST('opp_amount') : (strcmp($object->opp_amount, '') ? price2num($object->opp_amount) : '')).'">';
-			print $langs->getCurrencySymbol($conf->currency);
+			print $langs->getCurrencySymbol($config->currency);
 			print '</td>';
 			print '</tr>';
 		}
@@ -1268,7 +1268,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		// Budget
 		print '<tr><td>'.$langs->trans("Budget").'</td>';
 		print '<td><input class="width75 right" type="text" name="budget_amount" value="'.(GETPOSTISSET('budget_amount') ? GETPOST('budget_amount') : (strcmp($object->budget_amount, '') ? price2num($object->budget_amount) : '')).'">';
-		print $langs->getCurrencySymbol($conf->currency);
+		print $langs->getCurrencySymbol($config->currency);
 		print '</td>';
 		print '</tr>';
 
@@ -1436,9 +1436,9 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 			// Opportunity Amount
 			print '<tr><td>'.$langs->trans("OpportunityAmount").'</td><td>';
 			if (strcmp($object->opp_amount, '')) {
-				print '<span class="amount">'.price($object->opp_amount, 0, $langs, 1, 0, -1, $conf->currency).'</span>';
+				print '<span class="amount">'.price($object->opp_amount, 0, $langs, 1, 0, -1, $config->currency).'</span>';
 				if (strcmp($object->opp_percent, '')) {
-					print ' &nbsp; &nbsp; &nbsp; <span title="'.dol_escape_htmltag($langs->trans('OpportunityWeightedAmount')).'"><span class="opacitymedium">'.$langs->trans("OpportunityWeightedAmountShort").'</span>: <span class="amount">'.price($object->opp_amount * $object->opp_percent / 100, 0, $langs, 1, 0, -1, $conf->currency).'</span></span>';
+					print ' &nbsp; &nbsp; &nbsp; <span title="'.dol_escape_htmltag($langs->trans('OpportunityWeightedAmount')).'"><span class="opacitymedium">'.$langs->trans("OpportunityWeightedAmountShort").'</span>: <span class="amount">'.price($object->opp_amount * $object->opp_percent / 100, 0, $langs, 1, 0, -1, $config->currency).'</span></span>';
 				}
 			}
 			print '</td></tr>';
@@ -1447,7 +1447,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		// Budget
 		print '<tr><td>'.$langs->trans("Budget").'</td><td>';
 		if (!is_null($object->budget_amount) && strcmp($object->budget_amount, '')) {
-			print '<span class="amount">'.price($object->budget_amount, 0, $langs, 1, 0, 0, $conf->currency).'</span>';
+			print '<span class="amount">'.price($object->budget_amount, 0, $langs, 1, 0, 0, $config->currency).'</span>';
 		}
 		print '</td></tr>';
 
@@ -1530,7 +1530,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
         </script>';
 
 	// Change probability from status
-	if (!empty($conf->use_javascript_ajax) && getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
+	if (!empty($config->use_javascript_ajax) && getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 		// Default value to close or not when we set opp to 'WON'.
 		$defaultcheckedwhenoppclose = 1;
 		if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
@@ -1608,7 +1608,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 	if (empty($reshook)) {
 		if ($action != "edit" && $action != 'presend') {
 			// Create event
-			/*if (isModEnabled('agenda') && !empty($conf->global->MAIN_ADD_EVENT_ON_ELEMENT_CARD)) 				// Add hidden condition because this is not a
+			/*if (isModEnabled('agenda') && !empty($config->global->MAIN_ADD_EVENT_ON_ELEMENT_CARD)) 				// Add hidden condition because this is not a
 				// "workflow" action so should appears somewhere else on
 				// page.
 			{
@@ -1776,7 +1776,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		 * Generated documents
 		 */
 		$filename = dol_sanitizeFileName($object->ref);
-		$filedir = $conf->project->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
+		$filedir = $config->project->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
 		$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 		$genallowed = ($user->hasRight('projet', 'lire') && $userAccess > 0);
 		$delallowed = ($user->hasRight('projet', 'creer') && $userWrite > 0);
@@ -1804,7 +1804,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 	$modelmail = 'project';
 	$defaulttopic = 'SendProjectRef';
 	$defaulttopiclang = 'projects';
-	$diroutput = $conf->project->multidir_output[$object->entity];
+	$diroutput = $config->project->multidir_output[$object->entity];
 	$autocopy = 'MAIN_MAIL_AUTOCOPY_PROJECT_TO'; // used to know the automatic BCC to add
 	$trackid = 'proj'.$object->id;
 

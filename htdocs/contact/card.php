@@ -216,7 +216,7 @@ if (empty($reshook)) {
 			$object->canvas = $canvas;
 		}
 
-		$object->entity = ((GETPOSTISSET('entity') && GETPOST('entity') != '') ? GETPOSTINT('entity') : $conf->entity);
+		$object->entity = ((GETPOSTISSET('entity') && GETPOST('entity') != '') ? GETPOSTINT('entity') : $config->entity);
 		$object->socid = $socid;
 		$object->lastname = (string) GETPOST("lastname", 'alpha');
 		$object->firstname = (string) GETPOST("firstname", 'alpha');
@@ -372,7 +372,7 @@ if (empty($reshook)) {
 			$object->fetchRoles();
 
 			// Photo save
-			$dir = $conf->societe->multidir_output[$object->entity]."/contact/".$object->id."/photos";
+			$dir = $config->societe->multidir_output[$object->entity]."/contact/".$object->id."/photos";
 			$file_OK = is_uploaded_file($_FILES['photo']['tmp_name']);
 			if (GETPOST('deletephoto') && $object->photo) {
 				$fileimg = $dir.'/'.$object->photo;
@@ -659,7 +659,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			// Show errors
 			dol_htmloutput_errors(is_numeric($error) ? '' : $error, $errors);
 
-			if ($conf->use_javascript_ajax) {
+			if ($config->use_javascript_ajax) {
 				print "\n".'<script type="text/javascript">'."\n";
 				print 'jQuery(document).ready(function () {
 							jQuery("#selectcountry_id").change(function() {
@@ -730,11 +730,11 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			print '<tr><td><label for="title">'.$langs->trans("PostOrFunction").'</label></td>';
 			print '<td colspan="3"><input name="poste" id="title" type="text" class="minwidth100" maxlength="255" value="'.dol_escape_htmltag(GETPOSTISSET("poste") ? GETPOST("poste", 'alphanohtml') : $object->poste).'"></td>';
 
-			$colspan = ($conf->browser->layout == 'phone' ? 2 : 4);
+			$colspan = ($config->browser->layout == 'phone' ? 2 : 4);
 			print '<tr><td'.($colspan ? ' colspan="'.$colspan.'"' : '').'><hr></td></tr>';
 
 			$colspan = 3;
-			if ($conf->use_javascript_ajax && $socid > 0) {
+			if ($config->use_javascript_ajax && $socid > 0) {
 				$colspan = 2;
 			}
 
@@ -745,7 +745,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			print '<tr><td><label for="address">'.$langs->trans("Address").'</label></td>';
 			print '<td colspan="'.$colspan.'"><textarea class="flat quatrevingtpercent" name="address" id="address" rows="'.ROWS_2.'">'.(GETPOST("address", 'alpha') ? GETPOST("address", 'alpha') : $object->address).'</textarea></td>';
 
-			if ($conf->use_javascript_ajax && $socid > 0) {
+			if ($config->use_javascript_ajax && $socid > 0) {
 				$rowspan = 3;
 				if (!getDolGlobalString('SOCIETE_DISABLE_STATE')) {
 					$rowspan++;
@@ -807,7 +807,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			print '<td>';
 			print img_picto('', 'object_phoning', 'class="pictofixedwidth"');
 			print '<input type="text" name="phone_pro" id="phone_pro" class="maxwidth200" value="'.(GETPOSTISSET('phone_pro') ? GETPOST('phone_pro', 'alpha') : $object->phone_pro).'"></td>';
-			if ($conf->browser->layout == 'phone') {
+			if ($config->browser->layout == 'phone') {
 				print '</tr><tr>';
 			}
 			print '<td>'.$form->editfieldkey('PhonePerso', 'phone_perso', '', $object, 0).'</td>';
@@ -820,7 +820,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			print '<td>';
 			print img_picto('', 'object_phoning_mobile', 'class="pictofixedwidth"');
 			print '<input type="text" name="phone_mobile" id="phone_mobile" class="maxwidth200" value="'.(GETPOSTISSET('phone_mobile') ? GETPOST('phone_mobile', 'alpha') : $object->phone_mobile).'"></td>';
-			if ($conf->browser->layout == 'phone') {
+			if ($config->browser->layout == 'phone') {
 				print '</tr><tr>';
 			}
 			print '<td>'.$form->editfieldkey('Fax', 'fax', '', $object, 0).'</td>';
@@ -842,7 +842,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 			// Unsubscribe
 			if (isModEnabled('mailing')) {
-				if ($conf->use_javascript_ajax && getDolGlobalInt('MAILING_CONTACT_DEFAULT_BULK_STATUS') == 2) {
+				if ($config->use_javascript_ajax && getDolGlobalInt('MAILING_CONTACT_DEFAULT_BULK_STATUS') == 2) {
 					print "\n".'<script type="text/javascript">'."\n";
 					print '$(document).ready(function () {
 							$("#email").keyup(function() {
@@ -872,7 +872,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 			// Social network
 			if (isModEnabled('socialnetworks')) {
-				$colspan = ($conf->browser->layout == 'phone' ? 2 : 4);
+				$colspan = ($config->browser->layout == 'phone' ? 2 : 4);
 
 				$object->showSocialNetwork($socialnetworks, $colspan);
 
@@ -967,7 +967,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			// Show errors
 			dol_htmloutput_errors(is_numeric($error) ? '' : $error, $errors);
 
-			if ($conf->use_javascript_ajax) {
+			if ($config->use_javascript_ajax) {
 				print "\n".'<script type="text/javascript">'."\n";
 				print 'jQuery(document).ready(function () {
 							jQuery("#selectcountry_id").change(function() {
@@ -1037,7 +1037,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			print '<tr><td><label for="title">'.$langs->trans("PostOrFunction").'</label></td>';
 			print '<td colspan="3"><input name="poste" id="title" type="text" class="minwidth100" maxlength="255" value="'.dol_escape_htmltag(GETPOSTISSET("poste") ? GETPOST("poste", 'alphanohtml') : $object->poste).'"></td></tr>';
 
-			$colspan = ($conf->browser->layout == 'phone' ? 2 : 4);
+			$colspan = ($config->browser->layout == 'phone' ? 2 : 4);
 			print '<tr><td'.($colspan ? ' colspan="'.$colspan.'"' : '').'><hr></td></tr>';
 
 			// Address
@@ -1046,7 +1046,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			print '<div class="paddingrightonly valignmiddle inline-block quatrevingtpercent">';
 			print '<textarea class="flat minwidth200 centpercent" name="address" id="address">'.(GETPOSTISSET("address") ? GETPOST("address", 'alphanohtml') : $object->address).'</textarea>';
 			print '</div><div class="paddingrightonly valignmiddle inline-block">';
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				print '<a href="#" id="copyaddressfromsoc">'.$langs->trans('CopyAddressFromSoc').'</a><br>';
 			}
 			print '</div>';
@@ -1085,7 +1085,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			print '<td>';
 			print img_picto('', 'object_phoning', 'class="pictofixedwidth"');
 			print '<input type="text" name="phone_pro" id="phone_pro" class="maxwidth200" maxlength="80" value="'.(GETPOSTISSET('phone_pro') ? GETPOST('phone_pro', 'alpha') : $object->phone_pro).'"></td>';
-			if ($conf->browser->layout == 'phone') {
+			if ($config->browser->layout == 'phone') {
 				print '</tr><tr>';
 			}
 			print '<td>'.$form->editfieldkey('PhonePerso', 'fax', GETPOST('phone_perso', 'alpha'), $object, 0).'</td>';
@@ -1097,7 +1097,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			print '<td>';
 			print img_picto('', 'object_phoning_mobile', 'class="pictofixedwidth"');
 			print '<input type="text" name="phone_mobile" id="phone_mobile" class="maxwidth200" maxlength="80" value="'.(GETPOSTISSET('phone_mobile') ? GETPOST('phone_mobile', 'alpha') : $object->phone_mobile).'"></td>';
-			if ($conf->browser->layout == 'phone') {
+			if ($config->browser->layout == 'phone') {
 				print '</tr><tr>';
 			}
 			print '<td>'.$form->editfieldkey('Fax', 'fax', GETPOST('fax', 'alpha'), $object, 0).'</td>';
@@ -1111,7 +1111,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			print img_picto('', 'object_email', 'class="pictofixedwidth"');
 			print '<input type="text" name="email" id="email" class="maxwidth100onsmartphone quatrevingtpercent" value="'.(GETPOSTISSET('email') ? GETPOST('email', 'alpha') : $object->email).'"></td>';
 			if (isModEnabled('mailing')) {
-				if ($conf->browser->layout == 'phone') {
+				if ($config->browser->layout == 'phone') {
 					print '</tr><tr>';
 				}
 				$langs->load("mails");
@@ -1124,7 +1124,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 			// Unsubscribe
 			if (isModEnabled('mailing')) {
-				if ($conf->use_javascript_ajax && getDolGlobalInt('MAILING_CONTACT_DEFAULT_BULK_STATUS') == 2) {
+				if ($config->use_javascript_ajax && getDolGlobalInt('MAILING_CONTACT_DEFAULT_BULK_STATUS') == 2) {
 					print "\n".'<script type="text/javascript">'."\n";
 
 					print '
@@ -1160,7 +1160,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 			// Social network
 			if (isModEnabled('socialnetworks')) {
-				$colspan = ($conf->browser->layout == 'phone' ? 2 : 4);
+				$colspan = ($config->browser->layout == 'phone' ? 2 : 4);
 
 				$object->showSocialNetwork($socialnetworks, $colspan);
 
@@ -1606,7 +1606,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		// Presend form
 		$modelmail = 'contact';
 		$defaulttopic = 'Information';
-		$diroutput = $conf->societe->dir_output.'/contact/';
+		$diroutput = $config->societe->dir_output.'/contact/';
 		$trackid = 'ctc'.$object->id;
 
 		include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

@@ -85,7 +85,7 @@ $task = new Task($db);
 
 $arrayofcss = array('/includes/jsgantt/jsgantt.css');
 $arrayofjs = [];
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	$arrayofjs = [
 		'/includes/jsgantt/jsgantt.js',
 		'/projet/jsgantt_language.js.php?lang='.$langs->defaultlang
@@ -197,7 +197,7 @@ if (($id > 0 && is_numeric($id)) || !empty($ref)) {
 	// Budget
 	print '<tr><td>'.$langs->trans("Budget").'</td><td>';
 	if (!is_null($object->budget_amount) && strcmp($object->budget_amount, '')) {
-		print price($object->budget_amount, 0, $langs, 1, 0, 0, $conf->currency);
+		print price($object->budget_amount, 0, $langs, 1, 0, 0, $config->currency);
 	}
 	print '</td></tr>';
 
@@ -386,7 +386,7 @@ if (count($tasksarray) > 0) {
 
 	print "\n";
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		//var_dump($_SESSION);
 
 		// How the date for data are formatted (format used bu jsgantt)

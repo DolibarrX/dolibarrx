@@ -276,7 +276,7 @@ class PaymentSalary extends CommonObject
 					// We can have n payments for 1 salary but we can't have 1 payments for n salaries (for invoices link is n-n, not for salaries).
 					$sql = "INSERT INTO ".MAIN_DB_PREFIX."payment_salary (entity, fk_salary, datec, datep, amount,";
 					$sql .= " fk_typepayment, num_payment, note, fk_user_author, fk_bank)";
-					$sql .= " VALUES (".((int) $conf->entity).", ".((int) $salary_id).", '".$this->db->idate($now)."',";
+					$sql .= " VALUES (".((int) $config->entity).", ".((int) $salary_id).", '".$this->db->idate($now)."',";
 					$sql .= " '".$this->db->idate($this->datep)."',";
 					$sql .= " ".((float) $amount).",";
 					$sql .= " ".((int) $this->fk_typepayment).", '".$this->db->escape($this->num_payment)."', '".$this->db->escape($this->note)."', ".((int) $user->id).",";
@@ -865,7 +865,7 @@ class PaymentSalary extends CommonObject
 
 		$option = '';
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -974,7 +974,7 @@ class PaymentSalary extends CommonObject
 			}
 			$datas['Ref'] = '<br><b>'.$langs->trans('Ref').':</b> '.$this->ref;
 			if (!empty($this->total_ttc)) {
-				$datas['AmountTTC'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['AmountTTC'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->datep)) {
 				$datas['Date'] = '<br><b>'.$langs->trans('Date').':</b> '.dol_print_date($this->datep, 'dayhour', 'tzuserrel');

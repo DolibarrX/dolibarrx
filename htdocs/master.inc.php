@@ -65,39 +65,39 @@ if (!function_exists('is_countable')) {
 $conf = new Conf();
 
 // Set properties specific to database
-$conf->db->host = empty($dolibarr_main_db_host) ? '' : $dolibarr_main_db_host;
-$conf->db->port = empty($dolibarr_main_db_port) ? '' : $dolibarr_main_db_port;
-$conf->db->name = empty($dolibarr_main_db_name) ? '' : $dolibarr_main_db_name;
-$conf->db->user = empty($dolibarr_main_db_user) ? '' : $dolibarr_main_db_user;
-$conf->db->pass = empty($dolibarr_main_db_pass) ? '' : $dolibarr_main_db_pass;
-$conf->db->type = $dolibarr_main_db_type;
-$conf->db->prefix = $dolibarr_main_db_prefix;
-$conf->db->character_set = $dolibarr_main_db_character_set;
-$conf->db->dolibarr_main_db_collation = $dolibarr_main_db_collation;
-$conf->db->dolibarr_main_db_encryption = $dolibarr_main_db_encryption;
-$conf->db->dolibarr_main_db_cryptkey = $dolibarr_main_db_cryptkey;
+$config->db->host = empty($dolibarr_main_db_host) ? '' : $dolibarr_main_db_host;
+$config->db->port = empty($dolibarr_main_db_port) ? '' : $dolibarr_main_db_port;
+$config->db->name = empty($dolibarr_main_db_name) ? '' : $dolibarr_main_db_name;
+$config->db->user = empty($dolibarr_main_db_user) ? '' : $dolibarr_main_db_user;
+$config->db->pass = empty($dolibarr_main_db_pass) ? '' : $dolibarr_main_db_pass;
+$config->db->type = $dolibarr_main_db_type;
+$config->db->prefix = $dolibarr_main_db_prefix;
+$config->db->character_set = $dolibarr_main_db_character_set;
+$config->db->dolibarr_main_db_collation = $dolibarr_main_db_collation;
+$config->db->dolibarr_main_db_encryption = $dolibarr_main_db_encryption;
+$config->db->dolibarr_main_db_cryptkey = $dolibarr_main_db_cryptkey;
 if (defined('TEST_DB_FORCE_TYPE')) {
-	$conf->db->type = constant('TEST_DB_FORCE_TYPE'); // Force db type (for test purpose, by PHP unit for example)
+	$config->db->type = constant('TEST_DB_FORCE_TYPE'); // Force db type (for test purpose, by PHP unit for example)
 }
 
 // Set properties specific to conf file
-$conf->file->main_limit_users = $dolibarr_main_limit_users;
-$conf->file->mailing_limit_sendbyweb = empty($dolibarr_mailing_limit_sendbyweb) ? 0 : $dolibarr_mailing_limit_sendbyweb;
-$conf->file->mailing_limit_sendbycli = empty($dolibarr_mailing_limit_sendbycli) ? 0 : $dolibarr_mailing_limit_sendbycli;
-$conf->file->mailing_limit_sendbyday = empty($dolibarr_mailing_limit_sendbyday) ? 0 : $dolibarr_mailing_limit_sendbyday;
-$conf->file->main_authentication = empty($dolibarr_main_authentication) ? 'dolibarr' : $dolibarr_main_authentication; // Identification mode
-$conf->file->main_force_https = empty($dolibarr_main_force_https) ? '' : $dolibarr_main_force_https; // Force https
-$conf->file->strict_mode = empty($dolibarr_strict_mode) ? '' : $dolibarr_strict_mode; // Force php strict mode (for debug)
-$conf->file->instance_unique_id = empty($dolibarr_main_instance_unique_id) ? (empty($dolibarr_main_cookie_cryptkey) ? '' : $dolibarr_main_cookie_cryptkey) : $dolibarr_main_instance_unique_id; // Unique id of instance
-$conf->file->dol_main_url_root = $dolibarr_main_url_root;	// Define url inside the config file
-$conf->file->dol_document_root = array('main' => (string) DOL_DOCUMENT_ROOT); // Define an array of document root directories ('/home/htdocs')
-$conf->file->dol_url_root = array('main' => (string) DOL_URL_ROOT); // Define an array of url root path ('' or '/dolibarr')
+$config->file->main_limit_users = $dolibarr_main_limit_users;
+$config->file->mailing_limit_sendbyweb = empty($dolibarr_mailing_limit_sendbyweb) ? 0 : $dolibarr_mailing_limit_sendbyweb;
+$config->file->mailing_limit_sendbycli = empty($dolibarr_mailing_limit_sendbycli) ? 0 : $dolibarr_mailing_limit_sendbycli;
+$config->file->mailing_limit_sendbyday = empty($dolibarr_mailing_limit_sendbyday) ? 0 : $dolibarr_mailing_limit_sendbyday;
+$config->file->main_authentication = empty($dolibarr_main_authentication) ? 'dolibarr' : $dolibarr_main_authentication; // Identification mode
+$config->file->main_force_https = empty($dolibarr_main_force_https) ? '' : $dolibarr_main_force_https; // Force https
+$config->file->strict_mode = empty($dolibarr_strict_mode) ? '' : $dolibarr_strict_mode; // Force php strict mode (for debug)
+$config->file->instance_unique_id = empty($dolibarr_main_instance_unique_id) ? (empty($dolibarr_main_cookie_cryptkey) ? '' : $dolibarr_main_cookie_cryptkey) : $dolibarr_main_instance_unique_id; // Unique id of instance
+$config->file->dol_main_url_root = $dolibarr_main_url_root;	// Define url inside the config file
+$config->file->dol_document_root = array('main' => (string) DOL_DOCUMENT_ROOT); // Define an array of document root directories ('/home/htdocs')
+$config->file->dol_url_root = array('main' => (string) DOL_URL_ROOT); // Define an array of url root path ('' or '/dolibarr')
 if (!empty($dolibarr_main_document_root_alt)) {
 	// dolibarr_main_document_root_alt can contains several directories
 	$values = preg_split('/[;,]/', $dolibarr_main_document_root_alt);
 	$i = 0;
 	foreach ($values as $value) {
-		$conf->file->dol_document_root['alt'.($i++)] = (string) $value;
+		$config->file->dol_document_root['alt'.($i++)] = (string) $value;
 	}
 	$values = preg_split('/[;,]/', $dolibarr_main_url_root_alt);
 	$i = 0;
@@ -117,7 +117,7 @@ if (!empty($dolibarr_main_document_root_alt)) {
 			print "\"/custom\"<br>\n";
 			exit;
 		}
-		$conf->file->dol_url_root['alt'.($i++)] = (string) $value;
+		$config->file->dol_url_root['alt'.($i++)] = (string) $value;
 	}
 }
 
@@ -145,7 +145,7 @@ if (!defined('NOREQUIRETRAN')) {
  */
 $db = null;
 if (!defined('NOREQUIREDB')) {
-	$db = getDoliDBInstance($conf->db->type, $conf->db->host, $conf->db->user, $conf->db->pass, $conf->db->name, (int) $conf->db->port);
+	$db = getDoliDBInstance($config->db->type, $config->db->host, $config->db->user, $config->db->pass, $config->db->name, (int) $config->db->port);
 
 	if ($db->error) {
 		// If we were into a website context
@@ -165,14 +165,14 @@ if (!defined('NOREQUIREDB')) {
 			print '</div>';
 			exit(1);
 		}
-		dol_print_error($db, "host=".$conf->db->host.", port=".$conf->db->port.", user=".$conf->db->user.", databasename=".$conf->db->name.", ".$db->error);
+		dol_print_error($db, "host=".$config->db->host.", port=".$config->db->port.", user=".$config->db->user.", databasename=".$config->db->name.", ".$db->error);
 		exit(1);
 	}
 }
 
 // Now database connection is known, so we can forget password
 //unset($dolibarr_main_db_pass); 	// We comment this because this constant is used in some other pages
-unset($conf->db->pass); // This is to avoid password to be shown in memory/swap dump
+unset($config->db->pass); // This is to avoid password to be shown in memory/swap dump
 
 
 /*
@@ -195,24 +195,24 @@ $hookManager = new HookManager($db);
 // By default conf->entity is 1, but we change this if we ask another value.
 if (session_id() && !empty($_SESSION["dol_entity"])) {
 	// Entity inside an opened session
-	$conf->entity = $_SESSION["dol_entity"];
+	$config->entity = $_SESSION["dol_entity"];
 } elseif (!empty($_ENV["dol_entity"])) {
 	// Entity inside a CLI script
-	$conf->entity = $_ENV["dol_entity"];
+	$config->entity = $_ENV["dol_entity"];
 } elseif (GETPOSTISSET("loginfunction") && (GETPOSTINT("entity") || GETPOSTINT("switchentity"))) {
 	// Just after a login page
-	$conf->entity = (GETPOSTISSET("entity") ? GETPOSTINT("entity") : GETPOSTINT("switchentity"));
+	$config->entity = (GETPOSTISSET("entity") ? GETPOSTINT("entity") : GETPOSTINT("switchentity"));
 } elseif (defined('DOLENTITY') && is_numeric(constant('DOLENTITY'))) {
 	// For public page with MultiCompany module
-	$conf->entity = constant('DOLENTITY');
+	$config->entity = constant('DOLENTITY');
 }
 // Sanitize entity
-if (!is_numeric($conf->entity)) {
-	$conf->entity = 1;
+if (!is_numeric($config->entity)) {
+	$config->entity = 1;
 }
-// Here we read database (llx_const table) and define conf var $conf->global->XXX.
-//print "We work with data into entity instance number '".$conf->entity."'";
-$conf->setValues($db);
+// Here we read database (llx_const table) and define conf var $config->global->XXX.
+//print "We work with data into entity instance number '".$config->entity."'";
+$config->setValues($db);
 
 // Create object $mysoc (A thirdparty object that contains properties of companies managed by Dolibarr.
 if (!defined('NOREQUIREDB') && !defined('NOREQUIRESOC')) {
@@ -223,41 +223,41 @@ if (!defined('NOREQUIREDB') && !defined('NOREQUIRESOC')) {
 
 	// We set some specific default values according to country
 
-	if ($mysoc->country_code == 'DE' && !isset($conf->global->MAIN_INVERT_SENDER_RECIPIENT)) {
+	if ($mysoc->country_code == 'DE' && !isset($config->global->MAIN_INVERT_SENDER_RECIPIENT)) {
 		// For DE, we need to invert our address with customer address
-		$conf->global->MAIN_INVERT_SENDER_RECIPIENT = 1;
+		$config->global->MAIN_INVERT_SENDER_RECIPIENT = 1;
 	}
-	if ($mysoc->country_code == 'FR' && !isset($conf->global->INVOICE_CATEGORY_OF_OPERATION)) {
+	if ($mysoc->country_code == 'FR' && !isset($config->global->INVOICE_CATEGORY_OF_OPERATION)) {
 		// For FR, default value of option to show category of operations is on by default. Decret n°2099-1299 2022-10-07
-		$conf->global->INVOICE_CATEGORY_OF_OPERATION = 1;
+		$config->global->INVOICE_CATEGORY_OF_OPERATION = 1;
 	}
-	if ($mysoc->country_code == 'FR' && !isset($conf->global->INVOICE_DISABLE_REPLACEMENT)) {
+	if ($mysoc->country_code == 'FR' && !isset($config->global->INVOICE_DISABLE_REPLACEMENT)) {
 		// For FR, the replacement invoice type is not allowed.
 		// From an accounting point of view, this creates holes in the numbering of the invoice.
 		// This is very problematic during a fiscal control.
-		$conf->global->INVOICE_DISABLE_REPLACEMENT = 1;
+		$config->global->INVOICE_DISABLE_REPLACEMENT = 1;
 	}
-	if ($mysoc->country_code == 'GR' && !isset($conf->global->INVOICE_DISABLE_REPLACEMENT)) {
+	if ($mysoc->country_code == 'GR' && !isset($config->global->INVOICE_DISABLE_REPLACEMENT)) {
 		// The replacement invoice type is not allowed in Greece.
-		$conf->global->INVOICE_DISABLE_REPLACEMENT = 1;
+		$config->global->INVOICE_DISABLE_REPLACEMENT = 1;
 	}
-	if ($mysoc->country_code == 'GR' && !isset($conf->global->INVOICE_DISABLE_DEPOSIT)) {
+	if ($mysoc->country_code == 'GR' && !isset($config->global->INVOICE_DISABLE_DEPOSIT)) {
 		// The deposit invoice type is not allowed in Greece.
-		$conf->global->INVOICE_DISABLE_DEPOSIT = 1;
+		$config->global->INVOICE_DISABLE_DEPOSIT = 1;
 	}
-	if ($mysoc->country_code == 'GR' && !isset($conf->global->INVOICE_CREDIT_NOTE_STANDALONE)) {
+	if ($mysoc->country_code == 'GR' && !isset($config->global->INVOICE_CREDIT_NOTE_STANDALONE)) {
 		// Standalone credit note is compulsory in Greece.
-		$conf->global->INVOICE_CREDIT_NOTE_STANDALONE = 1;
+		$config->global->INVOICE_CREDIT_NOTE_STANDALONE = 1;
 	}
-	if ($mysoc->country_code == 'GR' && !isset($conf->global->INVOICE_SUBTYPE_ENABLED)) {
+	if ($mysoc->country_code == 'GR' && !isset($config->global->INVOICE_SUBTYPE_ENABLED)) {
 		// Invoice subtype is a requirement for Greece.
-		$conf->global->INVOICE_SUBTYPE_ENABLED = 1;
+		$config->global->INVOICE_SUBTYPE_ENABLED = 1;
 	}
 
-	if (($mysoc->localtax1_assuj || $mysoc->localtax2_assuj) && !isset($conf->global->MAIN_NO_INPUT_PRICE_WITH_TAX)) {
+	if (($mysoc->localtax1_assuj || $mysoc->localtax2_assuj) && !isset($config->global->MAIN_NO_INPUT_PRICE_WITH_TAX)) {
 		// For countries using the 2nd or 3rd tax, we disable input/edit of lines using the price including tax (because 2nb and 3rd tax not yet taken into account).
 		// Work In Progress to support all taxes into unit price entry when MAIN_UNIT_PRICE_WITH_TAX_IS_FOR_ALL_TAXES is set.
-		$conf->global->MAIN_NO_INPUT_PRICE_WITH_TAX = 1;
+		$config->global->MAIN_NO_INPUT_PRICE_WITH_TAX = 1;
 	}
 }
 

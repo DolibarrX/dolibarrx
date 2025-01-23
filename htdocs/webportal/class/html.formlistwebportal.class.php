@@ -289,7 +289,7 @@ class FormListWebPortal
 		$emptyValueKey = ($elementEn == 'order' ? -5 : -1);
 
 		if ($limit < 0) {
-			$limit = $conf->liste_limit;
+			$limit = $config->liste_limit;
 		}
 		if ($page <= 0) {
 			$page = 1;
@@ -708,7 +708,7 @@ class FormListWebPortal
 				$element = $object->element;
 				$html .= '<td class="nowraponall" data-label="' . $arrayfields['download_link']['label'] . '">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->{$element}->multidir_output[$obj->element_entity] . '/' . dol_sanitizeFileName($obj->ref);
+				$filedir = $config->{$element}->multidir_output[$obj->element_entity] . '/' . dol_sanitizeFileName($obj->ref);
 				$html .= $this->form->getDocumentsLink($element, $filename, $filedir);
 				$html .= '</td>';
 				if (!$i) {

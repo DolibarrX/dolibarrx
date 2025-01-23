@@ -430,7 +430,7 @@ class FormOther
 		$moreforfilter .= '<select class="flat minwidth100'.($morecss ? ' '.$morecss : '').'" id="select_categ_'.$htmlname.'" name="'.$htmlname.'">';
 		if ($showempty) {
 			$textforempty = ' ';
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				$textforempty = '&nbsp;'; // If we use ajaxcombo, we need &nbsp; here to avoid to have an empty element that is too small.
 			}
 			if (!is_numeric($showempty)) {
@@ -458,7 +458,7 @@ class FormOther
 		$moreforfilter .= '</select>';
 
 		// Enhance with select2
-		if ($conf->use_javascript_ajax) {
+		if ($config->use_javascript_ajax) {
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 			$comboenhancement = ajax_combobox('select_categ_'.$htmlname);
 			$moreforfilter .= $comboenhancement;
@@ -500,7 +500,7 @@ class FormOther
 			if (!is_numeric($showempty)) {
 				$textforempty = $showempty;
 			}
-			if (!empty($conf->use_javascript_ajax) && $textforempty == ' ') {
+			if (!empty($config->use_javascript_ajax) && $textforempty == ' ') {
 				$textforempty = '&nbsp;'; // If we use ajaxcombo, we need &nbsp; here to avoid to have an empty element that is too small.
 			}
 			$out .= '<option class="optiongrey" value="'.($showempty < 0 ? $showempty : -1).'"'.($selected == $showempty ? ' selected' : '').'>'.$textforempty.'</option>'."\n";
@@ -511,7 +511,7 @@ class FormOther
 		$sql_usr .= " FROM ".$this->db->prefix()."user as u";
 
 		if (getDolGlobalInt('MULTICOMPANY_TRANSVERSE_MODE')) {
-			if (!empty($user->admin) && empty($user->entity) && $conf->entity == 1) {
+			if (!empty($user->admin) && empty($user->entity) && $config->entity == 1) {
 				$sql_usr .= " WHERE u.entity IS NOT NULL"; // Show all users
 			} else {
 				$sql_usr .= " WHERE EXISTS (SELECT ug.fk_user FROM ".$this->db->prefix()."usergroup_user as ug WHERE u.rowid = ug.fk_user AND ug.entity IN (".getEntity('usergroup')."))";
@@ -549,7 +549,7 @@ class FormOther
 			$sql_usr .= " FROM ".$this->db->prefix()."user as u2, ".$this->db->prefix()."societe_commerciaux as sc";
 
 			if (getDolGlobalInt('MULTICOMPANY_TRANSVERSE_MODE')) {
-				if (!empty($user->admin) && empty($user->entity) && $conf->entity == 1) {
+				if (!empty($user->admin) && empty($user->entity) && $config->entity == 1) {
 					$sql_usr .= " WHERE u2.entity IS NOT NULL"; // Show all users
 				} else {
 					$sql_usr .= " WHERE EXISTS (SELECT ug2.fk_user FROM ".$this->db->prefix()."usergroup_user as ug2 WHERE u2.rowid = ug2.fk_user AND ug2.entity IN (".getEntity('usergroup')."))";
@@ -640,7 +640,7 @@ class FormOther
 		$out .= '</select>';
 
 		// Enhance with select2
-		if ($conf->use_javascript_ajax) {
+		if ($config->use_javascript_ajax) {
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 
 			$comboenhancement = ajax_combobox($htmlname);
@@ -873,7 +873,7 @@ class FormOther
 		if (!is_array($arrayofcolors) || count($arrayofcolors) < 1) {
 			// Case of selection of any color
 			$langs->load("other");
-			if (empty($conf->dol_use_jmobile) && !empty($conf->use_javascript_ajax) && !getDolGlobalInt('MAIN_USE_HTML5_COLOR_SELECTOR')) {
+			if (empty($config->dol_use_jmobile) && !empty($config->use_javascript_ajax) && !getDolGlobalInt('MAIN_USE_HTML5_COLOR_SELECTOR')) {
 				$out .= '<link rel="stylesheet" media="screen" type="text/css" href="'.DOL_URL_ROOT.'/includes/jquery/plugins/jpicker/css/jPicker-1.1.6.css" />';
 				$out .= '<script nonce="'.getNonce().'" type="text/javascript" src="'.DOL_URL_ROOT.'/includes/jquery/plugins/jpicker/jpicker-1.1.6.js"></script>';
 				$out .= '<script nonce="'.getNonce().'" type="text/javascript">
@@ -964,7 +964,7 @@ class FormOther
 			}
 		} else {
 			// In most cases, this is not used. We used instead function with no specific list of colors
-			if (empty($conf->dol_use_jmobile) && !empty($conf->use_javascript_ajax)) {
+			if (empty($config->dol_use_jmobile) && !empty($config->use_javascript_ajax)) {
 				$out .= '<link rel="stylesheet" href="'.DOL_URL_ROOT.'/includes/jquery/plugins/colorpicker/jquery.colorpicker.css" type="text/css" media="screen" />';
 				$out .= '<script nonce="'.getNonce().'" src="'.DOL_URL_ROOT.'/includes/jquery/plugins/colorpicker/jquery.colorpicker.js" type="text/javascript"></script>';
 				$out .= '<script nonce="'.getNonce().'" type="text/javascript">
@@ -1008,11 +1008,11 @@ class FormOther
 		// phpcs:enable
 		global $conf;
 
-		$file = $conf->$module->dir_temp.'/'.$name.'.png';
+		$file = $config->$module->dir_temp.'/'.$name.'.png';
 
 		// We create temp directory
-		if (!file_exists($conf->$module->dir_temp)) {
-			dol_mkdir($conf->$module->dir_temp);
+		if (!file_exists($config->$module->dir_temp)) {
+			dol_mkdir($config->$module->dir_temp);
 		}
 
 		// On cree l'image en vraies couleurs
@@ -1267,7 +1267,7 @@ class FormOther
 
 				$label = $langs->transnoentitiesnoconv($box->boxlabel);
 				//if (preg_match('/graph/',$box->class)) $label.=' ('.$langs->trans("Graph").')';
-				if (preg_match('/graph/', $box->class) && $conf->browser->layout != 'phone') {
+				if (preg_match('/graph/', $box->class) && $config->browser->layout != 'phone') {
 					$label .= ' <span class="fas fa-chart-bar"></span>';
 				}
 				$arrayboxtoactivatelabel[$box->id] = array('label' => $label, 'data-html' => img_picto('', $box->boximg, 'class="pictofixedwidth valignmiddle"').'<span class="valignmiddle">'.$langs->trans($label).'</span>'); // We keep only boxes not shown for user, to show into combo list
@@ -1290,18 +1290,18 @@ class FormOther
 			$selectboxlist .= '<input type="hidden" name="areacode" value="'.$areacode.'">';
 			$selectboxlist .= '<input type="hidden" name="boxorder" value="'.$boxorder.'">';
 			$selectboxlist .= Form::selectarray('boxcombo', $arrayboxtoactivatelabel, -1, $langs->trans("ChooseBoxToAdd").'...', 0, 0, '', 0, 0, 0, 'ASC', 'maxwidth300 hideonprint', 0, 'hidden selected', 0, 0);
-			if (empty($conf->use_javascript_ajax)) {
+			if (empty($config->use_javascript_ajax)) {
 				$selectboxlist .= ' <input type="submit" class="button" value="'.$langs->trans("AddBox").'">';
 			}
 			$selectboxlist .= '</form>';
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 				$selectboxlist .= ajax_combobox("boxcombo");
 			}
 		}
 
 		// Javascript code for dynamic actions
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			$selectboxlist .= '<script nonce="'.getNonce().'" type="text/javascript">
 
 	        // To update list of activated boxes
@@ -1410,7 +1410,7 @@ class FormOther
 				}
 			}
 
-			if ($conf->browser->layout != 'phone') {
+			if ($config->browser->layout != 'phone') {
 				$emptybox->box_id = 'A';
 				$emptybox->info_box_head = array();
 				$emptybox->info_box_contents = array();
@@ -1438,7 +1438,7 @@ class FormOther
 				}
 			}
 
-			if ($conf->browser->layout != 'phone') {
+			if ($config->browser->layout != 'phone') {
 				$emptybox->box_id = 'B';
 				$emptybox->info_box_head = array();
 				$emptybox->info_box_contents = array();

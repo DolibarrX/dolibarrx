@@ -34,7 +34,7 @@ require 'main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs
@@ -53,10 +53,10 @@ $hookManager->initHooks(array('index'));
  */
 
 // Define $nbModulesNotAutoEnabled - TODO This code is at different places
-$nbModulesNotAutoEnabled = count($conf->modules);
+$nbModulesNotAutoEnabled = count($config->modules);
 $listOfModulesAutoEnabled = array('agenda', 'fckeditor', 'export', 'import');
 foreach ($listOfModulesAutoEnabled as $moduleAutoEnable) {
-	if (in_array($moduleAutoEnable, $conf->modules)) {
+	if (in_array($moduleAutoEnable, $config->modules)) {
 		$nbModulesNotAutoEnabled--;
 	}
 }
@@ -105,7 +105,7 @@ $resultboxes = FormOther::getBoxesArea($user, "0"); // Load $resultboxes (select
 
 
 if (getDolGlobalString('MAIN_MOTD')) {
-	$conf->global->MAIN_MOTD = preg_replace('/<br(\s[\sa-zA-Z_="]*)?\/?>/i', '<br>', getDolGlobalString('MAIN_MOTD'));
+	$config->global->MAIN_MOTD = preg_replace('/<br(\s[\sa-zA-Z_="]*)?\/?>/i', '<br>', getDolGlobalString('MAIN_MOTD'));
 	if (getDolGlobalString('MAIN_MOTD')) {
 		$substitutionarray = getCommonSubstitutionArray($langs);
 		complete_substitutions_array($substitutionarray, $langs);
@@ -606,7 +606,7 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 					// Forge the line to show into the open object box
 					$labeltoshow = $board->label.' ('.$board->nbtodo.')';
 					if ($board->total > 0) {
-						$labeltoshow .= ' - '.price($board->total, 0, $langs, 1, -1, -1, $conf->currency);
+						$labeltoshow .= ' - '.price($board->total, 0, $langs, 1, -1, -1, $config->currency);
 					}
 					$openedDashBoard .= '<a href="'.$board->url.'" class="info-box-text info-box-text-a">';
 					$openedDashBoard .= $infoName;
@@ -614,7 +614,7 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 					$openedDashBoard .= '<span class="classfortooltip'.($nbtodClass ? ' '.$nbtodClass : '').'" title="'.$labeltoshow.'">';
 					$openedDashBoard .= $board->nbtodo;
 					if ($board->total > 0 && getDolGlobalString('MAIN_WORKBOARD_SHOW_TOTAL_WO_TAX')) {
-						$openedDashBoard .= ' : '.price($board->total, 0, $langs, 1, -1, -1, $conf->currency);
+						$openedDashBoard .= ' : '.price($board->total, 0, $langs, 1, -1, -1, $config->currency);
 					}
 					$openedDashBoard .= '</span>';
 

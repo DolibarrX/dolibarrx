@@ -110,7 +110,7 @@ $error = 0;
 if (in_array($action, array('setBANK_DISABLE_DIRECT_INPUT', 'setACCOUNTANCY_ER_DATE_RECORD', 'setACCOUNTANCY_COMBO_FOR_AUX', 'setACCOUNTING_MANAGE_ZERO', 'setACCOUNTING_BANK_CONCILIATED'))) {
 	$constname = preg_replace('/^set/', '', $action);
 	$constvalue = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, $constname, $constvalue, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, $constname, $constvalue, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -128,7 +128,7 @@ if ($action == 'update') {
 	if (!$error) {
 		foreach ($list as $constname) {
 			$constvalue = GETPOST($constname, 'alpha');
-			if (!dolibarr_set_const($db, $constname, $constvalue, 'chaine', 0, '', $conf->entity)) {
+			if (!dolibarr_set_const($db, $constname, $constvalue, 'chaine', 0, '', $config->entity)) {
 				$error++;
 			}
 		}
@@ -144,14 +144,14 @@ if ($action == 'update') {
 				$constvalue = dol_mktime(0, 0, 0, GETPOSTINT($constname.'month'), GETPOSTINT($constname.'day'), GETPOSTINT($constname.'year'));
 			}
 
-			if (!dolibarr_set_const($db, $constname, $constvalue, 'chaine', 0, '', $conf->entity)) {
+			if (!dolibarr_set_const($db, $constname, $constvalue, 'chaine', 0, '', $config->entity)) {
 				$error++;
 			}
 		}
 
 		// options in section other
 		if (GETPOSTISSET('ACCOUNTING_LETTERING_NBLETTERS')) {
-			if (!dolibarr_set_const($db, 'ACCOUNTING_LETTERING_NBLETTERS', GETPOST('ACCOUNTING_LETTERING_NBLETTERS'), 'chaine', 0, '', $conf->entity)) {
+			if (!dolibarr_set_const($db, 'ACCOUNTING_LETTERING_NBLETTERS', GETPOST('ACCOUNTING_LETTERING_NBLETTERS'), 'chaine', 0, '', $config->entity)) {
 				$error++;
 			}
 		}
@@ -160,11 +160,11 @@ if ($action == 'update') {
 		$modelcsv = GETPOSTINT('ACCOUNTING_EXPORT_MODELCSV');
 
 		if (!empty($modelcsv)) {
-			if (!dolibarr_set_const($db, 'ACCOUNTING_EXPORT_MODELCSV', $modelcsv, 'chaine', 0, '', $conf->entity)) {
+			if (!dolibarr_set_const($db, 'ACCOUNTING_EXPORT_MODELCSV', $modelcsv, 'chaine', 0, '', $config->entity)) {
 				$error++;
 			}
 			//if ($modelcsv==AccountancyExport::$EXPORT_TYPE_QUADRATUS || $modelcsv==AccountancyExport::$EXPORT_TYPE_CIEL) {
-			//	dolibarr_set_const($db, 'ACCOUNTING_EXPORT_FORMAT', 'txt', 'chaine', 0, '', $conf->entity);
+			//	dolibarr_set_const($db, 'ACCOUNTING_EXPORT_FORMAT', 'txt', 'chaine', 0, '', $config->entity);
 			//}
 		} else {
 			$error++;
@@ -173,7 +173,7 @@ if ($action == 'update') {
 		foreach ($main_option as $constname) {
 			$constvalue = GETPOST($constname, 'alpha');
 
-			if (!dolibarr_set_const($db, $constname, $constvalue, 'chaine', 0, '', $conf->entity)) {
+			if (!dolibarr_set_const($db, $constname, $constvalue, 'chaine', 0, '', $config->entity)) {
 				$error++;
 			}
 		}
@@ -183,7 +183,7 @@ if ($action == 'update') {
 
 			if (strpos($constante, 'ACCOUNTING') !== false) {
 				$constvalue = GETPOST($key, 'alpha');
-				if (!dolibarr_set_const($db, $constante, $constvalue, 'chaine', 0, '', $conf->entity)) {
+				if (!dolibarr_set_const($db, $constante, $constvalue, 'chaine', 0, '', $config->entity)) {
 					$error++;
 				}
 			}
@@ -205,7 +205,7 @@ if ($action == 'update') {
 
 if ($action == 'setmanagezero') {
 	$setmanagezero = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "ACCOUNTING_MANAGE_ZERO", $setmanagezero, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "ACCOUNTING_MANAGE_ZERO", $setmanagezero, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -219,7 +219,7 @@ if ($action == 'setmanagezero') {
 
 if ($action == 'setenabledraftexport') {
 	$setenabledraftexport = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "ACCOUNTING_ENABLE_EXPORT_DRAFT_JOURNAL", $setenabledraftexport, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "ACCOUNTING_ENABLE_EXPORT_DRAFT_JOURNAL", $setenabledraftexport, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -233,7 +233,7 @@ if ($action == 'setenabledraftexport') {
 
 if ($action == 'setenablesubsidiarylist') {
 	$setenablesubsidiarylist = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "ACCOUNTANCY_COMBO_FOR_AUX", $setenablesubsidiarylist, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "ACCOUNTANCY_COMBO_FOR_AUX", $setenablesubsidiarylist, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -247,7 +247,7 @@ if ($action == 'setenablesubsidiarylist') {
 
 if ($action == 'setdisablebindingonsales') {
 	$setdisablebindingonsales = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "ACCOUNTING_DISABLE_BINDING_ON_SALES", $setdisablebindingonsales, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "ACCOUNTING_DISABLE_BINDING_ON_SALES", $setdisablebindingonsales, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -261,7 +261,7 @@ if ($action == 'setdisablebindingonsales') {
 
 if ($action == 'setdisablebindingonpurchases') {
 	$setdisablebindingonpurchases = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "ACCOUNTING_DISABLE_BINDING_ON_PURCHASES", $setdisablebindingonpurchases, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "ACCOUNTING_DISABLE_BINDING_ON_PURCHASES", $setdisablebindingonpurchases, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -275,7 +275,7 @@ if ($action == 'setdisablebindingonpurchases') {
 
 if ($action == 'setdisablebindingonexpensereports') {
 	$setdisablebindingonexpensereports = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "ACCOUNTING_DISABLE_BINDING_ON_EXPENSEREPORTS", $setdisablebindingonexpensereports, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "ACCOUNTING_DISABLE_BINDING_ON_EXPENSEREPORTS", $setdisablebindingonexpensereports, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -289,7 +289,7 @@ if ($action == 'setdisablebindingonexpensereports') {
 
 if ($action == 'setenablelettering') {
 	$setenablelettering = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "ACCOUNTING_ENABLE_LETTERING", $setenablelettering, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "ACCOUNTING_ENABLE_LETTERING", $setenablelettering, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -303,7 +303,7 @@ if ($action == 'setenablelettering') {
 
 if ($action == 'setenableautolettering') {
 	$setenableautolettering = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "ACCOUNTING_ENABLE_AUTOLETTERING", $setenableautolettering, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "ACCOUNTING_ENABLE_AUTOLETTERING", $setenableautolettering, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -317,7 +317,7 @@ if ($action == 'setenableautolettering') {
 
 if ($action == 'setenablevatreversecharge') {
 	$setenablevatreversecharge = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "ACCOUNTING_FORCE_ENABLE_VAT_REVERSE_CHARGE", $setenablevatreversecharge, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "ACCOUNTING_FORCE_ENABLE_VAT_REVERSE_CHARGE", $setenablevatreversecharge, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -331,7 +331,7 @@ if ($action == 'setenablevatreversecharge') {
 
 if ($action == 'setenabletabonthirdparty') {
 	$setenabletabonthirdparty = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "ACCOUNTING_ENABLE_TABONTHIRDPARTY", $setenabletabonthirdparty, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "ACCOUNTING_ENABLE_TABONTHIRDPARTY", $setenabletabonthirdparty, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -754,7 +754,7 @@ if ($num) {
 
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("Selectmodelcsv").'</td>';
-if (!$conf->use_javascript_ajax) {
+if (!$config->use_javascript_ajax) {
 	print '<td class="nowrap">';
 	print $langs->trans("NotAvailableWhenAjaxDisabled");
 	print "</td>";

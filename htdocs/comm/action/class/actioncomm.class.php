@@ -595,7 +595,7 @@ class ActionComm extends CommonObject
 		$sql .= (!empty($this->fk_element) ? ((int) $this->fk_element) : "null").", ";
 		$sql .= (!empty($this->elementtype) ? "'".$this->db->escape($this->elementtype)."'" : "null").", ";
 		$sql .= (!empty($this->fk_bookcal_calendar) ? "'".$this->db->escape($this->fk_bookcal_calendar)."'" : "null").", ";
-		$sql .= ((int) $conf->entity).",";
+		$sql .= ((int) $config->entity).",";
 		$sql .= (!empty($this->extraparams) ? "'".$this->db->escape($this->extraparams)."'" : "null").", ";
 		// Fields emails
 		$sql .= (!empty($this->email_msgid) ? "'".$this->db->escape($this->email_msgid)."'" : "null").", ";
@@ -1451,7 +1451,7 @@ class ActionComm extends CommonObject
 			if (empty($load_state_board)) {
 				$agenda_static = new ActionComm($this->db);
 				$response = new WorkboardResponse();
-				$response->warning_delay = $conf->agenda->warning_delay / 60 / 60 / 24;
+				$response->warning_delay = $config->agenda->warning_delay / 60 / 60 / 24;
 				$response->label = $langs->trans("ActionsToDo");
 				$response->labelShort = $langs->trans("ActionsToDoShort");
 				$response->url = DOL_URL_ROOT.'/comm/action/list.php?mode=show_list&actioncode=0&status=todo&mainmenu=agenda';
@@ -1692,7 +1692,7 @@ class ActionComm extends CommonObject
 	{
 		global $conf, $langs, $user, $hookManager, $action;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -1927,13 +1927,13 @@ class ActionComm extends CommonObject
 		global $conf, $langs;
 
 		// If cache for array of types unknown, we load it
-		if (!empty($conf->cache['actioncommgetypelabel'])) {
-			$arraylist = $conf->cache['actioncommgetypelabel'];
+		if (!empty($config->cache['actioncommgetypelabel'])) {
+			$arraylist = $config->cache['actioncommgetypelabel'];
 		} else {
 			require_once DOL_DOCUMENT_ROOT.'/comm/action/class/cactioncomm.class.php';
 			$caction = new CActionComm($this->db);
 			$arraylist = $caction->liste_array(1, 'code', '', (getDolGlobalString('AGENDA_USE_EVENT_TYPE') ? 0 : 1), '', 1);
-			$conf->cache['actioncommgetypelabel'] = $arraylist;
+			$config->cache['actioncommgetypelabel'] = $arraylist;
 		}
 
 		$labeltype = $this->type_code;
@@ -2044,8 +2044,8 @@ class ActionComm extends CommonObject
 		}
 
 		// Create dir and define output file (definitive and temporary)
-		$result = dol_mkdir($conf->agenda->dir_temp);
-		$outputfile = $conf->agenda->dir_temp.'/'.$filename;
+		$result = dol_mkdir($config->agenda->dir_temp);
+		$outputfile = $config->agenda->dir_temp.'/'.$filename;
 
 		$result = 0;
 
@@ -2400,8 +2400,8 @@ class ActionComm extends CommonObject
 						}
 
 						if (getDolGlobalString('AGENDA_EXPORT_FIX_TZ')) {
-							$timestampStart -= ($conf->global->AGENDA_EXPORT_FIX_TZ * 3600);
-							$timestampEnd   -= ($conf->global->AGENDA_EXPORT_FIX_TZ * 3600);
+							$timestampStart -= ($config->global->AGENDA_EXPORT_FIX_TZ * 3600);
+							$timestampEnd   -= ($config->global->AGENDA_EXPORT_FIX_TZ * 3600);
 						}
 
 						$urlwithouturlroot = preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($dolibarr_main_url_root));
@@ -2470,7 +2470,7 @@ class ActionComm extends CommonObject
 			}
 
 			// Create temp file
-			$outputfiletmp = tempnam($conf->agenda->dir_temp, 'tmp'); // Temporary file (allow call of function by different threads
+			$outputfiletmp = tempnam($config->agenda->dir_temp, 'tmp'); // Temporary file (allow call of function by different threads
 			dolChmod($outputfiletmp);
 
 			// Write file
@@ -2588,7 +2588,7 @@ class ActionComm extends CommonObject
 
 		$now = dol_now();
 
-		return $this->datep && ($this->datep < ($now - $conf->agenda->warning_delay));
+		return $this->datep && ($this->datep < ($now - $config->agenda->warning_delay));
 	}
 
 

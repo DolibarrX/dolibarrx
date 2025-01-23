@@ -163,7 +163,7 @@ if ($search_option == 'late') {
 }
 
 // Pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -196,7 +196,7 @@ if (!empty($socid)) {
 $hookManager->initHooks(array('propallist'));
 $result = restrictedArea($user, $module, $objectid, $dbtable);
 
-$diroutputmassaction = $conf->propal->multidir_output[$conf->entity].'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->propal->multidir_output[$config->entity].'/temp/massgeneration/'.$user->id;
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $object = new Propal($db);
@@ -423,7 +423,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Propal';
 	$objectlabel = 'Proposals';
-	$uploaddir = $conf->propal->multidir_output[$conf->entity];
+	$uploaddir = $config->propal->multidir_output[$config->entity];
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -840,7 +840,7 @@ if (!empty($searchCategoryProductList)) {
 	}
 }
 if ($search_option == 'late') {
-	$sql .= " AND p.fin_validite < '".$db->idate(dol_now() - $conf->propal->cloture->warning_delay)."'";
+	$sql .= " AND p.fin_validite < '".$db->idate(dol_now() - $config->propal->cloture->warning_delay)."'";
 }
 // Add where from extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
@@ -927,7 +927,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -1213,7 +1213,7 @@ if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
 	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('CustomersProspectsCategoriesShort');
-	$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"').$formother->select_categories('customer', $search_categ_cus, 'search_categ_cus', 1, $tmptitle, (empty($conf->dol_optimize_smallscreen) ? 'maxwidth300 widthcentpercentminusx' : 'maxwidth250 widthcentpercentminusx'));
+	$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"').$formother->select_categories('customer', $search_categ_cus, 'search_categ_cus', 1, $tmptitle, (empty($config->dol_optimize_smallscreen) ? 'maxwidth300 widthcentpercentminusx' : 'maxwidth250 widthcentpercentminusx'));
 	$moreforfilter .= '</div>';
 }
 if (isModEnabled('stock') && getDolGlobalString('WAREHOUSE_ASK_WAREHOUSE_DURING_PROPAL')) {
@@ -1876,11 +1876,11 @@ while ($i < $imaxinloop) {
 			print '<table class="nobordernopadding"><tr class="nocellnopadd">';
 			// Picto + Ref
 			print '<td class="nobordernopadding nowraponall">';
-			print $objectstatic->getNomUrl(1, '', '', 0, 1, (isset($conf->global->PROPAL_LIST_SHOW_NOTES) ? $conf->global->PROPAL_LIST_SHOW_NOTES : 1));
+			print $objectstatic->getNomUrl(1, '', '', 0, 1, (isset($config->global->PROPAL_LIST_SHOW_NOTES) ? $config->global->PROPAL_LIST_SHOW_NOTES : 1));
 			print '</td>';
 			// Warning
 			$warnornote = '';
-			if ($obj->status == Propal::STATUS_VALIDATED && $db->jdate($obj->dfv) < ($now - $conf->propal->cloture->warning_delay)) {
+			if ($obj->status == Propal::STATUS_VALIDATED && $db->jdate($obj->dfv) < ($now - $config->propal->cloture->warning_delay)) {
 				$warnornote .= img_warning($langs->trans("Late"));
 			}
 			if ($warnornote) {
@@ -1891,7 +1891,7 @@ while ($i < $imaxinloop) {
 			// Other picto tool
 			print '<td width="16" class="nobordernopadding right">';
 			$filename = dol_sanitizeFileName($obj->ref);
-			$filedir = $conf->propal->multidir_output[$obj->propal_entity].'/'.dol_sanitizeFileName($obj->ref);
+			$filedir = $config->propal->multidir_output[$obj->propal_entity].'/'.dol_sanitizeFileName($obj->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 			print $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir);
 			print '</td></tr></table>';

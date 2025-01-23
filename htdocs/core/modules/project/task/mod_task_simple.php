@@ -105,7 +105,7 @@ class mod_task_simple extends ModeleNumRefTask
 		$sql .= " FROM ".MAIN_DB_PREFIX."projet_task AS task, ";
 		$sql .= MAIN_DB_PREFIX."projet AS project WHERE task.fk_projet = project.rowid";
 		$sql .= " AND task.ref LIKE '".$db->escape($this->prefix)."____-%'";
-		$sql .= " AND project.entity = ".((int) $conf->entity);
+		$sql .= " AND project.entity = ".((int) $config->entity);
 		$resql = $db->query($sql);
 		if ($resql) {
 			$row = $db->fetch_row($resql);

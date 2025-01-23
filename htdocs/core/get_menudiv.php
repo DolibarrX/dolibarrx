@@ -157,7 +157,7 @@ print '
 	}
 
     a.alilevel0, span.spanlilevel0 {
-        background-image: url(\''.DOL_URL_ROOT.'/theme/'.urlencode($conf->theme).'/img/next.png\') !important;
+        background-image: url(\''.DOL_URL_ROOT.'/theme/'.urlencode($config->theme).'/img/next.png\') !important;
         background-repeat: no-repeat !important;';
 if ($langs->trans("DIRECTION") == 'rtl') {
 	print 'background-position: right;';
@@ -193,7 +193,7 @@ print '
         padding-bottom: 5px;
     }
 	li.lilevel1 > a, li.lilevel1 > i {
-        /* background-image: url(\''.DOL_URL_ROOT.'/theme/'.urlencode($conf->theme).'/img/puce.png\') !important; */
+        /* background-image: url(\''.DOL_URL_ROOT.'/theme/'.urlencode($config->theme).'/img/puce.png\') !important; */
         background-repeat: no-repeat !important;';
 if ($langs->trans("DIRECTION") == 'rtl') {
 	print 'background-position: right;';
@@ -268,19 +268,19 @@ $(document).ready(function(){
 
 
 if (empty($user->socid)) {	// If internal user or not defined
-	$conf->standard_menu = (!getDolGlobalString('MAIN_MENU_STANDARD_FORCED') ? (!getDolGlobalString('MAIN_MENU_STANDARD') ? 'eldy_menu.php' : $conf->global->MAIN_MENU_STANDARD) : $conf->global->MAIN_MENU_STANDARD_FORCED);
+	$config->standard_menu = (!getDolGlobalString('MAIN_MENU_STANDARD_FORCED') ? (!getDolGlobalString('MAIN_MENU_STANDARD') ? 'eldy_menu.php' : $config->global->MAIN_MENU_STANDARD) : $config->global->MAIN_MENU_STANDARD_FORCED);
 } else { // If external user
-	$conf->standard_menu = (!getDolGlobalString('MAIN_MENUFRONT_STANDARD_FORCED') ? (!getDolGlobalString('MAIN_MENUFRONT_STANDARD') ? 'eldy_menu.php' : $conf->global->MAIN_MENUFRONT_STANDARD) : $conf->global->MAIN_MENUFRONT_STANDARD_FORCED);
+	$config->standard_menu = (!getDolGlobalString('MAIN_MENUFRONT_STANDARD_FORCED') ? (!getDolGlobalString('MAIN_MENUFRONT_STANDARD') ? 'eldy_menu.php' : $config->global->MAIN_MENUFRONT_STANDARD) : $config->global->MAIN_MENUFRONT_STANDARD_FORCED);
 }
 
 // Load the menu manager (only if not already done)
-$file_menu = $conf->standard_menu;
+$file_menu = $config->standard_menu;
 if (GETPOST('menu', 'aZ09')) {
 	$file_menu = GETPOST('menu', 'aZ09'); // example: menu=eldy_menu.php
 }
 if (!class_exists('MenuManager')) {
 	$menufound = 0;
-	$dirmenus = array_merge(array("/core/menus/"), (array) $conf->modules_parts['menus']);
+	$dirmenus = array_merge(array("/core/menus/"), (array) $config->modules_parts['menus']);
 	foreach ($dirmenus as $dirmenu) {
 		$menufound = dol_include_once($dirmenu."standard/".dol_sanitizeFileName($file_menu));
 		if ($menufound) {

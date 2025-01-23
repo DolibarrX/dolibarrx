@@ -71,7 +71,7 @@ $arrayofparameters = array(
 $error = 0;
 $setupnotempty = 0;
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 $moduledir = 'hrm';
 // TODO Scan list of objects to fill this array
@@ -108,7 +108,7 @@ if ($action == 'update') {
 				if (empty($skill->lines)) {
 					$skill->fetchLines();
 				}
-				if (count($skill->lines) < $conf->global->HRM_MAXRANK) {
+				if (count($skill->lines) < $config->global->HRM_MAXRANK) {
 					$skill->createSkills(count($skill->lines) + 1);
 				}
 			}
@@ -119,7 +119,7 @@ if ($action == 'update') {
 	$maskvalue = GETPOST('maskEvaluation', 'alpha');
 
 	if ($maskconst && preg_match('/_MASK$/', $maskconst)) {
-		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
@@ -140,7 +140,7 @@ if ($action == 'update') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/hrm/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -170,7 +170,7 @@ if ($action == 'update') {
 	// TODO Check if numbering module chosen can be activated by calling method canBeActivated
 	if (!empty($tmpobjectkey)) {
 		$constforval = 'HRMTEST_'.strtoupper($tmpobjectkey)."_ADDON";
-		dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $config->entity);
 	}
 } elseif ($action == 'set') {
 	// Activate a model
@@ -181,7 +181,7 @@ if ($action == 'update') {
 		if (!empty($tmpobjectkey)) {
 			$constforval = 'HRMTEST_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
 			if (getDolGlobalString($constforval) == "$value") {
-				dolibarr_del_const($db, $constforval, $conf->entity);
+				dolibarr_del_const($db, $constforval, $config->entity);
 			}
 		}
 	}
@@ -189,10 +189,10 @@ if ($action == 'update') {
 	// Set or unset default model
 	if (!empty($tmpobjectkey)) {
 		$constforval = 'HRMTEST_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
-		if (dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $conf->entity)) {
+		if (dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $config->entity)) {
 			// The constant that was read before the new set
 			// We therefore requires a variable to have a coherent view
-			$conf->global->$constforval = $value;
+			$config->global->$constforval = $value;
 		}
 
 		// We disable/enable the document template (into llx_document_model table)
@@ -204,7 +204,7 @@ if ($action == 'update') {
 } elseif ($action == 'unsetdoc') {
 	if (!empty($tmpobjectkey)) {
 		$constforval = 'HRMTEST_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
-		dolibarr_del_const($db, $constforval, $conf->entity);
+		dolibarr_del_const($db, $constforval, $config->entity);
 	}
 }
 
@@ -359,7 +359,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 		$sql = "SELECT nom";
 		$sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 		$sql .= " WHERE type = '".$db->escape($type)."'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 		$resql = $db->query($sql);
 		if ($resql) {
 			$i = 0;
@@ -501,7 +501,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 print load_fiche_titre($langs->trans('OtherOptions'), '', '');
 
 if (!getDolGlobalString('HRM_MAXRANK')) {
-	$conf->global->HRM_MAXRANK = Skill::DEFAULT_MAX_RANK_PER_SKILL;
+	$config->global->HRM_MAXRANK = Skill::DEFAULT_MAX_RANK_PER_SKILL;
 }
 
 if ($action == 'edit') {
@@ -566,7 +566,7 @@ if ($action == 'edit') {
 				print $formcompany->selectProspectCustomerType(getDolGlobalString($constname), $constname);
 			} elseif ($val['type'] == 'securekey') {
 				print '<input required="required" type="text" class="flat" id="' . $constname . '" name="' . $constname . '" value="' . (GETPOST($constname, 'alpha') ? GETPOST($constname, 'alpha') : getDolGlobalString($constname)) . '" size="40">';
-				if (!empty($conf->use_javascript_ajax)) {
+				if (!empty($config->use_javascript_ajax)) {
 					print '&nbsp;' . img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token' . $constname . '" class="linkobject"');
 				}
 

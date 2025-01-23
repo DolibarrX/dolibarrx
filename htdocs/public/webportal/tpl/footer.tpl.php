@@ -21,7 +21,7 @@ $jsSuccess = '';
 $jsWarning = '';
 $jsError = '';
 //$useJNotify = false;
-//if (!empty($conf->use_javascript_ajax) && empty($conf->global->MAIN_DISABLE_JQUERY_JNOTIFY)) {
+//if (!empty($config->use_javascript_ajax) && empty($config->global->MAIN_DISABLE_JQUERY_JNOTIFY)) {
 //$useJNotify = true;
 //}
 $useJNotify = true;

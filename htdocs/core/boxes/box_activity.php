@@ -80,7 +80,7 @@ class box_activity extends ModeleBoxes
 
 		// Force use of cache for this box as it has very bad performances
 		$savMAIN_ACTIVATE_FILECACHE = getDolGlobalInt('MAIN_ACTIVATE_FILECACHE');
-		$conf->global->MAIN_ACTIVATE_FILECACHE = 1;
+		$config->global->MAIN_ACTIVATE_FILECACHE = 1;
 
 		if (getDolGlobalString('MAIN_BOX_ACTIVITY_DURATION')) {
 			$nbofperiod = getDolGlobalString('MAIN_BOX_ACTIVITY_DURATION');
@@ -163,7 +163,7 @@ class box_activity extends ModeleBoxes
 
 					$this->info_box_contents[$line][3] = array(
 						'td' => 'class="nowraponall right amount"',
-						'text' => price($data[$j]->Mnttot, 1, $langs, 0, 0, -1, $conf->currency),
+						'text' => price($data[$j]->Mnttot, 1, $langs, 0, 0, -1, $config->currency),
 					);
 					$this->info_box_contents[$line][4] = array(
 						'td' => 'class="right" width="18"',
@@ -249,7 +249,7 @@ class box_activity extends ModeleBoxes
 
 					$this->info_box_contents[$line][3] = array(
 						'td' => 'class="nowraponall right amount"',
-						'text' => price($data[$j]->Mnttot, 1, $langs, 0, 0, -1, $conf->currency),
+						'text' => price($data[$j]->Mnttot, 1, $langs, 0, 0, -1, $config->currency),
 					);
 					$this->info_box_contents[$line][4] = array(
 						'td' => 'class="right" width="18"',
@@ -334,7 +334,7 @@ class box_activity extends ModeleBoxes
 
 					$this->info_box_contents[$line][3] = array(
 						'td' => 'class="nowraponall right amount"',
-						'text' => price($data[$j]->Mnttot, 1, $langs, 0, 0, -1, $conf->currency)
+						'text' => price($data[$j]->Mnttot, 1, $langs, 0, 0, -1, $config->currency)
 					);
 
 					// We add only for the current year
@@ -407,7 +407,7 @@ class box_activity extends ModeleBoxes
 					$totalnb += $data[$j]->nb;
 					$this->info_box_contents[$line][3] = array(
 						'td' => 'class="nowraponall right amount"',
-						'text' => price($data[$j]->Mnttot, 1, $langs, 0, 0, -1, $conf->currency),
+						'text' => price($data[$j]->Mnttot, 1, $langs, 0, 0, -1, $config->currency),
 					);
 					$this->info_box_contents[$line][4] = array(
 						'td' => 'class="right" width="18"',
@@ -433,7 +433,7 @@ class box_activity extends ModeleBoxes
 		$this->info_box_contents[$line][3] = array('td' => 'class="liste_total right" ', 'text' => '');
 		$this->info_box_contents[$line][4] = array('td' => 'class="liste_total right" ', 'text' => "");
 
-		$conf->global->MAIN_ACTIVATE_FILECACHE = $savMAIN_ACTIVATE_FILECACHE;
+		$config->global->MAIN_ACTIVATE_FILECACHE = $savMAIN_ACTIVATE_FILECACHE;
 	}
 
 

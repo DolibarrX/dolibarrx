@@ -71,7 +71,7 @@ if (!$sortfield) {
 if (!$sortorder) {
 	$sortorder = "ASC";
 }
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 if (empty($page) || $page == -1) {
 	$page = 0;
 }     // If $page is not defined, or '' or -1
@@ -358,7 +358,7 @@ if ($resql) {
 	$texte .= ' ('.$langs->trans("MenuStocks").')';
 
 	$param = '';
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($sall) {

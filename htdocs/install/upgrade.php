@@ -132,24 +132,24 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 	}
 
 	// $conf is already instantiated inside inc.php
-	$conf->db->type = $dolibarr_main_db_type;
-	$conf->db->host = $dolibarr_main_db_host;
-	$conf->db->port = $dolibarr_main_db_port;
-	$conf->db->name = $dolibarr_main_db_name;
-	$conf->db->user = $dolibarr_main_db_user;
-	$conf->db->pass = $dolibarr_main_db_pass;
+	$config->db->type = $dolibarr_main_db_type;
+	$config->db->host = $dolibarr_main_db_host;
+	$config->db->port = $dolibarr_main_db_port;
+	$config->db->name = $dolibarr_main_db_name;
+	$config->db->user = $dolibarr_main_db_user;
+	$config->db->pass = $dolibarr_main_db_pass;
 
 	// Load type and crypt key
 	if (empty($dolibarr_main_db_encryption)) {
 		$dolibarr_main_db_encryption = 0;
 	}
-	$conf->db->dolibarr_main_db_encryption = $dolibarr_main_db_encryption;
+	$config->db->dolibarr_main_db_encryption = $dolibarr_main_db_encryption;
 	if (empty($dolibarr_main_db_cryptkey)) {
 		$dolibarr_main_db_cryptkey = '';
 	}
-	$conf->db->dolibarr_main_db_cryptkey = $dolibarr_main_db_cryptkey;
+	$config->db->dolibarr_main_db_cryptkey = $dolibarr_main_db_cryptkey;
 
-	$db = getDoliDBInstance($conf->db->type, $conf->db->host, $conf->db->user, $conf->db->pass, $conf->db->name, (int) $conf->db->port);
+	$db = getDoliDBInstance($config->db->type, $config->db->host, $config->db->user, $config->db->pass, $config->db->name, (int) $config->db->port);
 
 	// Create the global $hookManager object
 	include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
@@ -266,7 +266,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 								MAIN_DB_PREFIX.'c_input_method'
 			);
 
-			$listtables = $db->DDLListTables($conf->db->name, '');
+			$listtables = $db->DDLListTables($config->db->name, '');
 
 			foreach ($listtables as $val) {
 				// Database prefix filter
@@ -366,7 +366,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 				// Scan if there is migration scripts that depends of Dolibarr version
 				// for modules htdocs/module/sql or htdocs/custom/module/sql (files called "dolibarr_x.y.z-a.b.c.sql" or "dolibarr_always.sql")
 				$modulesfile = array();
-				foreach ($conf->file->dol_document_root as $type => $dirroot) {
+				foreach ($config->file->dol_document_root as $type => $dirroot) {
 					$handlemodule = @opendir($dirroot); // $dirroot may be '..'
 					if (is_resource($handlemodule)) {
 						while (($filemodule = readdir($handlemodule)) !== false) {

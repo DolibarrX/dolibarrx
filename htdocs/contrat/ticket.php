@@ -147,7 +147,7 @@ $morehtmlref .= $form->editfieldval(
 // Thirdparty
 $morehtmlref .= '<br>'.$langs->trans('ThirdParty') . ' : ' . $object->thirdparty->getNomUrl(1);
 // Project
-if (! empty($conf->projet->enabled)) {
+if (! empty($config->projet->enabled)) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/task.class.php';
 
 	$langs->load("projects");

@@ -126,16 +126,16 @@ class pdf_ban extends ModeleBankAccountDoc
 		// Load traductions files required by page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "projects"));
 
-		if ($conf->bank->dir_output) {
+		if ($config->bank->dir_output) {
 			//$nblines = count($object->lines);  // This is set later with array of tasks
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->bank->dir_output;
+				$dir = $config->bank->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->bank->dir_output."/".$objectref;
+				$dir = $config->bank->dir_output."/".$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 
@@ -328,7 +328,7 @@ class pdf_ban extends ModeleBankAccountDoc
 		$pdf->SetXY($this->marge_gauche, $posy);
 
 		// Logo
-		$logo = $conf->mycompany->dir_output.'/logos/'.$mysoc->logo;
+		$logo = $config->mycompany->dir_output.'/logos/'.$mysoc->logo;
 		if ($mysoc->logo) {
 			if (is_readable($logo)) {
 				$height = pdf_getHeightForLogo($logo);
@@ -398,7 +398,7 @@ class pdf_ban extends ModeleBankAccountDoc
 		// phpcs:enable
 		global $conf;
 
-		$showdetails = !getDolGlobalString('MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS') ? 0 : $conf->global->MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS;
+		$showdetails = !getDolGlobalString('MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS') ? 0 : $config->global->MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS;
 		return 1;
 	}
 }

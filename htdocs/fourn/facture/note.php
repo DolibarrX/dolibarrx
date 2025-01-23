@@ -196,22 +196,22 @@ if ($object->id > 0) {
 	print '</td></tr>';
 
 	// Amount
-	print '<tr><td>'.$langs->trans('AmountHT').'</td><td>'.price($object->total_ht, 1, $langs, 0, -1, -1, $conf->currency).'</td></tr>';
-	print '<tr><td>'.$langs->trans('AmountVAT').'</td><td>'.price($object->total_tva, 1, $langs, 0, -1, -1, $conf->currency).'</td></tr>';
+	print '<tr><td>'.$langs->trans('AmountHT').'</td><td>'.price($object->total_ht, 1, $langs, 0, -1, -1, $config->currency).'</td></tr>';
+	print '<tr><td>'.$langs->trans('AmountVAT').'</td><td>'.price($object->total_tva, 1, $langs, 0, -1, -1, $config->currency).'</td></tr>';
 
 	// Amount Local Taxes
 	//TODO: Place into a function to control showing by country or study better option
 	if ($mysoc->localtax1_assuj == "1") { //Localtax1
 		print '<tr><td>'.$langs->transcountry("AmountLT1", $mysoc->country_code).'</td>';
-		print '<td>'.price($object->total_localtax1, 1, $langs, 0, -1, -1, $conf->currency).'</td>';
+		print '<td>'.price($object->total_localtax1, 1, $langs, 0, -1, -1, $config->currency).'</td>';
 		print '</tr>';
 	}
 	if ($mysoc->localtax2_assuj == "1") { //Localtax2
 		print '<tr><td>'.$langs->transcountry("AmountLT2", $mysoc->country_code).'</td>';
-		print '<td>'.price($object->total_localtax2, 1, $langs, 0, -1, -1, $conf->currency).'</td>';
+		print '<td>'.price($object->total_localtax2, 1, $langs, 0, -1, -1, $config->currency).'</td>';
 		print '</tr>';
 	}
-	print '<tr><td>'.$langs->trans('AmountTTC').'</td><td>'.price($object->total_ttc, 1, $langs, 0, -1, -1, $conf->currency).'</td></tr>';
+	print '<tr><td>'.$langs->trans('AmountTTC').'</td><td>'.price($object->total_ttc, 1, $langs, 0, -1, -1, $config->currency).'</td></tr>';
 
 	print "</table>";
 

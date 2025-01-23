@@ -96,7 +96,7 @@ class mod_workstation_standard extends ModeleNumRefWorkstation
 		$sql .= " FROM ".MAIN_DB_PREFIX."workstation_workstation";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."-%'";
 		if ($object->ismultientitymanaged == 1) {
-			$sql .= " AND entity = ".$conf->entity;
+			$sql .= " AND entity = ".$config->entity;
 		} elseif ($object->ismultientitymanaged == 2) {
 			// TODO
 		}
@@ -132,7 +132,7 @@ class mod_workstation_standard extends ModeleNumRefWorkstation
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
 		$sql .= " FROM ".MAIN_DB_PREFIX."workstation_workstation";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."-%'";
-		//$sql .= " AND entity = ".$conf->entity;
+		//$sql .= " AND entity = ".$config->entity;
 
 		$resql = $db->query($sql);
 		if ($resql) {

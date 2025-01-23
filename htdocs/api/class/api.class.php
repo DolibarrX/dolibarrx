@@ -50,7 +50,7 @@ class DolibarrApi
 		global $conf, $dolibarr_main_url_root;
 
 		if (empty($cachedir)) {
-			$cachedir = $conf->api->dir_temp;
+			$cachedir = $config->api->dir_temp;
 		}
 		Defaults::$cacheDirectory = $cachedir;
 

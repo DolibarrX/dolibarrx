@@ -65,7 +65,7 @@ $hookManager->initHooks(array('batchproductstatsexpedition'));
 $showmessage = GETPOST('showmessage');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -166,7 +166,7 @@ if ($id > 0 || !empty($ref)) {
 		echo '<br>';
 
 		//      // Sell by
-		//      if (empty($conf->global->PRODUCT_DISABLE_SELLBY)) {
+		//      if (empty($config->global->PRODUCT_DISABLE_SELLBY)) {
 		//          print '<tr><td>';
 		//          print $form->editfieldkey($langs->trans('SellByDate'), 'sellby', $object->sellby, $object, $user->rights->stock->creer, 'datepicker');
 		//          print '</td><td>';
@@ -176,7 +176,7 @@ if ($id > 0 || !empty($ref)) {
 		//      }
 		//
 		//      // Eat by
-		//      if (empty($conf->global->PRODUCT_DISABLE_EATBY)) {
+		//      if (empty($config->global->PRODUCT_DISABLE_EATBY)) {
 		//          print '<tr><td>';
 		//          print $form->editfieldkey($langs->trans('EatByDate'), 'eatby', $object->eatby, $object, $user->rights->stock->creer, 'datepicker');
 		//          print '</td><td>';
@@ -273,7 +273,7 @@ if ($id > 0 || !empty($ref)) {
 
 				$option = '&id='.$object->id;
 
-				if ($limit > 0 && $limit != $conf->liste_limit) {
+				if ($limit > 0 && $limit != $config->liste_limit) {
 					$option .= '&limit='.((int) $limit);
 				}
 				if (!empty($search_month)) {

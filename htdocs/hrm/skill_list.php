@@ -64,7 +64,7 @@ $mode        = GETPOST('mode', 'alpha'); // for mode view result
 $id         = GETPOSTINT('id');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -79,7 +79,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new Skill($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->hrm->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->hrm->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('skilllist')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -164,7 +164,7 @@ if ($user->socid > 0) {
 //$socid = 0; if ($user->socid > 0) $socid = $user->socid;
 //$isdraft = (($object->status == $object::STATUS_DRAFT) ? 1 : 0);
 //restrictedArea($user, $object->element, $object->id, $object->table_element, '', 'fk_soc', 'rowid', $isdraft);
-//if (empty($conf->hrm->enabled)) accessforbidden();
+//if (empty($config->hrm->enabled)) accessforbidden();
 if (!$permissiontoread) {
 	accessforbidden();
 }
@@ -213,7 +213,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Skill';
 	$objectlabel = 'Skill';
-	$uploaddir = $conf->hrm->dir_output;
+	$uploaddir = $config->hrm->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -384,7 +384,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 foreach ($search as $key => $val) {

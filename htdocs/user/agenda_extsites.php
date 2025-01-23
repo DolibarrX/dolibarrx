@@ -53,7 +53,7 @@ $actionsave = GETPOST('save', 'alpha');
 $contextpage = GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : 'useragenda'; // To manage different context of search
 
 if (!getDolGlobalString('AGENDA_EXT_NB')) {
-	$conf->global->AGENDA_EXT_NB = 5;
+	$config->global->AGENDA_EXT_NB = 5;
 }
 $MAXAGENDA = getDolGlobalString('AGENDA_EXT_NB');
 
@@ -231,7 +231,7 @@ print '<br>';
 print '<span class="opacitymedium">'.$langs->trans("AgendaExtSitesDesc")."</span><br>\n";
 print "<br>\n";
 
-$selectedvalue = !getDolGlobalString('AGENDA_DISABLE_EXT') ? 0 : $conf->global->AGENDA_DISABLE_EXT;
+$selectedvalue = !getDolGlobalString('AGENDA_DISABLE_EXT') ? 0 : $config->global->AGENDA_DISABLE_EXT;
 if ($selectedvalue == 1) {
 	$selectedvalue = 0;
 } else {

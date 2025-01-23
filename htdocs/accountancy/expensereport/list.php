@@ -82,7 +82,7 @@ if (empty($search_date_start) && getDolGlobalString('ACCOUNTING_DATE_START_BINDI
 }
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : getDolGlobalString('ACCOUNTING_LIMIT_LIST_VENTILATION', $conf->liste_limit);
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : getDolGlobalString('ACCOUNTING_LIMIT_LIST_VENTILATION', $config->liste_limit);
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -169,7 +169,7 @@ if (empty($reshook)) {
 	$objectlabel = 'ExpenseReport';
 	$permissiontoread = $user->hasRight('accounting', 'read');
 	$permissiontodelete = $user->hasRight('accounting', 'delete');
-	$uploaddir = $conf->expensereport->dir_output;
+	$uploaddir = $config->expensereport->dir_output;
 	include DOL_DOCUMENT_ROOT . '/core/actions_massactions.inc.php';
 }
 
@@ -220,7 +220,7 @@ if ($massaction == 'ventil' && $user->hasRight('accounting', 'bind', 'write')) {
 if (GETPOST('sortfield') == 'erd.date, erd.rowid') {
 	$value = (GETPOST('sortorder') == 'asc,asc' ? 0 : 1);
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
-	$res = dolibarr_set_const($db, "ACCOUNTING_LIST_SORT_VENTILATION_TODO", $value, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "ACCOUNTING_LIST_SORT_VENTILATION_TODO", $value, 'yesno', 0, '', $config->entity);
 }
 
 
@@ -256,7 +256,7 @@ $sql .= " FROM ".MAIN_DB_PREFIX."expensereport as er";
 $sql .= " INNER JOIN ".MAIN_DB_PREFIX."expensereport_det as erd ON er.rowid = erd.fk_expensereport";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_type_fees as f ON f.id = erd.fk_c_type_fees";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as u ON u.rowid = er.fk_user_author";
-$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON f.accountancy_code = aa.account_number AND aa.fk_pcg_version = '".$db->escape($chartaccountcode)."' AND aa.entity = ".$conf->entity;
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."accounting_account as aa ON f.accountancy_code = aa.account_number AND aa.fk_pcg_version = '".$db->escape($chartaccountcode)."' AND aa.entity = ".$config->entity;
 $sql .= " WHERE er.fk_statut IN (".ExpenseReport::STATUS_APPROVED.", ".ExpenseReport::STATUS_CLOSED.") AND erd.fk_code_ventilation <= 0";
 // Add search filter like
 if (strlen($search_lineid)) {
@@ -330,7 +330,7 @@ if ($result) {
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($search_lineid) {

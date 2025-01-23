@@ -94,8 +94,8 @@ class FormMargin
 			}
 
 			// If buy price is not defined (null), we will use the sell price. If defined to 0 (it means it was forced to 0 during insert, for example for a free to get product), we must still use 0.
-			//if ((!isset($line->pa_ht) || $line->pa_ht == 0) && $line->subprice > 0 && (isset($conf->global->ForceBuyingPriceIfNull) && $conf->global->ForceBuyingPriceIfNull > 0)) {
-			if ((!isset($line->pa_ht)) && $line->subprice > 0 && (isset($conf->global->ForceBuyingPriceIfNull) && getDolGlobalInt('ForceBuyingPriceIfNull') > 0)) {
+			//if ((!isset($line->pa_ht) || $line->pa_ht == 0) && $line->subprice > 0 && (isset($config->global->ForceBuyingPriceIfNull) && $config->global->ForceBuyingPriceIfNull > 0)) {
+			if ((!isset($line->pa_ht)) && $line->subprice > 0 && (isset($config->global->ForceBuyingPriceIfNull) && getDolGlobalInt('ForceBuyingPriceIfNull') > 0)) {
 				$line->pa_ht = $line->subprice * (1 - ($line->remise_percent / 100));
 			}
 
@@ -122,7 +122,7 @@ class FormMargin
 			}
 
 			// calcul des marges
-			if (isset($line->fk_remise_except) && isset($conf->global->MARGIN_METHODE_FOR_DISCOUNT)) {    // remise
+			if (isset($line->fk_remise_except) && isset($config->global->MARGIN_METHODE_FOR_DISCOUNT)) {    // remise
 				if (getDolGlobalString('MARGIN_METHODE_FOR_DISCOUNT') == '1') { // remise globale considérée comme produit
 					$marginInfos['pa_products'] += $pa;
 					$marginInfos['pv_products'] += $pv;

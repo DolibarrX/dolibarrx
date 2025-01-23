@@ -169,7 +169,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu3 ON bu3.fk_bank = b.rowid A
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank_url as bu4 ON bu4.fk_bank = b.rowid AND bu4.type='payment_supplier'";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as soc on bu1.url_id=soc.rowid";
 if (getDolGlobalString('MAIN_COMPANY_PERENTITY_SHARED')) {
-	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = soc.rowid AND spe.entity = " . ((int) $conf->entity);
+	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "societe_perentity as spe ON spe.fk_soc = soc.rowid AND spe.entity = " . ((int) $config->entity);
 }
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as u on bu2.url_id=u.rowid";
 $sql .= " WHERE ba.fk_accountancy_journal=".((int) $id_journal);
@@ -671,7 +671,7 @@ if (!$error && $action == 'writebookkeeping' && $user->hasRight('accounting', 'b
 	$accountingaccountpayment->fetch(0, getDolGlobalString('SALARIES_ACCOUNTING_ACCOUNT_PAYMENT'), true);
 
 	$accountingaccountexpensereport = new AccountingAccount($db);
-	$accountingaccountexpensereport->fetch(0, $conf->global->ACCOUNTING_ACCOUNT_EXPENSEREPORT, true);
+	$accountingaccountexpensereport->fetch(0, $config->global->ACCOUNTING_ACCOUNT_EXPENSEREPORT, true);
 
 	$accountingaccountsuspense = new AccountingAccount($db);
 	$accountingaccountsuspense->fetch(0, getDolGlobalString('ACCOUNTING_ACCOUNT_SUSPENSE'), true);
@@ -696,12 +696,12 @@ if (!$error && $action == 'writebookkeeping' && $user->hasRight('accounting', 'b
 			// Line into bank account
 			foreach ($tabbq[$key] as $k => $mt) {
 				if ($mt) {
-					if (empty($conf->cache['accountingaccountincurrententity'][$k])) {
+					if (empty($config->cache['accountingaccountincurrententity'][$k])) {
 						$accountingaccount = new AccountingAccount($db);
 						$accountingaccount->fetch(0, $k, true);	// $k is accounting account of the bank.
-						$conf->cache['accountingaccountincurrententity'][$k] = $accountingaccount;
+						$config->cache['accountingaccountincurrententity'][$k] = $accountingaccount;
 					} else {
-						$accountingaccount = $conf->cache['accountingaccountincurrententity'][$k];
+						$accountingaccount = $config->cache['accountingaccountincurrententity'][$k];
 					}
 
 					$account_label = $accountingaccount->label;
@@ -738,7 +738,7 @@ if (!$error && $action == 'writebookkeeping' && $user->hasRight('accounting', 'b
 					// No subledger_account value for the bank line but add a specific label_operation
 					$bookkeeping->subledger_account = '';
 					$bookkeeping->label_operation = $reflabel;
-					$bookkeeping->entity = $conf->entity;
+					$bookkeeping->entity = $config->entity;
 
 					$totaldebit += $bookkeeping->debit;
 					$totalcredit += $bookkeeping->credit;
@@ -868,7 +868,7 @@ if (!$error && $action == 'writebookkeeping' && $user->hasRight('accounting', 'b
 							}
 						}
 						$bookkeeping->label_operation = $reflabel;
-						$bookkeeping->entity = $conf->entity;
+						$bookkeeping->entity = $config->entity;
 
 						$totaldebit += $bookkeeping->debit;
 						$totalcredit += $bookkeeping->credit;
@@ -918,7 +918,7 @@ if (!$error && $action == 'writebookkeeping' && $user->hasRight('accounting', 'b
 						$bookkeeping->date_creation = $now;
 						$bookkeeping->label_compte = '';
 						$bookkeeping->label_operation = $reflabel;
-						$bookkeeping->entity = $conf->entity;
+						$bookkeeping->entity = $config->entity;
 
 						$totaldebit += $bookkeeping->debit;
 						$totalcredit += $bookkeeping->credit;
@@ -1154,9 +1154,9 @@ if (empty($action) || $action == 'view') {
 	$desc = '';
 
 	if (getDolGlobalString('ACCOUNTANCY_FISCAL_PERIOD_MODE') != 'blockedonclosed') {
-		// Test that setup is complete (we are in accounting, so test on entity is always on $conf->entity only, no sharing allowed)
+		// Test that setup is complete (we are in accounting, so test on entity is always on $config->entity only, no sharing allowed)
 		// Fiscal period test
-		$sql = "SELECT COUNT(rowid) as nb FROM ".MAIN_DB_PREFIX."accounting_fiscalyear WHERE entity = ".((int) $conf->entity);
+		$sql = "SELECT COUNT(rowid) as nb FROM ".MAIN_DB_PREFIX."accounting_fiscalyear WHERE entity = ".((int) $config->entity);
 		$resql = $db->query($sql);
 		if ($resql) {
 			$obj = $db->fetch_object($resql);
@@ -1173,7 +1173,7 @@ if (empty($action) || $action == 'view') {
 	}
 
 	// Bank test
-	$sql = "SELECT COUNT(rowid) as nb FROM ".MAIN_DB_PREFIX."bank_account WHERE entity = ".((int) $conf->entity)." AND fk_accountancy_journal IS NULL AND clos=0";
+	$sql = "SELECT COUNT(rowid) as nb FROM ".MAIN_DB_PREFIX."bank_account WHERE entity = ".((int) $config->entity)." AND fk_accountancy_journal IS NULL AND clos=0";
 	$resql = $db->query($sql);
 	if ($resql) {
 		$obj = $db->fetch_object($resql);

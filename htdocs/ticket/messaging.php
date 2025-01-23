@@ -59,7 +59,7 @@ $action   = GETPOST('action', 'aZ09');
 // Store current page url
 $url_page_current = DOL_URL_ROOT.'/ticket/messaging.php';
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST("sortfield", "aZ09comma");
 $sortorder = GETPOST("sortorder", 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -253,7 +253,7 @@ if (!empty($object->id)) {
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.$contextpage;
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.$limit;
 	}
 
@@ -284,7 +284,7 @@ if (!empty($object->id)) {
 	$nbEvent = dol_getcache($cachekey);
 
 	$titlelist = $langs->trans("ActionsOnTicket").(is_numeric($nbEvent) ? '<span class="opacitymedium colorblack paddingleft">('.$nbEvent.')</span>' : '');
-	if (!empty($conf->dol_optimize_smallscreen)) {
+	if (!empty($config->dol_optimize_smallscreen)) {
 		$titlelist = $langs->trans("Actions").(is_numeric($nbEvent) ? '<span class="opacitymedium colorblack paddingleft">('.$nbEvent.')</span>' : '');
 	}
 

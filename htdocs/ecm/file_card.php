@@ -57,7 +57,7 @@ if ($user->socid > 0) {
 	$socid = $user->socid;
 }
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -93,9 +93,9 @@ if (!($result > 0)) {
 	exit;
 }
 $relativepath = $ecmdir->getRelativePath();
-$upload_dir = $conf->ecm->dir_output.'/'.$relativepath;
+$upload_dir = $config->ecm->dir_output.'/'.$relativepath;
 
-$fullpath = $conf->ecm->dir_output.'/'.$relativepath.$urlfile;
+$fullpath = $config->ecm->dir_output.'/'.$relativepath.$urlfile;
 
 $relativetodocument = 'ecm/'.$relativepath; // $relativepath is relative to ECM dir, we need relative to document
 $filepath = $relativepath.$urlfile;
@@ -151,7 +151,7 @@ if ($action == 'update' && $permissiontoadd) {
 	$olddir = $ecmdir->getRelativePath(0); // Relative to ecm
 	$olddirrelativetodocument = 'ecm/'.$olddir; // Relative to document
 	$newdirrelativetodocument = 'ecm/'.$olddir;
-	$olddir = $conf->ecm->dir_output.'/'.$olddir;
+	$olddir = $config->ecm->dir_output.'/'.$olddir;
 	$newdir = $olddir;
 
 	$oldfile = $olddir.$oldlabel;
@@ -210,7 +210,7 @@ if ($action == 'update' && $permissiontoadd) {
 			}
 		} else {
 			// Call create to insert record
-			$object->entity = $conf->entity;
+			$object->entity = $config->entity;
 			$object->filepath = preg_replace('/[\\/]+$/', '', $newdirrelativetodocument);
 			$object->filename = $newlabel;
 			$object->label = md5_file(dol_osencode($newfileformove)); // hash of file content

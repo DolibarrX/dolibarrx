@@ -283,7 +283,7 @@ if ($socid > 0) {
 		$sql = "SELECT SUM(rc.amount_ht) as amount, rc.fk_user";
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe_remise_except as rc";
 		$sql .= " WHERE rc.fk_soc = ".((int) $object->id);
-		$sql .= " AND rc.entity = ".((int) $conf->entity);
+		$sql .= " AND rc.entity = ".((int) $config->entity);
 		$sql .= " AND discount_type = 0"; // Exclude supplier discounts
 		$sql .= " AND (fk_facture_line IS NULL AND fk_facture IS NULL)";
 		$sql .= " GROUP BY rc.fk_user";
@@ -299,9 +299,9 @@ if ($socid > 0) {
 		}
 
 		print '<tr><td class="titlefieldmiddle">'.$langs->trans("CustomerAbsoluteDiscountAllUsers").'</td>';
-		print '<td class="amount">'.price($remise_all, 1, $langs, 1, -1, -1, $conf->currency).' '.$langs->trans("HT");
+		print '<td class="amount">'.price($remise_all, 1, $langs, 1, -1, -1, $config->currency).' '.$langs->trans("HT");
 		if (empty($user->fk_soc)) {    // No need to show this for external users
-			print $form->textwithpicto('', $langs->trans("CustomerAbsoluteDiscountMy").': '.price($remise_user, 1, $langs, 1, -1, -1, $conf->currency).' '.$langs->trans("HT"));
+			print $form->textwithpicto('', $langs->trans("CustomerAbsoluteDiscountMy").': '.price($remise_user, 1, $langs, 1, -1, -1, $config->currency).' '.$langs->trans("HT"));
 		}
 		print '</td></tr>';
 	}
@@ -312,7 +312,7 @@ if ($socid > 0) {
 		$sql = "SELECT SUM(rc.amount_ht) as amount, rc.fk_user";
 		$sql .= " FROM ".MAIN_DB_PREFIX."societe_remise_except as rc";
 		$sql .= " WHERE rc.fk_soc = ".((int) $object->id);
-		$sql .= " AND rc.entity = ".((int) $conf->entity);
+		$sql .= " AND rc.entity = ".((int) $config->entity);
 		$sql .= " AND discount_type = 1"; // Exclude customer discounts
 		$sql .= " AND (fk_invoice_supplier_line IS NULL AND fk_invoice_supplier IS NULL)";
 		$sql .= " GROUP BY rc.fk_user";
@@ -328,9 +328,9 @@ if ($socid > 0) {
 		}
 
 		print '<tr><td class="titlefieldmiddle">'.$langs->trans("SupplierAbsoluteDiscountAllUsers").'</td>';
-		print '<td class="amount">'.price($remise_all, 1, $langs, 1, -1, -1, $conf->currency).' '.$langs->trans("HT");
+		print '<td class="amount">'.price($remise_all, 1, $langs, 1, -1, -1, $config->currency).' '.$langs->trans("HT");
 		if (empty($user->fk_soc)) {    // No need to show this for external users
-			print $form->textwithpicto('', $langs->trans("SupplierAbsoluteDiscountMy").' : '.price($remise_user, 1, $langs, 1, -1, -1, $conf->currency).' '.$langs->trans("HT"));
+			print $form->textwithpicto('', $langs->trans("SupplierAbsoluteDiscountMy").' : '.price($remise_user, 1, $langs, 1, -1, -1, $config->currency).' '.$langs->trans("HT"));
 		}
 		print '</td></tr>';
 	}
@@ -377,7 +377,7 @@ if ($socid > 0) {
 			// Amount
 			print '<tr><td class="titlefield fieldrequired">'.$langs->trans("Amount").'</td>';
 			print '<td><input type="text" size="5" name="amount" value="'.price2num(GETPOST("amount")).'" autofocus>';
-			print '<span class="hideonsmartphone">&nbsp;'.$langs->trans("Currency".$conf->currency).'</span></td></tr>';
+			print '<span class="hideonsmartphone">&nbsp;'.$langs->trans("Currency".$config->currency).'</span></td></tr>';
 
 			// Price base (HT / TTC)
 			print '<tr><td class="titlefield">'.$langs->trans("PriceBase").'</td>';
@@ -452,7 +452,7 @@ if ($socid > 0) {
 		$sql .= " FROM  ".MAIN_DB_PREFIX."user as u, ".MAIN_DB_PREFIX."societe_remise_except as rc";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture as fa ON rc.fk_facture_source = fa.rowid";
 		$sql .= " WHERE rc.fk_soc = ".((int) $object->id);
-		$sql .= " AND rc.entity = ".((int) $conf->entity);
+		$sql .= " AND rc.entity = ".((int) $config->entity);
 		$sql .= " AND u.rowid = rc.fk_user";
 		$sql .= " AND rc.discount_type = 0"; // Eliminate supplier discounts
 		$sql .= " AND (rc.fk_facture_line IS NULL AND rc.fk_facture IS NULL)";
@@ -578,7 +578,7 @@ if ($socid > 0) {
 					1 => array('type' => 'text', 'name' => 'amount_ttc_2', 'label' => $langs->trans("AmountTTC").' 2', 'value' => $amount2, 'size' => '5')
 				);
 				$langs->load("dict");
-				print $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id.'&remid='.$showconfirminfo['rowid'].($backtopage ? '&backtopage='.urlencode($backtopage) : ''), $langs->trans('SplitDiscount'), $langs->trans('ConfirmSplitDiscount', price($showconfirminfo['amount_ttc']), $langs->transnoentities("Currency".$conf->currency)), 'confirm_split', $formquestion, '', 0);
+				print $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id.'&remid='.$showconfirminfo['rowid'].($backtopage ? '&backtopage='.urlencode($backtopage) : ''), $langs->trans('SplitDiscount'), $langs->trans('ConfirmSplitDiscount', price($showconfirminfo['amount_ttc']), $langs->transnoentities("Currency".$config->currency)), 'confirm_split', $formquestion, '', 0);
 			}
 		} else {
 			dol_print_error($db);
@@ -605,7 +605,7 @@ if ($socid > 0) {
 		$sql .= " FROM  ".MAIN_DB_PREFIX."user as u, ".MAIN_DB_PREFIX."societe_remise_except as rc";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture_fourn as fa ON rc.fk_invoice_supplier_source = fa.rowid";
 		$sql .= " WHERE rc.fk_soc = ".((int) $object->id);
-		$sql .= " AND rc.entity = ".((int) $conf->entity);
+		$sql .= " AND rc.entity = ".((int) $config->entity);
 		$sql .= " AND u.rowid = rc.fk_user";
 		$sql .= " AND rc.discount_type = 1"; // Eliminate customer discounts
 		$sql .= " AND (rc.fk_invoice_supplier IS NULL AND rc.fk_invoice_supplier_line IS NULL)";
@@ -725,7 +725,7 @@ if ($socid > 0) {
 					1 => array('type' => 'text', 'name' => 'amount_ttc_2', 'label' => $langs->trans("AmountTTC").' 2', 'value' => $amount2, 'size' => '5')
 				);
 				$langs->load("dict");
-				print $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id.'&remid='.$showconfirminfo['rowid'].($backtopage ? '&backtopage='.urlencode($backtopage) : ''), $langs->trans('SplitDiscount'), $langs->trans('ConfirmSplitDiscount', price($showconfirminfo['amount_ttc']), $langs->transnoentities("Currency".$conf->currency)), 'confirm_split', $formquestion, 0, 0);
+				print $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id.'&remid='.$showconfirminfo['rowid'].($backtopage ? '&backtopage='.urlencode($backtopage) : ''), $langs->trans('SplitDiscount'), $langs->trans('ConfirmSplitDiscount', price($showconfirminfo['amount_ttc']), $langs->transnoentities("Currency".$config->currency)), 'confirm_split', $formquestion, 0, 0);
 			}
 		} else {
 			dol_print_error($db);

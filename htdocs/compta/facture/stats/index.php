@@ -103,12 +103,12 @@ llxHeader();
 
 $picto = 'bill';
 $title = $langs->trans("BillsStatistics");
-$dir = $conf->facture->dir_temp;
+$dir = $config->facture->dir_temp;
 
 if ($mode == 'supplier') {
 	$picto = 'supplier_invoice';
 	$title = $langs->trans("BillsStatisticsSuppliers");
-	$dir = $conf->fournisseur->facture->dir_temp;
+	$dir = $config->fournisseur->facture->dir_temp;
 }
 
 

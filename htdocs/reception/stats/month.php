@@ -63,9 +63,9 @@ print load_fiche_titre($langs->trans("StatisticsOfReceptions").' '.GETPOSTINT("y
 $stats = new ReceptionStats($db, $socid, '', ($userid > 0 ? $userid : 0));
 $data = $stats->getNbByMonth($year);
 
-dol_mkdir($conf->reception->dir_temp);
+dol_mkdir($config->reception->dir_temp);
 
-$filename = $conf->reception->dir_temp."/reception".$year.".png";
+$filename = $config->reception->dir_temp."/reception".$year.".png";
 $fileurl = DOL_URL_ROOT.'/viewimage.php?modulepart=receptionstats&file=reception'.$year.'.png';
 
 $px = new DolGraph();

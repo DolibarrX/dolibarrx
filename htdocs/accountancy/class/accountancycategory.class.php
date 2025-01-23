@@ -221,7 +221,7 @@ class AccountancyCategory // extends CommonObject
 		$sql .= " ".(!isset($this->position) ? 'NULL' : ((int) $this->position)).",";
 		$sql .= " ".(!isset($this->fk_country) ? 'NULL' : ((int) $this->fk_country)).",";
 		$sql .= " ".(!isset($this->active) ? 'NULL' : ((int) $this->active));
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ")";
 
 		$this->db->begin();
@@ -441,7 +441,7 @@ class AccountancyCategory // extends CommonObject
 		$sql = "SELECT t.rowid, t.account_number, t.label";
 		$sql .= " FROM ".$this->db->prefix().$this->table_element." as t";
 		$sql .= " WHERE t.fk_accounting_category = ".((int) $id);
-		$sql .= " AND t.entity = ".$conf->entity;
+		$sql .= " AND t.entity = ".$config->entity;
 
 		$this->lines_display = array();
 
@@ -480,7 +480,7 @@ class AccountancyCategory // extends CommonObject
 		$sql .= " WHERE (aa.fk_accounting_category <> ".((int) $id)." OR aa.fk_accounting_category IS NULL)";
 		$sql .= " AND asy.rowid = ".((int) getDolGlobalInt('CHARTOFACCOUNTS'));
 		$sql .= " AND aa.active = 1";
-		$sql .= " AND aa.entity = ".$conf->entity;
+		$sql .= " AND aa.entity = ".$config->entity;
 		$sql .= " GROUP BY aa.account_number, aa.label";
 		$sql .= " ORDER BY aa.account_number, aa.label";
 
@@ -526,7 +526,7 @@ class AccountancyCategory // extends CommonObject
 		$sql .= " INNER JOIN ".$this->db->prefix()."accounting_system as asy ON aa.fk_pcg_version = asy.pcg_version";
 		$sql .= " AND asy.rowid = ".((int) getDolGlobalInt('CHARTOFACCOUNTS'));
 		$sql .= " AND aa.active = 1";
-		$sql .= " AND aa.entity = ".$conf->entity;
+		$sql .= " AND aa.entity = ".$config->entity;
 		$sql .= " ORDER BY LENGTH(aa.account_number) DESC;"; // LENGTH is ok with mysql and postgresql
 
 		$this->db->begin();
@@ -659,7 +659,7 @@ class AccountancyCategory // extends CommonObject
 		}
 		$sql .= " FROM ".$this->db->prefix()."accounting_bookkeeping as t";
 		//if (in_array($this->db->type, array('mysql', 'mysqli'))) $sql.=' USE INDEX idx_accounting_bookkeeping_doc_date';
-		$sql .= " WHERE t.entity = ".((int) $conf->entity);
+		$sql .= " WHERE t.entity = ".((int) $config->entity);
 		if (is_array($cpt)) {
 			$sql .= " AND t.numero_compte IN (".$this->db->sanitize($listofaccount, 1).")";
 		} else {
@@ -731,10 +731,10 @@ class AccountancyCategory // extends CommonObject
 		$sql .= " WHERE t.fk_accounting_category IN (SELECT c.rowid";
 		$sql .= " FROM ".$this->db->prefix().$this->table_element." as c";
 		$sql .= " WHERE c.active = 1";
-		$sql .= " AND c.entity = ".$conf->entity;
+		$sql .= " AND c.entity = ".$config->entity;
 		$sql .= " AND (c.fk_country = ".((int) $mysoc->country_id)." OR c.fk_country = 0)";
 		$sql .= " AND cat.rowid = t.fk_accounting_category";
-		$sql .= " AND t.entity = ".$conf->entity;
+		$sql .= " AND t.entity = ".$config->entity;
 		if ($catid > 0) {
 			$sql .= " AND cat.rowid = ".((int) $catid);
 		}
@@ -792,7 +792,7 @@ class AccountancyCategory // extends CommonObject
 		$sql .= " FROM ".$this->db->prefix().$this->table_element." as c";
 		$sql .= " WHERE c.active = " . (int) $active;
 		$sql .= " AND c.fk_report=".((int) $id_report);
-		$sql .= " AND c.entity = ".$conf->entity;
+		$sql .= " AND c.entity = ".$config->entity;
 		if ($categorytype >= 0) {
 			$sql .= " AND c.category_type = 1";
 		}
@@ -864,7 +864,7 @@ class AccountancyCategory // extends CommonObject
 			$sql = "SELECT t.rowid, t.account_number, t.label as account_label";
 			$sql .= " FROM ".$this->db->prefix()."accounting_account as t";
 			$sql .= " WHERE t.fk_accounting_category = ".((int) $cat_id);
-			$sql .= " AND t.entity = ".$conf->entity;
+			$sql .= " AND t.entity = ".$config->entity;
 			$sql .= " AND t.active = 1";
 			$sql .= " AND t.fk_pcg_version = '".$this->db->escape($pcgvercode)."'";
 			$sql .= " ORDER BY t.account_number";
@@ -872,7 +872,7 @@ class AccountancyCategory // extends CommonObject
 			$sql = "SELECT t.rowid, t.account_number, t.label as account_label";
 			$sql .= " FROM ".$this->db->prefix()."accounting_account as t";
 			$sql .= " WHERE ".$predefinedgroupwhere;
-			$sql .= " AND t.entity = ".$conf->entity;
+			$sql .= " AND t.entity = ".$config->entity;
 			$sql .= ' AND t.active = 1';
 			$sql .= " AND t.fk_pcg_version = '".$this->db->escape($pcgvercode)."'";
 			$sql .= " ORDER BY t.account_number";

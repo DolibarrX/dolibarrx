@@ -56,7 +56,7 @@ $syear = (GETPOSTISSET('closeyear') ? GETPOSTINT('closeyear') : dol_print_date($
 $smonth = (GETPOSTISSET('closemonth') ? GETPOSTINT('closemonth') : dol_print_date($now, "%m"));
 $sday = (GETPOSTISSET('closeday') ? GETPOSTINT('closeday') : dol_print_date($now, "%d"));
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -674,11 +674,11 @@ if (empty($action) || $action == "view" || $action == "close") {
 		print '</td></tr>';
 
 		print '<tr><td valign="middle">'.$langs->trans("InitialBankBalance").' - '.$langs->trans("Cash").'</td><td>';
-		print '<span class="amount">'.price($object->opening, 0, $langs, 1, -1, -1, $conf->currency).'</span>';
+		print '<span class="amount">'.price($object->opening, 0, $langs, 1, -1, -1, $config->currency).'</span>';
 		print "</td></tr>";
 		foreach ($arrayofpaymentmode as $key => $val) {
 			print '<tr><td valign="middle">'.$langs->trans($val).'</td><td>';
-			print '<span class="amount">'.price($object->$key, 0, $langs, 1, -1, -1, $conf->currency).'</span>';
+			print '<span class="amount">'.price($object->$key, 0, $langs, 1, -1, -1, $config->currency).'</span>';
 			print "</td></tr>";
 		}
 
@@ -747,7 +747,7 @@ if (empty($action) || $action == "view" || $action == "close") {
 			print '<td>';
 
 			$array = array();
-			$numterminals = max(1, $conf->global->TAKEPOS_NUM_TERMINALS);
+			$numterminals = max(1, $config->global->TAKEPOS_NUM_TERMINALS);
 			for($i = 1; $i <= $numterminals; $i++) {
 				$array[$i] = $i;
 			}

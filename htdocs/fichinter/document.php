@@ -64,7 +64,7 @@ $result = restrictedArea($user, 'ficheinter', $id, 'fichinter');
 
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -85,7 +85,7 @@ if (!$sortfield) {
 $object = new Fichinter($db);
 $object->fetch($id, $ref);
 
-$upload_dir = $conf->ficheinter->dir_output.'/'.dol_sanitizeFileName($object->ref);
+$upload_dir = $config->ficheinter->dir_output.'/'.dol_sanitizeFileName($object->ref);
 $modulepart = 'fichinter';
 
 $permissiontoadd = $user->hasRight('ficheinter', 'creer'); // Used by the include of actions_setnotes.inc.php

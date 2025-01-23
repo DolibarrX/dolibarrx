@@ -228,10 +228,10 @@ class pdf_eratosthene extends ModelePDFCommandes
 				$arephoto = false;
 				foreach ($pdir as $midir) {
 					if (!$arephoto) {
-						if ($conf->entity != $objphoto->entity) {
-							$dir = $conf->product->multidir_output[$objphoto->entity].'/'.$midir; //Check repertories of current entities
+						if ($config->entity != $objphoto->entity) {
+							$dir = $config->product->multidir_output[$objphoto->entity].'/'.$midir; //Check repertories of current entities
 						} else {
-							$dir = $conf->product->dir_output.'/'.$midir; //Check repertory of the current product
+							$dir = $config->product->dir_output.'/'.$midir; //Check repertory of the current product
 						}
 
 						foreach ($objphoto->liste_photos($dir, 1) as $key => $obj) {
@@ -315,9 +315,9 @@ class pdf_eratosthene extends ModelePDFCommandes
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$logodir = $conf->mycompany->dir_output;
-					if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-						$logodir = $conf->mycompany->multidir_output[$object->entity];
+					$logodir = $config->mycompany->dir_output;
+					if (!empty($config->mycompany->multidir_output[$object->entity])) {
+						$logodir = $config->mycompany->multidir_output[$object->entity];
 					}
 					$pagecount = $pdf->setSourceFile($logodir.'/'.getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
@@ -857,9 +857,9 @@ class pdf_eratosthene extends ModelePDFCommandes
 
 				// Add terms to sale
 				if (!empty($mysoc->termsofsale) && getDolGlobalInt('MAIN_PDF_ADD_TERMSOFSALE_ORDER')) {
-					$termsofsale = $conf->mycompany->dir_output.'/'.$mysoc->termsofsale;
-					if (!empty($conf->mycompany->multidir_output[$object->entity])) {
-						$termsofsale = $conf->mycompany->multidir_output[$object->entity].'/'.$mysoc->termsofsale;
+					$termsofsale = $config->mycompany->dir_output.'/'.$mysoc->termsofsale;
+					if (!empty($config->mycompany->multidir_output[$object->entity])) {
+						$termsofsale = $config->mycompany->multidir_output[$object->entity].'/'.$mysoc->termsofsale;
 					}
 					if (file_exists($termsofsale) && is_readable($termsofsale)) {
 						$pagecount = $pdf->setSourceFile($termsofsale);
@@ -935,7 +935,7 @@ class pdf_eratosthene extends ModelePDFCommandes
 
 		$pdf->SetFont('', '', $default_font_size - 1);
 
-		$diffsizetitle = (!getDolGlobalString('PDF_DIFFSIZE_TITLE') ? 3 : $conf->global->PDF_DIFFSIZE_TITLE);
+		$diffsizetitle = (!getDolGlobalString('PDF_DIFFSIZE_TITLE') ? 3 : $config->global->PDF_DIFFSIZE_TITLE);
 
 		// If France, show VAT mention if not applicable
 		if ($this->emetteur->country_code == 'FR' && empty($mysoc->tva_assuj)) {
@@ -948,7 +948,7 @@ class pdf_eratosthene extends ModelePDFCommandes
 
 		$posxval = 52;
 
-		$diffsizetitle = (!getDolGlobalString('PDF_DIFFSIZE_TITLE') ? 3 : $conf->global->PDF_DIFFSIZE_TITLE);
+		$diffsizetitle = (!getDolGlobalString('PDF_DIFFSIZE_TITLE') ? 3 : $config->global->PDF_DIFFSIZE_TITLE);
 
 		// Show payments conditions
 		if ($object->cond_reglement_code || $object->cond_reglement) {
@@ -972,8 +972,8 @@ class pdf_eratosthene extends ModelePDFCommandes
 		// Check a payment mode is defined
 		/* Not used with orders
 		if (empty($object->mode_reglement_code)
-			&& ! $conf->global->FACTURE_CHQ_NUMBER
-			&& ! $conf->global->FACTURE_RIB_NUMBER)
+			&& ! $config->global->FACTURE_CHQ_NUMBER
+			&& ! $config->global->FACTURE_RIB_NUMBER)
 		{
 			$pdf->SetXY($this->marge_gauche, $posy);
 			$pdf->SetTextColor(200,0,0);
@@ -1061,7 +1061,7 @@ class pdf_eratosthene extends ModelePDFCommandes
 						$posy = $pdf->GetY() + 2;
 					}
 				}
-				if ($conf->global->FACTURE_CHQ_NUMBER == -1) {
+				if ($config->global->FACTURE_CHQ_NUMBER == -1) {
 					$pdf->SetXY($this->marge_gauche, $posy);
 					$pdf->SetFont('', 'B', $default_font_size - $diffsizetitle);
 					$pdf->MultiCell(100, 3, $outputlangs->transnoentities('PaymentByChequeOrderedTo', $this->emetteur->name), 0, 'L', 0);
@@ -1080,7 +1080,7 @@ class pdf_eratosthene extends ModelePDFCommandes
 		// If payment mode not forced or forced to VIR, show payment with BAN
 		if (empty($object->mode_reglement_code) || $object->mode_reglement_code == 'VIR') {
 			if ($object->fk_account > 0 || $object->fk_bank > 0 || getDolGlobalInt('FACTURE_RIB_NUMBER')) {
-				$bankid = ($object->fk_account <= 0 ? $conf->global->FACTURE_RIB_NUMBER : $object->fk_account);
+				$bankid = ($object->fk_account <= 0 ? $config->global->FACTURE_RIB_NUMBER : $object->fk_account);
 				if ($object->fk_bank > 0) {
 					$bankid = $object->fk_bank; // For backward compatibility when object->fk_account is forced with object->fk_bank
 				}
@@ -1453,7 +1453,7 @@ class pdf_eratosthene extends ModelePDFCommandes
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)
@@ -1469,7 +1469,7 @@ class pdf_eratosthene extends ModelePDFCommandes
 			$pdf->SetXY($this->page_largeur - $this->marge_droite - ($pdf->GetStringWidth($titre) + 3), $tab_top - 4);
 			$pdf->MultiCell(($pdf->GetStringWidth($titre) + 3), 2, $titre);
 
-			//$conf->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
+			//$config->global->MAIN_PDF_TITLE_BACKGROUND_COLOR='230,230,230';
 			if (getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')) {
 				$pdf->RoundedRect($this->marge_gauche, $tab_top, $this->page_largeur - $this->marge_droite - $this->marge_gauche, $this->tabTitleHeight, $this->corner_radius, '1001', 'F', null, explode(',', getDolGlobalString('MAIN_PDF_TITLE_BACKGROUND_COLOR')));
 			}
@@ -1532,7 +1532,7 @@ class pdf_eratosthene extends ModelePDFCommandes
 		// Logo
 		if (!getDolGlobalInt('PDF_DISABLE_MYCOMPANY_LOGO')) {
 			if ($this->emetteur->logo) {
-				$logodir = $conf->mycompany->dir_output;
+				$logodir = $config->mycompany->dir_output;
 				if (!empty(getMultidirOutput($mysoc, 'mycompany'))) {
 					$logodir = getMultidirOutput($mysoc, 'mycompany');
 				}

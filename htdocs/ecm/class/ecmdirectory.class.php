@@ -193,7 +193,7 @@ class EcmDirectory extends CommonObject
 			$sql .= "fk_user_c";
 			$sql .= ") VALUES (";
 			$sql .= " '".$this->db->escape($this->label)."',";
-			$sql .= " '".$this->db->escape($conf->entity)."',";
+			$sql .= " '".$this->db->escape($config->entity)."',";
 			$sql .= " ".($this->fk_parent > 0 ? ((int) $this->fk_parent) : "null").",";
 			$sql .= " '".$this->db->escape($this->description)."',";
 			$sql .= " ".((int) $this->cachenbofdoc).",";
@@ -206,7 +206,7 @@ class EcmDirectory extends CommonObject
 			if ($resql) {
 				$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."ecm_directories");
 
-				$dir = $conf->ecm->dir_output.'/'.$this->getRelativePath();
+				$dir = $config->ecm->dir_output.'/'.$this->getRelativePath();
 				$result = dol_mkdir($dir);
 				if ($result < 0) {
 					$error++;
@@ -424,7 +424,7 @@ class EcmDirectory extends CommonObject
 
 		$file = '__MUST_NOT_EXIST__';
 		if ($mode != 'databaseonly') {
-			$file = $conf->ecm->dir_output."/".$relativepath;
+			$file = $config->ecm->dir_output."/".$relativepath;
 			if ($deletedirrecursive) {
 				$result = @dol_delete_dir_recursive($file, 0, 0);
 			} else {
@@ -574,7 +574,7 @@ class EcmDirectory extends CommonObject
 		$sql = "SELECT fk_parent as id_parent, rowid as id_son";
 		$sql .= " FROM ".MAIN_DB_PREFIX."ecm_directories";
 		$sql .= " WHERE fk_parent != 0";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 
 		dol_syslog(get_class($this)."::load_motherof", LOG_DEBUG);
 		$resql = $this->db->query($sql);
@@ -663,7 +663,7 @@ class EcmDirectory extends CommonObject
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."ecm_directories as ca";
 		$sql .= " ON c.rowid = ca.fk_parent";
 		$sql .= " WHERE c.fk_user_c = u.rowid";
-		$sql .= " AND c.entity = ".$conf->entity;
+		$sql .= " AND c.entity = ".$config->entity;
 		$sql .= " ORDER BY c.label, c.rowid";
 
 		dol_syslog(get_class($this)."::get_full_arbo", LOG_DEBUG);
@@ -763,7 +763,7 @@ class EcmDirectory extends CommonObject
 		global $conf;
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
-		$dir = $conf->ecm->dir_output.'/'.$this->getRelativePath();
+		$dir = $config->ecm->dir_output.'/'.$this->getRelativePath();
 		$filelist = dol_dir_list($dir, 'files', 0, '', '(\.meta|_preview.*\.png)$');
 
 		// Test if filelist is in database
@@ -775,7 +775,7 @@ class EcmDirectory extends CommonObject
 		if (empty($all)) {  // By default
 			$sql .= " WHERE rowid = ".((int) $this->id);
 		} else {
-			$sql .= " WHERE entity = ".$conf->entity;
+			$sql .= " WHERE entity = ".$config->entity;
 		}
 
 		dol_syslog(get_class($this)."::refreshcachenboffile", LOG_DEBUG);

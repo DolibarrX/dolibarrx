@@ -51,7 +51,7 @@ $backtopage = GETPOST('backtopage', 'alpha');
 // Initialize a technical objects
 $object = new ConferenceOrBoothAttendee($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->eventorganization->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->eventorganization->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('conferenceorboothattendeenote', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -64,7 +64,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->eventorganization->multidir_output[$object->entity]."/".$object->id;
+	$upload_dir = $config->eventorganization->multidir_output[$object->entity]."/".$object->id;
 }
 
 // Permissions

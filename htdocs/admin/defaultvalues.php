@@ -56,7 +56,7 @@ $optioncss = GETPOST('optionscss', 'alphanohtml');
 
 $mode = GETPOST('mode', 'aZ09') ? GETPOST('mode', 'aZ09') : 'createform'; // 'createform', 'filters', 'sortorder', 'focus'
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -119,9 +119,9 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 
 if ($action == 'setMAIN_ENABLE_DEFAULT_VALUES') {
 	if (GETPOST('value')) {
-		dolibarr_set_const($db, 'MAIN_ENABLE_DEFAULT_VALUES', 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'MAIN_ENABLE_DEFAULT_VALUES', 1, 'chaine', 0, '', $config->entity);
 	} else {
-		dolibarr_set_const($db, 'MAIN_ENABLE_DEFAULT_VALUES', 0, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, 'MAIN_ENABLE_DEFAULT_VALUES', 0, 'chaine', 0, '', $config->entity);
 	}
 }
 
@@ -156,7 +156,7 @@ if (($action == 'add' || (GETPOST('add') && $action != 'update')) || GETPOST('ac
 			$object->page = $defaulturl;
 			$object->param = $defaultkey;
 			$object->value = $defaultvalue;
-			$object->entity = $conf->entity;
+			$object->entity = $config->entity;
 			$result = $object->create($user);
 			if ($result < 0) {
 				$action = '';
@@ -175,7 +175,7 @@ if (($action == 'add' || (GETPOST('add') && $action != 'update')) || GETPOST('ac
 			$object->page = $urlpage;
 			$object->param = $key;
 			$object->value = $value;
-			$object->entity = $conf->entity;
+			$object->entity = $config->entity;
 			$result = $object->update($user);
 			if ($result < 0) {
 				$action = '';
@@ -236,7 +236,7 @@ print "<br>\n";
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -350,11 +350,11 @@ if ($mode != 'focus' && $mode != 'mandatory') {
 // Limit to superadmin
 if (isModEnabled('multicompany') && !$user->entity) {
 	print '<td>';
-	print '<input type="text" class="flat" size="1" disabled name="entity" value="' . $conf->entity . '">'; // We see environment, but to change it we must switch on other entity
+	print '<input type="text" class="flat" size="1" disabled name="entity" value="' . $config->entity . '">'; // We see environment, but to change it we must switch on other entity
 	print '</td>';
 } else {
 	print '<td class="center">';
-	print '<input type="hidden" name="entity" value="' . $conf->entity . '">';
+	print '<input type="hidden" name="entity" value="' . $config->entity . '">';
 	print '</td>';
 }
 print '<td class="center">';
@@ -366,7 +366,7 @@ print '<input type="submit" class="button"'.$disabled.' value="'.$langs->trans("
 print '</td>'."\n";
 print '</tr>'."\n";
 
-$result = $object->fetchAll($sortorder, $sortfield, 0, 0, array('t.type' => $mode, 't.entity' => array($user->entity,$conf->entity)));
+$result = $object->fetchAll($sortorder, $sortfield, 0, 0, array('t.type' => $mode, 't.entity' => array($user->entity,$config->entity)));
 
 if (!is_array($result) && $result < 0) {
 	setEventMessages($object->error, $object->errors, 'errors');

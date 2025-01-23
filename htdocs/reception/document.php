@@ -59,7 +59,7 @@ $id			= GETPOSTINT('id');
 $ref		= GETPOST('ref');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -94,7 +94,7 @@ if ($id > 0 || !empty($ref)) {
 		$objectsrc->fetch($object->origin_object->id);
 	}
 
-	$upload_dir = $conf->reception->dir_output."/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->reception->dir_output."/".dol_sanitizeFileName($object->ref);
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
@@ -140,7 +140,7 @@ if ($id > 0 || !empty($ref)) {
 	if ($object->fetch($id, $ref)) {
 		$object->fetch_thirdparty();
 
-		$upload_dir = $conf->reception->dir_output.'/'.dol_sanitizeFileName($object->ref);
+		$upload_dir = $config->reception->dir_output.'/'.dol_sanitizeFileName($object->ref);
 
 		$head = reception_prepare_head($object);
 		print dol_get_fiche_head($head, 'documents', $langs->trans("Shipment"), -1, $object->picto);

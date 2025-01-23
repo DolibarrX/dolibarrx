@@ -61,14 +61,14 @@ class DolibarrCollector extends DataCollector implements Renderable, AssetProvid
 	{
 		global $conf, $langs;
 
-		$info  = $langs->trans('Host').': <strong>'.$conf->db->host.'</strong><br>';
-		$info .= $langs->trans('Port').': <strong>'.$conf->db->port.'</strong><br>';
-		$info .= $langs->trans('Name').': <strong>'.$conf->db->name.'</strong><br>';
+		$info  = $langs->trans('Host').': <strong>'.$config->db->host.'</strong><br>';
+		$info .= $langs->trans('Port').': <strong>'.$config->db->port.'</strong><br>';
+		$info .= $langs->trans('Name').': <strong>'.$config->db->name.'</strong><br>';
 		// @phan-suppress-next-line PhanTypeSuspiciousStringExpression
-		$info .= $langs->trans('User').': <strong>'.$conf->db->user.'</strong><br>';
-		$info .= $langs->trans('Type').': <strong>'.$conf->db->type.'</strong><br>';
-		$info .= $langs->trans('Prefix').': <strong>'.$conf->db->prefix.'</strong><br>';
-		$info .= $langs->trans('Charset').': <strong>'.$conf->db->character_set.'</strong>';
+		$info .= $langs->trans('User').': <strong>'.$config->db->user.'</strong><br>';
+		$info .= $langs->trans('Type').': <strong>'.$config->db->type.'</strong><br>';
+		$info .= $langs->trans('Prefix').': <strong>'.$config->db->prefix.'</strong><br>';
+		$info .= $langs->trans('Charset').': <strong>'.$config->db->character_set.'</strong>';
 
 		return $info;
 	}
@@ -84,11 +84,11 @@ class DolibarrCollector extends DataCollector implements Renderable, AssetProvid
 		global $dolibarr_main_prod, $dolibarr_nocsrfcheck;
 
 		$info  = $langs->trans('Version').': <strong>'.DOL_VERSION.'</strong><br>';
-		$info .= $langs->trans('Theme').': <strong>'.$conf->theme.'</strong><br>';
+		$info .= $langs->trans('Theme').': <strong>'.$config->theme.'</strong><br>';
 		$info .= $langs->trans('Locale').': <strong>' . getDolGlobalString('MAIN_LANG_DEFAULT').'</strong><br>';
-		$info .= $langs->trans('Currency').': <strong>'.$conf->currency.'</strong><br>';
-		$info .= $langs->trans('Entity').': <strong>'.$conf->entity.'</strong><br>';
-		$info .= $langs->trans('MaxSizeList').': <strong>'.($conf->liste_limit ?: getDolGlobalString('MAIN_SIZE_LISTE_LIMIT')).'</strong><br>';
+		$info .= $langs->trans('Currency').': <strong>'.$config->currency.'</strong><br>';
+		$info .= $langs->trans('Entity').': <strong>'.$config->entity.'</strong><br>';
+		$info .= $langs->trans('MaxSizeList').': <strong>'.($config->liste_limit ?: getDolGlobalString('MAIN_SIZE_LISTE_LIMIT')).'</strong><br>';
 		$info .= $langs->trans('MaxSizeForUploadedFiles').': <strong>' . getDolGlobalString('MAIN_UPLOAD_DOC').'</strong><br>';
 		$info .= '$dolibarr_main_prod = <strong>'.$dolibarr_main_prod.'</strong><br>';
 		$info .= '$dolibarr_nocsrfcheck = <strong>'.$dolibarr_nocsrfcheck.'</strong><br>';

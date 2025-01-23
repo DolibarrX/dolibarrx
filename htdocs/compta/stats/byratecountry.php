@@ -49,7 +49,7 @@ require_once DOL_DOCUMENT_ROOT.'/expensereport/class/paymentexpensereport.class.
 // Load translation files required by the page
 $langs->loadLangs(array("other", "compta", "banks", "bills", "companies", "product", "trips", "admin", "accountancy"));
 
-$modecompta = (GETPOST('modecompta', 'alpha') ? GETPOST('modecompta', 'alpha') : $conf->global->ACCOUNTING_MODE);
+$modecompta = (GETPOST('modecompta', 'alpha') ? GETPOST('modecompta', 'alpha') : $config->global->ACCOUNTING_MODE);
 
 // Date range
 $year = GETPOSTINT("year");
@@ -127,7 +127,7 @@ if (empty($min)) {
 
 // Define modetax (0 or 1)
 // 0=normal, 1=option vat for services is on debit, 2=option on payments for products
-$modetax = !getDolGlobalString('TAX_MODE') ? 0 : $conf->global->TAX_MODE;
+$modetax = !getDolGlobalString('TAX_MODE') ? 0 : $config->global->TAX_MODE;
 if (GETPOSTISSET("modetax")) {
 	$modetax = GETPOSTINT("modetax");
 }
@@ -309,7 +309,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 	print '<td class="left">'.$langs->trans("Country").'</td>';
 	$i = 0;
 	while ($i < 12) {
-		$j = $i + (!getDolGlobalInt('SOCIETE_FISCAL_MONTH_START') ? 1 : $conf->global->SOCIETE_FISCAL_MONTH_START);
+		$j = $i + (!getDolGlobalInt('SOCIETE_FISCAL_MONTH_START') ? 1 : $config->global->SOCIETE_FISCAL_MONTH_START);
 		if ($j > 12) {
 			$j -= 12;
 		}
@@ -359,7 +359,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 			print $langs->trans("Country".$obj->code) != "Country".$obj->code ? $langs->trans("Country".$obj->code) : $obj->country;
 			print '</td>';
 			for ($i = 0; $i < 12; $i++) {
-				$j = $i + (!getDolGlobalInt('SOCIETE_FISCAL_MONTH_START') ? 1 : $conf->global->SOCIETE_FISCAL_MONTH_START);
+				$j = $i + (!getDolGlobalInt('SOCIETE_FISCAL_MONTH_START') ? 1 : $config->global->SOCIETE_FISCAL_MONTH_START);
 				if ($j > 12) {
 					$j -= 12;
 				}
@@ -378,7 +378,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 		print '<td class="left"></td>';
 		print '<td></td>';
 		for ($i = 0; $i < 12; $i++) {
-			$j = $i + (!getDolGlobalInt('SOCIETE_FISCAL_MONTH_START') ? 1 : $conf->global->SOCIETE_FISCAL_MONTH_START);
+			$j = $i + (!getDolGlobalInt('SOCIETE_FISCAL_MONTH_START') ? 1 : $config->global->SOCIETE_FISCAL_MONTH_START);
 			if ($j > 12) {
 				$j -= 12;
 			}
@@ -396,7 +396,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 	print '<td class="left">'.$langs->trans("Country").'</td>';
 	$i = 0;
 	while ($i < 12) {
-		$j = $i + (!getDolGlobalInt('SOCIETE_FISCAL_MONTH_START') ? 1 : $conf->global->SOCIETE_FISCAL_MONTH_START);
+		$j = $i + (!getDolGlobalInt('SOCIETE_FISCAL_MONTH_START') ? 1 : $config->global->SOCIETE_FISCAL_MONTH_START);
 		if ($j > 12) {
 			$j -= 12;
 		}
@@ -446,7 +446,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 			print $langs->trans("Country".$obj->code) != "Country".$obj->code ? $langs->trans("Country".$obj->code) : $obj->country;
 			print '</td>';
 			for ($i = 0; $i < 12; $i++) {
-				$j = $i + (!getDolGlobalInt('SOCIETE_FISCAL_MONTH_START') ? 1 : $conf->global->SOCIETE_FISCAL_MONTH_START);
+				$j = $i + (!getDolGlobalInt('SOCIETE_FISCAL_MONTH_START') ? 1 : $config->global->SOCIETE_FISCAL_MONTH_START);
 				if ($j > 12) {
 					$j -= 12;
 				}
@@ -465,7 +465,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 		print '<td class="left"></td>';
 		print '<td></td>';
 		for ($i = 0; $i < 12; $i++) {
-			$j = $i + (!getDolGlobalInt('SOCIETE_FISCAL_MONTH_START') ? 1 : $conf->global->SOCIETE_FISCAL_MONTH_START);
+			$j = $i + (!getDolGlobalInt('SOCIETE_FISCAL_MONTH_START') ? 1 : $config->global->SOCIETE_FISCAL_MONTH_START);
 			if ($j > 12) {
 				$j -= 12;
 			}

@@ -9,7 +9,7 @@ if (!getDolGlobalString('EXPENSEREPORT_DISABLE_ATTACHMENT_ON_LINES')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $conf->expensereport->dir_output."/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->expensereport->dir_output."/".dol_sanitizeFileName($object->ref);
 	$arrayoffiles = dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png|'.preg_quote(dol_sanitizeFileName($object->ref.'.pdf'), '/').')$');
 	$nbFiles = count($arrayoffiles);
 	$nbLinks = Link::count($db, $object->element, $object->id);
@@ -39,15 +39,15 @@ if (!getDolGlobalString('EXPENSEREPORT_DISABLE_ATTACHMENT_ON_LINES')) {
 			if (image_format_supported($file['name']) > 0) {
 				$minifile = getImageFileNameForSize($file['name'], '_mini'); // For new thumbs using same ext (in lower case however) than original
 				//print $file['path'].'/'.$minifile.'<br>';
-				$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $conf->entity : $object->entity));
+				$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
 				if (empty($urlforhref)) {
-					$urlforhref = DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.(empty($object->entity) ? $conf->entity : $object->entity).'&file='.urlencode($file['relativename'].'.'.strtolower($fileinfo['extension']));
+					$urlforhref = DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($file['relativename'].'.'.strtolower($fileinfo['extension']));
 					print '<a href="'.$urlforhref.'" class="aphoto" target="_blank" rel="noopener noreferrer">';
 				} else {
 					print '<a href="'.$urlforhref['url'].'" class="'.$urlforhref['css'].'" target="'.$urlforhref['target'].'" mime="'.$urlforhref['mime'].'">';
 				}
 				print '<div class="photoref backgroundblank">';
-				print '<img class="photoexpensereport photorefcenter" height="'.$maxheightmini.'" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.(empty($object->entity) ? $conf->entity : $object->entity).'&file='.urlencode($relativepath.$minifile).'" title="">';
+				print '<img class="photoexpensereport photorefcenter" height="'.$maxheightmini.'" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$modulepart.'&entity='.(empty($object->entity) ? $config->entity : $object->entity).'&file='.urlencode($relativepath.$minifile).'" title="">';
 				print '</div>';
 				print '</a>';
 			} else {
@@ -55,10 +55,10 @@ if (!getDolGlobalString('EXPENSEREPORT_DISABLE_ATTACHMENT_ON_LINES')) {
 				$thumbshown = '';
 
 				if (preg_match('/\.pdf$/i', $file['name'])) {
-					$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $conf->entity : $object->entity));
+					$urlforhref = getAdvancedPreviewUrl($modulepart, $relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension']), 1, '&entity='.(empty($object->entity) ? $config->entity : $object->entity));
 
-					$filepdf = $conf->expensereport->dir_output.'/'.$relativepath.$file['name'];
-					$fileimage = $conf->expensereport->dir_output.'/'.$relativepath.$file['name'].'_preview.png';
+					$filepdf = $config->expensereport->dir_output.'/'.$relativepath.$file['name'];
+					$fileimage = $config->expensereport->dir_output.'/'.$relativepath.$file['name'].'_preview.png';
 					$relativepathimage = $relativepath.$file['name'].'_preview.png';
 
 					$pdfexists = file_exists($filepdf);
@@ -78,7 +78,7 @@ if (!getDolGlobalString('EXPENSEREPORT_DISABLE_ATTACHMENT_ON_LINES')) {
 
 					if ($pdfexists && !$error) {
 						$heightforphotref = 70;
-						if (!empty($conf->dol_optimize_smallscreen)) {
+						if (!empty($config->dol_optimize_smallscreen)) {
 							$heightforphotref = 60;
 						}
 						// If the preview file is found

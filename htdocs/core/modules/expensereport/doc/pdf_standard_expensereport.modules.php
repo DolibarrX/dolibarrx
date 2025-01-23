@@ -209,14 +209,14 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 
 		$nblines = count($object->lines);
 
-		if ($conf->expensereport->dir_output) {
+		if ($config->expensereport->dir_output) {
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $conf->expensereport->dir_output;
+				$dir = $config->expensereport->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $conf->expensereport->dir_output."/".$objectref;
+				$dir = $config->expensereport->dir_output."/".$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 
@@ -257,7 +257,7 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
+					$pagecount = $pdf->setSourceFile($config->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -647,7 +647,7 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 
 		/*
 		// ajout du fondu vert en bas de page à droite
-		$image_fondue = $conf->mycompany->dir_output.'/fondu_vert_.jpg';
+		$image_fondue = $config->mycompany->dir_output.'/fondu_vert_.jpg';
 		$pdf->Image($image_fondue,20,107,200,190);
 
 		pdf_pagehead($pdf,$outputlangs,$this->page_hauteur);
@@ -655,7 +655,7 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 
 		// Draft watermark
 		if ($object->fk_statut == 0 && getDolGlobalString('EXPENSEREPORT_DRAFT_WATERMARK')) {
-			pdf_watermark($pdf, $outputlangs, $this->page_hauteur, $this->page_largeur, 'mm', $conf->global->EXPENSEREPORT_DRAFT_WATERMARK);
+			pdf_watermark($pdf, $outputlangs, $this->page_hauteur, $this->page_largeur, 'mm', $config->global->EXPENSEREPORT_DRAFT_WATERMARK);
 		}
 
 		$pdf->SetTextColor(0, 0, 60);
@@ -667,7 +667,7 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 		$pdf->SetXY($this->marge_gauche, $posy);
 
 		// Logo
-		$logo = $conf->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
+		$logo = $config->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
 		if ($this->emetteur->logo) {
 			if (is_readable($logo)) {
 				$height = pdf_getHeightForLogo($logo);
@@ -894,7 +894,7 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 			$hidetop = -1;
 		}
 
-		$currency = !empty($currency) ? $currency : $conf->currency;
+		$currency = !empty($currency) ? $currency : $config->currency;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// Amount in (at tab_top - 1)

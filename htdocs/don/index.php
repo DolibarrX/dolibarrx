@@ -134,7 +134,7 @@ if (getDolGlobalString('MAIN_SEARCH_FORM_ON_HOME_AREAS')) {     // TODO Add a se
 $dataseries = array();
 $colorseries = array();
 
-include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 
 print '<table class="noborder nohover centpercent">';
 print '<tr class="liste_titre">';
@@ -158,7 +158,7 @@ foreach ($listofstatus as $status) {
 	}
 }
 
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print '<tr><td class="center" colspan="4">';
 
 	include_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';

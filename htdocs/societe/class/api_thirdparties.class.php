@@ -1653,7 +1653,7 @@ class Thirdparties extends DolibarrApi
 
 		$moreparams = array(
 			'use_companybankid' => $accounts[0]->id,
-			'force_dir_output' => $conf->societe->multidir_output[$this->company->entity].'/'.dol_sanitizeFileName((string) $this->company->id)
+			'force_dir_output' => $config->societe->multidir_output[$this->company->entity].'/'.dol_sanitizeFileName((string) $this->company->id)
 		);
 
 		$result = $this->company->generateDocument($model, $outputlangs, 0, 0, 0, $moreparams);

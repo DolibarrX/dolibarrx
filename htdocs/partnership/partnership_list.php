@@ -62,7 +62,7 @@ $id = GETPOSTINT('id');
 $socid = GETPOSTINT('socid');
 $memberid = GETPOSTINT('rowid');
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -78,7 +78,7 @@ $pagenext = $page + 1;
 $object = new Partnership($db);
 $extrafields = new ExtraFields($db);
 $adherent = new Adherent($db);
-$diroutputmassaction = $conf->partnership->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->partnership->dir_output.'/temp/massgeneration/'.$user->id;
 if ($socid > 0) {
 	$hookManager->initHooks(array('thirdpartypartnership', 'globalcard'));
 } elseif ($memberid > 0) {
@@ -175,7 +175,7 @@ $permissiontodelete = $user->hasRight('partnership', 'delete');
 //if ($user->socid > 0) accessforbidden();
 //if ($user->socid > 0) $socid = $user->socid;
 //$result = restrictedArea($user, 'partnership', $object->id);
-if (empty($conf->partnership->enabled)) {
+if (empty($config->partnership->enabled)) {
 	accessforbidden();
 }
 if (empty($permissiontoread)) {
@@ -231,7 +231,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Partnership';
 	$objectlabel = 'Partnership';
-	$uploaddir = $conf->partnership->dir_output;
+	$uploaddir = $config->partnership->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	// Validate and approve
@@ -626,7 +626,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($socid) {
@@ -905,12 +905,12 @@ while ($i < $imaxinloop) {
 
 	$object->thirdparty = null;
 	if ($obj->fk_soc > 0) {
-		if (!empty($conf->cache['thirdparty'][$obj->fk_soc])) {
-			$companyobj = $conf->cache['thirdparty'][$obj->fk_soc];
+		if (!empty($config->cache['thirdparty'][$obj->fk_soc])) {
+			$companyobj = $config->cache['thirdparty'][$obj->fk_soc];
 		} else {
 			$companyobj = new Societe($db);
 			$companyobj->fetch($obj->fk_soc);
-			$conf->cache['thirdparty'][$obj->fk_soc] = $companyobj;
+			$config->cache['thirdparty'][$obj->fk_soc] = $companyobj;
 		}
 
 		$object->thirdparty = $companyobj;
@@ -1034,7 +1034,7 @@ while ($i < $imaxinloop) {
 				if ($datefin) {
 					print dol_print_date($datefin, 'day');
 					if ($adherent->hasDelay()) {
-						$textlate .= ' ('.$langs->trans("DateReference").' > '.$langs->trans("DateToday").' '.(ceil($conf->adherent->subscription->warning_delay / 60 / 60 / 24) >= 0 ? '+' : '').ceil($conf->adherent->subscription->warning_delay / 60 / 60 / 24).' '.$langs->trans("days").')';
+						$textlate .= ' ('.$langs->trans("DateReference").' > '.$langs->trans("DateToday").' '.(ceil($config->adherent->subscription->warning_delay / 60 / 60 / 24) >= 0 ? '+' : '').ceil($config->adherent->subscription->warning_delay / 60 / 60 / 24).' '.$langs->trans("days").')';
 						print " ".img_warning($langs->trans("SubscriptionLate").$textlate);
 					}
 				} else {

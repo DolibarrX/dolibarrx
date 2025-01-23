@@ -87,7 +87,7 @@ function pdf_getFormat($outputlangs = null, $mode = 'setup')
 {
 	global $conf, $db, $langs;
 
-	dol_syslog("pdf_getFormat Get paper format with mode=".$mode." MAIN_PDF_FORMAT=".(!getDolGlobalString('MAIN_PDF_FORMAT') ? 'null' : $conf->global->MAIN_PDF_FORMAT)." outputlangs->defaultlang=".(is_object($outputlangs) ? $outputlangs->defaultlang : 'null')." and langs->defaultlang=".(is_object($langs) ? $langs->defaultlang : 'null'));
+	dol_syslog("pdf_getFormat Get paper format with mode=".$mode." MAIN_PDF_FORMAT=".(!getDolGlobalString('MAIN_PDF_FORMAT') ? 'null' : $config->global->MAIN_PDF_FORMAT)." outputlangs->defaultlang=".(is_object($outputlangs) ? $outputlangs->defaultlang : 'null')." and langs->defaultlang=".(is_object($langs) ? $langs->defaultlang : 'null'));
 
 	// Default value if setup was not done and/or entry into c_paper_format not defined
 	$width = 210;
@@ -204,7 +204,7 @@ function pdf_getInstance($format = '', $metric = 'mm', $pagetype = 'P')
 		*/
 
 		// For TCPDF, we specify permission we want to block
-		$pdfrights = (getDolGlobalString('PDF_SECURITY_ENCRYPTION_RIGHTS') ? json_decode($conf->global->PDF_SECURITY_ENCRYPTION_RIGHTS, true) : array('modify', 'copy')); // Json format in llx_const
+		$pdfrights = (getDolGlobalString('PDF_SECURITY_ENCRYPTION_RIGHTS') ? json_decode($config->global->PDF_SECURITY_ENCRYPTION_RIGHTS, true) : array('modify', 'copy')); // Json format in llx_const
 
 		// Password for the end user
 		$pdfuserpass = getDolGlobalString('PDF_SECURITY_ENCRYPTION_USERPASS');
@@ -217,7 +217,7 @@ function pdf_getInstance($format = '', $metric = 'mm', $pagetype = 'P')
 
 		// Array of recipients containing public-key certificates ('c') and permissions ('p').
 		// For example: array(array('c' => 'file://../examples/data/cert/tcpdf.crt', 'p' => array('print')))
-		$pubkeys = (getDolGlobalString('PDF_SECURITY_ENCRYPTION_PUBKEYS') ? json_decode($conf->global->PDF_SECURITY_ENCRYPTION_PUBKEYS, true) : null); // Json format in llx_const
+		$pubkeys = (getDolGlobalString('PDF_SECURITY_ENCRYPTION_PUBKEYS') ? json_decode($config->global->PDF_SECURITY_ENCRYPTION_PUBKEYS, true) : null); // Json format in llx_const
 
 		$pdf->SetProtection($pdfrights, $pdfuserpass, $pdfownerpass, $encstrength, $pubkeys);
 	}
@@ -267,7 +267,7 @@ function pdf_getPDFFont($outputlangs)
 	global $conf;
 
 	if (getDolGlobalString('MAIN_PDF_FORCE_FONT')) {
-		return $conf->global->MAIN_PDF_FORCE_FONT;
+		return $config->global->MAIN_PDF_FORCE_FONT;
 	}
 
 	$font = 'Helvetica'; // By default, for FPDI, or ISO language on TCPDF
@@ -313,7 +313,7 @@ function pdf_getPDFFontSize($outputlangs)
 function pdf_getHeightForLogo($logo, $url = false)
 {
 	global $conf;
-	$height = (!getDolGlobalString('MAIN_DOCUMENTS_LOGO_HEIGHT') ? 20 : $conf->global->MAIN_DOCUMENTS_LOGO_HEIGHT);
+	$height = (!getDolGlobalString('MAIN_DOCUMENTS_LOGO_HEIGHT') ? 20 : $config->global->MAIN_DOCUMENTS_LOGO_HEIGHT);
 	$maxwidth = 130;
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
 	$tmp = dol_getImageSize($logo, $url);
@@ -732,7 +732,7 @@ function pdf_pagehead(&$pdf, $outputlangs, $page_height)
 
 	// Add a background image on document only if good setup of const
 	if (getDolGlobalString('MAIN_USE_BACKGROUND_ON_PDF') && (getDolGlobalString('MAIN_USE_BACKGROUND_ON_PDF') != '-1')) {		// Warning, this option make TCPDF generation being crazy and some content disappeared behind the image
-		$filepath = $conf->mycompany->dir_output.'/logos/' . getDolGlobalString('MAIN_USE_BACKGROUND_ON_PDF');
+		$filepath = $config->mycompany->dir_output.'/logos/' . getDolGlobalString('MAIN_USE_BACKGROUND_ON_PDF');
 		if (file_exists($filepath)) {
 			$pdf->SetAutoPageBreak(0, 0); // Disable auto pagebreak before adding image
 			if (getDolGlobalString('MAIN_USE_BACKGROUND_ON_PDF_ALPHA')) {
@@ -1116,7 +1116,7 @@ function pdf_pagefoot(&$pdf, $outputlangs, $paramfreetext, $fromcompany, $marge_
 	if (!empty($fromcompany->capital)) {
 		$tmpamounttoshow = price2num($fromcompany->capital); // This field is a free string or a float
 		if (is_numeric($tmpamounttoshow) && $tmpamounttoshow > 0) {
-			$line3 .= ($line3 ? " - " : "").$outputlangs->transnoentities("CapitalOf", price($tmpamounttoshow, 0, $outputlangs, 0, 0, 0, $conf->currency));
+			$line3 .= ($line3 ? " - " : "").$outputlangs->transnoentities("CapitalOf", price($tmpamounttoshow, 0, $outputlangs, 0, 0, 0, $config->currency));
 		} elseif (!empty($fromcompany->capital)) {
 			$line3 .= ($line3 ? " - " : "").$outputlangs->transnoentities("CapitalOf", $fromcompany->capital, $outputlangs);
 		}
@@ -1212,7 +1212,7 @@ function pdf_pagefoot(&$pdf, $outputlangs, $paramfreetext, $fromcompany, $marge_
 	$pdf->SetDrawColor(224, 224, 224);
 	// Option for footer text color
 	if (getDolGlobalString('PDF_FOOTER_TEXT_COLOR')) {
-		list($r, $g, $b) = sscanf($conf->global->PDF_FOOTER_TEXT_COLOR, '%d, %d, %d');
+		list($r, $g, $b) = sscanf($config->global->PDF_FOOTER_TEXT_COLOR, '%d, %d, %d');
 		$pdf->SetTextColor($r, $g, $b);
 	}
 
@@ -1250,7 +1250,7 @@ function pdf_pagefoot(&$pdf, $outputlangs, $paramfreetext, $fromcompany, $marge_
 
 			// Option for footer background color (without freetext zone)
 			if (getDolGlobalString('PDF_FOOTER_BACKGROUND_COLOR')) {
-				list($r, $g, $b) = sscanf($conf->global->PDF_FOOTER_BACKGROUND_COLOR, '%d, %d, %d');
+				list($r, $g, $b) = sscanf($config->global->PDF_FOOTER_BACKGROUND_COLOR, '%d, %d, %d');
 				$pdf->SetAutoPageBreak(0, 0); // Disable auto pagebreak
 				$pdf->Rect(0, $dims['hk'] - $posy + $freetextheight, $dims['wk'] + 1, $marginwithfooter + 1, 'F', array(), $fill_color = array($r, $g, $b));
 				$pdf->SetAutoPageBreak(1, 0); // Restore pagebreak
@@ -1302,7 +1302,7 @@ function pdf_pagefoot(&$pdf, $outputlangs, $paramfreetext, $fromcompany, $marge_
 
 			// Option for footer background color (without freetext zone)
 			if (getDolGlobalString('PDF_FOOTER_BACKGROUND_COLOR')) {
-				list($r, $g, $b) = sscanf($conf->global->PDF_FOOTER_BACKGROUND_COLOR, '%d, %d, %d');
+				list($r, $g, $b) = sscanf($config->global->PDF_FOOTER_BACKGROUND_COLOR, '%d, %d, %d');
 				$pdf->SetAutoPageBreak(0, 0); // Disable auto pagebreak
 				$pdf->Rect(0, $dims['hk'] - $posy + $freetextheight, $dims['wk'] + 1, $marginwithfooter + 1, 'F', array(), $fill_color = array($r, $g, $b));
 				$pdf->SetAutoPageBreak(1, 0); // Restore pagebreak
@@ -1748,7 +1748,7 @@ function pdf_getlinedesc($object, $i, $outputlangs, $hideref = 0, $hidedesc = 0,
 					$productCustomerPrice = $productCustomerPriceStatic->lines[0];
 
 					if (!empty($productCustomerPrice->ref_customer)) {
-						switch ($conf->global->PRODUIT_CUSTOMER_PRICES_PDF_REF_MODE) {
+						switch ($config->global->PRODUIT_CUSTOMER_PRICES_PDF_REF_MODE) {
 							case 1:
 								$ref_prodserv = $productCustomerPrice->ref_customer;
 								break;

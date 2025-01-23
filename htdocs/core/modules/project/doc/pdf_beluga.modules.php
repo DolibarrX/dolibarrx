@@ -217,11 +217,11 @@ class pdf_beluga extends ModelePDFProjects
 		// Load traductions files required by page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "projects"));
 
-		if ($conf->project->multidir_output[$object->entity]) {
+		if ($config->project->multidir_output[$object->entity]) {
 			//$nblines = count($object->lines);  // This is set later with array of tasks
 
 			$objectref = dol_sanitizeFileName($object->ref);
-			$dir = $conf->project->multidir_output[$object->entity];
+			$dir = $config->project->multidir_output[$object->entity];
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
 			}
@@ -264,7 +264,7 @@ class pdf_beluga extends ModelePDFProjects
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
+					$pagecount = $pdf->setSourceFile($config->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -819,7 +819,7 @@ class pdf_beluga extends ModelePDFProjects
 		$pdf->SetXY($this->marge_gauche, $posy);
 
 		// Logo
-		$logo = $conf->mycompany->dir_output.'/logos/'.$mysoc->logo;
+		$logo = $config->mycompany->dir_output.'/logos/'.$mysoc->logo;
 		if ($mysoc->logo) {
 			if (is_readable($logo)) {
 				$height = pdf_getHeightForLogo($logo);

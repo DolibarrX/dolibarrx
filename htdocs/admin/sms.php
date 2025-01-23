@@ -59,11 +59,11 @@ $substitutionarrayfortest = array(
  */
 
 if ($action == 'update' && !$cancel) {
-	dolibarr_set_const($db, "MAIN_DISABLE_ALL_SMS", GETPOST("MAIN_DISABLE_ALL_SMS", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_DISABLE_ALL_SMS", GETPOST("MAIN_DISABLE_ALL_SMS", 'alphanohtml'), 'chaine', 0, '', $config->entity);
 
-	dolibarr_set_const($db, "MAIN_SMS_SENDMODE", GETPOST("MAIN_SMS_SENDMODE", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_SMS_SENDMODE", GETPOST("MAIN_SMS_SENDMODE", 'alphanohtml'), 'chaine', 0, '', $config->entity);
 
-	dolibarr_set_const($db, "MAIN_SMS_FROM", GETPOST("MAIN_SMS_FROM", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_SMS_FROM", GETPOST("MAIN_SMS_FROM", 'alphanohtml'), 'chaine', 0, '', $config->entity);
 
 	header("Location: ".$_SERVER["PHP_SELF"]."?mainmenu=home&leftmenu=setup");
 	exit;
@@ -164,7 +164,7 @@ print "<br>\n";
 print "<br>\n";
 
 // List of sending methods
-$listofmethods = (is_array($conf->modules_parts['sms']) ? $conf->modules_parts['sms'] : array());
+$listofmethods = (is_array($config->modules_parts['sms']) ? $config->modules_parts['sms'] : array());
 asort($listofmethods);
 
 if (!count($listofmethods)) {

@@ -103,7 +103,7 @@ class mailing_fraise extends MailingTargets
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a";
 		$sql .= " WHERE (a.email IS NOT NULL AND a.email != '') AND a.entity IN (".getEntity('member').")";
 		if (empty($this->evenunsubscribe)) {
-			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = a.email and mu.entity = ".((int) $conf->entity).")";
+			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = a.email and mu.entity = ".((int) $config->entity).")";
 		}
 
 		// La requete doit retourner un champ "nb" pour etre comprise par parent::getNbOfRecipients
@@ -176,7 +176,7 @@ class mailing_fraise extends MailingTargets
 		$sql .= " FROM ".MAIN_DB_PREFIX."categorie";
 		$sql .= " WHERE type = 3"; // We keep only categories for members
 		// $sql.= " AND visible > 0";	// We ignore the property visible because member's categories does not use this property (only products categories use it).
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 		$sql .= " ORDER BY label";
 
 		//print $sql;
@@ -283,7 +283,7 @@ class mailing_fraise extends MailingTargets
 			$sql .= " AND ta.rowid = ".(GETPOSTINT('filter_type'));
 		}
 		if (empty($this->evenunsubscribe)) {
-			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = a.email and mu.entity = ".((int) $conf->entity).")";
+			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = a.email and mu.entity = ".((int) $config->entity).")";
 		}
 		$sql .= " ORDER BY a.email";
 		//print $sql;

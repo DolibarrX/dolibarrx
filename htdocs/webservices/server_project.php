@@ -268,7 +268,7 @@ function createProject($authentication, $project)
 	dol_syslog("Function: createProject login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -364,7 +364,7 @@ function getProject($authentication, $id = '', $ref = '')
 	dol_syslog("Function: getProject login=".$authentication['login']." id=".$id." ref=".$ref);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication

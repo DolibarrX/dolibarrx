@@ -569,7 +569,7 @@ if ($id > 0 || $ref) {
 
 	llxHeader('', $title, $helpurl, '', 0, 0, '', '', '', 'mod-product page-card_stock_product');
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		?>
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -993,7 +993,7 @@ if (!$variants || getDolGlobalString('VARIANT_ALLOW_STOCK_MOVEMENT_ON_VARIANT_PA
 	if ((isModEnabled('productbatch')) && $object->hasbatch()) {
 		$colspan = 3;
 		print '<tr class="liste_titre"><td class="minwidth200">';
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print '<a id="show_all" href="#" class="hideobject">'.img_picto('', 'folder-open', 'class="paddingright"').$langs->trans("ShowAllLots").'</a>';
 			//print ' &nbsp; ';
 			print '<a id="hide_all" href="#">'.img_picto('', 'folder', 'class="paddingright"').$langs->trans("HideLots").'</a>';
@@ -1060,7 +1060,7 @@ if (!$variants || getDolGlobalString('VARIANT_ALLOW_STOCK_MOVEMENT_ON_VARIANT_PA
 			// Warehouse
 			print '<td colspan="4">';
 			print $entrepotstatic->getNomUrl(1);
-			if (!empty($conf->use_javascript_ajax) && isModEnabled('productbatch') && $object->hasbatch()) {
+			if (!empty($config->use_javascript_ajax) && isModEnabled('productbatch') && $object->hasbatch()) {
 				print '<a class="collapse_batch marginleftonly" id="ent' . $entrepotstatic->id . '" href="#">';
 				print(!getDolGlobalString('STOCK_SHOW_ALL_BATCH_BY_DEFAULT') ? '(+)' : '(-)');
 				print '</a>';

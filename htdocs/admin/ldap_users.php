@@ -62,82 +62,82 @@ if ($action == 'setvalue' && $user->admin) {
 	$error = 0;
 	$db->begin();
 
-	if (!dolibarr_set_const($db, 'LDAP_USER_DN', GETPOST("user"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_USER_DN', GETPOST("user"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_USER_OBJECT_CLASS', GETPOST("objectclass"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_USER_OBJECT_CLASS', GETPOST("objectclass"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FILTER_CONNECTION', GETPOST("filterconnection"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FILTER_CONNECTION', GETPOST("filterconnection"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_FULLNAME', GETPOST("fieldfullname"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_FULLNAME', GETPOST("fieldfullname"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_LOGIN', GETPOST("fieldlogin"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_LOGIN', GETPOST("fieldlogin"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_LOGIN_SAMBA', GETPOST("fieldloginsamba"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_LOGIN_SAMBA', GETPOST("fieldloginsamba"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_PASSWORD', GETPOST("fieldpassword"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_PASSWORD', GETPOST("fieldpassword"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_PASSWORD_CRYPTED', GETPOST("fieldpasswordcrypted"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_PASSWORD_CRYPTED', GETPOST("fieldpasswordcrypted"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_NAME', GETPOST("fieldname"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_NAME', GETPOST("fieldname"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_FIRSTNAME', GETPOST("fieldfirstname"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_FIRSTNAME', GETPOST("fieldfirstname"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_MAIL', GETPOST("fieldmail"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_MAIL', GETPOST("fieldmail"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_PHONE', GETPOST("fieldphone"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_PHONE', GETPOST("fieldphone"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_MOBILE', GETPOST("fieldmobile"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_MOBILE', GETPOST("fieldmobile"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_FAX', GETPOST("fieldfax"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_FAX', GETPOST("fieldfax"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_COMPANY', GETPOST("fieldcompany"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_COMPANY', GETPOST("fieldcompany"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_ADDRESS', GETPOST("fieldaddress"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_ADDRESS', GETPOST("fieldaddress"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_ZIP', GETPOST("fieldzip"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_ZIP', GETPOST("fieldzip"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_TOWN', GETPOST("fieldtown"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_TOWN', GETPOST("fieldtown"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_COUNTRY', GETPOST("fieldcountry"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_COUNTRY', GETPOST("fieldcountry"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_DESCRIPTION', GETPOST("fielddescription"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_DESCRIPTION', GETPOST("fielddescription"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_SID', GETPOST("fieldsid"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_SID', GETPOST("fieldsid"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_TITLE', GETPOST("fieldtitle"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_TITLE', GETPOST("fieldtitle"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_GROUPID', GETPOST("fieldgroupid"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_GROUPID', GETPOST("fieldgroupid"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_USERID', GETPOST("fielduserid"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_USERID', GETPOST("fielduserid"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_HOMEDIRECTORY', GETPOST("fieldhomedirectory"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_HOMEDIRECTORY', GETPOST("fieldhomedirectory"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
-	if (!dolibarr_set_const($db, 'LDAP_FIELD_HOMEDIRECTORYPREFIX', GETPOST("fieldhomedirectoryprefix"), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_FIELD_HOMEDIRECTORYPREFIX', GETPOST("fieldhomedirectoryprefix"), 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
 
@@ -147,7 +147,7 @@ if ($action == 'setvalue' && $user->admin) {
 	if ($key) {
 		$valkey = getDolGlobalString($key);
 	}
-	if (!dolibarr_set_const($db, 'LDAP_KEY_USERS', $valkey, 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'LDAP_KEY_USERS', $valkey, 'chaine', 0, '', $config->entity)) {
 		$error++;
 	}
 
@@ -451,7 +451,7 @@ if (function_exists("ldap_connect")) {
 				print '<span class="error">'.$langs->trans("LDAPSynchroKOMayBePermissions");
 				print ': '.$ldap->error;
 				print '</span><br>';
-				print $langs->trans("ErrorLDAPMakeManualTest", $conf->ldap->dir_temp).'<br>';
+				print $langs->trans("ErrorLDAPMakeManualTest", $config->ldap->dir_temp).'<br>';
 			}
 
 			print "<br>\n";
@@ -463,7 +463,7 @@ if (function_exists("ldap_connect")) {
 			print '<span class="error">'.$langs->trans("LDAPSynchroKO");
 			print ': '.$ldap->error;
 			print '</span><br>';
-			print $langs->trans("ErrorLDAPMakeManualTest", $conf->ldap->dir_temp).'<br>';
+			print $langs->trans("ErrorLDAPMakeManualTest", $config->ldap->dir_temp).'<br>';
 		}
 	}
 
@@ -534,7 +534,7 @@ if (function_exists("ldap_connect")) {
 			print '<span class="error">'.$langs->trans("LDAPSynchroKO");
 			print ': '.$ldap->error;
 			print '</span><br>';
-			print $langs->trans("ErrorLDAPMakeManualTest", $conf->ldap->dir_temp).'<br>';
+			print $langs->trans("ErrorLDAPMakeManualTest", $config->ldap->dir_temp).'<br>';
 		}
 	}
 }

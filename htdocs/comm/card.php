@@ -109,7 +109,7 @@ $action = GETPOST('action', 'aZ09');
 
 $id = (GETPOSTINT('socid') ? GETPOSTINT('socid') : GETPOSTINT('id'));
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -547,7 +547,7 @@ if ($object->id > 0) {
 			dol_print_error($db, $object->error);
 		}
 		if ($amount_discount > 0) {
-			print '<a href="'.DOL_URL_ROOT.'/comm/remx.php?id='.$object->id.'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?socid='.$object->id).'&action=create&token='.newToken().'">'.price($amount_discount, 1, $langs, 1, -1, -1, $conf->currency).'</a>';
+			print '<a href="'.DOL_URL_ROOT.'/comm/remx.php?id='.$object->id.'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?socid='.$object->id).'&action=create&token='.newToken().'">'.price($amount_discount, 1, $langs, 1, -1, -1, $config->currency).'</a>';
 		}
 		//else print $langs->trans("DiscountNone");
 		print '</td>';
@@ -770,7 +770,7 @@ if ($object->id > 0) {
 		}
 		$boxstat .= '<div class="boxstats" title="'.dol_escape_htmltag($text).'">';
 		$boxstat .= '<span class="boxstatstext">'.img_object("", $icon).' <span>'.$text.'</span></span><br>';
-		$boxstat .= '<span class="boxstatsindicator">'.price($outstandingTotal, 1, $langs, 1, -1, -1, $conf->currency).'</span>';
+		$boxstat .= '<span class="boxstatsindicator">'.price($outstandingTotal, 1, $langs, 1, -1, -1, $config->currency).'</span>';
 		$boxstat .= '</div>';
 		if ($link) {
 			$boxstat .= '</a>';
@@ -791,7 +791,7 @@ if ($object->id > 0) {
 		}
 		$boxstat .= '<div class="boxstats" title="'.dol_escape_htmltag($text).'">';
 		$boxstat .= '<span class="boxstatstext">'.img_object("", $icon).' <span>'.$text.'</span></span><br>';
-		$boxstat .= '<span class="boxstatsindicator">'.price($outstandingTotal, 1, $langs, 1, -1, -1, $conf->currency).'</span>';
+		$boxstat .= '<span class="boxstatsindicator">'.price($outstandingTotal, 1, $langs, 1, -1, -1, $config->currency).'</span>';
 		$boxstat .= '</div>';
 		if ($link) {
 			$boxstat .= '</a>';
@@ -813,7 +813,7 @@ if ($object->id > 0) {
 		}
 		$boxstat .= '<div class="boxstats" title="'.dol_escape_htmltag($text).'">';
 		$boxstat .= '<span class="boxstatstext">'.img_object("", $icon).' <span>'.$text.'</span></span><br>';
-		$boxstat .= '<span class="boxstatsindicator">'.price($outstandingTotal, 1, $langs, 1, -1, -1, $conf->currency).'</span>';
+		$boxstat .= '<span class="boxstatsindicator">'.price($outstandingTotal, 1, $langs, 1, -1, -1, $config->currency).'</span>';
 		$boxstat .= '</div>';
 		if ($link) {
 			$boxstat .= '</a>';
@@ -832,7 +832,7 @@ if ($object->id > 0) {
 		}
 		$boxstat .= '<div class="boxstats" title="'.dol_escape_htmltag($text).'">';
 		$boxstat .= '<span class="boxstatstext">'.img_object("", $icon).' <span>'.$text.'</span></span><br>';
-		$boxstat .= '<span class="boxstatsindicator'.($outstandingOpened > 0 ? ' amountremaintopay' : '').'">'.price($outstandingOpened, 1, $langs, 1, -1, -1, $conf->currency).$warn.'</span>';
+		$boxstat .= '<span class="boxstatsindicator'.($outstandingOpened > 0 ? ' amountremaintopay' : '').'">'.price($outstandingOpened, 1, $langs, 1, -1, -1, $config->currency).$warn.'</span>';
 		$boxstat .= '</div>';
 		if ($link) {
 			$boxstat .= '</a>';
@@ -853,7 +853,7 @@ if ($object->id > 0) {
 			}
 			$boxstat .= '<div class="boxstats" title="'.dol_escape_htmltag($text).'">';
 			$boxstat .= '<span class="boxstatstext">'.img_object("", $icon).' <span>'.$text.'</span></span><br>';
-			$boxstat .= '<span class="boxstatsindicator'.($outstandingOpenedLate > 0 ? ' amountremaintopay' : '').'">'.price($outstandingOpenedLate, 1, $langs, 1, -1, -1, $conf->currency).$warn.'</span>';
+			$boxstat .= '<span class="boxstatsindicator'.($outstandingOpenedLate > 0 ? ' amountremaintopay' : '').'">'.price($outstandingOpenedLate, 1, $langs, 1, -1, -1, $config->currency).$warn.'</span>';
 			$boxstat .= '</div>';
 			if ($link) {
 				$boxstat .= '</a>';
@@ -924,7 +924,7 @@ if ($object->id > 0) {
 				print $propal_static->getNomUrl(1);
 
 				// Preview
-				$filedir = $conf->propal->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+				$filedir = $config->propal->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
 				$file_list = null;
 				if (!empty($filedir)) {
 					$file_list = dol_dir_list($filedir, 'files', 0, dol_sanitizeFileName($objp->ref).'.pdf', '(\.meta|_preview.*.*\.png)$', 'date', SORT_DESC);
@@ -955,10 +955,10 @@ if ($object->id > 0) {
 					print $project->getNomUrl(1);
 				}
 				// $filename = dol_sanitizeFileName($objp->ref);
-				// $filedir = $conf->propal->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+				// $filedir = $config->propal->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
 				// $urlsource = '/comm/propal/card.php?id='.$objp->cid;
 				// print $formfile->getDocumentsLink($propal_static->element, $filename, $filedir);
-				if (($db->jdate($objp->date_limit) < ($now - $conf->propal->cloture->warning_delay)) && $objp->fk_statut == $propal_static::STATUS_VALIDATED) {
+				if (($db->jdate($objp->date_limit) < ($now - $config->propal->cloture->warning_delay)) && $objp->fk_statut == $propal_static::STATUS_VALIDATED) {
 					print " ".img_warning();
 				}
 				print '</td><td class="right" width="80px">'.dol_print_date($db->jdate($objp->dp), 'day')."</td>\n";
@@ -1043,7 +1043,7 @@ if ($object->id > 0) {
 				print '<td class="nowraponall">';
 				print $commande_static->getNomUrl(1);
 				// Preview
-				$filedir = $conf->commande->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+				$filedir = $config->commande->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
 				$file_list = null;
 				if (!empty($filedir)) {
 					$file_list = dol_dir_list($filedir, 'files', 0, dol_sanitizeFileName($objp->ref).'.pdf', '(\.meta|_preview.*.*\.png)$', 'date', SORT_DESC);
@@ -1074,7 +1074,7 @@ if ($object->id > 0) {
 					print $project->getNomUrl(1);
 				}
 				// $filename = dol_sanitizeFileName($objp->ref);
-				// $filedir = $conf->order->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+				// $filedir = $config->order->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
 				// $urlsource = '/commande/card.php?id='.$objp->cid;
 				// print $formfile->getDocumentsLink($commande_static->element, $filename, $filedir);
 				print '</td>';
@@ -1144,7 +1144,7 @@ if ($object->id > 0) {
 				print '<td class="nowraponall">';
 				print $sendingstatic->getNomUrl(1);
 				// Preview
-				$filedir = $conf->expedition->multidir_output[$objp->entity].'/sending/'.dol_sanitizeFileName($objp->ref);
+				$filedir = $config->expedition->multidir_output[$objp->entity].'/sending/'.dol_sanitizeFileName($objp->ref);
 				$file_list = null;
 				if (!empty($filedir)) {
 					$file_list = dol_dir_list($filedir, 'files', 0, dol_sanitizeFileName($objp->ref).'.pdf', '(\.meta|_preview.*.*\.png)$', 'date', SORT_DESC);
@@ -1175,7 +1175,7 @@ if ($object->id > 0) {
 					print $project->getNomUrl(1);
 				}
 				// $filename = dol_sanitizeFileName($objp->ref);
-				// $filedir = $conf->expedition->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+				// $filedir = $config->expedition->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
 				// $urlsource = '/expedition/card.php?id='.$objp->cid;
 				// print $formfile->getDocumentsLink($sendingstatic->element, $filename, $filedir);
 				print '</td>';
@@ -1247,7 +1247,7 @@ if ($object->id > 0) {
 				$late = '';
 				foreach ($contrat->lines as $line) {
 					if ($contrat->status == Contrat::STATUS_VALIDATED && $line->statut == ContratLigne::STATUS_OPEN) {
-						if (((!empty($line->date_end) ? $line->date_end : 0) + $conf->contrat->services->expires->warning_delay) < $now) {
+						if (((!empty($line->date_end) ? $line->date_end : 0) + $config->contrat->services->expires->warning_delay) < $now) {
 							$late = img_warning($langs->trans("Late"));
 						}
 					}
@@ -1258,7 +1258,7 @@ if ($object->id > 0) {
 				print $contrat->getNomUrl(1, 12);
 				if (!empty($contrat->model_pdf)) {
 					// Preview
-					$filedir = $conf->contrat->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+					$filedir = $config->contrat->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
 					$file_list = null;
 					if (!empty($filedir)) {
 						$file_list = dol_dir_list($filedir, 'files', 0, dol_sanitizeFileName($objp->ref).'.pdf', '(\.meta|_preview.*.*\.png)$', 'date', SORT_DESC);
@@ -1285,7 +1285,7 @@ if ($object->id > 0) {
 					}
 				}
 				// $filename = dol_sanitizeFileName($objp->ref);
-				// $filedir = $conf->contrat->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+				// $filedir = $config->contrat->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
 				// $urlsource = '/contrat/card.php?id='.$objp->cid;
 				// print $formfile->getDocumentsLink($contrat->element, $filename, $filedir);
 				print $late;
@@ -1358,7 +1358,7 @@ if ($object->id > 0) {
 				print '<td class="nowraponall">';
 				print $fichinter_static->getNomUrl(1);
 				// Preview
-				$filedir = $conf->ficheinter->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+				$filedir = $config->ficheinter->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
 				$file_list = null;
 				if (!empty($filedir)) {
 					$file_list = dol_dir_list($filedir, 'files', 0, dol_sanitizeFileName($objp->ref).'.pdf', '(\.meta|_preview.*.*\.png)$', 'date', SORT_DESC);
@@ -1587,7 +1587,7 @@ if ($object->id > 0) {
 				print '<td class="nowraponall">';
 				print $facturestatic->getNomUrl(1);
 				// Preview
-				$filedir = $conf->facture->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+				$filedir = $config->facture->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
 				$file_list = null;
 				if (!empty($filedir)) {
 					$file_list = dol_dir_list($filedir, 'files', 0, dol_sanitizeFileName($objp->ref).'.pdf', '(\.meta|_preview.*.*\.png)$', 'date', SORT_DESC);
@@ -1618,7 +1618,7 @@ if ($object->id > 0) {
 					print $project->getNomUrl(1);
 				}
 				// $filename = dol_sanitizeFileName($objp->ref);
-				// $filedir = $conf->facture->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+				// $filedir = $config->facture->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
 				// $urlsource = '/compta/facture/card.php?id='.$objp->cid;
 				//print $formfile->getDocumentsLink($facturestatic->element, $filename, $filedir);
 				print '</td>';

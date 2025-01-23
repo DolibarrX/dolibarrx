@@ -219,7 +219,7 @@ function getCategory($authentication, $id)
 	dol_syslog("Function: getCategory login=".$authentication['login']." id=".$id);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	$objectresp = array();
@@ -242,7 +242,7 @@ function getCategory($authentication, $id)
 			$categorie = new Categorie($db);
 			$result = $categorie->fetch($id);
 			if ($result > 0) {
-				$dir = (!empty($conf->categorie->dir_output) ? $conf->categorie->dir_output : $conf->service->dir_output);
+				$dir = (!empty($config->categorie->dir_output) ? $config->categorie->dir_output : $config->service->dir_output);
 				$pdir = get_exdir($categorie->id, 2, 0, 0, $categorie, 'category').$categorie->id."/photos/";
 				$dir = $dir.'/'.$pdir;
 
@@ -261,7 +261,7 @@ function getCategory($authentication, $id)
 				$cats = $categorie->get_filles();
 				if (count($cats) > 0) {
 					foreach ($cats as $child_cat) {
-						$dir = (!empty($conf->categorie->dir_output) ? $conf->categorie->dir_output : $conf->service->dir_output);
+						$dir = (!empty($config->categorie->dir_output) ? $config->categorie->dir_output : $config->service->dir_output);
 						$pdir = get_exdir($child_cat->id, 2, 0, 0, $categorie, 'category').$child_cat->id."/photos/";
 						$dir = $dir.'/'.$pdir;
 						$cat['filles'][] = array(

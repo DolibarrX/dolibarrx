@@ -72,7 +72,7 @@ $search_account	= GETPOST('search_account', 'alpha');
 $search_amount = GETPOST('search_amount', 'alpha');
 $search_status = GETPOST('search_status', 'intcomma');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -156,7 +156,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Tva';
 	$objectlabel = 'Tva';
-	$uploaddir = $conf->tax->dir_output;
+	$uploaddir = $config->tax->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -279,7 +279,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -662,7 +662,7 @@ while ($i < $imaxinloop) {
 			print '<td>';
 			print $tva_static->getNomUrl(1);
 			$filename = dol_sanitizeFileName($tva_static->ref);
-			$filedir = $conf->tax->dir_output.'/vat/'.dol_sanitizeFileName($tva_static->ref);
+			$filedir = $config->tax->dir_output.'/vat/'.dol_sanitizeFileName($tva_static->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$tva_static->id;
 			print $formfile->getDocumentsLink($tva_static->element, $filename, $filedir, '', 'valignmiddle paddingleft2imp');
 			print '</td>';

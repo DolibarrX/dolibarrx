@@ -286,8 +286,8 @@ class ActionsCardService
 		if ($action == 'view') {
 			// Photo
 			$this->tpl['nblines'] = 4;
-			if ($this->object->is_photo_available($conf->service->multidir_output[$this->object->entity])) {
-				$this->tpl['photos'] = $this->object->show_photos('product', $conf->service->multidir_output[$this->object->entity], 1, 1, 0, 0, 0, 80);
+			if ($this->object->is_photo_available($config->service->multidir_output[$this->object->entity])) {
+				$this->tpl['photos'] = $this->object->show_photos('product', $config->service->multidir_output[$this->object->entity], 1, 1, 0, 0, 0, 80);
 			}
 
 			// Duration
@@ -318,7 +318,7 @@ class ActionsCardService
 		$sql = "SELECT rowid, name, alias, title, align, sort, search, visible, enabled, rang";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_field_list";
 		$sql .= " WHERE element = '".$this->db->escape($this->fieldListName)."'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 		$sql .= " ORDER BY rang ASC";
 
 		$resql = $this->db->query($sql);

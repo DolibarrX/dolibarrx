@@ -107,7 +107,7 @@ class ConferenceOrBooth extends ActionComm
 		'ref' => array('type' => 'integer', 'label' => 'Ref', 'enabled' => 1, 'position' => 1, 'notnull' => 1, 'visible' => 2, 'noteditable' => 1, 'index' => 1, 'css' => 'left', 'csslist' => 'left', 'comment' => "Id"),
 		'label' => array('type' => 'varchar(255)', 'label' => 'Label', 'enabled' => 1, 'position' => 30, 'notnull' => 1, 'visible' => 1, 'searchall' => 1, 'css' => 'minwidth300', 'csslist' => 'tdoverflowmax150', 'help' => "OrganizationEvenLabelName", 'showoncombobox' => 1, 'autofocusoncreate' => 1),
 		'fk_project' => array('type' => 'integer:Project:projet/class/project.class.php:1:(t.usage_organize_event:=:1)', 'label' => 'Project', 'enabled' => "isModEnabled('project')", 'position' => 52, 'notnull' => -1, 'visible' => 1, 'index' => 1, 'picto' => 'project', 'css' => 'maxwidth500', 'csslist' => 'tdoverflowmax100'),
-		'fk_soc' => array('type' => 'integer:Societe:societe/class/societe.class.php:1:((status:=:1) AND (entity:IN:__SHARED_ENTITIES__))', 'label' => 'ThirdParty', 'enabled' => '$conf->societe->enabled', 'position' => 50, 'notnull' => -1, 'visible' => 1, 'index' => 1, 'help' => "OrganizationEventLinkToThirdParty", 'picto' => 'company', 'csslist' => 'tdoverflowmax100', 'css' => 'maxwidth500'),
+		'fk_soc' => array('type' => 'integer:Societe:societe/class/societe.class.php:1:((status:=:1) AND (entity:IN:__SHARED_ENTITIES__))', 'label' => 'ThirdParty', 'enabled' => '$config->societe->enabled', 'position' => 50, 'notnull' => -1, 'visible' => 1, 'index' => 1, 'help' => "OrganizationEventLinkToThirdParty", 'picto' => 'company', 'csslist' => 'tdoverflowmax100', 'css' => 'maxwidth500'),
 		'note' => array('type' => 'html', 'label' => 'Description', 'enabled' => 1, 'position' => 60, 'notnull' => 0, 'visible' => 3),
 		'fk_action' => array('type' => "sellist:c_actioncomm:libelle:id::(module:LIKE:'%@eventorganization')", 'label' => 'ConferenceOrBoothFormat', 'enabled' => 1, 'position' => 60, 'notnull' => 1, 'visible' => 1, 'css' => 'width200', 'csslist' => 'tdoverflowmax100'),
 		'datep' => array('type' => 'datetime', 'label' => 'DateStart', 'enabled' => 1, 'position' => 70, 'notnull' => 0, 'visible' => 1, 'showoncombobox' => 2,),
@@ -501,8 +501,8 @@ class ConferenceOrBooth extends ActionComm
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->eventorganization->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->eventorganization->eventorganization_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->eventorganization->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->eventorganization->eventorganization_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -525,8 +525,8 @@ class ConferenceOrBooth extends ActionComm
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->eventorganization->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->eventorganization->eventorganization_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->eventorganization->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->eventorganization->eventorganization_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -549,8 +549,8 @@ class ConferenceOrBooth extends ActionComm
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->eventorganization->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->eventorganization->eventorganization_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->eventorganization->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->eventorganization->eventorganization_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -576,7 +576,7 @@ class ConferenceOrBooth extends ActionComm
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -634,14 +634,14 @@ class ConferenceOrBooth extends ActionComm
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 				//list($class, $module) = explode('@', $this->picto);
-				$upload_dir = $conf->eventorganisation->multidir_output[$conf->entity]."/".dol_sanitizeFileName($this->ref);
+				$upload_dir = $config->eventorganisation->multidir_output[$config->entity]."/".dol_sanitizeFileName($this->ref);
 				$filearray = dol_dir_list($upload_dir, "files");
 				$filename = $filearray[0]['name'];
 				if (!empty($filename)) {
 					$pospoint = strpos($filearray[0]['name'], '.');
 
 					$pathtophoto = '/'.$this->ref.'/thumbs/'.substr($filename, 0, $pospoint).'_mini'.substr($filename, $pospoint);
-					$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=eventorganisation&entity='.$conf->entity.'&file='.urlencode($pathtophoto).'"></div>';
+					$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=eventorganisation&entity='.$config->entity.'&file='.urlencode($pathtophoto).'"></div>';
 
 					$result .= '</div>';
 				} else {
@@ -750,7 +750,7 @@ class ConferenceOrBooth extends ActionComm
 		}
 		if (property_exists($this, 'amount')) {
 			$return .= '<br>';
-			$return .= '<span class="info-box-label amount">'.price($this->amount, 0, $langs, 1, -1, -1, $conf->currency).'</span>';  // @phan-suppress-current-line PhanUndeclaredProperty
+			$return .= '<span class="info-box-label amount">'.price($this->amount, 0, $langs, 1, -1, -1, $config->currency).'</span>';  // @phan-suppress-current-line PhanUndeclaredProperty
 		}
 		if (method_exists($this, 'getLibStatut')) {
 			$return .= '<br><div class="info-box-status">'.$this->getLibStatut(3).'</div>';
@@ -854,7 +854,7 @@ class ConferenceOrBooth extends ActionComm
 	{
 		global $conf, $langs;
 
-		//$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
+		//$config->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
 
 		$error = 0;
 		$this->output = '';

@@ -330,7 +330,7 @@ abstract class CommonDocGenerator
 		// phpcs:enable
 		global $conf, $extrafields;
 
-		$logotouse = $conf->user->dir_output . '/' . get_exdir(0, 0, 0, 0, $user, 'user') . 'photos/' . getImageFileNameForSize($user->photo, '_small');
+		$logotouse = $config->user->dir_output . '/' . get_exdir(0, 0, 0, 0, $user, 'user') . 'photos/' . getImageFileNameForSize($user->photo, '_small');
 
 		$array_user = array(
 			'myuser_lastname' => $user->lastname,
@@ -379,7 +379,7 @@ abstract class CommonDocGenerator
 		global $conf, $extrafields;
 
 		if ($member->photo) {
-			$logotouse = $conf->member->dir_output.'/'.get_exdir(0, 0, 0, 1, $member, 'user').'/photos/'.$member->photo;
+			$logotouse = $config->member->dir_output.'/'.get_exdir(0, 0, 0, 1, $member, 'user').'/photos/'.$member->photo;
 		} else {
 			$logotouse = DOL_DOCUMENT_ROOT.'/public/theme/common/nophoto.png';
 		}
@@ -437,7 +437,7 @@ abstract class CommonDocGenerator
 			$mysoc->state = getState($state_id, '0');
 		}
 
-		$logotouse = $conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small;
+		$logotouse = $config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small;
 
 		return array(
 			'mycompany_logo' => $logotouse,
@@ -631,7 +631,7 @@ abstract class CommonDocGenerator
 		);
 
 
-		foreach ($conf->global as $key => $val) {
+		foreach ($config->global as $key => $val) {
 			if (isASecretKey($key)) {
 				$newval = '*****forbidden*****';
 			} else {
@@ -1188,7 +1188,7 @@ abstract class CommonDocGenerator
 
 				if ($extrafields->attributes[$object->table_element]['type'][$key] == 'price') {
 					$formatedarrayoption['options_'.$key] = price2num($formatedarrayoption['options_'.$key]);
-					$formatedarrayoption['options_'.$key.'_currency'] = price($formatedarrayoption['options_'.$key], 0, $outputlangs, 0, 0, -1, $conf->currency);
+					$formatedarrayoption['options_'.$key.'_currency'] = price($formatedarrayoption['options_'.$key], 0, $outputlangs, 0, 0, -1, $config->currency);
 					//Add value to store price with currency
 					$array_to_fill = array_merge($array_to_fill, array($array_key.'_options_'.$key.'_currency' => $formatedarrayoption['options_'.$key.'_currency']));
 				} elseif ($extrafields->attributes[$object->table_element]['type'][$key] == 'select') {

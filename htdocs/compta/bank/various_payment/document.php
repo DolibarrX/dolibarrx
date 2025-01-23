@@ -56,7 +56,7 @@ if ($user->socid) {
 $result = restrictedArea($user, 'banque', '', '', '');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -77,7 +77,7 @@ if (!$sortfield) {
 $object = new PaymentVarious($db);
 $object->fetch($id, $ref);
 
-$upload_dir = $conf->bank->dir_output.'/'.dol_sanitizeFileName((string) $object->id);
+$upload_dir = $config->bank->dir_output.'/'.dol_sanitizeFileName((string) $object->id);
 $modulepart = 'banque';
 
 $permissiontoadd = $user->hasRight('banque', 'modifier');	// Used by the include of actions_dellink.inc.php

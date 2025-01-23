@@ -65,7 +65,7 @@ if ($id > 0) {
 $object 		= new Partnership($db);
 $extrafields 	= new ExtraFields($db);
 $adht 			= new AdherentType($db);
-$diroutputmassaction = $conf->partnership->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->partnership->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('partnershipthirdparty', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -92,7 +92,7 @@ $permissiontodelete = $user->hasRight('partnership', 'delete') || ($permissionto
 $permissionnote = $user->hasRight('partnership', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('partnership', 'write'); // Used by the include of actions_dellink.inc.php
 $usercanclose = $user->hasRight('partnership', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
-$upload_dir = $conf->partnership->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->partnership->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 
 if (getDolGlobalString('PARTNERSHIP_IS_MANAGED_FOR') != 'member') {

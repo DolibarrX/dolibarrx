@@ -72,7 +72,7 @@ if ($action == 'updateMask') {
 	$res = 0;
 
 	if ($maskconstsupplier_proposal && preg_match('/_MASK$/', $maskconstsupplier_proposal)) {
-		$res = dolibarr_set_const($db, $maskconstsupplier_proposal, $masksupplier_proposal, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstsupplier_proposal, $masksupplier_proposal, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -95,7 +95,7 @@ if ($action == 'specimen') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/supplier_proposal/doc/pdf_".$modele.".modules.php");
 		if (file_exists($file)) {
@@ -126,7 +126,7 @@ if ($action == 'specimen') {
 if ($action == 'set_SUPPLIER_PROPOSAL_DRAFT_WATERMARK') {
 	$draft = GETPOST('SUPPLIER_PROPOSAL_DRAFT_WATERMARK', 'alpha');
 
-	$res = dolibarr_set_const($db, "SUPPLIER_PROPOSAL_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "SUPPLIER_PROPOSAL_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -141,7 +141,7 @@ if ($action == 'set_SUPPLIER_PROPOSAL_DRAFT_WATERMARK') {
 if ($action == 'set_SUPPLIER_PROPOSAL_FREE_TEXT') {
 	$freetext = GETPOST('SUPPLIER_PROPOSAL_FREE_TEXT', 'restricthtml'); // No alpha here, we want exact string
 
-	$res = dolibarr_set_const($db, "SUPPLIER_PROPOSAL_FREE_TEXT", $freetext, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "SUPPLIER_PROPOSAL_FREE_TEXT", $freetext, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -155,7 +155,7 @@ if ($action == 'set_SUPPLIER_PROPOSAL_FREE_TEXT') {
 }
 
 if ($action == 'set_BANK_ASK_PAYMENT_BANK_DURING_SUPPLIER_PROPOSAL') {
-	$res = dolibarr_set_const($db, "BANK_ASK_PAYMENT_BANK_DURING_SUPPLIER_PROPOSAL", $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "BANK_ASK_PAYMENT_BANK_DURING_SUPPLIER_PROPOSAL", $value, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -174,13 +174,13 @@ if ($action == 'set') {
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->SUPPLIER_PROPOSAL_ADDON_PDF == "$value") {
-			dolibarr_del_const($db, 'SUPPLIER_PROPOSAL_ADDON_PDF', $conf->entity);
+		if ($config->global->SUPPLIER_PROPOSAL_ADDON_PDF == "$value") {
+			dolibarr_del_const($db, 'SUPPLIER_PROPOSAL_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
-	if (dolibarr_set_const($db, "SUPPLIER_PROPOSAL_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
-		$conf->global->SUPPLIER_PROPOSAL_ADDON_PDF = $value;
+	if (dolibarr_set_const($db, "SUPPLIER_PROPOSAL_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
+		$config->global->SUPPLIER_PROPOSAL_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -192,7 +192,7 @@ if ($action == 'set') {
 	// TODO Verify if the chosen numbering module can be activated
 	// by calling method canBeActivated
 
-	dolibarr_set_const($db, "SUPPLIER_PROPOSAL_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "SUPPLIER_PROPOSAL_ADDON", $value, 'chaine', 0, '', $config->entity);
 } elseif (preg_match('/set_(.*)/', $action, $reg)) {
 	$code = $reg[1];
 	if ($code == "SUPPLIER_PROPOSAL_FREE_TEXT") {
@@ -200,7 +200,7 @@ if ($action == 'set') {
 	} else {
 		$value = (GETPOST($code) ? GETPOST($code) : 1);
 	}
-	$res = dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -214,7 +214,7 @@ if ($action == 'set') {
 	}
 } elseif (preg_match('/del_(.*)/', $action, $reg)) {
 	$code = $reg[1];
-	$res = dolibarr_del_const($db, $code, $conf->entity);
+	$res = dolibarr_del_const($db, $code, $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -234,7 +234,7 @@ if ($action == 'set') {
  * Affiche page
  */
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 
 llxHeader('', $langs->trans("SupplierProposalSetup"), '', '', 0, 0, '', '', '', 'mod-admin page-supplier_proposal');
@@ -307,7 +307,7 @@ foreach ($dirmodels as $reldir) {
 						print '</td>'."\n";
 
 						print '<td class="center">';
-						if ($conf->global->SUPPLIER_PROPOSAL_ADDON == "$file") {
+						if ($config->global->SUPPLIER_PROPOSAL_ADDON == "$file") {
 							print img_picto($langs->trans("Activated"), 'switch_on');
 						} else {
 							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.urlencode($file).'">';
@@ -361,7 +361,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;
@@ -449,7 +449,7 @@ foreach ($dirmodels as $reldir) {
 
 								// Default
 								print '<td align="center">';
-								if ($conf->global->SUPPLIER_PROPOSAL_ADDON_PDF == "$name") {
+								if ($config->global->SUPPLIER_PROPOSAL_ADDON_PDF == "$name") {
 									print img_picto($langs->trans("Default"), 'on');
 								} else {
 									print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
@@ -585,7 +585,7 @@ print "<tr class=\"liste_titre\">\n";
 print "  <td>".$langs->trans("Name")."</td>\n";
 print "  <td>".$langs->trans("Value")."</td>\n";
 print "</tr>\n";
-print "<tr class=\"oddeven\">\n  <td width=\"140\">".$langs->trans("PathDirectory")."</td>\n  <td>".$conf->supplier_proposal->dir_output."</td>\n</tr>\n";
+print "<tr class=\"oddeven\">\n  <td width=\"140\">".$langs->trans("PathDirectory")."</td>\n  <td>".$config->supplier_proposal->dir_output."</td>\n</tr>\n";
 print "</table>\n<br>";
 
 // End of page

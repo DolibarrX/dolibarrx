@@ -73,7 +73,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) && $_SERVER['PHP_AUTH_USER'] != '') {
 $langs->loadLangs(array("main", "other"));
 
 
-if (empty($conf->dav->enabled)) {
+if (empty($config->dav->enabled)) {
 	accessforbidden();
 }
 
@@ -90,7 +90,7 @@ if (getDolGlobalString('DAV_RESTRICT_ON_IP')) {
 }
 
 
-$entity = (GETPOSTINT('entity') ? GETPOSTINT('entity') : (!empty($conf->entity) ? $conf->entity : 1));
+$entity = (GETPOSTINT('entity') ? GETPOSTINT('entity') : (!empty($config->entity) ? $config->entity : 1));
 
 // settings
 $publicDir = DOL_DATA_ROOT.'/dav/public';
@@ -98,12 +98,12 @@ $privateDir = DOL_DATA_ROOT.'/dav/private';
 $ecmDir = DOL_DATA_ROOT.'/ecm';
 $tmpDir = DOL_DATA_ROOT.'/ecm/temp';
 if (isModEnabled('dav')) {
-	$publicDir = $conf->dav->multidir_output[$entity].'/public';
-	$privateDir = $conf->dav->multidir_output[$entity].'/private';
+	$publicDir = $config->dav->multidir_output[$entity].'/public';
+	$privateDir = $config->dav->multidir_output[$entity].'/private';
 }
 if (isModEnabled('ecm')) {
-	$ecmDir = $conf->ecm->multidir_output[$entity];
-	$tmpDir = $conf->ecm->multidir_output[$entity]; // We need root dir, not a dir that can be deleted, so we use multidir_output
+	$ecmDir = $config->ecm->multidir_output[$entity];
+	$tmpDir = $config->ecm->multidir_output[$entity]; // We need root dir, not a dir that can be deleted, so we use multidir_output
 }
 //var_dump($tmpDir);mkdir($tmpDir);exit;
 
@@ -149,7 +149,7 @@ $authBackend = new \Sabre\DAV\Auth\Backend\BasicCallBack(
 		}
 
 		$authmode = explode(',', $dolibarr_main_authentication);
-		$entity = (GETPOSTINT('entity') ? GETPOSTINT('entity') : (!empty($conf->entity) ? $conf->entity : 1));
+		$entity = (GETPOSTINT('entity') ? GETPOSTINT('entity') : (!empty($config->entity) ? $config->entity : 1));
 
 		if (checkLoginPassEntity($username, $password, $entity, $authmode, 'dav') != $username) {
 			return false;

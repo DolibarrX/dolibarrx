@@ -139,9 +139,9 @@ $arrayfields['t.progress'] = array('label' => 'ProgressDeclared', 'checked' => 1
 $arrayfields['timeconsumed'] = array('label' => 'TimeConsumed', 'checked' => 1, 'enabled' => 1, 'position' => 15);
 /*$arrayfields=array(
  // Project
- 'p.opp_amount'=>array('label'=>$langs->trans("OpportunityAmountShort"), 'checked'=>0, 'enabled'=>($conf->global->PROJECT_USE_OPPORTUNITIES?1:0), 'position'=>103),
- 'p.fk_opp_status'=>array('label'=>$langs->trans("OpportunityStatusShort"), 'checked'=>0, 'enabled'=>($conf->global->PROJECT_USE_OPPORTUNITIES?1:0), 'position'=>104),
- 'p.opp_percent'=>array('label'=>$langs->trans("OpportunityProbabilityShort"), 'checked'=>0, 'enabled'=>($conf->global->PROJECT_USE_OPPORTUNITIES?1:0), 'position'=>105),
+ 'p.opp_amount'=>array('label'=>$langs->trans("OpportunityAmountShort"), 'checked'=>0, 'enabled'=>($config->global->PROJECT_USE_OPPORTUNITIES?1:0), 'position'=>103),
+ 'p.fk_opp_status'=>array('label'=>$langs->trans("OpportunityStatusShort"), 'checked'=>0, 'enabled'=>($config->global->PROJECT_USE_OPPORTUNITIES?1:0), 'position'=>104),
+ 'p.opp_percent'=>array('label'=>$langs->trans("OpportunityProbabilityShort"), 'checked'=>0, 'enabled'=>($config->global->PROJECT_USE_OPPORTUNITIES?1:0), 'position'=>105),
  'p.budget_amount'=>array('label'=>$langs->trans("Budget"), 'checked'=>0, 'position'=>110),
  'p.usage_bill_time'=>array('label'=>$langs->trans("BillTimeShort"), 'checked'=>0, 'position'=>115),
  );
@@ -443,7 +443,7 @@ $nav = '<a class="inline-block valignmiddle" href="?year='.$prev_year."&month=".
 $nav .= dol_print_date(dol_mktime(0, 0, 0, $month, $day, $year), "%a").' ';
 $nav .= ' <span id="month_name">'.dol_print_date(dol_mktime(0, 0, 0, $month, $day, $year), "day")." </span>\n";
 $nav .= '<a class="inline-block valignmiddle" href="?year='.$next_year."&month=".$next_month."&day=".$next_day.$param.'">'.img_next($langs->trans("Next"))."</a>\n";
-$nav .= ' '.$form->selectDate(-1, '', 0, 0, 2, "addtime", 1, ($conf->dol_optimize_smallscreen ? 0 : 1)).' ';
+$nav .= ' '.$form->selectDate(-1, '', 0, 0, 2, "addtime", 1, ($config->dol_optimize_smallscreen ? 0 : 1)).' ';
 $nav .= ' <button type="submit" name="button_search_x" value="x" class="bordertransp nobordertransp button_search"><span class="fa fa-search"></span></button>';
 
 $picto = 'clock';
@@ -485,9 +485,9 @@ print '</div>';
 print dol_get_fiche_end();
 
 
-print '<div class="'.($conf->dol_optimize_smallscreen ? 'center centpercent' : 'floatright right').'">'.$nav.'</div>'; // We move this before the assign to components so, the default submit button is not the assign to.
+print '<div class="'.($config->dol_optimize_smallscreen ? 'center centpercent' : 'floatright right').'">'.$nav.'</div>'; // We move this before the assign to components so, the default submit button is not the assign to.
 
-print '<div class="colorbacktimesheet valignmiddle'.($conf->dol_optimize_smallscreen ? ' center' : ' float').'">';
+print '<div class="colorbacktimesheet valignmiddle'.($config->dol_optimize_smallscreen ? ' center' : ' float').'">';
 $titleassigntask = $langs->transnoentities("AssignTaskToMe");
 if ($usertoprocess->id != $user->id) {
 	$titleassigntask = $langs->transnoentities("AssignTaskToUser", $usertoprocess->getFullName($langs));
@@ -522,7 +522,7 @@ if (!$user->hasRight('user', 'user', 'lire')) {
 }
 $selecteduser = $search_usertoprocessid ? $search_usertoprocessid : $usertoprocess->id;
 $moreforfiltertmp = $form->select_dolusers($selecteduser, 'search_usertoprocessid', 0, null, 0, $includeonly, '', 0, 0, 0, '', 0, '', 'maxwidth200');
-if ($form->num > 1 || empty($conf->dol_optimize_smallscreen)) {
+if ($form->num > 1 || empty($config->dol_optimize_smallscreen)) {
 	$moreforfilter .= '<div class="divsearchfield">';
 	$moreforfilter .= '<div class="inline-block hideonsmartphone"></div>';
 	$moreforfilter .= img_picto($langs->trans('Filter').' '.$langs->trans('User'), 'user', 'class="paddingright pictofixedwidth"');
@@ -693,7 +693,7 @@ print "</tr>\n";
 
 $colspan = 2 + (!getDolGlobalString('PROJECT_TIMESHEET_DISABLEBREAK_ON_PROJECT') ? 0 : 2);
 
-if ($conf->use_javascript_ajax && count($tasksarray) >= getDolGlobalInt('NBLINES_TO_DUPLICATE_TOTAL_TIMESPENT_ON_TOP', 10)) {
+if ($config->use_javascript_ajax && count($tasksarray) >= getDolGlobalInt('NBLINES_TO_DUPLICATE_TOTAL_TIMESPENT_ON_TOP', 10)) {
 	print '<tr class="liste_total hideonsmartphone">';
 	print '<td class="liste_total" colspan="'.($colspan - 1 + $addcolspan).'">';
 	print $langs->trans("Total");
@@ -781,7 +781,7 @@ if (count($tasksarray) > 0) {
 		print '</tr>';
 	}
 
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print '<tr class="liste_total">';
 		print '<td class="liste_total" colspan="'.($colspan - 1 + $addcolspan).'">';
 		print $langs->trans("Total");
@@ -814,7 +814,7 @@ print '</div>';
 
 print '</form>';
 
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	$modeinput = 'hours';
 	print "\n<!-- JS CODE TO ENABLE Tooltips on all object with class classfortooltip -->\n";
 	print '<script type="text/javascript">'."\n";

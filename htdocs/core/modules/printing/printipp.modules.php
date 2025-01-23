@@ -163,7 +163,7 @@ class printing_printipp extends PrintingDriver
 			dol_print_error($this->db);
 		}
 
-		$fileprint = $conf->{$module}->dir_output;
+		$fileprint = $config->{$module}->dir_output;
 		if ($subdir != '') {
 			$fileprint .= '/'.$subdir;
 		}
@@ -225,7 +225,7 @@ class printing_printipp extends PrintingDriver
 			$html .= '<td>'.$langs->trans('MEDIA_IPP_'.$printer_det->media_type_supported->_value1).'</td>';
 			// Default
 			$html .= '<td class="center">';
-			if ($conf->global->PRINTIPP_URI_DEFAULT == $value) {
+			if ($config->global->PRINTIPP_URI_DEFAULT == $value) {
 				$html .= img_picto($langs->trans("Default"), 'on');
 			} else {
 				$html .= '<a href="'.$_SERVER["PHP_SELF"].'?action=setvalue&token='.newToken().'&mode=test&varname=PRINTIPP_URI_DEFAULT&driver=printipp&value='.urlencode($value).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';

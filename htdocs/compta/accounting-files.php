@@ -88,7 +88,7 @@ $projectid = GETPOSTINT('projectid');
 $hookManager->initHooks(array('comptafileslist', 'globallist'));
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -133,14 +133,14 @@ if (isModEnabled('multicompany') && is_object($mc)) {
 	$arrayofentities = $mc->getEntitiesList();
 }
 
-$entity = (GETPOSTISSET('entity') ? GETPOSTINT('entity') : (GETPOSTISSET('search_entity') ? GETPOSTINT('search_entity') : $conf->entity));
+$entity = (GETPOSTISSET('entity') ? GETPOSTINT('entity') : (GETPOSTISSET('search_entity') ? GETPOSTINT('search_entity') : $config->entity));
 if (isModEnabled('multicompany') && is_object($mc)) {
 	if (empty($entity) && getDolGlobalString('MULTICOMPANY_ALLOW_EXPORT_ACCOUNTING_DOC_FOR_ALL_ENTITIES')) {
 		$entity = '0,'.implode(',', array_keys($arrayofentities));
 	}
 }
 if (empty($entity)) {
-	$entity = $conf->entity;
+	$entity = $config->entity;
 }
 
 $error = 0;
@@ -254,7 +254,7 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 			}
 			$sql .= " SELECT t.rowid as id, t.entity, t.ref, paid, amount as total_ht, amount as total_ttc, 0 as total_vat,";
 			$sql .= " 0 as localtax1, 0 as localtax2, 0 as revenuestamp,";
-			$sql .= " '".$db->escape($conf->currency)."' as currency, 0 as fk_soc, t.datedon as date, t.datedon as date_due, 'Donation' as item, t.societe as thirdparty_name, '' as thirdparty_code, c.code as country_code, '' as vatnum, ".PAY_CREDIT." as sens";
+			$sql .= " '".$db->escape($config->currency)."' as currency, 0 as fk_soc, t.datedon as date, t.datedon as date_due, 'Donation' as item, t.societe as thirdparty_name, '' as thirdparty_code, c.code as country_code, '' as vatnum, ".PAY_CREDIT." as sens";
 			$sql .= " FROM ".MAIN_DB_PREFIX."don as t LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON c.rowid = t.fk_country";
 			$sql .= " WHERE datedon between ".$wheretail;
 			$sql .= " AND t.entity IN (".$db->sanitize($entity == 1 ? '0,1' : $entity).')';
@@ -270,7 +270,7 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 			}
 			$sql .= " SELECT t.rowid as id, t.entity, t.label as ref, 1 as paid, amount as total_ht, amount as total_ttc, 0 as total_vat,";
 			$sql .= " 0 as localtax1, 0 as localtax2, 0 as revenuestamp,";
-			$sql .= " '".$db->escape($conf->currency)."' as currency, t.fk_user as fk_soc, t.datep as date, t.dateep as date_due, 'SalaryPayment' as item, CONCAT(CONCAT(u.lastname, ' '), u.firstname)  as thirdparty_name, '' as thirdparty_code, c.code as country_code, '' as vatnum, ".PAY_DEBIT." as sens";
+			$sql .= " '".$db->escape($config->currency)."' as currency, t.fk_user as fk_soc, t.datep as date, t.dateep as date_due, 'SalaryPayment' as item, CONCAT(CONCAT(u.lastname, ' '), u.firstname)  as thirdparty_name, '' as thirdparty_code, c.code as country_code, '' as vatnum, ".PAY_DEBIT." as sens";
 			$sql .= " FROM ".MAIN_DB_PREFIX."payment_salary as t LEFT JOIN ".MAIN_DB_PREFIX."user as u ON u.rowid = t.fk_user LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON c.rowid = u.fk_country";
 			$sql .= " WHERE datep between ".$wheretail;
 			$sql .= " AND t.entity IN (".$db->sanitize($entity == 1 ? '0,1' : $entity).')';
@@ -286,7 +286,7 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 			}
 			$sql .= " SELECT t.rowid as id, t.entity, t.libelle as ref, t.paye as paid, t.amount as total_ht, t.amount as total_ttc, 0 as total_vat,";
 			$sql .= " 0 as localtax1, 0 as localtax2, 0 as revenuestamp,";
-			$sql .= " '".$db->escape($conf->currency)."' as currency, 0 as fk_soc, t.date_ech as date, t.periode as date_due, 'SocialContributions' as item, '' as thirdparty_name, '' as thirdparty_code, '' as country_code, '' as vatnum, ".PAY_DEBIT." as sens";
+			$sql .= " '".$db->escape($config->currency)."' as currency, 0 as fk_soc, t.date_ech as date, t.periode as date_due, 'SocialContributions' as item, '' as thirdparty_name, '' as thirdparty_code, '' as country_code, '' as vatnum, ".PAY_DEBIT." as sens";
 			$sql .= " FROM ".MAIN_DB_PREFIX."chargesociales as t";
 			$sql .= " WHERE t.date_ech between ".$wheretail;
 			$sql .= " AND t.entity IN (".$db->sanitize($entity == 1 ? '0,1' : $entity).')';
@@ -302,7 +302,7 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 			}
 			$sql .= " SELECT t.rowid as id, t.entity, t.ref, 1 as paid, t.amount as total_ht, t.amount as total_ttc, 0 as total_vat,";
 			$sql .= " 0 as localtax1, 0 as localtax2, 0 as revenuestamp,";
-			$sql .= " '".$db->escape($conf->currency)."' as currency, 0 as fk_soc, t.datep as date, t.datep as date_due, 'VariousPayment' as item, '' as thirdparty_name, '' as thirdparty_code, '' as country_code, '' as vatnum, sens";
+			$sql .= " '".$db->escape($config->currency)."' as currency, 0 as fk_soc, t.datep as date, t.datep as date_due, 'VariousPayment' as item, '' as thirdparty_name, '' as thirdparty_code, '' as country_code, '' as vatnum, sens";
 			$sql .= " FROM ".MAIN_DB_PREFIX."payment_various as t";
 			$sql .= " WHERE datep between ".$wheretail;
 			$sql .= " AND t.entity IN (".$db->sanitize($entity == 1 ? '0,1' : $entity).')';
@@ -317,7 +317,7 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 			}
 			$sql .= " SELECT t.rowid as id, l.entity, l.label as ref, 1 as paid, (t.amount_capital+t.amount_insurance+t.amount_interest) as total_ht, (t.amount_capital+t.amount_insurance+t.amount_interest) as total_ttc, 0 as total_vat,";
 			$sql .= " 0 as localtax1, 0 as localtax2, 0 as revenuestamp,";
-			$sql .= " '".$db->escape($conf->currency)."' as currency, 0 as fk_soc, t.datep as date, t.datep as date_due, 'LoanPayment' as item, '' as thirdparty_name, '' as thirdparty_code, '' as country_code, '' as vatnum, ".PAY_DEBIT." as sens";
+			$sql .= " '".$db->escape($config->currency)."' as currency, 0 as fk_soc, t.datep as date, t.datep as date_due, 'LoanPayment' as item, '' as thirdparty_name, '' as thirdparty_code, '' as country_code, '' as vatnum, ".PAY_DEBIT." as sens";
 			$sql .= " FROM ".MAIN_DB_PREFIX."payment_loan as t LEFT JOIN ".MAIN_DB_PREFIX."loan as l ON l.rowid = t.fk_loan";
 			$sql .= " WHERE datep between ".$wheretail;
 			$sql .= " AND l.entity IN (".$db->sanitize($entity == 1 ? '0,1' : $entity).')';
@@ -347,7 +347,7 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 						case "Invoice":
 							$subdir = '';
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->ref);
-							$upload_dir = $conf->facture->dir_output.'/'.$subdir;
+							$upload_dir = $config->facture->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=facture&file=".str_replace('/', '%2F', $subdir).'%2F';
 							$modulepart = "facture";
 							break;
@@ -355,21 +355,21 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 							$tmpinvoicesupplier->fetch($objd->id);
 							$subdir = get_exdir($tmpinvoicesupplier->id, 2, 0, 1, $tmpinvoicesupplier, 'invoice_supplier'); // TODO Use first file
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->ref);
-							$upload_dir = $conf->fournisseur->facture->dir_output.'/'.$subdir;
+							$upload_dir = $config->fournisseur->facture->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=facture_fournisseur&file=".str_replace('/', '%2F', $subdir).'%2F';
 							$modulepart = "facture_fournisseur";
 							break;
 						case "ExpenseReport":
 							$subdir = '';
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->ref);
-							$upload_dir = $conf->expensereport->dir_output.'/'.$subdir;
+							$upload_dir = $config->expensereport->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=expensereport&file=".str_replace('/', '%2F', $subdir).'%2F';
 							$modulepart = "expensereport";
 							break;
 						case "SalaryPayment":
 							$subdir = '';
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->id);
-							$upload_dir = $conf->salaries->dir_output.'/'.$subdir;
+							$upload_dir = $config->salaries->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=salaries&file=".str_replace('/', '%2F', $subdir).'%2F';
 							$modulepart = "salaries";
 							break;
@@ -377,28 +377,28 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 							$tmpdonation->fetch($objd->id);
 							$subdir = get_exdir(0, 0, 0, 0, $tmpdonation, 'donation');
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->id);
-							$upload_dir = $conf->don->dir_output.'/'.$subdir;
+							$upload_dir = $config->don->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=don&file=".str_replace('/', '%2F', $subdir).'%2F';
 							$modulepart = "don";
 							break;
 						case "SocialContributions":
 							$subdir = '';
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->id);
-							$upload_dir = $conf->tax->dir_output.'/'.$subdir;
+							$upload_dir = $config->tax->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=tax&file=".str_replace('/', '%2F', $subdir).'%2F';
 							$modulepart = "tax";
 							break;
 						case "VariousPayment":
 							$subdir = '';
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->id);
-							$upload_dir = $conf->bank->dir_output.'/'.$subdir;
+							$upload_dir = $config->bank->dir_output.'/'.$subdir;
 							$link = "document.php?modulepart=banque&file=".str_replace('/', '%2F', $subdir).'%2F';
 							$modulepart = "banque";
 							break;
 						case "LoanPayment":
 							// Loan payment has no linked file
 							$subdir = '';
-							$upload_dir = $conf->loan->dir_output.'/'.$subdir;
+							$upload_dir = $config->loan->dir_output.'/'.$subdir;
 							$link = "";
 							$modulepart = "";
 							break;
@@ -507,7 +507,7 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 
 // zip creation
 
-$dirfortmpfile = (!empty($conf->accounting->dir_temp) ? $conf->accounting->dir_temp : $conf->comptabilite->dir_temp);
+$dirfortmpfile = (!empty($config->accounting->dir_temp) ? $config->accounting->dir_temp : $config->comptabilite->dir_temp);
 if (empty($dirfortmpfile)) {
 	setEventMessages($langs->trans("ErrorNoAccountingModuleEnabled"), null, 'errors');
 	$error++;
@@ -655,7 +655,7 @@ print "\n";
 // Export is for current company only
 $socid = 0;
 if (isModEnabled('multicompany') && is_object($mc)) {
-	$mc->getInfo($conf->entity);
+	$mc->getInfo($config->entity);
 	print ' &nbsp; <span class="marginleftonly marginrightonly'.(!getDolGlobalString('MULTICOMPANY_ALLOW_EXPORT_ACCOUNTING_DOC_FOR_ALL_ENTITIES') ? ' opacitymedium' : '').'">'.$langs->trans("Entity").' : ';
 	if (getDolGlobalString('MULTICOMPANY_ALLOW_EXPORT_ACCOUNTING_DOC_FOR_ALL_ENTITIES')) {
 		$socid = $mc->id;
@@ -763,9 +763,9 @@ if (!empty($date_start) && !empty($date_stop)) {
 	print_liste_field_titre($arrayfields['ref']['label'], $_SERVER["PHP_SELF"], "", "", $param, '', $sortfield, $sortorder, 'nowraponall ');
 	print '<th>'.$langs->trans("Document").'</th>';
 	print '<th>'.$langs->trans("Paid").'</th>';
-	print '<th class="right">'.$langs->trans("TotalHT").(isModEnabled('multicurrency') ? ' ('.$langs->getCurrencySymbol($conf->currency).')' : '').'</th>';
-	print '<th class="right">'.$langs->trans("TotalTTC").(isModEnabled('multicurrency') ? ' ('.$langs->getCurrencySymbol($conf->currency).')' : '').'</th>';
-	print '<th class="right">'.$langs->trans("TotalVAT").(isModEnabled('multicurrency') ? ' ('.$langs->getCurrencySymbol($conf->currency).')' : '').'</th>';
+	print '<th class="right">'.$langs->trans("TotalHT").(isModEnabled('multicurrency') ? ' ('.$langs->getCurrencySymbol($config->currency).')' : '').'</th>';
+	print '<th class="right">'.$langs->trans("TotalTTC").(isModEnabled('multicurrency') ? ' ('.$langs->getCurrencySymbol($config->currency).')' : '').'</th>';
+	print '<th class="right">'.$langs->trans("TotalVAT").(isModEnabled('multicurrency') ? ' ('.$langs->getCurrencySymbol($config->currency).')' : '').'</th>';
 
 	print '<th>'.$langs->trans("ThirdParty").'</th>';
 	print '<th class="center">'.$langs->trans("Code").'</th>';

@@ -124,7 +124,7 @@ class doc_generic_shipment_odt extends ModelePdfExpedition
 		// List of directories area
 		$texte .= '<tr><td>';
 		$texttitle = $langs->trans("ListOfDirectories");
-		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($conf->global->EXPEDITION_ADDON_PDF_ODT_PATH)));
+		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($config->global->EXPEDITION_ADDON_PDF_ODT_PATH)));
 		$listoffiles = array();
 		foreach ($listofdir as $key => $tmpdir) {
 			$tmpdir = trim($tmpdir);
@@ -236,7 +236,7 @@ class doc_generic_shipment_odt extends ModelePdfExpedition
 		// Load translation files required by page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills"));
 
-		if ($conf->expedition->multidir_output[$object->entity]."/sending") {
+		if ($config->expedition->multidir_output[$object->entity]."/sending") {
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
@@ -250,7 +250,7 @@ class doc_generic_shipment_odt extends ModelePdfExpedition
 
 			$object->fetch_thirdparty();
 
-			$dir = $conf->expedition->multidir_output[$object->entity]."/sending";
+			$dir = $config->expedition->multidir_output[$object->entity]."/sending";
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -287,11 +287,11 @@ class doc_generic_shipment_odt extends ModelePdfExpedition
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->societe->dir_temp=".$conf->societe->dir_temp;
+				//print "conf->societe->dir_temp=".$config->societe->dir_temp;
 
-				dol_mkdir($conf->expedition->dir_temp);
-				if (!is_writable($conf->expedition->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->expedition->dir_temp);
+				dol_mkdir($config->expedition->dir_temp);
+				if (!is_writable($config->expedition->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->expedition->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -308,7 +308,7 @@ class doc_generic_shipment_odt extends ModelePdfExpedition
 				$contactobject = null;
 				if (!empty($usecontact)) {
 					// We can use the company of contact instead of thirdparty company
-					if ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
+					if ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
 						$object->contact->fetch_thirdparty();
 						$socobject = $object->contact->thirdparty;
 						$contactobject = $object->contact;
@@ -347,7 +347,7 @@ class doc_generic_shipment_odt extends ModelePdfExpedition
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $conf->expedition->dir_temp,
+							'PATH_TO_TMP'	  => $config->expedition->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'

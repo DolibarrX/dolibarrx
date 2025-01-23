@@ -58,7 +58,7 @@ $object = new AssetModel($db);
 $assetdepreciationoptions = new AssetDepreciationOptions($db);
 $assetaccountancycodes = new AssetAccountancyCodes($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->asset->dir_output . '/temp/massgeneration/' . $user->id;
+$diroutputmassaction = $config->asset->dir_output . '/temp/massgeneration/' . $user->id;
 $hookManager->initHooks(array('assetmodelcard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -87,7 +87,7 @@ $permissiontoadd = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->ha
 $permissiontodelete = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'delete')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('asset', 'model_advance', 'delete'))) || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 $permissionnote = $permissiontoadd; // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $permissiontoadd; // Used by the include of actions_dellink.inc.php
-$upload_dir = $conf->asset->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->asset->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 // Security check (enable the most restrictive one)
 if ($user->socid > 0) {

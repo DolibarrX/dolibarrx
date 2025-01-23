@@ -471,7 +471,7 @@ class CompanyPaymentMode extends CommonObject
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
 		global $menumanager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

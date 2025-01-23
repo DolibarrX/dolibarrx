@@ -72,7 +72,7 @@ class DataPolicy
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."socpeople_extrafields as spe ON spe.fk_object = c.rowid";
 		$sql .= " WHERE (c.statut = 1 AND c.no_email = 0 AND (spe.datapolicy_consentement = 0 OR spe.datapolicy_consentement IS NULL) AND (spe.datapolicy_opposition_traitement = 0 OR spe.datapolicy_opposition_traitement IS NULL) AND (spe.datapolicy_opposition_prospection = 0 OR spe.datapolicy_opposition_prospection IS NULL))";
 		$sql .= " AND spe.datapolicy_send IS NULL";
-		$sql .= " AND c.entity = ".((int) $conf->entity);
+		$sql .= " AND c.entity = ".((int) $config->entity);
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			$num = $this->db->num_rows($resql);
@@ -109,7 +109,7 @@ class DataPolicy
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe_extrafields as se ON se.fk_object = s.rowid";
 		$sql .= " WHERE s.statut = 0 AND (se.datapolicy_consentement = 0 OR se.datapolicy_consentement IS NULL) AND (se.datapolicy_opposition_traitement = 0 OR se.datapolicy_opposition_traitement IS NULL) AND (se.datapolicy_opposition_prospection = 0 OR se.datapolicy_opposition_prospection IS NULL)";
 		$sql .= " AND se.datapolicy_send IS NULL";
-		$sql .= " AND s.entity = ".((int) $conf->entity);
+		$sql .= " AND s.entity = ".((int) $config->entity);
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			$num = $this->db->num_rows($resql);
@@ -146,7 +146,7 @@ class DataPolicy
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent_extrafields as ae ON ae.fk_object = a.rowid";
 		$sql .= " WHERE a.statut = 0 AND (ae.datapolicy_consentement = 0 OR ae.datapolicy_consentement IS NULL) AND (ae.datapolicy_opposition_traitement=0 OR ae.datapolicy_opposition_traitement IS NULL) AND (ae.datapolicy_opposition_prospection=0 OR ae.datapolicy_opposition_prospection IS NULL)";
 		$sql .= " AND ae.datapolicy_send IS NULL";
-		$sql .= " AND a.entity = ".((int) $conf->entity);
+		$sql .= " AND a.entity = ".((int) $config->entity);
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			$num = $this->db->num_rows($resql);

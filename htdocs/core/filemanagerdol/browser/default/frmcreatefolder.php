@@ -62,13 +62,13 @@ top_httphead();
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <?php
 print '<!-- Includes CSS for Dolibarr theme -->'."\n";
-// Output style sheets (optioncss='print' or ''). Note: $conf->css looks like '/theme/eldy/style.css.php'
-$themepath = dol_buildpath($conf->css, 1);
+// Output style sheets (optioncss='print' or ''). Note: $config->css looks like '/theme/eldy/style.css.php'
+$themepath = dol_buildpath($config->css, 1);
 $themesubdir = '';
-if (!empty($conf->modules_parts['theme'])) {	// This slow down
-	foreach ($conf->modules_parts['theme'] as $reldir) {
-		if (file_exists(dol_buildpath($reldir.$conf->css, 0))) {
-			$themepath = dol_buildpath($reldir.$conf->css, 1);
+if (!empty($config->modules_parts['theme'])) {	// This slow down
+	foreach ($config->modules_parts['theme'] as $reldir) {
+		if (file_exists(dol_buildpath($reldir.$config->css, 0))) {
+			$themepath = dol_buildpath($reldir.$config->css, 1);
 			$themesubdir = $reldir;
 			break;
 		}

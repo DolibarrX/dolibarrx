@@ -192,16 +192,16 @@ class pdf_standard_evaluation extends ModelePDFEvaluation
 
 		$nblines = count($object->lines);
 
-		if ($conf->hrm->dir_output) {
+		if ($config->hrm->dir_output) {
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				//$dir = $conf->hrm->dir_output;
-				$dir = $conf->hrm->multidir_output[isset($object->entity) ? $object->entity : 1].'/evaluation';
+				//$dir = $config->hrm->dir_output;
+				$dir = $config->hrm->multidir_output[isset($object->entity) ? $object->entity : 1].'/evaluation';
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
-				//$dir = $conf->hrm->dir_output."/".$objectref;
-				$dir = $conf->hrm->multidir_output[isset($object->entity) ? $object->entity : 1].'/evaluation'."/".$objectref;
+				//$dir = $config->hrm->dir_output."/".$objectref;
+				$dir = $config->hrm->multidir_output[isset($object->entity) ? $object->entity : 1].'/evaluation'."/".$objectref;
 				$file = $dir."/".$objectref.".pdf";
 			}
 
@@ -244,7 +244,7 @@ class pdf_standard_evaluation extends ModelePDFEvaluation
 				$pdf->SetFont(pdf_getPDFFont($outputlangs));
 				// Set path to the background PDF File
 				if (getDolGlobalString('MAIN_ADD_PDF_BACKGROUND')) {
-					$pagecount = $pdf->setSourceFile($conf->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
+					$pagecount = $pdf->setSourceFile($config->mycompany->dir_output.'/' . getDolGlobalString('MAIN_ADD_PDF_BACKGROUND'));
 					$tplidx = $pdf->importPage(1);
 				}
 
@@ -577,7 +577,7 @@ class pdf_standard_evaluation extends ModelePDFEvaluation
 		$pdf->SetXY($this->marge_gauche, $posy);
 
 		// Logo
-		$logo = $conf->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
+		$logo = $config->mycompany->dir_output.'/logos/'.$this->emetteur->logo;
 		if ($this->emetteur->logo) {
 			if (is_readable($logo)) {
 				$height = pdf_getHeightForLogo($logo);

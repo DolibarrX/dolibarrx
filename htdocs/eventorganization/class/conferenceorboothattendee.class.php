@@ -260,9 +260,9 @@ class ConferenceOrBoothAttendee extends CommonObject
 		}
 
 		if (getDolGlobalString('EVENTORGANIZATION_FILTERATTENDEES_CAT')) {
-			$this->fields['fk_soc']['type'] .= ' AND rowid IN (SELECT DISTINCT c.fk_soc FROM '.MAIN_DB_PREFIX.'categorie_societe as c WHERE c.fk_categorie='.(int) $conf->global->EVENTORGANIZATION_FILTERATTENDEES_CAT.')';
+			$this->fields['fk_soc']['type'] .= ' AND rowid IN (SELECT DISTINCT c.fk_soc FROM '.MAIN_DB_PREFIX.'categorie_societe as c WHERE c.fk_categorie='.(int) $config->global->EVENTORGANIZATION_FILTERATTENDEES_CAT.')';
 		}
-		if (isset($conf->global->EVENTORGANIZATION_FILTERATTENDEES_TYPE)
+		if (isset($config->global->EVENTORGANIZATION_FILTERATTENDEES_TYPE)
 			&& getDolGlobalString('EVENTORGANIZATION_FILTERATTENDEES_TYPE') !== ''
 			&& getDolGlobalString('EVENTORGANIZATION_FILTERATTENDEES_TYPE') !== '-1') {
 			$this->fields['fk_soc']['type'] .= ' AND (client:=:'.((int) getDolGlobalInt('EVENTORGANIZATION_FILTERATTENDEES_TYPE', 0) . ')');
@@ -664,14 +664,14 @@ class ConferenceOrBoothAttendee extends CommonObject
 			if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 				// Now we rename also files into index
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'conferenceorboothattendee/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'conferenceorboothattendee/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'conferenceorboothattendee/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
 					$this->error = $this->db->lasterror();
 				}
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'conferenceorboothattendee/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filepath = 'conferenceorboothattendee/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filepath = 'conferenceorboothattendee/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
@@ -681,15 +681,15 @@ class ConferenceOrBoothAttendee extends CommonObject
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($num);
-				$dirsource = $conf->eventorganization->dir_output.'/conferenceorboothattendee/'.$oldref;
-				$dirdest = $conf->eventorganization->dir_output.'/conferenceorboothattendee/'.$newref;
+				$dirsource = $config->eventorganization->dir_output.'/conferenceorboothattendee/'.$oldref;
+				$dirdest = $config->eventorganization->dir_output.'/conferenceorboothattendee/'.$newref;
 				if (!$error && file_exists($dirsource)) {
 					dol_syslog(get_class($this)."::validate() rename dir ".$dirsource." into ".$dirdest);
 
 					if (@rename($dirsource, $dirdest)) {
 						dol_syslog("Rename ok");
 						// Rename docs starting with $oldref with $newref
-						$listoffiles = dol_dir_list($conf->eventorganization->dir_output.'/conferenceorboothattendee/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+						$listoffiles = dol_dir_list($config->eventorganization->dir_output.'/conferenceorboothattendee/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 						foreach ($listoffiles as $fileentry) {
 							$dirsource = $fileentry['name'];
 							$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -808,7 +808,7 @@ class ConferenceOrBoothAttendee extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -883,7 +883,7 @@ class ConferenceOrBoothAttendee extends CommonObject
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 				list($class, $module) = explode('@', $this->picto);
-				$upload_dir = $conf->$module->multidir_output[$conf->entity]."/$class/".dol_sanitizeFileName($this->ref);
+				$upload_dir = $config->$module->multidir_output[$config->entity]."/$class/".dol_sanitizeFileName($this->ref);
 				$filearray = dol_dir_list($upload_dir, "files");
 				$filename = $filearray[0]['name'];
 				if (!empty($filename)) {
@@ -891,9 +891,9 @@ class ConferenceOrBoothAttendee extends CommonObject
 
 					$pathtophoto = $class.'/'.$this->ref.'/thumbs/'.substr($filename, 0, $pospoint).'_mini'.substr($filename, $pospoint);
 					if (!getDolGlobalString(strtoupper($module.'_'.$class).'_FORMATLISTPHOTOSASUSERS')) {
-						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref"><img class="photo'.$module.'" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$conf->entity.'&file='.urlencode($pathtophoto).'"></div></div>';
+						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref"><img class="photo'.$module.'" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$config->entity.'&file='.urlencode($pathtophoto).'"></div></div>';
 					} else {
-						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$conf->entity.'&file='.urlencode($pathtophoto).'"></div>';
+						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$config->entity.'&file='.urlencode($pathtophoto).'"></div>';
 					}
 
 					$result .= '</div>';
@@ -1035,7 +1035,7 @@ class ConferenceOrBoothAttendee extends CommonObject
 		$langs->load("eventorganization@eventorganization");
 
 		if (!getDolGlobalString('EVENTORGANIZATION_CONFERENCEORBOOTHATTENDEE_ADDON')) {
-			$conf->global->EVENTORGANIZATION_CONFERENCEORBOOTHATTENDEE_ADDON = 'mod_conferenceorboothattendee_standard';
+			$config->global->EVENTORGANIZATION_CONFERENCEORBOOTHATTENDEE_ADDON = 'mod_conferenceorboothattendee_standard';
 		}
 
 		if (getDolGlobalString('EVENTORGANIZATION_CONFERENCEORBOOTHATTENDEE_ADDON')) {
@@ -1045,7 +1045,7 @@ class ConferenceOrBoothAttendee extends CommonObject
 			$classname = getDolGlobalString('EVENTORGANIZATION_CONFERENCEORBOOTHATTENDEE_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/eventorganization/");
 
@@ -1130,7 +1130,7 @@ class ConferenceOrBoothAttendee extends CommonObject
 	{
 		global $conf, $langs;
 
-		//$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
+		//$config->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
 
 		$error = 0;
 		$this->output = '';

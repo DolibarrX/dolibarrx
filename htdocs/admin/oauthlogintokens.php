@@ -89,7 +89,7 @@ if ($action == 'setconst' && $user->admin) {
 		$consttype = dol_escape_htmltag($setupconst['type']);
 		$constnote = dol_escape_htmltag($setupconst['note']);
 
-		$result = dolibarr_set_const($db, $constname, $constvalue, $consttype, 0, $constnote, $conf->entity);
+		$result = dolibarr_set_const($db, $constname, $constvalue, $consttype, 0, $constnote, $config->entity);
 		if (!($result > 0)) {
 			$error++;
 		}
@@ -108,7 +108,7 @@ if ($action == 'setconst' && $user->admin) {
 if ($action == 'setvalue' && $user->admin) {
 	$db->begin();
 
-	$result = dolibarr_set_const($db, $varname, $value, 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, $varname, $value, 'chaine', 0, '', $config->entity);
 	if (!($result > 0)) {
 		$error++;
 	}
@@ -251,7 +251,7 @@ if ($mode == 'setup' && $user->admin) {
 
 	// Define $listinsetup
 	$listinsetup = array();
-	foreach ($conf->global as $key => $val) {
+	foreach ($config->global as $key => $val) {
 		if (!empty($val) && preg_match('/^OAUTH_.*_ID$/', $key)) {
 			$provider = preg_replace('/_ID$/', '', $key);
 			$listinsetup[] = array(

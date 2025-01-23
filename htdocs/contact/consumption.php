@@ -60,7 +60,7 @@ if (empty($object->thirdparty)) {
 $socid = !empty($object->thirdparty->id) ? $object->thirdparty->id : null;
 
 // Sort & Order fields
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -199,7 +199,7 @@ if (!empty($object->thirdparty->fournisseur)) {
 	}
 
 	// There are no contact type for supplier proposals
-	// if ((isModEnabled("fournisseur") && empty($conf->global->MAIN_USE_NEW_SUPPLIERMOD) || isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) && $user->rights->supplier_proposal->lire) $elementTypeArray['supplier_proposal']=$langs->transnoentitiesnoconv('SupplierProposals');
+	// if ((isModEnabled("fournisseur") && empty($config->global->MAIN_USE_NEW_SUPPLIERMOD) || isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) && $user->rights->supplier_proposal->lire) $elementTypeArray['supplier_proposal']=$langs->transnoentitiesnoconv('SupplierProposals');
 }
 
 print '</table>';
@@ -290,7 +290,7 @@ if ($type_element == 'fichinter') { 	// Customer : show products from invoices
 	//    $tables_from = MAIN_DB_PREFIX."supplier_proposal as c,".MAIN_DB_PREFIX."supplier_proposaldet as d";
 	//    $where = " WHERE c.fk_soc = s.rowid AND s.rowid = ".((int) $socid);
 	//    $where.= " AND d.fk_supplier_proposal = c.rowid";
-	//    $where.= " AND c.entity = ".$conf->entity;
+	//    $where.= " AND c.entity = ".$config->entity;
 	//    $dateprint = 'c.date_valid';
 	//    $doc_number='c.ref';
 	//    $thirdTypeSelect='supplier';
@@ -407,7 +407,7 @@ if ($sql_select && $documentstatic !== null) {
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($sprod_fulldescr) {

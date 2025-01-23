@@ -51,7 +51,7 @@ $langs->loadLangs(array('companies', 'members'));
 $id = GETPOSTINT('id') ? GETPOSTINT('id') : GETPOSTINT('rowid');
 
 // Pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -197,7 +197,7 @@ if ($object->id > 0) {
 		if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 			$param .= '&contextpage='.$contextpage;
 		}
-		if ($limit > 0 && $limit != $conf->liste_limit) {
+		if ($limit > 0 && $limit != $config->liste_limit) {
 			$param .= '&limit='.$limit;
 		}
 
@@ -206,7 +206,7 @@ if ($object->id > 0) {
 		$nbEvent = dol_getcache($cachekey);
 
 		$titlelist = $langs->trans("ActionsOnMember").(is_numeric($nbEvent) ? '<span class="opacitymedium colorblack paddingleft">('.$nbEvent.')</span>' : '');
-		if (!empty($conf->dol_optimize_smallscreen)) {
+		if (!empty($config->dol_optimize_smallscreen)) {
 			$titlelist = $langs->trans("Actions").(is_numeric($nbEvent) ? '<span class="opacitymedium colorblack paddingleft">('.$nbEvent.')</span>' : '');
 		}
 

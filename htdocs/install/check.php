@@ -368,13 +368,13 @@ if (!file_exists($conffile)) {
 					}
 
 					// $conf already created in inc.php
-					$conf->db->type = $dolibarr_main_db_type;
-					$conf->db->host = $dolibarr_main_db_host;
-					$conf->db->port = $dolibarr_main_db_port;
-					$conf->db->name = $dolibarr_main_db_name;
-					$conf->db->user = $dolibarr_main_db_user;
-					$conf->db->pass = $dolibarr_main_db_pass;
-					$db = getDoliDBInstance($conf->db->type, $conf->db->host, $conf->db->user, $conf->db->pass, $conf->db->name, (int) $conf->db->port);
+					$config->db->type = $dolibarr_main_db_type;
+					$config->db->host = $dolibarr_main_db_host;
+					$config->db->port = $dolibarr_main_db_port;
+					$config->db->name = $dolibarr_main_db_name;
+					$config->db->user = $dolibarr_main_db_user;
+					$config->db->pass = $dolibarr_main_db_pass;
+					$db = getDoliDBInstance($config->db->type, $config->db->host, $config->db->user, $config->db->pass, $config->db->name, (int) $config->db->port);
 					if ($db->connected && $db->database_selected) {
 						$ok = true;
 					}
@@ -387,28 +387,28 @@ if (!file_exists($conffile)) {
 			if (empty($dolibarr_main_db_encryption)) {
 				$dolibarr_main_db_encryption = 0;
 			}
-			$conf->db->dolibarr_main_db_encryption = $dolibarr_main_db_encryption;
+			$config->db->dolibarr_main_db_encryption = $dolibarr_main_db_encryption;
 			if (empty($dolibarr_main_db_cryptkey)) {
 				$dolibarr_main_db_cryptkey = '';
 			}
-			$conf->db->dolibarr_main_db_cryptkey = $dolibarr_main_db_cryptkey;
+			$config->db->dolibarr_main_db_cryptkey = $dolibarr_main_db_cryptkey;
 
-			$conf->setValues($db);
+			$config->setValues($db);
 			// Reset forced setup after the setValues
 			if (defined('SYSLOG_FILE')) {
-				$conf->global->SYSLOG_FILE = constant('SYSLOG_FILE');
+				$config->global->SYSLOG_FILE = constant('SYSLOG_FILE');
 			}
-			$conf->global->MAIN_ENABLE_LOG_TO_HTML = 1;
+			$config->global->MAIN_ENABLE_LOG_TO_HTML = 1;
 
-			// Current version is $conf->global->MAIN_VERSION_LAST_UPGRADE
+			// Current version is $config->global->MAIN_VERSION_LAST_UPGRADE
 			// Version to install is DOL_VERSION
-			$dolibarrlastupgradeversionarray = preg_split('/[\.-]/', isset($conf->global->MAIN_VERSION_LAST_UPGRADE) ? $conf->global->MAIN_VERSION_LAST_UPGRADE : (isset($conf->global->MAIN_VERSION_LAST_INSTALL) ? $conf->global->MAIN_VERSION_LAST_INSTALL : ''));
+			$dolibarrlastupgradeversionarray = preg_split('/[\.-]/', isset($config->global->MAIN_VERSION_LAST_UPGRADE) ? $config->global->MAIN_VERSION_LAST_UPGRADE : (isset($config->global->MAIN_VERSION_LAST_INSTALL) ? $config->global->MAIN_VERSION_LAST_INSTALL : ''));
 			$dolibarrversiontoinstallarray = versiondolibarrarray();
 		}
 
 		// Show title
 		if (getDolGlobalString('MAIN_VERSION_LAST_UPGRADE') || getDolGlobalString('MAIN_VERSION_LAST_INSTALL')) {
-			print $langs->trans("VersionLastUpgrade").': <b><span class="ok">'.(!getDolGlobalString('MAIN_VERSION_LAST_UPGRADE') ? $conf->global->MAIN_VERSION_LAST_INSTALL : $conf->global->MAIN_VERSION_LAST_UPGRADE).'</span></b> - ';
+			print $langs->trans("VersionLastUpgrade").': <b><span class="ok">'.(!getDolGlobalString('MAIN_VERSION_LAST_UPGRADE') ? $config->global->MAIN_VERSION_LAST_INSTALL : $config->global->MAIN_VERSION_LAST_UPGRADE).'</span></b> - ';
 			print $langs->trans("VersionProgram").': <b><span class="ok">'.DOL_VERSION.'</span></b>';
 			//print ' '.img_warning($langs->trans("RunningUpdateProcessMayBeRequired"));
 			print '<br>';
@@ -437,7 +437,7 @@ if (!file_exists($conffile)) {
 		$choice .= $langs->trans("FreshInstallDesc");
 		if (empty($dolibarr_main_db_host)) {	// This means install process was not run
 			$choice .= '<br>';
-			//print $langs->trans("InstallChoiceRecommanded",DOL_VERSION,$conf->global->MAIN_VERSION_LAST_UPGRADE);
+			//print $langs->trans("InstallChoiceRecommanded",DOL_VERSION,$config->global->MAIN_VERSION_LAST_UPGRADE);
 			$choice .= '<div class="center"><div class="ok suggestedchoice">'.$langs->trans("InstallChoiceSuggested").'</div></div>';
 			// <img src="../theme/eldy/img/tick.png" alt="Ok" class="valignmiddle"> ';
 		}
@@ -536,7 +536,7 @@ if (!file_exists($conffile)) {
 
 			if ($recommended_choice) {
 				$choice .= '<br>';
-				//print $langs->trans("InstallChoiceRecommanded",DOL_VERSION,$conf->global->MAIN_VERSION_LAST_UPGRADE);
+				//print $langs->trans("InstallChoiceRecommanded",DOL_VERSION,$config->global->MAIN_VERSION_LAST_UPGRADE);
 				$choice .= '<div class="center">';
 				$choice .= '<div class="ok suggestedchoice">'.$langs->trans("InstallChoiceSuggested").'</div>';
 				if ($count < count($migarray)) {	// There are other choices after

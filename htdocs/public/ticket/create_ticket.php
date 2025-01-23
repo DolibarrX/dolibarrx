@@ -133,7 +133,7 @@ if (empty($reshook)) {
 
 		// Set tmp directory
 		// TODO Use a dedicated directory for temporary emails files
-		$vardir = $conf->ticket->dir_output;
+		$vardir = $config->ticket->dir_output;
 		$upload_dir_tmp = $vardir.'/temp/'.session_id();
 		if (!dol_is_dir($upload_dir_tmp)) {
 			dol_mkdir($upload_dir_tmp);
@@ -149,7 +149,7 @@ if (empty($reshook)) {
 
 		// Set tmp directory
 		// TODO Use a dedicated directory for temporary emails files
-		$vardir = $conf->ticket->dir_output.'/';
+		$vardir = $config->ticket->dir_output.'/';
 		$upload_dir_tmp = $vardir.'/temp/'.session_id();
 
 		// TODO Delete only files that was uploaded from form
@@ -423,7 +423,7 @@ if (empty($reshook)) {
 
 						if (getDolGlobalString('TICKET_DISABLE_MAIL_AUTOCOPY_TO') !== '') {
 							$old_MAIN_MAIL_AUTOCOPY_TO = getDolGlobalString('TICKET_DISABLE_MAIL_AUTOCOPY_TO');
-							$conf->global->MAIN_MAIL_AUTOCOPY_TO = '';
+							$config->global->MAIN_MAIL_AUTOCOPY_TO = '';
 						}
 						include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 						$mailfile = new CMailFile($subject, $sendto, $from, $message, $filepath, $mimetype, $filename, $sendtocc, '', $deliveryreceipt, -1, '', '', 'tic'.$object->id, '', 'ticket');
@@ -433,7 +433,7 @@ if (empty($reshook)) {
 							$result = $mailfile->sendfile();
 						}
 						if (getDolGlobalString('TICKET_DISABLE_MAIL_AUTOCOPY_TO') !== '') {
-							$conf->global->MAIN_MAIL_AUTOCOPY_TO = $old_MAIN_MAIL_AUTOCOPY_TO;
+							$config->global->MAIN_MAIL_AUTOCOPY_TO = $old_MAIN_MAIL_AUTOCOPY_TO;
 						}
 
 						// Send email to TICKET_NOTIFICATION_EMAIL_TO
@@ -466,7 +466,7 @@ if (empty($reshook)) {
 
 							if (getDolGlobalString('TICKET_DISABLE_MAIL_AUTOCOPY_TO') !== '') {
 								$old_MAIN_MAIL_AUTOCOPY_TO = getDolGlobalString('TICKET_DISABLE_MAIL_AUTOCOPY_TO');
-								$conf->global->MAIN_MAIL_AUTOCOPY_TO = '';
+								$config->global->MAIN_MAIL_AUTOCOPY_TO = '';
 							}
 							include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 							$mailfile = new CMailFile($subject, $sendto, $from, $message_admin, $filepath, $mimetype, $filename, $sendtocc, '', $deliveryreceipt, -1, '', '', 'tic'.$object->id, '', 'ticket');
@@ -476,7 +476,7 @@ if (empty($reshook)) {
 								$result = $mailfile->sendfile();
 							}
 							if ((getDolGlobalString('TICKET_DISABLE_MAIL_AUTOCOPY_TO') !== '')) {
-								$conf->global->MAIN_MAIL_AUTOCOPY_TO = $old_MAIN_MAIL_AUTOCOPY_TO;
+								$config->global->MAIN_MAIL_AUTOCOPY_TO = $old_MAIN_MAIL_AUTOCOPY_TO;
 							}
 						}
 					}
@@ -540,7 +540,7 @@ if ($action != "infos_success") {
 	$formticket->action = 'create_ticket';
 	$formticket->withcancel = 1;
 
-	$formticket->param = array('returnurl' => $_SERVER['PHP_SELF'].($conf->entity > 1 ? '?entity='.$conf->entity : ''));
+	$formticket->param = array('returnurl' => $_SERVER['PHP_SELF'].($config->entity > 1 ? '?entity='.$config->entity : ''));
 
 	print load_fiche_titre($langs->trans('NewTicket'), '', '', 0, '', 'marginleftonly');
 

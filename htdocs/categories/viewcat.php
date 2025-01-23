@@ -70,7 +70,7 @@ if (GETPOST('addintocategory')) {
 
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -388,7 +388,7 @@ print '<td>'.$langs->trans("SubCats").'</td>';
 print '<td></td>';
 print '<td class="right">';
 
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	print '<div id="iddivjstreecontrol">';
 	print '<a class="notasortlink" href="#">'.img_picto('', 'folder').' '.$langs->trans("UndoExpandAll").'</a>';
 	print " | ";

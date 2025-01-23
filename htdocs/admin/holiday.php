@@ -57,7 +57,7 @@ $scandir = GETPOST('scan_dir', 'alpha');
 $type = 'contract';
 
 if (!getDolGlobalString('HOLIDAY_ADDON')) {
-	$conf->global->HOLIDAY_ADDON = 'mod_holiday_madonna';
+	$config->global->HOLIDAY_ADDON = 'mod_holiday_madonna';
 }
 
 
@@ -73,7 +73,7 @@ if ($action == 'updateMask') {
 	$maskvalue = GETPOST('maskholiday', 'alpha');
 	$res = 0;
 	if ($maskconst && preg_match('/_MASK$/', $maskconst)) {
-		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -94,7 +94,7 @@ if ($action == 'updateMask') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/holiday/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -126,16 +126,16 @@ if ($action == 'updateMask') {
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->HOLIDAY_ADDON_PDF == "$value") {
-			dolibarr_del_const($db, 'HOLIDAY_ADDON_PDF', $conf->entity);
+		if ($config->global->HOLIDAY_ADDON_PDF == "$value") {
+			dolibarr_del_const($db, 'HOLIDAY_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "HOLIDAY_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "HOLIDAY_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->HOLIDAY_ADDON_PDF = $value;
+		$config->global->HOLIDAY_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -147,13 +147,13 @@ if ($action == 'updateMask') {
 	// TODO Verifier si module numerotation choisi peut etre active
 	// par appel method canBeActivated
 
-	dolibarr_set_const($db, "HOLIDAY_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "HOLIDAY_ADDON", $value, 'chaine', 0, '', $config->entity);
 } elseif ($action == 'set_other') {
 	$freetext = GETPOST('HOLIDAY_FREE_TEXT', 'restricthtml'); // No alpha here, we want exact string
-	$res1 = dolibarr_set_const($db, "HOLIDAY_FREE_TEXT", $freetext, 'chaine', 0, '', $conf->entity);
+	$res1 = dolibarr_set_const($db, "HOLIDAY_FREE_TEXT", $freetext, 'chaine', 0, '', $config->entity);
 
 	$draft = GETPOST('HOLIDAY_DRAFT_WATERMARK', 'alpha');
-	$res2 = dolibarr_set_const($db, "HOLIDAY_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $conf->entity);
+	$res2 = dolibarr_set_const($db, "HOLIDAY_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $config->entity);
 
 	if (!($res1 > 0) || !($res2 > 0)) {
 		$error++;
@@ -171,7 +171,7 @@ if ($action == 'updateMask') {
  * View
  */
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-admin page-holiday');
 
@@ -245,7 +245,7 @@ foreach ($dirmodels as $reldir) {
 						print '</td>'."\n";
 
 						print '<td class="center">';
-						if ($conf->global->HOLIDAY_ADDON == "$file") {
+						if ($config->global->HOLIDAY_ADDON == "$file") {
 							print img_picto($langs->trans("Activated"), 'switch_on');
 						} else {
 							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.urlencode($file).'">';
@@ -304,7 +304,7 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
 	$sql = "SELECT nom";
 	$sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 	$sql .= " WHERE type = '".$db->escape($type)."'";
-	$sql .= " AND entity = ".$conf->entity;
+	$sql .= " AND entity = ".$config->entity;
 	$resql = $db->query($sql);
 	if ($resql) {
 		$i = 0;
@@ -395,7 +395,7 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
 
 									// Default
 									print '<td class="center">';
-									if ($conf->global->HOLIDAY_ADDON_PDF == $name) {
+									if ($config->global->HOLIDAY_ADDON_PDF == $name) {
 										print img_picto($langs->trans("Default"), 'on');
 									} else {
 										print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
@@ -464,29 +464,29 @@ print '<td>'.$langs->trans("Parameter").'</td>';
 print '<td align="center" width="60">'.$langs->trans("Value").'</td>';
 print "</tr>\n";
 
-//var_dump($conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_MONDAY);
-//var_dump($conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_FRIDAY);
-//var_dump($conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY);
-//var_dump($conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY);
+//var_dump($config->global->MAIN_NON_WORKING_DAYS_INCLUDE_MONDAY);
+//var_dump($config->global->MAIN_NON_WORKING_DAYS_INCLUDE_FRIDAY);
+//var_dump($config->global->MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY);
+//var_dump($config->global->MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY);
 
-if (!isset($conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY)) {
-	$conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY = 1;
+if (!isset($config->global->MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY)) {
+	$config->global->MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY = 1;
 }
-if (!isset($conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY)) {
-	$conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY = 1;
+if (!isset($config->global->MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY)) {
+	$config->global->MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY = 1;
 }
 
-//var_dump($conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_MONDAY);
-//var_dump($conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_FRIDAY);
-//var_dump($conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY);
-//var_dump($conf->global->MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY);
+//var_dump($config->global->MAIN_NON_WORKING_DAYS_INCLUDE_MONDAY);
+//var_dump($config->global->MAIN_NON_WORKING_DAYS_INCLUDE_FRIDAY);
+//var_dump($config->global->MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY);
+//var_dump($config->global->MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY);
 
 
 // Set working days
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("XIsAUsualNonWorkingDay", $langs->transnoentitiesnoconv("Monday"))."</td>";
 print '<td class="center">';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_NON_WORKING_DAYS_INCLUDE_MONDAY', array(), null, 0);
 } else {
 	if (getDolGlobalString('MAIN_NON_WORKING_DAYS_INCLUDE_MONDAY')) {
@@ -502,7 +502,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("XIsAUsualNonWorkingDay", $langs->transnoentitiesnoconv("Friday"))."</td>";
 print '<td class="center">';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_NON_WORKING_DAYS_INCLUDE_FRIDAY', array(), null, 0);
 } else {
 	if (getDolGlobalString('MAIN_NON_WORKING_DAYS_INCLUDE_FRIDAY')) {
@@ -518,7 +518,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("XIsAUsualNonWorkingDay", $langs->transnoentitiesnoconv("Saturday"))."</td>";
 print '<td class="center">';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY', array(), null, 0, 0, 0, 2, 0, 1);
 } else {
 	if (getDolGlobalString('MAIN_NON_WORKING_DAYS_INCLUDE_SATURDAY')) {
@@ -534,7 +534,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("XIsAUsualNonWorkingDay", $langs->transnoentitiesnoconv("Sunday"))."</td>";
 print '<td class="center">';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY', array(), null, 0, 0, 0, 2, 0, 1);
 } else {
 	if (getDolGlobalString('MAIN_NON_WORKING_DAYS_INCLUDE_SUNDAY')) {
@@ -550,7 +550,7 @@ print "</tr>";
 print '<tr class="oddeven">';
 print "<td>".$langs->trans("ConsumeHolidaysAtTheEndOfTheMonthTheyAreTakenAt")."</td>";
 print '<td class="center">';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('HOLIDAY_DECREASE_AT_END_OF_MONTH', array(), null, 0, 0, 0, 2, 0, 1);
 } else {
 	if (getDolGlobalString('HOLIDAY_DECREASE_AT_END_OF_MONTH')) {

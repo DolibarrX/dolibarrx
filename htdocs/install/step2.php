@@ -121,28 +121,28 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 	$error = 0;
 
 	$db = getDoliDBInstance(
-		$conf->db->type,
-		$conf->db->host,
-		$conf->db->user,
-		$conf->db->pass,
-		$conf->db->name,
-		(int) $conf->db->port
+		$config->db->type,
+		$config->db->host,
+		$config->db->user,
+		$config->db->pass,
+		$config->db->name,
+		(int) $config->db->port
 	);
 
 	if ($db->connected) {
 		print "<tr><td>";
-		print $langs->trans("ServerConnection") . " : " . $conf->db->host . '</td><td><img src="../theme/eldy/img/tick.png" alt="Ok"></td></tr>';
+		print $langs->trans("ServerConnection") . " : " . $config->db->host . '</td><td><img src="../theme/eldy/img/tick.png" alt="Ok"></td></tr>';
 		$ok = 1;
 	} else {
-		print "<tr><td>Failed to connect to server : " . $conf->db->host . '</td><td><img src="../theme/eldy/img/error.png" alt="Error"></td></tr>';
+		print "<tr><td>Failed to connect to server : " . $config->db->host . '</td><td><img src="../theme/eldy/img/error.png" alt="Error"></td></tr>';
 	}
 
 	if ($ok) {
 		if ($db->database_selected) {
-			dolibarr_install_syslog("step2: successful connection to database: " . $conf->db->name);
+			dolibarr_install_syslog("step2: successful connection to database: " . $config->db->name);
 		} else {
-			dolibarr_install_syslog("step2: failed connection to database :" . $conf->db->name, LOG_ERR);
-			print "<tr><td>Failed to select database " . $conf->db->name . '</td><td><img src="../theme/eldy/img/error.png" alt="Error"></td></tr>';
+			dolibarr_install_syslog("step2: failed connection to database :" . $config->db->name, LOG_ERR);
+			print "<tr><td>Failed to select database " . $config->db->name . '</td><td><img src="../theme/eldy/img/error.png" alt="Error"></td></tr>';
 			$ok = 0;
 		}
 	}
@@ -218,7 +218,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 				fclose($fp);
 
 				$buffer = trim($buffer);
-				if ($conf->db->type == 'mysql' || $conf->db->type == 'mysqli') {	// For Mysql 5.5+, we must replace type=innodb with ENGINE=innodb
+				if ($config->db->type == 'mysql' || $config->db->type == 'mysqli') {	// For Mysql 5.5+, we must replace type=innodb with ENGINE=innodb
 					$buffer = preg_replace('/type=innodb/i', 'ENGINE=innodb', $buffer);
 				} else {
 					// Keyword ENGINE is MySQL-specific, so scrub it for
@@ -615,9 +615,9 @@ dolibarr_install_syslog("- step2: end");
 // Force here a value we need after because master.inc.php is not loaded into step2.
 // This code must be similar with the one into main.inc.php
 
-$conf->file->instance_unique_id = (empty($dolibarr_main_instance_unique_id) ? (empty($dolibarr_main_cookie_cryptkey) ? '' : $dolibarr_main_cookie_cryptkey) : $dolibarr_main_instance_unique_id); // Unique id of instance
+$config->file->instance_unique_id = (empty($dolibarr_main_instance_unique_id) ? (empty($dolibarr_main_cookie_cryptkey) ? '' : $dolibarr_main_cookie_cryptkey) : $dolibarr_main_instance_unique_id); // Unique id of instance
 
-$hash_unique_id = dol_hash('dolibarr' . $conf->file->instance_unique_id, 'sha256');	// Note: if the global salt changes, this hash changes too so ping may be counted twice. We don't mind. It is for statistics purpose only.
+$hash_unique_id = dol_hash('dolibarr' . $config->file->instance_unique_id, 'sha256');	// Note: if the global salt changes, this hash changes too so ping may be counted twice. We don't mind. It is for statistics purpose only.
 
 $out  = '<input type="checkbox" name="dolibarrpingno" id="dolibarrpingno"' . ((getDolGlobalString('MAIN_FIRST_PING_OK_ID') == 'disabled') ? '' : ' value="checked" checked="true"') . '> ';
 $out .= '<label for="dolibarrpingno">' . $langs->trans("MakeAnonymousPing") . '</label>';

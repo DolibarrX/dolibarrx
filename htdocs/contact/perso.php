@@ -78,15 +78,15 @@ if ($action == 'update' && !GETPOST("cancel") && $user->hasRight('societe', 'con
 		$object->oldcopy = dol_clone($object, 2);  // @phan-suppress-current-line PhanTypeMismatchProperty
 
 		// Logo/Photo save
-		$dir = $conf->societe->dir_output.'/contact/'.get_exdir($object->id, 0, 0, 1, $object, 'contact').'/photos';
+		$dir = $config->societe->dir_output.'/contact/'.get_exdir($object->id, 0, 0, 1, $object, 'contact').'/photos';
 
 		$file_OK = is_uploaded_file($_FILES['photo']['tmp_name']);
 		if ($file_OK) {
 			require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 			require_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
 			if (GETPOST('deletephoto')) {
-				$fileimg = $conf->societe->dir_output.'/contact/'.get_exdir($object->id, 0, 0, 1, $object, 'contact').'/photos/'.$object->photo;
-				$dirthumbs = $conf->societe->dir_output.'/contact/'.get_exdir($object->id, 0, 0, 1, $object, 'contact').'/photos/thumbs';
+				$fileimg = $config->societe->dir_output.'/contact/'.get_exdir($object->id, 0, 0, 1, $object, 'contact').'/photos/'.$object->photo;
+				$dirthumbs = $config->societe->dir_output.'/contact/'.get_exdir($object->id, 0, 0, 1, $object, 'contact').'/photos/thumbs';
 				dol_delete_file($fileimg);
 				dol_delete_dir_recursive($dirthumbs);
 			}
@@ -273,7 +273,7 @@ if ($action == 'edit') {
 
 	// Company
 	/*
-	if (empty($conf->global->SOCIETE_DISABLE_CONTACTS))
+	if (empty($config->global->SOCIETE_DISABLE_CONTACTS))
 	{
 		if ($object->socid > 0)
 		{

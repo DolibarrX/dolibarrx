@@ -2392,7 +2392,7 @@ class Setup extends DolibarrApi
 			throw new RestException(403, 'Error API open to admin users only or to the users with logins defined into constant API_LOGINS_ALLOWED_FOR_CONST_READ');
 		}
 
-		if (!preg_match('/^[a-zA-Z0-9_]+$/', $constantname) || !isset($conf->global->$constantname)) {
+		if (!preg_match('/^[a-zA-Z0-9_]+$/', $constantname) || !isset($config->global->$constantname)) {
 			throw new RestException(400, 'Error Bad or unknown value for constantname');
 		}
 		if (isASecretKey($constantname)) {
@@ -2742,8 +2742,8 @@ class Setup extends DolibarrApi
 			throw new RestException(403, 'Error API open to admin users only or to the users with logins defined into constant API_LOGINS_ALLOWED_FOR_GET_MODULES');
 		}
 
-		sort($conf->modules);
+		sort($config->modules);
 
-		return $this->_cleanObjectDatas($conf->modules);
+		return $this->_cleanObjectDatas($config->modules);
 	}
 }

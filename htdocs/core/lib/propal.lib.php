@@ -98,7 +98,7 @@ function propal_prepare_head($object)
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $conf->propal->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->propal->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
 	$head[$h][0] = DOL_URL_ROOT.'/comm/propal/document.php?id='.$object->id;
@@ -262,7 +262,7 @@ function getCustomerProposalPieChart($socid = 0)
 		$db->free($resql);
 
 		global $badgeStatus0, $badgeStatus1, $badgeStatus4, $badgeStatus6, $badgeStatus9;
-		include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+		include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 
 		$result = '<div class="div-table-responsive-no-min">';
 		$result .= '<table class="noborder nohover centpercent">';
@@ -289,7 +289,7 @@ function getCustomerProposalPieChart($socid = 0)
 				$colorseries[$status] = $badgeStatus6;
 			}
 
-			if (empty($conf->use_javascript_ajax)) {
+			if (empty($config->use_javascript_ajax)) {
 				$result .=  '<tr class="oddeven">';
 				$result .=  '<td>'.$propalstatic->LibStatut($status, 0).'</td>';
 				$result .=  '<td class="right"><a href="list.php?statut='.$status.'">'.(isset($vals[$status]) ? $vals[$status] : 0).'</a></td>';
@@ -297,7 +297,7 @@ function getCustomerProposalPieChart($socid = 0)
 			}
 		}
 
-		if ($conf->use_javascript_ajax) {
+		if ($config->use_javascript_ajax) {
 			$result .=  '<tr>';
 			$result .=  '<td align="center" colspan="2">';
 

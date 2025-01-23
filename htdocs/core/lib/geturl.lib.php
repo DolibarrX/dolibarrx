@@ -43,11 +43,11 @@ function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 
 {
 	//declaring of global variables
 	global $conf;
-	$USE_PROXY = !getDolGlobalString('MAIN_PROXY_USE') ? 0 : $conf->global->MAIN_PROXY_USE;
-	$PROXY_HOST = !getDolGlobalString('MAIN_PROXY_HOST') ? 0 : $conf->global->MAIN_PROXY_HOST;
-	$PROXY_PORT = !getDolGlobalString('MAIN_PROXY_PORT') ? 0 : $conf->global->MAIN_PROXY_PORT;
-	$PROXY_USER = !getDolGlobalString('MAIN_PROXY_USER') ? 0 : $conf->global->MAIN_PROXY_USER;
-	$PROXY_PASS = !getDolGlobalString('MAIN_PROXY_PASS') ? 0 : $conf->global->MAIN_PROXY_PASS;
+	$USE_PROXY = !getDolGlobalString('MAIN_PROXY_USE') ? 0 : $config->global->MAIN_PROXY_USE;
+	$PROXY_HOST = !getDolGlobalString('MAIN_PROXY_HOST') ? 0 : $config->global->MAIN_PROXY_HOST;
+	$PROXY_PORT = !getDolGlobalString('MAIN_PROXY_PORT') ? 0 : $config->global->MAIN_PROXY_PORT;
+	$PROXY_USER = !getDolGlobalString('MAIN_PROXY_USER') ? 0 : $config->global->MAIN_PROXY_USER;
+	$PROXY_PASS = !getDolGlobalString('MAIN_PROXY_PASS') ? 0 : $config->global->MAIN_PROXY_PASS;
 
 	dol_syslog("getURLContent postorget=".$postorget." URL=".$url." param=".$param);
 
@@ -73,7 +73,7 @@ function getURLContent($url, $postorget = 'GET', $param = '', $followlocation = 
 	// By default use the TLS version decided by PHP.
 	// You can force, if supported a version like TLSv1 or TLSv1.2
 	if (getDolGlobalString('MAIN_CURL_SSLVERSION')) {
-		curl_setopt($ch, CURLOPT_SSLVERSION, $conf->global->MAIN_CURL_SSLVERSION);
+		curl_setopt($ch, CURLOPT_SSLVERSION, $config->global->MAIN_CURL_SSLVERSION);
 	}
 	//curl_setopt($ch, CURLOPT_SSLVERSION, 6); for tls 1.2
 

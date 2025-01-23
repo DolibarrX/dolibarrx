@@ -299,7 +299,7 @@ if ($action == 'edit') {
 if ($action == 'edit') {
 	print '<tr><td class="fieldrequired">' . $langs->trans("Amount") . '</td><td><input name="amount" size="10" value="' . price($object->amount) . '"></td></tr>';
 } else {
-	print '<tr><td>' . $langs->trans("Amount") . '</td><td><span class="amount">' . price($object->amount, 0, $langs, 1, -1, -1, $conf->currency) . '</span></td></tr>';
+	print '<tr><td>' . $langs->trans("Amount") . '</td><td><span class="amount">' . price($object->amount, 0, $langs, 1, -1, -1, $config->currency) . '</span></td></tr>';
 }
 
 // Default mode of payment
@@ -734,7 +734,7 @@ if ($resql) {
 				// Show the bank account
 				$fk_bank_account = $withdrawreceipt->fk_bank_account;
 				if (empty($fk_bank_account)) {
-					$fk_bank_account = ($object->type == 'bank-transfer' ? $conf->global->PAYMENTBYBANKTRANSFER_ID_BANKACCOUNT : $conf->global->PRELEVEMENT_ID_BANKACCOUNT);
+					$fk_bank_account = ($object->type == 'bank-transfer' ? $config->global->PAYMENTBYBANKTRANSFER_ID_BANKACCOUNT : $config->global->PRELEVEMENT_ID_BANKACCOUNT);
 				}
 				if ($fk_bank_account > 0) {
 					$bankaccount = new Account($db);

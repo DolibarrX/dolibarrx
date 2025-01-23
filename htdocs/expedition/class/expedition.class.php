@@ -371,7 +371,7 @@ class Expedition extends CommonObject
 			$classname = getDolGlobalString('EXPEDITION_ADDON_NUMBER');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/expedition/");
@@ -882,14 +882,14 @@ class Expedition extends CommonObject
 			if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 				// Now we rename also files into index
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'expedition/sending/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'expedition/sending/".$this->db->escape($this->ref)."' and entity = ".((int) $conf->entity);
+				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'expedition/sending/".$this->db->escape($this->ref)."' and entity = ".((int) $config->entity);
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
 					$this->error = $this->db->lasterror();
 				}
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'expedition/sending/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filepath = 'expedition/sending/".$this->db->escape($this->ref)."' and entity = ".((int) $conf->entity);
+				$sql .= " WHERE filepath = 'expedition/sending/".$this->db->escape($this->ref)."' and entity = ".((int) $config->entity);
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
@@ -899,15 +899,15 @@ class Expedition extends CommonObject
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($numref);
-				$dirsource = $conf->expedition->dir_output.'/sending/'.$oldref;
-				$dirdest = $conf->expedition->dir_output.'/sending/'.$newref;
+				$dirsource = $config->expedition->dir_output.'/sending/'.$oldref;
+				$dirdest = $config->expedition->dir_output.'/sending/'.$newref;
 				if (!$error && file_exists($dirsource)) {
 					dol_syslog(get_class($this)."::valid rename dir ".$dirsource." into ".$dirdest);
 
 					if (@rename($dirsource, $dirdest)) {
 						dol_syslog("Rename ok");
 						// Rename docs starting with $oldref with $newref
-						$listoffiles = dol_dir_list($conf->expedition->dir_output.'/sending/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+						$listoffiles = dol_dir_list($config->expedition->dir_output.'/sending/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 						foreach ($listoffiles as $fileentry) {
 							$dirsource = $fileentry['name'];
 							$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -1235,7 +1235,7 @@ class Expedition extends CommonObject
 		$sql .= " note_private = ".(isset($this->note_private) ? "'".$this->db->escape($this->note_private)."'" : "null").",";
 		$sql .= " note_public = ".(isset($this->note_public) ? "'".$this->db->escape($this->note_public)."'" : "null").",";
 		$sql .= " model_pdf = ".(isset($this->model_pdf) ? "'".$this->db->escape($this->model_pdf)."'" : "null").",";
-		$sql .= " entity = ".((int) $conf->entity);
+		$sql .= " entity = ".((int) $config->entity);
 		$sql .= " WHERE rowid = ".((int) $this->id);
 
 		$this->db->begin();
@@ -1430,8 +1430,8 @@ class Expedition extends CommonObject
 
 							// We delete PDFs
 							$ref = dol_sanitizeFileName($this->ref);
-							if (!empty($conf->expedition->dir_output)) {
-								$dir = $conf->expedition->dir_output.'/sending/'.$ref;
+							if (!empty($config->expedition->dir_output)) {
+								$dir = $config->expedition->dir_output.'/sending/'.$ref;
 								$file = $dir.'/'.$ref.'.pdf';
 								if (file_exists($file)) {
 									if (!dol_delete_file($file)) {
@@ -1637,8 +1637,8 @@ class Expedition extends CommonObject
 
 							// We delete PDFs
 							$ref = dol_sanitizeFileName($this->ref);
-							if (!empty($conf->expedition->dir_output)) {
-								$dir = $conf->expedition->dir_output.'/sending/'.$ref;
+							if (!empty($config->expedition->dir_output)) {
+								$dir = $config->expedition->dir_output.'/sending/'.$ref;
 								$file = $dir.'/'.$ref.'.pdf';
 								if (file_exists($file)) {
 									if (!dol_delete_file($file)) {
@@ -2105,7 +2105,7 @@ class Expedition extends CommonObject
 			$return .= '<br><div class="info-box-ref tdoverflowmax150">'.$this->thirdparty->getNomUrl(1).'</div>';
 		}
 		if (property_exists($this, 'total_ht')) {
-			$return .= '<div class="info-box-ref amount">'.price($this->total_ht, 0, $langs, 0, -1, -1, $conf->currency).' '.$langs->trans('HT').'</div>';
+			$return .= '<div class="info-box-ref amount">'.price($this->total_ht, 0, $langs, 0, -1, -1, $config->currency).' '.$langs->trans('HT').'</div>';
 		}
 		if (method_exists($this, 'getLibStatut')) {
 			$return .= '<div class="info-box-status">'.$this->getLibStatut(3).'</div>';

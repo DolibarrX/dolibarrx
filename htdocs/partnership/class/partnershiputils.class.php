@@ -68,7 +68,7 @@ class PartnershipUtils
 	}
 
 	/**
-	 * Action executed by scheduler to cancel status of partnership when subscription is expired + x days. (Max number of action batch per call = $conf->global->PARTNERSHIP_MAX_EXPIRATION_CANCEL_PER_CALL)
+	 * Action executed by scheduler to cancel status of partnership when subscription is expired + x days. (Max number of action batch per call = $config->global->PARTNERSHIP_MAX_EXPIRATION_CANCEL_PER_CALL)
 	 *
 	 * CAN BE A CRON TASK
 	 *
@@ -85,7 +85,7 @@ class PartnershipUtils
 		}
 
 		$partnership = new Partnership($this->db);
-		$MAXPERCALL = (!getDolGlobalString('PARTNERSHIP_MAX_EXPIRATION_CANCEL_PER_CALL') ? 25 : $conf->global->PARTNERSHIP_MAX_EXPIRATION_CANCEL_PER_CALL); // Limit to 25 per call
+		$MAXPERCALL = (!getDolGlobalString('PARTNERSHIP_MAX_EXPIRATION_CANCEL_PER_CALL') ? 25 : $config->global->PARTNERSHIP_MAX_EXPIRATION_CANCEL_PER_CALL); // Limit to 25 per call
 
 		$langs->loadLangs(array("partnership", "member"));
 
@@ -150,7 +150,7 @@ class PartnershipUtils
 						$somethingdoneonpartnership++;
 
 						$result = $object->cancel($user, 0);
-						// $conf->global->noapachereload = null;
+						// $config->global->noapachereload = null;
 						if ($result < 0) {
 							$error++;
 							$this->error = $object->error;
@@ -193,7 +193,7 @@ class PartnershipUtils
 
 							$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $outputlangs);
 							$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $outputlangs);
-							$from = dol_string_nospecial($conf->global->MAIN_INFO_SOCIETE_NOM, ' ', array(",")).' <' . getDolGlobalString('MAIN_INFO_SOCIETE_MAIL').'>';
+							$from = dol_string_nospecial($config->global->MAIN_INFO_SOCIETE_NOM, ' ', array(",")).' <' . getDolGlobalString('MAIN_INFO_SOCIETE_MAIL').'>';
 
 							// We are in the case of autocancellation subscription because of missing backlink
 							$fk_partner = $object->fk_member;
@@ -281,7 +281,7 @@ class PartnershipUtils
 
 
 	/**
-	 * Action executed by scheduler to check if Dolibarr backlink not found on partner website. (Max number of action batch per call = $conf->global->PARTNERSHIP_MAX_WARNING_BACKLINK_PER_CALL)
+	 * Action executed by scheduler to check if Dolibarr backlink not found on partner website. (Max number of action batch per call = $config->global->PARTNERSHIP_MAX_WARNING_BACKLINK_PER_CALL)
 	 *
 	 * CAN BE A CRON TASK
 	 *
@@ -419,7 +419,7 @@ class PartnershipUtils
 
 									$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $outputlangs);
 									$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $outputlangs);
-									$from = dol_string_nospecial($conf->global->MAIN_INFO_SOCIETE_NOM, ' ', array(",")).' <' . getDolGlobalString('MAIN_INFO_SOCIETE_MAIL').'>';
+									$from = dol_string_nospecial($config->global->MAIN_INFO_SOCIETE_NOM, ' ', array(",")).' <' . getDolGlobalString('MAIN_INFO_SOCIETE_MAIL').'>';
 
 									$sendto = $obj->email;
 

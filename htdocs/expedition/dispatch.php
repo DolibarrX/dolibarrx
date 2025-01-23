@@ -309,7 +309,7 @@ if ($action == 'updatelines' && $usercancreate) {
 
 					// If module stock is enabled and the stock decrease is done on edition of this page
 					/*
-					if (!$error && GETPOST($ent, 'int') > 0 && isModEnabled('stock') && !empty($conf->global->STOCK_CALCULATE_ON_SHIPMENT_DISPATCH_ORDER)) {
+					if (!$error && GETPOST($ent, 'int') > 0 && isModEnabled('stock') && !empty($config->global->STOCK_CALCULATE_ON_SHIPMENT_DISPATCH_ORDER)) {
 						$mouv = new MouvementStock($db);
 						$product = GETPOST($prod, 'int');
 						$entrepot = GETPOST($ent, 'int');
@@ -446,7 +446,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 
 	// Ref customer shipment
 	$morehtmlref .= $form->editfieldkey("RefCustomer", 'ref_customer', $object->ref_customer, $object, $user->hasRight('expedition', 'creer'), 'string', '', 0, 1);
-	$morehtmlref .= $form->editfieldval("RefCustomer", 'ref_customer', $object->ref_customer, $object, $user->hasRight('expedition', 'creer'), 'string'.(isset($conf->global->THIRDPARTY_REF_INPUT_SIZE) ? ':' . getDolGlobalString('THIRDPARTY_REF_INPUT_SIZE') : ''), '', null, null, '', 1);
+	$morehtmlref .= $form->editfieldval("RefCustomer", 'ref_customer', $object->ref_customer, $object, $user->hasRight('expedition', 'creer'), 'string'.(isset($config->global->THIRDPARTY_REF_INPUT_SIZE) ? ':' . getDolGlobalString('THIRDPARTY_REF_INPUT_SIZE') : ''), '', null, null, '', 1);
 
 	// Thirdparty
 	$morehtmlref .= '<br>'.$object->thirdparty->getNomUrl(1);
@@ -649,7 +649,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 				print '<td width="32"></td>';
 
 				if (getDolGlobalString('SUPPLIER_ORDER_CAN_UPDATE_BUYINGPRICE_DURING_RECEIPT')) {
-					if (!isModEnabled("multicurrency") && empty($conf->dynamicprices->enabled)) {
+					if (!isModEnabled("multicurrency") && empty($config->dynamicprices->enabled)) {
 						print '<td class="right">'.$langs->trans("Price").'</td>';
 						print '<td class="right">'.$langs->trans("ReductionShort").' (%)</td>';
 						print '<td class="right">'.$langs->trans("UpdatePrice").'</td>';
@@ -687,7 +687,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 			$nbproduct = 0; // Nb of predefined product lines to dispatch (already done or not) if SUPPLIER_ORDER_DISABLE_STOCK_DISPATCH_WHEN_TOTAL_REACHED is off (default)
 			// or nb of line that remain to dispatch if SUPPLIER_ORDER_DISABLE_STOCK_DISPATCH_WHEN_TOTAL_REACHED is on.
 
-			$conf->cache['product'] = array();
+			$config->cache['product'] = array();
 
 			// Loop on each line of origin order
 			while ($i < $num) {
@@ -718,12 +718,12 @@ if ($object->id > 0 || !empty($object->ref)) {
 						print '<input id="qty_dispatched'.$suffix.'" type="hidden" data-dispatched="'.((float) $alreadydispatched).'" value="'.(float) $alreadydispatched.'">';
 						print '<tr class="oddeven">';
 
-						if (empty($conf->cache['product'][$objp->fk_product])) {
+						if (empty($config->cache['product'][$objp->fk_product])) {
 							$tmpproduct = new Product($db);
 							$tmpproduct->fetch($objp->fk_product);
-							$conf->cache['product'][$objp->fk_product] = $tmpproduct;
+							$config->cache['product'][$objp->fk_product] = $tmpproduct;
 						} else {
-							$tmpproduct = $conf->cache['product'][$objp->fk_product];
+							$tmpproduct = $config->cache['product'][$objp->fk_product];
 						}
 
 						$linktoprod = $tmpproduct->getNomUrl(1);
@@ -1108,7 +1108,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 			// modified by hook
 			if (empty($reshook)) {
-				/*if (empty($conf->reception->enabled)) {
+				/*if (empty($config->reception->enabled)) {
 					print $langs->trans("Comment").' : ';
 					print '<input type="text" class="minwidth400" maxlength="128" name="comment" value="';
 					print GETPOSTISSET("comment") ? GETPOST("comment") : $langs->trans("DispatchSupplierOrder", $object->ref);
@@ -1118,7 +1118,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 					print '<input type="checkbox" checked="checked" name="closeopenorder"> '.$checkboxlabel;
 				}
 
-				$dispatchBt = empty($conf->reception->enabled) ? $langs->trans("Receive") : $langs->trans("CreateReception");
+				$dispatchBt = empty($config->reception->enabled) ? $langs->trans("Receive") : $langs->trans("CreateReception");
 
 				print '<br>';
 				*/

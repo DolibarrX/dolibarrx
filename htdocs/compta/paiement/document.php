@@ -64,7 +64,7 @@ if ($object !== null) {
 	$result = restrictedArea($user, $object->element, $object->id, 'payment', '');
 }
 // Get parameters
-$limit = GETPOST('limit', 'int') ? GETPOST('limit', 'int') : $conf->liste_limit;
+$limit = GETPOST('limit', 'int') ? GETPOST('limit', 'int') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -86,7 +86,7 @@ $object = new Paiement($db);
 if ($object->fetch($id, $ref)) {
 	$object->fetch_thirdparty();
 	$ref = dol_sanitizeFileName($object->ref);
-	$upload_dir = $conf->compta->payment->dir_output.'/'.dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->compta->payment->dir_output.'/'.dol_sanitizeFileName($object->ref);
 } else {
 	$upload_dir = '';
 }
@@ -132,7 +132,7 @@ if ($object->id > 0) {
 	$morehtmlref .= '<br>'.$langs->trans('ThirdParty').' : '.$object->thirdparty->getNomUrl(1);
 
 	// Amount
-	$morehtmlref .= '<br>'.$langs->trans('Amount').' : '. price($object->amount, 0, $langs, 0, 0, -1, $conf->currency);
+	$morehtmlref .= '<br>'.$langs->trans('Amount').' : '. price($object->amount, 0, $langs, 0, 0, -1, $config->currency);
 
 	$allow_delete = 1;
 	// Bank account

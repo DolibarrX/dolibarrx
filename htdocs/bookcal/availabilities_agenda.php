@@ -55,13 +55,13 @@ if (GETPOST('actioncode', 'array')) {
 		$actioncode = '0';
 	}
 } else {
-	$actioncode = GETPOST("actioncode", "alpha", 3) ? GETPOST("actioncode", "alpha", 3) : (GETPOST("actioncode") == '0' ? '0' : (!getDolGlobalString('AGENDA_DEFAULT_FILTER_TYPE_FOR_OBJECT') ? '' : $conf->global->AGENDA_DEFAULT_FILTER_TYPE_FOR_OBJECT));
+	$actioncode = GETPOST("actioncode", "alpha", 3) ? GETPOST("actioncode", "alpha", 3) : (GETPOST("actioncode") == '0' ? '0' : (!getDolGlobalString('AGENDA_DEFAULT_FILTER_TYPE_FOR_OBJECT') ? '' : $config->global->AGENDA_DEFAULT_FILTER_TYPE_FOR_OBJECT));
 }
 
 $search_rowid = GETPOST('search_rowid');
 $search_agenda_label = GETPOST('search_agenda_label');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -81,7 +81,7 @@ if (!$sortorder) {
 // Initialize a technical objects
 $object = new Availabilities($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->bookcal->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->bookcal->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('availabilitiesagenda', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -89,7 +89,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->bookcal->multidir_output[!empty($object->entity) ? $object->entity : $conf->entity]."/".$object->id;
+	$upload_dir = $config->bookcal->multidir_output[!empty($object->entity) ? $object->entity : $config->entity]."/".$object->id;
 }
 
 $permissiontoread = $user->hasRight('bookcal', 'availabilities', 'read');
@@ -250,7 +250,7 @@ if ($object->id > 0) {
 		if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 			$param .= '&contextpage='.urlencode($contextpage);
 		}
-		if ($limit > 0 && $limit != $conf->liste_limit) {
+		if ($limit > 0 && $limit != $config->liste_limit) {
 			$param .= '&limit='.((int) $limit);
 		}
 

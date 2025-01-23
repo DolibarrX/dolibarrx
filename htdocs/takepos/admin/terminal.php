@@ -82,27 +82,27 @@ $error = 0;
 if (GETPOST('action', 'alpha') == 'set') {
 	$db->begin();
 
-	$res = dolibarr_set_const($db, "TAKEPOS_TERMINAL_NAME_".$terminaltouse, (!empty(GETPOST('terminalname'.$terminaltouse, 'restricthtml')) ? GETPOST('terminalname'.$terminaltouse, 'restricthtml') : $langs->trans("TerminalName", $terminaltouse)), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "TAKEPOS_TERMINAL_NAME_".$terminaltouse, (!empty(GETPOST('terminalname'.$terminaltouse, 'restricthtml')) ? GETPOST('terminalname'.$terminaltouse, 'restricthtml') : $langs->trans("TerminalName", $terminaltouse)), 'chaine', 0, '', $config->entity);
 
-	$res = dolibarr_set_const($db, "CASHDESK_ID_THIRDPARTY".$terminaltouse, (GETPOSTINT('socid') > 0 ? GETPOSTINT('socid') : ''), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "CASHDESK_ID_THIRDPARTY".$terminaltouse, (GETPOSTINT('socid') > 0 ? GETPOSTINT('socid') : ''), 'chaine', 0, '', $config->entity);
 
 	if (GETPOSTISSET('projectid')) {
-		$res = dolibarr_set_const($db, "CASHDESK_ID_PROJECT".$terminaltouse, (GETPOSTINT('projectid') > 0 ? GETPOSTINT('projectid') : ''), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "CASHDESK_ID_PROJECT".$terminaltouse, (GETPOSTINT('projectid') > 0 ? GETPOSTINT('projectid') : ''), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('CASHDESK_ID_BANKACCOUNT_CASH'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, "CASHDESK_ID_BANKACCOUNT_CASH".$terminaltouse, (GETPOST('CASHDESK_ID_BANKACCOUNT_CASH'.$terminaltouse, 'alpha') > 0 ? GETPOST('CASHDESK_ID_BANKACCOUNT_CASH'.$terminaltouse, 'alpha') : ''), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "CASHDESK_ID_BANKACCOUNT_CASH".$terminaltouse, (GETPOST('CASHDESK_ID_BANKACCOUNT_CASH'.$terminaltouse, 'alpha') > 0 ? GETPOST('CASHDESK_ID_BANKACCOUNT_CASH'.$terminaltouse, 'alpha') : ''), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('CASHDESK_ID_BANKACCOUNT_CHEQUE'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, "CASHDESK_ID_BANKACCOUNT_CHEQUE".$terminaltouse, (GETPOST('CASHDESK_ID_BANKACCOUNT_CHEQUE'.$terminaltouse, 'alpha') > 0 ? GETPOST('CASHDESK_ID_BANKACCOUNT_CHEQUE'.$terminaltouse, 'alpha') : ''), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "CASHDESK_ID_BANKACCOUNT_CHEQUE".$terminaltouse, (GETPOST('CASHDESK_ID_BANKACCOUNT_CHEQUE'.$terminaltouse, 'alpha') > 0 ? GETPOST('CASHDESK_ID_BANKACCOUNT_CHEQUE'.$terminaltouse, 'alpha') : ''), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('CASHDESK_ID_BANKACCOUNT_CB'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, "CASHDESK_ID_BANKACCOUNT_CB".$terminaltouse, (GETPOST('CASHDESK_ID_BANKACCOUNT_CB'.$terminaltouse, 'alpha') > 0 ? GETPOST('CASHDESK_ID_BANKACCOUNT_CB'.$terminaltouse, 'alpha') : ''), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "CASHDESK_ID_BANKACCOUNT_CB".$terminaltouse, (GETPOST('CASHDESK_ID_BANKACCOUNT_CB'.$terminaltouse, 'alpha') > 0 ? GETPOST('CASHDESK_ID_BANKACCOUNT_CB'.$terminaltouse, 'alpha') : ''), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('CASHDESK_ID_BANKACCOUNT_STRIPETERMINAL'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, "CASHDESK_ID_BANKACCOUNT_STRIPETERMINAL".$terminaltouse, GETPOST('CASHDESK_ID_BANKACCOUNT_STRIPETERMINAL'.$terminaltouse, 'alpha'), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "CASHDESK_ID_BANKACCOUNT_STRIPETERMINAL".$terminaltouse, GETPOST('CASHDESK_ID_BANKACCOUNT_STRIPETERMINAL'.$terminaltouse, 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('CASHDESK_ID_BANKACCOUNT_SUMUP'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, "CASHDESK_ID_BANKACCOUNT_SUMUP".$terminaltouse, (GETPOST('CASHDESK_ID_BANKACCOUNT_SUMUP'.$terminaltouse, 'alpha') > 0 ? GETPOST('CASHDESK_ID_BANKACCOUNT_SUMUP'.$terminaltouse, 'alpha') : ''), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "CASHDESK_ID_BANKACCOUNT_SUMUP".$terminaltouse, (GETPOST('CASHDESK_ID_BANKACCOUNT_SUMUP'.$terminaltouse, 'alpha') > 0 ? GETPOST('CASHDESK_ID_BANKACCOUNT_SUMUP'.$terminaltouse, 'alpha') : ''), 'chaine', 0, '', $config->entity);
 	}
 	foreach ($paiements as $modep) {
 		if (in_array($modep->code, array('LIQ', 'CB', 'CHQ'))) {
@@ -110,48 +110,48 @@ if (GETPOST('action', 'alpha') == 'set') {
 		}
 		$name = "CASHDESK_ID_BANKACCOUNT_".$modep->code.$terminaltouse;
 		if (GETPOSTISSET($name)) {
-			$res = dolibarr_set_const($db, $name, (GETPOST($name, 'alpha') > 0 ? GETPOST($name, 'alpha') : ''), 'chaine', 0, '', $conf->entity);
+			$res = dolibarr_set_const($db, $name, (GETPOST($name, 'alpha') > 0 ? GETPOST($name, 'alpha') : ''), 'chaine', 0, '', $config->entity);
 		}
 	}
 	if (GETPOSTISSET('CASHDESK_ID_WAREHOUSE'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, "CASHDESK_ID_WAREHOUSE".$terminaltouse, (GETPOST('CASHDESK_ID_WAREHOUSE'.$terminaltouse, 'alpha') > 0 ? GETPOST('CASHDESK_ID_WAREHOUSE'.$terminaltouse, 'alpha') : ''), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "CASHDESK_ID_WAREHOUSE".$terminaltouse, (GETPOST('CASHDESK_ID_WAREHOUSE'.$terminaltouse, 'alpha') > 0 ? GETPOST('CASHDESK_ID_WAREHOUSE'.$terminaltouse, 'alpha') : ''), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('CASHDESK_NO_DECREASE_STOCK'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, "CASHDESK_NO_DECREASE_STOCK".$terminaltouse, GETPOST('CASHDESK_NO_DECREASE_STOCK'.$terminaltouse, 'alpha'), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "CASHDESK_NO_DECREASE_STOCK".$terminaltouse, GETPOST('CASHDESK_NO_DECREASE_STOCK'.$terminaltouse, 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('TAKEPOS_PRINTER_TO_USE'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, "TAKEPOS_PRINTER_TO_USE".$terminaltouse, GETPOST('TAKEPOS_PRINTER_TO_USE'.$terminaltouse, 'alpha'), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "TAKEPOS_PRINTER_TO_USE".$terminaltouse, GETPOST('TAKEPOS_PRINTER_TO_USE'.$terminaltouse, 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('TAKEPOS_ORDER_PRINTER1_TO_USE'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, "TAKEPOS_ORDER_PRINTER1_TO_USE".$terminaltouse, GETPOST('TAKEPOS_ORDER_PRINTER1_TO_USE'.$terminaltouse, 'alpha'), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "TAKEPOS_ORDER_PRINTER1_TO_USE".$terminaltouse, GETPOST('TAKEPOS_ORDER_PRINTER1_TO_USE'.$terminaltouse, 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('TAKEPOS_ORDER_PRINTER2_TO_USE'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, "TAKEPOS_ORDER_PRINTER2_TO_USE".$terminaltouse, GETPOST('TAKEPOS_ORDER_PRINTER2_TO_USE'.$terminaltouse, 'alpha'), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "TAKEPOS_ORDER_PRINTER2_TO_USE".$terminaltouse, GETPOST('TAKEPOS_ORDER_PRINTER2_TO_USE'.$terminaltouse, 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('TAKEPOS_ORDER_PRINTER3_TO_USE'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, "TAKEPOS_ORDER_PRINTER3_TO_USE".$terminaltouse, GETPOST('TAKEPOS_ORDER_PRINTER3_TO_USE'.$terminaltouse, 'alpha'), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "TAKEPOS_ORDER_PRINTER3_TO_USE".$terminaltouse, GETPOST('TAKEPOS_ORDER_PRINTER3_TO_USE'.$terminaltouse, 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('TAKEPOS_TEMPLATE_TO_USE_FOR_INVOICES'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, "TAKEPOS_TEMPLATE_TO_USE_FOR_INVOICES".$terminaltouse, GETPOST('TAKEPOS_TEMPLATE_TO_USE_FOR_INVOICES'.$terminaltouse, 'alpha'), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "TAKEPOS_TEMPLATE_TO_USE_FOR_INVOICES".$terminaltouse, GETPOST('TAKEPOS_TEMPLATE_TO_USE_FOR_INVOICES'.$terminaltouse, 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('TAKEPOS_TEMPLATE_TO_USE_FOR_ORDERS'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, "TAKEPOS_TEMPLATE_TO_USE_FOR_ORDERS".$terminaltouse, GETPOST('TAKEPOS_TEMPLATE_TO_USE_FOR_ORDERS'.$terminaltouse, 'alpha'), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "TAKEPOS_TEMPLATE_TO_USE_FOR_ORDERS".$terminaltouse, GETPOST('TAKEPOS_TEMPLATE_TO_USE_FOR_ORDERS'.$terminaltouse, 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('CASHDESK_READER_KEYCODE_FOR_ENTER'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, 'CASHDESK_READER_KEYCODE_FOR_ENTER'.$terminaltouse, (GETPOSTINT('CASHDESK_READER_KEYCODE_FOR_ENTER'.$terminaltouse) > 0 ? GETPOSTINT('CASHDESK_READER_KEYCODE_FOR_ENTER'.$terminaltouse) : ''), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, 'CASHDESK_READER_KEYCODE_FOR_ENTER'.$terminaltouse, (GETPOSTINT('CASHDESK_READER_KEYCODE_FOR_ENTER'.$terminaltouse) > 0 ? GETPOSTINT('CASHDESK_READER_KEYCODE_FOR_ENTER'.$terminaltouse) : ''), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('TAKEPOS_ADDON'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, "TAKEPOS_ADDON".$terminaltouse, GETPOST('TAKEPOS_ADDON'.$terminaltouse, 'alpha'), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "TAKEPOS_ADDON".$terminaltouse, GETPOST('TAKEPOS_ADDON'.$terminaltouse, 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 
 	// Add free text on each terminal of cash desk
 	if (GETPOSTISSET('TAKEPOS_HEADER'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, 'TAKEPOS_HEADER'.$terminaltouse, GETPOST('TAKEPOS_HEADER'.$terminaltouse, 'restricthtml'), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, 'TAKEPOS_HEADER'.$terminaltouse, GETPOST('TAKEPOS_HEADER'.$terminaltouse, 'restricthtml'), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('TAKEPOS_FOOTER'.$terminaltouse)) {
-		$res = dolibarr_set_const($db, 'TAKEPOS_FOOTER'.$terminaltouse, GETPOST('TAKEPOS_FOOTER'.$terminaltouse, 'restricthtml'), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, 'TAKEPOS_FOOTER'.$terminaltouse, GETPOST('TAKEPOS_FOOTER'.$terminaltouse, 'restricthtml'), 'chaine', 0, '', $config->entity);
 	}
 
 	dol_syslog("admin/terminal.php: level ".GETPOST('level', 'alpha'));
@@ -204,7 +204,7 @@ print '</td></tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("ForbidSalesToTheDefaultCustomer").'</td>';
 print '<td>';
-print ajax_constantonoff("TAKEPOS_FORBID_SALES_TO_DEFAULT_CUSTOMER", array(), $conf->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_FORBID_SALES_TO_DEFAULT_CUSTOMER", array(), $config->entity, 0, 0, 1, 0);
 print '</td></tr>';
 
 if (!getDolGlobalString('TAKEPOS_FORBID_SALES_TO_DEFAULT_CUSTOMER')) {
@@ -319,7 +319,7 @@ if (isModEnabled('stock')) {
 	print '</td>'; // Force warehouse (this is not a default value)
 	print '<td>';
 	//print $form->selectyesno('CASHDESK_NO_DECREASE_STOCK'.$terminal, getDolGlobalInt('CASHDESK_NO_DECREASE_STOCK'.$terminal), 1);
-	print ajax_constantonoff('CASHDESK_NO_DECREASE_STOCK'.$terminal, array(), $conf->entity, 0, 0, 1, 0);
+	print ajax_constantonoff('CASHDESK_NO_DECREASE_STOCK'.$terminal, array(), $config->entity, 0, 0, 1, 0);
 	print '</td></tr>';
 
 
@@ -434,7 +434,7 @@ if (getDolGlobalString('TAKEPOS_ADDON') == "terminal") {
 	print $langs->trans("BillsNumberingModule");
 	print '<td colspan="2">';
 	$array = array(0 => $langs->trans("Default"));
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$dir = dol_buildpath($reldir."core/modules/facture/");
 		if (is_dir($dir)) {

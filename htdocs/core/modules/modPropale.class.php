@@ -335,7 +335,7 @@ class modPropale extends DolibarrModules
 		}
 		// Add extra fields
 		$import_extrafield_sample = array();
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'propal' AND entity IN (0, ".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'propal' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -373,8 +373,8 @@ class modPropale extends DolibarrModules
 		$this->import_convertvalue_array[$r] = array(
 			'c.ref' => array(
 				'rule'=>'getrefifauto',
-				'class'=>(!getDolGlobalString('PROPALE_ADDON') ? 'mod_propale_marbre' : $conf->global->PROPALE_ADDON),
-				'path'=>"/core/modules/propale/".(!getDolGlobalString('PROPALE_ADDON') ? 'mod_propale_marbre' : $conf->global->PROPALE_ADDON).'.php',
+				'class'=>(!getDolGlobalString('PROPALE_ADDON') ? 'mod_propale_marbre' : $config->global->PROPALE_ADDON),
+				'path'=>"/core/modules/propale/".(!getDolGlobalString('PROPALE_ADDON') ? 'mod_propale_marbre' : $config->global->PROPALE_ADDON).'.php',
 				'classobject'=>'Propal',
 				'pathobject'=>'/comm/propal/class/propal.class.php',
 			),
@@ -424,7 +424,7 @@ class modPropale extends DolibarrModules
 		}
 		// Add extra fields
 		$import_extrafield_sample = array();
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'propaldet' AND entity IN (0, ".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'propaldet' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -505,8 +505,8 @@ class modPropale extends DolibarrModules
 		}
 
 		$sql = array(
-			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[0][2])."' AND type = 'propal' AND entity = ".((int) $conf->entity),
-			"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[0][2])."','propal',".((int) $conf->entity).")",
+			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[0][2])."' AND type = 'propal' AND entity = ".((int) $config->entity),
+			"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[0][2])."','propal',".((int) $config->entity).")",
 		);
 
 		return $this->_init($sql, $options);

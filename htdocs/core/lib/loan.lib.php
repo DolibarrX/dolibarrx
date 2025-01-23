@@ -56,7 +56,7 @@ function loan_prepare_head($object)
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $conf->loan->dir_output."/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->loan->dir_output."/".dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
 	$head[$tab][0] = DOL_URL_ROOT.'/loan/document.php?id='.$object->id;
@@ -123,7 +123,7 @@ function loanCalcMonthlyPayment($mens, $capital, $rate, $numactualloadterm, $nbt
 		$int = round($int, 2, PHP_ROUND_HALF_UP);
 		$cap_rest = round((float) $capital - ((float) $mens - $int), 2, PHP_ROUND_HALF_UP);
 	}
-	$output[$numactualloadterm] = array('cap_rest' => $cap_rest, 'cap_rest_str' => price($cap_rest, 0, '', 1, -1, -1, $conf->currency), 'interet' => $int, 'interet_str' => price($int, 0, '', 1, -1, -1, $conf->currency), 'mens' => $mens);
+	$output[$numactualloadterm] = array('cap_rest' => $cap_rest, 'cap_rest_str' => price($cap_rest, 0, '', 1, -1, -1, $config->currency), 'interet' => $int, 'interet_str' => price($int, 0, '', 1, -1, -1, $config->currency), 'mens' => $mens);
 
 	$numactualloadterm++;
 	$capital = $cap_rest;
@@ -136,9 +136,9 @@ function loanCalcMonthlyPayment($mens, $capital, $rate, $numactualloadterm, $nbt
 
 		$output[$numactualloadterm] = array(
 			'cap_rest' => $cap_rest,
-			'cap_rest_str' => price($cap_rest, 0, '', 1, -1, -1, $conf->currency),
+			'cap_rest_str' => price($cap_rest, 0, '', 1, -1, -1, $config->currency),
 			'interet' => $int,
-			'interet_str' => price($int, 0, '', 1, -1, -1, $conf->currency),
+			'interet_str' => price($int, 0, '', 1, -1, -1, $config->currency),
 			'mens' => $mens,
 		);
 		$capital = $cap_rest;

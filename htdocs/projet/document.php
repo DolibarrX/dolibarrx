@@ -60,11 +60,11 @@ if (getDolGlobalString('PROJECT_ALLOW_COMMENT_ON_PROJECT') && method_exists($obj
 }
 
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->project->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->project->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
 }
 
 // Get parameters
-$limit 		= GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit 		= GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield	= GETPOST('sortfield', 'aZ09comma');
 $sortorder	= GETPOST('sortorder', 'aZ09comma');
 $page		= GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -126,7 +126,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-project page-card_do
 $form = new Form($db);
 
 if ($object->id > 0) {
-	$upload_dir = $conf->project->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->project->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
 
 	// To verify role of users
 	//$userAccess = $object->restrictedProjectArea($user,'read');

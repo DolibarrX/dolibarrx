@@ -62,7 +62,7 @@ $securitykey = GETPOST('securitykey');
 $notfound = $langs->trans("Unknown");
 
 // Security check
-if (empty($conf->clicktodial->enabled)) {
+if (empty($config->clicktodial->enabled)) {
 	print "Error: Module Click to dial is not enabled.\n";
 	exit;
 }

@@ -66,7 +66,7 @@ class InterfaceWebhookTriggers extends DolibarrTriggers
 	 */
 	public function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
 	{
-		if (empty($conf->webhook) || empty($conf->webhook->enabled)) {
+		if (empty($config->webhook) || empty($config->webhook->enabled)) {
 			return 0; // If module is not enabled, we do nothing
 		}
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/geturl.lib.php';

@@ -70,7 +70,7 @@ llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-reception page-stats_index');
 
 print load_fiche_titre($langs->trans("StatisticsOfReceptions"), '', 'dollyrevert');
 
-$dir = (!empty($conf->reception->multidir_temp[$conf->entity]) ? $conf->reception->multidir_temp[$conf->entity] : $conf->service->multidir_temp[$conf->entity]);
+$dir = (!empty($config->reception->multidir_temp[$config->entity]) ? $config->reception->multidir_temp[$config->entity] : $config->service->multidir_temp[$config->entity]);
 dol_mkdir($dir);
 
 $stats = new ReceptionStats($db, $socid, '', ($userid > 0 ? $userid : 0));
@@ -328,7 +328,7 @@ print '<td width="40%" class="center">'.$langs->trans("NbOfReceptions").'</td></
 $sql = "SELECT count(*) as nb, date_format(date_reception,'%Y') as dm";
 $sql.= " FROM ".MAIN_DB_PREFIX."reception";
 $sql.= " WHERE fk_statut > 0";
-$sql.= " AND entity = ".$conf->entity;
+$sql.= " AND entity = ".$config->entity;
 $sql.= " GROUP BY dm DESC";
 
 $resql=$db->query($sql);

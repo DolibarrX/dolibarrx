@@ -52,7 +52,7 @@ if (!empty($user->socid)) {
 
 $object = new Product($db);
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -150,7 +150,7 @@ if ($id > 0 || !empty($ref)) {
 	llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-margin page-tabs_productmargins');
 
 	$param = "&id=".$object->id;
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($search_invoice_date_start) {
@@ -497,7 +497,7 @@ if ($id > 0 || !empty($ref)) {
 print '
     <script type="text/javascript">
     $(document).ready(function() {
-        $("#totalMargin").html("'. price(price2num($totalMargin, 'MT'), 1, $langs, 1, -1, -1, $conf->currency).'");
+        $("#totalMargin").html("'. price(price2num($totalMargin, 'MT'), 1, $langs, 1, -1, -1, $config->currency).'");
         $("#marginRate").html("'.(($marginRate === '') ? 'n/a' : price(price2num($marginRate, 'MT'))."%").'");
         $("#markRate").html("'.(($markRate === '') ? 'n/a' : price(price2num($markRate, 'MT'))."%").'");
     });

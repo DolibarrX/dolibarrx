@@ -409,7 +409,7 @@ print '<tr>'."\n";
 // show list of days in title line
 for ($i = 0; $i < 7; $i++) {
 	print '<td class="center joursemaine">';
-	print dol_print_date(mktime(0, 0, 0, 0, $i, 10), (empty($conf->dol_optimize_smallscreen) ? '%A' : '%a'));
+	print dol_print_date(mktime(0, 0, 0, 0, $i, 10), (empty($config->dol_optimize_smallscreen) ? '%A' : '%a'));
 	print '</td>';
 }
 

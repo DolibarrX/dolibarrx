@@ -35,16 +35,16 @@ $weblangs = null;
 $pagelangs = null;
 
 // Detection browser (copy of code from main.inc.php)
-if (isset($_SERVER["HTTP_USER_AGENT"]) && is_object($conf) && empty($conf->browser->name)) {
+if (isset($_SERVER["HTTP_USER_AGENT"]) && is_object($conf) && empty($config->browser->name)) {
 	$tmp = getBrowserInfo($_SERVER["HTTP_USER_AGENT"]);
-	$conf->browser->name = $tmp['browsername'];
-	$conf->browser->os = $tmp['browseros'];
-	$conf->browser->version = $tmp['browserversion'];
-	$conf->browser->layout = $tmp['layout']; // 'classic', 'phone', 'tablet'
-	//var_dump($conf->browser);
+	$config->browser->name = $tmp['browsername'];
+	$config->browser->os = $tmp['browseros'];
+	$config->browser->version = $tmp['browserversion'];
+	$config->browser->layout = $tmp['layout']; // 'classic', 'phone', 'tablet'
+	//var_dump($config->browser);
 
-	if ($conf->browser->layout == 'phone') {
-		$conf->dol_no_mouse_hover = 1;
+	if ($config->browser->layout == 'phone') {
+		$config->dol_no_mouse_hover = 1;
 	}
 }
 // Define $website
@@ -297,7 +297,7 @@ $sessionname = 'DOLSESSID_'.$prefix;
 //$savsessionid = $_COOKIE[$sessionname];
 
 $_COOKIE[$sessionname] = 'obfuscatedcookie';
-unset($conf->file->instance_unique_id);
+unset($config->file->instance_unique_id);
 
 unset($dolibarr_main_instance_unique_id);
 unset($dolibarr_main_db_host);

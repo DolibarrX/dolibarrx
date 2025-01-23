@@ -71,12 +71,12 @@ if (empty($urlsection)) {
 }
 
 if ($module == 'ecm') {
-	$upload_dir = $conf->ecm->dir_output.'/'.$urlsection;
+	$upload_dir = $config->ecm->dir_output.'/'.$urlsection;
 } else { // For example $module == 'medias'
-	$upload_dir = $conf->medias->multidir_output[$conf->entity];
+	$upload_dir = $config->medias->multidir_output[$config->entity];
 }
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -172,7 +172,7 @@ if ($action == 'add' && $permissiontoadd) {
 		} else { // For example $module == 'medias'
 			$dirfornewdir = '';
 			if ($module == 'medias') {
-				$dirfornewdir = $conf->medias->multidir_output[$conf->entity];
+				$dirfornewdir = $config->medias->multidir_output[$config->entity];
 			}
 			if (empty($dirfornewdir)) {
 				$error++;

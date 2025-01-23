@@ -64,7 +64,7 @@ $date_endday = GETPOSTINT('date_endday');
 $date_endyear = GETPOSTINT('date_endyear');
 $showaccountdetail = GETPOST('showaccountdetail', 'aZ09') ? GETPOST('showaccountdetail', 'aZ09') : 'yes';
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -314,7 +314,7 @@ if ($modecompta == 'BOOKKEEPING') {
 	$sql .= " WHERE f.numero_compte = aa.account_number";
 	$sql .= " AND ".$predefinedgroupwhere;
 	$sql .= " AND fk_pcg_version = '".$db->escape($charofaccountstring)."'";
-	$sql .= " AND f.entity = ".$conf->entity;
+	$sql .= " AND f.entity = ".$config->entity;
 	if (!empty($date_start) && !empty($date_end)) {
 		$sql .= " AND f.doc_date >= '".$db->idate($date_start)."' AND f.doc_date <= '".$db->idate($date_end)."'";
 	}
@@ -678,7 +678,7 @@ if ($modecompta == 'BOOKKEEPING') {
 		}
 	}
 
-	$sql .= " AND f.entity = ".((int) $conf->entity);
+	$sql .= " AND f.entity = ".((int) $config->entity);
 	if ($socid) {
 		$sql .= " AND f.fk_soc = ".((int) $socid);
 	}
@@ -771,7 +771,7 @@ if ($modecompta == 'BOOKKEEPING') {
 			$sql .= " AND p.datep >= '".$db->idate($date_start)."' AND p.datep <= '".$db->idate($date_end)."'";
 		}
 	}
-	$sql .= " AND cs.entity = ".$conf->entity;
+	$sql .= " AND cs.entity = ".$config->entity;
 	$sql .= " GROUP BY c.libelle, c.id, c.accountancy_code";
 	$newsortfield = $sortfield;
 	if ($newsortfield == 's.nom, s.rowid') {
@@ -862,7 +862,7 @@ if ($modecompta == 'BOOKKEEPING') {
 		if (!empty($date_start) && !empty($date_end)) {
 			$sql .= " AND cs.date_ech >= '".$db->idate($date_start)."' AND cs.date_ech <= '".$db->idate($date_end)."'";
 		}
-		$sql .= " AND cs.entity = ".$conf->entity;
+		$sql .= " AND cs.entity = ".$config->entity;
 	} elseif ($modecompta == 'RECETTES-DEPENSES') {
 		$sql = "SELECT c.id, c.libelle as label, c.accountancy_code, sum(p.amount) as amount";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_chargesociales as c";
@@ -874,7 +874,7 @@ if ($modecompta == 'BOOKKEEPING') {
 		if (!empty($date_start) && !empty($date_end)) {
 			$sql .= " AND p.datep >= '".$db->idate($date_start)."' AND p.datep <= '".$db->idate($date_end)."'";
 		}
-		$sql .= " AND cs.entity = ".$conf->entity;
+		$sql .= " AND cs.entity = ".$config->entity;
 	}
 	$sql .= " GROUP BY c.libelle, c.id, c.accountancy_code";
 	$newsortfield = $sortfield;
@@ -1151,7 +1151,7 @@ if ($modecompta == 'BOOKKEEPING') {
 	/*
 	 * Various Payments
 	 */
-	//$conf->global->ACCOUNTING_REPORTS_INCLUDE_VARPAY = 1;
+	//$config->global->ACCOUNTING_REPORTS_INCLUDE_VARPAY = 1;
 
 	if (getDolGlobalString('ACCOUNTING_REPORTS_INCLUDE_VARPAY') && isModEnabled("bank") && ($modecompta == 'CREANCES-DETTES' || $modecompta == "RECETTES-DEPENSES")) {
 		$subtotal_ht = 0;
@@ -1368,7 +1368,7 @@ if ($modecompta == 'BOOKKEEPING') {
 			if (!empty($date_start) && !empty($date_end)) {
 				$sql .= " AND f.datef >= '".$db->idate($date_start)."' AND f.datef <= '".$db->idate($date_end)."'";
 			}
-			$sql .= " AND f.entity = ".$conf->entity;
+			$sql .= " AND f.entity = ".$config->entity;
 			$sql .= " GROUP BY dm";
 			$newsortfield = $sortfield;
 			if ($newsortfield == 's.nom, s.rowid') {
@@ -1422,7 +1422,7 @@ if ($modecompta == 'BOOKKEEPING') {
 			if (!empty($date_start) && !empty($date_end)) {
 				$sql .= " AND t.datev >= '".$db->idate($date_start)."' AND t.datev <= '".$db->idate($date_end)."'";
 			}
-			$sql .= " AND t.entity = ".$conf->entity;
+			$sql .= " AND t.entity = ".$config->entity;
 			$sql .= " GROUP BY dm";
 			$newsortfield = $sortfield;
 			if ($newsortfield == 's.nom, s.rowid') {
@@ -1477,7 +1477,7 @@ if ($modecompta == 'BOOKKEEPING') {
 			if (!empty($date_start) && !empty($date_end)) {
 				$sql .= " AND t.datev >= '".$db->idate($date_start)."' AND t.datev <= '".$db->idate($date_end)."'";
 			}
-			$sql .= " AND t.entity = ".$conf->entity;
+			$sql .= " AND t.entity = ".$config->entity;
 			$sql .= " GROUP BY dm";
 			$newsortfield = $sortfield;
 			if ($newsortfield == 's.nom, s.rowid') {

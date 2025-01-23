@@ -103,13 +103,13 @@ class Translate
 	 */
 	public function __construct($dir, $conf)
 	{
-		if (!empty($conf->file->character_set_client)) {
-			$this->charset_output = $conf->file->character_set_client; // If charset output is forced
+		if (!empty($config->file->character_set_client)) {
+			$this->charset_output = $config->file->character_set_client; // If charset output is forced
 		}
 		if ($dir) {
 			$this->dir = array($dir);
 		} else {
-			$this->dir = $conf->file->dol_document_root;
+			$this->dir = $config->file->dol_document_root;
 		}
 	}
 
@@ -130,8 +130,8 @@ class Translate
 		if (getDolGlobalString('MAIN_FORCELANGDIR')) {
 			$more = array();
 			$i = 0;
-			foreach ($conf->file->dol_document_root as $dir) {
-				$newdir = $dir . getDolGlobalString('MAIN_FORCELANGDIR'); // For example $conf->global->MAIN_FORCELANGDIR is '/mymodule' meaning we search files into '/mymodule/langs/xx_XX'
+			foreach ($config->file->dol_document_root as $dir) {
+				$newdir = $dir . getDolGlobalString('MAIN_FORCELANGDIR'); // For example $config->global->MAIN_FORCELANGDIR is '/mymodule' meaning we search files into '/mymodule/langs/xx_XX'
 				if (!in_array($newdir, $this->dir)) {
 					$more['module_' . $i] = $newdir;
 					$i++; // We add the forced dir into the array $more. Just after, we add entries into $more to list of lang dir $this->dir.
@@ -1008,7 +1008,7 @@ class Translate
 
 		$newnumber = $number;
 
-		$dirsubstitutions = array_merge(array(), $conf->modules_parts['substitutions']);
+		$dirsubstitutions = array_merge(array(), $config->modules_parts['substitutions']);
 		foreach ($dirsubstitutions as $reldir) {
 			$dir = dol_buildpath($reldir, 0);
 			$newdir = dol_osencode($dir);

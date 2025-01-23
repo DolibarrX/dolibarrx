@@ -228,7 +228,7 @@ class Mailing extends CommonObject
 
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."mailing";
 		$sql .= " (date_creat, fk_user_creat, entity)";
-		$sql .= " VALUES ('".$this->db->idate($now)."', ".((int) $user->id).", ".((int) $conf->entity).")";
+		$sql .= " VALUES ('".$this->db->idate($now)."', ".((int) $user->id).", ".((int) $config->entity).")";
 
 		if (!$this->title) {
 			$this->title = $langs->trans("NoTitle");
@@ -814,7 +814,7 @@ class Mailing extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

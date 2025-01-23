@@ -52,7 +52,7 @@ $backtopage = GETPOST('backtopage', 'alpha'); // Go back to a dedicated page
 $optioncss  = GETPOST('optioncss', 'aZ'); // Option for the css output (always '' except when 'print')
 $mode       = GETPOST('mode', 'aZ'); // The output mode ('list', 'kanban', 'hierarchy', 'calendar', ...)
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -67,7 +67,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new Loan($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->loan->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->loan->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($contextpage));
 
 // Fetch optionals attributes and labels
@@ -168,7 +168,7 @@ $sql .= " FROM ".MAIN_DB_PREFIX."loan as l";
 $linktopl = " LEFT JOIN ".MAIN_DB_PREFIX."payment_loan AS pl ON l.rowid = pl.fk_loan";
 $sql .= $linktopl;
 
-$sql .= " WHERE l.entity = ".$conf->entity;
+$sql .= " WHERE l.entity = ".$config->entity;
 if ($search_amount) {
 	$sql .= natural_search("l.capital", $search_amount, 1);
 }
@@ -241,7 +241,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {

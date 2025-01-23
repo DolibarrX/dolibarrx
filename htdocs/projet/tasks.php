@@ -71,7 +71,7 @@ $ref = GETPOST('ref', 'alpha');
 $taskref = GETPOST('taskref', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -154,7 +154,7 @@ $hookManager->initHooks(array('projecttaskscard', 'globalcard'));
 //if ($user->socid > 0) $socid = $user->socid;    // For external user, no check is done on company because readability is managed by public status of project and assignment.
 $result = restrictedArea($user, 'projet', $id, 'projet&project');
 
-$diroutputmassaction = $conf->project->dir_output.'/tasks/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->project->dir_output.'/tasks/temp/massgeneration/'.$user->id;
 
 $progress = GETPOSTINT('progress');
 $budget_amount = GETPOSTFLOAT('budget_amount');
@@ -273,7 +273,7 @@ if (empty($reshook)) {
 	$objectlabel = 'Tasks';
 	$permissiontoread = $user->hasRight('projet', 'lire');
 	$permissiontodelete = $user->hasRight('projet', 'supprimer');
-	$uploaddir = $conf->project->dir_output.'/tasks';
+	$uploaddir = $config->project->dir_output.'/tasks';
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -674,7 +674,7 @@ if ($id > 0 || !empty($ref)) {
 	// Budget
 	print '<tr><td>'.$langs->trans("Budget").'</td><td>';
 	if (!is_null($object->budget_amount) && strcmp($object->budget_amount, '')) {
-		print '<span class="amount">'.price($object->budget_amount, 0, $langs, 1, 0, 0, $conf->currency).'</span>';
+		print '<span class="amount">'.price($object->budget_amount, 0, $langs, 1, 0, 0, $config->currency).'</span>';
 	}
 	print '</td></tr>';
 
@@ -939,7 +939,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer') && (empty($object-
 	//var_dump($tasksarray);
 	//var_dump($tasksrole);
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 	}
 

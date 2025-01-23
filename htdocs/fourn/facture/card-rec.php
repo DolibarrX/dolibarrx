@@ -66,7 +66,7 @@ $cancel = GETPOST('cancel', 'alpha');
 $toselect = GETPOST('toselect', 'array');
 $contextpage = GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : 'supplierinvoicetemplatelist'; // To manage different context of search
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST("sortfield", 'alpha');
 $sortorder = GETPOST("sortorder", 'alpha');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -690,7 +690,7 @@ if (empty($reshook)) {
 
 			$price_min = (float) price2num($price_min);
 			if ($usercanproductignorepricemin && (!empty($price_min) && ($pu_ht * (1 - $remise_percent / 100) < $price_min))) {
-				$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+				$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 				setEventMessages($mesg, null, 'errors');
 			} else {
 				// Insert line
@@ -815,7 +815,7 @@ if (empty($reshook)) {
 
 			// Check price is not lower than minimum (check is done only for standard or replacement invoices)
 			if (((getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !$user->hasRight("produit", "ignore_price_min_advance")) || !getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) && $price_min && ((float) price2num($pu_ht) * (1 - (float) $remise_percent / 100) < (float) price2num($price_min))) {
-				setEventMessages($langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $conf->currency)), null, 'errors');
+				setEventMessages($langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $config->currency)), null, 'errors');
 				$error++;
 			}
 		} else {
@@ -1031,7 +1031,7 @@ if ($action == 'create') {
 		print "<tr><td>" . $langs->trans('Model') . "</td><td>";
 		include_once DOL_DOCUMENT_ROOT . '/core/modules/supplier_invoice/modules_facturefournisseur.php';
 		$list = ModelePDFSuppliersInvoices::liste_modeles($db);
-		print $form->selectarray('modelpdf', $list, $conf->global->INVOICE_SUPPLIER_ADDON_PDF);
+		print $form->selectarray('modelpdf', $list, $config->global->INVOICE_SUPPLIER_ADDON_PDF);
 		print "</td></tr>";
 
 		// Public note
@@ -1243,23 +1243,23 @@ if ($action == 'create') {
 		print '</tr>';
 
 		print '<tr><td>' . $langs->trans('AmountHT') . '</td>';
-		print '<td>' . price($object->total_ht, 0, $langs, 1, -1, -1, $conf->currency) . '</td>';
+		print '<td>' . price($object->total_ht, 0, $langs, 1, -1, -1, $config->currency) . '</td>';
 		print '</tr>';
 
-		print '<tr><td>' . $langs->trans("AmountVAT") . '</td><td>' . price($object->total_tva, 0, $langs, 1, -1, -1, $conf->currency) . '</td>';
+		print '<tr><td>' . $langs->trans("AmountVAT") . '</td><td>' . price($object->total_tva, 0, $langs, 1, -1, -1, $config->currency) . '</td>';
 		print '</tr>';
 
 		// Amount Local Taxes
 		if (($mysoc->localtax1_assuj == "1" && $mysoc->useLocalTax(1)) || $object->total_localtax1 != 0) {    // Localtax1
 			print '<tr><td>' . $langs->transcountry("AmountLT1", $mysoc->country_code) . '</td>';
-			print '<td class="nowrap">' . price($object->total_localtax1, 1, '', 1, -1, -1, $conf->currency) . '</td></tr>';
+			print '<td class="nowrap">' . price($object->total_localtax1, 1, '', 1, -1, -1, $config->currency) . '</td></tr>';
 		}
 		if (($mysoc->localtax2_assuj == "1" && $mysoc->useLocalTax(2)) || $object->total_localtax2 != 0) {    // Localtax2
 			print '<tr><td>' . $langs->transcountry("AmountLT2", $mysoc->country_code) . '</td>';
-			print '<td class=nowrap">' . price($object->total_localtax2, 1, '', 1, -1, -1, $conf->currency) . '</td></tr>';
+			print '<td class=nowrap">' . price($object->total_localtax2, 1, '', 1, -1, -1, $config->currency) . '</td></tr>';
 		}
 
-		print '<tr><td>' . $langs->trans("AmountTTC") . '</td><td colspan="3">' . price($object->total_ttc, 0, $langs, 1, -1, -1, $conf->currency) . '</td>';
+		print '<tr><td>' . $langs->trans("AmountTTC") . '</td><td colspan="3">' . price($object->total_ttc, 0, $langs, 1, -1, -1, $config->currency) . '</td>';
 		print '</tr>';
 
 		// Payment term
@@ -1472,7 +1472,7 @@ if ($action == 'create') {
 		if ($object->frequency > 0) {
 			print '<br>';
 
-			if (empty($conf->cron->enabled)) {
+			if (empty($config->cron->enabled)) {
 				print info_admin($langs->trans("EnableAndSetupModuleCron", $langs->transnoentitiesnoconv("Module2300Name")));
 			}
 
@@ -1512,7 +1512,7 @@ if ($action == 'create') {
         	<input type="hidden" name="id" value="' . $object->id . '">
         	';
 
-		if (!empty($conf->use_javascript_ajax) && $object->statut == 0) {
+		if (!empty($config->use_javascript_ajax) && $object->statut == 0) {
 			include DOL_DOCUMENT_ROOT . '/core/tpl/ajaxrow.tpl.php';
 		}
 

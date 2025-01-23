@@ -319,7 +319,7 @@ class SupplierProposal extends CommonObject
 			$localtax2_tx = get_localtax($tva_tx, 2, $mysoc, $this->thirdparty, $tva_npr);
 
 			// multiprix
-			if ($conf->global->PRODUIT_MULTIPRICES && $this->thirdparty->price_level) {
+			if ($config->global->PRODUIT_MULTIPRICES && $this->thirdparty->price_level) {
 				$price = $prod->multiprices[$this->thirdparty->price_level];
 			} else {
 				$price = $prod->price;
@@ -953,7 +953,7 @@ class SupplierProposal extends CommonObject
 			list($this->fk_multicurrency, $this->multicurrency_tx) = MultiCurrency::getIdAndTxFromCode($this->db, $this->multicurrency_code, $now);
 		}
 		if (empty($this->fk_multicurrency)) {
-			$this->multicurrency_code = $conf->currency;
+			$this->multicurrency_code = $config->currency;
 			$this->fk_multicurrency = 0;
 			$this->multicurrency_tx = 1;
 		}
@@ -1000,7 +1000,7 @@ class SupplierProposal extends CommonObject
 		$sql .= ", ".(isDolTms($delivery_date) ? "'".$this->db->idate($delivery_date)."'" : "null");
 		$sql .= ", ".($this->shipping_method_id > 0 ? ((int) $this->shipping_method_id) : 'NULL');
 		$sql .= ", ".($this->fk_project > 0 ? ((int) $this->fk_project) : "null");
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ", ".((int) $this->fk_multicurrency);
 		$sql .= ", '".$this->db->escape($this->multicurrency_code)."'";
 		$sql .= ", ".((float) $this->multicurrency_tx);
@@ -1492,14 +1492,14 @@ class SupplierProposal extends CommonObject
 				if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 					// Now we rename also files into index
 					$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'supplier_proposal/".$this->db->escape($this->newref)."'";
-					$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'supplier_proposal/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+					$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'supplier_proposal/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 					$resql = $this->db->query($sql);
 					if (!$resql) {
 						$error++;
 						$this->error = $this->db->lasterror();
 					}
 					$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'supplier_proposal/".$this->db->escape($this->newref)."'";
-					$sql .= " WHERE filepath = 'supplier_proposal/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+					$sql .= " WHERE filepath = 'supplier_proposal/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 					$resql = $this->db->query($sql);
 					if (!$resql) {
 						$error++;
@@ -1509,14 +1509,14 @@ class SupplierProposal extends CommonObject
 					// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 					$oldref = dol_sanitizeFileName($this->ref);
 					$newref = dol_sanitizeFileName($num);
-					$dirsource = $conf->supplier_proposal->dir_output.'/'.$oldref;
-					$dirdest = $conf->supplier_proposal->dir_output.'/'.$newref;
+					$dirsource = $config->supplier_proposal->dir_output.'/'.$oldref;
+					$dirdest = $config->supplier_proposal->dir_output.'/'.$newref;
 					if (!$error && file_exists($dirsource)) {
 						dol_syslog(get_class($this)."::valid rename dir ".$dirsource." into ".$dirdest);
 						if (@rename($dirsource, $dirdest)) {
 							dol_syslog("Rename ok");
 							// Rename docs starting with $oldref with $newref
-							$listoffiles = dol_dir_list($conf->supplier_proposal->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+							$listoffiles = dol_dir_list($config->supplier_proposal->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 							foreach ($listoffiles as $fileentry) {
 								$dirsource = $fileentry['name'];
 								$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -1744,12 +1744,12 @@ class SupplierProposal extends CommonObject
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$modelpdf = $conf->global->SUPPLIER_PROPOSAL_ADDON_PDF_ODT_CLOSED ? $conf->global->SUPPLIER_PROPOSAL_ADDON_PDF_ODT_CLOSED : (empty($this->model_pdf) ? '' : $this->model_pdf);
+			$modelpdf = $config->global->SUPPLIER_PROPOSAL_ADDON_PDF_ODT_CLOSED ? $config->global->SUPPLIER_PROPOSAL_ADDON_PDF_ODT_CLOSED : (empty($this->model_pdf) ? '' : $this->model_pdf);
 			$triggerName = 'PROPOSAL_SUPPLIER_CLOSE_REFUSED';
 
 			if ($status == 2) {
 				$triggerName = 'PROPOSAL_SUPPLIER_CLOSE_SIGNED';
-				$modelpdf = $conf->global->SUPPLIER_PROPOSAL_ADDON_PDF_ODT_TOBILL ? $conf->global->SUPPLIER_PROPOSAL_ADDON_PDF_ODT_TOBILL : (empty($this->model_pdf) ? '' : $this->model_pdf);
+				$modelpdf = $config->global->SUPPLIER_PROPOSAL_ADDON_PDF_ODT_TOBILL ? $config->global->SUPPLIER_PROPOSAL_ADDON_PDF_ODT_TOBILL : (empty($this->model_pdf) ? '' : $this->model_pdf);
 
 				if (getDolGlobalString('SUPPLIER_PROPOSAL_UPDATE_PRICE_ON_SUPPlIER_PROPOSAL')) {     // TODO This option was not tested correctly. Error if product ref does not exists
 					$result = $this->updateOrCreatePriceFournisseur($user);
@@ -2097,8 +2097,8 @@ class SupplierProposal extends CommonObject
 
 						// We remove directory
 						$ref = dol_sanitizeFileName($this->ref);
-						if ($conf->supplier_proposal->dir_output && !empty($this->ref)) {
-							$dir = $conf->supplier_proposal->dir_output."/".$ref;
+						if ($config->supplier_proposal->dir_output && !empty($this->ref)) {
+							$dir = $config->supplier_proposal->dir_output."/".$ref;
 							$file = $dir."/".$ref.".pdf";
 							if (file_exists($file)) {
 								dol_delete_preview($this);
@@ -2291,13 +2291,13 @@ class SupplierProposal extends CommonObject
 			$status = '';
 			$delay_warning = 0;
 			if ($mode == 'opened') {
-				$delay_warning = !empty($conf->supplier_proposal->cloture->warning_delay) ? $conf->supplier_proposal->cloture->warning_delay : 0;
+				$delay_warning = !empty($config->supplier_proposal->cloture->warning_delay) ? $config->supplier_proposal->cloture->warning_delay : 0;
 				$status = self::STATUS_VALIDATED;
 				$label = $langs->trans("SupplierProposalsToClose");
 				$labelShort = $langs->trans("ToAcceptRefuse");
 			}
 			if ($mode == 'signed') {
-				$delay_warning = !empty($conf->supplier_proposal->facturation->warning_delay) ? $conf->supplier_proposal->facturation->warning_delay : 0;
+				$delay_warning = !empty($config->supplier_proposal->facturation->warning_delay) ? $config->supplier_proposal->facturation->warning_delay : 0;
 				$status = self::STATUS_SIGNED;
 				$label = $langs->trans("SupplierProposalsToProcess"); // May be billed or ordered
 				$labelShort = $langs->trans("ToClose");
@@ -2469,7 +2469,7 @@ class SupplierProposal extends CommonObject
 			$classname = getDolGlobalString('SUPPLIER_PROPOSAL_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/supplier_proposal/");
 
@@ -2530,13 +2530,13 @@ class SupplierProposal extends CommonObject
 			$datas['ref_supplier'] = '<br><b>'.$langs->trans('RefSupplier').':</b> '.$this->ref_fourn;
 		}
 		if (!empty($this->total_ht)) {
-			$datas['amount_ht'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $conf->currency);
+			$datas['amount_ht'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $config->currency);
 		}
 		if (!empty($this->total_tva)) {
-			$datas['amount_vat'] = '<br><b>'.$langs->trans('VAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $conf->currency);
+			$datas['amount_vat'] = '<br><b>'.$langs->trans('VAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $config->currency);
 		}
 		if (!empty($this->total_ttc)) {
-			$datas['amount_ttc'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $conf->currency);
+			$datas['amount_ttc'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $config->currency);
 		}
 
 		return $datas;
@@ -2557,7 +2557,7 @@ class SupplierProposal extends CommonObject
 	{
 		global $langs, $conf, $user, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

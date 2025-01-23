@@ -64,7 +64,7 @@ function skillrankPrepareHead($object)
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $conf->hrm->dir_output."/skillrank/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->hrm->dir_output."/skillrank/".dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
 	$head[$h][0] = dol_buildpath("/hrm/skillrank_document.php", 1).'?id='.$object->id;
@@ -128,7 +128,7 @@ function displayRankInfos($selected_rank, $fk_skill, $inputname = 'TNote', $mode
 	$ret .= '</span>';
 	if (is_array($Lines) && !empty($Lines)) {
 		foreach ($Lines as $line) {
-			$MaxNumberSkill = isset($conf->global->HRM_MAXRANK) ? $conf->global->HRM_MAXRANK : Skill::DEFAULT_MAX_RANK_PER_SKILL;
+			$MaxNumberSkill = isset($config->global->HRM_MAXRANK) ? $config->global->HRM_MAXRANK : Skill::DEFAULT_MAX_RANK_PER_SKILL;
 			if ($line->rankorder > $MaxNumberSkill) {
 				continue;
 			}

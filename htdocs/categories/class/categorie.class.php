@@ -531,7 +531,7 @@ class Categorie extends CommonObject
 		$sql .= ((int) $type).", ";
 		$sql .= (!empty($this->import_key) ? "'".$this->db->escape($this->import_key)."'" : 'null').", ";
 		$sql .= (!empty($this->ref_ext) ? "'".$this->db->escape($this->ref_ext)."'" : 'null').", ";
-		$sql .= (int) $conf->entity.", ";
+		$sql .= (int) $config->entity.", ";
 		$sql .= "'".$this->db->idate($now)."', ";
 		$sql .= (int) $user->id;
 		$sql .= ")";
@@ -1772,7 +1772,7 @@ class Categorie extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

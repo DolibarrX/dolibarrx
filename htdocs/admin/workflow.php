@@ -54,13 +54,13 @@ $action = GETPOST('action', 'aZ09');
  */
 
 if (preg_match('/set(.*)/', $action, $reg)) {
-	if (!dolibarr_set_const($db, $reg[1], '1', 'chaine', 0, '', $conf->entity) > 0) {
+	if (!dolibarr_set_const($db, $reg[1], '1', 'chaine', 0, '', $config->entity) > 0) {
 		dol_print_error($db);
 	}
 }
 
 if (preg_match('/del(.*)/', $action, $reg)) {
-	if (!dolibarr_set_const($db, $reg[1], '0', 'chaine', 0, '', $conf->entity) > 0) {
+	if (!dolibarr_set_const($db, $reg[1], '0', 'chaine', 0, '', $config->entity) > 0) {
 		dol_print_error($db);
 	}
 }
@@ -225,8 +225,8 @@ $workflowcodes = array(
 	),
 );
 
-if (!empty($conf->modules_parts['workflow']) && is_array($conf->modules_parts['workflow'])) {
-	foreach ($conf->modules_parts['workflow'] as $workflow) {
+if (!empty($config->modules_parts['workflow']) && is_array($config->modules_parts['workflow'])) {
+	foreach ($config->modules_parts['workflow'] as $workflow) {
 		$workflowcodes = array_merge($workflowcodes, $workflow);
 	}
 }
@@ -246,7 +246,7 @@ $workflowcodes = array_filter(
 if ($action == 'setvarworkflow') {	// Test on permission already done
 	if (GETPOSTISSET('product_category_id')) {
 		$param_ticket_product_category = GETPOSTINT('product_category_id');
-		$res = dolibarr_set_const($db, 'TICKET_PRODUCT_CATEGORY', $param_ticket_product_category, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, 'TICKET_PRODUCT_CATEGORY', $param_ticket_product_category, 'chaine', 0, '', $config->entity);
 	}
 }
 
@@ -367,7 +367,7 @@ foreach ($workflowcodes as $key => $params) {
 		if (isModEnabled('category')) {
 			print ' &nbsp; '.img_picto('', 'category', 'class="pictofixedwidth"');
 			$formcategory->selectProductCategory(getDolGlobalInt('TICKET_PRODUCT_CATEGORY'), $htmlname, 1);
-			if ($conf->use_javascript_ajax) {
+			if ($config->use_javascript_ajax) {
 				print ajax_combobox('select_'.$htmlname);
 			}
 			print '<input class="button smallpaddingimp" type="submit" value="'.$langs->trans("Save").'">';
@@ -380,7 +380,7 @@ foreach ($workflowcodes as $key => $params) {
 
 	print '<td class="right">';
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		if (!empty($params['reloadpage'])) {
 			print ajax_constantonoff($key, array(), null, 0, 0, 1);
 		} else {

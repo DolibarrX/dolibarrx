@@ -86,7 +86,7 @@ $object = new UserGroup($db);
 $object->fetch($id);
 $object->loadRights();
 
-$entity = $conf->entity;
+$entity = $config->entity;
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('groupperms', 'globalcard'));
@@ -240,7 +240,7 @@ if ($object->id > 0) {
 	}
 
 	// Multicompany
-	if (isModEnabled('multicompany') && is_object($mc) && !getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $conf->entity == 1 && $user->admin && !$user->entity) {
+	if (isModEnabled('multicompany') && is_object($mc) && !getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $config->entity == 1 && $user->admin && !$user->entity) {
 		$mc->getInfo($object->entity);
 		print "<tr>".'<td class="titlefield">'.$langs->trans("Entity").'</td>';
 		print '<td class="valeur">'.dol_escape_htmltag($mc->label);

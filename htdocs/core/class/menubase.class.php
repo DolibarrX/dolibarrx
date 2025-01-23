@@ -184,7 +184,7 @@ class Menubase
 		if (!isset($this->enabled)) {
 			$this->enabled = '1';
 		}
-		$this->entity = (isset($this->entity) && (int) $this->entity >= 0 ? (int) $this->entity : $conf->entity);
+		$this->entity = (isset($this->entity) && (int) $this->entity >= 0 ? (int) $this->entity : $config->entity);
 		$this->menu_handler = trim((string) $this->menu_handler);
 		$this->module = trim((string) $this->module);
 		$this->type = trim((string) $this->type);
@@ -243,7 +243,7 @@ class Menubase
 		$sql .= " AND fk_menu = ".((int) $this->fk_menu);
 		$sql .= " AND position = ".((int) $this->position);
 		$sql .= " AND url = '".$this->db->escape($this->url)."'";
-		$sql .= " AND entity IN (0, ".$conf->entity.")";
+		$sql .= " AND entity IN (0, ".$config->entity.")";
 
 		$result = $this->db->query($sql);
 		if ($result) {
@@ -638,7 +638,7 @@ class Menubase
 		$sql = "SELECT m.rowid, m.type, m.module, m.fk_menu, m.fk_mainmenu, m.fk_leftmenu, m.url, m.titre,";
 		$sql .= " m.prefix, m.langs, m.perms, m.enabled, m.target, m.mainmenu, m.leftmenu, m.position";
 		$sql .= " FROM ".$this->db->prefix()."menu as m";
-		$sql .= " WHERE m.entity IN (0,".$conf->entity.")";
+		$sql .= " WHERE m.entity IN (0,".$config->entity.")";
 		$sql .= " AND m.menu_handler IN ('".$this->db->escape($menu_handler)."','all')";
 		if ($type_user == 0) {
 			$sql .= " AND m.usertype IN (0,2)";

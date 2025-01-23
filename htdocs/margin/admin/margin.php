@@ -54,7 +54,7 @@ $action = GETPOST('action', 'aZ09');
 $reg = array();
 if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_set_const($db, $code, 1, 'yesno', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, $code, 1, 'yesno', 0, '', $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -64,7 +64,7 @@ if (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 
 if (preg_match('/del_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_del_const($db, $code, $conf->entity) > 0) {
+	if (dolibarr_del_const($db, $code, $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -73,7 +73,7 @@ if (preg_match('/del_([a-z0-9_\-]+)/i', $action, $reg)) {
 }
 
 if ($action == 'remises') {
-	if (dolibarr_set_const($db, 'MARGIN_METHODE_FOR_DISCOUNT', GETPOST('MARGIN_METHODE_FOR_DISCOUNT'), 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, 'MARGIN_METHODE_FOR_DISCOUNT', GETPOST('MARGIN_METHODE_FOR_DISCOUNT'), 'chaine', 0, '', $config->entity) > 0) {
 		setEventMessages($langs->trans("RecordModifiedSuccessfully"), null, 'mesgs');
 	} else {
 		dol_print_error($db);
@@ -81,7 +81,7 @@ if ($action == 'remises') {
 }
 
 if ($action == 'typemarges') {
-	if (dolibarr_set_const($db, 'MARGIN_TYPE', GETPOST('MARGIN_TYPE'), 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, 'MARGIN_TYPE', GETPOST('MARGIN_TYPE'), 'chaine', 0, '', $config->entity) > 0) {
 		setEventMessages($langs->trans("RecordModifiedSuccessfully"), null, 'mesgs');
 	} else {
 		dol_print_error($db);
@@ -89,7 +89,7 @@ if ($action == 'typemarges') {
 }
 
 if ($action == 'contact') {
-	if (dolibarr_set_const($db, 'AGENT_CONTACT_TYPE', GETPOST('AGENT_CONTACT_TYPE'), 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, 'AGENT_CONTACT_TYPE', GETPOST('AGENT_CONTACT_TYPE'), 'chaine', 0, '', $config->entity) > 0) {
 		setEventMessages($langs->trans("RecordModifiedSuccessfully"), null, 'mesgs');
 	} else {
 		dol_print_error($db);
@@ -160,7 +160,7 @@ print '</form>';
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("DisplayMarginRates").'</td>';
 print '<td colspan="2">';
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	print ajax_constantonoff('DISPLAY_MARGIN_RATES');
 } else {
 	if (!getDolGlobalString('DISPLAY_MARGIN_RATES')) {
@@ -177,7 +177,7 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("DisplayMarkRates").'</td>';
 print '<td colspan="2">';
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	print ajax_constantonoff('DISPLAY_MARK_RATES');
 } else {
 	if (!getDolGlobalString('DISPLAY_MARK_RATES')) {
@@ -194,7 +194,7 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("ForceBuyingPriceIfNull").'</td>';
 print '<td colspan="2">';
-if (!empty($conf->use_javascript_ajax)) {
+if (!empty($config->use_javascript_ajax)) {
 	print ajax_constantonoff('ForceBuyingPriceIfNull');
 } else {
 	if (!getDolGlobalString('ForceBuyingPriceIfNull')) {

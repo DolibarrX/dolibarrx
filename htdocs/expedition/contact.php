@@ -241,7 +241,7 @@ if ($id > 0 || !empty($ref)) {
 	echo '<br>';
 
 	// Contacts lines (modules that overwrite templates must declare this into descriptor)
-	$dirtpls = array_merge($conf->modules_parts['tpl'], array('/core/tpl'));
+	$dirtpls = array_merge($config->modules_parts['tpl'], array('/core/tpl'));
 	$preselectedtypeofcontact = dol_getIdFromCode($db, 'SHIPPING', 'c_type_contact', 'code', 'rowid');
 	foreach ($dirtpls as $reldir) {
 		$res = @include dol_buildpath($reldir.'/contacts.tpl.php');

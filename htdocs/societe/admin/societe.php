@@ -65,14 +65,14 @@ $error = 0;
 include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
 
 if ($action == 'setcodeclient') {
-	$result = dolibarr_set_const($db, "SOCIETE_CODECLIENT_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, "SOCIETE_CODECLIENT_ADDON", $value, 'chaine', 0, '', $config->entity);
 	if ($result <= 0) {
 		dol_print_error($db);
 	}
 }
 
 if ($action == 'setcodecompta') {
-	$result = dolibarr_set_const($db, "SOCIETE_CODECOMPTA_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, "SOCIETE_CODECOMPTA_ADDON", $value, 'chaine', 0, '', $config->entity);
 	if ($result <= 0) {
 		dol_print_error($db);
 	}
@@ -81,7 +81,7 @@ if ($action == 'setcodecompta') {
 if ($action == 'updateoptions') {
 	if (GETPOSTISSET('COMPANY_USE_SEARCH_TO_SELECT')) {
 		$companysearch = GETPOST('activate_COMPANY_USE_SEARCH_TO_SELECT', 'alpha');
-		$res = dolibarr_set_const($db, "COMPANY_USE_SEARCH_TO_SELECT", $companysearch, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "COMPANY_USE_SEARCH_TO_SELECT", $companysearch, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
@@ -94,7 +94,7 @@ if ($action == 'updateoptions') {
 
 	if (GETPOSTISSET('CONTACT_USE_SEARCH_TO_SELECT')) {
 		$contactsearch = GETPOST('activate_CONTACT_USE_SEARCH_TO_SELECT', 'alpha');
-		$res = dolibarr_set_const($db, "CONTACT_USE_SEARCH_TO_SELECT", $contactsearch, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "CONTACT_USE_SEARCH_TO_SELECT", $contactsearch, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
@@ -107,7 +107,7 @@ if ($action == 'updateoptions') {
 
 	if (GETPOSTISSET('THIRDPARTY_CUSTOMERTYPE_BY_DEFAULT')) {
 		$customertypedefault = GETPOSTINT('defaultcustomertype');
-		$res = dolibarr_set_const($db, "THIRDPARTY_CUSTOMERTYPE_BY_DEFAULT", $customertypedefault, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "THIRDPARTY_CUSTOMERTYPE_BY_DEFAULT", $customertypedefault, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
@@ -120,7 +120,7 @@ if ($action == 'updateoptions') {
 
 	if (GETPOSTISARRAY('CONTACTS_DEFAULT_ROLES')) {
 		$rolessearch = GETPOST('activate_CONTACTS_DEFAULT_ROLES', 'array:aZ09');
-		$res = dolibarr_set_const($db, "CONTACTS_DEFAULT_ROLES", implode(',', $rolessearch), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "CONTACTS_DEFAULT_ROLES", implode(',', $rolessearch), 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
@@ -139,7 +139,7 @@ if ($action == 'set') {
 
 	$type = 'company';
 	$sql = "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity, libelle, description)";
-	$sql .= " VALUES ('".$db->escape($value)."', '".$db->escape($type)."', ".((int) $conf->entity).", ";
+	$sql .= " VALUES ('".$db->escape($value)."', '".$db->escape($type)."', ".((int) $config->entity).", ";
 	$sql .= ($label ? "'".$db->escape($label)."'" : 'null').", ";
 	$sql .= (!empty($scandir) ? "'".$db->escape($scandir)."'" : "null");
 	$sql .= ")";
@@ -154,7 +154,7 @@ if ($action == 'set') {
 if ($action == 'del') {
 	$type = 'company';
 	$sql = "DELETE FROM ".MAIN_DB_PREFIX."document_model";
-	$sql .= " WHERE nom='".$db->escape($value)."' AND type='".$db->escape($type)."' AND entity=".((int) $conf->entity);
+	$sql .= " WHERE nom='".$db->escape($value)."' AND type='".$db->escape($type)."' AND entity=".((int) $config->entity);
 	$resql = $db->query($sql);
 	if (!$resql) {
 		dol_print_error($db);
@@ -168,19 +168,19 @@ if ($action == 'setdoc') {
 
 	$db->begin();
 
-	dolibarr_set_const($db, "COMPANY_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "COMPANY_ADDON_PDF", $value, 'chaine', 0, '', $config->entity);
 
 	// On active le modele
 	$type = 'company';
 	$sql_del = "DELETE FROM ".MAIN_DB_PREFIX."document_model";
 	$sql_del .= " WHERE nom = '".$db->escape(GETPOST('value', 'alpha'))."'";
 	$sql_del .= " AND type = '".$db->escape($type)."'";
-	$sql_del .= " AND entity = ".((int) $conf->entity);
+	$sql_del .= " AND entity = ".((int) $config->entity);
 	dol_syslog("societe.php ".$sql);
 	$result1 = $db->query($sql_del);
 
 	$sql = "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity, libelle, description)";
-	$sql .= " VALUES ('".$db->escape($value)."', '".$db->escape($type)."', ".((int) $conf->entity).", ";
+	$sql .= " VALUES ('".$db->escape($value)."', '".$db->escape($type)."', ".((int) $config->entity).", ";
 	$sql .= ($label ? "'".$db->escape($label)."'" : 'null').", ";
 	$sql .= (!empty($scandir) ? "'".$db->escape($scandir)."'" : "null");
 	$sql .= ")";
@@ -196,7 +196,7 @@ if ($action == 'setdoc') {
 //Activate Set accountancy code customer invoice mandatory
 if ($action == "setaccountancycodecustomerinvoicemandatory") {
 	$setaccountancycodecustomerinvoicemandatory = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "SOCIETE_ACCOUNTANCY_CODE_CUSTOMER_INVOICE_MANDATORY", $setaccountancycodecustomerinvoicemandatory, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "SOCIETE_ACCOUNTANCY_CODE_CUSTOMER_INVOICE_MANDATORY", $setaccountancycodecustomerinvoicemandatory, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -210,7 +210,7 @@ if ($action == "setaccountancycodecustomerinvoicemandatory") {
 //Activate Set vat id unique
 if ($action == "setvatintraunique") {
 	$setvatintraunique = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "SOCIETE_VAT_INTRA_UNIQUE", $setvatintraunique, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "SOCIETE_VAT_INTRA_UNIQUE", $setvatintraunique, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -225,7 +225,7 @@ if ($action == "setvatintraunique") {
 //Activate Set ref in list
 if ($action == "setaddrefinlist") {
 	$setaddrefinlist = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "SOCIETE_ADD_REF_IN_LIST", $setaddrefinlist, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "SOCIETE_ADD_REF_IN_LIST", $setaddrefinlist, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -239,7 +239,7 @@ if ($action == "setaddrefinlist") {
 //Activate Set vat in list
 if ($action == "setvatinlist") {
 	$setvatinlist = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "SOCIETE_SHOW_VAT_IN_LIST", $setvatinlist, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "SOCIETE_SHOW_VAT_IN_LIST", $setvatinlist, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -253,7 +253,7 @@ if ($action == "setvatinlist") {
 //Activate Set address in list
 if ($action == "setaddadressinlist") {
 	$val = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "COMPANY_SHOW_ADDRESS_SELECTLIST", $val, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "COMPANY_SHOW_ADDRESS_SELECTLIST", $val, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -267,7 +267,7 @@ if ($action == "setaddadressinlist") {
 //Activate Set email phone town in contact list
 if ($action == "setaddemailphonetownincontactlist") {
 	$val = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "CONTACT_SHOW_EMAIL_PHONE_TOWN_SELECTLIST", $val, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "CONTACT_SHOW_EMAIL_PHONE_TOWN_SELECTLIST", $val, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -281,7 +281,7 @@ if ($action == "setaddemailphonetownincontactlist") {
 //Activate Ask For Preferred Shipping Method
 if ($action == "setaskforshippingmet") {
 	$setaskforshippingmet = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "SOCIETE_ASK_FOR_SHIPPING_METHOD", $setaskforshippingmet, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "SOCIETE_ASK_FOR_SHIPPING_METHOD", $setaskforshippingmet, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -295,7 +295,7 @@ if ($action == "setaskforshippingmet") {
 // Activate "Disable prospect/customer type"
 if ($action == "setdisableprospectcustomer") {
 	$setdisableprospectcustomer = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "SOCIETE_DISABLE_PROSPECTSCUSTOMERS", $setdisableprospectcustomer, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "SOCIETE_DISABLE_PROSPECTSCUSTOMERS", $setdisableprospectcustomer, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -311,7 +311,7 @@ if ($action == 'setprofid') {
 	$status = GETPOST('status', 'alpha');
 
 	$idprof = "SOCIETE_".$value."_UNIQUE";
-	$result = dolibarr_set_const($db, $idprof, $status, 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, $idprof, $status, 'chaine', 0, '', $config->entity);
 	if ($result <= 0) {
 		dol_print_error($db);
 	}
@@ -322,7 +322,7 @@ if ($action == 'setprofidmandatory') {
 	$status = GETPOST('status', 'alpha');
 
 	$idprof = "SOCIETE_".$value."_MANDATORY";
-	$result = dolibarr_set_const($db, $idprof, $status, 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, $idprof, $status, 'chaine', 0, '', $config->entity);
 	if ($result <= 0) {
 		dol_print_error($db);
 	}
@@ -333,7 +333,7 @@ if ($action == 'setprofidinvoicemandatory') {
 	$status = GETPOST('status', 'alpha');
 
 	$idprof = "SOCIETE_".$value."_INVOICE_MANDATORY";
-	$result = dolibarr_set_const($db, $idprof, $status, 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, $idprof, $status, 'chaine', 0, '', $config->entity);
 	if ($result <= 0) {
 		dol_print_error($db);
 	}
@@ -343,14 +343,14 @@ if ($action == 'setprofidinvoicemandatory') {
 if ($action == 'sethideinactivethirdparty') {
 	$status = GETPOST('status', 'alpha');
 
-	$result = dolibarr_set_const($db, "COMPANY_HIDE_INACTIVE_IN_COMBOBOX", $status, 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, "COMPANY_HIDE_INACTIVE_IN_COMBOBOX", $status, 'chaine', 0, '', $config->entity);
 	if ($result <= 0) {
 		dol_print_error($db);
 	}
 }
 if ($action == 'setonsearchandlistgooncustomerorsuppliercard') {
 	$setonsearchandlistgooncustomerorsuppliercard = GETPOSTINT('value');
-	$res = dolibarr_set_const($db, "SOCIETE_ON_SEARCH_AND_LIST_GO_ON_CUSTOMER_OR_SUPPLIER_CARD", $setonsearchandlistgooncustomerorsuppliercard, 'yesno', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "SOCIETE_ON_SEARCH_AND_LIST_GO_ON_CUSTOMER_OR_SUPPLIER_CARD", $setonsearchandlistgooncustomerorsuppliercard, 'yesno', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -381,8 +381,8 @@ $head = societe_admin_prepare_head();
 
 print dol_get_fiche_head($head, 'general', $langs->trans("ThirdParties"), -1, 'company');
 
-$dirsociete = array_merge(array('/core/modules/societe/'), $conf->modules_parts['societe']);
-foreach ($conf->modules_parts['models'] as $mo) {
+$dirsociete = array_merge(array('/core/modules/societe/'), $config->modules_parts['societe']);
+foreach ($config->modules_parts['models'] as $mo) {
 	$dirsociete[] = $mo.'core/modules/societe/'; //Add more models
 }
 
@@ -446,12 +446,12 @@ foreach ($arrayofmodules as $file => $modCodeTiers) {
 	print '<td>'.$modCodeTiers->info($langs).'</td>'."\n";
 	print '<td class="nowrap">'.$modCodeTiers->getExample($langs).'</td>'."\n";
 
-	if ($conf->global->SOCIETE_CODECLIENT_ADDON == "$file") {
+	if ($config->global->SOCIETE_CODECLIENT_ADDON == "$file") {
 		print '<td class="center">'."\n";
 		print img_picto($langs->trans("Activated"), 'switch_on');
 		print "</td>\n";
 	} else {
-		$disabled = (isModEnabled('multicompany') && ((is_object($mc) && !empty($mc->sharings['referent'])) && ($mc->sharings['referent'] != $conf->entity)));
+		$disabled = (isModEnabled('multicompany') && ((is_object($mc) && !empty($mc->sharings['referent'])) && ($mc->sharings['referent'] != $config->entity)));
 		print '<td class="center">';
 		if (!$disabled) {
 			print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setcodeclient&token='.newToken().'&value='.urlencode($file).'">';
@@ -528,7 +528,7 @@ foreach ($arrayofmodules as $file => $modCodeCompta) {
 	print '</td>';
 	print '<td class="nowrap">'.$modCodeCompta->getExample($langs)."</td>\n";
 
-	if ($conf->global->SOCIETE_CODECOMPTA_ADDON == "$file") {
+	if ($config->global->SOCIETE_CODECOMPTA_ADDON == "$file") {
 		print '<td class="center">';
 		print img_picto($langs->trans("Activated"), 'switch_on');
 		print '</td>';
@@ -558,7 +558,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = 'company'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;
@@ -626,7 +626,7 @@ foreach ($dirsociete as $dirroot) {
 					// Activate / Disable
 					if (in_array($name, $def)) {
 						print "<td class=\"center\">\n";
-						//if ($conf->global->COMPANY_ADDON_PDF != "$name")
+						//if ($config->global->COMPANY_ADDON_PDF != "$name")
 						//{
 						print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=del&token='.newToken().'&value='.urlencode($name).'&token='.newToken().'&scan_dir='.$module->scandir.'&label='.urlencode($module->name).'">';
 						print img_picto($langs->trans("Enabled"), 'switch_on');
@@ -733,9 +733,9 @@ foreach ($profid as $key => $val) {
 		$idprof_mandatory = 'SOCIETE_'.$key.'_MANDATORY';
 		$idprof_invoice_mandatory = 'SOCIETE_'.$key.'_INVOICE_MANDATORY';
 
-		$verif = !empty($conf->global->$idprof_unique);
-		$mandatory = !empty($conf->global->$idprof_mandatory);
-		$invoice_mandatory = !empty($conf->global->$idprof_invoice_mandatory);
+		$verif = !empty($config->global->$idprof_unique);
+		$mandatory = !empty($config->global->$idprof_mandatory);
+		$invoice_mandatory = !empty($config->global->$idprof_invoice_mandatory);
 
 		if ($verif) {
 			print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setprofid&token='.newToken().'&value='.$key.'&status=0">';
@@ -830,7 +830,7 @@ print '<td width="80">&nbsp;</td></tr>'."\n";
 
 print '<tr class="oddeven">';
 print '<td width="80%">'.$form->textwithpicto($langs->trans("DelaiedFullListToSelectCompany"), $langs->trans('UseSearchToSelectCompanyTooltip'), 1).' </td>';
-if (!$conf->use_javascript_ajax) {
+if (!$config->use_javascript_ajax) {
 	print '<td class="nowrap right" colspan="2">';
 	print $langs->trans("NotAvailableWhenAjaxDisabled");
 	print "</td>";
@@ -851,7 +851,7 @@ print '</tr>';
 
 print '<tr class="oddeven">';
 print '<td width="80%">'.$form->textwithpicto($langs->trans("DelaiedFullListToSelectContact"), $langs->trans('UseSearchToSelectContactTooltip'), 1).'</td>';
-if (!$conf->use_javascript_ajax) {
+if (!$config->use_javascript_ajax) {
 	print '<td class="nowrap right" colspan="2">';
 	print $langs->trans("NotAvailableWhenAjaxDisabled");
 	print "</td>";
@@ -976,7 +976,7 @@ if (!getDolGlobalString('SOCIETE_DISABLE_PROSPECTSCUSTOMERS')) {
 if (getDolGlobalString('THIRDPARTY_SUGGEST_ALSO_ADDRESS_CREATION')) {
 	print '<tr class="oddeven">';
 	print '<td width="80%">'.$langs->trans('ContactsDefaultRoles').'</td>';
-	if (!$conf->use_javascript_ajax) {
+	if (!$config->use_javascript_ajax) {
 		print '<td class="nowrap right" colspan="2">';
 		print $langs->trans("NotAvailableWhenAjaxDisabled");
 		print "</td>";

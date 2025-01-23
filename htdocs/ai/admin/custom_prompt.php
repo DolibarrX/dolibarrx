@@ -79,7 +79,7 @@ $item->defaultFieldValue = '';
 
 $setupnotempty += count($formSetup->items);
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 // List of AI features
 $arrayofaifeatures = array(
@@ -132,7 +132,7 @@ if ($action == 'update' && !$cancel && !$test) {
 	}
 
 	$newConfigurationsJson = json_encode($currentConfigurations, JSON_UNESCAPED_UNICODE);
-	$result = dolibarr_set_const($db, 'AI_CONFIGURATIONS_PROMPT', $newConfigurationsJson, 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, 'AI_CONFIGURATIONS_PROMPT', $newConfigurationsJson, 'chaine', 0, '', $config->entity);
 	if (!$error) {
 		if ($result) {
 			header("Location: ".$_SERVER['PHP_SELF']);
@@ -159,7 +159,7 @@ if ($action == 'updatePrompts' && !$test) {
 	];
 
 	$newConfigurationsJson = json_encode($currentConfigurations, JSON_UNESCAPED_UNICODE);
-	$result = dolibarr_set_const($db, 'AI_CONFIGURATIONS_PROMPT', $newConfigurationsJson, 'chaine', 0, '', $conf->entity);
+	$result = dolibarr_set_const($db, 'AI_CONFIGURATIONS_PROMPT', $newConfigurationsJson, 'chaine', 0, '', $config->entity);
 	if (!$error) {
 		$action = 'edit';
 		if ($result) {
@@ -183,7 +183,7 @@ if ($action == 'confirm_deleteproperty' && GETPOST('confirm') == 'yes') {
 		unset($currentConfigurations[$key]);
 
 		$newConfigurationsJson = json_encode($currentConfigurations, JSON_UNESCAPED_UNICODE);
-		$res = dolibarr_set_const($db, 'AI_CONFIGURATIONS_PROMPT', $newConfigurationsJson, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, 'AI_CONFIGURATIONS_PROMPT', $newConfigurationsJson, 'chaine', 0, '', $config->entity);
 		if ($res) {
 			header("Location: ".$_SERVER['PHP_SELF']);
 			setEventMessages($langs->trans("RecordDeleted"), null, 'mesgs');

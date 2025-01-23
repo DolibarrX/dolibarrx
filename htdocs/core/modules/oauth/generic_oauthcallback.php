@@ -345,7 +345,7 @@ if (!GETPOST('code') && !GETPOST('error')) {
 					if ($res > 0) {
 						$username = $tmpuser->login;
 
-						$_SESSION['genericoauth_receivedlogin'] = dol_hash($conf->file->instance_unique_id.$username, '0');
+						$_SESSION['genericoauth_receivedlogin'] = dol_hash($config->file->instance_unique_id.$username, '0');
 						dol_syslog('We set $_SESSION[\'genericoauth_receivedlogin\']='.$_SESSION['genericoauth_receivedlogin']);
 					} else {
 						$errormessage = "Failed to login using '.$genericstring.'. User with the Email '".$useremail."' was not found";

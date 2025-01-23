@@ -313,7 +313,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 
 	$sortfield = GETPOST('sortfield', 'aZ09comma');
 	$sortorder = GETPOST('sortorder', 'aZ09comma');
-	$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+	$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 	$page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
 	if (empty($page) || $page == -1) {
 		$page = 0;
@@ -586,7 +586,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 
 		// Count total nb of records
 		$nbtotalofrecords = '';
-		$result = $prodcustprice->fetchAllLog($sortorder, $sortfield, $conf->liste_limit, $offset, $filter);
+		$result = $prodcustprice->fetchAllLog($sortorder, $sortfield, $config->liste_limit, $offset, $filter);
 		if ($result < 0) {
 			setEventMessages($prodcustprice->error, $prodcustprice->errors, 'errors');
 		} else {
@@ -716,7 +716,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 			$nbtotalofrecords = $prodcustprice->fetchAll('', '', 0, 0, $filter);
 		}
 
-		$result = $prodcustprice->fetchAll($sortorder, $sortfield, $conf->liste_limit, $offset, $filter);
+		$result = $prodcustprice->fetchAll($sortorder, $sortfield, $config->liste_limit, $offset, $filter);
 		if ($result < 0) {
 			setEventMessages($prodcustprice->error, $prodcustprice->errors, 'errors');
 		}

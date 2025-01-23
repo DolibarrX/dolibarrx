@@ -243,10 +243,10 @@ $lastgroupbox = '';
 if ($permissiontoreadgroup) {
 	$sql = "SELECT g.rowid, g.nom as name, g.note, g.entity, g.datec";
 	$sql .= " FROM ".MAIN_DB_PREFIX."usergroup as g";
-	if (isModEnabled('multicompany') && $conf->entity == 1 && (getDolGlobalInt('MULTICOMPANY_TRANSVERSE_MODE') || ($user->admin && !$user->entity))) {
+	if (isModEnabled('multicompany') && $config->entity == 1 && (getDolGlobalInt('MULTICOMPANY_TRANSVERSE_MODE') || ($user->admin && !$user->entity))) {
 		$sql .= " WHERE g.entity IS NOT NULL";
 	} else {
-		$sql .= " WHERE g.entity IN (0, ".$conf->entity.")";
+		$sql .= " WHERE g.entity IN (0, ".$config->entity.")";
 	}
 	$sql .= $db->order("g.datec", "DESC");
 	$sql .= $db->plimit($max);

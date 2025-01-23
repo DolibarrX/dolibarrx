@@ -321,7 +321,7 @@ if ($id > 0 || !empty($ref)) {
 		$prods_arbo = $object->get_arbo_each_prod();
 
 		$tmpid = $id;
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			$nboflines = $prods_arbo;
 			$table_element_line = 'product_association';
 
@@ -456,7 +456,7 @@ if ($id > 0 || !empty($ref)) {
 					$total +=  $totalline;
 
 					print '<td class="right nowraponall">';
-					print($notdefined ? '' : ($value['nb'] > 1 ? $value['nb'].'x ' : '').'<span class="amount">'.price($unitline, 0, '', 0, 0, -1, $conf->currency)).'</span>';
+					print($notdefined ? '' : ($value['nb'] > 1 ? $value['nb'].'x ' : '').'<span class="amount">'.price($unitline, 0, '', 0, 0, -1, $config->currency)).'</span>';
 					print '</td>';
 
 					// Best selling price
@@ -470,7 +470,7 @@ if ($id > 0 || !empty($ref)) {
 					print '<td class="right" colspan="2">';
 					print($notdefined ? '' : ($value['nb'] > 1 ? $value['nb'].'x ' : ''));
 					if (is_numeric($pricesell)) {
-						print '<span class="amount">'.price($pricesell, 0, '', 0, 0, -1, $conf->currency).'</span>';
+						print '<span class="amount">'.price($pricesell, 0, '', 0, 0, -1, $config->currency).'</span>';
 					} else {
 						print '<span class="opacitymedium">'.$langs->trans($pricesell).'</span>';
 					}
@@ -577,7 +577,7 @@ if ($id > 0 || !empty($ref)) {
 			if ($atleastonenotdefined) {
 				print $langs->trans("Unknown").' ('.$langs->trans("SomeSubProductHaveNoPrices").')';
 			}
-			print($atleastonenotdefined ? '' : price($total, 0, '', 0, 0, -1, $conf->currency));
+			print($atleastonenotdefined ? '' : price($total, 0, '', 0, 0, -1, $config->currency));
 			print '</td>';
 
 			// Minimum selling price
@@ -589,7 +589,7 @@ if ($id > 0 || !empty($ref)) {
 			if ($atleastonenotdefined) {
 				print $langs->trans("Unknown").' ('.$langs->trans("SomeSubProductHaveNoPrices").')';
 			}
-			print($atleastonenotdefined ? '' : price($totalsell, 0, '', 0, 0, -1, $conf->currency));
+			print($atleastonenotdefined ? '' : price($totalsell, 0, '', 0, 0, -1, $config->currency));
 			print '</td>';
 
 			// Stock

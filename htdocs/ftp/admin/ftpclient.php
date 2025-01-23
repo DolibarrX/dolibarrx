@@ -92,21 +92,21 @@ if ($action == 'add' || GETPOST('modify', 'alpha')) {
 
 		$db->begin();
 
-		$result1 = dolibarr_set_const($db, "FTP_PORT_".$entry, GETPOST($ftp_port, 'alpha'), 'chaine', 0, '', $conf->entity);
+		$result1 = dolibarr_set_const($db, "FTP_PORT_".$entry, GETPOST($ftp_port, 'alpha'), 'chaine', 0, '', $config->entity);
 		if ($result1) {
-			$result2 = dolibarr_set_const($db, "FTP_SERVER_".$entry, GETPOST($ftp_server, 'alpha'), 'chaine', 0, '', $conf->entity);
+			$result2 = dolibarr_set_const($db, "FTP_SERVER_".$entry, GETPOST($ftp_server, 'alpha'), 'chaine', 0, '', $config->entity);
 		}
 		if ($result2) {
-			$result3 = dolibarr_set_const($db, "FTP_USER_".$entry, GETPOST($ftp_user, 'alpha'), 'chaine', 0, '', $conf->entity);
+			$result3 = dolibarr_set_const($db, "FTP_USER_".$entry, GETPOST($ftp_user, 'alpha'), 'chaine', 0, '', $config->entity);
 		}
 		if ($result3) {
-			$result4 = dolibarr_set_const($db, "FTP_PASSWORD_".$entry, GETPOST($ftp_password, 'alpha'), 'chaine', 0, '', $conf->entity);
+			$result4 = dolibarr_set_const($db, "FTP_PASSWORD_".$entry, GETPOST($ftp_password, 'alpha'), 'chaine', 0, '', $config->entity);
 		}
 		if ($result4) {
-			$result5 = dolibarr_set_const($db, "FTP_NAME_".$entry, GETPOST($ftp_name, 'alpha'), 'chaine', 0, '', $conf->entity);
+			$result5 = dolibarr_set_const($db, "FTP_NAME_".$entry, GETPOST($ftp_name, 'alpha'), 'chaine', 0, '', $config->entity);
 		}
 		if ($result5) {
-			$result6 = dolibarr_set_const($db, "FTP_PASSIVE_".$entry, GETPOST($ftp_passive, 'alpha'), 'chaine', 0, '', $conf->entity);
+			$result6 = dolibarr_set_const($db, "FTP_PASSIVE_".$entry, GETPOST($ftp_passive, 'alpha'), 'chaine', 0, '', $config->entity);
 		}
 
 		if ($result1 && $result2 && $result3 && $result4 && $result5 && $result6) {
@@ -124,21 +124,21 @@ if (GETPOST('delete', 'alpha')) {
 	if ($entry) {
 		$db->begin();
 
-		$result1 = dolibarr_del_const($db, "FTP_PORT_".$entry, $conf->entity);
+		$result1 = dolibarr_del_const($db, "FTP_PORT_".$entry, $config->entity);
 		if ($result1) {
-			$result2 = dolibarr_del_const($db, "FTP_SERVER_".$entry, $conf->entity);
+			$result2 = dolibarr_del_const($db, "FTP_SERVER_".$entry, $config->entity);
 		}
 		if ($result2) {
-			$result3 = dolibarr_del_const($db, "FTP_USER_".$entry, $conf->entity);
+			$result3 = dolibarr_del_const($db, "FTP_USER_".$entry, $config->entity);
 		}
 		if ($result3) {
-			$result4 = dolibarr_del_const($db, "FTP_PASSWORD_".$entry, $conf->entity);
+			$result4 = dolibarr_del_const($db, "FTP_PASSWORD_".$entry, $config->entity);
 		}
 		if ($result4) {
-			$result5 = dolibarr_del_const($db, "FTP_NAME_".$entry, $conf->entity);
+			$result5 = dolibarr_del_const($db, "FTP_NAME_".$entry, $config->entity);
 		}
 		if ($result4) {
-			$result6 = dolibarr_del_const($db, "FTP_PASSIVE_".$entry, $conf->entity);
+			$result6 = dolibarr_del_const($db, "FTP_PASSIVE_".$entry, $config->entity);
 		}
 
 		if ($result1 && $result2 && $result3 && $result4 && $result5 && $result6) {

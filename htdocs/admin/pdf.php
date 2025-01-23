@@ -68,141 +68,141 @@ if ($cancel) {
 
 if ($action == 'update') {
 	if (GETPOSTISSET('MAIN_PDF_FORMAT')) {
-		dolibarr_set_const($db, "MAIN_PDF_FORMAT", GETPOST("MAIN_PDF_FORMAT"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_FORMAT", GETPOST("MAIN_PDF_FORMAT"), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('MAIN_PDF_MARGIN_LEFT')) {
-		dolibarr_set_const($db, "MAIN_PDF_MARGIN_LEFT", GETPOST("MAIN_PDF_MARGIN_LEFT"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_MARGIN_LEFT", GETPOST("MAIN_PDF_MARGIN_LEFT"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PDF_MARGIN_RIGHT')) {
-		dolibarr_set_const($db, "MAIN_PDF_MARGIN_RIGHT", GETPOST("MAIN_PDF_MARGIN_RIGHT"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_MARGIN_RIGHT", GETPOST("MAIN_PDF_MARGIN_RIGHT"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PDF_MARGIN_TOP')) {
-		dolibarr_set_const($db, "MAIN_PDF_MARGIN_TOP", GETPOST("MAIN_PDF_MARGIN_TOP"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_MARGIN_TOP", GETPOST("MAIN_PDF_MARGIN_TOP"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PDF_MARGIN_BOTTOM')) {
-		dolibarr_set_const($db, "MAIN_PDF_MARGIN_BOTTOM", GETPOST("MAIN_PDF_MARGIN_BOTTOM"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_MARGIN_BOTTOM", GETPOST("MAIN_PDF_MARGIN_BOTTOM"), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('MAIN_PROFID1_IN_ADDRESS')) {
-		dolibarr_set_const($db, "MAIN_PROFID1_IN_ADDRESS", GETPOST("MAIN_PROFID1_IN_ADDRESS"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PROFID1_IN_ADDRESS", GETPOST("MAIN_PROFID1_IN_ADDRESS"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PROFID2_IN_ADDRESS')) {
-		dolibarr_set_const($db, "MAIN_PROFID2_IN_ADDRESS", GETPOST("MAIN_PROFID2_IN_ADDRESS"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PROFID2_IN_ADDRESS", GETPOST("MAIN_PROFID2_IN_ADDRESS"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PROFID3_IN_ADDRESS')) {
-		dolibarr_set_const($db, "MAIN_PROFID3_IN_ADDRESS", GETPOST("MAIN_PROFID3_IN_ADDRESS"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PROFID3_IN_ADDRESS", GETPOST("MAIN_PROFID3_IN_ADDRESS"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PROFID4_IN_ADDRESS')) {
-		dolibarr_set_const($db, "MAIN_PROFID4_IN_ADDRESS", GETPOST("MAIN_PROFID4_IN_ADDRESS"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PROFID4_IN_ADDRESS", GETPOST("MAIN_PROFID4_IN_ADDRESS"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PROFID5_IN_ADDRESS')) {
-		dolibarr_set_const($db, "MAIN_PROFID5_IN_ADDRESS", GETPOST("MAIN_PROFID5_IN_ADDRESS"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PROFID5_IN_ADDRESS", GETPOST("MAIN_PROFID5_IN_ADDRESS"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PROFID6_IN_ADDRESS')) {
-		dolibarr_set_const($db, "MAIN_PROFID6_IN_ADDRESS", GETPOST("MAIN_PROFID6_IN_ADDRESS"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PROFID6_IN_ADDRESS", GETPOST("MAIN_PROFID6_IN_ADDRESS"), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('MAIN_PDF_NO_SENDER_FRAME')) {
-		dolibarr_set_const($db, "MAIN_PDF_NO_SENDER_FRAME", GETPOST("MAIN_PDF_NO_SENDER_FRAME"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_NO_SENDER_FRAME", GETPOST("MAIN_PDF_NO_SENDER_FRAME"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PDF_NO_RECIPENT_FRAME')) {
-		dolibarr_set_const($db, "MAIN_PDF_NO_RECIPENT_FRAME", GETPOST("MAIN_PDF_NO_RECIPENT_FRAME"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_NO_RECIPENT_FRAME", GETPOST("MAIN_PDF_NO_RECIPENT_FRAME"), 'chaine', 0, '', $config->entity);
 	}
 
 	/*if (GETPOSTISSET('MAIN_PDF_HIDE_SENDER_NAME')) {
-		dolibarr_set_const($db, "MAIN_PDF_HIDE_SENDER_NAME", GETPOST("MAIN_PDF_HIDE_SENDER_NAME"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_HIDE_SENDER_NAME", GETPOST("MAIN_PDF_HIDE_SENDER_NAME"), 'chaine', 0, '', $config->entity);
 	}*/
 
 	if (GETPOSTISSET('MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT')) {
-		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT", GETPOST("MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT", GETPOST("MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT"), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('MAIN_TVAINTRA_NOT_IN_ADDRESS')) {
-		dolibarr_set_const($db, "MAIN_TVAINTRA_NOT_IN_ADDRESS", GETPOST("MAIN_TVAINTRA_NOT_IN_ADDRESS"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_TVAINTRA_NOT_IN_ADDRESS", GETPOST("MAIN_TVAINTRA_NOT_IN_ADDRESS"), 'chaine', 0, '', $config->entity);
 	}
 
 	if (isModEnabled('project')) {
 		if (GETPOST('PDF_SHOW_PROJECT_REF_OR_LABEL') == 'no') {
-			dolibarr_del_const($db, "PDF_SHOW_PROJECT", $conf->entity);
-			dolibarr_del_const($db, "PDF_SHOW_PROJECT_TITLE", $conf->entity);
+			dolibarr_del_const($db, "PDF_SHOW_PROJECT", $config->entity);
+			dolibarr_del_const($db, "PDF_SHOW_PROJECT_TITLE", $config->entity);
 		} elseif (GETPOST('PDF_SHOW_PROJECT_REF_OR_LABEL') == 'showprojectref') {
-			dolibarr_set_const($db, "PDF_SHOW_PROJECT", GETPOST("PDF_SHOW_PROJECT_REF_OR_LABEL"), 'chaine', 0, '', $conf->entity);
-			dolibarr_del_const($db, "PDF_SHOW_PROJECT_TITLE", $conf->entity);
+			dolibarr_set_const($db, "PDF_SHOW_PROJECT", GETPOST("PDF_SHOW_PROJECT_REF_OR_LABEL"), 'chaine', 0, '', $config->entity);
+			dolibarr_del_const($db, "PDF_SHOW_PROJECT_TITLE", $config->entity);
 		} elseif (GETPOST('PDF_SHOW_PROJECT_REF_OR_LABEL') == 'showprojectlabel') {
-			dolibarr_del_const($db, "PDF_SHOW_PROJECT", $conf->entity);
-			dolibarr_set_const($db, "PDF_SHOW_PROJECT_TITLE", GETPOST("PDF_SHOW_PROJECT_REF_OR_LABEL"), 'chaine', 0, '', $conf->entity);
+			dolibarr_del_const($db, "PDF_SHOW_PROJECT", $config->entity);
+			dolibarr_set_const($db, "PDF_SHOW_PROJECT_TITLE", GETPOST("PDF_SHOW_PROJECT_REF_OR_LABEL"), 'chaine', 0, '', $config->entity);
 		}
 	}
 
 	if (GETPOSTISSET('MAIN_GENERATE_DOCUMENTS_HIDE_DETAILS')) {
-		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_HIDE_DETAILS", GETPOST("MAIN_GENERATE_DOCUMENTS_HIDE_DETAILS"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_HIDE_DETAILS", GETPOST("MAIN_GENERATE_DOCUMENTS_HIDE_DETAILS"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_GENERATE_DOCUMENTS_HIDE_DESC')) {
-		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_HIDE_DESC", GETPOST("MAIN_GENERATE_DOCUMENTS_HIDE_DESC"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_HIDE_DESC", GETPOST("MAIN_GENERATE_DOCUMENTS_HIDE_DESC"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_GENERATE_DOCUMENTS_HIDE_REF')) {
-		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_HIDE_REF", GETPOST("MAIN_GENERATE_DOCUMENTS_HIDE_REF"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_HIDE_REF", GETPOST("MAIN_GENERATE_DOCUMENTS_HIDE_REF"), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('MAIN_GENERATE_DOCUMENTS_SHOW_PRODUCT_BARCODE')) {
-		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_SHOW_PRODUCT_BARCODE", GETPOST("MAIN_GENERATE_DOCUMENTS_SHOW_PRODUCT_BARCODE"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_SHOW_PRODUCT_BARCODE", GETPOST("MAIN_GENERATE_DOCUMENTS_SHOW_PRODUCT_BARCODE"), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('MAIN_DOCUMENTS_LOGO_HEIGHT')) {
-		dolibarr_set_const($db, "MAIN_DOCUMENTS_LOGO_HEIGHT", GETPOSTINT("MAIN_DOCUMENTS_LOGO_HEIGHT"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_DOCUMENTS_LOGO_HEIGHT", GETPOSTINT("MAIN_DOCUMENTS_LOGO_HEIGHT"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PDF_FRAME_CORNER_RADIUS')) {
-		dolibarr_set_const($db, "MAIN_PDF_FRAME_CORNER_RADIUS", GETPOSTINT("MAIN_PDF_FRAME_CORNER_RADIUS"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_FRAME_CORNER_RADIUS", GETPOSTINT("MAIN_PDF_FRAME_CORNER_RADIUS"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_INVERT_SENDER_RECIPIENT')) {
-		dolibarr_set_const($db, "MAIN_INVERT_SENDER_RECIPIENT", GETPOST("MAIN_INVERT_SENDER_RECIPIENT"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_INVERT_SENDER_RECIPIENT", GETPOST("MAIN_INVERT_SENDER_RECIPIENT"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PDF_USE_ISO_LOCATION')) {
-		dolibarr_set_const($db, "MAIN_PDF_USE_ISO_LOCATION", GETPOST("MAIN_PDF_USE_ISO_LOCATION"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_USE_ISO_LOCATION", GETPOST("MAIN_PDF_USE_ISO_LOCATION"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PDF_NO_CUSTOMER_CODE')) {
-		dolibarr_set_const($db, "MAIN_PDF_NO_CUSTOMER_CODE", GETPOST("MAIN_PDF_NO_CUSTOMER_CODE"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_NO_CUSTOMER_CODE", GETPOST("MAIN_PDF_NO_CUSTOMER_CODE"), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS')) {
-		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS", GETPOST("MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS", GETPOST("MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS"), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('MAIN_PDF_MAIN_HIDE_SECOND_TAX')) {
-		dolibarr_set_const($db, "MAIN_PDF_MAIN_HIDE_SECOND_TAX", GETPOST("MAIN_PDF_MAIN_HIDE_SECOND_TAX"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_MAIN_HIDE_SECOND_TAX", GETPOST("MAIN_PDF_MAIN_HIDE_SECOND_TAX"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PDF_MAIN_HIDE_THIRD_TAX')) {
-		dolibarr_set_const($db, "MAIN_PDF_MAIN_HIDE_THIRD_TAX", GETPOST("MAIN_PDF_MAIN_HIDE_THIRD_TAX"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_MAIN_HIDE_THIRD_TAX", GETPOST("MAIN_PDF_MAIN_HIDE_THIRD_TAX"), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('PDF_USE_ALSO_LANGUAGE_CODE')) {
-		dolibarr_set_const($db, "PDF_USE_ALSO_LANGUAGE_CODE", GETPOST('PDF_USE_ALSO_LANGUAGE_CODE', 'alpha'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "PDF_USE_ALSO_LANGUAGE_CODE", GETPOST('PDF_USE_ALSO_LANGUAGE_CODE', 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('SHOW_SUBPRODUCT_REF_IN_PDF')) {
-		dolibarr_set_const($db, "SHOW_SUBPRODUCT_REF_IN_PDF", GETPOST('SHOW_SUBPRODUCT_REF_IN_PDF', 'alpha'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "SHOW_SUBPRODUCT_REF_IN_PDF", GETPOST('SHOW_SUBPRODUCT_REF_IN_PDF', 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('PDF_SHOW_LINK_TO_ONLINE_PAYMENT')) {
-		dolibarr_set_const($db, "PDF_SHOW_LINK_TO_ONLINE_PAYMENT", GETPOST('PDF_SHOW_LINK_TO_ONLINE_PAYMENT', 'alpha'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "PDF_SHOW_LINK_TO_ONLINE_PAYMENT", GETPOST('PDF_SHOW_LINK_TO_ONLINE_PAYMENT', 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('DOC_SHOW_FIRST_SALES_REP')) {
-		dolibarr_set_const($db, "DOC_SHOW_FIRST_SALES_REP", GETPOST('DOC_SHOW_FIRST_SALES_REP', 'alpha'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "DOC_SHOW_FIRST_SALES_REP", GETPOST('DOC_SHOW_FIRST_SALES_REP', 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('PDF_INCLUDE_ALIAS_IN_THIRDPARTY_NAME')) {
-		dolibarr_set_const($db, "PDF_INCLUDE_ALIAS_IN_THIRDPARTY_NAME", GETPOST('PDF_INCLUDE_ALIAS_IN_THIRDPARTY_NAME', 'alpha'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "PDF_INCLUDE_ALIAS_IN_THIRDPARTY_NAME", GETPOST('PDF_INCLUDE_ALIAS_IN_THIRDPARTY_NAME', 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('PDF_USE_A')) {
-		dolibarr_set_const($db, "PDF_USE_A", GETPOST('PDF_USE_A', 'alpha'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "PDF_USE_A", GETPOST('PDF_USE_A', 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('PDF_BOLD_PRODUCT_LABEL')) {
-		dolibarr_set_const($db, "PDF_BOLD_PRODUCT_LABEL", GETPOST('PDF_BOLD_PRODUCT_LABEL', 'alpha'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "PDF_BOLD_PRODUCT_LABEL", GETPOST('PDF_BOLD_PRODUCT_LABEL', 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('PDF_BOLD_PRODUCT_REF_AND_PERIOD')) {
-		dolibarr_set_const($db, "PDF_BOLD_PRODUCT_REF_AND_PERIOD", GETPOST('PDF_BOLD_PRODUCT_REF_AND_PERIOD', 'alpha'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "PDF_BOLD_PRODUCT_REF_AND_PERIOD", GETPOST('PDF_BOLD_PRODUCT_REF_AND_PERIOD', 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 
 	setEventMessages($langs->trans("SetupSaved"), null, 'mesgs');
@@ -349,7 +349,7 @@ print '<tr class="liste_titre"><td class="">'.$langs->trans("Parameter").'</td><
 
 /* Set option as hidden because no need of this for 99.99% of users. Having it as hidden feature is enough.
 print '<tr class="oddeven"><td>'.$langs->trans("MAIN_PDF_HIDE_SENDER_NAME").'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_PDF_HIDE_SENDER_NAME');
 } else {
 	print $form->selectyesno('MAIN_PDF_HIDE_SENDER_NAME', getDolGlobalInt('MAIN_PDF_HIDE_SENDER_NAME'), 1);
@@ -360,7 +360,7 @@ print '</td></tr>';
 // Hide VAT Intra on address
 
 print '<tr class="oddeven"><td>'.$langs->trans("ShowVATIntaInAddress").' - <span class="opacitymedium">'.$langs->trans("ThirdPartyAddress").'</span></td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_TVAINTRA_NOT_IN_ADDRESS');
 } else {
 	print $form->selectyesno('MAIN_TVAINTRA_NOT_IN_ADDRESS', getDolGlobalInt('MAIN_TVAINTRA_NOT_IN_ADDRESS'), 1);
@@ -380,7 +380,7 @@ for ($i = 1; $i <= 6; $i++) {
 	if ($pid) {
 		print '<tr class="oddeven"><td>'.$langs->trans("ShowProfIdInAddress").' - '.$pid.' - <span class="opacitymedium">'.$langs->trans("ThirdPartyAddress").'</span></td><td>';
 		$keyforconstant = 'MAIN_PROFID'.$i.'_IN_ADDRESS';
-		if ($conf->use_javascript_ajax) {
+		if ($config->use_javascript_ajax) {
 			print ajax_constantonoff($keyforconstant);
 		} else {
 			print $form->selectyesno($keyforconstant, getDolGlobalString($keyforconstant, 0), 1, $noCountryCode);
@@ -391,7 +391,7 @@ for ($i = 1; $i <= 6; $i++) {
 
 print '<tr class="oddeven"><td>'.$langs->trans("ShowLegalFormInAddress").' - <span class="opacitymedium">'.$langs->trans("ThirdPartyAddress").'</span></td><td>';
 $keyforconstant = 'MAIN_LEGALFORM_IN_ADDRESS';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff($keyforconstant);
 } else {
 	print $form->selectyesno($keyforconstant, getDolGlobalString($keyforconstant, 0), 1, $noCountryCode);
@@ -402,7 +402,7 @@ print '</td></tr>';
 // Borders on address frame
 
 print '<tr class="oddeven"><td>'.$langs->trans("MAIN_PDF_NO_SENDER_FRAME").'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_PDF_NO_SENDER_FRAME');
 } else {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -411,7 +411,7 @@ if ($conf->use_javascript_ajax) {
 print '</td></tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans("MAIN_PDF_NO_RECIPENT_FRAME").'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_PDF_NO_RECIPENT_FRAME');
 } else {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -422,7 +422,7 @@ print '</td></tr>';
 //Invert sender and recipient
 
 print '<tr class="oddeven"><td>'.$langs->trans("SwapSenderAndRecipientOnPDF").'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_INVERT_SENDER_RECIPIENT');
 } else {
 	print $form->selectyesno('MAIN_INVERT_SENDER_RECIPIENT', getDolGlobalInt('MAIN_INVERT_SENDER_RECIPIENT'), 1);
@@ -432,7 +432,7 @@ print '</td></tr>';
 // Place customer address to the ISO location
 
 print '<tr class="oddeven"><td>'.$langs->trans("PlaceCustomerAddressToIsoLocation").'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_PDF_USE_ISO_LOCATION');
 } else {
 	print $form->selectyesno('MAIN_PDF_USE_ISO_LOCATION', getDolGlobalInt('MAIN_PDF_USE_ISO_LOCATION'), 1);
@@ -441,7 +441,7 @@ print '</td></tr>';
 
 // Show alias in thirdparty name
 print '<tr class="oddeven"><td>'.$langs->trans("PDF_INCLUDE_ALIAS_IN_THIRDPARTY_NAME").'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("THIRDPARTY_ALIAS"), '2' => $langs->trans("ALIAS_THIRDPARTY"));
 	print $form->selectarray("PDF_INCLUDE_ALIAS_IN_THIRDPARTY_NAME", $arrval, getDolGlobalInt('PDF_INCLUDE_ALIAS_IN_THIRDPARTY_NAME'));
 }
@@ -460,7 +460,7 @@ if ($mysoc->useLocalTax(1) || $mysoc->useLocalTax(2)) {
 	if ($mysoc->useLocalTax(1)) {
 		$locales = $langs->transcountry("LT1", $mysoc->country_code);
 		$text = '<tr class="oddeven"><td class="titlefieldmiddle">'.$langs->trans("HideLocalTaxOnPDF", $langs->transcountry("LT1", $mysoc->country_code)).'</td><td>';
-		if ($conf->use_javascript_ajax) {
+		if ($config->use_javascript_ajax) {
 			$text .= ajax_constantonoff('MAIN_PDF_MAIN_HIDE_SECOND_TAX');
 		} else {
 			$text .= $form->selectyesno('MAIN_PDF_MAIN_HIDE_SECOND_TAX', getDolGlobalInt('MAIN_PDF_MAIN_HIDE_SECOND_TAX'), 1);
@@ -472,7 +472,7 @@ if ($mysoc->useLocalTax(1) || $mysoc->useLocalTax(2)) {
 		$locales .= ($locales ? ' & ' : '').$langs->transcountry("LT2", $mysoc->country_code);
 
 		$text .= '<tr class="oddeven"><td class="titlefieldmiddle">'.$langs->trans("HideLocalTaxOnPDF", $langs->transcountry("LT2", $mysoc->country_code)).'</td><td>';
-		if ($conf->use_javascript_ajax) {
+		if ($config->use_javascript_ajax) {
 			$text .= ajax_constantonoff('MAIN_PDF_MAIN_HIDE_THIRD_TAX');
 		} else {
 			$text .= $form->selectyesno('MAIN_PDF_MAIN_HIDE_THIRD_TAX', getDolGlobalInt('MAIN_PDF_MAIN_HIDE_THIRD_TAX'), 1);
@@ -495,7 +495,7 @@ print '<tr class="liste_titre"><td>'.$langs->trans("Parameter").'</td><td></td><
 // Hide any information on Sale tax / VAT
 
 print '<tr class="oddeven"><td>'.$langs->trans("HideAnyVATInformationOnPDF").'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT');
 } else {
 	print $form->selectyesno('MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT', getDolGlobalInt('MAIN_GENERATE_DOCUMENTS_WITHOUT_VAT'), 1);
@@ -551,7 +551,7 @@ if (isModEnabled('project')) {
 // Hide customer code
 print '<tr class="oddeven"><td>'.$langs->trans("MAIN_PDF_HIDE_CUSTOMER_CODE");
 print '</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_PDF_HIDE_CUSTOMER_CODE');
 } else {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -562,7 +562,7 @@ print '</td></tr>';
 // Hide accounting customer code
 print '<tr class="oddeven"><td>'.$langs->trans("MAIN_PDF_HIDE_CUSTOMER_ACCOUNTING_CODE");
 print '</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_PDF_HIDE_CUSTOMER_ACCOUNTING_CODE');
 } else {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -572,7 +572,7 @@ print '</td></tr>';
 
 // Hide Ref
 print '<tr class="oddeven"><td>'.$langs->trans("HideRefOnPDF").'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_GENERATE_DOCUMENTS_HIDE_REF');
 } else {
 	print $form->selectyesno('MAIN_GENERATE_DOCUMENTS_HIDE_REF', getDolGlobalInt('MAIN_GENERATE_DOCUMENTS_HIDE_REF'), 1);
@@ -583,7 +583,7 @@ print '</td></tr>';
 
 if (isModEnabled('barcode')) {
 	print '<tr class="oddeven"><td>'.$langs->trans("ShowProductBarcodeOnPDF").'</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_GENERATE_DOCUMENTS_SHOW_PRODUCT_BARCODE');
 	} else {
 		print $form->selectyesno('MAIN_GENERATE_DOCUMENTS_SHOW_PRODUCT_BARCODE', getDolGlobalInt('MAIN_GENERATE_DOCUMENTS_SHOW_PRODUCT_BARCODE'), 1);
@@ -594,7 +594,7 @@ if (isModEnabled('barcode')) {
 // Desc
 
 print '<tr class="oddeven"><td>'.$langs->trans("HideDescOnPDF").'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_GENERATE_DOCUMENTS_HIDE_DESC');
 } else {
 	print $form->selectyesno('MAIN_GENERATE_DOCUMENTS_HIDE_DESC', getDolGlobalInt('MAIN_GENERATE_DOCUMENTS_HIDE_DESC'), 1);
@@ -604,7 +604,7 @@ print '</td></tr>';
 // Details
 
 print '<tr class="oddeven"><td>'.$langs->trans("HideDetailsOnPDF").'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_GENERATE_DOCUMENTS_HIDE_DETAILS');
 } else {
 	print $form->selectyesno('MAIN_GENERATE_DOCUMENTS_HIDE_DETAILS', getDolGlobalInt('MAIN_GENERATE_DOCUMENTS_HIDE_DETAILS'), 1);
@@ -614,7 +614,7 @@ print '</td></tr>';
 // Switch in Bold
 
 print '<tr class="oddeven"><td>'.$langs->trans("BoldLabelOnPDF").'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('PDF_BOLD_PRODUCT_LABEL');
 } else {
 	print $form->selectyesno('PDF_BOLD_PRODUCT_LABEL', getDolGlobalInt('PDF_BOLD_PRODUCT_LABEL'), 1);
@@ -624,7 +624,7 @@ print '</td></tr>';
 // Switch in Bold
 
 print '<tr class="oddeven"><td>'.$langs->trans("BoldRefAndPeriodOnPDF").'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('PDF_BOLD_PRODUCT_REF_AND_PERIOD');
 } else {
 	print $form->selectyesno('PDF_BOLD_PRODUCT_REF_AND_PERIOD', getDolGlobalInt('PDF_BOLD_PRODUCT_REF_AND_PERIOD'), 1);
@@ -634,7 +634,7 @@ print '</td></tr>';
 // SHOW_SUBPRODUCT_REF_IN_PDF - Option to show the detail of product ref for kits.
 
 print '<tr class="oddeven"><td>'.$langs->trans("SHOW_SUBPRODUCT_REF_IN_PDF", $langs->transnoentitiesnoconv("AssociatedProductsAbility"), $langs->transnoentitiesnoconv("Products")).'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('SHOW_SUBPRODUCT_REF_IN_PDF');
 } else {
 	print $form->selectyesno('SHOW_SUBPRODUCT_REF_IN_PDF', getDolGlobalInt('SHOW_SUBPRODUCT_REF_IN_PDF'), 1);
@@ -652,7 +652,7 @@ print '</td></tr>';
 print '<tr class="oddeven"><td>'.$langs->trans("DOC_SHOW_FIRST_SALES_REP");
 print ' <span class="opacitymedium">('.$langs->trans("SalesRepresentativeInfo").')</span>';
 print '</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('DOC_SHOW_FIRST_SALES_REP');
 } else {
 	$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -662,7 +662,7 @@ if ($conf->use_javascript_ajax) {
 // Show online payment link on invoices
 
 print '<tr class="oddeven"><td>'.$langs->trans("PDF_SHOW_LINK_TO_ONLINE_PAYMENT").'</td><td>';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('PDF_SHOW_LINK_TO_ONLINE_PAYMENT');
 } else {
 	print $form->selectyesno('PDF_SHOW_LINK_TO_ONLINE_PAYMENT', getDolGlobalInt('PDF_SHOW_LINK_TO_ONLINE_PAYMENT'), 1);

@@ -238,7 +238,7 @@ class pdf_paiement extends CommonDocGenerator
 				break;
 		}
 		$sql .= " WHERE p.datep BETWEEN '".$this->db->idate(dol_get_first_day((int) $year, (int) $month))."' AND '".$this->db->idate(dol_get_last_day((int) $year, (int) $month))."'";
-		$sql .= " AND p.entity = ".$conf->entity;
+		$sql .= " AND p.entity = ".$config->entity;
 		$result = $this->db->query($sql);
 		if ($result) {
 			$numpaiement = $this->db->num_rows($result);

@@ -523,7 +523,7 @@ class PaymentVarious extends CommonObject
 		$sql .= ", ".((int) $user->id);
 		$sql .= ", '".$this->db->idate($now)."'";
 		$sql .= ", NULL";	// Filled later
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ")";
 
 		dol_syslog(get_class($this)."::create", LOG_DEBUG);
@@ -697,7 +697,7 @@ class PaymentVarious extends CommonObject
 		global $db, $conf, $langs, $hookManager;
 		global $langs;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

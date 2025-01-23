@@ -472,7 +472,7 @@ class DataPolicyCron
 		foreach ($arrayofparameters as $key => $params) {
 			if (getDolGlobalInt($key) > 0) {
 				// @phan-suppress-next-line PhanPluginPrintfVariableFormatString
-				$sql = sprintf($params['sql'], (int) $conf->entity, (int) getDolGlobalInt($key), (int) getDolGlobalInt($key));
+				$sql = sprintf($params['sql'], (int) $config->entity, (int) getDolGlobalInt($key), (int) getDolGlobalInt($key));
 
 				$resql = $this->db->query($sql);
 

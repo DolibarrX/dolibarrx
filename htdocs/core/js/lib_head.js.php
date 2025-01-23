@@ -180,7 +180,7 @@ jQuery(function($){
 		dayNamesMin: tradDaysMin,
 		weekHeader: '<?php echo $langs->trans("Week"); ?>',
 		dateFormat: '<?php echo $langs->trans("FormatDateShortJQuery"); ?>',	/* Note dd/mm/yy means year on 4 digit in jquery format */
-		firstDay: <?php echo(isset($conf->global->MAIN_START_WEEK) ? $conf->global->MAIN_START_WEEK : '1'); ?>,
+		firstDay: <?php echo(isset($config->global->MAIN_START_WEEK) ? $config->global->MAIN_START_WEEK : '1'); ?>,
 		isRTL: <?php echo($langs->trans("DIRECTION") == 'rtl' ? 'true' : 'false'); ?>,
 		showMonthAfterYear: false,  	/* TODO add specific to country	*/
 		 yearSuffix: ''			/* TODO add specific to country */
@@ -1341,7 +1341,7 @@ function pricejs(amount, mode = 'MT', currency_code = '', force_locale = '') {
 	var amountAsLocalizedString;
 	var useIntl = Boolean(Intl && Intl.NumberFormat);
 	var nDigits;
-	if (currency_code === 'auto') currency_code = <?php echo json_encode($conf->currency) ?>;
+	if (currency_code === 'auto') currency_code = <?php echo json_encode($config->currency) ?>;
 
 	if (mode === 'MU') nDigits = main_rounding_unit;
 	else if (mode === 'MT') nDigits = main_rounding_tot;

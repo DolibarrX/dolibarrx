@@ -270,7 +270,7 @@ class doc_generic_proposal_odt extends ModelePDFPropales
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills"));
 
-		if ($conf->propal->multidir_output[$conf->entity]) {
+		if ($config->propal->multidir_output[$config->entity]) {
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
@@ -284,7 +284,7 @@ class doc_generic_proposal_odt extends ModelePDFPropales
 
 			$object->fetch_thirdparty();
 
-			$dir = $conf->propal->multidir_output[$object->entity];
+			$dir = $config->propal->multidir_output[$object->entity];
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -322,11 +322,11 @@ class doc_generic_proposal_odt extends ModelePDFPropales
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->propal->dir_temp=".$conf->propal->dir_temp;
+				//print "conf->propal->dir_temp=".$config->propal->dir_temp;
 
-				dol_mkdir($conf->propal->multidir_temp[$object->entity]);
-				if (!is_writable($conf->propal->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->propal->dir_temp);
+				dol_mkdir($config->propal->multidir_temp[$object->entity]);
+				if (!is_writable($config->propal->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->propal->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -343,7 +343,7 @@ class doc_generic_proposal_odt extends ModelePDFPropales
 				$contactobject = null;
 				if (!empty($usecontact)) {
 					// We can use the company of contact instead of thirdparty company
-					if ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
+					if ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
 						$object->contact->fetch_thirdparty();
 						$socobject = $object->contact->thirdparty;
 						$contactobject = $object->contact;
@@ -381,7 +381,7 @@ class doc_generic_proposal_odt extends ModelePDFPropales
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $conf->propal->multidir_temp[$object->entity],
+							'PATH_TO_TMP'	  => $config->propal->multidir_temp[$object->entity],
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'

@@ -79,11 +79,11 @@ if (isset($action) && !empty($action)) {
 		// This part of code is same than into file index.php for action refreshmanual TODO Remove duplicate
 		clearstatcache();
 
-		$diroutputslash = str_replace('\\', '/', $conf->$element->dir_output);
+		$diroutputslash = str_replace('\\', '/', $config->$element->dir_output);
 		$diroutputslash .= '/';
 
 		// Scan directory tree on disk
-		$disktree = dol_dir_list($conf->$element->dir_output, 'directories', 1, '', array('^temp$'), '', 0, 0);
+		$disktree = dol_dir_list($config->$element->dir_output, 'directories', 1, '', array('^temp$'), '', 0, 0);
 
 		// Scan directory tree in database
 		$sqltree = $ecmdirstatic->get_full_arbo(0);
@@ -98,7 +98,7 @@ if (isset($action) && !empty($action)) {
 
 			$dirisindatabase = 0;
 			foreach ($sqltree as $dirsqldesc) {
-				if ($conf->$element->dir_output.'/'.$dirsqldesc['fullrelativename'] == $dirdesc['fullname']) {
+				if ($config->$element->dir_output.'/'.$dirsqldesc['fullrelativename'] == $dirdesc['fullname']) {
 					$dirisindatabase = 1;
 					break;
 				}
@@ -172,7 +172,7 @@ if (isset($action) && !empty($action)) {
 
 		// Loop now on each sql tree to check if dir exists
 		foreach ($sqltree as $dirdesc) {    // Loop on each sqltree to check dir is on disk
-			$dirtotest = $conf->$element->dir_output.'/'.$dirdesc['fullrelativename'];
+			$dirtotest = $config->$element->dir_output.'/'.$dirdesc['fullrelativename'];
 			if (!dol_is_dir($dirtotest)) {
 				dol_syslog($dirtotest." not found onto disk. We delete from database dir with id=".$dirdesc['id']);
 				$ecmdirtmp->id = $dirdesc['id'];

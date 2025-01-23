@@ -65,7 +65,7 @@ if ($action == 'update') {
 		foreach ($list_DEB as $constname) {
 			$constvalue = GETPOST($constname, 'alpha');
 
-			if (!dolibarr_set_const($db, $constname, $constvalue, 'chaine', 0, '', $conf->entity)) {
+			if (!dolibarr_set_const($db, $constname, $constvalue, 'chaine', 0, '', $config->entity)) {
 				$error++;
 			}
 		}
@@ -73,16 +73,16 @@ if ($action == 'update') {
 		foreach ($list_DES as $constname) {
 			$constvalue = GETPOST($constname, 'alpha');
 
-			if (!dolibarr_set_const($db, $constname, $constvalue, 'chaine', 0, '', $conf->entity)) {
+			if (!dolibarr_set_const($db, $constname, $constvalue, 'chaine', 0, '', $config->entity)) {
 				$error++;
 			}
 		}
 
-		dolibarr_set_const($db, "INTRACOMMREPORT_TYPE_ACTEUR", GETPOST("INTRACOMMREPORT_TYPE_ACTEUR", 'alpha'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "INTRACOMMREPORT_ROLE_ACTEUR", GETPOST("INTRACOMMREPORT_ROLE_ACTEUR", 'alpha'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "INTRACOMMREPORT_NIV_OBLIGATION_INTRODUCTION", GETPOST("INTRACOMMREPORT_NIV_OBLIGATION_INTRODUCTION", 'alpha'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "INTRACOMMREPORT_NIV_OBLIGATION_EXPEDITION", GETPOST("INTRACOMMREPORT_NIV_OBLIGATION_EXPEDITION", 'alpha'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "INTRACOMMREPORT_CATEG_FRAISDEPORT", GETPOST("INTRACOMMREPORT_CATEG_FRAISDEPORT", 'alpha'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "INTRACOMMREPORT_TYPE_ACTEUR", GETPOST("INTRACOMMREPORT_TYPE_ACTEUR", 'alpha'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "INTRACOMMREPORT_ROLE_ACTEUR", GETPOST("INTRACOMMREPORT_ROLE_ACTEUR", 'alpha'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "INTRACOMMREPORT_NIV_OBLIGATION_INTRODUCTION", GETPOST("INTRACOMMREPORT_NIV_OBLIGATION_INTRODUCTION", 'alpha'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "INTRACOMMREPORT_NIV_OBLIGATION_EXPEDITION", GETPOST("INTRACOMMREPORT_NIV_OBLIGATION_EXPEDITION", 'alpha'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "INTRACOMMREPORT_CATEG_FRAISDEPORT", GETPOST("INTRACOMMREPORT_CATEG_FRAISDEPORT", 'alpha'), 'chaine', 0, '', $config->entity);
 
 		if ($error) {
 			setEventMessages($langs->trans("Error"), null, 'errors');
@@ -141,7 +141,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("INTRACOMMREPORT_TYPE_ACTEUR").'</td>';
 $arraychoices = array('' => $langs->trans("None"), 'PSI' => 'Déclarant pour son compte', 'TDP' => 'Tiers déclarant');
 print '<td>';
-print $form->selectarray('INTRACOMMREPORT_TYPE_ACTEUR', $arraychoices, $conf->global->INTRACOMMREPORT_TYPE_ACTEUR, 0);
+print $form->selectarray('INTRACOMMREPORT_TYPE_ACTEUR', $arraychoices, $config->global->INTRACOMMREPORT_TYPE_ACTEUR, 0);
 print '</td>';
 print "</tr>\n";
 
@@ -149,7 +149,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("INTRACOMMREPORT_ROLE_ACTEUR").'</td>';
 $arraychoices = array('' => $langs->trans("None"), 'sender' => 'Emetteur', 'PSI' => 'Déclarant');
 print '<td>';
-print $form->selectarray('INTRACOMMREPORT_ROLE_ACTEUR', $arraychoices, $conf->global->INTRACOMMREPORT_ROLE_ACTEUR, 0);
+print $form->selectarray('INTRACOMMREPORT_ROLE_ACTEUR', $arraychoices, $config->global->INTRACOMMREPORT_ROLE_ACTEUR, 0);
 print '</td>';
 print "</tr>\n";
 
@@ -157,7 +157,7 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("INTRACOMMREPORT_NIV_OBLIGATION_INTRODUCTION").'</td>';
 $arraychoices = array(1 => 'Seuil de 460 000 €', 2 => 'En dessous de 460 000 €');
 print '<td>';
-print $form->selectarray('INTRACOMMREPORT_NIV_OBLIGATION_INTRODUCTION', $arraychoices, $conf->global->INTRACOMMREPORT_NIV_OBLIGATION_INTRODUCTION, 0);
+print $form->selectarray('INTRACOMMREPORT_NIV_OBLIGATION_INTRODUCTION', $arraychoices, $config->global->INTRACOMMREPORT_NIV_OBLIGATION_INTRODUCTION, 0);
 print '</td>';
 print "</tr>\n";
 
@@ -165,14 +165,14 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("INTRACOMMREPORT_NIV_OBLIGATION_EXPEDITION").'</td>';
 $arraychoices = array(3 => 'Seuil de 460 000 €', 4 => 'En dessous de 460 000 €');
 print '<td>';
-print $form->selectarray('INTRACOMMREPORT_NIV_OBLIGATION_EXPEDITION', $arraychoices, $conf->global->INTRACOMMREPORT_NIV_OBLIGATION_EXPEDITION, 0);
+print $form->selectarray('INTRACOMMREPORT_NIV_OBLIGATION_EXPEDITION', $arraychoices, $config->global->INTRACOMMREPORT_NIV_OBLIGATION_EXPEDITION, 0);
 print '</td>';
 print "</tr>\n";
 
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("INTRACOMMREPORT_CATEG_FRAISDEPORT").'</td>';
 print '<td>';
-print $formother->select_categories('product', $conf->global->INTRACOMMREPORT_CATEG_FRAISDEPORT, 'INTRACOMMREPORT_CATEG_FRAISDEPORT');
+print $formother->select_categories('product', $config->global->INTRACOMMREPORT_CATEG_FRAISDEPORT, 'INTRACOMMREPORT_CATEG_FRAISDEPORT');
 print '</td>';
 print "</tr>\n";
 

@@ -122,7 +122,7 @@ if (!empty($backtopagejsfields)) {
 // Initialize a technical objects
 $object = new MyObject($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->mymodule->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->mymodule->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($object->element.'card', 'globalcard')); // Note that conf->hooks_modules contains array
 $soc = null;
 
@@ -165,7 +165,7 @@ if ($enablepermissioncheck) {
 	$permissiondellink = 1;
 }
 
-$upload_dir = $conf->mymodule->multidir_output[isset($object->entity) ? $object->entity : 1].'/myobject';
+$upload_dir = $config->mymodule->multidir_output[isset($object->entity) ? $object->entity : 1].'/myobject';
 
 // Security check (enable the most restrictive one)
 //if ($user->socid > 0) accessforbidden();
@@ -361,7 +361,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	$formconfirm = '';
 
 	// Confirmation to delete (using preloaded confirm popup)
-	if ($action == 'delete' || ($conf->use_javascript_ajax && empty($conf->dol_use_jmobile))) {
+	if ($action == 'delete' || ($config->use_javascript_ajax && empty($config->dol_use_jmobile))) {
 		$formconfirm = $form->formconfirm($_SERVER["PHP_SELF"].'?id='.$object->id, $langs->trans('DeleteMyObject'), $langs->trans('ConfirmDeleteObject'), 'confirm_delete', '', 0, 'action-delete');
 	}
 	// Confirmation to delete line
@@ -391,7 +391,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 		/*
 		$forcecombo=0;
-		if ($conf->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
+		if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
 		$formquestion = array(
 			// 'text' => $langs->trans("ConfirmClone"),
 			// array('type' => 'checkbox', 'name' => 'clone_content', 'label' => $langs->trans("CloneMainAttributes"), 'value' => 1),
@@ -496,7 +496,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		<input type="hidden" name="id" value="' . $object->id.'">
 		';
 
-		if (!empty($conf->use_javascript_ajax) && $object->status == 0) {
+		if (!empty($config->use_javascript_ajax) && $object->status == 0) {
 			include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 		}
 
@@ -594,7 +594,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			// Delete (with preloaded confirm popup)
 			$deleteUrl = $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken();
 			$buttonId = 'action-delete-no-ajax';
-			if ($conf->use_javascript_ajax && empty($conf->dol_use_jmobile)) {	// We can use preloaded confirm if not jmobile
+			if ($config->use_javascript_ajax && empty($config->dol_use_jmobile)) {	// We can use preloaded confirm if not jmobile
 				$deleteUrl = '';
 				$buttonId = 'action-delete';
 			}
@@ -620,7 +620,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if ($includedocgeneration) {
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $conf->mymodule->dir_output.'/'.$object->element.'/'.$objref;
+			$filedir = $config->mymodule->dir_output.'/'.$object->element.'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $permissiontoread; // If you can read, you can build the PDF to read content
 			$delallowed = $permissiontoadd; // If you can create/edit, you can remove a file on card
@@ -665,7 +665,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Presend form
 	$modelmail = 'myobject';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->mymodule->dir_output;
+	$diroutput = $config->mymodule->dir_output;
 	$trackid = 'myobject'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

@@ -327,7 +327,7 @@ class Contrat extends CommonObject
 			$classname = getDolGlobalString('CONTRACT_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/contract/");
@@ -581,14 +581,14 @@ class Contrat extends CommonObject
 				if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 					// Now we rename also files into index
 					$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'contract/".$this->db->escape($this->newref)."'";
-					$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'contract/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+					$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'contract/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 					$resql = $this->db->query($sql);
 					if (!$resql) {
 						$error++;
 						$this->error = $this->db->lasterror();
 					}
 					$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'contract/".$this->db->escape($this->newref)."'";
-					$sql .= " WHERE filepath = 'contract/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+					$sql .= " WHERE filepath = 'contract/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 					$resql = $this->db->query($sql);
 					if (!$resql) {
 						$error++;
@@ -598,15 +598,15 @@ class Contrat extends CommonObject
 					// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 					$oldref = dol_sanitizeFileName($this->ref);
 					$newref = dol_sanitizeFileName($num);
-					$dirsource = $conf->contract->dir_output.'/'.$oldref;
-					$dirdest = $conf->contract->dir_output.'/'.$newref;
+					$dirsource = $config->contract->dir_output.'/'.$oldref;
+					$dirdest = $config->contract->dir_output.'/'.$newref;
 					if (!$error && file_exists($dirsource)) {
 						dol_syslog(get_class($this)."::validate rename dir ".$dirsource." into ".$dirdest);
 
 						if (@rename($dirsource, $dirdest)) {
 							dol_syslog("Rename ok");
 							// Rename docs starting with $oldref with $newref
-							$listoffiles = dol_dir_list($conf->contract->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+							$listoffiles = dol_dir_list($config->contract->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 							foreach ($listoffiles as $fileentry) {
 								$dirsource = $fileentry['name'];
 								$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -1063,7 +1063,7 @@ class Contrat extends CommonObject
 			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."contrat");
 
 			// Load object modContract
-			$module = (getDolGlobalString('CONTRACT_ADDON') ? $conf->global->CONTRACT_ADDON : 'mod_contract_serpis');
+			$module = (getDolGlobalString('CONTRACT_ADDON') ? $config->global->CONTRACT_ADDON : 'mod_contract_serpis');
 			if (substr($module, 0, 13) == 'mod_contract_' && substr($module, -3) == 'php') {
 				$module = substr($module, 0, dol_strlen($module) - 4);
 			}
@@ -1300,8 +1300,8 @@ class Contrat extends CommonObject
 		if (!$error) {
 			// We remove directory
 			$ref = dol_sanitizeFileName($this->ref);
-			if ($conf->contrat->dir_output) {
-				$dir = $conf->contrat->multidir_output[$this->entity]."/".$ref;
+			if ($config->contrat->dir_output) {
+				$dir = $config->contrat->multidir_output[$this->entity]."/".$ref;
 				if (file_exists($dir)) {
 					$res = @dol_delete_dir_recursive($dir);
 					if (!$res) {
@@ -1397,7 +1397,7 @@ class Contrat extends CommonObject
 		$sql .= " ref_customer=".(isset($this->ref_customer) ? "'".$this->db->escape($this->ref_customer)."'" : "null").",";
 		$sql .= " ref_supplier=".(isset($this->ref_supplier) ? "'".$this->db->escape($this->ref_supplier)."'" : "null").",";
 		$sql .= " ref_ext=".(isset($this->ref_ext) ? "'".$this->db->escape($this->ref_ext)."'" : "null").",";
-		$sql .= " entity=".((int) $conf->entity).",";
+		$sql .= " entity=".((int) $config->entity).",";
 		$sql .= " date_contrat=".(dol_strlen($this->date_contrat) != 0 ? "'".$this->db->idate($this->date_contrat)."'" : 'null').",";
 		$sql .= " statut=".(isset($this->statut) ? $this->statut : (isset($this->status) ? $this->status : "null")).",";
 		$sql .= " fk_soc=".($this->socid > 0 ? $this->socid : "null").",";
@@ -2074,13 +2074,13 @@ class Contrat extends CommonObject
 			}
 			$datas['refsupplier'] = '<br><b>'.$langs->trans('RefSupplier').':</b> '.$this->ref_supplier;
 			if (!empty($this->total_ht)) {
-				$datas['amountht'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['amountht'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->total_tva)) {
-				$datas['vatamount'] = '<br><b>'.$langs->trans('VAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['vatamount'] = '<br><b>'.$langs->trans('VAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->total_ttc)) {
-				$datas['amounttc'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['amounttc'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $config->currency);
 			}
 		}
 		return $datas;
@@ -2321,7 +2321,7 @@ class Contrat extends CommonObject
 			//$sql.= " AND cd.date_fin_validite < '".$this->db->idate($datetouse)."'";
 		}
 		$sql .= " AND c.fk_soc = s.rowid";
-		$sql .= " AND c.entity = ".((int) $conf->entity);
+		$sql .= " AND c.entity = ".((int) $config->entity);
 		if ($user->socid) {
 			$sql .= " AND c.fk_soc = ".((int) $user->socid);
 		}
@@ -2335,19 +2335,19 @@ class Contrat extends CommonObject
 			$now = dol_now();
 
 			if ($mode == 'inactive') {
-				$warning_delay = $conf->contract->services->inactifs->warning_delay;
+				$warning_delay = $config->contract->services->inactifs->warning_delay;
 				$label = $langs->trans("BoardNotActivatedServices");
 				$labelShort = $langs->trans("BoardNotActivatedServicesShort");
 				$url = DOL_URL_ROOT.'/contrat/services_list.php?mainmenu=commercial&leftmenu=contracts&search_status=0&sortfield=cd.date_fin_validite&sortorder=asc';
 				$url_late = DOL_URL_ROOT.'/contrat/services_list.php?mainmenu=commercial&leftmenu=contracts&search_status=0&search_option=late';
 			} elseif ($mode == 'active') {
-				$warning_delay = $conf->contract->services->expires->warning_delay;
+				$warning_delay = $config->contract->services->expires->warning_delay;
 				$url = DOL_URL_ROOT.'/contrat/services_list.php?mainmenu=commercial&leftmenu=contracts&search_status=4&filter=expired&sortfield=cd.date_fin_validite&sortorder=asc';
 				$url_late = DOL_URL_ROOT.'/contrat/services_list.php?mainmenu=commercial&leftmenu=contracts&search_status=4&search_option=late';
 				$label = $langs->trans("BoardExpiredServices");
 				$labelShort = $langs->trans("BoardExpiredServicesShort");
 			} else {
-				$warning_delay = $conf->contract->services->expires->warning_delay;
+				$warning_delay = $config->contract->services->expires->warning_delay;
 				$url = DOL_URL_ROOT.'/contrat/services_list.php?mainmenu=commercial&leftmenu=contracts&sortfield=cd.date_fin_validite&sortorder=asc';
 				$url_late = DOL_URL_ROOT.'/contrat/services_list.php?mainmenu=commercial&leftmenu=contracts&search_option=late';
 				$label = $langs->trans("BoardRunningServices");
@@ -2398,7 +2398,7 @@ class Contrat extends CommonObject
 			$sql .= " WHERE sc.fk_user = ".((int) $user->id);
 			$clause = "AND";
 		}
-		$sql .= " ".$clause." c.entity = ".$conf->entity;
+		$sql .= " ".$clause." c.entity = ".$config->entity;
 
 		$resql = $this->db->query($sql);
 		if ($resql) {

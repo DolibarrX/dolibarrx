@@ -166,10 +166,10 @@ $search_date_modif_end = dol_mktime(23, 59, 59, $search_date_modif_endmonth, $se
 $type = GETPOST('type', 'alpha');
 $place = GETPOST('place', 'aZ09') ? GETPOST('place', 'aZ09') : '0'; // $place is string id of table for Bar or Restaurant
 
-$diroutputmassaction = $conf->societe->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->societe->dir_output.'/temp/massgeneration/'.$user->id;
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -261,9 +261,9 @@ if (($tmp = $langs->transnoentities("ProfId6".$mysoc->country_code)) && $tmp != 
 if (isModEnabled('barcode')) {
 	$fieldstosearchall['s.barcode'] = 'Gencod';
 }
-// Personalized search criteria. Example: $conf->global->THIRDPARTY_QUICKSEARCH_ON_FIELDS = 's.nom=ThirdPartyName;s.name_alias=AliasNameShort;s.code_client=CustomerCode'
+// Personalized search criteria. Example: $config->global->THIRDPARTY_QUICKSEARCH_ON_FIELDS = 's.nom=ThirdPartyName;s.name_alias=AliasNameShort;s.code_client=CustomerCode'
 if (getDolGlobalString('THIRDPARTY_QUICKSEARCH_ON_FIELDS')) {
-	$fieldstosearchall = dolExplodeIntoArray($conf->global->THIRDPARTY_QUICKSEARCH_ON_FIELDS);
+	$fieldstosearchall = dolExplodeIntoArray($config->global->THIRDPARTY_QUICKSEARCH_ON_FIELDS);
 }
 
 
@@ -483,7 +483,7 @@ if (empty($reshook)) {
 	$permissiontoread = $user->hasRight('societe', 'lire');
 	$permissiontodelete = $user->hasRight('societe', 'supprimer');
 	$permissiontoadd = $user->hasRight("societe", "creer");
-	$uploaddir = $conf->societe->dir_output;
+	$uploaddir = $config->societe->dir_output;
 
 	global $error;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
@@ -936,7 +936,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -1425,7 +1425,7 @@ if (!empty($arrayfields['country.code_iso']['checked'])) {
 if (!empty($arrayfields['typent.code']['checked'])) {
 	print '<td class="liste_titre maxwidthonsmartphone center">';
 	// We use showempty=0 here because there is already an unknown value into dictionary.
-	print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $conf->global->SOCIETE_SORT_ON_TYPEENT), 'minwidth50 maxwidth125', 1);
+	print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $config->global->SOCIETE_SORT_ON_TYPEENT), 'minwidth50 maxwidth125', 1);
 	print '</td>';
 }
 // Multiprice level
@@ -2087,10 +2087,10 @@ while ($i < $imaxinloop) {
 		if (!empty($arrayfields['staff.code']['checked'])) {
 			print '<td class="center">';
 			if (!empty($obj->staff_code)) {
-				if (empty($conf->cache['staffArray'])) {
-					$conf->cache['staffArray'] = $formcompany->effectif_array(1);
+				if (empty($config->cache['staffArray'])) {
+					$config->cache['staffArray'] = $formcompany->effectif_array(1);
 				}
-				print $conf->cache['staffArray'][$obj->staff_code];
+				print $config->cache['staffArray'][$obj->staff_code];
 			}
 			print '</td>';
 			if (!$i) {
@@ -2101,10 +2101,10 @@ while ($i < $imaxinloop) {
 		if (!empty($arrayfields['legalform.code']['checked'])) {
 			$labeltoshow = '';
 			if (!empty($obj->legalform_code)) {
-				if (empty($conf->cache['legalformArray'][$obj->legalform_code])) {
-					$conf->cache['legalformArray'][$obj->legalform_code] = getFormeJuridiqueLabel($obj->legalform_code);
+				if (empty($config->cache['legalformArray'][$obj->legalform_code])) {
+					$config->cache['legalformArray'][$obj->legalform_code] = getFormeJuridiqueLabel($obj->legalform_code);
 				}
-				$labeltoshow = $conf->cache['legalformArray'][$obj->legalform_code];
+				$labeltoshow = $config->cache['legalformArray'][$obj->legalform_code];
 			}
 			print '<td class="center tdoverflowmax100" title="'.dol_escape_htmltag($labeltoshow).'">';
 			print dol_escape_htmltag($labeltoshow);

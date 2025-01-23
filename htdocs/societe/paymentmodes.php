@@ -538,14 +538,14 @@ if (empty($reshook)) {
 		$action = 'builddoc';
 		$moreparams = array(
 			'use_companybankid' => GETPOST('companybankid'),
-			'force_dir_output' => $conf->societe->multidir_output[$object->entity].'/'.dol_sanitizeFileName((string) $object->id)
+			'force_dir_output' => $config->societe->multidir_output[$object->entity].'/'.dol_sanitizeFileName((string) $object->id)
 		);
 		$_POST['lang_id'] = GETPOST('lang_idrib'.GETPOSTINT('companybankid'), 'alphanohtml');	// This is required by core/action_builddoc.inc.php
 		$_POST['model'] = GETPOST('modelrib'.GETPOSTINT('companybankid'), 'alphanohtml'); 		// This is required by core/action_builddoc.inc.php
 	}
 
 	$id = $socid;
-	$upload_dir = $conf->societe->multidir_output[$object->entity];
+	$upload_dir = $config->societe->multidir_output[$object->entity];
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 	$id = $savid;
@@ -665,10 +665,10 @@ if (empty($reshook)) {
 
 			if (empty($newcu)) {
 				$sql = "DELETE FROM ".MAIN_DB_PREFIX."societe_account";
-				$sql .= " WHERE site = 'stripe' AND (site_account IS NULL or site_account = '' or site_account = '".$db->escape($tmpsite_account)."') AND fk_soc = ".((int) $object->id)." AND status = ".((int) $tmpservicestatus)." AND entity = ".$conf->entity;
+				$sql .= " WHERE site = 'stripe' AND (site_account IS NULL or site_account = '' or site_account = '".$db->escape($tmpsite_account)."') AND fk_soc = ".((int) $object->id)." AND status = ".((int) $tmpservicestatus)." AND entity = ".$config->entity;
 			} else {
 				$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX."societe_account";
-				$sql .= " WHERE site = 'stripe' AND (site_account IS NULL or site_account = '' or site_account = '".$db->escape($tmpsite_account)."') AND fk_soc = ".((int) $object->id)." AND status = ".((int) $tmpservicestatus)." AND entity = ".$conf->entity; // Keep the = here for entity. Only 1 record must be modified !
+				$sql .= " WHERE site = 'stripe' AND (site_account IS NULL or site_account = '' or site_account = '".$db->escape($tmpsite_account)."') AND fk_soc = ".((int) $object->id)." AND status = ".((int) $tmpservicestatus)." AND entity = ".$config->entity; // Keep the = here for entity. Only 1 record must be modified !
 			}
 
 			$resql = $db->query($sql);
@@ -691,7 +691,7 @@ if (empty($reshook)) {
 				} else {
 					$sql = 'UPDATE '.MAIN_DB_PREFIX."societe_account";
 					$sql .= " SET key_account = '".$db->escape($newcu)."', site_account = '".$db->escape($tmpsite_account)."'";
-					$sql .= " WHERE site = 'stripe' AND (site_account IS NULL or site_account = '' or site_account = '".$db->escape($tmpsite_account)."') AND fk_soc = ".((int) $object->id)." AND status = ".((int) $tmpservicestatus)." AND entity = ".$conf->entity; // Keep = here for entity. Only 1 record must be modified !
+					$sql .= " WHERE site = 'stripe' AND (site_account IS NULL or site_account = '' or site_account = '".$db->escape($tmpsite_account)."') AND fk_soc = ".((int) $object->id)." AND status = ".((int) $tmpservicestatus)." AND entity = ".$config->entity; // Keep = here for entity. Only 1 record must be modified !
 					$resql = $db->query($sql);
 				}
 			}
@@ -733,9 +733,9 @@ if (empty($reshook)) {
 			$db->begin();
 
 			if (empty($newsup)) {
-				$sql = "DELETE FROM ".MAIN_DB_PREFIX."oauth_token WHERE fk_soc = ".((int) $object->id)." AND service = '".$db->escape($tmpservice)."' AND entity = ".((int) $conf->entity);
+				$sql = "DELETE FROM ".MAIN_DB_PREFIX."oauth_token WHERE fk_soc = ".((int) $object->id)." AND service = '".$db->escape($tmpservice)."' AND entity = ".((int) $config->entity);
 				// TODO Add site and site_account on oauth_token table
-				//$sql = "DELETE FROM ".MAIN_DB_PREFIX."oauth_token WHERE site = 'stripe' AND (site_account IS NULL or site_account = '".$db->escape($site_account)."') AND fk_soc = ".((int) $object->id)." AND service = '".$db->escape($service)."' AND entity = ".$conf->entity;
+				//$sql = "DELETE FROM ".MAIN_DB_PREFIX."oauth_token WHERE site = 'stripe' AND (site_account IS NULL or site_account = '".$db->escape($site_account)."') AND fk_soc = ".((int) $object->id)." AND service = '".$db->escape($service)."' AND entity = ".$config->entity;
 			} else {
 				try {
 					$stripesup = \Stripe\Account::retrieve($newsup);
@@ -744,9 +744,9 @@ if (empty($reshook)) {
 					$tokenstring['type'] = $stripesup->type;
 					$sql = "UPDATE ".MAIN_DB_PREFIX."oauth_token";
 					$sql .= " SET tokenstring = '".$db->escape(json_encode($tokenstring))."'";
-					$sql .= " WHERE site = 'stripe' AND (site_account IS NULL or site_account = '".$db->escape($tmpsite_account)."') AND fk_soc = ".((int) $object->id)." AND service = '".$db->escape($tmpservice)."' AND entity = ".$conf->entity; // Keep = here for entity. Only 1 record must be modified !
+					$sql .= " WHERE site = 'stripe' AND (site_account IS NULL or site_account = '".$db->escape($tmpsite_account)."') AND fk_soc = ".((int) $object->id)." AND service = '".$db->escape($tmpservice)."' AND entity = ".$config->entity; // Keep = here for entity. Only 1 record must be modified !
 					// TODO Add site and site_account on oauth_token table
-					$sql .= " WHERE fk_soc = ".$object->id." AND service = '".$db->escape($tmpservice)."' AND entity = ".$conf->entity; // Keep = here for entity. Only 1 record must be modified !
+					$sql .= " WHERE fk_soc = ".$object->id." AND service = '".$db->escape($tmpservice)."' AND entity = ".$config->entity; // Keep = here for entity. Only 1 record must be modified !
 				} catch (Exception $e) {
 					$error++;
 					setEventMessages($e->getMessage(), null, 'errors');
@@ -761,7 +761,7 @@ if (empty($reshook)) {
 					$tokenstring['stripe_user_id'] = $stripesup->id;
 					$tokenstring['type'] = $stripesup->type;
 					$sql = "INSERT INTO ".MAIN_DB_PREFIX."oauth_token (service, fk_soc, entity, tokenstring)";
-					$sql .= " VALUES ('".$db->escape($tmpservice)."', ".((int) $object->id).", ".((int) $conf->entity).", '".$db->escape(json_encode($tokenstring))."')";
+					$sql .= " VALUES ('".$db->escape($tmpservice)."', ".((int) $object->id).", ".((int) $config->entity).", '".$db->escape(json_encode($tokenstring))."')";
 					// TODO Add site and site_account on oauth_token table
 				} catch (Exception $e) {
 					$error++;
@@ -904,7 +904,7 @@ llxHeader('', $title, $help_url);
 $head = societe_prepare_head($object);
 
 // Show sandbox warning
-/*if (isModEnabled('paypal') && (!empty($conf->global->PAYPAL_API_SANDBOX) || GETPOST('forcesandbox','alpha')))		// We can force sand box with param 'forcesandbox'
+/*if (isModEnabled('paypal') && (!empty($config->global->PAYPAL_API_SANDBOX) || GETPOST('forcesandbox','alpha')))		// We can force sand box with param 'forcesandbox'
 {
 	dol_htmloutput_mesg($langs->trans('YouAreCurrentlyInSandboxMode', 'Paypal'), [], 'warning');
 }*/
@@ -1109,7 +1109,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 	}
 
 	// Stripe connect
-	if (isModEnabled('stripe') && !empty($conf->stripeconnect->enabled) && getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
+	if (isModEnabled('stripe') && !empty($config->stripeconnect->enabled) && getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
 		$stripesupplieracc = $stripe->getStripeAccount($service, $object->id); // Get Stripe OAuth connect account (no network access here)
 
 		// Stripe customer key 'cu_....' stored into llx_societe_account
@@ -1509,7 +1509,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 	}
 
 	// List of Stripe connect accounts
-	if (isModEnabled('stripe') && !empty($conf->stripeconnect->enabled) && !empty($stripesupplieracc)) {
+	if (isModEnabled('stripe') && !empty($config->stripeconnect->enabled) && !empty($stripesupplieracc)) {
 		print load_fiche_titre($langs->trans('StripeBalance').($stripesupplieracc ? ' (Stripe connection with StripeConnect account '.$stripesupplieracc.')' : ' (Stripe connection with keys from Stripe module setup)'), $morehtmlright, 'stripe-s');
 		$balance = \Stripe\Balance::retrieve(array("stripe_account" => $stripesupplieracc));
 		print '<table class="liste centpercent noborder">'."\n";
@@ -1731,7 +1731,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 					$formadmin = new FormAdmin($db);
 					$defaultlang = $langs->getDefaultLang();
 					$morecss = 'maxwidth150';
-					if ($conf->browser->layout == 'phone') {
+					if ($config->browser->layout == 'phone') {
 						$morecss = 'maxwidth100';
 					}
 					$out .= $formadmin->select_language($defaultlang, 'lang_idrib'.$rib->id, 0, array(), 0, 0, 0, $morecss);
@@ -1928,7 +1928,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 		/*
 		 * Generated documents
 		 */
-		$filedir = $conf->societe->multidir_output[$object->entity].'/'.$object->id;
+		$filedir = $config->societe->multidir_output[$object->entity].'/'.$object->id;
 		$urlsource = $_SERVER["PHP_SELF"]."?socid=".$object->id;
 
 		print $formfile->showdocuments('company', $object->id, $filedir, $urlsource, $permissiontoread, $permissiontoaddupdatepaymentinformation, $object->model_pdf, 0, 0, 0, 28, 0, 'entity='.$object->entity, 0, '', $object->default_lang);

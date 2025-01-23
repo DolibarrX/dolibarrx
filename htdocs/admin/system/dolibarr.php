@@ -101,12 +101,12 @@ print '<tr class="oddeven"><td>'.$langs->trans("CurrentVersion").'<br><span clas
 // If current version differs from last upgrade
 if (!getDolGlobalString('MAIN_VERSION_LAST_UPGRADE')) {
 	// Compare version with last install database version (upgrades never occurred)
-	if (DOL_VERSION != $conf->global->MAIN_VERSION_LAST_INSTALL) {
+	if (DOL_VERSION != $config->global->MAIN_VERSION_LAST_INSTALL) {
 		print ' '.img_warning($langs->trans("RunningUpdateProcessMayBeRequired", DOL_VERSION, getDolGlobalString('MAIN_VERSION_LAST_INSTALL')));
 	}
 } else {
 	// Compare version with last upgrade database version
-	if (DOL_VERSION != $conf->global->MAIN_VERSION_LAST_UPGRADE) {
+	if (DOL_VERSION != $config->global->MAIN_VERSION_LAST_UPGRADE) {
 		print ' '.img_warning($langs->trans("RunningUpdateProcessMayBeRequired", DOL_VERSION, getDolGlobalString('MAIN_VERSION_LAST_UPGRADE')));
 	}
 }
@@ -119,7 +119,7 @@ print ' &nbsp; <a href="https://raw.githubusercontent.com/Dolibarr/dolibarr/'.$v
 
 $newversion = '';
 if (function_exists('curl_init')) {
-	$conf->global->MAIN_USE_RESPONSE_TIMEOUT = 10;
+	$config->global->MAIN_USE_RESPONSE_TIMEOUT = 10;
 	print ' &nbsp; &nbsp; - &nbsp; &nbsp; ';
 	if ($action == 'getlastversion') {
 		if ($sfurl) {
@@ -184,9 +184,9 @@ print '<!-- session.gc_probability = '.ini_get("session.gc_probability").' -->'.
 print '<!-- session.gc_divisor = '.ini_get("session.gc_divisor").' -->'."\n";
 print $form->textwithpicto('', $langs->trans("Parameter").' <b>php.ini</b>: <b>session.gc_maxlifetime</b><br>'.$langs->trans("SessionExplanation", ini_get("session.gc_probability"), ini_get("session.gc_divisor")));
 print "</td></tr>\n";
-print '<tr class="oddeven"><td>'.$langs->trans("CurrentTheme").'</td><td>'.$conf->theme.'</td></tr>'."\n";
+print '<tr class="oddeven"><td>'.$langs->trans("CurrentTheme").'</td><td>'.$config->theme.'</td></tr>'."\n";
 print '<tr class="oddeven"><td>'.$langs->trans("CurrentMenuHandler").'</td><td>';
-print $conf->standard_menu;
+print $config->standard_menu;
 print '</td></tr>'."\n";
 print '<tr class="oddeven"><td>'.$langs->trans("Screen").'</td><td>';
 print $_SESSION['dol_screenwidth'].' x '.$_SESSION['dol_screenheight'];
@@ -265,7 +265,7 @@ print '<tr class="oddeven"><td>&nbsp; => price(1234.56)</td><td>'.price(1234.56)
 // Timezones
 
 // Database timezone
-if ($conf->db->type == 'mysql' || $conf->db->type == 'mysqli') {
+if ($config->db->type == 'mysql' || $config->db->type == 'mysqli') {
 	print '<tr class="oddeven"><td>'.$langs->trans("MySQLTimeZone").' (database)</td><td>'; // Timezone server base
 	$sql = "SHOW VARIABLES where variable_name = 'system_time_zone'";
 	$resql = $db->query($sql);
@@ -451,7 +451,7 @@ foreach ($configfileparameters as $key => $value) {
 					++$i;
 				}
 			} elseif ($newkey == 'dolibarr_main_instance_unique_id') {
-				//print $conf->file->instance_unique_id;
+				//print $config->file->instance_unique_id;
 				global $dolibarr_main_cookie_cryptkey, $dolibarr_main_instance_unique_id;
 				$valuetoshow = $dolibarr_main_instance_unique_id ? $dolibarr_main_instance_unique_id : $dolibarr_main_cookie_cryptkey; // Use $dolibarr_main_instance_unique_id first then $dolibarr_main_cookie_cryptkey
 				if (empty($dolibarr_main_prod)) {
@@ -527,11 +527,11 @@ $sql .= ", entity";
 $sql .= " FROM ".MAIN_DB_PREFIX."const";
 if (!isModEnabled('multicompany')) {
 	// If no multicompany mode, admins can see global and their constantes
-	$sql .= " WHERE entity IN (0,".$conf->entity.")";
+	$sql .= " WHERE entity IN (0,".$config->entity.")";
 } else {
 	// If multicompany mode, superadmin (user->entity=0) can see everything, admin are limited to their entities.
 	if ($user->entity) {
-		$sql .= " WHERE entity IN (".$db->sanitize($user->entity.",".$conf->entity).")";
+		$sql .= " WHERE entity IN (".$db->sanitize($user->entity.",".$config->entity).")";
 	}
 }
 $sql .= " ORDER BY entity, name ASC";

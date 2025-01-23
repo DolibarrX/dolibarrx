@@ -57,7 +57,7 @@ if (!$year && $mode != 'tvaonly') {
 	$year = date("Y", time());
 }
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -102,7 +102,7 @@ $param = '';
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage=' . $contextpage;
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit=' . $limit;
 }
 if ($sortfield) {
@@ -129,7 +129,7 @@ $sql .= " INNER JOIN " . MAIN_DB_PREFIX . "bank as b ON (b.rowid = ptva.fk_bank)
 $sql .= " INNER JOIN " . MAIN_DB_PREFIX . "bank_account as bank ON (bank.rowid = b.fk_account)";
 $sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "c_paiement as pct ON ptva.fk_typepaiement = pct.id";
 $sql .= " WHERE ptva.fk_tva = tva.rowid";
-$sql .= " AND tva.entity = " . $conf->entity;
+$sql .= " AND tva.entity = " . $config->entity;
 if ($year > 0) {
 	$sql .= " AND (";
 	// Si period renseignee on l'utilise comme critere de date, sinon on prend date echeance,
@@ -201,7 +201,7 @@ if (isModEnabled('tax') && $user->hasRight('tax', 'charges', 'lire')) {
 	$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "bank_account as bank ON (bank.rowid = b.fk_account)";
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "c_paiement as pct ON ptva.fk_typepaiement = pct.id";
 	$sql .= " WHERE ptva.fk_tva = tva.rowid";
-	$sql .= " AND tva.entity = " . $conf->entity;
+	$sql .= " AND tva.entity = " . $config->entity;
 	if ($year > 0) {
 		$sql .= " AND (";
 		// We'll use the specified period as the date filter, unless it's missing, in which case we'll use the due date.

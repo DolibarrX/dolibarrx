@@ -148,17 +148,17 @@ function print_auguria_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout
 	// Output menu entries
 	// Show logo company
 	if (!getDolGlobalString('MAIN_MENU_INVERT') && empty($noout) && getDolGlobalString('MAIN_SHOW_LOGO') && !getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
-		//$mysoc->logo_mini=(empty($conf->global->MAIN_INFO_SOCIETE_LOGO_MINI)?'':$conf->global->MAIN_INFO_SOCIETE_LOGO_MINI);
-		$mysoc->logo_squarred_mini = (!getDolGlobalString('MAIN_INFO_SOCIETE_LOGO_SQUARRED_MINI') ? '' : $conf->global->MAIN_INFO_SOCIETE_LOGO_SQUARRED_MINI);
+		//$mysoc->logo_mini=(empty($config->global->MAIN_INFO_SOCIETE_LOGO_MINI)?'':$config->global->MAIN_INFO_SOCIETE_LOGO_MINI);
+		$mysoc->logo_squarred_mini = (!getDolGlobalString('MAIN_INFO_SOCIETE_LOGO_SQUARRED_MINI') ? '' : $config->global->MAIN_INFO_SOCIETE_LOGO_SQUARRED_MINI);
 
 		$logoContainerAdditionalClass = 'backgroundforcompanylogo';
 		if (getDolGlobalString('MAIN_INFO_SOCIETE_LOGO_NO_BACKGROUND')) {
 			$logoContainerAdditionalClass = '';
 		}
 
-		if (!empty($mysoc->logo_squarred_mini) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_squarred_mini)) {
+		if (!empty($mysoc->logo_squarred_mini) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_squarred_mini)) {
 			$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_squarred_mini);
-			/*} elseif (!empty($mysoc->logo_mini) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_mini))
+			/*} elseif (!empty($mysoc->logo_mini) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_mini))
 			{
 			$urllogo=DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_mini);
 			}*/
@@ -370,7 +370,7 @@ function print_left_auguria_menu($db, $menu_array_before, $menu_array_after, &$t
 
 		$sql = "SELECT rowid, label, courant, rappro, courant";
 		$sql .= " FROM ".MAIN_DB_PREFIX."bank_account";
-		$sql .= " WHERE entity = ".$conf->entity;
+		$sql .= " WHERE entity = ".$config->entity;
 		$sql .= " AND clos = 0";
 		$sql .= " ORDER BY label";
 
@@ -403,7 +403,7 @@ function print_left_auguria_menu($db, $menu_array_before, $menu_array_after, &$t
 		// Multi journal
 		$sql = "SELECT rowid, code, label, nature";
 		$sql .= " FROM ".MAIN_DB_PREFIX."accounting_journal";
-		$sql .= " WHERE entity = ".$conf->entity;
+		$sql .= " WHERE entity = ".$config->entity;
 		$sql .= " AND active = 1";
 		$sql .= " ORDER BY label DESC";
 
@@ -476,7 +476,7 @@ function print_left_auguria_menu($db, $menu_array_before, $menu_array_after, &$t
 			if (getDolGlobalString($paramkey)) {
 				$link = "/ftp/index.php?idmenu=".$_SESSION["idmenu"]."&numero_ftp=".$i;
 
-				$newmenu->add($link, dol_trunc($conf->global->$paramkey, 24));
+				$newmenu->add($link, dol_trunc($config->global->$paramkey, 24));
 			}
 			$i++;
 		}

@@ -103,7 +103,7 @@ $confirm = GETPOST('confirm');
 $id  = (GETPOSTINT('socid') ? GETPOSTINT('socid') : GETPOSTINT('id'));
 $ref = GETPOST('ref', 'alpha');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -124,7 +124,7 @@ if (!$sortfield) {
 // Initialize a technical objects
 $object = new MyObject($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->mymodule->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->mymodule->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($object->element.'document', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -134,7 +134,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
 
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->mymodule->multidir_output[$object->entity ? $object->entity : $conf->entity]."/myobject/".get_exdir(0, 0, 0, 1, $object);
+	$upload_dir = $config->mymodule->multidir_output[$object->entity ? $object->entity : $config->entity]."/myobject/".get_exdir(0, 0, 0, 1, $object);
 }
 
 // Permissions

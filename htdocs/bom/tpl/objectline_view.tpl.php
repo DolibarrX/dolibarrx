@@ -248,7 +248,7 @@ if ($this->status == 0 && $user->hasRight('bom', 'write') && $action != 'selectl
 	}
 	print '</td>';
 
-	if ($num > 1 && $conf->browser->layout != 'phone' && empty($disablemove)) {
+	if ($num > 1 && $config->browser->layout != 'phone' && empty($disablemove)) {
 		print '<td class="linecolmove tdlineupdown center">';
 		$coldisplay++;
 		if ($i > 0) {
@@ -263,7 +263,7 @@ if ($this->status == 0 && $user->hasRight('bom', 'write') && $action != 'selectl
 		}
 		print '</td>';
 	} else {
-		print '<td '.(($conf->browser->layout != 'phone' && empty($disablemove)) ? ' class="linecolmove tdlineupdown center"' : ' class="linecolmove center"').'></td>';
+		print '<td '.(($config->browser->layout != 'phone' && empty($disablemove)) ? ' class="linecolmove tdlineupdown center"' : ' class="linecolmove center"').'></td>';
 		$coldisplay++;
 	}
 } else {

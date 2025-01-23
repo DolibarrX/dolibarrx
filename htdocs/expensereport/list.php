@@ -81,11 +81,11 @@ if ($id > 0) {
 	}
 }
 
-$diroutputmassaction = $conf->expensereport->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->expensereport->dir_output.'/temp/massgeneration/'.$user->id;
 
 
 // Load variable for pagination
-$limit 		= GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit 		= GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield	= GETPOST('sortfield', 'aZ09comma');
 $sortorder	= GETPOST('sortorder', 'aZ09comma');
 $page 		= GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -251,7 +251,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'ExpenseReport';
 	$objectlabel = 'ExpenseReport';
-	$uploaddir = $conf->expensereport->dir_output;
+	$uploaddir = $config->expensereport->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -412,7 +412,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -526,7 +526,7 @@ if ($id > 0) {		// For user tab
 		$childids = $user->getAllChildIds(1);
 
 		$canedit = ((in_array($user_id, $childids) && $user->hasRight('expensereport', 'creer'))
-			|| ($conf->global->MAIN_USE_ADVANCED_PERMS && $user->hasRight('expensereport', 'writeall_advance')));
+			|| ($config->global->MAIN_USE_ADVANCED_PERMS && $user->hasRight('expensereport', 'writeall_advance')));
 
 		// Buttons for actions
 		if ($canedit) {
@@ -883,7 +883,7 @@ if ($num > 0) {
 				print '</td>';
 				print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->expensereport->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->expensereport->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 				print $formfile->getDocumentsLink($expensereportstatic->element, $filename, $filedir);
 				print '</td>';

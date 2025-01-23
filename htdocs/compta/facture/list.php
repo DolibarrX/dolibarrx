@@ -165,7 +165,7 @@ if ($search_option == 'late') {
 	$search_status = '1';
 }
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -185,7 +185,7 @@ if (!$sortfield) {
 $pageprev = $page - 1;
 $pagenext = $page + 1;
 
-$diroutputmassaction = $conf->facture->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->facture->dir_output.'/temp/massgeneration/'.$user->id;
 
 $now = dol_now();
 $error = 0;
@@ -424,7 +424,7 @@ if (empty($reshook)) {
 	$permissiontoread = $user->hasRight("facture", "lire");
 	$permissiontoadd = $user->hasRight("facture", "creer");
 	$permissiontodelete = $user->hasRight("facture", "supprimer");
-	$uploaddir = $conf->facture->dir_output;
+	$uploaddir = $config->facture->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -882,7 +882,7 @@ if ($search_datelimit_end) {
 	$sql .= " AND f.date_lim_reglement <= '".$db->idate($search_datelimit_end)."'";
 }
 if ($search_option == 'late') {
-	$sql .= " AND f.date_lim_reglement < '".$db->idate(dol_now() - $conf->facture->client->warning_delay)."'";
+	$sql .= " AND f.date_lim_reglement < '".$db->idate(dol_now() - $config->facture->client->warning_delay)."'";
 }
 /*if ($search_sale > 0) {
 	$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $search_sale);
@@ -1057,7 +1057,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -1530,7 +1530,7 @@ if (!empty($arrayfields['country.code_iso']['checked'])) {
 // Company type
 if (!empty($arrayfields['typent.code']['checked'])) {
 	print '<td class="liste_titre maxwidthonsmartphone center">';
-	print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $conf->global->SOCIETE_SORT_ON_TYPEENT), 'maxwidth100', 1);
+	print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $config->global->SOCIETE_SORT_ON_TYPEENT), 'maxwidth100', 1);
 	print '</td>';
 }
 // Payment mode
@@ -2173,7 +2173,7 @@ if ($num > 0) {
 				}
 
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filepath = $conf->invoice->multidir_output[$obj->entity] ?? $conf->invoice->dir_output;
+				$filepath = $config->invoice->multidir_output[$obj->entity] ?? $config->invoice->dir_output;
 				$filedir = $filepath.'/'.$filename;
 
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->id;
@@ -2380,11 +2380,11 @@ if ($num > 0) {
 			}
 			// Staff
 			if (!empty($arrayfields['staff.code']['checked'])) {
-				if (!is_array($conf->cache['staff']) || count($conf->cache['staff']) == 0) {
-					$conf->cache['staff'] = $formcompany->effectif_array(1);
+				if (!is_array($config->cache['staff']) || count($config->cache['staff']) == 0) {
+					$config->cache['staff'] = $formcompany->effectif_array(1);
 				}
-				print '<td class="center tdoverflowmax100" title="'.dolPrintHTML($conf->cache['staff'][$obj->staff_code]).'">';
-				print $conf->cache['staff'][$obj->staff_code];
+				print '<td class="center tdoverflowmax100" title="'.dolPrintHTML($config->cache['staff'][$obj->staff_code]).'">';
+				print $config->cache['staff'][$obj->staff_code];
 				print '</td>';
 				if (!$i) {
 					$totalarray['nbfield']++;

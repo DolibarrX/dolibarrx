@@ -71,7 +71,7 @@ if (!$user->hasRight('website', 'read')) {
 	accessforbidden();
 }
 
-$conf->dol_hide_leftmenu = 1; // Force hide of left menu.
+$config->dol_hide_leftmenu = 1; // Force hide of left menu.
 
 $error = 0;
 $virtualurl = '';
@@ -156,7 +156,7 @@ if (GETPOST('refreshsite') || GETPOST('refreshsite_x') || GETPOST('refreshsite.x
 }
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -251,7 +251,7 @@ if (empty($pageid) && empty($pageref) && $object->id > 0 && $action != 'createco
 
 
 global $dolibarr_main_data_root;
-$pathofwebsite = $dolibarr_main_data_root.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/'.$websitekey;
+$pathofwebsite = $dolibarr_main_data_root.($config->entity > 1 ? '/'.$config->entity : '').'/website/'.$websitekey;
 $filehtmlheader = $pathofwebsite.'/htmlheader.html';
 $filecss = $pathofwebsite.'/styles.css.php';
 $filejs = $pathofwebsite.'/javascript.js.php';
@@ -272,7 +272,7 @@ $urlwithroot = $urlwithouturlroot.DOL_URL_ROOT; // This is to use external domai
 
 
 $permtouploadfile = $user->hasRight('website', 'write');
-$diroutput = $conf->medias->multidir_output[$conf->entity];
+$diroutput = $config->medias->multidir_output[$config->entity];
 
 $relativepath = $section_dir;
 $upload_dir = preg_replace('/\/$/', '', $diroutput).'/'.preg_replace('/^\//', '', $relativepath);
@@ -489,8 +489,8 @@ if ($massaction == 'replace' && GETPOST('confirmmassaction', 'alpha') && !$searc
 
 if ($action == 'deletetemplate' && $usercanedit) {
 	$dirthemes = array('/doctemplates/websites');
-	if (!empty($conf->modules_parts['websitetemplates'])) {		// Using this feature slow down application
-		foreach ($conf->modules_parts['websitetemplates'] as $reldir) {
+	if (!empty($config->modules_parts['websitetemplates'])) {		// Using this feature slow down application
+		foreach ($config->modules_parts['websitetemplates'] as $reldir) {
 			$dirthemes = array_merge($dirthemes, (array) ($reldir.'doctemplates/websites'));
 		}
 	}
@@ -505,7 +505,7 @@ if ($action == 'deletetemplate' && $usercanedit) {
 		$i = 0;
 		foreach ($dirthemes as $dir) {
 			//print $dirroot.$dir;exit;
-			$dirtheme = DOL_DATA_ROOT.$dir; // This include loop on $conf->file->dol_document_root
+			$dirtheme = DOL_DATA_ROOT.$dir; // This include loop on $config->file->dol_document_root
 			if (is_dir($dirtheme)) {
 				$templateuserfile = GETPOST('templateuserfile');
 				$imguserfile = preg_replace('/\.zip$/', '', $templateuserfile).'.jpg';
@@ -961,11 +961,11 @@ if ($action == 'addcontainer' && $usercanedit) {
 						$urltograbbis = $urltograbdirwithoutslash.'/'.$regs[2][$key]; // We use dir of grabbed file
 					}
 
-					//$filetosave = $conf->medias->multidir_output[$conf->entity].'/css/'.$object->ref.'/'.$objectpage->pageurl.(preg_match('/^\//', $regs[2][$key])?'':'/').$regs[2][$key];
+					//$filetosave = $config->medias->multidir_output[$config->entity].'/css/'.$object->ref.'/'.$objectpage->pageurl.(preg_match('/^\//', $regs[2][$key])?'':'/').$regs[2][$key];
 					if (preg_match('/^http/', $regs[2][$key])) {
 						$urltograbbis = $regs[2][$key];
 						$linkwithoutdomain = preg_replace('/^https?:\/\/[^\/]+\//i', '', $regs[2][$key]);
-						//$filetosave = $conf->medias->multidir_output[$conf->entity].'/css/'.$object->ref.'/'.$objectpage->pageurl.(preg_match('/^\//', $linkwithoutdomain)?'':'/').$linkwithoutdomain;
+						//$filetosave = $config->medias->multidir_output[$config->entity].'/css/'.$object->ref.'/'.$objectpage->pageurl.(preg_match('/^\//', $linkwithoutdomain)?'':'/').$linkwithoutdomain;
 					}
 
 					//print $domaintograb.' - '.$domaintograbbis.' - '.$urltograbdirwithoutslash.' - ';
@@ -1026,11 +1026,11 @@ if ($action == 'addcontainer' && $usercanedit) {
 						$urltograbbis = $urltograbdirwithoutslash.'/'.$regs[2][$key]; // We use dir of grabbed file
 					}
 
-					//$filetosave = $conf->medias->multidir_output[$conf->entity].'/css/'.$object->ref.'/'.$objectpage->pageurl.(preg_match('/^\//', $regs[2][$key])?'':'/').$regs[2][$key];
+					//$filetosave = $config->medias->multidir_output[$config->entity].'/css/'.$object->ref.'/'.$objectpage->pageurl.(preg_match('/^\//', $regs[2][$key])?'':'/').$regs[2][$key];
 					if (preg_match('/^http/', $regs[2][$key])) {
 						$urltograbbis = $regs[2][$key];
 						$linkwithoutdomain = preg_replace('/^https?:\/\/[^\/]+\//i', '', $regs[2][$key]);
-						//$filetosave = $conf->medias->multidir_output[$conf->entity].'/css/'.$object->ref.'/'.$objectpage->pageurl.(preg_match('/^\//', $linkwithoutdomain)?'':'/').$linkwithoutdomain;
+						//$filetosave = $config->medias->multidir_output[$config->entity].'/css/'.$object->ref.'/'.$objectpage->pageurl.(preg_match('/^\//', $linkwithoutdomain)?'':'/').$linkwithoutdomain;
 					}
 
 					//print $domaintograb.' - '.$domaintograbbis.' - '.$urltograbdirwithoutslash.' - ';
@@ -1566,7 +1566,7 @@ if ($action == 'updatecss' && $usercanedit) {
 
 		if (!$error) {
 			if (($_FILES['addedfile']["name"] != '')) {
-				$uploadfolder = $conf->website->dir_output.'/'.$websitekey;
+				$uploadfolder = $config->website->dir_output.'/'.$websitekey;
 				if ($_FILES['addedfile']['type'] != 'image/png') {
 					$error++;
 					setEventMessages($langs->trans('ErrorFaviconType'), array(), 'errors');
@@ -2265,7 +2265,7 @@ if ((($action == 'updatesource' || $action == 'updatecontent' || $action == 'con
 			$tmpwebsite = new Website($db);
 			if ($newwebsiteid > 0 && $newwebsiteid != $object->id) {
 				$tmpwebsite->fetch($newwebsiteid);
-				$pathofwebsitenew = $dolibarr_main_data_root.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/'.$tmpwebsite->ref;
+				$pathofwebsitenew = $dolibarr_main_data_root.($config->entity > 1 ? '/'.$config->entity : '').'/website/'.$tmpwebsite->ref;
 			} else {
 				$tmpwebsite = $object;
 			}
@@ -2590,7 +2590,7 @@ if ($action == 'importsiteconfirm' && $usercanedit) {
 					}
 
 					if (!$error) {
-						//$upload_dir = $conf->website->dir_temp;
+						//$upload_dir = $config->website->dir_temp;
 						$upload_dir = DOL_DATA_ROOT.'/doctemplates/websites/';
 						$result = dol_add_file_process($upload_dir, 1, -1, 'userfile', '');
 					}
@@ -2619,7 +2619,7 @@ if ($action == 'importsiteconfirm' && $usercanedit) {
 						$action = 'importsite';
 					} else {
 						// Force mode dynamic on
-						dolibarr_set_const($db, 'WEBSITE_SUBCONTAINERSINLINE', 1, 'chaine', 0, '', $conf->entity);
+						dolibarr_set_const($db, 'WEBSITE_SUBCONTAINERSINLINE', 1, 'chaine', 0, '', $config->entity);
 
 						header("Location: ".$_SERVER["PHP_SELF"].'?website='.$object->ref);
 						exit();
@@ -2640,7 +2640,7 @@ if ($action == 'importsiteconfirm' && $usercanedit) {
 }
 
 $domainname = '0.0.0.0:8080';
-$tempdir = $conf->website->dir_output.'/'.$websitekey.'/';
+$tempdir = $config->website->dir_output.'/'.$websitekey.'/';
 
 // Generate web site sitemaps
 if ($action == 'generatesitemaps' && $usercanedit) {
@@ -2898,7 +2898,7 @@ if (!getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
 }
 
 $moreheadjs .= '<script type="text/javascript">'."\n";
-$moreheadjs .= 'var indicatorBlockUI = \''.DOL_URL_ROOT."/theme/".$conf->theme."/img/working.gif".'\';'."\n";
+$moreheadjs .= 'var indicatorBlockUI = \''.DOL_URL_ROOT."/theme/".$config->theme."/img/working.gif".'\';'."\n";
 $moreheadjs .= '</script>'."\n";
 
 llxHeader($moreheadcss.$moreheadjs, $langs->trans("Website").(empty($website->ref) ? '' : ' - '.$website->ref), $helpurl, '', 0, 0, $arrayofjs, $arrayofcss, '', 'mod-website page-index', '<!-- Begin div class="fiche" -->'."\n".'<div class="fichebutwithotherclass">');
@@ -2968,7 +2968,7 @@ if (!GETPOST('hide_websitemenu')) {
 
 	if ($websitekey) {
 		$virtualurl = '';
-		$dataroot = DOL_DATA_ROOT.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/'.$websitekey;
+		$dataroot = DOL_DATA_ROOT.($config->entity > 1 ? '/'.$config->entity : '').'/website/'.$websitekey;
 		if (!empty($object->virtualhost)) {
 			$virtualurl = $object->virtualhost;
 		}
@@ -3042,7 +3042,7 @@ if (!GETPOST('hide_websitemenu')) {
 		$out .= '</select>';
 		$out .= ajax_combobox('website');
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			$out .= '<script type="text/javascript">';
 			$out .= 'jQuery(document).ready(function () {';
 			$out .= '	jQuery("#website").change(function () {';
@@ -3061,7 +3061,7 @@ if (!GETPOST('hide_websitemenu')) {
 		print '</span>';
 
 		// Switch offline/onine
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print '<span class="websiteselection">';
 			// Do not use ajax, we need a refresh of full page when we change status of a website
 			//print '<div class="inline-block marginrightonly">';
@@ -3078,7 +3078,7 @@ if (!GETPOST('hide_websitemenu')) {
 		}
 
 		// Refresh / Reload web site (for non javascript browsers)
-		if (empty($conf->use_javascript_ajax)) {
+		if (empty($config->use_javascript_ajax)) {
 			print '<span class="websiteselection">';
 			print '<input type="image" class="valignmiddle" src="'.img_picto('', 'refresh', '', 0, 1).'" name="refreshsite" value="'.$langs->trans("Load").'">';
 			print '</span>';
@@ -3097,7 +3097,7 @@ if (!GETPOST('hide_websitemenu')) {
 			// Import web site
 			$importlabel = $langs->trans("ImportSite");
 			$exportlabel = $langs->trans("ExportSite");
-			if (!empty($conf->dol_optimize_smallscreen)) {
+			if (!empty($config->dol_optimize_smallscreen)) {
 				$importlabel = $langs->trans("Import");
 				$exportlabel = $langs->trans("Export");
 			}
@@ -3263,9 +3263,9 @@ if (!GETPOST('hide_websitemenu')) {
 			// accesskey is for Windows or Linux:  ALT + key for chrome, ALT + SHIFT + KEY for firefox
 			// accesskey is for Mac:               CTRL + key for all browsers
 			$stringforfirstkey = $langs->trans("KeyboardShortcut");
-			if ($conf->browser->name == 'chrome') {
+			if ($config->browser->name == 'chrome') {
 				$stringforfirstkey .= ' ALT +';
-			} elseif ($conf->browser->name == 'firefox') {
+			} elseif ($config->browser->name == 'firefox') {
 				$stringforfirstkey .= ' ALT + SHIFT +';
 			} else {
 				$stringforfirstkey .= ' CTL +';
@@ -3316,7 +3316,7 @@ if (!GETPOST('hide_websitemenu')) {
 
 		$urltocreatenewpage = $_SERVER["PHP_SELF"].'?action=createcontainer&token='.newToken().'&website='.urlencode($website->ref);
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			$out .= '<script type="text/javascript">';
 			$out .= 'jQuery(document).ready(function () {';
 			$out .= '	jQuery("#pageid").change(function () {';
@@ -3334,7 +3334,7 @@ if (!GETPOST('hide_websitemenu')) {
 		print $out;
 
 		// Button to switch status
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print '<span class="websiteselection">';
 			//print '<div class="inline-block marginrightonly">';
 			if ($object->status == $object::STATUS_DRAFT) {	// website is off, we do not allow to change status of page
@@ -3482,7 +3482,7 @@ if (!GETPOST('hide_websitemenu')) {
 				// Edit HTML content
 				print '<a href="'.$_SERVER["PHP_SELF"].'?website='.$object->ref.'&pageid='.$pageid.'&action=editsource&token='.newToken().'" class="button bordertransp"'.$disabled.'>';
 				print img_picto('', 'code');
-				print '<span class="hideonsmartphone paddingleft">'.dol_escape_htmltag($langs->trans($conf->dol_optimize_smallscreen ? "HTML" : "EditHTMLSource")).'</span>';
+				print '<span class="hideonsmartphone paddingleft">'.dol_escape_htmltag($langs->trans($config->dol_optimize_smallscreen ? "HTML" : "EditHTMLSource")).'</span>';
 				print '</a>';
 
 				// Edit CKEditor
@@ -3759,9 +3759,9 @@ if (!GETPOST('hide_websitemenu')) {
 				// accesskey is for Windows or Linux:  ALT + key for chrome, ALT + SHIFT + KEY for firefox
 				// accesskey is for Mac:               CTRL + key for all browsers
 				$stringforfirstkey = $langs->trans("KeyboardShortcut");
-				if ($conf->browser->name == 'chrome') {
+				if ($config->browser->name == 'chrome') {
 					$stringforfirstkey .= ' ALT +';
-				} elseif ($conf->browser->name == 'firefox') {
+				} elseif ($config->browser->name == 'firefox') {
 					$stringforfirstkey .= ' ALT + SHIFT +';
 				} else {
 					$stringforfirstkey .= ' CTL +';
@@ -3795,7 +3795,7 @@ if (!GETPOST('hide_websitemenu')) {
 			$htmltext .= $langs->transnoentitiesnoconv("YouCanEditHtmlSourceMore", $url);
 			$htmltext .= '<br>';
 			$htmltext .= '</small>';
-			if ($conf->browser->layout == 'phone') {
+			if ($config->browser->layout == 'phone') {
 				print $form->textwithpicto('', $htmltext, 1, 'help', 'inline-block', 1, 2, 'tooltipsubstitution');
 			} else {
 				//img_help(($tooltiptrigger != '' ? 2 : 1), $alt)
@@ -3807,7 +3807,7 @@ if (!GETPOST('hide_websitemenu')) {
 
 		if ($action == 'preview' || $action == 'createfromclone' || $action == 'createpagefromclone') {
 			// Adding jquery code to change on the fly url of preview ext
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				print '<script type="text/javascript">
                     jQuery(document).ready(function() {
                 		jQuery("#websiteinputurl").keyup(function() {
@@ -3978,7 +3978,7 @@ if ($action == 'editcss') {
 
 	// Status of web site
 	if ($action != 'createcontainer') {
-		if (empty($conf->use_javascript_ajax)) {
+		if (empty($config->use_javascript_ajax)) {
 			print '<!-- Status of web site page -->'."\n";
 			print '<tr><td class="fieldrequired">';
 			print $langs->trans('Status');
@@ -4029,7 +4029,7 @@ if ($action == 'editcss') {
 	}
 	print '<input type="file" class="flat minwidth300" name="addedfile" id="addedfile"/>';
 
-	$uploadfolder = $conf->website->dir_output.'/'.$websitekey;
+	$uploadfolder = $config->website->dir_output.'/'.$websitekey;
 	if (dol_is_file($uploadfolder.'/favicon.png')) {
 		print '<div class="inline-block valignmiddle marginrightonly">';
 		print '<img style="max-height: 80px" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart=website&file='.$websitekey.'/favicon.png">';
@@ -4231,7 +4231,7 @@ if ($action == 'createsite') {
 	print '<tr><td>';
 
 	$htmltext = $langs->trans("VirtualhostDesc");
-	/*$htmltext = str_replace('{s1}', DOL_DATA_ROOT.($conf->entity > 1 ? '/'.$conf->entity : '').'/website/<i>websiteref</i>', $htmltext);
+	/*$htmltext = str_replace('{s1}', DOL_DATA_ROOT.($config->entity > 1 ? '/'.$config->entity : '').'/website/<i>websiteref</i>', $htmltext);
 	$htmltext .= '<br>';
 	$htmltext .= '<br>'.$langs->trans("CheckVirtualHostPerms", $langs->transnoentitiesnoconv("ReadPerm"), DOL_DOCUMENT_ROOT);
 	$htmltext .= '<br>'.$langs->trans("CheckVirtualHostPerms", $langs->transnoentitiesnoconv("WritePerm"), '{s1}');
@@ -4349,7 +4349,7 @@ if ($action == 'editmeta' || $action == 'createcontainer') {	// Edit properties 
 		$hiddenmanuallyafterload = '';
 	}
 
-	if ($action == 'editmeta' || empty($conf->use_javascript_ajax)) {	// No autohide/show in such case
+	if ($action == 'editmeta' || empty($config->use_javascript_ajax)) {	// No autohide/show in such case
 		$hiddenfromfetchingafterload = '';
 		$hiddenmanuallyafterload = '';
 	}
@@ -4357,7 +4357,7 @@ if ($action == 'editmeta' || $action == 'createcontainer') {	// Edit properties 
 	if ($action == 'createcontainer') {
 		print '<br>';
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print '<input type="radio" name="radiocreatefrom" id="checkboxcreatemanually" value="checkboxcreatemanually"'.(GETPOST('radiocreatefrom') == 'checkboxcreatemanually' ? ' checked' : '').'> ';
 		}
 		print '<label for="checkboxcreatemanually"><span class="opacitymediumxx">'.$langs->trans("OrEnterPageInfoManually").'</span></label><br>';
@@ -4444,7 +4444,7 @@ if ($action == 'editmeta' || $action == 'createcontainer') {	// Edit properties 
 	}
 
 	if ($action != 'createcontainer') {
-		if (empty($conf->use_javascript_ajax)) {
+		if (empty($config->use_javascript_ajax)) {
 			print '<!-- Status of web site page -->'."\n";
 			print '<tr><td class="fieldrequired">';
 			print $langs->trans('Status');
@@ -4742,7 +4742,7 @@ if ($action == 'editmeta' || $action == 'createcontainer') {	// Edit properties 
 	$showlinktoai = ($formmail->withaiprompt && isModEnabled('ai')) ? 'textgenerationwebpage' : '';
 	if (($action == 'createcontainer' && $showlinktolayout) || ($action == 'createcontainer' && $showlinktoai)) {
 		print '<tr><td class="titlefield tdtop">';
-		if ($conf->browser->layout == 'phone') {
+		if ($config->browser->layout == 'phone') {
 			print $form->textwithpicto('', $htmltext, 1, 'help', 'inline-block', 1, 2, 'tooltipsubstitution');
 		} else {
 			//img_help(($tooltiptrigger != '' ? 2 : 1), $alt)
@@ -4765,7 +4765,7 @@ if ($action == 'editmeta' || $action == 'createcontainer') {	// Edit properties 
 	if ($action == 'createcontainer') {
 		print '<tr id="pageContent"><td class="tdtop">';
 		if (!$showlinktolayout || !$showlinktoai) {
-			if ($conf->browser->layout == 'phone') {
+			if ($config->browser->layout == 'phone') {
 				print $form->textwithpicto('', $htmltext, 1, 'help', 'inline-block', 1, 2, 'tooltipsubstitution');
 			} else {
 				//img_help(($tooltiptrigger != '' ? 2 : 1), $alt)
@@ -4840,7 +4840,7 @@ if ($action == 'editmeta' || $action == 'createcontainer') {	// Edit properties 
 
 		print '<br>';
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print '<input type="radio" name="radiocreatefrom" id="checkboxcreatefromfetching" value="checkboxcreatefromfetching"'.(GETPOST('radiocreatefrom') == 'checkboxcreatefromfetching' ? ' checked' : '').'> ';
 		}
 		print '<label for="checkboxcreatefromfetching"><span class="opacitymediumxx">'.$langs->trans("CreateByFetchingExternalPage").'</span></label><br>';
@@ -5230,8 +5230,8 @@ if ($mode == 'replacesite' || $massaction == 'replace') {
 					// Type of container
 					print '<td class="nowraponall">';
 					//print $langs->trans("Container").'<br>';
-					if (!empty($conf->cache['type_of_container'][$answerrecord->type_container])) {
-						print $langs->trans($conf->cache['type_of_container'][$answerrecord->type_container]);
+					if (!empty($config->cache['type_of_container'][$answerrecord->type_container])) {
+						print $langs->trans($config->cache['type_of_container'][$answerrecord->type_container]);
 					} else {
 						print $langs->trans($answerrecord->type_container);
 					}
@@ -5282,12 +5282,12 @@ if ($mode == 'replacesite' || $massaction == 'replace') {
 					// Author
 					print '<td class="tdoverflowmax125">';
 					if (!empty($answerrecord->fk_user_creat)) {
-						if (empty($conf->cache['user'][$answerrecord->fk_user_creat])) {
+						if (empty($config->cache['user'][$answerrecord->fk_user_creat])) {
 							$tmpuser = new User($db);
 							$tmpuser->fetch($answerrecord->fk_user_creat);
-							$conf->cache['user'][$answerrecord->fk_user_creat] = $tmpuser;
+							$config->cache['user'][$answerrecord->fk_user_creat] = $tmpuser;
 						} else {
-							$tmpuser = $conf->cache['user'][$answerrecord->fk_user_creat];
+							$tmpuser = $config->cache['user'][$answerrecord->fk_user_creat];
 						}
 						print $tmpuser->getNomUrl(-1, '', 0, 0, 0, 0, 'login');
 					}

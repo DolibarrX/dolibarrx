@@ -1118,7 +1118,7 @@ class Product extends CommonObject
 					$sql .= ", mandatory_period";
 					$sql .= ") VALUES (";
 					$sql .= "'".$this->db->idate($this->date_creation)."'";
-					$sql .= ", ".(!empty($this->entity) ? (int) $this->entity : (int) $conf->entity);
+					$sql .= ", ".(!empty($this->entity) ? (int) $this->entity : (int) $config->entity);
 					$sql .= ", '".$this->db->escape($this->ref)."'";
 					$sql .= ", ".(!empty($this->ref_ext) ? "'".$this->db->escape($this->ref_ext)."'" : "null");
 					$sql .= ", ".price2num($price_min_ht);
@@ -1174,7 +1174,7 @@ class Product extends CommonObject
 
 							// update accountancy for this entity
 							if (!$error && getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
-								$this->db->query("DELETE FROM " . $this->db->prefix() . "product_perentity WHERE fk_product = " .((int) $this->id) . " AND entity = " . ((int) $conf->entity));
+								$this->db->query("DELETE FROM " . $this->db->prefix() . "product_perentity WHERE fk_product = " .((int) $this->id) . " AND entity = " . ((int) $config->entity));
 
 								$sql = "INSERT INTO " . $this->db->prefix() . "product_perentity (";
 								$sql .= " fk_product";
@@ -1187,7 +1187,7 @@ class Product extends CommonObject
 								$sql .= ", accountancy_code_sell_export";
 								$sql .= ") VALUES (";
 								$sql .= $this->id;
-								$sql .= ", " . ((int) $conf->entity);
+								$sql .= ", " . ((int) $config->entity);
 								$sql .= ", '" . $this->db->escape($this->accountancy_code_buy) . "'";
 								$sql .= ", '" . $this->db->escape($this->accountancy_code_buy_intra) . "'";
 								$sql .= ", '" . $this->db->escape($this->accountancy_code_buy_export) . "'";
@@ -1311,7 +1311,7 @@ class Product extends CommonObject
 		if (isModEnabled('barcode') && getDolGlobalString('BARCODE_PRODUCT_ADDON_NUM')) {
 			$module = strtolower(getDolGlobalString('BARCODE_PRODUCT_ADDON_NUM'));
 
-			$dirsociete = array_merge(array('/core/modules/barcode/'), $conf->modules_parts['barcode']);
+			$dirsociete = array_merge(array('/core/modules/barcode/'), $config->modules_parts['barcode']);
 			foreach ($dirsociete as $dirroot) {
 				$res = dol_include_once($dirroot.$module.'.php');
 				if ($res) {
@@ -1613,7 +1613,7 @@ class Product extends CommonObject
 
 				// update accountancy for this entity
 				if (!$error && getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
-					$this->db->query("DELETE FROM " . $this->db->prefix() . "product_perentity WHERE fk_product = " . ((int) $this->id) . " AND entity = " . ((int) $conf->entity));
+					$this->db->query("DELETE FROM " . $this->db->prefix() . "product_perentity WHERE fk_product = " . ((int) $this->id) . " AND entity = " . ((int) $config->entity));
 
 					$sql = "INSERT INTO " . $this->db->prefix() . "product_perentity (";
 					$sql .= " fk_product";
@@ -1626,7 +1626,7 @@ class Product extends CommonObject
 					$sql .= ", accountancy_code_sell_export";
 					$sql .= ") VALUES (";
 					$sql .= ((int) $this->id);
-					$sql .= ", " . ((int) $conf->entity);
+					$sql .= ", " . ((int) $config->entity);
 					$sql .= ", '" . $this->db->escape($this->accountancy_code_buy) . "'";
 					$sql .= ", '" . $this->db->escape($this->accountancy_code_buy_intra) . "'";
 					$sql .= ", '" . $this->db->escape($this->accountancy_code_buy_export) . "'";
@@ -1696,9 +1696,9 @@ class Product extends CommonObject
 
 				if (!$error && (is_object($this->oldcopy) && $this->oldcopy->ref !== $this->ref)) {
 					// We remove directory
-					if ($conf->product->dir_output) {
-						$olddir = $conf->product->dir_output."/".dol_sanitizeFileName($this->oldcopy->ref);
-						$newdir = $conf->product->dir_output."/".dol_sanitizeFileName($this->ref);
+					if ($config->product->dir_output) {
+						$olddir = $config->product->dir_output."/".dol_sanitizeFileName($this->oldcopy->ref);
+						$newdir = $config->product->dir_output."/".dol_sanitizeFileName($this->ref);
 						if (file_exists($olddir)) {
 							// include_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
 							// $res = dol_move($olddir, $newdir);
@@ -1738,7 +1738,7 @@ class Product extends CommonObject
 			} else {
 				if ($this->db->errno() == 'DB_ERROR_RECORD_ALREADY_EXISTS') {
 					$langs->load("errors");
-					if (empty($conf->barcode->enabled) || empty($this->barcode)) {
+					if (empty($config->barcode->enabled) || empty($this->barcode)) {
 						$this->error = $langs->trans("Error")." : ".$langs->trans("ErrorProductAlreadyExists", $this->ref);
 					} else {
 						$this->error = $langs->trans("Error")." : ".$langs->trans("ErrorProductBarCodeAlreadyExists", $this->barcode);
@@ -1892,8 +1892,8 @@ class Product extends CommonObject
 			if (!$error) {
 				// We remove directory
 				$ref = dol_sanitizeFileName($this->ref);
-				if ($conf->product->dir_output) {
-					$dir = $conf->product->dir_output."/".$ref;
+				if ($config->product->dir_output) {
+					$dir = $config->product->dir_output."/".$ref;
 					if (file_exists($dir)) {
 						$res = @dol_delete_dir_recursive($dir);
 						if (!$res) {
@@ -2256,7 +2256,7 @@ class Product extends CommonObject
 		$sql = "INSERT INTO ".$this->db->prefix()."product_price(price_level,date_price, fk_product, fk_user_author, price_label, price, price_ttc, price_base_type,tosell, tva_tx, default_vat_code, recuperableonly,";
 		$sql .= " localtax1_tx, localtax2_tx, localtax1_type, localtax2_type, price_min,price_min_ttc,price_by_qty,entity,fk_price_expression) ";
 		$sql .= " VALUES(".($level ? ((int) $level) : 1).", '".$this->db->idate($now)."', ".((int) $this->id).", ".((int) $user->id).", ".(empty($this->price_label) ? "null" : "'".$this->db->escape($this->price_label)."'").", ".((float) price2num($this->price)).", ".((float) price2num($this->price_ttc)).",'".$this->db->escape($this->price_base_type)."',".((int) $this->status).", ".((float) price2num($this->tva_tx)).", ".($this->default_vat_code ? ("'".$this->db->escape($this->default_vat_code)."'") : "null").", ".((int) $this->tva_npr).",";
-		$sql .= " ".price2num($this->localtax1_tx).", ".price2num($this->localtax2_tx).", '".$this->db->escape($this->localtax1_type)."', '".$this->db->escape($this->localtax2_type)."', ".price2num($this->price_min).", ".price2num($this->price_min_ttc).", ".price2num($this->price_by_qty).", ".((int) $conf->entity).",".($this->fk_price_expression > 0 ? ((int) $this->fk_price_expression) : 'null');
+		$sql .= " ".price2num($this->localtax1_tx).", ".price2num($this->localtax2_tx).", '".$this->db->escape($this->localtax1_type)."', '".$this->db->escape($this->localtax2_type)."', ".price2num($this->price_min).", ".price2num($this->price_min_ttc).", ".price2num($this->price_by_qty).", ".((int) $config->entity).",".($this->fk_price_expression > 0 ? ((int) $this->fk_price_expression) : 'null');
 		$sql .= ")";
 
 		dol_syslog(get_class($this)."::_log_price", LOG_DEBUG);
@@ -2897,10 +2897,10 @@ class Product extends CommonObject
 		// PMP per entity & Stocks Sharings stock_reel includes only stocks shared with this entity
 		$separatedEntityPMP = false;	// Set to true to get the AWP from table llx_product_perentity instead of field 'pmp' into llx_product.
 		$separatedStock = false;		// Set to true will count stock from subtable llx_product_stock. It is slower than using denormalized field 'stock', but it is required when using multientity and shared warehouses.
-		$visibleWarehousesEntities = $conf->entity;
+		$visibleWarehousesEntities = $config->entity;
 		if (getDolGlobalString('MULTICOMPANY_PRODUCT_SHARING_ENABLED')) {
 			if (getDolGlobalString('MULTICOMPANY_PMP_PER_ENTITY_ENABLED')) {
-				$checkPMPPerEntity = $this->db->query("SELECT pmp FROM " . $this->db->prefix() . "product_perentity WHERE fk_product = ".((int) $id)." AND entity = ".(int) $conf->entity);
+				$checkPMPPerEntity = $this->db->query("SELECT pmp FROM " . $this->db->prefix() . "product_perentity WHERE fk_product = ".((int) $id)." AND entity = ".(int) $config->entity);
 				if ($this->db->num_rows($checkPMPPerEntity) > 0) {
 					$separatedEntityPMP = true;
 				}
@@ -2926,7 +2926,7 @@ class Product extends CommonObject
 		}
 		$sql .= " FROM ".$this->db->prefix()."product as p";
 		if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED') || $separatedEntityPMP) {
-			$sql .= " LEFT JOIN " . $this->db->prefix() . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $conf->entity);
+			$sql .= " LEFT JOIN " . $this->db->prefix() . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 		}
 		if ($separatedStock) {
 			$sql .= " LEFT JOIN " . $this->db->prefix() . "product_stock as sp ON sp.fk_product = p.rowid AND sp.fk_entrepot IN (SELECT rowid FROM ".$this->db->prefix()."entrepot WHERE entity IN (".$this->db->sanitize($visibleWarehousesEntities)."))";
@@ -5080,7 +5080,7 @@ class Product extends CommonObject
 				$sql .= ", tva_tx";
 				$sql .= ") VALUES (";
 				$sql .= "'".$this->db->idate($now)."'";
-				$sql .= ", ".((int) $conf->entity);
+				$sql .= ", ".((int) $config->entity);
 				$sql .= ", ".((int) $this->id);
 				$sql .= ", ".((int) $id_fourn);
 				$sql .= ", '".$this->db->escape($ref_fourn)."'";
@@ -5124,7 +5124,7 @@ class Product extends CommonObject
 		$sql = "SELECT DISTINCT p.fk_soc";
 		$sql .= " FROM ".$this->db->prefix()."product_fournisseur_price as p";
 		$sql .= " WHERE p.fk_product = ".((int) $this->id);
-		$sql .= " AND p.entity = ".((int) $conf->entity);
+		$sql .= " AND p.entity = ".((int) $config->entity);
 
 		$result = $this->db->query($sql);
 		if ($result) {
@@ -5640,7 +5640,7 @@ class Product extends CommonObject
 		}
 
 		if (!empty($this->entity) && $permissiontoreadproduct) {
-			$tmpphoto = $this->show_photos('product', $conf->product->multidir_output[$this->entity], 1, 1, 0, 0, 0, 80, 0, 0, 0, 0, '1');
+			$tmpphoto = $this->show_photos('product', $config->product->multidir_output[$this->entity], 1, 1, 0, 0, 0, 80, 0, 0, 0, 0, '1');
 			if ($this->nbphoto > 0) {
 				$datas['photo'] = '<div class="photointooltip floatright">'."\n" . $tmpphoto . '</div>';
 			}
@@ -5717,7 +5717,7 @@ class Product extends CommonObject
 			}
 			if (empty($user->socid)) {
 				if (!empty($this->pmp) && $this->pmp) {
-					$datas['pmp'] = "<br><b>".$langs->trans("PMPValue").'</b>: '.price($this->pmp, 0, '', 1, -1, -1, $conf->currency);
+					$datas['pmp'] = "<br><b>".$langs->trans("PMPValue").'</b>: '.price($this->pmp, 0, '', 1, -1, -1, $config->currency);
 				}
 
 				if (isModEnabled('accounting')) {
@@ -6703,7 +6703,7 @@ class Product extends CommonObject
 
 		$result = '';
 		if (getDolGlobalString('BARCODE_PRODUCT_ADDON_NUM')) {
-			$dirsociete = array_merge(array('/core/modules/barcode/'), $conf->modules_parts['barcode']);
+			$dirsociete = array_merge(array('/core/modules/barcode/'), $config->modules_parts['barcode']);
 			foreach ($dirsociete as $dirroot) {
 				$res = dol_include_once($dirroot . getDolGlobalString('BARCODE_PRODUCT_ADDON_NUM').'.php');
 				if ($res) {
@@ -7033,8 +7033,8 @@ class Product extends CommonObject
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<div class="info-box-img">';
 		$label = '';
-		if ($this->is_photo_available($conf->product->multidir_output[$this->entity])) {
-			$label .= $this->show_photos('product', $conf->product->multidir_output[$this->entity], 1, 1, 0, 0, 0, 120, 160, 0, 0, 0, '', 'photoref photokanban');
+		if ($this->is_photo_available($config->product->multidir_output[$this->entity])) {
+			$label .= $this->show_photos('product', $config->product->multidir_output[$this->entity], 1, 1, 0, 0, 0, 120, 160, 0, 0, 0, '', 'photoref photokanban');
 			$return .= $label;
 		} else {
 			if ($this->isProduct()) {

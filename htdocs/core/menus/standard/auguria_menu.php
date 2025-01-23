@@ -163,8 +163,8 @@ class MenuManager
 		require_once DOL_DOCUMENT_ROOT.'/core/menus/standard/auguria.lib.php';
 
 		if ($this->type_user == 1) {
-			$conf->global->MAIN_SEARCHFORM_SOCIETE_DISABLED = 1;
-			$conf->global->MAIN_SEARCHFORM_CONTACT_DISABLED = 1;
+			$config->global->MAIN_SEARCHFORM_SOCIETE_DISABLED = 1;
+			$config->global->MAIN_SEARCHFORM_CONTACT_DISABLED = 1;
 		}
 
 		require_once DOL_DOCUMENT_ROOT.'/core/class/menu.class.php';
@@ -178,7 +178,7 @@ class MenuManager
 				print_left_auguria_menu($this->db, $this->menu_array, $this->menu_array_after, $this->tabMenu, $this->menu, 0, '', '', $moredata);
 			}
 		} else {
-			$conf->global->MAIN_SHOW_LOGO = 0;
+			$config->global->MAIN_SHOW_LOGO = 0;
 			if ($mode == 'top') {
 				print_left_auguria_menu($this->db, $this->menu_array, $this->menu_array_after, $this->tabMenu, $this->menu, 0);
 			}

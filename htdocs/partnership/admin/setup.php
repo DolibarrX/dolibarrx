@@ -63,7 +63,7 @@ if ($action == 'setting') {
 	require_once DOL_DOCUMENT_ROOT."/core/modules/modPartnership.class.php";
 
 	$modulemenu = (GETPOST('PARTNERSHIP_IS_MANAGED_FOR', 'alpha') == 'member') ? 'member' : 'thirdparty';
-	$res = dolibarr_set_const($db, "PARTNERSHIP_IS_MANAGED_FOR", $modulemenu, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PARTNERSHIP_IS_MANAGED_FOR", $modulemenu, 'chaine', 0, '', $config->entity);
 
 	$partnership = new modPartnership($db);
 
@@ -74,10 +74,10 @@ if ($action == 'setting') {
 	$error += $partnership->insert_menus();
 
 	if (GETPOSTISSET("PARTNERSHIP_NBDAYS_AFTER_MEMBER_EXPIRATION_BEFORE_CANCEL")) {
-		dolibarr_set_const($db, "PARTNERSHIP_NBDAYS_AFTER_MEMBER_EXPIRATION_BEFORE_CANCEL", GETPOSTINT("PARTNERSHIP_NBDAYS_AFTER_MEMBER_EXPIRATION_BEFORE_CANCEL"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "PARTNERSHIP_NBDAYS_AFTER_MEMBER_EXPIRATION_BEFORE_CANCEL", GETPOSTINT("PARTNERSHIP_NBDAYS_AFTER_MEMBER_EXPIRATION_BEFORE_CANCEL"), 'chaine', 0, '', $config->entity);
 	}
 
-	dolibarr_set_const($db, "PARTNERSHIP_BACKLINKS_TO_CHECK", GETPOST("PARTNERSHIP_BACKLINKS_TO_CHECK"), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "PARTNERSHIP_BACKLINKS_TO_CHECK", GETPOST("PARTNERSHIP_BACKLINKS_TO_CHECK"), 'chaine', 0, '', $config->entity);
 }
 
 if ($action) {
@@ -109,7 +109,7 @@ $form = new Form($db);
 
 // Module to manage partnership / services code
 $dirpartnership = array('/core/modules/partnership/');
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 
 /*
@@ -146,7 +146,7 @@ print '</tr>';
 print '<tr class="oddeven"><td>'.$langs->trans("PARTNERSHIP_NBDAYS_AFTER_MEMBER_EXPIRATION_BEFORE_CANCEL").'</td>';
 print '<td>';
 $dnbdays = '30';
-$backlinks = (getDolGlobalString('PARTNERSHIP_NBDAYS_AFTER_MEMBER_EXPIRATION_BEFORE_CANCEL')) ? $conf->global->PARTNERSHIP_NBDAYS_AFTER_MEMBER_EXPIRATION_BEFORE_CANCEL : $dnbdays;
+$backlinks = (getDolGlobalString('PARTNERSHIP_NBDAYS_AFTER_MEMBER_EXPIRATION_BEFORE_CANCEL')) ? $config->global->PARTNERSHIP_NBDAYS_AFTER_MEMBER_EXPIRATION_BEFORE_CANCEL : $dnbdays;
 print '<input class="maxwidth50" type="text" name="PARTNERSHIP_NBDAYS_AFTER_MEMBER_EXPIRATION_BEFORE_CANCEL" value="'.$backlinks.'">';
 print '</td>';
 print '<td><span class="opacitymedium">'.$dnbdays.'</span></td>';

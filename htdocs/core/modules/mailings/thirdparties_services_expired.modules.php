@@ -135,7 +135,7 @@ class mailing_thirdparties_services_expired extends MailingTargets
 		$sql .= " AND cd.statut= 4 AND cd.fk_product=p.rowid AND p.ref = '".$this->db->escape($product)."'";
 		$sql .= " AND cd.date_fin_validite < '".$this->db->idate($now)."'";
 		if (empty($this->evenunsubscribe)) {
-			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $conf->entity).")";
+			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $config->entity).")";
 		}
 		$sql .= " ORDER BY s.email";
 
@@ -225,7 +225,7 @@ class mailing_thirdparties_services_expired extends MailingTargets
 		$sql .= " AND p.ref IN (".$this->db->sanitize("'".implode("','", $this->arrayofproducts)."'", 1).")";
 		$sql .= " AND cd.date_fin_validite < '".$this->db->idate($now)."'";
 		if (empty($this->evenunsubscribe)) {
-			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $conf->entity).")";
+			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $config->entity).")";
 		}
 
 		$a = parent::getNbOfRecipients($sql);

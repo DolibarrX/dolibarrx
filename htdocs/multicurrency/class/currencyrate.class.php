@@ -103,7 +103,7 @@ class CurrencyRate extends CommonObjectLine
 		$error = 0;
 		$this->rate = (float) price2num($this->rate);
 		if (empty($this->entity) || $this->entity <= 0) {
-			$this->entity = $conf->entity;
+			$this->entity = $config->entity;
 		}
 		$now = empty($this->date_sync) ? dol_now() : $this->date_sync;
 

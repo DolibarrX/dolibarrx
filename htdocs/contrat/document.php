@@ -62,7 +62,7 @@ if ($user->socid > 0) {
 }
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -87,7 +87,7 @@ if ($object->id > 0) {
 	$object->fetch_thirdparty();
 }
 
-$upload_dir = $conf->contrat->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
+$upload_dir = $config->contrat->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
 $modulepart = 'contract';
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context

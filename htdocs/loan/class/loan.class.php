@@ -312,7 +312,7 @@ class Loan extends CommonObject
 		$sql .= " '".$this->db->escape($this->account_capital)."',";
 		$sql .= " '".$this->db->escape($this->account_insurance)."',";
 		$sql .= " '".$this->db->escape($this->account_interest)."',";
-		$sql .= " ".((int) $conf->entity).",";
+		$sql .= " ".((int) $config->entity).",";
 		$sql .= " '".$this->db->idate($now)."',";
 		$sql .= " ".(empty($this->fk_project) ? 'NULL' : $this->fk_project).",";
 		$sql .= " ".((int) $user->id).",";

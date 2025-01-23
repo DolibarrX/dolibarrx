@@ -97,7 +97,7 @@ class mod_asset_standard extends ModeleNumRefAsset
 		$sql .= " FROM ".MAIN_DB_PREFIX."asset_asset";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		if ($object->ismultientitymanaged == 1) {
-			$sql .= " AND entity = ".$conf->entity;
+			$sql .= " AND entity = ".$config->entity;
 		} elseif ($object->ismultientitymanaged == 2) {
 			// TODO
 		}
@@ -136,7 +136,7 @@ class mod_asset_standard extends ModeleNumRefAsset
 		$sql .= " FROM ".MAIN_DB_PREFIX."asset";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		if ($object->ismultientitymanaged == 1) {
-			$sql .= " AND entity = ".$conf->entity;
+			$sql .= " AND entity = ".$config->entity;
 		} elseif ($object->ismultientitymanaged == 2) {
 			// TODO
 		}

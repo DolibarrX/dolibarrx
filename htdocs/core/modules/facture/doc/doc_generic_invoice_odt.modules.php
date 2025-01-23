@@ -123,7 +123,7 @@ class doc_generic_invoice_odt extends ModelePDFFactures
 		// List of directories area
 		$texte .= '<tr><td valign="middle">';
 		$texttitle = $langs->trans("ListOfDirectories");
-		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($conf->global->FACTURE_ADDON_PDF_ODT_PATH)));
+		$listofdir = explode(',', preg_replace('/[\r\n]+/', ',', trim($config->global->FACTURE_ADDON_PDF_ODT_PATH)));
 		$listoffiles = array();
 		foreach ($listofdir as $key => $tmpdir) {
 			$tmpdir = trim($tmpdir);
@@ -235,7 +235,7 @@ class doc_generic_invoice_odt extends ModelePDFFactures
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills"));
 
-		if ($conf->facture->dir_output) {
+		if ($config->facture->dir_output) {
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
@@ -249,7 +249,7 @@ class doc_generic_invoice_odt extends ModelePDFFactures
 
 			$object->fetch_thirdparty();
 
-			$dir = empty($conf->facture->multidir_output[$object->entity]) ? $conf->facture->dir_output : $conf->facture->multidir_output[$object->entity];
+			$dir = empty($config->facture->multidir_output[$object->entity]) ? $config->facture->dir_output : $config->facture->multidir_output[$object->entity];
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -288,11 +288,11 @@ class doc_generic_invoice_odt extends ModelePDFFactures
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->societe->dir_temp=".$conf->societe->dir_temp;
+				//print "conf->societe->dir_temp=".$config->societe->dir_temp;
 
-				dol_mkdir($conf->facture->dir_temp);
-				if (!is_writable($conf->facture->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->facture->dir_temp);
+				dol_mkdir($config->facture->dir_temp);
+				if (!is_writable($config->facture->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->facture->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -309,7 +309,7 @@ class doc_generic_invoice_odt extends ModelePDFFactures
 				$contactobject = null;
 				if (!empty($usecontact)) {
 					// We can use the company of contact instead of thirdparty company
-					if ($object->contact->socid != $object->thirdparty->id && (!isset($conf->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
+					if ($object->contact->socid != $object->thirdparty->id && (!isset($config->global->MAIN_USE_COMPANY_NAME_OF_CONTACT) || getDolGlobalString('MAIN_USE_COMPANY_NAME_OF_CONTACT'))) {
 						$object->contact->fetch_thirdparty();
 						$socobject = $object->contact->thirdparty;
 						$contactobject = $object->contact;
@@ -389,7 +389,7 @@ class doc_generic_invoice_odt extends ModelePDFFactures
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $conf->facture->dir_temp,
+							'PATH_TO_TMP'	  => $config->facture->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'

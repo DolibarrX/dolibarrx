@@ -160,9 +160,9 @@ class modAi extends DolibarrModules
 			'fr_FR:ParentCompany'=>'Maison mère ou revendeur'
 		)*/
 
-		if (!isset($conf->ai) || !isset($conf->ai->enabled)) {
-			$conf->ai = new stdClass();
-			$conf->ai->enabled = 0;
+		if (!isset($config->ai) || !isset($config->ai->enabled)) {
+			$config->ai = new stdClass();
+			$config->ai->enabled = 0;
 		}
 
 		// Array to add new pages in new tabs
@@ -215,7 +215,7 @@ class modAi extends DolibarrModules
 			// Name of columns with primary key (try to always name it 'rowid')
 			'tabrowid'=>array("rowid", "rowid", "rowid"),
 			// Condition to show each dictionary
-			'tabcond'=>array($conf->ai->enabled, $conf->ai->enabled, $conf->ai->enabled)
+			'tabcond'=>array($config->ai->enabled, $config->ai->enabled, $config->ai->enabled)
 			// Help tooltip for each fields of the dictionary
 			'tabhelp'=>array(array('code'=>$langs->trans('CodeTooltipHelp')))
 		);
@@ -246,13 +246,13 @@ class modAi extends DolibarrModules
 			//      'frequency' => 2,
 			//      'unitfrequency' => 3600,
 			//      'status' => 0,
-			//      'test' => '$conf->ai->enabled',
+			//      'test' => '$config->ai->enabled',
 			//      'priority' => 50,
 			//  ),
 		);
 		// Example: $this->cronjobs=array(
-		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->ai->enabled', 'priority'=>50),
-		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->ai->enabled', 'priority'=>50)
+		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$config->ai->enabled', 'priority'=>50),
+		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$config->ai->enabled', 'priority'=>50)
 		// );
 
 		// Permissions provided by this module
@@ -329,8 +329,8 @@ class modAi extends DolibarrModules
 		$this->import_convertvalue_array[$r] = array(
 			't.ref' => array(
 				'rule'=>'getrefifauto',
-				'class'=>(empty($conf->global->BOOKCAL_AVAILABILITIES_ADDON) ? 'mod_availabilities_standard' : $conf->global->BOOKCAL_AVAILABILITIES_ADDON),
-				'path'=>"/core/modules/commande/".(empty($conf->global->BOOKCAL_AVAILABILITIES_ADDON) ? 'mod_availabilities_standard' : $conf->global->BOOKCAL_AVAILABILITIES_ADDON).'.php'
+				'class'=>(empty($config->global->BOOKCAL_AVAILABILITIES_ADDON) ? 'mod_availabilities_standard' : $config->global->BOOKCAL_AVAILABILITIES_ADDON),
+				'path'=>"/core/modules/commande/".(empty($config->global->BOOKCAL_AVAILABILITIES_ADDON) ? 'mod_availabilities_standard' : $config->global->BOOKCAL_AVAILABILITIES_ADDON).'.php'
 				'classobject'=>'Availabilities',
 				'pathobject'=>'/ai/class/availabilities.class.php',
 			),
@@ -362,11 +362,11 @@ class modAi extends DolibarrModules
 		// Create extrafields during init
 		//include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		//$extrafields = new ExtraFields($this->db);
-		//$result1=$extrafields->addExtraField('ai_myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'ai@ai', '$conf->ai->enabled');
-		//$result2=$extrafields->addExtraField('ai_myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'ai@ai', '$conf->ai->enabled');
-		//$result3=$extrafields->addExtraField('ai_myattr3', "New Attr 3 label", 'varchar', 1, 10, 'bank_account', 0, 0, '', '', 1, '', 0, 0, '', '', 'ai@ai', '$conf->ai->enabled');
-		//$result4=$extrafields->addExtraField('ai_myattr4', "New Attr 4 label", 'select',  1,  3, 'thirdparty',   0, 1, '', array('options'=>array('code1'=>'Val1','code2'=>'Val2','code3'=>'Val3')), 1,'', 0, 0, '', '', 'ai@ai', '$conf->ai->enabled');
-		//$result5=$extrafields->addExtraField('ai_myattr5', "New Attr 5 label", 'text',    1, 10, 'user',         0, 0, '', '', 1, '', 0, 0, '', '', 'ai@ai', '$conf->ai->enabled');
+		//$result1=$extrafields->addExtraField('ai_myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'ai@ai', '$config->ai->enabled');
+		//$result2=$extrafields->addExtraField('ai_myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'ai@ai', '$config->ai->enabled');
+		//$result3=$extrafields->addExtraField('ai_myattr3', "New Attr 3 label", 'varchar', 1, 10, 'bank_account', 0, 0, '', '', 1, '', 0, 0, '', '', 'ai@ai', '$config->ai->enabled');
+		//$result4=$extrafields->addExtraField('ai_myattr4', "New Attr 4 label", 'select',  1,  3, 'thirdparty',   0, 1, '', array('options'=>array('code1'=>'Val1','code2'=>'Val2','code3'=>'Val3')), 1,'', 0, 0, '', '', 'ai@ai', '$config->ai->enabled');
+		//$result5=$extrafields->addExtraField('ai_myattr5', "New Attr 5 label", 'text',    1, 10, 'user',         0, 0, '', '', 1, '', 0, 0, '', '', 'ai@ai', '$config->ai->enabled');
 
 		// Permissions
 		$this->remove($options);
@@ -396,10 +396,10 @@ class modAi extends DolibarrModules
 		// 		}
 
 		// 		$sql = array_merge($sql, array(
-		// 			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'standard_".strtolower($myTmpObjectKey)."' AND type = '".$this->db->escape(strtolower($myTmpObjectKey))."' AND entity = ".((int) $conf->entity),
-		// 			"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('standard_".strtolower($myTmpObjectKey)."', '".$this->db->escape(strtolower($myTmpObjectKey))."', ".((int) $conf->entity).")",
-		// 			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'generic_".strtolower($myTmpObjectKey)."_odt' AND type = '".$this->db->escape(strtolower($myTmpObjectKey))."' AND entity = ".((int) $conf->entity),
-		// 			"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('generic_".strtolower($myTmpObjectKey)."_odt', '".$this->db->escape(strtolower($myTmpObjectKey))."', ".((int) $conf->entity).")"
+		// 			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'standard_".strtolower($myTmpObjectKey)."' AND type = '".$this->db->escape(strtolower($myTmpObjectKey))."' AND entity = ".((int) $config->entity),
+		// 			"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('standard_".strtolower($myTmpObjectKey)."', '".$this->db->escape(strtolower($myTmpObjectKey))."', ".((int) $config->entity).")",
+		// 			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'generic_".strtolower($myTmpObjectKey)."_odt' AND type = '".$this->db->escape(strtolower($myTmpObjectKey))."' AND entity = ".((int) $config->entity),
+		// 			"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('generic_".strtolower($myTmpObjectKey)."_odt', '".$this->db->escape(strtolower($myTmpObjectKey))."', ".((int) $config->entity).")"
 		// 		));
 		// 	}
 		// }

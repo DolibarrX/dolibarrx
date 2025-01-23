@@ -229,7 +229,7 @@ if (GETPOST('actionadd', 'alpha') || GETPOST('actionmodify', 'alpha')) {
 			if ($value == 'price' || preg_match('/^amount/i', $value) || $value == 'taux') {
 				$_POST[$listfieldvalue[$i]] = price2num(GETPOST($listfieldvalue[$i]), 'MU');
 			} elseif ($value == 'entity') {
-				$_POST[$listfieldvalue[$i]] = $conf->entity;
+				$_POST[$listfieldvalue[$i]] = $config->entity;
 			}
 			if ($i) {
 				$sql .= ",";
@@ -277,7 +277,7 @@ if (GETPOST('actionadd', 'alpha') || GETPOST('actionmodify', 'alpha')) {
 			if ($field == 'price' || preg_match('/^amount/i', $field) || $field == 'taux') {
 				$_POST[$listfieldvalue[$i]] = price2num(GETPOST($listfieldvalue[$i]), 'MU');
 			} elseif ($field == 'entity') {
-				$_POST[$listfieldvalue[$i]] = $conf->entity;
+				$_POST[$listfieldvalue[$i]] = $config->entity;
 			}
 			if ($i) {
 				$sql .= ",";

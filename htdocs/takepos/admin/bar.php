@@ -65,7 +65,7 @@ if (GETPOST('action', 'alpha') == 'set') {
 		$suplement_category = 0;
 	}
 
-	$res = dolibarr_set_const($db, "TAKEPOS_SUPPLEMENTS_CATEGORY", $suplement_category, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "TAKEPOS_SUPPLEMENTS_CATEGORY", $suplement_category, 'chaine', 0, '', $config->entity);
 	if ($res <= 0) {
 		$error++;
 	}
@@ -120,7 +120,7 @@ function Floors() {
 
 print '<center>';
 print $langs->trans("EnableBarOrRestaurantFeatures");
-print ajax_constantonoff("TAKEPOS_BAR_RESTAURANT", array(), $conf->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_BAR_RESTAURANT", array(), $config->entity, 0, 0, 1, 0);
 print '</center>';
 
 print '<br>';
@@ -140,7 +140,7 @@ if (getDolGlobalInt('TAKEPOS_BAR_RESTAURANT')) {
 	print $langs->trans("OrderPrinters");
 	print '</td>';
 	print '<td class="">';
-	print ajax_constantonoff("TAKEPOS_ORDER_PRINTERS", array(), $conf->entity, 0, 0, 1, 0);
+	print ajax_constantonoff("TAKEPOS_ORDER_PRINTERS", array(), $config->entity, 0, 0, 1, 0);
 	if (getDolGlobalString('TAKEPOS_ORDER_PRINTERS')) {
 		print' &nbsp; <a href="'.DOL_URL_ROOT.'/takepos/admin/orderprinters.php?leftmenu=setup">'.$langs->trans("Setup").'</a>';
 	}
@@ -151,7 +151,7 @@ if (getDolGlobalInt('TAKEPOS_BAR_RESTAURANT')) {
 		print $langs->trans("OrderNotes");
 		print '</td>';
 		print '<td class="">';
-		print ajax_constantonoff("TAKEPOS_ORDER_NOTES", array(), $conf->entity, 0, 0, 1, 0);
+		print ajax_constantonoff("TAKEPOS_ORDER_NOTES", array(), $config->entity, 0, 0, 1, 0);
 		print '</td></tr>';
 	}
 	/*else {
@@ -174,8 +174,8 @@ if (getDolGlobalInt('TAKEPOS_BAR_RESTAURANT')) {
 	print $langs->trans("ProductSupplements");
 	print '</td>';
 	print '<td class="">';
-	//print $form->selectyesno("TAKEPOS_SUPPLEMENTS", $conf->global->TAKEPOS_SUPPLEMENTS, 1);
-	print ajax_constantonoff("TAKEPOS_SUPPLEMENTS", array(), $conf->entity, 0, 0, 1, 0);
+	//print $form->selectyesno("TAKEPOS_SUPPLEMENTS", $config->global->TAKEPOS_SUPPLEMENTS, 1);
+	print ajax_constantonoff("TAKEPOS_SUPPLEMENTS", array(), $config->entity, 0, 0, 1, 0);
 	print '</td></tr>';
 
 	if (getDolGlobalInt('TAKEPOS_SUPPLEMENTS')) {
@@ -193,14 +193,14 @@ if (getDolGlobalInt('TAKEPOS_BAR_RESTAURANT')) {
 	print 'QR - '.$langs->trans("CustomerMenu");
 	print '</td>';
 	print '<td class="">';
-	print ajax_constantonoff("TAKEPOS_QR_MENU", array(), $conf->entity, 0, 0, 1, 0);
+	print ajax_constantonoff("TAKEPOS_QR_MENU", array(), $config->entity, 0, 0, 1, 0);
 	print '</td></tr>';
 
 	print '<tr class="oddeven value"><td>';
 	print 'QR - '.$langs->trans("AutoOrder");
 	print '</td>';
 	print '<td class="">';
-	print ajax_constantonoff("TAKEPOS_AUTO_ORDER", array(), $conf->entity, 0, 0, 1, 0);
+	print ajax_constantonoff("TAKEPOS_AUTO_ORDER", array(), $config->entity, 0, 0, 1, 0);
 	print '</td></tr>';
 
 	// Experimental minimal interface
@@ -209,8 +209,8 @@ if (getDolGlobalInt('TAKEPOS_BAR_RESTAURANT')) {
 	print ' - <span class="warning">'.$langs->trans("Experimental").'</span>';
 	print '</td>';
 	print '<td class="">';
-	//print $form->selectyesno("TAKEPOS_PHONE_BASIC_LAYOUT", $conf->global->TAKEPOS_PHONE_BASIC_LAYOUT, 1);
-	print ajax_constantonoff("TAKEPOS_PHONE_BASIC_LAYOUT", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '_warning');
+	//print $form->selectyesno("TAKEPOS_PHONE_BASIC_LAYOUT", $config->global->TAKEPOS_PHONE_BASIC_LAYOUT, 1);
+	print ajax_constantonoff("TAKEPOS_PHONE_BASIC_LAYOUT", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_warning');
 	print '</td></tr>';
 
 	print '</table>';

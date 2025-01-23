@@ -190,7 +190,7 @@ class AccountingAccount extends CommonObject
 				$sql .= " a.rowid = ".(int) $rowid;
 			} elseif ($account_number) {
 				$sql .= " a.account_number = '".$this->db->escape($account_number)."'";
-				$sql .= " AND a.entity = ".$conf->entity;
+				$sql .= " AND a.entity = ".$config->entity;
 			}
 			if (!empty($limittocurrentchart)) {
 				$sql .= ' AND a.fk_pcg_version IN (SELECT pcg_version FROM '.$this->db->prefix().'accounting_system WHERE rowid = '.((int) getDolGlobalInt('CHARTOFACCOUNTS')).')';
@@ -291,7 +291,7 @@ class AccountingAccount extends CommonObject
 		$sql .= ", reconcilable";
 		$sql .= ") VALUES (";
 		$sql .= " '".$this->db->idate($now)."'";
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ", ".(empty($this->fk_pcg_version) ? 'NULL' : "'".$this->db->escape($this->fk_pcg_version)."'");
 		$sql .= ", ".(empty($this->pcg_type) ? 'NULL' : "'".$this->db->escape($this->pcg_type)."'");
 		$sql .= ", ".(empty($this->account_number) ? 'NULL' : "'".$this->db->escape($this->account_number)."'");
@@ -483,7 +483,7 @@ class AccountingAccount extends CommonObject
 		global $langs, $conf, $hookManager;
 		require_once DOL_DOCUMENT_ROOT . '/core/lib/accounting.lib.php';
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

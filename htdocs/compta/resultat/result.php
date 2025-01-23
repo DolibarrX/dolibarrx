@@ -70,7 +70,7 @@ $date_endyear = GETPOSTINT('date_endyear');
 $nbofyear = 1;
 
 // Change this to test different cases of setup
-//$conf->global->SOCIETE_FISCAL_MONTH_START = 7;
+//$config->global->SOCIETE_FISCAL_MONTH_START = 7;
 
 // Date range
 $year = GETPOSTINT('year');		// year with current month, is the month of the period we must show

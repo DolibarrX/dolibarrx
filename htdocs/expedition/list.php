@@ -89,7 +89,7 @@ $search_sale = GETPOST('search_sale', 'intcomma');
 $search_categ_cus = GETPOST("search_categ_cus", 'intcomma');
 $search_product_category = GETPOST('search_product_category', 'intcomma');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -110,7 +110,7 @@ $pagenext = $page + 1;
 $search_status = GETPOST('search_status', 'intcomma');
 $search_signed_status = GETPOST('search_signed_status', 'alpha');
 
-$diroutputmassaction = $conf->expedition->dir_output.'/sending/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->expedition->dir_output.'/sending/temp/massgeneration/'.$user->id;
 
 $object = new Expedition($db);
 
@@ -157,8 +157,8 @@ $arrayfields = array(
 	'l.ref' => array('label' => $langs->trans("DeliveryRef"), 'checked' => 1, 'position' => 1010, 'enabled' => (getDolGlobalInt('MAIN_SUBMODULE_DELIVERY') ? 1 : 0)),
 	'l.date_delivery' => array('label' => $langs->trans("DateReceived"), 'position' => 1020, 'checked' => 1, 'enabled' => (getDolGlobalInt('MAIN_SUBMODULE_DELIVERY') ? 1 : 0)),
 	'e.billed' => array('label' => $langs->trans("Billed"), 'checked' => 1, 'position' => 1100, 'enabled' => 'getDolGlobalString("WORKFLOW_BILL_ON_SHIPMENT") !== "0"'),
-	'e.note_public' => array('label' => 'NotePublic', 'checked' => 0, 'enabled' => (empty($conf->global->MAIN_LIST_ALLOW_PUBLIC_NOTES)), 'position' => 135),
-	'e.note_private' => array('label' => 'NotePrivate', 'checked' => 0, 'enabled' => (empty($conf->global->MAIN_LIST_ALLOW_PRIVATE_NOTES)), 'position' => 140),
+	'e.note_public' => array('label' => 'NotePublic', 'checked' => 0, 'enabled' => (empty($config->global->MAIN_LIST_ALLOW_PUBLIC_NOTES)), 'position' => 135),
+	'e.note_private' => array('label' => 'NotePrivate', 'checked' => 0, 'enabled' => (empty($config->global->MAIN_LIST_ALLOW_PRIVATE_NOTES)), 'position' => 140),
 );
 
 // Extra fields
@@ -236,7 +236,7 @@ if (empty($reshook)) {
 	$permissiontoread   = $user->hasRight('expedition', 'lire');
 	$permissiontoadd = $user->hasRight('expedition', 'creer');
 	$permissiontodelete = $user->hasRight('expedition', 'supprimer');
-	$uploaddir = $conf->expedition->dir_output.'/sending';
+	$uploaddir = $config->expedition->dir_output.'/sending';
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	if ($massaction == 'confirm_createbills') {   // Create bills from sendings.
@@ -365,7 +365,7 @@ if (empty($reshook)) {
 							$desc = dol_concatdesc($desc, $langs->trans("Order").': '.$expdCmdSrc->ref. ' - '. $langs->trans("Shipment").': '.$expd->ref.($expd->date_shipping ? ' - '.dol_print_date($expd->date_shipping, 'day') : ''));
 						}
 
-						if ($lines[$i]->subprice < 0 && empty($conf->global->INVOICE_KEEP_DISCOUNT_LINES_AS_IN_ORIGIN)) {
+						if ($lines[$i]->subprice < 0 && empty($config->global->INVOICE_KEEP_DISCOUNT_LINES_AS_IN_ORIGIN)) {
 							// Negative line, we create a discount line
 							$discount = new DiscountAbsolute($db);
 							$discount->socid = $objecttmp->socid;
@@ -504,7 +504,7 @@ if (empty($reshook)) {
 
 				// Builddoc
 				$donotredirect = 1;
-				$upload_dir = $conf->facture->dir_output;
+				$upload_dir = $config->facture->dir_output;
 				$permissiontoadd = $user->hasRight('facture', 'creer');
 
 				// Call action to build doc
@@ -533,7 +533,7 @@ if (empty($reshook)) {
 			if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 				$param .= '&contextpage='.urlencode($contextpage);
 			}
-			if ($limit > 0 && $limit != $conf->liste_limit) {
+			if ($limit > 0 && $limit != $config->liste_limit) {
 				$param .= '&limit='.urlencode(strval($limit));
 			}
 			if ($search_all) {
@@ -927,7 +927,7 @@ $num = $db->num_rows($resql);
 $arrayofselected = is_array($toselect) ? $toselect : array();
 
 // Redirect to expedition card if there is only one result for global search
-if ($num == 1 && !empty($conf->global->MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE) && $search_all) {
+if ($num == 1 && !empty($config->global->MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE) && $search_all) {
 	$obj = $db->fetch_object($resql);
 	$id = $obj->rowid;
 	header("Location: ".DOL_URL_ROOT.'/expedition/card.php?id='.$id);
@@ -952,7 +952,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($search_all) {
@@ -1105,14 +1105,14 @@ if ($massaction == 'createbills') {
 	print $langs->trans('ValidateInvoices');
 	print '</td>';
 	print '<td>';
-	if (!empty($conf->stock->enabled) && !empty($conf->global->STOCK_CALCULATE_ON_BILL)) {
+	if (!empty($config->stock->enabled) && !empty($config->global->STOCK_CALCULATE_ON_BILL)) {
 		print $form->selectyesno('validate_invoices', 0, 1, 1);
 		$langs->load("errors");
 		print ' ('.$langs->trans("WarningAutoValNotPossibleWhenStockIsDecreasedOnInvoiceVal").')';
 	} else {
 		print $form->selectyesno('validate_invoices', 0, 1);
 	}
-	if (!empty($conf->workflow->enabled) && !empty($conf->global->WORKFLOW_INVOICE_AMOUNT_CLASSIFY_BILLED_ORDER)) {
+	if (!empty($config->workflow->enabled) && !empty($config->global->WORKFLOW_INVOICE_AMOUNT_CLASSIFY_BILLED_ORDER)) {
 		print ' &nbsp; &nbsp; <span class="opacitymedium">'.$langs->trans("IfValidateInvoiceIsNoSendingStayUnbilled").'</span>';
 	} else {
 		print ' &nbsp; &nbsp; <span class="opacitymedium">'.$langs->trans("OptionToSetSendingBilledNotEnabled").'</span>';
@@ -1539,7 +1539,7 @@ while ($i < $imaxinloop) {
 		if (!empty($arrayfields['e.ref']['checked'])) {
 			print '<td class="nowraponall">';
 			print $object->getNomUrl(1);
-			$filedir = ($conf->expedition->multidir_output[$object->entity] ? $conf->expedition->multidir_output[$object->entity] : $conf->expedition->dir_output).'/sending/'.get_exdir(0, 0, 0, 1, $object, '');
+			$filedir = ($config->expedition->multidir_output[$object->entity] ? $config->expedition->multidir_output[$object->entity] : $config->expedition->dir_output).'/sending/'.get_exdir(0, 0, 0, 1, $object, '');
 			$filename = dol_sanitizeFileName($object->ref);
 			print $formfile->getDocumentsLink('expedition', $filename, $filedir);
 			print "</td>\n";
@@ -1618,7 +1618,7 @@ while ($i < $imaxinloop) {
 			print '<td class="center">';
 			if (empty($object->trueWeight)) {
 				$tmparray = $object->getTotalWeightVolume();
-				print showDimensionInBestUnit($tmparray['weight'], 0, "weight", $langs, getDolGlobalInt('MAIN_WEIGHT_DEFAULT_ROUND', -1), isset($conf->global->MAIN_WEIGHT_DEFAULT_UNIT) ? $conf->global->MAIN_WEIGHT_DEFAULT_UNIT : 'no');
+				print showDimensionInBestUnit($tmparray['weight'], 0, "weight", $langs, getDolGlobalInt('MAIN_WEIGHT_DEFAULT_ROUND', -1), isset($config->global->MAIN_WEIGHT_DEFAULT_UNIT) ? $config->global->MAIN_WEIGHT_DEFAULT_UNIT : 'no');
 				print $form->textwithpicto('', $langs->trans('EstimatedWeight'), 1);
 			} else {
 				print $object->trueWeight;

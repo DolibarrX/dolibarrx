@@ -137,9 +137,9 @@ class modBom extends DolibarrModules
 			'fr_FR:ParentCompany'=>'Maison mère ou revendeur'
 		)*/
 
-		if (!isset($conf->bom) || !isset($conf->bom->enabled)) {
-			$conf->bom = new stdClass();
-			$conf->bom->enabled = 0;
+		if (!isset($config->bom) || !isset($config->bom->enabled)) {
+			$config->bom = new stdClass();
+			$config->bom->enabled = 0;
 		}
 
 
@@ -186,10 +186,10 @@ class modBom extends DolibarrModules
 		// Cronjobs (List of cron jobs entries to add when module is enabled)
 		// unit_frequency must be 60 for minute, 3600 for hour, 86400 for day, 604800 for week
 		$this->cronjobs = array(
-			//0=>array('label'=>'MyJob label', 'jobtype'=>'method', 'class'=>'/bom/class/bom.class.php', 'objectname'=>'Bom', 'method'=>'doScheduledJob', 'parameters'=>'', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->bom->enabled', 'priority'=>50)
+			//0=>array('label'=>'MyJob label', 'jobtype'=>'method', 'class'=>'/bom/class/bom.class.php', 'objectname'=>'Bom', 'method'=>'doScheduledJob', 'parameters'=>'', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$config->bom->enabled', 'priority'=>50)
 		);
-		// Example: $this->cronjobs=array(0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->bom->enabled', 'priority'=>50),
-		//                                1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->bom->enabled', 'priority'=>50)
+		// Example: $this->cronjobs=array(0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$config->bom->enabled', 'priority'=>50),
+		//                                1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$config->bom->enabled', 'priority'=>50)
 		// );
 
 
@@ -233,7 +233,7 @@ class modBom extends DolibarrModules
 								'url'=>'/bom/bom_list.php',
 								'langs'=>'mrp',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 								'position'=>1000+$r,
-								'enabled'=>'$conf->bom->enabled',	// Define condition to show or hide menu entry. Use '$conf->bom->enabled' if entry must be visible if module is enabled.
+								'enabled'=>'$config->bom->enabled',	// Define condition to show or hide menu entry. Use '$config->bom->enabled' if entry must be visible if module is enabled.
 								'perms'=>'1',			                // Use 'perms'=>'$user->rights->bom->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
@@ -249,7 +249,7 @@ class modBom extends DolibarrModules
 								'url'=>'/bom/bom_list.php',
 								'langs'=>'mrp',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 								'position'=>1000+$r,
-								'enabled'=>'$conf->bom->enabled',  // Define condition to show or hide menu entry. Use '$conf->bom->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+								'enabled'=>'$config->bom->enabled',  // Define condition to show or hide menu entry. Use '$config->bom->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 								'perms'=>'1',			                // Use 'perms'=>'$user->rights->bom->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
@@ -261,7 +261,7 @@ class modBom extends DolibarrModules
 								'url'=>'/bom/bom_page.php?action=create',
 								'langs'=>'mrp',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 								'position'=>1000+$r,
-								'enabled'=>'$conf->bom->enabled',  // Define condition to show or hide menu entry. Use '$conf->bom->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+								'enabled'=>'$config->bom->enabled',  // Define condition to show or hide menu entry. Use '$config->bom->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 								'perms'=>'1',			                // Use 'perms'=>'$user->rights->bom->level1->level2' if you want your menu with a permission rules
 								'target'=>'',
 								'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
@@ -342,7 +342,7 @@ class modBom extends DolibarrModules
 
 		// Add extra fields
 		$import_extrafield_sample = array();
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'bom_bom' AND entity IN (0, ".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'bom_bom' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 
 		if ($resql) {
@@ -413,7 +413,7 @@ class modBom extends DolibarrModules
 		);
 
 		// Add extra fields
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'bom_bomline' AND entity IN (0, ".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE elementtype = 'bom_bomline' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -462,11 +462,11 @@ class modBom extends DolibarrModules
 		// Create extrafields
 		//include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		//$extrafields = new ExtraFields($this->db);
-		//$result1=$extrafields->addExtraField('myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'mrp', '$conf->bom->enabled');
-		//$result2=$extrafields->addExtraField('myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'mrp', '$conf->bom->enabled');
-		//$result3=$extrafields->addExtraField('myattr3', "New Attr 3 label", 'varchar', 1, 10, 'bank_account', 0, 0, '', '', 1, '', 0, 0, '', '', 'mrp', '$conf->bom->enabled');
-		//$result4=$extrafields->addExtraField('myattr4', "New Attr 4 label", 'select',  1,  3, 'thirdparty',   0, 1, '', array('options'=>array('code1'=>'Val1','code2'=>'Val2','code3'=>'Val3')), 1,'', 0, 0, '', '', 'mrp', '$conf->bom->enabled');
-		//$result5=$extrafields->addExtraField('myattr5', "New Attr 5 label", 'text',    1, 10, 'user',         0, 0, '', '', 1, '', 0, 0, '', '', 'mrp', '$conf->bom->enabled');
+		//$result1=$extrafields->addExtraField('myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'mrp', '$config->bom->enabled');
+		//$result2=$extrafields->addExtraField('myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'mrp', '$config->bom->enabled');
+		//$result3=$extrafields->addExtraField('myattr3', "New Attr 3 label", 'varchar', 1, 10, 'bank_account', 0, 0, '', '', 1, '', 0, 0, '', '', 'mrp', '$config->bom->enabled');
+		//$result4=$extrafields->addExtraField('myattr4', "New Attr 4 label", 'select',  1,  3, 'thirdparty',   0, 1, '', array('options'=>array('code1'=>'Val1','code2'=>'Val2','code3'=>'Val3')), 1,'', 0, 0, '', '', 'mrp', '$config->bom->enabled');
+		//$result5=$extrafields->addExtraField('myattr5', "New Attr 5 label", 'text',    1, 10, 'user',         0, 0, '', '', 1, '', 0, 0, '', '', 'mrp', '$config->bom->enabled');
 
 		$result = $this->_load_tables('/install/mysql/', 'bom');
 		if ($result < 0) {
@@ -496,8 +496,8 @@ class modBom extends DolibarrModules
 
 		// @phan-suppress-next-line PhanPluginRedundantAssignment
 		$sql = array(
-			//"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape('standard')."' AND type = 'bom' AND entity = ".((int) $conf->entity),
-			//"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape('standard')."', 'bom', ".((int) $conf->entity).")"
+			//"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape('standard')."' AND type = 'bom' AND entity = ".((int) $config->entity),
+			//"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape('standard')."', 'bom', ".((int) $config->entity).")"
 		);
 
 		return $this->_init($sql, $options);

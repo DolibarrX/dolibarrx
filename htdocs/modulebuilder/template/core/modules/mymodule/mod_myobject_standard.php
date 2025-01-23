@@ -96,7 +96,7 @@ class mod_myobject_standard extends ModeleNumRefMyObject
 		$sql .= " FROM ".$db->prefix()."mymodule_myobject";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		if ($object->ismultientitymanaged == 1) {
-			$sql .= " AND entity = ".$conf->entity;
+			$sql .= " AND entity = ".$config->entity;
 		} elseif ($object->ismultientitymanaged == 2) { // @phan-suppress-current-line PhanPluginEmptyStatementIf
 			// TODO
 		}
@@ -134,7 +134,7 @@ class mod_myobject_standard extends ModeleNumRefMyObject
 		$sql .= " FROM ".$db->prefix()."mymodule_myobject";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		if ($object->ismultientitymanaged == 1) {
-			$sql .= " AND entity = ".$conf->entity;
+			$sql .= " AND entity = ".$config->entity;
 		} elseif ($object->ismultientitymanaged == 2) {
 			// TODO
 		}

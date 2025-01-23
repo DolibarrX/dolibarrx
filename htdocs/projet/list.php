@@ -56,7 +56,7 @@ if (isModEnabled('category')) {
 
 // Load translation files required by the page
 $langs->loadLangs(array('projects', 'companies', 'commercial'));
-if (isModEnabled('eventorganization') && $conf->eventorganization->enabled) {
+if (isModEnabled('eventorganization') && $config->eventorganization->enabled) {
 	$langs->loadLangs(array('eventorganization'));
 }
 
@@ -84,9 +84,9 @@ if (!$user->hasRight('projet', 'lire')) {
 	accessforbidden();
 }
 
-$diroutputmassaction = $conf->project->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->project->dir_output.'/temp/massgeneration/'.$user->id;
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -445,7 +445,7 @@ if (empty($reshook)) {
 	$permissiontoread = $user->hasRight('projet', 'lire');
 	$permissiontodelete = $user->hasRight('projet', 'supprimer');
 	$permissiontoadd = $user->hasRight('projet', 'creer');
-	$uploaddir = $conf->project->dir_output;
+	$uploaddir = $config->project->dir_output;
 
 	global $error;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
@@ -670,7 +670,7 @@ if ($search_status != '' && $search_status != '-1') {
 	}
 }
 if ($search_option == 'late') {
-	$sql .= " AND p.datee < '".$db->idate(dol_now() - $conf->project->warning_delay)."'";
+	$sql .= " AND p.datee < '".$db->idate(dol_now() - $config->project->warning_delay)."'";
 }
 if ($search_opp_status) {
 	if (is_numeric($search_opp_status) && $search_opp_status > 0) {
@@ -890,7 +890,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -1681,20 +1681,20 @@ while ($i < $imaxinloop) {
 				foreach ($tab as $contactproject) {
 					//var_dump($contacttask);
 					if ($source == 'internal') {
-						if (!empty($conf->cache['user'][$contactproject['id']])) {
-							$c = $conf->cache['user'][$contactproject['id']];
+						if (!empty($config->cache['user'][$contactproject['id']])) {
+							$c = $config->cache['user'][$contactproject['id']];
 						} else {
 							$c = new User($db);
 							$c->fetch($contactproject['id']);
-							$conf->cache['user'][$contactproject['id']] = $c;
+							$config->cache['user'][$contactproject['id']] = $c;
 						}
 					} else {
-						if (!empty($conf->cache['contact'][$contactproject['id']])) {
-							$c = $conf->cache['contact'][$contactproject['id']];
+						if (!empty($config->cache['contact'][$contactproject['id']])) {
+							$c = $config->cache['contact'][$contactproject['id']];
 						} else {
 							$c = new Contact($db);
 							$c->fetch($contactproject['id']);
-							$conf->cache['contact'][$contactproject['id']] = $c;
+							$config->cache['contact'][$contactproject['id']] = $c;
 						}
 					}
 					if (get_class($c) == 'User') {

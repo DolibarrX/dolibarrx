@@ -1512,7 +1512,7 @@ div.div-for-modal-topright {
 
 <?php
 // Add a nowrap on smartphone, so long list of field used for filter are overflowed with clip
-if ($conf->browser->layout == 'phone') {
+if ($config->browser->layout == 'phone') {
 	?>
 .divsearchfieldfilter {
 	   white-space: nowrap;
@@ -1875,7 +1875,7 @@ div.ticketpublicarealist>form>div.div-table-responsive {
 	margin: 20px 20px 20px 20px;
 }
 .flexcontainer {
-	<?php if (in_array($conf->browser->name, array('chrome', 'firefox'))) {
+	<?php if (in_array($config->browser->name, array('chrome', 'firefox'))) {
 		echo 'display: inline-flex;'."\n";
 	} ?>
 	flex-flow: row wrap;
@@ -1890,7 +1890,7 @@ div.ticketpublicarealist>form>div.div-table-responsive {
 	/* width: 168px; If I use with, there is trouble on size of flex boxes solved with min+max that is a little bit higher than min */
 }
 .thumbstat, .thumbstat150 {
-<?php if ($conf->browser->name == 'ie') { ?>
+<?php if ($config->browser->name == 'ie') { ?>
 	min-width: 150px;
 	width: 100%;
 	display: inline;
@@ -2583,8 +2583,8 @@ div.vmenu, td.vmenu {
 
 
 div.fiche {
-	margin-<?php print $left; ?>: <?php print(GETPOST('optioncss', 'aZ09') == 'print' ? 6 : (empty($conf->dol_optimize_smallscreen) ? '44' : '6')); ?>px;
-	margin-<?php print $right; ?>: <?php print(GETPOST('optioncss', 'aZ09') == 'print' ? 6 : (empty($conf->dol_optimize_smallscreen) ? '38' : '6')); ?>px;
+	margin-<?php print $left; ?>: <?php print(GETPOST('optioncss', 'aZ09') == 'print' ? 6 : (empty($config->dol_optimize_smallscreen) ? '44' : '6')); ?>px;
+	margin-<?php print $right; ?>: <?php print(GETPOST('optioncss', 'aZ09') == 'print' ? 6 : (empty($config->dol_optimize_smallscreen) ? '38' : '6')); ?>px;
 	<?php if (!empty($dol_hide_topmenu) || GETPOST('dol_openinpopup', 'aZ09')) {
 		print 'margin-top: 12px;'."\n";
 	} ?>
@@ -2609,46 +2609,46 @@ div.fichecenterbis {
 	margin-top: 8px;
 }
 div.fichethirdleft {
-	<?php if ($conf->browser->layout != 'phone') {
+	<?php if ($config->browser->layout != 'phone') {
 		print "float: ".$left.";\n";
 	} ?>
-	<?php if ($conf->browser->layout != 'phone') {
+	<?php if ($config->browser->layout != 'phone') {
 		print "width: calc(50% - 20px);\n";
 	} ?>
-	<?php if ($conf->browser->layout == 'phone') {
+	<?php if ($config->browser->layout == 'phone') {
 		print "padding-bottom: 6px;\n";
 	} ?>
 }
 div.fichetwothirdright {
-	<?php if ($conf->browser->layout != 'phone') {
+	<?php if ($config->browser->layout != 'phone') {
 		print "float: ".$right.";\n";
 	} ?>
-	<?php if ($conf->browser->layout != 'phone') {
+	<?php if ($config->browser->layout != 'phone') {
 		print "width: calc(50% - 20px);\n";
 	} ?>
-	<?php if ($conf->browser->layout == 'phone') {
+	<?php if ($config->browser->layout == 'phone') {
 		print "padding-bottom: 6px\n";
 	} ?>
 }
 div.fichehalfleft {
-	<?php if ($conf->browser->layout != 'phone') {
+	<?php if ($config->browser->layout != 'phone') {
 		print "float: ".$left.";\n";
 	} ?>
-	<?php if ($conf->browser->layout != 'phone') {
+	<?php if ($config->browser->layout != 'phone') {
 		print "width: calc(50% - 20px);\n";
 	} ?>
 	margin-bottom: 20px;
 }
 div.fichehalfright {
-	<?php if ($conf->browser->layout != 'phone') {
+	<?php if ($config->browser->layout != 'phone') {
 		print "float: ".$right.";\n";
 	} ?>
-	<?php if ($conf->browser->layout != 'phone') {
+	<?php if ($config->browser->layout != 'phone') {
 		print "width: calc(50% - 20px);\n";
 	} ?>
 }
 div.fichehalfright {
-	<?php if ($conf->browser->layout == 'phone') {
+	<?php if ($config->browser->layout == 'phone') {
 		print "margin-top: 10px;\n";
 	} ?>
 }
@@ -3068,7 +3068,7 @@ div.tmenuleft
 {
 	float: <?php print $left; ?>;
 	margin-top: 0px;
-	<?php if (empty($conf->dol_optimize_smallscreen)) { ?>
+	<?php if (empty($config->dol_optimize_smallscreen)) { ?>
 	width: 5px;
 	<?php } ?>
 	<?php if ($disableimages) { ?>
@@ -3223,7 +3223,7 @@ li.tmenu:hover .tmenuimage:not(.menuhider), li.tmenu:hover .tmenuimage:not(.menu
 		'barcode' => '', 'fckeditor' => '', 'categorie' => '',
 	);
 	$mainmenuused = 'home';
-	foreach ($conf->modules as $val) {
+	foreach ($config->modules as $val) {
 		$mainmenuused .= ','.(isset($moduletomainmenu[$val]) ? $moduletomainmenu[$val] : $val);
 	}
 	$mainmenuusedarray = array_unique(explode(',', $mainmenuused));
@@ -3255,7 +3255,7 @@ li.tmenu:hover .tmenuimage:not(.menuhider), li.tmenu:hover .tmenuimage:not(.menu
 			$found = 1;
 		} else {
 			// Search img file in module dir
-			foreach ($conf->file->dol_document_root as $dirroot) {
+			foreach ($config->file->dol_document_root as $dirroot) {
 				if (file_exists($dirroot."/".$val."/img/".$val.".png")) {
 					$url = dol_buildpath('/'.$val.'/img/'.$val.'.png', 1);
 					$found = 1;
@@ -3786,7 +3786,7 @@ div.blockvmenusearch > form > div > label {
 
 div.blockvmenuhelp
 {
-<?php if (empty($conf->dol_optimize_smallscreen)) { ?>
+<?php if (empty($config->dol_optimize_smallscreen)) { ?>
 	font-family: <?php print $fontlist ?>;
 	color: #000000;
 	text-align: center;
@@ -6496,7 +6496,7 @@ A.none, A.none:active, A.none:visited, A.none:hover {
 .ui-widget {
 	font-family:<?php echo $fontlist; ?>;
 }
-/* .ui-button { margin-left: -2px; <?php print(preg_match('/chrome/', $conf->browser->name) ? 'padding-top: 1px;' : ''); ?> } */
+/* .ui-button { margin-left: -2px; <?php print(preg_match('/chrome/', $config->browser->name) ? 'padding-top: 1px;' : ''); ?> } */
 .ui-button { margin-left: -2px; }
 .ui-button-icon-only .ui-button-text { height: 8px; }
 .ui-button-icon-only .ui-button-text, .ui-button-icons-only .ui-button-text { padding: 2px 0px 6px 0px; }

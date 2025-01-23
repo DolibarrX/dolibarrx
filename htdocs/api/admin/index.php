@@ -60,16 +60,16 @@ if ($action == 'setproductionmode') {
 		$error = 0;
 
 		if ($status == 1) {
-			$result = dol_mkdir($conf->api->dir_temp);
+			$result = dol_mkdir($config->api->dir_temp);
 			if ($result < 0) {
-				setEventMessages($langs->trans("ErrorFailedToCreateDir", $conf->api->dir_temp), null, 'errors');
+				setEventMessages($langs->trans("ErrorFailedToCreateDir", $config->api->dir_temp), null, 'errors');
 				$error++;
 			}
 		} else {
 			// Delete the cache file otherwise it does not update
-			$result = dol_delete_file($conf->api->dir_temp.'/routes.php');
+			$result = dol_delete_file($config->api->dir_temp.'/routes.php');
 			if ($result < 0) {
-				setEventMessages($langs->trans("ErrorFailedToDeleteFile", $conf->api->dir_temp.'/routes.php'), null, 'errors');
+				setEventMessages($langs->trans("ErrorFailedToDeleteFile", $config->api->dir_temp.'/routes.php'), null, 'errors');
 				$error++;
 			}
 		}

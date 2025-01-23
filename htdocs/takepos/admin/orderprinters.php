@@ -73,7 +73,7 @@ if ($action == "SavePrinter1") {
 			$printedcategories = $printedcategories.$cat.";";
 		}
 	}
-	dolibarr_set_const($db, "TAKEPOS_PRINTED_CATEGORIES_1", $printedcategories, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "TAKEPOS_PRINTED_CATEGORIES_1", $printedcategories, 'chaine', 0, '', $config->entity);
 }
 
 if ($action == "SavePrinter2") {
@@ -83,7 +83,7 @@ if ($action == "SavePrinter2") {
 			$printedcategories = $printedcategories.$cat.";";
 		}
 	}
-	dolibarr_set_const($db, "TAKEPOS_PRINTED_CATEGORIES_2", $printedcategories, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "TAKEPOS_PRINTED_CATEGORIES_2", $printedcategories, 'chaine', 0, '', $config->entity);
 }
 
 if ($action == "SavePrinter3") {
@@ -93,7 +93,7 @@ if ($action == "SavePrinter3") {
 			$printedcategories = $printedcategories.$cat.";";
 		}
 	}
-	dolibarr_set_const($db, "TAKEPOS_PRINTED_CATEGORIES_3", $printedcategories, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "TAKEPOS_PRINTED_CATEGORIES_3", $printedcategories, 'chaine', 0, '', $config->entity);
 }
 
 

@@ -562,7 +562,7 @@ class Notify
 		if (!$error) {
 			if (in_array('global', $scope)) {
 				// List of notifications enabled for fixed email
-				foreach ($conf->global as $key => $val) {
+				foreach ($config->global as $key => $val) {
 					if ($notifcode) {
 						if ($val == '' || !preg_match('/^NOTIFICATION_FIXEDEMAIL_'.$notifcode.'_THRESHOLD_HIGHER_(.*)$/', $key, $reg)) {
 							continue;
@@ -756,50 +756,50 @@ class Notify
 						switch ($notifcode) {
 							case 'BILL_CANCEL':
 								$link = '<a href="'.$urlwithroot.'/compta/facture/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
+								$dir_output = $config->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
 								$object_type = 'facture';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextInvoiceCanceled", $link);
 								break;
 							case 'BILL_VALIDATE':
 								$link = '<a href="'.$urlwithroot.'/compta/facture/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
+								$dir_output = $config->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
 								$object_type = 'facture';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextInvoiceValidated", $link);
 								break;
 							case 'BILL_PAYED':
 								$link = '<a href="'.$urlwithroot.'/compta/facture/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
+								$dir_output = $config->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
 								$object_type = 'facture';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextInvoicePayed", $link);
 								break;
 							case 'ORDER_CANCEL':
 								$link = '<a href="'.$urlwithroot.'/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->commande->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'commande');
+								$dir_output = $config->commande->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'commande');
 								$object_type = 'order';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextOrderCanceled", $link);
 								break;
 							case 'ORDER_VALIDATE':
 								$link = '<a href="'.$urlwithroot.'/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->commande->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'commande');
+								$dir_output = $config->commande->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'commande');
 								$object_type = 'order';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextOrderValidated", $link);
 								break;
 							case 'ORDER_CLOSE':
 								$link = '<a href="'.$urlwithroot.'/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->commande->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'commande');
+								$dir_output = $config->commande->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'commande');
 								$object_type = 'order';
 								$labeltouse = getDolGlobalString('ORDER_CLOSE_TEMPLATE');
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextOrderClose", $link);
 								break;
 							case 'PROPAL_VALIDATE':
 								$link = '<a href="'.$urlwithroot.'/comm/propal/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->propal->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object, 'propal');
+								$dir_output = $config->propal->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object, 'propal');
 								$object_type = 'propal';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextProposalValidated", $link);
 								break;
 							case 'PROPAL_CLOSE_REFUSED':
 								$link = '<a href="'.$urlwithroot.'/comm/propal/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->propal->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object, 'propal');
+								$dir_output = $config->propal->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object, 'propal');
 								$object_type = 'propal';
 								$labeltouse = getDolGlobalString('PROPAL_CLOSE_REFUSED_TEMPLATE');
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextProposalClosedRefused", $link);
@@ -809,7 +809,7 @@ class Notify
 								break;
 							case 'PROPAL_CLOSE_SIGNED':
 								$link = '<a href="'.$urlwithroot.'/comm/propal/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->propal->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object, 'propal');
+								$dir_output = $config->propal->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object, 'propal');
 								$object_type = 'propal';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextProposalClosedSigned", $link);
 								if (!empty($object->context['closedfromonlinesignature'])) {
@@ -818,41 +818,41 @@ class Notify
 								break;
 							case 'FICHINTER_ADD_CONTACT':
 								$link = '<a href="'.$urlwithroot.'/fichinter/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->ficheinter->dir_output;
+								$dir_output = $config->ficheinter->dir_output;
 								$object_type = 'ficheinter';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextInterventionAddedContact", $link);
 								break;
 							case 'FICHINTER_VALIDATE':
 								$link = '<a href="'.$urlwithroot.'/fichinter/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->ficheinter->dir_output;
+								$dir_output = $config->ficheinter->dir_output;
 								$object_type = 'ficheinter';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextInterventionValidated", $link);
 								break;
 							case 'FICHINTER_MODIFY':
 								$link = '<a href="'.$urlwithroot.'/fichinter/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
 								$context_info = array_key_exists('signature', $object->context) ? $object->getLibSignedStatus() : '';
-								$dir_output = $conf->ficheinter->dir_output;
+								$dir_output = $config->ficheinter->dir_output;
 								$object_type = 'ficheinter';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextInterventionModified", $link, $context_info);
 								break;
 							case 'FICHINTER_CLOSE':
 								$link = '<a href="'.$urlwithroot.'/fichinter/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->ficheinter->dir_output;
+								$dir_output = $config->ficheinter->dir_output;
 								$object_type = 'ficheinter';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextInterventionClosed", $link);
 								break;
 							case 'ORDER_SUPPLIER_VALIDATE':
 								$link = '<a href="'.$urlwithroot.'/fourn/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
+								$dir_output = $config->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
 								$object_type = 'order_supplier';
-								$labeltouse = isset($conf->global->ORDER_SUPPLIER_VALIDATE_TEMPLATE) ? $conf->global->ORDER_SUPPLIER_VALIDATE_TEMPLATE : '';
+								$labeltouse = isset($config->global->ORDER_SUPPLIER_VALIDATE_TEMPLATE) ? $config->global->ORDER_SUPPLIER_VALIDATE_TEMPLATE : '';
 								$mesg = $outputlangs->transnoentitiesnoconv("Hello").",\n\n";
 								$mesg .= $outputlangs->transnoentitiesnoconv("EMailTextSupplierOrderValidatedBy", $link, $user->getFullName($outputlangs));
 								$mesg .= "\n\n".$outputlangs->transnoentitiesnoconv("Sincerely").".\n\n";
 								break;
 							case 'ORDER_SUPPLIER_CANCEL':
 								$link = '<a href="'.$urlwithroot.'/fourn/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
+								$dir_output = $config->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
 								$object_type = 'order_supplier';
 								$mesg = $outputlangs->transnoentitiesnoconv("Hello").",\n\n";
 								$mesg .= $outputlangs->transnoentitiesnoconv("EMailTextSupplierOrderCanceledBy", $link, $user->getFullName($outputlangs));
@@ -860,16 +860,16 @@ class Notify
 								break;
 							case 'ORDER_SUPPLIER_APPROVE':
 								$link = '<a href="'.$urlwithroot.'/fourn/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
+								$dir_output = $config->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
 								$object_type = 'order_supplier';
-								$labeltouse = isset($conf->global->ORDER_SUPPLIER_APPROVE_TEMPLATE) ? $conf->global->ORDER_SUPPLIER_APPROVE_TEMPLATE : '';
+								$labeltouse = isset($config->global->ORDER_SUPPLIER_APPROVE_TEMPLATE) ? $config->global->ORDER_SUPPLIER_APPROVE_TEMPLATE : '';
 								$mesg = $outputlangs->transnoentitiesnoconv("Hello").",\n\n";
 								$mesg .= $outputlangs->transnoentitiesnoconv("EMailTextSupplierOrderApprovedBy", $link, $user->getFullName($outputlangs));
 								$mesg .= "\n\n".$outputlangs->transnoentitiesnoconv("Sincerely").".\n\n";
 								break;
 							case 'ORDER_SUPPLIER_SUBMIT':
 								$link = '<a href="'.$urlwithroot.'/fourn/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
+								$dir_output = $config->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
 								$object_type = 'order_supplier';
 								$mesg = $outputlangs->transnoentitiesnoconv("Hello").",\n\n";
 								$mesg .= $outputlangs->transnoentitiesnoconv("EMailTextSupplierOrderSubmittedBy", $link, $user->getFullName($outputlangs));
@@ -877,9 +877,9 @@ class Notify
 								break;
 							case 'ORDER_SUPPLIER_REFUSE':
 								$link = '<a href="'.$urlwithroot.'/fourn/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
+								$dir_output = $config->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
 								$object_type = 'order_supplier';
-								$labeltouse = isset($conf->global->ORDER_SUPPLIER_REFUSE_TEMPLATE) ? $conf->global->ORDER_SUPPLIER_REFUSE_TEMPLATE : '';
+								$labeltouse = isset($config->global->ORDER_SUPPLIER_REFUSE_TEMPLATE) ? $config->global->ORDER_SUPPLIER_REFUSE_TEMPLATE : '';
 								$mesg = $outputlangs->transnoentitiesnoconv("Hello").",\n\n";
 								$mesg .= $outputlangs->transnoentitiesnoconv("EMailTextSupplierOrderRefusedBy", $link, $user->getFullName($outputlangs));
 								$mesg .= "\n\n".$outputlangs->transnoentitiesnoconv("Sincerely").".\n\n";
@@ -887,56 +887,56 @@ class Notify
 							case 'SHIPPING_MODIFY':
 								$link = '<a href="'.$urlwithroot.'/expedition/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
 								$context_info = array_key_exists('signature', $object->context) ? $object->getLibSignedStatus() : '';
-								$dir_output = $conf->expedition->dir_output."/sending/".get_exdir(0, 0, 0, 1, $object, 'shipment');
+								$dir_output = $config->expedition->dir_output."/sending/".get_exdir(0, 0, 0, 1, $object, 'shipment');
 								$object_type = 'shipping';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextExpeditionModified", $link, $context_info);
 								break;
 							case 'SHIPPING_VALIDATE':
 								$link = '<a href="'.$urlwithroot.'/expedition/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->expedition->dir_output."/sending/".get_exdir(0, 0, 0, 1, $object, 'shipment');
+								$dir_output = $config->expedition->dir_output."/sending/".get_exdir(0, 0, 0, 1, $object, 'shipment');
 								$object_type = 'shipping';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextExpeditionValidated", $link);
 								break;
 							case 'EXPENSE_REPORT_VALIDATE':
 								$link = '<a href="'.$urlwithroot.'/expensereport/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->expensereport->dir_output;
+								$dir_output = $config->expensereport->dir_output;
 								$object_type = 'expensereport';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextExpenseReportValidated", $link);
 								break;
 							case 'EXPENSE_REPORT_APPROVE':
 								$link = '<a href="'.$urlwithroot.'/expensereport/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->expensereport->dir_output;
+								$dir_output = $config->expensereport->dir_output;
 								$object_type = 'expensereport';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextExpenseReportApproved", $link);
 								break;
 							case 'HOLIDAY_VALIDATE':
 								$link = '<a href="'.$urlwithroot.'/holiday/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->holiday->dir_output;
+								$dir_output = $config->holiday->dir_output;
 								$object_type = 'holiday';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextHolidayValidated", $link);
 								break;
 							case 'HOLIDAY_APPROVE':
 								$link = '<a href="'.$urlwithroot.'/holiday/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->holiday->dir_output;
+								$dir_output = $config->holiday->dir_output;
 								$object_type = 'holiday';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextHolidayApproved", $link);
 								break;
 							case 'ACTION_CREATE':
 								$link = '<a href="'.$urlwithroot.'/comm/action/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-								$dir_output = $conf->agenda->dir_output;
+								$dir_output = $config->agenda->dir_output;
 								$object_type = 'action';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextActionAdded", $link);
 								break;
 							case 'CONTRACT_MODIFY':
 								$link = '<a href="'.$urlwithroot.'/contrat/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
 								$context_info = array_key_exists('signature', $object->context) ? $object->getLibSignedStatus() : '';
-								$dir_output = $conf->contract->multidir_output;
+								$dir_output = $config->contract->multidir_output;
 								$object_type = 'contract';
 								$mesg = $outputlangs->transnoentitiesnoconv("EMailTextContractModified", $link, $context_info);
 								break;
 							default:
 								$object_type = $object->element;
-								$dir_output = $conf->$object_type->multidir_output[$object->entity ? $object->entity : $conf->entity]."/".get_exdir(0, 0, 0, 1, $object, $object_type);
+								$dir_output = $config->$object_type->multidir_output[$object->entity ? $object->entity : $config->entity]."/".get_exdir(0, 0, 0, 1, $object, $object_type);
 								$template = $notifcode.'_TEMPLATE';
 								$mesg = $outputlangs->transnoentitiesnoconv('Notify_'.$notifcode).' '.$newref.' '.$dir_output;
 								break;
@@ -1069,7 +1069,7 @@ class Notify
 		// Check notification using fixed email
 		// TODO Move vars NOTIFICATION_FIXEDEMAIL into table llx_notify_def and inclulde the case into previous loop of sql result
 		if (!$error) {
-			foreach ($conf->global as $key => $val) {
+			foreach ($config->global as $key => $val) {
 				$reg = array();
 				if ($val == '' || !preg_match('/^NOTIFICATION_FIXEDEMAIL_'.$notifcode.'_THRESHOLD_HIGHER_(.*)$/', $key, $reg)) {
 					continue;
@@ -1100,68 +1100,68 @@ class Notify
 				switch ($notifcode) {
 					case 'BILL_VALIDATE':
 						$link = '<a href="'.$urlwithroot.'/compta/facture/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
+						$dir_output = $config->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
 						$object_type = 'facture';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextInvoiceValidated", $link);
 						break;
 					case 'BILL_PAYED':
 						$link = '<a href="'.$urlwithroot.'/compta/facture/card.php?facid='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
+						$dir_output = $config->facture->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'invoice');
 						$object_type = 'facture';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextInvoicePayed", $link);
 						break;
 					case 'ORDER_VALIDATE':
 						$link = '<a href="'.$urlwithroot.'/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->commande->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'commande');
+						$dir_output = $config->commande->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'commande');
 						$object_type = 'order';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextOrderValidated", $link);
 						break;
 					case 'ORDER_CLOSE':
 						$link = '<a href="'.$urlwithroot.'/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->commande->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'commande');
+						$dir_output = $config->commande->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'commande');
 						$object_type = 'order';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextOrderClose", $link);
 						break;
 					case 'PROPAL_VALIDATE':
 						$link = '<a href="'.$urlwithroot.'/comm/propal/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->propal->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object, 'propal');
+						$dir_output = $config->propal->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object, 'propal');
 						$object_type = 'propal';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextProposalValidated", $link);
 						break;
 					case 'PROPAL_CLOSE_SIGNED':
 						$link = '<a href="'.$urlwithroot.'/comm/propal/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->propal->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object, 'propal');
+						$dir_output = $config->propal->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object, 'propal');
 						$object_type = 'propal';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextProposalClosedSigned", $link);
 						break;
 					case 'FICHINTER_ADD_CONTACT':
 						$link = '<a href="'.$urlwithroot.'/fichinter/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->ficheinter->dir_output;
+						$dir_output = $config->ficheinter->dir_output;
 						$object_type = 'ficheinter';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextInterventionAddedContact", $link);
 						break;
 					case 'FICHINTER_VALIDATE':
 						$link = '<a href="'.$urlwithroot.'/fichinter/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->facture->dir_output;
+						$dir_output = $config->facture->dir_output;
 						$object_type = 'ficheinter';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextInterventionValidated", $link);
 						break;
 					case 'FICHINTER_MODIFY':
 						$link = '<a href="'.$urlwithroot.'/fichinter/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
 						$context_info = array_key_exists('signature', $object->context) ? $object->getLibSignedStatus() : '';
-						$dir_output = $conf->ficheinter->dir_output;
+						$dir_output = $config->ficheinter->dir_output;
 						$object_type = 'ficheinter';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextInterventionModified", $link, $context_info);
 						break;
 					case 'FICHINTER_CLOSE':
 						$link = '<a href="'.$urlwithroot.'/fichinter/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->facture->dir_output;
+						$dir_output = $config->facture->dir_output;
 						$object_type = 'ficheinter';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextInterventionClosed", $link);
 						break;
 					case 'ORDER_SUPPLIER_CANCEL':
 						$link = '<a href="'.$urlwithroot.'/fourn/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
+						$dir_output = $config->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
 						$object_type = 'order_supplier';
 						$mesg = $langs->transnoentitiesnoconv("Hello").",\n\n";
 						$mesg .= $langs->transnoentitiesnoconv("EMailTextSupplierOrderCanceledBy", $link, $user->getFullName($langs));
@@ -1169,7 +1169,7 @@ class Notify
 						break;
 					case 'ORDER_SUPPLIER_VALIDATE':
 						$link = '<a href="'.$urlwithroot.'/fourn/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
+						$dir_output = $config->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
 						$object_type = 'order_supplier';
 						$mesg = $langs->transnoentitiesnoconv("Hello").",\n\n";
 						$mesg .= $langs->transnoentitiesnoconv("EMailTextSupplierOrderValidatedBy", $link, $user->getFullName($langs));
@@ -1177,7 +1177,7 @@ class Notify
 						break;
 					case 'ORDER_SUPPLIER_APPROVE':
 						$link = '<a href="'.$urlwithroot.'/fourn/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
+						$dir_output = $config->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
 						$object_type = 'order_supplier';
 						$mesg = $langs->transnoentitiesnoconv("Hello").",\n\n";
 						$mesg .= $langs->transnoentitiesnoconv("EMailTextSupplierOrderApprovedBy", $link, $user->getFullName($langs));
@@ -1185,7 +1185,7 @@ class Notify
 						break;
 					case 'ORDER_SUPPLIER_SUBMIT':
 						$link = '<a href="'.$urlwithroot.'/fourn/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
+						$dir_output = $config->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
 						$object_type = 'order_supplier';
 						$mesg = $langs->transnoentitiesnoconv("Hello").",\n\n";
 						$mesg .= $langs->transnoentitiesnoconv("EMailTextSupplierOrderSubmittedBy", $link, $user->getFullName($langs));
@@ -1193,7 +1193,7 @@ class Notify
 						break;
 					case 'ORDER_SUPPLIER_REFUSE':
 						$link = '<a href="'.$urlwithroot.'/fourn/commande/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
+						$dir_output = $config->fournisseur->commande->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object);
 						$object_type = 'order_supplier';
 						$mesg = $langs->transnoentitiesnoconv("Hello").",\n\n";
 						$mesg .= $langs->transnoentitiesnoconv("EMailTextSupplierOrderRefusedBy", $link, $user->getFullName($langs));
@@ -1202,56 +1202,56 @@ class Notify
 					case 'SHIPPING_MODIFY':
 						$link = '<a href="'.$urlwithroot.'/expedition/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
 						$context_info = array_key_exists('signature', $object->context) ? $object->getLibSignedStatus() : '';
-						$dir_output = $conf->expedition->dir_output."/sending/".get_exdir(0, 0, 0, 1, $object, 'shipment');
+						$dir_output = $config->expedition->dir_output."/sending/".get_exdir(0, 0, 0, 1, $object, 'shipment');
 						$object_type = 'order_supplier';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextExpeditionModified", $link, $context_info);
 						break;
 					case 'SHIPPING_VALIDATE':
 						$link = '<a href="'.$urlwithroot.'/expedition/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->expedition->dir_output."/sending/".get_exdir(0, 0, 0, 1, $object, 'shipment');
+						$dir_output = $config->expedition->dir_output."/sending/".get_exdir(0, 0, 0, 1, $object, 'shipment');
 						$object_type = 'order_supplier';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextExpeditionValidated", $link);
 						break;
 					case 'EXPENSE_REPORT_VALIDATE':
 						$link = '<a href="'.$urlwithroot.'/expensereport/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->expensereport->dir_output;
+						$dir_output = $config->expensereport->dir_output;
 						$object_type = 'expensereport';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextExpenseReportValidated", $link);
 						break;
 					case 'EXPENSE_REPORT_APPROVE':
 						$link = '<a href="'.$urlwithroot.'/expensereport/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->expensereport->dir_output;
+						$dir_output = $config->expensereport->dir_output;
 						$object_type = 'expensereport';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextExpenseReportApproved", $link);
 						break;
 					case 'HOLIDAY_VALIDATE':
 						$link = '<a href="'.$urlwithroot.'/holiday/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->holiday->dir_output;
+						$dir_output = $config->holiday->dir_output;
 						$object_type = 'holiday';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextHolidayValidated", $link);
 						break;
 					case 'HOLIDAY_APPROVE':
 						$link = '<a href="'.$urlwithroot.'/holiday/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->holiday->dir_output;
+						$dir_output = $config->holiday->dir_output;
 						$object_type = 'holiday';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextHolidayApproved", $link);
 						break;
 					case 'ACTION_CREATE':
 						$link = '<a href="'.$urlwithroot.'/comm/action/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
-						$dir_output = $conf->agenda->dir_output;
+						$dir_output = $config->agenda->dir_output;
 						$object_type = 'action';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextActionAdded", $link);
 						break;
 					case 'CONTRACT_MODIFY':
 						$link = '<a href="'.$urlwithroot.'/contrat/card.php?id='.$object->id.'&entity='.$object->entity.'">'.$newref.'</a>';
 						$context_info = array_key_exists('signature', $object->context) ? $object->getLibSignedStatus() : '';
-						$dir_output = $conf->contract->multidir_output;
+						$dir_output = $config->contract->multidir_output;
 						$object_type = 'contrat';
 						$mesg = $langs->transnoentitiesnoconv("EMailTextContractModified", $link, $context_info);
 						break;
 					default:
 						$object_type = $object->element;
-						$dir_output = $conf->$object_type->multidir_output[$object->entity ? $object->entity : $conf->entity]."/".get_exdir(0, 0, 0, 1, $object, $object_type);
+						$dir_output = $config->$object_type->multidir_output[$object->entity ? $object->entity : $config->entity]."/".get_exdir(0, 0, 0, 1, $object, $object_type);
 						$mesg = $langs->transnoentitiesnoconv('Notify_'.$notifcode).' '.$newref;
 						break;
 				}

@@ -426,7 +426,7 @@ class ExpenseReport extends CommonObject
 		$sql .= ", 0";
 		$sql .= ", ".($this->note_public ? "'".$this->db->escape($this->note_public)."'" : "null");
 		$sql .= ", ".($this->note_private ? "'".$this->db->escape($this->note_private)."'" : "null");
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ")";
 
 		$result = $this->db->query($sql);
@@ -908,7 +908,7 @@ class ExpenseReport extends CommonObject
 		$sql .= " f.fk_user_approve";
 		$sql .= " FROM ".MAIN_DB_PREFIX."expensereport as f";
 		$sql .= " WHERE f.rowid = ".((int) $id);
-		$sql .= " AND f.entity = ".$conf->entity;
+		$sql .= " AND f.entity = ".$config->entity;
 
 
 
@@ -1284,8 +1284,8 @@ class ExpenseReport extends CommonObject
 		if (!$error) {
 			// We remove directory
 			$ref = dol_sanitizeFileName($this->ref);
-			if ($conf->expensereport->multidir_output[$this->entity] && !empty($this->ref)) {
-				$dir = $conf->expensereport->multidir_output[$this->entity]."/".$ref;
+			if ($config->expensereport->multidir_output[$this->entity] && !empty($this->ref)) {
+				$dir = $config->expensereport->multidir_output[$this->entity]."/".$ref;
 				$file = $dir."/".$ref.".pdf";
 				if (file_exists($file)) {
 					dol_delete_preview($this);
@@ -1390,7 +1390,7 @@ class ExpenseReport extends CommonObject
 						$this->error = $this->db->lasterror();
 					}
 					$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'expensereport/".$this->db->escape($this->newref)."'";
-					$sql .= " WHERE filepath = 'expensereport/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+					$sql .= " WHERE filepath = 'expensereport/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 					$resql = $this->db->query($sql);
 					if (!$resql) {
 						$error++;
@@ -1400,8 +1400,8 @@ class ExpenseReport extends CommonObject
 					// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 					$oldref = dol_sanitizeFileName($this->ref);
 					$newref = dol_sanitizeFileName($num);
-					$dirsource = $conf->expensereport->multidir_output[$this->entity].'/'.$oldref;
-					$dirdest = $conf->expensereport->multidir_output[$this->entity].'/'.$newref;
+					$dirsource = $config->expensereport->multidir_output[$this->entity].'/'.$oldref;
+					$dirdest = $config->expensereport->multidir_output[$this->entity].'/'.$newref;
 					if (!$error && file_exists($dirsource)) {
 						dol_syslog(get_class($this)."::setValidate() rename dir ".$dirsource." into ".$dirdest);
 
@@ -1733,7 +1733,7 @@ class ExpenseReport extends CommonObject
 			$classname = getDolGlobalString('EXPENSEREPORT_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/expensereport/");
 
@@ -1791,13 +1791,13 @@ class ExpenseReport extends CommonObject
 			$datas['ref'] = '<br><b>'.$langs->trans('Ref').':</b> '.$this->ref;
 		}
 		if (!empty($this->total_ht)) {
-			$datas['total_ht'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $conf->currency);
+			$datas['total_ht'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $config->currency);
 		}
 		if (!empty($this->total_tva)) {
-			$datas['total_tva'] = '<br><b>'.$langs->trans('VAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $conf->currency);
+			$datas['total_tva'] = '<br><b>'.$langs->trans('VAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $config->currency);
 		}
 		if (!empty($this->total_ttc)) {
-			$datas['total_ttc'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $conf->currency);
+			$datas['total_ttc'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $config->currency);
 		}
 
 		return $datas;
@@ -2091,12 +2091,12 @@ class ExpenseReport extends CommonObject
 					$this->errors[] = $this->error;
 
 					$new_current_total_ttc -= $amount_to_test - $rule->amount; // ex, entered 16€, limit 12€, subtracts 4€;
-					$rule_warning_message_tab[] = $langs->trans('ExpenseReportConstraintViolationError', $rule->id, price($amount_to_test, 0, $langs, 1, -1, -1, $conf->currency), price($rule->amount, 0, $langs, 1, -1, -1, $conf->currency));
+					$rule_warning_message_tab[] = $langs->trans('ExpenseReportConstraintViolationError', $rule->id, price($amount_to_test, 0, $langs, 1, -1, -1, $config->currency), price($rule->amount, 0, $langs, 1, -1, -1, $config->currency));
 				} else {
 					$this->error = 'ExpenseReportConstraintViolationWarning';
 					$this->errors[] = $this->error;
 
-					$rule_warning_message_tab[] = $langs->trans('ExpenseReportConstraintViolationWarning', $rule->id, price($amount_to_test, 0, $langs, 1, -1, -1, $conf->currency), price($rule->amount, 0, $langs, 1, -1, -1, $conf->currency));
+					$rule_warning_message_tab[] = $langs->trans('ExpenseReportConstraintViolationWarning', $rule->id, price($amount_to_test, 0, $langs, 1, -1, -1, $config->currency), price($rule->amount, 0, $langs, 1, -1, -1, $config->currency));
 				}
 
 				// No break, we should test if another rule is violated
@@ -2395,7 +2395,7 @@ class ExpenseReport extends CommonObject
 
 		$sql = "SELECT rowid, date_debut, date_fin";
 		$sql .= " FROM ".MAIN_DB_PREFIX.$this->table_element;
-		$sql .= " WHERE entity = ".((int) $conf->entity); // not shared, only for the current entity
+		$sql .= " WHERE entity = ".((int) $config->entity); // not shared, only for the current entity
 		$sql .= " AND fk_user_author = ".((int) $fuser->id);
 
 		dol_syslog(get_class($this)."::periodExists sql=".$sql);
@@ -2607,12 +2607,12 @@ class ExpenseReport extends CommonObject
 
 			$response = new WorkboardResponse();
 			if ($option == 'toapprove') {
-				$response->warning_delay = $conf->expensereport->approve->warning_delay / 60 / 60 / 24;
+				$response->warning_delay = $config->expensereport->approve->warning_delay / 60 / 60 / 24;
 				$response->label = $langs->trans("ExpenseReportsToApprove");
 				$response->labelShort = $langs->trans("ToApprove");
 				$response->url = DOL_URL_ROOT.'/expensereport/list.php?mainmenu=hrm&amp;statut='.self::STATUS_VALIDATED;
 			} else {
-				$response->warning_delay = $conf->expensereport->payment->warning_delay / 60 / 60 / 24;
+				$response->warning_delay = $config->expensereport->payment->warning_delay / 60 / 60 / 24;
 				$response->label = $langs->trans("ExpenseReportsToPay");
 				$response->labelShort = $langs->trans("StatusToPay");
 				$response->url = DOL_URL_ROOT.'/expensereport/list.php?mainmenu=hrm&amp;statut='.self::STATUS_APPROVED;
@@ -2623,11 +2623,11 @@ class ExpenseReport extends CommonObject
 				$response->nbtodo++;
 
 				if ($option == 'toapprove') {
-					if ($this->db->jdate($obj->date_valid) < ($now - $conf->expensereport->approve->warning_delay)) {
+					if ($this->db->jdate($obj->date_valid) < ($now - $config->expensereport->approve->warning_delay)) {
 						$response->nbtodolate++;
 					}
 				} else {
-					if ($this->db->jdate($obj->date_valid) < ($now - $conf->expensereport->payment->warning_delay)) {
+					if ($this->db->jdate($obj->date_valid) < ($now - $config->expensereport->payment->warning_delay)) {
 						$response->nbtodolate++;
 					}
 				}
@@ -2661,9 +2661,9 @@ class ExpenseReport extends CommonObject
 
 		$now = dol_now();
 		if ($option == 'toapprove') {
-			return (!empty($this->datevalid) ? $this->datevalid : $this->date_valid) < ($now - $conf->expensereport->approve->warning_delay);
+			return (!empty($this->datevalid) ? $this->datevalid : $this->date_valid) < ($now - $config->expensereport->approve->warning_delay);
 		} else {
-			return (!empty($this->datevalid) ? $this->datevalid : $this->date_valid) < ($now - $conf->expensereport->payment->warning_delay);
+			return (!empty($this->datevalid) ? $this->datevalid : $this->date_valid) < ($now - $config->expensereport->payment->warning_delay);
 		}
 	}
 
@@ -2766,7 +2766,7 @@ class ExpenseReport extends CommonObject
 		$result = $this->db->query($sql);
 
 		if ($result) {
-			if ($conf->global->EXPENSEREPORT_CALCULATE_MILEAGE_EXPENSE_COEFFICIENT_ON_CURRENT_YEAR) {
+			if ($config->global->EXPENSEREPORT_CALCULATE_MILEAGE_EXPENSE_COEFFICIENT_ON_CURRENT_YEAR) {
 				$arrayDate = dol_getdate(dol_now());
 				$sql = " SELECT count(n.qty) as cumul FROM ".MAIN_DB_PREFIX."expensereport_det n";
 				$sql .= " LEFT JOIN  ".MAIN_DB_PREFIX."expensereport e ON e.rowid = n.fk_expensereport";

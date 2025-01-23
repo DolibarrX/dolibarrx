@@ -631,12 +631,12 @@ class SMTPs
 
 			// Default authentication method is LOGIN
 			if (!getDolGlobalString('MAIN_MAIL_SMTPS_AUTH_TYPE')) {
-				$conf->global->MAIN_MAIL_SMTPS_AUTH_TYPE = 'LOGIN';
+				$config->global->MAIN_MAIL_SMTPS_AUTH_TYPE = 'LOGIN';
 			}
 
 			// Send Authentication to Server
 			// Check for errors along the way
-			switch ($conf->global->MAIN_MAIL_SMTPS_AUTH_TYPE) {
+			switch ($config->global->MAIN_MAIL_SMTPS_AUTH_TYPE) {
 				case 'NONE':
 					// Do not send the 'AUTH type' message. For test purpose, if you don't need authentication, it is better to not enter login/pass into setup.
 					$_retVal = true;
@@ -1567,7 +1567,7 @@ class SMTPs
 		}
 
 		$_header .= 'X-Mailer: Dolibarr version '.DOL_VERSION.' (using SMTPs Mailer)'."\r\n";
-		$_header .= 'X-Dolibarr-Option: '.($conf->global->MAIN_MAIL_USE_MULTI_PART ? 'MAIN_MAIL_USE_MULTI_PART' : 'No MAIN_MAIL_USE_MULTI_PART')."\r\n";
+		$_header .= 'X-Dolibarr-Option: '.($config->global->MAIN_MAIL_USE_MULTI_PART ? 'MAIN_MAIL_USE_MULTI_PART' : 'No MAIN_MAIL_USE_MULTI_PART')."\r\n";
 		$_header .= 'Mime-Version: 1.0'."\r\n";
 
 		// Add also $this->references and In-Reply-To

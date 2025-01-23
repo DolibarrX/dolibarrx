@@ -65,7 +65,7 @@ $langs->loadLangs(array("errors", "admin", "modulebuilder"));
 if (GETPOSTISSET('mode')) {
 	$mode = GETPOST('mode', 'alpha');
 	if ($mode == 'common' || $mode == 'commonkanban') {
-		dolibarr_set_const($db, "MAIN_MODULE_SETUP_ON_LIST_BY_DEFAULT", $mode, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_MODULE_SETUP_ON_LIST_BY_DEFAULT", $mode, 'chaine', 0, '', $config->entity);
 	}
 } else {
 	$mode = getDolGlobalString('MAIN_MODULE_SETUP_ON_LIST_BY_DEFAULT', 'commonkanban');
@@ -182,7 +182,7 @@ if ($action == 'install' && $allowonlineinstall) {
 	// $original_file should match format module_modulename-x.y[.z].zip
 	$original_file = basename($_FILES["fileinstall"]["name"]);
 	$original_file = preg_replace('/\s*\(\d+\)\.zip$/i', '.zip', $original_file);
-	$newfile = $conf->admin->dir_temp.'/'.$original_file.'/'.$original_file;
+	$newfile = $config->admin->dir_temp.'/'.$original_file.'/'.$original_file;
 
 	if (!$original_file) {
 		$langs->load("Error");
@@ -208,19 +208,19 @@ if ($action == 'install' && $allowonlineinstall) {
 
 	if (!$error) {
 		if ($original_file) {
-			@dol_delete_dir_recursive($conf->admin->dir_temp.'/'.$original_file);
-			dol_mkdir($conf->admin->dir_temp.'/'.$original_file);
+			@dol_delete_dir_recursive($config->admin->dir_temp.'/'.$original_file);
+			dol_mkdir($config->admin->dir_temp.'/'.$original_file);
 		}
 
 		$tmpdir = preg_replace('/\.zip$/i', '', $original_file).'.dir';
 		if ($tmpdir) {
-			@dol_delete_dir_recursive($conf->admin->dir_temp.'/'.$tmpdir);
-			dol_mkdir($conf->admin->dir_temp.'/'.$tmpdir);
+			@dol_delete_dir_recursive($config->admin->dir_temp.'/'.$tmpdir);
+			dol_mkdir($config->admin->dir_temp.'/'.$tmpdir);
 		}
 
 		$result = dol_move_uploaded_file($_FILES['fileinstall']['tmp_name'], $newfile, 1, 0, $_FILES['fileinstall']['error']);
 		if ($result > 0) {
-			$result = dol_uncompress($newfile, $conf->admin->dir_temp.'/'.$tmpdir);
+			$result = dol_uncompress($newfile, $config->admin->dir_temp.'/'.$tmpdir);
 
 			if (!empty($result['error'])) {
 				$langs->load("errors");
@@ -231,10 +231,10 @@ if ($action == 'install' && $allowonlineinstall) {
 				$modulename = preg_replace('/module_/', '', $original_file);
 				$modulename = preg_replace('/\-([0-9][0-9\.]*)\.zip$/i', '', $modulename);
 				// Search dir $modulename
-				$modulenamedir = $conf->admin->dir_temp.'/'.$tmpdir.'/'.$modulename; // Example ./mymodule
+				$modulenamedir = $config->admin->dir_temp.'/'.$tmpdir.'/'.$modulename; // Example ./mymodule
 
 				if (!dol_is_dir($modulenamedir)) {
-					$modulenamedir = $conf->admin->dir_temp.'/'.$tmpdir.'/htdocs/'.$modulename; // Example ./htdocs/mymodule
+					$modulenamedir = $config->admin->dir_temp.'/'.$tmpdir.'/htdocs/'.$modulename; // Example ./htdocs/mymodule
 					//var_dump($modulenamedir);
 					if (!dol_is_dir($modulenamedir)) {
 						setEventMessages($langs->trans("ErrorModuleFileSeemsToHaveAWrongFormat").'<br>'.$langs->trans("ErrorModuleFileSeemsToHaveAWrongFormat2", $modulename, 'htdocs/'.$modulename), null, 'errors');
@@ -328,9 +328,9 @@ if ($action == 'install' && $allowonlineinstall) {
 						// Now we install the module
 						if (!$error) {
 							@dol_delete_dir_recursive($dirins.'/'.$modulenameval); // delete the target directory
-							$submodulenamedir = $conf->admin->dir_temp.'/'.$tmpdir.'/'.$modulenameval;
+							$submodulenamedir = $config->admin->dir_temp.'/'.$tmpdir.'/'.$modulenameval;
 							if (!dol_is_dir($submodulenamedir)) {
-								$submodulenamedir = $conf->admin->dir_temp.'/'.$tmpdir.'/htdocs/'.$modulenameval;
+								$submodulenamedir = $config->admin->dir_temp.'/'.$tmpdir.'/htdocs/'.$modulenameval;
 							}
 							dol_syslog("We copy now directory ".$submodulenamedir." into target dir ".$dirins.'/'.$modulenameval);
 							$result = dolCopyDir($submodulenamedir, $dirins.'/'.$modulenameval, '0444', 1);
@@ -404,7 +404,7 @@ if ($action == 'set' && $user->admin) {
 		setEventMessage($langs->trans('WarningModuleHasChangedSecurityCsrfParameter', $value), 'warnings');
 	}
 
-	dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 	if (!empty($resarray['errors'])) {
 		setEventMessages('', $resarray['errors'], 'errors');
 	} else {
@@ -428,7 +428,7 @@ if ($action == 'set' && $user->admin) {
 	exit;
 } elseif ($action == 'reset' && $user->admin && GETPOST('confirm') == 'yes') {
 	$result = unActivateModule($value);
-	dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 	if ($result) {
 		setEventMessages($result, null, 'errors');
 	}
@@ -436,13 +436,13 @@ if ($action == 'set' && $user->admin) {
 	exit;
 } elseif (getDolGlobalInt("MAIN_FEATURES_LEVEL") > 1 && $action == 'reload' && $user->admin && GETPOST('confirm') == 'yes') {
 	$result = unActivateModule($value, 0);
-	dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 	if ($result) {
 		setEventMessages($result, null, 'errors');
 		header("Location: ".$_SERVER["PHP_SELF"]."?mode=".$mode.$param.($page_y ? '&page_y='.$page_y : ''));
 	}
 	$resarray = activateModule($value, 0, 1);
-	dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", (getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1), 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", (getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1), 'chaine', 0, '', $config->entity);
 	if (!empty($resarray['errors'])) {
 		setEventMessages('', $resarray['errors'], 'errors');
 	} else {
@@ -676,13 +676,13 @@ asort($orders);
 //var_dump($categ);
 //var_dump($modules);
 
-$nbofactivatedmodules = count($conf->modules);
+$nbofactivatedmodules = count($config->modules);
 
 // Define $nbModulesNotAutoEnabled - TODO This code is at different places
-$nbModulesNotAutoEnabled = count($conf->modules);
+$nbModulesNotAutoEnabled = count($config->modules);
 $listOfModulesAutoEnabled = array('agenda', 'fckeditor', 'export', 'import');
 foreach ($listOfModulesAutoEnabled as $moduleAutoEnable) {
-	if (in_array($moduleAutoEnable, $conf->modules)) {
+	if (in_array($moduleAutoEnable, $config->modules)) {
 		$nbModulesNotAutoEnabled--;
 	}
 }
@@ -1009,7 +1009,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 			if (!empty($objMod->disabled)) {
 				$codeenabledisable .= $langs->trans("Disabled");
 			} elseif (is_object($objMod)
-				&& (!empty($objMod->always_enabled) || ((isModEnabled('multicompany') && $objMod->core_enabled) && ($user->entity || $conf->entity != 1)))) {
+				&& (!empty($objMod->always_enabled) || ((isModEnabled('multicompany') && $objMod->core_enabled) && ($user->entity || $config->entity != 1)))) {
 				// @phan-suppress-next-line PhanUndeclaredMethod
 				if (method_exists($objMod, 'alreadyUsed') && $objMod->alreadyUsed()) {
 					$codeenabledisable .= $langs->trans("Used");
@@ -1114,7 +1114,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 					$codeenabledisable .= '<!-- This module is an external module and it may have a warning to show (note: your country is '.$mysoc->country_code.') -->'."\n";
 					foreach ($arrayofwarningsext as $keymodule => $arrayofwarningsextbycountry) {
 						$keymodulelowercase = strtolower(preg_replace('/^mod/', '', $keymodule));
-						if (in_array($keymodulelowercase, $conf->modules)) {    // If module that request warning is on
+						if (in_array($keymodulelowercase, $config->modules)) {    // If module that request warning is on
 							foreach ($arrayofwarningsextbycountry as $keycountry => $cursorwarningmessage) {
 								if (preg_match('/^always/', $keycountry) || ($mysoc->country_code && preg_match('/^'.$mysoc->country_code.'/', $keycountry))) {
 									$warningmessage .= ($warningmessage ? "\n" : "").$langs->trans($cursorwarningmessage, $objMod->getName(), $mysoc->country_code, $modules[$keymodule]->getName());

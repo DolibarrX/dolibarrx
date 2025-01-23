@@ -104,7 +104,7 @@ class FormSetup
 		$this->formHiddenInputs['token'] = newToken();
 		$this->formHiddenInputs['action'] = 'update';
 
-		$this->entity = (is_null($this->entity) ? $conf->entity : $this->entity);
+		$this->entity = (is_null($this->entity) ? $config->entity : $this->entity);
 
 		if ($outputLangs) {
 			$this->langs = $outputLangs;
@@ -279,7 +279,7 @@ class FormSetup
 		$this->db->begin();
 		$error = 0;
 		foreach ($this->items as $item) {
-			if ($item->getType() == 'yesno' && !empty($conf->use_javascript_ajax)) {
+			if ($item->getType() == 'yesno' && !empty($config->use_javascript_ajax)) {
 				continue;
 			}
 
@@ -691,7 +691,7 @@ class FormSetupItem
 		}
 
 		$this->langs = $langs;
-		$this->entity = (is_null($this->entity) ? $conf->entity : ((int) $this->entity));
+		$this->entity = (is_null($this->entity) ? $config->entity : ((int) $this->entity));
 
 		$this->confKey = $confKey;
 		$this->loadValueFromConf();
@@ -705,7 +705,7 @@ class FormSetupItem
 	public function loadValueFromConf()
 	{
 		global $conf;
-		if (isset($conf->global->{$this->confKey})) {
+		if (isset($config->global->{$this->confKey})) {
 			$this->fieldValue = getDolGlobalString($this->confKey);
 			return true;
 		} else {
@@ -904,7 +904,7 @@ class FormSetupItem
 		} elseif ($this->type == 'color') {
 			$out .=  $this->generateInputFieldColor();
 		} elseif ($this->type == 'yesno') {
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				$input = $this->fieldParams['input'] ?? array();
 				$revertonoff = isset($this->fieldParams['revertonoff']) ? 1 : 0;
 				$forcereload = isset($this->fieldParams['forcereload']) ? 1 : 0;
@@ -1049,7 +1049,7 @@ class FormSetupItem
 		global $conf;
 		$out = '<input type="text" class="flat minwidth150'.($this->cssClass ? ' '.$this->cssClass : '').'" id="'.$this->confKey.'" name="'.$this->confKey.'" value="'.(GETPOST($this->confKey, 'alpha') ? GETPOST($this->confKey, 'alpha') : $this->fieldValue).'">';
 
-		if (!empty($conf->use_javascript_ajax) && empty($this->fieldParams['hideGenerateButton'])) {
+		if (!empty($config->use_javascript_ajax) && empty($this->fieldParams['hideGenerateButton'])) {
 			$out .= '&nbsp;'.img_picto($this->langs->trans('Generate'), 'refresh', 'id="generate_token'.$this->confKey.'" class="linkobject"');
 
 			// Add button to autosuggest a key
@@ -1222,7 +1222,7 @@ class FormSetupItem
 		} elseif ($this->type == 'color') {
 			$out .=  $this->generateOutputFieldColor();
 		} elseif ($this->type == 'yesno') {
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				$revertonoff = $this->fieldParams['revertonoff'] ? 1 : 0;
 				$forcereload = $this->fieldParams['forcereload'] ? 1 : 0;
 

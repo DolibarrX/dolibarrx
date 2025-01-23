@@ -72,7 +72,7 @@ if (!defined('USE_CUSTOM_REPORT_AS_INCLUDE')) {
 	$search_graph = GETPOST('search_graph', 'restricthtml');
 
 	// Load variable for pagination
-	$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+	$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 	$sortfield = GETPOST('sortfield', 'aZ09comma');
 	$sortorder = GETPOST('sortorder', 'aZ09comma');
 	$page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -83,7 +83,7 @@ if (!defined('USE_CUSTOM_REPORT_AS_INCLUDE')) {
 	$pageprev = $page - 1;
 	$pagenext = $page + 1;
 
-	$diroutputmassaction = $conf->user->dir_temp.'/'.$user->id.'/customreport';
+	$diroutputmassaction = $config->user->dir_temp.'/'.$user->id.'/customreport';
 
 	$object = null;
 } else {
@@ -614,7 +614,7 @@ if (!defined('MAIN_CUSTOM_REPORT_KEEP_GRAPH_ONLY')) {
 	print '<div class="divadvancedsearchfield center floatnone">';
 	print '<div class="inline-block"><span class="opacitymedium">'.$langs->trans("StatisticsOn").'</span></div> ';
 	print $form->selectarray('objecttype', $newarrayoftype, $objecttype, 0, 0, 0, '', 1, 0, 0, '', 'minwidth200', 1, '', 0, 1);
-	if (empty($conf->use_javascript_ajax)) {
+	if (empty($config->use_javascript_ajax)) {
 		print '<input type="submit" class="button buttongen button-save nomargintop" name="changeobjecttype" value="'.$langs->trans("Refresh").'">';
 	} else {
 		print '<!-- js code to reload page with good object type -->
@@ -1232,7 +1232,7 @@ if ($mode == 'graph') {
 		$px1->mode = 'depth';
 		$px1->SetTitle('');
 
-		$dir = $conf->user->dir_temp;
+		$dir = $config->user->dir_temp;
 		dol_mkdir($dir);
 		// $customreportkey may be defined when using customreports.php as an include
 		$filenamekey = $dir.'/customreport_'.$object->element.(empty($customreportkey) ? '' : $customreportkey).'.png';

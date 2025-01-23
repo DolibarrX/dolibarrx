@@ -172,7 +172,7 @@ abstract class ModelePDFFactures extends CommonDocGenerator
 			)
 		);
 
-		$currencyinvoicecode = $object->multicurrency_code ? $object->multicurrency_code : $conf->currency;
+		$currencyinvoicecode = $object->multicurrency_code ? $object->multicurrency_code : $config->currency;
 
 		// Add payment amount, with currency
 		$pai = SwissQrBill\DataGroup\Element\PaymentAmountInformation::create($currencyinvoicecode, $object->total_ttc);

@@ -64,85 +64,85 @@ $action = GETPOST('action', 'aZ09');
 
 if ($action == 'update') {
 	if (GETPOSTISSET('MAIN_PDF_PROPAL_USE_ELECTRONIC_SIGNING')) {
-		dolibarr_set_const($db, "MAIN_PDF_PROPAL_USE_ELECTRONIC_SIGNING", GETPOST("MAIN_PDF_PROPAL_USE_ELECTRONIC_SIGNING"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_PROPAL_USE_ELECTRONIC_SIGNING", GETPOST("MAIN_PDF_PROPAL_USE_ELECTRONIC_SIGNING"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('PROPOSAL_PDF_HIDE_PAYMENTTERM')) {
-		dolibarr_set_const($db, "PROPOSAL_PDF_HIDE_PAYMENTTERM", GETPOST("PROPOSAL_PDF_HIDE_PAYMENTTERM"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "PROPOSAL_PDF_HIDE_PAYMENTTERM", GETPOST("PROPOSAL_PDF_HIDE_PAYMENTTERM"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('PROPOSAL_PDF_HIDE_PAYMENTMODE')) {
-		dolibarr_set_const($db, "PROPOSAL_PDF_HIDE_PAYMENTMODE", GETPOST("PROPOSAL_PDF_HIDE_PAYMENTMODE"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "PROPOSAL_PDF_HIDE_PAYMENTMODE", GETPOST("PROPOSAL_PDF_HIDE_PAYMENTMODE"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_GENERATE_PROPOSALS_WITH_PICTURE')) {
-		dolibarr_set_const($db, "MAIN_GENERATE_PROPOSALS_WITH_PICTURE", GETPOST("MAIN_GENERATE_PROPOSALS_WITH_PICTURE"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_GENERATE_PROPOSALS_WITH_PICTURE", GETPOST("MAIN_GENERATE_PROPOSALS_WITH_PICTURE"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('SALES_ORDER_SHOW_SHIPPING_ADDRESS')) {
-		dolibarr_set_const($db, "SALES_ORDER_SHOW_SHIPPING_ADDRESS", GETPOSTINT("SALES_ORDER_SHOW_SHIPPING_ADDRESS"), 'chaine', 0, '', $conf->entity);
-		dolibarr_del_const($db, "SALES_ORDER_SHOW_SHIPPING_ADDRESS", $conf->entity);
+		dolibarr_set_const($db, "SALES_ORDER_SHOW_SHIPPING_ADDRESS", GETPOSTINT("SALES_ORDER_SHOW_SHIPPING_ADDRESS"), 'chaine', 0, '', $config->entity);
+		dolibarr_del_const($db, "SALES_ORDER_SHOW_SHIPPING_ADDRESS", $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_UNIT_PRICE')) {
-		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_UNIT_PRICE", GETPOST("MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_UNIT_PRICE"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_UNIT_PRICE", GETPOST("MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_UNIT_PRICE"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_TOTAL_COLUMN')) {
-		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_TOTAL_COLUMN", GETPOST("MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_TOTAL_COLUMN"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_TOTAL_COLUMN", GETPOST("MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_TOTAL_COLUMN"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_UNIT_PRICE')) {
-		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_UNIT_PRICE", GETPOST("MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_UNIT_PRICE"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_UNIT_PRICE", GETPOST("MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_UNIT_PRICE"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_TOTAL_COLUMN')) {
-		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_TOTAL_COLUMN", GETPOST("MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_TOTAL_COLUMN"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_TOTAL_COLUMN", GETPOST("MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_TOTAL_COLUMN"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_DOCUMENTS_WITH_PICTURE_WIDTH')) {
-		dolibarr_set_const($db, "MAIN_DOCUMENTS_WITH_PICTURE_WIDTH", GETPOSTINT("MAIN_DOCUMENTS_WITH_PICTURE_WIDTH"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_DOCUMENTS_WITH_PICTURE_WIDTH", GETPOSTINT("MAIN_DOCUMENTS_WITH_PICTURE_WIDTH"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PDF_ADD_TERMSOFSALE_PROPAL')) {
-		dolibarr_set_const($db, "MAIN_PDF_ADD_TERMSOFSALE_PROPAL", GETPOST("MAIN_PDF_ADD_TERMSOFSALE_PROPAL", 'int'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_ADD_TERMSOFSALE_PROPAL", GETPOST("MAIN_PDF_ADD_TERMSOFSALE_PROPAL", 'int'), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PDF_ADD_TERMSOFSALE_ORDER')) {
-		dolibarr_set_const($db, "MAIN_PDF_ADD_TERMSOFSALE_ORDER", GETPOST("MAIN_PDF_ADD_TERMSOFSALE_ORDER", 'int'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_ADD_TERMSOFSALE_ORDER", GETPOST("MAIN_PDF_ADD_TERMSOFSALE_ORDER", 'int'), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('MAIN_PDF_ADD_TERMSOFSALE_INVOICE')) {
-		dolibarr_set_const($db, "MAIN_PDF_ADD_TERMSOFSALE_INVOICE", GETPOST("MAIN_PDF_ADD_TERMSOFSALE_INVOICE", 'int'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_PDF_ADD_TERMSOFSALE_INVOICE", GETPOST("MAIN_PDF_ADD_TERMSOFSALE_INVOICE", 'int'), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('INVOICE_ADD_ZATCA_QR_CODE')) {
-		dolibarr_set_const($db, "INVOICE_ADD_ZATCA_QR_CODE", GETPOSTINT("INVOICE_ADD_ZATCA_QR_CODE"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "INVOICE_ADD_ZATCA_QR_CODE", GETPOSTINT("INVOICE_ADD_ZATCA_QR_CODE"), 'chaine', 0, '', $config->entity);
 		if (GETPOSTINT('INVOICE_ADD_ZATCA_QR_CODE') == 1) {
-			dolibarr_del_const($db, "INVOICE_ADD_SWISS_QR_CODE", $conf->entity);
+			dolibarr_del_const($db, "INVOICE_ADD_SWISS_QR_CODE", $config->entity);
 		}
 	}
 	if (GETPOSTISSET('INVOICE_ADD_EPC_QR_CODE')) {
-		dolibarr_set_const($db, "INVOICE_ADD_EPC_QR_CODE", GETPOST("INVOICE_ADD_EPC_QR_CODE", 'int'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "INVOICE_ADD_EPC_QR_CODE", GETPOST("INVOICE_ADD_EPC_QR_CODE", 'int'), 'chaine', 0, '', $config->entity);
 		if (GETPOSTINT('INVOICE_ADD_EPC_QR_CODE') == 1) {
-			dolibarr_del_const($db, "INVOICE_ADD_EPC_QR_CODE", $conf->entity);
+			dolibarr_del_const($db, "INVOICE_ADD_EPC_QR_CODE", $config->entity);
 		}
 	}
 	if (GETPOSTISSET('INVOICE_ADD_SWISS_QR_CODE')) {
-		dolibarr_set_const($db, "INVOICE_ADD_SWISS_QR_CODE", GETPOST("INVOICE_ADD_SWISS_QR_CODE", 'alpha'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "INVOICE_ADD_SWISS_QR_CODE", GETPOST("INVOICE_ADD_SWISS_QR_CODE", 'alpha'), 'chaine', 0, '', $config->entity);
 		if (GETPOST('INVOICE_ADD_SWISS_QR_CODE', 'alpha') != '0') {
-			dolibarr_del_const($db, "INVOICE_ADD_ZATCA_QR_CODE", $conf->entity);
+			dolibarr_del_const($db, "INVOICE_ADD_ZATCA_QR_CODE", $config->entity);
 		}
 	}
 	if (GETPOSTISSET('INVOICE_CATEGORY_OF_OPERATION')) {
-		dolibarr_set_const($db, "INVOICE_CATEGORY_OF_OPERATION", GETPOSTINT("INVOICE_CATEGORY_OF_OPERATION"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "INVOICE_CATEGORY_OF_OPERATION", GETPOSTINT("INVOICE_CATEGORY_OF_OPERATION"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('INVOICE_SHOW_SHIPPING_ADDRESS')) {
-		dolibarr_set_const($db, "INVOICE_SHOW_SHIPPING_ADDRESS", GETPOSTINT("INVOICE_SHOW_SHIPPING_ADDRESS"), 'chaine', 0, '', $conf->entity);
-		dolibarr_del_const($db, "INVOICE_SHOW_SHIPPING_ADDRESS", $conf->entity);
+		dolibarr_set_const($db, "INVOICE_SHOW_SHIPPING_ADDRESS", GETPOSTINT("INVOICE_SHOW_SHIPPING_ADDRESS"), 'chaine', 0, '', $config->entity);
+		dolibarr_del_const($db, "INVOICE_SHOW_SHIPPING_ADDRESS", $config->entity);
 	}
 	if (GETPOSTISSET('PDF_INVOICE_SHOW_VAT_ANALYSIS')) {
-		dolibarr_set_const($db, "PDF_INVOICE_SHOW_VAT_ANALYSIS", GETPOSTINT("PDF_INVOICE_SHOW_VAT_ANALYSIS"), 'chaine', 0, '', $conf->entity);
-		dolibarr_del_const($db, "PDF_INVOICE_SHOW_VAT_ANALYSIS", $conf->entity);
+		dolibarr_set_const($db, "PDF_INVOICE_SHOW_VAT_ANALYSIS", GETPOSTINT("PDF_INVOICE_SHOW_VAT_ANALYSIS"), 'chaine', 0, '', $config->entity);
+		dolibarr_del_const($db, "PDF_INVOICE_SHOW_VAT_ANALYSIS", $config->entity);
 	}
 	if (GETPOSTISSET('INVOICE_HIDE_LINKED_OBJECT')) {
-		dolibarr_set_const($db, "INVOICE_HIDE_LINKED_OBJECT", GETPOSTINT("INVOICE_HIDE_LINKED_OBJECT"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "INVOICE_HIDE_LINKED_OBJECT", GETPOSTINT("INVOICE_HIDE_LINKED_OBJECT"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('BARCODE_ON_SHIPPING_PDF')) {
-		dolibarr_set_const($db, "BARCODE_ON_SHIPPING_PDF", GETPOSTINT("BARCODE_ON_SHIPPING_PDF"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "BARCODE_ON_SHIPPING_PDF", GETPOSTINT("BARCODE_ON_SHIPPING_PDF"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('BARCODE_ON_RECEPTION_PDF')) {
-		dolibarr_set_const($db, "BARCODE_ON_RECEPTION_PDF", GETPOSTINT("BARCODE_ON_RECEPTION_PDF"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "BARCODE_ON_RECEPTION_PDF", GETPOSTINT("BARCODE_ON_RECEPTION_PDF"), 'chaine', 0, '', $config->entity);
 	}
 	if (GETPOSTISSET('BARCODE_ON_STOCKTRANSFER_PDF')) {
-		dolibarr_set_const($db, "BARCODE_ON_STOCKTRANSFER_PDF", GETPOSTINT("BARCODE_ON_STOCKTRANSFER_PDF"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "BARCODE_ON_STOCKTRANSFER_PDF", GETPOSTINT("BARCODE_ON_STOCKTRANSFER_PDF"), 'chaine', 0, '', $config->entity);
 	}
 
 	// Terms of sale
@@ -151,11 +151,11 @@ if ($action == 'update') {
 			$langs->load("errors");
 			setEventMessages($langs->trans("ErrorBadFormat"), null, 'errors');
 		} else {
-			$dirforterms = $conf->mycompany->dir_output.'/';
+			$dirforterms = $config->mycompany->dir_output.'/';
 			$original_file = $_FILES['termsofsale']["name"];
 			$result = dol_move_uploaded_file($_FILES['termsofsale']["tmp_name"], $dirforterms.$original_file, 1, 0, $_FILES['termsofsale']['error']);
 			if ($result) {
-				dolibarr_set_const($db, 'MAIN_INFO_SOCIETE_TERMSOFSALE', $original_file, 'chaine', 0, '', $conf->entity);
+				dolibarr_set_const($db, 'MAIN_INFO_SOCIETE_TERMSOFSALE', $original_file, 'chaine', 0, '', $config->entity);
 			}
 		}
 	}
@@ -172,12 +172,12 @@ if ($action == 'removetermsofsale') {
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 	$filename = $mysoc->termsofsale;
-	$file = $conf->mycompany->dir_output.'/'.$filename;
+	$file = $config->mycompany->dir_output.'/'.$filename;
 
 	if ($filename != '') {
 		dol_delete_file($file);
 	}
-	dolibarr_del_const($db, 'MAIN_INFO_SOCIETE_TERMSOFSALE', $conf->entity);
+	dolibarr_del_const($db, 'MAIN_INFO_SOCIETE_TERMSOFSALE', $config->entity);
 
 	$mysoc->termsofsale = '';
 }
@@ -220,11 +220,11 @@ if (isModEnabled('propal')) {
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("MAIN_PDF_PROPAL_USE_ELECTRONIC_SIGNING"), '');
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_PDF_PROPAL_USE_ELECTRONIC_SIGNING');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("MAIN_PDF_PROPAL_USE_ELECTRONIC_SIGNING", $arrval, $conf->global->MAIN_PDF_PROPAL_USE_ELECTRONIC_SIGNING);
+		print $form->selectarray("MAIN_PDF_PROPAL_USE_ELECTRONIC_SIGNING", $arrval, $config->global->MAIN_PDF_PROPAL_USE_ELECTRONIC_SIGNING);
 	}
 	print '</td></tr>';
 	*/
@@ -232,22 +232,22 @@ if (isModEnabled('propal')) {
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("MAIN_PDF_ADD_TERMSOFSALE_PROPAL"), $langs->trans("PdfAddTermOfSaleHelp"));
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_PDF_ADD_TERMSOFSALE_PROPAL');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("MAIN_PDF_ADD_TERMSOFSALE_PROPAL", $arrval, $conf->global->MAIN_PDF_ADD_TERMSOFSALE_PROPAL);
+		print $form->selectarray("MAIN_PDF_ADD_TERMSOFSALE_PROPAL", $arrval, $config->global->MAIN_PDF_ADD_TERMSOFSALE_PROPAL);
 	}
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("MAIN_GENERATE_PROPOSALS_WITH_PICTURE"), $langs->trans("RandomlySelectedIfSeveral"));
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_GENERATE_PROPOSALS_WITH_PICTURE');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("MAIN_GENERATE_PROPOSALS_WITH_PICTURE", $arrval, $conf->global->MAIN_GENERATE_PROPOSALS_WITH_PICTURE);
+		print $form->selectarray("MAIN_GENERATE_PROPOSALS_WITH_PICTURE", $arrval, $config->global->MAIN_GENERATE_PROPOSALS_WITH_PICTURE);
 	}
 	print '</td></tr>';
 
@@ -264,11 +264,11 @@ if (isModEnabled('order')) {
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("MAIN_PDF_ADD_TERMSOFSALE_ORDER"), $langs->trans("PdfAddTermOfSaleHelp"));
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_PDF_ADD_TERMSOFSALE_ORDER');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("MAIN_PDF_ADD_TERMSOFSALE_ORDER", $arrval, $conf->global->MAIN_PDF_ADD_TERMSOFSALE_ORDER);
+		print $form->selectarray("MAIN_PDF_ADD_TERMSOFSALE_ORDER", $arrval, $config->global->MAIN_PDF_ADD_TERMSOFSALE_ORDER);
 	}
 	print '</td></tr>';
 	print '</table>';
@@ -286,11 +286,11 @@ if (isModEnabled('order')) {
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("SALES_ORDER_SHOW_SHIPPING_ADDRESS"), $langs->trans("SALES_ORDER_SHOW_SHIPPING_ADDRESSMore"));
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('SALES_ORDER_SHOW_SHIPPING_ADDRESS');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("SALES_ORDER_SHOW_SHIPPING_ADDRESS", $arrval, $conf->global->SALES_ORDER_SHOW_SHIPPING_ADDRESS);
+		print $form->selectarray("SALES_ORDER_SHOW_SHIPPING_ADDRESS", $arrval, $config->global->SALES_ORDER_SHOW_SHIPPING_ADDRESS);
 	}
 	print '</td></tr>';
 
@@ -310,22 +310,22 @@ if (isModEnabled('supplier_proposal')) {
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_UNIT_PRICE"), '');
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_UNIT_PRICE');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_UNIT_PRICE", $arrval, $conf->global->MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_UNIT_PRICE);
+		print $form->selectarray("MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_UNIT_PRICE", $arrval, $config->global->MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_UNIT_PRICE);
 	}
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_TOTAL_COLUMN"), '');
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_TOTAL_COLUMN');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_TOTAL_COLUMN", $arrval, $conf->global->MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_TOTAL_COLUMN);
+		print $form->selectarray("MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_TOTAL_COLUMN", $arrval, $config->global->MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_TOTAL_COLUMN);
 	}
 	print '</td></tr>';
 
@@ -345,22 +345,22 @@ if (isModEnabled('supplier_order')) {
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_UNIT_PRICE"), '');
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_UNIT_PRICE');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_UNIT_PRICE", $arrval, $conf->global->MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_UNIT_PRICE);
+		print $form->selectarray("MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_UNIT_PRICE", $arrval, $config->global->MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_UNIT_PRICE);
 	}
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_TOTAL_COLUMN"), '');
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_TOTAL_COLUMN');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_TOTAL_COLUMN", $arrval, $conf->global->MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_TOTAL_COLUMN);
+		print $form->selectarray("MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_TOTAL_COLUMN", $arrval, $config->global->MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_TOTAL_COLUMN);
 	}
 	print '</td></tr>';
 
@@ -378,17 +378,17 @@ if (isModEnabled('invoice')) {
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("MAIN_PDF_ADD_TERMSOFSALE_INVOICE"), $langs->trans("PdfAddTermOfSaleHelp"));
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_PDF_ADD_TERMSOFSALE_INVOICE');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("MAIN_PDF_ADD_TERMSOFSALE_INVOICE", $arrval, $conf->global->MAIN_PDF_ADD_TERMSOFSALE_INVOICE);
+		print $form->selectarray("MAIN_PDF_ADD_TERMSOFSALE_INVOICE", $arrval, $config->global->MAIN_PDF_ADD_TERMSOFSALE_INVOICE);
 	}
 	print '</td></tr>';
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("INVOICE_ADD_ZATCA_QR_CODE"), $langs->trans("INVOICE_ADD_ZATCA_QR_CODEMore"));
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('INVOICE_ADD_ZATCA_QR_CODE');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -399,7 +399,7 @@ if (isModEnabled('invoice')) {
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("INVOICE_ADD_EPC_QR_CODE"), $langs->trans("INVOICE_ADD_EPC_QR_CODEMore"));
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('INVOICE_ADD_EPC_QR_CODE');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -436,11 +436,11 @@ if (isModEnabled('invoice')) {
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("INVOICE_SHOW_SHIPPING_ADDRESS"), $langs->trans("INVOICE_SHOW_SHIPPING_ADDRESSMore"));
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('INVOICE_SHOW_SHIPPING_ADDRESS');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("INVOICE_SHOW_SHIPPING_ADDRESS", $arrval, $conf->global->INVOICE_SHOW_SHIPPING_ADDRESS);
+		print $form->selectarray("INVOICE_SHOW_SHIPPING_ADDRESS", $arrval, $config->global->INVOICE_SHOW_SHIPPING_ADDRESS);
 	}
 	print '</td></tr>';
 
@@ -448,11 +448,11 @@ if (isModEnabled('invoice')) {
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("PDF_INVOICE_SHOW_VAT_ANALYSIS"), '');
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('PDF_INVOICE_SHOW_VAT_ANALYSIS');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("PDF_INVOICE_SHOW_VAT_ANALYSIS", $arrval, $conf->global->PDF_INVOICE_SHOW_VAT_ANALYSIS);
+		print $form->selectarray("PDF_INVOICE_SHOW_VAT_ANALYSIS", $arrval, $config->global->PDF_INVOICE_SHOW_VAT_ANALYSIS);
 	}
 	print '</td></tr>';
 	*/
@@ -461,22 +461,22 @@ if (isModEnabled('invoice')) {
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("SUPPLIER_PROPOSAL_ADD_BILLING_CONTACT"), $langs->trans("SUPPLIER_PROPOSAL_ADD_BILLING_CONTACTMore"));
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('SUPPLIER_PROPOSAL_ADD_BILLING_CONTACT');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("SUPPLIER_PROPOSAL_ADD_BILLING_CONTACT", $arrval, $conf->global->SUPPLIER_PROPOSAL_ADD_BILLING_CONTACT);
+		print $form->selectarray("SUPPLIER_PROPOSAL_ADD_BILLING_CONTACT", $arrval, $config->global->SUPPLIER_PROPOSAL_ADD_BILLING_CONTACT);
 	}
 	print '</td></tr>';
 	*/
 	print '<tr class="oddeven"><td>';
 	print $form->textwithpicto($langs->trans("INVOICE_HIDE_LINKED_OBJECT"), $langs->trans("INVOICE_HIDE_LINKED_OBJECTMore"));
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('INVOICE_HIDE_LINKED_OBJECT');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
-		print $form->selectarray("INVOICE_HIDE_LINKED_OBJECT", $arrval, $conf->global->INVOICE_HIDE_LINKED_OBJECT);
+		print $form->selectarray("INVOICE_HIDE_LINKED_OBJECT", $arrval, $config->global->INVOICE_HIDE_LINKED_OBJECT);
 	}
 	print '</td></tr>';
 
@@ -494,7 +494,7 @@ if (isModEnabled('shipping')) {
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("BARCODE_ON_SHIPPING_PDF");
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('BARCODE_ON_SHIPPING_PDF');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -516,7 +516,7 @@ if (isModEnabled('reception')) {
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("RECEPTION_PDF_HIDE_ORDERED");
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('RECEPTION_PDF_HIDE_ORDERED');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -527,7 +527,7 @@ if (isModEnabled('reception')) {
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("MAIN_PDF_RECEPTION_DISPLAY_AMOUNT_HT");
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_PDF_RECEPTION_DISPLAY_AMOUNT_HT');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -538,7 +538,7 @@ if (isModEnabled('reception')) {
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("BARCODE_ON_RECEPTION_PDF");
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('BARCODE_ON_RECEPTION_PDF');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -559,7 +559,7 @@ if (isModEnabled('stocktransfer')) {
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("BARCODE_ON_STOCKTRANSFER_PDF");
 	print '</td><td>';
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('BARCODE_ON_STOCKTRANSFER_PDF');
 	} else {
 		$arrval = array('0' => $langs->trans("No"), '1' => $langs->trans("Yes"));
@@ -581,8 +581,8 @@ $tooltiptermsofsale = $langs->trans('AvailableFormats').' : pdf';
 $maxfilesizearray = getMaxFileSizeArray();
 $tooltiptermsofsale .= ($maxfilesizearray['maxmin'] > 0) ? '<br>'.$langs->trans('MaxSize').' : '.$maxfilesizearray['maxmin'].' '.$langs->trans('Kb') : '';
 $documenturl = DOL_URL_ROOT.'/document.php';
-if (isset($conf->global->DOL_URL_ROOT_DOCUMENT_PHP)) {
-	$documenturl = $conf->global->DOL_URL_ROOT_DOCUMENT_PHP;
+if (isset($config->global->DOL_URL_ROOT_DOCUMENT_PHP)) {
+	$documenturl = $config->global->DOL_URL_ROOT_DOCUMENT_PHP;
 }
 $modulepart = 'mycompany';
 
@@ -591,7 +591,7 @@ print '<div class="centpercent nobordernopadding valignmiddle "><div class="inli
 print '<input type="file" class="flat minwidth100 maxwidthinputfileonsmartphone" name="termsofsale" id="termsofsale" accept="application/pdf">';
 
 if (!empty($mysoc->termsofsale)) {
-	if (file_exists($conf->mycompany->dir_output.'/'.$mysoc->termsofsale)) {
+	if (file_exists($config->mycompany->dir_output.'/'.$mysoc->termsofsale)) {
 		print '<div class="inline-block valignmiddle marginrightonly"><a href="'.$documenturl.'?modulepart='.$modulepart.'&amp;file='.urlencode($mysoc->termsofsale).'">'.$mysoc->termsofsale.'</a>'.$formfile->showPreview($mysoc->termsofsale, $modulepart, $mysoc->termsofsale, 0, '');
 		print '<div class="inline-block valignmiddle marginrightonly"><a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=removetermsofsale&token='.newToken().'">'.img_delete($langs->trans("Delete"), '', 'marginleftonly').'</a></div>';
 	}

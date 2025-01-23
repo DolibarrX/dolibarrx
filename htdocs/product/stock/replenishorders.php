@@ -61,7 +61,7 @@ $search_dateday = GETPOSTINT('search_dateday');
 $search_date = dol_mktime(0, 0, 0, $search_datemonth, $search_dateday, $search_dateyear);
 $optioncss = GETPOST('optioncss', 'alpha');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 if (!$sortorder) {
@@ -138,7 +138,7 @@ if (!$user->hasRight('societe', 'client', 'voir')) {
 	$sql .= ', '.MAIN_DB_PREFIX.'societe_commerciaux as sc';
 }
 $sql .= ' WHERE cf.fk_soc = s.rowid ';
-$sql .= ' AND cf.entity = '.$conf->entity;
+$sql .= ' AND cf.entity = '.$config->entity;
 if (getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_VALIDATE_ORDER')) {
 	$sql .= ' AND cf.fk_statut < 3';
 } elseif (getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER') || getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION') || getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION_CLOSE')) {
@@ -194,7 +194,7 @@ if ($resql) {
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($sref) {
@@ -315,7 +315,7 @@ if ($resql) {
 
 	$userstatic = new User($db);
 
-	while ($i < min($num, $search_product ? $num : $conf->liste_limit)) {
+	while ($i < min($num, $search_product ? $num : $config->liste_limit)) {
 		$obj = $db->fetch_object($resql);
 
 		$showline = dolDispatchToDo($obj->rowid) && (!$search_product || in_array($search_product, getProducts($obj->rowid)));

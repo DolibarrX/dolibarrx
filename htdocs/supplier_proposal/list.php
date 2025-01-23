@@ -114,7 +114,7 @@ $object_statut = GETPOST('supplier_proposal_statut', 'intcomma');
 $search_btn = GETPOST('button_search', 'alpha');
 $search_remove_btn = GETPOST('button_removefilter', 'alpha');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -152,7 +152,7 @@ if (!empty($socid)) {
 	$dbtable = '&societe';
 }
 
-$diroutputmassaction = $conf->supplier_proposal->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->supplier_proposal->dir_output.'/temp/massgeneration/'.$user->id;
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $object = new SupplierProposal($db);
@@ -286,7 +286,7 @@ if (empty($reshook)) {
 
 	$objectclass = 'SupplierProposal';
 	$objectlabel = 'SupplierProposals';
-	$uploaddir = $conf->supplier_proposal->dir_output;
+	$uploaddir = $config->supplier_proposal->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -536,7 +536,7 @@ if ($resql) {
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($search_all) {
@@ -781,7 +781,7 @@ if ($resql) {
 	// Company type
 	if (!empty($arrayfields['typent.code']['checked'])) {
 		print '<td class="liste_titre maxwidthonsmartphone center">';
-		print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $conf->global->SOCIETE_SORT_ON_TYPEENT), '', 1);
+		print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $config->global->SOCIETE_SORT_ON_TYPEENT), '', 1);
 		print '</td>';
 	}
 	// Date
@@ -1071,7 +1071,7 @@ if ($resql) {
 				print '</td>';
 				// Warning
 				$warnornote = '';
-				//if ($obj->fk_statut == 1 && $db->jdate($obj->date_valid) < ($now - $conf->supplier_proposal->warning_delay)) $warnornote .= img_warning($langs->trans("Late"));
+				//if ($obj->fk_statut == 1 && $db->jdate($obj->date_valid) < ($now - $config->supplier_proposal->warning_delay)) $warnornote .= img_warning($langs->trans("Late"));
 				if ($warnornote) {
 					print '<td style="min-width: 20px" class="nobordernopadding nowrap">';
 					print $warnornote;
@@ -1080,7 +1080,7 @@ if ($resql) {
 				// Other picto tool
 				print '<td width="16" class="right nobordernopadding hideonsmartphone">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->supplier_proposal->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->supplier_proposal->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 				print $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir);
 				print '</td></tr></table>';

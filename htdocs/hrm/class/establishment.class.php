@@ -203,7 +203,7 @@ class Establishment extends CommonObject
 		$sql .= ", '".$this->db->escape($this->town)."'";
 		$sql .= ", ".((int) $this->country_id);
 		$sql .= ", ".((int) $this->status);
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ", '".$this->db->idate($now)."'";
 		$sql .= ", ".((int) $user->id);
 		$sql .= ", ".((int) $user->id);
@@ -434,7 +434,7 @@ class Establishment extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

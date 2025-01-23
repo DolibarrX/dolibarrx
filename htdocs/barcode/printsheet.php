@@ -174,11 +174,11 @@ if (empty($reshook)) {
 			$generator = $stdobject->barcode_type_coder; // coder (loaded by fetchBarCode). Engine.
 			$encoding = strtoupper($stdobject->barcode_type_code); // code (loaded by fetchBarCode). Example 'ean', 'isbn', ...
 
-			$diroutput = $conf->barcode->dir_temp;
+			$diroutput = $config->barcode->dir_temp;
 			dol_mkdir($diroutput);
 
 			// Generate barcode
-			$dirbarcode = array_merge(array("/core/modules/barcode/doc/"), $conf->modules_parts['barcode']);
+			$dirbarcode = array_merge(array("/core/modules/barcode/doc/"), $config->modules_parts['barcode']);
 
 			foreach ($dirbarcode as $reldir) {
 				$dir = dol_buildpath($reldir, 0);
@@ -205,9 +205,9 @@ if (empty($reshook)) {
 				'@phan-var-force modPhpbarcode $module';
 				$template = 'standardlabel';
 				if ($module->encodingIsSupported($encoding)) {
-					$barcodeimage = $conf->barcode->dir_temp.'/barcode_'.$code.'_'.$encoding.'.png';
+					$barcodeimage = $config->barcode->dir_temp.'/barcode_'.$code.'_'.$encoding.'.png';
 					dol_delete_file($barcodeimage);
-					// File is created with full name $barcodeimage = $conf->barcode->dir_temp.'/barcode_'.$code.'_'.$encoding.'.png';
+					// File is created with full name $barcodeimage = $config->barcode->dir_temp.'/barcode_'.$code.'_'.$encoding.'.png';
 					$result = $module->writeBarCode($code, $encoding, 'Y', 4, 1);
 					if ($result <= 0 || !dol_is_file($barcodeimage)) {
 						$error++;
@@ -291,7 +291,7 @@ if (empty($reshook)) {
 					$outputlangs = $langs;
 
 					$previousConf = getDolGlobalInt('TCPDF_THROW_ERRORS_INSTEAD_OF_DIE');
-					$conf->global->TCPDF_THROW_ERRORS_INSTEAD_OF_DIE = 1;
+					$config->global->TCPDF_THROW_ERRORS_INSTEAD_OF_DIE = 1;
 
 					// This generates and send PDF to output
 					// TODO Move
@@ -301,7 +301,7 @@ if (empty($reshook)) {
 						$mesg = $langs->trans('ErrorGeneratingBarcode');
 					}
 
-					$conf->global->TCPDF_THROW_ERRORS_INSTEAD_OF_DIE = $previousConf;
+					$config->global->TCPDF_THROW_ERRORS_INSTEAD_OF_DIE = $previousConf;
 				}
 			}
 

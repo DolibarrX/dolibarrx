@@ -56,7 +56,7 @@ function emailcollectorPrepareHead($object)
 
 	/*require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $conf->emailcollector->dir_output . "/emailcollector/" . dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->emailcollector->dir_output . "/emailcollector/" . dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir,'files',0,'','(\.meta|_preview.*\.png)$'));
 	$nbLinks=Link::count($db, $object->element, $object->id);
 	$head[$h][0] = dol_buildpath("/emailcollector/emailcollector_document.php", 1).'?id='.$object->id;

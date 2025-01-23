@@ -194,9 +194,9 @@ if (!empty($hashp)) {
 			$original_file = (($tmp[1] ? $tmp[1].'/' : '').$ecmfile->filename); // this is relative to module dir
 		}
 		$entity = $ecmfile->entity;
-		if ($entity != $conf->entity) {
-			$conf->entity = $entity;
-			$conf->setValues($db);
+		if ($entity != $config->entity) {
+			$config->entity = $entity;
+			$config->setValues($db);
 		}
 	} else {
 		$langs->load("errors");

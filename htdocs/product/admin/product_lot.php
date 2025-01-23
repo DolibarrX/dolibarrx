@@ -42,7 +42,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
 $langs->loadLangs(array("admin", "products", "productbatch"));
 
 // Security check
-if (!$user->admin || (empty($conf->productbatch->enabled))) {
+if (!$user->admin || (empty($config->productbatch->enabled))) {
 	accessforbidden();
 }
 
@@ -66,7 +66,7 @@ if ($action == 'updateMaskLot') {
 	$maskbatch = GETPOST('maskLot', 'alpha');
 
 	if ($maskconstbatch && preg_match('/_MASK$/', $maskconstbatch)) {
-		$res = dolibarr_set_const($db, $maskconstbatch, $maskbatch, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstbatch, $maskbatch, 'chaine', 0, '', $config->entity);
 		if ($res <= 0) {
 			$error++;
 		}
@@ -82,7 +82,7 @@ if ($action == 'updateMaskLot') {
 	$maskbatch = GETPOST('maskSN', 'alpha');
 
 	if ($maskconstbatch && preg_match('/_MASK$/', $maskconstbatch)) {
-		$res = dolibarr_set_const($db, $maskconstbatch, $maskbatch, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstbatch, $maskbatch, 'chaine', 0, '', $config->entity);
 		if ($res <= 0) {
 			$error++;
 		}
@@ -94,18 +94,18 @@ if ($action == 'updateMaskLot') {
 		setEventMessages($langs->trans("Error"), null, 'errors');
 	}
 } elseif ($action == 'setmodlot') {
-	dolibarr_set_const($db, "PRODUCTBATCH_LOT_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "PRODUCTBATCH_LOT_ADDON", $value, 'chaine', 0, '', $config->entity);
 } elseif ($action == 'setmodsn') {
-	dolibarr_set_const($db, "PRODUCTBATCH_SN_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "PRODUCTBATCH_SN_ADDON", $value, 'chaine', 0, '', $config->entity);
 } elseif ($action == 'setmaskslot') {
-	dolibarr_set_const($db, "PRODUCTBATCH_LOT_USE_PRODUCT_MASKS", $value, 'bool', 0, '', $conf->entity);
+	dolibarr_set_const($db, "PRODUCTBATCH_LOT_USE_PRODUCT_MASKS", $value, 'bool', 0, '', $config->entity);
 	if ($value == '1' && getDolGlobalString('PRODUCTBATCH_LOT_ADDONS') !== 'mod_lot_advanced') {
-		dolibarr_set_const($db, "PRODUCTBATCH_LOT_ADDON", 'mod_lot_advanced', 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "PRODUCTBATCH_LOT_ADDON", 'mod_lot_advanced', 'chaine', 0, '', $config->entity);
 	}
 } elseif ($action == 'setmaskssn') {
-	dolibarr_set_const($db, "PRODUCTBATCH_SN_USE_PRODUCT_MASKS", $value, 'bool', 0, '', $conf->entity);
+	dolibarr_set_const($db, "PRODUCTBATCH_SN_USE_PRODUCT_MASKS", $value, 'bool', 0, '', $config->entity);
 	if ($value == '1' && getDolGlobalString('PRODUCTBATCH_SN_ADDONS') !== 'mod_sn_advanced') {
-		dolibarr_set_const($db, "PRODUCTBATCH_SN_ADDON", 'mod_sn_advanced', 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "PRODUCTBATCH_SN_ADDON", 'mod_sn_advanced', 'chaine', 0, '', $config->entity);
 	}
 } elseif ($action == 'set') {
 	// Activate a model
@@ -113,8 +113,8 @@ if ($action == 'updateMaskLot') {
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->FACTURE_ADDON_PDF == "$value") {
-			dolibarr_del_const($db, 'FACTURE_ADDON_PDF', $conf->entity);
+		if ($config->global->FACTURE_ADDON_PDF == "$value") {
+			dolibarr_del_const($db, 'FACTURE_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'specimen') {
@@ -126,7 +126,7 @@ if ($action == 'updateMaskLot') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir . "core/modules/product_batch/doc/pdf_" . $modele . ".modules.php", 0);
 		if (file_exists($file)) {
@@ -155,10 +155,10 @@ if ($action == 'updateMaskLot') {
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "PRODUCT_BATCH_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "PRODUCT_BATCH_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->PRODUCT_BATCH_ADDON_PDF = $value;
+		$config->global->PRODUCT_BATCH_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -174,7 +174,7 @@ if ($action == 'updateMaskLot') {
 
 $form = new Form($db);
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader("", $langs->trans("ProductLotSetup"), '', '', 0, 0, '', '', '', 'mod-product page-admin_product_lot');
 
@@ -251,7 +251,7 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2) {
 							print '</td>'."\n";
 
 							print '<td class="center">';
-							if ($conf->global->PRODUCTBATCH_LOT_ADDON == $file) {
+							if ($config->global->PRODUCTBATCH_LOT_ADDON == $file) {
 								print img_picto($langs->trans("Activated"), 'switch_on');
 							} else {
 								print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmodlot&token='.newToken().'&value='.urlencode($file).'">';
@@ -353,7 +353,7 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2) {
 							print '</td>'."\n";
 
 							print '<td class="center">';
-							if ($conf->global->PRODUCTBATCH_SN_ADDON == $file) {
+							if ($config->global->PRODUCTBATCH_SN_ADDON == $file) {
 								print img_picto($langs->trans("Activated"), 'switch_on');
 							} else {
 								print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmodsn&token='.newToken().'&value='.urlencode($file).'">';
@@ -402,7 +402,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM " . MAIN_DB_PREFIX . "document_model";
 $sql .= " WHERE type = '" . $db->escape($type) . "'";
-$sql .= " AND entity = " . $conf->entity;
+$sql .= " AND entity = " . $config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;

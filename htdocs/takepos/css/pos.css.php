@@ -64,7 +64,7 @@ if (empty($dolibarr_nocache)) {
 }
 
 
-include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 if (defined('THEME_ONLY_CONSTANT')) {
 	return;
 }

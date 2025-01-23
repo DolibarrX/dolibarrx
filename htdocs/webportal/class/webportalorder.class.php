@@ -199,7 +199,7 @@ class WebPortalOrder extends Commande
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -286,7 +286,7 @@ class WebPortalOrder extends Commande
 			$return .= '<br><div class="info-box-ref tdoverflowmax150">' . $this->thirdparty->getNomUrl(1) . '</div>';
 		}
 		if (property_exists($this, 'total_ht')) {
-			$return .= '<div class="info-box-ref amount">' . price($this->total_ht, 0, $langs, 0, -1, -1, $conf->currency) . ' ' . $langs->trans('HT') . '</div>';
+			$return .= '<div class="info-box-ref amount">' . price($this->total_ht, 0, $langs, 0, -1, -1, $config->currency) . ' ' . $langs->trans('HT') . '</div>';
 		}
 		if (method_exists($this, 'getLibStatut')) {
 			$return .= '<div class="info-box-status margintoponly">' . $this->getLibStatut(5) . '</div>';

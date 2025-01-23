@@ -109,21 +109,21 @@ if ($action == 'convertdynamic') {
 
 llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-admin page-database_tables');
 
-print load_fiche_titre($langs->trans("Tables")." ".ucfirst($conf->db->type), '', 'title_setup');
+print load_fiche_titre($langs->trans("Tables")." ".ucfirst($config->db->type), '', 'title_setup');
 
 
 // Define request to get table description
 $base = 0;
-if (preg_match('/mysql/i', $conf->db->type)) {
+if (preg_match('/mysql/i', $config->db->type)) {
 	$sql = "SHOW TABLE STATUS";
 	$base = 1;
-} elseif ($conf->db->type == 'pgsql') {
+} elseif ($config->db->type == 'pgsql') {
 	$sql = "SELECT conname, contype FROM pg_constraint;";
 	$base = 2;
-} elseif ($conf->db->type == 'mssql') {
+} elseif ($config->db->type == 'mssql') {
 	//$sqls[0] = "";
 	//$base=3;
-} elseif ($conf->db->type == 'sqlite' || $conf->db->type == 'sqlite3') {
+} elseif ($config->db->type == 'sqlite' || $config->db->type == 'sqlite3') {
 	//$sql = "SELECT name, type FROM sqlite_master";
 	$base = 4;
 }

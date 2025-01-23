@@ -31,7 +31,7 @@ $encoding = '';
 $hashp = GETPOST('hashp', 'aZ09');
 $extname = GETPOST('extname', 'alpha', 1);
 $modulepart = GETPOST('modulepart', 'aZ09');
-$entity = GETPOSTINT('entity') ? GETPOSTINT('entity') : $conf->entity;
+$entity = GETPOSTINT('entity') ? GETPOSTINT('entity') : $config->entity;
 $original_file = GETPOST("file", "alpha");
 $l = GETPOST('l', 'aZ09');
 $limit = GETPOSTINT('limit');
@@ -120,7 +120,7 @@ if ($rss) {
 	$format = 'rss';
 	$type = '';
 	$filename = $original_file;
-	$dir_temp = $conf->website->dir_temp;
+	$dir_temp = $config->website->dir_temp;
 
 	include_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
 	include_once DOL_DOCUMENT_ROOT.'/website/class/websitepage.class.php';
@@ -247,7 +247,7 @@ if ($rss) {
 	exit;
 } elseif ($modulepart == "mycompany" && preg_match('/^\/?logos\//', $original_file)) {
 	// Get logos
-	readfile(dol_osencode($conf->mycompany->dir_output."/".$original_file));
+	readfile(dol_osencode($config->mycompany->dir_output."/".$original_file));
 } else {
 	// Find the subdirectory name as the reference
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';

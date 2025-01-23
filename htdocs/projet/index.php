@@ -152,7 +152,7 @@ print_barre_liste($form->textwithpicto($title, $htmltooltip), 0, $_SERVER["PHP_S
 
 
 // Get list of ponderated percent and colors for each status
-include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 // Available from theme_vars:
 '
 @phan-var-force string $badgeStatus0
@@ -299,7 +299,7 @@ if ($resql) {
 
 			print '<td width="16" class="right nobordernopadding hideonsmartphone">';
 			$filename = dol_sanitizeFileName($obj->ref);
-			$filedir = $conf->projet->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+			$filedir = $config->projet->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 			print $formfile->getDocumentsLink($projectstatic->element, $filename, $filedir);
 			print '</td></tr></table>';

@@ -50,17 +50,17 @@ $error = 0;
 if ($action) {
 	$value = GETPOST('PRODUIT_ATTRIBUTES_HIDECHILD');
 
-	if (!dolibarr_set_const($db, 'PRODUIT_ATTRIBUTES_HIDECHILD', $value, 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'PRODUIT_ATTRIBUTES_HIDECHILD', $value, 'chaine', 0, '', $config->entity)) {
 		setEventMessages($langs->trans('CoreErrorMessage'), null, 'errors');
 		$error++;
 	}
 
-	if (!dolibarr_set_const($db, 'PRODUIT_ATTRIBUTES_SEPARATOR', GETPOST('PRODUIT_ATTRIBUTES_SEPARATOR'), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'PRODUIT_ATTRIBUTES_SEPARATOR', GETPOST('PRODUIT_ATTRIBUTES_SEPARATOR'), 'chaine', 0, '', $config->entity)) {
 		setEventMessages($langs->trans('CoreErrorMessage'), null, 'errors');
 		$error++;
 	}
 
-	if (!dolibarr_set_const($db, 'VARIANT_ALLOW_STOCK_MOVEMENT_ON_VARIANT_PARENT', GETPOST('VARIANT_ALLOW_STOCK_MOVEMENT_ON_VARIANT_PARENT'), 'chaine', 0, '', $conf->entity)) {
+	if (!dolibarr_set_const($db, 'VARIANT_ALLOW_STOCK_MOVEMENT_ON_VARIANT_PARENT', GETPOST('VARIANT_ALLOW_STOCK_MOVEMENT_ON_VARIANT_PARENT'), 'chaine', 0, '', $config->entity)) {
 		setEventMessages($langs->trans('CoreErrorMessage'), null, 'errors');
 		$error++;
 	}
@@ -95,7 +95,7 @@ print '<tr class="oddeven"><td>'.$langs->trans('HideProductCombinations').'</td>
 print $form->selectyesno("PRODUIT_ATTRIBUTES_HIDECHILD", getDolGlobalString('PRODUIT_ATTRIBUTES_HIDECHILD'), 1).'</td></tr>';
 
 print '<tr class="oddeven"><td>'.$langs->trans('CombinationsSeparator').'</td>';
-if (isset($conf->global->PRODUIT_ATTRIBUTES_SEPARATOR)) {
+if (isset($config->global->PRODUIT_ATTRIBUTES_SEPARATOR)) {
 	$separator = getDolGlobalString('PRODUIT_ATTRIBUTES_SEPARATOR');
 } else {
 	$separator = "_";

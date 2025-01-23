@@ -49,7 +49,7 @@ function check_user_password_openid($usertotest, $passwordtotest, $entitytotest)
 	if (GETPOSTISSET('username')) {
 		$openid = new SimpleOpenID();
 		$openid->SetIdentity(GETPOST('username'));
-		$protocol = ($conf->file->main_force_https ? 'https://' : 'http://');
+		$protocol = ($config->file->main_force_https ? 'https://' : 'http://');
 		$openid->SetTrustRoot($protocol.$_SERVER["HTTP_HOST"]);
 		$openid->SetRequiredFields(array('email', 'fullname'));
 		$_SESSION['dol_entity'] = GETPOSTINT("entity");

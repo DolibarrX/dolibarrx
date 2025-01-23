@@ -109,7 +109,7 @@ function facture_prepare_head($object)
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $conf->facture->dir_output."/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->facture->dir_output."/".dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
 	$head[$h][0] = DOL_URL_ROOT.'/compta/facture/document.php?id='.$object->id;
@@ -424,7 +424,7 @@ function getNumberInvoicesPieChart($mode)
 		|| ($mode == 'suppliers' && (isModEnabled('fournisseur') || isModEnabled('supplier_invoice')) && $user->hasRight('fournisseur', 'facture', 'lire'))
 	) {
 		global $badgeStatus1, $badgeStatus3, $badgeStatus4, $badgeStatus8, $badgeStatus11;
-		include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+		include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 
 		$now = date_create(date('Y-m-d', dol_now()));
 		$datenowsub30 = date_create(date('Y-m-d', dol_now()));
@@ -515,7 +515,7 @@ function getNumberInvoicesPieChart($mode)
 			$result .= '</td>';
 			$result .= '</tr>';
 
-			if ($conf->use_javascript_ajax) {
+			if ($config->use_javascript_ajax) {
 				//var_dump($dataseries);
 				$dolgraph = new DolGraph();
 				$dolgraph->SetData($dataseries);
@@ -569,7 +569,7 @@ function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
 	$result = '';
 
 	if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
-		$maxofloop = (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD);
+		$maxofloop = (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD);
 
 		$tmpinvoice = new Facture($db);
 
@@ -720,7 +720,7 @@ function getDraftSupplierTable($maxCount = 500, $socid = 0)
 	$result = '';
 
 	if ((isModEnabled('fournisseur') || isModEnabled('supplier_invoice')) && $user->hasRight('facture', 'lire')) {
-		$maxofloop = (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $conf->global->MAIN_MAXLIST_OVERLOAD);
+		$maxofloop = (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD);
 
 		$facturesupplierstatic = new FactureFournisseur($db);
 
@@ -917,7 +917,7 @@ function getCustomerInvoiceLatestEditTable($maxCount = 5, $socid = 0)
 		$companystatic->canvas	= $obj->canvas;
 
 		$filename = dol_sanitizeFileName($obj->ref);
-		$filedir = $conf->propal->multidir_output[$obj->entity].'/'.$filename;
+		$filedir = $config->propal->multidir_output[$obj->entity].'/'.$filename;
 
 		$result .= '<tr class="nowrap">';
 
@@ -1031,7 +1031,7 @@ function getPurchaseInvoiceLatestEditTable($maxCount = 5, $socid = 0)
 		$companystatic->canvas = $obj->canvas;
 
 		$filename = dol_sanitizeFileName($obj->ref);
-		$filedir = $conf->propal->multidir_output[$obj->entity].'/'.$filename;
+		$filedir = $config->propal->multidir_output[$obj->entity].'/'.$filename;
 
 		$result .= '<tr class="nowrap">';
 
@@ -1185,7 +1185,7 @@ function getCustomerInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 					print '</td>';
 					print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 					$filename = dol_sanitizeFileName($obj->ref);
-					$filedir = $conf->facture->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+					$filedir = $config->facture->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 					$urlsource = $_SERVER['PHP_SELF'].'?facid='.$obj->rowid;
 					print $formfile->getDocumentsLink($tmpinvoice->element, $filename, $filedir);
 					print '</td></tr></table>';
@@ -1283,7 +1283,7 @@ function getPurchaseInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 			$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 		}
 		$sql .= " WHERE s.rowid = ff.fk_soc";
-		$sql .= " AND ff.entity = ".$conf->entity;
+		$sql .= " AND ff.entity = ".$config->entity;
 		$sql .= " AND ff.paye = 0";
 		$sql .= " AND ff.fk_statut = ".FactureFournisseur::STATUS_VALIDATED;
 		if (!$user->hasRight('societe', 'client', 'voir')) {

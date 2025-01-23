@@ -383,7 +383,7 @@ class CommandeFournisseur extends CommonOrder
 		'date_approve' => array('type' => 'datetime', 'label' => 'DateApprove', 'enabled' => 1, 'visible' => -1, 'position' => 720),
 		'date_approve2' => array('type' => 'datetime', 'label' => 'DateApprove2', 'enabled' => 1, 'visible' => 3, 'position' => 725),
 		'date_commande' => array('type' => 'date', 'label' => 'OrderDateShort', 'enabled' => 1, 'visible' => 1, 'position' => 70),
-		'date_livraison' => array('type' => 'datetime', 'label' => 'DeliveryDate', 'enabled' => 'empty($conf->global->ORDER_DISABLE_DELIVERY_DATE)', 'visible' => 1, 'position' => 74),
+		'date_livraison' => array('type' => 'datetime', 'label' => 'DeliveryDate', 'enabled' => 'empty($config->global->ORDER_DISABLE_DELIVERY_DATE)', 'visible' => 1, 'position' => 74),
 		'fk_user_author' => array('type' => 'integer:User:user/class/user.class.php', 'label' => 'UserAuthor', 'enabled' => 1, 'visible' => 3, 'position' => 41),
 		'fk_user_modif' => array('type' => 'integer:User:user/class/user.class.php', 'label' => 'UserModif', 'enabled' => 1, 'visible' => 3, 'notnull' => -1, 'position' => 80),
 		'fk_user_valid' => array('type' => 'integer:User:user/class/user.class.php', 'label' => 'UserValidation', 'enabled' => 1, 'visible' => 3, 'position' => 711),
@@ -827,14 +827,14 @@ class CommandeFournisseur extends CommonOrder
 				if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 					// Now we rename also files into index
 					$sql = 'UPDATE '.$this->db->prefix()."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'fournisseur/commande/".$this->db->escape($this->newref)."'";
-					$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'fournisseur/commande/".$this->db->escape($this->ref)."' and entity = ".((int) $conf->entity);
+					$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'fournisseur/commande/".$this->db->escape($this->ref)."' and entity = ".((int) $config->entity);
 					$resql = $this->db->query($sql);
 					if (!$resql) {
 						$error++;
 						$this->error = $this->db->lasterror();
 					}
 					$sql = 'UPDATE '.$this->db->prefix()."ecm_files set filepath = 'fournisseur/commande/".$this->db->escape($this->newref)."'";
-					$sql .= " WHERE filepath = 'fournisseur/commande/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+					$sql .= " WHERE filepath = 'fournisseur/commande/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 					$resql = $this->db->query($sql);
 					if (!$resql) {
 						$error++;
@@ -844,15 +844,15 @@ class CommandeFournisseur extends CommonOrder
 					// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 					$oldref = dol_sanitizeFileName($this->ref);
 					$newref = dol_sanitizeFileName($num);
-					$dirsource = $conf->fournisseur->commande->dir_output.'/'.$oldref;
-					$dirdest = $conf->fournisseur->commande->dir_output.'/'.$newref;
+					$dirsource = $config->fournisseur->commande->dir_output.'/'.$oldref;
+					$dirdest = $config->fournisseur->commande->dir_output.'/'.$newref;
 					if (!$error && file_exists($dirsource)) {
 						dol_syslog(get_class($this)."::valid rename dir ".$dirsource." into ".$dirdest);
 
 						if (@rename($dirsource, $dirdest)) {
 							dol_syslog("Rename ok");
 							// Rename docs starting with $oldref with $newref
-							$listoffiles = dol_dir_list($conf->fournisseur->commande->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+							$listoffiles = dol_dir_list($config->fournisseur->commande->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 							foreach ($listoffiles as $fileentry) {
 								$dirsource = $fileentry['name'];
 								$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -1011,13 +1011,13 @@ class CommandeFournisseur extends CommonOrder
 				$datas['supplier'] = '<br><b>'.$langs->trans('Supplier').':</b> '.$this->thirdparty->getNomUrl(1, '', 0, 1);
 			}
 			if (!empty($this->total_ht)) {
-				$datas['totalht'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['totalht'] = '<br><b>'.$langs->trans('AmountHT').':</b> '.price($this->total_ht, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->total_tva)) {
-				$datas['totaltva'] = '<br><b>'.$langs->trans('VAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['totaltva'] = '<br><b>'.$langs->trans('VAT').':</b> '.price($this->total_tva, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->total_ttc)) {
-				$datas['totalttc'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $conf->currency);
+				$datas['totalttc'] = '<br><b>'.$langs->trans('AmountTTC').':</b> '.price($this->total_ttc, 0, $langs, 0, -1, -1, $config->currency);
 			}
 			if (!empty($this->date)) {
 				$datas['date'] = '<br><b>'.$langs->trans('Date').':</b> '.dol_print_date($this->date, 'day');
@@ -1142,7 +1142,7 @@ class CommandeFournisseur extends CommonOrder
 			$classname = getDolGlobalString('COMMANDE_SUPPLIER_ADDON_NUMBER');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/supplier_order/");
@@ -1598,7 +1598,7 @@ class CommandeFournisseur extends CommonOrder
 			$this->fk_multicurrency = MultiCurrency::getIdFromCode($this->db, $this->multicurrency_code);
 		}
 		if (empty($this->fk_multicurrency)) {
-			$this->multicurrency_code = $conf->currency;
+			$this->multicurrency_code = $config->currency;
 			$this->fk_multicurrency = 0;
 			$this->multicurrency_tx = 1;
 		}
@@ -2513,8 +2513,8 @@ class CommandeFournisseur extends CommonOrder
 
 			// We remove directory
 			$ref = dol_sanitizeFileName($this->ref);
-			if ($conf->fournisseur->commande->dir_output) {
-				$dir = $conf->fournisseur->commande->dir_output."/".$ref;
+			if ($config->fournisseur->commande->dir_output) {
+				$dir = $config->fournisseur->commande->dir_output."/".$ref;
 				$file = $dir."/".$ref.".pdf";
 				if (file_exists($file)) {
 					if (!dol_delete_file($file, 0, 0, 0, $this)) { // For triggers
@@ -3190,7 +3190,7 @@ class CommandeFournisseur extends CommonOrder
 		$this->note_private = 'This is a comment (private)';
 
 		$this->multicurrency_tx = 1;
-		$this->multicurrency_code = $conf->currency;
+		$this->multicurrency_code = $config->currency;
 
 		$this->statut = 0;
 		$this->status = 0;
@@ -3323,7 +3323,7 @@ class CommandeFournisseur extends CommonOrder
 		if (!$user->hasRight("societe", "client", "voir") && !$user->socid) {
 			$sql .= " JOIN ".$this->db->prefix()."societe_commerciaux as sc ON c.fk_soc = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 		}
-		$sql .= " WHERE c.entity = ".$conf->entity;
+		$sql .= " WHERE c.entity = ".$config->entity;
 		if ($mode === 'awaiting') {
 			$sql .= " AND c.fk_statut IN (".self::STATUS_ORDERSENT.", ".self::STATUS_RECEIVED_PARTIALLY.")";
 		} else {
@@ -3338,7 +3338,7 @@ class CommandeFournisseur extends CommonOrder
 			$commandestatic = new CommandeFournisseur($this->db);
 
 			$response = new WorkboardResponse();
-			$response->warning_delay = $conf->commande->fournisseur->warning_delay / 60 / 60 / 24;
+			$response->warning_delay = $config->commande->fournisseur->warning_delay / 60 / 60 / 24;
 			$response->label = $langs->trans("SuppliersOrdersToProcess");
 			$response->labelShort = $langs->trans("Opened");
 			$response->url = DOL_URL_ROOT.'/fourn/commande/list.php?search_status=1,2&mainmenu=commercial&leftmenu=orders_suppliers';
@@ -3539,17 +3539,17 @@ class CommandeFournisseur extends CommonOrder
 			$now = dol_now();
 			if (!empty($this->delivery_date)) {
 				$date_to_test = $this->delivery_date;
-				return $date_to_test && $date_to_test < ($now - $conf->commande->fournisseur->warning_delay);
+				return $date_to_test && $date_to_test < ($now - $config->commande->fournisseur->warning_delay);
 			} else {
 				//$date_to_test = $this->date_commande;
-				//return $date_to_test && $date_to_test < ($now - $conf->commande->fournisseur->warning_delay);
+				//return $date_to_test && $date_to_test < ($now - $config->commande->fournisseur->warning_delay);
 				return false;
 			}
 		} else {
 			$now = dol_now();
 			$date_to_test = $this->date_commande;
 
-			return ($this->statut > 0 && $this->statut < 5) && $date_to_test && $date_to_test < ($now - $conf->commande->fournisseur->warning_delay);
+			return ($this->statut > 0 && $this->statut < 5) && $date_to_test && $date_to_test < ($now - $config->commande->fournisseur->warning_delay);
 		}
 	}
 
@@ -3578,7 +3578,7 @@ class CommandeFournisseur extends CommonOrder
 			$text = $langs->trans("OrderDate").' '.dol_print_date($this->date_commande, 'day');
 		}
 		if ($text) {
-			$text .= ' '.($conf->commande->fournisseur->warning_delay > 0 ? '+' : '-').' '.round(abs($conf->commande->fournisseur->warning_delay) / 3600 / 24, 1).' '.$langs->trans("days").' < '.$langs->trans("Today");
+			$text .= ' '.($config->commande->fournisseur->warning_delay > 0 ? '+' : '-').' '.round(abs($config->commande->fournisseur->warning_delay) / 3600 / 24, 1).' '.$langs->trans("days").' < '.$langs->trans("Today");
 		}
 
 		return $text;

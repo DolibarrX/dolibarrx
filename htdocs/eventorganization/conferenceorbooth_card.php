@@ -68,7 +68,7 @@ $withproject = GETPOSTINT('withproject');
 $object = new ConferenceOrBooth($db);
 $extrafields = new ExtraFields($db);
 $projectstatic = new Project($db);
-$diroutputmassaction = $conf->eventorganization->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->eventorganization->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($contextpage, 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -102,7 +102,7 @@ $permissiontoadd = $user->hasRight('eventorganization', 'write'); // Used by the
 $permissiontodelete = $user->hasRight('eventorganization', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 $permissionnote = $user->hasRight('eventorganization', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('eventorganization', 'write'); // Used by the include of actions_dellink.inc.php
-$upload_dir = $conf->eventorganization->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->eventorganization->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 // Security check
 if ($user->socid > 0) {
@@ -285,7 +285,7 @@ if (!empty($withproject)) {
 	// Budget
 	print '<tr><td>'.$langs->trans("Budget").'</td><td>';
 	if (strcmp($projectstatic->budget_amount, '')) {
-		print '<span class="amount">'.price($projectstatic->budget_amount, 0, $langs, 1, 0, 0, $conf->currency).'</span>';
+		print '<span class="amount">'.price($projectstatic->budget_amount, 0, $langs, 1, 0, 0, $config->currency).'</span>';
 	}
 	print '</td></tr>';
 
@@ -386,7 +386,7 @@ if (!empty($withproject)) {
 	$urlwithroot = $urlwithouturlroot.DOL_URL_ROOT;
 
 	// Show message
-	$message = '<a target="_blank" rel="noopener noreferrer" href="'.$urlwithroot.'/public/agenda/agendaexport.php?format=ical'.($conf->entity > 1 ? "&entity=".$conf->entity : "");
+	$message = '<a target="_blank" rel="noopener noreferrer" href="'.$urlwithroot.'/public/agenda/agendaexport.php?format=ical'.($config->entity > 1 ? "&entity=".$config->entity : "");
 	$message .= '&exportkey='.urlencode(getDolGlobalString('MAIN_AGENDA_XCAL_EXPORTKEY', '...'));
 	$message .= "&project=".$projectstatic->id.'&module='.urlencode('@eventorganization').'&status='.ConferenceOrBooth::STATUS_CONFIRMED.'">'.$langs->trans('DownloadICSLink').img_picto('', 'download', 'class="paddingleft"').'</a>';
 	print $message;
@@ -541,7 +541,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		$formquestion = array();
 		/*
 		$forcecombo=0;
-		if ($conf->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
+		if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
 		$formquestion = array(
 			// 'text' => $langs->trans("ConfirmClone"),
 			// array('type' => 'checkbox', 'name' => 'clone_content', 'label' => $langs->trans("CloneMainAttributes"), 'value' => 1),
@@ -642,7 +642,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if ($includedocgeneration) {
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $conf->eventorganization->dir_output.'/'.$object->element.'/'.$objref;
+			$filedir = $config->eventorganization->dir_output.'/'.$object->element.'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $user->hasRight('eventorganization', 'read'); // If you can read, you can build the PDF to read content
 			$delallowed = $user->hasRight('eventorganization', 'write'); // If you can create/edit, you can remove a file on card
@@ -686,7 +686,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Presend form
 	$modelmail = 'conferenceorbooth';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->eventorganization->dir_output;
+	$diroutput = $config->eventorganization->dir_output;
 	$trackid = 'conferenceorbooth'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

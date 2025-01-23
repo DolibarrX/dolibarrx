@@ -50,7 +50,7 @@ $contextpage = GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : 'au
 $optioncss = GETPOST('optioncss', 'aZ'); // Option for the css output (always '' except when 'print')
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -77,9 +77,9 @@ if ($action == "save") {
 	foreach ($eventstolog as $key => $arr) {
 		$param = 'MAIN_LOGEVENTS_'.$arr['id'];
 		if (GETPOST($param, 'alphanohtml')) {
-			dolibarr_set_const($db, $param, GETPOST($param, 'alphanohtml'), 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, $param, GETPOST($param, 'alphanohtml'), 'chaine', 0, '', $config->entity);
 		} else {
-			dolibarr_del_const($db, $param, $conf->entity);
+			dolibarr_del_const($db, $param, $config->entity);
 		}
 	}
 

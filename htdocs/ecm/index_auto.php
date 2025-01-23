@@ -56,7 +56,7 @@ $section_dir = GETPOST('section_dir', 'alpha');
 
 $search_doc_ref = GETPOST('search_doc_ref', 'alpha');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -143,7 +143,7 @@ if ($action == 'confirm_deletefile' && $user->hasRight('ecm', 'upload')) {
 		} else {
 			$relativepath = '';
 		}
-		$upload_dir = $conf->ecm->dir_output.($relativepath ? '/'.$relativepath : '');
+		$upload_dir = $config->ecm->dir_output.($relativepath ? '/'.$relativepath : '');
 		$file = $upload_dir."/".GETPOST('urlfile');
 
 		$ret = dol_delete_file($file);
@@ -177,11 +177,11 @@ if ($action == 'refreshmanual' && $user->hasRight('ecm', 'read')) {
 	// This part of code is same than into file ecm/ajax/ecmdatabase.php TODO Remove duplicate
 	clearstatcache();
 
-	$diroutputslash = str_replace('\\', '/', $conf->ecm->dir_output);
+	$diroutputslash = str_replace('\\', '/', $config->ecm->dir_output);
 	$diroutputslash .= '/';
 
 	// Scan directory tree on disk
-	$disktree = dol_dir_list($conf->ecm->dir_output, 'directories', 1, '', '^temp$', '', 0, 0);
+	$disktree = dol_dir_list($config->ecm->dir_output, 'directories', 1, '', '^temp$', '', 0, 0);
 
 	// Scan directory tree in database
 	$sqltree = $ecmdirstatic->get_full_arbo(0);
@@ -194,7 +194,7 @@ if ($action == 'refreshmanual' && $user->hasRight('ecm', 'read')) {
 	foreach ($disktree as $dirdesc) {    // Loop on tree onto disk
 		$dirisindatabase = 0;
 		foreach ($sqltree as $dirsqldesc) {
-			if ($conf->ecm->dir_output.'/'.$dirsqldesc['fullrelativename'] == $dirdesc['fullname']) {
+			if ($config->ecm->dir_output.'/'.$dirsqldesc['fullrelativename'] == $dirdesc['fullname']) {
 				$dirisindatabase = 1;
 				break;
 			}
@@ -269,7 +269,7 @@ if ($action == 'refreshmanual' && $user->hasRight('ecm', 'read')) {
 
 	// Loop now on each sql tree to check if dir exists
 	foreach ($sqltree as $dirdesc) {    // Loop on each sqltree to check dir is on disk
-		$dirtotest = $conf->ecm->dir_output.'/'.$dirdesc['fullrelativename'];
+		$dirtotest = $config->ecm->dir_output.'/'.$dirdesc['fullrelativename'];
 		if (!dol_is_dir($dirtotest)) {
 			$ecmdirtmp->id = $dirdesc['id'];
 			$ecmdirtmp->delete($user, 'databaseonly');
@@ -308,7 +308,7 @@ if (!getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
 }
 
 $moreheadjs .= '<script type="text/javascript">'."\n";
-$moreheadjs .= 'var indicatorBlockUI = \''.DOL_URL_ROOT."/theme/".$conf->theme."/img/working.gif".'\';'."\n";
+$moreheadjs .= 'var indicatorBlockUI = \''.DOL_URL_ROOT."/theme/".$config->theme."/img/working.gif".'\';'."\n";
 $moreheadjs .= '</script>'."\n";
 
 llxHeader($moreheadcss.$moreheadjs, $langs->trans("ECMArea"), '', '', 0, 0, $morejs, '', '', 'mod-ecm page-index_auto');
@@ -423,7 +423,7 @@ print dol_get_fiche_head($head, 'index_auto', '', -1, '');
 
 
 // Confirm remove file (for non javascript users)
-if ($action == 'deletefile' && empty($conf->use_javascript_ajax)) {
+if ($action == 'deletefile' && empty($config->use_javascript_ajax)) {
 	print $form->formconfirm($_SERVER["PHP_SELF"].'?section='.$section.'&urlfile='.urlencode(GETPOST("urlfile")), $langs->trans('DeleteFile'), $langs->trans('ConfirmDeleteFile'), 'confirm_deletefile', '', '', 1);
 }
 
@@ -438,7 +438,7 @@ if ($action == 'deletefile' && empty($conf->use_javascript_ajax)) {
 print '<div class="inline-block toolbarbutton centpercent">';
 
 // Toolbar
-$url = ((!empty($conf->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) ? '#' : ($_SERVER["PHP_SELF"].'?action=refreshmanual'.($module ? '&amp;module='.$module : '').($section ? '&amp;section='.$section : '')));
+$url = ((!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) ? '#' : ($_SERVER["PHP_SELF"].'?action=refreshmanual'.($module ? '&amp;module='.$module : '').($section ? '&amp;section='.$section : '')));
 print '<a href="'.$url.'" class="inline-block valignmiddle toolbarbutton paddingtop" title="'.dol_escape_htmltag($langs->trans('Refresh')).'">';
 print img_picto('', 'refresh', 'id="refreshbutton"', 0, 0, 0, '', 'size15x marginrightonly');
 print '</a>';
@@ -494,7 +494,7 @@ if (empty($action) || $action == 'file_manager' || preg_match('/refresh/i', $act
 			// External users are not allowed to see manual directories so we quit.
 			if ($user->socid > 0) {
 				// Check if dir is allowed to external users
-				//var_dump($conf->global->MAIN_MODULES_FOR_EXTERNAL);
+				//var_dump($config->global->MAIN_MODULES_FOR_EXTERNAL);
 				if (! in_array($val['module'], $arrayofmodulesforexternalusers)) {
 					// Discard this entry
 					continue;
@@ -551,7 +551,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/ajax/ajaxdirpreview.php';
 <?php
 // End of page
 
-if (!empty($conf->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
+if (!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
 	include DOL_DOCUMENT_ROOT.'/ecm/tpl/enablefiletreeajax.tpl.php';
 }
 

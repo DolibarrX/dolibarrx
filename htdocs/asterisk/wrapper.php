@@ -109,31 +109,31 @@ if (!isModEnabled('clicktodial')) {
 
 // Define Asterisk setup
 if (!getDolGlobalString('ASTERISK_HOST')) {
-	$conf->global->ASTERISK_HOST = "127.0.0.1";
+	$config->global->ASTERISK_HOST = "127.0.0.1";
 }
 if (!getDolGlobalString('ASTERISK_TYPE')) {
-	$conf->global->ASTERISK_TYPE = "SIP/";
+	$config->global->ASTERISK_TYPE = "SIP/";
 }
 if (!getDolGlobalString('ASTERISK_INDICATIF')) {
-	$conf->global->ASTERISK_INDICATIF = "0";
+	$config->global->ASTERISK_INDICATIF = "0";
 }
 if (!getDolGlobalString('ASTERISK_PORT')) {
-	$conf->global->ASTERISK_PORT = 5038;
+	$config->global->ASTERISK_PORT = 5038;
 }
 if (getDolGlobalString('ASTERISK_INDICATIF') == 'NONE') {
-	$conf->global->ASTERISK_INDICATIF = '';
+	$config->global->ASTERISK_INDICATIF = '';
 }
 if (!getDolGlobalString('ASTERISK_CONTEXT')) {
-	$conf->global->ASTERISK_CONTEXT = "from-internal";
+	$config->global->ASTERISK_CONTEXT = "from-internal";
 }
 if (!getDolGlobalString('ASTERISK_WAIT_TIME')) {
-	$conf->global->ASTERISK_WAIT_TIME = "30";
+	$config->global->ASTERISK_WAIT_TIME = "30";
 }
 if (!getDolGlobalString('ASTERISK_PRIORITY')) {
-	$conf->global->ASTERISK_PRIORITY = "1";
+	$config->global->ASTERISK_PRIORITY = "1";
 }
 if (!getDolGlobalString('ASTERISK_MAX_RETRY')) {
-	$conf->global->ASTERISK_MAX_RETRY = "2";
+	$config->global->ASTERISK_MAX_RETRY = "2";
 }
 
 

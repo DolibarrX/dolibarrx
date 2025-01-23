@@ -226,7 +226,7 @@ class Holiday extends CommonObject
 		$langs->load("order");
 
 		if (!getDolGlobalString('HOLIDAY_ADDON')) {
-			$conf->global->HOLIDAY_ADDON = 'mod_holiday_madonna';
+			$config->global->HOLIDAY_ADDON = 'mod_holiday_madonna';
 		}
 
 		if (getDolGlobalString('HOLIDAY_ADDON')) {
@@ -236,7 +236,7 @@ class Holiday extends CommonObject
 			$classname = getDolGlobalString('HOLIDAY_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/holiday/");
 
@@ -344,7 +344,7 @@ class Holiday extends CommonObject
 		$sql .= " ".((int) $this->fk_validator).",";
 		$sql .= " ".((int) $this->fk_type).",";
 		$sql .= " ".((int) $user->id).",";
-		$sql .= " ".((int) $conf->entity);
+		$sql .= " ".((int) $config->entity);
 		$sql .= ")";
 
 		$this->db->begin();
@@ -829,14 +829,14 @@ class Holiday extends CommonObject
 			if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 				// Now we rename also files into index
 				$sql = 'UPDATE ' . MAIN_DB_PREFIX . "ecm_files set filename = CONCAT('" . $this->db->escape($this->newref) . "', SUBSTR(filename, " . (strlen($this->ref) + 1) . ")), filepath = 'holiday/" . $this->db->escape($this->newref) . "'";
-				$sql .= " WHERE filename LIKE '" . $this->db->escape($this->ref) . "%' AND filepath = 'holiday/" . $this->db->escape($this->ref) . "' and entity = " . ((int) $conf->entity);
+				$sql .= " WHERE filename LIKE '" . $this->db->escape($this->ref) . "%' AND filepath = 'holiday/" . $this->db->escape($this->ref) . "' and entity = " . ((int) $config->entity);
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
 					$this->error = $this->db->lasterror();
 				}
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'holiday/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filepath = 'holiday/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filepath = 'holiday/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
@@ -846,8 +846,8 @@ class Holiday extends CommonObject
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($num);
-				$dirsource = $conf->holiday->multidir_output[$this->entity] . '/' . $oldref;
-				$dirdest = $conf->holiday->multidir_output[$this->entity] . '/' . $newref;
+				$dirsource = $config->holiday->multidir_output[$this->entity] . '/' . $oldref;
+				$dirdest = $config->holiday->multidir_output[$this->entity] . '/' . $newref;
 				if (!$error && file_exists($dirsource)) {
 					dol_syslog(get_class($this) . "::validate rename dir " . $dirsource . " into " . $dirdest);
 					if (@rename($dirsource, $dirdest)) {
@@ -1416,7 +1416,7 @@ class Holiday extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -2412,7 +2412,7 @@ class Holiday extends CommonObject
 		$sql .= " f.fk_user_refuse as fk_user_refuse";
 		$sql .= " FROM ".MAIN_DB_PREFIX."holiday as f";
 		$sql .= " WHERE f.rowid = ".((int) $id);
-		$sql .= " AND f.entity = ".$conf->entity;
+		$sql .= " AND f.entity = ".$config->entity;
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -2539,7 +2539,7 @@ class Holiday extends CommonObject
 			$langs->load("members");
 
 			$response = new WorkboardResponse();
-			$response->warning_delay = $conf->holiday->approve->warning_delay / 60 / 60 / 24;
+			$response->warning_delay = $config->holiday->approve->warning_delay / 60 / 60 / 24;
 			$response->label = $langs->trans("HolidaysToApprove");
 			$response->labelShort = $langs->trans("ToApprove");
 			$response->url = DOL_URL_ROOT.'/holiday/list.php?search_status=2&amp;mainmenu=hrm&amp;leftmenu=holiday';
@@ -2548,7 +2548,7 @@ class Holiday extends CommonObject
 			while ($obj = $this->db->fetch_object($resql)) {
 				$response->nbtodo++;
 
-				if ($this->db->jdate($obj->date_debut) < ($now - $conf->holiday->approve->warning_delay)) {
+				if ($this->db->jdate($obj->date_debut) < ($now - $config->holiday->approve->warning_delay)) {
 					$response->nbtodolate++;
 				}
 			}

@@ -84,13 +84,13 @@ if ($action == 'updateMask') {
 	$res = 0;
 
 	if ($maskconstinvoice && preg_match('/_MASK$/', $maskconstinvoice)) {
-		$res = dolibarr_set_const($db, $maskconstinvoice, $maskinvoice, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstinvoice, $maskinvoice, 'chaine', 0, '', $config->entity);
 	}
 	if ($maskconstcredit && preg_match('/_MASK$/', $maskconstcredit)) {
-		$res = dolibarr_set_const($db, $maskconstcredit, $maskcredit, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstcredit, $maskcredit, 'chaine', 0, '', $config->entity);
 	}
 	if ($maskconstdeposit && preg_match('/_MASK$/', $maskconstdeposit)) {
-		$res = dolibarr_set_const($db, $maskconstdeposit, $maskdeposit, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstdeposit, $maskdeposit, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -114,7 +114,7 @@ if ($action == 'specimen') {  // For invoices
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/supplier_invoice/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -146,16 +146,16 @@ if ($action == 'specimen') {  // For invoices
 } elseif ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->INVOICE_SUPPLIER_ADDON_PDF == "$value") {
-			dolibarr_del_const($db, 'INVOICE_SUPPLIER_ADDON_PDF', $conf->entity);
+		if ($config->global->INVOICE_SUPPLIER_ADDON_PDF == "$value") {
+			dolibarr_del_const($db, 'INVOICE_SUPPLIER_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "INVOICE_SUPPLIER_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "INVOICE_SUPPLIER_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->INVOICE_SUPPLIER_ADDON_PDF = $value;
+		$config->global->INVOICE_SUPPLIER_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -164,14 +164,14 @@ if ($action == 'specimen') {  // For invoices
 		$ret = addDocumentModel($value, $type, $label, $scandir);
 	}
 } elseif ($action == 'unsetdoc') {
-	dolibarr_del_const($db, "INVOICE_SUPPLIER_ADDON_PDF", $conf->entity);
+	dolibarr_del_const($db, "INVOICE_SUPPLIER_ADDON_PDF", $config->entity);
 }
 
 if ($action == 'setmod') {
 	// TODO Verify if the chosen numbering module can be activated
 	// by calling method canBeActivated
 
-	dolibarr_set_const($db, "INVOICE_SUPPLIER_ADDON_NUMBER", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "INVOICE_SUPPLIER_ADDON_NUMBER", $value, 'chaine', 0, '', $config->entity);
 }
 
 if ($action == 'addcat') {
@@ -182,7 +182,7 @@ if ($action == 'addcat') {
 if ($action == 'set_SUPPLIER_INVOICE_FREE_TEXT') {
 	$freetext = GETPOST('SUPPLIER_INVOICE_FREE_TEXT', 'restricthtml'); // No alpha here, we want exact string
 
-	$res = dolibarr_set_const($db, "SUPPLIER_INVOICE_FREE_TEXT", $freetext, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "SUPPLIER_INVOICE_FREE_TEXT", $freetext, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -202,7 +202,7 @@ if ($action == 'set_SUPPLIER_INVOICE_FREE_TEXT') {
 
 $form = new Form($db);
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-admin page-supplier_invoice');
 
@@ -276,7 +276,7 @@ foreach ($dirmodels as $reldir) {
 						print '</td>'."\n";
 
 						print '<td class="center">';
-						if ($conf->global->INVOICE_SUPPLIER_ADDON_NUMBER == "$file") {
+						if ($config->global->INVOICE_SUPPLIER_ADDON_NUMBER == "$file") {
 							print img_picto($langs->trans("Activated"), 'switch_on');
 						} else {
 							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.urlencode($file).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
@@ -332,7 +332,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = 'invoice_supplier'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 
 $resql = $db->query($sql);
 if ($resql) {
@@ -401,7 +401,7 @@ foreach ($dirmodels as $reldir) {
 					// Active
 					if (in_array($name, $def)) {
 						print '<td class="center">'."\n";
-						//if ($conf->global->INVOICE_SUPPLIER_ADDON_PDF != "$name")
+						//if ($config->global->INVOICE_SUPPLIER_ADDON_PDF != "$name")
 						//{
 						// Even if choice is the default value, we allow to disable it: For supplier invoice, we accept to have no doc generation at all
 						print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=del&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'&amp;type=invoice_supplier">';

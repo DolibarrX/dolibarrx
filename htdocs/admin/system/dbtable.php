@@ -126,10 +126,10 @@ print load_fiche_titre($langs->trans("Table")." ".$table, '', 'title_setup');
 // Define request to get table description
 $base = 0;
 $sql = null;
-if (preg_match('/mysql/i', $conf->db->type)) {
+if (preg_match('/mysql/i', $config->db->type)) {
 	$sql = "SHOW TABLE STATUS LIKE '".$db->escape($db->escapeforlike($table))."'";
 	$base = 1;
-} elseif ($conf->db->type == 'pgsql') {
+} elseif ($config->db->type == 'pgsql') {
 	$sql = "SELECT conname,contype FROM pg_constraint";
 	$base = 2;
 }

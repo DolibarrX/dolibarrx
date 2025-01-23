@@ -106,7 +106,7 @@ class Fournisseur extends Societe
 
 		$sql = "SELECT count(pfp.rowid) as nb";
 		$sql .= " FROM ".MAIN_DB_PREFIX."product_fournisseur_price as pfp";
-		$sql .= " WHERE pfp.entity = ".$conf->entity;
+		$sql .= " WHERE pfp.entity = ".$config->entity;
 		$sql .= " AND pfp.fk_soc = ".((int) $this->id);
 
 		$resql = $this->db->query($sql);

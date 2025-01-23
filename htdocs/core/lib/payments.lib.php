@@ -53,7 +53,7 @@ function payment_prepare_head(Paiement $object)
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $conf->compta->payment->dir_output.'/'.$object->ref;
+	$upload_dir = $config->compta->payment->dir_output.'/'.$object->ref;
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
 	$head[$h][0] = DOL_URL_ROOT.'/compta/paiement/document.php?id='.$object->id;
@@ -136,7 +136,7 @@ function payment_supplier_prepare_head(Paiement $object)
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
-	$upload_dir = $conf->fournisseur->payment->dir_output.'/'.$object->ref;
+	$upload_dir = $config->fournisseur->payment->dir_output.'/'.$object->ref;
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
 	$head[$h][0] = DOL_URL_ROOT.'/fourn/paiement/document.php?id='.$object->id;
@@ -427,7 +427,7 @@ function getOnlinePaymentUrl($mode, $type, $ref = '', $amount = 0, $freetag = 'y
 
 	// For multicompany
 	if (!empty($out) && isModEnabled('multicompany')) {
-		$out .= "&entity=".$conf->entity; // Check the entity because we may have the same reference in several entities
+		$out .= "&entity=".$config->entity; // Check the entity because we may have the same reference in several entities
 	}
 
 	return $out;

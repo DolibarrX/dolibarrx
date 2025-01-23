@@ -116,7 +116,7 @@ if ($resql) {
 	}
 	$db->free($resql);
 
-	include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+	include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 	/**
 	 * @var string $badgeStatus0
 	 * @var string $badgeStatus1
@@ -156,14 +156,14 @@ if ($resql) {
 			$colorseries[$status] = $badgeStatus9;
 		}
 
-		if (!$conf->use_javascript_ajax) {
+		if (!$config->use_javascript_ajax) {
 			print '<tr class="oddeven">';
 			print '<td>'.$commandestatic->LibStatut($status, 0).'</td>';
 			print '<td class="right"><a href="list.php?statut='.$status.'">'.(isset($vals[$status]) ? $vals[$status] : 0).'</a></td>';
 			print "</tr>\n";
 		}
 	}
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print '<tr class="impair"><td class="center" colspan="2">';
 
 		include_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
@@ -351,7 +351,7 @@ if ($resql) {
 
 			print '<td width="16" class="right nobordernopadding hideonsmartphone">';
 			$filename = dol_sanitizeFileName($obj->ref);
-			$filedir = $conf->commande->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+			$filedir = $config->commande->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 			print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
 			print '</td></tr></table>';
@@ -420,7 +420,7 @@ print '</td>';
 
 print '<td width="16" class="right nobordernopadding hideonsmartphone">';
 $filename=dol_sanitizeFileName($obj->ref);
-$filedir=$conf->commande->dir_output . '/' . dol_sanitizeFileName($obj->ref);
+$filedir=$config->commande->dir_output . '/' . dol_sanitizeFileName($obj->ref);
 $urlsource=$_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
 print '</td></tr></table>';

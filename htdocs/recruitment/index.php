@@ -90,7 +90,7 @@ print '<div class="fichecenter"><div class="fichethirdleft">';
  * Statistics
  */
 
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	$sql = "SELECT COUNT(t.rowid) as nb, status";
 	$sql .= " FROM ".MAIN_DB_PREFIX."recruitment_recruitmentjobposition as t";
 	$sql .= " GROUP BY t.status";
@@ -106,7 +106,7 @@ if ($conf->use_javascript_ajax) {
 		$colorseries = array();
 		$vals = array();
 
-		include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+		include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 
 		while ($i < $num) {
 			$obj = $db->fetch_object($resql);
@@ -138,14 +138,14 @@ if ($conf->use_javascript_ajax) {
 				$colorseries[$status] = $badgeStatus9;
 			}
 
-			if (empty($conf->use_javascript_ajax)) {
+			if (empty($config->use_javascript_ajax)) {
 				print '<tr class="oddeven">';
 				print '<td>'.$staticrecruitmentjobposition->LibStatut($status, 0).'</td>';
 				print '<td class="right"><a href="list.php?statut='.$status.'">'.(isset($vals[$status]) ? $vals[$status] : 0).'</a></td>';
 				print "</tr>\n";
 			}
 		}
-		if ($conf->use_javascript_ajax) {
+		if ($config->use_javascript_ajax) {
 			print '<tr><td class="center" colspan="2">';
 
 			include_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
@@ -184,7 +184,7 @@ if ($conf->use_javascript_ajax) {
 		$colorseries = array();
 		$vals = array();
 
-		include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+		include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 
 		while ($i < $num) {
 			$obj = $db->fetch_object($resql);
@@ -222,14 +222,14 @@ if ($conf->use_javascript_ajax) {
 				$colorseries[$status] = $badgeStatus9;
 			}
 
-			if (empty($conf->use_javascript_ajax)) {
+			if (empty($config->use_javascript_ajax)) {
 				print '<tr class="oddeven">';
 				print '<td>'.$staticrecruitmentcandidature->LibStatut($status, 0).'</td>';
 				print '<td class="right"><a href="list.php?statut='.$status.'">'.(isset($vals[$status]) ? $vals[$status] : 0).'</a></td>';
 				print "</tr>\n";
 			}
 		}
-		if ($conf->use_javascript_ajax) {
+		if ($config->use_javascript_ajax) {
 			print '<tr><td class="center" colspan="2">';
 
 			include_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';

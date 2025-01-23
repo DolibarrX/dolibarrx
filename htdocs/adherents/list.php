@@ -117,7 +117,7 @@ if ($search_status < -2) {
 }
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -238,7 +238,7 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 $permissiontoread = $user->hasRight('adherent', 'lire');
 $permissiontodelete = $user->hasRight('adherent', 'supprimer');
 $permissiontoadd = $user->hasRight('adherent', 'creer');
-$uploaddir = $conf->member->dir_output;
+$uploaddir = $config->member->dir_output;
 $error = 0;
 
 $parameters = array('socid' => isset($socid) ? $socid : null, 'arrayfields' => &$arrayfields);
@@ -649,7 +649,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -1465,7 +1465,7 @@ while ($i < $imaxinloop) {
 			if ($datefin) {
 				$s .= dol_print_date($datefin, 'day');
 				if ($memberstatic->hasDelay()) {
-					$textlate = ' ('.$langs->trans("DateReference").' > '.$langs->trans("DateToday").' '.(ceil($conf->adherent->subscription->warning_delay / 60 / 60 / 24) >= 0 ? '+' : '').ceil($conf->adherent->subscription->warning_delay / 60 / 60 / 24).' '.$langs->trans("days").')';
+					$textlate = ' ('.$langs->trans("DateReference").' > '.$langs->trans("DateToday").' '.(ceil($config->adherent->subscription->warning_delay / 60 / 60 / 24) >= 0 ? '+' : '').ceil($config->adherent->subscription->warning_delay / 60 / 60 / 24).' '.$langs->trans("days").')';
 					$s .= " ".img_warning($langs->trans("SubscriptionLate").$textlate);
 				}
 			} else {

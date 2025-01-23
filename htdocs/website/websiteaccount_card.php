@@ -456,7 +456,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Presend form
 	$modelmail = 'websiteaccount';
 	$defaulttopic = 'Information';
-	$diroutput = isModEnabled('website') ? $conf->website->dir_output : '';
+	$diroutput = isModEnabled('website') ? $config->website->dir_output : '';
 	$trackid = 'websiteaccount'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

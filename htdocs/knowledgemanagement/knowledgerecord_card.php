@@ -59,7 +59,7 @@ $lineid   = GETPOSTINT('lineid');
 // Initialize a technical objects
 $object = new KnowledgeRecord($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->knowledgemanagement->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->knowledgemanagement->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('knowledgerecordcard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -90,14 +90,14 @@ $permissiontodelete = $user->hasRight('knowledgemanagement', 'knowledgerecord', 
 $permissiontovalidate =  ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $permissiontoadd) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('knowledgemanagement', 'knowledgerecord_advance', 'validate')));
 $permissionnote = $user->hasRight('knowledgemanagement', 'knowledgerecord', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('knowledgemanagement', 'knowledgerecord', 'write'); // Used by the include of actions_dellink.inc.php
-$upload_dir = $conf->knowledgemanagement->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->knowledgemanagement->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 // Security check - Protection if external user
 //if ($user->socid > 0) accessforbidden();
 //if ($user->socid > 0) $socid = $user->socid;
 $isdraft = (($object->status == $object::STATUS_DRAFT) ? 1 : 0);
 restrictedArea($user, $object->module, $object->id, $object->table_element, $object->element, '', 'rowid', $isdraft);
-//if (empty($conf->knowledgemanagement->enabled)) accessforbidden();
+//if (empty($config->knowledgemanagement->enabled)) accessforbidden();
 //if (empty($permissiontoread)) accessforbidden();
 
 
@@ -335,7 +335,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		$formquestion = array();
 		/*
 		 $forcecombo=0;
-		 if ($conf->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
+		 if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
 		 $formquestion = array(
 		 // 'text' => $langs->trans("ConfirmClone"),
 		 // array('type' => 'checkbox', 'name' => 'clone_content', 'label' => $langs->trans("CloneMainAttributes"), 'value' => 1),
@@ -360,7 +360,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		$formquestion = array();
 		/*
 		 $forcecombo=0;
-		 if ($conf->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
+		 if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
 		 $formquestion = array(
 		 // 'text' => $langs->trans("ConfirmClone"),
 		 // array('type' => 'checkbox', 'name' => 'clone_content', 'label' => $langs->trans("CloneMainAttributes"), 'value' => 1),
@@ -546,7 +546,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if ($includedocgeneration) {
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $conf->knowledgemanagement->dir_output.'/'.$object->element.'/'.$objref;
+			$filedir = $config->knowledgemanagement->dir_output.'/'.$object->element.'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $user->hasRight('knowledgemanagement', 'knowledgerecord', 'read'); // If you can read, you can build the PDF to read content
 			$delallowed = $user->hasRight('knowledgemanagement', 'knowledgerecord', 'write'); // If you can create/edit, you can remove a file on card
@@ -584,7 +584,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Presend form
 	$modelmail = 'knowledgerecord';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->knowledgemanagement->dir_output;
+	$diroutput = $config->knowledgemanagement->dir_output;
 	$trackid = 'knowledgerecord'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

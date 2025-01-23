@@ -156,19 +156,19 @@ class modTcpdfbarcode extends ModeleBarCode
 		global $conf, $langs;
 
 		// Force value of temp directory because we may call this even if module barcode is disabled
-		if (empty($conf->barcode)) {
-			$conf->barcode = new stdClass();
+		if (empty($config->barcode)) {
+			$config->barcode = new stdClass();
 		}
-		if (empty($conf->barcode->dir_temp)) {
-			$conf->barcode->dir_temp = DOL_DATA_ROOT.'/barcode/temp';
+		if (empty($config->barcode->dir_temp)) {
+			$config->barcode->dir_temp = DOL_DATA_ROOT.'/barcode/temp';
 		}
 
-		dol_mkdir($conf->barcode->dir_temp);
-		if (!is_writable($conf->barcode->dir_temp)) {
+		dol_mkdir($config->barcode->dir_temp);
+		if (!is_writable($config->barcode->dir_temp)) {
 			if ($langs instanceof Translate) {
-				$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $conf->barcode->dir_temp);
+				$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->barcode->dir_temp);
 			} else {
-				$this->error = "ErrorFailedToWriteInTempDirectory ".$conf->barcode->dir_temp;
+				$this->error = "ErrorFailedToWriteInTempDirectory ".$config->barcode->dir_temp;
 			}
 			dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 			return -1;
@@ -179,7 +179,7 @@ class modTcpdfbarcode extends ModeleBarCode
 			$newcode = dol_hash($newcode, 'md5');	// No need for security here, we can use md5
 		}
 
-		$filebarcode = $conf->barcode->dir_temp . '/barcode_' . $newcode . '_' . $encoding . '.png';
+		$filebarcode = $config->barcode->dir_temp . '/barcode_' . $newcode . '_' . $encoding . '.png';
 
 		$tcpdfEncoding = $this->getTcpdfEncodingType($encoding);
 		if (empty($tcpdfEncoding)) {

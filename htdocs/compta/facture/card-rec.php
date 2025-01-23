@@ -85,7 +85,7 @@ $year_date_when = GETPOST('year_date_when');
 $month_date_when = GETPOST('month_date_when');
 $selectedLines = GETPOST('toselect', 'array');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -208,7 +208,7 @@ if (empty($reshook)) {
 	// Mass actions
 	/*$objectclass='MyObject';
 	$objectlabel='MyObject';
-	$uploaddir = $conf->mymodule->dir_output;
+	$uploaddir = $config->mymodule->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';*/
 
 	// Create predefined invoice
@@ -710,7 +710,7 @@ if (empty($reshook)) {
 			$fk_parent_line = GETPOST('fk_parent_line', 'int');
 
 			if ($usercanproductignorepricemin && (!empty($price_min) && ((float) price2num($pu_ht) * (1 - (float) price2num($remise_percent) / 100) < (float) price2num($price_min)))) {
-				$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $conf->currency));
+				$mesg = $langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, -1, $config->currency));
 				setEventMessages($mesg, null, 'errors');
 			} else {
 				// Insert line
@@ -718,7 +718,7 @@ if (empty($reshook)) {
 
 				if ($result > 0) {
 					// Define output language and generate document
-					/*if (empty($conf->global->MAIN_DISABLE_PDF_AUTOUPDATE))
+					/*if (empty($config->global->MAIN_DISABLE_PDF_AUTOUPDATE))
 					{
 						// Define output language
 						$outputlangs = $langs;
@@ -879,7 +879,7 @@ if (empty($reshook)) {
 
 			// Check price is not lower than minimum (check is done only for standard or replacement invoices)
 			if (((getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !$user->hasRight('produit', 'ignore_price_min_advance')) || !getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) && (($typeinvoice == Facture::TYPE_STANDARD || $typeinvoice == Facture::TYPE_REPLACEMENT) && $price_min && ((float) price2num($pu_ht) * (1 - (float) $remise_percent / 100) < (float) price2num($price_min)))) {
-				setEventMessages($langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, - 1, $conf->currency)), null, 'errors');
+				setEventMessages($langs->trans("CantBeLessThanMinPrice", price(price2num($price_min, 'MU'), 0, $langs, 0, 0, - 1, $config->currency)), null, 'errors');
 				$error++;
 			}
 		} else {
@@ -933,7 +933,7 @@ if (empty($reshook)) {
 			);
 
 			if ($result >= 0) {
-				/*if (empty($conf->global->MAIN_DISABLE_PDF_AUTOUPDATE)) {
+				/*if (empty($config->global->MAIN_DISABLE_PDF_AUTOUPDATE)) {
 					// Define output language
 					$outputlangs = $langs;
 					$newlang = '';
@@ -1176,7 +1176,7 @@ if ($action == 'create') {
 		$list = ModelePDFFactures::liste_modeles($db);
 		print img_picto('', 'generic', 'class="pictofixedwidth"');
 		// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
-		print $form->selectarray('modelpdf', $list, $conf->global->FACTURE_ADDON_PDF);
+		print $form->selectarray('modelpdf', $list, $config->global->FACTURE_ADDON_PDF);
 		print "</td></tr>";
 
 		// Public note
@@ -1396,24 +1396,24 @@ if ($action == 'create') {
 
 		// Amount (excl. tax)
 		print '<tr><td>'.$langs->trans("AmountHT").'</td>';
-		print '<td>'.price($object->total_ht, 0, $langs, 1, -1, -1, $conf->currency).'</td>';
+		print '<td>'.price($object->total_ht, 0, $langs, 1, -1, -1, $config->currency).'</td>';
 		print '</tr>';
 
 		// Amount tax
-		print '<tr><td>'.$langs->trans("AmountVAT").'</td><td>'.price($object->total_tva, 0, $langs, 1, -1, -1, $conf->currency).'</td>';
+		print '<tr><td>'.$langs->trans("AmountVAT").'</td><td>'.price($object->total_tva, 0, $langs, 1, -1, -1, $config->currency).'</td>';
 		print '</tr>';
 
 		// Amount Local Taxes
 		if (($mysoc->localtax1_assuj == "1" && $mysoc->useLocalTax(1)) || $object->total_localtax1 != 0) { 	// Localtax1
 			print '<tr><td>'.$langs->transcountry("AmountLT1", $mysoc->country_code).'</td>';
-			print '<td class="nowrap">'.price($object->total_localtax1, 1, '', 1, - 1, - 1, $conf->currency).'</td></tr>';
+			print '<td class="nowrap">'.price($object->total_localtax1, 1, '', 1, - 1, - 1, $config->currency).'</td></tr>';
 		}
 		if (($mysoc->localtax2_assuj == "1" && $mysoc->useLocalTax(2)) || $object->total_localtax2 != 0) { 	// Localtax2
 			print '<tr><td>'.$langs->transcountry("AmountLT2", $mysoc->country_code).'</td>';
-			print '<td class=nowrap">'.price($object->total_localtax2, 1, '', 1, - 1, - 1, $conf->currency).'</td></tr>';
+			print '<td class=nowrap">'.price($object->total_localtax2, 1, '', 1, - 1, - 1, $config->currency).'</td></tr>';
 		}
 
-		print '<tr><td>'.$langs->trans("AmountTTC").'</td><td colspan="3">'.price($object->total_ttc, 0, $langs, 1, -1, -1, $conf->currency).'</td>';
+		print '<tr><td>'.$langs->trans("AmountTTC").'</td><td colspan="3">'.price($object->total_ttc, 0, $langs, 1, -1, -1, $config->currency).'</td>';
 		print '</tr>';
 
 
@@ -1694,7 +1694,7 @@ if ($action == 'create') {
 		print '<input type="hidden" name="id" value="' . $object->id.'">';
 		print '<input type="hidden" name="page_y" value="">';
 
-		if (!empty($conf->use_javascript_ajax) && $object->statut == 0) {
+		if (!empty($config->use_javascript_ajax) && $object->statut == 0) {
 			include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 		}
 

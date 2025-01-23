@@ -110,11 +110,11 @@ class RecruitmentJobPosition extends CommonObject
 		'ref' => array('type' => 'varchar(128)', 'label' => 'Ref', 'enabled' => 1, 'position' => 10, 'notnull' => 1, 'visible' => 4, 'noteditable' => 1, 'default' => '(PROV)', 'index' => 1, 'searchall' => 1, 'showoncombobox' => 1, 'comment' => "Reference of object", 'css' => 'nowraponall'),
 		'label' => array('type' => 'varchar(255)', 'label' => 'JobLabel', 'enabled' => 1, 'position' => 30, 'notnull' => 1, 'visible' => 1, 'searchall' => 1, 'css' => 'minwidth500', 'csslist' => 'tdoverflowmax300', 'showoncombobox' => 2, 'autofocusoncreate' => 1),
 		'qty' => array('type' => 'integer', 'label' => 'NbOfEmployeesExpected', 'enabled' => 1, 'position' => 45, 'notnull' => 1, 'visible' => 1, 'default' => '1', 'isameasure' => 1, 'css' => 'maxwidth75imp'),
-		'fk_project' => array('type' => 'integer:Project:projet/class/project.class.php:1', 'label' => 'Project', 'enabled' => '$conf->project->enabled', 'position' => 52, 'notnull' => -1, 'visible' => -1, 'index' => 1, 'css' => 'maxwidth500', 'picto' => 'project'),
+		'fk_project' => array('type' => 'integer:Project:projet/class/project.class.php:1', 'label' => 'Project', 'enabled' => '$config->project->enabled', 'position' => 52, 'notnull' => -1, 'visible' => -1, 'index' => 1, 'css' => 'maxwidth500', 'picto' => 'project'),
 		'fk_user_recruiter' => array('type' => 'integer:User:user/class/user.class.php:1:(statut:=:1)', 'label' => 'ResponsibleOfRecruitement', 'enabled' => 1, 'position' => 54, 'notnull' => 1, 'visible' => 1, 'foreignkey' => 'user.rowid', 'css' => 'maxwidth500', 'csslist' => 'tdoverflowmax150', 'picto' => 'user'),
 		'email_recruiter' => array('type' => 'varchar(255)', 'label' => 'EmailRecruiter', 'enabled' => 1, 'position' => 54, 'notnull' => 0, 'visible' => -1, 'help' => 'ToUseAGenericEmail', 'picto' => 'email'),
 		'fk_user_supervisor' => array('type' => 'integer:User:user/class/user.class.php:1:(statut:=:1)', 'label' => 'FutureManager', 'enabled' => 1, 'position' => 55, 'notnull' => 0, 'visible' => -1, 'foreignkey' => 'user.rowid', 'css' => 'maxwidth500', 'csslist' => 'tdoverflowmax150', 'picto' => 'user'),
-		'fk_establishment' => array('type' => 'integer:Establishment:hrm/class/establishment.class.php', 'label' => 'Establishment', 'enabled' => '$conf->hrm->enabled', 'position' => 56, 'notnull' => 0, 'visible' => -1, 'foreignkey' => 'establishment.rowid',),
+		'fk_establishment' => array('type' => 'integer:Establishment:hrm/class/establishment.class.php', 'label' => 'Establishment', 'enabled' => '$config->hrm->enabled', 'position' => 56, 'notnull' => 0, 'visible' => -1, 'foreignkey' => 'establishment.rowid',),
 		'fk_soc' => array('type' => 'integer:Societe:societe/class/societe.class.php:1:((status:=:1) AND (entity:IN:__SHARED_ENTITIES__))', 'label' => 'WorkPlace', 'enabled' => 'isModEnabled("societe")', 'position' => 57, 'notnull' => -1, 'visible' => -1, 'css' => 'maxwidth500', 'index' => 1, 'help' => "IfJobIsLocatedAtAPartner", 'picto' => 'company'),
 		'date_planned' => array('type' => 'date', 'label' => 'DateExpected', 'enabled' => 1, 'position' => 60, 'notnull' => 0, 'visible' => 1,),
 		'remuneration_suggested' => array('type' => 'varchar(255)', 'label' => 'Remuneration', 'enabled' => 1, 'position' => 62, 'notnull' => 0, 'visible' => 1,),
@@ -602,14 +602,14 @@ class RecruitmentJobPosition extends CommonObject
 			if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 				// Now we rename also files into index
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'recruitmentjobposition/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'recruitmentjobposition/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'recruitmentjobposition/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
 					$this->error = $this->db->lasterror();
 				}
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'recruitmentjobposition/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filepath = 'recruitmentjobposition/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filepath = 'recruitmentjobposition/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
@@ -619,15 +619,15 @@ class RecruitmentJobPosition extends CommonObject
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($num);
-				$dirsource = $conf->recruitment->dir_output.'/recruitmentjobposition/'.$oldref;
-				$dirdest = $conf->recruitment->dir_output.'/recruitmentjobposition/'.$newref;
+				$dirsource = $config->recruitment->dir_output.'/recruitmentjobposition/'.$oldref;
+				$dirdest = $config->recruitment->dir_output.'/recruitmentjobposition/'.$newref;
 				if (!$error && file_exists($dirsource)) {
 					dol_syslog(get_class($this)."::validate() rename dir ".$dirsource." into ".$dirdest);
 
 					if (@rename($dirsource, $dirdest)) {
 						dol_syslog("Rename ok");
 						// Rename docs starting with $oldref with $newref
-						$listoffiles = dol_dir_list($conf->recruitment->dir_output.'/recruitmentjobposition/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+						$listoffiles = dol_dir_list($config->recruitment->dir_output.'/recruitmentjobposition/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 						foreach ($listoffiles as $fileentry) {
 							$dirsource = $fileentry['name'];
 							$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -670,8 +670,8 @@ class RecruitmentJobPosition extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->recruitment->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->recruitment->recruitment_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->recruitment->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->recruitment->recruitment_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -694,8 +694,8 @@ class RecruitmentJobPosition extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->recruitment->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->recruitment->recruitment_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->recruitment->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->recruitment->recruitment_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -803,8 +803,8 @@ class RecruitmentJobPosition extends CommonObject
 			return 0;
 		}
 
-		/*if (! ((empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->recruitment->write))
-		 || (!empty($conf->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->recruitment->recruitment_advance->validate))))
+		/*if (! ((empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->recruitment->write))
+		 || (!empty($config->global->MAIN_USE_ADVANCED_PERMS) && !empty($user->rights->recruitment->recruitment_advance->validate))))
 		 {
 		 $this->error='Permission denied';
 		 return -1;
@@ -827,7 +827,7 @@ class RecruitmentJobPosition extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -881,7 +881,7 @@ class RecruitmentJobPosition extends CommonObject
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 				list($class, $module) = explode('@', $this->picto);
-				$upload_dir = $conf->$module->multidir_output[$conf->entity]."/$class/".dol_sanitizeFileName($this->ref);
+				$upload_dir = $config->$module->multidir_output[$config->entity]."/$class/".dol_sanitizeFileName($this->ref);
 				$filearray = dol_dir_list($upload_dir, "files");
 				$filename = $filearray[0]['name'];
 				if (!empty($filename)) {
@@ -889,9 +889,9 @@ class RecruitmentJobPosition extends CommonObject
 
 					$pathtophoto = $class.'/'.$this->ref.'/thumbs/'.substr($filename, 0, $pospoint).'_mini'.substr($filename, $pospoint);
 					if (!getDolGlobalString(strtoupper($module.'_'.$class).'_FORMATLISTPHOTOSASUSERS')) {
-						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref"><img class="photo'.$module.'" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$conf->entity.'&file='.urlencode($pathtophoto).'"></div></div>';
+						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref"><img class="photo'.$module.'" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$config->entity.'&file='.urlencode($pathtophoto).'"></div></div>';
 					} else {
-						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$conf->entity.'&file='.urlencode($pathtophoto).'"></div>';
+						$result .= '<div class="floatleft inline-block valignmiddle divphotoref"><img class="photouserphoto userphoto" alt="No photo" border="0" src="'.DOL_URL_ROOT.'/viewimage.php?modulepart='.$module.'&entity='.$config->entity.'&file='.urlencode($pathtophoto).'"></div>';
 					}
 
 					$result .= '</div>';
@@ -1035,7 +1035,7 @@ class RecruitmentJobPosition extends CommonObject
 		$langs->load("recruitment");
 
 		if (!getDolGlobalString('RECRUITMENT_RECRUITMENTJOBPOSITION_ADDON')) {
-			$conf->global->RECRUITMENT_RECRUITMENTJOBPOSITION_ADDON = 'mod_recruitmentjobposition_standard';
+			$config->global->RECRUITMENT_RECRUITMENTJOBPOSITION_ADDON = 'mod_recruitmentjobposition_standard';
 		}
 
 		if (getDolGlobalString('RECRUITMENT_RECRUITMENTJOBPOSITION_ADDON')) {
@@ -1045,7 +1045,7 @@ class RecruitmentJobPosition extends CommonObject
 			$classname = getDolGlobalString('RECRUITMENT_RECRUITMENTJOBPOSITION_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/recruitment/");
 
@@ -1128,7 +1128,7 @@ class RecruitmentJobPosition extends CommonObject
 	{
 		//global $conf, $langs;
 
-		//$conf->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
+		//$config->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
 
 		$error = 0;
 		$this->output = '';

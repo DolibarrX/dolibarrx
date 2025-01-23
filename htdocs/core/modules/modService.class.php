@@ -135,7 +135,7 @@ class modService extends DolibarrModules
 		 'url'=>'/product/admin/product_tools.php?mainmenu=home&leftmenu=admintools',
 		 'langs'=>'products',	        // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 		 'position'=>300,
-		 'enabled'=>'isModEnabled("product") && preg_match(\'/^(admintools|all)/\',$leftmenu)',   // Define condition to show or hide menu entry. Use '$conf->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+		 'enabled'=>'isModEnabled("product") && preg_match(\'/^(admintools|all)/\',$leftmenu)',   // Define condition to show or hide menu entry. Use '$config->mymodule->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 		 'perms'=>'1',			                // Use 'perms'=>'$user->hasRight("mymodule","level1","level2")' if you want your menu with a permission rules
 		 'target'=>'',
 		 'user'=>0);				                // 0=Menu for internal users, 1=external users, 2=both
@@ -267,7 +267,7 @@ class modService extends DolibarrModules
 		$this->export_sql_start[$r] = 'SELECT DISTINCT ';
 		$this->export_sql_end[$r]  = ' FROM '.MAIN_DB_PREFIX.'product as p';
 		if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
-			$this->export_sql_end[$r] .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $conf->entity);
+			$this->export_sql_end[$r] .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as ppe ON ppe.fk_product = p.rowid AND ppe.entity = " . ((int) $config->entity);
 		}
 		if (getDolGlobalString('EXPORTTOOL_CATEGORIES')) {
 			$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'categorie_product as cp ON cp.fk_product = p.rowid LEFT JOIN '.MAIN_DB_PREFIX.'categorie as cat ON cp.fk_categorie = cat.rowid';
@@ -315,7 +315,7 @@ class modService extends DolibarrModules
 					'pr.date_price' => "product");
 				$this->export_sql_start[$r] = 'SELECT DISTINCT ';
 				$this->export_sql_end[$r]  = ' FROM '.MAIN_DB_PREFIX.'product as p';
-				$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product_price as pr ON p.rowid = pr.fk_product AND pr.entity = '.$conf->entity; // export prices only for the current entity
+				$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product_price as pr ON p.rowid = pr.fk_product AND pr.entity = '.$config->entity; // export prices only for the current entity
 				$this->export_sql_end[$r] .= ' WHERE p.entity IN ('.getEntity('product').')'; // For product and service profile
 			}
 
@@ -347,7 +347,7 @@ class modService extends DolibarrModules
 					'pr.datec' => "product");
 				$this->export_sql_start[$r] = 'SELECT DISTINCT ';
 				$this->export_sql_end[$r]  = ' FROM '.MAIN_DB_PREFIX.'product as p';
-				$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product_customer_price as pr ON p.rowid = pr.fk_product AND pr.entity = '.$conf->entity; // export prices only for the current entity
+				$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product_customer_price as pr ON p.rowid = pr.fk_product AND pr.entity = '.$config->entity; // export prices only for the current entity
 				$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'societe as s ON pr.fk_soc = s.rowid';
 				$this->export_sql_end[$r] .= ' WHERE p.entity IN ('.getEntity('product').')'; // For product and service profile
 			}
@@ -416,7 +416,7 @@ class modService extends DolibarrModules
 				$this->export_sql_start[$r] = 'SELECT DISTINCT ';
 				$this->export_sql_end[$r]  = ' FROM '.MAIN_DB_PREFIX.'product as p';
 				if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
-					$this->export_sql_end[$r] .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as pac ON pac.fk_product = p.rowid AND pac.entity = " . ((int) $conf->entity);
+					$this->export_sql_end[$r] .= " LEFT JOIN " . MAIN_DB_PREFIX . "product_perentity as pac ON pac.fk_product = p.rowid AND pac.entity = " . ((int) $config->entity);
 				}
 				$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product_extrafields as extra ON p.rowid = extra.fk_object,';
 				$this->export_sql_end[$r] .= ' '.MAIN_DB_PREFIX.'product_association as pa, '.MAIN_DB_PREFIX.'product as p2';
@@ -592,7 +592,7 @@ class modService extends DolibarrModules
 		}
 		// Add extra fields
 		$import_extrafield_sample = array();
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'product' AND entity IN (0,".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'product' AND entity IN (0,".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {    // This can fail when class is used on old database (during migration for example)
 			while ($obj = $this->db->fetch_object($resql)) {

@@ -71,7 +71,7 @@ $collapse = GETPOST('collapse', 'aZ09comma');
 // Initialize a technical objects
 $object = new Mo($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->mrp->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->mrp->dir_output.'/temp/massgeneration/'.$user->id;
 $objectline = new MoLine($db);
 
 $hookManager->initHooks(array('moproduction', 'globalcard')); // Note that conf->hooks_modules contains array
@@ -112,7 +112,7 @@ $permissiontodelete = $user->hasRight('mrp', 'delete') || ($permissiontoadd && i
 $permissiontoproduce = $permissiontoadd;
 $permissiontoupdatecost = $user->hasRight('bom', 'read'); // User who can define cost must have knowledge of pricing
 
-$upload_dir = $conf->mrp->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->mrp->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 
 /*
@@ -610,7 +610,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 			$formproduct = new FormProduct($db);
 			$forcecombo = 0;
-			if ($conf->browser->name == 'ie') {
+			if ($config->browser->name == 'ie') {
 				$forcecombo = 1; // There is a bug in IE10 that make combo inside popup crazy
 			}
 			$formquestion = array(
@@ -1212,11 +1212,11 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 								});
 							});';
 							print '</script>';
-							if (empty($conf->use_javascript_ajax)) {
+							if (empty($config->use_javascript_ajax)) {
 								print '<a href="' . $_SERVER["PHP_SELF"] . '?collapse=' . $collapse . ',' . $line->id . '">';
 							}
 							print img_picto($langs->trans("ShowDetails"), "chevron-down", 'id="expandtoproduce' . $line->id . '"');
-							if (empty($conf->use_javascript_ajax)) {
+							if (empty($config->use_javascript_ajax)) {
 								print '</a>';
 							}
 						} else {
@@ -1716,11 +1716,11 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 							});
 						});';
 						print '</script>';
-						if (empty($conf->use_javascript_ajax)) {
+						if (empty($config->use_javascript_ajax)) {
 							print '<a href="'.$_SERVER["PHP_SELF"].'?collapse='.$collapse.','.$line->id.'">';
 						}
 						print img_picto($langs->trans("ShowDetails"), "chevron-down", 'id="expandtoproduce'.$line->id.'"');
-						if (empty($conf->use_javascript_ajax)) {
+						if (empty($config->use_javascript_ajax)) {
 							print '</a>';
 						}
 					}

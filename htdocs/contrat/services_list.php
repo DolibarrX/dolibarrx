@@ -54,7 +54,7 @@ $mode       = GETPOST('mode', 'aZ'); // The output mode ('list', 'kanban', 'hier
 $contextpage = GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : str_replace('_', '', basename(dirname(__FILE__)).basename(__FILE__, '.php')).$mode; // To manage different context of search
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -318,11 +318,11 @@ if ($search_status == "5") {
 	$sql .= " AND cd.statut = 5";
 }
 if ($search_option == 'late' && $search_status != '0') {
-	$warning_date = $db->idate(dol_now() - $conf->contract->services->expires->warning_delay);
+	$warning_date = $db->idate(dol_now() - $config->contract->services->expires->warning_delay);
 	$sql .= " AND cd.date_fin_validite < '".addslashes($warning_date)."'";
 }
 if ($search_option == 'late' && $search_status == '0') {
-	$warning_date = $db->idate(dol_now() - $conf->contract->services->expires->warning_delay);
+	$warning_date = $db->idate(dol_now() - $config->contract->services->expires->warning_delay);
 	$sql .= " AND (cd.date_ouverture_prevue < '".addslashes($warning_date)."' OR cd.date_fin_validite < '".addslashes($warning_date)."')";
 }
 if ($search_subprice) {
@@ -462,7 +462,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -959,7 +959,7 @@ while ($i < $imaxinloop) {
 	if (!empty($arrayfields['cd.date_ouverture_prevue']['checked'])) {
 		print '<td class="center nowraponall">';
 		print($obj->date_ouverture_prevue ? dol_print_date($db->jdate($obj->date_ouverture_prevue), 'dayhour') : '&nbsp;');
-		if ($db->jdate($obj->date_ouverture_prevue) && ($db->jdate($obj->date_ouverture_prevue) < ($now - $conf->contrat->services->inactifs->warning_delay)) && $obj->statut == 0) {
+		if ($db->jdate($obj->date_ouverture_prevue) && ($db->jdate($obj->date_ouverture_prevue) < ($now - $config->contrat->services->inactifs->warning_delay)) && $obj->statut == 0) {
 			print ' '.img_picto($langs->trans("Late"), "warning");
 		} else {
 			print '&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -978,8 +978,8 @@ while ($i < $imaxinloop) {
 	// End date
 	if (!empty($arrayfields['cd.date_fin_validite']['checked'])) {
 		print '<td class="center nowraponall">'.($obj->date_fin_validite ? dol_print_date($db->jdate($obj->date_fin_validite), 'dayhour') : '&nbsp;');
-		if ($obj->date_fin_validite && $db->jdate($obj->date_fin_validite) < ($now - $conf->contrat->services->expires->warning_delay) && $obj->statut < 5) {
-			$warning_delay = $conf->contrat->services->expires->warning_delay / 3600 / 24;
+		if ($obj->date_fin_validite && $db->jdate($obj->date_fin_validite) < ($now - $config->contrat->services->expires->warning_delay) && $obj->statut < 5) {
+			$warning_delay = $config->contrat->services->expires->warning_delay / 3600 / 24;
 			$textlate = $langs->trans("Late").' = '.$langs->trans("DateReference").' > '.$langs->trans("DateToday").' '.(ceil($warning_delay) >= 0 ? '+' : '').ceil($warning_delay).' '.$langs->trans("days");
 			print img_warning($textlate);
 		} else {

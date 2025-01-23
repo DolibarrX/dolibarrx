@@ -60,7 +60,7 @@ $dol_openinpopup = GETPOST('dol_openinpopup', 'aZ09');
 // Initialize a technical objects
 $object = new Availabilities($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->bookcal->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->bookcal->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('availabilitiescard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -85,7 +85,7 @@ if (empty($action) && empty($id) && empty($ref)) {
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'.
 
 //avoid warning on missing/undef entity
-$object->entity	= ((GETPOSTISSET('entity') && GETPOST('entity') != '') ? GETPOSTINT('entity') : $conf->entity);
+$object->entity	= ((GETPOSTISSET('entity') && GETPOST('entity') != '') ? GETPOSTINT('entity') : $config->entity);
 
 // There is several ways to check permission.
 // Set $enablepermissioncheck to 1 to enable a minimum low level of checks
@@ -104,7 +104,7 @@ if ($enablepermissioncheck) {
 	$permissiondellink = 1;
 }
 
-$upload_dir = $conf->bookcal->multidir_output[isset($object->entity) ? $object->entity : 1].'/availabilities';
+$upload_dir = $config->bookcal->multidir_output[isset($object->entity) ? $object->entity : 1].'/availabilities';
 
 // Security check (enable the most restrictive one)
 //if ($user->socid > 0) accessforbidden();
@@ -335,7 +335,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Confirmation of action xxxx (You can use it for xxx = 'close', xxx = 'reopen', ...)
 	if ($action == 'xxx') {
 		$text = $langs->trans('ConfirmActionAvailabilities', $object->ref);
-		/*if (! empty($conf->notification->enabled))
+		/*if (! empty($config->notification->enabled))
 		{
 			require_once DOL_DOCUMENT_ROOT . '/core/class/notify.class.php';
 			$notify = new Notify($db);
@@ -346,7 +346,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		$formquestion = array();
 		/*
 		$forcecombo=0;
-		if ($conf->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
+		if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
 		$formquestion = array(
 			// 'text' => $langs->trans("ConfirmClone"),
 			// array('type' => 'checkbox', 'name' => 'clone_content', 'label' => $langs->trans("CloneMainAttributes"), 'value' => 1),
@@ -454,7 +454,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		<input type="hidden" name="id" value="' . $object->id.'">
 		';
 
-		if (!empty($conf->use_javascript_ajax) && $object->status == 0) {
+		if (!empty($config->use_javascript_ajax) && $object->status == 0) {
 			include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 		}
 
@@ -567,7 +567,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if ($includedocgeneration) {
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $conf->bookcal->dir_output.'/'.$object->element.'/'.$objref;
+			$filedir = $config->bookcal->dir_output.'/'.$object->element.'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $permissiontoread; // If you can read, you can build the PDF to read content
 			$delallowed = $permissiontoadd; // If you can create/edit, you can remove a file on card
@@ -605,7 +605,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Presend form
 	$modelmail = 'availabilities';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->bookcal->dir_output;
+	$diroutput = $config->bookcal->dir_output;
 	$trackid = 'availabilities'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

@@ -180,7 +180,7 @@ for ($i = 1; $i <= 4; $i++) {
 	<td colspan="3">
 	<?php
 	if ($this->control->tpl['capital']) {
-		echo $this->control->tpl['capital'].' '.$langs->trans("Currency".$conf->currency);
+		echo $this->control->tpl['capital'].' '.$langs->trans("Currency".$config->currency);
 	} else {
 		echo '&nbsp;';
 	}
@@ -274,7 +274,7 @@ for ($i = 1; $i <= 4; $i++) {
 <?php } ?>
 
 <?php if ($user->hasRight('societe', 'supprimer')) { ?>
-	<?php if ($conf->use_javascript_ajax) { ?>
+	<?php if ($config->use_javascript_ajax) { ?>
 		<span id="action-delete" class="butActionDelete"><?php echo $langs->trans('Delete'); ?></span>
 	<?php } else { ?>
 		<a class="butActionDelete" href="<?php echo $_SERVER["PHP_SELF"].'?socid='.$this->control->tpl['id'].'&action=delete&token='.newToken().'&canvas='.urlencode($canvas); ?>"><?php echo $langs->trans('Delete'); ?></a>
@@ -291,7 +291,7 @@ for ($i = 1; $i <= 4; $i++) {
 /*
  * Generated documents
  */
-$filedir = $conf->societe->multidir_output[$this->control->tpl['entity']].'/'.$socid;
+$filedir = $config->societe->multidir_output[$this->control->tpl['entity']].'/'.$socid;
 $urlsource = $_SERVER["PHP_SELF"]."?socid=".$socid;
 $genallowed = $user->hasRight('societe', 'lire');
 $delallowed = $user->hasRight('societe', 'creer');

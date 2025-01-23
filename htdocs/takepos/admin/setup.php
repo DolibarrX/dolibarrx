@@ -83,19 +83,19 @@ $error = 0;
 if ($action == 'set') {
 	$db->begin();
 
-	$res = dolibarr_set_const($db, "TAKEPOS_ROOT_CATEGORY_ID", GETPOST('TAKEPOS_ROOT_CATEGORY_ID', 'alpha'), 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, "TAKEPOS_SUPPLEMENTS_CATEGORY", GETPOST('TAKEPOS_SUPPLEMENTS_CATEGORY', 'alpha'), 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, "TAKEPOS_NUMPAD", GETPOST('TAKEPOS_NUMPAD', 'alpha'), 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, "TAKEPOS_SORTPRODUCTFIELD", GETPOST('TAKEPOS_SORTPRODUCTFIELD', 'alpha'), 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, "TAKEPOS_NUM_TERMINALS", GETPOST('TAKEPOS_NUM_TERMINALS', 'alpha'), 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, "TAKEPOS_ADDON", GETPOST('TAKEPOS_ADDON', 'alpha'), 'int', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, "TAKEPOS_EMAIL_TEMPLATE_INVOICE", GETPOST('TAKEPOS_EMAIL_TEMPLATE_INVOICE', 'alpha'), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "TAKEPOS_ROOT_CATEGORY_ID", GETPOST('TAKEPOS_ROOT_CATEGORY_ID', 'alpha'), 'chaine', 0, '', $config->entity);
+	$res = dolibarr_set_const($db, "TAKEPOS_SUPPLEMENTS_CATEGORY", GETPOST('TAKEPOS_SUPPLEMENTS_CATEGORY', 'alpha'), 'chaine', 0, '', $config->entity);
+	$res = dolibarr_set_const($db, "TAKEPOS_NUMPAD", GETPOST('TAKEPOS_NUMPAD', 'alpha'), 'chaine', 0, '', $config->entity);
+	$res = dolibarr_set_const($db, "TAKEPOS_SORTPRODUCTFIELD", GETPOST('TAKEPOS_SORTPRODUCTFIELD', 'alpha'), 'chaine', 0, '', $config->entity);
+	$res = dolibarr_set_const($db, "TAKEPOS_NUM_TERMINALS", GETPOST('TAKEPOS_NUM_TERMINALS', 'alpha'), 'chaine', 0, '', $config->entity);
+	$res = dolibarr_set_const($db, "TAKEPOS_ADDON", GETPOST('TAKEPOS_ADDON', 'alpha'), 'int', 0, '', $config->entity);
+	$res = dolibarr_set_const($db, "TAKEPOS_EMAIL_TEMPLATE_INVOICE", GETPOST('TAKEPOS_EMAIL_TEMPLATE_INVOICE', 'alpha'), 'chaine', 0, '', $config->entity);
 	if (getDolGlobalInt('TAKEPOS_ENABLE_SUMUP')) {
-		$res = dolibarr_set_const($db, "TAKEPOS_SUMUP_AFFILIATE", GETPOST('TAKEPOS_SUMUP_AFFILIATE', 'alpha'), 'chaine', 0, '', $conf->entity);
-		$res = dolibarr_set_const($db, "TAKEPOS_SUMUP_APPID", GETPOST('TAKEPOS_SUMUP_APPID', 'alpha'), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "TAKEPOS_SUMUP_AFFILIATE", GETPOST('TAKEPOS_SUMUP_AFFILIATE', 'alpha'), 'chaine', 0, '', $config->entity);
+		$res = dolibarr_set_const($db, "TAKEPOS_SUMUP_APPID", GETPOST('TAKEPOS_SUMUP_APPID', 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 	if (isModEnabled('barcode')) {
-		$res = dolibarr_set_const($db, 'TAKEPOS_BARCODE_RULE_TO_INSERT_PRODUCT', GETPOST('TAKEPOS_BARCODE_RULE_TO_INSERT_PRODUCT', 'alpha'), 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, 'TAKEPOS_BARCODE_RULE_TO_INSERT_PRODUCT', GETPOST('TAKEPOS_BARCODE_RULE_TO_INSERT_PRODUCT', 'alpha'), 'chaine', 0, '', $config->entity);
 	}
 
 	dol_syslog("admin/cashdesk: level ".GETPOST('level', 'alpha'));
@@ -113,14 +113,14 @@ if ($action == 'set') {
 	$maskconst = GETPOST('maskconst', 'aZ09');
 	$maskvalue = GETPOST('maskvalue', 'alpha');
 	if ($maskconst && preg_match('/_MASK$/', $maskconst)) {
-		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconst, $maskvalue, 'chaine', 0, '', $config->entity);
 	}
 	if (!($res > 0)) {
 		$error++;
 	}
 } elseif ($action == 'setrefmod') {
 	$value = GETPOST('value', 'alpha');
-	dolibarr_set_const($db, "TAKEPOS_REF_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "TAKEPOS_REF_ADDON", $value, 'chaine', 0, '', $config->entity);
 }
 
 if ($action != '') {
@@ -150,7 +150,7 @@ print dol_get_fiche_head($head, 'setup', 'TakePOS', -1, 'cash-register');
 
 // Numbering modules
 $now = dol_now();
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 print load_fiche_titre($langs->trans('CashDeskRefNumberingModules'), '', '');
 
@@ -286,8 +286,8 @@ if (isModEnabled("service")) {
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("CashdeskShowServices");
 	print '<td>';
-	print ajax_constantonoff("CASHDESK_SERVICES", array(), $conf->entity, 0, 0, 1, 0);
-	//print $form->selectyesno("CASHDESK_SERVICES", $conf->global->CASHDESK_SERVICES, 1);
+	print ajax_constantonoff("CASHDESK_SERVICES", array(), $config->entity, 0, 0, 1, 0);
+	//print $form->selectyesno("CASHDESK_SERVICES", $config->global->CASHDESK_SERVICES, 1);
 	print "</td></tr>\n";
 }
 
@@ -311,7 +311,7 @@ print "</td></tr>\n";
 print '<tr class="oddeven"><td>';
 print $langs->trans('TakeposGroupSameProduct');
 print '<td>';
-print ajax_constantonoff("TAKEPOS_GROUP_SAME_PRODUCT", array(), $conf->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_GROUP_SAME_PRODUCT", array(), $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 $substitutionarray = pdf_getSubstitutionArray($langs, null, null, 2);
@@ -327,14 +327,14 @@ print '<tr class="oddeven"><td>';
 print $langs->trans("Paymentnumpad");
 print '<td>';
 $array = array(0 => $langs->trans("Numberspad"), 1 => $langs->trans("BillsCoinsPad"));
-print $form->selectarray('TAKEPOS_NUMPAD', $array, (!getDolGlobalString('TAKEPOS_NUMPAD') ? '0' : $conf->global->TAKEPOS_NUMPAD), 0);
+print $form->selectarray('TAKEPOS_NUMPAD', $array, (!getDolGlobalString('TAKEPOS_NUMPAD') ? '0' : $config->global->TAKEPOS_NUMPAD), 0);
 print "</td></tr>\n";
 
 // Numpad use payment icons
 /*print '<tr class="oddeven"><td>';
 print $langs->trans('TakeposNumpadUsePaymentIcon');
 print '<td colspan="2">';
-print ajax_constantonoff("TAKEPOS_NUMPAD_USE_PAYMENT_ICON", array(), $conf->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_NUMPAD_USE_PAYMENT_ICON", array(), $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 */
 
@@ -342,15 +342,15 @@ print "</td></tr>\n";
 print '<tr class="oddeven"><td>';
 print $langs->trans('DirectPaymentButton');
 print '<td>';
-print ajax_constantonoff("TAKEPOS_DIRECT_PAYMENT", array(), $conf->entity, 0, 0, 1, 0);
-//print $form->selectyesno("TAKEPOS_DIRECT_PAYMENT", $conf->global->TAKEPOS_DIRECT_PAYMENT, 1);
+print ajax_constantonoff("TAKEPOS_DIRECT_PAYMENT", array(), $config->entity, 0, 0, 1, 0);
+//print $form->selectyesno("TAKEPOS_DIRECT_PAYMENT", $config->global->TAKEPOS_DIRECT_PAYMENT, 1);
 print "</td></tr>\n";
 
 // Head Bar
 /*print '<tr class="oddeven"><td>';
 print $langs->trans('HeadBar');
 print '<td colspan="2">';
-print $form->selectyesno("TAKEPOS_HEAD_BAR", $conf->global->TAKEPOS_HEAD_BAR, 1);
+print $form->selectyesno("TAKEPOS_HEAD_BAR", $config->global->TAKEPOS_HEAD_BAR, 1);
 print "</td></tr>\n";
 */
 
@@ -382,35 +382,35 @@ print "</td></tr>\n";
 print '<tr class="oddeven"><td>';
 print $langs->trans('ControlCashOpening');
 print '<td>';
-print ajax_constantonoff("TAKEPOS_CONTROL_CASH_OPENING", array(), $conf->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_CONTROL_CASH_OPENING", array(), $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // Gift receipt
 print '<tr class="oddeven"><td>';
 print $langs->trans('GiftReceiptButton');
 print '<td>';
-print ajax_constantonoff("TAKEPOS_GIFT_RECEIPT", array(), $conf->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_GIFT_RECEIPT", array(), $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // Delayed Pay Button
 print '<tr class="oddeven"><td>';
 print $langs->trans('AllowDelayedPayment');
 print '<td>';
-print ajax_constantonoff("TAKEPOS_DELAYED_PAYMENT", array(), $conf->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_DELAYED_PAYMENT", array(), $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // Show price without vat
 print '<tr class="oddeven"><td>';
 print $langs->trans('ShowPriceHT');
 print '<td>';
-print ajax_constantonoff("TAKEPOS_SHOW_HT", array(), $conf->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_SHOW_HT", array(), $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // Use price excl. taxes (HT) and not price incl. taxes (TTC)
 print '<tr class="oddeven"><td>';
 print $langs->trans('UsePriceHT');
 print '</td><td>';
-print ajax_constantonoff("TAKEPOS_CHANGE_PRICE_HT", array(), $conf->entity, 0, 0, 1, 0);
+print ajax_constantonoff("TAKEPOS_CHANGE_PRICE_HT", array(), $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
 // Barcode rule to insert product
@@ -427,7 +427,7 @@ if (isModEnabled('barcode')) {
 //print $langs->trans("BillsNumberingModule");
 //print '<td colspan="2">';
 //$array = array(0=>$langs->trans("Default"), "terminal"=>$langs->trans("ByTerminal"));
-//$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+//$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 //foreach ($dirmodels as $reldir)
 //{
 //	$dir = dol_buildpath($reldir."core/modules/facture/");
@@ -461,8 +461,8 @@ if (isModEnabled('barcode')) {
 //                        $module = new $classname($db);
 //
 //                        // Show modules according to features level
-//                        if ($module->version == 'development' && $conf->global->MAIN_FEATURES_LEVEL < 2) continue;
-//                        if ($module->version == 'experimental' && $conf->global->MAIN_FEATURES_LEVEL < 1) continue;
+//                        if ($module->version == 'development' && $config->global->MAIN_FEATURES_LEVEL < 2) continue;
+//                        if ($module->version == 'experimental' && $config->global->MAIN_FEATURES_LEVEL < 1) continue;
 //
 //                        if ($module->isEnabled())
 //                        {
@@ -476,7 +476,7 @@ if (isModEnabled('barcode')) {
 //    }
 //}
 //
-//print $form->selectarray('TAKEPOS_ADDON', $array, (empty($conf->global->TAKEPOS_ADDON) ? '0' : $conf->global->TAKEPOS_ADDON), 0);
+//print $form->selectarray('TAKEPOS_ADDON', $array, (empty($config->global->TAKEPOS_ADDON) ? '0' : $config->global->TAKEPOS_ADDON), 0);
 //print "</td></tr>\n";
 
 print '</table>';

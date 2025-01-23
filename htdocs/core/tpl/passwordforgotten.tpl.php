@@ -64,24 +64,24 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 header('Cache-Control: Public, must-revalidate');
 
 if (GETPOST('dol_hide_topmenu')) {
-	$conf->dol_hide_topmenu = 1;
+	$config->dol_hide_topmenu = 1;
 }
 if (GETPOST('dol_hide_leftmenu')) {
-	$conf->dol_hide_leftmenu = 1;
+	$config->dol_hide_leftmenu = 1;
 }
 if (GETPOST('dol_optimize_smallscreen')) {
-	$conf->dol_optimize_smallscreen = 1;
+	$config->dol_optimize_smallscreen = 1;
 }
 if (GETPOST('dol_no_mouse_hover')) {
-	$conf->dol_no_mouse_hover = 1;
+	$config->dol_no_mouse_hover = 1;
 }
 if (GETPOST('dol_use_jmobile')) {
-	$conf->dol_use_jmobile = 1;
+	$config->dol_use_jmobile = 1;
 }
 
 // If we force to use jmobile, then we reenable javascript
-if (!empty($conf->dol_use_jmobile)) {
-	$conf->use_javascript_ajax = 1;
+if (!empty($config->dol_use_jmobile)) {
+	$config->use_javascript_ajax = 1;
 }
 
 
@@ -106,8 +106,8 @@ top_htmlhead('', $titleofpage, 0, 0, $arrayofjs, array(), 1, $disablenofollow);
 
 
 $colorbackhmenu1 = '60,70,100'; // topmenu
-if (!isset($conf->global->THEME_ELDY_TOPMENU_BACK1)) {
-	$conf->global->THEME_ELDY_TOPMENU_BACK1 = $colorbackhmenu1;
+if (!isset($config->global->THEME_ELDY_TOPMENU_BACK1)) {
+	$config->global->THEME_ELDY_TOPMENU_BACK1 = $colorbackhmenu1;
 }
 $colorbackhmenu1 = getDolUserString('THEME_ELDY_ENABLE_PERSONALIZED') ? getDolUserString('THEME_ELDY_TOPMENU_BACK1', $colorbackhmenu1) : getDolGlobalString('THEME_ELDY_TOPMENU_BACK1', $colorbackhmenu1);
 $colorbackhmenu1 = implode(',', colorStringToArray($colorbackhmenu1)); // Normalize value to 'x,y,z'
@@ -117,7 +117,7 @@ $colorbackhmenu1 = implode(',', colorStringToArray($colorbackhmenu1)); // Normal
 
 <body class="body bodylogin"<?php print !getDolGlobalString('MAIN_LOGIN_BACKGROUND') ? '' : ' style="background-size: cover; background-position: center center; background-attachment: fixed; background-repeat: no-repeat; background-image: url(\''.DOL_URL_ROOT.'/viewimage.php?cache=1&noalt=1&modulepart=mycompany&file='.urlencode('logos/' . getDolGlobalString('MAIN_LOGIN_BACKGROUND')).'\')"'; ?>>
 
-<?php if (empty($conf->dol_use_jmobile)) { ?>
+<?php if (empty($config->dol_use_jmobile)) { ?>
 <script>
 $(document).ready(function () {
 	// Set focus on correct field
@@ -130,7 +130,7 @@ $(document).ready(function () {
 
 <div class="login_center center"<?php
 if (!getDolGlobalString('ADD_UNSPLASH_LOGIN_BACKGROUND')) {
-		$backstyle = 'background: linear-gradient('.($conf->browser->layout == 'phone' ? '0deg' : '4deg').', rgb(240,240,240) 52%, rgb('.$colorbackhmenu1.') 52.1%);';
+		$backstyle = 'background: linear-gradient('.($config->browser->layout == 'phone' ? '0deg' : '4deg').', rgb(240,240,240) 52%, rgb('.$colorbackhmenu1.') 52.1%);';
 		// old style:  $backstyle = 'background-image: linear-gradient(rgb('.$colorbackhmenu1.',0.3), rgb(240,240,240));';
 		$backstyle = getDolGlobalString('MAIN_LOGIN_BACKGROUND_STYLE', $backstyle);
 		print !getDolGlobalString('MAIN_LOGIN_BACKGROUND') ? ' style="background-size: cover; background-position: center center; background-attachment: fixed; background-repeat: no-repeat; '.$backstyle.'"' : '';
@@ -192,7 +192,7 @@ if (!empty($captcha)) {
 	}
 
 	// List of directories where we can find captcha handlers
-	$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), is_array($conf->modules_parts['captcha']) ? $conf->modules_parts['captcha'] : array());
+	$dirModCaptcha = array_merge(array('main' => '/core/modules/security/captcha/'), is_array($config->modules_parts['captcha']) ? $config->modules_parts['captcha'] : array());
 	$fullpathclassfile = '';
 	foreach ($dirModCaptcha as $dir) {
 		$fullpathclassfile = dol_buildpath($dir."modCaptcha".ucfirst($captcha).'.class.php', 0, 2);
@@ -256,17 +256,17 @@ if (!empty($morelogincontent)) {
 <div class="center" style="margin-top: 15px;">
 	<?php
 	$moreparam = '';
-	if (!empty($conf->dol_hide_topmenu)) {
-		$moreparam .= (strpos($moreparam, '?') === false ? '?' : '&').'dol_hide_topmenu='.$conf->dol_hide_topmenu;
+	if (!empty($config->dol_hide_topmenu)) {
+		$moreparam .= (strpos($moreparam, '?') === false ? '?' : '&').'dol_hide_topmenu='.$config->dol_hide_topmenu;
 	}
-	if (!empty($conf->dol_hide_leftmenu)) {
-		$moreparam .= (strpos($moreparam, '?') === false ? '?' : '&').'dol_hide_leftmenu='.$conf->dol_hide_leftmenu;
+	if (!empty($config->dol_hide_leftmenu)) {
+		$moreparam .= (strpos($moreparam, '?') === false ? '?' : '&').'dol_hide_leftmenu='.$config->dol_hide_leftmenu;
 	}
-	if (!empty($conf->dol_no_mouse_hover)) {
-		$moreparam .= (strpos($moreparam, '?') === false ? '?' : '&').'dol_no_mouse_hover='.$conf->dol_no_mouse_hover;
+	if (!empty($config->dol_no_mouse_hover)) {
+		$moreparam .= (strpos($moreparam, '?') === false ? '?' : '&').'dol_no_mouse_hover='.$config->dol_no_mouse_hover;
 	}
-	if (!empty($conf->dol_use_jmobile)) {
-		$moreparam .= (strpos($moreparam, '?') === false ? '?' : '&').'dol_use_jmobile='.$conf->dol_use_jmobile;
+	if (!empty($config->dol_use_jmobile)) {
+		$moreparam .= (strpos($moreparam, '?') === false ? '?' : '&').'dol_use_jmobile='.$config->dol_use_jmobile;
 	}
 
 	print '<a class="alogin" href="'.$dol_url_root.'/index.php'.$moreparam.'">'.$langs->trans('BackToLoginPage').'</a>';
@@ -300,11 +300,11 @@ if ($mode == 'dolibarr' || !$disabled) {
 print "\n".'<br>'."\n";
 
 
-//$conf->use_javascript_ajax = 0;
+//$config->use_javascript_ajax = 0;
 
 // Show error message if defined
 if ($message) {
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		if (preg_match('/<!-- warning -->/', $message) || preg_match('/<div class="warning/', $message)) {	// if it contains this comment, this is a warning message
 			$message = str_replace('<!-- warning -->', '', $message);
 			$message = preg_replace('/<div class="[^"]*">/', '', $message);

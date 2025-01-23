@@ -102,7 +102,7 @@ if ($resql) {
 				print "<td>".$langs->trans("Anonymous")."</td>\n";
 			}
 			print "<td>".dol_print_date($db->jdate($objp->datedon))."</td>\n";
-			print '<td class="right">'.price($objp->amount).' '.$langs->trans("Currency".$conf->currency).'</td>';
+			print '<td class="right">'.price($objp->amount).' '.$langs->trans("Currency".$config->currency).'</td>';
 			print "</tr>";
 			$i++;
 		}

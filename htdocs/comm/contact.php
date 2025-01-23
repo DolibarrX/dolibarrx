@@ -52,7 +52,7 @@ if (!$sortfield) {
 if ($page < 0) {
 	$page = 0;
 }
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $offset = $limit * $page;
 
 $type = GETPOST('type', 'alpha');

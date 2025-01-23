@@ -102,7 +102,7 @@ class printing_printgcp extends PrintingDriver
 
 		$this->db = $db;
 
-		if (!$conf->oauth->enabled) {
+		if (!$config->oauth->enabled) {
 			$this->conf[] = array(
 				'varname' => 'PRINTGCP_INFO',
 				'info' => $langs->transnoentitiesnoconv("WarningModuleNotActive", "OAuth"),
@@ -229,7 +229,7 @@ class printing_printgcp extends PrintingDriver
 			$html .= '<td>'.$langs->trans('TYPE_'.$printer_det['type']).'</td>';
 			// Default
 			$html .= '<td class="center">';
-			if ($conf->global->PRINTING_GCP_DEFAULT == $printer_det['id']) {
+			if ($config->global->PRINTING_GCP_DEFAULT == $printer_det['id']) {
 				$html .= img_picto($langs->trans("Default"), 'on');
 			} else {
 				$html .= '<a href="'.$_SERVER["PHP_SELF"].'?action=setvalue&token='.newToken().'&mode=test&varname=PRINTING_GCP_DEFAULT&driver=printgcp&value='.urlencode($printer_det['id']).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
@@ -327,7 +327,7 @@ class printing_printgcp extends PrintingDriver
 		global $conf, $user;
 		$error = 0;
 
-		$fileprint = $conf->{$module}->dir_output;
+		$fileprint = $config->{$module}->dir_output;
 		if ($subdir != '') {
 			$fileprint .= '/'.$subdir;
 		}

@@ -68,7 +68,7 @@ if ($user->socid) {
 $result = restrictedArea($user, $object->element, $object->id, 'paiementfourn', '');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -90,7 +90,7 @@ $object = new PaiementFourn($db);
 if ($object->fetch($id, $ref)) {
 	$object->fetch_thirdparty();
 	$ref = dol_sanitizeFileName($object->ref);
-	$upload_dir = $conf->fournisseur->payment->dir_output.'/'.dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->fournisseur->payment->dir_output.'/'.dol_sanitizeFileName($object->ref);
 }
 
 $permissiontoadd = ($user->hasRight("fournisseur", "facture", "creer") || $user->hasRight("supplier_invoice", "creer")); // Used by the include of actions_setnotes.inc.php
@@ -134,7 +134,7 @@ if ($object->id > 0) {
 	$morehtmlref .= '<br>'.$object->thirdparty->getNomUrl(1);
 
 	// Amount
-	$morehtmlref .= '<br>'.$langs->trans('Amount').' : '. price($object->amount, 0, $langs, 0, 0, -1, $conf->currency);
+	$morehtmlref .= '<br>'.$langs->trans('Amount').' : '. price($object->amount, 0, $langs, 0, 0, -1, $config->currency);
 
 	$allow_delete = 1;
 	// Bank account

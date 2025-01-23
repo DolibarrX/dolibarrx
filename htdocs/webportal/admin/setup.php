@@ -138,7 +138,7 @@ if (isModEnabled('member')) {
 
 $setupnotempty += count($formSetup->items);
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 $moduledir = 'webportal';
 $myTmpObjects = array();
@@ -187,7 +187,7 @@ print '<br>';
 // URL For webportal
 print img_picto('', 'globe').' <span class="opacitymedium">'.$langs->trans('WebPortalURL').'</span><br>';
 if (isModEnabled('multicompany')) {
-	$entity_qr = '?entity='.((int) $conf->entity);
+	$entity_qr = '?entity='.((int) $config->entity);
 } else {
 	$entity_qr = '';
 }

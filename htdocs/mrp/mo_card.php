@@ -73,7 +73,7 @@ $object = new Mo($db);
 $objectbom = new BOM($db);
 
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->mrp->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->mrp->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('mocard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -121,7 +121,7 @@ $permissionnote = $user->hasRight('mrp', 'write'); // Used by the include of act
 $permissiondellink = $user->hasRight('mrp', 'write'); // Used by the include of actions_dellink.inc.php
 $permissiontoadd = $user->hasRight('mrp', 'write'); // Used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php
 $permissiontodelete = $user->hasRight('mrp', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
-$upload_dir = $conf->mrp->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->mrp->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 
 /*
@@ -569,7 +569,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 			$formproduct = new FormProduct($db);
 			$forcecombo = 0;
-			if ($conf->browser->name == 'ie') {
+			if ($config->browser->name == 'ie') {
 				$forcecombo = 1; // There is a bug in IE10 that make combo inside popup crazy
 			}
 			$formquestion = array(
@@ -709,7 +709,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
     	<input type="hidden" name="id" value="' . $object->id.'">
     	';
 
-		/*if (!empty($conf->use_javascript_ajax) && $object->status == 0) {
+		/*if (!empty($config->use_javascript_ajax) && $object->status == 0) {
 			include DOL_DOCUMENT_ROOT.'/core/tpl/ajaxrow.tpl.php';
 		}*/
 
@@ -861,7 +861,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		// Documents
 		$objref = dol_sanitizeFileName($object->ref);
 		$relativepath = $objref.'/'.$objref.'.pdf';
-		$filedir = $conf->mrp->dir_output.'/'.$objref;
+		$filedir = $config->mrp->dir_output.'/'.$objref;
 		$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 		$genallowed = $user->hasRight('mrp', 'read'); // If you can read, you can build the PDF to read content
 		$delallowed = $user->hasRight("mrp", "creer"); // If you can create/edit, you can remove a file on card
@@ -898,7 +898,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Presend form
 	$modelmail = 'mo';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->mrp->dir_output;
+	$diroutput = $config->mrp->dir_output;
 	$trackid = 'mo'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

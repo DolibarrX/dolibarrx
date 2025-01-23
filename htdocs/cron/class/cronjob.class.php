@@ -369,7 +369,7 @@ class Cronjob extends CommonObject
 		$sql .= "libname,";
 		$sql .= "test";
 		$sql .= ") VALUES (";
-		$sql .= " ".(!isset($this->entity) ? (int) $conf->entity : (int) $this->entity).",";
+		$sql .= " ".(!isset($this->entity) ? (int) $config->entity : (int) $this->entity).",";
 		$sql .= " '".$this->db->idate($now)."',";
 		$sql .= " ".(!isset($this->jobtype) ? 'NULL' : "'".$this->db->escape($this->jobtype)."'").",";
 		$sql .= " ".(!isset($this->label) ? 'NULL' : "'".$this->db->escape($this->label)."'").",";
@@ -815,7 +815,7 @@ class Cronjob extends CommonObject
 
 		// Update request
 		$sql = "UPDATE ".MAIN_DB_PREFIX."cronjob SET";
-		$sql .= " entity=".(isset($this->entity) ? ((int) $this->entity) : $conf->entity).",";
+		$sql .= " entity=".(isset($this->entity) ? ((int) $this->entity) : $config->entity).",";
 		$sql .= " label=".(isset($this->label) ? "'".$this->db->escape($this->label)."'" : "null").",";
 		$sql .= " jobtype=".(isset($this->jobtype) ? "'".$this->db->escape($this->jobtype)."'" : "null").",";
 		$sql .= " command=".(isset($this->command) ? "'".$this->db->escape($this->command)."'" : "null").",";
@@ -1068,7 +1068,7 @@ class Cronjob extends CommonObject
 	{
 		global $conf, $langs;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -1196,12 +1196,12 @@ class Cronjob extends CommonObject
 
 		// Force the environment of running to the environment declared for job, so jobs launched from command line will run into correct environment
 		// When job is ran from GUI, the environment should already be same, except if job has entity 0 (visible into all environments)
-		if ($conf->entity != $this->entity && $this->entity > 0) {
-			dol_syslog("We try to run a job in entity ".$this->entity." when we are in entity ".$conf->entity, LOG_WARNING);
+		if ($config->entity != $this->entity && $this->entity > 0) {
+			dol_syslog("We try to run a job in entity ".$this->entity." when we are in entity ".$config->entity, LOG_WARNING);
 		}
-		$savcurrententity = $conf->entity;
-		$conf->setEntityValues($this->db, $this->entity);
-		dol_syslog(get_class($this)."::run_jobs entity for running job is ".$conf->entity);
+		$savcurrententity = $config->entity;
+		$config->setEntityValues($this->db, $this->entity);
+		dol_syslog(get_class($this)."::run_jobs entity for running job is ".$config->entity);
 
 		require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 		$user = new User($this->db);
@@ -1209,13 +1209,13 @@ class Cronjob extends CommonObject
 		if ($result < 0) {
 			$this->error = "User Error:".$user->error;
 			dol_syslog(get_class($this)."::run_jobs ".$this->error, LOG_ERR);
-			$conf->setEntityValues($this->db, $savcurrententity);
+			$config->setEntityValues($this->db, $savcurrententity);
 			return -1;
 		} else {
 			if (empty($user->id)) {
 				$this->error = "User login: ".$userlogin." does not exist";
 				dol_syslog(get_class($this)."::run_jobs ".$this->error, LOG_ERR);
-				$conf->setEntityValues($this->db, $savcurrententity);
+				$config->setEntityValues($this->db, $savcurrententity);
 				return -1;
 			}
 		}
@@ -1247,7 +1247,7 @@ class Cronjob extends CommonObject
 		$result = $this->update($user); // This include begin/commit
 		if ($result < 0) {
 			dol_syslog(get_class($this)."::run_jobs ".$this->error, LOG_ERR);
-			$conf->setEntityValues($this->db, $savcurrententity);
+			$config->setEntityValues($this->db, $savcurrententity);
 			return -1;
 		}
 
@@ -1365,7 +1365,7 @@ class Cronjob extends CommonObject
 			if ($ret === false) {
 				$this->error = $langs->trans('CronCannotLoadLib').': '.$libpath;
 				dol_syslog(get_class($this)."::run_jobs ".$this->error, LOG_ERR);
-				$conf->setEntityValues($this->db, $savcurrententity);
+				$config->setEntityValues($this->db, $savcurrententity);
 				return -1;
 			}
 
@@ -1374,7 +1374,7 @@ class Cronjob extends CommonObject
 			$result = $langs->load($this->module_name.'@'.$this->module_name); // If this->module_name was an existing language file, this will make nothing
 			if ($result < 0) {	// If technical error
 				dol_syslog(get_class($this)."::run_jobs Cannot load module langs".$langs->error, LOG_ERR);
-				$conf->setEntityValues($this->db, $savcurrententity);
+				$config->setEntityValues($this->db, $savcurrententity);
 				return -1;
 			}
 
@@ -1409,9 +1409,9 @@ class Cronjob extends CommonObject
 				$this->lastoutput = '';
 				$this->lastresult = $langs->trans("ErrorParameterMustBeEnabledToAllwoThisFeature", 'dolibarr_cron_allow_cli');
 			} else {
-				$outputdir = $conf->cron->dir_temp;
+				$outputdir = $config->cron->dir_temp;
 				if (empty($outputdir)) {
-					$outputdir = $conf->cronjob->dir_temp;
+					$outputdir = $config->cronjob->dir_temp;
 				}
 
 				if (!empty($outputdir)) {
@@ -1438,11 +1438,11 @@ class Cronjob extends CommonObject
 		$result = $this->update($user); // This include begin/commit
 		if ($result < 0) {
 			dol_syslog(get_class($this)."::run_jobs ".$this->error, LOG_ERR);
-			$conf->setEntityValues($this->db, $savcurrententity);
+			$config->setEntityValues($this->db, $savcurrententity);
 			return -1;
 		}
 
-		$conf->setEntityValues($this->db, $savcurrententity);
+		$config->setEntityValues($this->db, $savcurrententity);
 
 		if ($error && !empty($this->email_alert)) {
 			include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';

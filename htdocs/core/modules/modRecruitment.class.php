@@ -156,9 +156,9 @@ class modRecruitment extends DolibarrModules
 			'fr_FR:ParentCompany'=>'Maison mère ou revendeur'
 		)*/
 
-		if (!isset($conf->recruitment) || !isset($conf->recruitment->enabled)) {
-			$conf->recruitment = new stdClass();
-			$conf->recruitment->enabled = 0;
+		if (!isset($config->recruitment) || !isset($config->recruitment->enabled)) {
+			$config->recruitment = new stdClass();
+			$config->recruitment->enabled = 0;
 		}
 
 		// Array to add new pages in new tabs
@@ -217,13 +217,13 @@ class modRecruitment extends DolibarrModules
 			//      'frequency' => 2,
 			//      'unitfrequency' => 3600,
 			//      'status' => 0,
-			//      'test' => '$conf->recruitment->enabled',
+			//      'test' => '$config->recruitment->enabled',
 			//      'priority' => 50,
 			//  ),
 		);
 		// Example: $this->cronjobs=array(
-		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$conf->recruitment->enabled', 'priority'=>50),
-		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$conf->recruitment->enabled', 'priority'=>50)
+		//    0=>array('label'=>'My label', 'jobtype'=>'method', 'class'=>'/dir/class/file.class.php', 'objectname'=>'MyClass', 'method'=>'myMethod', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>2, 'unitfrequency'=>3600, 'status'=>0, 'test'=>'$config->recruitment->enabled', 'priority'=>50),
+		//    1=>array('label'=>'My label', 'jobtype'=>'command', 'command'=>'', 'parameters'=>'param1, param2', 'comment'=>'Comment', 'frequency'=>1, 'unitfrequency'=>3600*24, 'status'=>0, 'test'=>'$config->recruitment->enabled', 'priority'=>50)
 		// );
 
 		// Permissions provided by this module
@@ -265,7 +265,7 @@ class modRecruitment extends DolibarrModules
 			'url' => '/recruitment/index.php',
 			'langs' => 'recruitment', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position' => 1000 + $r,
-			'enabled' => '$conf->recruitment->enabled', // Define condition to show or hide menu entry. Use '$conf->recruitment->enabled' if entry must be visible if module is enabled.
+			'enabled' => '$config->recruitment->enabled', // Define condition to show or hide menu entry. Use '$config->recruitment->enabled' if entry must be visible if module is enabled.
 			'perms' => '$user->hasRight("recruitment", "recruitmentjobposition", "read")', // Use 'perms'=>'$user->rights->recruitment->level1->level2' if you want your menu with a permission rules
 			'target' => '',
 			'user' => 2, // 0=Menu for internal users, 1=external users, 2=both
@@ -279,7 +279,7 @@ class modRecruitment extends DolibarrModules
 			'url' => '/recruitment/recruitmentjobposition_card.php?action=create',
 			'langs' => 'recruitment', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position' => 1000 + $r,
-			'enabled' => '$conf->recruitment->enabled', // Define condition to show or hide menu entry. Use '$conf->recruitment->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => '$config->recruitment->enabled', // Define condition to show or hide menu entry. Use '$config->recruitment->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms' => '$user->rights->recruitment->recruitmentjobposition->write', // Use 'perms'=>'$user->rights->recruitment->level1->level2' if you want your menu with a permission rules
 			'target' => '',
 			'user' => 2, // 0=Menu for internal users, 1=external users, 2=both
@@ -293,7 +293,7 @@ class modRecruitment extends DolibarrModules
 			'url' => '/recruitment/recruitmentjobposition_list.php',
 			'langs' => 'recruitment', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position' => 1000 + $r,
-			'enabled' => '$conf->recruitment->enabled', // Define condition to show or hide menu entry. Use '$conf->recruitment->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => '$config->recruitment->enabled', // Define condition to show or hide menu entry. Use '$config->recruitment->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms' => '$user->hasRight("recruitment", "recruitmentjobposition", "read")', // Use 'perms'=>'$user->rights->recruitment->level1->level2' if you want your menu with a permission rules
 			'target' => '',
 			'user' => 2, // 0=Menu for internal users, 1=external users, 2=both
@@ -307,7 +307,7 @@ class modRecruitment extends DolibarrModules
 			'url' => '/recruitment/recruitmentcandidature_card.php?action=create',
 			'langs' => 'recruitment', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position' => 1000 + $r,
-			'enabled' => '$conf->recruitment->enabled', // Define condition to show or hide menu entry. Use '$conf->recruitment->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => '$config->recruitment->enabled', // Define condition to show or hide menu entry. Use '$config->recruitment->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms' => '$user->rights->recruitment->recruitmentjobposition->write', // Use 'perms'=>'$user->rights->recruitment->level1->level2' if you want your menu with a permission rules
 			'target' => '',
 			'user' => 2, // 0=Menu for internal users, 1=external users, 2=both
@@ -321,7 +321,7 @@ class modRecruitment extends DolibarrModules
 			'url' => '/recruitment/recruitmentcandidature_list.php',
 			'langs' => 'recruitment', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position' => 1000 + $r,
-			'enabled' => '$conf->recruitment->enabled', // Define condition to show or hide menu entry. Use '$conf->recruitment->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
+			'enabled' => '$config->recruitment->enabled', // Define condition to show or hide menu entry. Use '$config->recruitment->enabled' if entry must be visible if module is enabled. Use '$leftmenu==\'system\'' to show if leftmenu system is selected.
 			'perms' => '$user->hasRight("recruitment", "recruitmentjobposition", "read")', // Use 'perms'=>'$user->rights->recruitment->level1->level2' if you want your menu with a permission rules
 			'target' => '',
 			'user' => 2, // 0=Menu for internal users, 1=external users, 2=both
@@ -400,11 +400,11 @@ class modRecruitment extends DolibarrModules
 		// Create extrafields during init
 		//include_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 		//$extrafields = new ExtraFields($this->db);
-		//$result1=$extrafields->addExtraField('recruitment_myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'recruitment', '$conf->recruitment->enabled');
-		//$result2=$extrafields->addExtraField('recruitment_myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'recruitment', '$conf->recruitment->enabled');
-		//$result3=$extrafields->addExtraField('recruitment_myattr3', "New Attr 3 label", 'varchar', 1, 10, 'bank_account', 0, 0, '', '', 1, '', 0, 0, '', '', 'recruitment', '$conf->recruitment->enabled');
-		//$result4=$extrafields->addExtraField('recruitment_myattr4', "New Attr 4 label", 'select',  1,  3, 'thirdparty',   0, 1, '', array('options'=>array('code1'=>'Val1','code2'=>'Val2','code3'=>'Val3')), 1,'', 0, 0, '', '', 'recruitment', '$conf->recruitment->enabled');
-		//$result5=$extrafields->addExtraField('recruitment_myattr5', "New Attr 5 label", 'text',    1, 10, 'user',         0, 0, '', '', 1, '', 0, 0, '', '', 'recruitment', '$conf->recruitment->enabled');
+		//$result1=$extrafields->addExtraField('recruitment_myattr1', "New Attr 1 label", 'boolean', 1,  3, 'thirdparty',   0, 0, '', '', 1, '', 0, 0, '', '', 'recruitment', '$config->recruitment->enabled');
+		//$result2=$extrafields->addExtraField('recruitment_myattr2', "New Attr 2 label", 'varchar', 1, 10, 'project',      0, 0, '', '', 1, '', 0, 0, '', '', 'recruitment', '$config->recruitment->enabled');
+		//$result3=$extrafields->addExtraField('recruitment_myattr3', "New Attr 3 label", 'varchar', 1, 10, 'bank_account', 0, 0, '', '', 1, '', 0, 0, '', '', 'recruitment', '$config->recruitment->enabled');
+		//$result4=$extrafields->addExtraField('recruitment_myattr4', "New Attr 4 label", 'select',  1,  3, 'thirdparty',   0, 1, '', array('options'=>array('code1'=>'Val1','code2'=>'Val2','code3'=>'Val3')), 1,'', 0, 0, '', '', 'recruitment', '$config->recruitment->enabled');
+		//$result5=$extrafields->addExtraField('recruitment_myattr5', "New Attr 5 label", 'text',    1, 10, 'user',         0, 0, '', '', 1, '', 0, 0, '', '', 'recruitment', '$config->recruitment->enabled');
 
 		// Permissions
 		$this->remove($options);
@@ -434,11 +434,11 @@ class modRecruitment extends DolibarrModules
 				}
 
 				$sql = array_merge($sql, array(
-					"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'standard_".strtolower($myTmpObjectKey)."' AND type = '".$this->db->escape(strtolower($myTmpObjectKey))."' AND entity = ".((int) $conf->entity),
-					"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('standard_".strtolower($myTmpObjectKey)."','".$this->db->escape(strtolower($myTmpObjectKey))."',".((int) $conf->entity).")",
+					"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'standard_".strtolower($myTmpObjectKey)."' AND type = '".$this->db->escape(strtolower($myTmpObjectKey))."' AND entity = ".((int) $config->entity),
+					"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('standard_".strtolower($myTmpObjectKey)."','".$this->db->escape(strtolower($myTmpObjectKey))."',".((int) $config->entity).")",
 
-					"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'generic_".strtolower($myTmpObjectKey)."_odt' AND type = '".$this->db->escape(strtolower($myTmpObjectKey))."' AND entity = ".((int) $conf->entity),
-					"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('generic_".strtolower($myTmpObjectKey)."_odt', '".$this->db->escape(strtolower($myTmpObjectKey))."', ".((int) $conf->entity).")"
+					"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = 'generic_".strtolower($myTmpObjectKey)."_odt' AND type = '".$this->db->escape(strtolower($myTmpObjectKey))."' AND entity = ".((int) $config->entity),
+					"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('generic_".strtolower($myTmpObjectKey)."_odt', '".$this->db->escape(strtolower($myTmpObjectKey))."', ".((int) $config->entity).")"
 				));
 			}
 		}

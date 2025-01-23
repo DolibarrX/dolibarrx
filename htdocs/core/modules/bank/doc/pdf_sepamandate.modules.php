@@ -152,7 +152,7 @@ class pdf_sepamandate extends ModeleBankAccountDoc
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "dict", "withdrawals", "companies", "projects", "bills"));
 
-		if (!empty($conf->bank->dir_output)) {
+		if (!empty($config->bank->dir_output)) {
 			//$nblines = count($object->lines);  // This is set later with array of tasks
 
 			// Definition of $dir and $file
@@ -160,7 +160,7 @@ class pdf_sepamandate extends ModeleBankAccountDoc
 				if (!empty($moreparams['force_dir_output'])) {
 					$dir = $moreparams['force_dir_output'];
 				} else {
-					$dir = $conf->bank->dir_output;
+					$dir = $config->bank->dir_output;
 				}
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
@@ -168,7 +168,7 @@ class pdf_sepamandate extends ModeleBankAccountDoc
 				if (!empty($moreparams['force_dir_output'])) {
 					$dir = $moreparams['force_dir_output'];
 				} else {
-					$dir = $conf->bank->dir_output."/".$objectref;
+					$dir = $config->bank->dir_output."/".$objectref;
 				}
 				$file = $dir."/".$langs->transnoentitiesnoconv("SepaMandateShort").' '.$objectref."-".dol_sanitizeFileName($object->rum).".pdf";
 			}
@@ -520,7 +520,7 @@ class pdf_sepamandate extends ModeleBankAccountDoc
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
-		$diffsizetitle = (!getDolGlobalString('PDF_DIFFSIZE_TITLE') ? 1 : $conf->global->PDF_DIFFSIZE_TITLE);
+		$diffsizetitle = (!getDolGlobalString('PDF_DIFFSIZE_TITLE') ? 1 : $config->global->PDF_DIFFSIZE_TITLE);
 
 		$posy += $this->_signature_area($pdf, $object, $posy, $outputlangs);
 
@@ -610,7 +610,7 @@ class pdf_sepamandate extends ModeleBankAccountDoc
 		$pdf->SetXY($this->marge_gauche, $posy);
 
 		// Logo
-		$logo = $conf->mycompany->dir_output.'/logos/'.$mysoc->logo;
+		$logo = $config->mycompany->dir_output.'/logos/'.$mysoc->logo;
 		if ($mysoc->logo) {
 			if (is_readable($logo)) {
 				$height = pdf_getHeightForLogo($logo);

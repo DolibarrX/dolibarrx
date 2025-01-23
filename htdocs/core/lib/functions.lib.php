@@ -155,19 +155,19 @@ function getMultidirOutput($object, $module = '', $forobject = 0, $mode = 'outpu
 
 	// Get the relative path of directory
 	if ($mode == 'output' || $mode == 'outputrel' || $mode == 'version') {
-		if (isset($conf->$module) && property_exists($conf->$module, 'multidir_output')) {
+		if (isset($config->$module) && property_exists($config->$module, 'multidir_output')) {
 			$s = '';
 			if ($mode != 'outputrel') {
-				$s = $conf->$module->multidir_output[(empty($object->entity) ? $conf->entity : $object->entity)];
+				$s = $config->$module->multidir_output[(empty($object->entity) ? $config->entity : $object->entity)];
 			}
 			if ($forobject && $object->id > 0) {
 				$s .= ($mode != 'outputrel' ? '/' : '').get_exdir(0, 0, 0, 0, $object);
 			}
 			return $s;
-		} elseif (isset($conf->$module) && property_exists($conf->$module, 'dir_output')) {
+		} elseif (isset($config->$module) && property_exists($config->$module, 'dir_output')) {
 			$s = '';
 			if ($mode != 'outputrel') {
-				$s = $conf->$module->dir_output;
+				$s = $config->$module->dir_output;
 			}
 			if ($forobject && $object->id > 0) {
 				$s .= ($mode != 'outputrel' ? '/' : '').get_exdir(0, 0, 0, 0, $object);
@@ -177,10 +177,10 @@ function getMultidirOutput($object, $module = '', $forobject = 0, $mode = 'outpu
 			return 'error-diroutput-not-defined-for-this-object='.$module;
 		}
 	} elseif ($mode == 'temp') {
-		if (isset($conf->$module) && property_exists($conf->$module, 'multidir_temp')) {
-			return $conf->$module->multidir_temp[(empty($object->entity) ? $conf->entity : $object->entity)];
-		} elseif (isset($conf->$module) && property_exists($conf->$module, 'dir_temp')) {
-			return $conf->$module->dir_temp;
+		if (isset($config->$module) && property_exists($config->$module, 'multidir_temp')) {
+			return $config->$module->multidir_temp[(empty($object->entity) ? $config->entity : $object->entity)];
+		} elseif (isset($config->$module) && property_exists($config->$module, 'dir_temp')) {
+			return $config->$module->dir_temp;
 		} else {
 			return 'error-dirtemp-not-defined-for-this-object='.$module;
 		}
@@ -229,12 +229,12 @@ function getMultidirVersion($object, $module = '', $forobject = 0)
 function getDolGlobalString($key, $default = '')
 {
 	global $conf;
-	return (string) (isset($conf->global->$key) ? $conf->global->$key : $default);
+	return (string) (isset($config->global->$key) ? $config->global->$key : $default);
 }
 
 /**
  * Return a Dolibarr global constant int value.
- * The constants $conf->global->xxx are loaded by the script master.inc.php included at begin of any PHP page.
+ * The constants $config->global->xxx are loaded by the script master.inc.php included at begin of any PHP page.
  *
  * @param string 	$key 		Key to return value, return $default if not set
  * @param int 		$default 	Value to return if not defined
@@ -244,12 +244,12 @@ function getDolGlobalString($key, $default = '')
 function getDolGlobalInt($key, $default = 0)
 {
 	global $conf;
-	return (int) (isset($conf->global->$key) ? $conf->global->$key : $default);
+	return (int) (isset($config->global->$key) ? $config->global->$key : $default);
 }
 
 /**
  * Return a Dolibarr global constant float value.
- * The constants $conf->global->xxx are loaded by the script master.inc.php included at begin of any PHP page.
+ * The constants $config->global->xxx are loaded by the script master.inc.php included at begin of any PHP page.
  *
  * @param string 	$key 		Key to return value, return $default if not set
  * @param float 		$default 	Value to return if not defined
@@ -259,12 +259,12 @@ function getDolGlobalInt($key, $default = 0)
 function getDolGlobalFloat($key, $default = 0)
 {
 	global $conf;
-	return (float) (isset($conf->global->$key) ? $conf->global->$key : $default);
+	return (float) (isset($config->global->$key) ? $config->global->$key : $default);
 }
 
 /**
  * Return a Dolibarr global constant boolean value.
- * The constants $conf->global->xxx are loaded by the script master.inc.php included at begin of any PHP page.
+ * The constants $config->global->xxx are loaded by the script master.inc.php included at begin of any PHP page.
  *
  * @param string 	$key 		Key to return value, return $default if not set
  * @param bool 		$default 	Value to return if not defined
@@ -273,7 +273,7 @@ function getDolGlobalFloat($key, $default = 0)
 function getDolGlobalBool($key, $default = false)
 {
 	global $conf;
-	return (bool) ($conf->global->$key ?? $default);
+	return (bool) ($config->global->$key ?? $default);
 }
 
 /**
@@ -388,8 +388,8 @@ function isModEnabled($module)
 		$module_bis = $arrayconvbis[$module];
 	}
 
-	return !empty($conf->modules[$module]) || !empty($conf->modules[$module_alt]) || !empty($conf->modules[$module_bis]);
-	//return !empty($conf->$module->enabled);
+	return !empty($config->modules[$module]) || !empty($config->modules[$module_alt]) || !empty($config->modules[$module_bis]);
+	//return !empty($config->$module->enabled);
 }
 
 /**
@@ -484,7 +484,7 @@ function getEntity($element, $shared = 1, $currentobject = null)
 		if (in_array($element, $addzero)) {
 			$out .= '0,';
 		}
-		$out .= ((int) $conf->entity);
+		$out .= ((int) $config->entity);
 	}
 
 	// Manipulate entities to query on the fly
@@ -521,7 +521,7 @@ function setEntity($currentobject)
 	if (is_object($mc) && method_exists($mc, 'setEntity')) {
 		return $mc->setEntity($currentobject);
 	} else {
-		return ((is_object($currentobject) && $currentobject->id > 0 && $currentobject->entity > 0) ? $currentobject->entity : $conf->entity);
+		return ((is_object($currentobject) && $currentobject->id > 0 && $currentobject->entity > 0) ? $currentobject->entity : $config->entity);
 	}
 }
 
@@ -1051,7 +1051,7 @@ function GETPOST($paramname, $check = 'alphanohtml', $method = 0, $filter = null
 			} elseif ($reg[1] == 'USER_SUPERVISOR_ID' || $reg[1] == 'SUPERVISOR_ID' || $reg[1] == 'SUPERVISORID') {
 				$newout = $user->fk_user;
 			} elseif ($reg[1] == 'ENTITY_ID' || $reg[1] == 'ENTITYID') {
-				$newout = $conf->entity;
+				$newout = $config->entity;
 			} elseif ($reg[1] == 'ID') {
 				$newout = '__ID__';     // We keep __ID__ we find into backtopage url
 			} else {
@@ -1369,8 +1369,8 @@ if (!function_exists('dol_getprefix')) {
 			}
 
 			// The recommended value if MAIL_PREFIX_FOR_EMAIL_ID is not defined (may be not defined for old versions)
-			if (!empty($conf->file->instance_unique_id)) {
-				return sha1('dolibarr'.$conf->file->instance_unique_id);
+			if (!empty($config->file->instance_unique_id)) {
+				return sha1('dolibarr'.$config->file->instance_unique_id);
 			}
 
 			// For backward compatibility when instance_unique_id is not set
@@ -1445,8 +1445,8 @@ function dol_buildpath($path, $type = 0, $returnemptyifnotfound = 0)
 
 	if (empty($type)) {	// For a filesystem path
 		$res = DOL_DOCUMENT_ROOT.'/'.$path; // Standard default path
-		if (is_array($conf->file->dol_document_root)) {
-			foreach ($conf->file->dol_document_root as $key => $dirroot) {	// ex: array("main"=>"/home/main/htdocs", "alt0"=>"/home/dirmod/htdocs", ...)
+		if (is_array($config->file->dol_document_root)) {
+			foreach ($config->file->dol_document_root as $key => $dirroot) {	// ex: array("main"=>"/home/main/htdocs", "alt0"=>"/home/dirmod/htdocs", ...)
 				if ($key == 'main') {
 					continue;
 				}
@@ -1480,39 +1480,39 @@ function dol_buildpath($path, $type = 0, $returnemptyifnotfound = 0)
 			$res = DOL_URL_ROOT.'/'.$path;
 		}
 
-		foreach ($conf->file->dol_document_root as $key => $dirroot) {	// ex: array(["main"]=>"/home/main/htdocs", ["alt0"]=>"/home/dirmod/htdocs", ...)
+		foreach ($config->file->dol_document_root as $key => $dirroot) {	// ex: array(["main"]=>"/home/main/htdocs", ["alt0"]=>"/home/dirmod/htdocs", ...)
 			if ($key == 'main') {
 				if ($type == 3) {
 					/*global $dolibarr_main_url_root;*/
 
 					// Define $urlwithroot
-					$urlwithouturlroot = preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($conf->file->dol_main_url_root));
+					$urlwithouturlroot = preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($config->file->dol_main_url_root));
 					$urlwithroot = $urlwithouturlroot.DOL_URL_ROOT; // This is to use external domain name found into config file
 					//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 
-					$res = (preg_match('/^http/i', $conf->file->dol_url_root[$key]) ? '' : $urlwithroot).'/'.$path; // Test on start with http is for old conf syntax
+					$res = (preg_match('/^http/i', $config->file->dol_url_root[$key]) ? '' : $urlwithroot).'/'.$path; // Test on start with http is for old conf syntax
 				}
 				continue;
 			}
 			$regs = array();
 			preg_match('/^([^\?]+(\.css\.php|\.css|\.js\.php|\.js|\.png|\.jpg|\.php)?)/i', $path, $regs); // Take part before '?'
 			if (!empty($regs[1])) {
-				//print $key.'-'.$dirroot.'/'.$path.'-'.$conf->file->dol_url_root[$type].'<br>'."\n";
+				//print $key.'-'.$dirroot.'/'.$path.'-'.$config->file->dol_url_root[$type].'<br>'."\n";
 				//if (file_exists($dirroot.'/'.$regs[1])) {
 				if (@file_exists($dirroot.'/'.$regs[1])) {	// avoid [php:warn]
 					if ($type == 1) {
-						$res = (preg_match('/^http/i', $conf->file->dol_url_root[$key]) ? '' : DOL_URL_ROOT).$conf->file->dol_url_root[$key].'/'.$path;
+						$res = (preg_match('/^http/i', $config->file->dol_url_root[$key]) ? '' : DOL_URL_ROOT).$config->file->dol_url_root[$key].'/'.$path;
 					} elseif ($type == 2) {
-						$res = (preg_match('/^http/i', $conf->file->dol_url_root[$key]) ? '' : DOL_MAIN_URL_ROOT).$conf->file->dol_url_root[$key].'/'.$path;
+						$res = (preg_match('/^http/i', $config->file->dol_url_root[$key]) ? '' : DOL_MAIN_URL_ROOT).$config->file->dol_url_root[$key].'/'.$path;
 					} elseif ($type == 3) {
 						/*global $dolibarr_main_url_root;*/
 
 						// Define $urlwithroot
-						$urlwithouturlroot = preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($conf->file->dol_main_url_root));
+						$urlwithouturlroot = preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($config->file->dol_main_url_root));
 						$urlwithroot = $urlwithouturlroot.DOL_URL_ROOT; // This is to use external domain name found into config file
 						//$urlwithroot=DOL_MAIN_URL_ROOT;					// This is to use same domain name than current
 
-						$res = (preg_match('/^http/i', $conf->file->dol_url_root[$key]) ? '' : $urlwithroot).$conf->file->dol_url_root[$key].'/'.$path; // Test on start with http is for old conf syntax
+						$res = (preg_match('/^http/i', $config->file->dol_url_root[$key]) ? '' : $urlwithroot).$config->file->dol_url_root[$key].'/'.$path; // Test on start with http is for old conf syntax
 					}
 					break;
 				}
@@ -1619,7 +1619,7 @@ function dol_clone($object, $native = 2)
 function dol_size($size, $type = '')
 {
 	global $conf;
-	if (empty($conf->dol_optimize_smallscreen)) {
+	if (empty($config->dol_optimize_smallscreen)) {
 		return $size;
 	}
 	if ($type == 'width' && $size > 250) {
@@ -2365,7 +2365,7 @@ function dol_syslog($message, $level = LOG_INFO, $ident = 0, $suffixinfilename =
 	}
 
 	if ($ident < 0) {
-		foreach ($conf->loghandlers as $loghandlerinstance) {
+		foreach ($config->loghandlers as $loghandlerinstance) {
 			$loghandlerinstance->setIdent($ident);
 		}
 	}
@@ -2393,7 +2393,7 @@ function dol_syslog($message, $level = LOG_INFO, $ident = 0, $suffixinfilename =
 			$ospid = sprintf("%7s", dol_trunc((string) getmypid(), 7, 'right', 'UTF-8', 1));
 			$osuser = " ".sprintf("%6s", dol_trunc(function_exists('posix_getuid') ? posix_getuid() : '', 6, 'right', 'UTF-8', 1));
 
-			$conf->logbuffer[] = dol_print_date(time(), "%Y-%m-%d %H:%M:%S")." ".sprintf("%-7s", $logLevels[$level])." ".$ospid." ".$osuser." ".$message;
+			$config->logbuffer[] = dol_print_date(time(), "%Y-%m-%d %H:%M:%S")." ".sprintf("%-7s", $logLevels[$level])." ".$ospid." ".$osuser." ".$message;
 		}
 
 		//TODO: Remove this. MAIN_ENABLE_LOG_INLINE_HTML should be deprecated and use a log handler dedicated to HTML output
@@ -2442,7 +2442,7 @@ function dol_syslog($message, $level = LOG_INFO, $ident = 0, $suffixinfilename =
 		}
 
 		// Loop on each log handler and send output
-		foreach ($conf->loghandlers as $loghandlerinstance) {
+		foreach ($config->loghandlers as $loghandlerinstance) {
 			if ($restricttologhandler && $loghandlerinstance->code != $restricttologhandler) {
 				continue;
 			}
@@ -2452,7 +2452,7 @@ function dol_syslog($message, $level = LOG_INFO, $ident = 0, $suffixinfilename =
 	}
 
 	if ($ident > 0) {
-		foreach ($conf->loghandlers as $loghandlerinstance) {
+		foreach ($config->loghandlers as $loghandlerinstance) {
 			$loghandlerinstance->setIdent($ident);
 		}
 	}
@@ -2593,7 +2593,7 @@ function dolButtonToOpenUrlInDialogPopup($name, $label, $buttonstring, $url, $di
 	//print '<input type="submit" class="button bordertransp"'.$disabled.' value="'.dol_escape_htmltag($langs->trans("MediaFiles")).'" name="file_manager">';
 	$out .= '<!-- a link for button to open url into a dialog popup with backtopagejsfields = '.$backtopagejsfields.' -->';
 	$out .= '<a '.($accesskey ? ' accesskey="'.$accesskey.'"' : '').' class="cursorpointer reposition button_'.$name.($morecss ? ' '.$morecss : '').'"'.$disabled.' title="'.dol_escape_htmltag($label).'"';
-	if (empty($conf->use_javascript_ajax)) {
+	if (empty($config->use_javascript_ajax)) {
 		$out .= ' href="'.DOL_URL_ROOT.$url.'" target="_blank"';
 	} elseif ($jsonopen) {
 		$out .= ' href="#" onclick="'.$jsonopen.'"';
@@ -2602,7 +2602,7 @@ function dolButtonToOpenUrlInDialogPopup($name, $label, $buttonstring, $url, $di
 	}
 	$out .= '>'.$buttonstring.'</a>';
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		// Add code to open url using the popup. Add also hidden field to retrieve the returned variables
 		$out .= '<!-- code to open popup and variables to retrieve returned variables -->';
 		$out .= '<div id="idfordialog'.$name.'" class="hidden">'.(getDolGlobalInt('MAIN_OPTIMIZEFORTEXTBROWSER') < 2 ? 'div for dialog' : '').'</div>';
@@ -2690,7 +2690,7 @@ function dol_get_fiche_head($links = array(), $active = '', $title = '', $notab 
 
 	// Show title
 	$showtitle = 1;
-	if (!empty($conf->dol_optimize_smallscreen)) {
+	if (!empty($config->dol_optimize_smallscreen)) {
 		$showtitle = 0;
 	}
 
@@ -2738,7 +2738,7 @@ function dol_get_fiche_head($links = array(), $active = '', $title = '', $notab 
 	if (empty($limittoshow)) {
 		$limittoshow = getDolGlobalInt('MAIN_MAXTABS_IN_CARD', 99);
 	}
-	if (!empty($conf->dol_optimize_smallscreen)) {
+	if (!empty($config->dol_optimize_smallscreen)) {
 		$limittoshow = 2;
 	}
 
@@ -2931,7 +2931,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 
 	$maxvisiblephotos = 1;
 	$showimage = 1;
-	$entity = (empty($object->entity) ? $conf->entity : $object->entity);
+	$entity = (empty($object->entity) ? $config->entity : $object->entity);
 	// @phan-suppress-next-line PhanUndeclaredMethod
 	$showbarcode = !isModEnabled('barcode') ? 0 : (empty($object->barcode) ? 0 : 1);
 	if (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !$user->hasRight('barcode', 'lire_advance')) {
@@ -2966,13 +2966,13 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 		'@phan-var-force Product $object';
 		$width = 80;
 		$cssclass = 'photowithmargin photoref';
-		$showimage = $object->is_photo_available($conf->product->multidir_output[$entity]);
+		$showimage = $object->is_photo_available($config->product->multidir_output[$entity]);
 		$maxvisiblephotos = getDolGlobalInt('PRODUCT_MAX_VISIBLE_PHOTO', 5);
-		if ($conf->browser->layout == 'phone') {
+		if ($config->browser->layout == 'phone') {
 			$maxvisiblephotos = 1;
 		}
 		if ($showimage) {
-			$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref">'.$object->show_photos('product', $conf->product->multidir_output[$entity], 1, $maxvisiblephotos, 0, 0, 0, 0, $width, 0, '').'</div>';
+			$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref">'.$object->show_photos('product', $config->product->multidir_output[$entity], 1, $maxvisiblephotos, 0, 0, 0, 0, $width, 0, '').'</div>';
 		} else {
 			if (getDolGlobalString('PRODUCT_NODISPLAYIFNOPHOTO')) {
 				$nophoto = '';
@@ -2987,13 +2987,13 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 		'@phan-var-force Categorie $object';
 		$width = 80;
 		$cssclass = 'photowithmargin photoref';
-		$showimage = $object->isAnyPhotoAvailable($conf->categorie->multidir_output[$entity]);
+		$showimage = $object->isAnyPhotoAvailable($config->categorie->multidir_output[$entity]);
 		$maxvisiblephotos = getDolGlobalInt('CATEGORY_MAX_VISIBLE_PHOTO', 5);
-		if ($conf->browser->layout == 'phone') {
+		if ($config->browser->layout == 'phone') {
 			$maxvisiblephotos = 1;
 		}
 		if ($showimage) {
-			$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref">'.$object->show_photos('category', $conf->categorie->multidir_output[$entity], 'small', $maxvisiblephotos, 0, 0, 0, 0, $width, 0, '').'</div>';
+			$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref">'.$object->show_photos('category', $config->categorie->multidir_output[$entity], 'small', $maxvisiblephotos, 0, 0, 0, 0, $width, 0, '').'</div>';
 		} else {
 			if (getDolGlobalString('CATEGORY_NODISPLAYIFNOPHOTO')) {
 				$nophoto = '';
@@ -3008,13 +3008,13 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 		'@phan-var-force Bom $object';
 		$width = 80;
 		$cssclass = 'photowithmargin photoref';
-		$showimage = $object->is_photo_available($conf->bom->multidir_output[$entity]);
+		$showimage = $object->is_photo_available($config->bom->multidir_output[$entity]);
 		$maxvisiblephotos = getDolGlobalInt('BOM_MAX_VISIBLE_PHOTO', 5);
-		if ($conf->browser->layout == 'phone') {
+		if ($config->browser->layout == 'phone') {
 			$maxvisiblephotos = 1;
 		}
 		if ($showimage) {
-			$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref">'.$object->show_photos('bom', $conf->bom->multidir_output[$entity], 'small', $maxvisiblephotos, 0, 0, 0, 0, $width, 0, '').'</div>';
+			$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref">'.$object->show_photos('bom', $config->bom->multidir_output[$entity], 'small', $maxvisiblephotos, 0, 0, 0, 0, $width, 0, '').'</div>';
 		} else {
 			if (getDolGlobalString('BOM_NODISPLAYIFNOPHOTO')) {
 				$nophoto = '';
@@ -3029,14 +3029,14 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 		$cssclass = 'photoref';
 		/** @var Ticket $object */
 		'@phan-var-force Ticket $object';
-		$showimage = $object->is_photo_available($conf->ticket->multidir_output[$entity].'/'.$object->ref);
+		$showimage = $object->is_photo_available($config->ticket->multidir_output[$entity].'/'.$object->ref);
 		$maxvisiblephotos = getDolGlobalInt('TICKET_MAX_VISIBLE_PHOTO', 2);
-		if ($conf->browser->layout == 'phone') {
+		if ($config->browser->layout == 'phone') {
 			$maxvisiblephotos = 1;
 		}
 
 		if ($showimage) {
-			$showphoto = $object->show_photos('ticket', $conf->ticket->multidir_output[$entity], 'small', $maxvisiblephotos, 0, 0, 0, $width, 0);
+			$showphoto = $object->show_photos('ticket', $config->ticket->multidir_output[$entity], 'small', $maxvisiblephotos, 0, 0, 0, $width, 0);
 			if ($object->nbphoto > 0) {
 				$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref">'.$showphoto.'</div>';
 			} else {
@@ -3062,7 +3062,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 				// Check if a preview file is available
 				if (in_array($modulepart, array('propal', 'commande', 'facture', 'ficheinter', 'contract', 'supplier_order', 'supplier_proposal', 'supplier_invoice', 'expensereport')) && class_exists("Imagick")) {
 					$objectref = dol_sanitizeFileName($object->ref);
-					$dir_output = (empty($conf->$modulepart->multidir_output[$entity]) ? $conf->$modulepart->dir_output : $conf->$modulepart->multidir_output[$entity])."/";
+					$dir_output = (empty($config->$modulepart->multidir_output[$entity]) ? $config->$modulepart->dir_output : $config->$modulepart->multidir_output[$entity])."/";
 					if (in_array($modulepart, array('invoice_supplier', 'supplier_invoice'))) {
 						$subdir = get_exdir($object->id, 2, 0, 1, $object, $modulepart);
 						$subdir .= ((!empty($subdir) && !preg_match('/\/$/', $subdir)) ? '/' : '').$objectref; // the objectref dir is not included into get_exdir when used with level=2, so we add it at end
@@ -3100,7 +3100,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 
 					if ($pdfexists && !$error) {
 						$heightforphotref = 80;
-						if (!empty($conf->dol_optimize_smallscreen)) {
+						if (!empty($config->dol_optimize_smallscreen)) {
 							$heightforphotref = 60;
 						}
 						// If the preview file is found
@@ -3153,21 +3153,21 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 	}
 
 	if ($object->element == 'societe') {
-		if (!empty($conf->use_javascript_ajax) && $user->hasRight('societe', 'creer') && getDolGlobalString('MAIN_DIRECT_STATUS_UPDATE')) {
+		if (!empty($config->use_javascript_ajax) && $user->hasRight('societe', 'creer') && getDolGlobalString('MAIN_DIRECT_STATUS_UPDATE')) {
 			$morehtmlstatus .= ajax_object_onoff($object, 'status', 'status', 'InActivity', 'ActivityCeased');
 		} else {
 			$morehtmlstatus .= $object->getLibStatut(6);
 		}
 	} elseif ($object->element == 'product') {
 		//$morehtmlstatus.=$langs->trans("Status").' ('.$langs->trans("Sell").') ';
-		if (!empty($conf->use_javascript_ajax) && $user->hasRight('produit', 'creer') && getDolGlobalString('MAIN_DIRECT_STATUS_UPDATE')) {
+		if (!empty($config->use_javascript_ajax) && $user->hasRight('produit', 'creer') && getDolGlobalString('MAIN_DIRECT_STATUS_UPDATE')) {
 			$morehtmlstatus .= ajax_object_onoff($object, 'status', 'tosell', 'ProductStatusOnSell', 'ProductStatusNotOnSell');
 		} else {
 			$morehtmlstatus .= '<span class="statusrefsell">'.$object->getLibStatut(6, 0).'</span>';
 		}
 		$morehtmlstatus .= ' &nbsp; ';
 		//$morehtmlstatus.=$langs->trans("Status").' ('.$langs->trans("Buy").') ';
-		if (!empty($conf->use_javascript_ajax) && $user->hasRight('produit', 'creer') && getDolGlobalString('MAIN_DIRECT_STATUS_UPDATE')) {
+		if (!empty($config->use_javascript_ajax) && $user->hasRight('produit', 'creer') && getDolGlobalString('MAIN_DIRECT_STATUS_UPDATE')) {
 			$morehtmlstatus .= ajax_object_onoff($object, 'status_buy', 'tobuy', 'ProductStatusOnBuy', 'ProductStatusNotOnBuy');
 		} else {
 			$morehtmlstatus .= '<span class="statusrefbuy">'.$object->getLibStatut(6, 1).'</span>';
@@ -3258,7 +3258,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 			$morehtmlref .= '</div>';
 		}
 	}
-	if (getDolGlobalString('MAIN_SHOW_TECHNICAL_ID') && (getDolGlobalString('MAIN_SHOW_TECHNICAL_ID') == '1' || preg_match('/'.preg_quote($object->element, '/').'/i', $conf->global->MAIN_SHOW_TECHNICAL_ID)) && !empty($object->id)) {
+	if (getDolGlobalString('MAIN_SHOW_TECHNICAL_ID') && (getDolGlobalString('MAIN_SHOW_TECHNICAL_ID') == '1' || preg_match('/'.preg_quote($object->element, '/').'/i', $config->global->MAIN_SHOW_TECHNICAL_ID)) && !empty($object->id)) {
 		$morehtmlref .= '<div style="clear: both;"></div>';
 		$morehtmlref .= '<div class="refidno opacitymedium">';
 		$morehtmlref .= $langs->trans("TechnicalID").': '.((int) $object->id);
@@ -3457,7 +3457,7 @@ function dol_print_date($time, $format = '', $tzoutput = 'auto', $outputlangs = 
 	}
 
 	if ($tzoutput === 'auto') {
-		$tzoutput = (empty($conf) ? 'tzserver' : (isset($conf->tzuserinputkey) ? $conf->tzuserinputkey : 'tzserver'));
+		$tzoutput = (empty($conf) ? 'tzserver' : (isset($config->tzuserinputkey) ? $config->tzuserinputkey : 'tzserver'));
 	}
 
 	// Clean parameters
@@ -3499,7 +3499,7 @@ function dol_print_date($time, $format = '', $tzoutput = 'auto', $outputlangs = 
 
 	// Do we have to reduce the length of date (year on 2 chars) to save space.
 	// Note: dayinputnoreduce is same than day but no reduction of year length will be done
-	$reduceformat = (!empty($conf->dol_optimize_smallscreen) && in_array($format, array('day', 'dayhour', 'dayhoursec'))) ? 1 : 0;	// Test on original $format param.
+	$reduceformat = (!empty($config->dol_optimize_smallscreen) && in_array($format, array('day', 'dayhour', 'dayhoursec'))) ? 1 : 0;	// Test on original $format param.
 	$format = preg_replace('/inputnoreduce/', '', $format);	// so format 'dayinputnoreduce' is processed like day
 	$formatwithoutreduce = preg_replace('/reduceformat/', '', $format);
 	if ($formatwithoutreduce != $format) {
@@ -3510,23 +3510,23 @@ function dol_print_date($time, $format = '', $tzoutput = 'auto', $outputlangs = 
 	// Change predefined format into computer format. If found translation in lang file we use it, otherwise we use default.
 	// TODO Add format daysmallyear and dayhoursmallyear
 	if ($format == 'day') {
-		$format = ($outputlangs->trans("FormatDateShort") != "FormatDateShort" ? $outputlangs->trans("FormatDateShort") : $conf->format_date_short);
+		$format = ($outputlangs->trans("FormatDateShort") != "FormatDateShort" ? $outputlangs->trans("FormatDateShort") : $config->format_date_short);
 	} elseif ($format == 'hour') {
-		$format = ($outputlangs->trans("FormatHourShort") != "FormatHourShort" ? $outputlangs->trans("FormatHourShort") : $conf->format_hour_short);
+		$format = ($outputlangs->trans("FormatHourShort") != "FormatHourShort" ? $outputlangs->trans("FormatHourShort") : $config->format_hour_short);
 	} elseif ($format == 'hourduration') {
-		$format = ($outputlangs->trans("FormatHourShortDuration") != "FormatHourShortDuration" ? $outputlangs->trans("FormatHourShortDuration") : $conf->format_hour_short_duration);
+		$format = ($outputlangs->trans("FormatHourShortDuration") != "FormatHourShortDuration" ? $outputlangs->trans("FormatHourShortDuration") : $config->format_hour_short_duration);
 	} elseif ($format == 'daytext') {
-		$format = ($outputlangs->trans("FormatDateText") != "FormatDateText" ? $outputlangs->trans("FormatDateText") : $conf->format_date_text);
+		$format = ($outputlangs->trans("FormatDateText") != "FormatDateText" ? $outputlangs->trans("FormatDateText") : $config->format_date_text);
 	} elseif ($format == 'daytextshort') {
-		$format = ($outputlangs->trans("FormatDateTextShort") != "FormatDateTextShort" ? $outputlangs->trans("FormatDateTextShort") : $conf->format_date_text_short);
+		$format = ($outputlangs->trans("FormatDateTextShort") != "FormatDateTextShort" ? $outputlangs->trans("FormatDateTextShort") : $config->format_date_text_short);
 	} elseif ($format == 'dayhour') {
-		$format = ($outputlangs->trans("FormatDateHourShort") != "FormatDateHourShort" ? $outputlangs->trans("FormatDateHourShort") : $conf->format_date_hour_short);
+		$format = ($outputlangs->trans("FormatDateHourShort") != "FormatDateHourShort" ? $outputlangs->trans("FormatDateHourShort") : $config->format_date_hour_short);
 	} elseif ($format == 'dayhoursec') {
-		$format = ($outputlangs->trans("FormatDateHourSecShort") != "FormatDateHourSecShort" ? $outputlangs->trans("FormatDateHourSecShort") : $conf->format_date_hour_sec_short);
+		$format = ($outputlangs->trans("FormatDateHourSecShort") != "FormatDateHourSecShort" ? $outputlangs->trans("FormatDateHourSecShort") : $config->format_date_hour_sec_short);
 	} elseif ($format == 'dayhourtext') {
-		$format = ($outputlangs->trans("FormatDateHourText") != "FormatDateHourText" ? $outputlangs->trans("FormatDateHourText") : $conf->format_date_hour_text);
+		$format = ($outputlangs->trans("FormatDateHourText") != "FormatDateHourText" ? $outputlangs->trans("FormatDateHourText") : $config->format_date_hour_text);
 	} elseif ($format == 'dayhourtextshort') {
-		$format = ($outputlangs->trans("FormatDateHourTextShort") != "FormatDateHourTextShort" ? $outputlangs->trans("FormatDateHourTextShort") : $conf->format_date_hour_text_short);
+		$format = ($outputlangs->trans("FormatDateHourTextShort") != "FormatDateHourTextShort" ? $outputlangs->trans("FormatDateHourTextShort") : $config->format_date_hour_text_short);
 	} elseif ($format == 'dayhourlog') {
 		// Format not sensitive to language
 		$format = '%Y%m%d%H%M%S';
@@ -3754,7 +3754,7 @@ function dol_mktime($hour, $minute, $second, $month, $day, $year, $gm = 'auto', 
 	//print "- ".$hour.",".$minute.",".$second.",".$month.",".$day.",".$year.",".$_SERVER["WINDIR"]." -";
 
 	if ($gm === 'auto') {
-		$gm = (empty($conf) ? 'tzserver' : $conf->tzuserinputkey);
+		$gm = (empty($conf) ? 'tzserver' : $config->tzuserinputkey);
 	}
 	//print 'gm:'.$gm.' gm === auto:'.($gm === 'auto').'<br>';exit;
 
@@ -3880,7 +3880,7 @@ function dol_print_size($size, $shortvalue = 0, $shortunit = 0)
 	global $conf, $langs;
 	$level = 1024;
 
-	if (!empty($conf->dol_optimize_smallscreen)) {
+	if (!empty($config->dol_optimize_smallscreen)) {
 		$shortunit = 1;
 	}
 
@@ -3966,7 +3966,7 @@ function dol_print_email($email, $cid = 0, $socid = 0, $addlink = 0, $max = 64, 
 {
 	global $user, $langs, $hookManager;
 
-	//global $conf; $conf->global->AGENDA_ADDACTIONFOREMAIL = 1;
+	//global $conf; $config->global->AGENDA_ADDACTIONFOREMAIL = 1;
 	//$showinvalid = 1; $email = 'rrrrr';
 
 	$newemail = dol_escape_htmltag($email);
@@ -4058,13 +4058,13 @@ function getArrayOfSocialNetworks()
 	$socialnetworks = array();
 	// Enable caching of array
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/memory.lib.php';
-	$cachekey = 'socialnetworks_' . $conf->entity;
+	$cachekey = 'socialnetworks_' . $config->entity;
 	$dataretrieved = dol_getcache($cachekey);
 	if (!is_null($dataretrieved)) {
 		$socialnetworks = $dataretrieved;
 	} else {
 		$sql = "SELECT rowid, code, label, url, icon, active FROM ".MAIN_DB_PREFIX."c_socialnetworks";
-		$sql .= " WHERE entity=".$conf->entity;
+		$sql .= " WHERE entity=".$config->entity;
 		$resql = $db->query($sql);
 		if ($resql) {
 			while ($obj = $db->fetch_object($resql)) {
@@ -4270,7 +4270,7 @@ function dol_print_phone($phone, $countrycode = '', $cid = 0, $socid = 0, $addli
 	}
 
 	// Short format for small screens
-	if (!empty($conf->dol_optimize_smallscreen) && $separ != 'hidenum') {
+	if (!empty($config->dol_optimize_smallscreen) && $separ != 'hidenum') {
 		$separ = '';
 	}
 
@@ -4470,7 +4470,7 @@ function dol_print_phone($phone, $countrycode = '', $cid = 0, $socid = 0, $addli
 
 	$newphoneastart = $newphoneaend = '';
 	if (!empty($addlink)) {	// Link on phone number (+ link to add action if conf->global->AGENDA_ADDACTIONFORPHONE set)
-		if ($addlink == 'tel' || $conf->browser->layout == 'phone' || (isModEnabled('clicktodial') && getDolGlobalString('CLICKTODIAL_USE_TEL_LINK_ON_PHONE_NUMBERS'))) {	// If phone or option for, we use link of phone
+		if ($addlink == 'tel' || $config->browser->layout == 'phone' || (isModEnabled('clicktodial') && getDolGlobalString('CLICKTODIAL_USE_TEL_LINK_ON_PHONE_NUMBERS'))) {	// If phone or option for, we use link of phone
 			$newphoneastart = '<a href="tel:'.urlencode($phone).'">';
 			$newphoneaend .= '</a>';
 		} elseif (isModEnabled('clicktodial') && $addlink == 'AC_TEL') {		// If click to dial, we use click to dial url
@@ -4956,7 +4956,7 @@ function dol_trunc($string, $size = 40, $trunc = 'right', $stringencoding = 'UTF
 		$stringencoding = 'UTF-8';
 	}
 	// reduce for small screen
-	if (!empty($conf->dol_optimize_smallscreen) && $conf->dol_optimize_smallscreen == 1 && $display == 1) {
+	if (!empty($config->dol_optimize_smallscreen) && $config->dol_optimize_smallscreen == 1 && $display == 1) {
 		$size = round($size / 3);
 	}
 
@@ -5074,9 +5074,9 @@ function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srco
 {
 	global $conf;
 
-	// We forge fullpathpicto for image to $path/img/$picto. By default, we take DOL_URL_ROOT/theme/$conf->theme/img/$picto
+	// We forge fullpathpicto for image to $path/img/$picto. By default, we take DOL_URL_ROOT/theme/$config->theme/img/$picto
 	$url = DOL_URL_ROOT;
-	$theme = isset($conf->theme) ? $conf->theme : null;
+	$theme = isset($config->theme) ? $config->theme : null;
 	$path = 'theme/'.$theme;
 	if (empty($picto)) {
 		$picto = 'generic';
@@ -5248,7 +5248,7 @@ function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srco
 				'conferenceorbooth' => 'chalkboard-teacher', 'eventorganization' => 'project-diagram',
 				'webportal' => 'door-open'
 			);
-			if ($conf->currency == 'EUR') {
+			if ($config->currency == 'EUR') {
 				$arrayconvpictotofa['currency'] = 'euro-sign';
 				$arrayconvpictotofa['multicurrency'] = 'dollar-sign';
 			} else {
@@ -5383,7 +5383,7 @@ function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srco
 			$path = getDolGlobalString('MAIN_OVERWRITE_THEME_PATH') . '/theme/'.$theme; // If the theme does not have the same name as the module
 		} elseif (getDolGlobalString('MAIN_OVERWRITE_THEME_RES')) {
 			$path = getDolGlobalString('MAIN_OVERWRITE_THEME_RES') . '/theme/' . getDolGlobalString('MAIN_OVERWRITE_THEME_RES'); // To allow an external module to overwrite image resources whatever is activated theme
-		} elseif (!empty($conf->modules_parts['theme']) && array_key_exists($theme, $conf->modules_parts['theme'])) {
+		} elseif (!empty($config->modules_parts['theme']) && array_key_exists($theme, $config->modules_parts['theme'])) {
 			$path = $theme.'/theme/'.$theme; // If the theme have the same name as the module
 		}
 
@@ -5400,13 +5400,13 @@ function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srco
 		}
 		// If alt path are defined, define url where img file is, according to physical path
 		// ex: array(["main"]=>"/home/maindir/htdocs", ["alt0"]=>"/home/moddir0/htdocs", ...)
-		foreach ($conf->file->dol_document_root as $type => $dirroot) {
+		foreach ($config->file->dol_document_root as $type => $dirroot) {
 			if ($type == 'main') {
 				continue;
 			}
 			// This need a lot of time, that's why enabling alternative dir like "custom" dir is not recommended
 			if (file_exists($dirroot.'/'.$path.'/img/'.$picto)) {
-				$url = DOL_URL_ROOT.$conf->file->dol_url_root[$type];
+				$url = DOL_URL_ROOT.$config->file->dol_url_root[$type];
 				break;
 			}
 		}
@@ -5468,7 +5468,7 @@ function img_weather($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $mo
 		$picto .= '.png';
 	}
 
-	$path = DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/weather/'.$picto;
+	$path = DOL_URL_ROOT.'/theme/'.$config->theme.'/img/weather/'.$picto;
 
 	return img_picto($titlealt, $path, $moreatt, 1, 0, 0, '', $morecss);
 }
@@ -5498,7 +5498,7 @@ function img_picto_common($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0
 		$path = DOL_URL_ROOT.'/theme/common/'.$picto;
 
 		if (getDolGlobalInt('MAIN_MODULE_CAN_OVERWRITE_COMMONICONS')) {
-			$themepath = DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/img/'.$picto;
+			$themepath = DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/img/'.$picto;
 
 			if (file_exists($themepath)) {
 				$path = $themepath;
@@ -6034,7 +6034,7 @@ function info_admin($text, $infoonimgalt = 0, $nodiv = 0, $admin = '1', $morecss
 	if ($infoonimgalt) {
 		$result = img_picto($text, 'info', 'class="'.($morecss ? ' '.$morecss : '').'"');
 	} else {
-		if (empty($conf->use_javascript_ajax)) {
+		if (empty($config->use_javascript_ajax)) {
 			$textfordropdown = '';
 		}
 
@@ -6104,7 +6104,7 @@ function dol_print_error($db = null, $error = '', $errors = null)
 
 		$out .= "<b>".$langs->trans("Date").":</b> ".dol_print_date(time(), 'dayhourlog')."<br>\n";
 		$out .= "<b>".$langs->trans("Dolibarr").":</b> ".DOL_VERSION." - https://www.dolibarr.org<br>\n";
-		if (isset($conf->global->MAIN_FEATURES_LEVEL)) {
+		if (isset($config->global->MAIN_FEATURES_LEVEL)) {
 			$out .= "<b>".$langs->trans("LevelOfFeature").":</b> ".getDolGlobalInt('MAIN_FEATURES_LEVEL')."<br>\n";
 		}
 		if ($user instanceof User) {
@@ -6121,7 +6121,7 @@ function dol_print_error($db = null, $error = '', $errors = null)
 		$out .= "<br>\n";
 		$out .= "<b>".$langs->trans("RequestedUrl").":</b> ".dol_htmlentities($_SERVER["REQUEST_URI"], ENT_COMPAT)."<br>\n";
 		$out .= "<b>".$langs->trans("Referer").":</b> ".(isset($_SERVER["HTTP_REFERER"]) ? dol_htmlentities($_SERVER["HTTP_REFERER"], ENT_COMPAT) : '')."<br>\n";
-		$out .= "<b>".$langs->trans("MenuManager").":</b> ".(isset($conf->standard_menu) ? dol_htmlentities($conf->standard_menu, ENT_COMPAT) : '')."<br>\n";
+		$out .= "<b>".$langs->trans("MenuManager").":</b> ".(isset($config->standard_menu) ? dol_htmlentities($config->standard_menu, ENT_COMPAT) : '')."<br>\n";
 		$out .= "<br>\n";
 		$syslog .= "url=".dol_escape_htmltag($_SERVER["REQUEST_URI"]);
 		$syslog .= ", query_string=".dol_escape_htmltag($_SERVER["QUERY_STRING"]);
@@ -6130,8 +6130,8 @@ function dol_print_error($db = null, $error = '', $errors = null)
 		$syslog .= "pid=".dol_getmypid();
 	}
 
-	if (!empty($conf->modules)) {
-		$out .= "<b>".$langs->trans("Modules").":</b> ".implode(', ', $conf->modules)."<br>\n";
+	if (!empty($config->modules)) {
+		$out .= "<b>".$langs->trans("Modules").":</b> ".implode(', ', $config->modules)."<br>\n";
 	}
 
 	if (is_object($db)) {
@@ -6328,7 +6328,7 @@ function getTitleFieldOfList($name, $thead = 0, $file = "", $field = "", $begin 
 	}
 
 	$tagstart = '<'.$tag.' class="'.$prefix.$liste_titre.'" '.$moreattrib;
-	//$out .= (($field && empty($conf->global->MAIN_DISABLE_WRAPPING_ON_COLUMN_TITLE) && preg_match('/^[a-zA-Z_0-9\s\.\-:&;]*$/', $name)) ? ' title="'.dol_escape_htmltag($langs->trans($name)).'"' : '');
+	//$out .= (($field && empty($config->global->MAIN_DISABLE_WRAPPING_ON_COLUMN_TITLE) && preg_match('/^[a-zA-Z_0-9\s\.\-:&;]*$/', $name)) ? ' title="'.dol_escape_htmltag($langs->trans($name)).'"' : '');
 	$tagstart .= ($name && !getDolGlobalString('MAIN_DISABLE_WRAPPING_ON_COLUMN_TITLE') && empty($forcenowrapcolumntitle) && !dol_textishtml($name)) ? ' title="'.dol_escape_htmltag($langs->trans($name)).'"' : '';
 	$tagstart .= '>';
 
@@ -6356,7 +6356,7 @@ function getTitleFieldOfList($name, $thead = 0, $file = "", $field = "", $begin 
 		}
 		$sortordertouseinlink = preg_replace('/,$/', '', $sortordertouseinlink);
 		$out .= '<a class="reposition" href="'.$file.'?sortfield='.$field.'&sortorder='.$sortordertouseinlink.'&begin='.$begin.$options.'"';
-		//$out .= (empty($conf->global->MAIN_DISABLE_WRAPPING_ON_COLUMN_TITLE) ? ' title="'.dol_escape_htmltag($langs->trans($name)).'"' : '');
+		//$out .= (empty($config->global->MAIN_DISABLE_WRAPPING_ON_COLUMN_TITLE) ? ' title="'.dol_escape_htmltag($langs->trans($name)).'"' : '');
 		$out .= '>';
 	}
 	if ($tooltip) {
@@ -6527,11 +6527,11 @@ function print_barre_liste($title, $page, $file, $options = '', $sortfield = '',
 	if ($picto == 'setup') {
 		$picto = 'title_setup.png';
 	}
-	if (($conf->browser->name == 'ie') && $picto == 'generic') {
+	if (($config->browser->name == 'ie') && $picto == 'generic') {
 		$picto = 'title.gif';
 	}
 	if ($limit < 0) {
-		$limit = $conf->liste_limit;
+		$limit = $config->liste_limit;
 	}
 
 	if ($savlimit != 0 && (($num > $limit) || ($num == -1) || ($limit == 0))) {
@@ -6567,7 +6567,7 @@ function print_barre_liste($title, $page, $file, $options = '', $sortfield = '',
 	print '</td>';
 
 	// Center
-	if ($morehtmlcenter && empty($conf->dol_optimize_smallscreen)) {
+	if ($morehtmlcenter && empty($config->dol_optimize_smallscreen)) {
 		print '<td class="nobordernopadding center valignmiddle col-center">'.$morehtmlcenter.'</td>';
 	}
 
@@ -6585,7 +6585,7 @@ function print_barre_liste($title, $page, $file, $options = '', $sortfield = '',
 	if ($savlimit != 0 && ($page > 0 || $num > $limit)) {
 		if ($totalnboflines) {	// If we know total nb of lines
 			// Define nb of extra page links before and after selected page + ... + first or last
-			$maxnbofpage = (empty($conf->dol_optimize_smallscreen) ? 4 : 0);
+			$maxnbofpage = (empty($config->dol_optimize_smallscreen) ? 4 : 0);
 
 			if ($limit > 0) {
 				$nbpages = ceil($totalnboflines / $limit);
@@ -6657,7 +6657,7 @@ function print_barre_liste($title, $page, $file, $options = '', $sortfield = '',
 	print '</table>'."\n";
 
 	// Center
-	if ($morehtmlcenter && !empty($conf->dol_optimize_smallscreen)) {
+	if ($morehtmlcenter && !empty($config->dol_optimize_smallscreen)) {
 		print '<div class="nobordernopadding marginbottomonly center valignmiddle col-center centpercent">'.$morehtmlcenter.'</div>';
 	}
 
@@ -6716,7 +6716,7 @@ function print_fleche_navigation($page, $file, $options = '', $nextpage = 0, $be
 			if (!in_array($tmpkey, $tmpchoice)) {
 				$tmpchoice[$tmpkey] = $tmpkey;
 			}
-			$tmpkey = $conf->liste_limit.':'.$conf->liste_limit;
+			$tmpkey = $config->liste_limit.':'.$config->liste_limit;
 			if (!in_array($tmpkey, $tmpchoice)) {
 				$tmpchoice[$tmpkey] = $tmpkey;
 			}
@@ -6741,7 +6741,7 @@ function print_fleche_navigation($page, $file, $options = '', $nextpage = 0, $be
 				//print ajax_combobox("limit");
 			}
 
-			if ($conf->use_javascript_ajax) {
+			if ($config->use_javascript_ajax) {
 				print '<!-- JS CODE TO ENABLE select limit to launch submit of page -->
 	            		<script>
 	                	jQuery(document).ready(function () {
@@ -6923,7 +6923,7 @@ function price($amount, $form = 0, $outlangs = '', $trunc = 1, $rounding = -1, $
 	$cursymbolbefore = $cursymbolafter = '';
 	if ($currency_code && is_object($outlangs)) {
 		if ($currency_code == 'auto') {
-			$currency_code = $conf->currency;
+			$currency_code = $config->currency;
 		}
 
 		$listofcurrenciesbefore = array('AUD', 'CAD', 'CNY', 'COP', 'CLP', 'GBP', 'HKD', 'MXN', 'PEN', 'USD', 'CRC', 'ZAR');
@@ -7040,7 +7040,7 @@ function price2num($amount, $rounding = '', $option = 0)
 		} elseif ($rounding == 'MT') {
 			$nbofdectoround = getDolGlobalString('MAIN_MAX_DECIMALS_TOT');
 		} elseif ($rounding == 'MS') {
-			$nbofdectoround = isset($conf->global->MAIN_MAX_DECIMALS_STOCK) ? $conf->global->MAIN_MAX_DECIMALS_STOCK : 5;
+			$nbofdectoround = isset($config->global->MAIN_MAX_DECIMALS_STOCK) ? $config->global->MAIN_MAX_DECIMALS_STOCK : 5;
 		} elseif ($rounding == 'CU') {
 			$nbofdectoround = max(getDolGlobalString('MAIN_MAX_DECIMALS_UNIT'), 8);	// TODO Use param of currency
 		} elseif ($rounding == 'CT') {
@@ -7092,7 +7092,7 @@ function price2num($amount, $rounding = '', $option = 0)
  * @param   string      $type           	'weight', 'volume', ...
  * @param   Translate   $outputlangs    	Translate language object
  * @param   int<-1,max> $round          	-1 = non rounding, x = number of decimal
- * @param   string      $forceunitoutput    'no' or numeric (-3, -6, ...) compared to $unit (In most case, this value is value defined into $conf->global->MAIN_WEIGHT_DEFAULT_UNIT)
+ * @param   string      $forceunitoutput    'no' or numeric (-3, -6, ...) compared to $unit (In most case, this value is value defined into $config->global->MAIN_WEIGHT_DEFAULT_UNIT)
  * @param	int			$use_short_label	1=Use short label ('g' instead of 'gram'). Short labels are not translated.
  * @return  string                      	String to show dimensions
  */
@@ -7211,7 +7211,7 @@ function get_localtax($vatrate, $local, $thirdparty_buyer = null, $thirdparty_se
 
 	// For some country MAIN_GET_LOCALTAXES_VALUES_FROM_THIRDPARTY is forced to on.
 	if (in_array($mysoc->country_code, array('ES'))) {
-		$conf->global->MAIN_GET_LOCALTAXES_VALUES_FROM_THIRDPARTY = 1;
+		$config->global->MAIN_GET_LOCALTAXES_VALUES_FROM_THIRDPARTY = 1;
 	}
 
 	// Search local taxes
@@ -7662,7 +7662,7 @@ function get_default_tva(Societe $thirdparty_seller, Societe $thirdparty_buyer, 
 	$buyer_country_code = $thirdparty_buyer->country_code;
 	$buyer_in_cee = isInEEC($thirdparty_buyer);
 
-	dol_syslog("get_default_tva: seller use vat=".$seller_use_vat.", seller country=".$seller_country_code.", seller in cee=".((string) (int) $seller_in_cee).", buyer vat number=".$thirdparty_buyer->tva_intra." buyer country=".$buyer_country_code.", buyer in cee=".((string) (int) $buyer_in_cee).", idprod=".$idprod.", idprodfournprice=".$idprodfournprice.", SERVICE_ARE_ECOMMERCE_200238EC=".(getDolGlobalString('SERVICE_ARE_ECOMMERCE_200238EC') ? $conf->global->SERVICE_ARE_ECOMMERCE_200238EC : ''));
+	dol_syslog("get_default_tva: seller use vat=".$seller_use_vat.", seller country=".$seller_country_code.", seller in cee=".((string) (int) $seller_in_cee).", buyer vat number=".$thirdparty_buyer->tva_intra." buyer country=".$buyer_country_code.", buyer in cee=".((string) (int) $buyer_in_cee).", idprod=".$idprod.", idprodfournprice=".$idprodfournprice.", SERVICE_ARE_ECOMMERCE_200238EC=".(getDolGlobalString('SERVICE_ARE_ECOMMERCE_200238EC') ? $config->global->SERVICE_ARE_ECOMMERCE_200238EC : ''));
 
 	// If services are eServices according to EU Council Directive 2002/38/EC (http://ec.europa.eu/taxation_customs/taxation/vat/traders/e-commerce/article_1610_en.htm)
 	// we use the buyer VAT.
@@ -7919,8 +7919,8 @@ function yn($yesno, $format = 1, $color = 0)
 /**
  *	Return a path to have a the directory according to object where files are stored.
  *  This function is called by getMultidirOutput
- *  New usage:  $conf->module->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, '').'/'
- *         or:  $conf->module->dir_output.'/'.get_exdir(0, 0, 0, 0, $object, '')
+ *  New usage:  $config->module->multidir_output[$object->entity].'/'.get_exdir(0, 0, 0, 1, $object, '').'/'
+ *         or:  $config->module->dir_output.'/'.get_exdir(0, 0, 0, 0, $object, '')
  *
  *  Example of output with new usage:       $object is invoice -> 'INYYMM-ABCD'
  *  Example of output with old usage:       '015' with level 3->"0/1/5/", '015' with level 1->"5/", 'ABC-1' with level 3 ->"0/0/1/"
@@ -7996,7 +7996,7 @@ function get_exdir($num, $level, $alpha, $withoutslash, $object, $modulepart = '
  *
  *	@param	string		$dir		Directory to create (Separator must be '/'. Example: '/mydir/mysubdir')
  *	@param	string		$dataroot	Data root directory (To avoid having the data root in the loop. Using this will also lost the warning, on first dir, saying PHP has no permission when open_basedir is used)
- *  @param	string		$newmask	Mask for new file (Defaults to $conf->global->MAIN_UMASK or 0755 if unavailable). Example: '0444'
+ *  @param	string		$newmask	Mask for new file (Defaults to $config->global->MAIN_UMASK or 0755 if unavailable). Example: '0444'
  *	@return int         			Return integer < 0 if KO, 0 = already exists, > 0 if OK
  */
 function dol_mkdir($dir, $dataroot = '', $newmask = '')
@@ -8078,7 +8078,7 @@ function dolChmod($filepath, $newmask = '')
 	if (!empty($newmask)) {
 		@chmod($filepath, octdec($newmask));
 	} elseif (getDolGlobalString('MAIN_UMASK')) {
-		@chmod($filepath, octdec($conf->global->MAIN_UMASK));
+		@chmod($filepath, octdec($config->global->MAIN_UMASK));
 	}
 }
 
@@ -9054,7 +9054,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 			'__MYCOMPANY_COUNTRY__'    => $mysoc->country,
 			'__MYCOMPANY_COUNTRY_ID__' => $mysoc->country_id,
 			'__MYCOMPANY_COUNTRY_CODE__' => $mysoc->country_code,
-			'__MYCOMPANY_CURRENCY_CODE__' => $conf->currency
+			'__MYCOMPANY_CURRENCY_CODE__' => $config->currency
 		));
 	}
 
@@ -9582,17 +9582,17 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 
 		$substitutionarray['__AMOUNT_EXCL_TAX__'] = is_object($object) ? $object->total_ht : '';
 		$substitutionarray['__AMOUNT_EXCL_TAX_TEXT__'] = is_object($object) ? dol_convertToWord($object->total_ht, $outputlangs, '', true) : '';
-		$substitutionarray['__AMOUNT_EXCL_TAX_TEXTCURRENCY__'] = is_object($object) ? dol_convertToWord($object->total_ht, $outputlangs, $conf->currency, true) : '';
+		$substitutionarray['__AMOUNT_EXCL_TAX_TEXTCURRENCY__'] = is_object($object) ? dol_convertToWord($object->total_ht, $outputlangs, $config->currency, true) : '';
 
 		$substitutionarray['__AMOUNT__']          = is_object($object) ? $object->total_ttc : '';
 		$substitutionarray['__AMOUNT_TEXT__']     = is_object($object) ? dol_convertToWord($object->total_ttc, $outputlangs, '', true) : '';
-		$substitutionarray['__AMOUNT_TEXTCURRENCY__'] = is_object($object) ? dol_convertToWord($object->total_ttc, $outputlangs, $conf->currency, true) : '';
+		$substitutionarray['__AMOUNT_TEXTCURRENCY__'] = is_object($object) ? dol_convertToWord($object->total_ttc, $outputlangs, $config->currency, true) : '';
 
 		$substitutionarray['__AMOUNT_REMAIN__'] = is_object($object) ? price2num($object->total_ttc - $already_payed_all, 'MT') : '';
 
 		$substitutionarray['__AMOUNT_VAT__']      = is_object($object) ? (isset($object->total_vat) ? $object->total_vat : $object->total_tva) : '';
 		$substitutionarray['__AMOUNT_VAT_TEXT__']      = is_object($object) ? (isset($object->total_vat) ? dol_convertToWord($object->total_vat, $outputlangs, '', true) : dol_convertToWord($object->total_tva, $outputlangs, '', true)) : '';
-		$substitutionarray['__AMOUNT_VAT_TEXTCURRENCY__']      = is_object($object) ? (isset($object->total_vat) ? dol_convertToWord($object->total_vat, $outputlangs, $conf->currency, true) : dol_convertToWord($object->total_tva, $outputlangs, $conf->currency, true)) : '';
+		$substitutionarray['__AMOUNT_VAT_TEXTCURRENCY__']      = is_object($object) ? (isset($object->total_vat) ? dol_convertToWord($object->total_vat, $outputlangs, $config->currency, true) : dol_convertToWord($object->total_tva, $outputlangs, $config->currency, true)) : '';
 
 		if ($onlykey != 2 || $mysoc->useLocalTax(1)) {
 			$substitutionarray['__AMOUNT_TAX2__']     = is_object($object) ? $object->total_localtax1 : '';
@@ -9602,15 +9602,15 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 		}
 
 		// Amount keys formatted in a currency
-		$substitutionarray['__AMOUNT_EXCL_TAX_FORMATTED__'] = is_object($object) ? ($object->total_ht ? price($object->total_ht, 0, $outputlangs, 0, -1, -1, $conf->currency) : null) : '';
-		$substitutionarray['__AMOUNT_FORMATTED__']          = is_object($object) ? ($object->total_ttc ? price($object->total_ttc, 0, $outputlangs, 0, -1, -1, $conf->currency) : null) : '';
-		$substitutionarray['__AMOUNT_REMAIN_FORMATTED__'] = is_object($object) ? ($object->total_ttc ? price($object->total_ttc - $already_payed_all, 0, $outputlangs, 0, -1, -1, $conf->currency) : null) : '';
-		$substitutionarray['__AMOUNT_VAT_FORMATTED__']      = is_object($object) ? (isset($object->total_vat) ? price($object->total_vat, 0, $outputlangs, 0, -1, -1, $conf->currency) : ($object->total_tva ? price($object->total_tva, 0, $outputlangs, 0, -1, -1, $conf->currency) : null)) : '';
+		$substitutionarray['__AMOUNT_EXCL_TAX_FORMATTED__'] = is_object($object) ? ($object->total_ht ? price($object->total_ht, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
+		$substitutionarray['__AMOUNT_FORMATTED__']          = is_object($object) ? ($object->total_ttc ? price($object->total_ttc, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
+		$substitutionarray['__AMOUNT_REMAIN_FORMATTED__'] = is_object($object) ? ($object->total_ttc ? price($object->total_ttc - $already_payed_all, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
+		$substitutionarray['__AMOUNT_VAT_FORMATTED__']      = is_object($object) ? (isset($object->total_vat) ? price($object->total_vat, 0, $outputlangs, 0, -1, -1, $config->currency) : ($object->total_tva ? price($object->total_tva, 0, $outputlangs, 0, -1, -1, $config->currency) : null)) : '';
 		if ($onlykey != 2 || $mysoc->useLocalTax(1)) {
-			$substitutionarray['__AMOUNT_TAX2_FORMATTED__']     = is_object($object) ? ($object->total_localtax1 ? price($object->total_localtax1, 0, $outputlangs, 0, -1, -1, $conf->currency) : null) : '';
+			$substitutionarray['__AMOUNT_TAX2_FORMATTED__']     = is_object($object) ? ($object->total_localtax1 ? price($object->total_localtax1, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
 		}
 		if ($onlykey != 2 || $mysoc->useLocalTax(2)) {
-			$substitutionarray['__AMOUNT_TAX3_FORMATTED__']     = is_object($object) ? ($object->total_localtax2 ? price($object->total_localtax2, 0, $outputlangs, 0, -1, -1, $conf->currency) : null) : '';
+			$substitutionarray['__AMOUNT_TAX3_FORMATTED__']     = is_object($object) ? ($object->total_localtax2 ? price($object->total_localtax2, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
 		}
 		// Amount keys formatted in a currency (with the typo error for backward compatibility)
 		if ($onlykey != 2) {
@@ -9679,7 +9679,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 	}
 
 	if (isModEnabled('multicompany')) {
-		$substitutionarray = array_merge($substitutionarray, array('__ENTITY_ID__' => $conf->entity));
+		$substitutionarray = array_merge($substitutionarray, array('__ENTITY_ID__' => $config->entity));
 	}
 	if ((empty($exclude) || !in_array('system', $exclude)) && (empty($include) || in_array('user', $include))) {
 		$substitutionarray['__DOL_MAIN_URL_ROOT__'] = DOL_MAIN_URL_ROOT;
@@ -9768,7 +9768,7 @@ function make_substitutions($text, $substitutionarray, $outputlangs = null, $con
 		if (isASecretKey($keyfound)) {
 			$value = '*****forbidden*****';
 		} else {
-			$value = empty($conf->global->$keyfound) ? '' : $conf->global->$keyfound;
+			$value = empty($config->global->$keyfound) ? '' : $config->global->$keyfound;
 		}
 
 		if (empty($converttextinhtmlifnecessary)) {
@@ -9904,7 +9904,7 @@ function complete_substitutions_array(&$substitutionarray, $outputlangs, $object
 	// Note: substitution key for each extrafields, using key __EXTRA_XXX__ is already available into the getCommonSubstitutionArray used to build the substitution array.
 
 	// Check if there is external substitution to do, requested by plugins
-	$dirsubstitutions = array_merge(array(), (array) $conf->modules_parts['substitutions']);
+	$dirsubstitutions = array_merge(array(), (array) $config->modules_parts['substitutions']);
 
 	foreach ($dirsubstitutions as $reldir) {
 		$dir = dol_buildpath($reldir, 0);
@@ -10176,7 +10176,7 @@ function get_htmloutput_mesg($mesgstring = '', $mesgarray = [], $style = 'ok', $
 	$divstart = $divend = '';
 
 	// If inline message with no format, we add it.
-	if ((empty($conf->use_javascript_ajax) || getDolGlobalString('MAIN_DISABLE_JQUERY_JNOTIFY') || $keepembedded) && !preg_match('/<div class=".*">/i', $out)) {
+	if ((empty($config->use_javascript_ajax) || getDolGlobalString('MAIN_DISABLE_JQUERY_JNOTIFY') || $keepembedded) && !preg_match('/<div class=".*">/i', $out)) {
 		$divstart = '<div class="'.$style.' clearboth">';
 		$divend = '</div>';
 	}
@@ -10201,7 +10201,7 @@ function get_htmloutput_mesg($mesgstring = '', $mesgarray = [], $style = 'ok', $
 	}
 
 	if ($out) {
-		if (!empty($conf->use_javascript_ajax) && !getDolGlobalString('MAIN_DISABLE_JQUERY_JNOTIFY') && empty($keepembedded)) {
+		if (!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_DISABLE_JQUERY_JNOTIFY') && empty($keepembedded)) {
 			$return = '<script nonce="'.getNonce().'">
 					$(document).ready(function() {
 						var block = '.(getDolGlobalString('MAIN_USE_JQUERY_BLOCKUI') ? "true" : "false").'
@@ -10527,8 +10527,8 @@ function dol_getIdFromCode($db, $key, $tablename, $fieldkey = 'code', $fieldid =
 	}
 
 	// Check in cache
-	if ($useCache && isset($conf->cache['codeid'][$tablename][$key][$fieldid])) {	// Can be defined to 0 or ''
-		return $conf->cache['codeid'][$tablename][$key][$fieldid]; // Found in cache
+	if ($useCache && isset($config->cache['codeid'][$tablename][$key][$fieldid])) {	// Can be defined to 0 or ''
+		return $config->cache['codeid'][$tablename][$key][$fieldid]; // Found in cache
 	}
 
 	dol_syslog('dol_getIdFromCode (value for field '.$fieldid.' from key '.$key.' not found into cache)', LOG_DEBUG);
@@ -10553,9 +10553,9 @@ function dol_getIdFromCode($db, $key, $tablename, $fieldkey = 'code', $fieldid =
 		$valuetoget = '';
 		if ($obj) {
 			$valuetoget = $obj->valuetoget;
-			$conf->cache['codeid'][$tablename][$key][$fieldid] = $valuetoget;
+			$config->cache['codeid'][$tablename][$key][$fieldid] = $valuetoget;
 		} else {
-			$conf->cache['codeid'][$tablename][$key][$fieldid] = '';
+			$config->cache['codeid'][$tablename][$key][$fieldid] = '';
 		}
 		$db->free($resql);
 
@@ -10632,7 +10632,7 @@ function verifCond($strToEvaluate, $onlysimplestring = '1')
 function dol_eval($s, $returnvalue = 1, $hideerrors = 1, $onlysimplestring = '1')
 {
 	// Only this global variables can be read by eval function and returned to caller
-	global $conf;	// Read of const is done with getDolGlobalString() but we need $conf->currency for example
+	global $conf;	// Read of const is done with getDolGlobalString() but we need $config->currency for example
 	global $db, $langs, $user, $website, $websitepage;
 	global $action, $mainmenu, $leftmenu;
 	global $mysoc;
@@ -11137,7 +11137,7 @@ function getLanguageCodeFromCountryCode($countrycode)
 
 /**
  *  Complete or removed entries into a head array (used to build tabs).
- *  For example, with value added by external modules. Such values are declared into $conf->modules_parts['tab'].
+ *  For example, with value added by external modules. Such values are declared into $config->modules_parts['tab'].
  *  Or by change using hook completeTabsHead
  *
  *  @param	Conf			$conf           Object conf
@@ -11169,8 +11169,8 @@ function complete_head_from_modules($conf, $langs, $object, &$head, &$h, $type, 
 {
 	global $hookManager, $db;
 
-	if (isset($conf->modules_parts['tabs'][$type]) && is_array($conf->modules_parts['tabs'][$type])) {
-		foreach ($conf->modules_parts['tabs'][$type] as $value) {
+	if (isset($config->modules_parts['tabs'][$type]) && is_array($config->modules_parts['tabs'][$type])) {
+		foreach ($config->modules_parts['tabs'][$type] as $value) {
 			$values = explode(':', $value);
 
 			$reg = array();
@@ -11348,12 +11348,12 @@ function printCommonFooter($zone = 'private')
 		}
 
 		print "\n";
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print "\n<!-- A script section to add menuhider handler on backoffice, manage focus and mandatory fields, tuning info, ... -->\n";
 			print '<script>'."\n";
 			print 'jQuery(document).ready(function() {'."\n";
 
-			if ($zone == 'private' && empty($conf->dol_use_jmobile)) {
+			if ($zone == 'private' && empty($config->dol_use_jmobile)) {
 				print "\n";
 				print '/* JS CODE TO ENABLE to manage handler to switch left menu page (menuhider) */'."\n";
 				print 'jQuery("li.menuhider").click(function(event) {';
@@ -11570,11 +11570,11 @@ function printCommonFooter($zone = 'private')
 			print '<!-- Output debugbar data -->'."\n";
 			$renderer = $debugbar->getJavascriptRenderer();
 			print $renderer->render();
-		} elseif (count($conf->logbuffer)) {    // If there is some logs in buffer to show
+		} elseif (count($config->logbuffer)) {    // If there is some logs in buffer to show
 			print "\n";
 			print "<!-- Start of log output\n";
 			//print '<div class="hidden">'."\n";
-			foreach ($conf->logbuffer as $logline) {
+			foreach ($config->logbuffer as $logline) {
 				print $logline."<br>\n";
 			}
 			//print '</div>'."\n";
@@ -11935,7 +11935,7 @@ function getAdvancedPreviewUrl($modulepart, $relativepath, $alldata = 0, $param 
 {
 	global $conf, $langs;
 
-	if (empty($conf->use_javascript_ajax)) {
+	if (empty($config->use_javascript_ajax)) {
 		return '';
 	}
 
@@ -12374,7 +12374,7 @@ function getDictionaryValue($tablename, $field, $id, $checkentity = false, $rowi
 
 	$tablename = preg_replace('/^'.preg_quote(MAIN_DB_PREFIX, '/').'/', '', $tablename);	// Clean name of table for backward compatibility.
 
-	$dictvalues = (isset($conf->cache['dictvalues_'.$tablename]) ? $conf->cache['dictvalues_'.$tablename] : null);
+	$dictvalues = (isset($config->cache['dictvalues_'.$tablename]) ? $config->cache['dictvalues_'.$tablename] : null);
 
 	if (is_null($dictvalues)) {
 		$dictvalues = array();
@@ -12393,7 +12393,7 @@ function getDictionaryValue($tablename, $field, $id, $checkentity = false, $rowi
 			dol_print_error($db);
 		}
 
-		$conf->cache['dictvalues_'.$tablename] = $dictvalues;
+		$config->cache['dictvalues_'.$tablename] = $dictvalues;
 	}
 
 	if (!empty($dictvalues[$id])) {
@@ -12587,7 +12587,7 @@ function dolGetStatus($statusLabel = '', $statusLabelShort = '', $html = '', $st
 
 	// TODO : add a hook
 	if ($displayMode == 0) {
-		$return = !empty($html) ? $html : (empty($conf->dol_optimize_smallscreen) ? $statusLabel : (empty($statusLabelShort) ? $statusLabel : $statusLabelShort));
+		$return = !empty($html) ? $html : (empty($config->dol_optimize_smallscreen) ? $statusLabel : (empty($statusLabelShort) ? $statusLabel : $statusLabelShort));
 	} elseif ($displayMode == 1) {
 		$return = !empty($html) ? $html : (empty($statusLabelShort) ? $statusLabel : $statusLabelShort);
 	} elseif (getDolGlobalString('MAIN_STATUS_USES_IMAGES')) {
@@ -12597,7 +12597,7 @@ function dolGetStatus($statusLabel = '', $statusLabelShort = '', $html = '', $st
 		$htmlLabelShort = (in_array($displayMode, array(1, 2, 5)) ? '<span class="hideonsmartphone">' : '').(!empty($html) ? $html : (!empty($statusLabelShort) ? $statusLabelShort : $statusLabel)).(in_array($displayMode, array(1, 2, 5)) ? '</span>' : '');
 
 		// For small screen, we always use the short label instead of long label.
-		if (!empty($conf->dol_optimize_smallscreen)) {
+		if (!empty($config->dol_optimize_smallscreen)) {
 			if ($displayMode == 0) {
 				$displayMode = 1;
 			} elseif ($displayMode == 4) {
@@ -12652,11 +12652,11 @@ function dolGetStatus($statusLabel = '', $statusLabelShort = '', $html = '', $st
 		}
 
 		if ($displayMode == 3) {
-			$return = dolGetBadge((empty($conf->dol_optimize_smallscreen) ? $statusLabel : (empty($statusLabelShort) ? $statusLabel : $statusLabelShort)), '', $statusType, 'dot', $url, $dolGetBadgeParams);
+			$return = dolGetBadge((empty($config->dol_optimize_smallscreen) ? $statusLabel : (empty($statusLabelShort) ? $statusLabel : $statusLabelShort)), '', $statusType, 'dot', $url, $dolGetBadgeParams);
 		} elseif ($displayMode === 5) {
 			$return = dolGetBadge($statusLabelShort, $html, $statusType, '', $url, $dolGetBadgeParams);
 		} else {
-			$return = dolGetBadge((empty($conf->dol_optimize_smallscreen) ? $statusLabel : (empty($statusLabelShort) ? $statusLabel : $statusLabelShort)), $html, $statusType, '', $url, $dolGetBadgeParams);
+			$return = dolGetBadge((empty($config->dol_optimize_smallscreen) ? $statusLabel : (empty($statusLabelShort) ? $statusLabel : $statusLabelShort)), $html, $statusType, '', $url, $dolGetBadgeParams);
 		}
 	}
 
@@ -13146,7 +13146,7 @@ function getElementProperties($elementType)
 		$table_element = 'adherent_type';
 	} elseif ($elementType == 'bank_account') {
 		$classpath = 'compta/bank/class';
-		$module = 'bank';	// We need $conf->bank->dir_output and not $conf->banque->dir_output
+		$module = 'bank';	// We need $config->bank->dir_output and not $config->banque->dir_output
 		$classfile = 'account';
 		$classname = 'Account';
 	} elseif ($elementType == 'category') {
@@ -13446,30 +13446,30 @@ function getElementProperties($elementType)
 	//print 'getElementProperties subdir='.$subdir;
 
 	// Set dir_output
-	if ($module && isset($conf->$module)) {	// The generic case
-		if (!empty($conf->$module->multidir_output[$conf->entity])) {
-			$dir_output = $conf->$module->multidir_output[$conf->entity];
-		} elseif (!empty($conf->$module->output[$conf->entity])) {
-			$dir_output = $conf->$module->output[$conf->entity];
-		} elseif (!empty($conf->$module->dir_output)) {
-			$dir_output = $conf->$module->dir_output;
+	if ($module && isset($config->$module)) {	// The generic case
+		if (!empty($config->$module->multidir_output[$config->entity])) {
+			$dir_output = $config->$module->multidir_output[$config->entity];
+		} elseif (!empty($config->$module->output[$config->entity])) {
+			$dir_output = $config->$module->output[$config->entity];
+		} elseif (!empty($config->$module->dir_output)) {
+			$dir_output = $config->$module->dir_output;
 		}
-		if (!empty($conf->$module->multidir_temp[$conf->entity])) {
-			$dir_temp = $conf->$module->multidir_temp[$conf->entity];
-		} elseif (!empty($conf->$module->temp[$conf->entity])) {
-			$dir_temp = $conf->$module->temp[$conf->entity];
-		} elseif (!empty($conf->$module->dir_temp)) {
-			$dir_temp = $conf->$module->dir_temp;
+		if (!empty($config->$module->multidir_temp[$config->entity])) {
+			$dir_temp = $config->$module->multidir_temp[$config->entity];
+		} elseif (!empty($config->$module->temp[$config->entity])) {
+			$dir_temp = $config->$module->temp[$config->entity];
+		} elseif (!empty($config->$module->dir_temp)) {
+			$dir_temp = $config->$module->dir_temp;
 		}
 	}
 
 	// Overwrite value for special cases
 	if ($element == 'order_supplier') {
-		$dir_output = $conf->fournisseur->commande->dir_output;
-		$dir_temp = $conf->fournisseur->commande->dir_temp;
+		$dir_output = $config->fournisseur->commande->dir_output;
+		$dir_temp = $config->fournisseur->commande->dir_temp;
 	} elseif ($element == 'invoice_supplier') {
-		$dir_output = $conf->fournisseur->facture->dir_output;
-		$dir_temp = $conf->fournisseur->facture->dir_temp;
+		$dir_output = $config->fournisseur->facture->dir_output;
+		$dir_temp = $config->fournisseur->facture->dir_temp;
 	}
 	$dir_output .= $subdir;
 	$dir_temp .= $subdir;
@@ -13554,11 +13554,11 @@ function fetchObjectByElement($element_id, $element_type, $element_ref = '', $us
 	//var_dump($element_prop['module'].' '.$ismodenabled);
 	if (is_array($element_prop) && (empty($element_prop['module']) || $ismodenabled)) {
 		if ($useCache === 1
-			&& !empty($conf->cache['fetchObjectByElement'][$element_type])
-			&& !empty($conf->cache['fetchObjectByElement'][$element_type][$element_id])
-			&& is_object($conf->cache['fetchObjectByElement'][$element_type][$element_id])
+			&& !empty($config->cache['fetchObjectByElement'][$element_type])
+			&& !empty($config->cache['fetchObjectByElement'][$element_type][$element_id])
+			&& is_object($config->cache['fetchObjectByElement'][$element_type][$element_id])
 		) {
-			return $conf->cache['fetchObjectByElement'][$element_type][$element_id];
+			return $config->cache['fetchObjectByElement'][$element_type][$element_id];
 		}
 
 		dol_include_once('/'.$element_prop['classpath'].'/'.$element_prop['classfile'].'.class.php');
@@ -13576,16 +13576,16 @@ function fetchObjectByElement($element_id, $element_type, $element_ref = '', $us
 					}
 
 					if ($useCache > 0) {
-						if (!isset($conf->cache['fetchObjectByElement'][$element_type])) {
-							$conf->cache['fetchObjectByElement'][$element_type] = [];
+						if (!isset($config->cache['fetchObjectByElement'][$element_type])) {
+							$config->cache['fetchObjectByElement'][$element_type] = [];
 						}
 
 						// Manage cache limit
-						if (! empty($conf->cache['fetchObjectByElement'][$element_type]) && is_array($conf->cache['fetchObjectByElement'][$element_type]) && count($conf->cache['fetchObjectByElement'][$element_type]) >= $maxCacheByType) {
-							array_shift($conf->cache['fetchObjectByElement'][$element_type]);
+						if (! empty($config->cache['fetchObjectByElement'][$element_type]) && is_array($config->cache['fetchObjectByElement'][$element_type]) && count($config->cache['fetchObjectByElement'][$element_type]) >= $maxCacheByType) {
+							array_shift($config->cache['fetchObjectByElement'][$element_type]);
 						}
 
-						$conf->cache['fetchObjectByElement'][$element_type][$element_id] = $objecttmp;
+						$config->cache['fetchObjectByElement'][$element_type][$element_id] = $objecttmp;
 					}
 
 					return $objecttmp;
@@ -13650,11 +13650,11 @@ function getNonce()
 {
 	global $conf;
 
-	if (empty($conf->cache['nonce'])) {
-		$conf->cache['nonce'] = dolGetRandomBytes(8);
+	if (empty($config->cache['nonce'])) {
+		$config->cache['nonce'] = dolGetRandomBytes(8);
 	}
 
-	return $conf->cache['nonce'];
+	return $config->cache['nonce'];
 }
 
 
@@ -14851,7 +14851,7 @@ function show_actions_messaging($conf, $langs, $db, $filterobj, $objcon = null, 
 			// Title
 			$out .= ' <div class="messaging-title inline-block">';
 			//$out .= $actionstatic->getTypePicto();
-			if (empty($conf->dol_optimize_smallscreen) && $actionstatic->type_code != 'AC_OTH_AUTO') {
+			if (empty($config->dol_optimize_smallscreen) && $actionstatic->type_code != 'AC_OTH_AUTO') {
 				$out .= $labeltype.' - ';
 			}
 
@@ -14879,14 +14879,14 @@ function show_actions_messaging($conf, $langs, $db, $filterobj, $objcon = null, 
 			}
 
 			if (isset($histo[$key]['elementtype']) && !empty($histo[$key]['fk_element'])) {
-				if (isset($conf->cache['elementlinkcache'][$histo[$key]['elementtype']]) && isset($conf->cache['elementlinkcache'][$histo[$key]['elementtype']][$histo[$key]['fk_element']])) {
-					$link = $conf->cache['elementlinkcache'][$histo[$key]['elementtype']][$histo[$key]['fk_element']];
+				if (isset($config->cache['elementlinkcache'][$histo[$key]['elementtype']]) && isset($config->cache['elementlinkcache'][$histo[$key]['elementtype']][$histo[$key]['fk_element']])) {
+					$link = $config->cache['elementlinkcache'][$histo[$key]['elementtype']][$histo[$key]['fk_element']];
 				} else {
-					if (!isset($conf->cache['elementlinkcache'][$histo[$key]['elementtype']])) {
-						$conf->cache['elementlinkcache'][$histo[$key]['elementtype']] = array();
+					if (!isset($config->cache['elementlinkcache'][$histo[$key]['elementtype']])) {
+						$config->cache['elementlinkcache'][$histo[$key]['elementtype']] = array();
 					}
 					$link = dolGetElementUrl($histo[$key]['fk_element'], $histo[$key]['elementtype'], 1);
-					$conf->cache['elementlinkcache'][$histo[$key]['elementtype']][$histo[$key]['fk_element']] = $link;
+					$config->cache['elementlinkcache'][$histo[$key]['elementtype']][$histo[$key]['fk_element']] = $link;
 				}
 				if ($link) {
 					$out .= ' - '.$link;
@@ -14930,12 +14930,12 @@ function show_actions_messaging($conf, $langs, $db, $filterobj, $objcon = null, 
 			if (isset($histo[$key]['socpeopleassigned']) && is_array($histo[$key]['socpeopleassigned']) && count($histo[$key]['socpeopleassigned']) > 0) {
 				$contactList = '';
 				foreach ($histo[$key]['socpeopleassigned'] as $cid => $Tab) {
-					if (empty($conf->cache['contact'][$histo[$key]['contact_id']])) {
+					if (empty($config->cache['contact'][$histo[$key]['contact_id']])) {
 						$contact = new Contact($db);
 						$contact->fetch($cid);
-						$conf->cache['contact'][$histo[$key]['contact_id']] = $contact;
+						$config->cache['contact'][$histo[$key]['contact_id']] = $contact;
 					} else {
-						$contact = $conf->cache['contact'][$histo[$key]['contact_id']];
+						$contact = $config->cache['contact'][$histo[$key]['contact_id']];
 					}
 
 					if ($contact) {
@@ -14951,12 +14951,12 @@ function show_actions_messaging($conf, $langs, $db, $filterobj, $objcon = null, 
 
 				$footer .= $langs->trans('ActionOnContact').' : '.$contactList;
 			} elseif (empty($objcon->id) && isset($histo[$key]['contact_id']) && $histo[$key]['contact_id'] > 0) {
-				if (empty($conf->cache['contact'][$histo[$key]['contact_id']])) {
+				if (empty($config->cache['contact'][$histo[$key]['contact_id']])) {
 					$contact = new Contact($db);
 					$result = $contact->fetch($histo[$key]['contact_id']);
-					$conf->cache['contact'][$histo[$key]['contact_id']] = $contact;
+					$config->cache['contact'][$histo[$key]['contact_id']] = $contact;
 				} else {
-					$contact = $conf->cache['contact'][$histo[$key]['contact_id']];
+					$contact = $config->cache['contact'][$histo[$key]['contact_id']];
 					$result = ($contact instanceof Contact) ? $contact->id : 0;
 				}
 
@@ -14984,8 +14984,8 @@ function show_actions_messaging($conf, $langs, $db, $filterobj, $objcon = null, 
 					$mime = dol_mimetype($filePath);
 					$file = $actionstatic->id.'/'.$doc->filename;
 					$thumb = $actionstatic->id.'/thumbs/'.substr($doc->filename, 0, strrpos($doc->filename, '.')).'_mini'.substr($doc->filename, strrpos($doc->filename, '.'));
-					$doclink = dol_buildpath('document.php', 1).'?modulepart=actions&attachment=0&file='.urlencode($file).'&entity='.$conf->entity;
-					$viewlink = dol_buildpath('viewimage.php', 1).'?modulepart=actions&file='.urlencode($thumb).'&entity='.$conf->entity;
+					$doclink = dol_buildpath('document.php', 1).'?modulepart=actions&attachment=0&file='.urlencode($file).'&entity='.$config->entity;
+					$viewlink = dol_buildpath('viewimage.php', 1).'?modulepart=actions&file='.urlencode($thumb).'&entity='.$config->entity;
 
 					$mimeAttr = ' mime="'.$mime.'" ';
 					$class = '';

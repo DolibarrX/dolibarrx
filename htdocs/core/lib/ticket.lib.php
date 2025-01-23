@@ -107,7 +107,7 @@ function ticket_prepare_head($object)
 
 	// Attached files
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-	$upload_dir = $conf->ticket->dir_output."/".$object->ref;
+	$upload_dir = $config->ticket->dir_output."/".$object->ref;
 	$nbFiles = count(dol_dir_list($upload_dir, 'files'));
 	/* disabled. Too many bugs. All file of a ticket must be stored into ticket. File must be linked to an event by column agenda_id into llx_ecmfiles.
 	$sql = 'SELECT id FROM '.MAIN_DB_PREFIX.'actioncomm';
@@ -116,7 +116,7 @@ function ticket_prepare_head($object)
 	if ($resql) {
 		$numrows = $db->num_rows($resql);
 		for ($i=0; $i < $numrows; $i++) {
-			$upload_msg_dir = $conf->agenda->dir_output.'/'.$db->fetch_row($resql)[0];
+			$upload_msg_dir = $config->agenda->dir_output.'/'.$db->fetch_row($resql)[0];
 			$nbFiles += count(dol_dir_list($upload_msg_dir, "files"));
 		}
 	}
@@ -244,10 +244,10 @@ function llxHeaderTicket($title, $head = "", $disablejs = 0, $disablehead = 0, $
 		if (getDolGlobalInt('TICKET_SHOW_COMPANY_LOGO')) {
 			$urllogo = DOL_URL_ROOT.'/theme/common/login_logo.png';
 
-			if (!empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
-				$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$conf->entity.'&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_small);
-			} elseif (!empty($mysoc->logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
-				$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$conf->entity.'&amp;file='.urlencode('logos/'.$mysoc->logo);
+			if (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
+				$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$config->entity.'&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_small);
+			} elseif (!empty($mysoc->logo) && is_readable($config->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
+				$urllogo = DOL_URL_ROOT.'/viewimage.php?modulepart=mycompany&amp;entity='.$config->entity.'&amp;file='.urlencode('logos/'.$mysoc->logo);
 			} elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.svg')) {
 				$urllogo = DOL_URL_ROOT.'/theme/dolibarr_logo.svg';
 			}
@@ -259,7 +259,7 @@ function llxHeaderTicket($title, $head = "", $disablejs = 0, $disablehead = 0, $
 		print '<div class="backgreypublicpayment">';
 		print '<div class="logopublicpayment">';
 		if ($urllogo) {
-			print '<a href="'.(getDolGlobalString('TICKET_URL_PUBLIC_INTERFACE') ? getDolGlobalString('TICKET_URL_PUBLIC_INTERFACE') : dol_buildpath('/public/ticket/index.php?entity='.$conf->entity, 1)).'">';
+			print '<a href="'.(getDolGlobalString('TICKET_URL_PUBLIC_INTERFACE') ? getDolGlobalString('TICKET_URL_PUBLIC_INTERFACE') : dol_buildpath('/public/ticket/index.php?entity='.$config->entity, 1)).'">';
 			print '<img id="dolpaymentlogo" src="'.$urllogo.'"';
 			print '>';
 			print '</a>';

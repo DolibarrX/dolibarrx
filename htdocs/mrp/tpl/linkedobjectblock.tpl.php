@@ -59,7 +59,7 @@ if ($object->element == 'mo') {
 
 			echo '<tr class="' . $trclass . '" >';
 			echo '<td class="linkedcol-element tdoverflowmax100">' . $langs->trans("ManufacturingOrder");
-			if (!empty($showImportButton) && $conf->global->MAIN_ENABLE_IMPORT_LINKED_OBJECT_LINES) {
+			if (!empty($showImportButton) && $config->global->MAIN_ENABLE_IMPORT_LINKED_OBJECT_LINES) {
 				print '<a class="objectlinked_importbtn" href="' . $objectlink->getNomUrl(0, '', 0, 1) . '&amp;action=selectlines&amp;token='.newToken().'" data-element="' . $objectlink->element . '" data-id="' . $objectlink->id . '"  > <i class="fa fa-indent"></i> </a';
 			}
 			echo '</td>';
@@ -104,7 +104,7 @@ if ($object->element == 'mo') {
 		}
 		print '<tr class="'.$trclass.'"  data-element="'.$objectlink->element.'"  data-id="'.$objectlink->id.'" >';
 		print '<td class="linkedcol-element tdoverflowmax100">'.$langs->trans("ManufacturingOrder");
-		if (!empty($showImportButton) && $conf->global->MAIN_ENABLE_IMPORT_LINKED_OBJECT_LINES) {
+		if (!empty($showImportButton) && $config->global->MAIN_ENABLE_IMPORT_LINKED_OBJECT_LINES) {
 			$url = DOL_URL_ROOT.'/mrp/mo_card.php?id='.$objectlink->id;
 			print '<a class="objectlinked_importbtn" href="'.$url.'&amp;action=selectlines&amp;token='.newToken().'"  data-element="'.$objectlink->element.'"  data-id="'.$objectlink->id.'"  > <i class="fa fa-indent"></i> </a>';
 		}

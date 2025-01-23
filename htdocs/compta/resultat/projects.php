@@ -65,7 +65,7 @@ $showaccountdetail = GETPOST('showaccountdetail', 'aZ09') ? GETPOST('showaccount
 
 $search_project_ref = GETPOST('search_project_ref', 'alpha');
 
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -521,7 +521,7 @@ if ($modecompta == 'BOOKKEEPING') {
 		}
 	}
 
-	$sql .= " AND f.entity = ".((int) $conf->entity);
+	$sql .= " AND f.entity = ".((int) $config->entity);
 	if ($socid) {
 		$sql .= " AND f.fk_soc = ".((int) $socid);
 	}
@@ -817,7 +817,7 @@ if ($modecompta == 'BOOKKEEPING') {
 	/*
 	 * Various Payments
 	 */
-	//$conf->global->ACCOUNTING_REPORTS_INCLUDE_VARPAY = 1;
+	//$config->global->ACCOUNTING_REPORTS_INCLUDE_VARPAY = 1;
 
 	if (getDolGlobalString('ACCOUNTING_REPORTS_INCLUDE_VARPAY') && isModEnabled("bank") && ($modecompta == 'CREANCES-DETTES' || $modecompta == "RECETTES-DEPENSES")) {
 		$subtotal_ht = 0;

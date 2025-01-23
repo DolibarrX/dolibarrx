@@ -227,7 +227,7 @@ class Reception extends CommonObject
 			$classname = getDolGlobalString('RECEPTION_ADDON_NUMBER');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/reception/");
@@ -314,7 +314,7 @@ class Reception extends CommonObject
 		$sql .= ", fk_incoterms, location_incoterms";
 		$sql .= ") VALUES (";
 		$sql .= "'(PROV)'";
-		$sql .= ", ".((int) $conf->entity);
+		$sql .= ", ".((int) $config->entity);
 		$sql .= ", ".($this->ref_supplier ? "'".$this->db->escape($this->ref_supplier)."'" : "null");
 		$sql .= ", '".$this->db->idate($now)."'";
 		$sql .= ", ".((int) $user->id);
@@ -501,7 +501,7 @@ class Reception extends CommonObject
 
 				$this->db->free($result);
 
-				//$file = $conf->reception->dir_output."/".get_exdir(0, 0, 0, 1, $this, 'reception')."/".$this->id.".pdf";
+				//$file = $config->reception->dir_output."/".get_exdir(0, 0, 0, 1, $this, 'reception')."/".$this->id.".pdf";
 				//$this->pdf_filename = $file;
 
 				// Tracking url
@@ -710,14 +710,14 @@ class Reception extends CommonObject
 			if (preg_match('/^[\(]?PROV/i', $this->ref)) {
 				// Now we rename also files into index
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filename = CONCAT('".$this->db->escape($this->newref)."', SUBSTR(filename, ".(strlen($this->ref) + 1).")), filepath = 'reception/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'reception/".$this->db->escape($this->ref)."' AND entity = ".((int) $conf->entity);
+				$sql .= " WHERE filename LIKE '".$this->db->escape($this->ref)."%' AND filepath = 'reception/".$this->db->escape($this->ref)."' AND entity = ".((int) $config->entity);
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
 					$this->error = $this->db->lasterror();
 				}
 				$sql = 'UPDATE '.MAIN_DB_PREFIX."ecm_files set filepath = 'reception/".$this->db->escape($this->newref)."'";
-				$sql .= " WHERE filepath = 'reception/".$this->db->escape($this->ref)."' and entity = ".$conf->entity;
+				$sql .= " WHERE filepath = 'reception/".$this->db->escape($this->ref)."' and entity = ".$config->entity;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
@@ -727,15 +727,15 @@ class Reception extends CommonObject
 				// We rename directory ($this->ref = old ref, $num = new ref) in order not to lose the attachments
 				$oldref = dol_sanitizeFileName($this->ref);
 				$newref = dol_sanitizeFileName($numref);
-				$dirsource = $conf->reception->dir_output.'/'.$oldref;
-				$dirdest = $conf->reception->dir_output.'/'.$newref;
+				$dirsource = $config->reception->dir_output.'/'.$oldref;
+				$dirdest = $config->reception->dir_output.'/'.$newref;
 				if (!$error && file_exists($dirsource)) {
 					dol_syslog(get_class($this)."::valid rename dir ".$dirsource." into ".$dirdest);
 
 					if (@rename($dirsource, $dirdest)) {
 						dol_syslog("Rename ok");
 						// Rename docs starting with $oldref with $newref
-						$listoffiles = dol_dir_list($conf->reception->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
+						$listoffiles = dol_dir_list($config->reception->dir_output.'/'.$newref, 'files', 1, '^'.preg_quote($oldref, '/'));
 						foreach ($listoffiles as $fileentry) {
 							$dirsource = $fileentry['name'];
 							$dirdest = preg_replace('/^'.preg_quote($oldref, '/').'/', $newref, $dirsource);
@@ -1062,7 +1062,7 @@ class Reception extends CommonObject
 		$sql .= " note_private=".(isset($this->note_private) ? "'".$this->db->escape($this->note_private)."'" : "null").",";
 		$sql .= " note_public=".(isset($this->note_public) ? "'".$this->db->escape($this->note_public)."'" : "null").",";
 		$sql .= " model_pdf=".(isset($this->model_pdf) ? "'".$this->db->escape($this->model_pdf)."'" : "null").",";
-		$sql .= " entity = ".((int) $conf->entity);
+		$sql .= " entity = ".((int) $config->entity);
 		$sql .= " WHERE rowid=".((int) $this->id);
 
 		$this->db->begin();
@@ -1203,8 +1203,8 @@ class Reception extends CommonObject
 
 							// We delete PDFs
 							$ref = dol_sanitizeFileName($this->ref);
-							if (!empty($conf->reception->dir_output)) {
-								$dir = $conf->reception->dir_output.'/'.$ref;
+							if (!empty($config->reception->dir_output)) {
+								$dir = $config->reception->dir_output.'/'.$ref;
 								$file = $dir.'/'.$ref.'.pdf';
 								if (file_exists($file)) {
 									if (!dol_delete_file($file)) {
@@ -1469,7 +1469,7 @@ class Reception extends CommonObject
 			$return .= '<br><div class="info-box-ref tdoverflowmax150">'.$this->thirdparty->getNomUrl(1).'</div>';
 		}
 		/*if (property_exists($this, 'total_ht')) {
-			$return .= '<div class="info-box-ref amount">'.price($this->total_ht, 0, $langs, 0, -1, -1, $conf->currency).' '.$langs->trans('HT').'</div>';
+			$return .= '<div class="info-box-ref amount">'.price($this->total_ht, 0, $langs, 0, -1, -1, $config->currency).' '.$langs->trans('HT').'</div>';
 		}*/
 		if (method_exists($this, 'getLibStatut')) {
 			$return .= '<div class="info-box-status">'.$this->getLibStatut(3).'</div>';

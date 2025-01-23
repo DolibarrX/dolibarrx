@@ -82,16 +82,16 @@ if ($action == 'updateMask') {
 	$maskdeposit = GETPOST('maskdeposit', 'alpha');
 	$res = 0;
 	if ($maskconstinvoice && preg_match('/_MASK_/', $maskconstinvoice)) {
-		$res = dolibarr_set_const($db, $maskconstinvoice, $maskinvoice, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstinvoice, $maskinvoice, 'chaine', 0, '', $config->entity);
 	}
 	if ($maskconstreplacement && preg_match('/_MASK_/', $maskconstreplacement)) {
-		$res = dolibarr_set_const($db, $maskconstreplacement, $maskreplacement, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstreplacement, $maskreplacement, 'chaine', 0, '', $config->entity);
 	}
 	if ($maskconstcredit && preg_match('/_MASK_/', $maskconstcredit)) {
-		$res = dolibarr_set_const($db, $maskconstcredit, $maskcredit, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstcredit, $maskcredit, 'chaine', 0, '', $config->entity);
 	}
 	if ($maskconstdeposit && preg_match('/_MASK_/', $maskconstdeposit)) {
-		$res = dolibarr_set_const($db, $maskconstdeposit, $maskdeposit, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconstdeposit, $maskdeposit, 'chaine', 0, '', $config->entity);
 	}
 
 	if (!($res > 0)) {
@@ -112,7 +112,7 @@ if ($action == 'updateMask') {
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/facture/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -145,15 +145,15 @@ if ($action == 'updateMask') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
 		if (getDolGlobalString('FACTURE_ADDON_PDF') == (string) $value) {
-			dolibarr_del_const($db, 'FACTURE_ADDON_PDF', $conf->entity);
+			dolibarr_del_const($db, 'FACTURE_ADDON_PDF', $config->entity);
 		}
 	}
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "FACTURE_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "FACTURE_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->FACTURE_ADDON_PDF = $value;
+		$config->global->FACTURE_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -164,13 +164,13 @@ if ($action == 'updateMask') {
 } elseif ($action == 'setmod') {
 	// TODO Check if numbering module chosen can ba activated by calling method canBeActivated()
 
-	dolibarr_set_const($db, "FACTURE_ADDON", $value, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "FACTURE_ADDON", $value, 'chaine', 0, '', $config->entity);
 } elseif ($action == 'setribchq') {
 	$rib = GETPOST('rib', 'alpha');
 	$chq = GETPOST('chq', 'alpha');
 
-	$res = dolibarr_set_const($db, "FACTURE_RIB_NUMBER", $rib, 'chaine', 0, '', $conf->entity);
-	$res = dolibarr_set_const($db, "FACTURE_CHQ_NUMBER", $chq, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "FACTURE_RIB_NUMBER", $rib, 'chaine', 0, '', $config->entity);
+	$res = dolibarr_set_const($db, "FACTURE_CHQ_NUMBER", $chq, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -184,7 +184,7 @@ if ($action == 'updateMask') {
 } elseif ($action == 'set_FACTURE_DRAFT_WATERMARK') {
 	$draft = GETPOST('FACTURE_DRAFT_WATERMARK', 'alpha');
 
-	$res = dolibarr_set_const($db, "FACTURE_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "FACTURE_DRAFT_WATERMARK", trim($draft), 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -198,7 +198,7 @@ if ($action == 'updateMask') {
 } elseif ($action == 'set_INVOICE_FREE_TEXT') {
 	$freetext = GETPOST('INVOICE_FREE_TEXT', 'restricthtml'); // No alpha here, we want exact string
 
-	$res = dolibarr_set_const($db, "INVOICE_FREE_TEXT", $freetext, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "INVOICE_FREE_TEXT", $freetext, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -212,7 +212,7 @@ if ($action == 'updateMask') {
 } elseif ($action == 'setforcedate') {
 	$forcedate = GETPOST('forcedate', 'alpha');
 
-	$res = dolibarr_set_const($db, "FAC_FORCE_DATE_VALIDATION", $forcedate, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "FAC_FORCE_DATE_VALIDATION", $forcedate, 'chaine', 0, '', $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -230,7 +230,7 @@ if ($action == 'updateMask') {
 		$error = 0;
 
 		foreach ($invoicetypemodels as $type => $value) {
-			$res = dolibarr_set_const($db, 'FACTURE_ADDON_PDF_'.intval($type), $value, 'chaine', 0, '', $conf->entity);
+			$res = dolibarr_set_const($db, 'FACTURE_ADDON_PDF_'.intval($type), $value, 'chaine', 0, '', $config->entity);
 			if (!($res > 0)) {
 				$error++;
 			}
@@ -244,7 +244,7 @@ if ($action == 'updateMask') {
 	}
 } elseif ($action == 'set_INVOICE_CHECK_POSTERIOR_DATE') {
 	$check_posterior_date = GETPOSTINT('INVOICE_CHECK_POSTERIOR_DATE');
-	$res = dolibarr_set_const($db, 'INVOICE_CHECK_POSTERIOR_DATE', $check_posterior_date, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, 'INVOICE_CHECK_POSTERIOR_DATE', $check_posterior_date, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -252,7 +252,7 @@ if ($action == 'updateMask') {
 	$code = $reg[1];
 	$value = (GETPOST($code) ? GETPOST($code) : 1);
 
-	$res = dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, $code, $value, 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -266,7 +266,7 @@ if ($action == 'updateMask') {
 	}
 } elseif (preg_match('/del_(.*)/', $action, $reg)) {
 	$code = $reg[1];
-	$res = dolibarr_del_const($db, $code, $conf->entity);
+	$res = dolibarr_del_const($db, $code, $config->entity);
 
 	if (!($res > 0)) {
 		$error++;
@@ -286,7 +286,7 @@ if ($action == 'updateMask') {
  * View
  */
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 llxHeader("", $langs->trans("BillsSetup"), 'EN:Invoice_Configuration|FR:Configuration_module_facture|ES:ConfiguracionFactura', '', 0, 0, '', '', '', 'mod-admin page-invoice');
 
@@ -377,8 +377,8 @@ foreach ($dirmodels as $reldir) {
 							print '</td>'."\n";
 
 							print '<td class="center">';
-							//print "> ".$conf->global->FACTURE_ADDON." - ".$file;
-							if ($conf->global->FACTURE_ADDON == $file || getDolGlobalString('FACTURE_ADDON') . '.php' == $file) {
+							//print "> ".$config->global->FACTURE_ADDON." - ".$file;
+							if ($config->global->FACTURE_ADDON == $file || getDolGlobalString('FACTURE_ADDON') . '.php' == $file) {
 								print img_picto($langs->trans("Activated"), 'switch_on');
 							} else {
 								print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.preg_replace('/\.php$/', '', $file).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
@@ -488,7 +488,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;
@@ -883,7 +883,7 @@ print '<td>'.$langs->trans("Value").'</td>'."\n";
 print "</tr>\n";
 print '<tr class="oddeven">'."\n";
 print '<td width="140">'.$langs->trans("PathDirectory").'</td>'."\n";
-print '<td>'.$conf->facture->dir_output.'</td>'."\n";
+print '<td>'.$config->facture->dir_output.'</td>'."\n";
 print '</tr>'."\n";
 print "</table>\n";
 print "</div>\n";

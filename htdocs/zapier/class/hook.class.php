@@ -383,7 +383,7 @@ class Hook extends CommonObject
 		$sql .= ' t.rowid';
 		// TODO Get all fields
 		$sql .= ' FROM '.MAIN_DB_PREFIX.$this->table_element.' as t';
-		$sql .= ' WHERE t.entity = '.((int) $conf->entity);
+		$sql .= ' WHERE t.entity = '.((int) $config->entity);
 
 		// Manage filter
 		$errormessage = '';
@@ -466,7 +466,7 @@ class Hook extends CommonObject
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
 		global $menumanager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			// Force disable tooltips
 			$notooltip = 1;
 		}

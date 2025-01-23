@@ -208,7 +208,7 @@ if (isModEnabled('holiday') && $user->hasRight('holiday', 'read')) {
 	$sql .= " x.rowid, x.ref, x.fk_type, x.date_debut as date_start, x.date_fin as date_end, x.halfday, x.tms as dm, x.statut as status";
 	$sql .= " FROM ".MAIN_DB_PREFIX."holiday as x, ".MAIN_DB_PREFIX."user as u";
 	$sql .= " WHERE u.rowid = x.fk_user";
-	$sql .= " AND x.entity = ".$conf->entity;
+	$sql .= " AND x.entity = ".$config->entity;
 	if (!$user->hasRight('holiday', 'readall')) {
 		$sql .= ' AND x.fk_user IN ('.$db->sanitize(implode(',', $childids)).')';
 	}
@@ -314,7 +314,7 @@ if (isModEnabled('expensereport') && $user->hasRight('expensereport', 'read')) {
 	$sql .= " FROM ".MAIN_DB_PREFIX."expensereport as x, ".MAIN_DB_PREFIX."user as u";
 	//if (empty($user->rights->societe->client->voir) && !$user->socid) $sql.= ", ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	$sql .= " WHERE u.rowid = x.fk_user_author";
-	$sql .= " AND x.entity = ".$conf->entity;
+	$sql .= " AND x.entity = ".$config->entity;
 	if (!$user->hasRight('expensereport', 'readall') && !$user->hasRight('expensereport', 'lire_tous')) {
 		$sql .= ' AND x.fk_user_author IN ('.$db->sanitize(implode(',', $childids)).')';
 	}

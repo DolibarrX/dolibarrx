@@ -96,7 +96,7 @@ class mailing_advthirdparties extends MailingTargets
 				$sql .= " WHERE s.entity IN (".getEntity('societe').")";
 				$sql .= " AND s.rowid IN (".$this->db->sanitize(implode(',', $socid)).")";
 				if (empty($this->evenunsubscribe)) {
-					$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $conf->entity).")";
+					$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $config->entity).")";
 				}
 				$sql .= " ORDER BY email";
 
@@ -149,7 +149,7 @@ class mailing_advthirdparties extends MailingTargets
 					$sql .= " AND socp.fk_soc IN (".$this->db->sanitize(implode(',', $socid)).")";
 				}
 				if (empty($this->evenunsubscribe)) {
-					$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = socp.email and mu.entity = ".((int) $conf->entity).")";
+					$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = socp.email and mu.entity = ".((int) $config->entity).")";
 				}
 				$sql .= " ORDER BY email";
 
@@ -231,7 +231,7 @@ class mailing_advthirdparties extends MailingTargets
 		$sql .= " WHERE s.email != ''";
 		$sql .= " AND s.entity IN (".getEntity('societe').")";
 		if (empty($this->evenunsubscribe)) {
-			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $conf->entity).")";
+			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = s.email and mu.entity = ".((int) $config->entity).")";
 		}
 
 		// La requete doit retourner un champ "nb" pour etre comprise par parent::getNbOfRecipients
@@ -258,7 +258,7 @@ class mailing_advthirdparties extends MailingTargets
 		$sql .= " FROM ".MAIN_DB_PREFIX."categorie";
 		$sql .= " WHERE type in (1,2)"; // We keep only categories for suppliers and customers/prospects
 		// $sql.= " AND visible > 0";	// We ignore the property visible because third party's categories does not use this property (only products categories use it).
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 		$sql .= " ORDER BY label";
 
 		//print $sql;

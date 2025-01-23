@@ -70,7 +70,7 @@ if (!$user->admin) {
 }
 
 if (!getDolGlobalString('KNOWLEDGEMANAGEMENT_KNOWLEDGERECORD_ADDON')) {
-	$conf->global->KNOWLEDGEMANAGEMENT_KNOWLEDGERECORD_ADDON = 'mod_knowledgerecord_standard';
+	$config->global->KNOWLEDGEMANAGEMENT_KNOWLEDGERECORD_ADDON = 'mod_knowledgerecord_standard';
 }
 
 $moduledir = 'knowledgemanagement';
@@ -95,7 +95,7 @@ if ($action == 'updateMask') {
 	$maskdata = GETPOST('maskKnowledgeRecord', 'alpha');
 
 	if ($maskconst && preg_match('/_MASK$/', $maskconst)) {
-		$res = dolibarr_set_const($db, $maskconst, $maskdata, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $maskconst, $maskdata, 'chaine', 0, '', $config->entity);
 		if (!($res > 0)) {
 			$error++;
 		}
@@ -116,7 +116,7 @@ if ($action == 'updateMask') {
 	// Search template files
 	$file = '';
 	$className = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/knowledgemanagement/doc/pdf_".$modele."_".strtolower($tmpobjectkey).".modules.php", 0);
 		if (file_exists($file)) {
@@ -146,7 +146,7 @@ if ($action == 'updateMask') {
 	// TODO Check if numbering module chosen can be activated by calling method canBeActivated
 	if (!empty($tmpobjectkey)) {
 		$constforval = 'KNOWLEDGEMANAGEMENT_'.strtoupper($tmpobjectkey)."_ADDON";
-		dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $config->entity);
 	}
 } elseif ($action == 'set') {
 	// Activate a model
@@ -158,7 +158,7 @@ if ($action == 'updateMask') {
 		if (!empty($tmpobjectkey)) {
 			$constforval = 'KNOWLEDGEMANAGEMENT_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
 			if (getDolGlobalString($constforval) == "$value") {
-				dolibarr_del_const($db, $constforval, $conf->entity);
+				dolibarr_del_const($db, $constforval, $config->entity);
 			}
 		}
 	}
@@ -166,10 +166,10 @@ if ($action == 'updateMask') {
 	// Set or unset default model
 	if (!empty($tmpobjectkey)) {
 		$constforval = 'KNOWLEDGEMANAGEMENT_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
-		if (dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $conf->entity)) {
+		if (dolibarr_set_const($db, $constforval, $value, 'chaine', 0, '', $config->entity)) {
 			// The constant that was read before the new set
 			// We therefore requires a variable to have a coherent view
-			$conf->global->$constforval = $value;
+			$config->global->$constforval = $value;
 		}
 
 		// We disable/enable the document template (into llx_document_model table)
@@ -181,7 +181,7 @@ if ($action == 'updateMask') {
 } elseif ($action == 'unsetdoc') {
 	if (!empty($tmpobjectkey)) {
 		$constforval = 'KNOWLEDGEMANAGEMENT_'.strtoupper($tmpobjectkey).'_ADDON_PDF';
-		dolibarr_del_const($db, $constforval, $conf->entity);
+		dolibarr_del_const($db, $constforval, $config->entity);
 	}
 }
 
@@ -193,7 +193,7 @@ if ($action == 'updateMask') {
 
 $form = new Form($db);
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 $page_name = "KnowledgeManagementSetup";
 llxHeader('', $langs->trans($page_name), '', '', 0, 0, '', '', '', 'mod-admin page-knowledgemanagement');
@@ -478,7 +478,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 		$sql = "SELECT nom";
 		$sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 		$sql .= " WHERE type = '".$db->escape($type)."'";
-		$sql .= " AND entity = ".$conf->entity;
+		$sql .= " AND entity = ".$config->entity;
 		$resql = $db->query($sql);
 		if ($resql) {
 			$i = 0;

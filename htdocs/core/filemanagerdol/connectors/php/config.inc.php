@@ -102,7 +102,7 @@ $Config['ChmodOnUpload'] = $newmask;
 $newmask = '0755';
 $dirmaskdec = octdec($newmask);
 if (getDolGlobalString('MAIN_UMASK')) {
-	$dirmaskdec = octdec($conf->global->MAIN_UMASK);
+	$dirmaskdec = octdec($config->global->MAIN_UMASK);
 }
 $dirmaskdec |= octdec('0200'); // Set w bit required to be able to create content for recursive subdirs files
 $newmask = decoct($dirmaskdec);

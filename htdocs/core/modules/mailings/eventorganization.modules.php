@@ -94,7 +94,7 @@ class mailing_eventorganization extends MailingTargets
 			$sql .= " AND e.fk_project = ".(GETPOSTINT('filter_eventorganization'));
 		}
 		if (empty($this->evenunsubscribe)) {
-			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = e.email and mu.entity = ".((int) $conf->entity).")";
+			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = e.email and mu.entity = ".((int) $config->entity).")";
 		}
 		$sql .= " ORDER BY e.email";
 
@@ -179,7 +179,7 @@ class mailing_eventorganization extends MailingTargets
 		$sql .= " AND e.fk_project = p.rowid";
 		$sql .= " AND p.entity IN (".getEntity('project').")";
 		if (empty($this->evenunsubscribe)) {
-			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = e.email and mu.entity = ".((int) $conf->entity).")";
+			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = e.email and mu.entity = ".((int) $config->entity).")";
 		}
 
 		//print $sql;

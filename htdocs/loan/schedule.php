@@ -277,7 +277,7 @@ print '<th class="center">'.$langs->trans("Insurance");
 print '<th class="center">'.$langs->trans("InterestAmount").'</th>';
 print '<th class="center">'.$langs->trans("Amount").'</th>';
 print '<th class="center">'.$langs->trans("CapitalRemain");
-print '<br>('.price($object->capital, 0, '', 1, -1, -1, $conf->currency).')';
+print '<br>('.price($object->capital, 0, '', 1, -1, -1, $config->currency).')';
 print '<input type="hidden" name="hi_capital0" id ="hi_capital0" value="'.$object->capital.'">';
 print '</th>';
 if (count($echeances->lines) > 0) {
@@ -300,8 +300,8 @@ if ($object->nbterm > 0 && count($echeances->lines) == 0) {
 		print '<tr>';
 		print '<td class="center" id="n'.$i.'">'.$i.'</td>';
 		print '<td class="center" id ="date'.$i.'"><input type="hidden" name="hi_date'.$i.'" id ="hi_date'.$i.'" value="'.dol_time_plus_duree($object->datestart, $i - 1, 'm').'">'.dol_print_date(dol_time_plus_duree($object->datestart, $i - 1, 'm'), 'day').'</td>';
-		print '<td class="center amount" id="insurance'.$i.'">'.price($insu, 0, '', 1, -1, -1, $conf->currency).'</td><input type="hidden" name="hi_insurance'.$i.'" id ="hi_insurance'.$i.'" value="'.$insu.'">';
-		print '<td class="center amount" id="interets'.$i.'">'.price($int, 0, '', 1, -1, -1, $conf->currency).'</td><input type="hidden" name="hi_interets'.$i.'" id ="hi_interets'.$i.'" value="'.$int.'">';
+		print '<td class="center amount" id="insurance'.$i.'">'.price($insu, 0, '', 1, -1, -1, $config->currency).'</td><input type="hidden" name="hi_insurance'.$i.'" id ="hi_insurance'.$i.'" value="'.$insu.'">';
+		print '<td class="center amount" id="interets'.$i.'">'.price($int, 0, '', 1, -1, -1, $config->currency).'</td><input type="hidden" name="hi_interets'.$i.'" id ="hi_interets'.$i.'" value="'.$int.'">';
 		print '<td class="center"><input class="width75 right" name="mens'.$i.'" id="mens'.$i.'" value="'.$mens.'" ech="'.$i.'"></td>';
 		print '<td class="center amount" id="capital'.$i.'">'.price($cap_rest).'</td><input type="hidden" name="hi_capital'.$i.'" id ="hi_capital'.$i.'" value="'.$cap_rest.'">';
 		print '</tr>'."\n";
@@ -324,15 +324,15 @@ if ($object->nbterm > 0 && count($echeances->lines) == 0) {
 		print '<tr>';
 		print '<td class="center" id="n'.$i.'"><input type="hidden" name="hi_rowid'.$i.'" id ="hi_rowid'.$i.'" value="'.$line->id.'">'.$i.'</td>';
 		print '<td class="center" id ="date'.$i.'"><input type="hidden" name="hi_date'.$i.'" id ="hi_date'.$i.'" value="'.$line->datep.'">'.dol_print_date($line->datep, 'day').'</td>';
-		print '<td class="center amount" id="insurance'.$i.'">'.price($insu, 0, '', 1, -1, -1, $conf->currency).'</td><input type="hidden" name="hi_insurance'.$i.'" id ="hi_insurance'.$i.'" value="'.$insu.'">';
-		print '<td class="center amount" id="interets'.$i.'">'.price($int, 0, '', 1, -1, -1, $conf->currency).'</td><input type="hidden" name="hi_interets'.$i.'" id ="hi_interets'.$i.'" value="'.$int.'">';
+		print '<td class="center amount" id="insurance'.$i.'">'.price($insu, 0, '', 1, -1, -1, $config->currency).'</td><input type="hidden" name="hi_insurance'.$i.'" id ="hi_insurance'.$i.'" value="'.$insu.'">';
+		print '<td class="center amount" id="interets'.$i.'">'.price($int, 0, '', 1, -1, -1, $config->currency).'</td><input type="hidden" name="hi_interets'.$i.'" id ="hi_interets'.$i.'" value="'.$int.'">';
 		if (empty($line->fk_bank)) {
 			print '<td class="center"><input class="right width75" name="mens'.$i.'" id="mens'.$i.'" value="'.$mens.'" ech="'.$i.'"></td>';
 		} else {
-			print '<td class="center amount">'.price($mens, 0, '', 1, -1, -1, $conf->currency).'</td><input type="hidden" name="mens'.$i.'" id ="mens'.$i.'" value="'.$mens.'">';
+			print '<td class="center amount">'.price($mens, 0, '', 1, -1, -1, $config->currency).'</td><input type="hidden" name="mens'.$i.'" id ="mens'.$i.'" value="'.$mens.'">';
 		}
 
-		print '<td class="center amount" id="capital'.$i.'">'.price($cap_rest, 0, '', 1, -1, -1, $conf->currency).'</td><input type="hidden" name="hi_capital'.$i.'" id ="hi_capital'.$i.'" value="'.$cap_rest.'">';
+		print '<td class="center amount" id="capital'.$i.'">'.price($cap_rest, 0, '', 1, -1, -1, $config->currency).'</td><input type="hidden" name="hi_capital'.$i.'" id ="hi_capital'.$i.'" value="'.$cap_rest.'">';
 		print '<td class="center">';
 		if (!empty($line->fk_bank)) {
 			print $langs->trans('Paid');

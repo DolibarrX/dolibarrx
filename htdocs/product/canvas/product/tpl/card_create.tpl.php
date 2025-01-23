@@ -120,7 +120,7 @@ print dol_get_fiche_head([]);
 
 <br>
 
-<?php if (!$conf->global->PRODUIT_MULTIPRICES) { ?>
+<?php if (!$config->global->PRODUIT_MULTIPRICES) { ?>
 <table class="border allwidth">
 
 <tr><td><?php echo $langs->trans("SellingPrice"); ?></td>

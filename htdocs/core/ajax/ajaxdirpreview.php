@@ -63,7 +63,7 @@ if (!isset($mode) || $mode != 'noajax') {    // For ajax call
 	$urlsource = GETPOST("urlsource", 'alpha');
 	$search_doc_ref = GETPOST('search_doc_ref', 'alpha');
 
-	$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+	$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 	$sortfield = GETPOST("sortfield", 'aZ09comma');
 	$sortorder = GETPOST("sortorder", 'aZ09comma');
 	$page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -82,7 +82,7 @@ if (!isset($mode) || $mode != 'noajax') {    // For ajax call
 		$sortfield = "name";
 	}
 
-	$rootdirfordoc = $conf->ecm->dir_output;
+	$rootdirfordoc = $config->ecm->dir_output;
 
 	$upload_dir = dirname(str_replace("../", "/", $rootdirfordoc.'/'.$file));
 
@@ -101,7 +101,7 @@ if (!isset($mode) || $mode != 'noajax') {    // For ajax call
 	@phan-var-force string $module
 	@phan-var-force string $showonrightsize
 	';
-	$rootdirfordoc = $conf->ecm->dir_output;
+	$rootdirfordoc = $config->ecm->dir_output;
 
 	$ecmdir = new EcmDirectory($db);
 	$relativepath = '';
@@ -245,51 +245,51 @@ if ($type == 'directory') {
 
 	// TODO change for multicompany sharing
 	if ($module == 'company') {
-		$upload_dir = $conf->societe->dir_output;
+		$upload_dir = $config->societe->dir_output;
 		$excludefiles[] = '^contact$'; // The subdir 'contact' contains files of contacts.
 	} elseif ($module == 'invoice') {
-		$upload_dir = $conf->facture->dir_output;
+		$upload_dir = $config->facture->dir_output;
 	} elseif ($module == 'invoice_supplier') {
-		$upload_dir = $conf->fournisseur->facture->dir_output;
+		$upload_dir = $config->fournisseur->facture->dir_output;
 	} elseif ($module == 'propal') {
-		$upload_dir = $conf->propal->dir_output;
+		$upload_dir = $config->propal->dir_output;
 	} elseif ($module == 'supplier_proposal') {
-		$upload_dir = $conf->supplier_proposal->dir_output;
+		$upload_dir = $config->supplier_proposal->dir_output;
 	} elseif ($module == 'order') {
-		$upload_dir = $conf->commande->dir_output;
+		$upload_dir = $config->commande->dir_output;
 	} elseif ($module == 'order_supplier') {
-		$upload_dir = $conf->fournisseur->commande->dir_output;
+		$upload_dir = $config->fournisseur->commande->dir_output;
 	} elseif ($module == 'contract') {
-		$upload_dir = $conf->contrat->dir_output;
+		$upload_dir = $config->contrat->dir_output;
 	} elseif ($module == 'product') {
-		$upload_dir = $conf->product->dir_output;
+		$upload_dir = $config->product->dir_output;
 	} elseif ($module == 'tax') {
-		$upload_dir = $conf->tax->dir_output;
+		$upload_dir = $config->tax->dir_output;
 		$excludefiles[] = '^vat$'; // The subdir 'vat' contains files of vats.
 	} elseif ($module == 'tax-vat') {
-		$upload_dir = $conf->tax->dir_output.'/vat';
+		$upload_dir = $config->tax->dir_output.'/vat';
 	} elseif ($module == 'salaries') {
-		$upload_dir = $conf->salaries->dir_output;
+		$upload_dir = $config->salaries->dir_output;
 	} elseif ($module == 'project') {
-		$upload_dir = $conf->project->dir_output;
+		$upload_dir = $config->project->dir_output;
 	} elseif ($module == 'project_task') {
-		$upload_dir = $conf->project->dir_output;
+		$upload_dir = $config->project->dir_output;
 	} elseif ($module == 'fichinter') {
-		$upload_dir = $conf->ficheinter->dir_output;
+		$upload_dir = $config->ficheinter->dir_output;
 	} elseif ($module == 'user') {
-		$upload_dir = $conf->user->dir_output;
+		$upload_dir = $config->user->dir_output;
 	} elseif ($module == 'expensereport') {
-		$upload_dir = $conf->expensereport->dir_output;
+		$upload_dir = $config->expensereport->dir_output;
 	} elseif ($module == 'holiday') {
-		$upload_dir = $conf->holiday->dir_output;
+		$upload_dir = $config->holiday->dir_output;
 	} elseif ($module == 'recruitment-recruitmentcandidature') {
-		$upload_dir = $conf->recruitment->dir_output.'/recruitmentcandidature';
+		$upload_dir = $config->recruitment->dir_output.'/recruitmentcandidature';
 	} elseif ($module == 'banque') {
-		$upload_dir = $conf->bank->dir_output;
+		$upload_dir = $config->bank->dir_output;
 	} elseif ($module == 'chequereceipt') {
-		$upload_dir = $conf->bank->dir_output.'/checkdeposits';
+		$upload_dir = $config->bank->dir_output.'/checkdeposits';
 	} elseif ($module == 'mrp-mo') {
-		$upload_dir = $conf->mrp->dir_output;
+		$upload_dir = $config->mrp->dir_output;
 	} else {
 		$parameters = array('modulepart' => $module);
 		$reshook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
@@ -360,7 +360,7 @@ if ($type == 'directory') {
 			}
 		} else {
 			$relativepath = $ecmdir->getRelativePath();
-			$upload_dir = $conf->ecm->dir_output.'/'.$relativepath;
+			$upload_dir = $config->ecm->dir_output.'/'.$relativepath;
 		}
 
 		// If $section defined with value 0
@@ -430,10 +430,10 @@ if ($type == 'directory') {
 
 // Bottom of page
 $useajax = 1;
-if (!empty($conf->dol_use_jmobile)) {
+if (!empty($config->dol_use_jmobile)) {
 	$useajax = 0;
 }
-if (empty($conf->use_javascript_ajax)) {
+if (empty($config->use_javascript_ajax)) {
 	$useajax = 0;
 }
 if (getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
@@ -483,7 +483,7 @@ if ($useajax) {
 	// Enable jquery handlers on new generated HTML objects (same code than into lib_footer.js.php)
 	// Because the content is reloaded by ajax call, we must also reenable some jquery hooks
 	// Wrapper to manage document_preview
-	if ($conf->browser->layout != 'phone') {
+	if ($config->browser->layout != 'phone') {
 		print "\n/* JS CODE TO ENABLE document_preview */\n";
 		print '
                 jQuery(document).ready(function () {

@@ -479,7 +479,7 @@ if ($action == 'encrypt') {
 				// We can encrypt data with dolCrypt()
 				$arrayofelement = getElementProperties($elementtype);
 				if (!empty($arrayofelement['table_element'])) {
-					if ($extrafields->attributes[$elementtype]['entityid'][$attributekey] == $conf->entity || empty($extrafields->attributes[$elementtype]['entityid'][$attributekey])) {
+					if ($extrafields->attributes[$elementtype]['entityid'][$attributekey] == $config->entity || empty($extrafields->attributes[$elementtype]['entityid'][$attributekey])) {
 						dol_syslog("Loop on each extafields of table ".$arrayofelement['table_element']);
 
 						$sql  = "SELECT te.rowid, te.".$attributekey;
@@ -488,7 +488,7 @@ if ($action == 'encrypt') {
 						$sql .= " AND te.".$attributekey." NOT LIKE 'dolcrypt:%'";
 						$sql .= " AND te.".$attributekey." IS NOT NULL";
 						$sql .= " AND te.".$attributekey." <> ''";
-						if ($extrafields->attributes[$elementtype]['entityid'][$attributekey] == $conf->entity) {
+						if ($extrafields->attributes[$elementtype]['entityid'][$attributekey] == $config->entity) {
 							$sql .= " AND t.entity = ".getEntity($arrayofelement['table_element'], 0);
 						}
 

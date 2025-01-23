@@ -119,7 +119,7 @@ if ($resql) {
 		}
 	}
 	$db->free($resql);
-	include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+	include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 
 	print '<div class="div-table-responsive-no-min">';
 	print '<table class="noborder nohover centpercent">';
@@ -143,7 +143,7 @@ if ($resql) {
 		}
 	}
 
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print '<tr class="impair"><td class="center" colspan="2">';
 
 		include_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
@@ -160,7 +160,7 @@ if ($resql) {
 		print '</td></tr>';
 	}
 	foreach ($listofstatus as $status) {
-		if (!$conf->use_javascript_ajax) {
+		if (!$config->use_javascript_ajax) {
 			print '<tr class="oddeven">';
 			print '<td>'.$fichinterstatic->LibStatut($status, 0).'</td>';
 			print '<td class="right"><a href="list.php?search_status='.$status.'">'.(isset($vals[$status]) ? $vals[$status] : 0).' ';
@@ -283,7 +283,7 @@ if ($resql) {
 
 			print '<td width="16" class="right nobordernopadding hideonsmartphone">';
 			$filename = dol_sanitizeFileName($obj->ref);
-			$filedir = $conf->ficheinter->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+			$filedir = $config->ficheinter->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 			print $formfile->getDocumentsLink($fichinterstatic->element, $filename, $filedir);
 			print '</td></tr></table>';
@@ -356,7 +356,7 @@ if (isModEnabled('intervention')) {
 
 				print '<td width="16" class="right nobordernopadding hideonsmartphone">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $conf->ficheinter->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->ficheinter->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 				print $formfile->getDocumentsLink($fichinterstatic->element, $filename, $filedir);
 				print '</td></tr></table>';

@@ -498,7 +498,7 @@ class ExtraFields
 			$sql .= " '".$this->db->escape($type)."',";
 			$sql .= " ".((int) $pos).",";
 			$sql .= " '".$this->db->escape($size)."',";
-			$sql .= " ".($entity === '' ? $conf->entity : $entity).",";
+			$sql .= " ".($entity === '' ? $config->entity : $entity).",";
 			$sql .= " '".$this->db->escape($elementtype)."',";
 			$sql .= " ".((int) $unique).",";
 			$sql .= " ".((int) $required).",";
@@ -570,7 +570,7 @@ class ExtraFields
 				$sql .= " FROM ".$this->db->prefix()."extrafields";
 				$sql .= " WHERE elementtype = '".$this->db->escape($elementtype)."'";
 				$sql .= " AND name = '".$this->db->escape($attrname)."'";
-				//$sql.= " AND entity IN (0,".$conf->entity.")";      Do not test on entity here. We want to see if there is still on field remaining in other entities before deleting field in table
+				//$sql.= " AND entity IN (0,".$config->entity.")";      Do not test on entity here. We want to see if there is still on field remaining in other entities before deleting field in table
 				$resql = $this->db->query($sql);
 				if ($resql) {
 					$obj = $this->db->fetch_object($resql);
@@ -621,7 +621,7 @@ class ExtraFields
 		if (isset($attrname) && $attrname != '' && preg_match("/^\w[a-zA-Z0-9-_]*$/", $attrname)) {
 			$sql = "DELETE FROM ".$this->db->prefix()."extrafields";
 			$sql .= " WHERE name = '".$this->db->escape($attrname)."'";
-			$sql .= " AND entity IN  (0,".$conf->entity.')';
+			$sql .= " AND entity IN  (0,".$config->entity.')';
 			if (!empty($elementtype)) {
 				$sql .= " AND elementtype = '".$this->db->escape($elementtype)."'";
 			}
@@ -887,7 +887,7 @@ class ExtraFields
 				// We don't want on all entities, we delete all and current
 				$sql_del = "DELETE FROM ".$this->db->prefix()."extrafields";
 				$sql_del .= " WHERE name = '".$this->db->escape($attrname)."'";
-				$sql_del .= " AND entity IN (0, ".($entity === '' ? $conf->entity : $entity).")";
+				$sql_del .= " AND entity IN (0, ".($entity === '' ? $config->entity : $entity).")";
 				$sql_del .= " AND elementtype = '".$this->db->escape($elementtype)."'";
 			} else {
 				// We want on all entities ($entities = '0'), we delete on all only (we keep setup specific to each entity)
@@ -927,7 +927,7 @@ class ExtraFields
 			$sql .= " cssview";
 			$sql .= ") VALUES (";
 			$sql .= "'".$this->db->escape($attrname)."',";
-			$sql .= " ".($entity === '' ? $conf->entity : $entity).",";
+			$sql .= " ".($entity === '' ? $config->entity : $entity).",";
 			$sql .= " '".$this->db->escape($label)."',";
 			$sql .= " '".$this->db->escape($type)."',";
 			$sql .= " '".$this->db->escape($size)."',";
@@ -1007,7 +1007,7 @@ class ExtraFields
 		$sql = "SELECT rowid, name, label, type, size, elementtype, fieldunique, fieldrequired, param, pos, alwayseditable, perms, langs, list, printable, totalizable, fielddefault, fieldcomputed, entity, enabled, help,";
 		$sql .= " css, cssview, csslist";
 		$sql .= " FROM ".$this->db->prefix()."extrafields";
-		//$sql.= " WHERE entity IN (0,".$conf->entity.")";    // Filter is done later
+		//$sql.= " WHERE entity IN (0,".$config->entity.")";    // Filter is done later
 		if ($elementtype && $elementtype != 'all') {
 			$sql .= " WHERE elementtype = '".$this->db->escape($elementtype)."'"; // Filed with object->table_element
 		}
@@ -1021,7 +1021,7 @@ class ExtraFields
 			$count = 0;
 			if ($this->db->num_rows($resql)) {
 				while ($tab = $this->db->fetch_object($resql)) {
-					if ($tab->entity != 0 && $tab->entity != $conf->entity) {
+					if ($tab->entity != 0 && $tab->entity != $config->entity) {
 						// This field is not in current entity. We discard but before we save it into the array of mandatory fields if it is a mandatory field without default value
 						if ($tab->fieldrequired && is_null($tab->fielddefault)) {
 							$this->attributes[$tab->elementtype]['mandatoryfieldsofotherentities'][$tab->name] = $tab->type;
@@ -1288,13 +1288,13 @@ class ExtraFields
 			if (!empty($value)) {		// $value in memory is a php numeric, we format it into user number format.
 				$value = price($value);
 			}
-			$out = '<input type="text" class="flat '.$morecss.' maxwidthonsmartphone right" name="'.$keyprefix.$key.$keysuffix.'" id="'.$keyprefix.$key.$keysuffix.'" value="'.$value.'" '.($moreparam ? $moreparam : '').' placeholder="'.$langs->getCurrencySymbol($conf->currency).'">';
+			$out = '<input type="text" class="flat '.$morecss.' maxwidthonsmartphone right" name="'.$keyprefix.$key.$keysuffix.'" id="'.$keyprefix.$key.$keysuffix.'" value="'.$value.'" '.($moreparam ? $moreparam : '').' placeholder="'.$langs->getCurrencySymbol($config->currency).'">';
 		} elseif ($type == 'pricecy') {
-			$currency = $conf->currency;
+			$currency = $config->currency;
 			if (!empty($value)) {
 				// $value in memory is a php string like '10.01:USD'
 				$pricetmp = explode(':', $value);
-				$currency = !empty($pricetmp[1]) ? $pricetmp[1] : $conf->currency;
+				$currency = !empty($pricetmp[1]) ? $pricetmp[1] : $config->currency;
 				$value = price($pricetmp[0]);
 			}
 			$out = '<input type="text" class="flat '.$morecss.' maxwidthonsmartphone" name="'.$keyprefix.$key.$keysuffix.'" id="'.$keyprefix.$key.$keysuffix.'" value="'.$value.'" '.($moreparam ? $moreparam : '').'> ';
@@ -1330,9 +1330,9 @@ class ExtraFields
 					$selected = explode(',', $value);
 				}
 
-				$out .= $form->multiselectarray($keyprefix.$key.$keysuffix, $options, $selected, 0, 0, $morecss, 0, 0, '', '', '', !empty($conf->use_javascript_ajax) && !getDolGlobalString('MAIN_EXTRAFIELDS_DISABLE_SELECT2'));
+				$out .= $form->multiselectarray($keyprefix.$key.$keysuffix, $options, $selected, 0, 0, $morecss, 0, 0, '', '', '', !empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_EXTRAFIELDS_DISABLE_SELECT2'));
 			} else {
-				if (!empty($conf->use_javascript_ajax) && !getDolGlobalString('MAIN_EXTRAFIELDS_DISABLE_SELECT2')) {
+				if (!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_EXTRAFIELDS_DISABLE_SELECT2')) {
 					include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 					$out .= ajax_combobox($keyprefix.$key.$keysuffix, array(), 0);
 				}
@@ -1364,7 +1364,7 @@ class ExtraFields
 			}
 		} elseif ($type == 'sellist') {		// List of values selected from a table (1 choice)
 			$out = '';
-			if (!empty($conf->use_javascript_ajax) && !getDolGlobalString('MAIN_EXTRAFIELDS_DISABLE_SELECT2')) {
+			if (!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_EXTRAFIELDS_DISABLE_SELECT2')) {
 				include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 				$out .= ajax_combobox($keyprefix.$key.$keysuffix, array(), 0);
 			}
@@ -1455,7 +1455,7 @@ class ExtraFields
 					if (!empty($InfoFieldList[4])) {
 						// can use current entity filter
 						if (strpos($InfoFieldList[4], '$ENTITY$') !== false) {
-							$InfoFieldList[4] = str_replace('$ENTITY$', (string) $conf->entity, $InfoFieldList[4]);
+							$InfoFieldList[4] = str_replace('$ENTITY$', (string) $config->entity, $InfoFieldList[4]);
 						}
 						// can use SELECT request
 						if (strpos($InfoFieldList[4], '$SEL$') !== false) {
@@ -1497,7 +1497,7 @@ class ExtraFields
 
 					// Some tables may have field, some other not. For the moment we disable it.
 					if (in_array($InfoFieldList[0], array('tablewithentity'))) {
-						$sqlwhere .= ' AND entity = '.((int) $conf->entity);
+						$sqlwhere .= ' AND entity = '.((int) $config->entity);
 					}
 					$sql .= $sqlwhere;
 
@@ -1680,7 +1680,7 @@ class ExtraFields
 					if (!empty($InfoFieldList[4])) {
 						// can use current entity filter
 						if (strpos($InfoFieldList[4], '$ENTITY$') !== false) {
-							$InfoFieldList[4] = str_replace('$ENTITY$', (string) $conf->entity, $InfoFieldList[4]);
+							$InfoFieldList[4] = str_replace('$ENTITY$', (string) $config->entity, $InfoFieldList[4]);
 						}
 						// can use SELECT request
 						if (strpos($InfoFieldList[4], '$SEL$') !== false) {
@@ -1770,7 +1770,7 @@ class ExtraFields
 
 					// Some tables may have field, some other not. For the moment we disable it.
 					if (in_array($InfoFieldList[0], array('tablewithentity'))) {
-						$sqlwhere .= " AND entity = ".((int) $conf->entity);
+						$sqlwhere .= " AND entity = ".((int) $config->entity);
 					}
 					// $sql.=preg_replace('/^ AND /','',$sqlwhere);
 					// print $sql;
@@ -2063,20 +2063,20 @@ class ExtraFields
 		} elseif ($type == 'phone') {
 			$value = dol_print_phone($value, '', 0, 0, '', '&nbsp;', 'phone');
 		} elseif ($type == 'price') {
-			//$value = price($value, 0, $langs, 0, 0, -1, $conf->currency);
+			//$value = price($value, 0, $langs, 0, 0, -1, $config->currency);
 			if ($value || $value == '0') {
-				$value = price($value, 0, $outputlangs, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, -1).' '.$outputlangs->getCurrencySymbol($conf->currency);
+				$value = price($value, 0, $outputlangs, 0, $config->global->MAIN_MAX_DECIMALS_TOT, -1).' '.$outputlangs->getCurrencySymbol($config->currency);
 			}
 		} elseif ($type == 'pricecy') {
-			$currency = $conf->currency;
+			$currency = $config->currency;
 			if (!empty($value)) {
 				// $value in memory is a php string like '0.01:EUR'
 				$pricetmp = explode(':', $value);
-				$currency = !empty($pricetmp[1]) ? $pricetmp[1] : $conf->currency;
+				$currency = !empty($pricetmp[1]) ? $pricetmp[1] : $config->currency;
 				$value = $pricetmp[0];
 			}
 			if ($value || $value == '0') {
-				$value = price($value, 0, $outputlangs, 0, $conf->global->MAIN_MAX_DECIMALS_TOT, -1, $currency);
+				$value = price($value, 0, $outputlangs, 0, $config->global->MAIN_MAX_DECIMALS_TOT, -1, $currency);
 			}
 		} elseif ($type == 'select') {
 			$valstr = (!empty($param['options'][$value]) ? $param['options'][$value] : '');
@@ -2126,7 +2126,7 @@ class ExtraFields
 				$sql .= " WHERE ".$selectkey." = '".$this->db->escape($value)."'";
 			}
 
-			//$sql.= ' AND entity = '.$conf->entity;
+			//$sql.= ' AND entity = '.$config->entity;
 
 			dol_syslog(get_class($this).':showOutputField:$type=sellist', LOG_DEBUG);
 			$resql = $this->db->query($sql);
@@ -2236,7 +2236,7 @@ class ExtraFields
 				$sql .= ' as main';
 			}
 			// $sql.= " WHERE ".$selectkey."='".$this->db->escape($value)."'";
-			// $sql.= ' AND entity = '.$conf->entity;
+			// $sql.= ' AND entity = '.$config->entity;
 
 			dol_syslog(get_class($this).':showOutputField:$type=chkbxlst', LOG_DEBUG);
 			$resql = $this->db->query($sql);
@@ -2520,7 +2520,7 @@ class ExtraFields
 			// Set the collapse_display status to cookie in priority or if ignorecollapsesetup is 1, if cookie and ignorecollapsesetup not defined, use the setup.
 			$this->expand_display[$collapse_group] = $expand_display;
 
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				$out .= '<!-- Add js script to manage the collapse/uncollapse of extrafields separators '.$key.' -->'."\n";
 				$out .= '<script nonce="'.getNonce().'" type="text/javascript">'."\n";
 				$out .= 'jQuery(document).ready(function(){'."\n";

@@ -178,7 +178,7 @@ function getVersions($authentication)
 	dol_syslog("Function: getVersions login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -223,7 +223,7 @@ function getDocument($authentication, $modulepart, $file, $refname = '')
 	dol_syslog("Function: getDocument login=".$authentication['login'].' - modulepart='.$modulepart.' - file='.$file);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	$objectresp = array();
@@ -264,7 +264,7 @@ function getDocument($authentication, $modulepart, $file, $refname = '')
 		}
 
 		// Security check
-		$check_access = dol_check_secure_access_document($modulepart, $original_file, $conf->entity, $fuser, $refname);
+		$check_access = dol_check_secure_access_document($modulepart, $original_file, $config->entity, $fuser, $refname);
 		$accessallowed              = $check_access['accessallowed'];
 		$sqlprotectagainstexternals = $check_access['sqlprotectagainstexternals'];
 		$original_file              = $check_access['original_file'];

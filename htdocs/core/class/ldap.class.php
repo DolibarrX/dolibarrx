@@ -878,7 +878,7 @@ class Ldap
 	public function dump($dn, $info)
 	{
 		global $conf;
-		$ldapDirTemp = $conf->ldap->dir_temp;
+		$ldapDirTemp = $config->ldap->dir_temp;
 		// Create content
 		$content = $this->dumpContent($dn, $info);
 
@@ -1601,10 +1601,10 @@ class Ldap
 	private function convToOutputCharset($str, $pagecodefrom = 'UTF-8')
 	{
 		global $conf;
-		if ($pagecodefrom == 'ISO-8859-1' && $conf->file->character_set_client == 'UTF-8') {
+		if ($pagecodefrom == 'ISO-8859-1' && $config->file->character_set_client == 'UTF-8') {
 			$str = mb_convert_encoding($str, 'UTF-8', 'ISO-8859-1');
 		}
-		if ($pagecodefrom == 'UTF-8' && $conf->file->character_set_client == 'ISO-8859-1') {
+		if ($pagecodefrom == 'UTF-8' && $config->file->character_set_client == 'ISO-8859-1') {
 			$str = mb_convert_encoding($str, 'ISO-8859-1');
 		}
 		return $str;
@@ -1620,10 +1620,10 @@ class Ldap
 	public function convFromOutputCharset($str, $pagecodeto = 'UTF-8')
 	{
 		global $conf;
-		if ($pagecodeto == 'ISO-8859-1' && $conf->file->character_set_client == 'UTF-8') {
+		if ($pagecodeto == 'ISO-8859-1' && $config->file->character_set_client == 'UTF-8') {
 			$str = mb_convert_encoding($str, 'ISO-8859-1');
 		}
-		if ($pagecodeto == 'UTF-8' && $conf->file->character_set_client == 'ISO-8859-1') {
+		if ($pagecodeto == 'UTF-8' && $config->file->character_set_client == 'ISO-8859-1') {
 			$str = mb_convert_encoding($str, 'UTF-8', 'ISO-8859-1');
 		}
 		return $str;

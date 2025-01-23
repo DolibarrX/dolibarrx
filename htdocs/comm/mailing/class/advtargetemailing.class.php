@@ -185,7 +185,7 @@ class AdvanceTargetingMailing extends CommonObject
 		$sql .= "fk_user_mod";
 		$sql .= ") VALUES (";
 		$sql .= " ".(!isset($this->name) ? 'NULL' : "'".$this->db->escape($this->name)."'").",";
-		$sql .= " ".((int) $conf->entity).",";
+		$sql .= " ".((int) $config->entity).",";
 		$sql .= " ".(!isset($this->fk_element) ? 'NULL' : "'".$this->db->escape($this->fk_element)."'").",";
 		$sql .= " ".(!isset($this->type_element) ? 'NULL' : "'".$this->db->escape($this->type_element)."'").",";
 		$sql .= " ".(!isset($this->filtervalue) ? 'NULL' : "'".$this->db->escape($this->filtervalue)."'").",";
@@ -429,7 +429,7 @@ class AdvanceTargetingMailing extends CommonObject
 		$sql = "UPDATE ".MAIN_DB_PREFIX."mailing_advtarget SET";
 
 		$sql .= " name=".(isset($this->name) ? "'".$this->db->escape($this->name)."'" : "''").",";
-		$sql .= " entity=".((int) $conf->entity).",";
+		$sql .= " entity=".((int) $config->entity).",";
 		$sql .= " fk_element=".(isset($this->fk_element) ? $this->fk_element : "null").",";
 		$sql .= " type_element=".(isset($this->type_element) ? "'".$this->db->escape($this->type_element)."'" : "null").",";
 		$sql .= " filtervalue=".(isset($this->filtervalue) ? "'".$this->db->escape($this->filtervalue)."'" : "null").",";

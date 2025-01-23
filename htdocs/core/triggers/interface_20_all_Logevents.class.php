@@ -97,13 +97,13 @@ class InterfaceLogevents extends DolibarrTriggers
 		}
 
 		$key = 'MAIN_LOGEVENTS_'.$action;
-		if (empty($conf->global->$key)) {
+		if (empty($config->global->$key)) {
 			return 0; // Log events not enabled for this action
 		}
 
-		if (empty($conf->entity)) {
+		if (empty($config->entity)) {
 			global $entity;
-			$conf->entity = $entity; // forcing of the entity if it's not defined (ex: in login form)
+			$config->entity = $entity; // forcing of the entity if it's not defined (ex: in login form)
 		}
 
 		// Actions

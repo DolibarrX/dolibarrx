@@ -142,10 +142,10 @@ $search_fk_shipping_method = GETPOSTINT("search_fk_shipping_method");
 $search_fk_mode_reglement = GETPOSTINT("search_fk_mode_reglement");
 $search_fk_input_reason = GETPOSTINT("search_fk_input_reason");
 
-$diroutputmassaction = $conf->commande->multidir_output[$conf->entity].'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->commande->multidir_output[$config->entity].'/temp/massgeneration/'.$user->id;
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -197,8 +197,8 @@ $arrayfields = array(
 	'cdet.qty' => array('label' => 'QtyOrdered', 'checked' => 1, 'position' => 1),
 	'c.ref' => array('label' => "Ref", 'checked' => 1, 'position' => 5),
 	'c.ref_client' => array('label' => "RefCustomerOrder", 'checked' => -1, 'position' => 10),
-	'p.ref' => array('label' => "ProjectRef", 'checked' => -1, 'enabled' => (empty($conf->project->enabled) ? 0 : 1), 'position' => 20),
-	'p.title' => array('label' => "ProjectLabel", 'checked' => 0, 'enabled' => (empty($conf->project->enabled) ? 0 : 1), 'position' => 25),
+	'p.ref' => array('label' => "ProjectRef", 'checked' => -1, 'enabled' => (empty($config->project->enabled) ? 0 : 1), 'position' => 20),
+	'p.title' => array('label' => "ProjectLabel", 'checked' => 0, 'enabled' => (empty($config->project->enabled) ? 0 : 1), 'position' => 25),
 	's.nom' => array('label' => "ThirdParty", 'checked' => 1, 'position' => 30),
 	's.name_alias' => array('label' => "AliasNameShort", 'checked' => -1, 'position' => 31),
 	's.town' => array('label' => "Town", 'checked' => -1, 'position' => 35),
@@ -215,11 +215,11 @@ $arrayfields = array(
 	'cdet.total_ht' => array('label' => "AmountHT", 'checked' => 1, 'position' => 75),
 	'c.total_vat' => array('label' => "AmountVAT", 'checked' => 0, 'position' => 80),
 	'cdet.total_ttc' => array('label' => "AmountTTC", 'checked' => 0, 'position' => 85),
-	'c.multicurrency_code' => array('label' => 'Currency', 'checked' => 0, 'enabled' => (empty($conf->multicurrency->enabled) ? 0 : 1), 'position' => 90),
-	'c.multicurrency_tx' => array('label' => 'CurrencyRate', 'checked' => 0, 'enabled' => (empty($conf->multicurrency->enabled) ? 0 : 1), 'position' => 95),
-	'c.multicurrency_total_ht' => array('label' => 'MulticurrencyAmountHT', 'checked' => 0, 'enabled' => (empty($conf->multicurrency->enabled) ? 0 : 1), 'position' => 100),
-	'c.multicurrency_total_vat' => array('label' => 'MulticurrencyAmountVAT', 'checked' => 0, 'enabled' => (empty($conf->multicurrency->enabled) ? 0 : 1), 'position' => 105),
-	'c.multicurrency_total_ttc' => array('label' => 'MulticurrencyAmountTTC', 'checked' => 0, 'enabled' => (empty($conf->multicurrency->enabled) ? 0 : 1), 'position' => 110),
+	'c.multicurrency_code' => array('label' => 'Currency', 'checked' => 0, 'enabled' => (empty($config->multicurrency->enabled) ? 0 : 1), 'position' => 90),
+	'c.multicurrency_tx' => array('label' => 'CurrencyRate', 'checked' => 0, 'enabled' => (empty($config->multicurrency->enabled) ? 0 : 1), 'position' => 95),
+	'c.multicurrency_total_ht' => array('label' => 'MulticurrencyAmountHT', 'checked' => 0, 'enabled' => (empty($config->multicurrency->enabled) ? 0 : 1), 'position' => 100),
+	'c.multicurrency_total_vat' => array('label' => 'MulticurrencyAmountVAT', 'checked' => 0, 'enabled' => (empty($config->multicurrency->enabled) ? 0 : 1), 'position' => 105),
+	'c.multicurrency_total_ttc' => array('label' => 'MulticurrencyAmountTTC', 'checked' => 0, 'enabled' => (empty($config->multicurrency->enabled) ? 0 : 1), 'position' => 110),
 	'c.fk_warehouse' => array('label' => 'Warehouse', 'checked' => 0, 'enabled' => (!isModEnabled('stock') && !getDolGlobalString('WAREHOUSE_ASK_WAREHOUSE_DURING_ORDER') ? 0 : 1), 'position' => 110),
 	'u.login' => array('label' => "Author", 'checked' => 1, 'position' => 115),
 	'sale_representative' => array('label' => "SaleRepresentativesOfThirdParty", 'checked' => 0, 'position' => 116),
@@ -354,7 +354,7 @@ if (empty($reshook)) {
 		$permissiontocancel = $user->hasRight("commande", "creer");
 		$permissiontosendbymail = $user->hasRight("commande", "creer");
 	}
-	$uploaddir = $conf->commande->multidir_output[$conf->entity];
+	$uploaddir = $config->commande->multidir_output[$config->entity];
 	$triggersendname = 'ORDER_SENTBYMAIL';
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
@@ -724,7 +724,7 @@ if ($resql) {
 	if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($search_all) {
@@ -1089,7 +1089,7 @@ if ($resql) {
 	// Company type
 	if (!empty($arrayfields['typent.code']['checked'])) {
 		print '<td class="liste_titre maxwidthonsmartphone" align="center">';
-		print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $conf->global->SOCIETE_SORT_ON_TYPEENT), '', 1);
+		print $form->selectarray("search_type_thirdparty", $formcompany->typent_array(0), $search_type_thirdparty, 1, 0, 0, '', 0, 0, 0, (!getDolGlobalString('SOCIETE_SORT_ON_TYPEENT') ? 'ASC' : $config->global->SOCIETE_SORT_ON_TYPEENT), '', 1);
 		print '</td>';
 	}
 	// Date order
@@ -1649,7 +1649,7 @@ if ($resql) {
 			print $generic_commande->getNomUrl(1, ($search_status != 2 ? 0 : $obj->fk_statut), 0, 0, 0, 1, 1);
 
 			$filename = dol_sanitizeFileName($obj->ref);
-			$filedir = $conf->commande->multidir_output[$conf->entity].'/'.dol_sanitizeFileName($obj->ref);
+			$filedir = $config->commande->multidir_output[$config->entity].'/'.dol_sanitizeFileName($obj->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
 			print $formfile->getDocumentsLink($generic_commande->element, $filename, $filedir);
 

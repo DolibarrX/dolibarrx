@@ -167,7 +167,7 @@ class Entrepot extends CommonObject
 		'description' => array('type' => 'text', 'label' => 'Description', 'enabled' => 1, 'visible' => -2, 'position' => 35, 'searchall' => 1),
 		'lieu' => array('type' => 'varchar(64)', 'label' => 'LocationSummary', 'enabled' => 1, 'visible' => 1, 'position' => 40, 'showoncombobox' => 2, 'searchall' => 1),
 		'fk_parent' => array('type' => 'integer:Entrepot:product/stock/class/entrepot.class.php:1:((statut:=:1) AND (entity:IN:__SHARED_ENTITIES__))', 'label' => 'ParentWarehouse', 'enabled' => 1, 'visible' => -2, 'position' => 41),
-		'fk_project' => array('type' => 'integer:Project:projet/class/project.class.php:1:(fk_statut:=:1)', 'label' => 'Project', 'enabled' => '$conf->project->enabled', 'visible' => -1, 'position' => 42),
+		'fk_project' => array('type' => 'integer:Project:projet/class/project.class.php:1:(fk_statut:=:1)', 'label' => 'Project', 'enabled' => '$config->project->enabled', 'visible' => -1, 'position' => 42),
 		'address' => array('type' => 'varchar(255)', 'label' => 'Address', 'enabled' => 1, 'visible' => -2, 'position' => 45, 'searchall' => 1),
 		'zip' => array('type' => 'varchar(10)', 'label' => 'Zip', 'enabled' => 1, 'visible' => -2, 'position' => 50, 'searchall' => 1),
 		'town' => array('type' => 'varchar(50)', 'label' => 'Town', 'enabled' => 1, 'visible' => -2, 'position' => 55, 'searchall' => 1),
@@ -265,7 +265,7 @@ class Entrepot extends CommonObject
 		$this->db->begin();
 
 		$sql = "INSERT INTO ".$this->db->prefix()."entrepot (ref, entity, datec, fk_user_author, fk_parent, fk_project)";
-		$sql .= " VALUES ('".$this->db->escape($this->label)."', ".((int) $conf->entity).", '".$this->db->idate($now)."', ".((int) $user->id).", ".($this->fk_parent > 0 ? ((int) $this->fk_parent) : "NULL").", ".($this->fk_project > 0 ? ((int) $this->fk_project) : "NULL").")";
+		$sql .= " VALUES ('".$this->db->escape($this->label)."', ".((int) $config->entity).", '".$this->db->idate($now)."', ".((int) $user->id).", ".($this->fk_parent > 0 ? ((int) $this->fk_parent) : "NULL").", ".($this->fk_project > 0 ? ((int) $this->fk_project) : "NULL").")";
 
 		dol_syslog(get_class($this)."::create", LOG_DEBUG);
 		$result = $this->db->query($sql);
@@ -707,7 +707,7 @@ class Entrepot extends CommonObject
 		}
 		$sql .= " WHERE ps.fk_entrepot = ".((int) $this->id);
 		if ($separatedPMP) {
-			$sql .= " AND pa.fk_product = p.rowid AND pa.entity = ". (int) $conf->entity;
+			$sql .= " AND pa.fk_product = p.rowid AND pa.entity = ". (int) $config->entity;
 		}
 		$sql .= " AND ps.fk_product = p.rowid";
 		//print $sql;
@@ -815,7 +815,7 @@ class Entrepot extends CommonObject
 		global $conf, $langs, $hookManager;
 		$langs->load("stocks");
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 

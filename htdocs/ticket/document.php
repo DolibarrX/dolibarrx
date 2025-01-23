@@ -62,7 +62,7 @@ $confirm  = GETPOST('confirm', 'alpha');
 $url_page_current = DOL_URL_ROOT.'/ticket/document.php';
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -86,7 +86,7 @@ $result = $object->fetch($id, $ref, $track_id);
 if ($result < 0) {
 	setEventMessages($object->error, $object->errors, 'errors');
 } else {
-	$upload_dir = $conf->ticket->dir_output."/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->ticket->dir_output."/".dol_sanitizeFileName($object->ref);
 }
 
 // Security check - Protection if external user
@@ -230,7 +230,7 @@ if ($object->id) {
 		$file_msg_array = array();
 		$numrows = $db->num_rows($resql);
 		for ($i=0; $i < $numrows; $i++) {
-			$upload_msg_dir = $conf->agenda->dir_output.'/'.$db->fetch_row($resql)[0];
+			$upload_msg_dir = $config->agenda->dir_output.'/'.$db->fetch_row($resql)[0];
 			$file_msg = dol_dir_list($upload_msg_dir, "files", 0, '', '\.meta$', $sortfield, (strtolower($sortorder) == 'desc' ? SORT_DESC : SORT_ASC), 1);
 			if (count($file_msg)) {
 				// add specific module part and user rights for delete

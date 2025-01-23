@@ -48,7 +48,7 @@ $contextpage = GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : str
 $langs->loadLangs(array("companies", "admin", "users", "other","withdrawals"));
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -179,7 +179,7 @@ if ($action == 'confirm_purge' && $confirm == 'yes' && $user->admin) {
 
 	// Delete events
 	$sql = "DELETE FROM ".MAIN_DB_PREFIX."events";
-	$sql .= " WHERE entity = ".$conf->entity;
+	$sql .= " WHERE entity = ".$config->entity;
 
 	dol_syslog("listevents purge", LOG_DEBUG);
 	$resql = $db->query($sql);
@@ -267,7 +267,7 @@ $sql .= $db->order($sortfield, $sortorder);
 
 // Count total nb of records
 $nbtotalofrecords = '';
-/*if (empty($conf->global->MAIN_DISABLE_FULL_SCANLIST))
+/*if (empty($config->global->MAIN_DISABLE_FULL_SCANLIST))
 {
 	$result = $db->query($sql);
 	$nbtotalofrecords = $db->num_rows($result);
@@ -289,7 +289,7 @@ if ($result) {
 	if ($contextpage && $contextpage != $_SERVER["PHP_SELF"]) {
 		$param .= '&contextpage='.urlencode($contextpage);
 	}
-	if ($limit > 0 && $limit != $conf->liste_limit) {
+	if ($limit > 0 && $limit != $config->liste_limit) {
 		$param .= '&limit='.((int) $limit);
 	}
 	if ($optioncss != '') {

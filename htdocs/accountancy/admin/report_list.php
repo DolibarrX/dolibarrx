@@ -216,7 +216,7 @@ if (GETPOST('actionadd', 'alpha') || GETPOST('actionmodify', 'alpha')) {
 		$i = 0;
 		foreach ($listfieldinsert as $f => $value) {
 			if ($value == 'entity') {
-				$_POST[$listfieldvalue[$i]] = $conf->entity;
+				$_POST[$listfieldvalue[$i]] = $config->entity;
 			}
 			if ($i) {
 				$sql .= ",";
@@ -264,7 +264,7 @@ if (GETPOST('actionadd', 'alpha') || GETPOST('actionmodify', 'alpha')) {
 			if ($field == 'fk_country' && GETPOST('country') > 0) {
 				$_POST[$listfieldvalue[$i]] = GETPOST('country');
 			} elseif ($field == 'entity') {
-				$_POST[$listfieldvalue[$i]] = $conf->entity;
+				$_POST[$listfieldvalue[$i]] = $config->entity;
 			}
 			if ($i) {
 				$sql .= ",";

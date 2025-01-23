@@ -77,17 +77,17 @@ if ($action == 'set_default') {
 } elseif ($action == 'del_default') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
-		if ($conf->global->USER_ADDON_PDF_ODT == "$value") {
-			dolibarr_del_const($db, 'USER_ADDON_PDF_ODT', $conf->entity);
+		if ($config->global->USER_ADDON_PDF_ODT == "$value") {
+			dolibarr_del_const($db, 'USER_ADDON_PDF_ODT', $config->entity);
 		}
 	}
 	$res = true;
 } elseif ($action == 'setdoc') {
 	// Set default model
-	if (dolibarr_set_const($db, "USER_ADDON_PDF_ODT", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "USER_ADDON_PDF_ODT", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->USER_ADDON_PDF_ODT = $value;
+		$config->global->USER_ADDON_PDF_ODT = $value;
 	}
 
 	// On active le modele
@@ -98,10 +98,10 @@ if ($action == 'set_default') {
 	$res = true;
 } elseif ($action == 'unsetdoc') {
 	// We disable the template
-	dolibarr_del_const($db, "USER_ADDON_PDF_ODT", $conf->entity);
+	dolibarr_del_const($db, "USER_ADDON_PDF_ODT", $config->entity);
 } elseif (preg_match('/set_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, $code, 1, 'chaine', 0, '', $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -109,7 +109,7 @@ if ($action == 'set_default') {
 	}
 } elseif (preg_match('/del_([a-z0-9_\-]+)/i', $action, $reg)) {
 	$code = $reg[1];
-	if (dolibarr_del_const($db, $code, $conf->entity) > 0) {
+	if (dolibarr_del_const($db, $code, $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -119,7 +119,7 @@ if ($action == 'set_default') {
 	//Set hide closed customer into combox or select
 	$status = GETPOST('status', 'alpha');
 
-	if (dolibarr_set_const($db, "USER_HIDE_INACTIVE_IN_COMBOBOX", $status, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, "USER_HIDE_INACTIVE_IN_COMBOBOX", $status, 'chaine', 0, '', $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -166,7 +166,7 @@ print '<td>'.$langs->trans("UserMailRequired").'</td>';
 print '<td class="center" width="20">&nbsp;</td>';
 
 print '<td class="center" width="100">';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('USER_MAIL_REQUIRED');
 } else {
 	if (!getDolGlobalString('USER_MAIL_REQUIRED')) {
@@ -184,7 +184,7 @@ print '<td>'.$langs->trans("UserHideInactive").'</td>';
 print '<td class="center" width="20">&nbsp;</td>';
 
 print '<td class="center" width="100">';
-if ($conf->use_javascript_ajax) {
+if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('USER_HIDE_INACTIVE_IN_COMBOBOX');
 } else {
 	if (!getDolGlobalString('USER_HIDE_INACTIVE_IN_COMBOBOX')) {
@@ -200,14 +200,14 @@ print '</div>';
 
 print '<br>';
 
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 // Defini tableau def des modeles
 $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;

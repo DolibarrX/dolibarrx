@@ -55,7 +55,7 @@ $mode       = GETPOST('mode', 'aZ');
 $id = GETPOSTINT('id');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -70,7 +70,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new RecruitmentJobPosition($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->recruitment->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->recruitment->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('recruitmentjobpositionlist')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -187,7 +187,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'RecruitmentJobPosition';
 	$objectlabel = 'RecruitmentJobPosition';
-	$uploaddir = $conf->recruitment->dir_output;
+	$uploaddir = $config->recruitment->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -361,7 +361,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 foreach ($search as $key => $val) {

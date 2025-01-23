@@ -82,29 +82,29 @@ if (GETPOST('cancel', 'alpha')) {
 $regs = array();
 if (preg_match('/^(set|del)_([A-Z_]+)$/', $action, $regs)) {
 	if ($regs[1] == 'set') {
-		dolibarr_set_const($db, $regs[2], 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, $regs[2], 1, 'chaine', 0, '', $config->entity);
 	} else {
-		dolibarr_del_const($db, $regs[2], $conf->entity);
+		dolibarr_del_const($db, $regs[2], $config->entity);
 	}
 }
 
 if ($action == 'removebackgroundlogin' && getDolGlobalString('MAIN_LOGIN_BACKGROUND')) {
-	dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
-	$logofile = $conf->mycompany->dir_output.'/logos/' . getDolGlobalString('MAIN_LOGIN_BACKGROUND');
+	$logofile = $config->mycompany->dir_output.'/logos/' . getDolGlobalString('MAIN_LOGIN_BACKGROUND');
 	dol_delete_file($logofile);
-	dolibarr_del_const($db, "MAIN_LOGIN_BACKGROUND", $conf->entity);
+	dolibarr_del_const($db, "MAIN_LOGIN_BACKGROUND", $config->entity);
 	$mysoc->logo = '';
 
-	/*$logosmallfile=$conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small;
+	/*$logosmallfile=$config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small;
 	dol_delete_file($logosmallfile);
-	dolibarr_del_const($db, "MAIN_INFO_SOCIETE_LOGO_SMALL",$conf->entity);
+	dolibarr_del_const($db, "MAIN_INFO_SOCIETE_LOGO_SMALL",$config->entity);
 	$mysoc->logo_small='';
 
-	$logominifile=$conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_mini;
+	$logominifile=$config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_mini;
 	dol_delete_file($logominifile);
-	dolibarr_del_const($db, "MAIN_INFO_SOCIETE_LOGO_MINI",$conf->entity);
+	dolibarr_del_const($db, "MAIN_INFO_SOCIETE_LOGO_MINI",$config->entity);
 	$mysoc->logo_mini='';*/
 }
 
@@ -114,182 +114,182 @@ if ($action == 'update') {
 	if ($mode == 'template') {
 		//dolibarr_del_const($db, "MAIN_THEME", 0);	// To be sure we don't have this constant set for all entities
 
-		dolibarr_set_const($db, "MAIN_THEME", GETPOST("main_theme", 'aZ09'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_THEME", GETPOST("main_theme", 'aZ09'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 
 		if (GETPOSTISSET('THEME_ELDY_USECOMOACTROW')) {
-			dolibarr_set_const($db, "THEME_ELDY_USECOMOACTROW", GETPOST('THEME_ELDY_USECOMOACTROW'), 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, "THEME_ELDY_USECOMOACTROW", GETPOST('THEME_ELDY_USECOMOACTROW'), 'chaine', 0, '', $config->entity);
 		}
 
 		if (GETPOSTISSET('THEME_DARKMODEENABLED')) {
 			$val = GETPOST('THEME_DARKMODEENABLED');
 			if (!$val) {
-				dolibarr_del_const($db, "THEME_DARKMODEENABLED", $conf->entity);
+				dolibarr_del_const($db, "THEME_DARKMODEENABLED", $config->entity);
 			}
 			if ($val) {
-				dolibarr_set_const($db, "THEME_DARKMODEENABLED", $val, 'chaine', 0, '', $conf->entity);
+				dolibarr_set_const($db, "THEME_DARKMODEENABLED", $val, 'chaine', 0, '', $config->entity);
 			}
 		}
 
 		if (GETPOSTISSET('THEME_TOPMENU_DISABLE_IMAGE')) {
 			$val = GETPOST('THEME_TOPMENU_DISABLE_IMAGE');
 			if (!$val) {
-				dolibarr_del_const($db, 'THEME_TOPMENU_DISABLE_IMAGE', $conf->entity);
+				dolibarr_del_const($db, 'THEME_TOPMENU_DISABLE_IMAGE', $config->entity);
 			} else {
-				dolibarr_set_const($db, 'THEME_TOPMENU_DISABLE_IMAGE', GETPOST('THEME_TOPMENU_DISABLE_IMAGE'), 'chaine', 0, '', $conf->entity);
+				dolibarr_set_const($db, 'THEME_TOPMENU_DISABLE_IMAGE', GETPOST('THEME_TOPMENU_DISABLE_IMAGE'), 'chaine', 0, '', $config->entity);
 			}
 		}
 
 		if (GETPOSTISSET('THEME_ELDY_BORDER_RADIUS')) {
 			$val = GETPOST('THEME_ELDY_BORDER_RADIUS');
-			dolibarr_set_const($db, 'THEME_ELDY_BORDER_RADIUS', GETPOSTINT('THEME_ELDY_BORDER_RADIUS'), 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_BORDER_RADIUS', GETPOSTINT('THEME_ELDY_BORDER_RADIUS'), 'chaine', 0, '', $config->entity);
 		}
 
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_BACKBODY'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_BACKBODY', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_BACKBODY', $config->entity);
 		} else {
-			dolibarr_set_const($db, 'THEME_ELDY_BACKBODY', $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_BACKBODY', $val, 'chaine', 0, '', $config->entity);
 		}
 
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TOPMENU_BACK1'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_TOPMENU_BACK1', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_TOPMENU_BACK1', $config->entity);
 		} else {
-			dolibarr_set_const($db, 'THEME_ELDY_TOPMENU_BACK1', $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_TOPMENU_BACK1', $val, 'chaine', 0, '', $config->entity);
 		}
 
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_VERMENU_BACK1'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_VERMENU_BACK1', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_VERMENU_BACK1', $config->entity);
 		} else {
-			dolibarr_set_const($db, 'THEME_ELDY_VERMENU_BACK1', $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_VERMENU_BACK1', $val, 'chaine', 0, '', $config->entity);
 		}
 
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTTITLENOTAB'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_TEXTTITLENOTAB', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_TEXTTITLENOTAB', $config->entity);
 		} else {
-			dolibarr_set_const($db, 'THEME_ELDY_TEXTTITLENOTAB', $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_TEXTTITLENOTAB', $val, 'chaine', 0, '', $config->entity);
 		}
 
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_BACKTITLE1'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_BACKTITLE1', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_BACKTITLE1', $config->entity);
 		} else {
-			dolibarr_set_const($db, 'THEME_ELDY_BACKTITLE1', $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_BACKTITLE1', $val, 'chaine', 0, '', $config->entity);
 		}
 
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTTITLE'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_TEXTTITLE', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_TEXTTITLE', $config->entity);
 		} else {
-			dolibarr_set_const($db, 'THEME_ELDY_TEXTTITLE', $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_TEXTTITLE', $val, 'chaine', 0, '', $config->entity);
 		}
 
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTTITLELINK'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_TEXTTITLELINK', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_TEXTTITLELINK', $config->entity);
 		} else {
-			dolibarr_set_const($db, 'THEME_ELDY_TEXTTITLELINK', $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_TEXTTITLELINK', $val, 'chaine', 0, '', $config->entity);
 		}
 
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_LINEIMPAIR1'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_LINEIMPAIR1', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_LINEIMPAIR1', $config->entity);
 		} else {
-			dolibarr_set_const($db, 'THEME_ELDY_LINEIMPAIR1', $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_LINEIMPAIR1', $val, 'chaine', 0, '', $config->entity);
 		}
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_LINEIMPAIR1'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_LINEIMPAIR2', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_LINEIMPAIR2', $config->entity);
 		} else {
-			dolibarr_set_const($db, 'THEME_ELDY_LINEIMPAIR2', $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_LINEIMPAIR2', $val, 'chaine', 0, '', $config->entity);
 		}
 
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_LINEPAIR1'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_LINEPAIR1', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_LINEPAIR1', $config->entity);
 		} else {
-			dolibarr_set_const($db, 'THEME_ELDY_LINEPAIR1', $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_LINEPAIR1', $val, 'chaine', 0, '', $config->entity);
 		}
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_LINEPAIR1'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_LINEPAIR2', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_LINEPAIR2', $config->entity);
 		} else {
-			dolibarr_set_const($db, 'THEME_ELDY_LINEPAIR2', $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_LINEPAIR2', $val, 'chaine', 0, '', $config->entity);
 		}
 
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTLINK'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_TEXTLINK', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_TEXTLINK', $config->entity);
 		} else {
-			dolibarr_set_const($db, 'THEME_ELDY_TEXTLINK', $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_TEXTLINK', $val, 'chaine', 0, '', $config->entity);
 		}
 
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_USE_HOVER'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_USE_HOVER', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_USE_HOVER', $config->entity);
 		} else {
-			dolibarr_set_const($db, "THEME_ELDY_USE_HOVER", $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, "THEME_ELDY_USE_HOVER", $val, 'chaine', 0, '', $config->entity);
 		}
 
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_USE_CHECKED'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_USE_CHECKED', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_USE_CHECKED', $config->entity);
 		} else {
-			dolibarr_set_const($db, "THEME_ELDY_USE_CHECKED", $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, "THEME_ELDY_USE_CHECKED", $val, 'chaine', 0, '', $config->entity);
 		}
 
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_BTNACTION'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_BTNACTION', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_BTNACTION', $config->entity);
 		} else {
-			dolibarr_set_const($db, 'THEME_ELDY_BTNACTION', $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_BTNACTION', $val, 'chaine', 0, '', $config->entity);
 		}
 
 		$val = (implode(',', (colorStringToArray(GETPOST('THEME_ELDY_TEXTBTNACTION'), array()))));
 		if ($val == '') {
-			dolibarr_del_const($db, 'THEME_ELDY_TEXTBTNACTION', $conf->entity);
+			dolibarr_del_const($db, 'THEME_ELDY_TEXTBTNACTION', $config->entity);
 		} else {
-			dolibarr_set_const($db, 'THEME_ELDY_TEXTBTNACTION', $val, 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, 'THEME_ELDY_TEXTBTNACTION', $val, 'chaine', 0, '', $config->entity);
 		}
 	}
 
 	if ($mode == 'dashboard') {
-		dolibarr_set_const($db, "MAIN_MOTD", dol_htmlcleanlastbr(GETPOST("main_motd", 'restricthtml')), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_MOTD", dol_htmlcleanlastbr(GETPOST("main_motd", 'restricthtml')), 'chaine', 0, '', $config->entity);
 	}
 
 	if ($mode == 'other') {
-		dolibarr_set_const($db, "MAIN_LANG_DEFAULT", GETPOST("MAIN_LANG_DEFAULT", 'aZ09'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_LANG_DEFAULT", GETPOST("MAIN_LANG_DEFAULT", 'aZ09'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 
-		dolibarr_set_const($db, "MAIN_SIZE_LISTE_LIMIT", GETPOSTINT("MAIN_SIZE_LISTE_LIMIT"), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_SIZE_SHORTLIST_LIMIT", GETPOSTINT("MAIN_SIZE_SHORTLIST_LIMIT"), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_SIZE_LISTE_LIMIT", GETPOSTINT("MAIN_SIZE_LISTE_LIMIT"), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_SIZE_SHORTLIST_LIMIT", GETPOSTINT("MAIN_SIZE_SHORTLIST_LIMIT"), 'chaine', 0, '', $config->entity);
 
 		if (GETPOSTISSET("MAIN_CHECKBOX_LEFT_COLUMN")) {
-			dolibarr_set_const($db, "MAIN_CHECKBOX_LEFT_COLUMN", GETPOSTINT("MAIN_CHECKBOX_LEFT_COLUMN"), 'chaine', 0, '', $conf->entity);
+			dolibarr_set_const($db, "MAIN_CHECKBOX_LEFT_COLUMN", GETPOSTINT("MAIN_CHECKBOX_LEFT_COLUMN"), 'chaine', 0, '', $config->entity);
 		}
 
-		//dolibarr_set_const($db, "MAIN_DISABLE_JAVASCRIPT", GETPOST("MAIN_DISABLE_JAVASCRIPT", 'aZ09'), 'chaine', 0, '', $conf->entity);
-		//dolibarr_set_const($db, "MAIN_BUTTON_HIDE_UNAUTHORIZED", GETPOST("MAIN_BUTTON_HIDE_UNAUTHORIZED", 'aZ09'), 'chaine', 0, '', $conf->entity);
-		//dolibarr_set_const($db, "MAIN_MENU_HIDE_UNAUTHORIZED", GETPOST("MAIN_MENU_HIDE_UNAUTHORIZED", 'aZ09'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_START_WEEK", GETPOSTINT("MAIN_START_WEEK"), 'chaine', 0, '', $conf->entity);
+		//dolibarr_set_const($db, "MAIN_DISABLE_JAVASCRIPT", GETPOST("MAIN_DISABLE_JAVASCRIPT", 'aZ09'), 'chaine', 0, '', $config->entity);
+		//dolibarr_set_const($db, "MAIN_BUTTON_HIDE_UNAUTHORIZED", GETPOST("MAIN_BUTTON_HIDE_UNAUTHORIZED", 'aZ09'), 'chaine', 0, '', $config->entity);
+		//dolibarr_set_const($db, "MAIN_MENU_HIDE_UNAUTHORIZED", GETPOST("MAIN_MENU_HIDE_UNAUTHORIZED", 'aZ09'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_START_WEEK", GETPOSTINT("MAIN_START_WEEK"), 'chaine', 0, '', $config->entity);
 
-		dolibarr_set_const($db, "MAIN_DEFAULT_WORKING_DAYS", GETPOST("MAIN_DEFAULT_WORKING_DAYS", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
-		dolibarr_set_const($db, "MAIN_DEFAULT_WORKING_HOURS", GETPOST("MAIN_DEFAULT_WORKING_HOURS", 'alphanohtml'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_DEFAULT_WORKING_DAYS", GETPOST("MAIN_DEFAULT_WORKING_DAYS", 'alphanohtml'), 'chaine', 0, '', $config->entity);
+		dolibarr_set_const($db, "MAIN_DEFAULT_WORKING_HOURS", GETPOST("MAIN_DEFAULT_WORKING_HOURS", 'alphanohtml'), 'chaine', 0, '', $config->entity);
 
-		dolibarr_set_const($db, "MAIN_BUGTRACK_ENABLELINK", GETPOST("MAIN_BUGTRACK_ENABLELINK", 'alpha'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_BUGTRACK_ENABLELINK", GETPOST("MAIN_BUGTRACK_ENABLELINK", 'alpha'), 'chaine', 0, '', $config->entity);
 
-		dolibarr_set_const($db, "MAIN_FIRSTNAME_NAME_POSITION", GETPOST("MAIN_FIRSTNAME_NAME_POSITION", 'aZ09'), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_FIRSTNAME_NAME_POSITION", GETPOST("MAIN_FIRSTNAME_NAME_POSITION", 'aZ09'), 'chaine', 0, '', $config->entity);
 	}
 
 	if ($mode == 'login') {
-		dolibarr_set_const($db, "MAIN_HOME", dol_htmlcleanlastbr(GETPOST("main_home", 'restricthtml')), 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_HOME", dol_htmlcleanlastbr(GETPOST("main_home", 'restricthtml')), 'chaine', 0, '', $config->entity);
 		//dolibarr_set_const($db, "MAIN_HELP_DISABLELINK", GETPOST("MAIN_HELP_DISABLELINK", 'aZ09'), 'chaine', 0, '', 0); // Param for all entities
 
 		$varforimage = 'imagebackground';
-		$dirforimage = $conf->mycompany->dir_output . '/logos/';
+		$dirforimage = $config->mycompany->dir_output . '/logos/';
 		if ($_FILES[$varforimage]["tmp_name"]) {
 			$reg = array();
 			if (preg_match('/([^\\/:]+)$/i', $_FILES[$varforimage]["name"], $reg)) {
@@ -303,7 +303,7 @@ if ($action == 'update') {
 					}
 					$result = dol_move_uploaded_file($_FILES[$varforimage]["tmp_name"], $dirforimage . $original_file, 1, 0, $_FILES[$varforimage]['error']);
 					if ($result > 0) {
-						dolibarr_set_const($db, "MAIN_LOGIN_BACKGROUND", $original_file, 'chaine', 0, '', $conf->entity);
+						dolibarr_set_const($db, "MAIN_LOGIN_BACKGROUND", $original_file, 'chaine', 0, '', $config->entity);
 					} elseif (preg_match('/^ErrorFileIsInfectedWithAVirus/', $result)) {
 						$error++;
 						$langs->load("errors");
@@ -328,7 +328,7 @@ if ($action == 'update') {
 		$csscontent = GETPOST('MAIN_IHM_CUSTOM_CSS', 'restricthtml');
 		$csscontent = dol_string_nohtmltag($csscontent, 2);
 
-		dolibarr_set_const($db, "MAIN_IHM_CUSTOM_CSS", $csscontent, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_IHM_CUSTOM_CSS", $csscontent, 'chaine', 0, '', $config->entity);
 
 		setEventMessages($langs->trans("RecordSaved"), null);
 	}
@@ -336,7 +336,7 @@ if ($action == 'update') {
 	$_SESSION["mainmenu"] = ""; // The menu manager may have changed
 
 	if (GETPOST('dol_resetcache')) {
-		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $conf->entity);
+		dolibarr_set_const($db, "MAIN_IHM_PARAMS_REV", getDolGlobalInt('MAIN_IHM_PARAMS_REV') + 1, 'chaine', 0, '', $config->entity);
 	}
 
 	header("Location: ".$_SERVER["PHP_SELF"]."?mainmenu=home&leftmenu=setup&mode=".$mode.(GETPOSTISSET('page_y') ? '&page_y='.GETPOSTINT('page_y') : ''));
@@ -413,7 +413,7 @@ if ($mode == 'other') {
 
 	// Multilingual GUI
 	print '<tr class="oddeven"><td>' . $langs->trans("EnableMultilangInterface") . '</td><td>';
-	print ajax_constantonoff("MAIN_MULTILANGS", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '', 'language');
+	print ajax_constantonoff("MAIN_MULTILANGS", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'language');
 	print '</td>';
 	print '</tr>';
 
@@ -438,10 +438,10 @@ if ($mode == 'other') {
 	print '<td class="titlefieldmiddle"></td>';
 	print '</tr>';
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		// Show Quick Add link
 		print '<tr class="oddeven"><td>' . $langs->trans("ShowQuickAddLink") . '</td><td>';
-		print ajax_constantonoff("MAIN_USE_TOP_MENU_QUICKADD_DROPDOWN", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '', 'other');
+		print ajax_constantonoff("MAIN_USE_TOP_MENU_QUICKADD_DROPDOWN", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
 		print '</td>';
 		print '</tr>';
 	}
@@ -449,8 +449,8 @@ if ($mode == 'other') {
 	// Hide wiki link on login page
 	$pictohelp = '<span class="fa fa-question-circle"></span>';
 	print '<tr class="oddeven"><td>' . str_replace('{picto}', $pictohelp, $langs->trans("DisableLinkToHelp", '{picto}')) . '</td><td>';
-	print ajax_constantonoff("MAIN_HELP_DISABLELINK", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '', 'other');
-	//print $form->selectyesno('MAIN_HELP_DISABLELINK', isset($conf->global->MAIN_HELP_DISABLELINK) ? $conf->global->MAIN_HELP_DISABLELINK : 0, 1);
+	print ajax_constantonoff("MAIN_HELP_DISABLELINK", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
+	//print $form->selectyesno('MAIN_HELP_DISABLELINK', isset($config->global->MAIN_HELP_DISABLELINK) ? $config->global->MAIN_HELP_DISABLELINK : 0, 1);
 	print '</td>';
 	print '</tr>';
 
@@ -472,7 +472,7 @@ if ($mode == 'other') {
 
 	// Display checkboxes and fields menu left / right
 	print '<tr class="oddeven"><td>' . $langs->trans("MAIN_CHECKBOX_LEFT_COLUMN") . '</td><td>';
-	print ajax_constantonoff("MAIN_CHECKBOX_LEFT_COLUMN", array(), $conf->entity, 0, 0, 1, 0, 0, 1, '', 'other');
+	print ajax_constantonoff("MAIN_CHECKBOX_LEFT_COLUMN", array(), $config->entity, 0, 0, 1, 0, 0, 1, '', 'other');
 	print '</td>';
 	print '</tr>';
 
@@ -503,15 +503,15 @@ if ($mode == 'other') {
 
 	// Hide unauthorized menus
 	print '<tr class="oddeven"><td>' . $langs->trans("HideUnauthorizedMenu") . '</td><td>';
-	//print $form->selectyesno('MAIN_MENU_HIDE_UNAUTHORIZED', isset($conf->global->MAIN_MENU_HIDE_UNAUTHORIZED) ? $conf->global->MAIN_MENU_HIDE_UNAUTHORIZED : 0, 1);
-	print ajax_constantonoff("MAIN_MENU_HIDE_UNAUTHORIZED", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '', 'other');
+	//print $form->selectyesno('MAIN_MENU_HIDE_UNAUTHORIZED', isset($config->global->MAIN_MENU_HIDE_UNAUTHORIZED) ? $config->global->MAIN_MENU_HIDE_UNAUTHORIZED : 0, 1);
+	print ajax_constantonoff("MAIN_MENU_HIDE_UNAUTHORIZED", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
 	print '</td>';
 	print '</tr>';
 
 	// Hide unauthorized button
 	print '<tr class="oddeven"><td>' . $langs->trans("ButtonHideUnauthorized") . '</td><td>';
-	//print $form->selectyesno('MAIN_BUTTON_HIDE_UNAUTHORIZED', isset($conf->global->MAIN_BUTTON_HIDE_UNAUTHORIZED) ? $conf->global->MAIN_BUTTON_HIDE_UNAUTHORIZED : 0, 1);
-	print ajax_constantonoff("MAIN_BUTTON_HIDE_UNAUTHORIZED", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '', 'other');
+	//print $form->selectyesno('MAIN_BUTTON_HIDE_UNAUTHORIZED', isset($config->global->MAIN_BUTTON_HIDE_UNAUTHORIZED) ? $config->global->MAIN_BUTTON_HIDE_UNAUTHORIZED : 0, 1);
+	print ajax_constantonoff("MAIN_BUTTON_HIDE_UNAUTHORIZED", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
 	print '</td>';
 	print '</tr>';
 
@@ -519,7 +519,7 @@ if ($mode == 'other') {
 	/*
 
 	print '<tr><td>'.$langs->trans("HideVersionLink").'</td><td>';
-	print $form->selectyesno('MAIN_HIDE_VERSION',$conf->global->MAIN_HIDE_VERSION,1);
+	print $form->selectyesno('MAIN_HIDE_VERSION',$config->global->MAIN_HIDE_VERSION,1);
 	print '</td>';
 	print '</tr>';
 	*/
@@ -527,7 +527,7 @@ if ($mode == 'other') {
 
 	// Show search area in top menu
 	print '<tr class="oddeven"><td>' . $langs->trans("ShowSearchAreaInTopMenu") . '</td><td>';
-	print ajax_constantonoff("MAIN_USE_TOP_MENU_SEARCH_DROPDOWN", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '', 'other');
+	print ajax_constantonoff("MAIN_USE_TOP_MENU_SEARCH_DROPDOWN", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
 	print '</td>';
 	print '</tr>';
 
@@ -541,7 +541,7 @@ if ($mode == 'other') {
 
 	// Disable javascript and ajax
 	print '<tr class="oddeven"><td>' . $form->textwithpicto($langs->trans("DisableJavascript"), $langs->trans("DisableJavascriptNote")) . '</td><td>';
-	print ajax_constantonoff("MAIN_DISABLE_JAVASCRIPT", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '', 'other');
+	print ajax_constantonoff("MAIN_DISABLE_JAVASCRIPT", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
 	print '</td>';
 	print '</tr>';
 
@@ -592,74 +592,74 @@ if ($mode == 'dashboard') {
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableGlobal') . '</td><td>';
-	print ajax_constantonoff("MAIN_DISABLE_GLOBAL_WORKBOARD", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+	print ajax_constantonoff("MAIN_DISABLE_GLOBAL_WORKBOARD", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 	print '</td>';
 	print '</tr>';
 
 	if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD')) {
 		// Block meteo
 		print '<tr class="oddeven"><td>' . $langs->trans('MAIN_DISABLE_METEO') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_METEO", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_METEO", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block agenda
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockAgenda') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_AGENDA", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_AGENDA", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block agenda
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockProject') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_PROJECT", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_PROJECT", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block customer
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockCustomer') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_CUSTOMER", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_CUSTOMER", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block supplier
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockSupplier') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_SUPPLIER", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_SUPPLIER", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block contract
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockContract') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_CONTRACT", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_CONTRACT", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block ticket
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockTicket') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_TICKET", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_TICKET", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block bank
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockBank') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_BANK", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_BANK", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block adherent
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockAdherent') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_ADHERENT", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_ADHERENT", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block expense report
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockExpenseReport') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_EXPENSEREPORT", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_EXPENSEREPORT", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 
 		// Block holiday
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockHoliday') . '</td><td>';
-		print ajax_constantonoff("MAIN_DISABLE_BLOCK_HOLIDAY", array(), $conf->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
+		print ajax_constantonoff("MAIN_DISABLE_BLOCK_HOLIDAY", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';
 		print '</tr>';
 	}
@@ -683,7 +683,7 @@ if ($mode == 'login') {
 	// Hide helpcenter link on login page
 	/*
 	print '<tr class="oddeven"><td>' . $langs->trans("DisableLinkToHelpCenter") . '</td><td>';
-	print ajax_constantonoff("MAIN_HELPCENTER_DISABLELINK", array(), $conf->entity, 0, 0, 0, 0, 0, 0, '', 'login');
+	print ajax_constantonoff("MAIN_HELPCENTER_DISABLELINK", array(), $config->entity, 0, 0, 0, 0, 0, 0, '', 'login');
 	print '</td>';
 	print '</tr>';
 	*/
@@ -698,7 +698,7 @@ if ($mode == 'login') {
 	}
 	print $form->textwithpicto($langs->trans("MessageLogin"), $texthelp, 1, 'help', '', 0, 2, 'tooltipmessagelogin');
 	print '</td><td>';
-	$doleditor = new DolEditor('main_home', (isset($conf->global->MAIN_HOME) ? $conf->global->MAIN_HOME : ''), '', 142, 'dolibarr_notes', 'In', false, true, true, ROWS_4, '90%');
+	$doleditor = new DolEditor('main_home', (isset($config->global->MAIN_HOME) ? $config->global->MAIN_HOME : ''), '', 142, 'dolibarr_notes', 'In', false, true, true, ROWS_4, '90%');
 	$doleditor->Create();
 	print '</td></tr>' . "\n";
 
@@ -720,7 +720,7 @@ if ($mode == 'login') {
 	}
 	if (getDolGlobalString('MAIN_LOGIN_BACKGROUND')) {
 		print '<a class="reposition" href="' . $_SERVER["PHP_SELF"] . '?action=removebackgroundlogin&token='.newToken().'&mode=login">' . img_delete($langs->trans("Delete")) . '</a>';
-		if (file_exists($conf->mycompany->dir_output . '/logos/' . getDolGlobalString('MAIN_LOGIN_BACKGROUND'))) {
+		if (file_exists($config->mycompany->dir_output . '/logos/' . getDolGlobalString('MAIN_LOGIN_BACKGROUND'))) {
 			print ' &nbsp; ';
 			print '<img class="marginleftonly boxshadow valignmiddle" width="100" src="' . DOL_URL_ROOT . '/viewimage.php?modulepart=mycompany&amp;file=' . urlencode('logos/' . getDolGlobalString('MAIN_LOGIN_BACKGROUND')) . '">';
 		}

@@ -168,7 +168,7 @@ class FormWebsite
 					$out .= $langs->trans($obj->label);
 					$out .= '</option>';
 
-					$conf->cache['type_of_container'][$obj->code] = $obj->label;
+					$config->cache['type_of_container'][$obj->code] = $obj->label;
 
 					$i++;
 				}
@@ -280,7 +280,7 @@ class FormWebsite
 			$out .= '<option class="optiongrey" value="-1">'.(is_numeric($showempty) ? '&nbsp;' : $showempty).'</option>';
 		}
 
-		/*if (!empty($conf->use_javascript_ajax)) {
+		/*if (!empty($config->use_javascript_ajax)) {
 			$valueoption = '<span class="classlink">'.img_picto('', 'add', 'class="paddingrightonly"').$langs->trans("AddPage").'</span>';
 			$out .= '<option value="-2" data-html="'.dol_escape_htmltag($valueoption).'">'.$valueoption.'</option>';
 		}*/

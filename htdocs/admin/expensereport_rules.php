@@ -141,7 +141,7 @@ if (empty($reshook)) {
 			$object->fk_c_type_fees = $fk_c_type_fees;
 			$object->code_expense_rules_type = $code_expense_rules_type;
 			$object->amount = $amount;
-			$object->entity = $conf->entity;
+			$object->entity = $config->entity;
 
 			if ($object->id > 0) {
 				$res = $object->update($user);
@@ -340,7 +340,7 @@ foreach ($rules as $rule) {
 	if ($action == 'edit' && $object->id == $rule->id) {
 		echo '<input type="text" value="' . price2num($object->amount) . '" name="amount" class="amount width50 right" />';
 	} else {
-		echo price($rule->amount, 0, $langs, 1, -1, -1, $conf->currency);
+		echo price($rule->amount, 0, $langs, 1, -1, -1, $config->currency);
 	}
 	echo '</td>';
 

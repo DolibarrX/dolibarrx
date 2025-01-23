@@ -165,18 +165,18 @@ if ($id > 0 || !empty($ref)) {
 	if ($result < 0) {
 		dol_print_error($db, $object->error, $object->errors);
 	}
-	$entity = (empty($object->entity) ? $conf->entity : $object->entity);
+	$entity = (empty($object->entity) ? $config->entity : $object->entity);
 	if (isModEnabled("product")) {
-		$upload_dir = $conf->product->multidir_output[$entity].'/'.get_exdir(0, 0, 0, 0, $object, 'product').dol_sanitizeFileName($object->ref);
+		$upload_dir = $config->product->multidir_output[$entity].'/'.get_exdir(0, 0, 0, 0, $object, 'product').dol_sanitizeFileName($object->ref);
 	} elseif (isModEnabled("service")) {
-		$upload_dir = $conf->service->multidir_output[$entity].'/'.get_exdir(0, 0, 0, 0, $object, 'product').dol_sanitizeFileName($object->ref);
+		$upload_dir = $config->service->multidir_output[$entity].'/'.get_exdir(0, 0, 0, 0, $object, 'product').dol_sanitizeFileName($object->ref);
 	}
 
 	if (getDolGlobalInt('PRODUCT_USE_OLD_PATH_FOR_PHOTO')) {    // For backward compatibility, we scan also old dirs
 		if (isModEnabled("product")) {
-			$upload_dirold = $conf->product->multidir_output[$entity].'/'.substr(substr("000".$object->id, -2), 1, 1).'/'.substr(substr("000".$object->id, -2), 0, 1).'/'.$object->id."/photos";
+			$upload_dirold = $config->product->multidir_output[$entity].'/'.substr(substr("000".$object->id, -2), 1, 1).'/'.substr(substr("000".$object->id, -2), 0, 1).'/'.$object->id."/photos";
 		} else {
-			$upload_dirold = $conf->service->multidir_output[$entity].'/'.substr(substr("000".$object->id, -2), 1, 1).'/'.substr(substr("000".$object->id, -2), 0, 1).'/'.$object->id."/photos";
+			$upload_dirold = $config->service->multidir_output[$entity].'/'.substr(substr("000".$object->id, -2), 1, 1).'/'.substr(substr("000".$object->id, -2), 0, 1).'/'.$object->id."/photos";
 		}
 	}
 }
@@ -433,7 +433,7 @@ if (empty($reshook)) {
 	}
 
 	// Actions to build doc
-	$upload_dir = $conf->product->dir_output;
+	$upload_dir = $config->product->dir_output;
 	$permissiontoadd = $usercancreate;
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
@@ -520,7 +520,7 @@ if (empty($reshook)) {
 		if (!$error) {
 			$units = GETPOSTINT('units');
 
-			$object->entity				= $conf->entity;
+			$object->entity				= $config->entity;
 			$object->ref				= (string) $ref;
 			$object->label				= GETPOST('label', $label_security_check);
 			$object->price_base_type	= GETPOST('price_base_type', 'aZ09');
@@ -1343,7 +1343,7 @@ $res = 0;
 $modBarCodeProduct = null;
 if (isModEnabled('barcode') && getDolGlobalString('BARCODE_PRODUCT_ADDON_NUM')) {
 	$module = strtolower(getDolGlobalString('BARCODE_PRODUCT_ADDON_NUM'));
-	$dirbarcode = array_merge(array('/core/modules/barcode/'), $conf->modules_parts['barcode']);
+	$dirbarcode = array_merge(array('/core/modules/barcode/'), $config->modules_parts['barcode']);
 	foreach ($dirbarcode as $dirroot) {
 		$res = dol_include_once($dirroot.$module.'.php');
 		if ($res) {
@@ -1375,7 +1375,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 		//WYSIWYG Editor
 		require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print '<script type="text/javascript">';
 			print '$(document).ready(function () {
                         $("#selectcountry_id").change(function() {
@@ -1955,7 +1955,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			//WYSIWYG Editor
 			require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 
-			if (!empty($conf->use_javascript_ajax)) {
+			if (!empty($config->use_javascript_ajax)) {
 				print '<script type="text/javascript">';
 				print '$(document).ready(function () {
                         $("#selectcountry_id").change(function () {
@@ -2081,7 +2081,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 						}
 
 						print '</td></tr>';
-						if (!empty($object->status_batch) || !empty($conf->use_javascript_ajax)) {
+						if (!empty($object->status_batch) || !empty($config->use_javascript_ajax)) {
 							$langs->load("admin");
 							$tooltip = $langs->trans("GenericMaskCodes", $langs->transnoentities("Batch"), $langs->transnoentities("Batch"));
 							$tooltip .= '<br>'.$langs->trans("GenericMaskCodes2");
@@ -2103,7 +2103,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 							print '<td id="field_mask">';
 							print $form->textwithpicto('<input type="text" class="flat minwidth175" name="batch_mask" id="batch_mask_input" value="'.$mask.'">', $tooltip, 1, 1);
 							// Add javascript to sho/hide field for custom mask
-							if (!empty($conf->use_javascript_ajax)) {
+							if (!empty($config->use_javascript_ajax)) {
 								print '<script type="text/javascript">
 								$(document).ready(function() {
 									$("#field_mask").parent().addClass("hideobject");
@@ -2953,8 +2953,8 @@ if (!empty($modCodeProduct->code_auto)) {
 $formconfirm = '';
 
 // Confirm delete product
-if (($action == 'delete' && (empty($conf->use_javascript_ajax) || !empty($conf->dol_use_jmobile)))	// Output when action = clone if jmobile or no js
-	|| (!empty($conf->use_javascript_ajax) && empty($conf->dol_use_jmobile))) {							// Always output when not jmobile nor js
+if (($action == 'delete' && (empty($config->use_javascript_ajax) || !empty($config->dol_use_jmobile)))	// Output when action = clone if jmobile or no js
+	|| (!empty($config->use_javascript_ajax) && empty($config->dol_use_jmobile))) {							// Always output when not jmobile nor js
 	$formconfirm = $form->formconfirm("card.php?id=".$object->id, $langs->trans("DeleteProduct"), $langs->trans("ConfirmDeleteProduct"), "confirm_delete", '', 0, "action-delete");
 }
 if ($action == 'merge') {
@@ -2970,8 +2970,8 @@ if ($action == 'merge') {
 }
 
 // Clone confirmation
-if (($action == 'clone' && (empty($conf->use_javascript_ajax) || !empty($conf->dol_use_jmobile)))		// Output when action = clone if jmobile or no js
-	|| (!empty($conf->use_javascript_ajax) && empty($conf->dol_use_jmobile))) {							// Always output when not jmobile nor js
+if (($action == 'clone' && (empty($config->use_javascript_ajax) || !empty($config->dol_use_jmobile)))		// Output when action = clone if jmobile or no js
+	|| (!empty($config->use_javascript_ajax) && empty($config->dol_use_jmobile))) {							// Always output when not jmobile nor js
 	// Define confirmation messages
 	$formquestionclone = array(
 		'text' => $langs->trans("ConfirmClone"),
@@ -3028,7 +3028,7 @@ if ($action != 'create' && $action != 'edit') {
 			}
 
 			if (!isset($hookManager->resArray['no_button_copy']) || $hookManager->resArray['no_button_copy'] != 1) {
-				if (!empty($conf->use_javascript_ajax) && empty($conf->dol_use_jmobile)) {
+				if (!empty($config->use_javascript_ajax) && empty($config->dol_use_jmobile)) {
 					$cloneProductUrl = '';
 					$cloneButtonId = 'action-clone';
 				}
@@ -3040,7 +3040,7 @@ if ($action != 'create' && $action != 'edit') {
 		if ($usercandelete) {
 			if (empty($object_is_used)) {
 				if (!isset($hookManager->resArray['no_button_delete']) || $hookManager->resArray['no_button_delete'] != 1) {
-					if (!empty($conf->use_javascript_ajax) && empty($conf->dol_use_jmobile)) {
+					if (!empty($config->use_javascript_ajax) && empty($config->dol_use_jmobile)) {
 						print dolGetButtonAction($langs->trans('Delete'), '', 'delete', '#', 'action-delete', true);
 					} else {
 						print dolGetButtonAction('', $langs->trans('Delete'), 'delete', $_SERVER["PHP_SELF"].'?action=delete&token='.newToken().'&id='.$object->id, '');
@@ -3172,10 +3172,10 @@ if ($action != 'create' && $action != 'edit' && $action != 'delete') {
 
 	// Documents
 	$objectref = dol_sanitizeFileName($object->ref);
-	if (!empty($conf->product->multidir_output[$object->entity])) {
-		$filedir = $conf->product->multidir_output[$object->entity].'/'.$objectref; //Check repertories of current entities
+	if (!empty($config->product->multidir_output[$object->entity])) {
+		$filedir = $config->product->multidir_output[$object->entity].'/'.$objectref; //Check repertories of current entities
 	} else {
-		$filedir = $conf->product->dir_output.'/'.$objectref;
+		$filedir = $config->product->dir_output.'/'.$objectref;
 	}
 	$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 	$genallowed = $usercanread;

@@ -118,7 +118,7 @@ if ($arrayofconfboothtype == -1) {
 }
 
 // Security check
-if (empty($conf->eventorganization->enabled)) {
+if (empty($config->eventorganization->enabled)) {
 	httponly_accessforbidden('Module Event organization not enabled');
 }
 
@@ -145,9 +145,9 @@ function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $
 	// Define urllogo
 	$urllogo = DOL_URL_ROOT.'/theme/common/login_logo.png';
 
-	if (!empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
+	if (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
 		$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_small);
-	} elseif (!empty($mysoc->logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
+	} elseif (!empty($mysoc->logo) && is_readable($config->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
 		$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/'.$mysoc->logo);
 	} elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.svg')) {
 		$urllogo = DOL_URL_ROOT.'/theme/dolibarr_logo.svg';
@@ -278,7 +278,7 @@ if (empty($reshook) && $action == 'add') {	// Test on permission not required he
 			if (substr($module, 0, 15) == 'mod_codeclient_' && substr($module, -3) == 'php') {
 				$module = substr($module, 0, dol_strlen($module) - 4);
 			}
-			$dirsociete = array_merge(array('/core/modules/societe/'), $conf->modules_parts['societe']);
+			$dirsociete = array_merge(array('/core/modules/societe/'), $config->modules_parts['societe']);
 			foreach ($dirsociete as $dirroot) {
 				$res = dol_include_once($dirroot.$module.'.php');
 				if ($res) {
@@ -348,7 +348,7 @@ if (empty($reshook) && $action == 'add') {	// Test on permission not required he
 					if (substr($module, 0, 15) == 'mod_codeclient_' && substr($module, -3) == 'php') {
 						$module = substr($module, 0, dol_strlen($module) - 4);
 					}
-					$dirsociete = array_merge(array('/core/modules/societe/'), $conf->modules_parts['societe']);
+					$dirsociete = array_merge(array('/core/modules/societe/'), $config->modules_parts['societe']);
 					foreach ($dirsociete as $dirroot) {
 						$res = dol_include_once($dirroot.$module.'.php');
 						if ($res) {
@@ -615,9 +615,9 @@ print '</td></tr>';
 print '<tr><td>'.$langs->trans('Country').'</td><td>';
 $country_id = GETPOST('country_id');
 if (!$country_id && getDolGlobalString('MEMBER_NEWFORM_FORCECOUNTRYCODE')) {
-	$country_id = getCountry($conf->global->MEMBER_NEWFORM_FORCECOUNTRYCODE, '2', $db, $langs);
+	$country_id = getCountry($config->global->MEMBER_NEWFORM_FORCECOUNTRYCODE, '2', $db, $langs);
 }
-if (!$country_id && !empty($conf->geoipmaxmind->enabled)) {
+if (!$country_id && !empty($config->geoipmaxmind->enabled)) {
 	$country_code = dol_user_country();
 	//print $country_code;
 	if ($country_code) {

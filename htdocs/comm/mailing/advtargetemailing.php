@@ -55,7 +55,7 @@ if (isModEnabled('category')) {
 }
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -460,7 +460,7 @@ if ($object->fetch($id) >= 0) {
 	print $langs->trans("TotalNbOfDistinctRecipients");
 	print '</td><td colspan="3">';
 	$nbemail = ($object->nbemail ? $object->nbemail : '0');
-	if (getDolGlobalString('MAILING_LIMIT_SENDBYWEB') && $conf->global->MAILING_LIMIT_SENDBYWEB < $nbemail) {
+	if (getDolGlobalString('MAILING_LIMIT_SENDBYWEB') && $config->global->MAILING_LIMIT_SENDBYWEB < $nbemail) {
 		$text = $langs->trans('LimitSendingEmailing', getDolGlobalString('MAILING_LIMIT_SENDBYWEB'));
 		// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
 		print $form->textwithpicto($nbemail, $text, 1, 'warning');

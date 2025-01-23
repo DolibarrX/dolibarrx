@@ -78,7 +78,7 @@ function checkLoginPassEntity($usertotest, $passwordtotest, $entitytotest, $auth
 				$authfile = 'functions_'.$mode.'.php';
 				$fullauthfile = '';
 
-				$dirlogin = array_merge(array("/core/login"), (array) $conf->modules_parts['login']);
+				$dirlogin = array_merge(array("/core/login"), (array) $config->modules_parts['login']);
 				foreach ($dirlogin as $reldir) {
 					$dir = dol_buildpath($reldir, 0);
 					$newdir = dol_osencode($dir);
@@ -101,7 +101,7 @@ function checkLoginPassEntity($usertotest, $passwordtotest, $entitytotest, $auth
 					if ($login && $login != '--bad-login-validity--') {
 						// Login is successful with this method
 						$test = false; // To stop once at first login success
-						$conf->authmode = $mode; // This properties is defined only when logged to say what mode was successfully used
+						$config->authmode = $mode; // This properties is defined only when logged to say what mode was successfully used
 						/*$dol_tz = GETPOST('tz');
 						$dol_dst = GETPOST('dst');
 						$dol_screenwidth = GETPOST('screenwidth');
@@ -143,7 +143,7 @@ if (!function_exists('dol_loginfunction')) {
 		// Instantiate hooks of thirdparty module only if not already define
 		$hookManager->initHooks(array('mainloginpage'));
 
-		$main_authentication = $conf->file->main_authentication;
+		$main_authentication = $config->file->main_authentication;
 
 		$session_name = session_name(); // Get current session name
 
@@ -157,17 +157,17 @@ if (!function_exists('dol_loginfunction')) {
 		}
 		$titletruedolibarrversion = constant('DOL_VERSION'); // $title used by login template after the @ to inform of true Dolibarr version
 
-		// Note: $conf->css looks like '/theme/eldy/style.css.php'
+		// Note: $config->css looks like '/theme/eldy/style.css.php'
 		/*
-		$conf->css = "/theme/".(GETPOST('theme','aZ09')?GETPOST('theme','aZ09'):$conf->theme)."/style.css.php";
-		$themepath=dol_buildpath($conf->css,1);
-		if (!empty($conf->modules_parts['theme']))		// Using this feature slow down application
+		$config->css = "/theme/".(GETPOST('theme','aZ09')?GETPOST('theme','aZ09'):$config->theme)."/style.css.php";
+		$themepath=dol_buildpath($config->css,1);
+		if (!empty($config->modules_parts['theme']))		// Using this feature slow down application
 		{
-			foreach($conf->modules_parts['theme'] as $reldir)
+			foreach($config->modules_parts['theme'] as $reldir)
 			{
-				if (file_exists(dol_buildpath($reldir.$conf->css, 0)))
+				if (file_exists(dol_buildpath($reldir.$config->css, 0)))
 				{
-					$themepath=dol_buildpath($reldir.$conf->css, 1);
+					$themepath=dol_buildpath($reldir.$config->css, 1);
 					break;
 				}
 			}
@@ -177,8 +177,8 @@ if (!function_exists('dol_loginfunction')) {
 
 		// Select templates dir
 		$template_dir = '';
-		if (!empty($conf->modules_parts['tpl'])) {	// Using this feature slow down application
-			$dirtpls = array_merge($conf->modules_parts['tpl'], array('/core/tpl/'));
+		if (!empty($config->modules_parts['tpl'])) {	// Using this feature slow down application
+			$dirtpls = array_merge($config->modules_parts['tpl'], array('/core/tpl/'));
 			foreach ($dirtpls as $reldir) {
 				$tmp = dol_buildpath($reldir.'login.tpl.php');
 				if (file_exists($tmp)) {
@@ -259,12 +259,12 @@ if (!function_exists('dol_loginfunction')) {
 		$width = 0;
 		$urllogo = DOL_URL_ROOT.'/theme/common/login_logo.png';
 
-		if (!empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
+		if (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
 			$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_small);
-		} elseif (!empty($mysoc->logo) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
+		} elseif (!empty($mysoc->logo) && is_readable($config->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
 			$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/'.$mysoc->logo);
 			$width = 128;
-		} elseif (!empty($mysoc->logo_squarred_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_squarred_small)) {
+		} elseif (!empty($mysoc->logo_squarred_small) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_squarred_small)) {
 			$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_squarred_small);
 		} elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.svg')) {
 			$urllogo = DOL_URL_ROOT.'/theme/dolibarr_logo.svg';
@@ -538,7 +538,7 @@ function getRandomPassword($generic = false, $replaceambiguouschars = null, $len
 			$generated_password = str_shuffle($randomCode);
 		}
 	} elseif (getDolGlobalString('USER_PASSWORD_GENERATED')) {
-		$nomclass = "modGeneratePass".ucfirst($conf->global->USER_PASSWORD_GENERATED);
+		$nomclass = "modGeneratePass".ucfirst($config->global->USER_PASSWORD_GENERATED);
 		$nomfichier = $nomclass.".class.php";
 		//print DOL_DOCUMENT_ROOT."/core/modules/security/generate/".$nomclass;
 		require_once DOL_DOCUMENT_ROOT."/core/modules/security/generate/".$nomfichier;
@@ -579,7 +579,7 @@ function dolJSToSetRandomPassword($htmlname, $htmlnameofbutton = 'generate_token
 
 	$out = '';
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		$out .= "\n".'<!-- Js code to suggest a security key -->';
 		$out .= '<script nonce="'.getNonce().'" type="text/javascript">';
 		$out .= 'jQuery(document).ready(function () {

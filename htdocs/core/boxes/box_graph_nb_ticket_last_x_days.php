@@ -79,8 +79,8 @@ class box_graph_nb_ticket_last_x_days extends ModeleBoxes
 		$badgeStatus7 = '#baa32b';
 		$badgeStatus8 = '#993013';
 		$badgeStatus9 = '#e7f0f0';
-		if (file_exists(DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php')) {
-			include DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/theme_vars.inc.php';
+		if (file_exists(DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php')) {
+			include DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/theme_vars.inc.php';
 		}
 		$this->max = $max;
 

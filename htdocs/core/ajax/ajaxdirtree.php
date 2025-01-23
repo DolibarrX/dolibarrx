@@ -92,8 +92,8 @@ $langs->load("ecm");
 $fullpathselecteddir = '<none>';
 $fullpathpreopened  = '';
 if ($modulepart == 'ecm') {
-	$fullpathselecteddir = $conf->ecm->dir_output.'/'.($selecteddir != '/' ? $selecteddir : '');
-	$fullpathpreopened = $conf->ecm->dir_output.'/'.($preopened != '/' ? $preopened : '');
+	$fullpathselecteddir = $config->ecm->dir_output.'/'.($selecteddir != '/' ? $selecteddir : '');
+	$fullpathpreopened = $config->ecm->dir_output.'/'.($preopened != '/' ? $preopened : '');
 } elseif ($modulepart == 'medias' || $modulepart == 'website') {
 	$fullpathselecteddir = $dolibarr_main_data_root.'/medias/'.($selecteddir != '/' ? $selecteddir : '');
 	$fullpathpreopened = $dolibarr_main_data_root.'/medias/'.($preopened != '/' ? $preopened : '');
@@ -159,7 +159,7 @@ foreach ($sqltree as $keycursor => $val) {
 	}
 }
 
-if (!empty($conf->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
+if (!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
 	//
 	treeOutputForAbsoluteDir($sqltree, $selecteddir, $fullpathselecteddir, $modulepart, $websitekey, $pageid, $preopened, $fullpathpreopened);
 
@@ -187,7 +187,7 @@ if (!empty($conf->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_
 }
 
 
-if (empty($conf->use_javascript_ajax) || getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
+if (empty($config->use_javascript_ajax) || getDolGlobalString('MAIN_ECM_DISABLE_JS')) {
 	print '<ul class="ecmjqft">';
 
 	// Load full manual tree from database. We will use it to define nbofsubdir and nboffilesinsubdir
@@ -529,7 +529,7 @@ function treeOutputForAbsoluteDir($sqltree, $selecteddir, $fullpathselecteddir, 
 							$newselecteddir = $val['fullrelativename'];
 							$newfullpathselecteddir = '';
 							if ($modulepart == 'ecm') {
-								$newfullpathselecteddir = $conf->ecm->dir_output.'/'.($val['fullrelativename'] != '/' ? $val['fullrelativename'] : '');
+								$newfullpathselecteddir = $config->ecm->dir_output.'/'.($val['fullrelativename'] != '/' ? $val['fullrelativename'] : '');
 							} elseif ($modulepart == 'medias') {
 								$newfullpathselecteddir = $dolibarr_main_data_root.'/medias/'.($val['fullrelativename'] != '/' ? $val['fullrelativename'] : '');
 							}

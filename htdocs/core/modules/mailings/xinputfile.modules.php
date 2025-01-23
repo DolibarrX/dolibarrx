@@ -139,7 +139,7 @@ class mailing_xinputfile extends MailingTargets
 
 		$cibles = array();
 
-		$upload_dir = $conf->mailing->dir_temp;
+		$upload_dir = $config->mailing->dir_temp;
 
 		if (dol_mkdir($upload_dir) >= 0) {
 			$resupload = dol_move_uploaded_file($_FILES['username']['tmp_name'], $upload_dir."/".$_FILES['username']['name'], 1, 0, $_FILES['username']['error']);

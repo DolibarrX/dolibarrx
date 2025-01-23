@@ -82,7 +82,7 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2 || getDolGlobalString($keyforpar
 
 // Clean param
 if (getDolGlobalString('PRODUIT_MULTIPRICES') && !getDolGlobalString('PRODUIT_MULTIPRICES_LIMIT')) {
-	dolibarr_set_const($db, 'PRODUIT_MULTIPRICES_LIMIT', 5, 'chaine', 0, '', $conf->entity);
+	dolibarr_set_const($db, 'PRODUIT_MULTIPRICES_LIMIT', 5, 'chaine', 0, '', $config->entity);
 }
 
 $error = 0;
@@ -96,7 +96,7 @@ $nomessageinsetmoduleoptions = 1;
 include DOL_DOCUMENT_ROOT.'/core/actions_setmoduleoptions.inc.php';
 
 if ($action == 'setcodeproduct') {
-	if (dolibarr_set_const($db, "PRODUCT_CODEPRODUCT_ADDON", $value, 'chaine', 0, '', $conf->entity) > 0) {
+	if (dolibarr_set_const($db, "PRODUCT_CODEPRODUCT_ADDON", $value, 'chaine', 0, '', $config->entity) > 0) {
 		header("Location: ".$_SERVER["PHP_SELF"]);
 		exit;
 	} else {
@@ -105,13 +105,13 @@ if ($action == 'setcodeproduct') {
 }
 
 if ($action == 'other' && GETPOST('value_PRODUIT_LIMIT_SIZE') >= 0) {
-	$res = dolibarr_set_const($db, "PRODUIT_LIMIT_SIZE", GETPOST('value_PRODUIT_LIMIT_SIZE'), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PRODUIT_LIMIT_SIZE", GETPOST('value_PRODUIT_LIMIT_SIZE'), 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
 }
 if ($action == 'other' && GETPOST('value_PRODUIT_MULTIPRICES_LIMIT') > 0) {
-	$res = dolibarr_set_const($db, "PRODUIT_MULTIPRICES_LIMIT", GETPOST('value_PRODUIT_MULTIPRICES_LIMIT'), 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PRODUIT_MULTIPRICES_LIMIT", GETPOST('value_PRODUIT_MULTIPRICES_LIMIT'), 'chaine', 0, '', $config->entity);
 	if (!($res > 0)) {
 		$error++;
 	}
@@ -121,53 +121,53 @@ if ($action == 'other') {
 	foreach ($select_pricing_rules as $tmprule => $tmplabel) { // Loop on each possible mode
 		if ($tmprule == $princingrules) { // We are on selected rule, we enable it
 			if ($princingrules == 'PRODUCT_PRICE_UNIQ') { // For this case, we disable entries manually
-				$res = dolibarr_set_const($db, 'PRODUIT_MULTIPRICES', 0, 'chaine', 0, '', $conf->entity);
-				$res = dolibarr_set_const($db, 'PRODUIT_CUSTOMER_PRICES_BY_QTY', 0, 'chaine', 0, '', $conf->entity);
-				$res = dolibarr_set_const($db, 'PRODUIT_CUSTOMER_PRICES', 0, 'chaine', 0, '', $conf->entity);
-				$res = dolibarr_set_const($db, 'PRODUIT_CUSTOMER_PRICES_AND_MULTIPRICES', 0, 'chaine', 0, '', $conf->entity);
-				dolibarr_set_const($db, 'PRODUCT_PRICE_UNIQ', 1, 'chaine', 0, '', $conf->entity);
+				$res = dolibarr_set_const($db, 'PRODUIT_MULTIPRICES', 0, 'chaine', 0, '', $config->entity);
+				$res = dolibarr_set_const($db, 'PRODUIT_CUSTOMER_PRICES_BY_QTY', 0, 'chaine', 0, '', $config->entity);
+				$res = dolibarr_set_const($db, 'PRODUIT_CUSTOMER_PRICES', 0, 'chaine', 0, '', $config->entity);
+				$res = dolibarr_set_const($db, 'PRODUIT_CUSTOMER_PRICES_AND_MULTIPRICES', 0, 'chaine', 0, '', $config->entity);
+				dolibarr_set_const($db, 'PRODUCT_PRICE_UNIQ', 1, 'chaine', 0, '', $config->entity);
 			} else {
 				$multirule = explode('&', $princingrules);
 				foreach ($multirule as $rulesselected) {
-					$res = dolibarr_set_const($db, $rulesselected, 1, 'chaine', 0, '', $conf->entity);
+					$res = dolibarr_set_const($db, $rulesselected, 1, 'chaine', 0, '', $config->entity);
 				}
 			}
 		} else { // We clear this mode
 			if (strpos($tmprule, '&') === false) {
-				$res = dolibarr_set_const($db, $tmprule, 0, 'chaine', 0, '', $conf->entity);
+				$res = dolibarr_set_const($db, $tmprule, 0, 'chaine', 0, '', $config->entity);
 			}
 		}
 	}
 
 	$value = GETPOST('price_base_type', 'alpha');
-	$res = dolibarr_set_const($db, "PRODUCT_PRICE_BASE_TYPE", $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PRODUCT_PRICE_BASE_TYPE", $value, 'chaine', 0, '', $config->entity);
 
 	/*$value = GETPOST('PRODUIT_SOUSPRODUITS', 'alpha');
-	$res = dolibarr_set_const($db, "PRODUIT_SOUSPRODUITS", $value, 'chaine', 0, '', $conf->entity);*/
+	$res = dolibarr_set_const($db, "PRODUIT_SOUSPRODUITS", $value, 'chaine', 0, '', $config->entity);*/
 
 	$value = GETPOST('PRODUIT_DESC_IN_FORM', 'alpha');
-	$res = dolibarr_set_const($db, "PRODUIT_DESC_IN_FORM", $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PRODUIT_DESC_IN_FORM", $value, 'chaine', 0, '', $config->entity);
 
 	$value = GETPOST('activate_viewProdTextsInThirdpartyLanguage', 'alpha');
-	$res = dolibarr_set_const($db, "PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE", $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE", $value, 'chaine', 0, '', $config->entity);
 
 	$value = GETPOST('activate_mergePropalProductCard', 'alpha');
-	$res = dolibarr_set_const($db, "PRODUIT_PDF_MERGE_PROPAL", $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PRODUIT_PDF_MERGE_PROPAL", $value, 'chaine', 0, '', $config->entity);
 
 	$value = GETPOST('activate_usesearchtoselectproduct', 'alpha');
-	$res = dolibarr_set_const($db, "PRODUIT_USE_SEARCH_TO_SELECT", $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PRODUIT_USE_SEARCH_TO_SELECT", $value, 'chaine', 0, '', $config->entity);
 
 	$value = GETPOST('activate_FillProductDescAuto', 'alpha');
-	$res = dolibarr_set_const($db, "PRODUIT_AUTOFILL_DESC", $value, 'chaine', 0, '', $conf->entity);
+	$res = dolibarr_set_const($db, "PRODUIT_AUTOFILL_DESC", $value, 'chaine', 0, '', $config->entity);
 
 	if (GETPOSTISSET('PRODUIT_FOURN_TEXTS')) {
 		$value = GETPOST('PRODUIT_FOURN_TEXTS', 'alpha');
-		$res = dolibarr_set_const($db, "PRODUIT_FOURN_TEXTS", $value, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "PRODUIT_FOURN_TEXTS", $value, 'chaine', 0, '', $config->entity);
 	}
 
 	if (GETPOSTISSET('PRODUCT_USE_SUPPLIER_PACKAGING')) {
 		$value = GETPOST('PRODUCT_USE_SUPPLIER_PACKAGING', 'alpha');
-		$res = dolibarr_set_const($db, "PRODUCT_USE_SUPPLIER_PACKAGING", $value, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, "PRODUCT_USE_SUPPLIER_PACKAGING", $value, 'chaine', 0, '', $config->entity);
 	}
 }
 
@@ -181,7 +181,7 @@ if ($action == 'specimen') { // For products
 	// Search template files
 	$file = '';
 	$classname = '';
-	$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
 		$file = dol_buildpath($reldir."core/modules/product/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
@@ -219,17 +219,17 @@ if ($action == 'del') {
 	$ret = delDocumentModel($value, $type);
 	if ($ret > 0) {
 		if (getDolGlobalString('PRODUCT_ADDON_PDF') == "$value") {
-			dolibarr_del_const($db, 'PRODUCT_ADDON_PDF', $conf->entity);
+			dolibarr_del_const($db, 'PRODUCT_ADDON_PDF', $config->entity);
 		}
 	}
 }
 
 // Set default model
 if ($action == 'setdoc') {
-	if (dolibarr_set_const($db, "PRODUCT_ADDON_PDF", $value, 'chaine', 0, '', $conf->entity)) {
+	if (dolibarr_set_const($db, "PRODUCT_ADDON_PDF", $value, 'chaine', 0, '', $config->entity)) {
 		// La constante qui a ete lue en avant du nouveau set
 		// on passe donc par une variable pour avoir un affichage coherent
-		$conf->global->PRODUCT_ADDON_PDF = $value;
+		$config->global->PRODUCT_ADDON_PDF = $value;
 	}
 
 	// On active le modele
@@ -244,9 +244,9 @@ if ($action == 'set') {
 	$const = "PRODUCT_SPECIAL_".strtoupper(GETPOST('spe', 'alpha'));
 	$value = GETPOST('value');
 	if (GETPOST('value', 'alpha')) {
-		$res = dolibarr_set_const($db, $const, $value, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $const, $value, 'chaine', 0, '', $config->entity);
 	} else {
-		$res = dolibarr_del_const($db, $const, $conf->entity);
+		$res = dolibarr_del_const($db, $const, $config->entity);
 	}
 	if (!($res > 0)) {
 		$error++;
@@ -258,7 +258,7 @@ if (preg_match('/set_(.+)/', $action, $reg)) {
 	$keyforvar = $reg[1];
 	if ($keyforvar) {
 		$value = 1;
-		$res = dolibarr_set_const($db, $keyforvar, $value, 'chaine', 0, '', $conf->entity);
+		$res = dolibarr_set_const($db, $keyforvar, $value, 'chaine', 0, '', $config->entity);
 	}
 }
 
@@ -266,7 +266,7 @@ if (preg_match('/set_(.+)/', $action, $reg)) {
 if (preg_match('/del_(.+)/', $action, $reg)) {
 	$keyforvar = $reg[1];
 	if ($keyforvar) {
-		$res = dolibarr_del_const($db, $keyforvar, $conf->entity);
+		$res = dolibarr_del_const($db, $keyforvar, $config->entity);
 	}
 }
 
@@ -306,7 +306,7 @@ $form = new Form($db);
 
 // Module to manage product / services code
 $dirproduct = array('/core/modules/product/');
-$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 print load_fiche_titre($langs->trans("ProductCodeChecker"), '', '');
 
@@ -358,7 +358,7 @@ foreach ($dirproduct as $dirroot) {
 					print "</td>\n";
 				} else {
 					$disabled = false;
-					if (!(isModEnabled('multicompany') && ((is_object($mc) && !empty($mc->sharings['referent'])) && ($mc->sharings['referent'] == $conf->entity)))) {
+					if (!(isModEnabled('multicompany') && ((is_object($mc) && !empty($mc->sharings['referent'])) && ($mc->sharings['referent'] == $config->entity)))) {
 					}
 					print '<td class="center">';
 					if (!$disabled) {
@@ -390,7 +390,7 @@ $def = array();
 $sql = "SELECT nom";
 $sql .= " FROM ".MAIN_DB_PREFIX."document_model";
 $sql .= " WHERE type = '".$db->escape($type)."'";
-$sql .= " AND entity = ".$conf->entity;
+$sql .= " AND entity = ".$config->entity;
 $resql = $db->query($sql);
 if ($resql) {
 	$i = 0;
@@ -555,8 +555,8 @@ print '</tr>'."\n";
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("AssociatedProductsAbility").'</td>';
 print '<td class="right">';
-print ajax_constantonoff("PRODUIT_SOUSPRODUITS", array(), $conf->entity, 0, 0, 1, 0);
-//print $form->selectyesno("PRODUIT_SOUSPRODUITS", $conf->global->PRODUIT_SOUSPRODUITS, 1);
+print ajax_constantonoff("PRODUIT_SOUSPRODUITS", array(), $config->entity, 0, 0, 1, 0);
+//print $form->selectyesno("PRODUIT_SOUSPRODUITS", $config->global->PRODUIT_SOUSPRODUITS, 1);
 print '</td>';
 print '</tr>';
 
@@ -566,8 +566,8 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("VariantsAbility").'</td>';
 print '<td class="right">';
-//print ajax_constantonoff("PRODUIT_SOUSPRODUITS", array(), $conf->entity, 0, 0, 1, 0);
-//print $form->selectyesno("PRODUIT_SOUSPRODUITS", $conf->global->PRODUIT_SOUSPRODUITS, 1);
+//print ajax_constantonoff("PRODUIT_SOUSPRODUITS", array(), $config->entity, 0, 0, 1, 0);
+//print $form->selectyesno("PRODUIT_SOUSPRODUITS", $config->global->PRODUIT_SOUSPRODUITS, 1);
 if (!isModEnabled('variants')) {
 	print '<span class="opacitymedium">'.$langs->trans("ModuleMustBeEnabled", $langs->transnoentitiesnoconv("Module610Name")).'</span>';
 } else {
@@ -619,7 +619,7 @@ if (getDolGlobalString('PRODUIT_MULTIPRICES') || getDolGlobalString('PRODUIT_CUS
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("DefaultPriceType").'</td>';
 print '<td class="right">';
-print $form->selectPriceBaseType($conf->global->PRODUCT_PRICE_BASE_TYPE, "price_base_type");
+print $form->selectPriceBaseType($config->global->PRODUCT_PRICE_BASE_TYPE, "price_base_type");
 print '</td>';
 print '</tr>';
 
@@ -628,16 +628,16 @@ if (isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) {
 	print '<tr class="oddeven">';
 	print '<td>'.$form->textwithpicto($langs->trans("UseProductSupplierPackaging"), $langs->trans("PackagingForThisProductDesc")).'</td>';
 	print '<td align="right">';
-	print ajax_constantonoff("PRODUCT_USE_SUPPLIER_PACKAGING", array(), $conf->entity, 0, 0, 0, 0);
-	//print $form->selectyesno("activate_useProdSupplierPackaging", (!empty($conf->global->PRODUCT_USE_SUPPLIER_PACKAGING) ? $conf->global->PRODUCT_USE_SUPPLIER_PACKAGING : 0), 1);
+	print ajax_constantonoff("PRODUCT_USE_SUPPLIER_PACKAGING", array(), $config->entity, 0, 0, 0, 0);
+	//print $form->selectyesno("activate_useProdSupplierPackaging", (!empty($config->global->PRODUCT_USE_SUPPLIER_PACKAGING) ? $config->global->PRODUCT_USE_SUPPLIER_PACKAGING : 0), 1);
 	print '</td>';
 	print '</tr>';
 
 	print '<tr class="oddeven">';
 	print '<td>'.$langs->trans("UseProductFournDesc").'</td>';
 	print '<td class="right">';
-	print ajax_constantonoff("PRODUIT_FOURN_TEXTS", array(), $conf->entity, 0, 0, 0, 0);
-	//print $form->selectyesno("activate_useProdFournDesc", (!empty($conf->global->PRODUIT_FOURN_TEXTS) ? $conf->global->PRODUIT_FOURN_TEXTS : 0), 1);
+	print ajax_constantonoff("PRODUIT_FOURN_TEXTS", array(), $config->entity, 0, 0, 0, 0);
+	//print $form->selectyesno("activate_useProdFournDesc", (!empty($config->global->PRODUIT_FOURN_TEXTS) ? $config->global->PRODUIT_FOURN_TEXTS : 0), 1);
 	print '</td>';
 	print '</tr>';
 }
@@ -667,7 +667,7 @@ print '</tr>'."\n";
 
 print '<tr class="oddeven">';
 print '<td>'.$form->textwithpicto($langs->trans("UseSearchToSelectProduct"), $langs->trans('UseSearchToSelectProductTooltip'), 1).'</td>';
-if (empty($conf->use_javascript_ajax)) {
+if (empty($config->use_javascript_ajax)) {
 	print '<td class="nowrap right">';
 	print $langs->trans("NotAvailableWhenAjaxDisabled");
 	print '</td>';
@@ -699,7 +699,7 @@ print '<!-- PRODUIT_AUTOFILL_DESC -->';
 print $form->selectarray(
 	"activate_FillProductDescAuto",
 	array(0 => 'DoNotAutofillButAutoConcat', 1 => 'AutoFillFormFieldBeforeSubmit', 2 => 'DoNotUseDescriptionOfProdut'),
-	!getDolGlobalString('PRODUIT_AUTOFILL_DESC') ? 0 : $conf->global->PRODUIT_AUTOFILL_DESC,
+	!getDolGlobalString('PRODUIT_AUTOFILL_DESC') ? 0 : $config->global->PRODUIT_AUTOFILL_DESC,
 	0,
 	0,
 	0,
@@ -729,7 +729,7 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("MergePropalProductCard").'</td>';
 print '<td class="right">';
-print $form->selectyesno("activate_mergePropalProductCard",$conf->global->PRODUIT_PDF_MERGE_PROPAL,1);
+print $form->selectyesno("activate_mergePropalProductCard",$config->global->PRODUIT_PDF_MERGE_PROPAL,1);
 print '</td>';
 print '</tr>';
 */
@@ -740,7 +740,7 @@ print '</tr>';
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("UseUnits").'</td>';
 print '<td class="right">';
-print $form->selectyesno("activate_units",$conf->global->PRODUCT_USE_UNITS,1);
+print $form->selectyesno("activate_units",$config->global->PRODUCT_USE_UNITS,1);
 print '</td>';
 print '</tr>';
 */
@@ -750,7 +750,7 @@ if (getDolGlobalInt('MAIN_MULTILANGS')) {
 	print '<tr class="oddeven">';
 	print '<td>'.$langs->trans("ViewProductDescInThirdpartyLanguageAbility").'</td>';
 	print '<td class="right">';
-	print $form->selectyesno("activate_viewProdTextsInThirdpartyLanguage", (getDolGlobalString('PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE') ? $conf->global->PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE : 0), 1);
+	print $form->selectyesno("activate_viewProdTextsInThirdpartyLanguage", (getDolGlobalString('PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE') ? $config->global->PRODUIT_TEXTS_IN_THIRDPARTY_LANGUAGE : 0), 1);
 	print '</td>';
 	print '</tr>';
 }
@@ -780,7 +780,7 @@ if (getDolGlobalString('PRODUCT_CANVAS_ABILITY')) {
 
 					$module = $object->module;
 
-					if ($conf->$module->enabled) {
+					if ($config->$module->enabled) {
 						print '<tr class="oddeven"><td>';
 
 						print $object->description;

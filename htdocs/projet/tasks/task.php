@@ -244,7 +244,7 @@ if ($action == 'remove_file' && $user->hasRight('projet', 'creer')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 	$langs->load("other");
-	$upload_dir = $conf->project->dir_output;
+	$upload_dir = $config->project->dir_output;
 	$file = $upload_dir.'/'.dol_sanitizeFileName(GETPOST('file'));
 
 	$ret = dol_delete_file($file);
@@ -373,7 +373,7 @@ if ($id > 0 || !empty($ref)) {
 		// Budget
 		print '<tr><td>'.$langs->trans("Budget").'</td><td>';
 		if (isset($projectstatic->budget_amount) && strcmp($projectstatic->budget_amount, '')) {
-			print '<span class="amount">'.price($projectstatic->budget_amount, 0, $langs, 1, 0, 0, $conf->currency).'</span>';
+			print '<span class="amount">'.price($projectstatic->budget_amount, 0, $langs, 1, 0, 0, $config->currency).'</span>';
 		}
 		print '</td></tr>';
 
@@ -692,7 +692,7 @@ if ($id > 0 || !empty($ref)) {
 		// Budget
 		print '<tr><td>'.$langs->trans("Budget").'</td><td>';
 		if (!is_null($object->budget_amount) && strcmp((string) $object->budget_amount, '')) {
-			print '<span class="amount">'.price($object->budget_amount, 0, $langs, 1, 0, 0, $conf->currency).'</span>';
+			print '<span class="amount">'.price($object->budget_amount, 0, $langs, 1, 0, 0, $config->currency).'</span>';
 		}
 		print '</td></tr>';
 
@@ -759,7 +759,7 @@ if ($id > 0 || !empty($ref)) {
 		 * Generated documents
 		 */
 		$filename = dol_sanitizeFileName($projectstatic->ref)."/".dol_sanitizeFileName($object->ref);
-		$filedir = $conf->project->dir_output."/".dol_sanitizeFileName($projectstatic->ref)."/".dol_sanitizeFileName($object->ref);
+		$filedir = $config->project->dir_output."/".dol_sanitizeFileName($projectstatic->ref)."/".dol_sanitizeFileName($object->ref);
 		$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 		$genallowed = ($user->hasRight('projet', 'lire'));
 		$delallowed = ($user->hasRight('projet', 'creer'));

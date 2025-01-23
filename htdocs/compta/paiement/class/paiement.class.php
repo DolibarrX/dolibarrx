@@ -360,7 +360,7 @@ class Paiement extends CommonObject
 			// Set the currency of the invoice
 			$currencyofinvoiceforthisline = empty($this->multicurrency_code[$key]) ? $invoice_multicurrency_code : $this->multicurrency_code[$key];
 			// If a payment was entered into the section of the foreign currency of invoice, we want to pay in the currency of invoice
-			$currencyofpaymentforthisline = empty($this->multicurrency_amounts[$key]) ? $conf->currency : $this->multicurrency_code[$key];
+			$currencyofpaymentforthisline = empty($this->multicurrency_amounts[$key]) ? $config->currency : $this->multicurrency_code[$key];
 
 			//var_dump("Invoice ID: ".$key.", amount in company cur:".$this->amounts[$key]." amount in invoice cur:".$this->multicurrency_amounts[$key]." => currencyofinvoice= ".$currencyofinvoiceforthisline." - currencyofpaymentforthisline =".$currencyofpaymentforthisline);
 
@@ -399,7 +399,7 @@ class Paiement extends CommonObject
 		}
 
 		if (empty($currencyofpayment)) {	// Should not happen. For the case the multicurrency_code was not saved into invoices
-			$currencyofpayment = $conf->currency;
+			$currencyofpayment = $config->currency;
 		}
 
 		if (!empty($currencyofpayment)) {
@@ -407,16 +407,16 @@ class Paiement extends CommonObject
 			include_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 			$bankaccount = new Account($this->db);
 			$bankaccount->fetch($this->fk_account);
-			$bankcurrencycode = empty($bankaccount->currency_code) ? $conf->currency : $bankaccount->currency_code;
+			$bankcurrencycode = empty($bankaccount->currency_code) ? $config->currency : $bankaccount->currency_code;
 
-			if ($bankcurrencycode != $conf->currency) {
+			if ($bankcurrencycode != $config->currency) {
 				// If we try to pay on a bank with a different currency
-				if ($bankcurrencycode != $currencyofinvoices && $currencyofinvoices != $conf->currency) {
+				if ($bankcurrencycode != $currencyofinvoices && $currencyofinvoices != $config->currency) {
 					$langs->load("errors");
 					$this->error = $langs->trans('ErrorYouTryToPayInvoicesInACurrencyFromBankWithAnotherCurrency', $currencyofinvoices, $bankcurrencycode);
 					return -1;
 				}
-				if ($bankcurrencycode != $currencyofpayment && $currencyofpayment != $conf->currency) {
+				if ($bankcurrencycode != $currencyofpayment && $currencyofpayment != $config->currency) {
 					$langs->load("errors");
 					$this->error = $langs->trans('ErrorYouTryToPayInvoicesInACurrencyFromBankWithAnotherCurrency', $currencyofpayment, $bankcurrencycode);
 					return -1;
@@ -458,7 +458,7 @@ class Paiement extends CommonObject
 		$note = ($this->note_private ? $this->note_private : $this->note);
 
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."paiement (entity, ref, ref_ext, datec, datep, amount, multicurrency_amount, fk_paiement, num_paiement, note, ext_payment_id, ext_payment_site, fk_user_creat, pos_change)";
-		$sql .= " VALUES (".((int) $conf->entity).", '".$this->db->escape($this->ref)."', '".$this->db->escape($this->ref_ext)."', '".$this->db->idate($now)."', '".$this->db->idate($this->datepaye)."', ".((float) $total).", ".((float) $mtotal).", ".((int) $this->paiementid).", ";
+		$sql .= " VALUES (".((int) $config->entity).", '".$this->db->escape($this->ref)."', '".$this->db->escape($this->ref_ext)."', '".$this->db->idate($now)."', '".$this->db->idate($this->datepaye)."', ".((float) $total).", ".((float) $mtotal).", ".((int) $this->paiementid).", ";
 		$sql .= "'".$this->db->escape($num_payment)."', '".$this->db->escape($note)."', ".($this->ext_payment_id ? "'".$this->db->escape($this->ext_payment_id)."'" : "null").", ".($this->ext_payment_site ? "'".$this->db->escape($this->ext_payment_site)."'" : "null").", ".((int) $user->id).", ".((float) $this->pos_change).")";
 
 		$resql = $this->db->query($sql);
@@ -817,7 +817,7 @@ class Paiement extends CommonObject
 			// this->amount is amount of payment in company currency
 			// this->multicurrency_amount of payment in other currency
 			// this->multicurrency_currency is the currency of the payment (may be same than the company one)
-			if ($this->multicurrency_currency == $conf->currency) {
+			if ($this->multicurrency_currency == $config->currency) {
 				if ($this->amount != $this->multicurrency_amount) {
 					// Add protection, should not happen
 					$error++;
@@ -826,7 +826,7 @@ class Paiement extends CommonObject
 			}
 
 			// if company currency != bank currency, then we received an amount in customer currency (currently I don't manage the case : my currency is USD, the customer currency is EUR and he paid me in GBP. Seems no sense for me)
-			if ($conf->currency != $acc->currency_code) {
+			if ($config->currency != $acc->currency_code) {
 				$totalamount = $this->multicurrency_amount;		// We will insert into llx_bank.amount in foreign currency of invoice
 				$totalamount_main_currency = $this->amount;		// We will also save the amount in main currency into column llx_bank.amount_main_currency
 			}
@@ -1249,11 +1249,11 @@ class Paiement extends CommonObject
 
 		// Clean parameters (if not defined or using deprecated value)
 		if (!getDolGlobalString('PAYMENT_ADDON')) {
-			$conf->global->PAYMENT_ADDON = 'mod_payment_cicada';
+			$config->global->PAYMENT_ADDON = 'mod_payment_cicada';
 		} elseif (getDolGlobalString('PAYMENT_ADDON') == 'ant') {
-			$conf->global->PAYMENT_ADDON = 'mod_payment_ant';
+			$config->global->PAYMENT_ADDON = 'mod_payment_ant';
 		} elseif (getDolGlobalString('PAYMENT_ADDON') == 'cicada') {
-			$conf->global->PAYMENT_ADDON = 'mod_payment_cicada';
+			$config->global->PAYMENT_ADDON = 'mod_payment_cicada';
 		}
 
 		if (getDolGlobalString('PAYMENT_ADDON')) {
@@ -1263,7 +1263,7 @@ class Paiement extends CommonObject
 			$classname = getDolGlobalString('PAYMENT_ADDON');
 
 			// Include file with class
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 			foreach ($dirmodels as $reldir) {
 				$dir = dol_buildpath($reldir."core/modules/payment/");
@@ -1280,7 +1280,7 @@ class Paiement extends CommonObject
 				$classname = "mod_payment_" . getDolGlobalString('PAYMENT_ADDON');
 				$classname = preg_replace('/\-.*$/', '', $classname);
 				// Include file with class
-				foreach ($conf->file->dol_document_root as $dirroot) {
+				foreach ($config->file->dol_document_root as $dirroot) {
 					$dir = $dirroot."/core/modules/payment/";
 
 					// Load file with numbering class (if found)
@@ -1378,7 +1378,7 @@ class Paiement extends CommonObject
 	{
 		global $conf, $langs, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -1397,7 +1397,7 @@ class Paiement extends CommonObject
 			}
 		}
 		if ($this->amount) {
-			$label .= '<br><strong>'.$langs->trans("Amount").':</strong> '.price($this->amount, 0, $langs, 1, -1, -1, $conf->currency);
+			$label .= '<br><strong>'.$langs->trans("Amount").':</strong> '.price($this->amount, 0, $langs, 1, -1, -1, $config->currency);
 		}
 		if ($mode == 'withlistofinvoices') {
 			$arraybill = $this->getBillsArray();

@@ -276,7 +276,7 @@ function getContact($authentication, $id, $ref_ext)
 	dol_syslog("Function: getContact login=".$authentication['login']." id=".$id." ref_ext=".$ref_ext);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -394,7 +394,7 @@ function createContact($authentication, $contact)
 	dol_syslog("Function: createContact login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -501,7 +501,7 @@ function getContactsForThirdParty($authentication, $idthirdparty)
 	dol_syslog("Function: getContactsForThirdParty login=".$authentication['login']." idthirdparty=".$idthirdparty);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication
@@ -632,7 +632,7 @@ function updateContact($authentication, $contact)
 	dol_syslog("Function: updateContact login=".$authentication['login']);
 
 	if ($authentication['entity']) {
-		$conf->entity = $authentication['entity'];
+		$config->entity = $authentication['entity'];
 	}
 
 	// Init and check authentication

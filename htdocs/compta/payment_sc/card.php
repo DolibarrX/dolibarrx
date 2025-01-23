@@ -151,7 +151,7 @@ print '<tr><td>'.$langs->trans('Mode').'</td><td>'.$langs->trans("PaymentType".$
 print '<tr><td>'.$langs->trans('Numero').'</td><td>'.dol_escape_htmltag($object->num_payment).'</td></tr>';
 
 // Amount
-print '<tr><td>'.$langs->trans('Amount').'</td><td>'.price($object->amount, 0, $langs, 1, -1, -1, $conf->currency).'</td></tr>';
+print '<tr><td>'.$langs->trans('Amount').'</td><td>'.price($object->amount, 0, $langs, 1, -1, -1, $config->currency).'</td></tr>';
 
 // Note
 print '<tr><td>'.$langs->trans('Note').'</td><td class="wordbreak sensiblehtmlcontent">'.dol_string_onlythesehtmltags(dol_htmlcleanlastbr($object->note_private)).'</td></tr>';
@@ -186,7 +186,7 @@ $disable_delete = 0;
 $sql = 'SELECT f.rowid as scid, f.libelle as label, f.paye, f.amount as sc_amount, pf.amount, pc.libelle as sc_type';
 $sql .= ' FROM '.MAIN_DB_PREFIX.'paiementcharge as pf,'.MAIN_DB_PREFIX.'chargesociales as f, '.MAIN_DB_PREFIX.'c_chargesociales as pc';
 $sql .= ' WHERE pf.fk_charge = f.rowid AND f.fk_type = pc.id';
-$sql .= ' AND f.entity = '.$conf->entity;
+$sql .= ' AND f.entity = '.$config->entity;
 $sql .= ' AND pf.rowid = '.((int) $object->id);
 
 dol_syslog("compta/payment_sc/card.php", LOG_DEBUG);

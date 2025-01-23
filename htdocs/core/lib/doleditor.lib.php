@@ -41,8 +41,8 @@ function show_skin($fuser, $edit = 0)
 	$formother = new FormOther($db);
 
 	$dirskins = array('/includes/ckeditor/ckeditor/skins');
-	if (!empty($conf->modules_parts['theme'])) {		// Using this feature slow down application
-		foreach ($conf->modules_parts['theme'] as $reldir) {
+	if (!empty($config->modules_parts['theme'])) {		// Using this feature slow down application
+		foreach ($config->modules_parts['theme'] as $reldir) {
 			$dirskins = array_merge($dirskins, (array) ($reldir.'theme'));
 		}
 	}
@@ -80,7 +80,7 @@ function show_skin($fuser, $edit = 0)
 	$i = 0;
 	foreach ($dirskins as $dir) {
 		//print $dirroot.$dir;exit;
-		$dirskin = dol_buildpath($dir, 0); // This include loop on $conf->file->dol_document_root
+		$dirskin = dol_buildpath($dir, 0); // This include loop on $config->file->dol_document_root
 		$urltheme = dol_buildpath($dir, 1);
 
 		if (is_dir($dirskin)) {

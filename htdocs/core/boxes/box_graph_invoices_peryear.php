@@ -122,7 +122,7 @@ class box_graph_invoices_peryear extends ModeleBoxes
 			$startyear = $endyear - $numberyears;
 
 			$mode = 'customer';
-			$WIDTH = (($showtot) || !empty($conf->dol_optimize_smallscreen)) ? '256' : '320';
+			$WIDTH = (($showtot) || !empty($config->dol_optimize_smallscreen)) ? '256' : '320';
 			$HEIGHT = '192';
 
 			$stats = new FactureStats($this->db, $socid, $mode, 0);
@@ -169,7 +169,7 @@ class box_graph_invoices_peryear extends ModeleBoxes
 				$px2->draw($filenamenb, $fileurlnb);
 			}
 
-			if (empty($conf->use_javascript_ajax)) {
+			if (empty($config->use_javascript_ajax)) {
 				$langs->load("errors");
 				$mesg = $langs->trans("WarningFeatureDisabledWithDisplayOptimizedForBlindNoJs");
 			}

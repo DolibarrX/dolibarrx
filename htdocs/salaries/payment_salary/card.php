@@ -177,7 +177,7 @@ print '</td></tr>';
 print '<tr><td>'.$langs->trans('Numero').'</td><td>'.dol_escape_htmltag($object->num_payment).'</td></tr>';
 
 // Montant
-print '<tr><td>'.$langs->trans('Amount').'</td><td>'.price($object->amount, 0, $langs, 1, -1, -1, $conf->currency).'</td></tr>';
+print '<tr><td>'.$langs->trans('Amount').'</td><td>'.price($object->amount, 0, $langs, 1, -1, -1, $config->currency).'</td></tr>';
 
 // Note
 print '<tr><td>'.$langs->trans('Note').'</td><td class="valeur sensiblehtmlcontent">'.dol_string_onlythesehtmltags(dol_htmlcleanlastbr($object->note_private)).'</td></tr>';
@@ -212,7 +212,7 @@ $disable_delete = 0;
 $sql = 'SELECT f.rowid as scid, f.label, f.paye, f.amount as sc_amount, ps.amount';
 $sql .= ' FROM '.MAIN_DB_PREFIX.'payment_salary as ps,'.MAIN_DB_PREFIX.'salary as f';
 $sql .= ' WHERE ps.fk_salary = f.rowid';
-$sql .= ' AND f.entity = '.$conf->entity;
+$sql .= ' AND f.entity = '.$config->entity;
 $sql .= ' AND ps.rowid = '.((int) $object->id);
 
 dol_syslog("payment_salary/card.php", LOG_DEBUG);

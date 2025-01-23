@@ -67,7 +67,7 @@ class TicketStats extends Stats
 		$this->field = 'timing';
 
 		$this->where = " fk_statut > 0";
-		$this->where .= " AND entity = ".((int) $conf->entity);
+		$this->where .= " AND entity = ".((int) $config->entity);
 		if ($this->socid > 0) {
 			$this->where .= " AND fk_soc = ".((int) $this->socid);
 		}

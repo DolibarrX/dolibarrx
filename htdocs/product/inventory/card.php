@@ -65,7 +65,7 @@ $extrafields = new ExtraFields($db);
 // no inventory docs yet
 $includedocgeneration = false;
 $diroutputmassaction = null;
-// $diroutputmassaction = $conf->stock->dir_output.'/temp/massgeneration/'.$user->id;
+// $diroutputmassaction = $config->stock->dir_output.'/temp/massgeneration/'.$user->id;
 
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -99,14 +99,14 @@ if (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) {
 	$permissiontodelete = $user->hasRight('stock', 'supprimer');
 	$permissionnote = $user->hasRight('stock', 'creer'); // Used by the include of actions_setnotes.inc.php
 	$permissiondellink = $user->hasRight('stock', 'creer'); // Used by the include of actions_dellink.inc.php
-	$upload_dir = $conf->stock->multidir_output[isset($object->entity) ? $object->entity : 1];
+	$upload_dir = $config->stock->multidir_output[isset($object->entity) ? $object->entity : 1];
 } else {
 	$permissiontoread = $user->hasRight('stock', 'inventory_advance', 'read');
 	$permissiontoadd = $user->hasRight('stock', 'inventory_advance', 'write');
 	$permissiontodelete = $user->hasRight('stock', 'inventory_advance', 'delete');
 	$permissionnote = $user->hasRight('stock', 'inventory_advance', 'write'); // Used by the include of actions_setnotes.inc.php
 	$permissiondellink = $user->hasRight('stock', 'inventory_advance', 'write'); // Used by the include of actions_dellink.inc.php
-	$upload_dir = $conf->stock->multidir_output[isset($object->entity) ? $object->entity : 1];
+	$upload_dir = $config->stock->multidir_output[isset($object->entity) ? $object->entity : 1];
 }
 
 
@@ -295,7 +295,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		$formquestion = array();
 		/*
 		 $forcecombo=0;
-		 if ($conf->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
+		 if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
 		 $formquestion = array(
 		 // 'text' => $langs->trans("ConfirmClone"),
 		 // array('type' => 'checkbox', 'name' => 'clone_content', 'label' => $langs->trans("CloneMainAttributes"), 'value' => 1),
@@ -474,7 +474,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		if ($includedocgeneration) {
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $conf->mymodule->dir_output.'/'.$object->element.'/'.$objref;
+			$filedir = $config->mymodule->dir_output.'/'.$object->element.'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $user->hasRight('mymodule', 'myobject', 'read'); // If you can read, you can build the PDF to read content
 			$delallowed = $user->hasRight('mymodule', 'myobject', 'write'); // If you can create/edit, you can remove a file on card
@@ -514,7 +514,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Presend form
 	$modelmail = 'inventory';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->product->dir_output.'/inventory';
+	$diroutput = $config->product->dir_output.'/inventory';
 	$trackid = 'stockinv'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

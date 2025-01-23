@@ -359,7 +359,7 @@ function barcode_encode_genbarcode($code, $encoding)
 
 	dol_syslog("Run command ".$fullcommandclear);
 
-	$outputfile = $conf->user->dir_temp.'/genbarcode.tmp'; // File used with popen method
+	$outputfile = $config->user->dir_temp.'/genbarcode.tmp'; // File used with popen method
 
 	// Execute a CLI
 	include_once DOL_DOCUMENT_ROOT.'/core/class/utils.class.php';

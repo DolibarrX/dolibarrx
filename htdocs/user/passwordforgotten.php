@@ -63,26 +63,26 @@ $username = GETPOST('username', 'alphanohtml');
 $passworduidhash = GETPOST('passworduidhash', 'alpha');
 $setnewpassword = GETPOST('setnewpassword', 'aZ09');
 
-$conf->entity = (GETPOSTINT('entity') ? GETPOSTINT('entity') : 1);
+$config->entity = (GETPOSTINT('entity') ? GETPOSTINT('entity') : 1);
 
 // Instantiate hooks of thirdparty module only if not already define
 $hookManager->initHooks(array('passwordforgottenpage'));
 
 
 if (GETPOST('dol_hide_leftmenu', 'alpha') || !empty($_SESSION['dol_hide_leftmenu'])) {
-	$conf->dol_hide_leftmenu = 1;
+	$config->dol_hide_leftmenu = 1;
 }
 if (GETPOST('dol_hide_topmenu', 'alpha') || !empty($_SESSION['dol_hide_topmenu'])) {
-	$conf->dol_hide_topmenu = 1;
+	$config->dol_hide_topmenu = 1;
 }
 if (GETPOST('dol_optimize_smallscreen', 'alpha') || !empty($_SESSION['dol_optimize_smallscreen'])) {
-	$conf->dol_optimize_smallscreen = 1;
+	$config->dol_optimize_smallscreen = 1;
 }
 if (GETPOST('dol_no_mouse_hover', 'alpha') || !empty($_SESSION['dol_no_mouse_hover'])) {
-	$conf->dol_no_mouse_hover = 1;
+	$config->dol_no_mouse_hover = 1;
 }
 if (GETPOST('dol_use_jmobile', 'alpha') || !empty($_SESSION['dol_use_jmobile'])) {
-	$conf->dol_use_jmobile = 1;
+	$config->dol_use_jmobile = 1;
 }
 
 
@@ -102,14 +102,14 @@ if (empty($reshook)) {
 	// Validate new password
 	if ($action == 'validatenewpassword' && $username && $passworduidhash) {	// Test on permission not required here. Security is managed by $passworduihash
 		$edituser = new User($db);
-		$result = $edituser->fetch(0, $username, '', 0, $conf->entity);
+		$result = $edituser->fetch(0, $username, '', 0, $config->entity);
 		if ($result < 0) {
 			$message = '<div class="error">'.dol_escape_htmltag($langs->trans("ErrorTechnicalError")).'</div>';
 		} else {
 			global $conf;
 
-			//print $edituser->pass_temp.'-'.$edituser->id.'-'.$conf->file->instance_unique_id.' '.$passworduidhash;
-			if ($edituser->pass_temp && dol_verifyHash($edituser->pass_temp.'-'.$edituser->id.'-'.$conf->file->instance_unique_id, $passworduidhash)) {
+			//print $edituser->pass_temp.'-'.$edituser->id.'-'.$config->file->instance_unique_id.' '.$passworduidhash;
+			if ($edituser->pass_temp && dol_verifyHash($edituser->pass_temp.'-'.$edituser->id.'-'.$config->file->instance_unique_id, $passworduidhash)) {
 				// Clear session
 				unset($_SESSION['dol_login']);
 				$_SESSION['dol_loginmesg'] = '<!-- warning -->'.$langs->transnoentitiesnoconv('NewPasswordValidated'); // Save message for the session page
@@ -140,9 +140,9 @@ if (empty($reshook)) {
 			$isanemail = preg_match('/@/', $username);
 
 			$edituser = new User($db);
-			$result = $edituser->fetch(0, $username, '', 1, $conf->entity);
+			$result = $edituser->fetch(0, $username, '', 1, $config->entity);
 			if ($result == 0 && $isanemail) {
-				$result = $edituser->fetch(0, '', '', 1, $conf->entity, $username);
+				$result = $edituser->fetch(0, '', '', 1, $config->entity, $username);
 			}
 
 			// Set the message to show (must be the same if login/email exists or not to avoid to guess them.
@@ -198,8 +198,8 @@ if (getDolGlobalString('MAIN_APPLICATION_TITLE')) {
 
 // Select templates dir
 $template_dir = '';
-if (!empty($conf->modules_parts['tpl'])) {	// Using this feature slow down application
-	$dirtpls = array_merge($conf->modules_parts['tpl'], array('/core/tpl/'));
+if (!empty($config->modules_parts['tpl'])) {	// Using this feature slow down application
+	$dirtpls = array_merge($config->modules_parts['tpl'], array('/core/tpl/'));
 	foreach ($dirtpls as $reldir) {
 		$tmp = dol_buildpath($reldir.'passwordforgotten.tpl.php');
 		if (file_exists($tmp)) {
@@ -207,8 +207,8 @@ if (!empty($conf->modules_parts['tpl'])) {	// Using this feature slow down appli
 			break;
 		}
 	}
-} elseif (file_exists(DOL_DOCUMENT_ROOT."/theme/".$conf->theme."/tpl/passwordforgotten.tpl.php")) {
-	$template_dir = DOL_DOCUMENT_ROOT."/theme/".$conf->theme."/tpl/";
+} elseif (file_exists(DOL_DOCUMENT_ROOT."/theme/".$config->theme."/tpl/passwordforgotten.tpl.php")) {
+	$template_dir = DOL_DOCUMENT_ROOT."/theme/".$config->theme."/tpl/";
 } else {
 	$template_dir = DOL_DOCUMENT_ROOT."/core/tpl/";
 }
@@ -223,13 +223,13 @@ if (!$username) {
 $width = 0;
 $rowspan = 2;
 $urllogo = DOL_URL_ROOT.'/theme/common/login_logo.png';
-if (!empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
+if (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output.'/logos/thumbs/'.$mysoc->logo_small)) {
 	$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/thumbs/'.$mysoc->logo_small);
-} elseif (!empty($mysoc->logo_small) && is_readable($conf->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
+} elseif (!empty($mysoc->logo_small) && is_readable($config->mycompany->dir_output.'/logos/'.$mysoc->logo)) {
 	$urllogo = DOL_URL_ROOT.'/viewimage.php?cache=1&amp;modulepart=mycompany&amp;file='.urlencode('logos/'.$mysoc->logo);
 	$width = 128;
-} elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.svg')) {
-	$urllogo = DOL_URL_ROOT.'/theme/'.$conf->theme.'/img/dolibarr_logo.svg';
+} elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/img/dolibarr_logo.svg')) {
+	$urllogo = DOL_URL_ROOT.'/theme/'.$config->theme.'/img/dolibarr_logo.svg';
 } elseif (is_readable(DOL_DOCUMENT_ROOT.'/theme/dolibarr_logo.svg')) {
 	$urllogo = DOL_URL_ROOT.'/theme/dolibarr_logo.svg';
 }

@@ -661,7 +661,7 @@ class modFournisseur extends DolibarrModules
 		}
 		// Add extra fields
 		$import_extrafield_sample = array();
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'facture_fourn' AND entity IN (0, ".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'facture_fourn' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -673,8 +673,8 @@ class modFournisseur extends DolibarrModules
 		}
 		// End add extra fields
 		$this->import_fieldshidden_array[$r] = array('extra.fk_object' => 'lastrowid-'.MAIN_DB_PREFIX.'facture_fourn');
-		if (empty($conf->multicurrency->enabled)) {
-			$this->import_fieldshidden_array[$r]['f.multicurrency_code'] = 'const-'.$conf->currency;
+		if (empty($config->multicurrency->enabled)) {
+			$this->import_fieldshidden_array[$r]['f.multicurrency_code'] = 'const-'.$config->currency;
 		}
 		$this->import_regex_array[$r] = array('f.multicurrency_code' => 'code@'.MAIN_DB_PREFIX.'multicurrency');
 		$import_sample = array(
@@ -712,8 +712,8 @@ class modFournisseur extends DolibarrModules
 		$this->import_convertvalue_array[$r] = array(
 			'f.ref' => array(
 				'rule' => 'getrefifauto',
-				'class' => (!getDolGlobalString('INVOICE_SUPPLIER_ADDON_NUMBER') ? 'mod_facture_fournisseur_cactus' : $conf->global->INVOICE_SUPPLIER_ADDON_NUMBER),
-				'path' => "/core/modules/supplier_invoice/".(!getDolGlobalString('INVOICE_SUPPLIER_ADDON_NUMBER') ? 'mod_facture_fournisseur_cactus' : $conf->global->INVOICE_SUPPLIER_ADDON_NUMBER).'.php',
+				'class' => (!getDolGlobalString('INVOICE_SUPPLIER_ADDON_NUMBER') ? 'mod_facture_fournisseur_cactus' : $config->global->INVOICE_SUPPLIER_ADDON_NUMBER),
+				'path' => "/core/modules/supplier_invoice/".(!getDolGlobalString('INVOICE_SUPPLIER_ADDON_NUMBER') ? 'mod_facture_fournisseur_cactus' : $config->global->INVOICE_SUPPLIER_ADDON_NUMBER).'.php',
 				'classobject' => 'FactureFournisseur',
 				'pathobject' => '/fourn/class/fournisseur.facture.class.php',
 			),
@@ -756,7 +756,7 @@ class modFournisseur extends DolibarrModules
 		}
 		// Add extra fields
 		$import_extrafield_sample = array();
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'facture_fourn_det' AND entity IN (0, ".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'facture_fourn_det' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -843,7 +843,7 @@ class modFournisseur extends DolibarrModules
 
 		// Add extra fields
 		$import_extrafield_sample = array();
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'commande_fournisseur' AND entity IN (0, ".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'commande_fournisseur' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 
 		if ($resql) {
@@ -865,8 +865,8 @@ class modFournisseur extends DolibarrModules
 		$this->import_convertvalue_array[$r] = array(
 			'c.ref' => array(
 				'rule' => 'getrefifauto',
-				'class' => (!getDolGlobalString('COMMANDE_SUPPLIER_ADDON_NUMBER') ? 'mod_commande_fournisseur_muguet' : $conf->global->COMMANDE_SUPPLIER_ADDON_NUMBER),
-				'path' => "/core/modules/supplier_order/".(!getDolGlobalString('COMMANDE_SUPPLIER_ADDON_NUMBER') ? 'mod_commande_fournisseur_muguet' : $conf->global->COMMANDE_SUPPLIER_ADDON_NUMBER).'.php',
+				'class' => (!getDolGlobalString('COMMANDE_SUPPLIER_ADDON_NUMBER') ? 'mod_commande_fournisseur_muguet' : $config->global->COMMANDE_SUPPLIER_ADDON_NUMBER),
+				'path' => "/core/modules/supplier_order/".(!getDolGlobalString('COMMANDE_SUPPLIER_ADDON_NUMBER') ? 'mod_commande_fournisseur_muguet' : $config->global->COMMANDE_SUPPLIER_ADDON_NUMBER).'.php',
 				'classobject' => 'CommandeFournisseur',
 				'pathobject' => '/fourn/class/fournisseur.commande.class.php',
 			),
@@ -925,7 +925,7 @@ class modFournisseur extends DolibarrModules
 		}
 
 		// Add extra fields
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'commande_fournisseurdet' AND entity IN (0, ".$conf->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'commande_fournisseurdet' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -988,8 +988,8 @@ class modFournisseur extends DolibarrModules
 		}
 
 		$sql_order = array(
-			 "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[0][2])."' AND type = 'order_supplier' AND entity = ".((int) $conf->entity),
-			 "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[0][2])."', 'order_supplier', ".((int) $conf->entity).")",
+			 "DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[0][2])."' AND type = 'order_supplier' AND entity = ".((int) $config->entity),
+			 "INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[0][2])."', 'order_supplier', ".((int) $config->entity).")",
 		);
 
 		//ODT template for Supplier Invoice
@@ -1010,8 +1010,8 @@ class modFournisseur extends DolibarrModules
 
 		/*
 		$sql_invoice = array(
-			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[2][2])."' AND type = 'invoice_supplier' AND entity = ".((int) $conf->entity),
-			"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[2][2])."', 'invoice_supplier', ".((int) $conf->entity).")",
+			"DELETE FROM ".MAIN_DB_PREFIX."document_model WHERE nom = '".$this->db->escape($this->const[2][2])."' AND type = 'invoice_supplier' AND entity = ".((int) $config->entity),
+			"INSERT INTO ".MAIN_DB_PREFIX."document_model (nom, type, entity) VALUES('".$this->db->escape($this->const[2][2])."', 'invoice_supplier', ".((int) $config->entity).")",
 		);
 
 		$sql = array_merge($sql_order, $sql_invoice);

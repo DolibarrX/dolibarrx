@@ -79,7 +79,7 @@ $form = new Form($db);
 $object = new Ticket($db);
 
 $title = $langs->trans("Statistics");
-$dir = $conf->ticket->dir_temp;
+$dir = $config->ticket->dir_temp;
 $help_url = '';
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-ticket page-stats');
 

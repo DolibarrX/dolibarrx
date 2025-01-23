@@ -112,7 +112,7 @@ class LignePrelevement
 		$sql .= ", ".MAIN_DB_PREFIX."prelevement_bons as p";
 		$sql .= " WHERE pl.rowid=".((int) $rowid);
 		$sql .= " AND p.rowid = pl.fk_prelevement_bons";
-		$sql .= " AND p.entity = ".$conf->entity;
+		$sql .= " AND p.entity = ".$config->entity;
 
 		$resql = $this->db->query($sql);
 		if ($resql) {

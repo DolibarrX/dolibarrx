@@ -167,7 +167,7 @@ class AccountingJournal extends CommonObject
 				$sql .= " rowid = ".((int) $rowid);
 			} elseif ($journal_code) {
 				$sql .= " code = '".$this->db->escape($journal_code)."'";
-				$sql .= " AND entity  = ".$conf->entity;
+				$sql .= " AND entity  = ".$config->entity;
 			}
 
 			dol_syslog(get_class($this)."::fetch", LOG_DEBUG);
@@ -211,7 +211,7 @@ class AccountingJournal extends CommonObject
 	{
 		global $langs, $conf, $hookManager;
 
-		if (!empty($conf->dol_no_mouse_hover)) {
+		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
 		}
 
@@ -563,7 +563,7 @@ class AccountingJournal extends CommonObject
 								'piece_num' => '',
 								'import_key' => '',
 								'fk_user_author' => $user->id,
-								'entity' => $conf->entity,
+								'entity' => $config->entity,
 							);
 						}
 					} else { // $type == 'csv'
@@ -683,7 +683,7 @@ class AccountingJournal extends CommonObject
 												'piece_num' => '',
 												'import_key' => '',
 												'fk_user_author' => $user->id,
-												'entity' => $conf->entity,
+												'entity' => $config->entity,
 											);
 										}
 									} else { // $type == 'csv'
@@ -813,7 +813,7 @@ class AccountingJournal extends CommonObject
 							$bookkeeping->piece_num = (int) $line['piece_num'];
 							$bookkeeping->import_key = $line['import_key'];
 							$bookkeeping->fk_user_author = $user->id;
-							$bookkeeping->entity = $conf->entity;
+							$bookkeeping->entity = $config->entity;
 
 							$total_debit += $bookkeeping->debit;
 							$total_credit += $bookkeeping->credit;

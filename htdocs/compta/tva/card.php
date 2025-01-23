@@ -78,7 +78,7 @@ $datep = dol_mktime(12, 0, 0, GETPOSTINT("datepmonth"), GETPOSTINT("datepday"), 
 // Initialize a technical objects
 $object = new Tva($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->tax->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->tax->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('taxvatcard', 'globalcard'));
 
 // Fetch optionals attributes and labels
@@ -96,7 +96,7 @@ $permissiontoadd = $user->hasRight('tax', 'charges', 'creer'); // Used by the in
 $permissiontodelete = $user->rights->tax->charges->supprimer || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_UNPAID);
 $permissionnote = $user->hasRight('tax', 'charges', 'creer'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('tax', 'charges', 'creer'); // Used by the include of actions_dellink.inc.php
-$upload_dir = $conf->tax->multidir_output[isset($object->entity) ? $object->entity : 1].'/vat';
+$upload_dir = $config->tax->multidir_output[isset($object->entity) ? $object->entity : 1].'/vat';
 
 // Security check
 $socid = GETPOSTINT('socid');
@@ -404,7 +404,7 @@ llxHeader('', $title, $help_url);
 if ($action == 'create') {
 	print load_fiche_titre($langs->trans("VAT").' - '.$langs->trans("New"));
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print "\n".'<script type="text/javascript">';
 		print /** @lang JavaScript */'
 			$(document).ready(function () {
@@ -853,7 +853,7 @@ if ($id > 0) {
 		if ($includedocgeneration) {
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $conf->tax->dir_output.'/vat/'.$objref;
+			$filedir = $config->tax->dir_output.'/vat/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = 0;
 			$delallowed = $user->hasRight('tax', 'charges', 'creer'); // If you can create/edit, you can remove a file on card
@@ -889,7 +889,7 @@ if ($id > 0) {
 	// Presend form
 	$modelmail = 'vat';
 	$defaulttopic = 'InformationMessage';
-	$diroutput = $conf->tax->dir_output;
+	$diroutput = $config->tax->dir_output;
 	$trackid = 'vat'.$object->id;
 
 	include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

@@ -196,7 +196,7 @@ class ActionsStripeconnect extends CommonHookActions
 			if ($object->statut > Facture::STATUS_DRAFT && $object->statut < Facture::STATUS_ABANDONED && $object->paye == 0) {
 				$stripe = new Stripe($this->db);
 				if ($resteapayer > 0) {
-					if ($stripe->getStripeAccount($conf->entity)) {  // a modifier avec droit stripe
+					if ($stripe->getStripeAccount($config->entity)) {  // a modifier avec droit stripe
 						$langs->load("withdrawals");
 						print '<a class="butActionDelete" href="'.dol_buildpath('/stripeconnect/payment.php?facid='.$object->id.'&action=create', 1).'" title="'.dol_escape_htmltag($langs->trans("StripeConnectPay")).'">'.$langs->trans("StripeConnectPay").'</a>';
 					} else {

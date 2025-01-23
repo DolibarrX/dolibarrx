@@ -202,7 +202,7 @@ class FichinterRec extends Fichinter
 			$sql .= ") VALUES (";
 			$sql .= "'".$this->db->escape($this->title)."'";
 			$sql .= ", ".($this->socid > 0 ? ((int) $this->socid) : 'null');
-			$sql .= ", ".((int) $conf->entity);
+			$sql .= ", ".((int) $config->entity);
 			$sql .= ", '".$this->db->idate($now)."'";
 			$sql .= ", ".(!empty($fichintsrc->duration) ? ((int) $fichintsrc->duration) : '0');
 			$sql .= ", ".(!empty($this->description) ? ("'".$this->db->escape($this->description)."'") : "null");

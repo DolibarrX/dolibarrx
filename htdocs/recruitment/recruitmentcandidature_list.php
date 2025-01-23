@@ -60,7 +60,7 @@ $mode = GETPOST('mode', 'aZ');
 $lineid = GETPOSTINT('lineid');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -75,7 +75,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new RecruitmentCandidature($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->recruitment->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->recruitment->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($contextpage)); 	// Note that conf->hooks_modules contains array of activated contexes
 
 // Fetch optionals attributes and labels
@@ -207,7 +207,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'RecruitmentCandidature';
 	$objectlabel = 'RecruitmentCandidature';
-	$uploaddir = $conf->recruitment->dir_output;
+	$uploaddir = $config->recruitment->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -405,7 +405,7 @@ if ($jobposition->id > 0 && (empty($action) || ($action != 'edit' && $action != 
 		$formquestion = array();
 		/*
 		 $forcecombo=0;
-		 if ($conf->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
+		 if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
 		 $formquestion = array(
 		 // 'text' => $langs->trans("ConfirmClone"),
 		 // array('type' => 'checkbox', 'name' => 'clone_content', 'label' => $langs->trans("CloneMainAttributes"), 'value' => 1),
@@ -517,7 +517,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 foreach ($search as $key => $val) {

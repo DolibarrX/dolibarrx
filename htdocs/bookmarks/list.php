@@ -54,7 +54,7 @@ $id = GETPOSTINT("id");
 $search_title = GETPOST('search_title', 'alpha');
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -124,7 +124,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'Bookmark';
 	$objectlabel = 'Bookmark';
-	$uploaddir = $conf->bookmark->dir_output;
+	$uploaddir = $config->bookmark->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	if ($action == 'delete' && $permissiontodelete) {
@@ -234,7 +234,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 if ($optioncss != '') {
@@ -445,12 +445,12 @@ while ($i < $imaxinloop) {
 		// Author
 		print '<td class="tdoverflowmax125 center">';
 		if ($obj->fk_user > 0) {
-			if (empty($conf->cache['users'][$obj->fk_user])) {
+			if (empty($config->cache['users'][$obj->fk_user])) {
 				$tmpuser = new User($db);
 				$tmpuser->fetch($obj->fk_user);
-				$conf->cache['users'][$obj->fk_user] = $tmpuser;
+				$config->cache['users'][$obj->fk_user] = $tmpuser;
 			}
-			$tmpuser = $conf->cache['users'][$obj->fk_user];
+			$tmpuser = $config->cache['users'][$obj->fk_user];
 			print $tmpuser->getNomUrl(-1);
 		} else {
 			print '<span class="opacitymedium">'.$langs->trans("Everybody").'</span>';

@@ -56,7 +56,7 @@ $search_group = GETPOST('search_group');
 $search = array();
 
 // Load variable for pagination
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -71,7 +71,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new UserGroup($db);
 $extrafields = new ExtraFields($db);
-//$diroutputmassaction = $conf->mymodule->dir_output.'/temp/massgeneration/'.$user->id;
+//$diroutputmassaction = $config->mymodule->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array($contextpage)); 	// Note that conf->hooks_modules contains array of activated contexes
 
 // Fetch optionals attributes and labels
@@ -156,7 +156,7 @@ if (empty($reshook)) {
 	// Mass actions
 	$objectclass = 'UserGroup';
 	$objectlabel = 'UserGroup';
-	$uploaddir = $conf->user->dir_output;
+	$uploaddir = $config->user->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
 
@@ -183,10 +183,10 @@ $sqlfields = $sql;
 $sql .= " FROM ".MAIN_DB_PREFIX."usergroup as g";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."usergroup_user as ugu ON ugu.fk_usergroup = g.rowid";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."usergroup_rights as ugr ON ugr.fk_usergroup = g.rowid";
-if (isModEnabled('multicompany') && $conf->entity == 1 && (getDolGlobalInt('MULTICOMPANY_TRANSVERSE_MODE') || ($user->admin && !$user->entity))) {
+if (isModEnabled('multicompany') && $config->entity == 1 && (getDolGlobalInt('MULTICOMPANY_TRANSVERSE_MODE') || ($user->admin && !$user->entity))) {
 	$sql .= " WHERE g.entity IS NOT NULL";
 } else {
-	$sql .= " WHERE g.entity IN (0,".$conf->entity.")";
+	$sql .= " WHERE g.entity IN (0,".$config->entity.")";
 }
 if (!empty($search_group)) {
 	natural_search(array("g.nom", "g.note"), $search_group);
@@ -245,7 +245,7 @@ if (!empty($mode)) {
 if (!empty($contextpage) && $contextpage != $_SERVER["PHP_SELF"]) {
 	$param .= '&contextpage='.urlencode($contextpage);
 }
-if ($limit > 0 && $limit != $conf->liste_limit) {
+if ($limit > 0 && $limit != $config->liste_limit) {
 	$param .= '&limit='.((int) $limit);
 }
 foreach ($search as $key => $val) {
@@ -371,7 +371,7 @@ if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 print_liste_field_titre("Group", $_SERVER["PHP_SELF"], "g.nom", $param, "", "", $sortfield, $sortorder);
 $totalarray['nbfield']++;
 //multicompany
-if (isModEnabled('multicompany') && !getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $conf->entity == 1) {
+if (isModEnabled('multicompany') && !getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $config->entity == 1) {
 	print_liste_field_titre("Entity", $_SERVER["PHP_SELF"], "g.entity", $param, "", '', $sortfield, $sortorder, 'center ');
 	$totalarray['nbfield']++;
 }
@@ -470,7 +470,7 @@ while ($i < $imaxinloop) {
 			$totalarray['nbfield']++;
 		}
 		//multicompany
-		if (isModEnabled('multicompany') && is_object($mc) && !getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $conf->entity == 1) {
+		if (isModEnabled('multicompany') && is_object($mc) && !getDolGlobalString('MULTICOMPANY_TRANSVERSE_MODE') && $config->entity == 1) {
 			$mc->getInfo($obj->entity);
 			print '<td class="center">'.dol_escape_htmltag($mc->label).'</td>';
 			if (!$i) {

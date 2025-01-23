@@ -222,7 +222,7 @@ class MailingTargets // This can't be abstract as it is used for some method
 				$sql .= "'".$this->db->escape($targetarray['other'])."',";
 				$sql .= "'".$this->db->escape($targetarray['source_url'])."',";
 				$sql .= (empty($targetarray['source_id']) ? 'null' : (int) $targetarray['source_id']).",";
-				$sql .= "'".$this->db->escape(dol_hash($conf->file->instance_unique_id.";".$targetarray['email'].";".$targetarray['lastname'].";".((int) $mailing_id).";".getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY'), 'md5'))."',";
+				$sql .= "'".$this->db->escape(dol_hash($config->file->instance_unique_id.";".$targetarray['email'].";".$targetarray['lastname'].";".((int) $mailing_id).";".getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY'), 'md5'))."',";
 				$sql .= "'".$this->db->escape($targetarray['source_type'])."')";
 				dol_syslog(__METHOD__, LOG_DEBUG);
 				$result = $this->db->query($sql);
@@ -264,7 +264,7 @@ class MailingTargets // This can't be abstract as it is used for some method
 			$sql = "UPDATE ".$this->db->prefix()."mailing_cibles as mc";
 			$sql .= " SET mc.statut = 3";
 			$sql .= " WHERE mc.fk_mailing = ".((int) $mailing_id);
-			$sql .= " AND EXISTS (SELECT rowid FROM ".$this->db->prefix()."mailing_unsubscribe as mu WHERE mu.email = mc.email and mu.entity = ".((int) $conf->entity).")";
+			$sql .= " AND EXISTS (SELECT rowid FROM ".$this->db->prefix()."mailing_unsubscribe as mu WHERE mu.email = mc.email and mu.entity = ".((int) $config->entity).")";
 
 			dol_syslog(__METHOD__.":mailing update status to display emails that do not want to be contacted anymore", LOG_DEBUG);
 			$result = $this->db->query($sql);
@@ -321,7 +321,7 @@ class MailingTargets // This can't be abstract as it is used for some method
 		$orders = array();
 		$i = 0;
 
-		$diremailselector = array('/core/modules/mailings/'); // $conf->modules_parts['emailings'] is not required
+		$diremailselector = array('/core/modules/mailings/'); // $config->modules_parts['emailings'] is not required
 		if (is_array($forcedir)) {
 			$diremailselector = $forcedir;
 		}

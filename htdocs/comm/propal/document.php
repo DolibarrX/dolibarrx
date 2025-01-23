@@ -55,7 +55,7 @@ $id = GETPOSTINT('id');
 $ref = GETPOST('ref', 'alpha');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT('page');
@@ -103,7 +103,7 @@ $usercancreate = $user->hasRight("propal", "creer");
 
 if ($object->id > 0) {
 	$object->fetch_thirdparty();
-	$upload_dir = $conf->propal->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->propal->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
 	include DOL_DOCUMENT_ROOT.'/core/actions_linkedfiles.inc.php';
 }
 
@@ -118,7 +118,7 @@ llxHeader('', $title, $help_url);
 $form = new Form($db);
 
 if ($object->id > 0) {
-	$upload_dir = $conf->propal->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->propal->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
 
 	$head = propal_prepare_head($object);
 	print dol_get_fiche_head($head, 'document', $langs->trans('Proposal'), -1, 'propal');

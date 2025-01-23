@@ -57,7 +57,7 @@ $backtopageforcancel = GETPOST('backtopageforcancel', 'alpha');
 // Initialize a technical objects
 $object = new RecruitmentJobPosition($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->recruitment->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->recruitment->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('recruitmentjobpositioncard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
@@ -87,7 +87,7 @@ $permissiontoadd = $user->hasRight('recruitment', 'recruitmentjobposition', 'wri
 $permissiontodelete = $user->hasRight('recruitment', 'recruitmentjobposition', 'delete') || ($permissiontoadd && isset($object->status) && $object->status == $object::STATUS_DRAFT);
 $permissionnote = $user->hasRight('recruitment', 'recruitmentjobposition', 'write'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('recruitment', 'recruitmentjobposition', 'write'); // Used by the include of actions_dellink.inc.php
-$upload_dir = $conf->recruitment->multidir_output[isset($object->entity) ? $object->entity : 1];
+$upload_dir = $config->recruitment->multidir_output[isset($object->entity) ? $object->entity : 1];
 
 // Security check - Protection if external user
 //if ($user->socid > 0) accessforbidden();
@@ -195,7 +195,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		$formquestion = array();
 		/*
 		$forcecombo=0;
-		if ($conf->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
+		if ($config->browser->name == 'ie') $forcecombo = 1;	// There is a bug in IE10 that make combo inside popup crazy
 		$formquestion = array(
 			// 'text' => $langs->trans("ConfirmClone"),
 			// array('type' => 'checkbox', 'name' => 'clone_content', 'label' => $langs->trans("CloneMainAttributes"), 'value' => 1),

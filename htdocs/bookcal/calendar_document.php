@@ -52,7 +52,7 @@ $id = (GETPOSTINT('socid') ? GETPOSTINT('socid') : GETPOSTINT('id'));
 $ref = GETPOST('ref', 'alpha');
 
 // Get parameters
-$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
+$limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
 $page = GETPOSTISSET('pageplusone') ? (GETPOSTINT('pageplusone') - 1) : GETPOSTINT("page");
@@ -73,7 +73,7 @@ if (!$sortfield) {
 // Initialize a technical objects
 $object = new Calendar($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $conf->bookcal->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->bookcal->dir_output.'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('calendardocument', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -83,7 +83,7 @@ $upload_dir = null;
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
 
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $conf->bookcal->multidir_output[$object->entity ? $object->entity : $conf->entity]."/calendar/".get_exdir(0, 0, 0, 1, $object);
+	$upload_dir = $config->bookcal->multidir_output[$object->entity ? $object->entity : $config->entity]."/calendar/".get_exdir(0, 0, 0, 1, $object);
 }
 
 // There is several ways to check permission.

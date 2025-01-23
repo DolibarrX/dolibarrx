@@ -119,7 +119,7 @@ class ProductAttributeValue extends CommonObjectLine
 
 		$this->ismultientitymanaged = 1;
 		$this->isextrafieldmanaged = 1;
-		$this->entity = $conf->entity;
+		$this->entity = $config->entity;
 
 		if (!getDolGlobalString('MAIN_SHOW_TECHNICAL_ID') && isset($this->fields['rowid'])) {
 			$this->fields['rowid']['visible'] = 0;

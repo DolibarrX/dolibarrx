@@ -1258,7 +1258,7 @@ if (empty($reshook) && GETPOST('actionmove', 'alpha') == 'mupdate') {
 }
 
 // Actions to delete doc
-$upload_dir = $conf->agenda->dir_output.'/'.dol_sanitizeFileName($object->ref);
+$upload_dir = $config->agenda->dir_output.'/'.dol_sanitizeFileName($object->ref);
 $permissiontoadd = ($user->hasRight('agenda', 'allactions', 'create') || (($object->authorid == $user->id || $object->userownerid == $user->id) && $user->hasRight('agenda', 'myactions', 'read')));
 if (empty($reshook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
@@ -1296,7 +1296,7 @@ if ($action == 'create') {
 
 	dol_set_focus("#label");
 
-	if (!empty($conf->use_javascript_ajax)) {
+	if (!empty($config->use_javascript_ajax)) {
 		print "\n".'<script type="text/javascript">';
 		print '$(document).ready(function () {
         			function setdatefields()
@@ -1657,16 +1657,16 @@ if ($action == 'create') {
 		}
 		print img_picto('', 'contact', 'class="paddingrightonly"');
 
-		if (getDolGlobalString('CONTACT_USE_SEARCH_TO_SELECT') && $conf->use_javascript_ajax) {
+		if (getDolGlobalString('CONTACT_USE_SEARCH_TO_SELECT') && $config->use_javascript_ajax) {
 			// FIXME Use a select without the "multiple" (not supported when CONTACT_USE_SEARCH_TO_SELECT is on) or allow use only when $object->socid is set...
 			/*
 			 $selected = array_keys($object->socpeopleassigned);
 			 print $form->select_contact(getDolGlobalString('MAIN_ACTIONCOM_CAN_ADD_ANY_CONTACT') ? 0 : $object->socid, $selected, 'socpeopleassigned', 1, '', '', 1, 'minwidth300 widthcentpercentminusx', false, 0, 0, array());
 			 */
 			$sav = getDolGlobalString('CONTACT_USE_SEARCH_TO_SELECT');
-			$conf->global->CONTACT_USE_SEARCH_TO_SELECT = 0;
+			$config->global->CONTACT_USE_SEARCH_TO_SELECT = 0;
 			print $form->selectcontacts(GETPOSTISSET('socid') ? GETPOSTINT('socid') : $select_contact_default, $preselectedids, 'socpeopleassigned[]', 1, '', '', 0, 'minwidth300 widthcentpercentminusxx maxwidth500', 0, 0, 0, array(), 'multiple', 'contactid');
-			$conf->global->CONTACT_USE_SEARCH_TO_SELECT = $sav;
+			$config->global->CONTACT_USE_SEARCH_TO_SELECT = $sav;
 		} else {
 			print $form->selectcontacts(GETPOSTISSET('socid') ? GETPOSTINT('socid') : $select_contact_default, $preselectedids, 'socpeopleassigned[]', 1, '', '', 0, 'minwidth300 widthcentpercentminusxx maxwidth500', 0, 0, 0, array(), 'multiple', 'contactid');
 		}
@@ -1957,7 +1957,7 @@ if ($id > 0) {
 	if ($action == 'edit') {
 		$caneditdateorowner = ($object->type != 'systemauto');
 
-		if (!empty($conf->use_javascript_ajax)) {
+		if (!empty($config->use_javascript_ajax)) {
 			print "\n".'<script type="text/javascript">';
 			print '$(document).ready(function () {
 	            		function setdatefields()
@@ -2230,16 +2230,16 @@ if ($id > 0) {
 			print '<div class="maxwidth200onsmartphone">';
 
 			print img_picto('', 'contact', 'class="paddingrightonly"');
-			if (getDolGlobalString('CONTACT_USE_SEARCH_TO_SELECT') && $conf->use_javascript_ajax) {
+			if (getDolGlobalString('CONTACT_USE_SEARCH_TO_SELECT') && $config->use_javascript_ajax) {
 				// FIXME Use the select_contact supporting the "multiple"
 				/*
 				$selected = array_keys($object->socpeopleassigned);
 				print $form->select_contact(getDolGlobalString('MAIN_ACTIONCOM_CAN_ADD_ANY_CONTACT') ? 0 : $object->socid, $selected, 'socpeopleassigned', 1, '', '', 1, 'minwidth300 widthcentpercentminusx', false, 0, 0, array());
 				*/
 				$sav = getDolGlobalString('CONTACT_USE_SEARCH_TO_SELECT');
-				$conf->global->CONTACT_USE_SEARCH_TO_SELECT = 0;
+				$config->global->CONTACT_USE_SEARCH_TO_SELECT = 0;
 				print $form->selectcontacts(getDolGlobalString('MAIN_ACTIONCOM_CAN_ADD_ANY_CONTACT') ? 0 : ($object->socid > 0 ? $object->socid : -1), array_keys($object->socpeopleassigned), 'socpeopleassigned[]', 1, '', '', 1, 'minwidth300 widthcentpercentminusx', 0, 0, 0, array(), 'multiple', 'contactid');
-				$conf->global->CONTACT_USE_SEARCH_TO_SELECT = $sav;
+				$config->global->CONTACT_USE_SEARCH_TO_SELECT = $sav;
 			} else {
 				// Warning: MAIN_ACTIONCOM_CAN_ADD_ANY_CONTACT will hangs on large databases
 				print $form->selectcontacts(getDolGlobalString('MAIN_ACTIONCOM_CAN_ADD_ANY_CONTACT') ? 0 : $object->socid, array_keys($object->socpeopleassigned), 'socpeopleassigned[]', 1, '', '', 1, 'minwidth300 widthcentpercentminusx', 0, 0, 0, array(), 'multiple', 'contactid');
@@ -2854,7 +2854,7 @@ if ($id > 0) {
 			 * Generated documents
 			 */
 
-			$filedir = $conf->agenda->multidir_output[$conf->entity].'/'.$object->id;
+			$filedir = $config->agenda->multidir_output[$config->entity].'/'.$object->id;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 
 			$genallowed = $user->hasRight('agenda', 'myactions', 'read');

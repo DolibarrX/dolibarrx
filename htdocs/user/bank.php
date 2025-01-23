@@ -317,7 +317,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-user page-bank');
 $head = user_prepare_head($object);
 
 if ($id && $bankid && $action == 'edit' && !$cancel && $permissiontoaddbankaccount) {
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print "\n<script>";
 		print 'jQuery(document).ready(function () {
 					jQuery("#type").change(function() {
@@ -338,7 +338,7 @@ if ($id && $bankid && $action == 'edit' && !$cancel && $permissiontoaddbankaccou
 	print '<input type="hidden" name="bankid" value="'.$bankid.'">';
 }
 if ($id && $action == 'create' && !$cancel && $permissiontoaddbankaccount) {
-	if ($conf->use_javascript_ajax) {
+	if ($config->use_javascript_ajax) {
 		print "\n<script>";
 		print 'jQuery(document).ready(function () {
 					jQuery("#type").change(function() {
@@ -476,7 +476,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 		// Salary
 		print '<tr><td>'.$langs->trans("Salary").'</td>';
 		print '<td>';
-		print($object->salary != '' ? img_picto('', 'salary', 'class="pictofixedwidth paddingright"').'<span class="amount">'.price($object->salary, 0, $langs, 1, -1, -1, $conf->currency) : '').'</span>';
+		print($object->salary != '' ? img_picto('', 'salary', 'class="pictofixedwidth paddingright"').'<span class="amount">'.price($object->salary, 0, $langs, 1, -1, -1, $config->currency) : '').'</span>';
 		print '</td>';
 		print "</tr>\n";
 
@@ -486,7 +486,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 		print $form->textwithpicto($text, $langs->trans("THMDescription"), 1, 'help', 'classthm');
 		print '</td>';
 		print '<td>';
-		print($object->thm != '' ? price($object->thm, 0, $langs, 1, -1, -1, $conf->currency) : '');
+		print($object->thm != '' ? price($object->thm, 0, $langs, 1, -1, -1, $config->currency) : '');
 		print '</td>';
 		print "</tr>\n";
 
@@ -496,7 +496,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 		print $form->textwithpicto($text, $langs->trans("TJMDescription"), 1, 'help', 'classtjm');
 		print '</td>';
 		print '<td>';
-		print($object->tjm != '' ? price($object->tjm, 0, $langs, 1, -1, -1, $conf->currency) : '');
+		print($object->tjm != '' ? price($object->tjm, 0, $langs, 1, -1, -1, $config->currency) : '');
 		print '</td>';
 		print "</tr>\n";
 	}
@@ -795,7 +795,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 		$sql = "SELECT e.rowid, e.ref, e.fk_statut as status, e.date_debut, e.total_ttc";
 		$sql .= " FROM ".MAIN_DB_PREFIX."expensereport as e";
 		$sql .= " WHERE e.fk_user_author = ".((int) $object->id);
-		$sql .= " AND e.entity = ".((int) $conf->entity);
+		$sql .= " AND e.entity = ".((int) $config->entity);
 		$sql .= " ORDER BY e.date_debut DESC";
 
 		$resql = $db->query($sql);
@@ -983,7 +983,7 @@ if ($id && ($action == 'edit' || $action == 'create') && $permissiontoaddbankacc
 	print '<td class="maxwidth200onsmartphone">';
 	$selectedcode = $account->currency_code;
 	if (!$selectedcode) {
-		$selectedcode = $conf->currency;
+		$selectedcode = $config->currency;
 	}
 	print img_picto('', 'multicurrency', 'class="pictofixedwidth"');
 	print $form->selectCurrency((GETPOSTISSET("account_currency_code") ? GETPOST("account_currency_code") : $selectedcode), 'account_currency_code');

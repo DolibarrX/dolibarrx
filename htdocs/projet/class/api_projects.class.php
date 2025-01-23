@@ -343,7 +343,7 @@ class Projects extends DolibarrApi
 			$filefound = 0;
 			$modele = getDolGlobalString('PROJECT_ADDON', 'mod_project_simple');
 
-			$dirmodels = array_merge(array('/'), (array) $conf->modules_parts['models']);
+			$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 			foreach ($dirmodels as $reldir) {
 				$file = dol_buildpath($reldir."core/modules/project/".$modele.'.php', 0);
 				if (file_exists($file)) {

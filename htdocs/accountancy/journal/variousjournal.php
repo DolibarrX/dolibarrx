@@ -239,9 +239,9 @@ $varlink = 'id_journal=' . $id_journal;
 journalHead($nom, $nomlink, $period, $periodlink, $description, $builddate, $exportlink, array('action' => ''), '', $varlink);
 
 if (getDolGlobalString('ACCOUNTANCY_FISCAL_PERIOD_MODE') != 'blockedonclosed') {
-	// Test that setup is complete (we are in accounting, so test on entity is always on $conf->entity only, no sharing allowed)
+	// Test that setup is complete (we are in accounting, so test on entity is always on $config->entity only, no sharing allowed)
 	// Fiscal period test
-	$sql = "SELECT COUNT(rowid) as nb FROM ".MAIN_DB_PREFIX."accounting_fiscalyear WHERE entity = ".((int) $conf->entity);
+	$sql = "SELECT COUNT(rowid) as nb FROM ".MAIN_DB_PREFIX."accounting_fiscalyear WHERE entity = ".((int) $config->entity);
 	$resql = $db->query($sql);
 	if ($resql) {
 		$obj = $db->fetch_object($resql);
@@ -258,10 +258,10 @@ if (getDolGlobalString('ACCOUNTANCY_FISCAL_PERIOD_MODE') != 'blockedonclosed') {
 }
 
 if ($object->nature == 4) { // Bank journal
-	// Test that setup is complete (we are in accounting, so test on entity is always on $conf->entity only, no sharing allowed)
+	// Test that setup is complete (we are in accounting, so test on entity is always on $config->entity only, no sharing allowed)
 	$sql = "SELECT COUNT(rowid) as nb";
 	$sql .= " FROM " . MAIN_DB_PREFIX . "bank_account";
-	$sql .= " WHERE entity = " . (int) $conf->entity;
+	$sql .= " WHERE entity = " . (int) $config->entity;
 	$sql .= " AND fk_accountancy_journal IS NULL";
 	$sql .= " AND clos=0";
 	$resql = $db->query($sql);

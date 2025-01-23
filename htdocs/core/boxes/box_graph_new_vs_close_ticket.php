@@ -135,7 +135,7 @@ class box_graph_new_vs_close_ticket extends ModeleBoxes
 					$px1->SetDataColor($colorseries);
 					$px1->SetData($data);
 					$px1->setShowLegend(2);
-					if (!empty($conf->dol_optimize_smallscreen)) {
+					if (!empty($config->dol_optimize_smallscreen)) {
 						$px1->SetWidth(320);
 					}
 					$px1->SetType(array('pie'));
