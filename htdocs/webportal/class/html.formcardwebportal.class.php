@@ -149,7 +149,7 @@ class FormCardWebPortal
 	 */
 	public function init($elementEn, $id = 0, $permissiontoread = 0, $permissiontoadd = 0, $permissiontodelete = 0, $permissionnote = 0, $permissiondellink = 0)
 	{
-		global $hookmanager, $langs;
+		global $hookManager, $langs;
 
 		$elementEnUpper = strtoupper($elementEn);
 		$objectclass = 'WebPortal' . ucfirst($elementEn);
@@ -179,7 +179,7 @@ class FormCardWebPortal
 		// Initialize a technical objects
 		$object = new $objectclass($this->db);
 		//$extrafields = new ExtraFields($db);
-		$hookmanager->initHooks(array('webportal' . $elementEn . 'card', 'globalcard')); // Note that conf->hooks_modules contains array
+		$hookManager->initHooks(array('webportal' . $elementEn . 'card', 'globalcard')); // Note that conf->hooks_modules contains array
 
 		// Fetch optionals attributes and labels
 		//$extrafields->fetch_name_optionals_label($object->table_element);
@@ -744,7 +744,7 @@ class FormCardWebPortal
 	 */
 	public function elementCard($context)
 	{
-		global $hookmanager, $langs;
+		global $hookManager, $langs;
 
 		$html = '<!-- elementCard -->';
 
@@ -809,11 +809,11 @@ class FormCardWebPortal
 
 			// Call Hook formConfirm
 			$parameters = array('formConfirm' => $formconfirm);
-			$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if (empty($reshook)) {
-				$formconfirm .= $hookmanager->resPrint;
+				$formconfirm .= $hookManager->resPrint;
 			} elseif ($reshook > 0) {
-				$formconfirm = $hookmanager->resPrint;
+				$formconfirm = $hookManager->resPrint;
 			}
 
 			// Print form confirm
@@ -837,9 +837,9 @@ class FormCardWebPortal
 			if ($action != 'presend' && $action != 'editline') {
 				$html .= '<div>' . "\n";
 				$parameters = array();
-				$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($reshook < 0) {
-					$context->setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					$context->setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 
 				if (empty($reshook)) {

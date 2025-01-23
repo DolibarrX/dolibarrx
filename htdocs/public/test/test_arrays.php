@@ -35,7 +35,7 @@ if (!defined("NOLOGIN")) {
 require '../../main.inc.php';
 /**
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  *
  * @var string $dolibarr_main_prod
@@ -272,8 +272,8 @@ if (!empty($moreforfilter)) {
 	print '<div class="liste_titre liste_titre_bydiv centpercent">';
 	print $moreforfilter;
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldPreListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 	print '</div>';
 }
 

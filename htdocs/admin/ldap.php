@@ -37,7 +37,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/ldap.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -52,7 +52,7 @@ if (!$user->admin) {
 $action = GETPOST('action', 'aZ09');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('adminldap', 'globaladmin'));
+$hookManager->initHooks(array('adminldap', 'globaladmin'));
 
 
 /*
@@ -60,9 +60,9 @@ $hookmanager->initHooks(array('adminldap', 'globaladmin'));
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -193,8 +193,8 @@ if (isModEnabled('member')) {
 
 // Fields from hook
 $parameters = array();
-$reshook = $hookmanager->executeHooks('addAdminLdapOptions', $parameters); // Note that $action and $object may have been modified by hook
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('addAdminLdapOptions', $parameters); // Note that $action and $object may have been modified by hook
+print $hookManager->resPrint;
 
 print '<tr class="liste_titre">';
 print '<td>'.$langs->trans("Parameter").'</td>';

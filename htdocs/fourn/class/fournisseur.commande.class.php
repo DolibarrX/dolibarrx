@@ -909,7 +909,7 @@ class CommandeFournisseur extends CommonOrder
 	public function LibStatut($status, $mode = 0, $billed = 0)
 	{
 		// phpcs:enable
-		global $langs, $hookmanager;
+		global $langs, $hookManager;
 
 		if (empty($this->labelStatus) || empty($this->labelStatusShort)) {
 			$langs->load('orders');
@@ -969,9 +969,9 @@ class CommandeFournisseur extends CommonOrder
 		$statusShort = $langs->transnoentitiesnoconv($this->labelStatusShort[$status]);
 
 		$parameters = array('status' => $status, 'mode' => $mode, 'billed' => $billed);
-		$reshook = $hookmanager->executeHooks('LibStatut', $parameters, $this); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('LibStatut', $parameters, $this); // Note that $action and $object may have been modified by hook
 		if ($reshook > 0) {
-			return $hookmanager->resPrint;
+			return $hookManager->resPrint;
 		}
 
 		return dolGetStatus($statusLong, $statusShort, '', $statusClass, $mode);
@@ -1041,7 +1041,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $save_lastsearch_value = -1, $addlinktonotes = 0)
 	{
-		global $langs, $user, $hookmanager;
+		global $langs, $user, $hookManager;
 
 		$result = '';
 		$params = [
@@ -1111,13 +1111,13 @@ class CommandeFournisseur extends CommonOrder
 		}
 
 		global $action;
-		$hookmanager->initHooks(array($this->element . 'dao'));
+		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 		return $result;
 	}
@@ -1572,7 +1572,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $langs, $conf, $hookmanager;
+		global $langs, $conf, $hookManager;
 
 		$this->db->begin();
 
@@ -1893,7 +1893,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function createFromClone(User $user, $socid = 0, $notrigger = 0)
 	{
-		global $conf, $user, $hookmanager;
+		global $conf, $user, $hookManager;
 
 		$error = 0;
 
@@ -1948,12 +1948,12 @@ class CommandeFournisseur extends CommonOrder
 
 		if (!$error) {
 			// Hook of thirdparty module
-			if (is_object($hookmanager)) {
+			if (is_object($hookManager)) {
 				$parameters = array('objFrom' => $objFrom);
 				$action = '';
-				$reshook = $hookmanager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					$this->setErrorsFromObject($hookmanager);
+					$this->setErrorsFromObject($hookManager);
 					$error++;
 				}
 			}

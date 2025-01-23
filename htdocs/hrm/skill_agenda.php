@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT . '/hrm/lib/hrm_skill.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -88,7 +88,7 @@ if (!$sortorder) {
 $object = new Skill($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->hrm->dir_output.'/temp/massgeneration/'.$user->id;
-$hookmanager->initHooks(array('skillagenda', 'globalcard')); // Note that conf->hooks_modules contains array
+$hookManager->initHooks(array('skillagenda', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
 
@@ -120,9 +120,9 @@ if (!$permissiontoread) {
  */
 
 $parameters = array('id' => $id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

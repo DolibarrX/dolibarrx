@@ -38,7 +38,7 @@ require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -78,7 +78,7 @@ $socid = '';
 if (!empty($user->socid)) {
 	$socid = $user->socid;
 }
-$hookmanager->initHooks(array('proposalcontactcard', 'globalcard'));
+$hookManager->initHooks(array('proposalcontactcard', 'globalcard'));
 $result = restrictedArea($user, 'propal', $object->id);
 
 restrictedArea($user, 'propal', $object->id);
@@ -90,9 +90,9 @@ $usercancreate = $user->hasRight("propal", "creer");
  */
 
 $parameters = array('id'=>$id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

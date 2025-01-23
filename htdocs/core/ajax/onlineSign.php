@@ -58,7 +58,7 @@ require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -93,7 +93,7 @@ if (empty($SECUREKEY) || !dol_verifyHash($securekeyseed . $type . $ref . (!isMod
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('ajaxonlinesign'));
+$hookManager->initHooks(array('ajaxonlinesign'));
 
 
 /*
@@ -157,9 +157,9 @@ if ($action == "importSignature") {
 
 					if (dol_is_file($sourcefile)) {
 						$parameters = array('sourcefile' => $sourcefile, 'newpdffilename' => $newpdffilename);
-						$reshook = $hookmanager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+						$reshook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 						if ($reshook < 0) {
-							setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+							setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						}
 
 						if (empty($reshook)) {
@@ -359,9 +359,9 @@ if ($action == "importSignature") {
 
 					if (dol_is_file($sourcefile)) {
 						$parameters = array('sourcefile' => $sourcefile, 'newpdffilename' => $newpdffilename);
-						$reshook = $hookmanager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+						$reshook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 						if ($reshook < 0) {
-							setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+							setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						}
 
 						if (empty($reshook)) {
@@ -495,9 +495,9 @@ if ($action == "importSignature") {
 
 					if (dol_is_file($sourcefile)) {
 						$parameters = array('sourcefile' => $sourcefile, 'newpdffilename' => $newpdffilename);
-						$reshook = $hookmanager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+						$reshook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 						if ($reshook < 0) {
-							setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+							setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						}
 
 						if (empty($reshook)) {
@@ -644,9 +644,9 @@ if ($action == "importSignature") {
 						}
 						if (dol_is_file($sourcefile)) {
 							$parameters = array('sourcefile' => $sourcefile, 'newpdffilename' => $newpdffilename);
-							$reshook = $hookmanager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+							$reshook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 							if ($reshook < 0) {
-								setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+								setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 							}
 
 							if (empty($reshook)) {
@@ -845,9 +845,9 @@ if ($action == "importSignature") {
 
 					if (dol_is_file($sourcefile)) {
 						$parameters = array('sourcefile' => $sourcefile, 'newpdffilename' => $newpdffilename);
-						$reshook = $hookmanager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+						$reshook = $hookManager->executeHooks('AddSignature', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 						if ($reshook < 0) {
-							setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+							setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						}
 
 						if (empty($reshook)) {

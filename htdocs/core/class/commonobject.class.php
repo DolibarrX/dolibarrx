@@ -984,7 +984,7 @@ abstract class CommonObject
 	 */
 	public function getTooltipContent($params)
 	{
-		global $action, $extrafields, $langs, $hookmanager;
+		global $action, $extrafields, $langs, $hookManager;
 
 		// If there is too much extrafields, we do not include them into tooltip
 		$MAX_EXTRAFIELDS_TO_SHOW_IN_TOOLTIP = getDolGlobalInt('MAX_EXTRAFIELDS_TO_SHOW_IN_TOOLTIP', 3);
@@ -1038,13 +1038,13 @@ abstract class CommonObject
 			$data['closedivextra'] = '</div>';
 		}
 
-		$hookmanager->initHooks(array($this->element . 'dao'));
+		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array(
 			'tooltipcontentarray' => &$data,
 			'params' => $params,
 		);
 		// Note that $action and $object may have been modified by some hooks
-		$hookmanager->executeHooks('getTooltipContent', $parameters, $this, $action);
+		$hookManager->executeHooks('getTooltipContent', $parameters, $this, $action);
 
 		//var_dump($data);
 		$label = implode($data);
@@ -1072,15 +1072,15 @@ abstract class CommonObject
 	 */
 	public function getFormatedCustomerRef($objref)
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		$parameters = array('objref' => $objref);
 		$action = '';
-		$reshook = $hookmanager->executeHooks('getFormatedCustomerRef', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getFormatedCustomerRef', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			return $hookmanager->resArray['objref'];
+			return $hookManager->resArray['objref'];
 		}
-		return $objref.(isset($hookmanager->resArray['objref']) ? $hookmanager->resArray['objref'] : '');
+		return $objref.(isset($hookManager->resArray['objref']) ? $hookManager->resArray['objref'] : '');
 	}
 
 	/**
@@ -1091,15 +1091,15 @@ abstract class CommonObject
 	 */
 	public function getFormatedSupplierRef($objref)
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		$parameters = array('objref' => $objref);
 		$action = '';
-		$reshook = $hookmanager->executeHooks('getFormatedSupplierRef', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getFormatedSupplierRef', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			return $hookmanager->resArray['objref'];
+			return $hookManager->resArray['objref'];
 		}
-		return $objref.(isset($hookmanager->resArray['objref']) ? $hookmanager->resArray['objref'] : '');
+		return $objref.(isset($hookManager->resArray['objref']) ? $hookManager->resArray['objref'] : '');
 	}
 
 	/**
@@ -3495,7 +3495,7 @@ abstract class CommonObject
 	 */
 	public function updateRangOfLine($rowid, $rang)
 	{
-		global $hookmanager;
+		global $hookManager;
 		$fieldposition = 'rang'; // @todo Rename 'rang' into 'position'
 		if (in_array($this->table_element_line, array('bom_bomline', 'ecm_files', 'emailcollector_emailcollectoraction', 'product_attribute_value'))) {
 			$fieldposition = 'position';
@@ -3511,7 +3511,7 @@ abstract class CommonObject
 		} else {
 			$parameters = array('rowid' => $rowid, 'rang' => $rang, 'fieldposition' => $fieldposition);
 			$action = '';
-			$reshook = $hookmanager->executeHooks('afterRankOfLineUpdate', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('afterRankOfLineUpdate', $parameters, $this, $action);
 			return 1;
 		}
 	}
@@ -3838,10 +3838,10 @@ abstract class CommonObject
 	public function update_price($exclspec = 0, $roundingadjust = 'auto', $nodatabaseupdate = 0, $seller = null)
 	{
 		// phpcs:enable
-		global $conf, $hookmanager, $action;
+		global $conf, $hookManager, $action;
 
 		$parameters = array('exclspec' => $exclspec, 'roundingadjust' => $roundingadjust, 'nodatabaseupdate' => $nodatabaseupdate, 'seller' => $seller);
-		$reshook = $hookmanager->executeHooks('updateTotalPrice', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('updateTotalPrice', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
 			return 1; // replacement code
 		} elseif ($reshook < 0) {
@@ -3962,7 +3962,7 @@ abstract class CommonObject
 
 				// Note: There is no check on detail line and no check on total, if $forcedroundingmode = '0'
 				$parameters = array('fk_element' => $obj->rowid);
-				$reshook = $hookmanager->executeHooks('changeRoundingMode', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('changeRoundingMode', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 				if (empty($reshook) && $forcedroundingmode == '0') {	// Check if data on line are consistent. This may solve lines that were not consistent because set with $forcedroundingmode='auto'
 					// This part of code is to fix data. We should not call it too often.
@@ -4181,7 +4181,7 @@ abstract class CommonObject
 	public function add_object_linked($origin = null, $origin_id = null, $f_user = null, $notrigger = 0)
 	{
 		// phpcs:enable
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 		$origin = (!empty($origin) ? $origin : $this->origin);
 		$origin_id = (!empty($origin_id) ? $origin_id : $this->origin_id);
 		$f_user = isset($f_user) ? $f_user : $user;
@@ -4205,10 +4205,10 @@ abstract class CommonObject
 
 		$parameters = array('targettype' => $targettype);
 		// Hook for explicitly set the targettype if it must be different than $this->element
-		$reshook = $hookmanager->executeHooks('setLinkedObjectSourceTargetType', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('setLinkedObjectSourceTargetType', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			if (!empty($hookmanager->resArray['targettype'])) {
-				$targettype = $hookmanager->resArray['targettype'];
+			if (!empty($hookManager->resArray['targettype'])) {
+				$targettype = $hookManager->resArray['targettype'];
 			}
 		}
 
@@ -4292,7 +4292,7 @@ abstract class CommonObject
 	 */
 	public function fetchObjectLinked($sourceid = null, $sourcetype = '', $targetid = null, $targettype = '', $clause = 'OR', $alsosametype = 1, $orderby = 'sourcetype', $loadalsoobjects = 1)
 	{
-		global $hookmanager, $action;
+		global $hookManager, $action;
 
 		// Important for pdf generation time reduction
 		// This boolean is true if $this->linkedObjects has already been loaded with all objects linked without filter
@@ -4311,19 +4311,19 @@ abstract class CommonObject
 
 		$parameters = array('sourcetype' => $sourcetype, 'sourceid' => $sourceid, 'targettype' => $targettype, 'targetid' => $targetid);
 		// Hook for explicitly set the targettype if it must be differtent than $this->element
-		$reshook = $hookmanager->executeHooks('setLinkedObjectSourceTargetType', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('setLinkedObjectSourceTargetType', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			if (!empty($hookmanager->resArray['sourcetype'])) {
-				$sourcetype = $hookmanager->resArray['sourcetype'];
+			if (!empty($hookManager->resArray['sourcetype'])) {
+				$sourcetype = $hookManager->resArray['sourcetype'];
 			}
-			if (!empty($hookmanager->resArray['sourceid'])) {
-				$sourceid = $hookmanager->resArray['sourceid'];
+			if (!empty($hookManager->resArray['sourceid'])) {
+				$sourceid = $hookManager->resArray['sourceid'];
 			}
-			if (!empty($hookmanager->resArray['targettype'])) {
-				$targettype = $hookmanager->resArray['targettype'];
+			if (!empty($hookManager->resArray['targettype'])) {
+				$targettype = $hookManager->resArray['targettype'];
 			}
-			if (!empty($hookmanager->resArray['targetid'])) {
-				$targetid = $hookmanager->resArray['targetid'];
+			if (!empty($hookManager->resArray['targetid'])) {
+				$targetid = $hookManager->resArray['targetid'];
 			}
 		}
 
@@ -5206,7 +5206,7 @@ abstract class CommonObject
 	 */
 	public function formAddObjectLine($dateSelector, $seller, $buyer, $defaulttpldir = '/core/tpl')
 	{
-		global $conf, $user, $langs, $object, $hookmanager, $extrafields, $form;
+		global $conf, $user, $langs, $object, $hookManager, $extrafields, $form;
 
 		// Line extrafield
 		if (!is_object($extrafields)) {
@@ -5258,7 +5258,7 @@ abstract class CommonObject
 	 */
 	public function printObjectLines($action, $seller, $buyer, $selected = 0, $dateSelector = 0, $defaulttpldir = '/core/tpl')
 	{
-		global $conf, $hookmanager, $langs, $user, $form, $extrafields, $object;
+		global $conf, $hookManager, $langs, $user, $form, $extrafields, $object;
 		// TODO We should not use global var for this
 		global $inputalsopricewithtax, $usemargins, $disableedit, $disablemove, $disableremove, $outputalsopricetotalwithtax;
 
@@ -5282,7 +5282,7 @@ abstract class CommonObject
 		}
 
 		$parameters = array('num' => $num, 'dateSelector' => $dateSelector, 'seller' => $seller, 'buyer' => $buyer, 'selected' => $selected, 'table_element_line' => $this->table_element_line);
-		$reshook = $hookmanager->executeHooks('printObjectLineTitle', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('printObjectLineTitle', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if (empty($reshook)) {
 			// Output template part (modules that overwrite templates must declare this into descriptor)
 			// Use global variables + $dateSelector + $seller and $buyer
@@ -5315,14 +5315,14 @@ abstract class CommonObject
 			//Line extrafield
 			$line->fetch_optionals();
 
-			//if (is_object($hookmanager) && (($line->product_type == 9 && !empty($line->special_code)) || !empty($line->fk_parent_line)))
-			if (is_object($hookmanager)) {   // Old code is commented on preceding line.
+			//if (is_object($hookManager) && (($line->product_type == 9 && !empty($line->special_code)) || !empty($line->fk_parent_line)))
+			if (is_object($hookManager)) {   // Old code is commented on preceding line.
 				if (empty($line->fk_parent_line)) {
 					$parameters = array('line' => $line, 'num' => $num, 'i' => $i, 'dateSelector' => $dateSelector, 'seller' => $seller, 'buyer' => $buyer, 'selected' => $selected, 'table_element_line' => $line->table_element, 'defaulttpldir' => $defaulttpldir);
-					$reshook = $hookmanager->executeHooks('printObjectLine', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+					$reshook = $hookManager->executeHooks('printObjectLine', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				} else {
 					$parameters = array('line' => $line, 'num' => $num, 'i' => $i, 'dateSelector' => $dateSelector, 'seller' => $seller, 'buyer' => $buyer, 'selected' => $selected, 'table_element_line' => $line->table_element, 'fk_parent_line' => $line->fk_parent_line, 'defaulttpldir' => $defaulttpldir);
-					$reshook = $hookmanager->executeHooks('printObjectSubLine', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+					$reshook = $hookManager->executeHooks('printObjectSubLine', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				}
 			}
 			if (empty($reshook)) {
@@ -5353,7 +5353,7 @@ abstract class CommonObject
 	 */
 	public function printObjectLine($action, $line, $var, $num, $i, $dateSelector, $seller, $buyer, $selected = 0, $extrafields = null, $defaulttpldir = '/core/tpl')
 	{
-		global $conf, $langs, $user, $object, $hookmanager;
+		global $conf, $langs, $user, $object, $hookManager;
 		global $form;
 		global $disableedit, $disablemove, $disableremove; // TODO We should not use global var for this !
 
@@ -5484,7 +5484,7 @@ abstract class CommonObject
 	 */
 	public function printOriginLinesList($restrictlist = '', $selectedLines = array())
 	{
-		global $langs, $hookmanager, $form, $action;
+		global $langs, $hookManager, $form, $action;
 
 		print '<tr class="liste_titre">';
 		print '<td class="linecolref">'.$langs->trans('Ref').'</td>';
@@ -5507,13 +5507,13 @@ abstract class CommonObject
 		if (!empty($this->lines)) {
 			foreach ($this->lines as $line) {
 				$reshook = 0;
-				//if (is_object($hookmanager) && (($line->product_type == 9 && !empty($line->special_code)) || !empty($line->fk_parent_line))) {
-				if (is_object($hookmanager)) {   // Old code is commented on preceding line.
+				//if (is_object($hookManager) && (($line->product_type == 9 && !empty($line->special_code)) || !empty($line->fk_parent_line))) {
+				if (is_object($hookManager)) {   // Old code is commented on preceding line.
 					$parameters = array('line' => $line, 'i' => $i, 'restrictlist' => $restrictlist, 'selectedLines' => $selectedLines);
 					if (!empty($line->fk_parent_line)) {
 						$parameters['fk_parent_line'] = $line->fk_parent_line;
 					}
-					$reshook = $hookmanager->executeHooks('printOriginObjectLine', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+					$reshook = $hookManager->executeHooks('printOriginObjectLine', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				}
 				if (empty($reshook)) {
 					$this->printOriginLine($line, '', $restrictlist, '/core/tpl', $selectedLines);
@@ -5790,12 +5790,12 @@ abstract class CommonObject
 	 */
 	protected function commonGenerateDocument($modelspath, $modele, $outputlangs, $hidedetails, $hidedesc, $hideref, $moreparams = null)
 	{
-		global $conf, $langs, $user, $hookmanager, $action;
+		global $conf, $langs, $user, $hookManager, $action;
 
 		$srctemplatepath = '';
 
 		$parameters = array('modelspath' => $modelspath, 'modele' => $modele, 'outputlangs' => $outputlangs, 'hidedetails' => $hidedetails, 'hidedesc' => $hidedesc, 'hideref' => $hideref, 'moreparams' => $moreparams);
-		$reshook = $hookmanager->executeHooks('commonGenerateDocument', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('commonGenerateDocument', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 		if (!empty($reshook)) {
 			return $reshook;
@@ -7095,7 +7095,7 @@ abstract class CommonObject
 	 */
 	public function updateExtraField($key, $trigger = null, $userused = null)
 	{
-		global $conf, $langs, $user, $hookmanager;
+		global $conf, $langs, $user, $hookManager;
 
 		if (getDolGlobalString('MAIN_EXTRAFIELDS_DISABLED')) {
 			return 0;
@@ -7364,9 +7364,9 @@ abstract class CommonObject
 			if (!$error) {
 				$parameters = array('key' => $key);
 				global $action;
-				$reshook = $hookmanager->executeHooks('updateExtraFieldBeforeCommit', $parameters, $this, $action);
+				$reshook = $hookManager->executeHooks('updateExtraFieldBeforeCommit', $parameters, $this, $action);
 				if ($reshook < 0) {
-					setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 			}
 
@@ -9154,7 +9154,7 @@ abstract class CommonObject
 	 */
 	public function showOptionals($extrafields, $mode = 'view', $params = null, $keysuffix = '', $keyprefix = '', $onetrtd = '', $display_type = 'card')
 	{
-		global $db, $conf, $langs, $action, $form, $hookmanager;
+		global $db, $conf, $langs, $action, $form, $hookManager;
 
 		if (!is_object($form)) {
 			$form = new Form($db);
@@ -9170,7 +9170,7 @@ abstract class CommonObject
 		$out = '';
 
 		$parameters = array('mode' => $mode, 'params' => $params, 'keysuffix' => $keysuffix, 'keyprefix' => $keyprefix, 'display_type' => $display_type);
-		$reshook = $hookmanager->executeHooks('showOptionals', $parameters, $this, $action); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('showOptionals', $parameters, $this, $action); // Note that $action and $object may have been modified by hook
 
 		if (empty($reshook)) {
 			if (is_array($extrafields->attributes[$this->table_element]) && array_key_exists('label', $extrafields->attributes[$this->table_element]) && is_array($extrafields->attributes[$this->table_element]['label']) && count($extrafields->attributes[$this->table_element]['label']) > 0) {
@@ -9468,7 +9468,7 @@ abstract class CommonObject
 			}
 		}
 
-		$out .= $hookmanager->resPrint;
+		$out .= $hookManager->resPrint;
 
 		return $out;
 	}
@@ -9586,14 +9586,14 @@ abstract class CommonObject
 	 */
 	public static function commonReplaceThirdparty(DoliDB $dbs, $origin_id, $dest_id, array $tables, $ignoreerrors = 0)
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		$parameters = array(
 			'origin_id' => $origin_id,
 			'dest_id' => $dest_id,
 			'tables' => $tables,
 		);
-		$reshook = $hookmanager->executeHooks('commonReplaceThirdparty', $parameters);
+		$reshook = $hookManager->executeHooks('commonReplaceThirdparty', $parameters);
 		if ($reshook) {
 			return true; // replacement code
 		} elseif ($reshook < 0) {

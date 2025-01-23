@@ -25,7 +25,7 @@ if (!defined('NOBROWSERNOTIF')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  *
  * @var string $action
@@ -371,8 +371,8 @@ if (!empty($morelogincontent) && is_array($morelogincontent)) {
 // Can add extra content
 $parameters = array();
 $dummyobject = new stdClass();
-$result = $hookmanager->executeHooks('getPasswordResetExtraContent', $parameters, $dummyobject, $action);
-print $hookmanager->resPrint;
+$result = $hookManager->executeHooks('getPasswordResetExtraContent', $parameters, $dummyobject, $action);
+print $hookManager->resPrint;
 
 ?>
 

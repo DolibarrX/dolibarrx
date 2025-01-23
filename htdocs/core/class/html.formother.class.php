@@ -484,14 +484,14 @@ class FormOther
 	public function select_salesrepresentatives($selected, $htmlname, $user, $showstatus = 0, $showempty = 1, $morecss = '', $norepresentative = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs, $hookmanager;
+		global $conf, $langs, $hookManager;
 		global $action;
 
 		$langs->load('users');
 
 		$out = '';
 
-		$reshook = $hookmanager->executeHooks('addSQLWhereFilterOnSelectSalesRep', array(), $this, $action);
+		$reshook = $hookManager->executeHooks('addSQLWhereFilterOnSelectSalesRep', array(), $this, $action);
 
 		// Select each sales and print them in a select input
 		$out .= '<select class="flat'.($morecss ? ' '.$morecss : '').'" id="'.$htmlname.'" name="'.$htmlname.'">';
@@ -539,7 +539,7 @@ class FormOther
 
 		//Add hook to filter on user (for example on usergroup define in custom modules)
 		if (!empty($reshook)) {
-			$sql_usr .= $hookmanager->resArray[0];
+			$sql_usr .= $hookManager->resArray[0];
 		}
 
 		// Add existing sales representatives of thirdparty of external user
@@ -562,7 +562,7 @@ class FormOther
 
 			//Add hook to filter on user (for example on usergroup define in custom modules)
 			if (!empty($reshook)) {
-				$sql_usr .= $hookmanager->resArray[1];
+				$sql_usr .= $hookManager->resArray[1];
 			}
 		}
 

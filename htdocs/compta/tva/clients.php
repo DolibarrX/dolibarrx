@@ -45,7 +45,7 @@ require_once DOL_DOCUMENT_ROOT.'/expensereport/class/paymentexpensereport.class.
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -438,8 +438,8 @@ if (!is_array($x_coll) || !is_array($x_paye)) {
 
 	$object = array(&$x_coll, &$x_paye, &$x_both);
 	// Initialize a technical object to manage hooks of expenses. Note that conf->hooks_modules contains array array
-	$hookmanager->initHooks(array('externalbalance'));
-	$reshook = $hookmanager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	$hookManager->initHooks(array('externalbalance'));
+	$reshook = $hookManager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 	foreach (array_keys($x_coll) as $thirdparty_id) {
 		$subtot_coll_total_ht = 0;

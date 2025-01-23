@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/compta/localtax/class/localtax.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -117,7 +117,7 @@ if ($user->socid) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(['customerlocaltaxlist']);
+$hookManager->initHooks(['customerlocaltaxlist']);
 
 $result = restrictedArea($user, 'tax', '', '', 'charges');
 
@@ -233,8 +233,8 @@ if ($calc == 0 || $calc == 2) {
 	$parameters["type"] = 'localtax'.$local;
 
 	// Initialize a technical object to manage hooks of expenses. Note that conf->hooks_modules contains array array
-	$hookmanager->initHooks(array('externalbalance'));
-	$reshook = $hookmanager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	$hookManager->initHooks(array('externalbalance'));
+	$reshook = $hookManager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 	if (is_array($coll_list)) {
 		$total = 0;
@@ -300,7 +300,7 @@ if ($calc == 0 || $calc == 1) {
 	$parameters["direction"] = 'buy';
 	$parameters["type"] = 'localtax'.$local;
 
-	$reshook = $hookmanager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 	if (is_array($coll_list)) {
 		$total = 0;
 		$totalamount = 0;

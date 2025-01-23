@@ -30,7 +30,7 @@
  * @var Conf $conf
  * @var DoliDB $db
  * @var Form $form
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  */
 
@@ -53,10 +53,10 @@ if (!is_array($parameters)) {
 	$parameters = array();
 }
 $parameters['assetaccountancycodes'] = &$assetaccountancycodes;
-$reshook = $hookmanager->executeHooks('formAssetAccountancyCodes', $parameters, $object, $action);
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('formAssetAccountancyCodes', $parameters, $object, $action);
+print $hookManager->resPrint;
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

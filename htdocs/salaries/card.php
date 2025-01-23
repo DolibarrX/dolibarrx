@@ -48,7 +48,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -91,7 +91,7 @@ $childids = $user->getAllChildIds(1);
 $extrafields->fetch_name_optionals_label($object->table_element);
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('salarycard', 'globalcard'));
+$hookManager->initHooks(array('salarycard', 'globalcard'));
 
 if ($id > 0 || !empty($ref)) {
 	$object->fetch($id, $ref);
@@ -130,9 +130,9 @@ $upload_dir = $conf->salaries->multidir_output[$conf->entity];
 
 $parameters = array();
 // Note that $action and $object may be modified by some hooks
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -679,8 +679,8 @@ if ($action == 'create' && $permissiontoadd) {
 
 	// Other attributes
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 	if (empty($reshook)) {
 		print $object->showOptionals($extrafields, 'create');
 	}
@@ -810,11 +810,11 @@ if ($id > 0) {
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm);
-	$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
-		$formconfirm .= $hookmanager->resPrint;
+		$formconfirm .= $hookManager->resPrint;
 	} elseif ($reshook > 0) {
-		$formconfirm = $hookmanager->resPrint;
+		$formconfirm = $hookManager->resPrint;
 	}
 
 	// Print form confirm
@@ -1126,7 +1126,7 @@ if ($id > 0) {
 	if ($action != 'edit') {
 		// Dynamic send mail button
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($reshook)) {
 			if (empty($user->socid)) {
 				$canSendMail = true;
@@ -1238,7 +1238,7 @@ if ($id > 0) {
 
 	// Hook to add more things on page
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('salaryCardTabAddMore', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('salaryCardTabAddMore', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 }
 
 // End of page

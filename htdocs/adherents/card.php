@@ -52,7 +52,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -105,7 +105,7 @@ if (!empty($canvas)) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('membercard', 'globalcard'));
+$hookManager->initHooks(array('membercard', 'globalcard'));
 
 // Fetch object
 if ($id > 0 || !empty($ref)) {
@@ -147,9 +147,9 @@ $linkofpubliclist = DOL_MAIN_URL_ROOT.'/public/members/public_list.php'.((isModE
  */
 
 $parameters = array('id' => $id, 'rowid' => $id, 'objcanvas' => $objcanvas, 'confirm' => $confirm);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -1987,7 +1987,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		print '<div class="tabsAction">';
 		$isinspip = 0;
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 		if (empty($reshook)) {
 			if ($action != 'editlogin' && $action != 'editthirdparty') {
 				// Send

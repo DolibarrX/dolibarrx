@@ -464,7 +464,7 @@ class CTicketCategory extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $hookmanager;
+		global $conf, $langs, $hookManager;
 
 		if (!empty($conf->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -523,14 +523,14 @@ class CTicketCategory extends CommonObject
 		$result .= $this->label;
 		//$result .= $linkend;
 
-		global $action, $hookmanager;
-		$hookmanager->initHooks(array('cticketcategorydao'));
+		global $action, $hookManager;
+		$hookManager->initHooks(array('cticketcategorydao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;

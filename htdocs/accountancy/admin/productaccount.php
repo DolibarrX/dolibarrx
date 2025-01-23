@@ -42,7 +42,7 @@ require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -164,9 +164,9 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 }
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 // Purge search criteria
@@ -577,11 +577,11 @@ if ($resql) {
 	}
 
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
-		$moreforfilter .= $hookmanager->resPrint;
+		$moreforfilter .= $hookManager->resPrint;
 	} else {
-		$moreforfilter = $hookmanager->resPrint;
+		$moreforfilter = $hookManager->resPrint;
 	}
 
 	if ($moreforfilter) {

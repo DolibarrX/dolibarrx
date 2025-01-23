@@ -214,7 +214,7 @@ class doc_generic_odt extends ModeleThirdPartyDoc
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $hookmanager;
+		global $user, $langs, $conf, $mysoc, $hookManager;
 		global $action;
 
 		if (empty($srctemplatepath)) {
@@ -223,11 +223,11 @@ class doc_generic_odt extends ModeleThirdPartyDoc
 		}
 
 		// Add odtgeneration hook
-		if (!is_object($hookmanager)) {
+		if (!is_object($hookManager)) {
 			include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-			$hookmanager = new HookManager($this->db);
+			$hookManager = new HookManager($this->db);
 		}
-		$hookmanager->initHooks(array('odtgeneration'));
+		$hookManager->initHooks(array('odtgeneration'));
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -381,7 +381,7 @@ class doc_generic_odt extends ModeleThirdPartyDoc
 
 				// Call the ODTSubstitution hook
 				$parameters = array('odfHandler' => &$odfHandler, 'file' => $file, 'object' => $object, 'outputlangs' => $outputlangs, 'substitutionarray' => &$tmparray);
-				$reshook = $hookmanager->executeHooks('ODTSubstitution', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('ODTSubstitution', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Replace variables into document
 				foreach ($tmparray as $key => $value) {
@@ -413,7 +413,7 @@ class doc_generic_odt extends ModeleThirdPartyDoc
 
 				// Call the beforeODTSave hook
 				$parameters = array('odfHandler' => &$odfHandler, 'file' => $file, 'object' => $object, 'outputlangs' => $outputlangs, 'substitutionarray' => &$tmparray);
-				$reshook = $hookmanager->executeHooks('beforeODTSave', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('beforeODTSave', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Write new file
 				if (getDolGlobalString('MAIN_ODT_AS_PDF')) {
@@ -443,7 +443,7 @@ class doc_generic_odt extends ModeleThirdPartyDoc
 					}
 				}
 				$parameters = array('odfHandler' => &$odfHandler, 'file' => $file, 'object' => $object, 'outputlangs' => $outputlangs, 'substitutionarray' => &$tmparray);
-				$reshook = $hookmanager->executeHooks('afterODTCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('afterODTCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 				dolChmod($file);
 

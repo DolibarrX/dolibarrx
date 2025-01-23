@@ -873,7 +873,7 @@ class Project extends CommonObject
 	{
 		// phpcs:enable
 
-		global $hookmanager;
+		global $hookManager;
 
 		$elements = array();
 
@@ -933,11 +933,11 @@ class Project extends CommonObject
 			'fk_projet' => $projectkey,
 			'ids' => $ids,
 		);
-		$reshook = $hookmanager->executeHooks('getElementList', $parameters);
+		$reshook = $hookManager->executeHooks('getElementList', $parameters);
 		if ($reshook > 0) {
-			$sql = $hookmanager->resPrint;
+			$sql = $hookManager->resPrint;
 		} else {
-			$sql .= $hookmanager->resPrint;
+			$sql .= $hookManager->resPrint;
 		}
 
 		if (!$sql) {
@@ -1426,7 +1426,7 @@ class Project extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $addlabel = 0, $moreinpopup = '', $sep = ' - ', $notooltip = 0, $save_lastsearch_value = -1, $morecss = '', $save_pageforbacktolist = '')
 	{
-		global $conf, $langs, $user, $hookmanager;
+		global $conf, $langs, $user, $hookManager;
 
 		if (!empty($conf->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -1513,13 +1513,13 @@ class Project extends CommonObject
 		}
 
 		global $action;
-		$hookmanager->initHooks(array('projectdao'));
+		$hookManager->initHooks(array('projectdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;

@@ -37,7 +37,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/dolreceiptprinter.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -61,7 +61,7 @@ $templatename = GETPOST('templatename', 'alpha');
 $templateid = GETPOSTINT('templateid');
 
 $printer = new dolReceiptPrinter($db);
-$hookmanager->initHooks(array('receiptPrinter', 'globalcard'));
+$hookManager->initHooks(array('receiptPrinter', 'globalcard'));
 if (!$mode) {
 	$mode = 'config';
 }
@@ -540,9 +540,9 @@ if ($mode == 'template' && $user->admin) {
 		print '<td>{'.$key.'}</td><td>'.$langs->trans($val).'</td>';
 		print '</tr>';
 	}
-	$reshook = $hookmanager->executeHooks('listReceiptPrinterTags', array(), $printer, $action); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('listReceiptPrinterTags', array(), $printer, $action); // Note that $action and $object may have been modified by some hooks
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 	print '</table>';
 	print '</div>';

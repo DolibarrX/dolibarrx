@@ -37,7 +37,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -56,7 +56,7 @@ if (is_numeric($type)) {
 }
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array array
-$hookmanager->initHooks(array('categoryindex'));
+$hookManager->initHooks(array('categoryindex'));
 
 if (!$user->hasRight('categorie', 'lire')) {
 	accessforbidden();

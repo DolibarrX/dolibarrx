@@ -38,7 +38,7 @@ require_once DOL_DOCUMENT_ROOT."/product/class/html.formproduct.class.php";
  * @var BOMLine $line
  * @var CommonObject $this
  * @var CommonObject $object
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $buyer
  * @var Societe $seller
  * @var Translate $langs
@@ -112,10 +112,10 @@ if ($line->fk_product > 0) {
 	print $tmpproduct->getNomUrl(1);
 }
 
-if (is_object($hookmanager)) {
+if (is_object($hookManager)) {
 	$fk_parent_line = (GETPOST('fk_parent_line') ? GETPOST('fk_parent_line') : $line->fk_parent_line);
 	$parameters = array('line' => $line, 'fk_parent_line' => $fk_parent_line, 'var' => $var, 'dateSelector' => $dateSelector, 'seller' => $seller, 'buyer' => $buyer);
-	$reshook = $hookmanager->executeHooks('formEditProductOptions', $parameters, $this, $action);
+	$reshook = $hookManager->executeHooks('formEditProductOptions', $parameters, $this, $action);
 }
 
 //Line extrafield

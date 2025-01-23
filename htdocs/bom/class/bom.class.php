@@ -311,7 +311,7 @@ class BOM extends CommonObject
 	 */
 	public function createFromClone(User $user, $fromid)
 	{
-		global $langs, $hookmanager, $extrafields;
+		global $langs, $hookManager, $extrafields;
 		$error = 0;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
@@ -1120,7 +1120,7 @@ class BOM extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $db, $conf, $langs, $hookmanager;
+		global $db, $conf, $langs, $hookManager;
 
 		if (!empty($conf->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -1181,14 +1181,14 @@ class BOM extends CommonObject
 		$result .= $linkend;
 		//if ($withpicto != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
 
-		global $action, $hookmanager;
-		$hookmanager->initHooks(array('bomdao'));
+		global $action, $hookManager;
+		$hookManager->initHooks(array('bomdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;
@@ -1409,17 +1409,17 @@ class BOM extends CommonObject
 	 */
 	public function calculateCosts()
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		include_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 		$this->unit_cost = 0;
 		$this->total_cost = 0;
 
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('calculateCostsBom', $parameters, $this); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('calculateCostsBom', $parameters, $this); // Note that $action and $object may have been modified by hook
 
 		if ($reshook > 0) {
-			return $hookmanager->resPrint;
+			return $hookManager->resPrint;
 		}
 
 		if (is_array($this->lines) && count($this->lines)) {

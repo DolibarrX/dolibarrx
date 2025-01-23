@@ -274,7 +274,7 @@ class pdf_octopus extends ModelePDFFactures
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $db, $hookmanager, $nblines;
+		global $user, $langs, $conf, $mysoc, $db, $hookManager, $nblines;
 
 		dol_syslog("write_file outputlangs->defaultlang=".(is_object($outputlangs) ? $outputlangs->defaultlang : 'null'));
 
@@ -395,14 +395,14 @@ class pdf_octopus extends ModelePDFFactures
 
 			if (file_exists($dir)) {
 				// Add pdfgeneration hook
-				if (!is_object($hookmanager)) {
+				if (!is_object($hookManager)) {
 					include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-					$hookmanager = new HookManager($this->db);
+					$hookManager = new HookManager($this->db);
 				}
-				$hookmanager->initHooks(array('pdfgeneration'));
+				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookmanager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Set nblines with the new facture lines content after hook
 				$nblines = count($object->lines);
@@ -564,9 +564,9 @@ class pdf_octopus extends ModelePDFFactures
 					'outputlangs' => $outputlangs,
 					'hidedetails' => $hidedetails
 				);
-				$reshook = $hookmanager->executeHooks('printUnderHeaderPDFline', $parameters, $this); // Note that $object may have been modified by hook
-				if (!empty($hookmanager->resArray['extra_under_address_shift'])) {
-					$extra_under_address_shift += $hookmanager->resArray['extra_under_address_shift'];
+				$reshook = $hookManager->executeHooks('printUnderHeaderPDFline', $parameters, $this); // Note that $object may have been modified by hook
+				if (!empty($hookManager->resArray['extra_under_address_shift'])) {
+					$extra_under_address_shift += $hookManager->resArray['extra_under_address_shift'];
 				}
 
 				$this->tab_top += $extra_under_address_shift;
@@ -965,7 +965,7 @@ class pdf_octopus extends ModelePDFFactures
 						'outputlangs' => $outputlangs,
 						'hidedetails' => $hidedetails
 					);
-					$reshook = $hookmanager->executeHooks('printPDFline', $parameters, $this); // Note that $object may have been modified by hook
+					$reshook = $hookManager->executeHooks('printPDFline', $parameters, $this); // Note that $object may have been modified by hook
 
 
 					$sign = 1;
@@ -1148,13 +1148,13 @@ class pdf_octopus extends ModelePDFFactures
 				$pdf->Output($file, 'F');
 
 				// Add pdfgeneration hook
-				$hookmanager->initHooks(array('pdfgeneration'));
+				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookmanager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					$this->error = $hookmanager->error;
-					$this->errors = $hookmanager->errors;
+					$this->error = $hookManager->error;
+					$this->errors = $hookManager->errors;
 				}
 
 				dolChmod($file);
@@ -1329,7 +1329,7 @@ class pdf_octopus extends ModelePDFFactures
 	 */
 	protected function drawInfoTable(&$pdf, $object, $posy, $outputlangs, $outputlangsbis)
 	{
-		global $mysoc, $hookmanager;
+		global $mysoc, $hookManager;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
@@ -1526,10 +1526,10 @@ class pdf_octopus extends ModelePDFFactures
 					}
 					$parameters = array();
 					$action = '';
-					$reshook = $hookmanager->executeHooks('doShowOnlinePaymentUrl', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+					$reshook = $hookManager->executeHooks('doShowOnlinePaymentUrl', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 					if ($reshook > 0) {
-						if (isset($hookmanager->resArray['showonlinepaymenturl'])) {
-							$useonlinepayment += $hookmanager->resArray['showonlinepaymenturl'];
+						if (isset($hookManager->resArray['showonlinepaymenturl'])) {
+							$useonlinepayment += $hookManager->resArray['showonlinepaymenturl'];
 						}
 					}
 				}
@@ -1634,7 +1634,7 @@ class pdf_octopus extends ModelePDFFactures
 	 */
 	protected function drawTotalTable(&$pdf, $object, $deja_regle, $posy, $outputlangs, $outputlangsbis)
 	{
-		global $conf, $mysoc, $hookmanager;
+		global $conf, $mysoc, $hookManager;
 
 		$sign = 1;
 		if ($object->type == 2 && getDolGlobalString('INVOICE_POSITIVE_CREDIT_NOTE')) {
@@ -2009,10 +2009,10 @@ class pdf_octopus extends ModelePDFFactures
 
 		$parameters = array('pdf' => &$pdf, 'object' => &$object, 'outputlangs' => $outputlangs, 'index' => &$index, 'posy' => $posy);
 
-		$reshook = $hookmanager->executeHooks('afterPDFTotalTable', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('afterPDFTotalTable', $parameters, $this); // Note that $action and $object may have been modified by some hooks
 		if ($reshook < 0) {
-			$this->error = $hookmanager->error;
-			$this->errors = $hookmanager->errors;
+			$this->error = $hookManager->error;
+			$this->errors = $hookManager->errors;
 		}
 
 		$index++;
@@ -2557,7 +2557,7 @@ class pdf_octopus extends ModelePDFFactures
 	 */
 	public function defineColumnField($object, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		// Default field style for content
 		$this->defaultContentsFieldsStyle = array(
@@ -2822,14 +2822,14 @@ class pdf_octopus extends ModelePDFFactures
 			'hideref' => $hideref
 		);
 
-		$reshook = $hookmanager->executeHooks('defineColumnField', $parameters, $this); // Note that $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('defineColumnField', $parameters, $this); // Note that $object may have been modified by hook
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		} elseif (empty($reshook)) {
 			// @phan-suppress-next-line PhanPluginSuspiciousParamOrderInternal
-			$this->cols = array_replace($this->cols, $hookmanager->resArray); // array_replace is used to preserve keys
+			$this->cols = array_replace($this->cols, $hookManager->resArray); // array_replace is used to preserve keys
 		} else {
-			$this->cols = $hookmanager->resArray;
+			$this->cols = $hookManager->resArray;
 		}
 	}
 
@@ -3369,7 +3369,7 @@ class pdf_octopus extends ModelePDFFactures
 	 */
 	public function btpGetInvoiceAmounts($id, $forceReadFromDB = false)
 	{
-		global $user, $langs, $mysoc, $db, $hookmanager, $nblignes;
+		global $user, $langs, $mysoc, $db, $hookManager, $nblignes;
 
 		$object = new Facture($db);
 		$object->fetch($id);
@@ -3453,7 +3453,7 @@ class pdf_octopus extends ModelePDFFactures
 	 */
 	public function resumeLastPage(&$pdf, $object, $deja_regle, $posy, $outputlangs, $outputlangsbis)
 	{
-		global $conf, $mysoc, $hookmanager;
+		global $conf, $mysoc, $hookManager;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		$sign = 1;

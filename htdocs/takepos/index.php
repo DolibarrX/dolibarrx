@@ -53,7 +53,7 @@ require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -66,7 +66,7 @@ $action = GETPOST('action', 'aZ09');
 $setterminal = GETPOSTINT('setterminal');
 $setcurrency = GETPOST('setcurrency', 'aZ09');
 
-$hookmanager->initHooks(array('takeposfrontend'));
+$hookManager->initHooks(array('takeposfrontend'));
 if (empty($_SESSION["takeposterminal"])) {
 	if (getDolGlobalInt('TAKEPOS_NUM_TERMINALS') == 1) {
 		$_SESSION["takeposterminal"] = 1; // Use terminal 1 if there is only 1 terminal
@@ -435,8 +435,8 @@ function LoadProducts(position, issubcat) {
 				// Add js from hooks
 				$parameters = array();
 				$parameters['caller'] = 'loadProducts';
-				$hookmanager->executeHooks('completeJSProductDisplay', $parameters);
-				print $hookmanager->resPrint;
+				$hookManager->executeHooks('completeJSProductDisplay', $parameters);
+				print $hookManager->resPrint;
 				?>
 			}
 			$("#prowatermark"+ishow).hide();
@@ -605,7 +605,7 @@ var closeBillParams="";
 function CloseBill() {
 	<?php
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('paramsForCloseBill', $parameters, $obj, $action);
+	$reshook = $hookManager->executeHooks('paramsForCloseBill', $parameters, $obj, $action);
 	if (getDolGlobalString('TAKEPOS_FORBID_SALES_TO_DEFAULT_CUSTOMER')) {
 		echo "customerAnchorTag = document.querySelector('a[id=\"customer\"]'); ";
 		echo "if (customerAnchorTag && customerAnchorTag.innerText.trim() === '".$langs->trans("Customer")."') { ";
@@ -805,8 +805,8 @@ function Search2(keyCodeForEnter, moreorless) {
 					// Add js from hooks
 					$parameters = array();
 					$parameters['caller'] = 'search2';
-					$hookmanager->executeHooks('completeJSProductDisplay', $parameters);
-					print $hookmanager->resPrint;
+					$hookManager->executeHooks('completeJSProductDisplay', $parameters);
+					print $hookManager->resPrint;
 					?>
 
 					nbsearchresults++;
@@ -1186,7 +1186,7 @@ if (!getDolGlobalString('TAKEPOS_HIDE_HEAD_BAR')) {
 			</div>
 			<div id="topnav-right" class="topnav-right">
 				<?php
-				$reshook = $hookmanager->executeHooks('takepos_login_block_other');
+				$reshook = $hookManager->executeHooks('takepos_login_block_other');
 				if ($reshook == 0) {  //Search method
 					?>
 					<div class="login_block_other takepos">
@@ -1457,18 +1457,18 @@ if ($resql) {
 }
 
 $parameters = array('menus' => $menus);
-$reshook = $hookmanager->executeHooks('ActionButtons', $parameters);
+$reshook = $hookManager->executeHooks('ActionButtons', $parameters);
 if ($reshook == 0) {  //add buttons
-	if (is_array($hookmanager->resArray)) {
-		foreach ($hookmanager->resArray as $resArray) {
+	if (is_array($hookManager->resArray)) {
+		foreach ($hookManager->resArray as $resArray) {
 			foreach ($resArray as $butmenu) {
 				$menus[$r++] = $butmenu;
 			}
 		}
 	} elseif ($reshook == 1) {
 		$r = 0; //replace buttons
-		if (is_array($hookmanager->resArray)) {
-			foreach ($hookmanager->resArray as $resArray) {
+		if (is_array($hookManager->resArray)) {
+			foreach ($hookManager->resArray as $resArray) {
 				foreach ($resArray as $butmenu) {
 					$menus[$r++] = $butmenu;
 				}

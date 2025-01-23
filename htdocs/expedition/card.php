@@ -66,7 +66,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -116,7 +116,7 @@ $extrafields->fetch_name_optionals_label($objectorder->table_element_line);
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('expeditioncard', 'globalcard'));
+$hookManager->initHooks(array('expeditioncard', 'globalcard'));
 
 $date_delivery = dol_mktime(GETPOSTINT('date_deliveryhour'), GETPOSTINT('date_deliverymin'), 0, GETPOSTINT('date_deliverymonth'), GETPOSTINT('date_deliveryday'), GETPOSTINT('date_deliveryyear'));
 
@@ -151,9 +151,9 @@ $typeobject = null;
 
 $error = 0;
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -1119,8 +1119,8 @@ if ($action == 'create') {
 
 			// Other attributes
 			$parameters = array('objectsrc' => isset($objectsrc) ? $objectsrc : '', 'colspan' => ' colspan="3"', 'cols' => '3', 'socid' => $socid);
-			$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $expe, $action); // Note that $action and $object may have been modified by hook
-			print $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $expe, $action); // Note that $action and $object may have been modified by hook
+			print $hookManager->resPrint;
 
 			if (empty($reshook)) {
 				// copy from order
@@ -1231,9 +1231,9 @@ if ($action == 'create') {
 				$line = $object->lines[$indiceAsked];
 
 				$parameters = array('i' => $indiceAsked, 'line' => $line, 'num' => $numAsked);
-				$reshook = $hookmanager->executeHooks('printObjectLine', $parameters, $object, $action);
+				$reshook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action);
 				if ($reshook < 0) {
-					setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 
 				if (empty($reshook)) {
@@ -1946,11 +1946,11 @@ if ($action == 'create') {
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm);
-	$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
-		$formconfirm .= $hookmanager->resPrint;
+		$formconfirm .= $hookManager->resPrint;
 	} elseif ($reshook > 0) {
-		$formconfirm = $hookmanager->resPrint;
+		$formconfirm = $hookManager->resPrint;
 	}
 
 	// Print form confirm
@@ -2249,8 +2249,8 @@ if ($action == 'create') {
 
 	// Other attributes
 	$parameters = array('colspan' => ' colspan="3"', 'cols' => '3');
-	$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 
 	print "</table>";
 
@@ -2396,9 +2396,9 @@ if ($action == 'create') {
 	// Loop on each product to send/sent
 	for ($i = 0; $i < $num_prod; $i++) {
 		$parameters = array('i' => $i, 'line' => $lines[$i], 'line_id' => $line_id, 'num' => $num_prod, 'alreadysent' => $alreadysent, 'editColspan' => !empty($editColspan) ? $editColspan : 0, 'outputlangs' => $outputlangs);
-		$reshook = $hookmanager->executeHooks('printObjectLine', $parameters, $object, $action);
+		$reshook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action);
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
 		if (empty($reshook)) {
@@ -2756,7 +2756,7 @@ if ($action == 'create') {
 		print '<div class="tabsAction">';
 
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 		// modified by hook
 		if (empty($reshook)) {
 			if ($object->status == Expedition::STATUS_DRAFT && $num_prod > 0) {

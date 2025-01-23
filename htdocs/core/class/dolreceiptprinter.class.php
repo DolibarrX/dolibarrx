@@ -637,7 +637,7 @@ class dolReceiptPrinter extends Printer
 	public function sendToPrinter($object, $templateid, $printerid)
 	{
 		global $mysoc, $langs, $user;
-		global $hookmanager;
+		global $hookManager;
 
 		$langs->load('bills');
 
@@ -696,7 +696,7 @@ class dolReceiptPrinter extends Printer
 
 		$parameters = array('object' => $object);
 		$action = '';
-		$reshook = $hookmanager->executeHooks('sendToPrinterBefore', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('sendToPrinterBefore', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook < 0) {
 			$this->error = "Error in hook dolReceiptPrinter sendToPrinterBefore ".$reshook;
 			dol_syslog("dolReceiptPrinter::sendToPrinter: error=".$this->error, LOG_ERR);
@@ -963,7 +963,7 @@ class dolReceiptPrinter extends Printer
 					default:
 						$parameters = array('vals' => $vals[$tplline],'object' => $object,'nbcharactbyline' => $nbcharactbyline);
 						$action = '';
-						$reshook = $hookmanager->executeHooks('sendToPrinterAfter', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+						$reshook = $hookManager->executeHooks('sendToPrinterAfter', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 						if (!$reshook || $reshook < 0) {
 							$this->printer->text($vals[$tplline]['tag']);

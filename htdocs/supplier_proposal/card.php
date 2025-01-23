@@ -55,7 +55,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -94,7 +94,7 @@ $hideref = (GETPOSTINT('hideref') ? GETPOSTINT('hideref') : (getDolGlobalString(
 $NBLINES = 4;
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('supplier_proposalcard', 'globalcard'));
+$hookManager->initHooks(array('supplier_proposalcard', 'globalcard'));
 
 $object = new SupplierProposal($db);
 $extrafields = new ExtraFields($db);
@@ -147,9 +147,9 @@ $result = restrictedArea($user, 'supplier_proposal', $object->id);
  */
 
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -458,10 +458,10 @@ if (empty($reshook)) {
 
 							// Hooks
 							$parameters = array('objFrom' => $srcobject);
-							$reshook = $hookmanager->executeHooks('createFrom', $parameters, $object, $action); // Note that $action and $object may have been
+							$reshook = $hookManager->executeHooks('createFrom', $parameters, $object, $action); // Note that $action and $object may have been
 							// modified by hook
 							if ($reshook < 0) {
-								setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+								setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 								$error++;
 							}
 						} else {
@@ -1286,7 +1286,7 @@ if ($action == 'create') {
 	// Call Hook tabContentCreateSupplierProposal
 	$parameters = array();
 	// Note that $action and $object may be modified by hook
-	$reshook = $hookmanager->executeHooks('tabContentCreateSupplierProposal', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('tabContentCreateSupplierProposal', $parameters, $object, $action);
 	if (empty($reshook)) {
 		print '<table class="border centpercent">';
 
@@ -1423,8 +1423,8 @@ if ($action == 'create') {
 
 		// Other attributes
 		$parameters = array('colspan' => ' colspan="3"', 'cols' => 3);
-		$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		print $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		print $hookManager->resPrint;
 		if (empty($reshook)) {
 			print $object->showOptionals($extrafields, 'create', $parameters);
 		}
@@ -1614,11 +1614,11 @@ if ($action == 'create') {
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm, 'lineid' => $lineid);
-	$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
-		$formconfirm .= $hookmanager->resPrint;
+		$formconfirm .= $hookManager->resPrint;
 	} elseif ($reshook > 0) {
-		$formconfirm = $hookmanager->resPrint;
+		$formconfirm = $hookManager->resPrint;
 	}
 
 	// Print form confirm
@@ -1667,7 +1667,7 @@ if ($action == 'create') {
 	// Call Hook tabContentViewSupplierProposal
 	$parameters = array();
 	// Note that $action and $object may be modified by hook
-	$reshook = $hookmanager->executeHooks('tabContentViewSupplierProposal', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('tabContentViewSupplierProposal', $parameters, $object, $action);
 	if (empty($reshook)) {
 		print '<div class="fichecenter">';
 		print '<div class="fichehalfleft">';
@@ -1922,9 +1922,9 @@ if ($action == 'create') {
 				// Add products/services form
 
 				$parameters = array('dateSelector' => $dateSelector);
-				$reshook = $hookmanager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$reshook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($reshook < 0) {
-					setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 				if (empty($reshook)) {
 					$object->formAddObjectLine($dateSelector, $soc, $mysoc);
@@ -1974,7 +1974,7 @@ if ($action == 'create') {
 		print '<div class="tabsAction">';
 
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 		// modified by hook
 		if (empty($reshook)) {
 			if ($action != 'statut' && $action != 'editline') {

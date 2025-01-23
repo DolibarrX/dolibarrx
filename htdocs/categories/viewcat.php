@@ -41,7 +41,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -87,7 +87,7 @@ if ($id == "" && $label == "") {
 }
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array array
-$hookmanager->initHooks(array('categorycard', 'globalcard'));
+$hookManager->initHooks(array('categorycard', 'globalcard'));
 
 // Security check
 $result = restrictedArea($user, 'categorie', $id, '&category');
@@ -118,7 +118,7 @@ if ($confirm == 'no') {
 	}
 }
 $parameters = array('type' => $type, 'id' => $id, 'label' => $label);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 // Remove element from category
 if ($id > 0 && $removeelem > 0 && $action == 'unlink') {	// Test on permission not required here. Done later according to type of object.
 	$tmpobject = null;
@@ -342,9 +342,9 @@ print dol_get_fiche_end();
  */
 
 print "<div class='tabsAction'>\n";
-$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 if (empty($reshook)) {
 	if ($user->hasRight('categorie', 'creer')) {
@@ -1413,7 +1413,7 @@ if ($type == Categorie::TYPE_FICHINTER) {
 
 // Note that $action and $object may have been modified by some hooks
 $parameters = array('type' => $type, 'id' => $id, 'label' => $label);
-$reshook = $hookmanager->executeHooks('addMoreCategoriesList', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('addMoreCategoriesList', $parameters, $object, $action);
 
 // End of page
 llxFooter();

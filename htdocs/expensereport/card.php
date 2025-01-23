@@ -53,7 +53,7 @@ if (isModEnabled('accounting')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -124,7 +124,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('expensereportcard', 'globalcard'));
+$hookManager->initHooks(array('expensereportcard', 'globalcard'));
 
 $permissionnote = $user->hasRight('expensereport', 'creer'); // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $user->hasRight('expensereport', 'creer'); // Used by the include of actions_dellink.inc.php
@@ -176,9 +176,9 @@ $value_unit = price2num(GETPOST('value_unit', 'alpha'), 'MU');
 $qty = price2num(GETPOST('qty', 'alpha'));
 
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -1537,8 +1537,8 @@ if ($action == 'create') {
 
 	// Other attributes
 	$parameters = array('colspan' => ' colspan="3"', 'cols' => 3);
-	$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by
+	print $hookManager->resPrint;
 	if (empty($reshook)) {
 		print $object->showOptionals($extrafields, 'create', $parameters);
 	}
@@ -1731,11 +1731,11 @@ if ($action == 'create') {
 
 			// Call Hook formConfirm
 			$parameters = array('formConfirm' => $formconfirm);
-			$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if (empty($reshook)) {
-				$formconfirm .= $hookmanager->resPrint;
+				$formconfirm .= $hookManager->resPrint;
 			} elseif ($reshook > 0) {
-				$formconfirm = $hookmanager->resPrint;
+				$formconfirm = $hookManager->resPrint;
 			}
 
 			// Print form confirm
@@ -2891,7 +2891,7 @@ if ($action != 'create' && $action != 'edit' && $action != 'editline') {
 	}
 
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 }
 
 print '</div>';

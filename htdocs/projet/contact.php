@@ -38,7 +38,7 @@ if (isModEnabled('category')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -70,7 +70,7 @@ if (getDolGlobalString('PROJECT_ALLOW_COMMENT_ON_PROJECT') && method_exists($obj
 // Security check
 $socid = 0;
 
-$hookmanager->initHooks(array('projectcontactcard', 'globalcard'));
+$hookManager->initHooks(array('projectcontactcard', 'globalcard'));
 
 //if ($user->socid > 0) $socid = $user->socid;    // For external user, no check is done on company because readability is managed by public status of project and assignment.
 $result = restrictedArea($user, 'projet', $id, 'projet&project');
@@ -83,9 +83,9 @@ $permissiontoadd = $user->hasRight('projet', 'creer');
  */
 $error = 0;
 $parameters = array('id' => $id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -347,11 +347,11 @@ if ($id > 0 || !empty($ref)) {
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm);
-	$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
-		$formconfirm .= $hookmanager->resPrint;
+		$formconfirm .= $hookManager->resPrint;
 	} elseif ($reshook > 0) {
-		$formconfirm = $hookmanager->resPrint;
+		$formconfirm = $hookManager->resPrint;
 	}
 
 	// Print form confirm

@@ -209,7 +209,7 @@ class AccountingJournal extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $withlabel = 0, $nourl = 0, $moretitle = '', $notooltip = 0)
 	{
-		global $langs, $conf, $hookmanager;
+		global $langs, $conf, $hookManager;
 
 		if (!empty($conf->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -270,13 +270,13 @@ class AccountingJournal extends CommonObject
 		$result .= $linkend;
 
 		global $action;
-		$hookmanager->initHooks(array('accountingjournaldao'));
+		$hookManager->initHooks(array('accountingjournaldao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 		return $result;
 	}
@@ -353,7 +353,7 @@ class AccountingJournal extends CommonObject
 	 */
 	public function getData(User $user, $type = 'view', $date_start = null, $date_end = null, $in_bookkeeping = 'notyet')
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		// Clean parameters
 		if (empty($type)) {
@@ -365,12 +365,12 @@ class AccountingJournal extends CommonObject
 
 		$data = array();
 
-		$hookmanager->initHooks(array('accountingjournaldao'));
+		$hookManager->initHooks(array('accountingjournaldao'));
 		$parameters = array('data' => &$data, 'user' => $user, 'type' => $type, 'date_start' => $date_start, 'date_end' => $date_end, 'in_bookkeeping' => $in_bookkeeping);
-		$reshook = $hookmanager->executeHooks('getData', $parameters, $this); // Note that $action and $object may have been
+		$reshook = $hookManager->executeHooks('getData', $parameters, $this); // Note that $action and $object may have been
 		if ($reshook < 0) {
-			$this->error = $hookmanager->error;
-			$this->errors = $hookmanager->errors;
+			$this->error = $hookManager->error;
+			$this->errors = $hookManager->errors;
 			return -1;
 		} elseif (empty($reshook)) {
 			switch ($this->nature) {
@@ -756,17 +756,17 @@ class AccountingJournal extends CommonObject
 	 */
 	public function writeIntoBookkeeping(User $user, &$journal_data = array(), $max_nb_errors = 10)
 	{
-		global $conf, $langs, $hookmanager;
+		global $conf, $langs, $hookManager;
 		require_once DOL_DOCUMENT_ROOT . '/accountancy/class/bookkeeping.class.php';
 
 		$error = 0;
 
-		$hookmanager->initHooks(array('accountingjournaldao'));
+		$hookManager->initHooks(array('accountingjournaldao'));
 		$parameters = array('journal_data' => &$journal_data);
-		$reshook = $hookmanager->executeHooks('writeBookkeeping', $parameters, $this); // Note that $action and $object may have been
+		$reshook = $hookManager->executeHooks('writeBookkeeping', $parameters, $this); // Note that $action and $object may have been
 		if ($reshook < 0) {
-			$this->error = $hookmanager->error;
-			$this->errors = $hookmanager->errors;
+			$this->error = $hookManager->error;
+			$this->errors = $hookManager->errors;
 			return -1;
 		} elseif (empty($reshook)) {
 			// Clean parameters
@@ -899,7 +899,7 @@ class AccountingJournal extends CommonObject
 	 */
 	public function exportCsv(&$journal_data = array(), $search_date_end = 0, $sep = '')
 	{
-		global $conf, $langs, $hookmanager;
+		global $conf, $langs, $hookManager;
 
 		if (empty($sep)) {
 			$sep = getDolGlobalString('ACCOUNTING_EXPORT_SEPARATORCSV');
@@ -907,12 +907,12 @@ class AccountingJournal extends CommonObject
 		$out = '';
 
 		// Hook
-		$hookmanager->initHooks(array('accountingjournaldao'));
+		$hookManager->initHooks(array('accountingjournaldao'));
 		$parameters = array('journal_data' => &$journal_data, 'search_date_end' => &$search_date_end, 'sep' => &$sep, 'out' => &$out);
-		$reshook = $hookmanager->executeHooks('exportCsv', $parameters, $this); // Note that $action and $object may have been
+		$reshook = $hookManager->executeHooks('exportCsv', $parameters, $this); // Note that $action and $object may have been
 		if ($reshook < 0) {
-			$this->error = $hookmanager->error;
-			$this->errors = $hookmanager->errors;
+			$this->error = $hookManager->error;
+			$this->errors = $hookManager->errors;
 			return -1;
 		} elseif (empty($reshook)) {
 			// Clean parameters

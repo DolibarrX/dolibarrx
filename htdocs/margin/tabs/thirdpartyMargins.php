@@ -31,7 +31,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -68,7 +68,7 @@ if ($socid > 0) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('thirdpartymargins', 'globalcard'));
+$hookManager->initHooks(array('thirdpartymargins', 'globalcard'));
 
 $result = restrictedArea($user, 'societe', $object->id, '');
 
@@ -82,9 +82,9 @@ if (!$user->hasRight('margins', 'liretous')) {
  */
 
 $parameters = array('id' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 $search_invoice_date_start = '';
@@ -288,11 +288,11 @@ if ($socid > 0) {
 		$moreforfilter = '';
 
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($reshook)) {
-			$moreforfilter .= $hookmanager->resPrint;
+			$moreforfilter .= $hookManager->resPrint;
 		} else {
-			$moreforfilter = $hookmanager->resPrint;
+			$moreforfilter = $hookManager->resPrint;
 		}
 
 		if (!empty($moreforfilter)) {

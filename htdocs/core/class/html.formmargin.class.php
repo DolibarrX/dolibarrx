@@ -216,7 +216,7 @@ class FormMargin
 	 */
 	public function displayMarginInfos($object, $force_price = false)
 	{
-		global $langs, $user, $hookmanager;
+		global $langs, $user, $hookManager;
 		global $action;
 
 		if (!empty($user->socid)) {
@@ -232,9 +232,9 @@ class FormMargin
 		print '<!-- displayMarginInfos() - Show margin table -->' . "\n";
 
 		$parameters = array('marginInfo' => &$marginInfo);
-		$reshook = $hookmanager->executeHooks('displayMarginInfos', $parameters, $object, $action);
+		$reshook = $hookManager->executeHooks('displayMarginInfos', $parameters, $object, $action);
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		} elseif (empty($reshook)) {
 			$hidemargininfos = preg_replace('/[^a-zA-Z0-9_\-]/', '', $_COOKIE['DOLUSER_MARGININFO_HIDE_SHOW'] ?? ''); // Clean cookie
 
@@ -318,11 +318,11 @@ class FormMargin
 				}
 				print '</tr>';
 			}
-			print $hookmanager->resPrint;
+			print $hookManager->resPrint;
 			print '</table>';
 			print '</div>';
 		} elseif ($reshook > 0) {
-			print $hookmanager->resPrint;
+			print $hookManager->resPrint;
 		}
 	}
 }

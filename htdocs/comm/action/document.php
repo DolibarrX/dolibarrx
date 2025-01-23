@@ -44,7 +44,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -73,7 +73,7 @@ if ($id > 0) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('actioncard', 'globalcard'));
+$hookManager->initHooks(array('actioncard', 'globalcard'));
 
 // Get parameters
 $limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
@@ -189,11 +189,11 @@ if ($object->id > 0) {
 
 	// Add more views from hooks
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('addCalendarView', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
 	if (empty($reshook)) {
-		$linkback .= $hookmanager->resPrint;
+		$linkback .= $hookManager->resPrint;
 	} elseif ($reshook > 1) {
-		$linkback = $hookmanager->resPrint;
+		$linkback = $hookManager->resPrint;
 	}
 
 	$morehtmlref = '<div class="refidno">';

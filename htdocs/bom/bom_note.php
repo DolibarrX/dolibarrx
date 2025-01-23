@@ -30,7 +30,7 @@ require_once DOL_DOCUMENT_ROOT.'/bom/lib/bom.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -50,7 +50,7 @@ $object = new BOM($db);
 $extrafields = new ExtraFields($db);
 
 // Initialize a technical objects for hooks
-$hookmanager->initHooks(array('bomnote', 'globalcard')); // Note that conf->hooks_modules contains array
+$hookManager->initHooks(array('bomnote', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Massactions
 $diroutputmassaction = $conf->bom->dir_output.'/temp/massgeneration/'.$user->id;
@@ -83,9 +83,9 @@ restrictedArea($user, 'bom', $object->id, $object->table_element, '', '', 'rowid
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 if (empty($reshook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_setnotes.inc.php'; // Must be 'include', not 'include_once'

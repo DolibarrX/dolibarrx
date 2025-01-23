@@ -49,7 +49,7 @@ require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -112,7 +112,7 @@ if (($id > 0 || $title) && $action != 'create' && $action != 'add') {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('supplierinvoicereccard', 'globalcard'));
+$hookManager->initHooks(array('supplierinvoicereccard', 'globalcard'));
 $extrafields = new ExtraFields($db);
 
 // fetch optionals attributes and labels
@@ -157,9 +157,9 @@ if (! GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $mass
 }
 
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -1543,9 +1543,9 @@ if ($action == 'create') {
 				// Add free products/services
 
 				$parameters = array();
-				$reshook = $hookmanager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$reshook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($reshook < 0) {
-					setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 				if (empty($reshook)) {
 					global $senderissupplier;

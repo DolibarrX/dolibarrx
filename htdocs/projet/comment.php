@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -64,7 +64,7 @@ if (!$user->hasRight('projet', 'lire')) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('projectcard', 'globalcard'));
+$hookManager->initHooks(array('projectcard', 'globalcard'));
 
 $extrafields = new ExtraFields($db);
 $object = new Project($db);

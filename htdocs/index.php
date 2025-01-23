@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -45,7 +45,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 $_GET['mainmenu'] = GETPOST('mainmenu', 'aZ09') ? GETPOST('mainmenu', 'aZ09') : 'home';	// Keep this ?
 $action = GETPOST('action', 'aZ09');
 
-$hookmanager->initHooks(array('index'));
+$hookManager->initHooks(array('index'));
 
 
 /*
@@ -156,9 +156,9 @@ if (!getDolGlobalString('MAIN_REMOVE_INSTALL_WARNING')) {
 
 	$object = new stdClass();
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('infoadmin', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('infoadmin', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 	if ($reshook == 0) {
-		$message .= $hookmanager->resPrint;
+		$message .= $hookManager->resPrint;
 	}
 	if ($message) {	// $message is an HTML string.
 		print '<!-- show security warning -->';
@@ -344,14 +344,14 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 	$object = new stdClass();
 	$parameters = array();
 	$action = '';
-	$reshook = $hookmanager->executeHooks(
+	$reshook = $hookManager->executeHooks(
 		'addOpenElementsDashboardLine',
 		$parameters,
 		$object,
 		$action
 	); // Note that $action and $object may have been modified by some hooks
 	if ($reshook == 0) {
-		$dashboardlines = array_merge($dashboardlines, $hookmanager->resArray);
+		$dashboardlines = array_merge($dashboardlines, $hookManager->resArray);
 	}
 
 	/* Open object dashboard */
@@ -457,9 +457,9 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 	$parameters = array(
 		'dashboardgroup' => $dashboardgroup
 	);
-	$reshook = $hookmanager->executeHooks('addOpenElementsDashboardGroup', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('addOpenElementsDashboardGroup', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 	if ($reshook == 0) {
-		$dashboardgroup = array_merge($dashboardgroup, $hookmanager->resArray);
+		$dashboardgroup = array_merge($dashboardgroup, $hookManager->resArray);
 	}
 
 

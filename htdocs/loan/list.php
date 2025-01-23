@@ -31,7 +31,7 @@ require_once DOL_DOCUMENT_ROOT.'/loan/class/loan.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -68,7 +68,7 @@ $pagenext = $page + 1;
 $object = new Loan($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->loan->dir_output.'/temp/massgeneration/'.$user->id;
-$hookmanager->initHooks(array($contextpage));
+$hookManager->initHooks(array($contextpage));
 
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -133,9 +133,9 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 }
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -260,8 +260,8 @@ if ($search_amount) {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_param.tpl.php';
 // Add $param from hooks
 $parameters = array('param' => &$param);
-$reshook = $hookmanager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-$param .= $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$param .= $hookManager->resPrint;
 
 // List of mass actions available
 $arrayofmassactions = array();
@@ -311,11 +311,11 @@ print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sort
 $moreforfilter = '';
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($reshook)) {
-	$moreforfilter .= $hookmanager->resPrint;
+	$moreforfilter .= $hookManager->resPrint;
 } else {
-	$moreforfilter = $hookmanager->resPrint;
+	$moreforfilter = $hookManager->resPrint;
 }
 
 if (!empty($moreforfilter)) {
@@ -491,8 +491,8 @@ if ($num == 0) {
 $db->free($resql);
 
 $parameters = array('arrayfields'=>$arrayfields, 'sql'=>$sql);
-$reshook = $hookmanager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+print $hookManager->resPrint;
 
 print '</table>'."\n";
 print '</div>'."\n";

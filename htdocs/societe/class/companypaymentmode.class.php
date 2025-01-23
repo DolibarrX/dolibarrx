@@ -345,7 +345,7 @@ class CompanyPaymentMode extends CommonObject
 	 */
 	public function createFromClone(User $user, $fromid)
 	{
-		global $hookmanager, $langs;
+		global $hookManager, $langs;
 		$error = 0;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);

@@ -480,7 +480,7 @@ class AccountingAccount extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $withlabel = 0, $nourl = 0, $moretitle = '', $notooltip = 0, $save_lastsearch_value = -1, $withcompletelabel = 0, $option = '')
 	{
-		global $langs, $conf, $hookmanager;
+		global $langs, $conf, $hookManager;
 		require_once DOL_DOCUMENT_ROOT . '/core/lib/accounting.lib.php';
 
 		if (!empty($conf->dol_no_mouse_hover)) {
@@ -566,13 +566,13 @@ class AccountingAccount extends CommonObject
 			$result .= $linkstart . $label_link . $linkend;
 		}
 		global $action;
-		$hookmanager->initHooks(array($this->element . 'dao'));
+		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 		return $result;
 	}
@@ -737,13 +737,13 @@ class AccountingAccount extends CommonObject
 	 */
 	public function getAccountingCodeToBind(Societe $buyer, Societe $seller, Product $product, $facture, $factureDet, $accountingAccount = array(), $type = '')
 	{
-		global $hookmanager;
+		global $hookManager;
 		// Instantiate hooks for external modules
-		$hookmanager->initHooks(array('accountancyBindingCalculation'));
+		$hookManager->initHooks(array('accountancyBindingCalculation'));
 
 		// Execute hook accountancyBindingCalculation
 		$parameters = array('buyer' => $buyer, 'seller' => $seller, 'product' => $product, 'facture' => $facture, 'factureDet' => $factureDet ,'accountingAccount' => $accountingAccount, 0 => $type);
-		$reshook = $hookmanager->executeHooks('accountancyBindingCalculation', $parameters); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('accountancyBindingCalculation', $parameters); // Note that $action and $object may have been modified by some hooks
 
 		$result = -1;  // Init for static analysis
 		if (empty($reshook)) {
@@ -936,8 +936,8 @@ class AccountingAccount extends CommonObject
 				'code_t' => $code_t,
 			);
 		} else {
-			if (is_array($hookmanager->resArray) && !empty($hookmanager->resArray)) {
-				return $hookmanager->resArray;
+			if (is_array($hookManager->resArray) && !empty($hookManager->resArray)) {
+				return $hookManager->resArray;
 			}
 		}
 

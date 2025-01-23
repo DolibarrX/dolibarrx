@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -61,7 +61,7 @@ if ($id > 0 || !empty($ref)) {
 
 $permissionnote = ($user->hasRight('produit', 'creer') || $user->hasRight('service', 'creer')); // Used by the include of actions_setnotes.inc.php
 
-$hookmanager->initHooks(array('productnote'));
+$hookManager->initHooks(array('productnote'));
 
 if ($object->id > 0) {
 	if ($object->type == $object::TYPE_PRODUCT) {
@@ -79,9 +79,9 @@ if ($object->id > 0) {
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 if (empty($reshook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_setnotes.inc.php'; // Must be 'include', not 'include_once'

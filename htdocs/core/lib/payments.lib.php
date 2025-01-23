@@ -160,7 +160,7 @@ function payment_supplier_prepare_head(Paiement $object)
  */
 function getValidOnlinePaymentMethods($paymentmethod = '')
 {
-	global $langs, $hookmanager, $action;
+	global $langs, $hookManager, $action;
 
 	$validpaymentmethod = array();
 
@@ -184,14 +184,14 @@ function getValidOnlinePaymentMethods($paymentmethod = '')
 		'validpaymentmethod' => &$validpaymentmethod
 	];
 	$tmpobject = new stdClass();
-	$reshook = $hookmanager->executeHooks('getValidPayment', $parameters, $tmpobject, $action);
+	$reshook = $hookManager->executeHooks('getValidPayment', $parameters, $tmpobject, $action);
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
-	} elseif (!empty($hookmanager->resArray['validpaymentmethod'])) {
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
+	} elseif (!empty($hookManager->resArray['validpaymentmethod'])) {
 		if ($reshook == 0) {
-			$validpaymentmethod = array_merge($validpaymentmethod, $hookmanager->resArray['validpaymentmethod']);
+			$validpaymentmethod = array_merge($validpaymentmethod, $hookManager->resArray['validpaymentmethod']);
 		} else {
-			$validpaymentmethod = $hookmanager->resArray['validpaymentmethod'];
+			$validpaymentmethod = $hookManager->resArray['validpaymentmethod'];
 		}
 	}
 

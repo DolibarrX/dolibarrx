@@ -136,12 +136,12 @@ if (!function_exists('dol_loginfunction')) {
 	function dol_loginfunction($langs, $conf, $mysoc)
 	{
 		global $dolibarr_main_demo, $dolibarr_main_force_https;
-		global $db, $hookmanager;
+		global $db, $hookManager;
 
 		$langs->loadLangs(array("main", "other", "help", "admin"));
 
 		// Instantiate hooks of thirdparty module only if not already define
-		$hookmanager->initHooks(array('mainloginpage'));
+		$hookManager->initHooks(array('mainloginpage'));
 
 		$main_authentication = $conf->file->main_authentication;
 
@@ -238,21 +238,21 @@ if (!function_exists('dol_loginfunction')) {
 
 		// Execute hook getLoginPageOptions (for table)
 		$parameters = array('entity' => GETPOSTINT('entity'), 'switchentity' => GETPOSTINT('switchentity'));
-		$reshook = $hookmanager->executeHooks('getLoginPageOptions', $parameters); // Note that $action and $object may have been modified by some hooks.
-		$morelogincontent = $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('getLoginPageOptions', $parameters); // Note that $action and $object may have been modified by some hooks.
+		$morelogincontent = $hookManager->resPrint;
 
 		// Execute hook getLoginPageExtraOptions (eg for js)
 		$parameters = array('entity' => GETPOSTINT('entity'), 'switchentity' => GETPOSTINT('switchentity'));
-		$reshook = $hookmanager->executeHooks('getLoginPageExtraOptions', $parameters); // Note that $action and $object may have been modified by some hooks.
-		$moreloginextracontent = $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('getLoginPageExtraOptions', $parameters); // Note that $action and $object may have been modified by some hooks.
+		$moreloginextracontent = $hookManager->resPrint;
 
 		//Redirect after connection
 		$parameters = array('entity' => GETPOSTINT('entity'), 'switchentity' => GETPOSTINT('switchentity'));
-		$reshook = $hookmanager->executeHooks('redirectAfterConnection', $parameters); // Note that $action and $object may have been modified by some hooks.
-		$php_self = $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('redirectAfterConnection', $parameters); // Note that $action and $object may have been modified by some hooks.
+		$php_self = $hookManager->resPrint;
 
 		// Login
-		$login = (!empty($hookmanager->resArray['username']) ? $hookmanager->resArray['username'] : (GETPOST("username", "alpha") ? GETPOST("username", "alpha") : $demologin));
+		$login = (!empty($hookManager->resArray['username']) ? $hookManager->resArray['username'] : (GETPOST("username", "alpha") ? GETPOST("username", "alpha") : $demologin));
 		$password = $demopassword;
 
 		// Show logo (search in order: small company logo, large company logo, theme logo, common logo)

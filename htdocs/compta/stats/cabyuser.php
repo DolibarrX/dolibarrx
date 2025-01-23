@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -49,7 +49,7 @@ $socid = GETPOSTINT('socid');
 if ($user->socid > 0) {
 	$socid = $user->socid;
 }
-$hookmanager->initHooks(['cabyuserreportlist']);
+$hookManager->initHooks(['cabyuserreportlist']);
 if (isModEnabled('comptabilite')) {
 	$result = restrictedArea($user, 'compta', '', '', 'resultat');
 }

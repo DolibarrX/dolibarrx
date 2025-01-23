@@ -39,7 +39,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/modules/project/task/modules_task.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -59,7 +59,7 @@ $planned_workload = ((GETPOSTINT('planned_workloadhour') != '' || GETPOSTINT('pl
 $mode = GETPOST('mode', 'alpha');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('projecttaskcommentcard', 'globalcard'));
+$hookManager->initHooks(array('projecttaskcommentcard', 'globalcard'));
 
 $object = new Task($db);
 $extrafields = new ExtraFields($db);

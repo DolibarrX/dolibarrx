@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/resource/class/dolresource.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -87,7 +87,7 @@ if (!$sortorder) {
 // Initialize a technical objects
 
 $extrafields = new ExtraFields($db);
-$hookmanager->initHooks(array('agendaresource'));
+$hookManager->initHooks(array('agendaresource'));
 
 $object = new Dolresource($db);
 
@@ -107,9 +107,9 @@ if (!$user->hasRight('resource', 'read')) {
  */
 
 $parameters = array('id'=>$id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);    // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);    // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

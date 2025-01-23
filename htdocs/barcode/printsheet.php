@@ -42,7 +42,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/genericobject.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -81,16 +81,16 @@ if (!$user->hasRight('barcode', 'read')) {
 	accessforbidden();
 }
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('printsheettools'));
+$hookManager->initHooks(array('printsheettools'));
 
 restrictedArea($user, 'barcode');
 
 $parameters = array();
 
 // Note that $action and $object may have been modified by some
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 /*

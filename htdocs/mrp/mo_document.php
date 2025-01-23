@@ -38,7 +38,7 @@ require_once DOL_DOCUMENT_ROOT.'/mrp/lib/mrp_mo.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -75,7 +75,7 @@ if (!$sortfield) {
 $object = new Mo($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->mrp->dir_output.'/temp/massgeneration/'.$user->id;
-$hookmanager->initHooks(array('modocument', 'globalcard')); // Note that conf->hooks_modules contains array
+$hookManager->initHooks(array('modocument', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);

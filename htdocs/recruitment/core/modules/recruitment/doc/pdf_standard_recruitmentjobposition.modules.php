@@ -194,7 +194,7 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $db, $hookmanager, $nblines;
+		global $user, $langs, $conf, $mysoc, $db, $hookManager, $nblines;
 		global $action;
 
 		dol_syslog("write_file outputlangs->defaultlang=".(is_object($outputlangs) ? $outputlangs->defaultlang : 'null'));
@@ -246,9 +246,9 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 
 			if (file_exists($dir)) {
 				// Add pdfgeneration hook
-				$hookmanager->initHooks(array('pdfgeneration'));
+				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
-				$reshook = $hookmanager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Set nblines with the new facture lines content after hook
 				$nblines = (is_array($object->lines) ? count($object->lines) : 0);
@@ -548,7 +548,7 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 						'outputlangs' => $outputlangs,
 						'hidedetails' => $hidedetails
 					);
-					$reshook = $hookmanager->executeHooks('printPDFline', $parameters, $this); // Note that $object may have been modified by hook
+					$reshook = $hookManager->executeHooks('printPDFline', $parameters, $this); // Note that $object may have been modified by hook
 
 					// Detect if some page were added automatically and output _tableau for past pages
 					while ($pagenb < $pageposafter) {
@@ -623,13 +623,13 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 				$pdf->Output($file, 'F');
 
 				// Add pdfgeneration hook
-				$hookmanager->initHooks(array('pdfgeneration'));
+				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookmanager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					$this->error = $hookmanager->error;
-					$this->errors = $hookmanager->errors;
+					$this->error = $hookManager->error;
+					$this->errors = $hookManager->errors;
 				}
 
 				dolChmod($file);
@@ -984,7 +984,7 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 	 */
 	public function defineColumnField($object, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
-		global $conf, $hookmanager;
+		global $conf, $hookManager;
 
 		// Default field style for content
 		$this->defaultContentsFieldsStyle = array(
@@ -1143,14 +1143,14 @@ class pdf_standard_recruitmentjobposition extends ModelePDFRecruitmentJobPositio
 			'hideref' => $hideref
 		);
 
-		$reshook = $hookmanager->executeHooks('defineColumnField', $parameters, $this); // Note that $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('defineColumnField', $parameters, $this); // Note that $object may have been modified by hook
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		} elseif (empty($reshook)) {
 			// @phan-suppress-next-line PhanPluginSuspiciousParamOrderInternal
-			$this->cols = array_replace($this->cols, $hookmanager->resArray); // array_replace is used to preserve keys
+			$this->cols = array_replace($this->cols, $hookManager->resArray); // array_replace is used to preserve keys
 		} else {
-			$this->cols = $hookmanager->resArray;
+			$this->cols = $hookManager->resArray;
 		}
 	}
 }

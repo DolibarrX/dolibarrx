@@ -26,7 +26,7 @@ if (empty($conf) || !is_object($conf)) {
 }
 
 /**
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var User $user
  */
 

@@ -35,7 +35,7 @@
  * @var CommonObject $object
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  *
@@ -179,9 +179,9 @@ if (($action == 'send' || $action == 'relance') && !GETPOST('addfile') && !GETPO
 			dol_print_error(null, "Use actions_sendmails.in.php for an element/object '".$object->element."' that is not supported");
 		}
 
-		if (is_object($hookmanager)) {
+		if (is_object($hookManager)) {
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('initSendToSocid', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+			$reshook = $hookManager->executeHooks('initSendToSocid', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 		}
 	} else {
 		$thirdparty = $mysoc;

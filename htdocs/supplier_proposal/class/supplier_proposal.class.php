@@ -921,7 +921,7 @@ class SupplierProposal extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $langs, $conf, $mysoc, $hookmanager;
+		global $langs, $conf, $mysoc, $hookManager;
 		$error = 0;
 
 		$now = dol_now();
@@ -1148,7 +1148,7 @@ class SupplierProposal extends CommonObject
 	 */
 	public function createFromClone(User $user, $fromid = 0)
 	{
-		global $conf, $hookmanager;
+		global $conf, $hookManager;
 
 		$error = 0;
 		$now = dol_now();
@@ -1208,12 +1208,12 @@ class SupplierProposal extends CommonObject
 
 		if (!$error) {
 			// Hook of thirdparty module
-			if (is_object($hookmanager)) {
+			if (is_object($hookManager)) {
 				$parameters = array('objFrom' => $objFrom);
 				$action = '';
-				$reshook = $hookmanager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					$this->setErrorsFromObject($hookmanager);
+					$this->setErrorsFromObject($hookManager);
 					$error++;
 				}
 			}
@@ -2555,7 +2555,7 @@ class SupplierProposal extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $get_params = '', $notooltip = 0, $save_lastsearch_value = -1, $addlinktonotes = 0)
 	{
-		global $langs, $conf, $user, $hookmanager;
+		global $langs, $conf, $user, $hookManager;
 
 		if (!empty($conf->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -2633,13 +2633,13 @@ class SupplierProposal extends CommonObject
 			}
 		}
 		global $action;
-		$hookmanager->initHooks(array($this->element . 'dao'));
+		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 		return $result;
 	}

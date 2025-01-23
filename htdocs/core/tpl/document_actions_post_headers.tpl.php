@@ -32,7 +32,7 @@
 /**
  * @var CommonObject $object
  * @var Form $form
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  */
 // Protection to avoid direct call of template
@@ -67,9 +67,9 @@ if (in_array($modulepart, array('product', 'produit', 'societe', 'user', 'ticket
 	$disablemove = 0;
 }
 $parameters = array();
-$reshook = $hookmanager->executeHooks('isLinkedDocumentObjectNotMovable', $parameters, $object);
+$reshook = $hookManager->executeHooks('isLinkedDocumentObjectNotMovable', $parameters, $object);
 if ($reshook) {
-	$disablemove = $hookmanager->resArray['disablemove'];
+	$disablemove = $hookManager->resArray['disablemove'];
 }
 
 /*

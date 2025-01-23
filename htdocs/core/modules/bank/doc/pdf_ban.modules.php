@@ -113,7 +113,7 @@ class pdf_ban extends ModeleBankAccountDoc
 	public function write_file($object, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $hookmanager, $langs, $user;
+		global $conf, $hookManager, $langs, $user;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -148,14 +148,14 @@ class pdf_ban extends ModeleBankAccountDoc
 
 			if (file_exists($dir)) {
 				// Add pdfgeneration hook
-				if (!is_object($hookmanager)) {
+				if (!is_object($hookManager)) {
 					include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-					$hookmanager = new HookManager($this->db);
+					$hookManager = new HookManager($this->db);
 				}
-				$hookmanager->initHooks(array('pdfgeneration'));
+				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookmanager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 				$pdf = pdf_getInstance($this->format);
 				$default_font_size = pdf_getPDFFontSize($outputlangs); // Must be after pdf_getInstance
@@ -250,17 +250,17 @@ class pdf_ban extends ModeleBankAccountDoc
 				$pdf->Output($file, 'F');
 
 				// Add pdfgeneration hook
-				if (!is_object($hookmanager)) {
+				if (!is_object($hookManager)) {
 					include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-					$hookmanager = new HookManager($this->db);
+					$hookManager = new HookManager($this->db);
 				}
-				$hookmanager->initHooks(array('pdfgeneration'));
+				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookmanager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					$this->error = $hookmanager->error;
-					$this->errors = $hookmanager->errors;
+					$this->error = $hookManager->error;
+					$this->errors = $hookManager->errors;
 				}
 
 				dolChmod($file);

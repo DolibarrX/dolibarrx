@@ -26,7 +26,7 @@
  * @var Form $form
  * @var FormAdvTargetEmailing $formadvtargetemaling
  * @var FormCompany $formcompany
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  *
@@ -381,8 +381,8 @@ if (!getDolGlobalString('MAIN_EXTRAFIELDS_DISABLED')) {
 		$parameters = array('array_query' => $advTarget->filtervalue);
 	}
 	// Other attributes
-	$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $std_soc, $action_search);
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $std_soc, $action_search);
+	print $hookManager->resPrint;
 }
 
 // State Contact

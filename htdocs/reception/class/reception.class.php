@@ -1338,7 +1338,7 @@ class Reception extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = 0, $max = 0, $short = 0, $notooltip = 0)
 	{
-		global $langs, $hookmanager;
+		global $langs, $hookManager;
 
 		$result = '';
 		$label = img_picto('', $this->picto).' <u>'.$langs->trans("Reception").'</u>';
@@ -1376,13 +1376,13 @@ class Reception extends CommonObject
 		$result .= $linkend;
 
 		global $action;
-		$hookmanager->initHooks(array($this->element . 'dao'));
+		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 		return $result;
 	}

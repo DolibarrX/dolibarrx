@@ -44,7 +44,7 @@ require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -84,7 +84,7 @@ if ($facid > 0) {
 }
 
 // Initialize a technical object to manage hooks of paiements. Note that conf->hooks_modules contains array array
-$hookmanager->initHooks(array('paiementcard', 'globalcard'));
+$hookManager->initHooks(array('paiementcard', 'globalcard'));
 
 $formquestion = array();
 
@@ -101,9 +101,9 @@ $result = restrictedArea($user, 'facture', $object->id, '', '', 'fk_soc', $field
 $error = 0;
 
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 $paiement_id = 0;
@@ -638,7 +638,7 @@ if ($result >= 0) {
 			print '<td class="right">'.$langs->trans('PaymentAmount').'</td>';
 
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('printFieldListTitle', $parameters, $facture, $action); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $facture, $action); // Note that $action and $object may have been modified by hook
 
 			print '<td align="right">&nbsp;</td>';
 			print "</tr>\n";
@@ -832,7 +832,7 @@ if ($result >= 0) {
 				print "</td>";
 
 				$parameters = array();
-				$reshook = $hookmanager->executeHooks('printFieldListValue', $parameters, $objp, $action); // Note that $action and $object may have been modified by hook
+				$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $objp, $action); // Note that $action and $object may have been modified by hook
 
 				// Warning
 				print '<td align="center" width="16">';
@@ -931,11 +931,11 @@ if ($result >= 0) {
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm);
-	$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
-		$formconfirm .= $hookmanager->resPrint;
+		$formconfirm .= $hookManager->resPrint;
 	} elseif ($reshook > 0) {
-		$formconfirm = $hookmanager->resPrint;
+		$formconfirm = $hookManager->resPrint;
 	}
 
 	// Print form confirm

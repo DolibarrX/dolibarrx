@@ -124,13 +124,13 @@ class AccountancyExport
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $conf, $hookmanager;
+		global $conf, $hookManager;
 
 		$this->db = $db;
 		$this->separator = getDolGlobalString('ACCOUNTING_EXPORT_SEPARATORCSV');
 		$this->end_line = getDolGlobalString('ACCOUNTING_EXPORT_ENDLINE') ? (getDolGlobalInt('ACCOUNTING_EXPORT_ENDLINE') == 1 ? "\n" : "\r\n") : "\n";
 
-		$hookmanager->initHooks(array('accountancyexport'));
+		$hookManager->initHooks(array('accountancyexport'));
 	}
 
 	/**
@@ -141,7 +141,7 @@ class AccountancyExport
 	 */
 	public function getType($mode = 0)
 	{
-		global $langs, $hookmanager;
+		global $langs, $hookManager;
 
 		$listofspecialformatexport = array(
 			self::$EXPORT_TYPE_CEGID => $langs->trans('Modelcsv_CEGID'),
@@ -189,7 +189,7 @@ class AccountancyExport
 
 		// allow modules to define export formats
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('getType', $parameters, $listofexporttypes);
+		$reshook = $hookManager->executeHooks('getType', $parameters, $listofexporttypes);
 
 		return $listofexporttypes;
 	}
@@ -225,10 +225,10 @@ class AccountancyExport
 			self::$EXPORT_TYPE_ISUITEEXPERT => 'isuiteexpert',
 		);
 
-		global $hookmanager;
+		global $hookManager;
 		$code = $formatcode[$type];
 		$parameters = array('type' => $type);
-		$reshook = $hookmanager->executeHooks('getFormatCode', $parameters, $code);
+		$reshook = $hookManager->executeHooks('getFormatCode', $parameters, $code);
 
 		return $code;
 	}
@@ -328,9 +328,9 @@ class AccountancyExport
 			),
 		);
 
-		global $hookmanager;
+		global $hookManager;
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('getTypeConfig', $parameters, $exporttypes);
+		$reshook = $hookManager->executeHooks('getTypeConfig', $parameters, $exporttypes);
 		return $exporttypes;
 	}
 
@@ -540,10 +540,10 @@ class AccountancyExport
 				$this->exportiSuiteExpert($TData, $exportFile);
 				break;
 			default:
-				global $hookmanager;
+				global $hookManager;
 				$parameters = array('format' => $formatexportset);
 				// file contents will be created in the hooked function via print
-				$reshook = $hookmanager->executeHooks('export', $parameters, $TData);
+				$reshook = $hookManager->executeHooks('export', $parameters, $TData);
 				if ($reshook != 1) {
 					$this->errors[] = $langs->trans('accountancy_error_modelnotfound');
 				}

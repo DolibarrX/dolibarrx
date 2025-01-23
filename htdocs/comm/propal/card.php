@@ -66,7 +66,7 @@ if (isModEnabled('variants')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -126,7 +126,7 @@ if ($id > 0 || !empty($ref)) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('propalcard', 'globalcard'));
+$hookManager->initHooks(array('propalcard', 'globalcard'));
 
 $usercanread = $user->hasRight("propal", "lire");
 $usercancreate = $user->hasRight("propal", "creer");
@@ -161,9 +161,9 @@ restrictedArea($user, 'propal', $object->id);
  */
 
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 if (empty($reshook)) {
 	$backurlforlist = DOL_URL_ROOT.'/comm/propal/list.php';
@@ -655,10 +655,10 @@ if (empty($reshook)) {
 
 							// Hooks
 							$parameters = array('objFrom' => $srcobject);
-							$reshook = $hookmanager->executeHooks('createFrom', $parameters, $object, $action); // Note that $action and $object may have been
+							$reshook = $hookManager->executeHooks('createFrom', $parameters, $object, $action); // Note that $action and $object may have been
 							// modified by hook
 							if ($reshook < 0) {
-								setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+								setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 								$error++;
 							}
 						} else {
@@ -2016,7 +2016,7 @@ if ($action == 'create') {
 	// Call Hook tabContentCreateProposal
 	$parameters = array();
 	// Note that $action and $object may be modified by hook
-	$reshook = $hookmanager->executeHooks('tabContentCreateProposal', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('tabContentCreateProposal', $parameters, $object, $action);
 	if (empty($reshook)) {
 		print '<table class="border centpercent">';
 
@@ -2605,11 +2605,11 @@ if ($action == 'create') {
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm, 'lineid' => $lineid);
-	$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
-		$formconfirm .= $hookmanager->resPrint;
+		$formconfirm .= $hookManager->resPrint;
 	} elseif ($reshook > 0) {
-		$formconfirm = $hookmanager->resPrint;
+		$formconfirm = $hookManager->resPrint;
 	}
 
 	// Print form confirm
@@ -2658,7 +2658,7 @@ if ($action == 'create') {
 	// Call Hook tabContentViewProposal
 	$parameters = array();
 	// Note that $action and $object may be modified by hook
-	$reshook = $hookmanager->executeHooks('tabContentViewProposal', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('tabContentViewProposal', $parameters, $object, $action);
 	if (empty($reshook)) {
 		print '<div class="fichecenter">';
 		print '<div class="fichehalfleft">';
@@ -3074,16 +3074,16 @@ if ($action == 'create') {
 		if ($object->status == Propal::STATUS_DRAFT && $usercancreate && $action != 'selectlines') {
 			if ($action != 'editline') {
 				$parameters = array();
-				$reshook = $hookmanager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$reshook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($reshook < 0) {
-					setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 				if (empty($reshook)) {
 					$object->formAddObjectLine(1, $mysoc, $soc);
 				}
 			} else {
 				$parameters = array();
-				$reshook = $hookmanager->executeHooks('formEditObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$reshook = $hookManager->executeHooks('formEditObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			}
 		}
 
@@ -3107,7 +3107,7 @@ if ($action == 'create') {
 		print '<div class="tabsAction">';
 
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 		// modified by hook
 		if (empty($reshook)) {
 			if ($action != 'editline') {

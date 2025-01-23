@@ -32,7 +32,7 @@ require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingjournal.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -66,7 +66,7 @@ if ($result > 0) {
 	accessforbidden('ErrorRecordNotFound');
 }
 
-$hookmanager->initHooks(array('globaljournal', $object->nature.'journal'));
+$hookManager->initHooks(array('globaljournal', $object->nature.'journal'));
 $parameters = array();
 
 $date_start = dol_mktime(0, 0, 0, $date_startmonth, $date_startday, $date_startyear);
@@ -123,7 +123,7 @@ if (!$user->hasRight('accounting', 'bind', 'write')) {
  * Actions
  */
 
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
 
 $reload = false;
 

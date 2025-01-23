@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -86,7 +86,7 @@ $line = new LignePrelevement($db);
 $company = new Societe($db);
 $userstatic = new User($db);
 
-$hookmanager->initHooks(array('withdrawalsreceiptslineslist'));
+$hookManager->initHooks(array('withdrawalsreceiptslineslist'));
 
 // Security check
 $socid = GETPOSTINT('socid');
@@ -315,11 +315,11 @@ $moreforfilter = '';
  $moreforfilter.= '</div>';*/
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($reshook)) {
-	$moreforfilter .= $hookmanager->resPrint;
+	$moreforfilter .= $hookManager->resPrint;
 } else {
-	$moreforfilter = $hookmanager->resPrint;
+	$moreforfilter = $hookManager->resPrint;
 }
 
 if (!empty($moreforfilter)) {
@@ -557,8 +557,8 @@ if ($num == 0) {
 $db->free($resql);
 
 $parameters = array('arrayfields' => $arrayfields, 'sql' => $sql);
-$reshook = $hookmanager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+print $hookManager->resPrint;
 
 print '</table>'."\n";
 print '</div>'."\n";

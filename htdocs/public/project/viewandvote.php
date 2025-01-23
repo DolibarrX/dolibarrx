@@ -57,15 +57,15 @@ require_once DOL_DOCUMENT_ROOT . '/comm/action/class/actioncomm.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  */
 
 // Hook to be used by external payment modules (ie Payzen, ...)
-$hookmanager = new HookManager($db);
+$hookManager = new HookManager($db);
 
-$hookmanager->initHooks(array('newpayment'));
+$hookManager->initHooks(array('newpayment'));
 
 // For encryption
 global $dolibarr_main_url_root;

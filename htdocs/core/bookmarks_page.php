@@ -44,7 +44,7 @@ require_once '../main.inc.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -90,7 +90,7 @@ print '<div>';
 //print '<br>';
 
 // Instantiate hooks of thirdparty module
-$hookmanager->initHooks(array('bookmarks'));
+$hookManager->initHooks(array('bookmarks'));
 
 // Define $bookmarks
 $bookmarkList = '';
@@ -144,11 +144,11 @@ if (!isModEnabled('bookmark')) {
 
 // Execute hook printBookmarks
 $parameters = array('bookmarks'=>$bookmarkList);
-$reshook = $hookmanager->executeHooks('printBookmarks', $parameters); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('printBookmarks', $parameters); // Note that $action and $object may have been modified by some hooks
 if (empty($reshook)) {
-	$bookmarkList .= $hookmanager->resPrint;
+	$bookmarkList .= $hookManager->resPrint;
 } else {
-	$bookmarkList = $hookmanager->resPrint;
+	$bookmarkList = $hookManager->resPrint;
 }
 
 

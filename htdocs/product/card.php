@@ -60,7 +60,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -197,7 +197,7 @@ $fieldvalue = (!empty($id) ? $id : (!empty($ref) ? $ref : ''));
 $fieldtype = (!empty($id) ? 'rowid' : 'ref');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('productcard', 'globalcard'));
+$hookManager->initHooks(array('productcard', 'globalcard'));
 
 if ($object->id > 0) {
 	if ($object->type == $object::TYPE_PRODUCT) {
@@ -230,9 +230,9 @@ if (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !$user->hasRight('barcode',
 }
 
 $parameters = array('id' => $id, 'ref' => $ref, 'objcanvas' => $objcanvas);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -376,7 +376,7 @@ if (empty($reshook)) {
 				// External modules should update their ones too
 				if (!$error) {
 					$parameters = array('soc_origin' => $productOrigin->id, 'soc_dest' => $object->id);
-					$reshook = $hookmanager->executeHooks(
+					$reshook = $hookManager->executeHooks(
 						'replaceProduct',
 						$parameters,
 						$object,
@@ -384,7 +384,7 @@ if (empty($reshook)) {
 					);
 
 					if ($reshook < 0) {
-						setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+						setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						$error++;
 					}
 				}
@@ -733,9 +733,9 @@ if (empty($reshook)) {
 				} else {
 					if ($object->error == 'ErrorProductAlreadyExists') {
 						// allow to hook on ErrorProductAlreadyExists in any module
-						$reshook = $hookmanager->executeHooks('onProductAlreadyExists', $parameters, $object, $action);
+						$reshook = $hookManager->executeHooks('onProductAlreadyExists', $parameters, $object, $action);
 						if ($reshook < 0) {
-							setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+							setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						}
 						if ($object->error) {
 							// check again to prevent translation issue,
@@ -1434,7 +1434,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 		// Call Hook tabContentCreateProduct
 		$parameters = array();
 		// Note that $action and $object may be modified by hook
-		$reshook = $hookmanager->executeHooks('tabContentCreateProduct', $parameters, $object, $action);
+		$reshook = $hookManager->executeHooks('tabContentCreateProduct', $parameters, $object, $action);
 		if (empty($reshook)) {
 			print '<table class="border centpercent">';
 
@@ -1736,8 +1736,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 			// Other attributes
 			$parameters = array('colspan' => ' colspan="2"', 'cols' => 2);
-			$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			print $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			print $hookManager->resPrint;
 			if (empty($reshook)) {
 				print $object->showOptionals($extrafields, 'create', $parameters);
 			}
@@ -1995,7 +1995,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			// Call Hook tabContentEditProduct
 			$parameters = array();
 			// Note that $action and $object may be modified by hook
-			$reshook = $hookmanager->executeHooks('tabContentEditProduct', $parameters, $object, $action);
+			$reshook = $hookManager->executeHooks('tabContentEditProduct', $parameters, $object, $action);
 
 			if (empty($reshook)) {
 				print '<table class="border allwidth">';
@@ -2366,8 +2366,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 				// Other attributes
 				$parameters = array('colspan' => ' colspan="2"', 'cols' => 2);
-				$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-				print $hookmanager->resPrint;
+				$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				print $hookManager->resPrint;
 				if (empty($reshook)) {
 					print $object->showOptionals($extrafields, 'edit', $parameters);
 				}
@@ -2523,7 +2523,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			// Call Hook tabContentViewProduct
 			$parameters = array();
 			// Note that $action and $object may be modified by hook
-			$reshook = $hookmanager->executeHooks('tabContentViewProduct', $parameters, $object, $action);
+			$reshook = $hookManager->executeHooks('tabContentViewProduct', $parameters, $object, $action);
 			if (empty($reshook)) {
 				print '<div class="fichecenter">';
 				print '<div class="fichehalfleft">';
@@ -3000,11 +3000,11 @@ if (($action == 'clone' && (empty($conf->use_javascript_ajax) || !empty($conf->d
 
 // Call Hook formConfirm
 $parameters = array('formConfirm' => $formconfirm, 'object' => $object);
-$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($reshook)) {
-	$formconfirm .= $hookmanager->resPrint;
+	$formconfirm .= $hookManager->resPrint;
 } elseif ($reshook > 0) {
-	$formconfirm = $hookmanager->resPrint;
+	$formconfirm = $hookManager->resPrint;
 }
 
 // Print form confirm
@@ -3020,14 +3020,14 @@ if ($action != 'create' && $action != 'edit') {
 	print "\n".'<div class="tabsAction">'."\n";
 
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
 		if ($usercancreate) {
-			if (!isset($hookmanager->resArray['no_button_edit']) || $hookmanager->resArray['no_button_edit'] != 1) {
+			if (!isset($hookManager->resArray['no_button_edit']) || $hookManager->resArray['no_button_edit'] != 1) {
 				print dolGetButtonAction('', $langs->trans('Modify'), 'default', $_SERVER["PHP_SELF"].'?action=edit&token='.newToken().'&id='.$object->id, '', $usercancreate);
 			}
 
-			if (!isset($hookmanager->resArray['no_button_copy']) || $hookmanager->resArray['no_button_copy'] != 1) {
+			if (!isset($hookManager->resArray['no_button_copy']) || $hookManager->resArray['no_button_copy'] != 1) {
 				if (!empty($conf->use_javascript_ajax) && empty($conf->dol_use_jmobile)) {
 					$cloneProductUrl = '';
 					$cloneButtonId = 'action-clone';
@@ -3039,7 +3039,7 @@ if ($action != 'create' && $action != 'edit') {
 
 		if ($usercandelete) {
 			if (empty($object_is_used)) {
-				if (!isset($hookmanager->resArray['no_button_delete']) || $hookmanager->resArray['no_button_delete'] != 1) {
+				if (!isset($hookManager->resArray['no_button_delete']) || $hookManager->resArray['no_button_delete'] != 1) {
 					if (!empty($conf->use_javascript_ajax) && empty($conf->dol_use_jmobile)) {
 						print dolGetButtonAction($langs->trans('Delete'), '', 'delete', '#', 'action-delete', true);
 					} else {

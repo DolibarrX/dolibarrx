@@ -43,7 +43,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -60,7 +60,7 @@ $ref = GETPOST('ref', 'alpha');
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$hookmanager->initHooks(array('invoicesuppliercarddocument'));
+$hookManager->initHooks(array('invoicesuppliercarddocument'));
 $result = restrictedArea($user, 'fournisseur', $id, 'facture_fourn', 'facture');
 
 // Get parameters

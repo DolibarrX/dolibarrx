@@ -722,7 +722,7 @@ class ActionComm extends CommonObject
 	 */
 	public function createFromClone(User $fuser, $socid)
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		$error = 0;
 
@@ -752,12 +752,12 @@ class ActionComm extends CommonObject
 
 		if (!$error) {
 			// Hook of thirdparty module
-			if (is_object($hookmanager)) {
+			if (is_object($hookManager)) {
 				$parameters = array('objFrom' => $objFrom);
 				$action = '';
-				$reshook = $hookmanager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					$this->setErrorsFromObject($hookmanager);
+					$this->setErrorsFromObject($hookManager);
 					$error++;
 				}
 			}
@@ -1324,26 +1324,26 @@ class ActionComm extends CommonObject
 	 */
 	public function getActions($socid = 0, $fk_element = 0, $elementtype = '', $filter = '', $sortfield = 'a.datep', $sortorder = 'DESC', $limit = 0)
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		$resarray = array();
 
 		dol_syslog(get_class($this)."::getActions", LOG_DEBUG);
 
 		// Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-		if (!is_object($hookmanager)) {
+		if (!is_object($hookManager)) {
 			include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-			$hookmanager = new HookManager($this->db);
+			$hookManager = new HookManager($this->db);
 		}
-		$hookmanager->initHooks(array('agendadao'));
+		$hookManager->initHooks(array('agendadao'));
 
 		$sql = "SELECT a.id";
 		$sql .= " FROM ".MAIN_DB_PREFIX."actioncomm as a";
 		// Fields from hook
 		$parameters = array('sql' => &$sql, 'socid' => $socid, 'fk_element' => $fk_element, 'elementtype' => $elementtype);
-		$reshook = $hookmanager->executeHooks('getActionsListFrom', $parameters);    // Note that $action and $object may have been modified by hook
-		if (!empty($hookmanager->resPrint)) {
-			$sql .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('getActionsListFrom', $parameters);    // Note that $action and $object may have been modified by hook
+		if (!empty($hookManager->resPrint)) {
+			$sql .= $hookManager->resPrint;
 		}
 		$sql .= " WHERE a.entity IN (".getEntity('agenda').")";
 		if (!empty($socid)) {
@@ -1370,9 +1370,9 @@ class ActionComm extends CommonObject
 		}
 		// Fields where hook
 		$parameters = array('sql' => &$sql, 'socid' => $socid, 'fk_element' => $fk_element, 'elementtype' => $elementtype);
-		$reshook = $hookmanager->executeHooks('getActionsListWhere', $parameters);    // Note that $action and $object may have been modified by hook
-		if (!empty($hookmanager->resPrint)) {
-			$sql .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('getActionsListWhere', $parameters);    // Note that $action and $object may have been modified by hook
+		if (!empty($hookManager->resPrint)) {
+			$sql .= $hookManager->resPrint;
 		}
 		if ($sortorder && $sortfield) {
 			$sql .= $this->db->order($sortfield, $sortorder);
@@ -1690,7 +1690,7 @@ class ActionComm extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $maxlength = 0, $classname = '', $option = '', $overwritepicto = 0, $notooltip = 0, $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $user, $hookmanager, $action;
+		global $conf, $langs, $user, $hookManager, $action;
 
 		if (!empty($conf->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -1855,13 +1855,13 @@ class ActionComm extends CommonObject
 		$result .= $linkend;
 
 		global $action;
-		$hookmanager->initHooks(array('actiondao'));
+		$hookManager->initHooks(array('actiondao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;
@@ -2018,7 +2018,7 @@ class ActionComm extends CommonObject
 	 */
 	public function build_exportfile($format, $type, $cachedelay, $filename, $filters, $exportholiday = 0)
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		// phpcs:enable
 		global $conf, $langs, $dolibarr_main_url_root, $mysoc;
@@ -2090,8 +2090,8 @@ class ActionComm extends CommonObject
 				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s on s.rowid = p.fk_soc";
 
 				$parameters = array('filters' => $filters);
-				$reshook = $hookmanager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
-				$sql .= $hookmanager->resPrint;
+				$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
+				$sql .= $hookManager->resPrint;
 
 				$sql .= " WHERE p.entity IN (".getEntity('project').")";
 
@@ -2144,8 +2144,8 @@ class ActionComm extends CommonObject
 				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s on s.rowid = a.fk_soc";
 
 				$parameters = array('filters' => $filters);
-				$reshook = $hookmanager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
-				$sql .= $hookmanager->resPrint;
+				$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters); // Note that $action and $object may have been modified by hook
+				$sql .= $hookManager->resPrint;
 
 				// We must filter on assignment table
 				if (!empty($filters['logint']) && $filters['logint']) {
@@ -2261,8 +2261,8 @@ class ActionComm extends CommonObject
 				$sql .= " AND a.datep IS NOT NULL"; // To exclude corrupted events and avoid errors in lightning/sunbird import
 
 				$parameters = array('filters' => $filters);
-				$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
-				$sql .= $hookmanager->resPrint;
+				$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
+				$sql .= $hookManager->resPrint;
 
 				$sql .= " ORDER by datep";
 			}
@@ -2354,9 +2354,9 @@ class ActionComm extends CommonObject
 				}
 
 				$parameters = array('filters' => $filters, 'eventarray' => &$eventarray);
-				$reshook = $hookmanager->executeHooks('addMoreEventsExport', $parameters); // Note that $action and $object may have been modified by hook
+				$reshook = $hookManager->executeHooks('addMoreEventsExport', $parameters); // Note that $action and $object may have been modified by hook
 				if ($reshook > 0) {
-					$eventarray = $hookmanager->resArray;
+					$eventarray = $hookManager->resArray;
 				}
 			} else {
 				$this->error = $this->db->lasterror();

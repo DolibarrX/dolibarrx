@@ -29,7 +29,7 @@
  * @var CommonObject $object
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  *
@@ -280,9 +280,9 @@ if ($action == 'confirm_deletefile' && $confirm == 'yes' && !empty($permissionto
 					}
 				}*/
 
-				$reshook = $hookmanager->initHooks(array('actionlinkedfiles'));
+				$reshook = $hookManager->initHooks(array('actionlinkedfiles'));
 				$parameters = array('filenamefrom' => $filenamefrom, 'filenameto' => $filenameto, 'upload_dir' => $upload_dir);
-				$reshook = $hookmanager->executeHooks('renameUploadedFile', $parameters, $object);
+				$reshook = $hookManager->executeHooks('renameUploadedFile', $parameters, $object);
 
 				if (empty($reshook)) {
 					if (preg_match('/^\./', $filenameto)) {

@@ -34,7 +34,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -566,10 +566,10 @@ if ($id > 0 || !empty($ref)) {
 	}
 }
 
-if (is_object($hookmanager)) {
-	$hookmanager->initHooks(array('contacttpl'));
+if (is_object($hookManager)) {
+	$hookManager->initHooks(array('contacttpl'));
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('formContactTpl', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('formContactTpl', $parameters, $object, $action);
 }
 
 // End of page

@@ -73,7 +73,7 @@ class box_prospect extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $user, $langs, $hookmanager;
+		global $user, $langs, $hookManager;
 
 		$this->max = $max;
 
@@ -100,13 +100,13 @@ class box_prospect extends ModeleBoxes
 			}
 			// Add where from hooks
 			$parameters = array('socid' => $user->socid, 'boxcode' => $this->boxcode);
-			$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $thirdpartystatic); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $thirdpartystatic); // Note that $action and $object may have been modified by hook
 			if (empty($reshook)) {
 				if ($user->socid > 0) {
 					$sql .= " AND s.rowid = ".((int) $user->socid);
 				}
 			}
-			$sql .= $hookmanager->resPrint;
+			$sql .= $hookManager->resPrint;
 			$sql .= " ORDER BY s.tms DESC";
 			$sql .= $this->db->plimit($max, 0);
 

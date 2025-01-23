@@ -144,20 +144,20 @@ class FormSetup
 	 */
 	public function generateOutput($editMode = false, $hideTitle = false)
 	{
-		global $hookmanager, $action;
+		global $hookManager, $action;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 
 		$parameters = array(
 			'editMode' => $editMode
 		);
-		$reshook = $hookmanager->executeHooks('formSetupBeforeGenerateOutput', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('formSetupBeforeGenerateOutput', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
 		if ($reshook > 0) {
-			return $hookmanager->resPrint;
+			return $hookManager->resPrint;
 		} else {
 			$out = '<!-- Start generateOutput from FormSetup class  -->';
 			$out .= $this->htmlBeforeOutputForm;
@@ -177,13 +177,13 @@ class FormSetup
 			$out .= $this->generateTableOutput($editMode, $hideTitle);
 
 
-			$reshook = $hookmanager->executeHooks('formSetupBeforeGenerateOutputButton', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+			$reshook = $hookManager->executeHooks('formSetupBeforeGenerateOutputButton', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 			if ($reshook < 0) {
-				setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			}
 
 			if ($reshook > 0) {
-				return $hookmanager->resPrint;
+				return $hookManager->resPrint;
 			} elseif ($editMode) {
 				$out .= '<div class="form-setup-button-container center">'; // Todo : remove .center by adding style to form-setup-button-container css class in all themes
 				$out .= $this->htmlOutputMoreButton;
@@ -213,19 +213,19 @@ class FormSetup
 	 */
 	public function generateTableOutput($editMode = false, $hideTitle = false)
 	{
-		global $hookmanager, $action;
+		global $hookManager, $action;
 		require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 
 		$parameters = array(
 			'editMode' => $editMode
 		);
-		$reshook = $hookmanager->executeHooks('formSetupBeforeGenerateTableOutput', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('formSetupBeforeGenerateTableOutput', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
 		if ($reshook > 0) {
-			return $hookmanager->resPrint;
+			return $hookManager->resPrint;
 		} else {
 			$out = '<table class="noborder centpercent">';
 			if (empty($hideTitle)) {
@@ -259,12 +259,12 @@ class FormSetup
 	 */
 	public function saveConfFromPost($noMessageInUpdate = false)
 	{
-		global $hookmanager, $conf;
+		global $hookManager, $conf;
 
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('formSetupBeforeSaveConfFromPost', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('formSetupBeforeSaveConfFromPost', $parameters, $this); // Note that $action and $object may have been modified by some hooks
 		if ($reshook < 0) {
-			$this->errors = $hookmanager->errors;
+			$this->errors = $hookManager->errors;
 			return -1;
 		}
 
@@ -733,12 +733,12 @@ class FormSetupItem
 	 */
 	public function saveConfValue()
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('formSetupBeforeSaveConfValue', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('formSetupBeforeSaveConfValue', $parameters, $this); // Note that $action and $object may have been modified by some hooks
 		if ($reshook < 0) {
-			$this->setErrors($hookmanager->errors);
+			$this->setErrors($hookManager->errors);
 			return -1;
 		}
 

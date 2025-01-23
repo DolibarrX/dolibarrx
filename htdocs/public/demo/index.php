@@ -42,7 +42,7 @@ require_once '../../core/lib/functions2.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  */
 $langs->loadLangs(array("main", "install", "other"));
@@ -61,7 +61,7 @@ if (empty($dolibarr_main_demo)) {
 
 // Initialize a technical object to manage hooks of the page.
 // Note that conf->hooks_modules contains an array of hook contexats
-$res = $hookmanager->initHooks(array('demo'));
+$res = $hookManager->initHooks(array('demo'));
 
 $demoprofiles = array();
 $alwayscheckedmodules = array();
@@ -80,9 +80,9 @@ $url = DOL_URL_ROOT.'/index.php'.($url ? '?'.$url : '');
 $tmpaction = 'view';
 $parameters = array();
 $object = new stdClass();
-$reshook = $hookmanager->executeHooks('addDemoProfile', $parameters, $object, $tmpaction); // Note that $action and $object may have been modified by some hooks
-$error = $hookmanager->error;
-$errors = $hookmanager->errors;
+$reshook = $hookManager->executeHooks('addDemoProfile', $parameters, $object, $tmpaction); // Note that $action and $object may have been modified by some hooks
+$error = $hookManager->error;
+$errors = $hookManager->errors;
 if (empty($reshook)) {
 	$demoprofiles = array(
 		array(

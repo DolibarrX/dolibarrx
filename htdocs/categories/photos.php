@@ -38,7 +38,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/categories.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -58,7 +58,7 @@ if ($id == '' && $label == '') {
 }
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array array
-$hookmanager->initHooks(array('categorycard'));
+$hookManager->initHooks(array('categorycard'));
 
 $object = new Categorie($db);
 $result = $object->fetch($id, $label);
@@ -86,9 +86,9 @@ $permissiontoadd = $user->hasRight('categorie', 'creer');
 
 $parameters = array('id' => $id,  'label' => $label, 'confirm' => $confirm, 'type' => $type, 'uploaddir' => $upload_dir, 'sendfile' => (GETPOST("sendit") ? true : false));
 // Note that $action and $object may be modified by some hooks
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

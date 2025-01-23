@@ -38,7 +38,7 @@ require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -56,7 +56,7 @@ if ($user->socid) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('consumptionthirdparty', 'globalcard'));
+$hookManager->initHooks(array('consumptionthirdparty', 'globalcard'));
 
 $result = restrictedArea($user, 'societe', $socid, '&societe');
 $object = new Societe($db);
@@ -107,9 +107,9 @@ $type_element = GETPOST('type_element') ? GETPOST('type_element') : '';
  */
 
 $parameters = array('id' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 
@@ -382,7 +382,7 @@ if ($type_element == 'contract') { 	// Order
 }
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 
 if (!empty($sql_select)) {
 	$sql = $sql_select;

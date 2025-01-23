@@ -363,7 +363,7 @@ require_once 'filefunc.inc.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -443,7 +443,7 @@ if (!defined('NOSESSION')) {
 }
 
 
-// Init the 6 global objects, this include will make the 'new Xxx()' and set properties for: $conf, $db, $langs, $user, $mysoc, $hookmanager
+// Init the 6 global objects, this include will make the 'new Xxx()' and set properties for: $conf, $db, $langs, $user, $mysoc, $hookManager
 require_once 'master.inc.php';
 
 // Uncomment this and set session.save_handler = user to use local session storing
@@ -837,9 +837,9 @@ if (!defined('NOLOGIN')) {
 
 		// Hooks for security access
 		$action = '';
-		$hookmanager->initHooks(array('login'));
+		$hookManager->initHooks(array('login'));
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('beforeLoginAuthentication', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('beforeLoginAuthentication', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook < 0) {
 			$test = false;
 			$error++;
@@ -914,9 +914,9 @@ if (!defined('NOLOGIN')) {
 
 				// Hooks on failed login
 				$action = '';
-				$hookmanager->initHooks(array('login'));
+				$hookManager->initHooks(array('login'));
 				$parameters = array('dol_authmode' => $authmode, 'dol_loginmesg' => $_SESSION["dol_loginmesg"]);
-				$reshook = $hookmanager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
 					$error++;
 				}
@@ -1043,9 +1043,9 @@ if (!defined('NOLOGIN')) {
 
 				// Hooks on failed login
 				$action = '';
-				$hookmanager->initHooks(array('login'));
+				$hookManager->initHooks(array('login'));
 				$parameters = array('dol_authmode' => $dol_authmode, 'dol_loginmesg' => $_SESSION["dol_loginmesg"]);
-				$reshook = $hookmanager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
 					$error++;
 				}
@@ -1113,9 +1113,9 @@ if (!defined('NOLOGIN')) {
 
 			// Hooks on failed login
 			$action = '';
-			$hookmanager->initHooks(array('login'));
+			$hookManager->initHooks(array('login'));
 			$parameters = array('dol_authmode' => $dol_authmode, 'dol_loginmesg' => $_SESSION["dol_loginmesg"]);
-			$reshook = $hookmanager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+			$reshook = $hookManager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
 			if ($reshook < 0) {
 				$error++;
 			}
@@ -1197,9 +1197,9 @@ if (!defined('NOLOGIN')) {
 
 			// Hooks on failed login
 			$action = '';
-			$hookmanager->initHooks(array('login'));
+			$hookManager->initHooks(array('login'));
 			$parameters = array('dol_authmode' => (string) $dol_authmode, 'dol_loginmesg' => $_SESSION["dol_loginmesg"]);
-			$reshook = $hookmanager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+			$reshook = $hookManager->executeHooks('afterLoginFailed', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
 			if ($reshook < 0) {
 				$error++;
 			}
@@ -1219,7 +1219,7 @@ if (!defined('NOLOGIN')) {
 			exit;
 		} else {
 			// Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-			$hookmanager->initHooks(array('main'));
+			$hookManager->initHooks(array('main'));
 
 			// Code for search criteria persistence.
 			if (!empty($_GET['save_lastsearch_values']) && !empty($_SERVER["HTTP_REFERER"])) {    // We must use $_GET here
@@ -1270,9 +1270,9 @@ if (!defined('NOLOGIN')) {
 
 			$action = '';
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('updateSession', $parameters, $user, $action);
+			$reshook = $hookManager->executeHooks('updateSession', $parameters, $user, $action);
 			if ($reshook < 0) {
-				setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			}
 		}
 	}
@@ -1336,9 +1336,9 @@ if (!defined('NOLOGIN')) {
 
 		// Hooks on successful login
 		$action = '';
-		$hookmanager->initHooks(array('login'));
+		$hookManager->initHooks(array('login'));
 		$parameters = array('dol_authmode' => $dol_authmode, 'dol_loginfo' => $loginfo);
-		$reshook = $hookmanager->executeHooks('afterLogin', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('afterLogin', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook < 0) {
 			$error++;
 		}
@@ -1653,7 +1653,7 @@ if (!function_exists("llxHeader")) {
 	 */
 	function llxHeader($head = '', $title = '', $help_url = '', $target = '', $disablejs = 0, $disablehead = 0, $arrayofjs = '', $arrayofcss = '', $morequerystring = '', $morecssonbody = '', $replacemainareaby = '', $disablenofollow = 0, $disablenoindex = 0)
 	{
-		global $conf, $hookmanager;
+		global $conf, $hookManager;
 
 		$parameters = array(
 			'head' => & $head,
@@ -1671,9 +1671,9 @@ if (!function_exists("llxHeader")) {
 			'disablenoindex' => & $disablenoindex
 
 		);
-		$reshook = $hookmanager->executeHooks('llxHeader', $parameters);
+		$reshook = $hookManager->executeHooks('llxHeader', $parameters);
 		if ($reshook > 0) {
-			print $hookmanager->resPrint;
+			print $hookManager->resPrint;
 			return;
 		}
 
@@ -1724,7 +1724,7 @@ if (!function_exists("llxHeader")) {
  */
 function top_httphead($contenttype = 'text/html', $forcenocache = 0)
 {
-	global $db, $conf, $hookmanager;
+	global $db, $conf, $hookManager;
 
 	if ($contenttype == 'text/html') {
 		header("Content-Type: text/html; charset=".$conf->file->character_set_client);
@@ -1770,18 +1770,18 @@ function top_httphead($contenttype = 'text/html', $forcenocache = 0)
 		// $contentsecuritypolicy = "frame-ancestors 'self'; img-src * data:; font-src *; default-src *; script-src 'self' 'unsafe-inline' *.paypal.com *.stripe.com *.google.com *.googleapis.com *.google-analytics.com *.googletagmanager.com; style-src 'self' 'unsafe-inline'; connect-src 'self';";
 		$contentsecuritypolicy = getDolGlobalString('MAIN_SECURITY_FORCECSPRO');
 
-		if (!is_object($hookmanager)) {
+		if (!is_object($hookManager)) {
 			include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-			$hookmanager = new HookManager($db);
+			$hookManager = new HookManager($db);
 		}
-		$hookmanager->initHooks(array("main"));
+		$hookManager->initHooks(array("main"));
 
 		$parameters = array('contentsecuritypolicy' => $contentsecuritypolicy, 'mode' => 'reportonly');
-		$result = $hookmanager->executeHooks('setContentSecurityPolicy', $parameters); // Note that $action and $object may have been modified by some hooks
+		$result = $hookManager->executeHooks('setContentSecurityPolicy', $parameters); // Note that $action and $object may have been modified by some hooks
 		if ($result > 0) {
-			$contentsecuritypolicy = $hookmanager->resPrint; // Replace CSP
+			$contentsecuritypolicy = $hookManager->resPrint; // Replace CSP
 		} else {
-			$contentsecuritypolicy .= $hookmanager->resPrint; // Concat CSP
+			$contentsecuritypolicy .= $hookManager->resPrint; // Concat CSP
 		}
 
 		if (!empty($contentsecuritypolicy)) {
@@ -1807,18 +1807,18 @@ function top_httphead($contenttype = 'text/html', $forcenocache = 0)
 		// $contentsecuritypolicy = "frame-ancestors 'self'; img-src * data:; font-src *; default-src *; script-src 'self' 'unsafe-inline' *.paypal.com *.stripe.com *.google.com *.googleapis.com *.google-analytics.com *.googletagmanager.com; style-src 'self' 'unsafe-inline'; connect-src 'self';";
 		$contentsecuritypolicy = getDolGlobalString('MAIN_SECURITY_FORCECSP');
 
-		if (!is_object($hookmanager)) {
+		if (!is_object($hookManager)) {
 			include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-			$hookmanager = new HookManager($db);
+			$hookManager = new HookManager($db);
 		}
-		$hookmanager->initHooks(array("main"));
+		$hookManager->initHooks(array("main"));
 
 		$parameters = array('contentsecuritypolicy' => $contentsecuritypolicy, 'mode' => 'active');
-		$result = $hookmanager->executeHooks('setContentSecurityPolicy', $parameters); // Note that $action and $object may have been modified by some hooks
+		$result = $hookManager->executeHooks('setContentSecurityPolicy', $parameters); // Note that $action and $object may have been modified by some hooks
 		if ($result > 0) {
-			$contentsecuritypolicy = $hookmanager->resPrint; // Replace CSP
+			$contentsecuritypolicy = $hookManager->resPrint; // Replace CSP
 		} else {
-			$contentsecuritypolicy .= $hookmanager->resPrint; // Concat CSP
+			$contentsecuritypolicy .= $hookManager->resPrint; // Concat CSP
 		}
 
 		if (!empty($contentsecuritypolicy)) {
@@ -1863,7 +1863,7 @@ function top_httphead($contenttype = 'text/html', $forcenocache = 0)
  */
 function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arrayofjs = array(), $arrayofcss = array(), $disableforlogin = 0, $disablenofollow = 0, $disablenoindex = 0)
 {
-	global $db, $conf, $langs, $user, $mysoc, $hookmanager;
+	global $db, $conf, $langs, $user, $mysoc, $hookManager;
 
 	top_httphead();
 
@@ -1877,11 +1877,11 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 
 	//print '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">'."\n";
 	if (empty($disablehead)) {
-		if (!is_object($hookmanager)) {
+		if (!is_object($hookManager)) {
 			include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-			$hookmanager = new HookManager($db);
+			$hookManager = new HookManager($db);
 		}
-		$hookmanager->initHooks(array("main"));
+		$hookManager->initHooks(array("main"));
 
 		$ext = 'layout='.(empty($conf->browser->layout) ? '' : $conf->browser->layout).'&amp;version='.urlencode(DOL_VERSION);
 
@@ -1918,11 +1918,11 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 		// Mobile appli like icon
 		$manifest = DOL_URL_ROOT.'/theme/'.$conf->theme.'/manifest.json.php';
 		$parameters = array('manifest' => $manifest);
-		$resHook = $hookmanager->executeHooks('hookSetManifest', $parameters); // Note that $action and $object may have been modified by some hooks
+		$resHook = $hookManager->executeHooks('hookSetManifest', $parameters); // Note that $action and $object may have been modified by some hooks
 		if ($resHook > 0) {
-			$manifest = $hookmanager->resPrint; // Replace manifest.json
+			$manifest = $hookManager->resPrint; // Replace manifest.json
 		} else {
-			$manifest .= $hookmanager->resPrint; // Concat to actual manifest declaration
+			$manifest .= $hookManager->resPrint; // Concat to actual manifest declaration
 		}
 		if (!empty($manifest)) {
 			print '<link rel="manifest" href="'.$manifest.'" />'."\n";
@@ -1955,11 +1955,11 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 		}
 
 		$parameters = array('title' => $titletoshow);
-		$result = $hookmanager->executeHooks('setHtmlTitle', $parameters); // Note that $action and $object may have been modified by some hooks
+		$result = $hookManager->executeHooks('setHtmlTitle', $parameters); // Note that $action and $object may have been modified by some hooks
 		if ($result > 0) {
-			$titletoshow = $hookmanager->resPrint; // Replace Title to show
+			$titletoshow = $hookManager->resPrint; // Replace Title to show
 		} else {
-			$titletoshow .= $hookmanager->resPrint; // Concat to Title to show
+			$titletoshow .= $hookManager->resPrint; // Concat to Title to show
 		}
 
 		print $titletoshow;
@@ -2268,8 +2268,8 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
 		}
 
 		$parameters = array();
-		$result = $hookmanager->executeHooks('addHtmlHeader', $parameters); // Note that $action and $object may have been modified by some hooks
-		print $hookmanager->resPrint; // Replace Title to show
+		$result = $hookManager->executeHooks('addHtmlHeader', $parameters); // Note that $action and $object may have been modified by some hooks
+		print $hookManager->resPrint; // Replace Title to show
 
 		print "</head>\n\n";
 	}
@@ -2298,12 +2298,12 @@ function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead
 {
 	global $user, $conf, $langs, $db, $form;
 	global $dolibarr_main_authentication, $dolibarr_main_demo;
-	global $hookmanager, $menumanager;
+	global $hookManager, $menumanager;
 
 	$searchform = '';
 
 	// Instantiate hooks for external modules
-	$hookmanager->initHooks(array('toprightmenu'));
+	$hookManager->initHooks(array('toprightmenu'));
 
 	$toprightmenu = '';
 
@@ -2415,12 +2415,12 @@ function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead
 
 		// Execute hook printTopRightMenu (hooks should output string like '<div class="login"><a href="">mylink</a></div>')
 		$parameters = array();
-		$result = $hookmanager->executeHooks('printTopRightMenu', $parameters); // Note that $action and $object may have been modified by some hooks
+		$result = $hookManager->executeHooks('printTopRightMenu', $parameters); // Note that $action and $object may have been modified by some hooks
 		if (is_numeric($result)) {
 			if ($result == 0) {
-				$toprightmenu .= $hookmanager->resPrint; // add
+				$toprightmenu .= $hookManager->resPrint; // add
 			} else {
-				$toprightmenu = $hookmanager->resPrint; // replace
+				$toprightmenu = $hookManager->resPrint; // replace
 			}
 		} else {
 			$toprightmenu .= $result; // For backward compatibility
@@ -2579,7 +2579,7 @@ function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead
  */
 function top_menu_user($hideloginname = 0, $urllogout = '')
 {
-	global $langs, $conf, $db, $hookmanager, $user, $mysoc;
+	global $langs, $conf, $db, $hookManager, $user, $mysoc;
 	global $dolibarr_main_authentication, $dolibarr_main_demo;
 	global $menumanager;
 
@@ -2697,12 +2697,12 @@ function top_menu_user($hideloginname = 0, $urllogout = '')
 
 	// Execute hook
 	$parameters = array('user' => $user, 'langs' => $langs);
-	$result = $hookmanager->executeHooks('printTopRightMenuLoginDropdownBody', $parameters); // Note that $action and $object may have been modified by some hooks
+	$result = $hookManager->executeHooks('printTopRightMenuLoginDropdownBody', $parameters); // Note that $action and $object may have been modified by some hooks
 	if (is_numeric($result)) {
 		if ($result == 0) {
-			$dropdownBody .= $hookmanager->resPrint; // add
+			$dropdownBody .= $hookManager->resPrint; // add
 		} else {
-			$dropdownBody = $hookmanager->resPrint; // replace
+			$dropdownBody = $hookManager->resPrint; // replace
 		}
 	}
 
@@ -2994,7 +2994,7 @@ function top_menu_importfile()
  */
 function printDropdownQuickadd($mode = 0)
 {
-	global $user, $langs, $hookmanager;
+	global $user, $langs, $hookManager;
 
 	$items = array(
 		'items' => array(
@@ -3133,12 +3133,12 @@ function printDropdownQuickadd($mode = 0)
 	// Allow the $items of the menu to be manipulated by modules
 	$parameters = array();
 	$hook_items = $items;
-	$reshook = $hookmanager->executeHooks('menuDropdownQuickaddItems', $parameters, $hook_items); // Note that $action and $object may have been modified by some hooks
-	if (is_numeric($reshook) && !empty($hookmanager->resArray) && is_array($hookmanager->resArray)) {
+	$reshook = $hookManager->executeHooks('menuDropdownQuickaddItems', $parameters, $hook_items); // Note that $action and $object may have been modified by some hooks
+	if (is_numeric($reshook) && !empty($hookManager->resArray) && is_array($hookManager->resArray)) {
 		if ($reshook == 0) {
-			$items['items'] = array_merge($items['items'], $hookmanager->resArray); // add
+			$items['items'] = array_merge($items['items'], $hookManager->resArray); // add
 		} else {
-			$items = $hookmanager->resArray; // replace
+			$items = $hookManager->resArray; // replace
 		}
 
 		// Sort menu items by 'position' value
@@ -3277,7 +3277,7 @@ function top_menu_bookmark()
  */
 function top_menu_search()
 {
-	global $langs, $conf, $db, $user, $hookmanager;	// used by htdocs/core/ajax/selectsearchbox.php
+	global $langs, $conf, $db, $user, $hookManager;	// used by htdocs/core/ajax/selectsearchbox.php
 
 	$html = '';
 
@@ -3455,7 +3455,7 @@ function top_menu_search()
 function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_array_after = array(), $leftmenuwithoutmainarea = 0, $title = '', $acceptdelayedhtml = 0)
 {
 	global $user, $conf, $langs, $db, $form;
-	global $hookmanager, $menumanager;
+	global $hookManager, $menumanager;
 
 	$searchform = '';
 
@@ -3465,7 +3465,7 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
 
 	if (empty($conf->dol_hide_leftmenu) && (!defined('NOREQUIREMENU') || !constant('NOREQUIREMENU'))) {
 		// Instantiate hooks for external modules
-		$hookmanager->initHooks(array('leftblock'));
+		$hookManager->initHooks(array('leftblock'));
 
 		print "\n".'<!-- Begin side-nav id-left -->'."\n".'<div class="side-nav"><div id="id-left">'."\n";
 		print "\n";
@@ -3510,11 +3510,11 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
 
 			// Execute hook printSearchForm
 			$parameters = array('searchform' => $searchform);
-			$reshook = $hookmanager->executeHooks('printSearchForm', $parameters); // Note that $action and $object may have been modified by some hooks
+			$reshook = $hookManager->executeHooks('printSearchForm', $parameters); // Note that $action and $object may have been modified by some hooks
 			if (empty($reshook)) {
-				$searchform .= $hookmanager->resPrint;
+				$searchform .= $hookManager->resPrint;
 			} else {
-				$searchform = $hookmanager->resPrint;
+				$searchform = $hookManager->resPrint;
 			}
 
 			// Force special value for $searchform for text browsers or very old search form
@@ -3671,11 +3671,11 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
 
 			// Execute hook printBugtrackInfo
 			$parameters = array('bugbaseurl' => $bugbaseurl);
-			$reshook = $hookmanager->executeHooks('printBugtrackInfo', $parameters); // Note that $action and $object may have been modified by some hooks
+			$reshook = $hookManager->executeHooks('printBugtrackInfo', $parameters); // Note that $action and $object may have been modified by some hooks
 			if (empty($reshook)) {
-				$bugbaseurl .= $hookmanager->resPrint;
+				$bugbaseurl .= $hookManager->resPrint;
 			} else {
-				$bugbaseurl = $hookmanager->resPrint;
+				$bugbaseurl = $hookManager->resPrint;
 			}
 
 			print '<div id="blockvmenuhelpbugreport" class="blockvmenuhelp">';
@@ -3693,8 +3693,8 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
 
 		// Execute hook printLeftBlock
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printLeftBlock', $parameters); // Note that $action and $object may have been modified by some hooks
-		print $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printLeftBlock', $parameters); // Note that $action and $object may have been modified by some hooks
+		print $hookManager->resPrint;
 
 		print '</div></div> <!-- End side-nav id-left -->'; // End div id="side-nav" div id="id-left"
 	}
@@ -3716,7 +3716,7 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
  */
 function main_area($title = '')
 {
-	global $conf, $langs, $hookmanager;
+	global $conf, $langs, $hookManager;
 
 	if (empty($conf->dol_hide_leftmenu) && !GETPOST('dol_openinpopup', 'aZ09')) {
 		print '<div id="id-right">';
@@ -3726,10 +3726,10 @@ function main_area($title = '')
 
 	print '<!-- Begin div class="fiche" -->'."\n".'<div class="fiche">'."\n";
 
-	$hookmanager->initHooks(array('main'));
+	$hookManager->initHooks(array('main'));
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printMainArea', $parameters); // Note that $action and $object may have been modified by some hooks
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printMainArea', $parameters); // Note that $action and $object may have been modified by some hooks
+	print $hookManager->resPrint;
 
 	if (getDolGlobalString('MAIN_ONLY_LOGIN_ALLOWED')) {
 		print info_admin($langs->trans("WarningYouAreInMaintenanceMode", getDolGlobalString('MAIN_ONLY_LOGIN_ALLOWED')), 0, 0, '1', 'warning maintenancemode');
@@ -3738,7 +3738,7 @@ function main_area($title = '')
 	// Permit to add user company information on each printed document by setting SHOW_SOCINFO_ON_PRINT
 	if (getDolGlobalString('SHOW_SOCINFO_ON_PRINT') && GETPOST('optioncss', 'aZ09') == 'print' && empty(GETPOST('disable_show_socinfo_on_print', 'aZ09'))) {
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('showSocinfoOnPrint', $parameters);
+		$reshook = $hookManager->executeHooks('showSocinfoOnPrint', $parameters);
 		if (empty($reshook)) {
 			print '<!-- Begin show mysoc info header -->'."\n";
 			print '<div id="mysoc-info-header">'."\n";
@@ -3878,7 +3878,7 @@ if (!function_exists("llxFooter")) {
 	 */
 	function llxFooter($comment = '', $zone = 'private', $disabledoutputofmessages = 0)
 	{
-		global $conf, $db, $langs, $user, $mysoc, $object, $hookmanager, $action;
+		global $conf, $db, $langs, $user, $mysoc, $object, $hookManager, $action;
 		global $delayedhtmlcontent;
 		global $contextpage, $page, $limit, $mode;
 		global $dolibarr_distrib;
@@ -3888,11 +3888,11 @@ if (!function_exists("llxFooter")) {
 		// Hook to add more things on all pages within fiche DIV
 		$llxfooter = '';
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('llxFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('llxFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($reshook)) {
-			$llxfooter .= $hookmanager->resPrint;
+			$llxfooter .= $hookManager->resPrint;
 		} elseif ($reshook > 0) {
-			$llxfooter = $hookmanager->resPrint;
+			$llxfooter = $hookManager->resPrint;
 		}
 		if ($llxfooter) {
 			print $llxfooter;
@@ -4127,9 +4127,9 @@ if (!function_exists("llxFooter")) {
 		}
 
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('beforeBodyClose', $parameters); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('beforeBodyClose', $parameters); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			print $hookmanager->resPrint;
+			print $hookManager->resPrint;
 		}
 
 		print "</body>\n";

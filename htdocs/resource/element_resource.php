@@ -43,7 +43,7 @@ if (isModEnabled("product") || isModEnabled("service")) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -59,7 +59,7 @@ $page                           = GETPOST('page','int');
 
 $object = new Dolresource($db);
 
-$hookmanager->initHooks(array('element_resource'));
+$hookManager->initHooks(array('element_resource'));
 $object->available_resources = array('dolresource');
 
 // Get parameters
@@ -114,9 +114,9 @@ if ($element == 'product' || $element == 'service') {	// When RESOURCE_ON_PRODUC
  */
 
 $parameters = array('resource_id' => $resource_id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -297,9 +297,9 @@ if (empty($reshook)) {
 }
 
 $parameters = array('resource_id' => $resource_id);
-$reshook = $hookmanager->executeHooks('getElementResources', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('getElementResources', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 
@@ -337,7 +337,7 @@ if (!$ret) {
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/agenda.lib.php';
 
 		// Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-		$hookmanager->initHooks(array('actioncard', 'globalcard'));
+		$hookManager->initHooks(array('actioncard', 'globalcard'));
 
 		$act = fetchObjectByElement($element_id, $element, $element_ref);
 		if (is_object($act)) {
@@ -376,11 +376,11 @@ if (!$ret) {
 
 			// Add more views from hooks
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('addCalendarView', $parameters, $object, $action);
+			$reshook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
 			if (empty($reshook)) {
-				$out .= $hookmanager->resPrint;
+				$out .= $hookManager->resPrint;
 			} elseif ($reshook > 1) {
-				$out = $hookmanager->resPrint;
+				$out = $hookManager->resPrint;
 			}
 
 			$linkback .= $out;
@@ -627,9 +627,9 @@ if (!$ret) {
 
 	// hook for other elements linked
 	$parameters = array('element' => $element, 'element_id' => $element_id, 'element_ref' => $element_ref);
-	$reshook = $hookmanager->executeHooks('printElementTab', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('printElementTab', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
 

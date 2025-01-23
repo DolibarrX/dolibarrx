@@ -40,7 +40,7 @@ require_once './lib/replenishment.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -49,7 +49,7 @@ require_once './lib/replenishment.lib.php';
 $langs->loadLangs(array('products', 'stocks', 'orders'));
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('stockatdate'));
+$hookManager->initHooks(array('stockatdate'));
 
 //checks if a product has been ordered
 
@@ -104,9 +104,9 @@ if (!$sortorder) {
 }
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 $dateIsValid = true;
@@ -296,8 +296,8 @@ if (!empty($search_fk_warehouse)) {
 }
 // Add fields from hooks
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
-$sql .= $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
+$sql .= $hookManager->resPrint;
 
 $sql .= ' FROM '.MAIN_DB_PREFIX.'product as p';
 if (!empty($search_fk_warehouse)) {
@@ -305,8 +305,8 @@ if (!empty($search_fk_warehouse)) {
 }
 // Add fields from hooks
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printFieldListJoin', $parameters); // Note that $action and $object may have been modified by hook
-$sql .= $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('printFieldListJoin', $parameters); // Note that $action and $object may have been modified by hook
+$sql .= $hookManager->resPrint;
 $sql .= ' WHERE p.entity IN ('.getEntity('product').')';
 if ($productid > 0) {
 	$sql .= " AND p.rowid = ".((int) $productid);
@@ -327,8 +327,8 @@ $sql .= ' GROUP BY p.rowid, p.ref, p.label, p.description, p.price, p.pmp, p.pri
 $sql .= ' p.tms, p.duration, p.tobuy, p.stock';
 // Add where from hooks
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
-$sql .= $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
+$sql .= $hookManager->resPrint;
 
 if ($sortfield == 'stock_reel' && empty($search_fk_warehouse)) {
 	$sortfield = 'stock';
@@ -435,9 +435,9 @@ if ($ext == 'csv') {
 	print '</div>';
 
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldPreListTitle', $parameters); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
-		print $hookmanager->resPrint;
+		print $hookManager->resPrint;
 	}
 
 	print '<div class="inline-block valignmiddle">';
@@ -517,8 +517,8 @@ if ($ext == 'csv') {
 	}
 	// Fields from hook
 	$parameters = array('param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-	$reshook = $hookmanager->executeHooks('printFieldListOption', $parameters); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListOption', $parameters); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 
 	print '<td class="liste_titre maxwidthsearch">';
 	$searchpicto = $form->showFilterAndCheckAddButtons(0);
@@ -554,8 +554,8 @@ if ($ext == 'csv') {
 
 	// Hook fields
 	$parameters = array('param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-	$reshook = $hookmanager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 
 	print_liste_field_titre('', $_SERVER["PHP_SELF"], '', $param, '', '', $sortfield, $sortorder, 'right ');
 
@@ -746,8 +746,8 @@ while ($i < ($limit ? min($num, $limit) : $num)) {
 
 			// Fields from hook
 			$parameters = array('objp' => $objp);
-			$reshook = $hookmanager->executeHooks('printFieldListValue', $parameters); // Note that $action and $object may have been modified by hook
-			print $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('printFieldListValue', $parameters); // Note that $action and $object may have been modified by hook
+			print $hookManager->resPrint;
 
 			// Action
 			print '<td class="right"></td>';
@@ -759,9 +759,9 @@ while ($i < ($limit ? min($num, $limit) : $num)) {
 }
 
 $parameters = array('sql' => $sql);
-$reshook = $hookmanager->executeHooks('printFieldListFooter', $parameters); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters); // Note that $action and $object may have been modified by hook
 if ($ext != 'csv') {
-	print $hookmanager->resPrint;
+	print $hookManager->resPrint;
 }
 
 $colspan = 8;

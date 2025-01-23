@@ -177,8 +177,8 @@ class FormFile
 	public function form_attach_new_file($url, $title = '', $addcancel = 0, $sectionid = 0, $perm = 1, $size = 50, $object = null, $options = '', $useajax = 1, $savingdocmask = '', $linkfiles = 1, $htmlname = 'formuserfile', $accept = '', $sectiondir = '', $usewithoutform = 0, $capture = 0, $disablemulti = 0, $nooutput = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs, $hookmanager;
-		$hookmanager->initHooks(array('formfile'));
+		global $conf, $langs, $hookManager;
+		$hookManager->initHooks(array('formfile'));
 
 		// Deprecation warning
 		if ($useajax == 2) {
@@ -310,11 +310,11 @@ class FormFile
 		}
 
 		$parameters = array('socid' => (isset($GLOBALS['socid']) ? $GLOBALS['socid'] : ''), 'id' => (isset($GLOBALS['id']) ? $GLOBALS['id'] : ''), 'url' => $url, 'perm' => $perm, 'options' => $options);
-		$res = $hookmanager->executeHooks('formattachOptionsUpload', $parameters, $object);
+		$res = $hookManager->executeHooks('formattachOptionsUpload', $parameters, $object);
 		if (empty($res)) {
 			$out = '<div class="'.($usewithoutform ? 'inline-block valignmiddle' : (($nooutput == 2 ? '' : 'attacharea ').'attacharea'.$htmlname)).'">'.$out.'</div>';
 		}
-		$out .= $hookmanager->resPrint;
+		$out .= $hookManager->resPrint;
 
 		$out .= "\n</div><!-- End form class=formattachnewfile -->\n";
 
@@ -366,11 +366,11 @@ class FormFile
 			}
 
 			$parameters = array('socid' => (isset($GLOBALS['socid']) ? $GLOBALS['socid'] : ''), 'id' => (isset($GLOBALS['id']) ? $GLOBALS['id'] : ''), 'url' => $url, 'perm' => $perm, 'options' => $options);
-			$res = $hookmanager->executeHooks('formattachOptions', $parameters, $object);
+			$res = $hookManager->executeHooks('formattachOptions', $parameters, $object);
 			if (empty($res)) {
 				$out2 = '<div class="'.($usewithoutform ? 'inline-block valignmiddle' : (($nooutput == 2 ? '' : 'attacharea ').$htmlname)).'">'.$out2.'</div>';
 			}
-			$out2 .= $hookmanager->resPrint;
+			$out2 .= $hookManager->resPrint;
 
 			$out2 .= "\n</div><!-- End form class=formlinknewurl -->\n";
 		}
@@ -453,11 +453,11 @@ class FormFile
 			dol_syslog(__METHOD__.": passing iconPDF parameter is deprecated", LOG_WARNING);
 		}
 
-		global $langs, $conf, $user, $hookmanager;
+		global $langs, $conf, $user, $hookManager;
 		global $form;
 
 		$reshook = 0;
-		if (is_object($hookmanager)) {
+		if (is_object($hookManager)) {
 			$parameters = array(
 				'modulepart' => &$modulepart,
 				'modulesubdir' => &$modulesubdir,
@@ -477,15 +477,15 @@ class FormFile
 				'hideifempty' => &$hideifempty,
 				'removeaction' => &$removeaction
 			);
-			$reshook = $hookmanager->executeHooks('showDocuments', $parameters, $object); // Note that parameters may have been updated by hook
+			$reshook = $hookManager->executeHooks('showDocuments', $parameters, $object); // Note that parameters may have been updated by hook
 			// May report error
 			if ($reshook < 0) {
-				setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			}
 		}
 		// Remode default action if $reskook > 0
 		if ($reshook > 0) {
-			return $hookmanager->resPrint;
+			return $hookManager->resPrint;
 		}
 
 		if (!is_object($form)) {
@@ -510,7 +510,7 @@ class FormFile
 			$printer = ($user->hasRight('printing', 'read') && isModEnabled('printing'));
 		}
 
-		$hookmanager->initHooks(array('formfile'));
+		$hookManager->initHooks(array('formfile'));
 
 		// Get list of files
 		$file_list = array();
@@ -885,8 +885,8 @@ class FormFile
 			$out .= $genbutton;
 			$out .= '</th>';
 
-			if (!empty($hookmanager->hooks['formfile'])) {
-				foreach ($hookmanager->hooks['formfile'] as $module) {
+			if (!empty($hookManager->hooks['formfile'])) {
+				foreach ($hookManager->hooks['formfile'] as $module) {
 					if (method_exists($module, 'formBuilddocLineOptions')) {
 						$colspanmore++;
 						$out .= '<th></th>';
@@ -897,9 +897,9 @@ class FormFile
 
 			// Execute hooks
 			$parameters = array('colspan' => ($colspan + $colspanmore), 'socid' => (isset($GLOBALS['socid']) ? $GLOBALS['socid'] : ''), 'id' => (isset($GLOBALS['id']) ? $GLOBALS['id'] : ''), 'modulepart' => $modulepart);
-			if (is_object($hookmanager)) {
-				$reshook = $hookmanager->executeHooks('formBuilddocOptions', $parameters, $GLOBALS['object']);
-				$out .= $hookmanager->resPrint;
+			if (is_object($hookManager)) {
+				$reshook = $hookManager->executeHooks('formBuilddocOptions', $parameters, $GLOBALS['object']);
+				$out .= $hookManager->resPrint;
 			}
 		}
 
@@ -1065,17 +1065,17 @@ class FormFile
 						$out .= '</td>';
 					}
 
-					if (is_object($hookmanager)) {
+					if (is_object($hookManager)) {
 						$addcolumforpicto = ($delallowed || $printer || $morepicto);
 						$colspan = (4 + ($addcolumforpicto ? 1 : 0));
 						$colspanmore = 0;
 						$parameters = array('colspan' => ($colspan + $colspanmore), 'socid' => (isset($GLOBALS['socid']) ? $GLOBALS['socid'] : ''), 'id' => (isset($GLOBALS['id']) ? $GLOBALS['id'] : ''), 'modulepart' => $modulepart, 'relativepath' => $relativepath);
-						$res = $hookmanager->executeHooks('formBuilddocLineOptions', $parameters, $file);
+						$res = $hookManager->executeHooks('formBuilddocLineOptions', $parameters, $file);
 						if (empty($res)) {
-							$out .= $hookmanager->resPrint; // Complete line
+							$out .= $hookManager->resPrint; // Complete line
 							$out .= '</tr>';
 						} else {
-							$out = $hookmanager->resPrint; // Replace all $out
+							$out = $hookManager->resPrint; // Replace all $out
 						}
 					}
 				}
@@ -1297,7 +1297,7 @@ class FormFile
 	public function list_of_documents($filearray, $object, $modulepart, $param = '', $forcedownload = 0, $relativepath = '', $permonobject = 1, $useinecm = 0, $textifempty = '', $maxlength = 0, $title = '', $url = '', $showrelpart = 0, $permtoeditline = -1, $upload_dir = '', $sortfield = '', $sortorder = 'ASC', $disablemove = 1, $addfilterfields = 0, $disablecrop = -1, $moreattrondiv = '', $moreoptions = array())
 	{
 		// phpcs:enable
-		global $user, $conf, $langs, $hookmanager, $form;
+		global $user, $conf, $langs, $hookManager, $form;
 		global $sortfield, $sortorder;
 		global $dolibarr_main_url_root;
 
@@ -1334,7 +1334,7 @@ class FormFile
 		// For example here $upload_dir = '/pathtodocuments/tax/vat/1'
 		// For example here $upload_dir = '/home/ldestailleur/git/dolibarr_dev/documents/fournisseur/facture/6/1/SI2210-0013' and relativedir='fournisseur/facture/6/1/SI2210-0013'
 
-		$hookmanager->initHooks(array('formfile'));
+		$hookManager->initHooks(array('formfile'));
 		$parameters = array(
 				'filearray' => $filearray,
 				'modulepart' => $modulepart,
@@ -1349,7 +1349,7 @@ class FormFile
 				'title' => $title,
 				'url' => $url
 		);
-		$reshook = $hookmanager->executeHooks('showFilesList', $parameters, $object);
+		$reshook = $hookManager->executeHooks('showFilesList', $parameters, $object);
 
 		if (!empty($reshook)) { // null or '' for bypass
 			return $reshook;
@@ -1812,7 +1812,7 @@ class FormFile
 	public function list_of_autoecmfiles($upload_dir, $filearray, $modulepart, $param, $forcedownload = 0, $relativepath = '', $permissiontodelete = 1, $useinecm = 0, $textifempty = '', $maxlength = 0, $url = '', $addfilterfields = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs, $hookmanager, $form;
+		global $conf, $langs, $hookManager, $form;
 		global $sortfield, $sortorder;
 		global $search_doc_ref;
 		global $dolibarr_main_url_root;
@@ -1932,12 +1932,12 @@ class FormFile
 			$object_instance = new Mo($this->db);
 		} else {
 			$parameters = array('modulepart' => $modulepart);
-			$reshook = $hookmanager->executeHooks('addSectionECMAuto', $parameters);
-			if ($reshook > 0 && is_array($hookmanager->resArray) && count($hookmanager->resArray) > 0) {
-				if (array_key_exists('classpath', $hookmanager->resArray) && !empty($hookmanager->resArray['classpath'])) {
-					dol_include_once($hookmanager->resArray['classpath']);
-					if (array_key_exists('classname', $hookmanager->resArray) && !empty($hookmanager->resArray['classname'])) {
-						$tmpclassname = $hookmanager->resArray['classname'];
+			$reshook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
+			if ($reshook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
+				if (array_key_exists('classpath', $hookManager->resArray) && !empty($hookManager->resArray['classpath'])) {
+					dol_include_once($hookManager->resArray['classpath']);
+					if (array_key_exists('classname', $hookManager->resArray) && !empty($hookManager->resArray['classname'])) {
+						$tmpclassname = $hookManager->resArray['classname'];
 						if (is_string($tmpclassname) && class_exists($tmpclassname)) {
 							$object_instance = new $tmpclassname($this->db);
 						}
@@ -2017,13 +2017,13 @@ class FormFile
 					$ref = (isset($reg[1]) ? $reg[1] : '');
 				} else {
 					$parameters = array('modulepart' => $modulepart, 'fileinfo' => $file);
-					$reshook = $hookmanager->executeHooks('addSectionECMAuto', $parameters);
-					if ($reshook > 0 && is_array($hookmanager->resArray) && count($hookmanager->resArray) > 0) {
-						if (array_key_exists('ref', $hookmanager->resArray) && !empty($hookmanager->resArray['ref'])) {
-							$ref = $hookmanager->resArray['ref'];
+					$reshook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
+					if ($reshook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
+						if (array_key_exists('ref', $hookManager->resArray) && !empty($hookManager->resArray['ref'])) {
+							$ref = $hookManager->resArray['ref'];
 						}
-						if (array_key_exists('id', $hookmanager->resArray) && !empty($hookmanager->resArray['id'])) {
-							$id = $hookmanager->resArray['id'];
+						if (array_key_exists('id', $hookManager->resArray) && !empty($hookManager->resArray['id'])) {
+							$id = $hookManager->resArray['id'];
 						}
 					}
 					//print 'Error: Value for modulepart = '.$modulepart.' is not yet implemented in function list_of_autoecmfiles'."\n";

@@ -42,7 +42,7 @@ if (isModEnabled('category')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -55,7 +55,7 @@ $langs->loadLangs(array('bills', 'companies', 'other'));
 
 $mode = GETPOST("mode") ? GETPOST("mode") : 'customer';
 
-$hookmanager->initHooks(array('invoicestats', 'globalcard'));
+$hookManager->initHooks(array('invoicestats', 'globalcard'));
 
 if ($mode == 'customer' && !$user->hasRight('facture', 'lire')) {
 	accessforbidden();
@@ -78,9 +78,9 @@ if ($user->socid > 0) {
 }
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 $nowyear = dol_print_date(dol_now('gmt'), "%Y", 'gmt');

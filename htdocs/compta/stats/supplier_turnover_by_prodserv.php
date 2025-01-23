@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -71,7 +71,7 @@ if ($selected_type == '') {
 }
 
 // Hook
-$hookmanager->initHooks(array('supplierturnoverbyprodservlist'));
+$hookManager->initHooks(array('supplierturnoverbyprodservlist'));
 
 $date_startyear = GETPOSTINT("date_startyear");
 $date_startmonth = GETPOSTINT("date_startmonth");

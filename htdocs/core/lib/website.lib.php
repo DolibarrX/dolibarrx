@@ -603,7 +603,7 @@ function redirectToContainer($containerref, $containeraliasalt = '', $containeri
  */
 function includeContainer($containerref, $once = 0, $cachedelay = 0)
 {
-	global $conf, $db, $hookmanager, $langs, $mysoc, $user, $website, $websitepage, $weblangs; // Very important. Required to have var available when running included containers.
+	global $conf, $db, $hookManager, $langs, $mysoc, $user, $website, $websitepage, $weblangs; // Very important. Required to have var available when running included containers.
 	global $includehtmlcontentopened;
 	global $websitekey, $websitepagefile;
 	'@phan-var-force Website $website';
@@ -699,7 +699,7 @@ function includeContainer($containerref, $once = 0, $cachedelay = 0)
  */
 function getStructuredData($type, $data = array())
 {
-	global $conf, $db, $hookmanager, $langs, $mysoc, $user, $website, $websitepage, $weblangs, $pagelangs; // Very important. Required to have var available when running included containers.
+	global $conf, $db, $hookManager, $langs, $mysoc, $user, $website, $websitepage, $weblangs, $pagelangs; // Very important. Required to have var available when running included containers.
 	'@phan-var-force Website $website';
 
 	$type = strtolower($type);
@@ -907,7 +907,7 @@ function getStructuredData($type, $data = array())
  */
 function getSocialNetworkHeaderCards($params = null)
 {
-	global $conf, $db, $hookmanager, $langs, $mysoc, $user, $website, $websitepage, $weblangs; // Very important. Required to have var available when running included containers.
+	global $conf, $db, $hookManager, $langs, $mysoc, $user, $website, $websitepage, $weblangs; // Very important. Required to have var available when running included containers.
 	'@phan-var-force Website $website';
 
 	$out = '';
@@ -1211,7 +1211,7 @@ function getPublicFilesOfObject($object)
  */
 function getPagesFromSearchCriterias($type, $algo, $searchstring, $max = 25, $sortfield = 'date_creation', $sortorder = 'DESC', $langcode = '', $otherfilters = [], $status = 1)
 {
-	global $conf, $db, $hookmanager, $langs, $mysoc, $user, $website, $websitepage, $weblangs; // Very important. Required to have var available when running included containers.
+	global $conf, $db, $hookManager, $langs, $mysoc, $user, $website, $websitepage, $weblangs; // Very important. Required to have var available when running included containers.
 	'@phan-var-force Website $website';
 
 	$error = 0;

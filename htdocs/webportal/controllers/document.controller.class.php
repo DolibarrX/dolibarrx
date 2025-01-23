@@ -89,7 +89,7 @@ class DocumentController extends Controller
 	 */
 	public function init()
 	{
-		global $conf, $hookmanager;
+		global $conf, $hookManager;
 
 		define('MAIN_SECURITY_FORCECSP', "default-src: 'none'");
 
@@ -222,14 +222,14 @@ class DocumentController extends Controller
 		}
 
 		// Hooks
-		$hookmanager->initHooks(array('document'));
+		$hookManager->initHooks(array('document'));
 		$parameters = array('ecmfile' => $ecmfile, 'modulepart' => $modulepart, 'original_file' => $original_file,
 			'entity' => $entity, 'refname' => $refname, 'fullpath_original_file' => $fullpath_original_file,
 			'filename' => $filename, 'fullpath_original_file_osencoded' => $fullpath_original_file_osencoded);
 		$object = new stdClass();
-		$reshook = $hookmanager->executeHooks('downloadDocument', $parameters, $object, $action); // Note that $action and $object may have been
+		$reshook = $hookManager->executeHooks('downloadDocument', $parameters, $object, $action); // Note that $action and $object may have been
 		if ($reshook < 0) {
-			$errors = $hookmanager->error . (is_array($hookmanager->errors) ? (!empty($hookmanager->error) ? ', ' : '') . implode(', ', $hookmanager->errors) : '');
+			$errors = $hookManager->error . (is_array($hookManager->errors) ? (!empty($hookManager->error) ? ', ' : '') . implode(', ', $hookManager->errors) : '');
 			dol_syslog("document.php - Errors when executing the hook 'downloadDocument' : " . $errors);
 			print "ErrorDownloadDocumentHooks: " . $errors;
 			exit;

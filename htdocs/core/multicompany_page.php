@@ -45,7 +45,7 @@ require_once '../main.inc.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -117,7 +117,7 @@ if (!isModEnabled('multicompany')) {
 	$multicompanyList .= '<br><br>';
 } else {
 	// Instantiate hooks of thirdparty module
-	$hookmanager->initHooks(array('multicompany'));
+	$hookManager->initHooks(array('multicompany'));
 
 	if (is_object($mc)) {
 		$listofentities = $mc->getEntitiesList(true, false, true);
@@ -182,11 +182,11 @@ if (!isModEnabled('multicompany')) {
 
 	// Execute hook printBookmarks
 	$parameters = array('multicompany' => $multicompanyList);
-	$reshook = $hookmanager->executeHooks('printMultiCompanyEntities', $parameters); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('printMultiCompanyEntities', $parameters); // Note that $action and $object may have been modified by some hooks
 	if (empty($reshook)) {
-		$multicompanyList .= $hookmanager->resPrint;
+		$multicompanyList .= $hookManager->resPrint;
 	} else {
-		$multicompanyList = $hookmanager->resPrint;
+		$multicompanyList = $hookManager->resPrint;
 	}
 }
 

@@ -210,7 +210,7 @@ class BlockedLogAuthority
 	 */
 	public function create($user)
 	{
-		global $conf, $langs, $hookmanager;
+		global $conf, $langs, $hookManager;
 
 		$langs->load('blockedlog');
 
@@ -257,7 +257,7 @@ class BlockedLogAuthority
 	 */
 	public function update($user)
 	{
-		global $conf, $langs, $hookmanager;
+		global $conf, $langs, $hookManager;
 
 		$langs->load('blockedlog');
 

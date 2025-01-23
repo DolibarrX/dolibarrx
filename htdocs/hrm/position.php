@@ -44,7 +44,7 @@ require_once DOL_DOCUMENT_ROOT . '/core/lib/company.lib.php';
  * @var Conf $conf
  * @var DoliDB $db
  * @var Form $form
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -90,7 +90,7 @@ $object = new Job($db);
 $objectposition = new Position($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->hrm->dir_output . '/temp/massgeneration/' . $user->id;
-$hookmanager->initHooks(array('jobpositioncard', 'globalcard')); // Note that conf->hooks_modules contains array
+$hookManager->initHooks(array('jobpositioncard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 
 // Fetch optionals attributes and labels
@@ -180,9 +180,9 @@ if (!$permissiontoread || ($action === 'create' && !$permissiontoadd)) {
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 if (empty($reshook)) {
 	$error = 0;
@@ -360,8 +360,8 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 	}
 	// Add fields from hooks
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
-	$sql .= $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
+	$sql .= $hookManager->resPrint;
 	$sql = preg_replace('/,\s*$/', '', $sql);
 	$sql .= " FROM " . MAIN_DB_PREFIX . $object->table_element . " as t";
 	if (isset($extrafields->attributes[$object->table_element]['label']) && is_array($extrafields->attributes[$object->table_element]['label']) && count($extrafields->attributes[$object->table_element]['label'])) {
@@ -369,8 +369,8 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 	}
 	// Add table from hooks
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
-	$sql .= $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object); // Note that $action and $object may have been modified by hook
+	$sql .= $hookManager->resPrint;
 	if ($object->ismultientitymanaged == 1) {
 		$sql .= " WHERE t.entity IN (" . getEntity($object->element) . ")";
 	} else {
@@ -415,8 +415,8 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 	include DOL_DOCUMENT_ROOT . '/core/tpl/extrafields_list_search_sql.tpl.php';
 	// Add where from hooks
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
-	$sql .= $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
+	$sql .= $hookManager->resPrint;
 
 	$sql .= $db->order($sortfield, $sortorder);
 
@@ -480,8 +480,8 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 	include DOL_DOCUMENT_ROOT . '/core/tpl/extrafields_list_search_param.tpl.php';
 	// Add $param from hooks
 	$parameters = array('param' => &$param);
-	$reshook = $hookmanager->executeHooks('printFieldListSearchParam', $parameters, $object); // Note that $action and $object may have been modified by hook
-	$param .= $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object); // Note that $action and $object may have been modified by hook
+	$param .= $hookManager->resPrint;
 
 	// List of mass actions available
 	$arrayofmassactions = array(
@@ -536,11 +536,11 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 	 $moreforfilter.= '</div>';*/
 
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldPreListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
-		$moreforfilter .= $hookmanager->resPrint;
+		$moreforfilter .= $hookManager->resPrint;
 	} else {
-		$moreforfilter = $hookmanager->resPrint;
+		$moreforfilter = $hookManager->resPrint;
 	}
 
 	if (!empty($moreforfilter)) {
@@ -594,8 +594,8 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 
 	// Fields from hook
 	$parameters = array('arrayfields' => $arrayfields);
-	$reshook = $hookmanager->executeHooks('printFieldListOption', $parameters, $object); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListOption', $parameters, $object); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 	// Action column
 	print '<td class="liste_titre maxwidthsearch">';
 	$searchpicto = $form->showFilterButtons();
@@ -626,8 +626,8 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 	include DOL_DOCUMENT_ROOT . '/core/tpl/extrafields_list_search_title.tpl.php';
 	// Hook fields
 	$parameters = array('arrayfields' => $arrayfields, 'param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-	$reshook = $hookmanager->executeHooks('printFieldListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 	// Action column
 	print getTitleFieldOfList($selectedfields, 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'center maxwidthsearch ') . "\n";
 	print '</tr>' . "\n";
@@ -709,8 +709,8 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 		include DOL_DOCUMENT_ROOT . '/core/tpl/extrafields_list_print_fields.tpl.php';
 		// Fields from hook
 		$parameters = array('arrayfields' => $arrayfields, 'object' => $object, 'obj' => $obj, 'i' => $i, 'totalarray' => &$totalarray);
-		$reshook = $hookmanager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
-		print $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $object); // Note that $action and $object may have been modified by hook
+		print $hookManager->resPrint;
 		// Action column
 		print '<td class="nowrap center">';
 		if ($massactionbutton || $massaction) { // If we are in select mode (massactionbutton defined) or if we have already selected and sent an action ($massaction) defined
@@ -748,8 +748,8 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 	$db->free($resql);
 
 	$parameters = array('arrayfields' => $arrayfields, 'sql' => $sql);
-	$reshook = $hookmanager->executeHooks('printFieldListFooter', $parameters, $object); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 
 	print '</table>' . "\n";
 	print '</div>' . "\n";

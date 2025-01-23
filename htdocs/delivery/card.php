@@ -53,7 +53,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -72,7 +72,7 @@ $id = GETPOSTINT('id');
 
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('deliverycard', 'globalcard'));
+$hookManager->initHooks(array('deliverycard', 'globalcard'));
 
 $object = new Delivery($db);
 $extrafields = new ExtraFields($db);
@@ -107,7 +107,7 @@ $permissiondellink = $user->hasRight('expedition', 'delivery', 'creer'); // Used
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);       // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);       // Note that $action and $object may have been modified by some hooks
 // Delete Link
 $permissiondellink = $user->hasRight('expedition', 'delivery', 'supprimer'); // Used by the include of actions_dellink.inc.php
 include DOL_DOCUMENT_ROOT.'/core/actions_dellink.inc.php';     // Must be 'include', not 'include_once'
@@ -539,9 +539,9 @@ if ($action == 'create') {
 			}
 			while ($i < $num_prod) {
 				$parameters = array('i' => $i, 'line' => $object->lines[$i], 'num' => $num_prod);
-				$reshook = $hookmanager->executeHooks('printObjectLine', $parameters, $object, $action);
+				$reshook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action);
 				if ($reshook < 0) {
-					setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 
 				if (empty($reshook)) {

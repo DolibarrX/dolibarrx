@@ -48,7 +48,7 @@ class ActionsMyModule extends CommonHookActions
 
 
 	/**
-	 * @var mixed[] Hook results. Propagated to $hookmanager->resArray for later reuse
+	 * @var mixed[] Hook results. Propagated to $hookManager->resArray for later reuse
 	 */
 	public $results = array();
 
@@ -97,10 +97,10 @@ class ActionsMyModule extends CommonHookActions
 	 * @param	array<string,mixed>	$parameters		Hook metadata (context, etc...)
 	 * @param	CommonObject		$object			The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
 	 * @param	?string				$action			Current action (if set). Generally create or edit or null
-	 * @param	HookManager			$hookmanager	Hook manager propagated to allow calling another hook
+	 * @param	HookManager			$hookManager	Hook manager propagated to allow calling another hook
 	 * @return	int									Return integer < 0 on error, 0 on success, 1 to replace standard code
 	 */
-	public function doActions($parameters, &$object, &$action, $hookmanager)
+	public function doActions($parameters, &$object, &$action, $hookManager)
 	{
 		global $conf, $user, $langs;
 
@@ -132,10 +132,10 @@ class ActionsMyModule extends CommonHookActions
 	 * @param	array<string,mixed>	$parameters		Hook metadata (context, etc...)
 	 * @param	CommonObject		$object			The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
 	 * @param	?string				$action			Current action (if set). Generally create or edit or null
-	 * @param	HookManager			$hookmanager	Hook manager propagated to allow calling another hook
+	 * @param	HookManager			$hookManager	Hook manager propagated to allow calling another hook
 	 * @return	int									Return integer < 0 on error, 0 on success, 1 to replace standard code
 	 */
-	public function doMassActions($parameters, &$object, &$action, $hookmanager)
+	public function doMassActions($parameters, &$object, &$action, $hookManager)
 	{
 		global $conf, $user, $langs;
 
@@ -168,10 +168,10 @@ class ActionsMyModule extends CommonHookActions
 	 * @param	array<string,mixed>	$parameters     Hook metadata (context, etc...)
 	 * @param	CommonObject		$object         The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
 	 * @param	?string	$action						Current action (if set). Generally create or edit or null
-	 * @param	HookManager	$hookmanager			Hook manager propagated to allow calling another hook
+	 * @param	HookManager	$hookManager			Hook manager propagated to allow calling another hook
 	 * @return	int									Return integer < 0 on error, 0 on success, 1 to replace standard code
 	 */
-	public function addMoreMassActions($parameters, &$object, &$action, $hookmanager)
+	public function addMoreMassActions($parameters, &$object, &$action, $hookManager)
 	{
 		global $conf, $user, $langs;
 
@@ -206,7 +206,7 @@ class ActionsMyModule extends CommonHookActions
 	public function beforePDFCreation($parameters, &$object, &$action)
 	{
 		global $conf, $user, $langs;
-		global $hookmanager;
+		global $hookManager;
 
 		$outputlangs = $langs;
 
@@ -235,7 +235,7 @@ class ActionsMyModule extends CommonHookActions
 	public function afterPDFCreation($parameters, &$pdfhandler, &$action)
 	{
 		global $conf, $user, $langs;
-		global $hookmanager;
+		global $hookManager;
 
 		$outputlangs = $langs;
 
@@ -259,10 +259,10 @@ class ActionsMyModule extends CommonHookActions
 	 *
 	 * @param	array<string,mixed>	$parameters		Hook metadata (context, etc...)
 	 * @param	?string				$action 		Current action (if set). Generally create or edit or null
-	 * @param	HookManager			$hookmanager    Hook manager propagated to allow calling another hook
+	 * @param	HookManager			$hookManager    Hook manager propagated to allow calling another hook
 	 * @return	int									Return integer < 0 on error, 0 on success, 1 to replace standard code
 	 */
-	public function loadDataForCustomReports($parameters, &$action, $hookmanager)
+	public function loadDataForCustomReports($parameters, &$action, $hookManager)
 	{
 		global $langs;
 
@@ -304,12 +304,12 @@ class ActionsMyModule extends CommonHookActions
 	 *
 	 * @param	array<string,mixed>	$parameters		Hook metadata (context, etc...)
 	 * @param	string				$action			Current action (if set). Generally create or edit or null
-	 * @param	HookManager			$hookmanager	Hook manager propagated to allow calling another hook
+	 * @param	HookManager			$hookManager	Hook manager propagated to allow calling another hook
 	 * @return	int									Return integer <0 if KO,
 	 *												=0 if OK but we want to process standard actions too,
 	 *												>0 if OK and we want to replace standard actions.
 	 */
-	public function restrictedArea($parameters, &$action, $hookmanager)
+	public function restrictedArea($parameters, &$action, $hookManager)
 	{
 		global $user;
 
@@ -332,12 +332,12 @@ class ActionsMyModule extends CommonHookActions
 	 * @param	array<string,mixed>	$parameters		Array of parameters
 	 * @param	CommonObject		$object			The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
 	 * @param	string				$action			'add', 'update', 'view'
-	 * @param	Hookmanager			$hookmanager	Hookmanager
+	 * @param	Hookmanager			$hookManager	Hookmanager
 	 * @return	int									Return integer <0 if KO,
 	 *												=0 if OK but we want to process standard actions too,
 	 *												>0 if OK and we want to replace standard actions.
 	 */
-	public function completeTabsHead(&$parameters, &$object, &$action, $hookmanager)
+	public function completeTabsHead(&$parameters, &$object, &$action, $hookManager)
 	{
 		global $langs, $conf, $user;
 

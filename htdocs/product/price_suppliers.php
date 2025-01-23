@@ -49,7 +49,7 @@ if (isModEnabled('barcode')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -109,7 +109,7 @@ if (!$sortorder) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('pricesuppliercard', 'globalcard'));
+$hookManager->initHooks(array('pricesuppliercard', 'globalcard'));
 
 $object = new ProductFournisseur($db);
 $prod = new Product($db);
@@ -142,9 +142,9 @@ if ($cancel) {
 }
 
 $parameters = array('socid'=>$socid, 'id_prod'=>$id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -520,7 +520,7 @@ if ($id > 0 || $ref) {
 					print img_picto('', 'company', 'class="pictofixedwidth"').$form->select_company(GETPOST("id_fourn", 'alpha'), 'id_fourn', $filter, $langs->transnoentitiesnoconv('SelectThirdParty'), 0, 0, $events);
 
 					$parameters = array('filter'=>$filter, 'html_name'=>'id_fourn', 'selected'=>GETPOST("id_fourn"), 'showempty'=>1, 'prod_id'=>$object->id);
-					$reshook = $hookmanager->executeHooks('formCreateThirdpartyOptions', $parameters, $object, $action);
+					$reshook = $hookManager->executeHooks('formCreateThirdpartyOptions', $parameters, $object, $action);
 					if (empty($reshook)) {
 						if (empty($form->result)) {
 							print '<a href="'.DOL_URL_ROOT.'/societe/card.php?action=create&type=f&backtopage='.urlencode($_SERVER["PHP_SELF"].'?id='.((int) $object->id).'&action='.urlencode($action).($action == 'create_price' ? '&token='.newToken() : '')).'">';
@@ -900,10 +900,10 @@ if ($id > 0 || $ref) {
 					}
 				}
 
-				if (is_object($hookmanager)) {
+				if (is_object($hookManager)) {
 					$parameters = array('id_fourn'=>!empty($id_fourn) ? $id_fourn : 0, 'prod_id'=>$object->id);
-					$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action);
-					print $hookmanager->resPrint;
+					$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action);
+					print $hookManager->resPrint;
 				}
 
 				print '</table>';
@@ -926,7 +926,7 @@ if ($id > 0 || $ref) {
 
 			if ($action != 'create_price' && $action != 'edit_price') {
 				$parameters = array();
-				$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if (empty($reshook)) {
 					if ($usercancreate) {
 						print '<a class="butAction" href="'.DOL_URL_ROOT.'/product/price_suppliers.php?id='.((int) $object->id).'&action=create_price&token='.newToken().'">';
@@ -1129,9 +1129,9 @@ if ($id > 0 || $ref) {
 					}
 				}
 
-				if (is_object($hookmanager)) {
+				if (is_object($hookManager)) {
 					$parameters = array('id_fourn'=>(!empty($id_fourn) ? $id_fourn : ''), 'prod_id'=>$object->id, 'nbfields'=>$nbfields);
-					$reshook = $hookmanager->executeHooks('printFieldListTitle', $parameters, $object, $action);
+					$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object, $action);
 				}
 				if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 					print_liste_field_titre($selectedfields, $_SERVER["PHP_SELF"], "", '', '', '', $sortfield, $sortorder, 'maxwidthsearch center ');
@@ -1328,9 +1328,9 @@ if ($id > 0 || $ref) {
 							}
 						}
 
-						if (is_object($hookmanager)) {
+						if (is_object($hookManager)) {
 							$parameters = array('id_pfp'=>$productfourn->product_fourn_price_id, 'id_fourn'=>(!empty($id_fourn) ? $id_fourn : ''), 'prod_id'=>$object->id);
-							$reshook = $hookmanager->executeHooks('printFieldListValue', $parameters, $object, $action);
+							$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $object, $action);
 						}
 
 						// Modify-Remove

@@ -202,7 +202,7 @@ class pdf_crabe extends ModelePDFFactures
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $hookmanager, $nblines;
+		global $user, $langs, $conf, $mysoc, $hookManager, $nblines;
 
 		dol_syslog("write_file outputlangs->defaultlang=".(is_object($outputlangs) ? $outputlangs->defaultlang : 'null'));
 
@@ -288,14 +288,14 @@ class pdf_crabe extends ModelePDFFactures
 
 			if (file_exists($dir)) {
 				// Add pdfgeneration hook
-				if (!is_object($hookmanager)) {
+				if (!is_object($hookManager)) {
 					include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-					$hookmanager = new HookManager($this->db);
+					$hookManager = new HookManager($this->db);
 				}
-				$hookmanager->initHooks(array('pdfgeneration'));
+				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookmanager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Set nblines with the new facture lines content after hook
 				$nblines = count($object->lines);
@@ -501,9 +501,9 @@ class pdf_crabe extends ModelePDFFactures
 					'outputlangs' => $outputlangs,
 					'hidedetails' => $hidedetails
 				);
-				$reshook = $hookmanager->executeHooks('printUnderHeaderPDFline', $parameters, $this); // Note that $object may have been modified by hook
-				if (!empty($hookmanager->resArray['extra_under_address_shift'])) {
-					$extra_under_address_shift += $hookmanager->resArray['extra_under_address_shift'];
+				$reshook = $hookManager->executeHooks('printUnderHeaderPDFline', $parameters, $this); // Note that $object may have been modified by hook
+				if (!empty($hookManager->resArray['extra_under_address_shift'])) {
+					$extra_under_address_shift += $hookManager->resArray['extra_under_address_shift'];
 				}
 
 				$tab_top += $extra_under_address_shift;
@@ -923,13 +923,13 @@ class pdf_crabe extends ModelePDFFactures
 				$pdf->Output($file, 'F');
 
 				// Add pdfgeneration hook
-				$hookmanager->initHooks(array('pdfgeneration'));
+				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookmanager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					$this->error = $hookmanager->error;
-					$this->errors = $hookmanager->errors;
+					$this->error = $hookManager->error;
+					$this->errors = $hookManager->errors;
 				}
 
 				dolChmod($file);
@@ -1162,7 +1162,7 @@ class pdf_crabe extends ModelePDFFactures
 	protected function _tableau_info(&$pdf, $object, $posy, $outputlangs, $outputlangsbis)
 	{
 		// phpcs:enable
-		global $mysoc, $hookmanager;
+		global $mysoc, $hookManager;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
@@ -1454,7 +1454,7 @@ class pdf_crabe extends ModelePDFFactures
 	protected function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs, $outputlangsbis)
 	{
 		// phpcs:enable
-		global $conf, $mysoc, $hookmanager;
+		global $conf, $mysoc, $hookManager;
 
 		$sign = 1;
 		if ($object->type == 2 && getDolGlobalString('INVOICE_POSITIVE_CREDIT_NOTE')) {

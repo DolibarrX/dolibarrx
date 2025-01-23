@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -86,7 +86,7 @@ $usercancreate = false;
 $object = new FactureFournisseur($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->facture->multidir_output[$conf->entity].'/temp/massgeneration/'.$user->id;
-$hookmanager->initHooks(array('invoiceagenda', 'globalcard')); // Note that conf->hooks_modules contains array
+$hookManager->initHooks(array('invoiceagenda', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
 
@@ -122,9 +122,9 @@ $result = restrictedArea($user, 'fournisseur', $id, 'facture_fourn', 'facture', 
 */
 
 $parameters = array('id' => $id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

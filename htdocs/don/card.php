@@ -49,7 +49,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -88,7 +88,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 $search_array_options = $extrafields->getOptionalsFromPost($object->table_element, '', 'search_');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array($object->element.'card', 'globalcard'));
+$hookManager->initHooks(array($object->element.'card', 'globalcard'));
 
 $upload_dir = $conf->don->dir_output;
 
@@ -109,9 +109,9 @@ $error = 0;
 
 $parameters = array();
 
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -519,8 +519,8 @@ if ($action == 'create') {
 
 	// Other attributes
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 	if (empty($reshook)) {
 		print $object->showOptionals($extrafields, 'create', $parameters);
 	}
@@ -641,8 +641,8 @@ if (!empty($id) && $action == 'edit') {
 
 	// Other attributes
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 	if (empty($reshook)) {
 		print $object->showOptionals($extrafields, 'edit', $parameters);
 	}
@@ -883,7 +883,7 @@ if (!empty($id) && $action != 'edit') {
 
 	print '<div class="tabsAction">';
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action);
 	if (empty($reshook)) {
 		// Re-open
 		if ($permissiontoadd && $object->status == $object::STATUS_CANCELED) {

@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT."/product/class/product.class.php";
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -44,7 +44,7 @@ require_once DOL_DOCUMENT_ROOT."/product/class/product.class.php";
 $langs->loadLangs(array('products', 'companies', 'contracts'));
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('contractindex'));
+$hookManager->initHooks(array('contractindex'));
 
 $sortfield = GETPOST('sortfield', 'aZ09comma');
 $sortorder = GETPOST('sortorder', 'aZ09comma');
@@ -704,7 +704,7 @@ if ($resql) {
 print '</div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardContracts', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardContracts', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 llxFooter();
 

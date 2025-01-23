@@ -31,7 +31,7 @@ require_once DOL_DOCUMENT_ROOT.'/webhook/lib/webhook.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/webhook/lib/webhook.lib.php';
 $langs->loadLangs(array("admin", "webhook"));
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('webhooksetup', 'globalsetup'));
+$hookManager->initHooks(array('webhooksetup', 'globalsetup'));
 
 // Access control
 if (!$user->admin) {

@@ -41,7 +41,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -91,7 +91,7 @@ $socid = '';
 if (!empty($user->socid)) {
 	$socid = $user->socid;
 }
-$hookmanager->initHooks(array('propaldocument', 'globalcard'));
+$hookManager->initHooks(array('propaldocument', 'globalcard'));
 restrictedArea($user, 'propal', $object->id);
 
 $usercancreate = $user->hasRight("propal", "creer");

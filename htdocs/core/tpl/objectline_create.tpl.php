@@ -40,7 +40,7 @@
  * @var CommonObject $object
  * @var CommonObjectLine $line
  * @var Form $form
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -393,18 +393,18 @@ if ($nolinesbefore) {
 			echo '<br>'.$langs->trans('AddLineOnPosition').' : <input type="number" name="rank" step="1" min="0" style="width: 5em;">';
 		}
 
-		if (is_object($hookmanager) && empty($senderissupplier)) {
+		if (is_object($hookManager) && empty($senderissupplier)) {
 			$parameters = array('fk_parent_line' => GETPOSTINT('fk_parent_line'));
-			$reshook = $hookmanager->executeHooks('formCreateProductOptions', $parameters, $object, $action);
-			if (!empty($hookmanager->resPrint)) {
-				print $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('formCreateProductOptions', $parameters, $object, $action);
+			if (!empty($hookManager->resPrint)) {
+				print $hookManager->resPrint;
 			}
 		}
-		if (is_object($hookmanager) && !empty($senderissupplier)) {
+		if (is_object($hookManager) && !empty($senderissupplier)) {
 			$parameters = array('htmlname' => 'addproduct');
-			$reshook = $hookmanager->executeHooks('formCreateProductSupplierOptions', $parameters, $object, $action);
-			if (!empty($hookmanager->resPrint)) {
-				print $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('formCreateProductSupplierOptions', $parameters, $object, $action);
+			if (!empty($hookManager->resPrint)) {
+				print $hookManager->resPrint;
 			}
 		}
 		if (isModEnabled("product") || isModEnabled("service")) {

@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT.'/ecm/class/ecmdirectory.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -97,7 +97,7 @@ if ($user->socid) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('ecmautocard', 'globalcard'));
+$hookManager->initHooks(array('ecmautocard', 'globalcard'));
 
 $result = restrictedArea($user, 'ecm', 0);
 
@@ -410,10 +410,10 @@ if (!getDolGlobalString('ECM_AUTO_TREE_HIDEN')) {
 	$sectionauto[] = array('position' => 220, 'level' => 1, 'module' => 'user', 'test' => 1, 'label' => $langs->trans("Users"), 'desc' => $langs->trans("ECMDocsBy", $langs->transnoentitiesnoconv("Users")));
 
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('addSectionECMAuto', $parameters);
-	if ($reshook > 0 && is_array($hookmanager->resArray) && count($hookmanager->resArray) > 0) {
-		$sectionauto[] = $hookmanager->resArray;
-		$rowspan += count($hookmanager->resArray);
+	$reshook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
+	if ($reshook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
+		$sectionauto[] = $hookManager->resArray;
+		$rowspan += count($hookManager->resArray);
 	}
 }
 

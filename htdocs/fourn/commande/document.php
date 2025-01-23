@@ -43,7 +43,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -74,7 +74,7 @@ if (!$sortfield) {
 	$sortfield = "name";
 }
 
-$hookmanager->initHooks(array('ordersuppliercarddocument'));
+$hookManager->initHooks(array('ordersuppliercarddocument'));
 
 $object = new CommandeFournisseur($db);
 if ($object->fetch($id, $ref) < 0) {

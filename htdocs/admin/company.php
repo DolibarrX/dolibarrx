@@ -49,7 +49,7 @@ $page_y = GETPOSTINT('page_y');
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -72,7 +72,7 @@ $maxheightmini = $tmparraysize['maxheightmini'];
 $quality = $tmparraysize['quality'];
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('admincompany', 'globaladmin'));
+$hookManager->initHooks(array('admincompany', 'globaladmin'));
 
 
 /*
@@ -80,9 +80,9 @@ $hookmanager->initHooks(array('admincompany', 'globaladmin'));
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (($action == 'update' && !GETPOST("cancel", 'alpha'))

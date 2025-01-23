@@ -34,7 +34,7 @@ require_once DOL_DOCUMENT_ROOT.'/margin/lib/margins.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -70,7 +70,7 @@ if (GETPOST('enddatemonth')) {
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $object = new Societe($db);
-$hookmanager->initHooks(array('margincustomerlist'));
+$hookManager->initHooks(array('margincustomerlist'));
 
 // Security check
 $socid = GETPOSTINT('socid');

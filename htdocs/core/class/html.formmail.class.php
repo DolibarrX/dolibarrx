@@ -470,7 +470,7 @@ class FormMail extends Form
 	public function get_form($addfileaction = 'addfile', $removefileaction = 'removefile')
 	{
 		// phpcs:enable
-		global $conf, $langs, $user, $hookmanager, $form;
+		global $conf, $langs, $user, $hookManager, $form;
 
 		// Required to show preview wof mail attachments
 		require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
@@ -489,17 +489,17 @@ class FormMail extends Form
 		}
 
 		// Call hook getFormMail
-		$hookmanager->initHooks(array('formmail'));
+		$hookManager->initHooks(array('formmail'));
 
 		$parameters = array(
 			'addfileaction' => $addfileaction,
 			'removefileaction' => $removefileaction,
 			'trackid' => $this->trackid
 		);
-		$reshook = $hookmanager->executeHooks('getFormMail', $parameters, $this);
+		$reshook = $hookManager->executeHooks('getFormMail', $parameters, $this);
 
 		if (!empty($reshook)) {
-			return $hookmanager->resPrint;
+			return $hookManager->resPrint;
 		} else {
 			$out = '';
 

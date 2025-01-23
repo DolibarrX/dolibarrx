@@ -68,7 +68,7 @@ require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -152,18 +152,18 @@ if (!getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) {
 }
 
 // Initialize technical object to manage hooks. Note that conf->hooks_modules contains array of hooks
-$hookmanager->initHooks(array('fichinterexport'));
+$hookManager->initHooks(array('fichinterexport'));
 
 // Note that $action and $object may have been modified by some
-$reshook = $hookmanager->executeHooks('doActions', $filters);
+$reshook = $hookManager->executeHooks('doActions', $filters);
 if ($reshook < 0) {
 	top_httphead();
 
 	print '<html><title>Export fichinter cal</title><body>';
-	if (!empty($hookmanager->errors) && is_array($hookmanager->errors)) {
-		print '<div class="error">'.implode('<br>', $hookmanager->errors).'</div>';
+	if (!empty($hookManager->errors) && is_array($hookManager->errors)) {
+		print '<div class="error">'.implode('<br>', $hookManager->errors).'</div>';
 	} else {
-		print '<div class="error">'.$hookmanager->error.'</div>';
+		print '<div class="error">'.$hookManager->error.'</div>';
 	}
 	print '</body></html>';
 } elseif (empty($reshook)) {
@@ -385,7 +385,7 @@ function build_exportfile($format, $type, $cachedelay, $filename, $filters)
 	// logini : user login who make the intenventional
 	// loginr : user login who is responsible of interventional
 
-	global $hookmanager;
+	global $hookManager;
 	global $db;
 
 	// phpcs:enable
@@ -463,8 +463,8 @@ function build_exportfile($format, $type, $cachedelay, $filename, $filters)
 
 		$parameters = array('filters' => $filters);
 		// Note that $action and $object may have been modified by hook
-		$reshook = $hookmanager->executeHooks('printFieldListFrom', $parameters);
-		$sql .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters);
+		$sql .= $hookManager->resPrint;
 
 		$sql .= " WHERE f.entity IN (".getEntity('fichinter').")";
 
@@ -556,8 +556,8 @@ function build_exportfile($format, $type, $cachedelay, $filename, $filters)
 
 		$parameters = array('filters' => $filters);
 		// Note that $action and $object may have been modified by hook
-		$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters);
-		$sql .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters);
+		$sql .= $hookManager->resPrint;
 
 		$sql .= " ORDER by fd.date";
 
@@ -656,9 +656,9 @@ function build_exportfile($format, $type, $cachedelay, $filename, $filters)
 
 			$parameters = array('filters' => $filters, 'eventarray' => &$eventarray);
 			// Note that $action and $object may have been modified by hook
-			$reshook = $hookmanager->executeHooks('addMoreEventsExport', $parameters);
+			$reshook = $hookManager->executeHooks('addMoreEventsExport', $parameters);
 			if ($reshook > 0) {
-				$eventarray = $hookmanager->resArray;
+				$eventarray = $hookManager->resArray;
 			}
 		} else {
 			print $db->lasterror();

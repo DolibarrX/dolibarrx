@@ -826,7 +826,7 @@ class CMailFile
 	 */
 	public function sendfile()
 	{
-		global $conf, $db, $langs, $hookmanager;
+		global $conf, $db, $langs, $hookManager;
 
 		$errorlevel = error_reporting();
 		//error_reporting($errorlevel ^ E_WARNING);   // Desactive warnings
@@ -834,15 +834,15 @@ class CMailFile
 		$res = false;
 
 		if (!getDolGlobalString('MAIN_DISABLE_ALL_MAILS')) {
-			if (!is_object($hookmanager)) {
+			if (!is_object($hookManager)) {
 				include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-				$hookmanager = new HookManager($db);
+				$hookManager = new HookManager($db);
 			}
-			$hookmanager->initHooks(array('mail'));
+			$hookManager->initHooks(array('mail'));
 
 			$parameters = array();
 			$action = '';
-			$reshook = $hookmanager->executeHooks('sendMail', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+			$reshook = $hookManager->executeHooks('sendMail', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 			if ($reshook < 0) {
 				$this->error = "Error in hook maildao sendMail ".$reshook;
 				dol_syslog("CMailFile::sendfile: mail end error=".$this->error, LOG_ERR);
@@ -1414,7 +1414,7 @@ class CMailFile
 
 			$parameters = array('sent' => $res);
 			$action = '';
-			$reshook = $hookmanager->executeHooks('sendMailAfter', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+			$reshook = $hookManager->executeHooks('sendMailAfter', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 			if ($reshook < 0) {
 				$this->error = "Error in hook maildao sendMailAfter ".$reshook;
 				dol_syslog("CMailFile::sendfile: mail end error=".$this->error, LOG_ERR);

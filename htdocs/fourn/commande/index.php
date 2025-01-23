@@ -37,7 +37,7 @@ require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -46,7 +46,7 @@ require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
 $langs->loadLangs(array("suppliers", "orders"));
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('orderssuppliersindex'));
+$hookManager->initHooks(array('orderssuppliersindex'));
 
 $max = getDolGlobalInt('MAIN_SIZE_SHORTLIST_LIMIT', 5);
 
@@ -443,7 +443,7 @@ print "</table></div><br>";
 print '</div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardOrdersSuppliers', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardOrdersSuppliers', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

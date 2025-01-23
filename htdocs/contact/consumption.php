@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -99,7 +99,7 @@ $type_element = GETPOSTISSET('type_element') ? GETPOST('type_element') : '';
 $langs->loadLangs(array("companies", "bills", "orders", "suppliers", "propal", "interventions", "contracts", "products"));
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('consumptioncontact'));
+$hookManager->initHooks(array('consumptioncontact'));
 
 $result = restrictedArea($user, 'contact', $object->id, 'socpeople&societe');
 
@@ -109,9 +109,9 @@ $result = restrictedArea($user, 'contact', $object->id, 'socpeople&societe');
  */
 
 $parameters = array('id' => $id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 
@@ -327,7 +327,7 @@ if ($type_element == 'fichinter') { 	// Customer : show products from invoices
 $parameters = array();
 $totalnboflines = 0;
 $sql = '';
-$reshook = $hookmanager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
 
 if (!empty($sql_select)) {
 	$sql = $sql_select;

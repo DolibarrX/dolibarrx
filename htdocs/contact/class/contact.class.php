@@ -433,7 +433,7 @@ class Contact extends CommonObject
 	 */
 	public function loadStateBoard()
 	{
-		global $user, $hookmanager;
+		global $user, $hookManager;
 
 		$this->nb = array();
 		$clause = "WHERE";
@@ -452,10 +452,10 @@ class Contact extends CommonObject
 			$sql .= " AND sp.fk_soc = ".((int) $user->socid);
 		}
 		// Add where from hooks
-		if (is_object($hookmanager)) {
+		if (is_object($hookManager)) {
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $this); // Note that $action and $object may have been modified by hook
-			$sql .= $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $this); // Note that $action and $object may have been modified by hook
+			$sql .= $hookManager->resPrint;
 		}
 
 		$resql = $this->db->query($sql);
@@ -1537,7 +1537,7 @@ class Contact extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $maxlen = 0, $moreparam = '', $save_lastsearch_value = -1, $notooltip = 0, $morecss = 'valignmiddle')
 	{
-		global $conf, $langs, $hookmanager;
+		global $conf, $langs, $hookManager;
 
 		if (!empty($conf->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -1617,13 +1617,13 @@ class Contact extends CommonObject
 		$result .= $linkend;
 
 		global $action;
-		$hookmanager->initHooks(array('contactdao'));
+		$hookManager->initHooks(array('contactdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;

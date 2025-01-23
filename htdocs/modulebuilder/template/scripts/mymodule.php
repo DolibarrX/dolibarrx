@@ -97,13 +97,13 @@ if (!$res) {
 	print "Include of master fails";
 	exit(-1);
 }
-// After this $db, $mysoc, $langs, $conf and $hookmanager are defined (Opened $db handler to database will be closed at end of file).
+// After this $db, $mysoc, $langs, $conf and $hookManager are defined (Opened $db handler to database will be closed at end of file).
 // $user is created but empty.
 
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -119,7 +119,7 @@ if (!($result > 0)) {
 }
 $user->loadRights();
 
-$hookmanager->initHooks(array('cli'));
+$hookManager->initHooks(array('cli'));
 
 
 /*

@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/import.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -52,7 +52,7 @@ $filetoimport = GETPOST('filetoimport');
 $langs->loadLangs(array('products', 'stocks', 'orders', 'productbatch'));
 
 //init Hook
-$hookmanager->initHooks(array('massstockmove'));
+$hookManager->initHooks(array('massstockmove'));
 
 // Security check
 if ($user->socid) {

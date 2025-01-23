@@ -27,7 +27,7 @@ if (empty($conf) || !is_object($conf)) {
 
 print "<!-- BEGIN PHP TEMPLATE mrp/tpl/linkedobjectblock.tpl.php -->\n";
 
-global $user, $db, $hookmanager;
+global $user, $db, $hookManager;
 global $noMoreLinkedObjectBlockAfter;
 
 $langs = $GLOBALS['langs'];
@@ -48,9 +48,9 @@ if ($object->element == 'mo') {
 	$TMoChilds = $mo_static->getMoChilds();
 	'@phan-var-force Mo[] $TMoChilds';
 
-	$hookmanager->initHooks(array('LinesLinkedObjectBlock'));
+	$hookManager->initHooks(array('LinesLinkedObjectBlock'));
 	$parameters = array('TMoChilds' => $TMoChilds);
-	$reshook = $hookmanager->executeHooks('LinesLinkedObjectBlock', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('LinesLinkedObjectBlock', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
 		foreach ($TMoChilds as $key => $objectlink) {
 			$ilink++;

@@ -45,7 +45,7 @@ if (isModEnabled('margin')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -66,7 +66,7 @@ if ($socid < 0) {
 
 $object = new Paiement($db);
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('paymentcard', 'globalcard'));
+$hookManager->initHooks(array('paymentcard', 'globalcard'));
 
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'.
@@ -111,9 +111,9 @@ $error = 0;
  * Actions
  */
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -515,7 +515,7 @@ if ($resql) {
 	print '<td class="right">'.$langs->trans('Status').'</td>';
 
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 	print "</tr>\n";
 
@@ -580,7 +580,7 @@ if ($resql) {
 			print '<td class="right">'.$invoice->getLibStatut(5, $alreadypayed).'</td>';
 
 			$parameters = array('fk_paiement' => (int) $object->id);
-			$reshook = $hookmanager->executeHooks('printFieldListValue', $parameters, $objp, $action); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $objp, $action); // Note that $action and $object may have been modified by hook
 
 			print "</tr>\n";
 

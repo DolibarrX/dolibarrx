@@ -66,7 +66,7 @@ require_once DOL_DOCUMENT_ROOT.'/adherents/class/subscription.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */

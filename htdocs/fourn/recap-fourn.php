@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -50,7 +50,7 @@ if ($user->socid > 0) {
 
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('supplierbalencelist', 'globalcard'));
+$hookManager->initHooks(array('supplierbalencelist', 'globalcard'));
 
 /*
  * View

@@ -34,7 +34,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/ldap.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -46,7 +46,7 @@ $id = GETPOSTINT('rowid');
 $action = GETPOST('action', 'aZ09');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('membertypeldapcard', 'globalcard'));
+$hookManager->initHooks(array('membertypeldapcard', 'globalcard'));
 
 // Security check
 $result = restrictedArea($user, 'adherent', $id, 'adherent_type');
@@ -60,9 +60,9 @@ $object->fetch($id);
 
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

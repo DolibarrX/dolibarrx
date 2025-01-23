@@ -47,7 +47,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -75,13 +75,13 @@ $actioncode = GETPOSTINT('actioncode');
 $fk_user = GETPOSTINT('userid') > 0 ? GETPOSTINT('userid') : 0;
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('taxcard', 'globalcard'));
+$hookManager->initHooks(array('taxcard', 'globalcard'));
 
 // Initialize a technical objects
 $object = new ChargeSociales($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->tax->dir_output.'/temp/massgeneration/'.$user->id;
-$hookmanager->initHooks(array('taxsocialcontributioncard', 'globalcard'));
+$hookManager->initHooks(array('taxsocialcontributioncard', 'globalcard'));
 
 if (empty($action) && empty($id) && empty($ref)) {
 	$action = 'view';
@@ -112,9 +112,9 @@ $result = restrictedArea($user, 'tax', $object->id, 'chargesociales', 'charges')
  */
 
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -504,11 +504,11 @@ if ($id > 0) {
 		}
 		// Call Hook formConfirm
 		$parameters = array('formConfirm' => $formconfirm, 'lineid' => $lineid);
-		$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($reshook)) {
-			$formconfirm .= $hookmanager->resPrint;
+			$formconfirm .= $hookManager->resPrint;
 		} elseif ($reshook > 0) {
-			$formconfirm = $hookmanager->resPrint;
+			$formconfirm = $hookManager->resPrint;
 		}
 
 
@@ -675,8 +675,8 @@ if ($id > 0) {
 
 		// Other attributes
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		print $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		print $hookManager->resPrint;
 
 		print '</table>';
 

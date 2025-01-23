@@ -77,7 +77,7 @@ require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -87,8 +87,8 @@ require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 $langs->loadLangs(array("main", "other", "dict", "bills", "companies", "errors", "paybox", "paypal", "stripe")); // File with generic data
 
 // Hook to be used by external payment modules (ie Payzen, ...)
-$hookmanager = new HookManager($db);
-$hookmanager->initHooks(array('newpayment'));
+$hookManager = new HookManager($db);
+$hookManager->initHooks(array('newpayment'));
 
 
 // Security check
@@ -875,11 +875,11 @@ $parameters = array(
 	'paymentmethod' => $paymentmethod,
 	'validpaymentmethod' => &$validpaymentmethod
 );
-$reshook = $hookmanager->executeHooks('doPayment', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doPayment', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 } elseif ($reshook > 0) {
-	print $hookmanager->resPrint;
+	print $hookManager->resPrint;
 }
 
 
@@ -2153,11 +2153,11 @@ if ($action != 'dopayment') {
 			'source' => $source,
 			'object' => $object
 		];
-		$reshook = $hookmanager->executeHooks('doCheckStatus', $parameters, $object, $action);
+		$reshook = $hookManager->executeHooks('doCheckStatus', $parameters, $object, $action);
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		} elseif ($reshook > 0) {
-			print $hookmanager->resPrint;
+			print $hookManager->resPrint;
 		}
 
 		if ($source == 'order' && $object->billed) {
@@ -2184,11 +2184,11 @@ if ($action != 'dopayment') {
 			$parameters = [
 				'paymentmethod' => $paymentmethod
 			];
-			$reshook = $hookmanager->executeHooks('doAddButton', $parameters, $object, $action);
+			$reshook = $hookManager->executeHooks('doAddButton', $parameters, $object, $action);
 			if ($reshook < 0) {
-				setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			} elseif ($reshook >= 0) {
-				print $hookmanager->resPrint;
+				print $hookManager->resPrint;
 			}
 
 			if ((empty($paymentmethod) || $paymentmethod == 'paybox') && isModEnabled('paybox')) {
@@ -2816,11 +2816,11 @@ if (preg_match('/^dopayment/', $action)) {			// If we chose/clicked on the payme
 		'tag' => GETPOST("tag", 'alpha'),
 		'dopayment' => GETPOST('dopayment', 'alpha')
 	];
-	$reshook = $hookmanager->executeHooks('doPayment', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('doPayment', $parameters, $object, $action);
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	} elseif ($reshook > 0) {
-		print $hookmanager->resPrint;
+		print $hookManager->resPrint;
 	}
 }
 

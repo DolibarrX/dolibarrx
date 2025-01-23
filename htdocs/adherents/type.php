@@ -42,7 +42,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -103,7 +103,7 @@ $caneditamount = GETPOSTINT("caneditamount");
 // Initialize a technical object
 $object = new AdherentType($db);
 $extrafields = new ExtraFields($db);
-$hookmanager->initHooks(array('membertypecard', 'globalcard'));
+$hookManager->initHooks(array('membertypecard', 'globalcard'));
 
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);

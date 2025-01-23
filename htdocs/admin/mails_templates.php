@@ -47,7 +47,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/accounting.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -109,7 +109,7 @@ if (empty($sortorder)) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('emailtemplates'));
+$hookManager->initHooks(array('emailtemplates'));
 
 
 // Name of SQL tables of dictionaries
@@ -254,9 +254,9 @@ if (isModEnabled('partnership') && $user->hasRight('partnership', 'read')) {
 }
 
 $parameters = array('elementList' => $elementList);
-$reshook = $hookmanager->executeHooks('emailElementlist', $parameters); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('emailElementlist', $parameters); // Note that $action and $object may have been modified by some hooks
 if ($reshook == 0) {
-	foreach ($hookmanager->resArray as $item => $value) {
+	foreach ($hookManager->resArray as $item => $value) {
 		$elementList[$item] = $value;
 	}
 }
@@ -296,9 +296,9 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 }
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -683,8 +683,8 @@ if ($optioncss != '') {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_param.tpl.php';
 // Add $param from hooks
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printFieldListSearchParam', $parameters, $object); // Note that $action and $object may have been modified by hook
-$param .= $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object); // Note that $action and $object may have been modified by hook
+$param .= $hookManager->resPrint;
 
 
 $linkback = '';
@@ -818,9 +818,9 @@ if ($action == 'create') {
 		'fieldlist' => $fieldlist,
 		'tabname' => $tabname[25]
 	);
-	$reshook = $hookmanager->executeHooks('createEmailTemplateFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
-	$error = $hookmanager->error;
-	$errors = $hookmanager->errors;
+	$reshook = $hookManager->executeHooks('createEmailTemplateFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+	$error = $hookManager->error;
+	$errors = $hookManager->errors;
 
 
 	// Line to enter new values (input fields)
@@ -1100,9 +1100,9 @@ if ($num) {
 
 				$tmpaction = 'edit';
 				$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[25]);
-				$reshook = $hookmanager->executeHooks('editEmailTemplateFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
-				$error = $hookmanager->error;
-				$errors = $hookmanager->errors;
+				$reshook = $hookManager->executeHooks('editEmailTemplateFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+				$error = $hookManager->error;
+				$errors = $hookManager->errors;
 
 				// Action column
 				if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
@@ -1143,7 +1143,7 @@ if ($num) {
 				}
 
 				$parameters = array('fieldsforcontent' => &$fieldsforcontent, 'tabname' => $tabname[$id]);
-				$hookmanager->executeHooks('editEmailTemplateFieldsForContent', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+				$hookManager->executeHooks('editEmailTemplateFieldsForContent', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 
 				foreach ($fieldsforcontent as $tmpfieldlist) {
 					$showfield = 1;
@@ -1254,10 +1254,10 @@ if ($num) {
 
 				$tmpaction = 'view';
 				$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[25]);
-				$reshook = $hookmanager->executeHooks('viewEmailTemplateFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('viewEmailTemplateFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 
-				$error = $hookmanager->error;
-				$errors = $hookmanager->errors;
+				$error = $hookManager->error;
+				$errors = $hookManager->errors;
 
 				if (empty($reshook)) {
 					foreach ($fieldlist as $field => $value) {

@@ -599,7 +599,7 @@ function project_admin_prepare_head()
  */
 function projectLinesa(&$inc, $parent, &$lines, &$level, $var, $showproject, &$taskrole, $projectsListId = '', $addordertick = 0, $projectidfortotallink = 0, $dummy = '', $showbilltime = 0, $arrayfields = array(), $arrayofselected = array())
 {
-	global $user, $langs, $conf, $db, $hookmanager;
+	global $user, $langs, $conf, $db, $hookManager;
 	global $projectstatic, $taskstatic, $extrafields;
 
 	'
@@ -960,8 +960,8 @@ function projectLinesa(&$inc, $parent, &$lines, &$level, $var, $showproject, &$t
 				include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_print_fields.tpl.php';
 				// Fields from hook
 				$parameters = array('arrayfields' => $arrayfields, 'obj' => $lines[$i]);
-				$reshook = $hookmanager->executeHooks('printFieldListValue', $parameters); // Note that $action and $object may have been modified by hook
-				print $hookmanager->resPrint;
+				$reshook = $hookManager->executeHooks('printFieldListValue', $parameters); // Note that $action and $object may have been modified by hook
+				print $hookManager->resPrint;
 
 				// Tick to drag and drop
 				print '<td class="tdlineupdown center"></td>';

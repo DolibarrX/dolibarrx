@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -89,7 +89,7 @@ if (!$sortorder) {
 $object = new Contrat($db);
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('agendacontract', 'globalcard'));
+$hookManager->initHooks(array('agendacontract', 'globalcard'));
 
 // Security check
 $id = GETPOSTINT("id");
@@ -114,9 +114,9 @@ if (!$user->hasRight('contrat', 'lire')) {
  *	Actions
  */
 $parameters = array('id' => $id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

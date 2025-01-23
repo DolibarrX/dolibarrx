@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -56,7 +56,7 @@ if (!empty($user->socid)) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('productstatsreception'));
+$hookManager->initHooks(array('productstatsreception'));
 
 // Load variable for pagination
 $limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
@@ -103,9 +103,9 @@ if ($id > 0 || !empty($ref)) {
 	$object = $product;
 
 	$parameters = array('id' => $id);
-	$reshook = $hookmanager->executeHooks('doActions', $parameters, $product, $action); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('doActions', $parameters, $product, $action); // Note that $action and $object may have been modified by some hooks
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
 	llxHeader('', '', $langs->trans("CardProduct".$product->type), '', 0, 0, '', '', '', '', 'mod-product page-stats_reception');
@@ -116,10 +116,10 @@ if ($id > 0 || !empty($ref)) {
 		$picto = ($product->type == Product::TYPE_SERVICE ? 'service' : 'product');
 		print dol_get_fiche_head($head, 'referers', $titre, -1, $picto);
 
-		$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $product, $action); // Note that $action and $object may have been modified by hook
-		print $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $product, $action); // Note that $action and $object may have been modified by hook
+		print $hookManager->resPrint;
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
 		$linkback = '<a href="'.DOL_URL_ROOT.'/product/list.php?restore_lastsearch_values=1">'.$langs->trans("BackToList").'</a>';

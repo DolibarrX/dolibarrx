@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -95,7 +95,7 @@ $upload_dir = $conf->societe->multidir_output[$object->entity].'/contact/'.dol_s
 $modulepart = 'contact';
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('contactdocument'));
+$hookManager->initHooks(array('contactdocument'));
 
 // Security check
 if ($user->socid) {

@@ -58,7 +58,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -97,7 +97,7 @@ if ($user->socid) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('contractcard', 'globalcard'));
+$hookManager->initHooks(array('contractcard', 'globalcard'));
 
 $object = new Contrat($db);
 $extrafields = new ExtraFields($db);
@@ -138,9 +138,9 @@ $result = restrictedArea($user, 'contrat', $object->id);
  */
 
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 if (empty($reshook)) {
 	$backurlforlist = DOL_URL_ROOT.'/contrat/list.php';
@@ -431,10 +431,10 @@ if (empty($reshook)) {
 
 					// Hooks
 					$parameters = array('objFrom' => $srcobject);
-					$reshook = $hookmanager->executeHooks('createFrom', $parameters, $object, $action); // Note that $action and $object may have been
+					$reshook = $hookManager->executeHooks('createFrom', $parameters, $object, $action); // Note that $action and $object may have been
 					// modified by hook
 					if ($reshook < 0) {
-						setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+						setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						$error++;
 					}
 				} else {
@@ -1317,8 +1317,8 @@ if ($action == 'create') {
 
 	// Other attributes
 	$parameters = array('objectsrc' => $objectsrc, 'colspan' => ' colspan="3"', 'cols' => '3');
-	$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 
 	// Other attributes
 	if (empty($reshook)) {
@@ -1437,11 +1437,11 @@ if ($action == 'create') {
 			//'lineid' => $lineid,
 		);
 		// Note that $action and $object may have been modified by hook
-		$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action);
+		$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action);
 		if (empty($reshook)) {
-			$formconfirm .= $hookmanager->resPrint;
+			$formconfirm .= $hookManager->resPrint;
 		} elseif ($reshook > 0) {
-			$formconfirm = $hookmanager->resPrint;
+			$formconfirm = $hookManager->resPrint;
 		}
 
 		// Print form confirm
@@ -2182,9 +2182,9 @@ if ($action == 'create') {
 				// Add free products/services
 
 				$parameters = array();
-				$reshook = $hookmanager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$reshook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($reshook < 0) {
-					setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 				if (empty($reshook)) {
 					$object->formAddObjectLine(1, $mysoc, $soc);
@@ -2210,7 +2210,7 @@ if ($action == 'create') {
 			print '<div class="tabsAction">';
 
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 			if (empty($reshook)) {
 				$params = array(

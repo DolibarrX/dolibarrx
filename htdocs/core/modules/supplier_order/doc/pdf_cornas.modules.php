@@ -154,7 +154,7 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $hookmanager, $mysoc, $nblines;
+		global $user, $langs, $conf, $hookManager, $mysoc, $nblines;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -261,14 +261,14 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 
 			if (file_exists($dir)) {
 				// Add pdfgeneration hook
-				if (!is_object($hookmanager)) {
+				if (!is_object($hookManager)) {
 					include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-					$hookmanager = new HookManager($this->db);
+					$hookManager = new HookManager($this->db);
 				}
-				$hookmanager->initHooks(array('pdfgeneration'));
+				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookmanager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Set nblines with the new facture lines content after hook
 				$nblines = is_array($object->lines) ? count($object->lines) : 0;
@@ -677,7 +677,7 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 						'outputlangs' => $outputlangs,
 						'hidedetails' => $hidedetails
 					);
-					$reshook = $hookmanager->executeHooks('printPDFline', $parameters, $this); // Note that $object may have been modified by hook
+					$reshook = $hookManager->executeHooks('printPDFline', $parameters, $this); // Note that $object may have been modified by hook
 
 
 					// Collecte des totaux par valeur de tva dans $this->tva["taux"]=total_tva
@@ -819,13 +819,13 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 				$pdf->Output($file, 'F');
 
 				// Add pdfgeneration hook
-				$hookmanager->initHooks(array('pdfgeneration'));
+				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookmanager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					$this->error = $hookmanager->error;
-					$this->errors = $hookmanager->errors;
+					$this->error = $hookManager->error;
+					$this->errors = $hookManager->errors;
 				}
 
 				dolChmod($file);
@@ -940,7 +940,7 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 	protected function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc, $hookmanager;
+		global $conf, $mysoc, $hookManager;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
@@ -1128,10 +1128,10 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 
 		$parameters = array('pdf' => &$pdf, 'object' => &$object, 'outputlangs' => $outputlangs, 'index' => &$index, 'posy' => $posy);
 
-		$reshook = $hookmanager->executeHooks('afterPDFTotalTable', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('afterPDFTotalTable', $parameters, $this); // Note that $action and $object may have been modified by some hooks
 		if ($reshook < 0) {
-			$this->error = $hookmanager->error;
-			$this->errors = $hookmanager->errors;
+			$this->error = $hookManager->error;
+			$this->errors = $hookManager->errors;
 		}
 
 		$index++;
@@ -1501,7 +1501,7 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 	 */
 	public function defineColumnField($object, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
-		global $conf, $hookmanager;
+		global $conf, $hookManager;
 
 		// Default field style for content
 		$this->defaultContentsFieldsStyle = array(
@@ -1687,14 +1687,14 @@ class pdf_cornas extends ModelePDFSuppliersOrders
 			'hideref' => $hideref
 		);
 
-		$reshook = $hookmanager->executeHooks('defineColumnField', $parameters, $this); // Note that $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('defineColumnField', $parameters, $this); // Note that $object may have been modified by hook
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		} elseif (empty($reshook)) {
 			// @phan-suppress-next-line PhanPluginSuspiciousParamOrderInternal
-			$this->cols = array_replace($this->cols, $hookmanager->resArray); // array_replace is used to preserve keys
+			$this->cols = array_replace($this->cols, $hookManager->resArray); // array_replace is used to preserve keys
 		} else {
-			$this->cols = $hookmanager->resArray;
+			$this->cols = $hookManager->resArray;
 		}
 	}
 }

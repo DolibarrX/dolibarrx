@@ -63,7 +63,7 @@ require_once '../lib/mymodule.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -72,8 +72,8 @@ require_once '../lib/mymodule.lib.php';
 $langs->loadLangs(array("admin", "mymodule@mymodule"));
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-/** @var HookManager $hookmanager */
-$hookmanager->initHooks(array('mymodulesetup', 'globalsetup'));
+/** @var HookManager $hookManager */
+$hookManager->initHooks(array('mymodulesetup', 'globalsetup'));
 
 // Parameters
 $action = GETPOST('action', 'aZ09');

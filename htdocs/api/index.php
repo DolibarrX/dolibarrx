@@ -110,7 +110,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -164,7 +164,7 @@ preg_match('/index\.php\/([^\/]+)(.*)$/', $url, $reg);
 // .../index.php/categories?sortfield=t.rowid&sortorder=ASC
 
 
-$hookmanager->initHooks(array('api'));
+$hookManager->initHooks(array('api'));
 
 // When in production mode, a file api/temp/routes.php is created with the API available of current call.
 // But, if we set $refreshcache to false, so it may have only one API in the routes.php file if we make a call for one API without

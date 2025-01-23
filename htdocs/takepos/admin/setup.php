@@ -45,7 +45,7 @@ if (GETPOST('CASHDESK_ID_THIRDPARTY_id', 'alpha')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */

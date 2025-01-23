@@ -46,7 +46,7 @@
  * @var CommonObjectLine $line
  * @var Conf $conf
  * @var Form $form
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var ?Product $product_static
  * @var Societe $mysoc
  * @var Translate $langs
@@ -129,8 +129,8 @@ $coldisplay = 0;
 
 
 $parameters = ['line' => $line, 'i' =>& $i, 'coldisplay' =>& $coldisplay];
-$reshook = $hookmanager->executeHooks('objectLineView_BeforeProduct', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('objectLineView_BeforeProduct', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+print $hookManager->resPrint;
 
 if (($line->info_bits & 2) == 2) {
 	print '<a href="'.DOL_URL_ROOT.'/comm/remx.php?id='.$this->socid.'">';
@@ -275,8 +275,8 @@ if (($line->info_bits & 2) == 2) {
 
 
 	$parameters = ['line' => $line, 'i' =>& $i, 'coldisplay' =>& $coldisplay];
-	$reshook = $hookmanager->executeHooks('objectLineView_BeforeProductExtrafield', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('objectLineView_BeforeProductExtrafield', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 	// Line extrafield
 	if (!empty($extrafields) && empty($reshook)) {
 		$temps = $line->showOptionals($extrafields, 'view', array(), '', '', 1, 'line');
@@ -289,8 +289,8 @@ if (($line->info_bits & 2) == 2) {
 }
 
 $parameters = ['line' => $line, 'i' =>& $i, 'coldisplay' =>& $coldisplay];
-$reshook = $hookmanager->executeHooks('objectLineView_ProductSupplier', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('objectLineView_ProductSupplier', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+print $hookManager->resPrint;
 if (empty($reshook)) {
 	if ($user->hasRight('fournisseur', 'lire') && isset($line->fk_fournprice) && $line->fk_fournprice > 0 && !getDolGlobalString('SUPPLIER_HIDE_SUPPLIER_OBJECTLINES')) {
 		require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.product.class.php';

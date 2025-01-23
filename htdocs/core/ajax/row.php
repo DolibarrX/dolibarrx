@@ -55,12 +55,12 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/genericobject.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
 
-$hookmanager->initHooks(array('rowinterface'));
+$hookManager->initHooks(array('rowinterface'));
 
 $roworder = GETPOST('roworder', 'alpha', 3);
 $table_element_line = GETPOST('table_element_line', 'aZ09', 3);
@@ -146,9 +146,9 @@ if (GETPOST('roworder', 'alpha', 3) && GETPOST('table_element_line', 'aZ09', 3)
 	$row->table_element_line = $table_element_line;
 	$row->fk_element = $fk_element;
 	$row->id = $element_id;
-	$reshook = $hookmanager->executeHooks('checkRowPerms', $parameters, $row, $action);
+	$reshook = $hookManager->executeHooks('checkRowPerms', $parameters, $row, $action);
 	if ($reshook > 0) {
-		$perm = $hookmanager->resArray['perm'];
+		$perm = $hookManager->resArray['perm'];
 	}
 
 	if (! $perm) {

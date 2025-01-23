@@ -47,7 +47,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -108,7 +108,7 @@ if ($user->socid > 0) {
 $object = new PaiementFourn($db);
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('paymentsupplierlist'));
+$hookManager->initHooks(array('paymentsupplierlist'));
 $extrafields = new ExtraFields($db);
 
 // fetch optionals attributes and labels
@@ -152,9 +152,9 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 }
 
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 $formquestion = array();
@@ -543,9 +543,9 @@ if ($action == 'create' || $action == 'confirm_paiement' || $action == 'add_paie
 				// 'ref' => $ref,
 				// 'objcanvas' => $objcanvas,
 			);
-			$reshook = $hookmanager->executeHooks('paymentsupplierinvoices', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-			$error = $hookmanager->error;
-			$errors = $hookmanager->errors;
+			$reshook = $hookManager->executeHooks('paymentsupplierinvoices', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+			$error = $hookManager->error;
+			$errors = $hookManager->errors;
 			if (empty($reshook)) {
 				/*
 				 * All unpaid supplier invoices

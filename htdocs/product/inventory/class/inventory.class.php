@@ -457,7 +457,7 @@ class Inventory extends CommonObject
 	 */
 	public function createFromClone(User $user, $fromid)
 	{
-		global $hookmanager, $langs;
+		global $hookManager, $langs;
 		$error = 0;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
@@ -649,7 +649,7 @@ class Inventory extends CommonObject
 	public function LibStatut($status, $mode = 0)
 	{
 		// phpcs:enable
-		global $langs, $hookmanager;
+		global $langs, $hookManager;
 
 		$labelStatus = array();
 		$labelStatusShort = array();
@@ -668,9 +668,9 @@ class Inventory extends CommonObject
 		}
 
 		$parameters = array('status' => $status, 'mode' => $mode);
-		$reshook = $hookmanager->executeHooks('LibStatut', $parameters, $this); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('LibStatut', $parameters, $this); // Note that $action and $object may have been modified by hook
 		if ($reshook > 0) {
-			return $hookmanager->resPrint;
+			return $hookManager->resPrint;
 		}
 		return dolGetStatus($labelStatus[$status], $labelStatusShort[$status], '', $statusType, $mode);
 	}

@@ -55,7 +55,7 @@ if (isModEnabled('contract')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -93,7 +93,7 @@ if (GETPOST('actioncode', 'array')) {
 
 
 // Initialize a technical object to manage hooks of ticket. Note that conf->hooks_modules contains array array
-$hookmanager->initHooks(array('ticketcard', 'globalcard'));
+$hookManager->initHooks(array('ticketcard', 'globalcard'));
 
 $object = new Ticket($db);
 $extrafields = new ExtraFields($db);
@@ -160,9 +160,9 @@ $upload_dir = $conf->ticket->dir_output;
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 $error = 0;
@@ -820,11 +820,11 @@ if ($action == 'create' || $action == 'presend') {
 
 		// Call Hook formConfirm
 		$parameters = array('formConfirm' => $formconfirm);
-		$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($reshook)) {
-			$formconfirm .= $hookmanager->resPrint;
+			$formconfirm .= $hookManager->resPrint;
 		} elseif ($reshook > 0) {
-			$formconfirm = $hookmanager->resPrint;
+			$formconfirm = $hookManager->resPrint;
 		}
 
 		// Print form confirm
@@ -1456,9 +1456,9 @@ if ($action == 'create' || $action == 'presend') {
 		if ($action != 'presend' && $action != 'presend_addmessage' && $action != 'editline') {
 			print '<div class="tabsAction">'."\n";
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if ($reshook < 0) {
-				setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			}
 
 			if (empty($reshook)) {

@@ -35,13 +35,13 @@ require_once DOL_DOCUMENT_ROOT.'/ticket/class/ticketstats.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('ticketsindex'));
+$hookManager->initHooks(array('ticketsindex'));
 
 // Load translation files required by the page
 $langs->loadLangs(array('companies', 'other', 'ticket'));
@@ -466,7 +466,7 @@ print '</div>';
 print '<div class="clearboth"></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardTickets', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardTickets', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 
 // End of page

@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/accountancy/class/lettering.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -89,7 +89,7 @@ if (!empty($update)) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('bookkeepingcard', 'globalcard'));
+$hookManager->initHooks(array('bookkeepingcard', 'globalcard'));
 
 $object = new BookKeeping($db);
 
@@ -113,9 +113,9 @@ $permissiontodelete = $user->hasRight('accounting', 'mouvements', 'supprimer');
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 if (empty($reshook)) {
 	$error = 0;
@@ -297,7 +297,7 @@ if (empty($reshook)) {
 
 				$action = 'create';
 			} else {
-				$reshook = $hookmanager->executeHooks('afterCreateBookkeeping', $parameters, $object, $action);
+				$reshook = $hookManager->executeHooks('afterCreateBookkeeping', $parameters, $object, $action);
 
 				if ($mode != '_tmp') {
 					setEventMessages($langs->trans('RecordSaved'), null, 'mesgs');
@@ -491,7 +491,7 @@ if ($action == 'create') {
 	print '<td><input type="text" class="minwidth200 name="doc_type" value=""/></td>';
 	print '</tr>';
 	*/
-	$reshookAddLine = $hookmanager->executeHooks('bookkeepingAddLine', $parameters, $object, $action);
+	$reshookAddLine = $hookManager->executeHooks('bookkeepingAddLine', $parameters, $object, $action);
 
 	print '</table>';
 
@@ -781,10 +781,10 @@ if ($action == 'create') {
 				print "\n".'<div class="tabsAction">'."\n";
 
 				$parameters = array();
-				$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if (empty($reshook)) {
 					if ($permissiontodelete) {
-						if (!isset($hookmanager->resArray['no_button_edit']) || $hookmanager->resArray['no_button_edit'] != 1) {
+						if (!isset($hookManager->resArray['no_button_edit']) || $hookManager->resArray['no_button_edit'] != 1) {
 							print dolGetButtonAction('', $langs->trans('Delete'), 'delete', DOL_URL_ROOT.'/accountancy/bookkeeping/card.php?action=deletebookkeepingwriting&confirm=yes&token='.newToken().'&piece_num='.((int) $object->piece_num).'&toselect='.implode(',', $tmptoselect), '', $permissiontodelete);
 						}
 					}

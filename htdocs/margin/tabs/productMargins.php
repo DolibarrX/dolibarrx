@@ -31,7 +31,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -70,7 +70,7 @@ if (!$sortfield) {
 	$sortfield = "f.datef";
 }
 
-$hookmanager->initHooks(array('tabproductmarginlist'));
+$hookManager->initHooks(array('tabproductmarginlist'));
 
 $result = restrictedArea($user, 'produit|service', $fieldvalue, 'product&product', '', '', $fieldtype);
 
@@ -274,11 +274,11 @@ if ($id > 0 || !empty($ref)) {
 				$moreforfilter = '';
 
 				$parameters = array();
-				$reshook = $hookmanager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if (empty($reshook)) {
-					$moreforfilter .= $hookmanager->resPrint;
+					$moreforfilter .= $hookManager->resPrint;
 				} else {
-					$moreforfilter = $hookmanager->resPrint;
+					$moreforfilter = $hookManager->resPrint;
 				}
 
 				if (!empty($moreforfilter)) {

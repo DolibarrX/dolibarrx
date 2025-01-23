@@ -49,7 +49,7 @@ require_once DOL_DOCUMENT_ROOT . '/core/lib/public.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  */

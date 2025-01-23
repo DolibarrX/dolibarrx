@@ -41,7 +41,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -92,7 +92,7 @@ if ($user->socid) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('orderdocument', 'globalcard'));
+$hookManager->initHooks(array('orderdocument', 'globalcard'));
 
 $result = restrictedArea($user, 'commande', $id, '');
 

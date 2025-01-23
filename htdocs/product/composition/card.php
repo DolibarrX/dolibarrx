@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -64,7 +64,7 @@ $fieldvalue = (!empty($id) ? $id : (!empty($ref) ? $ref : ''));
 $fieldtype = (!empty($ref) ? 'ref' : 'rowid');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('productcompositioncard', 'globalcard'));
+$hookManager->initHooks(array('productcompositioncard', 'globalcard'));
 
 $object = new Product($db);
 $objectid = 0;
@@ -99,9 +99,9 @@ if ($cancel) {
 	$action = '';
 }
 
-$reshook = $hookmanager->executeHooks('doActions', [], $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', [], $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -179,8 +179,8 @@ if ($action == 'search') {
 	}
 
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
-	$sql .= $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object); // Note that $action and $object may have been modified by hook
+	$sql .= $hookManager->resPrint;
 
 	$sql .= ' FROM '.MAIN_DB_PREFIX.'product as p';
 	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'categorie_product as cp ON p.rowid = cp.fk_product';
@@ -190,8 +190,8 @@ if ($action == 'search') {
 	$sql .= ' WHERE p.entity IN ('.getEntity('product').')';
 
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
-	$sql .= $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object); // Note that $action and $object may have been modified by hook
+	$sql .= $hookManager->resPrint;
 
 	if ($key != "") {
 		// For natural search
@@ -401,8 +401,8 @@ if ($id > 0 || !empty($ref)) {
 		}
 		// Hook fields
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
-		print $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
+		print $hookManager->resPrint;
 		// Qty in kit
 		print '<th class="right">'.$langs->trans('Qty').'</th>';
 		// Stoc inc/dev
@@ -483,8 +483,8 @@ if ($id > 0 || !empty($ref)) {
 
 					// Hook fields
 					$parameters = array();
-					$reshook = $hookmanager->executeHooks('printFieldListValue', $parameters, $productstatic); // Note that $action and $object may have been modified by hook
-					print $hookmanager->resPrint;
+					$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $productstatic); // Note that $action and $object may have been modified by hook
+					print $hookManager->resPrint;
 
 					// Qty + IncDec
 					if ($user->hasRight('produit', 'creer') || $user->hasRight('service', 'creer')) {
@@ -538,8 +538,8 @@ if ($id > 0 || !empty($ref)) {
 
 					// Hook fields
 					$parameters = array();
-					$reshook = $hookmanager->executeHooks('printFieldListValue', $parameters, $productstatic); // Note that $action and $object may have been modified by hook
-					print $hookmanager->resPrint;
+					$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $productstatic); // Note that $action and $object may have been modified by hook
+					print $hookManager->resPrint;
 
 					// Qty in kit
 					print '<td class="right">'.dol_escape_htmltag((string) $value['nb']).'</td>';

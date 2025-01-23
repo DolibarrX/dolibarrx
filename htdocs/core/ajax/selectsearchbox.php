@@ -27,7 +27,7 @@
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -71,7 +71,7 @@ if (!isset($usedbyinclude) || empty($usedbyinclude)) {
 }
 
 
-$hookmanager->initHooks(array('searchform'));
+$hookManager->initHooks(array('searchform'));
 
 $search_boxvalue = GETPOST('q', 'restricthtml');
 
@@ -191,11 +191,11 @@ if (isModEnabled('holiday') && !getDolGlobalString('MAIN_SEARCHFORM_HOLIDAY_DISA
 
 // Execute hook addSearchEntry
 $parameters = array('search_boxvalue' => $search_boxvalue, 'arrayresult' => $arrayresult);
-$reshook = $hookmanager->executeHooks('addSearchEntry', $parameters);
+$reshook = $hookManager->executeHooks('addSearchEntry', $parameters);
 if (empty($reshook)) {
-	$arrayresult = array_merge($arrayresult, $hookmanager->resArray);
+	$arrayresult = array_merge($arrayresult, $hookManager->resArray);
 } else {
-	$arrayresult = $hookmanager->resArray;
+	$arrayresult = $hookManager->resArray;
 }
 
 // This pushes a search entry to the top

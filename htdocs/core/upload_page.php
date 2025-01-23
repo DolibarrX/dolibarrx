@@ -50,7 +50,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -133,7 +133,7 @@ print load_fiche_titre('', '', '', 0, '', '', '<h2>'.$title.'</h2>');
 
 
 // Instantiate hooks of thirdparty module
-$hookmanager->initHooks(array('uploadform'));
+$hookManager->initHooks(array('uploadform'));
 
 // Define $uploadform
 $uploadform = '';
@@ -171,11 +171,11 @@ $uploadform .= '</div>';
 
 // Execute hook printSearchForm
 $parameters = array('uploadform' => $uploadform);
-$reshook = $hookmanager->executeHooks('printUploadForm', $parameters); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('printUploadForm', $parameters); // Note that $action and $object may have been modified by some hooks
 if (empty($reshook)) {
-	$uploadform .= $hookmanager->resPrint;
+	$uploadform .= $hookManager->resPrint;
 } else {
-	$uploadform = $hookmanager->resPrint;
+	$uploadform = $hookManager->resPrint;
 }
 
 $uploadform .= '<br>';

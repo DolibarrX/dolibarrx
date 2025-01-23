@@ -48,7 +48,7 @@ if (isModEnabled('accounting')) {
  * @var Conf $conf
  * @var DoliDB $db
  * @var Form $form
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -57,7 +57,7 @@ if (isModEnabled('accounting')) {
 $langs->loadLangs(array('compta', 'bills', 'hrm'));
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('specialexpensesindex'));
+$hookManager->initHooks(array('specialexpensesindex'));
 
 
 $year = GETPOSTINT("year");
@@ -402,7 +402,7 @@ print '</table>';
 print '</form>';
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardSpecialBills', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardSpecialBills', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

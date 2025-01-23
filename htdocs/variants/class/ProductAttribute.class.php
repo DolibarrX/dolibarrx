@@ -950,7 +950,7 @@ class ProductAttribute extends CommonObject
 	 */
 	public function updatePositionOfAttribute($rowid, $position)
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		$sql = "UPDATE " . MAIN_DB_PREFIX . $this->table_element . " SET position = " . ((int) $position);
 		$sql .= " WHERE rowid = " . ((int) $rowid);
@@ -962,7 +962,7 @@ class ProductAttribute extends CommonObject
 		} else {
 			$parameters = array('rowid' => $rowid, 'position' => $position);
 			$action = '';
-			$reshook = $hookmanager->executeHooks('afterPositionOfAttributeUpdate', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('afterPositionOfAttributeUpdate', $parameters, $this, $action);
 			return ($reshook >= 0 ? 1 : -1);
 		}
 	}
@@ -1127,7 +1127,7 @@ class ProductAttribute extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $hookmanager;
+		global $conf, $langs, $hookManager;
 
 		if (!empty($conf->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -1220,14 +1220,14 @@ class ProductAttribute extends CommonObject
 		$result .= $linkend;
 		//if ($withpicto != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
 
-		global $action, $hookmanager;
-		$hookmanager->initHooks(array('variantsdao'));
+		global $action, $hookManager;
+		$hookManager->initHooks(array('variantsdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => $result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;
@@ -1323,7 +1323,7 @@ class ProductAttribute extends CommonObject
 	 */
 	public function formAddObjectLine($dateSelector, $seller, $buyer, $defaulttpldir = '/variants/tpl')
 	{
-		global $conf, $user, $langs, $object, $hookmanager;
+		global $conf, $user, $langs, $object, $hookManager;
 		global $form;
 
 		// Output template part (modules that overwrite templates must declare this into descriptor)
@@ -1367,7 +1367,7 @@ class ProductAttribute extends CommonObject
 	 */
 	public function printObjectLines($action, $seller, $buyer, $selected = 0, $dateSelector = 0, $defaulttpldir = '/variants/tpl', $addcreateline = 0)
 	{
-		global $conf, $hookmanager, $langs, $user, $form, $object;
+		global $conf, $hookManager, $langs, $user, $form, $object;
 		global $mysoc;
 		// TODO We should not use global var for this
 		global $disableedit, $disablemove, $disableremove;
@@ -1375,7 +1375,7 @@ class ProductAttribute extends CommonObject
 		$num = count($this->lines);
 
 		$parameters = array('num' => $num, 'selected' => $selected, 'table_element_line' => $this->table_element_line);
-		$reshook = $hookmanager->executeHooks('printObjectLineTitle', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('printObjectLineTitle', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if (empty($reshook)) {
 			// Output template part (modules that overwrite templates must declare this into descriptor)
 			// Use global variables + $dateSelector + $seller and $buyer
@@ -1406,9 +1406,9 @@ class ProductAttribute extends CommonObject
 					// Add products/services form
 
 					$parameters = array();
-					$reshook = $hookmanager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+					$reshook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 					if ($reshook < 0) {
-						setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+						setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 					}
 					if (empty($reshook)) {
 						$object->formAddObjectLine(1, $mysoc, $buyer);
@@ -1421,9 +1421,9 @@ class ProductAttribute extends CommonObject
 
 		print "<!-- begin printObjectLines() -->\n";
 		foreach ($this->lines as $line) {
-			if (is_object($hookmanager)) {   // Old code is commented on preceding line.
+			if (is_object($hookManager)) {   // Old code is commented on preceding line.
 				$parameters = array('line' => $line, 'num' => $num, 'i' => $i, 'selected' => $selected, 'table_element_line' => $line->table_element);
-				$reshook = $hookmanager->executeHooks('printObjectLine', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('printObjectLine', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 			}
 			if (empty($reshook)) {
 				$this->printObjectLine($action, $line, '', $num, $i, $dateSelector, $seller, $buyer, $selected, null, $defaulttpldir);
@@ -1453,7 +1453,7 @@ class ProductAttribute extends CommonObject
 	 */
 	public function printObjectLine($action, $line, $var, $num, $i, $dateSelector, $seller, $buyer, $selected = 0, $extrafields = null, $defaulttpldir = '/variants/tpl')
 	{
-		global $conf, $langs, $user, $object, $hookmanager;
+		global $conf, $langs, $user, $object, $hookManager;
 		global $form;
 		global $disableedit, $disablemove, $disableremove; // TODO We should not use global var for this !
 

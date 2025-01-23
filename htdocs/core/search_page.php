@@ -45,7 +45,7 @@ require_once '../main.inc.php';
  * @var Conf $conf
  * @var DoliDB $db
  * @var Form $form
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -123,7 +123,7 @@ print '<div>';
 //print '<br>';
 
 // Instantiate hooks of thirdparty module
-$hookmanager->initHooks(array('searchform'));
+$hookManager->initHooks(array('searchform'));
 
 // Define $searchform
 $searchform = '';
@@ -163,11 +163,11 @@ if ($conf->use_javascript_ajax && 1 == 2) {   // select2 is not best with smartp
 
 // Execute hook printSearchForm
 $parameters = array('searchform'=>$searchform);
-$reshook = $hookmanager->executeHooks('printSearchForm', $parameters); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('printSearchForm', $parameters); // Note that $action and $object may have been modified by some hooks
 if (empty($reshook)) {
-	$searchform .= $hookmanager->resPrint;
+	$searchform .= $hookManager->resPrint;
 } else {
-	$searchform = $hookmanager->resPrint;
+	$searchform = $hookManager->resPrint;
 }
 
 $searchform .= '<br>';

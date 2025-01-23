@@ -56,13 +56,13 @@ require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
  */
 
-$hookmanager->initHooks(array('takeposinvoice'));
+$hookManager->initHooks(array('takeposinvoice'));
 
 $langs->loadLangs(array("companies", "commercial", "bills", "cashdesk", "stocks", "banks"));
 
@@ -180,9 +180,9 @@ $term = empty($_SESSION["takeposterminal"]) ? 1 : $_SESSION["takeposterminal"];
  */
 $error = 0;
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -830,15 +830,15 @@ if (empty($reshook)) {
 
 			// complete line by hook
 			$parameters = array('prod' => $prod, 'line' => $line);
-			$reshook = $hookmanager->executeHooks('completeTakePosAddLine', $parameters, $invoice, $action);    // Note that $action and $line may have been modified by some hooks
+			$reshook = $hookManager->executeHooks('completeTakePosAddLine', $parameters, $invoice, $action);    // Note that $action and $line may have been modified by some hooks
 			if ($reshook < 0) {
-				setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			}
 
 
 			if (empty($reshook)) {
-				if (!empty($hookmanager->resArray)) {
-					$line = $hookmanager->resArray;
+				if (!empty($hookManager->resArray)) {
+					$line = $hookManager->resArray;
 				}
 
 				// check if qty in stock
@@ -1745,11 +1745,11 @@ if (!$usediv) {
 
 // Complete header by hook
 $parameters = array();
-$reshook = $hookmanager->executeHooks('completeTakePosInvoiceHeader', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('completeTakePosInvoiceHeader', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
-print $hookmanager->resPrint;
+print $hookManager->resPrint;
 
 if (empty($_SESSION["basiclayout"]) || $_SESSION["basiclayout"] != 1) {
 	if (getDolGlobalInt("TAKEPOS_SHOW_SUBPRICE")) {
@@ -1912,11 +1912,11 @@ if ($placeid > 0) {
 
 				// complete line by hook
 				$parameters = array('line' => $line);
-				$reshook = $hookmanager->executeHooks('completeTakePosInvoiceParentLine', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('completeTakePosInvoiceParentLine', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
-				$htmlsupplements[$line->fk_parent_line] .= $hookmanager->resPrint;
+				$htmlsupplements[$line->fk_parent_line] .= $hookManager->resPrint;
 
 				if (empty($_SESSION["basiclayout"]) || $_SESSION["basiclayout"] != 1) {
 					$htmlsupplements[$line->fk_parent_line] .= '<td class="right">'.vatrate(price2num($line->remise_percent), true).'</td>';
@@ -2025,11 +2025,11 @@ if ($placeid > 0) {
 
 				// complete line by hook
 				$parameters = array('line' => $line);
-				$reshook = $hookmanager->executeHooks('completeTakePosInvoiceLine', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('completeTakePosInvoiceLine', $parameters, $invoice, $action);    // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
-				$htmlforlines .= $hookmanager->resPrint;
+				$htmlforlines .= $hookManager->resPrint;
 
 				if (getDolGlobalInt("TAKEPOS_SHOW_SUBPRICE")) {
 					$htmlforlines .= '<td class="right">'.price($line->subprice).'</td>';

@@ -43,7 +43,7 @@ require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -71,7 +71,7 @@ if (empty($page) || $page == -1) {
 }     // If $page is not defined, or '' or -1
 $offset = $limit * $page;
 
-$hookmanager->initHooks(array('directdebitcreatecard', 'globalcard'));
+$hookManager->initHooks(array('directdebitcreatecard', 'globalcard'));
 
 // Security check
 $socid = GETPOSTINT('socid');
@@ -105,9 +105,9 @@ if (GETPOST('cancel', 'alpha')) {
 }
 
 $parameters = array('mode' => $mode, 'format' => $format, 'limit' => $limit, 'page' => $page, 'offset' => $offset);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

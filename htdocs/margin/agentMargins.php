@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/margin/lib/margins.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -88,7 +88,7 @@ if (!empty($enddatemonth)) {
 	$enddate = dol_mktime(23, 59, 59, $enddatemonth, $enddateday, $enddateyear);
 }
 
-$hookmanager->initHooks(array('marginagentlist'));
+$hookManager->initHooks(array('marginagentlist'));
 
 // Security check
 $result = restrictedArea($user, 'margins');

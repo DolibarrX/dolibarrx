@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/dynamic_price/class/price_parser.class.
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -57,7 +57,7 @@ if ($type == '' && !$user->hasRight('service', 'lire') && $user->hasRight('produ
 $langs->loadLangs(array('products', 'stocks'));
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array of hooks
-$hookmanager->initHooks(array('productindex'));
+$hookManager->initHooks(array('productindex'));
 
 // Initialize objects
 $product_static = new Product($db);
@@ -174,8 +174,8 @@ if ((isModEnabled("product") || isModEnabled("service")) && ($user->hasRight("pr
 	$sql .= ' WHERE p.entity IN ('.getEntity($product_static->element, 1).')';
 	// Add where from hooks
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $product_static); // Note that $action and $object may have been modified by hook
-	$sql .= $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $product_static); // Note that $action and $object may have been modified by hook
+	$sql .= $hookManager->resPrint;
 	$sql .= " GROUP BY p.fk_product_type, p.tosell, p.tobuy";
 	$result = $db->query($sql);
 	while ($objp = $db->fetch_object($result)) {
@@ -335,8 +335,8 @@ if ((isModEnabled("product") || isModEnabled("service")) && ($user->hasRight("pr
 
 	// Add where from hooks
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $product_static); // Note that $action and $object may have been modified by hook
-	$sql .= $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $product_static); // Note that $action and $object may have been modified by hook
+	$sql .= $hookManager->resPrint;
 	$sql .= $db->order("p.tms", "DESC");
 	$sql .= $db->plimit($max, 0);
 
@@ -714,7 +714,7 @@ print $boxlist;
 print '</div>';
 
 $parameters = array('type' => $type, 'user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardProductsServices', $parameters, $product_static); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardProductsServices', $parameters, $product_static); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

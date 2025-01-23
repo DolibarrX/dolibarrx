@@ -63,7 +63,7 @@ const PAY_CREDIT = 1;
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -85,7 +85,7 @@ $action = GETPOST('action', 'aZ09');
 $projectid = GETPOSTINT('projectid');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('comptafileslist', 'globallist'));
+$hookManager->initHooks(array('comptafileslist', 'globallist'));
 
 // Load variable for pagination
 $limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $conf->liste_limit;
@@ -163,8 +163,8 @@ $listofchoices = array(
  */
 
 //$parameters = array('socid' => $id);
-//$reshook = $hookmanager->executeHooks('doActions', $parameters, $object); // Note that $object may have been modified by some hooks
-//if ($reshook < 0) setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+//$reshook = $hookManager->executeHooks('doActions', $parameters, $object); // Note that $object may have been modified by some hooks
+//if ($reshook < 0) setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 
 $filesarray = array();
 

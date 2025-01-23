@@ -829,7 +829,7 @@ class UserGroup extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $langs, $conf, $db, $hookmanager;
+		global $langs, $conf, $db, $hookManager;
 
 		if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') && $withpicto) {
 			$withpicto = 0;
@@ -893,13 +893,13 @@ class UserGroup extends CommonObject
 		$result .= $linkend;
 
 		global $action;
-		$hookmanager->initHooks(array('groupdao'));
+		$hookManager->initHooks(array('groupdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;

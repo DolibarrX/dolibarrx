@@ -564,7 +564,7 @@ function getNumberInvoicesPieChart($mode)
  */
 function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
 {
-	global $conf, $db, $langs, $user, $hookmanager;
+	global $conf, $db, $langs, $user, $hookManager;
 
 	$result = '';
 
@@ -597,8 +597,8 @@ function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
 		}
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printFieldListWhereCustomerDraft', $parameters);
-		$sql .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListWhereCustomerDraft', $parameters);
+		$sql .= $hookManager->resPrint;
 
 		$sql .= " GROUP BY f.rowid, f.ref, f.datef, f.total_ht, f.total_tva, f.total_ttc, f.ref_client, f.type, f.fk_statut, f.paye,";
 		$sql .= " s.nom, s.rowid, s.email, s.code_client, s.code_compta, s.code_fournisseur, s.code_compta_fournisseur,";
@@ -609,8 +609,8 @@ function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
 
 		// Add Group from hooks
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printFieldListGroupByCustomerDraft', $parameters);
-		$sql .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListGroupByCustomerDraft', $parameters);
+		$sql .= $hookManager->resPrint;
 
 		$resql = $db->query($sql);
 
@@ -715,7 +715,7 @@ function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
  */
 function getDraftSupplierTable($maxCount = 500, $socid = 0)
 {
-	global $conf, $db, $langs, $user, $hookmanager;
+	global $conf, $db, $langs, $user, $hookManager;
 
 	$result = '';
 
@@ -744,8 +744,8 @@ function getDraftSupplierTable($maxCount = 500, $socid = 0)
 		}
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printFieldListWhereSupplierDraft', $parameters);
-		$sql .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListWhereSupplierDraft', $parameters);
+		$sql .= $hookManager->resPrint;
 		$resql = $db->query($sql);
 
 		if ($resql) {
@@ -1074,7 +1074,7 @@ function getPurchaseInvoiceLatestEditTable($maxCount = 5, $socid = 0)
  */
 function getCustomerInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 {
-	global $conf, $db, $langs, $user, $hookmanager;
+	global $conf, $db, $langs, $user, $hookManager;
 
 	$result = '';
 
@@ -1104,8 +1104,8 @@ function getCustomerInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 		}
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printFieldListWhereCustomerUnpaid', $parameters);
-		$sql .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListWhereCustomerUnpaid', $parameters);
+		$sql .= $hookManager->resPrint;
 
 		$sql .= " GROUP BY f.rowid, f.ref, f.fk_statut, f.datef, f.type, f.total_ht, f.total_tva, f.total_ttc, f.paye, f.tms, f.date_lim_reglement,";
 		$sql .= " s.nom, s.rowid, s.email, s.code_client, s.code_compta, cc.rowid, cc.code";
@@ -1263,7 +1263,7 @@ function getCustomerInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
  */
 function getPurchaseInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 {
-	global $conf, $db, $langs, $user, $hookmanager;
+	global $conf, $db, $langs, $user, $hookManager;
 
 	$result = '';
 
@@ -1294,8 +1294,8 @@ function getPurchaseInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 		}
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printFieldListWhereSupplierUnpaid', $parameters);
-		$sql .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListWhereSupplierUnpaid', $parameters);
+		$sql .= $hookManager->resPrint;
 
 		$sql .= " GROUP BY ff.rowid, ff.ref, ff.fk_statut, ff.type, ff.libelle, ff.total_ht, ff.total_tva, ff.total_ttc, ff.paye, ff.date_lim_reglement,";
 		$sql .= " s.nom, s.rowid, s.email, s.code_client, s.code_fournisseur, s.code_compta, s.code_compta_fournisseur";

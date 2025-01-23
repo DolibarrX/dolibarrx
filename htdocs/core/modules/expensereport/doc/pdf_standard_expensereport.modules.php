@@ -194,7 +194,7 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $db, $hookmanager;
+		global $user, $langs, $conf, $mysoc, $db, $hookManager;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -229,14 +229,14 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 
 			if (file_exists($dir)) {
 				// Add pdfgeneration hook
-				if (!is_object($hookmanager)) {
+				if (!is_object($hookManager)) {
 					include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-					$hookmanager = new HookManager($this->db);
+					$hookManager = new HookManager($this->db);
 				}
-				$hookmanager->initHooks(array('pdfgeneration'));
+				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookmanager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Create pdf instance
 				$pdf = pdf_getInstance($this->format);
@@ -514,13 +514,13 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 				$pdf->Output($file, 'F');
 
 				// Add pdfgeneration hook
-				$hookmanager->initHooks(array('pdfgeneration'));
+				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookmanager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					$this->error = $hookmanager->error;
-					$this->errors = $hookmanager->errors;
+					$this->error = $hookManager->error;
+					$this->errors = $hookManager->errors;
 				}
 
 				dolChmod($file);
@@ -637,8 +637,8 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		// global $conf, $langs, $hookmanager;
-		global $user, $langs, $conf, $mysoc, $db, $hookmanager;
+		// global $conf, $langs, $hookManager;
+		global $user, $langs, $conf, $mysoc, $db, $hookManager;
 
 		// Load traductions files required by page
 		$outputlangs->loadLangs(array("main", "trips", "companies"));

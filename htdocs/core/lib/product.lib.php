@@ -453,7 +453,7 @@ function product_lot_admin_prepare_head()
  */
 function show_stats_for_company($product, $socid)
 {
-	global $langs, $user, $db, $hookmanager;
+	global $langs, $user, $db, $hookManager;
 
 	$form = new Form($db);
 
@@ -723,12 +723,12 @@ function show_stats_for_company($product, $socid)
 		print '</tr>';
 	}
 	$parameters = array('socid' => $socid);
-	$reshook = $hookmanager->executeHooks('addMoreProductStat', $parameters, $product, $nblines); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('addMoreProductStat', $parameters, $product, $nblines); // Note that $action and $object may have been modified by some hooks
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
-	print $hookmanager->resPrint;
+	print $hookManager->resPrint;
 
 
 	return $nblines++;
@@ -743,7 +743,7 @@ function show_stats_for_company($product, $socid)
  */
 function show_stats_for_batch($batch, $socid)
 {
-	global $conf, $langs, $user, $db, $hookmanager;
+	global $conf, $langs, $user, $db, $hookManager;
 
 	$langs->LoadLangs(array('sendings', 'orders', 'receptions'));
 
@@ -843,12 +843,12 @@ function show_stats_for_batch($batch, $socid)
 	}
 
 	$parameters = array('socid' => $socid);
-	$reshook = $hookmanager->executeHooks('addMoreBatchProductStat', $parameters, $batch, $nblines); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('addMoreBatchProductStat', $parameters, $batch, $nblines); // Note that $action and $object may have been modified by some hooks
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
-	print $hookmanager->resPrint;
+	print $hookManager->resPrint;
 
 
 	return $nblines++;

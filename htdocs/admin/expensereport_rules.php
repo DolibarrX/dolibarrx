@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT.'/expensereport/class/expensereport_rule.class.ph
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -45,7 +45,7 @@ require_once DOL_DOCUMENT_ROOT.'/expensereport/class/expensereport_rule.class.ph
 $langs->loadLangs(array("admin", "other", "trips", "errors", "dict"));
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('admin', 'dictionaryadmin','expensereport_rules'));
+$hookManager->initHooks(array('admin', 'dictionaryadmin','expensereport_rules'));
 
 $object = new ExpenseReportRule($db);
 
@@ -62,9 +62,9 @@ $parameters = array();
 $rules = array();
 $tab_apply = array();
 $tab_rules_type = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

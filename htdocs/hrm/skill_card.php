@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT . '/hrm/lib/hrm_skill.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -63,7 +63,7 @@ $lineid   = GETPOSTINT('lineid');
 $object = new Skill($db);
 $extrafields = new ExtraFields($db);
 //$diroutputmassaction = $conf->hrm->dir_output.'/temp/massgeneration/'.$user->id;
-$hookmanager->initHooks(array('skillcard', 'globalcard')); // Note that conf->hooks_modules contains array
+$hookManager->initHooks(array('skillcard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -114,9 +114,9 @@ $MaxNumberSkill = getDolGlobalInt('HRM_MAXRANK', Skill::DEFAULT_MAX_RANK_PER_SKI
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -463,11 +463,11 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm, 'lineid' => $lineid);
-	$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
-		$formconfirm .= $hookmanager->resPrint;
+		$formconfirm .= $hookManager->resPrint;
 	} elseif ($reshook > 0) {
-		$formconfirm = $hookmanager->resPrint;
+		$formconfirm = $hookManager->resPrint;
 	}
 
 	// Print form confirm
@@ -513,9 +513,9 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	if ($action != 'presend' && $action != 'editline') {
 		print '<div class="tabsAction">' . "\n";
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
 		if (empty($reshook)) {
@@ -579,7 +579,7 @@ if ($action != "create" && $action != "edit") {
 	// Initialize a technical objects
 	$objectline = new Skilldet($db);
 	//  $diroutputmassaction = $conf->hrm->dir_output . '/temp/massgeneration/' . $user->id;
-	//  $hookmanager->initHooks(array('skilldetlist')); // Note that conf->hooks_modules contains array
+	//  $hookManager->initHooks(array('skilldetlist')); // Note that conf->hooks_modules contains array
 
 	// Default sort order (if not yet defined by previous GETPOST)
 	if (!$sortfield) {
@@ -703,11 +703,11 @@ if ($action != "create" && $action != "edit") {
 	$moreforfilter.= '</div>';*/
 
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldPreListTitle', $parameters, $objectline); // Note that $action and $objectline may have been modified by hook
+	$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $objectline); // Note that $action and $objectline may have been modified by hook
 	if (empty($reshook)) {
-		$moreforfilter .= $hookmanager->resPrint;
+		$moreforfilter .= $hookManager->resPrint;
 	} else {
-		$moreforfilter = $hookmanager->resPrint;
+		$moreforfilter = $hookManager->resPrint;
 	}
 
 	if (!empty($moreforfilter)) {
@@ -837,8 +837,8 @@ if ($action != "create" && $action != "edit") {
 
 		// Fields from hook
 		$parameters = array('arrayfields' => $arrayfields, 'object' => $objectline, 'obj' => $obj, 'i' => $i, 'totalarray' => &$totalarray);
-		$reshook = $hookmanager->executeHooks('printFieldListValue', $parameters, $objectline); // Note that $action and $objectline may have been modified by hook
-		print $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $objectline); // Note that $action and $objectline may have been modified by hook
+		print $hookManager->resPrint;
 		/*// Action column
 		print '<td class="nowrap center">';
 
@@ -870,8 +870,8 @@ if ($action != "create" && $action != "edit") {
 	}
 
 	$parameters = array('arrayfields' => $arrayfields, 'sql' => $sql);
-	$reshook = $hookmanager->executeHooks('printFieldListFooter', $parameters, $objectline); // Note that $action and $objectline may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters, $objectline); // Note that $action and $objectline may have been modified by hook
+	print $hookManager->resPrint;
 
 	print '</table>' . "\n";
 	print '</div>' . "\n";

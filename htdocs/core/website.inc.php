@@ -147,18 +147,18 @@ if (!defined('USEDOLIBARRSERVER') && !defined('USEDOLIBARREDITOR')) {
 		// $contentsecuritypolicy = "frame-ancestors 'self'; img-src * data:; font-src *; default-src *; script-src 'self' 'unsafe-inline' *.paypal.com *.stripe.com *.google.com *.googleapis.com *.google-analytics.com *.googletagmanager.com; style-src 'self' 'unsafe-inline'; connect-src 'self';";
 		$contentsecuritypolicy = getDolGlobalString('WEBSITE_MAIN_SECURITY_FORCECSPRO');
 
-		if (!is_object($hookmanager)) {
+		if (!is_object($hookManager)) {
 			include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-			$hookmanager = new HookManager($db);
+			$hookManager = new HookManager($db);
 		}
-		$hookmanager->initHooks(array("main"));
+		$hookManager->initHooks(array("main"));
 
 		$parameters = array('contentsecuritypolicy'=>$contentsecuritypolicy, 'mode'=>'reportonly');
-		$result = $hookmanager->executeHooks('setContentSecurityPolicy', $parameters); // Note that $action and $object may have been modified by some hooks
+		$result = $hookManager->executeHooks('setContentSecurityPolicy', $parameters); // Note that $action and $object may have been modified by some hooks
 		if ($result > 0) {
-			$contentsecuritypolicy = $hookmanager->resPrint; // Replace CSP
+			$contentsecuritypolicy = $hookManager->resPrint; // Replace CSP
 		} else {
-			$contentsecuritypolicy .= $hookmanager->resPrint; // Concat CSP
+			$contentsecuritypolicy .= $hookManager->resPrint; // Concat CSP
 		}
 
 		if (!empty($contentsecuritypolicy)) {
@@ -180,18 +180,18 @@ if (!defined('USEDOLIBARRSERVER') && !defined('USEDOLIBARREDITOR')) {
 		// $contentsecuritypolicy = "frame-ancestors 'self'; img-src * data:; font-src *; default-src *; script-src 'self' 'unsafe-inline' *.paypal.com *.stripe.com *.google.com *.googleapis.com *.google-analytics.com *.googletagmanager.com; style-src 'self' 'unsafe-inline'; connect-src 'self';";
 		$contentsecuritypolicy = getDolGlobalString('WEBSITE_MAIN_SECURITY_FORCECSP');
 
-		if (!is_object($hookmanager)) {
+		if (!is_object($hookManager)) {
 			include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-			$hookmanager = new HookManager($db);
+			$hookManager = new HookManager($db);
 		}
-		$hookmanager->initHooks(array("main"));
+		$hookManager->initHooks(array("main"));
 
 		$parameters = array('contentsecuritypolicy'=>$contentsecuritypolicy, 'mode'=>'active');
-		$result = $hookmanager->executeHooks('setContentSecurityPolicy', $parameters); // Note that $action and $object may have been modified by some hooks
+		$result = $hookManager->executeHooks('setContentSecurityPolicy', $parameters); // Note that $action and $object may have been modified by some hooks
 		if ($result > 0) {
-			$contentsecuritypolicy = $hookmanager->resPrint; // Replace CSP
+			$contentsecuritypolicy = $hookManager->resPrint; // Replace CSP
 		} else {
-			$contentsecuritypolicy .= $hookmanager->resPrint; // Concat CSP
+			$contentsecuritypolicy .= $hookManager->resPrint; // Concat CSP
 		}
 
 		if (!empty($contentsecuritypolicy)) {

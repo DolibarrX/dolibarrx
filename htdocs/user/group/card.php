@@ -37,7 +37,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -82,7 +82,7 @@ include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'inclu
 $object->loadRights();
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('groupcard', 'globalcard'));
+$hookManager->initHooks(array('groupcard', 'globalcard'));
 
 // Security check
 $result = restrictedArea($user, 'user', $id, 'usergroup&usergroup', $feature2);
@@ -98,9 +98,9 @@ if (isModEnabled('multicompany') && $conf->entity > 1 && getDolGlobalString('MUL
  */
 $error = 0;
 $parameters = array('id' => $id, 'userid' => $userid, 'caneditperms' => $permissiontoedit);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -373,9 +373,9 @@ if ($action == 'create') {
 			print '<div class="tabsAction">';
 
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if ($reshook < 0) {
-				setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			}
 
 			if ($permissiontoedit) {
@@ -403,8 +403,8 @@ if ($action == 'create') {
 
 			// Other form for add user to group
 			$parameters = array('caneditperms' => $permissiontoedit, 'exclude' => $exclude);
-			$reshook = $hookmanager->executeHooks('formAddUserToGroup', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			print $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('formAddUserToGroup', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			print $hookManager->resPrint;
 
 			if (empty($reshook)) {
 				if ($permissiontoedit) {

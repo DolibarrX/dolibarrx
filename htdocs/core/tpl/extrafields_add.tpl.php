@@ -31,7 +31,7 @@
  * @var Conf $conf
  * @var DoliDB $db
  * @var ExtraFields $extrafields
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  *
  * @var Societe $thirdpartytopropagateextrafieldsfrom
@@ -64,9 +64,9 @@ if (!isset($parameters)) {
 	$parameters = array();
 }
 
-$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
-print $hookmanager->resPrint;
+print $hookManager->resPrint;
 if (empty($reshook)) {
 	$params = array();
 	$params['cols'] = array_key_exists('colspanvalue', $parameters) ? $parameters['colspanvalue'] : '';

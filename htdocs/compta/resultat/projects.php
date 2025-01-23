@@ -47,7 +47,7 @@ require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingaccount.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -169,7 +169,7 @@ if (isModEnabled('comptabilite')) {
 if (isModEnabled('accounting')) {
 	$result = restrictedArea($user, 'accounting', '', '', 'comptarapport');
 }
-$hookmanager->initHooks(['customersupplierreportlist']);
+$hookManager->initHooks(['customersupplierreportlist']);
 
 
 /*
@@ -971,9 +971,9 @@ $parameters["mode"] = $modecompta;
 $parameters["date_start"] = $date_start;
 $parameters["date_end"] = $date_end;
 // Initialize technical object to manage hooks of expenses. Note that conf->hooks_modules contains array array
-$hookmanager->initHooks(array('externalbalance'));
-$reshook = $hookmanager->executeHooks('addBalanceLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-echo $hookmanager->resPrint;
+$hookManager->initHooks(array('externalbalance'));
+$reshook = $hookManager->executeHooks('addBalanceLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+echo $hookManager->resPrint;
 
 
 

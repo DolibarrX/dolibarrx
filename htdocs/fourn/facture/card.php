@@ -67,7 +67,7 @@ if (isModEnabled('accounting')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -100,7 +100,7 @@ $hidedesc = (GETPOSTINT('hidedesc') ? GETPOSTINT('hidedesc') : (getDolGlobalStri
 $hideref = (GETPOSTINT('hideref') ? GETPOSTINT('hideref') : (getDolGlobalString('MAIN_GENERATE_DOCUMENTS_HIDE_REF') ? 1 : 0));
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('invoicesuppliercard', 'globalcard'));
+$hookManager->initHooks(array('invoicesuppliercard', 'globalcard'));
 
 $object = new FactureFournisseur($db);
 $extrafields = new ExtraFields($db);
@@ -154,9 +154,9 @@ $error = 0;
  */
 
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -2338,7 +2338,7 @@ if ($action == 'create') {
 	// Call Hook tabContentCreateSupplierInvoice
 	$parameters = array();
 	// Note that $action and $object may be modified by hook
-	$reshook = $hookmanager->executeHooks('tabContentCreateSupplierInvoice', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('tabContentCreateSupplierInvoice', $parameters, $object, $action);
 	if (empty($reshook)) {
 		print '<table class="border centpercent">';
 
@@ -2910,8 +2910,8 @@ if ($action == 'create') {
 
 		// Other options
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		print $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		print $hookManager->resPrint;
 
 
 		print "</table>\n";
@@ -3254,11 +3254,11 @@ if ($action == 'create') {
 		}
 
 		$parameters = array('formConfirm' => $formconfirm, 'lineid' => $lineid);
-		$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($reshook)) {
-			$formconfirm .= $hookmanager->resPrint;
+			$formconfirm .= $hookManager->resPrint;
 		} elseif ($reshook > 0) {
-			$formconfirm = $hookmanager->resPrint;
+			$formconfirm = $hookManager->resPrint;
 		}
 
 		// Print form confirm
@@ -3307,7 +3307,7 @@ if ($action == 'create') {
 		// Call Hook tabContentViewSupplierInvoice
 		$parameters = array();
 		// Note that $action and $object may be modified by hook
-		$reshook = $hookmanager->executeHooks('tabContentViewSupplierInvoice', $parameters, $object, $action);
+		$reshook = $hookManager->executeHooks('tabContentViewSupplierInvoice', $parameters, $object, $action);
 		if (empty($reshook)) {
 			print '<div class="fichecenter">';
 			print '<div class="fichehalfleft">';
@@ -4010,9 +4010,9 @@ if ($action == 'create') {
 					// Add free products/services
 
 					$parameters = array();
-					$reshook = $hookmanager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+					$reshook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 					if ($reshook < 0) {
-						setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+						setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 					}
 					if (empty($reshook)) {
 						$object->formAddObjectLine(1, $societe, $mysoc);
@@ -4034,7 +4034,7 @@ if ($action == 'create') {
 			print '<div class="tabsAction">';
 
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 			// modified by hook
 			if (empty($reshook)) {
 				// Modify a validated invoice with no payments

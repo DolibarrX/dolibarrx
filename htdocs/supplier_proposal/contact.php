@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.dispatch.class
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -57,7 +57,7 @@ if ($user->socid) {
 	$socid = $user->socid;
 }
 
-$hookmanager->initHooks(array('supplier_proposalcontactcard', 'globalcard'));
+$hookManager->initHooks(array('supplier_proposalcontactcard', 'globalcard'));
 
 $result = restrictedArea($user, 'supplier_proposal', $id, 'supplier_proposal', '');
 
@@ -71,9 +71,9 @@ $permissiontoedit = $user->hasRight('supplier_proposal', 'creer');
  */
 
 $parameters = array('id'=>$id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

@@ -22,7 +22,7 @@ require '../../../../main.inc.php';
 
 /**
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -39,7 +39,7 @@ require_once DOL_DOCUMENT_ROOT . '/admin/tools/ui/class/documentation.class.php'
 $langs->load('uxdocumentation');
 
 // Hooks
-$hookmanager->initHooks(array('uidocumentation'));
+$hookManager->initHooks(array('uidocumentation'));
 
 //
 $documentation = new Documentation($db);

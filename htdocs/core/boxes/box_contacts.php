@@ -67,7 +67,7 @@ class box_contacts extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $user, $langs, $conf, $hookmanager;
+		global $user, $langs, $conf, $hookManager;
 
 		$langs->loadLangs(array("boxes", "contracts"));
 
@@ -112,13 +112,13 @@ class box_contacts extends ModeleBoxes
 			$sql .= " AND ((sp.fk_user_creat = ".((int) $user->id)." AND sp.priv = 1) OR sp.priv = 0)"; // check if this is a private contact
 			// Add where from hooks
 			$parameters = array('socid' => $user->socid, 'boxcode' => $this->boxcode);
-			$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $contactstatic); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $contactstatic); // Note that $action and $object may have been modified by hook
 			if (empty($reshook)) {
 				if ($user->socid > 0) {
 					$sql .= " AND sp.fk_soc = ".((int) $user->socid);
 				}
 			}
-			$sql .= $hookmanager->resPrint;
+			$sql .= $hookManager->resPrint;
 			$sql .= " ORDER BY sp.tms DESC";
 			$sql .= $this->db->plimit($max, 0);
 

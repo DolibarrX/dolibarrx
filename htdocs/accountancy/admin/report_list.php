@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountancyreport.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -78,7 +78,7 @@ $pagenext = $page + 1;
 $search_country_id = GETPOST('search_country_id', 'int');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('admin'));
+$hookManager->initHooks(array('admin'));
 
 // This page is a generic page to edit dictionaries
 // Put here declaration of dictionaries properties
@@ -486,9 +486,9 @@ if ($tabname[$id]) {
 
 	$tmpaction = 'create';
 	$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-	$reshook = $hookmanager->executeHooks('createDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
-	$error = $hookmanager->error;
-	$errors = $hookmanager->errors;
+	$reshook = $hookManager->executeHooks('createDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+	$error = $hookManager->error;
+	$errors = $hookManager->errors;
 
 	if (empty($reshook)) {
 		fieldListAccountingReport($fieldlist, $obj, $tabname[$id], 'add');
@@ -642,9 +642,9 @@ if ($resql) {
 			if ($action == 'edit' && ($rowid == (!empty($obj->rowid) ? $obj->rowid : $obj->code))) {
 				$tmpaction = 'edit';
 				$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-				$reshook = $hookmanager->executeHooks('editDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
-				$error = $hookmanager->error;
-				$errors = $hookmanager->errors;
+				$reshook = $hookManager->executeHooks('editDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+				$error = $hookManager->error;
+				$errors = $hookManager->errors;
 
 				// Actions
 				if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
@@ -689,10 +689,10 @@ if ($resql) {
 
 				$tmpaction = 'view';
 				$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-				$reshook = $hookmanager->executeHooks('viewDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('viewDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 
-				$error = $hookmanager->error;
-				$errors = $hookmanager->errors;
+				$error = $hookManager->error;
+				$errors = $hookManager->errors;
 
 				// Actions
 				if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {

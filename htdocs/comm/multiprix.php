@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
  * @var Conf $conf
  * @var DoliDB $db
  * @var Form $form
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -57,7 +57,7 @@ if ($user->socid > 0) {
 	$action = '';
 	$id = $user->socid;
 }
-$hookmanager->initHooks(array('thirdpartyprice', 'globalcard'));
+$hookManager->initHooks(array('thirdpartyprice', 'globalcard'));
 $result = restrictedArea($user, 'societe', $id, '&societe', '', 'fk_soc', 'rowid', 0);
 
 

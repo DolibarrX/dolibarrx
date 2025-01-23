@@ -848,7 +848,7 @@ class Productlot extends CommonObject
 	 */
 	public function loadStatsExpedition($socid = 0)
 	{
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT exp.fk_soc) as nb_customers, COUNT(DISTINCT exp.rowid) as nb,";
 		$sql .= " COUNT(ed.rowid) as nb_rows, SUM(edb.qty) as qty";
@@ -902,9 +902,9 @@ class Productlot extends CommonObject
 			//          }
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookmanager->executeHooks('loadStatsLotExpedition', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('loadStatsLotExpedition', $parameters, $this, $action);
 			if ($reshook > 0) {
-				$this->stats_expedition = $hookmanager->resArray['stats_expedition'];
+				$this->stats_expedition = $hookManager->resArray['stats_expedition'];
 			}
 
 			return 1;
@@ -922,7 +922,7 @@ class Productlot extends CommonObject
 	 */
 	public function loadStatsSupplierOrder($socid = 0)
 	{
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT cf.fk_soc) as nb_customers, COUNT(DISTINCT cf.rowid) as nb,";
 		$sql .= " COUNT(cfd.rowid) as nb_rows, SUM(cfdi.qty) as qty";
@@ -976,9 +976,9 @@ class Productlot extends CommonObject
 			//          }
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookmanager->executeHooks('loadStatsLotSupplierOrder', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('loadStatsLotSupplierOrder', $parameters, $this, $action);
 			if ($reshook > 0) {
-				$this->stats_supplier_order = $hookmanager->resArray['stats_supplier_order'];
+				$this->stats_supplier_order = $hookManager->resArray['stats_supplier_order'];
 			}
 
 			return 1;
@@ -996,7 +996,7 @@ class Productlot extends CommonObject
 	 */
 	public function loadStatsReception($socid = 0)
 	{
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT recep.fk_soc) as nb_customers, COUNT(DISTINCT recep.rowid) as nb,";
 		$sql .= " COUNT(cfdi.rowid) as nb_rows, SUM(cfdi.qty) as qty";
@@ -1049,9 +1049,9 @@ class Productlot extends CommonObject
 			//          }
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookmanager->executeHooks('loadStatsLotReception', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('loadStatsLotReception', $parameters, $this, $action);
 			if ($reshook > 0) {
-				$this->stats_expedition = $hookmanager->resArray['stats_expedition'];
+				$this->stats_expedition = $hookManager->resArray['stats_expedition'];
 			}
 
 			return 1;
@@ -1069,7 +1069,7 @@ class Productlot extends CommonObject
 	 */
 	public function loadStatsMo($socid = 0)
 	{
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$error = 0;
 
@@ -1111,9 +1111,9 @@ class Productlot extends CommonObject
 		}
 
 		$parameters = array('socid' => $socid);
-		$reshook = $hookmanager->executeHooks('loadStatsCustomerMO', $parameters, $this, $action);
+		$reshook = $hookManager->executeHooks('loadStatsCustomerMO', $parameters, $this, $action);
 		if ($reshook > 0) {
-			$this->stats_mo = $hookmanager->resArray['stats_mo'];
+			$this->stats_mo = $hookManager->resArray['stats_mo'];
 		}
 
 		return 1;
@@ -1193,7 +1193,7 @@ class Productlot extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $maxlen = 24, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $langs, $hookmanager;
+		global $langs, $hookManager;
 
 		$result = '';
 		$params = [
@@ -1258,13 +1258,13 @@ class Productlot extends CommonObject
 		$result .= $linkend;
 
 		global $action;
-		$hookmanager->initHooks(array('productlotdao'));
+		$hookManager->initHooks(array('productlotdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => $result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;

@@ -464,7 +464,7 @@ class FormWebPortal extends Form
 	 */
 	public function selectForFormsList($objecttmp, $htmlname, $preselectedvalue, $showempty = '', $searchkey = '', $placeholder = '', $morecss = '', $moreparams = '', $forcecombo = 0, $outputmode = 0, $disabled = 0, $sortfield = '', $filter = '')
 	{
-		global $conf, $langs, $hookmanager;
+		global $conf, $langs, $hookManager;
 
 		$prefixforautocompletemode = $objecttmp->element;
 		if ($prefixforautocompletemode == 'societe') {
@@ -526,9 +526,9 @@ class FormWebPortal extends Form
 			'searchkey' => $searchkey
 		);
 
-		$reshook = $hookmanager->executeHooks('selectForFormsListWhere', $parameters); // Note that $action and $object may have been modified by hook
-		if (!empty($hookmanager->resPrint)) {
-			$sql .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('selectForFormsListWhere', $parameters); // Note that $action and $object may have been modified by hook
+		if (!empty($hookManager->resPrint)) {
+			$sql .= $hookManager->resPrint;
 		} else {
 			$sql .= " WHERE 1=1";
 			if (isset($objecttmp->ismultientitymanaged)) {

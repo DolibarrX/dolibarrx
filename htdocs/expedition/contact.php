@@ -40,7 +40,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -78,7 +78,7 @@ if ($id > 0 || !empty($ref)) {
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$hookmanager->initHooks(array('shipmentcontactcard', 'globalcard'));
+$hookManager->initHooks(array('shipmentcontactcard', 'globalcard'));
 $result = restrictedArea($user, 'expedition', $object->id, '');
 
 /*
@@ -86,9 +86,9 @@ $result = restrictedArea($user, 'expedition', $object->id, '');
  */
 
 $parameters = array('id'=>$id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

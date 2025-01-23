@@ -34,13 +34,13 @@ require_once DOL_DOCUMENT_ROOT.'/supplier_proposal/class/supplier_proposal.class
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('suppliersproposalsindex'));
+$hookManager->initHooks(array('suppliersproposalsindex'));
 
 // Load translation files required by the page
 $langs->loadLangs(array('supplier_proposal', 'companies'));
@@ -401,7 +401,7 @@ if (isModEnabled('supplier_proposal') && $user->hasRight('supplier_proposal', 'l
 print '</div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardSupplierProposal', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardSupplierProposal', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

@@ -174,7 +174,7 @@ class FormActions
 	 */
 	public function showactions($object, $typeelement, $socid = 0, $forceshowtitle = 0, $morecss = 'listactions', $max = 0, $moreparambacktopage = '', $morehtmlcenter = '', $assignedtouser = 0)
 	{
-		global $langs, $user, $hookmanager;
+		global $langs, $user, $hookManager;
 
 		require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
 
@@ -242,10 +242,10 @@ class FormActions
 				'urlbacktopage' => $urlbacktopage
 			);
 
-			$reshook = $hookmanager->executeHooks('showActionsLoadFicheTitre', $parameters, $object);
+			$reshook = $hookManager->executeHooks('showActionsLoadFicheTitre', $parameters, $object);
 
 			if ($reshook < 0) {
-				setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			}
 
 			$error = 0;

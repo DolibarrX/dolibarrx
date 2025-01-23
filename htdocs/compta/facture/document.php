@@ -42,7 +42,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -87,7 +87,7 @@ $permissiontoadd = $user->hasRight('facture', 'creer');
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$hookmanager->initHooks(array('invoicedocument', 'globalcard'));
+$hookManager->initHooks(array('invoicedocument', 'globalcard'));
 $result = restrictedArea($user, 'facture', $object->id, '');
 
 $usercancreate = $user->hasRight("facture", "creer");

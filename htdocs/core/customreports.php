@@ -35,7 +35,7 @@
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -134,7 +134,7 @@ $langs->loadLangs(array("companies", "other", "exports", "sendings"));
 
 $extrafields = new ExtraFields($db);
 
-$hookmanager->initHooks(array('customreport')); // Note that conf->hooks_modules contains array
+$hookManager->initHooks(array('customreport')); // Note that conf->hooks_modules contains array
 
 $title = '';
 $picto = '';
@@ -162,21 +162,21 @@ $arrayoftype = array(
 
 // Complete $arrayoftype by external modules
 $parameters = array('objecttype' => $objecttype, 'tabfamily' => $tabfamily);
-$reshook = $hookmanager->executeHooks('loadDataForCustomReports', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('loadDataForCustomReports', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
-} elseif (is_array($hookmanager->resArray)) {
-	if (!empty($hookmanager->resArray['title'])) {		// Add entries for tabs
-		$title = $hookmanager->resArray['title'];
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
+} elseif (is_array($hookManager->resArray)) {
+	if (!empty($hookManager->resArray['title'])) {		// Add entries for tabs
+		$title = $hookManager->resArray['title'];
 	}
-	if (!empty($hookmanager->resArray['picto'])) {		// Add entries for tabs
-		$picto = $hookmanager->resArray['picto'];
+	if (!empty($hookManager->resArray['picto'])) {		// Add entries for tabs
+		$picto = $hookManager->resArray['picto'];
 	}
-	if (!empty($hookmanager->resArray['head'])) {		// Add entries for tabs
-		$head = array_merge($head, $hookmanager->resArray['head']);
+	if (!empty($hookManager->resArray['head'])) {		// Add entries for tabs
+		$head = array_merge($head, $hookManager->resArray['head']);
 	}
-	if (!empty($hookmanager->resArray['arrayoftype'])) {	// Add entries from hook
-		foreach ($hookmanager->resArray['arrayoftype'] as $key => $val) {
+	if (!empty($hookManager->resArray['arrayoftype'])) {	// Add entries from hook
+		foreach ($hookManager->resArray['arrayoftype'] as $key => $val) {
 			$arrayoftype[$key] = $val;
 		}
 	}

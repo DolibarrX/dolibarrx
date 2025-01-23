@@ -31,7 +31,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -62,7 +62,7 @@ $companystatic = new Societe($db);
 $fuserstatic = new User($db);
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('userhome'));
+$hookManager->initHooks(array('userhome'));
 if (!isset($form) || !is_object($form)) {
 	$form = new Form($db);
 }
@@ -136,9 +136,9 @@ $sql .= " FROM ".MAIN_DB_PREFIX."user as u";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON u.fk_soc = s.rowid";
 // Add fields from hooks
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printUserListWhere', $parameters); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('printUserListWhere', $parameters); // Note that $action and $object may have been modified by hook
 if ($reshook > 0) {
-	$sql .= $hookmanager->resPrint;
+	$sql .= $hookManager->resPrint;
 } else {
 	$sql .= " WHERE u.entity IN (".getEntity('user').")";
 }
@@ -334,7 +334,7 @@ print '</div>';
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardUsersGroups', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardUsersGroups', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

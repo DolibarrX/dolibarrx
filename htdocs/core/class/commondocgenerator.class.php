@@ -1560,7 +1560,7 @@ abstract class CommonDocGenerator
 	 */
 	public function printStdColumnContent($pdf, &$curY, $colKey, $columnText = '')
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		$parameters = array(
 			'curY' => &$curY,
@@ -1568,9 +1568,9 @@ abstract class CommonDocGenerator
 			'colKey' => $colKey,
 			'pdf' => &$pdf,
 		);
-		$reshook = $hookmanager->executeHooks('printStdColumnContent', $parameters, $this); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('printStdColumnContent', $parameters, $this); // Note that $action and $object may have been modified by hook
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 		if (!$reshook) {
 			if (empty($columnText)) {
@@ -1646,7 +1646,7 @@ abstract class CommonDocGenerator
 	 */
 	public function getExtrafieldContent($object, $extrafieldKey, $outputlangs = null)
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		if (empty($object->table_element)) {
 			return '';
@@ -1697,12 +1697,12 @@ abstract class CommonDocGenerator
 			'extrafieldKey' => $extrafieldKey,
 			'extrafieldOutputContent' => & $extrafieldOutputContent
 		);
-		$reshook = $hookmanager->executeHooks('getPDFExtrafieldContent', $parameters, $this); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('getPDFExtrafieldContent', $parameters, $this); // Note that $action and $object may have been modified by hook
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 		if ($reshook) {
-			$extrafieldOutputContent = $hookmanager->resPrint;
+			$extrafieldOutputContent = $hookManager->resPrint;
 		}
 
 		return $extrafieldOutputContent;
@@ -1719,7 +1719,7 @@ abstract class CommonDocGenerator
 	 */
 	public function getExtrafieldsInHtml($object, $outputlangs, $params = array())
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		if (empty($object->table_element)) {
 			return "";
@@ -1930,7 +1930,7 @@ abstract class CommonDocGenerator
 	 */
 	public function pdfTabTitles(&$pdf, $tab_top, $tab_height, $outputlangs, $hidetop = 0)
 	{
-		global $hookmanager, $conf;
+		global $hookManager, $conf;
 
 		foreach ($this->cols as $colKey => $colDef) {
 			$parameters = array(
@@ -1942,9 +1942,9 @@ abstract class CommonDocGenerator
 				'hidetop' => $hidetop
 			);
 
-			$reshook = $hookmanager->executeHooks('pdfTabTitles', $parameters, $this); // Note that $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('pdfTabTitles', $parameters, $this); // Note that $object may have been modified by hook
 			if ($reshook < 0) {
-				setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			} elseif (empty($reshook)) {
 				if (!$this->getColumnStatus($colKey)) {
 					continue;

@@ -43,7 +43,7 @@ require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -88,7 +88,7 @@ $mine = GETPOST('mode') == 'mine' ? 1 : 0;
 //if (! $user->rights->projet->all->lire) $mine=1;	// Special for projects
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('projectcard', 'globalcard'));
+$hookManager->initHooks(array('projectcard', 'globalcard'));
 
 $object = new Project($db);
 $extrafields = new ExtraFields($db);
@@ -128,9 +128,9 @@ $permissiondellink = $user->hasRight('projet', 'creer');	// Used by the include 
  */
 $error = 0;
 $parameters = array('id' => $socid, 'objcanvas' => $objcanvas);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -911,8 +911,8 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 
 	// Other options
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 	if (empty($reshook)) {
 		print $object->showOptionals($extrafields, 'create');
 	}
@@ -1018,11 +1018,11 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm);
-	$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
-		$formconfirm .= $hookmanager->resPrint;
+		$formconfirm .= $hookManager->resPrint;
 	} elseif ($reshook > 0) {
-		$formconfirm = $hookmanager->resPrint;
+		$formconfirm = $hookManager->resPrint;
 	}
 
 	// Print form confirm
@@ -1324,8 +1324,8 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 
 		// Other options
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		print $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		print $hookManager->resPrint;
 		if (empty($reshook)) {
 			print $object->showOptionals($extrafields, 'edit');
 		}
@@ -1603,7 +1603,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 
 	print '<div class="tabsAction">';
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 	// modified by hook
 	if (empty($reshook)) {
 		if ($action != "edit" && $action != 'presend') {
@@ -1812,7 +1812,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 
 	// Hook to add more things on page
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('mainCardTabAddMore', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('mainCardTabAddMore', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 } else {
 	print $langs->trans("RecordNotFound");
 }

@@ -32,7 +32,7 @@ require '../main.inc.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -69,7 +69,7 @@ if ($user->socid) {
 	$socid = $user->socid;
 }
 
-$hookmanager->initHooks(array('contactlist'));
+$hookManager->initHooks(array('contactlist'));
 $result = restrictedArea($user, 'societe', $socid, '');
 
 

@@ -38,7 +38,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/import.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -47,7 +47,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/import.lib.php';
 $langs->loadLangs(array('exports', 'compta', 'errors', 'projects', 'admin'));
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('imports'));
+$hookManager->initHooks(array('imports'));
 
 // Security check
 $result = restrictedArea($user, 'import');
@@ -1913,10 +1913,10 @@ if ($step == 5 && $datatoimport) {
 					'nbok'                         => &$nbok,
 				);
 
-				$reshook = $hookmanager->executeHooks('ImportInsert', $parameters);
+				$reshook = $hookManager->executeHooks('ImportInsert', $parameters);
 				if ($reshook < 0) {
 					$arrayoferrors[$sourcelinenb][] = [
-						'lib' => implode("<br>", array_merge([$hookmanager->error], $hookmanager->errors))
+						'lib' => implode("<br>", array_merge([$hookManager->error], $hookManager->errors))
 					];
 				}
 
@@ -2329,10 +2329,10 @@ if ($step == 6 && $datatoimport) {
 				'nbok'                         => &$nbok,
 			);
 
-			$reshook = $hookmanager->executeHooks('ImportInsert', $parameters);
+			$reshook = $hookManager->executeHooks('ImportInsert', $parameters);
 			if ($reshook < 0) {
 				$arrayoferrors[$sourcelinenb][] = [
-					'lib' => implode("<br>", array_merge([$hookmanager->error], $hookmanager->errors))
+					'lib' => implode("<br>", array_merge([$hookManager->error], $hookManager->errors))
 				];
 			}
 
@@ -2352,10 +2352,10 @@ if ($step == 6 && $datatoimport) {
 				}
 			}
 
-			$reshook = $hookmanager->executeHooks('AfterImportInsert', $parameters);
+			$reshook = $hookManager->executeHooks('AfterImportInsert', $parameters);
 			if ($reshook < 0) {
 				$arrayoferrors[$sourcelinenb][] = [
-					'lib' => implode("<br>", array_merge([$hookmanager->error], $hookmanager->errors))
+					'lib' => implode("<br>", array_merge([$hookManager->error], $hookManager->errors))
 				];
 			}
 		}

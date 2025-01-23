@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT.'/compta/localtax/class/localtax.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -450,8 +450,8 @@ while ((($y < $yend) || ($y == $yend && $m <= $mend)) && $mcursor < 1000) {	// $
 	$parameters["type"] = 'localtax'.$localTaxType;
 
 	// Initialize a technical object to manage hooks of expenses. Note that conf->hooks_modules contains array array
-	$hookmanager->initHooks(array('externalbalance'));
-	$reshook = $hookmanager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	$hookManager->initHooks(array('externalbalance'));
+	$reshook = $hookManager->executeHooks('addVatLine', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 
 	print '<tr class="oddeven">';

@@ -167,14 +167,14 @@ class ModeleImports
 	 */
 	public function __construct()
 	{
-		global $hookmanager;
+		global $hookManager;
 
-		if (is_object($hookmanager)) {
-			$hookmanager->initHooks(array('import'));
+		if (is_object($hookManager)) {
+			$hookManager->initHooks(array('import'));
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('constructModeleImports', $parameters, $this);
-			if ($reshook >= 0 && !empty($hookmanager->resArray)) {
-				foreach ($hookmanager->resArray as $mapList) {
+			$reshook = $hookManager->executeHooks('constructModeleImports', $parameters, $this);
+			if ($reshook >= 0 && !empty($hookManager->resArray)) {
+				foreach ($hookManager->resArray as $mapList) {
 					self::$mapTableToElement[$mapList['table']] = $mapList['element'];
 				}
 			}

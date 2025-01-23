@@ -38,7 +38,7 @@ require_once DOL_DOCUMENT_ROOT.'/salaries/class/salary.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -80,7 +80,7 @@ if (!$sortfield) {
 
 $massactionbutton = '';
 
-$hookmanager->initHooks(array('withdrawalstodolist'));
+$hookManager->initHooks(array('withdrawalstodolist'));
 
 if ($user->socid) {
 	$socid = $user->socid;
@@ -97,9 +97,9 @@ if ($type == 'bank-transfer') {
  */
 
 $parameters = array('socid' => $socid, 'limit' => $limit, 'page' => $page, 'offset' => $offset);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 // Purge search criteria

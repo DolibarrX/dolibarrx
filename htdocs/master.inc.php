@@ -183,9 +183,9 @@ if (!defined('NOREQUIREUSER')) {
 }
 
 /*
- * Create the global $hookmanager object
+ * Create the global $hookManager object
  */
-$hookmanager = new HookManager($db);
+$hookManager = new HookManager($db);
 
 
 /*

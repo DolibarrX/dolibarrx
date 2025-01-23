@@ -45,7 +45,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -180,7 +180,7 @@ $object = new ActionComm($db);
 $langs->loadLangs(array('agenda', 'other', 'commercial'));
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('agenda'));
+$hookManager->initHooks(array('agenda'));
 
 $result = restrictedArea($user, 'agenda', 0, 'actioncomm&societe', 'myactions|allactions', 'fk_soc', 'id');
 if ($user->socid && $socid) {
@@ -248,9 +248,9 @@ $parameters = array(
 	'resourceid' => $resourceid,
 	'usergroup' => $usergroup,
 );
-$reshook = $hookmanager->executeHooks('beforeAgenda', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('beforeAgenda', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 $help_url = 'EN:Module_Agenda_En|FR:Module_Agenda|ES:M&oacute;dulo_Agenda|DE:Modul_Terminplanung';
@@ -554,11 +554,11 @@ $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsm
 // Add more views from hooks
 $parameters = array();
 $object = null;
-$reshook = $hookmanager->executeHooks('addCalendarView', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
 if (empty($reshook)) {
-	$viewmode .= $hookmanager->resPrint;
+	$viewmode .= $hookManager->resPrint;
 } elseif ($reshook > 1) {
-	$viewmode = $hookmanager->resPrint;
+	$viewmode = $hookManager->resPrint;
 }
 
 $viewmode .= '</div>';
@@ -716,11 +716,11 @@ if (!empty($conf->use_javascript_ajax)) {	// If javascript on
 
 	// Calendars from hooks
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('addCalendarChoice', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('addCalendarChoice', $parameters, $object, $action);
 	if (empty($reshook)) {
-		$s .= $hookmanager->resPrint;
+		$s .= $hookManager->resPrint;
 	} elseif ($reshook > 1) {
-		$s = $hookmanager->resPrint;
+		$s = $hookManager->resPrint;
 	}
 
 	$s .= "\n".'<!-- End div to calendars selectors -->'."\n";
@@ -761,8 +761,8 @@ $sql .= ' a.fk_element, a.elementtype,';
 $sql .= ' ca.code as type_code, ca.libelle as type_label, ca.color as type_color, ca.type as type_type, ca.picto as type_picto';
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
-$sql .= $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
+$sql .= $hookManager->resPrint;
 
 $sql .= ' FROM '.MAIN_DB_PREFIX.'c_actioncomm as ca, '.MAIN_DB_PREFIX."actioncomm as a";
 // We must filter on resource table
@@ -1040,10 +1040,10 @@ if ($resql) {
 		}
 
 		$parameters['obj'] = $obj;
-		$reshook = $hookmanager->executeHooks('hookEventElements', $parameters, $event, $action); // Note that $action and $object may have been modified by some hooks
-		$event = $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('hookEventElements', $parameters, $event, $action); // Note that $action and $object may have been modified by some hooks
+		$event = $hookManager->resPrint;
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
 		$i++;
@@ -1506,9 +1506,9 @@ if (count($listofextcals)) {
 // Complete $eventarray with events coming from external module
 $parameters = array();
 $object = null;
-$reshook = $hookmanager->executeHooks('getCalendarEvents', $parameters, $object, $action);
-if (!empty($hookmanager->resArray['eventarray'])) {
-	foreach ($hookmanager->resArray['eventarray'] as $keyDate => $events) {
+$reshook = $hookManager->executeHooks('getCalendarEvents', $parameters, $object, $action);
+if (!empty($hookManager->resArray['eventarray'])) {
+	foreach ($hookManager->resArray['eventarray'] as $keyDate => $events) {
 		if (!isset($eventarray[$keyDate])) {
 			$eventarray[$keyDate] = array();
 		}
@@ -1847,7 +1847,7 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 	global $action, $mode, $filter, $filtert, $status, $actioncode, $usergroup; // Filters used into search form
 	global $theme_datacolor;
 	global $cachethirdparties, $cachecontacts, $cacheusers, $colorindexused;
-	global $hookmanager;
+	global $hookManager;
 
 	'@phan-var-force array{0:array{0:int,1:int,2:int},1:array{0:int,1:int,2:int},2:array{0:int,1:int,2:int},3:array{0:int,1:int,2:int}} $theme_datacolor
 	 @phan-var-force User[] $cacheusers
@@ -2161,9 +2161,9 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 					}
 
 					$parameters = array();
-					$reshook = $hookmanager->executeHooks('eventOptions', $parameters, $event, $action); // Note that $action and $object may have been modified by some hooks
+					$reshook = $hookManager->executeHooks('eventOptions', $parameters, $event, $action); // Note that $action and $object may have been modified by some hooks
 					if ($reshook < 0) {
-						setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+						setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 					} else {
 						'@phan-var-force ActionComm $event';
 						if (empty($reshook)) {
@@ -2292,7 +2292,7 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 								print ' '.$linerelatedto;
 							}
 						} elseif (!empty($reshook)) {
-							print $hookmanager->resPrint;
+							print $hookManager->resPrint;
 						}
 					}
 

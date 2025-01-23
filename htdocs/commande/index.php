@@ -37,7 +37,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -50,10 +50,10 @@ if (!$user->hasRight('commande', 'lire')) {
 	accessforbidden();
 }
 
-$hookmanager = new HookManager($db);
+$hookManager = new HookManager($db);
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('ordersindex'));
+$hookManager->initHooks(array('ordersindex'));
 
 
 // Security check
@@ -428,7 +428,7 @@ if (isModEnabled('order')) {
 print '</div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardOrders', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardOrders', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

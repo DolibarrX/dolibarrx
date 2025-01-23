@@ -29,7 +29,7 @@ require '../main.inc.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -44,7 +44,7 @@ if (!$user->admin) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('homesetup'));
+$hookManager->initHooks(array('homesetup'));
 
 
 /*
@@ -141,8 +141,8 @@ print '<br>';
 // Add hook to add information
 $parameters = array();
 $object = new stdClass();
-$reshook = $hookmanager->executeHooks('addHomeSetup', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('addHomeSetup', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+print $hookManager->resPrint;
 if (empty($reshook)) {
 	// Show into other
 	//print '<span class="opacitymedium hideonsmartphone">'.$langs->trans("SetupDescription5")."</span><br>";

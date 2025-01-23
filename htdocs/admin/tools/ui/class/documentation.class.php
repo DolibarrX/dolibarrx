@@ -77,10 +77,10 @@ class Documentation
 	 */
 	private function setMenu()
 	{
-		global $hookmanager;
+		global $hookManager;
 
 
-		$hookmanager->initHooks(array('uidocumentation'));
+		$hookManager->initHooks(array('uidocumentation'));
 
 		$baseUrl = 'admin/tools/ui';
 
@@ -174,7 +174,7 @@ class Documentation
 		);
 		$action = '';
 
-		$reshook = $hookmanager->executeHooks('setMenu', $parameters, $this, $action);
+		$reshook = $hookManager->executeHooks('setMenu', $parameters, $this, $action);
 		if ($reshook < 0) {
 			return false;
 		}

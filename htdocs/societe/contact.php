@@ -51,7 +51,7 @@ if (isModEnabled('member')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -97,7 +97,7 @@ $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($object->table_element);
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('thirdpartycontact', 'globalcard'));
+$hookManager->initHooks(array('thirdpartycontact', 'globalcard'));
 
 if ($object->fetch($socid) <= 0 && $action == 'view') {
 	$langs->load("errors");
@@ -126,9 +126,9 @@ if (!$user->hasRight('societe', 'contact', 'lire')) {
  */
 
 $parameters = array('id'=>$socid, 'objcanvas'=>$objcanvas);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

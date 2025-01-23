@@ -59,7 +59,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  */
@@ -236,7 +236,7 @@ $form = new Form($db);
 $formticket = new FormTicket($db);
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('ticketpublicview', 'globalcard'));
+$hookManager->initHooks(array('ticketpublicview', 'globalcard'));
 
 if (!getDolGlobalString('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	print '<div class="error">'.$langs->trans('TicketPublicInterfaceForbidden').'</div>';

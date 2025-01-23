@@ -56,7 +56,7 @@ if (isModEnabled('holiday')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -65,9 +65,9 @@ if (isModEnabled('holiday')) {
 $langs->loadLangs(array('users', 'holiday', 'trips', 'boxes'));
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager = new HookManager($db);
+$hookManager = new HookManager($db);
 
-$hookmanager->initHooks(array('hrmindex'));
+$hookManager->initHooks(array('hrmindex'));
 
 // Get Parameters
 $socid = GETPOSTINT("socid");
@@ -471,7 +471,7 @@ print '</div></div></div>';
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardHRM', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardHRM', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

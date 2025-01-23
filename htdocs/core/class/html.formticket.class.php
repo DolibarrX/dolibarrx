@@ -259,7 +259,7 @@ class FormTicket
 	 */
 	public function showForm($withdolfichehead = 0, $mode = 'edit', $public = 0, $with_contact = null, $action = '', $object = null)
 	{
-		global $conf, $langs, $user, $hookmanager;
+		global $conf, $langs, $user, $hookManager;
 
 		// Load translation files required by the page
 		$langs->loadLangs(array('other', 'mails', 'ticket'));
@@ -777,7 +777,7 @@ class FormTicket
 
 		// Other attributes
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $ticketstat, $action); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $ticketstat, $action); // Note that $action and $object may have been modified by hook
 		if (empty($reshook)) {
 			if ($mode == 'create') {
 				print $object->showOptionals($extrafields, 'create');
@@ -1460,7 +1460,7 @@ class FormTicket
 	 */
 	public function showMessageForm($width = '40%')
 	{
-		global $conf, $langs, $user, $hookmanager, $form, $mysoc;
+		global $conf, $langs, $user, $hookManager, $form, $mysoc;
 
 		$formmail = new FormMail($this->db);
 		$addfileaction = 'addfile';

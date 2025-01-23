@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT.'/ecm/class/ecmdirectory.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -91,7 +91,7 @@ if ($user->socid) {
 	$socid = $user->socid;
 }
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('ecmindexcard', 'globalcard'));
+$hookManager->initHooks(array('ecmindexcard', 'globalcard'));
 
 $result = restrictedArea($user, 'ecm', 0);
 

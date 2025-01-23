@@ -42,7 +42,7 @@ require_once DOL_DOCUMENT_ROOT . '/hrm/lib/hrm_position.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -107,7 +107,7 @@ $backtopageforcancel = GETPOST('backtopageforcancel', 'alpha');
 $extrafields = new ExtraFields($db);
 
 $diroutputmassaction = $conf->hrm->dir_output . '/temp/massgeneration/' . $user->id;
-$hookmanager->initHooks(array('positioncard', 'globalcard')); // Note that conf->hooks_modules contains array
+$hookManager->initHooks(array('positioncard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -136,9 +136,9 @@ include DOL_DOCUMENT_ROOT . '/core/actions_fetchobject.inc.php'; // Must be 'inc
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -204,7 +204,7 @@ displayPositionCard($object);
  */
 function displayPositionCard(&$object)
 {
-	global $user, $langs, $db, $conf, $extrafields, $hookmanager, $action, $permissiontoadd, $permissiontodelete;
+	global $user, $langs, $db, $conf, $extrafields, $hookManager, $action, $permissiontoadd, $permissiontodelete;
 
 	$id = $object->id;
 	$ref = $object->ref;
@@ -282,11 +282,11 @@ function displayPositionCard(&$object)
 
 		// Call Hook formConfirm
 		$parameters = array('formConfirm' => $formconfirm/*, 'lineid' => $lineid*/);
-		$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($reshook)) {
-			$formconfirm .= $hookmanager->resPrint;
+			$formconfirm .= $hookManager->resPrint;
 		} elseif ($reshook > 0) {
-			$formconfirm = $hookmanager->resPrint;
+			$formconfirm = $hookManager->resPrint;
 		}
 
 		// Print form confirm
@@ -339,7 +339,7 @@ function displayPositionCard(&$object)
 		print '<div class="tabsAction">';
 
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 
 		print dolGetButtonAction($langs->trans('Modify'), '', 'default', $_SERVER["PHP_SELF"] . '?id=' . $object->id . '&action=edit&token=' . newToken(), '', $permissiontoadd);

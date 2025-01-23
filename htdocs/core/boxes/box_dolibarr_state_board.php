@@ -66,15 +66,15 @@ class box_dolibarr_state_board extends ModeleBoxes
 		$this->info_box_head = array('text' => $langs->trans("DolibarrStateBoard"));
 
 		if (empty($user->socid) && !getDolGlobalString('MAIN_DISABLE_GLOBAL_BOXSTATS')) {
-			$hookmanager = new HookManager($this->db);
-			$hookmanager->initHooks(array('index'));
+			$hookManager = new HookManager($this->db);
+			$hookManager->initHooks(array('index'));
 			$object = new stdClass();
 			$action = '';
 			$parameters = array();
-			$hookmanager->executeHooks('addStatisticLine', $parameters, $object, $action);
+			$hookManager->executeHooks('addStatisticLine', $parameters, $object, $action);
 			$boxstatItems = array();
 			$boxstatFromHook = '';
-			$boxstatFromHook = $hookmanager->resPrint;
+			$boxstatFromHook = $hookManager->resPrint;
 			$boxstat = '';
 
 			$keys = array(

@@ -44,7 +44,7 @@ require_once '../main.inc.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -131,12 +131,12 @@ $toprightmenu .= '<div class="login_block_other">';
 
 // Execute hook printTopRightMenu (hooks should output string like '<div class="login"><a href="">mylink</a></div>')
 $parameters = array();
-$result = $hookmanager->executeHooks('printTopRightMenu', $parameters); // Note that $action and $object may have been modified by some hooks
+$result = $hookManager->executeHooks('printTopRightMenu', $parameters); // Note that $action and $object may have been modified by some hooks
 if (is_numeric($result)) {
 	if (empty($result)) {
-		$toprightmenu .= $hookmanager->resPrint; // add
+		$toprightmenu .= $hookManager->resPrint; // add
 	} else {
-		$toprightmenu = $hookmanager->resPrint; // replace
+		$toprightmenu = $hookManager->resPrint; // replace
 	}
 } else {
 	$toprightmenu .= $result; // For backward compatibility

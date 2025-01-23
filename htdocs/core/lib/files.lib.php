@@ -62,7 +62,7 @@ function dol_basename($pathfile)
  */
 function dol_dir_list($utf8_path, $types = "all", $recursive = 0, $filter = "", $excludefilter = null, $sortcriteria = "name", $sortorder = SORT_ASC, $mode = 0, $nohook = 0, $relativename = "", $donotfollowsymlinks = 0, $nbsecondsold = 0)
 {
-	global $db, $hookmanager;
+	global $db, $hookManager;
 	global $object;
 
 	if ($recursive <= 1) {	// Avoid too verbose log
@@ -105,10 +105,10 @@ function dol_dir_list($utf8_path, $types = "all", $recursive = 0, $filter = "", 
 	$reshook = 0;
 	$file_list = array();
 
-	if (!$nohook && $hookmanager instanceof HookManager) {
-		$hookmanager->resArray = array();
+	if (!$nohook && $hookManager instanceof HookManager) {
+		$hookManager->resArray = array();
 
-		$hookmanager->initHooks(array('fileslib'));
+		$hookManager->initHooks(array('fileslib'));
 
 		$parameters = array(
 			'path' => $os_path,
@@ -122,10 +122,10 @@ function dol_dir_list($utf8_path, $types = "all", $recursive = 0, $filter = "", 
 			'loadsize' => $loadsize,
 			'mode' => $mode
 		);
-		$reshook = $hookmanager->executeHooks('getDirList', $parameters, $object);
+		$reshook = $hookManager->executeHooks('getDirList', $parameters, $object);
 	}
 
-	// $hookmanager->resArray may contain array stacked by other modules
+	// $hookManager->resArray may contain array stacked by other modules
 	if (empty($reshook)) {
 		if (!is_dir($os_path)) {
 			return array();
@@ -238,8 +238,8 @@ function dol_dir_list($utf8_path, $types = "all", $recursive = 0, $filter = "", 
 		}
 	}
 
-	if ($hookmanager instanceof HookManager && is_array($hookmanager->resArray)) {
-		$file_list = array_merge($file_list, $hookmanager->resArray);
+	if ($hookManager instanceof HookManager && is_array($hookManager->resArray)) {
+		$file_list = array_merge($file_list, $hookManager->resArray);
 	}
 
 	return $file_list;
@@ -1360,17 +1360,17 @@ function dolCheckOnFileName($src_file, $dest_file = '')
 function dol_move_uploaded_file($src_file, $dest_file, $allowoverwrite, $disablevirusscan = 0, $uploaderrorcode = 0, $nohook = 0, $varfiles = 'addedfile', $upload_dir = '')
 {
 	global $conf;
-	global $object, $hookmanager;
+	global $object, $hookManager;
 
 	$reshook = 0;
 	$file_name = $dest_file;
 	$successcode = 1;
 
 	if (empty($nohook)) {
-		$reshook = $hookmanager->initHooks(array('fileslib'));
+		$reshook = $hookManager->initHooks(array('fileslib'));
 
 		$parameters = array('dest_file' => $dest_file, 'src_file' => $src_file, 'file_name' => $file_name, 'varfiles' => $varfiles, 'allowoverwrite' => $allowoverwrite);
-		$reshook = $hookmanager->executeHooks('moveUploadedFile', $parameters, $object);
+		$reshook = $hookManager->executeHooks('moveUploadedFile', $parameters, $object);
 	}
 
 	if (empty($reshook)) {
@@ -1436,7 +1436,7 @@ function dol_move_uploaded_file($src_file, $dest_file, $allowoverwrite, $disable
 	}
 
 	if ($reshook < 0) {	// At least one blocking error returned by one hook
-		$errmsg = implode(',', $hookmanager->errors);
+		$errmsg = implode(',', $hookManager->errors);
 		if (empty($errmsg)) {
 			$errmsg = 'ErrorReturnedBySomeHooks'; // Should not occurs. Added if hook is bugged and does not set ->errors when there is error.
 		}
@@ -1498,7 +1498,7 @@ function dol_move_uploaded_file($src_file, $dest_file, $allowoverwrite, $disable
 function dol_delete_file($file, $disableglob = 0, $nophperrors = 0, $nohook = 0, $object = null, $allowdotdot = false, $indexdatabase = 1, $nolog = 0)
 {
 	global $db, $user;
-	global $hookmanager;
+	global $hookManager;
 
 	if (empty($nolog)) {
 		dol_syslog("dol_delete_file file=".$file." disableglob=".$disableglob." nophperrors=".$nophperrors." nohook=".$nohook);
@@ -1512,15 +1512,15 @@ function dol_delete_file($file, $disableglob = 0, $nophperrors = 0, $nohook = 0,
 	}
 
 	$reshook = 0;
-	if (empty($nohook) && !empty($hookmanager)) {
-		$hookmanager->initHooks(array('fileslib'));
+	if (empty($nohook) && !empty($hookManager)) {
+		$hookManager->initHooks(array('fileslib'));
 
 		$parameters = array(
 			'file' => $file,
 			'disableglob' => $disableglob,
 			'nophperrors' => $nophperrors
 		);
-		$reshook = $hookmanager->executeHooks('deleteFile', $parameters, $object);
+		$reshook = $hookManager->executeHooks('deleteFile', $parameters, $object);
 	}
 
 	if (empty($nohook) && $reshook != 0) { // reshook = 0 to do standard actions, 1 = ok and replace, -1 = ko
@@ -2835,7 +2835,7 @@ function dol_most_recent_file($dir, $regexfilter = '', $excludefilter = array('(
  */
 function dol_check_secure_access_document($modulepart, $original_file, $entity, $fuser = null, $refname = '', $mode = 'read')
 {
-	global $conf, $db, $user, $hookmanager;
+	global $conf, $db, $user, $hookManager;
 	global $dolibarr_main_data_root, $dolibarr_main_document_root_alt;
 	global $object;
 
@@ -3587,16 +3587,16 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 			'refname' => '',
 			'mode' => $mode
 		);
-		$reshook = $hookmanager->executeHooks('checkSecureAccess', $parameters, $object);
+		$reshook = $hookManager->executeHooks('checkSecureAccess', $parameters, $object);
 		if ($reshook > 0) {
-			if (!empty($hookmanager->resArray['original_file'])) {
-				$original_file = $hookmanager->resArray['original_file'];
+			if (!empty($hookManager->resArray['original_file'])) {
+				$original_file = $hookManager->resArray['original_file'];
 			}
-			if (!empty($hookmanager->resArray['accessallowed'])) {
-				$accessallowed = $hookmanager->resArray['accessallowed'];
+			if (!empty($hookManager->resArray['accessallowed'])) {
+				$accessallowed = $hookManager->resArray['accessallowed'];
 			}
-			if (!empty($hookmanager->resArray['sqlprotectagainstexternals'])) {
-				$sqlprotectagainstexternals = $hookmanager->resArray['sqlprotectagainstexternals'];
+			if (!empty($hookManager->resArray['sqlprotectagainstexternals'])) {
+				$sqlprotectagainstexternals = $hookManager->resArray['sqlprotectagainstexternals'];
 			}
 		}
 	}

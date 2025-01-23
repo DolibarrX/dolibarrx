@@ -580,15 +580,15 @@ function run_sql($sqlfile, $silent = 1, $entity = 0, $usesavepoint = 1, $handler
  */
 function dolibarr_del_const($db, $name, $entity = 1)
 {
-	global $conf, $hookmanager;
+	global $conf, $hookManager;
 
 	if (empty($name)) {
 		dol_print_error(null, 'Error call dolibar_del_const with parameter name empty');
 		return -1;
 	}
-	if (! is_object($hookmanager)) {
+	if (! is_object($hookManager)) {
 		require_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-		$hookmanager = new HookManager($db);
+		$hookManager = new HookManager($db);
 	}
 
 	$parameters = array(
@@ -596,7 +596,7 @@ function dolibarr_del_const($db, $name, $entity = 1)
 		'entity' => $entity,
 	);
 
-	$reshook = $hookmanager->executeHooks('dolibarrDelConst', $parameters); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('dolibarrDelConst', $parameters); // Note that $action and $object may have been modified by some hooks
 	if ($reshook != 0) {
 		return $reshook;
 	}
@@ -670,7 +670,7 @@ function dolibarr_get_const($db, $name, $entity = 1)
  */
 function dolibarr_set_const($db, $name, $value, $type = 'chaine', $visible = 0, $note = '', $entity = 1)
 {
-	global $conf, $hookmanager;
+	global $conf, $hookManager;
 
 	// Clean parameters
 	$name = trim($name);
@@ -681,9 +681,9 @@ function dolibarr_set_const($db, $name, $value, $type = 'chaine', $visible = 0, 
 		dol_print_error($db, "Error: Call to function dolibarr_set_const with wrong parameters");
 		exit;
 	}
-	if (! is_object($hookmanager)) {
+	if (! is_object($hookManager)) {
 		require_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-		$hookmanager = new HookManager($db);
+		$hookManager = new HookManager($db);
 	}
 
 	$value = (string) $value;	// We force type string (may be int)
@@ -697,7 +697,7 @@ function dolibarr_set_const($db, $name, $value, $type = 'chaine', $visible = 0, 
 		'entity' => $entity,
 	);
 
-	$reshook = $hookmanager->executeHooks('dolibarrSetConst', $parameters); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('dolibarrSetConst', $parameters); // Note that $action and $object may have been modified by some hooks
 	if ($reshook != 0) {
 		return $reshook;
 	}

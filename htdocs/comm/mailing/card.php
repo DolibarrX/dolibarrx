@@ -44,7 +44,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -63,7 +63,7 @@ $backtopageforcancel = GETPOST('backtopageforcancel');
 // Initialize a technical objects
 $object = new Mailing($db);
 $extrafields = new ExtraFields($db);
-$hookmanager->initHooks(array('mailingcard', 'globalcard'));
+$hookManager->initHooks(array('mailingcard', 'globalcard'));
 
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -116,9 +116,9 @@ $permissiontodelete = $user->hasRight('mailing', 'supprimer');
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -845,8 +845,8 @@ if ($action == 'create') {	// aaa
 
 	// Other attributes
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 	if (empty($reshook)) {
 		print $object->showOptionals($extrafields, 'create');
 	}
@@ -1447,8 +1447,8 @@ if ($action == 'create') {	// aaa
 
 			// Other attributes
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			print $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			print $hookManager->resPrint;
 			if (empty($reshook)) {
 				print $object->showOptionals($extrafields, 'edit', $parameters);
 			}

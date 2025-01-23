@@ -56,7 +56,7 @@ if (isModEnabled('accounting')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -76,7 +76,7 @@ $action = GETPOST("action", 'alpha');
 $cancel = GETPOST('cancel', 'alpha');
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('usercardBank', 'globalcard'));
+$hookManager->initHooks(array('usercardBank', 'globalcard'));
 
 // Security check
 $socid = 0;
@@ -953,7 +953,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 
 	// Add hook in fields
 	$parameters = array('colspan' => ' colspan="2"');
-	$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 }
 
 // Edit

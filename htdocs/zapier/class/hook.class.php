@@ -290,7 +290,7 @@ class Hook extends CommonObject
 	 */
 	public function createFromClone(User $user, $fromid)
 	{
-		global $langs, $hookmanager, $extrafields;
+		global $langs, $hookManager, $extrafields;
 		$error = 0;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
@@ -462,7 +462,7 @@ class Hook extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $db, $conf, $langs, $hookmanager, $action;
+		global $db, $conf, $langs, $hookManager, $action;
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
 		global $menumanager;
 
@@ -516,17 +516,17 @@ class Hook extends CommonObject
 		$result .= $linkend;
 		//if ($withpicto != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
 
-		$hookmanager->initHooks(array('hookdao'));
+		$hookManager->initHooks(array('hookdao'));
 		$parameters = array(
 			'id' => $this->id,
 			'getnomurl' => &$result,
 		);
 		// Note that $action and $object may have been modified by some hooks
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action);
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action);
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;

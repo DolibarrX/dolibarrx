@@ -28,13 +28,13 @@
 
 /**
  * @var Form $form
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var AssetDepreciationOptions $assetdepreciationoptions
  * @var Translate $langs
  */
 '
 @phan-var-force ?Form $form
-@phan-var-force HookManager $hookmanager
+@phan-var-force HookManager $hookManager
 @phan-var-force AssetDepreciationOptions $assetdepreciationoptions
 ';
 
@@ -60,10 +60,10 @@ if (!is_array($parameters)) {
 if (empty($parameters['assetdepreciationoptions'])) {
 	$parameters['assetdepreciationoptions'] = &$assetdepreciationoptions;
 }
-$reshook = $hookmanager->executeHooks('formAssetDeprecationOptions', $parameters, $object, $action);
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('formAssetDeprecationOptions', $parameters, $object, $action);
+print $hookManager->resPrint;
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

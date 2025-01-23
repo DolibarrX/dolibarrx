@@ -1343,7 +1343,7 @@ class Product extends CommonObject
 	 */
 	public function update($id, $user, $notrigger = 0, $action = 'update', $updatetype = false)
 	{
-		global $langs, $conf, $hookmanager;
+		global $langs, $conf, $hookManager;
 
 		$error = 0;
 
@@ -2309,15 +2309,15 @@ class Product extends CommonObject
 	 */
 	public function getSellPrice($thirdparty_seller, $thirdparty_buyer, $pqp = 0)
 	{
-		global $hookmanager, $action;
+		global $hookManager, $action;
 
 		// Call hook if any
-		if (is_object($hookmanager)) {
+		if (is_object($hookManager)) {
 			$parameters = array('thirdparty_seller' => $thirdparty_seller, 'thirdparty_buyer' => $thirdparty_buyer, 'pqp' => $pqp);
 			// Note that $action and $object may have been modified by some hooks
-			$reshook = $hookmanager->executeHooks('getSellPrice', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('getSellPrice', $parameters, $this, $action);
 			if ($reshook > 0) {
-				return $hookmanager->resArray;
+				return $hookManager->resArray;
 			}
 		}
 
@@ -2479,10 +2479,10 @@ class Product extends CommonObject
 	public function get_buyprice($prodfournprice, $qty, $product_id = 0, $fourn_ref = '', $fk_soc = 0)
 	{
 		// phpcs:enable
-		global $action, $hookmanager;
+		global $action, $hookManager;
 
 		// Call hook if any
-		if (is_object($hookmanager)) {
+		if (is_object($hookManager)) {
 			$parameters = array(
 				'prodfournprice' => $prodfournprice,
 				'qty' => $qty,
@@ -2491,9 +2491,9 @@ class Product extends CommonObject
 				'fk_soc' => $fk_soc,
 			);
 			// Note that $action and $object may have been modified by some hooks
-			$reshook = $hookmanager->executeHooks('getBuyPrice', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('getBuyPrice', $parameters, $this, $action);
 			if ($reshook > 0) {
-				return $hookmanager->resArray;
+				return $hookManager->resArray;
 			}
 		}
 
@@ -3295,7 +3295,7 @@ class Product extends CommonObject
 	public function load_stats_mo($socid = 0)
 	{
 		// phpcs:enable
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$error = 0;
 
@@ -3337,9 +3337,9 @@ class Product extends CommonObject
 		}
 
 		$parameters = array('socid' => $socid);
-		$reshook = $hookmanager->executeHooks('loadStatsCustomerMO', $parameters, $this, $action);
+		$reshook = $hookManager->executeHooks('loadStatsCustomerMO', $parameters, $this, $action);
 		if ($reshook > 0) {
-			$this->stats_mo = $hookmanager->resArray['stats_mo'];
+			$this->stats_mo = $hookManager->resArray['stats_mo'];
 		}
 
 		return 1;
@@ -3355,7 +3355,7 @@ class Product extends CommonObject
 	public function load_stats_bom($socid = 0)
 	{
 		// phpcs:enable
-		global $hookmanager, $action;
+		global $hookManager, $action;
 
 		$error = 0;
 
@@ -3406,9 +3406,9 @@ class Product extends CommonObject
 		}
 
 		$parameters = array('socid' => $socid);
-		$reshook = $hookmanager->executeHooks('loadStatsCustomerMO', $parameters, $this, $action);
+		$reshook = $hookManager->executeHooks('loadStatsCustomerMO', $parameters, $this, $action);
 		if ($reshook > 0) {
-			$this->stats_bom = $hookmanager->resArray['stats_bom'];
+			$this->stats_bom = $hookManager->resArray['stats_bom'];
 		}
 
 		return 1;
@@ -3424,7 +3424,7 @@ class Product extends CommonObject
 	public function load_stats_propale($socid = 0)
 	{
 		// phpcs:enable
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT p.fk_soc) as nb_customers, COUNT(DISTINCT p.rowid) as nb,";
 		$sql .= " COUNT(pd.rowid) as nb_rows, SUM(pd.qty) as qty";
@@ -3476,9 +3476,9 @@ class Product extends CommonObject
 			}
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookmanager->executeHooks('loadStatsCustomerProposal', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('loadStatsCustomerProposal', $parameters, $this, $action);
 			if ($reshook > 0) {
-				$this->stats_propale = $hookmanager->resArray['stats_propale'];
+				$this->stats_propale = $hookManager->resArray['stats_propale'];
 			}
 
 			return 1;
@@ -3499,7 +3499,7 @@ class Product extends CommonObject
 	public function load_stats_proposal_supplier($socid = 0)
 	{
 		// phpcs:enable
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT p.fk_soc) as nb_suppliers, COUNT(DISTINCT p.rowid) as nb,";
 		$sql .= " COUNT(pd.rowid) as nb_rows, SUM(pd.qty) as qty";
@@ -3530,9 +3530,9 @@ class Product extends CommonObject
 			$this->stats_proposal_supplier['qty'] = $obj->qty ? $obj->qty : 0;
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookmanager->executeHooks('loadStatsSupplierProposal', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('loadStatsSupplierProposal', $parameters, $this, $action);
 			if ($reshook > 0) {
-				$this->stats_proposal_supplier = $hookmanager->resArray['stats_proposal_supplier'];
+				$this->stats_proposal_supplier = $hookManager->resArray['stats_proposal_supplier'];
 			}
 
 			return 1;
@@ -3555,7 +3555,7 @@ class Product extends CommonObject
 	public function load_stats_commande($socid = 0, $filtrestatut = '', $forVirtualStock = 0)
 	{
 		// phpcs:enable
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT c.fk_soc) as nb_customers, COUNT(DISTINCT c.rowid) as nb,";
 		$sql .= " COUNT(cd.rowid) as nb_rows, SUM(cd.qty) as qty";
@@ -3659,9 +3659,9 @@ class Product extends CommonObject
 			}
 
 			$parameters = array('socid' => $socid, 'filtrestatut' => $filtrestatut, 'forVirtualStock' => $forVirtualStock);
-			$reshook = $hookmanager->executeHooks('loadStatsCustomerOrder', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('loadStatsCustomerOrder', $parameters, $this, $action);
 			if ($reshook > 0) {
-				$this->stats_commande = $hookmanager->resArray['stats_commande'];
+				$this->stats_commande = $hookManager->resArray['stats_commande'];
 			}
 			return 1;
 		} else {
@@ -3683,7 +3683,7 @@ class Product extends CommonObject
 	public function load_stats_commande_fournisseur($socid = 0, $filtrestatut = '', $forVirtualStock = 0, $dateofvirtualstock = null)
 	{
 		// phpcs:enable
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT c.fk_soc) as nb_suppliers, COUNT(DISTINCT c.rowid) as nb,";
 		$sql .= " COUNT(cd.rowid) as nb_rows, SUM(cd.qty) as qty";
@@ -3719,9 +3719,9 @@ class Product extends CommonObject
 			$this->stats_commande_fournisseur['qty'] = $obj->qty ? $obj->qty : 0;
 
 			$parameters = array('socid' => $socid, 'filtrestatut' => $filtrestatut, 'forVirtualStock' => $forVirtualStock);
-			$reshook = $hookmanager->executeHooks('loadStatsSupplierOrder', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('loadStatsSupplierOrder', $parameters, $this, $action);
 			if ($reshook > 0) {
-				$this->stats_commande_fournisseur = $hookmanager->resArray['stats_commande_fournisseur'];
+				$this->stats_commande_fournisseur = $hookManager->resArray['stats_commande_fournisseur'];
 			}
 
 			return 1;
@@ -3744,7 +3744,7 @@ class Product extends CommonObject
 	public function load_stats_sending($socid = 0, $filtrestatut = '', $forVirtualStock = 0, $filterShipmentStatus = '')
 	{
 		// phpcs:enable
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT e.fk_soc) as nb_customers, COUNT(DISTINCT e.rowid) as nb,";
 		$sql .= " COUNT(ed.rowid) as nb_rows, SUM(ed.qty) as qty";
@@ -3805,9 +3805,9 @@ class Product extends CommonObject
 			}
 
 			$parameters = array('socid' => $socid, 'filtrestatut' => $filtrestatut, 'forVirtualStock' => $forVirtualStock, 'filterShipmentStatus' => $filterShipmentStatus);
-			$reshook = $hookmanager->executeHooks('loadStatsSending', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('loadStatsSending', $parameters, $this, $action);
 			if ($reshook > 0) {
-				$this->stats_expedition = $hookmanager->resArray['stats_expedition'];
+				$this->stats_expedition = $hookManager->resArray['stats_expedition'];
 			}
 
 			return 1;
@@ -3830,7 +3830,7 @@ class Product extends CommonObject
 	public function load_stats_reception($socid = 0, $filtrestatut = '', $forVirtualStock = 0, $dateofvirtualstock = null)
 	{
 		// phpcs:enable
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT cf.fk_soc) as nb_suppliers, COUNT(DISTINCT cf.rowid) as nb,";
 		$sql .= " COUNT(fd.rowid) as nb_rows, SUM(fd.qty) as qty";
@@ -3866,9 +3866,9 @@ class Product extends CommonObject
 			$this->stats_reception['qty'] = $obj->qty ? $obj->qty : 0;
 
 			$parameters = array('socid' => $socid, 'filtrestatut' => $filtrestatut, 'forVirtualStock' => $forVirtualStock);
-			$reshook = $hookmanager->executeHooks('loadStatsReception', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('loadStatsReception', $parameters, $this, $action);
 			if ($reshook > 0) {
-				$this->stats_reception = $hookmanager->resArray['stats_reception'];
+				$this->stats_reception = $hookManager->resArray['stats_reception'];
 			}
 
 			return 1;
@@ -3892,7 +3892,7 @@ class Product extends CommonObject
 	public function load_stats_inproduction($socid = 0, $filtrestatut = '', $forVirtualStock = 0, $dateofvirtualstock = null, $warehouseid = 0)
 	{
 		// phpcs:enable
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$serviceStockIsEnabled = isModEnabled("service") && getDolGlobalString('STOCK_SUPPORTS_SERVICES');
 
@@ -3993,9 +3993,9 @@ class Product extends CommonObject
 			}
 
 			$parameters = array('socid' => $socid, 'filtrestatut' => $filtrestatut, 'forVirtualStock' => $forVirtualStock);
-			$reshook = $hookmanager->executeHooks('loadStatsInProduction', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('loadStatsInProduction', $parameters, $this, $action);
 			if ($reshook > 0) {
-				$this->stats_mrptoproduce = $hookmanager->resArray['stats_mrptoproduce'];
+				$this->stats_mrptoproduce = $hookManager->resArray['stats_mrptoproduce'];
 			}
 
 			return 1;
@@ -4015,7 +4015,7 @@ class Product extends CommonObject
 	public function load_stats_contrat($socid = 0)
 	{
 		// phpcs:enable
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT c.fk_soc) as nb_customers, COUNT(DISTINCT c.rowid) as nb,";
 		$sql .= " COUNT(cd.rowid) as nb_rows, SUM(cd.qty) as qty";
@@ -4067,9 +4067,9 @@ class Product extends CommonObject
 			}
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookmanager->executeHooks('loadStatsContract', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('loadStatsContract', $parameters, $this, $action);
 			if ($reshook > 0) {
-				$this->stats_contrat = $hookmanager->resArray['stats_contrat'];
+				$this->stats_contrat = $hookManager->resArray['stats_contrat'];
 			}
 
 			return 1;
@@ -4089,7 +4089,7 @@ class Product extends CommonObject
 	public function load_stats_facture($socid = 0)
 	{
 		// phpcs:enable
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT f.fk_soc) as nb_customers, COUNT(DISTINCT f.rowid) as nb,";
 		$sql .= " COUNT(fd.rowid) as nb_rows, SUM(".$this->db->ifsql('f.type != 2', 'fd.qty', 'fd.qty * -1').") as qty";
@@ -4141,9 +4141,9 @@ class Product extends CommonObject
 			}
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookmanager->executeHooks('loadStatsCustomerInvoice', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('loadStatsCustomerInvoice', $parameters, $this, $action);
 			if ($reshook > 0) {
-				$this->stats_facture = $hookmanager->resArray['stats_facture'];
+				$this->stats_facture = $hookManager->resArray['stats_facture'];
 			}
 
 			return 1;
@@ -4164,7 +4164,7 @@ class Product extends CommonObject
 	public function load_stats_facturerec($socid = 0)
 	{
 		// phpcs:enable
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT f.fk_soc) as nb_customers, COUNT(DISTINCT f.rowid) as nb,";
 		$sql .= " COUNT(fd.rowid) as nb_rows, SUM(fd.qty) as qty";
@@ -4216,9 +4216,9 @@ class Product extends CommonObject
 			}
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookmanager->executeHooks('loadStatsCustomerInvoiceRec', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('loadStatsCustomerInvoiceRec', $parameters, $this, $action);
 			if ($reshook > 0) {
-				$this->stats_facturerec = $hookmanager->resArray['stats_facturerec'];
+				$this->stats_facturerec = $hookManager->resArray['stats_facturerec'];
 			}
 
 			return 1;
@@ -4238,7 +4238,7 @@ class Product extends CommonObject
 	public function load_stats_facture_fournisseur($socid = 0)
 	{
 		// phpcs:enable
-		global $user, $hookmanager, $action;
+		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT f.fk_soc) as nb_suppliers, COUNT(DISTINCT f.rowid) as nb,";
 		$sql .= " COUNT(fd.rowid) as nb_rows, SUM(fd.qty) as qty";
@@ -4269,9 +4269,9 @@ class Product extends CommonObject
 			$this->stats_facture_fournisseur['qty'] = $obj->qty ? (float) $obj->qty : 0.0;
 
 			$parameters = array('socid' => $socid);
-			$reshook = $hookmanager->executeHooks('loadStatsSupplierInvoice', $parameters, $this, $action);
+			$reshook = $hookManager->executeHooks('loadStatsSupplierInvoice', $parameters, $this, $action);
 			if ($reshook > 0) {
-				$this->stats_facture_fournisseur = $hookmanager->resArray['stats_facture_fournisseur'];
+				$this->stats_facture_fournisseur = $hookManager->resArray['stats_facture_fournisseur'];
 			}
 
 			return 1;
@@ -5768,7 +5768,7 @@ class Product extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $maxlength = 0, $save_lastsearch_value = -1, $notooltip = 0, $morecss = '', $add_label = 0, $sep = ' - ')
 	{
-		global $langs, $hookmanager;
+		global $langs, $hookManager;
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
 
@@ -5847,13 +5847,13 @@ class Product extends CommonObject
 		}
 
 		global $action;
-		$hookmanager->initHooks(array('productdao'));
+		$hookManager->initHooks(array('productdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result, 'label' => &$label);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;
@@ -6235,7 +6235,7 @@ class Product extends CommonObject
 	public function load_virtual_stock($includedraftpoforvirtual = null, $dateofvirtualstock = null)
 	{
 		// phpcs:enable
-		global $hookmanager, $action;
+		global $hookManager, $action;
 
 		$stock_commande_client = 0;
 		$stock_commande_fournisseur = 0;
@@ -6340,11 +6340,11 @@ class Product extends CommonObject
 
 		$parameters = array('id' => $this->id, 'includedraftpoforvirtual' => $includedraftpoforvirtual);
 		// Note that $action and $object may have been modified by some hooks
-		$reshook = $hookmanager->executeHooks('loadvirtualstock', $parameters, $this, $action);
+		$reshook = $hookManager->executeHooks('loadvirtualstock', $parameters, $this, $action);
 		if ($reshook > 0) {
-			$this->stock_theorique = $hookmanager->resArray['stock_theorique'];
-		} elseif ($reshook == 0 && isset($hookmanager->resArray['stock_stats_hook'])) {
-			$this->stock_theorique += $hookmanager->resArray['stock_stats_hook'];
+			$this->stock_theorique = $hookManager->resArray['stock_theorique'];
+		} elseif ($reshook == 0 && isset($hookManager->resArray['stock_stats_hook'])) {
+			$this->stock_theorique += $hookManager->resArray['stock_stats_hook'];
 		}
 
 		//Virtual Stock by Warehouse
@@ -6603,7 +6603,7 @@ class Product extends CommonObject
 	 */
 	public function loadStateBoard()
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		$this->nb = array();
 
@@ -6611,10 +6611,10 @@ class Product extends CommonObject
 		$sql .= " FROM ".$this->db->prefix()."product as p";
 		$sql .= ' WHERE p.entity IN ('.getEntity($this->element, 1).')';
 		// Add where from hooks
-		if (is_object($hookmanager)) {
+		if (is_object($hookManager)) {
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $this); // Note that $action and $object may have been modified by hook
-			$sql .= $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $this); // Note that $action and $object may have been modified by hook
+			$sql .= $hookManager->resPrint;
 		}
 		$sql .= ' GROUP BY fk_product_type';
 

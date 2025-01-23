@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/partnership/lib/partnership.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -53,7 +53,7 @@ $action = GETPOST('action', 'aZ09');
 $object = new Partnership($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->partnership->dir_output.'/temp/massgeneration/'.$user->id;
-$hookmanager->initHooks(array('partnershipcontact', 'globalcard')); // Note that conf->hooks_modules contains array
+$hookManager->initHooks(array('partnershipcontact', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
 

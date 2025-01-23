@@ -34,7 +34,7 @@ require_once DOL_DOCUMENT_ROOT.'/margin/lib/margins.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -74,7 +74,7 @@ $enddate = dol_mktime(23, 59, 59, GETPOSTINT('enddatemonth'), GETPOSTINT('enddat
 
 $search_ref = GETPOST('search_ref', 'alpha');
 
-$hookmanager->initHooks(array('checkmarginlist'));
+$hookManager->initHooks(array('checkmarginlist'));
 
 // Security check
 $result = restrictedArea($user, 'margins');
@@ -102,9 +102,9 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 }
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

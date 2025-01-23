@@ -51,14 +51,14 @@ if (isModEnabled('intervention')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager = new HookManager($db);
-$hookmanager->initHooks(array('commercialindex'));
+$hookManager = new HookManager($db);
+$hookManager->initHooks(array('commercialindex'));
 
 // Load translation files required by the page
 $langs->loadLangs(array("boxes", "commercial", "contracts", "orders", "propal", "supplier_proposal"));
@@ -651,13 +651,13 @@ if (isModEnabled("societe") && $user->hasRight('societe', 'lire')) {
 	}
 	// Add where from hooks
 	$parameters = array('socid' => $socid);
-	$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $companystatic); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $companystatic); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
 		if ($socid > 0) {
 			$sql .= " AND s.rowid = ".((int) $socid);
 		}
 	}
-	$sql .= $hookmanager->resPrint;
+	$sql .= $hookManager->resPrint;
 	$sql .= " ORDER BY s.tms DESC";
 	$sql .= $db->plimit($max, 0);
 
@@ -943,13 +943,13 @@ if ((isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) && $use
 	}
 	// Add where from hooks
 	$parameters = array('socid' => $socid);
-	$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $companystatic); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $companystatic); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
 		if ($socid > 0) {
 			$sql .= " AND s.rowid = ".((int) $socid);
 		}
 	}
-	$sql .= $hookmanager->resPrint;
+	$sql .= $hookManager->resPrint;
 	$sql .= " ORDER BY s.datec DESC";
 	$sql .= $db->plimit($max, 0);
 
@@ -1359,7 +1359,7 @@ print '</div>';
 print '</div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardCommercials', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardCommercials', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

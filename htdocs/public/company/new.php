@@ -67,7 +67,7 @@ require_once DOL_DOCUMENT_ROOT . '/core/lib/public.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -97,7 +97,7 @@ if (!getDolGlobalString('SOCIETE_ENABLE_PUBLIC')) {
 $permissiontoadd 	= $user->hasRight('societe', 'creer');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('publicnewmembercard', 'globalcard'));
+$hookManager->initHooks(array('publicnewmembercard', 'globalcard'));
 
 $extrafields = new ExtraFields($db);
 
@@ -192,9 +192,9 @@ function llxFooterVierge()
 
 $parameters = array();
 // Note that $action and $object may have been modified by some hooks
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 // Action called when page is submitted

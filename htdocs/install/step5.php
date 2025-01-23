@@ -168,9 +168,9 @@ if ($action == "set" || empty($action) || preg_match('/upgrade/i', $action)) {
 
 	$db = getDoliDBInstance($conf->db->type, $conf->db->host, $conf->db->user, $conf->db->pass, $conf->db->name, (int) $conf->db->port);
 
-	// Create the global $hookmanager object
+	// Create the global $hookManager object
 	include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-	$hookmanager = new HookManager($db);
+	$hookManager = new HookManager($db);
 
 	$ok = 0;
 

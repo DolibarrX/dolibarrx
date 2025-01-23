@@ -39,7 +39,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -86,7 +86,7 @@ if ($user->socid) {
 	$socid = $user->socid;
 }
 // Init Hooks
-$hookmanager->initHooks(array('ordersuppliercardinfo'));
+$hookManager->initHooks(array('ordersuppliercardinfo'));
 
 $result = restrictedArea($user, 'fournisseur', $id, 'commande_fournisseur', 'commande');
 
@@ -103,9 +103,9 @@ $permissiontoadd	= $usercancreate; // Used by the include of actions_addupdatede
  */
 
 $parameters = array('id'=>$id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 // Purge search criteria

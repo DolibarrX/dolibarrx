@@ -995,7 +995,7 @@ class Task extends CommonObjectLine
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $mode = 'task', $addlabel = 0, $sep = ' - ', $notooltip = 0, $save_lastsearch_value = -1)
 	{
-		global $action, $conf, $hookmanager, $langs;
+		global $action, $conf, $hookManager, $langs;
 
 		if (!empty($conf->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -1057,11 +1057,11 @@ class Task extends CommonObjectLine
 		}
 
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;
@@ -1121,7 +1121,7 @@ class Task extends CommonObjectLine
 	 */
 	public function getTasksArray($usert = null, $userp = null, $projectid = 0, $socid = 0, $mode = 0, $filteronproj = '', $filteronprojstatus = '-1', $morewherefilter = '', $filteronprojuser = 0, $filterontaskuser = 0, $extrafields = null, $includebilltime = 0, $search_array_options = array(), $loadextras = 0, $loadRoleMode = 1, $sortfield = '', $sortorder = '')
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		$tasks = array();
 
@@ -1243,8 +1243,8 @@ class Task extends CommonObjectLine
 
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
-		$sql .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters); // Note that $action and $object may have been modified by hook
+		$sql .= $hookManager->resPrint;
 		if ($includebilltime) {
 			$sql .= " GROUP BY p.rowid, p.ref, p.title, p.public, p.fk_statut, p.usage_bill_time,";
 			$sql .= " t.datec, t.dateo, t.datee, t.tms,";
@@ -2752,7 +2752,7 @@ class Task extends CommonObjectLine
 	 */
 	public function mergeTask($task_origin_id)
 	{
-		global $langs, $hookmanager, $user, $action;
+		global $langs, $hookManager, $user, $action;
 
 		$error = 0;
 		$task_origin = new Task($this->db);		// The thirdparty that we will delete
@@ -2824,11 +2824,11 @@ class Task extends CommonObjectLine
 			// External modules should update their ones too
 			if (!$error) {
 				$parameters = array('task_origin' => $task_origin->id, 'task_dest' => $this->id);
-				$reshook = $hookmanager->executeHooks('replaceThirdparty', $parameters, $this, $action);
+				$reshook = $hookManager->executeHooks('replaceThirdparty', $parameters, $this, $action);
 
 				if ($reshook < 0) {
-					$this->error = $hookmanager->error;
-					$this->errors = $hookmanager->errors;
+					$this->error = $hookManager->error;
+					$this->errors = $hookManager->errors;
 					$error++;
 				}
 			}

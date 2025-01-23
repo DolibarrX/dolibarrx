@@ -200,7 +200,7 @@ class EmailCollectorFilter extends CommonObject
 	 */
 	public function createFromClone(User $user, $fromid)
 	{
-		global $langs, $hookmanager, $extrafields;
+		global $langs, $hookManager, $extrafields;
 		$error = 0;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
@@ -302,7 +302,7 @@ class EmailCollectorFilter extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $db, $conf, $langs, $hookmanager;
+		global $db, $conf, $langs, $hookManager;
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
 		global $menumanager;
 
@@ -339,10 +339,10 @@ class EmailCollectorFilter extends CommonObject
 			$linkclose .= ' class="classfortooltip'.($morecss ? ' '.$morecss : '').'"';
 
 			/*
-			$hookmanager->initHooks(array('emailcollectorfilterdao'));
+			$hookManager->initHooks(array('emailcollectorfilterdao'));
 			$parameters=array('id'=>$this->id);
-			$reshook=$hookmanager->executeHooks('getnomurltooltip',$parameters,$this,$action);    // Note that $action and $object may have been modified by some hooks
-			if ($reshook > 0) $linkclose = $hookmanager->resPrint;
+			$reshook=$hookManager->executeHooks('getnomurltooltip',$parameters,$this,$action);    // Note that $action and $object may have been modified by some hooks
+			if ($reshook > 0) $linkclose = $hookManager->resPrint;
 			*/
 		} else {
 			$linkclose = ($morecss ? ' class="'.$morecss.'"' : '');
@@ -362,14 +362,14 @@ class EmailCollectorFilter extends CommonObject
 		$result .= $linkend;
 		//if ($withpicto != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
 
-		global $action, $hookmanager;
-		$hookmanager->initHooks(array('emailcollectorfilterdao'));
+		global $action, $hookManager;
+		$hookManager->initHooks(array('emailcollectorfilterdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;

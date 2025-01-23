@@ -2097,7 +2097,7 @@ class Contrat extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $maxlength = 0, $notooltip = 0, $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $user, $hookmanager;
+		global $conf, $langs, $user, $hookManager;
 
 		$result = '';
 
@@ -2152,13 +2152,13 @@ class Contrat extends CommonObject
 		$result .= $linkend;
 
 		global $action;
-		$hookmanager->initHooks(array('contractdao'));
+		$hookManager->initHooks(array('contractdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;
@@ -2618,7 +2618,7 @@ class Contrat extends CommonObject
 	 */
 	public function createFromClone(User $user, $socid = 0, $notrigger = 0)
 	{
-		global $db, $langs, $conf, $hookmanager, $extrafields;
+		global $db, $langs, $conf, $hookManager, $extrafields;
 
 		dol_include_once('/projet/class/project.class.php');
 
@@ -2698,15 +2698,15 @@ class Contrat extends CommonObject
 
 		if (!$error) {
 			// Hook of thirdparty module
-			if (is_object($hookmanager)) {
+			if (is_object($hookManager)) {
 				$parameters = array(
 						'objFrom' => $this,
 						'clonedObj' => $clonedObj
 				);
 				$action = '';
-				$reshook = $hookmanager->executeHooks('createFrom', $parameters, $clonedObj, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('createFrom', $parameters, $clonedObj, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					$this->setErrorsFromObject($hookmanager);
+					$this->setErrorsFromObject($hookManager);
 					$error++;
 				}
 			}

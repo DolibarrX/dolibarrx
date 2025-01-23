@@ -66,7 +66,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -87,7 +87,7 @@ if (!empty($user->socid) && $user->socid > 0) {
 }
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-//$hookmanager->initHooks(array($object->element.'index'));
+//$hookManager->initHooks(array($object->element.'index'));
 
 // Security check (enable the most restrictive one)
 //if ($user->socid > 0) accessforbidden();

@@ -45,7 +45,7 @@ if (!defined('NOREQUIREAJAX')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -238,9 +238,9 @@ if ($type == 'directory') {
 	);
 
 	$parameters = array('modulepart' => $module);
-	$reshook = $hookmanager->executeHooks('addSectionECMAuto', $parameters);
-	if ($reshook > 0 && is_array($hookmanager->resArray) && count($hookmanager->resArray) > 0) {
-		$automodules[] = $hookmanager->resArray['module'];
+	$reshook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
+	if ($reshook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
+		$automodules[] = $hookManager->resArray['module'];
 	}
 
 	// TODO change for multicompany sharing
@@ -292,9 +292,9 @@ if ($type == 'directory') {
 		$upload_dir = $conf->mrp->dir_output;
 	} else {
 		$parameters = array('modulepart' => $module);
-		$reshook = $hookmanager->executeHooks('addSectionECMAuto', $parameters);
-		if ($reshook > 0 && is_array($hookmanager->resArray) && count($hookmanager->resArray) > 0) {
-			$upload_dir = $hookmanager->resArray['directory'];
+		$reshook = $hookManager->executeHooks('addSectionECMAuto', $parameters);
+		if ($reshook > 0 && is_array($hookManager->resArray) && count($hookManager->resArray) > 0) {
+			$upload_dir = $hookManager->resArray['directory'];
 		}
 	}
 

@@ -69,7 +69,7 @@ require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  */
@@ -90,7 +90,7 @@ $cancel = GETPOST('cancel', 'aZ09');
 $backtopage = '';
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('publicnewticketcard', 'globalcard'));
+$hookManager->initHooks(array('publicnewticketcard', 'globalcard'));
 
 $object = new Ticket($db);
 $extrafields = new ExtraFields($db);
@@ -115,9 +115,9 @@ $parameters = array(
 	'id' => $id,
 );
 // Note that $action and $object may have been modified by some hooks
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 // Add file in email form
 if (empty($reshook)) {

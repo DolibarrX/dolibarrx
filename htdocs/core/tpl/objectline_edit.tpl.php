@@ -40,7 +40,7 @@
  * @var CommonObject $object
  * @var CommonObjectLine $line
  * @var Form $form
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -147,10 +147,10 @@ $coldisplay++;
 	<?php }	?>
 
 	<?php
-	if (is_object($hookmanager)) {
+	if (is_object($hookManager)) {
 		$fk_parent_line = (GETPOST('fk_parent_line') ? GETPOSTINT('fk_parent_line') : $line->fk_parent_line);
 		$parameters = array('line' => $line, 'fk_parent_line' => $fk_parent_line, 'var' => $var, 'dateSelector' => $dateSelector, 'seller' => $seller, 'buyer' => $buyer);
-		$reshook = $hookmanager->executeHooks('formEditProductOptions', $parameters, $this, $action);
+		$reshook = $hookManager->executeHooks('formEditProductOptions', $parameters, $this, $action);
 	}
 
 	$situationinvoicelinewithparent = 0;

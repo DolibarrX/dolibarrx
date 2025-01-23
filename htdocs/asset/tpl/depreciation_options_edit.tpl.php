@@ -31,7 +31,7 @@
  * @var Conf $conf
  * @var DoliDB $db
  * @var Form $form
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var AssetDepreciationOptions $assetdepreciationoptions
  * @var Translate $langs
  * @var ?array<array{mode_key:string,field_key:string,value:string,target:string}> $enabled_field_info
@@ -40,7 +40,7 @@
 @phan-var-force Conf $conf
 @phan-var-force DoliDB $db
 @phan-var-force ?Form $form
-@phan-var-force HookManager $hookmanager
+@phan-var-force HookManager $hookManager
 @phan-var-force AssetDepreciationOptions $assetdepreciationoptions
 @phan-var-force Translate $langs
 @phan-var-force ?array<array{mode_key:string,field_key:string,value:string,target:string}> $enabled_field_info
@@ -76,10 +76,10 @@ if (empty($parameters['enabled_field_info'])) {
 if (empty($parameters['assetdepreciationoptions'])) {
 	$parameters['assetdepreciationoptions'] = &$assetdepreciationoptions;
 }
-$reshook = $hookmanager->executeHooks('formAssetDeprecationOptions', $parameters, $object, $action);
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('formAssetDeprecationOptions', $parameters, $object, $action);
+print $hookManager->resPrint;
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

@@ -40,7 +40,7 @@
  * @var DoliDB $db
  * @var Form $form
  * @var FormCompany $formcompany
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var ?Task $taskstatic
  * @var Translate $langs
  * @var User $user
@@ -445,9 +445,9 @@ $parameters = array(
 	'massaction' => $massaction
 );
 
-$reshook = $hookmanager->executeHooks('doPreMassActions', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doPreMassActions', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 } else {
-	print $hookmanager->resPrint;
+	print $hookManager->resPrint;
 }

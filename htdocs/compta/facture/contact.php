@@ -42,7 +42,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -67,7 +67,7 @@ if ($id > 0 || !empty($ref)) {
 	$ret = $object->fetch($id, $ref, '', 0, getDolGlobalInt('INVOICE_USE_SITUATION'));
 }
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('invoicecontactcard', 'globalcard'));
+$hookManager->initHooks(array('invoicecontactcard', 'globalcard'));
 
 $result = restrictedArea($user, 'facture', $object->id);
 
@@ -79,9 +79,9 @@ $usercancreate = $user->hasRight("facture", "creer");
  */
 
 $parameters = array('id' => $id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

@@ -25,7 +25,7 @@ if (empty($context) || !is_object($context)) {
 }
 '@phan-var-force Context $context';
 
-global $conf, $hookmanager, $langs;
+global $conf, $hookManager, $langs;
 
 $navMenu = $navGroupMenu = $navUserMenu = array();
 
@@ -131,15 +131,15 @@ $parameters = array(
 	'maxTopMenu' => & $maxTopMenu
 );
 
-$reshook = $hookmanager->executeHooks('PrintTopMenu', $parameters, $context, $context->action);    // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('PrintTopMenu', $parameters, $context, $context->action);    // Note that $action and $object may have been modified by hook
 if ($reshook < 0) {
-	$context->setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	$context->setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
-	if (!empty($hookmanager->resArray)) {
+	if (!empty($hookManager->resArray)) {
 		// @phan-suppress-next-line PhanPluginSuspiciousParamOrderInternal
-		$navMenu = array_replace($navMenu, $hookmanager->resArray);
+		$navMenu = array_replace($navMenu, $hookManager->resArray);
 	}
 
 	if (!empty($navMenu)) {

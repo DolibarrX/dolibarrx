@@ -1430,7 +1430,7 @@ class Societe extends CommonObject
 	 */
 	public function update($id, User $user, $call_trigger = 1, $allowmodcodeclient = 0, $allowmodcodefournisseur = 0, $action = 'update', $nosyncmember = 1)
 	{
-		global $langs, $conf, $hookmanager;
+		global $langs, $conf, $hookManager;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
@@ -3021,7 +3021,7 @@ class Societe extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $maxlen = 0, $notooltip = 0, $save_lastsearch_value = -1, $noaliasinname = 0, $target = '', $morecss = '')
 	{
-		global $conf, $langs, $hookmanager, $user;
+		global $conf, $langs, $hookManager, $user;
 
 		if (!empty($conf->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -3150,7 +3150,7 @@ class Societe extends CommonObject
 		$result .= $linkend;
 
 		global $action;
-		$hookmanager->initHooks(array('thirdpartydao'));
+		$hookManager->initHooks(array('thirdpartydao'));
 		$parameters = array(
 			'id' => $this->id,
 			'getnomurl' => &$result,
@@ -3160,11 +3160,11 @@ class Societe extends CommonObject
 			'notooltip' => $notooltip,
 			'save_lastsearch_value' => $save_lastsearch_value
 		);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;
@@ -4124,14 +4124,14 @@ class Societe extends CommonObject
 	public function id_prof_url($idprof, $thirdparty)
 	{
 		// phpcs:enable
-		global $conf, $langs, $hookmanager;
+		global $conf, $langs, $hookManager;
 
 		$url = '';
 		$action = '';
 
-		$hookmanager->initHooks(array('idprofurl'));
+		$hookManager->initHooks(array('idprofurl'));
 		$parameters = array('idprof' => $idprof, 'company' => $thirdparty);
-		$reshook = $hookmanager->executeHooks('getIdProfUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getIdProfUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if (empty($reshook)) {
 			if (getDolGlobalString('MAIN_DISABLEPROFIDRULES')) {
 				return '';
@@ -4162,7 +4162,7 @@ class Societe extends CommonObject
 				return '<a target="_blank" rel="noopener noreferrer" href="'.$url.'">'.$langs->trans("Check").'</a>';
 			}
 		} else {
-			return $hookmanager->resPrint;
+			return $hookManager->resPrint;
 		}
 
 		return '';
@@ -5530,7 +5530,7 @@ class Societe extends CommonObject
 	 */
 	public function mergeCompany($soc_origin_id)
 	{
-		global $conf, $langs, $hookmanager, $user, $action;
+		global $conf, $langs, $hookManager, $user, $action;
 
 		$error = 0;
 		$soc_origin = new Societe($this->db);		// The thirdparty that we will delete
@@ -5692,11 +5692,11 @@ class Societe extends CommonObject
 			// External modules should update their ones too
 			if (!$error) {
 				$parameters = array('soc_origin' => $soc_origin->id, 'soc_dest' => $this->id);
-				$reshook = $hookmanager->executeHooks('replaceThirdparty', $parameters, $this, $action);
+				$reshook = $hookManager->executeHooks('replaceThirdparty', $parameters, $this, $action);
 
 				if ($reshook < 0) {
-					$this->error = $hookmanager->error;
-					$this->errors = $hookmanager->errors;
+					$this->error = $hookManager->error;
+					$this->errors = $hookManager->errors;
 					$error++;
 				}
 			}

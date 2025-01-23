@@ -96,7 +96,7 @@ const DICT_ASSET_DISPOSAL_TYPE = 44;
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -145,7 +145,7 @@ if (!GETPOSTISSET('search_country_id') && $search_country_id == '' && ($id == DI
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('admin', 'dictionaryadmin'));
+$hookManager->initHooks(array('admin', 'dictionaryadmin'));
 
 $allowed = $user->admin;
 if ($id == DICT_CHARGESOCIALES && $user->hasRight('accounting', 'chartofaccount')) {
@@ -779,9 +779,9 @@ $parameters = array(
 	'tabhelp'		=> $tabhelp,
 	'tabcomplete'	=> $tabcomplete
 );
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (GETPOST('button_removefilter', 'alpha') || GETPOST('button_removefilter.x', 'alpha') || GETPOST('button_removefilter_x', 'alpha')) {
@@ -1807,9 +1807,9 @@ if ($id > 0) {
 
 				$tmpaction = 'create';
 				$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-				$reshook = $hookmanager->executeHooks('createDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
-				$error = $hookmanager->error;
-				$errors = $hookmanager->errors;
+				$reshook = $hookManager->executeHooks('createDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+				$error = $hookManager->error;
+				$errors = $hookManager->errors;
 
 				if ($id == DICT_REGIONS) {
 					unset($fieldlist[2]); // Remove field ??? if dictionary Regions
@@ -2323,9 +2323,9 @@ if ($id > 0) {
 				if ($action == 'edit' && ($rowid == (!empty($obj->rowid) ? $obj->rowid : $obj->code))) {
 					$tmpaction = 'edit';
 					$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-					$reshook = $hookmanager->executeHooks('editDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
-					$error = $hookmanager->error;
-					$errors = $hookmanager->errors;
+					$reshook = $hookManager->executeHooks('editDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+					$error = $hookManager->error;
+					$errors = $hookManager->errors;
 
 					// Show fields
 					if (empty($reshook)) {
@@ -2345,10 +2345,10 @@ if ($id > 0) {
 				} else {
 					$tmpaction = 'view';
 					$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-					$reshook = $hookmanager->executeHooks('viewDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+					$reshook = $hookManager->executeHooks('viewDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 
-					$error = $hookmanager->error;
-					$errors = $hookmanager->errors;
+					$error = $hookManager->error;
+					$errors = $hookManager->errors;
 
 					$langs->loadLangs(array("bills", "agenda", "propal"));
 

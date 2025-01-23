@@ -39,7 +39,7 @@ if (isModEnabled('ldap')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -66,7 +66,7 @@ $setnewpassword = GETPOST('setnewpassword', 'aZ09');
 $conf->entity = (GETPOSTINT('entity') ? GETPOSTINT('entity') : 1);
 
 // Instantiate hooks of thirdparty module only if not already define
-$hookmanager->initHooks(array('passwordforgottenpage'));
+$hookManager->initHooks(array('passwordforgottenpage'));
 
 
 if (GETPOST('dol_hide_leftmenu', 'alpha') || !empty($_SESSION['dol_hide_leftmenu'])) {
@@ -91,9 +91,9 @@ if (GETPOST('dol_use_jmobile', 'alpha') || !empty($_SESSION['dol_use_jmobile']))
  */
 
 $parameters = array('username' => $username);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	$message = $hookmanager->error;
+	$message = $hookManager->error;
 } else {
 	$message = '';
 }
@@ -251,17 +251,17 @@ if (!$disabled) {
 
 // Execute hook getPasswordForgottenPageOptions (for table)
 $parameters = array('entity' => GETPOSTINT('entity'));
-$hookmanager->executeHooks('getPasswordForgottenPageOptions', $parameters); // Note that $action and $object may have been modified by some hooks
-if (is_array($hookmanager->resArray) && !empty($hookmanager->resArray)) {
-	$morelogincontent = $hookmanager->resArray; // (deprecated) For compatibility
+$hookManager->executeHooks('getPasswordForgottenPageOptions', $parameters); // Note that $action and $object may have been modified by some hooks
+if (is_array($hookManager->resArray) && !empty($hookManager->resArray)) {
+	$morelogincontent = $hookManager->resArray; // (deprecated) For compatibility
 } else {
-	$morelogincontent = $hookmanager->resPrint;
+	$morelogincontent = $hookManager->resPrint;
 }
 
 // Execute hook getPasswordForgottenPageExtraOptions (eg for js)
 $parameters = array('entity' => GETPOSTINT('entity'));
-$reshook = $hookmanager->executeHooks('getPasswordForgottenPageExtraOptions', $parameters); // Note that $action and $object may have been modified by some hooks.
-$moreloginextracontent = $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('getPasswordForgottenPageExtraOptions', $parameters); // Note that $action and $object may have been modified by some hooks.
+$moreloginextracontent = $hookManager->resPrint;
 
 if (empty($setnewpassword)) {
 	include $template_dir.'passwordforgotten.tpl.php'; // To use native PHP

@@ -68,7 +68,7 @@ if (isModEnabled('variants')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -129,7 +129,7 @@ $note_public = null;
 $note_private = null;
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('ordercard', 'globalcard'));
+$hookManager->initHooks(array('ordercard', 'globalcard'));
 
 $result = restrictedArea($user, 'commande', $id);
 
@@ -175,9 +175,9 @@ $selectedLines = array();
 
 $parameters = array('socid' => $socid);
 // Note that $action and $object may be modified by some hooks
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -527,9 +527,9 @@ if (empty($reshook)) {
 						// Hooks
 						$parameters = array('objFrom' => $srcobject);
 						// Note that $action and $object may be modified by hook
-						$reshook = $hookmanager->executeHooks('createFrom', $parameters, $object, $action);
+						$reshook = $hookManager->executeHooks('createFrom', $parameters, $object, $action);
 						if ($reshook < 0) {
-							setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+							setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 							$error++;
 						}
 					} else {
@@ -1944,7 +1944,7 @@ if ($action == 'create' && $usercancreate) {
 	// Call Hook tabContentCreateOrder
 	$parameters = array();
 	// Note that $action and $object may be modified by hook
-	$reshook = $hookmanager->executeHooks('tabContentCreateOrder', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('tabContentCreateOrder', $parameters, $object, $action);
 	if (empty($reshook)) {
 		print '<table class="border centpercent">';
 
@@ -2114,8 +2114,8 @@ if ($action == 'create' && $usercancreate) {
 		$parameters['socid'] = $socid;
 
 		// Note that $action and $object may be modified by hook
-		$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action);
-		print $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action);
+		print $hookManager->resPrint;
 		if (empty($reshook)) {
 			if (getDolGlobalString('THIRDPARTY_PROPAGATE_EXTRAFIELDS_TO_ORDER') && !empty($soc->id)) {
 				// copy from thirdparty
@@ -2545,11 +2545,11 @@ if ($action == 'create' && $usercancreate) {
 		// Call Hook formConfirm
 		$parameters = array('formConfirm' => $formconfirm, 'lineid' => $lineid);
 		// Note that $action and $object may be modified by hook
-		$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action);
+		$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action);
 		if (empty($reshook)) {
-			$formconfirm .= $hookmanager->resPrint;
+			$formconfirm .= $hookManager->resPrint;
 		} elseif ($reshook > 0) {
-			$formconfirm = $hookmanager->resPrint;
+			$formconfirm = $hookManager->resPrint;
 		}
 
 		// Print form confirm
@@ -2598,7 +2598,7 @@ if ($action == 'create' && $usercancreate) {
 		// Call Hook tabContentViewOrder
 		$parameters = array();
 		// Note that $action and $object may be modified by hook
-		$reshook = $hookmanager->executeHooks('tabContentViewOrder', $parameters, $object, $action);
+		$reshook = $hookManager->executeHooks('tabContentViewOrder', $parameters, $object, $action);
 		if (empty($reshook)) {
 			print '<div class="fichecenter">';
 			print '<div class="fichehalfleft">';
@@ -2975,16 +2975,16 @@ if ($action == 'create' && $usercancreate) {
 
 					$parameters = array();
 					// Note that $action and $object may be modified by hook
-					$reshook = $hookmanager->executeHooks('formAddObjectLine', $parameters, $object, $action);
+					$reshook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action);
 					if ($reshook < 0) {
-						setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+						setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 					}
 					if (empty($reshook)) {
 						$object->formAddObjectLine(1, $mysoc, $soc);
 					}
 				} else {
 					$parameters = array();
-					$reshook = $hookmanager->executeHooks('formEditObjectLine', $parameters, $object, $action);
+					$reshook = $hookManager->executeHooks('formEditObjectLine', $parameters, $object, $action);
 				}
 			}
 			print '</table>';
@@ -3003,7 +3003,7 @@ if ($action == 'create' && $usercancreate) {
 
 			$parameters = array();
 			// Note that $action and $object may be modified by hook
-			$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action);
+			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action);
 			if (empty($reshook)) {
 				$numlines = count($object->lines);
 

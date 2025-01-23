@@ -42,7 +42,7 @@ require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -60,7 +60,7 @@ if ($user->socid) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('banktreso', 'globalcard'));
+$hookManager->initHooks(array('banktreso', 'globalcard'));
 
 $result = restrictedArea($user, 'banque', $id, 'bank_account&bank_account', '', '', $fieldid);
 
@@ -172,9 +172,9 @@ if (GETPOST("account") || GETPOST("ref")) {
 
 	// others sql
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('addMoreSQL', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	if (empty($reshook) and isset($hookmanager->resArray['sql'])) {
-		$sqls[] = $hookmanager->resArray['sql'];
+	$reshook = $hookManager->executeHooks('addMoreSQL', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	if (empty($reshook) and isset($hookManager->resArray['sql'])) {
+		$sqls[] = $hookManager->resArray['sql'];
 	}
 
 	$error = 0;
@@ -325,11 +325,11 @@ if (GETPOST("account") || GETPOST("ref")) {
 			}
 
 			$parameters = array('obj' => $tmpobj, 'ref' => $ref, 'refcomp' => $refcomp, 'totalpayment' => $totalpayment);
-			$reshook = $hookmanager->executeHooks('moreFamily', $parameters, $tmpobject, $action); // Note that $action and $tmpobject may have been modified by hook
+			$reshook = $hookManager->executeHooks('moreFamily', $parameters, $tmpobject, $action); // Note that $action and $tmpobject may have been modified by hook
 			if (empty($reshook)) {
-				$ref = isset($hookmanager->resArray['ref']) ? $hookmanager->resArray['ref'] : $ref;
-				$refcomp = isset($hookmanager->resArray['refcomp']) ? $hookmanager->resArray['refcomp'] : $refcomp;
-				$totalpayment = isset($hookmanager->resArray['totalpayment']) ? $hookmanager->resArray['totalpayment'] : $totalpayment;
+				$ref = isset($hookManager->resArray['ref']) ? $hookManager->resArray['ref'] : $ref;
+				$refcomp = isset($hookManager->resArray['refcomp']) ? $hookManager->resArray['refcomp'] : $refcomp;
+				$totalpayment = isset($hookManager->resArray['totalpayment']) ? $hookManager->resArray['totalpayment'] : $totalpayment;
 			}
 
 			$total_ttc = $tmpobj->total_ttc;
@@ -377,10 +377,10 @@ if (GETPOST("account") || GETPOST("ref")) {
 
 	// Other lines
 	$parameters = array('solde' => $solde);
-	$reshook = $hookmanager->executeHooks('printObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
-		print $hookmanager->resPrint;
-		$solde = isset($hookmanager->resArray['solde']) ? $hookmanager->resArray['solde'] : $solde;
+		print $hookManager->resPrint;
+		$solde = isset($hookManager->resArray['solde']) ? $hookManager->resArray['solde'] : $solde;
 	}
 
 	// solde

@@ -48,7 +48,7 @@ require_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -60,7 +60,7 @@ $place = (GETPOST('place', 'aZ09') ? GETPOST('place', 'aZ09') : '0'); // $place 
 
 $invoiceid = GETPOSTINT('invoiceid');
 
-$hookmanager->initHooks(array('takepospay'));
+$hookManager->initHooks(array('takepospay'));
 
 if (!$user->hasRight('takepos', 'run')) {
 	accessforbidden();
@@ -747,9 +747,9 @@ if (getDolGlobalInt("TAKEPOS_ENABLE_SUMUP")) {
 }
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $invoice, $action); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $invoice, $action); // Note that $action and $object may have been modified by hook
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 $class = ($i == 3) ? "calcbutton3" : "calcbutton2";
@@ -766,8 +766,8 @@ if (getDolGlobalString('TAKEPOS_DELAYED_PAYMENT')) {
 <?php
 // Add code from hooks
 $parameters = array();
-$hookmanager->executeHooks('completePayment', $parameters, $invoice);
-print $hookmanager->resPrint;
+$hookManager->executeHooks('completePayment', $parameters, $invoice);
+print $hookManager->resPrint;
 ?>
 
 </div>

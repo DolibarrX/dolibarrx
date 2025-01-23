@@ -31,7 +31,7 @@ require_once DOL_DOCUMENT_ROOT."/core/lib/files.lib.php";
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -44,10 +44,10 @@ if (!$user->hasRight('opensurvey', 'read')) {
 	accessforbidden();
 }
 
-$hookmanager = new HookManager($db);
+$hookManager = new HookManager($db);
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('opensurveyindex'));
+$hookManager->initHooks(array('opensurveyindex'));
 
 
 /*
@@ -90,7 +90,7 @@ print '</div>';
 print '</div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardOpenSurvey', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardOpenSurvey', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

@@ -59,7 +59,7 @@ if (isModEnabled('variants')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -120,7 +120,7 @@ if (!empty($canvas)) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('stockproductcard', 'globalcard'));
+$hookManager->initHooks(array('stockproductcard', 'globalcard'));
 
 $error = 0;
 
@@ -155,9 +155,9 @@ if ($cancel) {
 }
 
 $parameters = array('id' => $id, 'ref' => $ref, 'objcanvas' => $objcanvas);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if ($action == 'setcost_price' && $usercancreate) {
@@ -734,8 +734,8 @@ if ($id > 0 || $ref) {
 
 			// Hook formObject
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			print $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			print $hookManager->resPrint;
 
 			print '</table>';
 
@@ -766,13 +766,13 @@ if ($id > 0 || $ref) {
 			$text_stock_options .= (getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER') ? '- '.$langs->trans("ReStockOnDispatchOrder").'<br>' : '');
 			$text_stock_options .= (getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION') || getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION_CLOSE') ? '- '.$langs->trans("StockOnReception").'<br>' : '');
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('physicalStockTextStockOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('physicalStockTextStockOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if ($reshook > 0) {
-				$text_stock_options = $hookmanager->resPrint;
+				$text_stock_options = $hookManager->resPrint;
 			} elseif ($reshook == 0) {
-				$text_stock_options .= $hookmanager->resPrint;
+				$text_stock_options .= $hookManager->resPrint;
 			} else {
-				setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			}
 
 			print '<tr><td>';
@@ -861,13 +861,13 @@ if ($id > 0 || $ref) {
 				$helpondiff .= $langs->trans("ProductQtyToProduceByMO").': '.$object->stats_mrptoproduce['qty'];
 			}
 			$parameters = array('found' => &$found, 'id' => $object->id, 'includedraftpoforvirtual' => null);
-			$reshook = $hookmanager->executeHooks('virtualStockHelpOnDiff', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('virtualStockHelpOnDiff', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if ($reshook > 0) {
-				$helpondiff = $hookmanager->resPrint;
+				$helpondiff = $hookManager->resPrint;
 			} elseif ($reshook == 0) {
-				$helpondiff .= $hookmanager->resPrint;
+				$helpondiff .= $hookManager->resPrint;
 			} else {
-				setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+				setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			}
 
 
@@ -941,7 +941,7 @@ if ($id > 0 || $ref) {
 
 $parameters = array();
 
-$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($reshook)) {
 	if (empty($action) && $object->id) {
 		print "<div class=\"tabsAction\">\n";

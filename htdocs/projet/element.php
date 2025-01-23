@@ -111,7 +111,7 @@ if (isModEnabled('stocktransfer')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -199,7 +199,7 @@ if (getDolGlobalString('PROJECT_ALLOW_COMMENT_ON_PROJECT') && method_exists($obj
 // Security check
 $socid = $object->socid;
 
-$hookmanager->initHooks(array('projectOverview'));
+$hookManager->initHooks(array('projectOverview'));
 
 //if ($user->socid > 0) $socid = $user->socid;    // For external user, no check is done on company because readability is managed by public status of project and assignment.
 $result = restrictedArea($user, 'projet', $object->id, 'projet&project');
@@ -723,12 +723,12 @@ if (getDolGlobalString('PROJECT_ELEMENTS_FOR_MINUS_MARGIN')) {
 
 
 $parameters = array('listofreferent' => $listofreferent);
-$resHook = $hookmanager->executeHooks('completeListOfReferent', $parameters, $object, $action);
+$resHook = $hookManager->executeHooks('completeListOfReferent', $parameters, $object, $action);
 
-if (!empty($hookmanager->resArray)) {
-	$listofreferent = array_merge($listofreferent, $hookmanager->resArray);
-} elseif ($resHook > 0 && !empty($hookmanager->resPrint)) {
-	$listofreferent = $hookmanager->resPrint;
+if (!empty($hookManager->resArray)) {
+	$listofreferent = array_merge($listofreferent, $hookManager->resArray);
+} elseif ($resHook > 0 && !empty($hookManager->resPrint)) {
+	$listofreferent = $hookManager->resPrint;
 }
 
 if ($action == "addelement") {
@@ -833,11 +833,11 @@ foreach ($listofreferent as $key => $value) {
 		'dates' => $dates,
 		'datee' => $datee
 	);
-	$reshook = $hookmanager->executeHooks('printOverviewProfit', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('printOverviewProfit', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	} elseif ($reshook > 0) {
-		print $hookmanager->resPrint;
+		print $hookManager->resPrint;
 		continue;
 	}
 
@@ -1073,11 +1073,11 @@ foreach ($listofreferent as $key => $value) {
 		'dates' => $dates,
 		'datee' => $datee
 	);
-	$reshook = $hookmanager->executeHooks('printOverviewDetail', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('printOverviewDetail', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	} elseif ($reshook > 0) {
-		print $hookmanager->resPrint;
+		print $hookManager->resPrint;
 		continue;
 	}
 

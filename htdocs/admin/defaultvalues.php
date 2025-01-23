@@ -38,7 +38,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/defaultvalues.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -84,7 +84,7 @@ $key = GETPOST('key', 'alphanohtml');
 $value = GETPOST('value', 'restricthtml');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('admindefaultvalues', 'globaladmin'));
+$hookManager->initHooks(array('admindefaultvalues', 'globaladmin'));
 
 
 $object = new DefaultValues($db);
@@ -101,9 +101,9 @@ if (!GETPOST('confirmmassaction', 'alpha') && !empty($massaction) && $massaction
 }
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 include DOL_DOCUMENT_ROOT.'/core/actions_changeselectedfields.inc.php';

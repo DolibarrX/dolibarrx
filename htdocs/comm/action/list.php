@@ -42,7 +42,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/class/html.formactions.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -110,7 +110,7 @@ $search_categ_cus = GETPOST("search_categ_cus", "intcomma", 3) ? GETPOST("search
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $object = new ActionComm($db);
-$hookmanager->initHooks(array('agendalist'));
+$hookManager->initHooks(array('agendalist'));
 
 $extrafields = new ExtraFields($db);
 
@@ -216,9 +216,9 @@ if (GETPOST("viewcal") || GETPOST("viewweek") || GETPOST("viewday")) {
 }
 
 $parameters = array('id' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 // Selection of new fields
@@ -448,8 +448,8 @@ if (!empty($extrafields->attributes[$object->table_element]['label'])) {
 
 // Add fields from hooks
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-$sql .= $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$sql .= $hookManager->resPrint;
 
 $sqlfields = $sql; // $sql fields to remove for count total
 
@@ -600,8 +600,8 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 
 // Add where from hooks
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-$sql .= $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$sql .= $hookManager->resPrint;
 
 // Count total nb of records
 $nbtotalofrecords = '';
@@ -680,11 +680,11 @@ $s = $newtitle;
 
 // Calendars from hooks
 $parameters = array();
-$reshook = $hookmanager->executeHooks('addCalendarChoice', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('addCalendarChoice', $parameters, $object, $action);
 if (empty($reshook)) {
-	$s .= $hookmanager->resPrint;
+	$s .= $hookManager->resPrint;
 } elseif ($reshook > 1) {
-	$s = $hookmanager->resPrint;
+	$s = $hookManager->resPrint;
 }
 
 $viewyear = is_object($object) ? dol_print_date($object->datep, '%Y') : '';
@@ -725,11 +725,11 @@ $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsm
 
 // Add more views from hooks
 $parameters = array();
-$reshook = $hookmanager->executeHooks('addCalendarView', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
 if (empty($reshook)) {
-	$viewmode .= $hookmanager->resPrint;
+	$viewmode .= $hookManager->resPrint;
 } elseif ($reshook > 1) {
-	$viewmode = $hookmanager->resPrint;
+	$viewmode = $hookManager->resPrint;
 }
 
 $viewmode .= '</div>';
@@ -832,8 +832,8 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_input.tpl.php';
 
 // Fields from hook
 $parameters = array('arrayfields' => $arrayfields);
-$reshook = $hookmanager->executeHooks('printFieldListOption', $parameters); // Note that $action and $object may have been modified by hook
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('printFieldListOption', $parameters); // Note that $action and $object may have been modified by hook
+print $hookManager->resPrint;
 
 if (!empty($arrayfields['a.datec']['checked'])) {
 	print '<td class="liste_titre"></td>';
@@ -910,8 +910,8 @@ if (!empty($arrayfields['a.fk_element']['checked'])) {
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_title.tpl.php';
 // Hook fields
 $parameters = array('arrayfields' => $arrayfields, 'param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-$reshook = $hookmanager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters); // Note that $action and $object may have been modified by hook
+print $hookManager->resPrint;
 
 if (!empty($arrayfields['a.datec']['checked'])) {
 	print_liste_field_titre($arrayfields['a.datec']['label'], $_SERVER["PHP_SELF"], "a.datec,a.id", $param, "", '', $sortfield, $sortorder, 'center ');
@@ -1214,8 +1214,8 @@ while ($i < $imaxinloop) {
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_print_fields.tpl.php';
 	// Fields from hook
 	$parameters = array('arrayfields' => $arrayfields, 'obj' => $obj, 'i' => $i, 'totalarray' => &$totalarray);
-	$reshook = $hookmanager->executeHooks('printFieldListValue', $parameters); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldListValue', $parameters); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 
 	// Date creation
 	if (!empty($arrayfields['a.datec']['checked'])) {

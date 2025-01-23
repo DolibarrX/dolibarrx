@@ -71,7 +71,7 @@ function print_actions_filter(
 	$resourceid = 0,
 	$search_categ_cus = 0
 ) {
-	global $user, $langs, $db, $hookmanager;
+	global $user, $langs, $db, $hookManager;
 	global $massaction;
 
 	$langs->load("companies");
@@ -165,7 +165,7 @@ function print_actions_filter(
 	// Hooks
 	$parameters = array('canedit' => $canedit, 'pid' => $pid, 'socid' => $socid);
 	$object = null;  // Null on purpose: @phan-suppress-next-line PhanPluginConstantVariableNull
-	$reshook = $hookmanager->executeHooks('searchAgendaFrom', $parameters, $object, $action); // Note that $action and $object may have been
+	$reshook = $hookManager->executeHooks('searchAgendaFrom', $parameters, $object, $action); // Note that $action and $object may have been
 
 	print '<div class="clearboth"></div>';
 }

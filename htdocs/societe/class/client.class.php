@@ -88,7 +88,7 @@ class Client extends Societe
 	 */
 	public function loadStateBoard()
 	{
-		global $user, $hookmanager;
+		global $user, $hookManager;
 
 		$this->nb = array("prospects" => 0, "customers" => 0);
 		$clause = "WHERE";
@@ -103,10 +103,10 @@ class Client extends Societe
 		$sql .= " ".$clause." s.client IN (1,2,3)";
 		$sql .= ' AND s.entity IN ('.getEntity($this->element).')';
 		// Add where from hooks
-		if (is_object($hookmanager)) {
+		if (is_object($hookManager)) {
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $this); // Note that $action and $object may have been modified by hook
-			$sql .= $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $this); // Note that $action and $object may have been modified by hook
+			$sql .= $hookManager->resPrint;
 		}
 		$sql .= " GROUP BY s.client";
 

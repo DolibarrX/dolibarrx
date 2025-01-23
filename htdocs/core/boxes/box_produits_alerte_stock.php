@@ -69,7 +69,7 @@ class box_produits_alerte_stock extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $user, $langs, $conf, $hookmanager;
+		global $user, $langs, $conf, $hookManager;
 
 		$this->max = $max;
 
@@ -94,10 +94,10 @@ class box_produits_alerte_stock extends ModeleBoxes
 				$sql .= ' AND p.fk_product_type <> 1';
 			}
 			// Add where from hooks
-			if (is_object($hookmanager)) {
+			if (is_object($hookManager)) {
 				$parameters = array('boxproductalertstocklist' => 1, 'boxcode' => $this->boxcode);
-				$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $productstatic); // Note that $action and $object may have been modified by hook
-				$sql .= $hookmanager->resPrint;
+				$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $productstatic); // Note that $action and $object may have been modified by hook
+				$sql .= $hookManager->resPrint;
 			}
 			$sql .= " GROUP BY p.rowid, p.ref, p.label, p.price, p.price_base_type, p.price_ttc, p.fk_product_type, p.tms, p.tosell, p.tobuy, p.barcode, p.seuil_stock_alerte, p.entity,";
 			$sql .= " p.accountancy_code_sell, p.accountancy_code_sell_intra, p.accountancy_code_sell_export,";

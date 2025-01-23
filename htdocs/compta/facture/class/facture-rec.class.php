@@ -1353,7 +1353,7 @@ class FactureRec extends CommonInvoice
 	 */
 	public function createRecurringInvoices($restrictioninvoiceid = 0, $forcevalidation = 0, $notrigger = 0)
 	{
-		global $conf, $langs, $db, $user, $hookmanager;
+		global $conf, $langs, $db, $user, $hookManager;
 
 		$error = 0;
 		$nb_create = 0;
@@ -1384,7 +1384,7 @@ class FactureRec extends CommonInvoice
 			'restrictioninvoiceid' => $restrictioninvoiceid,
 			'forcevalidation' => $forcevalidation,
 		);
-		$reshook = $hookmanager->executeHooks('beforeCreationOfRecurringInvoices', $parameters, $sql); // note that $sql might be modified by hooks
+		$reshook = $hookManager->executeHooks('beforeCreationOfRecurringInvoices', $parameters, $sql); // note that $sql might be modified by hooks
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -1491,7 +1491,7 @@ class FactureRec extends CommonInvoice
 					'facturerec' => $facturerec, // it's an object which PHP passes by "reference", so modifiable by hooks.
 					'this'       => $this, // it's an object which PHP passes by "reference", so modifiable by hooks.
 				);
-				$reshook = $hookmanager->executeHooks('afterCreationOfRecurringInvoice', $parameters, $facture); // note: $facture can be modified by hooks (warning: $facture can be null)
+				$reshook = $hookManager->executeHooks('afterCreationOfRecurringInvoice', $parameters, $facture); // note: $facture can be modified by hooks (warning: $facture can be null)
 
 				$i++;
 			}
@@ -1520,7 +1520,7 @@ class FactureRec extends CommonInvoice
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $short = 0, $moretitle = '', $notooltip = 0, $save_lastsearch_value = -1)
 	{
-		global $langs, $hookmanager;
+		global $langs, $hookManager;
 
 		$result = '';
 
@@ -1573,13 +1573,13 @@ class FactureRec extends CommonInvoice
 		}
 		$result .= $linkend;
 		global $action;
-		$hookmanager->initHooks(array($this->element . 'dao'));
+		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 		return $result;
 	}

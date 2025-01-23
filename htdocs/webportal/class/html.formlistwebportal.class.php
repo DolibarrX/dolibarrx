@@ -256,7 +256,7 @@ class FormListWebPortal
 	 */
 	public function elementList($context)
 	{
-		global $conf, $hookmanager, $langs;
+		global $conf, $hookManager, $langs;
 
 		$html = '';
 		$nbpages = 0;
@@ -312,8 +312,8 @@ class FormListWebPortal
 		$sql .= ", t.entity as element_entity";
 		// Add fields from hooks
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		$sql .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$sql .= $hookManager->resPrint;
 		$sql = preg_replace('/,\s*$/', '', $sql);
 
 		$sqlfields = $sql; // $sql fields to remove for count total
@@ -321,8 +321,8 @@ class FormListWebPortal
 		$sql .= " FROM " . $this->db->prefix() . $object->table_element . " as t";
 		// Add table from hooks
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		$sql .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$sql .= $hookManager->resPrint;
 		if ($object->ismultientitymanaged == 1) {
 			$sql .= " WHERE t.entity IN (" . getEntity($object->element, (GETPOSTINT('search_current_entity') ? 0 : 1)) . ")";
 		} else {
@@ -367,8 +367,8 @@ class FormListWebPortal
 		//}
 		// Add where from hooks
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		$sql .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$sql .= $hookManager->resPrint;
 
 		// Count total nb of records
 		$nbtotalofrecords = 0;
@@ -446,8 +446,8 @@ class FormListWebPortal
 		}
 		// Add $param from hooks
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		$param .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$param .= $hookManager->resPrint;
 
 		$url_file = $context->getControllerUrl($context->controller);
 		$html .= '<form method="POST" id="searchFormList" action="' . $url_file . '">' . "\n";
@@ -518,8 +518,8 @@ class FormListWebPortal
 		}
 		// Fields from hook
 		$parameters = array('arrayfields' => $arrayfields);
-		$reshook = $hookmanager->executeHooks('printFieldListOption', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		$html .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListOption', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$html .= $hookManager->resPrint;
 		// Remain to pay
 		if (!empty($arrayfields['remain_to_pay']['checked'])) {
 			$html .= '<td data-label="' . $arrayfields['remain_to_pay']['label'] . '">';
@@ -592,8 +592,8 @@ class FormListWebPortal
 
 		// Hook fields
 		$parameters = array('arrayfields' => $arrayfields, 'sortfield' => $sortfield, 'sortorder' => $sortorder, 'totalarray' => &$totalarray);
-		$reshook = $hookmanager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		$html .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$html .= $hookManager->resPrint;
 		$html .= '</tr>';
 
 		$html .= '</thead>';
@@ -731,8 +731,8 @@ class FormListWebPortal
 			}
 			// Fields from hook
 			$parameters = array('arrayfields' => $arrayfields, 'object' => $object, 'obj' => $obj, 'i' => $i, 'totalarray' => &$totalarray);
-			$reshook = $hookmanager->executeHooks('printFieldListValue', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			$html .= $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$html .= $hookManager->resPrint;
 
 			$html .= '</tr>';
 
@@ -783,8 +783,8 @@ class FormListWebPortal
 		$this->db->free($resql);
 
 		$parameters = array('arrayfields' => $arrayfields, 'sql' => $sql);
-		$reshook = $hookmanager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		$html .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$html .= $hookManager->resPrint;
 
 		$html .= '</table>';
 

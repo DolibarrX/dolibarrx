@@ -94,7 +94,7 @@ require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -186,17 +186,17 @@ if (!getDolGlobalString('MAIN_AGENDA_XCAL_EXPORTKEY')) {
 }
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array of hooks
-$hookmanager->initHooks(array('agendaexport'));
+$hookManager->initHooks(array('agendaexport'));
 
-$reshook = $hookmanager->executeHooks('doActions', $filters); // Note that $action and $object may have been modified by some
+$reshook = $hookManager->executeHooks('doActions', $filters); // Note that $action and $object may have been modified by some
 if ($reshook < 0) {
 	top_httphead();
 
 	llxHeaderVierge("");
-	if (!empty($hookmanager->errors) && is_array($hookmanager->errors)) {
-		print '<div class="error">'.implode('<br>', $hookmanager->errors).'</div>';
+	if (!empty($hookManager->errors) && is_array($hookManager->errors)) {
+		print '<div class="error">'.implode('<br>', $hookManager->errors).'</div>';
 	} else {
-		print '<div class="error">'.$hookmanager->error.'</div>';
+		print '<div class="error">'.$hookManager->error.'</div>';
 	}
 	llxFooterVierge();
 } elseif (empty($reshook)) {

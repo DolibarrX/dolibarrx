@@ -46,7 +46,7 @@ require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -63,7 +63,7 @@ if (!$user->hasRight('takepos', 'run')) {
 }
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array of hooks
-$hookmanager->initHooks(array('takeposproductsearch')); // new context for product search hooks
+$hookManager->initHooks(array('takeposproductsearch')); // new context for product search hooks
 
 $pricelevel = 1;	// default price level if PRODUIT_MULTIPRICES. TODO Get price level from thirdparty.
 
@@ -282,9 +282,9 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 	}*/
 	// Add fields from hooks
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldListSelect', $parameters);
+	$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters);
 	if ($reshook >= 0) {
-		$sql .= $hookmanager->resPrint;
+		$sql .= $hookManager->resPrint;
 	}
 
 	$sql .= ' FROM '.MAIN_DB_PREFIX.'product as p';
@@ -304,9 +304,9 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 
 	// Add tables from hooks
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldListTables', $parameters);
+	$reshook = $hookManager->executeHooks('printFieldListTables', $parameters);
 	if ($reshook >= 0) {
-		$sql .= $hookmanager->resPrint;
+		$sql .= $hookManager->resPrint;
 	}
 
 	$sql .= ' WHERE p.entity IN ('.getEntity('product').')';
@@ -320,18 +320,18 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 	$sql .= natural_search(array('ref', 'label', 'barcode'), $term);
 	// Add where from hooks
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters);
+	$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters);
 	if ($reshook >= 0) {
-		$sql .= $hookmanager->resPrint;
+		$sql .= $hookManager->resPrint;
 	}
 
 	if (getDolGlobalInt('TAKEPOS_PRODUCT_IN_STOCK') == 1 && !getDolGlobalInt('CASHDESK_ID_WAREHOUSE'.$_SESSION['takeposterminal'])) {
 		$sql .= ' GROUP BY p.rowid, p.ref, p.label, p.tosell, p.tobuy, p.barcode, p.price, p.price_ttc';
 		// Add fields from hooks
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printFieldListSelect', $parameters);
+		$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters);
 		if ($reshook >= 0) {
-			$sql .= $hookmanager->resPrint;
+			$sql .= $hookManager->resPrint;
 		}
 		$sql .= ' HAVING SUM(ps.reel) > 0';
 	}
@@ -381,19 +381,19 @@ if ($action == 'getProducts' && $user->hasRight('takepos', 'run')) {
 			$parameters=array();
 			$parameters['row'] = $row;
 			$parameters['obj'] = $obj;
-			$reshook = $hookmanager->executeHooks('completeAjaxReturnArray', $parameters);
+			$reshook = $hookManager->executeHooks('completeAjaxReturnArray', $parameters);
 			if ($reshook > 0) {
 				// replace
-				if (count($hookmanager->resArray)) {
-					$row = $hookmanager->resArray;
+				if (count($hookManager->resArray)) {
+					$row = $hookManager->resArray;
 				} else {
 					$row = array();
 				}
 				$rows[] = $row;
 			} else {
 				// add
-				if (count($hookmanager->resArray)) {
-					$rows[] = $hookmanager->resArray;
+				if (count($hookManager->resArray)) {
+					$rows[] = $hookManager->resArray;
 				}
 				$rows[] = $row;
 			}

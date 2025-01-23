@@ -39,7 +39,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -53,7 +53,7 @@ $ref = GETPOST("ref", 'alpha');
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$hookmanager->initHooks(array('invoicesuppliercardinfo'));
+$hookManager->initHooks(array('invoicesuppliercardinfo'));
 $result = restrictedArea($user, 'fournisseur', $id, 'facture_fourn', 'facture');
 
 $object = new FactureFournisseur($db);

@@ -35,13 +35,13 @@ require_once DOL_DOCUMENT_ROOT.'/mrp/class/mo.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('mrpindex'));
+$hookManager->initHooks(array('mrpindex'));
 
 // Load translation files required by the page
 $langs->loadLangs(array("companies", "mrp"));
@@ -287,7 +287,7 @@ $parameters = array(
 	//'type' => $type,
 	'user' => $user,
 );
-$reshook = $hookmanager->executeHooks('dashboardMRP', $parameters, $object);
+$reshook = $hookManager->executeHooks('dashboardMRP', $parameters, $object);
 
 // End of page
 llxFooter();

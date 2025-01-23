@@ -162,7 +162,7 @@ class pdf_cyan extends ModelePDFPropales
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $db, $hookmanager, $nblines;
+		global $user, $langs, $conf, $mysoc, $db, $hookManager, $nblines;
 
 		dol_syslog("write_file outputlangs->defaultlang=".(is_object($outputlangs) ? $outputlangs->defaultlang : 'null'));
 
@@ -279,14 +279,14 @@ class pdf_cyan extends ModelePDFPropales
 
 			if (file_exists($dir)) {
 				// Add pdfgeneration hook
-				if (!is_object($hookmanager)) {
+				if (!is_object($hookManager)) {
 					include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-					$hookmanager = new HookManager($this->db);
+					$hookManager = new HookManager($this->db);
 				}
-				$hookmanager->initHooks(array('pdfgeneration'));
+				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookmanager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('beforePDFCreation', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Set nblines with the new content of lines after hook
 				$nblines = count($object->lines);
@@ -715,7 +715,7 @@ class pdf_cyan extends ModelePDFPropales
 						'outputlangs' => $outputlangs,
 						'hidedetails' => $hidedetails
 					);
-					$reshook = $hookmanager->executeHooks('printPDFline', $parameters, $this); // Note that $object may have been modified by hook
+					$reshook = $hookManager->executeHooks('printPDFline', $parameters, $this); // Note that $object may have been modified by hook
 
 
 					// Collection of totals by value of vat in $this->tva["rate"] = total_tva
@@ -979,13 +979,13 @@ class pdf_cyan extends ModelePDFPropales
 				$pdf->Output($file, 'F');
 
 				//Add pdfgeneration hook
-				$hookmanager->initHooks(array('pdfgeneration'));
+				$hookManager->initHooks(array('pdfgeneration'));
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs);
 				global $action;
-				$reshook = $hookmanager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('afterPDFCreation', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					$this->error = $hookmanager->error;
-					$this->errors = $hookmanager->errors;
+					$this->error = $hookManager->error;
+					$this->errors = $hookManager->errors;
 				}
 
 				dolChmod($file);
@@ -1199,7 +1199,7 @@ class pdf_cyan extends ModelePDFPropales
 	 */
 	protected function drawTotalTable(&$pdf, $object, $deja_regle, $posy, $outputlangs, $outputlangsbis = null)
 	{
-		global $conf, $mysoc, $hookmanager;
+		global $conf, $mysoc, $hookManager;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
@@ -1502,10 +1502,10 @@ class pdf_cyan extends ModelePDFPropales
 
 		$parameters = array('pdf' => &$pdf, 'object' => &$object, 'outputlangs' => $outputlangs, 'index' => &$index, 'posy' => $posy);
 
-		$reshook = $hookmanager->executeHooks('afterPDFTotalTable', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('afterPDFTotalTable', $parameters, $this); // Note that $action and $object may have been modified by some hooks
 		if ($reshook < 0) {
-			$this->error = $hookmanager->error;
-			$this->errors = $hookmanager->errors;
+			$this->error = $hookManager->error;
+			$this->errors = $hookManager->errors;
 		}
 
 		$index++;
@@ -1946,7 +1946,7 @@ class pdf_cyan extends ModelePDFPropales
 	 */
 	public function defineColumnField($object, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		// Default field style for content
 		$this->defaultContentsFieldsStyle = array(
@@ -2148,14 +2148,14 @@ class pdf_cyan extends ModelePDFPropales
 			'hideref' => $hideref
 		);
 
-		$reshook = $hookmanager->executeHooks('defineColumnField', $parameters, $this); // Note that $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('defineColumnField', $parameters, $this); // Note that $object may have been modified by hook
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		} elseif (empty($reshook)) {
 			// @phan-suppress-next-line PhanPluginSuspiciousParamOrderInternal
-			$this->cols = array_replace($this->cols, $hookmanager->resArray); // array_replace is used to preserve keys
+			$this->cols = array_replace($this->cols, $hookManager->resArray); // array_replace is used to preserve keys
 		} else {
-			$this->cols = $hookmanager->resArray;
+			$this->cols = $hookManager->resArray;
 		}
 	}
 }

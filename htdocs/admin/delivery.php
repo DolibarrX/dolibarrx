@@ -39,7 +39,7 @@ require_once DOL_DOCUMENT_ROOT.'/delivery/class/delivery.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user

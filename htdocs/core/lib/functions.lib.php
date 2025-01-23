@@ -450,11 +450,11 @@ function getDoliDBInstance($type, $host, $user, $pass, $name, $port)
  */
 function getEntity($element, $shared = 1, $currentobject = null)
 {
-	global $conf, $mc, $hookmanager, $object, $action, $db;
+	global $conf, $mc, $hookManager, $object, $action, $db;
 
-	if (!is_object($hookmanager)) {
+	if (!is_object($hookManager)) {
 		include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-		$hookmanager = new HookManager($db);
+		$hookManager = new HookManager($db);
 	}
 
 	// fix different element names (France to English)
@@ -495,13 +495,13 @@ function getEntity($element, $shared = 1, $currentobject = null)
 		'currentobject' => $currentobject,
 		'out' => $out
 	);
-	$reshook = $hookmanager->executeHooks('hookGetEntity', $parameters, $currentobject, $action); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('hookGetEntity', $parameters, $currentobject, $action); // Note that $action and $object may have been modified by some hooks
 
 	if (is_numeric($reshook)) {
-		if ($reshook == 0 && !empty($hookmanager->resPrint)) {
-			$out .= ','.$hookmanager->resPrint; // add
+		if ($reshook == 0 && !empty($hookManager->resPrint)) {
+			$out .= ','.$hookManager->resPrint; // add
 		} elseif ($reshook == 1) {
-			$out = $hookmanager->resPrint; // replace
+			$out = $hookManager->resPrint; // replace
 		}
 	}
 
@@ -2686,7 +2686,7 @@ function dol_fiche_head($links = array(), $active = '0', $title = '', $notab = 0
  */
 function dol_get_fiche_head($links = array(), $active = '', $title = '', $notab = 0, $picto = '', $pictoisfullpath = 0, $morehtmlright = '', $morecss = '', $limittoshow = 0, $moretabssuffix = '', $dragdropfile = 0)
 {
-	global $conf, $langs, $hookmanager;
+	global $conf, $langs, $hookManager;
 
 	// Show title
 	$showtitle = 1;
@@ -2869,9 +2869,9 @@ function dol_get_fiche_head($links = array(), $active = '', $title = '', $notab 
 		$out .= dragAndDropFileUpload("dragDropAreaTabBar");
 	}
 	$parameters = array('tabname' => $active, 'out' => $out);
-	$reshook = $hookmanager->executeHooks('printTabsHead', $parameters); // This hook usage is called just before output the head of tabs. Take also a look at "completeTabsHead"
+	$reshook = $hookManager->executeHooks('printTabsHead', $parameters); // This hook usage is called just before output the head of tabs. Take also a look at "completeTabsHead"
 	if ($reshook > 0) {
-		$out = $hookmanager->resPrint;
+		$out = $hookManager->resPrint;
 	}
 
 	return $out;
@@ -2925,7 +2925,7 @@ function dol_get_fiche_end($notab = 0)
  */
 function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldid = 'rowid', $fieldref = 'ref', $morehtmlref = '', $moreparam = '', $nodbprefix = 0, $morehtmlleft = '', $morehtmlstatus = '', $onlybanner = 0, $morehtmlright = '')
 {
-	global $conf, $form, $user, $langs, $hookmanager, $action;
+	global $conf, $form, $user, $langs, $hookManager, $action;
 
 	$error = 0;
 
@@ -3266,13 +3266,13 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 	}
 
 	$parameters = array('morehtmlref' => &$morehtmlref, 'moreparam' => &$moreparam, 'morehtmlleft' => &$morehtmlleft, 'morehtmlstatus' => &$morehtmlstatus, 'morehtmlright' => &$morehtmlright);
-	$reshook = $hookmanager->executeHooks('formDolBanner', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('formDolBanner', $parameters, $object, $action);
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	} elseif (empty($reshook)) {
-		$morehtmlref .= $hookmanager->resPrint;
+		$morehtmlref .= $hookManager->resPrint;
 	} elseif ($reshook > 0) {
-		$morehtmlref = $hookmanager->resPrint;
+		$morehtmlref = $hookManager->resPrint;
 	}
 
 	// $morehtml is the right part (link "Back to list")
@@ -3326,7 +3326,7 @@ function fieldLabel($langkey, $fieldkey, $fieldrequired = 0)
  */
 function dol_format_address($object, $withcountry = 0, $sep = "\n", $outputlangs = null, $mode = 0, $extralangcode = '')
 {
-	global $langs, $hookmanager;
+	global $langs, $hookManager;
 
 	$ret = '';
 	$countriesusingstate = array('AU', 'CA', 'US', 'IN', 'GB', 'ES', 'UK', 'TR', 'CN'); // See also MAIN_FORCE_STATE_INTO_ADDRESS
@@ -3394,13 +3394,13 @@ function dol_format_address($object, $withcountry = 0, $sep = "\n", $outputlangs
 		$langs->load("dict");
 		$ret .= (empty($object->country_code) ? '' : ($ret ? $sep : '').$outputlangs->convToOutputCharset($outputlangs->transnoentitiesnoconv("Country".$object->country_code)));
 	}
-	if ($hookmanager) {
+	if ($hookManager) {
 		$parameters = array('withcountry' => $withcountry, 'sep' => $sep, 'outputlangs' => $outputlangs,'mode' => $mode, 'extralangcode' => $extralangcode);
-		$reshook = $hookmanager->executeHooks('formatAddress', $parameters, $object);
+		$reshook = $hookManager->executeHooks('formatAddress', $parameters, $object);
 		if ($reshook > 0) {
 			$ret = '';
 		}
-		$ret .= $hookmanager->resPrint;
+		$ret .= $hookManager->resPrint;
 	}
 
 	return $ret;
@@ -3964,7 +3964,7 @@ function dol_print_url($url, $target = '_blank', $max = 32, $withpicto = 0, $mor
  */
 function dol_print_email($email, $cid = 0, $socid = 0, $addlink = 0, $max = 64, $showinvalid = 1, $withpicto = 0, $morecss = 'paddingrightonly')
 {
-	global $user, $langs, $hookmanager;
+	global $user, $langs, $hookManager;
 
 	//global $conf; $conf->global->AGENDA_ADDACTIONFOREMAIL = 1;
 	//$showinvalid = 1; $email = 'rrrrr';
@@ -4033,14 +4033,14 @@ function dol_print_email($email, $cid = 0, $socid = 0, $addlink = 0, $max = 64, 
 	//$rep .= '</div>';
 	$rep = $newemail;
 
-	if ($hookmanager) {
+	if ($hookManager) {
 		$parameters = array('cid' => $cid, 'socid' => $socid, 'addlink' => $addlink, 'picto' => $withpicto);
 
-		$reshook = $hookmanager->executeHooks('printEmail', $parameters, $email);
+		$reshook = $hookManager->executeHooks('printEmail', $parameters, $email);
 		if ($reshook > 0) {
 			$rep = '';
 		}
-		$rep .= $hookmanager->resPrint;
+		$rep .= $hookManager->resPrint;
 	}
 
 	return $rep;
@@ -4094,7 +4094,7 @@ function getArrayOfSocialNetworks()
  */
 function dol_print_socialnetworks($value, $cid, $socid, $type, $dictsocialnetworks = array())
 {
-	global $hookmanager, $langs, $user;
+	global $hookManager, $langs, $user;
 
 	$htmllink = $value;
 
@@ -4168,7 +4168,7 @@ function dol_print_socialnetworks($value, $cid, $socid, $type, $dictsocialnetwor
 		$htmllink .= img_warning($langs->trans("ErrorBadSocialNetworkValue", $value));
 	}
 
-	if ($hookmanager) {
+	if ($hookManager) {
 		$parameters = array(
 			'value' => $value,
 			'cid' => $cid,
@@ -4177,11 +4177,11 @@ function dol_print_socialnetworks($value, $cid, $socid, $type, $dictsocialnetwor
 			'dictsocialnetworks' => $dictsocialnetworks,
 		);
 
-		$reshook = $hookmanager->executeHooks('printSocialNetworks', $parameters);
+		$reshook = $hookManager->executeHooks('printSocialNetworks', $parameters);
 		if ($reshook > 0) {
 			$htmllink = '';
 		}
-		$htmllink .= $hookmanager->resPrint;
+		$htmllink .= $hookManager->resPrint;
 	}
 
 	return $htmllink;
@@ -4255,7 +4255,7 @@ function dol_print_profids($profID, $profIDtype, $countrycode = '', $addcpButton
  */
 function dol_print_phone($phone, $countrycode = '', $cid = 0, $socid = 0, $addlink = '', $separ = "&nbsp;", $withpicto = '', $titlealt = '', $adddivfloat = 0, $morecss = 'paddingright')
 {
-	global $conf, $user, $langs, $mysoc, $hookmanager;
+	global $conf, $user, $langs, $mysoc, $hookManager;
 
 	// Clean phone parameter
 	$phone = is_null($phone) ? '' : preg_replace("/[\s.-]/", "", trim($phone));
@@ -4537,10 +4537,10 @@ function dol_print_phone($phone, $countrycode = '', $cid = 0, $socid = 0, $addli
 	}
 	$rep = '';
 
-	if ($hookmanager) {
+	if ($hookManager) {
 		$parameters = array('countrycode' => $countrycode, 'cid' => $cid, 'socid' => $socid, 'titlealt' => $titlealt, 'picto' => $withpicto);
-		$reshook = $hookmanager->executeHooks('printPhone', $parameters, $phone);
-		$rep .= $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('printPhone', $parameters, $phone);
+		$rep .= $hookManager->resPrint;
 	}
 	if (empty($reshook)) {
 		$picto = '';
@@ -4721,15 +4721,15 @@ function dol_user_country()
  */
 function dol_print_address($address, $htmlid, $element, $id, $noprint = 0, $charfornl = '')
 {
-	global $conf, $user, $langs, $hookmanager;
+	global $conf, $user, $langs, $hookManager;
 
 	$out = '';
 
 	if ($address) {
-		if ($hookmanager) {
+		if ($hookManager) {
 			$parameters = array('element' => $element, 'id' => $id);
-			$reshook = $hookmanager->executeHooks('printAddress', $parameters, $address);
-			$out .= $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('printAddress', $parameters, $address);
+			$out .= $hookManager->resPrint;
 		}
 		if (empty($reshook)) {
 			if (empty($charfornl)) {
@@ -11167,7 +11167,7 @@ function getLanguageCodeFromCountryCode($countrycode)
  */
 function complete_head_from_modules($conf, $langs, $object, &$head, &$h, $type, $mode = 'add', $filterorigmodule = '')
 {
-	global $hookmanager, $db;
+	global $hookManager, $db;
 
 	if (isset($conf->modules_parts['tabs'][$type]) && is_array($conf->modules_parts['tabs'][$type])) {
 		foreach ($conf->modules_parts['tabs'][$type] as $value) {
@@ -11300,13 +11300,13 @@ function complete_head_from_modules($conf, $langs, $object, &$head, &$h, $type, 
 	}
 
 	// No need to make a return $head. Var is modified as a reference
-	if (!empty($hookmanager)) {
+	if (!empty($hookManager)) {
 		$parameters = array('object' => $object, 'mode' => $mode, 'head' => &$head, 'filterorigmodule' => $filterorigmodule);
-		$reshook = $hookmanager->executeHooks('completeTabsHead', $parameters, $object);
+		$reshook = $hookManager->executeHooks('completeTabsHead', $parameters, $object);
 		if ($reshook > 0) {		// Hook ask to replace completely the array
-			$head = $hookmanager->resArray;
+			$head = $hookManager->resArray;
 		} else {				// Hook
-			$head = array_merge($head, $hookmanager->resArray);
+			$head = array_merge($head, $hookManager->resArray);
 		}
 		$h = count($head);
 	}
@@ -11325,7 +11325,7 @@ function complete_head_from_modules($conf, $langs, $object, &$head, &$h, $type, 
  */
 function printCommonFooter($zone = 'private')
 {
-	global $conf, $hookmanager, $user, $langs;
+	global $conf, $hookManager, $user, $langs;
 	global $debugbar;
 	global $action;
 	global $micro_start_time;
@@ -11341,7 +11341,7 @@ function printCommonFooter($zone = 'private')
 	print '<div id="page_y" style="display: none;">'.(GETPOST('page_y') ? GETPOST('page_y') : '').'</div>'."\n";
 
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printCommonFooter', $parameters); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('printCommonFooter', $parameters); // Note that $action and $object may have been modified by some hooks
 	if (empty($reshook)) {
 		if (getDolGlobalString('MAIN_HTML_FOOTER')) {
 			print getDolGlobalString('MAIN_HTML_FOOTER') . "\n";
@@ -12704,7 +12704,7 @@ function dolGetStatus($statusLabel = '', $statusLabelShort = '', $html = '', $st
  */
 function dolGetButtonAction($label, $text = '', $actionType = 'default', $url = '', $id = '', $userRight = 1, $params = array())
 {
-	global $hookmanager, $action, $object, $langs;
+	global $hookManager, $action, $object, $langs;
 
 	// If $url is an array, we must build a dropdown button or recursively iterate over each value
 	if (is_array($url)) {
@@ -12894,9 +12894,9 @@ function dolGetButtonAction($label, $text = '', $actionType = 'default', $url = 
 		'params' => $params
 	);
 
-	$reshook = $hookmanager->executeHooks('dolGetButtonAction', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('dolGetButtonAction', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
 	if (empty($reshook)) {
@@ -12906,7 +12906,7 @@ function dolGetButtonAction($label, $text = '', $actionType = 'default', $url = 
 			return '<' . $tag . ' ' . $compiledAttributes . '><span class="textbutton">' . dol_escape_htmltag($text) . '</span></' . $tag . '>';
 		}
 	} else {
-		return $hookmanager->resPrint;
+		return $hookManager->resPrint;
 	}
 }
 
@@ -13089,7 +13089,7 @@ function dolGetButtonTitle($label, $helpText = '', $iconClass = 'fa fa-file', $u
  */
 function getElementProperties($elementType)
 {
-	global $conf, $db, $hookmanager;
+	global $conf, $db, $hookManager;
 
 	$regs = array();
 
@@ -13489,11 +13489,11 @@ function getElementProperties($elementType)
 
 
 	// Add  hook
-	if (!is_object($hookmanager)) {
+	if (!is_object($hookManager)) {
 		include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-		$hookmanager = new HookManager($db);
+		$hookManager = new HookManager($db);
 	}
-	$hookmanager->initHooks(array('elementproperties'));
+	$hookManager->initHooks(array('elementproperties'));
 
 
 	// Hook params
@@ -13502,17 +13502,17 @@ function getElementProperties($elementType)
 		'elementProperties' => $elementProperties
 	);
 
-	$reshook = $hookmanager->executeHooks('getElementProperties', $parameters);
+	$reshook = $hookManager->executeHooks('getElementProperties', $parameters);
 
 	if ($reshook) {
-		$elementProperties = $hookmanager->resArray;
-	} elseif (!empty($hookmanager->resArray) && is_array($hookmanager->resArray)) { // resArray is always an array but for sécurity against misconfigured external modules
-		$elementProperties = array_replace($elementProperties, $hookmanager->resArray);
+		$elementProperties = $hookManager->resArray;
+	} elseif (!empty($hookManager->resArray) && is_array($hookManager->resArray)) { // resArray is always an array but for sécurity against misconfigured external modules
+		$elementProperties = array_replace($elementProperties, $hookManager->resArray);
 	}
 
 	// context of elementproperties doesn't need to exist out of this function so delete it to avoid elementproperties context is equal to all
-	if (($key = array_search('elementproperties', $hookmanager->contextarray)) !== false) {
-		unset($hookmanager->contextarray[$key]);
+	if (($key = array_search('elementproperties', $hookManager->contextarray)) !== false) {
+		unset($hookManager->contextarray[$key]);
 	}
 
 	return $elementProperties;
@@ -15092,14 +15092,14 @@ function buildParamDate($prefix, $timestamp = null, $hourTime = '', $gm = 'auto'
  * @global Conf $conf Dolibarr configuration object (global)
  * @global DoliDB $db Database connection object (global)
  * @global Translate $langs Language translation object, initialized within the function if not already.
- * @global HookManager $hookmanager Hook manager object, initialized within the function if not already for executing hooks.
+ * @global HookManager $hookManager Hook manager object, initialized within the function if not already for executing hooks.
  * @global string $action Current action, can be modified by hooks.
  * @global object $object Current object, can be modified by hooks.
  * @return void This function terminates script execution after outputting the error page.
  */
 function recordNotFound($message = '', $printheader = 1, $printfooter = 1, $showonlymessage = 0, $params = null)
 {
-	global $conf, $db, $langs, $hookmanager;
+	global $conf, $db, $langs, $hookManager;
 	global $action, $object;
 
 	if (!is_object($langs)) {
@@ -15128,16 +15128,16 @@ function recordNotFound($message = '', $printheader = 1, $printfooter = 1, $show
 	print '<br>';
 
 	if (empty($showonlymessage)) {
-		if (empty($hookmanager)) {
+		if (empty($hookManager)) {
 			include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-			$hookmanager = new HookManager($db);
+			$hookManager = new HookManager($db);
 			// Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-			$hookmanager->initHooks(array('main'));
+			$hookManager->initHooks(array('main'));
 		}
 
 		$parameters = array('message' => $message, 'params' => $params);
-		$reshook = $hookmanager->executeHooks('getErrorRecordNotFound', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-		print $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('getErrorRecordNotFound', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+		print $hookManager->resPrint;
 	}
 
 	if ($printfooter && function_exists("llxFooter")) {

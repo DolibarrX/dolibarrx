@@ -44,7 +44,7 @@ require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingjournal.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -94,7 +94,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 $errmsg = '';
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('subscription'));
+$hookManager->initHooks(array('subscription'));
 
 // PDF
 $hidedetails = (GETPOSTINT('hidedetails') ? GETPOSTINT('hidedetails') : (getDolGlobalString('MAIN_GENERATE_DOCUMENTS_HIDE_DETAILS') ? 1 : 0));
@@ -134,9 +134,9 @@ $result = restrictedArea($user, 'adherent', $object->id, '', '', 'socid', 'rowid
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 // Create third party from a member
@@ -358,9 +358,9 @@ if (empty($reshook) && $user->hasRight('adherent', 'cotisation', 'creer') && $ac
 					'emetteur_banque' => $emetteur_banque,
 					'datesubend' => $datesubend
 				);
-				$reshook = $hookmanager->executeHooks('sendMail', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('sendMail', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 
 				if (empty($reshook)) {
@@ -1210,7 +1210,7 @@ if (($action == 'addsubscription' || $action == 'create_thirdparty') && $user->h
 
 	print '<div class="center">';
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action);
 	if (empty($reshook)) {
 		print '<input type="submit" class="button" name="add" value="'.$langs->trans("AddSubscription").'">';
 		print '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';

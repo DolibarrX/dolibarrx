@@ -30,7 +30,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/fiscalyear.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -70,7 +70,7 @@ static $tmpstatut2label = array(
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $object = new Fiscalyear($db);
-$hookmanager->initHooks(array('fiscalyearlist'));
+$hookManager->initHooks(array('fiscalyearlist'));
 
 // Security check
 if ($user->socid > 0) {
@@ -125,12 +125,12 @@ if ($result) {
 	$param = '';
 
 	$parameters = array('param' => $param);
-	$reshook = $hookmanager->executeHooks('addMoreActionsButtonsList', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('addMoreActionsButtonsList', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
-	$newcardbutton = empty($hookmanager->resPrint) ? '' : $hookmanager->resPrint;
+	$newcardbutton = empty($hookManager->resPrint) ? '' : $hookManager->resPrint;
 
 	if (empty($reshook)) {
 		$newcardbutton .= dolGetButtonTitle($langs->trans('NewFiscalYear'), '', 'fa fa-plus-circle', 'fiscalyear_card.php?action=create', '', $user->hasRight('accounting', 'fiscalyear', 'write'));

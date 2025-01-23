@@ -37,7 +37,7 @@ require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -78,7 +78,7 @@ if (empty($sortorder)) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('website'));
+$hookManager->initHooks(array('website'));
 
 // Name of SQL tables of dictionaries
 $tabname = array();
@@ -610,9 +610,9 @@ if ($id) {
 				if ($action == 'edit' && ($rowid == (!empty($obj->rowid) ? $obj->rowid : $obj->code))) {
 					$tmpaction = 'edit';
 					$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-					$reshook = $hookmanager->executeHooks('editWebsiteFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
-					$error = $hookmanager->error;
-					$errors = $hookmanager->errors;
+					$reshook = $hookManager->executeHooks('editWebsiteFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+					$error = $hookManager->error;
+					$errors = $hookManager->errors;
 
 					if (empty($reshook)) {
 						fieldListWebsites($fieldlist, $obj, $tabname[$id], 'edit');
@@ -626,10 +626,10 @@ if ($id) {
 				} else {
 					$tmpaction = 'view';
 					$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-					$reshook = $hookmanager->executeHooks('viewWebsiteFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+					$reshook = $hookManager->executeHooks('viewWebsiteFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 
-					$error = $hookmanager->error;
-					$errors = $hookmanager->errors;
+					$error = $hookManager->error;
+					$errors = $hookManager->errors;
 
 					if (empty($reshook)) {
 						foreach ($fieldlist as $field => $value) {

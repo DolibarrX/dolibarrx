@@ -34,7 +34,7 @@ require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -45,7 +45,7 @@ $langs->loadLangs(array('orders', 'sendings'));
 $socid = GETPOSTINT('socid');
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('sendingindex'));
+$hookManager->initHooks(array('sendingindex'));
 
 
 /*
@@ -297,7 +297,7 @@ if ($resql) {
 print '</div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardWarehouseSendings', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardWarehouseSendings', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

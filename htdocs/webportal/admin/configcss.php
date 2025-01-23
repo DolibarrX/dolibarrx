@@ -32,7 +32,7 @@ require_once DOL_DOCUMENT_ROOT . "/webportal/lib/webportal.lib.php";
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -41,7 +41,7 @@ require_once DOL_DOCUMENT_ROOT . "/webportal/lib/webportal.lib.php";
 $langs->loadLangs(array("admin", "hrm", "other", "website"));
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('webportalsetup', 'globalsetup'));
+$hookManager->initHooks(array('webportalsetup', 'globalsetup'));
 
 // Parameters
 $action = GETPOST('action', 'aZ09');
@@ -62,9 +62,9 @@ if (!$user->admin) {
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 // Convert action set_XXX and del_XXX to set var (this is used when no javascript on for ajax_constantonoff)

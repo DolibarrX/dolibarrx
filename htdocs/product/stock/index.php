@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/stock/class/productlot.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -45,7 +45,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/stock/class/productlot.class.php';
 $langs->loadLangs(array('stocks', 'productbatch'));
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('stockindex'));
+$hookManager->initHooks(array('stockindex'));
 
 // Security check
 $result = restrictedArea($user, 'stock');
@@ -246,7 +246,7 @@ if ($resql) {
 print '</div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardWarehouse', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardWarehouse', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

@@ -151,9 +151,9 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 
 	$db = getDoliDBInstance($conf->db->type, $conf->db->host, $conf->db->user, $conf->db->pass, $conf->db->name, (int) $conf->db->port);
 
-	// Create the global $hookmanager object
+	// Create the global $hookManager object
 	include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-	$hookmanager = new HookManager($db);
+	$hookManager = new HookManager($db);
 
 	if ($db->connected) {
 		print '<tr><td class="nowrap">';

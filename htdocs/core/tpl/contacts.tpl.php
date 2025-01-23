@@ -381,9 +381,9 @@ print '</div>';
 print "</form>";
 
 print "<!-- TEMPLATE CONTACTS HOOK BEGIN HERE -->\n";
-if (is_object($hookmanager)) {
-	$hookmanager->initHooks(array('contacttpl'));
+if (is_object($hookManager)) {
+	$hookManager->initHooks(array('contacttpl'));
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('formContactTpl', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('formContactTpl', $parameters, $object, $action);
 }
 print "<!-- END PHP TEMPLATE CONTACTS -->\n";

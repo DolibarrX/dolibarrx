@@ -30,7 +30,7 @@ require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -41,7 +41,7 @@ $langs->loadLangs(array("contacts", "companies", "projects"));
 $id = GETPOSTINT('id');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('projectcontact'));
+$hookManager->initHooks(array('projectcontact'));
 
 $result = restrictedArea($user, 'contact', $id, 'socpeople&societe');
 
@@ -50,9 +50,9 @@ $result = restrictedArea($user, 'contact', $id, 'socpeople&societe');
  */
 
 $parameters = array('id' => $id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 /*

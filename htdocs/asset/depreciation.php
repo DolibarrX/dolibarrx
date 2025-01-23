@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT . '/asset/class/assetdepreciationoptions.class.ph
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -53,7 +53,7 @@ $object = new Asset($db);
 $assetdepreciationoptions = new AssetDepreciationOptions($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->asset->dir_output.'/temp/massgeneration/'.$user->id;
-$hookmanager->initHooks(array('assetdepreciation', 'globalcard')); // Note that conf->hooks_modules contains array
+$hookManager->initHooks(array('assetdepreciation', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
 
@@ -92,9 +92,9 @@ if ($result < 0) {
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 /*
@@ -132,10 +132,10 @@ if ($id > 0 || !empty($ref)) {
 	print dol_get_fiche_end();
 
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('listAssetDeprecation', $parameters, $object, $action);
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('listAssetDeprecation', $parameters, $object, $action);
+	print $hookManager->resPrint;
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	} elseif (empty($reshook)) {
 		$bookkeeping_icon = '<i class="fas fa-save" title="'.$langs->trans('AssetDispatchedInBookkeeping').'"></i>';
 		$future_icon = '<i class="fas fa-clock" title="'.$langs->trans('AssetFutureDepreciationLine').'"></i>';

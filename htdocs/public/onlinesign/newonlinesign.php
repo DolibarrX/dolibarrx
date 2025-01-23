@@ -62,7 +62,7 @@ require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -181,7 +181,7 @@ if ($source == 'proposal') {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('onlinesign'));
+$hookManager->initHooks(array('onlinesign'));
 
 $error = 0;
 
@@ -396,11 +396,11 @@ if ($source == 'proposal') {
 
 	// Call Hook amountPropalSign
 	$parameters = array('source' => $source);
-	$reshook = $hookmanager->executeHooks('amountPropalSign', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('amountPropalSign', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
-		$amount .= $hookmanager->resPrint;
+		$amount .= $hookManager->resPrint;
 	} elseif ($reshook > 0) {
-		$amount = $hookmanager->resPrint;
+		$amount = $hookManager->resPrint;
 	}
 
 	print $amount;
@@ -709,7 +709,7 @@ if ($source == 'proposal') {
 
 // Call Hook addFormSign
 $parameters = array('source' => $source);
-$reshook = $hookmanager->executeHooks('addFormSign', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('addFormSign', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 
 if (!$found && !$mesg) {
 	$mesg = $langs->transnoentitiesnoconv("ErrorBadParameters");

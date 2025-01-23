@@ -28,7 +28,7 @@
 /**
  * @var CommonObject $this
  * @var CommonObject $object
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  *
  * @var string $action
@@ -70,11 +70,11 @@ $nolinesbefore = (count($this->lines) == 0 || $forcetoshowtitlelines);
 		} ?>
 		<input type="text" name="line_ref" id="line_ref" class="flat" value="<?php echo(GETPOSTISSET("line_ref") ? GETPOST("line_ref", 'alpha', 2) : ''); ?>" autofocus>
 		<?php
-		if (is_object($hookmanager)) {
+		if (is_object($hookManager)) {
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('formCreateValueOptions', $parameters, $object, $action);
-			if (!empty($hookmanager->resPrint)) {
-				print $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('formCreateValueOptions', $parameters, $object, $action);
+			if (!empty($hookManager->resPrint)) {
+				print $hookManager->resPrint;
 			}
 		}
 		?>

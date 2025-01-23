@@ -69,23 +69,23 @@ class InterfaceNotification extends DolibarrTriggers
 	 */
 	public function runTrigger($action, $object, User $user, Translate $langs, Conf $conf)
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		if (empty($conf->notification) || !isModEnabled('notification')) {
 			return 0; // Module not active, we do nothing
 		}
 
-		if (!is_object($hookmanager)) {
+		if (!is_object($hookManager)) {
 			include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-			$hookmanager = new HookManager($this->db);
+			$hookManager = new HookManager($this->db);
 		}
-		$hookmanager->initHooks(array('notification'));
+		$hookManager->initHooks(array('notification'));
 
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('notifsupported', $parameters, $object, $action);
+		$reshook = $hookManager->executeHooks('notifsupported', $parameters, $object, $action);
 		if (empty($reshook)) {
-			if (!empty($hookmanager->resArray['arrayofnotifsupported'])) {
-				$this->listofmanagedevents = array_merge($this->listofmanagedevents, $hookmanager->resArray['arrayofnotifsupported']);
+			if (!empty($hookManager->resArray['arrayofnotifsupported'])) {
+				$this->listofmanagedevents = array_merge($this->listofmanagedevents, $hookManager->resArray['arrayofnotifsupported']);
 			}
 		}
 
@@ -114,20 +114,20 @@ class InterfaceNotification extends DolibarrTriggers
 	public function getListOfManagedEvents()
 	{
 		global $conf, $action;
-		global $hookmanager;
+		global $hookManager;
 
-		if (!is_object($hookmanager)) {
+		if (!is_object($hookManager)) {
 			include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-			$hookmanager = new HookManager($this->db);
+			$hookManager = new HookManager($this->db);
 		}
-		$hookmanager->initHooks(array('notification'));
+		$hookManager->initHooks(array('notification'));
 
 		$parameters = array();
 		$object = new stdClass();
-		$reshook = $hookmanager->executeHooks('notifsupported', $parameters, $object, $action);
+		$reshook = $hookManager->executeHooks('notifsupported', $parameters, $object, $action);
 		if (empty($reshook)) {
-			if (!empty($hookmanager->resArray['arrayofnotifsupported'])) {
-				$this->listofmanagedevents = array_merge($this->listofmanagedevents, $hookmanager->resArray['arrayofnotifsupported']);
+			if (!empty($hookManager->resArray['arrayofnotifsupported'])) {
+				$this->listofmanagedevents = array_merge($this->listofmanagedevents, $hookManager->resArray['arrayofnotifsupported']);
 			}
 		}
 

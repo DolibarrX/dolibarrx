@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formprojet.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -65,7 +65,7 @@ $planned_workload = ((GETPOST('planned_workloadhour') != '' || GETPOST('planned_
 $mode = GETPOST('mode', 'alpha');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('projecttaskcard', 'globalcard'));
+$hookManager->initHooks(array('projecttaskcard', 'globalcard'));
 
 $object = new Task($db);
 $extrafields = new ExtraFields($db);
@@ -75,9 +75,9 @@ $projectstatic = new Project($db);
 $extrafields->fetch_name_optionals_label($object->table_element);
 
 $parameters = array('id' => $id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if ($id > 0 || $ref) {
@@ -543,8 +543,8 @@ if ($id > 0 || !empty($ref)) {
 
 		// Other options
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		print $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		print $hookManager->resPrint;
 		if (empty($reshook)) {
 			print $object->showOptionals($extrafields, 'edit');
 		}
@@ -725,7 +725,7 @@ if ($id > 0 || !empty($ref)) {
 		print '<div class="tabsAction">';
 
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 		// modified by hook
 		if (empty($reshook)) {
 			// Modify

@@ -43,7 +43,7 @@ require_once DOL_DOCUMENT_ROOT.'/user/class/usergroup.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -194,7 +194,7 @@ $object = new ActionComm($db);
 $langs->loadLangs(array('users', 'agenda', 'other', 'commercial'));
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('agenda'));
+$hookManager->initHooks(array('agenda'));
 
 $result = restrictedArea($user, 'agenda', 0, '', 'myactions');
 if ($user->socid && $socid) {
@@ -234,9 +234,9 @@ $parameters = array(
 	'usergroup' => $usergroup,
 );
 
-$reshook = $hookmanager->executeHooks('beforeAgendaPerType', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('beforeAgendaPerType', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 $form = new Form($db);
@@ -426,11 +426,11 @@ if ($conf->use_javascript_ajax) {
 
 		// Calendars from hooks
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('addCalendarChoice', $parameters, $object, $action);
+		$reshook = $hookManager->executeHooks('addCalendarChoice', $parameters, $object, $action);
 		if (empty($reshook)) {
-			$s .= $hookmanager->resPrint;
+			$s .= $hookManager->resPrint;
 		} elseif ($reshook > 1) {
-			$s = $hookmanager->resPrint;
+			$s = $hookManager->resPrint;
 		}
 	}
 }
@@ -472,11 +472,11 @@ $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsm
 // Add more views from hooks
 $parameters = array();
 $object = null;
-$reshook = $hookmanager->executeHooks('addCalendarView', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('addCalendarView', $parameters, $object, $action);
 if (empty($reshook)) {
-	$viewmode .= $hookmanager->resPrint;
+	$viewmode .= $hookManager->resPrint;
 } elseif ($reshook > 1) {
-	$viewmode = $hookmanager->resPrint;
+	$viewmode = $hookManager->resPrint;
 }
 
 $viewmode .= '</div>';
@@ -981,7 +981,7 @@ $db->close();
 function show_day_events_pertype($username, $day, $month, $year, $monthshown, $style, &$eventarray, $maxprint = 0, $maxnbofchar = 16, $newparam = '', $showinfo = 0, $minheight = 60, $showheader = false, $colorsbytype = array(), $var = false)
 {
 	global $db;
-	global $user, $conf, $langs, $hookmanager, $action;
+	global $user, $conf, $langs, $hookManager, $action;
 	global $filter, $filtert, $status, $actioncode; // Filters used into search form
 	global $theme_datacolor; // Array with a list of different we can use (come from theme)
 	global $cachethirdparties, $cachecontacts, $cacheusers, $cacheprojects, $colorindexused;
@@ -1022,9 +1022,9 @@ function show_day_events_pertype($username, $day, $month, $year, $monthshown, $s
 				//if ($username->id != $event->userownerid) continue;	// We discard record if event is from another user than user we want to show
 
 				$parameters = array();
-				$reshook = $hookmanager->executeHooks('formatEvent', $parameters, $event, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('formatEvent', $parameters, $event, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 
 				$ponct = ($event->date_start_in_calendar == $event->date_end_in_calendar);

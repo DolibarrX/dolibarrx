@@ -60,7 +60,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  */
@@ -91,7 +91,7 @@ if (empty($email) && isset($_SESSION['email_customer'])) {
 $object = new Ticket($db);
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('ticketpubliclist', 'globalcard'));
+$hookManager->initHooks(array('ticketpubliclist', 'globalcard'));
 
 if (!isModEnabled('ticket')) {
 	httponly_accessforbidden('Module Ticket not enabled');
@@ -452,8 +452,8 @@ if ($action == "view_ticketlist") {
 
 				// allow to display information before list
 				$parameters = array('arrayfields' => $arrayfields);
-				$reshook = $hookmanager->executeHooks('printFieldListHeader', $parameters, $object, $action);    // Note that $action and $object may have been modified by hook
-				print $hookmanager->resPrint;
+				$reshook = $hookManager->executeHooks('printFieldListHeader', $parameters, $object, $action);    // Note that $action and $object may have been modified by hook
+				print $hookManager->resPrint;
 
 				print '<div class="div-table-responsive">';
 				print '<table class="liste '.($moreforfilter ? "listwithfilterbefore" : "").'">';
@@ -521,8 +521,8 @@ if ($action == "view_ticketlist") {
 
 				// Fields from hook
 				$parameters = array('arrayfields' => $arrayfields);
-				$reshook = $hookmanager->executeHooks('printFieldListOption', $parameters, $object); // Note that $action and $object may have been modified by hook
-				print $hookmanager->resPrint;
+				$reshook = $hookManager->executeHooks('printFieldListOption', $parameters, $object); // Note that $action and $object may have been modified by hook
+				print $hookManager->resPrint;
 
 				// Status ticket
 				if (!empty($arrayfields['t.fk_statut']['checked'])) {
@@ -583,8 +583,8 @@ if ($action == "view_ticketlist") {
 
 				// Hook fields
 				$parameters = array('arrayfields' => $arrayfields, 'param' => $param, 'sortfield' => $sortfield, 'sortorder' => $sortorder);
-				$reshook = $hookmanager->executeHooks('printFieldListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
-				print $hookmanager->resPrint;
+				$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $object); // Note that $action and $object may have been modified by hook
+				print $hookManager->resPrint;
 
 				if (!empty($arrayfields['t.fk_statut']['checked'])) {
 					print_liste_field_titre($arrayfields['t.fk_statut']['label'], $url_page_current, 't.fk_statut', '', $param, '', $sortfield, $sortorder);

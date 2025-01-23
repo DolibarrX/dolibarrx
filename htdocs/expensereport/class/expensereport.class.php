@@ -538,7 +538,7 @@ class ExpenseReport extends CommonObject
 	 */
 	public function createFromClone(User $user, $fk_user_author)
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		$error = 0;
 
@@ -584,12 +584,12 @@ class ExpenseReport extends CommonObject
 
 		if (!$error) {
 			// Hook of thirdparty module
-			if (is_object($hookmanager)) {
+			if (is_object($hookManager)) {
 				$parameters = array('objFrom' => $objFrom);
 				$action = '';
-				$reshook = $hookmanager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					$this->setErrorsFromObject($hookmanager);
+					$this->setErrorsFromObject($hookManager);
 					$error++;
 				}
 			}
@@ -1817,7 +1817,7 @@ class ExpenseReport extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $short = 0, $moretitle = '', $notooltip = 0, $save_lastsearch_value = -1)
 	{
-		global $langs, $hookmanager;
+		global $langs, $hookManager;
 
 		$result = '';
 
@@ -1884,13 +1884,13 @@ class ExpenseReport extends CommonObject
 		$result .= $linkend;
 
 		global $action;
-		$hookmanager->initHooks(array($this->element . 'dao'));
+		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 		return $result;
 	}

@@ -34,7 +34,7 @@ require_once DOL_DOCUMENT_ROOT.'/compta/paiement/class/paiement.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -53,7 +53,7 @@ if ($user->socid > 0) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('recapcomptacard', 'globalcard'));
+$hookManager->initHooks(array('recapcomptacard', 'globalcard'));
 
 $result = restrictedArea($user, 'societe', $id, '&societe');
 
@@ -88,7 +88,7 @@ $arrayfields = array(
 );
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('supplierbalencelist', 'globalcard'));
+$hookManager->initHooks(array('supplierbalencelist', 'globalcard'));
 
 
 /*
@@ -96,9 +96,9 @@ $hookmanager->initHooks(array('supplierbalencelist', 'globalcard'));
  */
 
 $parameters = array('socid' => $id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object); // Note that $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object); // Note that $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 // None
@@ -192,9 +192,9 @@ if ($id > 0) {
 				);
 
 				$parameters = array('socid' => $id, 'values' => &$values, 'fac' => $fac, 'userstatic' => $userstatic);
-				$reshook = $hookmanager->executeHooks('facdao', $parameters, $object); // Note that $parameters['values'] and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('facdao', $parameters, $object); // Note that $parameters['values'] and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 
 				$TData[] = $values;
@@ -235,9 +235,9 @@ if ($id > 0) {
 						);
 
 						$parameters = array('socid' => $id, 'values' => &$values, 'fac' => $fac, 'userstatic' => $userstatic, 'paymentstatic' => $paymentstatic);
-						$reshook = $hookmanager->executeHooks('paydao', $parameters, $object); // Note that $parameters['values'] and $object may have been modified by some hooks
+						$reshook = $hookManager->executeHooks('paydao', $parameters, $object); // Note that $parameters['values'] and $object may have been modified by some hooks
 						if ($reshook < 0) {
-							setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+							setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 						}
 
 						$TData[] = $values;

@@ -37,16 +37,16 @@ class DolHooksCollector extends RequestDataCollector
 	public function collect()
 	{
 		/**
-		 * @global $hookmanager HookManager
+		 * @global $hookManager HookManager
 		 */
-		global $hookmanager;
+		global $hookManager;
 
 		$data = ['hooks' => [], 'nb_of_hooks' => 0];
-		if (empty($hookmanager->hooksHistory)) {
+		if (empty($hookManager->hooksHistory)) {
 			return $data;
 		}
 		$i = 0;
-		foreach ($hookmanager->hooksHistory as $key => $hookHistory) {
+		foreach ($hookManager->hooksHistory as $key => $hookHistory) {
 			$i++;
 			$hookHistory['contexts'] = implode(', ', $hookHistory['contexts']);
 			$data['hooks']["[$i] {$hookHistory['name']}"] = $hookHistory;

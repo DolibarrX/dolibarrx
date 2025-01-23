@@ -74,7 +74,7 @@ if (isModEnabled('accounting')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -136,7 +136,7 @@ $formfile = new FormFile($db);
 $extrafields->fetch_name_optionals_label($object->table_element);
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('thirdpartycomm', 'globalcard'));
+$hookManager->initHooks(array('thirdpartycomm', 'globalcard'));
 
 $now = dol_now();
 
@@ -166,9 +166,9 @@ $result = restrictedArea($user, 'societe', $object->id, '&societe', '', 'fk_soc'
 $error = 0;
 
 $parameters = array('id' => $id, 'socid' => $id);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -862,9 +862,9 @@ if ($object->id > 0) {
 	}
 
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('addMoreBoxStatsCustomer', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('addMoreBoxStatsCustomer', $parameters, $object, $action);
 	if (empty($reshook)) {
-		$boxstat .= $hookmanager->resPrint;
+		$boxstat .= $hookManager->resPrint;
 	}
 
 	$boxstat .= '</td></tr>';
@@ -1665,11 +1665,11 @@ if ($object->id > 0) {
 
 	// Allow external modules to add their own shortlist of recent objects
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('addMoreRecentObjects', $parameters, $object, $action);
+	$reshook = $hookManager->executeHooks('addMoreRecentObjects', $parameters, $object, $action);
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	} else {
-		print $hookmanager->resPrint;
+		print $hookManager->resPrint;
 	}
 
 	print '</div></div>';
@@ -1684,7 +1684,7 @@ if ($object->id > 0) {
 	print '<div class="tabsAction">';
 
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
+	$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been
 
 	if (empty($reshook)) {
 		if ($object->status != 1) {

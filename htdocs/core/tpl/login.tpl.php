@@ -66,7 +66,7 @@ if ($size > 10000) {
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
 '
-@phan-var-force HookManager $hookmanager
+@phan-var-force HookManager $hookManager
 @phan-var-force string $action
 @phan-var-force string $captcha
 @phan-var-force int<0,1> $dol_hide_leftmenu
@@ -86,7 +86,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 ';
 
 /**
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var string $action
  * @var string $captcha
  * @var string $message
@@ -590,8 +590,8 @@ if (!empty($morelogincontent) && is_array($morelogincontent)) {
 // Can add extra content
 $parameters = array();
 $dummyobject = new stdClass();
-$result = $hookmanager->executeHooks('getLoginPageExtraContent', $parameters, $dummyobject, $action);
-print $hookmanager->resPrint;
+$result = $hookManager->executeHooks('getLoginPageExtraContent', $parameters, $dummyobject, $action);
+print $hookManager->resPrint;
 
 ?>
 

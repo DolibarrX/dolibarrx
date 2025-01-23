@@ -38,7 +38,7 @@ require_once DOL_DOCUMENT_ROOT .'/fourn/class/fournisseur.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -85,7 +85,7 @@ if ($user->socid) {
 $catid = GETPOST('catid', 'intcomma');
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('supplierpricelist'));
+$hookManager->initHooks(array('supplierpricelist'));
 $extrafields = new ExtraFields($db);
 
 if (!$user->hasRight("produit", "lire") && !$user->hasRight("service", "lire")) {
@@ -110,9 +110,9 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 
 $parameters = array();
 
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -157,11 +157,11 @@ $sql .= " ppf.fk_soc, ppf.ref_fourn, ppf.price as price, ppf.quantity as qty, pp
 $sql .= " s.rowid as socid, s.nom as name";
 // Add fields to SELECT from hooks
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printFieldListSelect', $parameters, $object, $action);
+$reshook = $hookManager->executeHooks('printFieldListSelect', $parameters, $object, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
-$sql .= $hookmanager->resPrint;
+$sql .= $hookManager->resPrint;
 
 $sqlfields = $sql; // $sql fields to remove for count total
 
@@ -193,11 +193,11 @@ if ($fourn_id > 0) {
 
 // Add WHERE filters from hooks
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters);
+$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
-$sql .= $hookmanager->resPrint;
+$sql .= $hookManager->resPrint;
 
 // Count total nb of records
 $nbtotalofrecords = '';
@@ -352,11 +352,11 @@ print '<td></td>';
 print '<td></td>';
 // add filters from hooks
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printFieldPreListTitle', $parameters, $productstatic, $action);
+$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $productstatic, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
-print $hookmanager->resPrint;
+print $hookManager->resPrint;
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
@@ -387,11 +387,11 @@ print_liste_field_titre("QtyMin", $_SERVER["PHP_SELF"], "ppf.quantity", $param, 
 print_liste_field_titre("UnitPrice", $_SERVER["PHP_SELF"], "ppf.unitprice", $param, "", '', $sortfield, $sortorder, 'right ');
 // add header cells from hooks
 $parameters = array();
-$reshook = $hookmanager->executeHooks('printFieldListTitle', $parameters, $productstatic, $action);
+$reshook = $hookManager->executeHooks('printFieldListTitle', $parameters, $productstatic, $action);
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
-print $hookmanager->resPrint;
+print $hookManager->resPrint;
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print getTitleFieldOfList($selectedfields, 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'center maxwidthsearch ')."\n";
@@ -463,11 +463,11 @@ while ($i < $imaxinloop) {
 
 	// add additional columns from hooks
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldListValue', $parameters, $objp, $action);
+	$reshook = $hookManager->executeHooks('printFieldListValue', $parameters, $objp, $action);
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
-	print $hookmanager->resPrint;
+	print $hookManager->resPrint;
 
 	// Action column
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
@@ -506,8 +506,8 @@ if ($num == 0) {
 $db->free($resql);
 
 $parameters = array('arrayfields' => $arrayfields, 'sql' => $sql);
-$reshook = $hookmanager->executeHooks('printFieldListFooter', $parameters, $productstatic, $action); // Note that $action and $productstatic may have been modified by hook
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('printFieldListFooter', $parameters, $productstatic, $action); // Note that $action and $productstatic may have been modified by hook
+print $hookManager->resPrint;
 
 print '</table>'."\n";
 print '</div>'."\n";

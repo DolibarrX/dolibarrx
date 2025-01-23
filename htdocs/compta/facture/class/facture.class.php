@@ -478,7 +478,7 @@ class Facture extends CommonInvoice
 	 */
 	public function create(User $user, $notrigger = 0, $forceduedate = 0)
 	{
-		global $langs, $conf, $mysoc, $hookmanager;
+		global $langs, $conf, $mysoc, $hookManager;
 		$error = 0;
 		$origin_user_author_id = ($user->id > 0 ? (int) $user->id : 0);
 		// Clean parameters
@@ -1263,7 +1263,7 @@ class Facture extends CommonInvoice
 	 */
 	public function createFromClone(User $user, $fromid = 0)
 	{
-		global $conf, $hookmanager;
+		global $conf, $hookManager;
 
 		$error = 0;
 
@@ -1373,12 +1373,12 @@ class Facture extends CommonInvoice
 
 		if (!$error) {
 			// Hook of thirdparty module
-			if (is_object($hookmanager)) {
+			if (is_object($hookManager)) {
 				$parameters = array('objFrom' => $objFrom);
 				$action = '';
-				$reshook = $hookmanager->executeHooks('createFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('createFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					$this->setErrorsFromObject($hookmanager);
+					$this->setErrorsFromObject($hookManager);
 					$error++;
 				}
 			}
@@ -1405,7 +1405,7 @@ class Facture extends CommonInvoice
 	 */
 	public function createFromOrder($object, User $user)
 	{
-		global $conf, $hookmanager;
+		global $conf, $hookManager;
 
 		$error = 0;
 
@@ -1508,13 +1508,13 @@ class Facture extends CommonInvoice
 
 		if ($ret > 0) {
 			// Actions hooked (by external module)
-			$hookmanager->initHooks(array('invoicedao'));
+			$hookManager->initHooks(array('invoicedao'));
 
 			$parameters = array('objFrom' => $object);
 			$action = '';
-			$reshook = $hookmanager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+			$reshook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 			if ($reshook < 0) {
-				$this->setErrorsFromObject($hookmanager);
+				$this->setErrorsFromObject($hookManager);
 				$error++;
 			}
 
@@ -1538,7 +1538,7 @@ class Facture extends CommonInvoice
 	 */
 	public function createFromContract($object, User $user, $lines = array())
 	{
-		global $conf, $hookmanager;
+		global $conf, $hookManager;
 
 		$error = 0;
 
@@ -1643,13 +1643,13 @@ class Facture extends CommonInvoice
 
 		if ($ret > 0) {
 			// Actions hooked (by external module)
-			$hookmanager->initHooks(array('invoicedao'));
+			$hookManager->initHooks(array('invoicedao'));
 
 			$parameters = array('objFrom' => $object);
 			$action = '';
-			$reshook = $hookmanager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+			$reshook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 			if ($reshook < 0) {
-				$this->setErrorsFromObject($hookmanager);
+				$this->setErrorsFromObject($hookManager);
 				$error++;
 			}
 
@@ -1677,7 +1677,7 @@ class Facture extends CommonInvoice
 	 */
 	public static function createDepositFromOrigin(CommonObject $origin, $date, $payment_terms_id, User $user, $notrigger = 0, $autoValidateDeposit = false, $overrideFields = array())
 	{
-		global $conf, $langs, $hookmanager, $action;
+		global $conf, $langs, $hookManager, $action;
 
 		if (! in_array($origin->element, array('propal', 'commande'))) {
 			$origin->error = 'ErrorCanOnlyAutomaticallyGenerateADepositFromProposalOrOrder';
@@ -1918,15 +1918,15 @@ class Facture extends CommonInvoice
 			}
 		}
 
-		$hookmanager->initHooks(array('invoicedao'));
+		$hookManager->initHooks(array('invoicedao'));
 
 		$parameters = array('objFrom' => $origin);
-		$reshook = $hookmanager->executeHooks('createFrom', $parameters, $deposit, $action); // Note that $action and $object may have been
+		$reshook = $hookManager->executeHooks('createFrom', $parameters, $deposit, $action); // Note that $action and $object may have been
 		// modified by hook
 		if ($reshook < 0) {
 			$origin->db->rollback();
-			$origin->error = $hookmanager->error;
-			$origin->errors = $hookmanager->errors;
+			$origin->error = $hookManager->error;
+			$origin->errors = $hookManager->errors;
 			return null;
 		}
 
@@ -2148,14 +2148,14 @@ class Facture extends CommonInvoice
 			}
 		}
 
-		global $action, $hookmanager;
-		$hookmanager->initHooks(array('invoicedao'));
+		global $action, $hookManager;
+		$hookManager->initHooks(array('invoicedao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result, 'notooltip' => $notooltip, 'addlinktonotes' => $addlinktonotes, 'save_lastsearch_value' => $save_lastsearch_value, 'target' => $target);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;

@@ -29,7 +29,7 @@
 /**
  * @var CommonObject $object
  * @var Conf $conf
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $conf
  *
  * @var string $action
@@ -57,8 +57,8 @@ if (!isset($parameters)) {
 @phan-var-force array<string,mixed> $parameters
 ';
 
-$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+print $hookManager->resPrint;
 if (empty($reshook)) {
 	$params = array();
 	$params['cols'] = array_key_exists('colspanvalue', $parameters) ? $parameters['colspanvalue'] : '';

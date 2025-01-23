@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.product.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -274,9 +274,9 @@ if ($action == 'convert') {
 
 		// add hook for external modules
 		$parameters = array('oldvatrate' => $oldvatrate, 'newvatrate' => $newvatrate);
-		$reshook = $hookmanager->executeHooks('hookAfterVatUpdate', $parameters);
+		$reshook = $hookManager->executeHooks('hookAfterVatUpdate', $parameters);
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 			$error++;
 		}
 

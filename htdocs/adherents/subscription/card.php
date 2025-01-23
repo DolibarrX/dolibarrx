@@ -36,7 +36,7 @@ if (isModEnabled("bank")) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -66,7 +66,7 @@ $permissionnote = $user->hasRight('adherent', 'cotisation', 'creer'); // Used by
 $permissiondellink = $user->hasRight('adherent', 'cotisation', 'creer'); // Used by the include of actions_dellink.inc.php
 $permissiontoedit = $user->hasRight('adherent', 'cotisation', 'creer'); // Used by the include of actions_lineupdonw.inc.php
 
-$hookmanager->initHooks(array('subscriptioncard', 'globalcard'));
+$hookManager->initHooks(array('subscriptioncard', 'globalcard'));
 
 // Security check
 $result = restrictedArea($user, 'subscription', 0); // TODO Check on object id

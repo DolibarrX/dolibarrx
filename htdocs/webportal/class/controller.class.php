@@ -64,12 +64,12 @@ class Controller
 	 */
 	public function __construct()
 	{
-		global $db, $hookmanager;
+		global $db, $hookManager;
 
 		$this->db = $db;
 
 		// Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-		$hookmanager->initHooks(array('webportalpage', 'webportal'));
+		$hookManager->initHooks(array('webportalpage', 'webportal'));
 	}
 
 	/**
@@ -147,16 +147,16 @@ class Controller
 	 */
 	public function hookDoAction($parameters = array())
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		$context = Context::getInstance();
 
 		/* Use $context singleton to modify menu, */
 		$parameters['controller'] = $context->controller;
 
-		$reshook = $hookmanager->executeHooks('doActions', $parameters, $context, $context->action);    // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('doActions', $parameters, $context, $context->action);    // Note that $action and $object may have been modified by hook
 		if ($reshook < 0) {
-			$context->setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			$context->setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
 		return $reshook;
@@ -170,16 +170,16 @@ class Controller
 	 */
 	public function hookPrintPageView($parameters = array())
 	{
-		global $hookmanager;
+		global $hookManager;
 
 		$context = Context::getInstance();
 
 		/* Use $context singleton to modify menu, */
 		$parameters['controller'] = $context->controller;
 
-		$reshook = $hookmanager->executeHooks('PrintPageView', $parameters, $context, $context->action);    // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('PrintPageView', $parameters, $context, $context->action);    // Note that $action and $object may have been modified by hook
 		if ($reshook < 0) {
-			$context->setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			$context->setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
 		return $reshook;
@@ -194,7 +194,7 @@ class Controller
 	 */
 	public function loadTemplate($templateName, $vars = false)
 	{
-		global $conf, $langs, $hookmanager, $db; // may be used into the tpl
+		global $conf, $langs, $hookManager, $db; // may be used into the tpl
 
 		$context = Context::getInstance(); // load for tpl
 

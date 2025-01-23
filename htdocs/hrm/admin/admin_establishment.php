@@ -30,7 +30,7 @@ require_once DOL_DOCUMENT_ROOT.'/hrm/class/establishment.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */

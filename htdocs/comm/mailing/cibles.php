@@ -43,7 +43,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  * @var array{0:string,1:string} $bctag From main.inc
@@ -90,7 +90,7 @@ $object = new Mailing($db);
 $result = $object->fetch($id);
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('ciblescard', 'globalcard'));
+$hookManager->initHooks(array('ciblescard', 'globalcard'));
 
 $sqlmessage = '';
 $mesgs = array();
@@ -665,8 +665,8 @@ if ($object->fetch($id) >= 0) {
 		}	// End foreach dir
 
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-		print $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		print $hookManager->resPrint;
 
 		print '</div>';	// End table
 		print '</div>';

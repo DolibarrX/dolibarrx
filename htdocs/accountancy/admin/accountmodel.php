@@ -49,7 +49,7 @@ if (isModEnabled('accounting')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -98,7 +98,7 @@ if (!$user->hasRight('accounting', 'chartofaccount')) {
 
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('admin'));
+$hookManager->initHooks(array('admin'));
 
 // This page is a generic page to edit dictionaries
 // Put here declaration of dictionaries properties
@@ -460,9 +460,9 @@ if (GETPOST('actionadd', 'alpha')) {
 
 $tmpaction = 'create';
 $parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-$reshook = $hookmanager->executeHooks('createDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
-$error = $hookmanager->error;
-$errors = $hookmanager->errors;
+$reshook = $hookManager->executeHooks('createDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+$error = $hookManager->error;
+$errors = $hookManager->errors;
 
 if (empty($reshook)) {
 	fieldListAccountModel($fieldlist, $obj, $tabname[$id], 'add');
@@ -557,9 +557,9 @@ if ($resql) {
 
 				$tmpaction = 'edit';
 				$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-				$reshook = $hookmanager->executeHooks('editDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
-				$error = $hookmanager->error;
-				$errors = $hookmanager->errors;
+				$reshook = $hookManager->executeHooks('editDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+				$error = $hookManager->error;
+				$errors = $hookManager->errors;
 
 				if (empty($reshook)) {
 					fieldListAccountModel($fieldlist, $obj, $tabname[$id], 'edit');
@@ -572,10 +572,10 @@ if ($resql) {
 			} else {
 				$tmpaction = 'view';
 				$parameters = array('fieldlist' => $fieldlist, 'tabname' => $tabname[$id]);
-				$reshook = $hookmanager->executeHooks('viewDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('viewDictionaryFieldlist', $parameters, $obj, $tmpaction); // Note that $action and $object may have been modified by some hooks
 
-				$error = $hookmanager->error;
-				$errors = $hookmanager->errors;
+				$error = $hookManager->error;
+				$errors = $hookManager->errors;
 
 				if (empty($reshook)) {
 					foreach ($fieldlist as $field => $value) {

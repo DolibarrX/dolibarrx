@@ -651,7 +651,7 @@ class FormCompany extends Form
 	 */
 	public function selectCompaniesForNewContact($object, $var_id, $selected = 0, $htmlname = 'newcompany', $limitto = [], $forceid = 0, $moreparam = '', $morecss = '')
 	{
-		global $conf, $hookmanager;
+		global $conf, $hookManager;
 
 		if (!empty($conf->use_javascript_ajax) && getDolGlobalString('COMPANY_USE_SEARCH_TO_SELECT')) {
 			// Use Ajax search
@@ -753,8 +753,8 @@ class FormCompany extends Form
 			}
 			// Add where from hooks
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('selectCompaniesForNewContactListWhere', $parameters); // Note that $action and $object may have been modified by hook
-			$sql .= $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('selectCompaniesForNewContactListWhere', $parameters); // Note that $action and $object may have been modified by hook
+			$sql .= $hookManager->resPrint;
 			$sql .= " ORDER BY s.nom ASC";
 
 			$resql = $this->db->query($sql);
@@ -947,7 +947,7 @@ class FormCompany extends Form
 	public function get_input_id_prof($idprof, $htmlname, $preselected, $country_code, $morecss = 'maxwidth200')
 	{
 		// phpcs:enable
-		global $conf, $langs, $hookmanager;
+		global $conf, $langs, $hookManager;
 
 		$formlength = 0;
 		if (!getDolGlobalString('MAIN_DISABLEPROFIDRULES')) {
@@ -1003,11 +1003,11 @@ class FormCompany extends Form
 
 		// Execute hook getInputIdProf to complete or replace $out
 		$parameters = array('formlength' => $formlength, 'selected' => $preselected, 'idprof' => $idprof, 'htmlname' => $htmlname, 'country_code' => $country_code);
-		$reshook = $hookmanager->executeHooks('getInputIdProf', $parameters);
+		$reshook = $hookManager->executeHooks('getInputIdProf', $parameters);
 		if (empty($reshook)) {
 			$out .= '<input type="text" ' . ($morecss ? 'class="' . $morecss . '" ' : '') . 'name="' . $htmlname . '" id="' . $htmlname . '" maxlength="' . $maxlength . '" value="' . $selected . '">';
 		}
-		$out .= $hookmanager->resPrint;
+		$out .= $hookManager->resPrint;
 
 		return $out;
 	}

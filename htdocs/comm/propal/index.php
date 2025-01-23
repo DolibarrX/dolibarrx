@@ -35,14 +35,14 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/propal.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager = new HookManager($db);
-$hookmanager->initHooks(array('proposalindex'));
+$hookManager = new HookManager($db);
+$hookManager->initHooks(array('proposalindex'));
 
 // Load translation files required by the page
 $langs->loadLangs(array('propal', 'companies'));
@@ -360,7 +360,7 @@ print '</div>';
 print '</div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardPropals', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardPropals', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

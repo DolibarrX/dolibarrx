@@ -747,7 +747,7 @@ class WebsitePage extends CommonObject
 	 */
 	public function createFromClone(User $user, $fromid, $newref, $newlang = '', $istranslation = 0, $newwebsite = 0, $newtitle = '', $website = null)
 	{
-		global $hookmanager, $langs;
+		global $hookManager, $langs;
 
 		$now = dol_now();
 		$error = 0;

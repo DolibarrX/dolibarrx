@@ -694,7 +694,7 @@ class PaymentVarious extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $save_lastsearch_value = -1, $notooltip = 0, $morecss = '')
 	{
-		global $db, $conf, $langs, $hookmanager;
+		global $db, $conf, $langs, $hookManager;
 		global $langs;
 
 		if (!empty($conf->dol_no_mouse_hover)) {
@@ -747,13 +747,13 @@ class PaymentVarious extends CommonObject
 		//if ($withpicto != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
 
 		global $action;
-		$hookmanager->initHooks(array('variouspayment'));
+		$hookManager->initHooks(array('variouspayment'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;

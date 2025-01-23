@@ -640,7 +640,7 @@ class FichinterRec extends Fichinter
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $short = 0, $moretitle = '')
 	{
-		global $action, $langs, $hookmanager;
+		global $action, $langs, $hookManager;
 
 		$result = '';
 		$label = $langs->trans("ShowInterventionModel").': '.$this->ref;
@@ -664,13 +664,13 @@ class FichinterRec extends Fichinter
 			$result .= $link.$this->ref.$linkend;
 		}
 
-		$hookmanager->initHooks(array($this->element . 'dao'));
+		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;

@@ -1234,7 +1234,7 @@ class Commande extends CommonOrder
 	 */
 	public function createFromClone(User $user, $socid = 0)
 	{
-		global $user, $hookmanager;
+		global $user, $hookManager;
 
 		$error = 0;
 
@@ -1311,12 +1311,12 @@ class Commande extends CommonOrder
 
 		if (!$error) {
 			// Hook of thirdparty module
-			if (is_object($hookmanager)) {
+			if (is_object($hookManager)) {
 				$parameters = array('objFrom' => $objFrom);
 				$action = '';
-				$reshook = $hookmanager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+				$reshook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 				if ($reshook < 0) {
-					$this->setErrorsFromObject($hookmanager);
+					$this->setErrorsFromObject($hookManager);
 					$error++;
 				}
 			}
@@ -1344,7 +1344,7 @@ class Commande extends CommonOrder
 	 */
 	public function createFromProposal($object, User $user)
 	{
-		global $conf, $hookmanager;
+		global $conf, $hookManager;
 
 		require_once DOL_DOCUMENT_ROOT . '/multicurrency/class/multicurrency.class.php';
 		require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
@@ -1469,13 +1469,13 @@ class Commande extends CommonOrder
 
 		if ($ret > 0) {
 			// Actions hooked (by external module)
-			$hookmanager->initHooks(array('orderdao'));
+			$hookManager->initHooks(array('orderdao'));
 
 			$parameters = array('objFrom' => $object);
 			$action = '';
-			$reshook = $hookmanager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+			$reshook = $hookManager->executeHooks('createFrom', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 			if ($reshook < 0) {
-				$this->setErrorsFromObject($hookmanager);
+				$this->setErrorsFromObject($hookManager);
 				$error++;
 			}
 
@@ -3609,7 +3609,7 @@ class Commande extends CommonOrder
 	public function LibStatut($status, $billed, $mode, $donotshowbilled = 0)
 	{
 		// phpcs:enable
-		global $langs, $hookmanager;
+		global $langs, $hookManager;
 
 		$billedtext = '';
 		if (empty($donotshowbilled)) {
@@ -3656,10 +3656,10 @@ class Commande extends CommonOrder
 			'donotshowbilled' => $donotshowbilled
 		);
 
-		$reshook = $hookmanager->executeHooks('LibStatut', $parameters, $this); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('LibStatut', $parameters, $this); // Note that $action and $object may have been modified by hook
 
 		if ($reshook > 0) {
-			return $hookmanager->resPrint;
+			return $hookManager->resPrint;
 		}
 
 		return dolGetStatus($labelStatus, $labelStatusShort, '', $statusType, $mode, '', array('tooltip' => $labelTooltip));
@@ -3741,7 +3741,7 @@ class Commande extends CommonOrder
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $short = 0, $notooltip = 0, $save_lastsearch_value = -1, $addlinktonotes = 0, $target = '')
 	{
-		global $conf, $langs, $user, $hookmanager;
+		global $conf, $langs, $user, $hookManager;
 
 		if (!empty($conf->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -3837,13 +3837,13 @@ class Commande extends CommonOrder
 		}
 
 		global $action;
-		$hookmanager->initHooks(array($this->element . 'dao'));
+		$hookManager->initHooks(array($this->element . 'dao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 		return $result;
 	}

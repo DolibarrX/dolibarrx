@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/don/class/don.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -42,7 +42,7 @@ $langs->load("donations");
 
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('donationindex'));
+$hookManager->initHooks(array('donationindex'));
 
 $donation_static = new Don($db);
 
@@ -274,7 +274,7 @@ if ($resql) {
 print '</div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardDonation', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardDonation', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 llxFooter();
 

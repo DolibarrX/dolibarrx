@@ -57,7 +57,7 @@ if (!empty($_SESSION["dol_authmode"]) && ($_SESSION["dol_authmode"] == 'forceuse
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -72,9 +72,9 @@ if ($result < 0) {
 
 // Hooks on logout
 $action = '';
-$hookmanager->initHooks(array('logout'));
+$hookManager->initHooks(array('logout'));
 $parameters = array();
-$reshook = $hookmanager->executeHooks('afterLogout', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('afterLogout', $parameters, $user, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
 	$error++;
 }

@@ -38,7 +38,7 @@ require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -54,7 +54,7 @@ if ($user->socid > 0) {
 }
 
 // Hook
-$hookmanager->initHooks(array('cabyprodservlist'));
+$hookManager->initHooks(array('cabyprodservlist'));
 
 if (isModEnabled('comptabilite')) {
 	$result = restrictedArea($user, 'compta', '', '', 'resultat');
@@ -322,8 +322,8 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$sql .= " SUM(CASE WHEN f.type = 2 THEN -l.qty ELSE l.qty END) as qty";
 
 	$parameters = array();
-	$hookmanager->executeHooks('printFieldListSelect', $parameters);
-	$sql .= $hookmanager->resPrint;
+	$hookManager->executeHooks('printFieldListSelect', $parameters);
+	$sql .= $hookManager->resPrint;
 
 	$sql .= " FROM ".MAIN_DB_PREFIX."facture as f";
 	$sql .= ",".MAIN_DB_PREFIX."facturedet as l";
@@ -332,8 +332,8 @@ if ($modecompta == 'CREANCES-DETTES') {
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as soc ON (soc.rowid = f.fk_soc)";
 	}
 	$parameters = array();
-	$hookmanager->executeHooks('printFieldListFrom', $parameters);
-	$sql .= $hookmanager->resPrint;
+	$hookManager->executeHooks('printFieldListFrom', $parameters);
+	$sql .= $hookManager->resPrint;
 
 	$sql .= " WHERE l.fk_facture = f.rowid";
 	$sql .= " AND f.fk_statut in (1,2)";
@@ -430,8 +430,8 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$sql .= " AND f.entity IN (".getEntity('invoice').")";
 
 	$parameters = array();
-	$hookmanager->executeHooks('printFieldListWhere', $parameters);
-	$sql .= $hookmanager->resPrint;
+	$hookManager->executeHooks('printFieldListWhere', $parameters);
+	$sql .= $hookManager->resPrint;
 
 	$sql .= " GROUP BY p.rowid, p.ref, p.label, p.fk_product_type";
 	$sql .= $db->order($sortfield, $sortorder);

@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/dynamic_price/class/price_global_variab
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */

@@ -30,7 +30,7 @@
  * @var AssetDepreciationOptions $assetdepreciationoptions
  * @var DoliDB $db
  * @var Form $form
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  *
  * @var string $action
@@ -57,10 +57,10 @@ if (!is_array($parameters)) {
 if (empty($parameters['assetdepreciationoptions'])) {
 	$parameters['assetdepreciationoptions'] = &$assetdepreciationoptions;
 }
-$reshook = $hookmanager->executeHooks('formAssetDeprecationOptions', $parameters, $object, $action);
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('formAssetDeprecationOptions', $parameters, $object, $action);
+print $hookManager->resPrint;
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {

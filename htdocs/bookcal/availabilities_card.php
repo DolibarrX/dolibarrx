@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/bookcal/lib/bookcal_availabilities.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -61,7 +61,7 @@ $dol_openinpopup = GETPOST('dol_openinpopup', 'aZ09');
 $object = new Availabilities($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $conf->bookcal->dir_output.'/temp/massgeneration/'.$user->id;
-$hookmanager->initHooks(array('availabilitiescard', 'globalcard')); // Note that conf->hooks_modules contains array
+$hookManager->initHooks(array('availabilitiescard', 'globalcard')); // Note that conf->hooks_modules contains array
 
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -125,9 +125,9 @@ if (!$permissiontoread) {
 $error = 0;
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -152,7 +152,7 @@ if (empty($reshook)) {
 
 	if (GETPOST('startHour') == "") {
 		$error++;
-		setEventMessages($langs->trans("ErrorStartHourIsNull"), $hookmanager->errors, 'errors');
+		setEventMessages($langs->trans("ErrorStartHourIsNull"), $hookManager->errors, 'errors');
 	}
 
 	$dateStartTimestamp = dol_mktime($starthour, 0, 0, $startmonth, $startday, $startyear);
@@ -164,7 +164,7 @@ if (empty($reshook)) {
 
 	if (GETPOST('endHour') == "") {
 		$error++;
-		setEventMessages($langs->trans("ErrorEndHourIsNull"), $hookmanager->errors, 'errors');
+		setEventMessages($langs->trans("ErrorEndHourIsNull"), $hookManager->errors, 'errors');
 	}
 
 	$dateEndTimestamp = dol_mktime($endhour, 0, 0, $endmonth, $endday, $endyear);
@@ -173,14 +173,14 @@ if (empty($reshook)) {
 	if ($starthour > $endhour) {
 		if ($dateStartTimestamp === $dateEndTimestamp) {
 			$error++;
-			setEventMessages($langs->trans("ErrorEndTimeMustBeGreaterThanStartTime"), $hookmanager->errors, 'errors');
+			setEventMessages($langs->trans("ErrorEndTimeMustBeGreaterThanStartTime"), $hookManager->errors, 'errors');
 		}
 	}
 
 	// check date
 	if (($dateStartTimestamp != "") && ($dateStartTimestamp >= $dateEndTimestamp)) {
 		$error++;
-		setEventMessages($langs->trans("ErrorIncoherentDates"), $hookmanager->errors, 'errors');
+		setEventMessages($langs->trans("ErrorIncoherentDates"), $hookManager->errors, 'errors');
 	}
 
 
@@ -359,11 +359,11 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	// Call Hook formConfirm
 	$parameters = array('formConfirm' => $formconfirm, 'lineid' => $lineid);
-	$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if (empty($reshook)) {
-		$formconfirm .= $hookmanager->resPrint;
+		$formconfirm .= $hookManager->resPrint;
 	} elseif ($reshook > 0) {
-		$formconfirm = $hookmanager->resPrint;
+		$formconfirm = $hookManager->resPrint;
 	}
 
 	// Print form confirm
@@ -473,9 +473,9 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 				// Add products/services form
 
 				$parameters = array();
-				$reshook = $hookmanager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+				$reshook = $hookManager->executeHooks('formAddObjectLine', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 				if ($reshook < 0) {
-					setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 				if (empty($reshook)) {
 					$object->formAddObjectLine(1, $mysoc, $soc);
@@ -497,9 +497,9 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	if ($action != 'presend' && $action != 'editline') {
 		print '<div class="tabsAction">'."\n";
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if ($reshook < 0) {
-			setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+			setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 		}
 
 		if (empty($reshook)) {

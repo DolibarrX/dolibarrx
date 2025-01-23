@@ -102,7 +102,7 @@ if (!empty($_COOKIE[$sessiontimeout]) && session_status() === PHP_SESSION_NONE) 
 $context = Context::getInstance();
 
 
-$hookmanager->initHooks(array('main'));
+$hookManager->initHooks(array('main'));
 
 $logged_user = new User($db);
 $anti_spam_session_key = 'dol_antispam_value';

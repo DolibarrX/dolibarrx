@@ -50,7 +50,7 @@ require_once DOL_DOCUMENT_ROOT.'/admin/remotestore/class/dolistore.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -130,7 +130,7 @@ $dirins = DOL_DOCUMENT_ROOT.'/custom';
 $urldolibarrmodules = 'https://www.dolistore.com/';
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('adminmodules', 'globaladmin'));
+$hookManager->initHooks(array('adminmodules', 'globaladmin'));
 
 // Increase limit of time. Works only if we are not in safe mode
 $max_execution_time_for_deploy = getDolGlobalInt('MODULE_UPLOAD_MAX_EXECUTION_TIME', 300); // 5mn if not defined
@@ -164,9 +164,9 @@ if (dol_is_file($dolibarrdataroot.'/installmodules.lock')) {
 $formconfirm = '';
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (GETPOST('buttonreset', 'alpha')) {
@@ -792,8 +792,8 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 
 	print $moreforfilter;
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-	print $hookmanager->resPrint;
+	$reshook = $hookManager->executeHooks('printFieldPreListTitle', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	print $hookManager->resPrint;
 
 	$moreforfilter = '';
 
@@ -801,9 +801,9 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 
 	$object = new stdClass();
 	$parameters = array();
-	$reshook = $hookmanager->executeHooks('insertExtraHeader', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('insertExtraHeader', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 	if ($reshook < 0) {
-		setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
 	$disabled_modules = array();

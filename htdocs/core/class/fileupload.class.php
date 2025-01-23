@@ -59,9 +59,9 @@ class FileUpload
 	public function __construct($options = null, $fk_element = null, $element = null)
 	{
 		global $db;
-		global $hookmanager;
+		global $hookManager;
 
-		$hookmanager->initHooks(array('fileupload'));
+		$hookManager->initHooks(array('fileupload'));
 
 		$element_prop = getElementProperties($element);
 		//var_dump($element_prop);
@@ -155,7 +155,7 @@ class FileUpload
 
 		global $action;
 
-		$hookmanager->executeHooks(
+		$hookManager->executeHooks(
 			'overrideUploadOptions',
 			array(
 				'options' => &$options,

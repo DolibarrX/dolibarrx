@@ -32,7 +32,7 @@
  * @var CommonObject $object
  * @var CommonObjectLine $line
  * @var Conf $conf
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  *
@@ -68,11 +68,11 @@ $coldisplay++;
 		<?php $coldisplay++; ?>
 		<input type="text" name="line_ref" id="line_ref" class="flat" value="<?php echo(GETPOSTISSET("line_ref") ? GETPOST("line_ref", 'alpha', 2) : $line->ref); ?>">
 		<?php
-		if (is_object($hookmanager)) {
+		if (is_object($hookManager)) {
 			$parameters = array('line' => $line);
-			$reshook = $hookmanager->executeHooks('formEditProductOptions', $parameters, $object, $action);
-			if (!empty($hookmanager->resPrint)) {
-				print $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('formEditProductOptions', $parameters, $object, $action);
+			if (!empty($hookManager->resPrint)) {
+				print $hookManager->resPrint;
 			}
 		}
 		?>

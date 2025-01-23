@@ -44,7 +44,7 @@ require_once '../main.inc.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -99,7 +99,7 @@ print '<div>';
 //print '<br>';
 
 // Instantiate hooks of thirdparty module
-$hookmanager->initHooks(array('quickaddform'));
+$hookManager->initHooks(array('quickaddform'));
 
 // Show all forms
 print "\n";

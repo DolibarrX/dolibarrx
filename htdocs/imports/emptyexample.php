@@ -74,7 +74,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/modules/import/modules_import.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */

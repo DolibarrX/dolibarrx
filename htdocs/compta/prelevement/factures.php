@@ -39,7 +39,7 @@ require_once DOL_DOCUMENT_ROOT.'/salaries/class/salary.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -80,7 +80,7 @@ $object = new BonPrelevement($db);
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
 
-$hookmanager->initHooks(array('directdebitprevcard', 'globalcard', 'directdebitprevlist'));
+$hookManager->initHooks(array('directdebitprevcard', 'globalcard', 'directdebitprevlist'));
 
 // Security check
 if ($user->socid > 0) {

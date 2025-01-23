@@ -67,7 +67,7 @@ if (isModEnabled('stock')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -104,7 +104,7 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 $socialnetworks = getArrayOfSocialNetworks();
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('usercard', 'globalcard'));
+$hookManager->initHooks(array('usercard', 'globalcard'));
 
 $error = 0;
 
@@ -170,9 +170,9 @@ $ldap = null;
  */
 
 $parameters = array('id' => $id, 'socid' => $socid, 'group' => $group, 'caneditgroup' => $permissiontoeditgroup);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -1221,11 +1221,11 @@ if ($action == 'create' || $action == 'adduserldap') {
 
 	// Other form for user password
 	$parameters = array('valuetoshow' => $valuetoshow, 'password' => $password, 'caneditpasswordandsee' => $permissiontoeditpasswordandsee, 'caneditpasswordandsend' => $permissiontoeditpasswordandsend);
-	$reshook = $hookmanager->executeHooks('printUserPasswordField', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+	$reshook = $hookManager->executeHooks('printUserPasswordField', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 	if ($reshook > 0) {
-		$valuetoshow = $hookmanager->resPrint; // to replace
+		$valuetoshow = $hookManager->resPrint; // to replace
 	} else {
-		$valuetoshow .= $hookmanager->resPrint; // to add
+		$valuetoshow .= $hookManager->resPrint; // to add
 	}
 
 	print $valuetoshow;
@@ -2045,11 +2045,11 @@ if ($action == 'create' || $action == 'adduserldap') {
 
 			// Other form for user password
 			$parameters = array('valuetoshow' => $valuetoshow, 'caneditpasswordandsee' => $permissiontoeditpasswordandsee, 'caneditpasswordandsend' => $permissiontoeditpasswordandsend);
-			$reshook = $hookmanager->executeHooks('printUserPasswordField', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('printUserPasswordField', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if ($reshook > 0) {
-				$valuetoshow = $hookmanager->resPrint; // to replace
+				$valuetoshow = $hookManager->resPrint; // to replace
 			} else {
-				$valuetoshow .= $hookmanager->resPrint; // to add
+				$valuetoshow .= $hookManager->resPrint; // to add
 			}
 
 			if (dol_string_nohtmltag($valuetoshow)) {	// If there is a real visible content to show
@@ -2088,9 +2088,9 @@ if ($action == 'create' || $action == 'adduserldap') {
 
 			// Add more object block
 			$parameters = array('caneditpasswordandsee' => $permissiontoeditpasswordandsee, 'caneditpasswordandsend' => $permissiontoeditpasswordandsend);
-			$reshook = $hookmanager->executeHooks('addMoreObjectBlock', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('addMoreObjectBlock', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if ($reshook > 0) {
-				print $hookmanager->resPrint;
+				print $hookManager->resPrint;
 			}
 
 			print '</div>';
@@ -2108,7 +2108,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 			print '<div class="tabsAction">';
 
 			$parameters = array();
-			$reshook = $hookmanager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('addMoreActionsButtons', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if (empty($reshook)) {
 				$params = array(
 					'attr' => array(
@@ -2259,8 +2259,8 @@ if ($action == 'create' || $action == 'adduserldap') {
 
 					// Other form for add user to group
 					$parameters = array('caneditgroup' => $permissiontoeditgroup, 'groupslist' => $groupslist, 'exclude' => $exclude);
-					$reshook = $hookmanager->executeHooks('formAddUserToGroup', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-					print $hookmanager->resPrint;
+					$reshook = $hookManager->executeHooks('formAddUserToGroup', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+					print $hookManager->resPrint;
 
 					if (empty($reshook)) {
 						if ($permissiontoeditgroup) {
@@ -2644,11 +2644,11 @@ if ($action == 'create' || $action == 'adduserldap') {
 			}
 			// Other form for user password
 			$parameters = array('valuetoshow' => $valuetoshow, 'caneditpasswordandsee' => $permissiontoeditpasswordandsee, 'caneditpasswordandsend' => $permissiontoeditpasswordandsend);
-			$reshook = $hookmanager->executeHooks('printUserPasswordField', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			$reshook = $hookManager->executeHooks('printUserPasswordField', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 			if ($reshook > 0) {
-				$valuetoshow = $hookmanager->resPrint; // to replace
+				$valuetoshow = $hookManager->resPrint; // to replace
 			} else {
-				$valuetoshow .= $hookmanager->resPrint; // to add
+				$valuetoshow .= $hookManager->resPrint; // to add
 			}
 
 			print $valuetoshow;
@@ -2946,8 +2946,8 @@ if ($action == 'create' || $action == 'adduserldap') {
 			// Other attributes
 			$parameters = array('colspan' => ' colspan="2"');
 			//include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_edit.tpl.php';		// We do not use common tpl here because we need a special test on $permissiontoedit
-			$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
-			print $hookmanager->resPrint;
+			$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+			print $hookManager->resPrint;
 			if (empty($reshook)) {
 				if ($permissiontoedit) {
 					print $object->showOptionals($extrafields, 'edit');

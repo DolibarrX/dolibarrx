@@ -46,7 +46,7 @@ require_once DOL_DOCUMENT_ROOT.'/societe/class/companybankaccount.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -84,7 +84,7 @@ if ($id > 0 || !empty($ref)) {
 	}
 }
 
-$hookmanager->initHooks(array('directdebitcard', 'globalcard'));
+$hookManager->initHooks(array('directdebitcard', 'globalcard'));
 
 if ($type == 'bank-transfer') {
 	$result = restrictedArea($user, 'fournisseur', $id, 'facture_fourn', 'facture', 'fk_soc', $fieldid, $isdraft);
@@ -110,9 +110,9 @@ if ($type == 'bank-transfer') {
  */
 
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -694,10 +694,10 @@ if ($object->id > 0) {
 
 	// Hook to change amount for other reasons, e.g. apply cash discount for payment before agreed date
 	$parameters = array('remaintopay' => $resteapayer);
-	$reshook = $hookmanager->executeHooks('finalizeAmountOfInvoice', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('finalizeAmountOfInvoice', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 	if ($reshook > 0) {
-		print $hookmanager->resPrint;
-		if (!empty($remaintopay = $hookmanager->resArray['remaintopay'])) {
+		print $hookManager->resPrint;
+		if (!empty($remaintopay = $hookManager->resArray['remaintopay'])) {
 			$resteapayer = $remaintopay;
 		}
 	}

@@ -60,10 +60,10 @@ if (!empty($cols)) {
 if (!empty($object->fk_soc)) {
 	$parameters['socid'] = $object->fk_soc;
 }
-$reshook = $hookmanager->executeHooks('formObjectOptions', $parameters, $object, $action);
-print $hookmanager->resPrint;
+$reshook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action);
+print $hookManager->resPrint;
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 

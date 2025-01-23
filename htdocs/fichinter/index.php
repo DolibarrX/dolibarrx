@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -49,7 +49,7 @@ if (!$user->hasRight('ficheinter', 'lire')) {
 $langs->load("interventions");
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('interventionindex'));
+$hookManager->initHooks(array('interventionindex'));
 
 
 // Security check
@@ -380,7 +380,7 @@ if (isModEnabled('intervention')) {
 print '</div></div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardInterventions', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardInterventions', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 llxFooter();
 

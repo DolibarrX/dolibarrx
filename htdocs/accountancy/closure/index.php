@@ -34,7 +34,7 @@ require_once DOL_DOCUMENT_ROOT.'/accountancy/class/bookkeeping.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -60,7 +60,7 @@ if (!$user->hasRight('accounting', 'fiscalyear', 'write')) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('accountancyclosure'));
+$hookManager->initHooks(array('accountancyclosure'));
 
 $object = new BookKeeping($db);
 
@@ -130,9 +130,9 @@ $accounting_groups_used_for_income_statement = array_filter(array_map('trim', ex
  */
 
 $parameters = array('fiscal_periods' => $fiscal_periods, 'last_fiscal_period' => $last_fiscal_period, 'current_fiscal_period' => $current_fiscal_period, 'next_fiscal_period' => $next_fiscal_period);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -329,11 +329,11 @@ if (isset($current_fiscal_period)) {
 
 // Call Hook formConfirm
 $parameters = array('formConfirm' => $formconfirm, 'fiscal_periods' => $fiscal_periods, 'last_fiscal_period' => $last_fiscal_period, 'current_fiscal_period' => $current_fiscal_period, 'next_fiscal_period' => $next_fiscal_period);
-$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 if (empty($reshook)) {
-	$formconfirm .= $hookmanager->resPrint;
+	$formconfirm .= $hookManager->resPrint;
 } elseif ($reshook > 0) {
-	$formconfirm = $hookmanager->resPrint;
+	$formconfirm = $hookManager->resPrint;
 }
 
 // Print form confirm

@@ -38,7 +38,7 @@ $contextpage = GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : 'ad
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -52,16 +52,16 @@ if (!$user->admin) {
 $listofnetworks = getArrayOfSocialNetworks();
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('adminsocialnetworkscompany', 'globaladmin'));
+$hookManager->initHooks(array('adminsocialnetworkscompany', 'globaladmin'));
 
 /*
  * Actions
  */
 
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 if (($action == 'update' && !GETPOST("cancel", 'alpha'))) {
 	foreach ($listofnetworks as $key => $value) {

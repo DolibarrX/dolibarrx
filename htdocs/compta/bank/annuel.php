@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -50,7 +50,7 @@ $id = GETPOST('account') ? GETPOST('account', 'alpha') : GETPOST('id');
 $ref = GETPOST('ref');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('bankannualreport', 'globalcard'));
+$hookManager->initHooks(array('bankannualreport', 'globalcard'));
 
 // Security check
 $fieldvalue = (!empty($id) ? $id : (!empty($ref) ? $ref : ''));

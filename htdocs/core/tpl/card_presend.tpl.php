@@ -184,12 +184,12 @@ if ($action == 'presend') {
 		$defaultfrom = GETPOST('fromtype');
 	} else {
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('getDefaultFromEmail', $parameters, $formmail);
+		$reshook = $hookManager->executeHooks('getDefaultFromEmail', $parameters, $formmail);
 		if (empty($reshook)) {
 			$defaultfrom = $formmail->fromtype;
 		}
-		if (!empty($hookmanager->resArray['defaultfrom'])) {
-			$defaultfrom = $hookmanager->resArray['defaultfrom'];
+		if (!empty($hookManager->resArray['defaultfrom'])) {
+			$defaultfrom = $hookManager->resArray['defaultfrom'];
 		}
 	}
 	$formmail->fromtype = $defaultfrom;

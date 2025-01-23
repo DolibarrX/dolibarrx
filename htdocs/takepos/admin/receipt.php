@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT."/core/lib/takepos.lib.php";
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */

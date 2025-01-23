@@ -302,7 +302,7 @@ class FormProduct
 	 */
 	public function selectWarehouses($selected = '', $htmlname = 'idwarehouse', $filterstatus = '', $empty = 0, $disabled = 0, $fk_product = 0, $empty_label = '', $showstock = 0, $forcecombo = 0, $events = array(), $morecss = 'minwidth200', $exclude = array(), $showfullpath = 1, $stockMin = false, $orderBy = 'e.ref', $multiselect = 0)
 	{
-		global $conf, $langs, $user, $hookmanager;
+		global $conf, $langs, $user, $hookManager;
 
 		dol_syslog(get_class($this)."::selectWarehouses " . (is_array($selected) ? 'selected is array' : $selected) . ", $htmlname, $filterstatus, $empty, $disabled, $fk_product, $empty_label, $showstock, $forcecombo, $morecss", LOG_DEBUG);
 
@@ -396,11 +396,11 @@ class FormProduct
 			'orderBy' => $orderBy
 		);
 
-		$reshook = $hookmanager->executeHooks('selectWarehouses', $parameters, $this);
+		$reshook = $hookManager->executeHooks('selectWarehouses', $parameters, $this);
 		if ($reshook > 0) {
-			$out = $hookmanager->resPrint;
+			$out = $hookManager->resPrint;
 		} elseif ($reshook == 0) {
-			$out .= $hookmanager->resPrint;
+			$out .= $hookManager->resPrint;
 		}
 
 		return $out;
@@ -427,7 +427,7 @@ class FormProduct
 	 */
 	public function selectWorkstations($selected = '', $htmlname = 'idworkstations', $empty = 0, $disabled = 0, $fk_product = 0, $empty_label = '', $forcecombo = 0, $events = array(), $morecss = 'minwidth200', $exclude = array(), $showfullpath = 1, $orderBy = 'e.ref')
 	{
-		global $conf, $langs, $user, $hookmanager;
+		global $conf, $langs, $user, $hookManager;
 
 		dol_syslog(get_class($this)."::selectWorkstations $selected, $htmlname, $empty, $disabled, $fk_product, $empty_label, $forcecombo, $morecss", LOG_DEBUG);
 
@@ -495,11 +495,11 @@ class FormProduct
 			'orderBy' => $orderBy
 		);
 
-		$reshook = $hookmanager->executeHooks('selectWorkstations', $parameters, $this);
+		$reshook = $hookManager->executeHooks('selectWorkstations', $parameters, $this);
 		if ($reshook > 0) {
-			$out = $hookmanager->resPrint;
+			$out = $hookManager->resPrint;
 		} elseif ($reshook == 0) {
-			$out .= $hookmanager->resPrint;
+			$out .= $hookManager->resPrint;
 		}
 
 		return $out;
@@ -810,7 +810,7 @@ class FormProduct
 	 */
 	public function selectLotDataList($htmlname = 'batch_id', $empty = 0, $fk_product = 0, $fk_entrepot = 0, $objectLines = array())
 	{
-		global $conf, $langs, $hookmanager;
+		global $conf, $langs, $hookManager;
 
 		dol_syslog(get_class($this)."::selectLotDataList $htmlname, $empty, $fk_product, $fk_entrepot", LOG_DEBUG);
 
@@ -838,19 +838,19 @@ class FormProduct
 			}
 		}
 
-		if (empty($hookmanager)) {
+		if (empty($hookManager)) {
 			include_once DOL_DOCUMENT_ROOT . '/core/class/hookmanager.class.php';
-			$hookmanager = new HookManager($this->db);
+			$hookManager = new HookManager($this->db);
 		}
-		$hookmanager->initHooks(array('productdao'));
+		$hookManager->initHooks(array('productdao'));
 		$parameters = array('productIdArray' => $productIdArray, 'htmlname' => $htmlname);
-		$reshook = $hookmanager->executeHooks('selectLotDataList', $parameters, $this);
+		$reshook = $hookManager->executeHooks('selectLotDataList', $parameters, $this);
 		if ($reshook < 0) {
-			return $hookmanager->error;
+			return $hookManager->error;
 		} elseif ($reshook > 0) {
-			return $hookmanager->resPrint;
+			return $hookManager->resPrint;
 		} else {
-			$out .= $hookmanager->resPrint;
+			$out .= $hookManager->resPrint;
 		}
 
 		$out .= '<datalist id="'.$htmlname.'" >';
@@ -903,21 +903,21 @@ class FormProduct
 			$productIdList = implode(',', $productIdArray);
 
 			$batch_count = 0;
-			global $hookmanager;
-			if (empty($hookmanager)) {
+			global $hookManager;
+			if (empty($hookManager)) {
 				include_once DOL_DOCUMENT_ROOT . '/core/class/hookmanager.class.php';
-				$hookmanager = new HookManager($this->db);
+				$hookManager = new HookManager($this->db);
 			}
-			$hookmanager->initHooks(array('productdao'));
+			$hookManager->initHooks(array('productdao'));
 			$parameters = array('productIdList' => $productIdList);
-			$reshook = $hookmanager->executeHooks('loadLotStock', $parameters, $this);
+			$reshook = $hookManager->executeHooks('loadLotStock', $parameters, $this);
 			if ($reshook < 0) {
-				$this->error = $hookmanager->error;
+				$this->error = $hookManager->error;
 				return -1;
 			}
-			if (!empty($hookmanager->resArray['batch_list']) && is_array($hookmanager->resArray['batch_list'])) {
-				$this->cache_lot = $hookmanager->resArray['batch_list'];
-				$batch_count = (int) $hookmanager->resArray['batch_count'];
+			if (!empty($hookManager->resArray['batch_list']) && is_array($hookManager->resArray['batch_list'])) {
+				$this->cache_lot = $hookManager->resArray['batch_list'];
+				$batch_count = (int) $hookManager->resArray['batch_count'];
 			}
 			if ($reshook > 0) {
 				return $batch_count;

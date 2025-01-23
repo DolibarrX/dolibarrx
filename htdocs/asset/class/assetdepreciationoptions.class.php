@@ -339,7 +339,7 @@ class AssetDepreciationOptions extends CommonObject
 	 */
 	public function fetchDeprecationOptions($asset_id = 0, $asset_model_id = 0)
 	{
-		global $langs, $hookmanager;
+		global $langs, $hookManager;
 		dol_syslog(__METHOD__ . " asset_id=$asset_id, asset_model_id=$asset_model_id");
 
 		$error = 0;
@@ -350,9 +350,9 @@ class AssetDepreciationOptions extends CommonObject
 		$asset_id = $asset_id > 0 ? $asset_id : 0;
 		$asset_model_id = $asset_model_id > 0 ? $asset_model_id : 0;
 
-		$hookmanager->initHooks(array('assetdepreciationoptionsdao'));
+		$hookManager->initHooks(array('assetdepreciationoptionsdao'));
 		$parameters = array('asset_id' => $asset_id, 'asset_model_id' => $asset_model_id);
-		$reshook = $hookmanager->executeHooks('fetchDepreciationOptions', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('fetchDepreciationOptions', $parameters, $this); // Note that $action and $object may have been modified by some hooks
 		if (!empty($reshook)) {
 			return $reshook;
 		}
@@ -412,7 +412,7 @@ class AssetDepreciationOptions extends CommonObject
 	 */
 	public function getGeneralDepreciationInfoForMode($mode)
 	{
-		global $hookmanager;
+		global $hookManager;
 		dol_syslog(__METHOD__ . " mode=$mode");
 
 		$this->errors = array();
@@ -420,13 +420,13 @@ class AssetDepreciationOptions extends CommonObject
 		// Clean parameters
 		$mode = strtolower(trim($mode));
 
-		$hookmanager->initHooks(array('assetdepreciationoptionsdao'));
+		$hookManager->initHooks(array('assetdepreciationoptionsdao'));
 		$parameters = array('mode' => $mode);
-		$reshook = $hookmanager->executeHooks('getGeneralDepreciationInfoForMode', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getGeneralDepreciationInfoForMode', $parameters, $this); // Note that $action and $object may have been modified by some hooks
 		if ($reshook < 0) {
 			return $reshook;
 		} elseif ($reshook > 0) {
-			return $hookmanager->resArray;
+			return $hookManager->resArray;
 		}
 
 		$duration_type_list = $this->deprecation_options_fields[$mode]['fields']['duration_type']['arrayofkeyval'];
@@ -450,7 +450,7 @@ class AssetDepreciationOptions extends CommonObject
 	 */
 	public function updateDeprecationOptions($user, $asset_id = 0, $asset_model_id = 0, $notrigger = 0)
 	{
-		global $langs, $hookmanager;
+		global $langs, $hookManager;
 		dol_syslog(__METHOD__ . " user_id=".$user->id.", asset_id=".$asset_id.", asset_model_id=".$asset_model_id.", notrigger=".$notrigger);
 
 		$error = 0;
@@ -460,9 +460,9 @@ class AssetDepreciationOptions extends CommonObject
 		$asset_id = $asset_id > 0 ? $asset_id : 0;
 		$asset_model_id = $asset_model_id > 0 ? $asset_model_id : 0;
 
-		$hookmanager->initHooks(array('assetdepreciationoptionsdao'));
+		$hookManager->initHooks(array('assetdepreciationoptionsdao'));
 		$parameters = array('user' => $user, 'asset_id' => $asset_id, 'asset_model_id' => $asset_model_id);
-		$reshook = $hookmanager->executeHooks('updateDepreciationOptions', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('updateDepreciationOptions', $parameters, $this); // Note that $action and $object may have been modified by some hooks
 		if (!empty($reshook)) {
 			return $reshook;
 		}

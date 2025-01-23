@@ -109,7 +109,7 @@ class AssetAccountancyCodes extends CommonObject
 	 */
 	public function fetchAccountancyCodes($asset_id = 0, $asset_model_id = 0)
 	{
-		global $langs, $hookmanager;
+		global $langs, $hookManager;
 		dol_syslog(__METHOD__ . " asset_id=$asset_id, asset_model_id=$asset_model_id");
 
 		$error = 0;
@@ -120,9 +120,9 @@ class AssetAccountancyCodes extends CommonObject
 		$asset_id = $asset_id > 0 ? $asset_id : 0;
 		$asset_model_id = $asset_model_id > 0 ? $asset_model_id : 0;
 
-		$hookmanager->initHooks(array('assetaccountancycodesdao'));
+		$hookManager->initHooks(array('assetaccountancycodesdao'));
 		$parameters = array('asset_id' => $asset_id, 'asset_model_id' => $asset_model_id);
-		$reshook = $hookmanager->executeHooks('fetchAccountancyCodes', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('fetchAccountancyCodes', $parameters, $this); // Note that $action and $object may have been modified by some hooks
 		if (!empty($reshook)) {
 			return $reshook;
 		}
@@ -177,7 +177,7 @@ class AssetAccountancyCodes extends CommonObject
 	 */
 	public function updateAccountancyCodes($user, $asset_id = 0, $asset_model_id = 0, $notrigger = 0)
 	{
-		global $langs, $hookmanager;
+		global $langs, $hookManager;
 		dol_syslog(__METHOD__ . " user_id=".$user->id.", asset_id=".$asset_id.", asset_model_id=".$asset_model_id.", notrigger=".$notrigger);
 
 		$error = 0;
@@ -187,9 +187,9 @@ class AssetAccountancyCodes extends CommonObject
 		$asset_id = $asset_id > 0 ? $asset_id : 0;
 		$asset_model_id = $asset_model_id > 0 ? $asset_model_id : 0;
 
-		$hookmanager->initHooks(array('assetaccountancycodesdao'));
+		$hookManager->initHooks(array('assetaccountancycodesdao'));
 		$parameters = array('user' => $user, 'asset_id' => $asset_id, 'asset_model_id' => $asset_model_id);
-		$reshook = $hookmanager->executeHooks('updateAccountancyCodes', $parameters, $this); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('updateAccountancyCodes', $parameters, $this); // Note that $action and $object may have been modified by some hooks
 		if (!empty($reshook)) {
 			return $reshook;
 		}

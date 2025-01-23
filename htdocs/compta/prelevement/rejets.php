@@ -39,7 +39,7 @@ require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -68,7 +68,7 @@ if ($user->socid) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('withdrawalsreceiptsrejectedlist'));
+$hookManager->initHooks(array('withdrawalsreceiptsrejectedlist'));
 
 if ($type == 'bank-transfer') {
 	$result = restrictedArea($user, 'paymentbybanktransfer', '', '', '');

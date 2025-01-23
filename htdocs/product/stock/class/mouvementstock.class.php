@@ -231,10 +231,10 @@ class MouvementStock extends CommonObject
 		dol_syslog(get_class($this)."::_create start userid=$user->id, fk_product=$fk_product, warehouse_id=$entrepot_id, qty=$qty, type=$type, price=$price, label=$label, inventorycode=$inventorycode, datem=".$datem.", eatby=".$eatby.", sellby=".$sellby.", batch=".$batch.", skip_batch=".json_encode($skip_batch));
 
 		// Call hook at beginning
-		global $action, $hookmanager;
-		$hookmanager->initHooks(array('mouvementstock'));
+		global $action, $hookManager;
+		$hookManager->initHooks(array('mouvementstock'));
 
-		if (is_object($hookmanager)) {
+		if (is_object($hookManager)) {
 			$parameters = array(
 				'currentcontext'   => 'mouvementstock',
 				'user'             => &$user,
@@ -252,11 +252,11 @@ class MouvementStock extends CommonObject
 				'skip_batch'       => &$skip_batch,
 				'id_product_batch' => &$id_product_batch
 			);
-			$reshook = $hookmanager->executeHooks('stockMovementCreate', $parameters, $this, $action);    // Note that $action and $object may have been modified by some hooks
+			$reshook = $hookManager->executeHooks('stockMovementCreate', $parameters, $this, $action);    // Note that $action and $object may have been modified by some hooks
 
 			if ($reshook < 0) {
-				if (!empty($hookmanager->resPrint)) {
-					dol_print_error(null, $hookmanager->resPrint);
+				if (!empty($hookManager->resPrint)) {
+					dol_print_error(null, $hookManager->resPrint);
 				}
 				return $reshook;
 			} elseif ($reshook > 0) {

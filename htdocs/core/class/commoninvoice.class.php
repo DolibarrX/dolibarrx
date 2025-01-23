@@ -929,7 +929,7 @@ abstract class CommonInvoice extends CommonObject
 	public function LibStatut($paye, $status, $mode = 0, $alreadypaid = -1, $type = -1, $nbofopendirectdebitorcredittransfer = 0)
 	{
 		// phpcs:enable
-		global $langs, $hookmanager;
+		global $langs, $hookManager;
 		$langs->load('bills');
 
 		if ($type == -1) {
@@ -987,10 +987,10 @@ abstract class CommonInvoice extends CommonObject
 			'type'        => $type
 		);
 
-		$reshook = $hookmanager->executeHooks('LibStatut', $parameters, $this); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('LibStatut', $parameters, $this); // Note that $action and $object may have been modified by hook
 
 		if ($reshook > 0) {
-			return $hookmanager->resPrint;
+			return $hookManager->resPrint;
 		}
 
 		return dolGetStatus($labelStatus, $labelStatusShort, '', $statusType, $mode);

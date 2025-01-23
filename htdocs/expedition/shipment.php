@@ -52,7 +52,7 @@ if (isModEnabled("product") || isModEnabled("service")) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  * @var User $user
@@ -65,7 +65,7 @@ $id     = GETPOSTINT('id'); // id of order
 $ref    = GETPOST('ref', 'alpha');
 $action = GETPOST('action', 'aZ09');
 
-$hookmanager->initHooks(array('ordershipmentcard'));
+$hookManager->initHooks(array('ordershipmentcard'));
 
 
 // Security check
@@ -104,9 +104,9 @@ $permissiondellink = $user->hasRight('expedition', 'creer'); // Used by the incl
  */
 $error = 0;
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if (empty($reshook)) {
@@ -270,11 +270,11 @@ if ($id > 0 || !empty($ref)) {
 
 		// Call Hook formConfirm
 		$parameters = array('formConfirm' => $formconfirm);
-		$reshook = $hookmanager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('formConfirm', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 		if (empty($reshook)) {
-			$formconfirm .= $hookmanager->resPrint;
+			$formconfirm .= $hookManager->resPrint;
 		} elseif ($reshook > 0) {
-			$formconfirm = $hookmanager->resPrint;
+			$formconfirm = $hookManager->resPrint;
 		}
 
 		// Print form confirm
@@ -649,9 +649,9 @@ if ($id > 0 || !empty($ref)) {
 				$objp = $db->fetch_object($resql);
 
 				$parameters = array('i' => $i, 'line' => $objp, 'num' => $num);
-				$reshook = $hookmanager->executeHooks('printObjectLine', $parameters, $object, $action);
+				$reshook = $hookManager->executeHooks('printObjectLine', $parameters, $object, $action);
 				if ($reshook < 0) {
-					setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+					setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 				}
 
 				if (empty($reshook)) {

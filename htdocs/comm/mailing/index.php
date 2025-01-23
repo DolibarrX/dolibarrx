@@ -34,15 +34,15 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
 
-$hookmanager = new HookManager($db);
+$hookManager = new HookManager($db);
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager->initHooks(array('mailingindex'));
+$hookManager->initHooks(array('mailingindex'));
 
 // Load translation files required by the page
 $langs->loadLangs(array('commercial', 'orders', 'mails'));
@@ -229,7 +229,7 @@ print '</div></div></div>';
 
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardEmailings', $parameters, $object); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardEmailings', $parameters, $object); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

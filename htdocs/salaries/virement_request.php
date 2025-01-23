@@ -61,7 +61,7 @@ if (isModEnabled('project')) {
  * @var Conf $conf
  * @var DoliDB $db
  * @var Form $form
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -93,7 +93,7 @@ $childids = $user->getAllChildIds(1);
 $extrafields->fetch_name_optionals_label($object->table_element);
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$hookmanager->initHooks(array('salaryinfo', 'globalcard'));
+$hookManager->initHooks(array('salaryinfo', 'globalcard'));
 
 $object = new Salary($db);
 if ($id > 0 || !empty($ref)) {
@@ -133,7 +133,7 @@ if ($id > 0 || !empty($ref)) {
 	}
 }
 
-$hookmanager->initHooks(array('directdebitcard', 'globalcard'));
+$hookManager->initHooks(array('directdebitcard', 'globalcard'));
 
 restrictedArea($user, 'salaries', $object->id, 'salary', '');
 
@@ -156,9 +156,9 @@ if ($action == 'setlabel' && $user->hasRight('salaries', 'write')) {
 }
 
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $obj, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $obj, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 

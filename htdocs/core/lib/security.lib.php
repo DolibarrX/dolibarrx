@@ -429,7 +429,7 @@ function dolGetLdapPasswordHash($password, $type = 'md5')
  */
 function restrictedArea(User $user, $features, $object = 0, $tableandshare = '', $feature2 = '', $dbt_keyfield = 'fk_soc', $dbt_select = 'rowid', $isdraft = 0, $mode = 0)
 {
-	global $hookmanager;
+	global $hookManager;
 
 	// Define $objectid
 	if (is_object($object)) {
@@ -533,11 +533,11 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 
 	// Get more permissions checks from hooks
 	$parameters = array('features' => $features, 'originalfeatures' => $originalfeatures, 'objectid' => $objectid, 'dbt_select' => $dbt_select, 'idtype' => $dbt_select, 'isdraft' => $isdraft);
-	if (!empty($hookmanager)) {
-		$reshook = $hookmanager->executeHooks('restrictedArea', $parameters);
+	if (!empty($hookManager)) {
+		$reshook = $hookManager->executeHooks('restrictedArea', $parameters);
 
-		if (isset($hookmanager->resArray['result'])) {
-			if ($hookmanager->resArray['result'] == 0) {
+		if (isset($hookManager->resArray['result'])) {
+			if ($hookManager->resArray['result'] == 0) {
 				if ($mode) {
 					return 0;
 				} else {
@@ -1287,7 +1287,7 @@ function httponly_accessforbidden($message = '1', $http_response_code = 403, $st
  */
 function accessforbidden($message = '', $printheader = 1, $printfooter = 1, $showonlymessage = 0, $params = null)
 {
-	global $conf, $db, $user, $langs, $hookmanager;
+	global $conf, $db, $user, $langs, $hookManager;
 	global $action, $object;
 
 	if (!is_object($langs)) {
@@ -1315,16 +1315,16 @@ function accessforbidden($message = '', $printheader = 1, $printfooter = 1, $sho
 	print '</div>';
 	print '<br>';
 	if (empty($showonlymessage)) {
-		if (empty($hookmanager)) {
+		if (empty($hookManager)) {
 			include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
-			$hookmanager = new HookManager($db);
+			$hookManager = new HookManager($db);
 			// Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-			$hookmanager->initHooks(array('main'));
+			$hookManager->initHooks(array('main'));
 		}
 
 		$parameters = array('message' => $message, 'params' => $params);
-		$reshook = $hookmanager->executeHooks('getAccessForbiddenMessage', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
-		print $hookmanager->resPrint;
+		$reshook = $hookManager->executeHooks('getAccessForbiddenMessage', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+		print $hookManager->resPrint;
 		if (empty($reshook)) {
 			$langs->loadLangs(array("errors"));
 			if ($user->login) {

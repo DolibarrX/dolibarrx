@@ -58,7 +58,7 @@ global $dolibarr_main_url_root;
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Societe $mysoc
  * @var Translate $langs
  *
@@ -95,7 +95,7 @@ if ($resultproject < 0) {
 	$errmsg .= $project->error;
 }
 
-$hookmanager->initHooks(array('newpayment'));
+$hookManager->initHooks(array('newpayment'));
 
 $extrafields = new ExtraFields($db);
 

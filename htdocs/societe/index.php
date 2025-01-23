@@ -37,7 +37,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -47,8 +47,8 @@ $langs->load("companies");
 
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array
-$hookmanager = new HookManager($db);
-$hookmanager->initHooks(array('thirdpartiesindex'));
+$hookManager = new HookManager($db);
+$hookManager->initHooks(array('thirdpartiesindex'));
 
 
 $socid = GETPOSTINT('socid');
@@ -121,13 +121,13 @@ if (!$user->hasRight('fournisseur', 'lire')) {
 }
 // Add where from hooks
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
 if (empty($reshook)) {
 	if ($socid > 0) {
 		$sql .= " AND s.rowid = ".((int) $socid);
 	}
 }
-$sql .= $hookmanager->resPrint;
+$sql .= $hookManager->resPrint;
 //print $sql;
 $result = $db->query($sql);
 if ($result) {
@@ -316,13 +316,13 @@ if (!$user->hasRight('fournisseur', 'lire')) {
 }
 // Add where from hooks
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
 if (empty($reshook)) {
 	if ($socid > 0) {
 		$sql .= " AND s.rowid = ".((int) $socid);
 	}
 }
-$sql .= $hookmanager->resPrint;
+$sql .= $hookManager->resPrint;
 $sql .= $db->order("s.tms", "DESC");
 $sql .= $db->plimit($max, 0);
 
@@ -440,13 +440,13 @@ if (!$user->hasRight('fournisseur', 'lire')) {
 }
 // Add where from hooks
 $parameters = array('socid' => $socid);
-$reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('printFieldListWhere', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
 if (empty($reshook)) {
 	if ($socid > 0) {
 		$sql .= " AND s.rowid = ".((int) $socid);
 	}
 }
-$sql .= $hookmanager->resPrint;
+$sql .= $hookManager->resPrint;
 $sql .= $db->order("s.tms", "DESC");
 $sql .= $db->plimit($max, 0);
 
@@ -565,7 +565,7 @@ print $boxlist;
 print '</div>';
 
 $parameters = array('user' => $user);
-$reshook = $hookmanager->executeHooks('dashboardThirdparties', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
+$reshook = $hookManager->executeHooks('dashboardThirdparties', $parameters, $thirdparty_static); // Note that $action and $object may have been modified by hook
 
 // End of page
 llxFooter();

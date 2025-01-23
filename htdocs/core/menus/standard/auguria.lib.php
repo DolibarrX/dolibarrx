@@ -329,7 +329,7 @@ function print_end_menu_array_auguria()
  */
 function print_left_auguria_menu($db, $menu_array_before, $menu_array_after, &$tabMenu, &$menu, $noout = 0, $forcemainmenu = '', $forceleftmenu = '', $moredata = null, $type_user = 0)
 {
-	global $user, $conf, $langs, $hookmanager;
+	global $user, $conf, $langs, $hookManager;
 	global $dolibarr_main_db_name, $mysoc;
 
 	$newmenu = $menu;
@@ -503,13 +503,13 @@ function print_left_auguria_menu($db, $menu_array_before, $menu_array_after, &$t
 		'mainmenu' => $mainmenu,
 	);
 	$hook_items = $menu_array;
-	$reshook = $hookmanager->executeHooks('menuLeftMenuItems', $parameters, $hook_items); // Note that $action and $object may have been modified by some hooks
+	$reshook = $hookManager->executeHooks('menuLeftMenuItems', $parameters, $hook_items); // Note that $action and $object may have been modified by some hooks
 
 	if (is_numeric($reshook)) {
-		if ($reshook == 0 && !empty($hookmanager->resArray)) {
-			$menu_array[] = $hookmanager->resArray; // add
+		if ($reshook == 0 && !empty($hookManager->resArray)) {
+			$menu_array[] = $hookManager->resArray; // add
 		} elseif ($reshook == 1) {
-			$menu_array = $hookmanager->resArray; // replace
+			$menu_array = $hookManager->resArray; // replace
 		}
 
 		// @todo Sort menu items by 'position' value

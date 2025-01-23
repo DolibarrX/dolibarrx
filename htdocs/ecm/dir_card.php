@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT.'/ecm/class/htmlecm.form.class.php';
  * @var Conf $conf
  * @var DoliDB $db
  * @var ExtraFields $extrafields
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */

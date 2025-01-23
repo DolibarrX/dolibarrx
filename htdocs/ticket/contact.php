@@ -45,7 +45,7 @@ if (isModEnabled('project')) {
 /**
  * @var Conf $conf
  * @var DoliDB $db
- * @var HookManager $hookmanager
+ * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user
  */
@@ -70,7 +70,7 @@ $lineid = GETPOSTINT('lineid');
 // Store current page url
 $url_page_current = DOL_URL_ROOT.'/ticket/contact.php';
 
-$hookmanager->initHooks(array('contactticketcard', 'globalcard'));
+$hookManager->initHooks(array('contactticketcard', 'globalcard'));
 $object = new Ticket($db);
 if ($id > 0 || $ref || $track_id) {
 	$result = $object->fetch($id, $ref, $track_id);
@@ -100,9 +100,9 @@ $permissiontoadd = $user->hasRight('ticket', 'write');
  */
 $error = 0;
 $parameters = array();
-$reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
+$reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
-	setEventMessages($hookmanager->error, $hookmanager->errors, 'errors');
+	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 
 if ($action == 'addcontact' && $user->hasRight('ticket', 'write')) {

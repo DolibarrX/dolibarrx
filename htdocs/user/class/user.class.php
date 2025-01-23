@@ -3112,7 +3112,7 @@ class User extends CommonObject
 	 */
 	public function getNomUrl($withpictoimg = 0, $option = '', $infologin = 0, $notooltip = 0, $maxlen = 24, $hidethirdpartylogo = 0, $mode = '', $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $langs, $hookmanager, $user;
+		global $langs, $hookManager, $user;
 
 		if (!$user->hasRight('user', 'user', 'read') && $user->id != $this->id) {
 			$option = 'nolink';
@@ -3221,13 +3221,13 @@ class User extends CommonObject
 		$result .= $companylink;
 
 		global $action;
-		$hookmanager->initHooks(array('userdao'));
+		$hookManager->initHooks(array('userdao'));
 		$parameters = array('id' => $this->id, 'getnomurl' => &$result);
-		$reshook = $hookmanager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
+		$reshook = $hookManager->executeHooks('getNomUrl', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 		if ($reshook > 0) {
-			$result = $hookmanager->resPrint;
+			$result = $hookManager->resPrint;
 		} else {
-			$result .= $hookmanager->resPrint;
+			$result .= $hookManager->resPrint;
 		}
 
 		return $result;
@@ -3873,10 +3873,10 @@ class User extends CommonObject
 	{
 		// phpcs:enable
 		global $conf, $user;
-		global $hookmanager;
+		global $hookManager;
 
 		// Actions hooked (by external module)
-		$hookmanager->initHooks(array('userdao'));
+		$hookManager->initHooks(array('userdao'));
 
 		$this->users = array();
 
@@ -3888,9 +3888,9 @@ class User extends CommonObject
 		$sql .= " FROM ".$this->db->prefix()."user as u";
 		// Add fields from hooks
 		$parameters = array();
-		$reshook = $hookmanager->executeHooks('printUserListWhere', $parameters); // Note that $action and $object may have been modified by hook
+		$reshook = $hookManager->executeHooks('printUserListWhere', $parameters); // Note that $action and $object may have been modified by hook
 		if ($reshook > 0) {
-			$sql .= $hookmanager->resPrint;
+			$sql .= $hookManager->resPrint;
 		} else {
 			$sql .= " WHERE u.entity IN (".getEntity('user').")";
 		}
