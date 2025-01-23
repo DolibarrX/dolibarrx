@@ -54,8 +54,8 @@ $hookManager->initHooks(array('index'));
 
 // Define $nbModulesNotAutoEnabled - TODO This code is at different places
 $nbModulesNotAutoEnabled = count($conf->modules);
-$listofmodulesautoenabled = array('agenda', 'fckeditor', 'export', 'import');
-foreach ($listofmodulesautoenabled as $moduleautoenable) {
+$listOfModulesAutoEnabled = array('agenda', 'fckeditor', 'export', 'import');
+foreach ($listOfModulesAutoEnabled as $moduleautoenable) {
 	if (in_array($moduleautoenable, $conf->modules)) {
 		$nbModulesNotAutoEnabled--;
 	}
