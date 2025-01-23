@@ -681,8 +681,8 @@ $nbofactivatedmodules = count($conf->modules);
 // Define $nbModulesNotAutoEnabled - TODO This code is at different places
 $nbModulesNotAutoEnabled = count($conf->modules);
 $listOfModulesAutoEnabled = array('agenda', 'fckeditor', 'export', 'import');
-foreach ($listOfModulesAutoEnabled as $moduleautoenable) {
-	if (in_array($moduleautoenable, $conf->modules)) {
+foreach ($listOfModulesAutoEnabled as $moduleAutoEnable) {
+	if (in_array($moduleAutoEnable, $conf->modules)) {
 		$nbModulesNotAutoEnabled--;
 	}
 }
