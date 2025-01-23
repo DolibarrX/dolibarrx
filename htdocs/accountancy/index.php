@@ -86,15 +86,15 @@ $help_url = 'EN:Module_Double_Entry_Accounting#Setup|FR:Module_Comptabilit&eacut
 
 llxHeader('', $langs->trans("AccountancyArea"), $help_url, '', 0, 0, '', '', '', 'mod-accountancy page-index');
 
-$resultboxes = FormOther::getBoxesArea($user, "27"); // Load $resultboxes (selectboxlist + boxactivated + boxlista + boxlistb)
+$resultBoxes = FormOther::getBoxesArea($user, "27"); // Load $resultBoxes (selectboxlist + boxactivated + boxlista + boxlistb)
 
 $boxlist = '';
 $boxlist .= '<div class="twocolumns">';
 $boxlist .= '<div class="firstcolumn fichehalfleft boxhalfleft" id="boxhalfleft">';
-$boxlist .= $resultboxes['boxlista'];
+$boxlist .= $resultBoxes['boxlista'];
 $boxlist .= '</div>';
 $boxlist .= '<div class="secondcolumn fichehalfright boxhalfright" id="boxhalfright">';
-$boxlist .= $resultboxes['boxlistb'];
+$boxlist .= $resultBoxes['boxlistb'];
 $boxlist .= '</div>';
 $boxlist .= "\n";
 $boxlist .= '</div>';
@@ -103,7 +103,7 @@ if (isModEnabled('accounting')) {
 	$step = 0;
 
 	$helpisexpanded = false;
-	//$helpisexpanded = empty($resultboxes['boxactivated']) || (empty($resultboxes['boxlista']) && empty($resultboxes['boxlistb'])); // If there is no widget, the tooltip help is expanded by default.
+	//$helpisexpanded = empty($resultBoxes['boxactivated']) || (empty($resultBoxes['boxlista']) && empty($resultBoxes['boxlistb'])); // If there is no widget, the tooltip help is expanded by default.
 	$showtutorial = '';
 
 	if (!$helpisexpanded) {
@@ -129,7 +129,7 @@ if (isModEnabled('accounting')) {
 	    </script>';
 	}
 
-	print load_fiche_titre($langs->trans("AccountancyArea"), empty($resultboxes['selectboxlist']) ? '' : $resultboxes['selectboxlist'], 'accountancy', 0, '', '', $showtutorial);
+	print load_fiche_titre($langs->trans("AccountancyArea"), empty($resultBoxes['selectboxlist']) ? '' : $resultBoxes['selectboxlist'], 'accountancy', 0, '', '', $showtutorial);
 
 	if (getDolGlobalInt('INVOICE_USE_SITUATION') == 1) {
 		$messagewarning = $langs->trans("SorryThisModuleIsNotCompatibleWithTheExperimentalFeatureOfSituationInvoices");
@@ -138,7 +138,7 @@ if (isModEnabled('accounting')) {
 		print "<br>";
 	}
 
-	if (!$helpisexpanded && empty($resultboxes['boxlista']) && empty($resultboxes['boxlistb'])) {
+	if (!$helpisexpanded && empty($resultBoxes['boxlista']) && empty($resultBoxes['boxlistb'])) {
 		print '<div class="opacitymedium idfaq2"><br>'.$langs->trans("ClickOnUseTutorialForHelp", $langs->transnoentities("ShowTutorial"))."</div>\n";
 	}
 
@@ -290,7 +290,7 @@ if (isModEnabled('accounting')) {
 	$s = img_picto('', 'puce').' '.$langs->trans("AccountancyAreaDescClosePeriod", chr(64 + $step))."<br>\n";
 	print $s;
 
-	if (!empty($resultboxes['boxlista']) || !empty($resultboxes['boxlistb'])) {
+	if (!empty($resultBoxes['boxlista']) || !empty($resultBoxes['boxlistb'])) {
 		print "<br>\n";
 		print '<br>';
 	}

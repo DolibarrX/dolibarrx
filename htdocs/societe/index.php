@@ -66,8 +66,8 @@ if (!isset($form) || !is_object($form)) {
 	$form = new Form($db);
 }
 
-// Load $resultboxes
-$resultboxes = FormOther::getBoxesArea($user, "3");
+// Load $resultBoxes
+$resultBoxes = FormOther::getBoxesArea($user, "3");
 
 if (GETPOST('addbox')) {
 	// Add box (when submit is done from a form when ajax disabled)
@@ -94,7 +94,7 @@ $helpurl = 'EN:Module_Third_Parties|FR:Module_Tiers|ES:M&oacute;dulo_Terceros';
 
 llxHeader("", $langs->trans("ThirdParties"), $helpurl);
 
-print load_fiche_titre($transAreaType, $resultboxes['selectboxlist'], 'companies');
+print load_fiche_titre($transAreaType, $resultBoxes['selectboxlist'], 'companies');
 
 
 // Statistics area
@@ -547,7 +547,7 @@ $boxlist .= $thirdpartygraph;
 $boxlist .= '<br>';
 $boxlist .= $thirdpartycateggraph;
 $boxlist .= '<br>';
-$boxlist .= $resultboxes['boxlista'];
+$boxlist .= $resultBoxes['boxlista'];
 $boxlist .= '</div>'."\n";
 
 $boxlist .= '<div class="secondcolumn fichehalfright boxhalfright" id="boxhalfright">';
@@ -555,7 +555,7 @@ $boxlist .= $lastmodified;
 $boxlist .= '<br>';
 $boxlist .= $lastmodifiedcontact;
 $boxlist .= '<br>';
-$boxlist .= $resultboxes['boxlistb'];
+$boxlist .= $resultBoxes['boxlistb'];
 $boxlist .= '</div>'."\n";
 
 $boxlist .= '</div>';

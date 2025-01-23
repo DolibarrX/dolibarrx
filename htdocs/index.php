@@ -101,7 +101,7 @@ if (getDolGlobalString('MAIN_APPLICATION_TITLE')) {
 llxHeader('', $title);
 
 
-$resultboxes = FormOther::getBoxesArea($user, "0"); // Load $resultboxes (selectboxlist + boxactivated + boxlista + boxlistb)
+$resultBoxes = FormOther::getBoxesArea($user, "0"); // Load $resultBoxes (selectboxlist + boxactivated + boxlista + boxlistb)
 
 
 if (getDolGlobalString('MAIN_MOTD')) {
@@ -173,7 +173,7 @@ if (!getDolGlobalString('MAIN_REMOVE_INSTALL_WARNING')) {
  * Hidden for external users
  */
 
-print load_fiche_titre('&nbsp;', $resultboxes['selectboxlist'], '', 0, '', 'titleforhome');
+print load_fiche_titre('&nbsp;', $resultBoxes['selectboxlist'], '', 0, '', 'titleforhome');
 
 // Load translation files required by page
 $langs->loadLangs(array('commercial', 'bills', 'orders', 'contracts'));
@@ -790,13 +790,13 @@ if (!empty($nbworkboardcount)) {
 	$boxlist .= $boxwork;
 }
 
-$boxlist .= $resultboxes['boxlista'];
+$boxlist .= $resultBoxes['boxlista'];
 
 $boxlist .= '</div>';
 
 $boxlist .= '<div class="secondcolumn fichehalfright boxhalfright" id="boxhalfright">';
 
-$boxlist .= $resultboxes['boxlistb'];
+$boxlist .= $resultBoxes['boxlistb'];
 
 $boxlist .= '</div>';
 $boxlist .= "\n";

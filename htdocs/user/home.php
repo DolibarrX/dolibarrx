@@ -66,8 +66,8 @@ $hookManager->initHooks(array('userhome'));
 if (!isset($form) || !is_object($form)) {
 	$form = new Form($db);
 }
-// Load $resultboxes (selectboxlist + boxactivated + boxlista + boxlistb)
-$resultboxes = FormOther::getBoxesArea($user, "1");
+// Load $resultBoxes (selectboxlist + boxactivated + boxlista + boxlistb)
+$resultBoxes = FormOther::getBoxesArea($user, "1");
 
 if (GETPOST('addbox')) {
 	// Add box (when submit is done from a form when ajax disabled)
@@ -94,7 +94,7 @@ $help_url = '';
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-user page-home');
 
 
-print load_fiche_titre($langs->trans("MenuUsersAndGroups"), $resultboxes['selectboxlist'], 'user');
+print load_fiche_titre($langs->trans("MenuUsersAndGroups"), $resultBoxes['selectboxlist'], 'user');
 
 
 // Search User
@@ -317,13 +317,13 @@ $boxlist = '<div class="twocolumns">';
 
 $boxlist .= '<div class="firstcolumn fichehalfleft boxhalfleft" id="boxhalfleft">';
 $boxlist .= $searchbox;
-$boxlist .= $resultboxes['boxlista'];
+$boxlist .= $resultBoxes['boxlista'];
 $boxlist .= '</div>'."\n";
 
 $boxlist .= '<div class="secondcolumn fichehalfright boxhalfright" id="boxhalfright">';
 $boxlist .= $lastcreatedbox;
 $boxlist .= $lastgroupbox;
-$boxlist .= $resultboxes['boxlistb'];
+$boxlist .= $resultBoxes['boxlistb'];
 $boxlist .= '</div>'."\n";
 
 $boxlist .= '</div>';

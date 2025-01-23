@@ -71,8 +71,8 @@ if ($type == '0') {
 	$result = restrictedArea($user, 'produit|service|expedition|reception');
 }
 
-// Load $resultboxes
-$resultboxes = FormOther::getBoxesArea($user, "4");
+// Load $resultBoxes
+$resultBoxes = FormOther::getBoxesArea($user, "4");
 
 if (GETPOST('addbox')) {
 	// Add box (when submit is done from a form when ajax disabled)
@@ -115,7 +115,7 @@ if ((GETPOSTISSET("type") && GETPOST("type") == '1') || !isModEnabled("product")
 
 llxHeader("", $langs->trans("ProductsAndServices"), $helpurl, '', 0, 0, '', '', '', 'mod-product page-index');
 
-print load_fiche_titre($transAreaType, $resultboxes['selectboxlist'], 'product');
+print load_fiche_titre($transAreaType, $resultBoxes['selectboxlist'], 'product');
 
 
 if (getDolGlobalString('MAIN_SEARCH_FORM_ON_HOME_AREAS')) {     // This may be useless due to the global search combo
@@ -697,14 +697,14 @@ $boxlist .= $graph;
 $boxlist .= $graphcat;
 $boxlist .= $activity;
 $boxlist .= '<br>';
-$boxlist .= $resultboxes['boxlista'];
+$boxlist .= $resultBoxes['boxlista'];
 $boxlist .= "</div>\n";
 
 $boxlist .= '<div class="secondcolumn fichehalfright boxhalfright" id="boxhalfright">';
 $boxlist .= $lastmodified;
 $boxlist .= $latestwarehouse;
 $boxlist .= $latestmovement;
-$boxlist .= $resultboxes['boxlistb'];
+$boxlist .= $resultBoxes['boxlistb'];
 $boxlist .= '</div>'."\n";
 
 $boxlist .= "</div>\n";

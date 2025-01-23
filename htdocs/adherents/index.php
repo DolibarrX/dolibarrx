@@ -83,8 +83,8 @@ if (GETPOST('addbox')) {
 
 $form = new Form($db);
 
-// Load $resultboxes (selectboxlist + boxactivated + boxlista + boxlistb)
-$resultboxes = FormOther::getBoxesArea($user, "2");
+// Load $resultBoxes (selectboxlist + boxactivated + boxlista + boxlistb)
+$resultBoxes = FormOther::getBoxesArea($user, "2");
 
 $title = $langs->trans("Members");
 $help_url = 'EN:Module_Foundations|FR:Module_Adh&eacute;rents|ES:M&oacute;dulo_Miembros|DE:Modul_Mitglieder';
@@ -95,7 +95,7 @@ $staticmember = new Adherent($db);
 $statictype = new AdherentType($db);
 $subscriptionstatic = new Subscription($db);
 
-print load_fiche_titre($langs->trans("MembersArea"), $resultboxes['selectboxlist'], 'members');
+print load_fiche_titre($langs->trans("MembersArea"), $resultBoxes['selectboxlist'], 'members');
 
 /*
  * Statistics
@@ -174,13 +174,13 @@ print '<div class="firstcolumn fichehalfleft boxhalfleft" id="boxhalfleft">';
 
 print $boxgraph;
 
-print $resultboxes['boxlista'];
+print $resultBoxes['boxlista'];
 
 print '</div>'."\n";
 
 print '<div class="secondcolumn fichehalfright boxhalfright" id="boxhalfright">';
 
-print $resultboxes['boxlistb'];
+print $resultBoxes['boxlistb'];
 
 print '</div>'."\n";
 

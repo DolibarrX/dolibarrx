@@ -91,13 +91,13 @@ $max = getDolGlobalInt('MAIN_SIZE_SHORTLIST_LIMIT', 5);
  * View
  */
 
-$resultboxes = FormOther::getBoxesArea($user, "11"); // Load $resultboxes (selectboxlist + boxactivated + boxlista + boxlistb)
+$resultBoxes = FormOther::getBoxesArea($user, "11"); // Load $resultBoxes (selectboxlist + boxactivated + boxlista + boxlistb)
 
 $help_url = '';
 llxHeader('', $langs->trans('TicketsIndex'), $help_url, '', 0, 0, '', '', '', 'mod-ticket page-dashboard');
 
 $linkback = '';
-print load_fiche_titre($langs->trans('TicketsIndex'), $resultboxes['selectboxlist'], 'ticket');
+print load_fiche_titre($langs->trans('TicketsIndex'), $resultBoxes['selectboxlist'], 'ticket');
 
 
 $dir = '';
@@ -321,7 +321,7 @@ if ($user->hasRight('ticket', 'read')) {
 	print '<br>'."\n";
 }
 
-print $resultboxes['boxlista'];
+print $resultBoxes['boxlista'];
 
 print '</div>'."\n";
 
@@ -456,7 +456,7 @@ if ($user->hasRight('ticket', 'read')) {
 	}
 }
 
-print $resultboxes['boxlistb'];
+print $resultBoxes['boxlistb'];
 
 print '</div>';
 print '</div>';
