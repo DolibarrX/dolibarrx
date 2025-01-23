@@ -201,11 +201,11 @@ class UserGroup extends CommonObject
 	/**
 	 *  Return array of groups objects for a particular user
 	 *
-	 *  @param		int			$userid 			User id to search
+	 *  @param		int			$userId 			User id to search
 	 *  @param		boolean		$load_members		Load all members of the group
 	 *  @return		array<int,UserGroup>|int<-1,-1>	Array of groups objects
 	 */
-	public function listGroupsForUser($userid, $load_members = true)
+	public function listGroupsForUser($userId, $load_members = true)
 	{
 		global $conf, $user;
 
@@ -215,7 +215,7 @@ class UserGroup extends CommonObject
 		$sql .= " FROM ".$this->db->prefix()."usergroup as g,";
 		$sql .= " ".$this->db->prefix()."usergroup_user as ug";
 		$sql .= " WHERE ug.fk_usergroup = g.rowid";
-		$sql .= " AND ug.fk_user = ".((int) $userid);
+		$sql .= " AND ug.fk_user = ".((int) $userId);
 		if (isModEnabled('multicompany') && $config->entity == 1 && $user->admin && !$user->entity) {
 			$sql .= " AND g.entity IS NOT NULL";
 		} else {

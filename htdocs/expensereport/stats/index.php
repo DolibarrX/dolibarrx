@@ -47,7 +47,7 @@ $HEIGHT = DolGraph::getDefaultGraphSizeForStats('height');
 $mode = GETPOSTISSET("mode") ? GETPOST("mode", 'aZ09') : 'customer';
 $object_status = GETPOST('object_status', 'intcomma');
 
-$userid = GETPOSTINT('userid');
+$userId = GETPOSTINT('userid');
 $socid = GETPOSTINT('socid');
 if ($socid < 0) {
 	$socid = 0;
@@ -87,7 +87,7 @@ print load_fiche_titre($title, '', 'trip');
 
 dol_mkdir($dir);
 
-$stats = new ExpenseReportStats($db, $socid, $userid);
+$stats = new ExpenseReportStats($db, $socid, $userId);
 if ($object_status != '' && $object_status >= -1) {
 	$stats->where .= ' AND e.fk_statut IN ('.$db->sanitize($db->escape($object_status)).')';
 }
@@ -248,7 +248,7 @@ if (!$user->hasRight('expensereport', 'readall') && !$user->hasRight('expenserep
 	$include = 'hierarchy';
 }
 print img_picto('', 'user', 'class="pictofixedwidth"');
-print $form->select_dolusers($userid, 'userid', 1, '', 0, $include, '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
+print $form->select_dolusers($userId, 'userid', 1, '', 0, $include, '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 print '</td></tr>';
 // Status
 print '<tr><td class="left">'.$langs->trans("Status").'</td><td class="left">';

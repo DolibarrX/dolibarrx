@@ -50,7 +50,7 @@ $HEIGHT = DolGraph::getDefaultGraphSizeForStats('height');
 // Load translation files required by the page
 $langs->loadLangs(array("donations"));
 
-$userid = GETPOSTINT('userid');
+$userId = GETPOSTINT('userid');
 $socid = GETPOSTINT('socid');
 // Security check
 if ($user->socid > 0) {
@@ -84,7 +84,7 @@ print load_fiche_titre($langs->trans("DonationsStatistics"), '', 'donation');
 
 dol_mkdir($dir);
 
-$stats = new DonationStats($db, $socid, '', ($userid > 0 ? $userid : 0), ($typent_id > 0 ? $typent_id : 0), ($status > 0 ? $status : 4));
+$stats = new DonationStats($db, $socid, '', ($userId > 0 ? $userId : 0), ($typent_id > 0 ? $typent_id : 0), ($status > 0 ? $status : 4));
 
 if (is_array($custcats) && !empty($custcats)) {
 	$stats->from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'categorie_societe as cat ON (d.fk_soc = cat.fk_soc)';
@@ -245,7 +245,7 @@ if (isModEnabled('category')) {
 // User
 print '<tr><td>'.$langs->trans("CreatedBy").'</td><td>';
 print img_picto('', 'user', 'class="pictofixedwidth"');
-print $form->select_dolusers($userid, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
+print $form->select_dolusers($userId, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 print '</td></tr>';
 
 // Status
@@ -303,7 +303,7 @@ foreach ($data as $val) {
 	$greenavg = (empty($val['avg_diff']) || $val['avg_diff'] >= 0);
 
 	print '<tr class="oddeven" height="24">';
-	print '<td align="center"><a href="'.$_SERVER["PHP_SELF"].'?year='.$year.'&amp;mode='.$mode.($socid > 0 ? '&socid='.$socid : '').($userid > 0 ? '&userid='.$userid : '').'">'.$year.'</a></td>';
+	print '<td align="center"><a href="'.$_SERVER["PHP_SELF"].'?year='.$year.'&amp;mode='.$mode.($socid > 0 ? '&socid='.$socid : '').($userId > 0 ? '&userid='.$userId : '').'">'.$year.'</a></td>';
 	print '<td class="right">'.$val['nb'].'</td>';
 	print '<td class="right opacitylow" style="'.($greennb ? 'color: green;' : 'color: red;').'">'.(!empty($val['nb_diff']) && $val['nb_diff'] < 0 ? '' : '+').round(!empty($val['nb_diff']) ? $val['nb_diff'] : 0).'%</td>';
 	print '<td class="right"><span class="amount">'.price(price2num($val['total'], 'MT'), 1).'</span></td>';

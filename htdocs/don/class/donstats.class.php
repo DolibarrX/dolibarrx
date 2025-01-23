@@ -46,7 +46,7 @@ class DonationStats extends Stats
 	/**
 	 * @var int
 	 */
-	public $userid;
+	public $userId;
 
 	/**
 	 * @var string FROM
@@ -74,11 +74,11 @@ class DonationStats extends Stats
 	 * @param	DoliDB	$db      	Database handler
 	 * @param 	int		$socid	   	Id third party for filter
 	 * @param 	string	$mode	   	Option (not used)
-	 * @param   int		$userid    	Id user for filter (creation user)
+	 * @param   int		$userId    	Id user for filter (creation user)
 	 * @param   int		$typentid  	Id of type of third party for filter
 	 * @param   int		$status    	Status of donation for filter
 	 */
-	public function __construct($db, $socid, $mode, $userid = 0, $typentid = 0, $status = 4)
+	public function __construct($db, $socid, $mode, $userId = 0, $typentid = 0, $status = 4)
 	{
 		global $conf;
 
@@ -86,7 +86,7 @@ class DonationStats extends Stats
 
 		$this->field = 'amount';
 		$this->socid = ($socid > 0 ? $socid : 0);
-		$this->userid = $userid;
+		$this->userid = $userId;
 		$this->cachefilesuffix = $mode;
 		$this->join = '';
 

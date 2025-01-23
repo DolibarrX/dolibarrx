@@ -60,7 +60,7 @@ $mode = GETPOST('mode', 'alpha');
 
 $facid = GETPOST('facid', 'int');
 $socid = GETPOST('socid', 'int');
-$userid = GETPOST('userid', 'int');
+$userId = GETPOST('userid', 'int');
 
 $search_ref = GETPOST("search_ref", "alpha");
 $search_date_startday = GETPOSTINT('search_date_startday');
@@ -243,11 +243,11 @@ if (GETPOST("orphelins", "alpha")) {
 		$sql .= " AND EXISTS (SELECT f.fk_soc FROM ".MAIN_DB_PREFIX."facture as f, ".MAIN_DB_PREFIX."paiement_facture as pf";
 		$sql .= " WHERE p.rowid = pf.fk_paiement AND pf.fk_facture = f.rowid AND f.fk_soc = ".((int) $socid).")";
 	}
-	if ($userid) {
-		if ($userid == -1) {
+	if ($userId) {
+		if ($userId == -1) {
 			$sql .= " AND p.fk_user_creat IS NULL";
 		} else {
-			$sql .= " AND p.fk_user_creat = ".((int) $userid);
+			$sql .= " AND p.fk_user_creat = ".((int) $userId);
 		}
 	}
 

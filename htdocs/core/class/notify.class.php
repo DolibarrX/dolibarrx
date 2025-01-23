@@ -451,11 +451,11 @@ class Notify
 	 * @param	string			$notifcode		Code of action in llx_c_action_trigger (new usage) or Id of action in llx_c_action_trigger (old usage)
 	 * @param	int				$socid			Id of third party or 0 for all thirdparties or -1 for no thirdparties
 	 * @param	CommonObject	$object			Object the notification is about (need it to check threshold value of some notifications)
-	 * @param	int				$userid         Id of user or 0 for all users or -1 for no users
+	 * @param	int				$userId         Id of user or 0 for all users or -1 for no users
 	 * @param   array   		$scope          Scope where to search
 	 * @return	array|int						Return integer <0 if KO, array of notifications to send if OK
 	 */
-	public function getNotificationsArray($notifcode, $socid = 0, $object = null, $userid = 0, $scope = array('thirdparty', 'user', 'global'))
+	public function getNotificationsArray($notifcode, $socid = 0, $object = null, $userId = 0, $scope = array('thirdparty', 'user', 'global'))
 	{
 		global $conf, $user;
 
@@ -521,7 +521,7 @@ class Notify
 
 		// Subscription per user
 		if (!$error) {
-			if ($userid >= 0 && in_array('user', $scope)) {
+			if ($userId >= 0 && in_array('user', $scope)) {
 				$sql = "SELECT a.code, c.email, c.rowid";
 				$sql .= " FROM ".$this->db->prefix()."notify_def as n,";
 				$sql .= " ".$this->db->prefix()."user as c,";
@@ -530,8 +530,8 @@ class Notify
 				$sql .= " AND a.rowid = n.fk_action";
 				$sql .= $sqlnotifcode;
 				$sql .= " AND c.entity IN (".getEntity('user').")";
-				if ($userid > 0) {
-					$sql .= " AND c.rowid = ".((int) $userid);
+				if ($userId > 0) {
+					$sql .= " AND c.rowid = ".((int) $userId);
 				}
 
 				dol_syslog(__METHOD__." ".$notifcode.", ".$socid, LOG_DEBUG);

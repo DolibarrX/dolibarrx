@@ -46,7 +46,7 @@ class FichinterStats extends Stats
 	/**
 	 * @var int
 	 */
-	public $userid;
+	public $userId;
 
 	/**
 	 * @var string
@@ -68,16 +68,16 @@ class FichinterStats extends Stats
 	 * @param 	DoliDB	$db		   Database handler
 	 * @param 	int		$socid	   Id third party for filter. This value must be forced during the new to external user company if user is an external user.
 	 * @param 	string	$mode	   Option ('customer', 'supplier')
-	 * @param   int		$userid    Id user for filter (creation user)
+	 * @param   int		$userId    Id user for filter (creation user)
 	 */
-	public function __construct($db, $socid, $mode, $userid = 0)
+	public function __construct($db, $socid, $mode, $userId = 0)
 	{
 		global $user, $conf;
 
 		$this->db = $db;
 
 		$this->socid = ($socid > 0 ? $socid : 0);
-		$this->userid = $userid;
+		$this->userid = $userId;
 		$this->cachefilesuffix = $mode;
 
 		if ($mode == 'customer') {

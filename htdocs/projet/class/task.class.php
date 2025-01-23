@@ -1796,13 +1796,13 @@ class Task extends CommonObjectLine
 	public function getSummaryOfTimeSpent($userobj = null, $morewherefilter = '')
 	{
 		if (is_object($userobj)) {
-			$userid = $userobj->id;
+			$userId = $userobj->id;
 		} else {
-			$userid = $userobj; // old method
+			$userId = $userobj; // old method
 		}
 
 		$id = $this->id;
-		if (empty($id) && empty($userid)) {
+		if (empty($id) && empty($userId)) {
 			dol_syslog("getSummaryOfTimeSpent called on a not loaded task without user param defined", LOG_ERR);
 			return -1;
 		}
@@ -1824,8 +1824,8 @@ class Task extends CommonObjectLine
 		if ($id > 0) {
 			$sql .= " AND t.fk_element = ".((int) $id);
 		}
-		if ($userid > 0) {
-			$sql .= " AND t.fk_user = ".((int) $userid);
+		if ($userId > 0) {
+			$sql .= " AND t.fk_user = ".((int) $userId);
 		}
 
 		dol_syslog(get_class($this)."::getSummaryOfTimeSpent", LOG_DEBUG);

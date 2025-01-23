@@ -66,7 +66,7 @@ class UserBankAccount extends Account
 	 *
 	 * @var integer
 	 */
-	public $userid;
+	public $userId;
 
 
 	/**
@@ -182,12 +182,12 @@ class UserBankAccount extends Account
 	 *
 	 *	@param	int		$id			Id of record
 	 *	@param	string	$ref		Ref of record
-	 *  @param  int     $userid     User id
+	 *  @param  int     $userId     User id
 	 * 	@return	int					Return integer <0 if KO, >0 if OK
 	 */
-	public function fetch($id, $ref = '', $userid = 0)
+	public function fetch($id, $ref = '', $userId = 0)
 	{
-		if (empty($id) && empty($ref) && empty($userid)) {
+		if (empty($id) && empty($ref) && empty($userId)) {
 			return -1;
 		}
 
@@ -206,8 +206,8 @@ class UserBankAccount extends Account
 		if ($ref) {
 			$sql .= " WHERE ur.label = '".$this->db->escape($ref)."'";
 		}
-		if ($userid) {
-			$sql .= " WHERE ur.fk_user = ".((int) $userid);
+		if ($userId) {
+			$sql .= " WHERE ur.fk_user = ".((int) $userId);
 		}
 
 		$resql = $this->db->query($sql);

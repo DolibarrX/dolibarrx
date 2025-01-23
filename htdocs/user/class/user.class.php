@@ -4024,13 +4024,13 @@ class User extends CommonObject
 		$i = 0;
 		$cursor_user = $id_user;
 
-		$useridfound = array($id_user);
+		$userIdfound = array($id_user);
 		while (!empty($this->parentof[$cursor_user]) && !empty($this->users[$this->parentof[$cursor_user]])) {  // @phan-suppress-current-line PhanTypeMismatchProperty
-			if (in_array($this->parentof[$cursor_user], $useridfound)) {
+			if (in_array($this->parentof[$cursor_user], $userIdfound)) {
 				dol_syslog("The hierarchy of user has a recursive loop", LOG_WARNING);
 				return -1; // Should not happen. Protection against looping hierarchy
 			}
-			$useridfound[] = $this->parentof[$cursor_user];
+			$userIdfound[] = $this->parentof[$cursor_user];
 			$this->users[$id_user]['fullpath'] = '_'.$this->parentof[$cursor_user].$this->users[$id_user]['fullpath'];
 			$this->users[$id_user]['fullname'] = $this->users[$this->parentof[$cursor_user]]['lastname'].' >> '.$this->users[$id_user]['fullname'];
 			$i++;

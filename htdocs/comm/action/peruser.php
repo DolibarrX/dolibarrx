@@ -934,9 +934,9 @@ while ($currentdaytoshow < $lastdaytoshow) {
 			foreach ($eventarray[$daykey] as $index => $event) {
 				$event->fetch_userassigned();
 				$listofuserid = $event->userassigned;
-				foreach ($listofuserid as $userid => $tmp) {
-					if (!in_array($userid, $usernamesid)) {
-						$usernamesid[$userid] = $userid;
+				foreach ($listofuserid as $userId => $tmp) {
+					if (!in_array($userId, $usernamesid)) {
+						$usernamesid[$userId] = $userId;
 					}
 				}
 			}

@@ -334,12 +334,12 @@ class DiscountAbsolute extends CommonObject
 			return -1;
 		}
 
-		$userid = $user->id;
-		if (!($userid > 0)) {		// For example when record is saved into an anonymous context with a not loaded object $user.
+		$userId = $user->id;
+		if (!($userId > 0)) {		// For example when record is saved into an anonymous context with a not loaded object $user.
 			include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 			$tmpinvoice = new Facture($this->db);
 			$tmpinvoice->fetch($this->fk_facture_source);
-			$userid = $tmpinvoice->fk_user_author; // We use the author of invoice
+			$userId = $tmpinvoice->fk_user_author; // We use the author of invoice
 		}
 
 		// Insert request
@@ -349,7 +349,7 @@ class DiscountAbsolute extends CommonObject
 		$sql .= " multicurrency_amount_ht, multicurrency_amount_tva, multicurrency_amount_ttc,";
 		$sql .= " fk_facture_source, fk_invoice_supplier_source";
 		$sql .= ")";
-		$sql .= " VALUES (".$config->entity.", '".$this->db->idate($this->datec != '' ? $this->datec : dol_now())."', ".((int) $this->socid).", ".(empty($this->discount_type) ? 0 : intval($this->discount_type)).", ".((int) $userid).", '".$this->db->escape($this->description)."',";
+		$sql .= " VALUES (".$config->entity.", '".$this->db->idate($this->datec != '' ? $this->datec : dol_now())."', ".((int) $this->socid).", ".(empty($this->discount_type) ? 0 : intval($this->discount_type)).", ".((int) $userId).", '".$this->db->escape($this->description)."',";
 		$sql .= " ".price2num($this->amount_ht).", ".price2num($this->amount_tva).", ".price2num($this->amount_ttc).", ".price2num($this->tva_tx).", '".$this->db->escape($this->vat_src_code)."',";
 		$sql .= " ".price2num($this->multicurrency_amount_ht).", ".price2num($this->multicurrency_amount_tva).", ".price2num($this->multicurrency_amount_ttc).", ";
 		$sql .= " ".($this->fk_facture_source ? ((int) $this->fk_facture_source) : "null").",";

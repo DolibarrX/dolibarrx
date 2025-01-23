@@ -47,7 +47,7 @@ if (!$user->hasRight('projet', 'lire')) {
 $WIDTH = DolGraph::getDefaultGraphSizeForStats('width');
 $HEIGHT = DolGraph::getDefaultGraphSizeForStats('height');
 
-$userid = GETPOSTINT('userid');
+$userId = GETPOSTINT('userid');
 $socid = GETPOSTINT('socid');
 // Security check
 if ($user->socid > 0) {
@@ -83,8 +83,8 @@ dol_mkdir($dir);
 
 
 $stats_tasks = new TaskStats($db);
-if (!empty($userid) && $userid != -1) {
-	$stats_tasks->userid = $userid;
+if (!empty($userId) && $userId != -1) {
+	$stats_tasks->userid = $userId;
 }
 if (!empty($socid) && $socid != -1) {
 	$stats_tasks->socid = $socid;
@@ -169,7 +169,7 @@ print '</td></tr>';
 */
 // User
 /*print '<tr><td>'.$langs->trans("ProjectCommercial").'</td><td>';
-print $form->select_dolusers($userid, 'userid', 1, array(),0,$includeuserlist);
+print $form->select_dolusers($userId, 'userid', 1, array(),0,$includeuserlist);
 print '</td></tr>';*/
 // Year
 print '<tr><td>'.$langs->trans("Year").'</td><td>';
@@ -204,13 +204,13 @@ foreach ($data_all_year as $val) {
 		$oldyear--;
 
 		print '<tr class="oddeven">';
-		print '<td><a href="'.$_SERVER["PHP_SELF"].'?year='.$oldyear.($socid > 0 ? '&socid='.$socid : '').($userid > 0 ? '&userid='.$userid : '').'">'.$oldyear.'</a></td>';
+		print '<td><a href="'.$_SERVER["PHP_SELF"].'?year='.$oldyear.($socid > 0 ? '&socid='.$socid : '').($userId > 0 ? '&userid='.$userId : '').'">'.$oldyear.'</a></td>';
 		print '<td class="right">0</td>';
 		print '</tr>';
 	}
 
 	print '<tr class="oddeven">';
-	print '<td><a href="'.$_SERVER["PHP_SELF"].'?year='.$year.($socid > 0 ? '&socid='.$socid : '').($userid > 0 ? '&userid='.$userid : '').'">'.$year.'</a></td>';
+	print '<td><a href="'.$_SERVER["PHP_SELF"].'?year='.$year.($socid > 0 ? '&socid='.$socid : '').($userId > 0 ? '&userid='.$userId : '').'">'.$year.'</a></td>';
 	print '<td class="right">'.$val['nb'].'</td>';
 	print '</tr>';
 	$oldyear = $year;

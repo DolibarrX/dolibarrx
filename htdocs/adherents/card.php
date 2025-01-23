@@ -71,7 +71,7 @@ $confirm = GETPOST('confirm', 'alpha');
 $rowid = GETPOSTINT('rowid');
 $id = GETPOST('id') ? GETPOSTINT('id') : $rowid;
 $typeid = GETPOSTINT('typeid');
-$userid = GETPOSTINT('userid');
+$userId = GETPOSTINT('userid');
 $socid = GETPOSTINT('socid');
 $ref = GETPOST('ref', 'alpha');
 $error = 0;
@@ -179,15 +179,15 @@ if (empty($reshook)) {
 	if ($action == 'setuserid' && ($user->hasRight('user', 'self', 'creer') || $user->hasRight('user', 'user', 'creer'))) {
 		$error = 0;
 		if (!$user->hasRight('user', 'user', 'creer')) {	// If can edit only itself user, we can link to itself only
-			if ($userid != $user->id && $userid != $object->user_id) {
+			if ($userId != $user->id && $userId != $object->user_id) {
 				$error++;
 				setEventMessages($langs->trans("ErrorUserPermissionAllowsToLinksToItselfOnly"), null, 'errors');
 			}
 		}
 
 		if (!$error) {
-			if ($userid != $object->user_id) {	// If link differs from currently in database
-				$result = $object->setUserId($userid);
+			if ($userId != $object->user_id) {	// If link differs from currently in database
+				$result = $object->setUserId($userId);
 				if ($result < 0) {
 					dol_print_error($object->db, $object->error);
 				}
@@ -487,7 +487,7 @@ if (empty($reshook)) {
 		$morphy = GETPOST("morphy", 'alphanohtml');
 		$public = GETPOSTINT("public");
 
-		$userid = GETPOSTINT("userid");
+		$userId = GETPOSTINT("userid");
 		$socid = GETPOSTINT("socid");
 		$default_lang = GETPOST('default_lang', 'alpha');
 
@@ -523,7 +523,7 @@ if (empty($reshook)) {
 		$object->typeid      = $typeid;
 		//$object->note        = $comment;
 		$object->morphy      = $morphy;
-		$object->user_id     = $userid;
+		$object->user_id     = $userId;
 		$object->socid = $socid;
 		$object->public      = $public;
 		$object->default_lang = $default_lang;

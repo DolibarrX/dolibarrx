@@ -96,7 +96,7 @@ if ($contextpage == 'poslist') {
 	$optioncss = 'print';
 }
 
-$userid = GETPOSTINT('userid');
+$userId = GETPOSTINT('userid');
 $search_ref = GETPOST('sf_ref') ? GETPOST('sf_ref', 'alpha') : GETPOST('search_ref', 'alpha');
 $search_refcustomer = GETPOST('search_refcustomer', 'alpha');
 $search_type = GETPOST('search_type', 'intcomma');
@@ -725,11 +725,11 @@ $sql .= ' AND f.entity IN ('.getEntity('invoice').')';
 if ($socid > 0) {
 	$sql .= ' AND s.rowid = '.((int) $socid);
 }
-if ($userid) {
-	if ($userid == -1) {
+if ($userId) {
+	if ($userId == -1) {
 		$sql .= ' AND f.fk_user_author IS NULL';
 	} else {
-		$sql .= ' AND f.fk_user_author = '.((int) $userid);
+		$sql .= ' AND f.fk_user_author = '.((int) $userId);
 	}
 }
 if ($search_ref) {

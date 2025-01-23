@@ -265,13 +265,13 @@ class Tasks extends DolibarrApi
 	 * Get roles a user is assigned to a task with
 	 *
 	 * @param   int   $id           Id of task
-	 * @param   int   $userid       Id of user (0 = connected user)
+	 * @param   int   $userId       Id of user (0 = connected user)
 	 * @return	array				Array of roles
 	 *
 	 * @url	GET {id}/roles
 	 *
 	 */
-	public function getRoles($id, $userid = 0)
+	public function getRoles($id, $userId = 0)
 	{
 		global $db;
 
@@ -289,9 +289,9 @@ class Tasks extends DolibarrApi
 		}
 
 		$usert = DolibarrApiAccess::$user;
-		if ($userid > 0) {
+		if ($userId > 0) {
 			$usert = new User($this->db);
-			$usert->fetch($userid);
+			$usert->fetch($userId);
 		}
 		$this->task->roles = $this->task->getUserRolesForProjectsOrTasks(null, $usert, 0, $id);
 		$result = array();

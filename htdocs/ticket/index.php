@@ -59,7 +59,7 @@ $socid = 0;
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$userid = $user->id;
+$userId = $user->id;
 
 $nowarray = dol_getdate(dol_now(), true);
 $nowyear = $nowarray['year'];
@@ -105,7 +105,7 @@ $prefix = '';
 $filenamenb = $dir."/".$prefix."ticketinyear-".$endyear.".png";
 $fileurlnb = DOL_URL_ROOT.'/viewimage.php?modulepart=ticket&amp;file=ticketinyear-'.$endyear.'.png';
 
-$stats = new TicketStats($db, $socid, $userid);
+$stats = new TicketStats($db, $socid, $userId);
 $param_year = 'DOLUSERCOOKIE_ticket_by_status_year';
 $param_shownb = 'DOLUSERCOOKIE_ticket_by_status_shownb';
 $param_showtot = 'DOLUSERCOOKIE_ticket_by_status_showtot';

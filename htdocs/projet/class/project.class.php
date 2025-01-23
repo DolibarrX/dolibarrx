@@ -2144,10 +2144,10 @@ class Project extends CommonObject
 	 *
 	 * @param 	int		$datestart		First day of week (use dol_get_first_day to find this date)
 	 * @param 	int		$taskid			Filter on a task id
-	 * @param 	int		$userid			Time spent by a particular user
+	 * @param 	int		$userId			Time spent by a particular user
 	 * @return 	int						Return integer <0 if OK, >0 if KO
 	 */
-	public function loadTimeSpent($datestart, $taskid = 0, $userid = 0)
+	public function loadTimeSpent($datestart, $taskid = 0, $userId = 0)
 	{
 		$this->weekWorkLoad = array();
 		$this->weekWorkLoadPerTask = array();
@@ -2166,8 +2166,8 @@ class Project extends CommonObject
 		if ($taskid) {
 			$sql .= " AND ptt.fk_element=".((int) $taskid);
 		}
-		if (is_numeric($userid)) {
-			$sql .= " AND ptt.fk_user=".((int) $userid);
+		if (is_numeric($userId)) {
+			$sql .= " AND ptt.fk_user=".((int) $userId);
 		}
 
 		//print $sql;
@@ -2206,10 +2206,10 @@ class Project extends CommonObject
 	 *
 	 * @param 	int		$datestart		First day of week (use dol_get_first_day to find this date)
 	 * @param 	int		$taskid			Filter on a task id
-	 * @param 	int		$userid			Time spent by a particular user
+	 * @param 	int		$userId			Time spent by a particular user
 	 * @return 	int						Return integer <0 if OK, >0 if KO
 	 */
-	public function loadTimeSpentMonth($datestart, $taskid = 0, $userid = 0)
+	public function loadTimeSpentMonth($datestart, $taskid = 0, $userId = 0)
 	{
 		$this->monthWorkLoad = array();
 		$this->monthWorkLoadPerTask = array();
@@ -2228,8 +2228,8 @@ class Project extends CommonObject
 		if ($taskid) {
 			$sql .= " AND ptt.fk_element=".((int) $taskid);
 		}
-		if (is_numeric($userid)) {
-			$sql .= " AND ptt.fk_user=".((int) $userid);
+		if (is_numeric($userId)) {
+			$sql .= " AND ptt.fk_user=".((int) $userId);
 		}
 
 		//print $sql;

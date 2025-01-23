@@ -45,7 +45,7 @@ class ExpenseReportStats extends Stats
 	/**
 	 * @var int ID
 	 */
-	public $userid;
+	public $userId;
 
 	/**
 	 * @var string
@@ -73,16 +73,16 @@ class ExpenseReportStats extends Stats
 	 *
 	 * @param 	DoliDB		$db		   Database handler
 	 * @param 	int			$socid	   Id third party
-	 * @param   int			$userid    Id user for filter
+	 * @param   int			$userId    Id user for filter
 	 * @return 	void
 	 */
-	public function __construct($db, $socid = 0, $userid = 0)
+	public function __construct($db, $socid = 0, $userId = 0)
 	{
 		global $conf, $user;
 
 		$this->db = $db;
 		$this->socid = $socid;
-		$this->userid = $userid;
+		$this->userid = $userId;
 
 		$object = new ExpenseReport($this->db);
 		$this->from = MAIN_DB_PREFIX.$object->table_element." as e";

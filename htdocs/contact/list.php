@@ -138,7 +138,7 @@ $place = GETPOST('place', 'aZ09') ? GETPOST('place', 'aZ09') : '0'; // $place is
 $type = GETPOST("type", 'aZ');
 $view = GETPOST("view", 'alpha');
 
-$userid = GETPOSTINT('userid');
+$userId = GETPOSTINT('userid');
 $begin = GETPOST('begin');
 
 // Load variable for pagination
@@ -521,8 +521,8 @@ $parameters = array();
 $reshook = $hookManager->executeHooks('printFieldListFrom', $parameters, $object, $action);    // Note that $action and $object may have been modified by hook
 $sql .= $hookManager->resPrint;
 $sql .= ' WHERE p.entity IN ('.getEntity('contact').')';
-if (!empty($userid)) {    // propre au commercial
-	$sql .= " AND p.fk_user_creat=".((int) $userid);
+if (!empty($userId)) {    // propre au commercial
+	$sql .= " AND p.fk_user_creat=".((int) $userId);
 }
 if ($search_level) {
 	$sql .= natural_search("p.fk_prospectlevel", implode(',', $search_level), 3);
@@ -846,7 +846,7 @@ if ($limit > 0 && $limit != $config->liste_limit) {
 if ($optioncss != '') {
 	$param .= '&optioncss='.urlencode($optioncss);
 }
-$param .= '&begin='.urlencode((string) ($begin)).'&userid='.urlencode((string) ($userid)).'&contactname='.urlencode((string) ($search_all));
+$param .= '&begin='.urlencode((string) ($begin)).'&userid='.urlencode((string) ($userId)).'&contactname='.urlencode((string) ($search_all));
 $param .= '&type='.urlencode($type).'&view='.urlencode($view);
 if (!empty($search_sale) && $search_sale != '-1') {
 	$param .= '&search_sale='.urlencode($search_sale);

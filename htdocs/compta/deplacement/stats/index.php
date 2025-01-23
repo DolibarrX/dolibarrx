@@ -44,9 +44,9 @@ $langs->loadLangs(array('trips', 'companies'));
 $WIDTH = DolGraph::getDefaultGraphSizeForStats('width');
 $HEIGHT = DolGraph::getDefaultGraphSizeForStats('height');
 
-$userid = GETPOSTINT('userid');
-if ($userid < 0) {
-	$userid = 0;
+$userId = GETPOSTINT('userid');
+if ($userId < 0) {
+	$userId = 0;
 }
 $socid = GETPOSTINT('socid');
 if ($socid < 0) {
@@ -67,8 +67,8 @@ $result = restrictedArea($user, 'deplacement', $id, '');
 // Other security check
 $childids = $user->getAllChildIds();
 $childids[] = $user->id;
-if ($userid > 0) {
-	if (!$user->hasRight('deplacement', 'readall') && !$user->hasRight('deplacement', 'lire_tous') && !in_array($userid, $childids)) {
+if ($userId > 0) {
+	if (!$user->hasRight('deplacement', 'readall') && !$user->hasRight('deplacement', 'lire_tous') && !in_array($userId, $childids)) {
 		accessforbidden();
 	}
 }
@@ -97,15 +97,15 @@ print load_fiche_titre($title, $mesg);
 
 dol_mkdir($dir);
 
-$useridtofilter = $userid; // Filter from parameters
-if (empty($useridtofilter)) {
-	$useridtofilter = $childids;
+$userIdtofilter = $userId; // Filter from parameters
+if (empty($userIdtofilter)) {
+	$userIdtofilter = $childids;
 	if ($user->hasRight('deplacement', 'readall') || $user->hasRight('deplacement', 'lire_tous')) {
-		$useridtofilter = 0;
+		$userIdtofilter = 0;
 	}
 }
 
-$stats = new DeplacementStats($db, $socid, $useridtofilter);
+$stats = new DeplacementStats($db, $socid, $userIdtofilter);
 
 
 // Build graphic number of object
@@ -265,7 +265,7 @@ if (!$user->hasRight('deplacement', 'readall') && !$user->hasRight('deplacement'
 	$include = 'hierarchy';
 }
 print img_picto('', 'user', 'class="pictofixedwidth"');
-print $form->select_dolusers($userid, 'userid', 1, '', 0, $include, '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
+print $form->select_dolusers($userId, 'userid', 1, '', 0, $include, '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 print '</td></tr>';
 // Year
 print '<tr><td>'.$langs->trans("Year").'</td><td>';

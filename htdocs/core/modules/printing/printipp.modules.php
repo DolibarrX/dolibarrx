@@ -69,7 +69,7 @@ class printing_printipp extends PrintingDriver
 	/**
 	 * @var string username
 	 */
-	public $userid;
+	public $userId;
 
 	/**
 	 * @var string login for printer host

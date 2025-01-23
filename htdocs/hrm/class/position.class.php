@@ -1064,14 +1064,14 @@ class Position extends CommonObject
 	/**
 	 * getForUser
 	 *
-	 * @param int $userid id of user we need to get position list
+	 * @param int $userId id of user we need to get position list
 	 * @return array|int of positions of user with for each of them the job fetched into that array
 	 */
-	public function getForUser($userid)
+	public function getForUser($userId)
 	{
 		$TPosition = array();
 
-		$TPosition = $this->fetchAll('ASC', 't.rowid', 0, 0, '(fk_user:=:'.((int) $userid).')');
+		$TPosition = $this->fetchAll('ASC', 't.rowid', 0, 0, '(fk_user:=:'.((int) $userId).')');
 
 		return $TPosition;
 	}

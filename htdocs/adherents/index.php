@@ -63,14 +63,14 @@ $result = restrictedArea($user, 'adherent');
  * Actions
  */
 
-$userid = GETPOSTINT('userid');
+$userId = GETPOSTINT('userid');
 if (GETPOST('addbox')) {
 	// Add box (when submit is done from a form when ajax disabled)
 	require_once DOL_DOCUMENT_ROOT.'/core/class/infobox.class.php';
 	$zone = GETPOSTINT('areacode');
 	$boxorder = GETPOST('boxorder', 'aZ09');
 	$boxorder .= GETPOST('boxcombo', 'aZ09');
-	$result = InfoBox::saveboxorder($db, $zone, $boxorder, $userid);
+	$result = InfoBox::saveboxorder($db, $zone, $boxorder, $userId);
 	if ($result > 0) {
 		setEventMessages($langs->trans("BoxAdded"), null);
 	}
@@ -112,7 +112,7 @@ if ($config->use_javascript_ajax) {
 	$boxgraph .= '<tr><td class="center" colspan="2">';
 
 	require_once DOL_DOCUMENT_ROOT.'/adherents/class/adherentstats.class.php';
-	$stats = new AdherentStats($db, 0, $userid);
+	$stats = new AdherentStats($db, 0, $userId);
 
 	// Show array
 	$sumMembers = $stats->countMembersByTypeAndStatus($numberyears);

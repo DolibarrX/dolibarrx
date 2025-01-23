@@ -453,12 +453,12 @@ if (Luracast\Restler\Defaults::$returnResponse) {
 if (getDolGlobalInt("API_ENABLE_COUNT_CALLS") && $api->r->responseCode == 200) {
 	$error = 0;
 	$db->begin();
-	$userid = DolibarrApiAccess::$user->id;
+	$userId = DolibarrApiAccess::$user->id;
 
 	$sql = "SELECT up.value";
 	$sql .= " FROM ".MAIN_DB_PREFIX."user_param as up";
 	$sql .= " WHERE up.param = 'API_COUNT_CALL'";
-	$sql .= " AND up.fk_user = ".((int) $userid);
+	$sql .= " AND up.fk_user = ".((int) $userId);
 	$sql .= " AND up.entity = ".((int) $config->entity);
 
 	$result = $db->query($sql);
@@ -468,24 +468,24 @@ if (getDolGlobalInt("API_ENABLE_COUNT_CALLS") && $api->r->responseCode == 200) {
 		if ($nbrows == 0) {
 			$sql2 = "INSERT INTO ".MAIN_DB_PREFIX."user_param";
 			$sql2 .= " (fk_user, entity, param, value)";
-			$sql2 .= " VALUES (".((int) $userid).", ".((int) $config->entity).", 'API_COUNT_CALL', 1)";
+			$sql2 .= " VALUES (".((int) $userId).", ".((int) $config->entity).", 'API_COUNT_CALL', 1)";
 		} else {
 			$updateapi = true;
 			$sql2 = "UPDATE ".MAIN_DB_PREFIX."user_param as up";
 			$sql2 .= " SET up.value = up.value + 1";
 			$sql2 .= " WHERE up.param = 'API_COUNT_CALL'";
-			$sql2 .= " AND up.fk_user = ".((int) $userid);
+			$sql2 .= " AND up.fk_user = ".((int) $userId);
 			$sql2 .= " AND up.entity = ".((int) $config->entity);
 		}
 
 		$result2 = $db->query($sql2);
 		if (!$result2) {
 			$modeapicall = $updateapi ? 'updating' : 'inserting';
-			dol_syslog('Error while '.$modeapicall. ' API_COUNT_CALL for user '.$userid, LOG_ERR);
+			dol_syslog('Error while '.$modeapicall. ' API_COUNT_CALL for user '.$userId, LOG_ERR);
 			$error++;
 		}
 	} else {
-		dol_syslog('Error on select API_COUNT_CALL for user '.$userid, LOG_ERR);
+		dol_syslog('Error on select API_COUNT_CALL for user '.$userId, LOG_ERR);
 		$error++;
 	}
 

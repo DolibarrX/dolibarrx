@@ -2083,16 +2083,16 @@ abstract class CommonObject
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
-	 *		Load the user with id $userid into this->user
+	 *		Load the user with id $userId into this->user
 	 *
-	 *		@param	int		$userid 		Id du contact
+	 *		@param	int		$userId 		Id du contact
 	 *		@return	int<-1,1>				Return integer <0 if KO, >0 if OK
 	 */
-	public function fetch_user($userid)
+	public function fetch_user($userId)
 	{
 		// phpcs:enable
 		$user = new User($this->db);
-		$result = $user->fetch($userid);
+		$result = $user->fetch($userId);
 		$this->user = $user;
 		return $result;
 	}

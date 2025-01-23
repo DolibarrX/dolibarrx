@@ -1482,11 +1482,11 @@ class BonPrelevement extends CommonObject
 					$this->context['factures_prev'] = $factures_prev;
 					// Generation of direct debit or credit transfer file $this->filename (May be a SEPA file for european countries)
 					// This also set the property $this->total with amount that is included into file
-					$userid = 0;
+					$userId = 0;
 					if ($sourcetype == 'salary') {
-						$userid = $this->context['factures_prev'][0][2];
+						$userId = $this->context['factures_prev'][0][2];
 					}
-					$result = $this->generate($format, $executiondate, $type, $fk_bank_account, $userid, $thirdpartyBANId);
+					$result = $this->generate($format, $executiondate, $type, $fk_bank_account, $userId, $thirdpartyBANId);
 					if ($result < 0) {
 						//var_dump($this->error);
 						//var_dump($this->invoice_in_error);
@@ -1730,13 +1730,13 @@ class BonPrelevement extends CommonObject
 	public function deleteNotification($user, $action)
 	{
 		if (is_object($user)) {
-			$userid = $user->id;
+			$userId = $user->id;
 		} else {	// If user is an id
-			$userid = $user;
+			$userId = $user;
 		}
 
 		$sql = "DELETE FROM " . MAIN_DB_PREFIX . "notify_def";
-		$sql .= " WHERE fk_user=" . ((int) $userid) . " AND fk_action='" . $this->db->escape($action) . "'";
+		$sql .= " WHERE fk_user=" . ((int) $userId) . " AND fk_action='" . $this->db->escape($action) . "'";
 
 		if ($this->db->query($sql)) {
 			return 0;
@@ -1760,16 +1760,16 @@ class BonPrelevement extends CommonObject
 		$result = 0;
 
 		if (is_object($user)) {
-			$userid = $user->id;
+			$userId = $user->id;
 		} else {	// If user is an id
-			$userid = $user;
+			$userId = $user;
 		}
 
 		if ($this->deleteNotification($user, $action) == 0) {
 			$now = dol_now();
 
 			$sql = "INSERT INTO " . MAIN_DB_PREFIX . "notify_def (datec,fk_user, fk_soc, fk_contact, fk_action)";
-			$sql .= " VALUES ('" . $this->db->idate($now) . "', " . ((int) $userid) . ", 'NULL', 'NULL', '" . $this->db->escape($action) . "')";
+			$sql .= " VALUES ('" . $this->db->idate($now) . "', " . ((int) $userId) . ", 'NULL', 'NULL', '" . $this->db->escape($action) . "')";
 
 			dol_syslog("adnotiff: " . $sql);
 			if ($this->db->query($sql)) {

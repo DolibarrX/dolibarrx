@@ -751,11 +751,11 @@ class Don extends CommonObject
 	 *    Validate a promise of donation
 	 *
 	 *    @param	int		$id   		id of donation
-	 *    @param  	int		$userid  	User who validate the donation/promise
+	 *    @param  	int		$userId  	User who validate the donation/promise
 	 *    @param	int		$notrigger	Disable triggers
 	 *    @return   int     			Return integer <0 if KO, >0 if OK
 	 */
-	public function valid_promesse($id, $userid, $notrigger = 0)
+	public function valid_promesse($id, $userId, $notrigger = 0)
 	{
 		// phpcs:enable
 		global $user;
@@ -764,7 +764,7 @@ class Don extends CommonObject
 
 		$this->db->begin();
 
-		$sql = "UPDATE ".MAIN_DB_PREFIX."don SET fk_statut = 1, fk_user_valid = ".((int) $userid)." WHERE rowid = ".((int) $id)." AND fk_statut = 0";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."don SET fk_statut = 1, fk_user_valid = ".((int) $userId)." WHERE rowid = ".((int) $id)." AND fk_statut = 0";
 
 		$resql = $this->db->query($sql);
 		if ($resql) {

@@ -1272,10 +1272,10 @@ class Adherent extends CommonObject
 	/**
 	 *    Set link to a user
 	 *
-	 *    @param     int	$userid        	Id of user to link to
+	 *    @param     int	$userId        	Id of user to link to
 	 *    @return    int					1=OK, -1=KO
 	 */
-	public function setUserId($userid)
+	public function setUserId($userId)
 	{
 		global $conf, $langs;
 
@@ -1292,9 +1292,9 @@ class Adherent extends CommonObject
 		}
 
 		// Set link to user
-		if ($userid > 0) {
+		if ($userId > 0) {
 			$sql = "UPDATE ".MAIN_DB_PREFIX."user SET fk_member = ".((int) $this->id);
-			$sql .= " WHERE rowid = ".((int) $userid);
+			$sql .= " WHERE rowid = ".((int) $userId);
 			dol_syslog(get_class($this)."::setUserId", LOG_DEBUG);
 			$resql = $this->db->query($sql);
 			if (!$resql) {

@@ -220,10 +220,10 @@ class InfoBox
 	 *  @param	DoliDB	$dbs			Database handler
 	 *  @param	int		$zone       	Key of area (0 for Homepage, ...)
 	 *  @param  string  $boxorder   	List of boxes with correct order 'A:123,456,...-B:789,321...'
-	 *  @param  int     $userid     	Id of user
+	 *  @param  int     $userId     	Id of user
 	 *  @return int                   	Return integer <0 if KO, 0=Nothing done, > 0 if OK
 	 */
-	public static function saveboxorder($dbs, $zone, $boxorder, $userid = 0)
+	public static function saveboxorder($dbs, $zone, $boxorder, $userId = 0)
 	{
 		global $conf;
 
@@ -231,14 +231,14 @@ class InfoBox
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
-		dol_syslog(self::class."::saveboxorder zone=".$zone." userid=".$userid);
+		dol_syslog(self::class."::saveboxorder zone=".$zone." userid=".$userId);
 
-		if (!$userid || $userid == 0) {
+		if (!$userId || $userId == 0) {
 			return 0;
 		}
 
 		$user = new User($dbs);
-		$user->id = $userid;
+		$user->id = $userId;
 
 		$dbs->begin();
 
@@ -255,7 +255,7 @@ class InfoBox
 		// Delete all lines
 		$sql = "DELETE FROM ".$dbs->prefix()."boxes";
 		$sql .= " WHERE entity = ".$config->entity;
-		$sql .= " AND fk_user = ".((int) $userid);
+		$sql .= " AND fk_user = ".((int) $userId);
 		$sql .= " AND position = ".((int) $zone);
 
 		dol_syslog(self::class."::saveboxorder", LOG_DEBUG);
@@ -282,7 +282,7 @@ class InfoBox
 						$sql .= " ".((int) $id).",";
 						$sql .= " ".((int) $zone).",";
 						$sql .= " '".$dbs->escape($colonne.$ii)."',";
-						$sql .= " ".((int) $userid).",";
+						$sql .= " ".((int) $userId).",";
 						$sql .= " ".((int) $config->entity);
 						$sql .= ")";
 

@@ -77,7 +77,7 @@ if ($mode == 'supplier') {
 $typent_id = GETPOSTINT('typent_id');
 $categ_id = GETPOSTINT('categ_id');
 
-$userid = GETPOSTINT('userid');
+$userId = GETPOSTINT('userid');
 $socid = GETPOSTINT('socid');
 // Security check
 if ($user->socid > 0) {
@@ -125,7 +125,7 @@ print load_fiche_titre($title, '', $picto);
 
 dol_mkdir($dir);
 
-$stats = new CommandeStats($db, $socid, $mode, ($userid > 0 ? $userid : 0), ($typent_id > 0 ? $typent_id : 0), ($categ_id > 0 ? $categ_id : 0));
+$stats = new CommandeStats($db, $socid, $mode, ($userId > 0 ? $userId : 0), ($typent_id > 0 ? $typent_id : 0), ($categ_id > 0 ? $categ_id : 0));
 if ($mode == 'customer') {
 	if ($object_status != '' && $object_status >= -1) {
 		$stats->where .= ' AND c.fk_statut IN ('.$db->sanitize($object_status).')';
@@ -363,7 +363,7 @@ print '</td></tr>';
 // User
 print '<tr><td>'.$langs->trans("CreatedBy").'</td><td>';
 print img_picto('', 'user', 'class="pictofixedwidth"');
-print $form->select_dolusers($userid, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
+print $form->select_dolusers($userId, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 // Status
 print '<tr><td>'.$langs->trans("Status").'</td><td>';
 if ($mode == 'customer') {
@@ -416,7 +416,7 @@ foreach ($data as $val) {
 		$oldyear--;
 
 		print '<tr class="oddeven" height="24">';
-		print '<td align="center"><a href="'.$_SERVER["PHP_SELF"].'?year='.$oldyear.'&amp;mode='.$mode.($socid > 0 ? '&socid='.$socid : '').($userid > 0 ? '&userid='.$userid : '').'">'.$oldyear.'</a></td>';
+		print '<td align="center"><a href="'.$_SERVER["PHP_SELF"].'?year='.$oldyear.'&amp;mode='.$mode.($socid > 0 ? '&socid='.$socid : '').($userId > 0 ? '&userid='.$userId : '').'">'.$oldyear.'</a></td>';
 		print '<td class="right">0</td>';
 		print '<td class="right"></td>';
 		print '<td class="right">0</td>';
@@ -428,7 +428,7 @@ foreach ($data as $val) {
 
 
 	print '<tr class="oddeven" height="24">';
-	print '<td align="center"><a href="'.$_SERVER["PHP_SELF"].'?year='.$year.'&amp;mode='.$mode.($socid > 0 ? '&socid='.$socid : '').($userid > 0 ? '&userid='.$userid : '').'">'.$year.'</a></td>';
+	print '<td align="center"><a href="'.$_SERVER["PHP_SELF"].'?year='.$year.'&amp;mode='.$mode.($socid > 0 ? '&socid='.$socid : '').($userId > 0 ? '&userid='.$userId : '').'">'.$year.'</a></td>';
 	print '<td class="right">'.$val['nb'].'</td>';
 	print '<td class="right opacitylow" style="'.((!isset($val['nb_diff']) || $val['nb_diff'] >= 0) ? 'color: green;' : 'color: red;').'">'.(isset($val['nb_diff']) ? round($val['nb_diff']) : "0").'%</td>';
 	print '<td class="right">'.price(price2num($val['total'], 'MT'), 1).'</td>';

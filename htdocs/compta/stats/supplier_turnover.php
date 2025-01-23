@@ -101,7 +101,7 @@ if (empty($date_start) || empty($date_end)) { // We define date_start and date_e
 	}
 }
 
-$userid = GETPOSTINT('userid');
+$userId = GETPOSTINT('userid');
 $socid = GETPOSTINT('socid');
 
 $tmps = dol_getdate($date_start);

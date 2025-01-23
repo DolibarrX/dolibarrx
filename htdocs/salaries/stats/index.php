@@ -44,9 +44,9 @@ $langs->loadLangs(array("salaries", "companies", "bills"));
 $WIDTH = DolGraph::getDefaultGraphSizeForStats('width');
 $HEIGHT = DolGraph::getDefaultGraphSizeForStats('height');
 
-$userid = GETPOSTINT('userid');
-if ($userid < 0) {
-	$userid = 0;
+$userId = GETPOSTINT('userid');
+if ($userId < 0) {
+	$userId = 0;
 }
 $socid = GETPOSTINT('socid');
 if ($socid < 0) {
@@ -83,13 +83,13 @@ print load_fiche_titre($title, '', 'salary');
 
 dol_mkdir($dir);
 
-$useridtofilter = $userid; // Filter from parameters
+$userIdtofilter = $userId; // Filter from parameters
 
-if (!$user->hasRight('salaries', 'readall') && empty($useridtofilter)) {
-	$useridtofilter = $user->getAllChildIds(1);
+if (!$user->hasRight('salaries', 'readall') && empty($userIdtofilter)) {
+	$userIdtofilter = $user->getAllChildIds(1);
 }
 
-$stats = new SalariesStats($db, $socid, $useridtofilter);
+$stats = new SalariesStats($db, $socid, $userIdtofilter);
 
 
 // Build graphic number of object
@@ -222,7 +222,7 @@ print '<tr class="liste_titre"><td class="liste_titre" colspan="2">'.$langs->tra
 // User
 print '<tr><td>'.$langs->trans("Employee").'</td><td>';
 print img_picto('', 'user', 'class="pictofixedwidth"');
-print $form->select_dolusers(($userid ? $userid : -1), 'userid', 1, '', 0, !$user->hasRight('salaries', 'readall') ? 'hierarchyme' : '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
+print $form->select_dolusers(($userId ? $userId : -1), 'userid', 1, '', 0, !$user->hasRight('salaries', 'readall') ? 'hierarchyme' : '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 print '</td></tr>';
 // Year
 print '<tr><td>'.$langs->trans("Year").'</td><td>';

@@ -34,7 +34,7 @@ class TaskStats extends Stats
 	/**
 	 * @var int ID of User
 	 */
-	public $userid;
+	public $userId;
 
 	/**
 	 * @var int ID of Societe

@@ -54,7 +54,7 @@ $optioncss = GETPOST('optioncss', 'aZ'); // Option for the css output (always ''
 $id = GETPOSTINT('id');
 $ref = GETPOST('ref', 'alpha');
 $socid = GETPOSTINT('socid');
-$userid = GETPOSTINT('userid');
+$userId = GETPOSTINT('userid');
 $type = GETPOST('type', 'aZ09');
 
 // Load variable for pagination
@@ -233,8 +233,8 @@ if ($salaryBonPl) {
 	if ($object->id > 0) {
 		$sql .= " AND p.rowid = ".((int) $object->id);
 	}
-	if ($userid > 0) {
-		$sql .= " AND u.rowid = ".((int) $userid);
+	if ($userId > 0) {
+		$sql .= " AND u.rowid = ".((int) $userId);
 	}
 } else {
 	$sql = "SELECT pf.rowid, p.type,";

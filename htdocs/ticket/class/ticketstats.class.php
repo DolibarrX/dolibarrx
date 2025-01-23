@@ -44,23 +44,23 @@ class TicketStats extends Stats
 	/**
 	 * @var int User ID
 	 */
-	public $userid;
+	public $userId;
 
 	/**
 	 * Constructor
 	 *
 	 * @param  DoliDB $db     Database handler
 	 * @param  int    $socid  Id third party
-	 * @param  int|int[]  $userid Id user for filter or array of user ids
+	 * @param  int|int[]  $userId Id user for filter or array of user ids
 	 * @return void
 	 */
-	public function __construct($db, $socid = 0, $userid = 0)
+	public function __construct($db, $socid = 0, $userId = 0)
 	{
 		global $conf;
 
 		$this->db = $db;
 		$this->socid = $socid;
-		$this->userid = $userid;
+		$this->userid = $userId;
 
 		$object = new Ticket($this->db);
 		$this->from = MAIN_DB_PREFIX.$object->table_element;

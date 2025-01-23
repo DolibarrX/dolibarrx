@@ -631,16 +631,16 @@ class Job extends CommonObject
 	/**
 	 * 	Get array of occupied positions for a user
 	 *
-	 * @param 	int 		$userid 	Id of user we need to get job list
+	 * @param 	int 		$userId 	Id of user we need to get job list
 	 * @return 	Position[] 				Array of occupied positions
 	 */
-	public function getForUser($userid)
+	public function getForUser($userId)
 	{
 		global $db;
 
 		$TReturn = array();
 		$position = new Position($db);
-		$TPosition = $position->getForUser($userid);
+		$TPosition = $position->getForUser($userId);
 		foreach ($TPosition as $UPosition) {
 			$TReturn[$UPosition->Job->rowid] = $UPosition->Job->ref;
 		}

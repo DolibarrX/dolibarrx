@@ -43,9 +43,9 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
 $WIDTH = DolGraph::getDefaultGraphSizeForStats('width');
 $HEIGHT = DolGraph::getDefaultGraphSizeForStats('height');
 
-$userid = GETPOSTINT('userid');
-if ($userid < 0) {
-	$userid = 0;
+$userId = GETPOSTINT('userid');
+if ($userId < 0) {
+	$userId = 0;
 }
 $socid = GETPOSTINT('socid');
 if ($socid < 0) {
@@ -88,7 +88,7 @@ $dir = $config->adherent->dir_temp;
 
 dol_mkdir($dir);
 
-$stats = new AdherentStats($db, $socid, $userid);
+$stats = new AdherentStats($db, $socid, $userId);
 
 // Build graphic number of object
 $data = $stats->getNbByMonthWithPrevYear($endyear, $startyear);
@@ -176,7 +176,7 @@ print $form->select_company($id,'memberid','',1);
 print '</td></tr>';
 print '<tr><td>'.$langs->trans("User").'</td><td>';
 print img_picto('', 'user', 'class="pictofixedwidth"');
-print $form->select_dolusers($userid, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
+print $form->select_dolusers($userId, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 print '</td></tr>';
 print '<tr><td class="center" colspan="2"><input type="submit" name="submit" class="button small" value="'.$langs->trans("Refresh").'"></td></tr>';
 print '</table>';

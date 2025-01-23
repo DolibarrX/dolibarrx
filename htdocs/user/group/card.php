@@ -70,7 +70,7 @@ $confirm = GETPOST('confirm', 'alpha');
 $contextpage = GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : 'groupcard'; // To manage different context of search
 $backtopage = GETPOST('backtopage', 'alpha');
 
-$userid = GETPOSTINT('user');
+$userId = GETPOSTINT('user');
 
 $object = new UserGroup($db);
 $extrafields = new ExtraFields($db);
@@ -97,7 +97,7 @@ if (isModEnabled('multicompany') && $config->entity > 1 && getDolGlobalString('M
  * Actions
  */
 $error = 0;
-$parameters = array('id' => $id, 'userid' => $userid, 'caneditperms' => $permissiontoedit);
+$parameters = array('id' => $id, 'userid' => $userId, 'caneditperms' => $permissiontoedit);
 $reshook = $hookManager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
@@ -175,12 +175,12 @@ if (empty($reshook)) {
 
 	// Add/Remove user into group
 	if (($action == 'adduser' || $action == 'removeuser') && $permissiontoedit) {
-		if ($userid > 0) {
+		if ($userId > 0) {
 			$object->fetch($id);
 			$object->oldcopy = clone $object;
 
 			$edituser = new User($db);
-			$edituser->fetch($userid);
+			$edituser->fetch($userId);
 			if ($action == 'adduser') {		// Test on permission already done
 				$result = $edituser->SetInGroup($object->id, $object->entity);
 			}

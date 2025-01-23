@@ -428,14 +428,14 @@ class Projects extends DolibarrApi
 	 * Get roles a user is assigned to a project with
 	 *
 	 * @param   int   $id             Id of project
-	 * @param   int   $userid         Id of user (0 = connected user)
+	 * @param   int   $userId         Id of user (0 = connected user)
 	 * @return array
 	 * @phan-return Object[]
 	 * @phpstan-return Object[]
 	 *
 	 * @url	GET {id}/roles
 	 */
-	public function getRoles($id, $userid = 0)
+	public function getRoles($id, $userId = 0)
 	{
 		global $db;
 
@@ -455,9 +455,9 @@ class Projects extends DolibarrApi
 		require_once DOL_DOCUMENT_ROOT.'/projet/class/task.class.php';
 		$taskstatic = new Task($this->db);
 		$userp = DolibarrApiAccess::$user;
-		if ($userid > 0) {
+		if ($userId > 0) {
 			$userp = new User($this->db);
-			$userp->fetch($userid);
+			$userp->fetch($userId);
 		}
 		$this->project->roles = $taskstatic->getUserRolesForProjectsOrTasks($userp, null, $id, 0);
 		$result = array();

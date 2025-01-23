@@ -51,7 +51,7 @@ class AdherentStats extends Stats
 	/**
 	 * @var int
 	 */
-	public $userid;
+	public $userId;
 
 	/**
 	 * @var string
@@ -72,13 +72,13 @@ class AdherentStats extends Stats
 	 *
 	 *	@param 		DoliDB		$db			Database handler
 	 * 	@param 		int			$socid	   	Id third party
-	 * 	@param   	int			$userid    	Id user for filter
+	 * 	@param   	int			$userId    	Id user for filter
 	 */
-	public function __construct($db, $socid = 0, $userid = 0)
+	public function __construct($db, $socid = 0, $userId = 0)
 	{
 		$this->db = $db;
 		$this->socid = $socid;
-		$this->userid = $userid;
+		$this->userid = $userId;
 
 		$object = new Subscription($this->db);
 

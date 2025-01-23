@@ -257,7 +257,7 @@ class RejetPrelevement
 		// phpcs:enable
 		global $langs;
 
-		$userid = 0;
+		$userId = 0;
 
 		$sql = "SELECT fk_user_demande";
 		$sql .= " FROM ".MAIN_DB_PREFIX."prelevement_demande as pfd";
@@ -269,15 +269,15 @@ class RejetPrelevement
 			$num = $this->db->num_rows($resql);
 			if ($num > 0) {
 				$row = $this->db->fetch_row($resql);
-				$userid = $row[0];
+				$userId = $row[0];
 			}
 		} else {
 			dol_syslog("RejetPrelevement::_send_email Erreur lecture user");
 		}
 
-		if ($userid > 0) {
+		if ($userId > 0) {
 			$emuser = new User($this->db);
-			$emuser->fetch($userid);
+			$emuser->fetch($userId);
 
 			$soc = new Societe($this->db);
 			$soc->fetch($fac->socid);

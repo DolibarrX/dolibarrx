@@ -57,10 +57,10 @@ $zone = GETPOST('zone');		// Can be key for zone
 if ($zone !== '') {
 	$zone = (int) $zone;
 }
-$userid = GETPOSTINT('userid');
+$userId = GETPOSTINT('userid');
 
 // Security check
-if ($userid != $user->id) {
+if ($userId != $user->id) {
 	httponly_accessforbidden('Bad userid parameter. Must match logged user.');
 }
 
@@ -74,7 +74,7 @@ top_httphead();
 print '<!-- Ajax page called with url '.dol_escape_htmltag($_SERVER["PHP_SELF"]).'?'.dol_escape_htmltag($_SERVER["QUERY_STRING"]).' -->'."\n";
 
 // Add a box
-if ($boxid > 0 && $zone != '' && $userid > 0) {
+if ($boxid > 0 && $zone != '' && $userId > 0) {
 	$tmp = explode('-', $boxorder);
 	$nbboxonleft = substr_count($tmp[0], ',');
 	$nbboxonright = substr_count($tmp[1], ',');
@@ -87,11 +87,11 @@ if ($boxid > 0 && $zone != '' && $userid > 0) {
 }
 
 // Registering the location of boxes after a move
-if ($boxorder && $zone != '' && $userid > 0) {
+if ($boxorder && $zone != '' && $userId > 0) {
 	// boxorder value is the target order: "A:idboxA1,idboxA2,A-B:idboxB1,idboxB2,B"
-	dol_syslog("AjaxBox boxorder=".$boxorder." zone=".$zone." userid=".$userid, LOG_DEBUG);
+	dol_syslog("AjaxBox boxorder=".$boxorder." zone=".$zone." userid=".$userId, LOG_DEBUG);
 
-	$result = InfoBox::saveboxorder($db, (int) $zone, $boxorder, $userid);
+	$result = InfoBox::saveboxorder($db, (int) $zone, $boxorder, $userId);
 	if ($result > 0) {
 		$langs->load("boxes");
 		if (!GETPOST('closing')) {

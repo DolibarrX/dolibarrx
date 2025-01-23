@@ -48,7 +48,7 @@ class ExpeditionStats extends Stats
 	/**
 	 * @var int ID user
 	 */
-	public $userid;
+	public $userId;
 
 	/**
 	 * @var string sql part from
@@ -77,16 +77,16 @@ class ExpeditionStats extends Stats
 	 * @param	DoliDB	$db      	Database handler
 	 * @param 	int		$socid	   	Id third party for filter
 	 * @param 	string	$mode	   	Option (not used)
-	 * @param   int		$userid    	Id user for filter (creation user)
+	 * @param   int		$userId    	Id user for filter (creation user)
 	 */
-	public function __construct($db, $socid, $mode, $userid = 0)
+	public function __construct($db, $socid, $mode, $userId = 0)
 	{
 		global $user, $conf;
 
 		$this->db = $db;
 
 		$this->socid = ($socid > 0 ? $socid : 0);
-		$this->userid = $userid;
+		$this->userid = $userId;
 		$this->cachefilesuffix = $mode;
 
 		$object = new Expedition($this->db);

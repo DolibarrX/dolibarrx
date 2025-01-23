@@ -1203,17 +1203,17 @@ function checkUserAccessToObject($user, array $featuresarray, $object = 0, $tabl
 		// Param $object must be the full object and not a simple id to have this test possible.
 		if (in_array($feature, $checkhierarchy) && is_object($object) && $objectid > 0) {
 			$childids = $user->getAllChildIds(1);
-			$useridtocheck = 0;
+			$userIdtocheck = 0;
 			if ($feature == 'holiday') {
-				$useridtocheck = $object->fk_user;
-				if (!$user->hasRight('holiday', 'readall') && !in_array($useridtocheck, $childids) && !in_array($object->fk_validator, $childids)) {
+				$userIdtocheck = $object->fk_user;
+				if (!$user->hasRight('holiday', 'readall') && !in_array($userIdtocheck, $childids) && !in_array($object->fk_validator, $childids)) {
 					return false;
 				}
 			}
 			if ($feature == 'expensereport') {
-				$useridtocheck = $object->fk_user_author;
+				$userIdtocheck = $object->fk_user_author;
 				if (!$user->hasRight('expensereport', 'readall')) {
-					if (!in_array($useridtocheck, $childids)) {
+					if (!in_array($userIdtocheck, $childids)) {
 						return false;
 					}
 				}
@@ -1223,8 +1223,8 @@ function checkUserAccessToObject($user, array $featuresarray, $object = 0, $tabl
 		// For some object, we also have to check it is public or owned by user
 		// Param $object must be the full object and not a simple id to have this test possible.
 		if (in_array($feature, $checkuser) && is_object($object) && $objectid > 0) {
-			$useridtocheck = $object->fk_user;
-			if (!empty($useridtocheck) && $useridtocheck > 0 && $useridtocheck != $user->id && empty($user->admin)) {
+			$userIdtocheck = $object->fk_user;
+			if (!empty($userIdtocheck) && $userIdtocheck > 0 && $userIdtocheck != $user->id && empty($user->admin)) {
 				return false;
 			}
 		}

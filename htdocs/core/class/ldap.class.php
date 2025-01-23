@@ -1171,17 +1171,17 @@ class Ldap
 	 *
 	 *	@param	string			$search			 	Value of field to search, '*' for all. Not used if $activefilter is set.
 	 *	@param	string			$userDn			 	DN (Ex: ou=adherents,ou=people,dc=parinux,dc=org)
-	 *	@param	string			$useridentifier 	Name of key field (Ex: uid).
-	 *	@param	string[]		$attributeArray 	Array of fields required. Note this array must also contain field $useridentifier (Ex: sn,userPassword)
+	 *	@param	string			$userIdentifier 	Name of key field (Ex: uid).
+	 *	@param	string[]		$attributeArray 	Array of fields required. Note this array must also contain field $userIdentifier (Ex: sn,userPassword)
 	 *	@param	0|1|'1'|'user'|'group'|'member'	$activefilter	'1' or 'user'=use field this->filter as filter instead of parameter $search, 'group'=use field this->filtergroup as filter, 'member'=use field this->filtermember as filter
 	 *	@param	string[]		$attributeAsArray 	Array of fields wanted as an array not a string
 	 *	@return	array<string,array<string,string>>|int<min,-1>				if KO: <0 || if OK: array of [id_record][ldap_field]=value
 	 */
-	public function getRecords($search, $userDn, $useridentifier, $attributeArray, $activefilter = 0, $attributeAsArray = array())
+	public function getRecords($search, $userDn, $userIdentifier, $attributeArray, $activefilter = 0, $attributeAsArray = array())
 	{
 		$fulllist = array();
 
-		dol_syslog(get_class($this)."::getRecords search=".$search." userDn=".$userDn." useridentifier=".$useridentifier." attributeArray=array(".implode(',', $attributeArray).") activefilter=".$activefilter);
+		dol_syslog(get_class($this)."::getRecords search=".$search." userDn=".$userDn." useridentifier=".$userIdentifier." attributeArray=array(".implode(',', $attributeArray).") activefilter=".$activefilter);
 
 		// if the directory is AD, then bind first with the search user first
 		if ($this->serverType == "activedirectory") {
@@ -1199,10 +1199,10 @@ class Ldap
 				$filter = '('.$this->filtermember.')';
 			} else {
 				// If this->filter/this->filtergroup is empty, make filter on * (all)
-				$filter = '('.ldap_escape($useridentifier, '', LDAP_ESCAPE_FILTER).'=*)';
+				$filter = '('.ldap_escape($userIdentifier, '', LDAP_ESCAPE_FILTER).'=*)';
 			}
 		} else {						// Use a filter forged using the $search value
-			$filter = '('.ldap_escape($useridentifier, '', LDAP_ESCAPE_FILTER).'='.ldap_escape($search, '', LDAP_ESCAPE_FILTER).')';
+			$filter = '('.ldap_escape($userIdentifier, '', LDAP_ESCAPE_FILTER).'='.ldap_escape($search, '', LDAP_ESCAPE_FILTER).')';
 		}
 
 		if (is_array($attributeArray)) {
@@ -1228,10 +1228,10 @@ class Ldap
 		//print_r($info);
 
 		for ($i = 0; $i < $info["count"]; $i++) {
-			$recordid = $this->convToOutputCharset($info[$i][strtolower($useridentifier)][0], $this->ldapcharset);
+			$recordid = $this->convToOutputCharset($info[$i][strtolower($userIdentifier)][0], $this->ldapcharset);
 			if ($recordid) {
-				//print "Found record with key $useridentifier=".$recordid."<br>\n";
-				$fulllist[$recordid][$useridentifier] = $recordid;
+				//print "Found record with key $userIdentifier=".$recordid."<br>\n";
+				$fulllist[$recordid][$userIdentifier] = $recordid;
 
 				// Add to the array for each attribute in my list
 				$num = count($attributeArray);

@@ -1840,10 +1840,10 @@ class Holiday extends CommonObject
 	 *  Create entries for each user at setup step
 	 *
 	 *  @param	boolean		$single		Single
-	 *  @param	int			$userid		Id user
+	 *  @param	int			$userId		Id user
 	 *  @return void
 	 */
-	public function createCPusers($single = false, $userid = 0)
+	public function createCPusers($single = false, $userId = 0)
 	{
 		// do we have to add balance for all users ?
 		if (!$single) {
@@ -1863,7 +1863,7 @@ class Holiday extends CommonObject
 		} else {
 			$sql = "INSERT INTO ".MAIN_DB_PREFIX."holiday_users";
 			$sql .= " (fk_user, nb_holiday)";
-			$sql .= " VALUES (".((int) $userid)."', '0')";
+			$sql .= " VALUES (".((int) $userId)."', '0')";
 
 			$resql = $this->db->query($sql);
 			if (!$resql) {

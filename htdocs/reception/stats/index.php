@@ -43,7 +43,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
 $WIDTH = DolGraph::getDefaultGraphSizeForStats('width');
 $HEIGHT = DolGraph::getDefaultGraphSizeForStats('height');
 
-$userid = GETPOSTINT('userid');
+$userId = GETPOSTINT('userid');
 $socid = GETPOSTINT('socid');
 
 $nowyear = (int) dol_print_date(dol_now('gmt'), "%Y", 'gmt');
@@ -73,7 +73,7 @@ print load_fiche_titre($langs->trans("StatisticsOfReceptions"), '', 'dollyrevert
 $dir = (!empty($config->reception->multidir_temp[$config->entity]) ? $config->reception->multidir_temp[$config->entity] : $config->service->multidir_temp[$config->entity]);
 dol_mkdir($dir);
 
-$stats = new ReceptionStats($db, $socid, '', ($userid > 0 ? $userid : 0));
+$stats = new ReceptionStats($db, $socid, '', ($userId > 0 ? $userId : 0));
 
 // Build graphic number of object
 $data = $stats->getNbByMonthWithPrevYear($endyear, $startyear);
@@ -235,7 +235,7 @@ print '</td></tr>';
 // User
 print '<tr><td>'.$langs->trans("CreatedBy").'</td><td>';
 print img_picto('', 'user', 'class="pictofixedwidth"');
-print $form->select_dolusers($userid, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
+print $form->select_dolusers($userId, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 print '</td></tr>';
 // Year
 print '<tr><td>'.$langs->trans("Year").'</td><td>';

@@ -42,7 +42,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
 $WIDTH = DolGraph::getDefaultGraphSizeForStats('width');
 $HEIGHT = DolGraph::getDefaultGraphSizeForStats('height');
 
-$userid = GETPOSTINT('userid');
+$userId = GETPOSTINT('userid');
 $socid = GETPOSTINT('socid');
 // Security check
 if ($user->socid > 0) {
@@ -78,7 +78,7 @@ print load_fiche_titre($langs->trans("StatisticsOfSendings"), '', 'dolly');
 $dir = (!empty($config->expedition->multidir_temp[$config->entity]) ? $config->expedition->multidir_temp[$config->entity] : $config->service->multidir_temp[$config->entity]);
 dol_mkdir($dir);
 
-$stats = new ExpeditionStats($db, $socid, '', ($userid > 0 ? $userid : 0));
+$stats = new ExpeditionStats($db, $socid, '', ($userId > 0 ? $userId : 0));
 
 // Build graphic number of object
 $data = $stats->getNbByMonthWithPrevYear($endyear, $startyear);
@@ -240,7 +240,7 @@ print '</td></tr>';
 // User
 print '<tr><td class="left">'.$langs->trans("CreatedBy").'</td><td class="left">';
 print img_picto('', 'user', 'class="pictofixedwidth"');
-print $form->select_dolusers($userid, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
+print $form->select_dolusers($userId, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 print '</td></tr>';
 // Year
 print '<tr><td class="left">'.$langs->trans("Year").'</td><td class="left">';

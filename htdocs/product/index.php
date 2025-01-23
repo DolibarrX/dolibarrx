@@ -78,10 +78,10 @@ if (GETPOST('addbox')) {
 	// Add box (when submit is done from a form when ajax disabled)
 	require_once DOL_DOCUMENT_ROOT.'/core/class/infobox.class.php';
 	$zone = GETPOSTINT('areacode');
-	$userid = GETPOSTINT('userid');
+	$userId = GETPOSTINT('userid');
 	$boxorder = GETPOST('boxorder', 'aZ09');
 	$boxorder .= GETPOST('boxcombo', 'aZ09');
-	$result = InfoBox::saveboxorder($db, $zone, $boxorder, $userid);
+	$result = InfoBox::saveboxorder($db, $zone, $boxorder, $userId);
 	if ($result > 0) {
 		setEventMessages($langs->trans("BoxAdded"), null);
 	}

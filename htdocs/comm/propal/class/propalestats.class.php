@@ -50,7 +50,7 @@ class PropaleStats extends Stats
 	/**
 	 * @var int ID
 	 */
-	public $userid;
+	public $userId;
 
 	/**
 	 * @var string sql from
@@ -78,16 +78,16 @@ class PropaleStats extends Stats
 	 *
 	 * @param 	DoliDB	$db		    Database handler
 	 * @param 	int		$socid	    Id third party for filter. This value must be forced during the new to external user company if user is an external user.
-	 * @param   int		$userid     Id user for filter (creation user)
+	 * @param   int		$userId     Id user for filter (creation user)
 	 * @param 	string	$mode	    Option ('customer', 'supplier')
 	 * @param	int		$typentid   Id typent of thirdpary for filter
 	 * @param	int		$categid    Id category of thirdpary for filter
 	 */
-	public function __construct($db, $socid = 0, $userid = 0, $mode = 'customer', $typentid = 0, $categid = 0)
+	public function __construct($db, $socid = 0, $userId = 0, $mode = 'customer', $typentid = 0, $categid = 0)
 	{
 		$this->db = $db;
 		$this->socid = ($socid > 0 ? $socid : 0);
-		$this->userid = $userid;
+		$this->userid = $userId;
 		$this->join = '';
 
 		if ($mode == 'customer') {

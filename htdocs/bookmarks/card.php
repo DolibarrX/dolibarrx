@@ -48,7 +48,7 @@ $title = (string) GETPOST("title", "alpha");
 $url = (string) GETPOST("url", "alpha");
 $urlsource = GETPOST("urlsource", "alpha");
 $target = GETPOST("target", "alpha");
-$userid = GETPOSTINT("userid");
+$userId = GETPOSTINT("userid");
 $position = GETPOSTINT("position");
 $backtopage = GETPOST('backtopage', 'alpha');
 
@@ -93,8 +93,8 @@ if (($action == 'add' || $action == 'addproduct' || $action == 'update') && $per
 		$object->fetch(GETPOSTINT("id"));
 	}
 	// Check if null because user not admin can't set an user and send empty value here.
-	if (!empty($userid)) {
-		$object->fk_user = $userid;
+	if (!empty($userId)) {
+		$object->fk_user = $userId;
 	}
 	$object->title = $title;
 	$object->url = $url;

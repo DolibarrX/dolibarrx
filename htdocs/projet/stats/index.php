@@ -44,7 +44,7 @@ $HEIGHT = DolGraph::getDefaultGraphSizeForStats('height');
 
 $search_opp_status = GETPOST("search_opp_status", 'alpha');
 
-$userid = GETPOSTINT('userid');
+$userId = GETPOSTINT('userid');
 $socid = GETPOSTINT('socid');
 // Security check
 if ($user->socid > 0) {
@@ -85,8 +85,8 @@ dol_mkdir($dir);
 
 
 $stats_project = new ProjectStats($db);
-if (!empty($userid) && $userid != -1) {
-	$stats_project->userid = $userid;
+if (!empty($userId) && $userId != -1) {
+	$stats_project->userid = $userId;
 }
 if (!empty($socid) && $socid != -1) {
 	$stats_project->socid = $socid;
@@ -254,7 +254,7 @@ if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 
 // User
 /*print '<tr><td>'.$langs->trans("ProjectCommercial").'</td><td>';
-print $form->select_dolusers($userid, 'userid', 1, array(),0,$includeuserlist);
+print $form->select_dolusers($userId, 'userid', 1, array(),0,$includeuserlist);
 print '</td></tr>';*/
 // Year
 print '<tr><td>'.$langs->trans("Year").' <span class="opacitymedium">('.$langs->trans("DateCreation").')</span></td><td>';
@@ -293,7 +293,7 @@ foreach ($data_all_year as $val) {
 		$oldyear--;
 
 		print '<tr class="oddeven" height="24">';
-		print '<td class="center"><a href="'.$_SERVER["PHP_SELF"].'?year='.$oldyear.($socid > 0 ? '&socid='.$socid : '').($userid > 0 ? '&userid='.$userid : '').'">'.$oldyear.'</a></td>';
+		print '<td class="center"><a href="'.$_SERVER["PHP_SELF"].'?year='.$oldyear.($socid > 0 ? '&socid='.$socid : '').($userId > 0 ? '&userid='.$userId : '').'">'.$oldyear.'</a></td>';
 		print '<td class="right">0</td>';
 		if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 			print '<td class="right amount nowraponall">0</td>';
@@ -304,7 +304,7 @@ foreach ($data_all_year as $val) {
 	}
 
 	print '<tr class="oddeven" height="24">';
-	print '<td class="center"><a href="'.$_SERVER["PHP_SELF"].'?year='.$year.($socid > 0 ? '&socid='.$socid : '').($userid > 0 ? '&userid='.$userid : '').'">'.$year.'</a></td>';
+	print '<td class="center"><a href="'.$_SERVER["PHP_SELF"].'?year='.$year.($socid > 0 ? '&socid='.$socid : '').($userId > 0 ? '&userid='.$userId : '').'">'.$year.'</a></td>';
 	print '<td class="right">'.$val['nb'].'</td>';
 	if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 		print '<td class="right amount nowraponall">'.($val['total'] ? price(price2num($val['total'], 'MT'), 1) : '0').'</td>';

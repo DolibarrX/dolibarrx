@@ -32,7 +32,7 @@ class ProjectStats extends Stats
 	/**
 	 * @var int
 	 */
-	public $userid;
+	public $userId;
 	/**
 	 * @var int
 	 */

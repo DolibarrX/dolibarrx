@@ -491,8 +491,8 @@ if ($action == 'confirm_generateinvoice') {
 					$arrayoftasks[$object->timespent_fk_user][(int) $object->timespent_fk_product]['totalvaluetodivideby3600'] += ($object->timespent_duration * $object->timespent_thm);
 				}
 
-				foreach ($arrayoftasks as $userid => $data) {
-					$fuser->fetch($userid);
+				foreach ($arrayoftasks as $userId => $data) {
+					$fuser->fetch($userId);
 					$username = $fuser->getFullName($langs);
 
 					foreach ($data as $fk_product => $timespent_data) {
@@ -567,7 +567,7 @@ if ($action == 'confirm_generateinvoice') {
 
 						// Update lineid into line of timespent
 						$sql = 'UPDATE '.MAIN_DB_PREFIX.'element_time SET invoice_line_id = '.((int) $lineid).', invoice_id = '.((int) $tmpinvoice->id);
-						$sql .= ' WHERE rowid IN ('.$db->sanitize(implode(',', $toselect)).') AND fk_user = '.((int) $userid);
+						$sql .= ' WHERE rowid IN ('.$db->sanitize(implode(',', $toselect)).') AND fk_user = '.((int) $userId);
 						$result = $db->query($sql);
 						if (!$result) {
 							$error++;
@@ -608,7 +608,7 @@ if ($action == 'confirm_generateinvoice') {
 				}
 
 				foreach ($arrayoftasks as $timespent_id => $value) {
-					$userid = $value['user'];
+					$userId = $value['user'];
 					//$pu_ht = $value['timespent'] * $fuser->thm;
 
 					// Define qty per hour
@@ -667,7 +667,7 @@ if ($action == 'confirm_generateinvoice') {
 
 					// Update lineid into line of timespent
 					$sql = 'UPDATE '.MAIN_DB_PREFIX.'element_time SET invoice_line_id = '.((int) $lineid).', invoice_id = '.((int) $tmpinvoice->id);
-					$sql .= ' WHERE rowid = '.((int) $timespent_id).' AND fk_user = '.((int) $userid);
+					$sql .= ' WHERE rowid = '.((int) $timespent_id).' AND fk_user = '.((int) $userId);
 					$result = $db->query($sql);
 					if (!$result) {
 						$error++;
@@ -1820,15 +1820,15 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 			if (count($contactsofproject) > 0) {
 				print img_object('', 'user', 'class="hideonsmartphone"');
 				if (in_array($user->id, $contactsofproject)) {
-					$userid = $user->id;
+					$userId = $user->id;
 				} else {
-					$userid = $contactsofproject[0];
+					$userId = $contactsofproject[0];
 				}
 
 				if ($projectstatic->public) {
 					$contactsofproject = array();
 				}
-				print $form->select_dolusers((GETPOSTINT('userid') ? GETPOSTINT('userid') : $userid), 'userid', 0, '', 0, '', $contactsofproject, 0, 0, 0, '', 0, $langs->trans("ResourceNotAssignedToProject"), 'minwidth150imp maxwidth200');
+				print $form->select_dolusers((GETPOSTINT('userid') ? GETPOSTINT('userid') : $userId), 'userid', 0, '', 0, '', $contactsofproject, 0, 0, 0, '', 0, $langs->trans("ResourceNotAssignedToProject"), 'minwidth150imp maxwidth200');
 			} else {
 				if ($nboftasks) {
 					print img_error($langs->trans('FirstAddRessourceToAllocateTime')) . ' ' . $langs->trans('FirstAddRessourceToAllocateTime');
