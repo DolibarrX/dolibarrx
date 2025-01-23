@@ -26,9 +26,9 @@
  */
 
 include 'inc.php';
-require_once $dolibarr_main_document_root.'/core/class/conf.class.php';
-require_once $dolibarr_main_document_root.'/core/lib/admin.lib.php';
-require_once $dolibarr_main_document_root.'/core/lib/security.lib.php';
+require_once $dolibarr_main_document_root . '/core/class/conf.class.php';
+require_once $dolibarr_main_document_root . '/core/lib/admin.lib.php';
+require_once $dolibarr_main_document_root . '/core/lib/security.lib.php';
 
 global $langs;
 
@@ -105,7 +105,7 @@ dolibarr_install_syslog("--- step2: entering step2.php page");
  *	View
  */
 
-pHeader($langs->trans("DolibarrSetup").' - '.$langs->trans("CreateDatabaseObjects"), "step4");
+pHeader($langs->trans("DolibarrSetup") . ' - ' . $langs->trans("CreateDatabaseObjects"), "step4");
 
 // Test if we can run a first install process
 if (!is_writable($conffile)) {
@@ -115,42 +115,49 @@ if (!is_writable($conffile)) {
 }
 
 if ($action == "set") {		// Test on permission not required. Already managed by test in inc.php
-	print '<h3><img class="valignmiddle inline-block paddingright" src="../theme/common/octicons/build/svg/database.svg" width="20" alt="Database"> '.$langs->trans("Database").'</h3>';
+	print '<h3><img class="valignmiddle inline-block paddingright" src="../theme/common/octicons/build/svg/database.svg" width="20" alt="Database"> ' . $langs->trans("Database") . '</h3>';
 
 	print '<table cellspacing="0" style="padding: 4px 4px 4px 0" border="0" width="100%">';
 	$error = 0;
 
-	$db = getDoliDBInstance($conf->db->type, $conf->db->host, $conf->db->user, $conf->db->pass, $conf->db->name, (int) $conf->db->port);
+	$db = getDoliDBInstance(
+		$conf->db->type,
+		$conf->db->host,
+		$conf->db->user,
+		$conf->db->pass,
+		$conf->db->name,
+		(int) $conf->db->port
+	);
 
 	if ($db->connected) {
 		print "<tr><td>";
-		print $langs->trans("ServerConnection")." : ".$conf->db->host.'</td><td><img src="../theme/eldy/img/tick.png" alt="Ok"></td></tr>';
+		print $langs->trans("ServerConnection") . " : " . $conf->db->host . '</td><td><img src="../theme/eldy/img/tick.png" alt="Ok"></td></tr>';
 		$ok = 1;
 	} else {
-		print "<tr><td>Failed to connect to server : ".$conf->db->host.'</td><td><img src="../theme/eldy/img/error.png" alt="Error"></td></tr>';
+		print "<tr><td>Failed to connect to server : " . $conf->db->host . '</td><td><img src="../theme/eldy/img/error.png" alt="Error"></td></tr>';
 	}
 
 	if ($ok) {
 		if ($db->database_selected) {
-			dolibarr_install_syslog("step2: successful connection to database: ".$conf->db->name);
+			dolibarr_install_syslog("step2: successful connection to database: " . $conf->db->name);
 		} else {
-			dolibarr_install_syslog("step2: failed connection to database :".$conf->db->name, LOG_ERR);
-			print "<tr><td>Failed to select database ".$conf->db->name.'</td><td><img src="../theme/eldy/img/error.png" alt="Error"></td></tr>';
+			dolibarr_install_syslog("step2: failed connection to database :" . $conf->db->name, LOG_ERR);
+			print "<tr><td>Failed to select database " . $conf->db->name . '</td><td><img src="../theme/eldy/img/error.png" alt="Error"></td></tr>';
 			$ok = 0;
 		}
 	}
 
 
-	// Display version / Affiche version
+	// Display version
 	if ($ok) {
 		$version = $db->getVersion();
 		$versionarray = $db->getVersionArray();
-		print '<tr><td>'.$langs->trans("DatabaseVersion").'</td>';
-		print '<td>'.$version.'</td></tr>';
+		print '<tr><td>' . $langs->trans("DatabaseVersion") . '</td>';
+		print '<td>' . $version . '</td></tr>';
 		//print '<td class="right">'.join('.',$versionarray).'</td></tr>';
 
-		print '<tr><td>'.$langs->trans("DatabaseName").'</td>';
-		print '<td>'.$db->database_name.'</td></tr>';
+		print '<tr><td>' . $langs->trans("DatabaseName") . '</td>';
+		print '<td>' . $db->database_name . '</td></tr>';
 		//print '<td class="right">'.join('.',$versionarray).'</td></tr>';
 	}
 
@@ -181,7 +188,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 
 		$ok = 0;
 		$handle = opendir($dir);
-		dolibarr_install_syslog("step2: open tables directory ".$dir." handle=".(is_bool($handle) ? json_encode($handle) : $handle));
+		dolibarr_install_syslog("step2: open tables directory " . $dir . " handle=" . (is_bool($handle) ? json_encode($handle) : $handle));
 		$tablefound = 0;
 		$tabledata = array();
 		if (is_resource($handle)) {
@@ -199,7 +206,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 		foreach ($tabledata as $file) {
 			$name = substr($file, 0, dol_strlen($file) - 4);
 			$buffer = '';
-			$fp = fopen($dir.$file, "r");
+			$fp = fopen($dir . $file, "r");
 			if ($fp) {
 				while (!feof($fp)) {
 					$buf = fgets($fp, 4096);
@@ -228,41 +235,43 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 				//print "<tr><td>Creation of table $name/td>";
 				$requestnb++;
 
-				dolibarr_install_syslog("step2: request: ".$buffer);
+				dolibarr_install_syslog("step2: request: " . $buffer);
 				$resql = $db->query($buffer, 0, 'dml');
 				if ($resql) {
 					// print "<td>OK request ==== $buffer</td></tr>";
 					$db->free($resql);
 				} else {
-					if ($db->errno() == 'DB_ERROR_TABLE_ALREADY_EXISTS' ||
-						$db->errno() == 'DB_ERROR_TABLE_OR_KEY_ALREADY_EXISTS') {
+					if (
+						$db->errno() == 'DB_ERROR_TABLE_ALREADY_EXISTS' ||
+						$db->errno() == 'DB_ERROR_TABLE_OR_KEY_ALREADY_EXISTS'
+					) {
 						//print "<td>already existing</td></tr>";
 					} else {
-						print "<tr><td>".$langs->trans("CreateTableAndPrimaryKey", $name);
-						print "<br>\n".$langs->trans("Request").' '.$requestnb.' : '.$buffer.' <br>Executed query : '.$db->lastquery;
+						print "<tr><td>" . $langs->trans("CreateTableAndPrimaryKey", $name);
+						print "<br>\n" . $langs->trans("Request") . ' ' . $requestnb . ' : ' . $buffer . ' <br>Executed query : ' . $db->lastquery;
 						print "\n</td>";
-						print '<td><span class="error">'.$langs->trans("ErrorSQL")." ".$db->errno()." ".$db->error().'</span></td></tr>';
+						print '<td><span class="error">' . $langs->trans("ErrorSQL") . " " . $db->errno() . " " . $db->error() . '</span></td></tr>';
 						$error++;
 					}
 				}
 			} else {
-				print "<tr><td>".$langs->trans("CreateTableAndPrimaryKey", $name);
+				print "<tr><td>" . $langs->trans("CreateTableAndPrimaryKey", $name);
 				print "</td>";
-				print '<td><span class="error">'.$langs->trans("Error").' Failed to open file '.$dir.$file.'</span></td></tr>';
+				print '<td><span class="error">' . $langs->trans("Error") . ' Failed to open file ' . $dir . $file . '</span></td></tr>';
 				$error++;
-				dolibarr_install_syslog("step2: failed to open file ".$dir.$file, LOG_ERR);
+				dolibarr_install_syslog("step2: failed to open file " . $dir . $file, LOG_ERR);
 			}
 		}
 
 		if ($tablefound) {
 			if ($error == 0) {
 				print '<tr><td>';
-				print $langs->trans("TablesAndPrimaryKeysCreation").'</td><td><img src="../theme/eldy/img/tick.png" alt="Ok"></td></tr>';
+				print $langs->trans("TablesAndPrimaryKeysCreation") . '</td><td><img src="../theme/eldy/img/tick.png" alt="Ok"></td></tr>';
 				$ok = 1;
 			}
 		} else {
-			print '<tr><td>'.$langs->trans("ErrorFailedToFindSomeFiles", $dir).'</td><td><img src="../theme/eldy/img/error.png" alt="Error"></td></tr>';
-			dolibarr_install_syslog("step2: failed to find files to create database in directory ".$dir, LOG_ERR);
+			print '<tr><td>' . $langs->trans("ErrorFailedToFindSomeFiles", $dir) . '</td><td><img src="../theme/eldy/img/error.png" alt="Error"></td></tr>';
+			dolibarr_install_syslog("step2: failed to find files to create database in directory " . $dir, LOG_ERR);
 		}
 	}
 
@@ -279,7 +288,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 
 		$okkeys = 0;
 		$handle = opendir($dir);
-		dolibarr_install_syslog("step2: open keys directory ".$dir." handle=".(is_bool($handle) ? json_encode($handle) : $handle));
+		dolibarr_install_syslog("step2: open keys directory " . $dir . " handle=" . (is_bool($handle) ? json_encode($handle) : $handle));
 		$tablefound = 0;
 		$tabledata = array();
 		if (is_resource($handle)) {
@@ -298,7 +307,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 			$name = substr($file, 0, dol_strlen($file) - 4);
 			//print "<tr><td>Creation of table $name</td>";
 			$buffer = '';
-			$fp = fopen($dir.$file, "r");
+			$fp = fopen($dir . $file, "r");
 			if ($fp) {
 				while (!feof($fp)) {
 					$buf = fgets($fp, 4096);
@@ -309,8 +318,10 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 						$versioncommande = explode('.', $reg[1]);
 						//var_dump($versioncommande);
 						//var_dump($versionarray);
-						if (count($versioncommande) && count($versionarray)
-						&& versioncompare($versioncommande, $versionarray) <= 0) {
+						if (
+							count($versioncommande) && count($versionarray)
+							&& versioncompare($versioncommande, $versionarray) <= 0
+						) {
 							// Version qualified, delete SQL comments
 							$buf = preg_replace('/^--\sV([0-9\.]+)/i', '', $buf);
 							//print "Ligne $i qualifiee par version: ".$buf.'<br>';
@@ -321,8 +332,10 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 						$versioncommande = explode('.', $reg[1]);
 						//var_dump($versioncommande);
 						//var_dump($versionarray);
-						if (count($versioncommande) && count($versionarray)
-						&& versioncompare($versioncommande, $versionarray) <= 0) {
+						if (
+							count($versioncommande) && count($versionarray)
+							&& versioncompare($versioncommande, $versionarray) <= 0
+						) {
 							// Version qualified, delete SQL comments
 							$buf = preg_replace('/^--\sPOSTGRESQL\sV([0-9\.]+)/i', '', $buf);
 							//print "Ligne $i qualifiee par version: ".$buf.'<br>';
@@ -349,41 +362,43 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 						//print "<tr><td>Creation of keys and table index $name: '$buffer'</td>";
 						$requestnb++;
 
-						dolibarr_install_syslog("step2: request: ".$buffer);
+						dolibarr_install_syslog("step2: request: " . $buffer);
 						$resql = $db->query($buffer, 0, 'dml');
 						if ($resql) {
 							//print "<td>OK request ==== $buffer</td></tr>";
 							$db->free($resql);
 						} else {
-							if ($db->errno() == 'DB_ERROR_KEY_NAME_ALREADY_EXISTS' ||
-							$db->errno() == 'DB_ERROR_CANNOT_CREATE' ||
-							$db->errno() == 'DB_ERROR_PRIMARY_KEY_ALREADY_EXISTS' ||
-							$db->errno() == 'DB_ERROR_TABLE_OR_KEY_ALREADY_EXISTS' ||
-							preg_match('/duplicate key name/i', $db->error())) {
+							if (
+								$db->errno() == 'DB_ERROR_KEY_NAME_ALREADY_EXISTS' ||
+								$db->errno() == 'DB_ERROR_CANNOT_CREATE' ||
+								$db->errno() == 'DB_ERROR_PRIMARY_KEY_ALREADY_EXISTS' ||
+								$db->errno() == 'DB_ERROR_TABLE_OR_KEY_ALREADY_EXISTS' ||
+								preg_match('/duplicate key name/i', $db->error())
+							) {
 								//print "<td>Deja existante</td></tr>";
 								$key_exists = 1;
 							} else {
-								print "<tr><td>".$langs->trans("CreateOtherKeysForTable", $name);
-								print "<br>\n".$langs->trans("Request").' '.$requestnb.' : '.$db->lastqueryerror();
+								print "<tr><td>" . $langs->trans("CreateOtherKeysForTable", $name);
+								print "<br>\n" . $langs->trans("Request") . ' ' . $requestnb . ' : ' . $db->lastqueryerror();
 								print "\n</td>";
-								print '<td><span class="error">'.$langs->trans("ErrorSQL")." ".$db->errno()." ".$db->error().'</span></td></tr>';
+								print '<td><span class="error">' . $langs->trans("ErrorSQL") . " " . $db->errno() . " " . $db->error() . '</span></td></tr>';
 								$error++;
 							}
 						}
 					}
 				}
 			} else {
-				print "<tr><td>".$langs->trans("CreateOtherKeysForTable", $name);
+				print "<tr><td>" . $langs->trans("CreateOtherKeysForTable", $name);
 				print "</td>";
-				print '<td><span class="error">'.$langs->trans("Error")." Failed to open file ".$dir.$file."</span></td></tr>";
+				print '<td><span class="error">' . $langs->trans("Error") . " Failed to open file " . $dir . $file . "</span></td></tr>";
 				$error++;
-				dolibarr_install_syslog("step2: failed to open file ".$dir.$file, LOG_ERR);
+				dolibarr_install_syslog("step2: failed to open file " . $dir . $file, LOG_ERR);
 			}
 		}
 
 		if ($tablefound && $error == 0) {
 			print '<tr><td>';
-			print $langs->trans("OtherKeysCreation").'</td><td><img src="../theme/eldy/img/tick.png" alt="Ok"></td></tr>';
+			print $langs->trans("OtherKeysCreation") . '</td><td><img src="../theme/eldy/img/tick.png" alt="Ok"></td></tr>';
 			$okkeys = 1;
 		}
 	}
@@ -408,15 +423,15 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 
 		// Creation of data
 		$file = "functions.sql";
-		if (file_exists($dir.$file)) {
-			$fp = fopen($dir.$file, "r");
-			dolibarr_install_syslog("step2: open function file ".$dir.$file." handle=".(is_bool($fp) ? json_encode($fp) : $fp));
+		if (file_exists($dir . $file)) {
+			$fp = fopen($dir . $file, "r");
+			dolibarr_install_syslog("step2: open function file " . $dir . $file . " handle=" . (is_bool($fp) ? json_encode($fp) : $fp));
 			if ($fp) {
 				$buffer = '';
 				while (!feof($fp)) {
 					$buf = fgets($fp, 4096);
 					if (substr($buf, 0, 2) != '--') {
-						$buffer .= $buf."§";
+						$buffer .= $buf . "§";
 					}
 				}
 				fclose($fp);
@@ -432,30 +447,32 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 					if ($dolibarr_main_db_prefix != 'llx_') {
 						$buffer = preg_replace('/llx_/i', $dolibarr_main_db_prefix, $buffer);
 					}
-					dolibarr_install_syslog("step2: request: ".$buffer);
-					print "<!-- Insert line : ".$buffer."<br>-->\n";
+					dolibarr_install_syslog("step2: request: " . $buffer);
+					print "<!-- Insert line : " . $buffer . "<br>-->\n";
 					$resql = $db->query($buffer, 0, 'dml');
 					if ($resql) {
 						$ok = 1;
 						$db->free($resql);
 					} else {
-						if ($db->errno() == 'DB_ERROR_RECORD_ALREADY_EXISTS'
-						|| $db->errno() == 'DB_ERROR_KEY_NAME_ALREADY_EXISTS') {
+						if (
+							$db->errno() == 'DB_ERROR_RECORD_ALREADY_EXISTS'
+							|| $db->errno() == 'DB_ERROR_KEY_NAME_ALREADY_EXISTS'
+						) {
 							//print "Insert line : ".$buffer."<br>\n";
 						} else {
 							$ok = 0;
 
-							print "<tr><td>".$langs->trans("FunctionsCreation");
-							print "<br>\n".$langs->trans("Request").' '.$requestnb.' : '.$buffer;
+							print "<tr><td>" . $langs->trans("FunctionsCreation");
+							print "<br>\n" . $langs->trans("Request") . ' ' . $requestnb . ' : ' . $buffer;
 							print "\n</td>";
-							print '<td><span class="error">'.$langs->trans("ErrorSQL")." ".$db->errno()." ".$db->error().'</span></td></tr>';
+							print '<td><span class="error">' . $langs->trans("ErrorSQL") . " " . $db->errno() . " " . $db->error() . '</span></td></tr>';
 							$error++;
 						}
 					}
 				}
 			}
 
-			print "<tr><td>".$langs->trans("FunctionsCreation")."</td>";
+			print "<tr><td>" . $langs->trans("FunctionsCreation") . "</td>";
 			if ($ok) {
 				print '<td><img src="../theme/eldy/img/tick.png" alt="Ok"></td></tr>';
 			} else {
@@ -477,7 +494,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 
 		// Insert data
 		$handle = opendir($dir);
-		dolibarr_install_syslog("step2: open directory data ".$dir." handle=".(is_bool($handle) ? json_encode($handle) : $handle));
+		dolibarr_install_syslog("step2: open directory data " . $dir . " handle=" . (is_bool($handle) ? json_encode($handle) : $handle));
 		$tablefound = 0;
 		$tabledata = array();
 		if (is_resource($handle)) {
@@ -488,7 +505,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 					}
 
 					//print 'x'.$file.'-'.$createdata.'<br>';
-					if (is_numeric($createdata) || preg_match('/'.preg_quote($createdata).'/i', $file)) {
+					if (is_numeric($createdata) || preg_match('/' . preg_quote($createdata) . '/i', $file)) {
 						$tablefound++;
 						$tabledata[] = $file;
 					}
@@ -501,8 +518,8 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 		sort($tabledata);
 		foreach ($tabledata as $file) {
 			$name = substr($file, 0, dol_strlen($file) - 4);
-			$fp = fopen($dir.$file, "r");
-			dolibarr_install_syslog("step2: open data file ".$dir.$file." handle=".(is_bool($fp) ? json_encode($fp) : $fp));
+			$fp = fopen($dir . $file, "r");
+			dolibarr_install_syslog("step2: open data file " . $dir . $file . " handle=" . (is_bool($fp) ? json_encode($fp) : $fp));
 			if ($fp) {
 				$arrayofrequests = array();
 				$linefound = 0;
@@ -524,7 +541,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 						if (empty($arrayofrequests[$linegroup])) {
 							$arrayofrequests[$linegroup] = $buffer;
 						} else {
-							$arrayofrequests[$linegroup] .= " ".$buffer;
+							$arrayofrequests[$linegroup] .= " " . $buffer;
 						}
 
 						$linefound++;
@@ -532,7 +549,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 				}
 				fclose($fp);
 
-				dolibarr_install_syslog("step2: found ".$linefound." records, defined ".count($arrayofrequests)." group(s).");
+				dolibarr_install_syslog("step2: found " . $linefound . " records, defined " . count($arrayofrequests) . " group(s).");
 
 				$okallfile = 1;
 				$db->begin();
@@ -557,7 +574,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 						} else {
 							$ok = 0;
 							$okallfile = 0;
-							print '<span class="error">'.$langs->trans("ErrorSQL")." : ".$db->lasterrno()." - ".$db->lastqueryerror()." - ".$db->lasterror()."</span><br>";
+							print '<span class="error">' . $langs->trans("ErrorSQL") . " : " . $db->lasterrno() . " - " . $db->lastqueryerror() . " - " . $db->lasterror() . "</span><br>";
 						}
 					}
 				}
@@ -570,7 +587,7 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 			}
 		}
 
-		print "<tr><td>".$langs->trans("ReferenceDataLoading")."</td>";
+		print "<tr><td>" . $langs->trans("ReferenceDataLoading") . "</td>";
 		if ($ok) {
 			print '<td><img src="../theme/eldy/img/tick.png" alt="Ok"></td></tr>';
 		} else {
@@ -588,7 +605,7 @@ $ret = 0;
 if (!$ok && isset($argv[1])) {
 	$ret = 1;
 }
-dolibarr_install_syslog("Exit ".$ret);
+dolibarr_install_syslog("Exit " . $ret);
 
 dolibarr_install_syslog("- step2: end");
 
@@ -598,23 +615,23 @@ dolibarr_install_syslog("- step2: end");
 
 $conf->file->instance_unique_id = (empty($dolibarr_main_instance_unique_id) ? (empty($dolibarr_main_cookie_cryptkey) ? '' : $dolibarr_main_cookie_cryptkey) : $dolibarr_main_instance_unique_id); // Unique id of instance
 
-$hash_unique_id = dol_hash('dolibarr'.$conf->file->instance_unique_id, 'sha256');	// Note: if the global salt changes, this hash changes too so ping may be counted twice. We don't mind. It is for statistics purpose only.
+$hash_unique_id = dol_hash('dolibarr' . $conf->file->instance_unique_id, 'sha256');	// Note: if the global salt changes, this hash changes too so ping may be counted twice. We don't mind. It is for statistics purpose only.
 
-$out  = '<input type="checkbox" name="dolibarrpingno" id="dolibarrpingno"'.((getDolGlobalString('MAIN_FIRST_PING_OK_ID') == 'disabled') ? '' : ' value="checked" checked="true"').'> ';
-$out .= '<label for="dolibarrpingno">'.$langs->trans("MakeAnonymousPing").'</label>';
+$out  = '<input type="checkbox" name="dolibarrpingno" id="dolibarrpingno"' . ((getDolGlobalString('MAIN_FIRST_PING_OK_ID') == 'disabled') ? '' : ' value="checked" checked="true"') . '> ';
+$out .= '<label for="dolibarrpingno">' . $langs->trans("MakeAnonymousPing") . '</label>';
 
 $out .= '<!-- Add js script to manage the uncheck of option to not send the ping -->';
 $out .= '<script type="text/javascript">';
 $out .= 'jQuery(document).ready(function(){';
-$out .= '  document.cookie = "DOLINSTALLNOPING_'.$hash_unique_id.'=0; path=/"'."\n";
+$out .= '  document.cookie = "DOLINSTALLNOPING_' . $hash_unique_id . '=0; path=/"' . "\n";
 $out .= '  jQuery("#dolibarrpingno").click(function() {';
 $out .= '    if (! $(this).is(\':checked\')) {';
 $out .= '      console.log("We uncheck anonymous ping");';
-$out .= '      document.cookie = "DOLINSTALLNOPING_'.$hash_unique_id.'=1; path=/"'."\n";
-$out .= '    } else {'."\n";
+$out .= '      document.cookie = "DOLINSTALLNOPING_' . $hash_unique_id . '=1; path=/"' . "\n";
+$out .= '    } else {' . "\n";
 $out .= '      console.log("We check anonymous ping");';
-$out .= '      document.cookie = "DOLINSTALLNOPING_'.$hash_unique_id.'=0; path=/"'."\n";
-$out .= '    }'."\n";
+$out .= '      document.cookie = "DOLINSTALLNOPING_' . $hash_unique_id . '=0; path=/"' . "\n";
+$out .= '    }' . "\n";
 $out .= '  });';
 $out .= '});';
 $out .= '</script>';
