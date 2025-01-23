@@ -64,9 +64,9 @@ function intracommreportAdminPrepareHead()
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@intracommreport:/intracommreport/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'intracommreport');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'intracommreport');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'intracommreport', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'intracommreport', 'remove');
 
 	return $head;
 }
@@ -153,9 +153,9 @@ function intracommreportPrepareHead($object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'intracommreport@mymodule');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'intracommreport@mymodule');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'intracommreport@mymodule', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'intracommreport@mymodule', 'remove');
 
 	return $head;
 }

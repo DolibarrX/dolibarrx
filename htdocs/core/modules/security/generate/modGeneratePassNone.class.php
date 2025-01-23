@@ -46,7 +46,7 @@ class modGeneratePassNone extends ModeleGenPassword
 	 *	@param		Translate	$langs		Handler de langue
 	 *	@param		User		$user		Handler du user connected
 	 */
-	public function __construct($db, $conf, $langs, $user)
+	public function __construct($db, $config, $langs, $user)
 	{
 		$this->id = "none";
 		$this->length = '0';

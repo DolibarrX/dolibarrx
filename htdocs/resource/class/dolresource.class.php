@@ -341,7 +341,7 @@ class Dolresource extends CommonObject
 	 */
 	public function update($user = null, int $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 		$this->date_modification = dol_now();
 

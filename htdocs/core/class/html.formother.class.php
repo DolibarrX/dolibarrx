@@ -150,7 +150,7 @@ class FormOther
 	public function select_export_model($selected = '', $htmlname = 'exportmodelid', $type = '', $useempty = 0, $fk_user = null)
 	{
 		// phpcs:enable
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$sql = "SELECT rowid, label, fk_user";
 		$sql .= " FROM ".$this->db->prefix()."export_model";
@@ -212,7 +212,7 @@ class FormOther
 	public function select_import_model($selected = '', $htmlname = 'importmodelid', $type = '', $useempty = 0, $fk_user = null)
 	{
 		// phpcs:enable
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$sql = "SELECT rowid, label, fk_user";
 		$sql .= " FROM ".$this->db->prefix()."import_model";
@@ -412,7 +412,7 @@ class FormOther
 	public function select_categories($type, $selected = 0, $htmlname = 'search_categ', $nocateg = 0, $showempty = 1, $morecss = '')
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 
 		// For backward compatibility
@@ -484,7 +484,7 @@ class FormOther
 	public function select_salesrepresentatives($selected, $htmlname, $user, $showstatus = 0, $showempty = 1, $morecss = '', $norepresentative = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 		global $action;
 
 		$langs->load('users');
@@ -1223,7 +1223,7 @@ class FormOther
 	 */
 	public static function getBoxesArea($user, $areacode)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		include_once DOL_DOCUMENT_ROOT.'/core/class/infobox.class.php';
 		// From include

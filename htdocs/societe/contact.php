@@ -215,7 +215,7 @@ if ($action != 'presend') {
 	// Contacts list
 	if (!getDolGlobalString('SOCIETE_DISABLE_CONTACTS')) {
 		$showuserlogin = in_array('u.user', explode(',', $selectedfields)) ? 1 : 0;
-		$result = show_contacts($conf, $langs, $db, $object, $_SERVER["PHP_SELF"].'?socid='.$object->id, $showuserlogin);
+		$result = show_contacts($config, $langs, $db, $object, $_SERVER["PHP_SELF"].'?socid='.$object->id, $showuserlogin);
 	}
 }
 if ($action == 'delete') {

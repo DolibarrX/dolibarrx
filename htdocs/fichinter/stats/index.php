@@ -216,7 +216,7 @@ $h++;
 
 $type = 'fichinter_stats';
 
-complete_head_from_modules($conf, $langs, null, $head, $h, $type);
+complete_head_from_modules($config, $langs, null, $head, $h, $type);
 
 print dol_get_fiche_head($head, 'byyear', '', -1);
 

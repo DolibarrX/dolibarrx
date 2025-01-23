@@ -49,7 +49,7 @@ class box_comptes extends ModeleBoxes
 	 */
 	public function __construct($db, $param = '')
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->db = $db;
 

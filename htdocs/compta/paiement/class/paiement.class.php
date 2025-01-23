@@ -306,7 +306,7 @@ class Paiement extends CommonObject
 	 */
 	public function create($user, $closepaidinvoices = 0, $thirdparty = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 		$way = $this->getWay();	// 'dolibarr' to use amount, 'customer' to use foreign multicurrency amount
@@ -777,7 +777,7 @@ class Paiement extends CommonObject
 	 */
 	public function addPaymentToBank($user, $mode, $label, $accountid, $emetteur_nom, $emetteur_banque, $notrigger = 0, $accountancycode = '', $addbankurl = '')
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$error = 0;
 		$bank_line_id = 0;
@@ -1244,7 +1244,7 @@ class Paiement extends CommonObject
 	 */
 	public function getNextNumRef($soc, $mode = 'next')
 	{
-		global $conf, $db, $langs;
+		global $config, $db, $langs;
 		$langs->load("bills");
 
 		// Clean parameters (if not defined or using deprecated value)
@@ -1376,7 +1376,7 @@ class Paiement extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $mode = 'withlistofinvoices', $notooltip = 0, $morecss = '')
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips

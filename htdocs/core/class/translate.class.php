@@ -256,7 +256,7 @@ class Translate
 	 */
 	public function load($domain, $alt = 0, $stopafterdirection = 0, $forcelangdir = '', $loadfromfileonly = 0, $forceloadifalreadynotfound = 0, &$tabtranslatedomain = [], $langkey = '')
 	{
-		global $conf, $db;
+		global $config, $db;
 
 		//dol_syslog("Translate::Load Start domain=".$domain." alt=".$alt." forcelangdir=".$forcelangdir." this->defaultlang=".$this->defaultlang);
 

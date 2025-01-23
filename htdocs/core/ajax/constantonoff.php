@@ -80,9 +80,9 @@ if (!empty($action) && !empty($name)) {
 		$tmpuser->id = $userconst;
 		if ($tmpuser->id == $user->id || $user->hasRight('user', 'user', 'creer')) {
 			if ($action == 'set') {			// Test on permission not required here. Already done into test on user->admin in header.
-				dol_set_user_param($db, $conf, $tmpuser, array($name => $value));
+				dol_set_user_param($db, $config, $tmpuser, array($name => $value));
 			} elseif ($action == 'del') {	// Test on permission not required here. Already done into test on user->admin in header.
-				dol_set_user_param($db, $conf, $tmpuser, array($name => ''));
+				dol_set_user_param($db, $config, $tmpuser, array($name => ''));
 			}
 		}
 	} else {

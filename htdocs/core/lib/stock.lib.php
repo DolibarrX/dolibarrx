@@ -30,7 +30,7 @@
  */
 function stock_prepare_head($object)
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -69,16 +69,16 @@ function stock_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'stock', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'stock', 'add', 'core');
 
 	$head[$h][0] = DOL_URL_ROOT.'/product/stock/info.php?id='.$object->id;
 	$head[$h][1] = $langs->trans("Info");
 	$head[$h][2] = 'info';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'stock', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'stock', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'stock', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'stock', 'remove');
 
 	return $head;
 }
@@ -90,7 +90,7 @@ function stock_prepare_head($object)
  */
 function stock_admin_prepare_head()
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('entrepot');
@@ -109,7 +109,7 @@ function stock_admin_prepare_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'stock_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'stock_admin');
 
 	$head[$h][0] = DOL_URL_ROOT.'/product/admin/stock_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields");
@@ -138,7 +138,7 @@ function stock_admin_prepare_head()
 	$head[$h][2] = 'inventoryAttributes';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'stock_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'stock_admin', 'remove');
 
 	return $head;
 }

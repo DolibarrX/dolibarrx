@@ -234,7 +234,7 @@ class Cronjob extends CommonObject
 	 */
 	public function create(User $user, int $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		$now = dol_now();
@@ -691,7 +691,7 @@ class Cronjob extends CommonObject
 	 */
 	public function update($user = null, int $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load('cron');
 
@@ -1066,7 +1066,7 @@ class Cronjob extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, string $option = '', int $notooltip = 0, string $morecss = '', int $save_lastsearch_value = -1)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -1179,7 +1179,7 @@ class Cronjob extends CommonObject
 	public function run_jobs(string $userlogin)
 	{
 		// phpcs:enable
-		global $langs, $conf, $hookManager;
+		global $langs, $config, $hookManager;
 
 		$hookManager->initHooks(array('cron'));
 

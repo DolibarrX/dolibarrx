@@ -92,7 +92,7 @@ class pdf_rouget extends ModelePdfExpedition
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		$this->db = $db;
 		$this->name = "rouget";
@@ -175,7 +175,7 @@ class pdf_rouget extends ModelePdfExpedition
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $conf, $langs, $hookManager;
+		global $user, $config, $langs, $hookManager;
 
 		$object->fetch_thirdparty();
 
@@ -724,7 +724,7 @@ class pdf_rouget extends ModelePdfExpedition
 	protected function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$sign = 1;
 
@@ -921,7 +921,7 @@ class pdf_rouget extends ModelePdfExpedition
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		$langs->load("orders");
 

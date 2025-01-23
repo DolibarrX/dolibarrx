@@ -377,7 +377,7 @@ class Productlot extends CommonObject
 	 */
 	public function create(User $user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 

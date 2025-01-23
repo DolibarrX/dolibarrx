@@ -418,7 +418,7 @@ class WebPortalMember extends Adherent
 	 */
 	public function getBannerAddressForWebPortal($htmlkey)
 	{
-		global $conf, $langs, $form, $extralanguages;
+		global $config, $langs, $form, $extralanguages;
 
 		$countriesusingstate = array('AU', 'US', 'IN', 'GB', 'ES', 'UK', 'TR'); // See also option MAIN_FORCE_STATE_INTO_ADDRESS
 

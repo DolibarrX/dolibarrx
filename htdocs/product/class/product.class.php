@@ -935,7 +935,7 @@ class Product extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -1343,7 +1343,7 @@ class Product extends CommonObject
 	 */
 	public function update($id, $user, $notrigger = 0, $action = 'update', $updatetype = false)
 	{
-		global $langs, $conf, $hookManager;
+		global $langs, $config, $hookManager;
 
 		$error = 0;
 
@@ -5619,7 +5619,7 @@ class Product extends CommonObject
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$langs->loadLangs(array('products', 'other'));
 

@@ -179,7 +179,7 @@ class Context
 	 */
 	private function __construct()
 	{
-		global $conf, $db;
+		global $config, $db;
 
 		$this->db = $db;
 

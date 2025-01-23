@@ -1375,7 +1375,7 @@ class Project extends CommonObject
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load('projects');
 		$option = $params['option'] ?? '';
@@ -1426,7 +1426,7 @@ class Project extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $addlabel = 0, $moreinpopup = '', $sep = ' - ', $notooltip = 0, $save_lastsearch_value = -1, $morecss = '', $save_pageforbacktolist = '')
 	{
-		global $conf, $langs, $user, $hookManager;
+		global $config, $langs, $user, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -2118,7 +2118,7 @@ class Project extends CommonObject
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load("projects");
 
@@ -2276,7 +2276,7 @@ class Project extends CommonObject
 	public function load_board($user)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		// For external user, no check is done on company because readability is managed by public status of project and assignment.
 		//$socid=$user->socid;
@@ -2521,7 +2521,7 @@ class Project extends CommonObject
 	 */
 	public function getKanbanView($option = '', $arraydata = null, $size = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$selected = (empty($arraydata['selected']) ? 0 : $arraydata['selected']);
 

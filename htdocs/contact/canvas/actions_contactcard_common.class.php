@@ -109,7 +109,7 @@ abstract class ActionsContactCardCommon
 	public function assign_values(&$action, $id)
 	{
 		// phpcs:enable
-		global $conf, $langs, $user, $canvas;
+		global $config, $langs, $user, $canvas;
 		global $form, $formcompany, $objsoc;
 
 		if ($action == 'add' || $action == 'update') {

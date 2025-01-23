@@ -34,7 +34,7 @@
  */
 function hrmAdminPrepareHead()
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$langs->load("hrm");
 
@@ -90,9 +90,9 @@ function hrmAdminPrepareHead()
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@workstation:/workstation/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'hrm_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'hrm_admin');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'hrm_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'hrm_admin', 'remove');
 
 	return $head;
 }

@@ -44,7 +44,7 @@ class modFacture extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $user, $mysoc;
+		global $config, $langs, $user, $mysoc;
 
 		$this->db = $db;
 		$this->numero = 30;
@@ -773,7 +773,7 @@ class modFacture extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Remove permissions and default values
 		$this->remove($options);

@@ -30,7 +30,7 @@
  */
 function payment_prepare_head(Paiement $object)
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$h = 0;
 	$head = array();
@@ -44,7 +44,7 @@ function payment_prepare_head(Paiement $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'payment');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'payment');
 
 	$head[$h][0] = DOL_URL_ROOT.'/compta/paiement/info.php?id='.$object->id;
 	$head[$h][1] = $langs->trans("Info");
@@ -64,7 +64,7 @@ function payment_prepare_head(Paiement $object)
 	$head[$h][2] = 'documents';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'payment', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'payment', 'remove');
 
 	return $head;
 }
@@ -92,14 +92,14 @@ function bankline_prepare_head($id)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'bankline');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'bankline');
 
 	$head[$h][0] = DOL_URL_ROOT.'/compta/bank/info.php?rowid='.$id;
 	$head[$h][1] = $langs->trans("Info");
 	$head[$h][2] = 'info';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'bankline', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'bankline', 'remove');
 
 	return $head;
 }
@@ -127,7 +127,7 @@ function payment_supplier_prepare_head(Paiement $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'payment_supplier');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'payment_supplier');
 
 	$head[$h][0] = DOL_URL_ROOT.'/fourn/paiement/info.php?id='.$object->id;
 	$head[$h][1] = $langs->trans('Info');
@@ -147,7 +147,7 @@ function payment_supplier_prepare_head(Paiement $object)
 	$head[$h][2] = 'documents';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'payment_supplier', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'payment_supplier', 'remove');
 
 	return $head;
 }
@@ -254,7 +254,7 @@ function getHtmlOnlinePaymentLink($type, $ref, $label = '', $amount = 0)
  */
 function getOnlinePaymentUrl($mode, $type, $ref = '', $amount = 0, $freetag = 'your_tag', $localorexternal = 1)
 {
-	global $conf, $dolibarr_main_url_root;
+	global $config, $dolibarr_main_url_root;
 
 	$out = '';
 

@@ -62,7 +62,7 @@ class box_supplier_orders extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 		$langs->load("boxes");
 
 		$this->max = $max;

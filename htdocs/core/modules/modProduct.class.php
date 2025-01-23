@@ -47,7 +47,7 @@ class modProduct extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$this->db = $db;
 		$this->numero = 50;

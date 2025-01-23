@@ -595,7 +595,7 @@ class Lettering extends BookKeeping
 	 */
 	public function getLinkedLines($bookkeeping_ids, $only_has_subledger_account = true)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$this->errors = array();
 
 		// Clean parameters

@@ -29,7 +29,7 @@
  */
 function openid_connect_prepare_head()
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 	$h = 0;
 	$head = array();
 
@@ -38,7 +38,7 @@ function openid_connect_prepare_head()
 	$head[$h][2] = 'settings';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'openid_connect_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'openid_connect_admin');
 
 	return $head;
 }

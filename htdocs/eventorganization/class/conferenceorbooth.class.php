@@ -285,7 +285,7 @@ class ConferenceOrBooth extends ActionComm
 	 */
 	public function fetch($id, $ref = null, $ref_ext = '', $email_msgid = '', $loadresources = 1)
 	{
-		global $dolibarr_main_url_root, $conf, $langs;
+		global $dolibarr_main_url_root, $config, $langs;
 
 		$result = parent::fetch($id, $ref, $ref_ext, $email_msgid);
 
@@ -434,7 +434,7 @@ class ConferenceOrBooth extends ActionComm
 	 */
 	public function validate($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -574,7 +574,7 @@ class ConferenceOrBooth extends ActionComm
 	 */
 	public function getNomUrl($withpicto = 0, $maxlength = 0, $classname = '', $option = '', $overwritepicto = 0, $notooltip = 0, $save_lastsearch_value = -1, $morecss = '')
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -728,7 +728,7 @@ class ConferenceOrBooth extends ActionComm
 	 */
 	public function getKanbanView($option = '', $arraydata = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$selected = (empty($arraydata['selected']) ? 0 : $arraydata['selected']);
 
@@ -817,7 +817,7 @@ class ConferenceOrBooth extends ActionComm
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0, $moreparams = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$result = 0;
 		$includedocgeneration = 0;
@@ -852,7 +852,7 @@ class ConferenceOrBooth extends ActionComm
 	 */
 	public function doScheduledJob()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		//$config->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
 

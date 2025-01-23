@@ -43,7 +43,7 @@ class html_cerfafr extends ModeleDon
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db = $db;
 		$this->name = "cerfafr";
@@ -77,7 +77,7 @@ class html_cerfafr extends ModeleDon
 	public function write_file($don, $outputlangs, $currency = '')
 	{
 		// phpcs:enable
-		global $user, $conf, $langs, $mysoc;
+		global $user, $config, $langs, $mysoc;
 
 		$now = dol_now();
 		$id = (!is_object($don) ? $don : '');

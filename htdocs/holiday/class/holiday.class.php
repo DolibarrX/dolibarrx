@@ -766,7 +766,7 @@ class Holiday extends CommonObject
 	 */
 	public function validate($user = null, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 		$error = 0;
 
@@ -1018,7 +1018,7 @@ class Holiday extends CommonObject
 	 */
 	public function update($user = null, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		$checkBalance = getDictionaryValue('c_holiday_types', 'block_if_negative', $this->fk_type, true);
@@ -1157,7 +1157,7 @@ class Holiday extends CommonObject
 	 */
 	public function delete($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."holiday";
@@ -1414,7 +1414,7 @@ class Holiday extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $save_lastsearch_value = -1, $notooltip = 0, $morecss = '')
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -2217,7 +2217,7 @@ class Holiday extends CommonObject
 	 */
 	public function addLogCP($fk_user_action, $fk_user_update, $label, $new_solde, $fk_type)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -2516,7 +2516,7 @@ class Holiday extends CommonObject
 	public function load_board($user)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		if ($user->socid) {
 			return -1; // protection pour eviter appel par utilisateur externe

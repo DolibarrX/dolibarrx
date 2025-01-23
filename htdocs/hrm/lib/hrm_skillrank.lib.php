@@ -88,9 +88,9 @@ function skillrankPrepareHead($object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@hrm:/hrm/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'skillrank@hrm');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'skillrank@hrm');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'skillrank@hrm', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'skillrank@hrm', 'remove');
 
 	return $head;
 }
@@ -107,7 +107,7 @@ function skillrankPrepareHead($object)
  */
 function displayRankInfos($selected_rank, $fk_skill, $inputname = 'TNote', $mode = 'view')
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	require_once DOL_DOCUMENT_ROOT . '/hrm/class/skill.class.php';
 	require_once DOL_DOCUMENT_ROOT . '/hrm/class/skilldet.class.php';

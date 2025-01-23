@@ -473,7 +473,7 @@ class Propal extends CommonObject
 	public function add_product($idproduct, $qty, $remise_percent = 0)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		if (!$qty) {
 			$qty = 1;
@@ -634,7 +634,7 @@ class Propal extends CommonObject
 	 */
 	public function addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1 = 0.0, $txlocaltax2 = 0.0, $fk_product = 0, $remise_percent = 0.0, $price_base_type = 'HT', $pu_ttc = 0.0, $info_bits = 0, $type = 0, $rang = -1, $special_code = 0, $fk_parent_line = 0, $fk_fournprice = 0, $pa_ht = 0, $label = '', $date_start = '', $date_end = '', $array_options = array(), $fk_unit = null, $origin = '', $origin_id = 0, $pu_ht_devise = 0, $fk_remise_except = 0, $noupdateafterinsertline = 0)
 	{
-		global $mysoc, $conf, $langs;
+		global $mysoc, $config, $langs;
 
 		dol_syslog(get_class($this)."::addline propalid=$this->id, desc=$desc, pu_ht=$pu_ht, qty=$qty, txtva=$txtva, fk_product=$fk_product, remise_except=$remise_percent, price_base_type=$price_base_type, pu_ttc=$pu_ttc, info_bits=$info_bits, type=$type, fk_remise_except=".$fk_remise_except);
 
@@ -1104,7 +1104,7 @@ class Propal extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf, $hookManager, $mysoc;
+		global $config, $hookManager, $mysoc;
 		$error = 0;
 
 		$now = dol_now();
@@ -1425,7 +1425,7 @@ class Propal extends CommonObject
 	 */
 	public function createFromClone(User $user, $socid = 0, $forceentity = null, $update_prices = false, $update_desc = false)
 	{
-		global $conf, $hookManager, $mysoc;
+		global $config, $hookManager, $mysoc;
 
 		dol_include_once('/projet/class/project.class.php');
 
@@ -2707,7 +2707,7 @@ class Propal extends CommonObject
 	 */
 	public function classifyBilled(User $user, $notrigger = 0, $note = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -3433,7 +3433,7 @@ class Propal extends CommonObject
 	public function load_board($user, $mode)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$clause = " WHERE";
 
@@ -3521,7 +3521,7 @@ class Propal extends CommonObject
 	 */
 	public function initAsSpecimen()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Load array of products prodids
 		$num_prods = 0;
@@ -3662,7 +3662,7 @@ class Propal extends CommonObject
 	 */
 	public function getNextNumRef($soc)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$langs->load("propal");
 
 		$classname = getDolGlobalString('PROPALE_ADDON');
@@ -3713,7 +3713,7 @@ class Propal extends CommonObject
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$langs->load('propal');
 		$datas = [];
@@ -3782,7 +3782,7 @@ class Propal extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $get_params = '', $notooltip = 0, $save_lastsearch_value = -1, $addlinktonotes = -1)
 	{
-		global $langs, $conf, $user, $hookManager;
+		global $langs, $config, $user, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -3930,7 +3930,7 @@ class Propal extends CommonObject
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0, $moreparams = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load("propale");
 		$outputlangs->load("products");

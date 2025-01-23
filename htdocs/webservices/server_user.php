@@ -426,7 +426,7 @@ function getUser($authentication, $id, $ref = '', $ref_ext = '')
  */
 function getListOfGroups($authentication)
 {
-	global $db, $conf, $user;
+	global $db, $config, $user;
 
 	dol_syslog("Function: getListOfGroups login=".$authentication['login']);
 
@@ -495,7 +495,7 @@ function getListOfGroups($authentication)
  */
 function createUserFromThirdparty($authentication, $thirdpartywithuser)
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	dol_syslog("Function: createUserFromThirdparty login=".$authentication['login']);
 

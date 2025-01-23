@@ -125,7 +125,7 @@ class Fournisseur extends Societe
 	 */
 	public function loadStateBoard()
 	{
-		global $conf, $user, $hookManager;
+		global $config, $user, $hookManager;
 
 		$this->nb = array();
 		$clause = "WHERE";

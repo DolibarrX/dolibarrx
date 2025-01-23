@@ -1586,7 +1586,7 @@ class Thirdparties extends DolibarrApi
 	 */
 	public function generateBankAccountDocument($id, $companybankid = null, $model = 'sepamandate')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->loadLangs(array("main", "dict", "commercial", "products", "companies", "banks", "bills", "withdrawals"));
 

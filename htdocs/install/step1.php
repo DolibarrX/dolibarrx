@@ -855,7 +855,7 @@ function write_master_file($masterfile, $main_dir)
  */
 function write_conf_file($conffile)
 {
-	global $conf, $langs;
+	global $config, $langs;
 	global $main_url, $main_dir, $main_data_dir, $main_force_https, $main_use_alt_dir, $main_alt_dir_name, $main_db_prefix;
 	global $dolibarr_main_url_root, $dolibarr_main_document_root, $dolibarr_main_data_root, $dolibarr_main_db_host;
 	global $dolibarr_main_db_port, $dolibarr_main_db_name, $dolibarr_main_db_user, $dolibarr_main_db_pass;

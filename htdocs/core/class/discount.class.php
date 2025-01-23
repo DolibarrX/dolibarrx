@@ -376,7 +376,7 @@ class DiscountAbsolute extends CommonObject
 	 */
 	public function delete($user)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Check if we can remove the discount
 		if ($this->fk_facture_source) {

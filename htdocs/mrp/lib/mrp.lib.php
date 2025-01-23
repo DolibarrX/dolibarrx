@@ -30,7 +30,7 @@
  */
 function mrpAdminPrepareHead()
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('mrp_mo');
@@ -66,9 +66,9 @@ function mrpAdminPrepareHead()
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@mrp:/mrp/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'mrp');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'mrp');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'mrp', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'mrp', 'remove');
 
 	return $head;
 }

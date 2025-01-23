@@ -389,7 +389,7 @@ function build_exportfile($format, $type, $cachedelay, $filename, $filters)
 	global $db;
 
 	// phpcs:enable
-	global $conf, $langs, $dolibarr_main_url_root, $mysoc;
+	global $config, $langs, $dolibarr_main_url_root, $mysoc;
 
 	require_once DOL_DOCUMENT_ROOT."/core/lib/xcal.lib.php";
 	require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";

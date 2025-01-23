@@ -133,7 +133,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $hookManager;
+		global $user, $langs, $config, $mysoc, $hookManager;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -614,7 +614,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 	protected function _tableau_info(&$pdf, $object, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		$pdf->SetFont('', '', $default_font_size);
@@ -693,7 +693,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
@@ -889,7 +889,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 	 */
 	public function defineColumnField($object, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 
 		// Default field style for content
 		$this->defaultContentsFieldsStyle = array(

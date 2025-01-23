@@ -259,7 +259,7 @@ class FormTicket
 	 */
 	public function showForm($withdolfichehead = 0, $mode = 'edit', $public = 0, $with_contact = null, $action = '', $object = null)
 	{
-		global $conf, $langs, $user, $hookManager;
+		global $config, $langs, $user, $hookManager;
 
 		// Load translation files required by the page
 		$langs->loadLangs(array('other', 'mails', 'ticket'));
@@ -813,7 +813,7 @@ class FormTicket
 				$classname = "modCaptcha".ucfirst($captcha);
 				if (class_exists($classname)) {
 					/** @var ModeleCaptcha $captchaobj */
-					$captchaobj = new $classname($this->db, $conf, $langs, $user);
+					$captchaobj = new $classname($this->db, $config, $langs, $user);
 					'@phan-var-force ModeleCaptcha $captchaobj';
 
 					if (is_object($captchaobj) && method_exists($captchaobj, 'getCaptchaCodeForForm')) {
@@ -980,7 +980,7 @@ class FormTicket
 	 */
 	public function selectGroupTickets($selected = '', $htmlname = 'ticketcategory', $filtertype = '', $format = 0, $empty = 0, $noadmininfo = 0, $maxlength = 0, $morecss = '', $use_multilevel = 0, $outputlangs = null)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		dol_syslog(get_class($this)."::selectCategoryTickets ".$selected.", ".$htmlname.", ".$filtertype.", ".$format, LOG_DEBUG);
 
@@ -1334,7 +1334,7 @@ class FormTicket
 	 */
 	public function selectSeveritiesTickets($selected = '', $htmlname = 'ticketseverity', $filtertype = '', $format = 0, $empty = 0, $noadmininfo = 0, $maxlength = 0, $morecss = '')
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$ticketstat = new Ticket($this->db);
 
@@ -1432,7 +1432,7 @@ class FormTicket
 	public function clear_attached_files()
 	{
 		// phpcs:enable
-		global $conf, $user;
+		global $config, $user;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		// Set tmp user directory
@@ -1460,7 +1460,7 @@ class FormTicket
 	 */
 	public function showMessageForm($width = '40%')
 	{
-		global $conf, $langs, $user, $hookManager, $form, $mysoc;
+		global $config, $langs, $user, $hookManager, $form, $mysoc;
 
 		$formmail = new FormMail($this->db);
 		$addfileaction = 'addfile';

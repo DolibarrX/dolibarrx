@@ -42,7 +42,7 @@
  */
 function societe_prepare_head(Societe $object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 	global $hookManager;
 
 	$h = 0;
@@ -362,7 +362,7 @@ function societe_prepare_head(Societe $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'thirdparty', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'thirdparty', 'add', 'core');
 
 	if ($user->socid == 0) {
 		// Notifications
@@ -484,9 +484,9 @@ function societe_prepare_head(Societe $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'thirdparty', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'thirdparty', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'thirdparty', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'thirdparty', 'remove');
 
 	return $head;
 }
@@ -526,7 +526,7 @@ function societe_prepare_head2($object)
  */
 function societe_admin_prepare_head()
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('societe');
@@ -544,7 +544,7 @@ function societe_admin_prepare_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'company_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'company_admin');
 
 	$head[$h][0] = DOL_URL_ROOT.'/societe/admin/societe_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsThirdParties");
@@ -564,7 +564,7 @@ function societe_admin_prepare_head()
 	$head[$h][2] = 'attributes_contacts';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'company_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'company_admin', 'remove');
 
 	return $head;
 }
@@ -785,7 +785,7 @@ function currency_name($code_iso, $withcode = 0, $outputlangs = null)
  */
 function getFormeJuridiqueLabel($code)
 {
-	global $conf, $db, $langs;
+	global $config, $db, $langs;
 
 	if (!$code) {
 		return '';
@@ -830,7 +830,7 @@ function getCountriesInEEC()
 {
 	// List of all country codes that are in europe for european vat rules
 	// List found on https://ec.europa.eu/taxation_customs/territorial-status-eu-countries-and-certain-territories_en
-	global $conf, $db;
+	global $config, $db;
 	$country_code_in_EEC = array();
 
 	if (!empty($config->cache['country_code_in_EEC'])) {
@@ -888,7 +888,7 @@ function isInEEC($object)
  *      @param	string		$morehtmlright	More html on right of title
  *      @return	int
  */
-function show_projects($conf, $langs, $db, $object, $backtopage = '', $nocreatelink = 0, $morehtmlright = '')
+function show_projects($config, $langs, $db, $object, $backtopage = '', $nocreatelink = 0, $morehtmlright = '')
 {
 	global $user, $action, $hookManager, $form, $massactionbutton, $massaction, $arrayofselected, $arrayofmassactions;
 
@@ -1150,9 +1150,9 @@ function show_projects($conf, $langs, $db, $object, $backtopage = '', $nocreatel
  *      @param	int			$showuserlogin 	1=Show also user login if it exists
  *      @return	int
  */
-function show_contacts($conf, $langs, $db, $object, $backtopage = '', $showuserlogin = 0)
+function show_contacts($config, $langs, $db, $object, $backtopage = '', $showuserlogin = 0)
 {
-	global $user, $conf, $extrafields, $hookManager;
+	global $user, $config, $extrafields, $hookManager;
 	global $contextpage;
 
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
@@ -1738,11 +1738,11 @@ function show_contacts($conf, $langs, $db, $object, $backtopage = '', $showuserl
  *      @param  string|string[]		$actioncode 	Filter on actioncode
  *      @return	?string							   	Return html part or null if noprint is 1
  */
-function show_actions_todo($conf, $langs, $db, $filterobj, $objcon = null, $noprint = 0, $actioncode = '')
+function show_actions_todo($config, $langs, $db, $filterobj, $objcon = null, $noprint = 0, $actioncode = '')
 {
 	global $user, $config;
 
-	$out = show_actions_done($conf, $langs, $db, $filterobj, $objcon, 1, $actioncode, 'todo');
+	$out = show_actions_done($config, $langs, $db, $filterobj, $objcon, 1, $actioncode, 'todo');
 
 	if ($noprint) {
 		return $out;
@@ -1770,9 +1770,9 @@ function show_actions_todo($conf, $langs, $db, $filterobj, $objcon = null, $nopr
  *      @param	string				$module			You can add module name here if elementtype in table llx_actioncomm is objectkey@module
  *      @return	?string								Return html part or void if noprint is 1
  */
-function show_actions_done($conf, $langs, $db, $filterobj, $objcon = null, $noprint = 0, $actioncode = '', $donetodo = 'done', $filters = array(), $sortfield = 'a.datep,a.id', $sortorder = 'DESC', $module = '')
+function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $noprint = 0, $actioncode = '', $donetodo = 'done', $filters = array(), $sortfield = 'a.datep,a.id', $sortorder = 'DESC', $module = '')
 {
-	global $user, $conf, $hookManager;
+	global $user, $config, $hookManager;
 	global $form;
 	global $param, $massactionbutton;
 
@@ -2488,7 +2488,7 @@ function show_actions_done($conf, $langs, $db, $filterobj, $objcon = null, $nopr
  * 		@param	Societe		$object		Third party object
  * 		@return	int
  */
-function show_subsidiaries($conf, $langs, $db, $object)
+function show_subsidiaries($config, $langs, $db, $object)
 {
 	global $user;
 

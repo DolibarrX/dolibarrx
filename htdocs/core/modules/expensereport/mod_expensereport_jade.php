@@ -92,7 +92,7 @@ class mod_expensereport_jade extends ModeleNumRefExpenseReport
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

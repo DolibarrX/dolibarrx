@@ -94,7 +94,7 @@ class pdf_standard_member extends CommonStickerGenerator
 	public function Add_PDF_card(&$pdf, $textleft, $header, $footer, $outputlangs, $textright = '', $idmember = 0, $photo = '')
 	{
 		// phpcs:enable
-		global $db, $mysoc, $conf, $langs;
+		global $db, $mysoc, $config, $langs;
 		global $forceimgscalewidth, $forceimgscaleheight;
 
 		$imgscalewidth = (empty($forceimgscalewidth) ? 0.3 : $forceimgscalewidth); // Scale of image for width (1=Full width of sticker)
@@ -275,7 +275,7 @@ class pdf_standard_member extends CommonStickerGenerator
 	public function write_file($object, $outputlangs, $srctemplatepath, $mode = 'member', $nooutput = '', $filename = 'tmp_cards')
 	{
 		// phpcs:enable
-		global $user, $conf, $langs, $mysoc, $_Avery_Labels;
+		global $user, $config, $langs, $mysoc, $_Avery_Labels;
 
 		$this->code = $srctemplatepath;
 

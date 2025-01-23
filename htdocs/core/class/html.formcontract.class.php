@@ -66,7 +66,7 @@ class FormContract
 	public function select_contract($socid = -1, $selected = 0, $htmlname = 'contrattid', $maxlength = 16, $showempty = 1, $showRef = 0, $noouput = 0, $morecss = 'minwidth150')
 	{
 		// phpcs:enable
-		global $user, $conf, $langs;
+		global $user, $config, $langs;
 
 		$hideunselectables = false;
 		if (getDolGlobalString('CONTRACT_HIDE_UNSELECTABLES')) {

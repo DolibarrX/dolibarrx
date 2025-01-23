@@ -1621,7 +1621,7 @@ if ($action == 'create' || $action == 'presend') {
 			$filters['search_agenda_label'] = $search_agenda_label;
 			$filters['search_rowid'] = $search_rowid;
 
-			show_actions_messaging($conf, $langs, $db, $object, null, 0, $actioncode, '', $filters, $sortfield, $sortorder);
+			show_actions_messaging($config, $langs, $db, $object, null, 0, $actioncode, '', $filters, $sortfield, $sortorder);
 		}
 
 		if ($action != 'presend' && $action != 'presend_addmessage' && $action != 'add_message') {

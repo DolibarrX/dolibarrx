@@ -94,7 +94,7 @@ class MenuManager
 	 */
 	public function loadMenu($forcemainmenu = '', $forceleftmenu = '')
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		// We save into session the main menu selected
 		if (GETPOSTISSET("mainmenu")) {
@@ -158,7 +158,7 @@ class MenuManager
 	 */
 	public function showmenu($mode, $moredata = null)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/menus/standard/auguria.lib.php';
 

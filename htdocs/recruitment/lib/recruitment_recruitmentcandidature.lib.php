@@ -93,9 +93,9 @@ function recruitmentCandidaturePrepareHead($object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@recruitment:/recruitment/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'recruitmentcandidature');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'recruitmentcandidature');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'recruitmentcandidature', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'recruitmentcandidature', 'remove');
 
 	return $head;
 }

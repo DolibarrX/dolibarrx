@@ -48,7 +48,7 @@ class box_members_last_subscriptions extends ModeleBoxes
 	 */
 	public function __construct($db, $param = '')
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->db = $db;
 

@@ -2264,7 +2264,7 @@ class Setup extends DolibarrApi
 	 */
 	public function getCompany()
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		if (!DolibarrApiAccess::$user->admin
 			&& (!getDolGlobalString('API_LOGINS_ALLOWED_FOR_GET_COMPANY') || DolibarrApiAccess::$user->login != getDolGlobalString('API_LOGINS_ALLOWED_FOR_GET_COMPANY'))) {

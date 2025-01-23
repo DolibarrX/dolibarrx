@@ -38,7 +38,7 @@ class modIntracommreport extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db = $db;
 		$this->numero = 68000;

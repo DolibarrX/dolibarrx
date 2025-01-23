@@ -537,7 +537,7 @@ class User extends CommonObject
 	 */
 	public function fetch($id = 0, $login = '', $sid = '', $loadpersonalconf = 0, $entity = -1, $email = '', $fk_socpeople = 0, $use_email_oauth2 = 0)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		// Clean parameters
 		$login = trim($login);
@@ -1024,7 +1024,7 @@ class User extends CommonObject
 	 */
 	public function addrights($rid, $allmodule = '', $allperms = '', $entity = 0, $notrigger = 0)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$entity = (empty($entity) ? $config->entity : $entity);
 
@@ -1167,7 +1167,7 @@ class User extends CommonObject
 	 */
 	public function delrights($rid, $allmodule = '', $allperms = '', $entity = 0, $notrigger = 0)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$error = 0;
 		$wherefordel = '';
@@ -1572,7 +1572,7 @@ class User extends CommonObject
 	 */
 	public function setstatus($status)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$error = 0;
 
@@ -1643,7 +1643,7 @@ class User extends CommonObject
 	 */
 	public function delete(User $user)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -1730,7 +1730,7 @@ class User extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		global $mysoc;
 
 		// Clean parameters
@@ -1875,7 +1875,7 @@ class User extends CommonObject
 	public function create_from_contact($contact, $login = '', $password = '')
 	{
 		// phpcs:enable
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$error = 0;
 
@@ -2094,7 +2094,7 @@ class User extends CommonObject
 	 */
 	public function update($user, $notrigger = 0, $nosyncmember = 0, $nosyncmemberpass = 0, $nosynccontact = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (empty($this->country_id) && !empty($this->country_code)) {
 			$country_id = getCountry($this->country_code, '3');
@@ -2497,7 +2497,7 @@ class User extends CommonObject
 	 */
 	public function setPassword($user, $password = '', $changelater = 0, $notrigger = 0, $nosyncmember = 0, $passwordalreadycrypted = 0, $flagdelsessionsbefore = 1)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 
 		$error = 0;
@@ -2518,7 +2518,7 @@ class User extends CommonObject
 
 				include_once DOL_DOCUMENT_ROOT.'/core/modules/security/generate/'.$modGeneratePassClass.'.class.php';
 				if (class_exists($modGeneratePassClass)) {
-					$modGeneratePass = new $modGeneratePassClass($this->db, $conf, $langs, $user);
+					$modGeneratePass = new $modGeneratePassClass($this->db, $config, $langs, $user);
 					'@phan-var-force ModeleGenPassword $modGeneratePass';
 
 					// To check an input user password, we disable the cleaning on ambiguous characters (this is used only for auto-generated password)
@@ -2650,7 +2650,7 @@ class User extends CommonObject
 	public function send_password($user, $password = '', $changelater = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 		global $dolibarr_main_url_root;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
@@ -2851,7 +2851,7 @@ class User extends CommonObject
 	public function SetInGroup($group, $entity, $notrigger = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$error = 0;
 
@@ -2907,7 +2907,7 @@ class User extends CommonObject
 	public function RemoveFromGroup($group, $entity, $notrigger = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$error = 0;
 
@@ -3006,7 +3006,7 @@ class User extends CommonObject
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $menumanager;
+		global $config, $langs, $menumanager;
 		global $dolibarr_main_demo;
 
 		$infologin = $params['infologin'] ?? 0;
@@ -3436,7 +3436,7 @@ class User extends CommonObject
 	public function _load_ldap_info()
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$info = array();
 
@@ -3872,7 +3872,7 @@ class User extends CommonObject
 	public function get_full_tree($deleteafterid = 0, $filter = '')
 	{
 		// phpcs:enable
-		global $conf, $user;
+		global $config, $user;
 		global $hookManager;
 
 		// Actions hooked (by external module)
@@ -4111,7 +4111,7 @@ class User extends CommonObject
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0, $moreparams = null)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$langs->load("user");
 
@@ -4218,7 +4218,7 @@ class User extends CommonObject
 	 */
 	public function fetchAll($sortorder = '', $sortfield = '', $limit = 0, $offset = 0, $filter = '', $filtermode = 'AND', $entityfilter = false)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$sql = "SELECT t.rowid";
 		$sql .= ' FROM '.$this->db->prefix().$this->table_element.' as t ';

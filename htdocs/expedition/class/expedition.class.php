@@ -410,7 +410,7 @@ class Expedition extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 
 		$now = dol_now();
 
@@ -983,7 +983,7 @@ class Expedition extends CommonObject
 	 */
 	public function addline($entrepot_id, $id, $qty, $array_options = [])
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$num = count($this->lines);
 		$line = new ExpeditionLigne($this->db);
@@ -1068,7 +1068,7 @@ class Expedition extends CommonObject
 	public function addline_batch($dbatch, $array_options = [])
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$num = count($this->lines);
 		$linebatch = null;
@@ -1288,7 +1288,7 @@ class Expedition extends CommonObject
 	 */
 	public function cancel($notrigger = 0, $also_update_stock = false)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -1483,7 +1483,7 @@ class Expedition extends CommonObject
 	 */
 	public function delete($user = null, $notrigger = 0, $also_update_stock = false)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (empty($user)) {
 			global $user;
@@ -1926,7 +1926,7 @@ class Expedition extends CommonObject
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load('sendings');
 

@@ -768,7 +768,7 @@ function getGMTEasterDatetime($year)
  */
 function num_public_holiday($timestampStart, $timestampEnd, $country_code = '', $lastday = 0, $includesaturday = -1, $includesunday = -1, $includefriday = -1, $includemonday = -1)
 {
-	global $conf, $db, $mysoc;
+	global $config, $db, $mysoc;
 
 	$nbFerie = 0;
 

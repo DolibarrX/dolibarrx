@@ -89,7 +89,7 @@ class pdf_einstein extends ModelePDFCommandes
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		// Translations
 		$langs->loadLangs(array("main", "bills", "products"));
@@ -184,7 +184,7 @@ class pdf_einstein extends ModelePDFCommandes
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $db, $hookManager, $nblines;
+		global $user, $langs, $config, $mysoc, $db, $hookManager, $nblines;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -721,7 +721,7 @@ class pdf_einstein extends ModelePDFCommandes
 	protected function _tableau_info(&$pdf, $object, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		$pdf->SetFont('', '', $default_font_size - 1);
@@ -907,7 +907,7 @@ class pdf_einstein extends ModelePDFCommandes
 	protected function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs, $outputlangsbis = null)
 	{
 		// phpcs:enable
-		global $conf, $mysoc, $hookManager;
+		global $config, $mysoc, $hookManager;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
@@ -1339,7 +1339,7 @@ class pdf_einstein extends ModelePDFCommandes
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs, $outputlangsbis = null, $titlekey = "PdfOrderTitle")
 	{
 		// phpcs:enable
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		$ltrdirection = 'L';
 		if ($outputlangs->trans("DIRECTION") == 'rtl') {

@@ -79,7 +79,7 @@ class ModelePDFLabels
 function doc_label_pdf_create($db, $arrayofrecords, $modele, $outputlangs, $outputdir = '', $template = 'standardlabel', $filename = 'tmp_address_sheet.pdf')
 {
 	// phpcs:enable
-	global $conf, $langs;
+	global $config, $langs;
 	$langs->load("members");
 
 	$error = 0;

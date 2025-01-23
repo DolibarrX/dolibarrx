@@ -166,7 +166,7 @@ class WebPortalOrder extends Commande
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$datas = [];
 
@@ -197,7 +197,7 @@ class WebPortalOrder extends Commande
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $short = 0, $notooltip = 0, $save_lastsearch_value = -1, $addlinktonotes = 0, $target = '')
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips

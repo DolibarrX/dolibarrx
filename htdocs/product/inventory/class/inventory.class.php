@@ -581,7 +581,7 @@ class Inventory extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $db, $conf, $langs;
+		global $db, $config, $langs;
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
 		global $menumanager;
 
@@ -684,7 +684,7 @@ class Inventory extends CommonObject
 	 */
 	public function getKanbanView($option = '', $arraydata = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$selected = (empty($arraydata['selected']) ? 0 : $arraydata['selected']);
 

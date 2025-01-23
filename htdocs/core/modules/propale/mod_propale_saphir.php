@@ -67,7 +67,7 @@ class mod_propale_saphir extends ModeleNumRefPropales
 	 */
 	public function info($langs)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$langs->load("bills");
 

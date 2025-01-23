@@ -112,9 +112,9 @@ function calendarPrepareHead($object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@bookcal:/bookcal/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'calendar@bookcal');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'calendar@bookcal');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'calendar@bookcal', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'calendar@bookcal', 'remove');
 
 	return $head;
 }

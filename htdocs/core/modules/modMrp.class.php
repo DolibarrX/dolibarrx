@@ -522,7 +522,7 @@ class modMrp extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Create tables of module at module activation
 		$result = $this->_load_tables('/install/mysql/', 'mrp');

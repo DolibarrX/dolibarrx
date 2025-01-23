@@ -63,7 +63,7 @@ class FormMargin
 	 */
 	public function getMarginInfosArray($object, $force_price = false)
 	{
-		global $conf, $db;
+		global $config, $db;
 
 		// Default returned array
 		$marginInfos = array(

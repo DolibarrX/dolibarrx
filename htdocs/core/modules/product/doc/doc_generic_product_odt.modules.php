@@ -52,7 +52,7 @@ class doc_generic_product_odt extends ModelePDFProduct
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		// Load translation files required by the page
 		$langs->loadLangs(array("main", "companies"));
@@ -103,7 +103,7 @@ class doc_generic_product_odt extends ModelePDFProduct
 	 */
 	public function info($langs)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Load translation files required by the page
 		$langs->loadLangs(array("errors", "companies"));
@@ -208,7 +208,7 @@ class doc_generic_product_odt extends ModelePDFProduct
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $product, $langs, $conf, $mysoc, $hookManager, $user;
+		global $product, $langs, $config, $mysoc, $hookManager, $user;
 
 		if (empty($srctemplatepath)) {
 			dol_syslog("doc_generic_odt::write_file parameter srctemplatepath empty", LOG_WARNING);

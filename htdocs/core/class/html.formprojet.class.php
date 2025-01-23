@@ -88,7 +88,7 @@ class FormProjets extends Form
 	public function select_projects($socid = -1, $selected = '', $htmlname = 'projectid', $maxlength = 16, $option_only = 0, $show_empty = 1, $discard_closed = 0, $forcefocus = 0, $disabled = 0, $mode = 0, $filterkey = '', $nooutput = 0, $forceaddid = 0, $morecss = '', $htmlid = '', $morefilter = '')
 	{
 		// phpcs:enable
-		global $langs, $conf, $form;
+		global $langs, $config, $form;
 
 		$selected_input_value = '';
 		if (is_object($selected)) {
@@ -158,7 +158,7 @@ class FormProjets extends Form
 	public function select_projects_list($socid = -1, $selected = 0, $htmlname = 'projectid', $maxlength = 24, $option_only = 0, $show_empty = 1, $discard_closed = 0, $forcefocus = 0, $disabled = 0, $mode = 0, $filterkey = '', $nooutput = 0, $forceaddid = 0, $htmlid = '', $morecss = 'maxwidth500', $morefilter = '')
 	{
 		// phpcs:enable
-		global $user, $conf, $langs;
+		global $user, $config, $langs;
 
 		require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 
@@ -348,7 +348,7 @@ class FormProjets extends Form
 	 */
 	public function selectTasks($socid = -1, $selected = 0, $htmlname = 'taskid', $maxlength = 24, $option_only = 0, $show_empty = '1', $discard_closed = 0, $forcefocus = 0, $disabled = 0, $morecss = 'maxwidth500', $projectsListId = '', $showmore = 'all', $usertofilter = null, $nooutput = 0)
 	{
-		global $user, $conf, $langs;
+		global $user, $config, $langs;
 
 		require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 
@@ -547,7 +547,7 @@ class FormProjets extends Form
 	public function select_element($table_element, $socid = 0, $morecss = '', $limitonstatus = -2, $projectkey = "fk_projet", $placeholder = '')
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		if ($table_element == 'projet_task') {
 			return ''; // Special case of element we never link to a project (already always done)
@@ -706,7 +706,7 @@ class FormProjets extends Form
 	 */
 	public function selectOpportunityStatus($htmlname, $preselected = '-1', $showempty = 1, $useshortlabel = 0, $showallnone = 0, $showpercent = 0, $morecss = '', $noadmininfo = 0, $addcombojs = 0)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$sql = "SELECT rowid, code, label, percent";
 		$sql .= " FROM " . $this->db->prefix() . 'c_lead_status';
@@ -830,7 +830,7 @@ class FormProjets extends Form
 	 */
 	public function selectInvoiceAndLine($selectedInvoiceId = 0, $selectedLineId = 0, $htmlNameInvoice = 'invoiceid', $htmlNameInvoiceLine = 'invoicelineid', $morecss = 'maxwidth500', $filters = array(), $lineOnly = 0)
 	{
-		global $user, $conf, $langs;
+		global $user, $config, $langs;
 
 		require_once DOL_DOCUMENT_ROOT . '/projet/class/project.class.php';
 
@@ -957,7 +957,7 @@ class FormProjets extends Form
 	public function formOpportunityStatus($page, $selected = '', $percent_value = 0, $htmlname_status = 'none', $htmlname_percent = 'none', $filter = '', $nooutput = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$out = '';
 		if ($htmlname_status != "none" && $htmlname_percent != 'none') {

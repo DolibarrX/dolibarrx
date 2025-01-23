@@ -268,7 +268,7 @@ class modTakePos extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs, $user, $mysoc;
+		global $config, $langs, $user, $mysoc;
 
 		$langs->load("cashdesk");
 

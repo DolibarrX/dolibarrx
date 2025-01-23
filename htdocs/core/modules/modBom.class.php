@@ -455,7 +455,7 @@ class modBom extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$result = $this->_load_tables('/install/mysql/', 'bom');
 

@@ -186,7 +186,7 @@ class pdf_azur extends ModelePDFPropales
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $db, $hookManager, $nblines;
+		global $user, $langs, $config, $mysoc, $db, $hookManager, $nblines;
 
 		dol_syslog("write_file outputlangs->defaultlang=".(is_object($outputlangs) ? $outputlangs->defaultlang : 'null'));
 
@@ -914,7 +914,7 @@ class pdf_azur extends ModelePDFPropales
 	protected function _tableau_info(&$pdf, $object, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		$pdf->SetFont('', '', $default_font_size - 1);
@@ -1101,7 +1101,7 @@ class pdf_azur extends ModelePDFPropales
 	protected function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs, $outputlangsbis = null)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		$tab2_top = $posy;
@@ -1536,7 +1536,7 @@ class pdf_azur extends ModelePDFPropales
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs, $outputlangsbis = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$ltrdirection = 'L';
 		if ($outputlangs->trans("DIRECTION") == 'rtl') {

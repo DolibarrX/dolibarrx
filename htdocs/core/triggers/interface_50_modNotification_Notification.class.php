@@ -113,7 +113,7 @@ class InterfaceNotification extends DolibarrTriggers
 	 */
 	public function getListOfManagedEvents()
 	{
-		global $conf, $action;
+		global $config, $action;
 		global $hookManager;
 
 		if (!is_object($hookManager)) {

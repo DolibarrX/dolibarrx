@@ -65,7 +65,7 @@ class pdf_standard_movementstock extends ModelePDFMovement
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		// Load traductions files required by page
 		$langs->loadLangs(array("main", "companies", "productbatch"));
@@ -144,7 +144,7 @@ class pdf_standard_movementstock extends ModelePDFMovement
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $db, $hookManager, $nblines;
+		global $user, $langs, $config, $mysoc, $db, $hookManager, $nblines;
 
 		dol_syslog("write_file outputlangs->defaultlang=".(is_object($outputlangs) ? $outputlangs->defaultlang : 'null'));
 
@@ -918,7 +918,7 @@ class pdf_standard_movementstock extends ModelePDFMovement
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs, $titlekey = "")
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Load traductions files required by page
 		$outputlangs->loadLangs(array("main", "propal", "companies", "bills", "orders", "stocks"));

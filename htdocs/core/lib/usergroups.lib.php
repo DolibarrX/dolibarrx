@@ -36,7 +36,7 @@
  */
 function user_prepare_head(User $object)
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 
 	$langs->load("users");
 
@@ -145,7 +145,7 @@ function user_prepare_head(User $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'user');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'user');
 
 	if ((isModEnabled('salaries') && $user->hasRight('salaries', 'read'))
 		|| (isModEnabled('hrm') && $user->hasRight('hrm', 'employee', 'read'))
@@ -226,7 +226,7 @@ function user_prepare_head(User $object)
 		$h++;
 	}
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'user', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'user', 'remove');
 
 	return $head;
 }
@@ -239,7 +239,7 @@ function user_prepare_head(User $object)
  */
 function group_prepare_head($object)
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 
 	$canreadperms = true;
 	if (getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) {
@@ -274,9 +274,9 @@ function group_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'group');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'group');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'group', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'group', 'remove');
 
 	return $head;
 }
@@ -288,7 +288,7 @@ function group_prepare_head($object)
  */
 function user_admin_prepare_head()
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('user');
@@ -330,9 +330,9 @@ function user_admin_prepare_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'useradmin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'useradmin');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'useradmin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'useradmin', 'remove');
 
 	return $head;
 }
@@ -347,7 +347,7 @@ function user_admin_prepare_head()
  */
 function showSkins($fuser, $edit = 0, $foruserprofile = false)
 {
-	global $conf, $langs, $db, $form;
+	global $config, $langs, $db, $form;
 
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 

@@ -368,7 +368,7 @@ $server->register(
  */
 function getProductOrService($authentication, $id = 0, $ref = '', $ref_ext = '', $lang = '')
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	dol_syslog("Function: getProductOrService login=".$authentication['login']." id=".$id." ref=".$ref." ref_ext=".$ref_ext);
 
@@ -1003,7 +1003,7 @@ function getListOfProductsOrServices($authentication, $filterproduct)
  */
 function getProductsForCategory($authentication, $id, $lang = '')
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	$langcode = ($lang ? $lang : (!getDolGlobalString('MAIN_LANG_DEFAULT') ? 'auto' : $config->global->MAIN_LANG_DEFAULT));
 	$langs->setDefaultLang($langcode);

@@ -80,7 +80,7 @@ class ModelePDFCards
 function members_card_pdf_create($db, $arrayofmembers, $modele, $outputlangs, $outputdir = '', $template = 'standard', $filename = 'tmp_cards')
 {
 	// phpcs:enable
-	global $conf, $langs;
+	global $config, $langs;
 	$langs->load("members");
 
 	$error = 0;

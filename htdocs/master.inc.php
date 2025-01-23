@@ -62,7 +62,7 @@ if (!function_exists('is_countable')) {
  * Create $conf object
  */
 
-$conf = new Conf();
+$config = new Conf();
 
 // Set properties specific to database
 $config->db->host = empty($dolibarr_main_db_host) ? '' : $dolibarr_main_db_host;

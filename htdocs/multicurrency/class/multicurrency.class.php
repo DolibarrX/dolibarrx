@@ -113,7 +113,7 @@ class MultiCurrency extends CommonObject
 	 */
 	public function create(User $user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		dol_syslog('MultiCurrency::create', LOG_DEBUG);
 
@@ -649,7 +649,7 @@ class MultiCurrency extends CommonObject
 	 */
 	public function syncRates($key, $addifnotfound = 0, $mode = "")
 	{
-		global $conf, $db, $langs;
+		global $config, $db, $langs;
 
 		if (getDolGlobalString('MULTICURRENCY_DISABLE_SYNC_CURRENCYLAYER')) {
 			if ($mode == "cron") {

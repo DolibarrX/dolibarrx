@@ -77,7 +77,7 @@ $httpClient = new \OAuth\Common\Http\Client\CurlClient();
 $serviceFactory->setHttpClient($httpClient);
 
 // Dolibarr storage
-$storage = new DoliStorage($db, $conf, $keyforprovider);
+$storage = new DoliStorage($db, $config, $keyforprovider);
 
 // Setup the credentials for the requests
 $keyforparamid = 'OAUTH_STRIPETEST'.($keyforprovider ? '-'.$keyforprovider : '').'_ID';

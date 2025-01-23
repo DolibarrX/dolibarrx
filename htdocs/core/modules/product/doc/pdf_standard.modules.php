@@ -129,7 +129,7 @@ class pdf_standard extends ModelePDFProduct
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $db, $hookManager;
+		global $user, $langs, $config, $mysoc, $db, $hookManager;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;

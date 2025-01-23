@@ -274,7 +274,7 @@ class Fichinter extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -904,7 +904,7 @@ class Fichinter extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $save_lastsearch_value = -1, $morecss = '')
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -997,7 +997,7 @@ class Fichinter extends CommonObject
 	 */
 	public function getNextNumRef($soc)
 	{
-		global $conf, $db, $langs;
+		global $config, $db, $langs;
 		$langs->load("interventions");
 
 		if (getDolGlobalString('FICHEINTER_ADDON')) {
@@ -1087,7 +1087,7 @@ class Fichinter extends CommonObject
 	 */
 	public function delete(User $user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error = 0;

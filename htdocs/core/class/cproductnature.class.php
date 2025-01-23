@@ -68,7 +68,7 @@ class CProductNature extends CommonDict
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Insert request
 		$sql = "INSERT INTO ".$this->db->prefix().$this->table_element."(";
@@ -246,7 +246,7 @@ class CProductNature extends CommonDict
 	 */
 	public function update($user = null, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Update request
 		$sql = "UPDATE ".$this->db->prefix().$this->table_element." SET";
@@ -281,7 +281,7 @@ class CProductNature extends CommonDict
 	 */
 	public function delete($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		$sql = "DELETE FROM ".$this->db->prefix().$this->table_element;

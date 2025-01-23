@@ -492,7 +492,7 @@ class Commande extends CommonOrder
 	 */
 	public function valid($user, $idwarehouse = 0, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -930,7 +930,7 @@ class Commande extends CommonOrder
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 		$error = 0;
 
 		// Clean parameters
@@ -1344,7 +1344,7 @@ class Commande extends CommonOrder
 	 */
 	public function createFromProposal($object, User $user)
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 
 		require_once DOL_DOCUMENT_ROOT . '/multicurrency/class/multicurrency.class.php';
 		require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
@@ -1792,7 +1792,7 @@ class Commande extends CommonOrder
 	public function add_product($idproduct, $qty, $remise_percent = 0.0, $date_start = '', $date_end = '')
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		if (!$qty) {
 			$qty = 1;
@@ -3353,7 +3353,7 @@ class Commande extends CommonOrder
 	 */
 	public function delete($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error = 0;
@@ -3486,7 +3486,7 @@ class Commande extends CommonOrder
 	public function load_board($user, $mode)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$clause = " WHERE";
 
@@ -3673,7 +3673,7 @@ class Commande extends CommonOrder
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$langs->load('orders');
 		$datas = [];
@@ -3741,7 +3741,7 @@ class Commande extends CommonOrder
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $short = 0, $notooltip = 0, $save_lastsearch_value = -1, $addlinktonotes = 0, $target = '')
 	{
-		global $conf, $langs, $user, $hookManager;
+		global $config, $langs, $user, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -3900,7 +3900,7 @@ class Commande extends CommonOrder
 	 */
 	public function initAsSpecimen()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		dol_syslog(get_class($this)."::initAsSpecimen");
 
@@ -4045,7 +4045,7 @@ class Commande extends CommonOrder
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0, $moreparams = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load("orders");
 		$outputlangs->load("products");
@@ -4125,7 +4125,7 @@ class Commande extends CommonOrder
 	 */
 	public function showDelay()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (empty($this->delivery_date)) {
 			$text = $langs->trans("OrderDate").' '.dol_print_date($this->date, 'day');

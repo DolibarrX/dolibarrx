@@ -33,7 +33,7 @@
  */
 function contact_prepare_head(Contact $object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$tab = 0;
 	$head = array();
@@ -105,7 +105,7 @@ function contact_prepare_head(Contact $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $tab, 'contact', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $tab, 'contact', 'add', 'core');
 
 	// Notes
 	if (!getDolGlobalString('MAIN_DISABLE_NOTES_TAB')) {
@@ -149,9 +149,9 @@ function contact_prepare_head(Contact $object)
 	$head[$tab][2] = 'info';
 	$tab++;*/
 
-	complete_head_from_modules($conf, $langs, $object, $head, $tab, 'contact', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $tab, 'contact', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $tab, 'contact', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $tab, 'contact', 'remove');
 
 	return $head;
 }
@@ -168,7 +168,7 @@ function contact_prepare_head(Contact $object)
  *      @param	string		$morehtmlright	More html on right of title
  *      @return	int
  */
-function show_contacts_projects($conf, $langs, $db, $object, $backtopage = '', $nocreatelink = 0, $morehtmlright = '')
+function show_contacts_projects($config, $langs, $db, $object, $backtopage = '', $nocreatelink = 0, $morehtmlright = '')
 {
 	global $user;
 

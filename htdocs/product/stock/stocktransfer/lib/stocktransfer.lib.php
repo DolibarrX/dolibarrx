@@ -62,9 +62,9 @@ function stocktransferAdminPrepareHead()
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@stocktransfer:/stocktransfer/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'stocktransfer');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'stocktransfer');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'stocktransfer', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'stocktransfer', 'remove');
 
 	return $head;
 }

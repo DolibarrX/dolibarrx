@@ -9,7 +9,7 @@ if (empty($context) || !is_object($context)) {
 }
 '@phan-var-force Context $context';
 
-global $conf, $langs;
+global $config, $langs;
 
 ?>
 

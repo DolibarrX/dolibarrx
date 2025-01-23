@@ -47,7 +47,7 @@ class DolibarrApi
 	 */
 	public function __construct($db, $cachedir = '', $refreshCache = false)
 	{
-		global $conf, $dolibarr_main_url_root;
+		global $config, $dolibarr_main_url_root;
 
 		if (empty($cachedir)) {
 			$cachedir = $config->api->dir_temp;

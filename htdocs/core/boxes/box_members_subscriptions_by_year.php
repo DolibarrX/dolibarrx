@@ -48,7 +48,7 @@ class box_members_subscriptions_by_year extends ModeleBoxes
 	 */
 	public function __construct($db, $param = '')
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->db = $db;
 

@@ -93,7 +93,7 @@ class mod_supplier_payment_bronan extends ModeleNumRefSupplierPayments
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$payyymm = '';
 		$max = '';

@@ -88,7 +88,7 @@ class mod_stocktransfer_standard extends ModeleNumRefStockTransfer
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

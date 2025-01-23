@@ -276,7 +276,7 @@ class CommandeFournisseurLigne extends CommonOrderLine
 	 */
 	public function insert($notrigger = 0)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$error = 0;
 

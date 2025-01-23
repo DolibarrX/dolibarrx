@@ -204,7 +204,7 @@ displayPositionCard($object);
  */
 function displayPositionCard(&$object)
 {
-	global $user, $langs, $db, $conf, $extrafields, $hookManager, $action, $permissiontoadd, $permissiontodelete;
+	global $user, $langs, $db, $config, $extrafields, $hookManager, $action, $permissiontoadd, $permissiontodelete;
 
 	$id = $object->id;
 	$ref = $object->ref;

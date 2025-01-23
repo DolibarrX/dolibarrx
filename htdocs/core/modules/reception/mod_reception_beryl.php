@@ -74,7 +74,7 @@ class mod_reception_beryl extends ModelNumRefReception
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

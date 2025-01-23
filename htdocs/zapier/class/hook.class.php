@@ -238,7 +238,7 @@ class Hook extends CommonObject
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$this->db = $db;
 
@@ -462,7 +462,7 @@ class Hook extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $db, $conf, $langs, $hookManager, $action;
+		global $db, $config, $langs, $hookManager, $action;
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
 		global $menumanager;
 

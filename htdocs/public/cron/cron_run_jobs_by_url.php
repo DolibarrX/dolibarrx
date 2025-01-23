@@ -75,7 +75,7 @@ dol_include_once("/cron/class/cronjob.class.php");
  * @var DoliDB $db
  * @var Translate $langs
  */
-global $langs, $conf, $db;
+global $langs, $config, $db;
 
 // Language Management
 $langs->loadLangs(array("admin", "cron", "dict"));
@@ -157,7 +157,7 @@ $nbofjobslaunchedok = 0;
 $nbofjobslaunchedko = 0;
 
 if (is_array($object->lines) && (count($object->lines) > 0)) {
-	$savconf = dol_clone($conf, 0);
+	$savconf = dol_clone($config, 0);
 
 	// Loop over job
 	foreach ($object->lines as $line) {
@@ -244,7 +244,7 @@ if (is_array($object->lines) && (count($object->lines) > 0)) {
 		}
 	}
 
-	$conf = $savconf;
+	$config = $savconf;
 
 	echo "Result: ".($nbofjobs)." jobs - ".($nbofjobslaunchedok + $nbofjobslaunchedko)." launched = ".$nbofjobslaunchedok." OK + ".$nbofjobslaunchedko." KO";
 } else {

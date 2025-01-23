@@ -113,7 +113,7 @@ class FormWebsite
 	 */
 	public function selectTypeOfContainer($htmlname, $selected = '', $useempty = 0, $moreattrib = '', $addjscombo = 0, $morecss = 'minwidth200')
 	{
-		global $langs, $conf, $user;
+		global $langs, $config, $user;
 
 		$langs->load("admin");
 
@@ -263,7 +263,7 @@ class FormWebsite
 	 */
 	public function selectContainer($website, $htmlname = 'pageid', $pageid = 0, $showempty = 0, $action = '', $morecss = 'minwidth200', $excludeids = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->num = 0;
 

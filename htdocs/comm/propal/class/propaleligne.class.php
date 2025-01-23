@@ -450,7 +450,7 @@ class PropaleLigne extends CommonObjectLine
 	 */
 	public function insert($notrigger = 0)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$error = 0;
 
@@ -669,7 +669,7 @@ class PropaleLigne extends CommonObjectLine
 	 */
 	public function update($notrigger = 0)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$error = 0;
 

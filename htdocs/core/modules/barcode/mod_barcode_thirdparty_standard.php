@@ -104,7 +104,7 @@ class mod_barcode_thirdparty_standard extends ModeleNumRefBarCode
 	 */
 	public function info($langs)
 	{
-		global $conf, $mc;
+		global $config, $mc;
 		global $form;
 
 		$langs->load("thirdparties");

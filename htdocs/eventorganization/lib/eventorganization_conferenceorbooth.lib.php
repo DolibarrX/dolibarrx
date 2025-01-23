@@ -105,9 +105,9 @@ function conferenceorboothPrepareHead($object, $with_project = 0)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@eventorganization:/eventorganization/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'conferenceorbooth@eventorganization');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'conferenceorbooth@eventorganization');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'conferenceorbooth@eventorganization', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'conferenceorbooth@eventorganization', 'remove');
 
 	return $head;
 }
@@ -179,9 +179,9 @@ function conferenceorboothProjectPrepareHead($object)
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbAttendees . '</span>';
 	}
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'conferenceorboothproject@eventorganization');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'conferenceorboothproject@eventorganization');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'conferenceorboothproject@eventorganization', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'conferenceorboothproject@eventorganization', 'remove');
 
 	return $head;
 }
@@ -209,9 +209,9 @@ function conferenceorboothAttendeePrepareHead($object)
 
 	//TODO : Note and document
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'conferenceorboothattendee@eventorganization');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'conferenceorboothattendee@eventorganization');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'conferenceorboothattendee@eventorganization', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'conferenceorboothattendee@eventorganization', 'remove');
 
 	return $head;
 }

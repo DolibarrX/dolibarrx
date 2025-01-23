@@ -138,7 +138,7 @@ class EcmDirectory extends CommonObject
 	 */
 	public function create($user)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 		$now = dol_now();
@@ -244,7 +244,7 @@ class EcmDirectory extends CommonObject
 	 */
 	public function update($user = null, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -389,7 +389,7 @@ class EcmDirectory extends CommonObject
 	 */
 	public function delete($user, $mode = 'all', $deletedirrecursive = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error = 0;

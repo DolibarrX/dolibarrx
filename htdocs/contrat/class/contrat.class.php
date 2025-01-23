@@ -1012,7 +1012,7 @@ class Contrat extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Check parameters
 		$paramsok = 1;
@@ -1474,7 +1474,7 @@ class Contrat extends CommonObject
 	 */
 	public function addline($desc, $pu_ht, $qty, $txtva, $txlocaltax1, $txlocaltax2, $fk_product, $remise_percent, $date_start, $date_end, $price_base_type = 'HT', $pu_ttc = 0.0, $info_bits = 0, $fk_fournprice = null, $pa_ht = 0, $array_options = array(), $fk_unit = null, $rang = 0)
 	{
-		global $user, $langs, $conf, $mysoc;
+		global $user, $langs, $config, $mysoc;
 		$error = 0;
 
 		dol_syslog(get_class($this)."::addline $desc, $pu_ht, $qty, $txtva, $txlocaltax1, $txlocaltax2, $fk_product, $remise_percent, $date_start, $date_end, $price_base_type, $pu_ttc, $info_bits, $rang");
@@ -1709,7 +1709,7 @@ class Contrat extends CommonObject
 	 */
 	public function updateline($rowid, $desc, $pu, $qty, $remise_percent, $date_start, $date_end, $tvatx, $localtax1tx = 0.0, $localtax2tx = 0.0, $date_start_real = '', $date_end_real = '', $price_base_type = 'HT', $info_bits = 0, $fk_fournprice = null, $pa_ht = 0, $array_options = array(), $fk_unit = null, $rang = 0)
 	{
-		global $user, $conf, $langs, $mysoc;
+		global $user, $config, $langs, $mysoc;
 
 		$error = 0;
 
@@ -2038,7 +2038,7 @@ class Contrat extends CommonObject
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$langs->load('contracts');
 
@@ -2097,7 +2097,7 @@ class Contrat extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $maxlength = 0, $notooltip = 0, $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $user, $hookManager;
+		global $config, $langs, $user, $hookManager;
 
 		$result = '';
 
@@ -2289,7 +2289,7 @@ class Contrat extends CommonObject
 	public function load_board($user, $mode)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->from = " FROM ".MAIN_DB_PREFIX."contrat as c";
 		$this->from .= ", ".MAIN_DB_PREFIX."contratdet as cd";
@@ -2385,7 +2385,7 @@ class Contrat extends CommonObject
 	 */
 	public function loadStateBoard()
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->nb = array();
 		$clause = "WHERE";
@@ -2551,7 +2551,7 @@ class Contrat extends CommonObject
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0, $moreparams = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (!dol_strlen($modele)) {
 			$modele = '';	// No doc template/generation by default
@@ -2618,7 +2618,7 @@ class Contrat extends CommonObject
 	 */
 	public function createFromClone(User $user, $socid = 0, $notrigger = 0)
 	{
-		global $db, $langs, $conf, $hookManager, $extrafields;
+		global $db, $langs, $config, $hookManager, $extrafields;
 
 		dol_include_once('/projet/class/project.class.php');
 

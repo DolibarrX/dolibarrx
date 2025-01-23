@@ -42,7 +42,7 @@ class modEventOrganization extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db = $db;
 
@@ -426,7 +426,7 @@ class modEventOrganization extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		/*$result = run_sql(DOL_DOCUMENT_ROOT.'/install/mysql/data/llx_c_email_templates.sql', 1, '', 1);
 		if ($result <= 0) {

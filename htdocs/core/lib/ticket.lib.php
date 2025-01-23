@@ -31,7 +31,7 @@
  */
 function ticketAdminPrepareHead()
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('ticket');
@@ -68,9 +68,9 @@ function ticketAdminPrepareHead()
 	//$this->tabs = array(
 	//    'entity:-tabname:Title:@ticket:/ticket/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'ticketadmin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'ticketadmin');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'ticketadmin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'ticketadmin', 'remove');
 
 	return $head;
 }
@@ -83,7 +83,7 @@ function ticketAdminPrepareHead()
  */
 function ticket_prepare_head($object)
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 
 	$h = 0;
 	$head = array();
@@ -103,7 +103,7 @@ function ticket_prepare_head($object)
 		$h++;
 	}
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'ticket', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'ticket', 'add', 'core');
 
 	// Attached files
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
@@ -154,9 +154,9 @@ function ticket_prepare_head($object)
 	$h++;
 
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'ticket', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'ticket', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'ticket', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'ticket', 'remove');
 
 	return $head;
 }
@@ -169,7 +169,7 @@ function ticket_prepare_head($object)
  */
 function showDirectPublicLink($object)
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	require_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
 	$email = CMailFile::getValidAddress($object->origin_email, 2);
@@ -228,7 +228,7 @@ function generate_random_id($car = 16)
  */
 function llxHeaderTicket($title, $head = "", $disablejs = 0, $disablehead = 0, $arrayofjs = [], $arrayofcss = [])
 {
-	global $user, $conf, $langs, $mysoc;
+	global $user, $config, $langs, $mysoc;
 
 	$urllogo = "";
 	top_htmlhead($head, $title, $disablejs, $disablehead, $arrayofjs, $arrayofcss, 0, 1); // Show html headers

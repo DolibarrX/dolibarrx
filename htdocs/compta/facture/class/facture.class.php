@@ -478,7 +478,7 @@ class Facture extends CommonInvoice
 	 */
 	public function create(User $user, $notrigger = 0, $forceduedate = 0)
 	{
-		global $langs, $conf, $mysoc, $hookManager;
+		global $langs, $config, $mysoc, $hookManager;
 		$error = 0;
 		$origin_user_author_id = ($user->id > 0 ? (int) $user->id : 0);
 		// Clean parameters
@@ -1263,7 +1263,7 @@ class Facture extends CommonInvoice
 	 */
 	public function createFromClone(User $user, $fromid = 0)
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 
 		$error = 0;
 
@@ -1405,7 +1405,7 @@ class Facture extends CommonInvoice
 	 */
 	public function createFromOrder($object, User $user)
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 
 		$error = 0;
 
@@ -1538,7 +1538,7 @@ class Facture extends CommonInvoice
 	 */
 	public function createFromContract($object, User $user, $lines = array())
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 
 		$error = 0;
 
@@ -1677,7 +1677,7 @@ class Facture extends CommonInvoice
 	 */
 	public static function createDepositFromOrigin(CommonObject $origin, $date, $payment_terms_id, User $user, $notrigger = 0, $autoValidateDeposit = false, $overrideFields = array())
 	{
-		global $conf, $langs, $hookManager, $action;
+		global $config, $langs, $hookManager, $action;
 
 		if (! in_array($origin->element, array('propal', 'commande'))) {
 			$origin->error = 'ErrorCanOnlyAutomaticallyGenerateADepositFromProposalOrOrder';
@@ -1957,7 +1957,7 @@ class Facture extends CommonInvoice
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $mysoc, $user;
+		global $config, $langs, $mysoc, $user;
 
 		$langs->load('bills');
 
@@ -2045,7 +2045,7 @@ class Facture extends CommonInvoice
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $short = 0, $moretitle = '', $notooltip = 0, $addlinktonotes = 0, $save_lastsearch_value = -1, $target = '')
 	{
-		global $langs, $conf, $user;
+		global $langs, $config, $user;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -3222,7 +3222,7 @@ class Facture extends CommonInvoice
 	 */
 	public function validate($user, $force_number = '', $idwarehouse = 0, $notrigger = 0, $batch_rule = 0)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$productStatic = null;
@@ -3743,7 +3743,7 @@ class Facture extends CommonInvoice
 	public function setDraft($user, $idwarehouse = -1)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -3900,7 +3900,7 @@ class Facture extends CommonInvoice
 			//var_dump(debug_backtrace(false));exit;
 		}
 
-		global $mysoc, $conf, $langs;
+		global $mysoc, $config, $langs;
 
 		dol_syslog(get_class($this)."::addline id=$this->id, pu_ht=$pu_ht, qty=$qty, txtva=$txtva, txlocaltax1=$txlocaltax1, txlocaltax2=$txlocaltax2, fk_product=$fk_product, remise_percent=$remise_percent, date_start=$date_start, date_end=$date_end, fk_code_ventilation=$fk_code_ventilation, info_bits=$info_bits, fk_remise_except=$fk_remise_except, price_base_type=$price_base_type, pu_ttc=$pu_ttc, type=$type, fk_unit=$fk_unit, desc=".dol_trunc($desc, 25), LOG_DEBUG);
 
@@ -4663,7 +4663,7 @@ class Facture extends CommonInvoice
 	 */
 	public function getNextNumRef($soc, $mode = 'next')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if ($this->module_source == 'takepos') {
 			$langs->load('cashdesk');
@@ -5019,7 +5019,7 @@ class Facture extends CommonInvoice
 	public function load_board($user)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$clause = " WHERE";
 
@@ -5108,7 +5108,7 @@ class Facture extends CommonInvoice
 	 */
 	public function initAsSpecimen($option = '')
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$now = dol_now();
 		$arraynow = dol_getdate($now);
@@ -5264,7 +5264,7 @@ class Facture extends CommonInvoice
 	 */
 	public function loadStateBoard()
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->nb = array();
 
@@ -5317,7 +5317,7 @@ class Facture extends CommonInvoice
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0, $moreparams = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$outputlangs->loadLangs(array("bills", "products"));
 
@@ -5736,7 +5736,7 @@ class Facture extends CommonInvoice
 	 */
 	public function sendEmailsRemindersOnInvoiceDueDate($nbdays = 0, $paymentmode = 'all', $template = '', $datetouse = 'duedate', $forcerecipient = '')
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$error = 0;
 		$this->output = '';

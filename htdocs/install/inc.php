@@ -48,7 +48,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
-$conf = new Conf();
+$config = new Conf();
 
 // Force $_REQUEST["logtohtml"]
 $_REQUEST["logtohtml"] = 1;
@@ -437,7 +437,7 @@ function conf($dolibarr_main_document_root)
 		return -1;
 	}
 
-	$conf = new Conf();
+	$config = new Conf();
 	$config->db->type = trim($dolibarr_main_db_type);
 	$config->db->host = trim($dolibarr_main_db_host);
 	$config->db->port = trim($dolibarr_main_db_port);
@@ -627,7 +627,7 @@ function pHeader($subtitle, $next, $action = 'set', $param = '', $forcejqueryurl
  */
 function pFooter($nonext = 0, $setuplang = '', $jscheckfunction = '', $withpleasewait = 0, $morehtml = '')
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	$langs->loadLangs(array("main", "other", "admin"));
 

@@ -87,7 +87,7 @@ class FormAccounting extends Form
 	public function select_journal($selectid, $htmlname = 'journal', $nature = 0, $showempty = 0, $select_in = 0, $select_out = 0, $morecss = 'maxwidth300 maxwidthonsmartphone', $usecache = '', $disabledajaxcombo = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$out = '';
 
@@ -167,7 +167,7 @@ class FormAccounting extends Form
 	public function multi_select_journal($selectedIds = array(), $htmlname = 'journal', $nature = 0, $showempty = 0, $select_in = 0, $select_out = 0, $morecss = '', $usecache = '', $disabledajaxcombo = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$out = '';
 
@@ -371,7 +371,7 @@ class FormAccounting extends Form
 	public function select_account($selectid, $htmlname = 'account', $showempty = 0, $event = array(), $select_in = 0, $select_out = 0, $morecss = 'minwidth100 maxwidth300 maxwidthonsmartphone', $usecache = '', $active = '1')
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/accounting.lib.php';
 

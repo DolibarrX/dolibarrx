@@ -58,7 +58,7 @@ class box_graph_invoices_peryear extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$this->max = $max;
 

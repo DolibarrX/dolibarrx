@@ -381,7 +381,7 @@ if ((!isset($mode) || $mode != 'noajax') && is_object($db)) {
  */
 function treeOutputForAbsoluteDir($sqltree, $selecteddir, $fullpathselecteddir, $modulepart, $websitekey, $pageid, $preopened, $fullpathpreopened, $depth = 0)
 {
-	global $conf, $db, $langs, $form, $user;
+	global $config, $db, $langs, $form, $user;
 	global $dolibarr_main_data_root;
 
 	$ecmdirstatic = new EcmDirectory($db);

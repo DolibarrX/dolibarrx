@@ -49,7 +49,7 @@ class box_members_by_tags extends ModeleBoxes
 	 */
 	public function __construct($db, $param = '')
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->db = $db;
 

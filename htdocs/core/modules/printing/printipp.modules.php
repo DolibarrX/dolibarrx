@@ -54,7 +54,7 @@ class printing_printipp extends PrintingDriver
 	/**
 	 * @var array<int,array<string,int|string>> array of setup values
 	 */
-	public $conf = array();
+	public $config = array();
 
 	/**
 	 * @var string host
@@ -121,7 +121,7 @@ class printing_printipp extends PrintingDriver
 	 */
 	public function printFile($file, $module, $subdir = '')
 	{
-		global $conf, $user;
+		global $config, $user;
 		$error = 0;
 
 		include_once DOL_DOCUMENT_ROOT.'/includes/printipp/CupsPrintIPP.php';
@@ -191,7 +191,7 @@ class printing_printipp extends PrintingDriver
 	 */
 	public function listAvailablePrinters()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		$html = '<tr class="liste_titre">';
@@ -244,7 +244,7 @@ class printing_printipp extends PrintingDriver
 	 */
 	public function getlistAvailablePrinters()
 	{
-		global $conf, $db;
+		global $config, $db;
 		include_once DOL_DOCUMENT_ROOT.'/includes/printipp/CupsPrintIPP.php';
 		$ipp = new CupsPrintIPP();
 		$ipp->setLog(DOL_DATA_ROOT.'/dolibarr_printipp.log', 'file', 3); // logging very verbose
@@ -266,7 +266,7 @@ class printing_printipp extends PrintingDriver
 	 */
 	private function getPrinterDetail($uri)
 	{
-		global $conf, $db;
+		global $config, $db;
 
 		include_once DOL_DOCUMENT_ROOT.'/includes/printipp/CupsPrintIPP.php';
 		$ipp = new CupsPrintIPP();

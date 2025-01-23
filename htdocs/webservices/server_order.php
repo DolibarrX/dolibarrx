@@ -679,7 +679,7 @@ function getOrdersForThirdParty($authentication, $idthirdparty)
  */
 function createOrder($authentication, $order)
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
@@ -825,7 +825,7 @@ function createOrder($authentication, $order)
  */
 function validOrder($authentication, $id = 0, $id_warehouse = 0)
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	dol_syslog("Function: validOrder login=".$authentication['login']." id=".$id." id_warehouse=".$id_warehouse);
 
@@ -894,7 +894,7 @@ function validOrder($authentication, $id = 0, $id_warehouse = 0)
  */
 function updateOrder($authentication, $order)
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	dol_syslog("Function: updateOrder login=".$authentication['login']);
 

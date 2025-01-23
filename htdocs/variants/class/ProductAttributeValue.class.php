@@ -113,7 +113,7 @@ class ProductAttributeValue extends CommonObjectLine
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db = $db;
 

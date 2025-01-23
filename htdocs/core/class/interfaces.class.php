@@ -258,7 +258,7 @@ class Interfaces
 	 */
 	public function getTriggersList($forcedirtriggers = null)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$files = array();
 		$fullpath = array();

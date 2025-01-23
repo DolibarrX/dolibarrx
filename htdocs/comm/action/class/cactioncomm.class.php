@@ -160,7 +160,7 @@ class CActionComm
 	public function liste_array($active = '', $idorcode = 'id', $excludetype = '', $onlyautoornot = 0, $morefilter = '', $shortlabel = 0)
 	{
 		// phpcs:enable
-		global $langs, $conf, $user;
+		global $langs, $config, $user;
 		$langs->load("commercial");
 
 		/*

@@ -95,7 +95,7 @@ class mod_propale_marbre extends ModeleNumRefPropales
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$pryymm = '';
 		$max = '';

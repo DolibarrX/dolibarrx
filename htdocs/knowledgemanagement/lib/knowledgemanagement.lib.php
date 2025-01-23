@@ -29,7 +29,7 @@
  */
 function knowledgemanagementAdminPrepareHead()
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$langs->load("knowledgemanagement");
 
@@ -62,9 +62,9 @@ function knowledgemanagementAdminPrepareHead()
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@knowledgemanagement:/knowledgemanagement/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'knowledgemanagement');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'knowledgemanagement');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'knowledgemanagement', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'knowledgemanagement', 'remove');
 
 	return $head;
 }

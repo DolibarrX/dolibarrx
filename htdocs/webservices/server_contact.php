@@ -271,7 +271,7 @@ $server->register(
  */
 function getContact($authentication, $id, $ref_ext)
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	dol_syslog("Function: getContact login=".$authentication['login']." id=".$id." ref_ext=".$ref_ext);
 

@@ -330,7 +330,7 @@ class modMultiCurrency extends DolibarrModules
 	 */
 	private function createFirstCurrency()
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$multicurrency = new MultiCurrency($this->db);
 

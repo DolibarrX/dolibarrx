@@ -84,7 +84,7 @@ class pdf_typhon extends ModelePDFDeliveryOrder
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		// Translations
 		$langs->loadLangs(array("main", "bills", "sendings", "companies"));
@@ -154,7 +154,7 @@ class pdf_typhon extends ModelePDFDeliveryOrder
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $hookManager;
+		global $user, $langs, $config, $mysoc, $hookManager;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -607,7 +607,7 @@ class pdf_typhon extends ModelePDFDeliveryOrder
 	protected function _tableau_info(&$pdf, $object, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		$pdf->SetFont('', '', $default_font_size);
@@ -638,7 +638,7 @@ class pdf_typhon extends ModelePDFDeliveryOrder
 	 */
 	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0)
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		// Force to disable hidetop and hidebottom
 		$hidebottom = 0;
@@ -701,7 +701,7 @@ class pdf_typhon extends ModelePDFDeliveryOrder
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 

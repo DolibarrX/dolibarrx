@@ -86,7 +86,7 @@ class ActionsMyModule extends CommonHookActions
 	 */
 	public function getNomUrl($parameters, &$object, &$action)
 	{
-		global $db, $langs, $conf, $user;
+		global $db, $langs, $config, $user;
 		$this->resprints = '';
 		return 0;
 	}
@@ -102,7 +102,7 @@ class ActionsMyModule extends CommonHookActions
 	 */
 	public function doActions($parameters, &$object, &$action, $hookManager)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$error = 0; // Error counter
 
@@ -137,7 +137,7 @@ class ActionsMyModule extends CommonHookActions
 	 */
 	public function doMassActions($parameters, &$object, &$action, $hookManager)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$error = 0; // Error counter
 
@@ -173,7 +173,7 @@ class ActionsMyModule extends CommonHookActions
 	 */
 	public function addMoreMassActions($parameters, &$object, &$action, $hookManager)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$error = 0; // Error counter
 		$disabled = 1;
@@ -205,7 +205,7 @@ class ActionsMyModule extends CommonHookActions
 	 */
 	public function beforePDFCreation($parameters, &$object, &$action)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 		global $hookManager;
 
 		$outputlangs = $langs;
@@ -234,7 +234,7 @@ class ActionsMyModule extends CommonHookActions
 	 */
 	public function afterPDFCreation($parameters, &$pdfhandler, &$action)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 		global $hookManager;
 
 		$outputlangs = $langs;
@@ -339,7 +339,7 @@ class ActionsMyModule extends CommonHookActions
 	 */
 	public function completeTabsHead(&$parameters, &$object, &$action, $hookManager)
 	{
-		global $langs, $conf, $user;
+		global $langs, $config, $user;
 
 		if (!isset($parameters['object']->element)) {
 			return 0;

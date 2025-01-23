@@ -92,7 +92,7 @@ class Login
 	 */
 	public function index($login, $password, $entity = '', $reset = 0)
 	{
-		global $conf, $dolibarr_main_authentication, $dolibarr_auto_user;
+		global $config, $dolibarr_main_authentication, $dolibarr_auto_user;
 
 		// Is the login API disabled ? The token must be generated from backoffice only.
 		if (getDolGlobalString('API_DISABLE_LOGIN_API')) {

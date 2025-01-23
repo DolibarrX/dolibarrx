@@ -124,7 +124,7 @@ class AccountancyExport
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 
 		$this->db = $db;
 		$this->separator = getDolGlobalString('ACCOUNTING_EXPORT_SEPARATORCSV');
@@ -374,7 +374,7 @@ class AccountancyExport
 	 */
 	public function export(&$TData, $formatexportset, $withAttachment = 0, $downloadMode = 1, $outputMode = 1, $noouput = 1)
 	{
-		global $db, $conf, $langs;	// The tpl file use $db
+		global $db, $config, $langs;	// The tpl file use $db
 		global $search_date_end; 	// Used into /accountancy/tpl/export_journal.tpl.php
 
 		// Define name of file to save
@@ -887,7 +887,7 @@ class AccountancyExport
 	 */
 	public function exportQuadratus($objectLines, $exportFile = null, $archiveFileList = array(), $withAttachment = 0)
 	{
-		global $conf, $db;
+		global $config, $db;
 
 		$end_line = "\r\n";
 
@@ -1359,7 +1359,7 @@ class AccountancyExport
 	 */
 	public function exportFEC($objectLines, $exportFile = null, $archiveFileList = array(), $withAttachment = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$separator = "\t";
 		$end_line = "\r\n";
@@ -1574,7 +1574,7 @@ class AccountancyExport
 	 */
 	public function exportFEC2($objectLines, $exportFile = null, $archiveFileList = array(), $withAttachment = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$separator = "\t";
 		$end_line = "\r\n";

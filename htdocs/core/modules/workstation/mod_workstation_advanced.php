@@ -102,7 +102,7 @@ class mod_workstation_advanced extends ModeleNumRefWorkstation
 	 */
 	public function getExample()
 	{
-		global $conf, $db, $langs, $mysoc;
+		global $config, $db, $langs, $mysoc;
 
 		$object = new Workstation($db);
 		$object->initAsSpecimen();

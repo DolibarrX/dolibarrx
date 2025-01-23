@@ -45,7 +45,7 @@ class modSociete extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $user, $mysoc, $langs;
+		global $config, $user, $mysoc, $langs;
 
 		$this->db = $db;
 		$this->numero = 1;
@@ -1027,7 +1027,7 @@ class modSociete extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// We disable this to prevent pb of modules not correctly disabled
 		//$this->remove($options);

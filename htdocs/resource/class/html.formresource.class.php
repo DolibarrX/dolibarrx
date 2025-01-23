@@ -90,7 +90,7 @@ class FormResource
 	public function select_resource_list($selected = 0, $htmlname = 'fk_resource', $filter = '', $showempty = 0, $showtype = 0, $forcecombo = 0, $event = [], $filterkey = '', $outputmode = 0, $limit = 20, $morecss = 'minwidth100', $multiple = false)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$out = '';
 		$outarray = array();
@@ -306,7 +306,7 @@ class FormResource
 	public function select_state($selected = 0, $country_codeid = 0, $htmlname = 'state_id', $morecss = 'maxwidth200onsmartphone  minwidth300')
 	{
 		// phpcs:enable
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		dol_syslog(get_class($this) . "::select_departement selected=" . $selected . ", country_codeid=" . $country_codeid, LOG_DEBUG);
 

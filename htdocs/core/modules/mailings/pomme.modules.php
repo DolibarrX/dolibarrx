@@ -79,7 +79,7 @@ class mailing_pomme extends MailingTargets
 	 */
 	public function getSqlArrayForStats()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load("users");
 
@@ -174,7 +174,7 @@ class mailing_pomme extends MailingTargets
 	public function add_to_target($mailing_id)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 		$langs->load("companies");
 
 		$cibles = array();

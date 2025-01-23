@@ -80,9 +80,9 @@ function prelevement_prepare_head(BonPrelevement $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'prelevement');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'prelevement');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'prelevement', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'prelevement', 'remove');
 
 	return $head;
 }
@@ -96,7 +96,7 @@ function prelevement_prepare_head(BonPrelevement $object)
  */
 function prelevement_check_config($type = 'direct-debit')
 {
-	global $conf, $db;
+	global $config, $db;
 	if ($type == 'bank-transfer') {
 		if (!getDolGlobalString('PAYMENTBYBANKTRANSFER_ID_BANKACCOUNT')) {
 			return -1;
@@ -148,8 +148,8 @@ function bon_prelevement_prepare_head(BonPrelevement $object, $nbOfInvoices, $nb
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'prelevement');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'prelevement');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'prelevement', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'prelevement', 'remove');
 	return $head;
 }

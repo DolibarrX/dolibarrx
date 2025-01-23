@@ -149,7 +149,7 @@ class WebPortalPropal extends Propal
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db = $db;
 
@@ -166,7 +166,7 @@ class WebPortalPropal extends Propal
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$datas = [];
 
@@ -195,7 +195,7 @@ class WebPortalPropal extends Propal
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $get_params = '', $notooltip = 0, $save_lastsearch_value = -1, $addlinktonotes = -1)
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -262,7 +262,7 @@ class WebPortalPropal extends Propal
 	 */
 	public function getKanbanView($option = '', $arraydata = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$selected = (empty($arraydata['selected']) ? 0 : $arraydata['selected']);
 

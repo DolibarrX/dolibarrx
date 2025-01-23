@@ -64,7 +64,7 @@ class box_scheduled_jobs extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $user, $langs, $conf, $form;
+		global $user, $langs, $config, $form;
 
 		$langs->load("cron");
 		$this->info_box_head = array('text' => $langs->trans("BoxScheduledJobs", $max), 'nbcol' => 4);

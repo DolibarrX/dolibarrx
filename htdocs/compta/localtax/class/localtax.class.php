@@ -123,7 +123,7 @@ class Localtax extends CommonObject
 	 */
 	public function create($user)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -192,7 +192,7 @@ class Localtax extends CommonObject
 	 */
 	public function update(User $user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -490,7 +490,7 @@ class Localtax extends CommonObject
 	 */
 	public function addPayment($user)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db->begin();
 

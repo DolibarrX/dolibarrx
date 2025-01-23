@@ -40,7 +40,7 @@ class modReception extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->db = $db;
 		$this->numero = 94160;
@@ -260,7 +260,7 @@ class modReception extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Permissions
 		$this->remove($options);

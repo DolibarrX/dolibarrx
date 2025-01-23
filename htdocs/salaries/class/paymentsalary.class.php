@@ -403,7 +403,7 @@ class PaymentSalary extends CommonObject
 	 */
 	public function update($user = null, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		// Clean parameters
@@ -861,7 +861,7 @@ class PaymentSalary extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $maxlen = 0, $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		$option = '';
 
@@ -958,7 +958,7 @@ class PaymentSalary extends CommonObject
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$langs->load('salaries');
 		$datas = [];

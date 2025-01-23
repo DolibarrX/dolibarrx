@@ -277,7 +277,7 @@ $server->register(
  */
 function getActionComm($authentication, $id)
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	dol_syslog("Function: getActionComm login=".$authentication['login']." id=".$id);
 
@@ -379,7 +379,7 @@ function getActionComm($authentication, $id)
  */
 function getListActionCommType($authentication)
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	dol_syslog("Function: getListActionCommType login=".$authentication['login']);
 

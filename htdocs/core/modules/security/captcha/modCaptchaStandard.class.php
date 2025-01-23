@@ -51,7 +51,7 @@ class modCaptchaStandard extends ModeleCaptcha
 	 *	@param		Translate	$langs		Handler de langue
 	 *	@param		User		$user		Handler du user connected
 	 */
-	public function __construct($db, $conf, $langs, $user)
+	public function __construct($db, $config, $langs, $user)
 	{
 		$this->id = strtolower(preg_replace('/^modCaptcha/i', '', get_class($this)));
 
@@ -79,9 +79,9 @@ class modCaptchaStandard extends ModeleCaptcha
 	 */
 	public function getExample()
 	{
-		global $db, $conf, $langs, $user;
+		global $db, $config, $langs, $user;
 
-		$generator = new modGeneratePassStandard($db, $conf, $langs, $user);
+		$generator = new modGeneratePassStandard($db, $config, $langs, $user);
 		$example = $generator->getExample();
 		$img = imagecreate(80, 32);
 		if (!$img) {

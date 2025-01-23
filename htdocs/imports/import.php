@@ -2426,7 +2426,7 @@ $db->close();
  */
 function show_elem($fieldssource, $pos, $key)
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	$height = '32px';
 

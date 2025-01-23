@@ -50,7 +50,7 @@ class box_prospect extends ModeleBoxes
 	 */
 	public function __construct($db, $param = '')
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->db = $db;
 

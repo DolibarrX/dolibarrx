@@ -309,7 +309,7 @@ class Fiscalyear extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $notooltip = 0, $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		if (empty($this->ref)) {
 			$this->ref = (string) $this->id;

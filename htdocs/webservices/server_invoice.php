@@ -760,7 +760,7 @@ function createInvoiceFromOrder($authentication, $id_order = '', $ref_order = ''
  */
 function updateInvoice($authentication, $invoice)
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	dol_syslog("Function: updateInvoice login=".$authentication['login']." id=".$invoice['id'].
 			", ref=".$invoice['ref'].", ref_ext=".$invoice['ref_ext']);

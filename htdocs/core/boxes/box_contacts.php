@@ -67,7 +67,7 @@ class box_contacts extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $user, $langs, $conf, $hookManager;
+		global $user, $langs, $config, $hookManager;
 
 		$langs->loadLangs(array("boxes", "contracts"));
 

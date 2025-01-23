@@ -50,7 +50,7 @@ if (GETPOST('formfilteraction', 'alphanohtml') == 'listafterchangingselectedfiel
 
 	include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
-	$result = dol_set_user_param($db, $conf, $user, $tabparam);
+	$result = dol_set_user_param($db, $config, $user, $tabparam);
 
 	//$action='list';
 	//var_dump($tabparam);exit;

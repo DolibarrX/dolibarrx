@@ -81,7 +81,7 @@ class mod_contract_serpis extends ModelNumRefContracts
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

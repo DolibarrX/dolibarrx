@@ -91,7 +91,7 @@ class mod_expedition_safor extends ModelNumRefExpedition
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

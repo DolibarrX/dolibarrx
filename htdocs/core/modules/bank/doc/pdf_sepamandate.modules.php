@@ -71,7 +71,7 @@ class pdf_sepamandate extends ModeleBankAccountDoc
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		// Translations
 		$langs->loadLangs(array("main", "bank", "withdrawals", "companies"));
@@ -134,7 +134,7 @@ class pdf_sepamandate extends ModeleBankAccountDoc
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0, $moreparams = null)
 	{
 		// phpcs:enable
-		global $conf, $hookManager, $langs, $user, $mysoc;
+		global $config, $hookManager, $langs, $user, $mysoc;
 
 		if (!$object instanceof CompanyBankAccount) {
 			dol_syslog(get_class($this)."::write_file object is of type ".get_class($object)." which is not expected", LOG_ERR);
@@ -496,7 +496,7 @@ class pdf_sepamandate extends ModeleBankAccountDoc
 	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 	}
@@ -516,7 +516,7 @@ class pdf_sepamandate extends ModeleBankAccountDoc
 	protected function _tableau_info(&$pdf, $object, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
@@ -595,7 +595,7 @@ class pdf_sepamandate extends ModeleBankAccountDoc
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
 		// phpcs:enable
-		global $langs, $conf, $mysoc;
+		global $langs, $config, $mysoc;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 

@@ -66,7 +66,7 @@ class FormSocialContrib
 	public function select_type_socialcontrib($selected = 0, $htmlname = 'actioncode', $useempty = 0, $maxlen = 40, $help = 1, $morecss = 'minwidth300', $noerrorifempty = 0)
 	{
 		// phpcs:enable
-		global $conf, $db, $langs, $user, $mysoc;
+		global $config, $db, $langs, $user, $mysoc;
 
 		if (empty($mysoc->country_id) && empty($mysoc->country_code)) {
 			print $langs->trans("ErrorSetupOfCountryMustBeDone");

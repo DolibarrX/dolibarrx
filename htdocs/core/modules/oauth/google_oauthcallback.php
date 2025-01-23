@@ -128,7 +128,7 @@ if ($action != 'delete' && !GETPOSTINT('afteroauthloginreturn') && (empty($state
 
 
 // Dolibarr storage
-$storage = new DoliStorage($db, $conf, $keyforprovider);
+$storage = new DoliStorage($db, $config, $keyforprovider);
 
 // Instantiate the Api service using the credentials, http client and storage mechanism for the token
 // $requestedpermissionsarray contains list of scopes.

@@ -65,7 +65,7 @@ class pdf_standardlabel extends CommonStickerGenerator
 	public function Add_PDF_label(&$pdf, $textleft, $header, $footer, $outputlangs, $textright = '', $photo = '')
 	{
 		// phpcs:enable
-		global $mysoc, $conf, $langs;
+		global $mysoc, $config, $langs;
 		global $forceimgscalewidth, $forceimgscaleheight;
 
 		$imgscalewidth = (empty($forceimgscalewidth) ? 0.3 : $forceimgscalewidth); // Scale of image for width (1=Full width of sticker)
@@ -238,7 +238,7 @@ class pdf_standardlabel extends CommonStickerGenerator
 	public function write_file($arrayofrecords, $outputlangs, $srctemplatepath, $outputdir = '', $filename = 'tmp_address_sheet.pdf')
 	{
 		// phpcs:enable
-		global $user, $conf, $langs, $mysoc, $_Avery_Labels;
+		global $user, $config, $langs, $mysoc, $_Avery_Labels;
 
 		$this->code = $srctemplatepath;
 		$this->Tformat = $_Avery_Labels[$this->code];

@@ -68,7 +68,7 @@ class mod_barcode_product_standard extends ModeleNumRefBarCode
 	 */
 	public function info($langs)
 	{
-		global $conf, $mc;
+		global $config, $mc;
 		global $form;
 
 		$langs->load("products");

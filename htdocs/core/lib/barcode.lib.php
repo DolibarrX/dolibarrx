@@ -339,7 +339,7 @@ function barcode_encode_upc($upc, $encoding = "UPC")
  */
 function barcode_encode_genbarcode($code, $encoding)
 {
-	global $conf, $db, $genbarcode_loc;
+	global $config, $db, $genbarcode_loc;
 
 	// Clean parameters
 	if (preg_match("/^ean$/i", $encoding) && strlen($code) == 13) {

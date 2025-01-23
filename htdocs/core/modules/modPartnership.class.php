@@ -436,7 +436,7 @@ class modPartnership extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$result = $this->_load_tables('/install/mysql/', 'partnership');
 		if ($result < 0) {

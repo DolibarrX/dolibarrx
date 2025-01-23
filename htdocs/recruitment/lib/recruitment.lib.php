@@ -30,7 +30,7 @@
  */
 function recruitmentAdminPrepareHead()
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('recruitment_recruitmentjobposition');
@@ -82,9 +82,9 @@ function recruitmentAdminPrepareHead()
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@recruitment:/recruitment/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'recruitment');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'recruitment');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'recruitment', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'recruitment', 'remove');
 
 	return $head;
 }

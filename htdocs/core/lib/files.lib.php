@@ -263,7 +263,7 @@ function dol_dir_list($utf8_path, $types = "all", $recursive = 0, $filter = "", 
  */
 function dol_dir_list_in_database($path, $filter = "", $excludefilter = null, $sortcriteria = "name", $sortorder = SORT_ASC, $mode = 0, $sqlfilters = "")
 {
-	global $conf, $db;
+	global $config, $db;
 
 
 	$sql = " SELECT rowid, label, entity, filename, filepath, fullpath_orig, keywords, cover, gen_or_uploaded, extraparams,";
@@ -350,7 +350,7 @@ function dol_dir_list_in_database($path, $filter = "", $excludefilter = null, $s
  */
 function completeFileArrayWithDatabaseInfo(&$filearray, $relativedir)
 {
-	global $conf, $db, $user;
+	global $config, $db, $user;
 
 	$filearrayindatabase = dol_dir_list_in_database($relativedir, '', null, 'name', SORT_ASC);
 
@@ -1908,7 +1908,7 @@ function dol_init_file_process($pathtoscan = '', $trackid = '')
  */
 function dol_add_file_process($upload_dir, $allowoverwrite = 0, $updatesessionordb = 0, $varfiles = 'addedfile', $savingdocmask = '', $link = null, $trackid = '', $generatethumbs = 1, $object = null, $forceFullTestIndexation = '')
 {
-	global $db, $user, $conf, $langs;
+	global $db, $user, $config, $langs;
 
 	$res = 0;
 
@@ -2101,7 +2101,7 @@ function dol_add_file_process($upload_dir, $allowoverwrite = 0, $updatesessionor
  */
 function dol_remove_file_process($filenb, $donotupdatesession = 0, $donotdeletefile = 1, $trackid = '')
 {
-	global $db, $user, $conf, $langs, $_FILES;
+	global $db, $user, $config, $langs, $_FILES;
 
 	$keytodelete = $filenb;
 	$keytodelete--;
@@ -2314,7 +2314,7 @@ function addFileIntoDatabaseIndex($dir, $file, $fullpathorig = '', $mode = 'uplo
  */
 function deleteFilesIntoDatabaseIndex($dir, $file, $mode = 'uploaded')
 {
-	global $conf, $db, $user;
+	global $config, $db, $user;
 
 	$error = 0;
 
@@ -2835,7 +2835,7 @@ function dol_most_recent_file($dir, $regexfilter = '', $excludefilter = array('(
  */
 function dol_check_secure_access_document($modulepart, $original_file, $entity, $fuser = null, $refname = '', $mode = 'read')
 {
-	global $conf, $db, $user, $hookManager;
+	global $config, $db, $user, $hookManager;
 	global $dolibarr_main_data_root, $dolibarr_main_document_root_alt;
 	global $object;
 

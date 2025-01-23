@@ -47,9 +47,9 @@ function productAttributePrepareHead($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'product_attribute');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'product_attribute');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'product_attribute', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'product_attribute', 'remove');
 
 	return $head;
 }
@@ -61,7 +61,7 @@ function productAttributePrepareHead($object)
  */
 function adminProductAttributePrepareHead()
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('product_attribute');
@@ -99,9 +99,9 @@ function adminProductAttributePrepareHead()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'admin_product_attribute');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'admin_product_attribute');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'admin_product_attribute', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'admin_product_attribute', 'remove');
 
 	return $head;
 }

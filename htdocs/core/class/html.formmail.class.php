@@ -319,7 +319,7 @@ class FormMail extends Form
 	public function clear_attached_files()
 	{
 		// phpcs:enable
-		global $conf, $user;
+		global $config, $user;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		// Set tmp user directory
@@ -470,7 +470,7 @@ class FormMail extends Form
 	public function get_form($addfileaction = 'addfile', $removefileaction = 'removefile')
 	{
 		// phpcs:enable
-		global $conf, $langs, $user, $hookManager, $form;
+		global $config, $langs, $user, $hookManager, $form;
 
 		// Required to show preview wof mail attachments
 		require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';

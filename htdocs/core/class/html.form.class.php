@@ -222,7 +222,7 @@ class Form
 	 */
 	public function editfieldval($text, $htmlname, $value, $object, $perm, $typeofdata = 'string', $editvalue = '', $extObject = null, $custommsg = null, $moreparam = '', $notabletag = 1, $formatfunc = '', $paramid = 'id', $gm = 'auto', $moreoptions = array(), $editaction = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$ret = '';
 
@@ -420,7 +420,7 @@ class Form
 	 */
 	public function widgetForTranslation($fieldname, $object, $perm, $typeofdata = 'string', $check = '', $morecss = '')
 	{
-		global $conf, $langs, $extralanguages;
+		global $config, $langs, $extralanguages;
 
 		$result = '';
 
@@ -749,7 +749,7 @@ class Form
 	 */
 	public function textwithpicto($text, $htmltooltip, $direction = 1, $type = 'help', $extracss = 'valignmiddle', $noencodehtmltext = 0, $notabs = 3, $tooltiptrigger = '', $forcenowrap = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		//For backwards compatibility
 		if ($type == '0') {
@@ -825,7 +825,7 @@ class Form
 	 */
 	public function selectMassAction($selected, $arrayofaction, $alwaysvisible = 0, $name = 'massaction', $cssclass = 'checkforselect')
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		$disabled = 0;
 		$ret = '<div class="centpercent center">';
@@ -938,7 +938,7 @@ class Form
 	public function select_country($selected = '', $htmlname = 'country_id', $htmloption = '', $maxlength = 0, $morecss = 'minwidth300', $usecodeaskey = '', $showempty = 1, $disablefavorites = 0, $addspecialentries = 0, $exclude_country_code = array(), $hideflags = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		$langs->load("dict");
 
@@ -1071,7 +1071,7 @@ class Form
 	public function select_incoterms($selected = '', $location_incoterms = '', $page = '', $htmlname = 'incoterm_id', $htmloption = '', $forcecombo = 1, $events = array(), $disableautocomplete = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load("dict");
 
@@ -1336,7 +1336,7 @@ class Form
 	public function select_company($selected = '', $htmlname = 'socid', $filter = '', $showempty = '', $showtype = 0, $forcecombo = 0, $events = array(), $limit = 0, $morecss = 'minwidth100', $moreparam = '', $selected_input_value = '', $hidelabel = 1, $ajaxoptions = array(), $multiple = false, $excludeids = array(), $showcode = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$out = '';
 
@@ -1419,7 +1419,7 @@ class Form
 	{
 		// phpcs:enable
 
-		global $conf, $langs;
+		global $config, $langs;
 
 		$out = '';
 
@@ -1758,7 +1758,7 @@ class Form
 	 */
 	public function selectcontacts($socid, $selected = array(), $htmlname = 'contactid', $showempty = 0, $exclude = '', $limitto = '', $showfunction = 0, $morecss = '', $options_only = 0, $showsoc = 0, $forcecombo = 0, $events = array(), $moreparam = '', $htmlid = '', $multiple = false, $disableifempty = 0, $filter = '')
 	{
-		global $conf, $user, $langs, $hookManager, $action;
+		global $config, $user, $langs, $hookManager, $action;
 
 		$langs->load('companies');
 
@@ -2149,7 +2149,7 @@ class Form
 	public function select_dolusers($selected = '', $htmlname = 'userid', $show_empty = 0, $exclude = null, $disabled = 0, $include = '', $enableonly = '', $force_entity = '', $maxlength = 0, $showstatus = 0, $morefilter = '', $show_every = 0, $enableonlytext = '', $morecss = '', $notdisabled = 0, $outputmode = 0, $multiple = false, $forcecombo = 0)
 	{
 		// phpcs:enable
-		global $conf, $user, $langs, $hookManager;
+		global $config, $user, $langs, $hookManager;
 		global $action;
 
 		// If no preselected user defined, we take current user
@@ -3318,7 +3318,7 @@ class Form
 	 */
 	protected function constructProductListOption(&$objp, &$opt, &$optJson, $price_level, $selected, $hidepriceinlabel = 0, $filterkey = '', $novirtualstock = 0)
 	{
-		global $langs, $conf, $user;
+		global $langs, $config, $user;
 		global $hookManager;
 
 		$outkey = '';
@@ -3745,7 +3745,7 @@ class Form
 	public function select_produits_fournisseurs_list($socid, $selected = '', $htmlname = 'productid', $filtertype = '', $filtre = '', $filterkey = '', $statut = -1, $outputmode = 0, $limit = 100, $alsoproductwithnosupplierprice = 0, $morecss = '', $showstockinlist = 0, $placeholder = '')
 	{
 		// phpcs:enable
-		global $langs, $conf, $user;
+		global $langs, $config, $user;
 		global $hookManager;
 
 		$out = '';
@@ -5512,7 +5512,7 @@ class Form
 	public function select_all_categories($type, $selected = '', $htmlname = "parent", $maxlength = 64, $fromid = 0, $outputmode = 0, $include = 0, $morecss = '', $useempty = 1)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 		$langs->load("categories");
 
 		include_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
@@ -6492,7 +6492,7 @@ class Form
 	public function form_remise_dispo($page, $selected, $htmlname, $socid, $amount, $filter = '', $maxvalue = 0, $more = '', $hidelist = 0, $discount_type = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 		if ($htmlname != "none") {
 			print '<form method="post" action="' . $page . '">';
 			print '<input type="hidden" name="action" value="setabsolutediscount">';
@@ -6751,7 +6751,7 @@ class Form
 	 */
 	public function selectMultiCurrency($selected = '', $htmlname = 'multicurrency_code', $useempty = 0, $filter = '', $excludeConfCurrency = false, $morecss = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->loadCacheCurrencies(''); // Load ->cache_currencies
 
@@ -7230,7 +7230,7 @@ class Form
 	 */
 	public function selectDate($set_time = '', $prefix = 're', $h = 0, $m = 0, $empty = 0, $form_name = "", $d = 1, $addnowlink = 0, $disabled = 0, $fullday = '', $addplusone = '', $adddateof = '', $openinghours = '', $stepminutes = 1, $labeladddateof = '', $placeholder = '', $gm = 'auto', $calendarpicto = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if ($gm === 'auto') {
 			$gm = (empty($conf) ? 'tzserver' : $config->tzuserinputkey);
@@ -8502,7 +8502,7 @@ class Form
 	 */
 	public function selectForForms($objectdesc, $htmlname, $preSelectedValue, $showempty = '', $searchkey = '', $placeholder = '', $morecss = '', $moreparams = '', $forcecombo = 0, $disabled = 0, $selected_input_value = '', $objectfield = '')
 	{
-		global $conf, $extrafields, $user;
+		global $config, $extrafields, $user;
 
 		// Example of common usage for a link to a thirdparty
 
@@ -8919,7 +8919,7 @@ class Form
 	 */
 	public static function selectarray($htmlname, $array, $id = '', $show_empty = 0, $key_in_label = 0, $value_as_key = 0, $moreparam = '', $translate = 0, $maxlen = 0, $disabled = 0, $sort = '', $morecss = 'minwidth75', $addjscombo = 1, $moreparamonempty = '', $disablebademail = 0, $nohtmlescape = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Do we want a multiselect ?
 		//$jsbeautify = 0;
@@ -9298,7 +9298,7 @@ class Form
 	 */
 	public static function multiselectarray($htmlname, $array, $selected = array(), $key_in_label = 0, $value_as_key = 0, $morecss = '', $translate = 0, $width = 0, $moreattrib = '', $elemtype = '', $placeholder = '', $addjscombo = -1)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$out = '';
 
 		if ($addjscombo < 0) {
@@ -9609,7 +9609,7 @@ class Form
 	 */
 	public function showLinkedObjectBlock($object, $morehtmlright = '', $compatibleImportElementsList = array(), $title = 'RelatedObjects')
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 		global $action;
 
 		$object->fetchObjectLinked();
@@ -9770,7 +9770,7 @@ class Form
 	 */
 	public function showLinkToObjectBlock($object, $restrictlinksto = array(), $excludelinksto = array(), $nooutput = 0)
 	{
-		global $conf, $langs, $hookManager, $form;
+		global $config, $langs, $hookManager, $form;
 		global $action;
 
 		if (empty($form)) {
@@ -10177,7 +10177,7 @@ class Form
 	 */
 	public function showrefnav($object, $paramid, $morehtml = '', $shownav = 1, $fieldid = 'rowid', $fieldref = 'ref', $morehtmlref = '', $moreparam = '', $nodbprefix = 0, $morehtmlleft = '', $morehtmlstatus = '', $morehtmlright = '')
 	{
-		global $conf, $langs, $hookManager, $extralanguages;
+		global $config, $langs, $hookManager, $extralanguages;
 
 		$ret = '';
 		if (empty($fieldid)) {
@@ -10422,7 +10422,7 @@ class Form
 	 */
 	public static function showphoto($modulepart, $object, $width = 100, $height = 0, $caneditfield = 0, $cssclass = 'photowithmargin', $imagesize = '', $addlinktofullsize = 1, $cache = 0, $forcecapture = '', $noexternsourceoverwrite = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$entity = (empty($object->entity) ? $config->entity : $object->entity);
 		$id = (empty($object->id) ? $object->rowid : $object->id);  // @phan-suppress-current-line PhanUndeclaredProperty (->rowid)
@@ -10625,7 +10625,7 @@ class Form
 	public function select_dolgroups($selected = 0, $htmlname = 'groupid', $show_empty = 0, $exclude = '', $disabled = 0, $include = '', $enableonly = array(), $force_entity = '0', $multiple = false, $morecss = 'minwidth200')
 	{
 		// phpcs:enable
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		// Allow excluding groups
 		$excludeGroups = null;
@@ -10909,7 +10909,7 @@ class Form
 	 */
 	public function selectExpenseRanges($selected = '', $htmlname = 'fk_range', $useempty = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$out = '';
 		$sql = "SELECT rowid, range_ik FROM " . $this->db->prefix() . "c_exp_tax_range";
@@ -11001,7 +11001,7 @@ class Form
 	 */
 	public function selectInvoice($socid = -1, $selected = '', $htmlname = 'invoiceid', $maxlength = 24, $option_only = 0, $show_empty = '1', $discard_closed = 0, $forcefocus = 0, $disabled = 0, $morecss = 'maxwidth500', $projectsListId = '', $showproject = 'all', $usertofilter = null)
 	{
-		global $user, $conf, $langs;
+		global $user, $config, $langs;
 
 		require_once DOL_DOCUMENT_ROOT . '/projet/class/project.class.php';
 
@@ -11148,7 +11148,7 @@ class Form
 	 */
 	public function selectInvoiceRec($selected = '', $htmlname = 'facrecid', $maxlength = 24, $option_only = 0, $show_empty = '1', $forcefocus = 0, $disabled = 0, $morecss = 'maxwidth500')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$out = '';
 

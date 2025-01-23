@@ -227,7 +227,7 @@ class CMailFile
 	 */
 	public function __construct($subject, $to, $from, $msg, $filename_list = array(), $mimetype_list = array(), $mimefilename_list = array(), $addr_cc = "", $addr_bcc = "", $deliveryreceipt = 0, $msgishtml = 0, $errors_to = '', $css = '', $trackid = '', $moreinheader = '', $sendcontext = 'standard', $replyto = '', $upload_dir_tmp = '', $in_reply_to = '', $references = '')
 	{
-		global $conf, $dolibarr_main_data_root, $user;
+		global $config, $dolibarr_main_data_root, $user;
 
 		dol_syslog("CMailFile::CMailfile: charset=".$config->file->character_set_client." from=$from, to=$to, addr_cc=$addr_cc, addr_bcc=$addr_bcc, errors_to=$errors_to, replyto=$replyto trackid=$trackid sendcontext=$sendcontext");
 		dol_syslog("CMailFile::CMailfile: subject=".$subject.", deliveryreceipt=".$deliveryreceipt.", msgishtml=".$msgishtml, LOG_DEBUG);
@@ -826,7 +826,7 @@ class CMailFile
 	 */
 	public function sendfile()
 	{
-		global $conf, $db, $langs, $hookManager;
+		global $config, $db, $langs, $hookManager;
 
 		$errorlevel = error_reporting();
 		//error_reporting($errorlevel ^ E_WARNING);   // Desactive warnings
@@ -1126,7 +1126,7 @@ class CMailFile
 
 					require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
 
-					$storage = new DoliStorage($db, $conf, $keyforprovider, getDolGlobalString($keyforparamtenant));
+					$storage = new DoliStorage($db, $config, $keyforprovider, getDolGlobalString($keyforparamtenant));
 					try {
 						$tokenobj = $storage->retrieveAccessToken($OAUTH_SERVICENAME);
 
@@ -1292,7 +1292,7 @@ class CMailFile
 
 					require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
 
-					$storage = new DoliStorage($db, $conf, $keyforprovider, getDolGlobalString($keyforparamtenant));
+					$storage = new DoliStorage($db, $config, $keyforprovider, getDolGlobalString($keyforparamtenant));
 
 					try {
 						$tokenobj = $storage->retrieveAccessToken($OAUTH_SERVICENAME);

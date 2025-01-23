@@ -120,7 +120,7 @@ $extrafields->fetch_name_optionals_label($objectsoc->table_element); // fetch op
  */
 function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $arrayofjs = [], $arrayofcss = [])
 {
-	global $conf, $langs, $mysoc;
+	global $config, $langs, $mysoc;
 
 	top_htmlhead($head, $title, $disablejs, $disablehead, $arrayofjs, $arrayofcss); // Show html headers
 
@@ -169,7 +169,7 @@ function llxHeaderVierge($title, $head = "", $disablejs = 0, $disablehead = 0, $
  */
 function llxFooterVierge()
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	print '</div>';
 

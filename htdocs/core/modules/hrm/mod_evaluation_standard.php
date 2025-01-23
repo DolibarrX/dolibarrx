@@ -87,7 +87,7 @@ class mod_evaluation_standard extends ModeleNumRefEvaluation
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

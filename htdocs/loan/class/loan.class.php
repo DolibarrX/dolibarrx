@@ -237,7 +237,7 @@ class Loan extends CommonObject
 	 */
 	public function create($user)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -596,7 +596,7 @@ class Loan extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $maxlen = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		$result = '';
 

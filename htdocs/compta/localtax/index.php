@@ -116,7 +116,7 @@ $result = restrictedArea($user, 'tax', '', '', 'charges');
  */
 function localtax_pt($db, $sql, $date)
 {
-	global $conf, $bc, $langs;
+	global $config, $bc, $langs;
 
 	$result = $db->query($sql);
 	if ($result) {

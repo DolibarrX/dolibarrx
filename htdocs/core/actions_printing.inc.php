@@ -25,7 +25,7 @@
 
 
 // $action must be defined
-// $db, $user, $conf, $langs must be defined
+// $db, $user, $config, $langs must be defined
 // Filename to print must be provided into 'file' parameter
 /**
  * @var Conf $conf

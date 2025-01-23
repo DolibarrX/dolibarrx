@@ -112,7 +112,7 @@ abstract class ModeleNumRefFicheinter extends CommonNumRefGenerator
 function fichinter_create($db, $object, $modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 {
 	// phpcs:enable
-	global $conf, $langs;
+	global $config, $langs;
 	$langs->load("ficheinter");
 
 	$error = 0;

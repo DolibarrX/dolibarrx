@@ -58,7 +58,7 @@ class mod_commande_marbre extends ModeleNumRefCommandes
 	 */
 	public function __construct()
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		if ((float) getDolGlobalString('MAIN_VERSION_LAST_INSTALL') >= 16.0 && $mysoc->country_code != 'FR') {
 			$this->prefix = 'SO'; // We use correct standard code "SO = Sale Order"
@@ -98,7 +98,7 @@ class mod_commande_marbre extends ModeleNumRefCommandes
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

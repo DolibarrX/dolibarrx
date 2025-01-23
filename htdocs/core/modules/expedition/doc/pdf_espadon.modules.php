@@ -143,7 +143,7 @@ class pdf_espadon extends ModelePdfExpedition
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $conf, $langs, $hookManager;
+		global $user, $config, $langs, $hookManager;
 
 		$object->fetch_thirdparty();
 
@@ -839,7 +839,7 @@ class pdf_espadon extends ModelePdfExpedition
 	protected function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$sign = 1;
 
@@ -995,7 +995,7 @@ class pdf_espadon extends ModelePdfExpedition
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$ltrdirection = 'L';
 		if ($outputlangs->trans("DIRECTION") == 'rtl') {
@@ -1274,7 +1274,7 @@ class pdf_espadon extends ModelePdfExpedition
 	 */
 	public function defineColumnField($object, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 
 		// Default field style for content
 		$this->defaultContentsFieldsStyle = array(

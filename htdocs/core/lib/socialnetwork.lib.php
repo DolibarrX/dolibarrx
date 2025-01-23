@@ -42,7 +42,7 @@ function socialnetwork_prepare_head()
 	$head[$h][2] = 'divers';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'socialnetwork', 'add', 'external');
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'socialnetwork', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'socialnetwork', 'add', 'external');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'socialnetwork', 'remove');
 	return $head;
 }

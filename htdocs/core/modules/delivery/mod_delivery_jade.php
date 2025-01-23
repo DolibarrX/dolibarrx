@@ -96,7 +96,7 @@ class mod_delivery_jade extends ModeleNumRefDeliveryOrder
 	 */
 	public function canBeActivated($object)
 	{
-		global $langs, $conf, $db;
+		global $langs, $config, $db;
 
 		$langs->load("bills");
 

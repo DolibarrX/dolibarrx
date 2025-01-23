@@ -908,7 +908,7 @@ class BlockedLog
 	 */
 	public function create($user, $forcesignature = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load('blockedlog');
 
@@ -1250,7 +1250,7 @@ class BlockedLog
 	 */
 	public function getSignature()
 	{
-		global $db, $conf, $mysoc;
+		global $db, $config, $mysoc;
 
 		if (!getDolGlobalString('BLOCKEDLOG_ENTITY_FINGERPRINT')) { // creation of a unique fingerprint
 			require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';

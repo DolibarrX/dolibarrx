@@ -191,7 +191,7 @@ class modEmailCollector extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 		$langs->load("admin");
 
 		$sql = array();

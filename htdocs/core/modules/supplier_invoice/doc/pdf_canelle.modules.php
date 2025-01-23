@@ -79,7 +79,7 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		// Translations
 		$langs->loadLangs(array("main", "bills"));
@@ -161,7 +161,7 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 	public function write_file($object, $outputlangs = null, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $hookManager, $nblines;
+		global $user, $langs, $config, $mysoc, $hookManager, $nblines;
 
 		// Get source company
 		if (!is_object($object->thirdparty)) {
@@ -623,7 +623,7 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 	protected function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc, $hookManager;
+		global $config, $mysoc, $hookManager;
 
 		$sign = 1;
 		if ($object->type == 2 && getDolGlobalString('INVOICE_POSITIVE_CREDIT_NOTE')) {
@@ -1044,7 +1044,7 @@ class pdf_canelle extends ModelePDFSuppliersInvoices
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		global $langs, $conf, $mysoc;
+		global $langs, $config, $mysoc;
 
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "orders", "companies", "bills"));

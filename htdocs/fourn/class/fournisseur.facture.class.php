@@ -396,7 +396,7 @@ class FactureFournisseur extends CommonInvoice
 	 */
 	public function create($user)
 	{
-		global $langs, $conf, $hookManager;
+		global $langs, $config, $hookManager;
 
 		$error = 0;
 		$now = dol_now();
@@ -1346,7 +1346,7 @@ class FactureFournisseur extends CommonInvoice
 	public function insert_discount($idremise)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/price.lib.php';
 		include_once DOL_DOCUMENT_ROOT.'/core/class/discount.class.php';
@@ -1780,7 +1780,7 @@ class FactureFournisseur extends CommonInvoice
 	 */
 	public function validate($user, $force_number = '', $idwarehouse = 0, $notrigger = 0)
 	{
-		global $mysoc, $conf, $langs;
+		global $mysoc, $config, $langs;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -1996,7 +1996,7 @@ class FactureFournisseur extends CommonInvoice
 	public function setDraft($user, $idwarehouse = -1, $notrigger = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -2711,7 +2711,7 @@ class FactureFournisseur extends CommonInvoice
 	public function load_board($user)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$sql = 'SELECT ff.rowid, ff.date_lim_reglement as datefin, ff.fk_statut as status, ff.total_ht, ff.total_ttc';
 		$sql .= ' FROM '.MAIN_DB_PREFIX.'facture_fourn as ff';
@@ -2772,7 +2772,7 @@ class FactureFournisseur extends CommonInvoice
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		$langs->load('bills');
 
@@ -2861,7 +2861,7 @@ class FactureFournisseur extends CommonInvoice
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $short = 0, $moretitle = '', $notooltip = 0, $save_lastsearch_value = -1, $addlinktonotes = 0)
 	{
-		global $langs, $conf, $user, $hookManager;
+		global $langs, $config, $user, $hookManager;
 
 		$result = '';
 
@@ -3126,7 +3126,7 @@ class FactureFournisseur extends CommonInvoice
 	 */
 	public function loadStateBoard()
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->nb = array();
 
@@ -3166,7 +3166,7 @@ class FactureFournisseur extends CommonInvoice
 	 */
 	public function createFromClone(User $user, $fromid, $invertdetail = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -3453,7 +3453,7 @@ class FactureFournisseur extends CommonInvoice
 	 */
 	public function sendEmailsRemindersOnSupplierInvoiceDueDate($nbdays = 0, $paymentmode = 'all', $template = '', $datetouse = 'duedate', $forcerecipient = '')
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$this->output = '';
 		$this->error = '';

@@ -62,9 +62,9 @@ function aiAdminPrepareHead()
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@ai:/ai/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'ai@ai');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'ai@ai');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'ai@ai', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'ai@ai', 'remove');
 
 	return $head;
 }

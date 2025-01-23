@@ -450,7 +450,7 @@ class Adherent extends CommonObject
 	 */
 	public function sendEmail($text, $subject, $filename_list = array(), $mimetype_list = array(), $mimefilename_list = array(), $addr_cc = "", $addr_bcc = "", $deliveryreceipt = 0, $msgishtml = -1, $errors_to = '', $moreinheader = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Detect if message is HTML
 		if ($msgishtml == -1) {
@@ -621,7 +621,7 @@ class Adherent extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		$error = 0;
 
@@ -1180,7 +1180,7 @@ class Adherent extends CommonObject
 	 */
 	public function setPassword($user, $password = '', $isencrypted = 0, $notrigger = 0, $nosyncuser = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -1277,7 +1277,7 @@ class Adherent extends CommonObject
 	 */
 	public function setUserId($userId)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db->begin();
 
@@ -1318,7 +1318,7 @@ class Adherent extends CommonObject
 	 */
 	public function setThirdPartyId($thirdpartyid)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db->begin();
 
@@ -1660,7 +1660,7 @@ class Adherent extends CommonObject
 	 */
 	public function subscription($date, $amount, $accountid = 0, $operation = '', $label = '', $num_chq = '', $emetteur_nom = '', $emetteur_banque = '', $datesubend = 0, $fk_type = null)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		require_once DOL_DOCUMENT_ROOT.'/adherents/class/subscription.class.php';
 
@@ -1740,7 +1740,7 @@ class Adherent extends CommonObject
 	 */
 	public function subscriptionComplementaryActions($subscriptionid, $option, $accountid, $datesubscription, $paymentdate, $operation, $label, $amount, $num_chq, $emetteur_nom = '', $emetteur_banque = '', $autocreatethirdparty = 0, $ext_payment_id = '', $ext_payment_site = '')
 	{
-		global $conf, $langs, $user, $mysoc;
+		global $config, $langs, $user, $mysoc;
 
 		$error = 0;
 
@@ -2209,7 +2209,7 @@ class Adherent extends CommonObject
 	public function del_to_abo()
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		include_once DOL_DOCUMENT_ROOT.'/mailmanspip/class/mailmanspip.class.php';
 		$mailmanspip = new MailmanSpip($this->db);
@@ -2342,7 +2342,7 @@ class Adherent extends CommonObject
 	 */
 	public function getNomUrl($withpictoimg = 0, $maxlen = 0, $option = 'card', $mode = '', $morecss = '', $save_lastsearch_value = -1, $notooltip = 0, $addlinktonotes = 0)
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') && $withpictoimg) {
 			$withpictoimg = 0;
@@ -2565,7 +2565,7 @@ class Adherent extends CommonObject
 	public function load_board($user, $mode)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		if ($user->socid) {
 			return -1; // protection pour eviter appel par utilisateur externe
@@ -2649,7 +2649,7 @@ class Adherent extends CommonObject
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0, $moreparams = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load("orders");
 
@@ -2778,7 +2778,7 @@ class Adherent extends CommonObject
 	public function _load_ldap_info()
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$info = array();
 		$socialnetworks = getArrayOfSocialNetworks();
@@ -3046,7 +3046,7 @@ class Adherent extends CommonObject
 	 */
 	public function sendReminderForExpiredSubscription($daysbeforeendlist = '10', $fk_adherent_type = 0)
 	{
-		global $conf, $langs, $mysoc, $user;
+		global $config, $langs, $mysoc, $user;
 
 		$error = 0;
 		$this->output = '';

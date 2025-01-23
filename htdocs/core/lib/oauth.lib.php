@@ -378,9 +378,9 @@ function oauthadmin_prepare_head()
 	$head[$h][2] = 'tokengeneration';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'oauthadmin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'oauthadmin');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'oauthadmin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'oauthadmin', 'remove');
 
 
 	return $head;

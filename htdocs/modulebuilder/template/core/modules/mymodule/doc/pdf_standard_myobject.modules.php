@@ -170,7 +170,7 @@ class pdf_standard_myobject extends ModelePDFMyObject
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $hookManager, $nblines;
+		global $user, $langs, $config, $mysoc, $hookManager, $nblines;
 
 		dol_syslog("write_file outputlangs->defaultlang=".(is_object($outputlangs) ? $outputlangs->defaultlang : 'null'));
 
@@ -926,7 +926,7 @@ class pdf_standard_myobject extends ModelePDFMyObject
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs, $outputlangsbis = null)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$ltrdirection = 'L';
 		if ($outputlangs->trans("DIRECTION") == 'rtl') {
@@ -1218,7 +1218,7 @@ class pdf_standard_myobject extends ModelePDFMyObject
 	 */
 	public function defineColumnField($object, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 
 		// Default field style for content
 		$this->defaultContentsFieldsStyle = array(

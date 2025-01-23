@@ -130,7 +130,7 @@ class EmailCollectorAction extends CommonObject
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db = $db;
 
@@ -291,7 +291,7 @@ class EmailCollectorAction extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $db, $conf, $langs, $hookManager;
+		global $db, $config, $langs, $hookManager;
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
 		global $menumanager;
 

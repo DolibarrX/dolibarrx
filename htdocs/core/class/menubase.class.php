@@ -321,7 +321,7 @@ class Menubase
 	 */
 	public function update($user = null, $notrigger = 0)
 	{
-		//global $conf, $langs;
+		//global $config, $langs;
 
 		// Clean parameters
 		$this->menu_handler = trim($this->menu_handler);
@@ -458,7 +458,7 @@ class Menubase
 	 */
 	public function delete($user)
 	{
-		//global $conf, $langs;
+		//global $config, $langs;
 
 		$sql = "DELETE FROM ".$this->db->prefix()."menu";
 		$sql .= " WHERE rowid=".((int) $this->id);

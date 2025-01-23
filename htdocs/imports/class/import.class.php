@@ -312,7 +312,7 @@ class Import
 	public function build_example_file($model, $headerlinefields, $contentlinevalues, $datatoimport)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$indice = 0;
 

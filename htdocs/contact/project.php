@@ -126,7 +126,7 @@ if ($id) {
 	print '<br>';
 
 	// Projects list
-	$result = show_contacts_projects($conf, $langs, $db, $object, $_SERVER["PHP_SELF"].'?id='.$object->id, 1);
+	$result = show_contacts_projects($config, $langs, $db, $object, $_SERVER["PHP_SELF"].'?id='.$object->id, 1);
 }
 
 // End of page

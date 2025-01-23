@@ -77,7 +77,7 @@ class ExportTsv extends ModeleExports
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$this->db = $db;
 
 		$this->id = 'tsv'; // Same value then xxx in file name export_xxx.modules.php

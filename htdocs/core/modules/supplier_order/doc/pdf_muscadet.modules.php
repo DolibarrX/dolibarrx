@@ -82,7 +82,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		// Load translation files required by the page
 		$langs->loadLangs(array("main", "bills"));
@@ -179,7 +179,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $hookManager, $mysoc, $nblines;
+		global $user, $langs, $config, $hookManager, $mysoc, $nblines;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -737,7 +737,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 	protected function _tableau_info(&$pdf, $object, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		$diffsizetitle = (!getDolGlobalString('PDF_DIFFSIZE_TITLE') ? 3 : $config->global->PDF_DIFFSIZE_TITLE);
@@ -802,7 +802,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 	protected function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
@@ -1104,7 +1104,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		global $langs, $conf, $mysoc;
+		global $langs, $config, $mysoc;
 
 		$ltrdirection = 'L';
 		if ($outputlangs->trans("DIRECTION") == 'rtl') {

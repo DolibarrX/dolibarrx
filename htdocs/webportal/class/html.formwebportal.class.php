@@ -464,7 +464,7 @@ class FormWebPortal extends Form
 	 */
 	public function selectForFormsList($objecttmp, $htmlname, $preselectedvalue, $showempty = '', $searchkey = '', $placeholder = '', $morecss = '', $moreparams = '', $forcecombo = 0, $outputmode = 0, $disabled = 0, $sortfield = '', $filter = '')
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		$prefixforautocompletemode = $objecttmp->element;
 		if ($prefixforautocompletemode == 'societe') {
@@ -638,7 +638,7 @@ class FormWebPortal extends Form
 	 */
 	public function showInputField($val, $key, $value, $moreparam = '', $keysuffix = '', $keyprefix = '', $morecss = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$out = '';
 		$param = array();
@@ -991,7 +991,7 @@ class FormWebPortal extends Form
 	 */
 	public function showOutputFieldForObject($object, $val, $key, $value, $moreparam = '', $keysuffix = '', $keyprefix = '', $morecss = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$label = empty($val['label']) ? '' : $val['label'];
 		$type = empty($val['type']) ? '' : $val['type'];

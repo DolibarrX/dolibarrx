@@ -220,7 +220,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function create(User $user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
@@ -497,7 +497,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $db, $conf, $langs;
+		global $db, $config, $langs;
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
 		global $menumanager, $hookManager;
 
@@ -573,7 +573,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function createStd(User $user, $notrigger = 0, $mode = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->loadLangs(array("accountancy", "bills", "compta"));
 
@@ -1657,7 +1657,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function deleteByYearAndJournal($delyear = 0, $journal = '', $mode = '', $delmonth = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (empty($delyear) && empty($journal)) {
 			$this->error = 'ErrorOneFieldRequired';
@@ -2778,7 +2778,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function closeFiscalPeriod($fiscal_period_id, $new_fiscal_period_id, $separate_auxiliary_account = false, $generate_bookkeeping_records = true)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		// Current fiscal period
 		$fiscal_period_id = max(0, $fiscal_period_id);
@@ -3044,7 +3044,7 @@ class BookKeeping extends CommonObject
 	 */
 	public function insertAccountingReversal($fiscal_period_id, $inventory_journal_id, $new_fiscal_period_id, $date_start, $date_end)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		// Current fiscal period
 		$fiscal_period_id = max(0, $fiscal_period_id);

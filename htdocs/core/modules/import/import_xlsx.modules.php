@@ -173,7 +173,7 @@ class ImportXlsx extends ModeleImports
 	public function write_header_example($outputlangs)
 	{
 		// phpcs:enable
-		global $user, $conf, $langs, $file;
+		global $user, $config, $langs, $file;
 		// create a temporary object, the final output will be generated in footer
 		$this->workbook->getProperties()->setCreator($user->getFullName($outputlangs) . ' - Dolibarr ' . DOL_VERSION);
 		$this->workbook->getProperties()->setTitle($outputlangs->trans("Import") . ' - ' . $file);
@@ -395,7 +395,7 @@ class ImportXlsx extends ModeleImports
 	public function import_insert($arrayrecord, $array_match_file_to_database, $objimport, $maxfields, $importid, $updatekeys)
 	{
 		// phpcs:enable
-		global $langs, $conf, $user;
+		global $langs, $config, $user;
 		global $thirdparty_static; // Specific to thirdparty import
 		global $tablewithentity_cache; // Cache to avoid to call  desc at each rows on tables
 

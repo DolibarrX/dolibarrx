@@ -1764,7 +1764,7 @@ function weight_convert($weight, &$from_unit, $to_unit)
  *
  *	@see		dolibarr_get_const(), dolibarr_set_const(), dolibarr_del_const()
  */
-function dol_set_user_param($db, $conf, &$user, $tab)
+function dol_set_user_param($db, $config, &$user, $tab)
 {
 	// Verification parameters
 	if (count($tab) < 1) {
@@ -1920,7 +1920,7 @@ function version_webserver()
  */
 function getListOfModels($db, $type, $maxfilenamelength = 0)
 {
-	global $conf, $langs;
+	global $config, $langs;
 	$liste = array();
 	$found = 0;
 	$dirtoscan = '';
@@ -2116,7 +2116,7 @@ function getSoapParams()
  */
 function dolGetElementUrl($objectid, $objecttype, $withpicto = 0, $option = '')
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	$ret = '';
 	$regs = array();

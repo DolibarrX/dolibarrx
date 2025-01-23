@@ -51,9 +51,9 @@ function inventoryAdminPrepareHead()
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@inventory:/inventory/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'inventory');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'inventory');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'inventory', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'inventory', 'remove');
 
 	return $head;
 }
@@ -78,8 +78,8 @@ function inventoryPrepareHead(&$inventory, $title = 'Inventory', $get = '')
 
 	$h = 2;
 
-	complete_head_from_modules($conf, $langs, $inventory, $head, $h, 'inventory');
-	complete_head_from_modules($conf, $langs, $inventory, $head, $h, 'inventory', 'remove');
+	complete_head_from_modules($config, $langs, $inventory, $head, $h, 'inventory');
+	complete_head_from_modules($config, $langs, $inventory, $head, $h, 'inventory', 'remove');
 
 	return $head;
 }

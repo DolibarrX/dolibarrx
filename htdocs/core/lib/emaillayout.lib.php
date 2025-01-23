@@ -30,7 +30,7 @@
  */
 function getHtmlOfLayout($name)
 {
-	global $conf, $mysoc, $user, $langs;
+	global $config, $mysoc, $user, $langs;
 
 	$commonSubstitutionArray = getCommonSubstitutionArray($langs);
 

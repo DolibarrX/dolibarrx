@@ -1255,7 +1255,7 @@ abstract class CommonInvoice extends CommonObject
 	 */
 	public function makeStripeSepaRequest($fuser, $did, $type = 'direct-debit', $sourcetype = 'facture', $service = '', $forcestripe = '')
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		if ($type != 'bank-transfer' && $type != 'credit-transfer' && !getDolGlobalString('STRIPE_SEPA_DIRECT_DEBIT')) {
 			return 0;
@@ -1864,7 +1864,7 @@ abstract class CommonInvoice extends CommonObject
 	 */
 	public function buildZATCAQRString()
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$tmplang = new Translate('', $conf);
 		$tmplang->setDefaultLang('en_US');
@@ -1924,7 +1924,7 @@ abstract class CommonInvoice extends CommonObject
 	 */
 	public function buildSwitzerlandQRString()
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$tmplang = new Translate('', $conf);
 		$tmplang->setDefaultLang('en_US');

@@ -86,7 +86,7 @@ class mod_recruitmentcandidature_standard extends ModeleNumRefRecruitmentCandida
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

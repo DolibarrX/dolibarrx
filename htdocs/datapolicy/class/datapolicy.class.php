@@ -62,7 +62,7 @@ class DataPolicy
 	 */
 	public function getAllContactNotInformed()
 	{
-		global $langs, $conf, $db;
+		global $langs, $config, $db;
 
 		$langs->load("companies");
 
@@ -100,7 +100,7 @@ class DataPolicy
 	 */
 	public function getAllCompaniesNotInformed()
 	{
-		global $langs, $conf, $db;
+		global $langs, $config, $db;
 
 		$langs->load("companies");
 
@@ -137,7 +137,7 @@ class DataPolicy
 	 */
 	public function getAllAdherentsNotInformed()
 	{
-		global $langs, $conf, $db;
+		global $langs, $config, $db;
 
 		$langs->load("adherent");
 

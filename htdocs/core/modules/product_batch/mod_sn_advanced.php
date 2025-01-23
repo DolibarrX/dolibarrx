@@ -61,7 +61,7 @@ class mod_sn_advanced extends ModeleNumRefBatch
 	 */
 	public function info($langs)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$langs->load("bills");
 

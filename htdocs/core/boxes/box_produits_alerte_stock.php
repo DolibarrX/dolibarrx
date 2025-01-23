@@ -49,7 +49,7 @@ class box_produits_alerte_stock extends ModeleBoxes
 	 */
 	public function __construct($db, $param = '')
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->db = $db;
 
@@ -69,7 +69,7 @@ class box_produits_alerte_stock extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $user, $langs, $conf, $hookManager;
+		global $user, $langs, $config, $hookManager;
 
 		$this->max = $max;
 

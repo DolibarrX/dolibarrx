@@ -33,7 +33,7 @@
  */
 function member_prepare_head(Adherent $object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -95,7 +95,7 @@ function member_prepare_head(Adherent $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'member', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'member', 'add', 'core');
 
 	$nbNote = 0;
 	if (!empty($object->note_private)) {
@@ -160,9 +160,9 @@ function member_prepare_head(Adherent $object)
 	$head[$h][2] = 'agenda';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'member', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'member', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'member', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'member', 'remove');
 
 	return $head;
 }
@@ -175,7 +175,7 @@ function member_prepare_head(Adherent $object)
  */
 function member_type_prepare_head(AdherentType $object)
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -207,9 +207,9 @@ function member_type_prepare_head(AdherentType $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'membertype');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'membertype');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'membertype', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'membertype', 'remove');
 
 	return $head;
 }
@@ -221,7 +221,7 @@ function member_type_prepare_head(AdherentType $object)
  */
 function member_admin_prepare_head()
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('adherent');
@@ -244,7 +244,7 @@ function member_admin_prepare_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'member_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'member_admin');
 
 	$head[$h][0] = DOL_URL_ROOT.'/adherents/admin/member_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsMember");
@@ -269,7 +269,7 @@ function member_admin_prepare_head()
 	$head[$h][2] = 'website';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'member_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'member_admin', 'remove');
 
 	return $head;
 }
@@ -283,7 +283,7 @@ function member_admin_prepare_head()
  */
 function member_stats_prepare_head($object)
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -322,9 +322,9 @@ function member_stats_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'member_stats');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'member_stats');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'member_stats', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'member_stats', 'remove');
 
 	return $head;
 }
@@ -337,7 +337,7 @@ function member_stats_prepare_head($object)
  */
 function subscription_prepare_head(Subscription $object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -356,9 +356,9 @@ function subscription_prepare_head(Subscription $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'subscription');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'subscription');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'subscription', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'subscription', 'remove');
 
 	return $head;
 }

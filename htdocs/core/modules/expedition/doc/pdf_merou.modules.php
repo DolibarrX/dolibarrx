@@ -130,7 +130,7 @@ class pdf_merou extends ModelePdfExpedition
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $conf, $langs, $mysoc, $hookManager;
+		global $user, $config, $langs, $mysoc, $hookManager;
 
 		$object->fetch_thirdparty();
 
@@ -490,7 +490,7 @@ class pdf_merou extends ModelePdfExpedition
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 

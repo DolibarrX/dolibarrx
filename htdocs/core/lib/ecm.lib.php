@@ -32,7 +32,7 @@
  */
 function ecm_prepare_dasboard_head()
 {
-	global $langs, $conf, $user, $form;
+	global $langs, $config, $user, $form;
 
 	$h = 0;
 	$head = array();
@@ -72,9 +72,9 @@ function ecm_prepare_dasboard_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'ecm');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'ecm');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'ecm', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'ecm', 'remove');
 
 	return $head;
 }
@@ -90,7 +90,7 @@ function ecm_prepare_dasboard_head()
  */
 function ecm_prepare_head($object, $module = 'ecm', $section = '')
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 	$h = 0;
 	$head = array();
 
@@ -177,7 +177,7 @@ function ecm_prepare_head_fm($object)
  */
 function ecm_admin_prepare_head()
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('ecm_files');
@@ -211,9 +211,9 @@ function ecm_admin_prepare_head()
 	$head[$h][2] = 'attributes_ecm_directories';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'ecm_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'ecm_admin');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'ecm_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'ecm_admin', 'remove');
 
 	return $head;
 }

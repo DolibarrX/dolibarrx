@@ -47,7 +47,7 @@ class modCommande extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->db = $db;
 		$this->numero = 25;
@@ -453,7 +453,7 @@ class modCommande extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Permissions
 		$this->remove($options);

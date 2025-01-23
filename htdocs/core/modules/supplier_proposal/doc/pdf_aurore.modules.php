@@ -80,7 +80,7 @@ class pdf_aurore extends ModelePDFSupplierProposal
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		// Translations
 		$langs->loadLangs(array("main", "bills"));
@@ -173,7 +173,7 @@ class pdf_aurore extends ModelePDFSupplierProposal
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $db, $hookManager, $nblines;
+		global $user, $langs, $config, $mysoc, $db, $hookManager, $nblines;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -883,7 +883,7 @@ class pdf_aurore extends ModelePDFSupplierProposal
 	protected function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		$tab2_top = $posy;
@@ -1214,7 +1214,7 @@ class pdf_aurore extends ModelePDFSupplierProposal
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		'@phan-var-force SupplierProposal $object';
 
 		// Load traductions files required by page

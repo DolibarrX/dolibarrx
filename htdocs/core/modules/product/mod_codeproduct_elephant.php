@@ -74,7 +74,7 @@ class mod_codeproduct_elephant extends ModeleProductCode
 	 */
 	public function info($langs)
 	{
-		global $conf, $mc;
+		global $config, $mc;
 		global $form;
 
 		$langs->load("products");

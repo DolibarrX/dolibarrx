@@ -233,17 +233,17 @@ if (!empty($object->id)) {
 	$somethingshown = $formactions->showactions($object,'project',0);*/
 
 	// List of todo actions
-	//show_actions_todo($conf,$langs,$db,$object,null,0,$actioncode);
+	//show_actions_todo($config,$langs,$db,$object,null,0,$actioncode);
 
 	// List of done actions
-	//show_actions_done($conf,$langs,$db,$object,null,0,$actioncode, '', $filters, $sortfield, $sortorder);
+	//show_actions_done($config,$langs,$db,$object,null,0,$actioncode, '', $filters, $sortfield, $sortorder);
 
 	// List of all actions
 	$filters = array();
 	$filters['search_agenda_label'] = $search_agenda_label;
 	$filters['search_rowid'] = $search_rowid;
 
-	show_actions_done($conf, $langs, $db, $object, null, 0, $actioncode, '', $filters, $sortfield, $sortorder);
+	show_actions_done($config, $langs, $db, $object, null, 0, $actioncode, '', $filters, $sortfield, $sortorder);
 }
 
 // End of page

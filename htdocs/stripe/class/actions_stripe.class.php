@@ -66,7 +66,7 @@ class ActionsStripeconnect extends CommonHookActions
 	 */
 	public function formObjectOptions($parameters, &$object, &$action)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (isModEnabled('stripe') && (!getDolGlobalString('STRIPE_LIVE') || GETPOST('forcesandbox', 'alpha'))) {
 			$service = 'StripeTest';
@@ -167,7 +167,7 @@ class ActionsStripeconnect extends CommonHookActions
 	 */
 	public function addMoreActionsButtons($parameters, &$object, &$action)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (is_object($object) && $object->element == 'facture') {
 			// Verify if the invoice has payments

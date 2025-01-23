@@ -410,7 +410,7 @@ class ContratLigne extends CommonObjectLine
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$datas = [];
 		$datas['label'] = $langs->trans("ShowContractOfService").': '.$this->label;

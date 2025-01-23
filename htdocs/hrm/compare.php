@@ -436,7 +436,7 @@ function mergeSkills($TSkill1, $TSkill2)
  */
 function displayUsersListWithPicto(&$TUser, $fk_usergroup = 0, $namelist = 'list-user')
 {
-	global $db, $langs, $conf, $form;
+	global $db, $langs, $config, $form;
 
 	$out = '';
 	if ($fk_usergroup > 0) {

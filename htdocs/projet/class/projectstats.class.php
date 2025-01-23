@@ -68,7 +68,7 @@ class ProjectStats extends Stats
 	 */
 	public function __construct($db)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->db = $db;
 
@@ -99,7 +99,7 @@ class ProjectStats extends Stats
 	 */
 	public function getAllProjectByStatus($limit = 5)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$datay = array();
 
@@ -163,7 +163,7 @@ class ProjectStats extends Stats
 	 */
 	public function getAllByYear()
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$datay = array();
 
@@ -318,7 +318,7 @@ class ProjectStats extends Stats
 	 */
 	public function getWeightedAmountByMonthWithPrevYear($endyear, $startyear, $cachedelay = 0, $wonlostfilter = 1)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		if ($startyear > $endyear) {
 			return -1;
@@ -429,7 +429,7 @@ class ProjectStats extends Stats
 	 */
 	public function getTransformRateByMonthWithPrevYear($endyear, $startyear, $cachedelay = 0)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		if ($startyear > $endyear) {
 			return -1;

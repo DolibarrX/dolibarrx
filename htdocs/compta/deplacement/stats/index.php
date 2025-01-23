@@ -238,7 +238,7 @@ $head[$h][1] = $langs->trans("ByMonthYear");
 $head[$h][2] = 'byyear';
 $h++;
 
-complete_head_from_modules($conf, $langs, null, $head, $h, 'trip_stats');
+complete_head_from_modules($config, $langs, null, $head, $h, 'trip_stats');
 
 print dol_get_fiche_head($head, 'byyear', '', -1);
 

@@ -123,7 +123,7 @@ class mailing_xinputuser extends MailingTargets
 	public function add_to_target($mailing_id)
 	{
 		// phpcs:enable
-		global $conf, $langs, $_FILES;
+		global $config, $langs, $_FILES;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 

@@ -313,9 +313,9 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 
 				migrate_restore_missing_links($db, $langs, $conf);
 
-				migrate_rename_directories($db, $langs, $conf, '/compta', '/banque');
+				migrate_rename_directories($db, $langs, $config, '/compta', '/banque');
 
-				migrate_rename_directories($db, $langs, $conf, '/societe', '/mycompany');
+				migrate_rename_directories($db, $langs, $config, '/societe', '/mycompany');
 			}
 
 			// Script for 2.8
@@ -325,19 +325,19 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
 				migrate_price_facture($db, $langs, $conf); // Code of this function works for 2.8+ because need a field tva_tx
 
-				migrate_relationship_tables($db, $langs, $conf, 'co_exp', 'fk_commande', 'commande', 'fk_expedition', 'shipping');
+				migrate_relationship_tables($db, $langs, $config, 'co_exp', 'fk_commande', 'commande', 'fk_expedition', 'shipping');
 
-				migrate_relationship_tables($db, $langs, $conf, 'pr_exp', 'fk_propal', 'propal', 'fk_expedition', 'shipping');
+				migrate_relationship_tables($db, $langs, $config, 'pr_exp', 'fk_propal', 'propal', 'fk_expedition', 'shipping');
 
-				migrate_relationship_tables($db, $langs, $conf, 'pr_liv', 'fk_propal', 'propal', 'fk_livraison', 'delivery');
+				migrate_relationship_tables($db, $langs, $config, 'pr_liv', 'fk_propal', 'propal', 'fk_livraison', 'delivery');
 
-				migrate_relationship_tables($db, $langs, $conf, 'co_liv', 'fk_commande', 'commande', 'fk_livraison', 'delivery');
+				migrate_relationship_tables($db, $langs, $config, 'co_liv', 'fk_commande', 'commande', 'fk_livraison', 'delivery');
 
-				migrate_relationship_tables($db, $langs, $conf, 'co_pr', 'fk_propale', 'propal', 'fk_commande', 'commande');
+				migrate_relationship_tables($db, $langs, $config, 'co_pr', 'fk_propale', 'propal', 'fk_commande', 'commande');
 
-				migrate_relationship_tables($db, $langs, $conf, 'fa_pr', 'fk_propal', 'propal', 'fk_facture', 'facture');
+				migrate_relationship_tables($db, $langs, $config, 'fa_pr', 'fk_propal', 'propal', 'fk_facture', 'facture');
 
-				migrate_relationship_tables($db, $langs, $conf, 'co_fa', 'fk_commande', 'commande', 'fk_facture', 'facture');
+				migrate_relationship_tables($db, $langs, $config, 'co_fa', 'fk_commande', 'commande', 'fk_facture', 'facture');
 
 				migrate_project_user_resp($db, $langs, $conf);
 
@@ -368,7 +368,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			$afterversionarray = explode('.', '3.0.9');
 			$beforeversionarray = explode('.', '3.1.9');
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
-				migrate_rename_directories($db, $langs, $conf, '/rss', '/externalrss');
+				migrate_rename_directories($db, $langs, $config, '/rss', '/externalrss');
 
 				migrate_actioncomm_element($db, $langs, $conf);
 			}
@@ -412,7 +412,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			$afterversionarray = explode('.', '3.9.9');
 			$beforeversionarray = explode('.', '4.0.9');
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
-				migrate_rename_directories($db, $langs, $conf, '/fckeditor', '/medias');
+				migrate_rename_directories($db, $langs, $config, '/fckeditor', '/medias');
 			}
 
 			// Scripts for 5.0
@@ -458,7 +458,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			$afterversionarray = explode('.', '7.0.9');
 			$beforeversionarray = explode('.', '8.0.9');
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
-				migrate_rename_directories($db, $langs, $conf, '/contracts', '/contract');
+				migrate_rename_directories($db, $langs, $config, '/contracts', '/contract');
 			}
 
 			// Scripts for 9.0
@@ -573,7 +573,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 				'MAIN_MODULE_WEBSITE' => 'newboxdefonly',
 			);
 
-			$result = migrate_reload_modules($db, $langs, $conf, $listofmodule);
+			$result = migrate_reload_modules($db, $langs, $config, $listofmodule);
 			if ($result < 0) {
 				$error++;
 			}
@@ -595,7 +595,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 				$listofmodules[$value] = 'forceactivate';
 			}
 
-			$resultreloadmodules = migrate_reload_modules($db, $langs, $conf, $listofmodules, 1);
+			$resultreloadmodules = migrate_reload_modules($db, $langs, $config, $listofmodules, 1);
 			if ($resultreloadmodules < 0) {
 				$error++;
 			}
@@ -673,7 +673,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 		// Actions for all versions (no database change but create some directories)
 		dol_mkdir(DOL_DATA_ROOT.'/bank');
 		// Actions for all versions (no database change but rename some directories)
-		migrate_rename_directories($db, $langs, $conf, '/banque/bordereau', '/bank/checkdeposits');
+		migrate_rename_directories($db, $langs, $config, '/banque/bordereau', '/bank/checkdeposits');
 
 
 		$parameters = array('versionfrom' => $versionfrom, 'versionto' => $versionto, 'conf' => $conf);
@@ -2807,7 +2807,7 @@ function migrate_project_task_actors($db, $langs, $conf)
  * @param	string		$targettype		Type of element target
  * @return	void
  */
-function migrate_relationship_tables($db, $langs, $conf, $table, $fk_source, $sourcetype, $fk_target, $targettype)
+function migrate_relationship_tables($db, $langs, $config, $table, $fk_source, $sourcetype, $fk_target, $targettype)
 {
 	print '<tr><td colspan="4">';
 
@@ -4055,7 +4055,7 @@ function migrate_usergroup_rights_entity($db, $langs, $conf)
  * @param	string		$newname	New name (relative to DOL_DATA_ROOT)
  * @return	void
  */
-function migrate_rename_directories($db, $langs, $conf, $oldname, $newname)
+function migrate_rename_directories($db, $langs, $config, $oldname, $newname)
 {
 	dolibarr_install_syslog("upgrade2::migrate_rename_directories");
 
@@ -4224,7 +4224,7 @@ function migrate_delete_old_dir($db, $langs, $conf)
  * @param   int<0,1>	$force          1=Reload module even if not already loaded
  * @return	int							Return integer <0 if KO, >0 if OK
  */
-function migrate_reload_modules($db, $langs, $conf, $listofmodule = array(), $force = 0)
+function migrate_reload_modules($db, $langs, $config, $listofmodule = array(), $force = 0)
 {
 	global $user;
 
@@ -4402,7 +4402,7 @@ function migrate_reload_menu($db, $langs, $conf)
  */
 function migrate_productlot_path()
 {
-	global $conf, $db, $langs, $user;
+	global $config, $db, $langs, $user;
 
 	if (!is_object($user)) {
 		include_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
@@ -4451,7 +4451,7 @@ function migrate_productlot_path()
  */
 function migrate_user_photospath()
 {
-	global $conf, $db, $langs, $user;
+	global $config, $db, $langs, $user;
 
 	print '<tr><td colspan="4">';
 

@@ -61,7 +61,7 @@ function pdf_admin_prepare_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'pdf_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'pdf_admin');
 
 	if (isModEnabled("propal") || isModEnabled('invoice') || isModEnabled('reception')) {
 		$head[$h][0] = DOL_URL_ROOT.'/admin/pdf_other.php';
@@ -70,7 +70,7 @@ function pdf_admin_prepare_head()
 		$h++;
 	}
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'pdf_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'pdf_admin', 'remove');
 
 	return $head;
 }
@@ -85,7 +85,7 @@ function pdf_admin_prepare_head()
  */
 function pdf_getFormat($outputlangs = null, $mode = 'setup')
 {
-	global $conf, $db, $langs;
+	global $config, $db, $langs;
 
 	dol_syslog("pdf_getFormat Get paper format with mode=".$mode." MAIN_PDF_FORMAT=".(!getDolGlobalString('MAIN_PDF_FORMAT') ? 'null' : $config->global->MAIN_PDF_FORMAT)." outputlangs->defaultlang=".(is_object($outputlangs) ? $outputlangs->defaultlang : 'null')." and langs->defaultlang=".(is_object($langs) ? $langs->defaultlang : 'null'));
 
@@ -1026,7 +1026,7 @@ function pdf_bank(&$pdf, $outputlangs, $curx, $cury, $account, $onlynumber = 0, 
  */
 function pdf_pagefoot(&$pdf, $outputlangs, $paramfreetext, $fromcompany, $marge_basse, $marge_gauche, $page_hauteur, $object, $showdetails = 0, $hidefreetext = 0, $page_largeur = 0, $watermark = '')
 {
-	global $conf, $hookManager;
+	global $config, $hookManager;
 
 	$outputlangs->load("dict");
 	$line = '';
@@ -1441,7 +1441,7 @@ function pdf_writeLinkedObjects(&$pdf, $object, $outputlangs, $posx, $posy, $w, 
  */
 function pdf_writelinedesc(&$pdf, $object, $i, $outputlangs, $w, $h, $posx, $posy, $hideref = 0, $hidedesc = 0, $issupplierline = 0, $align = 'J')
 {
-	global $db, $conf, $langs, $hookManager;
+	global $db, $config, $langs, $hookManager;
 
 	$resHook = 0;
 	$result = '';
@@ -1496,7 +1496,7 @@ function pdf_writelinedesc(&$pdf, $object, $i, $outputlangs, $w, $h, $posx, $pos
  */
 function pdf_getlinedesc($object, $i, $outputlangs, $hideref = 0, $hidedesc = 0, $issupplierline = 0)
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	$idprod = (!empty($object->lines[$i]->fk_product) ? $object->lines[$i]->fk_product : false);
 	$label = (!empty($object->lines[$i]->label) ? $object->lines[$i]->label : (!empty($object->lines[$i]->product_label) ? $object->lines[$i]->product_label : ''));
@@ -1983,7 +1983,7 @@ function pdf_getlineref_supplier($object, $i, $outputlangs, $hidedetails = 0)
  */
 function pdf_getlinevatrate($object, $i, $outputlangs, $hidedetails = 0)
 {
-	global $conf, $hookManager, $mysoc;
+	global $config, $hookManager, $mysoc;
 
 	$result = '';
 	$resHook = 0;
@@ -2045,7 +2045,7 @@ function pdf_getlinevatrate($object, $i, $outputlangs, $hidedetails = 0)
  */
 function pdf_getlineupexcltax($object, $i, $outputlangs, $hidedetails = 0)
 {
-	global $conf, $hookManager;
+	global $config, $hookManager;
 
 	$sign = 1;
 	if (isset($object->type) && $object->type == 2 && getDolGlobalString('INVOICE_POSITIVE_CREDIT_NOTE')) {
@@ -2427,7 +2427,7 @@ function pdf_getlineprogress($object, $i, $outputlangs, $hidedetails = 0, $hookM
  */
 function pdf_getlinetotalexcltax($object, $i, $outputlangs, $hidedetails = 0)
 {
-	global $conf, $hookManager;
+	global $config, $hookManager;
 
 	$sign = 1;
 	if (isset($object->type) && $object->type == 2 && getDolGlobalString('INVOICE_POSITIVE_CREDIT_NOTE')) {

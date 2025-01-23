@@ -44,7 +44,7 @@ class modExpedition extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $user;	// $conf is required by /core/extrafieldsinexport.inc.php
+		global $config, $user;	// $conf is required by /core/extrafieldsinexport.inc.php
 
 		$this->db = $db;
 		$this->numero = 80;
@@ -337,7 +337,7 @@ class modExpedition extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Permissions
 		$this->remove($options);

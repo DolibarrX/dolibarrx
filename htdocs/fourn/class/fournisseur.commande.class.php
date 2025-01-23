@@ -985,7 +985,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$langs->loadLangs(['bills', 'orders']);
 
@@ -1409,7 +1409,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function refuse($user)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -1572,7 +1572,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $langs, $conf, $hookManager;
+		global $langs, $config, $hookManager;
 
 		$this->db->begin();
 
@@ -1893,7 +1893,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function createFromClone(User $user, $socid = 0, $notrigger = 0)
 	{
-		global $conf, $user, $hookManager;
+		global $config, $user, $hookManager;
 
 		$error = 0;
 
@@ -2288,7 +2288,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function dispatchProduct($user, $product, $qty, $entrepot, $price = 0, $comment = '', $eatby = '', $sellby = '', $batch = '', $fk_commandefourndet = 0, $notrigger = 0, $fk_reception = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 		require_once DOL_DOCUMENT_ROOT.'/product/stock/class/mouvementstock.class.php';
@@ -2325,7 +2325,7 @@ class CommandeFournisseur extends CommonOrder
 			$resql = $this->db->query($sql);
 			if ($resql) {
 				if (!$notrigger) {
-					global $conf, $langs, $user;
+					global $config, $langs, $user;
 					// Call trigger
 					$result = $this->call_trigger('LINEORDER_SUPPLIER_DISPATCH', $user);
 					if ($result < 0) {
@@ -2611,7 +2611,7 @@ class CommandeFournisseur extends CommonOrder
 	public function Livraison($user, $date, $type, $comment)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$result = 0;
 		$error = 0;
@@ -2894,7 +2894,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function setStatus($user, $status)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		$this->db->begin();
@@ -2965,7 +2965,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function updateline($rowid, $desc, $pu, $qty, $remise_percent, $txtva, $txlocaltax1 = 0, $txlocaltax2 = 0, $price_base_type = 'HT', $info_bits = 0, $type = 0, $notrigger = 0, $date_start = 0, $date_end = 0, $array_options = [], $fk_unit = null, $pu_ht_devise = 0, $ref_supplier = '')
 	{
-		global $mysoc, $conf, $langs;
+		global $mysoc, $config, $langs;
 		dol_syslog(get_class($this)."::updateline $rowid, $desc, $pu, $qty, $remise_percent, $txtva, $price_base_type, $info_bits, $type, $fk_unit");
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/price.lib.php';
 
@@ -3276,7 +3276,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function loadStateBoard()
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->nb = array();
 		$clause = "WHERE";
@@ -3316,7 +3316,7 @@ class CommandeFournisseur extends CommonOrder
 	public function load_board($user, $mode = 'opened')
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$sql = "SELECT c.rowid, c.date_creation as datec, c.date_commande, c.fk_statut, c.date_livraison as delivery_date, c.total_ht";
 		$sql .= " FROM ".$this->db->prefix()."commande_fournisseur as c";
@@ -3418,7 +3418,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0, $moreparams = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (!dol_strlen($modele)) {
 			$modele = '';	// No doc template/generation by default
@@ -3562,7 +3562,7 @@ class CommandeFournisseur extends CommonOrder
 	 */
 	public function showDelay()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load('orders');
 

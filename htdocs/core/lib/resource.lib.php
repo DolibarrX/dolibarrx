@@ -33,7 +33,7 @@
  */
 function resource_prepare_head($object)
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 	$h = 0;
 	$head = array();
 
@@ -57,7 +57,7 @@ function resource_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'resource', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'resource', 'add', 'core');
 
 	if (!getDolGlobalString('MAIN_DISABLE_NOTES_TAB')) {
 		$nbNote = 0;
@@ -101,9 +101,9 @@ function resource_prepare_head($object)
 	$head[$h][2] = 'info';
 	$h++;*/
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'resource', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'resource', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'resource', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'resource', 'remove');
 
 	return $head;
 }
@@ -115,7 +115,7 @@ function resource_prepare_head($object)
  */
 function resource_admin_prepare_head()
 {
-	global $conf, $db, $langs, $user;
+	global $config, $db, $langs, $user;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('resource');
@@ -132,7 +132,7 @@ function resource_admin_prepare_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'resource_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'resource_admin');
 
 	$head[$h][0] = DOL_URL_ROOT.'/admin/resource_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields");
@@ -143,7 +143,7 @@ function resource_admin_prepare_head()
 	$head[$h][2] = 'attributes';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'resource_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'resource_admin', 'remove');
 
 	return $head;
 }

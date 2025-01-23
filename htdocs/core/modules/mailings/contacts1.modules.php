@@ -123,7 +123,7 @@ class mailing_contacts1 extends MailingTargets
 	 */
 	public function formFilter()
 	{
-		global $conf,$langs;
+		global $config,$langs;
 
 		// Load translation files required by the page
 		$langs->loadLangs(array("commercial", "companies", "suppliers", "categories"));
@@ -343,7 +343,7 @@ class mailing_contacts1 extends MailingTargets
 	public function add_to_target($mailing_id)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$filter = GETPOST('filter', 'alpha');
 		$filter_jobposition = GETPOST('filter_jobposition', 'alpha');

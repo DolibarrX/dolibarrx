@@ -168,7 +168,7 @@ class ProductCustomerPrice extends CommonObject
 	 */
 	public function create($user, $notrigger = 0, $forceupdateaffiliate = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		// Clean parameters
@@ -672,7 +672,7 @@ class ProductCustomerPrice extends CommonObject
 	 */
 	public function update(User $user, $notrigger = 0, $forceupdateaffiliate = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		// Clean parameters
@@ -989,7 +989,7 @@ class ProductCustomerPrice extends CommonObject
 	 */
 	public function delete($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		$this->db->begin();

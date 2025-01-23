@@ -63,7 +63,7 @@ class box_graph_new_vs_close_ticket extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$badgeStatus0 = '#cbd3d3'; // draft
 		$badgeStatus1 = '#bc9526'; // validated

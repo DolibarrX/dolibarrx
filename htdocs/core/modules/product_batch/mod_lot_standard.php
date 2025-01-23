@@ -87,7 +87,7 @@ class mod_lot_standard extends ModeleNumRefBatch
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

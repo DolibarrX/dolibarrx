@@ -65,7 +65,7 @@ class box_factures_imp extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$this->max = $max;
 		//$this->max = 1000;

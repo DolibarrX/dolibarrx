@@ -52,7 +52,7 @@ function loan_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $tab, 'loan', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $tab, 'loan', 'add', 'core');
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
@@ -83,9 +83,9 @@ function loan_prepare_head($object)
 	$head[$tab][2] = 'info';
 	$tab++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $tab, 'loan', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $tab, 'loan', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $tab, 'loan', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $tab, 'loan', 'remove');
 
 	return $head;
 }
@@ -102,7 +102,7 @@ function loan_prepare_head($object)
  */
 function loanCalcMonthlyPayment($mens, $capital, $rate, $numactualloadterm, $nbterm)
 {
-	global $conf, $db;
+	global $config, $db;
 	require_once DOL_DOCUMENT_ROOT.'/loan/class/loanschedule.class.php';
 	$object = new LoanSchedule($db);
 	$output = array();

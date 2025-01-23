@@ -115,7 +115,7 @@ class pdf_standard_evaluation extends ModelePDFEvaluation
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $mysoc, $user;
+		global $config, $langs, $mysoc, $user;
 		// Translations
 		$langs->loadLangs(array("main", "hrm"));
 
@@ -177,7 +177,7 @@ class pdf_standard_evaluation extends ModelePDFEvaluation
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $db, $hookManager, $nblines;
+		global $user, $langs, $config, $mysoc, $db, $hookManager, $nblines;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -559,8 +559,8 @@ class pdf_standard_evaluation extends ModelePDFEvaluation
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		// global $conf, $langs, $hookManager;
-		global $user, $langs, $conf, $mysoc, $db, $hookManager;
+		// global $config, $langs, $hookManager;
+		global $user, $langs, $config, $mysoc, $db, $hookManager;
 
 		// Load traductions files required by page
 		$outputlangs->loadLangs(array("main", "trips", "companies"));

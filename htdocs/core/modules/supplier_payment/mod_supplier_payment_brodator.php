@@ -105,7 +105,7 @@ class mod_supplier_payment_brodator extends ModeleNumRefSupplierPayments
 	 */
 	public function getExample()
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		$old_code_client = $mysoc->code_client;
 		$mysoc->code_client = 'CCCCCCCCCC';

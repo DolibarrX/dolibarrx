@@ -121,7 +121,7 @@ class BordereauChequeBlochet extends ModeleChequeReceipts
 	public function write_file($object, $_dir, $number, $outputlangs)
 	{
 		// phpcs:enable
-		global $user, $conf, $langs, $hookManager;
+		global $user, $config, $langs, $hookManager;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;

@@ -121,7 +121,7 @@ class Canvas
 	 */
 	public function getCanvas($module, $card, $canvas)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Set properties with value specific to dolibarr core: this->targetmodule, this->card, this->canvas
 		$this->targetmodule = $module;
@@ -208,7 +208,7 @@ class Canvas
 	public function display_canvas($action)
 	{
 		// phpcs:enable
-		global $db, $conf, $langs, $user, $canvas;
+		global $db, $config, $langs, $user, $canvas;
 		global $form, $formfile;
 
 		//var_dump($this->card.'-'.$action);

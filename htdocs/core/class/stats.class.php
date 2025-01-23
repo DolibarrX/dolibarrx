@@ -105,7 +105,7 @@ abstract class Stats
 	 */
 	public function getNbByMonthWithPrevYear($endyear, $startyear, $cachedelay = 0, $format = 0, $startmonth = 1)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		if ($startyear > $endyear) {
 			return array();
@@ -207,7 +207,7 @@ abstract class Stats
 	 */
 	public function getAmountByMonthWithPrevYear($endyear, $startyear, $cachedelay = 0, $format = 0, $startmonth = 1)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		if ($startyear > $endyear) {
 			return array();
@@ -337,7 +337,7 @@ abstract class Stats
 	 */
 	public function getAllByProductEntry($year, $cachedelay = 0, $limit = 10)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$data = array();
 

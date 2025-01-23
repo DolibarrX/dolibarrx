@@ -574,7 +574,7 @@ function dolSaveLicense($file, $content)
  */
 function showWebsiteTemplates(Website $website)
 {
-	global $conf, $langs, $form, $user;
+	global $config, $langs, $form, $user;
 
 	// We want only one directory for dir of website templates. If an external module need to provide a template, the template must be copied into this directory
 	// when module is enabled.

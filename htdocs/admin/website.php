@@ -715,7 +715,7 @@ $db->close();
  */
 function fieldListWebsites($fieldlist, $obj = null, $tabname = '', $context = '')
 {
-	global $conf, $langs, $db;
+	global $config, $langs, $db;
 	global $form;
 	global $region_id;
 	global $elementList, $sourceList, $localtax_typeList;

@@ -25,7 +25,7 @@ if (empty($context) || !is_object($context)) {
 }
 '@phan-var-force Context $context';
 
-global $conf, $hookManager, $langs;
+global $config, $hookManager, $langs;
 
 $navMenu = $navGroupMenu = $navUserMenu = array();
 

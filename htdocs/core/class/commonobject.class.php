@@ -2345,7 +2345,7 @@ abstract class CommonObject
 	public function load_previous_next_ref($filter, $fieldid, $nodbprefix = 0)
 	{
 		// phpcs:enable
-		global $conf, $user;
+		global $config, $user;
 
 		if (!$this->table_element) {
 			dol_print_error(null, get_class($this)."::load_previous_next_ref was called on object with property table_element not defined");
@@ -3838,7 +3838,7 @@ abstract class CommonObject
 	public function update_price($exclspec = 0, $roundingadjust = 'auto', $nodatabaseupdate = 0, $seller = null)
 	{
 		// phpcs:enable
-		global $conf, $hookManager, $action;
+		global $config, $hookManager, $action;
 
 		$parameters = array('exclspec' => $exclspec, 'roundingadjust' => $roundingadjust, 'nodatabaseupdate' => $nodatabaseupdate, 'seller' => $seller);
 		$resHook = $hookManager->executeHooks('updateTotalPrice', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
@@ -5206,7 +5206,7 @@ abstract class CommonObject
 	 */
 	public function formAddObjectLine($dateSelector, $seller, $buyer, $defaulttpldir = '/core/tpl')
 	{
-		global $conf, $user, $langs, $object, $hookManager, $extrafields, $form;
+		global $config, $user, $langs, $object, $hookManager, $extrafields, $form;
 
 		// Line extrafield
 		if (!is_object($extrafields)) {
@@ -5258,7 +5258,7 @@ abstract class CommonObject
 	 */
 	public function printObjectLines($action, $seller, $buyer, $selected = 0, $dateSelector = 0, $defaulttpldir = '/core/tpl')
 	{
-		global $conf, $hookManager, $langs, $user, $form, $extrafields, $object;
+		global $config, $hookManager, $langs, $user, $form, $extrafields, $object;
 		// TODO We should not use global var for this
 		global $inputalsopricewithtax, $usemargins, $disableedit, $disablemove, $disableremove, $outputalsopricetotalwithtax;
 
@@ -5353,7 +5353,7 @@ abstract class CommonObject
 	 */
 	public function printObjectLine($action, $line, $var, $num, $i, $dateSelector, $seller, $buyer, $selected = 0, $extrafields = null, $defaulttpldir = '/core/tpl')
 	{
-		global $conf, $langs, $user, $object, $hookManager;
+		global $config, $langs, $user, $object, $hookManager;
 		global $form;
 		global $disableedit, $disablemove, $disableremove; // TODO We should not use global var for this !
 
@@ -5790,7 +5790,7 @@ abstract class CommonObject
 	 */
 	protected function commonGenerateDocument($modelspath, $modele, $outputlangs, $hidedetails, $hidedesc, $hideref, $moreparams = null)
 	{
-		global $conf, $langs, $user, $hookManager, $action;
+		global $config, $langs, $user, $hookManager, $action;
 
 		$srctemplatepath = '';
 
@@ -5998,7 +5998,7 @@ abstract class CommonObject
 	 */
 	public function indexFile($destfull, $update_main_doc_field)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$upload_dir = dirname($destfull);
 		$destfile = basename($destfull);
@@ -6442,7 +6442,7 @@ abstract class CommonObject
 	public function fetch_optionals($rowid = null, $optionsArray = null)
 	{
 		// phpcs:enable
-		global $conf, $extrafields;
+		global $config, $extrafields;
 
 		if (empty($rowid)) {
 			$rowid = $this->id;
@@ -6977,7 +6977,7 @@ abstract class CommonObject
 	 */
 	public function insertExtraLanguages($trigger = '', $userused = null)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		if (empty($userused)) {
 			$userused = $user;
@@ -7095,7 +7095,7 @@ abstract class CommonObject
 	 */
 	public function updateExtraField($key, $trigger = null, $userused = null)
 	{
-		global $conf, $langs, $user, $hookManager;
+		global $config, $langs, $user, $hookManager;
 
 		if (getDolGlobalString('MAIN_EXTRAFIELDS_DISABLED')) {
 			return 0;
@@ -7428,7 +7428,7 @@ abstract class CommonObject
 	 */
 	public function updateExtraLanguages($key, $trigger = null, $userused = null)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		if (empty($userused)) {
 			$userused = $user;
@@ -7461,7 +7461,7 @@ abstract class CommonObject
 	 */
 	public function showInputField($val, $key, $value, $moreparam = '', $keysuffix = '', $keyprefix = '', $morecss = 0, $nonewbutton = 0)
 	{
-		global $conf, $langs, $form;
+		global $config, $langs, $form;
 
 		// TODO pass the current object as a parameter to give more flexibility (like disable showing input for extra fields when canAlwaysBeEdited is false and $object->status is not draft...)
 
@@ -8363,7 +8363,7 @@ abstract class CommonObject
 	 */
 	public function showOutputField($val, $key, $value, $moreparam = '', $keysuffix = '', $keyprefix = '', $morecss = '')
 	{
-		global $conf, $langs, $form;
+		global $config, $langs, $form;
 
 		// TODO pass the current object as a parameter to give more flexibility (like disable ajax update when canAlwaysBeEdited is false and $object->status is not draft...)
 
@@ -9154,7 +9154,7 @@ abstract class CommonObject
 	 */
 	public function showOptionals($extrafields, $mode = 'view', $params = null, $keysuffix = '', $keyprefix = '', $onetrtd = '', $display_type = 'card')
 	{
-		global $db, $conf, $langs, $action, $form, $hookManager;
+		global $db, $config, $langs, $action, $form, $hookManager;
 
 		if (!is_object($form)) {
 			$form = new Form($db);

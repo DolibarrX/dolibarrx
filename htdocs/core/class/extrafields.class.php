@@ -411,7 +411,7 @@ class ExtraFields
 	private function create_label($attrname, $label = '', $type = '', $pos = 0, $size = '', $elementtype = '', $unique = 0, $required = 0, $param = '', $alwayseditable = 0, $perms = '', $list = '-1', $help = '', $default = '', $computed = '', $entity = '', $langfile = '', $enabled = '1', $totalizable = 0, $printable = 0, $moreparams = array())
 	{
 		// phpcs:enable
-		global $conf, $user;
+		global $config, $user;
 
 		if ($elementtype == 'thirdparty') {
 			$elementtype = 'societe';
@@ -827,7 +827,7 @@ class ExtraFields
 	private function update_label($attrname, $label, $type, $size, $elementtype, $unique = 0, $required = 0, $pos = 0, $param = array(), $alwayseditable = 0, $perms = '', $list = '0', $help = '', $default = '', $computed = '', $entity = '', $langfile = '', $enabled = '1', $totalizable = 0, $printable = 0, $moreparams = array())
 	{
 		// phpcs:enable
-		global $conf, $user;
+		global $config, $user;
 		dol_syslog(get_class($this)."::update_label ".$attrname.", ".$label.", ".$type.", ".$size.", ".$elementtype.", ".$unique.", ".$required.", ".$pos.", ".$alwayseditable.", ".$perms.", ".$list.", ".$default.", ".$computed.", ".$entity.", ".$langfile.", ".$enabled.", ".$totalizable.", ".$printable);
 
 		// Clean parameters
@@ -1092,7 +1092,7 @@ class ExtraFields
 	 */
 	public function showInputField($key, $value, $moreparam = '', $keysuffix = '', $keyprefix = '', $morecss = '', $object = 0, $extrafieldsobjectkey = '', $mode = 0)
 	{
-		global $conf, $langs, $form;
+		global $config, $langs, $form;
 
 		if (!is_object($form)) {
 			require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
@@ -1971,7 +1971,7 @@ class ExtraFields
 	 */
 	public function showOutputField($key, $value, $moreparam = '', $extrafieldsobjectkey = '', $outputlangs = null, $object = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (is_null($outputlangs) || !is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -2469,7 +2469,7 @@ class ExtraFields
 	 */
 	public function showSeparator($key, $object, $colspan = 2, $display_type = 'card', $mode = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$tagtype = 'tr';
 		$tagtype_dyn = 'td';

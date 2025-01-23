@@ -36,7 +36,7 @@ class modBlockedLog extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$this->db = $db;
 		$this->numero = 3200;
@@ -164,7 +164,7 @@ class modBlockedLog extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$sql = array();
 
@@ -209,7 +209,7 @@ class modBlockedLog extends DolibarrModules
 	 */
 	public function remove($options = '')
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$sql = array();
 

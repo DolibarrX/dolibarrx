@@ -145,7 +145,7 @@ if ($action == 'refreshtoken' && $user->admin) {
 	$keyforparamtenant = 'OAUTH_'.strtoupper(empty($supportedoauth2array[$keyforsupportedoauth2array]['callbackfile']) ? 'Unknown' : $supportedoauth2array[$keyforsupportedoauth2array]['callbackfile']).($keyforprovider ? '-'.$keyforprovider : '').'_TENANT';
 
 	// Dolibarr storage
-	$storage = new DoliStorage($db, $conf, $keyforprovider, getDolGlobalString($keyforparamtenant));
+	$storage = new DoliStorage($db, $config, $keyforprovider, getDolGlobalString($keyforparamtenant));
 	try {
 		// $OAUTH_SERVICENAME is for example 'Google-keyforprovider'
 		print '<!-- '.$OAUTH_SERVICENAME.' -->'."\n";
@@ -338,7 +338,7 @@ if ($mode == 'setup' && $user->admin) {
 			// Token
 			require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
 			// Dolibarr storage
-			$storage = new DoliStorage($db, $conf, $keyforprovider, getDolGlobalString($keyforparamtenant));
+			$storage = new DoliStorage($db, $config, $keyforprovider, getDolGlobalString($keyforparamtenant));
 			try {
 				// $OAUTH_SERVICENAME is for example 'Google-keyforprovider'
 				print '<!-- '.$OAUTH_SERVICENAME.' -->'."\n";

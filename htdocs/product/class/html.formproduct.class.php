@@ -86,7 +86,7 @@ class FormProduct
 	 */
 	public function loadWarehouses($fk_product = 0, $batch = '', $status = '', $sumStock = true, $exclude = array(), $stockMin = false, $orderBy = 'e.ref')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (empty($fk_product) && count($this->cache_warehouses)) {
 			return 0; // Cache already loaded and we do not want a list with information specific to a product
@@ -196,7 +196,7 @@ class FormProduct
 	 */
 	public function loadWorkstations($fk_product = 0, $exclude = array(), $orderBy = 'w.ref')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (empty($fk_product) && count($this->cache_workstations)) {
 			return 0; // Cache already loaded and we do not want a list with information specific to a product
@@ -302,7 +302,7 @@ class FormProduct
 	 */
 	public function selectWarehouses($selected = '', $htmlname = 'idwarehouse', $filterstatus = '', $empty = 0, $disabled = 0, $fk_product = 0, $empty_label = '', $showstock = 0, $forcecombo = 0, $events = array(), $morecss = 'minwidth200', $exclude = array(), $showfullpath = 1, $stockMin = false, $orderBy = 'e.ref', $multiselect = 0)
 	{
-		global $conf, $langs, $user, $hookManager;
+		global $config, $langs, $user, $hookManager;
 
 		dol_syslog(get_class($this)."::selectWarehouses " . (is_array($selected) ? 'selected is array' : $selected) . ", $htmlname, $filterstatus, $empty, $disabled, $fk_product, $empty_label, $showstock, $forcecombo, $morecss", LOG_DEBUG);
 
@@ -427,7 +427,7 @@ class FormProduct
 	 */
 	public function selectWorkstations($selected = '', $htmlname = 'idworkstations', $empty = 0, $disabled = 0, $fk_product = 0, $empty_label = '', $forcecombo = 0, $events = array(), $morecss = 'minwidth200', $exclude = array(), $showfullpath = 1, $orderBy = 'e.ref')
 	{
-		global $conf, $langs, $user, $hookManager;
+		global $config, $langs, $user, $hookManager;
 
 		dol_syslog(get_class($this)."::selectWorkstations $selected, $htmlname, $empty, $disabled, $fk_product, $empty_label, $forcecombo, $morecss", LOG_DEBUG);
 
@@ -727,7 +727,7 @@ class FormProduct
 	 */
 	public function selectLotStock($selected = '', $htmlname = 'batch_id', $filterstatus = '', $empty = 0, $disabled = 0, $fk_product = 0, $fk_entrepot = 0, $objectLines = array(), $empty_label = '', $forcecombo = 0, $events = array(), $morecss = 'minwidth200')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		dol_syslog(get_class($this)."::selectLotStock $selected, $htmlname, $filterstatus, $empty, $disabled, $fk_product, $fk_entrepot, $empty_label, $forcecombo, $morecss", LOG_DEBUG);
 
@@ -810,7 +810,7 @@ class FormProduct
 	 */
 	public function selectLotDataList($htmlname = 'batch_id', $empty = 0, $fk_product = 0, $fk_entrepot = 0, $objectLines = array())
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		dol_syslog(get_class($this)."::selectLotDataList $htmlname, $empty, $fk_product, $fk_entrepot", LOG_DEBUG);
 
@@ -881,7 +881,7 @@ class FormProduct
 	 */
 	private function loadLotStock($productIdArray = array())
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$cacheLoaded = false;
 		if (empty($productIdArray)) {

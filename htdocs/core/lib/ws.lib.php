@@ -36,7 +36,7 @@
  */
 function check_authentication($authentication, &$error, &$errorcode, &$errorlabel)
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 	global $dolibarr_main_authentication, $dolibarr_auto_user;
 
 	$fuser = new User($db);

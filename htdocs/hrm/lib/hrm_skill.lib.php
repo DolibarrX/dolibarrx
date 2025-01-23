@@ -88,9 +88,9 @@ function skillPrepareHead($object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@hrm:/hrm/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'skill@hrm');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'skill@hrm');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'skill@hrm', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'skill@hrm', 'remove');
 
 	return $head;
 }

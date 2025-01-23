@@ -31,7 +31,7 @@
  */
 function cronadmin_prepare_head()
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 	$h = 0;
 	$head = array();
 
@@ -45,9 +45,9 @@ function cronadmin_prepare_head()
 	$head[$h][2] = 'jobs';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'cronadmin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'cronadmin');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'cronadmin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'cronadmin', 'remove');
 
 
 	return $head;
@@ -61,7 +61,7 @@ function cronadmin_prepare_head()
  */
 function cron_prepare_head(Cronjob $object)
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 	$h = 0;
 	$head = array();
 
@@ -75,9 +75,9 @@ function cron_prepare_head(Cronjob $object)
 	$head[$h][2] = 'info';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'cron');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'cron');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'cron', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'cron', 'remove');
 
 	return $head;
 }
@@ -89,7 +89,7 @@ function cron_prepare_head(Cronjob $object)
  */
 function dol_print_cron_urls()
 {
-	global $conf, $langs, $user;
+	global $config, $langs, $user;
 	global $dolibarr_main_url_root;
 
 	// Define $urlwithroot

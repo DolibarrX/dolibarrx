@@ -170,7 +170,7 @@ function versiondolibarrarray()
  */
 function run_sql($sqlfile, $silent = 1, $entity = 0, $usesavepoint = 1, $handler = '', $okerror = 'default', $linelengthlimit = 32768, $nocommentremoval = 0, $offsetforchartofaccount = 0, $colspan = 0, $onlysqltoimportwebsite = 0, $database = '')
 {
-	global $db, $conf, $langs, $user;
+	global $db, $config, $langs, $user;
 
 	dol_syslog("Admin.lib::run_sql run sql file ".$sqlfile." silent=".$silent." entity=".$entity." usesavepoint=".$usesavepoint." handler=".$handler." okerror=".$okerror, LOG_DEBUG);
 
@@ -580,7 +580,7 @@ function run_sql($sqlfile, $silent = 1, $entity = 0, $usesavepoint = 1, $handler
  */
 function dolibarr_del_const($db, $name, $entity = 1)
 {
-	global $conf, $hookManager;
+	global $config, $hookManager;
 
 	if (empty($name)) {
 		dol_print_error(null, 'Error call dolibar_del_const with parameter name empty');
@@ -670,7 +670,7 @@ function dolibarr_get_const($db, $name, $entity = 1)
  */
 function dolibarr_set_const($db, $name, $value, $type = 'chaine', $visible = 0, $note = '', $entity = 1)
 {
-	global $conf, $hookManager;
+	global $config, $hookManager;
 
 	// Clean parameters
 	$name = trim($name);
@@ -807,7 +807,7 @@ function modules_prepare_head($nbofactivatedmodules, $nboftotalmodules, $nbModul
  */
 function ihm_prepare_head()
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 	$h = 0;
 	$head = array();
 
@@ -836,9 +836,9 @@ function ihm_prepare_head()
 	$head[$h][2] = 'css';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'ihm_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'ihm_admin');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'ihm_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'ihm_admin', 'remove');
 
 
 	return $head;
@@ -852,7 +852,7 @@ function ihm_prepare_head()
  */
 function security_prepare_head()
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 	$h = 0;
 	$head = array();
 
@@ -959,9 +959,9 @@ function modulehelp_prepare_head($object)
 		$h++;
 	}
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'modulehelp_admin');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'modulehelp_admin');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'modulehelp_admin', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'modulehelp_admin', 'remove');
 
 
 	return $head;
@@ -987,9 +987,9 @@ function translation_prepare_head()
 	$head[$h][2] = 'overwrite';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'translation_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'translation_admin');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'translation_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'translation_admin', 'remove');
 
 
 	return $head;
@@ -1003,7 +1003,7 @@ function translation_prepare_head()
  */
 function defaultvalues_prepare_head()
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 	$h = 0;
 	$head = array();
 
@@ -1039,9 +1039,9 @@ function defaultvalues_prepare_head()
 	$head[$h][2] = 'searchkey';
 	$h++;*/
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'defaultvalues_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'defaultvalues_admin');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'defaultvalues_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'defaultvalues_admin', 'remove');
 
 
 	return $head;
@@ -1164,7 +1164,7 @@ function purgeSessions($mysessionid)
  */
 function activateModule($value, $withdeps = 1, $noconfverification = 0)
 {
-	global $db, $langs, $conf, $mysoc;
+	global $db, $langs, $config, $mysoc;
 
 	$ret = array();
 
@@ -1559,7 +1559,7 @@ function complete_dictionary_with_modules(&$taborder, &$tabname, &$tablib, &$tab
  */
 function activateModulesRequiredByCountry($country_code)
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	$modulesdir = dolGetModulesDirs();
 
@@ -1622,7 +1622,7 @@ function activateModulesRequiredByCountry($country_code)
  */
 function complete_elementList_with_modules(&$elementList)
 {
-	global $db, $modules, $conf, $langs;
+	global $db, $modules, $config, $langs;
 
 	// Search modules
 	$filename = array();
@@ -1729,7 +1729,7 @@ function complete_elementList_with_modules(&$elementList)
  */
 function form_constantes($tableau, $strictw3c = 2, $helptext = '', $text = 'Value')
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 	global $_Avery_Labels;
 
 	$form = new Form($db);
@@ -1941,7 +1941,7 @@ function form_constantes($tableau, $strictw3c = 2, $helptext = '', $text = 'Valu
  */
 function showModulesExludedForExternal($modules)
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	$text = $langs->trans("OnlyFollowingModulesAreOpenedToExternalUsers");
 	$listofmodules = explode(',', getDolGlobalString('MAIN_MODULES_FOR_EXTERNAL'));	// List of modules qualified for external user management
@@ -2105,9 +2105,9 @@ function company_admin_prepare_head()
 	$head[$h][2] = 'accountant';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'mycompany_admin', 'add');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'mycompany_admin', 'add');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'mycompany_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'mycompany_admin', 'remove');
 
 	return $head;
 }
@@ -2119,7 +2119,7 @@ function company_admin_prepare_head()
  */
 function email_admin_prepare_head()
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -2170,7 +2170,7 @@ function email_admin_prepare_head()
 	$head[$h][2] = 'common_ingoing';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'email_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'email_admin', 'remove');
 
 	return $head;
 }

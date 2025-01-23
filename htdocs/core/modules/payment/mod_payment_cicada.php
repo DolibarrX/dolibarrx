@@ -93,7 +93,7 @@ class mod_payment_cicada extends ModeleNumRefPayments
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$payyymm = '';
 		$max = '';

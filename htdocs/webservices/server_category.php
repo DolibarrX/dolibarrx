@@ -212,7 +212,7 @@ $server->register(
  */
 function getCategory($authentication, $id)
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	$nbmax = 10;
 

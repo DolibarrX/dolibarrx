@@ -107,7 +107,7 @@ class mod_facture_fournisseur_cactus extends ModeleNumRefSuppliersInvoices
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$langs->load("bills");
 

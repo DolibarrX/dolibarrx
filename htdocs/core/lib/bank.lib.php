@@ -38,7 +38,7 @@
  */
 function bank_prepare_head(Account $object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -146,14 +146,14 @@ function bank_prepare_head(Account $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'bank');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'bank');
 
 	/*$head[$h][0] = DOL_URL_ROOT . "/compta/bank/info.php?id=" . $object->id;
 	$head[$h][1] = $langs->trans("Info");
 	$head[$h][2] = 'info';
 	$h++;*/
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'bank', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'bank', 'remove');
 
 	return $head;
 }
@@ -166,7 +166,7 @@ function bank_prepare_head(Account $object)
  */
 function bank_report_prepare_head(Account $object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -191,7 +191,7 @@ function bank_report_prepare_head(Account $object)
  */
 function bank_admin_prepare_head($object)
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$langs->loadLangs(array("compta"));
 
@@ -217,7 +217,7 @@ function bank_admin_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'bank_admin');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'bank_admin');
 
 	$head[$h][0] = DOL_URL_ROOT.'/admin/bank_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields").' ('.$langs->trans("BankAccounts").')';
@@ -237,7 +237,7 @@ function bank_admin_prepare_head($object)
 	$head[$h][2] = 'bankline_extrafields';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'bank_admin', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'bank_admin', 'remove');
 
 
 	return $head;
@@ -253,7 +253,7 @@ function bank_admin_prepare_head($object)
  */
 function account_statement_prepare_head($object, $num)
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 	$h = 0;
 	$head = array();
 
@@ -277,9 +277,9 @@ function account_statement_prepare_head($object, $num)
 	$head[$h][2] = 'document';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'account_statement');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'account_statement');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'account_statement', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'account_statement', 'remove');
 
 	return $head;
 }
@@ -307,7 +307,7 @@ function various_payment_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'various_payment');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'various_payment');
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
@@ -327,7 +327,7 @@ function various_payment_prepare_head($object)
 	$head[$h][2] = 'info';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'various_payment', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'various_payment', 'remove');
 
 	return $head;
 }

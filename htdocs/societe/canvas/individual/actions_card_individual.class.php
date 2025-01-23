@@ -86,7 +86,7 @@ class ActionsCardIndividual extends ActionsCardCommon
 	public function assign_values(&$action, $id = 0, $ref = '')
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 		global $form, $formcompany;
 
 		$ret = $this->getObject($id, $ref);

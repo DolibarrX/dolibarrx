@@ -40,9 +40,9 @@ function targetPrepareHead($object)
 	$head[$h][2] = 'card';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'target@webhook');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'target@webhook');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'target@webhook', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'target@webhook', 'remove');
 
 	return $head;
 }

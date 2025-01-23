@@ -262,7 +262,7 @@ class pdf_tcpdflabel extends CommonStickerGenerator
 	public function write_file($arrayofrecords, $outputlangs, $srctemplatepath, $outputdir = '', $filename = 'tmp_address_sheet.pdf')
 	{
 		// phpcs:enable
-		global $user, $conf, $langs, $mysoc, $_Avery_Labels;
+		global $user, $config, $langs, $mysoc, $_Avery_Labels;
 
 		$this->code = $srctemplatepath;
 		$this->Tformat = $_Avery_Labels[$this->code];

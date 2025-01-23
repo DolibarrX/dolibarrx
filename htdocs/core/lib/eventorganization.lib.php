@@ -30,7 +30,7 @@
  */
 function eventorganizationAdminPrepareHead()
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('actioncomm');
@@ -73,9 +73,9 @@ function eventorganizationAdminPrepareHead()
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@eventorganization:/eventorganization/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'eventorganization');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'eventorganization');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'eventorganization', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'eventorganization', 'remove');
 
 	return $head;
 }

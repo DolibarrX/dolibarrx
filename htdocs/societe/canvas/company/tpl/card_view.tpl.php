@@ -308,13 +308,13 @@ print $formfile->showdocuments('company', $socid, $filedir, $urlsource, $genallo
 
 <?php
 // Subsidiaries list
-$result = show_subsidiaries($conf, $langs, $db, $soc);
+$result = show_subsidiaries($config, $langs, $db, $soc);
 
 // Contacts list
-$result = show_contacts($conf, $langs, $db, $soc);
+$result = show_contacts($config, $langs, $db, $soc);
 
 // Projects list
-$result = show_projects($conf, $langs, $db, $soc);
+$result = show_projects($config, $langs, $db, $soc);
 ?>
 
 <!-- END PHP TEMPLATE -->

@@ -42,9 +42,9 @@ function datapolicyAdminPrepareHead()
 	$head[$h][2] = 'settings';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'datapolicy');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'datapolicy');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'datapolicy', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'datapolicy', 'remove');
 
 	return $head;
 }

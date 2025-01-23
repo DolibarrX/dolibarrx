@@ -63,7 +63,7 @@ class box_graph_nb_tickets_type extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 		global $theme_datacolor, $badgeStatus8;
 
 		require_once DOL_DOCUMENT_ROOT."/core/lib/functions2.lib.php";

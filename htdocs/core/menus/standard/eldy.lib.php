@@ -46,7 +46,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/menubase.class.php';
  */
 function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 0, $mode = '')
 {
-	global $user, $conf, $langs, $mysoc;
+	global $user, $config, $langs, $mysoc;
 	global $dolibarr_main_db_name;
 
 	$mainmenu = (empty($_SESSION["mainmenu"]) ? '' : $_SESSION["mainmenu"]);
@@ -737,7 +737,7 @@ function print_end_menu_array()
  */
 function print_left_eldy_menu($db, $menu_array_before, $menu_array_after, &$tabMenu, &$menu, $noout = 0, $forcemainmenu = '', $forceleftmenu = '', $moredata = null, $type_user = 0)
 {
-	global $user, $conf, $langs, $hookManager;
+	global $user, $config, $langs, $hookManager;
 
 	//var_dump($tabMenu);
 
@@ -1116,7 +1116,7 @@ function print_left_eldy_menu($db, $menu_array_before, $menu_array_after, &$tabM
  */
 function get_left_menu_home($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu = 'none', $type_user = 0)
 {
-	global $user, $conf, $langs;
+	global $user, $config, $langs;
 
 	if ($mainmenu == 'home') {
 		$langs->load("users");
@@ -1252,7 +1252,7 @@ function get_left_menu_home($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu =
  */
 function get_left_menu_thridparties($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu = 'none', $type_user = 0)
 {
-	global $user, $conf, $langs;
+	global $user, $config, $langs;
 
 	if ($mainmenu == 'companies') {
 		// Societes
@@ -1478,7 +1478,7 @@ function get_left_menu_commercial($mainmenu, &$newmenu, $usemenuhider = 1, $left
  */
 function get_left_menu_billing($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu = 'none', $type_user = 0)
 {
-	global $user, $conf, $langs;
+	global $user, $config, $langs;
 
 	if ($mainmenu == 'billing') {
 		$langs->load("companies");
@@ -1661,7 +1661,7 @@ function get_left_menu_billing($mainmenu, &$newmenu, $usemenuhider = 1, $leftmen
  */
 function get_left_menu_accountancy($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu = 'none', $type_user = 0)
 {
-	global $user, $conf, $langs;
+	global $user, $config, $langs;
 	global $db;
 
 	if ($mainmenu == 'accountancy') {
@@ -2024,7 +2024,7 @@ function get_left_menu_accountancy($mainmenu, &$newmenu, $usemenuhider = 1, $lef
  */
 function get_left_menu_bank($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu = 'none', $type_user = 0)
 {
-	global $user, $conf, $langs;
+	global $user, $config, $langs;
 
 	if ($mainmenu == 'bank') {
 		// Load translation files required by the page
@@ -2107,7 +2107,7 @@ function get_left_menu_bank($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu =
  */
 function get_left_menu_products($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu = 'none', $type_user = 0)
 {
-	global $user, $conf, $langs;
+	global $user, $config, $langs;
 
 	if ($mainmenu == 'products') {
 		// Products
@@ -2251,7 +2251,7 @@ function get_left_menu_products($mainmenu, &$newmenu, $usemenuhider = 1, $leftme
  */
 function get_left_menu_mrp($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu = 'none', $type_user = 0)
 {
-	global $user, $conf, $langs;
+	global $user, $config, $langs;
 
 	if ($mainmenu == 'mrp') {
 		// BOM
@@ -2285,7 +2285,7 @@ function get_left_menu_mrp($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu = 
  */
 function get_left_menu_projects($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu = 'none', $type_user = 0)
 {
-	global $user, $conf, $langs;
+	global $user, $config, $langs;
 
 	if ($mainmenu == 'project') {
 		if (isModEnabled('project')) {
@@ -2360,7 +2360,7 @@ function get_left_menu_projects($mainmenu, &$newmenu, $usemenuhider = 1, $leftme
  */
 function get_left_menu_hrm($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu = 'none', $type_user = 0)
 {
-	global $user, $conf, $langs;
+	global $user, $config, $langs;
 
 	if ($mainmenu == 'hrm') {
 		// HRM module
@@ -2518,7 +2518,7 @@ function get_left_menu_tools($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu 
  */
 function get_left_menu_members($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu = 'none', $type_user = 0)
 {
-	global $user, $conf, $langs;
+	global $user, $config, $langs;
 
 	if ($mainmenu == 'members') {
 		if (isModEnabled('member')) {

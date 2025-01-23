@@ -68,9 +68,9 @@ function takepos_admin_prepare_head()
 	$head[$h][2] = 'other';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'takepos_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'takepos_admin');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'takepos_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'takepos_admin', 'remove');
 
 	return $head;
 }

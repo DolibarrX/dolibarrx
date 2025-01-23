@@ -39,7 +39,7 @@
  */
 function tax_prepare_head(ChargeSociales $object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -53,7 +53,7 @@ function tax_prepare_head(ChargeSociales $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'tax');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'tax');
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
@@ -91,7 +91,7 @@ function tax_prepare_head(ChargeSociales $object)
 	$h++;
 
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'tax', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'tax', 'remove');
 
 	return $head;
 }

@@ -153,7 +153,7 @@ class modTcpdfbarcode extends ModeleBarCode
 	 */
 	public function writeBarCode($code, $encoding, $readable = 'Y', $scale = 1, $nooutputiferror = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Force value of temp directory because we may call this even if module barcode is disabled
 		if (empty($config->barcode)) {

@@ -1287,7 +1287,7 @@ function httponly_accessforbidden($message = '1', $http_response_code = 403, $st
  */
 function accessforbidden($message = '', $printheader = 1, $printfooter = 1, $showonlymessage = 0, $params = null)
 {
-	global $conf, $db, $user, $langs, $hookManager;
+	global $config, $db, $user, $langs, $hookManager;
 	global $action, $object;
 
 	if (!is_object($langs)) {

@@ -85,7 +85,7 @@ if ($action == 'update' && $permissiontoedit) {
 	$tmparray = array();
 	$tmparray['USER_PUBLIC_MORE'] = GETPOST('USER_PUBLIC_MORE', 'alphanohtml');
 
-	dol_set_user_param($db, $conf, $object, array('USER_PUBLIC_MORE' => $tmparray['USER_PUBLIC_MORE']));
+	dol_set_user_param($db, $config, $object, array('USER_PUBLIC_MORE' => $tmparray['USER_PUBLIC_MORE']));
 }
 
 if ($action == 'setUSER_ENABLE_PUBLIC' && $permissiontoedit) {
@@ -94,7 +94,7 @@ if ($action == 'setUSER_ENABLE_PUBLIC' && $permissiontoedit) {
 	} else {
 		$tmparray = array('USER_ENABLE_PUBLIC' => 0);
 	}
-	dol_set_user_param($db, $conf, $object, $tmparray);
+	dol_set_user_param($db, $config, $object, $tmparray);
 }
 
 

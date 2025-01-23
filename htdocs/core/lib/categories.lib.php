@@ -33,7 +33,7 @@
  */
 function categories_prepare_head(Categorie $object, $type)
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 
 	// Load translation files required by the page
 	$langs->loadLangs(array('categories', 'products'));
@@ -71,9 +71,9 @@ function categories_prepare_head(Categorie $object, $type)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'categories_'.$type);
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'categories_'.$type);
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'categories_'.$type, 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'categories_'.$type, 'remove');
 
 	return $head;
 }
@@ -86,7 +86,7 @@ function categories_prepare_head(Categorie $object, $type)
  */
 function categoriesadmin_prepare_head()
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('categorie');
@@ -114,9 +114,9 @@ function categoriesadmin_prepare_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'categoriesadmin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'categoriesadmin');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'categoriesadmin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'categoriesadmin', 'remove');
 
 	return $head;
 }

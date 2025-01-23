@@ -85,7 +85,7 @@ class mod_knowledgerecord_standard extends ModeleNumRefKnowledgeRecord
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

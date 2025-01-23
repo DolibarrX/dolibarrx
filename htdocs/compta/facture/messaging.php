@@ -258,6 +258,6 @@ if ($object->id > 0) {
 		$filters['search_rowid'] = $search_rowid;
 
 		// TODO Replace this with same code than into list.php
-		show_actions_messaging($conf, $langs, $db, $object, null, 0, $actioncode, '', $filters, $sortfield, $sortorder);
+		show_actions_messaging($config, $langs, $db, $object, null, 0, $actioncode, '', $filters, $sortfield, $sortorder);
 	}
 }

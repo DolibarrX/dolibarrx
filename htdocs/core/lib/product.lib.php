@@ -39,7 +39,7 @@
  */
 function product_prepare_head($object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 	$langs->load("products");
 
 	$label = $langs->trans('Product');
@@ -176,7 +176,7 @@ function product_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'product', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'product', 'add', 'core');
 
 	// Notes
 	if (!getDolGlobalString('MAIN_DISABLE_NOTES_TAB')) {
@@ -235,9 +235,9 @@ function product_prepare_head($object)
 	$head[$h][2] = 'agenda';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'product', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'product', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'product', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'product', 'remove');
 
 	return $head;
 }
@@ -250,7 +250,7 @@ function product_prepare_head($object)
  */
 function productlot_prepare_head($object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	// Load translation files required by the page
 	$langs->loadLangs(array("products", "productbatch"));
@@ -304,9 +304,9 @@ function productlot_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'productlot');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'productlot');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'productlot', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'productlot', 'remove');
 
 	// Log
 	/*
@@ -328,7 +328,7 @@ function productlot_prepare_head($object)
  */
 function product_admin_prepare_head()
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('product');
@@ -357,7 +357,7 @@ function product_admin_prepare_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'product_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'product_admin');
 
 	$head[$h][0] = DOL_URL_ROOT.'/product/admin/product_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields");
@@ -395,7 +395,7 @@ function product_admin_prepare_head()
 	$head[$h][2] = 'supplierAttributes';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'product_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'product_admin', 'remove');
 
 	return $head;
 }
@@ -409,7 +409,7 @@ function product_admin_prepare_head()
  */
 function product_lot_admin_prepare_head()
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('product_lot');
@@ -426,7 +426,7 @@ function product_lot_admin_prepare_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'product_lot_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'product_lot_admin');
 
 	$head[$h][0] = DOL_URL_ROOT.'/product/admin/product_lot_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields");
@@ -437,7 +437,7 @@ function product_lot_admin_prepare_head()
 	$head[$h][2] = 'attributes';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'product_lot_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'product_lot_admin', 'remove');
 
 	return $head;
 }
@@ -743,7 +743,7 @@ function show_stats_for_company($product, $socid)
  */
 function show_stats_for_batch($batch, $socid)
 {
-	global $conf, $langs, $user, $db, $hookManager;
+	global $config, $langs, $user, $db, $hookManager;
 
 	$langs->LoadLangs(array('sendings', 'orders', 'receptions'));
 

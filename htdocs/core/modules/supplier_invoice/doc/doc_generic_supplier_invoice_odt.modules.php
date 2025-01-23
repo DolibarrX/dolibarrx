@@ -61,7 +61,7 @@ class doc_generic_supplier_invoice_odt extends ModelePDFSuppliersInvoices
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		// Load translation files required by the page
 		$langs->loadLangs(array("main", "companies"));
@@ -111,7 +111,7 @@ class doc_generic_supplier_invoice_odt extends ModelePDFSuppliersInvoices
 	 */
 	public function info($langs)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Load translation files required by the page
 		$langs->loadLangs(array("errors", "companies"));
@@ -215,7 +215,7 @@ class doc_generic_supplier_invoice_odt extends ModelePDFSuppliersInvoices
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $hookManager;
+		global $user, $langs, $config, $mysoc, $hookManager;
 
 		if (empty($srctemplatepath)) {
 			dol_syslog("doc_generic_odt::write_file parameter srctemplatepath empty", LOG_WARNING);

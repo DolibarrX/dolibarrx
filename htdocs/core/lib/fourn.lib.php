@@ -36,7 +36,7 @@
  */
 function facturefourn_prepare_head(FactureFournisseur $object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -87,7 +87,7 @@ function facturefourn_prepare_head(FactureFournisseur $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'supplier_invoice', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'supplier_invoice', 'add', 'core');
 
 	if (!getDolGlobalString('MAIN_DISABLE_NOTES_TAB')) {
 		$nbNote = 0;
@@ -158,9 +158,9 @@ function facturefourn_prepare_head(FactureFournisseur $object)
 	$head[$h][2] = 'agenda';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'supplier_invoice', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'supplier_invoice', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'supplier_invoice', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'supplier_invoice', 'remove');
 
 	return $head;
 }
@@ -174,7 +174,7 @@ function facturefourn_prepare_head(FactureFournisseur $object)
  */
 function ordersupplier_prepare_head(CommandeFournisseur $object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -232,7 +232,7 @@ function ordersupplier_prepare_head(CommandeFournisseur $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'supplier_order', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'supplier_order', 'add', 'core');
 
 	if (!getDolGlobalString('MAIN_DISABLE_NOTES_TAB')) {
 		$nbNote = 0;
@@ -273,9 +273,9 @@ function ordersupplier_prepare_head(CommandeFournisseur $object)
 	$head[$h][2] = 'info';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'supplier_order', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'supplier_order', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'supplier_order', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'supplier_order', 'remove');
 
 	return $head;
 }
@@ -287,7 +287,7 @@ function ordersupplier_prepare_head(CommandeFournisseur $object)
  */
 function supplierorder_admin_prepare_head()
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('commande_fournisseur');
@@ -315,7 +315,7 @@ function supplierorder_admin_prepare_head()
 	$head[$h][2] = 'supplierpayment';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'supplierorder_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'supplierorder_admin');
 
 	$head[$h][0] = DOL_URL_ROOT.'/admin/supplierorder_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsSupplierOrders");
@@ -371,7 +371,7 @@ function supplierorder_admin_prepare_head()
 	$head[$h][2] = 'attributeslinesrec';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'supplierorder_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'supplierorder_admin', 'remove');
 
 	return $head;
 }

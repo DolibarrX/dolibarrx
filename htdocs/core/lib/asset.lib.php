@@ -30,7 +30,7 @@
  */
 function assetAdminPrepareHead()
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('asset');
@@ -54,7 +54,7 @@ function assetAdminPrepareHead()
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@asset:/asset/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'asset_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'asset_admin');
 
 	$head[$h][0] = DOL_URL_ROOT.'/asset/admin/asset_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields");
@@ -74,7 +74,7 @@ function assetAdminPrepareHead()
 	$head[$h][2] = 'assetmodel_extrafields';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'asset_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'asset_admin', 'remove');
 
 	return $head;
 }
@@ -168,9 +168,9 @@ function assetPrepareHead(Asset $object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@asset:/asset/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'asset');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'asset');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'asset', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'asset', 'remove');
 
 	return $head;
 }
@@ -226,9 +226,9 @@ function assetModelPrepareHead($object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@asset:/asset/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'assetmodel');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'assetmodel');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'assetmodel', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'assetmodel', 'remove');
 
 	return $head;
 }

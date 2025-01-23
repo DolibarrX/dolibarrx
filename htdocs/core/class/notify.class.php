@@ -457,7 +457,7 @@ class Notify
 	 */
 	public function getNotificationsArray($notifcode, $socid = 0, $object = null, $userId = 0, $scope = array('thirdparty', 'user', 'global'))
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$error = 0;
 		$resarray = array();
@@ -625,7 +625,7 @@ class Notify
 	 */
 	public function send($notifcode, $object, $filename_list = array(), $mimetype_list = array(), $mimefilename_list = array())
 	{
-		global $user, $conf, $langs, $mysoc;
+		global $user, $config, $langs, $mysoc;
 		global $hookManager;
 		global $dolibarr_main_url_root;
 		global $action;

@@ -105,7 +105,7 @@ class AccountancyReport // extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		// Clean parameters
@@ -229,7 +229,7 @@ class AccountancyReport // extends CommonObject
 	 */
 	public function update($user = null, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		// Clean parameters
@@ -291,7 +291,7 @@ class AccountancyReport // extends CommonObject
 	 */
 	public function delete($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		$sql = "DELETE FROM " . $this->db->prefix() . $this->table_element;

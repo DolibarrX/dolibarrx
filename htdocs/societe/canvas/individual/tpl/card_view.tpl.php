@@ -238,12 +238,12 @@ print $formfile->showdocuments('company', $socid, $filedir, $urlsource, $genallo
 
 <?php
 // Subsidiaries list
-$result = show_subsidiaries($conf, $langs, $db, $object);
+$result = show_subsidiaries($config, $langs, $db, $object);
 
 // Contacts list
-$result = show_contacts($conf, $langs, $db, $object);
+$result = show_contacts($config, $langs, $db, $object);
 
 // Projects list
-$result = show_projects($conf, $langs, $db, $object);
+$result = show_projects($config, $langs, $db, $object);
 
 print "<!-- END PHP TEMPLATE -->\n";

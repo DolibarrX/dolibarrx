@@ -320,7 +320,7 @@ class ProductFournisseur extends Product
 	public function remove_product_fournisseur_price($rowid)
 	{
 		// phpcs:enable
-		global $conf, $user;
+		global $config, $user;
 
 		$error = 0;
 
@@ -412,7 +412,7 @@ class ProductFournisseur extends Product
 		$options = array()
 	) {
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 		//global $mysoc;
 
 		// Clean parameter
@@ -1128,7 +1128,7 @@ class ProductFournisseur extends Product
 	public function display_price_product_fournisseur($showunitprice = 1, $showsuptitle = 1, $maxlen = 0, $notooltip = 0, $productFournList = array())
 	{
 		// phpcs:enable
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$out = '';
 		$langs->load("suppliers");
@@ -1260,7 +1260,7 @@ class ProductFournisseur extends Product
 	 */
 	public function displayPriceProductFournisseurLog($productFournLogList = array())
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$out = '';
 		$langs->load("suppliers");
@@ -1302,7 +1302,7 @@ class ProductFournisseur extends Product
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $maxlength = 0, $save_lastsearch_value = -1, $notooltip = 0, $morecss = '', $add_label = 0, $sep = ' - ')
 	{
-		global $db, $conf, $langs, $hookManager;
+		global $db, $config, $langs, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips

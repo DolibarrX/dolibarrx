@@ -46,7 +46,7 @@ class box_activity extends ModeleBoxes
 	 */
 	public function __construct($db, $param)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->db = $db;
 
@@ -68,7 +68,7 @@ class box_activity extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';

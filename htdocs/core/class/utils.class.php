@@ -79,7 +79,7 @@ class Utils
 	 */
 	public function purgeFiles($choices = 'tempfilesold+logfiles', $nbsecondsold = 86400)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 		global $dolibarr_main_data_root;
 
 		$langs->load("admin");
@@ -245,7 +245,7 @@ class Utils
 	 */
 	public function dumpDatabase($compression = 'none', $type = 'auto', $usedefault = 1, $file = 'auto', $keeplastnfiles = 0, $execmethod = 0, $lowmemorydump = 0)
 	{
-		global $db, $conf, $langs, $dolibarr_main_data_root;
+		global $db, $config, $langs, $dolibarr_main_data_root;
 		global $dolibarr_main_db_name, $dolibarr_main_db_host, $dolibarr_main_db_user, $dolibarr_main_db_port, $dolibarr_main_db_pass;
 		global $dolibarr_main_db_character_set;
 
@@ -718,7 +718,7 @@ class Utils
 	 */
 	public function executeCLI($command, $outputfile, $execmethod = 0, $redirectionfile = null, $noescapecommand = 0, $redirectionfileerr = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$result = 0;
 		$output = '';
@@ -795,7 +795,7 @@ class Utils
 	 */
 	public function generateDoc($module)
 	{
-		global $conf, $langs, $user, $mysoc;
+		global $config, $langs, $user, $mysoc;
 		global $dirins;
 
 		$error = 0;
@@ -1300,7 +1300,7 @@ class Utils
 	 */
 	public function sendBackup($sendto = '', $from = '', $subject = '', $message = '', $filename = '', $filter = '', $sizelimit = 100000000)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		global $dolibarr_main_url_root;
 
 		$filepath = '';

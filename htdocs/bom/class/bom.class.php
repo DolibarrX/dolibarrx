@@ -255,7 +255,7 @@ class BOM extends CommonObject
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db = $db;
 
@@ -593,7 +593,7 @@ class BOM extends CommonObject
 	 */
 	public function addLine($fk_product, $qty, $qty_frozen = 0, $disable_stock_change = 0, $efficiency = 1.0, $position = -1, $fk_bom_child = null, $import_key = null, $fk_unit = 0, $array_options = array(), $fk_default_workstation = null)
 	{
-		global $mysoc, $conf, $langs, $user;
+		global $mysoc, $config, $langs, $user;
 
 		$logtext = "::addLine bomid=$this->id, qty=$qty, fk_product=$fk_product, qty_frozen=$qty_frozen, disable_stock_change=$disable_stock_change, efficiency=$efficiency";
 		$logtext .= ", fk_bom_child=$fk_bom_child, import_key=$import_key";
@@ -1078,7 +1078,7 @@ class BOM extends CommonObject
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$langs->loadLangs(['product', 'mrp']);
 
@@ -1120,7 +1120,7 @@ class BOM extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $db, $conf, $langs, $hookManager;
+		global $db, $config, $langs, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -1301,7 +1301,7 @@ class BOM extends CommonObject
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0, $moreparams = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load("mrp");
 		$outputlangs->load("products");
@@ -1380,7 +1380,7 @@ class BOM extends CommonObject
 	 */
 	public function doScheduledJob()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		//$config->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
 

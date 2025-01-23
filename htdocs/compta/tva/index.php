@@ -96,7 +96,7 @@ $result = restrictedArea($user, 'tax', '', 'tva', 'charges');
  */
 function pt($db, $sql, $date)
 {
-	global $conf, $bc, $langs, $form;
+	global $config, $bc, $langs, $form;
 
 	$result = $db->query($sql);
 	if ($result) {

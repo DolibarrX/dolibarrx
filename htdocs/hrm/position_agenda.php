@@ -242,7 +242,7 @@ if ($object->id > 0) {
 		$object->fields['label'] = array(); // Useful to get only agenda events linked to position (this object doesn't need label of ref field, but show_actions_done() needs it to work correctly)
 
 		// TODO Replace this with same code than into list.php
-		show_actions_done($conf, $langs, $db, $object, null, 0, $actioncode, '', $filters, $sortfield, $sortorder, $object->module);
+		show_actions_done($config, $langs, $db, $object, null, 0, $actioncode, '', $filters, $sortfield, $sortorder, $object->module);
 	}
 }
 

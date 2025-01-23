@@ -45,7 +45,7 @@ class modFournisseur extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $user, $mysoc;
+		global $config, $langs, $user, $mysoc;
 
 		$this->db = $db;
 		$this->numero = 40;
@@ -967,7 +967,7 @@ class modFournisseur extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->remove($options);
 

@@ -533,7 +533,7 @@ class RecruitmentCandidature extends CommonObject
 	 */
 	public function validate($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -765,7 +765,7 @@ class RecruitmentCandidature extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -1055,7 +1055,7 @@ class RecruitmentCandidature extends CommonObject
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0, $moreparams = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$result = 0;
 		$includedocgeneration = 0;
@@ -1088,7 +1088,7 @@ class RecruitmentCandidature extends CommonObject
 	 */
 	public function doScheduledJob()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		//$config->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
 

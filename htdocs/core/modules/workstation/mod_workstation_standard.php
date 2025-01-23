@@ -87,7 +87,7 @@ class mod_workstation_standard extends ModeleNumRefWorkstation
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $db;
+		global $config, $db;
 
 		$max = '';
 

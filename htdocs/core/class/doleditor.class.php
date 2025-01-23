@@ -203,7 +203,7 @@ class DolEditor
 	public function Create($noprint = 0, $morejs = '', $restrictContent = true, $titlecontent = '', $option = '', $moreparam = '', $morecss = '')
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$fullpage = false;
 

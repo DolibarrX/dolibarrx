@@ -816,7 +816,7 @@ class Contact extends CommonObject
 	public function _load_ldap_info()
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$info = array();
 
@@ -1484,7 +1484,7 @@ class Contact extends CommonObject
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$datas = [];
 
@@ -1537,7 +1537,7 @@ class Contact extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $maxlen = 0, $moreparam = '', $save_lastsearch_value = -1, $notooltip = 0, $morecss = 'valignmiddle')
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -1775,7 +1775,7 @@ class Contact extends CommonObject
 	 */
 	public function setstatus($status)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$error = 0;
 

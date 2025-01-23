@@ -44,7 +44,7 @@ class modStock extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs;	// $conf is used by inc.php
+		global $config, $langs;	// $conf is used by inc.php
 
 		$this->db = $db;
 		$this->numero = 52;
@@ -542,7 +542,7 @@ class modStock extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$result = $this->_load_tables('/install/mysql/', 'stock');
 		if ($result < 0) {

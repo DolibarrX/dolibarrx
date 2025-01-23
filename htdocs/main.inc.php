@@ -443,7 +443,7 @@ if (!defined('NOSESSION')) {
 }
 
 
-// Init the 6 global objects, this include will make the 'new Xxx()' and set properties for: $conf, $db, $langs, $user, $mysoc, $hookManager
+// Init the 6 global objects, this include will make the 'new Xxx()' and set properties for: $config, $db, $langs, $user, $mysoc, $hookManager
 require_once 'master.inc.php';
 
 // Uncomment this and set session.save_handler = user to use local session storing
@@ -872,7 +872,7 @@ if (!defined('NOLOGIN')) {
 				$classname = "modCaptcha".ucfirst($captcha);
 				if (class_exists($classname)) {
 					/** @var ModeleCaptcha $captchaobj */
-					$captchaobj = new $classname($db, $conf, $langs, $user);
+					$captchaobj = new $classname($db, $config, $langs, $user);
 					'@phan-var-force ModeleCaptcha $captchaobj';
 
 					if (is_object($captchaobj) && method_exists($captchaobj, 'validateCodeAfterLoginSubmit')) {
@@ -1070,7 +1070,7 @@ if (!defined('NOLOGIN')) {
 				}
 
 				// Show login form
-				dol_loginfunction($langs, $conf, (!empty($mysoc) ? $mysoc : ''));	// This include http headers
+				dol_loginfunction($langs, $config, (!empty($mysoc) ? $mysoc : ''));	// This include http headers
 			}
 			exit;
 		}
@@ -1653,7 +1653,7 @@ if (!function_exists("llxHeader")) {
 	 */
 	function llxHeader($head = '', $title = '', $help_url = '', $target = '', $disablejs = 0, $disablehead = 0, $arrayofjs = '', $arrayofcss = '', $morequerystring = '', $morecssonbody = '', $replacemainareaby = '', $disablenofollow = 0, $disablenoindex = 0)
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 
 		$parameters = array(
 			'head' => & $head,
@@ -1724,7 +1724,7 @@ if (!function_exists("llxHeader")) {
  */
 function top_httphead($contenttype = 'text/html', $forcenocache = 0)
 {
-	global $db, $conf, $hookManager;
+	global $db, $config, $hookManager;
 
 	if ($contenttype == 'text/html') {
 		header("Content-Type: text/html; charset=".$config->file->character_set_client);
@@ -1863,7 +1863,7 @@ function top_httphead($contenttype = 'text/html', $forcenocache = 0)
  */
 function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arrayofjs = array(), $arrayofcss = array(), $disableforlogin = 0, $disablenofollow = 0, $disablenoindex = 0)
 {
-	global $db, $conf, $langs, $user, $mysoc, $hookManager;
+	global $db, $config, $langs, $user, $mysoc, $hookManager;
 
 	top_httphead();
 
@@ -2296,7 +2296,7 @@ function top_htmlhead($head, $title = '', $disablejs = 0, $disablehead = 0, $arr
  */
 function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead = 0, $arrayofjs = array(), $arrayofcss = array(), $morequerystring = '', $helppagename = '')
 {
-	global $user, $conf, $langs, $db, $form;
+	global $user, $config, $langs, $db, $form;
 	global $dolibarr_main_authentication, $dolibarr_main_demo;
 	global $hookManager, $menumanager;
 
@@ -2579,7 +2579,7 @@ function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead
  */
 function top_menu_user($hideloginname = 0, $urllogout = '')
 {
-	global $langs, $conf, $db, $hookManager, $user, $mysoc;
+	global $langs, $config, $db, $hookManager, $user, $mysoc;
 	global $dolibarr_main_authentication, $dolibarr_main_demo;
 	global $menumanager;
 
@@ -2859,7 +2859,7 @@ function top_menu_user($hideloginname = 0, $urllogout = '')
  */
 function top_menu_quickadd()
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	// Button disabled on text browser
 	if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
@@ -2945,7 +2945,7 @@ function top_menu_quickadd()
  */
 function top_menu_importfile()
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	// Button disabled on text browser
 	if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
@@ -3177,7 +3177,7 @@ function printDropdownQuickadd($mode = 0)
  */
 function top_menu_bookmark()
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 
 	$html = '';
 
@@ -3277,7 +3277,7 @@ function top_menu_bookmark()
  */
 function top_menu_search()
 {
-	global $langs, $conf, $db, $user, $hookManager;	// used by htdocs/core/ajax/selectsearchbox.php
+	global $langs, $config, $db, $user, $hookManager;	// used by htdocs/core/ajax/selectsearchbox.php
 
 	$html = '';
 
@@ -3454,7 +3454,7 @@ function top_menu_search()
  */
 function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_array_after = array(), $leftmenuwithoutmainarea = 0, $title = '', $acceptdelayedhtml = 0)
 {
-	global $user, $conf, $langs, $db, $form;
+	global $user, $config, $langs, $db, $form;
 	global $hookManager, $menumanager;
 
 	$searchform = '';
@@ -3716,7 +3716,7 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
  */
 function main_area($title = '')
 {
-	global $conf, $langs, $hookManager;
+	global $config, $langs, $hookManager;
 
 	if (empty($config->dol_hide_leftmenu) && !GETPOST('dol_openinpopup', 'aZ09')) {
 		print '<div id="id-right">';
@@ -3878,7 +3878,7 @@ if (!function_exists("llxFooter")) {
 	 */
 	function llxFooter($comment = '', $zone = 'private', $disabledoutputofmessages = 0)
 	{
-		global $conf, $db, $langs, $user, $mysoc, $object, $hookManager, $action;
+		global $config, $db, $langs, $user, $mysoc, $object, $hookManager, $action;
 		global $delayedhtmlcontent;
 		global $contextpage, $page, $limit, $mode;
 		global $dolibarr_distrib;

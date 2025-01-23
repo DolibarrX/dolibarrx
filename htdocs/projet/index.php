@@ -88,7 +88,7 @@ if (empty($resHook)) {
 		$tabparam = array("MAIN_SEARCH_PROJECT_USER_PROJECTSINDEX" => $search_project_user);
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-		$result = dol_set_user_param($db, $conf, $user, $tabparam);
+		$result = dol_set_user_param($db, $config, $user, $tabparam);
 	}
 }
 

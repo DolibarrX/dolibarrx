@@ -35,7 +35,7 @@
  */
 function reception_prepare_head(Reception $object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$langs->loadLangs(array("sendings", "deliveries"));
 
@@ -74,7 +74,7 @@ function reception_prepare_head(Reception $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'reception', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'reception', 'add', 'core');
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
@@ -104,9 +104,9 @@ function reception_prepare_head(Reception $object)
 	$head[$h][2] = 'note';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'reception', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'reception', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'reception', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'reception', 'remove');
 
 	return $head;
 }
@@ -118,7 +118,7 @@ function reception_prepare_head(Reception $object)
  */
 function reception_admin_prepare_head()
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 	$langs->load("receptions");
 
 	$extrafields = new ExtraFields($db);
@@ -133,7 +133,7 @@ function reception_admin_prepare_head()
 	$head[$h][2] = 'reception';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'reception_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'reception_admin');
 
 	if (getDolGlobalString('MAIN_SUBMODULE_RECEPTION')) {
 		$head[$h][0] = DOL_URL_ROOT.'/admin/reception_extrafields.php';
@@ -157,7 +157,7 @@ function reception_admin_prepare_head()
 		$h++;
 	}
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'reception_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'reception_admin', 'remove');
 
 	return $head;
 }

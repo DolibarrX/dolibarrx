@@ -57,7 +57,7 @@ class mod_facture_mars extends ModeleNumRefFactures
 	 */
 	public function __construct()
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		if ((float) $config->global->MAIN_VERSION_LAST_INSTALL >= 16.0 && $mysoc->country_code != 'FR') {
 			$this->prefixinvoice = 'IN'; // We use correct standard code "IN = Invoice"
@@ -103,7 +103,7 @@ class mod_facture_mars extends ModeleNumRefFactures
 	 */
 	public function canBeActivated($object)
 	{
-		global $langs, $conf, $db;
+		global $langs, $config, $db;
 
 		$langs->load("bills");
 

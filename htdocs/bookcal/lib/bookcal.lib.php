@@ -57,9 +57,9 @@ function bookcalAdminPrepareHead()
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@bookcal:/bookcal/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'bookcal@bookcal');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'bookcal@bookcal');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'bookcal@bookcal', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'bookcal@bookcal', 'remove');
 
 	return $head;
 }

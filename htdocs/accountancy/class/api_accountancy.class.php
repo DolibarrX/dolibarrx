@@ -90,7 +90,7 @@ class Accountancy extends DolibarrApi
 	 */
 	public function exportData($period, $date_min = '', $date_max = '', $format = '', $lettering = 0, $alreadyexport = 0, $notnotifiedasexport = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// check rights
 		if (!DolibarrApiAccess::$user->hasRight('accounting', 'mouvements', 'export')) {
@@ -199,7 +199,7 @@ class Accountancy extends DolibarrApi
 				$prev_fiscal_date_search = dol_time_plus_duree($cur_fiscal_date_start, -1, 'd');
 
 				// find previous fiscal year from current fiscal year
-				$prev_fiscal_period = getCurrentPeriodOfFiscalYear($this->db, $conf, $prev_fiscal_date_search);
+				$prev_fiscal_period = getCurrentPeriodOfFiscalYear($this->db, $config, $prev_fiscal_date_search);
 				$prev_fiscal_date_start = $prev_fiscal_period['date_start'];
 				$prev_fiscal_date_end = $prev_fiscal_period['date_end'];
 

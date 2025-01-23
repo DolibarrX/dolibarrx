@@ -76,7 +76,7 @@ class PartnershipUtils
 	 */
 	public function doCancelStatusOfMemberPartnership()
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$managedfor	= getDolGlobalString('PARTNERSHIP_IS_MANAGED_FOR', 'thirdparty');
 
@@ -290,7 +290,7 @@ class PartnershipUtils
 	 */
 	public function doWarningOfPartnershipIfDolibarrBacklinkNotfound($maxpercall = 0)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$managedfor = getDolGlobalString('PARTNERSHIP_IS_MANAGED_FOR');
 

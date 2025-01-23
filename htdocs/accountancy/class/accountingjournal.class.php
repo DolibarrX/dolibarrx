@@ -209,7 +209,7 @@ class AccountingJournal extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $withlabel = 0, $nourl = 0, $moretitle = '', $notooltip = 0)
 	{
-		global $langs, $conf, $hookManager;
+		global $langs, $config, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -401,7 +401,7 @@ class AccountingJournal extends CommonObject
 	 */
 	public function getAssetData(User $user, $type = 'view', $date_start = null, $date_end = null, $in_bookkeeping = 'notyet')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (!isModEnabled('asset')) {
 			return array();
@@ -756,7 +756,7 @@ class AccountingJournal extends CommonObject
 	 */
 	public function writeIntoBookkeeping(User $user, &$journal_data = array(), $max_nb_errors = 10)
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 		require_once DOL_DOCUMENT_ROOT . '/accountancy/class/bookkeeping.class.php';
 
 		$error = 0;
@@ -899,7 +899,7 @@ class AccountingJournal extends CommonObject
 	 */
 	public function exportCsv(&$journal_data = array(), $search_date_end = 0, $sep = '')
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		if (empty($sep)) {
 			$sep = getDolGlobalString('ACCOUNTING_EXPORT_SEPARATORCSV');

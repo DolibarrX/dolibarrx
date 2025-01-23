@@ -35,7 +35,7 @@
  */
 function expedition_prepare_head(Expedition $object)
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 	if (isModEnabled("shipping")) {
 		$langs->load("sendings");
 	}
@@ -59,9 +59,9 @@ function expedition_prepare_head(Expedition $object)
 		$h++;
 	}
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'order');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'order');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'order', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'order', 'remove');
 
 	return $head;
 }
@@ -73,7 +73,7 @@ function expedition_prepare_head(Expedition $object)
  */
 function expedition_admin_prepare_head()
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 	$langs->load("sendings");
 
 	$extrafields = new ExtraFields($db);
@@ -144,9 +144,9 @@ function expedition_admin_prepare_head()
 		$h++;
 	}
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'expedition_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'expedition_admin');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'expedition_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'expedition_admin', 'remove');
 
 	return $head;
 }

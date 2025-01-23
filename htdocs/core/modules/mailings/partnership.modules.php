@@ -84,7 +84,7 @@ class mailing_partnership extends MailingTargets
 	public function add_to_target($mailing_id)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$cibles = array();
 		$addDescription = '';
@@ -233,7 +233,7 @@ class mailing_partnership extends MailingTargets
 	 */
 	public function formFilter()
 	{
-		global $conf, $langs, $form;
+		global $config, $langs, $form;
 
 		$langs->load("companies");
 

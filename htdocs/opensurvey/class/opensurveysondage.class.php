@@ -445,7 +445,7 @@ class Opensurveysondage extends CommonObject
 	 */
 	public function delete(User $user, $notrigger = 0, $numsondage = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		if (empty($numsondage)) {
@@ -504,7 +504,7 @@ class Opensurveysondage extends CommonObject
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load('opensurvey');
 
@@ -539,7 +539,7 @@ class Opensurveysondage extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $conf, $hookManager, $langs;
+		global $config, $hookManager, $langs;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips

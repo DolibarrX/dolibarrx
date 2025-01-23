@@ -256,7 +256,7 @@ class FormListWebPortal
 	 */
 	public function elementList($context)
 	{
-		global $conf, $hookManager, $langs;
+		global $config, $hookManager, $langs;
 
 		$html = '';
 		$nbpages = 0;

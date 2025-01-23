@@ -31,7 +31,7 @@
  */
 function holiday_prepare_head($object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -55,7 +55,7 @@ function holiday_prepare_head($object)
 	$head[$h][2] = 'documents';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'holiday', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'holiday', 'add', 'core');
 
 	$head[$h][0] = DOL_URL_ROOT.'/holiday/info.php?id='.$object->id;
 	$head[$h][1] = $langs->trans("Info");
@@ -66,9 +66,9 @@ function holiday_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'holiday', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'holiday', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'holiday', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'holiday', 'remove');
 
 	return $head;
 }
@@ -81,7 +81,7 @@ function holiday_prepare_head($object)
  */
 function holiday_admin_prepare_head()
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('holiday');
@@ -98,7 +98,7 @@ function holiday_admin_prepare_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'holiday_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'holiday_admin');
 
 	$head[$h][0] = DOL_URL_ROOT.'/admin/holiday_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields");
@@ -109,7 +109,7 @@ function holiday_admin_prepare_head()
 	$head[$h][2] = 'attributes';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'holiday_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'holiday_admin', 'remove');
 
 	return $head;
 }

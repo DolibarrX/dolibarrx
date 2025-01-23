@@ -246,7 +246,7 @@ class InfoBox
 		$tab = array();
 		$confuserzone = 'MAIN_BOXES_'.$zone;
 		$tab[$confuserzone] = '1';
-		if (dol_set_user_param($dbs, $conf, $user, $tab) < 0) {
+		if (dol_set_user_param($dbs, $config, $user, $tab) < 0) {
 			$error = $dbs->lasterror();
 			$dbs->rollback();
 			return -3;

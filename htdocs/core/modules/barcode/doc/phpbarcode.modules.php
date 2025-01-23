@@ -187,7 +187,7 @@ class modPhpbarcode extends ModeleBarCode
 	 */
 	public function writeBarCode($code, $encoding, $readable = 'Y', $scale = 1, $nooutputiferror = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		dol_mkdir($config->barcode->dir_temp);
 		if (!is_writable($config->barcode->dir_temp)) {

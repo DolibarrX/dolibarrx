@@ -92,7 +92,7 @@ class mod_takepos_ref_simple extends ModeleNumRefTakepos
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$pryymm = '';
 		$max = '';

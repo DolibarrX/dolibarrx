@@ -143,7 +143,7 @@ class pdf_vinci extends ModelePDFMo
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $hookManager, $mysoc;
+		global $user, $langs, $config, $hookManager, $mysoc;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -651,7 +651,7 @@ class pdf_vinci extends ModelePDFMo
 	protected function _tableau_info(&$pdf, $object, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		// If France, show VAT mention if not applicable
@@ -715,7 +715,7 @@ class pdf_vinci extends ModelePDFMo
 	protected function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
@@ -992,7 +992,7 @@ class pdf_vinci extends ModelePDFMo
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		global $langs, $conf, $mysoc;
+		global $langs, $config, $mysoc;
 
 		$ltrdirection = 'L';
 		if ($outputlangs->trans("DIRECTION") == 'rtl') {
@@ -1304,7 +1304,7 @@ class pdf_vinci extends ModelePDFMo
 	 */
 	public function defineColumnField($object, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 
 		// Default field style for content
 		$this->defaultContentsFieldsStyle = array(

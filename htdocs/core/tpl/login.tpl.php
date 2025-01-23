@@ -335,7 +335,7 @@ if (!empty($captcha)) {
 		$classname = "modCaptcha".ucfirst($captcha);
 		if (class_exists($classname)) {
 			/** @var ModeleCaptcha $captchaobj */
-			$captchaobj = new $classname($db, $conf, $langs, null);
+			$captchaobj = new $classname($db, $config, $langs, null);
 			'@phan-var-force ModeleCaptcha $captchaobj';
 
 			if (is_object($captchaobj) && method_exists($captchaobj, 'getCaptchaCodeForForm')) {

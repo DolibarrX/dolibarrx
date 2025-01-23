@@ -32,7 +32,7 @@
  */
 function contract_prepare_head(Contrat $object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -65,7 +65,7 @@ function contract_prepare_head(Contrat $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'contract', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'contract', 'add', 'core');
 
 	if (!getDolGlobalString('MAIN_DISABLE_NOTES_TAB')) {
 		$nbNote = 0;
@@ -132,9 +132,9 @@ function contract_prepare_head(Contrat $object)
 	$head[$h][2] = 'agenda';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'contract', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'contract', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'contract', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'contract', 'remove');
 
 	return $head;
 }
@@ -146,7 +146,7 @@ function contract_prepare_head(Contrat $object)
  */
 function contract_admin_prepare_head()
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('contrat');
@@ -164,7 +164,7 @@ function contract_admin_prepare_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'contract_admin', 'add', 'core');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'contract_admin', 'add', 'core');
 
 	$head[$h][0] = DOL_URL_ROOT.'/contrat/admin/contract_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields");
@@ -184,9 +184,9 @@ function contract_admin_prepare_head()
 	$head[$h][2] = 'attributeslines';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'contract_admin', 'add', 'external');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'contract_admin', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'contract_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'contract_admin', 'remove');
 
 	return $head;
 }

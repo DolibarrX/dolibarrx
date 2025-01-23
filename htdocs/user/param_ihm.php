@@ -196,7 +196,7 @@ if (empty($resHook)) {
 				$tabparam["MAIN_OPTIMIZEFORCOLORBLIND"] = 0;
 			}
 
-			$result = dol_set_user_param($db, $conf, $object, $tabparam);
+			$result = dol_set_user_param($db, $config, $object, $tabparam);
 
 			// Clear cache of widgets (because we may have modified the length of cached widget lists)
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';

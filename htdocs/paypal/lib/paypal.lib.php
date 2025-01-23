@@ -50,9 +50,9 @@ function paypaladmin_prepare_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'paypaladmin');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'paypaladmin');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'paypaladmin', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'paypaladmin', 'remove');
 
 	return $head;
 }
@@ -72,7 +72,7 @@ function paypaladmin_prepare_head()
 function print_paypal_redirect($paymentAmount, $currencyCodeType, $paymentType, $returnURL, $cancelURL, $tag)
 {
 	//declaring of global variables
-	global $conf, $langs;
+	global $config, $langs;
 	global $API_Endpoint, $API_Url, $API_version, $USE_PROXY, $PROXY_HOST, $PROXY_PORT;
 	global $PAYPAL_API_USER, $PAYPAL_API_PASSWORD, $PAYPAL_API_SIGNATURE;
 
@@ -207,7 +207,7 @@ function callSetExpressCheckout($paymentAmount, $currencyCodeType, $paymentType,
 	// Construct the parameter string that describes the SetExpressCheckout API call in the shortcut implementation
 
 	//declaring of global variables
-	global $conf, $langs, $mysoc;
+	global $config, $langs, $mysoc;
 	global $API_Endpoint, $API_Url, $API_version, $USE_PROXY, $PROXY_HOST, $PROXY_PORT;
 	global $PAYPAL_API_USER, $PAYPAL_API_PASSWORD, $PAYPAL_API_SIGNATURE;
 
@@ -319,7 +319,7 @@ function getDetails($token)
 	//'--------------------------------------------------------------
 
 	//declaring of global variables
-	global $conf, $langs;
+	global $config, $langs;
 	global $API_Endpoint, $API_Url, $API_version, $USE_PROXY, $PROXY_HOST, $PROXY_PORT;
 	global $PAYPAL_API_USER, $PAYPAL_API_PASSWORD, $PAYPAL_API_SIGNATURE;
 
@@ -364,7 +364,7 @@ function confirmPayment($token, $paymentType, $currencyCodeType, $payerID, $ipad
 	 */
 
 	//declaring of global variables
-	global $conf, $langs;
+	global $config, $langs;
 	global $API_Endpoint, $API_Url, $API_version, $USE_PROXY, $PROXY_HOST, $PROXY_PORT;
 	global $PAYPAL_API_USER, $PAYPAL_API_PASSWORD, $PAYPAL_API_SIGNATURE;
 
@@ -414,7 +414,7 @@ function confirmPayment($token, $paymentType, $currencyCodeType, $payerID, $ipad
 function DirectPayment($paymentType, $paymentAmount, $creditCardType, $creditCardNumber, $expDate, $cvv2, $firstName, $lastName, $street, $city, $state, $zip, $countryCode, $currencyCode, $tag)
 {
 	//declaring of global variables
-	global $conf, $langs;
+	global $config, $langs;
 	global $API_Endpoint, $API_Url, $API_version, $USE_PROXY, $PROXY_HOST, $PROXY_PORT;
 	global $PAYPAL_API_USER, $PAYPAL_API_PASSWORD, $PAYPAL_API_SIGNATURE;
 
@@ -453,7 +453,7 @@ function DirectPayment($paymentType, $paymentAmount, $creditCardType, $creditCar
 function hash_call($methodName, $nvpStr)
 {
 	//declaring of global variables
-	global $conf, $langs;
+	global $config, $langs;
 	global $API_Endpoint, $API_Url, $API_version, $USE_PROXY, $PROXY_HOST, $PROXY_PORT, $PROXY_USER, $PROXY_PASS;
 	global $PAYPAL_API_USER, $PAYPAL_API_PASSWORD, $PAYPAL_API_SIGNATURE;
 

@@ -348,7 +348,7 @@ class PaymentDonation extends CommonObject
 	 */
 	public function update($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		// Clean parameters
@@ -442,7 +442,7 @@ class PaymentDonation extends CommonObject
 	 */
 	public function delete($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		$this->db->begin();

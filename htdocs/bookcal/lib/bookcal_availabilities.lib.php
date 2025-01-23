@@ -104,9 +104,9 @@ function availabilitiesPrepareHead($object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@bookcal:/bookcal/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'availabilities@bookcal');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'availabilities@bookcal');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'availabilities@bookcal', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'availabilities@bookcal', 'remove');
 
 	return $head;
 }

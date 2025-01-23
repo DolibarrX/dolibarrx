@@ -255,7 +255,7 @@ class OrderLine extends CommonOrderLine
 	 */
 	public function delete(User $user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 

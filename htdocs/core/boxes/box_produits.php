@@ -67,7 +67,7 @@ class box_produits extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $user, $langs, $conf, $hookManager;
+		global $user, $langs, $config, $hookManager;
 
 		$this->max = $max;
 

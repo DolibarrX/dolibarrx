@@ -63,7 +63,7 @@ class box_graph_nb_ticket_last_x_days extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 		$dataseries = array();
 		$graphtoshow = "";
 

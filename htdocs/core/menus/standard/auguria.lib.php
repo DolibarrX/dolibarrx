@@ -41,7 +41,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/menubase.class.php';
  */
 function print_auguria_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 0, $mode = '')
 {
-	global $user, $conf, $langs, $mysoc;
+	global $user, $config, $langs, $mysoc;
 	global $dolibarr_main_db_name;
 
 	$mainmenu = (empty($_SESSION["mainmenu"]) ? '' : $_SESSION["mainmenu"]);
@@ -329,7 +329,7 @@ function print_end_menu_array_auguria()
  */
 function print_left_auguria_menu($db, $menu_array_before, $menu_array_after, &$tabMenu, &$menu, $noout = 0, $forcemainmenu = '', $forceleftmenu = '', $moredata = null, $type_user = 0)
 {
-	global $user, $conf, $langs, $hookManager;
+	global $user, $config, $langs, $hookManager;
 	global $dolibarr_main_db_name, $mysoc;
 
 	$newmenu = $menu;

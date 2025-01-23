@@ -419,7 +419,7 @@ class ActionsTicket extends CommonHookActions
 	 */
 	public function viewTicketTimelineMessages($show_private, $show_user, Ticket $object)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		// Load logs in cache
 		$ret = $object->loadCacheMsgsTicket();

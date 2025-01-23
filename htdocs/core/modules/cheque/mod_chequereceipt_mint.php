@@ -83,7 +83,7 @@ class mod_chequereceipt_mint extends ModeleNumRefChequeReceipts
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$payyymm = '';
 		$max = '';

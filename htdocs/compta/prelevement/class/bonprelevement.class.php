@@ -562,7 +562,7 @@ class BonPrelevement extends CommonObject
 	public function set_infocredit($user, $date, $type = '')
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -778,7 +778,7 @@ class BonPrelevement extends CommonObject
 	public function set_infotrans($user, $date, $method)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -1066,7 +1066,7 @@ class BonPrelevement extends CommonObject
 	public function create($banque = 0, $agence = 0, $mode = 'real', $format = 'ALL', $executiondate = 0, $notrigger = 0, $type = 'direct-debit', $did = 0, $fk_bank_account = 0, $sourcetype = 'invoice')
 	{
 		// phpcs:enable
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		dol_syslog(__METHOD__ . " Bank=".$banque." Office=".$agence." mode=".$mode." format=".$format." type=".$type." did=".$did." fk_bank_account=".$fk_bank_account." sourcetype=".$sourcetype, LOG_DEBUG);
 
@@ -1621,7 +1621,7 @@ class BonPrelevement extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -1801,7 +1801,7 @@ class BonPrelevement extends CommonObject
 	 */
 	public function generate(string $format = 'ALL', int $executiondate = 0, string $type = 'direct-debit', int $fk_bank_account = 0, int $forsalary = 0, int $thirdpartyBANId = 0)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		//TODO: Optimize code to read lines in a single function
 
@@ -1912,7 +1912,7 @@ class BonPrelevement extends CommonObject
 
 				// Define $fileEmetteurSection. Start of block PmtInf. Will contains all $nbtotalDrctDbtTxInf
 				if ($result != -2) {
-					$fileEmetteurSection .= $this->EnregEmetteurSEPA($conf, $date_actu, $nbtotalDrctDbtTxInf, $this->total, $CrLf, $format, $type, $fk_bank_account);
+					$fileEmetteurSection .= $this->EnregEmetteurSEPA($config, $date_actu, $nbtotalDrctDbtTxInf, $this->total, $CrLf, $format, $type, $fk_bank_account);
 				}
 
 				if (getDolGlobalString('SEPA_FORCE_TWO_DECIMAL')) {
@@ -2059,7 +2059,7 @@ class BonPrelevement extends CommonObject
 				}
 				// Define $fileEmetteurSection. Start of block PmtInf. Will contains all $nbtotalDrctDbtTxInf
 				if ($result != -2) {
-					$fileEmetteurSection .= $this->EnregEmetteurSEPA($conf, $date_actu, $nbtotalDrctDbtTxInf, $this->total, $CrLf, $format, $type);
+					$fileEmetteurSection .= $this->EnregEmetteurSEPA($config, $date_actu, $nbtotalDrctDbtTxInf, $this->total, $CrLf, $format, $type);
 				}
 
 				if (getDolGlobalString('SEPA_FORCE_TWO_DECIMAL')) {
@@ -2296,7 +2296,7 @@ class BonPrelevement extends CommonObject
 	public function EnregDestinataireSEPA($row_code_client, $row_nom, $row_address, $row_zip, $row_town, $row_country_code, $row_cb, $row_cg, $row_cc, $row_somme, $row_ref, $row_idfac, $row_iban, $row_bic, $row_datec, $row_drum, $row_rum, $type = 'direct-debit', $row_comment = '')
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		if (getDolGlobalString('SEPA_FORCE_TWO_DECIMAL')) {
 			$row_somme = number_format((float) price2num($row_somme, 'MT'), 2, ".", "");

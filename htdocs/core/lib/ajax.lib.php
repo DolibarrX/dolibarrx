@@ -646,7 +646,7 @@ function ajax_event($htmlname, $events)
  */
 function ajax_constantonoff($code, $input = array(), $entity = null, $revertonoff = 0, $strict = 0, $forcereload = 0, $marginleftonlyshort = 2, $forcenoajax = 0, $setzeroinsteadofdel = 0, $suffix = '', $mode = '', $morecss = 'inline-block', $userconst = 0, $showwarning = '')
 {
-	global $conf, $langs, $user, $db;
+	global $config, $langs, $user, $db;
 
 	$entity = ((isset($entity) && is_numeric($entity) && $entity >= 0) ? $entity : $config->entity);
 	if (!isset($input)) {
@@ -749,7 +749,7 @@ function ajax_constantonoff($code, $input = array(), $entity = null, $revertonof
  */
 function ajax_object_onoff($object, $code, $field, $text_on, $text_off, $input = array(), $morecss = '', $htmlname = '', $forcenojs = 0, $moreparam = '')
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	if (empty($htmlname)) {
 		$htmlname = $code;

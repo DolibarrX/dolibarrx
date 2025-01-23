@@ -86,9 +86,9 @@ function workstationPrepareHead($object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@workstation:/workstation/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'workstation');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'workstation');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'workstation', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'workstation', 'remove');
 
 	return $head;
 }

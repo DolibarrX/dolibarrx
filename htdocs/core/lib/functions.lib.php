@@ -450,7 +450,7 @@ function getDoliDBInstance($type, $host, $user, $pass, $name, $port)
  */
 function getEntity($element, $shared = 1, $currentobject = null)
 {
-	global $conf, $mc, $hookManager, $object, $action, $db;
+	global $config, $mc, $hookManager, $object, $action, $db;
 
 	if (!is_object($hookManager)) {
 		include_once DOL_DOCUMENT_ROOT.'/core/class/hookmanager.class.php';
@@ -516,7 +516,7 @@ function getEntity($element, $shared = 1, $currentobject = null)
  */
 function setEntity($currentobject)
 {
-	global $conf, $mc;
+	global $config, $mc;
 
 	if (is_object($mc) && method_exists($mc, 'setEntity')) {
 		return $mc->setEntity($currentobject);
@@ -1407,7 +1407,7 @@ if (!function_exists('dol_getprefix')) {
  */
 function dol_include_once($relpath, $classname = '')
 {
-	global $conf, $langs, $user, $mysoc; // Do not remove this. They must be defined for files we include. Other globals var must be retrieved with $GLOBALS['var']
+	global $config, $langs, $user, $mysoc; // Do not remove this. They must be defined for files we include. Other globals var must be retrieved with $GLOBALS['var']
 
 	$fullpath = dol_buildpath($relpath);
 
@@ -2342,7 +2342,7 @@ function getCallerInfoString()
  */
 function dol_syslog($message, $level = LOG_INFO, $ident = 0, $suffixinfilename = '', $restricttologhandler = '', $logcontext = null)
 {
-	global $conf, $user, $debugbar;
+	global $config, $user, $debugbar;
 
 	// If syslog module enabled
 	if (!isModEnabled('syslog')) {
@@ -2686,7 +2686,7 @@ function dol_fiche_head($links = array(), $active = '0', $title = '', $notab = 0
  */
 function dol_get_fiche_head($links = array(), $active = '', $title = '', $notab = 0, $picto = '', $pictoisfullpath = 0, $morehtmlright = '', $morecss = '', $limittoshow = 0, $moretabssuffix = '', $dragdropfile = 0)
 {
-	global $conf, $langs, $hookManager;
+	global $config, $langs, $hookManager;
 
 	// Show title
 	$showtitle = 1;
@@ -2925,7 +2925,7 @@ function dol_get_fiche_end($notab = 0)
  */
 function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldid = 'rowid', $fieldref = 'ref', $morehtmlref = '', $moreparam = '', $nodbprefix = 0, $morehtmlleft = '', $morehtmlstatus = '', $onlybanner = 0, $morehtmlright = '')
 {
-	global $conf, $form, $user, $langs, $hookManager, $action;
+	global $config, $form, $user, $langs, $hookManager, $action;
 
 	$error = 0;
 
@@ -3449,7 +3449,7 @@ function dol_strftime($fmt, $ts = false, $is_gmt = false)
  */
 function dol_print_date($time, $format = '', $tzoutput = 'auto', $outputlangs = null, $encodetooutput = false)
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	// If date undefined or "", we return ""
 	if (dol_strlen($time) == 0) {
@@ -3877,7 +3877,7 @@ function dol_now($mode = 'auto')
  */
 function dol_print_size($size, $shortvalue = 0, $shortunit = 0)
 {
-	global $conf, $langs;
+	global $config, $langs;
 	$level = 1024;
 
 	if (!empty($config->dol_optimize_smallscreen)) {
@@ -4053,7 +4053,7 @@ function dol_print_email($email, $cid = 0, $socid = 0, $addlink = 0, $max = 64, 
  */
 function getArrayOfSocialNetworks()
 {
-	global $conf, $db;
+	global $config, $db;
 
 	$socialnetworks = array();
 	// Enable caching of array
@@ -4255,7 +4255,7 @@ function dol_print_profids($profID, $profIDtype, $countrycode = '', $addcpButton
  */
 function dol_print_phone($phone, $countrycode = '', $cid = 0, $socid = 0, $addlink = '', $separ = "&nbsp;", $withpicto = '', $titlealt = '', $adddivfloat = 0, $morecss = 'paddingright')
 {
-	global $conf, $user, $langs, $mysoc, $hookManager;
+	global $config, $user, $langs, $mysoc, $hookManager;
 
 	// Clean phone parameter
 	$phone = is_null($phone) ? '' : preg_replace("/[\s.-]/", "", trim($phone));
@@ -4690,7 +4690,7 @@ function dolGetCountryCodeFromIp($ip)
  */
 function dol_user_country()
 {
-	global $conf, $langs, $user;
+	global $config, $langs, $user;
 
 	//$ret=$user->xxx;
 	$ret = '';
@@ -4721,7 +4721,7 @@ function dol_user_country()
  */
 function dol_print_address($address, $htmlid, $element, $id, $noprint = 0, $charfornl = '')
 {
-	global $conf, $user, $langs, $hookManager;
+	global $config, $user, $langs, $hookManager;
 
 	$out = '';
 
@@ -6029,7 +6029,7 @@ function img_searchclear($titlealt = 'default', $other = '')
  */
 function info_admin($text, $infoonimgalt = 0, $nodiv = 0, $admin = '1', $morecss = 'hideonsmartphone', $textfordropdown = '', $picto = '')
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	if ($infoonimgalt) {
 		$result = img_picto($text, 'info', 'class="'.($morecss ? ' '.$morecss : '').'"');
@@ -6079,7 +6079,7 @@ function info_admin($text, $infoonimgalt = 0, $nodiv = 0, $admin = '1', $morecss
  */
 function dol_print_error($db = null, $error = '', $errors = null)
 {
-	global $conf, $langs, $user, $argv;
+	global $config, $langs, $user, $argv;
 	global $dolibarr_main_prod;
 
 	$out = '';
@@ -6506,7 +6506,7 @@ function load_fiche_titre($title, $morehtmlright = '', $picto = 'generic', $pict
  */
 function print_barre_liste($title, $page, $file, $options = '', $sortfield = '', $sortorder = '', $morehtmlcenter = '', $num = -1, $totalnboflines = '', $picto = 'generic', $pictoisfullpath = 0, $morehtmlright = '', $morecss = '', $limit = -1, $selectlimitsuffix = 0, $hidenavigation = 0, $pagenavastextinput = 0, $morehtmlrightbeforearrow = '')
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	$savlimit = $limit;
 	$savtotalnboflines = $totalnboflines;
@@ -6682,7 +6682,7 @@ function print_barre_liste($title, $page, $file, $options = '', $sortfield = '',
  */
 function print_fleche_navigation($page, $file, $options = '', $nextpage = 0, $betweenarrows = '', $afterarrows = '', $limit = -1, $totalnboflines = 0, $selectlimitsuffix = '', $beforearrows = '', $hidenavigation = 0)
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	print '<div class="pagination"><ul>';
 	if ($beforearrows) {
@@ -7148,7 +7148,7 @@ function showDimensionInBestUnit($dimension, $unit, $type, $outputlangs, $round 
  */
 function get_localtax($vatrate, $local, $thirdparty_buyer = null, $thirdparty_seller = null, $vatnpr = 0)
 {
-	global $db, $conf, $mysoc;
+	global $db, $config, $mysoc;
 
 	if (empty($thirdparty_seller) || !is_object($thirdparty_seller)) {
 		$thirdparty_seller = $mysoc;
@@ -7649,7 +7649,7 @@ function get_product_localtax_for_country($idprod, $local, $thirdpartytouse)
  */
 function get_default_tva(Societe $thirdparty_seller, Societe $thirdparty_buyer, $idprod = 0, $idprodfournprice = 0)
 {
-	global $conf, $db;
+	global $config, $db;
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
@@ -8995,7 +8995,7 @@ function dol_concatdesc($text1, $text2, $forxml = false, $invert = false)
  */
 function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null, $object = null, $include = null)
 {
-	global $db, $conf, $mysoc, $user, $extrafields;
+	global $db, $config, $mysoc, $user, $extrafields;
 
 	$substitutionArray = array();
 
@@ -9711,7 +9711,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
  */
 function make_substitutions($text, $substitutionArray, $outputlangs = null, $converttextinhtmlifnecessary = 0)
 {
-	global $conf, $db, $langs;
+	global $config, $db, $langs;
 
 	if (!is_array($substitutionArray)) {
 		return 'ErrorBadParameterSubstitutionArrayWhenCalling_make_substitutions';
@@ -9897,7 +9897,7 @@ function make_substitutions($text, $substitutionArray, $outputlangs = null, $con
  */
 function complete_substitutions_array(&$substitutionArray, $outputlangs, $object = null, $parameters = null, $callfunc = "completesubstitutionarray")
 {
-	global $conf, $user;
+	global $config, $user;
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -10168,7 +10168,7 @@ function dol_htmloutput_events($disabledoutputofmessages = 0)
  */
 function get_htmloutput_mesg($mesgstring = '', $mesgarray = [], $style = 'ok', $keepembedded = 0)
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	$ret = 0;
 	$return = '';
@@ -11165,7 +11165,7 @@ function getLanguageCodeFromCountryCode($countrycode)
  *  @param	string		$filterorigmodule	Filter on module origin: 'external' will show only external modules. 'core' only core modules. No filter (default) will add both.
  *	@return	void
  */
-function complete_head_from_modules($conf, $langs, $object, &$head, &$h, $type, $mode = 'add', $filterorigmodule = '')
+function complete_head_from_modules($config, $langs, $object, &$head, &$h, $type, $mode = 'add', $filterorigmodule = '')
 {
 	global $hookManager, $db;
 
@@ -11325,7 +11325,7 @@ function complete_head_from_modules($conf, $langs, $object, &$head, &$h, $type, 
  */
 function printCommonFooter($zone = 'private')
 {
-	global $conf, $hookManager, $user, $langs;
+	global $config, $hookManager, $user, $langs;
 	global $debugbar;
 	global $action;
 	global $micro_start_time;
@@ -11933,7 +11933,7 @@ function getImageFileNameForSize($file, $extName, $extImgTarget = '')
  */
 function getAdvancedPreviewUrl($modulepart, $relativepath, $alldata = 0, $param = '')
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	if (empty($config->use_javascript_ajax)) {
 		return '';
@@ -12370,7 +12370,7 @@ function dol_mimetype($file, $default = 'application/octet-stream', $mode = 0)
  */
 function getDictionaryValue($tablename, $field, $id, $checkentity = false, $rowidfield = 'rowid')
 {
-	global $conf, $db;
+	global $config, $db;
 
 	$tablename = preg_replace('/^'.preg_quote(MAIN_DB_PREFIX, '/').'/', '', $tablename);	// Clean name of table for backward compatibility.
 
@@ -12989,7 +12989,7 @@ function getFieldErrorIcon($fieldValidationErrorMsg)
  */
 function dolGetButtonTitle($label, $helpText = '', $iconClass = 'fa fa-file', $url = '', $id = '', $status = 1, $params = array())
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 
 	// Actually this conf is used in css too for external module compatibility and smooth transition to this function
 	if (getDolGlobalString('MAIN_BUTTON_HIDE_UNAUTHORIZED') && (!$user->admin) && $status <= 0) {
@@ -13089,7 +13089,7 @@ function dolGetButtonTitle($label, $helpText = '', $iconClass = 'fa fa-file', $u
  */
 function getElementProperties($elementType)
 {
-	global $conf, $db, $hookManager;
+	global $config, $db, $hookManager;
 
 	$regs = array();
 
@@ -14255,7 +14255,7 @@ function getTimelineIcon($actionstatic, &$histo, $key)
  */
 function getActionCommEcmList($object)
 {
-	global $conf, $db;
+	global $config, $db;
 
 	$documents = array();
 
@@ -14295,7 +14295,7 @@ function getActionCommEcmList($object)
  *	@param  string				$sortorder	Sort order
  *	@return	?string							Return html part or void if noprint is 1
  */
-function show_actions_messaging($conf, $langs, $db, $filterobj, $objcon = null, $noprint = 0, $actioncode = '', $donetodo = 'done', $filters = array(), $sortfield = 'a.datep,a.id', $sortorder = 'DESC')
+function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null, $noprint = 0, $actioncode = '', $donetodo = 'done', $filters = array(), $sortfield = 'a.datep,a.id', $sortorder = 'DESC')
 {
 	global $user, $config;
 	global $form;
@@ -15099,7 +15099,7 @@ function buildParamDate($prefix, $timestamp = null, $hourTime = '', $gm = 'auto'
  */
 function recordNotFound($message = '', $printheader = 1, $printfooter = 1, $showonlymessage = 0, $params = null)
 {
-	global $conf, $db, $langs, $hookManager;
+	global $config, $db, $langs, $hookManager;
 	global $action, $object;
 
 	if (!is_object($langs)) {

@@ -179,7 +179,7 @@ function print_actions_filter(
  */
 function show_array_actions_to_do($max = 5)
 {
-	global $langs, $conf, $user, $db, $socid;
+	global $langs, $config, $user, $db, $socid;
 
 	$now = dol_now();
 
@@ -299,7 +299,7 @@ function show_array_actions_to_do($max = 5)
  */
 function show_array_last_actions_done($max = 5)
 {
-	global $langs, $conf, $user, $db, $socid;
+	global $langs, $config, $user, $db, $socid;
 
 	$now = dol_now();
 
@@ -397,7 +397,7 @@ function show_array_last_actions_done($max = 5)
  */
 function agenda_prepare_head()
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('actioncomm');
@@ -430,7 +430,7 @@ function agenda_prepare_head()
 	$head[$h][2] = 'extsites';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'agenda_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'agenda_admin');
 
 	$head[$h][0] = DOL_URL_ROOT."/admin/agenda_extrafields.php";
 	$head[$h][1] = $langs->trans("ExtraFields");
@@ -441,7 +441,7 @@ function agenda_prepare_head()
 	$head[$h][2] = 'attributes';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'agenda_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'agenda_admin', 'remove');
 
 
 	return $head;
@@ -455,7 +455,7 @@ function agenda_prepare_head()
  */
 function actions_prepare_head($object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -500,9 +500,9 @@ function actions_prepare_head($object)
 	$head[$h][2] = 'info';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'action');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'action');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'action', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'action', 'remove');
 
 	return $head;
 }
@@ -516,7 +516,7 @@ function actions_prepare_head($object)
  */
 function calendars_prepare_head($param)
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -560,9 +560,9 @@ function calendars_prepare_head($param)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'agenda');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'agenda');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'agenda', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'agenda', 'remove');
 
 	return $head;
 }

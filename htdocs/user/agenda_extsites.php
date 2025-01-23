@@ -135,7 +135,7 @@ if (empty($resHook)) {
 		}
 
 		if (!$error) {
-			$result = dol_set_user_param($db, $conf, $object, $tabparam);
+			$result = dol_set_user_param($db, $config, $object, $tabparam);
 			if (!($result > 0)) {
 				$error++;
 			}

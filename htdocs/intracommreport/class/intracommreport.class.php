@@ -295,7 +295,7 @@ class IntracommReport extends CommonObject
 	 */
 	public function getXML($mode = 'O', $type = 'introduction', $period_reference = '')
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		/**************Construction de quelques variables********************/
 		$party_id = substr(strtr($mysoc->tva_intra, array(' ' => '')), 0, 4).$mysoc->idprof2;
@@ -669,7 +669,7 @@ class IntracommReport extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips

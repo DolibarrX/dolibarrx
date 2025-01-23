@@ -94,7 +94,7 @@ class FormSetup
 	 */
 	public function __construct($db, $outputLangs = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db = $db;
 
@@ -681,7 +681,7 @@ class FormSetupItem
 	 */
 	public function __construct($confKey)
 	{
-		global $langs, $db, $conf, $form;
+		global $langs, $db, $config, $form;
 		$this->db = $db;
 
 		if (!empty($form) && is_object($form) && get_class($form) == 'Form') { // the form class has a cache inside so I am using it to optimize
@@ -1070,7 +1070,7 @@ class FormSetupItem
 	 */
 	public function generateInputFieldPassword($type = 'generic')
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$min = 6;
 		$max = 50;
@@ -1082,7 +1082,7 @@ class FormSetupItem
 			$nomclass = "modGeneratePass".ucfirst($gen);
 			$nomfichier = $nomclass.".class.php";
 			require_once DOL_DOCUMENT_ROOT."/core/modules/security/generate/".$nomfichier;
-			$genhandler = new $nomclass($this->db, $conf, $langs, $user);
+			$genhandler = new $nomclass($this->db, $config, $langs, $user);
 			$min = $genhandler->length;
 			$max = $genhandler->length2;
 		}
@@ -1195,7 +1195,7 @@ class FormSetupItem
 	 */
 	public function generateOutputField()
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		if (!empty($this->fieldOverride)) {
 			return $this->fieldOverride;

@@ -393,7 +393,7 @@ class Task extends CommonObjectLine
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		//For the date
 		$now = dol_now();
@@ -607,7 +607,7 @@ class Task extends CommonObjectLine
 	 */
 	public function update($user = null, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		// Clean parameters
@@ -995,7 +995,7 @@ class Task extends CommonObjectLine
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $mode = 'task', $addlabel = 0, $sep = ' - ', $notooltip = 0, $save_lastsearch_value = -1)
 	{
-		global $action, $conf, $hookManager, $langs;
+		global $action, $config, $hookManager, $langs;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -2029,7 +2029,7 @@ class Task extends CommonObjectLine
 	 */
 	public function updateTimeSpent($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$ret = 0;
 
@@ -2148,7 +2148,7 @@ class Task extends CommonObjectLine
 	 */
 	public function delTimeSpent($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -2563,7 +2563,7 @@ class Task extends CommonObjectLine
 	public function load_board($user)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		// For external user, no check is done on company because readability is managed by public status of project and assignment.
 		//$socid = $user->socid;

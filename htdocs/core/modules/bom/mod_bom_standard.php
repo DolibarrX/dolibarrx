@@ -86,7 +86,7 @@ class mod_bom_standard extends ModeleNumRefBoms
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

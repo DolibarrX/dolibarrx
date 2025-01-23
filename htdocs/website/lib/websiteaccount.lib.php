@@ -78,9 +78,9 @@ function websiteaccountPrepareHead($object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@monmodule:/monmodule/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'websiteaccount@website');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'websiteaccount@website');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'websiteaccount@website', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'websiteaccount@website', 'remove');
 
 	return $head;
 }

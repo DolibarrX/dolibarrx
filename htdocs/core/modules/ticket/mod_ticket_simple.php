@@ -91,7 +91,7 @@ class mod_ticket_simple extends ModeleNumRefTicket
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

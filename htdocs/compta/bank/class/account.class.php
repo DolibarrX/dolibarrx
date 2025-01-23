@@ -1033,7 +1033,7 @@ class Account extends CommonObject
 	public function update_bban($user = null)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Load library to get BAN control function
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/bank.lib.php';
@@ -1383,7 +1383,7 @@ class Account extends CommonObject
 	public function load_board(User $user, $filteraccountid = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		if ($user->socid) {
 			return -1; // protection pour eviter appel par utilisateur externe
@@ -1560,7 +1560,7 @@ class Account extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $mode = '', $option = '', $save_lastsearch_value = -1, $notooltip = 0, $morecss = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -1724,7 +1724,7 @@ class Account extends CommonObject
 	 */
 	public function getBannerAddress($htmlkey, $object)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$out = '';
 
@@ -2549,7 +2549,7 @@ class AccountLine extends CommonObjectLine
 	public function update_conciliation(User $user, $cat, $conciliated = 1)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db->begin();
 
@@ -2769,7 +2769,7 @@ class AccountLine extends CommonObjectLine
 	 */
 	public function getNomUrl($withpicto = 0, $maxlen = 0, $option = '', $notooltip = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$result = '';
 

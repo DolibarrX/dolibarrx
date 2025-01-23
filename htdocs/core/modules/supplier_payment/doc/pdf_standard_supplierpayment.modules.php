@@ -166,7 +166,7 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 	public function write_file($object, $outputlangs = null, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $hookManager;
+		global $user, $langs, $config, $mysoc, $hookManager;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -502,7 +502,7 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 	protected function _tableau_cheque(&$pdf, $object, $posy, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
@@ -567,7 +567,7 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 	 */
 	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0, $currency = '')
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		// Force to disable hidetop and hidebottom
 		$hidebottom = 0;
@@ -610,7 +610,7 @@ class pdf_standard_supplierpayment extends ModelePDFSuppliersPayments
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		global $langs, $conf, $mysoc;
+		global $langs, $config, $mysoc;
 
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "orders", "companies", "bills"));

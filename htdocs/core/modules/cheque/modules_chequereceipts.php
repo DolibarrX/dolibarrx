@@ -141,7 +141,7 @@ abstract class ModeleChequeReceipts extends CommonDocGenerator
  */
 function chequereceipt_pdf_create($db, $id, $message, $modele, $outputlangs)
 {
-	global $conf, $langs;
+	global $config, $langs;
 	$langs->load("bills");
 
 	$dir = DOL_DOCUMENT_ROOT."/core/modules/cheque/doc/";

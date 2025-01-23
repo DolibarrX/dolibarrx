@@ -64,7 +64,7 @@ class DataPolicyCron
 	 */
 	public function cleanDataForDataPolicy()
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$langs->load('datapolicy@datapolicy');
 

@@ -474,7 +474,7 @@ class SocieteAccount extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
 		global $menumanager;
 

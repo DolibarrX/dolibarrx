@@ -155,7 +155,7 @@ class pdf_baleine extends ModelePDFProjects
 	public function write_file($object, $outputlangs, $srctemplatepath = '')
 	{
 		// phpcs:enable
-		global $conf, $hookManager, $langs, $user;
+		global $config, $hookManager, $langs, $user;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -524,7 +524,7 @@ class pdf_baleine extends ModelePDFProjects
 	 */
 	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0)
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$heightoftitleline = 10;
 
@@ -574,7 +574,7 @@ class pdf_baleine extends ModelePDFProjects
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		global $langs, $conf, $mysoc;
+		global $langs, $config, $mysoc;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 

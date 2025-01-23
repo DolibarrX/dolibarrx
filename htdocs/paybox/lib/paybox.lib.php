@@ -40,7 +40,7 @@
  */
 function print_paybox_redirect($PRICE, $CURRENCY, $EMAIL, $urlok, $urlko, $TAG)
 {
-	global $conf, $langs, $db;
+	global $config, $langs, $db;
 
 	dol_syslog("Paybox.lib::print_paybox_redirect", LOG_DEBUG);
 

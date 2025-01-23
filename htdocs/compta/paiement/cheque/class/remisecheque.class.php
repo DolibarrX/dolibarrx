@@ -429,7 +429,7 @@ class RemiseCheque extends CommonObject
 	 */
 	public function getNextNumRef($mode = 'next')
 	{
-		global $conf, $db, $langs, $mysoc;
+		global $config, $db, $langs, $mysoc;
 		$langs->load("bills");
 
 		// Clean parameters (if not defined or using deprecated value)
@@ -515,7 +515,7 @@ class RemiseCheque extends CommonObject
 	public function load_board($user, $type = 'CHQ')
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		if ($user->socid) {
 			return -1; // protection pour eviter appel par utilisateur externe
@@ -939,7 +939,7 @@ class RemiseCheque extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$result = '';
 

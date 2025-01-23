@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
  */
 function project_prepare_head(Project $project, $moreparam = '')
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -282,7 +282,7 @@ function project_prepare_head(Project $project, $moreparam = '')
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $project, $head, $h, 'project', 'add', 'core');
+	complete_head_from_modules($config, $langs, $project, $head, $h, 'project', 'add', 'core');
 
 
 	if (!getDolGlobalString('MAIN_DISABLE_NOTES_TAB')) {
@@ -358,9 +358,9 @@ function project_prepare_head(Project $project, $moreparam = '')
 	$head[$h][2] = 'agenda';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $project, $head, $h, 'project', 'add', 'external');
+	complete_head_from_modules($config, $langs, $project, $head, $h, 'project', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $project, $head, $h, 'project', 'remove');
+	complete_head_from_modules($config, $langs, $project, $head, $h, 'project', 'remove');
 
 	return $head;
 }
@@ -374,7 +374,7 @@ function project_prepare_head(Project $project, $moreparam = '')
  */
 function task_prepare_head($object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 	$h = 0;
 	$head = array();
 
@@ -421,7 +421,7 @@ function task_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'task', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'task', 'add', 'core');
 
 	if (!getDolGlobalString('MAIN_DISABLE_NOTES_TAB')) {
 		$nbNote = 0;
@@ -465,9 +465,9 @@ function task_prepare_head($object)
 		$h++;
 	}
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'task', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'task', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'task', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'task', 'remove');
 
 	return $head;
 }
@@ -481,7 +481,7 @@ function task_prepare_head($object)
  */
 function project_timesheet_prepare_head($mode, $fuser = null)
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 	$h = 0;
 	$head = array();
 
@@ -512,9 +512,9 @@ function project_timesheet_prepare_head($mode, $fuser = null)
 		$h++;
 	}
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'project_timesheet');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'project_timesheet');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'project_timesheet', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'project_timesheet', 'remove');
 
 	return $head;
 }
@@ -527,7 +527,7 @@ function project_timesheet_prepare_head($mode, $fuser = null)
  */
 function project_admin_prepare_head()
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('projet');
@@ -541,7 +541,7 @@ function project_admin_prepare_head()
 	$head[$h][2] = 'project';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'project_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'project_admin');
 
 	$head[$h][0] = DOL_URL_ROOT."/projet/admin/project_extrafields.php";
 	$head[$h][1] = $langs->trans("ExtraFieldsProject");
@@ -572,7 +572,7 @@ function project_admin_prepare_head()
 		$h++;
 	}
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'project_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'project_admin', 'remove');
 
 	return $head;
 }
@@ -599,7 +599,7 @@ function project_admin_prepare_head()
  */
 function projectLinesa(&$inc, $parent, &$lines, &$level, $var, $showproject, &$taskrole, $projectsListId = '', $addordertick = 0, $projectidfortotallink = 0, $dummy = '', $showbilltime = 0, $arrayfields = array(), $arrayofselected = array())
 {
-	global $user, $langs, $conf, $db, $hookManager;
+	global $user, $langs, $config, $db, $hookManager;
 	global $projectstatic, $taskstatic, $extrafields;
 
 	'
@@ -1184,7 +1184,7 @@ function projectLinesa(&$inc, $parent, &$lines, &$level, $var, $showproject, &$t
  */
 function projectLinesPerAction(&$inc, $parent, $fuser, $lines, &$level, &$projectsrole, &$tasksrole, $mine, $restricteditformytask, $preselectedday, &$isavailable, $oldprojectforbreak = 0)
 {
-	global $conf, $db, $user, $langs;
+	global $config, $db, $user, $langs;
 	global $form, $formother, $projectstatic, $taskstatic, $thirdpartystatic;
 	'
 	@phan-var-force FormOther $formother
@@ -1416,7 +1416,7 @@ function projectLinesPerAction(&$inc, $parent, $fuser, $lines, &$level, &$projec
  */
 function projectLinesPerDay(&$inc, $parent, $fuser, $lines, &$level, &$projectsrole, &$tasksrole, $mine, $restricteditformytask, $preselectedday, &$isavailable, $oldprojectforbreak = 0, $arrayfields = array(), $extrafields = null)
 {
-	global $conf, $db, $user, $langs;
+	global $config, $db, $user, $langs;
 	global $form, $formother, $projectstatic, $taskstatic, $thirdpartystatic;
 	'
 	@phan-var-force FormOther $formother
@@ -1819,7 +1819,7 @@ function projectLinesPerDay(&$inc, $parent, $fuser, $lines, &$level, &$projectsr
  */
 function projectLinesPerWeek(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &$level, &$projectsrole, &$tasksrole, $mine, $restricteditformytask, &$isavailable, $oldprojectforbreak = 0, $arrayfields = array(), $extrafields = null)
 {
-	global $conf, $db, $user, $langs;
+	global $config, $db, $user, $langs;
 	global $form, $formother, $projectstatic, $taskstatic, $thirdpartystatic;
 	'
 	@phan-var-force FormOther $formother
@@ -2226,7 +2226,7 @@ function projectLinesPerWeek(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &$
  */
 function projectLinesPerMonth(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &$level, &$projectsrole, &$tasksrole, $mine, $restricteditformytask, &$isavailable, $oldprojectforbreak = 0, $TWeek = array(), $arrayfields = array(), $extrafields = null)
 {
-	global $conf, $db, $user, $langs;
+	global $config, $db, $user, $langs;
 	global $form, $formother, $projectstatic, $taskstatic, $thirdpartystatic;
 	'
 	@phan-var-force FormOther $formother
@@ -2561,7 +2561,7 @@ function searchTaskInChild(&$inc, $parent, &$lines, &$taskrole)
  */
 function print_projecttasks_array($db, $form, $socid, $projectsListId, $mytasks = 0, $status = -1, $listofoppstatus = array(), $hiddenfields = array(), $max = 0)
 {
-	global $langs, $conf, $user;
+	global $langs, $config, $user;
 	global $theme_datacolor;
 
 	$maxofloop = (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD);
@@ -3037,7 +3037,7 @@ function getTaskProgressView($task, $label = true, $progressNumber = true, $hide
  */
 function getTaskProgressBadge($task, $label = '', $tooltip = '')
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	$out = '';
 	$badgeClass = '';

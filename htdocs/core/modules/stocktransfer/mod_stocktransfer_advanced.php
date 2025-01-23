@@ -102,7 +102,7 @@ class mod_stocktransfer_advanced extends ModeleNumRefStockTransfer
 	 */
 	public function getExample()
 	{
-		global $conf, $db, $langs, $mysoc;
+		global $config, $db, $langs, $mysoc;
 
 		$object = new StockTransfer($db);
 		$object->initAsSpecimen();

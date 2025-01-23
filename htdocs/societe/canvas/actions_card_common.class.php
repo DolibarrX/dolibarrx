@@ -104,7 +104,7 @@ abstract class ActionsCardCommon
 	public function assign_values(&$action, $id = 0, $ref = '')
 	{
 		// phpcs:enable
-		global $conf, $langs, $db, $user, $mysoc, $canvas;
+		global $config, $langs, $db, $user, $mysoc, $canvas;
 		global $form, $formadmin, $formcompany;
 		'
 		@phan-var-force Form $form

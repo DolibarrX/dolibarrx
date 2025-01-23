@@ -104,9 +104,9 @@ function moPrepareHead($object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@mrp:/mrp/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'mo@mrp');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'mo@mrp');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'mo@mrp', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'mo@mrp', 'remove');
 
 	return $head;
 }

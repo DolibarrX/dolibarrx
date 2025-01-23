@@ -240,7 +240,7 @@ if (!empty($captcha)) {
 		$classname = "modCaptcha".ucfirst($captcha);
 		require_once $classfile;
 
-		$captchaobj = new $classname($db, $conf, $langs, $user);
+		$captchaobj = new $classname($db, $config, $langs, $user);
 	}
 
 	if (is_object($captchaobj) && method_exists($captchaobj, 'getCaptchaCodeForForm')) {

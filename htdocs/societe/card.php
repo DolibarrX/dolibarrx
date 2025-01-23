@@ -3480,7 +3480,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			// Subsidiaries list
 			if (!getDolGlobalString('SOCIETE_DISABLE_PARENTCOMPANY') && !getDolGlobalString('SOCIETE_DISABLE_SHOW_SUBSIDIARIES')) {
 				print '<br>';
-				$result = show_subsidiaries($conf, $langs, $db, $object);
+				$result = show_subsidiaries($config, $langs, $db, $object);
 			}
 
 			print '</div><div class="fichehalfright">';
@@ -3502,7 +3502,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			if (getDolGlobalString('MAIN_DUPLICATE_CONTACTS_TAB_ON_MAIN_CARD')) {
 				// Contacts list
 				if (!getDolGlobalString('SOCIETE_DISABLE_CONTACTS')) {
-					$result = show_contacts($conf, $langs, $db, $object, $_SERVER["PHP_SELF"].'?socid='.$object->id);
+					$result = show_contacts($config, $langs, $db, $object, $_SERVER["PHP_SELF"].'?socid='.$object->id);
 				}
 			}
 		}

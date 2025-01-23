@@ -769,7 +769,7 @@ class Entrepot extends CommonObject
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$langs->load('stocks');
 
@@ -812,7 +812,7 @@ class Entrepot extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $showfullpath = 0, $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 		$langs->load("stocks");
 
 		if (!empty($config->dol_no_mouse_hover)) {
@@ -898,7 +898,7 @@ class Entrepot extends CommonObject
 	 */
 	public function initAsSpecimen()
 	{
-		global $user, $langs, $conf, $mysoc;
+		global $user, $langs, $config, $mysoc;
 
 		$now = dol_now();
 
@@ -999,7 +999,7 @@ class Entrepot extends CommonObject
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$langs->load("stocks");
 		$outputlangs->load("products");

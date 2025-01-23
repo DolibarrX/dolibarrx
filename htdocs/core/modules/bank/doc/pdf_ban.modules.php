@@ -113,7 +113,7 @@ class pdf_ban extends ModeleBankAccountDoc
 	public function write_file($object, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $hookManager, $langs, $user;
+		global $config, $hookManager, $langs, $user;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -295,7 +295,7 @@ class pdf_ban extends ModeleBankAccountDoc
 	protected function _tableau(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 	}
@@ -312,7 +312,7 @@ class pdf_ban extends ModeleBankAccountDoc
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		global $langs, $conf, $mysoc;
+		global $langs, $config, $mysoc;
 		// phpcs:enable
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);

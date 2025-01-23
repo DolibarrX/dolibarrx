@@ -79,7 +79,7 @@ $keyforparamsecret = 'OAUTH_'.$genericstring.($keyforprovider ? '-'.$keyforprovi
 $keyforparamtenant = 'OAUTH_'.$genericstring.($keyforprovider ? '-'.$keyforprovider : '').'_TENANT';
 
 // Dolibarr storage
-$storage = new DoliStorage($db, $conf, $keyforprovider, getDolGlobalString($keyforparamtenant));
+$storage = new DoliStorage($db, $config, $keyforprovider, getDolGlobalString($keyforparamtenant));
 
 $credentials = new Credentials(
 	getDolGlobalString($keyforparamid),

@@ -52,7 +52,7 @@ class box_validated_projects extends ModeleBoxes
 	 */
 	public function __construct($db, $param = '')
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		// Load translation files required by the page
 		$langs->loadLangs(array('boxes', 'projects'));
@@ -75,7 +75,7 @@ class box_validated_projects extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$this->max = $max;
 

@@ -167,7 +167,7 @@ class PaymentSocialContribution extends CommonObject
 	 */
 	public function create($user, $closepaidcontrib = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -359,7 +359,7 @@ class PaymentSocialContribution extends CommonObject
 	 */
 	public function update($user = null, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		// Clean parameters
@@ -573,7 +573,7 @@ class PaymentSocialContribution extends CommonObject
 	 */
 	public function addPaymentToBank($user, $mode, $label, $accountid, $emetteur_nom, $emetteur_banque)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Clean data
 		$this->num_payment = trim($this->num_payment);

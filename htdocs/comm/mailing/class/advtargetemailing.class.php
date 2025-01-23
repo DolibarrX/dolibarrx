@@ -405,7 +405,7 @@ class AdvanceTargetingMailing extends CommonObject
 	 */
 	public function update($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		// Clean parameters
@@ -468,7 +468,7 @@ class AdvanceTargetingMailing extends CommonObject
 	 */
 	public function delete($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		$this->db->begin();
@@ -538,7 +538,7 @@ class AdvanceTargetingMailing extends CommonObject
 	public function query_thirdparty($arrayquery)
 	{
 		// phpcs:enable
-		global $langs, $conf, $extrafields;
+		global $langs, $config, $extrafields;
 
 		$sql = "SELECT";
 		$sql .= " t.rowid";

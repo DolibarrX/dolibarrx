@@ -132,7 +132,7 @@ class Documents extends DolibarrApi
 	 */
 	public function builddoc($modulepart, $original_file = '', $doctemplate = '', $langcode = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (empty($modulepart)) {
 			throw new RestException(400, 'bad value for parameter modulepart');
@@ -974,7 +974,7 @@ class Documents extends DolibarrApi
 	 */
 	public function delete($modulepart, $original_file)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (empty($modulepart)) {
 			throw new RestException(400, 'bad value for parameter modulepart');

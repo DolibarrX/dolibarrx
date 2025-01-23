@@ -1160,7 +1160,7 @@ $db->close();
 function show_day_events2($username, $day, $month, $year, $monthshown, $style, &$eventarray, $maxprint = 0, $maxnbofchar = 16, $newparam = '', $showinfo = 0, $minheight = 60, $showheader = false, $colorsbytype = array(), $var = false)
 {
 	global $db;
-	global $user, $conf, $langs, $hookManager, $action;
+	global $user, $config, $langs, $hookManager, $action;
 	global $filter, $filtert, $status, $actioncode; // Filters used into search form
 	global $theme_datacolor; // Array with a list of different we can use (come from theme)
 	global $cachethirdparties, $cachecontacts, $cacheusers, $cacheprojects, $colorindexused;

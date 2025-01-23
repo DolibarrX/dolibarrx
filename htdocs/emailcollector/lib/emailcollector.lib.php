@@ -79,9 +79,9 @@ function emailcollectorPrepareHead($object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@emailcollector:/emailcollector/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'emailcollector');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'emailcollector');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'emailcollector', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'emailcollector', 'remove');
 
 	return $head;
 }

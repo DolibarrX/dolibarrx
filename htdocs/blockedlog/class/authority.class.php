@@ -210,7 +210,7 @@ class BlockedLogAuthority
 	 */
 	public function create($user)
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		$langs->load('blockedlog');
 
@@ -257,7 +257,7 @@ class BlockedLogAuthority
 	 */
 	public function update($user)
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		$langs->load('blockedlog');
 
@@ -290,7 +290,7 @@ class BlockedLogAuthority
 	 */
 	public function syncSignatureWithAuthority()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		//TODO create cron task on activation
 

@@ -29,7 +29,7 @@
  */
 function donation_admin_prepare_head()
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('don');
@@ -46,7 +46,7 @@ function donation_admin_prepare_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__'); to add new tab
 	// $this->tabs = array('entity:-tabname); to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'donation_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'donation_admin');
 
 	$head[$h][0] = DOL_URL_ROOT.'/don/admin/donation_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields");
@@ -57,7 +57,7 @@ function donation_admin_prepare_head()
 	$head[$h][2] = 'attributes';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'donation_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'donation_admin', 'remove');
 
 	return $head;
 }
@@ -84,7 +84,7 @@ function donation_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__'); to add new tab
 	// $this->tabs = array('entity:-tabname); to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'donation', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'donation', 'add', 'core');
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
@@ -119,9 +119,9 @@ function donation_prepare_head($object)
 	$head[$h][2] = 'info';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'donation', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'donation', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'donation', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'donation', 'remove');
 
 	return $head;
 }

@@ -230,7 +230,7 @@ class PaymentVarious extends CommonObject
 	 */
 	public function update($user = null, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -372,7 +372,7 @@ class PaymentVarious extends CommonObject
 	 */
 	public function delete($user)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -449,7 +449,7 @@ class PaymentVarious extends CommonObject
 	 */
 	public function create($user)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 		$now = dol_now();
@@ -694,7 +694,7 @@ class PaymentVarious extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $save_lastsearch_value = -1, $notooltip = 0, $morecss = '')
 	{
-		global $db, $conf, $langs, $hookManager;
+		global $db, $config, $langs, $hookManager;
 		global $langs;
 
 		if (!empty($config->dol_no_mouse_hover)) {

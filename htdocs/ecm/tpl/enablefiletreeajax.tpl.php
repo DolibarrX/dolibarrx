@@ -16,7 +16,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * Output javascript for interactions code of ecm module
- * $conf, $module, $param, $preopened, $nameforformuserfile may be defined
+ * $config, $module, $param, $preopened, $nameforformuserfile may be defined
  */
 
 // Protection to avoid direct call of template

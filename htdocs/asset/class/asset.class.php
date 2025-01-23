@@ -860,7 +860,7 @@ class Asset extends CommonObject
 	 */
 	public function calculationDepreciation()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$langs->load('assets');
 
 		// Clean parameters
@@ -924,7 +924,7 @@ class Asset extends CommonObject
 			require_once DOL_DOCUMENT_ROOT . '/core/lib/date.lib.php';
 			require_once DOL_DOCUMENT_ROOT . '/core/lib/accounting.lib.php';
 			// @FIXME getCurrentPeriodOfFiscalYear return the first period found. What if there is several ? And what if not closed ? And what if end date not yet defined.
-			$dates = getCurrentPeriodOfFiscalYear($this->db, $conf, $this->date_start > $this->date_acquisition ? $this->date_start : $this->date_acquisition);
+			$dates = getCurrentPeriodOfFiscalYear($this->db, $config, $this->date_start > $this->date_acquisition ? $this->date_start : $this->date_acquisition);
 			$init_fiscal_period_start = $dates['date_start'];
 			$init_fiscal_period_end = $dates['date_end'];
 			if (empty($init_fiscal_period_start) || empty($init_fiscal_period_end)) {
@@ -1138,7 +1138,7 @@ class Asset extends CommonObject
 
 					// Next fiscal period (+1 day/month/year)
 					$fiscal_period_start = dol_time_plus_duree($fiscal_period_end, 1, 'd');
-					$dates_fiscal_period = getCurrentPeriodOfFiscalYear($this->db, $conf, $fiscal_period_start, 'gmt');
+					$dates_fiscal_period = getCurrentPeriodOfFiscalYear($this->db, $config, $fiscal_period_start, 'gmt');
 					if ($fields['duration_type'] == 2) { // Daily
 						$fiscal_period_end = $fiscal_period_start;
 					} elseif ($fields['duration_type'] == 1) { // Monthly
@@ -1237,7 +1237,7 @@ class Asset extends CommonObject
 	 */
 	public function dispose($user, $disposal_invoice_id, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Protection
 		if ($this->status != self::STATUS_DRAFT || $this->status == self::STATUS_DISPOSED) {
@@ -1305,7 +1305,7 @@ class Asset extends CommonObject
 	 */
 	public function reopen($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Protection
 		if ($this->status != self::STATUS_DISPOSED || $this->status == self::STATUS_DRAFT) {
@@ -1374,7 +1374,7 @@ class Asset extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $maxlen = 0, $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $db, $conf, $langs, $hookManager;
+		global $db, $config, $langs, $hookManager;
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
 		global $menumanager;
 

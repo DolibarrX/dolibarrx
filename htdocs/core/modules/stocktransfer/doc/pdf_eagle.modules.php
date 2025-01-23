@@ -185,7 +185,7 @@ class pdf_eagle extends ModelePDFStockTransfer
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $conf, $langs, $hookManager;
+		global $user, $config, $langs, $hookManager;
 
 		$object->fetch_thirdparty();
 
@@ -1015,7 +1015,7 @@ class pdf_eagle extends ModelePDFStockTransfer
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Load traductions files required by page
 		$outputlangs->loadLangs(array("main", "bills", "propal", "orders", "companies"));

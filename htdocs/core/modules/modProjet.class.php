@@ -371,7 +371,7 @@ class modProjet extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Permissions
 		$this->remove($options);

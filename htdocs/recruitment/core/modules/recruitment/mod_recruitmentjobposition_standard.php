@@ -86,7 +86,7 @@ class mod_recruitmentjobposition_standard extends ModeleNumRefRecruitmentJobPosi
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

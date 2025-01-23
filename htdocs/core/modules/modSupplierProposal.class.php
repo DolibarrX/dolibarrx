@@ -157,7 +157,7 @@ class modSupplierProposal extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Remove permissions and default values
 		$this->remove($options);

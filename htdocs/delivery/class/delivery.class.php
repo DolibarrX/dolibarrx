@@ -680,7 +680,7 @@ class Delivery extends CommonObject
 	 */
 	public function delete($user = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -1118,7 +1118,7 @@ class Delivery extends CommonObject
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load("deliveries");
 		$outputlangs->load("products");

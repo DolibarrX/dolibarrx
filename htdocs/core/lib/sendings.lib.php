@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/stock/class/entrepot.class.php';
  */
 function shipping_prepare_head($object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	// Load translation files required by the page
 	$langs->loadLangs(array("sendings", "deliveries"));
@@ -117,9 +117,9 @@ function shipping_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'delivery');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'delivery');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'delivery', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'delivery', 'remove');
 
 	return $head;
 }
@@ -133,7 +133,7 @@ function shipping_prepare_head($object)
  */
 function delivery_prepare_head($object)
 {
-	global $langs, $db, $conf, $user;
+	global $langs, $db, $config, $user;
 
 	// Load translation files required by the page
 	$langs->loadLangs(array("sendings", "deliveries"));
@@ -216,9 +216,9 @@ function delivery_prepare_head($object)
 
 	$object->id = $tmpobject->id;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'delivery');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'delivery');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'delivery', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'delivery', 'remove');
 
 	$object->id = $savObjectId;
 	return $head;
@@ -234,7 +234,7 @@ function delivery_prepare_head($object)
  */
 function show_list_sending_receive($origin, $origin_id, $filter = '')
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 	global $form;
 
 	$product_static = new Product($db);

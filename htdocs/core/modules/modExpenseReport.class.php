@@ -41,7 +41,7 @@ class modExpenseReport extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $user; // Required by some include code
+		global $config, $user; // Required by some include code
 
 		$this->db = $db;
 		$this->numero = 770;

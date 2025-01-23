@@ -89,7 +89,7 @@ class DocumentController extends Controller
 	 */
 	public function init()
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 
 		define('MAIN_SECURITY_FORCECSP', "default-src: 'none'");
 

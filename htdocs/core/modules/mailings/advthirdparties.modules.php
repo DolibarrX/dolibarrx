@@ -82,7 +82,7 @@ class mailing_advthirdparties extends MailingTargets
 	public function add_to_target_spec($mailing_id, $socid, $type_of_target, $contactid)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		dol_syslog(get_class($this)."::add_to_target_spec socid=".var_export($socid, true).' contactid='.var_export($contactid, true));
 
@@ -246,7 +246,7 @@ class mailing_advthirdparties extends MailingTargets
 	 */
 	public function formFilter()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load("companies");
 

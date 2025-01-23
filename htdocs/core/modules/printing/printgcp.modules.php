@@ -58,7 +58,7 @@ class printing_printgcp extends PrintingDriver
 	/**
 	 * @var array<string|int,string|array{varname:string,info:string,type:'info',renew?:string,delete?:string}|array{enabled:int<0,1>,type:'submit'}> module parameters
 	 */
-	public $conf = array();
+	public $config = array();
 
 	/**
 	 * @var string google id
@@ -93,7 +93,7 @@ class printing_printgcp extends PrintingDriver
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $dolibarr_main_url_root;
+		global $config, $langs, $dolibarr_main_url_root;
 
 		// Define $urlwithroot
 		$urlwithouturlroot = preg_replace('/'.preg_quote(DOL_URL_ROOT, '/').'$/i', '', trim($dolibarr_main_url_root));
@@ -114,7 +114,7 @@ class printing_printgcp extends PrintingDriver
 			$this->google_id = getDolGlobalString('OAUTH_GOOGLE_ID');
 			$this->google_secret = getDolGlobalString('OAUTH_GOOGLE_SECRET');
 			// Token storage
-			$storage = new DoliStorage($this->db, $conf, $keyforprovider);
+			$storage = new DoliStorage($this->db, $config, $keyforprovider);
 			//$storage->clearToken($this->OAUTH_SERVICENAME_GOOGLE);
 			// Setup the credentials for the requests
 			$credentials = new Credentials(
@@ -202,7 +202,7 @@ class printing_printgcp extends PrintingDriver
 	 */
 	public function listAvailablePrinters()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 		$langs->load('printing');
 
@@ -255,7 +255,7 @@ class printing_printgcp extends PrintingDriver
 		$keyforprovider = '';	// @FIXME
 
 		// Token storage
-		$storage = new DoliStorage($this->db, $conf, $keyforprovider);
+		$storage = new DoliStorage($this->db, $config, $keyforprovider);
 		// Setup the credentials for the requests
 		$credentials = new Credentials(
 			$this->google_id,
@@ -324,7 +324,7 @@ class printing_printgcp extends PrintingDriver
 	{
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
-		global $conf, $user;
+		global $config, $user;
 		$error = 0;
 
 		$fileprint = $config->{$module}->dir_output;
@@ -398,7 +398,7 @@ class printing_printgcp extends PrintingDriver
 		$keyforprovider = '';	// @FIXME
 
 		// Dolibarr Token storage
-		$storage = new DoliStorage($this->db, $conf, $keyforprovider);
+		$storage = new DoliStorage($this->db, $config, $keyforprovider);
 		// Setup the credentials for the requests
 		$credentials = new Credentials(
 			$this->google_id,
@@ -445,7 +445,7 @@ class printing_printgcp extends PrintingDriver
 	 */
 	public function listJobs($module = null)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 		$html = '';
@@ -453,7 +453,7 @@ class printing_printgcp extends PrintingDriver
 		$keyforprovider = '';	// @FIXME
 
 		// Token storage
-		$storage = new DoliStorage($this->db, $conf, $keyforprovider);
+		$storage = new DoliStorage($this->db, $config, $keyforprovider);
 		// Setup the credentials for the requests
 		$credentials = new Credentials(
 			$this->google_id,

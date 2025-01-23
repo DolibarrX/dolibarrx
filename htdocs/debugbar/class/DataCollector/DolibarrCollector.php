@@ -59,7 +59,7 @@ class DolibarrCollector extends DataCollector implements Renderable, AssetProvid
 	 */
 	protected function getDatabaseInfo()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$info  = $langs->trans('Host').': <strong>'.$config->db->host.'</strong><br>';
 		$info .= $langs->trans('Port').': <strong>'.$config->db->port.'</strong><br>';
@@ -80,7 +80,7 @@ class DolibarrCollector extends DataCollector implements Renderable, AssetProvid
 	 */
 	protected function getDolibarrInfo()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		global $dolibarr_main_prod, $dolibarr_nocsrfcheck;
 
 		$info  = $langs->trans('Version').': <strong>'.DOL_VERSION.'</strong><br>';
@@ -105,7 +105,7 @@ class DolibarrCollector extends DataCollector implements Renderable, AssetProvid
 	 */
 	protected function getMailInfo()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		global $dolibarr_mailing_limit_sendbyweb, $dolibarr_mailing_limit_sendbycli, $dolibarr_mailing_limit_sendbyday;
 
 		$info  = $langs->trans('Method').': <strong>'.getDolGlobalString("MAIN_MAIL_SENDMODE").'</strong><br>';

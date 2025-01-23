@@ -84,7 +84,7 @@ class mod_member_simple extends ModeleNumRefMembers
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';
@@ -119,7 +119,7 @@ class mod_member_simple extends ModeleNumRefMembers
 	 */
 	public function getNextValue($objsoc, $object)
 	{
-		global $conf, $db;
+		global $config, $db;
 
 		// the ref of a member is the rowid
 		$sql = "SELECT MAX(CAST(ref AS SIGNED)) as max";

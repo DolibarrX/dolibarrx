@@ -63,7 +63,7 @@ class box_birthdays extends ModeleBoxes
 	 */
 	public function loadBox($max = 20)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 		include_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';

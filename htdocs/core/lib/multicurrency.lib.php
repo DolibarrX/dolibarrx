@@ -46,9 +46,9 @@ function multicurrencyAdminPrepareHead()
 	$head[$h][2] = 'ratelist';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'multicurrency');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'multicurrency');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'multicurrency', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'multicurrency', 'remove');
 
 	return $head;
 }

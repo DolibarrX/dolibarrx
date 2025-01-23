@@ -64,7 +64,7 @@ class box_graph_product_distribution extends ModeleBoxes
 	 */
 	public function loadBox($max = 5)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$this->max = $max;
 		$dir = $config->user->dir_temp;

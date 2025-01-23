@@ -549,7 +549,7 @@ class Reception extends CommonObject
 	 */
 	public function valid($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -885,7 +885,7 @@ class Reception extends CommonObject
 	 */
 	public function addline($entrepot_id, $id, $qty, $array_options = [], $comment = '', $eatby = null, $sellby = null, $batch = '', $cost_price = 0)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$num = count($this->lines);
 		$line = new CommandeFournisseurDispatch($this->db);
@@ -1107,7 +1107,7 @@ class Reception extends CommonObject
 	 */
 	public function delete(User $user)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$error = 0;
@@ -1672,7 +1672,7 @@ class Reception extends CommonObject
 	 */
 	public function setClosed()
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$error = 0;
 
@@ -1859,7 +1859,7 @@ class Reception extends CommonObject
 	 */
 	public function reOpen()
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$error = 0;
 
@@ -1985,7 +1985,7 @@ class Reception extends CommonObject
 	public function setDraft($user)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -2135,7 +2135,7 @@ class Reception extends CommonObject
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load("receptions");
 

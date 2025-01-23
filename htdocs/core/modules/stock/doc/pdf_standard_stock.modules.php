@@ -61,7 +61,7 @@ class pdf_standard_stock extends ModelePDFStock
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		// Load traductions files required by page
 		$langs->loadLangs(array("main", "companies"));
@@ -140,7 +140,7 @@ class pdf_standard_stock extends ModelePDFStock
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $db, $hookManager;
+		global $user, $langs, $config, $mysoc, $db, $hookManager;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -698,7 +698,7 @@ class pdf_standard_stock extends ModelePDFStock
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs, $titlekey = "")
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Load traductions files required by page
 		$outputlangs->loadLangs(array("main", "propal", "companies", "bills", "orders", "stocks"));

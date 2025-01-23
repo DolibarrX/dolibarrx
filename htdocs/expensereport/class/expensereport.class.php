@@ -370,7 +370,7 @@ class ExpenseReport extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$now = dol_now();
 
@@ -1328,7 +1328,7 @@ class ExpenseReport extends CommonObject
 	 */
 	public function setValidate($fuser, $notrigger = 0)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$error = 0;
 		$now = dol_now();
@@ -1772,7 +1772,7 @@ class ExpenseReport extends CommonObject
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load('trips');
 
@@ -2054,7 +2054,7 @@ class ExpenseReport extends CommonObject
 	 */
 	public function checkRules($type = 0, $seller = '')
 	{
-		global $conf, $db, $langs, $mysoc;
+		global $config, $db, $langs, $mysoc;
 
 		$langs->load('trips');
 
@@ -2579,7 +2579,7 @@ class ExpenseReport extends CommonObject
 	public function load_board($user, $option = 'topay')
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		if ($user->socid) {
 			return -1; // protection pour eviter appel par utilisateur externe

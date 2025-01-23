@@ -179,7 +179,7 @@ class FormSms
 	public function show_form($morecss = 'titlefield', $showform = 1)
 	{
 		// phpcs:enable
-		global $conf, $langs, $form;
+		global $config, $langs, $form;
 
 		if (!is_object($form)) {
 			$form = new Form($this->db);

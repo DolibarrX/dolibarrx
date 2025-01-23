@@ -154,7 +154,7 @@ class pdf_eagle_proforma extends ModelePDFStockTransfer
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $db, $hookManager, $nblines;
+		global $user, $langs, $config, $mysoc, $db, $hookManager, $nblines;
 
 		'@phan-var-force StockTransfer $object';
 
@@ -847,7 +847,7 @@ class pdf_eagle_proforma extends ModelePDFStockTransfer
 	 */
 	protected function drawInfoTable(&$pdf, $object, $posy, $outputlangs)
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 		'@phan-var-force Commande|Propal|Facture $object';  // availability_code,... does not exist on Facture.
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
@@ -1032,7 +1032,7 @@ class pdf_eagle_proforma extends ModelePDFStockTransfer
 	 */
 	protected function drawTotalTable(&$pdf, $object, $deja_regle, $posy, $outputlangs)
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
@@ -1191,7 +1191,7 @@ class pdf_eagle_proforma extends ModelePDFStockTransfer
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs, $titlekey = "StockTransferSheetProforma")
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		'@phan-var-force StockTransfer $object';
 
@@ -1510,7 +1510,7 @@ class pdf_eagle_proforma extends ModelePDFStockTransfer
 	 */
 	public function defineColumnField($object, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 		'@phan-var-force StockTransfer $object';
 		/** @var StockTransfer $object */
 

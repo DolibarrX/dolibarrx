@@ -124,7 +124,7 @@ if ($action != 'delete' && !GETPOSTINT('afteroauthloginreturn') && (empty($state
 
 
 // Dolibarr storage
-$storage = new DoliStorage($db, $conf, $keyforprovider);
+$storage = new DoliStorage($db, $config, $keyforprovider);
 
 // Instantiate the Api service using the credentials, http client and storage mechanism for the token
 // ucfirst(strtolower($genericstring)) must be the name of a class into OAuth/OAuth2/Services/Xxxx

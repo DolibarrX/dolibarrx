@@ -207,7 +207,7 @@ class UserGroup extends CommonObject
 	 */
 	public function listGroupsForUser($userId, $load_members = true)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$ret = array();
 
@@ -257,7 +257,7 @@ class UserGroup extends CommonObject
 	 */
 	public function listUsersForGroup($excludefilter = '', $mode = 0)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$ret = array();
 
@@ -339,7 +339,7 @@ class UserGroup extends CommonObject
 	 */
 	public function addrights($rid, $allmodule = '', $allperms = '', $entity = 0)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$entity = (!empty($entity) ? $entity : $config->entity);
 
@@ -462,7 +462,7 @@ class UserGroup extends CommonObject
 	 */
 	public function delrights($rid, $allmodule = '', $allperms = '', $entity = 0)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$error = 0;
 		$wherefordel = '';
@@ -798,7 +798,7 @@ class UserGroup extends CommonObject
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $menumanager;
+		global $config, $langs, $menumanager;
 
 		$option = $params['option'] ?? '';
 
@@ -829,7 +829,7 @@ class UserGroup extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $langs, $conf, $db, $hookManager;
+		global $langs, $config, $db, $hookManager;
 
 		if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') && $withpicto) {
 			$withpicto = 0;
@@ -985,7 +985,7 @@ class UserGroup extends CommonObject
 	 */
 	public function initAsSpecimen()
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		// Initialise parameters
 		$this->id = 0;
@@ -1018,7 +1018,7 @@ class UserGroup extends CommonObject
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0, $moreparams = null)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$langs->load("user");
 

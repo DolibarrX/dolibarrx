@@ -140,7 +140,7 @@ class ExtraLanguages
 	 */
 	public function showInputField($key, $value, $extrafieldsobjectkey, $moreparam = '', $keysuffix = '', $keyprefix = '', $morecss = '', $objectid = 0, $mode = 0)
 	{
-		global $conf, $langs, $form;
+		global $config, $langs, $form;
 
 		if (!is_object($form)) {
 			require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
@@ -168,7 +168,7 @@ class ExtraLanguages
 	 */
 	public function showOutputField($key, $value, $extrafieldsobjectkey, $moreparam = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$out = $this->attributes[$extrafieldsobjectkey][$key];
 

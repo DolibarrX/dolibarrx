@@ -350,7 +350,7 @@ class InterfaceTicketEmail extends DolibarrTriggers
 	 */
 	private function composeAndSendAdminMessage($sendto, $base_subject, $body, Ticket $object, Translate $langs)
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		// Init to avoid errors
 		$filepath = array();
@@ -423,7 +423,7 @@ class InterfaceTicketEmail extends DolibarrTriggers
 	 */
 	private function composeAndSendCustomerMessage($sendto, $base_subject, $body, $see_ticket, Ticket $object, Translate $langs)
 	{
-		global $conf, $extrafields, $mysoc, $user;
+		global $config, $extrafields, $mysoc, $user;
 
 		// Init to avoid errors
 		$filepath = array();
@@ -519,7 +519,7 @@ class InterfaceTicketEmail extends DolibarrTriggers
 	 */
 	private function composeAndSendAssigneeMessage($sendto, $base_subject, $body, $see_ticket, Ticket $object, Translate $langs)
 	{
-		global $conf, $user, $mysoc;
+		global $config, $user, $mysoc;
 
 		// Init to avoid errors
 		$filepath = array();

@@ -64,7 +64,7 @@ class FormIntervention
 	public function select_interventions($socid = -1, $selected = 0, $htmlname = 'interventionid', $maxlength = 16, $showempty = 1, $draftonly = false)
 	{
 		// phpcs:enable
-		global $user, $conf, $langs;
+		global $user, $config, $langs;
 
 		$out = '';
 

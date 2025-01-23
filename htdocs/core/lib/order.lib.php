@@ -34,7 +34,7 @@
  */
 function commande_prepare_head(Commande $object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 	if (isModEnabled("shipping")) {
 		$langs->load("sendings");
 	}
@@ -97,7 +97,7 @@ function commande_prepare_head(Commande $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'order', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'order', 'add', 'core');
 
 	if (!getDolGlobalString('MAIN_DISABLE_NOTES_TAB')) {
 		$nbNote = 0;
@@ -164,9 +164,9 @@ function commande_prepare_head(Commande $object)
 	$head[$h][2] = 'agenda';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'order', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'order', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'order', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'order', 'remove');
 
 	return $head;
 }
@@ -178,7 +178,7 @@ function commande_prepare_head(Commande $object)
  */
 function order_admin_prepare_head()
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('commande');
@@ -192,7 +192,7 @@ function order_admin_prepare_head()
 	$head[$h][2] = 'general';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'order_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'order_admin');
 
 	$head[$h][0] = DOL_URL_ROOT.'/admin/order_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields");
@@ -212,7 +212,7 @@ function order_admin_prepare_head()
 	$head[$h][2] = 'attributeslines';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'order_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'order_admin', 'remove');
 
 	return $head;
 }
@@ -227,7 +227,7 @@ function order_admin_prepare_head()
  */
 function getCustomerOrderPieChart($socid = 0)
 {
-	global $conf, $db, $langs, $user;
+	global $config, $db, $langs, $user;
 
 	$result = '';
 

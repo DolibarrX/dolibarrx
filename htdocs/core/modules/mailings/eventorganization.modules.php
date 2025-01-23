@@ -60,7 +60,7 @@ class mailing_eventorganization extends MailingTargets
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$langs->load('companies');
 
 		$this->db = $db;
@@ -77,7 +77,7 @@ class mailing_eventorganization extends MailingTargets
 	public function add_to_target($mailing_id)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$cibles = array();
 		$addDescription = '';
@@ -196,7 +196,7 @@ class mailing_eventorganization extends MailingTargets
 	 */
 	public function formFilter()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load("companies");
 

@@ -83,7 +83,7 @@ class ActionsContactCardDefault extends ActionsContactCardCommon
 	public function assign_values(&$action, $id)
 	{
 		// phpcs:enable
-		global $conf, $db, $langs, $user;
+		global $config, $db, $langs, $user;
 		global $form;
 
 		$ret = $this->getObject($id);
@@ -105,9 +105,9 @@ class ActionsContactCardDefault extends ActionsContactCardCommon
 			$objsoc = new Societe($db);
 			$objsoc->fetch($this->object->socid);
 
-			$this->tpl['actionstodo'] = show_actions_todo($conf, $langs, $db, $objsoc, $this->object, 1);
+			$this->tpl['actionstodo'] = show_actions_todo($config, $langs, $db, $objsoc, $this->object, 1);
 
-			$this->tpl['actionsdone'] = show_actions_done($conf, $langs, $db, $objsoc, $this->object, 1);
+			$this->tpl['actionsdone'] = show_actions_done($config, $langs, $db, $objsoc, $this->object, 1);
 		} else {
 			// Confirm delete contact
 			if ($action == 'delete' && $user->hasRight('societe', 'contact', 'supprimer')) {

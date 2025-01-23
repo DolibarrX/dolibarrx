@@ -40,7 +40,7 @@ class ExportCsvIso extends ExportCsv
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$this->db = $db;
 
 		$this->separator = ',';

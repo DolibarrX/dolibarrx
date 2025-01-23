@@ -118,7 +118,7 @@ class mailing_fraise extends MailingTargets
 	 */
 	public function formFilter()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Load translation files required by the page
 		$langs->loadLangs(array("members", "companies", "categories"));
@@ -237,7 +237,7 @@ class mailing_fraise extends MailingTargets
 	public function add_to_target($mailing_id)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Load translation files required by the page
 		$langs->loadLangs(array("members", "companies"));

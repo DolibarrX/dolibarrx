@@ -285,7 +285,7 @@ class EmailCollector extends CommonObject
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db = $db;
 
@@ -609,7 +609,7 @@ class EmailCollector extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $action, $hookManager;
+		global $config, $langs, $action, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -930,7 +930,7 @@ class EmailCollector extends CommonObject
 	 */
 	private function overwritePropertiesOfObject(&$object, $actionparam, $messagetext, $subject, $header, &$operationslog)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$errorforthisaction = 0;
 
@@ -1129,7 +1129,7 @@ class EmailCollector extends CommonObject
 	 */
 	public function doCollectOneCollector($mode = 0)
 	{
-		global $db, $conf, $langs, $user;
+		global $db, $config, $langs, $user;
 		global $hookManager;
 
 		//$config->global->SYSLOG_FILE = 'DOL_DATA_ROOT/dolibarr_mydedicatedlofile.log';
@@ -1224,7 +1224,7 @@ class EmailCollector extends CommonObject
 
 				$token = '';
 
-				$storage = new DoliStorage($db, $conf, $keyforprovider, getDolGlobalString($keyforparamtenant));
+				$storage = new DoliStorage($db, $config, $keyforprovider, getDolGlobalString($keyforparamtenant));
 
 				try {
 					$tokenobj = $storage->retrieveAccessToken($OAUTH_SERVICENAME);

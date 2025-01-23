@@ -61,7 +61,7 @@ class FormEcm
 	 */
 	public function selectAllSections($selected = 0, $select_name = '', $module = 'ecm', $ids_to_ignore = array())
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$langs->load("ecm");
 
 		if ($select_name == '') {

@@ -162,7 +162,7 @@ class ProductAttribute extends CommonObject
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db = $db;
 
@@ -1127,7 +1127,7 @@ class ProductAttribute extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -1323,7 +1323,7 @@ class ProductAttribute extends CommonObject
 	 */
 	public function formAddObjectLine($dateSelector, $seller, $buyer, $defaulttpldir = '/variants/tpl')
 	{
-		global $conf, $user, $langs, $object, $hookManager;
+		global $config, $user, $langs, $object, $hookManager;
 		global $form;
 
 		// Output template part (modules that overwrite templates must declare this into descriptor)
@@ -1367,7 +1367,7 @@ class ProductAttribute extends CommonObject
 	 */
 	public function printObjectLines($action, $seller, $buyer, $selected = 0, $dateSelector = 0, $defaulttpldir = '/variants/tpl', $addcreateline = 0)
 	{
-		global $conf, $hookManager, $langs, $user, $form, $object;
+		global $config, $hookManager, $langs, $user, $form, $object;
 		global $mysoc;
 		// TODO We should not use global var for this
 		global $disableedit, $disablemove, $disableremove;
@@ -1453,7 +1453,7 @@ class ProductAttribute extends CommonObject
 	 */
 	public function printObjectLine($action, $line, $var, $num, $i, $dateSelector, $seller, $buyer, $selected = 0, $extrafields = null, $defaulttpldir = '/variants/tpl')
 	{
-		global $conf, $langs, $user, $object, $hookManager;
+		global $config, $langs, $user, $object, $hookManager;
 		global $form;
 		global $disableedit, $disablemove, $disableremove; // TODO We should not use global var for this !
 

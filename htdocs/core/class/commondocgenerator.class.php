@@ -328,7 +328,7 @@ abstract class CommonDocGenerator
 	public function get_substitutionarray_user($user, $outputlangs)
 	{
 		// phpcs:enable
-		global $conf, $extrafields;
+		global $config, $extrafields;
 
 		$logotouse = $config->user->dir_output . '/' . get_exdir(0, 0, 0, 0, $user, 'user') . 'photos/' . getImageFileNameForSize($user->photo, '_small');
 
@@ -376,7 +376,7 @@ abstract class CommonDocGenerator
 	 */
 	public function getSubstitutionarrayMember($member, $outputlangs)
 	{
-		global $conf, $extrafields;
+		global $config, $extrafields;
 
 		if ($member->photo) {
 			$logotouse = $config->member->dir_output.'/'.get_exdir(0, 0, 0, 1, $member, 'user').'/photos/'.$member->photo;
@@ -555,7 +555,7 @@ abstract class CommonDocGenerator
 	public function get_substitutionarray_contact($object, $outputlangs, $array_key = 'object')
 	{
 		// phpcs:enable
-		global $conf, $extrafields;
+		global $config, $extrafields;
 
 		if (empty($object->country) && !empty($object->country_code)) {
 			$object->country = $outputlangs->transnoentitiesnoconv("Country".$object->country_code);

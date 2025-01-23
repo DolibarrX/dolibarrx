@@ -1256,7 +1256,7 @@ class Societe extends CommonObject
 	 */
 	public function verify()
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		$error = 0;
 		$this->errors = array();
@@ -1430,7 +1430,7 @@ class Societe extends CommonObject
 	 */
 	public function update($id, User $user, $call_trigger = 1, $allowmodcodeclient = 0, $allowmodcodefournisseur = 0, $action = 'update', $nosyncmember = 1)
 	{
-		global $langs, $conf, $hookManager;
+		global $langs, $config, $hookManager;
 
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
@@ -2251,7 +2251,7 @@ class Societe extends CommonObject
 	 */
 	public function delete($id, $fuser = null, $call_trigger = 1)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		if (empty($fuser)) {
 			$fuser = $user;
@@ -2446,7 +2446,7 @@ class Societe extends CommonObject
 	public function set_remise_client($remise, $note, User $user)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Parameter cleaning
 		$note = trim($note);
@@ -2507,7 +2507,7 @@ class Societe extends CommonObject
 	public function set_remise_supplier($remise, $note, User $user)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Parameter cleaning
 		$note = trim($note);
@@ -2861,7 +2861,7 @@ class Societe extends CommonObject
 	 */
 	public function getTooltipContentArray($params)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$langs->loadLangs(['companies', 'commercial']);
 
@@ -3021,7 +3021,7 @@ class Societe extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $maxlen = 0, $notooltip = 0, $save_lastsearch_value = -1, $noaliasinname = 0, $target = '', $morecss = '')
 	{
-		global $conf, $langs, $hookManager, $user;
+		global $config, $langs, $hookManager, $user;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -4124,7 +4124,7 @@ class Societe extends CommonObject
 	public function id_prof_url($idprof, $thirdparty)
 	{
 		// phpcs:enable
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		$url = '';
 		$action = '';
@@ -4434,7 +4434,7 @@ class Societe extends CommonObject
 	public function create_from_member(Adherent $member, $socname = '', $socalias = '', $customercode = '')
 	{
 		// phpcs:enable
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		dol_syslog(get_class($this)."::create_from_member", LOG_DEBUG);
 		$fullname = $member->getFullName($langs);
@@ -5530,7 +5530,7 @@ class Societe extends CommonObject
 	 */
 	public function mergeCompany($soc_origin_id)
 	{
-		global $conf, $langs, $hookManager, $user, $action;
+		global $config, $langs, $hookManager, $user, $action;
 
 		$error = 0;
 		$soc_origin = new Societe($this->db);		// The thirdparty that we will delete

@@ -262,7 +262,7 @@ class CSMSFile
 	public function dump_sms()
 	{
 		// phpcs:enable
-		global $conf, $dolibarr_main_data_root;
+		global $config, $dolibarr_main_data_root;
 
 		if (@is_writable($dolibarr_main_data_root)) {	// Avoid fatal error on fopen with open_basedir
 			$outputfile = $dolibarr_main_data_root."/dolibarr_sms.log";

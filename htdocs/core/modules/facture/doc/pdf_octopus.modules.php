@@ -176,7 +176,7 @@ class pdf_octopus extends ModelePDFFactures
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $mysoc, $object;
+		global $config, $langs, $mysoc, $object;
 
 		// for retro compatibility
 		if (getDolGlobalString('INVOICE_USE_SITUATION_RETAINED_WARRANTY') && !getDolGlobalString('INVOICE_USE_RETAINED_WARRANTY')) {
@@ -274,7 +274,7 @@ class pdf_octopus extends ModelePDFFactures
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $db, $hookManager, $nblines;
+		global $user, $langs, $config, $mysoc, $db, $hookManager, $nblines;
 
 		dol_syslog("write_file outputlangs->defaultlang=".(is_object($outputlangs) ? $outputlangs->defaultlang : 'null'));
 
@@ -1634,7 +1634,7 @@ class pdf_octopus extends ModelePDFFactures
 	 */
 	protected function drawTotalTable(&$pdf, $object, $deja_regle, $posy, $outputlangs, $outputlangsbis)
 	{
-		global $conf, $mysoc, $hookManager;
+		global $config, $mysoc, $hookManager;
 
 		$sign = 1;
 		if ($object->type == 2 && getDolGlobalString('INVOICE_POSITIVE_CREDIT_NOTE')) {
@@ -2144,7 +2144,7 @@ class pdf_octopus extends ModelePDFFactures
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs, $outputlangsbis = null)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$ltrdirection = 'L';
 		if ($outputlangs->trans("DIRECTION") == 'rtl') {
@@ -2848,7 +2848,7 @@ class pdf_octopus extends ModelePDFFactures
 	 */
 	public function _tableFirstPage(&$pdf, $tab_top, $tab_height, $nexY, $outputlangs, $hidetop = 0, $hidebottom = 0, $currency = '')
 	{
-		global $conf, $object, $db;
+		global $config, $object, $db;
 
 		$form = new Form($db);
 
@@ -3453,7 +3453,7 @@ class pdf_octopus extends ModelePDFFactures
 	 */
 	public function resumeLastPage(&$pdf, $object, $deja_regle, $posy, $outputlangs, $outputlangsbis)
 	{
-		global $conf, $mysoc, $hookManager;
+		global $config, $mysoc, $hookManager;
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 
 		$sign = 1;

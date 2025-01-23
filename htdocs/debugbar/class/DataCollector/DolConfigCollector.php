@@ -68,7 +68,7 @@ class DolConfigCollector extends ConfigCollector
 	 */
 	protected function getConfig()
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		// Get constants
 		$const = get_defined_constants(true);

@@ -56,9 +56,9 @@ function opensurvey_prepare_head(Opensurveysondage $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'opensurveypoll');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'opensurveypoll');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'opensurveypoll', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'opensurveypoll', 'remove');
 
 	return $head;
 }
@@ -77,7 +77,7 @@ function opensurvey_prepare_head(Opensurveysondage $object)
  */
 function llxHeaderSurvey($title, $head = "", $disablejs = 0, $disablehead = 0, $arrayofjs = [], $arrayofcss = [], $numsondage = '')
 {
-	global $conf, $langs, $mysoc;
+	global $config, $langs, $mysoc;
 	global $dolibarr_main_url_root;
 
 	// $replacemainarea = (empty($config->dol_hide_leftmenu) ? '<div>' : '').'<div>';

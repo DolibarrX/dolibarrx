@@ -277,7 +277,7 @@ class FormCompany extends Form
 	public function select_state($selected = 0, $country_codeid = 0, $htmlname = 'state_id', $morecss = 'maxwidth200onsmartphone  minwidth300')
 	{
 		// phpcs:enable
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		dol_syslog(get_class($this) . "::select_departement selected=" . $selected . ", country_codeid=" . $country_codeid, LOG_DEBUG);
 
@@ -414,7 +414,7 @@ class FormCompany extends Form
 	public function select_region($selected = '', $htmlname = 'region_id')
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 		$langs->load("dict");
 
 		$sql = "SELECT r.rowid, r.code_region as code, r.nom as label, r.active, c.code as country_code, c.label as country";
@@ -472,7 +472,7 @@ class FormCompany extends Form
 	public function select_civility($selected = '', $htmlname = 'civility_id', $morecss = 'maxwidth150', $addjscombo = 1)
 	{
 		// phpcs:enable
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 		$langs->load("dict");
 
 		$out = '';
@@ -551,7 +551,7 @@ class FormCompany extends Form
 	public function select_juridicalstatus($selected = 0, $country_codeid = 0, $filter = '', $htmlname = 'forme_juridique_code', $morecss = '')
 	{
 		// phpcs:enable
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 		$langs->load("dict");
 
 		$out = '';
@@ -651,7 +651,7 @@ class FormCompany extends Form
 	 */
 	public function selectCompaniesForNewContact($object, $var_id, $selected = 0, $htmlname = 'newcompany', $limitto = [], $forceid = 0, $moreparam = '', $morecss = '')
 	{
-		global $conf, $hookManager;
+		global $config, $hookManager;
 
 		if (!empty($config->use_javascript_ajax) && getDolGlobalString('COMPANY_USE_SEARCH_TO_SELECT')) {
 			// Use Ajax search
@@ -947,7 +947,7 @@ class FormCompany extends Form
 	public function get_input_id_prof($idprof, $htmlname, $preselected, $country_code, $morecss = 'maxwidth200')
 	{
 		// phpcs:enable
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 
 		$formlength = 0;
 		if (!getDolGlobalString('MAIN_DISABLEPROFIDRULES')) {
@@ -1062,7 +1062,7 @@ class FormCompany extends Form
 	 */
 	public function selectProspectCustomerType($selected, $htmlname = 'client', $htmlidname = 'customerprospect', $typeinput = 'form', $morecss = '', $allowempty = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		if (getDolGlobalString('SOCIETE_DISABLE_PROSPECTS') && getDolGlobalString('SOCIETE_DISABLE_CUSTOMERS') && !isModEnabled('fournisseur')) {
 			return '';
 		}
@@ -1127,7 +1127,7 @@ class FormCompany extends Form
 	public function formThirdpartyType($page, $selected = '', $htmlname = 'socid', $filter = '', $nooutput = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$out = '';
 		if ($htmlname != "none") {

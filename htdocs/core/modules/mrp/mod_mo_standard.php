@@ -86,7 +86,7 @@ class mod_mo_standard extends ModeleNumRefMos
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

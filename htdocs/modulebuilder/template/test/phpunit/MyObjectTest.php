@@ -23,7 +23,7 @@
  * \brief   PHPUnit test for MyObject class.
  */
 
-global $conf, $user, $langs, $db;
+global $config, $user, $langs, $db;
 //define('TEST_DB_FORCE_TYPE','mysql');	// This is to force using mysql driver
 
 //require_once 'PHPUnit/Autoload.php';
@@ -78,7 +78,7 @@ class MyObjectTest extends PHPUnit\Framework\TestCase  // @phan-suppress-current
 		parent::__construct($name);  // @phan-suppress-current-line PhanUndeclaredClass
 
 		//$this->sharedFixture
-		global $conf, $user, $langs, $db;
+		global $config, $user, $langs, $db;
 		$this->savconf = $config;
 		$this->savuser = $user;
 		$this->savlangs = $langs;
@@ -96,7 +96,7 @@ class MyObjectTest extends PHPUnit\Framework\TestCase  // @phan-suppress-current
 	 */
 	public static function setUpBeforeClass(): void
 	{
-		global $conf, $user, $langs, $db;
+		global $config, $user, $langs, $db;
 		$db->begin(); // This is to have all actions inside a transaction even if test launched without suite.
 
 		print __METHOD__."\n";
@@ -109,8 +109,8 @@ class MyObjectTest extends PHPUnit\Framework\TestCase  // @phan-suppress-current
 	 */
 	protected function setUp(): void
 	{
-		global $conf, $user, $langs, $db;
-		$conf = $this->savconf;
+		global $config, $user, $langs, $db;
+		$config = $this->savconf;
 		$user = $this->savuser;
 		$langs = $this->savlangs;
 		$db = $this->savdb;
@@ -135,7 +135,7 @@ class MyObjectTest extends PHPUnit\Framework\TestCase  // @phan-suppress-current
 	 */
 	public static function tearDownAfterClass(): void
 	{
-		global $conf, $user, $langs, $db;
+		global $config, $user, $langs, $db;
 		$db->rollback();
 
 		print __METHOD__."\n";
@@ -150,8 +150,8 @@ class MyObjectTest extends PHPUnit\Framework\TestCase  // @phan-suppress-current
 	 */
 	public function testSomething()
 	{
-		global $conf, $user, $langs, $db;
-		$conf = $this->savconf;
+		global $config, $user, $langs, $db;
+		$config = $this->savconf;
 		$user = $this->savuser;
 		$langs = $this->savlangs;
 		$db = $this->savdb;
@@ -172,8 +172,8 @@ class MyObjectTest extends PHPUnit\Framework\TestCase  // @phan-suppress-current
 	 */
 	public function testMyObjectCreate()
 	{
-		global $conf, $user, $langs, $db;
-		$conf = $this->savconf;
+		global $config, $user, $langs, $db;
+		$config = $this->savconf;
 		$user = $this->savuser;
 		$langs = $this->savlangs;
 		$db = $this->savdb;
@@ -200,8 +200,8 @@ class MyObjectTest extends PHPUnit\Framework\TestCase  // @phan-suppress-current
 	 */
 	public function testMyObjectDelete($id)
 	{
-		global $conf, $user, $langs, $db;
-		$conf = $this->savconf;
+		global $config, $user, $langs, $db;
+		$config = $this->savconf;
 		$user = $this->savuser;
 		$langs = $this->savlangs;
 		$db = $this->savdb;

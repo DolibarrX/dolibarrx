@@ -157,7 +157,7 @@ class Tva extends CommonObject
 	 */
 	public function create($user)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 		$now = dol_now();
@@ -238,7 +238,7 @@ class Tva extends CommonObject
 	 */
 	public function update($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -400,7 +400,7 @@ class Tva extends CommonObject
 	 */
 	public function delete($user)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -582,7 +582,7 @@ class Tva extends CommonObject
 	 */
 	public function addPayment($user)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db->begin();
 

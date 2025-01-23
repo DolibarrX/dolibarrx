@@ -1438,7 +1438,7 @@ class Ticket extends CommonObject
 	 */
 	public function loadCacheSeveritiesTickets()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (!empty($config->cache['severity_tickets']) && count($config->cache['severity_tickets'])) {
 			// Cache already loaded
@@ -1610,7 +1610,7 @@ class Ticket extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
-		global $action, $conf, $hookManager, $langs;
+		global $action, $config, $hookManager, $langs;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -3038,7 +3038,7 @@ class Ticket extends CommonObject
 	 */
 	public function sendTicketMessageByEmail($subject, $message, $send_internal_cc = 0, $array_receiver = array(), $filename_list = array(), $mimetype_list = array(), $mimefilename_list = array())
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		if (getDolGlobalString('TICKET_DISABLE_ALL_MAILS')) {
 			dol_syslog(get_class($this).'::sendTicketMessageByEmail: Emails are disable into ticket setup by option TICKET_DISABLE_ALL_MAILS', LOG_WARNING);

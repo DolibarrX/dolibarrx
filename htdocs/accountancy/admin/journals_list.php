@@ -705,7 +705,7 @@ $db->close();
  */
 function fieldListJournal($fieldlist, $obj = null, $tabname = '', $context = '')
 {
-	global $conf, $langs, $db;
+	global $config, $langs, $db;
 	global $form, $mysoc;
 	global $region_id;
 	global $elementList, $sourceList, $localtax_typeList;

@@ -66,9 +66,9 @@ function accounting_prepare_head(AccountingAccount $object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__'); to add new tab
 	// $this->tabs = array('entity:-tabname); to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'accounting_account');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'accounting_account');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'accounting_account', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'accounting_account', 'remove');
 
 	return $head;
 }
@@ -350,7 +350,7 @@ function getDefaultDatesForTransfer()
  * 	@param	int			$withenddateonly	Do not return period if end date is not defined
  * 	@return array{date_start:int,date_end:int}	Period of fiscal year : [date_start, date_end]
  */
-function getCurrentPeriodOfFiscalYear($db, $conf, $from_time = null, $gm = 'tzserver', $withenddateonly = 1)
+function getCurrentPeriodOfFiscalYear($db, $config, $from_time = null, $gm = 'tzserver', $withenddateonly = 1)
 {
 	$now = dol_now();
 	$now_arr = dol_getdate($now);

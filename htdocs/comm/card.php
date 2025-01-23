@@ -1762,17 +1762,17 @@ if ($object->id > 0) {
 
 	if (getDolGlobalString('MAIN_DUPLICATE_CONTACTS_TAB_ON_CUSTOMER_CARD')) {
 		// List of contacts
-		show_contacts($conf, $langs, $db, $object, $_SERVER["PHP_SELF"].'?socid='.$object->id);
+		show_contacts($config, $langs, $db, $object, $_SERVER["PHP_SELF"].'?socid='.$object->id);
 	}
 
 	if (getDolGlobalString('MAIN_REPEATTASKONEACHTAB')) {
 		print load_fiche_titre($langs->trans("ActionsOnCompany"), '', '');
 
 		// List of todo actions
-		show_actions_todo($conf, $langs, $db, $object);
+		show_actions_todo($config, $langs, $db, $object);
 
 		// List of done actions
-		show_actions_done($conf, $langs, $db, $object);
+		show_actions_done($config, $langs, $db, $object);
 	}
 } else {
 	$langs->load("errors");

@@ -329,7 +329,7 @@ class ImportCsv extends ModeleImports
 	public function import_insert($arrayrecord, $array_match_file_to_database, $objimport, $maxfields, $importid, $updatekeys)
 	{
 		// phpcs:enable
-		global $langs, $conf, $user;
+		global $langs, $config, $user;
 		global $thirdparty_static; // Specific to thirdparty import
 		global $tablewithentity_cache; // Cache to avoid to call  desc at each rows on tables
 

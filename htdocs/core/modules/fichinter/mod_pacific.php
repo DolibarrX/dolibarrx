@@ -92,7 +92,7 @@ class mod_pacific extends ModeleNumRefFicheinter
 	 */
 	public function canBeActivated($object)
 	{
-		global $langs, $conf, $db;
+		global $langs, $config, $db;
 
 		$langs->load("bills");
 

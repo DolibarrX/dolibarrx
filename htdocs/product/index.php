@@ -729,7 +729,7 @@ $db->close();
  */
 function activitytrim($product_type)
 {
-	global $conf, $langs, $db;
+	global $config, $langs, $db;
 
 	// We display the last 3 years
 	$yearofbegindate = (int) date('Y', dol_time_plus_duree(time(), -3, "y"));

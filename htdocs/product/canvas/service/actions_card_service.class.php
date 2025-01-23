@@ -173,7 +173,7 @@ class ActionsCardService
 	public function assign_values(&$action, $id = 0, $ref = '')
 	{
 		// phpcs:enable
-		global $conf, $langs, $user, $mysoc, $canvas;
+		global $config, $langs, $user, $mysoc, $canvas;
 		global $form;
 
 		$tmpobject = new Product($this->db);
@@ -311,7 +311,7 @@ class ActionsCardService
 	 */
 	private function getFieldListCanvas() // @phpstan-ignore-line
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->field_list = array();
 

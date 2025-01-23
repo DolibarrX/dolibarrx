@@ -179,7 +179,7 @@ class pdf_standard_actions
 	public function write_file($object, $outputlangs)
 	{
 		// phpcs:enable
-		global $user, $conf, $langs, $hookManager;
+		global $user, $config, $langs, $hookManager;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;

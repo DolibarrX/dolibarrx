@@ -104,9 +104,9 @@ function recruitmentjobpositionPrepareHead($object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@recruitment:/recruitment/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'recruitmentjobposition');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'recruitmentjobposition');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'recruitmentjobposition', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'recruitmentjobposition', 'remove');
 
 	return $head;
 }
@@ -122,7 +122,7 @@ function recruitmentjobpositionPrepareHead($object)
  */
 function getPublicJobPositionUrl($mode, $ref = '', $localorexternal = 0)
 {
-	global $conf, $dolibarr_main_url_root;
+	global $config, $dolibarr_main_url_root;
 
 	$ref = str_replace(' ', '', $ref);
 	$out = '';

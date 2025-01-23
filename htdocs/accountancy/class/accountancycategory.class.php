@@ -158,7 +158,7 @@ class AccountancyCategory // extends CommonObject
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		// Clean parameters
@@ -317,7 +317,7 @@ class AccountancyCategory // extends CommonObject
 	 */
 	public function update($user = null, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		// Clean parameters
@@ -399,7 +399,7 @@ class AccountancyCategory // extends CommonObject
 	 */
 	public function delete($user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$error = 0;
 
 		$sql = "DELETE FROM ".$this->db->prefix().$this->table_element;
@@ -781,7 +781,7 @@ class AccountancyCategory // extends CommonObject
 	 */
 	public function getCats($categorytype = -1, $active = 1, $id_report = 1)
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		if (empty($mysoc->country_id)) {
 			dol_print_error(null, 'Call to select_accounting_account with mysoc country not yet defined');
@@ -846,7 +846,7 @@ class AccountancyCategory // extends CommonObject
 	 */
 	public function getCptsCat($cat_id, $predefinedgroupwhere = '')
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 		$sql = '';
 
 		if (empty($mysoc->country_id) && empty($mysoc->country_code)) {

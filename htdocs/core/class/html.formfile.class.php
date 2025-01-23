@@ -177,7 +177,7 @@ class FormFile
 	public function form_attach_new_file($url, $title = '', $addcancel = 0, $sectionid = 0, $perm = 1, $size = 50, $object = null, $options = '', $useajax = 1, $savingdocmask = '', $linkfiles = 1, $htmlname = 'formuserfile', $accept = '', $sectiondir = '', $usewithoutform = 0, $capture = 0, $disablemulti = 0, $nooutput = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs, $hookManager;
+		global $config, $langs, $hookManager;
 		$hookManager->initHooks(array('formfile'));
 
 		// Deprecation warning
@@ -453,7 +453,7 @@ class FormFile
 			dol_syslog(__METHOD__.": passing iconPDF parameter is deprecated", LOG_WARNING);
 		}
 
-		global $langs, $conf, $user, $hookManager;
+		global $langs, $config, $user, $hookManager;
 		global $form;
 
 		$resHook = 0;
@@ -1153,7 +1153,7 @@ class FormFile
 	 */
 	public function getDocumentsLink($modulepart, $modulesubdir, $filedir, $filter = '', $morecss = 'valignmiddle', $allfiles = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
@@ -1297,7 +1297,7 @@ class FormFile
 	public function list_of_documents($filearray, $object, $modulepart, $param = '', $forcedownload = 0, $relativepath = '', $permonobject = 1, $useinecm = 0, $textifempty = '', $maxlength = 0, $title = '', $url = '', $showrelpart = 0, $permtoeditline = -1, $upload_dir = '', $sortfield = '', $sortorder = 'ASC', $disablemove = 1, $addfilterfields = 0, $disablecrop = -1, $moreattrondiv = '', $moreoptions = array())
 	{
 		// phpcs:enable
-		global $user, $conf, $langs, $hookManager, $form;
+		global $user, $config, $langs, $hookManager, $form;
 		global $sortfield, $sortorder;
 		global $dolibarr_main_url_root;
 
@@ -1812,7 +1812,7 @@ class FormFile
 	public function list_of_autoecmfiles($upload_dir, $filearray, $modulepart, $param, $forcedownload = 0, $relativepath = '', $permissiontodelete = 1, $useinecm = 0, $textifempty = '', $maxlength = 0, $url = '', $addfilterfields = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs, $hookManager, $form;
+		global $config, $langs, $hookManager, $form;
 		global $sortfield, $sortorder;
 		global $search_doc_ref;
 		global $dolibarr_main_url_root;
@@ -2200,7 +2200,7 @@ class FormFile
 	 */
 	public function listOfLinks($object, $permissiontodelete = 1, $action = null, $selected = null, $param = '', $htmlname = 'formaddlink', $moreoptions = array())
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		global $sortfield, $sortorder;
 
 		$langs->load("link");

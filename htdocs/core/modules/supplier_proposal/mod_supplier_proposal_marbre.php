@@ -95,7 +95,7 @@ class mod_supplier_proposal_marbre extends ModeleNumRefSupplierProposal
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$pryymm = '';
 		$max = '';

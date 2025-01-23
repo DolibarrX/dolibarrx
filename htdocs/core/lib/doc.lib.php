@@ -41,7 +41,7 @@
  */
 function doc_getlinedesc($line, $outputlangs, $hideref = 0, $hidedesc = 0, $issupplierline = 0)
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	$idprod = $line->fk_product;
 	$label = (!empty($line->label) ? $line->label : (!empty($line->libelle) ? $line->libelle : ''));

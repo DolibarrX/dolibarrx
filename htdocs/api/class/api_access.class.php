@@ -92,7 +92,7 @@ class DolibarrApiAccess implements iAuthenticate
 	public function __isAllowed()
 	{
 		// phpcs:enable
-		global $conf, $db, $user;
+		global $config, $db, $user;
 
 		$login = '';
 		$stored_key = '';

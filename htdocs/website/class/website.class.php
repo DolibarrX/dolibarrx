@@ -147,7 +147,7 @@ class Website extends CommonObject
 	 */
 	public function create(User $user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
@@ -486,7 +486,7 @@ class Website extends CommonObject
 	 */
 	public function update(User $user, $notrigger = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -662,7 +662,7 @@ class Website extends CommonObject
 	 */
 	public function purge(User $user)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
@@ -726,7 +726,7 @@ class Website extends CommonObject
 	 */
 	public function createFromClone($user, $fromid, $newref, $newlang = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		global $dolibarr_main_data_root;
 
 		$now = dol_now();
@@ -1001,7 +1001,7 @@ class Website extends CommonObject
 	 */
 	public function exportWebSite()
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$website = $this;
 
@@ -1258,7 +1258,7 @@ class Website extends CommonObject
 	 */
 	public function importWebSite($pathtofile)
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$error = 0;
 

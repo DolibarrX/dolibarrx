@@ -164,7 +164,7 @@ class pdf_paiement extends CommonDocGenerator
 		// phpcs:enable
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
-		global $conf, $hookManager, $langs, $user;
+		global $config, $hookManager, $langs, $user;
 
 		$socid = 0;
 		if ($user->socid) {

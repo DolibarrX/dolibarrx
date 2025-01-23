@@ -71,7 +71,7 @@ class mod_codecompta_digitaria extends ModeleAccountancyCode
 	 */
 	public function __construct()
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		if (!isset($config->global->COMPANY_DIGITARIA_MASK_CUSTOMER) || trim($config->global->COMPANY_DIGITARIA_MASK_CUSTOMER) == '') {
 			$config->global->COMPANY_DIGITARIA_MASK_CUSTOMER = '411';
 		}
@@ -99,7 +99,7 @@ class mod_codecompta_digitaria extends ModeleAccountancyCode
 	 */
 	public function info($langs)
 	{
-		global $conf, $form;
+		global $config, $form;
 
 		$tooltip = '';
 		$texte = '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
@@ -168,7 +168,7 @@ class mod_codecompta_digitaria extends ModeleAccountancyCode
 	 */
 	public function getExample($langs = null, $objsoc = '', $type = -1)
 	{
-		global $conf, $mysoc;
+		global $config, $mysoc;
 		if (!$langs instanceof Translate) {
 			$langs = $GLOBALS['langs'];
 			'@phan-var-force Translate $langs';

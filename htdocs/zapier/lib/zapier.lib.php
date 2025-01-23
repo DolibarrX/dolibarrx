@@ -51,9 +51,9 @@ function zapierAdminPrepareHead()
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@zapier:/zapier/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'zapier');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'zapier');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'zapier', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'zapier', 'remove');
 
 	return $head;
 }

@@ -58,7 +58,7 @@ function dol_getwebuser($mode)
  */
 function checkLoginPassEntity($usertotest, $passwordtotest, $entitytotest, $authmode, $context = '')
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	// Check parameters
 	if ($entitytotest == '') {
@@ -133,7 +133,7 @@ if (!function_exists('dol_loginfunction')) {
 	 * @param       Societe     $mysoc      Company object
 	 * @return      void
 	 */
-	function dol_loginfunction($langs, $conf, $mysoc)
+	function dol_loginfunction($langs, $config, $mysoc)
 	{
 		global $dolibarr_main_demo, $dolibarr_main_force_https;
 		global $db, $hookManager;
@@ -488,7 +488,7 @@ function encodedecode_dbpassconf($level = 0)
  */
 function getRandomPassword($generic = false, $replaceambiguouschars = null, $length = 32)
 {
-	global $db, $conf, $langs, $user;
+	global $db, $config, $langs, $user;
 
 	$generated_password = '';
 	if ($generic) {
@@ -542,7 +542,7 @@ function getRandomPassword($generic = false, $replaceambiguouschars = null, $len
 		$nomfichier = $nomclass.".class.php";
 		//print DOL_DOCUMENT_ROOT."/core/modules/security/generate/".$nomclass;
 		require_once DOL_DOCUMENT_ROOT."/core/modules/security/generate/".$nomfichier;
-		$genhandler = new $nomclass($db, $conf, $langs, $user);
+		$genhandler = new $nomclass($db, $config, $langs, $user);
 		'@phan-var-force ModeleGenPassword $genhandler';
 		$generated_password = $genhandler->getNewGeneratedPassword();
 		unset($genhandler);

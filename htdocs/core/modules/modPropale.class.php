@@ -44,7 +44,7 @@ class modPropale extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		$this->db = $db;
 		$this->numero = 20;
@@ -483,7 +483,7 @@ class modPropale extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Remove permissions and default values
 		$this->remove($options);

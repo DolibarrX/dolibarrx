@@ -1166,7 +1166,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	protected function _active()
 	{
 		// phpcs:enable
-		global $conf, $user;
+		global $config, $user;
 
 		$err = 0;
 
@@ -1610,7 +1610,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		include_once DOL_DOCUMENT_ROOT . '/cron/class/cronjob.class.php';
 		include_once DOL_DOCUMENT_ROOT . '/user/class/user.class.php';
 
-		global $conf, $user;
+		global $config, $user;
 
 		if (empty($user)) {
 			$user = new User($this->db);
@@ -1963,7 +1963,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function insert_permissions($reinitadminperms = 0, $force_entity = null, $notrigger = 0)
 	{
 		// phpcs:enable
-		global $conf, $user;
+		global $config, $user;
 
 		$err = 0;
 		$entity = (!empty($force_entity) ? $force_entity : $config->entity);
@@ -2163,7 +2163,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function insert_menus()
 	{
 		// phpcs:enable
-		global $conf, $user;
+		global $config, $user;
 
 		if (!is_array($this->menu) || empty($this->menu)) {
 			return 0;
@@ -2430,7 +2430,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	public function insert_module_parts()
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		$error = 0;
 
@@ -2733,7 +2733,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 */
 	public function checkForCompliance($nametocheck = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (empty($nametocheck)) {
 			$nametocheck = $this->name;

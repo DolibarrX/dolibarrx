@@ -178,7 +178,7 @@ class Stripe extends CommonObject
 	 */
 	public function customerStripe($object, $key = '', $status = 0, $createifnotlinkedtostripe = 0)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		if (empty($object->id)) {
 			dol_syslog("customerStripe is called with the parameter object that is not loaded");
@@ -370,7 +370,7 @@ class Stripe extends CommonObject
 	 */
 	public function getPaymentIntent($amount, $currency_code, $tag, $description = '', $object = null, $customer = null, $key = null, $status = 0, $usethirdpartyemailforreceiptemail = 0, $mode = 'automatic', $confirmnow = false, $payment_method = null, $off_session = 0, $noidempotency_key = 1, $did = 0)
 	{
-		global $conf, $user;
+		global $config, $user;
 
 		dol_syslog(get_class($this)."::getPaymentIntent description=".$description, LOG_INFO, 1);
 
@@ -842,7 +842,7 @@ class Stripe extends CommonObject
 	 */
 	public function cardStripe($cu, CompanyPaymentMode $object, $stripeacc = '', $status = 0, $createifnotlinkedtostripe = 0)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$card = null;
 

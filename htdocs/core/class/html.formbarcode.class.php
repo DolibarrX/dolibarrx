@@ -63,7 +63,7 @@ class FormBarCode
 	 */
 	public function setBarcodeEncoder($selected, $barcodelist, $code_id, $idForm = 'formbarcode')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$disable = '';
 

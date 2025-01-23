@@ -678,7 +678,7 @@ class PaiementFourn extends Paiement
 	 */
 	public function getNomUrl($withpicto = 0, $option = '', $mode = 'withlistofinvoices', $notooltip = 0, $morecss = '')
 	{
-		global $langs, $conf, $hookManager;
+		global $langs, $config, $hookManager;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -778,7 +778,7 @@ class PaiementFourn extends Paiement
 	 */
 	public function getNextNumRef($soc, $mode = 'next')
 	{
-		global $conf, $db, $langs;
+		global $config, $db, $langs;
 		$langs->load("bills");
 
 		// Clean parameters (if not defined or using deprecated value)
@@ -863,7 +863,7 @@ class PaiementFourn extends Paiement
 	 */
 	public function generateDocument($modele, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0, $moreparams = null)
 	{
-		global $conf, $user, $langs;
+		global $config, $user, $langs;
 
 		$langs->load("suppliers");
 

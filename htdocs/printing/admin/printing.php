@@ -228,7 +228,7 @@ if ($mode == 'setup' && $user->admin) {
 				print '<td colspan="2">';
 				$tokenobj = null;
 				// Dolibarr storage
-				$storage = new DoliStorage($db, $conf, $keyforprovider);
+				$storage = new DoliStorage($db, $config, $keyforprovider);
 				try {
 					$tokenobj = $storage->retrieveAccessToken($OAUTH_SERVICENAME_GOOGLE);
 				} catch (Exception $e) {

@@ -80,7 +80,7 @@ class DoliDBPgsql extends DoliDB
 	 */
 	public function __construct($type, $host, $user, $pass, $name = '', $port = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Note that having "static" property for "$forcecharset" and "$forcecollate" will make error here in strict mode, so they are not static
 		if (!empty($config->db->character_set)) {

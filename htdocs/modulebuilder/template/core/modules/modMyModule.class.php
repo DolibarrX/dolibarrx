@@ -41,7 +41,7 @@ class modMyModule extends DolibarrModules
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->db = $db;
 
@@ -465,7 +465,7 @@ class modMyModule extends DolibarrModules
 	 */
 	public function init($options = '')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// Create tables of module at module activation
 		//$result = $this->_load_tables('/install/mysql/', 'mymodule');

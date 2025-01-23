@@ -122,7 +122,7 @@ class pdf_beluga extends ModelePDFProjects
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		// Translations
 		$langs->loadLangs(array("main", "projects", "companies"));
@@ -202,7 +202,7 @@ class pdf_beluga extends ModelePDFProjects
 	public function write_file($object, $outputlangs, $srctemplatepath = '')
 	{
 		// phpcs:enable
-		global $conf, $hookManager, $langs, $user;
+		global $config, $hookManager, $langs, $user;
 
 		$formproject = new FormProjets($this->db);
 
@@ -804,7 +804,7 @@ class pdf_beluga extends ModelePDFProjects
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		global $langs, $conf, $mysoc;
+		global $langs, $config, $mysoc;
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 

@@ -47,7 +47,7 @@ function vat_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $tab, 'vat');
+	complete_head_from_modules($config, $langs, $object, $head, $tab, 'vat');
 
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/link.class.php';
@@ -67,7 +67,7 @@ function vat_prepare_head($object)
 	$head[$tab][2] = 'info';
 	$tab++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $tab, 'vat', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $tab, 'vat', 'remove');
 
 	return $head;
 }

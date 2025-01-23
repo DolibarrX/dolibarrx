@@ -312,7 +312,7 @@ class MailmanSpip
 	public function add_to_mailman($object, $listes = '')
 	{
 		// phpcs:enable
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		dol_syslog(get_class($this)."::add_to_mailman");
 
@@ -382,7 +382,7 @@ class MailmanSpip
 	public function del_to_mailman($object, $listes = '')
 	{
 		// phpcs:enable
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		dol_syslog(get_class($this)."::del_to_mailman");
 

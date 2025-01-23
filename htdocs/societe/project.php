@@ -199,7 +199,7 @@ if ($socid) {
 	// Projects list
 	include DOL_DOCUMENT_ROOT.'/core/tpl/massactions_pre.tpl.php';
 	$arrayofselected = is_array($toselect) ? $toselect : array();
-	$result = show_projects($conf, $langs, $db, $object, $_SERVER["PHP_SELF"].'?socid='.$object->id, 1, $newcardbutton);
+	$result = show_projects($config, $langs, $db, $object, $_SERVER["PHP_SELF"].'?socid='.$object->id, 1, $newcardbutton);
 
 	if (empty($config->dol_optimize_smallscreen)) {
 		print '</form>';

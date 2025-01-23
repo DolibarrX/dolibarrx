@@ -100,7 +100,7 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 	 */
 	public function __construct($db)
 	{
-		global $conf, $langs, $mysoc, $user;
+		global $config, $langs, $mysoc, $user;
 
 		// Translations
 		$langs->loadLangs(array("main", "trips", "projects"));
@@ -194,7 +194,7 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $db, $hookManager;
+		global $user, $langs, $config, $mysoc, $db, $hookManager;
 
 		if (!is_object($outputlangs)) {
 			$outputlangs = $langs;
@@ -637,8 +637,8 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		// global $conf, $langs, $hookManager;
-		global $user, $langs, $conf, $mysoc, $db, $hookManager;
+		// global $config, $langs, $hookManager;
+		global $user, $langs, $config, $mysoc, $db, $hookManager;
 
 		// Load traductions files required by page
 		$outputlangs->loadLangs(array("main", "trips", "companies"));

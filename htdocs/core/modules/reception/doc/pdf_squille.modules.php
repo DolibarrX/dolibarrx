@@ -68,7 +68,7 @@ class pdf_squille extends ModelePdfReception
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		$this->db = $db;
 		$this->name = "squille";
@@ -146,7 +146,7 @@ class pdf_squille extends ModelePdfReception
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $hidedetails = 0, $hidedesc = 0, $hideref = 0)
 	{
 		// phpcs:enable
-		global $user, $conf, $langs, $hookManager;
+		global $user, $config, $langs, $hookManager;
 
 		$object->fetch_thirdparty();
 
@@ -697,7 +697,7 @@ class pdf_squille extends ModelePdfReception
 	protected function _tableau_tot(&$pdf, $object, $deja_regle, $posy, $outputlangs, $totalOrdered, $totalAmount = 0)
 	{
 		// phpcs:enable
-		global $conf, $mysoc;
+		global $config, $mysoc;
 
 		$sign = 1;
 
@@ -904,7 +904,7 @@ class pdf_squille extends ModelePdfReception
 	 */
 	protected function _pagehead(&$pdf, $object, $showaddress, $outputlangs)
 	{
-		global $conf, $langs, $mysoc;
+		global $config, $langs, $mysoc;
 
 		$langs->load("orders");
 

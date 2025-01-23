@@ -37,7 +37,7 @@
  */
 function facture_prepare_head($object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -88,7 +88,7 @@ function facture_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'invoice', 'add', 'core');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'invoice', 'add', 'core');
 
 	if (!getDolGlobalString('MAIN_DISABLE_NOTES_TAB')) {
 		$nbNote = 0;
@@ -154,9 +154,9 @@ function facture_prepare_head($object)
 	$head[$h][2] = 'agenda';
 	$h++;
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'invoice', 'add', 'external');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'invoice', 'add', 'external');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'invoice', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'invoice', 'remove');
 
 	return $head;
 }
@@ -168,7 +168,7 @@ function facture_prepare_head($object)
  */
 function invoice_admin_prepare_head()
 {
-	global $langs, $conf, $user, $db;
+	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('facture');
@@ -193,7 +193,7 @@ function invoice_admin_prepare_head()
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__'); to add new tab
 	// $this->tabs = array('entity:-tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__'); to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'invoice_admin');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'invoice_admin');
 
 	$head[$h][0] = DOL_URL_ROOT.'/compta/facture/admin/invoice_cust_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsCustomerInvoices");
@@ -238,7 +238,7 @@ function invoice_admin_prepare_head()
 		$h++;
 	}
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'invoice_admin', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'invoice_admin', 'remove');
 
 	return $head;
 }
@@ -252,7 +252,7 @@ function invoice_admin_prepare_head()
  */
 function invoice_rec_prepare_head($object)
 {
-	global $db, $langs, $conf, $user;
+	global $db, $langs, $config, $user;
 
 	$h = 0;
 	$head = array();
@@ -337,9 +337,9 @@ function invoice_rec_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'invoice-rec');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'invoice-rec');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'invoice-rec', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'invoice-rec', 'remove');
 
 	return $head;
 }
@@ -403,9 +403,9 @@ function supplier_invoice_rec_prepare_head($object)
 	// Entries must be declared in modules descriptor with line
 	// $this->tabs = array('entity:+tabname:Title:@mymodule:/mymodule/mypage.php?id=__ID__');   to add new tab
 	// $this->tabs = array('entity:-tabname);   												to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'invoice_supplier_rec');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'invoice_supplier_rec');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'invoice_supplier_rec', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'invoice_supplier_rec', 'remove');
 
 	return $head;
 }
@@ -418,7 +418,7 @@ function supplier_invoice_rec_prepare_head($object)
  */
 function getNumberInvoicesPieChart($mode)
 {
-	global $conf, $db, $langs, $user;
+	global $config, $db, $langs, $user;
 
 	if (($mode == 'customers' && isModEnabled('invoice') && $user->hasRight('facture', 'lire'))
 		|| ($mode == 'suppliers' && (isModEnabled('fournisseur') || isModEnabled('supplier_invoice')) && $user->hasRight('fournisseur', 'facture', 'lire'))
@@ -564,7 +564,7 @@ function getNumberInvoicesPieChart($mode)
  */
 function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
 {
-	global $conf, $db, $langs, $user, $hookManager;
+	global $config, $db, $langs, $user, $hookManager;
 
 	$result = '';
 
@@ -715,7 +715,7 @@ function getCustomerInvoiceDraftTable($maxCount = 500, $socid = 0)
  */
 function getDraftSupplierTable($maxCount = 500, $socid = 0)
 {
-	global $conf, $db, $langs, $user, $hookManager;
+	global $config, $db, $langs, $user, $hookManager;
 
 	$result = '';
 
@@ -851,7 +851,7 @@ function getDraftSupplierTable($maxCount = 500, $socid = 0)
  */
 function getCustomerInvoiceLatestEditTable($maxCount = 5, $socid = 0)
 {
-	global $conf, $db, $langs, $user;
+	global $config, $db, $langs, $user;
 
 	$sql = "SELECT f.rowid, f.entity, f.ref, f.fk_statut as status, f.paye, f.type, f.total_ht, f.total_tva, f.total_ttc, f.datec,";
 	$sql .= " s.nom as socname, s.rowid as socid, s.canvas, s.client";
@@ -960,7 +960,7 @@ function getCustomerInvoiceLatestEditTable($maxCount = 5, $socid = 0)
  */
 function getPurchaseInvoiceLatestEditTable($maxCount = 5, $socid = 0)
 {
-	global $conf, $db, $langs, $user;
+	global $config, $db, $langs, $user;
 
 	$sql = "SELECT f.rowid, f.entity, f.ref, f.fk_statut as status, f.paye, f.total_ht, f.total_tva, f.total_ttc, f.type, f.ref_supplier, f.datec,";
 	$sql .= " s.nom as socname, s.rowid as socid, s.canvas, s.client";
@@ -1074,7 +1074,7 @@ function getPurchaseInvoiceLatestEditTable($maxCount = 5, $socid = 0)
  */
 function getCustomerInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 {
-	global $conf, $db, $langs, $user, $hookManager;
+	global $config, $db, $langs, $user, $hookManager;
 
 	$result = '';
 
@@ -1263,7 +1263,7 @@ function getCustomerInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
  */
 function getPurchaseInvoiceUnpaidOpenTable($maxCount = 500, $socid = 0)
 {
-	global $conf, $db, $langs, $user, $hookManager;
+	global $config, $db, $langs, $user, $hookManager;
 
 	$result = '';
 

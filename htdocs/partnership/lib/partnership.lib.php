@@ -30,7 +30,7 @@
  */
 function partnershipAdminPrepareHead()
 {
-	global $langs, $conf, $db;
+	global $langs, $config, $db;
 
 	$langs->loadLangs(array("members", "partnership"));
 
@@ -68,9 +68,9 @@ function partnershipAdminPrepareHead()
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@partnership:/partnership/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'partnership');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'partnership');
 
-	complete_head_from_modules($conf, $langs, null, $head, $h, 'partnership', 'remove');
+	complete_head_from_modules($config, $langs, null, $head, $h, 'partnership', 'remove');
 
 	return $head;
 }
@@ -138,9 +138,9 @@ function partnershipPrepareHead($object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@partnership:/partnership/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'partnership');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'partnership');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'partnership', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'partnership', 'remove');
 
 	return $head;
 }

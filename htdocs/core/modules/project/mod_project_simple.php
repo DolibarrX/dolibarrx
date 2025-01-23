@@ -95,7 +95,7 @@ class mod_project_simple extends ModeleNumRefProjects
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

@@ -147,7 +147,7 @@ class ActionsCardProduct
 	public function assign_values(&$action, $id = 0, $ref = '')
 	{
 		// phpcs:enable
-		global $conf, $langs, $user, $mysoc, $canvas;
+		global $config, $langs, $user, $mysoc, $canvas;
 		global $form, $formproduct;
 
 		'@phan-var-force Form $form';
@@ -306,7 +306,7 @@ class ActionsCardProduct
 	 */
 	private function getFieldListCanvas() // @phpstan-ignore-line
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$this->field_list = array();
 

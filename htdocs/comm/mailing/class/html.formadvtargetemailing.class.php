@@ -59,7 +59,7 @@ class FormAdvTargetEmailing extends Form
 	 */
 	public function multiselectProspectionStatus($selected_array = array(), $htmlname = 'cust_prospect_status')
 	{
-		global $conf, $langs;
+		global $config, $langs;
 		$options_array = array();
 
 		$sql = "SELECT code, label";
@@ -97,7 +97,7 @@ class FormAdvTargetEmailing extends Form
 	 */
 	public function multiselectState($htmlname = 'state_id', $selected_array = array())
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load("dict");
 		$maxlength = 0;
@@ -158,7 +158,7 @@ class FormAdvTargetEmailing extends Form
 	 */
 	public function multiselectCountry($htmlname = 'country_id', $selected_array = array())
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$langs->load("dict");
 		$maxlength = 0;
@@ -264,7 +264,7 @@ class FormAdvTargetEmailing extends Form
 	 */
 	public function multiselectselectLanguage($htmlname = '', $selected_array = array())
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$options_array = array();
 
@@ -358,7 +358,7 @@ class FormAdvTargetEmailing extends Form
 	 */
 	public function multiselectCivility($htmlname = 'civilite_id', $selected_array = array())
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 		$langs->load("dict");
 
 		$options_array = array();
@@ -400,7 +400,7 @@ class FormAdvTargetEmailing extends Form
 	 */
 	public function advMultiselectarray($htmlname, $options_array = array(), $selected_array = array(), $showempty = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		$form = new Form($this->db);
 		foreach ($options_array as $okey => $val) {

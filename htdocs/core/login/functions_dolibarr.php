@@ -38,7 +38,7 @@
  */
 function check_user_password_dolibarr($usertotest, $passwordtotest, $entitytotest = 1)
 {
-	global $db, $conf, $langs;
+	global $db, $config, $langs;
 
 	// Force master entity in transversal mode
 	$entity = $entitytotest;

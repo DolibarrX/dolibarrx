@@ -35,7 +35,7 @@
  */
 function build_calfile($format, $title, $desc, $events_array, $outputfile)
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	dol_syslog("xcal.lib.php::build_calfile Build cal file ".$outputfile." to format ".$format);
 
@@ -325,7 +325,7 @@ function build_calfile($format, $title, $desc, $events_array, $outputfile)
  */
 function build_rssfile($format, $title, $desc, $events_array, $outputfile, $filter = '', $url = '', $langcode = '')
 {
-	global $user, $conf, $langs, $mysoc;
+	global $user, $config, $langs, $mysoc;
 	global $dolibarr_main_url_root;
 
 	dol_syslog("xcal.lib.php::build_rssfile Build rss file ".$outputfile." to format ".$format);

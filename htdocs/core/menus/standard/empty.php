@@ -105,7 +105,7 @@ class MenuManager
 	 */
 	public function showmenu($mode, $moredata = null)
 	{
-		global $user, $conf, $langs, $dolibarr_main_db_name;
+		global $user, $config, $langs, $dolibarr_main_db_name;
 
 		$id = 'mainmenu';
 
@@ -537,7 +537,7 @@ function print_start_menu_entry_empty($idsel, $classname, $showmode)
  */
 function print_text_menu_entry_empty($text, $showmode, $url, $id, $idsel, $classname, $atarget, $menuval = array())
 {
-	global $conf, $langs;
+	global $config, $langs;
 
 	$classnameimg = str_replace('class="', 'class="tmenuimage ', $classname);
 	$classnametxt = str_replace('class="', 'class="tmenulabel ', $classname);

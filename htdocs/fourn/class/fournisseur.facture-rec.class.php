@@ -1348,7 +1348,7 @@ class FactureFournisseurRec extends CommonInvoice
 	 */
 	public function createRecurringInvoices($restrictioninvoiceid = 0, $forcevalidation = 0)
 	{
-		global $conf, $langs, $db, $user, $hookManager;
+		global $config, $langs, $db, $user, $hookManager;
 
 		$error = 0;
 		$nb_create = 0;

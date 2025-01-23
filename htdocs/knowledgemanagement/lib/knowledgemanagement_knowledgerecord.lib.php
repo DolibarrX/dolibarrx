@@ -85,9 +85,9 @@ function knowledgerecordPrepareHead($object)
 	//$this->tabs = array(
 	//	'entity:-tabname:Title:@knowledgemanagement:/knowledgemanagement/mypage.php?id=__ID__'
 	//); // to remove a tab
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'knowledgerecord@knowledgemanagement');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'knowledgerecord@knowledgemanagement');
 
-	complete_head_from_modules($conf, $langs, $object, $head, $h, 'knowledgerecord@knowledgemanagement', 'remove');
+	complete_head_from_modules($config, $langs, $object, $head, $h, 'knowledgerecord@knowledgemanagement', 'remove');
 
 	return $head;
 }

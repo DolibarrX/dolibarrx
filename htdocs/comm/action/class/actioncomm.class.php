@@ -1409,7 +1409,7 @@ class ActionComm extends CommonObject
 	public function load_board($user, $load_state_board = 0)
 	{
 		// phpcs:enable
-		global $conf, $langs;
+		global $config, $langs;
 
 		if (empty($load_state_board)) {
 			$sql = "SELECT a.id, a.datep as dp";
@@ -1690,7 +1690,7 @@ class ActionComm extends CommonObject
 	 */
 	public function getNomUrl($withpicto = 0, $maxlength = 0, $classname = '', $option = '', $overwritepicto = 0, $notooltip = 0, $save_lastsearch_value = -1)
 	{
-		global $conf, $langs, $user, $hookManager, $action;
+		global $config, $langs, $user, $hookManager, $action;
 
 		if (!empty($config->dol_no_mouse_hover)) {
 			$notooltip = 1; // Force disable tooltips
@@ -1924,7 +1924,7 @@ class ActionComm extends CommonObject
 	 */
 	public function getTypeLabel($mode = 0)
 	{
-		global $conf, $langs;
+		global $config, $langs;
 
 		// If cache for array of types unknown, we load it
 		if (!empty($config->cache['actioncommgetypelabel'])) {
@@ -2021,7 +2021,7 @@ class ActionComm extends CommonObject
 		global $hookManager;
 
 		// phpcs:enable
-		global $conf, $langs, $dolibarr_main_url_root, $mysoc;
+		global $config, $langs, $dolibarr_main_url_root, $mysoc;
 
 		require_once DOL_DOCUMENT_ROOT."/core/lib/xcal.lib.php";
 		require_once DOL_DOCUMENT_ROOT."/core/lib/date.lib.php";
@@ -2602,7 +2602,7 @@ class ActionComm extends CommonObject
 	 */
 	public function loadReminders($type = '', $fk_user = 0, $onlypast = true)
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$error = 0;
 
@@ -2663,7 +2663,7 @@ class ActionComm extends CommonObject
 	 */
 	public function sendEmailsReminder()
 	{
-		global $conf, $langs, $user;
+		global $config, $langs, $user;
 
 		$error = 0;
 		$this->output = '';

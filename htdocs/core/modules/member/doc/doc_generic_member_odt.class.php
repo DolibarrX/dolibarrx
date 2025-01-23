@@ -202,7 +202,7 @@ class doc_generic_member_odt extends ModelePDFMember
 	public function write_file($object, $outputlangs, $srctemplatepath = '', $mode = 'member', $nooutput = 0, $filename = 'tmp_cards')
 	{
 		// phpcs:enable
-		global $user, $langs, $conf, $mysoc, $hookManager;
+		global $user, $langs, $config, $mysoc, $hookManager;
 
 		if (empty($srctemplatepath)) {
 			dol_syslog("doc_generic_odt::write_file parameter srctemplatepath empty", LOG_WARNING);

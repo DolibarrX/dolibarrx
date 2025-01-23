@@ -194,7 +194,7 @@ class Controller
 	 */
 	public function loadTemplate($templateName, $vars = false)
 	{
-		global $conf, $langs, $hookManager, $db; // may be used into the tpl
+		global $config, $langs, $hookManager, $db; // may be used into the tpl
 
 		$context = Context::getInstance(); // load for tpl
 

@@ -80,7 +80,7 @@ class mod_codeclient_elephant extends ModeleThirdPartyCode
 	 */
 	public function info($langs)
 	{
-		global $conf, $mc;
+		global $config, $mc;
 		global $form;
 
 		$langs->load("companies");

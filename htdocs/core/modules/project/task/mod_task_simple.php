@@ -95,7 +95,7 @@ class mod_task_simple extends ModeleNumRefTask
 	 */
 	public function canBeActivated($object)
 	{
-		global $conf, $langs, $db;
+		global $config, $langs, $db;
 
 		$coyymm = '';
 		$max = '';

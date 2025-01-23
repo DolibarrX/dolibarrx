@@ -110,7 +110,7 @@ foreach ($dirModCaptcha as $dirroot) {
 				$classname = $reg[1];
 				require_once $dir.'/'.$file;
 
-				$obj = new $classname($db, $conf, $langs, $user);
+				$obj = new $classname($db, $config, $langs, $user);
 				'@phan-var-force ModeleCaptcha $obj';
 				/** @var ModeleCaptcha $obj */
 				$arrayhandler[$obj->id] = $obj;

@@ -406,7 +406,7 @@ class DoliDBSqlite3 extends DoliDB
 	 */
 	public function query($query, $usesavepoint = 0, $type = 'auto', $result_mode = 0)
 	{
-		global $conf, $dolibarr_main_db_readonly;
+		global $config, $dolibarr_main_db_readonly;
 
 		$ret = false;
 

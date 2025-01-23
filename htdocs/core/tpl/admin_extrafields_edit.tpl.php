@@ -21,7 +21,7 @@
  * The following vars must be defined:
  * $type2label
  * $form
- * $conf, $lang,
+ * $config, $lang,
  * The following vars may also be defined:
  * $elementtype
  */
