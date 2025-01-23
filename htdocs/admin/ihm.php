@@ -561,12 +561,12 @@ if ($mode == 'dashboard') {
 	print '<table summary="blockdashboard" class="noborder centpercent editmode tableforfield">';
 
 	// Message of the day on home page
-	$substitutionarray = getCommonSubstitutionArray($langs, 0, array('object', 'objectamount'));
-	complete_substitutions_array($substitutionarray, $langs);
+	$substitutionArray = getCommonSubstitutionArray($langs, 0, array('object', 'objectamount'));
+	complete_substitutions_array($substitutionArray, $langs);
 
 	print '<tr class="oddeven width25p"><td>';
 	$texthelp = $langs->trans("FollowingConstantsWillBeSubstituted") . '<br>';
-	foreach ($substitutionarray as $key => $val) {
+	foreach ($substitutionArray as $key => $val) {
 		$texthelp .= $key . '<br>';
 	}
 	print $form->textwithpicto($langs->trans("MessageOfDay"), $texthelp, 1, 'help', '', 0, 2, 'tooltipmessageofday');
@@ -689,11 +689,11 @@ if ($mode == 'login') {
 	*/
 
 	// Message on login page
-	$substitutionarray = getCommonSubstitutionArray($langs, 0, array('object', 'objectamount', 'user'));
-	complete_substitutions_array($substitutionarray, $langs);
+	$substitutionArray = getCommonSubstitutionArray($langs, 0, array('object', 'objectamount', 'user'));
+	complete_substitutions_array($substitutionArray, $langs);
 	print '<tr class="oddeven"><td>';
 	$texthelp = $langs->trans("FollowingConstantsWillBeSubstituted") . '<br>';
-	foreach ($substitutionarray as $key => $val) {
+	foreach ($substitutionArray as $key => $val) {
 		$texthelp .= $key . '<br>';
 	}
 	print $form->textwithpicto($langs->trans("MessageLogin"), $texthelp, 1, 'help', '', 0, 2, 'tooltipmessagelogin');

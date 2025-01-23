@@ -643,9 +643,9 @@ class pdf_octopus extends ModelePDFFactures
 					$tab_width = $this->page_largeur - $this->marge_gauche - $this->marge_droite;
 					$pageposbeforenote = $pagenb;
 
-					$substitutionarray = pdf_getSubstitutionArray($outputlangs, null, $object);
-					complete_substitutions_array($substitutionarray, $outputlangs, $object);
-					$notetoshow = make_substitutions($notetoshow, $substitutionarray, $outputlangs);
+					$substitutionArray = pdf_getSubstitutionArray($outputlangs, null, $object);
+					complete_substitutions_array($substitutionArray, $outputlangs, $object);
+					$notetoshow = make_substitutions($notetoshow, $substitutionArray, $outputlangs);
 					$notetoshow = convertBackOfficeMediasLinksToPublicLinks($notetoshow);
 
 					$pdf->startTransaction();

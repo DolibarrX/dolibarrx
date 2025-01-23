@@ -2723,12 +2723,12 @@ class ActionComm extends CommonObject
 							$errormesg = '';
 
 							// Make substitution in email content
-							$substitutionarray = getCommonSubstitutionArray($langs, 0, null, $this);
+							$substitutionArray = getCommonSubstitutionArray($langs, 0, null, $this);
 
-							complete_substitutions_array($substitutionarray, $langs, $this);
+							complete_substitutions_array($substitutionArray, $langs, $this);
 
 							// Content
-							$sendContent = make_substitutions($langs->trans($arraymessage->content), $substitutionarray);
+							$sendContent = make_substitutions($langs->trans($arraymessage->content), $substitutionArray);
 
 							//Topic
 							$sendTopic = (!empty($arraymessage->topic)) ? $arraymessage->topic : html_entity_decode($langs->transnoentities('EventReminder'));

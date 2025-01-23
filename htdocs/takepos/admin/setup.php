@@ -314,10 +314,10 @@ print '<td>';
 print ajax_constantonoff("TAKEPOS_GROUP_SAME_PRODUCT", array(), $config->entity, 0, 0, 1, 0);
 print "</td></tr>\n";
 
-$substitutionarray = pdf_getSubstitutionArray($langs, null, null, 2);
-$substitutionarray['__(AnyTranslationKey)__'] = $langs->trans("Translation");
+$substitutionArray = pdf_getSubstitutionArray($langs, null, null, 2);
+$substitutionArray['__(AnyTranslationKey)__'] = $langs->trans("Translation");
 $htmltext = '<i>'.$langs->trans("AvailableVariables").':<br>';
-foreach ($substitutionarray as $key => $val) {
+foreach ($substitutionArray as $key => $val) {
 	$htmltext .= $key.'<br>';
 }
 $htmltext .= '</i>';

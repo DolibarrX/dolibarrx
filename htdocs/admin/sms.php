@@ -45,7 +45,7 @@ if (!$user->admin) {
 	accessforbidden();
 }
 
-$substitutionarrayfortest = array(
+$substitutionArrayfortest = array(
 	'__ID__' => 'TESTIdRecord',
 	'__PHONEFROM__' => 'TESTPhoneFrom',
 	'__PHONETO__' => 'TESTPhoneTo',
@@ -115,8 +115,8 @@ if ($action == 'send' && !$cancel) {
 	}
 	if (!$error) {
 		// Make substitutions into message
-		complete_substitutions_array($substitutionarrayfortest, $langs);
-		$body = make_substitutions($body, $substitutionarrayfortest);
+		complete_substitutions_array($substitutionArrayfortest, $langs);
+		$body = make_substitutions($body, $substitutionArrayfortest);
 
 		require_once DOL_DOCUMENT_ROOT.'/core/class/CSMSFile.class.php';
 		try {
@@ -281,7 +281,7 @@ if ($action == 'edit') {
 		$formsms->withbodyreadonly = 0;
 		$formsms->withcancel = 1;
 		// Tableau des substitutions
-		$formsms->substit = $substitutionarrayfortest;
+		$formsms->substit = $substitutionArrayfortest;
 		// Tableau des parameters complementaires du post
 		$formsms->param["action"] = "send";
 		$formsms->param["models"] = "body";

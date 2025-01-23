@@ -343,23 +343,23 @@ class doc_generic_usergroup_odt extends ModelePDFUserGroup
 					$socobject = $object->thirdparty;
 				}
 				// Make substitution
-				$substitutionarray = array(
+				$substitutionArray = array(
 				'__FROM_NAME__' => $this->emetteur->name,
 				'__FROM_EMAIL__' => $this->emetteur->email,
 				'__TOTAL_TTC__' => $object->total_ttc,
 				'__TOTAL_HT__' => $object->total_ht,
 				'__TOTAL_VAT__' => $object->total_tva
 				);
-				complete_substitutions_array($substitutionarray, $langs, $object);
+				complete_substitutions_array($substitutionArray, $langs, $object);
 				// Call the ODTSubstitution hook
-				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs, 'substitutionarray' => &$substitutionarray);
+				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs, 'substitutionarray' => &$substitutionArray);
 				$reshook = $hookManager->executeHooks('ODTSubstitution', $parameters, $this, $action); // Note that $action and $object may have been modified by some hooks
 
 				// Line of free text
 				$newfreetext = '';
 				$paramfreetext = 'user_FREE_TEXT';
 				if (getDolGlobalString($paramfreetext)) {
-					$newfreetext = make_substitutions(getDolGlobalString($paramfreetext), $substitutionarray);
+					$newfreetext = make_substitutions(getDolGlobalString($paramfreetext), $substitutionArray);
 				}
 
 				// Open and load template

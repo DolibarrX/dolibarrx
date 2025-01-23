@@ -8997,7 +8997,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 {
 	global $db, $conf, $mysoc, $user, $extrafields;
 
-	$substitutionarray = array();
+	$substitutionArray = array();
 
 	if ((empty($exclude) || !in_array('user', $exclude)) && (empty($include) || in_array('user', $include)) && $user instanceof User) {
 		// Add SIGNATURE into substitutionarray first, so, when we will make the substitution,
@@ -9005,13 +9005,13 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 		//var_dump($onlykey);
 		$emailsendersignature = $user->signature; //  By default, we use the signature of current user. We must complete substitution with signature in c_email_senderprofile of array after calling getCommonSubstitutionArray()
 		$usersignature = $user->signature;
-		$substitutionarray = array_merge($substitutionarray, array(
+		$substitutionArray = array_merge($substitutionArray, array(
 			'__SENDEREMAIL_SIGNATURE__' => (string) ((!getDolGlobalString('MAIN_MAIL_DO_NOT_USE_SIGN')) ? ($onlykey == 2 ? dol_trunc('SignatureFromTheSelectedSenderProfile', 30) : $emailsendersignature) : ''),
 			'__USER_SIGNATURE__' => (string) (($usersignature && !getDolGlobalString('MAIN_MAIL_DO_NOT_USE_SIGN')) ? ($onlykey == 2 ? dol_trunc(dol_string_nohtmltag($usersignature), 30) : $usersignature) : '')
 		));
 
 		if (is_object($user) && ($user instanceof User)) {
-			$substitutionarray = array_merge($substitutionarray, array(
+			$substitutionArray = array_merge($substitutionArray, array(
 				'__USER_ID__' => (string) $user->id,
 				'__USER_LOGIN__' => (string) $user->login,
 				'__USER_EMAIL__' => (string) $user->email,
@@ -9030,7 +9030,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 		}
 	}
 	if ((empty($exclude) || !in_array('mycompany', $exclude)) && is_object($mysoc) && (empty($include) || in_array('mycompany', $include))) {
-		$substitutionarray = array_merge($substitutionarray, array(
+		$substitutionArray = array_merge($substitutionArray, array(
 			'__MYCOMPANY_NAME__'    => $mysoc->name,
 			'__MYCOMPANY_EMAIL__'   => $mysoc->email,
 			'__MYCOMPANY_PHONE__'   => dol_print_phone($mysoc->phone, '', 0, 0, '', " ", '', '', -1),
@@ -9060,127 +9060,127 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 
 	if (($onlykey || is_object($object)) && (empty($exclude) || !in_array('object', $exclude)) && (empty($include) || in_array('object', $include))) {
 		if ($onlykey) {
-			$substitutionarray['__ID__'] = '__ID__';
-			$substitutionarray['__REF__'] = '__REF__';
-			$substitutionarray['__NEWREF__'] = '__NEWREF__';
-			$substitutionarray['__LABEL__'] = '__LABEL__';
-			$substitutionarray['__REF_CLIENT__'] = '__REF_CLIENT__';
-			$substitutionarray['__REF_SUPPLIER__'] = '__REF_SUPPLIER__';
-			$substitutionarray['__NOTE_PUBLIC__'] = '__NOTE_PUBLIC__';
-			$substitutionarray['__NOTE_PRIVATE__'] = '__NOTE_PRIVATE__';
-			$substitutionarray['__EXTRAFIELD_XXX__'] = '__EXTRAFIELD_XXX__';
+			$substitutionArray['__ID__'] = '__ID__';
+			$substitutionArray['__REF__'] = '__REF__';
+			$substitutionArray['__NEWREF__'] = '__NEWREF__';
+			$substitutionArray['__LABEL__'] = '__LABEL__';
+			$substitutionArray['__REF_CLIENT__'] = '__REF_CLIENT__';
+			$substitutionArray['__REF_SUPPLIER__'] = '__REF_SUPPLIER__';
+			$substitutionArray['__NOTE_PUBLIC__'] = '__NOTE_PUBLIC__';
+			$substitutionArray['__NOTE_PRIVATE__'] = '__NOTE_PRIVATE__';
+			$substitutionArray['__EXTRAFIELD_XXX__'] = '__EXTRAFIELD_XXX__';
 
 			if (isModEnabled("societe")) {	// Most objects are concerned
-				$substitutionarray['__THIRDPARTY_ID__'] = '__THIRDPARTY_ID__';
-				$substitutionarray['__THIRDPARTY_NAME__'] = '__THIRDPARTY_NAME__';
-				$substitutionarray['__THIRDPARTY_NAME_ALIAS__'] = '__THIRDPARTY_NAME_ALIAS__';
-				$substitutionarray['__THIRDPARTY_CODE_CLIENT__'] = '__THIRDPARTY_CODE_CLIENT__';
-				$substitutionarray['__THIRDPARTY_CODE_FOURNISSEUR__'] = '__THIRDPARTY_CODE_FOURNISSEUR__';
-				$substitutionarray['__THIRDPARTY_EMAIL__'] = '__THIRDPARTY_EMAIL__';
-				//$substitutionarray['__THIRDPARTY_EMAIL_URLENCODED__'] = '__THIRDPARTY_EMAIL_URLENCODED__';	// We hide this one
-				$substitutionarray['__THIRDPARTY_PHONE__'] = '__THIRDPARTY_PHONE__';
-				$substitutionarray['__THIRDPARTY_FAX__'] = '__THIRDPARTY_FAX__';
-				$substitutionarray['__THIRDPARTY_ADDRESS__'] = '__THIRDPARTY_ADDRESS__';
-				$substitutionarray['__THIRDPARTY_ZIP__'] = '__THIRDPARTY_ZIP__';
-				$substitutionarray['__THIRDPARTY_TOWN__'] = '__THIRDPARTY_TOWN__';
-				$substitutionarray['__THIRDPARTY_STATE__'] = '__THIRDPARTY_STATE__';
-				$substitutionarray['__THIRDPARTY_IDPROF1__'] = '__THIRDPARTY_IDPROF1__';
-				$substitutionarray['__THIRDPARTY_IDPROF2__'] = '__THIRDPARTY_IDPROF2__';
-				$substitutionarray['__THIRDPARTY_IDPROF3__'] = '__THIRDPARTY_IDPROF3__';
-				$substitutionarray['__THIRDPARTY_IDPROF4__'] = '__THIRDPARTY_IDPROF4__';
-				$substitutionarray['__THIRDPARTY_IDPROF5__'] = '__THIRDPARTY_IDPROF5__';
-				$substitutionarray['__THIRDPARTY_IDPROF6__'] = '__THIRDPARTY_IDPROF6__';
-				$substitutionarray['__THIRDPARTY_IDPROF7__'] = '__THIRDPARTY_IDPROF7__';
-				$substitutionarray['__THIRDPARTY_IDPROF8__'] = '__THIRDPARTY_IDPROF8__';
-				$substitutionarray['__THIRDPARTY_IDPROF9__'] = '__THIRDPARTY_IDPROF9__';
-				$substitutionarray['__THIRDPARTY_IDPROF10__'] = '__THIRDPARTY_IDPROF10__';
-				$substitutionarray['__THIRDPARTY_TVAINTRA__'] = '__THIRDPARTY_TVAINTRA__';
-				$substitutionarray['__THIRDPARTY_NOTE_PUBLIC__'] = '__THIRDPARTY_NOTE_PUBLIC__';
-				$substitutionarray['__THIRDPARTY_NOTE_PRIVATE__'] = '__THIRDPARTY_NOTE_PRIVATE__';
+				$substitutionArray['__THIRDPARTY_ID__'] = '__THIRDPARTY_ID__';
+				$substitutionArray['__THIRDPARTY_NAME__'] = '__THIRDPARTY_NAME__';
+				$substitutionArray['__THIRDPARTY_NAME_ALIAS__'] = '__THIRDPARTY_NAME_ALIAS__';
+				$substitutionArray['__THIRDPARTY_CODE_CLIENT__'] = '__THIRDPARTY_CODE_CLIENT__';
+				$substitutionArray['__THIRDPARTY_CODE_FOURNISSEUR__'] = '__THIRDPARTY_CODE_FOURNISSEUR__';
+				$substitutionArray['__THIRDPARTY_EMAIL__'] = '__THIRDPARTY_EMAIL__';
+				//$substitutionArray['__THIRDPARTY_EMAIL_URLENCODED__'] = '__THIRDPARTY_EMAIL_URLENCODED__';	// We hide this one
+				$substitutionArray['__THIRDPARTY_PHONE__'] = '__THIRDPARTY_PHONE__';
+				$substitutionArray['__THIRDPARTY_FAX__'] = '__THIRDPARTY_FAX__';
+				$substitutionArray['__THIRDPARTY_ADDRESS__'] = '__THIRDPARTY_ADDRESS__';
+				$substitutionArray['__THIRDPARTY_ZIP__'] = '__THIRDPARTY_ZIP__';
+				$substitutionArray['__THIRDPARTY_TOWN__'] = '__THIRDPARTY_TOWN__';
+				$substitutionArray['__THIRDPARTY_STATE__'] = '__THIRDPARTY_STATE__';
+				$substitutionArray['__THIRDPARTY_IDPROF1__'] = '__THIRDPARTY_IDPROF1__';
+				$substitutionArray['__THIRDPARTY_IDPROF2__'] = '__THIRDPARTY_IDPROF2__';
+				$substitutionArray['__THIRDPARTY_IDPROF3__'] = '__THIRDPARTY_IDPROF3__';
+				$substitutionArray['__THIRDPARTY_IDPROF4__'] = '__THIRDPARTY_IDPROF4__';
+				$substitutionArray['__THIRDPARTY_IDPROF5__'] = '__THIRDPARTY_IDPROF5__';
+				$substitutionArray['__THIRDPARTY_IDPROF6__'] = '__THIRDPARTY_IDPROF6__';
+				$substitutionArray['__THIRDPARTY_IDPROF7__'] = '__THIRDPARTY_IDPROF7__';
+				$substitutionArray['__THIRDPARTY_IDPROF8__'] = '__THIRDPARTY_IDPROF8__';
+				$substitutionArray['__THIRDPARTY_IDPROF9__'] = '__THIRDPARTY_IDPROF9__';
+				$substitutionArray['__THIRDPARTY_IDPROF10__'] = '__THIRDPARTY_IDPROF10__';
+				$substitutionArray['__THIRDPARTY_TVAINTRA__'] = '__THIRDPARTY_TVAINTRA__';
+				$substitutionArray['__THIRDPARTY_NOTE_PUBLIC__'] = '__THIRDPARTY_NOTE_PUBLIC__';
+				$substitutionArray['__THIRDPARTY_NOTE_PRIVATE__'] = '__THIRDPARTY_NOTE_PRIVATE__';
 			}
 			if (isModEnabled('member') && (!is_object($object) || $object->element == 'adherent') && (empty($exclude) || !in_array('member', $exclude)) && (empty($include) || in_array('member', $include))) {
-				$substitutionarray['__MEMBER_ID__'] = '__MEMBER_ID__';
-				$substitutionarray['__MEMBER_TITLE__'] = '__MEMBER_TITLE__';
-				$substitutionarray['__MEMBER_FIRSTNAME__'] = '__MEMBER_FIRSTNAME__';
-				$substitutionarray['__MEMBER_LASTNAME__'] = '__MEMBER_LASTNAME__';
-				$substitutionarray['__MEMBER_USER_LOGIN_INFORMATION__'] = 'Login and pass of the external user account';
-				/*$substitutionarray['__MEMBER_NOTE_PUBLIC__'] = '__MEMBER_NOTE_PUBLIC__';
-				$substitutionarray['__MEMBER_NOTE_PRIVATE__'] = '__MEMBER_NOTE_PRIVATE__';*/
+				$substitutionArray['__MEMBER_ID__'] = '__MEMBER_ID__';
+				$substitutionArray['__MEMBER_TITLE__'] = '__MEMBER_TITLE__';
+				$substitutionArray['__MEMBER_FIRSTNAME__'] = '__MEMBER_FIRSTNAME__';
+				$substitutionArray['__MEMBER_LASTNAME__'] = '__MEMBER_LASTNAME__';
+				$substitutionArray['__MEMBER_USER_LOGIN_INFORMATION__'] = 'Login and pass of the external user account';
+				/*$substitutionArray['__MEMBER_NOTE_PUBLIC__'] = '__MEMBER_NOTE_PUBLIC__';
+				$substitutionArray['__MEMBER_NOTE_PRIVATE__'] = '__MEMBER_NOTE_PRIVATE__';*/
 			}
 			// add substitution variables for ticket
 			if (isModEnabled('ticket') && (!is_object($object) || $object->element == 'ticket') && (empty($exclude) || !in_array('ticket', $exclude)) && (empty($include) || in_array('ticket', $include))) {
-				$substitutionarray['__TICKET_TRACKID__'] = '__TICKET_TRACKID__';
-				$substitutionarray['__TICKET_SUBJECT__'] = '__TICKET_SUBJECT__';
-				$substitutionarray['__TICKET_TYPE__'] = '__TICKET_TYPE__';
-				$substitutionarray['__TICKET_SEVERITY__'] = '__TICKET_SEVERITY__';
-				$substitutionarray['__TICKET_CATEGORY__'] = '__TICKET_CATEGORY__';
-				$substitutionarray['__TICKET_ANALYTIC_CODE__'] = '__TICKET_ANALYTIC_CODE__';
-				$substitutionarray['__TICKET_MESSAGE__'] = '__TICKET_MESSAGE__';
-				$substitutionarray['__TICKET_PROGRESSION__'] = '__TICKET_PROGRESSION__';
-				$substitutionarray['__TICKET_USER_ASSIGN__'] = '__TICKET_USER_ASSIGN__';
+				$substitutionArray['__TICKET_TRACKID__'] = '__TICKET_TRACKID__';
+				$substitutionArray['__TICKET_SUBJECT__'] = '__TICKET_SUBJECT__';
+				$substitutionArray['__TICKET_TYPE__'] = '__TICKET_TYPE__';
+				$substitutionArray['__TICKET_SEVERITY__'] = '__TICKET_SEVERITY__';
+				$substitutionArray['__TICKET_CATEGORY__'] = '__TICKET_CATEGORY__';
+				$substitutionArray['__TICKET_ANALYTIC_CODE__'] = '__TICKET_ANALYTIC_CODE__';
+				$substitutionArray['__TICKET_MESSAGE__'] = '__TICKET_MESSAGE__';
+				$substitutionArray['__TICKET_PROGRESSION__'] = '__TICKET_PROGRESSION__';
+				$substitutionArray['__TICKET_USER_ASSIGN__'] = '__TICKET_USER_ASSIGN__';
 			}
 
 			if (isModEnabled('recruitment') && (!is_object($object) || $object->element == 'recruitmentcandidature') && (empty($exclude) || !in_array('recruitment', $exclude)) && (empty($include) || in_array('recruitment', $include))) {
-				$substitutionarray['__CANDIDATE_FULLNAME__'] = '__CANDIDATE_FULLNAME__';
-				$substitutionarray['__CANDIDATE_FIRSTNAME__'] = '__CANDIDATE_FIRSTNAME__';
-				$substitutionarray['__CANDIDATE_LASTNAME__'] = '__CANDIDATE_LASTNAME__';
+				$substitutionArray['__CANDIDATE_FULLNAME__'] = '__CANDIDATE_FULLNAME__';
+				$substitutionArray['__CANDIDATE_FIRSTNAME__'] = '__CANDIDATE_FIRSTNAME__';
+				$substitutionArray['__CANDIDATE_LASTNAME__'] = '__CANDIDATE_LASTNAME__';
 			}
 			if (isModEnabled('project') && (empty($exclude) || !in_array('project', $exclude)) && (empty($include) || in_array('project', $include))) {		// Most objects
-				$substitutionarray['__PROJECT_ID__'] = '__PROJECT_ID__';
-				$substitutionarray['__PROJECT_REF__'] = '__PROJECT_REF__';
-				$substitutionarray['__PROJECT_NAME__'] = '__PROJECT_NAME__';
-				/*$substitutionarray['__PROJECT_NOTE_PUBLIC__'] = '__PROJECT_NOTE_PUBLIC__';
-				$substitutionarray['__PROJECT_NOTE_PRIVATE__'] = '__PROJECT_NOTE_PRIVATE__';*/
+				$substitutionArray['__PROJECT_ID__'] = '__PROJECT_ID__';
+				$substitutionArray['__PROJECT_REF__'] = '__PROJECT_REF__';
+				$substitutionArray['__PROJECT_NAME__'] = '__PROJECT_NAME__';
+				/*$substitutionArray['__PROJECT_NOTE_PUBLIC__'] = '__PROJECT_NOTE_PUBLIC__';
+				$substitutionArray['__PROJECT_NOTE_PRIVATE__'] = '__PROJECT_NOTE_PRIVATE__';*/
 			}
 			if (isModEnabled('contract') && (!is_object($object) || $object->element == 'contract') && (empty($exclude) || !in_array('contract', $exclude)) && (empty($include) || in_array('contract', $include))) {
-				$substitutionarray['__CONTRACT_HIGHEST_PLANNED_START_DATE__'] = 'Highest date planned for a service start';
-				$substitutionarray['__CONTRACT_HIGHEST_PLANNED_START_DATETIME__'] = 'Highest date and hour planned for service start';
-				$substitutionarray['__CONTRACT_LOWEST_EXPIRATION_DATE__'] = 'Lowest data for planned expiration of service';
-				$substitutionarray['__CONTRACT_LOWEST_EXPIRATION_DATETIME__'] = 'Lowest date and hour for planned expiration of service';
+				$substitutionArray['__CONTRACT_HIGHEST_PLANNED_START_DATE__'] = 'Highest date planned for a service start';
+				$substitutionArray['__CONTRACT_HIGHEST_PLANNED_START_DATETIME__'] = 'Highest date and hour planned for service start';
+				$substitutionArray['__CONTRACT_LOWEST_EXPIRATION_DATE__'] = 'Lowest data for planned expiration of service';
+				$substitutionArray['__CONTRACT_LOWEST_EXPIRATION_DATETIME__'] = 'Lowest date and hour for planned expiration of service';
 			}
 			if (isModEnabled("propal") && (!is_object($object) || $object->element == 'propal') && (empty($exclude) || !in_array('propal', $exclude)) && (empty($include) || in_array('propal', $include))) {
-				$substitutionarray['__ONLINE_SIGN_URL__'] = 'ToOfferALinkForOnlineSignature';
+				$substitutionArray['__ONLINE_SIGN_URL__'] = 'ToOfferALinkForOnlineSignature';
 			}
 			if (isModEnabled("intervention") && (!is_object($object) || $object->element == 'fichinter') && (empty($exclude) || !in_array('intervention', $exclude)) && (empty($include) || in_array('intervention', $include))) {
-				$substitutionarray['__ONLINE_SIGN_FICHINTER_URL__'] = 'ToOfferALinkForOnlineSignature';
+				$substitutionArray['__ONLINE_SIGN_FICHINTER_URL__'] = 'ToOfferALinkForOnlineSignature';
 			}
-			$substitutionarray['__ONLINE_PAYMENT_URL__'] = 'UrlToPayOnlineIfApplicable';
-			$substitutionarray['__ONLINE_PAYMENT_TEXT_AND_URL__'] = 'TextAndUrlToPayOnlineIfApplicable';
-			$substitutionarray['__SECUREKEYPAYMENT__'] = 'Security key (if key is not unique per record)';
-			$substitutionarray['__SECUREKEYPAYMENT_MEMBER__'] = 'Security key for payment on a member subscription (one key per member)';
-			$substitutionarray['__SECUREKEYPAYMENT_ORDER__'] = 'Security key for payment on an order';
-			$substitutionarray['__SECUREKEYPAYMENT_INVOICE__'] = 'Security key for payment on an invoice';
-			$substitutionarray['__SECUREKEYPAYMENT_CONTRACTLINE__'] = 'Security key for payment on a service of a contract';
+			$substitutionArray['__ONLINE_PAYMENT_URL__'] = 'UrlToPayOnlineIfApplicable';
+			$substitutionArray['__ONLINE_PAYMENT_TEXT_AND_URL__'] = 'TextAndUrlToPayOnlineIfApplicable';
+			$substitutionArray['__SECUREKEYPAYMENT__'] = 'Security key (if key is not unique per record)';
+			$substitutionArray['__SECUREKEYPAYMENT_MEMBER__'] = 'Security key for payment on a member subscription (one key per member)';
+			$substitutionArray['__SECUREKEYPAYMENT_ORDER__'] = 'Security key for payment on an order';
+			$substitutionArray['__SECUREKEYPAYMENT_INVOICE__'] = 'Security key for payment on an invoice';
+			$substitutionArray['__SECUREKEYPAYMENT_CONTRACTLINE__'] = 'Security key for payment on a service of a contract';
 
-			$substitutionarray['__DIRECTDOWNLOAD_URL_PROPOSAL__'] = 'Direct download url of a proposal';
-			$substitutionarray['__DIRECTDOWNLOAD_URL_ORDER__'] = 'Direct download url of an order';
-			$substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__'] = 'Direct download url of an invoice';
-			$substitutionarray['__DIRECTDOWNLOAD_URL_CONTRACT__'] = 'Direct download url of a contract';
-			$substitutionarray['__DIRECTDOWNLOAD_URL_SUPPLIER_PROPOSAL__'] = 'Direct download url of a supplier proposal';
+			$substitutionArray['__DIRECTDOWNLOAD_URL_PROPOSAL__'] = 'Direct download url of a proposal';
+			$substitutionArray['__DIRECTDOWNLOAD_URL_ORDER__'] = 'Direct download url of an order';
+			$substitutionArray['__DIRECTDOWNLOAD_URL_INVOICE__'] = 'Direct download url of an invoice';
+			$substitutionArray['__DIRECTDOWNLOAD_URL_CONTRACT__'] = 'Direct download url of a contract';
+			$substitutionArray['__DIRECTDOWNLOAD_URL_SUPPLIER_PROPOSAL__'] = 'Direct download url of a supplier proposal';
 
 			if (isModEnabled("shipping") && (!is_object($object) || $object->element == 'shipping')) {
-				$substitutionarray['__SHIPPINGTRACKNUM__'] = 'Shipping tracking number';
-				$substitutionarray['__SHIPPINGTRACKNUMURL__'] = 'Shipping tracking url';
-				$substitutionarray['__SHIPPINGMETHOD__'] = 'Shipping method';
+				$substitutionArray['__SHIPPINGTRACKNUM__'] = 'Shipping tracking number';
+				$substitutionArray['__SHIPPINGTRACKNUMURL__'] = 'Shipping tracking url';
+				$substitutionArray['__SHIPPINGMETHOD__'] = 'Shipping method';
 			}
 			if (isModEnabled("reception") && (!is_object($object) || $object->element == 'reception')) {
-				$substitutionarray['__RECEPTIONTRACKNUM__'] = 'Shipping tracking number of shipment';
-				$substitutionarray['__RECEPTIONTRACKNUMURL__'] = 'Shipping tracking url';
+				$substitutionArray['__RECEPTIONTRACKNUM__'] = 'Shipping tracking number of shipment';
+				$substitutionArray['__RECEPTIONTRACKNUMURL__'] = 'Shipping tracking url';
 			}
 		} else {
 			'@phan-var-force Adherent|Delivery $object';
-			$substitutionarray['__ID__'] = $object->id;
-			$substitutionarray['__REF__'] = $object->ref;
-			$substitutionarray['__NEWREF__'] = $object->newref;
-			$substitutionarray['__LABEL__'] = (isset($object->label) ? $object->label : (isset($object->title) ? $object->title : null));
-			$substitutionarray['__REF_CLIENT__'] = (isset($object->ref_client) ? $object->ref_client : (isset($object->ref_customer) ? $object->ref_customer : null));
-			$substitutionarray['__REF_SUPPLIER__'] = (isset($object->ref_supplier) ? $object->ref_supplier : null);
-			$substitutionarray['__NOTE_PUBLIC__'] = (isset($object->note_public) ? $object->note_public : null);
-			$substitutionarray['__NOTE_PRIVATE__'] = (isset($object->note_private) ? $object->note_private : null);
+			$substitutionArray['__ID__'] = $object->id;
+			$substitutionArray['__REF__'] = $object->ref;
+			$substitutionArray['__NEWREF__'] = $object->newref;
+			$substitutionArray['__LABEL__'] = (isset($object->label) ? $object->label : (isset($object->title) ? $object->title : null));
+			$substitutionArray['__REF_CLIENT__'] = (isset($object->ref_client) ? $object->ref_client : (isset($object->ref_customer) ? $object->ref_customer : null));
+			$substitutionArray['__REF_SUPPLIER__'] = (isset($object->ref_supplier) ? $object->ref_supplier : null);
+			$substitutionArray['__NOTE_PUBLIC__'] = (isset($object->note_public) ? $object->note_public : null);
+			$substitutionArray['__NOTE_PRIVATE__'] = (isset($object->note_private) ? $object->note_private : null);
 
-			$substitutionarray['__DATE_CREATION__'] = (isset($object->date_creation) ? dol_print_date($object->date_creation, 'day', false, $outputlangs) : '');
-			$substitutionarray['__DATE_MODIFICATION__'] = (isset($object->date_modification) ? dol_print_date($object->date_modification, 'day', false, $outputlangs) : '');
-			$substitutionarray['__DATE_VALIDATION__'] = (isset($object->date_validation) ? dol_print_date($object->date_validation, 'day', false, $outputlangs) : '');
+			$substitutionArray['__DATE_CREATION__'] = (isset($object->date_creation) ? dol_print_date($object->date_creation, 'day', false, $outputlangs) : '');
+			$substitutionArray['__DATE_MODIFICATION__'] = (isset($object->date_modification) ? dol_print_date($object->date_modification, 'day', false, $outputlangs) : '');
+			$substitutionArray['__DATE_VALIDATION__'] = (isset($object->date_validation) ? dol_print_date($object->date_validation, 'day', false, $outputlangs) : '');
 
 			// handle date_delivery: in customer order/supplier order, the property name is delivery_date, in shipment/reception it is date_delivery
 			$date_delivery = null;
@@ -9189,139 +9189,139 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 			} elseif (property_exists($object, 'delivery_date')) {
 				$date_delivery =  $object->delivery_date;
 			}
-			$substitutionarray['__DATE_DELIVERY__'] = (isset($date_delivery) ? dol_print_date($date_delivery, 'day', false, $outputlangs) : '');
-			$substitutionarray['__DATE_DELIVERY_DAY__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%d") : '');
-			$substitutionarray['__DATE_DELIVERY_DAY_TEXT__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%A") : '');
-			$substitutionarray['__DATE_DELIVERY_MON__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%m") : '');
-			$substitutionarray['__DATE_DELIVERY_MON_TEXT__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%b") : '');
-			$substitutionarray['__DATE_DELIVERY_YEAR__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%Y") : '');
-			$substitutionarray['__DATE_DELIVERY_HH__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%H") : '');
-			$substitutionarray['__DATE_DELIVERY_MM__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%M") : '');
-			$substitutionarray['__DATE_DELIVERY_SS__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%S") : '');
+			$substitutionArray['__DATE_DELIVERY__'] = (isset($date_delivery) ? dol_print_date($date_delivery, 'day', false, $outputlangs) : '');
+			$substitutionArray['__DATE_DELIVERY_DAY__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%d") : '');
+			$substitutionArray['__DATE_DELIVERY_DAY_TEXT__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%A") : '');
+			$substitutionArray['__DATE_DELIVERY_MON__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%m") : '');
+			$substitutionArray['__DATE_DELIVERY_MON_TEXT__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%b") : '');
+			$substitutionArray['__DATE_DELIVERY_YEAR__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%Y") : '');
+			$substitutionArray['__DATE_DELIVERY_HH__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%H") : '');
+			$substitutionArray['__DATE_DELIVERY_MM__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%M") : '');
+			$substitutionArray['__DATE_DELIVERY_SS__'] = (isset($date_delivery) ? dol_print_date($date_delivery, "%S") : '');
 
 			// For backward compatibility (deprecated)
-			$substitutionarray['__REFCLIENT__'] = (isset($object->ref_client) ? $object->ref_client : (isset($object->ref_customer) ? $object->ref_customer : null));
-			$substitutionarray['__REFSUPPLIER__'] = (isset($object->ref_supplier) ? $object->ref_supplier : null);
+			$substitutionArray['__REFCLIENT__'] = (isset($object->ref_client) ? $object->ref_client : (isset($object->ref_customer) ? $object->ref_customer : null));
+			$substitutionArray['__REFSUPPLIER__'] = (isset($object->ref_supplier) ? $object->ref_supplier : null);
 
-			$substitutionarray['__SUPPLIER_ORDER_DATE_DELIVERY__'] = (isset($date_delivery) ? dol_print_date($date_delivery, 'day', false, $outputlangs) : '');
-			$substitutionarray['__SUPPLIER_ORDER_DELAY_DELIVERY__'] = (isset($object->availability_code) ? ($outputlangs->transnoentities("AvailabilityType".$object->availability_code) != 'AvailabilityType'.$object->availability_code ? $outputlangs->transnoentities("AvailabilityType".$object->availability_code) : $outputlangs->convToOutputCharset(isset($object->availability) ? $object->availability : '')) : '');
-			$substitutionarray['__EXPIRATION_DATE__'] = (isset($object->fin_validite) ? dol_print_date($object->fin_validite, 'daytext') : '');
+			$substitutionArray['__SUPPLIER_ORDER_DATE_DELIVERY__'] = (isset($date_delivery) ? dol_print_date($date_delivery, 'day', false, $outputlangs) : '');
+			$substitutionArray['__SUPPLIER_ORDER_DELAY_DELIVERY__'] = (isset($object->availability_code) ? ($outputlangs->transnoentities("AvailabilityType".$object->availability_code) != 'AvailabilityType'.$object->availability_code ? $outputlangs->transnoentities("AvailabilityType".$object->availability_code) : $outputlangs->convToOutputCharset(isset($object->availability) ? $object->availability : '')) : '');
+			$substitutionArray['__EXPIRATION_DATE__'] = (isset($object->fin_validite) ? dol_print_date($object->fin_validite, 'daytext') : '');
 
 			if (is_object($object) && ($object->element == 'adherent' || $object->element == 'member') && $object->id > 0) {
 				'@phan-var-force Adherent $object';
 				$birthday = (empty($object->birth) ? '' : dol_print_date($object->birth, 'day'));
 
-				$substitutionarray['__MEMBER_ID__'] = (isset($object->id) ? $object->id : '');
+				$substitutionArray['__MEMBER_ID__'] = (isset($object->id) ? $object->id : '');
 				if (method_exists($object, 'getCivilityLabel')) {
-					$substitutionarray['__MEMBER_TITLE__'] = $object->getCivilityLabel();
+					$substitutionArray['__MEMBER_TITLE__'] = $object->getCivilityLabel();
 				}
-				$substitutionarray['__MEMBER_FIRSTNAME__'] = (isset($object->firstname) ? $object->firstname : '');
-				$substitutionarray['__MEMBER_LASTNAME__'] = (isset($object->lastname) ? $object->lastname : '');
-				$substitutionarray['__MEMBER_USER_LOGIN_INFORMATION__'] = '';
+				$substitutionArray['__MEMBER_FIRSTNAME__'] = (isset($object->firstname) ? $object->firstname : '');
+				$substitutionArray['__MEMBER_LASTNAME__'] = (isset($object->lastname) ? $object->lastname : '');
+				$substitutionArray['__MEMBER_USER_LOGIN_INFORMATION__'] = '';
 				if (method_exists($object, 'getFullName')) {
-					$substitutionarray['__MEMBER_FULLNAME__'] = $object->getFullName($outputlangs);
+					$substitutionArray['__MEMBER_FULLNAME__'] = $object->getFullName($outputlangs);
 				}
-				$substitutionarray['__MEMBER_COMPANY__'] = (isset($object->societe) ? $object->societe : '');
-				$substitutionarray['__MEMBER_ADDRESS__'] = (isset($object->address) ? $object->address : '');
-				$substitutionarray['__MEMBER_ZIP__'] = (isset($object->zip) ? $object->zip : '');
-				$substitutionarray['__MEMBER_TOWN__'] = (isset($object->town) ? $object->town : '');
-				$substitutionarray['__MEMBER_STATE__'] = (isset($object->state) ? $object->state : '');
-				$substitutionarray['__MEMBER_COUNTRY__'] = (isset($object->country) ? $object->country : '');
-				$substitutionarray['__MEMBER_EMAIL__'] = (isset($object->email) ? $object->email : '');
-				$substitutionarray['__MEMBER_BIRTH__'] = (isset($birthday) ? $birthday : '');
-				$substitutionarray['__MEMBER_PHOTO__'] = (isset($object->photo) ? $object->photo : '');
-				$substitutionarray['__MEMBER_LOGIN__'] = (isset($object->login) ? $object->login : '');
-				$substitutionarray['__MEMBER_PASSWORD__'] = (isset($object->pass) ? $object->pass : '');
-				$substitutionarray['__MEMBER_PHONE__'] = (isset($object->phone) ? dol_print_phone($object->phone) : '');
-				$substitutionarray['__MEMBER_PHONEPRO__'] = (isset($object->phone_perso) ? dol_print_phone($object->phone_perso) : '');
-				$substitutionarray['__MEMBER_PHONEMOBILE__'] = (isset($object->phone_mobile) ? dol_print_phone($object->phone_mobile) : '');
-				$substitutionarray['__MEMBER_TYPE__'] = (isset($object->type) ? $object->type : '');
-				$substitutionarray['__MEMBER_FIRST_SUBSCRIPTION_DATE__']       = dol_print_date($object->first_subscription_date, 'day');
+				$substitutionArray['__MEMBER_COMPANY__'] = (isset($object->societe) ? $object->societe : '');
+				$substitutionArray['__MEMBER_ADDRESS__'] = (isset($object->address) ? $object->address : '');
+				$substitutionArray['__MEMBER_ZIP__'] = (isset($object->zip) ? $object->zip : '');
+				$substitutionArray['__MEMBER_TOWN__'] = (isset($object->town) ? $object->town : '');
+				$substitutionArray['__MEMBER_STATE__'] = (isset($object->state) ? $object->state : '');
+				$substitutionArray['__MEMBER_COUNTRY__'] = (isset($object->country) ? $object->country : '');
+				$substitutionArray['__MEMBER_EMAIL__'] = (isset($object->email) ? $object->email : '');
+				$substitutionArray['__MEMBER_BIRTH__'] = (isset($birthday) ? $birthday : '');
+				$substitutionArray['__MEMBER_PHOTO__'] = (isset($object->photo) ? $object->photo : '');
+				$substitutionArray['__MEMBER_LOGIN__'] = (isset($object->login) ? $object->login : '');
+				$substitutionArray['__MEMBER_PASSWORD__'] = (isset($object->pass) ? $object->pass : '');
+				$substitutionArray['__MEMBER_PHONE__'] = (isset($object->phone) ? dol_print_phone($object->phone) : '');
+				$substitutionArray['__MEMBER_PHONEPRO__'] = (isset($object->phone_perso) ? dol_print_phone($object->phone_perso) : '');
+				$substitutionArray['__MEMBER_PHONEMOBILE__'] = (isset($object->phone_mobile) ? dol_print_phone($object->phone_mobile) : '');
+				$substitutionArray['__MEMBER_TYPE__'] = (isset($object->type) ? $object->type : '');
+				$substitutionArray['__MEMBER_FIRST_SUBSCRIPTION_DATE__']       = dol_print_date($object->first_subscription_date, 'day');
 
-				$substitutionarray['__MEMBER_FIRST_SUBSCRIPTION_DATE_RFC__']   = dol_print_date($object->first_subscription_date, 'dayrfc');
-				$substitutionarray['__MEMBER_FIRST_SUBSCRIPTION_DATE_START__'] = (isset($object->first_subscription_date_start) ? dol_print_date($object->first_subscription_date_start, 'day') : '');
-				$substitutionarray['__MEMBER_FIRST_SUBSCRIPTION_DATE_START_RFC__'] = (isset($object->first_subscription_date_start) ? dol_print_date($object->first_subscription_date_start, 'dayrfc') : '');
-				$substitutionarray['__MEMBER_FIRST_SUBSCRIPTION_DATE_END__']   = (isset($object->first_subscription_date_end) ? dol_print_date($object->first_subscription_date_end, 'day') : '');
-				$substitutionarray['__MEMBER_FIRST_SUBSCRIPTION_DATE_END_RFC__']   = (isset($object->first_subscription_date_end) ? dol_print_date($object->first_subscription_date_end, 'dayrfc') : '');
-				$substitutionarray['__MEMBER_LAST_SUBSCRIPTION_DATE__']        = dol_print_date($object->last_subscription_date, 'day');
-				$substitutionarray['__MEMBER_LAST_SUBSCRIPTION_DATE_RFC__']    = dol_print_date($object->last_subscription_date, 'dayrfc');
-				$substitutionarray['__MEMBER_LAST_SUBSCRIPTION_DATE_START__']  = dol_print_date($object->last_subscription_date_start, 'day');
-				$substitutionarray['__MEMBER_LAST_SUBSCRIPTION_DATE_START_RFC__']  = dol_print_date($object->last_subscription_date_start, 'dayrfc');
-				$substitutionarray['__MEMBER_LAST_SUBSCRIPTION_DATE_END__']    = dol_print_date($object->last_subscription_date_end, 'day');
-				$substitutionarray['__MEMBER_LAST_SUBSCRIPTION_DATE_END_RFC__']    = dol_print_date($object->last_subscription_date_end, 'dayrfc');
+				$substitutionArray['__MEMBER_FIRST_SUBSCRIPTION_DATE_RFC__']   = dol_print_date($object->first_subscription_date, 'dayrfc');
+				$substitutionArray['__MEMBER_FIRST_SUBSCRIPTION_DATE_START__'] = (isset($object->first_subscription_date_start) ? dol_print_date($object->first_subscription_date_start, 'day') : '');
+				$substitutionArray['__MEMBER_FIRST_SUBSCRIPTION_DATE_START_RFC__'] = (isset($object->first_subscription_date_start) ? dol_print_date($object->first_subscription_date_start, 'dayrfc') : '');
+				$substitutionArray['__MEMBER_FIRST_SUBSCRIPTION_DATE_END__']   = (isset($object->first_subscription_date_end) ? dol_print_date($object->first_subscription_date_end, 'day') : '');
+				$substitutionArray['__MEMBER_FIRST_SUBSCRIPTION_DATE_END_RFC__']   = (isset($object->first_subscription_date_end) ? dol_print_date($object->first_subscription_date_end, 'dayrfc') : '');
+				$substitutionArray['__MEMBER_LAST_SUBSCRIPTION_DATE__']        = dol_print_date($object->last_subscription_date, 'day');
+				$substitutionArray['__MEMBER_LAST_SUBSCRIPTION_DATE_RFC__']    = dol_print_date($object->last_subscription_date, 'dayrfc');
+				$substitutionArray['__MEMBER_LAST_SUBSCRIPTION_DATE_START__']  = dol_print_date($object->last_subscription_date_start, 'day');
+				$substitutionArray['__MEMBER_LAST_SUBSCRIPTION_DATE_START_RFC__']  = dol_print_date($object->last_subscription_date_start, 'dayrfc');
+				$substitutionArray['__MEMBER_LAST_SUBSCRIPTION_DATE_END__']    = dol_print_date($object->last_subscription_date_end, 'day');
+				$substitutionArray['__MEMBER_LAST_SUBSCRIPTION_DATE_END_RFC__']    = dol_print_date($object->last_subscription_date_end, 'dayrfc');
 			}
 
 			if (is_object($object) && $object->element == 'societe') {
 				'@phan-var-force Societe $object';
-				$substitutionarray['__THIRDPARTY_ID__'] = (is_object($object) ? $object->id : '');
-				$substitutionarray['__THIRDPARTY_NAME__'] = (is_object($object) ? $object->name : '');
-				$substitutionarray['__THIRDPARTY_NAME_ALIAS__'] = (is_object($object) ? $object->name_alias : '');
-				$substitutionarray['__THIRDPARTY_CODE_CLIENT__'] = (is_object($object) ? $object->code_client : '');
-				$substitutionarray['__THIRDPARTY_CODE_FOURNISSEUR__'] = (is_object($object) ? $object->code_fournisseur : '');
-				$substitutionarray['__THIRDPARTY_EMAIL__'] = (is_object($object) ? $object->email : '');
-				$substitutionarray['__THIRDPARTY_EMAIL_URLENCODED__'] = urlencode(is_object($object) ? $object->email : '');
-				$substitutionarray['__THIRDPARTY_PHONE__'] = (is_object($object) ? dol_print_phone($object->phone) : '');
-				$substitutionarray['__THIRDPARTY_FAX__'] = (is_object($object) ? dol_print_phone($object->fax) : '');
-				$substitutionarray['__THIRDPARTY_ADDRESS__'] = (is_object($object) ? $object->address : '');
-				$substitutionarray['__THIRDPARTY_ZIP__'] = (is_object($object) ? $object->zip : '');
-				$substitutionarray['__THIRDPARTY_TOWN__'] = (is_object($object) ? $object->town : '');
-				$substitutionarray['__THIRDPARTY_STATE__'] = (is_object($object) ? $object->state : '');
-				$substitutionarray['__THIRDPARTY_COUNTRY_ID__'] = (is_object($object) ? $object->country_id : '');
-				$substitutionarray['__THIRDPARTY_COUNTRY_CODE__'] = (is_object($object) ? $object->country_code : '');
-				$substitutionarray['__THIRDPARTY_IDPROF1__'] = (is_object($object) ? $object->idprof1 : '');
-				$substitutionarray['__THIRDPARTY_IDPROF2__'] = (is_object($object) ? $object->idprof2 : '');
-				$substitutionarray['__THIRDPARTY_IDPROF3__'] = (is_object($object) ? $object->idprof3 : '');
-				$substitutionarray['__THIRDPARTY_IDPROF4__'] = (is_object($object) ? $object->idprof4 : '');
-				$substitutionarray['__THIRDPARTY_IDPROF5__'] = (is_object($object) ? $object->idprof5 : '');
-				$substitutionarray['__THIRDPARTY_IDPROF6__'] = (is_object($object) ? $object->idprof6 : '');
-				$substitutionarray['__THIRDPARTY_TVAINTRA__'] = (is_object($object) ? $object->tva_intra : '');
-				$substitutionarray['__THIRDPARTY_NOTE_PUBLIC__'] = (is_object($object) ? dol_htmlentitiesbr($object->note_public) : '');
-				$substitutionarray['__THIRDPARTY_NOTE_PRIVATE__'] = (is_object($object) ? dol_htmlentitiesbr($object->note_private) : '');
+				$substitutionArray['__THIRDPARTY_ID__'] = (is_object($object) ? $object->id : '');
+				$substitutionArray['__THIRDPARTY_NAME__'] = (is_object($object) ? $object->name : '');
+				$substitutionArray['__THIRDPARTY_NAME_ALIAS__'] = (is_object($object) ? $object->name_alias : '');
+				$substitutionArray['__THIRDPARTY_CODE_CLIENT__'] = (is_object($object) ? $object->code_client : '');
+				$substitutionArray['__THIRDPARTY_CODE_FOURNISSEUR__'] = (is_object($object) ? $object->code_fournisseur : '');
+				$substitutionArray['__THIRDPARTY_EMAIL__'] = (is_object($object) ? $object->email : '');
+				$substitutionArray['__THIRDPARTY_EMAIL_URLENCODED__'] = urlencode(is_object($object) ? $object->email : '');
+				$substitutionArray['__THIRDPARTY_PHONE__'] = (is_object($object) ? dol_print_phone($object->phone) : '');
+				$substitutionArray['__THIRDPARTY_FAX__'] = (is_object($object) ? dol_print_phone($object->fax) : '');
+				$substitutionArray['__THIRDPARTY_ADDRESS__'] = (is_object($object) ? $object->address : '');
+				$substitutionArray['__THIRDPARTY_ZIP__'] = (is_object($object) ? $object->zip : '');
+				$substitutionArray['__THIRDPARTY_TOWN__'] = (is_object($object) ? $object->town : '');
+				$substitutionArray['__THIRDPARTY_STATE__'] = (is_object($object) ? $object->state : '');
+				$substitutionArray['__THIRDPARTY_COUNTRY_ID__'] = (is_object($object) ? $object->country_id : '');
+				$substitutionArray['__THIRDPARTY_COUNTRY_CODE__'] = (is_object($object) ? $object->country_code : '');
+				$substitutionArray['__THIRDPARTY_IDPROF1__'] = (is_object($object) ? $object->idprof1 : '');
+				$substitutionArray['__THIRDPARTY_IDPROF2__'] = (is_object($object) ? $object->idprof2 : '');
+				$substitutionArray['__THIRDPARTY_IDPROF3__'] = (is_object($object) ? $object->idprof3 : '');
+				$substitutionArray['__THIRDPARTY_IDPROF4__'] = (is_object($object) ? $object->idprof4 : '');
+				$substitutionArray['__THIRDPARTY_IDPROF5__'] = (is_object($object) ? $object->idprof5 : '');
+				$substitutionArray['__THIRDPARTY_IDPROF6__'] = (is_object($object) ? $object->idprof6 : '');
+				$substitutionArray['__THIRDPARTY_TVAINTRA__'] = (is_object($object) ? $object->tva_intra : '');
+				$substitutionArray['__THIRDPARTY_NOTE_PUBLIC__'] = (is_object($object) ? dol_htmlentitiesbr($object->note_public) : '');
+				$substitutionArray['__THIRDPARTY_NOTE_PRIVATE__'] = (is_object($object) ? dol_htmlentitiesbr($object->note_private) : '');
 			} elseif (is_object($object->thirdparty)) {
-				$substitutionarray['__THIRDPARTY_ID__'] = (is_object($object->thirdparty) ? $object->thirdparty->id : '');
-				$substitutionarray['__THIRDPARTY_NAME__'] = (is_object($object->thirdparty) ? $object->thirdparty->name : '');
-				$substitutionarray['__THIRDPARTY_NAME_ALIAS__'] = (is_object($object->thirdparty) ? $object->thirdparty->name_alias : '');
-				$substitutionarray['__THIRDPARTY_CODE_CLIENT__'] = (is_object($object->thirdparty) ? $object->thirdparty->code_client : '');
-				$substitutionarray['__THIRDPARTY_CODE_FOURNISSEUR__'] = (is_object($object->thirdparty) ? $object->thirdparty->code_fournisseur : '');
-				$substitutionarray['__THIRDPARTY_EMAIL__'] = (is_object($object->thirdparty) ? $object->thirdparty->email : '');
-				$substitutionarray['__THIRDPARTY_EMAIL_URLENCODED__'] = urlencode(is_object($object->thirdparty) ? $object->thirdparty->email : '');
-				$substitutionarray['__THIRDPARTY_PHONE__'] = (is_object($object->thirdparty) ? dol_print_phone($object->thirdparty->phone) : '');
-				$substitutionarray['__THIRDPARTY_FAX__'] = (is_object($object->thirdparty) ? dol_print_phone($object->thirdparty->fax) : '');
-				$substitutionarray['__THIRDPARTY_ADDRESS__'] = (is_object($object->thirdparty) ? $object->thirdparty->address : '');
-				$substitutionarray['__THIRDPARTY_ZIP__'] = (is_object($object->thirdparty) ? $object->thirdparty->zip : '');
-				$substitutionarray['__THIRDPARTY_TOWN__'] = (is_object($object->thirdparty) ? $object->thirdparty->town : '');
-				$substitutionarray['__THIRDPARTY_STATE__'] = (is_object($object->thirdparty) ? $object->thirdparty->state : '');
-				$substitutionarray['__THIRDPARTY_COUNTRY_ID__'] = (is_object($object->thirdparty) ? $object->thirdparty->country_id : '');
-				$substitutionarray['__THIRDPARTY_COUNTRY_CODE__'] = (is_object($object->thirdparty) ? $object->thirdparty->country_code : '');
-				$substitutionarray['__THIRDPARTY_IDPROF1__'] = (is_object($object->thirdparty) ? $object->thirdparty->idprof1 : '');
-				$substitutionarray['__THIRDPARTY_IDPROF2__'] = (is_object($object->thirdparty) ? $object->thirdparty->idprof2 : '');
-				$substitutionarray['__THIRDPARTY_IDPROF3__'] = (is_object($object->thirdparty) ? $object->thirdparty->idprof3 : '');
-				$substitutionarray['__THIRDPARTY_IDPROF4__'] = (is_object($object->thirdparty) ? $object->thirdparty->idprof4 : '');
-				$substitutionarray['__THIRDPARTY_IDPROF5__'] = (is_object($object->thirdparty) ? $object->thirdparty->idprof5 : '');
-				$substitutionarray['__THIRDPARTY_IDPROF6__'] = (is_object($object->thirdparty) ? $object->thirdparty->idprof6 : '');
-				$substitutionarray['__THIRDPARTY_TVAINTRA__'] = (is_object($object->thirdparty) ? $object->thirdparty->tva_intra : '');
-				$substitutionarray['__THIRDPARTY_NOTE_PUBLIC__'] = (is_object($object->thirdparty) ? dol_htmlentitiesbr($object->thirdparty->note_public) : '');
-				$substitutionarray['__THIRDPARTY_NOTE_PRIVATE__'] = (is_object($object->thirdparty) ? dol_htmlentitiesbr($object->thirdparty->note_private) : '');
+				$substitutionArray['__THIRDPARTY_ID__'] = (is_object($object->thirdparty) ? $object->thirdparty->id : '');
+				$substitutionArray['__THIRDPARTY_NAME__'] = (is_object($object->thirdparty) ? $object->thirdparty->name : '');
+				$substitutionArray['__THIRDPARTY_NAME_ALIAS__'] = (is_object($object->thirdparty) ? $object->thirdparty->name_alias : '');
+				$substitutionArray['__THIRDPARTY_CODE_CLIENT__'] = (is_object($object->thirdparty) ? $object->thirdparty->code_client : '');
+				$substitutionArray['__THIRDPARTY_CODE_FOURNISSEUR__'] = (is_object($object->thirdparty) ? $object->thirdparty->code_fournisseur : '');
+				$substitutionArray['__THIRDPARTY_EMAIL__'] = (is_object($object->thirdparty) ? $object->thirdparty->email : '');
+				$substitutionArray['__THIRDPARTY_EMAIL_URLENCODED__'] = urlencode(is_object($object->thirdparty) ? $object->thirdparty->email : '');
+				$substitutionArray['__THIRDPARTY_PHONE__'] = (is_object($object->thirdparty) ? dol_print_phone($object->thirdparty->phone) : '');
+				$substitutionArray['__THIRDPARTY_FAX__'] = (is_object($object->thirdparty) ? dol_print_phone($object->thirdparty->fax) : '');
+				$substitutionArray['__THIRDPARTY_ADDRESS__'] = (is_object($object->thirdparty) ? $object->thirdparty->address : '');
+				$substitutionArray['__THIRDPARTY_ZIP__'] = (is_object($object->thirdparty) ? $object->thirdparty->zip : '');
+				$substitutionArray['__THIRDPARTY_TOWN__'] = (is_object($object->thirdparty) ? $object->thirdparty->town : '');
+				$substitutionArray['__THIRDPARTY_STATE__'] = (is_object($object->thirdparty) ? $object->thirdparty->state : '');
+				$substitutionArray['__THIRDPARTY_COUNTRY_ID__'] = (is_object($object->thirdparty) ? $object->thirdparty->country_id : '');
+				$substitutionArray['__THIRDPARTY_COUNTRY_CODE__'] = (is_object($object->thirdparty) ? $object->thirdparty->country_code : '');
+				$substitutionArray['__THIRDPARTY_IDPROF1__'] = (is_object($object->thirdparty) ? $object->thirdparty->idprof1 : '');
+				$substitutionArray['__THIRDPARTY_IDPROF2__'] = (is_object($object->thirdparty) ? $object->thirdparty->idprof2 : '');
+				$substitutionArray['__THIRDPARTY_IDPROF3__'] = (is_object($object->thirdparty) ? $object->thirdparty->idprof3 : '');
+				$substitutionArray['__THIRDPARTY_IDPROF4__'] = (is_object($object->thirdparty) ? $object->thirdparty->idprof4 : '');
+				$substitutionArray['__THIRDPARTY_IDPROF5__'] = (is_object($object->thirdparty) ? $object->thirdparty->idprof5 : '');
+				$substitutionArray['__THIRDPARTY_IDPROF6__'] = (is_object($object->thirdparty) ? $object->thirdparty->idprof6 : '');
+				$substitutionArray['__THIRDPARTY_TVAINTRA__'] = (is_object($object->thirdparty) ? $object->thirdparty->tva_intra : '');
+				$substitutionArray['__THIRDPARTY_NOTE_PUBLIC__'] = (is_object($object->thirdparty) ? dol_htmlentitiesbr($object->thirdparty->note_public) : '');
+				$substitutionArray['__THIRDPARTY_NOTE_PRIVATE__'] = (is_object($object->thirdparty) ? dol_htmlentitiesbr($object->thirdparty->note_private) : '');
 			}
 
 			if (is_object($object) && $object->element == 'recruitmentcandidature') {
 				'@phan-var-force RecruitmentCandidature $object';
-				$substitutionarray['__CANDIDATE_FULLNAME__'] = $object->getFullName($outputlangs);
-				$substitutionarray['__CANDIDATE_FIRSTNAME__'] = isset($object->firstname) ? $object->firstname : '';
-				$substitutionarray['__CANDIDATE_LASTNAME__'] = isset($object->lastname) ? $object->lastname : '';
+				$substitutionArray['__CANDIDATE_FULLNAME__'] = $object->getFullName($outputlangs);
+				$substitutionArray['__CANDIDATE_FIRSTNAME__'] = isset($object->firstname) ? $object->firstname : '';
+				$substitutionArray['__CANDIDATE_LASTNAME__'] = isset($object->lastname) ? $object->lastname : '';
 			}
 			if (is_object($object) && $object->element == 'conferenceorboothattendee') {
 				'@phan-var-force ConferenceOrBoothAttendee $object';
-				$substitutionarray['__ATTENDEE_FULLNAME__'] = $object->getFullName($outputlangs);
-				$substitutionarray['__ATTENDEE_FIRSTNAME__'] = isset($object->firstname) ? $object->firstname : '';
-				$substitutionarray['__ATTENDEE_LASTNAME__'] = isset($object->lastname) ? $object->lastname : '';
+				$substitutionArray['__ATTENDEE_FULLNAME__'] = $object->getFullName($outputlangs);
+				$substitutionArray['__ATTENDEE_FIRSTNAME__'] = isset($object->firstname) ? $object->firstname : '';
+				$substitutionArray['__ATTENDEE_LASTNAME__'] = isset($object->lastname) ? $object->lastname : '';
 			}
 
 			if (is_object($object) && $object->element == 'project') {
 				'@phan-var-force Project $object';
-				$substitutionarray['__PROJECT_ID__'] = $object->id;
-				$substitutionarray['__PROJECT_REF__'] = $object->ref;
-				$substitutionarray['__PROJECT_NAME__'] = $object->title;
+				$substitutionArray['__PROJECT_ID__'] = $object->id;
+				$substitutionArray['__PROJECT_REF__'] = $object->ref;
+				$substitutionArray['__PROJECT_NAME__'] = $object->title;
 			} elseif (is_object($object)) {
 				$project = null;
 				if (!empty($object->project)) {
@@ -9330,9 +9330,9 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 					$project = $object->projet;
 				}
 				if (!is_null($project) && is_object($project)) {
-					$substitutionarray['__PROJECT_ID__'] = $project->id;
-					$substitutionarray['__PROJECT_REF__'] = $project->ref;
-					$substitutionarray['__PROJECT_NAME__'] = $project->title;
+					$substitutionArray['__PROJECT_ID__'] = $project->id;
+					$substitutionArray['__PROJECT_REF__'] = $project->ref;
+					$substitutionArray['__PROJECT_NAME__'] = $project->title;
 				} else {
 					// can substitute variables for project : uses lazy load in "make_substitutions" method
 					$project_id = 0;
@@ -9343,27 +9343,27 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 					}
 					if ($project_id > 0) {
 						// path:class:method:id
-						$substitutionarray['__PROJECT_ID__@lazyload'] = '/projet/class/project.class.php:Project:fetchAndSetSubstitution:' . $project_id;
-						$substitutionarray['__PROJECT_REF__@lazyload'] = '/projet/class/project.class.php:Project:fetchAndSetSubstitution:' . $project_id;
-						$substitutionarray['__PROJECT_NAME__@lazyload'] = '/projet/class/project.class.php:Project:fetchAndSetSubstitution:' . $project_id;
+						$substitutionArray['__PROJECT_ID__@lazyload'] = '/projet/class/project.class.php:Project:fetchAndSetSubstitution:' . $project_id;
+						$substitutionArray['__PROJECT_REF__@lazyload'] = '/projet/class/project.class.php:Project:fetchAndSetSubstitution:' . $project_id;
+						$substitutionArray['__PROJECT_NAME__@lazyload'] = '/projet/class/project.class.php:Project:fetchAndSetSubstitution:' . $project_id;
 					}
 				}
 			}
 
 			if (is_object($object) && $object->element == 'facture') {
 				'@phan-var-force Facture $object';
-				$substitutionarray['__INVOICE_SITUATION_NUMBER__'] = isset($object->situation_counter) ? $object->situation_counter : '';
+				$substitutionArray['__INVOICE_SITUATION_NUMBER__'] = isset($object->situation_counter) ? $object->situation_counter : '';
 			}
 			if (is_object($object) && $object->element == 'shipping') {
 				'@phan-var-force Expedition $object';
-				$substitutionarray['__SHIPPINGTRACKNUM__'] = $object->tracking_number;
-				$substitutionarray['__SHIPPINGTRACKNUMURL__'] = $object->tracking_url;
-				$substitutionarray['__SHIPPINGMETHOD__'] = $object->shipping_method;
+				$substitutionArray['__SHIPPINGTRACKNUM__'] = $object->tracking_number;
+				$substitutionArray['__SHIPPINGTRACKNUMURL__'] = $object->tracking_url;
+				$substitutionArray['__SHIPPINGMETHOD__'] = $object->shipping_method;
 			}
 			if (is_object($object) && $object->element == 'reception') {
 				'@phan-var-force Reception $object';
-				$substitutionarray['__RECEPTIONTRACKNUM__'] = $object->tracking_number;
-				$substitutionarray['__RECEPTIONTRACKNUMURL__'] = $object->tracking_url;
+				$substitutionArray['__RECEPTIONTRACKNUM__'] = $object->tracking_number;
+				$substitutionArray['__RECEPTIONTRACKNUMURL__'] = $object->tracking_url;
 			}
 
 			if (is_object($object) && $object->element == 'contrat' && $object->id > 0 && is_array($object->lines)) {
@@ -9378,34 +9378,34 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 						$datenextexpiration = $line->date_end;
 					}
 				}
-				$substitutionarray['__CONTRACT_HIGHEST_PLANNED_START_DATE__'] = dol_print_date($dateplannedstart, 'day');
-				$substitutionarray['__CONTRACT_HIGHEST_PLANNED_START_DATE_RFC__'] = dol_print_date($dateplannedstart, 'dayrfc');
-				$substitutionarray['__CONTRACT_HIGHEST_PLANNED_START_DATETIME__'] = dol_print_date($dateplannedstart, 'standard');
+				$substitutionArray['__CONTRACT_HIGHEST_PLANNED_START_DATE__'] = dol_print_date($dateplannedstart, 'day');
+				$substitutionArray['__CONTRACT_HIGHEST_PLANNED_START_DATE_RFC__'] = dol_print_date($dateplannedstart, 'dayrfc');
+				$substitutionArray['__CONTRACT_HIGHEST_PLANNED_START_DATETIME__'] = dol_print_date($dateplannedstart, 'standard');
 
-				$substitutionarray['__CONTRACT_LOWEST_EXPIRATION_DATE__'] = dol_print_date($datenextexpiration, 'day');
-				$substitutionarray['__CONTRACT_LOWEST_EXPIRATION_DATE_RFC__'] = dol_print_date($datenextexpiration, 'dayrfc');
-				$substitutionarray['__CONTRACT_LOWEST_EXPIRATION_DATETIME__'] = dol_print_date($datenextexpiration, 'standard');
+				$substitutionArray['__CONTRACT_LOWEST_EXPIRATION_DATE__'] = dol_print_date($datenextexpiration, 'day');
+				$substitutionArray['__CONTRACT_LOWEST_EXPIRATION_DATE_RFC__'] = dol_print_date($datenextexpiration, 'dayrfc');
+				$substitutionArray['__CONTRACT_LOWEST_EXPIRATION_DATETIME__'] = dol_print_date($datenextexpiration, 'standard');
 			}
 			// add substitution variables for ticket
 			if (is_object($object) && $object->element == 'ticket') {
 				'@phan-var-force Ticket $object';
-				$substitutionarray['__TICKET_TRACKID__'] = $object->track_id;
-				$substitutionarray['__TICKET_SUBJECT__'] = $object->subject;
-				$substitutionarray['__TICKET_TYPE__'] = $object->type_code;
-				$substitutionarray['__TICKET_SEVERITY__'] = $object->severity_code;
-				$substitutionarray['__TICKET_CATEGORY__'] = $object->category_code; // For backward compatibility
-				$substitutionarray['__TICKET_ANALYTIC_CODE__'] = $object->category_code;
-				$substitutionarray['__TICKET_MESSAGE__'] = $object->message;
-				$substitutionarray['__TICKET_PROGRESSION__'] = $object->progress;
+				$substitutionArray['__TICKET_TRACKID__'] = $object->track_id;
+				$substitutionArray['__TICKET_SUBJECT__'] = $object->subject;
+				$substitutionArray['__TICKET_TYPE__'] = $object->type_code;
+				$substitutionArray['__TICKET_SEVERITY__'] = $object->severity_code;
+				$substitutionArray['__TICKET_CATEGORY__'] = $object->category_code; // For backward compatibility
+				$substitutionArray['__TICKET_ANALYTIC_CODE__'] = $object->category_code;
+				$substitutionArray['__TICKET_MESSAGE__'] = $object->message;
+				$substitutionArray['__TICKET_PROGRESSION__'] = $object->progress;
 				$userstat = new User($db);
 				if ($object->fk_user_assign > 0) {
 					$userstat->fetch($object->fk_user_assign);
-					$substitutionarray['__TICKET_USER_ASSIGN__'] = dolGetFirstLastname($userstat->firstname, $userstat->lastname);
+					$substitutionArray['__TICKET_USER_ASSIGN__'] = dolGetFirstLastname($userstat->firstname, $userstat->lastname);
 				}
 
 				if ($object->fk_user_create > 0) {
 					$userstat->fetch($object->fk_user_create);
-					$substitutionarray['__USER_CREATE__'] = dolGetFirstLastname($userstat->firstname, $userstat->lastname);
+					$substitutionArray['__USER_CREATE__'] = dolGetFirstLastname($userstat->firstname, $userstat->lastname);
 				}
 			}
 
@@ -9420,23 +9420,23 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 					if (is_array($extrafields->attributes[$object->table_element]['label']) && count($extrafields->attributes[$object->table_element]['label']) > 0) {
 						foreach ($extrafields->attributes[$object->table_element]['label'] as $key => $label) {
 							if ($extrafields->attributes[$object->table_element]['type'][$key] == 'date') {
-								$substitutionarray['__EXTRAFIELD_'.strtoupper($key).'__'] = dol_print_date($object->array_options['options_'.$key], 'day');
-								$substitutionarray['__EXTRAFIELD_'.strtoupper($key).'_LOCALE__'] = dol_print_date($object->array_options['options_'.$key], 'day', 'tzserver', $outputlangs);
-								$substitutionarray['__EXTRAFIELD_'.strtoupper($key).'_RFC__'] = dol_print_date($object->array_options['options_'.$key], 'dayrfc');
+								$substitutionArray['__EXTRAFIELD_'.strtoupper($key).'__'] = dol_print_date($object->array_options['options_'.$key], 'day');
+								$substitutionArray['__EXTRAFIELD_'.strtoupper($key).'_LOCALE__'] = dol_print_date($object->array_options['options_'.$key], 'day', 'tzserver', $outputlangs);
+								$substitutionArray['__EXTRAFIELD_'.strtoupper($key).'_RFC__'] = dol_print_date($object->array_options['options_'.$key], 'dayrfc');
 							} elseif ($extrafields->attributes[$object->table_element]['type'][$key] == 'datetime') {
 								$datetime = $object->array_options['options_'.$key];
-								$substitutionarray['__EXTRAFIELD_'.strtoupper($key).'__'] = ($datetime != "0000-00-00 00:00:00" ? dol_print_date($datetime, 'dayhour') : '');
-								$substitutionarray['__EXTRAFIELD_'.strtoupper($key).'_LOCALE__'] = ($datetime != "0000-00-00 00:00:00" ? dol_print_date($datetime, 'dayhour', 'tzserver', $outputlangs) : '');
-								$substitutionarray['__EXTRAFIELD_'.strtoupper($key).'_DAY_LOCALE__'] = ($datetime != "0000-00-00 00:00:00" ? dol_print_date($datetime, 'day', 'tzserver', $outputlangs) : '');
-								$substitutionarray['__EXTRAFIELD_'.strtoupper($key).'_RFC__'] = ($datetime != "0000-00-00 00:00:00" ? dol_print_date($datetime, 'dayhourrfc') : '');
+								$substitutionArray['__EXTRAFIELD_'.strtoupper($key).'__'] = ($datetime != "0000-00-00 00:00:00" ? dol_print_date($datetime, 'dayhour') : '');
+								$substitutionArray['__EXTRAFIELD_'.strtoupper($key).'_LOCALE__'] = ($datetime != "0000-00-00 00:00:00" ? dol_print_date($datetime, 'dayhour', 'tzserver', $outputlangs) : '');
+								$substitutionArray['__EXTRAFIELD_'.strtoupper($key).'_DAY_LOCALE__'] = ($datetime != "0000-00-00 00:00:00" ? dol_print_date($datetime, 'day', 'tzserver', $outputlangs) : '');
+								$substitutionArray['__EXTRAFIELD_'.strtoupper($key).'_RFC__'] = ($datetime != "0000-00-00 00:00:00" ? dol_print_date($datetime, 'dayhourrfc') : '');
 							} elseif ($extrafields->attributes[$object->table_element]['type'][$key] == 'phone') {
-								$substitutionarray['__EXTRAFIELD_'.strtoupper($key).'__'] = dol_print_phone($object->array_options['options_'.$key]);
+								$substitutionArray['__EXTRAFIELD_'.strtoupper($key).'__'] = dol_print_phone($object->array_options['options_'.$key]);
 							} elseif ($extrafields->attributes[$object->table_element]['type'][$key] == 'price') {
-								$substitutionarray['__EXTRAFIELD_'.strtoupper($key).'__'] = $object->array_options['options_'.$key];
-								$substitutionarray['__EXTRAFIELD_'.strtoupper($key).'_FORMATED__'] = price($object->array_options['options_'.$key]);	// For compatibility
-								$substitutionarray['__EXTRAFIELD_'.strtoupper($key).'_FORMATTED__'] = price($object->array_options['options_'.$key]);
+								$substitutionArray['__EXTRAFIELD_'.strtoupper($key).'__'] = $object->array_options['options_'.$key];
+								$substitutionArray['__EXTRAFIELD_'.strtoupper($key).'_FORMATED__'] = price($object->array_options['options_'.$key]);	// For compatibility
+								$substitutionArray['__EXTRAFIELD_'.strtoupper($key).'_FORMATTED__'] = price($object->array_options['options_'.$key]);
 							} elseif ($extrafields->attributes[$object->table_element]['type'][$key] != 'separator') {
-								$substitutionarray['__EXTRAFIELD_'.strtoupper($key).'__'] = !empty($object->array_options['options_'.$key]) ? $object->array_options['options_'.$key] : '';
+								$substitutionArray['__EXTRAFIELD_'.strtoupper($key).'__'] = !empty($object->array_options['options_'.$key]) ? $object->array_options['options_'.$key] : '';
 							}
 						}
 					}
@@ -9444,7 +9444,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 			}
 
 			// Complete substitution array with the url to make online payment
-			if (empty($substitutionarray['__REF__'])) {
+			if (empty($substitutionArray['__REF__'])) {
 				$paymenturl = '';
 			} else {
 				// Set the online payment url link into __ONLINE_PAYMENT_URL__ key
@@ -9472,97 +9472,97 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 					$typeforonlinepayment = 'ficheinter';
 				}
 
-				$url = getOnlinePaymentUrl(0, $typeforonlinepayment, $substitutionarray['__REF__'], $amounttouse);
+				$url = getOnlinePaymentUrl(0, $typeforonlinepayment, $substitutionArray['__REF__'], $amounttouse);
 				$paymenturl = $url;
 			}
 
 			if ($object->id > 0) {
-				$substitutionarray['__ONLINE_PAYMENT_TEXT_AND_URL__'] = ($paymenturl ? str_replace('\n', "\n", $outputlangs->trans("PredefinedMailContentLink", $paymenturl)) : '');
-				$substitutionarray['__ONLINE_PAYMENT_URL__'] = $paymenturl;
+				$substitutionArray['__ONLINE_PAYMENT_TEXT_AND_URL__'] = ($paymenturl ? str_replace('\n', "\n", $outputlangs->trans("PredefinedMailContentLink", $paymenturl)) : '');
+				$substitutionArray['__ONLINE_PAYMENT_URL__'] = $paymenturl;
 
 				// Show structured communication
 				if (getDolGlobalString('INVOICE_PAYMENT_ENABLE_STRUCTURED_COMMUNICATION') && $object->element == 'facture') {
 					include_once DOL_DOCUMENT_ROOT.'/core/lib/functions_be.lib.php';
-					$substitutionarray['__PAYMENT_STRUCTURED_COMMUNICATION__'] = dolBECalculateStructuredCommunication($object->ref, $object->type);
+					$substitutionArray['__PAYMENT_STRUCTURED_COMMUNICATION__'] = dolBECalculateStructuredCommunication($object->ref, $object->type);
 				}
 
 				if (getDolGlobalString('PROPOSAL_ALLOW_EXTERNAL_DOWNLOAD') && is_object($object) && $object->element == 'propal') {
-					$substitutionarray['__DIRECTDOWNLOAD_URL_PROPOSAL__'] = $object->getLastMainDocLink($object->element);
+					$substitutionArray['__DIRECTDOWNLOAD_URL_PROPOSAL__'] = $object->getLastMainDocLink($object->element);
 				} else {
-					$substitutionarray['__DIRECTDOWNLOAD_URL_PROPOSAL__'] = '';
+					$substitutionArray['__DIRECTDOWNLOAD_URL_PROPOSAL__'] = '';
 				}
 				if (getDolGlobalString('ORDER_ALLOW_EXTERNAL_DOWNLOAD') && is_object($object) && $object->element == 'commande') {
-					$substitutionarray['__DIRECTDOWNLOAD_URL_ORDER__'] = $object->getLastMainDocLink($object->element);
+					$substitutionArray['__DIRECTDOWNLOAD_URL_ORDER__'] = $object->getLastMainDocLink($object->element);
 				} else {
-					$substitutionarray['__DIRECTDOWNLOAD_URL_ORDER__'] = '';
+					$substitutionArray['__DIRECTDOWNLOAD_URL_ORDER__'] = '';
 				}
 				if (getDolGlobalString('INVOICE_ALLOW_EXTERNAL_DOWNLOAD') && is_object($object) && $object->element == 'facture') {
-					$substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__'] = $object->getLastMainDocLink($object->element);
+					$substitutionArray['__DIRECTDOWNLOAD_URL_INVOICE__'] = $object->getLastMainDocLink($object->element);
 				} else {
-					$substitutionarray['__DIRECTDOWNLOAD_URL_INVOICE__'] = '';
+					$substitutionArray['__DIRECTDOWNLOAD_URL_INVOICE__'] = '';
 				}
 				if (getDolGlobalString('CONTRACT_ALLOW_EXTERNAL_DOWNLOAD') && is_object($object) && $object->element == 'contrat') {
-					$substitutionarray['__DIRECTDOWNLOAD_URL_CONTRACT__'] = $object->getLastMainDocLink($object->element);
+					$substitutionArray['__DIRECTDOWNLOAD_URL_CONTRACT__'] = $object->getLastMainDocLink($object->element);
 				} else {
-					$substitutionarray['__DIRECTDOWNLOAD_URL_CONTRACT__'] = '';
+					$substitutionArray['__DIRECTDOWNLOAD_URL_CONTRACT__'] = '';
 				}
 				if (getDolGlobalString('FICHINTER_ALLOW_EXTERNAL_DOWNLOAD') && is_object($object) && $object->element == 'fichinter') {
-					$substitutionarray['__DIRECTDOWNLOAD_URL_FICHINTER__'] = $object->getLastMainDocLink($object->element);
+					$substitutionArray['__DIRECTDOWNLOAD_URL_FICHINTER__'] = $object->getLastMainDocLink($object->element);
 				} else {
-					$substitutionarray['__DIRECTDOWNLOAD_URL_FICHINTER__'] = '';
+					$substitutionArray['__DIRECTDOWNLOAD_URL_FICHINTER__'] = '';
 				}
 				if (getDolGlobalString('SUPPLIER_PROPOSAL_ALLOW_EXTERNAL_DOWNLOAD') && is_object($object) && $object->element == 'supplier_proposal') {
-					$substitutionarray['__DIRECTDOWNLOAD_URL_SUPPLIER_PROPOSAL__'] = $object->getLastMainDocLink($object->element);
+					$substitutionArray['__DIRECTDOWNLOAD_URL_SUPPLIER_PROPOSAL__'] = $object->getLastMainDocLink($object->element);
 				} else {
-					$substitutionarray['__DIRECTDOWNLOAD_URL_SUPPLIER_PROPOSAL__'] = '';
+					$substitutionArray['__DIRECTDOWNLOAD_URL_SUPPLIER_PROPOSAL__'] = '';
 				}
 
 				if (is_object($object) && $object->element == 'propal') {
 					'@phan-var-force Propal $object';
-					$substitutionarray['__URL_PROPOSAL__'] = DOL_MAIN_URL_ROOT."/comm/propal/card.php?id=".$object->id;
+					$substitutionArray['__URL_PROPOSAL__'] = DOL_MAIN_URL_ROOT."/comm/propal/card.php?id=".$object->id;
 					require_once DOL_DOCUMENT_ROOT.'/core/lib/signature.lib.php';
-					$substitutionarray['__ONLINE_SIGN_URL__'] = getOnlineSignatureUrl(0, 'proposal', $object->ref, 1, $object);
+					$substitutionArray['__ONLINE_SIGN_URL__'] = getOnlineSignatureUrl(0, 'proposal', $object->ref, 1, $object);
 				}
 				if (is_object($object) && $object->element == 'commande') {
 					'@phan-var-force Commande $object';
-					$substitutionarray['__URL_ORDER__'] = DOL_MAIN_URL_ROOT."/commande/card.php?id=".$object->id;
+					$substitutionArray['__URL_ORDER__'] = DOL_MAIN_URL_ROOT."/commande/card.php?id=".$object->id;
 				}
 				if (is_object($object) && $object->element == 'facture') {
 					'@phan-var-force Facture $object';
-					$substitutionarray['__URL_INVOICE__'] = DOL_MAIN_URL_ROOT."/compta/facture/card.php?id=".$object->id;
+					$substitutionArray['__URL_INVOICE__'] = DOL_MAIN_URL_ROOT."/compta/facture/card.php?id=".$object->id;
 				}
 				if (is_object($object) && $object->element == 'contrat') {
 					'@phan-var-force Contrat $object';
-					$substitutionarray['__URL_CONTRACT__'] = DOL_MAIN_URL_ROOT."/contrat/card.php?id=".$object->id;
+					$substitutionArray['__URL_CONTRACT__'] = DOL_MAIN_URL_ROOT."/contrat/card.php?id=".$object->id;
 					require_once DOL_DOCUMENT_ROOT.'/core/lib/signature.lib.php';
-					$substitutionarray['__ONLINE_SIGN_URL__'] = getOnlineSignatureUrl(0, 'contract', $object->ref, 1, $object);
+					$substitutionArray['__ONLINE_SIGN_URL__'] = getOnlineSignatureUrl(0, 'contract', $object->ref, 1, $object);
 				}
 				if (is_object($object) && $object->element == 'fichinter') {
 					'@phan-var-force Fichinter $object';
-					$substitutionarray['__URL_FICHINTER__'] = DOL_MAIN_URL_ROOT."/fichinter/card.php?id=".$object->id;
+					$substitutionArray['__URL_FICHINTER__'] = DOL_MAIN_URL_ROOT."/fichinter/card.php?id=".$object->id;
 					require_once DOL_DOCUMENT_ROOT.'/core/lib/signature.lib.php';
-					$substitutionarray['__ONLINE_SIGN_FICHINTER_URL__'] = getOnlineSignatureUrl(0, 'fichinter', $object->ref, 1, $object);
+					$substitutionArray['__ONLINE_SIGN_FICHINTER_URL__'] = getOnlineSignatureUrl(0, 'fichinter', $object->ref, 1, $object);
 				}
 				if (is_object($object) && $object->element == 'supplier_proposal') {
 					'@phan-var-force SupplierProposal $object';
-					$substitutionarray['__URL_SUPPLIER_PROPOSAL__'] = DOL_MAIN_URL_ROOT."/supplier_proposal/card.php?id=".$object->id;
+					$substitutionArray['__URL_SUPPLIER_PROPOSAL__'] = DOL_MAIN_URL_ROOT."/supplier_proposal/card.php?id=".$object->id;
 				}
 				if (is_object($object) && $object->element == 'invoice_supplier') {
 					'@phan-var-force FactureFournisseur $object';
-					$substitutionarray['__URL_SUPPLIER_INVOICE__'] = DOL_MAIN_URL_ROOT."/fourn/facture/card.php?id=".$object->id;
+					$substitutionArray['__URL_SUPPLIER_INVOICE__'] = DOL_MAIN_URL_ROOT."/fourn/facture/card.php?id=".$object->id;
 				}
 				if (is_object($object) && $object->element == 'shipping') {
 					'@phan-var-force Expedition $object';
-					$substitutionarray['__URL_SHIPMENT__'] = DOL_MAIN_URL_ROOT."/expedition/card.php?id=".$object->id;
+					$substitutionArray['__URL_SHIPMENT__'] = DOL_MAIN_URL_ROOT."/expedition/card.php?id=".$object->id;
 				}
 			}
 
 			if (is_object($object) && $object->element == 'action') {
 				'@phan-var-force ActionComm $object';
-				$substitutionarray['__EVENT_LABEL__'] = $object->label;
-				$substitutionarray['__EVENT_TYPE__'] = $outputlangs->trans("Action".$object->type_code);
-				$substitutionarray['__EVENT_DATE__'] = dol_print_date($object->datep, 'day', 'auto', $outputlangs);
-				$substitutionarray['__EVENT_TIME__'] = dol_print_date($object->datep, 'hour', 'auto', $outputlangs);
+				$substitutionArray['__EVENT_LABEL__'] = $object->label;
+				$substitutionArray['__EVENT_TYPE__'] = $outputlangs->trans("Action".$object->type_code);
+				$substitutionArray['__EVENT_DATE__'] = dol_print_date($object->datep, 'day', 'auto', $outputlangs);
+				$substitutionArray['__EVENT_TIME__'] = dol_print_date($object->datep, 'hour', 'auto', $outputlangs);
 			}
 		}
 	}
@@ -9570,73 +9570,73 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 		'@phan-var-force Facture|FactureRec $object';
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/functionsnumtoword.lib.php';
 
-		$substitutionarray['__DATE_YMD__']          = is_object($object) ? (isset($object->date) ? dol_print_date($object->date, 'day', false, $outputlangs) : null) : '';
-		$substitutionarray['__DATE_DUE_YMD__']      = is_object($object) ? (isset($object->date_lim_reglement) ? dol_print_date($object->date_lim_reglement, 'day', false, $outputlangs) : null) : '';
-		$substitutionarray['__DATE_YMD_TEXT__']     = is_object($object) ? (isset($object->date) ? dol_print_date($object->date, 'daytext', false, $outputlangs) : null) : '';
-		$substitutionarray['__DATE_DUE_YMD_TEXT__'] = is_object($object) ? (isset($object->date_lim_reglement) ? dol_print_date($object->date_lim_reglement, 'daytext', false, $outputlangs) : null) : '';
+		$substitutionArray['__DATE_YMD__']          = is_object($object) ? (isset($object->date) ? dol_print_date($object->date, 'day', false, $outputlangs) : null) : '';
+		$substitutionArray['__DATE_DUE_YMD__']      = is_object($object) ? (isset($object->date_lim_reglement) ? dol_print_date($object->date_lim_reglement, 'day', false, $outputlangs) : null) : '';
+		$substitutionArray['__DATE_YMD_TEXT__']     = is_object($object) ? (isset($object->date) ? dol_print_date($object->date, 'daytext', false, $outputlangs) : null) : '';
+		$substitutionArray['__DATE_DUE_YMD_TEXT__'] = is_object($object) ? (isset($object->date_lim_reglement) ? dol_print_date($object->date_lim_reglement, 'daytext', false, $outputlangs) : null) : '';
 
 		$already_payed_all = 0;
 		if (is_object($object) && ($object instanceof Facture)) {
 			$already_payed_all = $object->sumpayed + $object->sumdeposit + $object->sumcreditnote;
 		}
 
-		$substitutionarray['__AMOUNT_EXCL_TAX__'] = is_object($object) ? $object->total_ht : '';
-		$substitutionarray['__AMOUNT_EXCL_TAX_TEXT__'] = is_object($object) ? dol_convertToWord($object->total_ht, $outputlangs, '', true) : '';
-		$substitutionarray['__AMOUNT_EXCL_TAX_TEXTCURRENCY__'] = is_object($object) ? dol_convertToWord($object->total_ht, $outputlangs, $config->currency, true) : '';
+		$substitutionArray['__AMOUNT_EXCL_TAX__'] = is_object($object) ? $object->total_ht : '';
+		$substitutionArray['__AMOUNT_EXCL_TAX_TEXT__'] = is_object($object) ? dol_convertToWord($object->total_ht, $outputlangs, '', true) : '';
+		$substitutionArray['__AMOUNT_EXCL_TAX_TEXTCURRENCY__'] = is_object($object) ? dol_convertToWord($object->total_ht, $outputlangs, $config->currency, true) : '';
 
-		$substitutionarray['__AMOUNT__']          = is_object($object) ? $object->total_ttc : '';
-		$substitutionarray['__AMOUNT_TEXT__']     = is_object($object) ? dol_convertToWord($object->total_ttc, $outputlangs, '', true) : '';
-		$substitutionarray['__AMOUNT_TEXTCURRENCY__'] = is_object($object) ? dol_convertToWord($object->total_ttc, $outputlangs, $config->currency, true) : '';
+		$substitutionArray['__AMOUNT__']          = is_object($object) ? $object->total_ttc : '';
+		$substitutionArray['__AMOUNT_TEXT__']     = is_object($object) ? dol_convertToWord($object->total_ttc, $outputlangs, '', true) : '';
+		$substitutionArray['__AMOUNT_TEXTCURRENCY__'] = is_object($object) ? dol_convertToWord($object->total_ttc, $outputlangs, $config->currency, true) : '';
 
-		$substitutionarray['__AMOUNT_REMAIN__'] = is_object($object) ? price2num($object->total_ttc - $already_payed_all, 'MT') : '';
+		$substitutionArray['__AMOUNT_REMAIN__'] = is_object($object) ? price2num($object->total_ttc - $already_payed_all, 'MT') : '';
 
-		$substitutionarray['__AMOUNT_VAT__']      = is_object($object) ? (isset($object->total_vat) ? $object->total_vat : $object->total_tva) : '';
-		$substitutionarray['__AMOUNT_VAT_TEXT__']      = is_object($object) ? (isset($object->total_vat) ? dol_convertToWord($object->total_vat, $outputlangs, '', true) : dol_convertToWord($object->total_tva, $outputlangs, '', true)) : '';
-		$substitutionarray['__AMOUNT_VAT_TEXTCURRENCY__']      = is_object($object) ? (isset($object->total_vat) ? dol_convertToWord($object->total_vat, $outputlangs, $config->currency, true) : dol_convertToWord($object->total_tva, $outputlangs, $config->currency, true)) : '';
+		$substitutionArray['__AMOUNT_VAT__']      = is_object($object) ? (isset($object->total_vat) ? $object->total_vat : $object->total_tva) : '';
+		$substitutionArray['__AMOUNT_VAT_TEXT__']      = is_object($object) ? (isset($object->total_vat) ? dol_convertToWord($object->total_vat, $outputlangs, '', true) : dol_convertToWord($object->total_tva, $outputlangs, '', true)) : '';
+		$substitutionArray['__AMOUNT_VAT_TEXTCURRENCY__']      = is_object($object) ? (isset($object->total_vat) ? dol_convertToWord($object->total_vat, $outputlangs, $config->currency, true) : dol_convertToWord($object->total_tva, $outputlangs, $config->currency, true)) : '';
 
 		if ($onlykey != 2 || $mysoc->useLocalTax(1)) {
-			$substitutionarray['__AMOUNT_TAX2__']     = is_object($object) ? $object->total_localtax1 : '';
+			$substitutionArray['__AMOUNT_TAX2__']     = is_object($object) ? $object->total_localtax1 : '';
 		}
 		if ($onlykey != 2 || $mysoc->useLocalTax(2)) {
-			$substitutionarray['__AMOUNT_TAX3__']     = is_object($object) ? $object->total_localtax2 : '';
+			$substitutionArray['__AMOUNT_TAX3__']     = is_object($object) ? $object->total_localtax2 : '';
 		}
 
 		// Amount keys formatted in a currency
-		$substitutionarray['__AMOUNT_EXCL_TAX_FORMATTED__'] = is_object($object) ? ($object->total_ht ? price($object->total_ht, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
-		$substitutionarray['__AMOUNT_FORMATTED__']          = is_object($object) ? ($object->total_ttc ? price($object->total_ttc, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
-		$substitutionarray['__AMOUNT_REMAIN_FORMATTED__'] = is_object($object) ? ($object->total_ttc ? price($object->total_ttc - $already_payed_all, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
-		$substitutionarray['__AMOUNT_VAT_FORMATTED__']      = is_object($object) ? (isset($object->total_vat) ? price($object->total_vat, 0, $outputlangs, 0, -1, -1, $config->currency) : ($object->total_tva ? price($object->total_tva, 0, $outputlangs, 0, -1, -1, $config->currency) : null)) : '';
+		$substitutionArray['__AMOUNT_EXCL_TAX_FORMATTED__'] = is_object($object) ? ($object->total_ht ? price($object->total_ht, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
+		$substitutionArray['__AMOUNT_FORMATTED__']          = is_object($object) ? ($object->total_ttc ? price($object->total_ttc, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
+		$substitutionArray['__AMOUNT_REMAIN_FORMATTED__'] = is_object($object) ? ($object->total_ttc ? price($object->total_ttc - $already_payed_all, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
+		$substitutionArray['__AMOUNT_VAT_FORMATTED__']      = is_object($object) ? (isset($object->total_vat) ? price($object->total_vat, 0, $outputlangs, 0, -1, -1, $config->currency) : ($object->total_tva ? price($object->total_tva, 0, $outputlangs, 0, -1, -1, $config->currency) : null)) : '';
 		if ($onlykey != 2 || $mysoc->useLocalTax(1)) {
-			$substitutionarray['__AMOUNT_TAX2_FORMATTED__']     = is_object($object) ? ($object->total_localtax1 ? price($object->total_localtax1, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
+			$substitutionArray['__AMOUNT_TAX2_FORMATTED__']     = is_object($object) ? ($object->total_localtax1 ? price($object->total_localtax1, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
 		}
 		if ($onlykey != 2 || $mysoc->useLocalTax(2)) {
-			$substitutionarray['__AMOUNT_TAX3_FORMATTED__']     = is_object($object) ? ($object->total_localtax2 ? price($object->total_localtax2, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
+			$substitutionArray['__AMOUNT_TAX3_FORMATTED__']     = is_object($object) ? ($object->total_localtax2 ? price($object->total_localtax2, 0, $outputlangs, 0, -1, -1, $config->currency) : null) : '';
 		}
 		// Amount keys formatted in a currency (with the typo error for backward compatibility)
 		if ($onlykey != 2) {
-			$substitutionarray['__AMOUNT_EXCL_TAX_FORMATED__'] = $substitutionarray['__AMOUNT_EXCL_TAX_FORMATTED__'];
-			$substitutionarray['__AMOUNT_FORMATED__']          = $substitutionarray['__AMOUNT_FORMATTED__'];
-			$substitutionarray['__AMOUNT_REMAIN_FORMATED__']   = $substitutionarray['__AMOUNT_REMAIN_FORMATTED__'];
-			$substitutionarray['__AMOUNT_VAT_FORMATED__']      = $substitutionarray['__AMOUNT_VAT_FORMATTED__'];
+			$substitutionArray['__AMOUNT_EXCL_TAX_FORMATED__'] = $substitutionArray['__AMOUNT_EXCL_TAX_FORMATTED__'];
+			$substitutionArray['__AMOUNT_FORMATED__']          = $substitutionArray['__AMOUNT_FORMATTED__'];
+			$substitutionArray['__AMOUNT_REMAIN_FORMATED__']   = $substitutionArray['__AMOUNT_REMAIN_FORMATTED__'];
+			$substitutionArray['__AMOUNT_VAT_FORMATED__']      = $substitutionArray['__AMOUNT_VAT_FORMATTED__'];
 			if ($mysoc instanceof Societe && $mysoc->useLocalTax(1)) {
-				$substitutionarray['__AMOUNT_TAX2_FORMATED__'] = $substitutionarray['__AMOUNT_TAX2_FORMATTED__'];
+				$substitutionArray['__AMOUNT_TAX2_FORMATED__'] = $substitutionArray['__AMOUNT_TAX2_FORMATTED__'];
 			}
 			if ($mysoc instanceof Societe && $mysoc->useLocalTax(2)) {
-				$substitutionarray['__AMOUNT_TAX3_FORMATED__'] = $substitutionarray['__AMOUNT_TAX3_FORMATTED__'];
+				$substitutionArray['__AMOUNT_TAX3_FORMATED__'] = $substitutionArray['__AMOUNT_TAX3_FORMATTED__'];
 			}
 		}
 
-		$substitutionarray['__AMOUNT_MULTICURRENCY__']          = (is_object($object) && isset($object->multicurrency_total_ttc)) ? $object->multicurrency_total_ttc : '';
-		$substitutionarray['__AMOUNT_MULTICURRENCY_TEXT__']     = (is_object($object) && isset($object->multicurrency_total_ttc)) ? dol_convertToWord($object->multicurrency_total_ttc, $outputlangs, '', true) : '';
-		$substitutionarray['__AMOUNT_MULTICURRENCY_TEXTCURRENCY__'] = (is_object($object) && isset($object->multicurrency_total_ttc)) ? dol_convertToWord($object->multicurrency_total_ttc, $outputlangs, $object->multicurrency_code, true) : '';
-		$substitutionarray['__MULTICURRENCY_CODE__']          = (is_object($object) && isset($object->multicurrency_code)) ? $object->multicurrency_code : '';
+		$substitutionArray['__AMOUNT_MULTICURRENCY__']          = (is_object($object) && isset($object->multicurrency_total_ttc)) ? $object->multicurrency_total_ttc : '';
+		$substitutionArray['__AMOUNT_MULTICURRENCY_TEXT__']     = (is_object($object) && isset($object->multicurrency_total_ttc)) ? dol_convertToWord($object->multicurrency_total_ttc, $outputlangs, '', true) : '';
+		$substitutionArray['__AMOUNT_MULTICURRENCY_TEXTCURRENCY__'] = (is_object($object) && isset($object->multicurrency_total_ttc)) ? dol_convertToWord($object->multicurrency_total_ttc, $outputlangs, $object->multicurrency_code, true) : '';
+		$substitutionArray['__MULTICURRENCY_CODE__']          = (is_object($object) && isset($object->multicurrency_code)) ? $object->multicurrency_code : '';
 		// TODO Add other keys for foreign multicurrency
 
 		// For backward compatibility
 		if ($onlykey != 2) {
-			$substitutionarray['__TOTAL_TTC__']    = is_object($object) ? $object->total_ttc : '';
-			$substitutionarray['__TOTAL_HT__']     = is_object($object) ? $object->total_ht : '';
-			$substitutionarray['__TOTAL_VAT__']    = is_object($object) ? (isset($object->total_vat) ? $object->total_vat : $object->total_tva) : '';
+			$substitutionArray['__TOTAL_TTC__']    = is_object($object) ? $object->total_ttc : '';
+			$substitutionArray['__TOTAL_HT__']     = is_object($object) ? $object->total_ht : '';
+			$substitutionArray['__TOTAL_VAT__']    = is_object($object) ? (isset($object->total_vat) ? $object->total_vat : $object->total_tva) : '';
 		}
 	}
 
@@ -9654,7 +9654,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 
 		$daytext = $outputlangs->trans('Day'.$tmp['wday']);
 
-		$substitutionarray = array_merge($substitutionarray, array(
+		$substitutionArray = array_merge($substitutionArray, array(
 			'__NOW_TMS__' => (string) $now,		// Must be the string that represent the int
 			'__NOW_TMS_YMD__' => dol_print_date($now, 'day', 'auto', $outputlangs),
 			'__DAY__' => (string) $tmp['mday'],
@@ -9679,41 +9679,41 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 	}
 
 	if (isModEnabled('multicompany')) {
-		$substitutionarray = array_merge($substitutionarray, array('__ENTITY_ID__' => $config->entity));
+		$substitutionArray = array_merge($substitutionArray, array('__ENTITY_ID__' => $config->entity));
 	}
 	if ((empty($exclude) || !in_array('system', $exclude)) && (empty($include) || in_array('user', $include))) {
-		$substitutionarray['__DOL_MAIN_URL_ROOT__'] = DOL_MAIN_URL_ROOT;
-		$substitutionarray['__(AnyTranslationKey)__'] = $outputlangs->trans('TranslationOfKey');
-		$substitutionarray['__(AnyTranslationKey|langfile)__'] = $outputlangs->trans('TranslationOfKey').' (load also language file before)';
-		$substitutionarray['__[AnyConstantKey]__'] = $outputlangs->trans('ValueOfConstantKey');
+		$substitutionArray['__DOL_MAIN_URL_ROOT__'] = DOL_MAIN_URL_ROOT;
+		$substitutionArray['__(AnyTranslationKey)__'] = $outputlangs->trans('TranslationOfKey');
+		$substitutionArray['__(AnyTranslationKey|langfile)__'] = $outputlangs->trans('TranslationOfKey').' (load also language file before)';
+		$substitutionArray['__[AnyConstantKey]__'] = $outputlangs->trans('ValueOfConstantKey');
 	}
 
 	// Note: The lazyload variables are replaced only during the call by make_substitutions, and only if necessary
 
-	return $substitutionarray;
+	return $substitutionArray;
 }
 
 /**
- *  Make substitution into a text string, replacing keys with vals from $substitutionarray (oldval=>newval),
+ *  Make substitution into a text string, replacing keys with vals from $substitutionArray (oldval=>newval),
  *  and texts like __(TranslationKey|langfile)__ and __[ConstantKey]__ are also replaced.
  *  Example of usage:
- *  $substitutionarray = getCommonSubstitutionArray($langs, 0, null, $thirdparty);
- *  complete_substitutions_array($substitutionarray, $langs, $thirdparty);
- *  $mesg = make_substitutions($mesg, $substitutionarray, $langs);
+ *  $substitutionArray = getCommonSubstitutionArray($langs, 0, null, $thirdparty);
+ *  complete_substitutions_array($substitutionArray, $langs, $thirdparty);
+ *  $mesg = make_substitutions($mesg, $substitutionArray, $langs);
  *
  *  @param	string		$text	      					Source string in which we must do substitution
- *  @param  array<string,null|string|float|int>	$substitutionarray	Array with key->val to substitute. Example: array('__MYKEY__' => 'MyVal', ...)
+ *  @param  array<string,null|string|float|int>	$substitutionArray	Array with key->val to substitute. Example: array('__MYKEY__' => 'MyVal', ...)
  *  @param	?Translate	$outputlangs					Output language
  *  @param	int<0,1>	$converttextinhtmlifnecessary	0=Convert only value into HTML if text is already in HTML
  *  													1=Will also convert initial $text into HTML if we try to insert one value that is HTML
  * 	@return string  		    						Output string after substitutions
  *  @see	complete_substitutions_array(), getCommonSubstitutionArray()
  */
-function make_substitutions($text, $substitutionarray, $outputlangs = null, $converttextinhtmlifnecessary = 0)
+function make_substitutions($text, $substitutionArray, $outputlangs = null, $converttextinhtmlifnecessary = 0)
 {
 	global $conf, $db, $langs;
 
-	if (!is_array($substitutionarray)) {
+	if (!is_array($substitutionArray)) {
 		return 'ErrorBadParameterSubstitutionArrayWhenCalling_make_substitutions';
 	}
 
@@ -9790,8 +9790,8 @@ function make_substitutions($text, $substitutionarray, $outputlangs = null, $con
 		}
 	}
 
-	// Make substitution for array $substitutionarray
-	foreach ($substitutionarray as $key => $value) {
+	// Make substitution for array $substitutionArray
+	foreach ($substitutionArray as $key => $value) {
 		if (!isset($value)) {
 			continue; // If value is null, it same than not having substitution key at all into array, we do not replace.
 		}
@@ -9819,7 +9819,7 @@ function make_substitutions($text, $substitutionarray, $outputlangs = null, $con
 
 	// TODO Implement the lazyload substitution
 	/*
-	add a loop to scan $substitutionarray:
+	add a loop to scan $substitutionArray:
 	For each key ending with '@lazyload', we extract the substitution key 'XXX' and we check inside the $text (the 1st parameter of make_substitutions), if the string XXX exists.
 	If no, we don't need to make replacement, so we do nothing.
 	If yes, we can make the substitution:
@@ -9830,7 +9830,7 @@ function make_substitutions($text, $substitutionarray, $outputlangs = null, $con
 	And make the replacement of "__XXX__@lazyload" with $valuetouseforsubstitution
 	*/
 	$memory_object_list = array();
-	foreach ($substitutionarray as $key => $value) {
+	foreach ($substitutionArray as $key => $value) {
 		$lazy_load_arr = array();
 		if (preg_match('/(__[A-Z\_]+__)@lazyload$/', $key, $lazy_load_arr)) {
 			if (isset($lazy_load_arr[1]) && !empty($lazy_load_arr[1])) {
@@ -9884,10 +9884,10 @@ function make_substitutions($text, $substitutionarray, $outputlangs = null, $con
 }
 
 /**
- *  Complete the $substitutionarray with more entries coming from external module that had set the "substitutions=1" into module_part array.
+ *  Complete the $substitutionArray with more entries coming from external module that had set the "substitutions=1" into module_part array.
  *  In this case, method completesubstitutionarray provided by module is called.
  *
- *  @param  array<string,string>	$substitutionarray		Array substitution old value => new value value
+ *  @param  array<string,string>	$substitutionArray		Array substitution old value => new value value
  *  @param  Translate		$outputlangs            Output language
  *  @param  ?CommonObject	$object                 Source object
  *  @param  ?mixed			$parameters       		Add more parameters (useful to pass product lines)
@@ -9895,7 +9895,7 @@ function make_substitutions($text, $substitutionarray, $outputlangs = null, $con
  *  @return	void
  *  @see 	make_substitutions()
  */
-function complete_substitutions_array(&$substitutionarray, $outputlangs, $object = null, $parameters = null, $callfunc = "completesubstitutionarray")
+function complete_substitutions_array(&$substitutionArray, $outputlangs, $object = null, $parameters = null, $callfunc = "completesubstitutionarray")
 {
 	global $conf, $user;
 
@@ -9926,7 +9926,7 @@ function complete_substitutions_array(&$substitutionarray, $outputlangs, $object
 				// Call the user's function, and only if it is defined
 				$function_name = $module."_".$callfunc;
 				if (function_exists($function_name)) {
-					$function_name($substitutionarray, $outputlangs, $object, $parameters);
+					$function_name($substitutionArray, $outputlangs, $object, $parameters);
 				}
 			}
 		}
@@ -9934,10 +9934,10 @@ function complete_substitutions_array(&$substitutionarray, $outputlangs, $object
 	if (getDolGlobalString('ODT_ENABLE_ALL_TAGS_IN_SUBSTITUTIONS')) {
 		// to list all tags in odt template
 		$tags = '';
-		foreach ($substitutionarray as $key => $value) {
+		foreach ($substitutionArray as $key => $value) {
 			$tags .= '{'.$key.'} => '.$value."\n";
 		}
-		$substitutionarray = array_merge($substitutionarray, array('__ALL_TAGS__' => $tags));
+		$substitutionArray = array_merge($substitutionArray, array('__ALL_TAGS__' => $tags));
 	}
 }
 
@@ -11215,9 +11215,9 @@ function complete_head_from_modules($conf, $langs, $object, &$head, &$h, $type, 
 						}
 						if (preg_match('/SUBSTITUTION_([^_]+)/i', $values[2], $reg)) {
 							// If label is "SUBSTITUION_..."
-							$substitutionarray = array();
-							complete_substitutions_array($substitutionarray, $langs, $object, array('needforkey' => $values[2]));
-							$label = make_substitutions($reg[1], $substitutionarray);
+							$substitutionArray = array();
+							complete_substitutions_array($substitutionArray, $langs, $object, array('needforkey' => $values[2]));
+							$label = make_substitutions($reg[1], $substitutionArray);
 						} else {
 							// If label is "Label,Class,File,Method", we call the method to show content inside the badge
 							$labeltemp = explode(',', $values[2]);
@@ -11268,9 +11268,9 @@ function complete_head_from_modules($conf, $langs, $object, &$head, &$h, $type, 
 						$langs->load($values[3]);
 					}
 					if (preg_match('/SUBSTITUTION_([^_]+)/i', $values[2], $reg)) {
-						$substitutionarray = array();
-						complete_substitutions_array($substitutionarray, $langs, $object, array('needforkey' => $values[2]));
-						$label = make_substitutions($reg[1], $substitutionarray);
+						$substitutionArray = array();
+						complete_substitutions_array($substitutionArray, $langs, $object, array('needforkey' => $values[2]));
+						$label = make_substitutions($reg[1], $substitutionArray);
 					} else {
 						$label = $langs->trans($values[2]);
 					}

@@ -157,12 +157,12 @@ class Mailing extends CommonObject
 	/**
 	 * @var array<string,string> substitutionarray
 	 */
-	public $substitutionarray;
+	public $substitutionArray;
 
 	/**
 	 * @var array<string,string> substitutionarrayfortest
 	 */
-	public $substitutionarrayfortest;
+	public $substitutionArrayfortest;
 
 	const STATUS_DRAFT = 0;
 	const STATUS_VALIDATED = 1;

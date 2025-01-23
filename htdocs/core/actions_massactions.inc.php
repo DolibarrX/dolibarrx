@@ -543,15 +543,15 @@ if (!$error && $massaction == 'confirm_presend') {
 					if (isModEnabled('project') && method_exists($objecttmp, 'fetchProject') && is_null($objecttmp->project)) {
 						$objecttmp->fetchProject();
 					}
-					$substitutionarray = getCommonSubstitutionArray($langs, 0, null, $objecttmp);
-					$substitutionarray['__ID__']    = ($oneemailperrecipient ? implode(', ', array_keys($listofqualifiedobj)) : $objecttmp->id);
-					$substitutionarray['__REF__']   = ($oneemailperrecipient ? implode(', ', $listofqualifiedref) : $objecttmp->ref);
-					$substitutionarray['__EMAIL__'] = $thirdparty->email;
-					$substitutionarray['__CHECK_READ__'] = '<img src="'.DOL_MAIN_URL_ROOT.'/public/emailing/mailing-read.php?tag=undefined&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY')."-undefined", 'md5').'" width="1" height="1" style="width:1px;height:1px" border="0"/>';
+					$substitutionArray = getCommonSubstitutionArray($langs, 0, null, $objecttmp);
+					$substitutionArray['__ID__']    = ($oneemailperrecipient ? implode(', ', array_keys($listofqualifiedobj)) : $objecttmp->id);
+					$substitutionArray['__REF__']   = ($oneemailperrecipient ? implode(', ', $listofqualifiedref) : $objecttmp->ref);
+					$substitutionArray['__EMAIL__'] = $thirdparty->email;
+					$substitutionArray['__CHECK_READ__'] = '<img src="'.DOL_MAIN_URL_ROOT.'/public/emailing/mailing-read.php?tag=undefined&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY')."-undefined", 'md5').'" width="1" height="1" style="width:1px;height:1px" border="0"/>';
 
 					if ($oneemailperrecipient) {
-						$substitutionarray['__ONLINE_PAYMENT_URL__'] = '';
-						$substitutionarray['__ONLINE_PAYMENT_TEXT_AND_URL__'] = '';
+						$substitutionArray['__ONLINE_PAYMENT_URL__'] = '';
+						$substitutionArray['__ONLINE_PAYMENT_TEXT_AND_URL__'] = '';
 					}
 
 					$parameters = array('mode' => 'formemail');
@@ -563,10 +563,10 @@ if (!$error && $massaction == 'confirm_presend') {
 						$parameters['listofobjectref'] = $listofobjectref;
 					}
 
-					complete_substitutions_array($substitutionarray, $langs, $objecttmp, $parameters);
+					complete_substitutions_array($substitutionArray, $langs, $objecttmp, $parameters);
 
-					$subjectreplaced = make_substitutions($subject, $substitutionarray);
-					$messagereplaced = make_substitutions($message, $substitutionarray);
+					$subjectreplaced = make_substitutions($subject, $substitutionArray);
+					$messagereplaced = make_substitutions($message, $substitutionArray);
 
 					$attachedfiles = array('paths' => array(), 'names' => array(), 'mimes' => array());
 					if ($oneemailperrecipient) {

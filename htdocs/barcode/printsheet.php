@@ -228,7 +228,7 @@ if (empty($reshook)) {
 
 		if (!$error) {
 			// List of values to scan for a replacement
-			$substitutionarray = array(
+			$substitutionArray = array(
 				'%LOGIN%' => $user->login,
 				'%COMPANY%' => $mysoc->name,
 				'%ADDRESS%' => $mysoc->address,
@@ -243,16 +243,16 @@ if (empty($reshook)) {
 				'%DOL_MAIN_URL_ROOT%' => DOL_MAIN_URL_ROOT,
 				'%SERVER%' => "http://".$_SERVER["SERVER_NAME"]."/",
 			);
-			complete_substitutions_array($substitutionarray, $langs);
+			complete_substitutions_array($substitutionArray, $langs);
 
 			$arrayofrecords = array();
 			// For labels
 			if ($mode == 'label') {
 				$txtforsticker = "%PHOTO%"; // Photo will be barcode image, %BARCODE% possible when using TCPDF generator
-				$textleft = make_substitutions(getDolGlobalString('BARCODE_LABEL_LEFT_TEXT', $txtforsticker), $substitutionarray);
-				$textheader = make_substitutions(getDolGlobalString('BARCODE_LABEL_HEADER_TEXT'), $substitutionarray);
-				$textfooter = make_substitutions(getDolGlobalString('BARCODE_LABEL_FOOTER_TEXT'), $substitutionarray);
-				$textright = make_substitutions(getDolGlobalString('BARCODE_LABEL_RIGHT_TEXT'), $substitutionarray);
+				$textleft = make_substitutions(getDolGlobalString('BARCODE_LABEL_LEFT_TEXT', $txtforsticker), $substitutionArray);
+				$textheader = make_substitutions(getDolGlobalString('BARCODE_LABEL_HEADER_TEXT'), $substitutionArray);
+				$textfooter = make_substitutions(getDolGlobalString('BARCODE_LABEL_FOOTER_TEXT'), $substitutionArray);
+				$textright = make_substitutions(getDolGlobalString('BARCODE_LABEL_RIGHT_TEXT'), $substitutionArray);
 				$forceimgscalewidth = getDolGlobalString('BARCODE_FORCEIMGSCALEWIDTH', 1);
 				$forceimgscaleheight = getDolGlobalString('BARCODE_FORCEIMGSCALEHEIGHT', 1);
 

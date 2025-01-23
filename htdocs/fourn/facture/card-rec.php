@@ -956,25 +956,25 @@ if ($action == 'create') {
 		$note_private = GETPOSTISSET('note_private') ? GETPOST('note_private', 'restricthtml') : $object->note_private;
 
 		// Help for substitution key
-		$substitutionarray = getCommonSubstitutionArray($langs, 2, null, $object);
+		$substitutionArray = getCommonSubstitutionArray($langs, 2, null, $object);
 
-		$substitutionarray['__INVOICE_PREVIOUS_MONTH__'] = $langs->trans("PreviousMonthOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date(dol_time_plus_duree($object->date, -1, 'm'), '%m') . ')';
-		$substitutionarray['__INVOICE_MONTH__'] = $langs->trans("MonthOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date($object->date, '%m') . ')';
-		$substitutionarray['__INVOICE_NEXT_MONTH__'] = $langs->trans("NextMonthOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date(dol_time_plus_duree($object->date, 1, 'm'), '%m') . ')';
-		$substitutionarray['__INVOICE_PREVIOUS_MONTH_TEXT__'] = $langs->trans("TextPreviousMonthOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date(dol_time_plus_duree($object->date, -1, 'm'), '%B') . ')';
-		$substitutionarray['__INVOICE_MONTH_TEXT__'] = $langs->trans("TextMonthOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date($object->date, '%B') . ')';
-		$substitutionarray['__INVOICE_NEXT_MONTH_TEXT__'] = $langs->trans("TextNextMonthOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date(dol_time_plus_duree($object->date, 1, 'm'), '%B') . ')';
-		$substitutionarray['__INVOICE_PREVIOUS_YEAR__'] = $langs->trans("PreviousYearOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date(dol_time_plus_duree($object->date, -1, 'y'), '%Y') . ')';
-		$substitutionarray['__INVOICE_YEAR__'] = $langs->trans("YearOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date($object->date, '%Y') . ')';
-		$substitutionarray['__INVOICE_NEXT_YEAR__'] = $langs->trans("NextYearOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date(dol_time_plus_duree($object->date, 1, 'y'), '%Y') . ')';
+		$substitutionArray['__INVOICE_PREVIOUS_MONTH__'] = $langs->trans("PreviousMonthOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date(dol_time_plus_duree($object->date, -1, 'm'), '%m') . ')';
+		$substitutionArray['__INVOICE_MONTH__'] = $langs->trans("MonthOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date($object->date, '%m') . ')';
+		$substitutionArray['__INVOICE_NEXT_MONTH__'] = $langs->trans("NextMonthOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date(dol_time_plus_duree($object->date, 1, 'm'), '%m') . ')';
+		$substitutionArray['__INVOICE_PREVIOUS_MONTH_TEXT__'] = $langs->trans("TextPreviousMonthOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date(dol_time_plus_duree($object->date, -1, 'm'), '%B') . ')';
+		$substitutionArray['__INVOICE_MONTH_TEXT__'] = $langs->trans("TextMonthOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date($object->date, '%B') . ')';
+		$substitutionArray['__INVOICE_NEXT_MONTH_TEXT__'] = $langs->trans("TextNextMonthOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date(dol_time_plus_duree($object->date, 1, 'm'), '%B') . ')';
+		$substitutionArray['__INVOICE_PREVIOUS_YEAR__'] = $langs->trans("PreviousYearOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date(dol_time_plus_duree($object->date, -1, 'y'), '%Y') . ')';
+		$substitutionArray['__INVOICE_YEAR__'] = $langs->trans("YearOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date($object->date, '%Y') . ')';
+		$substitutionArray['__INVOICE_NEXT_YEAR__'] = $langs->trans("NextYearOfInvoice") . ' (' . $langs->trans("Example") . ': ' . dol_print_date(dol_time_plus_duree($object->date, 1, 'y'), '%Y') . ')';
 		// Only on template invoices
-		$substitutionarray['__INVOICE_DATE_NEXT_INVOICE_BEFORE_GEN__'] = $langs->trans("DateNextInvoiceBeforeGen") . (isset($object->date_when) ? ' (' . $langs->trans("Example") . ': ' .dol_print_date($object->date_when, 'dayhour') . ')' : '');
-		$substitutionarray['__INVOICE_DATE_NEXT_INVOICE_AFTER_GEN__'] = $langs->trans("DateNextInvoiceAfterGen") . (isset($object->date_when) ? ' (' . $langs->trans("Example") . ': ' . dol_print_date(dol_time_plus_duree($object->date_when, $object->frequency, $object->unit_frequency), 'dayhour') . ')' : '');
-		$substitutionarray['__INVOICE_COUNTER_CURRENT__'] = $langs->trans("Count");
-		$substitutionarray['__INVOICE_COUNTER_MAX__'] = $langs->trans("MaxPeriodNumber");
+		$substitutionArray['__INVOICE_DATE_NEXT_INVOICE_BEFORE_GEN__'] = $langs->trans("DateNextInvoiceBeforeGen") . (isset($object->date_when) ? ' (' . $langs->trans("Example") . ': ' .dol_print_date($object->date_when, 'dayhour') . ')' : '');
+		$substitutionArray['__INVOICE_DATE_NEXT_INVOICE_AFTER_GEN__'] = $langs->trans("DateNextInvoiceAfterGen") . (isset($object->date_when) ? ' (' . $langs->trans("Example") . ': ' . dol_print_date(dol_time_plus_duree($object->date_when, $object->frequency, $object->unit_frequency), 'dayhour') . ')' : '');
+		$substitutionArray['__INVOICE_COUNTER_CURRENT__'] = $langs->trans("Count");
+		$substitutionArray['__INVOICE_COUNTER_MAX__'] = $langs->trans("MaxPeriodNumber");
 
 		$htmltext = '<i>' . $langs->trans("FollowingConstantsWillBeSubstituted") . ':<br>';
-		foreach ($substitutionarray as $key => $val) {
+		foreach ($substitutionArray as $key => $val) {
 			$htmltext .= $key . ' = ' . $langs->trans($val) . '<br>';
 		}
 		$htmltext .= '</i>';

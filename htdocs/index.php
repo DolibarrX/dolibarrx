@@ -107,9 +107,9 @@ $resultBoxes = FormOther::getBoxesArea($user, "0"); // Load $resultBoxes (select
 if (getDolGlobalString('MAIN_MOTD')) {
 	$config->global->MAIN_MOTD = preg_replace('/<br(\s[\sa-zA-Z_="]*)?\/?>/i', '<br>', getDolGlobalString('MAIN_MOTD'));
 	if (getDolGlobalString('MAIN_MOTD')) {
-		$substitutionarray = getCommonSubstitutionArray($langs);
-		complete_substitutions_array($substitutionarray, $langs);
-		$texttoshow = make_substitutions(getDolGlobalString('MAIN_MOTD'), $substitutionarray, $langs);
+		$substitutionArray = getCommonSubstitutionArray($langs);
+		complete_substitutions_array($substitutionArray, $langs);
+		$texttoshow = make_substitutions(getDolGlobalString('MAIN_MOTD'), $substitutionArray, $langs);
 
 		print "\n<!-- Start of welcome text -->\n";
 		print '<table class="centpercent notopnoleftnoright"><tr><td>';

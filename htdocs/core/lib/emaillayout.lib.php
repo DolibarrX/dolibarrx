@@ -45,7 +45,7 @@ function getHtmlOfLayout($name)
 
 	);
 
-	$substitutionarray = array_merge($commonSubstitutionArray, $specificSubstitutionArray);
+	$substitutionArray = array_merge($commonSubstitutionArray, $specificSubstitutionArray);
 
 	$templatePath = DOL_DOCUMENT_ROOT . '/install/doctemplates/maillayout/';
 
@@ -56,7 +56,7 @@ function getHtmlOfLayout($name)
 		$out = '';
 	}
 
-	$out = make_substitutions($out, $substitutionarray);
+	$out = make_substitutions($out, $substitutionArray);
 
 	return $out;
 }

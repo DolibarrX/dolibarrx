@@ -843,15 +843,15 @@ if ($ispaymentok) {
 							$msg     = $arraydefaultmessage->content;
 						}
 
-						$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+						$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
 
 						if ($infouserlogin) {
-							$substitutionarray['__MEMBER_USER_LOGIN_INFORMATION__'] = $infouserlogin;
+							$substitutionArray['__MEMBER_USER_LOGIN_INFORMATION__'] = $infouserlogin;
 						}
 
-						complete_substitutions_array($substitutionarray, $outputlangs, $object);
-						$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-						$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnSubscription()), $substitutionarray, $outputlangs);
+						complete_substitutions_array($substitutionArray, $outputlangs, $object);
+						$subjecttosend = make_substitutions($subject, $substitutionArray, $outputlangs);
+						$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnSubscription()), $substitutionArray, $outputlangs);
 
 						// Attach a file ?
 						$file = '';
@@ -1465,11 +1465,11 @@ if ($ispaymentok) {
 								$msg = $outputlangs->trans("OrganizationEventPaymentOfRegistrationWasReceived");
 							}
 
-							$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $thirdparty);
-							complete_substitutions_array($substitutionarray, $outputlangs, $object);
+							$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $thirdparty);
+							complete_substitutions_array($substitutionArray, $outputlangs, $object);
 
-							$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-							$texttosend = make_substitutions($msg, $substitutionarray, $outputlangs);
+							$subjecttosend = make_substitutions($subject, $substitutionArray, $outputlangs);
+							$texttosend = make_substitutions($msg, $substitutionArray, $outputlangs);
 
 							$sendto = $attendeetovalidate->email;
 							$cc = '';
@@ -1694,11 +1694,11 @@ if ($ispaymentok) {
 											$msg = $outputlangs->trans("OrganizationEventPaymentOfBoothWasReceived");
 										}
 
-										$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $thirdparty);
-										complete_substitutions_array($substitutionarray, $outputlangs, $object);
+										$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $thirdparty);
+										complete_substitutions_array($substitutionArray, $outputlangs, $object);
 
-										$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-										$texttosend = make_substitutions($msg, $substitutionarray, $outputlangs);
+										$subjecttosend = make_substitutions($subject, $substitutionArray, $outputlangs);
+										$texttosend = make_substitutions($msg, $substitutionArray, $outputlangs);
 
 										$sendto = $thirdparty->email;
 										$from = getDolGlobalString('MAILING_EMAIL_FROM');

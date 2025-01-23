@@ -465,10 +465,10 @@ print "<tr class=\"liste_titre\">";
 print "<td>".$langs->trans("Parameter")."</td>\n";
 print "</tr>";
 
-$substitutionarray=pdf_getSubstitutionArray($langs);
-$substitutionarray['__(AnyTranslationKey)__']=$langs->trans("Translation");
+$substitutionArray=pdf_getSubstitutionArray($langs);
+$substitutionArray['__(AnyTranslationKey)__']=$langs->trans("Translation");
 $htmltext = '<i>'.$langs->trans("AvailableVariables").':<br>';
-foreach($substitutionarray as $key => $val)	$htmltext.=$key.'<br>';
+foreach($substitutionArray as $key => $val)	$htmltext.=$key.'<br>';
 $htmltext.='</i>';
 
 print '<tr><td>';

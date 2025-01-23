@@ -206,7 +206,7 @@ if (!$error && $massaction == 'confirm_presend_attendees') {
 
 			// $objecttmp is a real object or an empty object if we choose to send one email per thirdparty instead of one per object
 			// Make substitution in email content
-			$substitutionarray = getCommonSubstitutionArray($langs, 0, null, $attendees);
+			$substitutionArray = getCommonSubstitutionArray($langs, 0, null, $attendees);
 			$url_link = null;
 			$html_link = null;
 
@@ -218,8 +218,8 @@ if (!$error && $massaction == 'confirm_presend_attendees') {
 				$url_link .= "&project=" . $listofselectedref[$email]->fk_project . '&module=' . urlencode('@eventorganization') . '&status=' . ConferenceOrBooth::STATUS_CONFIRMED;
 				$html_link = '<a href="' . $url_link . '">' . $langs->trans('DownloadICSLink') . '</a>';
 			}
-			$substitutionarray['__EVENTORGANIZATION_ICS_LINK__'] = $html_link;
-			$substitutionarray['__EVENTORGANIZATION_URL_LINK__'] = $url_link;
+			$substitutionArray['__EVENTORGANIZATION_ICS_LINK__'] = $html_link;
+			$substitutionArray['__EVENTORGANIZATION_URL_LINK__'] = $url_link;
 
 			$parameters = array('mode' => 'formemail');
 
@@ -227,10 +227,10 @@ if (!$error && $massaction == 'confirm_presend_attendees') {
 				$parameters['listofobjectref'] = $listofobjectref;
 			}
 
-			complete_substitutions_array($substitutionarray, $langs, $attendees, $parameters);
+			complete_substitutions_array($substitutionArray, $langs, $attendees, $parameters);
 
-			$subjectreplaced = make_substitutions($subject, $substitutionarray);
-			$messagereplaced = make_substitutions($message, $substitutionarray);
+			$subjectreplaced = make_substitutions($subject, $substitutionArray);
+			$messagereplaced = make_substitutions($message, $substitutionArray);
 
 
 			if (empty($sendcontext)) {

@@ -325,7 +325,7 @@ class doc_generic_contract_odt extends ModelePDFContract
 
 
 				// Define substitution array
-				$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+				$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
 				$array_object_from_properties = $this->get_substitutionarray_each_var_object($object, $outputlangs);
 				$array_objet = $this->get_substitutionarray_object($object, $outputlangs); // complete with vars not set as properties by get_substitutionarray_each_var_object
 				$array_user = $this->get_substitutionarray_user($user, $outputlangs);
@@ -338,10 +338,10 @@ class doc_generic_contract_odt extends ModelePDFContract
 					$array_thirdparty_contact = $this->get_substitutionarray_contact($contactobject, $outputlangs, 'contact');
 				}
 
-				$substitutionarray = array_merge($substitutionarray, $array_object_from_properties, $array_user, $array_soc, $array_thirdparty, $array_objet, $array_other, $array_thirdparty_contact);
-				complete_substitutions_array($substitutionarray, $outputlangs, $object);
+				$substitutionArray = array_merge($substitutionArray, $array_object_from_properties, $array_user, $array_soc, $array_thirdparty, $array_objet, $array_other, $array_thirdparty_contact);
+				complete_substitutions_array($substitutionArray, $outputlangs, $object);
 
-				$tmparray = $substitutionarray;
+				$tmparray = $substitutionArray;
 
 				// Call the ODTSubstitution hook
 				$parameters = array('file' => $file, 'object' => $object, 'outputlangs' => $outputlangs, 'substitutionarray' => &$tmparray);

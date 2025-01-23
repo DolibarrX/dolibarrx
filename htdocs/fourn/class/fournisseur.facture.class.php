@@ -520,26 +520,26 @@ class FactureFournisseur extends CommonInvoice
 				$outputlangs = new Translate("", $conf);
 				$outputlangs->setDefaultLang($newlang);
 			} // Array of possible substitutions (See also file mailing-send.php that should manage same substitutions)
-			$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $this);
-			$substitutionarray['__INVOICE_PREVIOUS_MONTH__'] = dol_print_date(dol_time_plus_duree($this->date, -1, 'm'), '%m');
-			$substitutionarray['__INVOICE_MONTH__'] = dol_print_date($this->date, '%m');
-			$substitutionarray['__INVOICE_NEXT_MONTH__'] = dol_print_date(dol_time_plus_duree($this->date, 1, 'm'), '%m');
-			$substitutionarray['__INVOICE_PREVIOUS_MONTH_TEXT__'] = dol_print_date(dol_time_plus_duree($this->date, -1, 'm'), '%B');
-			$substitutionarray['__INVOICE_MONTH_TEXT__'] = dol_print_date($this->date, '%B');
-			$substitutionarray['__INVOICE_NEXT_MONTH_TEXT__'] = dol_print_date(dol_time_plus_duree($this->date, 1, 'm'), '%B');
-			$substitutionarray['__INVOICE_PREVIOUS_YEAR__'] = dol_print_date(dol_time_plus_duree($this->date, -1, 'y'), '%Y');
-			$substitutionarray['__INVOICE_YEAR__'] = dol_print_date($this->date, '%Y');
-			$substitutionarray['__INVOICE_NEXT_YEAR__'] = dol_print_date(dol_time_plus_duree($this->date, 1, 'y'), '%Y'); // Only for template invoice
-			$substitutionarray['__INVOICE_DATE_NEXT_INVOICE_BEFORE_GEN__'] = $originaldatewhen ? dol_print_date($originaldatewhen, 'dayhour') : '';
-			$substitutionarray['__INVOICE_DATE_NEXT_INVOICE_AFTER_GEN__'] = $nextdatewhen ? dol_print_date($nextdatewhen, 'dayhour') : '';
-			$substitutionarray['__INVOICE_PREVIOUS_DATE_NEXT_INVOICE_AFTER_GEN__'] = $previousdaynextdatewhen ? dol_print_date($previousdaynextdatewhen, 'dayhour') : '';
-			$substitutionarray['__INVOICE_COUNTER_CURRENT__'] = $_facrec->nb_gen_done;
-			$substitutionarray['__INVOICE_COUNTER_MAX__'] = $_facrec->nb_gen_max;
+			$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $this);
+			$substitutionArray['__INVOICE_PREVIOUS_MONTH__'] = dol_print_date(dol_time_plus_duree($this->date, -1, 'm'), '%m');
+			$substitutionArray['__INVOICE_MONTH__'] = dol_print_date($this->date, '%m');
+			$substitutionArray['__INVOICE_NEXT_MONTH__'] = dol_print_date(dol_time_plus_duree($this->date, 1, 'm'), '%m');
+			$substitutionArray['__INVOICE_PREVIOUS_MONTH_TEXT__'] = dol_print_date(dol_time_plus_duree($this->date, -1, 'm'), '%B');
+			$substitutionArray['__INVOICE_MONTH_TEXT__'] = dol_print_date($this->date, '%B');
+			$substitutionArray['__INVOICE_NEXT_MONTH_TEXT__'] = dol_print_date(dol_time_plus_duree($this->date, 1, 'm'), '%B');
+			$substitutionArray['__INVOICE_PREVIOUS_YEAR__'] = dol_print_date(dol_time_plus_duree($this->date, -1, 'y'), '%Y');
+			$substitutionArray['__INVOICE_YEAR__'] = dol_print_date($this->date, '%Y');
+			$substitutionArray['__INVOICE_NEXT_YEAR__'] = dol_print_date(dol_time_plus_duree($this->date, 1, 'y'), '%Y'); // Only for template invoice
+			$substitutionArray['__INVOICE_DATE_NEXT_INVOICE_BEFORE_GEN__'] = $originaldatewhen ? dol_print_date($originaldatewhen, 'dayhour') : '';
+			$substitutionArray['__INVOICE_DATE_NEXT_INVOICE_AFTER_GEN__'] = $nextdatewhen ? dol_print_date($nextdatewhen, 'dayhour') : '';
+			$substitutionArray['__INVOICE_PREVIOUS_DATE_NEXT_INVOICE_AFTER_GEN__'] = $previousdaynextdatewhen ? dol_print_date($previousdaynextdatewhen, 'dayhour') : '';
+			$substitutionArray['__INVOICE_COUNTER_CURRENT__'] = $_facrec->nb_gen_done;
+			$substitutionArray['__INVOICE_COUNTER_MAX__'] = $_facrec->nb_gen_max;
 
-			complete_substitutions_array($substitutionarray, $outputlangs);
+			complete_substitutions_array($substitutionArray, $outputlangs);
 
-			$this->note_public = make_substitutions($this->note_public, $substitutionarray);
-			$this->note_private = make_substitutions($this->note_private, $substitutionarray);
+			$this->note_public = make_substitutions($this->note_public, $substitutionArray);
+			$this->note_private = make_substitutions($this->note_private, $substitutionArray);
 		}
 
 		// Define due date if not already defined
@@ -3561,17 +3561,17 @@ class FactureFournisseur extends CommonInvoice
 						$errormesg = '';
 
 						// Make substitution in email content
-						$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $tmpinvoice);
+						$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $tmpinvoice);
 
-						complete_substitutions_array($substitutionarray, $outputlangs, $tmpinvoice);
+						complete_substitutions_array($substitutionArray, $outputlangs, $tmpinvoice);
 
 						// Topic
-						$sendTopic = make_substitutions(empty($arraymessage->topic) ? $outputlangs->transnoentitiesnoconv('InformationMessage') : $arraymessage->topic, $substitutionarray, $outputlangs, 1);
+						$sendTopic = make_substitutions(empty($arraymessage->topic) ? $outputlangs->transnoentitiesnoconv('InformationMessage') : $arraymessage->topic, $substitutionArray, $outputlangs, 1);
 
 						// Content
 						$content = $outputlangs->transnoentitiesnoconv($arraymessage->content);
 
-						$sendContent = make_substitutions($content, $substitutionarray, $outputlangs, 1);
+						$sendContent = make_substitutions($content, $substitutionArray, $outputlangs, 1);
 
 						// Recipient
 						$to = array();

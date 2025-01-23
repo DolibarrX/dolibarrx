@@ -390,10 +390,10 @@ if (empty($reshook) && $action == 'add') {	// Test on permission not required he
 						$msg = $langs->trans("YourMessageHasBeenReceived");
 					}
 
-					$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-					complete_substitutions_array($substitutionarray, $outputlangs, $object);
-					$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-					$texttosend = make_substitutions($msg, $substitutionarray, $outputlangs);
+					$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+					complete_substitutions_array($substitutionArray, $outputlangs, $object);
+					$subjecttosend = make_substitutions($subject, $substitutionArray, $outputlangs);
+					$texttosend = make_substitutions($msg, $substitutionArray, $outputlangs);
 					if ($subjecttosend && $texttosend) {
 						$moreinheader = 'X-Dolibarr-Info: send_an_email by public/lead/new.php'."\r\n";
 

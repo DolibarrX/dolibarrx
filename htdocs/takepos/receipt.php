@@ -155,12 +155,12 @@ if (!empty($hookManager->resPrint)) {
 $constFreeText = 'TAKEPOS_HEADER'.(empty($_SESSION['takeposterminal']) ? '0' : $_SESSION['takeposterminal']);
 if (getDolGlobalString('TAKEPOS_HEADER') || getDolGlobalString($constFreeText)) {
 	$newfreetext = '';
-	$substitutionarray = getCommonSubstitutionArray($langs);
+	$substitutionArray = getCommonSubstitutionArray($langs);
 	if (getDolGlobalString('TAKEPOS_HEADER')) {
-		$newfreetext .= make_substitutions(getDolGlobalString('TAKEPOS_HEADER'), $substitutionarray);
+		$newfreetext .= make_substitutions(getDolGlobalString('TAKEPOS_HEADER'), $substitutionArray);
 	}
 	if (getDolGlobalString($constFreeText)) {
-		$newfreetext .= make_substitutions(getDolGlobalString($constFreeText), $substitutionarray);
+		$newfreetext .= make_substitutions(getDolGlobalString($constFreeText), $substitutionArray);
 	}
 	print nl2br($newfreetext);
 }
@@ -403,12 +403,12 @@ if (getDolGlobalString('TAKEPOS_PRINT_PAYMENT_METHOD')) {
 $constFreeText = 'TAKEPOS_FOOTER'.(empty($_SESSION['takeposterminal']) ? '0' : $_SESSION['takeposterminal']);
 if (getDolGlobalString('TAKEPOS_FOOTER') || getDolGlobalString($constFreeText)) {
 	$newfreetext = '';
-	$substitutionarray = getCommonSubstitutionArray($langs);
+	$substitutionArray = getCommonSubstitutionArray($langs);
 	if (getDolGlobalString($constFreeText)) {
-		$newfreetext .= make_substitutions(getDolGlobalString($constFreeText), $substitutionarray);
+		$newfreetext .= make_substitutions(getDolGlobalString($constFreeText), $substitutionArray);
 	}
 	if (getDolGlobalString('TAKEPOS_FOOTER')) {
-		$newfreetext .= make_substitutions(getDolGlobalString('TAKEPOS_FOOTER'), $substitutionarray);
+		$newfreetext .= make_substitutions(getDolGlobalString('TAKEPOS_FOOTER'), $substitutionArray);
 	}
 	print $newfreetext;
 }

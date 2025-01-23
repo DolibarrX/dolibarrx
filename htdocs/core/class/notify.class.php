@@ -955,10 +955,10 @@ class Notify
 							if (method_exists($object, 'fetch_thirdparty') && empty($object->thirdparty)) {
 								$object->fetch_thirdparty();
 							}
-							$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-							complete_substitutions_array($substitutionarray, $outputlangs, $object);
-							$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $outputlangs);
-							$message = make_substitutions($arraydefaultmessage->content, $substitutionarray, $outputlangs);
+							$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+							complete_substitutions_array($substitutionArray, $outputlangs, $object);
+							$subject = make_substitutions($arraydefaultmessage->topic, $substitutionArray, $outputlangs);
+							$message = make_substitutions($arraydefaultmessage->content, $substitutionArray, $outputlangs);
 						} else {
 							$message = $outputlangs->transnoentities("YouReceiveMailBecauseOfNotification", $application, $mysoc->name)."\n";
 							$message .= $outputlangs->transnoentities("YouReceiveMailBecauseOfNotification2", $application, $mysoc->name)."\n";
@@ -1285,10 +1285,10 @@ class Notify
 						$outputlangs->setDefaultLang($object->thirdparty->default_lang);
 						$outputlangs->loadLangs(array('main', 'other'));
 					}
-					$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-					complete_substitutions_array($substitutionarray, $outputlangs, $object);
-					$subject = make_substitutions($emailTemplate->topic, $substitutionarray, $outputlangs);
-					$message = make_substitutions($emailTemplate->content, $substitutionarray, $outputlangs);
+					$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+					complete_substitutions_array($substitutionArray, $outputlangs, $object);
+					$subject = make_substitutions($emailTemplate->topic, $substitutionArray, $outputlangs);
+					$message = make_substitutions($emailTemplate->content, $substitutionArray, $outputlangs);
 				} else {
 					$message = '';
 					$message .= $outputlangs->transnoentities("YouReceiveMailBecauseOfNotification2", $application, $mysoc->name)."\n";

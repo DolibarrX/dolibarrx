@@ -304,11 +304,11 @@ print_liste_field_titre($textkey, $_SERVER["PHP_SELF"], 'param', '', $param, '',
 // Value
 if ($mode != 'focus' && $mode != 'mandatory') {
 	if ($mode != 'sortorder') {
-		$substitutionarray = getCommonSubstitutionArray($langs, 2, array('object', 'objectamount')); // Must match list into GETPOST
-		unset($substitutionarray['__USER_SIGNATURE__']);
-		unset($substitutionarray['__SENDEREMAIL_SIGNATURE__']);
+		$substitutionArray = getCommonSubstitutionArray($langs, 2, array('object', 'objectamount')); // Must match list into GETPOST
+		unset($substitutionArray['__USER_SIGNATURE__']);
+		unset($substitutionArray['__SENDEREMAIL_SIGNATURE__']);
 		$texthelp = $langs->trans("FollowingConstantsWillBeSubstituted").'<br>';
-		foreach ($substitutionarray as $key => $val) {
+		foreach ($substitutionArray as $key => $val) {
 			$texthelp .= $key.' -> '.$val.'<br>';
 		}
 		$textvalue = $form->textwithpicto($langs->trans("Value"), $texthelp, 1, 'help', '', 0, 2, 'subsitutiontooltip');

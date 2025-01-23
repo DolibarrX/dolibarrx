@@ -1071,8 +1071,8 @@ class EmailCollector extends CommonObject
 
 					if ($regforregex[1] == 'SET' || empty($valuecurrent)) {
 						$valuetouse = $regforregex[2];
-						$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-						complete_substitutions_array($substitutionarray, $outputlangs, $object);
+						$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+						complete_substitutions_array($substitutionArray, $outputlangs, $object);
 						$matcharray = array();
 						preg_match_all('/__([a-z0-9]+(?:_[a-z0-9]+)?)__/i', $valuetouse, $matcharray);
 						//var_dump($tmpproperty.' - '.$object->$tmpproperty.' - '.$valuetouse); var_dump($matcharray);
@@ -1080,22 +1080,22 @@ class EmailCollector extends CommonObject
 							foreach ($matcharray[1] as $keytoreplace) {
 								if ($keytoreplace) {
 									if (preg_match('/^options_/', $keytoreplace)) {
-										$substitutionarray['__'.$keytoreplace.'__'] = $object->array_options[preg_replace('/^options_/', '', $keytoreplace)];
+										$substitutionArray['__'.$keytoreplace.'__'] = $object->array_options[preg_replace('/^options_/', '', $keytoreplace)];
 									} else {
 										if (property_exists($object, $keytoreplace)) {
-											$substitutionarray['__'.$keytoreplace.'__'] = $object->$keytoreplace;
+											$substitutionArray['__'.$keytoreplace.'__'] = $object->$keytoreplace;
 										} else {
 											// False positive @phan-suppress-next-line PhanTypeInvalidDimOffset
-											$substitutionarray['__'.$keytoreplace.'__'] = $tmp[$keytoreplace];
+											$substitutionArray['__'.$keytoreplace.'__'] = $tmp[$keytoreplace];
 										}
 									}
 								}
 							}
 						}
-						//var_dump($substitutionarray);
-						//dol_syslog('substitutionarray='.var_export($substitutionarray, true));
+						//var_dump($substitutionArray);
+						//dol_syslog('substitutionarray='.var_export($substitutionArray, true));
 
-						$valuetouse = make_substitutions($valuetouse, $substitutionarray);
+						$valuetouse = make_substitutions($valuetouse, $substitutionArray);
 						if (preg_match('/^options_/', $tmpproperty)) {
 							$object->array_options[preg_replace('/^options_/', '', $tmpproperty)] = $valuetouse;
 

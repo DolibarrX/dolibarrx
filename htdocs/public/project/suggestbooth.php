@@ -528,11 +528,11 @@ if (empty($reshook) && $action == 'add') {	// Test on permission not required he
 			$msg     = $arraydefaultmessage->content;
 		}
 
-		$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $thirdparty);
-		complete_substitutions_array($substitutionarray, $outputlangs, $project);
+		$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $thirdparty);
+		complete_substitutions_array($substitutionArray, $outputlangs, $project);
 
-		$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-		$texttosend = make_substitutions($msg, $substitutionarray, $outputlangs);
+		$subjecttosend = make_substitutions($subject, $substitutionArray, $outputlangs);
+		$texttosend = make_substitutions($msg, $substitutionArray, $outputlangs);
 
 		$sendto = $thirdparty->email;
 		$from = getDolGlobalString('MAILING_EMAIL_FROM');

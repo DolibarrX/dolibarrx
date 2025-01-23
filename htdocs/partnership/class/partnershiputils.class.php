@@ -188,11 +188,11 @@ class PartnershipUtils
 
 							$arraydefaultmessage = $formmail->getEMailTemplate($this->db, 'partnership_send', $user, $outputlangs, 0, 1, $labeltemplate);
 
-							$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-							complete_substitutions_array($substitutionarray, $outputlangs, $object);
+							$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+							complete_substitutions_array($substitutionArray, $outputlangs, $object);
 
-							$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $outputlangs);
-							$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $outputlangs);
+							$subject = make_substitutions($arraydefaultmessage->topic, $substitutionArray, $outputlangs);
+							$msg     = make_substitutions($arraydefaultmessage->content, $substitutionArray, $outputlangs);
 							$from = dol_string_nospecial($config->global->MAIN_INFO_SOCIETE_NOM, ' ', array(",")).' <' . getDolGlobalString('MAIN_INFO_SOCIETE_MAIL').'>';
 
 							// We are in the case of autocancellation subscription because of missing backlink
@@ -414,11 +414,11 @@ class PartnershipUtils
 
 									$arraydefaultmessage = $formmail->getEMailTemplate($this->db, 'partnership_send', $user, $outputlangs, 0, 1, $labeltemplate);
 
-									$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-									complete_substitutions_array($substitutionarray, $outputlangs, $object);
+									$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+									complete_substitutions_array($substitutionArray, $outputlangs, $object);
 
-									$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $outputlangs);
-									$msg     = make_substitutions($arraydefaultmessage->content, $substitutionarray, $outputlangs);
+									$subject = make_substitutions($arraydefaultmessage->topic, $substitutionArray, $outputlangs);
+									$msg     = make_substitutions($arraydefaultmessage->content, $substitutionArray, $outputlangs);
 									$from = dol_string_nospecial($config->global->MAIN_INFO_SOCIETE_NOM, ' ', array(",")).' <' . getDolGlobalString('MAIN_INFO_SOCIETE_MAIL').'>';
 
 									$sendto = $obj->email;

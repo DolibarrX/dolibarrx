@@ -1544,8 +1544,8 @@ if ($action == 'create' || $action == 'presend') {
 			// Substitution array
 			$morehtmlright = '';
 			$help = "";
-			$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, $arrayoffamiliestoexclude, $object);
-			complete_substitutions_array($substitutionarray, $outputlangs, $object);
+			$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, $arrayoffamiliestoexclude, $object);
+			complete_substitutions_array($substitutionArray, $outputlangs, $object);
 			$morehtmlright .= $form->textwithpicto('<span class="opacitymedium">'.$langs->trans("TicketMessageSubstitutionReplacedByGenericValues").'</span>', $help, 1, 'helpclickable', '', 0, 3, 'helpsubstitution');
 
 			print '<div>';
@@ -1576,7 +1576,7 @@ if ($action == 'create' || $action == 'presend') {
 			$formticket->param['returnurl'] = $_SERVER["PHP_SELF"].'?track_id='.$object->track_id;
 
 			$formticket->withsubstit = 1;
-			$formticket->substit = $substitutionarray;
+			$formticket->substit = $substitutionArray;
 			$formticket->backtopage = $backtopage;
 
 			$formticket->showMessageForm('100%');

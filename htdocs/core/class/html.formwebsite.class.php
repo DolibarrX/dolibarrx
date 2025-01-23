@@ -378,14 +378,14 @@ class FormWebsite
 		$templates = $arrayofsamples;
 
 		foreach ($templates as $template => $templateFunction) {
-			$substitutionarray = array();
-			$substitutionarray['__WEBSITE_CREATED_BY__'] = $user->getFullName($langs);
-			$substitutionarray['__WEBSITE_CONTENT__'] = $langs->trans("WebpageContent");
-			$substitutionarray['__WEBSITE_TITLE1__'] = $langs->trans("Title1");
-			$substitutionarray['__WEBSITE_TITLE2__'] = $langs->trans("Title2");
+			$substitutionArray = array();
+			$substitutionArray['__WEBSITE_CREATED_BY__'] = $user->getFullName($langs);
+			$substitutionArray['__WEBSITE_CONTENT__'] = $langs->trans("WebpageContent");
+			$substitutionArray['__WEBSITE_TITLE1__'] = $langs->trans("Title1");
+			$substitutionArray['__WEBSITE_TITLE2__'] = $langs->trans("Title2");
 
 			$pathtoTemplateFile = DOL_DOCUMENT_ROOT.'/website/samples/page-sample-'.dol_sanitizeFileName($template).'.html';
-			$contentHtml = file_exists($pathtoTemplateFile) ? make_substitutions(@file_get_contents($pathtoTemplateFile), $substitutionarray) : '';
+			$contentHtml = file_exists($pathtoTemplateFile) ? make_substitutions(@file_get_contents($pathtoTemplateFile), $substitutionArray) : '';
 
 			$out .= '<div class="template-option" data-template="'.$template.'" data-content="'.htmlentities($contentHtml).'">';
 			$out .= '<img class="maillayout" alt="'.$template.'" src="'.DOL_URL_ROOT.'/theme/common/maillayout/'.$template.'.png" />';

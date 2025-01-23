@@ -137,7 +137,7 @@ if ((!empty($foruserid) || !empty($foruserlogin) || !empty($mode)) && !$mesg) {
 			}
 
 			// List of values to scan for a replacement
-			$substitutionarray = array(
+			$substitutionArray = array(
 				'__MEMBER_ID__' => $objp->rowid,
 				'__MEMBER_REF__' => $objp->ref,
 				'__MEMBER_LOGIN__' => empty($objp->login) ? '' : $objp->login,
@@ -161,16 +161,16 @@ if ((!empty($foruserid) || !empty($foruserlogin) || !empty($mode)) && !$mesg) {
 				'__SERVER__' => "https://".$_SERVER["SERVER_NAME"]."/"
 			);
 			foreach ($adherentstatic->array_options as $key => $val) {
-				$substitutionarray['__'.strtoupper($key).'__'] = $val;
+				$substitutionArray['__'.strtoupper($key).'__'] = $val;
 			}
-			complete_substitutions_array($substitutionarray, $langs, $adherentstatic);
+			complete_substitutions_array($substitutionArray, $langs, $adherentstatic);
 
 			// For business cards
 			if (empty($mode) || $mode == 'card' || $mode == 'cardlogin') {
-				$textleft = make_substitutions(getDolGlobalString('ADHERENT_CARD_TEXT'), $substitutionarray);
-				$textheader = make_substitutions(getDolGlobalString('ADHERENT_CARD_HEADER_TEXT'), $substitutionarray);
-				$textfooter = make_substitutions(getDolGlobalString('ADHERENT_CARD_FOOTER_TEXT'), $substitutionarray);
-				$textright = make_substitutions(getDolGlobalString('ADHERENT_CARD_TEXT_RIGHT'), $substitutionarray);
+				$textleft = make_substitutions(getDolGlobalString('ADHERENT_CARD_TEXT'), $substitutionArray);
+				$textheader = make_substitutions(getDolGlobalString('ADHERENT_CARD_HEADER_TEXT'), $substitutionArray);
+				$textfooter = make_substitutions(getDolGlobalString('ADHERENT_CARD_FOOTER_TEXT'), $substitutionArray);
+				$textright = make_substitutions(getDolGlobalString('ADHERENT_CARD_TEXT_RIGHT'), $substitutionArray);
 
 				if (is_numeric($foruserid) || $foruserlogin) {
 					$nb = $_Avery_Labels[$model]['NX'] * $_Avery_Labels[$model]['NY'];	// $_Avery_Labels is defined into an include
@@ -207,7 +207,7 @@ if ((!empty($foruserid) || !empty($foruserlogin) || !empty($mode)) && !$mesg) {
 				if (!getDolGlobalString('ADHERENT_ETIQUETTE_TEXT')) {
 					$config->global->ADHERENT_ETIQUETTE_TEXT = "__MEMBER_TITLE__\n__MEMBER_FULLNAME__\n__MEMBER_ADDRESS__\n__MEMBER_ZIP__ __MEMBER_TOWN__\n__MEMBER_COUNTRY__";
 				}
-				$textleft = make_substitutions(getDolGlobalString('ADHERENT_ETIQUETTE_TEXT'), $substitutionarray);
+				$textleft = make_substitutions(getDolGlobalString('ADHERENT_ETIQUETTE_TEXT'), $substitutionArray);
 				$textheader = '';
 				$textfooter = '';
 				$textright = '';

@@ -1170,8 +1170,8 @@ if ($action == 'addcontainer' && $usercanedit) {
 		$objectpage->author_alias = GETPOST('WEBSITE_AUTHORALIAS', 'alphanohtml');
 		$objectpage->object_type = GETPOST('WEBSITE_OBJECTCLASS');
 		$objectpage->fk_object = GETPOST('WEBSITE_OBJECTID');
-		$substitutionarray = array();
-		$substitutionarray['__WEBSITE_CREATED_BY__'] = $user->getFullName($langs);
+		$substitutionArray = array();
+		$substitutionArray['__WEBSITE_CREATED_BY__'] = $user->getFullName($langs);
 
 		// Define id of the page the new page is translation of
 		/*
@@ -1201,7 +1201,7 @@ if ($action == 'addcontainer' && $usercanedit) {
 			//$content = GETPOST('content', 'restricthtmlallowunvalid');	// @TODO Use a restricthtmlallowunvalidwithphp
 			$content = GETPOST('content', 'none');	// @TODO Use a restricthtmlallowunvalidwithphp
 
-			$objectpage->content = make_substitutions($content, $substitutionarray);
+			$objectpage->content = make_substitutions($content, $substitutionArray);
 		} else {
 			/*$sample = GETPOST('sample', 'alpha');
 			if (empty($sample)) {
@@ -1211,7 +1211,7 @@ if ($action == 'addcontainer' && $usercanedit) {
 			$pathtosample = DOL_DOCUMENT_ROOT.'/website/samples/page-sample-'.dol_sanitizeFileName(strtolower($sample)).'.html';
 			*/
 			// Init content with content into page-sample-...
-			//$objectpage->content = make_substitutions(@file_get_contents($pathtosample), $substitutionarray);
+			//$objectpage->content = make_substitutions(@file_get_contents($pathtosample), $substitutionArray);
 		}
 	}
 

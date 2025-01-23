@@ -636,10 +636,10 @@ print '<td width="60" align="center">';
 print "<input size=\"3\" class=\"flat\" type=\"text\" name=\"PROPALE_VALIDITY_DURATION\" value=\"" . getDolGlobalString('PROPALE_VALIDITY_DURATION')."\"></td>";
 print '</tr>';
 
-$substitutionarray = pdf_getSubstitutionArray($langs, null, null, 2);
-$substitutionarray['__(AnyTranslationKey)__'] = $langs->trans("Translation");
+$substitutionArray = pdf_getSubstitutionArray($langs, null, null, 2);
+$substitutionArray['__(AnyTranslationKey)__'] = $langs->trans("Translation");
 $htmltext = '<i>'.$langs->trans("AvailableVariables").':<br>';
-foreach ($substitutionarray as $key => $val) {
+foreach ($substitutionArray as $key => $val) {
 	$htmltext .= $key.'<br>';
 }
 $htmltext .= '</i>';

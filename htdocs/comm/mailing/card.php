@@ -81,9 +81,9 @@ $signature = ((!empty($user->signature) && !getDolGlobalString('MAIN_MAIL_DO_NOT
 $targetobject = null; // Not defined with mass emailing
 
 $parameters = array('mode' => 'emailing');
-$substitutionarray = FormMail::getAvailableSubstitKey('emailing', $targetobject);
+$substitutionArray = FormMail::getAvailableSubstitKey('emailing', $targetobject);
 
-$object->substitutionarrayfortest = $substitutionarray;
+$object->substitutionarrayfortest = $substitutionArray;
 
 // List of sending methods
 $listofmethods = array();
@@ -253,33 +253,33 @@ if (empty($reshook)) {
 						$signature = ((!empty($user->signature) && !getDolGlobalString('MAIN_MAIL_DO_NOT_USE_SIGN')) ? $user->signature : '');
 
 						$parameters = array('mode' => 'emailing');
-						$substitutionarray = getCommonSubstitutionArray($langs, 0, array('object', 'objectamount'), $targetobject); // Note: On mass emailing, this is null because be don't know object
+						$substitutionArray = getCommonSubstitutionArray($langs, 0, array('object', 'objectamount'), $targetobject); // Note: On mass emailing, this is null because be don't know object
 
 						// Array of possible substitutions (See also file mailing-send.php that should manage same substitutions)
-						$substitutionarray['__ID__'] = $obj->source_id;
+						$substitutionArray['__ID__'] = $obj->source_id;
 						if ($obj->source_type == "thirdparty") {
 							$result = $thirdpartystatic->fetch($obj->source_id);
 
 							if ($result > 0) {
-								$substitutionarray['__THIRDPARTY_CUSTOMER_CODE__'] = $thirdpartystatic->code_client;
+								$substitutionArray['__THIRDPARTY_CUSTOMER_CODE__'] = $thirdpartystatic->code_client;
 							} else {
-								$substitutionarray['__THIRDPARTY_CUSTOMER_CODE__'] = '';
+								$substitutionArray['__THIRDPARTY_CUSTOMER_CODE__'] = '';
 							}
 						}
-						$substitutionarray['__EMAIL__'] = $obj->email;
-						$substitutionarray['__LASTNAME__'] = $obj->lastname;
-						$substitutionarray['__FIRSTNAME__'] = $obj->firstname;
-						$substitutionarray['__MAILTOEMAIL__'] = '<a href="mailto:'.$obj->email.'">'.$obj->email.'</a>';
-						$substitutionarray['__OTHER1__'] = $other1;
-						$substitutionarray['__OTHER2__'] = $other2;
-						$substitutionarray['__OTHER3__'] = $other3;
-						$substitutionarray['__OTHER4__'] = $other4;
-						$substitutionarray['__OTHER5__'] = $other5;
-						$substitutionarray['__USER_SIGNATURE__'] = $signature; // Signature is empty when ran from command line or taken from user in parameter)
-						$substitutionarray['__SENDEREMAIL_SIGNATURE__'] = $signature; // Signature is empty when ran from command line or taken from user in parameter)
-						$substitutionarray['__CHECK_READ__'] = '<img src="'.DOL_MAIN_URL_ROOT.'/public/emailing/mailing-read.php?tag='.urlencode($obj->tag).'&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY').'-'.$obj->tag.'-'.$obj->email.'-'.$obj->rowid, "md5").'&email='.urlencode($obj->email).'&mtid='.((int) $obj->rowid).'" width="1" height="1" style="width:1px;height:1px" border="0"/>';
-						$substitutionarray['__UNSUBSCRIBE__'] = '<a href="'.DOL_MAIN_URL_ROOT.'/public/emailing/mailing-unsubscribe.php?tag='.urlencode($obj->tag).'&unsuscrib=1&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY').'-'.$obj->tag.'-'.$obj->email.'-'.$obj->rowid, "md5").'&email='.urlencode($obj->email).'&mtid='.((int) $obj->rowid).'" target="_blank" rel="noopener noreferrer">'.$langs->trans("MailUnsubcribe").'</a>';
-						$substitutionarray['__UNSUBSCRIBE_URL__'] = DOL_MAIN_URL_ROOT.'/public/emailing/mailing-unsubscribe.php?tag='.urlencode($obj->tag).'&unsuscrib=1&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY').'-'.$obj->tag.'-'.$obj->email.'-'.$obj->rowid, "md5").'&email='.urlencode($obj->email).'&mtid='.((int) $obj->rowid);
+						$substitutionArray['__EMAIL__'] = $obj->email;
+						$substitutionArray['__LASTNAME__'] = $obj->lastname;
+						$substitutionArray['__FIRSTNAME__'] = $obj->firstname;
+						$substitutionArray['__MAILTOEMAIL__'] = '<a href="mailto:'.$obj->email.'">'.$obj->email.'</a>';
+						$substitutionArray['__OTHER1__'] = $other1;
+						$substitutionArray['__OTHER2__'] = $other2;
+						$substitutionArray['__OTHER3__'] = $other3;
+						$substitutionArray['__OTHER4__'] = $other4;
+						$substitutionArray['__OTHER5__'] = $other5;
+						$substitutionArray['__USER_SIGNATURE__'] = $signature; // Signature is empty when ran from command line or taken from user in parameter)
+						$substitutionArray['__SENDEREMAIL_SIGNATURE__'] = $signature; // Signature is empty when ran from command line or taken from user in parameter)
+						$substitutionArray['__CHECK_READ__'] = '<img src="'.DOL_MAIN_URL_ROOT.'/public/emailing/mailing-read.php?tag='.urlencode($obj->tag).'&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY').'-'.$obj->tag.'-'.$obj->email.'-'.$obj->rowid, "md5").'&email='.urlencode($obj->email).'&mtid='.((int) $obj->rowid).'" width="1" height="1" style="width:1px;height:1px" border="0"/>';
+						$substitutionArray['__UNSUBSCRIBE__'] = '<a href="'.DOL_MAIN_URL_ROOT.'/public/emailing/mailing-unsubscribe.php?tag='.urlencode($obj->tag).'&unsuscrib=1&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY').'-'.$obj->tag.'-'.$obj->email.'-'.$obj->rowid, "md5").'&email='.urlencode($obj->email).'&mtid='.((int) $obj->rowid).'" target="_blank" rel="noopener noreferrer">'.$langs->trans("MailUnsubcribe").'</a>';
+						$substitutionArray['__UNSUBSCRIBE_URL__'] = DOL_MAIN_URL_ROOT.'/public/emailing/mailing-unsubscribe.php?tag='.urlencode($obj->tag).'&unsuscrib=1&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY').'-'.$obj->tag.'-'.$obj->email.'-'.$obj->rowid, "md5").'&email='.urlencode($obj->email).'&mtid='.((int) $obj->rowid);
 
 						$onlinepaymentenabled = 0;
 						if (isModEnabled('paypal')) {
@@ -293,68 +293,68 @@ if (empty($reshook)) {
 						}
 						if ($onlinepaymentenabled && getDolGlobalString('PAYMENT_SECURITY_TOKEN')) {
 							require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
-							$substitutionarray['__ONLINEPAYMENTLINK_MEMBER__'] = getHtmlOnlinePaymentLink('member', $obj->source_id);
-							$substitutionarray['__ONLINEPAYMENTLINK_DONATION__'] = getHtmlOnlinePaymentLink('donation', $obj->source_id);
-							$substitutionarray['__ONLINEPAYMENTLINK_ORDER__'] = getHtmlOnlinePaymentLink('order', $obj->source_id);
-							$substitutionarray['__ONLINEPAYMENTLINK_INVOICE__'] = getHtmlOnlinePaymentLink('invoice', $obj->source_id);
-							$substitutionarray['__ONLINEPAYMENTLINK_CONTRACTLINE__'] = getHtmlOnlinePaymentLink('contractline', $obj->source_id);
+							$substitutionArray['__ONLINEPAYMENTLINK_MEMBER__'] = getHtmlOnlinePaymentLink('member', $obj->source_id);
+							$substitutionArray['__ONLINEPAYMENTLINK_DONATION__'] = getHtmlOnlinePaymentLink('donation', $obj->source_id);
+							$substitutionArray['__ONLINEPAYMENTLINK_ORDER__'] = getHtmlOnlinePaymentLink('order', $obj->source_id);
+							$substitutionArray['__ONLINEPAYMENTLINK_INVOICE__'] = getHtmlOnlinePaymentLink('invoice', $obj->source_id);
+							$substitutionArray['__ONLINEPAYMENTLINK_CONTRACTLINE__'] = getHtmlOnlinePaymentLink('contractline', $obj->source_id);
 
-							$substitutionarray['__SECUREKEYPAYMENT__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN'), '2');
+							$substitutionArray['__SECUREKEYPAYMENT__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN'), '2');
 							if (!getDolGlobalString('PAYMENT_SECURITY_TOKEN_UNIQUE')) {
-								$substitutionarray['__SECUREKEYPAYMENT_MEMBER__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN'), '2');
-								$substitutionarray['__SECUREKEYPAYMENT_DONATION__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN'), '2');
-								$substitutionarray['__SECUREKEYPAYMENT_ORDER__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN'), '2');
-								$substitutionarray['__SECUREKEYPAYMENT_INVOICE__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN'), '2');
-								$substitutionarray['__SECUREKEYPAYMENT_CONTRACTLINE__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN'), '2');
+								$substitutionArray['__SECUREKEYPAYMENT_MEMBER__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN'), '2');
+								$substitutionArray['__SECUREKEYPAYMENT_DONATION__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN'), '2');
+								$substitutionArray['__SECUREKEYPAYMENT_ORDER__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN'), '2');
+								$substitutionArray['__SECUREKEYPAYMENT_INVOICE__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN'), '2');
+								$substitutionArray['__SECUREKEYPAYMENT_CONTRACTLINE__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN'), '2');
 							} else {
-								$substitutionarray['__SECUREKEYPAYMENT_MEMBER__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN') . 'member'.$obj->source_id, '2');
-								$substitutionarray['__SECUREKEYPAYMENT_DONATION__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN') . 'donation'.$obj->source_id, '2');
-								$substitutionarray['__SECUREKEYPAYMENT_ORDER__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN') . 'order'.$obj->source_id, '2');
-								$substitutionarray['__SECUREKEYPAYMENT_INVOICE__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN') . 'invoice'.$obj->source_id, '2');
-								$substitutionarray['__SECUREKEYPAYMENT_CONTRACTLINE__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN') . 'contractline'.$obj->source_id, '2');
+								$substitutionArray['__SECUREKEYPAYMENT_MEMBER__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN') . 'member'.$obj->source_id, '2');
+								$substitutionArray['__SECUREKEYPAYMENT_DONATION__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN') . 'donation'.$obj->source_id, '2');
+								$substitutionArray['__SECUREKEYPAYMENT_ORDER__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN') . 'order'.$obj->source_id, '2');
+								$substitutionArray['__SECUREKEYPAYMENT_INVOICE__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN') . 'invoice'.$obj->source_id, '2');
+								$substitutionArray['__SECUREKEYPAYMENT_CONTRACTLINE__'] = dol_hash(getDolGlobalString('PAYMENT_SECURITY_TOKEN') . 'contractline'.$obj->source_id, '2');
 							}
 						}
 						if (getDolGlobalString('MEMBER_ENABLE_PUBLIC')) {
-							$substitutionarray['__PUBLICLINK_NEWMEMBERFORM__'] = '<a target="_blank" rel="noopener noreferrer" href="'.DOL_MAIN_URL_ROOT.'/public/members/new.php'.((isModEnabled('multicompany')) ? '?entity='.$config->entity : '').'">'.$langs->trans('BlankSubscriptionForm'). '</a>';
+							$substitutionArray['__PUBLICLINK_NEWMEMBERFORM__'] = '<a target="_blank" rel="noopener noreferrer" href="'.DOL_MAIN_URL_ROOT.'/public/members/new.php'.((isModEnabled('multicompany')) ? '?entity='.$config->entity : '').'">'.$langs->trans('BlankSubscriptionForm'). '</a>';
 						}
 						/* For backward compatibility, deprecated */
 						if (isModEnabled('paypal') && getDolGlobalString('PAYPAL_SECURITY_TOKEN')) {
-							$substitutionarray['__SECUREKEYPAYPAL__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN'), '2');
+							$substitutionArray['__SECUREKEYPAYPAL__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN'), '2');
 
 							if (!getDolGlobalString('PAYPAL_SECURITY_TOKEN_UNIQUE')) {
-								$substitutionarray['__SECUREKEYPAYPAL_MEMBER__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN'), '2');
+								$substitutionArray['__SECUREKEYPAYPAL_MEMBER__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN'), '2');
 							} else {
-								$substitutionarray['__SECUREKEYPAYPAL_MEMBER__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN') . 'membersubscription'.$obj->source_id, '2');
+								$substitutionArray['__SECUREKEYPAYPAL_MEMBER__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN') . 'membersubscription'.$obj->source_id, '2');
 							}
 
 							if (!getDolGlobalString('PAYPAL_SECURITY_TOKEN_UNIQUE')) {
-								$substitutionarray['__SECUREKEYPAYPAL_ORDER__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN'), '2');
+								$substitutionArray['__SECUREKEYPAYPAL_ORDER__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN'), '2');
 							} else {
-								$substitutionarray['__SECUREKEYPAYPAL_ORDER__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN') . 'order'.$obj->source_id, '2');
+								$substitutionArray['__SECUREKEYPAYPAL_ORDER__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN') . 'order'.$obj->source_id, '2');
 							}
 
 							if (!getDolGlobalString('PAYPAL_SECURITY_TOKEN_UNIQUE')) {
-								$substitutionarray['__SECUREKEYPAYPAL_INVOICE__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN'), '2');
+								$substitutionArray['__SECUREKEYPAYPAL_INVOICE__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN'), '2');
 							} else {
-								$substitutionarray['__SECUREKEYPAYPAL_INVOICE__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN') . 'invoice'.$obj->source_id, '2');
+								$substitutionArray['__SECUREKEYPAYPAL_INVOICE__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN') . 'invoice'.$obj->source_id, '2');
 							}
 
 							if (!getDolGlobalString('PAYPAL_SECURITY_TOKEN_UNIQUE')) {
-								$substitutionarray['__SECUREKEYPAYPAL_CONTRACTLINE__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN'), '2');
+								$substitutionArray['__SECUREKEYPAYPAL_CONTRACTLINE__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN'), '2');
 							} else {
-								$substitutionarray['__SECUREKEYPAYPAL_CONTRACTLINE__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN') . 'contractline'.$obj->source_id, '2');
+								$substitutionArray['__SECUREKEYPAYPAL_CONTRACTLINE__'] = dol_hash(getDolGlobalString('PAYPAL_SECURITY_TOKEN') . 'contractline'.$obj->source_id, '2');
 							}
 						}
 						//$substitutionisok=true;
 
-						complete_substitutions_array($substitutionarray, $langs);
-						$newsubject = make_substitutions($subject, $substitutionarray);
-						$newmessage = make_substitutions($message, $substitutionarray, null, 0);
+						complete_substitutions_array($substitutionArray, $langs);
+						$newsubject = make_substitutions($subject, $substitutionArray);
+						$newmessage = make_substitutions($message, $substitutionArray, null, 0);
 
 						$moreinheader = '';
 						if (preg_match('/__UNSUBSCRIBE_(_|URL_)/', $message)) {
 							$moreinheader = "List-Unsubscribe: <__UNSUBSCRIBE_URL__>\n";
-							$moreinheader = make_substitutions($moreinheader, $substitutionarray);
+							$moreinheader = make_substitutions($moreinheader, $substitutionArray);
 						}
 
 						$arr_file = array();
@@ -499,20 +499,20 @@ if (empty($reshook)) {
 			$signature = ((!empty($user->signature) && !getDolGlobalString('MAIN_MAIL_DO_NOT_USE_SIGN')) ? $user->signature : '');
 
 			$parameters = array('mode' => 'emailing');
-			$substitutionarray = getCommonSubstitutionArray($langs, 0, array('object', 'objectamount'), $targetobject); // Note: On mass emailing, this is null because be don't know object
+			$substitutionArray = getCommonSubstitutionArray($langs, 0, array('object', 'objectamount'), $targetobject); // Note: On mass emailing, this is null because be don't know object
 
 			// other are set at begin of page
-			$substitutionarray['__EMAIL__'] = $object->sendto;
-			$substitutionarray['__MAILTOEMAIL__'] = '<a href="mailto:'.$object->sendto.'">'.$object->sendto.'</a>';
-			$substitutionarray['__CHECK_READ__'] = '<img src="'.DOL_MAIN_URL_ROOT.'/public/emailing/mailing-read.php?tag=undefinedintestmode&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY')."-undefinedintestmode-".$object->sendto."-0", 'md5').'&email='.urlencode($object->sendto).'&mtid=0" width="1" height="1" style="width:1px;height:1px" border="0"/>';
-			$substitutionarray['__UNSUBSCRIBE__'] = '<a href="'.DOL_MAIN_URL_ROOT.'/public/emailing/mailing-unsubscribe.php?tag=undefinedintestmode&unsuscrib=1&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY')."-undefinedintestmode-".$object->sendto."-0", 'md5').'&email='.urlencode($object->sendto).'&mtid=0" target="_blank" rel="noopener noreferrer">'.$langs->trans("MailUnsubcribe").'</a>';
-			$substitutionarray['__UNSUBSCRIBE_URL__'] = DOL_MAIN_URL_ROOT.'/public/emailing/mailing-unsubscribe.php?tag=undefinedintestmode&unsuscrib=1&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY')."-undefinedintestmode-".$object->sendto."-0", 'md5').'&email='.urlencode($object->sendto).'&mtid=0';
+			$substitutionArray['__EMAIL__'] = $object->sendto;
+			$substitutionArray['__MAILTOEMAIL__'] = '<a href="mailto:'.$object->sendto.'">'.$object->sendto.'</a>';
+			$substitutionArray['__CHECK_READ__'] = '<img src="'.DOL_MAIN_URL_ROOT.'/public/emailing/mailing-read.php?tag=undefinedintestmode&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY')."-undefinedintestmode-".$object->sendto."-0", 'md5').'&email='.urlencode($object->sendto).'&mtid=0" width="1" height="1" style="width:1px;height:1px" border="0"/>';
+			$substitutionArray['__UNSUBSCRIBE__'] = '<a href="'.DOL_MAIN_URL_ROOT.'/public/emailing/mailing-unsubscribe.php?tag=undefinedintestmode&unsuscrib=1&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY')."-undefinedintestmode-".$object->sendto."-0", 'md5').'&email='.urlencode($object->sendto).'&mtid=0" target="_blank" rel="noopener noreferrer">'.$langs->trans("MailUnsubcribe").'</a>';
+			$substitutionArray['__UNSUBSCRIBE_URL__'] = DOL_MAIN_URL_ROOT.'/public/emailing/mailing-unsubscribe.php?tag=undefinedintestmode&unsuscrib=1&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY')."-undefinedintestmode-".$object->sendto."-0", 'md5').'&email='.urlencode($object->sendto).'&mtid=0';
 
 			// Subject and message substitutions
-			complete_substitutions_array($substitutionarray, $langs, $targetobject);
+			complete_substitutions_array($substitutionArray, $langs, $targetobject);
 
-			$tmpsujet = make_substitutions($object->sujet, $substitutionarray);
-			$tmpbody = make_substitutions($object->body, $substitutionarray);
+			$tmpsujet = make_substitutions($object->sujet, $substitutionArray);
+			$tmpbody = make_substitutions($object->body, $substitutionArray);
 
 			$arr_file = array();
 			$arr_mime = array();

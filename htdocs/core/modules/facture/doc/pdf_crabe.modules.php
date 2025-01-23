@@ -550,10 +550,10 @@ class pdf_crabe extends ModelePDFFactures
 				if ($notetoshow) {
 					$tab_top -= 2;
 
-					$substitutionarray = pdf_getSubstitutionArray($outputlangs, null, $object);
-					complete_substitutions_array($substitutionarray, $outputlangs, $object);
+					$substitutionArray = pdf_getSubstitutionArray($outputlangs, null, $object);
+					complete_substitutions_array($substitutionArray, $outputlangs, $object);
 
-					$notetoshow = make_substitutions($notetoshow, $substitutionarray, $outputlangs);
+					$notetoshow = make_substitutions($notetoshow, $substitutionArray, $outputlangs);
 					$notetoshow = convertBackOfficeMediasLinksToPublicLinks($notetoshow);
 
 					$pdf->SetFont('', '', $default_font_size - 1);

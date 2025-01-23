@@ -700,10 +700,10 @@ if (empty($reshook)) {
 					setEventMessages('<a href="'.DOL_URL_ROOT.'/adherents/admin/member_emails.php">'.$langs->trans('WarningMandatorySetupNotComplete').'</a>', null, 'errors');
 					$error++;
 				} else {
-					$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-					complete_substitutions_array($substitutionarray, $outputlangs, $object);
-					$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-					$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnValid()), $substitutionarray, $outputlangs);
+					$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+					complete_substitutions_array($substitutionArray, $outputlangs, $object);
+					$subjecttosend = make_substitutions($subject, $substitutionArray, $outputlangs);
+					$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnValid()), $substitutionArray, $outputlangs);
 
 					$moreinheader = 'X-Dolibarr-Info: send_an_email by adherents/card.php'."\r\n";
 
@@ -767,10 +767,10 @@ if (empty($reshook)) {
 						setEventMessages('WarningMandatorySetupNotComplete', null, 'errors');
 						$error++;
 					} else {
-						$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-						complete_substitutions_array($substitutionarray, $outputlangs, $object);
-						$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-						$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnResiliate()), $substitutionarray, $outputlangs);
+						$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+						complete_substitutions_array($substitutionArray, $outputlangs, $object);
+						$subjecttosend = make_substitutions($subject, $substitutionArray, $outputlangs);
+						$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnResiliate()), $substitutionArray, $outputlangs);
 
 						$moreinheader = 'X-Dolibarr-Info: send_an_email by adherents/card.php'."\r\n";
 
@@ -834,10 +834,10 @@ if (empty($reshook)) {
 						setEventMessages('WarningMandatorySetupNotComplete', null, 'errors');
 						$error++;
 					} else {
-						$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-						complete_substitutions_array($substitutionarray, $outputlangs, $object);
-						$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-						$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnExclude()), $substitutionarray, $outputlangs);
+						$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+						complete_substitutions_array($substitutionArray, $outputlangs, $object);
+						$subjecttosend = make_substitutions($subject, $substitutionArray, $outputlangs);
+						$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnExclude()), $substitutionArray, $outputlangs);
 
 						$moreinheader = 'X-Dolibarr-Info: send_an_email by adherents/card.php'."\r\n";
 
@@ -1614,10 +1614,10 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				$msg = $arraydefaultmessage->content;
 			}
 
-			$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-			complete_substitutions_array($substitutionarray, $outputlangs, $object);
-			$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-			$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnValid()), $substitutionarray, $outputlangs);
+			$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+			complete_substitutions_array($substitutionArray, $outputlangs, $object);
+			$subjecttosend = make_substitutions($subject, $substitutionArray, $outputlangs);
+			$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnValid()), $substitutionArray, $outputlangs);
 
 			$tmp = $langs->trans("SendingAnEMailToMember");
 			$tmp .= '<br>'.$langs->trans("MailFrom").': <b>'.getDolGlobalString('ADHERENT_MAIL_FROM').'</b>, ';
@@ -1678,10 +1678,10 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				$msg     = $arraydefaultmessage->content;
 			}
 
-			$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-			complete_substitutions_array($substitutionarray, $outputlangs, $object);
-			$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-			$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnResiliate()), $substitutionarray, $outputlangs);
+			$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+			complete_substitutions_array($substitutionArray, $outputlangs, $object);
+			$subjecttosend = make_substitutions($subject, $substitutionArray, $outputlangs);
+			$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnResiliate()), $substitutionArray, $outputlangs);
 
 			$tmp = $langs->trans("SendingAnEMailToMember");
 			$tmp .= '<br>('.$langs->trans("MailFrom").': <b>'.getDolGlobalString('ADHERENT_MAIL_FROM').'</b>, ';
@@ -1739,10 +1739,10 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				$msg     = $arraydefaultmessage->content;
 			}
 
-			$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-			complete_substitutions_array($substitutionarray, $outputlangs, $object);
-			$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-			$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnExclude()), $substitutionarray, $outputlangs);
+			$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+			complete_substitutions_array($substitutionArray, $outputlangs, $object);
+			$subjecttosend = make_substitutions($subject, $substitutionArray, $outputlangs);
+			$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnExclude()), $substitutionArray, $outputlangs);
 
 			$tmp = $langs->trans("SendingAnEMailToMember");
 			$tmp .= '<br>('.$langs->trans("MailFrom").': <b>'.getDolGlobalString('ADHERENT_MAIL_FROM').'</b>, ';

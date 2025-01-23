@@ -119,11 +119,11 @@ print ajax_constantonoff("TAKEPOS_TICKET_VAT_GROUPPED", array(), $config->entity
 print "</td></tr>\n";
 
 if (getDolGlobalString('TAKEPOS_PRINT_METHOD') == "browser" || getDolGlobalString('TAKEPOS_PRINT_METHOD') == "takeposconnector") {
-	$substitutionarray = pdf_getSubstitutionArray($langs, array('ticket', 'member', 'candidate'), null, 2, array('company', 'user', 'object', 'system'));
-	$substitutionarray['__(AnyTranslationKey)__'] = $langs->trans("Translation");
+	$substitutionArray = pdf_getSubstitutionArray($langs, array('ticket', 'member', 'candidate'), null, 2, array('company', 'user', 'object', 'system'));
+	$substitutionArray['__(AnyTranslationKey)__'] = $langs->trans("Translation");
 
 	$htmltext = '<i>'.$langs->trans("AvailableVariables").':<br>';
-	foreach ($substitutionarray as $key => $val) {
+	foreach ($substitutionArray as $key => $val) {
 		$htmltext .= $key.'<br>';
 	}
 	$htmltext .= '</i>';

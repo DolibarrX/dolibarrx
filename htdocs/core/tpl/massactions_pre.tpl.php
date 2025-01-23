@@ -313,22 +313,22 @@ if ($massaction == 'presend') {
 	$formmail->withcancel = 1;
 
 	// Make substitution in email content
-	$substitutionarray = getCommonSubstitutionArray($langs, 0, null, $object);
+	$substitutionArray = getCommonSubstitutionArray($langs, 0, null, $object);
 
-	$substitutionarray['__EMAIL__'] = $sendto;
-	$substitutionarray['__CHECK_READ__'] = '<img src="'.DOL_MAIN_URL_ROOT.'/public/emailing/mailing-read.php?tag=undefined&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY')."-undefined", 'md5').'" width="1" height="1" style="width:1px;height:1px" border="0"/>';
-	$substitutionarray['__ONLINE_PAYMENT_URL__'] = 'UrlToPayOnlineIfApplicable';
-	$substitutionarray['__ONLINE_PAYMENT_TEXT_AND_URL__'] = 'TextAndUrlToPayOnlineIfApplicable';
-	$substitutionarray['__THIRDPARTY_NAME__'] = '__THIRDPARTY_NAME__';
-	$substitutionarray['__PROJECT_NAME__'] = '__PROJECT_NAME__';
+	$substitutionArray['__EMAIL__'] = $sendto;
+	$substitutionArray['__CHECK_READ__'] = '<img src="'.DOL_MAIN_URL_ROOT.'/public/emailing/mailing-read.php?tag=undefined&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY')."-undefined", 'md5').'" width="1" height="1" style="width:1px;height:1px" border="0"/>';
+	$substitutionArray['__ONLINE_PAYMENT_URL__'] = 'UrlToPayOnlineIfApplicable';
+	$substitutionArray['__ONLINE_PAYMENT_TEXT_AND_URL__'] = 'TextAndUrlToPayOnlineIfApplicable';
+	$substitutionArray['__THIRDPARTY_NAME__'] = '__THIRDPARTY_NAME__';
+	$substitutionArray['__PROJECT_NAME__'] = '__PROJECT_NAME__';
 
 	$parameters = array(
 		'mode' => 'formemail'
 	);
-	complete_substitutions_array($substitutionarray, $langs, $object, $parameters);
+	complete_substitutions_array($substitutionArray, $langs, $object, $parameters);
 
 	// Array of substitutions
-	$formmail->substit = $substitutionarray;
+	$formmail->substit = $substitutionArray;
 
 	// Tableau des parameters complementaires du post
 	$formmail->param['action'] = $action;

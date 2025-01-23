@@ -246,9 +246,9 @@ class pdf_soleil extends ModelePDFFicheinter
 				// Display notes
 				$notetoshow = empty($object->note_public) ? '' : $object->note_public;
 				if ($notetoshow) {
-					$substitutionarray = pdf_getSubstitutionArray($outputlangs, null, $object);
-					complete_substitutions_array($substitutionarray, $outputlangs, $object);
-					$notetoshow = make_substitutions($notetoshow, $substitutionarray, $outputlangs);
+					$substitutionArray = pdf_getSubstitutionArray($outputlangs, null, $object);
+					complete_substitutions_array($substitutionArray, $outputlangs, $object);
+					$notetoshow = make_substitutions($notetoshow, $substitutionArray, $outputlangs);
 					$notetoshow = convertBackOfficeMediasLinksToPublicLinks($notetoshow);
 
 					$tab_top = 88;

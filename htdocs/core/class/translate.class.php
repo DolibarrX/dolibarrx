@@ -1216,13 +1216,13 @@ class Translate
 	public function get_translations_for_substitutions()
 	{
 		// phpcs:enable
-		$substitutionarray = array();
+		$substitutionArray = array();
 
 		foreach ($this->tab_translate as $code => $label) {
-			$substitutionarray['lang_' . $code] = $label;
-			$substitutionarray['__(' . $code . ')__'] = $label;
+			$substitutionArray['lang_' . $code] = $label;
+			$substitutionArray['__(' . $code . ')__'] = $label;
 		}
 
-		return $substitutionarray;
+		return $substitutionArray;
 	}
 }

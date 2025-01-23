@@ -437,12 +437,12 @@ class BordereauChequeBlochet extends ModeleChequeReceipts
 		$showdetails = getDolGlobalInt('MAIN_GENERATE_DOCUMENTS_SHOW_FOOT_DETAILS', 0);
 
 		// Line of free text
-		$substitutionarray = pdf_getSubstitutionArray($outputlangs, null, $object);
-		complete_substitutions_array($substitutionarray, $outputlangs, $object);
+		$substitutionArray = pdf_getSubstitutionArray($outputlangs, null, $object);
+		complete_substitutions_array($substitutionArray, $outputlangs, $object);
 		$newfreetext = '';
 		$paramfreetext = 'BANK_CHEQUERECEIPT_FREE_TEXT';
 		if (getDolGlobalString($paramfreetext)) {
-			$newfreetext = make_substitutions(getDolGlobalString($paramfreetext), $substitutionarray);
+			$newfreetext = make_substitutions(getDolGlobalString($paramfreetext), $substitutionArray);
 		}
 
 		return pdf_pagefoot($pdf, $outputlangs, $newfreetext, $this->emetteur, $this->marge_basse, $this->marge_gauche, $this->page_hauteur, $object, $showdetails, $hidefreetext);

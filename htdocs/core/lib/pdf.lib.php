@@ -764,10 +764,10 @@ function pdf_pagehead(&$pdf, $outputlangs, $page_height)
  */
 function pdf_getSubstitutionArray($outputlangs, $exclude = null, $object = null, $onlykey = 0, $include = null)
 {
-	$substitutionarray = getCommonSubstitutionArray($outputlangs, $onlykey, $exclude, $object, $include);
-	$substitutionarray['__FROM_NAME__'] = '__FROM_NAME__';
-	$substitutionarray['__FROM_EMAIL__'] = '__FROM_EMAIL__';
-	return $substitutionarray;
+	$substitutionArray = getCommonSubstitutionArray($outputlangs, $onlykey, $exclude, $object, $include);
+	$substitutionArray['__FROM_NAME__'] = '__FROM_NAME__';
+	$substitutionArray['__FROM_EMAIL__'] = '__FROM_EMAIL__';
+	return $substitutionArray;
 }
 
 
@@ -799,9 +799,9 @@ function pdf_watermark(&$pdf, $outputlangs, $h, $w, $unit, $text)
 	}
 
 	// Make substitution
-	$substitutionarray = pdf_getSubstitutionArray($outputlangs, null, null);
-	complete_substitutions_array($substitutionarray, $outputlangs, null);
-	$text = make_substitutions($text, $substitutionarray, $outputlangs);
+	$substitutionArray = pdf_getSubstitutionArray($outputlangs, null, null);
+	complete_substitutions_array($substitutionArray, $outputlangs, null);
+	$text = make_substitutions($text, $substitutionArray, $outputlangs);
 	$text = $outputlangs->convToOutputCharset($text);
 
 	$savx = $pdf->getX();
@@ -1037,14 +1037,14 @@ function pdf_pagefoot(&$pdf, $outputlangs, $paramfreetext, $fromcompany, $marge_
 
 	// Line of free text
 	if (empty($hidefreetext) && getDolGlobalString($paramfreetext)) {
-		$substitutionarray = pdf_getSubstitutionArray($outputlangs, null, $object);
+		$substitutionArray = pdf_getSubstitutionArray($outputlangs, null, $object);
 		// More substitution keys
 		if (is_object($fromcompany)) {
-			$substitutionarray['__FROM_NAME__'] = $fromcompany->name;
-			$substitutionarray['__FROM_EMAIL__'] = $fromcompany->email;
+			$substitutionArray['__FROM_NAME__'] = $fromcompany->name;
+			$substitutionArray['__FROM_EMAIL__'] = $fromcompany->email;
 		}
-		complete_substitutions_array($substitutionarray, $outputlangs, $object);
-		$newfreetext = make_substitutions(getDolGlobalString($paramfreetext), $substitutionarray, $outputlangs);
+		complete_substitutions_array($substitutionArray, $outputlangs, $object);
+		$newfreetext = make_substitutions(getDolGlobalString($paramfreetext), $substitutionArray, $outputlangs);
 
 		// Make a change into HTML code to allow to include images from medias directory.
 		// <img alt="" src="/dolibarr_dev/htdocs/viewimage.php?modulepart=medias&amp;entity=1&amp;file=image/ldestailleur_166x166.jpg" style="height:166px; width:166px" />

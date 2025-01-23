@@ -4118,7 +4118,7 @@ if ($action == 'create') {
 			if (empty($dateexample)) {
 				$dateexample = dol_now();
 			}
-			$substitutionarray = array(
+			$substitutionArray = array(
 				'__TOTAL_HT__' => $langs->trans("AmountHT").' ('.$langs->trans("Example").': '.price($exampletemplateinvoice->total_ht).')',
 				'__TOTAL_TTC__' =>  $langs->trans("AmountTTC").' ('.$langs->trans("Example").': '.price($exampletemplateinvoice->total_ttc).')',
 				'__INVOICE_PREVIOUS_MONTH__' => $langs->trans("PreviousMonthOfInvoice").' ('.$langs->trans("Example").': '.dol_print_date(dol_time_plus_duree($dateexample, -1, 'm'), '%m').')',
@@ -4133,7 +4133,7 @@ if ($action == 'create') {
 			);
 
 			$htmltext = '<i>'.$langs->trans("FollowingConstantsWillBeSubstituted").':<br>';
-			foreach ($substitutionarray as $key => $val) {
+			foreach ($substitutionArray as $key => $val) {
 				$htmltext .= $key.' = '.$langs->trans($val).'<br>';
 			}
 			$htmltext .= '</i>';

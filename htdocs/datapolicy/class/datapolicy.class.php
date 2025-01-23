@@ -202,15 +202,15 @@ class DataPolicy
 		$filepath = $mimetype = $filename = array();
 		$deliveryreceipt = 0;
 
-		$substitutionarray = array(
+		$substitutionArray = array(
 			'__LINKACCEPT__' => '<a href="'.dol_buildpath('/public/datapolicy/index.php?action=1&c='.$contact->id.'&l='.$l.'&key='.$code, 3).'" target="_blank" rel="noopener noreferrer">'.$linka.'</a>',
 			'__LINKREFUSED__' => '<a href="'.dol_buildpath('/public/datapolicy/index.php?action=2&c='.$contact->id.'&l='.$l.'&key='.$code, 3).'" target="_blank" rel="noopener noreferrer">'.$linkr.'</a>',
 			'__FIRSTNAME__' => $contact->firstname,
 			'__NAME__' => $contact->lastname,
 			'__CIVILITY__' => $contact->civility,
 		);
-		$subject = make_substitutions($subject, $substitutionarray);
-		$message = make_substitutions($message, $substitutionarray);
+		$subject = make_substitutions($subject, $substitutionArray);
+		$message = make_substitutions($message, $substitutionArray);
 
 		$actiontypecode = 'AC_EMAIL';
 		$actionmsg = $langs->transnoentities('MailSentByTo', $from, $sendto);
@@ -281,12 +281,12 @@ class DataPolicy
 		$filepath = $mimetype = $filename = array();
 		$deliveryreceipt = 0;
 
-		$substitutionarray = array(
+		$substitutionArray = array(
 			'__LINKACCEPT__' => '<a href="'.dol_buildpath('/public/datapolicy/index.php?action=1&s='.$societe->id.'&l='.$l.'&key='.$code, 3).'" target="_blank" rel="noopener noreferrer">'.$linka.'</a>',
 			'__LINKREFUSED__' => '<a href="'.dol_buildpath('/public/datapolicy/index.php?action=2&s='.$societe->id.'&l='.$l.'&key='.$code, 3).'" target="_blank" rel="noopener noreferrer">'.$linkr.'</a>',
 		);
-		$subject = make_substitutions($subject, $substitutionarray);
-		$message = make_substitutions($message, $substitutionarray);
+		$subject = make_substitutions($subject, $substitutionArray);
+		$message = make_substitutions($message, $substitutionArray);
 
 		$actiontypecode = 'AC_EMAIL';
 		$actionmsg = $langs->transnoentities('MailSentByTo', $from, $sendto);
@@ -356,12 +356,12 @@ class DataPolicy
 		$filepath = $mimetype = $filename = array();
 		$deliveryreceipt = 0;
 
-		$substitutionarray = array(
+		$substitutionArray = array(
 			'__LINKACCEPT__' => '<a href="'.dol_buildpath('/public/datapolicy/index.php?action=1&a='.$adherent->id.'&l='.$l.'&key='.$code, 3).'" target="_blank" rel="noopener noreferrer">'.$linka.'</a>',
 			'__LINKREFUSED__' => '<a href="'.dol_buildpath('/public/datapolicy/index.php?action=2&a='.$adherent->id.'&l='.$l.'&key='.$code, 3).'" target="_blank" rel="noopener noreferrer">'.$linkr.'</a>',
 		);
-		$subject = make_substitutions($subject, $substitutionarray);
-		$message = make_substitutions($message, $substitutionarray);
+		$subject = make_substitutions($subject, $substitutionArray);
+		$message = make_substitutions($message, $substitutionArray);
 
 		$actiontypecode = 'AC_EMAIL';
 		$actionmsg = $langs->transnoentities('MailSentByTo', $from, $sendto);

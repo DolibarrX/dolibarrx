@@ -810,10 +810,10 @@ print '<input type="submit" class="button button-edit reposition" value="'.$lang
 print "</td></tr>\n";
 print '</form>';
 
-$substitutionarray = pdf_getSubstitutionArray($langs, null, null, 2);
-$substitutionarray['__(AnyTranslationKey)__'] = $langs->trans("Translation");
+$substitutionArray = pdf_getSubstitutionArray($langs, null, null, 2);
+$substitutionArray['__(AnyTranslationKey)__'] = $langs->trans("Translation");
 $htmltext = '<i>'.$langs->trans("AvailableVariables").':<br>';
-foreach ($substitutionarray as $key => $val) {
+foreach ($substitutionArray as $key => $val) {
 	$htmltext .= $key.'<br>';
 }
 $htmltext .= '</i>';

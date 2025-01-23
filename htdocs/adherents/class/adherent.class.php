@@ -531,7 +531,7 @@ class Adherent extends CommonObject
 		$infos .= $langs->transnoentities("Public").": ".yn($this->public);
 
 		// Substitutions
-		$substitutionarray = array(
+		$substitutionArray = array(
 			'__ID__' => $this->id,
 			'__REF__' => $this->ref,
 			'__MEMBER_ID__' => $this->id,
@@ -555,9 +555,9 @@ class Adherent extends CommonObject
 			'__TYPE__' => $msgishtml ? dol_htmlentitiesbr($this->type) : ($this->type ? $this->type : '')
 		);
 
-		complete_substitutions_array($substitutionarray, $langs, $this);
+		complete_substitutions_array($substitutionArray, $langs, $this);
 
-		return make_substitutions($text, $substitutionarray, $langs);
+		return make_substitutions($text, $substitutionArray, $langs);
 	}
 
 
@@ -3137,12 +3137,12 @@ class Adherent extends CommonObject
 						}
 
 						if (!empty($labeltouse) && is_object($arraydefaultmessage) && $arraydefaultmessage->id > 0) {
-							$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $adherent);
-							//if (is_array($adherent->thirdparty)) $substitutionarraycomp = ...
-							complete_substitutions_array($substitutionarray, $outputlangs, $adherent);
+							$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $adherent);
+							//if (is_array($adherent->thirdparty)) $substitutionArraycomp = ...
+							complete_substitutions_array($substitutionArray, $outputlangs, $adherent);
 
-							$subject = make_substitutions($arraydefaultmessage->topic, $substitutionarray, $outputlangs);
-							$msg = make_substitutions($arraydefaultmessage->content, $substitutionarray, $outputlangs);
+							$subject = make_substitutions($arraydefaultmessage->topic, $substitutionArray, $outputlangs);
+							$msg = make_substitutions($arraydefaultmessage->content, $substitutionArray, $outputlangs);
 							$from = getDolGlobalString('ADHERENT_MAIL_FROM');
 							$to = $adherent->email;
 							$cc = getDolGlobalString('ADHERENT_CC_MAIL_FROM');

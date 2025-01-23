@@ -267,7 +267,7 @@ if ($action == 'presend') {
 		// First we set ->substit (useless, it will be erased later) and ->substit_lines
 		$formmail->setSubstitFromObject($object, $langs);
 	}
-	$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, $arrayoffamiliestoexclude, $object);
+	$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, $arrayoffamiliestoexclude, $object);
 
 	$emailsendersignature = null;
 	// Overwrite __SENDEREMAIL_SIGNATURE__ with value select into form
@@ -289,22 +289,22 @@ if ($action == 'presend') {
 			}
 		}
 	}
-	$substitutionarray['__SENDEREMAIL_SIGNATURE__'] = $emailsendersignature;
+	$substitutionArray['__SENDEREMAIL_SIGNATURE__'] = $emailsendersignature;
 
-	$substitutionarray['__CHECK_READ__'] = "";
+	$substitutionArray['__CHECK_READ__'] = "";
 	if (is_object($object) && is_object($object->thirdparty)) {
 		$checkRead = '<img src="'.DOL_MAIN_URL_ROOT.'/public/emailing/mailing-read.php';
 		// @phan-suppress-next-line PhanUndeclaredProperty;
 		$checkRead .= '?tag='.(!empty($object->thirdparty->tag) ? urlencode($object->thirdparty->tag) : "");
 		$checkRead .= '&securitykey='.(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY') ? urlencode(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY')) : "");
 		$checkRead .= '" width="1" height="1" style="width:1px;height:1px" border="0"/>';
-		$substitutionarray['__CHECK_READ__'] = $checkRead;
+		$substitutionArray['__CHECK_READ__'] = $checkRead;
 	}
-	$substitutionarray['__CONTACTCIVNAME__'] = '';
+	$substitutionArray['__CONTACTCIVNAME__'] = '';
 	$parameters = array(
 		'mode' => 'formemail'
 	);
-	complete_substitutions_array($substitutionarray, $outputlangs, $object, $parameters);
+	complete_substitutions_array($substitutionArray, $outputlangs, $object, $parameters);
 
 	// Find all external contact addresses
 	$tmpobject = $object;
@@ -366,10 +366,10 @@ if ($action == 'presend') {
 		foreach ($contactarr as $contact) {
 			$contactstatic->fetch($contact['id']);
 			// Complete substitution array
-			$substitutionarray['__CONTACT_NAME_'.$contact['code'].'__'] = $contactstatic->getFullName($outputlangs, 1);
-			$substitutionarray['__CONTACT_LASTNAME_'.$contact['code'].'__'] = $contactstatic->lastname;
-			$substitutionarray['__CONTACT_FIRSTNAME_'.$contact['code'].'__'] = $contactstatic->firstname;
-			$substitutionarray['__CONTACT_TITLE_'.$contact['code'].'__'] = $contactstatic->getCivilityLabel();
+			$substitutionArray['__CONTACT_NAME_'.$contact['code'].'__'] = $contactstatic->getFullName($outputlangs, 1);
+			$substitutionArray['__CONTACT_LASTNAME_'.$contact['code'].'__'] = $contactstatic->lastname;
+			$substitutionArray['__CONTACT_FIRSTNAME_'.$contact['code'].'__'] = $contactstatic->firstname;
+			$substitutionArray['__CONTACT_TITLE_'.$contact['code'].'__'] = $contactstatic->getCivilityLabel();
 
 			// Complete $liste with the $contact
 			if (empty($liste[$contact['id']])) {	// If this contact id not already into the $liste
@@ -400,7 +400,7 @@ if ($action == 'presend') {
 	$formmail->withcancel = 1;
 
 	// Array of substitutions
-	$formmail->substit = $substitutionarray;
+	$formmail->substit = $substitutionArray;
 
 	// Array of other parameters
 	$formmail->param['action'] = 'send';

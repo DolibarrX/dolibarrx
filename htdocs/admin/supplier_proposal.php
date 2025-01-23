@@ -514,10 +514,10 @@ print '<td width="60" align="center">'.$langs->trans("Value")."</td>\n";
 print "<td>&nbsp;</td>\n";
 print "</tr>";
 
-$substitutionarray = pdf_getSubstitutionArray($langs, null, null, 2);
-$substitutionarray['__(AnyTranslationKey)__'] = $langs->trans("Translation");
+$substitutionArray = pdf_getSubstitutionArray($langs, null, null, 2);
+$substitutionArray['__(AnyTranslationKey)__'] = $langs->trans("Translation");
 $htmltext = '<i>'.$langs->trans("AvailableVariables").':<br>';
-foreach ($substitutionarray as $key => $val) {
+foreach ($substitutionArray as $key => $val) {
 	$htmltext .= $key.'<br>';
 }
 $htmltext .= '</i>';

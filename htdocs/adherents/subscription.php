@@ -389,10 +389,10 @@ if (empty($reshook) && $user->hasRight('adherent', 'cotisation', 'creer') && $ac
 						$msg     = $arraydefaultmessage->content;
 					}
 
-					$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-					complete_substitutions_array($substitutionarray, $outputlangs, $object);
-					$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-					$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnSubscription()), $substitutionarray, $outputlangs);
+					$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+					complete_substitutions_array($substitutionArray, $outputlangs, $object);
+					$subjecttosend = make_substitutions($subject, $substitutionArray, $outputlangs);
+					$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnSubscription()), $substitutionArray, $outputlangs);
 
 					// Attach a file ?
 					$file = '';
@@ -1174,10 +1174,10 @@ if (($action == 'addsubscription' || $action == 'create_thirdparty') && $user->h
 			$msg     = $arraydefaultmessage->content;
 		}
 
-		$substitutionarray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
-		complete_substitutions_array($substitutionarray, $outputlangs, $object);
-		$subjecttosend = make_substitutions($subject, $substitutionarray, $outputlangs);
-		$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnSubscription()), $substitutionarray, $outputlangs);
+		$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $object);
+		complete_substitutions_array($substitutionArray, $outputlangs, $object);
+		$subjecttosend = make_substitutions($subject, $substitutionArray, $outputlangs);
+		$texttosend = make_substitutions(dol_concatdesc($msg, $adht->getMailOnSubscription()), $substitutionArray, $outputlangs);
 
 		$tmp = '<input name="sendmail" type="checkbox"'.(GETPOST('sendmail', 'alpha') ? ' checked' : (getDolGlobalString('ADHERENT_DEFAULT_SENDINFOBYMAIL') ? ' checked' : '')).'>';
 		$helpcontent = '';

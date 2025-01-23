@@ -59,7 +59,7 @@ if ($action == 'test' || ($action == 'send' && $trackid == 'test')) {
 	$usersignature = dol_string_nohtmltag($usersignature, 2);
 }
 
-$substitutionarrayfortest = array(
+$substitutionArrayfortest = array(
 	'__USER_LOGIN__' => $user->login,
 	'__USER_EMAIL__' => $user->email,
 	'__USER_FIRSTNAME__' => $user->firstname,
@@ -77,7 +77,7 @@ $substitutionarrayfortest = array(
 	'__DOL_MAIN_URL_ROOT__' => DOL_MAIN_URL_ROOT,
 	'__CHECK_READ__' => '<img src="'.DOL_MAIN_URL_ROOT.'/public/emailing/mailing-read.php?tag=undefinedtag&securitykey='.dol_hash(getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY')."-undefinedtag", 'md5').'" width="1" height="1" style="width:1px;height:1px" border="0" />',
 );
-complete_substitutions_array($substitutionarrayfortest, $langs);
+complete_substitutions_array($substitutionArrayfortest, $langs);
 
 
 
@@ -1191,7 +1191,7 @@ if ($action == 'edit') {
 		$formmail->withfckeditor = ($action == 'testhtml' ? 1 : 0);
 		$formmail->ckeditortoolbar = 'dolibarr_mailings';
 		// Array of substitutions
-		$formmail->substit = $substitutionarrayfortest;
+		$formmail->substit = $substitutionArrayfortest;
 		// Array of complementary POST parameters
 		$formmail->param["action"] = "send";
 		$formmail->param["models"] = "body";

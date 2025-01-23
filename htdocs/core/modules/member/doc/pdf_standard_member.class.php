@@ -290,7 +290,7 @@ class pdf_standard_member extends CommonStickerGenerator
 			$day = dol_print_date($now, '%d');
 
 			// List of values to scan for a replacement
-			$substitutionarray = array(
+			$substitutionArray = array(
 				'__ID__' => (string) $object->id,
 				'__REF__' => $object->ref,
 				'__LOGIN__' => empty($object->login) ? '' : $object->login,
@@ -312,13 +312,13 @@ class pdf_standard_member extends CommonStickerGenerator
 				'__DOL_MAIN_URL_ROOT__' => (string) DOL_MAIN_URL_ROOT,
 				'__SERVER__' => "https://".$_SERVER["SERVER_NAME"]."/"
 			);
-			complete_substitutions_array($substitutionarray, $langs);
+			complete_substitutions_array($substitutionArray, $langs);
 
 			// For business cards
-			$textleft = make_substitutions(getDolGlobalString("ADHERENT_CARD_TEXT"), $substitutionarray);
-			$textheader = make_substitutions(getDolGlobalString("ADHERENT_CARD_HEADER_TEXT"), $substitutionarray);
-			$textfooter = make_substitutions(getDolGlobalString("ADHERENT_CARD_FOOTER_TEXT"), $substitutionarray);
-			$textright = make_substitutions(getDolGlobalString("ADHERENT_CARD_TEXT_RIGHT"), $substitutionarray);
+			$textleft = make_substitutions(getDolGlobalString("ADHERENT_CARD_TEXT"), $substitutionArray);
+			$textheader = make_substitutions(getDolGlobalString("ADHERENT_CARD_HEADER_TEXT"), $substitutionArray);
+			$textfooter = make_substitutions(getDolGlobalString("ADHERENT_CARD_FOOTER_TEXT"), $substitutionArray);
+			$textright = make_substitutions(getDolGlobalString("ADHERENT_CARD_TEXT_RIGHT"), $substitutionArray);
 
 			$nb = $_Avery_Labels[$this->code]['NX'] * $_Avery_Labels[$this->code]['NY'];
 			if ($nb <= 0) {

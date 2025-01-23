@@ -307,9 +307,9 @@ class pdf_standard_expensereport extends ModeleExpenseReport
 					}
 				}
 				if ($notetoshow) {
-					$substitutionarray = pdf_getSubstitutionArray($outputlangs, null, $object);
-					complete_substitutions_array($substitutionarray, $outputlangs, $object);
-					$notetoshow = make_substitutions($notetoshow, $substitutionarray, $outputlangs);
+					$substitutionArray = pdf_getSubstitutionArray($outputlangs, null, $object);
+					complete_substitutions_array($substitutionArray, $outputlangs, $object);
+					$notetoshow = make_substitutions($notetoshow, $substitutionArray, $outputlangs);
 					$notetoshow = convertBackOfficeMediasLinksToPublicLinks($notetoshow);
 
 					$tab_top = 95;
