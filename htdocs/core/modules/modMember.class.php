@@ -26,7 +26,7 @@
 /**
  *      \defgroup   member     Module foundation
  *      \brief      Module to manage members of a foundation
- *		\file       htdocs/core/modules/modAdherent.class.php
+ *		\file       htdocs/core/modules/modMember.class.php
  *      \ingroup    member
  *      \brief      Description and activation file for the module member
  */
@@ -35,7 +35,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/modules/DolibarrModules.class.php';
 /**
  *  Class to describe and enable module Adherent
  */
-class modAdherent extends DolibarrModules
+class modMember extends DolibarrModules
 {
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions

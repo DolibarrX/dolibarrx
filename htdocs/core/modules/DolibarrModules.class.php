@@ -302,7 +302,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var array<int,array<string,string|string[]>>
 	 *
-	 * Note: example from modAdherent: [<int]= array('subscription'=>'c.rowid');
+	 * Note: example from modMember: [<int]= array('subscription'=>'c.rowid');
 	 *       example from modResource: [<int]= array('resource' => array('r.rowid'));
 	 */
 	public $export_dependencies_array;
