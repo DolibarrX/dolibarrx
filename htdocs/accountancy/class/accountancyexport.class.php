@@ -124,7 +124,7 @@ class AccountancyExport
 	 */
 	public function __construct(DoliDB $db)
 	{
-		global $config, $hookManager;
+		global $hookManager;
 
 		$this->db = $db;
 		$this->separator = getDolGlobalString('ACCOUNTING_EXPORT_SEPARATORCSV');
@@ -1106,8 +1106,6 @@ class AccountancyExport
 	 */
 	public function exportWinfic($objectLines, $exportFile = null)
 	{
-		global $config;
-
 		$end_line = "\r\n";
 		$index = 1;
 
@@ -1316,8 +1314,6 @@ class AccountancyExport
 	 */
 	public function exportConfigurable($objectLines, $exportFile = null)
 	{
-		global $config;
-
 		$separator = $this->separator;
 
 		foreach ($objectLines as $line) {
