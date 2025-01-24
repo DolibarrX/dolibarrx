@@ -1633,7 +1633,7 @@ $( document ).ready(function() {
 	$s = '';
 	if (isModEnabled('member') && $invoice->socid > 0 && $invoice->socid != getDolGlobalInt($constforcompanyid)) {
 		$s = '<span class="small">';
-		require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 		$langs->load("members");
 		$s .= $langs->trans("Member").': ';
 		$adh = new Adherent($db);

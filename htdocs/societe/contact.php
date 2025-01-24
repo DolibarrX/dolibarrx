@@ -45,7 +45,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 if (isModEnabled('member')) {
-	require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 }
 
 /**

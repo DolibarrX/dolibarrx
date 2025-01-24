@@ -75,7 +75,7 @@ class box_members_by_type extends ModeleBoxes
 
 		$this->max = $max;
 
-		include_once DOL_DOCUMENT_ROOT . '/members/class/adherent.class.php';
+		include_once DOL_DOCUMENT_ROOT . '/members/class/member.class.php';
 		require_once DOL_DOCUMENT_ROOT . '/members/class/member_type.class.php';
 		$staticmember = new Adherent($this->db);
 

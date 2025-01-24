@@ -450,7 +450,7 @@ if ($ispaymentok) {
 		// Send confirmation email
 
 		// Record subscription
-		include_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 		include_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 		include_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
 		$adht = new MemberType($db);

@@ -178,7 +178,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		$dir = $config->$modulepart->dir_output; // By default
 	}
 } elseif ($modulepart == 'member') {
-	require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 	$object = new Adherent($db);
 	if ($id > 0) {
 		$result = $object->fetch($id);

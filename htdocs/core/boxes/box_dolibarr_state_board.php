@@ -156,7 +156,7 @@ class box_dolibarr_state_board extends ModeleBoxes
 			);
 			$includes = array(
 				'users' => DOL_DOCUMENT_ROOT . "/user/class/user.class.php",
-				'members' => DOL_DOCUMENT_ROOT . "/members/class/adherent.class.php",
+				'members' => DOL_DOCUMENT_ROOT . "/members/class/member.class.php",
 				'customers' => DOL_DOCUMENT_ROOT . "/societe/class/client.class.php",
 				'prospects' => DOL_DOCUMENT_ROOT . "/societe/class/client.class.php",
 				'suppliers' => DOL_DOCUMENT_ROOT . "/fourn/class/fournisseur.class.php",

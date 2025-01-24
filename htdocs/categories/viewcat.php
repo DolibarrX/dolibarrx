@@ -137,7 +137,7 @@ if ($id > 0 && $removeelem > 0 && $action == 'unlink') {	// Test on permission n
 		$result = $tmpobject->fetch($removeelem);
 		$elementtype = 'customer';
 	} elseif ($type == Categorie::TYPE_MEMBER && $user->hasRight('adherent', 'creer')) {
-		require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 		$tmpobject = new Adherent($db);
 		$result = $tmpobject->fetch($removeelem);
 		$elementtype = 'member';
@@ -223,7 +223,7 @@ if ($elemid && $action == 'addintocategory') {	// Test on permission not require
 		$newobject = new Project($db);
 		$elementtype = 'project';
 	} elseif ($type == Categorie::TYPE_MEMBER && $user->hasRight('adherent', 'creer')) {
-		require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 		$newobject = new Adherent($db);
 		$elementtype = 'member';
 	} elseif ($type == Categorie::TYPE_CONTACT && $user->hasRight('societe', 'creer')) {
@@ -414,7 +414,7 @@ if ($cats < 0) {
 	// Load possible missing includes
 	if (getDolGlobalString('CATEGORY_SHOW_COUNTS')) {
 		if ($type == Categorie::TYPE_MEMBER) {
-			require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 		}
 		if ($type == Categorie::TYPE_ACCOUNT) {
 			require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
@@ -765,7 +765,7 @@ if ($type == Categorie::TYPE_SUPPLIER) {
 // List of members
 if ($type == Categorie::TYPE_MEMBER) {
 	if ($user->hasRight("adherent", "read")) {
-		require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 
 		$permission = $user->hasRight('adherent', 'creer');
 		$showclassifyform = $user->hasRight('adherent', 'creer');

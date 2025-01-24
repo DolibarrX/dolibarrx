@@ -74,7 +74,7 @@ class box_members_subscriptions_by_year extends ModeleBoxes
 
 		$this->max = $max;
 
-		include_once DOL_DOCUMENT_ROOT . '/members/class/adherent.class.php';
+		include_once DOL_DOCUMENT_ROOT . '/members/class/member.class.php';
 		require_once DOL_DOCUMENT_ROOT . '/members/class/member_type.class.php';
 		$memberstatic = new Adherent($this->db);
 		$statictype = new MemberType($this->db);

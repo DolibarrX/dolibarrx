@@ -55,7 +55,7 @@ if (isModEnabled('ldap')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/ldap.class.php';
 }
 if (isModEnabled('member')) {
-	require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 }
 if (isModEnabled('category')) {
 	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';

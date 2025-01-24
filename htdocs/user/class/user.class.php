@@ -2310,7 +2310,7 @@ class User extends CommonObject
 				if ($this->fk_member > 0 && !$nosyncmember) {
 					dol_syslog(get_class($this)."::update user is linked with a member. We try to update member too.", LOG_DEBUG);
 
-					require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
+					require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 
 					// This user is linked with a member, so we also update member information
 					// if this is an update.
@@ -2570,7 +2570,7 @@ class User extends CommonObject
 					$this->pass_indatabase_crypted = (string) $password_crypted;
 
 					if ($this->fk_member && !$nosyncmember) {
-						require_once DOL_DOCUMENT_ROOT.'/members/class/adherent.class.php';
+						require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 
 						// This user is linked with a member, so we also update members information
 						// if this is an update.

@@ -32,7 +32,7 @@
  */
 
 /**
- *	\file       htdocs/members/class/adherent.class.php
+ *	\file       htdocs/members/class/member.class.php
  *	\ingroup    member
  *	\brief      File of class to manage members of a foundation
  */

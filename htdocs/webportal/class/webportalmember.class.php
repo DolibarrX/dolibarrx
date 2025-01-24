@@ -25,7 +25,7 @@
  */
 
 // Put here all includes required by your class file
-require_once DOL_DOCUMENT_ROOT . '/members/class/adherent.class.php';
+require_once DOL_DOCUMENT_ROOT . '/members/class/member.class.php';
 
 /**
  * Class for WebPortalMember

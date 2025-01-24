@@ -75,7 +75,7 @@ class box_members_by_tags extends ModeleBoxes
 
 		$this->max = $max;
 
-		include_once DOL_DOCUMENT_ROOT . '/members/class/adherent.class.php';
+		include_once DOL_DOCUMENT_ROOT . '/members/class/member.class.php';
 		$staticmember = new Adherent($this->db);
 
 		$now = dol_now();
