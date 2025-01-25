@@ -43,7 +43,7 @@ if (isModEnabled("propal")) {
 	require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 }
 if (isModEnabled('order')) {
-	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 }
 require_once DOL_DOCUMENT_ROOT.'/expedition/class/expeditionlinebatch.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonsignedobject.class.php';
@@ -250,12 +250,12 @@ class Expedition extends CommonObject
 	/**
 	 * @var int ID of order
 	 */
-	public $commande_id;
+	public $order_id;
 
 	/**
 	 * @var Order order
 	 */
-	public $commande;
+	public $order;
 
 	/**
 	 * @var ExpeditionLigne[] array of shipping lines
@@ -717,8 +717,8 @@ class Expedition extends CommonObject
 				$this->shipping_method_id   = $obj->fk_shipping_method;
 				$this->shipping_method = $obj->shipping_method;
 				$this->tracking_number      = $obj->tracking_number;
-				$this->origin               = ($obj->origin_type ? $obj->origin_type : 'commande'); // For compatibility
-				$this->origin_type          = ($obj->origin_type ? $obj->origin_type : 'commande');
+				$this->origin               = ($obj->origin_type ? $obj->origin_type : 'order'); // For compatibility
+				$this->origin_type          = ($obj->origin_type ? $obj->origin_type : 'order');
 				$this->origin_id            = $obj->origin_id;
 				$this->billed               = $obj->billed;
 				$this->fk_project = $obj->fk_project;
@@ -1323,7 +1323,7 @@ class Expedition extends CommonObject
 
 			// Loop on each product line to add a stock movement and delete features
 			$sql = "SELECT cd.fk_product, cd.subprice, ed.qty, ed.fk_entrepot, ed.rowid as expeditiondet_id";
-			$sql .= " FROM ".MAIN_DB_PREFIX."commandedet as cd,";
+			$sql .= " FROM ".MAIN_DB_PREFIX."orderdet as cd,";
 			$sql .= " ".MAIN_DB_PREFIX."expeditiondet as ed";
 			$sql .= " WHERE ed.fk_expedition = ".((int) $this->id);
 			$sql .= " AND cd.rowid = ed.fk_elementdet";
@@ -1525,7 +1525,7 @@ class Expedition extends CommonObject
 
 			// Loop on each product line to add a stock movement
 			$sql = "SELECT cd.fk_product, cd.subprice, ed.qty, ed.fk_entrepot, ed.rowid as expeditiondet_id";
-			$sql .= " FROM ".MAIN_DB_PREFIX."commandedet as cd,";
+			$sql .= " FROM ".MAIN_DB_PREFIX."orderdet as cd,";
 			$sql .= " ".MAIN_DB_PREFIX."expeditiondet as ed";
 			$sql .= " WHERE ed.fk_expedition = ".((int) $this->id);
 			$sql .= " AND cd.rowid = ed.fk_elementdet";
@@ -1703,7 +1703,7 @@ class Expedition extends CommonObject
 		$sql .= ", ed.rowid as line_id, ed.qty as qty_shipped, ed.fk_element, ed.fk_elementdet, ed.element_type, ed.fk_entrepot";
 		$sql .= ", p.ref as product_ref, p.label as product_label, p.fk_product_type, p.barcode as product_barcode";
 		$sql .= ", p.weight, p.weight_units, p.length, p.length_units, p.width, p.width_units, p.height, p.height_units, p.surface, p.surface_units, p.volume, p.volume_units, p.tosell as product_tosell, p.tobuy as product_tobuy, p.tobatch as product_tobatch";
-		$sql .= " FROM ".MAIN_DB_PREFIX."expeditiondet as ed, ".MAIN_DB_PREFIX."commandedet as cd";
+		$sql .= " FROM ".MAIN_DB_PREFIX."expeditiondet as ed, ".MAIN_DB_PREFIX."orderdet as cd";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = cd.fk_product";
 		$sql .= " WHERE ed.fk_expedition = ".((int) $this->id);
 		$sql .= " AND ed.fk_elementdet = cd.rowid";
@@ -2151,11 +2151,11 @@ class Expedition extends CommonObject
 		$this->fk_delivery_address  = 0;
 		$this->socid                = 1;
 
-		$this->commande_id          = 0;
-		$this->commande             = $order;
+		$this->order_id          = 0;
+		$this->order             = $order;
 
 		$this->origin_id            = 1;
-		$this->origin               = 'commande';
+		$this->origin               = 'order';
 
 		$this->note_private = 'Private note';
 		$this->note_public = 'Public note';
@@ -2169,7 +2169,7 @@ class Expedition extends CommonObject
 			$line->qty = 10;
 			$line->qty_asked = 5;
 			$line->qty_shipped = 4;
-			$line->fk_product = $this->commande->lines[$xnbp]->fk_product;
+			$line->fk_product = $this->order->lines[$xnbp]->fk_product;
 
 			$line->weight = 1.123456;
 			$line->weight_units = 0;		// kg
@@ -2370,7 +2370,7 @@ class Expedition extends CommonObject
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			// Set order billed if 100% of order is shipped (qty in shipment lines match qty in order lines)
-			if ($this->origin == 'commande' && $this->origin_id > 0) {
+			if ($this->origin == 'order' && $this->origin_id > 0) {
 				$order = new Order($this->db);
 				$order->fetch($this->origin_id);
 
@@ -2454,7 +2454,7 @@ class Expedition extends CommonObject
 		$sql .= " e.ref,";
 		$sql .= " edb.rowid as edbrowid, edb.eatby, edb.sellby, edb.batch, edb.qty as edbqty, edb.fk_origin_stock,";
 		$sql .= " cd.rowid as cdid, ed.rowid as edid";
-		$sql .= " FROM " . MAIN_DB_PREFIX . "commandedet as cd,";
+		$sql .= " FROM " . MAIN_DB_PREFIX . "orderdet as cd,";
 		$sql .= " " . MAIN_DB_PREFIX . "expeditiondet as ed";
 		$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "expeditiondet_batch as edb on edb.fk_expeditiondet = ed.rowid";
 		$sql .= " INNER JOIN " . MAIN_DB_PREFIX . "expedition as e ON ed.fk_expedition = e.rowid";
@@ -2620,7 +2620,7 @@ class Expedition extends CommonObject
 				$sql = "SELECT cd.fk_product, cd.subprice,";
 				$sql .= " ed.rowid, ed.qty, ed.fk_entrepot,";
 				$sql .= " edb.rowid as edbrowid, edb.eatby, edb.sellby, edb.batch, edb.qty as edbqty, edb.fk_origin_stock";
-				$sql .= " FROM ".MAIN_DB_PREFIX."commandedet as cd,";
+				$sql .= " FROM ".MAIN_DB_PREFIX."orderdet as cd,";
 				$sql .= " ".MAIN_DB_PREFIX."expeditiondet as ed";
 				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."expeditiondet_batch as edb on edb.fk_expeditiondet = ed.rowid";
 				$sql .= " WHERE ed.fk_expedition = ".((int) $this->id);

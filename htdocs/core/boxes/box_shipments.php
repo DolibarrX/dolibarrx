@@ -70,7 +70,7 @@ class box_shipments extends ModeleBoxes
 		$this->max = $max;
 
 		include_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
-		include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 		include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 
 		$shipmentstatic = new Expedition($this->db);
@@ -90,11 +90,11 @@ class box_shipments extends ModeleBoxes
 			$sql .= ", e.ref_customer";
 			$sql .= ", e.fk_statut";
 			$sql .= ", e.fk_user_valid";
-			$sql .= ", c.ref as commande_ref";
-			$sql .= ", c.rowid as commande_id";
+			$sql .= ", c.ref as order_ref";
+			$sql .= ", c.rowid as order_id";
 			$sql .= " FROM ".MAIN_DB_PREFIX."expedition as e";
-			$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_element as el ON e.rowid = el.fk_target AND el.targettype = 'shipping' AND el.sourcetype IN ('commande')";
-			$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."commande as c ON el.fk_source = c.rowid AND el.sourcetype IN ('commande') AND el.targettype = 'shipping'";
+			$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_element as el ON e.rowid = el.fk_target AND el.targettype = 'shipping' AND el.sourcetype IN ('order')";
+			$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."order as c ON el.fk_source = c.rowid AND el.sourcetype IN ('order') AND el.targettype = 'shipping'";
 			$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = e.fk_soc";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON e.fk_soc = sc.fk_soc";
@@ -126,8 +126,8 @@ class box_shipments extends ModeleBoxes
 					$shipmentstatic->ref = $objp->ref;
 					$shipmentstatic->ref_customer = $objp->ref_customer;
 
-					$orderstatic->id = $objp->commande_id;
-					$orderstatic->ref = $objp->commande_ref;
+					$orderstatic->id = $objp->order_id;
+					$orderstatic->ref = $objp->order_ref;
 
 					$societestatic->id = $objp->socid;
 					$societestatic->name = $objp->name;

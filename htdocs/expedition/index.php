@@ -28,7 +28,7 @@
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
 
 /**
@@ -72,10 +72,10 @@ $clause = " WHERE ";
 
 $sql = "SELECT e.rowid, e.ref, e.ref_customer,";
 $sql .= " s.nom as name, s.rowid as socid,";
-$sql .= " c.ref as commande_ref, c.rowid as commande_id";
+$sql .= " c.ref as order_ref, c.rowid as order_id";
 $sql .= " FROM ".MAIN_DB_PREFIX."expedition as e";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_element as el ON e.rowid = el.fk_target AND el.targettype = 'shipping'";
-$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."commande as c ON el.fk_source = c.rowid";
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."order as c ON el.fk_source = c.rowid";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = e.fk_soc";
 if (!$user->hasRight('societe', 'client', 'voir')) {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON e.fk_soc = sc.fk_soc";
@@ -119,8 +119,8 @@ if ($resql) {
 			print '<a href="'.DOL_URL_ROOT.'/comm/card.php?socid='.$obj->socid.'">'.$obj->name.'</a>';
 			print '</td>';
 			print '<td>';
-			if ($obj->commande_id) {
-				print '<a href="'.DOL_URL_ROOT.'/commande/card.php?id='.$obj->commande_id.'">'.$obj->commande_ref.'</a>';
+			if ($obj->order_id) {
+				print '<a href="'.DOL_URL_ROOT.'/order/card.php?id='.$obj->order_id.'">'.$obj->order_ref.'</a>';
 			}
 			print '</td></tr>';
 			$i++;
@@ -144,10 +144,10 @@ $max = 5;
  */
 $sql = "SELECT e.rowid, e.ref, e.ref_customer,";
 $sql .= " s.nom as name, s.rowid as socid,";
-$sql .= " c.ref as commande_ref, c.rowid as commande_id";
+$sql .= " c.ref as order_ref, c.rowid as order_id";
 $sql .= " FROM ".MAIN_DB_PREFIX."expedition as e";
-$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_element as el ON e.rowid = el.fk_target AND el.targettype = 'shipping' AND el.sourcetype IN ('commande')";
-$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."commande as c ON el.fk_source = c.rowid AND el.sourcetype IN ('commande') AND el.targettype = 'shipping'";
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_element as el ON e.rowid = el.fk_target AND el.targettype = 'shipping' AND el.sourcetype IN ('order')";
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."order as c ON el.fk_source = c.rowid AND el.sourcetype IN ('order') AND el.targettype = 'shipping'";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = e.fk_soc";
 if (!$user->hasRight('societe', 'client', 'voir')) {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON e.fk_soc = sc.fk_soc";
@@ -192,9 +192,9 @@ if ($resql) {
 			print '</td>';
 			print '<td><a href="'.DOL_URL_ROOT.'/comm/card.php?socid='.$obj->socid.'">'.img_object($langs->trans("ShowCompany"), "company").' '.$obj->name.'</a></td>';
 			print '<td>';
-			if ($obj->commande_id > 0) {
-				$orderstatic->id = $obj->commande_id;
-				$orderstatic->ref = $obj->commande_ref;
+			if ($obj->order_id > 0) {
+				$orderstatic->id = $obj->order_id;
+				$orderstatic->ref = $obj->order_ref;
 				print $orderstatic->getNomUrl(1);
 			}
 			print '</td>';
@@ -217,7 +217,7 @@ if ($resql) {
  * Open orders
  */
 $sql = "SELECT c.rowid, c.ref, c.ref_client as ref_customer, c.fk_statut as status, c.facture as billed, s.nom as name, s.rowid as socid";
-$sql .= " FROM ".MAIN_DB_PREFIX."commande as c,";
+$sql .= " FROM ".MAIN_DB_PREFIX."order as c,";
 $sql .= " ".MAIN_DB_PREFIX."societe as s";
 if (!$user->hasRight('societe', 'client', 'voir')) {
 	$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
@@ -244,7 +244,7 @@ if ($resql) {
 
 	print '<tr class="liste_titre">';
 	print '<th colspan="3">'.$langs->trans("OrdersToProcess").' ';
-	print '<a href="'.DOL_URL_ROOT.'/commande/list.php?search_status='.Order::STATUS_VALIDATED.','.Order::STATUS_SHIPMENTONPROCESS.'">';
+	print '<a href="'.DOL_URL_ROOT.'/order/list.php?search_status='.Order::STATUS_VALIDATED.','.Order::STATUS_SHIPMENTONPROCESS.'">';
 	print '<span class="badge">'.$num.'</span>';
 	print '</a>';
 	print '</th>';

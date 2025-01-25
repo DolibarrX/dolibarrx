@@ -31,7 +31,7 @@
  */
 
 /**
- *  \file       htdocs/commande/class/orderline.class.php
+ *  \file       htdocs/order/class/orderline.class.php
  *  \ingroup    order
  *  \brief      class for order lines
  */
@@ -48,12 +48,12 @@ class OrderLine extends CommonOrderLine
 	/**
 	 * @var string ID to identify managed object
 	 */
-	public $element = 'commandedet';
+	public $element = 'orderdet';
 
 	/**
 	 * @var string Name of table without prefix where object is stored
 	 */
-	public $table_element = 'commandedet';
+	public $table_element = 'orderdet';
 
 	/**
 	 * @var OrderLine
@@ -64,15 +64,15 @@ class OrderLine extends CommonOrderLine
 	 * Id of parent order
 	 * @var int
 	 */
-	public $fk_commande;
+	public $fk_order;
 
 	/**
 	 * Id of parent order
 	 * @var int
-	 * @deprecated Use fk_commande
-	 * @see $fk_commande
+	 * @deprecated Use fk_order
+	 * @see $fk_order
 	 */
-	public $commande_id;
+	public $order_id;
 
 	/**
 	 * @var int
@@ -164,14 +164,14 @@ class OrderLine extends CommonOrderLine
 	 */
 	public function fetch($rowid)
 	{
-		$sql = 'SELECT cd.rowid, cd.fk_commande, cd.fk_parent_line, cd.fk_product, cd.product_type, cd.label as custom_label, cd.description, cd.price, cd.qty, cd.tva_tx, cd.localtax1_tx, cd.localtax2_tx,';
+		$sql = 'SELECT cd.rowid, cd.fk_order, cd.fk_parent_line, cd.fk_product, cd.product_type, cd.label as custom_label, cd.description, cd.price, cd.qty, cd.tva_tx, cd.localtax1_tx, cd.localtax2_tx,';
 		$sql .= ' cd.remise, cd.remise_percent, cd.fk_remise_except, cd.subprice, cd.ref_ext,';
 		$sql .= ' cd.info_bits, cd.total_ht, cd.total_tva, cd.total_localtax1, cd.total_localtax2, cd.total_ttc, cd.fk_product_fournisseur_price as fk_fournprice, cd.buy_price_ht as pa_ht, cd.rang, cd.special_code,';
 		$sql .= ' cd.fk_unit,';
 		$sql .= ' cd.fk_multicurrency, cd.multicurrency_code, cd.multicurrency_subprice, cd.multicurrency_total_ht, cd.multicurrency_total_tva, cd.multicurrency_total_ttc,';
 		$sql .= ' p.ref as product_ref, p.label as product_label, p.description as product_desc, p.tobatch as product_tobatch,';
 		$sql .= ' cd.date_start, cd.date_end, cd.vat_src_code';
-		$sql .= ' FROM '.MAIN_DB_PREFIX.'commandedet as cd';
+		$sql .= ' FROM '.MAIN_DB_PREFIX.'orderdet as cd';
 		$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product as p ON cd.fk_product = p.rowid';
 		$sql .= ' WHERE cd.rowid = '.((int) $rowid);
 		$result = $this->db->query($sql);
@@ -185,7 +185,7 @@ class OrderLine extends CommonOrderLine
 
 			$this->rowid            = $objp->rowid;
 			$this->id = $objp->rowid;
-			$this->fk_commande      = $objp->fk_commande;
+			$this->fk_order      = $objp->fk_order;
 			$this->fk_parent_line   = $objp->fk_parent_line;
 			$this->label            = $objp->custom_label;
 			$this->desc             = $objp->description;
@@ -302,7 +302,7 @@ class OrderLine extends CommonOrderLine
 		}
 
 		if (!$error) {
-			$sql = 'DELETE FROM ' . MAIN_DB_PREFIX . "commandedet WHERE rowid = " . ((int) $this->id);
+			$sql = 'DELETE FROM ' . MAIN_DB_PREFIX . "orderdet WHERE rowid = " . ((int) $this->id);
 
 			dol_syslog("OrderLine::delete", LOG_DEBUG);
 			$resql = $this->db->query($sql);
@@ -409,8 +409,8 @@ class OrderLine extends CommonOrderLine
 		$this->db->begin();
 
 		// Insertion dans base de la ligne
-		$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'commandedet';
-		$sql .= ' (fk_commande, fk_parent_line, label, description, qty, ref_ext,';
+		$sql = 'INSERT INTO '.MAIN_DB_PREFIX.'orderdet';
+		$sql .= ' (fk_order, fk_parent_line, label, description, qty, ref_ext,';
 		$sql .= ' vat_src_code, tva_tx, localtax1_tx, localtax2_tx, localtax1_type, localtax2_type,';
 		$sql .= ' fk_product, product_type, remise_percent, subprice, price, fk_remise_except,';
 		$sql .= ' special_code, rang, fk_product_fournisseur_price, buy_price_ht,';
@@ -418,7 +418,7 @@ class OrderLine extends CommonOrderLine
 		$sql .= ' fk_unit,';
 		$sql .= ' fk_multicurrency, multicurrency_code, multicurrency_subprice, multicurrency_total_ht, multicurrency_total_tva, multicurrency_total_ttc';
 		$sql .= ')';
-		$sql .= " VALUES (".$this->fk_commande.",";
+		$sql .= " VALUES (".$this->fk_order.",";
 		$sql .= " ".($this->fk_parent_line > 0 ? "'".$this->db->escape($this->fk_parent_line)."'" : "null").",";
 		$sql .= " ".(!empty($this->label) ? "'".$this->db->escape($this->label)."'" : "null").",";
 		$sql .= " '".$this->db->escape($this->desc)."',";
@@ -460,7 +460,7 @@ class OrderLine extends CommonOrderLine
 		dol_syslog(get_class($this)."::insert", LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX.'commandedet');
+			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX.'orderdet');
 			$this->rowid = $this->id;
 
 			if (!$error) {
@@ -579,7 +579,7 @@ class OrderLine extends CommonOrderLine
 		$this->db->begin();
 
 		// Mise a jour ligne en base
-		$sql = "UPDATE ".MAIN_DB_PREFIX."commandedet SET";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."orderdet SET";
 		$sql .= " description='".$this->db->escape($this->desc)."'";
 		$sql .= " , label=".(!empty($this->label) ? "'".$this->db->escape($this->label)."'" : "null");
 		$sql .= " , vat_src_code=".(!empty($this->vat_src_code) ? "'".$this->db->escape($this->vat_src_code)."'" : "''");
@@ -681,7 +681,7 @@ class OrderLine extends CommonOrderLine
 		}
 
 		// Mise a jour ligne en base
-		$sql = "UPDATE ".MAIN_DB_PREFIX."commandedet SET";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."orderdet SET";
 		$sql .= " total_ht='".price2num($this->total_ht)."'";
 		$sql .= ",total_tva='".price2num($this->total_tva)."'";
 		$sql .= ",total_localtax1='".price2num($this->total_localtax1)."'";

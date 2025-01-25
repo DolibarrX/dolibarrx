@@ -32,8 +32,8 @@
  */
 
 /**
- *   \file      htdocs/commande/card.php
- *   \ingroup   commande
+ *   \file      htdocs/order/card.php
+ *   \ingroup   order
  *   \brief     Page to show sales order
  */
 
@@ -44,12 +44,12 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formorder.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formmargin.class.php';
-require_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/order/modules_order.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
 
 require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 
 if (isModEnabled("propal")) {
 	require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
@@ -131,7 +131,7 @@ $note_private = null;
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('ordercard', 'globalcard'));
 
-$result = restrictedArea($user, 'commande', $id);
+$result = restrictedArea($user, 'order', $id);
 
 $object = new Order($db);
 $extrafields = new ExtraFields($db);
@@ -143,19 +143,19 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php';     // Must be 'include', not 'include_once'
 
 // Permissions / Rights
-$usercanread    =  $user->hasRight("commande", "lire");
-$usercancreate  =  $user->hasRight("commande", "creer");
-$usercandelete  =  $user->hasRight("commande", "supprimer");
+$usercanread    =  $user->hasRight("order", "lire");
+$usercancreate  =  $user->hasRight("order", "creer");
+$usercandelete  =  $user->hasRight("order", "supprimer");
 
 // Advanced permissions
-$usercanclose       =  ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !empty($usercancreate)) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('commande', 'order_advance', 'close')));
-$usercanvalidate    =  ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $usercancreate) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('commande', 'order_advance', 'validate')));
-$usercancancel      =  ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $usercancreate) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('commande', 'order_advance', 'annuler')));
-$usercansend        =   (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') || $user->hasRight('commande', 'order_advance', 'send'));
-$usercangeneretedoc =   (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') || $user->hasRight('commande', 'order_advance', 'generetedoc'));
+$usercanclose       =  ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !empty($usercancreate)) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('order', 'order_advance', 'close')));
+$usercanvalidate    =  ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $usercancreate) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('order', 'order_advance', 'validate')));
+$usercancancel      =  ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $usercancreate) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('order', 'order_advance', 'annuler')));
+$usercansend        =   (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') || $user->hasRight('order', 'order_advance', 'send'));
+$usercangeneretedoc =   (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') || $user->hasRight('order', 'order_advance', 'generetedoc'));
 
 $usermustrespectpricemin    = ((getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !$user->hasRight('produit', 'ignore_price_min_advance')) || !getDolGlobalString('MAIN_USE_ADVANCED_PERMS'));
-$usercancreatepurchaseorder = ($user->hasRight('fournisseur', 'commande', 'creer') || $user->hasRight('supplier_order', 'creer'));
+$usercancreatepurchaseorder = ($user->hasRight('fournisseur', 'order', 'creer') || $user->hasRight('supplier_order', 'creer'));
 
 $permissionnote    = $usercancreate;     //  Used by the include of actions_setnotes.inc.php
 $permissiondellink = $usercancreate;     //  Used by the include of actions_dellink.inc.php
@@ -181,14 +181,14 @@ if ($resHook < 0) {
 }
 
 if (empty($resHook)) {
-	$backurlforlist = DOL_URL_ROOT.'/commande/list.php';
+	$backurlforlist = DOL_URL_ROOT.'/order/list.php';
 
 	if (empty($backtopage) || ($cancel && empty($id))) {
 		if (empty($backtopage) || ($cancel && strpos($backtopage, '__ID__'))) {
 			if (empty($id) && (($action != 'add' && $action != 'create') || $cancel)) {
 				$backtopage = $backurlforlist;
 			} else {
-				$backtopage = DOL_URL_ROOT.'/commande/card.php?id='.((!empty($id) && $id > 0) ? $id : '__ID__');
+				$backtopage = DOL_URL_ROOT.'/order/card.php?id='.((!empty($id) && $id > 0) ? $id : '__ID__');
 			}
 		}
 	}
@@ -309,10 +309,10 @@ if (empty($resHook)) {
 		$object->setProject(GETPOSTINT('projectid'));
 	} elseif ($action == 'add' && $usercancreate) {
 		// Add order
-		$datecommande = dol_mktime(12, 0, 0, GETPOSTINT('remonth'), GETPOSTINT('reday'), GETPOSTINT('reyear'));
+		$dateorder = dol_mktime(12, 0, 0, GETPOSTINT('remonth'), GETPOSTINT('reday'), GETPOSTINT('reyear'));
 		$date_delivery = dol_mktime(GETPOSTINT('liv_hour'), GETPOSTINT('liv_min'), 0, GETPOSTINT('liv_month'), GETPOSTINT('liv_day'), GETPOSTINT('liv_year'));
 
-		if ($datecommande == '') {
+		if ($dateorder == '') {
 			setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentities('Date')), null, 'errors');
 			$action = 'create';
 			$error++;
@@ -330,7 +330,7 @@ if (empty($resHook)) {
 
 			$db->begin();
 
-			$object->date_commande = $datecommande;
+			$object->date_order = $dateorder;
 			$object->note_private = GETPOST('note_private', 'restricthtml');
 			$object->note_public = GETPOST('note_public', 'restricthtml');
 			$object->source = GETPOSTINT('source_id');
@@ -372,7 +372,7 @@ if (empty($resHook)) {
 
 				// For compatibility
 				if ($element == 'order') {
-					$element = $subelement = 'commande';
+					$element = $subelement = 'order';
 				}
 				if ($element == 'propal') {
 					$element = 'comm/propal';
@@ -583,7 +583,7 @@ if (empty($resHook)) {
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
 	} elseif ($action == 'setref_client' && $usercancreate) {
-		// Positionne ref commande client
+		// Positionne ref order client
 		$result = $object->set_ref_client($user, GETPOST('ref_client'));
 		if ($result < 0) {
 			setEventMessages($object->error, $object->errors, 'errors');
@@ -1629,7 +1629,7 @@ if (empty($resHook)) {
 		$importLines = GETPOST('line_checkbox');
 
 		if (!empty($importLines) && is_array($importLines) && !empty($fromElement) && ctype_alpha($fromElement) && !empty($fromElementid)) {
-			if ($fromElement == 'commande') {
+			if ($fromElement == 'order') {
 				dol_include_once('/'.$fromElement.'/class/'.$fromElement.'.class.php');
 				$lineClassName = 'OrderLine';
 			} elseif ($fromElement == 'propal') {
@@ -1699,7 +1699,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_printing.inc.php';
 
 	// Actions to build doc
-	$upload_dir = !empty($config->commande->multidir_output[$object->entity]) ? $config->commande->multidir_output[$object->entity] : $config->commande->dir_output;
+	$upload_dir = !empty($config->order->multidir_output[$object->entity]) ? $config->order->multidir_output[$object->entity] : $config->order->dir_output;
 	$permissiontoadd = $usercancreate;
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
@@ -1820,8 +1820,8 @@ if ($action == 'create' && $usercancreate) {
 			}*/
 		} else {
 			// For compatibility
-			if ($element == 'order' || $element == 'commande') {
-				$element = $subelement = 'commande';
+			if ($element == 'order' || $element == 'order') {
+				$element = $subelement = 'order';
 			} elseif ($element == 'propal') {
 				$element = 'comm/propal';
 				$subelement = 'propal';
@@ -1927,7 +1927,7 @@ if ($action == 'create' && $usercancreate) {
 		}
 	}
 
-	print '<form name="crea_commande" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
+	print '<form name="crea_order" action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 	print '<input type="hidden" name="action" value="add">';
 	print '<input type="hidden" name="changecompany" value="0">';	// will be set to 1 by javascript so we know post is done after a company change
@@ -1982,7 +1982,7 @@ if ($action == 'create' && $usercancreate) {
 						// reload page
 						$("input[name=action]").val("create");
 						$("input[name=changecompany]").val("1");
-						$("form[name=crea_commande]").submit();
+						$("form[name=crea_order]").submit();
 					});
 				});
 				</script>';
@@ -2017,7 +2017,7 @@ if ($action == 'create' && $usercancreate) {
 		// Date
 		print '<tr><td class="fieldrequired">'.$langs->trans('Date').'</td><td>';
 		print img_picto('', 'action', 'class="pictofixedwidth"');
-		print $form->selectDate('', 're', 0, 0, 0, "crea_commande", 1, 1); // Always autofill date with current date
+		print $form->selectDate('', 're', 0, 0, 0, "crea_order", 1, 1); // Always autofill date with current date
 		print '</td></tr>';
 
 		// Date delivery planned
@@ -2132,7 +2132,7 @@ if ($action == 'create' && $usercancreate) {
 		// Template to use by default
 		print '<tr><td>'.$langs->trans('DefaultModel').'</td>';
 		print '<td>';
-		include_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
+		include_once DOL_DOCUMENT_ROOT.'/core/modules/order/modules_order.php';
 		$liste = ModelePDFOrders::liste_modeles($db);
 		$preselected = getDolGlobalString('COMMANDE_ADDON_PDF');
 		print img_picto('', 'pdf', 'class="pictofixedwidth"');
@@ -2266,7 +2266,7 @@ if ($action == 'create' && $usercancreate) {
 		$object->fetch_thirdparty();
 		$res = $object->fetch_optionals();
 
-		$head = commande_prepare_head($object);
+		$head = order_prepare_head($object);
 		print dol_get_fiche_head($head, 'order', $langs->trans("CustomerOrder"), -1, 'order');
 
 		$formconfirm = '';
@@ -2558,7 +2558,7 @@ if ($action == 'create' && $usercancreate) {
 
 		// Order card
 
-		$linkback = '<a href="'.DOL_URL_ROOT.'/commande/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+		$linkback = '<a href="'.DOL_URL_ROOT.'/order/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 		$morehtmlref = '<div class="refidno">';
 		// Ref customer
@@ -2567,7 +2567,7 @@ if ($action == 'create' && $usercancreate) {
 		// Thirdparty
 		$morehtmlref .= '<br>'.$soc->getNomUrl(1, 'customer');
 		if (!getDolGlobalString('MAIN_DISABLE_OTHER_LINK') && $object->thirdparty->id > 0) {
-			$morehtmlref .= ' (<a href="'.DOL_URL_ROOT.'/commande/list.php?socid='.$object->thirdparty->id.'&search_societe='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherOrders").'</a>)';
+			$morehtmlref .= ' (<a href="'.DOL_URL_ROOT.'/order/list.php?socid='.$object->thirdparty->id.'&search_societe='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherOrders").'</a>)';
 		}
 		// Project
 		if (isModEnabled('project')) {
@@ -3045,13 +3045,13 @@ if ($action == 'create' && $usercancreate) {
 						'enabled' => (isModEnabled("supplier_order") && $object->statut > Order::STATUS_DRAFT),
 						'perm' => $usercancreatepurchaseorder,
 						'label' => 'AddPurchaseOrder',
-						'url' => '/fourn/commande/card.php?action=create&amp;origin=' . urlencode($object->element) . '&amp;originid=' . ((int) $object->id)
+						'url' => '/fourn/order/card.php?action=create&amp;origin=' . urlencode($object->element) . '&amp;originid=' . ((int) $object->id)
 					);
 				}
 
 				/*if (isModEnabled("supplier_order") && $object->statut > Order::STATUS_DRAFT && $object->getNbOfServicesLines() > 0) {
 					if ($usercancreatepurchaseorder) { isModEnabled("supplier_order") && $object->statut > Order::STATUS_DRAFT && $object->getNbOfServicesLines() > 0
-						print dolGetButtonAction('', $langs->trans('AddPurchaseOrder'), 'default', DOL_URL_ROOT.'/fourn/commande/card.php?action=create&amp;origin='.$object->element.'&amp;originid='.$object->id, '');
+						print dolGetButtonAction('', $langs->trans('AddPurchaseOrder'), 'default', DOL_URL_ROOT.'/fourn/order/card.php?action=create&amp;origin='.$object->element.'&amp;originid='.$object->id, '');
 					}
 				}*/
 
@@ -3194,11 +3194,11 @@ if ($action == 'create' && $usercancreate) {
 			// Documents
 			$objref = dol_sanitizeFileName($object->ref);
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $config->commande->multidir_output[$object->entity].'/'.$objref;
+			$filedir = $config->order->multidir_output[$object->entity].'/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $usercanread;
 			$delallowed = $usercancreate;
-			print $formfile->showdocuments('commande', $objref, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 1, 0, 0, 28, 0, '', '', '', $soc->default_lang, '', $object);
+			print $formfile->showdocuments('order', $objref, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 1, 0, 0, 28, 0, '', '', '', $soc->default_lang, '', $object);
 
 
 			// Show links to link elements
@@ -3210,7 +3210,7 @@ if ($action == 'create' && $usercancreate) {
 			$compatibleImportElementsList = false;
 			if ($usercancreate
 				&& $object->statut == Order::STATUS_DRAFT) {
-				$compatibleImportElementsList = array('commande', 'propal', 'facture'); // import from linked elements
+				$compatibleImportElementsList = array('order', 'propal', 'facture'); // import from linked elements
 			}
 			$somethingshown = $form->showLinkedObjectBlock($object, $linktoelem, $compatibleImportElementsList);
 
@@ -3233,7 +3233,7 @@ if ($action == 'create' && $usercancreate) {
 
 			$MAXEVENT = 10;
 
-			$morehtmlcenter = dolGetButtonTitle($langs->trans('SeeAll'), '', 'fa fa-bars imgforviewmode', DOL_URL_ROOT.'/commande/agenda.php?id='.$object->id);
+			$morehtmlcenter = dolGetButtonTitle($langs->trans('SeeAll'), '', 'fa fa-bars imgforviewmode', DOL_URL_ROOT.'/order/agenda.php?id='.$object->id);
 
 			// List of actions on element
 			include_once DOL_DOCUMENT_ROOT.'/core/class/html.formactions.class.php';

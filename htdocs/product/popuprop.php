@@ -24,7 +24,7 @@
 
 /**
  * \file       htdocs/product/popuprop.php
- * \ingroup    propal, commande, facture, produit
+ * \ingroup    propal, order, facture, produit
  * \brief      List of products or services by popularity
  */
 
@@ -41,7 +41,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
  */
 
 // Load translation files required by the page
-$langs->loadLangs(array('commande', 'propal', 'bills', 'other', 'products'));
+$langs->loadLangs(array('order', 'propal', 'bills', 'other', 'products'));
 
 $backtopage = GETPOST('backtopage', 'alpha');
 $backtopageforcancel = GETPOST('backtopageforcancel', 'alpha');
@@ -144,9 +144,9 @@ $sql = "SELECT p.rowid, p.label, p.ref, p.fk_product_type as type, p.tobuy, p.to
 $textforqty = 'Qty';
 if ($mode == 'facture') {
 	$sql .= " FROM ".MAIN_DB_PREFIX."facturedet as pd";
-} elseif ($mode == 'commande') {
+} elseif ($mode == 'order') {
 	$textforqty = 'NbOfQtyInOrders';
-	$sql .= " FROM ".MAIN_DB_PREFIX."commandedet as pd";
+	$sql .= " FROM ".MAIN_DB_PREFIX."orderdet as pd";
 } elseif ($mode == 'propal') {
 	$textforqty = 'NbOfQtyInProposals';
 	$sql .= " FROM ".MAIN_DB_PREFIX."propaldet as pd";
@@ -194,7 +194,7 @@ if (!empty($mode) && $mode != '-1') {
 
 $arrayofmode = array(
 	'propal' => 'Proposals',
-	'commande' => 'Orders',
+	'order' => 'Orders',
 	'facture' => 'Facture'
 	);
 $title .= ' '.$form->selectarray('mode', $arrayofmode, $mode, 1, 0, 0, '', 1);

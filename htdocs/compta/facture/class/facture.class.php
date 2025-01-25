@@ -798,9 +798,9 @@ class Facture extends CommonInvoice
 					$exp = new Expedition($this->db);
 					$exp->fetch($this->origin_id);
 					$exp->fetchObjectLinked(null, '', null, '', 'OR', 1, 'sourcetype', 0);
-					if (count($exp->linkedObjectsIds['commande']) > 0) {
-						foreach ($exp->linkedObjectsIds['commande'] as $key => $value) {
-							$originforcontact = 'commande';
+					if (count($exp->linkedObjectsIds['order']) > 0) {
+						foreach ($exp->linkedObjectsIds['order'] as $key => $value) {
+							$originforcontact = 'order';
 							if (is_object($value)) {
 								$originidforcontact = $value->id;
 							} else {
@@ -1679,7 +1679,7 @@ class Facture extends CommonInvoice
 	{
 		global $config, $langs, $hookManager, $action;
 
-		if (! in_array($origin->element, array('propal', 'commande'))) {
+		if (! in_array($origin->element, array('propal', 'order'))) {
 			$origin->error = 'ErrorCanOnlyAutomaticallyGenerateADepositFromProposalOrOrder';
 			return null;
 		}

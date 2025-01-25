@@ -34,7 +34,7 @@ require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/sendings.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formprojet.class.php';
@@ -73,7 +73,7 @@ $socid = 0;
 if (!empty($user->socid)) {
 	$socid = $user->socid;
 }
-$result = restrictedArea($user, 'commande', $id);
+$result = restrictedArea($user, 'order', $id);
 
 $object = new Order($db);
 $shipment = new Expedition($db);
@@ -120,7 +120,7 @@ if (empty($resHook)) {
 		$object->fetch($id);
 		$result = $object->cloture($user);
 	} elseif ($action == 'setref_client' && $permissiontoadd) {
-		// Positionne ref commande client
+		// Positionne ref order client
 		$result = $object->set_ref_client($user, GETPOST('ref_client'));
 		if ($result < 0) {
 			setEventMessages($object->error, $object->errors, 'errors');
@@ -257,7 +257,7 @@ if ($id > 0 || !empty($ref)) {
 
 		$res = $object->fetch_optionals();
 
-		$head = commande_prepare_head($object);
+		$head = order_prepare_head($object);
 		print dol_get_fiche_head($head, 'shipping', $langs->trans("CustomerOrder"), -1, 'order');
 
 
@@ -283,7 +283,7 @@ if ($id > 0 || !empty($ref)) {
 
 		// Order card
 
-		$linkback = '<a href="'.DOL_URL_ROOT.'/commande/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+		$linkback = '<a href="'.DOL_URL_ROOT.'/order/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 
 		$morehtmlref = '<div class="refidno">';
@@ -614,10 +614,10 @@ if ($id > 0 || !empty($ref)) {
 		$sql .= ' p.surface, p.surface_units, p.volume, p.volume_units';
 		$sql .= ', p.tobatch, p.tosell, p.tobuy, p.barcode';
 		$sql .= ', u.short_label as unit_order';
-		$sql .= " FROM ".MAIN_DB_PREFIX."commandedet as cd";
+		$sql .= " FROM ".MAIN_DB_PREFIX."orderdet as cd";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON cd.fk_product = p.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_units as u ON cd.fk_unit = u.rowid";
-		$sql .= " WHERE cd.fk_commande = ".((int) $object->id);
+		$sql .= " WHERE cd.fk_order = ".((int) $object->id);
 		$sql .= " ORDER BY cd.rang, cd.rowid";
 
 		//print $sql;
@@ -860,7 +860,7 @@ if ($id > 0 || !empty($ref)) {
 			// Bouton expedier sans gestion des stocks
 			if (!isModEnabled('stock') && ($object->statut > Order::STATUS_DRAFT && $object->statut < Order::STATUS_CLOSED)) {
 				if ($user->hasRight('expedition', 'creer')) {
-					print '<a class="butAction" href="'.DOL_URL_ROOT.'/expedition/card.php?action=create&amp;origin=commande&amp;object_id='.$id.'">'.$langs->trans("CreateShipment").'</a>';
+					print '<a class="butAction" href="'.DOL_URL_ROOT.'/expedition/card.php?action=create&amp;origin=order&amp;object_id='.$id.'">'.$langs->trans("CreateShipment").'</a>';
 					if ($toBeShippedTotal <= 0) {
 						print ' '.img_warning($langs->trans("WarningNoQtyLeftToSend"));
 					}
@@ -887,7 +887,7 @@ if ($id > 0 || !empty($ref)) {
 				print '<input type="hidden" name="action" value="create">';
 				//print '<input type="hidden" name="id" value="'.$object->id.'">';
 				print '<input type="hidden" name="shipping_method_id" value="'.$object->shipping_method_id.'">';
-				print '<input type="hidden" name="origin" value="commande">';
+				print '<input type="hidden" name="origin" value="order">';
 				print '<input type="hidden" name="origin_id" value="'.$object->id.'">';
 				print '<input type="hidden" name="projectid" value="'.$object->fk_project.'">';
 				//print '<table class="border centpercent">';
@@ -927,7 +927,7 @@ if ($id > 0 || !empty($ref)) {
 			}
 		}
 
-		show_list_sending_receive('commande', $object->id);
+		show_list_sending_receive('order', $object->id);
 	} else {
 		/* Order not found */
 		setEventMessages($langs->trans("NonExistentOrder"), null, 'errors');

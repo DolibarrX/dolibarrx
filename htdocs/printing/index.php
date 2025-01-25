@@ -71,7 +71,7 @@ foreach ($result as $driver) {
 	'@phan-var-force PrintingDriver $printer';
 	$keyforprinteractive = $printer->active;
 	if ($keyforprinteractive && getDolGlobalString($keyforprinteractive)) {
-		//$printer->listJobs('commande');
+		//$printer->listJobs('order');
 		$result = $printer->listJobs();
 		print $printer->resprint;
 

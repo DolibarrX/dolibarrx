@@ -400,11 +400,11 @@ if ($result) {
 		// Special cases
 		if (isModEnabled("reception")) {
 			// The 2 permissions in fournisseur modules are replaced by permissions into reception module
-			if ($obj->module == 'fournisseur' && $obj->perms == 'commande' && $obj->subperms == 'receptionner') {
+			if ($obj->module == 'fournisseur' && $obj->perms == 'order' && $obj->subperms == 'receptionner') {
 				$i++;
 				continue;
 			}
-			if ($obj->module == 'fournisseur' && $obj->perms == 'commande_advance' && $obj->subperms == 'check') {
+			if ($obj->module == 'fournisseur' && $obj->perms == 'order_advance' && $obj->subperms == 'check') {
 				$i++;
 				continue;
 			}
@@ -472,11 +472,11 @@ if ($result) {
 		// Special cases
 		if (isModEnabled("reception")) {
 			// The 2 permission in fournisseur modules has been replaced by permissions into reception module
-			if ($obj->module == 'fournisseur' && $obj->perms == 'commande' && $obj->subperms == 'receptionner') {
+			if ($obj->module == 'fournisseur' && $obj->perms == 'order' && $obj->subperms == 'receptionner') {
 				$i++;
 				continue;
 			}
-			if ($obj->module == 'fournisseur' && $obj->perms == 'commande_advance' && $obj->subperms == 'check') {
+			if ($obj->module == 'fournisseur' && $obj->perms == 'order_advance' && $obj->subperms == 'check') {
 				$i++;
 				continue;
 			}

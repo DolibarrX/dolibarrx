@@ -420,24 +420,24 @@ if (!file_exists($conffile)) {
 		//print $langs->trans("InstallEasy")." ";
 		print '<h3><span class="soustitre">'.$langs->trans("ChooseYourSetupMode").'</span></h3>';
 
-		$foundrecommandedchoice = 0;
+		$foundreorderdchoice = 0;
 
 		$available_choices = array();
 		$notavailable_choices = array();
 
 		if (empty($dolibarr_main_db_host)) {	// This means install process was not run
-			$foundrecommandedchoice = 1; // To show only once
+			$foundreorderdchoice = 1; // To show only once
 		}
 
 		// Show line of first install choice
-		$choice  = '<tr class="trlineforchoice'.($foundrecommandedchoice ? ' choiceselected' : '').'">'."\n";
+		$choice  = '<tr class="trlineforchoice'.($foundreorderdchoice ? ' choiceselected' : '').'">'."\n";
 		$choice .= '<td class="nowrap center"><b>'.$langs->trans("FreshInstall").'</b>';
 		$choice .= '</td>';
 		$choice .= '<td class="listofchoicesdesc">';
 		$choice .= $langs->trans("FreshInstallDesc");
 		if (empty($dolibarr_main_db_host)) {	// This means install process was not run
 			$choice .= '<br>';
-			//print $langs->trans("InstallChoiceRecommanded",DOL_VERSION,$config->global->MAIN_VERSION_LAST_UPGRADE);
+			//print $langs->trans("InstallChoiceReorderd",DOL_VERSION,$config->global->MAIN_VERSION_LAST_UPGRADE);
 			$choice .= '<div class="center"><div class="ok suggestedchoice">'.$langs->trans("InstallChoiceSuggested").'</div></div>';
 			// <img src="../theme/eldy/img/tick.png" alt="Ok" class="valignmiddle"> ';
 		}
@@ -447,12 +447,12 @@ if (!file_exists($conffile)) {
 		if ($allowinstall) {
 			$choice .= '<a class="button" href="fileconf.php?selectlang='.$setuplang.'">'.$langs->trans("Start").'</a>';
 		} else {
-			$choice .= ($foundrecommandedchoice ? '<span class="warning">' : '').$langs->trans("InstallNotAllowed").($foundrecommandedchoice ? '</span>' : '');
+			$choice .= ($foundreorderdchoice ? '<span class="warning">' : '').$langs->trans("InstallNotAllowed").($foundreorderdchoice ? '</span>' : '');
 		}
 		$choice .= '</td>'."\n";
 		$choice .= '</tr>'."\n";
 
-		$positionkey = ($foundrecommandedchoice ? 999 : 0);
+		$positionkey = ($foundreorderdchoice ? 999 : 0);
 		if ($allowinstall) {
 			$available_choices[$positionkey] = $choice;
 		} else {
@@ -516,10 +516,10 @@ if (!file_exists($conffile)) {
 			if ($ok) {
 				if (count($dolibarrlastupgradeversionarray) >= 2) {	// If database access is available and last upgrade version is known
 					// Now we check if this is the first qualified choice
-					if ($allowupgrade && empty($foundrecommandedchoice) &&
+					if ($allowupgrade && empty($foundreorderdchoice) &&
 						(versioncompare($dolibarrversiontoarray, $dolibarrlastupgradeversionarray) > 0 || versioncompare($dolibarrversiontoarray, $versionarray) < -2)
 					) {
-						$foundrecommandedchoice = 1; // To show only once
+						$foundreorderdchoice = 1; // To show only once
 						$recommended_choice = true;
 					}
 				} else {
@@ -536,7 +536,7 @@ if (!file_exists($conffile)) {
 
 			if ($recommended_choice) {
 				$choice .= '<br>';
-				//print $langs->trans("InstallChoiceRecommanded",DOL_VERSION,$config->global->MAIN_VERSION_LAST_UPGRADE);
+				//print $langs->trans("InstallChoiceReorderd",DOL_VERSION,$config->global->MAIN_VERSION_LAST_UPGRADE);
 				$choice .= '<div class="center">';
 				$choice .= '<div class="ok suggestedchoice">'.$langs->trans("InstallChoiceSuggested").'</div>';
 				if ($count < count($migarray)) {	// There are other choices after
@@ -549,11 +549,11 @@ if (!file_exists($conffile)) {
 			$choice .= '<td class="center">';
 			if ($allowupgrade) {
 				$disabled = false;
-				if ($foundrecommandedchoice == 2) {
+				if ($foundreorderdchoice == 2) {
 					$disabled = true;
 				}
-				if ($foundrecommandedchoice == 1) {
-					$foundrecommandedchoice = 2;
+				if ($foundreorderdchoice == 1) {
+					$foundreorderdchoice = 2;
 				}
 				if ($disabled) {
 					$choice .= '<span class="opacitymedium">'.$langs->trans("NotYetAvailable").'</span>';

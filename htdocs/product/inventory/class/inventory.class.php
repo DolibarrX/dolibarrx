@@ -716,7 +716,7 @@ class Inventory extends CommonObject
 	}
 
 	/**
-	 *	Charge les information d'ordre info dans l'objet commande
+	 *	Charge les information d'ordre info dans l'objet order
 	 *
 	 *	@param  int		$id       Id of order
 	 *	@return	void

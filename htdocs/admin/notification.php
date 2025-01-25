@@ -296,7 +296,7 @@ foreach ($listofnotifiedevents as $notifiedevent) {
 		$elementLabel = $langs->trans('Proposal');
 	} elseif ($notifiedevent['elementtype'] == 'facture') {
 		$elementLabel = $langs->trans('Bill');
-	} elseif ($notifiedevent['elementtype'] == 'commande') {
+	} elseif ($notifiedevent['elementtype'] == 'order') {
 		$elementLabel = $langs->trans('Order');
 	} elseif ($notifiedevent['elementtype'] == 'ficheinter') {
 		$elementLabel = $langs->trans('Intervention');
@@ -310,7 +310,7 @@ foreach ($listofnotifiedevents as $notifiedevent) {
 
 	if ($notifiedevent['elementtype'] == 'propal') {
 		$model = 'propal_send';
-	} elseif ($notifiedevent['elementtype'] == 'commande') {
+	} elseif ($notifiedevent['elementtype'] == 'order') {
 		$model = 'order_send';
 	} elseif ($notifiedevent['elementtype'] == 'facture') {
 		$model = 'facture_send';
@@ -360,7 +360,7 @@ print $form->buttonsSaveCancel("Save", '');
 			$elementLabel = $langs->trans('Proposal');
 		} elseif ($notifiedevent['elementtype'] == 'facture') {
 			$elementLabel = $langs->trans('Bill');
-		} elseif ($notifiedevent['elementtype'] == 'commande') {
+		} elseif ($notifiedevent['elementtype'] == 'order') {
 			$elementLabel = $langs->trans('Order');
 		} elseif ($notifiedevent['elementtype'] == 'ficheinter') {
 			$elementLabel = $langs->trans('Intervention');
@@ -436,7 +436,7 @@ foreach ($listofnotifiedevents as $notifiedevent) {
 	} elseif ($notifiedevent['elementtype'] == 'facture') {
 		$elementPicto = 'bill';
 		$elementLabel = $langs->trans('Bill');
-	} elseif ($notifiedevent['elementtype'] == 'commande') {
+	} elseif ($notifiedevent['elementtype'] == 'order') {
 		$elementPicto = 'order';
 		$elementLabel = $langs->trans('Order');
 	} elseif ($notifiedevent['elementtype'] == 'ficheinter') {

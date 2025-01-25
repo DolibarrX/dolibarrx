@@ -174,7 +174,7 @@ if (!empty($object->thirdparty->client)) {
 	if (isModEnabled("propal") && $user->hasRight('propal', 'lire')) {
 		$elementTypeArray['propal'] = $langs->transnoentitiesnoconv('Proposals');
 	}
-	if (isModEnabled('order') && $user->hasRight('commande', 'lire')) {
+	if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
 		$elementTypeArray['order'] = $langs->transnoentitiesnoconv('Orders');
 	}
 	if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
@@ -194,7 +194,7 @@ if (!empty($object->thirdparty->fournisseur)) {
 	if ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'facture', 'lire')) || (isModEnabled("supplier_invoice") && $user->hasRight('supplier_invoice', 'lire'))) {
 		$elementTypeArray['supplier_invoice'] = $langs->transnoentitiesnoconv('SuppliersInvoices');
 	}
-	if ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'commande', 'lire')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire'))) {
+	if ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'order', 'lire')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire'))) {
 		$elementTypeArray['supplier_order'] = $langs->transnoentitiesnoconv('SuppliersOrders');
 	}
 
@@ -258,16 +258,16 @@ if ($type_element == 'fichinter') { 	// Customer : show products from invoices
 	$doc_number = 'c.ref';
 	$thirdTypeSelect = 'customer';
 } elseif ($type_element == 'order') {
-	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 	$documentstatic = new Order($db);
-	$sql_select = 'SELECT c.rowid as doc_id, c.ref as doc_number, \'1\' as doc_type, c.date_commande as dateprint, c.fk_statut as status, tc.libelle as type_contact_label, ';
-	$tables_from = MAIN_DB_PREFIX.'commandedet d';
-	$tables_from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'commande as c ON d.fk_commande=c.rowid';
+	$sql_select = 'SELECT c.rowid as doc_id, c.ref as doc_number, \'1\' as doc_type, c.date_order as dateprint, c.fk_statut as status, tc.libelle as type_contact_label, ';
+	$tables_from = MAIN_DB_PREFIX.'orderdet d';
+	$tables_from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'order as c ON d.fk_order=c.rowid';
 	$tables_from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product p ON d.fk_product=p.rowid';
 	$tables_from .= ' INNER JOIN '.MAIN_DB_PREFIX.'element_contact ec ON ec.element_id=c.rowid AND ec.fk_socpeople = '.((int) $object->id);
-	$tables_from .= ' INNER JOIN '.MAIN_DB_PREFIX."c_type_contact tc ON (ec.fk_c_type_contact=tc.rowid and tc.element='commande' and tc.source='external' and tc.active=1)";
+	$tables_from .= ' INNER JOIN '.MAIN_DB_PREFIX."c_type_contact tc ON (ec.fk_c_type_contact=tc.rowid and tc.element='order' and tc.source='external' and tc.active=1)";
 	$where = ' WHERE c.entity IN ('.getEntity('order').')';
-	$dateprint = 'c.date_commande';
+	$dateprint = 'c.date_order';
 	$doc_number = 'c.ref';
 	$thirdTypeSelect = 'customer';
 } elseif ($type_element == 'supplier_invoice') { 	// Supplier : Show products from invoices.
@@ -296,11 +296,11 @@ if ($type_element == 'fichinter') { 	// Customer : show products from invoices
 	//    $thirdTypeSelect='supplier';
 	//}
 } elseif ($type_element == 'supplier_order') { 	// Supplier : Show products from orders.
-	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 	$documentstatic = new OrderFournisseur($db);
 	$sql_select = 'SELECT c.rowid as doc_id, c.ref as doc_number, \'1\' as doc_type, c.date_valid as dateprint, c.fk_statut as status, tc.libelle as type_contact_label, ';
-	$tables_from = MAIN_DB_PREFIX.'commande_fournisseurdet d';
-	$tables_from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'commande_fournisseur as c ON d.fk_commande=c.rowid';
+	$tables_from = MAIN_DB_PREFIX.'order_fournisseurdet d';
+	$tables_from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'order_fournisseur as c ON d.fk_order=c.rowid';
 	$tables_from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product p ON d.fk_product=p.rowid';
 	$tables_from .= ' INNER JOIN '.MAIN_DB_PREFIX.'element_contact ec ON ec.element_id=c.rowid AND ec.fk_socpeople = '.((int) $object->id);
 	$tables_from .= ' INNER JOIN '.MAIN_DB_PREFIX."c_type_contact tc ON (ec.fk_c_type_contact=tc.rowid and tc.element='order_supplier' and tc.source='external' and tc.active=1)";

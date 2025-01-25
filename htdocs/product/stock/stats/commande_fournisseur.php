@@ -22,7 +22,7 @@
  */
 
 /**
- *	\file       htdocs/product/stock/stats/commande_fournisseur.php
+ *	\file       htdocs/product/stock/stats/order_fournisseur.php
  *	\ingroup    product service facture
  *	\brief      Page of supplier order statistics for a batch
  */
@@ -30,7 +30,7 @@
 // Load Dolibarr environment
 require '../../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/stock/class/productlot.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
@@ -79,7 +79,7 @@ if (empty($sortorder)) {
 	$sortorder = "DESC";
 }
 if (empty($sortfield)) {
-	$sortfield = "cf.date_commande";
+	$sortfield = "cf.date_order";
 }
 
 $search_month = GETPOSTINT('search_month');
@@ -99,7 +99,7 @@ if (!$user->hasRight('produit', 'lire')) {
  * View
  */
 
-$commandefournisseurstatic = new OrderFournisseur($db);
+$orderfournisseurstatic = new OrderFournisseur($db);
 $societestatic = new Societe($db);
 
 $form = new Form($db);
@@ -125,7 +125,7 @@ if ($id > 0 || !empty($ref)) {
 	$title = $langs->trans('Batch')." ".$shortlabel." - ".$langs->trans('Referers');
 	$helpurl = 'EN:Module_Products|FR:Module_Produits|ES:M&oacute;dulo_Productos';
 
-	llxHeader('', $title, $helpurl, '', 0, 0, '', '', '', 'mod-product page-stock-stats_commande_fournisseur');
+	llxHeader('', $title, $helpurl, '', 0, 0, '', '', '', 'mod-product page-stock-stats_order_fournisseur');
 
 	if ($result > 0) {
 		$head = productlot_prepare_head($object);
@@ -223,17 +223,17 @@ if ($id > 0 || !empty($ref)) {
 
 		if ($showmessage && $nboflines > 1) {
 			print '<span class="opacitymedium">'.$langs->trans("ClinkOnALinkOfColumn", $langs->transnoentitiesnoconv("Referers")).'</span>';
-		} elseif ($user->hasRight('fournisseur', 'commande', 'lire')) {
+		} elseif ($user->hasRight('fournisseur', 'order', 'lire')) {
 			$sql = "SELECT DISTINCT s.nom as name, s.rowid as socid, s.code_fournisseur,";
-			$sql .= " cf.ref, cf.date_commande, cf.date_livraison as delivery_date, cf.fk_statut as statut, cf.rowid as facid,";
+			$sql .= " cf.ref, cf.date_order, cf.date_livraison as delivery_date, cf.fk_statut as statut, cf.rowid as facid,";
 			$sql .= " cfd.rowid, SUM(cfdi.qty) as qty";
 			//          $sql.= ", cfd.total_ht * SUM(cfdi.qty) / cfd.qty as total_ht_pondere";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= ", sc.fk_soc, sc.fk_user ";
 			}
 			$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."commande_fournisseur as cf ON (cf.fk_soc = s.rowid)";
-			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."commande_fournisseurdet as cfd ON (cfd.fk_commande = cf.rowid)";
+			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."order_fournisseur as cf ON (cf.fk_soc = s.rowid)";
+			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."order_fournisseurdet as cfd ON (cfd.fk_order = cf.rowid)";
 			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."receptiondet_batch as cfdi ON (cfdi.fk_elementdet = cfd.rowid)";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
@@ -241,10 +241,10 @@ if ($id > 0 || !empty($ref)) {
 			$sql .= " WHERE cf.entity IN (".getEntity('product').")";
 			$sql .= " AND cfdi.batch = '".($db->escape($object->batch))."'";
 			if (!empty($search_month)) {
-				$sql .= ' AND MONTH(cf.date_commande) IN ('.$db->sanitize($search_month).')';
+				$sql .= ' AND MONTH(cf.date_order) IN ('.$db->sanitize($search_month).')';
 			}
 			if (!empty($search_year)) {
-				$sql .= ' AND YEAR(cf.date_commande) IN ('.$db->sanitize($search_year).')';
+				$sql .= ' AND YEAR(cf.date_order) IN ('.$db->sanitize($search_year).')';
 			}
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
@@ -315,7 +315,7 @@ if ($id > 0 || !empty($ref)) {
 				print_liste_field_titre("Ref", $_SERVER["PHP_SELF"], "s.rowid", "", $option, '', $sortfield, $sortorder);
 				print_liste_field_titre("Company", $_SERVER["PHP_SELF"], "s.nom", "", $option, '', $sortfield, $sortorder);
 				print_liste_field_titre("SupplierCode", $_SERVER["PHP_SELF"], "s.code_fournisseur", "", $option, '', $sortfield, $sortorder);
-				print_liste_field_titre("OrderDate", $_SERVER["PHP_SELF"], "cf.date_commande", "", $option, 'align="center"', $sortfield, $sortorder);
+				print_liste_field_titre("OrderDate", $_SERVER["PHP_SELF"], "cf.date_order", "", $option, 'align="center"', $sortfield, $sortorder);
 				print_liste_field_titre("DateDeliveryPlanned", $_SERVER["PHP_SELF"], "cf.date_livraison", "", $option, 'align="center"', $sortfield, $sortorder);
 				print_liste_field_titre("Qty", $_SERVER["PHP_SELF"], "cfdi.qty", "", $option, 'align="center"', $sortfield, $sortorder);
 				//              print_liste_field_titre("AmountHT", $_SERVER["PHP_SELF"], "total_ht_pondere", "", $option, 'align="right"', $sortfield, $sortorder);
@@ -333,24 +333,24 @@ if ($id > 0 || !empty($ref)) {
 						//                      $total_ht_pondere += $objp->total_ht_pondere;
 						$total_qty += $objp->qty;
 
-						$commandefournisseurstatic->id = $objp->facid;
-						$commandefournisseurstatic->ref = $objp->ref;
+						$orderfournisseurstatic->id = $objp->facid;
+						$orderfournisseurstatic->ref = $objp->ref;
 						$societestatic->fetch($objp->socid);
-						//                      $paiement = $commandefournisseurstatic->getSommePaiement();
+						//                      $paiement = $orderfournisseurstatic->getSommePaiement();
 
 						print '<tr class="oddeven">';
 						print '<td>';
-						print $commandefournisseurstatic->getNomUrl(1);
+						print $orderfournisseurstatic->getNomUrl(1);
 						print "</td>\n";
 						print '<td>'.$societestatic->getNomUrl(1).'</td>';
 						print "<td>".$objp->code_fournisseur."</td>\n";
 						print '<td class="center">';
-						print dol_print_date($db->jdate($objp->date_commande), 'dayhour')."</td>";
+						print dol_print_date($db->jdate($objp->date_order), 'dayhour')."</td>";
 						print '<td class="center">';
 						print dol_print_date($db->jdate($objp->delivery_date), 'dayhour')."</td>";
 						print '<td class="center">'.$objp->qty."</td>\n";
 						//                      print '<td align="right">'.price($objp->total_ht_pondere)."</td>\n";
-						print '<td align="right">'.$commandefournisseurstatic->LibStatut($objp->statut, 5).'</td>';
+						print '<td align="right">'.$orderfournisseurstatic->LibStatut($objp->statut, 5).'</td>';
 						print "</tr>\n";
 						$i++;
 					}

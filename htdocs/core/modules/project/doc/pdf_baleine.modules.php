@@ -636,7 +636,7 @@ class pdf_baleine extends ModelePDFProjects
 		foreach($object->linkedObjects as $objecttype => $objects)
 		{
 			//var_dump($objects);exit;
-			if ($objecttype == 'commande')
+			if ($objecttype == 'order')
 			{
 				$outputlangs->load('orders');
 				$num=count($objects);

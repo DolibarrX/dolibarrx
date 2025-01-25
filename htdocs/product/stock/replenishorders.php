@@ -31,7 +31,7 @@ require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/stock/lib/replenishment.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
@@ -127,12 +127,12 @@ $head[1][2] = 'replenishorders';
 
 print dol_get_fiche_head($head, 'replenishorders', '', -1, '');
 
-$commandestatic = new OrderFournisseur($db);
+$orderstatic = new OrderFournisseur($db);
 
 $sql = 'SELECT s.rowid as socid, s.nom as name, cf.date_creation as dc,';
 $sql .= ' cf.rowid, cf.ref, cf.fk_statut, cf.total_ttc, cf.fk_user_author,';
 $sql .= ' u.login';
-$sql .= ' FROM '.MAIN_DB_PREFIX.'societe as s, '.MAIN_DB_PREFIX.'commande_fournisseur as cf';
+$sql .= ' FROM '.MAIN_DB_PREFIX.'societe as s, '.MAIN_DB_PREFIX.'order_fournisseur as cf';
 $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'user as u ON cf.fk_user_author = u.rowid';
 if (!$user->hasRight('societe', 'client', 'voir')) {
 	$sql .= ', '.MAIN_DB_PREFIX.'societe_commerciaux as sc';
@@ -321,7 +321,7 @@ if ($resql) {
 		$showline = dolDispatchToDo($obj->rowid) && (!$search_product || in_array($search_product, getProducts($obj->rowid)));
 
 		if ($showline) {
-			$href = DOL_URL_ROOT.'/fourn/commande/card.php?id='.$obj->rowid;
+			$href = DOL_URL_ROOT.'/fourn/order/card.php?id='.$obj->rowid;
 
 			print '<tr>';
 
@@ -356,7 +356,7 @@ if ($resql) {
 			print '<td class="center">'.$date.'</td>';
 
 			// Statut
-			print '<td class="right">'.$commandestatic->LibStatut($obj->fk_statut, 5).'</td>';
+			print '<td class="right">'.$orderstatic->LibStatut($obj->fk_statut, 5).'</td>';
 
 			print '</tr>';
 		}

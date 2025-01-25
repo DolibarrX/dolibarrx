@@ -21,14 +21,14 @@
  */
 
 /**
- *       \file       htdocs/fourn/commande/contact.php
+ *       \file       htdocs/fourn/order/contact.php
  *       \ingroup    supplier order
- *       \brief      Onglet de gestion des contacts de commande
+ *       \brief      Onglet de gestion des contacts de order
  */
 
 // Load Dolibarr environment
 require '../../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
@@ -56,11 +56,11 @@ if ($user->socid) {
 	$socid = $user->socid;
 }
 $hookManager->initHooks(array('ordersuppliercardcontact', 'ordersuppliercontactcard', 'globalcard'));
-$result = restrictedArea($user, 'fournisseur', $id, 'commande_fournisseur', 'commande');
+$result = restrictedArea($user, 'fournisseur', $id, 'order_fournisseur', 'order');
 
 $object = new OrderFournisseur($db);
 
-$usercancreate	= ($user->hasRight("fournisseur", "commande", "creer") || $user->hasRight("supplier_order", "creer"));
+$usercancreate	= ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"));
 $permissiontoadd	= $usercancreate; // Used by the include of actions_addupdatedelete.inc.php
 
 /*
@@ -78,7 +78,7 @@ if ($resHook < 0) {
  */
 
 if (empty($resHook)) {
-	if ($action == 'addcontact' && ($user->hasRight("fournisseur", "commande", "creer") || $user->hasRight("supplier_order", "creer"))) {
+	if ($action == 'addcontact' && ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"))) {
 		$result = $object->fetch($id);
 
 		if ($result > 0 && $id > 0) {
@@ -98,14 +98,14 @@ if (empty($resHook)) {
 				setEventMessages($object->error, $object->errors, 'errors');
 			}
 		}
-	} elseif ($action == 'swapstatut' && ($user->hasRight("fournisseur", "commande", "creer") || $user->hasRight("supplier_order", "creer"))) {
+	} elseif ($action == 'swapstatut' && ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"))) {
 		// Toggle the status of a contact
 		if ($object->fetch($id)) {
 			$result = $object->swapContactStatus(GETPOSTINT('ligne'));
 		} else {
 			setEventMessages($object->error, $object->errors, 'errors');
 		}
-	} elseif ($action == 'deletecontact' && ($user->hasRight("fournisseur", "commande", "creer") || $user->hasRight("supplier_order", "creer"))) {
+	} elseif ($action == 'deletecontact' && ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"))) {
 		// Deleting a contact
 		$object->fetch($id);
 		$result = $object->delete_contact(GETPOSTINT("lineid"));
@@ -151,7 +151,7 @@ if ($id > 0 || !empty($ref)) {
 
 		// Supplier order card
 
-		$linkback = '<a href="'.DOL_URL_ROOT.'/fourn/commande/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+		$linkback = '<a href="'.DOL_URL_ROOT.'/fourn/order/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 		$morehtmlref = '<div class="refidno">';
 		// Ref supplier

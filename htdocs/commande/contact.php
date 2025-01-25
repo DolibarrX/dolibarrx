@@ -20,14 +20,14 @@
  */
 
 /**
- *     \file       htdocs/commande/contact.php
+ *     \file       htdocs/order/contact.php
  *     \ingroup    order
- *     \brief      Onglet de gestion des contacts de commande
+ *     \brief      Onglet de gestion des contacts de order
  */
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
@@ -56,9 +56,9 @@ if ($user->socid) {
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('ordercontact', 'globalcard'));
 
-$result = restrictedArea($user, 'commande', $id, '');
+$result = restrictedArea($user, 'order', $id, '');
 
-$usercancreate  =  $user->hasRight("commande", "creer");
+$usercancreate  =  $user->hasRight("order", "creer");
 
 $object = new Order($db);
 
@@ -74,7 +74,7 @@ if ($resHook < 0) {
 
 if (empty($resHook)) {
 	// Add new contact
-	if ($action == 'addcontact' && $user->hasRight('commande', 'creer')) {
+	if ($action == 'addcontact' && $user->hasRight('order', 'creer')) {
 		$result = $object->fetch($id);
 
 		if ($result > 0 && $id > 0) {
@@ -94,14 +94,14 @@ if (empty($resHook)) {
 				setEventMessages($object->error, $object->errors, 'errors');
 			}
 		}
-	} elseif ($action == 'swapstatut' && $user->hasRight('commande', 'creer')) {
+	} elseif ($action == 'swapstatut' && $user->hasRight('order', 'creer')) {
 		// Toggle the status of a contact
 		if ($object->fetch($id)) {
 			$result = $object->swapContactStatus(GETPOSTINT('ligne'));
 		} else {
 			dol_print_error($db);
 		}
-	} elseif ($action == 'deletecontact' && $user->hasRight('commande', 'creer')) {
+	} elseif ($action == 'deletecontact' && $user->hasRight('order', 'creer')) {
 		// Delete contact
 		$object->fetch($id);
 		$result = $object->delete_contact(GETPOSTINT("lineid"));
@@ -139,12 +139,12 @@ if ($id > 0 || !empty($ref)) {
 		$help_url = 'EN:Customers_Orders|FR:Orders_Clients|ES:Pedidos de clientes|DE:Modul_Kundenaufträge';
 		llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-order page-card_contact');
 
-		$head = commande_prepare_head($object);
+		$head = order_prepare_head($object);
 		print dol_get_fiche_head($head, 'contact', $langs->trans("CustomerOrder"), -1, 'order');
 
 		// Order card
 
-		$linkback = '<a href="'.DOL_URL_ROOT.'/commande/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+		$linkback = '<a href="'.DOL_URL_ROOT.'/order/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 		$morehtmlref = '<div class="refidno">';
 		// Ref customer

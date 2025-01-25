@@ -92,7 +92,7 @@ class SupplierInvoiceLine extends CommonObjectLine
 
 	/**
 	 * Supplier reference of price when we added the line. May have been changed after line was added.
-	 * TODO Rename field ref to ref_supplier into table llx_facture_fourn_det and llx_commande_fournisseurdet and update fields into updateline
+	 * TODO Rename field ref to ref_supplier into table llx_facture_fourn_det and llx_order_fournisseurdet and update fields into updateline
 	 * @var string
 	 */
 	public $ref_supplier;
@@ -806,7 +806,7 @@ class SupplierInvoiceLine extends CommonObjectLine
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
-	 *  Mise a jour de l'objet ligne de commande en base
+	 *  Mise a jour de l'objet ligne de order en base
 	 *
 	 *  @return		int		Return integer <0 si ko, >0 si ok
 	 */

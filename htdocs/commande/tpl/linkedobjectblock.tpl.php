@@ -24,7 +24,7 @@ if (empty($config) || !is_object($config)) {
 	exit(1);
 }
 
-print "<!-- BEGIN PHP TEMPLATE commande/tpl/linkedobjectblock.tpl.php -->\n";
+print "<!-- BEGIN PHP TEMPLATE order/tpl/linkedobjectblock.tpl.php -->\n";
 
 global $user;
 global $noMoreLinkedObjectBlockAfter;
@@ -58,7 +58,7 @@ foreach ($linkedObjectBlock as $key => $objectlink) {
 	echo '<td class="linkedcol-ref">'.$objectlink->ref_client.'</td>';
 	echo '<td class="linkedcol-date center">'.dol_print_date($objectlink->date, 'day').'</td>';
 	echo '<td class="linkedcol-amount right">';
-	if ($user->hasRight('commande', 'lire')) {
+	if ($user->hasRight('order', 'lire')) {
 		$total += $objectlink->total_ht;
 		echo price($objectlink->total_ht);
 	}

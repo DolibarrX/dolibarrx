@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 
 /**
  * @var Conf $conf
@@ -98,9 +98,9 @@ if ($action == 'updateMask') {
 if ($action == 'specimen') {  // For orders
 	$modele = GETPOST('module', 'alpha');
 
-	$commande = new OrderFournisseur($db);
-	$commande->initAsSpecimen();
-	$commande->thirdparty = $specimenthirdparty;
+	$order = new OrderFournisseur($db);
+	$order->initAsSpecimen();
+	$order->thirdparty = $specimenthirdparty;
 
 	// Search template files
 	$file = '';
@@ -117,11 +117,11 @@ if ($action == 'specimen') {  // For orders
 	if ($classname !== '') {
 		require_once $file;
 
-		$module = new $classname($db, $commande);
+		$module = new $classname($db, $order);
 		'@phan-var-force ModelePDFSuppliersOrders $module';
 
-		if ($module->write_file($commande, $langs) > 0) {
-			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=commande_fournisseur&file=SPECIMEN.pdf");
+		if ($module->write_file($order, $langs) > 0) {
+			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=order_fournisseur&file=SPECIMEN.pdf");
 			return;
 		} else {
 			setEventMessages($module->error, $module->errors, 'errors');
@@ -185,7 +185,7 @@ if ($action == 'specimen') {  // For orders
 		$newmodule->rights[$r][1] = $langs->trans("Permission1190");
 		$newmodule->rights[$r][2] = 'w';
 		$newmodule->rights[$r][3] = 0;
-		$newmodule->rights[$r][4] = 'commande';
+		$newmodule->rights[$r][4] = 'order';
 		$newmodule->rights[$r][5] = 'approve2';
 
 		// Insert
@@ -256,7 +256,7 @@ foreach ($dirmodels as $reldir) {
 		$handle = opendir($dir);
 		if (is_resource($handle)) {
 			while (($file = readdir($handle)) !== false) {
-				if (substr($file, 0, 25) == 'mod_commande_fournisseur_' && substr($file, dol_strlen($file) - 3, 3) == 'php') {
+				if (substr($file, 0, 25) == 'mod_order_fournisseur_' && substr($file, dol_strlen($file) - 3, 3) == 'php') {
 					$file = substr($file, 0, dol_strlen($file) - 4);
 
 					require_once $dir.$file.'.php';
@@ -300,13 +300,13 @@ foreach ($dirmodels as $reldir) {
 						}
 						print '</td>';
 
-						$commande = new OrderFournisseur($db);
-						$commande->initAsSpecimen();
+						$order = new OrderFournisseur($db);
+						$order->initAsSpecimen();
 
 						// Info
 						$htmltooltip = '';
 						$htmltooltip .= ''.$langs->trans("Version").': <b>'.$module->getVersion().'</b><br>';
-						$nextval = $module->getNextValue($mysoc, $commande);
+						$nextval = $module->getNextValue($mysoc, $order);
 						if ("$nextval" != $langs->trans("NotAvailable")) {  // Keep " on nextval
 							$htmltooltip .= ''.$langs->trans("NextValue").': ';
 							if ($nextval) {

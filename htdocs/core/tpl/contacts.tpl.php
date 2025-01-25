@@ -64,7 +64,7 @@ if ($module == 'propal') {
 	$permission = $user->hasRight('ficheinter', 'creer');
 } elseif ($module == 'order_supplier') {
 	if (!getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) {
-		$permission = $user->hasRight('fournisseur', 'commande', 'creer');
+		$permission = $user->hasRight('fournisseur', 'order', 'creer');
 	} else {
 		$permission = $user->hasRight('supplier_order', 'creer');
 	}

@@ -229,8 +229,8 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 	}
 
 	// Number of sales orders
-	if (isModEnabled('order')  && !getDolGlobalString('MAIN_DISABLE_BLOCK_CUSTOMER') && $user->hasRight('commande', 'lire')) {
-		include_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
+	if (isModEnabled('order')  && !getDolGlobalString('MAIN_DISABLE_BLOCK_CUSTOMER') && $user->hasRight('order', 'lire')) {
+		include_once DOL_DOCUMENT_ROOT . '/order/class/order.class.php';
 		$board = new Order($db);
 		// Number of customer orders to be shipped (validated and in progress)
 		$dashboardLines[$board->element . '_toship'] = $board->load_board($user, 'toship');
@@ -243,8 +243,8 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 	}
 
 	// Number of suppliers orders
-	if (isModEnabled('supplier_order')  && !getDolGlobalString('MAIN_DISABLE_BLOCK_SUPPLIER') && $user->hasRight('fournisseur', 'commande', 'lire')) {
-		include_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.commande.class.php';
+	if (isModEnabled('supplier_order')  && !getDolGlobalString('MAIN_DISABLE_BLOCK_SUPPLIER') && $user->hasRight('fournisseur', 'order', 'lire')) {
+		include_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.order.class.php';
 		$board = new OrderFournisseur($db);
 		$dashboardLines[$board->element . '_opened'] = $board->load_board($user, "opened");
 		$dashboardLines[$board->element . '_awaiting'] = $board->load_board($user, 'awaiting');
@@ -374,12 +374,12 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 			'stats' =>
 			array('propal_opened', 'propal_signed'),
 		),
-		'commande' =>
+		'order' =>
 		array(
 			'groupName' => 'Orders',
 			'globalStatsKey' => 'orders',
 			'stats' =>
-			array('commande_toship', 'commande_tobill', 'commande_shippedtobill'),
+			array('order_toship', 'order_tobill', 'order_shippedtobill'),
 		),
 		'facture' =>
 		array(

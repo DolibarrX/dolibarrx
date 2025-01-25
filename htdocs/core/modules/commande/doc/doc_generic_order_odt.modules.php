@@ -23,12 +23,12 @@
  */
 
 /**
- *	\file       htdocs/core/modules/commande/doc/doc_generic_order_odt.modules.php
+ *	\file       htdocs/core/modules/order/doc/doc_generic_order_odt.modules.php
  *	\ingroup    order
  *	\brief      File of class to build ODT documents for third parties
  */
 
-require_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/order/modules_order.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
@@ -238,7 +238,7 @@ class doc_generic_order_odt extends ModelePDFOrders
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills"));
 
-		if ($config->commande->dir_output) {
+		if ($config->order->dir_output) {
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
@@ -252,7 +252,7 @@ class doc_generic_order_odt extends ModelePDFOrders
 
 			$object->fetch_thirdparty();
 
-			$dir = $config->commande->multidir_output[$object->entity];
+			$dir = $config->order->multidir_output[$object->entity];
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -291,9 +291,9 @@ class doc_generic_order_odt extends ModelePDFOrders
 				//print "file=".$file;
 				//print "conf->societe->dir_temp=".$config->societe->dir_temp;
 
-				dol_mkdir($config->commande->dir_temp);
-				if (!is_writable($config->commande->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->commande->dir_temp);
+				dol_mkdir($config->order->dir_temp);
+				if (!is_writable($config->order->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->order->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -349,7 +349,7 @@ class doc_generic_order_odt extends ModelePDFOrders
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $config->commande->dir_temp,
+							'PATH_TO_TMP'	  => $config->order->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'

@@ -3506,7 +3506,7 @@ class pdf_octopus extends ModelePDFFactures
 					$invoice->fetchObjectLinked();
 
 					$propals = isset($invoice->linkedObjects['propal']) ? $invoice->linkedObjects['propal'] : array();
-					$orders = isset($invoice->linkedObjects['commande']) ? $invoice->linkedObjects['commande'] : array();
+					$orders = isset($invoice->linkedObjects['order']) ? $invoice->linkedObjects['order'] : array();
 				}
 			}
 		} else {
@@ -3514,7 +3514,7 @@ class pdf_octopus extends ModelePDFFactures
 				$object->fetchObjectLinked();
 
 				$propals = isset($object->linkedObjects['propal']) ? $object->linkedObjects['propal'] : array();
-				$orders = isset($object->linkedObjects['commande']) ? $object->linkedObjects['commande'] : array();
+				$orders = isset($object->linkedObjects['order']) ? $object->linkedObjects['order'] : array();
 			}
 		}
 

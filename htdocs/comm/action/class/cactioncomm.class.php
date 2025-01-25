@@ -233,7 +233,7 @@ class CActionComm
 						if ($obj->module == 'invoice' && isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
 							$qualified = 1;
 						}
-						if ($obj->module == 'order' && isModEnabled('order') && !$user->hasRight('commande', 'lire')) {
+						if ($obj->module == 'order' && isModEnabled('order') && !$user->hasRight('order', 'lire')) {
 							$qualified = 1;
 						}
 						if ($obj->module == 'propal' && isModEnabled("propal") && $user->hasRight('propal', 'lire')) {
@@ -242,7 +242,7 @@ class CActionComm
 						if ($obj->module == 'invoice_supplier' && ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'facture', 'lire')) || (isModEnabled('supplier_invoice') && $user->hasRight('supplier_invoice', 'lire')))) {
 							$qualified = 1;
 						}
-						if ($obj->module == 'order_supplier' && ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'commande', 'lire')) || (!isModEnabled('supplier_order') && $user->hasRight('supplier_order', 'lire')))) {
+						if ($obj->module == 'order_supplier' && ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'order', 'lire')) || (!isModEnabled('supplier_order') && $user->hasRight('supplier_order', 'lire')))) {
 							$qualified = 1;
 						}
 						if ($obj->module == 'shipping' && isModEnabled("shipping") && $user->hasRight('expedition', 'lire')) {

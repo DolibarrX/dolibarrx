@@ -328,7 +328,7 @@ print dol_get_fiche_end();
 
 
 
-// TODO USe code similar to commande/stats/index.php instead of this one.
+// TODO USe code similar to order/stats/index.php instead of this one.
 /*
 print '<table class="border centpercent">';
 print '<tr><td class="center">'.$langs->trans("Year").'</td>';

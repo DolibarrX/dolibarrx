@@ -22,13 +22,13 @@
  */
 
 /**
- *  \file       htdocs/commande/class/commandestats.class.php
+ *  \file       htdocs/order/class/orderstats.class.php
  *  \ingroup    orders
  *  \brief      File of class to manage order statistics
  */
 include_once DOL_DOCUMENT_ROOT.'/core/class/stats.class.php';
-include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+include_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
+include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
 
@@ -127,7 +127,7 @@ class OrderStats extends Stats
 			$this->categ_link = MAIN_DB_PREFIX.'category_fournisseur';
 		}
 		//$this->where.= " AND c.fk_soc = s.rowid AND c.entity = ".$config->entity;
-		$this->where .= ($this->where ? ' AND ' : '').'c.entity IN ('.getEntity('commande').')';
+		$this->where .= ($this->where ? ' AND ' : '').'c.entity IN ('.getEntity('order').')';
 
 		if ($this->socid) {
 			$this->where .= " AND c.fk_soc = ".((int) $this->socid);
@@ -157,13 +157,13 @@ class OrderStats extends Stats
 	{
 		global $user;
 
-		$sql = "SELECT date_format(c.date_commande,'%m') as dm, COUNT(*) as nb";
+		$sql = "SELECT date_format(c.date_order,'%m') as dm, COUNT(*) as nb";
 		$sql .= " FROM ".$this->from;
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= "  INNER JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON c.fk_soc = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 		}
 		$sql .= $this->join;
-		$sql .= " WHERE c.date_commande BETWEEN '".$this->db->idate(dol_get_first_day($year))."' AND '".$this->db->idate(dol_get_last_day($year))."'";
+		$sql .= " WHERE c.date_order BETWEEN '".$this->db->idate(dol_get_first_day($year))."' AND '".$this->db->idate(dol_get_last_day($year))."'";
 		$sql .= " AND ".$this->where;
 		$sql .= " GROUP BY dm";
 		$sql .= $this->db->order('dm', 'DESC');
@@ -182,7 +182,7 @@ class OrderStats extends Stats
 	{
 		global $user;
 
-		$sql = "SELECT date_format(c.date_commande,'%Y') as dm, COUNT(*) as nb, SUM(c.".$this->field.")";
+		$sql = "SELECT date_format(c.date_order,'%Y') as dm, COUNT(*) as nb, SUM(c.".$this->field.")";
 		$sql .= " FROM ".$this->from;
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= "  INNER JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON c.fk_soc = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
@@ -206,13 +206,13 @@ class OrderStats extends Stats
 	{
 		global $user;
 
-		$sql = "SELECT date_format(c.date_commande,'%m') as dm, SUM(c.".$this->field.")";
+		$sql = "SELECT date_format(c.date_order,'%m') as dm, SUM(c.".$this->field.")";
 		$sql .= " FROM ".$this->from;
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= "  INNER JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON c.fk_soc = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 		}
 		$sql .= $this->join;
-		$sql .= " WHERE c.date_commande BETWEEN '".$this->db->idate(dol_get_first_day($year))."' AND '".$this->db->idate(dol_get_last_day($year))."'";
+		$sql .= " WHERE c.date_order BETWEEN '".$this->db->idate(dol_get_first_day($year))."' AND '".$this->db->idate(dol_get_last_day($year))."'";
 		$sql .= " AND ".$this->where;
 		$sql .= " GROUP BY dm";
 		$sql .= $this->db->order('dm', 'DESC');
@@ -231,13 +231,13 @@ class OrderStats extends Stats
 	{
 		global $user;
 
-		$sql = "SELECT date_format(c.date_commande,'%m') as dm, AVG(c.".$this->field.")";
+		$sql = "SELECT date_format(c.date_order,'%m') as dm, AVG(c.".$this->field.")";
 		$sql .= " FROM ".$this->from;
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= "  INNER JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON c.fk_soc = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 		}
 		$sql .= $this->join;
-		$sql .= " WHERE c.date_commande BETWEEN '".$this->db->idate(dol_get_first_day($year))."' AND '".$this->db->idate(dol_get_last_day($year))."'";
+		$sql .= " WHERE c.date_order BETWEEN '".$this->db->idate(dol_get_first_day($year))."' AND '".$this->db->idate(dol_get_last_day($year))."'";
 		$sql .= " AND ".$this->where;
 		$sql .= " GROUP BY dm";
 		$sql .= $this->db->order('dm', 'DESC');
@@ -254,7 +254,7 @@ class OrderStats extends Stats
 	{
 		global $user;
 
-		$sql = "SELECT date_format(c.date_commande,'%Y') as year, COUNT(*) as nb, SUM(c.".$this->field.") as total, AVG(".$this->field.") as avg";
+		$sql = "SELECT date_format(c.date_order,'%Y') as year, COUNT(*) as nb, SUM(c.".$this->field.") as total, AVG(".$this->field.") as avg";
 		$sql .= " FROM ".$this->from;
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= "  INNER JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON c.fk_soc = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
@@ -280,14 +280,14 @@ class OrderStats extends Stats
 
 		$sql = "SELECT product.ref, COUNT(product.ref) as nb, SUM(tl.".$this->field_line.") as total, AVG(tl.".$this->field_line.") as avg";
 		$sql .= " FROM ".$this->from;
-		$sql .= " INNER JOIN ".$this->from_line." ON c.rowid = tl.fk_commande";
+		$sql .= " INNER JOIN ".$this->from_line." ON c.rowid = tl.fk_order";
 		$sql .= " INNER JOIN ".MAIN_DB_PREFIX."product as product ON tl.fk_product = product.rowid";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= "  INNER JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON c.fk_soc = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 		}
 		$sql .= $this->join;
 		$sql .= " WHERE ".$this->where;
-		$sql .= " AND c.date_commande BETWEEN '".$this->db->idate(dol_get_first_day($year, 1, false))."' AND '".$this->db->idate(dol_get_last_day($year, 12, false))."'";
+		$sql .= " AND c.date_order BETWEEN '".$this->db->idate(dol_get_first_day($year, 1, false))."' AND '".$this->db->idate(dol_get_last_day($year, 12, false))."'";
 		$sql .= " GROUP BY product.ref";
 		$sql .= $this->db->order('nb', 'DESC');
 		//$sql.= $this->db->plimit(20);

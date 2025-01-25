@@ -17,13 +17,13 @@
  */
 
 /**
- *  \file       htdocs/commande/agenda.php
+ *  \file       htdocs/order/agenda.php
  *  \ingroup    order
  *  \brief      Tab of events on Sale Orders
  */
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
@@ -80,7 +80,7 @@ if (!$sortorder) {
 // Initialize a technical objects
 $object = new Order($db);
 $extrafields = new ExtraFields($db);
-$diroutputmassaction = $config->commande->multidir_output[$config->entity].'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->order->multidir_output[$config->entity].'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('orderagenda', 'globalcard')); // Note that conf->hooks_modules contains array
 // Fetch optionals attributes and labels
 $extrafields->fetch_name_optionals_label($object->table_element);
@@ -88,18 +88,18 @@ $extrafields->fetch_name_optionals_label($object->table_element);
 // Load object
 include DOL_DOCUMENT_ROOT.'/core/actions_fetchobject.inc.php'; // Must be 'include', not 'include_once'. Include fetch and fetch_thirdparty but not fetch_optionals
 if ($id > 0 || !empty($ref)) {
-	$upload_dir = $config->commande->multidir_output[!empty($object->entity) ? $object->entity : $config->entity]."/".$object->id;
+	$upload_dir = $config->order->multidir_output[!empty($object->entity) ? $object->entity : $config->entity]."/".$object->id;
 }
 
-$permissiontoread = $user->hasRight("commande", "lire");
-$permissiontoadd = $user->hasRight("commande", "creer");
+$permissiontoread = $user->hasRight("order", "lire");
+$permissiontoadd = $user->hasRight("order", "creer");
 
 // Security check
 if (!empty($user->socid)) {
 	$socid = $user->socid;
 }
 $isdraft = (($object->status == $object::STATUS_DRAFT) ? 1 : 0);
-restrictedArea($user, 'commande', $object->id, '', '', 'fk_soc', 'rowid', $isdraft);
+restrictedArea($user, 'order', $object->id, '', '', 'fk_soc', 'rowid', $isdraft);
 
 
 /*
@@ -142,14 +142,14 @@ if ($object->id > 0) {
 	if (isModEnabled('notification')) {
 		$langs->load("mails");
 	}
-	$head = commande_prepare_head($object);
+	$head = order_prepare_head($object);
 
 
 	print dol_get_fiche_head($head, 'agenda', $langs->trans("Order"), -1, $object->picto);
 
 	// Object card
 	// ------------------------------------------------------------
-	$linkback = '<a href="'.DOL_URL_ROOT.'/commande/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+	$linkback = '<a href="'.DOL_URL_ROOT.'/order/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 	$morehtmlref = '<div class="refidno">';
 	// Ref customer
@@ -244,7 +244,7 @@ if ($object->id > 0) {
 
 		// Try to know count of actioncomm from cache
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/memory.lib.php';
-		$cachekey = 'count_events_commande_'.$object->id;
+		$cachekey = 'count_events_order_'.$object->id;
 		$nbEvent = dol_getcache($cachekey);
 
 		print_barre_liste($langs->trans("ActionsOnOrder").(is_numeric($nbEvent) ? '<span class="opacitymedium colorblack paddingleft">('.$nbEvent.')</span>' : ''), 0, $_SERVER["PHP_SELF"], '', $sortfield, $sortorder, '', 0, -1, '', 0, $morehtmlright, '', 0, 1, 1);

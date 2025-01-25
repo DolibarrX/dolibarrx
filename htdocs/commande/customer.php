@@ -22,7 +22,7 @@
  */
 
 /**
- *	\file       htdocs/commande/customer.php
+ *	\file       htdocs/order/customer.php
  *	\ingroup    compta
  *	\brief      Show list of customers to add an new invoice from orders
  */
@@ -78,7 +78,7 @@ if (!$sortfield) {
  * View
  */
 
-llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-commande page-customer');
+llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-order page-customer');
 
 $thirdpartystatic = new Societe($db);
 
@@ -88,7 +88,7 @@ $thirdpartystatic = new Societe($db);
 
 $sql = "SELECT s.rowid, s.nom as name, s.client, s.town, s.datec, s.datea,";
 $sql .= " st.libelle as stcomm, s.prefix_comm, s.code_client, s.code_compta as code_compta_client";
-$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."c_stcomm as st, ".MAIN_DB_PREFIX."commande as c";
+$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."c_stcomm as st, ".MAIN_DB_PREFIX."order as c";
 $sql .= " WHERE s.fk_stcomm = st.id AND c.fk_soc = s.rowid";
 $sql .= " AND s.entity IN (".getEntity('societe').")";
 if (GETPOST("search_nom")) {
@@ -188,7 +188,7 @@ if ($resql) {
 
 		$result = '';
 		$link = $linkend = '';
-		$link = '<a href="'.DOL_URL_ROOT.'/commande/list.php?socid='.$obj->rowid.'">';
+		$link = '<a href="'.DOL_URL_ROOT.'/order/list.php?socid='.$obj->rowid.'">';
 		$linkend = '</a>';
 		$name = $obj->name;
 		$result .= ($link.img_object($langs->trans("ShowCompany").': '.$name, 'company').$linkend);

@@ -479,7 +479,7 @@ class ActionComm extends CommonObject
 		if ($this->elementtype == 'facture') {
 			$this->elementtype = 'invoice';
 		}
-		if ($this->elementtype == 'commande') {
+		if ($this->elementtype == 'order') {
 			$this->elementtype = 'order';
 		}
 		if ($this->elementtype == 'contrat') {

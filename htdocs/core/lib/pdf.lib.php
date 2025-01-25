@@ -2557,7 +2557,7 @@ function pdf_getLinkedObjects(&$object, $outputlangs)
 				$linkedobjects[$objecttype]['date_title'] = $outputlangs->transnoentities("DatePropal");
 				$linkedobjects[$objecttype]['date_value'] = dol_print_date($elementobject->date, 'day', '', $outputlangs);
 			}
-		} elseif ($objecttype == 'commande' || $objecttype == 'supplier_order') {
+		} elseif ($objecttype == 'order' || $objecttype == 'supplier_order') {
 			'@phan-var-force array<Order|OrderFournisseur> $objects';
 			$outputlangs->load('orders');
 
@@ -2602,19 +2602,19 @@ function pdf_getLinkedObjects(&$object, $outputlangs)
 				$order = null;
 
 				$refListsTxt = '';
-				if (empty($object->linkedObjects['commande']) && $object->element != 'commande') {
+				if (empty($object->linkedObjects['order']) && $object->element != 'order') {
 					$refListsTxt .= $outputlangs->transnoentities("RefOrder") . ' / ' . $outputlangs->transnoentities("RefSending") . ' :';
 				} else {
 					$refListsTxt .= $outputlangs->transnoentities("RefSending") . ' :';
 				}
 				// We concat this record info into fields xxx_value. title is overwrote.
 				foreach ($objects as $elementobject) {
-					if (empty($object->linkedObjects['commande']) && $object->element != 'commande') {    // There is not already a link to order and object is not the order, so we show also info with order
+					if (empty($object->linkedObjects['order']) && $object->element != 'order') {    // There is not already a link to order and object is not the order, so we show also info with order
 						$elementobject->fetchObjectLinked(null, '', null, '', 'OR', 1, 'sourcetype', 0);
-						if (!empty($elementobject->linkedObjectsIds['commande'])) {
-							include_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
+						if (!empty($elementobject->linkedObjectsIds['order'])) {
+							include_once DOL_DOCUMENT_ROOT . '/order/class/order.class.php';
 							$order = new Order($db);
-							$ret = $order->fetch(reset($elementobject->linkedObjectsIds['commande']));
+							$ret = $order->fetch(reset($elementobject->linkedObjectsIds['order']));
 							if ($ret < 1) {
 								$order = null;
 							}
@@ -2636,12 +2636,12 @@ function pdf_getLinkedObjects(&$object, $outputlangs)
 				$elementobject = array_shift($objects);
 				$order = null;
 				// We concat this record info into fields xxx_value. title is overwrote.
-				if (empty($object->linkedObjects['commande']) && $object->element != 'commande') {    // There is not already a link to order and object is not the order, so we show also info with order
+				if (empty($object->linkedObjects['order']) && $object->element != 'order') {    // There is not already a link to order and object is not the order, so we show also info with order
 					$elementobject->fetchObjectLinked(null, '', null, '', 'OR', 1, 'sourcetype', 0);
-					if (!empty($elementobject->linkedObjectsIds['commande'])) {
-						include_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
+					if (!empty($elementobject->linkedObjectsIds['order'])) {
+						include_once DOL_DOCUMENT_ROOT . '/order/class/order.class.php';
 						$order = new Order($db);
-						$ret = $order->fetch(reset($elementobject->linkedObjectsIds['commande']));
+						$ret = $order->fetch(reset($elementobject->linkedObjectsIds['order']));
 						if ($ret < 1) {
 							$order = null;
 						}

@@ -1010,8 +1010,8 @@ class MouvementStock extends CommonObject
 		$origin = '';
 
 		switch ($origin_type) {
-			case 'commande':
-				require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+			case 'order':
+				require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 				$origin = new Order($this->db);
 				break;
 			case 'shipping':
@@ -1023,7 +1023,7 @@ class MouvementStock extends CommonObject
 				$origin = new Facture($this->db);
 				break;
 			case 'order_supplier':
-				require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+				require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 				$origin = new OrderFournisseur($this->db);
 				break;
 			case 'invoice_supplier':

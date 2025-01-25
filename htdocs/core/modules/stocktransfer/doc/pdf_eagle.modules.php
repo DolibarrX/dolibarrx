@@ -1118,7 +1118,7 @@ class pdf_eagle extends ModelePDFStockTransfer
 		$origin_id = $object->origin_id;
 
 		// TODO move to external function
-		if (isModEnabled($origin)) {     // commonly $origin='commande'
+		if (isModEnabled($origin)) {     // commonly $origin='order'
 			$outputlangs->load('orders');
 
 			$classname = ucfirst($origin);

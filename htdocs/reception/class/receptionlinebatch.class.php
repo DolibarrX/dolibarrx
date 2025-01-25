@@ -19,7 +19,7 @@
  */
 
 /**
- *  \file       htdocs/fourn/class/fournisseur.commande.dispatch.class.php
+ *  \file       htdocs/fourn/class/fournisseur.order.dispatch.class.php
  *  \ingroup    fournisseur stock
  *  \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
  *              Initially built by build_class_from_table on 2015-02-24 10:38
@@ -31,7 +31,7 @@ require_once DOL_DOCUMENT_ROOT."/reception/class/reception.class.php";
 
 
 /**
- *  Class to manage table commandefournisseurdispatch
+ *  Class to manage table orderfournisseurdispatch
  */
 class ReceptionLineBatch extends CommonObjectLine
 {

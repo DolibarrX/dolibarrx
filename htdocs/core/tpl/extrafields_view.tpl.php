@@ -172,7 +172,7 @@ if (empty($resHook) && !empty($object->table_element) && isset($extrafields->att
 			}
 			if ($object->element == 'order_supplier') {
 				if (!getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) {
-					$permok = $user->hasRight('fournisseur', 'commande', 'creer');
+					$permok = $user->hasRight('fournisseur', 'order', 'creer');
 				} else {
 					$permok = $user->hasRight('supplier_order', 'creer');
 				}

@@ -112,7 +112,7 @@ if (!empty($field) && !empty($element) && !empty($table_element) && !empty($fk_e
 		$element = 'member';
 	} elseif ($element == 'order_supplier') {
 		$element = 'fournisseur';
-		$subelement = 'commande';
+		$subelement = 'order';
 	} elseif ($element == 'invoice_supplier') {
 		$element = 'fournisseur';
 		$subelement = 'facture';

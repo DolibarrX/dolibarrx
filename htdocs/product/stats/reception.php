@@ -156,7 +156,7 @@ if ($id > 0 || !empty($ref)) {
 			$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
 			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."reception as r ON r.fk_soc = s.rowid";
 			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."receptiondet_batch as cfd ON cfd.fk_reception = r.rowid AND element_type = 'supplier_order'";
-			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."commande_fournisseurdet as cfdet ON cfdet.rowid = cfd.fk_elementdet";
+			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."order_fournisseurdet as cfdet ON cfdet.rowid = cfd.fk_elementdet";
 			if (empty($user->rights->societe->client->voir) && !$socid) {
 				$sql .= " INNER JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 			}

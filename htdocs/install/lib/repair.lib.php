@@ -75,9 +75,9 @@ function checkLinkedElements($sourcetype, $targettype)
 		$targettable = 'livraison';
 	}
 	if ($sourcetype == 'order_supplier') {
-		$sourcetable = 'commande_fournisseur';
+		$sourcetable = 'order_fournisseur';
 	} elseif ($targettype == 'order_supplier') {
-		$targettable = 'commande_fournisseur';
+		$targettable = 'order_fournisseur';
 	}
 	if ($sourcetype == 'invoice_supplier') {
 		$sourcetable = 'facture_fourn';

@@ -30,8 +30,8 @@
  *	\brief      File of class to generate suppliers orders from muscadet model
  */
 
-require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_commandefournisseur.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_orderfournisseur.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
@@ -236,7 +236,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 			$this->posxpicture = $this->posxtva;
 		}
 
-		if ($config->fournisseur->commande->dir_output) {
+		if ($config->fournisseur->order->dir_output) {
 			$object->fetch_thirdparty();
 
 			$deja_regle = 0;
@@ -247,12 +247,12 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $config->fournisseur->commande->dir_output;
+				$dir = $config->fournisseur->order->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
 				$objectrefsupplier = dol_sanitizeFileName($object->ref_supplier);
-				$dir = $config->fournisseur->commande->dir_output.'/'.$objectref;
+				$dir = $config->fournisseur->order->dir_output.'/'.$objectref;
 				$file = $dir."/".$objectref.".pdf";
 				if (getDolGlobalString('SUPPLIER_REF_IN_NAME')) {
 					$file = $dir."/".$objectref.($objectrefsupplier ? "_".$objectrefsupplier : "").".pdf";
@@ -1207,11 +1207,11 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 			}
 		}
 
-		if (!empty($object->date_commande)) {
+		if (!empty($object->date_order)) {
 			$posy += 5;
 			$pdf->SetXY($posx, $posy);
 			$pdf->SetTextColor(0, 0, 60);
-			$pdf->MultiCell($w, 3, $outputlangs->transnoentities("OrderDate")." : ".dol_print_date($object->date_commande, "day", false, $outputlangs, true), '', 'R');
+			$pdf->MultiCell($w, 3, $outputlangs->transnoentities("OrderDate")." : ".dol_print_date($object->date_order, "day", false, $outputlangs, true), '', 'R');
 		}
 		// no point in having this here this a document sent to supplier
 		/*} else {

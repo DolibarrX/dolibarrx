@@ -3032,11 +3032,11 @@ function printDropdownQuickadd($mode = 0)
 			),
 
 			array(
-				"url" => "/commande/card.php?action=create&amp;mainmenu=commercial",
+				"url" => "/order/card.php?action=create&amp;mainmenu=commercial",
 				"title" => "NewOrder@orders",
 				"name" => "Order@orders",
 				"picto" => "object_order",
-				"activation" => isModEnabled('order') && $user->hasRight("commande", "write"), // vs hooking
+				"activation" => isModEnabled('order') && $user->hasRight("order", "write"), // vs hooking
 				"position" => 40,
 			),
 			array(
@@ -3064,11 +3064,11 @@ function printDropdownQuickadd($mode = 0)
 				"position" => 70,
 			),
 			array(
-				"url" => "/fourn/commande/card.php?action=create&amp;mainmenu=commercial",
+				"url" => "/fourn/order/card.php?action=create&amp;mainmenu=commercial",
 				"title" => "NewSupplierOrderShort@orders",
 				"name" => "SupplierOrder@orders",
 				"picto" => "supplier_order",
-				"activation" => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight("fournisseur", "commande", "write")) || (isModEnabled("supplier_order") && $user->hasRight("supplier_invoice", "write")), // vs hooking
+				"activation" => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight("fournisseur", "order", "write")) || (isModEnabled("supplier_order") && $user->hasRight("supplier_invoice", "write")), // vs hooking
 				"position" => 80,
 			),
 			array(

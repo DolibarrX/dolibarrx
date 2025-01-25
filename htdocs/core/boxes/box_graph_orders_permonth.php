@@ -33,7 +33,7 @@ class box_graph_orders_permonth extends ModeleBoxes
 	public $boxcode  = "orderspermonth";
 	public $boximg   = "object_order";
 	public $boxlabel = "BoxCustomersOrdersPerMonth";
-	public $depends  = array("commande");
+	public $depends  = array("order");
 
 	public $widgettype = 'graph';
 
@@ -49,7 +49,7 @@ class box_graph_orders_permonth extends ModeleBoxes
 
 		$this->db = $db;
 
-		$this->hidden = !$user->hasRight('commande', 'lire');
+		$this->hidden = !$user->hasRight('order', 'lire');
 	}
 
 	/**
@@ -66,8 +66,8 @@ class box_graph_orders_permonth extends ModeleBoxes
 
 		$refreshaction = 'refresh_'.$this->boxcode;
 
-		//include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-		//$commandestatic=new Order($this->db);
+		//include_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
+		//$orderstatic=new Order($this->db);
 
 		$startmonth = getDolGlobalInt('SOCIETE_FISCAL_MONTH_START', 1);
 		if (!getDolGlobalString('GRAPH_USE_FISCAL_YEAR')) {
@@ -99,7 +99,7 @@ class box_graph_orders_permonth extends ModeleBoxes
 			$prefix .= 'private-'.$user->id.'-'; // If user has no permission to see all, output dir is specific to user
 		}
 
-		if ($user->hasRight('commande', 'lire')) {
+		if ($user->hasRight('order', 'lire')) {
 			$langs->load("orders");
 
 			$param_year = 'DOLUSER_box_'.$this->boxcode.'_year';
@@ -107,7 +107,7 @@ class box_graph_orders_permonth extends ModeleBoxes
 			$param_showtot = 'DOLUSER_box_'.$this->boxcode.'_showtot';
 
 			include_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
-			include_once DOL_DOCUMENT_ROOT.'/commande/class/commandestats.class.php';
+			include_once DOL_DOCUMENT_ROOT.'/order/class/orderstats.class.php';
 			$autosetarray = preg_split("/[,;:]+/", GETPOST('DOL_AUTOSET_COOKIE'));
 			if (in_array('DOLUSER_box_'.$this->boxcode, $autosetarray)) {
 				$endyear = GETPOSTINT($param_year);

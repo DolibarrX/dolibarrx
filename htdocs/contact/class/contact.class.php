@@ -320,7 +320,7 @@ class Contact extends CommonObject
 	/**
 	 * @var int Number of orders for which he is contact
 	 */
-	public $ref_commande;
+	public $ref_order;
 
 	/**
 	 * @var int Number of proposals for which he is contact
@@ -1255,7 +1255,7 @@ class Contact extends CommonObject
 	 *  Load number of elements the contact is used as a link for
 	 *  ref_facturation
 	 *  ref_contrat
-	 *  ref_commande (for order and/or shipments)
+	 *  ref_order (for order and/or shipments)
 	 *  ref_propale
 	 *
 	 *  @return     int             					Return integer <0 if KO, >=0 if OK
@@ -1281,8 +1281,8 @@ class Contact extends CommonObject
 						$this->ref_facturation = $obj->nb;
 					} elseif ($obj->element == 'contrat') {
 						$this->ref_contrat = $obj->nb;
-					} elseif ($obj->element == 'commande') {
-						$this->ref_commande = $obj->nb;
+					} elseif ($obj->element == 'order') {
+						$this->ref_order = $obj->nb;
 					} elseif ($obj->element == 'propal') {
 						$this->ref_propal = $obj->nb;
 					}

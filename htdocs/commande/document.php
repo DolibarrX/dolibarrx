@@ -22,7 +22,7 @@
  */
 
 /**
- *	\file       htdocs/commande/document.php
+ *	\file       htdocs/order/document.php
  *	\ingroup    order
  *	\brief      Management page of documents attached to an order
  */
@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 }
@@ -83,7 +83,7 @@ if (!$sortfield) {
 
 $object = new Order($db);
 
-$usercancreate  =  $user->hasRight("commande", "creer");
+$usercancreate  =  $user->hasRight("order", "creer");
 $permissiontoadd = $usercancreate;
 
 // Security check
@@ -94,7 +94,7 @@ if ($user->socid) {
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('orderdocument', 'globalcard'));
 
-$result = restrictedArea($user, 'commande', $id, '');
+$result = restrictedArea($user, 'order', $id, '');
 
 
 /*
@@ -103,7 +103,7 @@ $result = restrictedArea($user, 'commande', $id, '');
 
 if ($object->fetch($id)) {
 	$object->fetch_thirdparty();
-	$upload_dir = $config->commande->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->order->multidir_output[$object->entity]."/".dol_sanitizeFileName($object->ref);
 }
 
 include DOL_DOCUMENT_ROOT.'/core/actions_linkedfiles.inc.php';
@@ -122,9 +122,9 @@ if ($id > 0 || !empty($ref)) {
 	if ($object->fetch($id, $ref)) {
 		$object->fetch_thirdparty();
 
-		$upload_dir = $config->commande->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
+		$upload_dir = $config->order->multidir_output[$object->entity].'/'.dol_sanitizeFileName($object->ref);
 
-		$head = commande_prepare_head($object);
+		$head = order_prepare_head($object);
 		print dol_get_fiche_head($head, 'documents', $langs->trans('CustomerOrder'), -1, 'order');
 
 		// Build file list
@@ -136,7 +136,7 @@ if ($id > 0 || !empty($ref)) {
 
 		// Order card
 
-		$linkback = '<a href="'.DOL_URL_ROOT.'/commande/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+		$linkback = '<a href="'.DOL_URL_ROOT.'/order/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 
 		$morehtmlref = '<div class="refidno">';
@@ -170,7 +170,7 @@ if ($id > 0 || !empty($ref)) {
 
 		// Order card
 
-		$linkback = '<a href="'.DOL_URL_ROOT.'/commande/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+		$linkback = '<a href="'.DOL_URL_ROOT.'/order/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 		dol_banner_tab($object, 'ref', $linkback, 1, 'ref', 'ref', $morehtmlref);
 
@@ -188,9 +188,9 @@ if ($id > 0 || !empty($ref)) {
 
 		print dol_get_fiche_end();
 
-		$modulepart = 'commande';
-		$permissiontoadd = $user->hasRight('commande', 'creer');
-		$permtoedit = $user->hasRight('commande', 'creer');
+		$modulepart = 'order';
+		$permissiontoadd = $user->hasRight('order', 'creer');
+		$permtoedit = $user->hasRight('order', 'creer');
 		$param = '&id='.$object->id.'&entity='.(empty($object->entity) ? $config->entity : $object->entity);
 		include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';
 	} else {

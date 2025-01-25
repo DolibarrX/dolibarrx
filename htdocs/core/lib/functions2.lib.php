@@ -917,7 +917,7 @@ function get_next_value($db, $mask, $table, $field, $where = '', $objsoc = '', $
 
 	if (!is_object($objsoc)) {
 		$valueforccc = (string) $objsoc;
-	} elseif ($table == "commande_fournisseur" || $table == "facture_fourn" || $table == "paiementfourn") {
+	} elseif ($table == "order_fournisseur" || $table == "facture_fourn" || $table == "paiementfourn") {
 		$valueforccc = dol_string_unaccent($objsoc->code_fournisseur);
 	} else {
 		$valueforccc = dol_string_unaccent($objsoc->code_client);
@@ -2145,11 +2145,11 @@ function dolGetElementUrl($objectid, $objecttype, $withpicto = 0, $option = '')
 		$classpath = 'compta/facture/class';
 		$module = 'facture';
 		$myobject = 'facture';
-	} elseif ($objecttype == 'commande' || $objecttype == 'order') {
+	} elseif ($objecttype == 'order' || $objecttype == 'order') {
 		$langs->load('orders');
-		$classpath = 'commande/class';
-		$module = 'commande';
-		$myobject = 'commande';
+		$classpath = 'order/class';
+		$module = 'order';
+		$myobject = 'order';
 	} elseif ($objecttype == 'propal') {
 		$langs->load('propal');
 		$classpath = 'comm/propal/class';
@@ -2223,7 +2223,7 @@ function dolGetElementUrl($objectid, $objecttype, $withpicto = 0, $option = '')
 		$classpath = 'fourn/class';
 		$module = 'fournisseur';
 	} elseif ($objecttype == 'order_supplier') {
-		$classfile = 'fournisseur.commande';
+		$classfile = 'fournisseur.order';
 		$classname = 'OrderFournisseur';
 		$classpath = 'fourn/class';
 		$module = 'fournisseur';
@@ -2708,7 +2708,7 @@ function getModuleDirForApiClass($moduleobject)
 	} elseif ($moduleobject == 'category' || $moduleobject == 'category') {
 		$moduledirforclass = 'categories';
 	} elseif ($moduleobject == 'order' || $moduleobject == 'orders') {
-		$moduledirforclass = 'commande';
+		$moduledirforclass = 'order';
 	} elseif ($moduleobject == 'shipments') {
 		$moduledirforclass = 'expedition';
 	} elseif ($moduleobject == 'multicurrencies') {

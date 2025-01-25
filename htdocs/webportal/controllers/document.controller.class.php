@@ -160,7 +160,7 @@ class DocumentController extends Controller
 		$accessallowed = 0; // not allowed by default
 		$moduleName = $modulepart;
 		$moduleNameEn = $moduleName;
-		if ($moduleName == 'commande') {
+		if ($moduleName == 'order') {
 			$moduleNameEn = 'order';
 		} elseif ($moduleName == 'facture') {
 			$moduleNameEn = 'invoice';

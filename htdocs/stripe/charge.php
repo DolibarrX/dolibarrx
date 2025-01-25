@@ -26,7 +26,7 @@ require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 require_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';
 //require_once DOL_DOCUMENT_ROOT.'/core/lib/stripe.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 if (isModEnabled('accounting')) {
 	require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingjournal.class.php';
@@ -260,11 +260,11 @@ if (!$rowid) {
 
 			// Origin
 			print "<td>";
-			if ($charge->metadata->dol_type == "order" || $charge->metadata->dol_type == "commande") {
+			if ($charge->metadata->dol_type == "order" || $charge->metadata->dol_type == "order") {
 				$object = new Order($db);
 				$object->fetch($charge->metadata->dol_id);
 				if ($object->id > 0) {
-					print "<a href='".DOL_URL_ROOT."/commande/card.php?id=".$object->id."'>".img_picto('', 'order')." ".$object->ref."</a>";
+					print "<a href='".DOL_URL_ROOT."/order/card.php?id=".$object->id."'>".img_picto('', 'order')." ".$object->ref."</a>";
 				} else {
 					print $FULLTAG;
 				}

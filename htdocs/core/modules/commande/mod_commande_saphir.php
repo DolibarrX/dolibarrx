@@ -22,18 +22,18 @@
  */
 
 /**
- * \file       htdocs/core/modules/commande/mod_commande_saphir.php
+ * \file       htdocs/core/modules/order/mod_order_saphir.php
  * \ingroup    order
  *  \brief     File of class to manage Sales Order numbering rules Saphir
  */
 
-require_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/order/modules_order.php';
 
 
 /**
  *	Class to manage Sales Order numbering rules Saphir
  */
-class mod_commande_saphir extends ModeleNumRefOrders
+class mod_order_saphir extends ModeleNumRefOrders
 {
 	/**
 	 * Dolibarr version of the loaded document
@@ -103,7 +103,7 @@ class mod_commande_saphir extends ModeleNumRefOrders
 	{
 		global $db, $langs;
 
-		require_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
+		require_once DOL_DOCUMENT_ROOT . '/order/class/order.class.php';
 		require_once DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php';
 
 		$order = new Order($db);
@@ -145,12 +145,12 @@ class mod_commande_saphir extends ModeleNumRefOrders
 		$entity = getEntity('ordernumber', 1, $object);
 
 		if (is_object($object)) {
-			$date = ($object->date_commande ? $object->date_commande : $object->date);
+			$date = ($object->date_order ? $object->date_order : $object->date);
 		} else {
 			$date = dol_now();
 		}
 
-		$numFinal = get_next_value($db, $mask, 'commande', 'ref', '', $objsoc, $date, 'next', false, null, $entity);
+		$numFinal = get_next_value($db, $mask, 'order', 'ref', '', $objsoc, $date, 'next', false, null, $entity);
 
 		return $numFinal;
 	}

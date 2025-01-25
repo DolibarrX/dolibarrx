@@ -28,7 +28,7 @@
  */
 
 /**
- *    \file       htdocs/fourn/commande/list.php
+ *    \file       htdocs/fourn/order/list.php
  *    \ingroup    supplier order
  *    \brief      List of purchase orders
  */
@@ -44,7 +44,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/discount.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
@@ -150,7 +150,7 @@ if ($search_option == 'late') {
 	$search_status = '1,2';
 }
 
-$diroutputmassaction = $config->fournisseur->commande->dir_output.'/temp/massgeneration/'.$user->id;
+$diroutputmassaction = $config->fournisseur->order->dir_output.'/temp/massgeneration/'.$user->id;
 
 $limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
 $sortfield = GETPOST('sortfield', 'aZ09comma');
@@ -243,13 +243,13 @@ $orderid = GETPOSTINT('orderid');
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$result = restrictedArea($user, 'fournisseur', $orderid, '', 'commande');
+$result = restrictedArea($user, 'fournisseur', $orderid, '', 'order');
 
-$permissiontoread = ($user->hasRight("fournisseur", "commande", "lire") || $user->hasRight("supplier_order", "lire"));
-$permissiontoadd = ($user->hasRight("fournisseur", "commande", "creer") || $user->hasRight("supplier_order", "creer"));
-$permissiontodelete = ($user->hasRight("fournisseur", "commande", "supprimer") || $user->hasRight("supplier_order", "supprimer"));
+$permissiontoread = ($user->hasRight("fournisseur", "order", "lire") || $user->hasRight("supplier_order", "lire"));
+$permissiontoadd = ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"));
+$permissiontodelete = ($user->hasRight("fournisseur", "order", "supprimer") || $user->hasRight("supplier_order", "supprimer"));
 $permissiontovalidate = $permissiontoadd;
-$permissiontoapprove = ($user->hasRight("fournisseur", "commande", "approuver") || $user->hasRight("supplier_order", "approuver"));
+$permissiontoapprove = ($user->hasRight("fournisseur", "order", "approuver") || $user->hasRight("supplier_order", "approuver"));
 
 
 /*
@@ -347,7 +347,7 @@ if (empty($resHook)) {
 	// Mass actions
 	$objectclass = 'OrderFournisseur';
 	$objectlabel = 'SupplierOrders';
-	$uploaddir = $config->fournisseur->commande->dir_output;
+	$uploaddir = $config->fournisseur->order->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	if ($action == 'validate' && $permissiontovalidate) {
@@ -359,7 +359,7 @@ if (empty($resHook)) {
 			foreach ($toselect as $checked) {
 				if ($objecttmp->fetch($checked)) {
 					if ($objecttmp->statut == 0) {
-						$objecttmp->date_commande = dol_now();
+						$objecttmp->date_order = dol_now();
 						$result = $objecttmp->valid($user);
 						if ($result >= 0) {
 							// If we have permission, and if we don't need to provide the idwarehouse, we go directly on approved step
@@ -559,7 +559,7 @@ if (empty($resHook)) {
 								$lines[$i]->array_options,
 								$lines[$i]->fk_unit,
 								// we use the id of each order, not the id of the first one stored in $objecttmp->origin_id
-								$lines[$i]->fk_commande,
+								$lines[$i]->fk_order,
 								$lines[$i]->pa_ht,
 								$lines[$i]->ref_supplier,
 								$lines[$i]->special_code,
@@ -788,7 +788,7 @@ $now = dol_now();
 
 $form = new Form($db);
 $thirdpartytmp = new Fournisseur($db);
-$commandestatic = new OrderFournisseur($db);
+$orderstatic = new OrderFournisseur($db);
 $formfile = new FormFile($db);
 $formorder = new FormOrder($db);
 $formother = new FormOther($db);
@@ -818,7 +818,7 @@ if ($search_all) {
 $sql .= ' s.rowid as socid, s.nom as name, s.name_alias as alias, s.town, s.zip, s.fk_pays, s.client, s.fournisseur, s.code_client, s.email,';
 $sql .= " typent.code as typent_code,";
 $sql .= " state.code_departement as state_code, state.nom as state_name,";
-$sql .= " cf.rowid, cf.ref, cf.ref_supplier, cf.fk_statut, cf.billed, cf.total_ht, cf.total_tva, cf.total_ttc, cf.fk_user_author, cf.date_commande as date_commande, cf.date_livraison as delivery_date, cf.date_valid, cf.date_approve,";
+$sql .= " cf.rowid, cf.ref, cf.ref_supplier, cf.fk_statut, cf.billed, cf.total_ht, cf.total_tva, cf.total_ttc, cf.fk_user_author, cf.date_order as date_order, cf.date_livraison as delivery_date, cf.date_valid, cf.date_approve,";
 $sql .= ' cf.localtax1 as total_localtax1, cf.localtax2 as total_localtax2,';
 $sql .= ' cf.fk_multicurrency, cf.multicurrency_code, cf.multicurrency_tx, cf.multicurrency_total_ht, cf.multicurrency_total_tva, cf.multicurrency_total_ttc,';
 $sql .= ' cf.date_creation as date_creation, cf.tms as date_modification,';
@@ -842,12 +842,12 @@ $sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as country on (country.rowid = s.fk_pays)";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_typent as typent on (typent.id = s.fk_typent)";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as state on (state.rowid = s.fk_departement)";
-$sql .= ", ".MAIN_DB_PREFIX."commande_fournisseur as cf";
+$sql .= ", ".MAIN_DB_PREFIX."order_fournisseur as cf";
 if (!empty($extrafields->attributes[$object->table_element]['label']) && is_array($extrafields->attributes[$object->table_element]['label']) && count($extrafields->attributes[$object->table_element]['label'])) {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX.$object->table_element."_extrafields as ef on (cf.rowid = ef.fk_object)";
 }
 if ($search_all) {
-	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'commande_fournisseurdet as pd ON cf.rowid=pd.fk_commande';
+	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'order_fournisseurdet as pd ON cf.rowid=pd.fk_order';
 }
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as u ON cf.fk_user_author = u.rowid";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."projet as p ON p.rowid = cf.fk_projet";
@@ -892,13 +892,13 @@ if ($search_status != '' && $search_status != '-1') {
 	$sql .= " AND cf.fk_statut IN (".$db->sanitize($db->escape($search_status)).")";
 }
 if ($search_option == 'late') {
-	$sql .= " AND cf.date_commande < '".$db->idate(dol_now() - $config->order->fournisseur->warning_delay)."'";
+	$sql .= " AND cf.date_order < '".$db->idate(dol_now() - $config->order->fournisseur->warning_delay)."'";
 }
 if ($search_date_order_start) {
-	$sql .= " AND cf.date_commande >= '".$db->idate($search_date_order_start)."'";
+	$sql .= " AND cf.date_order >= '".$db->idate($search_date_order_start)."'";
 }
 if ($search_date_order_end) {
-	$sql .= " AND cf.date_commande <= '".$db->idate($search_date_order_end)."'";
+	$sql .= " AND cf.date_order <= '".$db->idate($search_date_order_end)."'";
 }
 if ($search_date_delivery_start) {
 	$sql .= " AND cf.date_livraison >= '".$db->idate($search_date_delivery_start)."'";
@@ -988,17 +988,17 @@ if (!empty($searchCategoryProductList)) {
 	$listofcategoryid = '';
 	foreach ($searchCategoryProductList as $searchCategoryProduct) {
 		if (intval($searchCategoryProduct) == -2) {
-			$searchCategoryProductSqlList[] = "NOT EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."commande_fournisseurdet as cd WHERE cd.fk_commande = cf.rowid AND cd.fk_product = ck.fk_product)";
+			$searchCategoryProductSqlList[] = "NOT EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."order_fournisseurdet as cd WHERE cd.fk_order = cf.rowid AND cd.fk_product = ck.fk_product)";
 		} elseif (intval($searchCategoryProduct) > 0) {
 			if ($searchCategoryProductOperator == 0) {
-				$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."commande_fournisseurdet as cd WHERE cd.fk_commande = cf.rowid AND cd.fk_product = ck.fk_product AND ck.fk_category = ".((int) $searchCategoryProduct).")";
+				$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."order_fournisseurdet as cd WHERE cd.fk_order = cf.rowid AND cd.fk_product = ck.fk_product AND ck.fk_category = ".((int) $searchCategoryProduct).")";
 			} else {
 				$listofcategoryid .= ($listofcategoryid ? ', ' : '') .((int) $searchCategoryProduct);
 			}
 		}
 	}
 	if ($listofcategoryid) {
-		$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."commande_fournisseurdet as cd WHERE cd.fk_commande = cf.rowid AND cd.fk_product = ck.fk_product AND ck.fk_category IN (".$db->sanitize($listofcategoryid)."))";
+		$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."order_fournisseurdet as cd WHERE cd.fk_order = cf.rowid AND cd.fk_product = ck.fk_product AND ck.fk_category IN (".$db->sanitize($listofcategoryid)."))";
 	}
 	if ($searchCategoryProductOperator == 1) {
 		if (!empty($searchCategoryProductSqlList)) {
@@ -1053,7 +1053,7 @@ if ($resql) {
 	if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $search_all) {
 		$obj = $db->fetch_object($resql);
 		$id = $obj->rowid;
-		header("Location: ".DOL_URL_ROOT.'/fourn/commande/card.php?id='.$id);
+		header("Location: ".DOL_URL_ROOT.'/fourn/order/card.php?id='.$id);
 		exit;
 	}
 
@@ -1247,10 +1247,10 @@ if ($resql) {
 	}
 	$massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
-	$url = DOL_URL_ROOT.'/fourn/commande/card.php?action=create';
+	$url = DOL_URL_ROOT.'/fourn/order/card.php?action=create';
 	if ($socid > 0) {
 		$url .= '&socid='.((int) $socid);
-		$url .= '&backtopage='.urlencode(DOL_URL_ROOT.'/fourn/commande/list.php?socid='.((int) $socid));
+		$url .= '&backtopage='.urlencode(DOL_URL_ROOT.'/fourn/order/list.php?socid='.((int) $socid));
 	}
 	$newcardbutton = '';
 	$newcardbutton .= dolGetButtonTitle($langs->trans('ViewList'), '', 'fa fa-bars imgforviewmode', $_SERVER["PHP_SELF"].'?mode=common'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ((empty($mode) || $mode == 'common') ? 2 : 1), array('morecss' => 'reposition'));
@@ -1452,7 +1452,7 @@ if ($resql) {
 		print '</td>';
 	}
 	// Date order
-	if (!empty($arrayfields['cf.date_commande']['checked'])) {
+	if (!empty($arrayfields['cf.date_order']['checked'])) {
 		print '<td class="liste_titre center">';
 		print '<div class="nowrapfordate">';
 		print $form->selectDate($search_date_order_start ? $search_date_order_start : -1, 'search_date_order_start', 0, 0, 1, '', 1, 0, 0, '', '', '', '', 1, '', $langs->trans('From'));
@@ -1650,8 +1650,8 @@ if ($resql) {
 		print_liste_field_titre($arrayfields['cf.fk_author']['label'], $_SERVER["PHP_SELF"], "cf.fk_author", "", $param, '', $sortfield, $sortorder);
 		$totalarray['nbfield']++;
 	}
-	if (!empty($arrayfields['cf.date_commande']['checked'])) {
-		print_liste_field_titre($arrayfields['cf.date_commande']['label'], $_SERVER["PHP_SELF"], "cf.date_commande", "", $param, '', $sortfield, $sortorder, 'center ');
+	if (!empty($arrayfields['cf.date_order']['checked'])) {
+		print_liste_field_titre($arrayfields['cf.date_order']['label'], $_SERVER["PHP_SELF"], "cf.date_order", "", $param, '', $sortfield, $sortorder, 'center ');
 		$totalarray['nbfield']++;
 	}
 	if (!empty($arrayfields['cf.date_livraison']['checked'])) {
@@ -1766,7 +1766,7 @@ if ($resql) {
 		$objectstatic->total_ht = $obj->total_ht;
 		$objectstatic->total_tva = $obj->total_tva;
 		$objectstatic->total_ttc = $obj->total_ttc;
-		$objectstatic->date_commande = $db->jdate($obj->date_commande);
+		$objectstatic->date_order = $db->jdate($obj->date_order);
 		$objectstatic->delivery_date = $db->jdate($obj->delivery_date);
 		$objectstatic->note_public = $obj->note_public;
 		$objectstatic->note_private = $obj->note_private;
@@ -1815,7 +1815,7 @@ if ($resql) {
 				print $objectstatic->getNomUrl(1, '', 0, -1, 1);
 				// Other picto tool
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $config->fournisseur->commande->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->fournisseur->order->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 				print $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir);
 
 				print '</td>'."\n";
@@ -1935,9 +1935,9 @@ if ($resql) {
 			}
 
 			// Order date
-			if (!empty($arrayfields['cf.date_commande']['checked'])) {
+			if (!empty($arrayfields['cf.date_order']['checked'])) {
 				print '<td class="center">';
-				print dol_print_date($db->jdate($obj->date_commande), 'day');
+				print dol_print_date($db->jdate($obj->date_order), 'day');
 				if ($objectstatic->statut != $objectstatic::STATUS_ORDERSENT && $objectstatic->statut != $objectstatic::STATUS_RECEIVED_PARTIALLY) {
 					if ($objectstatic->hasDelay()) {
 						print ' '.img_picto($langs->trans("Late").' : '.$objectstatic->showDelay(), "warning");

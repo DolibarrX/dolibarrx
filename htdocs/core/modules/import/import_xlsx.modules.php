@@ -713,7 +713,7 @@ class ImportXlsx extends ModeleImports
 												$tmpclassobject = $objimport->array_import_convertvalue[0][$val]['classobject'];
 												$tmpobject = new $tmpclassobject($this->db);
 												foreach ($arrayfield as $tmpkey => $tmpval) {	// $arrayfield is array('c.ref'=>1, ...)
-													if (in_array($tmpkey, array('t.date', 'c.date_commande'))) {
+													if (in_array($tmpkey, array('t.date', 'c.date_order'))) {
 														$tmpobject->date = dol_stringtotime($arrayrecord[$arrayfield[$tmpkey]]['val'], 1);
 													}
 												}

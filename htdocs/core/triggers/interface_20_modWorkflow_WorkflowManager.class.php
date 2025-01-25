@@ -75,7 +75,7 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 			dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
 			if (isModEnabled('order') && getDolGlobalString('WORKFLOW_PROPAL_AUTOCREATE_ORDER')) {
 				$object->fetchObjectLinked();
-				if (!empty($object->linkedObjectsIds['commande'])) {
+				if (!empty($object->linkedObjectsIds['order'])) {
 					if (empty($object->context['closedfromonlinesignature'])) {
 						$langs->load("orders");
 						setEventMessages($langs->trans("OrderExists"), null, 'warnings');
@@ -83,7 +83,7 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 					return $ret;
 				}
 
-				include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+				include_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 				$newobject = new Order($this->db);
 
 				$newobject->context['createfrompropal'] = 'createfrompropal';
@@ -160,17 +160,17 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 
 			// First classify billed the order to allow the proposal classify process
 			if (isModEnabled('order') && !empty($config->workflow->enabled) && getDolGlobalString('WORKFLOW_INVOICE_AMOUNT_CLASSIFY_BILLED_ORDER')) {
-				$object->fetchObjectLinked(0, 'commande', $object->id, $object->element);
-				if (!empty($object->linkedObjects['commande'])) {
+				$object->fetchObjectLinked(0, 'order', $object->id, $object->element);
+				if (!empty($object->linkedObjects['order'])) {
 					$totalonlinkedelements = 0;
-					foreach ($object->linkedObjects['commande'] as $element) {
+					foreach ($object->linkedObjects['order'] as $element) {
 						if ($element->statut == Order::STATUS_VALIDATED || $element->statut == Order::STATUS_SHIPMENTONPROCESS || $element->statut == Order::STATUS_CLOSED) {
 							$totalonlinkedelements += $element->total_ht;
 						}
 					}
 					dol_syslog("Amount of linked orders = ".$totalonlinkedelements.", of invoice = ".$object->total_ht.", egality is ".json_encode($totalonlinkedelements == $object->total_ht));
 					if ($this->shouldClassify($config, $totalonlinkedelements, $object->total_ht)) {
-						foreach ($object->linkedObjects['commande'] as $element) {
+						foreach ($object->linkedObjects['order'] as $element) {
 							$ret = $element->classifyBilled($user);
 						}
 					}
@@ -241,9 +241,9 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 
 			// First classify billed the order to allow the proposal classify process
 			if (isModEnabled('order') && isModEnabled('workflow') && getDolGlobalString('WORKFLOW_SUM_INVOICES_AMOUNT_CLASSIFY_BILLED_ORDER')) {
-				$object->fetchObjectLinked(0, 'commande', $object->id, $object->element);
-				if (!empty($object->linkedObjects['commande']) && count($object->linkedObjects['commande']) == 1) {	// If the invoice has only 1 source order
-					$orderLinked = reset($object->linkedObjects['commande']);
+				$object->fetchObjectLinked(0, 'order', $object->id, $object->element);
+				if (!empty($object->linkedObjects['order']) && count($object->linkedObjects['order']) == 1) {	// If the invoice has only 1 source order
+					$orderLinked = reset($object->linkedObjects['order']);
 					$orderLinked->fetchObjectLinked($orderLinked->id, '', $orderLinked->element);
 					if (count($orderLinked->linkedObjects['facture']) >= 1) {
 						$totalHTInvoices = 0;
@@ -375,17 +375,17 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 			dol_syslog("Trigger '".$this->name."' for action '$action' launched by ".__FILE__.". id=".$object->id);
 
 			if (isModEnabled('order') && getDolGlobalString('WORKFLOW_INVOICE_CLASSIFY_BILLED_ORDER')) {
-				$object->fetchObjectLinked(0, 'commande', $object->id, $object->element);
-				if (!empty($object->linkedObjects['commande'])) {
+				$object->fetchObjectLinked(0, 'order', $object->id, $object->element);
+				if (!empty($object->linkedObjects['order'])) {
 					$totalonlinkedelements = 0;
-					foreach ($object->linkedObjects['commande'] as $element) {
+					foreach ($object->linkedObjects['order'] as $element) {
 						if ($element->statut == Order::STATUS_VALIDATED || $element->statut == Order::STATUS_SHIPMENTONPROCESS || $element->statut == Order::STATUS_CLOSED) {
 							$totalonlinkedelements += $element->total_ht;
 						}
 					}
 					dol_syslog("Amount of linked orders = ".$totalonlinkedelements.", of invoice = ".$object->total_ht.", egality is ".json_encode($totalonlinkedelements == $object->total_ht));
 					if ($this->shouldClassify($config, $totalonlinkedelements, $object->total_ht)) {
-						foreach ($object->linkedObjects['commande'] as $element) {
+						foreach ($object->linkedObjects['order'] as $element) {
 							$ret = $element->classifyBilled($user);
 						}
 					}
@@ -410,15 +410,15 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 				// The original sale order is id in $object->origin_id
 				// Find all shipments on sale order origin
 
-				if (in_array($object->origin, array('order', 'commande')) && $object->origin_id > 0) {
-					require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+				if (in_array($object->origin, array('order', 'order')) && $object->origin_id > 0) {
+					require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 					$order = new Order($this->db);
 					$ret = $order->fetch($object->origin_id);
 					if ($ret < 0) {
 						$this->setErrorsFromObject($order);
 						return $ret;
 					}
-					$ret = $order->fetchObjectLinked($order->id, 'commande', null, 'shipping');
+					$ret = $order->fetchObjectLinked($order->id, 'order', null, 'shipping');
 					if ($ret < 0) {
 						$this->setErrorsFromObject($order);
 						return $ret;
@@ -492,8 +492,8 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 				// The original purchase order is id in $object->origin_id
 				// Find all reception on purchase order origin
 
-				if (in_array($object->origin, array('order_supplier', 'supplier_order', 'commandeFournisseur')) && $object->origin_id > 0) {
-					require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+				if (in_array($object->origin, array('order_supplier', 'supplier_order', 'orderFournisseur')) && $object->origin_id > 0) {
+					require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 					$order = new OrderFournisseur($this->db);
 					$ret = $order->fetch($object->origin_id);
 					if ($ret < 0) {

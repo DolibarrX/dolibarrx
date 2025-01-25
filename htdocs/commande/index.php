@@ -20,7 +20,7 @@
  */
 
 /**
- *	\file       htdocs/commande/index.php
+ *	\file       htdocs/order/index.php
  *	\ingroup    order
  *	\brief      Home page of sales order module
  */
@@ -31,7 +31,7 @@ require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/notify.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/client.class.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
 
 /**
@@ -46,7 +46,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
 $langs->loadLangs(array('orders', 'bills'));
 
 
-if (!$user->hasRight('commande', 'lire')) {
+if (!$user->hasRight('order', 'lire')) {
 	accessforbidden();
 }
 
@@ -74,13 +74,13 @@ $maxOpenCount = !getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->gl
  * View
  */
 
-$commandestatic = new Order($db);
+$orderstatic = new Order($db);
 $companystatic = new Societe($db);
 $form = new Form($db);
 $formfile = new FormFile($db);
 $help_url = "EN:Module_Customers_Orders|FR:Module_Orders_Clients|ES:Módulo_Pedidos_de_clientes";
 
-llxHeader('', $langs->trans("Orders"), $help_url, '', 0, 0, '', '', '', 'mod-commande page-index');
+llxHeader('', $langs->trans("Orders"), $help_url, '', 0, 0, '', '', '', 'mod-order page-index');
 
 
 print load_fiche_titre($langs->trans("OrdersArea"), '', 'order');
@@ -103,13 +103,13 @@ if (isModEnabled('order')) {
 	$sql .= ", s.client";
 	$sql .= ", s.code_client";
 	$sql .= ", s.canvas";
-	$sql .= " FROM ".MAIN_DB_PREFIX."commande as c";
+	$sql .= " FROM ".MAIN_DB_PREFIX."order as c";
 	$sql .= ", ".MAIN_DB_PREFIX."societe as s";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
 		$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	}
 	$sql .= " WHERE c.fk_soc = s.rowid";
-	$sql .= " AND c.entity IN (".getEntity('commande').")";
+	$sql .= " AND c.entity IN (".getEntity('order').")";
 	$sql .= " AND c.fk_statut = 0";
 	if ($socid) {
 		$sql .= " AND c.fk_soc = ".((int) $socid);
@@ -131,8 +131,8 @@ if (isModEnabled('order')) {
 			while ($i < $num) {
 				$obj = $db->fetch_object($resql);
 
-				$commandestatic->id = $obj->rowid;
-				$commandestatic->ref = $obj->ref;
+				$orderstatic->id = $obj->rowid;
+				$orderstatic->ref = $obj->ref;
 
 				$companystatic->id = $obj->socid;
 				$companystatic->name = $obj->name;
@@ -142,7 +142,7 @@ if (isModEnabled('order')) {
 
 				print '<tr class="oddeven">';
 				print '<td class="nowrap">';
-				print $commandestatic->getNomUrl(1);
+				print $orderstatic->getNomUrl(1);
 				print "</td>";
 				print '<td class="nowrap">';
 				print $companystatic->getNomUrl(1, 'company', 16);
@@ -169,13 +169,13 @@ $sql .= " s.nom as name, s.rowid as socid";
 $sql .= ", s.client";
 $sql .= ", s.code_client";
 $sql .= ", s.canvas";
-$sql .= " FROM ".MAIN_DB_PREFIX."commande as c,";
+$sql .= " FROM ".MAIN_DB_PREFIX."order as c,";
 $sql .= " ".MAIN_DB_PREFIX."societe as s";
 if (!$user->hasRight('societe', 'client', 'voir')) {
 	$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 }
 $sql .= " WHERE c.fk_soc = s.rowid";
-$sql .= " AND c.entity IN (".getEntity('commande').")";
+$sql .= " AND c.entity IN (".getEntity('order').")";
 //$sql.= " AND c.fk_statut > 2";
 if ($socid) {
 	$sql .= " AND c.fk_soc = ".((int) $socid);
@@ -190,7 +190,7 @@ $resql = $db->query($sql);
 if ($resql) {
 	$num = $db->num_rows($resql);
 
-	startSimpleTable($langs->trans("LastModifiedOrders", $max), "commande/list.php", "sortfield=c.tms&sortorder=DESC", 2, -1, 'order');
+	startSimpleTable($langs->trans("LastModifiedOrders", $max), "order/list.php", "sortfield=c.tms&sortorder=DESC", 2, -1, 'order');
 
 	if ($num) {
 		$i = 0;
@@ -200,8 +200,8 @@ if ($resql) {
 			print '<tr class="oddeven">';
 			print '<td width="20%" class="nowrap">';
 
-			$commandestatic->id = $obj->rowid;
-			$commandestatic->ref = $obj->ref;
+			$orderstatic->id = $obj->rowid;
+			$orderstatic->ref = $obj->ref;
 
 			$companystatic->id = $obj->socid;
 			$companystatic->name = $obj->name;
@@ -211,7 +211,7 @@ if ($resql) {
 
 			print '<table class="nobordernopadding"><tr class="nocellnopadd">';
 			print '<td width="96" class="nobordernopadding nowrap">';
-			print $commandestatic->getNomUrl(1);
+			print $orderstatic->getNomUrl(1);
 			print '</td>';
 
 			print '<td width="16" class="nobordernopadding nowrap">';
@@ -220,9 +220,9 @@ if ($resql) {
 
 			print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 			$filename = dol_sanitizeFileName($obj->ref);
-			$filedir = $config->commande->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
+			$filedir = $config->order->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
-			print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
+			print $formfile->getDocumentsLink($orderstatic->element, $filename, $filedir);
 			print '</td></tr></table>';
 
 			print '</td>';
@@ -236,7 +236,7 @@ if ($resql) {
 			print dol_print_date($datem, 'day', 'tzuserrel');
 			print '</td>';
 
-			print '<td class="right">'.$commandestatic->LibStatut($obj->status, $obj->facture, 3).'</td>';
+			print '<td class="right">'.$orderstatic->LibStatut($obj->status, $obj->facture, 3).'</td>';
 			print '</tr>';
 			$i++;
 		}
@@ -251,17 +251,17 @@ if ($resql) {
  * Orders to process
  */
 if (isModEnabled('order')) {
-	$sql = "SELECT c.rowid, c.entity, c.ref, c.fk_statut as status, c.facture, c.date_commande as date, s.nom as name, s.rowid as socid";
+	$sql = "SELECT c.rowid, c.entity, c.ref, c.fk_statut as status, c.facture, c.date_order as date, s.nom as name, s.rowid as socid";
 	$sql .= ", s.client";
 	$sql .= ", s.code_client";
 	$sql .= ", s.canvas";
-	$sql .= " FROM ".MAIN_DB_PREFIX."commande as c";
+	$sql .= " FROM ".MAIN_DB_PREFIX."order as c";
 	$sql .= ", ".MAIN_DB_PREFIX."societe as s";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
 		$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	}
 	$sql .= " WHERE c.fk_soc = s.rowid";
-	$sql .= " AND c.entity IN (".getEntity('commande').")";
+	$sql .= " AND c.entity IN (".getEntity('order').")";
 	$sql .= " AND c.fk_statut = ".Order::STATUS_VALIDATED;
 	if ($socid) {
 		$sql .= " AND c.fk_soc = ".((int) $socid);
@@ -278,7 +278,7 @@ if (isModEnabled('order')) {
 		print '<div class="div-table-responsive-no-min">';
 		print '<table class="noborder centpercent">';
 		print '<tr class="liste_titre">';
-		print '<th colspan="4">'.$langs->trans("OrdersToProcess").' <a href="'.DOL_URL_ROOT.'/commande/list.php?search_status='.Order::STATUS_VALIDATED.'"><span class="badge">'.$num.'</span></a></th></tr>';
+		print '<th colspan="4">'.$langs->trans("OrdersToProcess").' <a href="'.DOL_URL_ROOT.'/order/list.php?search_status='.Order::STATUS_VALIDATED.'"><span class="badge">'.$num.'</span></a></th></tr>';
 
 		if ($num) {
 			$i = 0;
@@ -287,8 +287,8 @@ if (isModEnabled('order')) {
 				print '<tr class="oddeven">';
 				print '<td class="nowrap" width="20%">';
 
-				$commandestatic->id = $obj->rowid;
-				$commandestatic->ref = $obj->ref;
+				$orderstatic->id = $obj->rowid;
+				$orderstatic->ref = $obj->ref;
 
 				$companystatic->id = $obj->socid;
 				$companystatic->name = $obj->name;
@@ -298,7 +298,7 @@ if (isModEnabled('order')) {
 
 				print '<table class="nobordernopadding"><tr class="nocellnopadd">';
 				print '<td width="96" class="nobordernopadding nowrap">';
-				print $commandestatic->getNomUrl(1);
+				print $orderstatic->getNomUrl(1);
 				print '</td>';
 
 				print '<td width="16" class="nobordernopadding nowrap">';
@@ -307,9 +307,9 @@ if (isModEnabled('order')) {
 
 				print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $config->commande->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->order->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
-				print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
+				print $formfile->getDocumentsLink($orderstatic->element, $filename, $filedir);
 				print '</td></tr></table>';
 
 				print '</td>';
@@ -320,7 +320,7 @@ if (isModEnabled('order')) {
 
 				print '<td class="right">'.dol_print_date($db->jdate($obj->date), 'day').'</td>'."\n";
 
-				print '<td class="right">'.$commandestatic->LibStatut($obj->status, $obj->facture, 3).'</td>';
+				print '<td class="right">'.$orderstatic->LibStatut($obj->status, $obj->facture, 3).'</td>';
 
 				print '</tr>';
 				$i++;
@@ -340,17 +340,17 @@ if (isModEnabled('order')) {
  * Orders that are in process
  */
 if (isModEnabled('order')) {
-	$sql = "SELECT c.rowid, c.entity, c.ref, c.fk_statut as status, c.facture, c.date_commande as date, s.nom as name, s.rowid as socid";
+	$sql = "SELECT c.rowid, c.entity, c.ref, c.fk_statut as status, c.facture, c.date_order as date, s.nom as name, s.rowid as socid";
 	$sql .= ", s.client";
 	$sql .= ", s.code_client";
 	$sql .= ", s.canvas";
-	$sql .= " FROM ".MAIN_DB_PREFIX."commande as c";
+	$sql .= " FROM ".MAIN_DB_PREFIX."order as c";
 	$sql .= ", ".MAIN_DB_PREFIX."societe as s";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
 		$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	}
 	$sql .= " WHERE c.fk_soc = s.rowid";
-	$sql .= " AND c.entity IN (".getEntity('commande').")";
+	$sql .= " AND c.entity IN (".getEntity('order').")";
 	$sql .= " AND c.fk_statut = ".((int) Order::STATUS_SHIPMENTONPROCESS);
 	if ($socid) {
 		$sql .= " AND c.fk_soc = ".((int) $socid);
@@ -367,7 +367,7 @@ if (isModEnabled('order')) {
 		print '<div class="div-table-responsive-no-min">';
 		print '<table class="noborder centpercent">';
 		print '<tr class="liste_titre">';
-		print '<th colspan="4">'.$langs->trans("OnProcessOrders").' <a href="'.DOL_URL_ROOT.'/commande/list.php?search_status='.Order::STATUS_SHIPMENTONPROCESS.'"><span class="badge">'.$num.'</span></a></th></tr>';
+		print '<th colspan="4">'.$langs->trans("OnProcessOrders").' <a href="'.DOL_URL_ROOT.'/order/list.php?search_status='.Order::STATUS_SHIPMENTONPROCESS.'"><span class="badge">'.$num.'</span></a></th></tr>';
 
 		if ($num) {
 			$i = 0;
@@ -376,8 +376,8 @@ if (isModEnabled('order')) {
 				print '<tr class="oddeven">';
 				print '<td width="20%" class="nowrap">';
 
-				$commandestatic->id = $obj->rowid;
-				$commandestatic->ref = $obj->ref;
+				$orderstatic->id = $obj->rowid;
+				$orderstatic->ref = $obj->ref;
 
 				$companystatic->id = $obj->socid;
 				$companystatic->name = $obj->name;
@@ -387,7 +387,7 @@ if (isModEnabled('order')) {
 
 				print '<table class="nobordernopadding"><tr class="nocellnopadd">';
 				print '<td width="96" class="nobordernopadding nowrap">';
-				print $commandestatic->getNomUrl(1);
+				print $orderstatic->getNomUrl(1);
 				print '</td>';
 
 				print '<td width="16" class="nobordernopadding nowrap">';
@@ -396,9 +396,9 @@ if (isModEnabled('order')) {
 
 				print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $config->commande->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->order->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
-				print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
+				print $formfile->getDocumentsLink($orderstatic->element, $filename, $filedir);
 				print '</td></tr></table>';
 
 				print '</td>';
@@ -409,7 +409,7 @@ if (isModEnabled('order')) {
 
 				print '<td class="right">'.dol_print_date($db->jdate($obj->date), 'day').'</td>'."\n";
 
-				print '<td class="right">'.$commandestatic->LibStatut($obj->status, $obj->facture, 3).'</td>';
+				print '<td class="right">'.$orderstatic->LibStatut($obj->status, $obj->facture, 3).'</td>';
 
 				print '</tr>';
 				$i++;

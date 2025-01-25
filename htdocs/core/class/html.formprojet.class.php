@@ -583,8 +583,8 @@ class FormProjets extends Form
 			case "facture_fourn":
 				$sql = "SELECT t.rowid, t.ref, t.ref_supplier";
 				break;
-			case "commande_fourn":
-			case "commande_fournisseur":
+			case "order_fourn":
+			case "order_fournisseur":
 				$sql = "SELECT t.rowid, t.ref, t.ref_supplier";
 				break;
 			case "facture_rec":
@@ -601,7 +601,7 @@ class FormProjets extends Form
 				$projectkey="fk_projet";
 				break;*/
 				return '';
-			case "commande":
+			case "order":
 			case "contrat":
 			case "fichinter":
 				$sql = "SELECT t.rowid, t.ref";

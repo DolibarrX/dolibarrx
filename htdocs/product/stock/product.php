@@ -798,12 +798,12 @@ if ($id > 0 || $ref) {
 				} else {
 					$found = 1;
 				}
-				$helpondiff .= $langs->trans("ProductQtyInCustomersOrdersRunning").': '.$object->stats_commande['qty'];
-				$result = $object->load_stats_commande(0, '0', 1);
+				$helpondiff .= $langs->trans("ProductQtyInCustomersOrdersRunning").': '.$object->stats_order['qty'];
+				$result = $object->load_stats_order(0, '0', 1);
 				if ($result < 0) {
 					dol_print_error($db, $object->error);
 				}
-				$helpondiff .= ' <span class="opacitymedium">('.$langs->trans("ProductQtyInDraft").': '.$object->stats_commande['qty'].')</span>';
+				$helpondiff .= ' <span class="opacitymedium">('.$langs->trans("ProductQtyInDraft").': '.$object->stats_order['qty'].')</span>';
 			}
 
 			// Number of product from sales order already sent (partial shipping)
@@ -831,13 +831,13 @@ if ($id > 0 || $ref) {
 				} else {
 					$found = 1;
 				}
-				$result = $object->load_stats_commande_fournisseur(0, '3,4', 1);
-				$helpondiff .= $langs->trans("ProductQtyInSuppliersOrdersRunning").': '.$object->stats_commande_fournisseur['qty'];
-				$result = $object->load_stats_commande_fournisseur(0, '0,1,2', 1);
+				$result = $object->load_stats_order_fournisseur(0, '3,4', 1);
+				$helpondiff .= $langs->trans("ProductQtyInSuppliersOrdersRunning").': '.$object->stats_order_fournisseur['qty'];
+				$result = $object->load_stats_order_fournisseur(0, '0,1,2', 1);
 				if ($result < 0) {
 					dol_print_error($db, $object->error);
 				}
-				$helpondiff .= ' <span class="opacitymedium">('.$langs->trans("ProductQtyInDraftOrWaitingApproved").': '.$object->stats_commande_fournisseur['qty'].')</span>';
+				$helpondiff .= ' <span class="opacitymedium">('.$langs->trans("ProductQtyInDraftOrWaitingApproved").': '.$object->stats_order_fournisseur['qty'].')</span>';
 			}
 
 			// Number of product from supplier order already received (partial receipt)

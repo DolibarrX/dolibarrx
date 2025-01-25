@@ -60,7 +60,7 @@ foreach ($linkedObjectBlock as $key => $objectlink) {
 		<td class="right">
 			<?php
 			// For now, shipments must stay linked to order, so link is not deletable
-			if ($object->element != 'commande') {
+			if ($object->element != 'order') {
 				?>
 			<a class="reposition" href="<?php echo $_SERVER["PHP_SELF"].'?id='.$object->id.'&token='.newToken().'&action=dellink&dellinkid='.$key; ?>"><?php echo img_picto($langs->transnoentitiesnoconv("RemoveLink"), 'unlink'); ?></a></td>				<?php
 			} ?>

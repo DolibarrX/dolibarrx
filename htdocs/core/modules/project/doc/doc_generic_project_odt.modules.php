@@ -49,13 +49,13 @@ if (isModEnabled('invoice')) {
 	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php';
 }
 if (isModEnabled('order')) {
-	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 }
 if (isModEnabled("supplier_invoice")) {
 	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 }
 if (isModEnabled("supplier_order")) {
-	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 }
 if (isModEnabled('contract')) {
 	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
@@ -933,8 +933,8 @@ class doc_generic_project_odt extends ModelePDFProjects
 					'order' => array(
 						'title' => "ListOrdersAssociatedProject",
 						'class' => 'Order',
-						'table' => 'commande',
-						'test' => isModEnabled('order') && $user->hasRight('commande', 'lire')
+						'table' => 'order',
+						'test' => isModEnabled('order') && $user->hasRight('order', 'lire')
 					),
 					'invoice' => array(
 						'title' => "ListInvoicesAssociatedProject",
@@ -956,9 +956,9 @@ class doc_generic_project_odt extends ModelePDFProjects
 					),
 					'order_supplier' => array(
 						'title' => "ListSupplierOrdersAssociatedProject",
-						'table' => 'commande_fournisseur',
+						'table' => 'order_fournisseur',
 						'class' => 'OrderFournisseur',
-						'test' => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'commande', 'lire')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire'))
+						'test' => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'order', 'lire')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire'))
 					),
 					'invoice_supplier' => array(
 						'title' => "ListSupplierInvoicesAssociatedProject",

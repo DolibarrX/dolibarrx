@@ -506,7 +506,7 @@ class FormFile
 
 		$printer = 0;
 		// The direct print feature is implemented only for such elements
-		if (in_array($modulepart, array('contract', 'facture', 'supplier_proposal', 'propal', 'proposal', 'order', 'commande', 'expedition', 'commande_fournisseur', 'expensereport', 'delivery', 'ticket'))) {
+		if (in_array($modulepart, array('contract', 'facture', 'supplier_proposal', 'propal', 'proposal', 'order', 'order', 'expedition', 'order_fournisseur', 'expensereport', 'delivery', 'ticket'))) {
 			$printer = ($user->hasRight('printing', 'read') && isModEnabled('printing'));
 		}
 
@@ -598,11 +598,11 @@ class FormFile
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_proposal/modules_supplier_proposal.php';
 					$modellist = ModelePDFSupplierProposal::liste_modeles($this->db);
 				}
-			} elseif ($modulepart == 'commande') {
+			} elseif ($modulepart == 'order') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
-					include_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
+					include_once DOL_DOCUMENT_ROOT.'/core/modules/order/modules_order.php';
 					$modellist = ModelePDFOrders::liste_modeles($this->db);
 				}
 			} elseif ($modulepart == 'expedition') {
@@ -705,11 +705,11 @@ class FormFile
 					//$modellist = ModeleExports::liste_modeles($this->db);		// liste_modeles() does not exists. We are using listOfAvailableExportFormat() method instead that return a different array format.
 					$modellist = array();
 				}
-			} elseif ($modulepart == 'commande_fournisseur' || $modulepart == 'supplier_order') {
+			} elseif ($modulepart == 'order_fournisseur' || $modulepart == 'supplier_order') {
 				if (is_array($genallowed)) {
 					$modellist = $genallowed;
 				} else {
-					include_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_commandefournisseur.php';
+					include_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_orderfournisseur.php';
 					$modellist = ModelePDFSuppliersOrders::liste_modeles($this->db);
 				}
 			} elseif ($modulepart == 'facture_fournisseur' || $modulepart == 'supplier_invoice') {
@@ -1330,7 +1330,7 @@ class FormFile
 			$relativedir = preg_replace('/^'.preg_quote(DOL_DATA_ROOT, '/').'/', '', $upload_dir);
 			$relativedir = preg_replace('/^[\\/]/', '', $relativedir);
 		}
-		// For example here $upload_dir = '/pathtodocuments/commande/SO2001-123/'
+		// For example here $upload_dir = '/pathtodocuments/order/SO2001-123/'
 		// For example here $upload_dir = '/pathtodocuments/tax/vat/1'
 		// For example here $upload_dir = '/home/ldestailleur/git/dolibarr_dev/documents/fournisseur/facture/6/1/SI2210-0013' and relativedir='fournisseur/facture/6/1/SI2210-0013'
 
@@ -1880,10 +1880,10 @@ class FormFile
 			include_once DOL_DOCUMENT_ROOT.'/supplier_proposal/class/supplier_proposal.class.php';
 			$object_instance = new SupplierProposal($this->db);
 		} elseif ($modulepart == 'order') {
-			include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+			include_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 			$object_instance = new Order($this->db);
 		} elseif ($modulepart == 'order_supplier') {
-			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 			$object_instance = new OrderFournisseur($this->db);
 		} elseif ($modulepart == 'contract') {
 			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';

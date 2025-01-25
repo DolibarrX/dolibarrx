@@ -34,7 +34,7 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/html.form.class.php';
-require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT . '/product/class/html.formproduct.class.php';
 require_once './lib/replenishment.lib.php';
 
@@ -166,7 +166,7 @@ if ($draftorder == 'on') {
 }
 
 // Create purchase orders
-if ($action == 'order' && GETPOST('valid') && $user->hasRight('fournisseur', 'commande', 'creer')) {
+if ($action == 'order' && GETPOST('valid') && $user->hasRight('fournisseur', 'order', 'creer')) {
 	$linecount = GETPOSTINT('linecount');
 	$box = 0;
 	$errorQty = 0;
@@ -255,10 +255,10 @@ if ($action == 'order' && GETPOST('valid') && $user->hasRight('fournisseur', 'co
 			$order = new OrderFournisseur($db);
 
 			// Check if an order for the supplier exists
-			$sql = "SELECT rowid FROM " . MAIN_DB_PREFIX . "commande_fournisseur";
+			$sql = "SELECT rowid FROM " . MAIN_DB_PREFIX . "order_fournisseur";
 			$sql .= " WHERE fk_soc = " . ((int) $suppliersid[$i]);
 			$sql .= " AND source = " . ((int) $order::SOURCE_ID_REPLENISHMENT) . " AND fk_statut = " . ((int) $order::STATUS_DRAFT);
-			$sql .= " AND entity IN (" . getEntity('commande_fournisseur') . ")";
+			$sql .= " AND entity IN (" . getEntity('order_fournisseur') . ")";
 			$sql .= " ORDER BY date_creation DESC";
 			$resql = $db->query($sql);
 			if ($resql && $db->num_rows($resql) > 0) {
@@ -451,8 +451,8 @@ $sql .= ', s.fk_product';
 if ($usevirtualstock) {
 	if (isModEnabled('order')) {
 		$sqlOrdersCli = "(SELECT ".$db->ifsql("SUM(cd1.qty) IS NULL", "0", "SUM(cd1.qty)")." as qty"; // We need the ifsql because if result is 0 for product p.rowid, we must return 0 and not NULL
-		$sqlOrdersCli .= " FROM ".MAIN_DB_PREFIX."commandedet as cd1, ".MAIN_DB_PREFIX."commande as c1";
-		$sqlOrdersCli .= " WHERE c1.rowid = cd1.fk_commande AND c1.entity IN (".getEntity(getDolGlobalString('STOCK_CALCULATE_VIRTUAL_STOCK_TRANSVERSE_MODE') ? 'stock' : 'commande').")";
+		$sqlOrdersCli .= " FROM ".MAIN_DB_PREFIX."orderdet as cd1, ".MAIN_DB_PREFIX."order as c1";
+		$sqlOrdersCli .= " WHERE c1.rowid = cd1.fk_order AND c1.entity IN (".getEntity(getDolGlobalString('STOCK_CALCULATE_VIRTUAL_STOCK_TRANSVERSE_MODE') ? 'stock' : 'order').")";
 		$sqlOrdersCli .= " AND cd1.fk_product = p.rowid";
 		$sqlOrdersCli .= " AND c1.fk_statut IN (1,2))";
 	} else {
@@ -463,10 +463,10 @@ if ($usevirtualstock) {
 		$sqlExpeditionsCli = "(SELECT ".$db->ifsql("SUM(ed2.qty) IS NULL", "0", "SUM(ed2.qty)")." as qty"; // We need the ifsql because if result is 0 for product p.rowid, we must return 0 and not NULL
 		$sqlExpeditionsCli .= " FROM ".MAIN_DB_PREFIX."expedition as e2,";
 		$sqlExpeditionsCli .= " ".MAIN_DB_PREFIX."expeditiondet as ed2,";
-		$sqlExpeditionsCli .= " ".MAIN_DB_PREFIX."commande as c2,";
-		$sqlExpeditionsCli .= " ".MAIN_DB_PREFIX."commandedet as cd2";
+		$sqlExpeditionsCli .= " ".MAIN_DB_PREFIX."order as c2,";
+		$sqlExpeditionsCli .= " ".MAIN_DB_PREFIX."orderdet as cd2";
 		$sqlExpeditionsCli .= " WHERE ed2.fk_expedition = e2.rowid AND cd2.rowid = ed2.fk_elementdet AND e2.entity IN (".getEntity(getDolGlobalString('STOCK_CALCULATE_VIRTUAL_STOCK_TRANSVERSE_MODE') ? 'stock' : 'expedition').")";
-		$sqlExpeditionsCli .= " AND cd2.fk_commande = c2.rowid";
+		$sqlExpeditionsCli .= " AND cd2.fk_order = c2.rowid";
 		$sqlExpeditionsCli .= " AND c2.fk_statut IN (1,2)";
 		$sqlExpeditionsCli .= " AND cd2.fk_product = p.rowid";
 		$sqlExpeditionsCli .= " AND e2.fk_statut IN (1,2))";
@@ -476,15 +476,15 @@ if ($usevirtualstock) {
 
 	if (isModEnabled("supplier_order")) {
 		$sqlOrdersFourn = "(SELECT " . $db->ifsql("SUM(cd3.qty) IS NULL", "0", "SUM(cd3.qty)") . " as qty"; // We need the ifsql because if result is 0 for product p.rowid, we must return 0 and not NULL
-		$sqlOrdersFourn .= " FROM " . MAIN_DB_PREFIX . "commande_fournisseurdet as cd3,";
-		$sqlOrdersFourn .= " " . MAIN_DB_PREFIX . "commande_fournisseur as c3";
-		$sqlOrdersFourn .= " WHERE c3.rowid = cd3.fk_commande";
+		$sqlOrdersFourn .= " FROM " . MAIN_DB_PREFIX . "order_fournisseurdet as cd3,";
+		$sqlOrdersFourn .= " " . MAIN_DB_PREFIX . "order_fournisseur as c3";
+		$sqlOrdersFourn .= " WHERE c3.rowid = cd3.fk_order";
 		$sqlOrdersFourn .= " AND c3.entity IN (".getEntity(getDolGlobalString('STOCK_CALCULATE_VIRTUAL_STOCK_TRANSVERSE_MODE') ? 'stock' : 'supplier_order').")";
 		$sqlOrdersFourn .= " AND cd3.fk_product = p.rowid";
 		$sqlOrdersFourn .= " AND c3.fk_statut IN (3,4))";
 
 		$sqlReceptionFourn = "(SELECT ".$db->ifsql("SUM(fd4.qty) IS NULL", "0", "SUM(fd4.qty)")." as qty"; // We need the ifsql because if result is 0 for product p.rowid, we must return 0 and not NULL
-		$sqlReceptionFourn .= " FROM ".MAIN_DB_PREFIX."commande_fournisseur as cf4,";
+		$sqlReceptionFourn .= " FROM ".MAIN_DB_PREFIX."order_fournisseur as cf4,";
 		$sqlReceptionFourn .= " ".MAIN_DB_PREFIX."receptiondet_batch as fd4";
 		$sqlReceptionFourn .= " WHERE fd4.fk_element = cf4.rowid AND cf4.entity IN (".getEntity(getDolGlobalString('STOCK_CALCULATE_VIRTUAL_STOCK_TRANSVERSE_MODE') ? 'stock' : 'supplier_order').")";
 		$sqlReceptionFourn .= " AND fd4.fk_product = p.rowid";
@@ -894,18 +894,18 @@ while ($i < ($limit ? min($num, $limit) : $num)) {
 
 		// Force call prod->load_stats_xxx to choose status to count (otherwise it is loaded by load_stock function)
 		if (isset($draftchecked)) {
-			$result = $prod->load_stats_commande_fournisseur(0, '0,1,2,3,4');
+			$result = $prod->load_stats_order_fournisseur(0, '0,1,2,3,4');
 		} elseif (!$usevirtualstock) {
-			$result = $prod->load_stats_commande_fournisseur(0, '1,2,3,4');
+			$result = $prod->load_stats_order_fournisseur(0, '1,2,3,4');
 		}
 
 		if (!$usevirtualstock) {
 			$result = $prod->load_stats_reception(0, '4');
 		}
 
-		//print $prod->stats_commande_fournisseur['qty'].'<br>'."\n";
+		//print $prod->stats_order_fournisseur['qty'].'<br>'."\n";
 		//print $prod->stats_reception['qty'];
-		$ordered = $prod->stats_commande_fournisseur['qty'] - $prod->stats_reception['qty'];
+		$ordered = $prod->stats_order_fournisseur['qty'] - $prod->stats_reception['qty'];
 
 		$desiredstock = $objp->desiredstock;
 		$alertstock = $objp->seuil_stock_alerte;

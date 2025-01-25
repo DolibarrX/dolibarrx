@@ -67,8 +67,8 @@ class modFournisseur extends DolibarrModules
 		// Data directories to create when module is enabled
 		$this->dirs = array(
 			"/fournisseur/temp",
-			"/fournisseur/commande",
-			"/fournisseur/commande/temp",
+			"/fournisseur/order",
+			"/fournisseur/order/temp",
 			"/fournisseur/facture",
 			"/fournisseur/facture/temp"
 		);
@@ -88,14 +88,14 @@ class modFournisseur extends DolibarrModules
 		$this->const[$r][0] = "COMMANDE_SUPPLIER_ADDON_PDF";
 		$this->const[$r][1] = "chaine";
 		$this->const[$r][2] = "cornas";
-		$this->const[$r][3] = 'Nom du gestionnaire de generation des bons de commande en PDF';
+		$this->const[$r][3] = 'Nom du gestionnaire de generation des bons de order en PDF';
 		$this->const[$r][4] = 0;
 		$r++;
 
 		$this->const[$r][0] = "COMMANDE_SUPPLIER_ADDON_NUMBER";
 		$this->const[$r][1] = "chaine";
-		$this->const[$r][2] = "mod_commande_fournisseur_muguet";
-		$this->const[$r][3] = 'Nom du gestionnaire de numbertation des commandes fournisseur';
+		$this->const[$r][2] = "mod_order_fournisseur_muguet";
+		$this->const[$r][3] = 'Nom du gestionnaire de numbertation des orders fournisseur';
 		$this->const[$r][4] = 0;
 		$r++;
 
@@ -191,23 +191,23 @@ class modFournisseur extends DolibarrModules
 
 		$r++;
 		$this->rights[$r][0] = 1182;
-		$this->rights[$r][1] = 'Consulter les commandes fournisseur';
+		$this->rights[$r][1] = 'Consulter les orders fournisseur';
 		$this->rights[$r][2] = 'r';
 		$this->rights[$r][3] = 0;
-		$this->rights[$r][4] = 'commande';
+		$this->rights[$r][4] = 'order';
 		$this->rights[$r][5] = 'lire';
 
 		$r++;
 		$this->rights[$r][0] = 1183;
-		$this->rights[$r][1] = 'Creer une commande fournisseur';
+		$this->rights[$r][1] = 'Creer une order fournisseur';
 		$this->rights[$r][2] = 'w';
 		$this->rights[$r][3] = 0;
-		$this->rights[$r][4] = 'commande';
+		$this->rights[$r][4] = 'order';
 		$this->rights[$r][5] = 'creer';
 
 		$r++;
 		$this->rights[$r][0] = 1184;
-		$this->rights[$r][1] = 'Valider une commande fournisseur';
+		$this->rights[$r][1] = 'Valider une order fournisseur';
 		$this->rights[$r][2] = 'w';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'supplier_order_advance';
@@ -215,26 +215,26 @@ class modFournisseur extends DolibarrModules
 
 		$r++;
 		$this->rights[$r][0] = 1185;
-		$this->rights[$r][1] = 'Approuver une commande fournisseur';
+		$this->rights[$r][1] = 'Approuver une order fournisseur';
 		$this->rights[$r][2] = 'w';
 		$this->rights[$r][3] = 0;
-		$this->rights[$r][4] = 'commande';
+		$this->rights[$r][4] = 'order';
 		$this->rights[$r][5] = 'approuver';
 
 		$r++;
 		$this->rights[$r][0] = 1186;
-		$this->rights[$r][1] = 'Orderr une commande fournisseur';
+		$this->rights[$r][1] = 'Orderr une order fournisseur';
 		$this->rights[$r][2] = 'w';
 		$this->rights[$r][3] = 0;
-		$this->rights[$r][4] = 'commande';
-		$this->rights[$r][5] = 'commander';
+		$this->rights[$r][4] = 'order';
+		$this->rights[$r][5] = 'orderr';
 
 		$r++;
 		$this->rights[$r][0] = 1187;
-		$this->rights[$r][1] = 'Receptionner une commande fournisseur';
+		$this->rights[$r][1] = 'Receptionner une order fournisseur';
 		$this->rights[$r][2] = 'd';
 		$this->rights[$r][3] = 0;
-		$this->rights[$r][4] = 'commande';
+		$this->rights[$r][4] = 'order';
 		$this->rights[$r][5] = 'receptionner';
 
 		$r++;
@@ -242,15 +242,15 @@ class modFournisseur extends DolibarrModules
 		$this->rights[$r][1] = 'Check/Uncheck a supplier order reception';
 		$this->rights[$r][2] = 'w';
 		$this->rights[$r][3] = 0;
-		$this->rights[$r][4] = 'commande_advance';
+		$this->rights[$r][4] = 'order_advance';
 		$this->rights[$r][5] = 'check';
 
 		$r++;
 		$this->rights[$r][0] = 1188;
-		$this->rights[$r][1] = 'Supprimer une commande fournisseur';
+		$this->rights[$r][1] = 'Supprimer une order fournisseur';
 		$this->rights[$r][2] = 'd';
 		$this->rights[$r][3] = 0;
-		$this->rights[$r][4] = 'commande';
+		$this->rights[$r][4] = 'order';
 		$this->rights[$r][5] = 'supprimer';
 
 		if (getDolGlobalString('SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED')) {
@@ -259,16 +259,16 @@ class modFournisseur extends DolibarrModules
 			$this->rights[$r][1] = 'Approve supplier order (second level)'; // $langs->trans("Permission1190");
 			$this->rights[$r][2] = 'w';
 			$this->rights[$r][3] = 0;
-			$this->rights[$r][4] = 'commande';
+			$this->rights[$r][4] = 'order';
 			$this->rights[$r][5] = 'approve2';
 		}
 
 		$r++;
 		$this->rights[$r][0] = 1191;
-		$this->rights[$r][1] = 'Exporter les commande fournisseurs, attributs';
+		$this->rights[$r][1] = 'Exporter les order fournisseurs, attributs';
 		$this->rights[$r][2] = 'r';
 		$this->rights[$r][3] = 0;
-		$this->rights[$r][4] = 'commande';
+		$this->rights[$r][4] = 'order';
 		$this->rights[$r][5] = 'export';
 
 		$r++;
@@ -541,11 +541,11 @@ class modFournisseur extends DolibarrModules
 		$this->export_code[$r] = $this->rights_class.'_'.$r;
 		$this->export_label[$r] = 'Purchase Orders and lines of purchase orders';
 		$this->export_icon[$r] = 'order';
-		$this->export_permission[$r] = array(array("fournisseur", "commande", "export"));
+		$this->export_permission[$r] = array(array("fournisseur", "order", "export"));
 		$this->export_fields_array[$r] = array(
 			's.rowid' => "IdCompany", 's.nom' => 'CompanyName', 'ps.nom' => 'ParentCompany', 's.address' => 'Address', 's.zip' => 'Zip', 's.town' => 'Town', 'c.code' => 'CountryCode', 's.phone' => 'Phone',
 			's.siren' => 'ProfId1', 's.siret' => 'ProfId2', 's.ape' => 'ProfId3', 's.idprof4' => 'ProfId4', 's.idprof5' => 'ProfId5', 's.idprof6' => 'ProfId6', 's.tva_intra' => 'VATIntra',
-			'f.rowid' => "OrderId", 'f.ref' => "Ref", 'f.ref_supplier' => "RefSupplier", 'f.date_creation' => "DateCreation", 'f.date_commande' => "OrderDate", 'f.date_livraison' => "DateDeliveryPlanned",
+			'f.rowid' => "OrderId", 'f.ref' => "Ref", 'f.ref_supplier' => "RefSupplier", 'f.date_creation' => "DateCreation", 'f.date_order' => "OrderDate", 'f.date_livraison' => "DateDeliveryPlanned",
 			'f.total_ht' => "TotalHT", 'f.total_ttc' => "TotalTTC", 'f.total_tva' => "TotalVAT", 'f.fk_statut' => 'Status', 'f.date_valid' => 'DateValidation', 'f.date_approve' => 'DateApprove', 'f.date_approve2' => 'DateApprove2',
 			'f.note_public' => "NotePublic", 'f.note_private' => "NotePrivate", 'uv.login' => 'UserValidation', 'ua1.login' => 'ApprovedBy', 'ua2.login' => 'ApprovedBy2', 'fd.rowid' => 'LineId', 'fd.description' => "LineDescription",
 			'fd.tva_tx' => "LineVATRate", 'fd.qty' => "LineQty", 'fd.remise_percent' => "Discount", 'fd.total_ht' => "LineTotalHT", 'fd.total_ttc' => "LineTotalTTC",
@@ -567,7 +567,7 @@ class modFournisseur extends DolibarrModules
 		$this->export_TypeFields_array[$r] = array(
 			's.rowid' => "company", 's.nom' => 'Text', 'ps.nom' => 'Text', 's.address' => 'Text', 's.cp' => 'Text', 's.ville' => 'Text', 'c.code' => 'Text', 's.tel' => 'Text', 's.siren' => 'Text',
 			's.siret' => 'Text', 's.ape' => 'Text', 's.idprof4' => 'Text', 's.idprof5' => 'Text', 's.idprof6' => 'Text', 's.tva_intra' => 'Text', 'f.ref' => "Text", 'f.ref_supplier' => "Text",
-			'f.date_creation' => "Date", 'f.date_commande' => "Date", 'f.date_livraison' => "Date", 'f.total_ht' => "Numeric", 'f.total_ttc' => "Numeric", 'f.total_tva' => "Numeric",
+			'f.date_creation' => "Date", 'f.date_order' => "Date", 'f.date_livraison' => "Date", 'f.total_ht' => "Numeric", 'f.total_ttc' => "Numeric", 'f.total_tva' => "Numeric",
 			'f.fk_statut' => 'Status', 'f.date_valid' => 'Date', 'f.date_approve' => 'Date', 'f.date_approve2' => 'Date', 'f.note_public' => "Text", 'f.note_private' => "Text", 'fd.description' => "Text",
 			'fd.tva_tx' => "Numeric", 'fd.qty' => "Numeric", 'fd.remise_percent' => "Numeric", 'fd.total_ht' => "Numeric", 'fd.total_ttc' => "Numeric", 'fd.total_tva' => "Numeric",
 			'fd.date_start' => "Date", 'fd.date_end' => "Date", 'fd.special_code' => "Numeric",
@@ -583,13 +583,13 @@ class modFournisseur extends DolibarrModules
 		);
 		$this->export_dependencies_array[$r] = array('order_line' => 'fd.rowid', 'product' => 'fd.rowid'); // To add unique key if we ask a field of a child to avoid the DISTINCT to discard them
 		// Add extra fields object
-		$keyforselect = 'commande_fournisseur';
+		$keyforselect = 'order_fournisseur';
 		$keyforelement = 'order';
 		$keyforaliasextra = 'extra';
 		include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
 		// End add extra fields object
 		// Add extra fields line
-		$keyforselect = 'commande_fournisseurdet';
+		$keyforselect = 'order_fournisseurdet';
 		$keyforelement = 'order_line';
 		$keyforaliasextra = 'extraline';
 		include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
@@ -601,16 +601,16 @@ class modFournisseur extends DolibarrModules
 			$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'societe_commerciaux as sc ON sc.fk_soc = s.rowid';
 		}
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_country as c ON s.fk_pays = c.rowid,';
-		$this->export_sql_end[$r] .= ' '.MAIN_DB_PREFIX.'commande_fournisseur as f';
+		$this->export_sql_end[$r] .= ' '.MAIN_DB_PREFIX.'order_fournisseur as f';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'projet as project on (f.fk_projet = project.rowid)';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'user as uv ON uv.rowid = f.fk_user_valid';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'user as ua1 ON ua1.rowid = f.fk_user_approve';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'user as ua2 ON ua2.rowid = f.fk_user_approve2';
-		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'commande_fournisseur_extrafields as extra ON f.rowid = extra.fk_object,';
-		$this->export_sql_end[$r] .= ' '.MAIN_DB_PREFIX.'commande_fournisseurdet as fd';
-		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'commande_fournisseurdet_extrafields as extraline ON fd.rowid = extraline.fk_object';
+		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'order_fournisseur_extrafields as extra ON f.rowid = extra.fk_object,';
+		$this->export_sql_end[$r] .= ' '.MAIN_DB_PREFIX.'order_fournisseurdet as fd';
+		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'order_fournisseurdet_extrafields as extraline ON fd.rowid = extraline.fk_object';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product as p on (fd.fk_product = p.rowid)';
-		$this->export_sql_end[$r] .= ' WHERE f.fk_soc = s.rowid AND f.rowid = fd.fk_commande';
+		$this->export_sql_end[$r] .= ' WHERE f.fk_soc = s.rowid AND f.rowid = fd.fk_order';
 		$this->export_sql_end[$r] .= ' AND f.entity IN ('.getEntity('supplier_order').')';
 		if (is_object($user) && !$user->hasRight('societe', 'client', 'voir')) {
 			$this->export_sql_end[$r] .= ' AND sc.fk_user = '.((int) $user->id);
@@ -801,11 +801,11 @@ class modFournisseur extends DolibarrModules
 
 		//Import Purchase Orders
 		$r++;
-		$this->import_code[$r] = 'commande_fournisseur_'.$r;
+		$this->import_code[$r] = 'order_fournisseur_'.$r;
 		$this->import_label[$r] = 'SuppliersOrders';
 		$this->import_icon[$r] = $this->picto;
 		$this->import_entities_array[$r] = array();
-		$this->import_tables_array[$r] = array('c' => MAIN_DB_PREFIX.'commande_fournisseur', 'extra' => MAIN_DB_PREFIX.'commande_fournisseur_extrafields');
+		$this->import_tables_array[$r] = array('c' => MAIN_DB_PREFIX.'order_fournisseur', 'extra' => MAIN_DB_PREFIX.'order_fournisseur_extrafields');
 		$this->import_tables_creator_array[$r] = array('c' => 'fk_user_author'); // Fields to store import user id
 		$this->import_fields_array[$r] = array(
 			'c.ref'               => 'Ref*',
@@ -815,7 +815,7 @@ class modFournisseur extends DolibarrModules
 			'c.date_creation'     => 'DateCreation',
 			'c.date_valid'        => 'DateValidation',
 			'c.date_approve'      => 'DateApprove',
-			'c.date_commande'     => 'DateOrder',
+			'c.date_order'     => 'DateOrder',
 			'c.fk_user_modif'     => 'ModifiedById',
 			'c.fk_user_valid'     => 'ValidatedById',
 			'c.fk_user_approve'   => 'ApprovedById',
@@ -843,7 +843,7 @@ class modFournisseur extends DolibarrModules
 
 		// Add extra fields
 		$import_extrafield_sample = array();
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'commande_fournisseur' AND entity IN (0, ".$config->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'order_fournisseur' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 
 		if ($resql) {
@@ -856,7 +856,7 @@ class modFournisseur extends DolibarrModules
 		}
 		// End add extra fields
 
-		$this->import_fieldshidden_array[$r] = array('extra.fk_object' => 'lastrowid-'.MAIN_DB_PREFIX.'commande_fournisseur');
+		$this->import_fieldshidden_array[$r] = array('extra.fk_object' => 'lastrowid-'.MAIN_DB_PREFIX.'order_fournisseur');
 		$this->import_regex_array[$r] = array(
 			'c.multicurrency_code' => 'code@'.MAIN_DB_PREFIX.'multicurrency'
 		);
@@ -865,10 +865,10 @@ class modFournisseur extends DolibarrModules
 		$this->import_convertvalue_array[$r] = array(
 			'c.ref' => array(
 				'rule' => 'getrefifauto',
-				'class' => (!getDolGlobalString('COMMANDE_SUPPLIER_ADDON_NUMBER') ? 'mod_commande_fournisseur_muguet' : $config->global->COMMANDE_SUPPLIER_ADDON_NUMBER),
-				'path' => "/core/modules/supplier_order/".(!getDolGlobalString('COMMANDE_SUPPLIER_ADDON_NUMBER') ? 'mod_commande_fournisseur_muguet' : $config->global->COMMANDE_SUPPLIER_ADDON_NUMBER).'.php',
+				'class' => (!getDolGlobalString('COMMANDE_SUPPLIER_ADDON_NUMBER') ? 'mod_order_fournisseur_muguet' : $config->global->COMMANDE_SUPPLIER_ADDON_NUMBER),
+				'path' => "/core/modules/supplier_order/".(!getDolGlobalString('COMMANDE_SUPPLIER_ADDON_NUMBER') ? 'mod_order_fournisseur_muguet' : $config->global->COMMANDE_SUPPLIER_ADDON_NUMBER).'.php',
 				'classobject' => 'OrderFournisseur',
-				'pathobject' => '/fourn/class/fournisseur.commande.class.php',
+				'pathobject' => '/fourn/class/fournisseur.order.class.php',
 			),
 			'c.fk_soc' => array(
 				'rule'    => 'fetchidfromref',
@@ -889,13 +889,13 @@ class modFournisseur extends DolibarrModules
 
 		// Import PO Lines
 		$r++;
-		$this->import_code[$r] = 'commande_fournisseurdet_'.$r;
+		$this->import_code[$r] = 'order_fournisseurdet_'.$r;
 		$this->import_label[$r] = 'PurchaseOrderLines';
 		$this->import_icon[$r] = $this->picto;
 		$this->import_entities_array[$r] = array();
-		$this->import_tables_array[$r] = array('cd' => MAIN_DB_PREFIX.'commande_fournisseurdet', 'extra' => MAIN_DB_PREFIX.'commande_fournisseurdet_extrafields');
+		$this->import_tables_array[$r] = array('cd' => MAIN_DB_PREFIX.'order_fournisseurdet', 'extra' => MAIN_DB_PREFIX.'order_fournisseurdet_extrafields');
 		$this->import_fields_array[$r] = array(
-			'cd.fk_commande'    => 'PurchaseOrder*',
+			'cd.fk_order'    => 'PurchaseOrder*',
 			'cd.fk_parent_line' => 'ParentLine',
 			'cd.fk_product'     => 'IdProduct',
 			'cd.ref'     		=> 'SupplierRef',
@@ -925,7 +925,7 @@ class modFournisseur extends DolibarrModules
 		}
 
 		// Add extra fields
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'commande_fournisseurdet' AND entity IN (0, ".$config->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'order_fournisseurdet' AND entity IN (0, ".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -936,17 +936,17 @@ class modFournisseur extends DolibarrModules
 		}
 		// End add extra fields
 
-		$this->import_fieldshidden_array[$r] = array('extra.fk_object' => 'lastrowid-'.MAIN_DB_PREFIX.'commande_fournisseurdet');
+		$this->import_fieldshidden_array[$r] = array('extra.fk_object' => 'lastrowid-'.MAIN_DB_PREFIX.'order_fournisseurdet');
 		$this->import_regex_array[$r] = array(
 			'cd.product_type'       => '[0|1]$',
 			'cd.fk_product'         => 'rowid@'.MAIN_DB_PREFIX.'product',
 			'cd.multicurrency_code' => 'code@'.MAIN_DB_PREFIX.'multicurrency'
 		);
-		$this->import_updatekeys_array[$r] = array('cd.fk_commande' => 'Purchase Order Id');
+		$this->import_updatekeys_array[$r] = array('cd.fk_order' => 'Purchase Order Id');
 		$this->import_convertvalue_array[$r] = array(
-			'cd.fk_commande' => array(
+			'cd.fk_order' => array(
 				'rule'    => 'fetchidfromref',
-				'file'    => '/fourn/class/fournisseur.commande.class.php',
+				'file'    => '/fourn/class/fournisseur.order.class.php',
 				'class'   => 'OrderFournisseur',
 				'method'  => 'fetch',
 				'element' => 'order_supplier'

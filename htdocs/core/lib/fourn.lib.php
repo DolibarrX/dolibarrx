@@ -179,14 +179,14 @@ function ordersupplier_prepare_head(OrderFournisseur $object)
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT . '/fourn/commande/card.php?id=' . $object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/fourn/order/card.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("SupplierOrder");
 	$head[$h][2] = 'card';
 	$h++;
 
 	if (!getDolGlobalString('MAIN_DISABLE_CONTACTS_TAB')) {
 		$nbContact = count($object->liste_contact(-1, 'internal')) + count($object->liste_contact(-1, 'external'));
-		$head[$h][0] = DOL_URL_ROOT . '/fourn/commande/contact.php?id=' . $object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/fourn/order/contact.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans('ContactsAddresses');
 		if ($nbContact > 0) {
 			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbContact . '</span>';
@@ -197,7 +197,7 @@ function ordersupplier_prepare_head(OrderFournisseur $object)
 
 	if (isModEnabled('stock') && (getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER') || getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION') || getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION_CLOSE'))) {
 		$langs->load("stocks");
-		$head[$h][0] = DOL_URL_ROOT . '/fourn/commande/dispatch.php?id=' . $object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/fourn/order/dispatch.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans("OrderDispatch");
 
 		//If dispatch process running we add the number of item to dispatch into the head
@@ -242,7 +242,7 @@ function ordersupplier_prepare_head(OrderFournisseur $object)
 		if (!empty($object->note_public)) {
 			$nbNote++;
 		}
-		$head[$h][0] = DOL_URL_ROOT . '/fourn/commande/note.php?id=' . $object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/fourn/order/note.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans("Notes");
 		if ($nbNote > 0) {
 			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbNote . '</span>';
@@ -253,10 +253,10 @@ function ordersupplier_prepare_head(OrderFournisseur $object)
 
 	require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT . '/core/class/link.class.php';
-	$upload_dir = $config->fournisseur->dir_output . "/commande/" . dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->fournisseur->dir_output . "/order/" . dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
-	$head[$h][0] = DOL_URL_ROOT . '/fourn/commande/document.php?id=' . $object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/fourn/order/document.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans('Documents');
 	if (($nbFiles + $nbLinks) > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . ($nbFiles + $nbLinks) . '</span>';
@@ -264,7 +264,7 @@ function ordersupplier_prepare_head(OrderFournisseur $object)
 	$head[$h][2] = 'documents';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT . '/fourn/commande/info.php?id=' . $object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/fourn/order/info.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Events");
 	if (isModEnabled('agenda') && ($user->hasRight('agenda', 'myactions', 'read') || $user->hasRight('agenda', 'allactions', 'read'))) {
 		$head[$h][1] .= '/';
@@ -290,8 +290,8 @@ function supplierorder_admin_prepare_head()
 	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
-	$extrafields->fetch_name_optionals_label('commande_fournisseur');
-	$extrafields->fetch_name_optionals_label('commande_fournisseurdet');
+	$extrafields->fetch_name_optionals_label('order_fournisseur');
+	$extrafields->fetch_name_optionals_label('order_fournisseurdet');
 	$extrafields->fetch_name_optionals_label('facture_fourn');
 	$extrafields->fetch_name_optionals_label('facture_fourn_det');
 	$extrafields->fetch_name_optionals_label('facture_fourn_rec');
@@ -319,7 +319,7 @@ function supplierorder_admin_prepare_head()
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/supplierorder_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsSupplierOrders");
-	$nbExtrafields = $extrafields->attributes['commande_fournisseur']['count'];
+	$nbExtrafields = $extrafields->attributes['order_fournisseur']['count'];
 	if ($nbExtrafields > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
@@ -328,7 +328,7 @@ function supplierorder_admin_prepare_head()
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/supplierorderdet_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsSupplierOrdersLines");
-	$nbExtrafields = $extrafields->attributes['commande_fournisseurdet']['count'];
+	$nbExtrafields = $extrafields->attributes['order_fournisseurdet']['count'];
 	if ($nbExtrafields > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}

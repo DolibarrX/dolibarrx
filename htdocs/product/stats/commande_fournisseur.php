@@ -21,13 +21,13 @@
  */
 
 /**
- * \file htdocs/product/stats/commande_fournisseur.php
- * \ingroup product service commande
- * \brief Page des stats des commandes fournisseurs pour un produit
+ * \file htdocs/product/stats/order_fournisseur.php
+ * \ingroup product service order
+ * \brief Page des stats des orders fournisseurs pour un produit
  */
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formorder.class.php';
@@ -74,7 +74,7 @@ if (!$sortorder) {
 	$sortorder = "DESC";
 }
 if (!$sortfield) {
-	$sortfield = "c.date_commande";
+	$sortfield = "c.date_order";
 }
 $search_month = GETPOSTINT('search_month');
 $search_year = GETPOSTINT('search_year');
@@ -116,7 +116,7 @@ if ($id > 0 || !empty($ref)) {
 		setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 	}
 
-	llxHeader("", "", $langs->trans("CardProduct".$product->type), '', 0, 0, '', '', 'mod-product page-stats_commande_fournisseur');
+	llxHeader("", "", $langs->trans("CardProduct".$product->type), '', 0, 0, '', '', 'mod-product page-stats_order_fournisseur');
 
 	if ($result > 0) {
 		$head = product_prepare_head($product);
@@ -154,29 +154,29 @@ if ($id > 0 || !empty($ref)) {
 		print dol_get_fiche_end();
 
 
-		if ($user->hasRight('fournisseur', 'commande', 'lire')) {
+		if ($user->hasRight('fournisseur', 'order', 'lire')) {
 			$sql = "SELECT DISTINCT s.nom as name, s.rowid as socid, s.code_client,";
 			$sql .= " c.rowid, d.total_ht as total_ht, c.ref,";
 			$sql .= " c.date_livraison as delivery_date,";
-			$sql .= " c.date_commande, c.fk_statut as statut, c.rowid as commandeid, d.rowid, d.qty, d.subprice as unitprice";
+			$sql .= " c.date_order, c.fk_statut as statut, c.rowid as orderid, d.rowid, d.qty, d.subprice as unitprice";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= ", sc.fk_soc, sc.fk_user ";
 			}
 			$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-			$sql .= ", ".MAIN_DB_PREFIX."commande_fournisseur as c";
-			$sql .= ", ".MAIN_DB_PREFIX."commande_fournisseurdet as d";
+			$sql .= ", ".MAIN_DB_PREFIX."order_fournisseur as c";
+			$sql .= ", ".MAIN_DB_PREFIX."order_fournisseurdet as d";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 			}
 			$sql .= " WHERE c.fk_soc = s.rowid";
 			$sql .= " AND c.entity IN (".getEntity('supplier_order').")";
-			$sql .= " AND d.fk_commande = c.rowid";
+			$sql .= " AND d.fk_order = c.rowid";
 			$sql .= " AND d.fk_product = ".((int) $product->id);
 			if (!empty($search_month)) {
-				$sql .= " AND MONTH(c.date_commande) IN (".$db->sanitize($search_month).")";
+				$sql .= " AND MONTH(c.date_order) IN (".$db->sanitize($search_month).")";
 			}
 			if (!empty($search_year)) {
-				$sql .= " AND YEAR(c.date_commande) IN (".$db->sanitize($search_year).")";
+				$sql .= " AND YEAR(c.date_order) IN (".$db->sanitize($search_year).")";
 			}
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
@@ -261,7 +261,7 @@ if ($id > 0 || !empty($ref)) {
 				print_liste_field_titre("Ref", $_SERVER["PHP_SELF"], "c.rowid", "", $option, '', $sortfield, $sortorder);
 				print_liste_field_titre("Company", $_SERVER["PHP_SELF"], "s.nom", "", $option, '', $sortfield, $sortorder);
 				print_liste_field_titre("SupplierCode", $_SERVER["PHP_SELF"], "s.code_client", "", $option, '', $sortfield, $sortorder);
-				print_liste_field_titre("OrderDate", $_SERVER["PHP_SELF"], "c.date_commande", "", $option, 'align="center"', $sortfield, $sortorder);
+				print_liste_field_titre("OrderDate", $_SERVER["PHP_SELF"], "c.date_order", "", $option, 'align="center"', $sortfield, $sortorder);
 				print_liste_field_titre('DateDeliveryPlanned', $_SERVER['PHP_SELF'], 'c.date_livraison', '', $option, 'align="center"', $sortfield, $sortorder);
 				print_liste_field_titre("Qty", $_SERVER["PHP_SELF"], "d.qty", "", $option, 'align="center"', $sortfield, $sortorder);
 				print_liste_field_titre("UnitPrice", $_SERVER["PHP_SELF"], "d.unitprice", "", $option, 'align="right"', $sortfield, $sortorder);
@@ -276,7 +276,7 @@ if ($id > 0 || !empty($ref)) {
 						$total_ht += $objp->total_ht;
 						$total_qty += $objp->qty;
 
-						$supplierorderstatic->id = $objp->commandeid;
+						$supplierorderstatic->id = $objp->orderid;
 						$supplierorderstatic->ref = $objp->ref;
 						$supplierorderstatic->statut = $objp->statut;
 						$societestatic->fetch($objp->socid);
@@ -288,7 +288,7 @@ if ($id > 0 || !empty($ref)) {
 						print '<td>'.$societestatic->getNomUrl(1).'</td>';
 						print "<td>".$objp->code_client."</td>\n";
 						print '<td class="center">';
-						print dol_print_date($db->jdate($objp->date_commande), 'dayhour')."</td>";
+						print dol_print_date($db->jdate($objp->date_order), 'dayhour')."</td>";
 						// delivery planned date
 						print '<td class="center">';
 						print dol_print_date($db->jdate($objp->delivery_date), 'dayhour');

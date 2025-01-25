@@ -77,11 +77,11 @@ class Product extends CommonObject
 	protected $childtables = array(
 		'supplier_proposaldet' => array('name' => 'SupplierProposal', 'parent' => 'supplier_proposal', 'parentkey' => 'fk_supplier_proposal'),
 		'propaldet' => array('name' => 'Proposal', 'parent' => 'propal', 'parentkey' => 'fk_propal'),
-		'commandedet' => array('name' => 'Order', 'parent' => 'commande', 'parentkey' => 'fk_commande'),
+		'orderdet' => array('name' => 'Order', 'parent' => 'order', 'parentkey' => 'fk_order'),
 		'facturedet' => array('name' => 'Invoice', 'parent' => 'facture', 'parentkey' => 'fk_facture'),
 		'contratdet' => array('name' => 'Contract', 'parent' => 'contrat', 'parentkey' => 'fk_contrat'),
 		'facture_fourn_det' => array('name' => 'SupplierInvoice', 'parent' => 'facture_fourn', 'parentkey' => 'fk_facture_fourn'),
-		'commande_fournisseurdet' => array('name' => 'SupplierOrder', 'parent' => 'commande_fournisseur', 'parentkey' => 'fk_commande'),
+		'order_fournisseurdet' => array('name' => 'SupplierOrder', 'parent' => 'order_fournisseur', 'parentkey' => 'fk_order'),
 		'mrp_production' => array('name' => 'Mo', 'parent' => 'mrp_mo', 'parentkey' => 'fk_mo', 'enabled' => 'isModEnabled("mrp")'),
 		'bom_bom' => array('name' => 'BOM', 'enabled' => 'isModEnabled("bom")'),
 		'bom_bomline' => array('name' => 'BOMLine', 'parent' => 'bom_bom', 'parentkey' => 'fk_bom', 'enabled' => 'isModEnabled("bom")'),
@@ -610,7 +610,7 @@ class Product extends CommonObject
 	/**
 	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats orders
 	 */
-	public $stats_commande = array();
+	public $stats_order = array();
 
 	/**
 	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats contracts
@@ -630,7 +630,7 @@ class Product extends CommonObject
 	/**
 	 * @var array{}|array{suppliers:int,nb:int,rows:int,qty:float} stats supplier orders
 	 */
-	public $stats_commande_fournisseur = array();
+	public $stats_order_fournisseur = array();
 
 	/**
 	 * @var array{}|array{customers:int,nb:int,rows:int,qty:float} stats shipping
@@ -3545,29 +3545,29 @@ class Product extends CommonObject
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
-	 *  Charge tableau des stats commande client pour le produit/service
+	 *  Charge tableau des stats order client pour le produit/service
 	 *
 	 * @param  int    $socid           Id thirdparty to filter on a thirdparty
 	 * @param  string $filtrestatut    Id status to filter on a status
-	 * @param  int    $forVirtualStock Ignore rights filter for virtual stock calculation. Set when load_stats_commande is used for virtual stock calculation.
-	 * @return integer                 Array of stats in $this->stats_commande (nb=nb of order, qty=qty ordered), <0 if ko or >0 if ok
+	 * @param  int    $forVirtualStock Ignore rights filter for virtual stock calculation. Set when load_stats_order is used for virtual stock calculation.
+	 * @return integer                 Array of stats in $this->stats_order (nb=nb of order, qty=qty ordered), <0 if ko or >0 if ok
 	 */
-	public function load_stats_commande($socid = 0, $filtrestatut = '', $forVirtualStock = 0)
+	public function load_stats_order($socid = 0, $filtrestatut = '', $forVirtualStock = 0)
 	{
 		// phpcs:enable
 		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT c.fk_soc) as nb_customers, COUNT(DISTINCT c.rowid) as nb,";
 		$sql .= " COUNT(cd.rowid) as nb_rows, SUM(cd.qty) as qty";
-		$sql .= " FROM ".$this->db->prefix()."commandedet as cd";
-		$sql .= ", ".$this->db->prefix()."commande as c";
+		$sql .= " FROM ".$this->db->prefix()."orderdet as cd";
+		$sql .= ", ".$this->db->prefix()."order as c";
 		$sql .= ", ".$this->db->prefix()."societe as s";
 		if (!$user->hasRight('societe', 'client', 'voir') && !$forVirtualStock) {
 			$sql .= ", ".$this->db->prefix()."societe_commerciaux as sc";
 		}
-		$sql .= " WHERE c.rowid = cd.fk_commande";
+		$sql .= " WHERE c.rowid = cd.fk_order";
 		$sql .= " AND c.fk_soc = s.rowid";
-		$sql .= " AND c.entity IN (".getEntity($forVirtualStock && getDolGlobalString('STOCK_CALCULATE_VIRTUAL_STOCK_TRANSVERSE_MODE') ? 'stock' : 'commande').")";
+		$sql .= " AND c.entity IN (".getEntity($forVirtualStock && getDolGlobalString('STOCK_CALCULATE_VIRTUAL_STOCK_TRANSVERSE_MODE') ? 'stock' : 'order').")";
 		$sql .= " AND cd.fk_product = ".((int) $this->id);
 		if (!$user->hasRight('societe', 'client', 'voir') && !$forVirtualStock) {
 			$sql .= " AND c.fk_soc = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
@@ -3582,10 +3582,10 @@ class Product extends CommonObject
 		$result = $this->db->query($sql);
 		if ($result) {
 			$obj = $this->db->fetch_object($result);
-			$this->stats_commande['customers'] = $obj->nb_customers;
-			$this->stats_commande['nb'] = $obj->nb;
-			$this->stats_commande['rows'] = $obj->nb_rows;
-			$this->stats_commande['qty'] = $obj->qty ? $obj->qty : 0;
+			$this->stats_order['customers'] = $obj->nb_customers;
+			$this->stats_order['nb'] = $obj->nb;
+			$this->stats_order['rows'] = $obj->nb_rows;
+			$this->stats_order['qty'] = $obj->qty ? $obj->qty : 0;
 
 			// if it's a virtual product, maybe it is in order by extension
 			if (getDolGlobalString('PRODUCT_STATS_WITH_PARENT_PROD_IF_INCDEC')) {
@@ -3597,12 +3597,12 @@ class Product extends CommonObject
 						$qtyCoef = $fatherData['qty'];
 
 						if ($fatherData['incdec']) {
-							$pFather->load_stats_commande($socid, $filtrestatut);
+							$pFather->load_stats_order($socid, $filtrestatut);
 
-							$this->stats_commande['customers'] += $pFather->stats_commande['customers'];
-							$this->stats_commande['nb'] += $pFather->stats_commande['nb'];
-							$this->stats_commande['rows'] += $pFather->stats_commande['rows'];
-							$this->stats_commande['qty'] += $pFather->stats_commande['qty'] * $qtyCoef;
+							$this->stats_order['customers'] += $pFather->stats_order['customers'];
+							$this->stats_order['nb'] += $pFather->stats_order['nb'];
+							$this->stats_order['rows'] += $pFather->stats_order['rows'];
+							$this->stats_order['qty'] += $pFather->stats_order['qty'] * $qtyCoef;
 						}
 					}
 				}
@@ -3616,8 +3616,8 @@ class Product extends CommonObject
 					$adeduire = 0;
 					$sql = "SELECT SUM(".$this->db->ifsql('f.type=2', -1, 1)." * fd.qty) as count FROM ".$this->db->prefix()."facturedet as fd ";
 					$sql .= " JOIN ".$this->db->prefix()."facture as f ON fd.fk_facture = f.rowid";
-					$sql .= " JOIN ".$this->db->prefix()."element_element as el ON ((el.fk_target = f.rowid AND el.targettype = 'facture' AND sourcetype = 'commande') OR (el.fk_source = f.rowid AND el.targettype = 'commande' AND sourcetype = 'facture'))";
-					$sql .= " JOIN ".$this->db->prefix()."commande as c ON el.fk_source = c.rowid";
+					$sql .= " JOIN ".$this->db->prefix()."element_element as el ON ((el.fk_target = f.rowid AND el.targettype = 'facture' AND sourcetype = 'order') OR (el.fk_source = f.rowid AND el.targettype = 'order' AND sourcetype = 'facture'))";
+					$sql .= " JOIN ".$this->db->prefix()."order as c ON el.fk_source = c.rowid";
 					$sql .= " WHERE c.fk_statut IN (".$this->db->sanitize($filtrestatut).") AND c.facture = 0 AND fd.fk_product = ".((int) $this->id);
 
 					dol_syslog(__METHOD__.":: sql $sql", LOG_NOTICE);
@@ -3629,7 +3629,7 @@ class Product extends CommonObject
 						}
 					}
 
-					$this->stats_commande['qty'] -= $adeduire;
+					$this->stats_order['qty'] -= $adeduire;
 				} else {
 					// If option DECREASE_ONLY_UNINVOICEDPRODUCTS is off, we make a compensation with lines of invoices linked to the order
 					include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
@@ -3638,8 +3638,8 @@ class Product extends CommonObject
 					$adeduire = 0;
 					$sql = "SELECT sum(".$this->db->ifsql('f.type=2', -1, 1)." * fd.qty) as count FROM ".MAIN_DB_PREFIX."facturedet as fd ";
 					$sql .= " JOIN ".MAIN_DB_PREFIX."facture as f ON fd.fk_facture = f.rowid";
-					$sql .= " JOIN ".MAIN_DB_PREFIX."element_element as el ON ((el.fk_target = f.rowid AND el.targettype = 'facture' AND sourcetype = 'commande') OR (el.fk_source = f.rowid AND el.targettype = 'commande' AND sourcetype = 'facture'))";
-					$sql .= " JOIN ".MAIN_DB_PREFIX."commande as c ON el.fk_source = c.rowid";
+					$sql .= " JOIN ".MAIN_DB_PREFIX."element_element as el ON ((el.fk_target = f.rowid AND el.targettype = 'facture' AND sourcetype = 'order') OR (el.fk_source = f.rowid AND el.targettype = 'order' AND sourcetype = 'facture'))";
+					$sql .= " JOIN ".MAIN_DB_PREFIX."order as c ON el.fk_source = c.rowid";
 					$sql .= " WHERE c.fk_statut IN (".$this->db->sanitize($filtrestatut).") AND f.fk_statut > ".Facture::STATUS_DRAFT." AND fd.fk_product = ".((int) $this->id);
 
 					dol_syslog(__METHOD__.":: sql $sql", LOG_NOTICE);
@@ -3654,14 +3654,14 @@ class Product extends CommonObject
 						return -1;
 					}
 
-					$this->stats_commande['qty'] -= $adeduire;
+					$this->stats_order['qty'] -= $adeduire;
 				}
 			}
 
 			$parameters = array('socid' => $socid, 'filtrestatut' => $filtrestatut, 'forVirtualStock' => $forVirtualStock);
 			$resHook = $hookManager->executeHooks('loadStatsCustomerOrder', $parameters, $this, $action);
 			if ($resHook > 0) {
-				$this->stats_commande = $hookManager->resArray['stats_commande'];
+				$this->stats_order = $hookManager->resArray['stats_order'];
 			}
 			return 1;
 		} else {
@@ -3672,28 +3672,28 @@ class Product extends CommonObject
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
 	/**
-	 *  Charge tableau des stats commande fournisseur pour le produit/service
+	 *  Charge tableau des stats order fournisseur pour le produit/service
 	 *
 	 * @param	int		$socid				Id thirdparty to filter on a thirdparty
 	 * @param	string	$filtrestatut		Id of status to filter on status
 	 * @param	int		$forVirtualStock	Ignore rights filter for virtual stock calculation.
 	 * @param	int		$dateofvirtualstock	Date of virtual stock
-	 * @return	int							Array of stats in $this->stats_commande_fournisseur, <0 if ko or >0 if ok
+	 * @return	int							Array of stats in $this->stats_order_fournisseur, <0 if ko or >0 if ok
 	 */
-	public function load_stats_commande_fournisseur($socid = 0, $filtrestatut = '', $forVirtualStock = 0, $dateofvirtualstock = null)
+	public function load_stats_order_fournisseur($socid = 0, $filtrestatut = '', $forVirtualStock = 0, $dateofvirtualstock = null)
 	{
 		// phpcs:enable
 		global $user, $hookManager, $action;
 
 		$sql = "SELECT COUNT(DISTINCT c.fk_soc) as nb_suppliers, COUNT(DISTINCT c.rowid) as nb,";
 		$sql .= " COUNT(cd.rowid) as nb_rows, SUM(cd.qty) as qty";
-		$sql .= " FROM ".$this->db->prefix()."commande_fournisseurdet as cd";
-		$sql .= ", ".$this->db->prefix()."commande_fournisseur as c";
+		$sql .= " FROM ".$this->db->prefix()."order_fournisseurdet as cd";
+		$sql .= ", ".$this->db->prefix()."order_fournisseur as c";
 		$sql .= ", ".$this->db->prefix()."societe as s";
 		if (!$user->hasRight('societe', 'client', 'voir') && !$forVirtualStock) {
 			$sql .= ", ".$this->db->prefix()."societe_commerciaux as sc";
 		}
-		$sql .= " WHERE c.rowid = cd.fk_commande";
+		$sql .= " WHERE c.rowid = cd.fk_order";
 		$sql .= " AND c.fk_soc = s.rowid";
 		$sql .= " AND c.entity IN (".getEntity($forVirtualStock && getDolGlobalString('STOCK_CALCULATE_VIRTUAL_STOCK_TRANSVERSE_MODE') ? 'stock' : 'supplier_order').")";
 		$sql .= " AND cd.fk_product = ".((int) $this->id);
@@ -3713,15 +3713,15 @@ class Product extends CommonObject
 		$result = $this->db->query($sql);
 		if ($result) {
 			$obj = $this->db->fetch_object($result);
-			$this->stats_commande_fournisseur['suppliers'] = $obj->nb_suppliers;
-			$this->stats_commande_fournisseur['nb'] = $obj->nb;
-			$this->stats_commande_fournisseur['rows'] = $obj->nb_rows;
-			$this->stats_commande_fournisseur['qty'] = $obj->qty ? $obj->qty : 0;
+			$this->stats_order_fournisseur['suppliers'] = $obj->nb_suppliers;
+			$this->stats_order_fournisseur['nb'] = $obj->nb;
+			$this->stats_order_fournisseur['rows'] = $obj->nb_rows;
+			$this->stats_order_fournisseur['qty'] = $obj->qty ? $obj->qty : 0;
 
 			$parameters = array('socid' => $socid, 'filtrestatut' => $filtrestatut, 'forVirtualStock' => $forVirtualStock);
 			$resHook = $hookManager->executeHooks('loadStatsSupplierOrder', $parameters, $this, $action);
 			if ($resHook > 0) {
-				$this->stats_commande_fournisseur = $hookManager->resArray['stats_commande_fournisseur'];
+				$this->stats_order_fournisseur = $hookManager->resArray['stats_order_fournisseur'];
 			}
 
 			return 1;
@@ -3749,15 +3749,15 @@ class Product extends CommonObject
 		$sql = "SELECT COUNT(DISTINCT e.fk_soc) as nb_customers, COUNT(DISTINCT e.rowid) as nb,";
 		$sql .= " COUNT(ed.rowid) as nb_rows, SUM(ed.qty) as qty";
 		$sql .= " FROM ".$this->db->prefix()."expeditiondet as ed";
-		$sql .= ", ".$this->db->prefix()."commandedet as cd";
-		$sql .= ", ".$this->db->prefix()."commande as c";
+		$sql .= ", ".$this->db->prefix()."orderdet as cd";
+		$sql .= ", ".$this->db->prefix()."order as c";
 		$sql .= ", ".$this->db->prefix()."expedition as e";
 		$sql .= ", ".$this->db->prefix()."societe as s";
 		if (!$user->hasRight('societe', 'client', 'voir') && !$forVirtualStock) {
 			$sql .= ", ".$this->db->prefix()."societe_commerciaux as sc";
 		}
 		$sql .= " WHERE e.rowid = ed.fk_expedition";
-		$sql .= " AND c.rowid = cd.fk_commande";
+		$sql .= " AND c.rowid = cd.fk_order";
 		$sql .= " AND e.fk_soc = s.rowid";
 		$sql .= " AND e.entity IN (".getEntity($forVirtualStock && getDolGlobalString('STOCK_CALCULATE_VIRTUAL_STOCK_TRANSVERSE_MODE') ? 'stock' : 'expedition').")";
 		$sql .= " AND ed.fk_elementdet = cd.rowid";
@@ -3835,7 +3835,7 @@ class Product extends CommonObject
 		$sql = "SELECT COUNT(DISTINCT cf.fk_soc) as nb_suppliers, COUNT(DISTINCT cf.rowid) as nb,";
 		$sql .= " COUNT(fd.rowid) as nb_rows, SUM(fd.qty) as qty";
 		$sql .= " FROM ".$this->db->prefix()."receptiondet_batch as fd";
-		$sql .= ", ".$this->db->prefix()."commande_fournisseur as cf";
+		$sql .= ", ".$this->db->prefix()."order_fournisseur as cf";
 		$sql .= ", ".$this->db->prefix()."societe as s";
 		if (!$user->hasRight('societe', 'client', 'voir') && !$forVirtualStock) {
 			$sql .= ", ".$this->db->prefix()."societe_commerciaux as sc";
@@ -4584,19 +4584,19 @@ class Product extends CommonObject
 		// phpcs:enable
 		global $user;
 
-		$sql = "SELECT sum(d.qty) as qty, date_format(c.date_commande, '%Y%m')";
+		$sql = "SELECT sum(d.qty) as qty, date_format(c.date_order, '%Y%m')";
 		if ($mode == 'bynumber') {
 			$sql .= ", count(DISTINCT c.rowid)";
 		}
 		$sql .= ", sum(d.total_ht) as total_ht";
-		$sql .= " FROM ".$this->db->prefix()."commandedet as d, ".$this->db->prefix()."commande as c, ".$this->db->prefix()."societe as s";
+		$sql .= " FROM ".$this->db->prefix()."orderdet as d, ".$this->db->prefix()."order as c, ".$this->db->prefix()."societe as s";
 		if ($filteronproducttype >= 0) {
 			$sql .= ", ".$this->db->prefix()."product as p";
 		}
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= ", ".$this->db->prefix()."societe_commerciaux as sc";
 		}
-		$sql .= " WHERE c.rowid = d.fk_commande";
+		$sql .= " WHERE c.rowid = d.fk_order";
 		if ($this->id > 0) {
 			$sql .= " AND d.fk_product = ".((int) $this->id);
 		} else {
@@ -4606,7 +4606,7 @@ class Product extends CommonObject
 			$sql .= " AND p.rowid = d.fk_product AND p.fk_product_type = ".((int) $filteronproducttype);
 		}
 		$sql .= " AND c.fk_soc = s.rowid";
-		$sql .= " AND c.entity IN (".getEntity('commande').")";
+		$sql .= " AND c.entity IN (".getEntity('order').")";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= " AND c.fk_soc = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 		}
@@ -4614,8 +4614,8 @@ class Product extends CommonObject
 			$sql .= " AND c.fk_soc = ".((int) $socid);
 		}
 		$sql .= $morefilter;
-		$sql .= " GROUP BY date_format(c.date_commande,'%Y%m')";
-		$sql .= " ORDER BY date_format(c.date_commande,'%Y%m') DESC";
+		$sql .= " GROUP BY date_format(c.date_order,'%Y%m')";
+		$sql .= " ORDER BY date_format(c.date_order,'%Y%m') DESC";
 
 		return $this->_get_stats($sql, $mode, $year);
 	}
@@ -4636,19 +4636,19 @@ class Product extends CommonObject
 		// phpcs:enable
 		global $user;
 
-		$sql = "SELECT sum(d.qty) as qty, date_format(c.date_commande, '%Y%m')";
+		$sql = "SELECT sum(d.qty) as qty, date_format(c.date_order, '%Y%m')";
 		if ($mode == 'bynumber') {
 			$sql .= ", count(DISTINCT c.rowid)";
 		}
 		$sql .= ", sum(d.total_ht) as total_ht";
-		$sql .= " FROM ".$this->db->prefix()."commande_fournisseurdet as d, ".$this->db->prefix()."commande_fournisseur as c, ".$this->db->prefix()."societe as s";
+		$sql .= " FROM ".$this->db->prefix()."order_fournisseurdet as d, ".$this->db->prefix()."order_fournisseur as c, ".$this->db->prefix()."societe as s";
 		if ($filteronproducttype >= 0) {
 			$sql .= ", ".$this->db->prefix()."product as p";
 		}
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= ", ".$this->db->prefix()."societe_commerciaux as sc";
 		}
-		$sql .= " WHERE c.rowid = d.fk_commande";
+		$sql .= " WHERE c.rowid = d.fk_order";
 		if ($this->id > 0) {
 			$sql .= " AND d.fk_product = ".((int) $this->id);
 		} else {
@@ -4666,8 +4666,8 @@ class Product extends CommonObject
 			$sql .= " AND c.fk_soc = ".((int) $socid);
 		}
 		$sql .= $morefilter;
-		$sql .= " GROUP BY date_format(c.date_commande,'%Y%m')";
-		$sql .= " ORDER BY date_format(c.date_commande,'%Y%m') DESC";
+		$sql .= " GROUP BY date_format(c.date_order,'%Y%m')";
+		$sql .= " ORDER BY date_format(c.date_order,'%Y%m') DESC";
 
 		return $this->_get_stats($sql, $mode, $year);
 	}
@@ -6237,8 +6237,8 @@ class Product extends CommonObject
 		// phpcs:enable
 		global $hookManager, $action;
 
-		$stock_commande_client = 0;
-		$stock_commande_fournisseur = 0;
+		$stock_order_client = 0;
+		$stock_order_fournisseur = 0;
 		$stock_sending_client = 0;
 		$stock_reception_fournisseur = 0;
 		$stock_inproduction = 0;
@@ -6246,11 +6246,11 @@ class Product extends CommonObject
 		//dol_syslog("load_virtual_stock");
 
 		if (isModEnabled('order')) {
-			$result = $this->load_stats_commande(0, '1,2', 1);
+			$result = $this->load_stats_order(0, '1,2', 1);
 			if ($result < 0) {
 				dol_print_error($this->db, $this->error);
 			}
-			$stock_commande_client = $this->stats_commande['qty'];
+			$stock_order_client = $this->stats_order['qty'];
 		}
 		if (isModEnabled("shipping")) {
 			require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
@@ -6272,11 +6272,11 @@ class Product extends CommonObject
 			if (isset($includedraftpoforvirtual)) {
 				$filterStatus = '0,1,2,'.$filterStatus;	// 1,2 may have already been inside $filterStatus but it is better to have twice than missing $filterStatus does not include them
 			}
-			$result = $this->load_stats_commande_fournisseur(0, $filterStatus, 1, $dateofvirtualstock);
+			$result = $this->load_stats_order_fournisseur(0, $filterStatus, 1, $dateofvirtualstock);
 			if ($result < 0) {
 				dol_print_error($this->db, $this->error);
 			}
-			$stock_commande_fournisseur = $this->stats_commande_fournisseur['qty'];
+			$stock_order_fournisseur = $this->stats_order_fournisseur['qty'];
 		}
 		// Include reception lines
 		if (isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) {
@@ -6307,35 +6307,35 @@ class Product extends CommonObject
 
 		// Stock decrease mode
 		if (getDolGlobalString('STOCK_CALCULATE_ON_SHIPMENT') || getDolGlobalString('STOCK_CALCULATE_ON_SHIPMENT_CLOSE')) {
-			$this->stock_theorique -= ($stock_commande_client - $stock_sending_client);
+			$this->stock_theorique -= ($stock_order_client - $stock_sending_client);
 		} elseif (getDolGlobalString('STOCK_CALCULATE_ON_VALIDATE_ORDER')) {
 			if (getDolGlobalString('STOCK_CALCULATE_ON_VALIDATE_ORDER_INCLUDE_DRAFT')) {	// By default, draft means "does not exist", so we do not include them by default, except if option is on
 				$tmpnewprod = dol_clone($this, 1);
-				$result = $tmpnewprod->load_stats_commande(0, '0', 1);	// Get qty in draft orders
-				$this->stock_theorique += $tmpnewprod->stats_commande['qty'];
+				$result = $tmpnewprod->load_stats_order(0, '0', 1);	// Get qty in draft orders
+				$this->stock_theorique += $tmpnewprod->stats_order['qty'];
 			}
 		} elseif (getDolGlobalString('STOCK_CALCULATE_ON_BILL') && $weBillOrderOrShipmentReception == 'order') {
-			$this->stock_theorique -= $stock_commande_client;
+			$this->stock_theorique -= $stock_order_client;
 		} elseif (getDolGlobalString('STOCK_CALCULATE_ON_BILL') && $weBillOrderOrShipmentReception == 'shipmentreception') {
-			$this->stock_theorique -= ($stock_commande_client - $stock_sending_client);
+			$this->stock_theorique -= ($stock_order_client - $stock_sending_client);
 		}
 
 		// Stock Increase mode
 		if (getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION') || getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION_CLOSE')) {
-			$this->stock_theorique += ($stock_commande_fournisseur - $stock_reception_fournisseur);
+			$this->stock_theorique += ($stock_order_fournisseur - $stock_reception_fournisseur);
 		} elseif (getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER')) {	// This option is similar to STOCK_CALCULATE_ON_RECEPTION_CLOSE but when module Reception is not enabled
-			$this->stock_theorique += ($stock_commande_fournisseur - $stock_reception_fournisseur);
+			$this->stock_theorique += ($stock_order_fournisseur - $stock_reception_fournisseur);
 		} elseif (getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_VALIDATE_ORDER')) {	// Warning: stock change "on approval", not on validation !
 			if (getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_VALIDATE_ORDER_INCLUDE_DRAFT')) {	// By default, draft means "does not exist", so we do not include them by default, except if option is on
 				$tmpnewprod = dol_clone($this, 1);
-				$result = $tmpnewprod->load_stats_commande_fournisseur(0, '0', 1);	// Get qty in draft orders
-				$this->stock_theorique += $this->stats_commande_fournisseur['qty'];
+				$result = $tmpnewprod->load_stats_order_fournisseur(0, '0', 1);	// Get qty in draft orders
+				$this->stock_theorique += $this->stats_order_fournisseur['qty'];
 			}
 			$this->stock_theorique -= $stock_reception_fournisseur;
 		} elseif (getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_BILL') && $weBillOrderOrShipmentReception == 'order') {
-			$this->stock_theorique += $stock_commande_fournisseur;
+			$this->stock_theorique += $stock_order_fournisseur;
 		} elseif (getDolGlobalString('STOCK_CALCULATE_ON_SUPPLIER_BILL') && $weBillOrderOrShipmentReception == 'shipmentreception') {
-			$this->stock_theorique += ($stock_commande_fournisseur - $stock_reception_fournisseur);
+			$this->stock_theorique += ($stock_order_fournisseur - $stock_reception_fournisseur);
 		}
 
 		$parameters = array('id' => $this->id, 'includedraftpoforvirtual' => $includedraftpoforvirtual);
@@ -6358,7 +6358,7 @@ class Product extends CommonObject
 				}
 
 				if ($this->fk_default_warehouse == $warehouseid) {
-					$this->stock_warehouse[$warehouseid]->virtual = $this->stock_warehouse[$warehouseid]->real + $this->stock_warehouse[$warehouseid]->stats_mrptoproduce['qty'] + $this->stats_commande_fournisseur['qty'] - ($this->stats_commande['qty'] + $this->stats_mrptoconsume['qty']);
+					$this->stock_warehouse[$warehouseid]->virtual = $this->stock_warehouse[$warehouseid]->real + $this->stock_warehouse[$warehouseid]->stats_mrptoproduce['qty'] + $this->stats_order_fournisseur['qty'] - ($this->stats_order['qty'] + $this->stats_mrptoconsume['qty']);
 				} else {
 					$this->stock_warehouse[$warehouseid]->virtual = $this->stock_warehouse[$warehouseid]->real + $this->stock_warehouse[$warehouseid]->stats_mrptoproduce['qty'];
 				}

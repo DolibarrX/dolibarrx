@@ -128,7 +128,7 @@ class FormListWebPortal
 	public function init($elementEn)
 	{
 		// keep compatibility
-		if ($elementEn == 'commande') {
+		if ($elementEn == 'order') {
 			$elementEn = 'order';
 		} elseif ($elementEn == 'facture') {
 			$elementEn = 'invoice';
@@ -273,7 +273,7 @@ class FormListWebPortal
 		$search = $this->search;
 		$arrayfields = $this->arrayfields;
 		$elementEn = $object->element;
-		if ($object->element == 'commande') {
+		if ($object->element == 'order') {
 			$elementEn = 'order';
 		} elseif ($object->element == 'facture') {
 			$elementEn = 'invoice';

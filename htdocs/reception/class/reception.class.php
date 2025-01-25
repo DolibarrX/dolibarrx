@@ -41,7 +41,7 @@ if (isModEnabled("propal")) {
 	require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 }
 if (isModEnabled('order')) {
-	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 }
 
 
@@ -473,8 +473,8 @@ class Reception extends CommonObject
 				$this->model_pdf            = $obj->model_pdf;
 				$this->shipping_method_id = $obj->fk_shipping_method;
 				$this->tracking_number      = $obj->tracking_number;
-				$this->origin               = ($obj->origin ? $obj->origin : 'commande'); // For compatibility
-				$this->origin_type          = ($obj->origin ? $obj->origin : 'commande'); // For compatibility
+				$this->origin               = ($obj->origin ? $obj->origin : 'order'); // For compatibility
+				$this->origin_type          = ($obj->origin ? $obj->origin : 'order'); // For compatibility
 				$this->origin_id            = $obj->origin_id;
 
 				$this->trueWeight           = $obj->weight;
@@ -614,7 +614,7 @@ class Reception extends CommonObject
 			$sql .= " ed.rowid, ed.qty, ed.fk_entrepot,";
 			$sql .= " ed.eatby, ed.sellby, ed.batch,";
 			$sql .= " ed.cost_price";
-			$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseurdet as cd,";
+			$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseurdet as cd,";
 			$sql .= " ".MAIN_DB_PREFIX."receptiondet_batch as ed";
 			$sql .= " WHERE ed.fk_reception = ".((int) $this->id);
 			$sql .= " AND cd.rowid = ed.fk_elementdet";
@@ -686,7 +686,7 @@ class Reception extends CommonObject
 						$this->errors = array_merge($this->errors, $this->origin_object->errors);
 					}
 				} else {
-					$ret = $this->setStatut($status, $this->origin_id, 'commande_fournisseur', $trigger_key);
+					$ret = $this->setStatut($status, $this->origin_id, 'order_fournisseur', $trigger_key);
 					if ($ret < 0) {
 						$error++;
 					}
@@ -775,23 +775,23 @@ class Reception extends CommonObject
 	 */
 	public function getStatusDispatch()
 	{
-		require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
-		require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.dispatch.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.dispatch.class.php';
 
 		$status = OrderFournisseur::STATUS_RECEIVED_PARTIALLY;
 
-		if (!empty($this->origin) && $this->origin_id > 0 && ($this->origin == 'order_supplier' || $this->origin == 'commandeFournisseur')) {
+		if (!empty($this->origin) && $this->origin_id > 0 && ($this->origin == 'order_supplier' || $this->origin == 'orderFournisseur')) {
 			if (empty($this->origin_object)) {
 				$this->fetch_origin();
 				if ($this->origin_object instanceof CommonObject && empty($this->origin_object->lines)) {
 					$res = $this->origin_object->fetch_lines();
-					$this->commandeFournisseur = null;	// deprecated
+					$this->orderFournisseur = null;	// deprecated
 					if ($res < 0) {
 						return $res;
 					}
 				} elseif ($this->origin_object instanceof OrderFournisseur && empty($this->origin_object->lines)) {
 					$res = $this->origin_object->fetch_lines();
-					$this->commandeFournisseur = $this->origin_object;	// deprecated
+					$this->orderFournisseur = $this->origin_object;	// deprecated
 					if ($res < 0) {
 						return $res;
 					}
@@ -891,7 +891,7 @@ class Reception extends CommonObject
 		$line = new OrderFournisseurDispatch($this->db);
 
 		$line->fk_entrepot = $entrepot_id;
-		$line->fk_commandefourndet = $id;
+		$line->fk_orderfourndet = $id;
 		$line->qty = $qty;
 
 		$supplierorderline = new OrderFournisseurLigne($this->db);
@@ -949,7 +949,7 @@ class Reception extends CommonObject
 		}
 
 		$line->fk_product = $fk_product;
-		$line->fk_commande = $supplierorderline->fk_commande;
+		$line->fk_order = $supplierorderline->fk_order;
 		$line->fk_user = $user->id;
 		$line->comment = $comment;
 		$line->batch = $batch;
@@ -1126,7 +1126,7 @@ class Reception extends CommonObject
 
 			// Loop on each product line to add a stock movement
 			$sql = "SELECT cd.fk_product, cd.subprice, ed.qty, ed.fk_entrepot, ed.eatby, ed.sellby, ed.batch, ed.rowid as receptiondet_batch_id";
-			$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseurdet as cd,";
+			$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseurdet as cd,";
 			$sql .= " ".MAIN_DB_PREFIX."receptiondet_batch as ed";
 			$sql .= " WHERE ed.fk_reception = ".((int) $this->id);
 			$sql .= " AND cd.rowid = ed.fk_elementdet";
@@ -1256,7 +1256,7 @@ class Reception extends CommonObject
 		// phpcs:enable
 		$this->lines = array();
 
-		require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.dispatch.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.dispatch.class.php';
 
 		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."receptiondet_batch";
 		$sql .= " WHERE fk_reception = ".((int) $this->id);
@@ -1273,8 +1273,8 @@ class Reception extends CommonObject
 				$line->fetch_product();
 
 				$sql_commfourndet = 'SELECT qty, ref, label, description, tva_tx, vat_src_code, subprice, multicurrency_subprice, remise_percent, total_ht, total_ttc, total_tva';
-				$sql_commfourndet .= ' FROM '.MAIN_DB_PREFIX.'commande_fournisseurdet';
-				$sql_commfourndet .= ' WHERE rowid = '.((int) $line->fk_commandefourndet);
+				$sql_commfourndet .= ' FROM '.MAIN_DB_PREFIX.'order_fournisseurdet';
+				$sql_commfourndet .= ' WHERE rowid = '.((int) $line->fk_orderfourndet);
 				$sql_commfourndet .= ' ORDER BY rang';
 
 				$resql_commfourndet = $this->db->query($sql_commfourndet);
@@ -1492,8 +1492,8 @@ class Reception extends CommonObject
 	{
 		global $langs;
 
-		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
-		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.dispatch.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.dispatch.class.php';
 		$now = dol_now();
 
 		dol_syslog(get_class($this)."::initAsSpecimen");
@@ -1728,7 +1728,7 @@ class Reception extends CommonObject
 				$sql .= " ed.rowid, ed.qty, ed.fk_entrepot,";
 				$sql .= " ed.eatby, ed.sellby, ed.batch,";
 				$sql .= " ed.cost_price";
-				$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseurdet as cd,";
+				$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseurdet as cd,";
 				$sql .= " ".MAIN_DB_PREFIX."receptiondet_batch as ed";
 				$sql .= " WHERE ed.fk_reception = ".((int) $this->id);
 				$sql .= " AND cd.rowid = ed.fk_elementdet";
@@ -1886,7 +1886,7 @@ class Reception extends CommonObject
 				$sql .= " ed.rowid, ed.qty, ed.fk_entrepot,";
 				$sql .= " ed.eatby, ed.sellby, ed.batch,";
 				$sql .= " ed.cost_price";
-				$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseurdet as cd,";
+				$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseurdet as cd,";
 				$sql .= " ".MAIN_DB_PREFIX."receptiondet_batch as ed";
 				$sql .= " WHERE ed.fk_reception = ".((int) $this->id);
 				$sql .= " AND cd.rowid = ed.fk_elementdet";
@@ -1953,13 +1953,13 @@ class Reception extends CommonObject
 			}
 
 			if (!$error && $this->origin == 'order_supplier') {
-				$commande = new OrderFournisseur($this->db);
-				$commande->fetch($this->origin_id);
-				$result = $commande->setStatus($user, 4);
+				$order = new OrderFournisseur($this->db);
+				$order->fetch($this->origin_id);
+				$result = $order->setStatus($user, 4);
 				if ($result < 0) {
 					$error++;
-					$this->error = $commande->error;
-					$this->errors = $commande->errors;
+					$this->error = $order->error;
+					$this->errors = $order->errors;
 				}
 			}
 		} else {
@@ -2020,7 +2020,7 @@ class Reception extends CommonObject
 				$sql .= " ed.rowid, ed.qty, ed.fk_entrepot,";
 				$sql .= " ed.eatby, ed.sellby, ed.batch,";
 				$sql .= " ed.cost_price";
-				$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseurdet as cd,";
+				$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseurdet as cd,";
 				$sql .= " ".MAIN_DB_PREFIX."receptiondet_batch as ed";
 				$sql .= " WHERE ed.fk_reception = ".((int) $this->id);
 				$sql .= " AND cd.rowid = ed.fk_elementdet";

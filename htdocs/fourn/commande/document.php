@@ -23,7 +23,7 @@
  */
 
 /**
- *	\file       htdocs/fourn/commande/document.php
+ *	\file       htdocs/fourn/order/document.php
  *	\ingroup    supplier order
  *	\brief      Management page of attached documents to a supplier order
  */
@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/images.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 }
@@ -82,7 +82,7 @@ if ($object->fetch($id, $ref) < 0) {
 	exit;
 }
 
-$upload_dir = $config->fournisseur->commande->dir_output.'/'.dol_sanitizeFileName($object->ref);
+$upload_dir = $config->fournisseur->order->dir_output.'/'.dol_sanitizeFileName($object->ref);
 $object->fetch_thirdparty();
 
 // Security check
@@ -90,9 +90,9 @@ $socid = 0;
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$result = restrictedArea($user, 'fournisseur', $id, 'commande_fournisseur', 'commande');
+$result = restrictedArea($user, 'fournisseur', $id, 'order_fournisseur', 'order');
 
-$permissiontoadd = ($user->hasRight("fournisseur", "commande", "creer") || $user->hasRight("supplier_order", "creer")); // Used by the include of actions_setnotes.inc.php
+$permissiontoadd = ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer")); // Used by the include of actions_setnotes.inc.php
 
 
 /*
@@ -132,7 +132,7 @@ if ($object->id > 0) {
 
 	// Supplier order card
 
-	$linkback = '<a href="'.DOL_URL_ROOT.'/fourn/commande/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+	$linkback = '<a href="'.DOL_URL_ROOT.'/fourn/order/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 	$morehtmlref = '<div class="refidno">';
 	// Ref supplier
@@ -179,9 +179,9 @@ if ($object->id > 0) {
 	print dol_get_fiche_end();
 
 
-	$modulepart = 'commande_fournisseur';
-	$permissiontoadd = ($user->hasRight("fournisseur", "commande", "creer") || $user->hasRight("supplier_order", "creer"));
-	$permtoedit = ($user->hasRight("fournisseur", "commande", "creer") || $user->hasRight("supplier_order", "creer"));
+	$modulepart = 'order_fournisseur';
+	$permissiontoadd = ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"));
+	$permtoedit = ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"));
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';
 } else {

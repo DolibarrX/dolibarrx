@@ -135,7 +135,7 @@ if (!empty($field) && !empty($element) && !empty($table_element) && !empty($fk_e
 		$newelement = 'member';
 	} elseif ($element == 'order_supplier') {
 		$newelement = 'fournisseur';
-		$subelement = 'commande';
+		$subelement = 'order';
 	} elseif ($element == 'invoice_supplier') {
 		$newelement = 'fournisseur';
 		$subelement = 'facture';
@@ -149,11 +149,11 @@ if (!empty($field) && !empty($element) && !empty($table_element) && !empty($fk_e
 	$feature2 = $subelement;
 	$object_id = $fk_element;
 	if ($feature == 'expedition' || $feature == 'shipping') {
-		$feature = 'commande';
+		$feature = 'order';
 		$object_id = 0;
 	}
 	if ($feature == 'shipping') {
-		$feature = 'commande';
+		$feature = 'order';
 	}
 	if ($feature == 'payment') {
 		$feature = 'facture';

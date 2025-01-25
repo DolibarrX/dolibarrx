@@ -1093,7 +1093,7 @@ if ($source == 'order') {
 	$found = true;
 	$langs->load("orders");
 
-	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 
 	$order = new Order($db);
 	$result = $order->fetch(0, $ref);
@@ -1150,7 +1150,7 @@ if ($source == 'order') {
 	print '<input type="hidden" name="s" value="'.dol_escape_htmltag($source).'">';
 	print '<input type="hidden" name="ref" value="'.dol_escape_htmltag($order->ref).'">';
 	print '<input type="hidden" name="dol_id" value="'.dol_escape_htmltag((string) $order->id).'">';
-	$directdownloadlink = $order->getLastMainDocLink('commande');
+	$directdownloadlink = $order->getLastMainDocLink('order');
 	if ($directdownloadlink) {
 		print '<br><a href="'.$directdownloadlink.'" rel="nofollow noopener">';
 		print img_mime($order->last_main_doc, '');

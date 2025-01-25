@@ -40,9 +40,9 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture-rec.class.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/deplacement/class/deplacement.class.php';
@@ -356,9 +356,9 @@ class pdf_beluga extends ModelePDFProjects
 						'name' => "CustomersOrders",
 						'title' => "ListOrdersAssociatedProject",
 						'class' => 'Order',
-						'table' => 'commande',
-						'datefieldname' => 'date_commande',
-						'test' => isModEnabled('order') && $user->hasRight('commande', 'lire'),
+						'table' => 'order',
+						'datefieldname' => 'date_order',
+						'test' => isModEnabled('order') && $user->hasRight('order', 'lire'),
 						'lang' => 'orders'),
 					'invoice' => array(
 						'name' => "CustomersInvoices",
@@ -381,9 +381,9 @@ class pdf_beluga extends ModelePDFProjects
 						'name' => "SuppliersOrders",
 						'title' => "ListSupplierOrdersAssociatedProject",
 						'class' => 'OrderFournisseur',
-						'table' => 'commande_fournisseur',
-						'datefieldname' => 'date_commande',
-						'test' => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'commande', 'lire')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire')),
+						'table' => 'order_fournisseur',
+						'datefieldname' => 'date_order',
+						'test' => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'order', 'lire')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire')),
 						'lang' => 'orders'),
 					'invoice_supplier' => array(
 						'name' => "BillsSuppliers",
@@ -631,8 +631,8 @@ class pdf_beluga extends ModelePDFProjects
 								$pdf->SetFont('', '', $default_font_size - 1); // On repositionne la police par default
 
 								// Date
-								if ($tablename == 'commande_fournisseur' || $tablename == 'supplier_order') {
-									$date = $element->date_commande;
+								if ($tablename == 'order_fournisseur' || $tablename == 'supplier_order') {
+									$date = $element->date_order;
 								} else {
 									$date = $element->date;
 									if (empty($date)) {

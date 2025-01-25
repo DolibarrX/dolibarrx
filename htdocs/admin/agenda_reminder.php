@@ -96,11 +96,11 @@ if ($action == 'set') {
 } elseif ($action == 'specimen') {  // For orders
 	$modele = GETPOST('module', 'alpha');
 
-	$commande = new OrderFournisseur($db);
-	$commande->initAsSpecimen();
+	$order = new OrderFournisseur($db);
+	$order->initAsSpecimen();
 	$specimenthirdparty = new Societe($db);
 	$specimenthirdparty->initAsSpecimen();
-	$commande->thirdparty = $specimenthirdparty;
+	$order->thirdparty = $specimenthirdparty;
 
 	// Search template files
 	$file = '';
@@ -117,11 +117,11 @@ if ($action == 'set') {
 	if ($classname !== '') {
 		require_once $file;
 
-		$module = new $classname($db, $commande);
+		$module = new $classname($db, $order);
 		'@phan-var-force pdf_standard_actions $module';
 		/** @var pdf_standard_actions $module */
 
-		if ($module->write_file($commande, $langs) > 0) {
+		if ($module->write_file($order, $langs) > 0) {
 			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=action&file=SPECIMEN.pdf");
 			return;
 		} else {

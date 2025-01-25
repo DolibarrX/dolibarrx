@@ -152,7 +152,7 @@ class mod_payment_ant extends ModeleNumRefPayments
 	 * 	@param	?Paiement		$objforref	Object for number to search
 	 *  @return string|int<-1,0>  			Next free value, <=0 if KO
 	 */
-	public function commande_get_num($objsoc, $objforref)
+	public function order_get_num($objsoc, $objforref)
 	{
 		// phpcs:enable
 		return $this->getNextValue($objsoc, $objforref);

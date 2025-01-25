@@ -134,7 +134,7 @@ class ContratLigne extends CommonObjectLine
 	/**
 	 * @var int|string
 	 */
-	public $date_commande;
+	public $date_order;
 
 	/**
 	 * @var int|string date start planned
@@ -497,7 +497,7 @@ class ContratLigne extends CommonObjectLine
 		$sql .= " p.description as product_desc,";
 		$sql .= " p.fk_product_type as product_type,";
 		$sql .= " t.description,";
-		$sql .= " t.date_commande,";
+		$sql .= " t.date_order,";
 		$sql .= " t.date_ouverture_prevue as date_start,";
 		$sql .= " t.date_ouverture as date_start_real,";
 		$sql .= " t.date_fin_validite as date_end,";
@@ -554,7 +554,7 @@ class ContratLigne extends CommonObjectLine
 				$this->product_type = $obj->product_type;
 				$this->label = $obj->label; // deprecated. We do not use this field. Only ref and label of product, and description of contract line
 				$this->description = $obj->description;
-				$this->date_commande = $this->db->jdate($obj->date_commande);
+				$this->date_order = $this->db->jdate($obj->date_order);
 
 				$this->date_start = $this->db->jdate($obj->date_start);
 				$this->date_start_real = $this->db->jdate($obj->date_start_real);
@@ -707,7 +707,7 @@ class ContratLigne extends CommonObjectLine
 		$sql .= " statut = ".((int) $this->statut).",";
 		$sql .= " label = '".$this->db->escape($this->label)."',";
 		$sql .= " description = '".$this->db->escape($this->description)."',";
-		$sql .= " date_commande = ".($this->date_commande != '' ? "'".$this->db->idate($this->date_commande)."'" : "null").",";
+		$sql .= " date_order = ".($this->date_order != '' ? "'".$this->db->idate($this->date_order)."'" : "null").",";
 		$sql .= " date_ouverture_prevue = ".($this->date_start != '' ? "'".$this->db->idate($this->date_start)."'" : "null").",";
 		$sql .= " date_ouverture = ".($this->date_start_real != '' ? "'".$this->db->idate($this->date_start_real)."'" : "null").",";
 		$sql .= " date_fin_validite = ".($this->date_end != '' ? "'".$this->db->idate($this->date_end)."'" : "null").",";

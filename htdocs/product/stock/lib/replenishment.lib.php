@@ -22,7 +22,7 @@
  *  \brief      Contains functions used in replenish.php and replenishorders.php
  */
 
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 
 /**
  * Check if there is still some dispatching of stock to do.
@@ -50,8 +50,8 @@ function dolDispatchToDo($order_id)
 	}
 
 	// Count nb of quantity to dispatch per product
-	$sql = 'SELECT fk_product, SUM(qty) as qtyordered FROM '.MAIN_DB_PREFIX.'commande_fournisseurdet';
-	$sql .= ' WHERE fk_commande = '.((int) $order_id);
+	$sql = 'SELECT fk_product, SUM(qty) as qtyordered FROM '.MAIN_DB_PREFIX.'order_fournisseurdet';
+	$sql .= ' WHERE fk_order = '.((int) $order_id);
 	$sql .= ' AND fk_product > 0';
 	if (!getDolGlobalString('STOCK_SUPPORTS_SERVICES')) {
 		$sql .= ' AND product_type = 0';
@@ -85,7 +85,7 @@ function dispatchedOrders()
 {
 	global $db;
 
-	$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'commande_fournisseur';
+	$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'order_fournisseur';
 	$resql = $db->query($sql);
 	$resarray = array();
 	if ($resql && $db->num_rows($resql) > 0) {
@@ -116,9 +116,9 @@ function ordered($product_id)
 	global $db, $config;
 
 	$sql = 'SELECT DISTINCT cfd.fk_product, SUM(cfd.qty) as qty FROM';
-	$sql .= ' '.MAIN_DB_PREFIX.'commande_fournisseurdet as cfd ';
-	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'commande_fournisseur as cf';
-	$sql .= ' ON cfd.fk_commande = cf.rowid WHERE';
+	$sql .= ' '.MAIN_DB_PREFIX.'order_fournisseurdet as cfd ';
+	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'order_fournisseur as cf';
+	$sql .= ' ON cfd.fk_order = cf.rowid WHERE';
 	if (getDolGlobalInt("STOCK_CALCULATE_ON_SUPPLIER_VALIDATE_ORDER")) {
 		$sql .= ' cf.fk_statut < 3';
 	} elseif (getDolGlobalInt("STOCK_CALCULATE_ON_SUPPLIER_DISPATCH_ORDER")) {

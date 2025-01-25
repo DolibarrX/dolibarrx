@@ -256,9 +256,9 @@ if ($type == 'directory') {
 	} elseif ($module == 'supplier_proposal') {
 		$upload_dir = $config->supplier_proposal->dir_output;
 	} elseif ($module == 'order') {
-		$upload_dir = $config->commande->dir_output;
+		$upload_dir = $config->order->dir_output;
 	} elseif ($module == 'order_supplier') {
-		$upload_dir = $config->fournisseur->commande->dir_output;
+		$upload_dir = $config->fournisseur->order->dir_output;
 	} elseif ($module == 'contract') {
 		$upload_dir = $config->contrat->dir_output;
 	} elseif ($module == 'product') {

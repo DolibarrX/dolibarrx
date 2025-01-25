@@ -52,7 +52,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/ws.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 
 /**
  * @var DoliDB $db
@@ -710,7 +710,7 @@ function createInvoiceFromOrder($authentication, $id_order = '', $ref_order = ''
 	if (!$error) {
 		$fuser->loadRights();
 
-		if ($fuser->hasRight('commande', 'lire')) {
+		if ($fuser->hasRight('order', 'lire')) {
 			$order = new Order($db);
 			$result = $order->fetch($id_order, $ref_order, $ref_ext_order);
 			if ($result > 0) {

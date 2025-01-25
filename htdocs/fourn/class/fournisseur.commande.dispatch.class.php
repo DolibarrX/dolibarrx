@@ -20,7 +20,7 @@
  */
 
 /**
- *  \file       htdocs/fourn/class/fournisseur.commande.dispatch.class.php
+ *  \file       htdocs/fourn/class/fournisseur.order.dispatch.class.php
  *  \ingroup    fournisseur stock
  *  \brief      This file is an example for a CRUD class file (Create/Read/Update/Delete)
  *              Initially built by build_class_from_table on 2015-02-24 10:38
@@ -39,15 +39,15 @@ class OrderFournisseurDispatch extends ReceptionLineBatch
 	/**
 	 * @var string ID to identify managed object
 	 */
-	public $element = 'commandefournisseurdispatch';
+	public $element = 'orderfournisseurdispatch';
 	/**
 	 * @var int ID
 	 */
-	public $fk_commande;
+	public $fk_order;
 	/**
 	 * @var int ID
 	 */
-	public $fk_commandefourndet;
+	public $fk_orderfourndet;
 
 
 	/**
@@ -59,11 +59,11 @@ class OrderFournisseurDispatch extends ReceptionLineBatch
 	 */
 	public function create($user, $notrigger = 0)
 	{
-		if (empty($this->fk_element) && !empty($this->fk_commande)) {
-			$this->fk_element = $this->fk_commande;
+		if (empty($this->fk_element) && !empty($this->fk_order)) {
+			$this->fk_element = $this->fk_order;
 		}
-		if (empty($this->fk_elementdet) && !empty($this->fk_commandefourndet)) {
-			$this->fk_elementdet = $this->fk_commandefourndet;
+		if (empty($this->fk_elementdet) && !empty($this->fk_orderfourndet)) {
+			$this->fk_elementdet = $this->fk_orderfourndet;
 		}
 
 		return parent::create($user, $notrigger);
@@ -80,8 +80,8 @@ class OrderFournisseurDispatch extends ReceptionLineBatch
 	{
 		$ret = parent::fetch($id, $ref);
 		if ($ret > 0) {
-			$this->fk_commande = $this->fk_element;
-			$this->fk_commandefourndet = $this->fk_elementdet;
+			$this->fk_order = $this->fk_element;
+			$this->fk_orderfourndet = $this->fk_elementdet;
 		}
 		return $ret;
 	}
@@ -95,8 +95,8 @@ class OrderFournisseurDispatch extends ReceptionLineBatch
 	 */
 	public function update($user, $notrigger = 0)
 	{
-		$this->fk_element = $this->fk_commande;
-		$this->fk_elementdet = $this->fk_commandefourndet;
+		$this->fk_element = $this->fk_order;
+		$this->fk_elementdet = $this->fk_orderfourndet;
 
 		return parent::update($user, $notrigger);
 	}

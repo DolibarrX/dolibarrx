@@ -973,7 +973,7 @@ class ExtraFields
 	/**
 	 * 	Load the array of extrafields definition $this->attributes
 	 *
-	 * 	@param	string		$elementtype		Type of element ('all' = all or $object->table_element like 'member', 'commande', 'thirdparty', 'facture', 'propal', 'product', ...).
+	 * 	@param	string		$elementtype		Type of element ('all' = all or $object->table_element like 'member', 'order', 'thirdparty', 'facture', 'propal', 'product', ...).
 	 * 	@param	boolean		$forceload			Force load of extra fields whatever is status of cache.
 	 *  @param  string		$attrname           The name of the attribute.
 	 *  @return array<string,string>					Array of attributes keys+label for all extra fields.
@@ -995,7 +995,7 @@ class ExtraFields
 			$elementtype = 'socpeople';
 		}
 		if ($elementtype == 'order_supplier') {
-			$elementtype = 'commande_fournisseur';
+			$elementtype = 'order_fournisseur';
 		}
 
 		// Test cache $this->attributes[$elementtype]['loaded'] to see if we must do something

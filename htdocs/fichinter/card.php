@@ -338,7 +338,7 @@ if (empty($resHook)) {
 
 				// For compatibility
 				if ($element == 'order') {
-					$element = $subelement = 'commande';
+					$element = $subelement = 'order';
 				}
 				if ($element == 'propal') {
 					$element = 'comm/propal';
@@ -921,8 +921,8 @@ if ($action == 'create') {
 			$projectid = GETPOSTINT('originid');
 		} else {
 			// For compatibility
-			if ($element == 'order' || $element == 'commande') {
-				$element = $subelement = 'commande';
+			if ($element == 'order' || $element == 'order') {
+				$element = $subelement = 'order';
 			}
 			if ($element == 'propal') {
 				$element = 'comm/propal';

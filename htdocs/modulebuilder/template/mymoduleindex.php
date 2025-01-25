@@ -132,11 +132,11 @@ if (isModEnabled('mymodule') && $user->hasRight('mymodule', 'read')) {
 
 	$sql = "SELECT c.rowid, c.ref, c.ref_client, c.total_ht, c.tva as total_tva, c.total_ttc, s.rowid as socid, s.nom as name, s.client, s.canvas";
 	$sql.= ", s.code_client";
-	$sql.= " FROM ".$db->prefix()."commande as c";
+	$sql.= " FROM ".$db->prefix()."order as c";
 	$sql.= ", ".$db->prefix()."societe as s";
 	$sql.= " WHERE c.fk_soc = s.rowid";
 	$sql.= " AND c.fk_statut = 0";
-	$sql.= " AND c.entity IN (".getEntity('commande').")";
+	$sql.= " AND c.entity IN (".getEntity('order').")";
 	if ($socid)	$sql.= " AND c.fk_soc = ".((int) $socid);
 
 	$resql = $db->query($sql);

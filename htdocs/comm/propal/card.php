@@ -137,11 +137,11 @@ $usercanvalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $usercanc
 $usercansend = (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('propal', 'propal_advance', 'send')));
 
 $usermustrespectpricemin = ((getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !$user->hasRight('produit', 'ignore_price_min_advance')) || !getDolGlobalString('MAIN_USE_ADVANCED_PERMS'));
-$usercancreateorder = ($user->hasRight('commande', 'creer') == 1);
+$usercancreateorder = ($user->hasRight('order', 'creer') == 1);
 $usercancreateinvoice = ($user->hasRight('facture', 'creer') == 1);
 $usercancreatecontract = ($user->hasRight('contrat', 'creer') == 1);
 $usercancreateintervention = ($user->hasRight('ficheinter', 'creer') == 1);
-$usercancreatepurchaseorder = ($user->hasRight('fournisseur', 'commande', 'creer') || $user->hasRight('supplier_order', 'creer'));
+$usercancreatepurchaseorder = ($user->hasRight('fournisseur', 'order', 'creer') || $user->hasRight('supplier_order', 'creer'));
 
 $permissionnote = $usercancreate; // Used by the include of actions_setnotes.inc.php
 $permissiondellink = $usercancreate; // Used by the include of actions_dellink.inc.php
@@ -545,7 +545,7 @@ if (empty($resHook)) {
 
 					// For compatibility
 					if ($element == 'order') {
-						$element = $subelement = 'commande';
+						$element = $subelement = 'order';
 					}
 					if ($element == 'propal') {
 						$element = 'comm/propal';
@@ -859,7 +859,7 @@ if (empty($resHook)) {
 		$importLines = GETPOST('line_checkbox');
 
 		if (!empty($importLines) && is_array($importLines) && !empty($fromElement) && ctype_alpha($fromElement) && !empty($fromElementid)) {
-			if ($fromElement == 'commande') {
+			if ($fromElement == 'order') {
 				dol_include_once('/'.$fromElement.'/class/'.$fromElement.'.class.php');
 				$lineClassName = 'OrderLine';
 			} elseif ($fromElement == 'propal') {
@@ -1906,8 +1906,8 @@ if ($action == 'create') {
 			}
 		} else {
 			// For compatibility
-			if ($element == 'order' || $element == 'commande') {
-				$element = $subelement = 'commande';
+			if ($element == 'order' || $element == 'order') {
+				$element = $subelement = 'order';
 			}
 			if ($element == 'propal') {
 				$element = 'comm/propal';
@@ -2422,8 +2422,8 @@ if ($action == 'create') {
 					}
 				}
 
-				if ($eligibleForDepositGeneration && array_key_exists('commande', $object->linkedObjects)) {
-					foreach ($object->linkedObjects['commande'] as $order) {
+				if ($eligibleForDepositGeneration && array_key_exists('order', $object->linkedObjects)) {
+					foreach ($object->linkedObjects['order'] as $order) {
 						$order->fetchObjectLinked();
 
 						if (array_key_exists('facture', $order->linkedObjects)) {
@@ -3151,11 +3151,11 @@ if ($action == 'create') {
 					'enabled' => (isModEnabled('order') && $object->status == Propal::STATUS_SIGNED),
 					'perm' => $usercancreateorder,
 					'label' => 'AddOrder',
-					'url' => '/commande/card.php?action=create&origin=' . urlencode($object->element) . '&originid=' . ((int) $object->id) . '&socid=' . ((int) $object->socid)
+					'url' => '/order/card.php?action=create&origin=' . urlencode($object->element) . '&originid=' . ((int) $object->id) . '&socid=' . ((int) $object->socid)
 				);
 				/*if (isModEnabled('order') && $object->status == Propal::STATUS_SIGNED) {
 					if ($usercancreateorder) {
-						print '<a class="butAction" href="'.DOL_URL_ROOT.'/commande/card.php?action=create&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->socid.'">'.$langs->trans("AddOrder").'</a>';
+						print '<a class="butAction" href="'.DOL_URL_ROOT.'/order/card.php?action=create&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->socid.'">'.$langs->trans("AddOrder").'</a>';
 					}
 				}*/
 
@@ -3166,11 +3166,11 @@ if ($action == 'create') {
 						'enabled' => ($object->status == Propal::STATUS_SIGNED && isModEnabled("supplier_order")),
 						'perm' => $usercancreatepurchaseorder,
 						'label' => 'AddPurchaseOrder',
-						'url' => '/fourn/commande/card.php?action=create&origin=' . urlencode($object->element) . '&originid=' . ((int) $object->id) . '&socid=' . ((int) $object->socid)
+						'url' => '/fourn/order/card.php?action=create&origin=' . urlencode($object->element) . '&originid=' . ((int) $object->id) . '&socid=' . ((int) $object->socid)
 					);
 					/*if ($object->status == Propal::STATUS_SIGNED && isModEnabled("supplier_order")) {
 						if ($usercancreatepurchaseorder) {
-							print '<a class="butAction" href="'.DOL_URL_ROOT.'/fourn/commande/card.php?action=create&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->socid.'">'.$langs->trans("AddPurchaseOrder").'</a>';
+							print '<a class="butAction" href="'.DOL_URL_ROOT.'/fourn/order/card.php?action=create&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->socid.'">'.$langs->trans("AddPurchaseOrder").'</a>';
 						}
 					}*/
 				}
@@ -3306,7 +3306,7 @@ if ($action == 'create') {
 
 		$compatibleImportElementsList = false;
 		if ($user->hasRight('propal', 'creer') && $object->status == Propal::STATUS_DRAFT) {
-			$compatibleImportElementsList = array('commande', 'propal', 'facture'); // import from linked elements
+			$compatibleImportElementsList = array('order', 'propal', 'facture'); // import from linked elements
 		}
 		$somethingshown = $form->showLinkedObjectBlock($object, $linktoelem, $compatibleImportElementsList);
 

@@ -31,7 +31,7 @@
  */
 
 /**
- *    \file       htdocs/fourn/commande/card.php
+ *    \file       htdocs/fourn/order/card.php
  *    \ingroup    supplier order
  *    \brief      Card supplier order
  */
@@ -45,8 +45,8 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formorder.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_commandefournisseur.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_orderfournisseur.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.product.class.php';
 
 if (isModEnabled('supplier_proposal')) {
@@ -66,7 +66,7 @@ if (isModEnabled('variants')) {
 }
 
 if (isModEnabled('stock')) {
-	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.dispatch.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.dispatch.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/product/stock/class/mouvementstock.class.php';
 }
 
@@ -150,22 +150,22 @@ if ($id > 0 || !empty($ref)) {
 
 // Security check
 $isdraft = (isset($object->statut) && ($object->statut == $object::STATUS_DRAFT) ? 1 : 0);
-$result = restrictedArea($user, 'fournisseur', $object, 'commande_fournisseur', 'commande', 'fk_soc', 'rowid', $isdraft);
+$result = restrictedArea($user, 'fournisseur', $object, 'order_fournisseur', 'order', 'fk_soc', 'rowid', $isdraft);
 
 // Common permissions
-$usercanread	= ($user->hasRight("fournisseur", "commande", "lire") || $user->hasRight("supplier_order", "lire"));
-$usercancreate	= ($user->hasRight("fournisseur", "commande", "creer") || $user->hasRight("supplier_order", "creer"));
-$usercandelete	= (($user->hasRight("fournisseur", "commande", "supprimer") || $user->hasRight("supplier_order", "supprimer")) || ($usercancreate && isset($object->statut) && $object->statut == $object::STATUS_DRAFT));
+$usercanread	= ($user->hasRight("fournisseur", "order", "lire") || $user->hasRight("supplier_order", "lire"));
+$usercancreate	= ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"));
+$usercandelete	= (($user->hasRight("fournisseur", "order", "supprimer") || $user->hasRight("supplier_order", "supprimer")) || ($usercancreate && isset($object->statut) && $object->statut == $object::STATUS_DRAFT));
 
 // Advanced permissions
 $usercanvalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && !empty($usercancreate)) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight("fournisseur", "supplier_order_advance", "validate")));
 
 // Additional area permissions
-$usercanapprove			= $user->hasRight("fournisseur", "commande", "approuver");
-$usercanapprovesecond	= $user->hasRight("fournisseur", "commande", "approve2");
-$usercanorder			= $user->hasRight("fournisseur", "commande", "commander");
+$usercanapprove			= $user->hasRight("fournisseur", "order", "approuver");
+$usercanapprovesecond	= $user->hasRight("fournisseur", "order", "approve2");
+$usercanorder			= $user->hasRight("fournisseur", "order", "orderr");
 if (!isModEnabled('reception')) {
-	$usercanreceive = $user->hasRight("fournisseur", "commande", "receptionner");
+	$usercanreceive = $user->hasRight("fournisseur", "order", "receptionner");
 } else {
 	$usercanreceive = $user->hasRight("reception", "creer");
 }
@@ -196,14 +196,14 @@ if ($resHook < 0) {
 }
 
 if (empty($resHook)) {
-	$backurlforlist = DOL_URL_ROOT.'/fourn/commande/list.php'.($socid > 0 ? '?socid='.((int) $socid) : '');
+	$backurlforlist = DOL_URL_ROOT.'/fourn/order/list.php'.($socid > 0 ? '?socid='.((int) $socid) : '');
 
 	if (empty($backtopage) || ($cancel && empty($id))) {
 		if (empty($backtopage) || ($cancel && strpos($backtopage, '__ID__'))) {
 			if (empty($id) && (($action != 'add' && $action != 'create') || $cancel)) {
 				$backtopage = $backurlforlist;
 			} else {
-				$backtopage = DOL_URL_ROOT.'/fourn/commande/card.php?id='.((!empty($id) && $id > 0) ? $id : '__ID__');
+				$backtopage = DOL_URL_ROOT.'/fourn/order/card.php?id='.((!empty($id) && $id > 0) ? $id : '__ID__');
 			}
 		}
 	}
@@ -293,7 +293,7 @@ if (empty($resHook)) {
 			$db->begin();
 
 			// Update supplier
-			$sql = 'UPDATE '.MAIN_DB_PREFIX.'commande_fournisseur';
+			$sql = 'UPDATE '.MAIN_DB_PREFIX.'order_fournisseur';
 			$sql .= ' SET fk_soc = '.((int) $new_socid);
 			$sql .= ' WHERE fk_soc = '.((int) $object->thirdparty->id);
 			$sql .= ' AND rowid = '.((int) $object->id);
@@ -386,7 +386,7 @@ if (empty($resHook)) {
 			$result = $object->setStatus($user, $newstatus);
 			if ($result > 0) {
 				if ($newstatus == 0) {
-					$sql = 'UPDATE '.MAIN_DB_PREFIX.'commande_fournisseur';
+					$sql = 'UPDATE '.MAIN_DB_PREFIX.'order_fournisseur';
 					$sql .= ' SET fk_user_approve = null, fk_user_approve2 = null, date_approve = null, date_approve2 = null';
 					$sql .= ' WHERE rowid = '.((int) $object->id);
 
@@ -972,7 +972,7 @@ if (empty($resHook)) {
 	if ($action == 'confirm_valid' && $confirm == 'yes' && $usercanvalidate) {
 		$db->begin();
 
-		$object->date_commande = dol_now();
+		$object->date_order = dol_now();
 		$result = $object->valid($user);
 		if ($result >= 0) {
 			// Define output language
@@ -1084,21 +1084,21 @@ if (empty($resHook)) {
 	}
 
 	// Force mandatory order method
-	if ($action == 'commande') {	// Test on permission not required here
-		$methodecommande = GETPOSTINT('methodecommande');
+	if ($action == 'order') {	// Test on permission not required here
+		$methodeorder = GETPOSTINT('methodeorder');
 
 		if ($cancel) {
 			$action = '';
-		} elseif ($methodecommande <= 0 && !getDolGlobalInt('SUPPLIER_ORDER_MODE_OPTIONAL')) {
+		} elseif ($methodeorder <= 0 && !getDolGlobalInt('SUPPLIER_ORDER_MODE_OPTIONAL')) {
 			setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentities("OrderMode")), null, 'errors');
 			$action = 'createorder';
 		}
 	}
 
-	if ($action == 'confirm_commande' && $confirm == 'yes' && $usercanorder) {
+	if ($action == 'confirm_order' && $confirm == 'yes' && $usercanorder) {
 		$db->begin();
 
-		$result = $object->commande($user, GETPOST("datecommande"), GETPOSTINT("methode"), GETPOSTINT('comment'));
+		$result = $object->order($user, GETPOST("dateorder"), GETPOSTINT("methode"), GETPOSTINT('comment'));
 		if ($result > 0) {
 			if (!getDolGlobalString('MAIN_DISABLE_PDF_AUTOUPDATE')) {
 				$outputlangs = $langs;
@@ -1194,7 +1194,7 @@ if (empty($resHook)) {
 			$result = $object->delete($user);
 			if ($result > 0) {
 				$db->commit();
-				header("Location: " . DOL_URL_ROOT . '/fourn/commande/list.php?restore_lastsearch_values=1');
+				header("Location: " . DOL_URL_ROOT . '/fourn/order/list.php?restore_lastsearch_values=1');
 				exit;
 			} else {
 				$db->rollback();
@@ -1284,7 +1284,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_sendmails.inc.php';
 
 	// Actions to build doc
-	$upload_dir = $config->fournisseur->commande->dir_output;
+	$upload_dir = $config->fournisseur->order->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 
@@ -1328,7 +1328,7 @@ if (empty($resHook)) {
 		if (!$error) {
 			$db->begin();
 
-			// Creation commande
+			// Creation order
 			$object->ref_supplier  	= GETPOST('refsupplier');
 			$object->socid         	= $socid;
 			$object->cond_reglement_id = GETPOSTINT('cond_reglement_id');
@@ -1361,8 +1361,8 @@ if (empty($resHook)) {
 						$subelement = 'propal';
 						$classname = 'Propal';
 					}
-					if ($origin == 'order' || $origin == 'commande') {
-						$element = $subelement = 'commande';
+					if ($origin == 'order' || $origin == 'order') {
+						$element = $subelement = 'order';
 						$classname = 'Order';
 					}
 					if ($origin == 'supplier_proposal') {
@@ -1425,7 +1425,7 @@ if (empty($resHook)) {
 
 								$ref_supplier = '';
 								$product_fourn_price_id = 0;
-								if ($origin == "commande") {
+								if ($origin == "order") {
 									$productsupplier = new ProductFournisseur($db);
 									$result = $productsupplier->find_min_price_product_fournisseur($lines[$i]->fk_product, $lines[$i]->qty, $object->socid);
 									$lines[$i]->subprice = 0;
@@ -1464,7 +1464,7 @@ if (empty($resHook)) {
 
 								$tva_tx = $lines[$i]->tva_tx;
 
-								if ($origin == "commande") {
+								if ($origin == "order") {
 									$soc = new Societe($db);
 									$soc->fetch($socid);
 									$tva_tx = get_default_tva($soc, $mysoc, $lines[$i]->fk_product, $product_fourn_price_id);
@@ -1637,9 +1637,9 @@ if ($action == 'create') {
 			$element = 'comm/propal';
 			$subelement = 'propal';
 		}
-		if ($origin == 'order' || $origin == 'commande') {
+		if ($origin == 'order' || $origin == 'order') {
 			$classname = 'Order';
-			$element = $subelement = 'commande';
+			$element = $subelement = 'order';
 		}
 		if ($origin == 'supplier_proposal') {
 			$classname = 'SupplierProposal';
@@ -1664,7 +1664,7 @@ if ($action == 'create') {
 		$projectid = (!empty($objectsrc->fk_project) ? $objectsrc->fk_project : '');
 		$ref_client = (!empty($objectsrc->ref_client) ? $objectsrc->ref_client : '');
 		$fk_account = 0;
-		if ($origin == "commande") {
+		if ($origin == "order") {
 			$cond_reglement_id = 0;
 			$mode_reglement_id = 0;
 			$datelivraison = '';
@@ -1969,7 +1969,7 @@ if ($action == 'create') {
 
 	$formconfirm = '';
 
-	// Confirmation de la suppression de la commande
+	// Confirmation de la suppression de la order
 	if ($action == 'delete') {
 		$arrayAjouts = array();
 		$heightModal = 0;
@@ -2018,7 +2018,7 @@ if ($action == 'create') {
 
 	// Confirmation de la validation
 	if ($action == 'valid') {
-		$object->date_commande = dol_now();
+		$object->date_order = dol_now();
 
 		// We check if number is temporary number
 		if (preg_match('/^[\(]?PROV/i', $object->ref) || empty($object->ref)) { // empty should not happened, but when it occurs, the test save life
@@ -2114,8 +2114,8 @@ if ($action == 'create') {
 		$formconfirm = $form->formconfirm($_SERVER['PHP_SELF']."?id=$object->id", $langs->trans("Cancel"), $langs->trans("ConfirmCancelThisOrder", $object->ref), "confirm_cancel", $formquestion, 0, 1);
 	}
 
-	// Confirmation de l'envoi de la commande
-	if ($action == 'commande') {
+	// Confirmation de l'envoi de la order
+	if ($action == 'order') {
 		$date_com = dol_mktime(GETPOSTINT('rehour'), GETPOSTINT('remin'), GETPOSTINT('resec'), GETPOSTINT("remonth"), GETPOSTINT("reday"), GETPOSTINT("reyear"));
 		if (isModEnabled('notification')) {
 			require_once DOL_DOCUMENT_ROOT.'/core/class/notify.class.php';
@@ -2124,7 +2124,7 @@ if ($action == 'create') {
 			$text .= '<br>';
 			$text .= $notify->confirmMessage('ORDER_SUPPLIER_SUBMIT', $object->socid, $object);
 		}
-		$formconfirm = $form->formconfirm($_SERVER['PHP_SELF']."?id=".$object->id."&datecommande=".$date_com."&methode=".GETPOST("methodecommande")."&comment=".urlencode(GETPOST("comment")), $langs->trans("MakeOrder"), $langs->trans("ConfirmMakeOrder", dol_print_date($date_com, 'day')), "confirm_commande", '', 0, 2);
+		$formconfirm = $form->formconfirm($_SERVER['PHP_SELF']."?id=".$object->id."&dateorder=".$date_com."&methode=".GETPOST("methodeorder")."&comment=".urlencode(GETPOST("comment")), $langs->trans("MakeOrder"), $langs->trans("ConfirmMakeOrder", dol_print_date($date_com, 'day')), "confirm_order", '', 0, 2);
 	}
 
 	// Confirmation to delete line
@@ -2146,7 +2146,7 @@ if ($action == 'create') {
 
 	// Supplier order card
 
-	$linkback = '<a href="'.DOL_URL_ROOT.'/fourn/commande/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+	$linkback = '<a href="'.DOL_URL_ROOT.'/fourn/order/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 	$morehtmlref = '<div class="refidno">';
 	// Ref supplier
@@ -2169,7 +2169,7 @@ if ($action == 'create') {
 		}
 		$morehtmlref .= $object->thirdparty->getNomUrl(1, 'supplier');
 		if (!getDolGlobalString('MAIN_DISABLE_OTHER_LINK') && $object->thirdparty->id > 0) {
-			$morehtmlref .= ' (<a href="'.DOL_URL_ROOT.'/fourn/commande/list.php?socid='.$object->thirdparty->id.'&search_company='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherOrders").'</a>)';
+			$morehtmlref .= ' (<a href="'.DOL_URL_ROOT.'/fourn/order/list.php?socid='.$object->thirdparty->id.'&search_company='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherOrders").'</a>)';
 		}
 	}
 
@@ -2211,19 +2211,19 @@ if ($action == 'create') {
 		print '<table class="border tableforfield centpercent">';
 
 		// Date
-		if ($object->methode_commande_id > 0) {
+		if ($object->methode_order_id > 0) {
 			$usehourmin = 0;
 			if (getDolGlobalString('SUPPLIER_ORDER_USE_HOUR_FOR_DELIVERY_DATE')) {
 				$usehourmin = 1;
 			}
 			print '<tr><td class="titlefield">'.$langs->trans("Date").'</td><td>';
-			print $object->date_commande ? dol_print_date($object->date_commande, $usehourmin ? 'dayhour' : 'day') : '';
-			if ($object->hasDelay() && !empty($object->delivery_date) && !empty($object->date_commande)) {
+			print $object->date_order ? dol_print_date($object->date_order, $usehourmin ? 'dayhour' : 'day') : '';
+			if ($object->hasDelay() && !empty($object->delivery_date) && !empty($object->date_order)) {
 				print ' '.img_picto($langs->trans("Late").' : '.$object->showDelay(), "warning");
 			}
 			print "</td></tr>";
 
-			if ($object->methode_commande) {
+			if ($object->methode_order) {
 				print '<tr><td>'.$langs->trans("Method").'</td><td>'.$object->getInputMethod().'</td></tr>';
 			}
 		}
@@ -2359,7 +2359,7 @@ if ($action == 'create') {
 			print $langs->trans('IncotermLabel');
 			print '<td><td class="right">';
 			if ($usercancreate) {
-				print '<a class="editfielda" href="'.DOL_URL_ROOT.'/fourn/commande/card.php?id='.$object->id.'&action=editincoterm&token='.newToken().'">'.img_edit().'</a>';
+				print '<a class="editfielda" href="'.DOL_URL_ROOT.'/fourn/order/card.php?id='.$object->id.'&action=editincoterm&token='.newToken().'">'.img_edit().'</a>';
 			} else {
 				print '&nbsp;';
 			}
@@ -2656,7 +2656,7 @@ if ($action == 'create') {
 
 					if (in_array($object->statut, array(3, 4, 5))) {
 						if (isModEnabled("supplier_order") && $usercanreceive) {
-							print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/fourn/commande/dispatch.php?id='.$object->id.'">'.$labelofbutton.'</a></div>';
+							print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/fourn/order/dispatch.php?id='.$object->id.'">'.$labelofbutton.'</a></div>';
 						} else {
 							print '<div class="inline-block divButAction"><a class="butActionRefused classfortooltip" href="#" title="'.dol_escape_htmltag($langs->trans("NotAllowed")).'">'.$labelofbutton.'</a></div>';
 						}
@@ -2734,23 +2734,23 @@ if ($action == 'create') {
 		}
 
 		if ($usercanorder && $object->statut == OrderFournisseur::STATUS_ACCEPTED && $action == 'createorder') {
-			// Set status to ordered (action=commande)
+			// Set status to ordered (action=order)
 			print '<!-- form to record supplier order -->'."\n";
-			print '<form name="commande" id="makeorder" action="card.php?id='.$object->id.'&amp;action=commande" method="POST">';
+			print '<form name="order" id="makeorder" action="card.php?id='.$object->id.'&amp;action=order" method="POST">';
 
 			print '<input type="hidden" name="token" value="'.newToken().'">';
-			print '<input type="hidden"	name="action" value="commande">';
+			print '<input type="hidden"	name="action" value="order">';
 			print load_fiche_titre($langs->trans("ToOrder"), '', '');
 			print '<table class="noborder centpercent">';
 			//print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("ToOrder").'</td></tr>';
 			print '<tr><td class="fieldrequired">'.$langs->trans("OrderDate").'</td><td>';
 			$date_com = dol_mktime(GETPOSTINT('rehour'), GETPOSTINT('remin'), GETPOSTINT('resec'), GETPOSTINT('remonth'), GETPOSTINT('reday'), GETPOSTINT('reyear'));
-			print $form->selectDate($date_com ?: '', '', 0, 0, 0, "commande", 1, 1);
+			print $form->selectDate($date_com ?: '', '', 0, 0, 0, "order", 1, 1);
 			print '</td></tr>';
 
 			// Force mandatory order method
 			print '<tr><td class="fieldrequired">'.$langs->trans("OrderMode").'</td><td>';
-			$formorder->selectInputMethod(GETPOST('methodecommande'), "methodecommande", 1);
+			$formorder->selectInputMethod(GETPOST('methodeorder'), "methodeorder", 1);
 			print '</td></tr>';
 
 			print '<tr><td>'.$langs->trans("Comment").'</td><td><input class="quatrevingtpercent" type="text" name="comment" value="'.GETPOST('comment').'"></td></tr>';
@@ -2776,15 +2776,15 @@ if ($action == 'create') {
 
 			// Generated documents
 			$objref = dol_sanitizeFileName($object->ref);
-			$file = $config->fournisseur->dir_output.'/commande/'.$objref.'/'.$objref.'.pdf';
+			$file = $config->fournisseur->dir_output.'/order/'.$objref.'/'.$objref.'.pdf';
 			$relativepath = $objref.'/'.$objref.'.pdf';
-			$filedir = $config->fournisseur->dir_output.'/commande/'.$objref;
+			$filedir = $config->fournisseur->dir_output.'/order/'.$objref;
 			$urlsource = $_SERVER["PHP_SELF"]."?id=".$object->id;
 			$genallowed = $usercanread;
 			$delallowed = $usercancreate;
 			$modelpdf = (!empty($object->model_pdf) ? $object->model_pdf : (!getDolGlobalString('COMMANDE_SUPPLIER_ADDON_PDF') ? '' : $config->global->COMMANDE_SUPPLIER_ADDON_PDF));
 
-			print $formfile->showdocuments('commande_fournisseur', $objref, $filedir, $urlsource, $genallowed, $delallowed, $modelpdf, 1, 0, 0, 0, 0, '', '', '', $object->thirdparty->default_lang, '', $object);
+			print $formfile->showdocuments('order_fournisseur', $objref, $filedir, $urlsource, $genallowed, $delallowed, $modelpdf, 1, 0, 0, 0, 0, '', '', '', $object->thirdparty->default_lang, '', $object);
 			$somethingshown = $formfile->numoffiles;
 
 			// Show links to link elements
@@ -2810,7 +2810,7 @@ if ($action == 'create') {
 					//print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("Receive").'</td></tr>';
 					print '<tr><td>'.$langs->trans("DeliveryDate").'</td><td>';
 					$datepreselected = dol_now();
-					print $form->selectDate($datepreselected, '', 1, 1, 0, "commande", 1, 1);
+					print $form->selectDate($datepreselected, '', 1, 1, 0, "order", 1, 1);
 					print "</td></tr>\n";
 
 					print '<tr><td class="fieldrequired">'.$langs->trans("Delivery")."</td><td>\n";
@@ -3027,7 +3027,7 @@ if ($action == 'create') {
 		// Presend form
 		$modelmail = 'order_supplier_send';
 		$defaulttopic = 'SendOrderRef';
-		$diroutput = $config->fournisseur->commande->dir_output;
+		$diroutput = $config->fournisseur->order->dir_output;
 		$autocopy = 'MAIN_MAIL_AUTOCOPY_SUPPLIER_ORDER_TO';
 		$trackid = 'sord'.$object->id;
 

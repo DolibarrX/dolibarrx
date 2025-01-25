@@ -228,7 +228,7 @@ class Workstations extends DolibarrApi
 		unset($object->origin_object);
 		unset($object->expedition);
 		unset($object->livraison);
-		unset($object->commandeFournisseur);
+		unset($object->orderFournisseur);
 		unset($object->country_id);
 		unset($object->country_code);
 		unset($object->state_id);

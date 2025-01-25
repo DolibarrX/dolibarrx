@@ -60,7 +60,7 @@ if (empty($object) || !is_object($object)) {
 ';
 
 $usemargins = 0;
-if (isModEnabled('margin') && !empty($object->element) && in_array($object->element, array('facture', 'facturerec', 'propal', 'commande'))) {
+if (isModEnabled('margin') && !empty($object->element) && in_array($object->element, array('facture', 'facturerec', 'propal', 'order'))) {
 	$usemargins = 1;
 }
 
@@ -86,7 +86,7 @@ $colspan = 3; // Col total ht + col edit + col delete
 if (!empty($inputalsopricewithtax)) {
 	$colspan++; // We add 1 if col total ttc
 }
-if (in_array($object->element, array('propal', 'supplier_proposal', 'facture', 'facturerec', 'invoice', 'commande', 'order', 'order_supplier', 'invoice_supplier', 'invoice_supplier_rec'))) {
+if (in_array($object->element, array('propal', 'supplier_proposal', 'facture', 'facturerec', 'invoice', 'order', 'order', 'order_supplier', 'invoice_supplier', 'invoice_supplier_rec'))) {
 	$colspan++; // With this, there is a column move button
 }
 if (isModEnabled("multicurrency") && $object->multicurrency_code != $config->currency) {
@@ -227,7 +227,7 @@ $coldisplay++;
 	// VAT Rate
 	$coldisplay++;
 	$type_tva = null;
-	if ($object->element == 'propal' || $object->element == 'commande' || $object->element == 'facture' || $object->element == 'facturerec') {
+	if ($object->element == 'propal' || $object->element == 'order' || $object->element == 'facture' || $object->element == 'facturerec') {
 		$type_tva = 1;
 	} elseif ($object->element == 'supplier_proposal' || $object->element == 'order_supplier' || $object->element == 'invoice_supplier' || $object->element == 'invoice_supplier_rec') {
 		$type_tva = 2;
@@ -571,7 +571,7 @@ jQuery(document).ready(function()
 		}
 	});
 
-	<?php if (in_array($object->table_element_line, array('propaldet', 'commandedet', 'facturedet'))) { ?>
+	<?php if (in_array($object->table_element_line, array('propaldet', 'orderdet', 'facturedet'))) { ?>
 	$("#date_start, #date_end").focusout(function() {
 		if ( $(this).val() == ''  && !$(this).hasClass('inputmandatory') ) {
 			$(this).addClass('inputmandatory');

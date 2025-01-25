@@ -1900,7 +1900,7 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Member') {
 			$sql .= ", " . MAIN_DB_PREFIX . "member as m";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'OrderFournisseur') {
-			$sql .= ", " . MAIN_DB_PREFIX . "commande_fournisseur as o";
+			$sql .= ", " . MAIN_DB_PREFIX . "order_fournisseur as o";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Product') {
 			$sql .= ", " . MAIN_DB_PREFIX . "product as o";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Ticket') {

@@ -148,7 +148,7 @@ function project_prepare_head(Project $project, $moreparam = '')
 				$nbElements += $project->getElementCount('propal', 'propal');
 			}
 			if (isModEnabled('order')) {
-				$nbElements += $project->getElementCount('order', 'commande');
+				$nbElements += $project->getElementCount('order', 'order');
 			}
 			if (isModEnabled('invoice')) {
 				$nbElements += $project->getElementCount('invoice', 'facture');
@@ -160,7 +160,7 @@ function project_prepare_head(Project $project, $moreparam = '')
 				$nbElements += $project->getElementCount('proposal_supplier', 'supplier_proposal');
 			}
 			if (isModEnabled("supplier_order")) {
-				$nbElements += $project->getElementCount('order_supplier', 'commande_fournisseur');
+				$nbElements += $project->getElementCount('order_supplier', 'order_fournisseur');
 			}
 			if (isModEnabled("supplier_invoice")) {
 				$nbElements += $project->getElementCount('invoice_supplier', 'facture_fourn');

@@ -258,12 +258,12 @@ class pdf_storm extends ModelePDFDeliveryOrder
 				$expedition = new Expedition($this->db);
 				$result = $expedition->fetch($object->origin_id);
 				// Now we get the order that is origin of shipment
-				$commande = new Order($this->db);
-				if ($expedition->origin == 'commande') {
-					$commande->fetch($expedition->origin_id);
+				$order = new Order($this->db);
+				if ($expedition->origin == 'order') {
+					$order->fetch($expedition->origin_id);
 				}
-				$object->commande = $commande; // We set order of shipment onto delivery.
-				$object->commande->loadExpeditions();
+				$object->order = $order; // We set order of shipment onto delivery.
+				$object->order->loadExpeditions();
 
 
 				$pdf->Open();
@@ -481,7 +481,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 
 					// Remaining to ship
 					if ($this->getColumnStatus('qty_remaining')) {
-						$qtyRemaining = $object->lines[$i]->qty_asked - $object->commande->expeditions[$object->lines[$i]->fk_origin_line];
+						$qtyRemaining = $object->lines[$i]->qty_asked - $object->order->expeditions[$object->lines[$i]->fk_origin_line];
 						$this->printStdColumnContent($pdf, $curY, 'qty_remaining', $qtyRemaining);
 						$nexY = max($pdf->GetY(), $nexY);
 					}
@@ -806,7 +806,7 @@ class pdf_storm extends ModelePDFDeliveryOrder
 
 			// If SHIPPING contact defined on order, we use it
 			$usecontact = false;
-			$arrayidcontact = $object->commande->getIdContact('external', 'SHIPPING');
+			$arrayidcontact = $object->order->getIdContact('external', 'SHIPPING');
 			if (count($arrayidcontact) > 0) {
 				$usecontact = true;
 				$result = $object->fetch_contact($arrayidcontact[0]);

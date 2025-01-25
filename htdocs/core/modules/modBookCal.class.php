@@ -514,7 +514,7 @@ class modBookCal extends DolibarrModules
 			't.ref' => array(
 				'rule'=>'getrefifauto',
 				'class'=>(empty($config->global->BOOKCAL_AVAILABILITIES_ADDON) ? 'mod_availabilities_standard' : $config->global->BOOKCAL_AVAILABILITIES_ADDON),
-				'path'=>"/core/modules/commande/".(empty($config->global->BOOKCAL_AVAILABILITIES_ADDON) ? 'mod_availabilities_standard' : $config->global->BOOKCAL_AVAILABILITIES_ADDON).'.php'
+				'path'=>"/core/modules/order/".(empty($config->global->BOOKCAL_AVAILABILITIES_ADDON) ? 'mod_availabilities_standard' : $config->global->BOOKCAL_AVAILABILITIES_ADDON).'.php'
 				'classobject'=>'Availabilities',
 				'pathobject'=>'/bookcal/class/availabilities.class.php',
 			),

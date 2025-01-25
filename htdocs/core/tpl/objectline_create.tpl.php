@@ -54,7 +54,7 @@ if (empty($object) || !is_object($object)) {
  @phan-var-force CommonObject $object';
 
 $usemargins = 0;
-if (isModEnabled('margin') && !empty($object->element) && in_array($object->element, array('facture', 'facturerec', 'propal', 'commande'))) {
+if (isModEnabled('margin') && !empty($object->element) && in_array($object->element, array('facture', 'facturerec', 'propal', 'order'))) {
 	$usemargins = 1;
 }
 if (!isset($dateSelector)) {
@@ -82,7 +82,7 @@ $colspan = 3; // Columns: total ht + col edit + col delete
 if (isModEnabled("multicurrency") && $this->multicurrency_code != $config->currency) {
 	$colspan++; //Add column for Total (currency) if required
 }
-if (in_array($object->element, array('propal', 'commande', 'order', 'facture', 'facturerec', 'invoice', 'supplier_proposal', 'order_supplier', 'invoice_supplier', 'invoice_supplier_rec'))) {
+if (in_array($object->element, array('propal', 'order', 'order', 'facture', 'facturerec', 'invoice', 'supplier_proposal', 'order_supplier', 'invoice_supplier', 'invoice_supplier_rec'))) {
 	$colspan++; // With this, there is a column move button
 }
 if (isModEnabled('asset') && $object->element == 'invoice_supplier') {
@@ -93,7 +93,7 @@ if (isModEnabled('asset') && $object->element == 'invoice_supplier') {
 // Lines for extrafield
 $objectline = null;
 if (!empty($extrafields)) {
-	if ($this->table_element_line == 'commandedet') {
+	if ($this->table_element_line == 'orderdet') {
 		$objectline = new OrderLine($this->db);
 	} elseif ($this->table_element_line == 'propaldet') {
 		$objectline = new PropaleLigne($this->db);
@@ -103,7 +103,7 @@ if (!empty($extrafields)) {
 		$objectline = new FactureLigne($this->db);
 	} elseif ($this->table_element_line == 'contratdet') {
 		$objectline = new ContratLigne($this->db);
-	} elseif ($this->table_element_line == 'commande_fournisseurdet') {
+	} elseif ($this->table_element_line == 'order_fournisseurdet') {
 		$objectline = new OrderFournisseurLigne($this->db);
 	} elseif ($this->table_element_line == 'facture_fourn_det') {
 		$objectline = new SupplierInvoiceLine($this->db);
@@ -457,7 +457,7 @@ if ($nolinesbefore) {
 		}
 		print '<td class="nobottom linecolvat right">';
 		$coldisplay++;
-		if ($object->element == 'propal' || $object->element == 'commande' || $object->element == 'facture' || $object->element == 'facturerec') {
+		if ($object->element == 'propal' || $object->element == 'order' || $object->element == 'facture' || $object->element == 'facturerec') {
 			$type_tva = 1;
 		} elseif ($object->element == 'supplier_proposal' || $object->element == 'order_supplier' || $object->element == 'invoice_supplier' || $object->element == 'invoice_supplier_rec') {
 			$type_tva = 2;
@@ -802,7 +802,7 @@ if (!empty($usemargins) && $user->hasRight('margins', 'creer')) {
 			<?php
 		}
 
-		if (in_array($this->table_element_line, array('propaldet', 'commandedet', 'facturedet'))) { ?>
+		if (in_array($this->table_element_line, array('propaldet', 'orderdet', 'facturedet'))) { ?>
 		$("#date_start, #date_end").focusout(function() {
 			console.log("focusout of date");
 			let type = $(this).attr('type');

@@ -1001,7 +1001,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 		if (isModEnabled("propal") && $user->hasRight('propal', 'lire')) {
 			$elementTypeArray['propal'] = $langs->transnoentitiesnoconv('Proposals');
 		}
-		if (isModEnabled('order') && $user->hasRight('commande', 'lire')) {
+		if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
 			$elementTypeArray['order'] = $langs->transnoentitiesnoconv('Orders');
 		}
 		if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
@@ -1097,7 +1097,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 		if (isModEnabled('propal') && $user->hasRight('propal', 'lire')) {
 			$elementTypeArray['propal'] = $langs->transnoentitiesnoconv('Proposals');
 		}
-		if (isModEnabled('order') && $user->hasRight('commande', 'lire')) {
+		if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
 			$elementTypeArray['order'] = $langs->transnoentitiesnoconv('Orders');
 		}
 		if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {

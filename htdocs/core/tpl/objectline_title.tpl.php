@@ -69,7 +69,7 @@ if (getDolGlobalString('MAIN_VIEW_LINE_NUMBER')) {
 // Description
 print '<th class="linecoldescription">'.$langs->trans('Description');
 $constant = get_class($object)."::STATUS_DRAFT";
-if (in_array($object->element, array('propal', 'commande', 'facture', 'order_supplier', 'invoice_supplier')) && defined($constant) && $object->status == constant($constant)) {
+if (in_array($object->element, array('propal', 'order', 'facture', 'order_supplier', 'invoice_supplier')) && defined($constant) && $object->status == constant($constant)) {
 	if (empty($disableedit) && GETPOST('mode', 'aZ09') != 'servicedateforalllines') {
 		print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?mode=servicedateforalllines&id='.$object->id.'">'.img_edit($langs->trans("UpdateForAllLines"), 0, 'class="clickvatforalllines opacitymedium paddingleft cursorpointer"').'</a>';
 	}
@@ -100,7 +100,7 @@ if (getDolGlobalString('FACTURE_LOCAL_TAX1_OPTION') || getDolGlobalString('FACTU
 }
 
 // @phan-suppress-next-line PhanUndeclaredConstantOfClass
-if (in_array($object->element, array('propal', 'commande', 'facture', 'supplier_proposal', 'order_supplier', 'invoice_supplier')) && $object->status == $object::STATUS_DRAFT) {
+if (in_array($object->element, array('propal', 'order', 'facture', 'supplier_proposal', 'order_supplier', 'invoice_supplier')) && $object->status == $object::STATUS_DRAFT) {
 	global $mysoc;
 
 	if (empty($disableedit) && GETPOST('mode', 'aZ09') != 'vatforalllines') {
@@ -141,7 +141,7 @@ print '<th class="linecoldiscount right nowraponall">';
 print $langs->trans('ReductionShort');
 
 // @phan-suppress-next-line PhanUndeclaredConstantOfClass
-if (in_array($object->element, array('propal', 'commande', 'facture')) && $object->status == $object::STATUS_DRAFT) {
+if (in_array($object->element, array('propal', 'order', 'facture')) && $object->status == $object::STATUS_DRAFT) {
 	global $mysoc;
 
 	if (empty($disableedit) && GETPOST('mode', 'aZ09') != 'remiseforalllines') {
@@ -179,7 +179,7 @@ if ($usemargins && isModEnabled('margin') && empty($user->socid)) {
 	if (getDolGlobalString('DISPLAY_MARGIN_RATES') && $user->hasRight('margins', 'liretous')) {
 		print '<th class="linecolmargin2 margininfos right width75">'.$langs->trans('MarginRate');
 		// @phan-suppress-next-line PhanUndeclaredConstantOfClass
-		if (in_array($object->element, array('propal', 'commande', 'facture', 'supplier_proposal', 'order_supplier', 'invoice_supplier')) && $object->status == $object::STATUS_DRAFT) {
+		if (in_array($object->element, array('propal', 'order', 'facture', 'supplier_proposal', 'order_supplier', 'invoice_supplier')) && $object->status == $object::STATUS_DRAFT) {
 			print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?mode=marginforalllines&id='.$object->id.'">'.img_edit($langs->trans("UpdateForAllLines"), 0, 'class="clickmarginforalllines opacitymedium paddingleft cursorpointer"').'</a>';
 			if (GETPOST('mode', 'aZ09') == 'marginforalllines') {
 				print '<div class="classmarginforalllines inline-block nowraponall">';

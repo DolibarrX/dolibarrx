@@ -287,7 +287,7 @@ abstract class CommonObject
 	public $origin_object;
 
 	/**
-	 * @var CommonObject|string|null	Sometimes the type of the originating object ('commande', 'facture', ...), sometimes the object (as with MouvementStock)
+	 * @var CommonObject|string|null	Sometimes the type of the originating object ('order', 'facture', ...), sometimes the object (as with MouvementStock)
 	 * @deprecated						Use $origin_type and $origin_id instead.
 	 * @see fetch_origin()
 	 */
@@ -315,7 +315,7 @@ abstract class CommonObject
 	 * @deprecated Use $origin_object instead.
 	 * @see $origin_object
 	 */
-	private $commandeFournisseur;
+	private $orderFournisseur;
 
 
 	/**
@@ -881,7 +881,7 @@ abstract class CommonObject
 			'alreadypaid' => 'totalpaid',
 			'cond_reglement' => 'depr_cond_reglement',
 			//'note' => 'note_private',		// Some classes needs ->note and others need ->note_public/private so we can't manage deprecation for this field with dolDeprecationHandler
-			'commandeFournisseur' => 'origin_object',
+			'orderFournisseur' => 'origin_object',
 			'expedition' => 'origin_object',
 			'fk_project' => 'fk_project',
 			'livraison' => 'origin_object',
@@ -1789,7 +1789,7 @@ abstract class CommonObject
 		// Particular case for shipping
 		if ($this->element == 'shipping' && $this->origin_id != 0) {
 			$id = $this->origin_id;
-			$element = 'commande';
+			$element = 'order';
 		} elseif ($this->element == 'reception' && $this->origin_id != 0) {
 			$id = $this->origin_id;
 			$element = 'order_supplier';
@@ -2117,7 +2117,7 @@ abstract class CommonObject
 			$origin = 'livraison';
 		}
 		if ($origin == 'order_supplier' || $origin == 'supplier_order') {
-			$origin = 'commandeFournisseur';
+			$origin = 'orderFournisseur';
 		}
 
 		$classname = ucfirst($origin);
@@ -2808,7 +2808,7 @@ abstract class CommonObject
 									$line->multicurrency_subprice
 								);
 								break;
-							case 'commande':
+							case 'order':
 								/** @var Order $this */
 								/** @var OrderLine $line */
 								'@phan-var-force Order $this';
@@ -3000,7 +3000,7 @@ abstract class CommonObject
 
 			$sql = 'UPDATE '.$this->db->prefix().$this->table_element;
 			$sql .= " SET ".$fieldname." = ".(($id > 0 || $id == '0') ? ((int) $id) : 'NULL');
-			if (in_array($this->table_element, array('propal', 'commande', 'societe'))) {
+			if (in_array($this->table_element, array('propal', 'order', 'societe'))) {
 				$sql .= " , deposit_percent = " . (empty($deposit_percent) ? 'NULL' : "'".$this->db->escape($deposit_percent)."'");
 			}
 			$sql .= ' WHERE rowid='.((int) $this->id);
@@ -3779,7 +3779,7 @@ abstract class CommonObject
 					case 'societe':
 						$trigger_name = 'COMPANY_MODIFY';
 						break;
-					case 'commande':
+					case 'order':
 						$trigger_name = 'ORDER_MODIFY';
 						break;
 					case 'facture':
@@ -3854,7 +3854,7 @@ abstract class CommonObject
 		$MODULE = "";
 		if ($this->element == 'propal') {
 			$MODULE = "MODULE_DISALLOW_UPDATE_PRICE_PROPOSAL";
-		} elseif ($this->element == 'commande' || $this->element == 'order') {
+		} elseif ($this->element == 'order' || $this->element == 'order') {
 			$MODULE = "MODULE_DISALLOW_UPDATE_PRICE_ORDER";
 		} elseif ($this->element == 'facture' || $this->element == 'invoice') {
 			$MODULE = "MODULE_DISALLOW_UPDATE_PRICE_INVOICE";
@@ -4128,7 +4128,7 @@ abstract class CommonObject
 			$fieldlocaltax2 = 'localtax2';
 			$fieldttc = 'total_ttc';
 			// Specific code for backward compatibility with old field names
-			if (in_array($this->element, array('propal', 'commande', 'facture', 'facturerec', 'supplier_proposal', 'order_supplier', 'facture_fourn', 'invoice_supplier', 'invoice_supplier_rec', 'expensereport'))) {
+			if (in_array($this->element, array('propal', 'order', 'facture', 'facturerec', 'supplier_proposal', 'order_supplier', 'facture_fourn', 'invoice_supplier', 'invoice_supplier_rec', 'expensereport'))) {
 				$fieldtva = 'total_tva';
 			}
 
@@ -4188,7 +4188,7 @@ abstract class CommonObject
 
 		// Special case
 		if ($origin == 'order') {
-			$origin = 'commande';
+			$origin = 'order';
 		}
 		if ($origin == 'invoice') {
 			$origin = 'facture';
@@ -5089,7 +5089,7 @@ abstract class CommonObject
 			}
 			if (isset($line->qty_shipped)) {
 				$totalToShip += $line->qty_shipped; // defined for shipment only
-			} elseif ($line->element == 'commandefournisseurdispatch' && isset($line->qty)) {
+			} elseif ($line->element == 'orderfournisseurdispatch' && isset($line->qty)) {
 				if (empty($totalToShip)) {
 					$totalToShip = 0;
 				}
@@ -5264,7 +5264,7 @@ abstract class CommonObject
 
 		// Define $usemargins (used by objectline_xxx.tpl.php files)
 		$usemargins = 0;
-		if (isModEnabled('margin') && !empty($this->element) && in_array($this->element, array('facture', 'facturerec', 'propal', 'commande'))) {
+		if (isModEnabled('margin') && !empty($this->element) && in_array($this->element, array('facture', 'facturerec', 'propal', 'order'))) {
 			$usemargins = 1;
 		}
 
@@ -6023,7 +6023,7 @@ abstract class CommonObject
 					$setsharekey = true;
 				}
 			}
-			if ($this->element == 'commande' && getDolGlobalInt("ORDER_ALLOW_EXTERNAL_DOWNLOAD")) {
+			if ($this->element == 'order' && getDolGlobalInt("ORDER_ALLOW_EXTERNAL_DOWNLOAD")) {
 				$setsharekey = true;
 			}
 			if ($this->element == 'facture' && getDolGlobalInt("INVOICE_ALLOW_EXTERNAL_DOWNLOAD")) {
@@ -6189,7 +6189,7 @@ abstract class CommonObject
 		if ($newelement == 'facture') {
 			$newelement = 'invoice';
 		}
-		if ($newelement == 'commande') {
+		if ($newelement == 'order') {
 			$newelement = 'order';
 		}
 		if (empty($newelement)) {
@@ -11335,7 +11335,7 @@ abstract class CommonObject
 					$element = 'produit';
 					break;
 				case 'order_supplier':
-					$element = 'fournisseur/commande';
+					$element = 'fournisseur/order';
 					break;
 				case 'invoice_supplier':
 					// Special cases that need to use get_exdir to get real dir of object

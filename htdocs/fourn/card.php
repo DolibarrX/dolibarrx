@@ -531,7 +531,7 @@ if ($object->id > 0) {
 		$outstandingTotal = $tmp['total_ht'];
 		$outstandingTotalIncTax = $tmp['total_ttc'];
 		$text = $langs->trans("OverAllOrders");
-		$link = DOL_URL_ROOT.'/fourn/commande/list.php?socid='.$object->id;
+		$link = DOL_URL_ROOT.'/fourn/order/list.php?socid='.$object->id;
 		$icon = 'bill';
 		if ($link) {
 			$boxstat .= '<a href="'.$link.'" class="boxstatsindicator thumbstat nobold nounderline">';
@@ -763,19 +763,19 @@ if ($object->id > 0) {
 	 */
 	$orderstatic = new OrderFournisseur($db);
 
-	if ($user->hasRight("fournisseur", "commande", "lire")) {
+	if ($user->hasRight("fournisseur", "order", "lire")) {
 		// TODO move to DAO class
 		// Check if there are supplier orders billable
 		$sql2 = 'SELECT s.nom, s.rowid as socid, s.client, c.rowid, c.ref, c.total_ht, c.ref_supplier,';
-		$sql2 .= ' c.date_valid, c.date_commande, c.date_livraison, c.fk_statut';
+		$sql2 .= ' c.date_valid, c.date_order, c.date_livraison, c.fk_statut';
 		$sql2 .= ' FROM '.MAIN_DB_PREFIX.'societe as s';
-		$sql2 .= ', '.MAIN_DB_PREFIX.'commande_fournisseur as c';
+		$sql2 .= ', '.MAIN_DB_PREFIX.'order_fournisseur as c';
 		$sql2 .= ' WHERE c.fk_soc = s.rowid';
-		$sql2 .= " AND c.entity IN (".getEntity('commande_fournisseur').")";
+		$sql2 .= " AND c.entity IN (".getEntity('order_fournisseur').")";
 		$sql2 .= ' AND s.rowid = '.((int) $object->id);
 		// Show orders we can bill
 		if (!getDolGlobalString('SUPPLIER_ORDER_TO_INVOICE_STATUS')) {
-			$sql2 .= " AND c.fk_statut IN (".$db->sanitize(OrderFournisseur::STATUS_RECEIVED_COMPLETELY).")"; //  Must match filter in htdocs/fourn/commande/list.php
+			$sql2 .= " AND c.fk_statut IN (".$db->sanitize(OrderFournisseur::STATUS_RECEIVED_COMPLETELY).")"; //  Must match filter in htdocs/fourn/order/list.php
 		} else {
 			// OrderFournisseur::STATUS_ORDERSENT.", ".OrderFournisseur::STATUS_RECEIVED_PARTIALLY.", ".OrderFournisseur::STATUS_RECEIVED_COMPLETELY
 			$sql2 .= " AND c.fk_statut IN (".$db->sanitize(getDolGlobalString('SUPPLIER_ORDER_TO_INVOICE_STATUS')).")";
@@ -794,20 +794,20 @@ if ($object->id > 0) {
 
 		// TODO move to DAO class
 		$sql = "SELECT count(p.rowid) as total";
-		$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseur as p";
+		$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseur as p";
 		$sql .= " WHERE p.fk_soc = ".((int) $object->id);
-		$sql .= " AND p.entity IN (".getEntity('commande_fournisseur').")";
+		$sql .= " AND p.entity IN (".getEntity('order_fournisseur').")";
 		$resql = $db->query($sql);
 		if ($resql) {
 			$object_count = $db->fetch_object($resql);
 			$num = $object_count->total;
 		}
 
-		$sql  = "SELECT p.rowid,p.ref, p.date_commande as date, p.fk_statut, p.total_ht, p.total_tva, p.total_ttc";
-		$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseur as p";
+		$sql  = "SELECT p.rowid,p.ref, p.date_order as date, p.fk_statut, p.total_ht, p.total_tva, p.total_ttc";
+		$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseur as p";
 		$sql .= " WHERE p.fk_soc = ".((int) $object->id);
-		$sql .= " AND p.entity IN (".getEntity('commande_fournisseur').")";
-		$sql .= " ORDER BY p.date_commande DESC";
+		$sql .= " AND p.entity IN (".getEntity('order_fournisseur').")";
+		$sql .= " ORDER BY p.date_order DESC";
 		$sql .= $db->plimit($MAXLIST);
 
 		$resql = $db->query($sql);
@@ -821,8 +821,8 @@ if ($object->id > 0) {
 				print '<tr class="liste_titre">';
 				print '<td colspan="4">';
 				print '<table class="nobordernopadding" width="100%"><tr><td>'.$langs->trans("LastSupplierOrders", ($num < $MAXLIST ? "" : $MAXLIST)).'</td>';
-				print '<td class="right"><a class="notasortlink" href="'.DOL_URL_ROOT.'/fourn/commande/list.php?socid='.$object->id.'"><span class="hideonsmartphone">'.$langs->trans("AllOrders").'</span><span class="badge marginleftonlyshort">'.$num.'</span></td>';
-				print '<td width="20px" class="right"><a href="'.DOL_URL_ROOT.'/commande/stats/index.php?mode=supplier&socid='.$object->id.'">'.img_picto($langs->trans("Statistics"), 'stats').'</a></td>';
+				print '<td class="right"><a class="notasortlink" href="'.DOL_URL_ROOT.'/fourn/order/list.php?socid='.$object->id.'"><span class="hideonsmartphone">'.$langs->trans("AllOrders").'</span><span class="badge marginleftonlyshort">'.$num.'</span></td>';
+				print '<td width="20px" class="right"><a href="'.DOL_URL_ROOT.'/order/stats/index.php?mode=supplier&socid='.$object->id.'">'.img_picto($langs->trans("Statistics"), 'stats').'</a></td>';
 				print '</tr></table>';
 				print '</td></tr>';
 			}
@@ -1074,10 +1074,10 @@ if ($object->id > 0) {
 			}
 		}
 
-		if ($user->hasRight('fournisseur', 'commande', 'creer') || $user->hasRight('supplier_order', 'creer')) {
+		if ($user->hasRight('fournisseur', 'order', 'creer') || $user->hasRight('supplier_order', 'creer')) {
 			$langs->load("orders");
 			if ($object->status == 1) {
-				print dolGetButtonAction('', $langs->trans('AddSupplierOrderShort'), 'default', DOL_URL_ROOT.'/fourn/commande/card.php?action=create&amp;token='.newToken().'&amp;socid='.$object->id, '');
+				print dolGetButtonAction('', $langs->trans('AddSupplierOrderShort'), 'default', DOL_URL_ROOT.'/fourn/order/card.php?action=create&amp;token='.newToken().'&amp;socid='.$object->id, '');
 			} else {
 				print dolGetButtonAction($langs->trans('ThirdPartyIsClosed'), $langs->trans('AddSupplierOrderShort'), 'default', $_SERVER['PHP_SELF'].'#', '', false);
 			}
@@ -1087,7 +1087,7 @@ if ($object->id > 0) {
 			if (!empty($orders2invoice) && $orders2invoice > 0) {
 				if ($object->status == 1) {
 					// Company is open
-					print dolGetButtonAction('', $langs->trans('CreateInvoiceForThisSupplier'), 'default', DOL_URL_ROOT.'/fourn/commande/list.php?socid='.$object->id.'&amp;search_billed=0&amp;autoselectall=1', '');
+					print dolGetButtonAction('', $langs->trans('CreateInvoiceForThisSupplier'), 'default', DOL_URL_ROOT.'/fourn/order/list.php?socid='.$object->id.'&amp;search_billed=0&amp;autoselectall=1', '');
 				} else {
 					print dolGetButtonAction('', $langs->trans('CreateInvoiceForThisCustomer'), 'default', $_SERVER['PHP_SELF'].'#', '', false);
 				}

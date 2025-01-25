@@ -210,7 +210,7 @@ if (isModEnabled('project')) {
 if (isModEnabled("propal") && $user->hasRight('propal', 'lire')) {
 	$elementList['propal_send'] = img_picto('', 'propal', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendProposal'));
 }
-if (isModEnabled('order') && $user->hasRight('commande', 'lire')) {
+if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
 	$elementList['order_send'] = img_picto('', 'order', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendOrder'));
 }
 if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
@@ -228,7 +228,7 @@ if (isModEnabled('intervention')) {
 if (isModEnabled('supplier_proposal')) {
 	$elementList['supplier_proposal_send'] = img_picto('', 'propal', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendSupplierRequestForQuotation'));
 }
-if (isModEnabled("supplier_order") && ($user->hasRight('fournisseur', 'commande', 'lire') || $user->hasRight('supplier_order', 'read'))) {
+if (isModEnabled("supplier_order") && ($user->hasRight('fournisseur', 'order', 'lire') || $user->hasRight('supplier_order', 'read'))) {
 	$elementList['order_supplier_send'] = img_picto('', 'order', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendSupplierOrder'));
 }
 if (isModEnabled("supplier_invoice") && ($user->hasRight('fournisseur', 'facture', 'lire') || $user->hasRight('supplier_invoice', 'read'))) {

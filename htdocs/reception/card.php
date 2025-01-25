@@ -53,8 +53,8 @@ if (isModEnabled("product") || isModEnabled("service")) {
 if (isModEnabled("propal")) {
 	require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 }
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.dispatch.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.dispatch.class.php';
 if (isModEnabled('productbatch')) {
 	require_once DOL_DOCUMENT_ROOT.'/product/class/productbatch.class.php';
 }
@@ -79,7 +79,7 @@ if (isModEnabled('productbatch')) {
 	$langs->load('productbatch');
 }
 
-$origin = GETPOST('origin', 'alpha') ? GETPOST('origin', 'alpha') : 'reception'; // Example: commande, propal
+$origin = GETPOST('origin', 'alpha') ? GETPOST('origin', 'alpha') : 'reception'; // Example: order, propal
 $origin_id = GETPOSTINT('id') ? GETPOSTINT('id') : '';
 $id = $origin_id;
 if (empty($origin_id)) {
@@ -158,7 +158,7 @@ if (isModEnabled("reception") || $origin == 'reception' || empty($origin)) {
 } else {
 	// We do not use the reception module, so we test permission on the supplier orders
 	if ($origin == 'supplierorder' || $origin == 'order_supplier') {
-		$result = restrictedArea($user, 'fournisseur', $origin_id, 'commande_fournisseur', 'commande');
+		$result = restrictedArea($user, 'fournisseur', $origin_id, 'order_fournisseur', 'order');
 	} elseif (!$user->hasRight($origin, 'lire') && !$user->hasRight($origin, 'read')) {
 		accessforbidden();
 	}
@@ -171,11 +171,11 @@ if (isModEnabled("reception")) {
 	$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('reception', 'creer')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('reception', 'reception_advance', 'validate')));
 	$permissiontodelete = $user->hasRight('reception', 'supprimer');
 } else {
-	$permissiontoread = $user->hasRight('fournisseur', 'commande', 'receptionner');
-	$permissiontoadd = $user->hasRight('fournisseur', 'commande', 'receptionner');
-	$permissiondellink = $user->hasRight('fournisseur', 'commande', 'receptionner'); // Used by the include of actions_dellink.inc.php
-	$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'commande', 'receptionner')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'commande_advance', 'check')));
-	$permissiontodelete = $user->hasRight('fournisseur', 'commande', 'receptionner');
+	$permissiontoread = $user->hasRight('fournisseur', 'order', 'receptionner');
+	$permissiontoadd = $user->hasRight('fournisseur', 'order', 'receptionner');
+	$permissiondellink = $user->hasRight('fournisseur', 'order', 'receptionner'); // Used by the include of actions_dellink.inc.php
+	$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'order', 'receptionner')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'order_advance', 'check')));
+	$permissiontodelete = $user->hasRight('fournisseur', 'order', 'receptionner');
 }
 
 $error = 0;
@@ -485,7 +485,7 @@ if (empty($resHook)) {
 			exit;
 		} else {
 			$db->rollback();
-			//$_GET["commande_id"] = GETPOSTINT('commande_id');
+			//$_GET["order_id"] = GETPOSTINT('order_id');
 			$action = 'create';
 		}
 	} elseif ($action == 'confirm_valid' && $confirm == 'yes' && $permissiontovalidate) {
@@ -849,7 +849,7 @@ if ($action == 'create') {
 			// Ref
 			print '<tr><td class="titlefieldcreate fieldrequired">';
 			if ($origin == 'supplierorder' && isModEnabled("supplier_order")) {
-				print $langs->trans("RefOrder").'</td><td colspan="3"><a href="'.DOL_URL_ROOT.'/fourn/commande/card.php?id='.$objectsrc->id.'">'.img_object($langs->trans("ShowOrder"), 'order').' '.$objectsrc->ref;
+				print $langs->trans("RefOrder").'</td><td colspan="3"><a href="'.DOL_URL_ROOT.'/fourn/order/card.php?id='.$objectsrc->id.'">'.img_object($langs->trans("ShowOrder"), 'order').' '.$objectsrc->ref;
 			}
 			if ($origin == 'propal' && isModEnabled("propal")) {
 				print $langs->trans("RefProposal").'</td><td colspan="3"><a href="'.DOL_URL_ROOT.'/comm/card.php?id='.$objectsrc->id.'">'.img_object($langs->trans("ShowProposal"), 'propal').' '.$objectsrc->ref;
@@ -1020,8 +1020,8 @@ if ($action == 'create') {
 					$qty = "qty_" . $paramSuffix;
 					$ent = "entrepot_" . $paramSuffix;
 					$pu = "pu_" . $paramSuffix; // This is unit price including discount
-					$fk_commandefourndet = "fk_commandefourndet_" . $paramSuffix;
-					$dispatchLines[$numAsked] = array('paramSuffix' => $paramSuffix, 'prod' => GETPOSTINT($prod), 'qty' => price2num(GETPOST($qty), 'MS'), 'ent' => GETPOSTINT($ent), 'pu' => price2num(GETPOST($pu), 'MU'), 'comment' => GETPOST('comment'), 'fk_commandefourndet' => GETPOSTINT($fk_commandefourndet));
+					$fk_orderfourndet = "fk_orderfourndet_" . $paramSuffix;
+					$dispatchLines[$numAsked] = array('paramSuffix' => $paramSuffix, 'prod' => GETPOSTINT($prod), 'qty' => price2num(GETPOST($qty), 'MS'), 'ent' => GETPOSTINT($ent), 'pu' => price2num(GETPOST($pu), 'MU'), 'comment' => GETPOST('comment'), 'fk_orderfourndet' => GETPOSTINT($fk_orderfourndet));
 				}
 
 				// with batch module enabled and product with lot/serial
@@ -1041,8 +1041,8 @@ if ($action == 'create') {
 					$lot = 'lot_number_' . $paramSuffix;
 					$dDLUO = dol_mktime(12, 0, 0, GETPOSTINT('dluo_'.$paramSuffix.'month'), GETPOSTINT('dluo_'.$paramSuffix.'day'), GETPOSTINT('dluo_'.$paramSuffix.'year'));
 					$dDLC = dol_mktime(12, 0, 0, GETPOSTINT('dlc_'.$paramSuffix.'month'), GETPOSTINT('dlc_'.$paramSuffix.'day'), GETPOSTINT('dlc_'.$paramSuffix.'year'));
-					$fk_commandefourndet = 'fk_commandefourndet_'.$paramSuffix;
-					$dispatchLines[$numAsked] = array('paramSuffix' => $paramSuffix, 'prod' => GETPOSTINT($prod), 'qty' => price2num(GETPOST($qty), 'MS'), 'ent' => GETPOSTINT($ent), 'pu' => price2num(GETPOST($pu), 'MU'), 'comment' => GETPOST('comment'), 'fk_commandefourndet' => GETPOSTINT($fk_commandefourndet), 'DLC' => $dDLC, 'DLUO' => $dDLUO, 'lot' => GETPOST($lot));
+					$fk_orderfourndet = 'fk_orderfourndet_'.$paramSuffix;
+					$dispatchLines[$numAsked] = array('paramSuffix' => $paramSuffix, 'prod' => GETPOSTINT($prod), 'qty' => price2num(GETPOST($qty), 'MS'), 'ent' => GETPOSTINT($ent), 'pu' => price2num(GETPOST($pu), 'MU'), 'comment' => GETPOST('comment'), 'fk_orderfourndet' => GETPOSTINT($fk_orderfourndet), 'DLC' => $dDLC, 'DLUO' => $dDLUO, 'lot' => GETPOST($lot));
 				}
 
 				// If create form is coming from same page, it means that post was sent but an error occurred
@@ -1063,8 +1063,8 @@ if ($action == 'create') {
 					$lot = 'batch'.$paramSuffix;
 					$dDLUO = dol_mktime(12, 0, 0, GETPOSTINT('dluo'.$paramSuffix.'month'), GETPOSTINT('dluo'.$paramSuffix.'day'), GETPOSTINT('dluo'.$paramSuffix.'year'));
 					$dDLC = dol_mktime(12, 0, 0, GETPOSTINT('dlc'.$paramSuffix.'month'), GETPOSTINT('dlc'.$paramSuffix.'day'), GETPOSTINT('dlc'.$paramSuffix.'year'));
-					$fk_commandefourndet = 'fk_commandefournisseurdet'.$paramSuffix;
-					$dispatchLines[$numAsked] = array('prod' => GETPOSTINT($prod), 'qty' => price2num(GETPOST($qty), 'MS'), 'ent' => GETPOSTINT($ent), 'pu' => price2num(GETPOST($pu), 'MU'), 'comment' => GETPOST($comment), 'fk_commandefourndet' => GETPOSTINT($fk_commandefourndet), 'DLC' => $dDLC, 'DLUO' => $dDLUO, 'lot' => GETPOSTINT($lot));
+					$fk_orderfourndet = 'fk_orderfournisseurdet'.$paramSuffix;
+					$dispatchLines[$numAsked] = array('prod' => GETPOSTINT($prod), 'qty' => price2num(GETPOST($qty), 'MS'), 'ent' => GETPOSTINT($ent), 'pu' => price2num(GETPOST($pu), 'MU'), 'comment' => GETPOST($comment), 'fk_orderfourndet' => GETPOSTINT($fk_orderfourndet), 'DLC' => $dDLC, 'DLUO' => $dDLUO, 'lot' => GETPOSTINT($lot));
 				}
 			}
 
@@ -1138,14 +1138,14 @@ if ($action == 'create') {
 
 			$arrayofpurchaselinealreadyoutput = array();
 
-			// $_POST contains fk_commandefourndet_X_Y    where Y is num of product line and X is number of split lines
+			// $_POST contains fk_orderfourndet_X_Y    where Y is num of product line and X is number of split lines
 			$indiceAsked = 1;
-			while ($indiceAsked <= $numAsked) {	// Loop on $dispatchLines. Warning: $dispatchLines must be sorted by fk_commandefourndet (it is a regroupment key on output)
+			while ($indiceAsked <= $numAsked) {	// Loop on $dispatchLines. Warning: $dispatchLines must be sorted by fk_orderfourndet (it is a regroupment key on output)
 				$product = new Product($db);
 
 				// We search the purchase order line that is linked to the dispatchLines
 				foreach ($objectsrc->lines as $supplierLine) {
-					if ($dispatchLines[$indiceAsked]['fk_commandefourndet'] == $supplierLine->id) {
+					if ($dispatchLines[$indiceAsked]['fk_orderfourndet'] == $supplierLine->id) {
 						$line = $supplierLine;
 						break;
 					}
@@ -1162,7 +1162,7 @@ if ($action == 'create') {
 					$type = 1;
 				}
 
-				print '<!-- line fk_commandefourndet='.$line->id.' for product='.$line->fk_product.' -->'."\n";
+				print '<!-- line fk_orderfourndet='.$line->id.' for product='.$line->fk_product.' -->'."\n";
 				print '<tr class="oddeven">'."\n";
 
 				// Product label
@@ -1231,7 +1231,7 @@ if ($action == 'create') {
 				if (! array_key_exists($line->id, $arrayofpurchaselinealreadyoutput)) {	// Add test to avoid to show qty twice
 					print $line->qty;
 				}
-				print '<input type="hidden" name="fk_commandefournisseurdet'.$indiceAsked.'" value="'.$line->id.'">';
+				print '<input type="hidden" name="fk_orderfournisseurdet'.$indiceAsked.'" value="'.$line->id.'">';
 				print '<input type="hidden" name="pul'.$indiceAsked.'" value="'.$line->pu_ht.'">';
 				print '<input name="qtyasked'.$indiceAsked.'" id="qtyasked'.$indiceAsked.'" type="hidden" value="'.$line->qty.'">';
 				print '</td>';
@@ -1390,7 +1390,7 @@ if ($action == 'create') {
 		$typeobject = $object->origin;
 		$origin = $object->origin;
 		$origin_id = $object->origin_id;
-		$object->fetch_origin(); // Load property $object->origin_object, $object->commande, $object->propal, ...
+		$object->fetch_origin(); // Load property $object->origin_object, $object->order, $object->propal, ...
 	}
 
 	$soc = new Societe($db);
@@ -1460,7 +1460,7 @@ if ($action == 'create') {
 	$totalVolume = $tmparray['volume'];
 
 
-	if ($typeobject == 'commande' && $object->origin_object->id && isModEnabled('order')) {
+	if ($typeobject == 'order' && $object->origin_object->id && isModEnabled('order')) {
 		$objectsrc = new Order($db);
 		$objectsrc->fetch($object->origin_object->id);
 	}
@@ -1515,11 +1515,11 @@ if ($action == 'create') {
 	print '<table class="border centpercent tableforfield">';
 
 	// Linked documents
-	if ($typeobject == 'commande' && $object->origin_object->id && isModEnabled('order')) {
+	if ($typeobject == 'order' && $object->origin_object->id && isModEnabled('order')) {
 		print '<tr><td>';
 		print $langs->trans("RefOrder").'</td>';
 		print '<td colspan="3">';
-		print $objectsrc->getNomUrl(1, 'commande');
+		print $objectsrc->getNomUrl(1, 'order');
 		print "</td>\n";
 		print '</tr>';
 	}
@@ -1844,7 +1844,7 @@ if ($action == 'create') {
 	// Get list of products already sent for same source object into $alreadysent
 	$alreadysent = array();
 
-	$origin = 'commande_fournisseur';
+	$origin = 'order_fournisseur';
 
 	if ($origin && $origin_id > 0) {
 		$sql = "SELECT obj.rowid, obj.fk_product, obj.label, obj.description, obj.product_type as fk_product_type, obj.qty as qty_asked, obj.date_start, obj.date_end";
@@ -1859,7 +1859,7 @@ if ($action == 'create') {
 		//if (getDolGlobalInt('MAIN_SUBMODULE_DELIVERY')) $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."delivery as l ON l.fk_reception = e.rowid LEFT JOIN ".MAIN_DB_PREFIX."deliverydet as ld ON ld.fk_delivery = l.rowid  AND obj.rowid = ld.fk_origin_line";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON obj.fk_product = p.rowid";
 		$sql .= " WHERE e.entity IN (".getEntity('reception').")";
-		$sql .= " AND obj.fk_commande = ".((int) $origin_id);
+		$sql .= " AND obj.fk_order = ".((int) $origin_id);
 		$sql .= " AND obj.rowid = ed.fk_elementdet";
 		$sql .= " AND ed.fk_reception = e.rowid";
 		$sql .= " AND ed.fk_reception !=".((int) $object->id);
@@ -1886,7 +1886,7 @@ if ($action == 'create') {
 
 	$arrayofpurchaselinealreadyoutput = array();
 
-	// Loop on each product to send/sent. Warning: $lines must be sorted by ->fk_commandefourndet (it is a regroupment key on output)
+	// Loop on each product to send/sent. Warning: $lines must be sorted by ->fk_orderfourndet (it is a regroupment key on output)
 	print '<tbody>';
 	for ($i = 0; $i < $num_prod; $i++) {
 		print '<!-- origin line id = '.(!empty($lines[$i]->origin_line_id) ? $lines[$i]->origin_line_id : 0).' -->'; // id of order line
@@ -1909,7 +1909,7 @@ if ($action == 'create') {
 			}
 
 			print '<td class="linecoldescription">';
-			if (!array_key_exists($lines[$i]->fk_commandefourndet, $arrayofpurchaselinealreadyoutput)) {
+			if (!array_key_exists($lines[$i]->fk_orderfourndet, $arrayofpurchaselinealreadyoutput)) {
 				$text = $lines[$i]->product->getNomUrl(1);
 				$text .= ' - '.$label;
 				$description = (getDolGlobalInt('PRODUIT_DESC_IN_FORM_ACCORDING_TO_DEVICE') ? '' : dol_htmlentitiesbr($lines[$i]->product->description));
@@ -1922,7 +1922,7 @@ if ($action == 'create') {
 			print "</td>\n";
 		} else {
 			print '<td class="linecoldescription">';
-			if (!array_key_exists($lines[$i]->fk_commandefourndet, $arrayofpurchaselinealreadyoutput)) {
+			if (!array_key_exists($lines[$i]->fk_orderfourndet, $arrayofpurchaselinealreadyoutput)) {
 				if ($lines[$i]->product_type == Product::TYPE_SERVICE) {
 					$text = img_object($langs->trans('Service'), 'service');
 				} else {
@@ -1950,7 +1950,7 @@ if ($action == 'create') {
 
 		// Qty ordered
 		print '<td class="center linecolqty">';
-		if (!array_key_exists($lines[$i]->fk_commandefourndet, $arrayofpurchaselinealreadyoutput)) {
+		if (!array_key_exists($lines[$i]->fk_orderfourndet, $arrayofpurchaselinealreadyoutput)) {
 			print $lines[$i]->qty_asked;
 		}
 		print '</td>';
@@ -1960,9 +1960,9 @@ if ($action == 'create') {
 			print '<td class="center nowrap linecolqtyinotherreceptions">';
 			$htmltooltip = '';
 			$qtyalreadyreceived = 0;
-			if (!array_key_exists($lines[$i]->fk_commandefourndet, $arrayofpurchaselinealreadyoutput)) {
+			if (!array_key_exists($lines[$i]->fk_orderfourndet, $arrayofpurchaselinealreadyoutput)) {
 				foreach ($alreadysent as $key => $val) {
-					if ($lines[$i]->fk_commandefourndet == $key) {
+					if ($lines[$i]->fk_orderfourndet == $key) {
 						$j = 0;
 						foreach ($val as $receptionline_id => $receptionline_var) {
 							if ($receptionline_var['reception_id'] == $lines[$i]->fk_reception) {
@@ -2125,7 +2125,7 @@ if ($action == 'create') {
 		}
 		print "</tr>";
 
-		$arrayofpurchaselinealreadyoutput[$lines[$i]->fk_commandefourndet] = $lines[$i]->fk_commandefourndet;
+		$arrayofpurchaselinealreadyoutput[$lines[$i]->fk_orderfourndet] = $lines[$i]->fk_orderfourndet;
 
 		// Display lines extrafields
 		$extralabelslines = $extrafields->attributes[$lines[$i]->table_element];

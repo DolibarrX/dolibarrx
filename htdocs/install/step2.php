@@ -317,12 +317,12 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 					// Special case of lines allowed for some version only
 					// MySQL
 					if ($choix == 1 && preg_match('/^--\sV([0-9\.]+)/i', $buf, $reg)) {
-						$versioncommande = explode('.', $reg[1]);
-						//var_dump($versioncommande);
+						$versionorder = explode('.', $reg[1]);
+						//var_dump($versionorder);
 						//var_dump($versionarray);
 						if (
-							count($versioncommande) && count($versionarray)
-							&& versioncompare($versioncommande, $versionarray) <= 0
+							count($versionorder) && count($versionarray)
+							&& versioncompare($versionorder, $versionarray) <= 0
 						) {
 							// Version qualified, delete SQL comments
 							$buf = preg_replace('/^--\sV([0-9\.]+)/i', '', $buf);
@@ -331,12 +331,12 @@ if ($action == "set") {		// Test on permission not required. Already managed by 
 					}
 					// PGSQL
 					if ($choix == 2 && preg_match('/^--\sPOSTGRESQL\sV([0-9\.]+)/i', $buf, $reg)) {
-						$versioncommande = explode('.', $reg[1]);
-						//var_dump($versioncommande);
+						$versionorder = explode('.', $reg[1]);
+						//var_dump($versionorder);
 						//var_dump($versionarray);
 						if (
-							count($versioncommande) && count($versionarray)
-							&& versioncompare($versioncommande, $versionarray) <= 0
+							count($versionorder) && count($versionarray)
+							&& versioncompare($versionorder, $versionarray) <= 0
 						) {
 							// Version qualified, delete SQL comments
 							$buf = preg_replace('/^--\sPOSTGRESQL\sV([0-9\.]+)/i', '', $buf);

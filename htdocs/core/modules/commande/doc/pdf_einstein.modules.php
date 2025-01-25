@@ -28,12 +28,12 @@
  */
 
 /**
- *	\file       htdocs/core/modules/commande/doc/pdf_einstein.modules.php
+ *	\file       htdocs/core/modules/order/doc/pdf_einstein.modules.php
  *	\ingroup    order
  *	\brief      File of Class to generate PDF orders with template Einstein
  */
 
-require_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/order/modules_order.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
@@ -212,14 +212,14 @@ class pdf_einstein extends ModelePDFOrders
 
 		$nblines = count($object->lines);
 
-		if ($config->commande->multidir_output[$config->entity]) {
+		if ($config->order->multidir_output[$config->entity]) {
 			$object->fetch_thirdparty();
 
 			$deja_regle = 0;
 
 			// Definition of $dir and $file
 			if ($object->specimen) {
-				$dir = $config->commande->multidir_output[$config->entity];
+				$dir = $config->order->multidir_output[$config->entity];
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				// Possibility to use suffix for proforma
@@ -230,7 +230,7 @@ class pdf_einstein extends ModelePDFOrders
 				}
 
 				$objectref = dol_sanitizeFileName($object->ref);
-				$dir = $config->commande->multidir_output[$object->entity]."/".$objectref;
+				$dir = $config->order->multidir_output[$object->entity]."/".$objectref;
 				$file = $dir."/".$objectref.$suffix.".pdf";
 			}
 

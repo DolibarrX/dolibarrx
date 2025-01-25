@@ -680,7 +680,7 @@ abstract class CommonDocGenerator
 
 		if ($object instanceof OrderFournisseur) {
 			$object->date_validation =  $object->date_valid;
-			$object->date_commande = $object->date;
+			$object->date_order = $object->date;
 		}
 		$resarray = array(
 			$array_key.'_id' => $object->id,
@@ -1076,9 +1076,9 @@ abstract class CommonDocGenerator
 		}
 
 		// Add info from $object->xxx where xxx has been loaded by fetch_origin() of shipment
-		if (is_object($object->commande) && !empty($object->commande->ref)) {
-			$array_shipment['order_ref'] = $object->commande->ref;
-			$array_shipment['order_ref_customer'] = $object->commande->ref_customer;
+		if (is_object($object->order) && !empty($object->order->ref)) {
+			$array_shipment['order_ref'] = $object->order->ref;
+			$array_shipment['order_ref_customer'] = $object->order->ref_customer;
 		}
 
 		// Load dim data

@@ -1141,9 +1141,9 @@ class Contrat extends CommonObject
 						$exp = new Expedition($this->db);
 						$exp->fetch($this->origin_id);
 						$exp->fetchObjectLinked();
-						if (count($exp->linkedObjectsIds['commande']) > 0) {
-							foreach ($exp->linkedObjectsIds['commande'] as $key => $value) {
-								$originforcontact = 'commande';
+						if (count($exp->linkedObjectsIds['order']) > 0) {
+							foreach ($exp->linkedObjectsIds['order'] as $key => $value) {
+								$originforcontact = 'order';
 								$originidforcontact = $value;
 								break; // We take first one
 							}

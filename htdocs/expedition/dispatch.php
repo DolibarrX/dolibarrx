@@ -33,11 +33,11 @@
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_commandefournisseur.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_orderfournisseur.php';
 require_once DOL_DOCUMENT_ROOT.'/product/stock/class/entrepot.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.dispatch.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.dispatch.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/stock/class/mouvementstock.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/sendings.lib.php';
@@ -155,7 +155,7 @@ if ($action == 'updatelines' && $usercancreate) {
 			}
 			$qty = "qty_".$reg[1].'_'.$reg[2];
 			$ent = "entrepot_".$reg[1].'_'.$reg[2];
-			$fk_commandedet = "fk_commandedet_".$reg[1].'_'.$reg[2];
+			$fk_orderdet = "fk_orderdet_".$reg[1].'_'.$reg[2];
 			$idline = GETPOST("idline_".$reg[1].'_'.$reg[2]);
 			$warehouse_id = GETPOSTINT($ent);
 			$prod_id = GETPOSTINT($prod);
@@ -280,7 +280,7 @@ if ($action == 'updatelines' && $usercancreate) {
 					} else {
 						$expeditiondispatch->fk_expedition = $object->id;
 						$expeditiondispatch->entrepot_id = GETPOSTINT($ent);
-						$expeditiondispatch->fk_elementdet = GETPOSTINT($fk_commandedet);
+						$expeditiondispatch->fk_elementdet = GETPOSTINT($fk_orderdet);
 						$expeditiondispatch->qty = $newqty;
 
 						if ($newqty > 0) {
@@ -394,11 +394,11 @@ if ($object->id > 0 || !empty($object->ref)) {
 	$num_prod = count($lines);
 
 	if (!empty($object->origin) && $object->origin_id > 0) {
-		$object->origin = 'commande';
+		$object->origin = 'order';
 		$typeobject = $object->origin;
 		$origin = $object->origin;
 
-		$object->fetch_origin(); // Load property $object->origin_object, $object->commande, $object->propal, ...
+		$object->fetch_origin(); // Load property $object->origin_object, $object->order, $object->propal, ...
 	}
 	$soc = new Societe($db);
 	$soc->fetch($object->socid);
@@ -431,7 +431,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 	// Print form confirm
 	print $formconfirm;
 
-	if ($typeobject == 'commande' && $object->origin_object->id && isModEnabled('order')) {
+	if ($typeobject == 'order' && $object->origin_object->id && isModEnabled('order')) {
 		$objectsrc = new Order($db);
 		$objectsrc->fetch($object->origin_object->id);
 	}
@@ -482,11 +482,11 @@ if ($object->id > 0 || !empty($object->ref)) {
 	print '<table class="border tableforfield centpercent">';
 
 	// Linked documents
-	if ($typeobject == 'commande' && $object->origin_object->id && isModEnabled('order')) {
+	if ($typeobject == 'order' && $object->origin_object->id && isModEnabled('order')) {
 		print '<tr><td>';
 		print $langs->trans("RefOrder").'</td>';
 		print '<td colspan="3">';
-		print $objectsrc->getNomUrl(1, 'commande');
+		print $objectsrc->getNomUrl(1, 'order');
 		print "</td>\n";
 		print '</tr>';
 	}
@@ -594,9 +594,9 @@ if ($object->id > 0 || !empty($object->ref)) {
 		}
 		$sql .= $hookManager->resPrint;
 
-		$sql .= " FROM ".MAIN_DB_PREFIX."commandedet as l";
+		$sql .= " FROM ".MAIN_DB_PREFIX."orderdet as l";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON l.fk_product=p.rowid";
-		$sql .= " WHERE l.fk_commande = ".((int) $objectsrc->id);
+		$sql .= " WHERE l.fk_order = ".((int) $objectsrc->id);
 		if (!getDolGlobalString('STOCK_SUPPORTS_SERVICES')) {
 			$sql .= " AND l.product_type = 0";
 		}
@@ -785,7 +785,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 						$sql .= " eb.batch, eb.eatby, eb.sellby, cd.fk_product";
 						$sql .= " FROM ".MAIN_DB_PREFIX."expeditiondet as ed";
 						$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."expeditiondet_batch as eb on ed.rowid = eb.fk_expeditiondet";
-						$sql .= " JOIN ".MAIN_DB_PREFIX."commandedet as cd on ed.fk_elementdet = cd.rowid";
+						$sql .= " JOIN ".MAIN_DB_PREFIX."orderdet as cd on ed.fk_elementdet = cd.rowid";
 						$sql .= " WHERE ed.fk_elementdet =".(int) $objp->rowid;
 						$sql .= " AND ed.fk_expedition =".(int) $object->id;
 						$sql .= " ORDER BY ed.rowid, ed.fk_elementdet";
@@ -826,7 +826,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 									print '<!-- line for batch '.$numline.' -->';
 									print '<tr class="oddeven autoresettr" name="'.$type.$suffix.'" data-remove="clear">';
 									print '<td>';
-									print '<input id="fk_commandedet'.$suffix.'" name="fk_commandedet'.$suffix.'" type="hidden" value="'.$objp->rowid.'">';
+									print '<input id="fk_orderdet'.$suffix.'" name="fk_orderdet'.$suffix.'" type="hidden" value="'.$objp->rowid.'">';
 									print '<input id="idline'.$suffix.'" name="idline'.$suffix.'" type="hidden" value="'.$objd->rowid.'">';
 									print '<input name="product_batch'.$suffix.'" type="hidden" value="'.$objd->fk_product.'">';
 
@@ -882,7 +882,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 									print '<!-- line no batch '.$numline.' -->';
 									print '<tr class="oddeven autoresettr" name="'.$type.$suffix.'" data-remove="clear">';
 									print '<td colspan="'.$colspan.'">';
-									print '<input id="fk_commandedet'.$suffix.'" name="fk_commandedet'.$suffix.'" type="hidden" value="'.$objp->rowid.'">';
+									print '<input id="fk_orderdet'.$suffix.'" name="fk_orderdet'.$suffix.'" type="hidden" value="'.$objp->rowid.'">';
 									print '<input id="idline'.$suffix.'" name="idline'.$suffix.'" type="hidden" value="'.$objd->rowid.'">';
 									print '<input name="product'.$suffix.'" type="hidden" value="'.$objd->fk_product.'">';
 									print '<!-- This is a up (may include discount or not depending on STOCK_EXCLUDE_DISCOUNT_FOR_PMP. will be used for PMP calculation) -->';
@@ -973,7 +973,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 								print '<!-- line for batch '.$numline.' (not dispatched line yet for this order line) -->';
 								print '<tr class="oddeven autoresettr" name="'.$type.$suffix.'" data-remove="clear">';
 								print '<td>';
-								print '<input id="fk_commandedet'.$suffix.'" name="fk_commandedet'.$suffix.'" type="hidden" value="'.$objp->rowid.'">';
+								print '<input id="fk_orderdet'.$suffix.'" name="fk_orderdet'.$suffix.'" type="hidden" value="'.$objp->rowid.'">';
 								print '<input id="idline'.$suffix.'" name="idline'.$suffix.'" type="hidden" value="-1">';
 								print '<input name="product_batch'.$suffix.'" type="hidden" value="'.$objp->fk_product.'">';
 
@@ -1027,7 +1027,7 @@ if ($object->id > 0 || !empty($object->ref)) {
 								print '<!-- line no batch '.$numline.' (not dispatched line yet for this order line) -->';
 								print '<tr class="oddeven autoresettr" name="'.$type.$suffix.'" data-remove="clear">';
 								print '<td colspan="'.$colspan.'">';
-								print '<input id="fk_commandedet'.$suffix.'" name="fk_commandedet'.$suffix.'" type="hidden" value="'.$objp->rowid.'">';
+								print '<input id="fk_orderdet'.$suffix.'" name="fk_orderdet'.$suffix.'" type="hidden" value="'.$objp->rowid.'">';
 								print '<input id="idline'.$suffix.'" name="idline'.$suffix.'" type="hidden" value="-1">';
 								print '<input name="product'.$suffix.'" type="hidden" value="'.$objp->fk_product.'">';
 

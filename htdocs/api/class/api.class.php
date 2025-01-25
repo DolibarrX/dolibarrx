@@ -249,10 +249,10 @@ class DolibarrApi
 		//unset($object->libelle);
 
 		unset($object->stats_propale);
-		unset($object->stats_commande);
+		unset($object->stats_order);
 		unset($object->stats_contrat);
 		unset($object->stats_facture);
-		unset($object->stats_commande_fournisseur);
+		unset($object->stats_order_fournisseur);
 		unset($object->stats_reception);
 		unset($object->stats_mrptoconsume);
 		unset($object->stats_mrptoproduce);

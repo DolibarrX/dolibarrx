@@ -20,7 +20,7 @@
  */
 
 /**
- *    \file       htdocs/fourn/commande/info.php
+ *    \file       htdocs/fourn/order/info.php
  *    \ingroup    supplier order
  *    \brief      Info page for Purchase Order / Supplier Order
  */
@@ -31,7 +31,7 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 }
@@ -88,13 +88,13 @@ if ($user->socid) {
 // Init Hooks
 $hookManager->initHooks(array('ordersuppliercardinfo'));
 
-$result = restrictedArea($user, 'fournisseur', $id, 'commande_fournisseur', 'commande');
+$result = restrictedArea($user, 'fournisseur', $id, 'order_fournisseur', 'order');
 
-if (!$user->hasRight("fournisseur", "commande", "lire")) {
+if (!$user->hasRight("fournisseur", "order", "lire")) {
 	accessforbidden();
 }
 
-$usercancreate	= ($user->hasRight("fournisseur", "commande", "creer") || $user->hasRight("supplier_order", "creer"));
+$usercancreate	= ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"));
 $permissiontoadd	= $usercancreate; // Used by the include of actions_addupdatedelete.inc.php
 
 
@@ -146,7 +146,7 @@ print dol_get_fiche_head($head, 'info', $langs->trans("SupplierOrder"), -1, 'ord
 
 // Supplier order card
 
-$linkback = '<a href="'.DOL_URL_ROOT.'/fourn/commande/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+$linkback = '<a href="'.DOL_URL_ROOT.'/fourn/order/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 $morehtmlref = '<div class="refidno">';
 // Ref supplier

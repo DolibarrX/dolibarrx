@@ -28,7 +28,7 @@
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/reception/class/reception.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/reception.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
@@ -37,8 +37,8 @@ if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formprojet.class.php';
 }
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.dispatch.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.dispatch.class.php';
 
 /**
  * @var Conf $conf
@@ -83,7 +83,7 @@ if ($origin == 'reception') {
 	$result = restrictedArea($user, $origin, $object->id);
 } else {
 	if ($origin == 'supplierorder' || $origin == 'order_supplier') {
-		$result = restrictedArea($user, 'fournisseur', $object, 'commande_fournisseur', 'commande');
+		$result = restrictedArea($user, 'fournisseur', $object, 'order_fournisseur', 'order');
 	} elseif (!$user->hasRight($origin, 'lire') && !$user->hasRight($origin, 'read')) {
 		accessforbidden();
 	}
@@ -96,11 +96,11 @@ if (isModEnabled("reception")) {
 	$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('reception', 'creer')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('reception', 'reception_advance', 'validate')));
 	$permissiontodelete = $user->hasRight('reception', 'supprimer');
 } else {
-	$permissiontoread = $user->hasRight('fournisseur', 'commande', 'receptionner');
-	$permissiontoadd = $user->hasRight('fournisseur', 'commande', 'receptionner');
-	$permissiondellink = $user->hasRight('fournisseur', 'commande', 'receptionner'); // Used by the include of actions_dellink.inc.php
-	$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'commande', 'receptionner')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'commande_advance', 'check')));
-	$permissiontodelete = $user->hasRight('fournisseur', 'commande', 'receptionner');
+	$permissiontoread = $user->hasRight('fournisseur', 'order', 'receptionner');
+	$permissiontoadd = $user->hasRight('fournisseur', 'order', 'receptionner');
+	$permissiondellink = $user->hasRight('fournisseur', 'order', 'receptionner'); // Used by the include of actions_dellink.inc.php
+	$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'order', 'receptionner')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'order_advance', 'check')));
+	$permissiontodelete = $user->hasRight('fournisseur', 'order', 'receptionner');
 }
 
 
@@ -214,7 +214,7 @@ if ($id > 0 || !empty($ref)) {
 		$objectsrc->fetch($object->origin_object->id);
 		print $langs->trans("RefOrder").'</td>';
 		print '<td colspan="3">';
-		print $objectsrc->getNomUrl(1, 'commande');
+		print $objectsrc->getNomUrl(1, 'order');
 		print "</td>\n";
 		print '</tr>';
 	}

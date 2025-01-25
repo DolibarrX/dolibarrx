@@ -78,7 +78,7 @@ $modules = array(
 			'img' => 'propal'
 		)
 	),
-	'commande' => array(
+	'order' => array(
 		array(
 			'code' => 'MAIN_DELAY_ORDERS_TO_PROCESS',
 			'img' => 'order'

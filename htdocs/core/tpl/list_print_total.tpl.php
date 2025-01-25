@@ -107,7 +107,7 @@ if (isset($totalarray['pos'])) {
 				$fieldforsum = preg_replace('/[^a-z0-9]/', '', $field);
 				$tbsumfields[] = "sum($field) as $fieldforsum";
 			}
-			if (isset($sqlfields)) { // In project, commande list, this var is defined
+			if (isset($sqlfields)) { // In project, order list, this var is defined
 				$sqlforgrandtotal = preg_replace('/^'.preg_quote($sqlfields, '/').'/', 'SELECT '. implode(",", $tbsumfields), $sql);
 			} else {
 				$sqlforgrandtotal = preg_replace('/^SELECT[a-zA-Z0-9\._\s\(\),=<>\:\-\']+\sFROM/', 'SELECT '. implode(",", $tbsumfields). ' FROM ', $sql);

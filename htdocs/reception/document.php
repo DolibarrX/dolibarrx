@@ -39,8 +39,8 @@ require_once DOL_DOCUMENT_ROOT.'/reception/class/reception.class.php';
 if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 }
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.dispatch.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.dispatch.class.php';
 
 /**
  * @var Conf $conf
@@ -113,11 +113,11 @@ if (isModEnabled("reception")) {
 	$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('reception', 'creer')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('reception', 'reception_advance', 'validate')));
 	$permissiontodelete = $user->hasRight('reception', 'supprimer');
 } else {
-	$permissiontoread = $user->hasRight('fournisseur', 'commande', 'receptionner');
-	$permissiontoadd = $user->hasRight('fournisseur', 'commande', 'receptionner');
-	$permissiondellink = $user->hasRight('fournisseur', 'commande', 'receptionner'); // Used by the include of actions_dellink.inc.php
-	$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'commande', 'receptionner')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'commande_advance', 'check')));
-	$permissiontodelete = $user->hasRight('fournisseur', 'commande', 'receptionner');
+	$permissiontoread = $user->hasRight('fournisseur', 'order', 'receptionner');
+	$permissiontoadd = $user->hasRight('fournisseur', 'order', 'receptionner');
+	$permissiondellink = $user->hasRight('fournisseur', 'order', 'receptionner'); // Used by the include of actions_dellink.inc.php
+	$permissiontovalidate = ((!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'order', 'receptionner')) || (getDolGlobalString('MAIN_USE_ADVANCED_PERMS') && $user->hasRight('fournisseur', 'order_advance', 'check')));
+	$permissiontodelete = $user->hasRight('fournisseur', 'order', 'receptionner');
 }
 
 

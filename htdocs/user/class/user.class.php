@@ -874,7 +874,7 @@ class User extends CommonObject
 			'contract' => 'contrat',
 			'member' => 'member',
 			'mo' => 'mrp',
-			'order' => 'commande',
+			'order' => 'order',
 			'produit' => 'product',
 			'project' => 'projet',
 			'propale' => 'propal',

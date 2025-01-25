@@ -71,7 +71,7 @@ function shipping_prepare_head($object)
 
 	if (!getDolGlobalString('MAIN_DISABLE_CONTACTS_TAB')) {
 		$objectsrc = $object;
-		if ($object->origin == 'commande' && $object->origin_id > 0) {
+		if ($object->origin == 'order' && $object->origin_id > 0) {
 			$objectsrc = new Order($db);
 			$objectsrc->fetch($object->origin_id);
 		}
@@ -172,7 +172,7 @@ function delivery_prepare_head($object)
 
 	if (!getDolGlobalString('MAIN_DISABLE_CONTACTS_TAB')) {
 		$objectsrc = $tmpobject;
-		if ($tmpobject->origin == 'commande' && $tmpobject->origin_id > 0) {
+		if ($tmpobject->origin == 'order' && $tmpobject->origin_id > 0) {
 			$objectsrc = new Order($db);
 			$objectsrc->fetch($tmpobject->origin_id);
 		}
@@ -227,7 +227,7 @@ function delivery_prepare_head($object)
 /**
  * List sendings and receive receipts
  *
- * @param   string		$origin			Origin ('commande', ...)
+ * @param   string		$origin			Origin ('order', ...)
  * @param	int			$origin_id		Origin id
  * @param	string		$filter			Filter (Do not use a string from a user input)
  * @return	int							Return integer <0 if KO, >0 if OK
@@ -248,7 +248,7 @@ function show_list_sending_receive($origin, $origin_id, $filter = '')
 	$sql .= ' p.description as product_desc';
 	$sql .= " FROM " . MAIN_DB_PREFIX . "expeditiondet as ed,";
 	$sql .= " " . MAIN_DB_PREFIX . "expedition as e,";
-	$sql .= " " . MAIN_DB_PREFIX . $origin . "det as obj";	// for example llx_commandedet
+	$sql .= " " . MAIN_DB_PREFIX . $origin . "det as obj";	// for example llx_orderdet
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "product as p ON obj.fk_product = p.rowid";
 	//TODO Add link to expeditiondet_batch
 	$sql .= " WHERE e.entity IN (" . getEntity('expedition') . ")";

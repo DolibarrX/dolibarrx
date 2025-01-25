@@ -173,7 +173,7 @@ class Receptions extends DolibarrApi
 				$i++;
 			}
 		} else {
-			throw new RestException(503, 'Error when retrieve commande list : '.$this->db->lasterror());
+			throw new RestException(503, 'Error when retrieve order list : '.$this->db->lasterror());
 		}
 
 		//if $pagination_data is true the response will contain element data with all values and element pagination with pagination data(total,page,limit)
@@ -651,7 +651,7 @@ class Receptions extends DolibarrApi
 	public function createShipmentFromOrder($orderid)
 	{
 
-		require_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
+		require_once DOL_DOCUMENT_ROOT . '/order/class/order.class.php';
 
 		if (!DolibarrApiAccess::$user->hasRight('reception', 'lire')) {
 				throw new RestException(403);

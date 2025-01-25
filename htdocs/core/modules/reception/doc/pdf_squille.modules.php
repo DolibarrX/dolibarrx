@@ -416,7 +416,7 @@ class pdf_squille extends ModelePdfReception
 				$iniY = $tab_top + 7;
 				$curY = $tab_top + 7;
 				$nexY = $tab_top + 7;
-				$fk_commandefourndet = 0;
+				$fk_orderfourndet = 0;
 				$totalOrdered = 0;
 				$totalAmount = 0;
 
@@ -475,7 +475,7 @@ class pdf_squille extends ModelePdfReception
 					/*
 					if (empty($object->lines[0]->desc)) {
 						// TODO We must get value from fk_commendefourndet
-						$sqldesc = 'SELECT description FROM '.MAIN_DB_PREFIX.' WHERE rowid = '.((int) $object->lines[0]->fk_commandefourndet);
+						$sqldesc = 'SELECT description FROM '.MAIN_DB_PREFIX.' WHERE rowid = '.((int) $object->lines[0]->fk_orderfourndet);
 						$resqldesc = $this->db->query($sqldesc);
 						if ($resqldesc) {
 							$objdesc = $this->db->fetch_object($resqldesc);
@@ -564,11 +564,11 @@ class pdf_squille extends ModelePdfReception
 					// Qty ordered
 					if (!getDolGlobalString('RECEPTION_PDF_HIDE_ORDERED')) {
 						$pdf->SetXY($this->posxqtyordered, $curY);
-						if ($object->lines[$i]->fk_commandefourndet != $fk_commandefourndet) {
+						if ($object->lines[$i]->fk_orderfourndet != $fk_orderfourndet) {
 							$pdf->MultiCell(($this->posxqtytoship - $this->posxqtyordered), 3, $object->lines[$i]->qty_asked, '', 'C');
 							$totalOrdered += $object->lines[$i]->qty_asked;
 						}
-						$fk_commandefourndet = $object->lines[$i]->fk_commandefourndet;
+						$fk_orderfourndet = $object->lines[$i]->fk_orderfourndet;
 					}
 
 					// Qty received
@@ -993,7 +993,7 @@ class pdf_squille extends ModelePdfReception
 		$object->fetch_origin();
 
 		// TODO move to external function
-		if (isModEnabled("supplier_order")) {     // commonly $origin='commande'
+		if (isModEnabled("supplier_order")) {     // commonly $origin='order'
 			$outputlangs->load('orders');
 
 			$classname = 'OrderFournisseur';

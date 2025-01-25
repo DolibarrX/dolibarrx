@@ -30,12 +30,12 @@
  */
 
 /**
- *	\file       htdocs/core/modules/commande/doc/pdf_eratosthene.modules.php
+ *	\file       htdocs/core/modules/order/doc/pdf_eratosthene.modules.php
  *	\ingroup    order
  *	\brief      File of Class to generate PDF orders with template Eratosthene
  */
 
-require_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/order/modules_order.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';

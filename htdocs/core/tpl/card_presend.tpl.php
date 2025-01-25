@@ -162,7 +162,7 @@ if ($action == 'presend') {
 		$formmail->fromname = getDolGlobalString('SHIPPING_EMAIL_SENDER_NAME', '');
 		$formmail->fromtype = 'special';
 	}
-	if ($object->element === 'commande' && getDolGlobalString('COMMANDE_EMAIL_SENDER')) {
+	if ($object->element === 'order' && getDolGlobalString('COMMANDE_EMAIL_SENDER')) {
 		$formmail->frommail = getDolGlobalString('COMMANDE_EMAIL_SENDER');
 		$formmail->fromname = getDolGlobalString('COMMANDE_EMAIL_SENDER_NAME', '');
 		$formmail->fromtype = 'special';
@@ -321,7 +321,7 @@ if ($action == 'presend') {
 			}
 			// For compatibility
 			if ($element == 'order') {
-				$element = $subelement = 'commande';
+				$element = $subelement = 'order';
 			}
 			if ($element == 'propal') {
 				$element = 'comm/propal';
@@ -338,7 +338,7 @@ if ($action == 'presend') {
 			}
 			if ($element == 'order_supplier') {
 				$element = 'fourn';
-				$subelement = 'fournisseur.commande';
+				$subelement = 'fournisseur.order';
 			}
 			if ($element == 'project') {
 				$element = 'projet';

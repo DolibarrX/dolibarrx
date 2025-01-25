@@ -575,7 +575,7 @@ class Utils
 					}
 				}
 			}
-			// Fin execution commande
+			// Fin execution order
 
 			$this->output = $errormsg;
 			$this->error = $errormsg;

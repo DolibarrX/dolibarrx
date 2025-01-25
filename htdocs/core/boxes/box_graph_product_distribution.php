@@ -33,7 +33,7 @@ class box_graph_product_distribution extends ModeleBoxes
 	public $boxcode = "productdistribution";
 	public $boximg = "object_product";
 	public $boxlabel = "BoxProductDistribution";
-	public $depends = array("product|service", "facture|propal|commande");
+	public $depends = array("product|service", "facture|propal|order");
 
 	public $widgettype = 'graph';
 
@@ -51,7 +51,7 @@ class box_graph_product_distribution extends ModeleBoxes
 
 		$this->hidden = !(
 			(isModEnabled('invoice') && $user->hasRight('facture', 'lire'))
-			|| (isModEnabled('order') && $user->hasRight('commande', 'lire'))
+			|| (isModEnabled('order') && $user->hasRight('order', 'lire'))
 			|| (isModEnabled('propal') && $user->hasRight('propal', 'lire'))
 		);
 	}
@@ -73,7 +73,7 @@ class box_graph_product_distribution extends ModeleBoxes
 
 		include_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 		include_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
-		include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 
 		$param_year = 'DOLUSER_box_'.$this->boxcode.'_year';
 		$param_showinvoicenb = 'DOLUSER_box_'.$this->boxcode.'_showinvoicenb';
@@ -103,7 +103,7 @@ class box_graph_product_distribution extends ModeleBoxes
 		if (isModEnabled('propal') || !$user->hasRight('propal', 'lire')) {
 			$showpropalnb = 0;
 		}
-		if (!isModEnabled('order') || !$user->hasRight('commande', 'lire')) {
+		if (!isModEnabled('order') || !$user->hasRight('order', 'lire')) {
 			$showordernb = 0;
 		}
 
@@ -208,11 +208,11 @@ class box_graph_product_distribution extends ModeleBoxes
 			}
 		}
 
-		if (isModEnabled('order') && $user->hasRight('commande', 'lire')) {
+		if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
 			// Build graphic number of object. $data = array(array('Lib',val1,val2,val3),...)
 			if ($showordernb) {
 				$langs->load("orders");
-				include_once DOL_DOCUMENT_ROOT.'/commande/class/commandestats.class.php';
+				include_once DOL_DOCUMENT_ROOT.'/order/class/orderstats.class.php';
 
 				$showpointvalue = 1;
 				$nocolor = 0;
@@ -364,7 +364,7 @@ class box_graph_product_distribution extends ModeleBoxes
 				$stringtoshow .= '<input type="checkbox" name="'.$param_showpropalnb.'"'.($showpropalnb ? ' checked' : '').'> '.$langs->trans("ForProposals");
 				$stringtoshow .= '&nbsp;';
 			}
-			if (isModEnabled('order') || $user->hasRight('commande', 'lire')) {
+			if (isModEnabled('order') || $user->hasRight('order', 'lire')) {
 				$stringtoshow .= '<input type="checkbox" name="'.$param_showordernb.'"'.($showordernb ? ' checked' : '').'> '.$langs->trans("ForCustomersOrders");
 			}
 			if (isModEnabled('invoice') || $user->hasRight('facture', 'lire')) {

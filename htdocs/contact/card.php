@@ -1230,7 +1230,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 			if (isModEnabled('order')) {
 				print '<tr><td>'.$langs->trans("ContactForOrders").'</td><td colspan="3">';
-				print $object->ref_commande ? $object->ref_commande : ('<span class="opacitymedium">'.$langs->trans("NoContactForAnyOrder").'</span>');
+				print $object->ref_order ? $object->ref_order : ('<span class="opacitymedium">'.$langs->trans("NoContactForAnyOrder").'</span>');
 				print '</td></tr>';
 			}
 
@@ -1506,7 +1506,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			if (isModEnabled("shipping")) {
 				$none = '<span class="opacitymedium">'.$langs->trans("NoContactForAnyOrderOrShipments").'</span>';
 			}
-			print $object->ref_commande ? $object->ref_commande : $none;
+			print $object->ref_order ? $object->ref_order : $none;
 			print '</td></tr>';
 		}
 

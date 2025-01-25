@@ -22,7 +22,7 @@
 
 /**
  *		\file       htdocs/core/class/discount.class.php
- * 		\ingroup    core propal facture commande
+ * 		\ingroup    core propal facture order
  *		\brief      File of class to manage absolute discounts
  */
 

@@ -999,10 +999,10 @@ class Project extends CommonObject
 		// Set fk_projet into elements to null
 		$listoftables = array(
 			'propal' => 'fk_projet',
-			'commande' => 'fk_projet',
+			'order' => 'fk_projet',
 			'facture' => 'fk_projet',
 			'supplier_proposal' => 'fk_projet',
-			'commande_fournisseur' => 'fk_projet',
+			'order_fournisseur' => 'fk_projet',
 			'facture_fourn' => 'fk_projet',
 			'expensereport_det' => 'fk_projet',
 			'contrat' => 'fk_projet',
@@ -2420,7 +2420,7 @@ class Project extends CommonObject
 
 
 	/**
-	 *	Charge les information d'ordre info dans l'objet commande
+	 *	Charge les information d'ordre info dans l'objet order
 	 *
 	 *	@param  int		$id       Id of order
 	 *	@return	void

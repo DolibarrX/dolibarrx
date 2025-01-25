@@ -1110,7 +1110,7 @@ if (empty($resHook)) {
 
 					// For compatibility
 					if ($element == 'order') {
-						$element = $subelement = 'commande';
+						$element = $subelement = 'order';
 					}
 					if ($element == 'propal') {
 						$element = 'comm/propal';
@@ -1121,7 +1121,7 @@ if (empty($resHook)) {
 					}
 					if ($element == 'order_supplier') {
 						$element = 'fourn';
-						$subelement = 'fournisseur.commande';
+						$subelement = 'fournisseur.order';
 					}
 					if ($element == 'project') {
 						$element = 'projet';
@@ -1132,7 +1132,7 @@ if (empty($resHook)) {
 
 					require_once DOL_DOCUMENT_ROOT.'/'.$element.'/class/'.$subelement.'.class.php';
 					$classname = ucfirst($subelement);
-					if ($classname == 'Fournisseur.commande') {
+					if ($classname == 'Fournisseur.order') {
 						$classname = 'OrderFournisseur';
 					}
 					$objectsrc = new $classname($db);
@@ -1160,7 +1160,7 @@ if (empty($resHook)) {
 					if ($id > 0) {
 						require_once DOL_DOCUMENT_ROOT.'/'.$element.'/class/'.$subelement.'.class.php';
 						$classname = ucfirst($subelement);
-						if ($classname == 'Fournisseur.commande') {
+						if ($classname == 'Fournisseur.order') {
 							$classname = 'OrderFournisseur';
 						}
 						$srcobject = new $classname($db);
@@ -2155,7 +2155,7 @@ if ($action == 'create') {
 
 		// For compatibility
 		if ($element == 'order') {
-			$element = $subelement = 'commande';
+			$element = $subelement = 'order';
 		}
 		if ($element == 'propal') {
 			$element = 'comm/propal';
@@ -2166,12 +2166,12 @@ if ($action == 'create') {
 		}
 		if ($element == 'order_supplier') {
 			$element = 'fourn';
-			$subelement = 'fournisseur.commande';
+			$subelement = 'fournisseur.order';
 		}
 
 		require_once DOL_DOCUMENT_ROOT.'/'.$element.'/class/'.$subelement.'.class.php';
 		$classname = ucfirst($subelement);
-		if ($classname == 'Fournisseur.commande') {
+		if ($classname == 'Fournisseur.order') {
 			$classname = 'OrderFournisseur';
 		}
 		$objectsrc = new $classname($db);

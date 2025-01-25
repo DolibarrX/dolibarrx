@@ -170,7 +170,7 @@ class Shipments extends DolibarrApi
 				$i++;
 			}
 		} else {
-			throw new RestException(503, 'Error when retrieve commande list : '.$this->db->lasterror());
+			throw new RestException(503, 'Error when retrieve order list : '.$this->db->lasterror());
 		}
 
 		//if $pagination_data is true the response will contain element data with all values and element pagination with pagination data(total,page,limit)
@@ -222,11 +222,11 @@ class Shipments extends DolibarrApi
 				$shipmentline = new ExpeditionLigne($this->db);
 
 				$shipmentline->entrepot_id = $line['entrepot_id'];
-				$shipmentline->fk_element = $line['fk_element'] ?? $line['origin_id'];				// example: order id.  this->origin is 'commande'
+				$shipmentline->fk_element = $line['fk_element'] ?? $line['origin_id'];				// example: order id.  this->origin is 'order'
 				$shipmentline->origin_line_id = $line['fk_elementdet'] ?? $line['origin_line_id'];	// example: order id
 				$shipmentline->fk_elementdet = $line['fk_elementdet'] ?? $line['origin_line_id'];	// example: order line id
-				$shipmentline->origin_type = $line['element_type'] ?? $line['origin_type'];			// example 'commande' or 'order'
-				$shipmentline->element_type = $line['element_type'] ?? $line['origin_type'];		// example 'commande' or 'order'
+				$shipmentline->origin_type = $line['element_type'] ?? $line['origin_type'];			// example 'order' or 'order'
+				$shipmentline->element_type = $line['element_type'] ?? $line['origin_type'];		// example 'order' or 'order'
 				$shipmentline->qty = $line['qty'];
 				$shipmentline->rang = $line['rang'];
 				$shipmentline->array_options = $line['array_options'];
@@ -637,7 +637,7 @@ class Shipments extends DolibarrApi
 	public function createShipmentFromOrder($orderid)
 	{
 
-		require_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
+		require_once DOL_DOCUMENT_ROOT . '/order/class/order.class.php';
 
 		if(! DolibarrApiAccess::$user->hasRight('expedition', 'lire')) {
 				throw new RestException(403);

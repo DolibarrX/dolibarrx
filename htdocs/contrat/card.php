@@ -306,7 +306,7 @@ if (empty($resHook)) {
 
 				// For compatibility
 				if ($element == 'order') {
-					$element = $subelement = 'commande';
+					$element = $subelement = 'order';
 				}
 				if ($element == 'propal') {
 					$element = 'comm/propal';
@@ -1165,8 +1165,8 @@ if ($action == 'create') {
 			$projectid = GETPOSTINT('originid');
 		} else {
 			// For compatibility
-			if ($element == 'order' || $element == 'commande') {
-				$element = $subelement = 'commande';
+			if ($element == 'order' || $element == 'order') {
+				$element = $subelement = 'order';
 			}
 			if ($element == 'propal') {
 				$element = 'comm/propal';
@@ -1580,7 +1580,7 @@ if ($action == 'create') {
 		$productstatic = new Product($db);
 
 		$usemargins = 0;
-		if (isModEnabled('margin') && !empty($object->element) && in_array($object->element, array('facture', 'propal', 'commande'))) {
+		if (isModEnabled('margin') && !empty($object->element) && in_array($object->element, array('facture', 'propal', 'order'))) {
 			$usemargins = 1;
 		}
 
@@ -2254,10 +2254,10 @@ if ($action == 'create') {
 				$arrayofcreatebutton = array();
 				if (isModEnabled('order') && $object->status > 0 && $object->nbofservicesclosed < $nbofservices) {
 					$arrayofcreatebutton[] = array(
-						'url' => '/commande/card.php?action=create&token='.newToken().'&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->thirdparty->id,
+						'url' => '/order/card.php?action=create&token='.newToken().'&origin='.$object->element.'&originid='.$object->id.'&socid='.$object->thirdparty->id,
 						'label' => $langs->trans('AddOrder'),
 						'lang' => 'orders',
-						'perm' => $user->hasRight('commande', 'creer') ? true : false,
+						'perm' => $user->hasRight('order', 'creer') ? true : false,
 						'enabled' => true,
 					);
 				}

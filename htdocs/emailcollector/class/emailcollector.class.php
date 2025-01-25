@@ -31,11 +31,11 @@ require_once DOL_DOCUMENT_ROOT .'/core/lib/files.lib.php';
 require_once DOL_DOCUMENT_ROOT .'/core/lib/functions2.lib.php';
 
 require_once DOL_DOCUMENT_ROOT .'/comm/propal/class/propal.class.php';                   // Customer Proposal
-require_once DOL_DOCUMENT_ROOT .'/commande/class/commande.class.php';                    // Sale Order
+require_once DOL_DOCUMENT_ROOT .'/order/class/order.class.php';                    // Sale Order
 require_once DOL_DOCUMENT_ROOT .'/compta/facture/class/facture.class.php';               // Customer Invoice
 require_once DOL_DOCUMENT_ROOT .'/contact/class/contact.class.php';                      // Contact / Address
 require_once DOL_DOCUMENT_ROOT .'/expedition/class/expedition.class.php';                // Shipping / Delivery
-require_once DOL_DOCUMENT_ROOT .'/fourn/class/fournisseur.commande.class.php';           // Purchase Order
+require_once DOL_DOCUMENT_ROOT .'/fourn/class/fournisseur.order.class.php';           // Purchase Order
 require_once DOL_DOCUMENT_ROOT .'/fourn/class/fournisseur.facture.class.php';            // Purchase Invoice
 require_once DOL_DOCUMENT_ROOT .'/projet/class/project.class.php';                       // Project
 require_once DOL_DOCUMENT_ROOT .'/reception/class/reception.class.php';                  // Reception
@@ -712,7 +712,7 @@ class EmailCollector extends CommonObject
 	}
 
 	/**
-	 *	Charge les information d'ordre info dans l'objet commande
+	 *	Charge les information d'ordre info dans l'objet order
 	 *
 	 *	@param  int		$id       Id of order
 	 *	@return	void
@@ -3021,9 +3021,9 @@ class EmailCollector extends CommonObject
 										'fields' => array('code_client', 'code_fournisseur'),
 										'class' => 'societe/class/societe.class.php',
 										'object' => 'Societe'),
-									'commande' => array('table' => 'commande',
+									'order' => array('table' => 'order',
 										'fields' => array('ref'),
-										'class' => 'commande/class/commande.class.php',
+										'class' => 'order/class/order.class.php',
 										'object' => 'Order'),
 									'expedition' => array('table' => 'expedition',
 										'fields' => array('ref'),
@@ -3049,9 +3049,9 @@ class EmailCollector extends CommonObject
 										'fields' => array('ref'),
 										'class' => 'supplier_proposal/class/supplier_proposal.class.php',
 										'object' => 'SupplierProposal'),
-									'fournisseur/commande' => array('table' => 'commande_fournisseur',
+									'fournisseur/order' => array('table' => 'order_fournisseur',
 										'fields' => array('ref', 'ref_supplier'),
-										'class' => 'fourn/class/fournisseur.commande.class.php',
+										'class' => 'fourn/class/fournisseur.order.class.php',
 										'object' => 'SupplierProposal'),
 									'facture' => array('table' => 'facture',
 										'fields' => array('ref'),

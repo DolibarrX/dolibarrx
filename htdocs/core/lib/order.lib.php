@@ -22,7 +22,7 @@
 
 /**
  *  \file       htdocs/core/lib/order.lib.php
- *  \brief      Ensemble de functions de base pour le module commande
+ *  \brief      Ensemble de functions de base pour le module order
  *  \ingroup    order
  */
 
@@ -32,7 +32,7 @@
  * @param   Order	$object		Object related to tabs
  * @return	array<array{0:string,1:string,2:string}>	Array of tabs to show
  */
-function commande_prepare_head(Order $object)
+function order_prepare_head(Order $object)
 {
 	global $db, $langs, $config, $user;
 	if (isModEnabled("shipping")) {
@@ -43,8 +43,8 @@ function commande_prepare_head(Order $object)
 	$h = 0;
 	$head = array();
 
-	if (isModEnabled('order') && $user->hasRight('commande', 'lire')) {
-		$head[$h][0] = DOL_URL_ROOT . '/commande/card.php?id=' . $object->id;
+	if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
+		$head[$h][0] = DOL_URL_ROOT . '/order/card.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans("CustomerOrder");
 		$head[$h][2] = 'order';
 		$h++;
@@ -52,7 +52,7 @@ function commande_prepare_head(Order $object)
 
 	if (!getDolGlobalString('MAIN_DISABLE_CONTACTS_TAB')) {
 		$nbContact = count($object->liste_contact(-1, 'internal')) + count($object->liste_contact(-1, 'external'));
-		$head[$h][0] = DOL_URL_ROOT . '/commande/contact.php?id=' . $object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/order/contact.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans('ContactsAddresses');
 		if ($nbContact > 0) {
 			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbContact . '</span>';
@@ -108,7 +108,7 @@ function commande_prepare_head(Order $object)
 		if (!empty($object->note_public)) {
 			$nbNote++;
 		}
-		$head[$h][0] = DOL_URL_ROOT . '/commande/note.php?id=' . $object->id;
+		$head[$h][0] = DOL_URL_ROOT . '/order/note.php?id=' . $object->id;
 		$head[$h][1] = $langs->trans('Notes');
 		if ($nbNote > 0) {
 			$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbNote . '</span>';
@@ -119,10 +119,10 @@ function commande_prepare_head(Order $object)
 
 	require_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
 	require_once DOL_DOCUMENT_ROOT . '/core/class/link.class.php';
-	$upload_dir = $config->commande->multidir_output[$object->entity] . "/" . dol_sanitizeFileName($object->ref);
+	$upload_dir = $config->order->multidir_output[$object->entity] . "/" . dol_sanitizeFileName($object->ref);
 	$nbFiles = count(dol_dir_list($upload_dir, 'files', 0, '', '(\.meta|_preview.*\.png)$'));
 	$nbLinks = Link::count($db, $object->element, $object->id);
-	$head[$h][0] = DOL_URL_ROOT . '/commande/document.php?id=' . $object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/order/document.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans('Documents');
 	if (($nbFiles + $nbLinks) > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . ($nbFiles + $nbLinks) . '</span>';
@@ -131,7 +131,7 @@ function commande_prepare_head(Order $object)
 	$h++;
 
 
-	$head[$h][0] = DOL_URL_ROOT . '/commande/agenda.php?id=' . $object->id;
+	$head[$h][0] = DOL_URL_ROOT . '/order/agenda.php?id=' . $object->id;
 	$head[$h][1] = $langs->trans("Events");
 	if (isModEnabled('agenda') && ($user->hasRight('agenda', 'myactions', 'read') || $user->hasRight('agenda', 'allactions', 'read'))) {
 		$nbEvent = 0;
@@ -182,8 +182,8 @@ function order_admin_prepare_head()
 	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
-	$extrafields->fetch_name_optionals_label('commande');
-	$extrafields->fetch_name_optionals_label('commandedet');
+	$extrafields->fetch_name_optionals_label('order');
+	$extrafields->fetch_name_optionals_label('orderdet');
 
 	$h = 0;
 	$head = array();
@@ -197,7 +197,7 @@ function order_admin_prepare_head()
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/order_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFields");
-	$nbExtrafields = $extrafields->attributes['commande']['count'];
+	$nbExtrafields = $extrafields->attributes['order']['count'];
 	if ($nbExtrafields > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
@@ -206,7 +206,7 @@ function order_admin_prepare_head()
 
 	$head[$h][0] = DOL_URL_ROOT . '/admin/orderdet_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsLines");
-	$nbExtrafields = $extrafields->attributes['commandedet']['count'];
+	$nbExtrafields = $extrafields->attributes['orderdet']['count'];
 	if ($nbExtrafields > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}
@@ -232,11 +232,11 @@ function getCustomerOrderPieChart($socid = 0)
 
 	$result = '';
 
-	if (!isModEnabled('order') || !$user->hasRight('commande', 'lire')) {
+	if (!isModEnabled('order') || !$user->hasRight('order', 'lire')) {
 		return '';
 	}
 
-	$commandestatic = new Order($db);
+	$orderstatic = new Order($db);
 
 	/*
 	 * Statistics
@@ -244,12 +244,12 @@ function getCustomerOrderPieChart($socid = 0)
 
 	$sql = "SELECT count(c.rowid) as nb, c.fk_statut as status";
 	$sql .= " FROM " . MAIN_DB_PREFIX . "societe as s";
-	$sql .= ", " . MAIN_DB_PREFIX . "commande as c";
+	$sql .= ", " . MAIN_DB_PREFIX . "order as c";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
 		$sql .= ", " . MAIN_DB_PREFIX . "societe_commerciaux as sc";
 	}
 	$sql .= " WHERE c.fk_soc = s.rowid";
-	$sql .= " AND c.entity IN (" . getEntity($commandestatic->element) . ")";
+	$sql .= " AND c.entity IN (" . getEntity($orderstatic->element) . ")";
 	if ($user->socid) {
 		$sql .= ' AND c.fk_soc = ' . ((int) $user->socid);
 	}
@@ -291,7 +291,7 @@ function getCustomerOrderPieChart($socid = 0)
 		$result .= '<tr class="liste_titre"><th colspan="2">' . $langs->trans("Statistics") . ' - ' . $langs->trans("CustomersOrders") . '</th></tr>' . "\n";
 		$listofstatus = array(0, 1, 2, 3, -1);
 		foreach ($listofstatus as $status) {
-			$dataseries[] = array($commandestatic->LibStatut($status, 0, 1, 1), (isset($vals[$status]) ? (int) $vals[$status] : 0));
+			$dataseries[] = array($orderstatic->LibStatut($status, 0, 1, 1), (isset($vals[$status]) ? (int) $vals[$status] : 0));
 			if ($status == Order::STATUS_DRAFT) {
 				$colorseries[$status] = '-' . $badgeStatus0;
 			}
@@ -310,9 +310,9 @@ function getCustomerOrderPieChart($socid = 0)
 
 			if (empty($config->use_javascript_ajax)) {
 				$result .= '<tr class="oddeven">';
-				$result .= '<td>' . $commandestatic->LibStatut($status, 0, 0, 1) . '</td>';
+				$result .= '<td>' . $orderstatic->LibStatut($status, 0, 0, 1) . '</td>';
 				$result .= '<td class="right"><a href="list.php?statut=' . $status . '">' . (isset($vals[$status]) ? $vals[$status] : 0) . ' ';
-				$result .= $commandestatic->LibStatut($status, 0, 3, 1);
+				$result .= $orderstatic->LibStatut($status, 0, 3, 1);
 				$result .= '</a></td>';
 				$result .= "</tr>\n";
 			}

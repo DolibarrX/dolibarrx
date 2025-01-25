@@ -74,11 +74,11 @@ if (!getDolGlobalString('MAIN_MODULE_WEBSERVICES')) {
 // Create associated types array, with each table
 $listofreferent = array(
 	'propal' => 'propal',
-	'order' => 'commande',
+	'order' => 'order',
 	'invoice' => 'facture',
 	'invoice_predefined' => 'facture_rec',
-	'proposal_supplier' => 'commande_fournisseur',
-	'order_supplier' => 'commande_fournisseur',
+	'proposal_supplier' => 'order_fournisseur',
+	'order_supplier' => 'order_fournisseur',
 	'invoice_supplier' => 'facture_fourn',
 	'contract' => 'contrat',
 	'intervention' => 'fichinter',

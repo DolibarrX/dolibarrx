@@ -8721,7 +8721,7 @@ class Form
 				if (empty($sortfield)) {
 					$sortfield = 'o.ref';
 				}
-				if (in_array($objecttmp->element, ['commandedet', 'propaldet', 'facturedet', 'expeditiondet'])) {
+				if (in_array($objecttmp->element, ['orderdet', 'propaldet', 'facturedet', 'expeditiondet'])) {
 					$fieldstoshow .= ',p.ref AS p_ref,p.label,t.description';
 					$sortfield .= ', p.ref';
 				}
@@ -8749,7 +8749,7 @@ class Form
 			$parent_properties = getElementProperties($objecttmp->parent_element);
 			$sql .= " INNER JOIN " . $this->db->prefix() . $this->db->sanitize($parent_properties['table_element']) . " as o ON o.rowid = t.".$objecttmp->fk_parent_attribute;
 		}
-		if (in_array($objecttmp->parent_element, ['commande', 'propal', 'facture', 'expedition'])) {
+		if (in_array($objecttmp->parent_element, ['order', 'propal', 'facture', 'expedition'])) {
 			$sql .= " LEFT JOIN " . $this->db->prefix() . "product as p ON p.rowid = t.fk_product";
 		}
 		if (isset($objecttmp->ismultientitymanaged)) {
@@ -9705,7 +9705,7 @@ class Form
 				} elseif ($objecttype == 'invoice_supplier') {
 					$tplpath = 'fourn/facture';
 				} elseif ($objecttype == 'order_supplier') {
-					$tplpath = 'fourn/commande';
+					$tplpath = 'fourn/order';
 				} elseif ($objecttype == 'expensereport') {
 					$tplpath = 'expensereport';
 				} elseif ($objecttype == 'subscription') {
@@ -9821,8 +9821,8 @@ class Form
 					'enabled' => isModEnabled('order'),
 					'perms' => 1,
 					'label' => 'LinkToOrder',
-					'sql' => "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.ref, t.ref_client, t.total_ht FROM " . $this->db->prefix() . "societe as s, " . $this->db->prefix() . "commande as t WHERE t.fk_soc = s.rowid AND t.fk_soc IN (" . $this->db->sanitize($listofidcompanytoscan) . ') AND t.entity IN (' . getEntity('commande') . ')'.($dontIncludeCompletedItems ? ' AND t.facture < 1' : ''),
-					'linkname' => 'commande',
+					'sql' => "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.ref, t.ref_client, t.total_ht FROM " . $this->db->prefix() . "societe as s, " . $this->db->prefix() . "order as t WHERE t.fk_soc = s.rowid AND t.fk_soc IN (" . $this->db->sanitize($listofidcompanytoscan) . ') AND t.entity IN (' . getEntity('order') . ')'.($dontIncludeCompletedItems ? ' AND t.facture < 1' : ''),
+					'linkname' => 'order',
 				),
 				'invoice' => array(
 					'enabled' => isModEnabled('invoice'),
@@ -9860,7 +9860,7 @@ class Form
 					'enabled' => isModEnabled("supplier_order"),
 					'perms' => 1,
 					'label' => 'LinkToSupplierOrder',
-					'sql' => "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.ref, t.ref_supplier, t.total_ht FROM " . $this->db->prefix() . "societe as s, " . $this->db->prefix() . "commande_fournisseur as t WHERE t.fk_soc = s.rowid AND t.fk_soc IN (" . $this->db->sanitize($listofidcompanytoscan) . ') AND t.entity IN (' . getEntity('commande_fournisseur') . ')'.($dontIncludeCompletedItems ? ' AND t.billed < 1' : ''),
+					'sql' => "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.ref, t.ref_supplier, t.total_ht FROM " . $this->db->prefix() . "societe as s, " . $this->db->prefix() . "order_fournisseur as t WHERE t.fk_soc = s.rowid AND t.fk_soc IN (" . $this->db->sanitize($listofidcompanytoscan) . ') AND t.entity IN (' . getEntity('order_fournisseur') . ')'.($dontIncludeCompletedItems ? ' AND t.billed < 1' : ''),
 				),
 				'invoice_supplier' => array(
 					'enabled' => isModEnabled("supplier_invoice"),
@@ -9882,10 +9882,10 @@ class Form
 			);
 		}
 
-		if ($object->table_element == 'commande_fournisseur') {
+		if ($object->table_element == 'order_fournisseur') {
 			$possiblelinks['mo']['sql'] = "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.ref, t.rowid, '0' as total_ht FROM ".$this->db->prefix()."societe as s INNER JOIN ".$this->db->prefix().'mrp_mo as t ON t.fk_soc = s.rowid  WHERE t.entity IN ('.getEntity('mo').')'.($dontIncludeCompletedItems ? ' AND t.status < 3' : '');
 		} elseif ($object->table_element == 'mrp_mo') {
-			$possiblelinks['order_supplier']['sql'] = "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.ref, t.ref_supplier, t.total_ht FROM ".$this->db->prefix()."societe as s, ".$this->db->prefix().'commande_fournisseur as t WHERE t.fk_soc = s.rowid AND t.entity IN ('.getEntity('commande_fournisseur').')'.($dontIncludeCompletedItems ? ' AND t.billed < 1' : '');
+			$possiblelinks['order_supplier']['sql'] = "SELECT s.rowid as socid, s.nom as name, s.client, t.rowid, t.ref, t.ref_supplier, t.total_ht FROM ".$this->db->prefix()."societe as s, ".$this->db->prefix().'order_fournisseur as t WHERE t.fk_soc = s.rowid AND t.entity IN ('.getEntity('order_fournisseur').')'.($dontIncludeCompletedItems ? ' AND t.billed < 1' : '');
 		}
 
 		$resHook = 0; // Ensure $resHook is defined for static analysis

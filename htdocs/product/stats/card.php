@@ -492,7 +492,7 @@ if ($result || !($id > 0)) {
 			if ($graphfiles == 'propal' && !$user->hasRight('propal', 'lire')) {
 				continue;
 			}
-			if ($graphfiles == 'order' && !$user->hasRight('commande', 'lire')) {
+			if ($graphfiles == 'order' && !$user->hasRight('order', 'lire')) {
 				continue;
 			}
 			if ($graphfiles == 'invoices' && !$user->hasRight('facture', 'lire')) {
@@ -504,7 +504,7 @@ if ($result || !($id > 0)) {
 			if ($graphfiles == 'invoices_suppliers' && !$user->hasRight('fournisseur', 'facture', 'lire')) {
 				continue;
 			}
-			if ($graphfiles == 'orders_suppliers' && !$user->hasRight('fournisseur', 'commande', 'lire')) {
+			if ($graphfiles == 'orders_suppliers' && !$user->hasRight('fournisseur', 'order', 'lire')) {
 				continue;
 			}
 			if ($graphfiles == 'mrp' && !$user->hasRight('mrp', 'read')) {

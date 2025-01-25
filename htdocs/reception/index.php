@@ -28,7 +28,7 @@
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/reception/class/reception.class.php';
 
 /**
@@ -88,10 +88,10 @@ if (getDolGlobalString('MAIN_SEARCH_FORM_ON_HOME_AREAS')) {     // This may be u
 
 $sql = "SELECT e.rowid, e.ref, e.ref_supplier,";
 $sql .= " s.nom as name, s.rowid as socid,";
-$sql .= " c.ref as commande_fournisseur_ref, c.rowid as commande_fournisseur_id";
+$sql .= " c.ref as order_fournisseur_ref, c.rowid as order_fournisseur_id";
 $sql .= " FROM ".MAIN_DB_PREFIX."reception as e";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_element as el ON e.rowid = el.fk_target AND el.targettype = 'reception'";
-$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."commande_fournisseur as c ON el.fk_source = c.rowid";
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."order_fournisseur as c ON el.fk_source = c.rowid";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = e.fk_soc";
 if (!$user->hasRight('societe', 'client', 'voir')) {
 	$sql .= " AND EXISTS (SELECT sc.fk_soc FROM ".MAIN_DB_PREFIX."societe_commerciaux as sc WHERE sc.fk_soc = e.fk_soc AND sc.fk_user = ".((int) $user->id).")";
@@ -126,8 +126,8 @@ if ($resql) {
 			print '<a href="'.DOL_URL_ROOT.'/comm/card.php?socid='.$obj->socid.'">'.$obj->name.'</a>';
 			print '</td>';
 			print '<td>';
-			if ($obj->commande_fournisseur_id) {
-				print '<a href="'.DOL_URL_ROOT.'/commande_fournisseur/card.php?id='.$obj->commande_fournisseur_id.'">'.$obj->commande_fournisseur_ref.'</a>';
+			if ($obj->order_fournisseur_id) {
+				print '<a href="'.DOL_URL_ROOT.'/order_fournisseur/card.php?id='.$obj->order_fournisseur_id.'">'.$obj->order_fournisseur_ref.'</a>';
 			}
 			print '</td></tr>';
 			$i++;
@@ -150,10 +150,10 @@ $max = 5;
 
 $sql = "SELECT e.rowid, e.ref, e.ref_supplier,";
 $sql .= " s.nom as name, s.rowid as socid,";
-$sql .= " c.ref as commande_fournisseur_ref, c.rowid as commande_fournisseur_id";
+$sql .= " c.ref as order_fournisseur_ref, c.rowid as order_fournisseur_id";
 $sql .= " FROM ".MAIN_DB_PREFIX."reception as e";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_element as el ON e.rowid = el.fk_target AND el.targettype = 'reception' AND el.sourcetype IN ('order_supplier')";
-$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."commande_fournisseur as c ON el.fk_source = c.rowid AND el.sourcetype IN ('order_supplier') AND el.targettype = 'reception'";
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."order_fournisseur as c ON el.fk_source = c.rowid AND el.sourcetype IN ('order_supplier') AND el.targettype = 'reception'";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s ON s.rowid = e.fk_soc";
 if (!$user->hasRight('societe', 'client', 'voir')) {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON e.fk_soc = sc.fk_soc";
@@ -190,9 +190,9 @@ if ($resql) {
 			print '</td>';
 			print '<td><a href="'.DOL_URL_ROOT.'/comm/card.php?socid='.$obj->socid.'">'.img_object($langs->trans("ShowCompany"), "company").' '.$obj->name.'</a></td>';
 			print '<td>';
-			if ($obj->commande_fournisseur_id > 0) {
-				$orderstatic->id = $obj->commande_fournisseur_id;
-				$orderstatic->ref = $obj->commande_fournisseur_ref;
+			if ($obj->order_fournisseur_id > 0) {
+				$orderstatic->id = $obj->order_fournisseur_id;
+				$orderstatic->ref = $obj->order_fournisseur_ref;
 				print $orderstatic->getNomUrl(1);
 			} else {
 				print '&nbsp;';
@@ -214,7 +214,7 @@ if ($resql) {
  */
 
 $sql = "SELECT c.rowid, c.ref, c.ref_supplier as ref_supplier, c.fk_statut as status, c.billed as billed, s.nom as name, s.rowid as socid";
-$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseur as c,";
+$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseur as c,";
 $sql .= " ".MAIN_DB_PREFIX."societe as s";
 $sql .= " WHERE c.fk_soc = s.rowid";
 $sql .= " AND c.entity IN (".getEntity('supplier_order').")";

@@ -65,10 +65,10 @@ function rebuild_merge_pdf($db, $langs, $config, $diroutputpdf, $newlangid, $fil
 			$diroutputpdf = $config->invoice->dir_output . '/temp';
 		}
 	} elseif ($mode == 'order') {
-		require_once DOL_DOCUMENT_ROOT . "/commande/class/commande.class.php";
-		require_once DOL_DOCUMENT_ROOT . "/core/modules/commande/modules_commande.php";
+		require_once DOL_DOCUMENT_ROOT . "/order/class/order.class.php";
+		require_once DOL_DOCUMENT_ROOT . "/core/modules/order/modules_order.php";
 
-		$table = "commande";
+		$table = "order";
 		$dir_output = $config->order->dir_output;
 		$date = "date";
 

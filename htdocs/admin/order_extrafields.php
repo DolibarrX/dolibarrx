@@ -56,7 +56,7 @@ $type2label = ExtraFields::getListOfTypesLabels();
 
 $action = GETPOST('action', 'aZ09');
 $attrname = GETPOST('attrname', 'alpha');
-$elementtype = 'commande'; //Must be the $table_element of the class that manage extrafield
+$elementtype = 'order'; //Must be the $table_element of the class that manage extrafield
 
 if (!$user->admin) {
 	accessforbidden();

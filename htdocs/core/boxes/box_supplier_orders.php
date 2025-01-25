@@ -48,9 +48,9 @@ class box_supplier_orders extends ModeleBoxes
 
 		$this->db = $db;
 
-		$this->hidden = !($user->hasRight('fournisseur', 'commande', 'lire'));
+		$this->hidden = !($user->hasRight('fournisseur', 'order', 'lire'));
 
-		$this->urltoaddentry = DOL_URL_ROOT.'/fourn/commande/card.php?action=create';
+		$this->urltoaddentry = DOL_URL_ROOT.'/fourn/order/card.php?action=create';
 		$this->msgNoRecords = 'NoSupplierOrder';
 	}
 
@@ -67,27 +67,27 @@ class box_supplier_orders extends ModeleBoxes
 
 		$this->max = $max;
 
-		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 		$supplierorderstatic = new OrderFournisseur($this->db);
 		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
 		$thirdpartystatic = new Fournisseur($this->db);
 
 		$text = $langs->trans("BoxTitleLatest".(getDolGlobalString('MAIN_LASTBOX_ON_OBJECT_DATE') ? "" : "Modified")."SupplierOrders", $max);
 		$this->info_box_head = array(
-			'text' => $text.'<a class="paddingleft" href="'.DOL_URL_ROOT.'/fourn/commande/list.php?sortfield=cf.tms&sortorder=DESC"><span class="badge">...</span></a>'
+			'text' => $text.'<a class="paddingleft" href="'.DOL_URL_ROOT.'/fourn/order/list.php?sortfield=cf.tms&sortorder=DESC"><span class="badge">...</span></a>'
 		);
 
-		if ($user->hasRight('fournisseur', 'commande', 'lire')) {
+		if ($user->hasRight('fournisseur', 'order', 'lire')) {
 			$sql = "SELECT s.rowid as socid, s.nom as name, s.name_alias";
 			$sql .= ", s.code_fournisseur, s.code_compta_fournisseur, s.fournisseur";
 			$sql .= ", s.logo, s.email, s.entity";
-			$sql .= ", c.rowid, c.ref, c.tms, c.date_commande";
+			$sql .= ", c.rowid, c.ref, c.tms, c.date_order";
 			$sql .= ", c.total_ht";
 			$sql .= ", c.total_tva";
 			$sql .= ", c.total_ttc";
 			$sql .= ", c.fk_statut as status";
 			$sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
-			$sql .= ", ".MAIN_DB_PREFIX."commande_fournisseur as c";
+			$sql .= ", ".MAIN_DB_PREFIX."order_fournisseur as c";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 			}
@@ -100,7 +100,7 @@ class box_supplier_orders extends ModeleBoxes
 				$sql .= " AND s.rowid = ".((int) $user->socid);
 			}
 			if (getDolGlobalString('MAIN_LASTBOX_ON_OBJECT_DATE')) {
-				$sql .= " ORDER BY c.date_commande DESC, c.ref DESC ";
+				$sql .= " ORDER BY c.date_order DESC, c.ref DESC ";
 			} else {
 				$sql .= " ORDER BY c.tms DESC, c.ref DESC ";
 			}
@@ -113,7 +113,7 @@ class box_supplier_orders extends ModeleBoxes
 				$line = 0;
 				while ($line < $num) {
 					$objp = $this->db->fetch_object($result);
-					$date = $this->db->jdate($objp->date_commande);
+					$date = $this->db->jdate($objp->date_order);
 					$datem = $this->db->jdate($objp->tms);
 
 					$supplierorderstatic->id = $objp->rowid;

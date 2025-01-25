@@ -267,7 +267,7 @@ if (empty($resHook)) {
 
 			$objecttmp = new Facture($db);
 
-			dol_include_once('/commande/class/commande.class.php');
+			dol_include_once('/order/class/order.class.php');
 			$expdCmdSrc = new Order($db);
 			$expdCmdSrc->fetch($expd->origin_id);
 
@@ -330,7 +330,7 @@ if (empty($resHook)) {
 						continue;
 					}
 					if (!empty($createbills_onebythird) && !empty($TFactThird[$expd->socid])) {
-						$objecttmp->fetchObjectLinked($object->id, 'commande');
+						$objecttmp->fetchObjectLinked($object->id, 'order');
 						foreach ($objecttmp->linkedObjectsIds as $tmpSourcetype => $tmpTIds) {
 							if ($tmpSourcetype == $sourcetype) {
 								if (!empty(array_intersect($TIds, $tmpTIds))) {
@@ -719,7 +719,7 @@ if (getDolGlobalInt('MAIN_SUBMODULE_DELIVERY')) {
 }
 $sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'user as u ON e.fk_user_author = u.rowid';
 if ($search_user > 0) {		// Get link to order to get the order id in eesource.fk_source
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_element as eesource ON eesource.fk_target = e.rowid AND eesource.targettype = 'shipping' AND eesource.sourcetype = 'commande'";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_element as eesource ON eesource.fk_target = e.rowid AND eesource.targettype = 'shipping' AND eesource.sourcetype = 'order'";
 }
 if ($search_user > 0) {
 	$sql .= ", ".MAIN_DB_PREFIX."element_contact as ec";
@@ -774,7 +774,7 @@ if ($search_type_thirdparty != '' && $search_type_thirdparty > 0) {
 }
 if ($search_user > 0) {
 	// The contact on a shipment is also the contact of the order.
-	$sql .= " AND ec.fk_c_type_contact = tc.rowid AND tc.element='commande' AND tc.source='internal' AND ec.element_id = eesource.fk_source AND ec.fk_socpeople = ".((int) $search_user);
+	$sql .= " AND ec.fk_c_type_contact = tc.rowid AND tc.element='order' AND tc.source='internal' AND ec.element_id = eesource.fk_source AND ec.fk_socpeople = ".((int) $search_user);
 }
 if ($search_company) {
 	$sql .= natural_search('s.nom', $search_company);
@@ -854,17 +854,17 @@ if (!empty($searchCategoryProductList)) {
 	$listofcategoryid = '';
 	foreach ($searchCategoryProductList as $searchCategoryProduct) {
 		if (intval($searchCategoryProduct) == -2) {
-			$searchCategoryProductSqlList[] = "NOT EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."expeditiondet as ed, ".MAIN_DB_PREFIX."commandedet as cd WHERE ed.fk_expedition = e.rowid AND ed.fk_elementdet = cd.rowid AND cd.fk_product = ck.fk_product)";
+			$searchCategoryProductSqlList[] = "NOT EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."expeditiondet as ed, ".MAIN_DB_PREFIX."orderdet as cd WHERE ed.fk_expedition = e.rowid AND ed.fk_elementdet = cd.rowid AND cd.fk_product = ck.fk_product)";
 		} elseif (intval($searchCategoryProduct) > 0) {
 			if ($searchCategoryProductOperator == 0) {
-				$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."expeditiondet as ed, ".MAIN_DB_PREFIX."commandedet as cd WHERE ed.fk_expedition = e.rowid AND ed.fk_elementdet = cd.rowid AND cd.fk_product = ck.fk_product AND ck.fk_category = ".((int) $searchCategoryProduct).")";
+				$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."expeditiondet as ed, ".MAIN_DB_PREFIX."orderdet as cd WHERE ed.fk_expedition = e.rowid AND ed.fk_elementdet = cd.rowid AND cd.fk_product = ck.fk_product AND ck.fk_category = ".((int) $searchCategoryProduct).")";
 			} else {
 				$listofcategoryid .= ($listofcategoryid ? ', ' : '') .((int) $searchCategoryProduct);
 			}
 		}
 	}
 	if ($listofcategoryid) {
-		$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."expeditiondet as ed, ".MAIN_DB_PREFIX."commandedet as cd WHERE ed.fk_expedition = e.rowid AND ed.fk_elementdet = cd.rowid AND cd.fk_product = ck.fk_product AND ck.fk_category IN (".$db->sanitize($listofcategoryid)."))";
+		$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck, ".MAIN_DB_PREFIX."expeditiondet as ed, ".MAIN_DB_PREFIX."orderdet as cd WHERE ed.fk_expedition = e.rowid AND ed.fk_elementdet = cd.rowid AND cd.fk_product = ck.fk_product AND ck.fk_category IN (".$db->sanitize($listofcategoryid)."))";
 	}
 	if ($searchCategoryProductOperator == 1) {
 		if (!empty($searchCategoryProductSqlList)) {

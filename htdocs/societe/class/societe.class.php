@@ -90,13 +90,13 @@ class Societe extends CommonObject
 	protected $childtables = array(
 		'supplier_proposal' => array('name' => 'SupplierProposal'),
 		'propal' => array('name' => 'Proposal'),
-		'commande' => array('name' => 'Order'),
+		'order' => array('name' => 'Order'),
 		'facture' => array('name' => 'Invoice'),
 		'facture_rec' => array('name' => 'RecurringInvoiceTemplate'),
 		'contrat' => array('name' => 'Contract'),
 		'fichinter' => array('name' => 'Fichinter'),
 		'facture_fourn' => array('name' => 'SupplierInvoice'),
-		'commande_fournisseur' => array('name' => 'SupplierOrder'),
+		'order_fournisseur' => array('name' => 'SupplierOrder'),
 		'projet' => array('name' => 'Project'),
 		'expedition' => array('name' => 'Shipment'),
 		'prelevement_lignes' => array('name' => 'DirectDebitRecord'),
@@ -4958,9 +4958,9 @@ class Societe extends CommonObject
 	 */
 	public function getOutstandingOrders($mode = 'customer')
 	{
-		$table = 'commande';
+		$table = 'order';
 		if ($mode == 'supplier') {
-			$table = 'commande_fournisseur';
+			$table = 'order_fournisseur';
 		}
 
 		$sql  = "SELECT rowid, ref, total_ht, total_ttc, fk_statut as status FROM ".MAIN_DB_PREFIX.$table." as f";
@@ -4968,7 +4968,7 @@ class Societe extends CommonObject
 		if ($mode == 'supplier') {
 			$sql .= " AND entity IN (".getEntity('supplier_order').")";
 		} else {
-			$sql .= " AND entity IN (".getEntity('commande').")";
+			$sql .= " AND entity IN (".getEntity('order').")";
 		}
 
 		dol_syslog("getOutstandingOrders", LOG_DEBUG);
@@ -5441,7 +5441,7 @@ class Societe extends CommonObject
 	 *
 	 *    @param	int         $list       0:Return array contains all properties, 1:Return array contains just id
 	 *    @param    string      $code       Filter on this code of contact type ('SHIPPING', 'BILLING', ...)
-	 *	  @param    string      $element    Filter on this element of default contact type ('facture', 'propal', 'commande' ...)
+	 *	  @param    string      $element    Filter on this element of default contact type ('facture', 'propal', 'order' ...)
 	 *    @return	array|int		        Array of contacts, -1 if error
 	 *
 	 */
@@ -5627,14 +5627,14 @@ class Societe extends CommonObject
 					//'Category' => '/categories/class/category.class.php',	// Already processed previously
 					'ActionComm' => '/comm/action/class/actioncomm.class.php',
 					'Propal' => '/comm/propal/class/propal.class.php',
-					'Order' => '/commande/class/commande.class.php',
+					'Order' => '/order/class/order.class.php',
 					'Facture' => '/compta/facture/class/facture.class.php',
 					'FactureRec' => '/compta/facture/class/facture-rec.class.php',
 					'LignePrelevement' => '/compta/prelevement/class/ligneprelevement.class.php',
 					'Contact' => '/contact/class/contact.class.php',
 					'Contrat' => '/contrat/class/contrat.class.php',
 					'Expedition' => '/expedition/class/expedition.class.php',
-					'OrderFournisseur' => '/fourn/class/fournisseur.commande.class.php',
+					'OrderFournisseur' => '/fourn/class/fournisseur.order.class.php',
 					'FactureFournisseur' => '/fourn/class/fournisseur.facture.class.php',
 					'FactureFournisseurRec' => '/fourn/class/fournisseur.facture-rec.class.php',
 					'Reception' => '/reception/class/reception.class.php',

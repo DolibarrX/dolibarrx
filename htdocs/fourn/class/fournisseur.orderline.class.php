@@ -33,7 +33,7 @@
 
 /**
  *	\file       htdocs/fourn/class/fournisseur.orderline.class.php
- *	\ingroup    fournisseur,commande
+ *	\ingroup    fournisseur,order
  *	\brief      File of class to manage supplier order lines
  */
 
@@ -48,22 +48,22 @@ class OrderFournisseurLigne extends CommonOrderLine
 	/**
 	 * @var string ID to identify managed object
 	 */
-	public $element = 'commande_fournisseurdet';
+	public $element = 'order_fournisseurdet';
 
 	/**
 	 * @var string Name of table without prefix where object is stored
 	 */
-	public $table_element = 'commande_fournisseurdet';
+	public $table_element = 'order_fournisseurdet';
 
 	/**
 	 * @see CommonObjectLine
 	 */
-	public $parent_element = 'commande_fournisseur';
+	public $parent_element = 'order_fournisseur';
 
 	/**
 	 * @see CommonObjectLine
 	 */
-	public $fk_parent_attribute = 'fk_commande_fournisseur';
+	public $fk_parent_attribute = 'fk_order_fournisseur';
 
 	/**
 	 * @var OrderFournisseurLigne
@@ -74,9 +74,9 @@ class OrderFournisseurLigne extends CommonOrderLine
 	 * Id of parent order
 	 * @var int
 	 */
-	public $fk_commande;
+	public $fk_order;
 
-	// From llx_commande_fournisseurdet
+	// From llx_order_fournisseurdet
 	/**
 	 * @var int ID
 	 */
@@ -167,7 +167,7 @@ class OrderFournisseurLigne extends CommonOrderLine
 	 */
 	public function fetch($rowid)
 	{
-		$sql = 'SELECT cd.rowid, cd.fk_commande, cd.fk_product, cd.product_type, cd.description, cd.qty, cd.tva_tx, cd.special_code,';
+		$sql = 'SELECT cd.rowid, cd.fk_order, cd.fk_product, cd.product_type, cd.description, cd.qty, cd.tva_tx, cd.special_code,';
 		$sql .= ' cd.localtax1_tx, cd.localtax2_tx, cd.localtax1_type, cd.localtax2_type, cd.ref as ref_supplier,';
 		$sql .= ' cd.remise, cd.remise_percent, cd.subprice,';
 		$sql .= ' cd.info_bits, cd.total_ht, cd.total_tva, cd.total_ttc,';
@@ -176,9 +176,9 @@ class OrderFournisseurLigne extends CommonOrderLine
 		$sql .= ' cd.date_start, cd.date_end, cd.fk_unit,';
 		$sql .= ' cd.multicurrency_subprice, cd.multicurrency_total_ht, cd.multicurrency_total_tva, cd.multicurrency_total_ttc,';
 		$sql .= ' c.fk_soc as socid';
-		$sql .= ' FROM '.$this->db->prefix().'commande_fournisseur as c, '.$this->db->prefix().'commande_fournisseurdet as cd';
+		$sql .= ' FROM '.$this->db->prefix().'order_fournisseur as c, '.$this->db->prefix().'order_fournisseurdet as cd';
 		$sql .= ' LEFT JOIN '.$this->db->prefix().'product as p ON cd.fk_product = p.rowid';
-		$sql .= ' WHERE cd.fk_commande = c.rowid AND cd.rowid = '.((int) $rowid);
+		$sql .= ' WHERE cd.fk_order = c.rowid AND cd.rowid = '.((int) $rowid);
 
 		$result = $this->db->query($sql);
 		if ($result) {
@@ -187,7 +187,7 @@ class OrderFournisseurLigne extends CommonOrderLine
 			if (!empty($objp)) {
 				$this->rowid = $objp->rowid;
 				$this->id               = $objp->rowid;
-				$this->fk_commande      = $objp->fk_commande;
+				$this->fk_order      = $objp->fk_order;
 				$this->desc             = $objp->description;
 				$this->qty              = $objp->qty;
 				$this->ref_fourn        = $objp->ref_supplier;
@@ -342,13 +342,13 @@ class OrderFournisseurLigne extends CommonOrderLine
 
 		// Insertion dans base de la ligne
 		$sql = 'INSERT INTO '.$this->db->prefix().$this->table_element;
-		$sql .= " (fk_commande, label, description, date_start, date_end,";
+		$sql .= " (fk_order, label, description, date_start, date_end,";
 		$sql .= " fk_product, product_type, special_code, rang,";
 		$sql .= " qty, vat_src_code, tva_tx, localtax1_tx, localtax2_tx, localtax1_type, localtax2_type, remise_percent, subprice, ref,";
 		$sql .= " total_ht, total_tva, total_localtax1, total_localtax2, total_ttc, fk_unit,";
 		$sql .= " fk_multicurrency, multicurrency_code, multicurrency_subprice, multicurrency_total_ht, multicurrency_total_tva, multicurrency_total_ttc,";
 		$sql .= " fk_parent_line)";
-		$sql .= " VALUES (".$this->fk_commande.", '".$this->db->escape($this->label)."','".$this->db->escape($this->desc)."',";
+		$sql .= " VALUES (".$this->fk_order.", '".$this->db->escape($this->label)."','".$this->db->escape($this->desc)."',";
 		$sql .= " ".($this->date_start ? "'".$this->db->idate($this->date_start)."'" : "null").",";
 		$sql .= " ".($this->date_end ? "'".$this->db->idate($this->date_end)."'" : "null").",";
 		if ($this->fk_product) {
@@ -527,14 +527,14 @@ class OrderFournisseurLigne extends CommonOrderLine
 			return -1;
 		}
 
-		$sql1 = 'UPDATE '.$this->db->prefix()."commandedet SET fk_commandefourndet = NULL WHERE fk_commandefourndet = ".((int) $this->id);
+		$sql1 = 'UPDATE '.$this->db->prefix()."orderdet SET fk_orderfourndet = NULL WHERE fk_orderfourndet = ".((int) $this->id);
 		$resql = $this->db->query($sql1);
 		if (!$resql) {
 			$this->db->rollback();
 			return -1;
 		}
 
-		$sql2 = 'DELETE FROM '.$this->db->prefix()."commande_fournisseurdet WHERE rowid = ".((int) $this->id);
+		$sql2 = 'DELETE FROM '.$this->db->prefix()."order_fournisseurdet WHERE rowid = ".((int) $this->id);
 
 		dol_syslog(__METHOD__, LOG_DEBUG);
 		$resql = $this->db->query($sql2);

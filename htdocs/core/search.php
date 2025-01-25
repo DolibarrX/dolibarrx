@@ -68,11 +68,11 @@ if (GETPOST('search_proposal') != '') {
 	exit;
 }
 if (GETPOST('search_customer_order') != '') {
-	header("Location: ".DOL_URL_ROOT.'/commande/list.php?sall='.urlencode(GETPOST('search_customer_order')));
+	header("Location: ".DOL_URL_ROOT.'/order/list.php?sall='.urlencode(GETPOST('search_customer_order')));
 	exit;
 }
 if (GETPOST('search_supplier_order') != '') {
-	header("Location: ".DOL_URL_ROOT.'/fourn/commande/list.php?search_all='.urlencode(GETPOST('search_supplier_order')));
+	header("Location: ".DOL_URL_ROOT.'/fourn/order/list.php?search_all='.urlencode(GETPOST('search_supplier_order')));
 	exit;
 }
 if (GETPOST('search_intervention') != '') {

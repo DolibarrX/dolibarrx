@@ -127,7 +127,7 @@ $usercansend = (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS') || $user->hasRigh
 
 // Additional area permissions
 $usercanclose = $user->hasRight('supplier_proposal', 'cloturer');
-$usercancreateorder = ($user->hasRight('fournisseur', 'commande', 'creer') || $user->hasRight('supplier_order', 'creer'));
+$usercancreateorder = ($user->hasRight('fournisseur', 'order', 'creer') || $user->hasRight('supplier_order', 'creer'));
 
 // Permissions for includes
 $permissionnote = $usercancreate; // Used by the include of actions_setnotes.inc.php
@@ -353,7 +353,7 @@ if (empty($resHook)) {
 
 					// For compatibility
 					if ($element == 'order') {
-						$element = $subelement = 'commande';
+						$element = $subelement = 'order';
 					}
 					if ($element == 'propal') {
 						$element = 'comm/propal';
@@ -1225,8 +1225,8 @@ if ($action == 'create') {
 		}
 
 		// For compatibility
-		if ($element == 'order' || $element == 'commande') {
-			$element = $subelement = 'commande';
+		if ($element == 'order' || $element == 'order') {
+			$element = $subelement = 'order';
 		}
 		if ($element == 'propal') {
 			$element = 'comm/propal';
@@ -2011,7 +2011,7 @@ if ($action == 'create') {
 				// Create an order
 				if (isModEnabled("supplier_order") && $object->statut == SupplierProposal::STATUS_SIGNED) {
 					if ($usercancreateorder) {
-						print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/fourn/commande/card.php?action=create&amp;origin='.$object->element.'&amp;originid='.$object->id.'&amp;socid='.$object->socid.'&amp;token='.newToken().'">'.$langs->trans("AddSupplierOrderShort").'</a></div>';
+						print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/fourn/order/card.php?action=create&amp;origin='.$object->element.'&amp;originid='.$object->id.'&amp;socid='.$object->socid.'&amp;token='.newToken().'">'.$langs->trans("AddSupplierOrderShort").'</a></div>';
 					}
 				}
 

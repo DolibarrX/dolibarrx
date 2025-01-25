@@ -253,7 +253,7 @@ class Conf extends stdClass
 	 * @var stdClass
 	 * @deprecated Use order
 	 */
-	public $commande;
+	public $order;
 
 	/**
 	 * @var stdClass
@@ -391,7 +391,7 @@ class Conf extends stdClass
 		$this->contrat = new stdClass();
 		$this->actions = new stdClass();
 		$this->agenda = new stdClass();
-		$this->commande = new stdClass();
+		$this->order = new stdClass();
 		$this->propal = new stdClass();
 		$this->facture = new stdClass();
 		$this->user	= new stdClass();
@@ -462,7 +462,7 @@ class Conf extends stdClass
 		$this->contrat = new stdClass();
 		$this->actions = new stdClass();
 		$this->agenda = new stdClass();
-		$this->commande = new stdClass();
+		$this->order = new stdClass();
 		$this->propal = new stdClass();
 		$this->facture = new stdClass();
 		$this->user	= new stdClass();
@@ -761,11 +761,11 @@ class Conf extends stdClass
 
 			// Module supplier is on
 			if (isModEnabled('fournisseur')) {
-				$this->fournisseur->commande = new stdClass();
-				$this->fournisseur->commande->multidir_output = array($this->entity => $rootfordata."/fournisseur/commande");
-				$this->fournisseur->commande->multidir_temp = array($this->entity => $rootfortemp."/fournisseur/commande/temp");
-				$this->fournisseur->commande->dir_output = $rootfordata."/fournisseur/commande"; // For backward compatibility
-				$this->fournisseur->commande->dir_temp = $rootfortemp."/fournisseur/commande/temp"; // For backward compatibility
+				$this->fournisseur->order = new stdClass();
+				$this->fournisseur->order->multidir_output = array($this->entity => $rootfordata."/fournisseur/order");
+				$this->fournisseur->order->multidir_temp = array($this->entity => $rootfortemp."/fournisseur/order/temp");
+				$this->fournisseur->order->dir_output = $rootfordata."/fournisseur/order"; // For backward compatibility
+				$this->fournisseur->order->dir_temp = $rootfortemp."/fournisseur/order/temp"; // For backward compatibility
 
 				$this->fournisseur->facture = new stdClass();
 				$this->fournisseur->facture->multidir_output = array($this->entity => $rootfordata."/fournisseur/facture");
@@ -789,10 +789,10 @@ class Conf extends stdClass
 				if (!getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) {  // By default, if module supplier is on, and we don't use yet the new modules, we set artificially the module properties
 					$this->supplier_order = new stdClass();
 					$this->supplier_order->enabled = 1;
-					$this->supplier_order->multidir_output = array($this->entity => $rootfordata."/fournisseur/commande");
-					$this->supplier_order->multidir_temp = array($this->entity => $rootfortemp."/fournisseur/commande/temp");
-					$this->supplier_order->dir_output = $rootfordata."/fournisseur/commande"; // For backward compatibility
-					$this->supplier_order->dir_temp = $rootfortemp."/fournisseur/commande/temp"; // For backward compatibility
+					$this->supplier_order->multidir_output = array($this->entity => $rootfordata."/fournisseur/order");
+					$this->supplier_order->multidir_temp = array($this->entity => $rootfortemp."/fournisseur/order/temp");
+					$this->supplier_order->dir_output = $rootfordata."/fournisseur/order"; // For backward compatibility
+					$this->supplier_order->dir_temp = $rootfortemp."/fournisseur/order/temp"; // For backward compatibility
 
 					$this->supplier_invoice = new stdClass();
 					$this->supplier_invoice->enabled = 1;
@@ -1094,7 +1094,7 @@ class Conf extends stdClass
 
 			// Define list of limited modules (value must be key found for "name" property of module, so for example 'supplierproposal' for Module "Supplier Proposal"
 			if (!isset($this->global->MAIN_MODULES_FOR_EXTERNAL)) {
-				$this->global->MAIN_MODULES_FOR_EXTERNAL = 'user,societe,propal,commande,facture,category,supplierproposal,fournisseur,contact,projet,contrat,ficheinter,expedition,reception,agenda,resource,member,blockedlog,ticket'; // '' means 'all'. Note that contact is added here as it should be a module later.
+				$this->global->MAIN_MODULES_FOR_EXTERNAL = 'user,societe,propal,order,facture,category,supplierproposal,fournisseur,contact,projet,contrat,ficheinter,expedition,reception,agenda,resource,member,blockedlog,ticket'; // '' means 'all'. Note that contact is added here as it should be a module later.
 			}
 			if (!empty($this->modules_parts['moduleforexternal'])) {		// Module part to include an external module into the MAIN_MODULES_FOR_EXTERNAL list
 				foreach ($this->modules_parts['moduleforexternal'] as $key => $value) {
@@ -1145,11 +1145,11 @@ class Conf extends stdClass
 				$this->projet->task->warning_delay = (getDolGlobalInt('MAIN_DELAY_TASKS_TODO', 7) * 86400);
 			}
 
-			if (isset($this->commande)) {
-				$this->commande->client = new stdClass();
-				$this->commande->fournisseur = new stdClass();
-				$this->commande->client->warning_delay = (isset($this->global->MAIN_DELAY_ORDERS_TO_PROCESS) ? (int) $this->global->MAIN_DELAY_ORDERS_TO_PROCESS : 2) * 86400;
-				$this->commande->fournisseur->warning_delay = (isset($this->global->MAIN_DELAY_SUPPLIER_ORDERS_TO_PROCESS) ? (int) $this->global->MAIN_DELAY_SUPPLIER_ORDERS_TO_PROCESS : 7) * 86400;
+			if (isset($this->order)) {
+				$this->order->client = new stdClass();
+				$this->order->fournisseur = new stdClass();
+				$this->order->client->warning_delay = (isset($this->global->MAIN_DELAY_ORDERS_TO_PROCESS) ? (int) $this->global->MAIN_DELAY_ORDERS_TO_PROCESS : 2) * 86400;
+				$this->order->fournisseur->warning_delay = (isset($this->global->MAIN_DELAY_SUPPLIER_ORDERS_TO_PROCESS) ? (int) $this->global->MAIN_DELAY_SUPPLIER_ORDERS_TO_PROCESS : 7) * 86400;
 			}
 			if (isset($this->propal)) {
 				$this->propal->cloture = new stdClass();
@@ -1170,7 +1170,7 @@ class Conf extends stdClass
 				$this->contrat->services->inactifs->warning_delay = (isset($this->global->MAIN_DELAY_NOT_ACTIVATED_SERVICES) ? (int) $this->global->MAIN_DELAY_NOT_ACTIVATED_SERVICES : 0) * 86400;
 				$this->contrat->services->expires->warning_delay = (isset($this->global->MAIN_DELAY_RUNNING_SERVICES) ? (int) $this->global->MAIN_DELAY_RUNNING_SERVICES : 0) * 86400;
 			}
-			if (isset($this->commande)) {
+			if (isset($this->order)) {
 				$this->bank->rappro	= new stdClass();
 				$this->bank->cheque	= new stdClass();
 				$this->bank->rappro->warning_delay = (isset($this->global->MAIN_DELAY_TRANSACTIONS_TO_CONCILIATE) ? (int) $this->global->MAIN_DELAY_TRANSACTIONS_TO_CONCILIATE : 0) * 86400;
@@ -1300,9 +1300,9 @@ class Conf extends stdClass
 			if (isset($this->facture)) {
 				$this->invoice = $this->facture;
 			}
-			// order is new use, commande is old use still initialised
-			if (isset($this->commande)) {
-				$this->order = $this->commande;
+			// order is new use, order is old use still initialised
+			if (isset($this->order)) {
+				$this->order = $this->order;
 			}
 			// contract is new use, contrat is old use still initialised
 			if (isset($this->contrat)) {

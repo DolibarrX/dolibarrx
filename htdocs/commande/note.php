@@ -21,15 +21,15 @@
  */
 
 /**
- *  \file       htdocs/commande/note.php
+ *  \file       htdocs/order/note.php
  *  \ingroup    order
- *  \brief      Fiche de notes sur une commande
+ *  \brief      Fiche de notes sur une order
  */
 
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 }
@@ -59,11 +59,11 @@ if ($user->socid) {
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('ordernote'));
 
-$result = restrictedArea($user, 'commande', $id, '');
+$result = restrictedArea($user, 'order', $id, '');
 
-$usercancreate  =  $user->hasRight("commande", "creer");
+$usercancreate  =  $user->hasRight("order", "creer");
 
-$permissionnote = $user->hasRight('commande', 'creer'); // Used by the include of actions_setnotes.inc.php
+$permissionnote = $user->hasRight('order', 'creer'); // Used by the include of actions_setnotes.inc.php
 
 
 $object = new Order($db);
@@ -99,13 +99,13 @@ $form = new Form($db);
 if ($id > 0 || !empty($ref)) {
 	$object->fetch_thirdparty();
 
-	$head = commande_prepare_head($object);
+	$head = order_prepare_head($object);
 
 	print dol_get_fiche_head($head, 'note', $langs->trans("CustomerOrder"), -1, 'order');
 
 	// Order card
 
-	$linkback = '<a href="'.DOL_URL_ROOT.'/commande/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+	$linkback = '<a href="'.DOL_URL_ROOT.'/order/list.php?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 
 	$morehtmlref = '<div class="refidno">';

@@ -1016,7 +1016,7 @@ class pdf_rouget extends ModelePdfExpedition
 		$object->fetch_origin();
 
 		// TODO move to external function
-		if (isModEnabled($origin)) {     // commonly $origin='commande'
+		if (isModEnabled($origin)) {     // commonly $origin='order'
 			$outputlangs->load('orders');
 
 			$classname = ucfirst($origin);

@@ -592,7 +592,7 @@ if ($object->id > 0) {
 	print '<table width="100%" class="nobordernopadding"><tr><td class="nowrap">';
 	print $langs->trans('BankAccount');
 	print '<td>';
-	if (($action != 'editbankaccount') && $user->hasRight('commande', 'creer') && $object->status == $object::STATUS_DRAFT) {
+	if (($action != 'editbankaccount') && $user->hasRight('order', 'creer') && $object->status == $object::STATUS_DRAFT) {
 		print '<td class="right"><a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=editbankaccount&token='.newToken().'&id='.$object->id.'&type='.urlencode($type).'">'.img_edit($langs->trans('SetBankAccount'), 1).'</a></td>';
 	}
 	print '</tr></table>';

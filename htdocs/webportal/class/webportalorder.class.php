@@ -25,7 +25,7 @@
  */
 
 // Put here all includes required by your class file
-require_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT . '/order/class/order.class.php';
 
 /**
  * Class for WebPortalOrder
@@ -100,7 +100,7 @@ class WebPortalOrder extends Order
 		'rowid' => array('type' => 'integer', 'label' => 'TechnicalID', 'enabled' => 1, 'visible' => 0, 'notnull' => 1, 'position' => 10,),
 		'entity' => array('type' => 'integer', 'label' => 'Entity', 'default' => '1', 'enabled' => 1, 'visible' => -2, 'notnull' => 1, 'position' => 20, 'index' => 1,),
 		'ref' => array('type' => 'varchar(30)', 'label' => 'Ref', 'enabled' => 1, 'visible' => 2, 'notnull' => 1, 'showoncombobox' => 1, 'position' => 25,),
-		'date_commande' => array('type' => 'date', 'label' => 'Date', 'enabled' => 1, 'visible' => 2, 'position' => 60,),
+		'date_order' => array('type' => 'date', 'label' => 'Date', 'enabled' => 1, 'visible' => 2, 'position' => 60,),
 		'date_livraison' => array('type' => 'date', 'label' => 'DateDeliveryPlanned', 'enabled' => 1, 'visible' => 2, 'position' => 70,),
 		'total_ht' => array('type' => 'price', 'label' => 'TotalHT', 'enabled' => 1, 'visible' => 2, 'position' => 125, 'isameasure' => 1,),
 		'total_tva' => array('type' => 'price', 'label' => 'VAT', 'enabled' => 1, 'visible' => 2, 'position' => 130, 'isameasure' => 1,),
@@ -112,7 +112,7 @@ class WebPortalOrder extends Order
 	);
 	//public $rowid;
 	//public $ref;
-	//public $date_commande;
+	//public $date_order;
 	//public $date_livraison;
 	//public $total_ht;
 	//public $total_tva;

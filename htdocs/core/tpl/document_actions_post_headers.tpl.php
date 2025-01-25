@@ -98,9 +98,9 @@ if (!isset($savingdocmask) || getDolGlobalString('MAIN_DISABLE_SUGGEST_REF_AS_PR
 		//var_dump($modulepart);
 		if (in_array($modulepart, array(
 			'facture_fournisseur',
-			'commande_fournisseur',
+			'order_fournisseur',
 			'facture',
-			'commande',
+			'order',
 			'propal',
 			'payment',
 			'supplier_proposal',

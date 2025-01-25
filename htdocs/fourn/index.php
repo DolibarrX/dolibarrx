@@ -26,7 +26,7 @@
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
@@ -52,7 +52,7 @@ $result = restrictedArea($user, 'societe', $socid, '');
  * View
  */
 
-$commandestatic = new OrderFournisseur($db);
+$orderstatic = new OrderFournisseur($db);
 $facturestatic = new FactureFournisseur($db);
 $companystatic = new Societe($db);
 
@@ -68,7 +68,7 @@ print '<div class="fichecenter"><div class="fichethirdleft">';
 
 // Orders
 $sql = "SELECT count(cf.rowid), cf.fk_statut";
-$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseur as cf,";
+$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseur as cf,";
 $sql .= " ".MAIN_DB_PREFIX."societe as s";
 if (!$user->hasRight("societe", "client", "voir") && !$socid) {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON s.rowid = sc.fk_soc";
@@ -93,9 +93,9 @@ if ($resql) {
 		$row = $db->fetch_row($resql);
 
 		print '<tr class="oddeven">';
-		print '<td>'.$commandestatic->LibStatut($row[1]).'</td>';
+		print '<td>'.$orderstatic->LibStatut($row[1]).'</td>';
 		print '<td class="center">'.$row[0].'</td>';
-		print '<td class="center"><a href="'.DOL_URL_ROOT.'/fourn/commande/list.php?statut='.$row[1].'">'.$commandestatic->LibStatut($row[1], 3).'</a></td>';
+		print '<td class="center"><a href="'.DOL_URL_ROOT.'/fourn/order/list.php?statut='.$row[1].'">'.$orderstatic->LibStatut($row[1], 3).'</a></td>';
 
 		print "</tr>\n";
 		$i++;
@@ -114,7 +114,7 @@ if (isModEnabled("supplier_order")) {
 
 	$sql = "SELECT cf.rowid, cf.ref, cf.total_ttc,";
 	$sql .= " s.nom as name, s.rowid as socid";
-	$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseur as cf";
+	$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseur as cf";
 	$sql .= ", ".MAIN_DB_PREFIX."societe as s";
 	if (!$user->hasRight("societe", "client", "voir") && !$socid) {
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe_commerciaux as sc ON s.rowid = sc.fk_soc";
@@ -143,9 +143,9 @@ if (isModEnabled("supplier_order")) {
 				$obj = $db->fetch_object($resql);
 
 				print '<tr class="oddeven"><td  class="nowrap">';
-				$commandestatic->id = $obj->rowid;
-				$commandestatic->ref = $obj->ref;
-				print $commandestatic->getNomUrl(1, '', 16);
+				$orderstatic->id = $obj->rowid;
+				$orderstatic->ref = $obj->ref;
+				print $orderstatic->getNomUrl(1, '', 16);
 				print '</td>';
 				print '<td  class="nowrap">';
 				$companystatic->id = $obj->socid;

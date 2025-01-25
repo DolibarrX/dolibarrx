@@ -60,7 +60,7 @@ class Productlot extends CommonObject
 	/**
 	 * @var array{customers:int,nb:int,rows:int,qty:int} stats orders
 	 */
-	public $stats_commande;
+	public $stats_order;
 
 	/**
 	 * @var array{customers:int,nb:int,rows:int,qty:int} stats contracts
@@ -75,7 +75,7 @@ class Productlot extends CommonObject
 	/**
 	 * @var array{suppliers:int,nb:int,rows:int,qty:int} stats supplier propales
 	 */
-	public $stats_commande_fournisseur;
+	public $stats_order_fournisseur;
 
 	/**
 	 * @var array{customers:int,nb:int,rows:int,qty:int} stats shipping
@@ -915,7 +915,7 @@ class Productlot extends CommonObject
 	}
 
 	/**
-	 *  Charge tableau des stats commande fournisseur pour le lot/numéro de série
+	 *  Charge tableau des stats order fournisseur pour le lot/numéro de série
 	 *
 	 * @param  int $socid Id societe
 	 * @return int                     Array of stats in $this->stats_expedition, <0 if ko or >0 if ok
@@ -927,8 +927,8 @@ class Productlot extends CommonObject
 		$sql = "SELECT COUNT(DISTINCT cf.fk_soc) as nb_customers, COUNT(DISTINCT cf.rowid) as nb,";
 		$sql .= " COUNT(cfd.rowid) as nb_rows, SUM(cfdi.qty) as qty";
 		$sql .= " FROM ".$this->db->prefix()."receptiondet_batch as cfdi";
-		$sql .= " INNER JOIN ".$this->db->prefix()."commande_fournisseurdet as cfd ON (cfd.rowid = cfdi.fk_elementdet)";
-		$sql .= " INNER JOIN ".$this->db->prefix()."commande_fournisseur as cf ON (cf.rowid = cfd.fk_commande)";
+		$sql .= " INNER JOIN ".$this->db->prefix()."order_fournisseurdet as cfd ON (cfd.rowid = cfdi.fk_elementdet)";
+		$sql .= " INNER JOIN ".$this->db->prefix()."order_fournisseur as cf ON (cf.rowid = cfd.fk_order)";
 		//      $sql .= ", ".$this->db->prefix()."societe as s";
 		if (!$user->hasRight('societe', 'client', 'voir')) {
 			$sql .= ", ".$this->db->prefix()."societe_commerciaux as sc";

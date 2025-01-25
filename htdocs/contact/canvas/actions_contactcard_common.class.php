@@ -213,7 +213,7 @@ abstract class ActionsContactCardCommon
 
 			if (isModEnabled('order')) {
 				$this->tpl['contact_element'][$i]['linked_element_label'] = $langs->trans("ContactForOrders");
-				$this->tpl['contact_element'][$i]['linked_element_value'] = $this->object->ref_commande ? $this->object->ref_commande : $langs->trans("NoContactForAnyOrder");
+				$this->tpl['contact_element'][$i]['linked_element_value'] = $this->object->ref_order ? $this->object->ref_order : $langs->trans("NoContactForAnyOrder");
 				$i++;
 			}
 			if (isModEnabled("propal")) {

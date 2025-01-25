@@ -37,7 +37,7 @@ if (isModEnabled("propal")) {
 	require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 }
 if (isModEnabled('order')) {
-	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 }
 
 
@@ -106,7 +106,7 @@ class Delivery extends CommonObject
 	/**
 	 * @var int ID of order
 	 */
-	public $commande_id;
+	public $order_id;
 
 	/**
 	 * @var DeliveryLine[] lines
@@ -210,9 +210,9 @@ class Delivery extends CommonObject
 			$resql = $this->db->query($sql);
 			if ($resql) {
 				if (!getDolGlobalInt('MAIN_SUBMODULE_EXPEDITION')) {
-					$commande = new Order($this->db);
-					$commande->id = $this->commande_id;
-					$commande->fetch_lines();
+					$order = new Order($this->db);
+					$order->id = $this->order_id;
+					$order->fetch_lines();
 				}
 
 
@@ -223,7 +223,7 @@ class Delivery extends CommonObject
 				for ($i = 0; $i < $num; $i++) {
 					$origin_id = $this->lines[$i]->origin_line_id;
 					if (!$origin_id) {
-						$origin_id = $this->lines[$i]->commande_ligne_id; // For backward compatibility
+						$origin_id = $this->lines[$i]->order_ligne_id; // For backward compatibility
 					}
 
 					if (!$this->create_line($origin_id, $this->lines[$i]->qty, $this->lines[$i]->fk_product, $this->lines[$i]->description, $this->lines[$i]->array_options)) {
@@ -657,7 +657,7 @@ class Delivery extends CommonObject
 	public function deleteLine($lineid)
 	{
 		if ($this->status == 0) {
-			$sql = "DELETE FROM ".MAIN_DB_PREFIX."commandedet";
+			$sql = "DELETE FROM ".MAIN_DB_PREFIX."orderdet";
 			$sql .= " WHERE rowid = ".((int) $lineid);
 
 			if ($this->db->query($sql)) {
@@ -848,7 +848,7 @@ class Delivery extends CommonObject
 		$sql .= " cd.qty as qty_asked, cd.label as custom_label, cd.fk_unit,";
 		$sql .= " p.ref as product_ref, p.fk_product_type as fk_product_type, p.label as product_label, p.description as product_desc,";
 		$sql .= " p.weight, p.weight_units,  p.width, p.width_units, p.length, p.length_units, p.height, p.height_units, p.surface, p.surface_units, p.volume, p.volume_units, p.tobatch as product_tobatch";
-		$sql .= " FROM ".MAIN_DB_PREFIX."commandedet as cd, ".MAIN_DB_PREFIX."deliverydet as ld";
+		$sql .= " FROM ".MAIN_DB_PREFIX."orderdet as cd, ".MAIN_DB_PREFIX."deliverydet as ld";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p on p.rowid = ld.fk_product";
 		$sql .= " WHERE ld.fk_origin_line = cd.rowid";
 		$sql .= " AND ld.fk_delivery = ".((int) $this->id);
@@ -1278,7 +1278,7 @@ class DeliveryLine extends CommonObjectLine
 	 * @deprecated
 	 * @see $origin_line_id
 	 */
-	public $commande_ligne_id;
+	public $order_ligne_id;
 
 
 	/**

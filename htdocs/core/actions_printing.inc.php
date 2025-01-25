@@ -74,9 +74,9 @@ if ($action == 'print_file' && $user->hasRight('printing', 'read')) {
 					case 'expedition':
 						$subdir = 'sending';
 						break;
-					case 'commande_fournisseur':
+					case 'order_fournisseur':
 						$module = 'fournisseur';
-						$subdir = 'commande';
+						$subdir = 'order';
 						break;
 				}
 				try {

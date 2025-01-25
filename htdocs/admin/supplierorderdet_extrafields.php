@@ -57,7 +57,7 @@ $type2label = ExtraFields::getListOfTypesLabels();
 
 $action = GETPOST('action', 'aZ09');
 $attrname = GETPOST('attrname', 'alpha');
-$elementtype = 'commande_fournisseurdet'; //Must be the $table_element of the class that manage extrafield
+$elementtype = 'order_fournisseurdet'; //Must be the $table_element of the class that manage extrafield
 
 if (!$user->admin) {
 	accessforbidden();

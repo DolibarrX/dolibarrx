@@ -1023,7 +1023,7 @@ if ($ispaymentok) {
 			$ispostactionok = -1;
 		}
 	} elseif (array_key_exists('ORD', $tmptag) && $tmptag['ORD'] > 0) {
-		include_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
+		include_once DOL_DOCUMENT_ROOT . '/order/class/order.class.php';
 		$object = new Order($db);
 		$result = $object->fetch((int) $tmptag['ORD']);
 		if ($result) {

@@ -89,12 +89,12 @@ if (GETPOST('location_incoterms')) {
 		$sql .= " ORDER BY z.location";
 		$sql .= $db->plimit(1000); // Avoid pb with bad criteria
 	} else { // Use table of sale orders
-		$sql = "SELECT DISTINCT s.location_incoterms FROM ".MAIN_DB_PREFIX.'commande as s';
+		$sql = "SELECT DISTINCT s.location_incoterms FROM ".MAIN_DB_PREFIX.'order as s';
 		$sql .= " WHERE s.location_incoterms LIKE '%".$db->escape($db->escapeforlike($location_incoterms))."%'";
 
 		//Todo: merge with data from table of supplier order
 		/*	$sql .=" UNION";
-		$sql .= " SELECT DISTINCT p.location_incoterms FROM ".MAIN_DB_PREFIX.'commande_fournisseur as p';
+		$sql .= " SELECT DISTINCT p.location_incoterms FROM ".MAIN_DB_PREFIX.'order_fournisseur as p';
 		$sql .= " WHERE UPPER(p.location_incoterms) LIKE UPPER('%".$db->escape($location_incoterms)."%')";
 		*/
 		$sql .= " ORDER BY s.location_incoterms";

@@ -275,7 +275,7 @@ class FormAdmin
 				// Affiche titre
 				print '<option value="-2" disabled>';
 				if ($newprefix == '0') {
-					print '-- '.$langs->trans("VersionRecommanded").' --';
+					print '-- '.$langs->trans("VersionReorderd").' --';
 				}
 				if ($newprefix == '1') {
 					print '-- '.$langs->trans("VersionExperimental").' --';

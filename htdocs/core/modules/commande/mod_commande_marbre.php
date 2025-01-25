@@ -20,16 +20,16 @@
  */
 
 /**
- *  \file       htdocs/core/modules/commande/mod_commande_marbre.php
+ *  \file       htdocs/core/modules/order/mod_order_marbre.php
  *  \ingroup    order
  *  \brief      File of class to manage Sales Order numbering rules Marbre
  */
-require_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/order/modules_order.php';
 
 /**
  *	Class to manage Sales Order numbering rules Marbre
  */
-class mod_commande_marbre extends ModeleNumRefOrders
+class mod_order_marbre extends ModeleNumRefOrders
 {
 	/**
 	 * Dolibarr version of the loaded document
@@ -105,7 +105,7 @@ class mod_commande_marbre extends ModeleNumRefOrders
 
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
-		$sql .= " FROM ".MAIN_DB_PREFIX."commande";
+		$sql .= " FROM ".MAIN_DB_PREFIX."order";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		$sql .= " AND entity = ".$config->entity;
 
@@ -140,7 +140,7 @@ class mod_commande_marbre extends ModeleNumRefOrders
 		// First, we get the max value
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
-		$sql .= " FROM ".MAIN_DB_PREFIX."commande";
+		$sql .= " FROM ".MAIN_DB_PREFIX."order";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		$sql .= " AND entity IN (".getEntity('ordernumber', 1, $object).")";
 
@@ -153,7 +153,7 @@ class mod_commande_marbre extends ModeleNumRefOrders
 				$max = 0;
 			}
 		} else {
-			dol_syslog("mod_commande_marbre::getNextValue", LOG_DEBUG);
+			dol_syslog("mod_order_marbre::getNextValue", LOG_DEBUG);
 			return -1;
 		}
 
@@ -167,7 +167,7 @@ class mod_commande_marbre extends ModeleNumRefOrders
 			$num = sprintf("%04d", $max + 1);
 		}
 
-		dol_syslog("mod_commande_marbre::getNextValue return ".$this->prefix.$yymm."-".$num);
+		dol_syslog("mod_order_marbre::getNextValue return ".$this->prefix.$yymm."-".$num);
 		return $this->prefix.$yymm."-".$num;
 	}
 }

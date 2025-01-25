@@ -48,7 +48,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/stock/class/entrepot.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/stock/class/productlot.class.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 if (isModEnabled("product") || isModEnabled("service")) {
 	require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 }
@@ -81,7 +81,7 @@ if (isModEnabled('productbatch')) {
 	$langs->load('productbatch');
 }
 
-$origin = GETPOST('origin', 'alpha') ? GETPOST('origin', 'alpha') : 'expedition'; // Example: commande, propal
+$origin = GETPOST('origin', 'alpha') ? GETPOST('origin', 'alpha') : 'expedition'; // Example: order, propal
 $origin_id = GETPOSTINT('id') ? GETPOSTINT('id') : '';
 $id = $origin_id;
 if (empty($origin_id)) {
@@ -159,7 +159,7 @@ if ($resHook < 0) {
 if (empty($resHook)) {
 	if ($cancel) {
 		if ($origin && $origin_id > 0) {
-			if ($origin == 'commande') {
+			if ($origin == 'order') {
 				header("Location: ".DOL_URL_ROOT.'/expedition/shipment.php?id='.((int) $origin_id));
 				exit;
 			}
@@ -475,7 +475,7 @@ if (empty($resHook)) {
 			exit;
 		} else {
 			$db->rollback();
-			//$_GET["commande_id"] = GETPOSTINT('commande_id');
+			//$_GET["order_id"] = GETPOSTINT('order_id');
 			$action = 'create';
 		}
 	} elseif ($action == 'create_delivery' && getDolGlobalInt('MAIN_SUBMODULE_DELIVERY') && $user->hasRight('expedition', 'delivery', 'creer')) {
@@ -991,7 +991,7 @@ if ($action == 'create') {
 
 			// Ref
 			print '<tr><td class="titlefieldcreate fieldrequired">';
-			if ($origin == 'commande' && isModEnabled('order')) {
+			if ($origin == 'order' && isModEnabled('order')) {
 				print $langs->trans("RefOrder");
 			}
 			if ($origin == 'propal' && isModEnabled("propal")) {
@@ -1004,7 +1004,7 @@ if ($action == 'create') {
 
 			// Ref client
 			print '<tr><td>';
-			if ($origin == 'commande') {
+			if ($origin == 'order') {
 				print $langs->trans('RefCustomerOrder');
 			} elseif ($origin == 'propal') {
 				print $langs->trans('RefCustomerOrder');
@@ -1877,7 +1877,7 @@ if ($action == 'create') {
 		$origin = $object->origin;
 		$origin_id = $object->origin_id;
 
-		$object->fetch_origin(); // Load property $object->origin_object (old $object->commande, $object->propal, ...)
+		$object->fetch_origin(); // Load property $object->origin_object (old $object->order, $object->propal, ...)
 	}
 
 	$soc = new Societe($db);
@@ -1962,7 +1962,7 @@ if ($action == 'create') {
 	$totalWeight = $tmparray['weight'];
 	$totalVolume = $tmparray['volume'];
 
-	if (!empty($typeobject) && $typeobject === 'commande' && is_object($object->origin_object) && $object->origin_object->id && isModEnabled('order')) {
+	if (!empty($typeobject) && $typeobject === 'order' && is_object($object->origin_object) && $object->origin_object->id && isModEnabled('order')) {
 		$objectsrc = new Order($db);
 		$objectsrc->fetch($object->origin_object->id);
 	}
@@ -2013,11 +2013,11 @@ if ($action == 'create') {
 	print '<table class="border tableforfield centpercent">';
 
 	// Linked documents
-	if (!empty($typeobject) && $typeobject == 'commande' && $object->origin_object->id && isModEnabled('order')) {
+	if (!empty($typeobject) && $typeobject == 'order' && $object->origin_object->id && isModEnabled('order')) {
 		print '<tr><td>';
 		print $langs->trans("RefOrder").'</td>';
 		print '<td colspan="3">';
-		print $objectsrc->getNomUrl(1, 'commande');
+		print $objectsrc->getNomUrl(1, 'order');
 		print "</td>\n";
 		print '</tr>';
 	}

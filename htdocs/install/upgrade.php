@@ -251,9 +251,9 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 	 * Remove deprecated indexes and constraints for Mysql without knowing its name
 	 */
 	if ($ok && preg_match('/mysql/', $db->type)) {
-		$versioncommande = array(4, 0, 0);
-		if (count($versioncommande) && count($versionarray)
-		&& versioncompare($versioncommande, $versionarray) <= 0) {	// Si mysql >= 4.0
+		$versionorder = array(4, 0, 0);
+		if (count($versionorder) && count($versionarray)
+		&& versioncompare($versionorder, $versionarray) <= 0) {	// Si mysql >= 4.0
 			dolibarr_install_syslog("Clean database from bad named constraints");
 
 			// Suppression vieilles contraintes sans noms et en doubles
@@ -262,7 +262,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 								MAIN_DB_PREFIX.'member_options',
 								MAIN_DB_PREFIX.'category_bankline',
 								MAIN_DB_PREFIX.'c_ecotaxe',
-								MAIN_DB_PREFIX.'c_methode_commande_fournisseur', // table renamed
+								MAIN_DB_PREFIX.'c_methode_order_fournisseur', // table renamed
 								MAIN_DB_PREFIX.'c_input_method'
 			);
 

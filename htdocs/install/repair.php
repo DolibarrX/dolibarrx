@@ -263,9 +263,9 @@ if ($ok && GETPOST('standard', 'alpha')) {
 
 	// List of tables that has an extrafield table
 	$listofmodulesextra = array('societe' => 'societe', 'member' => 'member', 'product' => 'product',
-				'socpeople' => 'socpeople', 'propal' => 'propal', 'commande' => 'commande',
+				'socpeople' => 'socpeople', 'propal' => 'propal', 'order' => 'order',
 				'facture' => 'facture', 'facturedet' => 'facturedet', 'facture_rec' => 'facture_rec', 'facturedet_rec' => 'facturedet_rec',
-				'supplier_proposal' => 'supplier_proposal', 'commande_fournisseur' => 'commande_fournisseur',
+				'supplier_proposal' => 'supplier_proposal', 'order_fournisseur' => 'order_fournisseur',
 				'facture_fourn' => 'facture_fourn', 'facture_fourn_rec' => 'facture_fourn_rec', 'facture_fourn_det' => 'facture_fourn_det', 'facture_fourn_det_rec' => 'facture_fourn_det_rec',
 				'fichinter' => 'fichinter', 'fichinterdet' => 'fichinterdet',
 				'inventory' => 'inventory',
@@ -721,16 +721,16 @@ if ($ok && GETPOST('rebuild_product_thumbs', 'alpha')) {
 if ($ok && GETPOST('clean_linked_elements', 'alpha')) {
 	print '<tr><td colspan="2"><br>*** Check table of linked elements and delete orphelins links</td></tr>';
 	// propal => order
-	print '<tr><td colspan="2">'.checkLinkedElements('propal', 'commande')."</td></tr>\n";
+	print '<tr><td colspan="2">'.checkLinkedElements('propal', 'order')."</td></tr>\n";
 
 	// propal => invoice
 	print '<tr><td colspan="2">'.checkLinkedElements('propal', 'facture')."</td></tr>\n";
 
 	// order => invoice
-	print '<tr><td colspan="2">'.checkLinkedElements('commande', 'facture')."</td></tr>\n";
+	print '<tr><td colspan="2">'.checkLinkedElements('order', 'facture')."</td></tr>\n";
 
 	// order => shipping
-	print '<tr><td colspan="2">'.checkLinkedElements('commande', 'shipping')."</td></tr>\n";
+	print '<tr><td colspan="2">'.checkLinkedElements('order', 'shipping')."</td></tr>\n";
 
 	// shipping => delivery
 	print '<tr><td colspan="2">'.checkLinkedElements('shipping', 'delivery')."</td></tr>\n";
@@ -840,10 +840,10 @@ if ($ok && GETPOST('clean_orphelin_dir', 'alpha')) {
 			$upload_dir = $config->fournisseur->facture->dir_output;
 		}
 		if ($modulepart == 'order') {
-			$upload_dir = $config->commande->dir_output;
+			$upload_dir = $config->order->dir_output;
 		}
 		if ($modulepart == 'order_supplier') {
-			$upload_dir = $config->fournisseur->commande->dir_output;
+			$upload_dir = $config->fournisseur->order->dir_output;
 		}
 		if ($modulepart == 'contract') {
 			$upload_dir = $config->contrat->dir_output;
@@ -872,10 +872,10 @@ if ($ok && GETPOST('clean_orphelin_dir', 'alpha')) {
 			include_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 			$object_instance = new Propal($db);
 		} elseif ($modulepart == 'order') {
-			include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+			include_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 			$object_instance = new Order($db);
 		} elseif ($modulepart == 'order_supplier') {
-			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 			$object_instance = new OrderFournisseur($db);
 		} elseif ($modulepart == 'contract') {
 			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
@@ -1633,7 +1633,7 @@ if ($ok && GETPOST('repair_link_dispatch_lines_supplier_order_lines')) {
 	 * This script is meant to be run when upgrading from a dolibarr version < 3.8
 	 * to a newer version.
 	 *
-	 * Version 3.8 introduces a new column in llx_commande_fournisseur_dispatch, which
+	 * Version 3.8 introduces a new column in llx_order_fournisseur_dispatch, which
 	 * matches the dispatch to a specific supplier order line (so that if there are
 	 * several with the same product, the user can specifically tell which products of
 	 * which line were dispatched where).
@@ -1655,7 +1655,7 @@ if ($ok && GETPOST('repair_link_dispatch_lines_supplier_order_lines')) {
 	$repair_link_dispatch_lines_supplier_order_lines = GETPOST('repair_link_dispatch_lines_supplier_order_lines', 'alpha');
 
 
-	echo '<tr><th>Repair llx_receptiondet_batch.fk_commandefourndet</th></tr>';
+	echo '<tr><th>Repair llx_receptiondet_batch.fk_orderfourndet</th></tr>';
 	echo '<tr><td>Repair in progress. This may take a while.</td></tr>';
 
 	$sql_dispatch = 'SELECT * FROM '.MAIN_DB_PREFIX.'receptiondet_batch WHERE COALESCE(fk_elementdet, 0) = 0';
@@ -1669,13 +1669,13 @@ if ($ok && GETPOST('repair_link_dispatch_lines_supplier_order_lines')) {
 			exit;
 		}
 		while ($obj_dispatch = $db->fetch_object($resql_dispatch)) {
-			$sql_line = 'SELECT line.rowid, line.qty FROM '.MAIN_DB_PREFIX.'commande_fournisseurdet AS line';
-			$sql_line .= ' WHERE line.fk_commande = '.((int) $obj_dispatch->fk_commande);
+			$sql_line = 'SELECT line.rowid, line.qty FROM '.MAIN_DB_PREFIX.'order_fournisseurdet AS line';
+			$sql_line .= ' WHERE line.fk_order = '.((int) $obj_dispatch->fk_order);
 			$sql_line .= ' AND   line.fk_product  = '.((int) $obj_dispatch->fk_product);
 			$resql_line = $db->query($sql_line);
 
-			// s’il y a plusieurs lignes avec le même produit sur cette commande fournisseur,
-			// on divise la ligne de dispatch en autant de lignes qu’on en a sur la commande pour le produit
+			// s’il y a plusieurs lignes avec le même produit sur cette order fournisseur,
+			// on divise la ligne de dispatch en autant de lignes qu’on en a sur la order pour le produit
 			// et on met la quantité de la ligne dans la limit du "budget" indiqué par dispatch.qty
 
 			$remaining_qty = $obj_dispatch->qty;
@@ -1749,7 +1749,7 @@ if ($ok && GETPOST('repair_link_dispatch_lines_supplier_order_lines')) {
 			}
 		}
 	} else {
-		echo '<tr><td>Unable to find any dispatch without an fk_commandefourndet.'."</td></tr>\n";
+		echo '<tr><td>Unable to find any dispatch without an fk_orderfourndet.'."</td></tr>\n";
 		echo $sql_dispatch."\n";
 	}
 	echo '<tr><td>Fixed '.$n_processed_rows.' rows with '.count($errors).' errors…'."</td></tr>\n";
@@ -1767,9 +1767,9 @@ if ($ok && GETPOST('repair_link_dispatch_lines_supplier_order_lines')) {
 	echo '<tr><td>'.implode('</td></tr><tr><td>', $errors).'</td></tr>';
 }
 
-// Repair llx_commande_fournisseur to eliminate duplicate reference
+// Repair llx_order_fournisseur to eliminate duplicate reference
 if ($ok && GETPOST('repair_supplier_order_duplicate_ref')) {
-	require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.commande.class.php';
+	require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.order.class.php';
 	include_once DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php';
 
 	$db->begin();
@@ -1777,8 +1777,8 @@ if ($ok && GETPOST('repair_supplier_order_duplicate_ref')) {
 	$err = 0;
 
 	// Query to find all duplicate supplier orders
-	$sql = "SELECT * FROM " . MAIN_DB_PREFIX . "commande_fournisseur";
-	$sql .= " WHERE ref IN (SELECT cf.ref FROM " . MAIN_DB_PREFIX . "commande_fournisseur cf GROUP BY cf.ref, cf.entity HAVING COUNT(cf.rowid) > 1)";
+	$sql = "SELECT * FROM " . MAIN_DB_PREFIX . "order_fournisseur";
+	$sql .= " WHERE ref IN (SELECT cf.ref FROM " . MAIN_DB_PREFIX . "order_fournisseur cf GROUP BY cf.ref, cf.entity HAVING COUNT(cf.rowid) > 1)";
 
 	// Build a list of ref => []OrderFournisseur
 	$duplicateSupplierOrders = [];
@@ -1804,7 +1804,7 @@ if ($ok && GETPOST('repair_supplier_order_duplicate_ref')) {
 
 			$newRef = $supplierOrder->getNextNumRef($soc);
 
-			$sql = "UPDATE " . MAIN_DB_PREFIX . "commande_fournisseur cf SET cf.ref = '" . $db->escape($newRef) . "' WHERE cf.rowid = " . (int) $supplierOrder->id;
+			$sql = "UPDATE " . MAIN_DB_PREFIX . "order_fournisseur cf SET cf.ref = '" . $db->escape($newRef) . "' WHERE cf.rowid = " . (int) $supplierOrder->id;
 			if (!$db->query($sql)) {
 				$err++;
 			}

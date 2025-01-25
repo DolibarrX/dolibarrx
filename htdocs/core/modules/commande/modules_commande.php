@@ -24,8 +24,8 @@
  */
 
 /**
- *  \file			htdocs/core/modules/commande/modules_commande.php
- *  \ingroup		commande
+ *  \file			htdocs/core/modules/order/modules_order.php
+ *  \ingroup		order
  *  \brief			File that contains parent class for orders models
  *                  and parent class for orders numbering models
  */

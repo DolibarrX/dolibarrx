@@ -204,23 +204,23 @@ if (!getDolGlobalString('PRODUCT_STOCK_LIST_SHOW_WITH_PRECALCULATED_DENORMALIZED
 				 WHERE e.rowid = s.fk_entrepot AND e.entity IN (" . getEntity('stock') . "))
 			OR (
 				SELECT SUM(cd1.qty) as qty
-				FROM " . MAIN_DB_PREFIX . "commande_fournisseurdet as cd1
-				LEFT JOIN " . MAIN_DB_PREFIX . "commande_fournisseur as c1
-					ON c1.rowid = cd1.fk_commande
+				FROM " . MAIN_DB_PREFIX . "order_fournisseurdet as cd1
+				LEFT JOIN " . MAIN_DB_PREFIX . "order_fournisseur as c1
+					ON c1.rowid = cd1.fk_order
 				WHERE c1.entity IN (1) AND cd1.fk_product = p.rowid AND c1.fk_statut in (3,4) AND cd1.qty <> 0
 			) IS NOT NULL
 			OR (
 				SELECT SUM(cd2.qty) as qty
-				FROM " . MAIN_DB_PREFIX . "commandedet as cd2
-				LEFT JOIN " . MAIN_DB_PREFIX . "commande as c2 ON c2.rowid = cd2.fk_commande
+				FROM " . MAIN_DB_PREFIX . "orderdet as cd2
+				LEFT JOIN " . MAIN_DB_PREFIX . "order as c2 ON c2.rowid = cd2.fk_order
 				WHERE c2.entity IN (1) AND cd2.fk_product = p.rowid AND c2.fk_statut in (1,2) AND cd2.qty <> 0
 			) IS NOT NULL
 			OR (
 				SELECT SUM(ed3.qty) as qty
 				FROM " . MAIN_DB_PREFIX . "expeditiondet as ed3
 				LEFT JOIN " . MAIN_DB_PREFIX . "expedition as e3 ON e3.rowid = ed3.fk_expedition
-				LEFT JOIN " . MAIN_DB_PREFIX . "commandedet as cd3 ON ed3.fk_elementdet = cd3.rowid
-				LEFT JOIN " . MAIN_DB_PREFIX . "commande as c3 ON c3.rowid = cd3.fk_commande
+				LEFT JOIN " . MAIN_DB_PREFIX . "orderdet as cd3 ON ed3.fk_elementdet = cd3.rowid
+				LEFT JOIN " . MAIN_DB_PREFIX . "order as c3 ON c3.rowid = cd3.fk_order
 				WHERE e3.entity IN (1) AND cd3.fk_product = p.rowid AND c3.fk_statut IN (1,2) AND e3.fk_statut IN (1,2) AND ed3.qty <> 0
 			) IS NOT NULL
 			OR (

@@ -21,7 +21,7 @@
  */
 
 /**
- *    \file       htdocs/fourn/commande/note.php
+ *    \file       htdocs/fourn/order/note.php
  *    \ingroup    supplier order
  *    \brief      page for notes on supplier orders
  */
@@ -30,7 +30,7 @@
 // Load Dolibarr environment
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/fourn.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 }
@@ -58,14 +58,14 @@ if ($user->socid) {
 
 // Init Objects
 $hookManager->initHooks(array('ordersuppliercardnote'));
-$result = restrictedArea($user, 'fournisseur', $id, 'commande_fournisseur', 'commande');
+$result = restrictedArea($user, 'fournisseur', $id, 'order_fournisseur', 'order');
 
 $object = new OrderFournisseur($db);
 $object->fetch($id, $ref);
 
 // Permissions
-$permissionnote = ($user->hasRight("fournisseur", "commande", "creer") || $user->hasRight("supplier_order", "creer")); // Used by the include of actions_setnotes.inc.php
-$usercancreate	= ($user->hasRight("fournisseur", "commande", "creer") || $user->hasRight("supplier_order", "creer"));
+$permissionnote = ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer")); // Used by the include of actions_setnotes.inc.php
+$usercancreate	= ($user->hasRight("fournisseur", "order", "creer") || $user->hasRight("supplier_order", "creer"));
 $permissiontoadd	= $usercancreate; // Used by the include of actions_addupdatedelete.inc.php
 
 
@@ -114,7 +114,7 @@ if ($id > 0 || !empty($ref)) {
 
 		// Supplier order card
 
-		$linkback = '<a href="'.DOL_URL_ROOT.'/fourn/commande/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
+		$linkback = '<a href="'.DOL_URL_ROOT.'/fourn/order/list.php'.(!empty($socid) ? '?socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 
 		$morehtmlref = '<div class="refidno">';
 		// Ref supplier

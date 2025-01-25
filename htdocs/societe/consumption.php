@@ -180,7 +180,7 @@ if ($object->client) {
 	if (isModEnabled("propal") && $user->hasRight('propal', 'lire')) {
 		$elementTypeArray['propal'] = $langs->transnoentitiesnoconv('Proposals');
 	}
-	if (isModEnabled('order') && $user->hasRight('commande', 'lire')) {
+	if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
 		$elementTypeArray['order'] = $langs->transnoentitiesnoconv('Orders');
 	}
 	if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
@@ -208,7 +208,7 @@ if ($object->fournisseur) {
 		print ' <span class="error">('.$langs->trans("WrongSupplierCode").')</span>';
 	}
 	print '</td></tr>';
-	$sql = "SELECT count(*) as nb from ".MAIN_DB_PREFIX."commande_fournisseur where fk_soc = ".((int) $socid);
+	$sql = "SELECT count(*) as nb from ".MAIN_DB_PREFIX."order_fournisseur where fk_soc = ".((int) $socid);
 	$resql = $db->query($sql);
 	if (!$resql) {
 		dol_print_error($db);
@@ -220,7 +220,7 @@ if ($object->fournisseur) {
 	if ((isModEnabled('fournisseur') && $user->hasRight('fournisseur', 'facture', 'lire') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) || (isModEnabled("supplier_invoice") && $user->hasRight('supplier_invoice', 'lire'))) {
 		$elementTypeArray['supplier_invoice'] = $langs->transnoentitiesnoconv('SuppliersInvoices');
 	}
-	if ((isModEnabled('fournisseur') && $user->hasRight('fournisseur', 'commande', 'lire') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire'))) {
+	if ((isModEnabled('fournisseur') && $user->hasRight('fournisseur', 'order', 'lire') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire'))) {
 		$elementTypeArray['supplier_order'] = $langs->transnoentitiesnoconv('SuppliersOrders');
 	}
 	if (isModEnabled('reception') && $user->hasRight('reception', 'lire')) {
@@ -290,15 +290,15 @@ if ($type_element == 'propal') {
 	$thirdTypeSelect = 'customer';
 }
 if ($type_element == 'order') {
-	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 	$langs->load('sendings'); // delivery planned date
 	$documentstatic = new Order($db);
-	$sql_select = 'SELECT c.rowid as doc_id, c.ref as doc_number, \'1\' as doc_type, c.date_commande as dateprint, c.fk_statut as status, NULL as paid, c.date_livraison as delivery_planned_date,';
-	$tables_from = MAIN_DB_PREFIX."commande as c,".MAIN_DB_PREFIX."commandedet as d";
+	$sql_select = 'SELECT c.rowid as doc_id, c.ref as doc_number, \'1\' as doc_type, c.date_order as dateprint, c.fk_statut as status, NULL as paid, c.date_livraison as delivery_planned_date,';
+	$tables_from = MAIN_DB_PREFIX."order as c,".MAIN_DB_PREFIX."orderdet as d";
 	$where = " WHERE c.fk_soc = s.rowid AND s.rowid = ".((int) $socid);
-	$where .= " AND d.fk_commande = c.rowid";
+	$where .= " AND d.fk_order = c.rowid";
 	$where .= " AND c.entity = ".$config->entity;
-	$dateprint = 'c.date_commande';
+	$dateprint = 'c.date_order';
 	$doc_number = 'c.ref';
 	$thirdTypeSelect = 'customer';
 }
@@ -307,10 +307,10 @@ if ($type_element == 'shipment') {
 	$langs->load('sendings');
 	$documentstatic = new Expedition($db);
 	$sql_select = 'SELECT e.rowid as doc_id, e.ref as doc_number, \'1\' as doc_type, e.date_creation as dateprint, e.fk_statut as status, NULL as paid, e.date_delivery as delivery_planned_date,';
-	$tables_from = MAIN_DB_PREFIX."expedition as e,".MAIN_DB_PREFIX."expeditiondet as ed,".MAIN_DB_PREFIX."commandedet as d";
+	$tables_from = MAIN_DB_PREFIX."expedition as e,".MAIN_DB_PREFIX."expeditiondet as ed,".MAIN_DB_PREFIX."orderdet as d";
 	$where = " WHERE e.fk_soc = s.rowid AND s.rowid = ".((int) $socid);
 	$where .= " AND ed.fk_expedition = e.rowid";
-	$where .= " AND ed.element_type = 'commande' AND ed.fk_elementdet = d.rowid";
+	$where .= " AND ed.element_type = 'order' AND ed.fk_elementdet = d.rowid";
 	$where .= " AND e.entity = ".$config->entity;
 	$dateprint = 'e.date_creation';
 	$doc_number = 'e.ref';
@@ -341,13 +341,13 @@ if ($type_element == 'supplier_proposal') {
 	$thirdTypeSelect = 'supplier';
 }
 if ($type_element == 'supplier_order') { 	// Supplier : Show products from orders.
-	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 	$langs->load('sendings'); // delivery planned date
 	$documentstatic = new OrderFournisseur($db);
 	$sql_select = 'SELECT c.rowid as doc_id, c.ref as doc_number, \'1\' as doc_type, c.date_valid as dateprint, c.fk_statut as status, NULL as paid, c.date_livraison as delivery_planned_date, ';
-	$tables_from = MAIN_DB_PREFIX."commande_fournisseur as c,".MAIN_DB_PREFIX."commande_fournisseurdet as d";
+	$tables_from = MAIN_DB_PREFIX."order_fournisseur as c,".MAIN_DB_PREFIX."order_fournisseurdet as d";
 	$where = " WHERE c.fk_soc = s.rowid AND s.rowid = ".((int) $socid);
-	$where .= " AND d.fk_commande = c.rowid";
+	$where .= " AND d.fk_order = c.rowid";
 	$where .= " AND c.entity = ".$config->entity;
 	$dateprint = 'c.date_valid';
 	$doc_number = 'c.ref';
@@ -358,7 +358,7 @@ if ($type_element == 'reception') { 	// Supplier : Show products from orders.
 	$langs->loadLangs(['sendings', 'receptions']); // delivery planned date
 	$documentstatic = new Reception($db);
 	$sql_select = 'SELECT r.rowid as doc_id, r.ref as doc_number, \'1\' as doc_type, r.date_creation as dateprint, r.fk_statut as status, NULL as paid, r.date_delivery as delivery_planned_date, ';
-	$tables_from = MAIN_DB_PREFIX."reception as r,".MAIN_DB_PREFIX."receptiondet_batch as rd,".MAIN_DB_PREFIX."commande_fournisseurdet as d";
+	$tables_from = MAIN_DB_PREFIX."reception as r,".MAIN_DB_PREFIX."receptiondet_batch as rd,".MAIN_DB_PREFIX."order_fournisseurdet as d";
 	$where = " WHERE r.fk_soc = s.rowid AND s.rowid = ".((int) $socid);
 	$where .= " AND rd.fk_reception = r.rowid";
 	$where .= " AND rd.fk_elementdet = d.rowid AND rd.element_type = 'supplier_order'";

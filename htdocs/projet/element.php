@@ -50,7 +50,7 @@ if (isModEnabled('category')) {
 	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 }
 if (isModEnabled('order')) {
-	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 }
 if (isModEnabled('contract')) {
 	require_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
@@ -95,7 +95,7 @@ if (isModEnabled('supplier_invoice')) {
 	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 }
 if (isModEnabled('supplier_order')) {
-	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 }
 if (isModEnabled('supplier_proposal')) {
 	require_once DOL_DOCUMENT_ROOT.'/supplier_proposal/class/supplier_proposal.class.php';
@@ -437,13 +437,13 @@ $listofreferent = array(
 		'name' => "CustomersOrders",
 		'title' => "ListOrdersAssociatedProject",
 		'class' => 'Order',
-		'table' => 'commande',
-		'datefieldname' => 'date_commande',
-		'urlnew' => DOL_URL_ROOT.'/commande/card.php?action=create&projectid='.$id.'&socid='.$socid.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id),
+		'table' => 'order',
+		'datefieldname' => 'date_order',
+		'urlnew' => DOL_URL_ROOT.'/order/card.php?action=create&projectid='.$id.'&socid='.$socid.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id),
 		'lang' => 'orders',
 		'buttonnew' => 'CreateOrder',
-		'testnew' => $user->hasRight('commande', 'creer'),
-		'test' => isModEnabled('order') && $user->hasRight('commande', 'lire')
+		'testnew' => $user->hasRight('order', 'creer'),
+		'test' => isModEnabled('order') && $user->hasRight('order', 'lire')
 	),
 	'invoice' => array(
 		'name' => "CustomersInvoices",
@@ -486,13 +486,13 @@ $listofreferent = array(
 		'name' => "SuppliersOrders",
 		'title' => "ListSupplierOrdersAssociatedProject",
 		'class' => 'OrderFournisseur',
-		'table' => 'commande_fournisseur',
-		'datefieldname' => 'date_commande',
-		'urlnew' => DOL_URL_ROOT.'/fourn/commande/card.php?action=create&projectid='.$id.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id), // No socid parameter here, the socid is often the customer and we create a supplier object
+		'table' => 'order_fournisseur',
+		'datefieldname' => 'date_order',
+		'urlnew' => DOL_URL_ROOT.'/fourn/order/card.php?action=create&projectid='.$id.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id), // No socid parameter here, the socid is often the customer and we create a supplier object
 		'lang' => 'suppliers',
 		'buttonnew' => 'AddSupplierOrder',
-		'testnew' => $user->hasRight('fournisseur', 'commande', 'creer') || $user->hasRight('supplier_order', 'creer'),
-		'test' => isModEnabled('supplier_order') && $user->hasRight('fournisseur', 'commande', 'lire') || $user->hasRight('supplier_order', 'lire')
+		'testnew' => $user->hasRight('fournisseur', 'order', 'creer') || $user->hasRight('supplier_order', 'creer'),
+		'test' => isModEnabled('supplier_order') && $user->hasRight('fournisseur', 'order', 'lire') || $user->hasRight('supplier_order', 'lire')
 	),
 	'invoice_supplier' => array(
 		'name' => "BillsSuppliers",
@@ -957,7 +957,7 @@ foreach ($listofreferent as $key => $value) {
 				}
 
 				// Change sign of $total_ht_by_line and $total_ttc_by_line for supplier proposal and supplier order
-				if ($tablename == 'commande_fournisseur' || $tablename == 'supplier_proposal') {
+				if ($tablename == 'order_fournisseur' || $tablename == 'supplier_proposal') {
 					$total_ht_by_line = -$total_ht_by_line;
 					$total_ttc_by_line = -$total_ttc_by_line;
 				}
@@ -1106,7 +1106,7 @@ foreach ($listofreferent as $key => $value) {
 		$addform = '';
 
 		$idtofilterthirdparty = 0;
-		$array_of_element_linkable_with_different_thirdparty = array('facture_fourn', 'commande_fournisseur');
+		$array_of_element_linkable_with_different_thirdparty = array('facture_fourn', 'order_fournisseur');
 		if (!in_array($tablename, $array_of_element_linkable_with_different_thirdparty)) {
 			$idtofilterthirdparty = empty($object->thirdparty->id) ? 0 : $object->thirdparty->id;
 			if (getDolGlobalString('PROJECT_OTHER_THIRDPARTY_ID_TO_ADD_ELEMENTS')) {
@@ -1350,8 +1350,8 @@ foreach ($listofreferent as $key => $value) {
 					}
 
 					if ($element_doc === 'order_supplier') {
-						$element_doc = 'commande_fournisseur';
-						$filedir = $config->fournisseur->commande->multidir_output[$element->entity].'/'.dol_sanitizeFileName($element->ref);
+						$element_doc = 'order_fournisseur';
+						$filedir = $config->fournisseur->order->multidir_output[$element->entity].'/'.dol_sanitizeFileName($element->ref);
 					} elseif ($element_doc === 'invoice_supplier') {
 						$element_doc = 'facture_fournisseur';
 						$filename = get_exdir($element->id, 2, 0, 0, $element, 'invoice_supplier').dol_sanitizeFileName($element->ref);
@@ -1408,8 +1408,8 @@ foreach ($listofreferent as $key => $value) {
 					if ($tablename == 'don') {
 						$date = $element->datedon;
 					}
-					if ($tablename == 'commande_fournisseur' || $tablename == 'supplier_order') {
-						$date = ($element->date_commande ? $element->date_commande : $element->date_valid);
+					if ($tablename == 'order_fournisseur' || $tablename == 'supplier_order') {
+						$date = ($element->date_order ? $element->date_order : $element->date_valid);
 					} elseif ($tablename == 'supplier_proposal') {
 						$date = $element->date_validation; // There is no other date for this
 					} elseif ($tablename == 'fichinter') {
@@ -1736,7 +1736,7 @@ function canApplySubtotalOn($tablename)
 	if (!getDolGlobalString('PROJECT_ADD_SUBTOTAL_LINES')) {
 		return false;
 	}
-	return in_array($tablename, array('facture_fourn', 'commande_fournisseur'));
+	return in_array($tablename, array('facture_fourn', 'order_fournisseur'));
 }
 
 /**

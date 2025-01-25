@@ -118,7 +118,7 @@ if ($action == 'add' && $permissiontoadd) {
 	$object->date_delivery = dol_now();
 	$object->note          = GETPOST("note", 'restricthtml');
 	$object->note_private  = GETPOST("note", 'restricthtml');
-	$object->commande_id   = GETPOSTINT("commande_id");
+	$object->order_id   = GETPOSTINT("order_id");
 	$object->fk_incoterms  = GETPOSTINT('incoterm_id');
 
 	/* ->entrepot_id seems to not exists
@@ -127,10 +127,10 @@ if ($action == 'add' && $permissiontoadd) {
 	}*/
 
 	// We loop on each line of order to complete object delivery with qty to delivery
-	$commande = new Order($db);
-	$commande->fetch($object->commande_id);
-	$commande->fetch_lines();
-	$num = count($commande->lines);
+	$order = new Order($db);
+	$order->fetch($object->order_id);
+	$order->fetch_lines();
+	$num = count($order->lines);
 	for ($i = 0; $i < $num; $i++) {
 		$qty = "qtyl".$i;
 		$idl = "idl".$i;
@@ -280,10 +280,10 @@ if ($action == 'create') {
 	// View
 	if ($object->id > 0) {
 		// Origin of a 'livraison' (delivery receipt) is ALWAYS 'expedition' (shipment).
-		// However, origin of shipment in future may differs (commande, proposal, ...)
+		// However, origin of shipment in future may differs (order, proposal, ...)
 		$expedition = new Expedition($db);
 		$result = $expedition->fetch($object->origin_id);
-		$typeobject = $expedition->origin; // example: commande
+		$typeobject = $expedition->origin; // example: order
 		if ($object->origin_id > 0) {
 			$object->fetch_origin();
 		}
@@ -324,7 +324,7 @@ if ($action == 'create') {
 			 *   Delivery
 			 */
 
-			if ($typeobject == 'commande' && $expedition->origin_id > 0 && isModEnabled('order')) {
+			if ($typeobject == 'order' && $expedition->origin_id > 0 && isModEnabled('order')) {
 				$objectsrc = new Order($db);
 				$objectsrc->fetch($expedition->origin_id);
 			}
@@ -404,12 +404,12 @@ if ($action == 'create') {
 			*/
 
 			// Document origine
-			if ($typeobject == 'commande' && $expedition->origin_id && isModEnabled('order')) {
+			if ($typeobject == 'order' && $expedition->origin_id && isModEnabled('order')) {
 				print '<tr><td class="titlefield">'.$langs->trans("RefOrder").'</td>';
 				$order = new Order($db);
 				$order->fetch($expedition->origin_id);
 				print '<td colspan="3">';
-				print $order->getNomUrl(1, 'commande');
+				print $order->getNomUrl(1, 'order');
 				print "</td>\n";
 				print '</tr>';
 			}

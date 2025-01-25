@@ -251,7 +251,7 @@ class Target extends CommonObject
 		$entitytoicon = array(
 			'societe'			=> 'company',
 			'facture'			=> 'bill',
-			'commande'			=> 'order',
+			'order'			=> 'order',
 			'order_supplier'    => 'supplier_order',
 			'proposal_supplier' => 'supplier_proposal',
 			'invoice_supplier' 	=> 'supplier_invoice',

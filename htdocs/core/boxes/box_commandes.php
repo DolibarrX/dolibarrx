@@ -20,7 +20,7 @@
  */
 
 /**
- *		\file       htdocs/core/boxes/box_commandes.php
+ *		\file       htdocs/core/boxes/box_orders.php
  *		\ingroup    order
  *		\brief      Widget for latest sale orders
  */
@@ -31,12 +31,12 @@ include_once DOL_DOCUMENT_ROOT.'/core/boxes/modules_boxes.php';
 /**
  * Class to manage the box to show last customer orders
  */
-class box_commandes extends ModeleBoxes
+class box_orders extends ModeleBoxes
 {
 	public $boxcode  = "lastcustomerorders";
 	public $boximg   = "object_order";
 	public $boxlabel = "BoxLastCustomerOrders";
-	public $depends  = array("commande");
+	public $depends  = array("order");
 
 	/**
 	 *  Constructor
@@ -50,9 +50,9 @@ class box_commandes extends ModeleBoxes
 
 		$this->db = $db;
 
-		$this->hidden = !$user->hasRight('commande', 'lire');
+		$this->hidden = !$user->hasRight('order', 'lire');
 
-		$this->urltoaddentry = DOL_URL_ROOT.'/commande/card.php?action=create';
+		$this->urltoaddentry = DOL_URL_ROOT.'/order/card.php?action=create';
 
 		$this->msgNoRecords = 'NoRecordedOrders';
 	}
@@ -70,25 +70,25 @@ class box_commandes extends ModeleBoxes
 
 		$this->max = $max;
 
-		include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 		include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 
-		$commandestatic = new Order($this->db);
+		$orderstatic = new Order($this->db);
 		$societestatic = new Societe($this->db);
 		$userstatic = new User($this->db);
 
 		$text = $langs->trans("BoxTitleLast".(getDolGlobalString('MAIN_LASTBOX_ON_OBJECT_DATE') ? "" : "Modified")."CustomerOrders", $max);
 		$this->info_box_head = array(
-			'text' => $text.'<a class="paddingleft" href="'.DOL_URL_ROOT.'/commande/list.php?sortfield=c.tms&sortorder=DESC"><span class="badge">...</span></a>'
+			'text' => $text.'<a class="paddingleft" href="'.DOL_URL_ROOT.'/order/list.php?sortfield=c.tms&sortorder=DESC"><span class="badge">...</span></a>'
 		);
 
-		if ($user->hasRight('commande', 'lire')) {
+		if ($user->hasRight('order', 'lire')) {
 			$sql = "SELECT s.rowid as socid, s.nom as name, s.name_alias";
 			$sql .= ", s.code_client, s.code_compta as code_compta_client, s.client";
 			$sql .= ", s.logo, s.email, s.entity";
 			$sql .= ", c.ref, c.tms";
 			$sql .= ", c.rowid";
-			$sql .= ", c.date_commande";
+			$sql .= ", c.date_order";
 			$sql .= ", c.ref_client";
 			$sql .= ", c.fk_statut";
 			$sql .= ", c.fk_user_valid";
@@ -96,12 +96,12 @@ class box_commandes extends ModeleBoxes
 			$sql .= ", c.total_ht";
 			$sql .= ", c.total_tva";
 			$sql .= ", c.total_ttc";
-			$sql .= " FROM ".MAIN_DB_PREFIX."commande as c, ".MAIN_DB_PREFIX."societe as s";
+			$sql .= " FROM ".MAIN_DB_PREFIX."order as c, ".MAIN_DB_PREFIX."societe as s";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 			}
 			$sql .= " WHERE c.fk_soc = s.rowid";
-			$sql .= " AND c.entity IN (".getEntity('commande').")";
+			$sql .= " AND c.entity IN (".getEntity('order').")";
 			if (getDolGlobalString('ORDER_BOX_LAST_ORDERS_VALIDATED_ONLY')) {
 				$sql .= " AND c.fk_statut = 1";
 			}
@@ -112,7 +112,7 @@ class box_commandes extends ModeleBoxes
 				$sql .= " AND s.rowid = ".((int) $user->socid);
 			}
 			if (getDolGlobalString('MAIN_LASTBOX_ON_OBJECT_DATE')) {
-				$sql .= " ORDER BY c.date_commande DESC, c.ref DESC ";
+				$sql .= " ORDER BY c.date_order DESC, c.ref DESC ";
 			} else {
 				$sql .= " ORDER BY c.tms DESC, c.ref DESC ";
 			}
@@ -126,17 +126,17 @@ class box_commandes extends ModeleBoxes
 
 				while ($line < $num) {
 					$objp = $this->db->fetch_object($result);
-					$date = $this->db->jdate($objp->date_commande);
+					$date = $this->db->jdate($objp->date_order);
 					$datem = $this->db->jdate($objp->tms);
 
-					$commandestatic->id = $objp->rowid;
-					$commandestatic->ref = $objp->ref;
-					$commandestatic->ref_client = $objp->ref_client;
-					$commandestatic->total_ht = $objp->total_ht;
-					$commandestatic->total_tva = $objp->total_tva;
-					$commandestatic->total_ttc = $objp->total_ttc;
-					$commandestatic->date = $date;
-					$commandestatic->date_modification = $datem;
+					$orderstatic->id = $objp->rowid;
+					$orderstatic->ref = $objp->ref;
+					$orderstatic->ref_client = $objp->ref_client;
+					$orderstatic->total_ht = $objp->total_ht;
+					$orderstatic->total_tva = $objp->total_tva;
+					$orderstatic->total_ttc = $objp->total_ttc;
+					$orderstatic->date = $date;
+					$orderstatic->date_modification = $datem;
 
 					$societestatic->id = $objp->socid;
 					$societestatic->name = $objp->name;
@@ -151,7 +151,7 @@ class box_commandes extends ModeleBoxes
 
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="nowraponall"',
-						'text' => $commandestatic->getNomUrl(1),
+						'text' => $orderstatic->getNomUrl(1),
 						'asis' => 1,
 					);
 
@@ -184,7 +184,7 @@ class box_commandes extends ModeleBoxes
 
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="right" width="18"',
-						'text' => $commandestatic->LibStatut($objp->fk_statut, $objp->facture, 3),
+						'text' => $orderstatic->LibStatut($objp->fk_statut, $objp->facture, 3),
 					);
 
 					$line++;

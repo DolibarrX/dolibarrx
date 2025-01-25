@@ -167,7 +167,7 @@ class modReception extends DolibarrModules
 		//--------
 		$r = 0;
 
-		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 		$shipment = new OrderFournisseur($this->db);
 		$contact_arrays = $shipment->liste_type_contact('external', '', 0, 0, '');
 		if (is_array($contact_arrays) && count($contact_arrays) > 0) {
@@ -191,7 +191,7 @@ class modReception extends DolibarrModules
 		if ($idcontacts && getDolGlobalString('RECEPTION_ADD_CONTACTS_IN_EXPORT')) {
 			$this->export_fields_array[$r] += array('sp.rowid'=>'IdContact', 'sp.lastname'=>'Lastname', 'sp.firstname'=>'Firstname', 'sp.note_public'=>'NotePublic');
 		}
-		//$this->export_TypeFields_array[$r]=array('s.rowid'=>"Numeric",'s.nom'=>'Text','s.address'=>'Text','s.zip'=>'Text','s.town'=>'Text','co.label'=>'List:c_country:label:label','co.code'=>'Text','s.phone'=>'Text','s.siren'=>'Text','s.siret'=>'Text','s.ape'=>'Text','s.idprof4'=>'Text','c.ref'=>"Text",'c.ref_client'=>"Text",'c.date_creation'=>"Date",'c.date_commande'=>"Date",'c.amount_ht'=>"Numeric",'c.remise_percent'=>"Numeric",'c.total_ht'=>"Numeric",'c.total_ttc'=>"Numeric",'c.facture'=>"Boolean",'c.fk_statut'=>'Status','c.note_public'=>"Text",'c.date_livraison'=>'Date','ed.qty'=>"Text");
+		//$this->export_TypeFields_array[$r]=array('s.rowid'=>"Numeric",'s.nom'=>'Text','s.address'=>'Text','s.zip'=>'Text','s.town'=>'Text','co.label'=>'List:c_country:label:label','co.code'=>'Text','s.phone'=>'Text','s.siren'=>'Text','s.siret'=>'Text','s.ape'=>'Text','s.idprof4'=>'Text','c.ref'=>"Text",'c.ref_client'=>"Text",'c.date_creation'=>"Date",'c.date_order'=>"Date",'c.amount_ht'=>"Numeric",'c.remise_percent'=>"Numeric",'c.total_ht'=>"Numeric",'c.total_ttc'=>"Numeric",'c.facture'=>"Boolean",'c.fk_statut'=>'Status','c.note_public'=>"Text",'c.date_livraison'=>'Date','ed.qty'=>"Text");
 		$this->export_TypeFields_array[$r] = array(
 			's.nom'=>'Text', 's.address'=>'Text', 's.zip'=>'Text', 's.town'=>'Text',
 			'co.label'=>'List:c_country:label:label', 'co.code'=>'Text', 's.phone'=>'Text', 's.siren'=>'Text', 's.siret'=>'Text', 's.ape'=>'Text', 's.idprof4'=>'Text',
@@ -235,10 +235,10 @@ class modReception extends DolibarrModules
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_country as co ON s.fk_pays = co.rowid,';
 		$this->export_sql_end[$r] .= ' '.MAIN_DB_PREFIX.'receptiondet_batch as ed';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'receptiondet_batch_extrafields as extra2 ON ed.rowid = extra2.fk_object';
-		$this->export_sql_end[$r] .= ' , '.MAIN_DB_PREFIX.'commande_fournisseurdet as cd';
+		$this->export_sql_end[$r] .= ' , '.MAIN_DB_PREFIX.'order_fournisseurdet as cd';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'product as p on cd.fk_product = p.rowid';
 		if ($idcontacts && getDolGlobalString('RECEPTION_ADD_CONTACTS_IN_EXPORT')) {
-			$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'element_contact as ee ON ee.element_id = cd.fk_commande AND ee.fk_c_type_contact IN ('.$this->db->sanitize($idcontacts).')';
+			$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'element_contact as ee ON ee.element_id = cd.fk_order AND ee.fk_c_type_contact IN ('.$this->db->sanitize($idcontacts).')';
 			$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'socpeople as sp ON sp.rowid = ee.fk_socpeople';
 			$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'socpeople_extrafields as extra3 ON sp.rowid = extra3.fk_object';
 		}

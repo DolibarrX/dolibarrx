@@ -36,7 +36,7 @@
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
 
 /**
@@ -93,15 +93,15 @@ if ($action == 'updateMask') {
 } elseif ($action == 'specimen') {
 	$modele = GETPOST('module', 'alpha');
 
-	$commande = new Order($db);
-	$commande->initAsSpecimen();
+	$order = new Order($db);
+	$order->initAsSpecimen();
 
 	// Search template files
 	$file = '';
 	$classname = '';
 	$dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 	foreach ($dirmodels as $reldir) {
-		$file = dol_buildpath($reldir."core/modules/commande/doc/pdf_".$modele.".modules.php", 0);
+		$file = dol_buildpath($reldir."core/modules/order/doc/pdf_".$modele.".modules.php", 0);
 		if (file_exists($file)) {
 			$classname = "pdf_".$modele;
 			break;
@@ -115,8 +115,8 @@ if ($action == 'updateMask') {
 		'@phan-var-force ModelePDFOrders $module';
 		/** @var ModelePDFOrders $module */
 
-		if ($module->write_file($commande, $langs) > 0) {
-			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=commande&file=SPECIMEN.pdf");
+		if ($module->write_file($order, $langs) > 0) {
+			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=order&file=SPECIMEN.pdf");
 			return;
 		} else {
 			setEventMessages($module->error, null, 'errors');
@@ -295,13 +295,13 @@ print '</tr>'."\n";
 clearstatcache();
 
 foreach ($dirmodels as $reldir) {
-	$dir = dol_buildpath($reldir."core/modules/commande/");
+	$dir = dol_buildpath($reldir."core/modules/order/");
 
 	if (is_dir($dir)) {
 		$handle = opendir($dir);
 		if (is_resource($handle)) {
 			while (($file = readdir($handle)) !== false) {
-				if (substr($file, 0, 13) == 'mod_commande_' && substr($file, dol_strlen($file) - 3, 3) == 'php') {
+				if (substr($file, 0, 13) == 'mod_order_' && substr($file, dol_strlen($file) - 3, 3) == 'php') {
 					$file = substr($file, 0, dol_strlen($file) - 4);
 
 					require_once $dir.$file.'.php';
@@ -346,15 +346,15 @@ foreach ($dirmodels as $reldir) {
 						}
 						print '</td>';
 
-						$commande = new Order($db);
-						$commande->initAsSpecimen();
+						$order = new Order($db);
+						$order->initAsSpecimen();
 
 						// Info
 						$htmltooltip = '';
 						$htmltooltip .= ''.$langs->trans("Version").': <b>'.$module->getVersion().'</b><br>';
-						$commande->type = 0;
+						$order->type = 0;
 
-						$nextval = $module->getNextValue($mysoc, $commande);
+						$nextval = $module->getNextValue($mysoc, $order);
 						if ("$nextval" != $langs->trans("NotAvailable")) {  // Keep " on nextval
 							$htmltooltip .= ''.$langs->trans("NextValue").': ';
 							if ($nextval) {
@@ -425,7 +425,7 @@ clearstatcache();
 
 foreach ($dirmodels as $reldir) {
 	foreach (array('', '/doc') as $valdir) {
-		$realpath = $reldir."core/modules/commande".$valdir;
+		$realpath = $reldir."core/modules/order".$valdir;
 		$dir = dol_buildpath($realpath);
 
 		if (is_dir($dir)) {

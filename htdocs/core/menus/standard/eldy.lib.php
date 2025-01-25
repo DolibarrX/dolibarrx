@@ -242,7 +242,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		'submenus' => array(),
 	);
 
-	// Commercial (propal, commande, supplier_proposal, supplier_order, contrat, ficheinter)
+	// Commercial (propal, order, supplier_proposal, supplier_order, contrat, ficheinter)
 	$tmpentry = array(
 		'enabled' => (
 			isModEnabled('propal')
@@ -255,20 +255,20 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 		) ? 1 : 0,
 		'perms' => (
 			$user->hasRight('propal', 'read')
-			|| $user->hasRight('commande', 'lire')
+			|| $user->hasRight('order', 'lire')
 			|| $user->hasRight('supplier_proposal', 'lire')
 			|| $user->hasRight('fournisseur', 'lire')
-			|| $user->hasRight('fournisseur', 'commande', 'lire')
+			|| $user->hasRight('fournisseur', 'order', 'lire')
 			|| $user->hasRight('supplier_order', 'lire')
 			|| $user->hasRight('contrat', 'lire')
 			|| $user->hasRight('ficheinter', 'lire')
 		),
-		'module' => 'propal|commande|supplier_proposal|supplier_order|contrat|ficheinter'
+		'module' => 'propal|order|supplier_proposal|supplier_order|contrat|ficheinter'
 	);
 
-	$onlysupplierorder = $user->hasRight('fournisseur', 'commande', 'lire') &&
+	$onlysupplierorder = $user->hasRight('fournisseur', 'order', 'lire') &&
 	!$user->hasRight('propal', 'lire') &&
-	!$user->hasRight('commande', 'lire') &&
+	!$user->hasRight('order', 'lire') &&
 	!$user->hasRight('supplier_order', 'lire') &&
 	!$user->hasRight('supplier_proposal', 'lire') &&
 	!$user->hasRight('contrat', 'lire') &&
@@ -276,7 +276,7 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 
 	$menu_arr[] = array(
 		'name' => 'Commercial',
-		'link' => ($onlysupplierorder ? '/fourn/commande/index.php?mainmenu=commercial&amp;leftmenu=' : '/comm/index.php?mainmenu=commercial&amp;leftmenu='),
+		'link' => ($onlysupplierorder ? '/fourn/order/index.php?mainmenu=commercial&amp;leftmenu=' : '/comm/index.php?mainmenu=commercial&amp;leftmenu='),
 		'title' => "Commercial",
 		'level' => 0,
 		'enabled' => $showmode = isVisibleToUserType($type_user, $tmpentry, $listofmodulesforexternal),
@@ -795,7 +795,7 @@ function print_left_eldy_menu($db, $menu_array_before, $menu_array_after, &$tabM
 		}
 
 		/*
-		 * Menu COMMERCIAL (propal, commande, supplier_proposal, supplier_order, contrat, ficheinter)
+		 * Menu COMMERCIAL (propal, order, supplier_proposal, supplier_order, contrat, ficheinter)
 		 */
 		if ($mainmenu == 'commercial') {
 			get_left_menu_commercial($mainmenu, $newmenu, $usemenuhider, $leftmenu, $type_user);
@@ -1341,7 +1341,7 @@ function get_left_menu_thridparties($mainmenu, &$newmenu, $usemenuhider = 1, $le
 }
 
 /**
- * Get left Menu COMMERCIAL (propal, commande, supplier_proposal, supplier_order, contrat, ficheinter)
+ * Get left Menu COMMERCIAL (propal, order, supplier_proposal, supplier_order, contrat, ficheinter)
  *
  * @param	string		$mainmenu		Main menu
  * @param	Menu 		$newmenu		Object Menu to return back list of menu entries
@@ -1377,26 +1377,26 @@ function get_left_menu_commercial($mainmenu, &$newmenu, $usemenuhider = 1, $left
 		// Customers orders
 		if (isModEnabled('order')) {
 			$langs->load("orders");
-			$newmenu->add("/commande/index.php?leftmenu=orders", $langs->trans("CustomersOrders"), 0, $user->hasRight('commande', 'lire'), '', $mainmenu, 'orders', 200, '', '', '', img_picto('', 'order', 'class="paddingright pictofixedwidth"'));
-			$newmenu->add("/commande/card.php?action=create&amp;leftmenu=orders", $langs->trans("NewOrder"), 1, $user->hasRight('commande', 'creer'));
-			$newmenu->add("/commande/list.php?leftmenu=orders", $langs->trans("List"), 1, $user->hasRight('commande', 'lire'));
+			$newmenu->add("/order/index.php?leftmenu=orders", $langs->trans("CustomersOrders"), 0, $user->hasRight('order', 'lire'), '', $mainmenu, 'orders', 200, '', '', '', img_picto('', 'order', 'class="paddingright pictofixedwidth"'));
+			$newmenu->add("/order/card.php?action=create&amp;leftmenu=orders", $langs->trans("NewOrder"), 1, $user->hasRight('order', 'creer'));
+			$newmenu->add("/order/list.php?leftmenu=orders", $langs->trans("List"), 1, $user->hasRight('order', 'lire'));
 			if ($usemenuhider || empty($leftmenu) || $leftmenu == "orders") {
-				$newmenu->add("/commande/list.php?leftmenu=orders&search_status=0", $langs->trans("StatusOrderDraftShort"), 2, $user->hasRight('commande', 'lire'));
-				$newmenu->add("/commande/list.php?leftmenu=orders&search_status=1", $langs->trans("StatusOrderValidated"), 2, $user->hasRight('commande', 'lire'));
+				$newmenu->add("/order/list.php?leftmenu=orders&search_status=0", $langs->trans("StatusOrderDraftShort"), 2, $user->hasRight('order', 'lire'));
+				$newmenu->add("/order/list.php?leftmenu=orders&search_status=1", $langs->trans("StatusOrderValidated"), 2, $user->hasRight('order', 'lire'));
 				if (isModEnabled('shipping')) {
-					$newmenu->add("/commande/list.php?leftmenu=orders&search_status=2", $langs->trans("StatusOrderSentShort"), 2, $user->hasRight('commande', 'lire'));
+					$newmenu->add("/order/list.php?leftmenu=orders&search_status=2", $langs->trans("StatusOrderSentShort"), 2, $user->hasRight('order', 'lire'));
 				}
-				$newmenu->add("/commande/list.php?leftmenu=orders&search_status=3", $langs->trans("StatusOrderDelivered"), 2, $user->hasRight('commande', 'lire'));
-				//$newmenu->add("/commande/list.php?leftmenu=orders&search_status=4", $langs->trans("StatusOrderProcessed"), 2, $user->hasRight('commande',  'lire'));
-				$newmenu->add("/commande/list.php?leftmenu=orders&search_status=-1", $langs->trans("StatusOrderCanceledShort"), 2, $user->hasRight('commande', 'lire'));
+				$newmenu->add("/order/list.php?leftmenu=orders&search_status=3", $langs->trans("StatusOrderDelivered"), 2, $user->hasRight('order', 'lire'));
+				//$newmenu->add("/order/list.php?leftmenu=orders&search_status=4", $langs->trans("StatusOrderProcessed"), 2, $user->hasRight('order',  'lire'));
+				$newmenu->add("/order/list.php?leftmenu=orders&search_status=-1", $langs->trans("StatusOrderCanceledShort"), 2, $user->hasRight('order', 'lire'));
 			}
 			if (empty($user->socid)) {
-				$newmenu->add("/commande/list_det.php?leftmenu=orders", $langs->trans("ListOrderLigne"), 1, $user->hasRight('commande', 'lire'));
+				$newmenu->add("/order/list_det.php?leftmenu=orders", $langs->trans("ListOrderLigne"), 1, $user->hasRight('order', 'lire'));
 			}
 			if (getDolGlobalInt('MAIN_NEED_EXPORT_PERMISSION_TO_READ_STATISTICS')) {
-				$newmenu->add("/commande/stats/index.php?leftmenu=orders", $langs->trans("Statistics"), 1, $user->hasRight('commande', 'commande', 'export'));
+				$newmenu->add("/order/stats/index.php?leftmenu=orders", $langs->trans("Statistics"), 1, $user->hasRight('order', 'order', 'export'));
 			} else {
-				$newmenu->add("/commande/stats/index.php?leftmenu=orders", $langs->trans("Statistics"), 1, $user->hasRight('commande', 'lire'));
+				$newmenu->add("/order/stats/index.php?leftmenu=orders", $langs->trans("Statistics"), 1, $user->hasRight('order', 'lire'));
 			}
 		}
 
@@ -1412,28 +1412,28 @@ function get_left_menu_commercial($mainmenu, &$newmenu, $usemenuhider = 1, $left
 		// Suppliers orders
 		if (isModEnabled('supplier_order')) {
 			$langs->load("orders");
-			$newmenu->add("/fourn/commande/index.php?leftmenu=orders_suppliers", $langs->trans("SuppliersOrders"), 0, $user->hasRight('fournisseur', 'commande', 'lire'), '', $mainmenu, 'orders_suppliers', 400, '', '', '', img_picto('', 'supplier_order', 'class="paddingright pictofixedwidth"'));
-			$newmenu->add("/fourn/commande/card.php?action=create&amp;leftmenu=orders_suppliers", $langs->trans("NewSupplierOrderShort"), 1, $user->hasRight('fournisseur', 'commande', 'creer'));
-			$newmenu->add("/fourn/commande/list.php?leftmenu=orders_suppliers", $langs->trans("List"), 1, $user->hasRight('fournisseur', 'commande', 'lire'));
+			$newmenu->add("/fourn/order/index.php?leftmenu=orders_suppliers", $langs->trans("SuppliersOrders"), 0, $user->hasRight('fournisseur', 'order', 'lire'), '', $mainmenu, 'orders_suppliers', 400, '', '', '', img_picto('', 'supplier_order', 'class="paddingright pictofixedwidth"'));
+			$newmenu->add("/fourn/order/card.php?action=create&amp;leftmenu=orders_suppliers", $langs->trans("NewSupplierOrderShort"), 1, $user->hasRight('fournisseur', 'order', 'creer'));
+			$newmenu->add("/fourn/order/list.php?leftmenu=orders_suppliers", $langs->trans("List"), 1, $user->hasRight('fournisseur', 'order', 'lire'));
 
 			if ($usemenuhider || empty($leftmenu) || $leftmenu == "orders_suppliers") {
-				$newmenu->add("/fourn/commande/list.php?leftmenu=orders_suppliers&statut=0", $langs->trans("StatusSupplierOrderDraftShort"), 2, $user->hasRight('fournisseur', 'commande', 'lire'));
+				$newmenu->add("/fourn/order/list.php?leftmenu=orders_suppliers&statut=0", $langs->trans("StatusSupplierOrderDraftShort"), 2, $user->hasRight('fournisseur', 'order', 'lire'));
 				if (!getDolGlobalString('SUPPLIER_ORDER_HIDE_VALIDATED')) {
-					$newmenu->add("/fourn/commande/list.php?leftmenu=orders_suppliers&statut=1", $langs->trans("StatusSupplierOrderValidated"), 2, $user->hasRight('fournisseur', 'commande', 'lire'));
+					$newmenu->add("/fourn/order/list.php?leftmenu=orders_suppliers&statut=1", $langs->trans("StatusSupplierOrderValidated"), 2, $user->hasRight('fournisseur', 'order', 'lire'));
 				}
-				$newmenu->add("/fourn/commande/list.php?leftmenu=orders_suppliers&statut=2", $langs->trans("StatusSupplierOrderApprovedShort"), 2, $user->hasRight('fournisseur', 'commande', 'lire'));
-				$newmenu->add("/fourn/commande/list.php?leftmenu=orders_suppliers&statut=3", $langs->trans("StatusSupplierOrderOnProcessShort"), 2, $user->hasRight('fournisseur', 'commande', 'lire'));
-				$newmenu->add("/fourn/commande/list.php?leftmenu=orders_suppliers&statut=4", $langs->trans("StatusSupplierOrderReceivedPartiallyShort"), 2, $user->hasRight('fournisseur', 'commande', 'lire'));
-				$newmenu->add("/fourn/commande/list.php?leftmenu=orders_suppliers&statut=5", $langs->trans("StatusSupplierOrderReceivedAll"), 2, $user->hasRight('fournisseur', 'commande', 'lire'));
-				$newmenu->add("/fourn/commande/list.php?leftmenu=orders_suppliers&statut=6,7", $langs->trans("StatusSupplierOrderCanceled"), 2, $user->hasRight('fournisseur', 'commande', 'lire'));
-				$newmenu->add("/fourn/commande/list.php?leftmenu=orders_suppliers&statut=9", $langs->trans("StatusSupplierOrderRefused"), 2, $user->hasRight('fournisseur', 'commande', 'lire'));
+				$newmenu->add("/fourn/order/list.php?leftmenu=orders_suppliers&statut=2", $langs->trans("StatusSupplierOrderApprovedShort"), 2, $user->hasRight('fournisseur', 'order', 'lire'));
+				$newmenu->add("/fourn/order/list.php?leftmenu=orders_suppliers&statut=3", $langs->trans("StatusSupplierOrderOnProcessShort"), 2, $user->hasRight('fournisseur', 'order', 'lire'));
+				$newmenu->add("/fourn/order/list.php?leftmenu=orders_suppliers&statut=4", $langs->trans("StatusSupplierOrderReceivedPartiallyShort"), 2, $user->hasRight('fournisseur', 'order', 'lire'));
+				$newmenu->add("/fourn/order/list.php?leftmenu=orders_suppliers&statut=5", $langs->trans("StatusSupplierOrderReceivedAll"), 2, $user->hasRight('fournisseur', 'order', 'lire'));
+				$newmenu->add("/fourn/order/list.php?leftmenu=orders_suppliers&statut=6,7", $langs->trans("StatusSupplierOrderCanceled"), 2, $user->hasRight('fournisseur', 'order', 'lire'));
+				$newmenu->add("/fourn/order/list.php?leftmenu=orders_suppliers&statut=9", $langs->trans("StatusSupplierOrderRefused"), 2, $user->hasRight('fournisseur', 'order', 'lire'));
 			}
-			// Billed is another field. We should add instead a dedicated filter on list. if ($usemenuhider || empty($leftmenu) || $leftmenu=="orders_suppliers") $newmenu->add("/fourn/commande/list.php?leftmenu=orders_suppliers&billed=1", $langs->trans("Billed"), 2, $user->hasRight('fournisseur',  'commande', 'lire'));
+			// Billed is another field. We should add instead a dedicated filter on list. if ($usemenuhider || empty($leftmenu) || $leftmenu=="orders_suppliers") $newmenu->add("/fourn/order/list.php?leftmenu=orders_suppliers&billed=1", $langs->trans("Billed"), 2, $user->hasRight('fournisseur',  'order', 'lire'));
 
 			if (getDolGlobalInt('MAIN_NEED_EXPORT_PERMISSION_TO_READ_STATISTICS')) {
-				$newmenu->add("/commande/stats/index.php?leftmenu=orders_suppliers&amp;mode=supplier", $langs->trans("Statistics"), 1, $user->hasRight('fournisseur', 'commande', 'export'));
+				$newmenu->add("/order/stats/index.php?leftmenu=orders_suppliers&amp;mode=supplier", $langs->trans("Statistics"), 1, $user->hasRight('fournisseur', 'order', 'export'));
 			} else {
-				$newmenu->add("/commande/stats/index.php?leftmenu=orders_suppliers&amp;mode=supplier", $langs->trans("Statistics"), 1, $user->hasRight('fournisseur', 'commande', 'lire'));
+				$newmenu->add("/order/stats/index.php?leftmenu=orders_suppliers&amp;mode=supplier", $langs->trans("Statistics"), 1, $user->hasRight('fournisseur', 'order', 'lire'));
 			}
 		}
 
@@ -1538,17 +1538,17 @@ function get_left_menu_billing($mainmenu, &$newmenu, $usemenuhider = 1, $leftmen
 		if (isModEnabled('order')) {
 			$langs->load("orders");
 			if (isModEnabled('invoice')) {
-				$newmenu->add("/commande/list.php?leftmenu=orders&amp;search_status=-3&amp;search_billed=0&amp;contextpage=billableorders", $langs->trans("MenuOrdersToBill2"), 0, $user->hasRight('commande', 'lire'), '', $mainmenu, 'orders', 0, '', '', '', img_picto('', 'order', 'class="paddingright pictofixedwidth"'));
+				$newmenu->add("/order/list.php?leftmenu=orders&amp;search_status=-3&amp;search_billed=0&amp;contextpage=billableorders", $langs->trans("MenuOrdersToBill2"), 0, $user->hasRight('order', 'lire'), '', $mainmenu, 'orders', 0, '', '', '', img_picto('', 'order', 'class="paddingright pictofixedwidth"'));
 			}
-			//if ($usemenuhider || empty($leftmenu) || $leftmenu=="orders") $newmenu->add("/commande/", $langs->trans("StatusOrderToBill"), 1, $user->hasRight('commande',  'lire'));
+			//if ($usemenuhider || empty($leftmenu) || $leftmenu=="orders") $newmenu->add("/order/", $langs->trans("StatusOrderToBill"), 1, $user->hasRight('order',  'lire'));
 		}
 
 		// Supplier Orders to bill
 		if (isModEnabled('supplier_invoice')) {
 			if (getDolGlobalString('SUPPLIER_MENU_ORDER_RECEIVED_INTO_INVOICE')) {
 				$langs->load("supplier");
-				$newmenu->add("/fourn/commande/list.php?leftmenu=orders&amp;search_status=5&amp;search_billed=0", $langs->trans("MenuOrdersSupplierToBill"), 0, $user->hasRight('commande', 'lire'), '', $mainmenu, 'orders', 0, '', '', '', img_picto('', 'supplier_order', 'class="paddingright pictofixedwidth"'));
-				//if ($usemenuhider || empty($leftmenu) || $leftmenu=="orders") $newmenu->add("/commande/", $langs->trans("StatusOrderToBill"), 1, $user->hasRight('commande',  'lire'));
+				$newmenu->add("/fourn/order/list.php?leftmenu=orders&amp;search_status=5&amp;search_billed=0", $langs->trans("MenuOrdersSupplierToBill"), 0, $user->hasRight('order', 'lire'), '', $mainmenu, 'orders', 0, '', '', '', img_picto('', 'supplier_order', 'class="paddingright pictofixedwidth"'));
+				//if ($usemenuhider || empty($leftmenu) || $leftmenu=="orders") $newmenu->add("/order/", $langs->trans("StatusOrderToBill"), 1, $user->hasRight('order',  'lire'));
 			}
 		}
 

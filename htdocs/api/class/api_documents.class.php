@@ -206,8 +206,8 @@ class Documents extends DolibarrApi
 			if ($result < 0) {
 				throw new RestException(500, 'Error generating document');
 			}
-		} elseif ($modulepart == 'commande' || $modulepart == 'order') {
-			require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+		} elseif ($modulepart == 'order' || $modulepart == 'order') {
+			require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 			$tmpobject = new Order($this->db);
 			$result = $tmpobject->fetch(0, preg_replace('/\.[^\.]+$/', '', basename($original_file)));
 			if (!$result) {
@@ -400,10 +400,10 @@ class Documents extends DolibarrApi
 			}
 
 			$upload_dir = $config->propal->multidir_output[$object->entity]."/".get_exdir(0, 0, 0, 1, $object, 'propal');
-		} elseif ($modulepart == 'commande' || $modulepart == 'order') {
-			require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+		} elseif ($modulepart == 'order' || $modulepart == 'order') {
+			require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 
-			if (!DolibarrApiAccess::$user->hasRight('commande', 'lire')) {
+			if (!DolibarrApiAccess::$user->hasRight('order', 'lire')) {
 				throw new RestException(403);
 			}
 
@@ -413,13 +413,13 @@ class Documents extends DolibarrApi
 				throw new RestException(404, 'Order not found');
 			}
 
-			$upload_dir = $config->commande->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'commande');
-		} elseif ($modulepart == 'commande_fournisseur' || $modulepart == 'supplier_order') {
+			$upload_dir = $config->order->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'order');
+		} elseif ($modulepart == 'order_fournisseur' || $modulepart == 'supplier_order') {
 			$modulepart = 'supplier_order';
 
-			require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 
-			if (!DolibarrApiAccess::$user->hasRight('fournisseur', 'commande', 'lire') && !DolibarrApiAccess::$user->hasRight('supplier_order', 'lire')) {
+			if (!DolibarrApiAccess::$user->hasRight('fournisseur', 'order', 'lire') && !DolibarrApiAccess::$user->hasRight('supplier_order', 'lire')) {
 				throw new RestException(403);
 			}
 
@@ -429,7 +429,7 @@ class Documents extends DolibarrApi
 				throw new RestException(404, 'Purchase order not found');
 			}
 
-			$upload_dir = $config->fournisseur->dir_output."/commande/".dol_sanitizeFileName($object->ref);
+			$upload_dir = $config->fournisseur->dir_output."/order/".dol_sanitizeFileName($object->ref);
 		} elseif ($modulepart == 'shipment' || $modulepart == 'expedition') {
 			require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
 
@@ -715,15 +715,15 @@ class Documents extends DolibarrApi
 
 				require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 				$object = new FactureFournisseur($this->db);
-			} elseif ($modulepart == 'commande' || $modulepart == 'order') {
-				$modulepart = 'commande';
+			} elseif ($modulepart == 'order' || $modulepart == 'order') {
+				$modulepart = 'order';
 
-				require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+				require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 				$object = new Order($this->db);
-			} elseif ($modulepart == 'commande_fournisseur' || $modulepart == 'supplier_order') {
+			} elseif ($modulepart == 'order_fournisseur' || $modulepart == 'supplier_order') {
 				$modulepart = 'supplier_order';
 
-				require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+				require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 				$object = new OrderFournisseur($this->db);
 			} elseif ($modulepart == 'projet' || $modulepart == 'project') {
 				require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';

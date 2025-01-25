@@ -90,8 +90,8 @@ $linkback = '<a href="'.DOL_URL_ROOT.'/supplier_proposal/list.php?restore_lastse
 
 $morehtmlref = '<div class="refidno">';
 // Ref supplier
-//$morehtmlref.=$form->editfieldkey("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, $user->rights->fournisseur->commande->creer, 'string', '', 0, 1);
-//$morehtmlref.=$form->editfieldval("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, $user->rights->fournisseur->commande->creer, 'string', '', null, null, '', 1);
+//$morehtmlref.=$form->editfieldkey("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, $user->rights->fournisseur->order->creer, 'string', '', 0, 1);
+//$morehtmlref.=$form->editfieldval("RefSupplier", 'ref_supplier', $object->ref_supplier, $object, $user->rights->fournisseur->order->creer, 'string', '', null, null, '', 1);
 // Thirdparty
 $morehtmlref .= $object->thirdparty->getNomUrl(1);
 // Project

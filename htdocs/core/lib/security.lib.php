@@ -503,7 +503,7 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 		if (is_object($object) && $object->element == 'invoice_supplier') {
 			$feature2 = 'facture';
 		} elseif (is_object($object) && $object->element == 'order_supplier') {
-			$feature2 = 'commande';
+			$feature2 = 'order';
 		}
 	}
 	if ($features == 'payment_sc') {
@@ -512,12 +512,12 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 	}
 	// if commonObjectLine : Using many2one related commonObject
 	// @see commonObjectLine::parentElement
-	if (in_array($features, ['commandedet', 'propaldet', 'facturedet', 'supplier_proposaldet', 'evaluationdet', 'skilldet', 'deliverydet', 'contratdet'])) {
+	if (in_array($features, ['orderdet', 'propaldet', 'facturedet', 'supplier_proposaldet', 'evaluationdet', 'skilldet', 'deliverydet', 'contratdet'])) {
 		$features = substr($features, 0, -3);
 	} elseif (in_array($features, ['stocktransferline', 'inventoryline', 'bomline', 'expensereport_det', 'facture_fourn_det'])) {
 		$features = substr($features, 0, -4);
-	} elseif ($features == 'commandefournisseurdispatch') {
-		$features = 'commandefournisseur';
+	} elseif ($features == 'orderfournisseurdispatch') {
+		$features = 'orderfournisseur';
 	} elseif ($features == 'invoice_supplier_det_rec') {
 		$features = 'invoice_supplier_rec';
 	}
@@ -700,8 +700,8 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 					$createok = 0;
 					$nbko++;
 				}
-			} elseif ($feature == 'commande_fournisseur') {
-				if (!$user->hasRight('fournisseur', 'commande', 'creer') || !$user->hasRight('supplier_order', 'creer')) {
+			} elseif ($feature == 'order_fournisseur') {
+				if (!$user->hasRight('fournisseur', 'order', 'creer') || !$user->hasRight('supplier_order', 'creer')) {
 					$createok = 0;
 					$nbko++;
 				}
@@ -819,8 +819,8 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 				if (!$user->hasRight('produit', 'supprimer') && !$user->hasRight('service', 'supprimer')) {
 					$deleteok = 0;
 				}
-			} elseif ($feature == 'commande_fournisseur') {
-				if (!$user->hasRight('fournisseur', 'commande', 'supprimer')) {
+			} elseif ($feature == 'order_fournisseur') {
+				if (!$user->hasRight('fournisseur', 'order', 'supprimer')) {
 					$deleteok = 0;
 				}
 			} elseif ($feature == 'payment_supplier') {	// Permission to delete a payment of an invoice is permission to edit an invoice.

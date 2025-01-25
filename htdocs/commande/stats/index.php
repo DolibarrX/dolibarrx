@@ -23,15 +23,15 @@
  */
 
 /**
- *	    \file       htdocs/commande/stats/index.php
+ *	    \file       htdocs/order/stats/index.php
  *      \ingroup    order
  *		\brief      Page with customers or suppliers orders statistics
  */
 
 // Load Dolibarr environment
 require '../../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commandestats.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/orderstats.class.php';
 require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formorder.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
@@ -53,11 +53,11 @@ $mode = GETPOSTISSET("mode") ? GETPOST("mode", 'aZ09') : 'customer';
 
 $hookManager->initHooks(array('orderstats', 'globalcard'));
 
-$usercanreadcustumerstatistic = $user->hasRight('commande', 'lire');
-$usercanreadsupplierstatistic = $user->hasRight('fournisseur', 'commande', 'lire');
+$usercanreadcustumerstatistic = $user->hasRight('order', 'lire');
+$usercanreadsupplierstatistic = $user->hasRight('fournisseur', 'order', 'lire');
 if (getDolGlobalInt('MAIN_NEED_EXPORT_PERMISSION_TO_READ_STATISTICS')) {
-	$usercanreadcustumerstatistic = $user->hasRight('commande', 'commande', 'export');
-	$usercanreadsupplierstatistic = $user->hasRight('fournisseur', 'commande', 'export');
+	$usercanreadcustumerstatistic = $user->hasRight('order', 'order', 'export');
+	$usercanreadsupplierstatistic = $user->hasRight('fournisseur', 'order', 'export');
 }
 if ($mode == 'customer' && !$usercanreadcustumerstatistic) {
 	accessforbidden();
@@ -111,12 +111,12 @@ $formother = new FormOther($db);
 
 $picto = 'order';
 $title = $langs->trans("OrdersStatistics");
-$dir = $config->commande->dir_temp;
+$dir = $config->order->dir_temp;
 
 if ($mode == 'supplier') {
 	$picto = 'supplier_order';
 	$title = $langs->trans("OrdersStatisticsSuppliers");
-	$dir = $config->fournisseur->commande->dir_temp;
+	$dir = $config->fournisseur->order->dir_temp;
 }
 
 llxHeader('', $title, '', '', 0, 0, '', '', '', 'mod-order page-stats');
@@ -299,7 +299,7 @@ if (!count($arrayyears)) {
 
 $h = 0;
 $head = array();
-$head[$h][0] = DOL_URL_ROOT.'/commande/stats/index.php?mode='.$mode;
+$head[$h][0] = DOL_URL_ROOT.'/order/stats/index.php?mode='.$mode;
 $head[$h][1] = $langs->trans("ByMonthYear");
 $head[$h][2] = 'byyear';
 $h++;

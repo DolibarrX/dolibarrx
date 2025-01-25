@@ -35,8 +35,8 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/agenda.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/comm/action/class/actioncomm.class.php';
 require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/client.class.php';
 require_once DOL_DOCUMENT_ROOT.'/supplier_proposal/class/supplier_proposal.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/propal.lib.php';
@@ -80,7 +80,7 @@ $maxofloop = (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->glob
 $now = dol_now();
 
 //restrictedArea($user, 'societe', $socid, '&societe', '', 'fk_soc', 'rowid', 0);
-if (!$user->hasRight('propal', 'read') && !$user->hasRight('supplier_proposal', 'read') && !$user->hasRight('commande', 'read') && !$user->hasRight('fournisseur', 'commande', 'read')
+if (!$user->hasRight('propal', 'read') && !$user->hasRight('supplier_proposal', 'read') && !$user->hasRight('order', 'read') && !$user->hasRight('fournisseur', 'order', 'read')
 	&& !$user->hasRight('supplier_order', 'read') && !$user->hasRight('fichinter', 'read') && !$user->hasRight('contrat', 'read')) {
 	accessforbidden();
 }
@@ -346,14 +346,14 @@ if (isModEnabled('supplier_proposal') && $user->hasRight("supplier_proposal", "l
  * Draft sales orders
  */
 
-if (isModEnabled('order') && $user->hasRight('commande', 'lire') && is_object($orderstatic)) {
+if (isModEnabled('order') && $user->hasRight('order', 'lire') && is_object($orderstatic)) {
 	$sql = "SELECT c.rowid, c.ref, c.ref_client, c.total_ht, c.total_tva, c.total_ttc, c.fk_statut as status";
 	$sql .= ", s.rowid as socid, s.nom as name, s.name_alias";
 	$sql .= ", s.code_client, s.code_compta as code_compta_client, s.client";
 	$sql .= ", s.code_fournisseur, s.code_compta_fournisseur, s.fournisseur";
 	$sql .= ", s.logo, s.email, s.entity";
 	$sql .= ", s.canvas";
-	$sql .= " FROM ".MAIN_DB_PREFIX."commande as c,";
+	$sql .= " FROM ".MAIN_DB_PREFIX."order as c,";
 	$sql .= " ".MAIN_DB_PREFIX."societe as s";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
 		$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
@@ -373,7 +373,7 @@ if (isModEnabled('order') && $user->hasRight('commande', 'lire') && is_object($o
 		$total = 0;
 		$num = $db->num_rows($resql);
 		$nbofloop = min($num, $maxofloop);
-		startSimpleTable("DraftOrders", "commande/list.php", "search_status=".Order::STATUS_DRAFT, 2, $num);
+		startSimpleTable("DraftOrders", "order/list.php", "search_status=".Order::STATUS_DRAFT, 2, $num);
 
 		if ($num > 0) {
 			$i = 0;
@@ -446,7 +446,7 @@ if (isModEnabled('order') && $user->hasRight('commande', 'lire') && is_object($o
  * Draft purchase orders
  */
 
-if ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight("fournisseur", "commande", "lire")) || (isModEnabled("supplier_order") && $user->hasRight("supplier_order", "lire"))) {
+if ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight("fournisseur", "order", "lire")) || (isModEnabled("supplier_order") && $user->hasRight("supplier_order", "lire"))) {
 	$supplierorderstatic = new OrderFournisseur($db);
 
 	$sql = "SELECT cf.rowid, cf.ref, cf.ref_supplier, cf.total_ht, cf.total_tva, cf.total_ttc, cf.fk_statut as status";
@@ -455,7 +455,7 @@ if ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMO
 	$sql .= ", s.code_fournisseur, s.code_compta_fournisseur, s.fournisseur";
 	$sql .= ", s.logo, s.email, s.entity";
 	$sql .= ", s.canvas";
-	$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseur as cf,";
+	$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseur as cf,";
 	$sql .= " ".MAIN_DB_PREFIX."societe as s";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
 		$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
@@ -475,7 +475,7 @@ if ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMO
 		$total = 0;
 		$num = $db->num_rows($resql);
 		$nbofloop = min($num, $maxofloop);
-		startSimpleTable("DraftSuppliersOrders", "fourn/commande/list.php", "search_status=".OrderFournisseur::STATUS_DRAFT, 2, $num);
+		startSimpleTable("DraftSuppliersOrders", "fourn/order/list.php", "search_status=".OrderFournisseur::STATUS_DRAFT, 2, $num);
 
 		if ($num > 0) {
 			$i = 0;
@@ -836,20 +836,20 @@ if (isModEnabled('propal') && is_object($propalstatic)) {
  */
 
 if (isModEnabled('order')) {
-	$commandestatic = new Order($db);
+	$orderstatic = new Order($db);
 
 	$sql = "SELECT c.rowid, c.entity, c.ref, c.fk_statut as status, c.facture, c.date_cloture as datec, c.tms as datem,";
 	$sql .= " s.nom as name, s.rowid as socid";
 	$sql .= ", s.client";
 	$sql .= ", s.code_client";
 	$sql .= ", s.canvas";
-	$sql .= " FROM ".MAIN_DB_PREFIX."commande as c,";
+	$sql .= " FROM ".MAIN_DB_PREFIX."order as c,";
 	$sql .= " ".MAIN_DB_PREFIX."societe as s";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
 		$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	}
 	$sql .= " WHERE c.fk_soc = s.rowid";
-	$sql .= " AND c.entity IN (".getEntity('commande').")";
+	$sql .= " AND c.entity IN (".getEntity('order').")";
 	//$sql.= " AND c.fk_statut > 2";
 	if ($socid) {
 		$sql .= " AND c.fk_soc = ".((int) $socid);
@@ -864,7 +864,7 @@ if (isModEnabled('order')) {
 	if ($resql) {
 		$num = $db->num_rows($resql);
 
-		startSimpleTable($langs->trans("LastModifiedOrders", $max), "commande/list.php", "sortfield=c.tms&sortorder=DESC", 2, -1, 'order');
+		startSimpleTable($langs->trans("LastModifiedOrders", $max), "order/list.php", "sortfield=c.tms&sortorder=DESC", 2, -1, 'order');
 
 		if ($num) {
 			$i = 0;
@@ -874,8 +874,8 @@ if (isModEnabled('order')) {
 				print '<tr class="oddeven">';
 				print '<td width="20%" class="nowrap">';
 
-				$commandestatic->id = $obj->rowid;
-				$commandestatic->ref = $obj->ref;
+				$orderstatic->id = $obj->rowid;
+				$orderstatic->ref = $obj->ref;
 
 				$companystatic->id = $obj->socid;
 				$companystatic->name = $obj->name;
@@ -885,7 +885,7 @@ if (isModEnabled('order')) {
 
 				print '<table class="nobordernopadding"><tr class="nocellnopadd">';
 				print '<td width="96" class="nobordernopadding nowrap">';
-				print $commandestatic->getNomUrl(1);
+				print $orderstatic->getNomUrl(1);
 				print '</td>';
 
 				print '<td width="16" class="nobordernopadding nowrap">';
@@ -894,9 +894,9 @@ if (isModEnabled('order')) {
 
 				print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $config->commande->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->order->multidir_output[$obj->entity].'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
-				print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
+				print $formfile->getDocumentsLink($orderstatic->element, $filename, $filedir);
 				print '</td></tr></table>';
 
 				print '</td>';
@@ -910,7 +910,7 @@ if (isModEnabled('order')) {
 				print dol_print_date($datem, 'day', 'tzuserrel');
 				print '</td>';
 
-				print '<td class="right">'.$commandestatic->LibStatut($obj->status, $obj->facture, 3).'</td>';
+				print '<td class="right">'.$orderstatic->LibStatut($obj->status, $obj->facture, 3).'</td>';
 				print '</tr>';
 				$i++;
 			}
@@ -1236,14 +1236,14 @@ if (isModEnabled("propal") && $user->hasRight("propal", "lire")) {
 /*
  * Opened (validated) order
  */
-if (isModEnabled('order') && $user->hasRight('commande', 'lire') && is_object($orderstatic)) {
-	$sql = "SELECT c.rowid as commandeid, c.total_ttc, c.total_ht, c.total_tva, c.ref, c.ref_client, c.fk_statut, c.date_valid as dv, c.facture as billed";
+if (isModEnabled('order') && $user->hasRight('order', 'lire') && is_object($orderstatic)) {
+	$sql = "SELECT c.rowid as orderid, c.total_ttc, c.total_ht, c.total_tva, c.ref, c.ref_client, c.fk_statut, c.date_valid as dv, c.facture as billed";
 	$sql .= ", s.rowid as socid, s.nom as name, s.name_alias";
 	$sql .= ", s.code_client, s.code_compta as code_compta_client, s.client";
 	$sql .= ", s.code_fournisseur, s.code_compta_fournisseur, s.fournisseur";
 	$sql .= ", s.logo, s.email, s.entity";
 	$sql .= ", s.canvas";
-	$sql .= " FROM ".MAIN_DB_PREFIX."commande as c";
+	$sql .= " FROM ".MAIN_DB_PREFIX."order as c";
 	$sql .= ", ".MAIN_DB_PREFIX."societe as s";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
 		$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
@@ -1264,7 +1264,7 @@ if (isModEnabled('order') && $user->hasRight('commande', 'lire') && is_object($o
 		$total = $total_ttc = 0;
 		$num = $db->num_rows($resql);
 		$nbofloop = min($num, (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD));
-		startSimpleTable("OrdersOpened", "commande/list.php", "search_status=".Order::STATUS_VALIDATED, 4, $num);
+		startSimpleTable("OrdersOpened", "order/list.php", "search_status=".Order::STATUS_VALIDATED, 4, $num);
 
 		if ($num > 0) {
 			$i = 0;
@@ -1281,7 +1281,7 @@ if (isModEnabled('order') && $user->hasRight('commande', 'lire') && is_object($o
 					continue;
 				}
 
-				$orderstatic->id = $obj->commandeid;
+				$orderstatic->id = $obj->orderid;
 				$orderstatic->ref = $obj->ref;
 				$orderstatic->ref_client = $obj->ref_client;
 				$orderstatic->statut = $obj->fk_statut;
@@ -1305,7 +1305,7 @@ if (isModEnabled('order') && $user->hasRight('commande', 'lire') && is_object($o
 				$companystatic->canvas = $obj->canvas;
 
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $config->commande->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->order->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 				//$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->propalid;
 				//$warning = ($db->jdate($obj->dfv) < ($now - $config->propal->cloture->warning_delay)) ? img_warning($langs->trans("Late")) : '';
 

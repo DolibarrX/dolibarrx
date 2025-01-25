@@ -39,14 +39,14 @@ require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/sociales/class/chargesociales.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/invoice.lib.php';
 
 // L'espace compta/treso doit toujours etre actif car c'est un espace partage
-// par de nombreux modules (bank, facture, commande a facturer, etc...) independamment
+// par de nombreux modules (bank, facture, order a facturer, etc...) independamment
 // de l'utilisation de la compta ou non. C'est au sein de cet espace que chaque sous fonction
 // est protegee par le droit qui va bien du module concerne.
 
@@ -613,8 +613,8 @@ if (isModEnabled('tax') && $user->hasRight('tax', 'charges', 'lire')) {
 /*
  * Customers orders to be billed
  */
-if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("commande", "lire") && !getDolGlobalString('WORKFLOW_DISABLE_CREATE_INVOICE_FROM_ORDER')) {
-	$commandestatic = new Order($db);
+if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("order", "lire") && !getDolGlobalString('WORKFLOW_DISABLE_CREATE_INVOICE_FROM_ORDER')) {
+	$orderstatic = new Order($db);
 	$langs->load("orders");
 
 	$sql = "SELECT sum(f.total_ht) as tot_fht, sum(f.total_ttc) as tot_fttc";
@@ -624,11 +624,11 @@ if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("command
 	$sql .= ", c.rowid, c.ref, c.facture, c.fk_statut as status, c.total_ht, c.total_tva, c.total_ttc,";
 	$sql .= " cc.rowid as country_id, cc.code as country_code";
 	$sql .= " FROM ".MAIN_DB_PREFIX."societe as s LEFT JOIN ".MAIN_DB_PREFIX."c_country as cc ON cc.rowid = s.fk_pays";
-	$sql .= ", ".MAIN_DB_PREFIX."commande as c";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_element as el ON el.fk_source = c.rowid AND el.sourcetype = 'commande'";
+	$sql .= ", ".MAIN_DB_PREFIX."order as c";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."element_element as el ON el.fk_source = c.rowid AND el.sourcetype = 'order'";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."facture AS f ON el.fk_target = f.rowid AND el.targettype = 'facture'";
 	$sql .= " WHERE c.fk_soc = s.rowid";
-	$sql .= " AND c.entity IN (".getEntity('commande').")";
+	$sql .= " AND c.entity IN (".getEntity('order').")";
 	if ($socid) {
 		$sql .= " AND c.fk_soc = ".((int) $socid);
 	}
@@ -660,7 +660,7 @@ if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("command
 			print '<tr class="liste_titre">';
 			print '<th colspan="2">';
 			print $langs->trans("OrdersDeliveredToBill");
-			print '<a href="'.DOL_URL_ROOT.'/commande/list.php?search_status='.Order::STATUS_CLOSED.'&search_billed=0">';
+			print '<a href="'.DOL_URL_ROOT.'/order/list.php?search_status='.Order::STATUS_CLOSED.'&search_billed=0">';
 			print '<span class="badge marginleftonly">'.$num.'</span>';
 			print '</a>';
 			print '</th>';
@@ -697,26 +697,26 @@ if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("command
 				$societestatic->code_compta_client = $obj->code_compta_client;
 				//$societestatic->code_compta_fournisseur = $obj->code_compta_fournisseur;
 
-				$commandestatic->id = $obj->rowid;
-				$commandestatic->ref = $obj->ref;
-				$commandestatic->statut = $obj->status;
-				$commandestatic->billed = $obj->facture;
+				$orderstatic->id = $obj->rowid;
+				$orderstatic->ref = $obj->ref;
+				$orderstatic->statut = $obj->status;
+				$orderstatic->billed = $obj->facture;
 
 				print '<tr class="oddeven">';
 				print '<td class="nowrap">';
 
 				print '<table class="nobordernopadding"><tr class="nocellnopadd">';
 				print '<td class="nobordernopadding nowrap">';
-				print $commandestatic->getNomUrl(1);
+				print $orderstatic->getNomUrl(1);
 				print '</td>';
 				print '<td width="20" class="nobordernopadding nowrap">';
 				print '&nbsp;';
 				print '</td>';
 				print '<td width="16" class="nobordernopadding hideonsmartphone right">';
 				$filename = dol_sanitizeFileName($obj->ref);
-				$filedir = $config->commande->dir_output.'/'.dol_sanitizeFileName($obj->ref);
+				$filedir = $config->order->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 				$urlsource = $_SERVER['PHP_SELF'].'?id='.$obj->rowid;
-				print $formfile->getDocumentsLink($commandestatic->element, $filename, $filedir);
+				print $formfile->getDocumentsLink($orderstatic->element, $filename, $filedir);
 				print '</td></tr></table>';
 
 				print '</td>';
@@ -729,7 +729,7 @@ if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("command
 				}
 				print '<td class="nowrap right"><span class="amount">'.price($obj->total_ttc).'</span></td>';
 				print '<td class="nowrap right"><span class="amount">'.price($obj->total_ttc - $obj->tot_fttc).'</span></td>';
-				print '<td>'.$commandestatic->getLibStatut(3).'</td>';
+				print '<td>'.$orderstatic->getLibStatut(3).'</td>';
 				print '</tr>';
 				$tot_ht += $obj->total_ht;
 				$tot_ttc += $obj->total_ttc;

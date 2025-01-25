@@ -505,40 +505,40 @@ function show_stats_for_company($product, $socid)
 		print '</tr>';
 	}
 	// Sales orders
-	if (isModEnabled('order') && $user->hasRight('commande', 'lire')) {
+	if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
 		$nblines++;
-		$ret = $product->load_stats_commande($socid);
+		$ret = $product->load_stats_order($socid);
 		if ($ret < 0) {
 			dol_print_error($db);
 		}
 		$langs->load("orders");
 		print '<tr><td>';
-		print '<a href="' . DOL_URL_ROOT . '/product/stats/commande.php?id=' . $product->id . '">' . img_object('', 'order', 'class="pictofixedwidth"') . $langs->trans("CustomersOrders") . '</a>';
+		print '<a href="' . DOL_URL_ROOT . '/product/stats/order.php?id=' . $product->id . '">' . img_object('', 'order', 'class="pictofixedwidth"') . $langs->trans("CustomersOrders") . '</a>';
 		print '</td><td class="right">';
-		print $product->stats_commande['customers'];
+		print $product->stats_order['customers'];
 		print '</td><td class="right">';
-		print $product->stats_commande['nb'];
+		print $product->stats_order['nb'];
 		print '</td><td class="right">';
-		print price($product->stats_commande['qty'], 1, $langs, 0, 0);
+		print price($product->stats_order['qty'], 1, $langs, 0, 0);
 		print '</td>';
 		print '</tr>';
 	}
 	// Supplier orders
-	if ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'commande', 'lire')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire'))) {
+	if ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'order', 'lire')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire'))) {
 		$nblines++;
-		$ret = $product->load_stats_commande_fournisseur($socid);
+		$ret = $product->load_stats_order_fournisseur($socid);
 		if ($ret < 0) {
 			dol_print_error($db);
 		}
 		$langs->load("orders");
 		print '<tr><td>';
-		print '<a href="' . DOL_URL_ROOT . '/product/stats/commande_fournisseur.php?id=' . $product->id . '">' . img_object('', 'supplier_order', 'class="pictofixedwidth"') . $langs->trans("SuppliersOrders") . '</a>';
+		print '<a href="' . DOL_URL_ROOT . '/product/stats/order_fournisseur.php?id=' . $product->id . '">' . img_object('', 'supplier_order', 'class="pictofixedwidth"') . $langs->trans("SuppliersOrders") . '</a>';
 		print '</td><td class="right">';
-		print $product->stats_commande_fournisseur['suppliers'];
+		print $product->stats_order_fournisseur['suppliers'];
 		print '</td><td class="right">';
-		print $product->stats_commande_fournisseur['nb'];
+		print $product->stats_order_fournisseur['nb'];
 		print '</td><td class="right">';
-		print price($product->stats_commande_fournisseur['qty'], 1, $langs, 0, 0);
+		print price($product->stats_order_fournisseur['qty'], 1, $langs, 0, 0);
 		print '</td>';
 		print '</tr>';
 	}
@@ -795,7 +795,7 @@ function show_stats_for_batch($batch, $socid)
 		print $batch->stats_reception['qty'];
 		print '</td>';
 		print '</tr>';
-	} elseif (isModEnabled('supplier_order') && $user->hasRight('fournisseur', 'commande', 'lire')) {
+	} elseif (isModEnabled('supplier_order') && $user->hasRight('fournisseur', 'order', 'lire')) {
 		$nblines++;
 		$ret = $batch->loadStatsSupplierOrder($socid);
 		if ($ret < 0) {
@@ -803,7 +803,7 @@ function show_stats_for_batch($batch, $socid)
 		}
 		$langs->load("bills");
 		print '<tr><td>';
-		print '<a href="' . dol_buildpath('/product/stock/stats/commande_fournisseur.php', 1) . '?id=' . $batch->id . '">' . img_object('', 'bill', 'class="pictofixedwidth"') . $langs->trans("SuppliersOrders") . '</a>';
+		print '<a href="' . dol_buildpath('/product/stock/stats/order_fournisseur.php', 1) . '?id=' . $batch->id . '">' . img_object('', 'bill', 'class="pictofixedwidth"') . $langs->trans("SuppliersOrders") . '</a>';
 		print '</td><td class="right">';
 		print $batch->stats_supplier_order['customers'];
 		print '</td><td class="right">';

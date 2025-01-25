@@ -1422,7 +1422,7 @@ class DoliDBPgsql extends DoliDB
 		if (file_exists('/usr/bin/pg_dump')) {
 			$fullpathofdump = '/usr/bin/pg_dump';
 		} else {
-			// TODO L'utilisateur de la base doit etre un superadmin pour lancer cette commande
+			// TODO L'utilisateur de la base doit etre un superadmin pour lancer cette order
 			$resql = $this->query('SHOW data_directory');
 			if ($resql) {
 				$liste = $this->fetch_array($resql);
@@ -1449,7 +1449,7 @@ class DoliDBPgsql extends DoliDB
 		if (file_exists('/usr/bin/'.$tool)) {
 			$fullpathofdump = '/usr/bin/'.$tool;
 		} else {
-			// TODO L'utilisateur de la base doit etre un superadmin pour lancer cette commande
+			// TODO L'utilisateur de la base doit etre un superadmin pour lancer cette order
 			$resql = $this->query('SHOW data_directory');
 			if ($resql) {
 				$liste = $this->fetch_array($resql);

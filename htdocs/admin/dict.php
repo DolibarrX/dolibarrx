@@ -715,7 +715,7 @@ if ($id == DICT_TYPE_CONTACT) {
 		'project' => img_picto('', 'project', 'class="pictofixedwidth"').$langs->trans('Project'),
 		'project_task' => img_picto('', 'projecttask', 'class="pictofixedwidth"').$langs->trans('Task'),
 		'propal' => img_picto('', 'propal', 'class="pictofixedwidth"').$langs->trans('Proposal'),
-		'commande' => img_picto('', 'order', 'class="pictofixedwidth"').$langs->trans('Order'),
+		'order' => img_picto('', 'order', 'class="pictofixedwidth"').$langs->trans('Order'),
 		'facture' => img_picto('', 'bill', 'class="pictofixedwidth"').$langs->trans('Bill'),
 		'fichinter' => img_picto('', 'intervention', 'class="pictofixedwidth"').$langs->trans('InterventionCard'),
 		'contrat' => img_picto('', 'contract', 'class="pictofixedwidth"').$langs->trans('Contract'),

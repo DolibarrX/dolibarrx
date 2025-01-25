@@ -50,7 +50,7 @@ require '../main.inc.php';
 require_once NUSOAP_PATH.'/nusoap.php'; // Include SOAP
 require_once DOL_DOCUMENT_ROOT.'/core/lib/ws.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
-require_once DOL_DOCUMENT_ROOT."/commande/class/commande.class.php";
+require_once DOL_DOCUMENT_ROOT."/order/class/order.class.php";
 
 /**
  * @var DoliDB $db
@@ -110,7 +110,7 @@ $server->wsdl->addComplexType(
 $line_fields = array(
 	'id' => array('name' => 'id', 'type' => 'xsd:string'),
 	'type' => array('name' => 'type', 'type' => 'xsd:int'),
-	'fk_commande' => array('name' => 'fk_commande', 'type' => 'xsd:int'),
+	'fk_order' => array('name' => 'fk_order', 'type' => 'xsd:int'),
 	'fk_parent_line' => array('name' => 'fk_parent_line', 'type' => 'xsd:int'),
 	'desc' => array('name' => 'desc', 'type' => 'xsd:string'),
 	'qty' => array('name' => 'qty', 'type' => 'xsd:double'),
@@ -135,7 +135,7 @@ $line_fields = array(
 	'product_desc' => array('name' => 'product_desc', 'type' => 'xsd:string')
 );
 
-$elementtype = 'commandedet';
+$elementtype = 'orderdet';
 
 //Retrieve all extrafield for thirdsparty
 // fetch optionals attributes and labels
@@ -238,7 +238,7 @@ $order_fields = array(
 	'lines' => array('name' => 'lines', 'type' => 'tns:LinesArray2')
 );
 
-$elementtype = 'commande';
+$elementtype = 'order';
 
 //Retrieve all extrafield for thirdsparty
 // fetch optionals attributes and labels
@@ -412,7 +412,7 @@ function getOrder($authentication, $id = 0, $ref = '', $ref_ext = '')
 	if (!$error) {
 		$fuser->loadRights();
 
-		if ($fuser->hasRight('commande', 'lire')) {
+		if ($fuser->hasRight('order', 'lire')) {
 			$order = new Order($db);
 			$result = $order->fetch($id, $ref, $ref_ext);
 			if ($result > 0) {
@@ -430,7 +430,7 @@ function getOrder($authentication, $id = 0, $ref = '', $ref_ext = '')
 						//var_dump($line); exit;
 						$linesresp[] = array(
 						'id' => $line->rowid,
-						'fk_commande' => $line->fk_commande,
+						'fk_order' => $line->fk_order,
 						'fk_parent_line' => $line->fk_parent_line,
 						'desc' => $line->desc,
 						'qty' => $line->qty,
@@ -556,7 +556,7 @@ function getOrdersForThirdParty($authentication, $idthirdparty)
 		$linesorders = array();
 
 		$sql = 'SELECT c.rowid as orderid';
-		$sql .= ' FROM '.MAIN_DB_PREFIX.'commande as c';
+		$sql .= ' FROM '.MAIN_DB_PREFIX.'order as c';
 		$sql .= " WHERE c.entity = ".$config->entity;
 		if ($idthirdparty != 'all') {
 			$sql .= " AND c.fk_soc = ".((int) $idthirdparty);
@@ -588,7 +588,7 @@ function getOrdersForThirdParty($authentication, $idthirdparty)
 						$linesresp[] = array(
 						'id' => $line->rowid,
 						'type' => $line->product_type,
-						'fk_commande' => $line->fk_commande,
+						'fk_order' => $line->fk_order,
 						'fk_parent_line' => $line->fk_parent_line,
 						'desc' => $line->desc,
 						'qty' => $line->qty,
@@ -625,7 +625,7 @@ function getOrdersForThirdParty($authentication, $idthirdparty)
 					'total' => $order->total_ttc,
 					'project_id' => $order->fk_project,
 
-					'date' => $order->date_commande ? dol_print_date($order->date_commande, 'dayrfc') : '',
+					'date' => $order->date_order ? dol_print_date($order->date_order, 'dayrfc') : '',
 
 					'source' => $order->source,
 					'billed' => $order->billed,
@@ -674,7 +674,7 @@ function getOrdersForThirdParty($authentication, $idthirdparty)
  * Create order
  *
  * @param	array{login:string,password:string,entity:?int,dolibarrkey:string}		$authentication		Array of authentication information
- * @param array{id:string,ref:string,ref_client:string,ref_ext:string,thirdparty_id:int,status:int,billed:string,total_net:float,total_vat:float,total_localtax1:float,total_localtax2:float,total:float,date:string,date_creation:string,date_validation:string,date_modification:string,source:string,note_private:string,note_public:string,project_id:string,mode_reglement_id:string,mode_reglement_code:string,mode_reglement:string,cond_reglement_id:string,cond_reglement_code:string,cond_reglement:string,cond_reglement_doc:string,date_livraison:int,demand_reason_id:string,lines:array{lines:array<array{id:string,type:int,fk_commande:int,fk_parent_line:int,desc:string,qty:float,price:float,unitprice:float,vat_rate:float,remise:float,remise_percent:float,total_net:float,total_vat:float,total:float,date_start:int,date_end:int,product_id:int,product_ref:string,product_label:string,product_desc:string}>}}		$order		Order info
+ * @param array{id:string,ref:string,ref_client:string,ref_ext:string,thirdparty_id:int,status:int,billed:string,total_net:float,total_vat:float,total_localtax1:float,total_localtax2:float,total:float,date:string,date_creation:string,date_validation:string,date_modification:string,source:string,note_private:string,note_public:string,project_id:string,mode_reglement_id:string,mode_reglement_code:string,mode_reglement:string,cond_reglement_id:string,cond_reglement_code:string,cond_reglement:string,cond_reglement_doc:string,date_livraison:int,demand_reason_id:string,lines:array{lines:array<array{id:string,type:int,fk_order:int,fk_parent_line:int,desc:string,qty:float,price:float,unitprice:float,vat_rate:float,remise:float,remise_percent:float,total_net:float,total_vat:float,total:float,date_start:int,date_end:int,product_id:int,product_ref:string,product_label:string,product_desc:string}>}}		$order		Order info
  * @return array{result:array{result_code:string,result_label:string}} Array result
  */
 function createOrder($authentication, $order)
@@ -718,7 +718,7 @@ function createOrder($authentication, $order)
 		$newobject->demand_reason_id = (int) $order['demand_reason_id'];
 		$newobject->date_creation = $now;
 
-		$elementtype = 'commande';
+		$elementtype = 'order';
 
 		// Retrieve all extrafield for order
 		// fetch optionals attributes and labels
@@ -759,7 +759,7 @@ function createOrder($authentication, $order)
 			$newline->date_start = $line['date_start'];
 			$newline->date_end = $line['date_end'];
 
-			$elementtype = 'commandedet';
+			$elementtype = 'orderdet';
 
 			// Retrieve all extrafield for lines
 			// fetch optionals attributes and labels
@@ -842,7 +842,7 @@ function validOrder($authentication, $id = 0, $id_warehouse = 0)
 	if (!$error) {
 		$fuser->loadRights();
 
-		if ($fuser->hasRight('commande', 'lire')) {
+		if ($fuser->hasRight('order', 'lire')) {
 			$order = new Order($db);
 			$result = $order->fetch($id);
 
@@ -957,7 +957,7 @@ function updateOrder($authentication, $order)
 				}
 			}
 
-			$elementtype = 'commande';
+			$elementtype = 'order';
 
 			//Retrieve all extrafield for object
 			// fetch optionals attributes and labels
@@ -967,7 +967,7 @@ function updateOrder($authentication, $order)
 				foreach ($extrafields->attributes[$elementtype]['label'] as $key => $label) {
 					$key = 'options_'.$key;
 					if (isset($order[$key])) {
-						$result = $object->setValueFrom($key, $order[$key], 'commande_extrafields');
+						$result = $object->setValueFrom($key, $order[$key], 'order_extrafields');
 					}
 				}
 			}

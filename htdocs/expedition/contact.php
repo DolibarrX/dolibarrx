@@ -64,7 +64,7 @@ if ($id > 0 || !empty($ref)) {
 	}
 
 	// Linked documents
-	if ($typeobject == 'commande' && $object->origin_object->id && isModEnabled('order')) {
+	if ($typeobject == 'order' && $object->origin_object->id && isModEnabled('order')) {
 		$objectsrc = new Order($db);
 		$objectsrc->fetch($object->origin_object->id);
 	}
@@ -200,13 +200,13 @@ if ($id > 0 || !empty($ref)) {
 	print '<table class="border centpercent tableforfield">';
 
 	// Linked documents
-	if ($typeobject == 'commande' && $object->origin_object->id && isModEnabled('order')) {
+	if ($typeobject == 'order' && $object->origin_object->id && isModEnabled('order')) {
 		print '<tr><td class="titlefield">';
 		$objectsrc = new Order($db);
 		$objectsrc->fetch($object->origin_object->id);
 		print $langs->trans("RefOrder").'</td>';
 		print '<td colspan="3">';
-		print $objectsrc->getNomUrl(1, 'commande');
+		print $objectsrc->getNomUrl(1, 'order');
 		print "</td>\n";
 		print '</tr>';
 	}

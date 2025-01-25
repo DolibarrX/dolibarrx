@@ -26,7 +26,7 @@ require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 require_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';
 //require_once DOL_DOCUMENT_ROOT.'/core/lib/stripe.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
-require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 if (isModEnabled('accounting')) {
 	require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingjournal.class.php';
@@ -211,7 +211,7 @@ if (!$rowid) {
 			////if ($charge->metadata->dol_type=="order"){
 			//	$object = new Order($db);
 			//	$object->fetch($charge->metadata->dol_id);
-			//	print "<a href='".DOL_URL_ROOT."/commande/card.php?id=".$charge->metadata->dol_id."'>".img_picto('', 'object_order')." ".$object->ref."</a>";
+			//	print "<a href='".DOL_URL_ROOT."/order/card.php?id=".$charge->metadata->dol_id."'>".img_picto('', 'object_order')." ".$object->ref."</a>";
 			//} elseif ($charge->metadata->dol_type=="invoice"){
 			//	$object = new Facture($db);
 			//	$object->fetch($charge->metadata->dol_id);

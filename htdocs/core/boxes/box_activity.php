@@ -55,7 +55,7 @@ class box_activity extends ModeleBoxes
 
 		$this->hidden = !(
 			(isModEnabled('invoice') && $user->hasRight('facture', 'read'))
-			|| (isModEnabled('order') && $user->hasRight('commande', 'read'))
+			|| (isModEnabled('order') && $user->hasRight('order', 'read'))
 			|| (isModEnabled('propal') && $user->hasRight('propal', 'read'))
 		);
 	}
@@ -184,21 +184,21 @@ class box_activity extends ModeleBoxes
 		}
 
 		// list the summary of the orders
-		if (isModEnabled('order') && $user->hasRight("commande", "lire")) {
-			include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-			$commandestatic = new Order($this->db);
+		if (isModEnabled('order') && $user->hasRight("order", "lire")) {
+			include_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
+			$orderstatic = new Order($this->db);
 
 			$langs->load("orders");
 
 			$data = array();
 
 			$sql = "SELECT c.fk_statut, sum(c.total_ttc) as Mnttot, count(*) as nb";
-			$sql .= " FROM (".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."commande as c";
+			$sql .= " FROM (".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."order as c";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 			}
 			$sql .= ")";
-			$sql .= " WHERE c.entity IN (".getEntity('commande').")";
+			$sql .= " WHERE c.entity IN (".getEntity('order').")";
 			$sql .= " AND c.fk_soc = s.rowid";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
@@ -206,7 +206,7 @@ class box_activity extends ModeleBoxes
 			if ($user->socid) {
 				$sql .= " AND s.rowid = ".((int) $user->socid);
 			}
-			$sql .= " AND c.date_commande >= '".$this->db->idate($tmpdate)."'";
+			$sql .= " AND c.date_order >= '".$this->db->idate($tmpdate)."'";
 			$sql .= " GROUP BY c.fk_statut";
 			$sql .= " ORDER BY c.fk_statut DESC";
 
@@ -229,21 +229,21 @@ class box_activity extends ModeleBoxes
 				while ($j < count($data)) {
 					$this->info_box_contents[$line][0] = array(
 						'td' => 'class="left" width="16"',
-						'url' => DOL_URL_ROOT."/commande/list.php?mainmenu=commercial&amp;leftmenu=orders&amp;search_status=".$data[$j]->fk_statut,
-						'tooltip' => $langs->trans("Orders")."&nbsp;".$commandestatic->LibStatut($data[$j]->fk_statut, 0, 0),
+						'url' => DOL_URL_ROOT."/order/list.php?mainmenu=commercial&amp;leftmenu=orders&amp;search_status=".$data[$j]->fk_statut,
+						'tooltip' => $langs->trans("Orders")."&nbsp;".$orderstatic->LibStatut($data[$j]->fk_statut, 0, 0),
 						'logo' => 'object_order',
 					);
 
 					$this->info_box_contents[$line][1] = array(
 						'td' => '',
-						'text' => $langs->trans("Orders")."&nbsp;".$commandestatic->LibStatut($data[$j]->fk_statut, 0, 0),
+						'text' => $langs->trans("Orders")."&nbsp;".$orderstatic->LibStatut($data[$j]->fk_statut, 0, 0),
 					);
 
 					$this->info_box_contents[$line][2] = array(
 						'td' => 'class="right"',
 						'text' => $data[$j]->nb,
-						'tooltip' => $langs->trans("Orders")."&nbsp;".$commandestatic->LibStatut($data[$j]->fk_statut, 0, 0),
-						'url' => DOL_URL_ROOT."/commande/list.php?mainmenu=commercial&amp;leftmenu=orders&amp;search_status=".$data[$j]->fk_statut,
+						'tooltip' => $langs->trans("Orders")."&nbsp;".$orderstatic->LibStatut($data[$j]->fk_statut, 0, 0),
+						'url' => DOL_URL_ROOT."/order/list.php?mainmenu=commercial&amp;leftmenu=orders&amp;search_status=".$data[$j]->fk_statut,
 					);
 					$totalnb += $data[$j]->nb;
 
@@ -253,7 +253,7 @@ class box_activity extends ModeleBoxes
 					);
 					$this->info_box_contents[$line][4] = array(
 						'td' => 'class="right" width="18"',
-						'text' => $commandestatic->LibStatut($data[$j]->fk_statut, 0, 3),
+						'text' => $orderstatic->LibStatut($data[$j]->fk_statut, 0, 3),
 					);
 
 					$line++;

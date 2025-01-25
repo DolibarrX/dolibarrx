@@ -151,7 +151,7 @@ class ExpeditionLigne extends CommonObjectLine
 
 
 	/**
-	 * @var float qty asked From llx_commandedet or llx_propaldet
+	 * @var float qty asked From llx_orderdet or llx_propaldet
 	 */
 	public $qty_asked;
 

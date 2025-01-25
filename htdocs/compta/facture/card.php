@@ -56,7 +56,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/invoice.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 if (isModEnabled('order')) {
-	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 }
 if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
@@ -1531,7 +1531,7 @@ if (empty($resHook)) {
 
 					// For compatibility
 					if ($element == 'order') {
-						$element = $subelement = 'commande';
+						$element = $subelement = 'order';
 					}
 					if ($element == 'propal') {
 						$element = 'comm/propal';
@@ -1559,9 +1559,9 @@ if (empty($resHook)) {
 						$exp = new Expedition($db);
 						$exp->fetch($object->origin_id);
 						$exp->fetchObjectLinked();
-						if (is_array($exp->linkedObjectsIds['commande']) && count($exp->linkedObjectsIds['commande']) > 0) {
-							foreach ($exp->linkedObjectsIds['commande'] as $key => $value) {
-								$object->linked_objects['commande'] = $value;
+						if (is_array($exp->linkedObjectsIds['order']) && count($exp->linkedObjectsIds['order']) > 0) {
+							foreach ($exp->linkedObjectsIds['order'] as $key => $value) {
+								$object->linked_objects['order'] = $value;
 							}
 						}
 					}
@@ -3028,7 +3028,7 @@ if (empty($resHook)) {
 
 		if (!empty($importLines) && is_array($importLines) && !empty($fromElement) && ctype_alpha($fromElement) && !empty($fromElementid)) {
 			$lineClassName = '';
-			if ($fromElement == 'commande') {
+			if ($fromElement == 'order') {
 				dol_include_once('/'.$fromElement.'/class/'.$fromElement.'.class.php');
 				$lineClassName = 'OrderLine';
 			} elseif ($fromElement == 'propal') {
@@ -3275,8 +3275,8 @@ if ($action == 'create') {
 			}
 		} else {
 			// For compatibility
-			if ($element == 'order' || $element == 'commande') {
-				$element = $subelement = 'commande';
+			if ($element == 'order' || $element == 'order') {
+				$element = $subelement = 'order';
 			}
 			if ($element == 'propal') {
 				$element = 'comm/propal';
@@ -3592,7 +3592,7 @@ if ($action == 'create') {
 		print '<td>';
 		print $desc;
 		print '</td>';
-		if ((($origin == 'propal') || ($origin == 'commande')) && (!empty($originid))) {
+		if ((($origin == 'propal') || ($origin == 'order')) && (!empty($originid))) {
 			/*print '<td class="nowrap" style="padding-left: 5px">';
 			$arraylist = array(
 				//'amount' => $langs->transnoentitiesnoconv('FixAmount', $langs->transnoentitiesnoconv('Deposit')),
@@ -3608,7 +3608,7 @@ if ($action == 'create') {
 		print '</tr></table>';
 		print '</div></div>';
 
-		if ((empty($origin)) || ((($origin == 'propal') || ($origin == 'commande')) && (!empty($originid)))) {
+		if ((empty($origin)) || ((($origin == 'propal') || ($origin == 'order')) && (!empty($originid)))) {
 			// Deposit - Down payment
 			if (!getDolGlobalString('INVOICE_DISABLE_DEPOSIT')) {
 				print '<div class="tagtr listofinvoicetype"><div class="tagtd listofinvoicetype">';
@@ -3653,7 +3653,7 @@ if ($action == 'create') {
 				$desc = $form->textwithpicto($tmp, $langs->transnoentities("InvoiceDepositDesc"), 1, 'help', '', 0, 3, 'depositonsmartphone');
 				print $desc;
 				print '</td>';
-				if (($origin == 'propal') || ($origin == 'commande')) {
+				if (($origin == 'propal') || ($origin == 'order')) {
 					print '<td class="nowrap" style="padding-left: 15px">';
 					$arraylist = array(
 						'amount' => $langs->transnoentitiesnoconv('FixAmount', $langs->transnoentitiesnoconv('Deposit')),
@@ -3699,13 +3699,13 @@ if ($action == 'create') {
 
 				print '<div class="tagtr listofinvoicetype"><div class="tagtd listofinvoicetype">';
 				$tmp = '<input type="radio" name="type" value="5"'.(GETPOST('type') == 5 && GETPOSTINT('originid') ? ' checked' : '');
-				if ($opt == ('<option value ="0" selected>'.$langs->trans('NoSituations').'</option>') || (GETPOST('origin') && GETPOST('origin') != 'facture' && GETPOST('origin') != 'commande')) {
+				if ($opt == ('<option value ="0" selected>'.$langs->trans('NoSituations').'</option>') || (GETPOST('origin') && GETPOST('origin') != 'facture' && GETPOST('origin') != 'order')) {
 					$tmp .= ' disabled';
 				}
 				$tmp .= '> ';
 				$text = $tmp.'<label>'.$langs->trans("InvoiceSituationAsk").'</label> ';
 				$text .= '<select class="flat" id="situations" name="situations"';
-				if ($opt == ('<option value ="0" selected>'.$langs->trans('NoSituations').'</option>') || (GETPOST('origin') && GETPOST('origin') != 'facture' && GETPOST('origin') != 'commande')) {
+				if ($opt == ('<option value ="0" selected>'.$langs->trans('NoSituations').'</option>') || (GETPOST('origin') && GETPOST('origin') != 'facture' && GETPOST('origin') != 'order')) {
 					$text .= ' disabled';
 				}
 				$text .= '>';
@@ -6133,7 +6133,7 @@ if ($action == 'create') {
 		if ($usercancreate
 			&& $object->status == Facture::STATUS_DRAFT
 			&& ($object->type == Facture::TYPE_STANDARD || $object->type == Facture::TYPE_REPLACEMENT || $object->type == Facture::TYPE_DEPOSIT || $object->type == Facture::TYPE_PROFORMA || $object->type == Facture::TYPE_SITUATION)) {
-			$compatibleImportElementsList = array('commande', 'propal'); // import from linked elements
+			$compatibleImportElementsList = array('order', 'propal'); // import from linked elements
 		}
 		$somethingshown = $form->showLinkedObjectBlock($object, $linktoelem, $compatibleImportElementsList);
 

@@ -73,7 +73,7 @@ if (isModEnabled('invoice')) {
 	require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 }
 if (isModEnabled('order')) {
-	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 }
 if (isModEnabled('accounting')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/accounting.lib.php';
@@ -347,8 +347,8 @@ if (empty($resHook)) {
 						'Bom' => '/bom/class/bom.class.php',
 						// do not use Category, it cause foreign key error, merge is done before
 						//'Category' => '/categories/class/category.class.php',
-						'Order' => '/commande/class/commande.class.php',
-						'OrderFournisseur' => '/fourn/class/fournisseur.commande.class.php',
+						'Order' => '/order/class/order.class.php',
+						'OrderFournisseur' => '/fourn/class/fournisseur.order.class.php',
 						'Contrat' => '/contrat/class/contrat.class.php',
 						'Delivery' => '/delivery/class/delivery.class.php',
 						'Facture' => '/compta/facture/class/facture.class.php',
@@ -1070,7 +1070,7 @@ if (empty($resHook)) {
 		$permissiontoaddline = false;
 		$propal = null;
 		$facture = null;
-		$commande = null;
+		$order = null;
 
 		// Get object and test permission
 		if (GETPOST('propalid') > 0) {
@@ -1082,15 +1082,15 @@ if (empty($resHook)) {
 			}
 			$thirdpartyid = $propal->socid;
 			$permissiontoaddline = $user->hasRight('propal', 'creer');
-		} elseif (GETPOST('commandeid') > 0) {
-			$commande = new Order($db);
-			$result = $commande->fetch(GETPOST('commandeid'));
+		} elseif (GETPOST('orderid') > 0) {
+			$order = new Order($db);
+			$result = $order->fetch(GETPOST('orderid'));
 			if ($result <= 0) {
-				dol_print_error($db, $commande->error);
+				dol_print_error($db, $order->error);
 				exit;
 			}
-			$thirdpartyid = $commande->socid;
-			$permissiontoaddline = $user->hasRight('commande', 'creer');
+			$thirdpartyid = $order->socid;
+			$permissiontoaddline = $user->hasRight('order', 'creer');
 		} elseif (GETPOST('factureid') > 0) {
 			$facture = new Facture($db);
 			$result = $facture->fetch(GETPOST('factureid'));
@@ -1200,17 +1200,17 @@ if (empty($resHook)) {
 				}
 
 				setEventMessages($langs->trans("ErrorUnknown").": $result", null, 'errors');
-			} elseif (GETPOST('commandeid') > 0 && $permissiontoaddline && is_object($commande)) {
+			} elseif (GETPOST('orderid') > 0 && $permissiontoaddline && is_object($order)) {
 				// Define cost price for margin calculation
 				$buyprice = 0;
-				if (($result = $commande->defineBuyPrice($pu_ht, price2num(GETPOST('remise_percent'), '', 2), $object->id)) < 0) {
+				if (($result = $order->defineBuyPrice($pu_ht, price2num(GETPOST('remise_percent'), '', 2), $object->id)) < 0) {
 					dol_syslog($langs->trans('FailedToGetCostPrice'));
 					setEventMessages($langs->trans('FailedToGetCostPrice'), null, 'errors');
 				} else {
 					$buyprice = $result;
 				}
 
-				$result = $commande->addline(
+				$result = $order->addline(
 					$desc,
 					$pu_ht,
 					price2num(GETPOST('qty'), 'MS'),
@@ -1237,7 +1237,7 @@ if (empty($resHook)) {
 				);
 
 				if ($result > 0) {
-					header("Location: ".DOL_URL_ROOT."/commande/card.php?id=".urlencode((string) ($commande->id)));
+					header("Location: ".DOL_URL_ROOT."/order/card.php?id=".urlencode((string) ($order->id)));
 					exit;
 				}
 
@@ -3092,16 +3092,16 @@ if (getDolGlobalString('PRODUCT_ADD_FORM_ADD_TO') && $object->id && ($action == 
 	}
 
 	// Order
-	if (isModEnabled('order') && $user->hasRight('commande', 'creer')) {
-		$commande = new Order($db);
+	if (isModEnabled('order') && $user->hasRight('order', 'creer')) {
+		$order = new Order($db);
 
 		$langs->load("orders");
 
-		$othercom = $commande->liste_array(2, 1, null);
+		$othercom = $order->liste_array(2, 1, null);
 		if (is_array($othercom) && count($othercom)) {
 			$html .= '<tr><td style="width: 200px;">';
 			$html .= $langs->trans("AddToDraftOrders").'</td><td>';
-			$html .= $form->selectarray("commandeid", $othercom, 0, 1);
+			$html .= $form->selectarray("orderid", $othercom, 0, 1);
 			$html .= '</td></tr>';
 		} else {
 			$html .= '<tr><td style="width: 200px;">';

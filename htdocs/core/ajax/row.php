@@ -24,7 +24,7 @@
  *                   This ajax page is called when doing an up or down drag and drop.
  *                   Parameters:
  *                   roworder (Example: '1,3,2,4'),
- *                   table_element_line (Example: 'commandedet')
+ *                   table_element_line (Example: 'orderdet')
  *                   fk_element (Example: 'fk_order')
  *                   element_id (Example: 1)
  */
@@ -90,7 +90,7 @@ if (GETPOST('roworder', 'alpha', 3) && GETPOST('table_element_line', 'aZ09', 3)
 	$perm = 0;
 	if ($table_element_line == 'propaldet' && $user->hasRight('propal', 'creer')) {
 		$perm = 1;
-	} elseif ($table_element_line == 'commandedet' && $user->hasRight('commande', 'creer')) {
+	} elseif ($table_element_line == 'orderdet' && $user->hasRight('order', 'creer')) {
 		$perm = 1;
 	} elseif ($table_element_line == 'facturedet' && $user->hasRight('facture', 'creer')) {
 		$perm = 1;
@@ -104,7 +104,7 @@ if (GETPOST('roworder', 'alpha', 3) && GETPOST('table_element_line', 'aZ09', 3)
 		$perm = 1;
 	} elseif ($table_element_line == 'supplier_proposaldet' && $user->hasRight('supplier_proposal', 'creer')) {
 		$perm = 1;
-	} elseif ($table_element_line == 'commande_fournisseurdet' && $user->hasRight('fournisseur', 'commande', 'creer')) {
+	} elseif ($table_element_line == 'order_fournisseurdet' && $user->hasRight('fournisseur', 'order', 'creer')) {
 		$perm = 1;
 	} elseif ($table_element_line == 'facture_fourn_det' && $user->hasRight('fournisseur', 'facture', 'creer')) {
 		$perm = 1;
@@ -174,7 +174,7 @@ if (GETPOST('roworder', 'alpha', 3) && GETPOST('table_element_line', 'aZ09', 3)
 
 	// Reorder line to have position of children lines sharing same counter than parent lines
 	// This should be useless because there is no need to have children sharing same counter than parent, but well, it's cleaner into database.
-	if (in_array($fk_element, array('fk_facture', 'fk_propal', 'fk_commande','fk_contrat'))) {
+	if (in_array($fk_element, array('fk_facture', 'fk_propal', 'fk_order','fk_contrat'))) {
 		$result = $row->line_order(true);
 	}
 } else {

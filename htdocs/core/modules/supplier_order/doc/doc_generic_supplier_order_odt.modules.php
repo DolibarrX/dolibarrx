@@ -29,7 +29,7 @@
  *	\brief      File of class to build ODT documents for supplier orders
  */
 
-require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_commandefournisseur.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_orderfournisseur.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
@@ -235,16 +235,16 @@ class doc_generic_supplier_order_odt extends ModelePDFSuppliersOrders
 
 		$outputlangs->loadLangs(array("main", "dict", "companies", "bills"));
 
-		if ($config->fournisseur->commande->dir_output) {
+		if ($config->fournisseur->order->dir_output) {
 			$object->fetch_thirdparty();
 
 			if ($object->specimen) {
-				$dir = $config->fournisseur->commande->dir_output;
+				$dir = $config->fournisseur->order->dir_output;
 				$file = $dir."/SPECIMEN.pdf";
 			} else {
 				$objectref = dol_sanitizeFileName($object->ref);
 				$objectrefsupplier = dol_sanitizeFileName($object->ref_supplier);
-				$dir = $config->fournisseur->commande->dir_output.'/'.$objectref;
+				$dir = $config->fournisseur->order->dir_output.'/'.$objectref;
 				$file = $dir."/".$objectref.".pdf";
 				if (getDolGlobalString('SUPPLIER_REF_IN_NAME')) {
 					$file = $dir."/".$objectref.($objectrefsupplier ? "_".$objectrefsupplier : "").".pdf";
@@ -283,9 +283,9 @@ class doc_generic_supplier_order_odt extends ModelePDFSuppliersOrders
 				//print "file=".$file;
 				//print "conf->societe->dir_temp=".$config->societe->dir_temp;
 
-				dol_mkdir($config->fournisseur->commande->dir_temp);
-				if (!is_writable($config->fournisseur->commande->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->fournisseur->commande->dir_temp);
+				dol_mkdir($config->fournisseur->order->dir_temp);
+				if (!is_writable($config->fournisseur->order->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->fournisseur->order->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}

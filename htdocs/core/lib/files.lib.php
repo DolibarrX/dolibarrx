@@ -1709,7 +1709,7 @@ function dol_delete_preview($object)
 	$element = $object->element;
 
 	if ($object->element == 'order_supplier') {
-		$dir = $config->fournisseur->commande->dir_output;
+		$dir = $config->fournisseur->order->dir_output;
 	} elseif ($object->element == 'invoice_supplier') {
 		$dir = $config->fournisseur->facture->dir_output;
 	} elseif ($object->element == 'project') {
@@ -1792,7 +1792,7 @@ function dol_meta_create($object)
 	$element = $object->element;
 
 	if ($object->element == 'order_supplier') {
-		$dir = $config->fournisseur->dir_output . '/commande';
+		$dir = $config->fournisseur->dir_output . '/order';
 	} elseif ($object->element == 'invoice_supplier') {
 		$dir = $config->fournisseur->dir_output . '/facture';
 	} elseif ($object->element == 'project') {
@@ -2986,9 +2986,9 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 			$accessallowed = 1;
 		}
 		$original_file = $config->propal->multidir_output[$entity] . '/' . $original_file;
-	} elseif ($modulepart == 'apercucommande' && !empty($config->order->multidir_output[$entity])) {
-		// Wrapping pour les apercu commande
-		if ($fuser->hasRight('commande', $lire)) {
+	} elseif ($modulepart == 'apercuorder' && !empty($config->order->multidir_output[$entity])) {
+		// Wrapping pour les apercu order
+		if ($fuser->hasRight('order', $lire)) {
 			$accessallowed = 1;
 		}
 		$original_file = $config->order->multidir_output[$entity] . '/' . $original_file;
@@ -3010,12 +3010,12 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 			$accessallowed = 1;
 		}
 		$original_file = $config->supplier_proposal->dir_output . '/' . $original_file;
-	} elseif (($modulepart == 'apercusupplier_order') && !empty($config->fournisseur->commande->dir_output)) {
+	} elseif (($modulepart == 'apercusupplier_order') && !empty($config->fournisseur->order->dir_output)) {
 		// Wrapping pour les apercu supplier order
-		if ($fuser->hasRight('fournisseur', 'commande', $lire)) {
+		if ($fuser->hasRight('fournisseur', 'order', $lire)) {
 			$accessallowed = 1;
 		}
-		$original_file = $config->fournisseur->commande->dir_output . '/' . $original_file;
+		$original_file = $config->fournisseur->order->dir_output . '/' . $original_file;
 	} elseif (($modulepart == 'apercusupplier_invoice') && !empty($config->fournisseur->facture->dir_output)) {
 		// Wrapping pour les apercu supplier invoice
 		if ($fuser->hasRight('fournisseur', $lire)) {
@@ -3059,16 +3059,16 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 		}
 		$original_file = $config->propal->multidir_temp[$entity] . '/' . $original_file;
 	} elseif ($modulepart == 'orderstats' && !empty($config->order->dir_temp)) {
-		// Wrapping pour les images des stats commandes
-		if ($fuser->hasRight('commande', $lire)) {
+		// Wrapping pour les images des stats orders
+		if ($fuser->hasRight('order', $lire)) {
 			$accessallowed = 1;
 		}
 		$original_file = $config->order->dir_temp . '/' . $original_file;
 	} elseif ($modulepart == 'orderstatssupplier' && !empty($config->fournisseur->dir_output)) {
-		if ($fuser->hasRight('fournisseur', 'commande', $lire)) {
+		if ($fuser->hasRight('fournisseur', 'order', $lire)) {
 			$accessallowed = 1;
 		}
-		$original_file = $config->fournisseur->commande->dir_temp . '/' . $original_file;
+		$original_file = $config->fournisseur->order->dir_temp . '/' . $original_file;
 	} elseif ($modulepart == 'billstats' && !empty($config->invoice->dir_temp)) {
 		// Wrapping pour les images des stats factures
 		if ($fuser->hasRight('facture', $lire)) {
@@ -3215,7 +3215,7 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 		}
 		$original_file = $config->propal->multidir_output[$entity] . '/temp/massgeneration/' . $user->id . '/' . $original_file;
 	} elseif ($modulepart == 'massfilesarea_orders') {
-		if ($fuser->hasRight('commande', $lire) || preg_match('/^specimen/i', $original_file)) {
+		if ($fuser->hasRight('order', $lire) || preg_match('/^specimen/i', $original_file)) {
 			$accessallowed = 1;
 		}
 		$original_file = $config->order->multidir_output[$entity] . '/temp/massgeneration/' . $user->id . '/' . $original_file;
@@ -3250,10 +3250,10 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 		}
 		$original_file = $config->supplier_proposal->dir_output . '/temp/massgeneration/' . $user->id . '/' . $original_file;
 	} elseif ($modulepart == 'massfilesarea_supplier_order') {
-		if ($fuser->hasRight('fournisseur', 'commande', $lire) || preg_match('/^specimen/i', $original_file)) {
+		if ($fuser->hasRight('fournisseur', 'order', $lire) || preg_match('/^specimen/i', $original_file)) {
 			$accessallowed = 1;
 		}
-		$original_file = $config->fournisseur->commande->dir_output . '/temp/massgeneration/' . $user->id . '/' . $original_file;
+		$original_file = $config->fournisseur->order->dir_output . '/temp/massgeneration/' . $user->id . '/' . $original_file;
 	} elseif ($modulepart == 'massfilesarea_supplier_invoice') {
 		if ($fuser->hasRight('fournisseur', 'facture', $lire) || preg_match('/^specimen/i', $original_file)) {
 			$accessallowed = 1;
@@ -3285,13 +3285,13 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 		}
 		$original_file = $config->propal->multidir_output[$entity] . '/' . $original_file;
 		$sqlprotectagainstexternals = "SELECT fk_soc as fk_soc FROM " . MAIN_DB_PREFIX . "propal WHERE ref='" . $db->escape($refname) . "' AND entity IN (" . getEntity('propal') . ")";
-	} elseif (($modulepart == 'commande' || $modulepart == 'order') && !empty($config->order->multidir_output[$entity])) {
-		// Wrapping pour les commandes
-		if ($fuser->hasRight('commande', $lire) || preg_match('/^specimen/i', $original_file)) {
+	} elseif (($modulepart == 'order' || $modulepart == 'order') && !empty($config->order->multidir_output[$entity])) {
+		// Wrapping pour les orders
+		if ($fuser->hasRight('order', $lire) || preg_match('/^specimen/i', $original_file)) {
 			$accessallowed = 1;
 		}
 		$original_file = $config->order->multidir_output[$entity] . '/' . $original_file;
-		$sqlprotectagainstexternals = "SELECT fk_soc as fk_soc FROM " . MAIN_DB_PREFIX . "commande WHERE ref='" . $db->escape($refname) . "' AND entity IN (" . getEntity('order') . ")";
+		$sqlprotectagainstexternals = "SELECT fk_soc as fk_soc FROM " . MAIN_DB_PREFIX . "order WHERE ref='" . $db->escape($refname) . "' AND entity IN (" . getEntity('order') . ")";
 	} elseif ($modulepart == 'project' && !empty($config->project->multidir_output[$entity])) {
 		// Wrapping pour les projects
 		if ($fuser->hasRight('projet', $lire) || preg_match('/^specimen/i', $original_file)) {
@@ -3319,13 +3319,13 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 		}
 		$original_file = $config->project->multidir_output[$entity] . '/' . $original_file;
 		$sqlprotectagainstexternals = "SELECT fk_soc as fk_soc FROM " . MAIN_DB_PREFIX . "projet WHERE ref='" . $db->escape($refname) . "' AND entity IN (" . getEntity('project') . ")";
-	} elseif (($modulepart == 'commande_fournisseur' || $modulepart == 'order_supplier') && !empty($config->fournisseur->commande->dir_output)) {
-		// Wrapping pour les commandes fournisseurs
-		if ($fuser->hasRight('fournisseur', 'commande', $lire) || preg_match('/^specimen/i', $original_file)) {
+	} elseif (($modulepart == 'order_fournisseur' || $modulepart == 'order_supplier') && !empty($config->fournisseur->order->dir_output)) {
+		// Wrapping pour les orders fournisseurs
+		if ($fuser->hasRight('fournisseur', 'order', $lire) || preg_match('/^specimen/i', $original_file)) {
 			$accessallowed = 1;
 		}
-		$original_file = $config->fournisseur->commande->dir_output . '/' . $original_file;
-		$sqlprotectagainstexternals = "SELECT fk_soc as fk_soc FROM " . MAIN_DB_PREFIX . "commande_fournisseur WHERE ref='" . $db->escape($refname) . "' AND entity=" . $config->entity;
+		$original_file = $config->fournisseur->order->dir_output . '/' . $original_file;
+		$sqlprotectagainstexternals = "SELECT fk_soc as fk_soc FROM " . MAIN_DB_PREFIX . "order_fournisseur WHERE ref='" . $db->escape($refname) . "' AND entity=" . $config->entity;
 	} elseif (($modulepart == 'facture_fournisseur' || $modulepart == 'invoice_supplier') && !empty($config->fournisseur->facture->dir_output)) {
 		// Wrapping pour les factures fournisseurs
 		if ($fuser->hasRight('fournisseur', 'facture', $lire) || preg_match('/^specimen/i', $original_file)) {

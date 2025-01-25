@@ -21,18 +21,18 @@
  */
 
 /**
- *	\file       htdocs/core/modules/supplier_order/mod_commande_fournisseur_orchidee.php
+ *	\file       htdocs/core/modules/supplier_order/mod_order_fournisseur_orchidee.php
  *	\ingroup    order
  *	\brief      File for class for 'orchidee' type numbering the supplier orders
  */
 
-require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_commandefournisseur.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_orderfournisseur.php';
 
 
 /**
  *	Class providing the 'Orchidee' numbering models for supplier orders
  */
-class mod_commande_fournisseur_orchidee extends ModeleNumRefSuppliersOrders
+class mod_order_fournisseur_orchidee extends ModeleNumRefSuppliersOrders
 {
 	/**
 	 * Dolibarr version of the loaded document
@@ -112,7 +112,7 @@ class mod_commande_fournisseur_orchidee extends ModeleNumRefSuppliersOrders
 	{
 		global $db, $langs;
 
-		require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.commande.class.php';
+		require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.order.class.php';
 		require_once DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php';
 
 		$supplierorder = new OrderFournisseur($db);
@@ -149,7 +149,7 @@ class mod_commande_fournisseur_orchidee extends ModeleNumRefSuppliersOrders
 			return 0;
 		}
 
-		$numFinal = get_next_value($db, $mask, 'commande_fournisseur', 'ref', '', $objsoc, $object->date_commande);
+		$numFinal = get_next_value($db, $mask, 'order_fournisseur', 'ref', '', $objsoc, $object->date_order);
 
 		return  $numFinal;
 	}

@@ -52,7 +52,7 @@ if (isModEnabled("propal")) {
 	require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';
 }
 if (isModEnabled('order')) {
-	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 }
 if (isModEnabled("shipping")) {
 	require_once DOL_DOCUMENT_ROOT.'/expedition/class/expedition.class.php';
@@ -777,14 +777,14 @@ if ($object->id > 0) {
 		}
 	}
 
-	if (isModEnabled('order') && $user->hasRight('commande', 'lire')) {
+	if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
 		// Box orders
 		$tmp = $object->getOutstandingOrders();
 		$outstandingOpened = $tmp['opened'];
 		$outstandingTotal = $tmp['total_ht'];
 		$outstandingTotalIncTax = $tmp['total_ttc'];
 		$text = $langs->trans("OverAllOrders");
-		$link = DOL_URL_ROOT.'/commande/list.php?socid='.$object->id;
+		$link = DOL_URL_ROOT.'/order/list.php?socid='.$object->id;
 		$icon = 'bill';
 		if ($link) {
 			$boxstat .= '<a href="'.$link.'" class="boxstatsindicator thumbstat nobold nounderline">';
@@ -982,31 +982,31 @@ if ($object->id > 0) {
 	/*
 	 * Latest orders
 	 */
-	if (isModEnabled('order') && $user->hasRight('commande', 'lire')) {
+	if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
 		$sql = "SELECT s.nom, s.rowid";
 		$sql .= ", c.rowid as cid, c.entity, c.fk_projet, c.total_ht";
 		$sql .= ", c.total_tva";
 		$sql .= ", c.total_ttc";
 		$sql .= ", c.ref, c.ref_client, c.fk_statut, c.facture";
-		$sql .= ", c.date_commande as dc";
+		$sql .= ", c.date_order as dc";
 		$sql .= ", c.facture as billed";
-		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."commande as c";
+		$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."order as c";
 		$sql .= " WHERE c.fk_soc = s.rowid ";
 		$sql .= " AND s.rowid = ".((int) $object->id);
-		$sql .= " AND c.entity IN (".getEntity('commande').')';
-		$sql .= " ORDER BY c.date_commande DESC";
+		$sql .= " AND c.entity IN (".getEntity('order').')';
+		$sql .= " ORDER BY c.date_order DESC";
 
 		$resql = $db->query($sql);
 		if ($resql) {
-			$commande_static = new Order($db);
+			$order_static = new Order($db);
 
 			$num = $db->num_rows($resql);
 			if ($num > 0) {
 				// Check if there are orders billable
 				$sql2 = 'SELECT s.nom, s.rowid as socid, s.client, c.rowid, c.ref, c.total_ht, c.ref_client,';
-				$sql2 .= ' c.date_valid, c.date_commande, c.date_livraison, c.fk_statut, c.facture as billed';
+				$sql2 .= ' c.date_valid, c.date_order, c.date_livraison, c.fk_statut, c.facture as billed';
 				$sql2 .= ' FROM '.MAIN_DB_PREFIX.'societe as s';
-				$sql2 .= ', '.MAIN_DB_PREFIX.'commande as c';
+				$sql2 .= ', '.MAIN_DB_PREFIX.'order as c';
 				$sql2 .= ' WHERE c.fk_soc = s.rowid';
 				$sql2 .= ' AND s.rowid = '.((int) $object->id);
 				// Show orders with status validated, shipping started and delivered (well any order we can bill)
@@ -1020,8 +1020,8 @@ if ($object->id > 0) {
 				print '<table class="noborder centpercent lastrecordtable">';
 
 				print '<tr class="liste_titre">';
-				print '<td colspan="5"><table width="100%" class="nobordernopadding"><tr><td>'.$langs->trans("LastCustomerOrders", ($num <= $MAXLIST ? "" : $MAXLIST)).'</td><td class="right"><a class="notasortlink" href="'.DOL_URL_ROOT.'/commande/list.php?socid='.$object->id.'"><span class="hideonsmartphone">'.$langs->trans("AllOrders").'</span><span class="badge marginleftonlyshort">'.$num.'</span></a></td>';
-				print '<td width="20px" class="right"><a href="'.DOL_URL_ROOT.'/commande/stats/index.php?socid='.$object->id.'">'.img_picto($langs->trans("Statistics"), 'stats').'</a></td>';
+				print '<td colspan="5"><table width="100%" class="nobordernopadding"><tr><td>'.$langs->trans("LastCustomerOrders", ($num <= $MAXLIST ? "" : $MAXLIST)).'</td><td class="right"><a class="notasortlink" href="'.DOL_URL_ROOT.'/order/list.php?socid='.$object->id.'"><span class="hideonsmartphone">'.$langs->trans("AllOrders").'</span><span class="badge marginleftonlyshort">'.$num.'</span></a></td>';
+				print '<td width="20px" class="right"><a href="'.DOL_URL_ROOT.'/order/stats/index.php?socid='.$object->id.'">'.img_picto($langs->trans("Statistics"), 'stats').'</a></td>';
 				print '</tr></table></td>';
 				print '</tr>';
 			}
@@ -1030,20 +1030,20 @@ if ($object->id > 0) {
 			while ($i < $num && $i < $MAXLIST) {
 				$objp = $db->fetch_object($resql);
 
-				$commande_static->id = $objp->cid;
-				$commande_static->ref = $objp->ref;
-				$commande_static->ref_client = $objp->ref_client;
-				$commande_static->fk_project = $objp->fk_projet;
-				$commande_static->total_ht = $objp->total_ht;
-				$commande_static->total_tva = $objp->total_tva;
-				$commande_static->total_ttc = $objp->total_ttc;
-				$commande_static->billed = $objp->billed;
+				$order_static->id = $objp->cid;
+				$order_static->ref = $objp->ref;
+				$order_static->ref_client = $objp->ref_client;
+				$order_static->fk_project = $objp->fk_projet;
+				$order_static->total_ht = $objp->total_ht;
+				$order_static->total_tva = $objp->total_tva;
+				$order_static->total_ttc = $objp->total_ttc;
+				$order_static->billed = $objp->billed;
 
 				print '<tr class="oddeven">';
 				print '<td class="nowraponall">';
-				print $commande_static->getNomUrl(1);
+				print $order_static->getNomUrl(1);
 				// Preview
-				$filedir = $config->commande->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
+				$filedir = $config->order->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
 				$file_list = null;
 				if (!empty($filedir)) {
 					$file_list = dol_dir_list($filedir, 'files', 0, dol_sanitizeFileName($objp->ref).'.pdf', '(\.meta|_preview.*.*\.png)$', 'date', SORT_DESC);
@@ -1066,22 +1066,22 @@ if ($object->id > 0) {
 						}
 					}
 					$relativepath = dol_sanitizeFileName($objp->ref).'/'.dol_sanitizeFileName($objp->ref).'.pdf';
-					print $formfile->showPreview($file_list, $commande_static->element, $relativepath, 0, $param);
+					print $formfile->showPreview($file_list, $order_static->element, $relativepath, 0, $param);
 				}
 				print '</td><td class="left">';
-				if ($commande_static->fk_project > 0) {
-					$project->fetch($commande_static->fk_project);
+				if ($order_static->fk_project > 0) {
+					$project->fetch($order_static->fk_project);
 					print $project->getNomUrl(1);
 				}
 				// $filename = dol_sanitizeFileName($objp->ref);
 				// $filedir = $config->order->multidir_output[$objp->entity].'/'.dol_sanitizeFileName($objp->ref);
-				// $urlsource = '/commande/card.php?id='.$objp->cid;
-				// print $formfile->getDocumentsLink($commande_static->element, $filename, $filedir);
+				// $urlsource = '/order/card.php?id='.$objp->cid;
+				// print $formfile->getDocumentsLink($order_static->element, $filename, $filedir);
 				print '</td>';
 
 				print '<td class="right" width="80px">'.dol_print_date($db->jdate($objp->dc), 'day')."</td>\n";
 				print '<td class="right nowraponall">'.price($objp->total_ht).'</td>';
-				print '<td class="right" style="min-width: 60px" class="nowrap">'.$commande_static->LibStatut($objp->fk_statut, $objp->facture, 5).'</td></tr>';
+				print '<td class="right" style="min-width: 60px" class="nowrap">'.$order_static->LibStatut($objp->fk_statut, $objp->facture, 5).'</td></tr>';
 				$i++;
 			}
 			$db->free($resql);
@@ -1696,9 +1696,9 @@ if ($object->id > 0) {
 			print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/comm/propal/card.php?socid='.$object->id.'&action=create">'.$langs->trans("AddProp").'</a></div>';
 		}
 
-		if (isModEnabled('order') && $user->hasRight('commande', 'creer') && $object->status == 1) {
+		if (isModEnabled('order') && $user->hasRight('order', 'creer') && $object->status == 1) {
 			$langs->load("orders");
-			print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/commande/card.php?socid='.$object->id.'&action=create">'.$langs->trans("AddOrder").'</a></div>';
+			print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/order/card.php?socid='.$object->id.'&action=create">'.$langs->trans("AddOrder").'</a></div>';
 		}
 
 		if ($user->hasRight('contrat', 'creer') && $object->status == 1) {
@@ -1737,7 +1737,7 @@ if ($object->id > 0) {
 				if (isModEnabled('order')) {
 					if ($object->client != 0 && $object->client != 2) {
 						if (!empty($orders2invoice) && $orders2invoice > 0) {
-							print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/commande/list.php?socid='.$object->id.'&search_billed=0&autoselectall=1">'.$langs->trans("CreateInvoiceForThisCustomer").'</a></div>';
+							print '<div class="inline-block divButAction"><a class="butAction" href="'.DOL_URL_ROOT.'/order/list.php?socid='.$object->id.'&search_billed=0&autoselectall=1">'.$langs->trans("CreateInvoiceForThisCustomer").'</a></div>';
 						} else {
 							print '<div class="inline-block divButAction"><a class="butActionRefused classfortooltip" title="'.dol_escape_js($langs->trans("NoOrdersToInvoice")).'" href="#">'.$langs->trans("CreateInvoiceForThisCustomer").'</a></div>';
 						}

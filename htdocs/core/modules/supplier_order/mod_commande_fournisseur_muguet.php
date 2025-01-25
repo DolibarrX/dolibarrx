@@ -20,18 +20,18 @@
  */
 
 /**
- *    	\file       htdocs/core/modules/supplier_order/mod_commande_fournisseur_muguet.php
+ *    	\file       htdocs/core/modules/supplier_order/mod_order_fournisseur_muguet.php
  *		\ingroup    order
- *		\brief      Fichier contenant la class du modele de numbertation de reference de commande fournisseur Muguet
+ *		\brief      Fichier contenant la class du modele de numbertation de reference de order fournisseur Muguet
  */
 
-require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_commandefournisseur.php';
+require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_orderfournisseur.php';
 
 
 /**
- *	Class du modele de numbertation de reference de commande fournisseur Muguet
+ *	Class du modele de numbertation de reference de order fournisseur Muguet
  */
-class mod_commande_fournisseur_muguet extends ModeleNumRefSuppliersOrders
+class mod_order_fournisseur_muguet extends ModeleNumRefSuppliersOrders
 {
 	/**
 	 * Dolibarr version of the loaded document
@@ -112,7 +112,7 @@ class mod_commande_fournisseur_muguet extends ModeleNumRefSuppliersOrders
 
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
-		$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseur";
+		$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseur";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		$sql .= " AND entity = ".$config->entity;
 		$resql = $db->query($sql);
@@ -146,7 +146,7 @@ class mod_commande_fournisseur_muguet extends ModeleNumRefSuppliersOrders
 		// First, we get the max value
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
-		$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseur";
+		$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseur";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		$sql .= " AND entity = ".$config->entity;
 
@@ -161,7 +161,7 @@ class mod_commande_fournisseur_muguet extends ModeleNumRefSuppliersOrders
 		}
 
 		//$date=time();
-		$date = $object->date_commande; // Not always defined
+		$date = $object->date_order; // Not always defined
 		if (empty($date)) {
 			$date = $object->date; // Creation date is order date for suppliers orders
 		}

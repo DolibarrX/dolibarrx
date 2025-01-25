@@ -132,7 +132,7 @@ $contact_fields = array(
 	'note' => array('name' => 'note', 'type' => 'xsd:string'),
 	'ref_facturation' => array('name' => 'ref_facturation', 'type' => 'xsd:string'),
 	'ref_contrat' => array('name' => 'ref_contrat', 'type' => 'xsd:string'),
-	'ref_commande' => array('name' => 'ref_commande', 'type' => 'xsd:string'),
+	'ref_order' => array('name' => 'ref_order', 'type' => 'xsd:string'),
 	'ref_propal' => array('name' => 'ref_propal', 'type' => 'xsd:string'),
 	'user_id' => array('name' => 'user_id', 'type' => 'xsd:string'),
 	'user_login' => array('name' => 'user_login', 'type' => 'xsd:string'),
@@ -330,7 +330,7 @@ function getContact($authentication, $id, $ref_ext)
 					'note' => $contact->note,
 					'ref_facturation' => $contact->ref_facturation,
 					'ref_contrat' => $contact->ref_contrat,
-					'ref_commande' => $contact->ref_commande,
+					'ref_order' => $contact->ref_order,
 					'ref_propal' => $contact->ref_propal,
 					'user_id' => $contact->user_id,
 					'user_login' => $contact->user_login,
@@ -382,7 +382,7 @@ function getContact($authentication, $id, $ref_ext)
  * Create Contact
  *
  * @param	array{login:string,password:string,entity:?int,dolibarrkey:string}		$authentication		Array of authentication information
- * @param array{id:string,ref_ext:string,lastname:string,firstname:string,address:string,zip:string,town:string,state_id:string,state_code:string,state:string,country_id:string,country_code:string,country:string,socid:string,status:string,phone_pro:string,fax:string,phone_perso:string,phone_mobile:string,code:string,email:string,birthday:string,default_lang:string,note:string,ref_facturation:string,ref_contrat:string,ref_commande:string,ref_propal:string,user_id:string,user_login:string,civility_id:string,poste:string}	$contact		    $contact
+ * @param array{id:string,ref_ext:string,lastname:string,firstname:string,address:string,zip:string,town:string,state_id:string,state_code:string,state:string,country_id:string,country_code:string,country:string,socid:string,status:string,phone_pro:string,fax:string,phone_perso:string,phone_mobile:string,code:string,email:string,birthday:string,default_lang:string,note:string,ref_facturation:string,ref_contrat:string,ref_order:string,ref_propal:string,user_id:string,user_login:string,civility_id:string,poste:string}	$contact		    $contact
  * @return array{result:array{result_code:string,result_label:string}} Array result
  */
 function createContact($authentication, $contact)
@@ -440,7 +440,7 @@ function createContact($authentication, $contact)
 		$newobject->note = $contact['note'];
 		$newobject->ref_facturation = (int) $contact['ref_facturation'];
 		$newobject->ref_contrat = (int) $contact['ref_contrat'];
-		$newobject->ref_commande = (int) $contact['ref_commande'];
+		$newobject->ref_order = (int) $contact['ref_order'];
 		$newobject->ref_propal = (int) $contact['ref_propal'];
 		$newobject->user_id = (int) $contact['user_id'];
 		$newobject->user_login = $contact['user_login'];
@@ -586,7 +586,7 @@ function getContactsForThirdParty($authentication, $idthirdparty)
 					'note' => $contact->note ? $contact->note : '',
 					'ref_facturation' => $contact->ref_facturation ? $contact->ref_facturation : '',
 					'ref_contrat' => $contact->ref_contrat ? $contact->ref_contrat : '',
-					'ref_commande' => $contact->ref_commande ? $contact->ref_commande : '',
+					'ref_order' => $contact->ref_order ? $contact->ref_order : '',
 					'ref_propal' => $contact->ref_propal ? $contact->ref_propal : '',
 					'user_id' => $contact->user_id ? $contact->user_id : '',
 					'user_login' => $contact->user_login ? $contact->user_login : '',
@@ -620,7 +620,7 @@ function getContactsForThirdParty($authentication, $idthirdparty)
  * Update a contact
  *
  * @param	array{login:string,password:string,entity:?int,dolibarrkey:string}		$authentication		Array of authentication information
- * @param array{id:string,ref_ext:string,lastname:string,firstname:string,address:string,zip:string,town:string,state_id:string,state_code:string,state:string,country_id:string,country_code:string,country:string,socid:string,status:string,phone_pro:string,fax:string,phone_perso:string,phone_mobile:string,code:string,email:string,birthday:string,default_lang:string,note:string,ref_facturation:string,ref_contrat:string,ref_commande:string,ref_propal:string,user_id:string,user_login:string,civility_id:string,poste:string}	$contact		    Contact
+ * @param array{id:string,ref_ext:string,lastname:string,firstname:string,address:string,zip:string,town:string,state_id:string,state_code:string,state:string,country_id:string,country_code:string,country:string,socid:string,status:string,phone_pro:string,fax:string,phone_perso:string,phone_mobile:string,code:string,email:string,birthday:string,default_lang:string,note:string,ref_facturation:string,ref_contrat:string,ref_order:string,ref_propal:string,user_id:string,user_login:string,civility_id:string,poste:string}	$contact		    Contact
  * @return array{result:array{result_code:string,result_label:string}} Array result
  */
 function updateContact($authentication, $contact)

@@ -25,7 +25,7 @@
  *	\brief      File of class to manage suppliers
  */
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
-require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
+require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.product.class.php';
 
 
@@ -84,7 +84,7 @@ class Fournisseur extends Societe
 		$num = 0;
 
 		$sql = "SELECT rowid";
-		$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseur as cf";
+		$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseur as cf";
 		$sql .= " WHERE cf.fk_soc = ".((int) $this->id);
 
 		$resql = $this->db->query($sql);

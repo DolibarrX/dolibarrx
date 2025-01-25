@@ -50,8 +50,8 @@ require_once $conffile;
 require_once $dolibarr_main_document_root.'/compta/facture/class/facture.class.php';
 require_once $dolibarr_main_document_root.'/comm/propal/class/propal.class.php';
 require_once $dolibarr_main_document_root.'/contrat/class/contrat.class.php';
-require_once $dolibarr_main_document_root.'/commande/class/commande.class.php';
-require_once $dolibarr_main_document_root.'/fourn/class/fournisseur.commande.class.php';
+require_once $dolibarr_main_document_root.'/order/class/order.class.php';
+require_once $dolibarr_main_document_root.'/fourn/class/fournisseur.order.class.php';
 require_once $dolibarr_main_document_root.'/core/lib/price.lib.php';
 require_once $dolibarr_main_document_root.'/core/class/menubase.class.php';
 require_once $dolibarr_main_document_root.'/core/lib/files.lib.php';
@@ -277,9 +277,9 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 
 				migrate_price_propal($db, $langs, $config);
 
-				migrate_price_commande($db, $langs, $config);
+				migrate_price_order($db, $langs, $config);
 
-				migrate_price_commande_fournisseur($db, $langs, $config);
+				migrate_price_order_fournisseur($db, $langs, $config);
 
 				migrate_price_contrat($db, $langs, $config);
 
@@ -295,9 +295,9 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 
 
 				// Script pour V2.2 -> V2.4
-				migrate_commande_expedition($db, $langs, $config);
+				migrate_order_expedition($db, $langs, $config);
 
-				migrate_commande_livraison($db, $langs, $config);
+				migrate_order_livraison($db, $langs, $config);
 
 				migrate_detail_livraison($db, $langs, $config);
 
@@ -309,7 +309,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 				// Script pour V2.6 -> V2.7
 				migrate_menus($db, $langs, $config);
 
-				migrate_commande_deliveryaddress($db, $langs, $config);
+				migrate_order_deliveryaddress($db, $langs, $config);
 
 				migrate_restore_missing_links($db, $langs, $config);
 
@@ -325,19 +325,19 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
 				migrate_price_facture($db, $langs, $config); // Code of this function works for 2.8+ because need a field tva_tx
 
-				migrate_relationship_tables($db, $langs, $config, 'co_exp', 'fk_commande', 'commande', 'fk_expedition', 'shipping');
+				migrate_relationship_tables($db, $langs, $config, 'co_exp', 'fk_order', 'order', 'fk_expedition', 'shipping');
 
 				migrate_relationship_tables($db, $langs, $config, 'pr_exp', 'fk_propal', 'propal', 'fk_expedition', 'shipping');
 
 				migrate_relationship_tables($db, $langs, $config, 'pr_liv', 'fk_propal', 'propal', 'fk_livraison', 'delivery');
 
-				migrate_relationship_tables($db, $langs, $config, 'co_liv', 'fk_commande', 'commande', 'fk_livraison', 'delivery');
+				migrate_relationship_tables($db, $langs, $config, 'co_liv', 'fk_order', 'order', 'fk_livraison', 'delivery');
 
-				migrate_relationship_tables($db, $langs, $config, 'co_pr', 'fk_propale', 'propal', 'fk_commande', 'commande');
+				migrate_relationship_tables($db, $langs, $config, 'co_pr', 'fk_propale', 'propal', 'fk_order', 'order');
 
 				migrate_relationship_tables($db, $langs, $config, 'fa_pr', 'fk_propal', 'propal', 'fk_facture', 'facture');
 
-				migrate_relationship_tables($db, $langs, $config, 'co_fa', 'fk_commande', 'commande', 'fk_facture', 'facture');
+				migrate_relationship_tables($db, $langs, $config, 'co_fa', 'fk_order', 'order', 'fk_facture', 'facture');
 
 				migrate_project_user_resp($db, $langs, $config);
 
@@ -1813,7 +1813,7 @@ function migrate_price_contrat($db, $langs, $config)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_price_commande($db, $langs, $config)
+function migrate_price_order($db, $langs, $config)
 {
 	$db->begin();
 
@@ -1827,12 +1827,12 @@ function migrate_price_commande($db, $langs, $config)
 
 	// List of sales orders lines not up to date
 	$sql = "SELECT cd.rowid, cd.qty, cd.subprice, cd.remise_percent, cd.tva_tx as vatrate, cd.info_bits,";
-	$sql .= " c.rowid as commandeid, c.remise_percent as remise_percent_global";
-	$sql .= " FROM ".MAIN_DB_PREFIX."commandedet as cd, ".MAIN_DB_PREFIX."commande as c";
-	$sql .= " WHERE cd.fk_commande = c.rowid";
+	$sql .= " c.rowid as orderid, c.remise_percent as remise_percent_global";
+	$sql .= " FROM ".MAIN_DB_PREFIX."orderdet as cd, ".MAIN_DB_PREFIX."order as c";
+	$sql .= " WHERE cd.fk_order = c.rowid";
 	$sql .= " AND ((cd.total_ttc = 0 AND cd.remise_percent != 100) or cd.total_ttc IS NULL)";
 
-	dolibarr_install_syslog("upgrade2::migrate_price_commande");
+	dolibarr_install_syslog("upgrade2::migrate_price_order");
 	$resql = $db->query($sql);
 	if ($resql) {
 		$num = $db->num_rows($resql);
@@ -1850,21 +1850,21 @@ function migrate_price_commande($db, $langs, $config)
 				$info_bits = $obj->info_bits;
 
 				// On met a jour les 3 nouveaux champs
-				$commandeligne = new OrderLine($db);
-				$commandeligne->fetch($rowid);
+				$orderligne = new OrderLine($db);
+				$orderligne->fetch($rowid);
 
-				$result = calcul_price_total($qty, $pu, $remise_percent, $vatrate, 0, 0, $remise_percent_global, 'HT', $info_bits, $commandeligne->product_type, $tmpmysoc);
+				$result = calcul_price_total($qty, $pu, $remise_percent, $vatrate, 0, 0, $remise_percent_global, 'HT', $info_bits, $orderligne->product_type, $tmpmysoc);
 				$total_ht  = $result[0];
 				$total_tva = $result[1];
 				$total_ttc = $result[2];
 
-				$commandeligne->total_ht  = (float) $total_ht;
-				$commandeligne->total_tva = (float) $total_tva;
-				$commandeligne->total_ttc = (float) $total_ttc;
+				$orderligne->total_ht  = (float) $total_ht;
+				$orderligne->total_tva = (float) $total_tva;
+				$orderligne->total_ttc = (float) $total_ttc;
 
-				dolibarr_install_syslog("upgrade2: Line ".$rowid." : commandeid=".$obj->rowid." pu=".$pu." qty=".$qty." vatrate=".$vatrate." remise_percent=".$remise_percent." remise_global=".$remise_percent_global."  -> ".$total_ht.", ".$total_tva.", ".$total_ttc);
+				dolibarr_install_syslog("upgrade2: Line ".$rowid." : orderid=".$obj->rowid." pu=".$pu." qty=".$qty." vatrate=".$vatrate." remise_percent=".$remise_percent." remise_global=".$remise_percent_global."  -> ".$total_ht.", ".$total_tva.", ".$total_ttc);
 				print '. ';
-				$commandeligne->update_total();
+				$orderligne->update_total();
 
 				$i++;
 			}
@@ -1875,7 +1875,7 @@ function migrate_price_commande($db, $langs, $config)
 		$db->free($resql);
 
 		/*
-		 $sql = "DELETE FROM ".MAIN_DB_PREFIX."commandedet";
+		 $sql = "DELETE FROM ".MAIN_DB_PREFIX."orderdet";
 		 $sql.= " WHERE price = 0 and total_ttc = 0 and total_tva = 0 and total_ht = 0 AND remise_percent = 0";
 		 $resql=$db->query($sql);
 		 if (! $resql)
@@ -1904,7 +1904,7 @@ function migrate_price_commande($db, $langs, $config)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_price_commande_fournisseur($db, $langs, $config)
+function migrate_price_order_fournisseur($db, $langs, $config)
 {
 	global $mysoc;
 
@@ -1920,12 +1920,12 @@ function migrate_price_commande_fournisseur($db, $langs, $config)
 
 	// List of purchase order lines not up to date
 	$sql = "SELECT cd.rowid, cd.qty, cd.subprice, cd.remise_percent, cd.tva_tx as vatrate, cd.info_bits,";
-	$sql .= " c.rowid as commandeid, c.remise_percent as remise_percent_global";
-	$sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseurdet as cd, ".MAIN_DB_PREFIX."commande_fournisseur as c";
-	$sql .= " WHERE cd.fk_commande = c.rowid";
+	$sql .= " c.rowid as orderid, c.remise_percent as remise_percent_global";
+	$sql .= " FROM ".MAIN_DB_PREFIX."order_fournisseurdet as cd, ".MAIN_DB_PREFIX."order_fournisseur as c";
+	$sql .= " WHERE cd.fk_order = c.rowid";
 	$sql .= " AND ((cd.total_ttc = 0 AND cd.remise_percent != 100) or cd.total_ttc IS NULL)";
 
-	dolibarr_install_syslog("upgrade2::migrate_price_commande_fournisseur");
+	dolibarr_install_syslog("upgrade2::migrate_price_order_fournisseur");
 	$resql = $db->query($sql);
 	if ($resql) {
 		$num = $db->num_rows($resql);
@@ -1943,21 +1943,21 @@ function migrate_price_commande_fournisseur($db, $langs, $config)
 				$info_bits = $obj->info_bits;
 
 				// On met a jour les 3 nouveaux champs
-				$commandeligne = new OrderFournisseurLigne($db);
-				$commandeligne->fetch($rowid);
+				$orderligne = new OrderFournisseurLigne($db);
+				$orderligne->fetch($rowid);
 
-				$result = calcul_price_total($qty, $pu, $remise_percent, $vatrate, 0, 0, $remise_percent_global, 'HT', $info_bits, $commandeligne->product_type, $mysoc);
+				$result = calcul_price_total($qty, $pu, $remise_percent, $vatrate, 0, 0, $remise_percent_global, 'HT', $info_bits, $orderligne->product_type, $mysoc);
 				$total_ht  = $result[0];
 				$total_tva = $result[1];
 				$total_ttc = $result[2];
 
-				$commandeligne->total_ht  = (float) $total_ht;
-				$commandeligne->total_tva = (float) $total_tva;
-				$commandeligne->total_ttc = (float) $total_ttc;
+				$orderligne->total_ht  = (float) $total_ht;
+				$orderligne->total_tva = (float) $total_tva;
+				$orderligne->total_ttc = (float) $total_ttc;
 
-				dolibarr_install_syslog("upgrade2: Line ".$rowid.": commandeid=".$obj->rowid." pu=".$pu."  qty=".$qty." vatrate=".$vatrate." remise_percent=".$remise_percent." remise_global=".$remise_percent_global." -> ".$total_ht.", ".$total_tva.", ".$total_ttc);
+				dolibarr_install_syslog("upgrade2: Line ".$rowid.": orderid=".$obj->rowid." pu=".$pu."  qty=".$qty." vatrate=".$vatrate." remise_percent=".$remise_percent." remise_global=".$remise_percent_global." -> ".$total_ht.", ".$total_tva.", ".$total_ttc);
 				print '. ';
-				$commandeligne->update_total();
+				$orderligne->update_total();
 
 				$i++;
 			}
@@ -1968,7 +1968,7 @@ function migrate_price_commande_fournisseur($db, $langs, $config)
 		$db->free($resql);
 
 		/*
-		 $sql = "DELETE FROM ".MAIN_DB_PREFIX."commande_fournisseurdet";
+		 $sql = "DELETE FROM ".MAIN_DB_PREFIX."order_fournisseurdet";
 		 $sql.= " WHERE subprice = 0 and total_ttc = 0 and total_tva = 0 and total_ht = 0";
 		 $resql=$db->query($sql);
 		 if (! $resql)
@@ -2018,7 +2018,7 @@ function migrate_modeles($db, $langs, $config)
 	}
 
 	if (isModEnabled('order')) {
-		include_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
+		include_once DOL_DOCUMENT_ROOT.'/core/modules/order/modules_order.php';
 		$modellist = ModelePDFOrders::liste_modeles($db);
 		if (count($modellist) == 0) {
 			// Aucun model par default.
@@ -2048,30 +2048,30 @@ function migrate_modeles($db, $langs, $config)
 
 
 /**
- * Correspondence des expeditions et des commandes clients dans la table llx_co_exp
+ * Correspondence des expeditions et des orders clients dans la table llx_co_exp
  *
  * @param	DoliDB		$db		Database handler
  * @param	Translate	$langs	Object langs
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_commande_expedition($db, $langs, $config)
+function migrate_order_expedition($db, $langs, $config)
 {
-	dolibarr_install_syslog("upgrade2::migrate_commande_expedition");
+	dolibarr_install_syslog("upgrade2::migrate_order_expedition");
 
 	print '<tr><td colspan="4">';
 
 	print '<br>';
 	print '<b>'.$langs->trans('MigrationShipmentOrderMatching')."</b><br>\n";
 
-	$result = $db->DDLDescTable(MAIN_DB_PREFIX."expedition", "fk_commande");
+	$result = $db->DDLDescTable(MAIN_DB_PREFIX."expedition", "fk_order");
 	$obj = $db->fetch_object($result);
 	if ($obj) {
 		$error = 0;
 
 		$db->begin();
 
-		$sql = "SELECT e.rowid, e.fk_commande FROM ".MAIN_DB_PREFIX."expedition as e";
+		$sql = "SELECT e.rowid, e.fk_order FROM ".MAIN_DB_PREFIX."expedition as e";
 		$resql = $db->query($sql);
 		if ($resql) {
 			$i = 0;
@@ -2081,8 +2081,8 @@ function migrate_commande_expedition($db, $langs, $config)
 				while ($i < $num) {
 					$obj = $db->fetch_object($resql);
 
-					$sql = "INSERT INTO ".MAIN_DB_PREFIX."co_exp (fk_expedition,fk_commande)";
-					$sql .= " VALUES (".((int) $obj->rowid).", ".((int) $obj->fk_commande).")";
+					$sql = "INSERT INTO ".MAIN_DB_PREFIX."co_exp (fk_expedition,fk_order)";
+					$sql .= " VALUES (".((int) $obj->rowid).", ".((int) $obj->fk_order).")";
 					$resql2 = $db->query($sql);
 
 					if (!$resql2) {
@@ -2096,7 +2096,7 @@ function migrate_commande_expedition($db, $langs, $config)
 
 			if ($error == 0) {
 				$db->commit();
-				$sql = "ALTER TABLE ".MAIN_DB_PREFIX."expedition DROP COLUMN fk_commande";
+				$sql = "ALTER TABLE ".MAIN_DB_PREFIX."expedition DROP COLUMN fk_order";
 				print $langs->trans('FieldRenamed')."<br>\n";
 				$db->query($sql);
 			} else {
@@ -2113,33 +2113,33 @@ function migrate_commande_expedition($db, $langs, $config)
 }
 
 /**
- * Correspondence des livraisons et des commandes clients dans la table llx_co_liv
+ * Correspondence des livraisons et des orders clients dans la table llx_co_liv
  *
  * @param	DoliDB		$db		Database handler
  * @param	Translate	$langs	Object langs
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_commande_livraison($db, $langs, $config)
+function migrate_order_livraison($db, $langs, $config)
 {
-	dolibarr_install_syslog("upgrade2::migrate_commande_livraison");
+	dolibarr_install_syslog("upgrade2::migrate_order_livraison");
 
 	print '<tr><td colspan="4">';
 
 	print '<br>';
 	print '<b>'.$langs->trans('MigrationDeliveryOrderMatching')."</b><br>\n";
 
-	$result = $db->DDLDescTable(MAIN_DB_PREFIX."livraison", "fk_commande");
+	$result = $db->DDLDescTable(MAIN_DB_PREFIX."livraison", "fk_order");
 	$obj = $db->fetch_object($result);
 	if ($obj) {
 		$error = 0;
 
 		$db->begin();
 
-		$sql = "SELECT l.rowid, l.fk_commande,";
+		$sql = "SELECT l.rowid, l.fk_order,";
 		$sql .= " c.ref_client, c.date_livraison as delivery_date";
-		$sql .= " FROM ".MAIN_DB_PREFIX."livraison as l, ".MAIN_DB_PREFIX."commande as c";
-		$sql .= " WHERE c.rowid = l.fk_commande";
+		$sql .= " FROM ".MAIN_DB_PREFIX."livraison as l, ".MAIN_DB_PREFIX."order as c";
+		$sql .= " WHERE c.rowid = l.fk_order";
 		$resql = $db->query($sql);
 		if ($resql) {
 			$i = 0;
@@ -2149,8 +2149,8 @@ function migrate_commande_livraison($db, $langs, $config)
 				while ($i < $num) {
 					$obj = $db->fetch_object($resql);
 
-					$sql = "INSERT INTO ".MAIN_DB_PREFIX."co_liv (fk_livraison,fk_commande)";
-					$sql .= " VALUES (".((int) $obj->rowid).", ".((int) $obj->fk_commande).")";
+					$sql = "INSERT INTO ".MAIN_DB_PREFIX."co_liv (fk_livraison,fk_order)";
+					$sql .= " VALUES (".((int) $obj->rowid).", ".((int) $obj->fk_order).")";
 					$resql2 = $db->query($sql);
 
 					if ($resql2) {
@@ -2176,7 +2176,7 @@ function migrate_commande_livraison($db, $langs, $config)
 
 			if ($error == 0) {
 				$db->commit();
-				$sql = "ALTER TABLE ".MAIN_DB_PREFIX."livraison DROP COLUMN fk_commande";
+				$sql = "ALTER TABLE ".MAIN_DB_PREFIX."livraison DROP COLUMN fk_order";
 				print $langs->trans('FieldRenamed')."<br>\n";
 				$db->query($sql);
 			} else {
@@ -2193,7 +2193,7 @@ function migrate_commande_livraison($db, $langs, $config)
 }
 
 /**
- * Migration des details commandes dans les details livraisons
+ * Migration des details orders dans les details livraisons
  *
  * @param	DoliDB		$db		Database handler
  * @param	Translate	$langs	Object langs
@@ -2209,9 +2209,9 @@ function migrate_detail_livraison($db, $langs, $config)
 	print '<br>';
 	print '<b>'.$langs->trans('MigrationDeliveryDetail')."</b><br>\n";
 
-	// This is done if field fk_commande_ligne exists.
+	// This is done if field fk_order_ligne exists.
 	// If not this means migration was already done.
-	$result = $db->DDLDescTable(MAIN_DB_PREFIX."livraisondet", "fk_commande_ligne");
+	$result = $db->DDLDescTable(MAIN_DB_PREFIX."livraisondet", "fk_order_ligne");
 	$obj = $db->fetch_object($result);
 	if ($obj) {
 		$error = 0;
@@ -2220,8 +2220,8 @@ function migrate_detail_livraison($db, $langs, $config)
 
 		$sql = "SELECT cd.rowid, cd.fk_product, cd.description, cd.subprice, cd.total_ht";
 		$sql .= ", ld.fk_livraison";
-		$sql .= " FROM ".MAIN_DB_PREFIX."commandedet as cd, ".MAIN_DB_PREFIX."livraisondet as ld";
-		$sql .= " WHERE ld.fk_commande_ligne = cd.rowid";
+		$sql .= " FROM ".MAIN_DB_PREFIX."orderdet as cd, ".MAIN_DB_PREFIX."livraisondet as ld";
+		$sql .= " WHERE ld.fk_order_ligne = cd.rowid";
 		$resql = $db->query($sql);
 		if ($resql) {
 			$i = 0;
@@ -2236,7 +2236,7 @@ function migrate_detail_livraison($db, $langs, $config)
 					$sql .= ",description = '".$db->escape($obj->description)."'";
 					$sql .= ",subprice = ".price2num($obj->subprice);
 					$sql .= ",total_ht = ".price2num($obj->total_ht);
-					$sql .= " WHERE fk_commande_ligne = ".((int) $obj->rowid);
+					$sql .= " WHERE fk_order_ligne = ".((int) $obj->rowid);
 					$resql2 = $db->query($sql);
 
 					if ($resql2) {
@@ -2272,7 +2272,7 @@ function migrate_detail_livraison($db, $langs, $config)
 
 			if ($error == 0) {
 				$db->commit();
-				$sql = "ALTER TABLE ".MAIN_DB_PREFIX."livraisondet CHANGE fk_commande_ligne fk_origin_line integer";
+				$sql = "ALTER TABLE ".MAIN_DB_PREFIX."livraisondet CHANGE fk_order_ligne fk_origin_line integer";
 				print $langs->trans('FieldRenamed')."<br>\n";
 				$db->query($sql);
 			} else {
@@ -2431,9 +2431,9 @@ function migrate_menus($db, $langs, $config)
  * @param	Conf		$conf	Object conf
  * @return	void
  */
-function migrate_commande_deliveryaddress($db, $langs, $config)
+function migrate_order_deliveryaddress($db, $langs, $config)
 {
-	dolibarr_install_syslog("upgrade2::migrate_commande_deliveryaddress");
+	dolibarr_install_syslog("upgrade2::migrate_order_deliveryaddress");
 
 	print '<tr><td colspan="4">';
 
@@ -2446,9 +2446,9 @@ function migrate_commande_deliveryaddress($db, $langs, $config)
 		$db->begin();
 
 		$sql = "SELECT c.fk_adresse_livraison, ce.fk_expedition";
-		$sql .= " FROM ".MAIN_DB_PREFIX."commande as c";
+		$sql .= " FROM ".MAIN_DB_PREFIX."order as c";
 		$sql .= ", ".MAIN_DB_PREFIX."co_exp as ce";
-		$sql .= " WHERE c.rowid = ce.fk_commande";
+		$sql .= " WHERE c.rowid = ce.fk_order";
 		$sql .= " AND c.fk_adresse_livraison IS NOT NULL AND c.fk_adresse_livraison != 0";
 
 		$resql = $db->query($sql);
@@ -3016,7 +3016,7 @@ function migrate_customerorder_shipping($db, $langs, $config)
 			$sqlSelect = "SELECT e.rowid as shipping_id, c.ref_client, c.date_livraison as delivery_date";
 			$sqlSelect .= " FROM ".MAIN_DB_PREFIX."expedition as e";
 			$sqlSelect .= ", ".MAIN_DB_PREFIX."element_element as el";
-			$sqlSelect .= " LEFT JOIN ".MAIN_DB_PREFIX."commande as c ON c.rowid = el.fk_source AND el.sourcetype = 'commande'";
+			$sqlSelect .= " LEFT JOIN ".MAIN_DB_PREFIX."order as c ON c.rowid = el.fk_source AND el.sourcetype = 'order'";
 			$sqlSelect .= " WHERE e.rowid = el.fk_target";
 			$sqlSelect .= " AND el.targettype = 'shipping'";
 
@@ -3138,7 +3138,7 @@ function migrate_shipping_delivery($db, $langs, $config)
 			}
 
 			if ($error == 0) {
-				$sqlDelete = "DELETE FROM ".MAIN_DB_PREFIX."element_element WHERE sourcetype = 'commande' AND targettype = 'delivery'";
+				$sqlDelete = "DELETE FROM ".MAIN_DB_PREFIX."element_element WHERE sourcetype = 'order' AND targettype = 'delivery'";
 				$db->query($sqlDelete);
 
 				$db->commit();
@@ -3252,7 +3252,7 @@ function migrate_actioncomm_element($db, $langs, $config)
 
 	$elements = array(
 		'propal' => 'propalrowid',
-		'order' => 'fk_commande',
+		'order' => 'fk_order',
 		'invoice' => 'fk_facture',
 		'contract' => 'fk_contract',
 		'order_supplier' => 'fk_supplier_order',
@@ -3313,7 +3313,7 @@ function migrate_mode_reglement($db, $langs, $config)
 		'old_id' => array(5, 8, 9, 10, 11),
 		'new_id' => array(50, 51, 52, 53, 54),
 		'code' => array('VAD', 'TRA', 'LCR', 'FAC', 'PRO'),
-		'tables' => array('commande_fournisseur', 'commande', 'facture_rec', 'facture', 'propal')
+		'tables' => array('order_fournisseur', 'order', 'facture_rec', 'facture', 'propal')
 	);
 	$count = 0;
 
@@ -4129,7 +4129,7 @@ function migrate_delete_old_files($db, $langs, $config)
 		'/categories/class/api_category.class.php',
 		'/categories/class/api_deprecated_category.class.php',
 		'/compta/facture/class/api_invoice.class.php',
-		'/commande/class/api_commande.class.php',
+		'/order/class/api_order.class.php',
 		'/partnership/class/api_partnership.class.php',
 		'/product/class/api_product.class.php',
 		'/recruitment/class/api_recruitment.class.php',
@@ -5028,7 +5028,7 @@ function migrate_export_import_profiles($mode = 'export')
 		$sql .= ', filter';
 	}
 	$sql .= ' FROM '.MAIN_DB_PREFIX.$mode.'_model WHERE';
-	$sql .= " type LIKE 'propale_%' OR type LIKE 'commande_%' OR type LIKE 'facture_%'";
+	$sql .= " type LIKE 'propale_%' OR type LIKE 'order_%' OR type LIKE 'facture_%'";
 	//print $sql;
 	$resql = $db->query($sql);
 	if ($resql) {

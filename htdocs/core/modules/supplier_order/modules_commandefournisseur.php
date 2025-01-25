@@ -25,7 +25,7 @@
  */
 
 /**
- *		\file       htdocs/core/modules/supplier_order/modules_commandefournisseur.php
+ *		\file       htdocs/core/modules/supplier_order/modules_orderfournisseur.php
  *      \ingroup    supplier order
  *      \brief      File that contains parent class for supplier orders models
  *                  and parent class for supplier orders numbering models

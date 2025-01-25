@@ -486,7 +486,7 @@ if ($action == 'create') {
 	print '<tr><td>'.$langs->trans('DefaultModel').'</td>';
 	print '<td>';
 	print img_picto('', 'pdf', 'class="pictofixedwidth"');
-	include_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
+	include_once DOL_DOCUMENT_ROOT.'/core/modules/order/modules_order.php';
 	$liste = ModelePDFStockTransfer::liste_modeles($db);
 	$preselected = getDolGlobalString('STOCKTRANSFER_ADDON_PDF');
 	print $form->selectarray('model', $liste, $preselected, 0, 0, 0, '', 0, 0, 0, '', 'maxwidth200 widthcentpercentminusx', 1);
@@ -636,7 +636,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Thirdparty
 	$morehtmlref .= empty($object->thirdparty) ? '' : $object->thirdparty->getNomUrl(1, 'customer');
 	if (!getDolGlobalInt('MAIN_DISABLE_OTHER_LINK') && !empty($object->thirdparty) && $object->thirdparty->id > 0) {
-		$morehtmlref .= ' (<a href="'.DOL_URL_ROOT.'/commande/list.php?socid='.$object->thirdparty->id.'&search_societe='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherOrders").'</a>)';
+		$morehtmlref .= ' (<a href="'.DOL_URL_ROOT.'/order/list.php?socid='.$object->thirdparty->id.'&search_societe='.urlencode($object->thirdparty->name).'">'.$langs->trans("OtherOrders").'</a>)';
 	}
 	// Project
 	if (isModEnabled('project')) {
