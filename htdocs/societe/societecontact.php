@@ -228,7 +228,7 @@ if ($id > 0 || !empty($ref)) {
 			$sql .= " d.email, d.fk_member_type as type_id, d.morphy, d.statut,";
 			$sql .= " t.libelle as type_label, t.subscription";
 			$sql .= " FROM ".MAIN_DB_PREFIX."adherent as d";
-			$sql .= ", ".MAIN_DB_PREFIX."adherent_type as t";
+			$sql .= ", ".MAIN_DB_PREFIX."member_type as t";
 			$sql .= " WHERE d.fk_soc = ".((int) $id);
 			$sql .= " AND d.fk_member_type = t.rowid";
 

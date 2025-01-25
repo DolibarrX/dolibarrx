@@ -190,7 +190,7 @@ class MemberType extends CommonObject
 		$current_lang = $langs->getDefaultLang();
 
 		$sql = "SELECT lang, label, description, email";
-		$sql .= " FROM " . MAIN_DB_PREFIX . "adherent_type_lang";
+		$sql .= " FROM " . MAIN_DB_PREFIX . "member_type_lang";
 		$sql .= " WHERE fk_type = " . ((int) $this->id);
 
 		$result = $this->db->query($sql);
@@ -229,20 +229,20 @@ class MemberType extends CommonObject
 		foreach ($langs_available as $key => $value) {
 			if ($key == $current_lang) {
 				$sql = "SELECT rowid";
-				$sql .= " FROM " . MAIN_DB_PREFIX . "adherent_type_lang";
+				$sql .= " FROM " . MAIN_DB_PREFIX . "member_type_lang";
 				$sql .= " WHERE fk_type = " . ((int) $this->id);
 				$sql .= " AND lang = '" . $this->db->escape($key) . "'";
 
 				$result = $this->db->query($sql);
 
 				if ($this->db->num_rows($result)) { // if there is already a description line for this language
-					$sql2 = "UPDATE " . MAIN_DB_PREFIX . "adherent_type_lang";
+					$sql2 = "UPDATE " . MAIN_DB_PREFIX . "member_type_lang";
 					$sql2 .= " SET";
 					$sql2 .= " label = '" . $this->db->escape($this->label) . "',";
 					$sql2 .= " description = '" . $this->db->escape($this->description) . "'";
 					$sql2 .= " WHERE fk_type = " . ((int) $this->id) . " AND lang='" . $this->db->escape($key) . "'";
 				} else {
-					$sql2 = "INSERT INTO " . MAIN_DB_PREFIX . "adherent_type_lang (fk_type, lang, label, description";
+					$sql2 = "INSERT INTO " . MAIN_DB_PREFIX . "member_type_lang (fk_type, lang, label, description";
 					$sql2 .= ")";
 					$sql2 .= " VALUES(" . ((int) $this->id) . ",'" . $this->db->escape($key) . "','" . $this->db->escape($this->label) . "',";
 					$sql2 .= " '" . $this->db->escape($this->description) . "'";
@@ -255,20 +255,20 @@ class MemberType extends CommonObject
 				}
 			} elseif (isset($this->multilangs[$key])) {
 				$sql = "SELECT rowid";
-				$sql .= " FROM " . MAIN_DB_PREFIX . "adherent_type_lang";
+				$sql .= " FROM " . MAIN_DB_PREFIX . "member_type_lang";
 				$sql .= " WHERE fk_type = " . ((int) $this->id);
 				$sql .= " AND lang = '" . $this->db->escape($key) . "'";
 
 				$result = $this->db->query($sql);
 
 				if ($this->db->num_rows($result)) { // if there is already a description line for this language
-					$sql2 = "UPDATE " . MAIN_DB_PREFIX . "adherent_type_lang";
+					$sql2 = "UPDATE " . MAIN_DB_PREFIX . "member_type_lang";
 					$sql2 .= " SET ";
 					$sql2 .= " label = '" . $this->db->escape($this->multilangs["$key"]["label"]) . "',";
 					$sql2 .= " description = '" . $this->db->escape($this->multilangs["$key"]["description"]) . "'";
 					$sql2 .= " WHERE fk_type = " . ((int) $this->id) . " AND lang='" . $this->db->escape($key) . "'";
 				} else {
-					$sql2 = "INSERT INTO " . MAIN_DB_PREFIX . "adherent_type_lang (fk_type, lang, label, description";
+					$sql2 = "INSERT INTO " . MAIN_DB_PREFIX . "member_type_lang (fk_type, lang, label, description";
 					$sql2 .= ")";
 					$sql2 .= " VALUES(" . ((int) $this->id) . ",'" . $this->db->escape($key) . "','" . $this->db->escape($this->multilangs["$key"]["label"]) . "',";
 					$sql2 .= " '" . $this->db->escape($this->multilangs["$key"]["description"]) . "'";
@@ -307,7 +307,7 @@ class MemberType extends CommonObject
 	 */
 	public function delMultiLangs($langtodelete, $user)
 	{
-		$sql = "DELETE FROM " . MAIN_DB_PREFIX . "adherent_type_lang";
+		$sql = "DELETE FROM " . MAIN_DB_PREFIX . "member_type_lang";
 		$sql .= " WHERE fk_type = " . ((int) $this->id) . " AND lang = '" . $this->db->escape($langtodelete) . "'";
 
 		dol_syslog(get_class($this) . '::delMultiLangs', LOG_DEBUG);
@@ -347,7 +347,7 @@ class MemberType extends CommonObject
 
 		$this->db->begin();
 
-		$sql = "INSERT INTO " . MAIN_DB_PREFIX . "adherent_type (";
+		$sql = "INSERT INTO " . MAIN_DB_PREFIX . "member_type (";
 		$sql .= " morphy";
 		$sql .= ", libelle";
 		$sql .= ", entity";
@@ -360,7 +360,7 @@ class MemberType extends CommonObject
 		dol_syslog("Adherent_type::create", LOG_DEBUG);
 		$result = $this->db->query($sql);
 		if ($result) {
-			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX . "adherent_type");
+			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX . "member_type");
 
 			$result = $this->update($user, 1);
 			if ($result < 0) {
@@ -413,7 +413,7 @@ class MemberType extends CommonObject
 
 		$this->db->begin();
 
-		$sql = "UPDATE " . MAIN_DB_PREFIX . "adherent_type ";
+		$sql = "UPDATE " . MAIN_DB_PREFIX . "member_type ";
 		$sql .= "SET ";
 		$sql .= "statut = " . ((int) $this->status) . ",";
 		$sql .= "libelle = '" . $this->db->escape($this->label) . "',";
@@ -481,7 +481,7 @@ class MemberType extends CommonObject
 	{
 		$error = 0;
 
-		$sql = "DELETE FROM " . MAIN_DB_PREFIX . "adherent_type";
+		$sql = "DELETE FROM " . MAIN_DB_PREFIX . "member_type";
 		$sql .= " WHERE rowid = " . ((int) $this->id);
 
 		$resql = $this->db->query($sql);
@@ -513,7 +513,7 @@ class MemberType extends CommonObject
 	public function fetch($rowid)
 	{
 		$sql = "SELECT d.rowid, d.libelle as label, d.morphy, d.statut as status, d.duration, d.subscription, d.amount, d.caneditamount, d.mail_valid, d.note as note_public, d.vote";
-		$sql .= " FROM " . MAIN_DB_PREFIX . "adherent_type as d";
+		$sql .= " FROM " . MAIN_DB_PREFIX . "member_type as d";
 		$sql .= " WHERE d.rowid = " . (int) $rowid;
 
 		dol_syslog("Adherent_type::fetch", LOG_DEBUG);
@@ -571,7 +571,7 @@ class MemberType extends CommonObject
 		$adherenttypes = array();
 
 		$sql = "SELECT rowid, libelle as label";
-		$sql .= " FROM " . MAIN_DB_PREFIX . "adherent_type";
+		$sql .= " FROM " . MAIN_DB_PREFIX . "member_type";
 		$sql .= " WHERE entity IN (" . getEntity('member_type') . ")";
 		if ($status >= 0) {
 			$sql .= " AND statut = " . ((int) $status);
@@ -607,7 +607,7 @@ class MemberType extends CommonObject
 		$amountbytype = array();
 
 		$sql = "SELECT rowid, amount";
-		$sql .= " FROM " . MAIN_DB_PREFIX . "adherent_type";
+		$sql .= " FROM " . MAIN_DB_PREFIX . "member_type";
 		$sql .= " WHERE entity IN (" . getEntity('member_type') . ")";
 		if ($status !== null) {
 			$sql .= " AND statut = " . ((int) $status);

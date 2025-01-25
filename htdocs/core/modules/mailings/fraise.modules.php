@@ -139,7 +139,7 @@ class mailing_fraise extends MailingTargets
 
 		$s .= '<select id="filter_type_fraise" name="filter_type" class="flat">';
 		$sql = "SELECT rowid, libelle as label, statut";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent_type";
+		$sql .= " FROM ".MAIN_DB_PREFIX."member_type";
 		$sql .= " WHERE entity IN (".getEntity('member_type').")";
 		$sql .= " ORDER BY rowid";
 		$resql = $this->db->query($sql);
@@ -257,7 +257,7 @@ class mailing_fraise extends MailingTargets
 			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."categorie_member as cm ON cm.fk_member = a.rowid";
 			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."categorie as c ON c.rowid = cm.fk_categorie AND c.rowid = ".(GETPOSTINT('filter_category'));
 		}
-		$sql .= " , ".MAIN_DB_PREFIX."adherent_type as ta";
+		$sql .= " , ".MAIN_DB_PREFIX."member_type as ta";
 		$sql .= " WHERE a.entity IN (".getEntity('member').") AND a.email <> ''"; // Note that null != '' is false
 		$sql .= " AND a.email NOT IN (SELECT email FROM ".MAIN_DB_PREFIX."mailing_cibles WHERE fk_mailing=".((int) $mailing_id).")";
 		// Filter on status

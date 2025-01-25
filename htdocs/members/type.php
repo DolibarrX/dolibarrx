@@ -186,7 +186,7 @@ if ($action == 'add' && $user->hasRight('member', 'configurer')) {
 		$error++;
 		setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentities("Label")), null, 'errors');
 	} else {
-		$sql = "SELECT libelle FROM ".MAIN_DB_PREFIX."adherent_type WHERE libelle = '".$db->escape($object->label)."'";
+		$sql = "SELECT libelle FROM ".MAIN_DB_PREFIX."member_type WHERE libelle = '".$db->escape($object->label)."'";
 		$sql .= " WHERE entity IN (".getEntity('member_type').")";
 		$result = $db->query($sql);
 		$num = null;
@@ -289,7 +289,7 @@ if (!$rowid && $action != 'create' && $action != 'edit') {
 	//print dol_get_fiche_head([]);
 
 	$sql = "SELECT d.rowid, d.libelle as label, d.subscription, d.amount, d.caneditamount, d.vote, d.statut as status, d.morphy, d.duration";
-	$sql .= " FROM ".MAIN_DB_PREFIX."adherent_type as d";
+	$sql .= " FROM ".MAIN_DB_PREFIX."member_type as d";
 	$sql .= " WHERE d.entity IN (".getEntity('member_type').")";
 
 	$result = $db->query($sql);
@@ -669,7 +669,7 @@ if ($rowid > 0) {
 
 		$sqlfields = $sql; // $sql fields to remove for count total
 
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as d, ".MAIN_DB_PREFIX."adherent_type as t";
+		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as d, ".MAIN_DB_PREFIX."member_type as t";
 		$sql .= " WHERE d.fk_member_type = t.rowid ";
 		$sql .= " AND d.entity IN (".getEntity('member').")";
 		$sql .= " AND t.rowid = ".((int) $object->id);

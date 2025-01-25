@@ -840,7 +840,7 @@ class Adherent extends CommonObject
 		'@phan-var-force Adherent $oldcopy';
 		if (!empty($this->oldcopy) && $this->typeid != $this->oldcopy->typeid) {
 			$sql2 = "SELECT libelle as label";
-			$sql2 .= " FROM ".MAIN_DB_PREFIX."adherent_type";
+			$sql2 .= " FROM ".MAIN_DB_PREFIX."member_type";
 			$sql2 .= " WHERE rowid = ".((int) $this->typeid);
 			$resql2 = $this->db->query($sql2);
 			if ($resql2) {
@@ -1436,7 +1436,7 @@ class Adherent extends CommonObject
 		$sql .= " dep.nom as state, dep.code_departement as state_code,";
 		$sql .= " t.libelle as type, t.subscription as subscription,";
 		$sql .= " u.rowid as user_id, u.login as user_login";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent_type as t, ".MAIN_DB_PREFIX."adherent as d";
+		$sql .= " FROM ".MAIN_DB_PREFIX."member_type as t, ".MAIN_DB_PREFIX."adherent as d";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON d.country = c.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as dep ON d.state_id = dep.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as u ON d.rowid = u.fk_member";
@@ -2575,7 +2575,7 @@ class Adherent extends CommonObject
 
 		$sql = "SELECT a.rowid, a.datefin, a.statut";
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a";
-		$sql .= ", ".MAIN_DB_PREFIX."adherent_type as t";
+		$sql .= ", ".MAIN_DB_PREFIX."member_type as t";
 		$sql .= " WHERE a.fk_member_type = t.rowid";
 		if ($mode == 'expired') {
 			$sql .= " AND a.statut = ".self::STATUS_VALIDATED;

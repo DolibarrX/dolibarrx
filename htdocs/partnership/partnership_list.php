@@ -352,7 +352,7 @@ if (isset($extrafields->attributes[$object->table_element]['label']) && is_array
 }
 if ($managedfor == 'member') {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent as d on (d.rowid = t.fk_member)";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent_type as dty on (dty.rowid = d.fk_member_type)";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."member_type as dty on (dty.rowid = d.fk_member_type)";
 } else {
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as d on (d.rowid = t.fk_soc)";
 }

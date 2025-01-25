@@ -447,7 +447,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as state on (state.rowid = 
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe as s on (s.rowid = d.fk_soc)";
 
 // SQL Alias adherent_type
-$sql .= ", ".MAIN_DB_PREFIX."adherent_type as t";
+$sql .= ", ".MAIN_DB_PREFIX."member_type as t";
 $sql .= " WHERE d.fk_member_type = t.rowid";
 
 $searchCategoryContactList = $search_categ ? array($search_categ) : array();

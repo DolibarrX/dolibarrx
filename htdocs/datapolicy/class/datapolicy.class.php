@@ -143,7 +143,7 @@ class DataPolicy
 
 		$sql = "SELECT a.rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent_extrafields as ae ON ae.fk_object = a.rowid";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."member_extrafields as ae ON ae.fk_object = a.rowid";
 		$sql .= " WHERE a.statut = 0 AND (ae.datapolicy_consentement = 0 OR ae.datapolicy_consentement IS NULL) AND (ae.datapolicy_opposition_traitement=0 OR ae.datapolicy_opposition_traitement IS NULL) AND (ae.datapolicy_opposition_prospection=0 OR ae.datapolicy_opposition_prospection IS NULL)";
 		$sql .= " AND ae.datapolicy_send IS NULL";
 		$sql .= " AND a.entity = ".((int) $config->entity);

@@ -112,7 +112,7 @@ class PartnershipUtils
 		$sql .= ", d.datefin, d.fk_member_type, dty.subscription";
 		$sql .= " FROM ".MAIN_DB_PREFIX."partnership as p";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent as d on (d.rowid = p.fk_member)";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent_type as dty on (dty.rowid = d.fk_member_type)";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."member_type as dty on (dty.rowid = d.fk_member_type)";
 		$sql .= " WHERE fk_member > 0";
 		$sql .= " AND (d.datefin < '".$this->db->idate($datetotest)."' AND dty.subscription = 1)";
 		$sql .= " AND p.status = ".((int) $partnership::STATUS_APPROVED); // Only accepted not yet canceled

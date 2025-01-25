@@ -90,10 +90,10 @@ if ((!empty($foruserid) || !empty($foruserlogin) || !empty($mode)) && !$mesg) {
 			$sql .= ($extrafields->attributes[$object->table_element]['type'][$key] != 'separate' ? ", ef.".$key." as options_".$key : '');
 		}
 	}
-	$sql .= " FROM ".MAIN_DB_PREFIX."adherent_type as t, ".MAIN_DB_PREFIX."adherent as d";
+	$sql .= " FROM ".MAIN_DB_PREFIX."member_type as t, ".MAIN_DB_PREFIX."adherent as d";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON d.country = c.rowid";
 	if (isset($extrafields->attributes[$object->table_element]['label']) && is_array($extrafields->attributes[$object->table_element]['label']) && count($extrafields->attributes[$object->table_element]['label'])) {
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent_extrafields as ef on (d.rowid = ef.fk_object)";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."member_extrafields as ef on (d.rowid = ef.fk_object)";
 	}
 	$sql .= " WHERE d.fk_member_type = t.rowid AND d.statut = 1";
 	$sql .= " AND d.entity IN (".getEntity('member').")";
