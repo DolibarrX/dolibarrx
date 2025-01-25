@@ -284,7 +284,7 @@ class DoliDBPgsql extends DoliDB
 				}
 
 				// alter table add primary key (field1, field2 ...) -> We remove the primary key name not accepted by PostGreSQL
-				// ALTER TABLE llx_dolibarr_modules ADD PRIMARY KEY pk_dolibarr_modules (numero, entity)
+				// ALTER TABLE llx_dolibarr_modules ADD PRIMARY KEY pk_dolibarr_modules (number, entity)
 				if (preg_match('/ALTER\s+TABLE\s*(.*)\s*ADD\s+PRIMARY\s+KEY\s*(.*)\s*\((.*)$/i', $line, $reg)) {
 					$line = "-- ".$line." replaced by --\n";
 					$line .= "ALTER TABLE ".$reg[1]." ADD PRIMARY KEY (".$reg[3];

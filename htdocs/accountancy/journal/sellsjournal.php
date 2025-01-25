@@ -561,7 +561,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 					$bookkeeping->subledger_account = $tabcompany[$key]['code_compta'];
 					$bookkeeping->subledger_label = $tabcompany[$key]['name'];
 
-					$bookkeeping->numero_compte = getDolGlobalString('ACCOUNTING_ACCOUNT_CUSTOMER_RETAINED_WARRANTY');
+					$bookkeeping->number_compte = getDolGlobalString('ACCOUNTING_ACCOUNT_CUSTOMER_RETAINED_WARRANTY');
 					$bookkeeping->label_compte = $accountingaccountcustomerwarranty->label;
 
 					$bookkeeping->label_operation = $bookkeepingstatic->accountingLabelForOperation($companystatic->name, $invoicestatic->ref, $langs->trans("RetainedWarranty"));
@@ -611,7 +611,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 				$bookkeeping->subledger_account = $tabcompany[$key]['code_compta'];
 				$bookkeeping->subledger_label = $tabcompany[$key]['name'];
 
-				$bookkeeping->numero_compte = (!empty($tabcompany[$key]['accountancy_code_customer_general']) && $tabcompany[$key]['accountancy_code_customer_general'] != '-1') ? $tabcompany[$key]['accountancy_code_customer_general'] : $cptcli;
+				$bookkeeping->number_compte = (!empty($tabcompany[$key]['accountancy_code_customer_general']) && $tabcompany[$key]['accountancy_code_customer_general'] != '-1') ? $tabcompany[$key]['accountancy_code_customer_general'] : $cptcli;
 				$bookkeeping->label_compte = $accountingaccountcustomer->label;
 
 				$bookkeeping->label_operation = $bookkeepingstatic->accountingLabelForOperation($companystatic->name, $invoicestatic->ref, $langs->trans("SubledgerAccount"));
@@ -689,7 +689,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 						$bookkeeping->subledger_label = '';
 					}
 
-					$bookkeeping->numero_compte = $k;
+					$bookkeeping->number_compte = $k;
 					$bookkeeping->label_compte = $label_account;
 
 					$bookkeeping->label_operation = $bookkeepingstatic->accountingLabelForOperation($companystatic->name, $invoicestatic->ref, $label_account);
@@ -753,7 +753,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 						$bookkeeping->subledger_account = '';
 						$bookkeeping->subledger_label = '';
 
-						$bookkeeping->numero_compte = $k;
+						$bookkeeping->number_compte = $k;
 						$bookkeeping->label_compte = $label_account;
 
 
@@ -814,7 +814,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 						$bookkeeping->subledger_account = '';
 						$bookkeeping->subledger_label = '';
 
-						$bookkeeping->numero_compte = $k;
+						$bookkeeping->number_compte = $k;
 						$bookkeeping->label_compte = $label_account;
 
 						$bookkeeping->label_operation = $bookkeepingstatic->accountingLabelForOperation($companystatic->name, $invoicestatic->ref, $langs->trans("RevenueStamp"));

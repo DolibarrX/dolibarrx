@@ -46,7 +46,7 @@ class modMultiCurrency extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 40000;
+		$this->number = 40000;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'multicurrency';
 
@@ -56,9 +56,9 @@ class modMultiCurrency extends DolibarrModules
 		// Module position in the family
 		$this->module_position = '40';
 
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
-		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
+		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'number' of module)
 		$this->description = "Module to manage several foreign currencies in prices and documents";
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or 'dolibarr_deprecated' or version
@@ -173,7 +173,7 @@ class modMultiCurrency extends DolibarrModules
 
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
-		// $this->rights[$r][0] = $this->numero + $r;	// Permission id (must not be already used)
+		// $this->rights[$r][0] = $this->number + $r;	// Permission id (must not be already used)
 		// $this->rights[$r][1] = 'Permision label';	// Permission label
 		// $this->rights[$r][3] = 0; 					// Permission by default for new user (0/1)
 		// $this->rights[$r][4] = 'level1';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)

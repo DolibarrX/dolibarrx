@@ -237,7 +237,7 @@ class DoliDBSqlite3 extends DoliDB
 				}
 
 				// alter table add primary key (field1, field2 ...) -> We create a unique index instead as dynamic creation of primary key is not supported
-				// ALTER TABLE llx_dolibarr_modules ADD PRIMARY KEY pk_dolibarr_modules (numero, entity);
+				// ALTER TABLE llx_dolibarr_modules ADD PRIMARY KEY pk_dolibarr_modules (number, entity);
 				if (preg_match('/ALTER\s+TABLE\s*(.*)\s*ADD\s+PRIMARY\s+KEY\s*(.*)\s*\((.*)$/i', $line, $reg)) {
 					$line = "-- ".$line." replaced by --\n";
 					$line .= "CREATE UNIQUE INDEX ".$reg[2]." ON ".$reg[1]."(".$reg[3];

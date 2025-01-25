@@ -47,11 +47,11 @@ class modMember extends DolibarrModules
 		global $config;
 
 		$this->db = $db;
-		$this->numero = 310;
+		$this->number = 310;
 
 		$this->family = "hr";
 		$this->module_position = '06';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Management of members of a foundation or association";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version

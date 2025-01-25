@@ -43,7 +43,7 @@ class modOpenSurvey extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used module id).
-		$this->numero = 55000;
+		$this->number = 55000;
 		// Key text used to identify module (for permission, menus, etc...)
 		$this->rights_class = 'opensurvey';
 
@@ -51,7 +51,7 @@ class modOpenSurvey extends DolibarrModules
 		// It is used to group modules in module setup page
 		$this->family = "portal";
 		$this->module_position = '40';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is value MyModule)
 		$this->description = "Module to make online surveys (like Doodle, Studs, Rdvz, ...)";

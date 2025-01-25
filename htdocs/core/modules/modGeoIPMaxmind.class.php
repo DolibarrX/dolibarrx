@@ -39,14 +39,14 @@ class modGeoIPMaxmind extends DolibarrModules
 	public function __construct($db)
 	{
 		$this->db = $db;
-		$this->numero = 2900;
+		$this->number = 2900;
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
 		$this->family = "interface";
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
-		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
+		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'number' of module)
 		$this->description = "GeoIP Maxmind conversions capabilities";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';

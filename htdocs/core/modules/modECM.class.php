@@ -45,13 +45,13 @@ class modECM extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id.
-		$this->numero = 2500;
+		$this->number = 2500;
 
 		// Family can be 'crm','financial','hr','projects','product','ecm','technic','other'
 		// It is used to sort modules in module setup page
 		$this->family = "ecm";
 		$this->module_position = '10';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description used if translation string 'ModuleXXXDesc' not found (XXX is id value)
 		$this->description = "Electronic Content Management";

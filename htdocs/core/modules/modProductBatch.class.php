@@ -45,7 +45,7 @@ class modProductBatch extends DolibarrModules
 		global $langs, $config;
 
 		$this->db = $db;
-		$this->numero = 39000;
+		$this->number = 39000;
 
 		$this->family = "products";
 		$this->module_position = '45';

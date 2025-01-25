@@ -145,7 +145,7 @@ if (empty($resHook)) {
 				$error++;
 				setEventMessages($object->error, $object->errors, 'errors');
 			} else {
-				$object->numero_compte = $accountingaccount_number;
+				$object->number_compte = $accountingaccount_number;
 				$object->subledger_account = $subledger_account;
 				$object->subledger_label = $subledger_label;
 				$object->label_compte = $accountingaccount_label;
@@ -200,7 +200,7 @@ if (empty($resHook)) {
 
 			$object = new BookKeeping($db);
 
-			$object->numero_compte = $accountingaccount_number;
+			$object->number_compte = $accountingaccount_number;
 			$object->subledger_account = $subledger_account;
 			$object->subledger_label = $subledger_label;
 			$object->label_compte = $accountingaccount_label;
@@ -834,7 +834,7 @@ if ($action == 'create') {
 				// Add an empty line if there is not yet
 				if (!empty($object->linesmvt[0])) {
 					$tmpline = $object->linesmvt[0];
-					if (!empty($tmpline->numero_compte)) {
+					if (!empty($tmpline->number_compte)) {
 						$line = new BookKeepingLine($db);
 						$object->linesmvt[] = $line;
 					}
@@ -848,7 +848,7 @@ if ($action == 'create') {
 						print '<tr class="oddeven" data-lineid="'.((int) $line->id).'">';
 						print '<!-- td columns in edit mode -->';
 						print '<td>';
-						print $formaccounting->select_account((GETPOSTISSET("accountingaccount_number") ? GETPOST("accountingaccount_number", "alpha") : $line->numero_compte), 'accountingaccount_number', 1, array(), 1, 1, 'minwidth200 maxwidth500');
+						print $formaccounting->select_account((GETPOSTISSET("accountingaccount_number") ? GETPOST("accountingaccount_number", "alpha") : $line->number_compte), 'accountingaccount_number', 1, array(), 1, 1, 'minwidth200 maxwidth500');
 						print '</td>';
 						print '<td>';
 						// TODO For the moment we keep a free input text instead of a combo. The select_auxaccount has problem because:
@@ -871,7 +871,7 @@ if ($action == 'create') {
 						print '<input type="submit" class="button" name="update" value="'.$langs->trans("Update").'">';
 						print '</td>';
 						print "</tr>\n";
-					} elseif (empty($line->numero_compte) || (empty($line->debit) && empty($line->credit))) {
+					} elseif (empty($line->number_compte) || (empty($line->debit) && empty($line->credit))) {
 						if (($action == "" || $action == 'add') && $permissiontoadd) {
 							print '<tr class="oddeven" data-lineid="'.((int) $line->id).'">';
 							print '<!-- td columns in add mode -->';
@@ -899,12 +899,12 @@ if ($action == 'create') {
 					} else {
 						print '<tr class="oddeven" data-lineid="'.((int) $line->id).'">';
 						print '<!-- td columns in display mode -->';
-						$resultfetch = $accountingaccount->fetch(0, $line->numero_compte, true);
+						$resultfetch = $accountingaccount->fetch(0, $line->number_compte, true);
 						print '<td>';
 						if ($resultfetch > 0) {
 							print $accountingaccount->getNomUrl(0, 1, 1, '', 0);
 						} else {
-							print dol_escape_htmltag($line->numero_compte).' <span class="warning">('.$langs->trans("AccountRemovedFromCurrentChartOfAccount").')</span>';
+							print dol_escape_htmltag($line->number_compte).' <span class="warning">('.$langs->trans("AccountRemovedFromCurrentChartOfAccount").')</span>';
 						}
 						print '</td>';
 						print '<td>'.length_accounta($line->subledger_account);

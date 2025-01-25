@@ -737,7 +737,7 @@ function isValidUrl($url, $http = 0, $pass = 0, $port = 0, $path = 0, $query = 0
 }
 
 /**
- *	Check if VAT numero is valid (check done on syntax only, no database or remote access)
+ *	Check if VAT number is valid (check done on syntax only, no database or remote access)
  *
  *	@param	Societe   $company       VAT number
  *	@return int					     1=Check is OK, 0=Check is KO
@@ -1236,7 +1236,7 @@ function get_next_value($db, $mask, $table, $field, $where = '', $objsoc = '', $
 	$sql .= " AND " . $db->sanitize($field) . " NOT LIKE '(PROV%)'";
 
 	// To ensure that all variables within the MAX() brackets are integers
-	// This avoid bad detection of max when data are noised with non numeric values at the position of the numero
+	// This avoid bad detection of max when data are noised with non numeric values at the position of the number
 	if (getDolGlobalInt('MAIN_NUMBERING_FILTER_ON_INT_ONLY')) {
 		// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
 		$sql .= " AND " . $db->regexpsql($sqlstring, '^[0-9]+$', 1);
@@ -1642,12 +1642,12 @@ function hexbin($hexa)
 }
 
 /**
- *	Retourne le numero de la semaine par rapport a une date
+ *	Retourne le number de la semaine par rapport a une date
  *
  *	@param	string	$time   	Date au format 'timestamp'
  *	@return string					Number of week
  */
-function numero_semaine($time)
+function number_semaine($time)
 {
 	$stime = dol_print_date($time, '%Y-%m-%d');
 
@@ -1691,8 +1691,8 @@ function numero_semaine($time)
 		$premierJeudiAnnee = mktime(12, 0, 0, 1, 1, (int) date("Y", $jeudiSemaine));
 	}
 
-	// Definition du numero de semaine: nb de jours entre "premier Jeudi de l'annee" et "Jeudi de la semaine";
-	$numeroSemaine = (
+	// Definition du number de semaine: nb de jours entre "premier Jeudi de l'annee" et "Jeudi de la semaine";
+	$numberSemaine = (
 		(
 			(int) date("z", mktime(12, 0, 0, (int) date("m", $jeudiSemaine), (int) date("d", $jeudiSemaine), (int) date("Y", $jeudiSemaine)))
 			-
@@ -1701,7 +1701,7 @@ function numero_semaine($time)
 	) + 1;
 
 	// Cas particulier de la semaine 53
-	if ($numeroSemaine == 53) {
+	if ($numberSemaine == 53) {
 		// Les annees qui commencent un Jeudi et les annees bissextiles commencant un Mercredi en possedent 53
 		if (
 			((int) date("w", mktime(12, 0, 0, 1, 1, (int) date("Y", $jeudiSemaine))) == 4)
@@ -1710,15 +1710,15 @@ function numero_semaine($time)
 				&& ((int) date("z", mktime(12, 0, 0, 12, 31, (int) date("Y", $jeudiSemaine))) == 365)
 			)
 		) {
-			$numeroSemaine = 53;
+			$numberSemaine = 53;
 		} else {
-			$numeroSemaine = 1;
+			$numberSemaine = 1;
 		}
 	}
 
-	//echo $jour."-".$mois."-".$annee." (".date("d-m-Y",$premierJeudiAnnee)." - ".date("d-m-Y",$jeudiSemaine).") -> ".$numeroSemaine."<BR>";
+	//echo $jour."-".$mois."-".$annee." (".date("d-m-Y",$premierJeudiAnnee)." - ".date("d-m-Y",$jeudiSemaine).") -> ".$numberSemaine."<BR>";
 
-	return sprintf("%02d", $numeroSemaine);
+	return sprintf("%02d", $numberSemaine);
 }
 
 /**

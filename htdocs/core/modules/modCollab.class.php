@@ -41,13 +41,13 @@ class modCollab extends DolibarrModules
 		global $langs, $config;
 
 		$this->db = $db;
-		$this->numero = 30000;
+		$this->number = 30000;
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
 		$this->family = "portal";
 		$this->module_position = '51';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Enable the public collaboration features, like shared pad, shared online sheets, etc...";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version

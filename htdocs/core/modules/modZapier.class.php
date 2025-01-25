@@ -44,7 +44,7 @@ class modZapier extends DolibarrModules
 		$this->db = $db;
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 50330;
+		$this->number = 50330;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'zapier';
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
@@ -225,7 +225,7 @@ class modZapier extends DolibarrModules
 
 		$r = 1;
 		// Permission id (must not be already used)
-		$this->rights[$r][0] = $this->numero + $r;
+		$this->rights[$r][0] = $this->number + $r;
 		// Permission label
 		$this->rights[$r][1] = 'Read myobject of Zapier';
 		// Permission by default for new user (0/1)
@@ -235,13 +235,13 @@ class modZapier extends DolibarrModules
 		// In php code, permission will be checked by test if ($user->rights->zapier->level1->level2)
 		$this->rights[$r][5] = '';
 		$r++;
-		$this->rights[$r][0] = $this->numero + $r;
+		$this->rights[$r][0] = $this->number + $r;
 		$this->rights[$r][1] = 'Create/Update myobject of Zapier';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'write';
 		$this->rights[$r][5] = '';
 		$r++;
-		$this->rights[$r][0] = $this->numero + $r;
+		$this->rights[$r][0] = $this->number + $r;
 		$this->rights[$r][1] = 'Delete myobject of Zapier';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'delete';

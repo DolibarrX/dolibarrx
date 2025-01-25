@@ -46,7 +46,7 @@ class modEventOrganization extends DolibarrModules
 
 		$this->db = $db;
 
-		$this->numero = 2450;
+		$this->number = 2450;
 
 		$this->rights_class = 'eventorganization';
 
@@ -209,15 +209,15 @@ class modEventOrganization extends DolibarrModules
 
 		// Add here entries to declare new permissions
 		/* BEGIN MODULEBUILDER PERMISSIONS */
-		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Read objects of EventOrganization'; // Permission label
 		$this->rights[$r][4] = 'read'; // In php code, permission will be checked by test if ($user->rights->eventorganization->level1)
 		$r++;
-		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Create/Update objects of EventOrganization'; // Permission label
 		$this->rights[$r][4] = 'write'; // In php code, permission will be checked by test if ($user->rights->eventorganization->level1)
 		$r++;
-		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Delete objects of EventOrganization'; // Permission label
 		$this->rights[$r][4] = 'delete'; // In php code, permission will be checked by test if ($user->rights->eventorganization->level1)
 		$r++;

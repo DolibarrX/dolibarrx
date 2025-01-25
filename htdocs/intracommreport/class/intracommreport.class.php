@@ -176,7 +176,7 @@ class IntracommReport extends CommonObject
 	/**
 	 * @var string
 	 */
-	public $numero_declaration;
+	public $number_declaration;
 
 
 	/**
@@ -300,7 +300,7 @@ class IntracommReport extends CommonObject
 		/**************Construction de quelques variables********************/
 		$party_id = substr(strtr($mysoc->tva_intra, array(' ' => '')), 0, 4).$mysoc->idprof2;
 		$declarant = substr($mysoc->managers, 0, 14);
-		$id_declaration = self::getDeclarationNumber($this->numero_declaration);
+		$id_declaration = self::getDeclarationNumber($this->number_declaration);
 		/********************************************************************/
 
 		/**************Construction du fichier XML***************************/
@@ -361,7 +361,7 @@ class IntracommReport extends CommonObject
 		$e = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" ?><fichier_des></fichier_des>');
 
 		$declaration_des = $e->addChild('declaration_des');
-		$declaration_des->addChild('num_des', self::getDeclarationNumber($this->numero_declaration));
+		$declaration_des->addChild('num_des', self::getDeclarationNumber($this->number_declaration));
 		$declaration_des->addChild('num_tvaFr', $mysoc->tva_intra); // /^FR[a-Z0-9]{2}[0-9]{9}$/  // Doit faire 13 caractères
 		$declaration_des->addChild('mois_des', (string) $period_month);
 		$declaration_des->addChild('an_des', (string) $period_year);
@@ -604,7 +604,7 @@ class IntracommReport extends CommonObject
 	 */
 	public function getNextDeclarationNumber()
 	{
-		$sql = "SELECT MAX(numero_declaration) as max_declaration_number";
+		$sql = "SELECT MAX(number_declaration) as max_declaration_number";
 		$sql .= " FROM ".MAIN_DB_PREFIX.$this->table_element;
 		$sql .= " WHERE exporttype = '".$this->db->escape($this->type_export)."'";
 		$resql = $this->db->query($sql);

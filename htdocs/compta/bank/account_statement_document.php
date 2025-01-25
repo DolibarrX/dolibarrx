@@ -88,7 +88,7 @@ $result = restrictedArea($user, 'banque', $object->id, 'bank_account', '', '');
 // Define number of receipt to show (current, previous or next one ?)
 $found = false;
 if (GETPOST("rel") == 'prev') {
-	// Recherche valeur pour num = numero releve precedent
+	// Recherche valeur pour num = number releve precedent
 	$sql = "SELECT DISTINCT(b.num_releve) as num";
 	$sql .= " FROM ".MAIN_DB_PREFIX."bank as b";
 	$sql .= " WHERE b.num_releve < '".$db->escape($numref)."'";
@@ -106,7 +106,7 @@ if (GETPOST("rel") == 'prev') {
 		}
 	}
 } elseif (GETPOST("rel") == 'next') {
-	// Recherche valeur pour num = numero releve precedent
+	// Recherche valeur pour num = number releve precedent
 	$sql = "SELECT DISTINCT(b.num_releve) as num";
 	$sql .= " FROM ".MAIN_DB_PREFIX."bank as b";
 	$sql .= " WHERE b.num_releve > '".$db->escape($numref)."'";

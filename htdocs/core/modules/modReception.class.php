@@ -43,11 +43,11 @@ class modReception extends DolibarrModules
 		global $config, $user;
 
 		$this->db = $db;
-		$this->numero = 94160;
+		$this->number = 94160;
 
 		$this->family = "srm";
 		$this->module_position = '40';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "ReceptionDescription";
 
@@ -113,21 +113,21 @@ class modReception extends DolibarrModules
 		$r = 0;
 
 		$r++;
-		$this->rights[$r][0] = $this->numero.$r;
+		$this->rights[$r][0] = $this->number.$r;
 		$this->rights[$r][1] = 'Read receptions';
 		$this->rights[$r][2] = 'r';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'lire';
 
 		$r++;
-		$this->rights[$r][0] = $this->numero.$r;
+		$this->rights[$r][0] = $this->number.$r;
 		$this->rights[$r][1] = 'Create receptions';
 		$this->rights[$r][2] = 'w';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'creer';
 
 		$r++;
-		$this->rights[$r][0] = $this->numero.$r;
+		$this->rights[$r][0] = $this->number.$r;
 		$this->rights[$r][1] = 'Validate receptions';
 		$this->rights[$r][2] = 'd';
 		$this->rights[$r][3] = 0;
@@ -135,7 +135,7 @@ class modReception extends DolibarrModules
 		$this->rights[$r][5] = 'validate';
 
 		$r++;
-		$this->rights[$r][0] = $this->numero.$r; // id de la permission
+		$this->rights[$r][0] = $this->number.$r; // id de la permission
 		$this->rights[$r][1] = 'Send receptions to customers'; // libelle de la permission
 		$this->rights[$r][2] = 'd'; // type de la permission (deprecated)
 		$this->rights[$r][3] = 0; // La permission est-elle une permission par default
@@ -143,7 +143,7 @@ class modReception extends DolibarrModules
 		$this->rights[$r][5] = 'send';
 
 		$r++;
-		$this->rights[$r][0] = $this->numero.$r;
+		$this->rights[$r][0] = $this->number.$r;
 		$this->rights[$r][1] = 'Export receptions';
 		$this->rights[$r][2] = 'r';
 		$this->rights[$r][3] = 0;
@@ -151,7 +151,7 @@ class modReception extends DolibarrModules
 		$this->rights[$r][5] = 'export';
 
 		$r++;
-		$this->rights[$r][0] = $this->numero.$r;
+		$this->rights[$r][0] = $this->number.$r;
 		$this->rights[$r][1] = 'Delete receptions';
 		$this->rights[$r][2] = 'd';
 		$this->rights[$r][3] = 0;

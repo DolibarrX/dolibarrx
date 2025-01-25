@@ -157,7 +157,7 @@ $j = 0; // j is module number. Automatically assigned if module number is not de
 $const_name = '';
 
 foreach ($modulesdir as $dir) {
-	// Charge tableaux modules, nom, numero, orders depuis repertoire dir
+	// Charge tableaux modules, nom, number, orders depuis repertoire dir
 	$handle = @opendir($dir);
 	if (is_resource($handle)) {
 		while (($file = readdir($handle)) !== false) {
@@ -170,8 +170,8 @@ foreach ($modulesdir as $dir) {
 						include_once $dir.$file;
 						$objMod = new $modName($db);
 
-						if ($objMod->numero > 0) {
-							$j = $objMod->numero;
+						if ($objMod->number > 0) {
+							$j = $objMod->number;
 						} else {
 							$j = 1000 + $i;
 						}
@@ -190,7 +190,7 @@ foreach ($modulesdir as $dir) {
 						if ($modulequalified) {
 							$modules[$i] = $objMod;
 							$filename[$i] = $modName;
-							$orders[$i]  = $objMod->family."_".$j; // Tri par famille puis numero module
+							$orders[$i]  = $objMod->family."_".$j; // Tri par famille puis number module
 							//print "x".$modName." ".$orders[$i]."\n<br>";
 							$j++;
 							$i++;
@@ -401,7 +401,7 @@ foreach ($demoprofiles as $profilearray) {
 				} else {
 					//$modulo = ($j % $nbcolsmod);
 					//if ($modulo == 0) print '<tr>';
-					print '<!-- id='.$val->numero.' -->';
+					print '<!-- id='.$val->number.' -->';
 					print '<div class="nowrap">';
 					print '<input type="checkbox" class="checkbox valignmiddle paddingright" id="id'.$modulekeyname.'" name="'.$modulekeyname.'" value="1" title="'.dol_escape_htmltag($val->getName()).'"';
 					$disabled = '';

@@ -39,7 +39,7 @@ class modBlockedLog extends DolibarrModules
 		global $config, $mysoc;
 
 		$this->db = $db;
-		$this->numero = 3200;
+		$this->number = 3200;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'blockedlog';
 
@@ -48,7 +48,7 @@ class modBlockedLog extends DolibarrModules
 		$this->family = "base";
 		// Module position in the family on 2 digits ('01', '10', '20', ...)
 		$this->module_position = '76';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Enable a log on some business events into a non reversible log. This module may be mandatory for some countries.";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
@@ -113,7 +113,7 @@ class modBlockedLog extends DolibarrModules
 		$this->rights = array(); // Permission array used by this module
 
 		$r = 1;
-		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Read archived events and fingerprints'; // Permission label
 		$this->rights[$r][3] = 0; // Permission by default for new user (0/1)
 		$this->rights[$r][4] = 'read'; // In php code, permission will be checked by test if ($user->rights->mymodule->level1->level2)

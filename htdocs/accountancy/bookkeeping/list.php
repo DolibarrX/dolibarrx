@@ -207,7 +207,7 @@ $arrayfields = array(
 	't.code_journal' => array('label' => $langs->trans("Codejournal"), 'checked' => 1),
 	't.doc_date' => array('label' => $langs->trans("Docdate"), 'checked' => 1),
 	't.doc_ref' => array('label' => $langs->trans("Piece"), 'checked' => 1),
-	't.numero_compte' => array('label' => $langs->trans("AccountAccountingShort"), 'checked' => 1),
+	't.number_compte' => array('label' => $langs->trans("AccountAccountingShort"), 'checked' => 1),
 	't.subledger_account' => array('label' => $langs->trans("SubledgerAccount"), 'checked' => 1),
 	't.label_operation' => array('label' => $langs->trans("Label"), 'checked' => 1),
 	't.debit' => array('label' => $langs->trans("AccountingDebit"), 'checked' => 1),
@@ -376,15 +376,15 @@ if (empty($resHook)) {
 		$param .= '&search_account_category='.urlencode((string) ($search_account_category));
 	}
 	if (!empty($search_accountancy_code)) {
-		$filter['t.numero_compte'] = $search_accountancy_code;
+		$filter['t.number_compte'] = $search_accountancy_code;
 		$param .= '&search_accountancy_code='.urlencode($search_accountancy_code);
 	}
 	if (!empty($search_accountancy_code_start)) {
-		$filter['t.numero_compte>='] = $search_accountancy_code_start;
+		$filter['t.number_compte>='] = $search_accountancy_code_start;
 		$param .= '&search_accountancy_code_start='.urlencode($search_accountancy_code_start);
 	}
 	if (!empty($search_accountancy_code_end)) {
-		$filter['t.numero_compte<='] = $search_accountancy_code_end;
+		$filter['t.number_compte<='] = $search_accountancy_code_end;
 		$param .= '&search_accountancy_code_end='.urlencode($search_accountancy_code_end);
 	}
 	if (!empty($search_accountancy_aux_code)) {
@@ -638,7 +638,7 @@ $sql .= " t.fk_docdet,";
 $sql .= " t.thirdparty_code,";
 $sql .= " t.subledger_account,";
 $sql .= " t.subledger_label,";
-$sql .= " t.numero_compte,";
+$sql .= " t.number_compte,";
 $sql .= " t.label_compte,";
 $sql .= " t.label_operation,";
 $sql .= " t.debit,";
@@ -675,17 +675,17 @@ if (count($filter) > 0) {
 			$sqlwhere[] = "t.doc_date > '".$db->idate($value)."'";
 		} elseif ($key == 't.doc_date<') {
 			$sqlwhere[] = "t.doc_date < '".$db->idate($value)."'";
-		} elseif ($key == 't.numero_compte>=') {
-			$sqlwhere[] = "t.numero_compte >= '".$db->escape($value)."'";
-		} elseif ($key == 't.numero_compte<=') {
-			$sqlwhere[] = "t.numero_compte <= '".$db->escape($value)."'";
+		} elseif ($key == 't.number_compte>=') {
+			$sqlwhere[] = "t.number_compte >= '".$db->escape($value)."'";
+		} elseif ($key == 't.number_compte<=') {
+			$sqlwhere[] = "t.number_compte <= '".$db->escape($value)."'";
 		} elseif ($key == 't.subledger_account>=') {
 			$sqlwhere[] = "t.subledger_account >= '".$db->escape($value)."'";
 		} elseif ($key == 't.subledger_account<=') {
 			$sqlwhere[] = "t.subledger_account <= '".$db->escape($value)."'";
 		} elseif ($key == 't.fk_doc' || $key == 't.fk_docdet' || $key == 't.piece_num') {
 			$sqlwhere[] = $db->sanitize($key).' = '.((int) $value);
-		} elseif ($key == 't.subledger_account' || $key == 't.numero_compte') {
+		} elseif ($key == 't.subledger_account' || $key == 't.number_compte') {
 			$sqlwhere[] = $db->sanitize($key)." LIKE '".$db->escape($db->escapeforlike($value))."%'";
 		} elseif ($key == 't.subledger_account') {
 			$sqlwhere[] = natural_search($key, $value, 0, 1);
@@ -720,7 +720,7 @@ if (count($filter) > 0) {
 				$sqlwhere[] = natural_search("t.code_journal", $value, 3, 1);
 			}
 		} elseif ($key == 't.search_accounting_code_in' && !empty($value)) {
-			$sqlwhere[] = 't.numero_compte IN ('.$db->sanitize($value, 1).')';
+			$sqlwhere[] = 't.number_compte IN ('.$db->sanitize($value, 1).')';
 		} else {
 			$sqlwhere[] = natural_search($key, $value, 0, 1);
 		}
@@ -931,7 +931,7 @@ if (!empty($arrayfields['t.doc_ref']['checked'])) {
 	print '<td class="liste_titre"><input type="text" name="search_doc_ref" size="8" value="'.dol_escape_htmltag($search_doc_ref).'"></td>';
 }
 // Accountancy account
-if (!empty($arrayfields['t.numero_compte']['checked'])) {
+if (!empty($arrayfields['t.number_compte']['checked'])) {
 	print '<td class="liste_titre">';
 	print '<div class="nowrap">';
 	print $formaccounting->select_account($search_accountancy_code_start, 'search_accountancy_code_start', $langs->trans('From'), array(), 1, 1, 'maxwidth150', 'account');
@@ -1075,8 +1075,8 @@ if (!empty($arrayfields['t.doc_date']['checked'])) {
 if (!empty($arrayfields['t.doc_ref']['checked'])) {
 	print_liste_field_titre($arrayfields['t.doc_ref']['label'], $_SERVER['PHP_SELF'], "t.doc_ref", "", $param, "", $sortfield, $sortorder);
 }
-if (!empty($arrayfields['t.numero_compte']['checked'])) {
-	print_liste_field_titre($arrayfields['t.numero_compte']['label'], $_SERVER['PHP_SELF'], "t.numero_compte", "", $param, "", $sortfield, $sortorder);
+if (!empty($arrayfields['t.number_compte']['checked'])) {
+	print_liste_field_titre($arrayfields['t.number_compte']['label'], $_SERVER['PHP_SELF'], "t.number_compte", "", $param, "", $sortfield, $sortorder);
 }
 if (!empty($arrayfields['t.subledger_account']['checked'])) {
 	print_liste_field_titre($arrayfields['t.subledger_account']['label'], $_SERVER['PHP_SELF'], "t.subledger_account", "", $param, "", $sortfield, $sortorder);
@@ -1148,7 +1148,7 @@ while ($i < min($num, $limit)) {
 	$line->thirdparty_code = $obj->thirdparty_code;
 	$line->subledger_account = $obj->subledger_account;
 	$line->subledger_label = $obj->subledger_label;
-	$line->numero_compte = $obj->numero_compte;
+	$line->number_compte = $obj->number_compte;
 	$line->label_compte = $obj->label_compte;
 	$line->label_operation = $obj->label_operation;
 	$line->debit = $obj->debit;
@@ -1309,8 +1309,8 @@ while ($i < min($num, $limit)) {
 	}
 
 	// Account number
-	if (!empty($arrayfields['t.numero_compte']['checked'])) {
-		print '<td>'.length_accountg($line->numero_compte).'</td>';
+	if (!empty($arrayfields['t.number_compte']['checked'])) {
+		print '<td>'.length_accountg($line->number_compte).'</td>';
 		if (!$i) {
 			$totalarray['nbfield']++;
 		}

@@ -483,7 +483,7 @@ if ($action == 'new') {
 			$lines[$obj->bid][$i]["date"] = $db->jdate($obj->datec);
 			$lines[$obj->bid][$i]["amount"] = $obj->amount;
 			$lines[$obj->bid][$i]["emetteur"] = $obj->emetteur;
-			$lines[$obj->bid][$i]["numero"] = $obj->num_chq;
+			$lines[$obj->bid][$i]["number"] = $obj->num_chq;
 			$lines[$obj->bid][$i]["banque"] = $obj->banque;
 			$lines[$obj->bid][$i]["id"] = $obj->transactionid;
 			$lines[$obj->bid][$i]["ref"] = $obj->transactionid;
@@ -557,7 +557,7 @@ if ($action == 'new') {
 			foreach ($lines[$bid] as $lid => $value) {
 				print '<tr class="oddeven">';
 				print '<td>'.dol_print_date($value["date"], 'day').'</td>';
-				print '<td>'.$value["numero"]."</td>\n";
+				print '<td>'.$value["number"]."</td>\n";
 				print '<td>'.$value["emetteur"]."</td>\n";
 				print '<td>'.$value["banque"]."</td>\n";
 				print '<td class="right"><span class="amount">'.price($value["amount"], 0, $langs, 1, -1, -1, $config->currency).'</span></td>';

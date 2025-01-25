@@ -42,14 +42,14 @@ class modReceiptPrinter extends DolibarrModules
 	public function __construct($db)
 	{
 		$this->db = $db;
-		$this->numero = 67000;
+		$this->number = 67000;
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
 		$this->family = "interface";
 		$this->module_position = '53';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
-		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
+		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'number' of module)
 		$this->description = "ReceiptPrinterDesc";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or 'dolibarr_deprecated' or version
 		$this->version = 'dolibarr';

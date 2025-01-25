@@ -311,7 +311,7 @@ if ($modecompta == 'BOOKKEEPING') {
 	}
 	$sql .= " FROM ".MAIN_DB_PREFIX."accounting_bookkeeping as f";
 	$sql .= ", ".MAIN_DB_PREFIX."accounting_account as aa";
-	$sql .= " WHERE f.numero_compte = aa.account_number";
+	$sql .= " WHERE f.number_compte = aa.account_number";
 	$sql .= " AND ".$predefinedgroupwhere;
 	$sql .= " AND fk_pcg_version = '".$db->escape($charofaccountstring)."'";
 	$sql .= " AND f.entity = ".$config->entity;

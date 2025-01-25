@@ -189,7 +189,7 @@ class BankAccounts extends DolibarrApi
 	 * @param string  $description			Description of the internal wire transfer								{@from body}{@required true}
 	 * @param float	  $amount				Amount to transfer from the source to the destination BankAccount		{@from body}{@required true}
 	 * @param float	  $amount_to			Amount to transfer to the destination BankAccount (only when accounts does not share the same currency)		{@from body}{@required false}
-	 * @param string  $cheque_number        Cheque numero                                                           {@from body}{@required false}
+	 * @param string  $cheque_number        Cheque number                                                           {@from body}{@required false}
 	 *
 	 * @url POST    /transfer
 	 *
@@ -496,12 +496,12 @@ class BankAccounts extends DolibarrApi
 	 * @param string $label            Label {@from body}
 	 * @param float  $amount           Amount (may be 0) {@from body}
 	 * @param int    $category         Category
-	 * @param string $cheque_number    Cheque numero {@from body}
+	 * @param string $cheque_number    Cheque number {@from body}
 	 * @param string $cheque_writer    Name of cheque writer {@from body}
 	 * @param string $cheque_bank      Bank of cheque writer {@from body}
 	 * @param string $accountancycode  Accountancy code {@from body}
 	 * @param string $datev            Payment date value (timestamp) {@from body} {@type timestamp}
-	 * @param string $num_releve       Bank statement numero {@from body}
+	 * @param string $num_releve       Bank statement number {@from body}
 	 * @return int					   ID of line
 	 *
 	 * @url POST {id}/lines

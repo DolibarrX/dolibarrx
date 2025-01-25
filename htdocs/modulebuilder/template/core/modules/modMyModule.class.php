@@ -47,7 +47,7 @@ class modMyModule extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 500000; // TODO Go on page https://wiki.dolibarr.org/index.php/List_of_modules_id to reserve an id number for your module
+		$this->number = 500000; // TODO Go on page https://wiki.dolibarr.org/index.php/List_of_modules_id to reserve an id number for your module
 
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'mymodule';
@@ -294,17 +294,17 @@ class modMyModule extends DolibarrModules
 		/* BEGIN MODULEBUILDER PERMISSIONS */
 		/*
 		$o = 1;
-		$this->rights[$r][0] = $this->numero . sprintf("%02d", ($o * 10) + 1); // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number . sprintf("%02d", ($o * 10) + 1); // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Read objects of MyModule'; // Permission label
 		$this->rights[$r][4] = 'myobject';
 		$this->rights[$r][5] = 'read'; // In php code, permission will be checked by test if ($user->hasRight('mymodule', 'myobject', 'read'))
 		$r++;
-		$this->rights[$r][0] = $this->numero . sprintf("%02d", ($o * 10) + 2); // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number . sprintf("%02d", ($o * 10) + 2); // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Create/Update objects of MyModule'; // Permission label
 		$this->rights[$r][4] = 'myobject';
 		$this->rights[$r][5] = 'write'; // In php code, permission will be checked by test if ($user->hasRight('mymodule', 'myobject', 'write'))
 		$r++;
-		$this->rights[$r][0] = $this->numero . sprintf("%02d", ($o * 10) + 3); // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number . sprintf("%02d", ($o * 10) + 3); // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Delete objects of MyModule'; // Permission label
 		$this->rights[$r][4] = 'myobject';
 		$this->rights[$r][5] = 'delete'; // In php code, permission will be checked by test if ($user->hasRight('mymodule', 'myobject', 'delete'))

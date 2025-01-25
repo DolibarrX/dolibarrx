@@ -48,11 +48,11 @@ class modProjet extends DolibarrModules
 		global $config;
 
 		$this->db = $db;
-		$this->numero = 400;
+		$this->number = 400;
 
 		$this->family = "projects";
 		$this->module_position = '14';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Gestion des projects";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version

@@ -40,11 +40,11 @@ class modLabel extends DolibarrModules
 	public function __construct($db)
 	{
 		$this->db = $db;
-		$this->numero = 60;
+		$this->number = 60;
 
 		$this->family = "technic";
 		$this->module_position = '75';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Management of stickers";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version

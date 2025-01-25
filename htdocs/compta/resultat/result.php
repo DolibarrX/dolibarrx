@@ -308,8 +308,8 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$unactive_cats = $AccCat->getCats(-1, 0, $id_report);
 
 	/*
-	$sql = 'SELECT DISTINCT t.numero_compte as nb FROM '.MAIN_DB_PREFIX.'accounting_bookkeeping as t, '.MAIN_DB_PREFIX.'accounting_account as aa';
-	$sql.= " WHERE t.numero_compte = aa.account_number AND aa.fk_accounting_category = 0";
+	$sql = 'SELECT DISTINCT t.number_compte as nb FROM '.MAIN_DB_PREFIX.'accounting_bookkeeping as t, '.MAIN_DB_PREFIX.'accounting_account as aa';
+	$sql.= " WHERE t.number_compte = aa.account_number AND aa.fk_accounting_category = 0";
 	if (!empty($date_start) && !empty($date_end))
 		$sql.= " AND t.doc_date >= '".$db->idate($date_start)."' AND t.doc_date <= '".$db->idate($date_end)."'";
 	if (!empty($month)) {

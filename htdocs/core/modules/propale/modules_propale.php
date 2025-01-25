@@ -25,7 +25,7 @@
  *  \file       htdocs/core/modules/propale/modules_propale.php
  *  \ingroup    propale
  *  \brief      Fichier contenant la class mere de generation des propales en PDF
- *  			et la class mere de numerotation des propales
+ *  			et la class mere de numbertation des propales
  */
 
 require_once DOL_DOCUMENT_ROOT.'/core/class/commondocgenerator.class.php';

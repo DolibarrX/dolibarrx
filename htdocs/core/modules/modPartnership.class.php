@@ -49,7 +49,7 @@ class modPartnership extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 58000;
+		$this->number = 58000;
 
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'partnership';
@@ -291,15 +291,15 @@ class modPartnership extends DolibarrModules
 		$r = 0;
 		// Add here entries to declare new permissions
 		/* BEGIN MODULEBUILDER PERMISSIONS */
-		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Read objects of Partnership'; // Permission label
 		$this->rights[$r][4] = 'read'; // In php code, permission will be checked by test if ($user->rights->partnership->level1->level2)
 		$r++;
-		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Create/Update objects of Partnership'; // Permission label
 		$this->rights[$r][4] = 'write'; // In php code, permission will be checked by test if ($user->rights->partnership->level1->level2)
 		$r++;
-		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Delete objects of Partnership'; // Permission label
 		$this->rights[$r][4] = 'delete'; // In php code, permission will be checked by test if ($user->rights->partnership->level1->level2)
 		$r++;

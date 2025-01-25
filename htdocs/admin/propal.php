@@ -258,7 +258,7 @@ $head = propal_admin_prepare_head();
 print dol_get_fiche_head($head, 'general', $langs->trans("Proposals"), -1, 'propal');
 
 /*
- *  Module numerotation
+ *  Module numbertation
  */
 print load_fiche_titre($langs->trans("ProposalsNumberingModules"), '', '');
 

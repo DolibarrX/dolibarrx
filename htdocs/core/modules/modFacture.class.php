@@ -47,11 +47,11 @@ class modFacture extends DolibarrModules
 		global $config, $langs, $user, $mysoc;
 
 		$this->db = $db;
-		$this->numero = 30;
+		$this->number = 30;
 
 		$this->family = "financial";
 		$this->module_position = '11';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Gestion des factures";
 
@@ -82,7 +82,7 @@ class modFacture extends DolibarrModules
 		$this->const[$r][0] = "FACTURE_ADDON";
 		$this->const[$r][1] = "chaine";
 		$this->const[$r][2] = "mod_facture_terre";
-		$this->const[$r][3] = 'Name of numbering numerotation rules of invoice';
+		$this->const[$r][3] = 'Name of numbering numbertation rules of invoice';
 		$this->const[$r][4] = 0;
 		$r++;
 

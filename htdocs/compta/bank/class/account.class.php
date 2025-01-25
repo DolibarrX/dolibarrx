@@ -666,7 +666,7 @@ class Account extends CommonObject
 		$accline->fk_user_author = $user->id;
 		$accline->fk_account = $this->id;
 		$accline->fk_type = $oper;
-		$accline->numero_compte = $accountancycode;
+		$accline->number_compte = $accountancycode;
 		$accline->num_releve = $num_releve;
 
 		if ($num_chq) {
@@ -2157,9 +2157,9 @@ class AccountLine extends CommonObjectLine
 	public $bank_account_label;
 
 	/**
-	 * @var string		Bank account numero
+	 * @var string		Bank account number
 	 */
-	public $numero_compte;
+	public $number_compte;
 
 	/**
 	 * @var string		Name of check issuer
@@ -2316,7 +2316,7 @@ class AccountLine extends CommonObjectLine
 		$sql .= ", fk_type";
 		$sql .= ", emetteur,banque";
 		$sql .= ", rappro";
-		$sql .= ", numero_compte";
+		$sql .= ", number_compte";
 		$sql .= ", num_releve";
 		$sql .= ") VALUES (";
 		$sql .= "'".$this->db->idate($this->datec)."'";
@@ -2332,7 +2332,7 @@ class AccountLine extends CommonObjectLine
 		$sql .= ", ".($this->emetteur ? "'".$this->db->escape($this->emetteur)."'" : "null");
 		$sql .= ", ".($this->bank_chq ? "'".$this->db->escape($this->bank_chq)."'" : "null");
 		$sql .= ", ".(int) $this->rappro;
-		$sql .= ", ".($this->numero_compte ? "'".$this->db->escape($this->numero_compte)."'" : "''");
+		$sql .= ", ".($this->number_compte ? "'".$this->db->escape($this->number_compte)."'" : "''");
 		$sql .= ", ".($this->num_releve ? "'".$this->db->escape($this->num_releve)."'" : "null");
 		$sql .= ")";
 

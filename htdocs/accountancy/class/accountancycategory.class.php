@@ -474,7 +474,7 @@ class AccountancyCategory // extends CommonObject
 	{
 		global $config;
 
-		$sql = "SELECT aa.account_number as numero_compte, aa.label as label_compte";
+		$sql = "SELECT aa.account_number as number_compte, aa.label as label_compte";
 		$sql .= " FROM " . $this->db->prefix() . "accounting_account as aa";
 		$sql .= " INNER JOIN " . $this->db->prefix() . "accounting_system as asy ON aa.fk_pcg_version = asy.pcg_version";
 		$sql .= " WHERE (aa.fk_accounting_category <> " . ((int) $id) . " OR aa.fk_accounting_category IS NULL)";
@@ -655,15 +655,15 @@ class AccountancyCategory // extends CommonObject
 
 		$sql = "SELECT SUM(t.debit) as debit, SUM(t.credit) as credit";
 		if (is_array($cpt)) {
-			$sql .= ", t.numero_compte as accountancy_account";
+			$sql .= ", t.number_compte as accountancy_account";
 		}
 		$sql .= " FROM " . $this->db->prefix() . "accounting_bookkeeping as t";
 		//if (in_array($this->db->type, array('mysql', 'mysqli'))) $sql.=' USE INDEX idx_accounting_bookkeeping_doc_date';
 		$sql .= " WHERE t.entity = " . ((int) $config->entity);
 		if (is_array($cpt)) {
-			$sql .= " AND t.numero_compte IN (" . $this->db->sanitize($listofaccount, 1) . ")";
+			$sql .= " AND t.number_compte IN (" . $this->db->sanitize($listofaccount, 1) . ")";
 		} else {
-			$sql .= " AND t.numero_compte = '" . $this->db->escape($cpt) . "'";
+			$sql .= " AND t.number_compte = '" . $this->db->escape($cpt) . "'";
 		}
 		if (!empty($date_start) && !empty($date_end) && (empty($month) || empty($year))) {	// If month/year provided, it is stronger than filter date_start/date_end
 			$sql .= " AND (t.doc_date BETWEEN '" . $this->db->idate($date_start) . "' AND '" . $this->db->idate($date_end) . "')";
@@ -675,7 +675,7 @@ class AccountancyCategory // extends CommonObject
 			$sql .= " AND t.thirdparty_code = '" . $this->db->escape($thirdparty_code) . "'";
 		}
 		if (is_array($cpt)) {
-			$sql .= " GROUP BY t.numero_compte";
+			$sql .= " GROUP BY t.number_compte";
 		}
 
 		$resql = $this->db->query($sql);

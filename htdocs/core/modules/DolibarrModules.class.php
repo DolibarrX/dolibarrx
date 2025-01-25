@@ -46,7 +46,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 * @var int 	Module unique ID
 	 * @see https://wiki.dolibarr.org/index.php/List_of_modules_id
 	 */
-	public $numero;
+	public $number;
 
 	/**
 	 * @var string 	Publisher name
@@ -744,9 +744,9 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		global $langs;
 		$langs->load("admin");
 
-		if ($langs->transnoentitiesnoconv("Module".$this->numero."Name") != "Module".$this->numero."Name") {
+		if ($langs->transnoentitiesnoconv("Module".$this->number."Name") != "Module".$this->number."Name") {
 			// If module name translation exists
-			return $langs->transnoentitiesnoconv("Module".$this->numero."Name");
+			return $langs->transnoentitiesnoconv("Module".$this->number."Name");
 		} else {
 			// If module name translation using it's unique id does not exist, we try to use its name to find translation
 			if (is_array($this->langfiles)) {
@@ -778,9 +778,9 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		global $langs;
 		$langs->load("admin");
 
-		if ($langs->transnoentitiesnoconv("Module".$this->numero."Desc") != "Module".$this->numero."Desc") {
+		if ($langs->transnoentitiesnoconv("Module".$this->number."Desc") != "Module".$this->number."Desc") {
 			// If module description translation exists
-			return $langs->transnoentitiesnoconv("Module".$this->numero."Desc");
+			return $langs->transnoentitiesnoconv("Module".$this->number."Desc");
 		} else {
 			// If module description translation does not exist using its unique id, we can use its name to find translation
 			if (is_array($this->langfiles)) {
@@ -1026,7 +1026,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		if (!empty($this->editor_name) || !empty($this->editor_url)) {
 			return 'external';
 		}
-		if ($this->numero >= 100000) {
+		if ($this->number >= 100000) {
 			return 'external';
 		}
 		return 'unknown';
@@ -2674,7 +2674,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 
 		$return .=  '<div class="valignmiddle inline-block info-box-more">';
 		//if ($versiontrans) print img_warning($langs->trans("Version").' '.$this->getVersion(1)).' ';
-		$return .=  '<a class="valignmiddle inline-block" href="javascript:document_preview(\''.DOL_URL_ROOT.'/admin/modulehelp.php?id='.((int) $this->numero).'\',\'text/html\',\''.dol_escape_js($langs->trans("Module")).'\')">'.img_picto(($this->isCoreOrExternalModule() == 'external' ? $langs->trans("ExternalModule").' - ' : '').$langs->trans("ClickToShowDescription"), $imginfo).'</a>';
+		$return .=  '<a class="valignmiddle inline-block" href="javascript:document_preview(\''.DOL_URL_ROOT.'/admin/modulehelp.php?id='.((int) $this->number).'\',\'text/html\',\''.dol_escape_js($langs->trans("Module")).'\')">'.img_picto(($this->isCoreOrExternalModule() == 'external' ? $langs->trans("ExternalModule").' - ' : '').$langs->trans("ClickToShowDescription"), $imginfo).'</a>';
 		$return .=  '</div><br>';
 
 		$return .=  '<div class="valignmiddle inline-block info-box-actions">';

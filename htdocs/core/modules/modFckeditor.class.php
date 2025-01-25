@@ -42,11 +42,11 @@ class modFckeditor extends DolibarrModules
 	public function __construct($db)
 	{
 		$this->db = $db;
-		$this->numero = 2000;
+		$this->number = 2000;
 
 		$this->family = "technic";
 		$this->module_position = '20';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Editeur WYSIWYG";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version

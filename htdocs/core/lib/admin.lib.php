@@ -940,7 +940,7 @@ function modulehelp_prepare_head($object)
 	$head = array();
 
 	// FIX for compatibility habitual tabs
-	$object->id = $object->numero;
+	$object->id = $object->number;
 
 	$head[$h][0] = DOL_URL_ROOT . "/admin/modulehelp.php?id=" . $object->id . '&mode=desc';
 	$head[$h][1] = $langs->trans("Description");
@@ -1399,7 +1399,7 @@ function complete_dictionary_with_modules(&$taborder, &$tabname, &$tablib, &$tab
 	$j = 0; // j is module number. Automatically affected if module number not defined.
 
 	foreach ($modulesdir as $dir) {
-		// Load modules attributes in arrays (name, numero, orders) from dir directory
+		// Load modules attributes in arrays (name, number, orders) from dir directory
 		//print $dir."\n<br>";
 		dol_syslog("Scan directory " . $dir . " for modules");
 		$handle = @opendir(dol_osencode($dir));
@@ -1414,8 +1414,8 @@ function complete_dictionary_with_modules(&$taborder, &$tabname, &$tablib, &$tab
 						$objMod = new $modName($db);
 						'@phan-var-force DolibarrModules $objMod';
 
-						if ($objMod->numero > 0) {
-							$j = $objMod->numero;
+						if ($objMod->number > 0) {
+							$j = $objMod->number;
 						} else {
 							$j = 1000 + $i;
 						}
@@ -1568,7 +1568,7 @@ function activateModulesRequiredByCountry($country_code)
 	$modulesdir = dolGetModulesDirs();
 
 	foreach ($modulesdir as $dir) {
-		// Load modules attributes in arrays (name, numero, orders) from dir directory
+		// Load modules attributes in arrays (name, number, orders) from dir directory
 		dol_syslog("Scan directory " . $dir . " for modules");
 		$handle = @opendir(dol_osencode($dir));
 		if (is_resource($handle)) {
@@ -1643,7 +1643,7 @@ function complete_elementList_with_modules(&$elementList)
 	$modulesdir = dolGetModulesDirs();
 
 	foreach ($modulesdir as $dir) {
-		// Load modules attributes in arrays (name, numero, orders) from dir directory
+		// Load modules attributes in arrays (name, number, orders) from dir directory
 		//print $dir."\n<br>";
 		dol_syslog("Scan directory " . $dir . " for modules");
 		$handle = @opendir(dol_osencode($dir));
@@ -1657,8 +1657,8 @@ function complete_elementList_with_modules(&$elementList)
 						include_once $dir . $file;
 						$objMod = new $modName($db);
 
-						if ($objMod->numero > 0) {
-							$j = $objMod->numero;
+						if ($objMod->number > 0) {
+							$j = $objMod->number;
 						} else {
 							$j = 1000 + $i;
 						}
@@ -1962,7 +1962,7 @@ function showModulesExludedForExternal($modules)
 			if (!in_array($modulename, $listofmodules)) {
 				continue;
 			}
-			//var_dump($modulename.' - '.$langs->trans('Module'.$module->numero.'Name'));
+			//var_dump($modulename.' - '.$langs->trans('Module'.$module->number.'Name'));
 
 			if ($i > 0) {
 				$text .= ', ';
@@ -1971,9 +1971,9 @@ function showModulesExludedForExternal($modules)
 			}
 			$i++;
 
-			$tmptext = $langs->trans('Module' . $module->numero . 'Name');
-			if ($tmptext != 'Module' . $module->numero . 'Name') {
-				$text .= $langs->trans('Module' . $module->numero . 'Name');
+			$tmptext = $langs->trans('Module' . $module->number . 'Name');
+			if ($tmptext != 'Module' . $module->number . 'Name') {
+				$text .= $langs->trans('Module' . $module->number . 'Name');
 			} else {
 				$text .= $langs->trans($module->name);
 			}

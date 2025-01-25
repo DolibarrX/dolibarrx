@@ -217,12 +217,12 @@ if ($action == 'updateMaskTask') {
 		$ret = addDocumentModel($value, 'project_task', $label, $scandir);
 	}
 } elseif ($action == 'setmod') {
-	// TODO Verifier si module numerotation choisi peut etre active
+	// TODO Verifier si module numbertation choisi peut etre active
 	// par appel methode canBeActivated
 
 	dolibarr_set_const($db, "PROJECT_ADDON", $value, 'chaine', 0, '', $config->entity);
 } elseif ($action == 'setmodtask') {
-	// TODO Verifier si module numerotation choisi peut etre active
+	// TODO Verifier si module numbertation choisi peut etre active
 	// par appel methode canBeActivated
 
 	dolibarr_set_const($db, "PROJECT_TASK_ADDON", $value, 'chaine', 0, '', $config->entity);

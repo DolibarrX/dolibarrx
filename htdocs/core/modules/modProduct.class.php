@@ -50,11 +50,11 @@ class modProduct extends DolibarrModules
 		global $config, $mysoc;
 
 		$this->db = $db;
-		$this->numero = 50;
+		$this->number = 50;
 
 		$this->family = "products";
 		$this->module_position = '26';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Product management";
 

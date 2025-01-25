@@ -650,7 +650,7 @@ class AccountancyExport
 
 			$tab[] = $date_document;
 			$tab[] = $line->code_journal;
-			$tab[] = length_accountg($line->numero_compte);
+			$tab[] = length_accountg($line->number_compte);
 			$tab[] = length_accounta($line->subledger_account);
 			$tab[] = $line->sens;
 			$tab[] = price2fec(abs($line->debit - $line->credit));
@@ -705,7 +705,7 @@ class AccountancyExport
 			$tab[] = $date_document;
 			$tab[] = $refInvoice;
 			if (empty($line->subledger_account)) {
-				$tab[] = length_accountg($line->numero_compte);
+				$tab[] = length_accountg($line->number_compte);
 			} else {
 				$tab[] = length_accounta($line->subledger_account);
 			}
@@ -751,7 +751,7 @@ class AccountancyExport
 
 			$tab[] = $date_document;
 			$tab[] = $line->code_journal;
-			$tab[] = length_accountg($line->numero_compte);
+			$tab[] = length_accountg($line->number_compte);
 			$tab[] = $line->piece_num;
 			$tab[] = $line->doc_ref;
 			$tab[] = price($line->debit);
@@ -791,12 +791,12 @@ class AccountancyExport
 
 			if (empty($line->subledger_account)) {
 				$tab[] = 'G';
-				$tab[] = length_accountg($line->numero_compte);
+				$tab[] = length_accountg($line->number_compte);
 			} else {
-				if (substr($line->numero_compte, 0, 3) == '411') {
+				if (substr($line->number_compte, 0, 3) == '411') {
 					$tab[] = 'C';
 				}
-				if (substr($line->numero_compte, 0, 3) == '401') {
+				if (substr($line->number_compte, 0, 3) == '401') {
 					$tab[] = 'F';
 				}
 				$tab[] = length_accounta($line->subledger_account);
@@ -837,7 +837,7 @@ class AccountancyExport
 		$i = 1;
 
 		foreach ($objectLines as $line) {
-			$code_compta = length_accountg($line->numero_compte);
+			$code_compta = length_accountg($line->number_compte);
 			if (!empty($line->subledger_account)) {
 				$code_compta = length_accounta($line->subledger_account);
 			}
@@ -900,14 +900,14 @@ class AccountancyExport
 			$line->label_operation = str_replace(array("- ", "…", "..."), "", $line->label_operation);
 			$line->label_operation = dol_string_unaccent($line->label_operation);
 
-			$line->numero_compte = dol_string_unaccent($line->numero_compte);
+			$line->number_compte = dol_string_unaccent($line->number_compte);
 			$line->label_compte = dol_string_unaccent($line->label_compte);
 			$line->subledger_account = dol_string_unaccent($line->subledger_account);
 
 			$line->subledger_label = str_replace(array("- ", "…", "..."), "", $line->subledger_label);
 			$line->subledger_label = dol_string_unaccent($line->subledger_label);
 
-			$code_compta = $line->numero_compte;
+			$code_compta = $line->number_compte;
 			if (!empty($line->subledger_account)) {
 				$code_compta = $line->subledger_account;
 			}
@@ -1112,7 +1112,7 @@ class AccountancyExport
 		// Warning ! When truncation is necessary, no dot because 3 dots = three characters. The columns are shifted
 
 		foreach ($objectLines as $line) {
-			$code_compta = $line->numero_compte;
+			$code_compta = $line->number_compte;
 			if (!empty($line->subledger_account)) {
 				$code_compta = $line->subledger_account;
 			}
@@ -1198,11 +1198,11 @@ class AccountancyExport
 			$tab[] = $date_document;
 			$tab[] = $line->code_journal;
 			if (empty($line->subledger_account)) {
-				$tab[] = $line->numero_compte;
+				$tab[] = $line->number_compte;
 			} else {
 				$tab[] = $line->subledger_account;
 			}
-			//$tab[] = substr(length_accountg($line->numero_compte), 0, 2) . $separator;
+			//$tab[] = substr(length_accountg($line->number_compte), 0, 2) . $separator;
 			$tab[] = '"' . dol_trunc($line->label_operation, 40, 'right', 'UTF-8', 1) . '"';
 			$tab[] = '"' . dol_trunc((string) $line->piece_num, 15, 'right', 'UTF-8', 1) . '"';
 			$tab[] = price2num(abs($line->debit - $line->credit));
@@ -1243,7 +1243,7 @@ class AccountancyExport
 			$tab[] = self::toAnsi($line->label_operation);
 
 			if (empty($line->subledger_account)) {
-				$tab[] = length_accountg($line->numero_compte);
+				$tab[] = length_accountg($line->number_compte);
 				$tab[] = self::toAnsi($line->label_compte);
 			} else {
 				$tab[] = length_accounta($line->subledger_account);
@@ -1287,7 +1287,7 @@ class AccountancyExport
 			$tab[] = $date_document;
 			$tab[] = $line->code_journal;
 			if (empty($line->subledger_account)) {
-				$tab[] = length_accountg($line->numero_compte);
+				$tab[] = length_accountg($line->number_compte);
 			} else {
 				$tab[] = length_accounta($line->subledger_account);
 			}
@@ -1325,7 +1325,7 @@ class AccountancyExport
 			$tab[] = $date_document;
 			$tab[] = $line->doc_ref;
 			$tab[] = preg_match('/' . $separator . '/', $line->label_operation) ? "'" . $line->label_operation . "'" : $line->label_operation;
-			$tab[] = length_accountg($line->numero_compte);
+			$tab[] = length_accountg($line->number_compte);
 			$tab[] = length_accounta($line->subledger_account);
 			$tab[] = price2num($line->debit);
 			$tab[] = price2num($line->credit);
@@ -1435,7 +1435,7 @@ class AccountancyExport
 				$tab[] = $date_document;
 
 				// FEC:CompteNum
-				$tab[] = length_accountg($line->numero_compte);
+				$tab[] = length_accountg($line->number_compte);
 
 				// FEC:CompteLib
 				$tab[] = dol_string_unaccent($line->label_compte);
@@ -1649,7 +1649,7 @@ class AccountancyExport
 				$tab[] = $date_creation;
 
 				// FEC:CompteNum
-				$tab[] = length_accountg($line->numero_compte);
+				$tab[] = length_accountg($line->number_compte);
 
 				// FEC:CompteLib
 				$tab[] = dol_string_unaccent($line->label_compte);
@@ -1844,7 +1844,7 @@ class AccountancyExport
 			$tab[] = $date_document;
 
 			// Kto
-			$tab[] = length_accountg($line->numero_compte);
+			$tab[] = length_accountg($line->number_compte);
 			// S/H
 			if ($line->sens == 'D') {
 				$tab[] = 'S';
@@ -1921,7 +1921,7 @@ class AccountancyExport
 
 			if ($line->piece_num !== $thisPieceNum) {
 				$thisPieceNum = $line->piece_num;
-				$thisPieceAccountNr = $line->numero_compte;
+				$thisPieceAccountNr = $line->number_compte;
 			}
 		}
 	}
@@ -1997,7 +1997,7 @@ class AccountancyExport
 			// CODC
 			$tab[] = $line->sens;
 			// CPTG
-			$tab[] = length_accountg($line->numero_compte);
+			$tab[] = length_accountg($line->number_compte);
 			// DATE
 			$tab[] = $date_creation;
 			// CLET
@@ -2274,7 +2274,7 @@ class AccountancyExport
 			// CODC
 			$tab[] = $line->sens;
 			// CPTG
-			$tab[] = length_accountg($line->numero_compte);
+			$tab[] = length_accountg($line->number_compte);
 			// DATE
 			$tab[] = $date_document;
 			// CLET
@@ -2398,7 +2398,7 @@ class AccountancyExport
 			if (!empty($line->subledger_account)) {
 				$account = $line->subledger_account;
 			} else {
-				$account = $line->numero_compte;
+				$account = $line->number_compte;
 			}
 			$tab[] = self::trunc($account, 15); //Account number
 
@@ -2501,10 +2501,10 @@ class AccountancyExport
 				$tab[] = $date_document;
 				$tab[] = substr($line->code_journal, 0, 4);
 
-				if ((substr($line->numero_compte, 0, 3) == '411') || (substr($line->numero_compte, 0, 3) == '401')) {
+				if ((substr($line->number_compte, 0, 3) == '411') || (substr($line->number_compte, 0, 3) == '401')) {
 					$tab[] = length_accountg($line->subledger_account);
 				} else {
-					$tab[] = substr(length_accountg($line->numero_compte), 0, 15);
+					$tab[] = substr(length_accountg($line->number_compte), 0, 15);
 				}
 				//Libellé Auto
 				$tab[] = "";
@@ -2557,10 +2557,10 @@ class AccountancyExport
 				$tab[] = $line->id;
 				$tab[] = $date_document;
 				$tab[] = substr($line->code_journal, 0, 4);
-				if ((substr($line->numero_compte, 0, 3) == '411') || (substr($line->numero_compte, 0, 3) == '401')) {	// TODO No hard code value
+				if ((substr($line->number_compte, 0, 3) == '411') || (substr($line->number_compte, 0, 3) == '401')) {	// TODO No hard code value
 					$tab[] = length_accountg($line->subledger_account);
 				} else {
-					$tab[] = substr(length_accountg($line->numero_compte), 0, 15);
+					$tab[] = substr(length_accountg($line->number_compte), 0, 15);
 				}
 				$tab[] = "";
 				$tab[] = '"' . dol_trunc(str_replace('"', '', $line->label_operation), 40, 'right', 'UTF-8', 1) . '"';
@@ -2613,21 +2613,21 @@ class AccountancyExport
 			$tab[] = mb_convert_encoding(str_replace(' - Compte auxiliaire', '', $line->label_operation), "Windows-1252", 'UTF-8');
 
 			//Calcul de la longueur des numéros de comptes
-			$taille_numero = strlen(length_accountg($line->numero_compte));
+			$taille_number = strlen(length_accountg($line->number_compte));
 
 			//Création du numéro de client et fournisseur générique
-			$numero_cpt_client = '411';
-			$numero_cpt_fourn = '401';
-			for ($i = 1; $i <= ($taille_numero - 3); $i++) {
-				$numero_cpt_client .= '0';
-				$numero_cpt_fourn .= '0';
+			$number_cpt_client = '411';
+			$number_cpt_fourn = '401';
+			for ($i = 1; $i <= ($taille_number - 3); $i++) {
+				$number_cpt_client .= '0';
+				$number_cpt_fourn .= '0';
 			}
 
 			//Création des comptes auxiliaire des clients et fournisseur
-			if (length_accountg($line->numero_compte) == $numero_cpt_client || length_accountg($line->numero_compte) == $numero_cpt_fourn) {
+			if (length_accountg($line->number_compte) == $number_cpt_client || length_accountg($line->number_compte) == $number_cpt_fourn) {
 				$tab[] = rtrim(length_accounta($line->subledger_account), "0");
 			} else {
-				$tab[] = length_accountg($line->numero_compte);
+				$tab[] = length_accountg($line->number_compte);
 			}
 			$nom_client = explode(" - ", $line->label_operation);
 			$tab[] = mb_convert_encoding($nom_client[0], "Windows-1252", 'UTF-8');

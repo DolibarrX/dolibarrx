@@ -354,7 +354,7 @@ if (isModEnabled("bank")) {
 	}
 }
 
-// Payment numero
+// Payment number
 /*
 $titlefield=$langs->trans('Numero').' <em>('.$langs->trans("ChequeOrTransferNumber").')</em>';
 print '<tr><td>'.$form->editfieldkey($titlefield,'num_paiement',$object->num_paiement,$object,$object->statut == 0 && $user->rights->fournisseur->facture->creer).'</td><td>';

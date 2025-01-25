@@ -26,7 +26,7 @@
  *	\file       htdocs/core/modules/delivery/modules_delivery.php
  *	\ingroup    expedition
  *	\brief      Fichier contenant la class mere de generation de bon de livraison en PDF
- *				et la class mere de numerotation des bons de livraisons
+ *				et la class mere de numbertation des bons de livraisons
  */
 
 require_once DOL_DOCUMENT_ROOT.'/core/class/commondocgenerator.class.php';
@@ -76,7 +76,7 @@ abstract class ModelePDFDeliveryOrder extends CommonDocGenerator
 
 
 /**
- *  Class mere des modeles de numerotation des references de bon de livraison
+ *  Class mere des modeles de numbertation des references de bon de livraison
  */
 abstract class ModeleNumRefDeliveryOrder extends CommonNumRefGenerator
 {

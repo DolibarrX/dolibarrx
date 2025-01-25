@@ -45,14 +45,14 @@ class modSalaries extends DolibarrModules
 	public function __construct($db)
 	{
 		$this->db = $db;
-		$this->numero = 510; // Perms from 501..519
+		$this->number = 510; // Perms from 501..519
 
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
 		$this->family = "financial";
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
-		// Module description used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
+		// Module description used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'number' of module)
 		$this->description = "Payment of salaries";
 
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version

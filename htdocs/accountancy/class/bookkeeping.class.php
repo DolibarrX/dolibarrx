@@ -111,7 +111,7 @@ class BookKeeping extends CommonObject
 	/**
 	 * @var string  doc_type
 	 */
-	public $numero_compte;
+	public $number_compte;
 
 	/**
 	 * @var string label compte
@@ -248,8 +248,8 @@ class BookKeeping extends CommonObject
 		if (isset($this->subledger_label)) {
 			$this->subledger_label = trim($this->subledger_label);
 		}
-		if (isset($this->numero_compte)) {
-			$this->numero_compte = trim($this->numero_compte);
+		if (isset($this->number_compte)) {
+			$this->number_compte = trim($this->number_compte);
 		}
 		if (isset($this->label_compte)) {
 			$this->label_compte = trim($this->label_compte);
@@ -304,14 +304,14 @@ class BookKeeping extends CommonObject
 		}
 
 		// Check parameters
-		if (($this->numero_compte == "") || $this->numero_compte == '-1' || $this->numero_compte == 'NotDefined') {
+		if (($this->number_compte == "") || $this->number_compte == '-1' || $this->number_compte == 'NotDefined') {
 			$langs->loadLangs(array("errors"));
 			if (in_array($this->doc_type, array('bank', 'expense_report'))) {
 				$this->errors[] = $langs->trans('ErrorFieldAccountNotDefinedForBankLine', $this->fk_docdet, $this->doc_type);
 			} else {
 				//$this->errors[]=$langs->trans('ErrorFieldAccountNotDefinedForInvoiceLine', $this->doc_ref,  $this->label_compte);
-				$mesg = $this->doc_ref . ', ' . $langs->trans("AccountAccounting") . ': ' . ($this->numero_compte != -1 ? $this->numero_compte : $langs->trans("Unknown"));
-				if ($this->subledger_account && $this->subledger_account != $this->numero_compte) {
+				$mesg = $this->doc_ref . ', ' . $langs->trans("AccountAccounting") . ': ' . ($this->number_compte != -1 ? $this->number_compte : $langs->trans("Unknown"));
+				if ($this->subledger_account && $this->subledger_account != $this->number_compte) {
 					$mesg .= ', ' . $langs->trans("SubledgerAccount") . ': ' . $this->subledger_account;
 				}
 				$this->errors[] = $langs->trans('ErrorFieldAccountNotDefinedForLine', $mesg);
@@ -325,8 +325,8 @@ class BookKeeping extends CommonObject
 		$this->piece_num = 0;
 
 		// First check if line not yet already in bookkeeping.
-		// Note that we must include 'doc_type - fk_doc - numero_compte - label - subledger_account (if not empty)' to be sure to have unicity of line (because we may have several lines
-		// with same doc_type, fk_doc, numero_compte for 1 invoice line when using localtaxes with same account)
+		// Note that we must include 'doc_type - fk_doc - number_compte - label - subledger_account (if not empty)' to be sure to have unicity of line (because we may have several lines
+		// with same doc_type, fk_doc, number_compte for 1 invoice line when using localtaxes with same account)
 		// WARNING: This is not reliable, label may have been modified. This is just a small protection.
 		// The page that make transfer make the test on couple (doc_type - fk_doc) only.
 		$sql = "SELECT count(*) as nb";
@@ -337,7 +337,7 @@ class BookKeeping extends CommonObject
 			// DO NOT USE THIS IN PRODUCTION. This will generate a lot of trouble into reports and will corrupt database (by generating duplicate entries.
 			$sql .= " AND fk_docdet = " . ((int) $this->fk_docdet); // This field can be 0 if record is for several lines
 		}
-		$sql .= " AND numero_compte = '" . $this->db->escape($this->numero_compte) . "'";
+		$sql .= " AND number_compte = '" . $this->db->escape($this->number_compte) . "'";
 		$sql .= " AND label_operation = '" . $this->db->escape($this->label_operation) . "'";
 		if (!empty($this->subledger_account)) {
 			$sql .= " AND subledger_account = '" . $this->db->escape($this->subledger_account) . "'";
@@ -397,7 +397,7 @@ class BookKeeping extends CommonObject
 				$sql .= ", thirdparty_code";
 				$sql .= ", subledger_account";
 				$sql .= ", subledger_label";
-				$sql .= ", numero_compte";
+				$sql .= ", number_compte";
 				$sql .= ", label_compte";
 				$sql .= ", label_operation";
 				$sql .= ", debit";
@@ -420,7 +420,7 @@ class BookKeeping extends CommonObject
 				$sql .= ", " . (!empty($this->thirdparty_code) ? ("'" . $this->db->escape($this->thirdparty_code) . "'") : "NULL");
 				$sql .= ", " . (!empty($this->subledger_account) ? ("'" . $this->db->escape($this->subledger_account) . "'") : "NULL");
 				$sql .= ", " . (!empty($this->subledger_label) ? ("'" . $this->db->escape($this->subledger_label) . "'") : "NULL");
-				$sql .= ", '" . $this->db->escape($this->numero_compte) . "'";
+				$sql .= ", '" . $this->db->escape($this->number_compte) . "'";
 				$sql .= ", " . (!empty($this->label_compte) ? ("'" . $this->db->escape($this->label_compte) . "'") : "NULL");
 				$sql .= ", '" . $this->db->escape($this->label_operation) . "'";
 				$sql .= ", " . ((float) $this->debit);
@@ -603,8 +603,8 @@ class BookKeeping extends CommonObject
 		if (isset($this->subledger_label)) {
 			$this->subledger_label = trim($this->subledger_label);
 		}
-		if (isset($this->numero_compte)) {
-			$this->numero_compte = trim($this->numero_compte);
+		if (isset($this->number_compte)) {
+			$this->number_compte = trim($this->number_compte);
 		}
 		if (isset($this->label_compte)) {
 			$this->label_compte = trim($this->label_compte);
@@ -669,7 +669,7 @@ class BookKeeping extends CommonObject
 		$sql .= 'thirdparty_code,';
 		$sql .= 'subledger_account,';
 		$sql .= 'subledger_label,';
-		$sql .= 'numero_compte,';
+		$sql .= 'number_compte,';
 		$sql .= 'label_compte,';
 		$sql .= 'label_operation,';
 		$sql .= 'debit,';
@@ -692,7 +692,7 @@ class BookKeeping extends CommonObject
 		$sql .= ' ' . (!isset($this->thirdparty_code) ? 'NULL' : "'" . $this->db->escape($this->thirdparty_code) . "'") . ',';
 		$sql .= ' ' . (!isset($this->subledger_account) ? 'NULL' : "'" . $this->db->escape($this->subledger_account) . "'") . ',';
 		$sql .= ' ' . (!isset($this->subledger_label) ? 'NULL' : "'" . $this->db->escape($this->subledger_label) . "'") . ',';
-		$sql .= ' ' . (!isset($this->numero_compte) ? 'NULL' : "'" . $this->db->escape($this->numero_compte) . "'") . ',';
+		$sql .= ' ' . (!isset($this->number_compte) ? 'NULL' : "'" . $this->db->escape($this->number_compte) . "'") . ',';
 		$sql .= ' ' . (!isset($this->label_compte) ? 'NULL' : "'" . $this->db->escape($this->label_compte) . "'") . ',';
 		$sql .= ' ' . (!isset($this->label_operation) ? 'NULL' : "'" . $this->db->escape($this->label_operation) . "'") . ',';
 		$sql .= ' ' . (!isset($this->debit) ? 'NULL' : $this->debit) . ',';
@@ -764,7 +764,7 @@ class BookKeeping extends CommonObject
 		$sql .= " t.thirdparty_code,";
 		$sql .= " t.subledger_account,";
 		$sql .= " t.subledger_label,";
-		$sql .= " t.numero_compte,";
+		$sql .= " t.number_compte,";
 		$sql .= " t.label_compte,";
 		$sql .= " t.label_operation,";
 		$sql .= " t.debit,";
@@ -808,7 +808,7 @@ class BookKeeping extends CommonObject
 				$this->thirdparty_code = $obj->thirdparty_code;
 				$this->subledger_account = $obj->subledger_account;
 				$this->subledger_label = $obj->subledger_label;
-				$this->numero_compte = $obj->numero_compte;
+				$this->number_compte = $obj->number_compte;
 				$this->label_compte = $obj->label_compte;
 				$this->label_operation = $obj->label_operation;
 				$this->debit = $obj->debit;
@@ -876,7 +876,7 @@ class BookKeeping extends CommonObject
 			$sql .= " t.thirdparty_code,";
 			$sql .= " t.subledger_account,";
 			$sql .= " t.subledger_label,";
-			$sql .= " t.numero_compte,";
+			$sql .= " t.number_compte,";
 			$sql .= " t.label_compte,";
 			$sql .= " t.label_operation,";
 			$sql .= " t.debit,";
@@ -910,17 +910,17 @@ class BookKeeping extends CommonObject
 					$sqlwhere[] = "t.doc_date > '" . $this->db->idate($value) . "'";
 				} elseif ($key == 't.doc_date<') {
 					$sqlwhere[] = "t.doc_date < '" . $this->db->idate($value) . "'";
-				} elseif ($key == 't.numero_compte>=') {
-					$sqlwhere[] = "t.numero_compte >= '" . $this->db->escape($value) . "'";
-				} elseif ($key == 't.numero_compte<=') {
-					$sqlwhere[] = "t.numero_compte <= '" . $this->db->escape($value) . "'";
+				} elseif ($key == 't.number_compte>=') {
+					$sqlwhere[] = "t.number_compte >= '" . $this->db->escape($value) . "'";
+				} elseif ($key == 't.number_compte<=') {
+					$sqlwhere[] = "t.number_compte <= '" . $this->db->escape($value) . "'";
 				} elseif ($key == 't.subledger_account>=') {
 					$sqlwhere[] = "t.subledger_account >= '" . $this->db->escape($value) . "'";
 				} elseif ($key == 't.subledger_account<=') {
 					$sqlwhere[] = "t.subledger_account <= '" . $this->db->escape($value) . "'";
 				} elseif ($key == 't.fk_doc' || $key == 't.fk_docdet' || $key == 't.piece_num') {
 					$sqlwhere[] = $this->db->sanitize($key) . ' = ' . ((int) $value);
-				} elseif ($key == 't.subledger_account' || $key == 't.numero_compte') {
+				} elseif ($key == 't.subledger_account' || $key == 't.number_compte') {
 					$sqlwhere[] = $this->db->sanitize($key) . ' LIKE \'' . $this->db->escape($this->db->escapeforlike($value)) . '%\'';
 				} elseif ($key == 't.date_creation>=') {
 					$sqlwhere[] = 't.date_creation >= \'' . $this->db->idate($value) . '\'';
@@ -949,7 +949,7 @@ class BookKeeping extends CommonObject
 						$sqlwhere[] = natural_search("t.code_journal", $value, 3, 1);
 					}
 				} elseif ($key == 't.search_accounting_code_in' && !empty($value)) {
-					$sqlwhere[] = 't.numero_compte IN (' . $this->db->sanitize($value, 1) . ')';
+					$sqlwhere[] = 't.number_compte IN (' . $this->db->sanitize($value, 1) . ')';
 				} else {
 					$sqlwhere[] = natural_search($key, $value, 0, 1);
 				}
@@ -967,7 +967,7 @@ class BookKeeping extends CommonObject
 			$sortfield = 't.subledger_account' . ($sortfield ? ',' . $sortfield : '');
 			$sortorder = 'ASC' . ($sortfield ? ',' . $sortfield : '');
 		} else {
-			$sortfield = 't.numero_compte' . ($sortfield ? ',' . $sortfield : '');
+			$sortfield = 't.number_compte' . ($sortfield ? ',' . $sortfield : '');
 			$sortorder = 'ASC' . ($sortorder ? ',' . $sortorder : '');
 		}
 
@@ -1002,7 +1002,7 @@ class BookKeeping extends CommonObject
 					$line->thirdparty_code = $obj->thirdparty_code;
 					$line->subledger_account = $obj->subledger_account;
 					$line->subledger_label = $obj->subledger_label;
-					$line->numero_compte = $obj->numero_compte;
+					$line->number_compte = $obj->number_compte;
 					$line->label_compte = $obj->label_compte;
 					$line->label_operation = $obj->label_operation;
 					$line->debit = $obj->debit;
@@ -1070,7 +1070,7 @@ class BookKeeping extends CommonObject
 		$sql .= " t.thirdparty_code,";
 		$sql .= " t.subledger_account,";
 		$sql .= " t.subledger_label,";
-		$sql .= " t.numero_compte,";
+		$sql .= " t.number_compte,";
 		$sql .= " t.label_compte,";
 		$sql .= " t.label_operation,";
 		$sql .= " t.debit,";
@@ -1112,17 +1112,17 @@ class BookKeeping extends CommonObject
 						$sqlwhere[] = "t.doc_date > '" . $this->db->idate($value) . "'";
 					} elseif ($key == 't.doc_date<') {
 						$sqlwhere[] = "t.doc_date < '" . $this->db->idate($value) . "'";
-					} elseif ($key == 't.numero_compte>=') {
-						$sqlwhere[] = "t.numero_compte >= '" . $this->db->escape($value) . "'";
-					} elseif ($key == 't.numero_compte<=') {
-						$sqlwhere[] = "t.numero_compte <= '" . $this->db->escape($value) . "'";
+					} elseif ($key == 't.number_compte>=') {
+						$sqlwhere[] = "t.number_compte >= '" . $this->db->escape($value) . "'";
+					} elseif ($key == 't.number_compte<=') {
+						$sqlwhere[] = "t.number_compte <= '" . $this->db->escape($value) . "'";
 					} elseif ($key == 't.subledger_account>=') {
 						$sqlwhere[] = "t.subledger_account >= '" . $this->db->escape($value) . "'";
 					} elseif ($key == 't.subledger_account<=') {
 						$sqlwhere[] = "t.subledger_account <= '" . $this->db->escape($value) . "'";
 					} elseif ($key == 't.fk_doc' || $key == 't.fk_docdet' || $key == 't.piece_num') {
 						$sqlwhere[] = $this->db->sanitize($key) . ' = ' . ((int) $value);
-					} elseif ($key == 't.subledger_account' || $key == 't.numero_compte') {
+					} elseif ($key == 't.subledger_account' || $key == 't.number_compte') {
 						$sqlwhere[] = $this->db->sanitize($key) . ' LIKE \'' . $this->db->escape($value) . '%\'';
 					} elseif ($key == 't.date_creation>=') {
 						$sqlwhere[] = 't.date_creation >= \'' . $this->db->idate($value) . '\'';
@@ -1195,7 +1195,7 @@ class BookKeeping extends CommonObject
 				$line->thirdparty_code = $obj->thirdparty_code;
 				$line->subledger_account = $obj->subledger_account;
 				$line->subledger_label = $obj->subledger_label;
-				$line->numero_compte = $obj->numero_compte;
+				$line->number_compte = $obj->number_compte;
 				$line->label_compte = $obj->label_compte;
 				$line->label_operation = $obj->label_operation;
 				$line->debit = $obj->debit;
@@ -1251,7 +1251,7 @@ class BookKeeping extends CommonObject
 		dol_syslog(__METHOD__, LOG_DEBUG);
 
 		$sql = 'SELECT';
-		$sql .= " t.numero_compte,";
+		$sql .= " t.number_compte,";
 		if (!empty($option)) {
 			$sql .= " t.subledger_account,";
 			$sql .= " t.subledger_label,";
@@ -1276,17 +1276,17 @@ class BookKeeping extends CommonObject
 						$sqlwhere[] = "t.doc_date > '" . $this->db->idate($value) . "'";
 					} elseif ($key == 't.doc_date<') {
 						$sqlwhere[] = "t.doc_date < '" . $this->db->idate($value) . "'";
-					} elseif ($key == 't.numero_compte>=') {
-						$sqlwhere[] = "t.numero_compte >= '" . $this->db->escape($value) . "'";
-					} elseif ($key == 't.numero_compte<=') {
-						$sqlwhere[] = "t.numero_compte <= '" . $this->db->escape($value) . "'";
+					} elseif ($key == 't.number_compte>=') {
+						$sqlwhere[] = "t.number_compte >= '" . $this->db->escape($value) . "'";
+					} elseif ($key == 't.number_compte<=') {
+						$sqlwhere[] = "t.number_compte <= '" . $this->db->escape($value) . "'";
 					} elseif ($key == 't.subledger_account>=') {
 						$sqlwhere[] = "t.subledger_account >= '" . $this->db->escape($value) . "'";
 					} elseif ($key == 't.subledger_account<=') {
 						$sqlwhere[] = "t.subledger_account <= '" . $this->db->escape($value) . "'";
 					} elseif ($key == 't.fk_doc' || $key == 't.fk_docdet' || $key == 't.piece_num') {
 						$sqlwhere[] = $this->db->sanitize($key) . " = " . ((int) $value);
-					} elseif ($key == 't.subledger_account' || $key == 't.numero_compte') {
+					} elseif ($key == 't.subledger_account' || $key == 't.number_compte') {
 						$sqlwhere[] = $this->db->sanitize($key) . " LIKE '" . $this->db->escape($value) . "%'";
 					} elseif ($key == 't.subledger_label') {
 						$sqlwhere[] = $this->db->sanitize($key) . " LIKE '" . $this->db->escape($value) . "%'";
@@ -1322,12 +1322,12 @@ class BookKeeping extends CommonObject
 		if (!empty($option)) {
 			$sql .= " AND t.subledger_account IS NOT NULL";
 			$sql .= " AND t.subledger_account <> ''";
-			$sql .= " GROUP BY t.numero_compte, t.subledger_account, t.subledger_label";
+			$sql .= " GROUP BY t.number_compte, t.subledger_account, t.subledger_label";
 			$sortfield = 't.subledger_account' . ($sortfield ? ',' . $sortfield : '');
 			$sortorder = 'ASC' . ($sortfield ? ',' . $sortfield : '');
 		} else {
-			$sql .= ' GROUP BY t.numero_compte';
-			$sortfield = 't.numero_compte' . ($sortfield ? ',' . $sortfield : '');
+			$sql .= ' GROUP BY t.number_compte';
+			$sortfield = 't.number_compte' . ($sortfield ? ',' . $sortfield : '');
 			$sortorder = 'ASC' . ($sortorder ? ',' . $sortorder : '');
 		}
 
@@ -1348,7 +1348,7 @@ class BookKeeping extends CommonObject
 			while (($obj = $this->db->fetch_object($resql)) && (empty($limit) || $i < min($limit, $num))) {
 				$line = new BookKeepingLine($this->db);
 
-				$line->numero_compte = $obj->numero_compte;
+				$line->number_compte = $obj->number_compte;
 				//$line->label_compte = $obj->label_compte;
 				if (!empty($option)) {
 					$line->subledger_account = $obj->subledger_account;
@@ -1409,8 +1409,8 @@ class BookKeeping extends CommonObject
 		if (isset($this->subledger_label)) {
 			$this->subledger_label = trim($this->subledger_label);
 		}
-		if (isset($this->numero_compte)) {
-			$this->numero_compte = trim($this->numero_compte);
+		if (isset($this->number_compte)) {
+			$this->number_compte = trim($this->number_compte);
 		}
 		if (isset($this->label_compte)) {
 			$this->label_compte = trim($this->label_compte);
@@ -1463,7 +1463,7 @@ class BookKeeping extends CommonObject
 		$sql .= ' thirdparty_code = ' . (isset($this->thirdparty_code) ? "'" . $this->db->escape($this->thirdparty_code) . "'" : "null") . ',';
 		$sql .= ' subledger_account = ' . (isset($this->subledger_account) ? "'" . $this->db->escape($this->subledger_account) . "'" : "null") . ',';
 		$sql .= ' subledger_label = ' . (isset($this->subledger_label) ? "'" . $this->db->escape($this->subledger_label) . "'" : "null") . ',';
-		$sql .= ' numero_compte = ' . (isset($this->numero_compte) ? "'" . $this->db->escape($this->numero_compte) . "'" : "null") . ',';
+		$sql .= ' number_compte = ' . (isset($this->number_compte) ? "'" . $this->db->escape($this->number_compte) . "'" : "null") . ',';
 		$sql .= ' label_compte = ' . (isset($this->label_compte) ? "'" . $this->db->escape($this->label_compte) . "'" : "null") . ',';
 		$sql .= ' label_operation = ' . (isset($this->label_operation) ? "'" . $this->db->escape($this->label_operation) . "'" : "null") . ',';
 		$sql .= ' debit = ' . (isset($this->debit) ? $this->debit : "null") . ',';
@@ -1823,7 +1823,7 @@ class BookKeeping extends CommonObject
 		$this->thirdparty_code = 'CU001';
 		$this->subledger_account = '41100001';
 		$this->subledger_label = 'My customer company';
-		$this->numero_compte = '411';
+		$this->number_compte = '411';
 		$this->label_compte = 'Customer';
 		$this->label_operation = 'Sales of pea';
 		$this->debit = 99.9;
@@ -1935,7 +1935,7 @@ class BookKeeping extends CommonObject
 
 		$sql = "SELECT rowid, doc_date, doc_type,";
 		$sql .= " doc_ref, fk_doc, fk_docdet, thirdparty_code, subledger_account, subledger_label,";
-		$sql .= " numero_compte, label_compte, label_operation, debit, credit,";
+		$sql .= " number_compte, label_compte, label_operation, debit, credit,";
 		$sql .= " montant as amount, sens, fk_user_author, import_key, code_journal, journal_label, piece_num,";
 		$sql .= " date_creation, tms as date_modification, date_validated as date_validation";
 		// In llx_accounting_bookkeeping_tmp, field date_export doesn't exist
@@ -1962,7 +1962,7 @@ class BookKeeping extends CommonObject
 				$line->thirdparty_code = $obj->thirdparty_code;
 				$line->subledger_account = $obj->subledger_account;
 				$line->subledger_label = $obj->subledger_label;
-				$line->numero_compte = $obj->numero_compte;
+				$line->number_compte = $obj->number_compte;
 				$line->label_compte = $obj->label_compte;
 				$line->label_operation = $obj->label_operation;
 				$line->debit = $obj->debit;
@@ -2005,7 +2005,7 @@ class BookKeeping extends CommonObject
 
 		$sql = "SELECT rowid, doc_date, doc_type,";
 		$sql .= " doc_ref, fk_doc, fk_docdet, thirdparty_code, subledger_account, subledger_label,";
-		$sql .= " numero_compte, label_compte, label_operation, debit, credit,";
+		$sql .= " number_compte, label_compte, label_operation, debit, credit,";
 		$sql .= " montant as amount, sens, fk_user_author, import_key, code_journal, piece_num,";
 		$sql .= " date_validated as date_validation";
 		$sql .= " FROM " . $this->db->prefix() . $this->table_element;
@@ -2032,7 +2032,7 @@ class BookKeeping extends CommonObject
 				$line->thirdparty_code = $obj->thirdparty_code;
 				$line->subledger_account = $obj->subledger_account;
 				$line->subledger_label = $obj->subledger_label;
-				$line->numero_compte = $obj->numero_compte;
+				$line->number_compte = $obj->number_compte;
 				$line->label_compte = $obj->label_compte;
 				$line->label_operation = $obj->label_operation;
 				$line->debit = $obj->debit;
@@ -2087,7 +2087,7 @@ class BookKeeping extends CommonObject
 
 			if (!$error) {
 				// Delete if there is an empty line
-				$sql = 'DELETE FROM ' . $this->db->prefix() . $this->table_element . '_tmp WHERE piece_num = ' . ((int) $piece_num) . ' AND entity = ' . ((int) $config->entity) . " AND numero_compte IS NULL AND debit = 0 AND credit = 0";
+				$sql = 'DELETE FROM ' . $this->db->prefix() . $this->table_element . '_tmp WHERE piece_num = ' . ((int) $piece_num) . ' AND entity = ' . ((int) $config->entity) . " AND number_compte IS NULL AND debit = 0 AND credit = 0";
 				$resql = $this->db->query($sql);
 				if (!$resql) {
 					$error++;
@@ -2099,13 +2099,13 @@ class BookKeeping extends CommonObject
 			if (!$error) {
 				$sql = 'INSERT INTO ' . $this->db->prefix() . $this->table_element . ' (doc_date, doc_type,';
 				$sql .= ' doc_ref, fk_doc, fk_docdet, entity, thirdparty_code, subledger_account, subledger_label,';
-				$sql .= ' numero_compte, label_compte, label_operation, debit, credit,';
+				$sql .= ' number_compte, label_compte, label_operation, debit, credit,';
 				$sql .= ' montant, sens, fk_user_author, import_key, code_journal, journal_label, piece_num, date_creation)';
 				$sql .= ' SELECT doc_date, doc_type,';
 				$sql .= ' doc_ref, fk_doc, fk_docdet, entity, thirdparty_code, subledger_account, subledger_label,';
-				$sql .= ' numero_compte, label_compte, label_operation, debit, credit,';
+				$sql .= ' number_compte, label_compte, label_operation, debit, credit,';
 				$sql .= ' montant, sens, fk_user_author, import_key, code_journal, journal_label, ' . ((int) $next_piecenum) . ", '" . $this->db->idate($now) . "'";
-				$sql .= ' FROM ' . $this->db->prefix() . $this->table_element . '_tmp WHERE piece_num = ' . ((int) $piece_num) . ' AND numero_compte IS NOT NULL AND entity = ' . ((int) $config->entity);
+				$sql .= ' FROM ' . $this->db->prefix() . $this->table_element . '_tmp WHERE piece_num = ' . ((int) $piece_num) . ' AND number_compte IS NOT NULL AND entity = ' . ((int) $config->entity);
 				$sql .= $sql_filter;
 				$resql = $this->db->query($sql);
 				if (!$resql) {
@@ -2138,11 +2138,11 @@ class BookKeeping extends CommonObject
 			if (!$error) {
 				$sql = 'INSERT INTO ' . $this->db->prefix() . $this->table_element . '_tmp (doc_date, doc_type,';
 				$sql .= ' doc_ref, fk_doc, fk_docdet, thirdparty_code, subledger_account, subledger_label,';
-				$sql .= ' numero_compte, label_compte, label_operation, debit, credit,';
+				$sql .= ' number_compte, label_compte, label_operation, debit, credit,';
 				$sql .= ' montant, sens, fk_user_author, import_key, code_journal, journal_label, piece_num)';
 				$sql .= ' SELECT doc_date, doc_type,';
 				$sql .= ' doc_ref, fk_doc, fk_docdet, thirdparty_code, subledger_account, subledger_label,';
-				$sql .= ' numero_compte, label_compte, label_operation, debit, credit,';
+				$sql .= ' number_compte, label_compte, label_operation, debit, credit,';
 				$sql .= ' montant, sens, fk_user_author, import_key, code_journal, journal_label, piece_num';
 				$sql .= ' FROM ' . $this->db->prefix() . $this->table_element . ' WHERE piece_num = ' . ((int) $piece_num) . ' AND entity = ' . ((int) $config->entity);
 				$sql .= $sql_filter;
@@ -2175,7 +2175,7 @@ class BookKeeping extends CommonObject
 		/*
 		$sql = "DELETE FROM ";
 		$sql .= " FROM " . $this->db->prefix() . "accounting_bookkeeping as ab";
-		$sql .= " LEFT JOIN " . $this->db->prefix() . "accounting_account as aa ON aa.account_number = ab.numero_compte";
+		$sql .= " LEFT JOIN " . $this->db->prefix() . "accounting_account as aa ON aa.account_number = ab.number_compte";
 		$sql .= " AND aa.active = 1";
 		$sql .= " INNER JOIN " . $this->db->prefix() . "accounting_system as asy ON aa.fk_pcg_version = asy.pcg_version";
 		$sql .= " AND asy.rowid = " . ((int) $pcgver);
@@ -2206,9 +2206,9 @@ class BookKeeping extends CommonObject
 
 		$pcgver = getDolGlobalInt('CHARTOFACCOUNTS');
 
-		$sql = "SELECT DISTINCT ab.numero_compte as account_number, aa.label as label, aa.rowid as rowid, aa.fk_pcg_version";
+		$sql = "SELECT DISTINCT ab.number_compte as account_number, aa.label as label, aa.rowid as rowid, aa.fk_pcg_version";
 		$sql .= " FROM " . $this->db->prefix() . $this->table_element . " as ab";
-		$sql .= " LEFT JOIN " . $this->db->prefix() . "accounting_account as aa ON aa.account_number = ab.numero_compte";
+		$sql .= " LEFT JOIN " . $this->db->prefix() . "accounting_account as aa ON aa.account_number = ab.number_compte";
 		$sql .= " AND aa.active = 1";
 		$sql .= " INNER JOIN " . $this->db->prefix() . "accounting_system as asy ON aa.fk_pcg_version = asy.pcg_version";
 		$sql .= " AND asy.rowid = " . ((int) $pcgver);
@@ -2740,18 +2740,18 @@ class BookKeeping extends CommonObject
 			}
 
 			$sql = 'SELECT';
-			$sql .= " t.numero_compte,";
+			$sql .= " t.number_compte,";
 			$sql .= " aa.pcg_type,";
 			$sql .= " (SUM(t.credit) - SUM(t.debit)) as accounting_result";
 			$sql .= ' FROM ' . $this->db->prefix() . $this->table_element . ' as t';
-			$sql .= ' LEFT JOIN  ' . $this->db->prefix() . 'accounting_account as aa ON aa.account_number = t.numero_compte';
+			$sql .= ' LEFT JOIN  ' . $this->db->prefix() . 'accounting_account as aa ON aa.account_number = t.number_compte';
 			$sql .= ' WHERE t.entity = ' . ((int) $config->entity); // Do not use getEntity for accounting features
 			$sql .= " AND aa.entity = " . ((int) $config->entity);
 			$sql .= ' AND aa.fk_pcg_version IN (SELECT pcg_version FROM ' . $this->db->prefix() . 'accounting_system WHERE rowid = ' . ((int) getDolGlobalInt('CHARTOFACCOUNTS')) . ')';
 			$sql .= ' AND aa.pcg_type IN (' . $this->db->sanitize(implode(',', $pcg_type_filter), 1) . ')';
 			$sql .= " AND DATE(t.doc_date) >= '" . $this->db->idate($date_start) . "'";
 			$sql .= " AND DATE(t.doc_date) <= '" . $this->db->idate($date_end) . "'";
-			$sql .= ' GROUP BY t.numero_compte, aa.pcg_type';
+			$sql .= ' GROUP BY t.number_compte, aa.pcg_type';
 
 			$resql = $this->db->query($sql);
 			if (!$resql) {
@@ -2866,26 +2866,26 @@ class BookKeeping extends CommonObject
 				}
 
 				$sql = 'SELECT';
-				$sql .= " t.numero_compte,";
+				$sql .= " t.number_compte,";
 				if ($separate_auxiliary_account) {
 					$sql .= " NULLIF(t.subledger_account, '') as subledger_account,"; // fix db issues with Null or "" values
 				}
 				$sql .= " aa.pcg_type,";
 				$sql .= " (SUM(t.credit) - SUM(t.debit)) as opening_balance";
 				$sql .= ' FROM ' . $this->db->prefix() . $this->table_element . ' as t';
-				$sql .= ' LEFT JOIN  ' . $this->db->prefix() . 'accounting_account as aa ON aa.account_number = t.numero_compte';
+				$sql .= ' LEFT JOIN  ' . $this->db->prefix() . 'accounting_account as aa ON aa.account_number = t.number_compte';
 				$sql .= ' WHERE t.entity = ' . ((int) $config->entity); // Do not use getEntity for accounting features
 				$sql .= " AND aa.entity = " . ((int) $config->entity);
 				$sql .= ' AND aa.fk_pcg_version IN (SELECT pcg_version FROM ' . $this->db->prefix() . 'accounting_system WHERE rowid = ' . ((int) getDolGlobalInt('CHARTOFACCOUNTS')) . ')';
 				$sql .= ' AND aa.pcg_type IN (' . $this->db->sanitize(implode(',', $pcg_type_filter), 1) . ')';
 				$sql .= " AND DATE(t.doc_date) >= '" . $this->db->idate($fiscal_period->date_start) . "'";
 				$sql .= " AND DATE(t.doc_date) <= '" . $this->db->idate($fiscal_period->date_end) . "'";
-				$sql .= ' GROUP BY t.numero_compte, aa.pcg_type';
+				$sql .= ' GROUP BY t.number_compte, aa.pcg_type';
 				if ($separate_auxiliary_account) {
 					$sql .= " , NULLIF(t.subledger_account, '')";
 				}
 				$sql .= ' HAVING (SUM(t.credit) - SUM(t.debit)) != 0 '; // Exclude rows with opening_balance = 0
-				$sql .= $this->db->order("t.numero_compte", "ASC");
+				$sql .= $this->db->order("t.number_compte", "ASC");
 
 				$resql = $this->db->query($sql);
 				if (!$resql) {
@@ -2936,9 +2936,9 @@ class BookKeeping extends CommonObject
 								$bookkeeping->subledger_label = null;
 							}
 
-							$bookkeeping->numero_compte = $obj->numero_compte;
+							$bookkeeping->number_compte = $obj->number_compte;
 							$accountingaccount = new AccountingAccount($this->db);
-							$accountingaccount->fetch(0, $obj->numero_compte);
+							$accountingaccount->fetch(0, $obj->number_compte);
 							$bookkeeping->label_compte = $accountingaccount->label; // latest account label used
 
 							$bookkeeping->label_operation = $new_fiscal_period->label;
@@ -2999,7 +2999,7 @@ class BookKeeping extends CommonObject
 							$bookkeeping->subledger_label = null;
 						}
 
-						$bookkeeping->numero_compte = $accountingaccount->account_number;
+						$bookkeeping->number_compte = $accountingaccount->account_number;
 						$bookkeeping->label_compte = $accountingaccount->label;
 
 						$bookkeeping->label_operation = $new_fiscal_period->label;
@@ -3229,7 +3229,7 @@ class BookKeepingLine extends CommonObjectLine
 	/**
 	 * @var string  doc_type
 	 */
-	public $numero_compte;
+	public $number_compte;
 
 	/**
 	 * @var string label compte

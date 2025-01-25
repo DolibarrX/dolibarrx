@@ -121,7 +121,7 @@ class Lettering extends BookKeeping
 		 * Support for complex lettering with debit, credit transfer
 		 */
 		$sql = "SELECT DISTINCT bk.rowid, bk.doc_date, bk.doc_type, bk.doc_ref, bk.subledger_account, ";
-		$sql .= " bk.numero_compte , bk.label_compte, bk.debit , bk.credit, bk.montant ";
+		$sql .= " bk.number_compte , bk.label_compte, bk.debit , bk.credit, bk.montant ";
 		$sql .= " , bk.sens , bk.code_journal , bk.piece_num, bk.date_lettering, bu.url_id , bu.type ";
 		$sql .= " FROM " . MAIN_DB_PREFIX . "accounting_bookkeeping as bk";
 		$sql .= " LEFT JOIN  " . MAIN_DB_PREFIX . "bank_url as bu ON(bk.fk_doc = bu.fk_bank AND bu.type IN ('payment', 'payment_supplier') ) ";

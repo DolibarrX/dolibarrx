@@ -50,11 +50,11 @@ class modCommande extends DolibarrModules
 		global $config, $user;
 
 		$this->db = $db;
-		$this->numero = 25;
+		$this->number = 25;
 
 		$this->family = "crm";
 		$this->module_position = '11';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Gestion des commandes clients";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
@@ -88,7 +88,7 @@ class modCommande extends DolibarrModules
 				"COMMANDE_ADDON",
 				"chaine",
 				"mod_commande_marbre",
-				"Name of numbering numerotation rules of order",
+				"Name of numbering numbertation rules of order",
 				0,
 			],
 			[

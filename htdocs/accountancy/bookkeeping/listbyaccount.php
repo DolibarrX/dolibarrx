@@ -340,7 +340,7 @@ if (empty($resHook)) {
 		if ($type == 'sub') {
 			$filter['t.subledger_account>='] = $search_accountancy_code_start;
 		} else {
-			$filter['t.numero_compte>='] = $search_accountancy_code_start;
+			$filter['t.number_compte>='] = $search_accountancy_code_start;
 		}
 		$param .= '&search_accountancy_code_start=' . urlencode($search_accountancy_code_start);
 	}
@@ -348,7 +348,7 @@ if (empty($resHook)) {
 		if ($type == 'sub') {
 			$filter['t.subledger_account<='] = $search_accountancy_code_end;
 		} else {
-			$filter['t.numero_compte<='] = $search_accountancy_code_end;
+			$filter['t.number_compte<='] = $search_accountancy_code_end;
 		}
 		$param .= '&search_accountancy_code_end=' . urlencode($search_accountancy_code_end);
 	}
@@ -1110,7 +1110,7 @@ while ($i < min($num, $limit)) {
 	if ($type == 'sub') {
 		$accountg = length_accounta($line->subledger_account);
 	} else {
-		$accountg = length_accountg($line->numero_compte);
+		$accountg = length_accountg($line->number_compte);
 	}
 	//if (empty($accountg)) $accountg = '-';
 
@@ -1220,8 +1220,8 @@ while ($i < min($num, $limit)) {
 				print '</span>';
 			}
 		} else {
-			if ($line->numero_compte != "" && $line->numero_compte != '-1') {
-				print length_accountg($line->numero_compte) . ' : ' . $object->get_compte_desc($line->numero_compte);
+			if ($line->number_compte != "" && $line->number_compte != '-1') {
+				print length_accountg($line->number_compte) . ' : ' . $object->get_compte_desc($line->number_compte);
 			} else {
 				print '<span class="error">' . $langs->trans("Unknown") . '</span>';
 			}

@@ -640,7 +640,7 @@ function reWriteAllPermissions($file, $permissions, $key, $right, $objectname, $
 		// prepare permissions array
 		$count_perms = count($permissions);
 		foreach (array_keys($permissions) as $i) {
-			$permissions[$i][0] = "\$this->rights[\$r][0] = \$this->numero . sprintf('%02d', \$r + 1)";
+			$permissions[$i][0] = "\$this->rights[\$r][0] = \$this->number . sprintf('%02d', \$r + 1)";
 			$permissions[$i][1] = "\$this->rights[\$r][1] = '" . $permissions[$i][1] . "'";
 			$permissions[$i][4] = "\$this->rights[\$r][4] = '" . $permissions[$i][4] . "'";
 			$permissions[$i][5] = "\$this->rights[\$r][5] = '" . $permissions[$i][5] . "';\n\t\t";
@@ -665,13 +665,13 @@ function reWriteAllPermissions($file, $permissions, $key, $right, $objectname, $
 			$p = 1;
 			foreach ($object as &$obj) {
 				if (str_contains($obj[5], 'read')) {
-					$obj[0] = "\$this->rights[\$r][0] = \$this->numero . sprintf('%02d', (" . $o . " * 10) + 0 + 1)";
+					$obj[0] = "\$this->rights[\$r][0] = \$this->number . sprintf('%02d', (" . $o . " * 10) + 0 + 1)";
 				} elseif (str_contains($obj[5], 'write')) {
-					$obj[0] = "\$this->rights[\$r][0] = \$this->numero . sprintf('%02d', (" . $o . " * 10) + 1 + 1)";
+					$obj[0] = "\$this->rights[\$r][0] = \$this->number . sprintf('%02d', (" . $o . " * 10) + 1 + 1)";
 				} elseif (str_contains($obj[5], 'delete')) {
-					$obj[0] = "\$this->rights[\$r][0] = \$this->numero . sprintf('%02d', (" . $o . " * 10) + 2 + 1)";
+					$obj[0] = "\$this->rights[\$r][0] = \$this->number . sprintf('%02d', (" . $o . " * 10) + 2 + 1)";
 				} else {
-					$obj[0] = "\$this->rights[\$r][0] = \$this->numero . sprintf('%02d', (" . $o . " * 10) + " . $p . " + 1)";
+					$obj[0] = "\$this->rights[\$r][0] = \$this->number . sprintf('%02d', (" . $o . " * 10) + " . $p . " + 1)";
 					$p++;
 				}
 			}
@@ -948,7 +948,7 @@ function writePermsInAsciiDoc($file, $destfile)
 		if ($element == 1) {
 			unset($permissions[$i]);
 		}
-		if (str_contains($element, '$this->numero')) {
+		if (str_contains($element, '$this->number')) {
 			unset($permissions[$i]);
 		}
 		if (str_contains($element, '$this->rights[$r][5]')) {

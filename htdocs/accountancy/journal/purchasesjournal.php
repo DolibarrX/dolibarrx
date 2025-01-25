@@ -503,7 +503,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 				$bookkeeping->subledger_account = $tabcompany[$key]['code_compta_fournisseur'];
 				$bookkeeping->subledger_label = $tabcompany[$key]['name'];
 
-				$bookkeeping->numero_compte = $tabcompany[$key]['accountancy_code_supplier_general'];
+				$bookkeeping->number_compte = $tabcompany[$key]['accountancy_code_supplier_general'];
 				$bookkeeping->label_compte = $accountingaccountsupplier->label;
 
 				$bookkeeping->label_operation = $bookkeepingstatic->accountingLabelForOperation($companystatic->name, $invoicestatic->ref_supplier, $langs->trans("SubledgerAccount"));
@@ -581,7 +581,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 						$bookkeeping->subledger_label = '';
 					}
 
-					$bookkeeping->numero_compte = $k;
+					$bookkeeping->number_compte = $k;
 					$bookkeeping->label_compte = $label_account;
 
 					$bookkeeping->label_operation = $bookkeepingstatic->accountingLabelForOperation($companystatic->name, $invoicestatic->ref_supplier, $label_account);
@@ -669,7 +669,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 						$bookkeeping->subledger_account = '';
 						$bookkeeping->subledger_label = '';
 
-						$bookkeeping->numero_compte = $k;
+						$bookkeeping->number_compte = $k;
 						$bookkeeping->label_compte = $label_account;
 
 						$tmpvatrate = (empty($def_tva[$key][$k]) ? (empty($arrayofvat[$key][$k]) ? '' : $arrayofvat[$key][$k]) : implode(', ', $def_tva[$key][$k]));
@@ -726,7 +726,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 					$bookkeeping->subledger_account = '';
 					$bookkeeping->subledger_label = '';
 
-					$bookkeeping->numero_compte = $k;
+					$bookkeeping->number_compte = $k;
 
 					$bookkeeping->label_operation = $bookkeepingstatic->accountingLabelForOperation($companystatic->name, $invoicestatic->ref_supplier, $langs->trans("VAT").' NPR');
 					$bookkeeping->montant = $mt;

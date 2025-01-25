@@ -4211,7 +4211,7 @@ function dol_print_profids($profID, $profIDtype, $countrycode = '', $addcpButton
 	$ret = '';
 	if (strtoupper($countrycode) == 'FR') {
 		// France
-		// (see https://www.economie.gouv.fr/entreprises/numeros-identification-entreprise)
+		// (see https://www.economie.gouv.fr/entreprises/numbers-identification-entreprise)
 
 		if ($id == 1 && dol_strlen($newProfID) == 9) {
 			// SIREN (ex: 123 123 123)

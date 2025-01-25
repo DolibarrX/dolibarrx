@@ -48,13 +48,13 @@ class modFournisseur extends DolibarrModules
 		global $config, $langs, $user, $mysoc;
 
 		$this->db = $db;
-		$this->numero = 40;
+		$this->number = 40;
 
 		// Family can be 'crm','financial','hr','projects','product','ecm','technic','other'
 		// It is used to group modules in module setup page
 		$this->family = "srm";
 		$this->module_position = '12';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Gestion des fournisseurs";
 
@@ -95,7 +95,7 @@ class modFournisseur extends DolibarrModules
 		$this->const[$r][0] = "COMMANDE_SUPPLIER_ADDON_NUMBER";
 		$this->const[$r][1] = "chaine";
 		$this->const[$r][2] = "mod_commande_fournisseur_muguet";
-		$this->const[$r][3] = 'Nom du gestionnaire de numerotation des commandes fournisseur';
+		$this->const[$r][3] = 'Nom du gestionnaire de numbertation des commandes fournisseur';
 		$this->const[$r][4] = 0;
 		$r++;
 
@@ -111,7 +111,7 @@ class modFournisseur extends DolibarrModules
 		$this->const[$r][0] = "INVOICE_SUPPLIER_ADDON_NUMBER";
 		$this->const[$r][1] = "chaine";
 		$this->const[$r][2] = "mod_facture_fournisseur_cactus";
-		$this->const[$r][3] = 'Nom du gestionnaire de numerotation des factures fournisseur';
+		$this->const[$r][3] = 'Nom du gestionnaire de numbertation des factures fournisseur';
 		$this->const[$r][4] = 0;
 		$r++;
 

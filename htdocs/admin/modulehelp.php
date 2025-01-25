@@ -105,7 +105,7 @@ $modNameLoaded = array();
 $familyinfo = array();
 
 foreach ($modulesdir as $dir) {
-	// Load modules attributes in arrays (name, numero, orders) from dir directory
+	// Load modules attributes in arrays (name, number, orders) from dir directory
 	//print $dir."\n<br>";
 	dol_syslog("Scan directory ".$dir." for module descriptor files (modXXX.class.php)");
 	$handle = @opendir($dir);
@@ -131,10 +131,10 @@ foreach ($modulesdir as $dir) {
 								'@phan-var-force DolibarrModules $objMod';
 								$modNameLoaded[$modName] = $dir;
 
-								if (!$objMod->numero > 0 && $modName != 'modUser') {
-									dol_syslog('The module descriptor '.$modName.' must have a numero property', LOG_ERR);
+								if (!$objMod->number > 0 && $modName != 'modUser') {
+									dol_syslog('The module descriptor '.$modName.' must have a number property', LOG_ERR);
 								}
-								$j = $objMod->numero;
+								$j = $objMod->number;
 
 								$modulequalified = 1;
 
@@ -240,7 +240,7 @@ $i = 0;
 foreach ($orders as $tmpkey => $tmpvalue) {
 	$tmpMod = $modules[$tmpkey];
 	'@phan-var-force DolibarrModules $tmpMod';
-	if ($tmpMod->numero == $id) {
+	if ($tmpMod->number == $id) {
 		$key = $i;
 		$modName = $filename[$tmpkey];
 		$dirofmodule = $dirmod[$tmpkey];
@@ -260,7 +260,7 @@ $tab = explode('_', $value);
 $familyposition = $tab[0];
 $familykey = $tab[1];
 $module_position = $tab[2];
-$numero = $tab[3];
+$number = $tab[3];
 
 
 
@@ -357,7 +357,7 @@ if ($mode == 'desc') {
 	$moduledescriptorfile = get_class($objMod).'.class.php';
 	$text .= '<span class="opacitymedium">'.$langs->trans("DescriptorFile").':</span> '.$moduledescriptorfile;
 
-	$text .= '<br><span class="opacitymedium">'.$langs->trans("IdModule").':</span> '.$objMod->numero;
+	$text .= '<br><span class="opacitymedium">'.$langs->trans("IdModule").':</span> '.$objMod->number;
 
 	$textexternal = '';
 	if ($objMod->isCoreOrExternalModule() == 'external') {
@@ -383,7 +383,7 @@ if ($mode == 'desc') {
 		$text .= $textexternal;
 	} else {
 		$text .= '<br><span class="opacitymedium">'.$langs->trans("Origin").':</span> '.$langs->trans("Core");
-		if (empty($objMod->numero)) {
+		if (empty($objMod->number)) {
 			$text .= ' &nbsp; <span class="italic opacitymedium">('.$langs->trans("AlwaysEnabled").')</span>';
 		} elseif (!empty($objMod->enabled_bydefault)) {
 			$text .= ' &nbsp; <span class="italic opacitymedium">('.$langs->trans("EnabledByDefaultAtInstall").')</span>';

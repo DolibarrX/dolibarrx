@@ -46,7 +46,7 @@ class modBookCal extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 2430;
+		$this->number = 2430;
 
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'bookcal';
@@ -257,32 +257,32 @@ class modBookCal extends DolibarrModules
 		$r = 0;
 		// Add here entries to declare new permissions
 		/* BEGIN MODULEBUILDER PERMISSIONS */
-		$this->rights[$r][0] = $this->numero . sprintf('%02d', (0 * 10) + 1);
+		$this->rights[$r][0] = $this->number . sprintf('%02d', (0 * 10) + 1);
 		$this->rights[$r][1] = 'Read objects of BookCal';
 		$this->rights[$r][4] = 'availabilities';
 		$this->rights[$r][5] = 'read';
 		$r++;
-		$this->rights[$r][0] = $this->numero . sprintf('%02d', (0 * 10) + 2);
+		$this->rights[$r][0] = $this->number . sprintf('%02d', (0 * 10) + 2);
 		$this->rights[$r][1] = 'Create/Update objects of BookCal';
 		$this->rights[$r][4] = 'availabilities';
 		$this->rights[$r][5] = 'write';
 		$r++;
-		$this->rights[$r][0] = $this->numero . sprintf('%02d', (0 * 10) + 3);
+		$this->rights[$r][0] = $this->number . sprintf('%02d', (0 * 10) + 3);
 		$this->rights[$r][1] = 'Delete objects of BookCal';
 		$this->rights[$r][4] = 'availabilities';
 		$this->rights[$r][5] = 'delete';
 		$r++;
-		$this->rights[$r][0] = $this->numero . sprintf('%02d', (1 * 10) + 1);
+		$this->rights[$r][0] = $this->number . sprintf('%02d', (1 * 10) + 1);
 		$this->rights[$r][1] = 'Read Calendar object of BookCal';
 		$this->rights[$r][4] = 'calendar';
 		$this->rights[$r][5] = 'read';
 		$r++;
-		$this->rights[$r][0] = $this->numero . sprintf('%02d', (1 * 10) + 2);
+		$this->rights[$r][0] = $this->number . sprintf('%02d', (1 * 10) + 2);
 		$this->rights[$r][1] = 'Create/Update Calendar object of BookCal';
 		$this->rights[$r][4] = 'calendar';
 		$this->rights[$r][5] = 'write';
 		$r++;
-		$this->rights[$r][0] = $this->numero . sprintf('%02d', (1 * 10) + 3);
+		$this->rights[$r][0] = $this->number . sprintf('%02d', (1 * 10) + 3);
 		$this->rights[$r][1] = 'Delete Calendar object of BookCal';
 		$this->rights[$r][4] = 'calendar';
 		$this->rights[$r][5] = 'delete';

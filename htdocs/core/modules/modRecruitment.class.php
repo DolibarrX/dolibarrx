@@ -46,7 +46,7 @@ class modRecruitment extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 750;
+		$this->number = 750;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'recruitment';
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
@@ -231,17 +231,17 @@ class modRecruitment extends DolibarrModules
 		$r = 0;
 		// Add here entries to declare new permissions
 		/* BEGIN MODULEBUILDER PERMISSIONS */
-		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Read job positions to fill and candidatures'; // Permission label
 		$this->rights[$r][4] = 'recruitmentjobposition'; // In php code, permission will be checked by test if ($user->rights->recruitment->level1->level2)
 		$this->rights[$r][5] = 'read'; // In php code, permission will be checked by test if ($user->rights->recruitment->level1->level2)
 		$r++;
-		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Create/Update job positions to fill and candidatures'; // Permission label
 		$this->rights[$r][4] = 'recruitmentjobposition'; // In php code, permission will be checked by test if ($user->rights->recruitment->level1->level2)
 		$this->rights[$r][5] = 'write'; // In php code, permission will be checked by test if ($user->rights->recruitment->level1->level2)
 		$r++;
-		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Delete Job positions to fill and candidatures'; // Permission label
 		$this->rights[$r][4] = 'recruitmentjobposition'; // In php code, permission will be checked by test if ($user->rights->recruitment->level1->level2)
 		$this->rights[$r][5] = 'delete'; // In php code, permission will be checked by test if ($user->rights->recruitment->level1->level2)

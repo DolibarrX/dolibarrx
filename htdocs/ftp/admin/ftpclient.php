@@ -41,7 +41,7 @@ $def = array();
 $lastftpentry = 0;
 
 $action = GETPOST('action', 'aZ09');
-$entry = GETPOST('numero_entry', 'alpha');
+$entry = GETPOST('number_entry', 'alpha');
 
 // Security check
 if (!$user->admin) {
@@ -225,7 +225,7 @@ if (!function_exists('ftp_connect')) {
 	<div class="center">
 	<input type="submit" class="button" value="<?php echo $langs->trans("Add") ?>"></div>
 	<input type="hidden" name="action" value="add">
-	<input type="hidden" name="numero_entry" value="<?php echo($lastftpentry + 1) ?>">
+	<input type="hidden" name="number_entry" value="<?php echo($lastftpentry + 1) ?>">
 	<?php
 	print '</form>';
 	print '<br>'; ?>
@@ -255,7 +255,7 @@ if (!function_exists('ftp_connect')) {
 			print '<br>';
 			print '<form name="externalrssconfig" action="'.$_SERVER["PHP_SELF"].'" method="post">';
 			print '<input type="hidden" name="token" value="'.newToken().'">';
-			print '<input type="hidden" name="numero_entry" value="'.$idrss.'">';
+			print '<input type="hidden" name="number_entry" value="'.$idrss.'">';
 
 			print '<div class="div-table-responsive-no-min">';
 			print '<table class="noborder centpercent">'."\n";

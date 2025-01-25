@@ -40,11 +40,11 @@ class modAccounting extends DolibarrModules
 	public function __construct($db)
 	{
 		$this->db = $db;
-		$this->numero = 50400;
+		$this->number = 50400;
 
 		$this->family = "financial";
 		$this->module_position = '61';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Double entry accounting management";
 
@@ -292,7 +292,7 @@ class modAccounting extends DolibarrModules
 			'b.doc_ref'=>'Piece',
 			'b.code_journal'=>'Codejournal',
 			'b.journal_label'=>'JournalLabel',
-			'b.numero_compte'=>'AccountAccounting',
+			'b.number_compte'=>'AccountAccounting',
 			'b.label_compte'=>'LabelAccount',
 			'b.subledger_account'=>'SubledgerAccount',
 			'b.subledger_label'=>'SubledgerAccountLabel',
@@ -304,7 +304,7 @@ class modAccounting extends DolibarrModules
 		$this->import_fieldshidden_array[$r] = array('b.doc_type'=>'const-import_from_external', 'b.fk_doc'=>'const-0', 'b.fk_docdet'=>'const-0', 'b.fk_user_author'=>'user->id', 'b.date_creation'=>'const-'.dol_print_date(dol_now(), 'standard')); // aliastable.field => ('user->id' or 'lastrowid-'.tableparent)
 		$this->import_regex_array[$r] = array('b.doc_date'=>'^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$');
 		$this->import_convertvalue_array[$r] = array(
-			'b.numero_compte' => array('rule' => 'accountingaccount'),
+			'b.number_compte' => array('rule' => 'accountingaccount'),
 			'b.subledger_account' => array('rule' => 'accountingaccount')
 		);
 		$this->import_examplevalues_array[$r] = array(
@@ -314,7 +314,7 @@ class modAccounting extends DolibarrModules
 			'b.doc_ref'=>'My document ABC',
 			'b.code_journal'=>"VTE",
 			'b.journal_label'=>"Sale journal",
-			'b.numero_compte'=>"707",
+			'b.number_compte'=>"707",
 			'b.label_compte'=>'Product account 707',
 			'b.subledger_account'=>'',
 			'b.subledger_label'=>'',
@@ -336,7 +336,7 @@ class modAccounting extends DolibarrModules
 			'b.journal_label'=>'FECFormatJournalLabel',
 			'b.piece_num'=>'FECFormatEntryNum', // not mandatory (keep empty to get next value of "piece_num" from "llx_accounting_bookkeeping" table)
 			'b.doc_date'=>'FECFormatEntryDate*',
-			'b.numero_compte'=>'FECFormatGeneralAccountNumber*',
+			'b.number_compte'=>'FECFormatGeneralAccountNumber*',
 			'b.label_compte'=>'FECFormatGeneralAccountLabel*',
 			'b.subledger_account'=>'FECFormatSubledgerAccountNumber',
 			'b.subledger_label'=>'FECFormatSubledgerAccountLabel',
@@ -361,7 +361,7 @@ class modAccounting extends DolibarrModules
 		); // aliastable.field => ('user->id' or 'lastrowid-'.tableparent)
 		$this->import_convertvalue_array[$r]=array(
 			'b.piece_num' => array('rule' => 'compute', 'type' => 'int', 'classfile' => '/accountancy/class/accountancyimport.class.php', 'class' => 'AccountancyImport', 'method' => 'computePieceNum', 'element' => 'Accountancy'),
-			'b.numero_compte'=>array('rule'=>'accountingaccount'),
+			'b.number_compte'=>array('rule'=>'accountingaccount'),
 			'b.subledger_account'=>array('rule'=>'accountingaccount'),
 			'b.debit' => array('rule' => 'compute', 'type' => 'double', 'classfile' => '/accountancy/class/accountancyimport.class.php', 'class' => 'AccountancyImport', 'method' => 'cleanAmount', 'element' => 'Accountancy'),
 			'b.credit' => array('rule' => 'compute', 'type' => 'double', 'classfile' => '/accountancy/class/accountancyimport.class.php', 'class' => 'AccountancyImport', 'method' => 'cleanAmount', 'element' => 'Accountancy'),
@@ -372,7 +372,7 @@ class modAccounting extends DolibarrModules
 		$this->import_regex_array[$r] = array(
 			//'b.doc_date'=>'^\d{4}\d{2}\d{2}$',
 			'b.doc_ref'=>'^.{1,300}$',
-			'b.numero_compte'=>'^.{1,32}$',
+			'b.number_compte'=>'^.{1,32}$',
 			'b.label_compte'=>'^.{1,255}$',
 			'b.subledger_compte'=>'^.{1,32}$',
 			'b.subledger_label'=>'^.{1,255}$',
@@ -384,7 +384,7 @@ class modAccounting extends DolibarrModules
 			'b.journal_label'=>"Sale journal",
 			'b.piece_num'=>'123 (!!! use next value not already used)',
 			'b.doc_date'=>dol_print_date(dol_now(), "%Y%m%d"),
-			'b.numero_compte'=>"707",
+			'b.number_compte'=>"707",
 			'b.label_compte'=>'Sale',
 			'b.subledger_account'=>'',
 			'b.subledger_label'=>'',

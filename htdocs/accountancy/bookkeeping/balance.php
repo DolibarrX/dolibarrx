@@ -88,7 +88,7 @@ if ($sortorder == "") {
 	$sortorder = "ASC";
 }
 if ($sortfield == "") {
-	$sortfield = "t.numero_compte";
+	$sortfield = "t.number_compte";
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
@@ -182,7 +182,7 @@ if (empty($resHook)) {
 		if ($type == 'sub') {
 			$filter['t.subledger_account>='] = $search_accountancy_code_start;
 		} else {
-			$filter['t.numero_compte>='] = $search_accountancy_code_start;
+			$filter['t.number_compte>='] = $search_accountancy_code_start;
 		}
 		$param .= '&search_accountancy_code_start=' . urlencode($search_accountancy_code_start);
 	}
@@ -190,7 +190,7 @@ if (empty($resHook)) {
 		if ($type == 'sub') {
 			$filter['t.subledger_account<='] = $search_accountancy_code_end;
 		} else {
-			$filter['t.numero_compte<='] = $search_accountancy_code_end;
+			$filter['t.number_compte<='] = $search_accountancy_code_end;
 		}
 		$param .= '&search_accountancy_code_end=' . urlencode($search_accountancy_code_end);
 	}
@@ -233,8 +233,8 @@ if ($action == 'export_csv' && $user->hasRight('accounting', 'mouvements', 'lire
 			print '"' . length_accounta($line->subledger_account) . '"' . $sep;
 			print '"' . $line->subledger_label . '"' . $sep;
 		} else {
-			print '"' . length_accountg($line->numero_compte) . '"' . $sep;
-			print '"' . $object->get_compte_desc($line->numero_compte) . '"' . $sep;
+			print '"' . length_accountg($line->number_compte) . '"' . $sep;
+			print '"' . $object->get_compte_desc($line->number_compte) . '"' . $sep;
 		}
 		print '"'.price($line->debit).'"'.$sep;
 		print '"'.price($line->credit).'"'.$sep;
@@ -436,7 +436,7 @@ if ($action != 'export_csv') {
 	if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print getTitleFieldOfList($selectedfields, 0, $_SERVER["PHP_SELF"], '', '', '', '', $sortfield, $sortorder, 'center maxwidthsearch ')."\n";
 	}
-	print_liste_field_titre("AccountAccounting", $_SERVER['PHP_SELF'], "t.numero_compte", "", $param, "", $sortfield, $sortorder);
+	print_liste_field_titre("AccountAccounting", $_SERVER['PHP_SELF'], "t.number_compte", "", $param, "", $sortfield, $sortorder);
 	// TODO : Retrieve the type of third party: Customer / Supplier / Employee
 	//if ($type == 'sub') {
 	//	print_liste_field_titre("Type", $_SERVER['PHP_SELF'], "t.type", "", $param, "", $sortfield, $sortorder);
@@ -471,11 +471,11 @@ if ($action != 'export_csv') {
 	// TODO Debug - This feature is dangerous, it takes all the entries and adds all the accounts
 	// without time and class limits (Class 6 and 7 accounts ???) and does not take into account the "a-nouveau" journal.
 	if (getDolGlobalString('ACCOUNTANCY_SHOW_OPENING_BALANCE')) {
-		$sql = "SELECT t.numero_compte, (SUM(t.debit) - SUM(t.credit)) as opening_balance";
+		$sql = "SELECT t.number_compte, (SUM(t.debit) - SUM(t.credit)) as opening_balance";
 		$sql .= " FROM " . MAIN_DB_PREFIX . "accounting_bookkeeping as t";
 		$sql .= " WHERE t.entity = " . $config->entity;        // Never do sharing into accounting features
 		$sql .= " AND t.doc_date < '" . $db->idate($search_date_start) . "'";
-		$sql .= " GROUP BY t.numero_compte";
+		$sql .= " GROUP BY t.number_compte";
 
 		$resql = $db->query($sql);
 		$opening_balances = array();
@@ -484,7 +484,7 @@ if ($action != 'export_csv') {
 			for ($i = 0; $i < $nrows; $i++) {
 				$arr = $db->fetch_array($resql);
 				if (is_array($arr)) {
-					$opening_balances["'" . $arr['numero_compte'] . "'"] = $arr['opening_balance'];
+					$opening_balances["'" . $arr['number_compte'] . "'"] = $arr['opening_balance'];
 				}
 			}
 		} else {
@@ -499,21 +499,21 @@ if ($action != 'export_csv') {
 		$accounting_account = '';
 
 		if ($type != 'sub') {
-			$accountingaccountstatic->fetch(0, $line->numero_compte, true);
+			$accountingaccountstatic->fetch(0, $line->number_compte, true);
 			if (!empty($accountingaccountstatic->account_number)) {
 				$accounting_account = $accountingaccountstatic->getNomUrl(0, 1, 1);
 			} else {
-				$accounting_account = length_accountg($line->numero_compte);
+				$accounting_account = length_accountg($line->number_compte);
 			}
 		}
 
 		$link = '';
 		$total_debit += $line->debit;
 		$total_credit += $line->credit;
-		$opening_balance = isset($opening_balances["'".$line->numero_compte."'"]) ? $opening_balances["'".$line->numero_compte."'"] : 0;
+		$opening_balance = isset($opening_balances["'".$line->number_compte."'"]) ? $opening_balances["'".$line->number_compte."'"] : 0;
 		$total_opening_balance += $opening_balance;
 
-		$tmparrayforrootaccount = $object->getRootAccount($line->numero_compte);
+		$tmparrayforrootaccount = $object->getRootAccount($line->number_compte);
 		$root_account_description = $tmparrayforrootaccount['label'];
 		$root_account_number = $tmparrayforrootaccount['account_number'];
 
@@ -523,13 +523,13 @@ if ($action != 'export_csv') {
 		if (empty($accountingaccountstatic->label) && $accountingaccountstatic->id > 0) {
 			$link = '<a class="editfielda reposition" href="' . DOL_URL_ROOT . '/accountancy/admin/card.php?action=update&token=' . newToken() . '&id=' . $accountingaccountstatic->id . '">' . img_edit() . '</a>';
 		} elseif ($accounting_account == 'NotDefined') {
-			$link = '<a href="' . DOL_URL_ROOT . '/accountancy/admin/card.php?action=create&token=' . newToken() . '&accountingaccount=' . length_accountg($line->numero_compte) . '">' . img_edit_add() . '</a>';
+			$link = '<a href="' . DOL_URL_ROOT . '/accountancy/admin/card.php?action=create&token=' . newToken() . '&accountingaccount=' . length_accountg($line->number_compte) . '">' . img_edit_add() . '</a>';
 		} /* elseif (empty($tmparrayforrootaccount['label'])) {
 			// $tmparrayforrootaccount['label'] not defined = the account has not parent with a parent.
 			// This is useless, we should not create a new account when an account has no parent, we must edit it to fix its parent.
 			// BUG 1: Accounts on level root or level 1 must not have a parent 2 level higher, so should not show a link to create another account.
 			// BUG 2: Adding a link to create a new accounting account here is useless because it is not add as parent of the orphelin.
-			//$link = '<a href="' . DOL_URL_ROOT . '/accountancy/admin/card.php?action=create&token=' . newToken() . '&accountingaccount=' . length_accountg($line->numero_compte) . '">' . img_edit_add() . '</a>';
+			//$link = '<a href="' . DOL_URL_ROOT . '/accountancy/admin/card.php?action=create&token=' . newToken() . '&accountingaccount=' . length_accountg($line->number_compte) . '">' . img_edit_add() . '</a>';
 		} */
 
 		if (!empty($show_subgroup)) {
@@ -608,8 +608,8 @@ if ($action != 'export_csv') {
 				}
 			}
 		} else {
-			if ($line->numero_compte) {
-				$urlzoom = DOL_URL_ROOT . '/accountancy/bookkeeping/listbyaccount.php?search_accountancy_code_start=' . urlencode($line->numero_compte) . '&search_accountancy_code_end=' . urlencode($line->numero_compte);
+			if ($line->number_compte) {
+				$urlzoom = DOL_URL_ROOT . '/accountancy/bookkeeping/listbyaccount.php?search_accountancy_code_start=' . urlencode($line->number_compte) . '&search_accountancy_code_end=' . urlencode($line->number_compte);
 				if (GETPOSTISSET('date_startmonth')) {
 					$urlzoom .= '&search_date_startmonth=' . GETPOSTINT('date_startmonth') . '&search_date_startday=' . GETPOSTINT('date_startday') . '&search_date_startyear=' . GETPOSTINT('date_startyear');
 				}

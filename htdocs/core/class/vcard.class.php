@@ -108,7 +108,7 @@ class vCard
 	/**
 	 *  Format phone number.
 	 *
-	 *  @param	string	$number		numero de telephone
+	 *  @param	string	$number		number de telephone
 	 *  @param	string	$type		Type ('cell')
 	 *  @return	void
 	 */

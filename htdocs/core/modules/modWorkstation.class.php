@@ -47,7 +47,7 @@ class modWorkstation extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 690;
+		$this->number = 690;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'workstation';
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
@@ -221,17 +221,17 @@ class modWorkstation extends DolibarrModules
 		$r = 1;
 		// Add here entries to declare new permissions
 		/* BEGIN MODULEBUILDER PERMISSIONS */
-		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Read objects of Workstation'; // Permission label
 		$this->rights[$r][4] = 'workstation'; // In php code, permission will be checked by test if ($user->rights->workstation->level1->level2)
 		$this->rights[$r][5] = 'read'; // In php code, permission will be checked by test if ($user->rights->workstation->level1->level2)
 		$r++;
-		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Create/Update objects of Workstation'; // Permission label
 		$this->rights[$r][4] = 'workstation'; // In php code, permission will be checked by test if ($user->rights->workstation->level1->level2)
 		$this->rights[$r][5] = 'write'; // In php code, permission will be checked by test if ($user->rights->workstation->level1->level2)
 		$r++;
-		$this->rights[$r][0] = $this->numero + $r; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + $r; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Delete objects of Workstation'; // Permission label
 		$this->rights[$r][4] = 'workstation'; // In php code, permission will be checked by test if ($user->rights->workstation->level1->level2)
 		$this->rights[$r][5] = 'delete'; // In php code, permission will be checked by test if ($user->rights->workstation->level1->level2)

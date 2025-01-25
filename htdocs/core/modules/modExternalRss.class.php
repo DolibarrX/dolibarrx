@@ -42,10 +42,10 @@ class modExternalRss extends DolibarrModules
 		global $config;
 
 		$this->db = $db;
-		$this->numero = 320;
+		$this->number = 320;
 
 		$this->family = "technic";
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Ajout de files d'informations RSS dans les ecrans Dolibarr";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version

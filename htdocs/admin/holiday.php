@@ -144,7 +144,7 @@ if ($action == 'updateMask') {
 		$ret = addDocumentModel($value, $type, $label, $scandir);
 	}
 } elseif ($action == 'setmod') {
-	// TODO Verifier si module numerotation choisi peut etre active
+	// TODO Verifier si module numbertation choisi peut etre active
 	// par appel method canBeActivated
 
 	dolibarr_set_const($db, "HOLIDAY_ADDON", $value, 'chaine', 0, '', $config->entity);

@@ -934,17 +934,17 @@ if (isModEnabled('accounting') && ($modecompta == 'BOOKKEEPING')) {
 	$charofaccountstring = getDolGlobalInt('CHARTOFACCOUNTS');
 	$charofaccountstring = dol_getIdFromCode($db, getDolGlobalString('CHARTOFACCOUNTS'), 'accounting_system', 'rowid', 'pcg_version');
 
-	$sql = "SELECT b.doc_ref, b.numero_compte, b.subledger_account, b.subledger_label, aa.pcg_type, date_format(b.doc_date,'%Y-%m') as dm, sum(b.debit) as debit, sum(b.credit) as credit, sum(b.montant) as amount";
+	$sql = "SELECT b.doc_ref, b.number_compte, b.subledger_account, b.subledger_label, aa.pcg_type, date_format(b.doc_date,'%Y-%m') as dm, sum(b.debit) as debit, sum(b.credit) as credit, sum(b.montant) as amount";
 	$sql .= " FROM ".MAIN_DB_PREFIX."accounting_bookkeeping as b, ".MAIN_DB_PREFIX."accounting_account as aa";
 	$sql .= " WHERE b.entity = ".$config->entity;
 	$sql .= " AND aa.entity = ".$config->entity;
-	$sql .= " AND b.numero_compte = aa.account_number";
+	$sql .= " AND b.number_compte = aa.account_number";
 	$sql .= " AND ".$predefinedgroupwhere;
 	$sql .= " AND fk_pcg_version = '".$db->escape($charofaccountstring)."'";
 	if (!empty($date_start) && !empty($date_end)) {
 		$sql .= " AND b.doc_date >= '".$db->idate($date_start)."' AND b.doc_date <= '".$db->idate($date_end)."'";
 	}
-	$sql .= " GROUP BY b.doc_ref, b.numero_compte, b.subledger_account, b.subledger_label, pcg_type, dm";
+	$sql .= " GROUP BY b.doc_ref, b.number_compte, b.subledger_account, b.subledger_label, pcg_type, dm";
 	//print $sql;
 
 	$subtotal_ht = 0;

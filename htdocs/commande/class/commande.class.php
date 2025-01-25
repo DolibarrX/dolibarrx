@@ -515,7 +515,7 @@ class Commande extends CommonOrder
 
 		$this->db->begin();
 
-		// Definition du nom de module de numerotation de commande
+		// Definition du nom de module de numbertation de commande
 		$soc = new Societe($this->db);
 		$soc->fetch($this->socid);
 

@@ -313,7 +313,7 @@ if ($action == "set" || empty($action) || preg_match('/upgrade/i', $action)) {
 				$modulesdir[] = $dolibarr_main_document_root.'/core/modules/';
 
 				foreach ($modulesdir as $dir) {
-					// Load modules attributes in arrays (name, numero, orders) from dir directory
+					// Load modules attributes in arrays (name, number, orders) from dir directory
 					//print $dir."\n<br>";
 					dol_syslog("Scan directory ".$dir." for module descriptor files (modXXX.class.php)");
 					$handle = @opendir($dir);

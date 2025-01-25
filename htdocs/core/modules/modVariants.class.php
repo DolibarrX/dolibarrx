@@ -47,7 +47,7 @@ class modVariants extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 610;
+		$this->number = 610;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'variants';
 
@@ -56,9 +56,9 @@ class modVariants extends DolibarrModules
 		$this->family = "products";
 		// Module position in the family on 2 digits ('01', '10', '20', ...)
 		$this->module_position = '50';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
-		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
+		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'number' of module)
 		$this->description = 'Allows creating products variant based on new attributes';
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
@@ -111,15 +111,15 @@ class modVariants extends DolibarrModules
 		$this->rights = array(); // Permission array used by this module
 		$r = 0;
 
-		$this->rights[$r][0] = $this->numero + 1; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + 1; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Read attributes of variants'; // Permission label
 		$this->rights[$r][4] = 'read'; // In php code, permission will be checked by test if ($user->rights->eventorganization->level1)
 		$r++;
-		$this->rights[$r][0] = $this->numero + 2; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + 2; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Create/Update attributes of variants'; // Permission label
 		$this->rights[$r][4] = 'write'; // In php code, permission will be checked by test if ($user->rights->eventorganization->level1)
 		$r++;
-		$this->rights[$r][0] = $this->numero + 3; // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number + 3; // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Delete attributes of variants'; // Permission label
 		$this->rights[$r][4] = 'delete'; // In php code, permission will be checked by test if ($user->rights->eventorganization->level1)
 		$r++;

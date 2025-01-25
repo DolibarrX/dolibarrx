@@ -44,7 +44,7 @@ class modWebPortal extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 11000; // TODO Go on page https://wiki.dolibarr.org/index.php/List_of_modules_id to reserve an id number for your module
+		$this->number = 11000; // TODO Go on page https://wiki.dolibarr.org/index.php/List_of_modules_id to reserve an id number for your module
 
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'webportal';
@@ -266,12 +266,12 @@ class modWebPortal extends DolibarrModules
 		$this->rights = array();
 		$r = 0;
 		// Add here entries to declare new permissions
-		$this->rights[$r][0] = $this->numero . sprintf("%02d", $r + 1); // Permission id (must not be already used)
+		$this->rights[$r][0] = $this->number . sprintf("%02d", $r + 1); // Permission id (must not be already used)
 		$this->rights[$r][1] = 'Administer users of the customer/partner webportal module'; // Permission label
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'write';
 		//$r++;
-		//$this->rights[$r][0] = $this->numero . sprintf("%02d", $r + 1); // Permission id (must not be already used)
+		//$this->rights[$r][0] = $this->number . sprintf("%02d", $r + 1); // Permission id (must not be already used)
 		//$this->rights[$r][1] = 'Delete objects of WebPortal'; // Permission label
 		//$this->rights[$r][3] = 0;
 		//$this->rights[$r][4] = 'delete';

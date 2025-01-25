@@ -318,7 +318,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 					$bookkeeping->subledger_account = $tabuser[$key]['user_accountancy_code'];
 					$bookkeeping->subledger_label = $tabuser[$key]['name'];
 
-					$bookkeeping->numero_compte = getDolGlobalString('ACCOUNTING_ACCOUNT_EXPENSEREPORT');
+					$bookkeeping->number_compte = getDolGlobalString('ACCOUNTING_ACCOUNT_EXPENSEREPORT');
 					$bookkeeping->label_compte = $accountingaccountexpense->label;
 
 					$bookkeeping->label_operation = $bookkeepingstatic->accountingLabelForOperation($userstatic->name, '', $langs->trans("SubledgerAccount"));
@@ -369,7 +369,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 						$bookkeeping->subledger_account = '';
 						$bookkeeping->subledger_label = '';
 
-						$bookkeeping->numero_compte = $k;
+						$bookkeeping->number_compte = $k;
 						$bookkeeping->label_compte = $accountingaccount->label;
 
 						$bookkeeping->label_operation = $bookkeepingstatic->accountingLabelForOperation($userstatic->name, '', $accountingaccount->label);
@@ -440,7 +440,7 @@ if ($action == 'writebookkeeping' && !$error && $user->hasRight('accounting', 'b
 						$bookkeeping->subledger_account = '';
 						$bookkeeping->subledger_label = '';
 
-						$bookkeeping->numero_compte = $k;
+						$bookkeeping->number_compte = $k;
 						$bookkeeping->label_compte = $account_label;
 
 						$tmpvatrate = (empty($def_tva[$key][$k]) ? (empty($arrayofvat[$key][$k]) ? '' : $arrayofvat[$key][$k]) : implode(', ', $def_tva[$key][$k]));

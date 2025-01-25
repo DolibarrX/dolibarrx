@@ -81,7 +81,7 @@ class BonPrelevement extends CommonObject
 	/**
 	 * @var string
 	 */
-	public $emetteur_numero_compte;
+	public $emetteur_number_compte;
 	/**
 	 * @var string
 	 */
@@ -295,7 +295,7 @@ class BonPrelevement extends CommonObject
 		$this->reference_remise = "";
 
 		$this->emetteur_code_guichet = "";
-		$this->emetteur_numero_compte = "";
+		$this->emetteur_number_compte = "";
 		$this->emetteur_code_banque = "";
 		$this->emetteur_number_key = "";
 		$this->sepa_xml_pti_in_ctti = false;
@@ -1468,7 +1468,7 @@ class BonPrelevement extends CommonObject
 					if ($account->fetch($fk_bank_account) > 0) {
 						$this->emetteur_code_banque        = $account->code_banque;
 						$this->emetteur_code_guichet       = $account->code_guichet;
-						$this->emetteur_numero_compte      = $account->number;
+						$this->emetteur_number_compte      = $account->number;
 						$this->emetteur_number_key         = $account->cle_rib;
 						$this->sepa_xml_pti_in_ctti        = (bool) $account->pti_in_ctti;
 						$this->emetteur_iban               = $account->iban;
@@ -2502,7 +2502,7 @@ class BonPrelevement extends CommonObject
 
 		// Numero de compte D4
 
-		fwrite($this->file, substr("000000000000000" . $this->emetteur_numero_compte, -11));
+		fwrite($this->file, substr("000000000000000" . $this->emetteur_number_compte, -11));
 
 		// Zone Reservee E
 
@@ -2558,7 +2558,7 @@ class BonPrelevement extends CommonObject
 		if ($account->fetch($fk_bank_account) > 0) {
 			$this->emetteur_code_banque = $account->code_banque;
 			$this->emetteur_code_guichet = $account->code_guichet;
-			$this->emetteur_numero_compte = $account->number;
+			$this->emetteur_number_compte = $account->number;
 			$this->emetteur_number_key = $account->cle_rib;
 			$this->sepa_xml_pti_in_ctti = (bool) $account->pti_in_ctti;
 			$this->emetteur_iban = $account->iban;

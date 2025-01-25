@@ -3324,7 +3324,7 @@ if (is_array($listofmodules) && count($listofmodules) > 0) {
 
 	// Define $linktoenabledisable to show after module title
 	if (isModEnabled($modulelowercase)) {	// If module is already activated
-		$linktoenabledisable .= '<a class="reposition asetresetmodule valignmiddle" href="'.$_SERVER["PHP_SELF"].'?id='.$moduleobj->numero.'&action=reset&token='.newToken().'&value=mod'.$module.$param.'">';
+		$linktoenabledisable .= '<a class="reposition asetresetmodule valignmiddle" href="'.$_SERVER["PHP_SELF"].'?id='.$moduleobj->number.'&action=reset&token='.newToken().'&value=mod'.$module.$param.'">';
 		$linktoenabledisable .= img_picto($langs->trans("Activated"), 'switch_on', '', 0, 0, 0, '', '', 1);
 		$linktoenabledisable .= '</a>';
 
@@ -3363,7 +3363,7 @@ if (is_array($listofmodules) && count($listofmodules) > 0) {
 		}
 	} else {
 		if (is_object($moduleobj)) {
-			$linktoenabledisable .= '<a class="reposition asetresetmodule valignmiddle" href="'.$_SERVER["PHP_SELF"].'?id='.$moduleobj->numero.'&action=set&token='.newToken().'&value=mod'.$module.$param.'">';
+			$linktoenabledisable .= '<a class="reposition asetresetmodule valignmiddle" href="'.$_SERVER["PHP_SELF"].'?id='.$moduleobj->number.'&action=set&token='.newToken().'&value=mod'.$module.$param.'">';
 			$linktoenabledisable .= img_picto($langs->trans("ModuleIsNotActive", $urltomodulesetup), 'switch_off', 'style="padding-right: 8px"', 0, 0, 0, '', 'classfortooltip', 1);
 			$linktoenabledisable .= "</a>\n";
 		}
@@ -3686,7 +3686,7 @@ if ($module == 'initmodule') {
 					print '<tr><td>';
 					print $langs->trans("IdModule");
 					print '</td><td>';
-					print $moduleobj->numero;
+					print $moduleobj->number;
 					print '<span class="opacitymedium">';
 					print ' &nbsp; (';
 					print dolButtonToOpenUrlInDialogPopup('popup_modules_id', $langs->transnoentitiesnoconv("SeeIDsInUse"), $langs->transnoentitiesnoconv("SeeIDsInUse"), '/admin/system/modules.php?mainmenu=home&leftmenu=admintools_info', '', '');
@@ -3715,9 +3715,9 @@ if ($module == 'initmodule') {
 						if ($moduledescritpionautotrans != "Module".$moduleobj->name."Desc") {
 							// $moduledescritpionautotrans has been found into a translation file
 							print ' '.$form->textwithpicto('', $langs->trans("ModuleTranslatedIntoLangForKeyInto", "Module".$moduleobj->name."Desc", $moduledescritpionautotrans));
-						} elseif ($moduledescritpionautotrans != "Module".$moduleobj->numero."Desc") {
+						} elseif ($moduledescritpionautotrans != "Module".$moduleobj->number."Desc") {
 							// $moduledescritpionautotrans has been found into a translation file
-							print ' '.$form->textwithpicto('', $langs->trans("ModuleTranslatedIntoLangForKeyInto", "Module".$moduleobj->numero."Desc", $moduledescritpionautotrans));
+							print ' '.$form->textwithpicto('', $langs->trans("ModuleTranslatedIntoLangForKeyInto", "Module".$moduleobj->number."Desc", $moduledescritpionautotrans));
 						}
 					}
 					print '</td></tr>';

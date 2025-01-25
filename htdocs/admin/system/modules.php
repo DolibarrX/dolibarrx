@@ -126,8 +126,8 @@ foreach ($modulesdir as $dir) {
 								$objMod = new $modName($db);
 								'@phan-var-force DolibarrModules $objMod';
 
-								$modules[$objMod->numero] = $objMod;
-								$modules_files[$objMod->numero] = $file;
+								$modules[$objMod->number] = $objMod;
+								$modules_files[$objMod->number] = $file;
 								$modules_fullpath[$file] = $dir.$file;
 							} catch (Exception $e) {
 								dol_syslog("Failed to load ".$dir.$file." ".$e->getMessage(), LOG_ERR);

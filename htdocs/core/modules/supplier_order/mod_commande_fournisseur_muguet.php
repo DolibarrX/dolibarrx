@@ -22,14 +22,14 @@
 /**
  *    	\file       htdocs/core/modules/supplier_order/mod_commande_fournisseur_muguet.php
  *		\ingroup    order
- *		\brief      Fichier contenant la class du modele de numerotation de reference de commande fournisseur Muguet
+ *		\brief      Fichier contenant la class du modele de numbertation de reference de commande fournisseur Muguet
  */
 
 require_once DOL_DOCUMENT_ROOT.'/core/modules/supplier_order/modules_commandefournisseur.php';
 
 
 /**
- *	Class du modele de numerotation de reference de commande fournisseur Muguet
+ *	Class du modele de numbertation de reference de commande fournisseur Muguet
  */
 class mod_commande_fournisseur_muguet extends ModeleNumRefSuppliersOrders
 {

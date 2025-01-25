@@ -136,7 +136,7 @@ if ($action == 'add' && $permissiontocreate) {		// Add recipients
 	$obj = null;
 
 	foreach ($modulesdir as $dir) {
-		// Load modules attributes in arrays (name, numero, orders) from dir directory
+		// Load modules attributes in arrays (name, number, orders) from dir directory
 		//print $dir."\n<br>";
 		dol_syslog("Scan directory ".$dir." for modules");
 
@@ -543,7 +543,7 @@ if ($object->fetch($id) >= 0) {
 		foreach ($modulesdir as $dir) {
 			$modulenames = array();
 
-			// Load modules attributes in arrays (name, numero, orders) from dir directory
+			// Load modules attributes in arrays (name, number, orders) from dir directory
 			//print $dir."\n<br>";
 			dol_syslog("Scan directory ".$dir." for modules");
 			$handle = @opendir($dir);

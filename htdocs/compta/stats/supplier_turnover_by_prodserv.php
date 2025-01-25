@@ -288,7 +288,7 @@ if (isModEnabled('accounting')) {
 		$sql .= " FROM ".MAIN_DB_PREFIX."accounting_bookkeeping as b,";
 		$sql .= " ".MAIN_DB_PREFIX."accounting_account as aa";
 		$sql .= " WHERE b.entity = ".$config->entity; // In module double party accounting, we never share entities
-		$sql .= " AND b.numero_compte = aa.account_number";
+		$sql .= " AND b.number_compte = aa.account_number";
 		$sql .= " AND aa.entity = ".$config->entity;
 		$sql .= " AND aa.fk_pcg_version = '".$db->escape($pcgvercode)."'";
 		$sql .= $db->plimit(1);

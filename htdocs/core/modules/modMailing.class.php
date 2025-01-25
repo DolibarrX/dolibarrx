@@ -41,7 +41,7 @@ class modMailing extends DolibarrModules
 	public function __construct($db)
 	{
 		$this->db = $db;
-		$this->numero = 22;
+		$this->number = 22;
 
 		// Family can be 'base' (core modules),'crm','financial','hr','projects','products','ecm','technic' (transverse modules),'interface' (link with external tools),'other','...'
 		// It is used to group modules by family in module setup page
@@ -49,7 +49,7 @@ class modMailing extends DolibarrModules
 		// Module position in the family on 2 digits ('01', '10', '20', ...)
 		$this->module_position = '23';
 
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Gestion des EMailings";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version

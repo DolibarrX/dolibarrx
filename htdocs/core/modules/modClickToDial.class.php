@@ -40,10 +40,10 @@ class modClickToDial extends DolibarrModules
 	public function __construct($db)
 	{
 		$this->db = $db;
-		$this->numero = 58;
+		$this->number = 58;
 
 		$this->family = "interface";
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		$this->description = "Integration of a ClickToDial system (Asterisk, ...)";
 		$this->descriptionlong = "Support a Click To Dial feature with a SIP system. When clicking on a phone number, your phone system automatically call the callee.";

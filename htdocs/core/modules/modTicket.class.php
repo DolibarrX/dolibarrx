@@ -49,7 +49,7 @@ class modTicket extends DolibarrModules
 		// Id for module (must be unique).
 		// Use a free id here
 		// (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 56000;
+		$this->number = 56000;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'ticket';
 
@@ -60,11 +60,11 @@ class modTicket extends DolibarrModules
 		$this->module_position = '60';
 		// Module label (no space allowed)
 		// used if translation string 'ModuleXXXName' not found
-		// (where XXX is value of numeric property 'numero' of module)
+		// (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description
 		// used if translation string 'ModuleXXXDesc' not found
-		// (where XXX is value of numeric property 'numero' of module)
+		// (where XXX is value of numeric property 'number' of module)
 		$this->description = "Incident/support ticket management";
 		// Possible values for version are: 'development', 'experimental' or version
 		$this->version = 'dolibarr';

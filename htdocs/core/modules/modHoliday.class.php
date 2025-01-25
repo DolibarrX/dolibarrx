@@ -51,7 +51,7 @@ class modHoliday extends DolibarrModules
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 20000;
+		$this->number = 20000;
 		// Key text used to identify module (for permissions, menus, etc...)
 		$this->rights_class = 'holiday';
 
@@ -59,9 +59,9 @@ class modHoliday extends DolibarrModules
 		// It is used to group modules in module setup page
 		$this->family = "hr";
 		$this->module_position = '42';
-		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
+		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'number' of module)
 		$this->name = preg_replace('/^mod/i', '', get_class($this));
-		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
+		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'number' of module)
 		$this->description = "Leave requests";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
@@ -98,7 +98,7 @@ class modHoliday extends DolibarrModules
 		$this->const[$r][0] = "HOLIDAY_ADDON";
 		$this->const[$r][1] = "chaine";
 		$this->const[$r][2] = "mod_holiday_madonna";
-		$this->const[$r][3] = 'Nom du gestionnaire de numerotation des congés';
+		$this->const[$r][3] = 'Nom du gestionnaire de numbertation des congés';
 		$this->const[$r][4] = 0;
 		$r++;
 

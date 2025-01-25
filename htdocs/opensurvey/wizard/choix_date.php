@@ -512,7 +512,7 @@ if (issetAndNoEmpty('resethoraires')) {
 print '<tr>'."\n";
 
 for ($i = 0; $i < $nbrejourmois + $premierjourmois; $i++) {
-	$numerojour = $i - $premierjourmois + 1;
+	$numberjour = $i - $premierjourmois + 1;
 
 	// On saute a la ligne tous les 7 jours
 	if (($i % 7) == 0 && $i != 0) {
@@ -527,21 +527,21 @@ for ($i = 0; $i < $nbrejourmois + $premierjourmois; $i++) {
 			$nbofchoice = count($_SESSION["totalchoixjour"]);
 			for ($j = 0; $j < $nbofchoice; $j++) {
 				// show red buttons
-				if (date("j", $_SESSION["totalchoixjour"][$j]) == $numerojour && date("n", $_SESSION["totalchoixjour"][$j]) == $_SESSION["mois"] && date("Y", $_SESSION["totalchoixjour"][$j]) == $_SESSION["annee"]) {
-					print '<td align="center" class="choisi"><input type="submit" class="bouton OFF centpercent nomarginleft buttonwebsite" name="choixjourretrait[]" value="'.$numerojour.'"></td>'."\n";
-					$dejafait = $numerojour;
+				if (date("j", $_SESSION["totalchoixjour"][$j]) == $numberjour && date("n", $_SESSION["totalchoixjour"][$j]) == $_SESSION["mois"] && date("Y", $_SESSION["totalchoixjour"][$j]) == $_SESSION["annee"]) {
+					print '<td align="center" class="choisi"><input type="submit" class="bouton OFF centpercent nomarginleft buttonwebsite" name="choixjourretrait[]" value="'.$numberjour.'"></td>'."\n";
+					$dejafait = $numberjour;
 				}
 			}
 		}
 
 		// If no red button, we show green or grey button with number of day
-		if (!isset($dejafait) || $dejafait != $numerojour) {
+		if (!isset($dejafait) || $dejafait != $numberjour) {
 			// green button
-			if (($numerojour >= $jourAJ && $_SESSION["mois"] == $moisAJ && $_SESSION["annee"] == $anneeAJ) || ($_SESSION["mois"] > $moisAJ && $_SESSION["annee"] == $anneeAJ) || $_SESSION["annee"] > $anneeAJ) {
-				print '<td class="center libre"><input type="submit" class="bouton ON centpercent nomarginleft buttonwebsite" name="choixjourajout[]" value="'.$numerojour.'"></td>'."\n";
+			if (($numberjour >= $jourAJ && $_SESSION["mois"] == $moisAJ && $_SESSION["annee"] == $anneeAJ) || ($_SESSION["mois"] > $moisAJ && $_SESSION["annee"] == $anneeAJ) || $_SESSION["annee"] > $anneeAJ) {
+				print '<td class="center libre"><input type="submit" class="bouton ON centpercent nomarginleft buttonwebsite" name="choixjourajout[]" value="'.$numberjour.'"></td>'."\n";
 			} else {
 				// grey button
-				print '<td class="center avant">'.$numerojour.'</td>'."\n";
+				print '<td class="center avant">'.$numberjour.'</td>'."\n";
 			}
 		}
 	}
