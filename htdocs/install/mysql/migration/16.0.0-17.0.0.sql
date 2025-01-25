@@ -76,7 +76,7 @@ ALTER TABLE llx_partnership DROP FOREIGN KEY llx_partnership_fk_user_creat;
 -- VPGSQL8.2 ALTER TABLE llx_partnership ALTER COLUMN fk_user_creat DROP NOT NULL;
 
 ALTER TABLE llx_partnership ADD COLUMN ip varchar(250);
-ALTER TABLE llx_adherent ADD COLUMN ip varchar(250);
+ALTER TABLE llx_member ADD COLUMN ip varchar(250);
 ALTER TABLE llx_projet ADD COLUMN ip varchar(250);
 ALTER TABLE llx_actioncomm ADD COLUMN ip varchar(250);
 ALTER TABLE llx_eventorganization_conferenceorboothattendee ADD COLUMN ip varchar(250);
@@ -90,9 +90,9 @@ UPDATE llx_const set name = 'ADHERENT_MAILMAN_ADMIN_PASSWORD' WHERE name = 'ADHE
 
 ALTER TABLE llx_oauth_token ADD COLUMN state text after tokenstring;
 
-ALTER TABLE llx_adherent ADD COLUMN default_lang VARCHAR(6) DEFAULT NULL AFTER datefin;
+ALTER TABLE llx_member ADD COLUMN default_lang VARCHAR(6) DEFAULT NULL AFTER datefin;
 
-ALTER TABLE llx_adherent_type ADD COLUMN caneditamount integer DEFAULT 0 AFTER amount;
+ALTER TABLE llx_member_type ADD COLUMN caneditamount integer DEFAULT 0 AFTER amount;
 
 ALTER TABLE llx_holiday CHANGE COLUMN date_approve date_approval datetime;
 

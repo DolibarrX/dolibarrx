@@ -16,7 +16,7 @@ update llx_deplacement set dated='2010-01-01' where dated < '2000-01-01';
 
 ALTER TABLE llx_c_methode_commande_fournisseur RENAME TO llx_c_input_method;
 
-ALTER TABLE llx_adherent MODIFY login varchar(50);
+ALTER TABLE llx_member MODIFY login varchar(50);
 
 ALTER TABLE llx_c_ziptown ADD COLUMN fk_pays integer NOT NULL DEFAULT 0 after fk_county; 
 ALTER TABLE llx_c_ziptown MODIFY fk_county integer NULL; 
@@ -56,7 +56,7 @@ DELETE FROM llx_const WHERE __DECRYPT('name')__ = 'MAIN_CONFIRM_AJAX';
 
 ALTER TABLE llx_facture_fourn ADD COLUMN ref_ext varchar(30) AFTER entity;
 ALTER TABLE llx_commande_fournisseur ADD COLUMN ref_ext varchar(30) AFTER entity;
-ALTER TABLE llx_adherent ADD COLUMN ref_ext varchar(30) after entity;
+ALTER TABLE llx_member ADD COLUMN ref_ext varchar(30) after entity;
 
 ALTER TABLE llx_facturedet DROP INDEX uk_fk_remise_except;
 ALTER TABLE llx_facturedet ADD UNIQUE INDEX uk_fk_remise_except (fk_remise_except, fk_facture);
@@ -438,12 +438,12 @@ create table llx_societe_extrafields
 ALTER TABLE llx_product_extrafields ADD INDEX idx_product_extrafields (fk_object);
 ALTER TABLE llx_societe_extrafields ADD INDEX idx_societe_extrafields (fk_object);
 
-alter table llx_adherent_options_label drop index uk_adherent_options_label_name;
-alter table llx_adherent_options_label rename to llx_extrafields; 
+alter table llx_member_options_label drop index uk_member_options_label_name;
+alter table llx_member_options_label rename to llx_extrafields; 
 ALTER TABLE llx_extrafields ADD COLUMN elementtype varchar(64) NOT NULL DEFAULT 'member' AFTER entity;
 ALTER TABLE llx_extrafields ADD UNIQUE INDEX uk_extrafields_name (name, entity, elementtype);
-ALTER TABLE llx_adherent_options rename to llx_adherent_extrafields;
-ALTER TABLE llx_adherent_extrafields CHANGE COLUMN fk_member fk_object integer NOT NULL;
+ALTER TABLE llx_member_options rename to llx_member_extrafields;
+ALTER TABLE llx_member_extrafields CHANGE COLUMN fk_member fk_object integer NOT NULL;
 alter table llx_extrafields add column type varchar(8);
 
 -- drop tables renamed into llx_advanced_extra_xxx

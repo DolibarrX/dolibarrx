@@ -92,11 +92,11 @@ create table llx_mailing_unsubscribe
 
 ALTER TABLE llx_mailing_unsubscribe ADD UNIQUE uk_mailing_unsubscribe(email, entity, unsubscribegroup);
 
-ALTER TABLE llx_adherent ADD gender VARCHAR(10);
-ALTER TABLE llx_adherent_type ADD morphy VARCHAR(3);
+ALTER TABLE llx_member ADD gender VARCHAR(10);
+ALTER TABLE llx_member_type ADD morphy VARCHAR(3);
 ALTER TABLE llx_subscription ADD fk_type integer;
 
-UPDATE llx_subscription as s SET fk_type = (SELECT fk_adherent_type FROM llx_adherent as a where a.rowid = s.fk_adherent) where fk_type IS NULL;
+UPDATE llx_subscription as s SET fk_type = (SELECT fk_member_type FROM llx_member as a where a.rowid = s.fk_member) where fk_type IS NULL;
 
 -- Add url_id into unique index of bank_url
 ALTER TABLE llx_bank_url DROP INDEX uk_bank_url;
@@ -201,7 +201,7 @@ ALTER TABLE llx_commande ADD COLUMN pos_source varchar(32);
 
 ALTER TABLE llx_societe ADD COLUMN linkedin  varchar(255) after whatsapp;
 ALTER TABLE llx_socpeople ADD COLUMN linkedin  varchar(255) after whatsapp;
-ALTER TABLE llx_adherent ADD COLUMN linkedin  varchar(255) after whatsapp;
+ALTER TABLE llx_member ADD COLUMN linkedin  varchar(255) after whatsapp;
 ALTER TABLE llx_user ADD COLUMN linkedin  varchar(255) after whatsapp;
 
 ALTER TABLE llx_expensereport_det ADD COLUMN fk_ecm_files integer DEFAULT NULL;

@@ -46,7 +46,7 @@ UPDATE llx_c_units SET scale = -3, active = 0 WHERE code IN ('L');
 UPDATE llx_c_units SET label = 'VolumeUnitm3' WHERE code IN ('M3');
 UPDATE llx_c_units SET label = 'SurfaceUnitm2' WHERE code IN ('M2');
 
-ALTER TABLE llx_adherent_type ADD UNIQUE INDEX uk_adherent_type_libelle (libelle, entity);
+ALTER TABLE llx_member_type ADD UNIQUE INDEX uk_member_type_libelle (libelle, entity);
 
 ALTER TABLE llx_mailing_cibles MODIFY COLUMN lastname varchar(160);
 ALTER TABLE llx_mailing_cibles MODIFY COLUMN firstname varchar(160);
@@ -181,7 +181,7 @@ ALTER TABLE llx_stock_mouvement ADD COLUMN fk_projet INTEGER NOT NULL DEFAULT 0 
 ALTER TABLE llx_oauth_token ADD COLUMN fk_soc integer DEFAULT NULL after token;
 
 
-ALTER TABLE llx_adherent_type ADD COLUMN duration varchar(6) DEFAULT NULL after morphy;
+ALTER TABLE llx_member_type ADD COLUMN duration varchar(6) DEFAULT NULL after morphy;
 
 ALTER TABLE llx_mailing ADD COLUMN tms timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 ALTER TABLE llx_mailing_cibles ADD COLUMN tms timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
@@ -333,7 +333,7 @@ INSERT INTO llx_c_socialnetworks (entity, code, label, url, icon, active) VALUES
 INSERT INTO llx_c_socialnetworks (entity, code, label, url, icon, active) VALUES(1, 'diaspora', 'Diaspora', '{socialid}', '', 0);
 INSERT INTO llx_c_socialnetworks (entity, code, label, url, icon, active) VALUES(1, 'viber', 'Viber', '{socialid}', '', 0);
 
-ALTER TABLE llx_adherent ADD COLUMN socialnetworks text DEFAULT NULL AFTER email;
+ALTER TABLE llx_member ADD COLUMN socialnetworks text DEFAULT NULL AFTER email;
 ALTER TABLE llx_societe ADD COLUMN socialnetworks text DEFAULT NULL AFTER email;
 ALTER TABLE llx_socpeople ADD COLUMN socialnetworks text DEFAULT NULL AFTER email;
 ALTER TABLE llx_user ADD COLUMN socialnetworks text DEFAULT NULL AFTER personal_email;
@@ -341,7 +341,7 @@ ALTER TABLE llx_user ADD COLUMN socialnetworks text DEFAULT NULL AFTER personal_
 ALTER TABLE llx_product ADD COLUMN net_measure         float;
 ALTER TABLE llx_product ADD COLUMN net_measure_units     tinyint;
 
-create table llx_adherent_type_lang
+create table llx_member_type_lang
 (
 	rowid          integer AUTO_INCREMENT PRIMARY KEY,
 	fk_type        integer      DEFAULT 0 NOT NULL,

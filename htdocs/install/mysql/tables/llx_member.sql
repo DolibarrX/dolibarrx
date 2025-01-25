@@ -26,7 +26,7 @@
 --  1 : valid / valide
 --
 
-create table llx_adherent
+create table llx_member
 (
   rowid            integer AUTO_INCREMENT PRIMARY KEY,
   ref              varchar(30) NOT NULL,        -- member reference number
@@ -40,7 +40,7 @@ create table llx_adherent
   login            varchar(50),                 -- login
   pass             varchar(50),                 -- password
   pass_crypted     varchar(128),
-  fk_adherent_type integer NOT NULL,
+  fk_member_type integer NOT NULL,
   morphy           varchar(3) NOT NULL,         -- EN: legal entity / natural person  FR: personne morale / personne physique
   societe          varchar(128),			          -- company name (should be same length than societe.name). No more used.
   fk_soc           integer NULL,		            -- Link to third party linked to member

@@ -20,14 +20,14 @@
 
 ALTER TABLE llx_menu MODIFY COLUMN leftmenu varchar(100);
 
-create table llx_adherent_type_extrafields
+create table llx_member_type_extrafields
 (
   rowid                     integer AUTO_INCREMENT PRIMARY KEY,
   tms                       timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   fk_object                 integer NOT NULL,
   import_key                varchar(14)                          		-- import key
 ) ENGINE=innodb;
-ALTER TABLE llx_adherent_type_extrafields ADD INDEX idx_adherent_type_extrafields (fk_object);
+ALTER TABLE llx_member_type_extrafields ADD INDEX idx_member_type_extrafields (fk_object);
 
 UPDATE llx_const set value = __ENCRYPT('eldy_menu.php')__ where __DECRYPT('value')__ = 'eldy_backoffice.php';
 UPDATE llx_const set value = __ENCRYPT('eldy_menu.php')__ where __DECRYPT('value')__ = 'eldy_frontoffice.php';
@@ -70,14 +70,14 @@ alter table llx_don      CHANGE COLUMN prenom firstname varchar(50);
 alter table llx_don      CHANGE COLUMN nom lastname varchar(50);
 alter table llx_don 	  CHANGE COLUMN cp zip varchar(10);
 alter table llx_don      CHANGE COLUMN pays country varchar(50);
-alter table llx_adherent CHANGE COLUMN adresse address text;
-alter table llx_adherent CHANGE COLUMN nom lastname varchar(50);
-alter table llx_adherent CHANGE COLUMN prenom firstname varchar(50);
-alter table llx_adherent CHANGE COLUMN ville town text;
-alter table llx_adherent CHANGE COLUMN cp zip varchar(10);
-alter table llx_adherent CHANGE COLUMN pays country varchar(50);
-alter table llx_adherent CHANGE COLUMN naiss birth date;
-alter table llx_adherent CHANGE COLUMN fk_departement state_id varchar(50);
+alter table llx_member CHANGE COLUMN adresse address text;
+alter table llx_member CHANGE COLUMN nom lastname varchar(50);
+alter table llx_member CHANGE COLUMN prenom firstname varchar(50);
+alter table llx_member CHANGE COLUMN ville town text;
+alter table llx_member CHANGE COLUMN cp zip varchar(10);
+alter table llx_member CHANGE COLUMN pays country varchar(50);
+alter table llx_member CHANGE COLUMN naiss birth date;
+alter table llx_member CHANGE COLUMN fk_departement state_id varchar(50);
 alter table llx_bank_account CHANGE COLUMN adresse_proprio owner_address text;
 alter table llx_bank_account CHANGE COLUMN fk_departement state_id varchar(50);
 alter table llx_mailing_cibles CHANGE COLUMN nom lastname varchar(50);
@@ -260,7 +260,7 @@ CREATE TABLE llx_printer_ipp
 ) ENGINE=innodb;
 
 ALTER TABLE llx_socpeople ADD COLUMN ref_ext varchar(128) after entity;
-ALTER TABLE llx_adherent MODIFY COLUMN ref_ext varchar(128);
+ALTER TABLE llx_member MODIFY COLUMN ref_ext varchar(128);
 
 create table llx_commande_extrafields
 (
@@ -278,7 +278,7 @@ ALTER TABLE llx_actioncomm ADD COLUMN transparency integer after fk_user_action;
 
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (29,'FICHINTER_SENTBYMAIL','Intervention sent by mail','Executed when a intervention is sent by mail','ficheinter',29);
 
-ALTER TABLE llx_adherent ADD COLUMN canvas varchar(32) after fk_user_valid; 
+ALTER TABLE llx_member ADD COLUMN canvas varchar(32) after fk_user_valid; 
 
 ALTER TABLE llx_expedition CHANGE COLUMN note note_private text;
 ALTER TABLE llx_expedition ADD COLUMN note_public text after note_private;
@@ -361,7 +361,7 @@ ALTER TABLE llx_boxes ADD COLUMN params varchar(255);
 
 UPDATE llx_extrafields SET elementtype='socpeople' WHERE elementtype='contact';
 UPDATE llx_extrafields SET elementtype='actioncomm' WHERE elementtype='action';
-UPDATE llx_extrafields SET elementtype='adherent' WHERE elementtype='member';
+UPDATE llx_extrafields SET elementtype='member' WHERE elementtype='member';
 UPDATE llx_extrafields SET elementtype='societe' WHERE elementtype='company';
 
 create table llx_commande_fournisseur_extrafields

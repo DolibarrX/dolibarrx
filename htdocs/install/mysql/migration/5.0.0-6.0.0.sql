@@ -37,13 +37,13 @@ ALTER TABLE llx_holiday_config MODIFY COLUMN name varchar(128);
 ALTER TABLE llx_supplier_proposaldet CHANGE COLUMN fk_askpricesupplier fk_supplier_proposal integer NOT NULL;
 
 -- VMYSQL4.1 SET sql_mode = 'ALLOW_INVALID_DATES';
--- -- VMYSQL4.1 ALTER TABLE llx_adherent MODIFY COLUMN datefin datetime DEFAULT '2001-01-01 00:00:00';
--- VMYSQL4.1 update llx_adherent set datefin = NULL where DATE(STR_TO_DATE(datefin, '%Y-%m-%d')) IS NULL;
+-- -- VMYSQL4.1 ALTER TABLE llx_member MODIFY COLUMN datefin datetime DEFAULT '2001-01-01 00:00:00';
+-- VMYSQL4.1 update llx_member set datefin = NULL where DATE(STR_TO_DATE(datefin, '%Y-%m-%d')) IS NULL;
 -- VMYSQL4.1 SET sql_mode = 'NO_ZERO_DATE';
--- VMYSQL4.1 update llx_adherent set datefin = NULL where DATE(STR_TO_DATE(datefin, '%Y-%m-%d')) IS NULL;
+-- VMYSQL4.1 update llx_member set datefin = NULL where DATE(STR_TO_DATE(datefin, '%Y-%m-%d')) IS NULL;
 
 -- VMYSQL4.1 ALTER TABLE llx_opensurvey_sondage MODIFY COLUMN tms timestamp DEFAULT '2001-01-01 00:00:00';
--- VMYSQL4.1 ALTER TABLE llx_adherent MODIFY COLUMN datefin datetime NULL;
+-- VMYSQL4.1 ALTER TABLE llx_member MODIFY COLUMN datefin datetime NULL;
 
 -- To remove a default value for date that is not valid when field is not null
 -- VMYSQL4.1 ALTER TABLE llx_chargesociales MODIFY COLUMN date_ech datetime DEFAULT NULL;
@@ -138,12 +138,12 @@ ALTER TABLE llx_bank ADD COLUMN numero_compte varchar(32) NULL;
 -- VPGSQL8.2 ALTER TABLE llx_bank_account MODIFY COLUMN state_id integer USING state_id::integer;
 -- VPGSQL8.2 ALTER TABLE llx_bank_account ALTER COLUMN state_id SET DEFAULT NULL;
  
--- VMYSQL4.1 ALTER TABLE llx_adherent MODIFY COLUMN state_id integer DEFAULT NULL;
--- VPGSQL8.2 ALTER TABLE llx_adherent ALTER COLUMN state_id DROP DEFAULT;
--- VPGSQL8.2 ALTER TABLE llx_adherent MODIFY COLUMN state_id integer USING state_id::integer;
--- VMYSQL4.1 ALTER TABLE llx_adherent MODIFY COLUMN country integer DEFAULT NULL;
--- VPGSQL8.2 ALTER TABLE llx_adherent ALTER COLUMN country DROP DEFAULT;
--- VPGSQL8.2 ALTER TABLE llx_adherent MODIFY COLUMN country integer USING country::integer;
+-- VMYSQL4.1 ALTER TABLE llx_member MODIFY COLUMN state_id integer DEFAULT NULL;
+-- VPGSQL8.2 ALTER TABLE llx_member ALTER COLUMN state_id DROP DEFAULT;
+-- VPGSQL8.2 ALTER TABLE llx_member MODIFY COLUMN state_id integer USING state_id::integer;
+-- VMYSQL4.1 ALTER TABLE llx_member MODIFY COLUMN country integer DEFAULT NULL;
+-- VPGSQL8.2 ALTER TABLE llx_member ALTER COLUMN country DROP DEFAULT;
+-- VPGSQL8.2 ALTER TABLE llx_member MODIFY COLUMN country integer USING country::integer;
 
 INSERT INTO llx_c_action_trigger (code,label,description,elementtype,rang) VALUES ('PRODUCT_CREATE','Product or service created','Executed when a product or sevice is created','product',30);
 INSERT INTO llx_c_action_trigger (code,label,description,elementtype,rang) VALUES ('PRODUCT_MODIFY','Product or service modified','Executed when a product or sevice is modified','product',30);

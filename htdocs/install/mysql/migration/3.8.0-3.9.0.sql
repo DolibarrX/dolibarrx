@@ -98,7 +98,7 @@ create table llx_overwrite_trans
 ALTER TABLE llx_payment_salary ADD COLUMN datec datetime AFTER tms;
 ALTER TABLE llx_payment_salary CHANGE COLUMN fk_user_creat fk_user_author integer;
 
-ALTER TABLE llx_adherent ADD COLUMN pass_crypted varchar(128) AFTER pass;
+ALTER TABLE llx_member ADD COLUMN pass_crypted varchar(128) AFTER pass;
 
 ALTER TABLE llx_paiement ADD COLUMN ref varchar(30) NOT NULL DEFAULT '' AFTER rowid;
 

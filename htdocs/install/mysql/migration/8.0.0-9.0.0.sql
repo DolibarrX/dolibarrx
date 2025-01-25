@@ -117,14 +117,14 @@ ALTER TABLE llx_socpeople ADD COLUMN googleplus  varchar(255) after skype;
 ALTER TABLE llx_socpeople ADD COLUMN youtube  varchar(255) after skype;
 ALTER TABLE llx_socpeople ADD COLUMN whatsapp  varchar(255) after skype;
 
-ALTER TABLE llx_adherent ADD COLUMN skype  varchar(255);
-ALTER TABLE llx_adherent ADD COLUMN twitter  varchar(255);
-ALTER TABLE llx_adherent ADD COLUMN facebook varchar(255);
-ALTER TABLE llx_adherent ADD COLUMN instagram  varchar(255);
-ALTER TABLE llx_adherent ADD COLUMN snapchat  varchar(255);
-ALTER TABLE llx_adherent ADD COLUMN googleplus  varchar(255);
-ALTER TABLE llx_adherent ADD COLUMN youtube  varchar(255);
-ALTER TABLE llx_adherent ADD COLUMN whatsapp  varchar(255);
+ALTER TABLE llx_member ADD COLUMN skype  varchar(255);
+ALTER TABLE llx_member ADD COLUMN twitter  varchar(255);
+ALTER TABLE llx_member ADD COLUMN facebook varchar(255);
+ALTER TABLE llx_member ADD COLUMN instagram  varchar(255);
+ALTER TABLE llx_member ADD COLUMN snapchat  varchar(255);
+ALTER TABLE llx_member ADD COLUMN googleplus  varchar(255);
+ALTER TABLE llx_member ADD COLUMN youtube  varchar(255);
+ALTER TABLE llx_member ADD COLUMN whatsapp  varchar(255);
 
 ALTER TABLE llx_user ADD COLUMN skype  varchar(255);
 ALTER TABLE llx_user ADD COLUMN twitter  varchar(255);

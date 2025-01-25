@@ -82,14 +82,14 @@ ALTER TABLE llx_user DROP COLUMN googleplus;
 ALTER TABLE llx_user DROP COLUMN youtube;
 ALTER TABLE llx_user DROP COLUMN whatsapp;
 
-ALTER TABLE llx_adherent DROP COLUMN skype;
-ALTER TABLE llx_adherent DROP COLUMN twitter;
-ALTER TABLE llx_adherent DROP COLUMN facebook;
-ALTER TABLE llx_adherent DROP COLUMN instagram;
-ALTER TABLE llx_adherent DROP COLUMN snapchat;
-ALTER TABLE llx_adherent DROP COLUMN googleplus;
-ALTER TABLE llx_adherent DROP COLUMN youtube;
-ALTER TABLE llx_adherent DROP COLUMN whatsapp;
+ALTER TABLE llx_member DROP COLUMN skype;
+ALTER TABLE llx_member DROP COLUMN twitter;
+ALTER TABLE llx_member DROP COLUMN facebook;
+ALTER TABLE llx_member DROP COLUMN instagram;
+ALTER TABLE llx_member DROP COLUMN snapchat;
+ALTER TABLE llx_member DROP COLUMN googleplus;
+ALTER TABLE llx_member DROP COLUMN youtube;
+ALTER TABLE llx_member DROP COLUMN whatsapp;
 
 ALTER TABLE llx_societe DROP COLUMN skype;
 

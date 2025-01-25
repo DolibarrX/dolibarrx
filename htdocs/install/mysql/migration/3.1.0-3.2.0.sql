@@ -273,7 +273,7 @@ ALTER TABLE llx_actioncomm DROP COLUMN fk_supplier_invoice;
 ALTER TABLE llx_actioncomm DROP COLUMN fk_commande;
 ALTER TABLE llx_product_stock DROP COLUMN location;
 
-ALTER TABLE llx_adherent_extrafields ADD COLUMN import_key varchar(14);
+ALTER TABLE llx_member_extrafields ADD COLUMN import_key varchar(14);
 ALTER TABLE llx_product_extrafields  ADD COLUMN import_key varchar(14);
 ALTER TABLE llx_societe_extrafields  ADD COLUMN import_key varchar(14);
 

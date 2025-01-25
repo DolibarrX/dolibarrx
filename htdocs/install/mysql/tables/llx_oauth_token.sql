@@ -23,7 +23,7 @@ CREATE TABLE llx_oauth_token (
     state           text,                   -- the state (list of permission) the token was obtained for
     fk_soc 			integer,				-- Id of thirdparty in llx_societe
     fk_user 		integer,             	-- Id of user in llx_user
-    fk_adherent 	integer,				-- Id of member in llx_adherent
+    fk_member 	integer,				-- Id of member in llx_member
     restricted_ips 	varchar(200), 			-- Restrict the authentication mode/token to some IPs
     datec       	datetime DEFAULT NULL,	-- date creation project
     tms             timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

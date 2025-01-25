@@ -62,10 +62,10 @@ UPDATE llx_menu SET url = CONCAT(url, '&mode=init') WHERE fk_mainmenu = 'ticket'
 -- Use unique keys for extrafields
 ALTER TABLE llx_actioncomm_extrafields DROP INDEX idx_actioncomm_extrafields;
 ALTER TABLE llx_actioncomm_extrafields ADD UNIQUE INDEX uk_actioncomm_extrafields (fk_object);
-ALTER TABLE llx_adherent_extrafields DROP INDEX idx_adherent_extrafields;
-ALTER TABLE llx_adherent_extrafields ADD UNIQUE INDEX uk_adherent_extrafields (fk_object);
-ALTER TABLE llx_adherent_type_extrafields DROP INDEX idx_adherent_type_extrafields;
-ALTER TABLE llx_adherent_type_extrafields ADD UNIQUE INDEX uk_adherent_type_extrafields (fk_object);
+ALTER TABLE llx_member_extrafields DROP INDEX idx_member_extrafields;
+ALTER TABLE llx_member_extrafields ADD UNIQUE INDEX uk_member_extrafields (fk_object);
+ALTER TABLE llx_member_type_extrafields DROP INDEX idx_member_type_extrafields;
+ALTER TABLE llx_member_type_extrafields ADD UNIQUE INDEX uk_member_type_extrafields (fk_object);
 ALTER TABLE llx_asset_model_extrafields DROP INDEX idx_asset_model_extrafields;
 ALTER TABLE llx_asset_model_extrafields ADD UNIQUE INDEX uk_asset_model_extrafields (fk_object);
 ALTER TABLE llx_bank_account_extrafields DROP INDEX idx_bank_account_extrafields;

@@ -244,7 +244,7 @@ ALTER TABLE llx_contrat ADD COLUMN ref_ext varchar(30) after ref_supplier;
 ALTER TABLE llx_propal ADD COLUMN fk_shipping_method integer AFTER date_livraison;
 ALTER TABLE llx_commande ADD COLUMN fk_shipping_method integer AFTER date_livraison;
 
-ALTER TABLE llx_adherents MODIFY COLUMN societe VARCHAR(60);
+ALTER TABLE llx_members MODIFY COLUMN societe VARCHAR(60);
 
 --
 -- Descriptif des plans comptables ES PCG08-PYME
@@ -1087,12 +1087,12 @@ ALTER TABLE llx_c_civilite DROP INDEX uk_c_civilite;
 ALTER TABLE llx_c_civilite RENAME TO llx_c_civility;
 ALTER TABLE llx_c_civility CHANGE COLUMN civilite label VARCHAR(50);
 ALTER TABLE llx_c_civility ADD UNIQUE INDEX uk_c_civility(code);
-ALTER TABLE llx_adherent CHANGE COLUMN civilite civility VARCHAR(6);
+ALTER TABLE llx_member CHANGE COLUMN civilite civility VARCHAR(6);
 ALTER TABLE llx_socpeople CHANGE COLUMN civilite civility VARCHAR(6);
 ALTER TABLE llx_user CHANGE COLUMN civilite civility VARCHAR(6);
 
 ALTER TABLE llx_societe MODIFY COLUMN nom varchar(128);
-ALTER TABLE llx_adherent MODIFY COLUMN societe varchar(128);
+ALTER TABLE llx_member MODIFY COLUMN societe varchar(128);
 
 ALTER TABLE llx_c_type_fees CHANGE COLUMN libelle label VARCHAR(30);
 ALTER TABLE llx_c_type_fees ADD COLUMN accountancy_code varchar(32) DEFAULT NULL AFTER label;

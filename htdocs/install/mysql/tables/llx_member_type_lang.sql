@@ -18,7 +18,7 @@
 --
 -- ============================================================================
 
-create table llx_adherent_type_lang
+create table llx_member_type_lang
 (
   rowid          integer AUTO_INCREMENT PRIMARY KEY,
   fk_type        integer      DEFAULT 0 NOT NULL,

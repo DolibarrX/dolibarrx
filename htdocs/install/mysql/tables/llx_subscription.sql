@@ -21,7 +21,7 @@ create table llx_subscription
   rowid           integer AUTO_INCREMENT PRIMARY KEY,
   tms             timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   datec           datetime,
-  fk_adherent     integer,
+  fk_member     integer,
   fk_type         integer,
   dateadh         datetime,
   datef           datetime,

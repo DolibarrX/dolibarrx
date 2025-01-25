@@ -574,8 +574,8 @@ create table llx_c_price_global_variable_updater
 	last_status			text DEFAULT NULL
 )ENGINE=innodb;
 
-ALTER TABLE llx_adherent CHANGE COLUMN note note_private text DEFAULT NULL;
-ALTER TABLE llx_adherent ADD COLUMN note_public text DEFAULT NULL AFTER note_private;
+ALTER TABLE llx_member CHANGE COLUMN note note_private text DEFAULT NULL;
+ALTER TABLE llx_member ADD COLUMN note_public text DEFAULT NULL AFTER note_private;
 
 CREATE TABLE IF NOT EXISTS llx_propal_merge_pdf_product (
   rowid integer NOT NULL auto_increment PRIMARY KEY,

@@ -30,7 +30,7 @@ insert into llx_c_tva(rowid,fk_pays,taux,recuperableonly,localtax1,localtax1_typ
 
 -- Fix bad migration of 3.4 that make this text instead of varchar(50)
 alter table llx_don      MODIFY COLUMN town varchar(50);
-alter table llx_adherent MODIFY COLUMN town varchar(50);
+alter table llx_member MODIFY COLUMN town varchar(50);
 alter table llx_entrepot MODIFY COLUMN town varchar(50);
 alter table llx_societe  MODIFY COLUMN town varchar(50);
 alter table llx_societe_address MODIFY COLUMN town varchar(50);
@@ -87,8 +87,8 @@ create table llx_propaldet_extrafields
 ALTER TABLE llx_propaldet_extrafields ADD INDEX idx_propaldet_extrafields (fk_object);
 
 
-DROP table llx_adherent_options;
-DROP table llx_adherent_options_label;
+DROP table llx_member_options;
+DROP table llx_member_options_label;
 
 ALTER TABLE llx_user ADD accountancy_code VARCHAR(24) NULL;
 ALTER TABLE llx_c_chargesociales ADD accountancy_code varchar(24) DEFAULT NULL;
@@ -366,7 +366,7 @@ ALTER TABLE llx_actioncomm_resources ADD INDEX idx_actioncomm_resources_fk_eleme
 ALTER TABLE llx_user ADD skype VARCHAR(255) AFTER job;
 ALTER TABLE llx_socpeople ADD skype VARCHAR(255) AFTER jabberid;
 ALTER TABLE llx_societe ADD skype VARCHAR(255) AFTER email;
-ALTER TABLE llx_adherent ADD skype VARCHAR(255) AFTER email;
+ALTER TABLE llx_member ADD skype VARCHAR(255) AFTER email;
 
 -- multi-rib
 ALTER TABLE llx_societe_rib ADD default_rib smallint NOT NULL DEFAULT 0 AFTER owner_address;

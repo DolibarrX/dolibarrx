@@ -148,10 +148,10 @@ ALTER TABLE llx_mailing_cibles ADD INDEX idx_mailing_cibles_tag (tag);
 
 ALTER TABLE llx_c_availability ADD COLUMN position integer NOT NULL DEFAULT 0;
 
-ALTER TABLE llx_adherent ADD COLUMN ref varchar(30) AFTER rowid;
-UPDATE llx_adherent SET ref = rowid WHERE ref = '' or ref IS NULL;
-ALTER TABLE llx_adherent MODIFY COLUMN ref varchar(30) NOT NULL;
-ALTER TABLE llx_adherent ADD UNIQUE INDEX uk_adherent_ref (ref, entity);
+ALTER TABLE llx_member ADD COLUMN ref varchar(30) AFTER rowid;
+UPDATE llx_member SET ref = rowid WHERE ref = '' or ref IS NULL;
+ALTER TABLE llx_member MODIFY COLUMN ref varchar(30) NOT NULL;
+ALTER TABLE llx_member ADD UNIQUE INDEX uk_member_ref (ref, entity);
 
 ALTER TABLE llx_societe ADD COLUMN accountancy_code_sell varchar(32) AFTER webservices_key;
 ALTER TABLE llx_societe ADD COLUMN accountancy_code_buy varchar(32) AFTER accountancy_code_sell;
@@ -551,7 +551,7 @@ INSERT INTO llx_c_email_templates (entity,module,type_template,label,lang,positi
 INSERT INTO llx_c_email_templates (entity,module,type_template,label,lang,position,topic,joinfiles,content) VALUES (0, 'partnership', 'partnership_send', '(SendingEmailOnPartnershipCanceled)', '', 100, '[__[MAIN_INFO_SOCIETE_NOM]__] - __(YourPartnershipCanceledTopic)__', 0, '<body>\n <p>Hello,<br><br>\n__(YourPartnershipCanceledContent)__</p>\n<br />\n\n<br />\n\n            __(Sincerely)__ <br />\n            __[MAIN_INFO_SOCIETE_NOM]__ <br />\n </body>\n');
 INSERT INTO llx_c_email_templates (entity,module,type_template,label,lang,position,topic,joinfiles,content) VALUES (0, 'partnership', 'partnership_send', '(SendingEmailOnPartnershipRefused)', '', 100, '[__[MAIN_INFO_SOCIETE_NOM]__] - __(YourPartnershipRefusedTopic)__', 0, '<body>\n <p>Hello,<br><br>\n__(YourPartnershipRefusedContent)__</p>\n<br />\n\n<br />\n\n            __(Sincerely)__ <br />\n            __[MAIN_INFO_SOCIETE_NOM]__ <br />\n </body>\n');
 INSERT INTO llx_c_email_templates (entity,module,type_template,label,lang,position,topic,joinfiles,content) VALUES (0, 'partnership', 'partnership_send', '(SendingEmailOnPartnershipAccepted)', '', 100, '[__[MAIN_INFO_SOCIETE_NOM]__] - __(YourPartnershipAcceptedTopic)__', 0, '<body>\n <p>Hello,<br><br>\n__(YourPartnershipAcceptedContent)__</p>\n<br />\n\n<br />\n\n            __(Sincerely)__ <br />\n            __[MAIN_INFO_SOCIETE_NOM]__ <br />\n </body>\n');
-ALTER TABLE llx_adherent ADD COLUMN url varchar(255) NULL AFTER email;
+ALTER TABLE llx_member ADD COLUMN url varchar(255) NULL AFTER email;
 ALTER TABLE llx_facture_fourn ADD COLUMN date_closing datetime DEFAULT NULL after date_valid;
 
 ALTER TABLE llx_facture_fourn ADD COLUMN fk_user_closing integer DEFAULT NULL after fk_user_valid;
@@ -605,7 +605,7 @@ create table llx_knowledgemanagement_knowledgerecord_extrafields
 ) ENGINE=innodb;
 
 -- add default amount by member type
-ALTER TABLE llx_adherent_type ADD COLUMN amount DOUBLE(24,8) NULL DEFAULT NULL AFTER subscription;
+ALTER TABLE llx_member_type ADD COLUMN amount DOUBLE(24,8) NULL DEFAULT NULL AFTER subscription;
 
 -- add action trigger
 INSERT INTO llx_c_action_trigger (code,label,description,elementtype,rang) VALUES ('COMPANY_MODIFY','Third party update','Executed when you update third party','societe',1);

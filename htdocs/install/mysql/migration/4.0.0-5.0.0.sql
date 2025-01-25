@@ -49,7 +49,7 @@ ALTER TABLE llx_facture_rec ADD COLUMN fk_user_modif integer;
 ALTER TABLE llx_expedition ADD COLUMN fk_user_modif integer;
 ALTER TABLE llx_projet ADD COLUMN fk_user_modif integer;
 
-ALTER TABLE llx_adherent ADD COLUMN model_pdf varchar(255);
+ALTER TABLE llx_member ADD COLUMN model_pdf varchar(255);
 
 ALTER TABLE llx_don ADD COLUMN date_valid datetime;
 
@@ -124,11 +124,11 @@ ALTER TABLE llx_expensereport_extrafields ADD INDEX idx_expensereport_extrafield
 ALTER TABLE llx_cotisation RENAME TO llx_subscription;
 -- VPGSQL8.2 ALTER SEQUENCE IF EXISTS llx_cotisation_rowid_seq RENAME TO llx_subscription_rowid_seq;
 
-ALTER TABLE llx_subscription ADD UNIQUE INDEX uk_subscription (fk_adherent,dateadh);
+ALTER TABLE llx_subscription ADD UNIQUE INDEX uk_subscription (fk_member,dateadh);
 ALTER TABLE llx_subscription CHANGE COLUMN cotisation subscription real;
-ALTER TABLE llx_adherent_type CHANGE COLUMN cotisation subscription varchar(3) NOT NULL DEFAULT '1';
+ALTER TABLE llx_member_type CHANGE COLUMN cotisation subscription varchar(3) NOT NULL DEFAULT '1';
 
-UPDATE llx_adherent_type SET subscription = '1' WHERE subscription = 'yes';
+UPDATE llx_member_type SET subscription = '1' WHERE subscription = 'yes';
 
 CREATE TABLE llx_product_lot_extrafields
 (

@@ -128,7 +128,7 @@ update llx_commande set fk_user_author = null where fk_user_author not in (selec
 update llx_commande set fk_user_valid = null where fk_user_valid not in (select rowid from llx_user);
 
 delete from llx_societe_extrafields where fk_object not in (select rowid from llx_societe);
-delete from llx_adherent_extrafields where fk_object not in (select rowid from llx_adherent);
+delete from llx_member_extrafields where fk_object not in (select rowid from llx_member);
 delete from llx_product_extrafields where fk_object not in (select rowid from llx_product);
 --delete from llx_societe_commerciaux where fk_soc not in (select rowid from llx_societe);
 

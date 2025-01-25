@@ -505,7 +505,7 @@ CREATE TABLE llx_oauth_token (
     service varchar(36),
     token text,
     fk_user integer,
-    fk_adherent integer,
+    fk_member integer,
     entity integer DEFAULT 1
 )ENGINE=InnoDB;
 
@@ -514,7 +514,7 @@ CREATE TABLE llx_oauth_state (
     service varchar(36),
     state varchar(128),
     fk_user integer,
-    fk_adherent integer,
+    fk_member integer,
     entity integer DEFAuLT 1
 )ENGINE=InnoDB;
 

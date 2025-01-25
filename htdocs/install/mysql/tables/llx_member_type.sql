@@ -23,7 +23,7 @@
 -- 1 : inactive / inactif
 --
 
-create table llx_adherent_type
+create table llx_member_type
 (
   rowid            integer AUTO_INCREMENT PRIMARY KEY,
   entity           integer DEFAULT 1 NOT NULL,             -- multi company id
