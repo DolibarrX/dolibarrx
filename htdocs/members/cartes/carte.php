@@ -117,18 +117,18 @@ if ((!empty($foruserid) || !empty($foruserlogin) || !empty($mode)) && !$mesg) {
 				$objp->country = '';
 			}
 
-			$adherentstatic->id = $objp->rowid;
-			$adherentstatic->ref = $objp->ref;
-			$adherentstatic->lastname = $objp->lastname;
-			$adherentstatic->firstname = $objp->firstname;
+			$memberStatic->id = $objp->rowid;
+			$memberStatic->ref = $objp->ref;
+			$memberStatic->lastname = $objp->lastname;
+			$memberStatic->firstname = $objp->firstname;
 
 			// Format extrafield so they can be parsed in function complete_substitutions_array
 			if (isset($extrafields->attributes[$object->table_element]['label']) && is_array($extrafields->attributes[$object->table_element]['label']) && count($extrafields->attributes[$object->table_element]['label'])) {
-				$adherentstatic->array_options = array();
+				$memberStatic->array_options = array();
 				foreach ($extrafields->attributes[$object->table_element]['label'] as $key => $val) {
 					$tmpkey = 'options_'.$key;
 					if (!empty($objp->$tmpkey)) {
-						$adherentstatic->array_options[$tmpkey] = $objp->$tmpkey;
+						$memberStatic->array_options[$tmpkey] = $objp->$tmpkey;
 					}
 					//if (!empty($objp->$key))
 					//    $objp->array_options[$tmpkey] = $objp->$key;
@@ -144,7 +144,7 @@ if ((!empty($foruserid) || !empty($foruserlogin) || !empty($mode)) && !$mesg) {
 				'__MEMBER_TITLE__' => empty($objp->civility) ? '' : $langs->trans("Civility".$objp->civility),
 				'__MEMBER_FIRSTNAME__' => empty($objp->firstname) ? '' : $objp->firstname,
 				'__MEMBER_LASTNAME__' => empty($objp->lastname) ? '' : $objp->lastname,
-				'__MEMBER_FULLNAME__' => $adherentstatic->getFullName($langs),
+				'__MEMBER_FULLNAME__' => $memberStatic->getFullName($langs),
 				'__MEMBER_COMPANY__' => empty($objp->company) ? '' : $objp->company,
 				'__MEMBER_ADDRESS__' => empty($objp->address) ? '' : $objp->address,
 				'__MEMBER_ZIP__' => empty($objp->zip) ? '' : $objp->zip,
@@ -160,7 +160,7 @@ if ((!empty($foruserid) || !empty($foruserlogin) || !empty($mode)) && !$mesg) {
 				'__DOL_MAIN_URL_ROOT__' => DOL_MAIN_URL_ROOT,
 				'__SERVER__' => "https://".$_SERVER["SERVER_NAME"]."/"
 			);
-			foreach ($adherentstatic->array_options as $key => $val) {
+			foreach ($memberStatic->array_options as $key => $val) {
 				$substitutionArray['__'.strtoupper($key).'__'] = $val;
 			}
 			complete_substitutions_array($substitutionArray, $langs, $adherentstatic);
@@ -286,7 +286,7 @@ $help_url = 'EN:Module_Services_En|FR:Module_Services|ES:M&oacute;dulo_Servicios
 
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-member page-cards');
 
-print load_fiche_titre($langs->trans("LinkToGeneratedPages"), '', $adherentstatic->picto);
+print load_fiche_titre($langs->trans("LinkToGeneratedPages"), '', $memberStatic->picto);
 
 print '<span class="opacitymedium">'.$langs->trans("LinkToGeneratedPagesDesc").'</span><br>';
 print '<br>';

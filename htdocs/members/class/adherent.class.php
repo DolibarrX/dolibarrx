@@ -2619,10 +2619,10 @@ class Adherent extends CommonObject
 			while ($obj = $this->db->fetch_object($resql)) {
 				$response->nbtodo++;
 
-				$adherentstatic->datefin = $this->db->jdate($obj->datefin);
-				$adherentstatic->statut = $obj->statut;
+				$memberStatic->datefin = $this->db->jdate($obj->datefin);
+				$memberStatic->statut = $obj->statut;
 
-				if ($adherentstatic->hasDelay()) {
+				if ($memberStatic->hasDelay()) {
 					$response->nbtodolate++;
 				}
 			}
