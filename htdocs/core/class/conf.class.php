@@ -280,7 +280,7 @@ class Conf extends stdClass
 	 * @var stdClass
 	 * @deprecated Use member
 	 */
-	public $adherent;
+	public $member;
 
 	/**
 	 * @var stdClass
