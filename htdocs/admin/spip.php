@@ -95,7 +95,7 @@ if ($action == 'set') {
 	}
 }
 
-// Action deactivation d'un sous module du module adherent
+// Action deactivation of a sub-module of the member module
 if ($action == 'unset') {
 	$result = dolibarr_del_const($db, GETPOST("name", 'aZ09'), $config->entity);
 	if ($result < 0) {

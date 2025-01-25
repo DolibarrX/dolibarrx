@@ -179,7 +179,7 @@ if (empty($resHook)) {
 
 $form = new Form($db);
 $subscription = new Subscription($db);
-$adherent = new Adherent($db);
+$member = new Adherent($db);
 $adht = new MemberType($db);
 $accountstatic = new Account($db);
 

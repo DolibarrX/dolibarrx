@@ -57,7 +57,7 @@ $model = GETPOST("model", 'aZ09'); // Doc template to use for business cards
 $modellabel = GETPOST("modellabel", 'aZ09'); // Doc template to use for address sheet
 $mesg = '';
 
-$adherentstatic = new Adherent($db);
+$memberstatic = new Adherent($db);
 $object = new Adherent($db);
 
 $extrafields = new ExtraFields($db);
@@ -163,7 +163,7 @@ if ((!empty($foruserid) || !empty($foruserlogin) || !empty($mode)) && !$mesg) {
 			foreach ($memberStatic->array_options as $key => $val) {
 				$substitutionArray['__'.strtoupper($key).'__'] = $val;
 			}
-			complete_substitutions_array($substitutionArray, $langs, $adherentstatic);
+			complete_substitutions_array($substitutionArray, $langs, $memberstatic);
 
 			// For business cards
 			if (empty($mode) || $mode == 'card' || $mode == 'cardlogin') {

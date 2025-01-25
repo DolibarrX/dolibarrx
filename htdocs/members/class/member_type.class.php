@@ -568,7 +568,7 @@ class MemberType extends CommonObject
 		// phpcs:enable
 		global $langs;
 
-		$adherenttypes = array();
+		$membertypes = array();
 
 		$sql = "SELECT rowid, libelle as label";
 		$sql .= " FROM " . MAIN_DB_PREFIX . "member_type";
@@ -586,14 +586,14 @@ class MemberType extends CommonObject
 				while ($i < $nump) {
 					$obj = $this->db->fetch_object($resql);
 
-					$adherenttypes[$obj->rowid] = $langs->trans($obj->label);
+					$membertypes[$obj->rowid] = $langs->trans($obj->label);
 					$i++;
 				}
 			}
 		} else {
 			print $this->db->error();
 		}
-		return $adherenttypes;
+		return $membertypes;
 	}
 
 	/**

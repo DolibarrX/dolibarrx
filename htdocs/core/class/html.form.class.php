@@ -8285,10 +8285,10 @@ class Form
 
 			if ($selected && empty($selected_input_value)) {
 				require_once DOL_DOCUMENT_ROOT . '/members/class/member.class.php';
-				$adherenttmpselect = new Adherent($this->db);
-				$adherenttmpselect->fetch($selected);
-				$selected_input_value = $adherenttmpselect->ref;
-				unset($adherenttmpselect);
+				$membertmpselect = new Adherent($this->db);
+				$membertmpselect->fetch($selected);
+				$selected_input_value = $membertmpselect->ref;
+				unset($membertmpselect);
 			}
 
 			$urloption = '';

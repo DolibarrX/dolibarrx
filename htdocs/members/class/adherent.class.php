@@ -2614,7 +2614,7 @@ class Adherent extends CommonObject
 			$response->url = $url;
 			$response->img = img_object('', "user");
 
-			$adherentstatic = new Adherent($this->db);
+			$memberstatic = new Adherent($this->db);
 
 			while ($obj = $this->db->fetch_object($resql)) {
 				$response->nbtodo++;
@@ -3101,7 +3101,7 @@ class Adherent extends CommonObject
 				$num_rows = $this->db->num_rows($resql);
 
 				include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
-				$adherent = new Adherent($this->db);
+				$member = new Adherent($this->db);
 				$formmail = new FormMail($this->db);
 
 				$i = 0;
@@ -3137,9 +3137,9 @@ class Adherent extends CommonObject
 						}
 
 						if (!empty($labeltouse) && is_object($arraydefaultmessage) && $arraydefaultmessage->id > 0) {
-							$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $adherent);
+							$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $member);
 							//if (is_array($member->thirdparty)) $substitutionArraycomp = ...
-							complete_substitutions_array($substitutionArray, $outputlangs, $adherent);
+							complete_substitutions_array($substitutionArray, $outputlangs, $member);
 
 							$subject = make_substitutions($arraydefaultmessage->topic, $substitutionArray, $outputlangs);
 							$msg = make_substitutions($arraydefaultmessage->content, $substitutionArray, $outputlangs);

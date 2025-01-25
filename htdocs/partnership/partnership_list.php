@@ -77,7 +77,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new Partnership($db);
 $extrafields = new ExtraFields($db);
-$adherent = new Adherent($db);
+$member = new Adherent($db);
 $diroutputmassaction = $config->partnership->dir_output.'/temp/massgeneration/'.$user->id;
 if ($socid > 0) {
 	$hookManager->initHooks(array('thirdpartypartnership', 'globalcard'));
