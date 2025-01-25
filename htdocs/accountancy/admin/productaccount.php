@@ -37,7 +37,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingaccount.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 /**
  * @var Conf $conf
@@ -352,7 +352,7 @@ if (getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
 	$sql .= " LEFT JOIN " . MAIN_DB_PREFIX . "accounting_account as aa ON aa.account_number = p." . $db->sanitize($accountancy_field_name) . " AND aa.fk_pcg_version = '" . $db->escape($pcgvercode) . "'";
 }
 if (!empty($searchCategoryProductList)) {
-	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX."categorie_product as cp ON p.rowid = cp.fk_product"; // We'll need this table joined to the select in order to filter by categ
+	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX."category_product as cp ON p.rowid = cp.fk_product"; // We'll need this table joined to the select in order to filter by categ
 }
 $sql .= ' WHERE p.entity IN ('.getEntity('product').')';
 if (strlen(trim($search_current_account))) {
@@ -368,9 +368,9 @@ $searchCategoryProductSqlList = array();
 if ($searchCategoryProductOperator == 1) {
 	foreach ($searchCategoryProductList as $searchCategoryProduct) {
 		if (intval($searchCategoryProduct) == -2) {
-			$searchCategoryProductSqlList[] = "cp.fk_categorie IS NULL";
+			$searchCategoryProductSqlList[] = "cp.fk_category IS NULL";
 		} elseif (intval($searchCategoryProduct) > 0) {
-			$searchCategoryProductSqlList[] = "cp.fk_categorie = ".((int) $searchCategoryProduct);
+			$searchCategoryProductSqlList[] = "cp.fk_category = ".((int) $searchCategoryProduct);
 		}
 	}
 	if (!empty($searchCategoryProductSqlList)) {
@@ -379,9 +379,9 @@ if ($searchCategoryProductOperator == 1) {
 } else {
 	foreach ($searchCategoryProductList as $searchCategoryProduct) {
 		if (intval($searchCategoryProduct) == -2) {
-			$searchCategoryProductSqlList[] = "cp.fk_categorie IS NULL";
+			$searchCategoryProductSqlList[] = "cp.fk_category IS NULL";
 		} elseif (intval($searchCategoryProduct) > 0) {
-			$searchCategoryProductSqlList[] = "p.rowid IN (SELECT fk_product FROM ".MAIN_DB_PREFIX."categorie_product WHERE fk_categorie = ".((int) $searchCategoryProduct).")";
+			$searchCategoryProductSqlList[] = "p.rowid IN (SELECT fk_product FROM ".MAIN_DB_PREFIX."category_product WHERE fk_category = ".((int) $searchCategoryProduct).")";
 		}
 	}
 	if (!empty($searchCategoryProductSqlList)) {
@@ -563,7 +563,7 @@ if ($resql) {
 
 	// Filter on categories
 	$moreforfilter = '';
-	if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+	if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 		$formcategory = new FormCategory($db);
 		$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_PRODUCT, $searchCategoryProductList, 'minwidth300', $searchCategoryProductList ? $searchCategoryProductList : 0);
 	}

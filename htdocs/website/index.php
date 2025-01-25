@@ -51,7 +51,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/website.class.php';
 require_once DOL_DOCUMENT_ROOT.'/website/class/websitepage.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
 
 
@@ -4661,7 +4661,7 @@ if ($action == 'editmeta' || $action == 'createcontainer') {	// Edit properties 
 	print '</td></tr>';
 
 	// Categories
-	if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+	if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 		$langs->load('categories');
 
 		if (!GETPOSTISSET('categories')) {
@@ -5073,7 +5073,7 @@ if ($mode == 'replacesite' || $massaction == 'replace') {
 	print '</div>';
 
 	// Categories
-	if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+	if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 		print '<div class="tagtr">';
 		print '<div class="tagtd paddingrightonly marginrightonly opacitymedium tdoverflowmax100onsmartphone" style="padding-right: 10px !important">';
 		print $langs->trans("Category");
@@ -5193,7 +5193,7 @@ if ($mode == 'replacesite' || $massaction == 'replace') {
 			}
 			print '</tr>';
 
-			require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 			$c = new Category($db);
 
 			$totalnbwords = 0;
@@ -5255,7 +5255,7 @@ if ($mode == 'replacesite' || $massaction == 'replace') {
 
 					// Categories - Tags
 					print '<td class="center">';
-					if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+					if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 						// Get current categories
 						$existing = $c->containing($answerrecord->id, Category::TYPE_WEBSITE_PAGE, 'object');
 						if (is_array($existing)) {

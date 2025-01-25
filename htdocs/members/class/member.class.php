@@ -38,7 +38,7 @@
  */
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonobject.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/commonpeople.class.php';
 
 
@@ -1105,7 +1105,7 @@ class Member extends CommonObject
 		}
 
 		// Remove category
-		$sql = "DELETE FROM ".MAIN_DB_PREFIX."categorie_member WHERE fk_member = ".((int) $rowid);
+		$sql = "DELETE FROM ".MAIN_DB_PREFIX."category_member WHERE fk_member = ".((int) $rowid);
 		dol_syslog(get_class($this)."::delete", LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if (!$resql) {
@@ -2318,7 +2318,7 @@ class Member extends CommonObject
 		$datas['address'] = '<br><b>'.$langs->trans("Address").':</b> '.dol_format_address($this, 1, ' ', $langs);
 		// show categories for this record only in ajax to not overload lists
 		if (isModEnabled('category') && !$nofetch) {
-			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+			require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 			$form = new Form($this->db);
 			$datas['categories'] = '<br>' . $form->showCategories($this->id, Category::TYPE_MEMBER, 1);
 		}
@@ -2994,7 +2994,7 @@ class Member extends CommonObject
 	 */
 	public function setCategories($categories)
 	{
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		return parent::setCategoriesCommon($categories, Category::TYPE_MEMBER);
 	}
 

@@ -35,7 +35,7 @@ if (!defined('NOBROWSERNOTIF')) {
 // Load Dolibarr environment
 require '../../main.inc.php';
 
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 /**
  * @var Conf $conf
  * @var DoliDB $db
@@ -64,8 +64,8 @@ if (!$config->global->TAKEPOS_QR_MENU) {
 			<h1><?php print $mysoc->name; ?> - <small><?php print $langs->trans('RestaurantMenu'); ?></small></h1>
 
 <?php
-$categorie = new Category($db);
-$categories = $categorie->get_full_arbo('product', ((getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) ? $config->global->TAKEPOS_ROOT_CATEGORY_ID : 0), 1);
+$category = new Category($db);
+$categories = $category->get_full_arbo('product', ((getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) ? $config->global->TAKEPOS_ROOT_CATEGORY_ID : 0), 1);
 $levelofrootcategory = 0;
 if (getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) {
 	foreach ($categories as $key => $categorycursor) {

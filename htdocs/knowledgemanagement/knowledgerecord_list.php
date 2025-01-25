@@ -31,7 +31,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/knowledgemanagement/class/knowledgerecord.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 /**
  * @var Conf $conf
@@ -299,17 +299,17 @@ if (!empty($searchCategoryKnowledgemanagementList)) {
 	$listofcategoryid = '';
 	foreach ($searchCategoryKnowledgemanagementList as $searchCategoryKnowledgemanagement) {
 		if (intval($searchCategoryKnowledgemanagement) == -2) {
-			$searchCategoryKnowledgemanagementSqlList[] = "NOT EXISTS (SELECT ck.fk_knowledgemanagement FROM ".MAIN_DB_PREFIX."categorie_knowledgemanagement as ck WHERE t.rowid = ck.fk_knowledgemanagement)";
+			$searchCategoryKnowledgemanagementSqlList[] = "NOT EXISTS (SELECT ck.fk_knowledgemanagement FROM ".MAIN_DB_PREFIX."category_knowledgemanagement as ck WHERE t.rowid = ck.fk_knowledgemanagement)";
 		} elseif (intval($searchCategoryKnowledgemanagement) > 0) {
 			if (empty($searchCategoryKnowledgemanagementOperator)) {
-				$searchCategoryKnowledgemanagementSqlList[] = " EXISTS (SELECT ck.fk_knowledgemanagement FROM ".MAIN_DB_PREFIX."categorie_knowledgemanagement as ck WHERE t.rowid = ck.fk_knowledgemanagement AND ck.fk_categorie = ".((int) $searchCategoryKnowledgemanagement).")";
+				$searchCategoryKnowledgemanagementSqlList[] = " EXISTS (SELECT ck.fk_knowledgemanagement FROM ".MAIN_DB_PREFIX."category_knowledgemanagement as ck WHERE t.rowid = ck.fk_knowledgemanagement AND ck.fk_category = ".((int) $searchCategoryKnowledgemanagement).")";
 			} else {
 				$listofcategoryid .= ($listofcategoryid ? ', ' : '') .((int) $searchCategoryKnowledgemanagement);
 			}
 		}
 	}
 	if ($listofcategoryid) {
-		$searchCategoryKnowledgemanagementSqlList[] = " EXISTS (SELECT ck.fk_knowledgemanagement FROM ".MAIN_DB_PREFIX."categorie_knowledgemanagement as ck WHERE t.rowid = ck.fk_knowledgemanagement AND ck.fk_categorie IN (".$db->sanitize($listofcategoryid)."))";
+		$searchCategoryKnowledgemanagementSqlList[] = " EXISTS (SELECT ck.fk_knowledgemanagement FROM ".MAIN_DB_PREFIX."category_knowledgemanagement as ck WHERE t.rowid = ck.fk_knowledgemanagement AND ck.fk_category IN (".$db->sanitize($listofcategoryid)."))";
 	}
 	if ($searchCategoryKnowledgemanagementOperator == 1) {
 		if (!empty($searchCategoryKnowledgemanagementSqlList)) {
@@ -503,7 +503,7 @@ $moreforfilter.= '</div>';*/
 
 // Filter on categories
 $moreforfilter = '';
-if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 	$formcategory = new FormCategory($db);
 	$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_KNOWLEDGEMANAGEMENT, $searchCategoryKnowledgemanagementList, 'minwidth300', $searchCategoryKnowledgemanagementList ? $searchCategoryKnowledgemanagementList : 0);
 	/*

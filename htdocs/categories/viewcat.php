@@ -33,7 +33,7 @@
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/categories.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
@@ -90,7 +90,7 @@ if ($id == "" && $label == "") {
 $hookManager->initHooks(array('categorycard', 'globalcard'));
 
 // Security check
-$result = restrictedArea($user, 'categorie', $id, '&category');
+$result = restrictedArea($user, 'category', $id, '&category');
 
 $object = new Category($db);
 $result = $object->fetch($id, $label);
@@ -181,7 +181,7 @@ if ($id > 0 && $removeelem > 0 && $action == 'unlink') {	// Test on permission n
 	}
 }
 
-if ($user->hasRight('categorie', 'supprimer') && $action == 'confirm_delete' && $confirm == 'yes') {
+if ($user->hasRight('category', 'supprimer') && $action == 'confirm_delete' && $confirm == 'yes') {
 	if ($object->delete($user) >= 0) {
 		if ($backtopage) {
 			header("Location: ".$backtopage);
@@ -347,12 +347,12 @@ if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
 if (empty($resHook)) {
-	if ($user->hasRight('categorie', 'creer')) {
+	if ($user->hasRight('category', 'creer')) {
 		$socid = ($object->socid ? "&socid=".$object->socid : "");
 		print '<a class="butAction" href="edit.php?id='.$object->id.$socid.'&type='.$type.'">'.$langs->trans("Modify").'</a>';
 	}
 
-	if ($user->hasRight('categorie', 'supprimer')) {
+	if ($user->hasRight('category', 'supprimer')) {
 		print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?action=delete&token='.newToken().'&id='.$object->id.'&type='.$type.'&backtolist='.urlencode($backtolist).'">'.$langs->trans("Delete").'</a>';
 	}
 }
@@ -360,7 +360,7 @@ if (empty($resHook)) {
 print "</div>";
 
 $newcardbutton = '';
-if ($user->hasRight('categorie', 'creer')) {
+if ($user->hasRight('category', 'creer')) {
 	$link = DOL_URL_ROOT.'/categories/card.php';
 	$link .= '?action=create';
 	$link .= '&type='.$type;
@@ -1249,8 +1249,8 @@ if ($type == Category::TYPE_WAREHOUSE) {
 // List of tickets
 if ($type == Category::TYPE_TICKET) {
 	if ($user->hasRight("ticket", "read")) {
-		$permission = $user->hasRight('categorie', 'creer');
-		$showclassifyform = $user->hasRight('categorie', 'creer');
+		$permission = $user->hasRight('category', 'creer');
+		$showclassifyform = $user->hasRight('category', 'creer');
 
 		$tickets = $object->getObjectsInCateg($type, 0, $limit, $offset);
 		if ($tickets < 0) {
@@ -1329,8 +1329,8 @@ if ($type == Category::TYPE_TICKET) {
 // List of Interventions
 if ($type == Category::TYPE_FICHINTER) {
 	if ($user->hasRight("fichinter", "lire")) {
-		$permission = $user->hasRight('categorie', 'creer');
-		$showclassifyform = $user->hasRight('categorie', 'creer');
+		$permission = $user->hasRight('category', 'creer');
+		$showclassifyform = $user->hasRight('category', 'creer');
 
 		$fichinters = $object->getObjectsInCateg($type, 0, $limit, $offset);
 		if ($fichinters < 0) {

@@ -557,8 +557,8 @@ $moreforfilter = '';
 
 // Filter on categories
 /*
- if (isModEnabled("categorie")) {
- require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+ if (isModEnabled("category")) {
+ require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
  $moreforfilter.='<div class="divsearchfield">';
  $moreforfilter.=$langs->trans('ProjectCategories'). ': ';
  $moreforfilter.=$formother->select_categories('project', $search_categ, 'search_categ', 1, 1, 'maxwidth300');

@@ -41,7 +41,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/societe/class/client.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT . '/projet/class/project.class.php';
 if (isModEnabled('invoice')) {
@@ -663,7 +663,7 @@ if ($object->id > 0) {
 	}
 
 	// Categories
-	if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+	if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 		$langs->load("categories");
 		print '<tr><td>'.$langs->trans("CustomersCategoriesShort").'</td>';
 		print '<td>';

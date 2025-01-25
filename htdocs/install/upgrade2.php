@@ -388,7 +388,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 			$afterversionarray = explode('.', '3.2.9');
 			$beforeversionarray = explode('.', '3.3.9');
 			if (versioncompare($versiontoarray, $afterversionarray) >= 0 && versioncompare($versiontoarray, $beforeversionarray) <= 0) {
-				migrate_categorie_association($db, $langs, $config);
+				migrate_category_association($db, $langs, $config);
 			}
 
 			// Script for 3.4
@@ -3385,7 +3385,7 @@ function migrate_mode_reglement($db, $langs, $config)
 
 
 /**
- * Delete duplicates in table categorie_association
+ * Delete duplicates in table category_association
  *
  * @param	DoliDB		$db			Database handler
  * @param	Translate	$langs		Object langs
@@ -3394,23 +3394,23 @@ function migrate_mode_reglement($db, $langs, $config)
  */
 function migrate_clean_association($db, $langs, $config)
 {
-	$result = $db->DDLDescTable(MAIN_DB_PREFIX."categorie_association");
+	$result = $db->DDLDescTable(MAIN_DB_PREFIX."category_association");
 	if ($result) {	// result defined for version 3.2 or -
 		$obj = $db->fetch_object($result);
-		if ($obj) {	// It table categorie_association exists
+		if ($obj) {	// It table category_association exists
 			$couples = array();
 			$children = array();
-			$sql = "SELECT fk_categorie_mere, fk_categorie_fille";
-			$sql .= " FROM ".MAIN_DB_PREFIX."categorie_association";
+			$sql = "SELECT fk_category_mere, fk_category_fille";
+			$sql .= " FROM ".MAIN_DB_PREFIX."category_association";
 			dolibarr_install_syslog("upgrade: search duplicate");
 			$resql = $db->query($sql);
 			if ($resql) {
 				$num = $db->num_rows($resql);
 				while ($obj = $db->fetch_object($resql)) {
-					if (!isset($children[$obj->fk_categorie_fille])) {	// Only one record as child (a child has only on parent).
-						if ($obj->fk_categorie_mere != $obj->fk_categorie_fille) {
-							$children[$obj->fk_categorie_fille] = 1; // Set record for this child
-							$couples[$obj->fk_categorie_mere.'_'.$obj->fk_categorie_fille] = array('mere' => $obj->fk_categorie_mere, 'fille' => $obj->fk_categorie_fille);
+					if (!isset($children[$obj->fk_category_fille])) {	// Only one record as child (a child has only on parent).
+						if ($obj->fk_category_mere != $obj->fk_category_fille) {
+							$children[$obj->fk_category_fille] = 1; // Set record for this child
+							$couples[$obj->fk_category_mere.'_'.$obj->fk_category_fille] = array('mere' => $obj->fk_category_mere, 'fille' => $obj->fk_category_fille);
 						}
 					}
 				}
@@ -3424,13 +3424,13 @@ function migrate_clean_association($db, $langs, $config)
 					$db->begin();
 
 					// We delete all
-					$sql = "DELETE FROM ".MAIN_DB_PREFIX."categorie_association";
+					$sql = "DELETE FROM ".MAIN_DB_PREFIX."category_association";
 					dolibarr_install_syslog("upgrade: delete association");
 					$resqld = $db->query($sql);
 					if ($resqld) {
 						// And we insert only each record once
 						foreach ($couples as $key => $val) {
-							$sql = "INSERT INTO ".MAIN_DB_PREFIX."categorie_association(fk_categorie_mere,fk_categorie_fille)";
+							$sql = "INSERT INTO ".MAIN_DB_PREFIX."category_association(fk_category_mere,fk_category_fille)";
 							$sql .= " VALUES(".((int) $val['mere']).", ".((int) $val['fille']).")";
 							dolibarr_install_syslog("upgrade: insert association");
 							$resqli = $db->query($sql);
@@ -3460,14 +3460,14 @@ function migrate_clean_association($db, $langs, $config)
 
 
 /**
- * Migrate categorie association
+ * Migrate category association
  *
  * @param	DoliDB		$db				Database handler
  * @param	Translate	$langs			Object langs
  * @param	Conf		$conf			Object conf
  * @return	void
  */
-function migrate_categorie_association($db, $langs, $config)
+function migrate_category_association($db, $langs, $config)
 {
 	print '<tr><td colspan="4">';
 
@@ -3476,13 +3476,13 @@ function migrate_categorie_association($db, $langs, $config)
 
 	$error = 0;
 
-	if ($db->DDLInfoTable(MAIN_DB_PREFIX."categorie_association")) {
-		dolibarr_install_syslog("upgrade2::migrate_categorie_association");
+	if ($db->DDLInfoTable(MAIN_DB_PREFIX."category_association")) {
+		dolibarr_install_syslog("upgrade2::migrate_category_association");
 
 		$db->begin();
 
-		$sqlSelect = "SELECT fk_categorie_mere, fk_categorie_fille";
-		$sqlSelect .= " FROM ".MAIN_DB_PREFIX."categorie_association";
+		$sqlSelect = "SELECT fk_category_mere, fk_category_fille";
+		$sqlSelect .= " FROM ".MAIN_DB_PREFIX."category_association";
 
 		$resql = $db->query($sqlSelect);
 		if ($resql) {
@@ -3493,9 +3493,9 @@ function migrate_categorie_association($db, $langs, $config)
 				while ($i < $num) {
 					$obj = $db->fetch_object($resql);
 
-					$sqlUpdate = "UPDATE ".MAIN_DB_PREFIX."categorie SET ";
-					$sqlUpdate .= "fk_parent = ".((int) $obj->fk_categorie_mere);
-					$sqlUpdate .= " WHERE rowid = ".((int) $obj->fk_categorie_fille);
+					$sqlUpdate = "UPDATE ".MAIN_DB_PREFIX."category SET ";
+					$sqlUpdate .= "fk_parent = ".((int) $obj->fk_category_mere);
+					$sqlUpdate .= " WHERE rowid = ".((int) $obj->fk_category_fille);
 
 					$result = $db->query($sqlUpdate);
 					if (!$result) {

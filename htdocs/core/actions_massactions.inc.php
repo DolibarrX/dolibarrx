@@ -1298,8 +1298,8 @@ if (!$error && ($action == 'affecttag' && $confirm == 'yes') && $permissiontoadd
 		setEventMessage('CategTypeNotFound', 'errors');
 	}
 	if (!empty($affecttag_type_array)) {
-		//check if tag type submitted exists into Tag Map categorie class
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		//check if tag type submitted exists into Tag Map category class
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		$categ = new Category($db);
 		$to_affecttag_type_array = array();
 		$categ_type_array = $categ->getMapList();

@@ -458,17 +458,17 @@ if (!empty($searchCategoryContactList)) {
 	$listofcategoryid = '';
 	foreach ($searchCategoryContactList as $searchCategoryContact) {
 		if (intval($searchCategoryContact) == -2) {
-			$searchCategoryContactSqlList[] = "NOT EXISTS (SELECT ck.fk_categorie FROM ".MAIN_DB_PREFIX."categorie_member as ck WHERE d.rowid = ck.fk_member)";
+			$searchCategoryContactSqlList[] = "NOT EXISTS (SELECT ck.fk_category FROM ".MAIN_DB_PREFIX."category_member as ck WHERE d.rowid = ck.fk_member)";
 		} elseif (intval($searchCategoryContact) > 0) {
 			if ($searchCategoryContactOperator == 0) {
-				$searchCategoryContactSqlList[] = " EXISTS (SELECT ck.fk_categorie FROM ".MAIN_DB_PREFIX."categorie_member as ck WHERE d.rowid = ck.fk_member AND ck.fk_categorie = ".((int) $searchCategoryContact).")";
+				$searchCategoryContactSqlList[] = " EXISTS (SELECT ck.fk_category FROM ".MAIN_DB_PREFIX."category_member as ck WHERE d.rowid = ck.fk_member AND ck.fk_category = ".((int) $searchCategoryContact).")";
 			} else {
 				$listofcategoryid .= ($listofcategoryid ? ', ' : '') .((int) $searchCategoryContact);
 			}
 		}
 	}
 	if ($listofcategoryid) {
-		$searchCategoryContactSqlList[] = " EXISTS (SELECT ck.fk_categorie FROM ".MAIN_DB_PREFIX."categorie_member as ck WHERE d.rowid = ck.fk_member AND ck.fk_categorie IN (".$db->sanitize($listofcategoryid)."))";
+		$searchCategoryContactSqlList[] = " EXISTS (SELECT ck.fk_category FROM ".MAIN_DB_PREFIX."category_member as ck WHERE d.rowid = ck.fk_member AND ck.fk_category IN (".$db->sanitize($listofcategoryid)."))";
 	}
 	if ($searchCategoryContactOperator == 1) {
 		if (!empty($searchCategoryContactSqlList)) {
@@ -834,8 +834,8 @@ $selectedfields .= (count($arrayofmassactions) ? $form->showCheckAddButtons('che
 
 $moreforfilter = '';
 // Filter on categories
-if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
-	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
+	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 	$moreforfilter .= '<div class="divsearchfield">';
 	$moreforfilter .= img_picto($langs->trans('Categories'), 'category', 'class="pictofixedwidth"').$formother->select_categories(Category::TYPE_MEMBER, $search_categ, 'search_categ', 1, $langs->trans("MembersCategoriesShort"));
 	$moreforfilter .= '</div>';

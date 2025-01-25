@@ -205,7 +205,7 @@ $sql .= ", ".MAIN_DB_PREFIX."facture as f";
 $sql .= ", ".MAIN_DB_PREFIX."facturedet as d";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON p.rowid = d.fk_product";
 if (!empty($TSelectedCats)) {
-	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'categorie_product as cp ON cp.fk_product=p.rowid';
+	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'category_product as cp ON cp.fk_product=p.rowid';
 }
 $sql .= " WHERE f.fk_soc = s.rowid";
 $sql .= ' AND f.entity IN ('.getEntity('invoice').')';
@@ -215,7 +215,7 @@ if ($id > 0) {
 	$sql .= " AND d.fk_product =".((int) $id);
 }
 if (!empty($TSelectedCats)) {
-	$sql .= ' AND cp.fk_categorie IN ('.$db->sanitize(implode(',', $TSelectedCats)).')';
+	$sql .= ' AND cp.fk_category IN ('.$db->sanitize(implode(',', $TSelectedCats)).')';
 }
 if (!empty($startdate)) {
 	$sql .= " AND f.datef >= '".$db->idate($startdate)."'";

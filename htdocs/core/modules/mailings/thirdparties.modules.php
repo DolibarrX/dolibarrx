@@ -161,12 +161,12 @@ class mailing_thirdparties extends MailingTargets
 			$sql .= $addFilter;
 		} else {
 			$sql = "SELECT s.rowid as id, s.email as email, s.nom as name, null as fk_contact, null as firstname, c.label as label";
-			$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."categorie_societe as cs, ".MAIN_DB_PREFIX."categorie as c";
+			$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."category_societe as cs, ".MAIN_DB_PREFIX."category as c";
 			$sql .= " WHERE s.email <> ''";
 			$sql .= " AND s.entity IN (".getEntity('societe').")";
 			$sql .= " AND s.email NOT IN (SELECT email FROM ".MAIN_DB_PREFIX."mailing_cibles WHERE fk_mailing=".((int) $mailing_id).")";
 			$sql .= " AND cs.fk_soc = s.rowid";
-			$sql .= " AND c.rowid = cs.fk_categorie";
+			$sql .= " AND c.rowid = cs.fk_category";
 			if (GETPOSTINT('filter_thirdparties') > 0) {
 				$sql .= " AND c.rowid=".(GETPOSTINT('filter_thirdparties'));
 			}
@@ -176,12 +176,12 @@ class mailing_thirdparties extends MailingTargets
 			$sql .= $addFilter;
 			$sql .= " UNION ";
 			$sql .= "SELECT s.rowid as id, s.email as email, s.nom as name, null as fk_contact, null as firstname, c.label as label";
-			$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."categorie_fournisseur as cs, ".MAIN_DB_PREFIX."categorie as c";
+			$sql .= " FROM ".MAIN_DB_PREFIX."societe as s, ".MAIN_DB_PREFIX."category_fournisseur as cs, ".MAIN_DB_PREFIX."category as c";
 			$sql .= " WHERE s.email <> ''";
 			$sql .= " AND s.entity IN (".getEntity('societe').")";
 			$sql .= " AND s.email NOT IN (SELECT email FROM ".MAIN_DB_PREFIX."mailing_cibles WHERE fk_mailing=".((int) $mailing_id).")";
 			$sql .= " AND cs.fk_soc = s.rowid";
-			$sql .= " AND c.rowid = cs.fk_categorie";
+			$sql .= " AND c.rowid = cs.fk_category";
 			if (GETPOSTINT('filter_thirdparties') > 0) {
 				$sql .= " AND c.rowid=".(GETPOSTINT('filter_thirdparties'));
 			}
@@ -297,7 +297,7 @@ class mailing_thirdparties extends MailingTargets
 
 		// Show categories
 		$sql = "SELECT rowid, label, type, visible";
-		$sql .= " FROM ".MAIN_DB_PREFIX."categorie";
+		$sql .= " FROM ".MAIN_DB_PREFIX."category";
 		$sql .= " WHERE type in (1,2)"; // We keep only categories for suppliers and customers/prospects
 		// $sql.= " AND visible > 0";	// We ignore the property visible because third party's categories does not use this property (only products categories use it).
 		$sql .= " AND entity = ".$config->entity;

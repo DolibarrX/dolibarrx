@@ -19,7 +19,7 @@
 use Luracast\Restler\RestException;
 
 dol_include_once('/knowledgemanagement/class/knowledgerecord.class.php');
-dol_include_once('/categories/class/categorie.class.php');
+dol_include_once('/categories/class/category.class.php');
 
 
 
@@ -101,7 +101,7 @@ class KnowledgeManagement extends DolibarrApi
 	 */
 	public function getCategories($id, $sortfield = "s.rowid", $sortorder = 'ASC', $limit = 0, $page = 0)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('categorie', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('category', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -158,7 +158,7 @@ class KnowledgeManagement extends DolibarrApi
 		$sql .= " FROM ".MAIN_DB_PREFIX.$tmpobject->table_element." AS t";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX.$tmpobject->table_element."_extrafields AS ef ON (ef.fk_object = t.rowid)"; // Modification VMR Global Solutions to include extrafields as search parameters in the API GET call, so we will be able to filter on extrafields
 		if ($category > 0) {
-			$sql .= ", ".$this->db->prefix()."categorie_knowledgemanagement as c";
+			$sql .= ", ".$this->db->prefix()."category_knowledgemanagement as c";
 		}
 		$sql .= " WHERE 1 = 1";
 		if ($tmpobject->ismultientitymanaged) {
@@ -177,7 +177,7 @@ class KnowledgeManagement extends DolibarrApi
 		}
 		// Select products of given category
 		if ($category > 0) {
-			$sql .= " AND c.fk_categorie = ".((int) $category);
+			$sql .= " AND c.fk_category = ".((int) $category);
 			$sql .= " AND c.fk_knowledgemanagement = t.rowid";
 		}
 		if ($sqlfilters) {

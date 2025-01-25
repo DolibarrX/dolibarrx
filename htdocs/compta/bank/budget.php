@@ -71,7 +71,7 @@ print '<td class="right">'.$langs->trans("Average").'</td>';
 print "</tr>\n";
 
 $sql = "SELECT sum(d.amount) as somme, count(*) as nombre, c.label, c.rowid ";
-$sql .= " FROM ".MAIN_DB_PREFIX."categorie as c";
+$sql .= " FROM ".MAIN_DB_PREFIX."category as c";
 $sql .= ", ".MAIN_DB_PREFIX."category_bankline as l";
 $sql .= ", ".MAIN_DB_PREFIX."bank as d";
 $sql .= " WHERE c.entity = ".$config->entity;

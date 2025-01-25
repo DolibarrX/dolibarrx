@@ -44,7 +44,7 @@ if (isModEnabled('member')) {
 	require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 }
 if (isModEnabled('category')) {
-	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 }
 if (isModEnabled('accounting')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/accounting.lib.php';

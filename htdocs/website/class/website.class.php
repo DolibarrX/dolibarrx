@@ -606,7 +606,7 @@ class Website extends CommonObject
 		$this->db->begin();
 
 		if (!$error) {
-			$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'categorie_website_page';
+			$sql = 'DELETE FROM '.MAIN_DB_PREFIX.'category_website_page';
 			$sql .= ' WHERE fk_website_page IN (SELECT rowid FROM '.MAIN_DB_PREFIX.'website_page WHERE fk_website = '.((int) $this->id).')';
 
 			$resql = $this->db->query($sql);

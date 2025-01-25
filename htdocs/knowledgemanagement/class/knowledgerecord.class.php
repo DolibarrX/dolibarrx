@@ -502,7 +502,7 @@ class KnowledgeRecord extends CommonObject
 	public function delete(User $user, $notrigger = 0)
 	{
 		$error = 0;
-		$sql = "DELETE FROM ".MAIN_DB_PREFIX."categorie_knowledgemanagement WHERE fk_knowledgemanagement = ".((int) $this->id);
+		$sql = "DELETE FROM ".MAIN_DB_PREFIX."category_knowledgemanagement WHERE fk_knowledgemanagement = ".((int) $this->id);
 		dol_syslog(get_class($this)."::delete", LOG_DEBUG);
 		$resql = $this->db->query($sql);
 		if (!$resql) {
@@ -513,7 +513,7 @@ class KnowledgeRecord extends CommonObject
 
 		// Delete all child tables
 		if (!$error) {
-			$elements = array('categorie_knowledgemanagement');
+			$elements = array('category_knowledgemanagement');
 			foreach ($elements as $table) {
 				if (!$error) {
 					$sql = "DELETE FROM ".MAIN_DB_PREFIX.$table;
@@ -781,7 +781,7 @@ class KnowledgeRecord extends CommonObject
 		$datas['lang'] = '<br><b>'.$langs->trans('Language').':</b> ' . picto_from_langcode($this->lang, 'class="paddingrightonly saturatemedium opacitylow"') . $labellang;
 		// show categories for this record only in ajax to not overload lists
 		if (isModEnabled('category') && !$nofetch) {
-			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+			require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 			$form = new Form($this->db);
 			$datas['categories'] = '<br>' . $form->showCategories($this->id, Category::TYPE_KNOWLEDGEMANAGEMENT, 1);
 		}
@@ -1161,7 +1161,7 @@ class KnowledgeRecord extends CommonObject
 	 */
 	public function setCategories($categories)
 	{
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		return parent::setCategoriesCommon($categories, Category::TYPE_KNOWLEDGEMANAGEMENT);
 	}
 

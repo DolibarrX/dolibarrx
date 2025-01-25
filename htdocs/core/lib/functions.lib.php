@@ -333,7 +333,7 @@ define(
 		'contrat' => 'contract', // Has new directory
 		'entrepot' => 'stock',   // Has new directory
 		'projet'  => 'project', // Has new directory
-		'categorie' => 'category', // Has old directory
+		'category' => 'category', // Has old directory
 		'commande' => 'order',    // Has old directory
 		'expedition' => 'shipping', // Has old directory
 		'facture' => 'invoice', // Has old directory
@@ -438,7 +438,7 @@ function getDoliDBInstance($type, $host, $user, $pass, $name, $port)
  *									'societe', 'socpeople', 'actioncomm', 'agenda', 'resource',
  *									'product', 'productprice', 'stock', 'bom', 'mo',
  *									'propal', 'supplier_proposal', 'invoice', 'supplier_invoice', 'payment_various',
- *									'categorie', 'bank_account', 'bank_account', 'member', 'user',
+ *									'category', 'bank_account', 'bank_account', 'member', 'user',
  *									'commande', 'supplier_order', 'expedition', 'intervention', 'survey',
  *									'contract', 'tax', 'expensereport', 'holiday', 'multicurrency', 'project',
  *									'email_template', 'event', 'donation'
@@ -2987,13 +2987,13 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 		'@phan-var-force Category $object';
 		$width = 80;
 		$cssclass = 'photowithmargin photoref';
-		$showimage = $object->isAnyPhotoAvailable($config->categorie->multidir_output[$entity]);
+		$showimage = $object->isAnyPhotoAvailable($config->category->multidir_output[$entity]);
 		$maxvisiblephotos = getDolGlobalInt('CATEGORY_MAX_VISIBLE_PHOTO', 5);
 		if ($config->browser->layout == 'phone') {
 			$maxvisiblephotos = 1;
 		}
 		if ($showimage) {
-			$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref">'.$object->show_photos('category', $config->categorie->multidir_output[$entity], 'small', $maxvisiblephotos, 0, 0, 0, 0, $width, 0, '').'</div>';
+			$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref">'.$object->show_photos('category', $config->category->multidir_output[$entity], 'small', $maxvisiblephotos, 0, 0, 0, 0, $width, 0, '').'</div>';
 		} else {
 			if (getDolGlobalString('CATEGORY_NODISPLAYIFNOPHOTO')) {
 				$nophoto = '';
@@ -13151,9 +13151,9 @@ function getElementProperties($elementType)
 		$classname = 'Account';
 	} elseif ($elementType == 'category') {
 		$classpath = 'categories/class';
-		$module = 'categorie';
-		$subelement = 'categorie';
-		$table_element = 'categorie';
+		$module = 'category';
+		$subelement = 'category';
+		$table_element = 'category';
 	} elseif ($elementType == 'contact') {
 		$classpath = 'contact/class';
 		$classfile = 'contact';

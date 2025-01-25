@@ -32,7 +32,7 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/product/stock/class/entrepot.class.php';
 if (isModEnabled('category')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcategory.class.php';
-	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 }
 
 /**
@@ -298,17 +298,17 @@ if (!empty($searchCategoryWarehouseList)) {
 	$listofcategoryid = '';
 	foreach ($searchCategoryWarehouseList as $searchCategoryWarehouse) {
 		if (intval($searchCategoryWarehouse) == -2) {
-			$searchCategoryWarehouseSqlList[] = " NOT EXISTS (SELECT ck.fk_warehouse FROM ".MAIN_DB_PREFIX."categorie_warehouse as ck WHERE t.rowid = ck.fk_warehouse)";
+			$searchCategoryWarehouseSqlList[] = " NOT EXISTS (SELECT ck.fk_warehouse FROM ".MAIN_DB_PREFIX."category_warehouse as ck WHERE t.rowid = ck.fk_warehouse)";
 		} elseif (intval($searchCategoryWarehouse) > 0) {
 			if ($searchCategoryWarehouseOperator == 0) {
-				$searchCategoryWarehouseSqlList[] = " EXISTS (SELECT ck.fk_warehouse FROM ".MAIN_DB_PREFIX."categorie_warehouse as ck WHERE t.rowid = ck.fk_warehouse AND ck.fk_categorie = ".((int) $searchCategoryWarehouse).")";
+				$searchCategoryWarehouseSqlList[] = " EXISTS (SELECT ck.fk_warehouse FROM ".MAIN_DB_PREFIX."category_warehouse as ck WHERE t.rowid = ck.fk_warehouse AND ck.fk_category = ".((int) $searchCategoryWarehouse).")";
 			} else {
 				$listofcategoryid .= ($listofcategoryid ? ', ' : '') .((int) $searchCategoryWarehouse);
 			}
 		}
 	}
 	if ($listofcategoryid) {
-		$searchCategoryWarehouseSqlList[] = " EXISTS (SELECT ck.fk_warehouse FROM ".MAIN_DB_PREFIX."categorie_warehouse as ck WHERE t.rowid = ck.fk_warehouse AND ck.fk_categorie IN (".$db->sanitize($listofcategoryid)."))";
+		$searchCategoryWarehouseSqlList[] = " EXISTS (SELECT ck.fk_warehouse FROM ".MAIN_DB_PREFIX."category_warehouse as ck WHERE t.rowid = ck.fk_warehouse AND ck.fk_category IN (".$db->sanitize($listofcategoryid)."))";
 	}
 	if ($searchCategoryWarehouseOperator == 1) {
 		if (!empty($searchCategoryWarehouseSqlList)) {
@@ -508,7 +508,7 @@ if ($search_all) {
 
 $moreforfilter = '';
 
-if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 	$formcategory = new FormCategory($db);
 	$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_WAREHOUSE, $search_category_list);
 }

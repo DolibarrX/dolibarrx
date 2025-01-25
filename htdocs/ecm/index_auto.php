@@ -453,7 +453,7 @@ print '</div>';
 // Start left area
 
 
-// Confirmation de la suppression d'une ligne categorie
+// Confirmation de la suppression d'une ligne category
 if ($action == 'delete_section') {
 	print $form->formconfirm($_SERVER["PHP_SELF"].'?section='.$section, $langs->trans('DeleteSection'), $langs->trans('ConfirmDeleteSection', $ecmdir->label), 'confirm_deletesection', '', '', 1);
 }

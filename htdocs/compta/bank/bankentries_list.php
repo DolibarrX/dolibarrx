@@ -1101,7 +1101,7 @@ if ($resql) {
 
 	if (isModEnabled('category')) {
 		// Categories
-		if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+		if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 			$langs->load('categories');
 
 			// Bank line

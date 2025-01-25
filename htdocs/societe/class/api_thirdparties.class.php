@@ -55,7 +55,7 @@ class Thirdparties extends DolibarrApi
 
 		require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 		require_once DOL_DOCUMENT_ROOT.'/societe/class/societeaccount.class.php';
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		require_once DOL_DOCUMENT_ROOT.'/societe/class/companybankaccount.class.php';
 		require_once DOL_DOCUMENT_ROOT.'/core/class/notify.class.php';
 
@@ -156,10 +156,10 @@ class Thirdparties extends DolibarrApi
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."societe_extrafields AS ef ON ef.fk_object = t.rowid";	// So we will be able to filter on extrafields
 		if ($category > 0) {
 			if ($mode != 4) {
-				$sql .= ", ".MAIN_DB_PREFIX."categorie_societe as c";
+				$sql .= ", ".MAIN_DB_PREFIX."category_societe as c";
 			}
 			if (!in_array($mode, array(1, 2, 3))) {
-				$sql .= ", ".MAIN_DB_PREFIX."categorie_fournisseur as cc";
+				$sql .= ", ".MAIN_DB_PREFIX."category_fournisseur as cc";
 			}
 		}
 		$sql .= ", ".MAIN_DB_PREFIX."c_stcomm as st";
@@ -177,11 +177,11 @@ class Thirdparties extends DolibarrApi
 		// Select thirdparties of given category
 		if ($category > 0) {
 			if (!empty($mode) && $mode != 4) {
-				$sql .= " AND c.fk_categorie = ".((int) $category)." AND c.fk_soc = t.rowid";
+				$sql .= " AND c.fk_category = ".((int) $category)." AND c.fk_soc = t.rowid";
 			} elseif (!empty($mode) && $mode == 4) {
-				$sql .= " AND cc.fk_categorie = ".((int) $category)." AND cc.fk_soc = t.rowid";
+				$sql .= " AND cc.fk_category = ".((int) $category)." AND cc.fk_soc = t.rowid";
 			} else {
-				$sql .= " AND ((c.fk_categorie = ".((int) $category)." AND c.fk_soc = t.rowid) OR (cc.fk_categorie = ".((int) $category)." AND cc.fk_soc = t.rowid))";
+				$sql .= " AND ((c.fk_category = ".((int) $category)." AND c.fk_soc = t.rowid) OR (cc.fk_category = ".((int) $category)." AND cc.fk_soc = t.rowid))";
 			}
 		}
 		if ($socids) {
@@ -578,7 +578,7 @@ class Thirdparties extends DolibarrApi
 	 */
 	public function getCategories($id, $sortfield = "s.rowid", $sortorder = 'ASC', $limit = 0, $page = 0)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('categorie', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('category', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -692,7 +692,7 @@ class Thirdparties extends DolibarrApi
 	 */
 	public function getSupplierCategories($id, $sortfield = "s.rowid", $sortorder = 'ASC', $limit = 0, $page = 0)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('categorie', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('category', 'lire')) {
 			throw new RestException(403);
 		}
 

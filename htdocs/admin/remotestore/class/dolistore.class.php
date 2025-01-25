@@ -45,9 +45,9 @@ class Dolistore
 	 */
 	public $per_page;
 	/**
-	 * @var int The current categorie
+	 * @var int The current category
 	 */
-	public $categorie;
+	public $category;
 	/**
 	 * @var ?SimpleXMLElement
 	 */
@@ -150,17 +150,17 @@ class Dolistore
 	 * Load data from remote Dolistore market place.
 	 * This fills ->products
 	 *
-	 * @param 	array{start:int,end:int,per_page:int,categorie:int,search:string}	$options	Options. If 'categorie' is defined, we filter products on this category id
+	 * @param 	array{start:int,end:int,per_page:int,category:int,search:string}	$options	Options. If 'category' is defined, we filter products on this category id
 	 * @return	void
 	 */
-	public function getRemoteProducts($options = array('start' => 0, 'end' => 10, 'per_page' => 50, 'categorie' => 0, 'search' => ''))
+	public function getRemoteProducts($options = array('start' => 0, 'end' => 10, 'per_page' => 50, 'category' => 0, 'search' => ''))
 	{
 		global $config;
 
 		$this->start     = $options['start'];
 		$this->end       = $options['end'];
 		$this->per_page  = $options['per_page'];
-		$this->categorie = $options['categorie'];
+		$this->category = $options['category'];
 		$this->search    = $options['search'];
 
 		if ($this->end == 0) {
@@ -191,10 +191,10 @@ class Dolistore
 					$products[] = (int) $product['id'];
 				}
 				$opt['filter[id]'] = '['.implode('|', $products).']';
-			} elseif ($this->categorie != 0) {   // We filter on category, so we first get list of product id in this category
+			} elseif ($this->category != 0) {   // We filter on category, so we first get list of product id in this category
 				// $opt2['url'] is set by default to $this->url.'/api/'.$options['resource'];
 				$opt2['resource'] = 'categories';
-				$opt2['id']       = $this->categorie;
+				$opt2['id']       = $this->category;
 
 				// Call
 				dol_syslog("Call API with opt2 = ".var_export($opt2, true));
@@ -260,7 +260,7 @@ class Dolistore
 			}
 
 			if ($cat->is_root_category == 1 && $parent == 0) {
-				$html .= '<li class="root"><h3 class="nomargesupinf marginleftonly"><a class="nomargesupinf link2cat" href="?mode=marketplace&categorie='.((int) $cat->id).'" ';
+				$html .= '<li class="root"><h3 class="nomargesupinf marginleftonly"><a class="nomargesupinf link2cat" href="?mode=marketplace&category='.((int) $cat->id).'" ';
 				$html .= 'title="'.dol_escape_htmltag(strip_tags($cat->description->language[$this->lang - 1])).'">';
 				//$html .= dol_escape_htmltag($cat->name->language[$this->lang - 1]);
 				$html .= 'DoliStore';
@@ -268,8 +268,8 @@ class Dolistore
 				$html .= self::get_categories((int) $cat->id);
 				$html .= "</li>\n";
 			} elseif (trim($cat->id_parent) == $parent && $cat->active == 1 && trim($cat->id_parent) != 0) { // si cat est de ce niveau
-				$select = ($cat->id == $this->categorie) ? ' selected' : '';
-				$html .= '<li><a class="link2cat'.$select.'" href="?mode=marketplace&categorie='.((int) $cat->id).'"';
+				$select = ($cat->id == $this->category) ? ' selected' : '';
+				$html .= '<li><a class="link2cat'.$select.'" href="?mode=marketplace&category='.((int) $cat->id).'"';
 				$html .= ' title="'.dol_escape_htmltag(strip_tags($cat->description->language[$this->lang - 1])).'" ';
 				$html .= '>'.dol_escape_htmltag($cat->name->language[$this->lang - 1]);
 				$html .= ' &nbsp;<span class="opacitymedium small valignmiddle">('.dol_escape_htmltag($cat->nb_products_recursive).')</span></a>';
@@ -459,8 +459,8 @@ class Dolistore
 		}
 		$param_array['start'] = $this->start - $sub;
 		$param_array['end']   = $this->end - $sub;
-		if ($this->categorie != 0) {
-			$param_array['categorie'] = $this->categorie;
+		if ($this->category != 0) {
+			$param_array['category'] = $this->category;
 		}
 		$param = http_build_query($param_array);
 		return $this->url."&".$param;
@@ -483,8 +483,8 @@ class Dolistore
 		}
 		$param_array['start'] = $this->start + $add;
 		$param_array['end']   = $this->end + $add;
-		if ($this->categorie != 0) {
-			$param_array['categorie'] = $this->categorie;
+		if ($this->category != 0) {
+			$param_array['category'] = $this->category;
 		}
 		$param = http_build_query($param_array);
 		return $this->url."&".$param;

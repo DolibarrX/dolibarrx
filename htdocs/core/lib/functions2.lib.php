@@ -2705,7 +2705,7 @@ function getModuleDirForApiClass($moduleobject)
 		$moduledirforclass = 'don';
 	} elseif ($moduleobject == 'bank' || $moduleobject == 'bankaccounts') {
 		$moduledirforclass = 'compta/bank';
-	} elseif ($moduleobject == 'category' || $moduleobject == 'categorie') {
+	} elseif ($moduleobject == 'category' || $moduleobject == 'category') {
 		$moduledirforclass = 'categories';
 	} elseif ($moduleobject == 'order' || $moduleobject == 'orders') {
 		$moduledirforclass = 'commande';

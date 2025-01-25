@@ -48,7 +48,7 @@ if (!defined("NOSESSION")) {
 require '../main.inc.php';
 require_once NUSOAP_PATH.'/nusoap.php'; // Include SOAP
 require_once DOL_DOCUMENT_ROOT.'/core/lib/ws.lib.php';
-require_once DOL_DOCUMENT_ROOT."/categories/class/categorie.class.php";
+require_once DOL_DOCUMENT_ROOT."/categories/class/category.class.php";
 /**
  * @var DoliDB $db
  * @var Translate $langs
@@ -94,7 +94,7 @@ $server->wsdl->addComplexType(
  * Une catégorie
  */
 $server->wsdl->addComplexType(
-	'categorie',
+	'category',
 	'complexType',
 	'struct',
 	'all',
@@ -124,9 +124,9 @@ $server->wsdl->addComplexType(
 	'SOAP-ENC:Array',
 	array(),
 	array(
-		array('ref' => 'SOAP-ENC:arrayType', 'wsdl:arrayType' => 'tns:categorie[]')
+		array('ref' => 'SOAP-ENC:arrayType', 'wsdl:arrayType' => 'tns:category[]')
 	),
-	'tns:categorie'
+	'tns:category'
 );
 
 /*
@@ -194,7 +194,7 @@ $server->register(
 	// Entry values
 	array('authentication' => 'tns:authentication', 'id' => 'xsd:string'),
 	// Exit values
-	array('result' => 'tns:result', 'categorie' => 'tns:categorie'),
+	array('result' => 'tns:result', 'category' => 'tns:category'),
 	$ns,
 	$ns.'#getCategory',
 	$styledoc,
@@ -238,35 +238,35 @@ function getCategory($authentication, $id)
 		$fuser->loadRights();
 
 		$nbmax = 10;
-		if ($fuser->hasRight('categorie', 'lire')) {
-			$categorie = new Category($db);
-			$result = $categorie->fetch($id);
+		if ($fuser->hasRight('category', 'lire')) {
+			$category = new Category($db);
+			$result = $category->fetch($id);
 			if ($result > 0) {
-				$dir = (!empty($config->categorie->dir_output) ? $config->categorie->dir_output : $config->service->dir_output);
-				$pdir = get_exdir($categorie->id, 2, 0, 0, $categorie, 'category').$categorie->id."/photos/";
+				$dir = (!empty($config->category->dir_output) ? $config->category->dir_output : $config->service->dir_output);
+				$pdir = get_exdir($category->id, 2, 0, 0, $category, 'category').$category->id."/photos/";
 				$dir = $dir.'/'.$pdir;
 
 				$cat = array(
-					'id' => $categorie->id,
-					'id_mere' => $categorie->id_mere,
-					'label' => $categorie->label,
-					'description' => $categorie->description,
-					'socid' => $categorie->socid,
-					//'visible'=>$categorie->visible,
-					'type' => $categorie->type,
+					'id' => $category->id,
+					'id_mere' => $category->id_mere,
+					'label' => $category->label,
+					'description' => $category->description,
+					'socid' => $category->socid,
+					//'visible'=>$category->visible,
+					'type' => $category->type,
 					'dir' => $pdir,
-					'photos' => $categorie->liste_photos($dir, $nbmax)
+					'photos' => $category->liste_photos($dir, $nbmax)
 				);
 
-				$cats = $categorie->get_filles();
+				$cats = $category->get_filles();
 				if (count($cats) > 0) {
 					foreach ($cats as $child_cat) {
-						$dir = (!empty($config->categorie->dir_output) ? $config->categorie->dir_output : $config->service->dir_output);
-						$pdir = get_exdir($child_cat->id, 2, 0, 0, $categorie, 'category').$child_cat->id."/photos/";
+						$dir = (!empty($config->category->dir_output) ? $config->category->dir_output : $config->service->dir_output);
+						$pdir = get_exdir($child_cat->id, 2, 0, 0, $category, 'category').$child_cat->id."/photos/";
 						$dir = $dir.'/'.$pdir;
 						$cat['filles'][] = array(
 							'id' => $child_cat->id,
-							'id_mere' => $categorie->id_mere,
+							'id_mere' => $category->id_mere,
 							'label' => $child_cat->label,
 							'description' => $child_cat->description,
 							'socid' => $child_cat->socid,
@@ -281,7 +281,7 @@ function getCategory($authentication, $id)
 				// Create
 				$objectresp = array(
 					'result' => array('result_code' => 'OK', 'result_label' => ''),
-					'categorie' => $cat
+					'category' => $cat
 				);
 			} else {
 				$error++;

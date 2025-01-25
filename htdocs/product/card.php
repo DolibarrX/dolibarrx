@@ -53,7 +53,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/modules/product/modules_product.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
@@ -346,7 +346,7 @@ if (empty($resHook)) {
 						'ActionComm' => '/comm/action/class/actioncomm.class.php',
 						'Bom' => '/bom/class/bom.class.php',
 						// do not use Category, it cause foreign key error, merge is done before
-						//'Category' => '/categories/class/categorie.class.php',
+						//'Category' => '/categories/class/category.class.php',
 						'Commande' => '/commande/class/commande.class.php',
 						'CommandeFournisseur' => '/fourn/class/fournisseur.commande.class.php',
 						'Contrat' => '/contrat/class/contrat.class.php',

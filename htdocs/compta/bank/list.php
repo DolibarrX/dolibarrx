@@ -43,7 +43,7 @@ if (isModEnabled('accounting')) {
 	require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountingjournal.class.php';
 }
 if (isModEnabled('category')) {
-	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 }
 
 /**
@@ -246,17 +246,17 @@ if (!empty($searchCategoryBankList)) {
 	$listofcategoryid = '';
 	foreach ($searchCategoryBankList as $searchCategoryBank) {
 		if (intval($searchCategoryBank) == -2) {
-			$searchCategoryBankSqlList[] = "NOT EXISTS (SELECT ck.fk_account FROM ".MAIN_DB_PREFIX."categorie_account as ck WHERE b.rowid = ck.fk_account)";
+			$searchCategoryBankSqlList[] = "NOT EXISTS (SELECT ck.fk_account FROM ".MAIN_DB_PREFIX."category_account as ck WHERE b.rowid = ck.fk_account)";
 		} elseif (intval($searchCategoryBank) > 0) {
 			if ($searchCategoryBankOperator == 0) {
-				$searchCategoryBankSqlList[] = " EXISTS (SELECT ck.fk_account FROM ".MAIN_DB_PREFIX."categorie_account as ck WHERE b.rowid = ck.fk_account AND ck.fk_categorie = ".((int) $searchCategoryBank).")";
+				$searchCategoryBankSqlList[] = " EXISTS (SELECT ck.fk_account FROM ".MAIN_DB_PREFIX."category_account as ck WHERE b.rowid = ck.fk_account AND ck.fk_category = ".((int) $searchCategoryBank).")";
 			} else {
 				$listofcategoryid .= ($listofcategoryid ? ', ' : '') .((int) $searchCategoryBank);
 			}
 		}
 	}
 	if ($listofcategoryid) {
-		$searchCategoryBankSqlList[] = " EXISTS (SELECT ck.fk_account FROM ".MAIN_DB_PREFIX."categorie_account as ck WHERE b.rowid = ck.fk_account AND ck.fk_categorie IN (".$db->sanitize($listofcategoryid)."))";
+		$searchCategoryBankSqlList[] = " EXISTS (SELECT ck.fk_account FROM ".MAIN_DB_PREFIX."category_account as ck WHERE b.rowid = ck.fk_account AND ck.fk_category IN (".$db->sanitize($listofcategoryid)."))";
 	}
 	if ($searchCategoryBankOperator == 1) {
 		if (!empty($searchCategoryBankSqlList)) {
@@ -413,7 +413,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/massactions_pre.tpl.php';
 
 $moreforfilter = '';
 
-if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 	$moreforfilter .= $form->getFilterBox(Category::TYPE_ACCOUNT, $search_category_list);
 }
 

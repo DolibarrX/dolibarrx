@@ -87,7 +87,7 @@ if ($massaction == 'preclonetasks') {
 }
 
 if ($massaction == 'preaffecttag' && isModEnabled('category')) {
-	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 	$categ = new Category($db);
 	$categ_types = array();
 	$categ_type_array = $categ->getMapList();

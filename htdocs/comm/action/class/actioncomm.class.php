@@ -1037,9 +1037,9 @@ class ActionComm extends CommonObject
 
 		$this->db->begin();
 
-		// remove categorie association
+		// remove category association
 		if (!$error) {
-			$sql = "DELETE FROM ".MAIN_DB_PREFIX."categorie_actioncomm";
+			$sql = "DELETE FROM ".MAIN_DB_PREFIX."category_actioncomm";
 			$sql .= " WHERE fk_actioncomm=".((int) $this->id);
 
 			$res = $this->db->query($sql);
@@ -1661,7 +1661,7 @@ class ActionComm extends CommonObject
 
 		// show categories for this record only in ajax to not overload lists
 		if (isModEnabled('category') && !$nofetch) {
-			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+			require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 			if (empty($form)) {
 				include_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 				$form = new Form($this->db);
@@ -1977,7 +1977,7 @@ class ActionComm extends CommonObject
 		}
 
 		// Get current categories
-		include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		$c = new Category($this->db);
 		$existing = $c->containing($this->id, Category::TYPE_ACTIONCOMM, 'id');
 

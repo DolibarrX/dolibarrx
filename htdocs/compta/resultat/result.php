@@ -390,7 +390,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 					$sommes[$code] = array();
 				}
 				// Year N
-				$code = $cat['code']; // code of categorie ('VTE', 'MAR', ...)
+				$code = $cat['code']; // code of category ('VTE', 'MAR', ...)
 				if (empty($sommes[$code]['NP'])) {
 					$sommes[$code]['NP'] = $r;
 				} else {

@@ -2980,11 +2980,11 @@ class Form
 
 		if (getDolGlobalString('PRODUCT_SORT_BY_CATEGORY')) {
 			//Product category
-			$sql .= ", (SELECT " . $this->db->prefix() . "categorie_product.fk_categorie
-						FROM " . $this->db->prefix() . "categorie_product
-						WHERE " . $this->db->prefix() . "categorie_product.fk_product=p.rowid
+			$sql .= ", (SELECT " . $this->db->prefix() . "category_product.fk_category
+						FROM " . $this->db->prefix() . "category_product
+						WHERE " . $this->db->prefix() . "category_product.fk_product=p.rowid
 						LIMIT 1
-				) AS categorie_product_id ";
+				) AS category_product_id ";
 		}
 
 		//Price by customer
@@ -3164,7 +3164,7 @@ class Form
 
 		//Sort by category
 		if (getDolGlobalString('PRODUCT_SORT_BY_CATEGORY')) {
-			$sql .= " ORDER BY categorie_product_id ";
+			$sql .= " ORDER BY category_product_id ";
 			//ASC OR DESC order
 			(getDolGlobalInt('PRODUCT_SORT_BY_CATEGORY') == 1) ? $sql .= "ASC" : $sql .= "DESC";
 		} else {
@@ -5515,7 +5515,7 @@ class Form
 		global $config, $langs;
 		$langs->load("categories");
 
-		include_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+		include_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 
 		// For backward compatibility
 		if (is_numeric($type)) {
@@ -5523,11 +5523,11 @@ class Form
 		}
 
 		if ($type === Category::TYPE_BANK_LINE) {
-			// TODO Move this into common category feature after migration of llx_category_bankline into llx_categorie_bankline
+			// TODO Move this into common category feature after migration of llx_category_bankline into llx_category_bankline
 			$cat = new Category($this->db);
 			$cate_arbo = array();
 			$sql = "SELECT c.label, c.rowid";
-			$sql .= " FROM " . $this->db->prefix() . "categorie as c";
+			$sql .= " FROM " . $this->db->prefix() . "category as c";
 			$sql .= " WHERE entity = " . $config->entity . " AND type = " . ((int) $cat->getMapId()[$type]);
 			$sql .= " ORDER BY c.label";
 			$result = $this->db->query($sql);
@@ -9565,7 +9565,7 @@ class Form
 	 */
 	public function showCategories($id, $type, $rendermode = 0, $nolink = 0)
 	{
-		include_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+		include_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 
 		$cat = new Category($this->db);
 		$categories = $cat->containing($id, $type);

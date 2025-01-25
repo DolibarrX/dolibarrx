@@ -87,7 +87,7 @@ class Users extends DolibarrApi
 		$sql = "SELECT t.rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."user AS t LEFT JOIN ".MAIN_DB_PREFIX."user_extrafields AS ef ON (ef.fk_object = t.rowid)"; // Modification VMR Global Solutions to include extrafields as search parameters in the API GET call, so we will be able to filter on extrafields
 		if ($category > 0) {
-			$sql .= ", ".$this->db->prefix()."categorie_user as c";
+			$sql .= ", ".$this->db->prefix()."category_user as c";
 		}
 		$sql .= ' WHERE t.entity IN ('.getEntity('user').')';
 		if ($user_ids) {
@@ -96,7 +96,7 @@ class Users extends DolibarrApi
 
 		// Select products of given category
 		if ($category > 0) {
-			$sql .= " AND c.fk_categorie = ".((int) $category);
+			$sql .= " AND c.fk_category = ".((int) $category);
 			$sql .= " AND c.fk_user = t.rowid";
 		}
 

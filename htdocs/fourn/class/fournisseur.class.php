@@ -171,7 +171,7 @@ class Fournisseur extends Societe
 	public function CreateCategory($user, $name)
 	{
 		// phpcs:enable
-		$sql = "INSERT INTO ".MAIN_DB_PREFIX."categorie (label,visible,type)";
+		$sql = "INSERT INTO ".MAIN_DB_PREFIX."category (label,visible,type)";
 		$sql .= " VALUES ";
 		$sql .= " ('".$this->db->escape($name)."',1,1)";
 

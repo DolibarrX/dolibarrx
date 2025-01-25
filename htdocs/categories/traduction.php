@@ -31,7 +31,7 @@
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/categories.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 
@@ -70,9 +70,9 @@ if (is_numeric($type)) {
 }
 
 // Security check
-$result = restrictedArea($user, 'categorie', $id, '&category');
+$result = restrictedArea($user, 'category', $id, '&category');
 
-$permissiontoadd = $user->hasRight('categorie', 'creer');
+$permissiontoadd = $user->hasRight('category', 'creer');
 
 
 /*
@@ -87,7 +87,7 @@ if ($cancel == $langs->trans("Cancel")) {
 }
 
 // delete a translation
-if ($action == 'delete' && $langtodelete && $user->hasRight('categorie', 'creer')) {
+if ($action == 'delete' && $langtodelete && $user->hasRight('category', 'creer')) {
 	$res = $object->delMultiLangs($langtodelete, $user);
 	if ($res < 0) {
 		setEventMessages($object->error, $object->errors, 'errors');

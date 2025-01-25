@@ -830,14 +830,14 @@ class FormWebPortal extends Form
 					$keyList .= ', ' . $parentField;
 				}
 
-				$filter_categorie = false;
+				$filter_category = false;
 				if (count($InfoFieldList) > 5) {
-					if ($InfoFieldList[0] == 'categorie') {
-						$filter_categorie = true;
+					if ($InfoFieldList[0] == 'category') {
+						$filter_category = true;
 					}
 				}
 
-				if (!$filter_categorie) {
+				if (!$filter_category) {
 					$fields_label = explode('|', $InfoFieldList[1]);
 					if (is_array($fields_label)) {
 						$keyList .= ', ';
@@ -942,7 +942,7 @@ class FormWebPortal extends Form
 						$out .= 'Error in request ' . $sql . ' ' . $this->db->lasterror() . '. Check setup of extra parameters.<br>';
 					}
 				} else {
-					require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+					require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 					$categorytype = $InfoFieldList[5];
 					if (is_numeric($categorytype)) {
 						$categorytype = Category::$MAP_ID_TO_CODE[(int) $categorytype]; // For backward compatibility
@@ -1156,10 +1156,10 @@ class FormWebPortal extends Form
 				$keyList .= implode(', ', $fields_label);
 			}
 
-			$filter_categorie = false;
+			$filter_category = false;
 			if (count($InfoFieldList) > 5) {
-				if ($InfoFieldList[0] == 'categorie') {
-					$filter_categorie = true;
+				if ($InfoFieldList[0] == 'category') {
+					$filter_category = true;
 				}
 			}
 
@@ -1179,7 +1179,7 @@ class FormWebPortal extends Form
 			dol_syslog(__METHOD__ . ' type=sellist', LOG_DEBUG);
 			$resql = $this->db->query($sql);
 			if ($resql) {
-				if (!$filter_categorie) {
+				if (!$filter_category) {
 					$value = ''; // value was used, so now we reset it to use it to build final output
 					$numrows = $this->db->num_rows($resql);
 					if ($numrows) {
@@ -1213,7 +1213,7 @@ class FormWebPortal extends Form
 						}
 					}
 				} else {
-					require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+					require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 
 					$toprint = array();
 					$obj = $this->db->fetch_object($resql);
@@ -1264,10 +1264,10 @@ class FormWebPortal extends Form
 				$keyList .= implode(', ', $fields_label);
 			}
 
-			$filter_categorie = false;
+			$filter_category = false;
 			if (count($InfoFieldList) > 5) {
-				if ($InfoFieldList[0] == 'categorie') {
-					$filter_categorie = true;
+				if ($InfoFieldList[0] == 'category') {
+					$filter_category = true;
 				}
 			}
 
@@ -1282,7 +1282,7 @@ class FormWebPortal extends Form
 			dol_syslog(__METHOD__ . ' type=chkbxlst', LOG_DEBUG);
 			$resql = $this->db->query($sql);
 			if ($resql) {
-				if (!$filter_categorie) {
+				if (!$filter_category) {
 					$value = ''; // value was used, so now we reset it to use it to build final output
 					$toprint = array();
 					while ($obj = $this->db->fetch_object($resql)) {
@@ -1315,7 +1315,7 @@ class FormWebPortal extends Form
 						}
 					}
 				} else {
-					require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+					require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 
 					$toprint = array();
 					while ($obj = $this->db->fetch_object($resql)) {

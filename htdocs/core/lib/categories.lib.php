@@ -20,8 +20,8 @@
 
 /**
  *	\file       htdocs/core/lib/categories.lib.php
- *	\brief      Ensemble de functions de base pour le module categorie
- *	\ingroup    categorie
+ *	\brief      Ensemble de functions de base pour le module category
+ *	\ingroup    category
  */
 
 /**
@@ -89,21 +89,21 @@ function categoriesadmin_prepare_head()
 	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
-	$extrafields->fetch_name_optionals_label('categorie');
+	$extrafields->fetch_name_optionals_label('category');
 
 	$langs->load("categories");
 
 	$h = 0;
 	$head = array();
 
-	$head[$h][0] = DOL_URL_ROOT . '/categories/admin/categorie.php';
+	$head[$h][0] = DOL_URL_ROOT . '/categories/admin/category.php';
 	$head[$h][1] = $langs->trans("Setup");
 	$head[$h][2] = 'setup';
 	$h++;
 
-	$head[$h][0] = DOL_URL_ROOT . '/categories/admin/categorie_extrafields.php';
+	$head[$h][0] = DOL_URL_ROOT . '/categories/admin/category_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsCategories");
-	$nbExtrafields = $extrafields->attributes['categorie']['count'];
+	$nbExtrafields = $extrafields->attributes['category']['count'];
 	if ($nbExtrafields > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}

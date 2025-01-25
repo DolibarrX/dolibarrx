@@ -1813,7 +1813,7 @@ class Product extends CommonObject
 
 			// Delete all child tables
 			if (!$error) {
-				$elements = array('product_fournisseur_price', 'product_price', 'product_lang', 'categorie_product', 'product_stock', 'product_customer_price', 'product_lot'); // product_batch is done before
+				$elements = array('product_fournisseur_price', 'product_price', 'product_lang', 'category_product', 'product_stock', 'product_customer_price', 'product_lot'); // product_batch is done before
 				foreach ($elements as $table) {
 					if (!$error) {
 						$sql = "DELETE FROM ".$this->db->prefix().$table;
@@ -5744,7 +5744,7 @@ class Product extends CommonObject
 			}
 			// show categories for this record only in ajax to not overload lists
 			if (isModEnabled('category') && !$nofetch) {
-				require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+				require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 				$form = new Form($this->db);
 				$datas['categories'] = '<br>' . $form->showCategories($this->id, Category::TYPE_PRODUCT, 1);
 			}
@@ -6848,7 +6848,7 @@ class Product extends CommonObject
 	 */
 	public function setCategories($categories)
 	{
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		return parent::setCategoriesCommon($categories, Category::TYPE_PRODUCT);
 	}
 

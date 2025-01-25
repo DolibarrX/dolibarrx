@@ -83,7 +83,7 @@ $search_version = GETPOST('search_version', 'alpha');
 // For remotestore search
 $options              = array();
 $options['per_page']  = 10;
-$options['categorie'] = ((int) (GETPOSTINT('categorie') ? GETPOSTINT('categorie') : 0));
+$options['category'] = ((int) (GETPOSTINT('category') ? GETPOSTINT('category') : 0));
 $options['start']     = ((int) (GETPOSTINT('start') ? GETPOSTINT('start') : 0));
 $options['end']       = ((int) (GETPOSTINT('end') ? GETPOSTINT('end') : 0));
 $options['search']    = GETPOST('search_keyword', 'alpha');

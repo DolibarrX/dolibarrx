@@ -95,7 +95,7 @@ class Inventory extends CommonObject
 		'title'              => array('type' => 'varchar(255)', 'label' => 'Label', 'visible' => 1, 'enabled' => 1, 'position' => 25, 'css' => 'minwidth300', 'csslist' => 'tdoverflowmax150', 'alwayseditable' => 1),
 		'fk_warehouse'       => array('type' => 'integer:Entrepot:product/stock/class/entrepot.class.php', 'label' => 'Warehouse', 'visible' => 1, 'enabled' => 1, 'position' => 30, 'index' => 1, 'help' => 'InventoryForASpecificWarehouse', 'picto' => 'stock', 'css' => 'minwidth300 maxwidth500 widthcentpercentminusx', 'csslist' => 'tdoverflowmax150'),
 		'fk_product'         => array('type' => 'integer:Product:product/class/product.class.php', 'label' => 'Product', 'get_name_url_params' => '0::0:-1:0::1', 'visible' => 1, 'enabled' => 1, 'position' => 32, 'index' => 1, 'help' => 'InventoryForASpecificProduct', 'picto' => 'product', 'css' => 'minwidth300 maxwidth500 widthcentpercentminusx', 'csslist' => 'tdoverflowmax150'),
-		'categories_product' => array('type' => 'chkbxlst:categorie:label:rowid::type=0:0:', 'label' => 'OrProductsWithCategories', 'visible' => 3, 'enabled' => 1, 'position' => 33, 'help' => '', 'picto' => 'category', 'css' => 'minwidth300 maxwidth500 widthcentpercentminusx'),
+		'categories_product' => array('type' => 'chkbxlst:category:label:rowid::type=0:0:', 'label' => 'OrProductsWithCategories', 'visible' => 3, 'enabled' => 1, 'position' => 33, 'help' => '', 'picto' => 'category', 'css' => 'minwidth300 maxwidth500 widthcentpercentminusx'),
 		'date_inventory'     => array('type' => 'date', 'label' => 'DateValue', 'visible' => 1, 'enabled' => '$config->global->STOCK_INVENTORY_ADD_A_VALUE_DATE', 'position' => 35, 'csslist' => 'nowraponall'),	// This date is not used so disabled by default.
 		'date_creation'      => array('type' => 'datetime', 'label' => 'DateCreation', 'enabled' => 1, 'visible' => -2, 'notnull' => 1, 'position' => 500, 'csslist' => 'nowraponall'),
 		'tms'                => array('type' => 'timestamp', 'label' => 'DateModification', 'enabled' => 1, 'visible' => -2, 'notnull' => 1, 'position' => 501, 'csslist' => 'nowraponall'),
@@ -302,9 +302,9 @@ class Inventory extends CommonObject
 			if (!empty($this->categories_product)) {
 				$sql .= " AND EXISTS (";
 				$sql .= " SELECT cp.fk_product";
-				$sql .= " FROM ".$this->db->prefix()."categorie_product AS cp";
+				$sql .= " FROM ".$this->db->prefix()."category_product AS cp";
 				$sql .= " WHERE cp.fk_product = ps.fk_product";
-				$sql .= " AND cp.fk_categorie IN (".$this->db->sanitize($this->categories_product).")";
+				$sql .= " AND cp.fk_category IN (".$this->db->sanitize($this->categories_product).")";
 				$sql .= ")";
 			}
 			if (getDolGlobalInt('PRODUIT_SOUSPRODUITS')) {

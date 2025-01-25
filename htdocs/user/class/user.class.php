@@ -1631,7 +1631,7 @@ class User extends CommonObject
 	 */
 	public function setCategories($categories)
 	{
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		return parent::setCategoriesCommon($categories, Category::TYPE_USER);
 	}
 
@@ -4394,11 +4394,11 @@ class User extends CommonObject
 			$type = $this->table_element;
 		}
 
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		$categorystatic = new Category($this->db);
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
+		$categoriestatic = new Category($this->db);
 
-		$sql = "INSERT INTO ".$this->db->prefix()."categorie_".(empty($categorystatic->MAP_CAT_TABLE[$type]) ? $type : $categorystatic->MAP_CAT_TABLE[$type])." (fk_categorie, fk_user)";
-		$sql .= " SELECT fk_categorie, ".((int) $toId)." FROM ".$this->db->prefix()."categorie_".(empty($categorystatic->MAP_CAT_TABLE[$type]) ? $type : $categorystatic->MAP_CAT_TABLE[$type]);
+		$sql = "INSERT INTO ".$this->db->prefix()."category_".(empty($categoriestatic->MAP_CAT_TABLE[$type]) ? $type : $categoriestatic->MAP_CAT_TABLE[$type])." (fk_category, fk_user)";
+		$sql .= " SELECT fk_category, ".((int) $toId)." FROM ".$this->db->prefix()."category_".(empty($categoriestatic->MAP_CAT_TABLE[$type]) ? $type : $categoriestatic->MAP_CAT_TABLE[$type]);
 		$sql .= " WHERE fk_user = ".((int) $fromId);
 
 		if (!$this->db->query($sql)) {

@@ -32,7 +32,7 @@
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 
 /**
@@ -184,11 +184,11 @@ if (!empty($search_categ) && $search_categ != '-1') {
 		$sql .= " EXISTS ";
 	}
 	$sql .= "(";
-	$sql .= " SELECT cp.fk_categorie, cp.fk_product";
-	$sql .= " FROM " . MAIN_DB_PREFIX . "categorie_product as cp";
+	$sql .= " SELECT cp.fk_category, cp.fk_product";
+	$sql .= " FROM " . MAIN_DB_PREFIX . "category_product as cp";
 	$sql .= " WHERE cp.fk_product = p.rowid"; // Join for the needed table to filter by categ
 	if ($search_categ > 0) {
-		$sql .= " AND cp.fk_categorie = " . ((int) $search_categ);
+		$sql .= " AND cp.fk_category = " . ((int) $search_categ);
 	}
 	$sql .= ")";
 }

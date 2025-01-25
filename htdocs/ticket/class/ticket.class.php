@@ -1199,7 +1199,7 @@ class Ticket extends CommonObject
 		// Delete all child tables
 
 		if (!$error) {
-			$sql = "DELETE FROM ".MAIN_DB_PREFIX."categorie_ticket";
+			$sql = "DELETE FROM ".MAIN_DB_PREFIX."category_ticket";
 			$sql .= " WHERE fk_ticket = ".(int) $this->id;
 
 			$result = $this->db->query($sql);
@@ -1590,7 +1590,7 @@ class Ticket extends CommonObject
 		}
 		// show categories for this record only in ajax to not overload lists
 		if (isModEnabled('category') && !$nofetch) {
-			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+			require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 			$form = new Form($this->db);
 			$datas['categories'] = '<br>' . $form->showCategories($this->id, Category::TYPE_TICKET, 1);
 		}
@@ -2630,7 +2630,7 @@ class Ticket extends CommonObject
 		}
 
 		// Get current categories
-		include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		$c = new Category($this->db);
 		$existing = $c->containing($this->id, Category::TYPE_TICKET, 'id');
 

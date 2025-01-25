@@ -54,7 +54,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
-require_once DOL_DOCUMENT_ROOT."/categories/class/categorie.class.php";
+require_once DOL_DOCUMENT_ROOT."/categories/class/category.class.php";
 require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 
 /**
@@ -1037,13 +1037,13 @@ function getProductsForCategory($authentication, $id, $lang = '')
 
 		$nbmax = 10;
 		if ($fuser->hasRight('produit', 'lire')) {
-			$categorie = new Category($db);
-			$result = $categorie->fetch($id);
+			$category = new Category($db);
+			$result = $category->fetch($id);
 			if ($result > 0) {
 				$table = "product";
 				$field = "product";
-				$sql  = "SELECT fk_".$field." FROM ".MAIN_DB_PREFIX."categorie_".$table;
-				$sql .= " WHERE fk_categorie = ".((int) $id);
+				$sql  = "SELECT fk_".$field." FROM ".MAIN_DB_PREFIX."category_".$table;
+				$sql .= " WHERE fk_category = ".((int) $id);
 				$sql .= " ORDER BY fk_".$field." ASC";
 
 

@@ -19,7 +19,7 @@
  */
 
 /**
- *	    \file       htdocs/categories/admin/categorie.php
+ *	    \file       htdocs/categories/admin/category.php
  *      \ingroup    categories
  *      \brief      Category admin pages
  */

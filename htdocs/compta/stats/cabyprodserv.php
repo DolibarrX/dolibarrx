@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/tax.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 /**
  * @var Conf $conf
@@ -87,7 +87,7 @@ $subcat = false;
 if (GETPOST('subcat', 'alpha') === 'yes') {
 	$subcat = true;
 }
-$categorie = new Category($db);
+$category = new Category($db);
 
 // product/service
 $selected_type = GETPOST('search_type', 'intcomma');
@@ -354,7 +354,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$searchCategoryProductOperator = -1;
 	$searchCategoryProductList = array($selected_cat);
 	if ($subcat) {
-		$TListOfCats = $categorie->get_full_arbo('product', $selected_cat, 1);
+		$TListOfCats = $category->get_full_arbo('product', $selected_cat, 1);
 		$searchCategoryProductList = array();
 		foreach ($TListOfCats as $key => $cat) {
 			$searchCategoryProductList[] = $cat['id'];
@@ -365,17 +365,17 @@ if ($modecompta == 'CREANCES-DETTES') {
 		$listofcategoryid = '';
 		foreach ($searchCategoryProductList as $searchCategoryProduct) {
 			if (intval($searchCategoryProduct) == -2) {
-				$searchCategoryProductSqlList[] = "NOT EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."categorie_product as ck WHERE l.fk_product = ck.fk_product)";
+				$searchCategoryProductSqlList[] = "NOT EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck WHERE l.fk_product = ck.fk_product)";
 			} elseif (intval($searchCategoryProduct) > 0) {
 				if ($searchCategoryProductOperator == 0) {
-					$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."categorie_product as ck WHERE l.fk_product = ck.fk_product AND ck.fk_categorie = ".((int) $searchCategoryProduct).")";
+					$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck WHERE l.fk_product = ck.fk_product AND ck.fk_category = ".((int) $searchCategoryProduct).")";
 				} else {
 					$listofcategoryid .= ($listofcategoryid ? ', ' : '') .((int) $searchCategoryProduct);
 				}
 			}
 		}
 		if ($listofcategoryid) {
-			$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."categorie_product as ck WHERE l.fk_product = ck.fk_product AND ck.fk_categorie IN (".$db->sanitize($listofcategoryid)."))";
+			$searchCategoryProductSqlList[] = " EXISTS (SELECT ck.fk_product FROM ".MAIN_DB_PREFIX."category_product as ck WHERE l.fk_product = ck.fk_product AND ck.fk_category IN (".$db->sanitize($listofcategoryid)."))";
 		}
 		if ($searchCategoryProductOperator == 1) {
 			if (!empty($searchCategoryProductSqlList)) {
@@ -396,17 +396,17 @@ if ($modecompta == 'CREANCES-DETTES') {
 		$listofcategoryid = '';
 		foreach ($searchCategorySocieteList as $searchCategorySociete) {
 			if (intval($searchCategorySociete) == -2) {
-				$searchCategorySocieteSqlList[] = "NOT EXISTS (SELECT cs.fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE f.fk_soc = cs.fk_soc)";
+				$searchCategorySocieteSqlList[] = "NOT EXISTS (SELECT cs.fk_soc FROM ".MAIN_DB_PREFIX."category_societe as cs WHERE f.fk_soc = cs.fk_soc)";
 			} elseif (intval($searchCategorySociete) > 0) {
 				if ($searchCategorySocieteOperator == 0) {
-					$searchCategorySocieteSqlList[] = " EXISTS (SELECT cs.fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE f.fk_soc = cs.fk_soc AND cs.fk_categorie = ".((int) $searchCategorySociete).")";
+					$searchCategorySocieteSqlList[] = " EXISTS (SELECT cs.fk_soc FROM ".MAIN_DB_PREFIX."category_societe as cs WHERE f.fk_soc = cs.fk_soc AND cs.fk_category = ".((int) $searchCategorySociete).")";
 				} else {
 					$listofcategoryid .= ($listofcategoryid ? ', ' : '') .((int) $searchCategorySociete);
 				}
 			}
 		}
 		if ($listofcategoryid) {
-			$searchCategorySocieteSqlList[] = " EXISTS (SELECT cs.fk_soc FROM ".MAIN_DB_PREFIX."categorie_societe as cs WHERE f.fk_soc = cs.fk_soc AND cs.fk_categorie IN (".$db->sanitize($listofcategoryid)."))";
+			$searchCategorySocieteSqlList[] = " EXISTS (SELECT cs.fk_soc FROM ".MAIN_DB_PREFIX."category_societe as cs WHERE f.fk_soc = cs.fk_soc AND cs.fk_category IN (".$db->sanitize($listofcategoryid)."))";
 		}
 		if ($searchCategorySocieteOperator == 1) {
 			if (!empty($searchCategorySocieteSqlList)) {

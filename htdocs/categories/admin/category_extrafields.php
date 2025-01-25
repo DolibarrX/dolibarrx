@@ -20,7 +20,7 @@
  */
 
 /**
- *      \file       htdocs/categories/admin/categorie_extrafields.php
+ *      \file       htdocs/categories/admin/category_extrafields.php
  *		\ingroup    societe
  *		\brief      Page to setup extra fields of category
  */
@@ -49,7 +49,7 @@ $type2label = ExtraFields::getListOfTypesLabels();
 
 $action = GETPOST('action', 'aZ09');
 $attrname = GETPOST('attrname', 'alpha');
-$elementtype = 'categorie'; //Must be the $element of the class that manage extrafield
+$elementtype = 'category'; //Must be the $element of the class that manage extrafield
 
 if (!$user->admin) {
 	accessforbidden();

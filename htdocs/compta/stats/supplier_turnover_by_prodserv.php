@@ -28,7 +28,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/report.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/tax.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 /**
  * @var Conf $conf
@@ -325,9 +325,9 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$sql .= ",".MAIN_DB_PREFIX."facture_fourn_det as l";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON l.fk_product = p.rowid";
 	if ($selected_cat === -2) {	// Without any category
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."categorie_product as cp ON p.rowid = cp.fk_product";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."category_product as cp ON p.rowid = cp.fk_product";
 	} elseif ($selected_cat) { 	// Into a specific category
-		$sql .= ", ".MAIN_DB_PREFIX."categorie as c, ".MAIN_DB_PREFIX."categorie_product as cp";
+		$sql .= ", ".MAIN_DB_PREFIX."category as c, ".MAIN_DB_PREFIX."category_product as cp";
 	}
 	$sql .= " WHERE l.fk_facture_fourn = f.rowid";
 	$sql .= " AND f.fk_statut in (1,2)";
@@ -347,7 +347,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 			$sql .= " OR c.fk_parent = ".((int) $selected_cat);
 		}
 		$sql .= ")";
-		$sql .= " AND cp.fk_categorie = c.rowid AND cp.fk_product = p.rowid";
+		$sql .= " AND cp.fk_category = c.rowid AND cp.fk_product = p.rowid";
 	}
 	if ($selected_soc > 0) {
 		$sql .= " AND soc.rowid=".((int) $selected_soc);

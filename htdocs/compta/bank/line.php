@@ -34,7 +34,7 @@
 // Load Dolibarr environment
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/payments.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
@@ -632,7 +632,7 @@ if ($result) {
 		print "</tr>";
 
 		// Categories
-		if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+		if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 			$langs->load('categories');
 
 			// Bank line

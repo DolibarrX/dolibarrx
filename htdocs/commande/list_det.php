@@ -52,7 +52,7 @@ require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 
 if (isModEnabled('category')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcategory.class.php';
-	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 }
 
 /**
@@ -407,7 +407,7 @@ $sql .= ' cdet.rowid, cdet.description, cdet.qty, cdet.product_type, cdet.fk_pro
 $sql .= ' pr.rowid as product_rowid, pr.ref as product_ref, pr.label as product_label, pr.barcode as product_barcode, pr.tobatch as product_batch, pr.tosell as product_status, pr.tobuy as product_status_buy';
 
 if (($search_categ_cus > 0) || ($search_categ_cus == -2)) {
-	$sql .= ", cc.fk_categorie, cc.fk_soc";
+	$sql .= ", cc.fk_category, cc.fk_soc";
 }
 // Add fields from extrafields
 if (!empty($extrafields->attributes[$object->table_element]['label'])) {
@@ -424,7 +424,7 @@ $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as country on (country.rowid = s
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_typent as typent on (typent.id = s.fk_typent)";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as state on (state.rowid = s.fk_departement)";
 if (($search_categ_cus > 0) || ($search_categ_cus == -2)) {
-	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX."categorie_societe as cc ON s.rowid = cc.fk_soc"; // We'll need this table joined to the select in order to filter by categ
+	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX."category_societe as cc ON s.rowid = cc.fk_soc"; // We'll need this table joined to the select in order to filter by categ
 }
 
 // Détail commande
@@ -584,10 +584,10 @@ if ($search_project != '') {
 	$sql .= natural_search("p.title", $search_project);
 }
 if ($search_categ_cus > 0) {
-	$sql .= " AND cc.fk_categorie = ".((int) $search_categ_cus);
+	$sql .= " AND cc.fk_category = ".((int) $search_categ_cus);
 }
 if ($search_categ_cus == -2) {
-	$sql .= " AND cc.fk_categorie IS NULL";
+	$sql .= " AND cc.fk_category IS NULL";
 }
 if ($search_fk_cond_reglement > 0) {
 	$sql .= " AND c.fk_cond_reglement = ".((int) $search_fk_cond_reglement);
@@ -616,17 +616,17 @@ if (!empty($searchCategoryProductList)) {
 	$listofcategoryid = '';
 	foreach ($searchCategoryProductList as $searchCategoryProject) {
 		if (intval($searchCategoryProject) == -2) {
-			$searchCategoryProjectSqlList[] = "NOT EXISTS (SELECT cp.fk_product FROM ".MAIN_DB_PREFIX."categorie_product as cp WHERE cdet.fk_product = cp.fk_product)";
+			$searchCategoryProjectSqlList[] = "NOT EXISTS (SELECT cp.fk_product FROM ".MAIN_DB_PREFIX."category_product as cp WHERE cdet.fk_product = cp.fk_product)";
 		} elseif (intval($searchCategoryProject) > 0) {
 			if ($searchCategoryProductOperator == 0) {
-				$searchCategoryProjectSqlList[] = " EXISTS (SELECT cp.fk_product FROM ".MAIN_DB_PREFIX."categorie_product as cp WHERE cdet.fk_product = cp.fk_product AND cp.fk_categorie = ".((int) $searchCategoryProject).")";
+				$searchCategoryProjectSqlList[] = " EXISTS (SELECT cp.fk_product FROM ".MAIN_DB_PREFIX."category_product as cp WHERE cdet.fk_product = cp.fk_product AND cp.fk_category = ".((int) $searchCategoryProject).")";
 			} else {
 				$listofcategoryid .= ($listofcategoryid ? ', ' : '') .((int) $searchCategoryProject);
 			}
 		}
 	}
 	if ($listofcategoryid) {
-		$searchCategoryProjectSqlList[] = " EXISTS (SELECT cp.fk_product FROM ".MAIN_DB_PREFIX."categorie_product as cp WHERE cdet.fk_product = cp.fk_product AND cp.fk_categorie IN (".$db->sanitize($listofcategoryid)."))";
+		$searchCategoryProjectSqlList[] = " EXISTS (SELECT cp.fk_product FROM ".MAIN_DB_PREFIX."category_product as cp WHERE cdet.fk_product = cp.fk_product AND cp.fk_category IN (".$db->sanitize($listofcategoryid)."))";
 	}
 	if ($searchCategoryProductOperator == 1) {
 		if (!empty($searchCategoryProjectSqlList)) {
@@ -950,12 +950,12 @@ if ($resql) {
 		$moreforfilter .= '</div>';
 	}
 	// Filter on categories
-	if (isModEnabled("category") && $user->hasRight('categorie', 'lire') && ($user->hasRight('produit', 'lire') || $user->hasRight('service', 'lire'))) {
+	if (isModEnabled("category") && $user->hasRight('category', 'lire') && ($user->hasRight('produit', 'lire') || $user->hasRight('service', 'lire'))) {
 		$formcategory = new FormCategory($db);
 		$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_PRODUCT, $search_product_category_array, 'minwidth300imp minwidth300', $searchCategoryProductOperator ? $searchCategoryProductOperator : 0);
 	}
-	if (isModEnabled("category") && $user->hasRight('categorie', 'lire')) {
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+	if (isModEnabled("category") && $user->hasRight('category', 'lire')) {
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		$moreforfilter .= '<div class="divsearchfield">';
 		$tmptitle = $langs->trans('CustomersProspectsCategoriesShort');
 		$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"').$formother->select_categories('customer', $search_categ_cus, 'search_categ_cus', 1, $tmptitle, 'maxwidth300 widthcentpercentminusx');

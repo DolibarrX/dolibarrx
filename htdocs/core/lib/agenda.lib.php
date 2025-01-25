@@ -142,8 +142,8 @@ function print_actions_filter(
 		print '</div>';
 	}
 
-	if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
-		require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+	if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
+		require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 		require_once DOL_DOCUMENT_ROOT . '/core/class/html.formother.class.php';
 		$formother = new FormOther($db);
 		$langs->load('categories');

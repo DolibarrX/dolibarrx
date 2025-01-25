@@ -56,13 +56,13 @@ if (!isModEnabled('takepos')) {
  */
 
 if ($query == "cat") {
-	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/categories.lib.php';
 
 	$object = new Category($db);
 	$result = $object->fetch($id);
 
-	$upload_dir = $config->categorie->multidir_output[$object->entity];
+	$upload_dir = $config->category->multidir_output[$object->entity];
 	$pdir = get_exdir($object->id, 2, 0, 0, $object, 'category').$object->id."/photos/";
 	$dir = $upload_dir.'/'.$pdir;
 

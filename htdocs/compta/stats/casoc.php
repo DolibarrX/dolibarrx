@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/tax.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 /**
  * @var Conf $conf
@@ -288,9 +288,9 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$sql .= " sum(f.total_ht) as amount, sum(f.total_ttc) as amount_ttc";
 	$sql .= " FROM ".MAIN_DB_PREFIX."facture as f, ".MAIN_DB_PREFIX."societe as s";
 	if ($selected_cat === -2) {	// Without any category
-		$sql .= " LEFT OUTER JOIN ".MAIN_DB_PREFIX."categorie_societe as cs ON s.rowid = cs.fk_soc";
+		$sql .= " LEFT OUTER JOIN ".MAIN_DB_PREFIX."category_societe as cs ON s.rowid = cs.fk_soc";
 	} elseif ($selected_cat) { 	// Into a specific category
-		$sql .= ", ".MAIN_DB_PREFIX."categorie as c, ".MAIN_DB_PREFIX."categorie_societe as cs";
+		$sql .= ", ".MAIN_DB_PREFIX."category as c, ".MAIN_DB_PREFIX."category_societe as cs";
 	}
 	$sql .= " WHERE f.fk_statut in (1,2)";
 	if (getDolGlobalString('FACTURE_DEPOSITS_ARE_JUST_PAYMENTS')) {
@@ -310,7 +310,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 			$sql .= " OR c.fk_parent = ".((int) $selected_cat);
 		}
 		$sql .= ")";
-		$sql .= " AND cs.fk_categorie = c.rowid AND cs.fk_soc = s.rowid";
+		$sql .= " AND cs.fk_category = c.rowid AND cs.fk_soc = s.rowid";
 	}
 } elseif ($modecompta == "RECETTES-DEPENSES") {
 	/*
@@ -323,9 +323,9 @@ if ($modecompta == 'CREANCES-DETTES') {
 	$sql .= ", ".MAIN_DB_PREFIX."paiement as p";
 	$sql .= ", ".MAIN_DB_PREFIX."societe as s";
 	if ($selected_cat === -2) {	// Without any category
-		$sql .= " LEFT OUTER JOIN ".MAIN_DB_PREFIX."categorie_societe as cs ON s.rowid = cs.fk_soc";
+		$sql .= " LEFT OUTER JOIN ".MAIN_DB_PREFIX."category_societe as cs ON s.rowid = cs.fk_soc";
 	} elseif ($selected_cat) { 	// Into a specific category
-		$sql .= ", ".MAIN_DB_PREFIX."categorie as c, ".MAIN_DB_PREFIX."categorie_societe as cs";
+		$sql .= ", ".MAIN_DB_PREFIX."category as c, ".MAIN_DB_PREFIX."category_societe as cs";
 	}
 	$sql .= " WHERE p.rowid = pf.fk_paiement";
 	$sql .= " AND pf.fk_facture = f.rowid";
@@ -341,7 +341,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 			$sql .= " OR c.fk_parent = ".((int) $selected_cat);
 		}
 		$sql .= ")";
-		$sql .= " AND cs.fk_categorie = c.rowid AND cs.fk_soc = s.rowid";
+		$sql .= " AND cs.fk_category = c.rowid AND cs.fk_soc = s.rowid";
 	}
 } // elseif ($modecompta == "BOOKKEEPING") {
 // } elseif ($modecompta == "BOOKKEEPINGCOLLECTED") {

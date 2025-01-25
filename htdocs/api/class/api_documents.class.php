@@ -532,10 +532,10 @@ class Documents extends DolibarrApi
 			}
 
 			$upload_dir = $config->knowledgemanagement->dir_output.'/knowledgerecord/'.dol_sanitizeFileName($object->ref);
-		} elseif ($modulepart == 'categorie' || $modulepart == 'category') {
-			require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		} elseif ($modulepart == 'category' || $modulepart == 'category') {
+			require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
-			if (!DolibarrApiAccess::$user->hasRight('categorie', 'lire')) {
+			if (!DolibarrApiAccess::$user->hasRight('category', 'lire')) {
 				throw new RestException(403);
 			}
 
@@ -545,7 +545,7 @@ class Documents extends DolibarrApi
 				throw new RestException(404, 'Category not found');
 			}
 
-			$upload_dir = $config->categorie->multidir_output[$object->entity].'/'.get_exdir($object->id, 2, 0, 0, $object, 'category').$object->id."/photos/".dol_sanitizeFileName($object->ref);
+			$upload_dir = $config->category->multidir_output[$object->entity].'/'.get_exdir($object->id, 2, 0, 0, $object, 'category').$object->id."/photos/".dol_sanitizeFileName($object->ref);
 		} elseif ($modulepart == 'ecm') {
 			throw new RestException(500, 'Modulepart Ecm not implemented yet.');
 			// require_once DOL_DOCUMENT_ROOT.'/ecm/class/ecmdirectory.class.php';

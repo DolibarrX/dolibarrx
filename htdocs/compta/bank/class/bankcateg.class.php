@@ -90,7 +90,7 @@ class BankCateg // extends CommonObject
 	{
 		global $config;
 
-		include_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+		include_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 		$cats = new Category($this->db);
 		$catTypeID = $cats->getMapId()[Category::TYPE_BANK_LINE];
 
@@ -102,7 +102,7 @@ class BankCateg // extends CommonObject
 		}
 
 		// Insert request
-		$sql = "INSERT INTO ".MAIN_DB_PREFIX."categorie (";
+		$sql = "INSERT INTO ".MAIN_DB_PREFIX."category (";
 		$sql .= "label";
 		$sql .= ", entity";
 		$sql .= ", type";
@@ -122,7 +122,7 @@ class BankCateg // extends CommonObject
 		}
 
 		if (!$error) {
-			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."categorie");
+			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX."category");
 		}
 
 		// Commit or rollback
@@ -150,14 +150,14 @@ class BankCateg // extends CommonObject
 	{
 		global $config;
 
-		include_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+		include_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 		$cats = new Category($this->db);
 		$catTypeID = $cats->getMapId()[Category::TYPE_BANK_LINE];
 
 		$sql = "SELECT";
 		$sql .= " t.rowid,";
 		$sql .= " t.label";
-		$sql .= " FROM ".MAIN_DB_PREFIX."categorie as t";
+		$sql .= " FROM ".MAIN_DB_PREFIX."category as t";
 		$sql .= " WHERE t.rowid = ".((int) $id);
 		$sql .= " AND t.entity = ".$config->entity." AND t.type = " . ((int) $catTypeID);
 
@@ -200,7 +200,7 @@ class BankCateg // extends CommonObject
 		// Put here code to add control on parameters values
 
 		// Update request
-		$sql = "UPDATE ".MAIN_DB_PREFIX."categorie SET";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."category SET";
 		$sql .= " label=".(isset($this->label) ? "'".$this->db->escape($this->label)."'" : "null");
 		$sql .= " WHERE rowid=".((int) $this->id);
 		$sql .= " AND entity = ".$config->entity;
@@ -244,8 +244,8 @@ class BankCateg // extends CommonObject
 
 		// Delete link between tag and bank account
 		if (!$error) {
-			$sql = "DELETE FROM ".MAIN_DB_PREFIX."categorie_account";
-			$sql .= " WHERE fk_categorie = ".((int) $this->id);
+			$sql = "DELETE FROM ".MAIN_DB_PREFIX."category_account";
+			$sql .= " WHERE fk_category = ".((int) $this->id);
 
 			$resql = $this->db->query($sql);
 			if (!$resql) {
@@ -268,7 +268,7 @@ class BankCateg // extends CommonObject
 
 		// Delete bank categ
 		if (!$error) {
-			$sql = "DELETE FROM ".MAIN_DB_PREFIX."categorie";
+			$sql = "DELETE FROM ".MAIN_DB_PREFIX."category";
 			$sql .= " WHERE rowid=".((int) $this->id);
 
 			$resql = $this->db->query($sql);
@@ -343,13 +343,13 @@ class BankCateg // extends CommonObject
 	{
 		global $config;
 
-		include_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+		include_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 		$cats = new Category($this->db);
 		$catTypeID = $cats->getMapId()[Category::TYPE_BANK_LINE];
 
 		$return = array();
 
-		$sql = "SELECT rowid, label FROM ".MAIN_DB_PREFIX."categorie WHERE entity = ".$config->entity." AND type = ".((int) $catTypeID)." ORDER BY label";
+		$sql = "SELECT rowid, label FROM ".MAIN_DB_PREFIX."category WHERE entity = ".$config->entity." AND type = ".((int) $catTypeID)." ORDER BY label";
 		$resql = $this->db->query($sql);
 
 		if ($resql) {

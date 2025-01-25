@@ -275,15 +275,15 @@ class MemberStats extends Stats
 		$startYear = $endYear - $numberYears;
 		$MembersCountArray = [];
 
-		$sql = "SELECT c.rowid as fk_categorie, c.label as label";
+		$sql = "SELECT c.rowid as fk_category, c.label as label";
 		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_DRAFT, "'members_draft'", 'NULL').") as members_draft";
 		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_VALIDATED."  AND (d.datefin IS NULL AND t.subscription = '1')", "'members_pending'", 'NULL').") as members_pending";
 		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_VALIDATED."  AND (d.datefin >= '".$this->db->idate($now)."' OR t.subscription = 0)", "'members_uptodate'", 'NULL').") as members_uptodate";
 		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_VALIDATED."  AND (d.datefin < '".$this->db->idate($now)."' AND t.subscription = 1)", "'members_expired'", 'NULL').") as members_expired";
 		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_EXCLUDED, "'members_excluded'", 'NULL').") as members_excluded";
 		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_RESILIATED, "'members_resiliated'", 'NULL').") as members_resiliated";
-		$sql .= " FROM ".MAIN_DB_PREFIX."categorie as c";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."categorie_member as ct ON c.rowid = ct.fk_categorie";
+		$sql .= " FROM ".MAIN_DB_PREFIX."category as c";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."category_member as ct ON c.rowid = ct.fk_category";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."member as d ON d.rowid = ct.fk_member";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."member_type as t ON t.rowid = d.fk_member_type";
 		$sql .= " WHERE c.entity IN (".getEntity('member_type').")";
@@ -312,7 +312,7 @@ class MemberStats extends Stats
 			);
 			while ($i < $num) {
 				$objp = $this->db->fetch_object($result);
-				$MembersCountArray[$objp->fk_categorie] = array(
+				$MembersCountArray[$objp->fk_category] = array(
 					'label' => $objp->label,
 					'members_draft' => (int) $objp->members_draft,
 					'members_pending' => (int) $objp->members_pending,
@@ -322,13 +322,13 @@ class MemberStats extends Stats
 					'members_resiliated' => (int) $objp->members_resiliated
 				);
 				$totalrow = 0;
-				foreach ($MembersCountArray[$objp->fk_categorie] as $key => $nb) {
+				foreach ($MembersCountArray[$objp->fk_category] as $key => $nb) {
 					if ($key != 'label') {
 						$totalrow += $nb;
 						$totalstatus[$key] += $nb;
 					}
 				}
-				$MembersCountArray[$objp->fk_categorie]['total_adhtag'] = $totalrow;
+				$MembersCountArray[$objp->fk_category]['total_adhtag'] = $totalrow;
 				$i++;
 			}
 			$this->db->free($result);

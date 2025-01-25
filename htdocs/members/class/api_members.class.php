@@ -24,7 +24,7 @@ use Luracast\Restler\RestException;
 require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 
 
@@ -282,7 +282,7 @@ class Members extends DolibarrApi
 		$sql = "SELECT t.rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."member AS t LEFT JOIN ".MAIN_DB_PREFIX."member_extrafields AS ef ON (ef.fk_object = t.rowid)"; // Modification VMR Global Solutions to include extrafields as search parameters in the API GET call
 		if ($category > 0) {
-			$sql .= ", ".MAIN_DB_PREFIX."categorie_member as c";
+			$sql .= ", ".MAIN_DB_PREFIX."category_member as c";
 		}
 		$sql .= ' WHERE t.entity IN ('.getEntity('member').')';
 		if (!empty($typeid)) {
@@ -290,7 +290,7 @@ class Members extends DolibarrApi
 		}
 		// Select members of given category
 		if ($category > 0) {
-			$sql .= " AND c.fk_categorie = ".((int) $category);
+			$sql .= " AND c.fk_category = ".((int) $category);
 			$sql .= " AND c.fk_member = t.rowid";
 		}
 		// Add sql filters
@@ -687,7 +687,7 @@ class Members extends DolibarrApi
 	 */
 	public function getCategories($id, $sortfield = "s.rowid", $sortorder = 'ASC', $limit = 0, $page = 0)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('categorie', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('category', 'lire')) {
 			throw new RestException(403);
 		}
 

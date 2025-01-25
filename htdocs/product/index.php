@@ -248,16 +248,16 @@ if ((isModEnabled("product") || isModEnabled("service")) && ($user->hasRight("pr
 }
 
 $graphcat = '';
-if (isModEnabled('category') && getDolGlobalString('CATEGORY_GRAPHSTATS_ON_PRODUCTS') && $user->hasRight('categorie', 'read')) {
-	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+if (isModEnabled('category') && getDolGlobalString('CATEGORY_GRAPHSTATS_ON_PRODUCTS') && $user->hasRight('category', 'read')) {
+	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 	$graphcat .= '<br>';
 	$graphcat .= '<div class="div-table-responsive-no-min">';
 	$graphcat .= '<table class="noborder centpercent">';
 	$graphcat .= '<tr class="liste_titre"><th colspan="2">'.$langs->trans("Categories").'</th></tr>';
 	$graphcat .= '<tr><td class="center" colspan="2">';
 	$sql = "SELECT c.label, count(*) as nb";
-	$sql .= " FROM ".MAIN_DB_PREFIX."categorie_product as cs";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."categorie as c ON cs.fk_categorie = c.rowid";
+	$sql .= " FROM ".MAIN_DB_PREFIX."category_product as cs";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."category as c ON cs.fk_category = c.rowid";
 	$sql .= " WHERE c.type = 0";
 	$sql .= " AND c.entity IN (".getEntity('category').")";
 	$sql .= " GROUP BY c.label";

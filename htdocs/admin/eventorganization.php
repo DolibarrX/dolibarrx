@@ -29,7 +29,7 @@ require '../main.inc.php';
 // Libraries
 require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/lib/eventorganization.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 /**
  * @var Conf $conf
@@ -228,7 +228,7 @@ if ($action == 'edit') {
 				}
 				print $form->selectarray($constname, $arrayofmessagename, getDolGlobalString($constname), 'None', 0, 0, '', 0, 0, 0, '', '', 1);
 			} elseif (preg_match('/category:/', $val['type'])) {
-				require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+				require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 				require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 				$formother = new FormOther($db);
 

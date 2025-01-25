@@ -118,7 +118,7 @@ class Societe extends CommonObject
 		'societe_remise',
 		'societe_remise_except',
 		'societe_commerciaux',
-		'categorie',
+		'category',
 		'notify',
 		'notify_def',
 		'actioncomm',
@@ -2280,7 +2280,7 @@ class Societe extends CommonObject
 			}
 
 			if (!$error) {
-				require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+				require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 				$static_cat = new Category($this->db);
 				$toute_categs = array();
 
@@ -2983,7 +2983,7 @@ class Societe extends CommonObject
 		}
 		// show categories for this record only in ajax to not overload lists
 		if (!$nofetch && isModEnabled('category') && $this->client) {
-			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+			require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 			$form = new Form($this->db);
 			$datas['categories_customer'] = '<br>' . $form->showCategories($this->id, Category::TYPE_CUSTOMER, 1, 1);
 		}
@@ -2996,7 +2996,7 @@ class Societe extends CommonObject
 		}
 		// show categories for this record only in ajax to not overload lists
 		if (!$nofetch && isModEnabled('category') && $this->fournisseur) {
-			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+			require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 			$form = new Form($this->db);
 			$datas['categories_supplier'] = '<br>' . $form->showCategories($this->id, Category::TYPE_SUPPLIER, 1, 1);
 		}
@@ -4278,7 +4278,7 @@ class Societe extends CommonObject
 		// phpcs:enable
 		$this->SupplierCategories = array();
 		$sql = "SELECT rowid, label";
-		$sql .= " FROM ".MAIN_DB_PREFIX."categorie";
+		$sql .= " FROM ".MAIN_DB_PREFIX."category";
 		$sql .= " WHERE type = ".Category::TYPE_SUPPLIER;
 
 		$resql = $this->db->query($sql);
@@ -4296,15 +4296,15 @@ class Societe extends CommonObject
 	/**
 	 *  Insert link supplier - category
 	 *
-	 *	@param	int		$categorie_id		Id of category
+	 *	@param	int		$category_id		Id of category
 	 *  @return int      					0 if success, <> 0 if error
 	 */
-	public function AddFournisseurInCategory($categorie_id)
+	public function AddFournisseurInCategory($category_id)
 	{
 		// phpcs:enable
-		if ($categorie_id > 0 && $this->id > 0) {
-			$sql = "INSERT INTO ".MAIN_DB_PREFIX."categorie_fournisseur (fk_categorie, fk_soc) ";
-			$sql .= " VALUES (".((int) $categorie_id).", ".((int) $this->id).")";
+		if ($category_id > 0 && $this->id > 0) {
+			$sql = "INSERT INTO ".MAIN_DB_PREFIX."category_fournisseur (fk_category, fk_soc) ";
+			$sql .= " VALUES (".((int) $category_id).", ".((int) $this->id).")";
 
 			if ($resql = $this->db->query($sql)) {
 				return 0;
@@ -5194,7 +5194,7 @@ class Societe extends CommonObject
 	 */
 	public function setCategories($categories, $type_categ)
 	{
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 		// Decode type
 		if (!in_array($type_categ, array(Category::TYPE_CUSTOMER, Category::TYPE_SUPPLIER))) {
@@ -5589,7 +5589,7 @@ class Societe extends CommonObject
 			}
 
 			// Merge categories
-			include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+			include_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 			$static_cat = new Category($this->db);
 
 			$custcats_ori = $static_cat->containing($soc_origin->id, 'customer', 'id');
@@ -5624,7 +5624,7 @@ class Societe extends CommonObject
 			if (!$error) {
 				$objects = array(
 					'Member' => '/members/class/member.class.php',
-					//'Category' => '/categories/class/categorie.class.php',	// Already processed previously
+					//'Category' => '/categories/class/category.class.php',	// Already processed previously
 					'ActionComm' => '/comm/action/class/actioncomm.class.php',
 					'Propal' => '/comm/propal/class/propal.class.php',
 					'Commande' => '/commande/class/commande.class.php',

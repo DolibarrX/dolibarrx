@@ -3220,7 +3220,7 @@ li.tmenu:hover .tmenuimage:not(.menuhider), li.tmenu:hover .tmenuimage:not(.menu
 		'don' => 'accountancy', 'tax' => 'accountancy', 'bank' => 'accountancy', 'facture' => 'accountancy', 'compta' => 'accountancy', 'accounting' => 'accountancy', 'member' => 'members', 'import' => 'tools', 'export' => 'tools', 'mailing' => 'tools',
 		'contrat' => 'commercial', 'ficheinter' => 'commercial', 'ticket' => 'ticket', 'deplacement' => 'commercial',
 		'fournisseur' => 'companies',
-		'barcode' => '', 'fckeditor' => '', 'categorie' => '',
+		'barcode' => '', 'fckeditor' => '', 'category' => '',
 	);
 	$mainmenuused = 'home';
 	foreach ($config->modules as $val) {

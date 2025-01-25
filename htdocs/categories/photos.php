@@ -25,12 +25,12 @@
 /**
  *       \file       htdocs/categories/photos.php
  *       \ingroup    category
- *       \brief      Gestion des photos d'une categorie
+ *       \brief      Gestion des photos d'une category
  */
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/categories.lib.php';
@@ -72,12 +72,12 @@ if (is_numeric($type)) {
 	$type = Category::$MAP_ID_TO_CODE[(int) $type]; // For backward compatibility
 }
 
-$upload_dir = $config->categorie->multidir_output[$object->entity];
+$upload_dir = $config->category->multidir_output[$object->entity];
 
 // Security check
-$result = restrictedArea($user, 'categorie', $id, '&category');
+$result = restrictedArea($user, 'category', $id, '&category');
 
-$permissiontoadd = $user->hasRight('categorie', 'creer');
+$permissiontoadd = $user->hasRight('category', 'creer');
 
 
 /*
@@ -184,7 +184,7 @@ if ($object->id) {
 	 */
 	print '<div class="tabsAction">'."\n";
 
-	if ($action != 'ajout_photo' && $user->hasRight('categorie', 'creer')) {
+	if ($action != 'ajout_photo' && $user->hasRight('category', 'creer')) {
 		if (getDolGlobalString('MAIN_UPLOAD_DOC')) {
 			print '<a class="butAction hideonsmartphone" href="'.$_SERVER['PHP_SELF'].'?action=ajout_photo&amp;id='.$object->id.'&amp;type='.$type.'">';
 			print $langs->trans("AddPhoto").'</a>';
@@ -199,10 +199,10 @@ if ($object->id) {
 	/*
 	 * Ajouter une photo
 	*/
-	if ($action == 'ajout_photo' && $user->hasRight('categorie', 'creer') && getDolGlobalString('MAIN_UPLOAD_DOC')) {
+	if ($action == 'ajout_photo' && $user->hasRight('category', 'creer') && getDolGlobalString('MAIN_UPLOAD_DOC')) {
 		// Affiche formulaire upload
 		$formfile = new FormFile($db);
-		$formfile->form_attach_new_file($_SERVER['PHP_SELF'].'?id='.$object->id.'&amp;type='.$type, $langs->trans("AddPhoto"), 1, 0, $user->hasRight('categorie', 'creer'), 50, $object, '', false, '', 0);
+		$formfile->form_attach_new_file($_SERVER['PHP_SELF'].'?id='.$object->id.'&amp;type='.$type, $langs->trans("AddPhoto"), 1, 0, $user->hasRight('category', 'creer'), 50, $object, '', false, '', 0);
 	}
 
 	// Affiche photos
@@ -259,7 +259,7 @@ if ($object->id) {
 				if (!$obj['photo_vignette'] && preg_match('/(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$/i', $obj['photo']) && ($object->imgWidth > $maxWidth || $object->imgHeight > $maxHeight)) {
 					print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&token='.newToken().'&action=addthumb&type='.$type.'&file='.urlencode($pdir.$viewfilename).'">'.img_picto($langs->trans('GenerateThumb'), 'refresh').'&nbsp;&nbsp;</a>';
 				}
-				if ($user->hasRight('categorie', 'creer')) {
+				if ($user->hasRight('category', 'creer')) {
 					print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken().'&type='.$type.'&file='.urlencode($pdir.$viewfilename).'">';
 					print img_delete().'</a>';
 				}

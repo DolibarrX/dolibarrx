@@ -1033,7 +1033,7 @@ class Project extends CommonObject
 
 		// Remove linked categories.
 		if (!$error) {
-			$sql = "DELETE FROM ".MAIN_DB_PREFIX."categorie_project";
+			$sql = "DELETE FROM ".MAIN_DB_PREFIX."category_project";
 			$sql .= " WHERE fk_project = ".((int) $this->id);
 
 			$result = $this->db->query($sql);
@@ -1055,7 +1055,7 @@ class Project extends CommonObject
 
 		// Delete all child tables
 		if (!$error) {
-			$elements = array('categorie_project'); // elements to delete. TODO Make goodway to delete
+			$elements = array('category_project'); // elements to delete. TODO Make goodway to delete
 			foreach ($elements as $table) {
 				if (!$error) {
 					$sql = "DELETE FROM ".MAIN_DB_PREFIX.$table;
@@ -2465,7 +2465,7 @@ class Project extends CommonObject
 	 */
 	public function setCategories($categories)
 	{
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		return parent::setCategoriesCommon($categories, Category::TYPE_PROJECT);
 	}
 

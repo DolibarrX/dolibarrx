@@ -60,7 +60,7 @@ class WebsitePage extends CommonObject
 	/**
 	 * @var string[]	List of child tables. To know object to delete on cascade.
 	 */
-	protected $childtablesoncascade = array('categorie_website_page');
+	protected $childtablesoncascade = array('category_website_page');
 
 	/**
 	 * @var int Website ID
@@ -966,7 +966,7 @@ class WebsitePage extends CommonObject
 	 */
 	public function setCategories($categories)
 	{
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		return $this->setCategoriesCommon($categories, Category::TYPE_WEBSITE_PAGE);
 	}
 

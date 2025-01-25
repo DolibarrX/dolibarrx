@@ -571,7 +571,7 @@ class FormTicket
 
 		// Categories
 		if (isModEnabled('category') && !$public) {
-			include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+			include_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 			$cate_arbo = $form->select_all_categories(Category::TYPE_TICKET, '', 'parent', 64, 0, 3);
 
 			if (count($cate_arbo)) {

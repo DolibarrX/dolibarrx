@@ -51,7 +51,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formfile.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 if (isModEnabled('member')) {
 	require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 }
@@ -730,8 +730,8 @@ if (empty($resHook)) {
 					setEventMessages($object->error, $object->errors, 'errors');
 				}
 
-				// Prevent thirdparty's emptying if a user hasn't rights $user->rights->categorie->lire (in such a case, post of 'custcats' is not defined)
-				if (!$error && $user->hasRight('categorie', 'lire')) {
+				// Prevent thirdparty's emptying if a user hasn't rights $user->rights->category->lire (in such a case, post of 'custcats' is not defined)
+				if (!$error && $user->hasRight('category', 'lire')) {
 					// Customer categories association
 					$categories = GETPOST('custcats', 'array');
 					$result = $object->setCategories($categories, 'customer');
@@ -1910,7 +1910,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			}
 
 			// Categories
-			if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+			if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 				$langs->load('categories');
 
 				// Customer
@@ -2728,7 +2728,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				}
 
 				// Categories
-				if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+				if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 					// Customer
 					print '<tr class="visibleifcustomer"><td>'.$form->editfieldkey('CustomersCategoriesShort', 'custcats', '', $object, 0).'</td>';
 					print '<td colspan="3">';
@@ -3187,7 +3187,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			print '<table class="border tableforfield centpercent">';
 
 			// Tags / categories
-			if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+			if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 				// Customer
 				if ($object->prospect || $object->client || getDolGlobalString('THIRDPARTY_CAN_HAVE_CUSTOMER_CATEGORY_EVEN_IF_NOT_CUSTOMER_PROSPECT')) {
 					print '<tr><td class="titlefieldmiddle">'.$langs->trans("CustomersCategoriesShort").'</td>';

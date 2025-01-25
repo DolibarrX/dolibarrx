@@ -23,12 +23,12 @@
 /**
  *      \file       htdocs/categories/edit.php
  *      \ingroup    category
- *      \brief      Page d'edition de categorie produit
+ *      \brief      Page d'edition de category produit
  */
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 
@@ -67,7 +67,7 @@ if ($id == "") {
 $hookManager->initHooks(array('categorycard'));
 
 // Security check
-$result = restrictedArea($user, 'categorie', $id, '&category');
+$result = restrictedArea($user, 'category', $id, '&category');
 
 $object = new Category($db);
 $result = $object->fetch($id, $label);
@@ -108,8 +108,8 @@ if (empty($resHook)) {
 		}
 	}
 
-	// Action mise a jour d'une categorie
-	if ($action == 'update' && $user->hasRight('categorie', 'creer')) {
+	// Action mise a jour d'une category
+	if ($action == 'update' && $user->hasRight('category', 'creer')) {
 		$object->oldcopy = dol_clone($object, 2);
 
 		$object->label = $label;

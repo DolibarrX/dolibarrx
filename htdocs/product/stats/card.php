@@ -34,7 +34,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 
 /**
@@ -424,7 +424,7 @@ if ($result || !($id > 0)) {
 						$morefilters = ' AND d.fk_product IN ('.$db->sanitize((is_array($listofprodids) && count($listofprodids)) ? implode(',', $listofprodids) : '0').')';
 					}
 					if ($search_categ == -2) {
-						$morefilters = ' AND NOT EXISTS (SELECT cp.fk_product FROM '.MAIN_DB_PREFIX.'categorie_product as cp WHERE d.fk_product = cp.fk_product)';
+						$morefilters = ' AND NOT EXISTS (SELECT cp.fk_product FROM '.MAIN_DB_PREFIX.'category_product as cp WHERE d.fk_product = cp.fk_product)';
 					}
 
 					if ($key == 'propal') {

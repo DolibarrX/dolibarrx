@@ -389,7 +389,7 @@ class IntracommReport extends CommonObject
 	 */
 	public function addItemsFact(&$declaration, $type, $period_reference, $exporttype = 'deb')
 	{
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 		$sql = $this->getSQLFactLines($type, $period_reference, $exporttype);
 
@@ -583,8 +583,8 @@ class IntracommReport extends CommonObject
 						AND d.fk_product NOT IN
 						(
 							SELECT fk_product
-							FROM ".MAIN_DB_PREFIX."categorie_product
-							WHERE fk_categorie = ".((int) $categ_fraisdeport->id)."
+							FROM ".MAIN_DB_PREFIX."category_product
+							WHERE fk_category = ".((int) $categ_fraisdeport->id)."
 						)
 					)";
 

@@ -238,7 +238,7 @@ $sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
 $sql .= ", ".MAIN_DB_PREFIX."facture as f";
 $sql .= ", ".MAIN_DB_PREFIX."facturedet as d";
 if (!empty($TSelectedCats)) {
-	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'categorie_product as cp ON cp.fk_product=d.fk_product';
+	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'category_product as cp ON cp.fk_product=d.fk_product';
 }
 
 if (!$user->hasRight('societe', 'client', 'voir')) {
@@ -260,7 +260,7 @@ if (!empty($TSelectedProducts)) {
 	$sql .= ' AND d.fk_product IN ('.$db->sanitize(implode(',', $TSelectedProducts)).')';
 }
 if (!empty($TSelectedCats)) {
-	$sql .= ' AND cp.fk_categorie IN ('.$db->sanitize(implode(',', $TSelectedCats)).')';
+	$sql .= ' AND cp.fk_category IN ('.$db->sanitize(implode(',', $TSelectedCats)).')';
 }
 if (!empty($startdate)) {
 	$sql .= " AND f.datef >= '".$db->idate($startdate)."'";

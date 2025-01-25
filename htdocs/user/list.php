@@ -33,7 +33,7 @@
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 if (isModEnabled('category')) {
-	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 }
 
 /**
@@ -489,17 +489,17 @@ if (!empty($searchCategoryUserList)) {
 	$listofcategoryid = '';
 	foreach ($searchCategoryUserList as $searchCategoryUser) {
 		if (intval($searchCategoryUser) == -2) {
-			$searchCategoryUserSqlList[] = "NOT EXISTS (SELECT ck.fk_user FROM ".MAIN_DB_PREFIX."categorie_user as ck WHERE u.rowid = ck.fk_user)";
+			$searchCategoryUserSqlList[] = "NOT EXISTS (SELECT ck.fk_user FROM ".MAIN_DB_PREFIX."category_user as ck WHERE u.rowid = ck.fk_user)";
 		} elseif (intval($searchCategoryUser) > 0) {
 			if ($searchCategoryUserOperator == 0) {
-				$searchCategoryUserSqlList[] = " EXISTS (SELECT ck.fk_user FROM ".MAIN_DB_PREFIX."categorie_user as ck WHERE u.rowid = ck.fk_user AND ck.fk_categorie = ".((int) $searchCategoryUser).")";
+				$searchCategoryUserSqlList[] = " EXISTS (SELECT ck.fk_user FROM ".MAIN_DB_PREFIX."category_user as ck WHERE u.rowid = ck.fk_user AND ck.fk_category = ".((int) $searchCategoryUser).")";
 			} else {
 				$listofcategoryid .= ($listofcategoryid ? ', ' : '') .((int) $searchCategoryUser);
 			}
 		}
 	}
 	if ($listofcategoryid) {
-		$searchCategoryUserSqlList[] = " EXISTS (SELECT ck.fk_user FROM ".MAIN_DB_PREFIX."categorie_user as ck WHERE u.rowid = ck.fk_user AND ck.fk_categorie IN (".$db->sanitize($listofcategoryid)."))";
+		$searchCategoryUserSqlList[] = " EXISTS (SELECT ck.fk_user FROM ".MAIN_DB_PREFIX."category_user as ck WHERE u.rowid = ck.fk_user AND ck.fk_category IN (".$db->sanitize($listofcategoryid)."))";
 	}
 	if ($searchCategoryUserOperator == 1) {
 		if (!empty($searchCategoryUserSqlList)) {
@@ -730,7 +730,7 @@ $moreforfilter = '';
  $moreforfilter.= '</div>';*/
 
 // Filter on categories
-if (isModEnabled('category') && $user->hasRight("categorie", "read")) {
+if (isModEnabled('category') && $user->hasRight("category", "read")) {
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('Category');
 	$moreforfilter .= img_picto($langs->trans("Category"), 'category', 'class="pictofixedwidth"').$formother->select_categories(Category::TYPE_USER, $search_categ, 'search_categ', 1, $tmptitle);

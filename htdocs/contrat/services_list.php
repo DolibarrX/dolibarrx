@@ -291,12 +291,12 @@ if (!empty($extrafields->attributes[$object->table_element]['label']) && is_arra
 }
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product as p ON cd.fk_product = p.rowid";
 if ($search_product_category > 0) {
-	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'categorie_product as cp ON cp.fk_product=cd.fk_product';
+	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'category_product as cp ON cp.fk_product=cd.fk_product';
 }
 $sql .= " WHERE c.entity IN (".getEntity($object->element).")";
 $sql .= " AND c.rowid = cd.fk_contrat";
 if ($search_product_category > 0) {
-	$sql .= " AND cp.fk_categorie = ".((int) $search_product_category);
+	$sql .= " AND cp.fk_category = ".((int) $search_product_category);
 }
 $sql .= " AND c.fk_soc = s.rowid";
 if (!$user->hasRight('societe', 'client', 'voir')) {
@@ -566,7 +566,7 @@ $moreforfilter = '';
 
 // If the user can view categories of products
 if (isModEnabled('category') && ($user->hasRight('produit', 'lire') || $user->hasRight('service', 'lire'))) {
-	include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+	include_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('IncludingProductWithTag');
 	$cate_arbo = $form->select_all_categories(Category::TYPE_PRODUCT, '', 'parent', 0, 0, 1);

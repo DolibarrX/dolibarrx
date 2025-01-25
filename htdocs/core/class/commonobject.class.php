@@ -6279,7 +6279,7 @@ abstract class CommonObject
 		$this->array_languages = array();
 
 		$element = $this->element;
-		if ($element == 'categorie') {
+		if ($element == 'category') {
 			$element = 'categories'; // For compatibility
 		}
 
@@ -6476,7 +6476,7 @@ abstract class CommonObject
 		}
 
 		$table_element = $this->table_element;
-		if ($table_element == 'categorie') {
+		if ($table_element == 'category') {
 			$table_element = 'categories'; // For compatibility
 		}
 
@@ -6589,7 +6589,7 @@ abstract class CommonObject
 		$this->db->begin();
 
 		$table_element = $this->table_element;
-		if ($table_element == 'categorie') {
+		if ($table_element == 'category') {
 			$table_element = 'categories'; // For compatibility
 		}
 
@@ -6832,7 +6832,7 @@ abstract class CommonObject
 			$this->db->begin();
 
 			$table_element = $this->table_element;
-			if ($table_element == 'categorie') {
+			if ($table_element == 'category') {
 				$table_element = 'categories'; // For compatibility
 			}
 
@@ -7033,7 +7033,7 @@ abstract class CommonObject
 			$this->db->begin();
 
 			$table_element = $this->table_element;
-			if ($table_element == 'categorie') {	// TODO Rename table llx_categories_extrafields into llx_categorie_extrafields so we can remove this.
+			if ($table_element == 'category') {	// TODO Rename table llx_categories_extrafields into llx_category_extrafields so we can remove this.
 				$table_element = 'categories'; // For compatibility
 			}
 
@@ -7327,7 +7327,7 @@ abstract class CommonObject
 
 			// Check if there is already a line for this object (in most cases, it is, but sometimes it is not, for example when extra field has been created after), so we must keep this overload)
 			$table_element = $this->table_element;
-			if ($table_element == 'categorie') {	// TODO Rename table llx_categories_extrafields into llx_categorie_extrafields so we can remove this.
+			if ($table_element == 'category') {	// TODO Rename table llx_categories_extrafields into llx_category_extrafields so we can remove this.
 				$table_element = 'categories'; // For compatibility
 			}
 
@@ -7868,14 +7868,14 @@ abstract class CommonObject
 					$keyList .= ', '.$parentField;
 				}
 
-				$filter_categorie = false;
+				$filter_category = false;
 				if (count($InfoFieldList) > 5) {
-					if ($InfoFieldList[0] == 'categorie') {
-						$filter_categorie = true;
+					if ($InfoFieldList[0] == 'category') {
+						$filter_category = true;
 					}
 				}
 
-				if (!$filter_categorie) {
+				if (!$filter_category) {
 					$fields_label = explode('|', $InfoFieldList[1]);
 					if (is_array($fields_label)) {
 						$keyList .= ', ';
@@ -8005,7 +8005,7 @@ abstract class CommonObject
 						print 'Error in request ' . $sql . ' ' . $this->db->lasterror() . '. Check setup of extra parameters.<br>';
 					}
 				} else {
-					require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+					require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 					$data = $form->select_all_categories(Category::$MAP_ID_TO_CODE[$InfoFieldList[5]], '', 'parent', 64, $InfoFieldList[6], 1, 1);
 					$out .= '<option value="0">&nbsp;</option>';
 					foreach ($data as $data_key => $data_value) {
@@ -8101,15 +8101,15 @@ abstract class CommonObject
 					}
 				}
 
-				$filter_categorie = false;
+				$filter_category = false;
 				if (count($InfoFieldList) > 5) {
-					if ($InfoFieldList[0] == 'categorie') {
-						$filter_categorie = true;
+					if ($InfoFieldList[0] == 'category') {
+						$filter_category = true;
 					}
 				}
 
 				// Common filter
-				if (!$filter_categorie) {
+				if (!$filter_category) {
 					$fields_label = explode('|', $InfoFieldList[1]);
 					if (is_array($fields_label)) {
 						$keyList .= ', ';
@@ -8239,7 +8239,7 @@ abstract class CommonObject
 						print 'Error in request ' . $sql . ' ' . $this->db->lasterror() . '. Check setup of extra parameters.<br>';
 					}
 				} else {
-					require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+					require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 					$data = $form->select_all_categories(Category::$MAP_ID_TO_CODE[(int) $InfoFieldList[5]], '', 'parent', 64, $InfoFieldList[6], 1, 1);
 					$out = $form->multiselectarray($keyprefix . $key . $keysuffix, $data, $value_arr, 0, 0, $morecss, 0, '100%');
 				}
@@ -8600,10 +8600,10 @@ abstract class CommonObject
 				$keyList .= implode(', ', $fields_label);
 			}
 
-			$filter_categorie = false;
+			$filter_category = false;
 			if (count($InfoFieldList) > 5) {
-				if ($InfoFieldList[0] == 'categorie') {
-					$filter_categorie = true;
+				if ($InfoFieldList[0] == 'category') {
+					$filter_category = true;
 				}
 			}
 
@@ -8625,7 +8625,7 @@ abstract class CommonObject
 			dol_syslog(get_class($this).':showOutputField:$type=sellist', LOG_DEBUG);
 			$resql = $this->db->query($sql);
 			if ($resql) {
-				if (!$filter_categorie) {
+				if (!$filter_category) {
 					$value = ''; // value was used, so now we reset it to use it to build final output
 					$numrows = $this->db->num_rows($resql);
 					if ($numrows) {
@@ -8659,7 +8659,7 @@ abstract class CommonObject
 						}
 					}
 				} else {
-					require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+					require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 
 					$toprint = array();
 					$obj = $this->db->fetch_object($resql);
@@ -8710,10 +8710,10 @@ abstract class CommonObject
 				$keyList .= implode(', ', $fields_label);
 			}
 
-			$filter_categorie = false;
+			$filter_category = false;
 			if (count($InfoFieldList) > 5) {
-				if ($InfoFieldList[0] == 'categorie') {
-					$filter_categorie = true;
+				if ($InfoFieldList[0] == 'category') {
+					$filter_category = true;
 				}
 			}
 
@@ -8728,7 +8728,7 @@ abstract class CommonObject
 			dol_syslog(get_class($this).':showOutputField:$type=chkbxlst', LOG_DEBUG);
 			$resql = $this->db->query($sql);
 			if ($resql) {
-				if (!$filter_categorie) {
+				if (!$filter_category) {
 					$value = ''; // value was used, so now we reset it to use it to build final output
 					$toprint = array();
 					while ($obj = $this->db->fetch_object($resql)) {
@@ -8761,7 +8761,7 @@ abstract class CommonObject
 						}
 					}
 				} else {
-					require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+					require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 
 					$toprint = array();
 					while ($obj = $this->db->fetch_object($resql)) {
@@ -9581,7 +9581,7 @@ abstract class CommonObject
 	 * @param  int		$origin_id		Old thirdparty id (the thirdparty to delete)
 	 * @param  int		$dest_id		New thirdparty id (the thirdparty that will received element of the other)
 	 * @param  string[]	$tables			Tables that need to be changed
-	 * @param  int<0,1>	$ignoreerrors	Ignore errors. Return true even if errors. We need this when replacement can fails like for categories (categorie of old thirdparty may already exists on new one)
+	 * @param  int<0,1>	$ignoreerrors	Ignore errors. Return true even if errors. We need this when replacement can fails like for categories (category of old thirdparty may already exists on new one)
 	 * @return bool						True if success, False if error
 	 */
 	public static function commonReplaceThirdparty(DoliDB $dbs, $origin_id, $dest_id, array $tables, $ignoreerrors = 0)
@@ -9624,7 +9624,7 @@ abstract class CommonObject
 	 * @param  int			$origin_id		Old product id (the product to delete)
 	 * @param  int 			$dest_id		New product id (the product that will received element of the other)
 	 * @param  string[]		$tables			Tables that need to be changed
-	 * @param  int<0,1>		$ignoreerrors	Ignore errors. Return true even if errors. We need this when replacement can fails like for categories (categorie of old product may already exists on new one)
+	 * @param  int<0,1>		$ignoreerrors	Ignore errors. Return true even if errors. We need this when replacement can fails like for categories (category of old product may already exists on new one)
 	 * @return bool							True if success, False if error
 	 */
 	public static function commonReplaceProduct(DoliDB $dbs, $origin_id, $dest_id, array $tables, $ignoreerrors = 0)
@@ -11192,7 +11192,7 @@ abstract class CommonObject
 	 */
 	public function getCategoriesCommon($type_categ)
 	{
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 		// Get current categories
 		$c = new Category($this->db);
@@ -11222,7 +11222,7 @@ abstract class CommonObject
 
 		dol_syslog(get_class($this)."::setCategoriesCommon Object Id:".$this->id.' type_categ:'.$type_categ.' nb tag add:'.count($categories), LOG_DEBUG);
 
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 		if (empty($type_categ)) {
 			dol_syslog(__METHOD__.': Type '.$type_categ.'is an unknown category type. Done nothing.', LOG_ERR);
@@ -11296,11 +11296,11 @@ abstract class CommonObject
 			$type = $this->table_element;
 		}
 
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		$categorystatic = new Category($this->db);
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
+		$categoriestatic = new Category($this->db);
 
-		$sql = "INSERT INTO ".$this->db->prefix()."categorie_".(empty($categorystatic->MAP_CAT_TABLE[$type]) ? $type : $categorystatic->MAP_CAT_TABLE[$type])." (fk_categorie, fk_product)";
-		$sql .= " SELECT fk_categorie, $toId FROM ".$this->db->prefix()."categorie_".(empty($categorystatic->MAP_CAT_TABLE[$type]) ? $type : $categorystatic->MAP_CAT_TABLE[$type]);
+		$sql = "INSERT INTO ".$this->db->prefix()."category_".(empty($categoriestatic->MAP_CAT_TABLE[$type]) ? $type : $categoriestatic->MAP_CAT_TABLE[$type])." (fk_category, fk_product)";
+		$sql .= " SELECT fk_category, $toId FROM ".$this->db->prefix()."category_".(empty($categoriestatic->MAP_CAT_TABLE[$type]) ? $type : $categoriestatic->MAP_CAT_TABLE[$type]);
 		$sql .= " WHERE fk_product = ".((int) $fromId);
 
 		if (!$this->db->query($sql)) {

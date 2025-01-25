@@ -791,7 +791,7 @@ class Entrepot extends CommonObject
 		}
 		// show categories for this record only in ajax to not overload lists
 		if (!$nofetch && isModEnabled('category')) {
-			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+			require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 			$form = new Form($this->db);
 			$datas['categories_warehouse'] = '<br>' . $form->showCategories($this->id, Category::TYPE_WAREHOUSE, 1, 1);
 		}
@@ -1031,7 +1031,7 @@ class Entrepot extends CommonObject
 	 */
 	public function setCategories($categories)
 	{
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		return parent::setCategoriesCommon($categories, Category::TYPE_WAREHOUSE);
 	}
 

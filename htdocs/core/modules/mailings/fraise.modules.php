@@ -173,7 +173,7 @@ class mailing_fraise extends MailingTargets
 
 		// Show categories
 		$sql = "SELECT rowid, label, type, visible";
-		$sql .= " FROM ".MAIN_DB_PREFIX."categorie";
+		$sql .= " FROM ".MAIN_DB_PREFIX."category";
 		$sql .= " WHERE type = 3"; // We keep only categories for members
 		// $sql.= " AND visible > 0";	// We ignore the property visible because member's categories does not use this property (only products categories use it).
 		$sql .= " AND entity = ".$config->entity;
@@ -254,8 +254,8 @@ class mailing_fraise extends MailingTargets
 		$sql .= " a.datefin, a.civility as civility_id, a.login, a.societe"; // Other fields
 		$sql .= " FROM ".MAIN_DB_PREFIX."member as a";
 		if (GETPOSTINT('filter_category') > 0) {
-			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."categorie_member as cm ON cm.fk_member = a.rowid";
-			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."categorie as c ON c.rowid = cm.fk_categorie AND c.rowid = ".(GETPOSTINT('filter_category'));
+			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."category_member as cm ON cm.fk_member = a.rowid";
+			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."category as c ON c.rowid = cm.fk_category AND c.rowid = ".(GETPOSTINT('filter_category'));
 		}
 		$sql .= " , ".MAIN_DB_PREFIX."member_type as ta";
 		$sql .= " WHERE a.entity IN (".getEntity('member').") AND a.email <> ''"; // Note that null != '' is false

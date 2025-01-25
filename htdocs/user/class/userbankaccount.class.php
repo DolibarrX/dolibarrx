@@ -271,7 +271,7 @@ class UserBankAccount extends Account
 		// Delete link between tag and bank account
 		/*
 		if (!$error) {
-			$sql = "DELETE FROM ".MAIN_DB_PREFIX."categorie_account";
+			$sql = "DELETE FROM ".MAIN_DB_PREFIX."category_account";
 			$sql .= " WHERE fk_account = ".((int) $this->id);
 
 			$resql = $this->db->query($sql);

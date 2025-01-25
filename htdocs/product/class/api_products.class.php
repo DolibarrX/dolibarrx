@@ -22,7 +22,7 @@ use Luracast\Restler\RestException;
 
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.product.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/variants/class/ProductAttribute.class.php';
 require_once DOL_DOCUMENT_ROOT.'/variants/class/ProductAttributeValue.class.php';
 require_once DOL_DOCUMENT_ROOT.'/variants/class/ProductCombination.class.php';
@@ -194,7 +194,7 @@ class Products extends DolibarrApi
 		$sql .= " FROM ".$this->db->prefix()."product as t";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product_extrafields AS ef ON ef.fk_object = t.rowid";	// So we will be able to filter on extrafields
 		if ($category > 0) {
-			$sql .= ", ".$this->db->prefix()."categorie_product as c";
+			$sql .= ", ".$this->db->prefix()."category_product as c";
 		}
 		$sql .= ' WHERE t.entity IN ('.getEntity('product').')';
 
@@ -211,7 +211,7 @@ class Products extends DolibarrApi
 
 		// Select products of given category
 		if ($category > 0) {
-			$sql .= " AND c.fk_categorie = ".((int) $category);
+			$sql .= " AND c.fk_category = ".((int) $category);
 			$sql .= " AND c.fk_product = t.rowid";
 		}
 		if ($mode == 1) {
@@ -666,7 +666,7 @@ class Products extends DolibarrApi
 	 */
 	public function getCategories($id, $sortfield = "s.rowid", $sortorder = 'ASC', $limit = 0, $page = 0)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('categorie', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('category', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -958,7 +958,7 @@ class Products extends DolibarrApi
 		$sql .= " FROM ".MAIN_DB_PREFIX."product AS t LEFT JOIN ".MAIN_DB_PREFIX."product_extrafields AS ef ON (ef.fk_object = t.rowid)"; // Modification VMR Global Solutions to include extrafields as search parameters in the API GET call, so we will be able to filter on extrafields
 
 		if ($category > 0) {
-			$sql .= ", ".$this->db->prefix()."categorie_product as c";
+			$sql .= ", ".$this->db->prefix()."category_product as c";
 		}
 		$sql .= ", ".$this->db->prefix()."product_fournisseur_price as s";
 
@@ -973,7 +973,7 @@ class Products extends DolibarrApi
 		$sql .= " AND s.fk_product = t.rowid";
 		// Select products of given category
 		if ($category > 0) {
-			$sql .= " AND c.fk_categorie = ".((int) $category);
+			$sql .= " AND c.fk_category = ".((int) $category);
 			$sql .= " AND c.fk_product = t.rowid";
 		}
 		if ($mode == 1) {

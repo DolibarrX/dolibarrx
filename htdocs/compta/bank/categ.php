@@ -27,7 +27,7 @@
  *    \brief      Page to manage Bank Categories
  */
 
-// TODO Remove this file, this page is replaced by standard view categorie page
+// TODO Remove this file, this page is replaced by standard view category page
 
 // Load Dolibarr environment
 require '../../main.inc.php';
@@ -136,13 +136,13 @@ if ($action != 'edit') {
 	print '</tr>';
 }
 
-// Get bank line categorie ID
-include_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+// Get bank line category ID
+include_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 $cats = new Category($db);
 $catTypeID = $cats->getMapId()[Category::TYPE_BANK_LINE];
 
 $sql = "SELECT rowid, label";
-$sql .= " FROM ".MAIN_DB_PREFIX."categorie";
+$sql .= " FROM ".MAIN_DB_PREFIX."category";
 $sql .= " WHERE entity = ".$config->entity." AND type = " . ((int) $catTypeID);
 $sql .= " ORDER BY rowid";
 

@@ -413,7 +413,7 @@ class FormOther
 	{
 		// phpcs:enable
 		global $config, $langs;
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 		// For backward compatibility
 		if (is_numeric($type)) {

@@ -48,7 +48,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 /**
  * @var Conf $conf
@@ -894,7 +894,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			}
 
 			// Categories
-			if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+			if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 				print '<tr><td>'.$form->editfieldkey('Categories', 'contcats', '', $object, 0).'</td><td colspan="3">';
 				$cate_arbo = $form->select_all_categories(Category::TYPE_CONTACT, '', 'parent', 64, 0, 3);
 				print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('contcats', $cate_arbo, GETPOST('contcats', 'array'), 0, 0, '', 0, '90%');
@@ -1200,7 +1200,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			print '</td></tr>';
 
 			// Categories
-			if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+			if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 				$arrayselected = array();
 				print '<tr><td>'.$form->editfieldkey('Categories', 'contcats', '', $object, 0).'</td>';
 				print '<td colspan="3">';
@@ -1467,7 +1467,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		}
 
 		// Categories
-		if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+		if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 			print '<tr><td class="titlefield">'.$langs->trans("Categories").'</td>';
 			print '<td>';
 			print $form->showCategories($object->id, Category::TYPE_CONTACT, 1);

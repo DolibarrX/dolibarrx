@@ -30,7 +30,7 @@
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 
@@ -47,7 +47,7 @@ $langs->load("categories");
 
 // Security check
 $socid = GETPOSTINT('socid');
-if (!$user->hasRight('categorie', 'lire')) {
+if (!$user->hasRight('category', 'lire')) {
 	accessforbidden();
 }
 
@@ -126,7 +126,7 @@ if ($resHook < 0) {
 
 if (empty($resHook)) {
 	// Add action
-	if ($action == 'add' && $user->hasRight('categorie', 'creer')) {
+	if ($action == 'add' && $user->hasRight('category', 'creer')) {
 		// Action add a category
 		if ($cancel) {
 			if ($urlfrom) {
@@ -192,7 +192,7 @@ if (empty($resHook)) {
 		}
 	}
 	// Action confirmation of creation category
-	if ($action == 'confirmed' && $user->hasRight('categorie', 'creer')) {
+	if ($action == 'confirmed' && $user->hasRight('category', 'creer')) {
 		if ($urlfrom) {
 			header("Location: ".$urlfrom);
 			exit;
@@ -236,7 +236,7 @@ $help_url = 'EN:Module_Categories|FR:Module_Catégories|DE:Modul_Kategorien';
 
 llxHeader("", $langs->trans("Categories"), $help_url);
 
-if ($user->hasRight('categorie', 'creer')) {
+if ($user->hasRight('category', 'creer')) {
 	// Create or add
 	if ($action == 'create' || $action == 'add') {
 		dol_set_focus('#label');

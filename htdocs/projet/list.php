@@ -43,7 +43,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 require_once DOL_DOCUMENT_ROOT.'/projet/class/task.class.php';
 if (isModEnabled('category')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcategory.class.php';
-	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 }
 
 /**
@@ -758,17 +758,17 @@ if (!empty($searchCategoryProjectList)) {
 	$listofcategoryid = '';
 	foreach ($searchCategoryProjectList as $searchCategoryProject) {
 		if (intval($searchCategoryProject) == -2) {
-			$searchCategoryProjectSqlList[] = "NOT EXISTS (SELECT ck.fk_project FROM ".MAIN_DB_PREFIX."categorie_project as ck WHERE p.rowid = ck.fk_project)";
+			$searchCategoryProjectSqlList[] = "NOT EXISTS (SELECT ck.fk_project FROM ".MAIN_DB_PREFIX."category_project as ck WHERE p.rowid = ck.fk_project)";
 		} elseif (intval($searchCategoryProject) > 0) {
 			if ($searchCategoryProjectOperator == 0) {
-				$searchCategoryProjectSqlList[] = " EXISTS (SELECT ck.fk_project FROM ".MAIN_DB_PREFIX."categorie_project as ck WHERE p.rowid = ck.fk_project AND ck.fk_categorie = ".((int) $searchCategoryProject).")";
+				$searchCategoryProjectSqlList[] = " EXISTS (SELECT ck.fk_project FROM ".MAIN_DB_PREFIX."category_project as ck WHERE p.rowid = ck.fk_project AND ck.fk_category = ".((int) $searchCategoryProject).")";
 			} else {
 				$listofcategoryid .= ($listofcategoryid ? ', ' : '') .((int) $searchCategoryProject);
 			}
 		}
 	}
 	if ($listofcategoryid) {
-		$searchCategoryProjectSqlList[] = " EXISTS (SELECT ck.fk_project FROM ".MAIN_DB_PREFIX."categorie_project as ck WHERE p.rowid = ck.fk_project AND ck.fk_categorie IN (".$db->sanitize($listofcategoryid)."))";
+		$searchCategoryProjectSqlList[] = " EXISTS (SELECT ck.fk_project FROM ".MAIN_DB_PREFIX."category_project as ck WHERE p.rowid = ck.fk_project AND ck.fk_category IN (".$db->sanitize($listofcategoryid)."))";
 	}
 	if ($searchCategoryProjectOperator == 1) {
 		if (!empty($searchCategoryProjectSqlList)) {
@@ -787,7 +787,7 @@ if ($searchCategoryCustomerOperator == 1) {
 		if (intval($searchCategoryCustomer) == -2) {
 			$sqlCategoryCustomerNotExists  = " NOT EXISTS (";
 			$sqlCategoryCustomerNotExists .= " SELECT cat_cus.fk_soc";
-			$sqlCategoryCustomerNotExists .= " FROM ".$db->prefix()."categorie_societe AS cat_cus";
+			$sqlCategoryCustomerNotExists .= " FROM ".$db->prefix()."category_societe AS cat_cus";
 			$sqlCategoryCustomerNotExists .= " WHERE cat_cus.fk_soc = p.fk_soc";
 			$sqlCategoryCustomerNotExists .= " )";
 			$searchCategoryCustomerSqlList[] = $sqlCategoryCustomerNotExists;
@@ -798,9 +798,9 @@ if ($searchCategoryCustomerOperator == 1) {
 	if (!empty($existsCategoryCustomerList)) {
 		$sqlCategoryCustomerExists = " EXISTS (";
 		$sqlCategoryCustomerExists .= " SELECT cat_cus.fk_soc";
-		$sqlCategoryCustomerExists .= " FROM ".$db->prefix()."categorie_societe AS cat_cus";
+		$sqlCategoryCustomerExists .= " FROM ".$db->prefix()."category_societe AS cat_cus";
 		$sqlCategoryCustomerExists .= " WHERE cat_cus.fk_soc = p.fk_soc";
-		$sqlCategoryCustomerExists .= " AND cat_cus.fk_categorie IN (".$db->sanitize(implode(',', $existsCategoryCustomerList)).")";
+		$sqlCategoryCustomerExists .= " AND cat_cus.fk_category IN (".$db->sanitize(implode(',', $existsCategoryCustomerList)).")";
 		$sqlCategoryCustomerExists .= " )";
 		$searchCategoryCustomerSqlList[] = $sqlCategoryCustomerExists;
 	}
@@ -812,12 +812,12 @@ if ($searchCategoryCustomerOperator == 1) {
 		if (intval($searchCategoryCustomer) == -2) {
 			$sqlCategoryCustomerNotExists = " NOT EXISTS (";
 			$sqlCategoryCustomerNotExists .= " SELECT cat_cus.fk_soc";
-			$sqlCategoryCustomerNotExists .= " FROM ".$db->prefix()."categorie_societe AS cat_cus";
+			$sqlCategoryCustomerNotExists .= " FROM ".$db->prefix()."category_societe AS cat_cus";
 			$sqlCategoryCustomerNotExists .= " WHERE cat_cus.fk_soc = p.fk_soc";
 			$sqlCategoryCustomerNotExists .= " )";
 			$searchCategoryCustomerSqlList[] = $sqlCategoryCustomerNotExists;
 		} elseif (intval($searchCategoryCustomer) > 0) {
-			$searchCategoryCustomerSqlList[] = "p.fk_soc IN (SELECT fk_soc FROM ".$db->prefix()."categorie_societe WHERE fk_categorie = ".((int) $searchCategoryCustomer).")";
+			$searchCategoryCustomerSqlList[] = "p.fk_soc IN (SELECT fk_soc FROM ".$db->prefix()."category_societe WHERE fk_category = ".((int) $searchCategoryCustomer).")";
 		}
 	}
 	if (!empty($searchCategoryCustomerSqlList)) {
@@ -1222,13 +1222,13 @@ if ($user->hasRight('user', 'user', 'lire')) {
 }
 
 // Filter on categories
-if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
+if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 	$formcategory = new FormCategory($db);
 	$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_PROJECT, $search_category_array, 'minwidth300imp minwidth300 widthcentpercentminusx');
 }
 
 // Filter on customer categories
-if (getDolGlobalString('MAIN_SEARCH_CATEGORY_CUSTOMER_ON_PROJECT_LIST') && isModEnabled("category") && $user->hasRight('categorie', 'lire')) {
+if (getDolGlobalString('MAIN_SEARCH_CATEGORY_CUSTOMER_ON_PROJECT_LIST') && isModEnabled("category") && $user->hasRight('category', 'lire')) {
 	$formcategory = new FormCategory($db);
 	$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_CUSTOMER, $searchCategoryCustomerList, 'minwidth300', $searchCategoryCustomerList ? $searchCategoryCustomerList : 0);
 }

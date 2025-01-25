@@ -33,10 +33,10 @@ require '../../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facturestats.class.php';
 if (isModEnabled('category')) {
-	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 }
 
 /**
@@ -122,8 +122,8 @@ if ($mode == 'customer') {
 		$stats->where .= ' AND f.fk_statut IN ('.$db->sanitize($object_status).')';
 	}
 	if (is_array($select_categ_categ_id) && !empty($select_categ_categ_id)) {
-		$stats->from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'categorie_societe as cat ON (f.fk_soc = cat.fk_soc)';
-		$stats->where .= ' AND cat.fk_categorie IN ('.$db->sanitize(implode(',', $select_categ_categ_id)).')';
+		$stats->from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'category_societe as cat ON (f.fk_soc = cat.fk_soc)';
+		$stats->where .= ' AND cat.fk_category IN ('.$db->sanitize(implode(',', $select_categ_categ_id)).')';
 	}
 }
 if ($mode == 'supplier') {
@@ -131,8 +131,8 @@ if ($mode == 'supplier') {
 		$stats->where .= ' AND f.fk_statut IN ('.$db->sanitize($object_status).')';
 	}
 	if (is_array($select_categ_categ_id) && !empty($select_categ_categ_id)) {
-		$stats->from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'categorie_fournisseur as cat ON (f.fk_soc = cat.fk_soc)';
-		$stats->where .= ' AND cat.fk_categorie IN ('.$db->sanitize(implode(',', $select_categ_categ_id)).')';
+		$stats->from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'category_fournisseur as cat ON (f.fk_soc = cat.fk_soc)';
+		$stats->where .= ' AND cat.fk_category IN ('.$db->sanitize(implode(',', $select_categ_categ_id)).')';
 	}
 }
 

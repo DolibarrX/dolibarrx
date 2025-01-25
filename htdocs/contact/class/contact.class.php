@@ -1378,7 +1378,7 @@ class Contact extends CommonObject
 
 		if (!$error) {
 			// Remove category
-			$sql = "DELETE FROM ".MAIN_DB_PREFIX."categorie_contact WHERE fk_socpeople = ".((int) $this->id);
+			$sql = "DELETE FROM ".MAIN_DB_PREFIX."category_contact WHERE fk_socpeople = ".((int) $this->id);
 			dol_syslog(__METHOD__, LOG_DEBUG);
 			$resql = $this->db->query($sql);
 			if (!$resql) {
@@ -1826,7 +1826,7 @@ class Contact extends CommonObject
 	 */
 	public function setCategories($categories)
 	{
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		return parent::setCategoriesCommon($categories, Category::TYPE_CONTACT);
 	}
 

@@ -990,7 +990,7 @@ class FormSetupItem
 	 */
 	public function generateInputFieldCategories()
 	{
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 		$formother = new FormOther($this->db);
 
@@ -1248,7 +1248,7 @@ class FormSetupItem
 				$out .= $this->langs->trans($template->label);
 			}
 		} elseif (preg_match('/category:/', $this->type)) {
-			require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 			$c = new Category($this->db);
 			$result = $c->fetch($this->fieldValue);
 			if ($result < 0) {

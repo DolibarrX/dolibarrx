@@ -30,7 +30,7 @@
 
 // Load Dolibarr environment
 require '../../main.inc.php'; // Load $user and permissions
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/treeview.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
@@ -57,7 +57,7 @@ if (is_numeric($type)) {
 	$type = Category::$MAP_ID_TO_CODE[(int) $type]; // For backward compatibility
 }
 
-if (!$user->hasRight('categorie', 'lire')) {
+if (!$user->hasRight('category', 'lire')) {
 	accessforbidden();
 }
 

@@ -142,7 +142,7 @@ class PaymentVarious extends CommonObject
 	/**
 	 * @var int transaction category
 	 */
-	public $categorie_transaction;
+	public $category_transaction;
 
 	/**
 	 * @var int ID

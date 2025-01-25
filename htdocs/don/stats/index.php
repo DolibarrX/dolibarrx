@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/don/class/donstats.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
 if (isModEnabled('category')) {
-	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 }
 
 /**
@@ -87,8 +87,8 @@ dol_mkdir($dir);
 $stats = new DonationStats($db, $socid, '', ($userId > 0 ? $userId : 0), ($typent_id > 0 ? $typent_id : 0), ($status > 0 ? $status : 4));
 
 if (is_array($custcats) && !empty($custcats)) {
-	$stats->from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'categorie_societe as cat ON (d.fk_soc = cat.fk_soc)';
-	$stats->where .= ' AND cat.fk_categorie IN ('.$db->sanitize(implode(',', $custcats)).')';
+	$stats->from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'category_societe as cat ON (d.fk_soc = cat.fk_soc)';
+	$stats->where .= ' AND cat.fk_category IN ('.$db->sanitize(implode(',', $custcats)).')';
 }
 
 // Build graphic number of object

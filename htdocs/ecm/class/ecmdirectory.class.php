@@ -622,8 +622,8 @@ class EcmDirectory extends CommonObject
 	/**
 	 * 	Reconstruit l'arborescence des categories sous la forme d'un tableau à partir de la base de donnée
 	 *	Renvoi un tableau de tableau('id','id_mere',...) trie selon arbre et avec:
-	 *				id                  Id de la categorie
-	 *				id_mere             Id de la categorie mere
+	 *				id                  Id de la category
+	 *				id_mere             Id de la category mere
 	 *				id_children         Tableau des id enfant
 	 *				label               Name of directory
 	 *				cachenbofdoc        Nb of documents

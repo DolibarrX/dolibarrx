@@ -963,7 +963,7 @@ class ImportXlsx extends ModeleImports
 
 						$is_table_category_link = false;
 						$fname = 'rowid';
-						if (strpos($tablename, '_categorie_') !== false) {
+						if (strpos($tablename, '_category_') !== false) {
 							$is_table_category_link = true;
 							$fname = '*';
 						}
@@ -1014,7 +1014,7 @@ class ImportXlsx extends ModeleImports
 										$lastinsertid = $res->rowid;
 										if ($is_table_category_link) {
 											$lastinsertid = 'linktable';
-										} // used to apply update on tables like llx_categorie_product and avoid being blocked for all file content if at least one entry already exists
+										} // used to apply update on tables like llx_category_product and avoid being blocked for all file content if at least one entry already exists
 										$last_insert_id_array[$tablename] = $lastinsertid;
 									} elseif ($num_rows > 1) {
 										$this->errors[$error]['lib'] = $langs->trans('MultipleRecordFoundWithTheseFilters', implode(', ', $filters));

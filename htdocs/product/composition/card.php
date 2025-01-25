@@ -35,7 +35,7 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 /**
  * @var Conf $conf
@@ -167,7 +167,7 @@ $formproduct = new FormProduct($db);
 $product_fourn = new ProductFournisseur($db);
 $productstatic = new Product($db);
 $resql = false;
-// action recherche des produits par mot-cle et/ou par categorie
+// action recherche des produits par mot-cle et/ou par category
 if ($action == 'search') {
 	$current_lang = $langs->getDefaultLang();
 
@@ -183,7 +183,7 @@ if ($action == 'search') {
 	$sql .= $hookManager->resPrint;
 
 	$sql .= ' FROM '.MAIN_DB_PREFIX.'product as p';
-	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'categorie_product as cp ON p.rowid = cp.fk_product';
+	$sql .= ' LEFT JOIN '.MAIN_DB_PREFIX.'category_product as cp ON p.rowid = cp.fk_product';
 	if (getDolGlobalInt('MAIN_MULTILANGS')) {
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."product_lang as pl ON pl.fk_product = p.rowid AND lang='".($current_lang)."'";
 	}
@@ -208,7 +208,7 @@ if ($action == 'search') {
 		$sql .= natural_search($params, $key);
 	}
 	if (isModEnabled('category') && !empty($parent) && $parent != -1) {
-		$sql .= " AND cp.fk_categorie ='".$db->escape($parent)."'";
+		$sql .= " AND cp.fk_category ='".$db->escape($parent)."'";
 	}
 	$sql .= " ORDER BY p.ref ASC";
 
@@ -649,7 +649,7 @@ if ($id > 0 || !empty($ref)) {
 			print '<input type="text" name="key" value="'.$key.'"> &nbsp; ';
 			print '</div>';
 			if (isModEnabled('category')) {
-				require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+				require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 				print '<div class="inline-block">'.$langs->trans("CategoryFilter").': ';
 				print $form->select_all_categories(Category::TYPE_PRODUCT, $parent, 'parent').' &nbsp; </div>';
 				print ajax_combobox('parent');

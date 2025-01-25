@@ -73,7 +73,7 @@ class CommandeStats extends Stats
 	public $field_line;
 
 	/**
-	 * @var string	To store the FROM part of the categorie table of the SQL request
+	 * @var string	To store the FROM part of the category table of the SQL request
 	 */
 	public $categ_link;
 
@@ -116,7 +116,7 @@ class CommandeStats extends Stats
 			$this->field = 'total_ht';
 			$this->field_line = 'total_ht';
 			//$this->where .= " c.fk_statut > 0"; // Not draft and not cancelled
-			$this->categ_link = MAIN_DB_PREFIX.'categorie_societe';
+			$this->categ_link = MAIN_DB_PREFIX.'category_societe';
 		} elseif ($mode == 'supplier') {
 			$object = new CommandeFournisseur($this->db);
 			$this->from = MAIN_DB_PREFIX.$object->table_element." as c";
@@ -124,7 +124,7 @@ class CommandeStats extends Stats
 			$this->field = 'total_ht';
 			$this->field_line = 'total_ht';
 			//$this->where .= " c.fk_statut > 2"; // Only approved & ordered
-			$this->categ_link = MAIN_DB_PREFIX.'categorie_fournisseur';
+			$this->categ_link = MAIN_DB_PREFIX.'category_fournisseur';
 		}
 		//$this->where.= " AND c.fk_soc = s.rowid AND c.entity = ".$config->entity;
 		$this->where .= ($this->where ? ' AND ' : '').'c.entity IN ('.getEntity('commande').')';
@@ -142,7 +142,7 @@ class CommandeStats extends Stats
 		}
 
 		if ($categid) {
-			$this->where .= ' AND EXISTS (SELECT rowid FROM '.$this->categ_link.' as cats WHERE cats.fk_soc = c.fk_soc AND cats.fk_categorie = '.((int) $categid).')';
+			$this->where .= ' AND EXISTS (SELECT rowid FROM '.$this->categ_link.' as cats WHERE cats.fk_soc = c.fk_soc AND cats.fk_category = '.((int) $categid).')';
 		}
 	}
 

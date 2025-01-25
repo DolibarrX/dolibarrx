@@ -255,7 +255,7 @@ class mailing_advthirdparties extends MailingTargets
 
 		// Show categories
 		$sql = "SELECT rowid, label, type, visible";
-		$sql .= " FROM ".MAIN_DB_PREFIX."categorie";
+		$sql .= " FROM ".MAIN_DB_PREFIX."category";
 		$sql .= " WHERE type in (1,2)"; // We keep only categories for suppliers and customers/prospects
 		// $sql.= " AND visible > 0";	// We ignore the property visible because third party's categories does not use this property (only products categories use it).
 		$sql .= " AND entity = ".$config->entity;

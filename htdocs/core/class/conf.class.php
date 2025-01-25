@@ -1094,7 +1094,7 @@ class Conf extends stdClass
 
 			// Define list of limited modules (value must be key found for "name" property of module, so for example 'supplierproposal' for Module "Supplier Proposal"
 			if (!isset($this->global->MAIN_MODULES_FOR_EXTERNAL)) {
-				$this->global->MAIN_MODULES_FOR_EXTERNAL = 'user,societe,propal,commande,facture,categorie,supplierproposal,fournisseur,contact,projet,contrat,ficheinter,expedition,reception,agenda,resource,member,blockedlog,ticket'; // '' means 'all'. Note that contact is added here as it should be a module later.
+				$this->global->MAIN_MODULES_FOR_EXTERNAL = 'user,societe,propal,commande,facture,category,supplierproposal,fournisseur,contact,projet,contrat,ficheinter,expedition,reception,agenda,resource,member,blockedlog,ticket'; // '' means 'all'. Note that contact is added here as it should be a module later.
 			}
 			if (!empty($this->modules_parts['moduleforexternal'])) {		// Module part to include an external module into the MAIN_MODULES_FOR_EXTERNAL list
 				foreach ($this->modules_parts['moduleforexternal'] as $key => $value) {
@@ -1308,9 +1308,9 @@ class Conf extends stdClass
 			if (isset($this->contrat)) {
 				$this->contract = $this->contrat;
 			}
-			// category is new use, categorie is old use still initialised
-			if (isset($this->categorie)) {
-				$this->category = $this->categorie;
+			// category is new use, category is old use still initialised
+			if (isset($this->category)) {
+				$this->category = $this->category;
 			}
 			// project is new use, projet is old use still initialised
 			if (isset($this->projet) && !isset($this->project)) {

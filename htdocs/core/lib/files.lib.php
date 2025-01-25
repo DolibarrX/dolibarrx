@@ -3127,15 +3127,15 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 			}
 		}
 		$original_file = $config->agenda->dir_output . '/' . $original_file;
-	} elseif ($modulepart == 'category' && !empty($config->categorie->multidir_output[$entity])) {
+	} elseif ($modulepart == 'category' && !empty($config->category->multidir_output[$entity])) {
 		// Wrapping for categories (categories are allowed if user has permission to read categories or to work on TakePos)
-		if (empty($entity) || empty($config->categorie->multidir_output[$entity])) {
+		if (empty($entity) || empty($config->category->multidir_output[$entity])) {
 			return array('accessallowed' => 0, 'error' => 'Value entity must be provided');
 		}
-		if ($fuser->hasRight("categorie", $lire) || $fuser->hasRight("takepos", "run")) {
+		if ($fuser->hasRight("category", $lire) || $fuser->hasRight("takepos", "run")) {
 			$accessallowed = 1;
 		}
-		$original_file = $config->categorie->multidir_output[$entity] . '/' . $original_file;
+		$original_file = $config->category->multidir_output[$entity] . '/' . $original_file;
 	} elseif ($modulepart == 'prelevement' && !empty($config->prelevement->dir_output)) {
 		// Wrapping pour les prelevements
 		if ($fuser->hasRight('prelevement', 'bons', $lire) || preg_match('/^specimen/i', $original_file)) {

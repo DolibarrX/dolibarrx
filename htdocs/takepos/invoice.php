@@ -758,7 +758,7 @@ if (empty($resHook)) {
 
 
 		if (getDolGlobalString('TAKEPOS_SUPPLEMENTS')) {
-			require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 			$cat = new Category($db);
 			$categories = $cat->containing($idproduct, 'product');
 			$found = (array_search(getDolGlobalInt('TAKEPOS_SUPPLEMENTS_CATEGORY'), array_column($categories, 'id')));
@@ -1124,7 +1124,7 @@ if (empty($resHook)) {
 	}
 
 	if ($action == "order" && $placeid != 0 && ($user->hasRight('takepos', 'run') || defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE'))) {
-		include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		include_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		if ((isModEnabled('receiptprinter') && getDolGlobalInt('TAKEPOS_PRINTER_TO_USE'.$term) > 0) || getDolGlobalString('TAKEPOS_PRINT_METHOD') == "receiptprinter" || getDolGlobalString('TAKEPOS_PRINT_METHOD') == "takeposconnector") {
 			require_once DOL_DOCUMENT_ROOT.'/core/class/dolreceiptprinter.class.php';
 			$printer = new dolReceiptPrinter($db);
@@ -1796,9 +1796,9 @@ if (!$usediv) {
 
 if (!empty($_SESSION["basiclayout"]) && $_SESSION["basiclayout"] == 1) {
 	if ($mobilepage == "cats") {
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		$categorie = new Category($db);
-		$categories = $categorie->get_full_arbo('product');
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
+		$category = new Category($db);
+		$categories = $category->get_full_arbo('product');
 		$htmlforlines = '';
 		foreach ($categories as $row) {
 			if (defined('INCLUDE_PHONEPAGE_FROM_PUBLIC_PAGE')) {
@@ -1823,7 +1823,7 @@ if (!empty($_SESSION["basiclayout"]) && $_SESSION["basiclayout"] == 1) {
 	}
 
 	if ($mobilepage == "products") {
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		$object = new Category($db);
 		$catid = GETPOSTINT('catid');
 		$result = $object->fetch($catid);

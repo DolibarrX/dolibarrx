@@ -28,7 +28,7 @@
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/categories.lib.php';
 
 /**
@@ -39,7 +39,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/categories.lib.php';
  * @var User $user
  */
 
-if (!$user->hasRight('categorie', 'lire')) {
+if (!$user->hasRight('category', 'lire')) {
 	accessforbidden();
 }
 
@@ -54,7 +54,7 @@ $label = GETPOST('label', 'alpha');
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$result = restrictedArea($user, 'categorie', $id, '&category');
+$result = restrictedArea($user, 'category', $id, '&category');
 
 $object = new Category($db);
 $result = $object->fetch($id, $label);

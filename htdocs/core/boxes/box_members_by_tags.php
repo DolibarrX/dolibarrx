@@ -37,7 +37,7 @@ class box_members_by_tags extends ModeleBoxes
 	public $boxcode  = "box_members_by_tags";
 	public $boximg   = "object_user";
 	public $boxlabel = "BoxTitleMembersByTags";
-	public $depends  = array("member", "categorie");
+	public $depends  = array("member", "category");
 
 	public $enabled = 1;
 
@@ -86,7 +86,7 @@ class box_members_by_tags extends ModeleBoxes
 
 		if ($user->hasRight('member', 'lire')) {
 			require_once DOL_DOCUMENT_ROOT.'/members/class/memberstats.class.php';
-			require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 			$stats = new MemberStats($this->db, $user->socid, $user->id);
 
 			// Show array

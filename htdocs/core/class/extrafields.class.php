@@ -296,7 +296,7 @@ class ExtraFields
 		}
 
 		$table = $elementtype.'_extrafields';
-		if ($elementtype == 'categorie') {
+		if ($elementtype == 'category') {
 			$table = 'categories_extrafields';
 		}
 
@@ -551,7 +551,7 @@ class ExtraFields
 		}
 
 		$table = $elementtype.'_extrafields';
-		if ($elementtype == 'categorie') {
+		if ($elementtype == 'category') {
 			$table = 'categories_extrafields';
 		}
 
@@ -680,7 +680,7 @@ class ExtraFields
 		}
 
 		$table = $elementtype.'_extrafields';
-		if ($elementtype == 'categorie') {
+		if ($elementtype == 'category') {
 			$table = 'categories_extrafields';
 		}
 
@@ -1433,14 +1433,14 @@ class ExtraFields
 					}
 				}
 
-				$filter_categorie = false;
+				$filter_category = false;
 				if (count($InfoFieldList) > 5) {
-					if ($InfoFieldList[0] == 'categorie') {
-						$filter_categorie = true;
+					if ($InfoFieldList[0] == 'category') {
+						$filter_category = true;
 					}
 				}
 
-				if (!$filter_categorie) {
+				if (!$filter_category) {
 					$fields_label = explode('|', $InfoFieldList[1]);
 					if (is_array($fields_label)) {
 						$keyList .= ', ';
@@ -1560,7 +1560,7 @@ class ExtraFields
 						print 'Error in request '.$sql.' '.$this->db->lasterror().'. Check setup of extra parameters.<br>';
 					}
 				} else {
-					require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+					require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 					$data = $form->select_all_categories(Category::$MAP_ID_TO_CODE[$InfoFieldList[5]], '', 'parent', 64, $InfoFieldList[6], 1, 1);
 					$out .= '<option value="0">&nbsp;</option>';
 					if (is_array($data)) {
@@ -1658,14 +1658,14 @@ class ExtraFields
 					}
 				}
 
-				$filter_categorie = false;
+				$filter_category = false;
 				if (count($InfoFieldList) > 5) {
-					if ($InfoFieldList[0] == 'categorie') {
-						$filter_categorie = true;
+					if ($InfoFieldList[0] == 'category') {
+						$filter_category = true;
 					}
 				}
 
-				if (!$filter_categorie) {
+				if (!$filter_category) {
 					$fields_label = explode('|', $InfoFieldList[1]);
 					if (is_array($fields_label)) {
 						$keyList .= ', ';
@@ -1847,7 +1847,7 @@ class ExtraFields
 						print 'Error in request '.$sql.' '.$this->db->lasterror().'. Check setup of extra parameters.<br>';
 					}
 				} else {
-					require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+					require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 					$data = $form->select_all_categories(Category::$MAP_ID_TO_CODE[$InfoFieldList[5]], '', 'parent', 64, $InfoFieldList[6], 1, 1);
 					$out = $form->multiselectarray($keyprefix.$key.$keysuffix, $data, $value_arr, 0, 0, '', 0, '100%');
 				}
@@ -2106,10 +2106,10 @@ class ExtraFields
 				$keyList .= implode(', ', $fields_label);
 			}
 
-			$filter_categorie = false;
+			$filter_category = false;
 			if (count($InfoFieldList) > 5) {
-				if ($InfoFieldList[0] == 'categorie') {
-					$filter_categorie = true;
+				if ($InfoFieldList[0] == 'category') {
+					$filter_category = true;
 				}
 			}
 
@@ -2131,7 +2131,7 @@ class ExtraFields
 			dol_syslog(get_class($this).':showOutputField:$type=sellist', LOG_DEBUG);
 			$resql = $this->db->query($sql);
 			if ($resql) {
-				if (!$filter_categorie) {
+				if (!$filter_category) {
 					$value = ''; // value was used, so now we reset it to use it to build final output
 
 					$obj = $this->db->fetch_object($resql);
@@ -2169,7 +2169,7 @@ class ExtraFields
 					$toprint = array();
 					$obj = $this->db->fetch_object($resql);
 					if ($obj->rowid) {
-						require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+						require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 						$c = new Category($this->db);
 						$result = $c->fetch($obj->rowid);
 						if ($result > 0) {
@@ -2223,10 +2223,10 @@ class ExtraFields
 				$keyList .= implode(', ', $fields_label);
 			}
 
-			$filter_categorie = false;
+			$filter_category = false;
 			if (count($InfoFieldList) > 5) {
-				if ($InfoFieldList[0] == 'categorie') {
-					$filter_categorie = true;
+				if ($InfoFieldList[0] == 'category') {
+					$filter_category = true;
 				}
 			}
 
@@ -2241,7 +2241,7 @@ class ExtraFields
 			dol_syslog(get_class($this).':showOutputField:$type=chkbxlst', LOG_DEBUG);
 			$resql = $this->db->query($sql);
 			if ($resql) {
-				if (!$filter_categorie) {
+				if (!$filter_category) {
 					$value = ''; // value was used, so now we reset it to use it to build final output
 					$toprint = array();
 					while ($obj = $this->db->fetch_object($resql)) {
@@ -2277,7 +2277,7 @@ class ExtraFields
 						}
 					}
 				} else {
-					require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+					require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 					$toprint = array();
 					while ($obj = $this->db->fetch_object($resql)) {

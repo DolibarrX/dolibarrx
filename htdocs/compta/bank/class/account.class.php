@@ -592,7 +592,7 @@ class Account extends CommonObject
 	 *  @param	string		$label			Description
 	 *  @param	float		$amount			Amount
 	 *  @param	string		$num_chq		Numero cheque or transfer
-	 *  @param	int  		$categorie		Category id (optional)
+	 *  @param	int  		$category		Category id (optional)
 	 *  @param	User		$user			User that create
 	 *  @param	string		$emetteur		Name of cheque writer
 	 *  @param	string		$bank			Bank of cheque writer
@@ -602,7 +602,7 @@ class Account extends CommonObject
 	 *  @param	float		$amount_main_currency	Amount
 	 *  @return	int							Rowid of added entry, <0 if KO
 	 */
-	public function addline($date, $oper, $label, $amount, $num_chq, $categorie, User $user, $emetteur = '', $bank = '', $accountancycode = '', $datev = null, $num_releve = '', $amount_main_currency = null)
+	public function addline($date, $oper, $label, $amount, $num_chq, $category, User $user, $emetteur = '', $bank = '', $accountancycode = '', $datev = null, $num_releve = '', $amount_main_currency = null)
 	{
 		global $langs;
 
@@ -682,11 +682,11 @@ class Account extends CommonObject
 		}
 
 		if ($accline->insert() > 0) {
-			if ($categorie > 0) {
+			if ($category > 0) {
 				$sql = "INSERT INTO ".MAIN_DB_PREFIX."category_bankline(";
 				$sql .= "lineid, fk_categ";
 				$sql .= ") VALUES (";
-				$sql .= ((int) $accline->id).", '".$this->db->escape($categorie)."'";
+				$sql .= ((int) $accline->id).", '".$this->db->escape($category)."'";
 				$sql .= ")";
 
 				$result = $this->db->query($sql);
@@ -1199,7 +1199,7 @@ class Account extends CommonObject
 	 */
 	public function setCategories($categories)
 	{
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		return parent::setCategoriesCommon($categories, Category::TYPE_ACCOUNT);
 	}
 
@@ -1220,7 +1220,7 @@ class Account extends CommonObject
 
 		// Delete link between tag and bank account
 		if (!$error) {
-			$sql = "DELETE FROM ".MAIN_DB_PREFIX."categorie_account";
+			$sql = "DELETE FROM ".MAIN_DB_PREFIX."category_account";
 			$sql .= " WHERE fk_account = ".((int) $this->id);
 
 			$resql = $this->db->query($sql);
@@ -1539,7 +1539,7 @@ class Account extends CommonObject
 		}
 		// show categories for this record only in ajax to not overload lists
 		if (isModEnabled('category') && !$nofetch) {
-			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+			require_once DOL_DOCUMENT_ROOT . '/categories/class/category.class.php';
 			$form = new Form($this->db);
 			$datas['categories'] = '<br>' . $form->showCategories($this->id, Category::TYPE_ACCOUNT, 1);
 		}

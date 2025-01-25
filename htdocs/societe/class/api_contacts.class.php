@@ -20,7 +20,7 @@
 use Luracast\Restler\RestException;
 
 //require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
-//require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+//require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 
 /**
@@ -53,7 +53,7 @@ class Contacts extends DolibarrApi
 		$this->db = $db;
 
 		require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
-		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 
 		$this->contact = new Contact($this->db);
 	}
@@ -219,17 +219,17 @@ class Contacts extends DolibarrApi
 				// $listofcategoryid = '';
 				foreach ($searchCategoryContactList as $searchCategoryContact) {
 					if (intval($searchCategoryContact) == -2) {
-						$searchCategoryContactSqlList[] = "NOT EXISTS (SELECT ck.fk_socpeople FROM ".MAIN_DB_PREFIX."categorie_contact as ck WHERE t.rowid = ck.fk_socpeople)";
+						$searchCategoryContactSqlList[] = "NOT EXISTS (SELECT ck.fk_socpeople FROM ".MAIN_DB_PREFIX."category_contact as ck WHERE t.rowid = ck.fk_socpeople)";
 					} elseif (intval($searchCategoryContact) > 0) {
 						// if ($searchCategoryContactOperator == 0) {
-							$searchCategoryContactSqlList[] = " EXISTS (SELECT ck.fk_socpeople FROM ".MAIN_DB_PREFIX."categorie_contact as ck WHERE t.rowid = ck.fk_socpeople AND ck.fk_categorie = ".((int) $searchCategoryContact).")";
+							$searchCategoryContactSqlList[] = " EXISTS (SELECT ck.fk_socpeople FROM ".MAIN_DB_PREFIX."category_contact as ck WHERE t.rowid = ck.fk_socpeople AND ck.fk_category = ".((int) $searchCategoryContact).")";
 						// } else {
 						// 	$listofcategoryid .= ($listofcategoryid ? ', ' : '') .((int) $searchCategoryContact);
 						// }
 					}
 				}
 				// if ($listofcategoryid) {
-				// 	$searchCategoryContactSqlList[] = " EXISTS (SELECT ck.fk_socpeople FROM ".MAIN_DB_PREFIX."categorie_contact as ck WHERE t.rowid = ck.fk_socpeople AND ck.fk_categorie IN (".$this->db->sanitize($listofcategoryid)."))";
+				// 	$searchCategoryContactSqlList[] = " EXISTS (SELECT ck.fk_socpeople FROM ".MAIN_DB_PREFIX."category_contact as ck WHERE t.rowid = ck.fk_socpeople AND ck.fk_category IN (".$this->db->sanitize($listofcategoryid)."))";
 				// }
 				// if ($searchCategoryContactOperator == 1) {
 				// 	if (!empty($searchCategoryContactSqlList)) {
@@ -520,7 +520,7 @@ class Contacts extends DolibarrApi
 	 */
 	public function getCategories($id, $sortfield = "s.rowid", $sortorder = 'ASC', $limit = 0, $page = 0)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('categorie', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('category', 'lire')) {
 			throw new RestException(403);
 		}
 

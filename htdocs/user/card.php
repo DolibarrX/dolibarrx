@@ -58,7 +58,7 @@ if (isModEnabled('member')) {
 	require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 }
 if (isModEnabled('category')) {
-	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 }
 if (isModEnabled('stock')) {
 	require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
@@ -1376,7 +1376,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 	}
 
 	// Categories
-	if (isModEnabled('category') && $user->hasRight("categorie", "read")) {
+	if (isModEnabled('category') && $user->hasRight("category", "read")) {
 		print '<tr><td>'.$form->editfieldkey('Categories', 'usercats', '', $object, 0).'</td><td>';
 		$cate_arbo = $form->select_all_categories('user', '', 'parent', 0, 0, 3);
 		print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('usercats', $cate_arbo, GETPOST('usercats', 'array'), 0, 0, 'maxwdith300 widthcentpercentminusx', 0, '90%');
@@ -1866,7 +1866,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 			}
 
 			// Categories
-			if (isModEnabled('category') && $user->hasRight("categorie", "read")) {
+			if (isModEnabled('category') && $user->hasRight("category", "read")) {
 				print '<tr><td>'.$langs->trans("Categories").'</td>';
 				print '<td>';
 				print $form->showCategories($object->id, Category::TYPE_USER, 1);
@@ -2855,7 +2855,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 			print '</tr>';
 
 			// Categories
-			if (isModEnabled('category') && $user->hasRight("categorie", "read")) {
+			if (isModEnabled('category') && $user->hasRight("category", "read")) {
 				print '<tr><td>'.$form->editfieldkey('Categories', 'usercats', '', $object, 0).'</td>';
 				print '<td>';
 				print img_picto('', 'category', 'class="pictofixedwidth"');

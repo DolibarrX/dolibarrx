@@ -30,7 +30,7 @@
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/treeview.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 
@@ -58,7 +58,7 @@ if (is_numeric($type)) {
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array array
 $hookManager->initHooks(array('categoryindex'));
 
-if (!$user->hasRight('categorie', 'lire')) {
+if (!$user->hasRight('category', 'lire')) {
 	accessforbidden();
 }
 
@@ -90,7 +90,7 @@ $arrayofcss = array('/includes/jquery/plugins/jquerytreeview/jquery.treeview.css
 llxHeader('', $title, '', '', 0, 0, $arrayofjs, $arrayofcss);
 
 $newcardbutton = '';
-if ($user->hasRight('categorie', 'creer')) {
+if ($user->hasRight('category', 'creer')) {
 	$newcardbutton .= dolGetButtonTitle($langs->trans('NewCategory'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/categories/card.php?action=create&type='.$type.'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?type='.$type.$moreparam).$moreparam);
 }
 
@@ -220,12 +220,12 @@ foreach ($fulltree as $key => $val) {
 	$entry .= '<a href="'.DOL_URL_ROOT.'/categories/viewcat.php?id='.$val['id'].'&type='.urlencode($type).$moreparam.'&backtolist='.urlencode($_SERVER["PHP_SELF"].'?type='.urlencode($type)).'">'.img_view().'</a>';
 	$entry .= '</td>';
 	$entry .= '<td class="right" width="30px;">';
-	if ($user->hasRight('categorie', 'creer')) {
+	if ($user->hasRight('category', 'creer')) {
 		$entry .= '<a class="editfielda" href="' . DOL_URL_ROOT . '/categories/edit.php?id=' . $val['id'] . '&type=' . urlencode($type) . $moreparam . '&backtopage=' . urlencode($_SERVER["PHP_SELF"] . '?type=' . urlencode($type)) . '">' . img_edit() . '</a>';
 	}
 	$entry .= '</td>';
 	$entry .= '<td class="right" width="30px;">';
-	if ($user->hasRight('categorie', 'supprimer')) {
+	if ($user->hasRight('category', 'supprimer')) {
 		$entry .= '<a class="deletefilelink" href="' . DOL_URL_ROOT . '/categories/viewcat.php?action=delete&token=' . newToken() . '&id=' . $val['id'] . '&type=' . urlencode($type) . $moreparam . '&backtopage=' . urlencode($_SERVER["PHP_SELF"] . '?type=' . urlencode($type) . $moreparam) . '&backtolist=' . urlencode($_SERVER["PHP_SELF"] . '?type=' . urlencode($type) . $moreparam) . '">' . img_delete() . '</a>';
 	}
 	$entry .= '</td>';
