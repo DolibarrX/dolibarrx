@@ -93,19 +93,19 @@ ALTER TABLE llx_notify_def MODIFY COLUMN fk_soc integer NULL;
 -- VPGSQL8.2 ALTER TABLE llx_notify_def ALTER COLUMN fk_soc SET DEFAULT NULL;
 
 
-create table llx_categorie_project
+create table llx_category_project
 (
-  fk_categorie  integer NOT NULL,
+  fk_category  integer NOT NULL,
   fk_project    integer NOT NULL,
   import_key    varchar(14)
 )ENGINE=innodb;
 
-ALTER TABLE llx_categorie_project ADD PRIMARY KEY pk_categorie_project (fk_categorie, fk_project);
-ALTER TABLE llx_categorie_project ADD INDEX idx_categorie_project_fk_categorie (fk_categorie);
-ALTER TABLE llx_categorie_project ADD INDEX idx_categorie_project_fk_project (fk_project);
+ALTER TABLE llx_category_project ADD PRIMARY KEY pk_category_project (fk_category, fk_project);
+ALTER TABLE llx_category_project ADD INDEX idx_category_project_fk_category (fk_category);
+ALTER TABLE llx_category_project ADD INDEX idx_category_project_fk_project (fk_project);
 
-ALTER TABLE llx_categorie_project ADD CONSTRAINT fk_categorie_project_categorie_rowid FOREIGN KEY (fk_categorie) REFERENCES llx_categorie (rowid);
-ALTER TABLE llx_categorie_project ADD CONSTRAINT fk_categorie_project_fk_project_rowid FOREIGN KEY (fk_project) REFERENCES llx_projet (rowid);
+ALTER TABLE llx_category_project ADD CONSTRAINT fk_category_project_category_rowid FOREIGN KEY (fk_category) REFERENCES llx_category (rowid);
+ALTER TABLE llx_category_project ADD CONSTRAINT fk_category_project_fk_project_rowid FOREIGN KEY (fk_project) REFERENCES llx_projet (rowid);
 
 ALTER TABLE llx_societe_remise_except ADD COLUMN entity	integer DEFAULT 1 NOT NULL after rowid;
 ALTER TABLE llx_societe_remise ADD COLUMN entity	integer DEFAULT 1 NOT NULL after rowid;

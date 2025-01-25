@@ -192,17 +192,17 @@ ALTER TABLE llx_don ADD INDEX idx_don_fk_user_valid (fk_user_valid);
 
 ALTER TABLE llx_commande ADD COLUMN revenuestamp double(24,8) DEFAULT 0 after localtax2;
 
-create table llx_element_categorie
+create table llx_element_category
 (
   rowid integer AUTO_INCREMENT PRIMARY KEY,
-  fk_categorie  integer NOT NULL,
+  fk_category  integer NOT NULL,
   fk_element  integer NOT NULL,
   import_key    varchar(14)
 )ENGINE=innodb;
 
-ALTER TABLE llx_element_categorie ADD UNIQUE INDEX idx_element_categorie_idx (fk_element, fk_categorie);
+ALTER TABLE llx_element_category ADD UNIQUE INDEX idx_element_category_idx (fk_element, fk_category);
 
-ALTER TABLE llx_element_categorie ADD CONSTRAINT fk_element_categorie_fk_categorie FOREIGN KEY (fk_categorie) REFERENCES llx_categorie(rowid);
+ALTER TABLE llx_element_category ADD CONSTRAINT fk_element_category_fk_category FOREIGN KEY (fk_category) REFERENCES llx_category(rowid);
 
 INSERT INTO llx_c_action_trigger (code,label,description,elementtype,rang) VALUES ('PROJECT_SENTBYMAIL','Project sent by mail','Executed when a project is sent by email','project',144);
 

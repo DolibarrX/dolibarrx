@@ -96,7 +96,7 @@ ALTER TABLE llx_payment_salary ADD COLUMN fk_projet integer DEFAULT NULL after a
 
 ALTER TABLE llx_payment_various ADD COLUMN ref varchar(30) NULL after rowid;
 
-ALTER TABLE llx_categorie ADD COLUMN ref_ext varchar(255);
+ALTER TABLE llx_category ADD COLUMN ref_ext varchar(255);
 
 ALTER TABLE llx_paiement ADD COLUMN ext_payment_id varchar(128);
 ALTER TABLE llx_paiement ADD COLUMN ext_payment_site varchar(128);

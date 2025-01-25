@@ -632,7 +632,7 @@ CREATE TABLE llx_ecm_directories_extrafields
   import_key                varchar(14)                             -- import key
 ) ENGINE=innodb;
 
-DROP TABLE llx_categorie_association;
+DROP TABLE llx_category_association;
 DROP TABLE llx_cond_reglement;
 DROP TABLE llx_zapier_hook_extrafields;
 

@@ -261,7 +261,7 @@ insert into llx_c_action_trigger (rowid,code,label,description,elementtype,rang)
 insert into llx_c_action_trigger (rowid,code,label,description,elementtype,rang) values (37,'TASK_DELETE','Task deleted','Executed when a project task is deleted','project',37);
 
 -- New : category translation
-create table llx_categorie_lang
+create table llx_category_lang
 (
   rowid          integer AUTO_INCREMENT PRIMARY KEY,
   fk_category    integer      DEFAULT 0 NOT NULL,
@@ -270,8 +270,8 @@ create table llx_categorie_lang
   description    text
 )ENGINE=innodb;
 
-ALTER TABLE llx_categorie_lang ADD UNIQUE INDEX uk_category_lang (fk_category, lang);
-ALTER TABLE llx_categorie_lang ADD CONSTRAINT fk_category_lang_fk_category 	FOREIGN KEY (fk_category) REFERENCES llx_categorie (rowid);
+ALTER TABLE llx_category_lang ADD UNIQUE INDEX uk_category_lang (fk_category, lang);
+ALTER TABLE llx_category_lang ADD CONSTRAINT fk_category_lang_fk_category 	FOREIGN KEY (fk_category) REFERENCES llx_category (rowid);
 
 -- Resource module
 CREATE TABLE llx_resource

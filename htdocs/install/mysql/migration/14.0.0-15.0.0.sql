@@ -131,19 +131,19 @@ ALTER TABLE llx_emailcollector_emailcollectoraction MODIFY COLUMN actionparam TE
 ALTER TABLE llx_knowledgemanagement_knowledgerecord ADD COLUMN lang varchar(6);
 ALTER TABLE llx_knowledgemanagement_knowledgerecord ADD COLUMN entity integer DEFAULT 1;
 
-CREATE TABLE llx_categorie_ticket
+CREATE TABLE llx_category_ticket
 (
-  fk_categorie  integer NOT NULL,
+  fk_category  integer NOT NULL,
   fk_ticket    integer NOT NULL,
   import_key    varchar(14)
 ) ENGINE=innodb;
 
-ALTER TABLE llx_categorie_ticket ADD PRIMARY KEY pk_categorie_ticket (fk_categorie, fk_ticket);
-ALTER TABLE llx_categorie_ticket ADD INDEX idx_categorie_ticket_fk_categorie (fk_categorie);
-ALTER TABLE llx_categorie_ticket ADD INDEX idx_categorie_ticket_fk_ticket (fk_ticket);
+ALTER TABLE llx_category_ticket ADD PRIMARY KEY pk_category_ticket (fk_category, fk_ticket);
+ALTER TABLE llx_category_ticket ADD INDEX idx_category_ticket_fk_category (fk_category);
+ALTER TABLE llx_category_ticket ADD INDEX idx_category_ticket_fk_ticket (fk_ticket);
 
-ALTER TABLE llx_categorie_ticket ADD CONSTRAINT fk_categorie_ticket_categorie_rowid FOREIGN KEY (fk_categorie) REFERENCES llx_categorie (rowid);
-ALTER TABLE llx_categorie_ticket ADD CONSTRAINT fk_categorie_ticket_ticket_rowid   FOREIGN KEY (fk_ticket) REFERENCES llx_ticket (rowid);
+ALTER TABLE llx_category_ticket ADD CONSTRAINT fk_category_ticket_category_rowid FOREIGN KEY (fk_category) REFERENCES llx_category (rowid);
+ALTER TABLE llx_category_ticket ADD CONSTRAINT fk_category_ticket_ticket_rowid   FOREIGN KEY (fk_ticket) REFERENCES llx_ticket (rowid);
 ALTER TABLE llx_product_fournisseur_price MODIFY COLUMN ref_fourn varchar(128);
 ALTER TABLE llx_product_customer_price MODIFY COLUMN ref_customer varchar(128);
 ALTER TABLE llx_product_association ADD COLUMN rang integer DEFAULT 0;
@@ -159,19 +159,19 @@ DELETE FROM llx_menu WHERE type = 'top' AND module = 'cashdesk' AND mainmenu = '
 
 INSERT INTO llx_c_action_trigger (code, label, description, elementtype, rang) values ('MEMBER_EXCLUDE', 'Member excluded', 'Executed when a member is excluded', 'member', 27);
 
-CREATE TABLE llx_categorie_knowledgemanagement
+CREATE TABLE llx_category_knowledgemanagement
 (
-  fk_categorie  integer NOT NULL,
+  fk_category  integer NOT NULL,
   fk_knowledgemanagement    integer NOT NULL,
   import_key    varchar(14)
 )ENGINE=innodb;
 
-ALTER TABLE llx_categorie_knowledgemanagement ADD PRIMARY KEY pk_categorie_knowledgemanagement (fk_categorie, fk_knowledgemanagement);
-ALTER TABLE llx_categorie_knowledgemanagement ADD INDEX idx_categorie_knowledgemanagement_fk_categorie (fk_categorie);
-ALTER TABLE llx_categorie_knowledgemanagement ADD INDEX idx_categorie_knowledgemanagement_fk_knowledgemanagement (fk_knowledgemanagement);
+ALTER TABLE llx_category_knowledgemanagement ADD PRIMARY KEY pk_category_knowledgemanagement (fk_category, fk_knowledgemanagement);
+ALTER TABLE llx_category_knowledgemanagement ADD INDEX idx_category_knowledgemanagement_fk_category (fk_category);
+ALTER TABLE llx_category_knowledgemanagement ADD INDEX idx_category_knowledgemanagement_fk_knowledgemanagement (fk_knowledgemanagement);
 
-ALTER TABLE llx_categorie_knowledgemanagement ADD CONSTRAINT fk_categorie_knowledgemanagement_categorie_rowid FOREIGN KEY (fk_categorie) REFERENCES llx_categorie (rowid);
-ALTER TABLE llx_categorie_knowledgemanagement ADD CONSTRAINT fk_categorie_knowledgemanagement_knowledgemanagement_rowid   FOREIGN KEY (fk_knowledgemanagement) REFERENCES llx_knowledgemanagement_knowledgerecord (rowid);
+ALTER TABLE llx_category_knowledgemanagement ADD CONSTRAINT fk_category_knowledgemanagement_category_rowid FOREIGN KEY (fk_category) REFERENCES llx_category (rowid);
+ALTER TABLE llx_category_knowledgemanagement ADD CONSTRAINT fk_category_knowledgemanagement_knowledgemanagement_rowid   FOREIGN KEY (fk_knowledgemanagement) REFERENCES llx_knowledgemanagement_knowledgerecord (rowid);
 
 ALTER TABLE llx_product_lot ADD COLUMN barcode varchar(180) DEFAULT NULL;
 ALTER TABLE llx_product_lot ADD COLUMN fk_barcode_type integer DEFAULT NULL;
@@ -542,17 +542,17 @@ INSERT INTO llx_c_forme_juridique (fk_pays, code, libelle, active) VALUES (154, 
 CREATE TABLE llx_element_tag
 (
     rowid integer AUTO_INCREMENT PRIMARY KEY,
-    fk_categorie  integer NOT NULL,
+    fk_category  integer NOT NULL,
     fk_element  integer NOT NULL,
     import_key    varchar(14)
 )ENGINE=innodb;
 
-ALTER TABLE llx_element_tag ADD COLUMN fk_categorie integer;
+ALTER TABLE llx_element_tag ADD COLUMN fk_category integer;
 ALTER TABLE llx_element_tag ADD COLUMN fk_element integer;
 
-ALTER TABLE llx_element_tag ADD UNIQUE INDEX idx_element_tag_uk (fk_categorie, fk_element);
+ALTER TABLE llx_element_tag ADD UNIQUE INDEX idx_element_tag_uk (fk_category, fk_element);
 
-ALTER TABLE llx_element_tag ADD CONSTRAINT fk_element_tag_categorie_rowid FOREIGN KEY (fk_categorie) REFERENCES llx_categorie (rowid);
+ALTER TABLE llx_element_tag ADD CONSTRAINT fk_element_tag_category_rowid FOREIGN KEY (fk_category) REFERENCES llx_category (rowid);
 
 -- Add column to help to fix a very critical bug when transferring into accounting bank record of a bank account into another currency.
 -- Idea is to update this column manually in v15 with value in currency of company for bank that are not into the main currency and the transfer

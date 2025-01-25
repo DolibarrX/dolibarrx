@@ -491,11 +491,11 @@ ALTER TABLE llx_facture ADD COLUMN fk_fac_rec_source integer;
 DELETE FROM llx_c_actioncomm WHERE code IN ('AC_PROP','AC_COM','AC_FAC','AC_SHIP','AC_SUP_ORD','AC_SUP_INV') AND id NOT IN (SELECT DISTINCT fk_action FROM llx_actioncomm);
 
 -- Fix: delete orphelin category.
-DELETE FROM llx_categorie_product WHERE fk_categorie NOT IN (SELECT rowid FROM llx_categorie WHERE type = 0);
-DELETE FROM llx_categorie_societe WHERE fk_categorie NOT IN (SELECT rowid FROM llx_categorie WHERE type IN (1, 2));
-DELETE FROM llx_categorie_member WHERE fk_categorie NOT IN (SELECT rowid FROM llx_categorie WHERE type = 3);
-DELETE FROM llx_categorie_contact WHERE fk_categorie NOT IN (SELECT rowid FROM llx_categorie WHERE type = 4);
-DELETE FROM llx_categorie_project WHERE fk_categorie NOT IN (SELECT rowid FROM llx_categorie WHERE type = 6);
+DELETE FROM llx_category_product WHERE fk_category NOT IN (SELECT rowid FROM llx_category WHERE type = 0);
+DELETE FROM llx_category_societe WHERE fk_category NOT IN (SELECT rowid FROM llx_category WHERE type IN (1, 2));
+DELETE FROM llx_category_member WHERE fk_category NOT IN (SELECT rowid FROM llx_category WHERE type = 3);
+DELETE FROM llx_category_contact WHERE fk_category NOT IN (SELECT rowid FROM llx_category WHERE type = 4);
+DELETE FROM llx_category_project WHERE fk_category NOT IN (SELECT rowid FROM llx_category WHERE type = 6);
 
 ALTER TABLE llx_inventory ADD COLUMN ref varchar(48);
 
@@ -562,7 +562,7 @@ ALTER TABLE llx_website_page ADD COLUMN fk_user_create integer;
 ALTER TABLE llx_website_page ADD COLUMN fk_user_modif integer; 
 
 
-UPDATE llx_extrafields set elementtype='categorie' where elementtype='categories';
+UPDATE llx_extrafields set elementtype='category' where elementtype='categories';
 
 
 -- For new module blockedlog

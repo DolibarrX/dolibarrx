@@ -203,19 +203,19 @@ create table llx_object_lang
 ALTER TABLE llx_object_lang ADD UNIQUE INDEX uk_object_lang (fk_object, type_object, property, lang);
 
 
-CREATE TABLE llx_categorie_actioncomm
+CREATE TABLE llx_category_actioncomm
 (
-  fk_categorie integer NOT NULL,
+  fk_category integer NOT NULL,
   fk_actioncomm integer NOT NULL,
   import_key varchar(14)
 ) ENGINE=innodb;
 
-ALTER TABLE llx_categorie_actioncomm ADD PRIMARY KEY pk_categorie_actioncomm (fk_categorie, fk_actioncomm);
-ALTER TABLE llx_categorie_actioncomm ADD INDEX idx_categorie_actioncomm_fk_categorie (fk_categorie);
-ALTER TABLE llx_categorie_actioncomm ADD INDEX idx_categorie_actioncomm_fk_actioncomm (fk_actioncomm);
+ALTER TABLE llx_category_actioncomm ADD PRIMARY KEY pk_category_actioncomm (fk_category, fk_actioncomm);
+ALTER TABLE llx_category_actioncomm ADD INDEX idx_category_actioncomm_fk_category (fk_category);
+ALTER TABLE llx_category_actioncomm ADD INDEX idx_category_actioncomm_fk_actioncomm (fk_actioncomm);
 
-ALTER TABLE llx_categorie_actioncomm ADD CONSTRAINT fk_categorie_actioncomm_categorie_rowid FOREIGN KEY (fk_categorie) REFERENCES llx_categorie (rowid);
-ALTER TABLE llx_categorie_actioncomm ADD CONSTRAINT fk_categorie_actioncomm_fk_actioncomm FOREIGN KEY (fk_actioncomm) REFERENCES llx_actioncomm (id);
+ALTER TABLE llx_category_actioncomm ADD CONSTRAINT fk_category_actioncomm_category_rowid FOREIGN KEY (fk_category) REFERENCES llx_category (rowid);
+ALTER TABLE llx_category_actioncomm ADD CONSTRAINT fk_category_actioncomm_fk_actioncomm FOREIGN KEY (fk_actioncomm) REFERENCES llx_actioncomm (id);
 
 
 ALTER TABLE llx_accounting_account ADD COLUMN labelshort varchar(255) DEFAULT NULL after label;
@@ -274,7 +274,7 @@ ALTER TABLE llx_entrepot ADD COLUMN phone varchar(20) DEFAULT NULL;
 
 ALTER TABLE llx_accounting_account ADD COLUMN reconcilable tinyint DEFAULT 0 NOT NULL after active;
 
-ALTER TABLE llx_categorie MODIFY type integer NOT NULL DEFAULT 1;
+ALTER TABLE llx_category MODIFY type integer NOT NULL DEFAULT 1;
 
 ALTER TABLE llx_societe_remise_except ADD COLUMN vat_src_code varchar(10) DEFAULT '';
 
@@ -290,24 +290,24 @@ ALTER TABLE llx_mrp_production MODIFY COLUMN batch varchar(128);
 ALTER TABLE llx_mrp_production MODIFY qty real NOT NULL DEFAULT 1;
 ALTER TABLE llx_expeditiondet_batch MODIFY COLUMN batch varchar(128);
 
-create table llx_categorie_website_page
+create table llx_category_website_page
 (
-  fk_categorie  	integer NOT NULL,
+  fk_category  	integer NOT NULL,
   fk_website_page   integer NOT NULL,
   import_key    	varchar(14)
 )ENGINE=innodb;
 
-ALTER TABLE llx_categorie_website_page ADD PRIMARY KEY pk_categorie_website_page (fk_categorie, fk_website_page);
-ALTER TABLE llx_categorie_website_page ADD INDEX idx_categorie_website_page_fk_categorie (fk_categorie);
-ALTER TABLE llx_categorie_website_page ADD INDEX idx_categorie_website_page_fk_website_page (fk_website_page);
+ALTER TABLE llx_category_website_page ADD PRIMARY KEY pk_category_website_page (fk_category, fk_website_page);
+ALTER TABLE llx_category_website_page ADD INDEX idx_category_website_page_fk_category (fk_category);
+ALTER TABLE llx_category_website_page ADD INDEX idx_category_website_page_fk_website_page (fk_website_page);
 
-ALTER TABLE llx_categorie_website_page ADD CONSTRAINT fk_categorie_website_page_categorie_rowid FOREIGN KEY (fk_categorie) REFERENCES llx_categorie (rowid);
-ALTER TABLE llx_categorie_website_page ADD CONSTRAINT fk_categorie_website_page_website_page_rowid FOREIGN KEY (fk_website_page) REFERENCES llx_website_page (rowid);
+ALTER TABLE llx_category_website_page ADD CONSTRAINT fk_category_website_page_category_rowid FOREIGN KEY (fk_category) REFERENCES llx_category (rowid);
+ALTER TABLE llx_category_website_page ADD CONSTRAINT fk_category_website_page_website_page_rowid FOREIGN KEY (fk_website_page) REFERENCES llx_website_page (rowid);
 
-ALTER TABLE llx_categorie ADD COLUMN date_creation	datetime;
-ALTER TABLE llx_categorie ADD COLUMN tms     		timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
-ALTER TABLE llx_categorie ADD COLUMN fk_user_creat	integer;
-ALTER TABLE llx_categorie ADD COLUMN fk_user_modif	integer;
+ALTER TABLE llx_category ADD COLUMN date_creation	datetime;
+ALTER TABLE llx_category ADD COLUMN tms     		timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+ALTER TABLE llx_category ADD COLUMN fk_user_creat	integer;
+ALTER TABLE llx_category ADD COLUMN fk_user_modif	integer;
 
 ALTER TABLE llx_commandedet ADD CONSTRAINT fk_commandedet_fk_commandefourndet FOREIGN KEY (fk_commandefourndet) REFERENCES llx_commande_fournisseurdet (rowid);
 

@@ -66,21 +66,21 @@ ALTER TABLE llx_product MODIFY COLUMN note mediumtext;
 ALTER TABLE llx_product_lang MODIFY COLUMN note mediumtext;
 
 
-CREATE TABLE llx_categorie_fichinter
+CREATE TABLE llx_category_fichinter
 (
-  fk_categorie  integer NOT NULL,
+  fk_category  integer NOT NULL,
   fk_fichinter  integer NOT NULL,
   import_key    varchar(14)
 )ENGINE=innodb;
 
--- VMYSQL4.3 ALTER TABLE llx_categorie_fichinter ADD PRIMARY KEY pk_categorie_fichinter(fk_categorie, fk_fichinter);
--- VPGSQL8.2 ALTER TABLE llx_categorie_fichinter ADD PRIMARY KEY pk_categorie_fichinter (fk_categorie, fk_fichinter);
+-- VMYSQL4.3 ALTER TABLE llx_category_fichinter ADD PRIMARY KEY pk_category_fichinter(fk_category, fk_fichinter);
+-- VPGSQL8.2 ALTER TABLE llx_category_fichinter ADD PRIMARY KEY pk_category_fichinter (fk_category, fk_fichinter);
 
-ALTER TABLE llx_categorie_fichinter ADD INDEX idx_categorie_fichinter_fk_categorie (fk_categorie);
-ALTER TABLE llx_categorie_fichinter ADD INDEX idx_categorie_fichinter_fk_fichinter (fk_fichinter);
+ALTER TABLE llx_category_fichinter ADD INDEX idx_category_fichinter_fk_category (fk_category);
+ALTER TABLE llx_category_fichinter ADD INDEX idx_category_fichinter_fk_fichinter (fk_fichinter);
 
-ALTER TABLE llx_categorie_fichinter ADD CONSTRAINT fk_categorie_fichinter_categorie_rowid FOREIGN KEY (fk_categorie) REFERENCES llx_categorie (rowid);
-ALTER TABLE llx_categorie_fichinter ADD CONSTRAINT fk_categorie_fichinter_fk_fichinter    FOREIGN KEY (fk_fichinter) REFERENCES llx_fichinter (rowid);
+ALTER TABLE llx_category_fichinter ADD CONSTRAINT fk_category_fichinter_category_rowid FOREIGN KEY (fk_category) REFERENCES llx_category (rowid);
+ALTER TABLE llx_category_fichinter ADD CONSTRAINT fk_category_fichinter_fk_fichinter    FOREIGN KEY (fk_fichinter) REFERENCES llx_fichinter (rowid);
 
 
 ALTER TABLE llx_blockedlog DROP INDEX entity_action;
@@ -147,7 +147,7 @@ ALTER TABLE llx_user_rib ADD COLUMN default_rib smallint NOT NULL DEFAULT 0;
 ALTER TABLE llx_prelevement_demande ADD COLUMN fk_societe_rib integer DEFAULT NULL after fk_user_demande;
 
 -- Rename of bank table
-ALTER TABLE llx_bank_categ RENAME TO llx_category_bank;		-- TODO Move content into llx_categorie instead of renaming it
+ALTER TABLE llx_bank_categ RENAME TO llx_category_bank;		-- TODO Move content into llx_category instead of renaming it
 ALTER TABLE llx_bank_class RENAME TO llx_category_bankline;
 
 
@@ -241,9 +241,9 @@ ALTER TABLE llx_multicurrency_rate ADD COLUMN tms timestamp DEFAULT CURRENT_TIME
 ALTER TABLE llx_extrafields ADD COLUMN module varchar(64);
 
 
--- Copy categories from llx_category_bank into llx_categorie
+-- Copy categories from llx_category_bank into llx_category
 
-INSERT INTO llx_categorie (entity, fk_parent, label, type, description, color, position, visible, date_creation)
+INSERT INTO llx_category (entity, fk_parent, label, type, description, color, position, visible, date_creation)
 SELECT
   llx_category_bank.entity,
   0 AS fk_parent,
@@ -255,24 +255,24 @@ SELECT
   1 AS visible,
   NOW() AS date_creation
 FROM llx_category_bank
-LEFT JOIN llx_categorie
-  ON llx_category_bank.label = llx_categorie.label
-  AND llx_category_bank.entity = llx_categorie.entity
-  AND llx_categorie.type = 8
-WHERE llx_categorie.rowid IS NULL;
+LEFT JOIN llx_category
+  ON llx_category_bank.label = llx_category.label
+  AND llx_category_bank.entity = llx_category.entity
+  AND llx_category.type = 8
+WHERE llx_category.rowid IS NULL;
 
--- Update llx_category_bankline with the new rowid from llx_categorie
+-- Update llx_category_bankline with the new rowid from llx_category
 UPDATE llx_category_bankline AS bl
 INNER JOIN llx_category_bank AS b
   ON bl.fk_categ = b.rowid
-INNER JOIN llx_categorie AS c
+INNER JOIN llx_category AS c
   ON b.label = c.label
   AND b.entity = c.entity
   AND c.type = 8
 SET bl.fk_categ = c.rowid
 WHERE c.rowid IS NOT NULL;
 
-INSERT INTO llx_categorie (entity, fk_parent, label, type, description, color, position, visible, date_creation)
+INSERT INTO llx_category (entity, fk_parent, label, type, description, color, position, visible, date_creation)
 SELECT
   llx_bank_categ.entity,
   0 AS fk_parent,
@@ -284,17 +284,17 @@ SELECT
   1 AS visible,
   NOW() AS date_creation
 FROM llx_bank_categ
-LEFT JOIN llx_categorie
-  ON llx_bank_categ.label = llx_categorie.label
-  AND llx_bank_categ.entity = llx_categorie.entity
-  AND llx_categorie.type = 8
-WHERE llx_categorie.rowid IS NULL;
+LEFT JOIN llx_category
+  ON llx_bank_categ.label = llx_category.label
+  AND llx_bank_categ.entity = llx_category.entity
+  AND llx_category.type = 8
+WHERE llx_category.rowid IS NULL;
 
--- Update llx_category_bankline with the new rowid from llx_categorie
+-- Update llx_category_bankline with the new rowid from llx_category
 UPDATE llx_category_bankline AS bl
 INNER JOIN llx_bank_categ AS b
   ON bl.fk_categ = b.rowid
-INNER JOIN llx_categorie AS c
+INNER JOIN llx_category AS c
   ON b.label = c.label
   AND b.entity = c.entity
   AND c.type = 8

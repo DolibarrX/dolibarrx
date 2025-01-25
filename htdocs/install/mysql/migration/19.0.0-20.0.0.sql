@@ -188,7 +188,7 @@ ALTER TABLE llx_usergroup_extrafields ADD UNIQUE INDEX uk_usergroup_extrafields 
 ALTER TABLE llx_website ADD COLUMN name_template varchar(255) NULL;
 ALTER TABLE llx_website ADD COLUMN lastpageid integer DEFAULT 0;
 
-UPDATE llx_categorie SET date_creation = tms, tms = tms WHERE date_creation IS NULL AND tms IS NOT NULL;
+UPDATE llx_category SET date_creation = tms, tms = tms WHERE date_creation IS NULL AND tms IS NOT NULL;
 
 ALTER TABLE llx_product_price ADD COLUMN price_label varchar(255) AFTER fk_user_author;
 ALTER TABLE llx_product_customer_price_log ADD COLUMN price_label varchar(255) AFTER fk_user;
@@ -231,7 +231,7 @@ CREATE TABLE llx_c_product_thirdparty_relation_type
 
 ALTER TABLE llx_c_tva ADD COLUMN type_vat smallint NOT NULL DEFAULT 0 AFTER fk_pays;
 
-ALTER TABLE llx_categorie ADD COLUMN position integer DEFAULT 0 AFTER color;
+ALTER TABLE llx_category ADD COLUMN position integer DEFAULT 0 AFTER color;
 
 ALTER TABLE llx_product DROP COLUMN onportal;
 
@@ -401,7 +401,7 @@ ALTER TABLE llx_paiementcharge ADD INDEX idx_paiementcharge_fk_charge (fk_charge
 
 ALTER TABLE llx_product ADD INDEX idx_product_entity_fk_product_type (entity, fk_product_type);
 
-ALTER TABLE llx_element_categorie ADD INDEX idx_element_categorie_fk_categorie (fk_categorie);
+ALTER TABLE llx_element_category ADD INDEX idx_element_category_fk_category (fk_category);
 
 INSERT INTO llx_c_revenuestamp(rowid,fk_pays,taux,revenuestamp_type,note,active) values (1021, 102, 1.2, 'percent', 'Συντελεστής 1,2 %', 1);
 INSERT INTO llx_c_revenuestamp(rowid,fk_pays,taux,revenuestamp_type,note,active) values (1022, 102, 2.4, 'percent', 'Συντελεστής 2,4 %', 1);

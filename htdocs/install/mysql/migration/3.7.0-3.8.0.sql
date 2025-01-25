@@ -641,13 +641,13 @@ ALTER TABLE llx_facture_fourn_det ADD CONSTRAINT fk_facture_fourn_det_fk_unit FO
 
 
 -- Feature request: A page to merge two thirdparties into one #2613
-ALTER TABLE llx_categorie_societe DROP FOREIGN KEY fk_categorie_societe_fk_soc;
-ALTER TABLE llx_categorie_societe CHANGE COLUMN fk_societe fk_soc INTEGER NOT NULL;
-ALTER TABLE llx_categorie_societe ADD CONSTRAINT fk_categorie_societe_fk_soc   FOREIGN KEY (fk_soc) REFERENCES llx_societe (rowid);
+ALTER TABLE llx_category_societe DROP FOREIGN KEY fk_category_societe_fk_soc;
+ALTER TABLE llx_category_societe CHANGE COLUMN fk_societe fk_soc INTEGER NOT NULL;
+ALTER TABLE llx_category_societe ADD CONSTRAINT fk_category_societe_fk_soc   FOREIGN KEY (fk_soc) REFERENCES llx_societe (rowid);
 
-ALTER TABLE llx_categorie_fournisseur DROP FOREIGN KEY fk_categorie_fournisseur_fk_soc;
-ALTER TABLE llx_categorie_fournisseur CHANGE COLUMN fk_societe fk_soc INTEGER NOT NULL;
-ALTER TABLE llx_categorie_fournisseur ADD CONSTRAINT fk_categorie_fournisseur_fk_soc   FOREIGN KEY (fk_soc) REFERENCES llx_societe (rowid);
+ALTER TABLE llx_category_fournisseur DROP FOREIGN KEY fk_category_fournisseur_fk_soc;
+ALTER TABLE llx_category_fournisseur CHANGE COLUMN fk_societe fk_soc INTEGER NOT NULL;
+ALTER TABLE llx_category_fournisseur ADD CONSTRAINT fk_category_fournisseur_fk_soc   FOREIGN KEY (fk_soc) REFERENCES llx_societe (rowid);
 
 ALTER TABLE llx_user DROP INDEX uk_user_fk_societe;
 ALTER TABLE llx_user DROP INDEX idx_user_fk_societe;

@@ -177,18 +177,18 @@ delete from llx_product_association where fk_product_pere NOT IN (select rowid f
 delete from llx_product_association where fk_product_fils NOT IN (select rowid from llx_product);
 
 -- Fix: delete category child with no category parent.
-drop table tmp_categorie;
-create table tmp_categorie as select * from llx_categorie;
--- select * from llx_categorie where fk_parent not in (select rowid from tmp_categorie) and fk_parent is not null and fk_parent <> 0;
-delete from llx_categorie where fk_parent not in (select rowid from tmp_categorie) and fk_parent is not null and fk_parent <> 0;
-drop table tmp_categorie;
+drop table tmp_category;
+create table tmp_category as select * from llx_category;
+-- select * from llx_category where fk_parent not in (select rowid from tmp_category) and fk_parent is not null and fk_parent <> 0;
+delete from llx_category where fk_parent not in (select rowid from tmp_category) and fk_parent is not null and fk_parent <> 0;
+drop table tmp_category;
 -- Fix: delete orphelin category.
-delete from llx_categorie_product where fk_categorie not in (select rowid from llx_categorie where type = 0);
-delete from llx_categorie_fournisseur where fk_categorie not in (select rowid from llx_categorie where type = 1);
-delete from llx_categorie_societe where fk_categorie not in (select rowid from llx_categorie where type = 2);
-delete from llx_categorie_member where fk_categorie not in (select rowid from llx_categorie where type = 3);
-delete from llx_categorie_contact where fk_categorie not in (select rowid from llx_categorie where type = 4);
-delete from llx_categorie_project where fk_categorie not in (select rowid from llx_categorie where type = 6);
+delete from llx_category_product where fk_category not in (select rowid from llx_category where type = 0);
+delete from llx_category_fournisseur where fk_category not in (select rowid from llx_category where type = 1);
+delete from llx_category_societe where fk_category not in (select rowid from llx_category where type = 2);
+delete from llx_category_member where fk_category not in (select rowid from llx_category where type = 3);
+delete from llx_category_contact where fk_category not in (select rowid from llx_category where type = 4);
+delete from llx_category_project where fk_category not in (select rowid from llx_category where type = 6);
 
 -- Fix: delete orphelins in ecm_files
 delete from llx_ecm_files where src_object_type = 'expensereport' and src_object_id NOT IN (select rowid from llx_expensereport);
@@ -383,12 +383,12 @@ UPDATE llx_c_lead_status set code = 'WON' where code = 'WIN';
 
 
 -- To insert elements into a category
--- Search idcategory: select rowid from llx_categorie where type=0 and ref like '%xxx%'
+-- Search idcategory: select rowid from llx_category where type=0 and ref like '%xxx%'
 -- Select all products to include: select * from llx_product where ref like '%xxx%'
--- If ok, insert: insert into llx_categorie_product(fk_categorie, fk_product) select idcategory, rowid from llx_product where ref like '%xxx%'
--- List of product with a category xxx: select distinct cp.fk_product from llx_categorie_product as cp, llx_categorie as c where cp.fk_categorie = c.rowid and c.label like 'xxx-%' order by fk_product;
--- List of product into 2 categories xxx: select cp.fk_product, count(cp.fk_product) as nb from llx_categorie_product as cp, llx_categorie as c where cp.fk_categorie = c.rowid and c.label like 'xxx-%' group by fk_product having nb > 1;
--- List of product with no category xxx yet: select rowid, ref from llx_product where rowid not in (select distinct cp.fk_product from llx_categorie_product as cp, llx_categorie as c where cp.fk_categorie = c.rowid and c.label like 'xxx-%' order by fk_product);
+-- If ok, insert: insert into llx_category_product(fk_category, fk_product) select idcategory, rowid from llx_product where ref like '%xxx%'
+-- List of product with a category xxx: select distinct cp.fk_product from llx_category_product as cp, llx_category as c where cp.fk_category = c.rowid and c.label like 'xxx-%' order by fk_product;
+-- List of product into 2 categories xxx: select cp.fk_product, count(cp.fk_product) as nb from llx_category_product as cp, llx_category as c where cp.fk_category = c.rowid and c.label like 'xxx-%' group by fk_product having nb > 1;
+-- List of product with no category xxx yet: select rowid, ref from llx_product where rowid not in (select distinct cp.fk_product from llx_category_product as cp, llx_category as c where cp.fk_category = c.rowid and c.label like 'xxx-%' order by fk_product);
 
 -- Fix type of product 2 does not exists
 update llx_propaldet set product_type = 1 where product_type = 2;

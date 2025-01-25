@@ -62,7 +62,7 @@ ALTER TABLE llx_c_shipment_mode MODIFY COLUMN tracking varchar(255) NULL;
 
 ALTER TABLE llx_holiday ADD COLUMN nb_open_day double(24,8) DEFAULT NULL;
 
-ALTER TABLE llx_element_tag ADD COLUMN fk_categorie INTEGER;
+ALTER TABLE llx_element_tag ADD COLUMN fk_category INTEGER;
 
 
 insert into llx_c_type_resource (code, label, active) values ('RES_ROOMS', 'Rooms',  1);

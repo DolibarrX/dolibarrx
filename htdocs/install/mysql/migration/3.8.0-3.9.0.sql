@@ -80,7 +80,7 @@ ALTER TABLE llx_societe ADD COLUMN model_pdf varchar(255);
 
 ALTER TABLE llx_societe_commerciaux ADD COLUMN import_key varchar(14) AFTER fk_user;
 
-ALTER TABLE llx_categorie ADD COLUMN color varchar(8);
+ALTER TABLE llx_category ADD COLUMN color varchar(8);
 
 ALTER TABLE llx_cronjob ADD COLUMN maxrun     integer NOT NULL DEFAULT 0;
 ALTER TABLE llx_cronjob ADD COLUMN autodelete integer DEFAULT 0;
@@ -355,9 +355,9 @@ CREATE TABLE llx_opensurvey_user_formanswers (
 
 
 
-create table llx_categorie_project
+create table llx_category_project
 (
-  fk_categorie  integer NOT NULL,
+  fk_category  integer NOT NULL,
   fk_project    integer NOT NULL,
   import_key    varchar(14)
 )ENGINE=innodb;
@@ -410,12 +410,12 @@ create table llx_livraisondet_extrafields
 ALTER TABLE llx_livraisondet_extrafields ADD INDEX idx_livraisondet_extrafields (fk_object);
 
 
-ALTER TABLE llx_categorie_project ADD PRIMARY KEY pk_categorie_project (fk_categorie, fk_project);
-ALTER TABLE llx_categorie_project ADD INDEX idx_categorie_project_fk_categorie (fk_categorie);
-ALTER TABLE llx_categorie_project ADD INDEX idx_categorie_project_fk_project (fk_project);
+ALTER TABLE llx_category_project ADD PRIMARY KEY pk_category_project (fk_category, fk_project);
+ALTER TABLE llx_category_project ADD INDEX idx_category_project_fk_category (fk_category);
+ALTER TABLE llx_category_project ADD INDEX idx_category_project_fk_project (fk_project);
 
-ALTER TABLE llx_categorie_project ADD CONSTRAINT fk_categorie_project_categorie_rowid FOREIGN KEY (fk_categorie) REFERENCES llx_categorie (rowid);
-ALTER TABLE llx_categorie_project ADD CONSTRAINT fk_categorie_project_fk_project   FOREIGN KEY (fk_project) REFERENCES llx_projet (rowid);
+ALTER TABLE llx_category_project ADD CONSTRAINT fk_category_project_category_rowid FOREIGN KEY (fk_category) REFERENCES llx_category (rowid);
+ALTER TABLE llx_category_project ADD CONSTRAINT fk_category_project_fk_project   FOREIGN KEY (fk_project) REFERENCES llx_projet (rowid);
 
 
 ALTER TABLE llx_c_tva ADD COLUMN code varchar(10) DEFAULT '' after fk_pays;

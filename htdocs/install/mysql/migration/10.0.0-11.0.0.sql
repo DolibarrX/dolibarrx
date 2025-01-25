@@ -101,19 +101,19 @@ ALTER TABLE llx_bom_bomline ADD COLUMN disable_stock_change smallint DEFAULT 0;
 -- VMYSQL4.1 ALTER TABLE llx_bom_bomline DROP COLUMN `rank`;
 -- VPGSQL8.2 ALTER TABLE llx_bom_bomline DROP COLUMN rank;
 
-create table llx_categorie_warehouse
+create table llx_category_warehouse
 (
-  fk_categorie  integer NOT NULL,
+  fk_category  integer NOT NULL,
   fk_warehouse  integer NOT NULL,
   import_key    varchar(14)
 ) ENGINE=innodb;
 
-ALTER TABLE llx_categorie_warehouse ADD PRIMARY KEY pk_categorie_warehouse (fk_categorie, fk_warehouse);
-ALTER TABLE llx_categorie_warehouse ADD INDEX idx_categorie_warehouse_fk_categorie (fk_categorie);
-ALTER TABLE llx_categorie_warehouse ADD INDEX idx_categorie_warehouse_fk_warehouse (fk_warehouse);
+ALTER TABLE llx_category_warehouse ADD PRIMARY KEY pk_category_warehouse (fk_category, fk_warehouse);
+ALTER TABLE llx_category_warehouse ADD INDEX idx_category_warehouse_fk_category (fk_category);
+ALTER TABLE llx_category_warehouse ADD INDEX idx_category_warehouse_fk_warehouse (fk_warehouse);
 
-ALTER TABLE llx_categorie_warehouse ADD CONSTRAINT fk_categorie_warehouse_categorie_rowid FOREIGN KEY (fk_categorie) REFERENCES llx_categorie (rowid);
-ALTER TABLE llx_categorie_warehouse ADD CONSTRAINT fk_categorie_warehouse_fk_warehouse_rowid FOREIGN KEY (fk_warehouse) REFERENCES llx_entrepot (rowid);
+ALTER TABLE llx_category_warehouse ADD CONSTRAINT fk_category_warehouse_category_rowid FOREIGN KEY (fk_category) REFERENCES llx_category (rowid);
+ALTER TABLE llx_category_warehouse ADD CONSTRAINT fk_category_warehouse_fk_warehouse_rowid FOREIGN KEY (fk_warehouse) REFERENCES llx_entrepot (rowid);
 
 
 create table llx_holiday_extrafields
