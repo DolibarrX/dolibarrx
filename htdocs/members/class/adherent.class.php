@@ -331,7 +331,7 @@ class Adherent extends CommonObject
 		'pass' => array('type' => 'varchar(50)', 'label' => 'Pass', 'enabled' => 1, 'visible' => -1, 'position' => 45),
 		'pass_crypted' => array('type' => 'varchar(128)', 'label' => 'Pass crypted', 'enabled' => 1, 'visible' => -1, 'position' => 50),
 		'morphy' => array('type' => 'varchar(3)', 'label' => 'MemberNature', 'enabled' => 1, 'visible' => 1, 'notnull' => 1, 'position' => 55),
-		'fk_member_type' => array('type' => 'integer', 'label' => 'Fk adherent type', 'enabled' => 1, 'visible' => 1, 'notnull' => 1, 'position' => 60),
+		'fk_member_type' => array('type' => 'integer', 'label' => 'Fk member type', 'enabled' => 1, 'visible' => 1, 'notnull' => 1, 'position' => 60),
 		'societe' => array('type' => 'varchar(128)', 'label' => 'Societe', 'enabled' => 1, 'visible' => 1, 'position' => 65, 'showoncombobox' => 2),
 		'fk_soc' => array('type' => 'integer:Societe:societe/class/societe.class.php', 'label' => 'ThirdParty', 'enabled' => 1, 'visible' => 1, 'position' => 70),
 		'address' => array('type' => 'text', 'label' => 'Address', 'enabled' => 1, 'visible' => -1, 'position' => 75),
@@ -562,9 +562,9 @@ class Adherent extends CommonObject
 
 
 	/**
-	 *	Return translated label by the nature of a adherent (physical or moral)
+	 *	Return translated label by the nature of a member (physical or moral)
 	 *
-	 *	@param	string		$morphy		Nature of the adherent (physical or moral)
+	 *	@param	string		$morphy		Nature of the member (physical or moral)
 	 *  @param	int<0,2>	$addbadge	Add badge (1=Full label, 2=First letters only)
 	 *	@return	string					Label
 	 */
@@ -2003,7 +2003,7 @@ class Adherent extends CommonObject
 	/**
 	 *		Function that validate a member
 	 *
-	 *		@param	User	$user		user adherent qui valide
+	 *		@param	User	$user		user member qui valide
 	 *		@return	int					Return integer <0 if KO, 0 if nothing done, >0 if OK
 	 */
 	public function validate($user)
@@ -2458,7 +2458,7 @@ class Adherent extends CommonObject
 	}
 
 	/**
-	 *  Retourne le libelle du statut d'un adherent (brouillon, valide, resilie, exclu)
+	 *  Retourne le libelle du statut d'un member (brouillon, valide, resilie, exclu)
 	 *
 	 *  @param	int		$mode       0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
 	 *  @return string				Label

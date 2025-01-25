@@ -213,7 +213,7 @@ if ($action == 'set_default') {
 	}
 }
 
-// Action to enable of a submodule of the adherent module
+// Action to enable of a submodule of the member module
 if ($action == 'set') {
 	$result = dolibarr_set_const($db, GETPOST('name', 'alpha'), GETPOST('value'), '', 0, '', $config->entity);
 	if ($result < 0) {
@@ -221,7 +221,7 @@ if ($action == 'set') {
 	}
 }
 
-// Action to disable a submodule of the adherent module
+// Action to disable a submodule of the member module
 if ($action == 'unset') {
 	$result = dolibarr_del_const($db, GETPOST('name', 'alpha'), $config->entity);
 	if ($result < 0) {

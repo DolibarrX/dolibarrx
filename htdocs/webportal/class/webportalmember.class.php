@@ -383,7 +383,7 @@ class WebPortalMember extends Adherent
 	}
 
 	/**
-	 * Retourne le libelle du statut d'un adherent (brouillon, valide, resilie, exclu)
+	 * Retourne le libelle du statut d'un member (brouillon, valide, resilie, exclu)
 	 *
 	 * @param	int		$mode		0=libelle long, 1=libelle court, 2=Picto + Libelle court, 3=Picto, 4=Picto + Libelle long, 5=Libelle court + Picto
 	 * @return	string	Label

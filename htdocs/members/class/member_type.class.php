@@ -685,9 +685,9 @@ class MemberType extends CommonObject
 	}
 
 	/**
-	 *	Return translated label by the nature of a adherent (physical or moral)
+	 *	Return translated label by the nature of a member (physical or moral)
 	 *
-	 *	@param	string		$morphy		Nature of the adherent (physical or moral)
+	 *	@param	string		$morphy		Nature of the member (physical or moral)
 	 *	@return	string					Label
 	 */
 	public function getmorphylib($morphy = '')
