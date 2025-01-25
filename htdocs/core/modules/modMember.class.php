@@ -317,7 +317,7 @@ class modMember extends DolibarrModules
 		// End add axtra fields
 		$this->export_sql_start[$r] = 'SELECT DISTINCT ';
 		$this->export_sql_end[$r]  = ' FROM ('.MAIN_DB_PREFIX.'member_type as ta, '.MAIN_DB_PREFIX.'adherent as a)';
-		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'adherent_extrafields as extra ON a.rowid = extra.fk_object';
+		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'member_extrafields as extra ON a.rowid = extra.fk_object';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'subscription as c ON c.fk_member = a.rowid';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_departements as d ON a.state_id = d.rowid';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_country as co ON a.country = co.rowid';
@@ -336,7 +336,7 @@ class modMember extends DolibarrModules
 		$this->import_label[$r] = "Members"; // Translation key
 		$this->import_icon[$r] = $this->picto;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
-		$this->import_tables_array[$r] = array('a'=>MAIN_DB_PREFIX.'member', 'extra'=>MAIN_DB_PREFIX.'adherent_extrafields');
+		$this->import_tables_array[$r] = array('a'=>MAIN_DB_PREFIX.'member', 'extra'=>MAIN_DB_PREFIX.'member_extrafields');
 		$this->import_tables_creator_array[$r] = array('a'=>'fk_user_author'); // Fields to store import user id
 		$this->import_fields_array[$r] = array(
 			'a.ref' => 'MemberRef*',
