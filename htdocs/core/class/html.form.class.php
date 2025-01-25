@@ -8269,7 +8269,7 @@ class Form
 	 * @param int<0,1>	$nooutput No print, return the output into a string
 	 * @return        string
 	 */
-	public function selectMembers($selected = '', $htmlname = 'adherentid', $filtertype = '', $limit = 0, $status = 1, $selected_input_value = '', $hidelabel = 0, $ajaxoptions = array(), $socid = 0, $showempty = '1', $forcecombo = 0, $morecss = '', $selected_combinations = null, $nooutput = 0)
+	public function selectMembers($selected = '', $htmlname = 'memberid', $filtertype = '', $limit = 0, $status = 1, $selected_input_value = '', $hidelabel = 0, $ajaxoptions = array(), $socid = 0, $showempty = '1', $forcecombo = 0, $morecss = '', $selected_combinations = null, $nooutput = 0)
 	{
 		global $langs, $config;
 
@@ -8293,7 +8293,7 @@ class Form
 
 			$urloption = '';
 
-			$out .= ajax_autocompleter($selected, $htmlname, DOL_URL_ROOT . '/members/ajax/adherents.php', $urloption, $config->global->PRODUIT_USE_SEARCH_TO_SELECT, 1, $ajaxoptions);
+			$out .= ajax_autocompleter($selected, $htmlname, DOL_URL_ROOT . '/members/ajax/members.php', $urloption, $config->global->PRODUIT_USE_SEARCH_TO_SELECT, 1, $ajaxoptions);
 
 			if (empty($hidelabel)) {
 				$out .= $langs->trans("RefOrLabel") . ' : ';
@@ -8322,7 +8322,7 @@ class Form
 	}
 
 	/**
-	 *    Return list of adherents.
+	 *    Return list of members.
 	 *  Called by selectMembers.
 	 *
 	 * @param string $selected Preselected member
@@ -8380,7 +8380,7 @@ class Form
 		$sql .= $this->db->plimit($limit, 0);
 
 		// Build output string
-		dol_syslog(get_class($this) . "::selectMembersList search adherents", LOG_DEBUG);
+		dol_syslog(get_class($this) . "::selectMembersList search members", LOG_DEBUG);
 		$result = $this->db->query($sql);
 		if ($result) {
 			require_once DOL_DOCUMENT_ROOT . '/members/class/member.class.php';
@@ -9709,7 +9709,7 @@ class Form
 				} elseif ($objecttype == 'expensereport') {
 					$tplpath = 'expensereport';
 				} elseif ($objecttype == 'subscription') {
-					$tplpath = 'adherents';
+					$tplpath = 'members';
 				} elseif ($objecttype == 'conferenceorbooth') {
 					$tplpath = 'eventorganization';
 				} elseif ($objecttype == 'conferenceorboothattendee') {

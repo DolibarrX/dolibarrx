@@ -21,7 +21,7 @@
 /**
  *  \file		htdocs/members/ldap.php
  *  \ingroup	ldap member
- *  \brief		Page fiche LDAP adherent
+ *  \brief		LDAP member sheet page
  */
 
 // Load Dolibarr environment

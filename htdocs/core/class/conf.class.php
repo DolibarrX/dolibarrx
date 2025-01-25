@@ -1317,8 +1317,8 @@ class Conf extends stdClass
 				$this->project = $this->projet;
 			}
 			// member is new use, member is old use still initialised
-			if (isset($this->adherent) && !isset($this->member)) {
-				$this->member = $this->adherent;
+			if (isset($this->member) && !isset($this->member)) {
+				$this->member = $this->member;
 			}
 
 			// Object $mc

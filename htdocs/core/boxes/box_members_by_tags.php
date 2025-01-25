@@ -85,7 +85,7 @@ class box_members_by_tags extends ModeleBoxes
 		$this->info_box_head = array('text' => $langs->trans("BoxTitleMembersByTags").($numberyears ? ' ('.($year - $numberyears).' - '.$year.')' : ''));
 
 		if ($user->hasRight('member', 'lire')) {
-			require_once DOL_DOCUMENT_ROOT.'/members/class/adherentstats.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/members/class/memberstats.class.php';
 			require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 			$stats = new AdherentStats($this->db, $user->socid, $user->id);
 

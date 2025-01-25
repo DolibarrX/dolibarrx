@@ -132,7 +132,7 @@ class WebPortalMember extends Adherent
 		'url' => array('type' => 'varchar(255)', 'label' => 'Url', 'enabled' => 1, 'visible' => 4, 'position' => 210, 'showonheader' => 1,),
 
 		'login' => array('type' => 'varchar(50)', 'label' => 'Login', 'enabled' => 1, 'visible' => 4, 'position' => 240,),
-		'typeid' => array('type' => 'integer:AdherentType:adherents/class/member_type.class.php', 'label' => 'MemberType', 'enabled' => 1, 'visible' => 4, 'notnull' => 1, 'position' => 255),
+		'typeid' => array('type' => 'integer:AdherentType:members/class/member_type.class.php', 'label' => 'MemberType', 'enabled' => 1, 'visible' => 4, 'notnull' => 1, 'position' => 255),
 		'morphy' => array('type' => 'varchar(3)', 'label' => 'MemberNature', 'enabled' => 1, 'visible' => 4, 'notnull' => 1, 'position' => 260, 'arrayofkeyval' => self::MORPHY_LIST,),
 		'civility_id' => array('type' => 'sellist:c_civility:label:rowid::active=1', 'label' => 'Civility', 'enabled' => 1, 'visible' => 4, 'position' => 270,),
 		'birth' => array('type' => 'date', 'label' => 'DateOfBirth', 'enabled' => 1, 'visible' => 4, 'position' => 290,),

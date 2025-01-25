@@ -28,7 +28,7 @@
 // Load Dolibarr environment
 require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
-require_once DOL_DOCUMENT_ROOT.'/members/class/adherentstats.class.php';
+require_once DOL_DOCUMENT_ROOT.'/members/class/memberstats.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/member.lib.php';
 

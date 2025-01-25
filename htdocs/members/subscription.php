@@ -409,7 +409,7 @@ if (empty($resHook) && $user->hasRight('member', 'cotisation', 'creer') && $acti
 						$listofmimes = array(dol_mimetype($file));
 					}
 
-					$moreinheader = 'X-Dolibarr-Info: send_an_email by adherents/subscription.php'."\r\n";
+					$moreinheader = 'X-Dolibarr-Info: send_an_email by members/subscription.php'."\r\n";
 
 					$result = $object->sendEmail($texttosend, $subjecttosend, $listofpaths, $listofmimes, $listofnames, "", "", 0, -1, '', $moreinheader);
 					if ($result < 0) {

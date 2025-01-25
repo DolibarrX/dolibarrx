@@ -1167,10 +1167,10 @@ class Ldap
 
 	/**
 	 *	Returns an array containing a details or list of LDAP record(s).
-	 *	ldapsearch -LLLx -hlocalhost -Dcn=admin,dc=parinux,dc=org -w password -b "ou=adherents,ou=people,dc=parinux,dc=org" userPassword
+	 *	ldapsearch -LLLx -hlocalhost -Dcn=admin,dc=parinux,dc=org -w password -b "ou=members,ou=people,dc=parinux,dc=org" userPassword
 	 *
 	 *	@param	string			$search			 	Value of field to search, '*' for all. Not used if $activefilter is set.
-	 *	@param	string			$userDn			 	DN (Ex: ou=adherents,ou=people,dc=parinux,dc=org)
+	 *	@param	string			$userDn			 	DN (Ex: ou=members,ou=people,dc=parinux,dc=org)
 	 *	@param	string			$userIdentifier 	Name of key field (Ex: uid).
 	 *	@param	string[]		$attributeArray 	Array of fields required. Note this array must also contain field $userIdentifier (Ex: sn,userPassword)
 	 *	@param	0|1|'1'|'user'|'group'|'member'	$activefilter	'1' or 'user'=use field this->filter as filter instead of parameter $search, 'group'=use field this->filtergroup as filter, 'member'=use field this->filtermember as filter

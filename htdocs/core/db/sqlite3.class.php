@@ -419,8 +419,8 @@ class DoliDBSqlite3 extends DoliDB
 		if (preg_match('/ALTER\s+TABLE\s*(.*)\s*ADD\s+CONSTRAINT\s+(.*)\s*FOREIGN\s+KEY\s*\(([\w,\s]+)\)\s*REFERENCES\s+(\w+)\s*\(([\w,\s]+)\)/i', $query, $reg)) {
 			// Ajout d'une clef étrangère à la table
 			// procédure de replacement de la table pour ajouter la contrainte
-			// Example : ALTER TABLE llx_member ADD CONSTRAINT adherent_fk_soc FOREIGN KEY (fk_soc) REFERENCES llx_societe (rowid)
-			// -> CREATE TABLE ( ... ,CONSTRAINT adherent_fk_soc FOREIGN KEY (fk_soc) REFERENCES llx_societe (rowid))
+			// Example : ALTER TABLE llx_member ADD CONSTRAINT member_fk_soc FOREIGN KEY (fk_soc) REFERENCES llx_societe (rowid)
+			// -> CREATE TABLE ( ... ,CONSTRAINT member_fk_soc FOREIGN KEY (fk_soc) REFERENCES llx_societe (rowid))
 			$foreignFields = $reg[5];
 			$foreignTable = $reg[4];
 			$localfields = $reg[3];

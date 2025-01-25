@@ -487,7 +487,7 @@ if (GETPOSTISSET('THEME_SATURATE_RATIO')) {
 .bg-infobox-bank_account i.fa{
 	color: #b0a53e  !important;
 }
-.bg-infobox-adherent i.fa, .bg-infobox-member i.fa{
+.bg-infobox-member i.fa, .bg-infobox-member i.fa{
 	color: #755114  !important;
 }
 .bg-infobox-expensereport i.fa{

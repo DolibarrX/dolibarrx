@@ -393,7 +393,7 @@ class Adherent extends CommonObject
 		$this->db = $db;
 		$this->statut = self::STATUS_DRAFT;
 		$this->status = self::STATUS_DRAFT;
-		// l'adherent n'est pas public par default
+		// l'member n'est pas public par default
 		$this->public = 0;
 		$this->ismultientitymanaged = 1;
 		$this->isextrafieldmanaged = 1;
@@ -1146,7 +1146,7 @@ class Adherent extends CommonObject
 			}
 		}
 
-		// Remove adherent
+		// Remove member
 		if (!$error) {
 			$sql = "DELETE FROM ".MAIN_DB_PREFIX."member WHERE rowid = ".((int) $rowid);
 			dol_syslog(get_class($this)."::delete", LOG_DEBUG);
@@ -2054,7 +2054,7 @@ class Adherent extends CommonObject
 
 
 	/**
-	 *		Fonction qui resilie un adherent
+	 *		Function that terminates a member
 	 *
 	 *		@param	User	$user		User making change
 	 *		@return	int					Return integer <0 if KO, >0 if OK
@@ -2101,7 +2101,7 @@ class Adherent extends CommonObject
 	}
 
 	/**
-	 *		Functiun to exclude (set adherent.status to -2) a member
+	 *		Functiun to exclude (set member.status to -2) a member
 	 *		TODO
 	 *		A private note should be added to know why the member has been excluded
 	 *		For historical purpose it add an "extra-subscription" type excluded
@@ -2722,8 +2722,8 @@ class Adherent extends CommonObject
 		$this->datevalid = $now;
 		$this->default_lang = '';
 
-		$this->typeid = 1; // Id type adherent
-		$this->type = 'Type adherent'; // Libelle type adherent
+		$this->typeid = 1; // Id member type
+		$this->type = 'Member type'; // Label member type
 		$this->need_subscription = 0;
 
 		$this->first_subscription_date = $now;
@@ -2932,7 +2932,7 @@ class Adherent extends CommonObject
 		$sql .= ' a.datevalid as datev,';
 		$sql .= ' a.tms as datem,';
 		$sql .= ' a.fk_user_author, a.fk_user_valid, a.fk_user_mod';
-		$sql .= ' FROM '.MAIN_DB_PREFIX.'adherent as a';
+		$sql .= ' FROM '.MAIN_DB_PREFIX.'member as a';
 		$sql .= ' WHERE a.rowid = '.((int) $id);
 
 		dol_syslog(get_class($this)."::info", LOG_DEBUG);

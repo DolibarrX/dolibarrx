@@ -54,7 +54,7 @@ echo $this->control->tpl['ajax_selectcountry'];
 <input type="hidden" name="canvas" value="<?php echo $canvas ?>">
 <input type="hidden" name="id" value="<?php echo GETPOST('id', 'int'); ?>">
 <input type="hidden" name="action" value="update">
-<input type="hidden" name="adherentid" value="<?php echo $this->control->tpl['id']; ?>">
+<input type="hidden" name="memberid" value="<?php echo $this->control->tpl['id']; ?>">
 <input type="hidden" name="old_name" value="<?php echo $this->control->tpl['name']; ?>">
 <input type="hidden" name="old_firstname" value="<?php echo $this->control->tpl['firstname']; ?>">
 <?php if (!empty($this->control->tpl['company_id'])) { ?>

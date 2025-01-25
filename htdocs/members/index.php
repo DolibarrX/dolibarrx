@@ -111,7 +111,7 @@ if ($config->use_javascript_ajax) {
 	$boxgraph .= '<tr class="liste_titre"><th colspan="2">'.$langs->trans("Statistics").($numberyears ? ' ('.($year - $numberyears).' - '.$year.')' : '').'</th></tr>';
 	$boxgraph .= '<tr><td class="center" colspan="2">';
 
-	require_once DOL_DOCUMENT_ROOT.'/members/class/adherentstats.class.php';
+	require_once DOL_DOCUMENT_ROOT.'/members/class/memberstats.class.php';
 	$stats = new AdherentStats($db, 0, $userId);
 
 	// Show array

@@ -2700,7 +2700,7 @@ function getModuleDirForApiClass($moduleobject)
 	} elseif ($moduleobject == 'agenda' || $moduleobject == 'agendaevents') {
 		$moduledirforclass = 'comm/action';
 	} elseif ($moduleobject == 'member' || $moduleobject == 'members' || $moduleobject == 'memberstypes' || $moduleobject == 'subscriptions') {
-		$moduledirforclass = 'adherents';
+		$moduledirforclass = 'members';
 	} elseif ($moduleobject == 'don' || $moduleobject == 'donations') {
 		$moduledirforclass = 'don';
 	} elseif ($moduleobject == 'banque' || $moduleobject == 'bankaccounts') {

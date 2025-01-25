@@ -21,7 +21,7 @@
  */
 
 /**
- *	\file       htdocs/members/class/adherentstats.class.php
+ *	\file       htdocs/members/class/memberstats.class.php
  *	\ingroup    member
  *	\brief      File for class managing statistics of members
  */

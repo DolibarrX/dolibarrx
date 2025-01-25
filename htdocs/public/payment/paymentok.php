@@ -434,7 +434,7 @@ if ($ispaymentok) {
 		$user->rights->facture = new stdClass();
 		$user->rights->facture->invoice_advance = new stdClass();
 	}
-	if (empty($user->rights->adherent)) {
+	if (empty($user->rights->member)) {
 		$user->rights->member = new stdClass();
 		$user->rights->member->cotisation = new stdClass();
 	}

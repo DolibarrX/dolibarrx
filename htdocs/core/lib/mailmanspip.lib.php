@@ -19,7 +19,7 @@
 
 /**
  *	    \file       htdocs/core/lib/member.lib.php
- *		\brief      Ensemble de functions de base pour les adherents
+ *		\brief      Basic feature set for members
  */
 
 /**

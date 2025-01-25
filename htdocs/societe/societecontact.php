@@ -214,7 +214,7 @@ if ($id > 0 || !empty($ref)) {
 			}
 		}
 
-		// additional list with adherents of company
+		// additional list with members of company
 		if (isModEnabled('member') && $user->hasRight('member', 'lire')) {
 			require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 			require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';

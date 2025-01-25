@@ -26,7 +26,7 @@
 /**
  *  \file       htdocs/members/messaging.php
  *  \ingroup    member
- *  \brief      Page of adherents events
+ *  \brief      Page of members events
  */
 
 // Load Dolibarr environment

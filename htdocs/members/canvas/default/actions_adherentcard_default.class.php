@@ -18,11 +18,11 @@
  */
 
 /**
- *	\file       htdocs/members/canvas/default/actions_adherentcard_default.class.php
+ *	\file       htdocs/members/canvas/default/actions_membercard_default.class.php
  *	\ingroup    member
  *	\brief      File of class Thirdparty member card controller (default canvas)
  */
-include_once DOL_DOCUMENT_ROOT.'/members/canvas/actions_adherentcard_common.class.php';
+include_once DOL_DOCUMENT_ROOT.'/members/canvas/actions_membercard_common.class.php';
 
 /**
  *	\class      ActionsAdherentCardDefault

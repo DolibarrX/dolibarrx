@@ -125,7 +125,7 @@ class Subscription extends CommonObject
 	{
 		$this->db = $db;
 
-		$this->ismultientitymanaged = 'fk_member@adherent';
+		$this->ismultientitymanaged = 'fk_member@member';
 	}
 
 

@@ -138,7 +138,7 @@ class FormCardWebPortal
 	/**
 	 * Init
 	 *
-	 * @param	string	$elementEn				Element (english) : "member" (for adherent), "partnership"
+	 * @param	string	$elementEn				Element (english) : "member" (for member), "partnership"
 	 * @param	int		$id						[=0] ID element
 	 * @param	int		$permissiontoread		[=0] Permission to read (0 : access forbidden by default)
 	 * @param	int		$permissiontoadd		[=0] Permission to add (0 : access forbidden by default), used by the include of actions_addupdatedelete.inc.php and actions_lineupdown.inc.php

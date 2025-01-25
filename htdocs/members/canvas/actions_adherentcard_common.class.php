@@ -18,7 +18,7 @@
  */
 
 /**
- *	\file       htdocs/members/canvas/actions_adherentcard_common.class.php
+ *	\file       htdocs/members/canvas/actions_membercard_common.class.php
  *	\ingroup    member
  *	\brief      File of class Thirdparty member card controller (common)
  */

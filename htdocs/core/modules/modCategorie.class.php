@@ -325,7 +325,7 @@ class modCategorie extends DolibarrModules
 		$this->export_sql_end[$r]  = ' FROM '.MAIN_DB_PREFIX.'categorie as cat';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'categorie as pcat ON pcat.rowid = cat.fk_parent';
 		$this->export_sql_end[$r] .= ' INNER JOIN '.MAIN_DB_PREFIX.'categorie_member as cm ON cm.fk_categorie = cat.rowid';
-		$this->export_sql_end[$r] .= ' INNER JOIN '.MAIN_DB_PREFIX.'adherent as p ON p.rowid = cm.fk_member';
+		$this->export_sql_end[$r] .= ' INNER JOIN '.MAIN_DB_PREFIX.'member as p ON p.rowid = cm.fk_member';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'member_extrafields as extra ON cat.rowid = extra.fk_object ';
 		$this->export_sql_end[$r] .= ' WHERE cat.entity IN ('.getEntity('category').')';
 		$this->export_sql_end[$r] .= ' AND cat.type = 3';
