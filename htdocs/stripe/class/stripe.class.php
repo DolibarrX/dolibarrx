@@ -124,7 +124,7 @@ class Stripe extends CommonObject
 		} else {
 			$sql .= " AND fk_soc IS NULL";
 		}
-		$sql .= " AND fk_user IS NULL AND fk_adherent IS NULL";
+		$sql .= " AND fk_user IS NULL AND fk_member IS NULL";
 
 		dol_syslog(get_class($this)."::getStripeAccount", LOG_DEBUG);
 

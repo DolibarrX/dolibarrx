@@ -88,7 +88,7 @@ class AdherentStats extends Stats
 		$this->field = 'subscription';
 
 		$this->where .= " m.statut != -1";
-		$this->where .= " AND p.fk_adherent = m.rowid AND m.entity IN (".getEntity('member').")";
+		$this->where .= " AND p.fk_member = m.rowid AND m.entity IN (".getEntity('member').")";
 		if ($this->memberid) {
 			$this->where .= " AND m.rowid = ".((int) $this->memberid);
 		}

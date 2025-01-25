@@ -107,7 +107,7 @@ if ($mode) {
 		$sql = "SELECT COUNT(DISTINCT d.rowid) as nb, COUNT(s.rowid) as nbsubscriptions, MAX(d.datevalid) as lastdate, MAX(s.dateadh) as lastsubscriptiondate, c.code, c.label";
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as d";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c on d.country = c.rowid";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_adherent = d.rowid";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_member = d.rowid";
 		$sql .= " WHERE d.entity IN (".getEntity('member').")";
 		$sql .= " AND d.statut <> ".Adherent::STATUS_DRAFT;
 		$sql .= " GROUP BY c.label, c.code";
@@ -125,7 +125,7 @@ if ($mode) {
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as c on d.state_id = c.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_regions as r on c.fk_region = r.code_region";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as co on d.country = co.rowid";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_adherent = d.rowid";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_member = d.rowid";
 		$sql .= " WHERE d.entity IN (".getEntity('member').")";
 		$sql .= " AND d.statut <> ".Adherent::STATUS_DRAFT;
 		$sql .= " GROUP BY co.label, co.code, c.nom";
@@ -142,7 +142,7 @@ if ($mode) {
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as c on d.state_id = c.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_regions as r on c.fk_region = r.code_region";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as co on d.country = co.rowid";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_adherent = d.rowid";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_member = d.rowid";
 		$sql .= " WHERE d.entity IN (".getEntity('member').")";
 		$sql .= " AND d.statut <> ".Adherent::STATUS_DRAFT;
 		$sql .= " GROUP BY co.label, co.code, r.nom"; //+
@@ -157,7 +157,7 @@ if ($mode) {
 		$sql = "SELECT COUNT(DISTINCT d.rowid) as nb, COUNT(s.rowid) as nbsubscriptions, MAX(d.datevalid) as lastdate, MAX(s.dateadh) as lastsubscriptiondate, c.code, c.label, d.town as label2";
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as d";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c on d.country = c.rowid";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_adherent = d.rowid";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_member = d.rowid";
 		$sql .= " WHERE d.entity IN (".getEntity('member').")";
 		$sql .= " AND d.statut <> ".Adherent::STATUS_DRAFT;
 		$sql .= " GROUP BY c.label, c.code, d.town";

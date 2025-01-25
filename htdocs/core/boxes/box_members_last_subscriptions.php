@@ -95,7 +95,7 @@ class box_members_last_subscriptions extends ModeleBoxes
 			$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a, ".MAIN_DB_PREFIX."adherent_type as ta, ".MAIN_DB_PREFIX."subscription as c";
 			$sql .= " WHERE a.entity IN (".getEntity('member').")";
 			$sql .= " AND a.fk_member_type = ta.rowid";
-			$sql .= " AND c.fk_adherent = a.rowid";
+			$sql .= " AND c.fk_member = a.rowid";
 			$sql .= $this->db->order("c.tms", "DESC");
 			$sql .= $this->db->plimit($max, 0);
 

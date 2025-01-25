@@ -1042,7 +1042,7 @@ class Adherent extends CommonObject
 		// Search for last subscription id and end date
 		$sql = "SELECT rowid, datec as dateop, dateadh as datedeb, datef as datefin";
 		$sql .= " FROM ".MAIN_DB_PREFIX."subscription";
-		$sql .= " WHERE fk_adherent = ".((int) $this->id);
+		$sql .= " WHERE fk_member = ".((int) $this->id);
 		$sql .= " ORDER by dateadh DESC"; // Sort by start subscription date
 
 		dol_syslog(get_class($this)."::update_end_date", LOG_DEBUG);
@@ -1116,7 +1116,7 @@ class Adherent extends CommonObject
 
 		// Remove subscription
 		if (!$error) {
-			$sql = "DELETE FROM ".MAIN_DB_PREFIX."subscription WHERE fk_adherent = ".((int) $rowid);
+			$sql = "DELETE FROM ".MAIN_DB_PREFIX."subscription WHERE fk_member = ".((int) $rowid);
 			dol_syslog(get_class($this)."::delete", LOG_DEBUG);
 			$resql = $this->db->query($sql);
 			if (!$resql) {
@@ -1578,7 +1578,7 @@ class Adherent extends CommonObject
 		$sql .= " c.dateadh as dateh,";
 		$sql .= " c.datef as datef";
 		$sql .= " FROM ".MAIN_DB_PREFIX."subscription as c";
-		$sql .= " WHERE c.fk_adherent = ".((int) $this->id);
+		$sql .= " WHERE c.fk_member = ".((int) $this->id);
 		$sql .= " ORDER BY c.dateadh";
 		dol_syslog(get_class($this)."::fetch_subscriptions", LOG_DEBUG);
 
@@ -1601,7 +1601,7 @@ class Adherent extends CommonObject
 
 				$subscription = new Subscription($this->db);
 				$subscription->id = $obj->rowid;
-				$subscription->fk_adherent = $obj->fk_adherent;
+				$subscription->fk_member = $obj->fk_adherent;
 				$subscription->fk_type = $obj->fk_type;
 				$subscription->amount = $obj->subscription;
 				$subscription->note = $obj->note_public;
@@ -1683,7 +1683,7 @@ class Adherent extends CommonObject
 
 		// Create subscription
 		$subscription = new Subscription($this->db);
-		$subscription->fk_adherent = $this->id;
+		$subscription->fk_member = $this->id;
 		$subscription->dateh = $date; // Date of new subscription
 		$subscription->datef = $datefin; // End data of new subscription
 		$subscription->amount = $amount;

@@ -617,7 +617,7 @@ while ($i < $imaxinloop) {
 	$subscription->dateh = $db->jdate($obj->dateadh);
 	$subscription->datef = $db->jdate($obj->datef);
 	$subscription->amount = $obj->subscription;
-	$subscription->fk_adherent = $obj->rowid;
+	$subscription->fk_member = $obj->rowid;
 
 	$adherent->lastname = $obj->lastname;
 	$adherent->firstname = $obj->firstname;

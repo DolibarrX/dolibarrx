@@ -80,7 +80,7 @@ $sql = "SELECT COUNT(DISTINCT d.rowid) as nb, COUNT(s.rowid) as nbsubscriptions,
 $sql .= " MAX(d.datevalid) as lastdate, MAX(s.dateadh) as lastsubscriptiondate,";
 $sql .= " d.morphy as code";
 $sql .= " FROM ".MAIN_DB_PREFIX."adherent as d";
-$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_adherent = d.rowid";
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_member = d.rowid";
 $sql .= " WHERE d.entity IN (".getEntity('member').")";
 $sql .= " AND d.statut <> ".Adherent::STATUS_DRAFT;
 $sql .= " GROUP BY d.morphy";
@@ -115,7 +115,7 @@ $sql = "SELECT COUNT(DISTINCT d.rowid) as nb, COUNT(s.rowid) as nbsubscriptions,
 $sql .= " MAX(d.datevalid) as lastdate, MAX(s.dateadh) as lastsubscriptiondate,";
 $sql .= " d.morphy as code";
 $sql .= " FROM ".MAIN_DB_PREFIX."adherent as d";
-$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_adherent = d.rowid";
+$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_member = d.rowid";
 $sql .= " WHERE d.entity IN (".getEntity('member').")";
 $sql .= " AND d.statut >= 1"; // Active (not excluded=-2, not draft=-1, not resiliated=0)
 $sql .= " GROUP BY d.morphy";

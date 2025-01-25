@@ -256,7 +256,7 @@ class Subscription extends CommonObject
 				$this->ref            = $obj->rowid;
 
 				$this->fk_type        = $obj->fk_type;
-				$this->fk_adherent    = $obj->fk_adherent;
+				$this->fk_member    = $obj->fk_adherent;
 				$this->datec          = $this->db->jdate($obj->datec);
 				$this->datem          = $this->db->jdate($obj->tms);
 				$this->dateh          = $this->db->jdate($obj->dateh);
@@ -300,7 +300,7 @@ class Subscription extends CommonObject
 
 		$sql = "UPDATE ".MAIN_DB_PREFIX."subscription SET ";
 		$sql .= " fk_type = ".((int) $this->fk_type).",";
-		$sql .= " fk_adherent = ".((int) $this->fk_adherent).",";
+		$sql .= " fk_member = ".((int) $this->fk_adherent).",";
 		$sql .= " note = ".($this->note_public ? "'".$this->db->escape($this->note_public)."'" : 'null').",";
 		$sql .= " subscription = ".(float) price2num($this->amount).",";
 		$sql .= " dateadh = '".$this->db->idate($this->dateh)."',";

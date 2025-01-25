@@ -724,7 +724,7 @@ if ($action != 'addsubscription' && $action != 'create_thirdparty') {
 	$sql .= " FROM ".MAIN_DB_PREFIX."adherent as d, ".MAIN_DB_PREFIX."subscription as c";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank as b ON c.fk_bank = b.rowid";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank_account as ba ON b.fk_account = ba.rowid";
-	$sql .= " WHERE d.rowid = c.fk_adherent AND d.rowid=".((int) $rowid);
+	$sql .= " WHERE d.rowid = c.fk_member AND d.rowid=".((int) $rowid);
 	$sql .= $db->order($sortfield, $sortorder);
 
 	$result = $db->query($sql);
