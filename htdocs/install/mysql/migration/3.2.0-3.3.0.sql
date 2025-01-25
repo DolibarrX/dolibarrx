@@ -905,7 +905,7 @@ INSERT INTO llx_c_paper_format (rowid, code, label, width, height, unit, active)
 
 
 -- increase field size
-ALTER TABLE llx_bank_account MODIFY COLUMN code_banque varchar(8);
+ALTER TABLE llx_bank_account MODIFY COLUMN code_bank varchar(8);
 
 create table llx_user_extrafields
 (

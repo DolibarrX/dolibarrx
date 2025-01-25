@@ -35,7 +35,7 @@ create table llx_prelevement_bons
   statut          smallint DEFAULT 0, -- statut
   credite         smallint DEFAULT 0, -- indique si le prelevement a ete credite
   note            text,
-  date_trans      datetime,           -- date de transmission a la banque
+  date_trans      datetime,           -- date de transmission a la bank
   method_trans    smallint,           -- methode de transmission
   fk_user_trans   integer,            -- user qui a effectue la transmission
   date_credit     datetime,           -- date de credit sur le compte

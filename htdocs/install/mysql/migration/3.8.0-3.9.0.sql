@@ -111,10 +111,10 @@ ALTER TABLE llx_user_param MODIFY COLUMN value text NOT NULL;
 ALTER TABLE llx_expedition ADD COLUMN import_key varchar(14);
 ALTER TABLE llx_expedition ADD COLUMN extraparams varchar(255);
 
-ALTER TABLE llx_bank_account MODIFY COLUMN code_banque varchar(128);
-ALTER TABLE llx_prelevement_facture_demande MODIFY COLUMN code_banque varchar(128);
-ALTER TABLE llx_prelevement_lignes MODIFY COLUMN code_banque varchar(128);
-ALTER TABLE llx_societe_rib MODIFY COLUMN code_banque varchar(128);
+ALTER TABLE llx_bank_account MODIFY COLUMN code_bank varchar(128);
+ALTER TABLE llx_prelevement_facture_demande MODIFY COLUMN code_bank varchar(128);
+ALTER TABLE llx_prelevement_lignes MODIFY COLUMN code_bank varchar(128);
+ALTER TABLE llx_societe_rib MODIFY COLUMN code_bank varchar(128);
 
 ALTER TABLE llx_contrat ADD COLUMN ref_customer varchar(30);
 ALTER TABLE llx_commande ADD COLUMN fk_warehouse integer DEFAULT NULL AFTER fk_shipping_method;
@@ -239,7 +239,7 @@ CREATE TABLE IF NOT EXISTS llx_user_rib (
   tms            timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   label          varchar(30),
   bank           varchar(255),  -- bank name
-  code_banque    varchar(128),  -- bank code
+  code_bank    varchar(128),  -- bank code
   code_guichet   varchar(6),    -- desk code
   number         varchar(255),  -- account number
   cle_rib        varchar(5),    -- key of bank account

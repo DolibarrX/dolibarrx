@@ -38,7 +38,7 @@ create table llx_bank
   note            text,
   fk_bordereau    integer DEFAULT 0,
   position        integer DEFAULT 0,
-  banque          varchar(255),              -- banque pour les cheques
+  bank          varchar(255),              -- bank pour les cheques
   emetteur        varchar(255),              -- emetteur du cheque
   author          varchar(40),               -- a supprimer apres migration
   origin_id       integer,
