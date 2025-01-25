@@ -62,7 +62,7 @@ abstract class ModelePDFMember extends CommonDocGenerator
 	/**
 	 *  Function to build a document
 	 *
-	 *	@param	Adherent	$object				Object source to build document
+	 *	@param	Member	$object				Object source to build document
 	 *	@param	Translate	$outputlangs		Lang output object
 	 * 	@param	string		$srctemplatepath	Full path of source filename for generator using a template file
 	 *	@param	string		$mode				Tell if doc module is called for 'member', ...
@@ -129,7 +129,7 @@ abstract class ModeleNumRefMembers extends CommonNumRefGenerator
 	 *  Return next value
 	 *
 	 *  @param  ?Societe	$objsoc		Object third party
-	 *  @param  ?Adherent	$object		Object we need next value for
+	 *  @param  ?Member	$object		Object we need next value for
 	 *  @return	string|int<-1,0>		next value
 	 */
 	public function getNextValue($objsoc, $object)

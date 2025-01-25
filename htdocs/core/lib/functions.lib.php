@@ -9168,7 +9168,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 				$substitutionArray['__RECEPTIONTRACKNUMURL__'] = 'Shipping tracking url';
 			}
 		} else {
-			'@phan-var-force Adherent|Delivery $object';
+			'@phan-var-force Member|Delivery $object';
 			$substitutionArray['__ID__'] = $object->id;
 			$substitutionArray['__REF__'] = $object->ref;
 			$substitutionArray['__NEWREF__'] = $object->newref;
@@ -9208,7 +9208,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 			$substitutionArray['__EXPIRATION_DATE__'] = (isset($object->fin_validite) ? dol_print_date($object->fin_validite, 'daytext') : '');
 
 			if (is_object($object) && ($object->element == 'member' || $object->element == 'member') && $object->id > 0) {
-				'@phan-var-force Adherent $object';
+				'@phan-var-force Member $object';
 				$birthday = (empty($object->birth) ? '' : dol_print_date($object->birth, 'day'));
 
 				$substitutionArray['__MEMBER_ID__'] = (isset($object->id) ? $object->id : '');
@@ -14285,7 +14285,7 @@ function getActionCommEcmList($object)
  *	@param	Conf				$conf		Object conf
  *	@param	Translate			$langs		Object langs
  *	@param	DoliDB				$db			Object db
- *	@param	?CommonObject		$filterobj	Filter on object Adherent|Societe|Project|Product|CommandeFournisseur|Dolresource|Ticket|... to list events linked to an object
+ *	@param	?CommonObject		$filterobj	Filter on object Member|Societe|Project|Product|CommandeFournisseur|Dolresource|Ticket|... to list events linked to an object
  *	@param	?Contact			$objcon		Filter on object contact to filter events on a contact
  *	@param  int					$noprint	Return string but does not output it
  *	@param  string				$actioncode	Filter on actioncode
@@ -14344,7 +14344,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 		$sql .= " u.rowid as user_id, u.login as user_login, u.photo as user_photo, u.firstname as user_firstname, u.lastname as user_lastname";
 		if (is_object($filterobj) && get_class($filterobj) == 'Societe') {
 			$sql .= ", sp.lastname, sp.firstname";
-		} elseif (is_object($filterobj) && get_class($filterobj) == 'Adherent') {
+		} elseif (is_object($filterobj) && get_class($filterobj) == 'Member') {
 			$sql .= ", m.lastname, m.firstname";
 		} elseif (is_object($filterobj) && in_array(get_class($filterobj), array('Commande', 'CommandeFournisseur', 'Product', 'Ticket', 'BOM', 'Contrat', 'Facture', 'FactureFournisseur'))) {
 			$sql .= ", o.ref";
@@ -14368,7 +14368,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 			$sql .= " ON er.resource_type = 'dolresource'";
 			$sql .= " AND er.element_id = a.id";
 			$sql .= " AND er.resource_id = ".((int) $filterobj->id);
-		} elseif (is_object($filterobj) && get_class($filterobj) == 'Adherent') {
+		} elseif (is_object($filterobj) && get_class($filterobj) == 'Member') {
 			$sql .= ", ".MAIN_DB_PREFIX."member as m";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'CommandeFournisseur') {
 			$sql .= ", ".MAIN_DB_PREFIX."commande_fournisseur as o";
@@ -14392,7 +14392,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 				$sql .= " AND a.fk_soc = ".((int) $filterobj->id);
 			} elseif (is_object($filterobj) && get_class($filterobj) == 'Project' && $filterobj->id) {
 				$sql .= " AND a.fk_project = ".((int) $filterobj->id);
-			} elseif (is_object($filterobj) && get_class($filterobj) == 'Adherent') {
+			} elseif (is_object($filterobj) && get_class($filterobj) == 'Member') {
 				$sql .= " AND a.fk_element = m.rowid AND a.elementtype = 'member'";
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_element = ".((int) $filterobj->id);
@@ -14492,7 +14492,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 		$sql2 .= ", u.rowid as user_id, u.login as user_login, u.photo as user_photo, u.firstname as user_firstname, u.lastname as user_lastname"; // User that valid action
 		if (is_object($filterobj) && get_class($filterobj) == 'Societe') {
 			$sql2 .= ", '' as lastname, '' as firstname";
-		} elseif (is_object($filterobj) && get_class($filterobj) == 'Adherent') {
+		} elseif (is_object($filterobj) && get_class($filterobj) == 'Member') {
 			$sql2 .= ", '' as lastname, '' as firstname";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'CommandeFournisseur') {
 			$sql2 .= ", '' as ref";

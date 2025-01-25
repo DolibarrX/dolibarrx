@@ -112,7 +112,7 @@ if ($config->use_javascript_ajax) {
 	$boxgraph .= '<tr><td class="center" colspan="2">';
 
 	require_once DOL_DOCUMENT_ROOT.'/members/class/memberstats.class.php';
-	$stats = new AdherentStats($db, 0, $userId);
+	$stats = new MemberStats($db, 0, $userId);
 
 	// Show array
 	$sumMembers = $stats->countMembersByTypeAndStatus($numberyears);

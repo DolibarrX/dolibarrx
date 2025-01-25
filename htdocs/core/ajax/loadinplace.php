@@ -143,7 +143,7 @@ if (!empty($field) && !empty($element) && !empty($table_element) && !empty($fk_e
 				dol_include_once('/'.$module.'/class/actions_'.$subelement.'.class.php');
 				$classname = 'Actions'.ucfirst($subelement);
 				$object = new $classname($db);
-				'@phan-var-force ActionsMulticompany|ActionsAdherentCardCommon|ActionsContactCardCommon|CommonHookActions|ActionsCardProduct|ActionsCardService|ActionsCardCommon $object';
+				'@phan-var-force ActionsMulticompany|ActionsMemberCardCommon|ActionsContactCardCommon|CommonHookActions|ActionsCardProduct|ActionsCardService|ActionsCardCommon $object';
 				$ret = $object->$methodname($fk_element);
 				if ($ret > 0) {
 					echo json_encode($object->$cachename);

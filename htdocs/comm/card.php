@@ -678,7 +678,7 @@ if ($object->id > 0) {
 	// Sales representative
 	include DOL_DOCUMENT_ROOT.'/societe/tpl/linesalesrepresentative.tpl.php';
 
-	// Module Adherent
+	// Module Member
 	if (isModEnabled('member')) {
 		$langs->load("members");
 		$langs->load("users");

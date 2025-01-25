@@ -1945,7 +1945,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				print '</tr>'."\n";
 			}
 
-			// Module Adherent
+			// Module Member
 			if (isModEnabled('member')) {
 				$langs->load("members");
 				print '<tr><td>'.$langs->trans("LinkedToDolibarrMember").'</td>';
@@ -2911,7 +2911,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 			}
 			*/
 
-			// Module Adherent
+			// Module Member
 			if (isModEnabled('member')) {
 				$langs->load("members");
 				print '<tr><td>'.$langs->trans("LinkedToDolibarrMember").'</td>';

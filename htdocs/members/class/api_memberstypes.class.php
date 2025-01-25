@@ -85,8 +85,8 @@ class MembersTypes extends DolibarrApi
 	 * @param string    $sqlfilters Other criteria to filter answers separated by a comma. Syntax example "(t.libelle:like:'SO-%') and (t.subscription:=:'1')"
 	 * @param string    $properties	Restrict the data returned to these properties. Ignored if empty. Comma separated list of properties names
 	 * @return array                Array of member type objects
-	 * @phan-return AdherentType[]
-	 * @phpstan-return AdherentType[]
+	 * @phan-return MemberType[]
+	 * @phpstan-return MemberType[]
 	 *
 	 * @throws RestException
 	 */
@@ -214,7 +214,7 @@ class MembersTypes extends DolibarrApi
 				continue;
 			}
 			// Process the status separately because it must be updated using
-			// the validate(), resiliate() and exclude() methods of the class AdherentType.
+			// the validate(), resiliate() and exclude() methods of the class MemberType.
 			$membertype->$field = $this->_checkValForAPI($field, $value, $membertype);
 		}
 

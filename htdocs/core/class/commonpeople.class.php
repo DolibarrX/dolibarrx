@@ -172,7 +172,7 @@ trait CommonPeople
 			$contactid = $this->id;
 			$thirdpartyid = empty($this->fk_soc) ? 0 : $this->fk_soc;
 		}
-		if ($this->element == 'member' && $this instanceof Adherent) {
+		if ($this->element == 'member' && $this instanceof Member) {
 			$contactid = $this->id;
 			$thirdpartyid = empty($this->socid) ? 0 : $this->socid;
 		}

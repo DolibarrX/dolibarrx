@@ -10329,7 +10329,7 @@ class Form
 				}
 			}
 		} elseif ($object->element == 'member') {
-			'@phan-var-force Adherent $object';
+			'@phan-var-force Member $object';
 			$ret .= $object->ref . '<br>';
 			$fullname = $object->getFullName($langs);
 			if ($object->morphy == 'mor' && $object->societe) {
@@ -10407,7 +10407,7 @@ class Form
 	 * Return HTML code to output a photo
 	 *
 	 * @param string 	$modulepart 				Key to define module concerned ('societe', 'userphoto', 'memberphoto')
-	 * @param Societe|Adherent|Contact|User|CommonObject	$object	Object containing data to retrieve file name
+	 * @param Societe|Member|Contact|User|CommonObject	$object	Object containing data to retrieve file name
 	 * @param int 		$width 						Width of photo
 	 * @param int 		$height 					Height of photo (auto if 0)
 	 * @param int<0,1>	$caneditfield 				Add edit fields

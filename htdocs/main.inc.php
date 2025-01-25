@@ -3001,7 +3001,7 @@ function printDropdownQuickadd($mode = 0)
 			array(
 				"url" => "/members/card.php?action=create&amp;mainmenu=members",
 				"title" => "MenuNewMember@members",
-				"name" => "Adherent@members",
+				"name" => "Member@members",
 				"picto" => "object_member",
 				"activation" => isModEnabled('member') && $user->hasRight("member", "write"), // vs hooking
 				"position" => 5,

@@ -146,7 +146,7 @@ class Categorie extends CommonObject
 		'product' => 'Product',
 		'customer' => 'Societe',
 		'supplier' => 'Fournisseur',
-		'member' => 'Adherent',
+		'member' => 'Member',
 		'contact' => 'Contact',
 		'user' => 'User',
 		'account' => 'Account', // old for bank account

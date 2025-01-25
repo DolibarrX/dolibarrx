@@ -1068,7 +1068,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'MEMBER_VALIDATE') {
-			'@phan-var-force Adherent $object';
+			'@phan-var-force Member $object';
 			// Members
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "members"));
@@ -1088,7 +1088,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'MEMBER_MODIFY') {
-			'@phan-var-force Adherent $object';
+			'@phan-var-force Member $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "members"));
 
@@ -1202,7 +1202,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				$object->socid = $object->fk_soc;
 			}
 		} elseif ($action == 'MEMBER_RESILIATE') {
-			'@phan-var-force Adherent $object';
+			'@phan-var-force Member $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "members"));
 
@@ -1221,7 +1221,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'MEMBER_DELETE') {
-			'@phan-var-force Adherent $object';
+			'@phan-var-force Member $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "members"));
 
@@ -1240,7 +1240,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'MEMBER_EXCLUDE') {
-			'@phan-var-force Adherent $object';
+			'@phan-var-force Member $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "members"));
 

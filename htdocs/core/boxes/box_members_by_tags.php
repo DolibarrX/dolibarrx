@@ -87,7 +87,7 @@ class box_members_by_tags extends ModeleBoxes
 		if ($user->hasRight('member', 'lire')) {
 			require_once DOL_DOCUMENT_ROOT.'/members/class/memberstats.class.php';
 			require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-			$stats = new AdherentStats($this->db, $user->socid, $user->id);
+			$stats = new MemberStats($this->db, $user->socid, $user->id);
 
 			// Show array
 			$sumMembers = $stats->countMembersByTagAndStatus($numberyears);
@@ -139,7 +139,7 @@ class box_members_by_tags extends ModeleBoxes
 					'text' => $langs->trans("Total")
 				);
 				$line++;
-				$AdherentTag = array();
+				$MemberTag = array();
 				foreach ($sumMembers as $key => $data) {
 					if ($key == 'total') {
 						break;
@@ -147,7 +147,7 @@ class box_members_by_tags extends ModeleBoxes
 					$adhtag = new Categorie($this->db);
 					$adhtag->id = (int) $key;
 					$adhtag->label = $data['label'];
-					$AdherentTag[$key] = $adhtag;
+					$MemberTag[$key] = $adhtag;
 
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="tdoverflowmax150 maxwidth150onsmartphone"',
@@ -156,32 +156,32 @@ class box_members_by_tags extends ModeleBoxes
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="right"',
-						'text' => (isset($data['members_draft']) && $data['members_draft'] > 0 ? $data['members_draft'] : '') . ' ' . $staticmember->LibStatut(Adherent::STATUS_DRAFT, 1, 0, 3),
+						'text' => (isset($data['members_draft']) && $data['members_draft'] > 0 ? $data['members_draft'] : '') . ' ' . $staticmember->LibStatut(Member::STATUS_DRAFT, 1, 0, 3),
 						'asis' => 1,
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="right"',
-						'text' => (isset($data['members_pending']) && $data['members_pending'] > 0 ? $data['members_pending'] : '') . ' ' . $staticmember->LibStatut(Adherent::STATUS_VALIDATED, 1, 0, 3),
+						'text' => (isset($data['members_pending']) && $data['members_pending'] > 0 ? $data['members_pending'] : '') . ' ' . $staticmember->LibStatut(Member::STATUS_VALIDATED, 1, 0, 3),
 						'asis' => 1,
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="right"',
-						'text' => (isset($data['members_uptodate']) && $data['members_uptodate'] > 0 ? $data['members_uptodate'] : '') . ' ' . $staticmember->LibStatut(Adherent::STATUS_VALIDATED, 0, $now + 86400, 3),
+						'text' => (isset($data['members_uptodate']) && $data['members_uptodate'] > 0 ? $data['members_uptodate'] : '') . ' ' . $staticmember->LibStatut(Member::STATUS_VALIDATED, 0, $now + 86400, 3),
 						'asis' => 1,
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="right"',
-						'text' => (isset($data['members_expired']) && $data['members_expired'] > 0 ? $data['members_expired'] : '') . ' ' . $staticmember->LibStatut(Adherent::STATUS_VALIDATED, 1, $now - 86400, 3),
+						'text' => (isset($data['members_expired']) && $data['members_expired'] > 0 ? $data['members_expired'] : '') . ' ' . $staticmember->LibStatut(Member::STATUS_VALIDATED, 1, $now - 86400, 3),
 						'asis' => 1,
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="right"',
-						'text' => (isset($data['members_excluded']) && $data['members_excluded'] > 0 ? $data['members_excluded'] : '') . ' ' . $staticmember->LibStatut(Adherent::STATUS_EXCLUDED, 1, $now, 3),
+						'text' => (isset($data['members_excluded']) && $data['members_excluded'] > 0 ? $data['members_excluded'] : '') . ' ' . $staticmember->LibStatut(Member::STATUS_EXCLUDED, 1, $now, 3),
 						'asis' => 1,
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="right"',
-						'text' => (isset($data['members_resiliated']) && $data['members_resiliated'] > 0 ? $data['members_resiliated'] : '') . ' ' . $staticmember->LibStatut(Adherent::STATUS_RESILIATED, 1, 0, 3),
+						'text' => (isset($data['members_resiliated']) && $data['members_resiliated'] > 0 ? $data['members_resiliated'] : '') . ' ' . $staticmember->LibStatut(Member::STATUS_RESILIATED, 1, 0, 3),
 						'asis' => 1,
 					);
 					$this->info_box_contents[$line][] = array(
@@ -205,32 +205,32 @@ class box_members_by_tags extends ModeleBoxes
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="liste_total right"',
-						'text' => $sumMembers['total']['members_draft'].' '.$staticmember->LibStatut(Adherent::STATUS_DRAFT, 1, 0, 3),
+						'text' => $sumMembers['total']['members_draft'].' '.$staticmember->LibStatut(Member::STATUS_DRAFT, 1, 0, 3),
 						'asis' => 1
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="liste_total right"',
-						'text' => $sumMembers['total']['members_pending'].' '.$staticmember->LibStatut(Adherent::STATUS_VALIDATED, 1, 0, 3),
+						'text' => $sumMembers['total']['members_pending'].' '.$staticmember->LibStatut(Member::STATUS_VALIDATED, 1, 0, 3),
 						'asis' => 1
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="liste_total right"',
-						'text' => $sumMembers['total']['members_uptodate'].' '.$staticmember->LibStatut(Adherent::STATUS_VALIDATED, 0, 0, 3),
+						'text' => $sumMembers['total']['members_uptodate'].' '.$staticmember->LibStatut(Member::STATUS_VALIDATED, 0, 0, 3),
 						'asis' => 1
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="liste_total right"',
-						'text' => $sumMembers['total']['members_expired'].' '.$staticmember->LibStatut(Adherent::STATUS_VALIDATED, 1, 1, 3),
+						'text' => $sumMembers['total']['members_expired'].' '.$staticmember->LibStatut(Member::STATUS_VALIDATED, 1, 1, 3),
 						'asis' => 1
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="liste_total right"',
-						'text' => $sumMembers['total']['members_excluded'].' '.$staticmember->LibStatut(Adherent::STATUS_EXCLUDED, 1, 0, 3),
+						'text' => $sumMembers['total']['members_excluded'].' '.$staticmember->LibStatut(Member::STATUS_EXCLUDED, 1, 0, 3),
 						'asis' => 1
 					);
 					$this->info_box_contents[$line][] = array(
 						'td' => 'class="liste_total right"',
-						'text' => $sumMembers['total']['members_resiliated'].' '.$staticmember->LibStatut(Adherent::STATUS_RESILIATED, 1, 0, 3),
+						'text' => $sumMembers['total']['members_resiliated'].' '.$staticmember->LibStatut(Member::STATUS_RESILIATED, 1, 0, 3),
 						'asis' => 1
 					);
 					$this->info_box_contents[$line][] = array(

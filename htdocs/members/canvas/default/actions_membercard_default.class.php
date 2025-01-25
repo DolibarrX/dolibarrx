@@ -25,10 +25,10 @@
 include_once DOL_DOCUMENT_ROOT.'/members/canvas/actions_membercard_common.class.php';
 
 /**
- *	\class      ActionsAdherentCardDefault
+ *	\class      ActionsMemberCardDefault
  *	\brief      Class allowing the management of the members by default
  */
-class ActionsAdherentCardDefault extends ActionsAdherentCardCommon
+class ActionsMemberCardDefault extends ActionsMemberCardCommon
 {
 	/**
 	 *	Constructor
@@ -61,13 +61,13 @@ class ActionsAdherentCardDefault extends ActionsAdherentCardCommon
 		$out = '';
 
 		if ($action == 'view') {
-			$out .= (getDolGlobalString('ADHERENT_ADDRESSES_MANAGEMENT') ? $langs->trans("Adherent") : $langs->trans("ContactAddress"));
+			$out .= (getDolGlobalString('ADHERENT_ADDRESSES_MANAGEMENT') ? $langs->trans("Member") : $langs->trans("ContactAddress"));
 		}
 		if ($action == 'edit') {
-			$out .= (getDolGlobalString('ADHERENT_ADDRESSES_MANAGEMENT') ? $langs->trans("EditAdherent") : $langs->trans("EditAdherentAddress"));
+			$out .= (getDolGlobalString('ADHERENT_ADDRESSES_MANAGEMENT') ? $langs->trans("EditMember") : $langs->trans("EditMemberAddress"));
 		}
 		if ($action == 'create') {
-			$out .= (getDolGlobalString('ADHERENT_ADDRESSES_MANAGEMENT') ? $langs->trans("NewAdherent") : $langs->trans("NewAdherentAddress"));
+			$out .= (getDolGlobalString('ADHERENT_ADDRESSES_MANAGEMENT') ? $langs->trans("NewMember") : $langs->trans("NewMemberAddress"));
 		}
 
 		return $out;
@@ -112,7 +112,7 @@ class ActionsAdherentCardDefault extends ActionsAdherentCardCommon
 		} else {
 			// Confirm delete contact
 			if ($action == 'delete' && $user->hasRight('member', 'supprimer')) {
-				$this->tpl['action_delete'] = $form->formconfirm($_SERVER["PHP_SELF"]."?id=".$this->object->id, $langs->trans("DeleteAdherent"), $langs->trans("ConfirmDeleteAdherent"), "confirm_delete", '', 0, 1);
+				$this->tpl['action_delete'] = $form->formconfirm($_SERVER["PHP_SELF"]."?id=".$this->object->id, $langs->trans("DeleteMember"), $langs->trans("ConfirmDeleteMember"), "confirm_delete", '', 0, 1);
 			}
 		}
 	}

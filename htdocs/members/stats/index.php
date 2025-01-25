@@ -88,7 +88,7 @@ $dir = $config->member->dir_temp;
 
 dol_mkdir($dir);
 
-$stats = new AdherentStats($db, $socid, $userId);
+$stats = new MemberStats($db, $socid, $userId);
 
 // Build graphic number of object
 $data = $stats->getNbByMonthWithPrevYear($endyear, $startyear);

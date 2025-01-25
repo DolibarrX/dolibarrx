@@ -528,13 +528,13 @@ print $form->selectarray("MEMBER_SUBSCRIPTION_START_FIRST_DAY_OF", $startpoint, 
 print "</td></tr>\n";
 
 // Mail required for members
-print '<tr class="oddeven"><td>'.$langs->trans("AdherentMailRequired").'</td><td>';
+print '<tr class="oddeven"><td>'.$langs->trans("MemberMailRequired").'</td><td>';
 print $form->selectyesno('ADHERENT_MAIL_REQUIRED', getDolGlobalInt('ADHERENT_MAIL_REQUIRED'), 1, false, 0, 1);
 print "</td></tr>\n";
 
 // Login/Pass required for members
 print '<tr class="oddeven"><td>';
-print $form->textwithpicto($langs->trans("AdherentLoginRequired"), $langs->trans("AdherentLoginRequiredDesc"));
+print $form->textwithpicto($langs->trans("MemberLoginRequired"), $langs->trans("MemberLoginRequiredDesc"));
 print '</td><td>';
 print $form->selectyesno('ADHERENT_LOGIN_NOT_REQUIRED', (getDolGlobalString('ADHERENT_LOGIN_NOT_REQUIRED') ? 0 : 1), 1, false, 0, 1);
 print "</td></tr>\n";

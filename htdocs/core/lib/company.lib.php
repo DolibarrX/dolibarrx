@@ -1733,7 +1733,7 @@ function show_contacts($config, $langs, $db, $object, $backtopage = '', $showuse
  * 		@param	Conf				$conf		    Object conf
  * 		@param	Translate			$langs		    Object langs
  * 		@param	DoliDB				$db			    Object db
- * 		@param	Adherent|Societe    $filterobj  	Object thirdparty or member
+ * 		@param	Member|Societe    $filterobj  	Object thirdparty or member
  * 		@param	Contact				$objcon	        Object contact
  *      @param  int					$noprint	    Return string but does not output it
  *      @param  string|string[]		$actioncode 	Filter on actioncode
@@ -1760,7 +1760,7 @@ function show_actions_todo($config, $langs, $db, $filterobj, $objcon = null, $no
  * 		@param	Conf				$conf			Object conf
  * 		@param	Translate			$langs			Object langs
  * 		@param	DoliDB				$db				Object db
- * 		@param	?CommonObject		$filterobj		Filter on object Adherent|Societe|Project|Product|CommandeFournisseur|Dolresource|Ticket... to list events linked to an object
+ * 		@param	?CommonObject		$filterobj		Filter on object Member|Societe|Project|Product|CommandeFournisseur|Dolresource|Ticket... to list events linked to an object
  * 		@param	?Contact			$objcon			Filter on object contact to filter events on a contact
  *      @param  int<0,1>			$noprint		Return string but does not output it
  *      @param  string|string[]		$actioncode		Filter on actioncode
@@ -1838,7 +1838,7 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 			/* Nothing */
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Project') {
 			/* Nothing */
-		} elseif (is_object($filterobj) && get_class($filterobj) == 'Adherent') {
+		} elseif (is_object($filterobj) && get_class($filterobj) == 'Member') {
 			$sql .= ", m.lastname, m.firstname";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'CommandeFournisseur') {
 			$sql .= ", o.ref";
@@ -1897,7 +1897,7 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 			$sql .= " AND er.resource_id = " . ((int) $filterobj->id);
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Project') {
 			/* Nothing */
-		} elseif (is_object($filterobj) && get_class($filterobj) == 'Adherent') {
+		} elseif (is_object($filterobj) && get_class($filterobj) == 'Member') {
 			$sql .= ", " . MAIN_DB_PREFIX . "member as m";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'CommandeFournisseur') {
 			$sql .= ", " . MAIN_DB_PREFIX . "commande_fournisseur as o";
@@ -1925,7 +1925,7 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 				/* Nothing */
 			} elseif (is_object($filterobj) && get_class($filterobj) == 'Project' && $filterobj->id) {
 				$sql .= " AND a.fk_project = " . ((int) $filterobj->id);
-			} elseif (is_object($filterobj) && get_class($filterobj) == 'Adherent') {
+			} elseif (is_object($filterobj) && get_class($filterobj) == 'Member') {
 				$sql .= " AND a.fk_element = m.rowid AND a.elementtype = 'member'";
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_element = " . ((int) $filterobj->id);
@@ -2662,7 +2662,7 @@ function addMailingEventTypeSQL($actioncode, $objcon, $filterobj)
 		$sql2 .= ", u.rowid as user_id, u.login as user_login, u.photo as user_photo, u.firstname as user_firstname, u.lastname as user_lastname"; // User that valid action
 		if (is_object($filterobj) && get_class($filterobj) == 'Societe') {
 			$sql2 .= ", '' as lastname, '' as firstname";
-		} elseif (is_object($filterobj) && get_class($filterobj) == 'Adherent') {
+		} elseif (is_object($filterobj) && get_class($filterobj) == 'Member') {
 			$sql2 .= ", '' as lastname, '' as firstname";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'CommandeFournisseur') {
 			$sql2 .= ", '' as ref";

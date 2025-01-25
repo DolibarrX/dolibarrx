@@ -135,7 +135,7 @@ class MailmanSpip
 	/**
 	 * Function used to connect to Mailman
 	 *
-	 * @param	Adherent 	$object 	Object with the data
+	 * @param	Member 	$object 	Object with the data
 	 * @param	string 	$url    	Mailman URL to be called with patterns
 	 * @param	string	$list		Name of mailing-list
 	 * @return 	mixed				Boolean or string
@@ -171,7 +171,7 @@ class MailmanSpip
 	/**
 	 *  Fonction qui donne les droits redacteurs dans spip
 	 *
-	 *	@param	Adherent	$object		Object with data (->firstname, ->lastname, ->email and ->login)
+	 *	@param	Member	$object		Object with data (->firstname, ->lastname, ->email and ->login)
 	 *  @return	int						=0 if KO, >0 if OK
 	 */
 	public function add_to_spip($object)
@@ -218,7 +218,7 @@ class MailmanSpip
 	/**
 	 *  Fonction qui enleve les droits redacteurs dans spip
 	 *
-	 *	@param	Adherent	$object		Object with data (->login)
+	 *	@param	Member	$object		Object with data (->login)
 	 *  @return	int					=0 if KO, >0 if OK
 	 */
 	public function del_to_spip($object)
@@ -305,7 +305,7 @@ class MailmanSpip
 	/**
 	 *  Subscribe an email to all mailing-lists
 	 *
-	 *	@param	Adherent|stdClass	$object		Object with data (->email, ->pass, ->element, ->type)
+	 *	@param	Member|stdClass	$object		Object with data (->email, ->pass, ->element, ->type)
 	 *  @param	string		$listes    	To force mailing-list (string separated with ,)
 	 *  @return	int		  				Return integer <0 if KO, >=0 if OK
 	 */
@@ -375,7 +375,7 @@ class MailmanSpip
 	 *  Unsubscribe an email from all mailing-lists
 	 *  Used when a user is resiliated
 	 *
-	 *	@param	Adherent|stdClass	$object		Object with data (->email, ->pass, ->element, ->type)
+	 *	@param	Member|stdClass	$object		Object with data (->email, ->pass, ->element, ->type)
 	 *  @param	string	    $listes     To force mailing-list (string separated with ,)
 	 *  @return int         		    Return integer <0 if KO, >=0 if OK
 	 */

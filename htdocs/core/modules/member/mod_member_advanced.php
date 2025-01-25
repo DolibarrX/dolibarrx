@@ -116,7 +116,7 @@ class mod_member_advanced extends ModeleNumRefMembers
 	 *  Return next value
 	 *
 	 *  @param  ?Societe	$objsoc		Object third party
-	 *  @param  ?Adherent	$object		Object we need next value for
+	 *  @param  ?Member	$object		Object we need next value for
 	 *  @return	string|int<-1,0>		Value if OK, -1 if KO
 	 */
 	public function getNextValue($objsoc, $object)

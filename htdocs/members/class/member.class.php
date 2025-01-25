@@ -45,7 +45,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/commonpeople.class.php';
 /**
  *		Class to manage members of a foundation.
  */
-class Adherent extends CommonObject
+class Member extends CommonObject
 {
 	use CommonPeople;
 
@@ -426,7 +426,7 @@ class Adherent extends CommonObject
 	public function send_an_email($text, $subject, $filename_list = array(), $mimetype_list = array(), $mimefilename_list = array(), $addr_cc = "", $addr_bcc = "", $deliveryreceipt = 0, $msgishtml = -1, $errors_to = '', $moreinheader = '')
 	{
 		// phpcs:enable
-		dol_syslog('Warning using deprecated Adherent::send_an_email', LOG_WARNING);
+		dol_syslog('Warning using deprecated Member::send_an_email', LOG_WARNING);
 
 		return $this->sendEmail($text, $subject, $filename_list, $mimetype_list, $mimefilename_list, $addr_cc, $addr_bcc, $deliveryreceipt, $msgishtml, $errors_to, $moreinheader);
 	}
@@ -837,7 +837,7 @@ class Adherent extends CommonObject
 		$sql .= " WHERE rowid = ".((int) $this->id);
 
 		// If we change the type of membership, we set also label of new type..
-		'@phan-var-force Adherent $oldcopy';
+		'@phan-var-force Member $oldcopy';
 		if (!empty($this->oldcopy) && $this->typeid != $this->oldcopy->typeid) {
 			$sql2 = "SELECT libelle as label";
 			$sql2 .= " FROM ".MAIN_DB_PREFIX."member_type";
@@ -1212,7 +1212,7 @@ class Adherent extends CommonObject
 		}
 		$sql .= " WHERE rowid = ".((int) $this->id);
 
-		//dol_syslog("Adherent::Password sql=hidden");
+		//dol_syslog("Member::Password sql=hidden");
 		dol_syslog(get_class($this)."::setPassword", LOG_DEBUG);
 		$result = $this->db->query($sql);
 		if ($result) {
@@ -3056,12 +3056,12 @@ class Adherent extends CommonObject
 
 		if (!isModEnabled('member')) { // Should not happen. If module disabled, cron job should not be visible.
 			$langs->load("agenda");
-			$this->output = $langs->trans('ModuleNotEnabled', $langs->transnoentitiesnoconv("Adherent"));
+			$this->output = $langs->trans('ModuleNotEnabled', $langs->transnoentitiesnoconv("Member"));
 			return 0;
 		}
 		if (!getDolGlobalString('MEMBER_REMINDER_EMAIL')) {
 			$langs->load("agenda");
-			$this->output = $langs->trans('EventRemindersByEmailNotEnabled', $langs->transnoentitiesnoconv("Adherent"));
+			$this->output = $langs->trans('EventRemindersByEmailNotEnabled', $langs->transnoentitiesnoconv("Member"));
 			return 0;
 		}
 

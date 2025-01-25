@@ -221,7 +221,7 @@ if ($action == 'presend') {
 		'@phan-var-force Contact $object';
 		$liste['contact'] = $object->getFullName($outputlangs)." <".$object->email.">";
 	} elseif ($object->element == 'user' || $object->element == 'member') {
-		'@phan-var-force User|Adherent $object';
+		'@phan-var-force User|Member $object';
 		$liste['thirdparty'] = $object->getFullName($outputlangs)." <".$object->email.">";
 	} elseif ($object->element == 'salary') {
 		'@phan-var-force Salary $object';

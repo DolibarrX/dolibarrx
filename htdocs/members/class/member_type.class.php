@@ -59,12 +59,12 @@ class MemberType extends CommonObject
 	public $libelle;
 
 	/**
-	 * @var string Adherent type label
+	 * @var string Member type label
 	 */
 	public $label;
 
 	/**
-	 * @var string Adherent type nature
+	 * @var string Member type nature
 	 */
 	public $morphy;
 
@@ -124,7 +124,7 @@ class MemberType extends CommonObject
 	/** @var string Email sent after exclude */
 	public $mail_exclude = '';
 
-	/** @var Adherent[] Array of members */
+	/** @var Member[] Array of members */
 	public $members = array();
 
 	/**
@@ -357,7 +357,7 @@ class MemberType extends CommonObject
 		$sql .= ", " . ((int) $config->entity);
 		$sql .= ")";
 
-		dol_syslog("Adherent_type::create", LOG_DEBUG);
+		dol_syslog("Member_type::create", LOG_DEBUG);
 		$result = $this->db->query($sql);
 		if ($result) {
 			$this->id = $this->db->last_insert_id(MAIN_DB_PREFIX . "member_type");
@@ -516,7 +516,7 @@ class MemberType extends CommonObject
 		$sql .= " FROM " . MAIN_DB_PREFIX . "member_type as d";
 		$sql .= " WHERE d.rowid = " . (int) $rowid;
 
-		dol_syslog("Adherent_type::fetch", LOG_DEBUG);
+		dol_syslog("Member_type::fetch", LOG_DEBUG);
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -640,7 +640,7 @@ class MemberType extends CommonObject
 	 *  @param	int<0,2>	$mode			0=Return array of member instance
 	 *  									1=Return array of member instance without extra data
 	 *  									2=Return array of members id only
-	 * 	@return	Adherent[]|int<-1,-1>		Array of members or -1 on error
+	 * 	@return	Member[]|int<-1,-1>		Array of members or -1 on error
 	 */
 	public function listMembersForMemberType($excludefilter = '', $mode = 0)
 	{

@@ -1954,7 +1954,7 @@ class User extends CommonObject
 	 *  Create a user into database from a member object.
 	 *  If $member->fk_soc is set, it will be an external user.
 	 *
-	 *  @param	Adherent		$member		Object member source
+	 *  @param	Member		$member		Object member source
 	 * 	@param	string			$login		Login to force
 	 *  @return int							Return integer <0 if KO, if OK, return id of created account
 	 */

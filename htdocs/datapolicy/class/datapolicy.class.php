@@ -131,11 +131,11 @@ class DataPolicy
 	}
 
 	/**
-	 * getAllAdherentsNotInformed
+	 * getAllMembersNotInformed
 	 *
 	 * @return integer
 	 */
-	public function getAllAdherentsNotInformed()
+	public function getAllMembersNotInformed()
 	{
 		global $langs, $config, $db;
 
@@ -321,9 +321,9 @@ class DataPolicy
 	}
 
 	/**
-	 * sendMailDataPolicyAdherent
+	 * sendMailDataPolicyMember
 	 *
-	 * @param Adherent	$member		Member
+	 * @param Member	$member		Member
 	 * @return void
 	 */
 	public static function sendMailDataPolicyMember($member)

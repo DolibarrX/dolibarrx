@@ -28,10 +28,10 @@
 /**
  *  Return array head with list of tabs to view object information
  *
- *  @param	Adherent	$object				Member
+ *  @param	Member	$object				Member
  *  @return array<int,array<int,string>>	head links
  */
-function member_prepare_head(Adherent $object)
+function member_prepare_head(Member $object)
 {
 	global $db, $langs, $config, $user;
 
@@ -171,10 +171,10 @@ function member_prepare_head(Adherent $object)
 /**
  *  Return array head with list of tabs to view object information
  *
- *  @param	AdherentType	$object         Member
+ *  @param	MemberType	$object         Member
  *  @return array<int,array<int,string>>	head links
  */
-function member_type_prepare_head(AdherentType $object)
+function member_type_prepare_head(MemberType $object)
 {
 	global $langs, $config, $user;
 
@@ -280,7 +280,7 @@ function member_admin_prepare_head()
 /**
  *  Return array head with list of tabs to view object stats information
  *
- *  @param	Adherent	$object         Member or null
+ *  @param	Member	$object         Member or null
  *  @return array<int,array<int,string>>	head links
  */
 function member_stats_prepare_head($object)

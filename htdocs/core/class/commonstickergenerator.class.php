@@ -131,7 +131,7 @@ abstract class CommonStickerGenerator extends CommonDocGenerator
 	/**
 	 *  Function to build PDF on disk, then output on HTTP stream.
 	 *
-	 *  @param  Adherent|array<array{textleft:string,textheader:string,textfooter:string,textright:string,id:string,photo:string}>   $arrayofrecords     Array of record information (array('textleft'=>,'textheader'=>, ..., 'id'=>,'photo'=>)
+	 *  @param  Member|array<array{textleft:string,textheader:string,textfooter:string,textright:string,id:string,photo:string}>   $arrayofrecords     Array of record information (array('textleft'=>,'textheader'=>, ..., 'id'=>,'photo'=>)
 	 *  @param  Translate	$outputlangs     	Lang object for output language
 	 *  @param	string		$srctemplatepath	Full path of source filename for generator using a template file
 	 *  @param  string		$outputdir			Output directory for pdf file

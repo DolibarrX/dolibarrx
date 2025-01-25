@@ -3353,7 +3353,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			// Sales representative
 			include DOL_DOCUMENT_ROOT.'/societe/tpl/linesalesrepresentative.tpl.php';
 
-			// Module Adherent
+			// Module Member
 			if (isModEnabled('member')) {
 				$langs->load("members");
 				print '<tr><td>'.$langs->trans("LinkedToDolibarrMember").'</td>';

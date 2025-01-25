@@ -441,7 +441,7 @@ class DataPolicyCron
                         SELECT id FROM ".MAIN_DB_PREFIX."actioncomm as a WHERE a.fk_element = a.rowid AND a.tms > DATE_SUB('".$this->db->idate(dol_now())."', INTERVAL %d MONTH) AND a.elementtype LIKE 'member'
                     )
                 ",
-				"class" => "Adherent",
+				"class" => "Member",
 				"file" => DOL_DOCUMENT_ROOT.'/members/class/member.class.php',
 				'fields_anonym' => array(
 					'lastname' => 'MAKEANONYMOUS',

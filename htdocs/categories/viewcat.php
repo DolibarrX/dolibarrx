@@ -774,8 +774,8 @@ if ($type == Categorie::TYPE_MEMBER) {
 		if ($members < 0) {
 			dol_print_error($db, $object->error, $object->errors);
 		} else {
-			/** @var Adherent[] $members */
-			'@phan-var-force Adherent[] $members';
+			/** @var Member[] $members */
+			'@phan-var-force Member[] $members';
 			// Form to add record into a category
 			print '<form method="post" action="'.$_SERVER["PHP_SELF"].'">';
 			print '<input type="hidden" name="token" value="'.newToken().'">';

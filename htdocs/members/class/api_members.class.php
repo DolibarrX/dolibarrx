@@ -432,7 +432,7 @@ class Members extends DolibarrApi
 				continue;
 			}
 			// Process the status separately because it must be updated using
-			// the validate(), resiliate() and exclude() methods of the class Adherent.
+			// the validate(), resiliate() and exclude() methods of the class Member.
 			if ($field == 'statut') {
 				if ($value == '0') {
 					$result = $member->resiliate(DolibarrApiAccess::$user);
@@ -544,7 +544,7 @@ class Members extends DolibarrApi
 		$object = parent::_cleanObjectDatas($object);
 
 		// Remove the subscriptions because they are handled as a subresource.
-		if ($object instanceof Adherent) {
+		if ($object instanceof Member) {
 			unset($object->subscriptions);
 			unset($object->fk_incoterms);
 			unset($object->label_incoterms);
@@ -559,7 +559,7 @@ class Members extends DolibarrApi
 			unset($object->total_localtax2);
 		}
 
-		if ($object instanceof AdherentType) {
+		if ($object instanceof MemberType) {
 			unset($object->linkedObjectsIds);
 			unset($object->context);
 			unset($object->canvas);
@@ -920,7 +920,7 @@ class Members extends DolibarrApi
 				continue;
 			}
 			// Process the status separately because it must be updated using
-			// the validate(), resiliate() and exclude() methods of the class AdherentType.
+			// the validate(), resiliate() and exclude() methods of the class MemberType.
 			$membertype->$field = $this->_checkValForAPI($field, $value, $membertype);
 		}
 

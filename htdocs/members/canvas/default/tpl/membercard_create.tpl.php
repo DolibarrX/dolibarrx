@@ -18,7 +18,7 @@
  */
 
 /**
- * @var Adherent $object
+ * @var Member $object
  * @var Canvas $this
  * @var Conf $conf
  * @var Translate $langs

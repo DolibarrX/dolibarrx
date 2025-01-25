@@ -100,7 +100,7 @@ class ActionsStripeconnect extends CommonHookActions
 			}
 			$this->resprints .= '</td></tr>';
 		} elseif ($object instanceof CommonObject && $object->element == 'member') {
-			'@phan-var-force Adherent $object';
+			'@phan-var-force Member $object';
 			$this->resprints .= '<tr><td>';
 			$this->resprints .= '<table width="100%" class="nobordernopadding"><tr><td>';
 			$this->resprints .= $langs->trans('StripeCustomer');
@@ -135,7 +135,7 @@ class ActionsStripeconnect extends CommonHookActions
 			}
 			$this->resprints .= '</td></tr>';
 		} elseif ($object instanceof CommonObject && $object->element == 'member_type') {
-			'@phan-var-force Adherent $object';
+			'@phan-var-force Member $object';
 			$this->resprints .= '<tr><td>';
 			$this->resprints .= '<table width="100%" class="nobordernopadding"><tr><td>';
 			$this->resprints .= $langs->trans('PlanStripe');

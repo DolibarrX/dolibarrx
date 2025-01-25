@@ -467,7 +467,7 @@ if ($object->id > 0) {
 	$parameters = array('socid' => $object->id, 'colspan' => ' colspan="3"', 'colspanvalue' => '3');
 	include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_view.tpl.php';
 
-	// Module Adherent
+	// Module Member
 	if (isModEnabled('member')) {
 		$langs->load("members");
 		$langs->load("users");

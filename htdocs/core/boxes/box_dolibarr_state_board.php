@@ -132,7 +132,7 @@ class box_dolibarr_state_board extends ModeleBoxes
 			);
 			$classes = array(
 				'users' => 'User',
-				'members' => 'Adherent',
+				'members' => 'Member',
 				'customers' => 'Client',
 				'prospects' => 'Client',
 				'suppliers' => 'Fournisseur',

@@ -1629,7 +1629,7 @@ $( document ).ready(function() {
 	}
 
 
-	// Module Adherent
+	// Module Member
 	$s = '';
 	if (isModEnabled('member') && $invoice->socid > 0 && $invoice->socid != getDolGlobalInt($constforcompanyid)) {
 		$s = '<span class="small">';
@@ -1640,7 +1640,7 @@ $( document ).ready(function() {
 		$result = $adh->fetch('', '', $invoice->socid);
 		if ($result > 0) {
 			$adh->ref = $adh->getFullName($langs);
-			if (empty($adh->statut) || $adh->statut == Adherent::STATUS_EXCLUDED) {
+			if (empty($adh->statut) || $adh->statut == Member::STATUS_EXCLUDED) {
 				$s .= "<s>";
 			}
 			$s .= $adh->getFullName($langs);
@@ -1656,7 +1656,7 @@ $( document ).ready(function() {
 					$s .= " ".img_warning($langs->trans("Late")); // displays delay Pictogram only if not a draft and not terminated
 				}
 			}
-			if (empty($adh->statut) || $adh->statut == Adherent::STATUS_EXCLUDED) {
+			if (empty($adh->statut) || $adh->statut == Member::STATUS_EXCLUDED) {
 				$s .= "</s>";
 			}
 		} else {

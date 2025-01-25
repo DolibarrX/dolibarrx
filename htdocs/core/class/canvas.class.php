@@ -71,7 +71,7 @@ class Canvas
 	 */
 	public $template_dir;
 	/**
-	 * @var ActionsContactCardCommon|ActionsAdherentCardCommon|ActionsCardProduct|ActionsCardService|ActionsCardCommon
+	 * @var ActionsContactCardCommon|ActionsMemberCardCommon|ActionsCardProduct|ActionsCardService|ActionsCardCommon
 	 */
 	public $control; // Initialized by getCanvas with controller instance
 

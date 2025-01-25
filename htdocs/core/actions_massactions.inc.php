@@ -141,7 +141,7 @@ if (!$error && $massaction == 'confirm_presend') {
 	if (!$error) {
 		$objecttmp = new $objectclass($db);
 
-		// Define object $thirdparty (Societe or User, Adherent, ConferenceOrBoothAttendee...)
+		// Define object $thirdparty (Societe or User, Member, ConferenceOrBoothAttendee...)
 		$thirdparty = new Societe($db);
 		if ($objecttmp->element == 'expensereport') {
 			$thirdparty = new User($db);

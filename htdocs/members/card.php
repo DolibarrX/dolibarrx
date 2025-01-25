@@ -1862,12 +1862,12 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				print $langs->trans("SubscriptionNotNeeded");
 			} elseif (!$adht->subscription) {
 				print $langs->trans("SubscriptionNotRecorded");
-				if (Adherent::STATUS_VALIDATED == $object->status) {
+				if (Member::STATUS_VALIDATED == $object->status) {
 					print " ".img_warning($langs->trans("Late")); // displays delay Pictogram only if not a draft, not excluded and not resiliated
 				}
 			} else {
 				print $langs->trans("SubscriptionNotReceived");
-				if (Adherent::STATUS_VALIDATED == $object->status) {
+				if (Member::STATUS_VALIDATED == $object->status) {
 					print " ".img_warning($langs->trans("Late")); // displays delay Pictogram only if not a draft, not excluded and not resiliated
 				}
 			}
@@ -1992,7 +1992,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			if ($action != 'editlogin' && $action != 'editthirdparty') {
 				// Send
 				if (empty($user->socid)) {
-					if (Adherent::STATUS_VALIDATED == $object->status) {
+					if (Member::STATUS_VALIDATED == $object->status) {
 						print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.((int) $object->id).'&action=presend&mode=init#formmailbeforetitle">'.$langs->trans('SendMail').'</a>'."\n";
 					}
 				}
@@ -2001,7 +2001,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				// TODO Remove this to replace with a template
 				/*
 				if ($user->hasRight('member', 'creer')) {
-					if (Adherent::STATUS_VALIDATED == $object->status) {
+					if (Member::STATUS_VALIDATED == $object->status) {
 						if ($object->email) print '<a class="butAction" href="card.php?rowid='.$object->id.'&action=sendinfo">'.$langs->trans("SendCardByMail")."</a>\n";
 						else print '<a class="butActionRefused classfortooltip" href="#" title="'.dol_escape_htmltag($langs->trans("NoEMail")).'">'.$langs->trans("SendCardByMail")."</a>\n";
 					} else {
@@ -2019,7 +2019,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				}
 
 				// Validate
-				if (Adherent::STATUS_DRAFT == $object->status) {
+				if (Member::STATUS_DRAFT == $object->status) {
 					if ($user->hasRight('member', 'creer')) {
 						print '<a class="butAction" href="card.php?rowid='.((int) $object->id).'&action=valid&token='.newToken().'">'.$langs->trans("Validate").'</a>'."\n";
 					} else {
@@ -2028,7 +2028,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				}
 
 				// Reactivate
-				if (Adherent::STATUS_RESILIATED == $object->status || Adherent::STATUS_EXCLUDED == $object->status) {
+				if (Member::STATUS_RESILIATED == $object->status || Member::STATUS_EXCLUDED == $object->status) {
 					if ($user->hasRight('member', 'creer')) {
 						print '<a class="butAction" href="card.php?rowid='.((int) $object->id).'&action=valid&token='.newToken().'">'.$langs->trans("Reenable")."</a>\n";
 					} else {
@@ -2037,7 +2037,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				}
 
 				// Resiliate
-				if (Adherent::STATUS_VALIDATED == $object->status) {
+				if (Member::STATUS_VALIDATED == $object->status) {
 					if ($user->hasRight('member', 'supprimer')) {
 						print '<a class="butAction" href="card.php?rowid='.((int) $object->id).'&action=resiliate&token='.newToken().'">'.$langs->trans("Resiliate")."</a></span>\n";
 					} else {
@@ -2046,7 +2046,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				}
 
 				// Exclude
-				if (Adherent::STATUS_VALIDATED == $object->status) {
+				if (Member::STATUS_VALIDATED == $object->status) {
 					if ($user->hasRight('member', 'supprimer')) {
 						print '<a class="butAction" href="card.php?rowid='.((int) $object->id).'&action=exclude&token='.newToken().'">'.$langs->trans("Exclude")."</a></span>\n";
 					} else {
@@ -2057,7 +2057,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				// Create third party
 				if (isModEnabled('societe') && !$object->socid) {
 					if ($user->hasRight('societe', 'creer')) {
-						if (Adherent::STATUS_DRAFT != $object->status) {
+						if (Member::STATUS_DRAFT != $object->status) {
 							print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?rowid='.((int) $object->id).'&action=create_thirdparty&token='.newToken().'" title="'.dol_escape_htmltag($langs->trans("CreateDolibarrThirdPartyDesc")).'">'.$langs->trans("CreateDolibarrThirdParty").'</a>'."\n";
 						} else {
 							print '<a class="butActionRefused classfortooltip" href="#" title="'.dol_escape_htmltag($langs->trans("ValidateBefore")).'">'.$langs->trans("CreateDolibarrThirdParty").'</a>'."\n";
@@ -2070,7 +2070,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				// Create user
 				if (!$user->socid && !$object->user_id) {
 					if ($user->hasRight('user', 'user', 'creer')) {
-						if (Adherent::STATUS_DRAFT != $object->status) {
+						if (Member::STATUS_DRAFT != $object->status) {
 							print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?rowid='.((int) $object->id).'&action=create_user&token='.newToken().'" title="'.dol_escape_htmltag($langs->trans("CreateDolibarrLoginDesc")).'">'.$langs->trans("CreateDolibarrLogin").'</a>'."\n";
 						} else {
 							print '<a class="butActionRefused classfortooltip" href="#" title="'.dol_escape_htmltag($langs->trans("ValidateBefore")).'">'.$langs->trans("CreateDolibarrLogin").'</a>'."\n";

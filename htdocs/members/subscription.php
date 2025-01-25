@@ -346,7 +346,7 @@ if (empty($resHook) && $user->hasRight('member', 'cotisation', 'creer') && $acti
 		// Send email
 		if (!$error) {
 			// Send confirmation Email
-			if ($object->email && $sendalsoemail) {   // $object is 'Adherent'
+			if ($object->email && $sendalsoemail) {   // $object is 'Member'
 				$parameters = array(
 					'datesubscription' => $datesubscription,
 					'amount' => $amount,
@@ -559,12 +559,12 @@ if ($object->datefin) {
 		print $langs->trans("SubscriptionNotNeeded");
 	} elseif (!$adht->subscription) {
 		print $langs->trans("SubscriptionNotRecorded");
-		if (Adherent::STATUS_VALIDATED == $object->statut) {
+		if (Member::STATUS_VALIDATED == $object->statut) {
 			print " ".img_warning($langs->trans("Late")); // displays delay Pictogram only if not a draft, not excluded and not resiliated
 		}
 	} else {
 		print $langs->trans("SubscriptionNotReceived");
-		if (Adherent::STATUS_VALIDATED == $object->statut) {
+		if (Member::STATUS_VALIDATED == $object->statut) {
 			print " ".img_warning($langs->trans("Late")); // displays delay Pictogram only if not a draft, not excluded and not resiliated
 		}
 	}

@@ -191,7 +191,7 @@ class doc_generic_member_odt extends ModelePDFMember
 	/**
 	 *  Function to build a document on disk using the generic odt module.
 	 *
-	 *	@param	Adherent	$object				Object source to build document
+	 *	@param	Member	$object				Object source to build document
 	 *	@param	Translate	$outputlangs		Lang output object
 	 * 	@param	string		$srctemplatepath	Full path of source filename for generator using a template file
 	 *	@param	string		$mode				Tell if doc module is called for 'member', ...
@@ -432,8 +432,8 @@ class doc_generic_member_odt extends ModelePDFMember
 	public function get_substitutionarray_object($object, $outputlangs, $array_key = 'object')
 	{
 		// phpcs:enable
-		if (!$object instanceof Adherent) {
-			dol_syslog("Expected Adherent object, got ".gettype($object), LOG_ERR);
+		if (!$object instanceof Member) {
+			dol_syslog("Expected Member object, got ".gettype($object), LOG_ERR);
 			return array();
 		}
 

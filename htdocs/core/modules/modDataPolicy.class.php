@@ -219,7 +219,7 @@ class modDataPolicy extends DolibarrModules
 		$result1 = $extrafields->addExtraField('datapolicy_date', $langs->trans("DATAPOLICY_date"), 'date', 104, 3, 'contact', 0, 0, '', '', 1, '', '3', 0);
 		$result1 = $extrafields->addExtraField('datapolicy_send', $langs->trans("DATAPOLICY_send"), 'date', 105, 3, 'contact', 0, 0, '', '', 0, '', '0', 0);
 
-		// Extrafield Adherent
+		// Extrafield Member
 		$result1 = $extrafields->addExtraField('datapolicy_consentement', $langs->trans("DATAPOLICY_consentement"), 'boolean', 101, 3, 'member', 0, 0, '', '', 1, '', '3', 0, '', '', 'datapolicy', '$config->datapolicy->enabled');
 		$result1 = $extrafields->addExtraField('datapolicy_opposition_traitement', $langs->trans("DATAPOLICY_opposition_traitement"), 'boolean', 102, 3, 'member', 0, 0, '', '', 1, '', '3', 0, '', '', 'datapolicy', '$config->datapolicy->enabled');
 		$result1 = $extrafields->addExtraField('datapolicy_opposition_prospection', $langs->trans("DATAPOLICY_opposition_prospection"), 'boolean', 103, 3, 'member', 0, 0, '', '', 1, '', '3', 0, '', '', 'datapolicy', '$config->datapolicy->enabled');

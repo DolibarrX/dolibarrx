@@ -385,7 +385,7 @@ if (empty($resHook)) {
 	}
 
 	// Mass actions
-	$objectclass = 'Adherent';
+	$objectclass = 'Member';
 	$objectlabel = 'Members';
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
@@ -1056,10 +1056,10 @@ if (!empty($arrayfields['d.import_key']['checked'])) {
 if (!empty($arrayfields['d.statut']['checked'])) {
 	print '<td class="liste_titre center parentonrightofpage">';
 	$liststatus = array(
-		Adherent::STATUS_DRAFT => $langs->trans("Draft"),
-		Adherent::STATUS_VALIDATED => $langs->trans("Validated"),
-		Adherent::STATUS_RESILIATED => $langs->trans("MemberStatusResiliatedShort"),
-		Adherent::STATUS_EXCLUDED => $langs->trans("MemberStatusExcludedShort")
+		Member::STATUS_DRAFT => $langs->trans("Draft"),
+		Member::STATUS_VALIDATED => $langs->trans("Validated"),
+		Member::STATUS_RESILIATED => $langs->trans("MemberStatusResiliatedShort"),
+		Member::STATUS_EXCLUDED => $langs->trans("MemberStatusExcludedShort")
 	);
 	// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
 	print $form->selectarray('search_status', $liststatus, $search_status, -3, 0, 0, '', 0, 0, 0, '', 'search_status width100 onrightofpage');

@@ -5832,7 +5832,7 @@ abstract class CommonObject
 		}
 		foreach ($dirmodels as $reldir) {
 			foreach (array('doc', 'pdf') as $prefix) {
-				if (in_array(get_class($this), array('Adherent'))) {
+				if (in_array(get_class($this), array('Member'))) {
 					// Member module use prefix_modele.class.php
 					$file = $prefix."_".$modele.".class.php";
 				} else {

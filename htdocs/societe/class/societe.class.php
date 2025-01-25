@@ -4425,13 +4425,13 @@ class Societe extends CommonObject
 	/**
 	 *  Create a third party into database from a member object
 	 *
-	 *  @param	Adherent	$member			Object member
+	 *  @param	Member	$member			Object member
 	 * 	@param	string		$socname		Name of third party to force
 	 *	@param	string		$socalias		Alias name of third party to force
 	 *  @param	string		$customercode	Customer code
 	 *  @return int							Return integer <0 if KO, id of created account if OK
 	 */
-	public function create_from_member(Adherent $member, $socname = '', $socalias = '', $customercode = '')
+	public function create_from_member(Member $member, $socname = '', $socalias = '', $customercode = '')
 	{
 		// phpcs:enable
 		global $config, $user, $langs;
@@ -5623,7 +5623,7 @@ class Societe extends CommonObject
 			// Move links
 			if (!$error) {
 				$objects = array(
-					'Adherent' => '/members/class/member.class.php',
+					'Member' => '/members/class/member.class.php',
 					//'Categorie' => '/categories/class/categorie.class.php',	// Already processed previously
 					'ActionComm' => '/comm/action/class/actioncomm.class.php',
 					'Propal' => '/comm/propal/class/propal.class.php',

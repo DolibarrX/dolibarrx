@@ -82,7 +82,7 @@ $sql .= " d.morphy as code";
 $sql .= " FROM ".MAIN_DB_PREFIX."member as d";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_member = d.rowid";
 $sql .= " WHERE d.entity IN (".getEntity('member').")";
-$sql .= " AND d.statut <> ".Adherent::STATUS_DRAFT;
+$sql .= " AND d.statut <> ".Member::STATUS_DRAFT;
 $sql .= " GROUP BY d.morphy";
 $foundphy = $foundmor = 0;
 

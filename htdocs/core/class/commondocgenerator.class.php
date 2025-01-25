@@ -370,7 +370,7 @@ abstract class CommonDocGenerator
 	/**
 	 * Define array with couple substitution key => substitution value
 	 *
-	 * @param   Adherent	$member         Member
+	 * @param   Member	$member         Member
 	 * @param   Translate	$outputlangs    Language object for output
 	 * @return	array<string,mixed>			Array of substitution key->code
 	 */

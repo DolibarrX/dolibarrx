@@ -33,7 +33,7 @@
 include_once DOL_DOCUMENT_ROOT.'/core/modules/DolibarrModules.class.php';
 
 /**
- *  Class to describe and enable module Adherent
+ *  Class to describe and enable module Member
  */
 class modMember extends DolibarrModules
 {
@@ -407,7 +407,7 @@ class modMember extends DolibarrModules
 			0=>array(
 				'label'=>'SendReminderForExpiredSubscriptionTitle',
 				'jobtype'=>'method', 'class'=>'members/class/member.class.php',
-				'objectname'=>'Adherent',
+				'objectname'=>'Member',
 				'method'=>'sendReminderForExpiredSubscription',
 				'parameters'=>'10;0',
 				'comment'=>'SendReminderForExpiredSubscription',

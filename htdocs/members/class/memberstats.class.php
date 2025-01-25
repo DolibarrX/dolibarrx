@@ -33,7 +33,7 @@ include_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
 /**
  *	Class to manage statistics of members
  */
-class AdherentStats extends Stats
+class MemberStats extends Stats
 {
 	/**
 	 * @var string Name of table without prefix where object is stored
@@ -200,12 +200,12 @@ class AdherentStats extends Stats
 		$startYear = $endYear - $numberYears;
 
 		$sql = "SELECT t.rowid as fk_member_type, t.libelle as label";
-		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_DRAFT, "'members_draft'", 'NULL').") as members_draft";
-		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_VALIDATED."  AND (d.datefin IS NULL AND t.subscription = '1')", "'members_pending'", 'NULL').") as members_pending";
-		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_VALIDATED."  AND (d.datefin >= '".$this->db->idate($now)."' OR t.subscription = 0)", "'members_uptodate'", 'NULL').") as members_uptodate";
-		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_VALIDATED."  AND (d.datefin < '".$this->db->idate($now)."' AND t.subscription = 1)", "'members_expired'", 'NULL').") as members_expired";
-		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_EXCLUDED, "'members_excluded'", 'NULL').") as members_excluded";
-		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_RESILIATED, "'members_resiliated'", 'NULL').") as members_resiliated";
+		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_DRAFT, "'members_draft'", 'NULL').") as members_draft";
+		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_VALIDATED."  AND (d.datefin IS NULL AND t.subscription = '1')", "'members_pending'", 'NULL').") as members_pending";
+		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_VALIDATED."  AND (d.datefin >= '".$this->db->idate($now)."' OR t.subscription = 0)", "'members_uptodate'", 'NULL').") as members_uptodate";
+		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_VALIDATED."  AND (d.datefin < '".$this->db->idate($now)."' AND t.subscription = 1)", "'members_expired'", 'NULL').") as members_expired";
+		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_EXCLUDED, "'members_excluded'", 'NULL').") as members_excluded";
+		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_RESILIATED, "'members_resiliated'", 'NULL').") as members_resiliated";
 		$sql .= " FROM ".MAIN_DB_PREFIX."member_type as t";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."member as d ON t.rowid = d.fk_member_type AND d.entity IN (" . getEntity('member') . ")";
 		if ($numberYears) {
@@ -276,12 +276,12 @@ class AdherentStats extends Stats
 		$MembersCountArray = [];
 
 		$sql = "SELECT c.rowid as fk_categorie, c.label as label";
-		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_DRAFT, "'members_draft'", 'NULL').") as members_draft";
-		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_VALIDATED."  AND (d.datefin IS NULL AND t.subscription = '1')", "'members_pending'", 'NULL').") as members_pending";
-		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_VALIDATED."  AND (d.datefin >= '".$this->db->idate($now)."' OR t.subscription = 0)", "'members_uptodate'", 'NULL').") as members_uptodate";
-		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_VALIDATED."  AND (d.datefin < '".$this->db->idate($now)."' AND t.subscription = 1)", "'members_expired'", 'NULL').") as members_expired";
-		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_EXCLUDED, "'members_excluded'", 'NULL').") as members_excluded";
-		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_RESILIATED, "'members_resiliated'", 'NULL').") as members_resiliated";
+		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_DRAFT, "'members_draft'", 'NULL').") as members_draft";
+		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_VALIDATED."  AND (d.datefin IS NULL AND t.subscription = '1')", "'members_pending'", 'NULL').") as members_pending";
+		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_VALIDATED."  AND (d.datefin >= '".$this->db->idate($now)."' OR t.subscription = 0)", "'members_uptodate'", 'NULL').") as members_uptodate";
+		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_VALIDATED."  AND (d.datefin < '".$this->db->idate($now)."' AND t.subscription = 1)", "'members_expired'", 'NULL').") as members_expired";
+		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_EXCLUDED, "'members_excluded'", 'NULL').") as members_excluded";
+		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Member::STATUS_RESILIATED, "'members_resiliated'", 'NULL').") as members_resiliated";
 		$sql .= " FROM ".MAIN_DB_PREFIX."categorie as c";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."categorie_member as ct ON c.rowid = ct.fk_categorie";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."member as d ON d.rowid = ct.fk_member";

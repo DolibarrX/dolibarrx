@@ -786,7 +786,7 @@ if ($ispaymentok) {
 				// Create external user
 				if (getDolGlobalString('ADHERENT_CREATE_EXTERNAL_USER_LOGIN')) {
 					$nuser = new User($db);
-					$tmpuser = dol_clone($object, 0);		// $object is type Adherent
+					$tmpuser = dol_clone($object, 0);		// $object is type Member
 
 					// Check if a user login already exists for this member or not
 					$found = 0;
