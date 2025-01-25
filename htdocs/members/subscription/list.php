@@ -207,7 +207,7 @@ $sql = preg_replace('/,\s*$/', '', $sql);
 $sqlfields = $sql; // $sql fields to remove for count total
 
 $sql .= " FROM ".MAIN_DB_PREFIX."member as d";
-$sql .= " JOIN ".MAIN_DB_PREFIX."subscription as c on d.rowid = c.fk_adherent";
+$sql .= " JOIN ".MAIN_DB_PREFIX."subscription as c on d.rowid = c.fk_member";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."member_extrafields as ef on (d.rowid = ef.fk_object)";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank as b ON c.fk_bank = b.rowid";
 $sql .= " WHERE d.entity IN (".getEntity('member').")";

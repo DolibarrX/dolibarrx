@@ -85,7 +85,7 @@ class Subscription extends CommonObject
 	/**
 	 * @var int Member ID
 	 */
-	public $fk_adherent;
+	public $fk_member;
 
 	/**
 	 * @var double amount subscription
@@ -104,7 +104,7 @@ class Subscription extends CommonObject
 		'rowid' => array('type' => 'integer', 'label' => 'TechnicalID', 'enabled' => 1, 'visible' => -1, 'notnull' => 1, 'position' => 10),
 		'tms' => array('type' => 'timestamp', 'label' => 'DateModification', 'enabled' => 1, 'visible' => -1, 'notnull' => 1, 'position' => 15),
 		'datec' => array('type' => 'datetime', 'label' => 'DateCreation', 'enabled' => 1, 'visible' => -1, 'position' => 20),
-		'fk_adherent' => array('type' => 'integer', 'label' => 'Member', 'enabled' => 1, 'visible' => -1, 'position' => 25),
+		'fk_member' => array('type' => 'integer', 'label' => 'Member', 'enabled' => 1, 'visible' => -1, 'position' => 25),
 		'dateadh' => array('type' => 'datetime', 'label' => 'DateSubscription', 'enabled' => 1, 'visible' => -1, 'position' => 30),
 		'datef' => array('type' => 'datetime', 'label' => 'DateEndSubscription', 'enabled' => 1, 'visible' => -1, 'position' => 35),
 		'subscription' => array('type' => 'double(24,8)', 'label' => 'Amount', 'enabled' => 1, 'visible' => -1, 'position' => 40, 'isameasure' => 1),
@@ -125,7 +125,7 @@ class Subscription extends CommonObject
 	{
 		$this->db = $db;
 
-		$this->ismultientitymanaged = 'fk_adherent@adherent';
+		$this->ismultientitymanaged = 'fk_member@adherent';
 	}
 
 
@@ -155,18 +155,18 @@ class Subscription extends CommonObject
 
 		$this->db->begin();
 
-		$sql = "INSERT INTO ".MAIN_DB_PREFIX."subscription (fk_adherent, fk_type, datec, dateadh, datef, subscription, note)";
+		$sql = "INSERT INTO ".MAIN_DB_PREFIX."subscription (fk_member, fk_type, datec, dateadh, datef, subscription, note)";
 
 		require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 		$member = new Adherent($this->db);
-		$result = $member->fetch($this->fk_adherent);
+		$result = $member->fetch($this->fk_member);
 
 		if ($this->fk_type == null) {	// If type not defined, we use the type of member
 			$type = $member->typeid;
 		} else {
 			$type = $this->fk_type;
 		}
-		$sql .= " VALUES (".((int) $this->fk_adherent).", '".$this->db->escape($type)."', '".$this->db->idate($now)."',";
+		$sql .= " VALUES (".((int) $this->fk_member).", '".$this->db->escape($type)."', '".$this->db->idate($now)."',";
 		$sql .= " '".$this->db->idate($this->dateh)."',";
 		$sql .= " '".$this->db->idate($this->datef)."',";
 		$sql .= " ".((float) $this->amount).",";
@@ -238,7 +238,7 @@ class Subscription extends CommonObject
 	 */
 	public function fetch($rowid)
 	{
-		$sql = "SELECT rowid, fk_type, fk_adherent, datec,";
+		$sql = "SELECT rowid, fk_type, fk_member, datec,";
 		$sql .= " tms,";
 		$sql .= " dateadh as dateh,";
 		$sql .= " datef,";
@@ -256,7 +256,7 @@ class Subscription extends CommonObject
 				$this->ref            = $obj->rowid;
 
 				$this->fk_type        = $obj->fk_type;
-				$this->fk_member    = $obj->fk_adherent;
+				$this->fk_member    = $obj->fk_member;
 				$this->datec          = $this->db->jdate($obj->datec);
 				$this->datem          = $this->db->jdate($obj->tms);
 				$this->dateh          = $this->db->jdate($obj->dateh);
@@ -300,7 +300,7 @@ class Subscription extends CommonObject
 
 		$sql = "UPDATE ".MAIN_DB_PREFIX."subscription SET ";
 		$sql .= " fk_type = ".((int) $this->fk_type).",";
-		$sql .= " fk_member = ".((int) $this->fk_adherent).",";
+		$sql .= " fk_member = ".((int) $this->fk_member).",";
 		$sql .= " note = ".($this->note_public ? "'".$this->db->escape($this->note_public)."'" : 'null').",";
 		$sql .= " subscription = ".(float) price2num($this->amount).",";
 		$sql .= " dateadh = '".$this->db->idate($this->dateh)."',";
@@ -314,7 +314,7 @@ class Subscription extends CommonObject
 		if ($resql) {
 			require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 			$member = new Adherent($this->db);
-			$result = $member->fetch($this->fk_adherent);
+			$result = $member->fetch($this->fk_member);
 			$result = $member->update_end_date($user);
 
 			if (!$error && !$notrigger) {
@@ -383,7 +383,7 @@ class Subscription extends CommonObject
 				if ($num) {
 					require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 					$member = new Adherent($this->db);
-					$result = $member->fetch($this->fk_adherent);
+					$result = $member->fetch($this->fk_member);
 					$result = $member->update_end_date($user);
 
 					if ($this->fk_bank > 0 && is_object($accountline) && $accountline->id > 0) {	// If we found bank account line (this means this->fk_bank defined)

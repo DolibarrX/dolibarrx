@@ -736,7 +736,7 @@ class BlockedLog
 					continue; // Discard some properties
 				}
 				if (!in_array($key, array(
-					'id', 'datec', 'dateh', 'datef', 'fk_adherent', 'amount', 'import_key', 'statut', 'note'
+					'id', 'datec', 'dateh', 'datef', 'fk_member', 'amount', 'import_key', 'statut', 'note'
 				))) {
 					continue; // Discard if not into a dedicated list
 				}

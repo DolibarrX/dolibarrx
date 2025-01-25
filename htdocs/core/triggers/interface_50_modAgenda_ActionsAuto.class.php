@@ -1116,7 +1116,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				dol_syslog("Execute a trigger MEMBER_SUBSCRIPTION_CREATE with context key 'member' not an object");
 				include_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 				$member = new Adherent($this->db);
-				$member->fetch($object->fk_adherent);
+				$member->fetch($object->fk_member);
 			}
 
 			if (empty($object->actionmsg2)) {
@@ -1147,7 +1147,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			if (!is_object($member)) {	// This should not happen
 				include_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 				$member = new Adherent($this->db);
-				$member->fetch($object->fk_adherent);
+				$member->fetch($object->fk_member);
 			}
 
 			if (empty($object->actionmsg2)) {
@@ -1179,7 +1179,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 				dol_syslog("Execute a trigger MEMBER_SUBSCRIPTION_CREATE with context key 'member' not an object");
 				include_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 				$member = new Adherent($this->db);
-				$member->fetch($object->fk_adherent);
+				$member->fetch($object->fk_member);
 			}
 
 			if (empty($object->actionmsg2)) {
@@ -1594,7 +1594,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 		$elementmodule = (empty($object->module) ? '' : $object->module);
 		if ($object->element == 'subscription') {
 			'@phan-var-force Subscription $object';
-			$elementid = $object->fk_adherent;
+			$elementid = $object->fk_member;
 			$elementtype = 'member';
 		}
 		//var_dump($societeforaction);var_dump($contactforaction);var_dump($elementid);var_dump($elementtype);exit;

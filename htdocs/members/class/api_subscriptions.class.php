@@ -32,7 +32,7 @@ class Subscriptions extends DolibarrApi
 	 * @var string[]   $FIELDS     Mandatory fields, checked when create and update object
 	 */
 	public static $FIELDS = array(
-		'fk_adherent',
+		'fk_member',
 		'dateh',
 		'datef',
 		'amount',

@@ -158,7 +158,7 @@ if ($action == 'confirm_delete' && $confirm == 'yes' && $user->hasRight('member'
 	$result = $object->fetch($rowid);
 	$result = $object->delete($user);
 	if ($result > 0) {
-		header("Location: ".DOL_URL_ROOT."/members/card.php?rowid=".$object->fk_adherent);
+		header("Location: ".DOL_URL_ROOT."/members/card.php?rowid=".$object->fk_member);
 		exit;
 	} else {
 		$errmesg = $adh->error;
@@ -190,7 +190,7 @@ if ($user->hasRight('member', 'cotisation', 'creer') && $action == 'edit') {
 	 ********************************************/
 
 	$object->fetch($rowid);
-	$result = $adh->fetch($object->fk_adherent);
+	$result = $adh->fetch($object->fk_member);
 
 	$head = subscription_prepare_head($object);
 
@@ -282,7 +282,7 @@ if ($rowid && $action != 'edit') {
 	 ********************************************/
 
 	$result = $object->fetch($rowid);
-	$result = $adh->fetch($object->fk_adherent);
+	$result = $adh->fetch($object->fk_member);
 
 	$head = subscription_prepare_head($object);
 
