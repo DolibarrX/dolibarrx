@@ -10484,7 +10484,7 @@ class Form
 			$email = $object->email;
 			$capture = 'user';
 		} elseif ($modulepart == 'memberphoto') {
-			$dir = $config->adherent->dir_output;
+			$dir = $config->member->dir_output;
 			if (!empty($object->photo)) {
 				if (dolIsAllowedForPreview($object->photo)) {
 					if ((string) $imagesize == 'mini') {

@@ -79,7 +79,7 @@ if ($result < 0) {
 	dol_print_error($db);
 	exit;
 }
-$upload_dir = $config->adherent->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'member');
+$upload_dir = $config->member->dir_output."/".get_exdir(0, 0, 0, 1, $object, 'member');
 
 // Fetch object
 if ($id > 0 || !empty($ref)) {

@@ -1133,8 +1133,8 @@ class Conf extends stdClass
 			// Delay before warnings
 			// Avoid strict errors. TODO: Replace xxx->warning_delay with a property ->warning_delay_xxx
 			if (isset($this->agenda)) {
-				$this->adherent->subscription = new stdClass();
-				$this->adherent->subscription->warning_delay = (isset($this->global->MAIN_DELAY_MEMBERS) ? (int) $this->global->MAIN_DELAY_MEMBERS : 0) * 86400;
+				$this->member->subscription = new stdClass();
+				$this->member->subscription->warning_delay = (isset($this->global->MAIN_DELAY_MEMBERS) ? (int) $this->global->MAIN_DELAY_MEMBERS : 0) * 86400;
 			}
 			if (isset($this->agenda)) {
 				$this->agenda->warning_delay = (isset($this->global->MAIN_DELAY_ACTIONS_TODO) ? (int) $this->global->MAIN_DELAY_ACTIONS_TODO : 7) * 86400;

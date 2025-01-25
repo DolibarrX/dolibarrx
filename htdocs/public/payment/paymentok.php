@@ -436,12 +436,12 @@ if ($ispaymentok) {
 	}
 	if (empty($user->rights->adherent)) {
 		$user->rights->adherent = new stdClass();
-		$user->rights->adherent->cotisation = new stdClass();
+		$user->rights->member->cotisation = new stdClass();
 	}
 	$user->rights->societe->creer = 1;
 	$user->rights->facture->creer = 1;
 	$user->rights->facture->invoice_advance->validate = 1;
-	$user->rights->adherent->cotisation->creer = 1;
+	$user->rights->member->cotisation->creer = 1;
 
 	if (array_key_exists('MEM', $tmptag) && $tmptag['MEM'] > 0) {
 		// Validate member

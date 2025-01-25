@@ -271,7 +271,7 @@ class pdf_standardlabel extends CommonStickerGenerator
 		$title = $outputlangs->transnoentities('Labels');
 		$keywords = $title." ".$outputlangs->convToOutputCharset($mysoc->name);
 
-		$dir = (empty($outputdir) ? $config->adherent->dir_temp : $outputdir);
+		$dir = (empty($outputdir) ? $config->member->dir_temp : $outputdir);
 		$file = $dir."/".$filename;
 
 		if (!file_exists($dir)) {

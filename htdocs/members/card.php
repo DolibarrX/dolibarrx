@@ -393,13 +393,13 @@ if (empty($resHook)) {
 					$object->setCategories($categories);
 
 					// Logo/Photo save
-					$dir = $config->adherent->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member').'/photos';
+					$dir = $config->member->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member').'/photos';
 					$file_OK = is_uploaded_file($_FILES['photo']['tmp_name']);
 					if ($file_OK) {
 						if (GETPOST('deletephoto')) {
 							require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
-							$fileimg = $config->adherent->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member').'/photos/'.$object->photo;
-							$dirthumbs = $config->adherent->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member').'/photos/thumbs';
+							$fileimg = $config->member->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member').'/photos/'.$object->photo;
+							$dirthumbs = $config->member->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member').'/photos/thumbs';
 							dol_delete_file($fileimg);
 							dol_delete_dir_recursive($dirthumbs);
 						}
@@ -905,7 +905,7 @@ if (empty($resHook)) {
 	include DOL_DOCUMENT_ROOT.'/core/actions_printing.inc.php';
 
 	// Actions to build doc
-	$upload_dir = $config->adherent->dir_output;
+	$upload_dir = $config->member->dir_output;
 	$permissiontoadd = $user->hasRight('member', 'creer');
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
@@ -2118,7 +2118,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 			// Generated documents
 			$filename = dol_sanitizeFileName($object->ref);
-			$filedir = $config->adherent->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member');
+			$filedir = $config->member->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member');
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$object->id;
 			$genallowed = $user->hasRight('member', 'lire');
 			$delallowed = $user->hasRight('member', 'creer');
@@ -2168,7 +2168,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		// Presend form
 		$modelmail = 'member';
 		$defaulttopic = 'CardContent';
-		$diroutput = $config->adherent->dir_output;
+		$diroutput = $config->member->dir_output;
 		$trackid = 'mem'.$object->id;
 
 		include DOL_DOCUMENT_ROOT.'/core/tpl/card_presend.tpl.php';

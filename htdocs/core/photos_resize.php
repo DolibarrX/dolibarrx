@@ -185,7 +185,7 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 		if ($result <= 0) {
 			dol_print_error($db, 'Failed to load object');
 		}
-		$dir = $config->adherent->dir_output; // By default
+		$dir = $config->member->dir_output; // By default
 	}
 } elseif ($modulepart == 'societe') {
 	require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';

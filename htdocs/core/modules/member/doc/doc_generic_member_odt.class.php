@@ -226,7 +226,7 @@ class doc_generic_member_odt extends ModelePDFMember
 		// Load translation files required by the page
 		$outputlangs->loadLangs(array("main", "companies", "bills", "dict"));
 
-		if ($config->adherent->dir_output) {
+		if ($config->member->dir_output) {
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
@@ -240,7 +240,7 @@ class doc_generic_member_odt extends ModelePDFMember
 
 			$object->fetch_thirdparty();
 
-			$dir = $config->adherent->dir_output;
+			$dir = $config->member->dir_output;
 			$objectref = dol_sanitizeFileName($object->ref);
 			if (!preg_match('/specimen/i', $objectref)) {
 				$dir .= "/".$objectref;
@@ -278,11 +278,11 @@ class doc_generic_member_odt extends ModelePDFMember
 				//print "newdir=".$dir;
 				//print "newfile=".$newfile;
 				//print "file=".$file;
-				//print "conf->adherent->dir_temp=".$config->adherent->dir_temp;
+				//print "conf->member->dir_temp=".$config->member->dir_temp;
 
-				dol_mkdir($config->adherent->dir_temp);
-				if (!is_writable($config->adherent->dir_temp)) {
-					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->adherent->dir_temp);
+				dol_mkdir($config->member->dir_temp);
+				if (!is_writable($config->member->dir_temp)) {
+					$this->error = $langs->transnoentities("ErrorFailedToWriteInTempDirectory", $config->member->dir_temp);
 					dol_syslog('Error in write_file: ' . $this->error, LOG_ERR);
 					return -1;
 				}
@@ -318,7 +318,7 @@ class doc_generic_member_odt extends ModelePDFMember
 					$odfHandler = new Odf(
 						$srctemplatepath,
 						array(
-							'PATH_TO_TMP'	  => $config->adherent->dir_temp,
+							'PATH_TO_TMP'	  => $config->member->dir_temp,
 							'ZIP_PROXY'		  => getDolGlobalString('MAIN_ODF_ZIP_PROXY', 'PclZipProxy'), // PhpZipProxy or PclZipProxy. Got "bad compression method" error when using PhpZipProxy.
 							'DELIMITER_LEFT'  => '{',
 							'DELIMITER_RIGHT' => '}'
