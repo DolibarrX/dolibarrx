@@ -92,7 +92,7 @@ class box_members_last_subscriptions extends ModeleBoxes
 			$sql .= " a.datefin as date_end_subscription,";
 			$sql .= " ta.rowid as typeid, ta.libelle as label, ta.subscription as need_subscription,";
 			$sql .= " c.rowid as cid, c.tms as datem, c.datec as datec, c.dateadh as date_start, c.datef as date_end, c.subscription";
-			$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a, ".MAIN_DB_PREFIX."member_type as ta, ".MAIN_DB_PREFIX."subscription as c";
+			$sql .= " FROM ".MAIN_DB_PREFIX."member as a, ".MAIN_DB_PREFIX."member_type as ta, ".MAIN_DB_PREFIX."subscription as c";
 			$sql .= " WHERE a.entity IN (".getEntity('member').")";
 			$sql .= " AND a.fk_member_type = ta.rowid";
 			$sql .= " AND c.fk_member = a.rowid";

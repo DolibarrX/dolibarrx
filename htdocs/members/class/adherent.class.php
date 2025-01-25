@@ -795,7 +795,7 @@ class Adherent extends CommonObject
 
 		$this->db->begin();
 
-		$sql = "UPDATE ".MAIN_DB_PREFIX."adherent SET";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."member SET";
 		$sql .= " ref = '".$this->db->escape($this->ref)."'";
 		$sql .= ", civility = ".($this->civility_id ? "'".$this->db->escape($this->civility_id)."'" : "null");
 		$sql .= ", firstname = ".($this->firstname ? "'".$this->db->escape($this->firstname)."'" : "null");
@@ -1053,7 +1053,7 @@ class Adherent extends CommonObject
 			$datedeb = $this->db->jdate($obj->datedeb);
 			$datefin = $this->db->jdate($obj->datefin);
 
-			$sql = "UPDATE ".MAIN_DB_PREFIX."adherent SET";
+			$sql = "UPDATE ".MAIN_DB_PREFIX."member SET";
 			$sql .= " datefin=".($datefin != '' ? "'".$this->db->idate($datefin)."'" : "null");
 			$sql .= " WHERE rowid = ".((int) $this->id);
 
@@ -1148,7 +1148,7 @@ class Adherent extends CommonObject
 
 		// Remove adherent
 		if (!$error) {
-			$sql = "DELETE FROM ".MAIN_DB_PREFIX."adherent WHERE rowid = ".((int) $rowid);
+			$sql = "DELETE FROM ".MAIN_DB_PREFIX."member WHERE rowid = ".((int) $rowid);
 			dol_syslog(get_class($this)."::delete", LOG_DEBUG);
 			$resql = $this->db->query($sql);
 			if (!$resql) {
@@ -1324,7 +1324,7 @@ class Adherent extends CommonObject
 
 		// Remove link to third party onto any other members
 		if ($thirdpartyid > 0) {
-			$sql = "UPDATE ".MAIN_DB_PREFIX."adherent SET fk_soc = null";
+			$sql = "UPDATE ".MAIN_DB_PREFIX."member SET fk_soc = null";
 			$sql .= " WHERE fk_soc = ".((int) $thirdpartyid);
 			$sql .= " AND entity = ".$config->entity;
 			dol_syslog(get_class($this)."::setThirdPartyId", LOG_DEBUG);
@@ -1332,7 +1332,7 @@ class Adherent extends CommonObject
 		}
 
 		// Add link to third party for current member
-		$sql = "UPDATE ".MAIN_DB_PREFIX."adherent SET fk_soc = ".($thirdpartyid > 0 ? (int) $thirdpartyid : 'null');
+		$sql = "UPDATE ".MAIN_DB_PREFIX."member SET fk_soc = ".($thirdpartyid > 0 ? (int) $thirdpartyid : 'null');
 		$sql .= " WHERE rowid = ".((int) $this->id);
 
 		dol_syslog(get_class($this)."::setThirdPartyId", LOG_DEBUG);
@@ -1436,7 +1436,7 @@ class Adherent extends CommonObject
 		$sql .= " dep.nom as state, dep.code_departement as state_code,";
 		$sql .= " t.libelle as type, t.subscription as subscription,";
 		$sql .= " u.rowid as user_id, u.login as user_login";
-		$sql .= " FROM ".MAIN_DB_PREFIX."member_type as t, ".MAIN_DB_PREFIX."adherent as d";
+		$sql .= " FROM ".MAIN_DB_PREFIX."member_type as t, ".MAIN_DB_PREFIX."member as d";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON d.country = c.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as dep ON d.state_id = dep.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as u ON d.rowid = u.fk_member";
@@ -2021,7 +2021,7 @@ class Adherent extends CommonObject
 
 		$this->db->begin();
 
-		$sql = "UPDATE ".MAIN_DB_PREFIX."adherent SET";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."member SET";
 		$sql .= " statut = ".self::STATUS_VALIDATED;
 		$sql .= ", datevalid = '".$this->db->idate($now)."'";
 		$sql .= ", fk_user_valid = ".((int) $user->id);
@@ -2073,7 +2073,7 @@ class Adherent extends CommonObject
 
 		$this->db->begin();
 
-		$sql = "UPDATE ".MAIN_DB_PREFIX."adherent SET";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."member SET";
 		$sql .= " statut = ".self::STATUS_RESILIATED;
 		$sql .= ", fk_user_valid=".$user->id;
 		$sql .= " WHERE rowid = ".((int) $this->id);
@@ -2121,7 +2121,7 @@ class Adherent extends CommonObject
 
 		$this->db->begin();
 
-		$sql = "UPDATE ".MAIN_DB_PREFIX."adherent SET";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."member SET";
 		$sql .= " statut = ".self::STATUS_EXCLUDED;
 		$sql .= ", fk_user_valid=".$user->id;
 		$sql .= " WHERE rowid = ".((int) $this->id);
@@ -2536,7 +2536,7 @@ class Adherent extends CommonObject
 		$this->nb = array();
 
 		$sql = "SELECT count(a.rowid) as nb";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a";
+		$sql .= " FROM ".MAIN_DB_PREFIX."member as a";
 		$sql .= " WHERE a.statut > 0";
 		$sql .= " AND a.entity IN (".getEntity('member').")";
 
@@ -2574,7 +2574,7 @@ class Adherent extends CommonObject
 		$now = dol_now();
 
 		$sql = "SELECT a.rowid, a.datefin, a.statut";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a";
+		$sql .= " FROM ".MAIN_DB_PREFIX."member as a";
 		$sql .= ", ".MAIN_DB_PREFIX."member_type as t";
 		$sql .= " WHERE a.fk_member_type = t.rowid";
 		if ($mode == 'expired') {

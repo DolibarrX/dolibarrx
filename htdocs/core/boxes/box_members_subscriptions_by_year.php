@@ -91,7 +91,7 @@ class box_members_subscriptions_by_year extends ModeleBoxes
 			$numb = 0;
 
 			$sql = "SELECT c.subscription, c.dateadh as dateh";
-			$sql .= " FROM " . MAIN_DB_PREFIX . "adherent as d, " . MAIN_DB_PREFIX . "subscription as c";
+			$sql .= " FROM " . MAIN_DB_PREFIX . "member as d, " . MAIN_DB_PREFIX . "subscription as c";
 			$sql .= " WHERE d.entity IN (" . getEntity('member') . ")";
 			$sql .= " AND d.rowid = c.fk_adherent";
 

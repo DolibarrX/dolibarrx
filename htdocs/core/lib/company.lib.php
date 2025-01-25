@@ -1898,7 +1898,7 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Project') {
 			/* Nothing */
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Adherent') {
-			$sql .= ", " . MAIN_DB_PREFIX . "adherent as m";
+			$sql .= ", " . MAIN_DB_PREFIX . "member as m";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'CommandeFournisseur') {
 			$sql .= ", " . MAIN_DB_PREFIX . "commande_fournisseur as o";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Product') {

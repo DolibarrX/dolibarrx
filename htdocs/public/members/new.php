@@ -213,7 +213,7 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 			$error++;
 			$errmsg .= $langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Login"))."<br>\n";
 		}
-		$sql = "SELECT login FROM ".MAIN_DB_PREFIX."adherent WHERE login = '".$db->escape(GETPOST('login'))."'";
+		$sql = "SELECT login FROM ".MAIN_DB_PREFIX."member WHERE login = '".$db->escape(GETPOST('login'))."'";
 		$result = $db->query($sql);
 		if ($result) {
 			$num = $db->num_rows($result);
@@ -867,7 +867,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 	$sql = "SELECT d.rowid, d.libelle as label, d.subscription, d.amount, d.caneditamount, d.vote, d.note, d.duration, d.statut as status, d.morphy,";
 	$sql .= " COUNT(a.rowid) AS membercount";
 	$sql .= " FROM ".MAIN_DB_PREFIX."member_type as d";
-	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent as a";
+	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."member as a";
 	$sql .= " ON d.rowid = a.fk_member_type AND a.statut > 0";
 	$sql .= " WHERE d.entity IN (".getEntity('member_type').")";
 	$sql .= " AND d.statut=1";

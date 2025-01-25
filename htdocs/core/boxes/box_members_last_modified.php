@@ -86,7 +86,7 @@ class box_members_last_modified extends ModeleBoxes
 			$sql .= " a.datec, a.tms as datem, a.statut as status, a.datefin as date_end_subscription,";
 			$sql .= ' a.photo, a.email, a.gender, a.morphy,';
 			$sql .= " t.rowid as typeid, t.subscription, t.libelle as label";
-			$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a, ".MAIN_DB_PREFIX."member_type as t";
+			$sql .= " FROM ".MAIN_DB_PREFIX."member as a, ".MAIN_DB_PREFIX."member_type as t";
 			$sql .= " WHERE a.entity IN (".getEntity('member').")";
 			$sql .= " AND a.fk_member_type = t.rowid";
 			$sql .= " ORDER BY a.tms DESC";

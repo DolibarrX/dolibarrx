@@ -434,7 +434,7 @@ class DataPolicyCron
 			),
 			'DATAPOLICY_ADHERENT' => array(
 				'sql' => "
-                    SELECT a.rowid FROM ".MAIN_DB_PREFIX."adherent as a
+                    SELECT a.rowid FROM ".MAIN_DB_PREFIX."member as a
                     WHERE a.entity = %d
                     AND a.tms < DATE_SUB('".$this->db->idate(dol_now())."', INTERVAL %d MONTH)
 					AND NOT EXISTS (

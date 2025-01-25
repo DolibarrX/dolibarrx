@@ -669,7 +669,7 @@ if ($rowid > 0) {
 
 		$sqlfields = $sql; // $sql fields to remove for count total
 
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as d, ".MAIN_DB_PREFIX."member_type as t";
+		$sql .= " FROM ".MAIN_DB_PREFIX."member as d, ".MAIN_DB_PREFIX."member_type as t";
 		$sql .= " WHERE d.fk_member_type = t.rowid ";
 		$sql .= " AND d.entity IN (".getEntity('member').")";
 		$sql .= " AND t.rowid = ".((int) $object->id);

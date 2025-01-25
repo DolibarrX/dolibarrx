@@ -82,7 +82,7 @@ class mailing_fraise extends MailingTargets
 		$statssql = array();
 
 		$statssql[0] = "SELECT '".$this->db->escape($langs->trans("FundationMembers"))."' as label, count(*) as nb";
-		$statssql[0] .= " FROM ".MAIN_DB_PREFIX."adherent where statut = 1 and entity IN (".getEntity('member').")";
+		$statssql[0] .= " FROM ".MAIN_DB_PREFIX."member where statut = 1 and entity IN (".getEntity('member').")";
 
 		return $statssql;
 	}
@@ -100,7 +100,7 @@ class mailing_fraise extends MailingTargets
 	{
 		global $config;
 		$sql  = "SELECT count(distinct(a.email)) as nb";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a";
+		$sql .= " FROM ".MAIN_DB_PREFIX."member as a";
 		$sql .= " WHERE (a.email IS NOT NULL AND a.email != '') AND a.entity IN (".getEntity('member').")";
 		if (empty($this->evenunsubscribe)) {
 			$sql .= " AND NOT EXISTS (SELECT rowid FROM ".MAIN_DB_PREFIX."mailing_unsubscribe as mu WHERE mu.email = a.email and mu.entity = ".((int) $config->entity).")";
@@ -252,7 +252,7 @@ class mailing_fraise extends MailingTargets
 		$sql = "SELECT a.rowid as id, a.email as email, null as fk_contact, ";
 		$sql .= " a.lastname, a.firstname,";
 		$sql .= " a.datefin, a.civility as civility_id, a.login, a.societe"; // Other fields
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a";
+		$sql .= " FROM ".MAIN_DB_PREFIX."member as a";
 		if (GETPOSTINT('filter_category') > 0) {
 			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."categorie_member as cm ON cm.fk_member = a.rowid";
 			$sql .= " INNER JOIN ".MAIN_DB_PREFIX."categorie as c ON c.rowid = cm.fk_categorie AND c.rowid = ".(GETPOSTINT('filter_category'));

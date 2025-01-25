@@ -8348,7 +8348,7 @@ class Form
 
 		$sql = "SELECT ";
 		$sql .= $selectFields;
-		$sql .= " FROM " . $this->db->prefix() . "adherent as p";
+		$sql .= " FROM " . $this->db->prefix() . "member as p";
 		$sql .= ' WHERE p.entity IN (' . getEntity('member') . ')';
 
 		// Add criteria on ref/label

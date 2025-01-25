@@ -109,7 +109,7 @@ class mailing_partnership extends MailingTargets
 		$sql .= " UNION ";
 
 		$sql .= "SELECT s.rowid as id, s.email as email, s.lastname as name, null as fk_contact, s.firstname as firstname, pt.label as label, 'member' as source";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as s, ".MAIN_DB_PREFIX."partnership as p, ".MAIN_DB_PREFIX."c_partnership_type as pt";
+		$sql .= " FROM ".MAIN_DB_PREFIX."member as s, ".MAIN_DB_PREFIX."partnership as p, ".MAIN_DB_PREFIX."c_partnership_type as pt";
 		$sql .= " WHERE s.email <> ''";
 		$sql .= " AND s.entity IN (".getEntity('member').")";
 		$sql .= " AND s.email NOT IN (SELECT email FROM ".MAIN_DB_PREFIX."mailing_cibles WHERE fk_mailing=".((int) $mailing_id).")";
@@ -212,7 +212,7 @@ class mailing_partnership extends MailingTargets
 		$sql .= " UNION ";
 
 		$sql .= "SELECT count(distinct(s.email)) as nb";
-		$sql .= " FROM ".MAIN_DB_PREFIX."partnership as p, ".MAIN_DB_PREFIX."adherent as s";
+		$sql .= " FROM ".MAIN_DB_PREFIX."partnership as p, ".MAIN_DB_PREFIX."member as s";
 		$sql .= " WHERE s.rowid = p.fk_member AND s.email <> ''";
 		$sql .= " AND s.entity IN (".getEntity('member').")";
 		if (empty($this->evenunsubscribe)) {

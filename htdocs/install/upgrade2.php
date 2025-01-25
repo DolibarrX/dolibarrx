@@ -4788,7 +4788,7 @@ function migrate_members_socialnetworks()
 				$obj->socialnetworks = '[]';
 			}
 			$socialnetworks = array_merge($arraysocialnetworks, json_decode($obj->socialnetworks, true));
-			$sqlupd = 'UPDATE '.MAIN_DB_PREFIX."adherent SET socialnetworks='".$db->escape(json_encode($socialnetworks))."'";
+			$sqlupd = 'UPDATE '.MAIN_DB_PREFIX."member SET socialnetworks='".$db->escape(json_encode($socialnetworks))."'";
 			$sqlupd .= ', skype=null';
 			$sqlupd .= ', twitter=null';
 			$sqlupd .= ', facebook=null';

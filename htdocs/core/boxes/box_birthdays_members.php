@@ -81,7 +81,7 @@ class box_birthdays_members extends ModeleBoxes
 			$tmparray = dol_getdate(dol_now(), true);
 
 			$sql = "SELECT u.rowid, u.firstname, u.lastname, u.societe, u.birth, date_format(u.birth, '%d') as daya, u.email, u.statut as status, u.datefin";
-			$sql .= " FROM ".MAIN_DB_PREFIX."adherent as u";
+			$sql .= " FROM ".MAIN_DB_PREFIX."member as u";
 			$sql .= " WHERE u.entity IN (".getEntity('member').")";
 			$sql .= " AND u.statut = ".Adherent::STATUS_VALIDATED;
 			$sql .= dolSqlDateFilter('u.birth', 0, $tmparray['mon'], 0);

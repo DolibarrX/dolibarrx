@@ -544,7 +544,7 @@ if (empty($resHook)) {
 				$error++;
 				setEventMessages($langs->trans("ErrorFieldRequired", $langs->transnoentitiesnoconv("Login")), null, 'errors');
 			} else {
-				$sql = "SELECT login FROM ".MAIN_DB_PREFIX."adherent WHERE login='".$db->escape($login)."'";
+				$sql = "SELECT login FROM ".MAIN_DB_PREFIX."member WHERE login='".$db->escape($login)."'";
 				$result = $db->query($sql);
 				$num = 0;
 				if ($result) {
