@@ -25,7 +25,7 @@
 
 /**
  *  \file       htdocs/members/messaging.php
- *  \ingroup    adherent
+ *  \ingroup    member
  *  \brief      Page of adherents events
  */
 

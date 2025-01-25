@@ -22,7 +22,7 @@
 
 /**
  *	\file       htdocs/core/boxes/box_members_by_tags.php
- *	\ingroup    adherent
+ *	\ingroup    member
  *	\brief      Module to show box of members by tags
  */
 

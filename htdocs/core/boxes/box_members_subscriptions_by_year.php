@@ -21,7 +21,7 @@
 
 /**
  *	\file       htdocs/core/boxes/box_members_subscriptions_by_year.php
- *	\ingroup    adherent
+ *	\ingroup    member
  *	\brief      Module to show box of members
  */
 

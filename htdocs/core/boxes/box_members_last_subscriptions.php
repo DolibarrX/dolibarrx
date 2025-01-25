@@ -21,7 +21,7 @@
 
 /**
  *	\file       htdocs/core/boxes/box_members_last_subscriptions.php
- *	\ingroup    adherent
+ *	\ingroup    member
  *	\brief      Module to show box of last members subscriptions
  */
 

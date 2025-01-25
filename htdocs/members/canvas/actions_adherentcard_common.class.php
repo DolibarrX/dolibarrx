@@ -19,7 +19,7 @@
 
 /**
  *	\file       htdocs/members/canvas/actions_adherentcard_common.class.php
- *	\ingroup    adherent
+ *	\ingroup    member
  *	\brief      File of class Thirdparty member card controller (common)
  */
 
