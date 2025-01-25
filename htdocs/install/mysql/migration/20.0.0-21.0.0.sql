@@ -130,7 +130,7 @@ ALTER TABLE llx_expedition_package MODIFY COLUMN dangerous_goods varchar(60) DEF
 
 ALTER TABLE llx_propal ADD COLUMN model_pdf_pos_sign VARCHAR(32) DEFAULT NULL AFTER model_pdf;
 
-ALTER TABLE llx_commande ADD COLUMN signed_status smallint DEFAULT NULL AFTER total_ttc;
+ALTER TABLE llx_order ADD COLUMN signed_status smallint DEFAULT NULL AFTER total_ttc;
 
 ALTER TABLE llx_notify_def ADD COLUMN entity integer DEFAULT 1;
 
@@ -363,10 +363,10 @@ ALTER TABLE llx_societe ADD COLUMN tp_payment_reference varchar(25) AFTER code_f
 
 ALTER TABLE llx_actioncomm ADD COLUMN fk_task integer;
 
-ALTER TABLE llx_commande_fournisseurdet ADD COLUMN subprice_ttc double(24,8) DEFAULT 0 after subprice;
-ALTER TABLE llx_commande_fournisseurdet ADD COLUMN multicurrency_subprice_ttc double(24,8) DEFAULT 0 after multicurrency_subprice;
-ALTER TABLE llx_commandedet ADD COLUMN subprice_ttc double(24,8) DEFAULT 0 after subprice;
-ALTER TABLE llx_commandedet ADD COLUMN multicurrency_subprice_ttc double(24,8) DEFAULT 0 after multicurrency_subprice;
+ALTER TABLE llx_order_fournisseurdet ADD COLUMN subprice_ttc double(24,8) DEFAULT 0 after subprice;
+ALTER TABLE llx_order_fournisseurdet ADD COLUMN multicurrency_subprice_ttc double(24,8) DEFAULT 0 after multicurrency_subprice;
+ALTER TABLE llx_orderdet ADD COLUMN subprice_ttc double(24,8) DEFAULT 0 after subprice;
+ALTER TABLE llx_orderdet ADD COLUMN multicurrency_subprice_ttc double(24,8) DEFAULT 0 after multicurrency_subprice;
 ALTER TABLE llx_contratdet ADD COLUMN subprice_ttc double(24,8) DEFAULT 0 after subprice;
 ALTER TABLE llx_contratdet ADD COLUMN multicurrency_subprice_ttc double(24,8) DEFAULT 0 after multicurrency_subprice;
 ALTER TABLE llx_deliverydet ADD COLUMN subprice_ttc double(24,8) DEFAULT 0 after subprice;

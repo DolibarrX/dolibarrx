@@ -20,9 +20,9 @@ DELETE FROM llx_user_param WHERE param = 'MAIN_THEME' and value = 'freelug';
 
 
 update llx_propal set fk_projet = null where fk_projet not in (select rowid from llx_projet);
-update llx_commande set fk_projet = null where fk_projet not in (select rowid from llx_projet);
+update llx_order set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_facture set fk_projet = null where fk_projet not in (select rowid from llx_projet);
-update llx_commande_fournisseur set fk_projet = null where fk_projet not in (select rowid from llx_projet);
+update llx_order_fournisseur set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_contrat set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_deplacement set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_facture_fourn set fk_projet = null where fk_projet not in (select rowid from llx_projet);
@@ -33,8 +33,8 @@ update llx_projet_task set fk_projet = null where fk_projet not in (select rowid
 update llx_propal set fk_user_author = null where fk_user_author not in (select rowid from llx_user);
 update llx_propal set fk_user_valid = null where fk_user_valid not in (select rowid from llx_user);
 update llx_propal set fk_user_cloture = null where fk_user_cloture not in (select rowid from llx_user);
-update llx_commande set fk_user_author = null where fk_user_author not in (select rowid from llx_user);
-update llx_commande set fk_user_valid = null where fk_user_valid not in (select rowid from llx_user);
+update llx_order set fk_user_author = null where fk_user_author not in (select rowid from llx_user);
+update llx_order set fk_user_valid = null where fk_user_valid not in (select rowid from llx_user);
 
 
 ALTER TABLE llx_extrafields ADD COLUMN type VARCHAR(8);
@@ -134,9 +134,9 @@ ALTER TABLE llx_propal MODIFY ref_int varchar(255);
 ALTER TABLE llx_propal MODIFY ref_ext varchar(255);
 ALTER TABLE llx_propal MODIFY ref_client varchar(255);
 
-ALTER TABLE llx_commande MODIFY ref_int varchar(255);
-ALTER TABLE llx_commande MODIFY ref_ext varchar(255);
-ALTER TABLE llx_commande MODIFY ref_client varchar(255);
+ALTER TABLE llx_order MODIFY ref_int varchar(255);
+ALTER TABLE llx_order MODIFY ref_ext varchar(255);
+ALTER TABLE llx_order MODIFY ref_client varchar(255);
 
 ALTER TABLE llx_facture MODIFY ref_int varchar(255);
 ALTER TABLE llx_facture MODIFY ref_ext varchar(255);
@@ -242,21 +242,21 @@ ALTER TABLE llx_propal ADD CONSTRAINT fk_propal_fk_projet		FOREIGN KEY (fk_proje
 ALTER TABLE llx_propal DROP FOREIGN KEY fk_propal_fk_account;
 ALTER TABLE llx_propal DROP FOREIGN KEY fk_propal_fk_currency;
 
-ALTER TABLE llx_commande MODIFY fk_projet integer DEFAULT NULL;
-ALTER TABLE llx_commande ADD COLUMN fk_account integer AFTER facture;
-ALTER TABLE llx_commande ADD COLUMN fk_currency varchar(2) AFTER fk_account;
-ALTER TABLE llx_commande ADD INDEX idx_commande_fk_user_author (fk_user_author);
-ALTER TABLE llx_commande ADD INDEX idx_commande_fk_user_valid (fk_user_valid);
-ALTER TABLE llx_commande ADD INDEX idx_commande_fk_user_cloture (fk_user_cloture);
-ALTER TABLE llx_commande ADD INDEX idx_commande_fk_projet (fk_projet);
-ALTER TABLE llx_commande ADD INDEX idx_commande_fk_account(fk_account);
-ALTER TABLE llx_commande ADD INDEX idx_commande_fk_currency(fk_currency);
-ALTER TABLE llx_commande ADD CONSTRAINT fk_commande_fk_user_author	FOREIGN KEY (fk_user_author) REFERENCES llx_user (rowid);
-ALTER TABLE llx_commande ADD CONSTRAINT fk_commande_fk_user_valid	FOREIGN KEY (fk_user_valid)  REFERENCES llx_user (rowid);
-ALTER TABLE llx_commande ADD CONSTRAINT fk_commande_fk_user_cloture	FOREIGN KEY (fk_user_cloture) REFERENCES llx_user (rowid);
-ALTER TABLE llx_commande ADD CONSTRAINT fk_commande_fk_projet		FOREIGN KEY (fk_projet) REFERENCES llx_projet (rowid);
-ALTER TABLE llx_commande DROP FOREIGN KEY fk_commande_fk_account;
-ALTER TABLE llx_commande DROP FOREIGN KEY fk_commande_fk_currency;
+ALTER TABLE llx_order MODIFY fk_projet integer DEFAULT NULL;
+ALTER TABLE llx_order ADD COLUMN fk_account integer AFTER facture;
+ALTER TABLE llx_order ADD COLUMN fk_currency varchar(2) AFTER fk_account;
+ALTER TABLE llx_order ADD INDEX idx_order_fk_user_author (fk_user_author);
+ALTER TABLE llx_order ADD INDEX idx_order_fk_user_valid (fk_user_valid);
+ALTER TABLE llx_order ADD INDEX idx_order_fk_user_cloture (fk_user_cloture);
+ALTER TABLE llx_order ADD INDEX idx_order_fk_projet (fk_projet);
+ALTER TABLE llx_order ADD INDEX idx_order_fk_account(fk_account);
+ALTER TABLE llx_order ADD INDEX idx_order_fk_currency(fk_currency);
+ALTER TABLE llx_order ADD CONSTRAINT fk_order_fk_user_author	FOREIGN KEY (fk_user_author) REFERENCES llx_user (rowid);
+ALTER TABLE llx_order ADD CONSTRAINT fk_order_fk_user_valid	FOREIGN KEY (fk_user_valid)  REFERENCES llx_user (rowid);
+ALTER TABLE llx_order ADD CONSTRAINT fk_order_fk_user_cloture	FOREIGN KEY (fk_user_cloture) REFERENCES llx_user (rowid);
+ALTER TABLE llx_order ADD CONSTRAINT fk_order_fk_projet		FOREIGN KEY (fk_projet) REFERENCES llx_projet (rowid);
+ALTER TABLE llx_order DROP FOREIGN KEY fk_order_fk_account;
+ALTER TABLE llx_order DROP FOREIGN KEY fk_order_fk_currency;
 
 ALTER TABLE llx_facture MODIFY fk_projet integer DEFAULT NULL;
 ALTER TABLE llx_facture ADD COLUMN fk_account integer AFTER fk_projet;
@@ -270,7 +270,7 @@ ALTER TABLE llx_actioncomm DROP COLUMN propalrowid;
 ALTER TABLE llx_actioncomm DROP COLUMN fk_facture;
 ALTER TABLE llx_actioncomm DROP COLUMN fk_supplier_order;
 ALTER TABLE llx_actioncomm DROP COLUMN fk_supplier_invoice;
-ALTER TABLE llx_actioncomm DROP COLUMN fk_commande;
+ALTER TABLE llx_actioncomm DROP COLUMN fk_order;
 ALTER TABLE llx_product_stock DROP COLUMN location;
 
 ALTER TABLE llx_member_extrafields ADD COLUMN import_key varchar(14);
@@ -440,13 +440,13 @@ UPDATE llx_c_departements SET ncc='JUJUY', nom = 'Jujuy' WHERE code_departement=
 
 ALTER TABLE llx_propal ADD COLUMN import_key varchar(14) AFTER fk_demand_reason;
 ALTER TABLE llx_propal ADD COLUMN extraparams varchar(255) AFTER import_key;
-ALTER TABLE llx_commande ADD COLUMN extraparams varchar(255) AFTER import_key;
+ALTER TABLE llx_order ADD COLUMN extraparams varchar(255) AFTER import_key;
 ALTER TABLE llx_facture ADD COLUMN extraparams varchar(255) AFTER import_key;
 ALTER TABLE llx_fichinter ADD COLUMN extraparams varchar(255) AFTER model_pdf;
 ALTER TABLE llx_deplacement ADD COLUMN extraparams varchar(255) AFTER note_public;
 ALTER TABLE llx_contrat ADD COLUMN import_key varchar(14) AFTER note_public;
 ALTER TABLE llx_contrat ADD COLUMN extraparams varchar(255) AFTER import_key;
-ALTER TABLE llx_commande_fournisseur ADD COLUMN extraparams varchar(255) AFTER import_key;
+ALTER TABLE llx_order_fournisseur ADD COLUMN extraparams varchar(255) AFTER import_key;
 ALTER TABLE llx_facture_fourn ADD COLUMN extraparams varchar(255) AFTER import_key;
 
 ALTER TABLE llx_boxes ADD COLUMN maxline integer NULL;

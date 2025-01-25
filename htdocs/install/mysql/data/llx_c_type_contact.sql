@@ -68,10 +68,10 @@ insert into llx_c_type_contact (element, source, code, libelle, active ) values 
 insert into llx_c_type_contact (element, source, code, libelle, active ) values ('agenda', 'external', 'GUEST', 'Guest', 1);
 
 -- Customer Order / Commande
-insert into llx_c_type_contact (element, source, code, libelle, active ) values ('commande', 'internal', 'SALESREPFOLL',  'Responsable suivi de la commande', 1);
-insert into llx_c_type_contact (element, source, code, libelle, active ) values ('commande', 'external', 'BILLING',       'Contact client facturation commande', 1);
-insert into llx_c_type_contact (element, source, code, libelle, active ) values ('commande', 'external', 'CUSTOMER',      'Contact client suivi commande', 1);
-insert into llx_c_type_contact (element, source, code, libelle, active ) values ('commande', 'external', 'SHIPPING',      'Contact client livraison commande', 1);
+insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order', 'internal', 'SALESREPFOLL',  'Responsable suivi de la order', 1);
+insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order', 'external', 'BILLING',       'Contact client facturation order', 1);
+insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order', 'external', 'CUSTOMER',      'Contact client suivi order', 1);
+insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order', 'external', 'SHIPPING',      'Contact client livraison order', 1);
 
 -- Shipment / Expedition
 insert into llx_c_type_contact (element, source, code, libelle, active ) values ('expedition', 'external', 'CUSTOMER',      'Customer shipping contact', 1);
@@ -85,11 +85,11 @@ insert into llx_c_type_contact (element, source, code, libelle, active ) values 
 insert into llx_c_type_contact (element, source, code, libelle, active ) values ('fichinter', 'external', 'CUSTOMER',      'Contact client suivi de l''intervention', 1);
 
 -- Supplier Order
-insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order_supplier', 'internal', 'SALESREPFOLL',  'Responsable suivi de la commande', 1);
-insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order_supplier', 'internal', 'SHIPPING',      'Responsable réception de la commande', 1);
-insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order_supplier', 'external', 'BILLING',       'Contact fournisseur facturation commande', 1);
-insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order_supplier', 'external', 'CUSTOMER',      'Contact fournisseur suivi commande', 1);
-insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order_supplier', 'external', 'SHIPPING',      'Contact fournisseur livraison commande', 1);
+insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order_supplier', 'internal', 'SALESREPFOLL',  'Responsable suivi de la order', 1);
+insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order_supplier', 'internal', 'SHIPPING',      'Responsable réception de la order', 1);
+insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order_supplier', 'external', 'BILLING',       'Contact fournisseur facturation order', 1);
+insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order_supplier', 'external', 'CUSTOMER',      'Contact fournisseur suivi order', 1);
+insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order_supplier', 'external', 'SHIPPING',      'Contact fournisseur livraison order', 1);
 
 -- Resource
 insert into llx_c_type_contact (element, source, code, libelle, active ) values ('dolresource', 'internal', 'USERINCHARGE',    'In charge of resource', 1);

@@ -76,14 +76,14 @@ ALTER TABLE llx_bom_bom_extrafields DROP INDEX idx_bom_bom_extrafields_fk_object
 ALTER TABLE llx_bom_bom_extrafields ADD UNIQUE INDEX uk_bom_bom_extrafields_fk_object (fk_object);
 ALTER TABLE llx_categories_extrafields DROP INDEX idx_categories_extrafields;
 ALTER TABLE llx_categories_extrafields ADD UNIQUE INDEX uk_categories_extrafields (fk_object);
-ALTER TABLE llx_commande_extrafields DROP INDEX idx_commande_extrafields;
-ALTER TABLE llx_commande_extrafields ADD UNIQUE INDEX uk_commande_extrafields (fk_object);
-ALTER TABLE llx_commande_fournisseur_extrafields DROP INDEX idx_commande_fournisseur_extrafields;
-ALTER TABLE llx_commande_fournisseur_extrafields ADD UNIQUE INDEX uk_commande_fournisseur_extrafields (fk_object);
-ALTER TABLE llx_commande_fournisseurdet_extrafields DROP INDEX idx_commande_fournisseurdet_extrafields;
-ALTER TABLE llx_commande_fournisseurdet_extrafields ADD UNIQUE INDEX uk_commande_fournisseurdet_extrafields (fk_object);
-ALTER TABLE llx_commandedet_extrafields DROP INDEX idx_commandedet_extrafields;
-ALTER TABLE llx_commandedet_extrafields ADD UNIQUE INDEX uk_commandedet_extrafields (fk_object);
+ALTER TABLE llx_order_extrafields DROP INDEX idx_order_extrafields;
+ALTER TABLE llx_order_extrafields ADD UNIQUE INDEX uk_order_extrafields (fk_object);
+ALTER TABLE llx_order_fournisseur_extrafields DROP INDEX idx_order_fournisseur_extrafields;
+ALTER TABLE llx_order_fournisseur_extrafields ADD UNIQUE INDEX uk_order_fournisseur_extrafields (fk_object);
+ALTER TABLE llx_order_fournisseurdet_extrafields DROP INDEX idx_order_fournisseurdet_extrafields;
+ALTER TABLE llx_order_fournisseurdet_extrafields ADD UNIQUE INDEX uk_order_fournisseurdet_extrafields (fk_object);
+ALTER TABLE llx_orderdet_extrafields DROP INDEX idx_orderdet_extrafields;
+ALTER TABLE llx_orderdet_extrafields ADD UNIQUE INDEX uk_orderdet_extrafields (fk_object);
 ALTER TABLE llx_contrat_extrafields DROP INDEX idx_contrat_extrafields;
 ALTER TABLE llx_contrat_extrafields ADD UNIQUE INDEX uk_contrat_extrafields (fk_object);
 ALTER TABLE llx_contratdet_extrafields DROP INDEX idx_contratdet_extrafields;
@@ -241,8 +241,8 @@ ALTER TABLE llx_hrm_evaluation ADD COLUMN last_main_doc varchar(255);
 
 ALTER TABLE llx_knowledgemanagement_knowledgerecord MODIFY COLUMN answer longtext;
 
-ALTER TABLE llx_commande_fournisseur_dispatch_extrafields RENAME TO llx_receptiondet_batch_extrafields;
-ALTER TABLE llx_commande_fournisseur_dispatch RENAME TO llx_receptiondet_batch;
+ALTER TABLE llx_order_fournisseur_dispatch_extrafields RENAME TO llx_receptiondet_batch_extrafields;
+ALTER TABLE llx_order_fournisseur_dispatch RENAME TO llx_receptiondet_batch;
 
 -- Rename const to add customer categories on not customer/prospect third-party if enabled
 UPDATE llx_const SET name = 'THIRDPARTY_CAN_HAVE_CUSTOMER_CATEGORY_EVEN_IF_NOT_CUSTOMER_PROSPECT' WHERE name = 'THIRDPARTY_CAN_HAVE_CATEGORY_EVEN_IF_NOT_CUSTOMER_PROSPECT_SUPPLIER';
@@ -307,13 +307,13 @@ ALTER TABLE llx_socpeople ADD COLUMN fk_parent integer NULL;
 
 ALTER TABLE llx_expeditiondet ADD COLUMN fk_product integer;
 ALTER TABLE llx_expeditiondet ADD COLUMN fk_element integer;
-ALTER TABLE llx_expeditiondet ADD COLUMN element_type varchar(50) DEFAULT 'commande' NOT NULL;
+ALTER TABLE llx_expeditiondet ADD COLUMN element_type varchar(50) DEFAULT 'order' NOT NULL;
 ALTER TABLE llx_expeditiondet CHANGE COLUMN fk_origin_line fk_elementdet integer;
 ALTER TABLE llx_expeditiondet DROP INDEX idx_expeditiondet_fk_origin_line;
 ALTER TABLE llx_expeditiondet ADD INDEX idx_expeditiondet_fk_elementdet (fk_elementdet);
 
-ALTER TABLE llx_receptiondet_batch CHANGE COLUMN fk_commande fk_element integer;
-ALTER TABLE llx_receptiondet_batch CHANGE COLUMN fk_commandefourndet fk_elementdet integer;
+ALTER TABLE llx_receptiondet_batch CHANGE COLUMN fk_order fk_element integer;
+ALTER TABLE llx_receptiondet_batch CHANGE COLUMN fk_orderfourndet fk_elementdet integer;
 ALTER TABLE llx_receptiondet_batch ADD INDEX idx_receptiondet_batch_fk_element (fk_element);
 
 ALTER TABLE llx_supplier_proposaldet MODIFY ref_fourn VARCHAR(128) NULL;

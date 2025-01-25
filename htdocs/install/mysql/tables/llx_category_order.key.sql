@@ -22,4 +22,4 @@ ALTER TABLE llx_category_order ADD INDEX idx_category_order_fk_category (fk_cate
 ALTER TABLE llx_category_order ADD INDEX idx_category_order_fk_order (fk_order);
 
 ALTER TABLE llx_category_order ADD CONSTRAINT fk_category_order_category_rowid FOREIGN KEY (fk_category) REFERENCES llx_category (rowid);
-ALTER TABLE llx_category_order ADD CONSTRAINT fk_category_order_fk_order_rowid FOREIGN KEY (fk_order) REFERENCES llx_commande (rowid);
+ALTER TABLE llx_category_order ADD CONSTRAINT fk_category_order_fk_order_rowid FOREIGN KEY (fk_order) REFERENCES llx_order (rowid);

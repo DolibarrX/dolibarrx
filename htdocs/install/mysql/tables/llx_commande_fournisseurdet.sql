@@ -19,10 +19,10 @@
 --
 -- ===================================================================
 
-create table llx_commande_fournisseurdet
+create table llx_order_fournisseurdet
 (
   rowid                      integer AUTO_INCREMENT PRIMARY KEY,
-  fk_commande                integer      NOT NULL,
+  fk_order                integer      NOT NULL,
   fk_parent_line             integer      NULL,
   fk_product                 integer,
   ref                        varchar(128),              -- supplier product ref

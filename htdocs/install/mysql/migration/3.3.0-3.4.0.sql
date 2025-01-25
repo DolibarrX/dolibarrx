@@ -63,7 +63,7 @@ ALTER TABLE llx_facture_fourn ADD UNIQUE INDEX uk_facture_fourn_ref_supplier (re
 
 
 alter table llx_propal   CHANGE COLUMN fk_adresse_livraison fk_delivery_address integer;
-alter table llx_commande CHANGE COLUMN fk_adresse_livraison fk_delivery_address integer;
+alter table llx_order CHANGE COLUMN fk_adresse_livraison fk_delivery_address integer;
 alter table llx_don      CHANGE COLUMN adresse address text;
 alter table llx_don      CHANGE COLUMN ville town text;
 alter table llx_don      CHANGE COLUMN prenom firstname varchar(50);
@@ -167,10 +167,10 @@ insert into llx_c_revenuestamp(rowid,fk_pays,taux,note,active) values (101, 10, 
 
 ALTER TABLE llx_c_tva MODIFY COLUMN localtax1_type varchar(10) DEFAULT NULL;
 ALTER TABLE llx_c_tva MODIFY COLUMN localtax2_type varchar(10) DEFAULT NULL;
-ALTER TABLE llx_commande_fournisseurdet MODIFY COLUMN localtax1_type varchar(10) DEFAULT NULL;
-ALTER TABLE llx_commande_fournisseurdet MODIFY COLUMN localtax2_type varchar(10) DEFAULT NULL;
-ALTER TABLE llx_commandedet MODIFY COLUMN localtax1_type varchar(10) DEFAULT NULL;
-ALTER TABLE llx_commandedet MODIFY COLUMN localtax2_type varchar(10) DEFAULT NULL;
+ALTER TABLE llx_order_fournisseurdet MODIFY COLUMN localtax1_type varchar(10) DEFAULT NULL;
+ALTER TABLE llx_order_fournisseurdet MODIFY COLUMN localtax2_type varchar(10) DEFAULT NULL;
+ALTER TABLE llx_orderdet MODIFY COLUMN localtax1_type varchar(10) DEFAULT NULL;
+ALTER TABLE llx_orderdet MODIFY COLUMN localtax2_type varchar(10) DEFAULT NULL;
 ALTER TABLE llx_contratdet MODIFY COLUMN localtax1_type varchar(10) DEFAULT NULL;
 ALTER TABLE llx_contratdet MODIFY COLUMN localtax2_type varchar(10) DEFAULT NULL;
 ALTER TABLE llx_facture_fourn_det MODIFY COLUMN localtax1_type varchar(10) DEFAULT NULL;
@@ -262,14 +262,14 @@ CREATE TABLE llx_printer_ipp
 ALTER TABLE llx_socpeople ADD COLUMN ref_ext varchar(128) after entity;
 ALTER TABLE llx_member MODIFY COLUMN ref_ext varchar(128);
 
-create table llx_commande_extrafields
+create table llx_order_extrafields
 (
   rowid                     integer AUTO_INCREMENT PRIMARY KEY,
   tms                       timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   fk_object                 integer NOT NULL,
   import_key                varchar(14)
 ) ENGINE=innodb;
-ALTER TABLE llx_commande_extrafields ADD INDEX idx_commande_extrafields (fk_object);
+ALTER TABLE llx_order_extrafields ADD INDEX idx_order_extrafields (fk_object);
 
 ALTER TABLE llx_socpeople ADD COLUMN note_public text after note;
 ALTER TABLE llx_societe ADD COLUMN note_public text after note;
@@ -284,9 +284,9 @@ ALTER TABLE llx_expedition CHANGE COLUMN note note_private text;
 ALTER TABLE llx_expedition ADD COLUMN note_public text after note_private;
 ALTER TABLE llx_livraison CHANGE COLUMN note note_private text;
 ALTER TABLE llx_facture CHANGE COLUMN note note_private text;
-ALTER TABLE llx_commande CHANGE COLUMN note note_private text;
+ALTER TABLE llx_order CHANGE COLUMN note note_private text;
 ALTER TABLE llx_propal CHANGE COLUMN note note_private text;
-ALTER TABLE llx_commande_fournisseur CHANGE COLUMN note note_private text;
+ALTER TABLE llx_order_fournisseur CHANGE COLUMN note note_private text;
 ALTER TABLE llx_contrat CHANGE COLUMN note note_private text;
 ALTER TABLE llx_deplacement CHANGE COLUMN note note_private text;
 ALTER TABLE llx_don CHANGE COLUMN note note_private text;
@@ -364,14 +364,14 @@ UPDATE llx_extrafields SET elementtype='actioncomm' WHERE elementtype='action';
 UPDATE llx_extrafields SET elementtype='member' WHERE elementtype='member';
 UPDATE llx_extrafields SET elementtype='societe' WHERE elementtype='company';
 
-create table llx_commande_fournisseur_extrafields
+create table llx_order_fournisseur_extrafields
 (
   rowid                     integer AUTO_INCREMENT PRIMARY KEY,
   tms                       timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   fk_object                 integer NOT NULL,
   import_key                varchar(14)
 ) ENGINE=innodb;
-ALTER TABLE llx_commande_fournisseur_extrafields ADD INDEX idx_commande_fournisseur_extrafields (fk_object);
+ALTER TABLE llx_order_fournisseur_extrafields ADD INDEX idx_order_fournisseur_extrafields (fk_object);
 
 create table llx_facture_fourn_extrafields
 (

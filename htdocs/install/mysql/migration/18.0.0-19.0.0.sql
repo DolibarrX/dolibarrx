@@ -119,7 +119,7 @@ ALTER TABLE llx_bookcal_calendar ADD COLUMN visibility integer NOT NULL DEFAULT 
 
 ALTER TABLE llx_expeditiondet_batch ADD COLUMN fk_warehouse integer DEFAULT NULL;
 
-ALTER TABLE llx_commande_fournisseur_dispatch ADD INDEX idx_commande_fournisseur_dispatch_fk_commandefourndet (fk_commandefourndet);
+ALTER TABLE llx_order_fournisseur_dispatch ADD INDEX idx_order_fournisseur_dispatch_fk_orderfourndet (fk_orderfourndet);
 
 -- Update website type
 UPDATE llx_societe_account SET site = 'dolibarr_website' WHERE fk_website > 0 AND site IS NULL;
@@ -202,7 +202,7 @@ ALTER TABLE llx_mrp_production_extrafields ADD INDEX idx_mrp_production_fk_objec
 ALTER TABLE llx_salary ADD COLUMN ref_ext varchar(255);
 ALTER TABLE llx_salary ADD COLUMN note_public text;
 
-ALTER TABLE llx_commande_fournisseur_dispatch ADD COLUMN element_type varchar(50) DEFAULT 'supplier_order' NOT NULL;
+ALTER TABLE llx_order_fournisseur_dispatch ADD COLUMN element_type varchar(50) DEFAULT 'supplier_order' NOT NULL;
 
 -- VMYSQL4.1 DROP INDEX idx_expensereport_fk_refuse ON llx_expensereport;
 -- VPGSQL8.2 DROP INDEX idx_expensereport_fk_refuse;

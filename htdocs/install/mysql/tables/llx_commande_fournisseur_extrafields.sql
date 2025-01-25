@@ -20,7 +20,7 @@
 --
 -- ===================================================================
 
-create table llx_commande_fournisseur_extrafields
+create table llx_order_fournisseur_extrafields
 (
   rowid                     integer AUTO_INCREMENT PRIMARY KEY,
   tms                       timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

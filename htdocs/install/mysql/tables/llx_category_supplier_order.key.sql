@@ -22,4 +22,4 @@ ALTER TABLE llx_category_supplier_order ADD INDEX idx_category_supplier_order_fk
 ALTER TABLE llx_category_supplier_order ADD INDEX idx_category_supplier_order_fk_supplier_order (fk_supplier_order);
 
 ALTER TABLE llx_category_supplier_order ADD CONSTRAINT fk_category_supplier_order_category_rowid FOREIGN KEY (fk_category) REFERENCES llx_category (rowid);
-ALTER TABLE llx_category_supplier_order ADD CONSTRAINT fk_category_supplier_order_fk_supplier_order_rowid FOREIGN KEY (fk_supplier_order) REFERENCES llx_commande_fournisseur (rowid);
+ALTER TABLE llx_category_supplier_order ADD CONSTRAINT fk_category_supplier_order_fk_supplier_order_rowid FOREIGN KEY (fk_supplier_order) REFERENCES llx_order_fournisseur (rowid);

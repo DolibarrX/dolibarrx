@@ -179,7 +179,7 @@ ALTER TABLE llx_projet_task_time ADD COLUMN fk_product integer NULL;
 ALTER TABLE llx_c_action_trigger MODIFY elementtype VARCHAR(64);
 
 INSERT INTO llx_c_action_trigger (code,label,description,elementtype,rang) values ('PROPAL_MODIFY','Customer proposal modified','Executed when a customer proposal is modified','propal',2);
-INSERT INTO llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_MODIFY','Customer order modified','Executed when a customer order is set modified','commande',5);
+INSERT INTO llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_MODIFY','Customer order modified','Executed when a customer order is set modified','order',5);
 INSERT INTO llx_c_action_trigger (code,label,description,elementtype,rang) values ('BILL_MODIFY','Customer invoice modified','Executed when a customer invoice is modified','facture',7);
 INSERT INTO llx_c_action_trigger (code,label,description,elementtype,rang) values ('PROPOSAL_SUPPLIER_MODIFY','Price request modified','Executed when a commercial proposal is modified','proposal_supplier',10);
 INSERT INTO llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_SUPPLIER_MODIFY','Supplier order request modified','Executed when a supplier order is modified','order_supplier',13);
@@ -676,7 +676,7 @@ UPDATE llx_c_availability SET type_duration = 'w', qty = 4 WHERE code = 'AV_4W';
 ALTER TABLE llx_c_payment_term 	ADD COLUMN deposit_percent VARCHAR(63) DEFAULT NULL AFTER decalage;
 ALTER TABLE llx_societe 	ADD COLUMN deposit_percent VARCHAR(63) DEFAULT NULL AFTER cond_reglement;
 ALTER TABLE llx_propal 		ADD COLUMN deposit_percent VARCHAR(63) DEFAULT NULL AFTER fk_cond_reglement;
-ALTER TABLE llx_commande 	ADD COLUMN deposit_percent VARCHAR(63) DEFAULT NULL AFTER fk_cond_reglement;
+ALTER TABLE llx_order 	ADD COLUMN deposit_percent VARCHAR(63) DEFAULT NULL AFTER fk_cond_reglement;
 
 INSERT INTO llx_c_payment_term(code, sortorder, active, libelle, libelle_facture, type_cdr, nbjour, deposit_percent) values ('DEP30PCTDEL', 13, 0, '__DEPOSIT_PERCENT__% deposit', '__DEPOSIT_PERCENT__% deposit, remainder on delivery', 0, 1, '30');
 

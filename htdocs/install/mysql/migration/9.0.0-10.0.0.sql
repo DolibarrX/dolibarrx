@@ -195,8 +195,8 @@ UPDATE llx_c_units SET label = 'SurfaceUnitm2' WHERE code IN ('M2');
 ALTER TABLE llx_user ADD COLUMN fk_warehouse INTEGER NULL;
 
 -- Save informations for online / API shopping and push to invoice
-ALTER TABLE llx_commande ADD COLUMN module_source varchar(32);
-ALTER TABLE llx_commande ADD COLUMN pos_source varchar(32);
+ALTER TABLE llx_order ADD COLUMN module_source varchar(32);
+ALTER TABLE llx_order ADD COLUMN pos_source varchar(32);
 
 
 ALTER TABLE llx_societe ADD COLUMN linkedin  varchar(255) after whatsapp;
@@ -390,8 +390,8 @@ create table llx_reception_extrafields
 
 ALTER TABLE llx_reception_extrafields ADD INDEX idx_reception_extrafields (fk_object);
 
-ALTER TABLE llx_commande_fournisseur_dispatch ADD COLUMN fk_projet integer DEFAULT NULL;
-ALTER TABLE llx_commande_fournisseur_dispatch ADD COLUMN fk_reception integer DEFAULT NULL;
+ALTER TABLE llx_order_fournisseur_dispatch ADD COLUMN fk_projet integer DEFAULT NULL;
+ALTER TABLE llx_order_fournisseur_dispatch ADD COLUMN fk_reception integer DEFAULT NULL;
 
 ALTER TABLE llx_accounting_bookkeeping ADD COLUMN date_export datetime DEFAULT NULL after date_validated;
 

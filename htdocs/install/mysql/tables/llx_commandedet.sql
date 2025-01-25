@@ -20,10 +20,10 @@
 --
 -- ===================================================================
 
-create table llx_commandedet
+create table llx_orderdet
 (
   rowid							integer AUTO_INCREMENT PRIMARY KEY,
-  fk_commande					integer NOT NULL,
+  fk_order					integer NOT NULL,
   fk_parent_line				integer NULL,
   fk_product					integer	 NULL,
   label							varchar(255) DEFAULT NULL,
@@ -60,7 +60,7 @@ create table llx_commandedet
   import_key					varchar(14),
   ref_ext                       varchar(255) DEFAULT NULL,
 
-  fk_commandefourndet			integer DEFAULT NULL,            -- link to detail line of commande fourn (resplenish)
+  fk_orderfourndet			integer DEFAULT NULL,            -- link to detail line of order fourn (resplenish)
 
   fk_multicurrency				integer,
   multicurrency_code			varchar(3),

@@ -79,7 +79,7 @@ UPDATE llx_document_model set nom = 'stdmovement', type = 'movement' where nom =
 UPDATE llx_const SET value = 0 WHERE name = 'FACTURE_TVAOPTION' and value = 'franchise';
 UPDATE llx_const SET value = 1 WHERE name = 'FACTURE_TVAOPTION' and value <> 'franchise' AND value <> '0' AND value <> '1';
 
-ALTER TABLE llx_commande MODIFY COLUMN date_livraison DATETIME;
+ALTER TABLE llx_order MODIFY COLUMN date_livraison DATETIME;
 
 ALTER TABLE llx_website ADD COLUMN position integer DEFAULT 0;
 
@@ -278,7 +278,7 @@ ALTER TABLE llx_product_attribute_combination_price_level ADD UNIQUE( fk_product
 
 
 
--- Add dictionary for prospect level and action commercial on contacts (Using this is not recommanded)
+-- Add dictionary for prospect level and action commercial on contacts (Using this is not reorderd)
 
 create table llx_c_prospectcontactlevel
 (
@@ -373,7 +373,7 @@ ALTER TABLE llx_inventorydet ADD COLUMN fk_warehouse integer DEFAULT 0;
 ALTER TABLE llx_inventorydet ADD COLUMN batch varchar(128) DEFAULT NULL;
 ALTER TABLE llx_inventorydet ADD UNIQUE uk_inventorydet(fk_inventory, fk_warehouse, fk_product, batch);
 
-ALTER TABLE llx_commandedet ADD COLUMN ref_ext varchar(255) AFTER label;
+ALTER TABLE llx_orderdet ADD COLUMN ref_ext varchar(255) AFTER label;
 ALTER TABLE llx_facturedet ADD COLUMN ref_ext varchar(255) AFTER multicurrency_total_ttc;
 
 ALTER TABLE llx_c_ticket_category ADD COLUMN fk_parent integer DEFAULT 0 NOT NULL;
@@ -534,8 +534,8 @@ UPDATE llx_rights_def set perms = 'delivery' WHERE perms = 'livraison' and modul
 UPDATE llx_rights_def set perms = 'delivery_advance' WHERE perms = 'livraison_advance' and module = 'expedition';
 
 
-ALTER TABLE llx_commande_fournisseurdet ADD INDEX idx_commande_fournisseurdet_fk_commande (fk_commande);
-ALTER TABLE llx_commande_fournisseurdet ADD INDEX idx_commande_fournisseurdet_fk_product (fk_product);
+ALTER TABLE llx_order_fournisseurdet ADD INDEX idx_order_fournisseurdet_fk_order (fk_order);
+ALTER TABLE llx_order_fournisseurdet ADD INDEX idx_order_fournisseurdet_fk_product (fk_product);
 
 
 CREATE TABLE llx_zapier_hook(

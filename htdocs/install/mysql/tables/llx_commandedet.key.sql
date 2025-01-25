@@ -20,13 +20,13 @@
 
 
 
-ALTER TABLE llx_commandedet ADD INDEX idx_commandedet_fk_commande (fk_commande);
-ALTER TABLE llx_commandedet ADD INDEX idx_commandedet_fk_product (fk_product);
+ALTER TABLE llx_orderdet ADD INDEX idx_orderdet_fk_order (fk_order);
+ALTER TABLE llx_orderdet ADD INDEX idx_orderdet_fk_product (fk_product);
 
-ALTER TABLE llx_commandedet ADD CONSTRAINT fk_commandedet_fk_unit FOREIGN KEY (fk_unit) REFERENCES llx_c_units (rowid);
-ALTER TABLE llx_commandedet ADD CONSTRAINT fk_commandedet_fk_commande FOREIGN KEY (fk_commande) REFERENCES llx_commande (rowid);
-ALTER TABLE llx_commandedet ADD CONSTRAINT fk_commandedet_fk_commandefourndet FOREIGN KEY (fk_commandefourndet) REFERENCES llx_commande_fournisseurdet (rowid);
---ALTER TABLE llx_commandedet ADD CONSTRAINT fk_commandedet_fk_multicurrency FOREIGN KEY (fk_multicurrency) REFERENCES llx_multicurrency (rowid);
---ALTER TABLE llx_commandedet ADD CONSTRAINT fk_commandedet_fk_product_fournisseur_price FOREIGN KEY (fk_product_fournisseur_price) REFERENCES llx_product_fournisseur_price (rowid);
---ALTER TABLE llx_commandedet ADD CONSTRAINT fk_commandedet_fk_remise_except FOREIGN KEY (fk_remise_except) REFERENCES llx_societe_remise_except (rowid);
+ALTER TABLE llx_orderdet ADD CONSTRAINT fk_orderdet_fk_unit FOREIGN KEY (fk_unit) REFERENCES llx_c_units (rowid);
+ALTER TABLE llx_orderdet ADD CONSTRAINT fk_orderdet_fk_order FOREIGN KEY (fk_order) REFERENCES llx_order (rowid);
+ALTER TABLE llx_orderdet ADD CONSTRAINT fk_orderdet_fk_orderfourndet FOREIGN KEY (fk_orderfourndet) REFERENCES llx_order_fournisseurdet (rowid);
+--ALTER TABLE llx_orderdet ADD CONSTRAINT fk_orderdet_fk_multicurrency FOREIGN KEY (fk_multicurrency) REFERENCES llx_multicurrency (rowid);
+--ALTER TABLE llx_orderdet ADD CONSTRAINT fk_orderdet_fk_product_fournisseur_price FOREIGN KEY (fk_product_fournisseur_price) REFERENCES llx_product_fournisseur_price (rowid);
+--ALTER TABLE llx_orderdet ADD CONSTRAINT fk_orderdet_fk_remise_except FOREIGN KEY (fk_remise_except) REFERENCES llx_societe_remise_except (rowid);
 

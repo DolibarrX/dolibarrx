@@ -80,19 +80,19 @@ UPDATE llx_c_email_templates SET position = 0 WHERE position IS NULL;
 
 -- delete foreign key that should never exists
 ALTER TABLE llx_propal DROP FOREIGN KEY fk_propal_fk_currency;
-ALTER TABLE llx_commande DROP FOREIGN KEY fk_commande_fk_currency;
+ALTER TABLE llx_order DROP FOREIGN KEY fk_order_fk_currency;
 ALTER TABLE llx_facture DROP FOREIGN KEY fk_facture_fk_currency;
 
 delete from llx_facturedet where fk_facture in (select rowid from llx_facture where ref in ('(PROV)','ErrorBadMask'));
 delete from llx_facture where ref in ('(PROV)','ErrorBadMask');
-delete from llx_commandedet where fk_commande in (select rowid from llx_commande where ref in ('(PROV)','ErrorBadMask'));
-delete from llx_commande where ref in ('(PROV)','ErrorBadMask');
+delete from llx_orderdet where fk_order in (select rowid from llx_order where ref in ('(PROV)','ErrorBadMask'));
+delete from llx_order where ref in ('(PROV)','ErrorBadMask');
 delete from llx_propaldet where fk_propal in (select rowid from llx_propal where ref in ('(PROV)','ErrorBadMask'));
 delete from llx_propal where ref in ('(PROV)','ErrorBadMask');
 delete from llx_facturedet where fk_facture in (select rowid from llx_facture where ref = '');
 delete from llx_facture where ref = '';
-delete from llx_commandedet where fk_commande in (select rowid from llx_commande where ref = '');
-delete from llx_commande where ref = '';
+delete from llx_orderdet where fk_order in (select rowid from llx_order where ref = '');
+delete from llx_order where ref = '';
 delete from llx_propaldet where fk_propal in (select rowid from llx_propal where ref = '');
 delete from llx_propal where ref = '';
 delete from llx_deliverydet where fk_delivery in (select rowid from llx_delivery where ref = '');
@@ -111,9 +111,9 @@ update llx_deplacement set dated='2010-01-01' where dated < '2000-01-01';
 update llx_subscription set fk_bank = null where fk_bank not in (select rowid from llx_bank);
 
 update llx_propal set fk_projet = null where fk_projet not in (select rowid from llx_projet);
-update llx_commande set fk_projet = null where fk_projet not in (select rowid from llx_projet);
+update llx_order set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_facture set fk_projet = null where fk_projet not in (select rowid from llx_projet);
-update llx_commande_fournisseur set fk_projet = null where fk_projet not in (select rowid from llx_projet);
+update llx_order_fournisseur set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_contrat set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_deplacement set fk_projet = null where fk_projet not in (select rowid from llx_projet);
 update llx_facture_fourn set fk_projet = null where fk_projet not in (select rowid from llx_projet);
@@ -124,8 +124,8 @@ update llx_projet_task set fk_projet = null where fk_projet not in (select rowid
 update llx_propal set fk_user_author = null where fk_user_author not in (select rowid from llx_user);
 update llx_propal set fk_user_valid = null where fk_user_valid not in (select rowid from llx_user);
 update llx_propal set fk_user_cloture = null where fk_user_cloture not in (select rowid from llx_user);
-update llx_commande set fk_user_author = null where fk_user_author not in (select rowid from llx_user);
-update llx_commande set fk_user_valid = null where fk_user_valid not in (select rowid from llx_user);
+update llx_order set fk_user_author = null where fk_user_author not in (select rowid from llx_user);
+update llx_order set fk_user_valid = null where fk_user_valid not in (select rowid from llx_user);
 
 delete from llx_societe_extrafields where fk_object not in (select rowid from llx_societe);
 delete from llx_member_extrafields where fk_object not in (select rowid from llx_member);
@@ -204,13 +204,13 @@ delete from llx_element_element where targettype='shipping' and fk_target not in
 delete from llx_element_element where targettype='delivery' and fk_target not in (select rowid from llx_delivery);
 delete from llx_element_element where targettype='propal' and fk_target not in (select rowid from llx_propal);
 delete from llx_element_element where targettype='facture' and fk_target not in (select rowid from llx_facture);
-delete from llx_element_element where targettype='commande' and fk_target not in (select rowid from llx_commande);
+delete from llx_element_element where targettype='order' and fk_target not in (select rowid from llx_order);
 -- Fix delete element_element orphelins (left side)
 delete from llx_element_element where sourcetype='shipping' and fk_source not in (select rowid from llx_expedition);
 delete from llx_element_element where sourcetype='delivery' and fk_source not in (select rowid from llx_delivery);
 delete from llx_element_element where sourcetype='propal' and fk_source not in (select rowid from llx_propal);
 delete from llx_element_element where sourcetype='facture' and fk_source not in (select rowid from llx_facture);
-delete from llx_element_element where sourcetype='commande' and fk_source not in (select rowid from llx_commande);
+delete from llx_element_element where sourcetype='order' and fk_source not in (select rowid from llx_order);
 
 
 -- Fix: delete orphelin actioncomm_resources
@@ -319,13 +319,13 @@ delete from llx_accounting_account where (rowid) in (select max_rowid from tmp_a
 drop table tmp_accounting_account_double;
 
 
--- Sequence to removed duplicated values of llx_commande_extrafields. Run several times if you still have duplicate.
-drop table tmp_commande_extrafields_double;
+-- Sequence to removed duplicated values of llx_order_extrafields. Run several times if you still have duplicate.
+drop table tmp_order_extrafields_double;
 --select fk_object, max(rowid) as max_rowid, count(rowid) as count_rowid from llx_links where label is not null group by fk_object having count(rowid) >= 2;
-create table tmp_commande_extrafields_double as (select fk_object, max(rowid) as max_rowid, count(rowid) as count_rowid from llx_commande_extrafields group by fk_object having count(rowid) >= 2);
+create table tmp_order_extrafields_double as (select fk_object, max(rowid) as max_rowid, count(rowid) as count_rowid from llx_order_extrafields group by fk_object having count(rowid) >= 2);
 --select * from tmp_links_double;
-delete from llx_commande_extrafields where (rowid) in (select max_rowid from tmp_commande_extrafields_double);	--update to avoid duplicate, delete to delete
-drop table tmp_commande_extrafields_double;
+delete from llx_order_extrafields where (rowid) in (select max_rowid from tmp_order_extrafields_double);	--update to avoid duplicate, delete to delete
+drop table tmp_order_extrafields_double;
 
 
 UPDATE llx_projet_task SET fk_task_parent = 0 WHERE fk_task_parent = rowid;
@@ -343,7 +343,7 @@ UPDATE llx_c_lead_status set code = 'WON' where code = 'WIN';
 
 -- Requests to clean old tables or external modules tables
 
--- DROP TABLE llx_c_methode_commande_fournisseur;
+-- DROP TABLE llx_c_methode_order_fournisseur;
 -- DROP TABLE llx_c_source;
 -- DROP TABLE llx_congespayes;
 -- DROP TABLE llx_congespayes_config;
@@ -392,10 +392,10 @@ UPDATE llx_c_lead_status set code = 'WON' where code = 'WIN';
 
 -- Fix type of product 2 does not exists
 update llx_propaldet set product_type = 1 where product_type = 2;
-update llx_commandedet set product_type = 1 where product_type = 2;
+update llx_orderdet set product_type = 1 where product_type = 2;
 update llx_facturedet set product_type = 1 where product_type = 2;
 --update llx_propaldet as d set d.product_type = 1 where d.fk_product = 22 and d.product_type = 0;
---update llx_commandedet as d set d.product_type = 1 where d.fk_product = 22 and d.product_type = 0;
+--update llx_orderdet as d set d.product_type = 1 where d.fk_product = 22 and d.product_type = 0;
 --update llx_facturedet as d set d.product_type = 1 where d.fk_product = 22 and d.product_type = 0;
 
 update llx_propal set fk_statut = 1 where fk_statut = -1;

@@ -178,7 +178,7 @@ ALTER TABLE llx_product_lot ADD COLUMN fk_barcode_type integer DEFAULT NULL;
 
 ALTER TABLE llx_projet ADD COLUMN max_attendees integer DEFAULT 0;
 
-ALTER TABLE llx_commande_fournisseur_dispatch ADD COLUMN cost_price double(24,8) DEFAULT 0;
+ALTER TABLE llx_order_fournisseur_dispatch ADD COLUMN cost_price double(24,8) DEFAULT 0;
 
 INSERT INTO llx_c_forme_juridique (fk_pays, code, libelle) VALUES (20, '2001', 'Aktiebolag');
 INSERT INTO llx_c_forme_juridique (fk_pays, code, libelle) VALUES (20, '2002', 'Publikt aktiebolag (AB publ)');
@@ -458,10 +458,10 @@ ALTER TABLE llx_paiementfourn_facturefourn ADD COLUMN multicurrency_tx double(24
 ALTER TABLE llx_paiementfourn_facturefourn ADD COLUMN multicurrency_amount double(24,8) DEFAULT 0;
 
 
-ALTER TABLE llx_commande_fournisseur MODIFY COLUMN multicurrency_code varchar(3);
-ALTER TABLE llx_commande_fournisseurdet MODIFY COLUMN multicurrency_code varchar(3);
-ALTER TABLE llx_commande MODIFY COLUMN multicurrency_code varchar(3);
-ALTER TABLE llx_commandedet MODIFY COLUMN multicurrency_code varchar(3);
+ALTER TABLE llx_order_fournisseur MODIFY COLUMN multicurrency_code varchar(3);
+ALTER TABLE llx_order_fournisseurdet MODIFY COLUMN multicurrency_code varchar(3);
+ALTER TABLE llx_order MODIFY COLUMN multicurrency_code varchar(3);
+ALTER TABLE llx_orderdet MODIFY COLUMN multicurrency_code varchar(3);
 ALTER TABLE llx_contratdet MODIFY COLUMN multicurrency_code varchar(3);
 ALTER TABLE llx_expensereport_det MODIFY COLUMN multicurrency_code varchar(3);
 ALTER TABLE llx_expensereport MODIFY COLUMN multicurrency_code varchar(3);
@@ -559,7 +559,7 @@ ALTER TABLE llx_element_tag ADD CONSTRAINT fk_element_tag_category_rowid FOREIGN
 -- into accounting will use it in priority if value is not null. The script repair.sql contains the sequence to fix datas in llx_bank.
 ALTER TABLE llx_bank ADD COLUMN amount_main_currency double(24,8) NULL;
 
-ALTER TABLE llx_commande_fournisseurdet MODIFY COLUMN ref varchar(128);
+ALTER TABLE llx_order_fournisseurdet MODIFY COLUMN ref varchar(128);
 ALTER TABLE llx_facture_fourn_det MODIFY COLUMN ref varchar(128);
 
 UPDATE llx_c_tva SET localtax2 = '-19:-15:-9' WHERE localtax2 = '-19' AND localtax2_type = '5' AND fk_pays = 4 AND taux = 21;

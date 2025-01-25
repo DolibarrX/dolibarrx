@@ -27,9 +27,9 @@ insert into llx_c_action_trigger (code,label,description,elementtype,rang) value
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('FICHINTER_SENTBYMAIL','Intervention sent by mail','Executed when a intervention is sent by mail','ficheinter',19);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('FICHINTER_REOPEN','Intervention opened','Executed when a intervention is re-opened','ficheinter',19);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('PROPAL_CLASSIFY_BILLED','Customer proposal set billed','Executed when a customer proposal is set to billed','propal',2);
-insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_CLOSE','Customer order classify delivered','Executed when a customer order is set delivered','commande',5);
-insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_CLASSIFY_BILLED','Customer order classify billed','Executed when a customer order is set to billed','commande',5);
-insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_CANCEL','Customer order canceled','Executed when a customer order is canceled','commande',5);
+insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_CLOSE','Customer order classify delivered','Executed when a customer order is set delivered','order',5);
+insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_CLASSIFY_BILLED','Customer order classify billed','Executed when a customer order is set to billed','order',5);
+insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_CANCEL','Customer order canceled','Executed when a customer order is canceled','order',5);
 
 -- VPGSQL8.2 ALTER TABLE llx_contrat ALTER COLUMN fk_commercial_signature DROP NOT NULL;
 -- VPGSQL8.2 ALTER TABLE llx_contrat ALTER COLUMN fk_commercial_suivi DROP NOT NULL;
@@ -44,11 +44,11 @@ ALTER TABLE llx_bank_account ADD COLUMN fk_user_author integer;
 ALTER TABLE llx_c_actioncomm ADD COLUMN color varchar(9);
 
 ALTER TABLE llx_propal ADD COLUMN fk_user_modif integer after fk_user_author;
-ALTER TABLE llx_commande ADD COLUMN fk_user_modif integer after fk_user_author;
+ALTER TABLE llx_order ADD COLUMN fk_user_modif integer after fk_user_author;
 ALTER TABLE llx_facture ADD COLUMN fk_user_modif integer after fk_user_author;
 ALTER TABLE llx_product ADD COLUMN fk_user_modif integer after fk_user_author;
 ALTER TABLE llx_fichinter ADD COLUMN fk_user_modif integer after fk_user_author;
-ALTER TABLE llx_commande_fournisseur ADD COLUMN fk_user_modif integer after fk_user_author;
+ALTER TABLE llx_order_fournisseur ADD COLUMN fk_user_modif integer after fk_user_author;
 ALTER TABLE llx_facture_fourn ADD COLUMN fk_user_modif integer after fk_user_author;
 ALTER TABLE llx_bank_account ADD COLUMN fk_user_modif integer after fk_user_author;
 
@@ -218,9 +218,9 @@ DELETE from llx_product_price where fk_product NOT IN (SELECT rowid from llx_pro
 ALTER TABLE  llx_product_price DROP FOREIGN KEY fk_product_price_product;
 ALTER TABLE  llx_product_price ADD CONSTRAINT fk_product_price_product FOREIGN KEY (fk_product) REFERENCES  llx_product (rowid);
 
-ALTER TABLE llx_commande_fournisseur MODIFY COLUMN date_livraison datetime; 
+ALTER TABLE llx_order_fournisseur MODIFY COLUMN date_livraison datetime; 
 
-ALTER TABLE llx_commande_fournisseur ADD COLUMN fk_account integer AFTER date_livraison;
+ALTER TABLE llx_order_fournisseur ADD COLUMN fk_account integer AFTER date_livraison;
 ALTER TABLE llx_facture_fourn ADD COLUMN fk_account integer AFTER fk_projet;
 
 -- Fiscal years
@@ -242,7 +242,7 @@ ALTER TABLE llx_contrat ADD COLUMN ref_supplier varchar(30) after ref;
 ALTER TABLE llx_contrat ADD COLUMN ref_ext varchar(30) after ref_supplier;
 
 ALTER TABLE llx_propal ADD COLUMN fk_shipping_method integer AFTER date_livraison;
-ALTER TABLE llx_commande ADD COLUMN fk_shipping_method integer AFTER date_livraison;
+ALTER TABLE llx_order ADD COLUMN fk_shipping_method integer AFTER date_livraison;
 
 ALTER TABLE llx_members MODIFY COLUMN societe VARCHAR(60);
 
@@ -1149,10 +1149,10 @@ ALTER TABLE llx_extrafields ADD alwayseditable INTEGER DEFAULT 0 AFTER pos;
 ALTER TABLE llx_societe ADD webservices_url varchar(255) DEFAULT NULL;
 ALTER TABLE llx_societe ADD webservices_key varchar(128) DEFAULT NULL;
 
--- changes size of ref in commande_fourn and facture_fourn
-ALTER TABLE llx_commande_fournisseur MODIFY COLUMN ref VARCHAR(255);
-ALTER TABLE llx_commande_fournisseur MODIFY COLUMN ref_ext VARCHAR(255);
-ALTER TABLE llx_commande_fournisseur MODIFY COLUMN ref_supplier VARCHAR(255);
+-- changes size of ref in order_fourn and facture_fourn
+ALTER TABLE llx_order_fournisseur MODIFY COLUMN ref VARCHAR(255);
+ALTER TABLE llx_order_fournisseur MODIFY COLUMN ref_ext VARCHAR(255);
+ALTER TABLE llx_order_fournisseur MODIFY COLUMN ref_supplier VARCHAR(255);
 
 ALTER TABLE llx_facture_fourn MODIFY COLUMN ref VARCHAR(255);
 ALTER TABLE llx_facture_fourn MODIFY COLUMN ref_ext VARCHAR(255);
@@ -1172,8 +1172,8 @@ ALTER TABLE llx_product ADD CONSTRAINT fk_product_barcode_type FOREIGN KEY (fk_b
 -- this update change the old formated url on llx_bank_url
 UPDATE llx_bank_url set url = REPLACE( url, 'fiche.php', 'card.php');
 
--- Add id commandefourndet in llx_commande_fournisseur_dispatch to correct /fourn/commande/dispatch.php display when several times same product in supplier order
-ALTER TABLE llx_commande_fournisseur_dispatch ADD COLUMN fk_commandefourndet INTEGER NOT NULL DEFAULT 0 AFTER fk_product;
+-- Add id orderfourndet in llx_order_fournisseur_dispatch to correct /fourn/order/dispatch.php display when several times same product in supplier order
+ALTER TABLE llx_order_fournisseur_dispatch ADD COLUMN fk_orderfourndet INTEGER NOT NULL DEFAULT 0 AFTER fk_product;
 
 
 -- Not into official 3.7 but must be into migration for 3.7 when migration is done by 3.8 code 

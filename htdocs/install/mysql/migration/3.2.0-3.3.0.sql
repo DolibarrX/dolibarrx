@@ -55,8 +55,8 @@ INSERT INTO llx_c_input_reason (rowid,code,label,active) VALUES ( 9, 'SRC_PARTNE
 INSERT INTO llx_c_input_reason (rowid,code,label,active) VALUES (10, 'SRC_EMPLOYEE',   'Employee', 1);
 INSERT INTO llx_c_input_reason (rowid,code,label,active) VALUES (11, 'SRC_SPONSORING', 'Sponsoring', 1);
 
-ALTER TABLE llx_commande_fournisseur CHANGE COLUMN date_cloture date_approve datetime;
-ALTER TABLE llx_commande_fournisseur CHANGE COLUMN fk_user_cloture fk_user_approve integer;
+ALTER TABLE llx_order_fournisseur CHANGE COLUMN date_cloture date_approve datetime;
+ALTER TABLE llx_order_fournisseur CHANGE COLUMN fk_user_cloture fk_user_approve integer;
 
 ALTER TABLE llx_mailing MODIFY COLUMN body mediumtext;
 ALTER TABLE llx_mailing ADD COLUMN extraparams varchar(255);
@@ -69,10 +69,10 @@ ALTER TABLE llx_product_fournisseur_price DROP COLUMN fk_product_fournisseur;
 ALTER TABLE llx_product_fournisseur_price ADD charges DOUBLE( 24, 8 ) DEFAULT 0 AFTER unitprice;
 ALTER TABLE llx_product_fournisseur_price ADD unitcharges DOUBLE( 24, 8 ) DEFAULT 0 AFTER charges;
 
-alter table llx_commandedet add column fk_product_fournisseur_price integer after info_bits;
-alter table llx_commandedet add column buy_price_ht double(24,8) DEFAULT 0 after fk_product_fournisseur_price;
-alter table llx_commandedet drop column marge_tx;
-alter table llx_commandedet drop column marque_tx;
+alter table llx_orderdet add column fk_product_fournisseur_price integer after info_bits;
+alter table llx_orderdet add column buy_price_ht double(24,8) DEFAULT 0 after fk_product_fournisseur_price;
+alter table llx_orderdet drop column marge_tx;
+alter table llx_orderdet drop column marque_tx;
 
 alter table llx_facturedet add column fk_product_fournisseur_price integer after info_bits;
 alter table llx_facturedet add column buy_price_ht double(24,8) DEFAULT 0 after fk_product_fournisseur_price;
@@ -85,9 +85,9 @@ alter table llx_propaldet drop column marque_tx;
 
 alter table llx_expedition add column height_unit integer after height;
 
-ALTER TABLE llx_commande CHANGE COLUMN fk_demand_reason fk_input_reason integer NULL DEFAULT NULL;
+ALTER TABLE llx_order CHANGE COLUMN fk_demand_reason fk_input_reason integer NULL DEFAULT NULL;
 ALTER TABLE llx_propal CHANGE COLUMN fk_demand_reason fk_input_reason integer NULL DEFAULT NULL;
-ALTER TABLE llx_commande_fournisseur CHANGE COLUMN fk_methode_commande fk_input_method integer NULL DEFAULT 0;
+ALTER TABLE llx_order_fournisseur CHANGE COLUMN fk_methode_order fk_input_method integer NULL DEFAULT 0;
 
 INSERT INTO llx_const (name, value, type, note, visible) values (__ENCRYPT('PRODUCT_CODEPRODUCT_ADDON')__, __ENCRYPT('mod_codeproduct_leopard')__, 'yesno', 'Module to control product codes', 0);
 
@@ -95,10 +95,10 @@ ALTER TABLE llx_c_barcode_type ADD UNIQUE INDEX uk_c_barcode_type(code, entity);
 
 ALTER TABLE llx_socpeople ADD column no_email SMALLINT NOT NULL DEFAULT 0 AFTER priv;
 
-ALTER TABLE llx_commande_fournisseur ADD COLUMN date_livraison date NULL;
+ALTER TABLE llx_order_fournisseur ADD COLUMN date_livraison date NULL;
 
 ALTER TABLE llx_propaldet ADD COLUMN label varchar(255) DEFAULT NULL AFTER fk_product;
-ALTER TABLE llx_commandedet ADD COLUMN label varchar(255) DEFAULT NULL AFTER fk_product;
+ALTER TABLE llx_orderdet ADD COLUMN label varchar(255) DEFAULT NULL AFTER fk_product;
 ALTER TABLE llx_facturedet ADD COLUMN label varchar(255) DEFAULT NULL AFTER fk_product;
 ALTER TABLE llx_facturedet_rec ADD COLUMN label varchar(255) DEFAULT NULL AFTER product_type;
 
@@ -223,15 +223,15 @@ ALTER TABLE llx_c_tva ADD COLUMN localtax2_type varchar(1) default '0' after loc
 ALTER TABLE llx_c_tva MODIFY COLUMN localtax1_type varchar(1);
 ALTER TABLE llx_c_tva MODIFY COLUMN localtax2_type varchar(1);
 
-alter table llx_commande_fournisseurdet add column localtax1_type varchar(1) after localtax1_tx;
-alter table llx_commande_fournisseurdet add column localtax2_type varchar(1) after localtax2_tx;
-ALTER TABLE llx_commande_fournisseurdet MODIFY COLUMN localtax1_type varchar(1);
-ALTER TABLE llx_commande_fournisseurdet MODIFY COLUMN localtax2_type varchar(1);
+alter table llx_order_fournisseurdet add column localtax1_type varchar(1) after localtax1_tx;
+alter table llx_order_fournisseurdet add column localtax2_type varchar(1) after localtax2_tx;
+ALTER TABLE llx_order_fournisseurdet MODIFY COLUMN localtax1_type varchar(1);
+ALTER TABLE llx_order_fournisseurdet MODIFY COLUMN localtax2_type varchar(1);
 
-alter table llx_commandedet add column localtax1_type varchar(1) after localtax1_tx;
-alter table llx_commandedet add column localtax2_type varchar(1) after localtax2_tx;
-ALTER TABLE llx_commandedet MODIFY COLUMN localtax1_type varchar(1);
-ALTER TABLE llx_commandedet MODIFY COLUMN localtax2_type varchar(1);
+alter table llx_orderdet add column localtax1_type varchar(1) after localtax1_tx;
+alter table llx_orderdet add column localtax2_type varchar(1) after localtax2_tx;
+ALTER TABLE llx_orderdet MODIFY COLUMN localtax1_type varchar(1);
+ALTER TABLE llx_orderdet MODIFY COLUMN localtax2_type varchar(1);
 
 alter table llx_facture_fourn_det add column localtax1_type varchar(1) after localtax1_tx;
 alter table llx_facture_fourn_det add column localtax2_type varchar(1) after localtax2_tx;
@@ -526,7 +526,7 @@ insert into llx_accountingaccount (rowid, fk_pcg_version, pcg_type, pcg_subtype,
 insert into llx_accountingaccount (rowid, fk_pcg_version, pcg_type, pcg_subtype, account_number, account_parent, label, active) VALUES (171,'PCG99-BASE','IMMO',  'XXXXXX',  '231', '23', 'Immobilisations corporelles en cours', '1');
 insert into llx_accountingaccount (rowid, fk_pcg_version, pcg_type, pcg_subtype, account_number, account_parent, label, active) VALUES (172,'PCG99-BASE','IMMO',  'XXXXXX',  '232', '23', 'Immobilisations incorporelles en cours', '1');
 insert into llx_accountingaccount (rowid, fk_pcg_version, pcg_type, pcg_subtype, account_number, account_parent, label, active) VALUES (173,'PCG99-BASE','IMMO',  'XXXXXX',  '237', '23', 'Avances et acomptes versés sur immobilisations incorporelles', '1');
-insert into llx_accountingaccount (rowid, fk_pcg_version, pcg_type, pcg_subtype, account_number, account_parent, label, active) VALUES (174,'PCG99-BASE','IMMO',  'XXXXXX',  '238', '23', 'Avances et acomptes versés sur commandes d''immobilisations corporelles', '1');
+insert into llx_accountingaccount (rowid, fk_pcg_version, pcg_type, pcg_subtype, account_number, account_parent, label, active) VALUES (174,'PCG99-BASE','IMMO',  'XXXXXX',  '238', '23', 'Avances et acomptes versés sur orders d''immobilisations corporelles', '1');
 insert into llx_accountingaccount (rowid, fk_pcg_version, pcg_type, pcg_subtype, account_number, account_parent, label, active) VALUES (175,'PCG99-BASE','IMMO',  'XXXXXX',   '25',  '2', 'Parts dans des entreprises liées et créances sur des entreprises liées', '1');
 insert into llx_accountingaccount (rowid, fk_pcg_version, pcg_type, pcg_subtype, account_number, account_parent, label, active) VALUES (176,'PCG99-BASE','IMMO',  'XXXXXX',   '26',  '2', 'Participations et créances rattachées à des participations', '1');
 insert into llx_accountingaccount (rowid, fk_pcg_version, pcg_type, pcg_subtype, account_number, account_parent, label, active) VALUES (177,'PCG99-BASE','IMMO',  'XXXXXX',  '261', '26', 'Titres de participation', '1');
@@ -808,7 +808,7 @@ INSERT INTO llx_const(name, value, visible, entity) SELECT __ENCRYPT('SYSLOG_HAN
 
 
 -- New Imports
-ALTER TABLE llx_commande_fournisseurdet ADD COLUMN import_key varchar(14) AFTER info_bits;
+ALTER TABLE llx_order_fournisseurdet ADD COLUMN import_key varchar(14) AFTER info_bits;
 ALTER TABLE llx_entrepot ADD COLUMN import_key varchar(14) AFTER fk_user_author;
 ALTER TABLE llx_product_fournisseur_price ADD COLUMN import_key varchar(14) AFTER fk_user;
 ALTER TABLE llx_product_stock ADD COLUMN import_key varchar(14) AFTER pmp;

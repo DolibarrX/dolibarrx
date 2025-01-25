@@ -66,8 +66,8 @@ ALTER TABLE llx_user MODIFY login varchar(50) NOT NULL;
 
 ALTER TABLE llx_societe ADD COLUMN fk_account integer;
 
-ALTER TABLE llx_commandedet ADD COLUMN fk_commandefourndet integer DEFAULT NULL after import_key;   -- link to detail line of commande fourn (resplenish)
-ALTER TABLE llx_commandedet MODIFY COLUMN fk_commandefourndet integer DEFAULT NULL;
+ALTER TABLE llx_orderdet ADD COLUMN fk_orderfourndet integer DEFAULT NULL after import_key;   -- link to detail line of order fourn (resplenish)
+ALTER TABLE llx_orderdet MODIFY COLUMN fk_orderfourndet integer DEFAULT NULL;
 
 ALTER TABLE llx_website ADD COLUMN virtualhost varchar(255) after fk_default_home;
 
@@ -172,8 +172,8 @@ ALTER TABLE llx_c_payment_term CHANGE COLUMN fdm type_cdr tinyint;
 ALTER TABLE llx_facturedet ADD COLUMN vat_src_code varchar(10) DEFAULT '' AFTER tva_tx;
 ALTER TABLE llx_facturedet_rec ADD COLUMN vat_src_code varchar(10) DEFAULT '' AFTER tva_tx;
 ALTER TABLE llx_facture_fourn_det ADD COLUMN vat_src_code varchar(10) DEFAULT '' AFTER tva_tx;
-ALTER TABLE llx_commandedet ADD COLUMN vat_src_code varchar(10) DEFAULT '' AFTER tva_tx;
-ALTER TABLE llx_commande_fournisseurdet ADD COLUMN vat_src_code varchar(10) DEFAULT '' AFTER tva_tx;
+ALTER TABLE llx_orderdet ADD COLUMN vat_src_code varchar(10) DEFAULT '' AFTER tva_tx;
+ALTER TABLE llx_order_fournisseurdet ADD COLUMN vat_src_code varchar(10) DEFAULT '' AFTER tva_tx;
 ALTER TABLE llx_propaldet ADD COLUMN vat_src_code varchar(10) DEFAULT '' AFTER tva_tx;
 ALTER TABLE llx_supplier_proposaldet ADD COLUMN vat_src_code varchar(10) DEFAULT '' AFTER tva_tx;
 ALTER TABLE llx_supplier_proposaldet ADD COLUMN fk_unit integer DEFAULT NULL;

@@ -19,7 +19,7 @@
 --
 -- ===================================================================
 
-create table llx_commande_fournisseur
+create table llx_order_fournisseur
 (
   rowid						integer AUTO_INCREMENT PRIMARY KEY,
 
@@ -37,7 +37,7 @@ create table llx_commande_fournisseur
   date_valid				datetime,                      -- date de validation
   date_approve				datetime,                      -- date de approve
   date_approve2				datetime,                      -- date de approve 2 (when double approving is accivated)
-  date_commande				date,                          -- date de la commande
+  date_order				date,                          -- date de la order
   fk_user_author			integer,                       -- user making creation
   fk_user_modif				integer,                       -- user making last change
   fk_user_valid				integer,                       -- user validating

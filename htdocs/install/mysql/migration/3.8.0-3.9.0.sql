@@ -117,13 +117,13 @@ ALTER TABLE llx_prelevement_lignes MODIFY COLUMN code_bank varchar(128);
 ALTER TABLE llx_societe_rib MODIFY COLUMN code_bank varchar(128);
 
 ALTER TABLE llx_contrat ADD COLUMN ref_customer varchar(30);
-ALTER TABLE llx_commande ADD COLUMN fk_warehouse integer DEFAULT NULL AFTER fk_shipping_method;
+ALTER TABLE llx_order ADD COLUMN fk_warehouse integer DEFAULT NULL AFTER fk_shipping_method;
 
-ALTER TABLE llx_commande_fournisseur ADD COLUMN billed smallint DEFAULT 0 AFTER fk_statut;
-ALTER TABLE llx_commande_fournisseur ADD INDEX billed (billed);
+ALTER TABLE llx_order_fournisseur ADD COLUMN billed smallint DEFAULT 0 AFTER fk_statut;
+ALTER TABLE llx_order_fournisseur ADD INDEX billed (billed);
 
-UPDATE llx_commande_fournisseur set billed=1 where statut = 8;
-UPDATE llx_commande_fournisseur set statut=5 where statut = 8 and billed=1;
+UPDATE llx_order_fournisseur set billed=1 where statut = 8;
+UPDATE llx_order_fournisseur set statut=5 where statut = 8 and billed=1;
 
 ALTER TABLE llx_product ADD COLUMN cost_price	double(24,8) DEFAULT NULL;
 

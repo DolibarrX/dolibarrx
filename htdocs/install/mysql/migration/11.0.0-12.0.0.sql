@@ -33,7 +33,7 @@
 UPDATE llx_c_units set scale = 3600 where code  = 'H' and unit_type = 'time';
 UPDATE llx_c_units set scale = 86400 where code = 'D' and unit_type = 'time';
 
-create table llx_commande_fournisseur_dispatch_extrafields
+create table llx_order_fournisseur_dispatch_extrafields
 (
   rowid            integer AUTO_INCREMENT PRIMARY KEY,
   tms              timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -41,7 +41,7 @@ create table llx_commande_fournisseur_dispatch_extrafields
   import_key       varchar(14)      	-- import key
 )ENGINE=innodb;
 
-ALTER TABLE llx_commande_fournisseur_dispatch_extrafields ADD INDEX idx_commande_fournisseur_dispatch_extrafields (fk_object);
+ALTER TABLE llx_order_fournisseur_dispatch_extrafields ADD INDEX idx_order_fournisseur_dispatch_extrafields (fk_object);
 
 ALTER TABLE llx_product_fournisseur_price ADD COLUMN packaging double(24,8) DEFAULT 1;
 
@@ -122,7 +122,7 @@ ALTER TABLE llx_website ADD COLUMN otherlang varchar(255);
 
 ALTER TABLE llx_website_page ADD COLUMN author_alias varchar(64);
 
-UPDATE llx_rights_def SET perms = 'order_advance', subperms = 'close' WHERE module = 'commande' AND perms = 'cloturer';
+UPDATE llx_rights_def SET perms = 'order_advance', subperms = 'close' WHERE module = 'order' AND perms = 'cloturer';
 UPDATE llx_rights_def SET perms = 'propal_advance', subperms = 'close' WHERE module = 'propale' AND perms = 'cloturer';
 
 ALTER TABLE llx_holiday_users DROP INDEX uk_holiday_users;
@@ -284,7 +284,7 @@ ALTER TABLE llx_blockedlog ADD COLUMN object_version varchar(32) DEFAULT '';
 ALTER TABLE llx_product_lot MODIFY COLUMN batch varchar(128);
 ALTER TABLE llx_product_batch MODIFY COLUMN batch varchar(128);
 ALTER TABLE llx_expeditiondet_batch MODIFY COLUMN batch varchar(128);
-ALTER TABLE llx_commande_fournisseur_dispatch MODIFY COLUMN batch varchar(128);
+ALTER TABLE llx_order_fournisseur_dispatch MODIFY COLUMN batch varchar(128);
 ALTER TABLE llx_stock_mouvement MODIFY COLUMN batch varchar(128);
 ALTER TABLE llx_mrp_production MODIFY COLUMN batch varchar(128);
 ALTER TABLE llx_mrp_production MODIFY qty real NOT NULL DEFAULT 1;
@@ -309,7 +309,7 @@ ALTER TABLE llx_category ADD COLUMN tms     		timestamp DEFAULT CURRENT_TIMESTAM
 ALTER TABLE llx_category ADD COLUMN fk_user_creat	integer;
 ALTER TABLE llx_category ADD COLUMN fk_user_modif	integer;
 
-ALTER TABLE llx_commandedet ADD CONSTRAINT fk_commandedet_fk_commandefourndet FOREIGN KEY (fk_commandefourndet) REFERENCES llx_commande_fournisseurdet (rowid);
+ALTER TABLE llx_orderdet ADD CONSTRAINT fk_orderdet_fk_orderfourndet FOREIGN KEY (fk_orderfourndet) REFERENCES llx_order_fournisseurdet (rowid);
 
 -- VMYSQL4.3 ALTER TABLE llx_prelevement_facture_demande MODIFY COLUMN fk_facture INTEGER NULL;
 -- VPGSQL8.2 ALTER TABLE llx_prelevement_facture_demande ALTER COLUMN fk_facture DROP NOT NULL;
@@ -340,8 +340,8 @@ ALTER TABLE llx_expedition ADD COLUMN billed smallint    DEFAULT 0;
 
 -- VMYSQL4.3 ALTER TABLE llx_mrp_mo MODIFY COLUMN tms timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
 
-ALTER TABLE llx_commande_fournisseurdet ADD INDEX idx_commande_fournisseurdet_fk_commande (fk_commande);
-ALTER TABLE llx_commande_fournisseurdet ADD INDEX idx_commande_fournisseurdet_fk_product (fk_product);
+ALTER TABLE llx_order_fournisseurdet ADD INDEX idx_order_fournisseurdet_fk_order (fk_order);
+ALTER TABLE llx_order_fournisseurdet ADD INDEX idx_order_fournisseurdet_fk_product (fk_product);
 
 
 -- VMYSQL4.3 ALTER TABLE llx_c_shipment_mode MODIFY COLUMN tracking varchar(255) NULL;

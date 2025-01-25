@@ -170,7 +170,7 @@ ALTER TABLE llx_ecm_files ADD COLUMN src_object_id integer;
 
 
 ALTER TABLE llx_propal ADD COLUMN last_main_doc varchar(255);
-ALTER TABLE llx_commande ADD COLUMN last_main_doc varchar(255);
+ALTER TABLE llx_order ADD COLUMN last_main_doc varchar(255);
 ALTER TABLE llx_facture ADD COLUMN last_main_doc varchar(255);
 ALTER TABLE llx_contrat ADD COLUMN last_main_doc varchar(255);
 ALTER TABLE llx_expedition ADD COLUMN last_main_doc varchar(255);
@@ -178,7 +178,7 @@ ALTER TABLE llx_fichinter ADD COLUMN last_main_doc varchar(255);
 ALTER TABLE llx_livraison ADD COLUMN last_main_doc varchar(255);
 ALTER TABLE llx_supplier_proposal ADD COLUMN last_main_doc varchar(255);
 ALTER TABLE llx_facture_fourn ADD COLUMN last_main_doc varchar(255);
-ALTER TABLE llx_commande_fournisseur ADD COLUMN last_main_doc varchar(255);
+ALTER TABLE llx_order_fournisseur ADD COLUMN last_main_doc varchar(255);
 
 
 ALTER TABLE llx_c_paiement        ADD COLUMN position        integer NOT NULL DEFAULT 0;
@@ -676,8 +676,8 @@ ALTER TABLE llx_blockedlog MODIFY COLUMN ref_object varchar(255);
 -- SPEC : use database type 'double' to store monetary values
 ALTER TABLE llx_blockedlog MODIFY COLUMN amounts double(24,8) NOT NULL;
 ALTER TABLE llx_chargesociales MODIFY COLUMN amount double(24,8);
-ALTER TABLE llx_commande MODIFY COLUMN amount_ht double(24,8) default 0;
-ALTER TABLE llx_commande_fournisseur MODIFY COLUMN amount_ht double(24,8);
+ALTER TABLE llx_order MODIFY COLUMN amount_ht double(24,8) default 0;
+ALTER TABLE llx_order_fournisseur MODIFY COLUMN amount_ht double(24,8);
 ALTER TABLE llx_don MODIFY COLUMN amount double(24,8);
 ALTER TABLE llx_expensereport_rules MODIFY COLUMN amount double(24,8);
 ALTER TABLE llx_loan MODIFY COLUMN capital double(24,8);

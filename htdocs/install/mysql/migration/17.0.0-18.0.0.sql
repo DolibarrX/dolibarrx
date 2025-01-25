@@ -44,7 +44,7 @@ ALTER TABLE llx_projet_task ADD COLUMN fk_user_modif integer after fk_user_creat
 
 ALTER TABLE llx_accounting_system CHANGE COLUMN fk_pays fk_country integer;
 
-ALTER TABLE llx_commande_fournisseurdet MODIFY COLUMN ref varchar(128);
+ALTER TABLE llx_order_fournisseurdet MODIFY COLUMN ref varchar(128);
 ALTER TABLE llx_facture_fourn_det MODIFY COLUMN ref varchar(128);
 
 ALTER TABLE llx_projet ADD COLUMN extraparams varchar(255);
@@ -493,11 +493,11 @@ ALTER TABLE fk_product_price_product DROP FOREIGN KEY fk_product_price_product;
 
 ALTER TABLE llx_societe_rib ADD COLUMN ext_payment_site varchar(128);
 
--- Drop the composite unique index that exists on llx_commande_fournisseur to rebuild a new one without the fk_soc.
+-- Drop the composite unique index that exists on llx_order_fournisseur to rebuild a new one without the fk_soc.
 -- The old design allowed for a duplicate reference as long as fk_soc was not the same.
--- VMYSQL4.1 DROP INDEX uk_commande_fournisseur_ref on llx_commande_fournisseur;
--- VPGSQL8.2 DROP INDEX uk_commande_fournisseur_ref;
-ALTER TABLE llx_commande_fournisseur ADD UNIQUE INDEX uk_commande_fournisseur_ref (ref, entity);
+-- VMYSQL4.1 DROP INDEX uk_order_fournisseur_ref on llx_order_fournisseur;
+-- VPGSQL8.2 DROP INDEX uk_order_fournisseur_ref;
+ALTER TABLE llx_order_fournisseur ADD UNIQUE INDEX uk_order_fournisseur_ref (ref, entity);
 
 -- Drop the composite unique index that exists on llx_actioncomm to rebuild a new one without unique feature.
 -- The old design introduced a deadlock over traffic intense Dolibarr instance.
@@ -505,7 +505,7 @@ ALTER TABLE llx_commande_fournisseur ADD UNIQUE INDEX uk_commande_fournisseur_re
 -- VPGSQL8.2 DROP INDEX uk_actioncomm_ref;
 ALTER TABLE llx_actioncomm ADD INDEX idx_actioncomm_ref (ref, entity);
 
--- Bump llx_reception.ref_supplier to allow up to 255 characters to match llx_commande_fournisseur.ref_supplier.
+-- Bump llx_reception.ref_supplier to allow up to 255 characters to match llx_order_fournisseur.ref_supplier.
 -- See: https://github.com/Dolibarr/dolibarr/pull/25034
 ALTER TABLE llx_reception MODIFY COLUMN ref_supplier varchar(255);
 

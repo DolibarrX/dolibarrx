@@ -31,7 +31,7 @@ create table llx_contratdet
   description           text,
   fk_remise_except		integer       NULL,                -- Lien vers table des remises fixes
 
-  date_commande         datetime,
+  date_order         datetime,
   date_ouverture_prevue datetime,
   date_ouverture        datetime,                          -- date d'ouverture du service chez le client
   date_fin_validite     datetime,

@@ -232,33 +232,33 @@ ALTER TABLE llx_product_price ADD COLUMN fk_multicurrency integer;
 ALTER TABLE llx_product_price ADD COLUMN multicurrency_code varchar(255);
 ALTER TABLE llx_product_price ADD COLUMN multicurrency_price double(24,8) DEFAULT 0;
 
-ALTER TABLE llx_commande ADD COLUMN fk_multicurrency integer;
-ALTER TABLE llx_commande ADD COLUMN multicurrency_code varchar(255);
-ALTER TABLE llx_commande ADD COLUMN multicurrency_tx double(24,8) DEFAULT 1;
-ALTER TABLE llx_commande ADD COLUMN multicurrency_total_ht double(24,8) DEFAULT 0;
-ALTER TABLE llx_commande ADD COLUMN multicurrency_total_tva double(24,8) DEFAULT 0;
-ALTER TABLE llx_commande ADD COLUMN multicurrency_total_ttc double(24,8) DEFAULT 0;
+ALTER TABLE llx_order ADD COLUMN fk_multicurrency integer;
+ALTER TABLE llx_order ADD COLUMN multicurrency_code varchar(255);
+ALTER TABLE llx_order ADD COLUMN multicurrency_tx double(24,8) DEFAULT 1;
+ALTER TABLE llx_order ADD COLUMN multicurrency_total_ht double(24,8) DEFAULT 0;
+ALTER TABLE llx_order ADD COLUMN multicurrency_total_tva double(24,8) DEFAULT 0;
+ALTER TABLE llx_order ADD COLUMN multicurrency_total_ttc double(24,8) DEFAULT 0;
 
-ALTER TABLE llx_commandedet ADD COLUMN fk_multicurrency integer;
-ALTER TABLE llx_commandedet ADD COLUMN multicurrency_code varchar(255);
-ALTER TABLE llx_commandedet ADD COLUMN multicurrency_subprice double(24,8) DEFAULT 0;
-ALTER TABLE llx_commandedet ADD COLUMN multicurrency_total_ht double(24,8) DEFAULT 0;
-ALTER TABLE llx_commandedet ADD COLUMN multicurrency_total_tva double(24,8) DEFAULT 0;
-ALTER TABLE llx_commandedet ADD COLUMN multicurrency_total_ttc double(24,8) DEFAULT 0;
+ALTER TABLE llx_orderdet ADD COLUMN fk_multicurrency integer;
+ALTER TABLE llx_orderdet ADD COLUMN multicurrency_code varchar(255);
+ALTER TABLE llx_orderdet ADD COLUMN multicurrency_subprice double(24,8) DEFAULT 0;
+ALTER TABLE llx_orderdet ADD COLUMN multicurrency_total_ht double(24,8) DEFAULT 0;
+ALTER TABLE llx_orderdet ADD COLUMN multicurrency_total_tva double(24,8) DEFAULT 0;
+ALTER TABLE llx_orderdet ADD COLUMN multicurrency_total_ttc double(24,8) DEFAULT 0;
 
-ALTER TABLE llx_commande_fournisseur ADD COLUMN fk_multicurrency integer;
-ALTER TABLE llx_commande_fournisseur ADD COLUMN multicurrency_code varchar(255);
-ALTER TABLE llx_commande_fournisseur ADD COLUMN multicurrency_tx double(24,8) DEFAULT 1;
-ALTER TABLE llx_commande_fournisseur ADD COLUMN multicurrency_total_ht double(24,8) DEFAULT 0;
-ALTER TABLE llx_commande_fournisseur ADD COLUMN multicurrency_total_tva double(24,8) DEFAULT 0;
-ALTER TABLE llx_commande_fournisseur ADD COLUMN multicurrency_total_ttc double(24,8) DEFAULT 0;
+ALTER TABLE llx_order_fournisseur ADD COLUMN fk_multicurrency integer;
+ALTER TABLE llx_order_fournisseur ADD COLUMN multicurrency_code varchar(255);
+ALTER TABLE llx_order_fournisseur ADD COLUMN multicurrency_tx double(24,8) DEFAULT 1;
+ALTER TABLE llx_order_fournisseur ADD COLUMN multicurrency_total_ht double(24,8) DEFAULT 0;
+ALTER TABLE llx_order_fournisseur ADD COLUMN multicurrency_total_tva double(24,8) DEFAULT 0;
+ALTER TABLE llx_order_fournisseur ADD COLUMN multicurrency_total_ttc double(24,8) DEFAULT 0;
 
-ALTER TABLE llx_commande_fournisseurdet ADD COLUMN fk_multicurrency integer;
-ALTER TABLE llx_commande_fournisseurdet ADD COLUMN multicurrency_code varchar(255);
-ALTER TABLE llx_commande_fournisseurdet ADD COLUMN multicurrency_subprice double(24,8) DEFAULT 0;
-ALTER TABLE llx_commande_fournisseurdet ADD COLUMN multicurrency_total_ht double(24,8) DEFAULT 0;
-ALTER TABLE llx_commande_fournisseurdet ADD COLUMN multicurrency_total_tva double(24,8) DEFAULT 0;
-ALTER TABLE llx_commande_fournisseurdet ADD COLUMN multicurrency_total_ttc double(24,8) DEFAULT 0;
+ALTER TABLE llx_order_fournisseurdet ADD COLUMN fk_multicurrency integer;
+ALTER TABLE llx_order_fournisseurdet ADD COLUMN multicurrency_code varchar(255);
+ALTER TABLE llx_order_fournisseurdet ADD COLUMN multicurrency_subprice double(24,8) DEFAULT 0;
+ALTER TABLE llx_order_fournisseurdet ADD COLUMN multicurrency_total_ht double(24,8) DEFAULT 0;
+ALTER TABLE llx_order_fournisseurdet ADD COLUMN multicurrency_total_tva double(24,8) DEFAULT 0;
+ALTER TABLE llx_order_fournisseurdet ADD COLUMN multicurrency_total_ttc double(24,8) DEFAULT 0;
 
 ALTER TABLE llx_facture_fourn ADD COLUMN fk_multicurrency integer;
 ALTER TABLE llx_facture_fourn ADD COLUMN multicurrency_code varchar(255);

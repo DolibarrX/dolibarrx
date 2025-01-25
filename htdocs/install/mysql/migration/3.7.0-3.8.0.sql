@@ -112,10 +112,10 @@ ALTER TABLE llx_projet_task MODIFY COLUMN planned_workload real DEFAULT 0 NULL;
 
 -- VPGSQL8.2 ALTER TABLE llx_projet_task ALTER COLUMN planned_workload DROP NOT NULL;
 
-ALTER TABLE llx_commande_fournisseur MODIFY COLUMN date_livraison datetime;
+ALTER TABLE llx_order_fournisseur MODIFY COLUMN date_livraison datetime;
 
--- Add id commandefourndet in llx_commande_fournisseur_dispatch to correct /fourn/commande/dispatch.php display when several times same product in supplier order
-ALTER TABLE llx_commande_fournisseur_dispatch ADD COLUMN fk_commandefourndet INTEGER NOT NULL DEFAULT 0 AFTER fk_product;
+-- Add id orderfourndet in llx_order_fournisseur_dispatch to correct /fourn/order/dispatch.php display when several times same product in supplier order
+ALTER TABLE llx_order_fournisseur_dispatch ADD COLUMN fk_orderfourndet INTEGER NOT NULL DEFAULT 0 AFTER fk_product;
 
 
 -- Remove menu entries of removed or renamed modules
@@ -208,12 +208,12 @@ ALTER TABLE llx_contratdet_extrafields ADD INDEX idx_contratdet_extrafields (fk_
 ALTER TABLE llx_product_fournisseur_price ADD COLUMN delivery_time_days integer;
 
 
-ALTER TABLE llx_commande_fournisseur_dispatch ADD COLUMN comment	varchar(255);
-ALTER TABLE llx_commande_fournisseur_dispatch ADD COLUMN status integer;
-ALTER TABLE llx_commande_fournisseur_dispatch ADD COLUMN tms timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
-ALTER TABLE llx_commande_fournisseur_dispatch ADD COLUMN batch varchar(30) DEFAULT NULL;
-ALTER TABLE llx_commande_fournisseur_dispatch ADD COLUMN eatby date DEFAULT NULL;
-ALTER TABLE llx_commande_fournisseur_dispatch ADD COLUMN sellby date DEFAULT NULL;
+ALTER TABLE llx_order_fournisseur_dispatch ADD COLUMN comment	varchar(255);
+ALTER TABLE llx_order_fournisseur_dispatch ADD COLUMN status integer;
+ALTER TABLE llx_order_fournisseur_dispatch ADD COLUMN tms timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+ALTER TABLE llx_order_fournisseur_dispatch ADD COLUMN batch varchar(30) DEFAULT NULL;
+ALTER TABLE llx_order_fournisseur_dispatch ADD COLUMN eatby date DEFAULT NULL;
+ALTER TABLE llx_order_fournisseur_dispatch ADD COLUMN sellby date DEFAULT NULL;
 ALTER TABLE llx_stock_mouvement ADD COLUMN batch varchar(30) DEFAULT NULL;
 ALTER TABLE llx_stock_mouvement ADD COLUMN eatby date DEFAULT NULL;
 ALTER TABLE llx_stock_mouvement ADD COLUMN sellby date DEFAULT NULL;
@@ -313,7 +313,7 @@ ALTER TABLE llx_projet ADD COLUMN budget_amount double(24,8);
 -- Alias names (commercial, trademark or alias names)
 ALTER TABLE llx_societe ADD COLUMN name_alias varchar(128) NULL;
 
-create table llx_commande_fournisseurdet_extrafields
+create table llx_order_fournisseurdet_extrafields
 (
   rowid                     integer AUTO_INCREMENT PRIMARY KEY,
   tms                       timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -321,7 +321,7 @@ create table llx_commande_fournisseurdet_extrafields
   import_key                varchar(14)
 ) ENGINE=innodb;
 
-ALTER TABLE llx_commande_fournisseurdet_extrafields ADD INDEX idx_commande_fournisseurdet_extrafields (fk_object);
+ALTER TABLE llx_order_fournisseurdet_extrafields ADD INDEX idx_order_fournisseurdet_extrafields (fk_object);
 
 
 create table llx_facture_fourn_det_extrafields
@@ -338,9 +338,9 @@ ALTER TABLE llx_facture_fourn_det ADD COLUMN special_code	 integer DEFAULT 0;
 ALTER TABLE llx_facture_fourn_det ADD COLUMN rang integer DEFAULT 0;
 ALTER TABLE llx_facture_fourn_det ADD COLUMN fk_parent_line integer NULL AFTER fk_facture_fourn;
 
-ALTER TABLE llx_commande_fournisseurdet ADD COLUMN special_code	 integer DEFAULT 0;
-ALTER TABLE llx_commande_fournisseurdet ADD COLUMN rang integer DEFAULT 0;
-ALTER TABLE llx_commande_fournisseurdet ADD COLUMN fk_parent_line integer NULL AFTER fk_commande;
+ALTER TABLE llx_order_fournisseurdet ADD COLUMN special_code	 integer DEFAULT 0;
+ALTER TABLE llx_order_fournisseurdet ADD COLUMN rang integer DEFAULT 0;
+ALTER TABLE llx_order_fournisseurdet ADD COLUMN fk_parent_line integer NULL AFTER fk_order;
 
 ALTER TABLE llx_projet ADD COLUMN date_close datetime DEFAULT NULL;
 ALTER TABLE llx_projet ADD COLUMN fk_user_close integer DEFAULT NULL;
@@ -436,17 +436,17 @@ CREATE TABLE llx_askpricesupplierdet_extrafields (
 -- End Module AskPriceSupplier --
 
 
-ALTER TABLE llx_commande_fournisseur ADD COLUMN date_approve2 datetime AFTER date_approve;
-ALTER TABLE llx_commande_fournisseur ADD COLUMN fk_user_approve2 integer AFTER fk_user_approve;
+ALTER TABLE llx_order_fournisseur ADD COLUMN date_approve2 datetime AFTER date_approve;
+ALTER TABLE llx_order_fournisseur ADD COLUMN fk_user_approve2 integer AFTER fk_user_approve;
 
 ALTER TABLE llx_societe ADD COLUMN fk_incoterms integer;
 ALTER TABLE llx_societe ADD COLUMN location_incoterms varchar(255);
 ALTER TABLE llx_propal ADD COLUMN fk_incoterms integer;
 ALTER TABLE llx_propal ADD COLUMN location_incoterms varchar(255);
-ALTER TABLE llx_commande ADD COLUMN fk_incoterms integer;
-ALTER TABLE llx_commande ADD COLUMN location_incoterms varchar(255);
-ALTER TABLE llx_commande_fournisseur ADD COLUMN fk_incoterms integer;
-ALTER TABLE llx_commande_fournisseur ADD COLUMN location_incoterms varchar(255);
+ALTER TABLE llx_order ADD COLUMN fk_incoterms integer;
+ALTER TABLE llx_order ADD COLUMN location_incoterms varchar(255);
+ALTER TABLE llx_order_fournisseur ADD COLUMN fk_incoterms integer;
+ALTER TABLE llx_order_fournisseur ADD COLUMN location_incoterms varchar(255);
 ALTER TABLE llx_facture ADD COLUMN fk_incoterms integer;
 ALTER TABLE llx_facture ADD COLUMN location_incoterms varchar(255);
 ALTER TABLE llx_facture_fourn ADD COLUMN fk_incoterms integer;
@@ -517,13 +517,13 @@ create table llx_payment_donation
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('BILL_VALIDATE','Customer invoice validated','Executed when a customer invoice is approved','facture',6);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_SUPPLIER_APPROVE','Supplier order request approved','Executed when a supplier order is approved','order_supplier',12);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_SUPPLIER_REFUSE','Supplier order request refused','Executed when a supplier order is refused','order_supplier',13);
-insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_VALIDATE','Customer order validate','Executed when a customer order is validated','commande',4);
+insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_VALIDATE','Customer order validate','Executed when a customer order is validated','order',4);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('PROPAL_VALIDATE','Customer proposal validated','Executed when a commercial proposal is validated','propal',2);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('COMPANY_SENTBYMAIL','Mails sent from third party card','Executed when you send email from third party card','societe',1);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('COMPANY_CREATE','Third party created','Executed when a third party is created','societe',1);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('CONTRACT_VALIDATE','Contract validated','Executed when a contract is validated','contrat',18);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('PROPAL_SENTBYMAIL','Commercial proposal sent by mail','Executed when a commercial proposal is sent by mail','propal',3);
-insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_SENTBYMAIL','Customer order sent by mail','Executed when a customer order is sent by mail ','commande',5);
+insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('ORDER_SENTBYMAIL','Customer order sent by mail','Executed when a customer order is sent by mail ','order',5);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('BILL_PAYED','Customer invoice paid','Executed when a customer invoice is paid','facture',7);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('BILL_CANCEL','Customer invoice canceled','Executed when a customer invoice is conceled','facture',8);
 insert into llx_c_action_trigger (code,label,description,elementtype,rang) values ('BILL_SENTBYMAIL','Customer invoice sent by mail','Executed when a customer invoice is sent by mail','facture',9);
@@ -625,14 +625,14 @@ ALTER TABLE llx_facturedet ADD CONSTRAINT fk_facturedet_fk_unit FOREIGN KEY (fk_
 alter table llx_propaldet add fk_unit integer DEFAULT NULL;
 ALTER TABLE llx_propaldet ADD CONSTRAINT fk_propaldet_fk_unit FOREIGN KEY (fk_unit) REFERENCES llx_c_units (rowid);
 
-alter table llx_commandedet add fk_unit integer DEFAULT NULL;
-ALTER TABLE llx_commandedet ADD CONSTRAINT fk_commandedet_fk_unit FOREIGN KEY (fk_unit) REFERENCES llx_c_units (rowid);
+alter table llx_orderdet add fk_unit integer DEFAULT NULL;
+ALTER TABLE llx_orderdet ADD CONSTRAINT fk_orderdet_fk_unit FOREIGN KEY (fk_unit) REFERENCES llx_c_units (rowid);
 
 alter table llx_contratdet add fk_unit integer DEFAULT NULL;
 ALTER TABLE llx_contratdet ADD CONSTRAINT fk_contratdet_fk_unit FOREIGN KEY (fk_unit) REFERENCES llx_c_units (rowid);
 
-alter table llx_commande_fournisseurdet add fk_unit integer DEFAULT NULL;
-ALTER TABLE llx_commande_fournisseurdet ADD CONSTRAINT fk_commande_fournisseurdet_fk_unit FOREIGN KEY (fk_unit) REFERENCES llx_c_units (rowid);
+alter table llx_order_fournisseurdet add fk_unit integer DEFAULT NULL;
+ALTER TABLE llx_order_fournisseurdet ADD CONSTRAINT fk_order_fournisseurdet_fk_unit FOREIGN KEY (fk_unit) REFERENCES llx_c_units (rowid);
 
 alter table llx_facture_fourn_det add fk_unit integer DEFAULT NULL;
 ALTER TABLE llx_facture_fourn_det ADD CONSTRAINT fk_facture_fourn_det_fk_unit FOREIGN KEY (fk_unit) REFERENCES llx_c_units (rowid);

@@ -17,4 +17,4 @@
 -- ===================================================================
 
 
-ALTER TABLE llx_commande_extrafields ADD UNIQUE INDEX uk_commande_extrafields (fk_object);
+ALTER TABLE llx_order_extrafields ADD UNIQUE INDEX uk_order_extrafields (fk_object);

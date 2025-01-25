@@ -19,7 +19,7 @@
 --
 -- ===================================================================
 
-create table llx_commande
+create table llx_order
 (
   rowid						integer AUTO_INCREMENT PRIMARY KEY,
   ref						varchar(30)       NOT NULL,		-- order reference number
@@ -29,13 +29,13 @@ create table llx_commande
   ref_client				varchar(255),					-- reference for customer
 
   fk_soc					integer NOT NULL,
-  fk_projet					integer DEFAULT NULL,			-- projet auquel est rattache la commande
+  fk_projet					integer DEFAULT NULL,			-- projet auquel est rattache la order
 
   tms						timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   date_creation				datetime,						-- date de creation
   date_valid				datetime,						-- date de validation
   date_cloture				datetime,						-- date de cloture
-  date_commande				date,							-- date de la commande
+  date_order				date,							-- date de la order
   fk_user_author			integer,						-- user making creation
   fk_user_modif				integer,						-- user making last change
   fk_user_valid				integer,						-- user validating

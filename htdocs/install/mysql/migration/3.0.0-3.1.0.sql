@@ -14,7 +14,7 @@ DROP table llx_prelevement_notifications;
 -- Fix corrupted data
 update llx_deplacement set dated='2010-01-01' where dated < '2000-01-01';
 
-ALTER TABLE llx_c_methode_commande_fournisseur RENAME TO llx_c_input_method;
+ALTER TABLE llx_c_methode_order_fournisseur RENAME TO llx_c_input_method;
 
 ALTER TABLE llx_member MODIFY login varchar(50);
 
@@ -23,14 +23,14 @@ ALTER TABLE llx_c_ziptown MODIFY fk_county integer NULL;
 
 ALTER TABLE llx_c_actioncomm ADD COLUMN position integer NOT NULL DEFAULT 0;
 ALTER TABLE llx_propal ADD COLUMN fk_demand_reason integer NULL DEFAULT 0;
-ALTER TABLE llx_commande_fournisseur ADD COLUMN fk_cond_reglement integer NULL DEFAULT 0 after model_pdf;
-ALTER TABLE llx_commande_fournisseur ADD COLUMN fk_mode_reglement integer NULL DEFAULT 0 after fk_cond_reglement;
-ALTER TABLE llx_commande_fournisseur ADD COLUMN import_key varchar(14);
+ALTER TABLE llx_order_fournisseur ADD COLUMN fk_cond_reglement integer NULL DEFAULT 0 after model_pdf;
+ALTER TABLE llx_order_fournisseur ADD COLUMN fk_mode_reglement integer NULL DEFAULT 0 after fk_cond_reglement;
+ALTER TABLE llx_order_fournisseur ADD COLUMN import_key varchar(14);
 
 -- ALTER TABLE llx_c_currencies ADD COLUMN symbole varchar(3) NOT NULL default '';
 
-ALTER TABLE llx_commande_fournisseur MODIFY model_pdf varchar(255);
-ALTER TABLE llx_commande MODIFY model_pdf varchar(255);
+ALTER TABLE llx_order_fournisseur MODIFY model_pdf varchar(255);
+ALTER TABLE llx_order MODIFY model_pdf varchar(255);
 ALTER TABLE llx_don MODIFY model_pdf varchar(255);
 ALTER TABLE llx_expedition MODIFY model_pdf varchar(255);
 ALTER TABLE llx_facture_fourn MODIFY model_pdf varchar(255);
@@ -55,7 +55,7 @@ DELETE FROM llx_const WHERE __DECRYPT('name')__ = 'MAIN_POPUP_CALENDAR' and valu
 DELETE FROM llx_const WHERE __DECRYPT('name')__ = 'MAIN_CONFIRM_AJAX';
 
 ALTER TABLE llx_facture_fourn ADD COLUMN ref_ext varchar(30) AFTER entity;
-ALTER TABLE llx_commande_fournisseur ADD COLUMN ref_ext varchar(30) AFTER entity;
+ALTER TABLE llx_order_fournisseur ADD COLUMN ref_ext varchar(30) AFTER entity;
 ALTER TABLE llx_member ADD COLUMN ref_ext varchar(30) after entity;
 
 ALTER TABLE llx_facturedet DROP INDEX uk_fk_remise_except;
@@ -104,17 +104,17 @@ INSERT INTO llx_c_input_reason (rowid,code,label,active) VALUES (7, 'SRC_CAMP_EM
 
 ALTER TABLE llx_propal CHANGE COLUMN delivery fk_availability integer NULL;
 ALTER TABLE llx_propal ADD COLUMN fk_availability integer NULL AFTER date_livraison;
-ALTER TABLE llx_commande ADD COLUMN fk_availability integer NULL AFTER date_livraison;
+ALTER TABLE llx_order ADD COLUMN fk_availability integer NULL AFTER date_livraison;
 
 INSERT INTO llx_c_availability (rowid,code,label,active) VALUES (1, 'AV_NOW', 'Immediate', 1);
 INSERT INTO llx_c_availability (rowid,code,label,active) VALUES (2, 'AV_1W',  '1 week', 1);
 INSERT INTO llx_c_availability (rowid,code,label,active) VALUES (3, 'AV_2W',  '2 weeks', 1);
 INSERT INTO llx_c_availability (rowid,code,label,active) VALUES (4, 'AV_3W',  '3 weeks', 1);
 
-ALTER TABLE llx_commande ADD COLUMN fk_demand_reason integer AFTER fk_availability;
+ALTER TABLE llx_order ADD COLUMN fk_demand_reason integer AFTER fk_availability;
 
 ALTER TABLE llx_propaldet ADD INDEX idx_propaldet_fk_product (fk_product);
-ALTER TABLE llx_commandedet ADD INDEX idx_commandedet_fk_product (fk_product);
+ALTER TABLE llx_orderdet ADD INDEX idx_orderdet_fk_product (fk_product);
 ALTER TABLE llx_facturedet ADD INDEX idx_facturedet_fk_product (fk_product);
 
 ALTER TABLE llx_mailing_cibles ADD COLUMN tag varchar(128) NULL AFTER other;
@@ -134,7 +134,7 @@ ALTER TABLE llx_usergroup_user ADD CONSTRAINT fk_usergroup_user_fk_usergroup FOR
 -- V4.1 DELETE FROM llx_product_fournisseur where fk_product NOT IN (SELECT rowid from llx_product);
 ALTER TABLE llx_product_fournisseur ADD CONSTRAINT fk_product_fournisseur_fk_product FOREIGN KEY (fk_product) REFERENCES llx_product (rowid);
 
-ALTER TABLE llx_commande ADD COLUMN ref_int	varchar(30) AFTER ref_ext;
+ALTER TABLE llx_order ADD COLUMN ref_int	varchar(30) AFTER ref_ext;
 ALTER TABLE llx_facture ADD COLUMN ref_int varchar(30) AFTER ref_ext;
 ALTER TABLE llx_societe ADD COLUMN ref_int varchar(60) AFTER ref_ext;
 ALTER TABLE llx_expedition ADD COLUMN ref_ext varchar(30) AFTER fk_soc;
@@ -173,9 +173,9 @@ ALTER TABLE llx_c_action_trigger ADD UNIQUE INDEX uk_action_trigger_code (code);
 
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (1,'FICHEINTER_VALIDATE','Validation fiche intervention','Executed when a intervention is validated','ficheinter',18);
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (2,'BILL_VALIDATE','Validation facture client','Executed when a customer invoice is approved','facture',6);
-INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (3,'ORDER_SUPPLIER_APPROVE','Approbation commande fournisseur','Executed when a supplier order is approved','order_supplier',11);
-INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (4,'ORDER_SUPPLIER_REFUSE','Refus commande fournisseur','Executed when a supplier order is refused','order_supplier',12);
-INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (5,'ORDER_VALIDATE','Validation commande client','Executed when a customer order is validated','commande',4);
+INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (3,'ORDER_SUPPLIER_APPROVE','Approbation order fournisseur','Executed when a supplier order is approved','order_supplier',11);
+INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (4,'ORDER_SUPPLIER_REFUSE','Refus order fournisseur','Executed when a supplier order is refused','order_supplier',12);
+INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (5,'ORDER_VALIDATE','Validation order client','Executed when a customer order is validated','order',4);
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (6,'PROPAL_VALIDATE','Validation proposition client','Executed when a commercial proposal is validated','propal',2);
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (7,'WITHDRAW_TRANSMIT','Transmission prélèvement','Executed when a withdrawal is transmited','withdraw',25);
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (8,'WITHDRAW_CREDIT','Créditer prélèvement','Executed when a withdrawal is credited','withdraw',26);
@@ -183,7 +183,7 @@ INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang)
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (10,'COMPANY_CREATE','Third party created','Executed when a third party is created','societe',1);
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (11,'CONTRACT_VALIDATE','Contract validated','Executed when a contract is validated','contrat',17);
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (12,'PROPAL_SENTBYMAIL','Commercial proposal sent by mail','Executed when a commercial proposal is sent by mail','propal',3);
-INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (13,'ORDER_SENTBYMAIL','Customer order sent by mail','Executed when a customer order is sent by mail ','commande',5);
+INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (13,'ORDER_SENTBYMAIL','Customer order sent by mail','Executed when a customer order is sent by mail ','order',5);
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (14,'BILL_PAYED','Customer invoice payed','Executed when a customer invoice is payed','facture',7);
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (15,'BILL_CANCEL','Customer invoice canceled','Executed when a customer invoice is conceled','facture',8);
 INSERT INTO llx_c_action_trigger (rowid,code,label,description,elementtype,rang) VALUES (16,'BILL_SENTBYMAIL','Customer invoice sent by mail','Executed when a customer invoice is sent by mail','facture',9);
@@ -415,7 +415,7 @@ INSERT INTO llx_c_tva(rowid,fk_pays,taux,recuperableonly,note,active) VALUES (46
 INSERT INTO llx_c_tva(rowid,fk_pays,taux,recuperableonly,note,active) VALUES (463,46,     '7.5','0','VAT 7.5%',1);
 
 update llx_actioncomm set elementtype='invoice' where elementtype='facture';
-update llx_actioncomm set elementtype='order' where elementtype='commande';
+update llx_actioncomm set elementtype='order' where elementtype='order';
 update llx_actioncomm set elementtype='contract' where elementtype='contrat';
 
 
@@ -451,9 +451,9 @@ drop table llx_extra_fields_options;
 drop table llx_extra_fields_values;
 drop table llx_extra_fields;
 
-ALTER TABLE llx_commande MODIFY ref_int varchar(50);
-ALTER TABLE llx_commande MODIFY ref_ext varchar(50);
-ALTER TABLE llx_commande MODIFY ref_client varchar(50);
+ALTER TABLE llx_order MODIFY ref_int varchar(50);
+ALTER TABLE llx_order MODIFY ref_ext varchar(50);
+ALTER TABLE llx_order MODIFY ref_client varchar(50);
 ALTER TABLE llx_facture MODIFY ref_int varchar(50);
 ALTER TABLE llx_facture MODIFY ref_ext varchar(50);
 ALTER TABLE llx_facture MODIFY ref_client varchar(50);

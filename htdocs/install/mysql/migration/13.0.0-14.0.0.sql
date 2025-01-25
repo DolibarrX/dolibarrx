@@ -325,7 +325,7 @@ INSERT INTO llx_c_actioncomm (id, code, type, libelle, module, active, position)
 INSERT INTO llx_c_actioncomm (id, code, type, libelle, module, active, position) VALUES ( 62,'AC_EO_ONLINEBOOTH','module','Online/Virtual booth','booth@eventorganization', 1, 62);
 INSERT INTO llx_c_actioncomm (id, code, type, libelle, module, active, position) VALUES ( 63,'AC_EO_INDOORBOOTH','module','Indoor booth','booth@eventorganization', 1, 63);
 -- Code enhanced - Standardize field name
-ALTER TABLE llx_commande CHANGE COLUMN tva total_tva double(24,8) default 0;
+ALTER TABLE llx_order CHANGE COLUMN tva total_tva double(24,8) default 0;
 ALTER TABLE llx_supplier_proposal CHANGE COLUMN tva total_tva double(24,8) default 0;
 ALTER TABLE llx_supplier_proposal CHANGE COLUMN total total_ttc double(24,8) default 0;
 ALTER TABLE llx_propal CHANGE COLUMN tva total_tva double(24,8) default 0;
@@ -334,7 +334,7 @@ ALTER TABLE llx_facture CHANGE COLUMN tva total_tva double(24,8) default 0;
 ALTER TABLE llx_facture CHANGE COLUMN total total_ht double(24,8) default 0;
 ALTER TABLE llx_facture_rec CHANGE COLUMN tva total_tva double(24,8) default 0;
 ALTER TABLE llx_facture_rec CHANGE COLUMN total total_ht double(24,8) default 0;
-ALTER TABLE llx_commande_fournisseur CHANGE COLUMN tva total_tva double(24,8) default 0;
+ALTER TABLE llx_order_fournisseur CHANGE COLUMN tva total_tva double(24,8) default 0;
 
 
 --VMYSQL4.3 ALTER TABLE llx_c_civility CHANGE COLUMN rowid rowid INTEGER NOT NULL AUTO_INCREMENT;
