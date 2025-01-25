@@ -75,7 +75,7 @@ class ExtraLanguages
 	 *  You must set variable MAIN_USE_ALTERNATE_TRANSLATION_FOR=elementA:fieldname,fieldname2;elementB:...
 	 *  Example: MAIN_USE_ALTERNATE_TRANSLATION_FOR=societe:name,town;contact:firstname,lastname
 	 *
-	 * 	@param	string		$elementtype		Type of element ('' = all, 'adherent', 'commande', 'thirdparty', 'facture', 'propal', 'product', ...).
+	 * 	@param	string		$elementtype		Type of element ('' = all, 'member', 'commande', 'thirdparty', 'facture', 'propal', 'product', ...).
 	 * 	@param	boolean		$forceload			Force load of extra fields whatever is status of cache.
 	 * 	@return	array<string,array<string,string>>		Array of attributes keys+label for all extra fields.
 	 */

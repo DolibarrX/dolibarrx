@@ -79,8 +79,8 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 	}
 	$accessallowed = 1;
 } elseif ($modulepart == 'member') {
-	$result = restrictedArea($user, 'adherent', $id, '', '', 'fk_soc', 'rowid');
-	if (!$user->hasRight('adherent', 'lire')) {
+	$result = restrictedArea($user, 'member', $id, '', '', 'fk_soc', 'rowid');
+	if (!$user->hasRight('member', 'lire')) {
 		accessforbidden();
 	}
 	$accessallowed = 1;

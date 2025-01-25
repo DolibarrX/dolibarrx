@@ -112,7 +112,7 @@ class Societe extends CommonObject
 		'product_customer_price_log',
 		'product_customer_price',
 		'@Contact:/contact/class/contact.class.php:fk_soc',
-		'adherent',
+		'member',
 		'societe_account',
 		'societe_rib',
 		'societe_remise',

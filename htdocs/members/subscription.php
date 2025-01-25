@@ -123,10 +123,10 @@ if ($id > 0 || !empty($ref)) {
 }
 
 // Define variables to determine what the current user can do on the members
-$permissiontoaddmember = $user->hasRight('adherent', 'creer');
+$permissiontoaddmember = $user->hasRight('member', 'creer');
 
 // Security check
-$result = restrictedArea($user, 'adherent', $object->id, '', '', 'socid', 'rowid', 0);
+$result = restrictedArea($user, 'member', $object->id, '', '', 'socid', 'rowid', 0);
 
 
 /*
@@ -205,7 +205,7 @@ if (empty($resHook) && $action == 'setsocid' && $permissiontoaddmember) {
 	}
 }
 
-if (empty($resHook) && $user->hasRight('adherent', 'cotisation', 'creer') && $action == 'subscription' && !$cancel) {
+if (empty($resHook) && $user->hasRight('member', 'cotisation', 'creer') && $action == 'subscription' && !$cancel) {
 	$error = 0;
 
 	$langs->load("banks");
@@ -618,7 +618,7 @@ if (isModEnabled('societe')) {
 	print '<table class="nobordernopadding centpercent"><tr><td>';
 	print $langs->trans("LinkedToDolibarrThirdParty");
 	print '</td>';
-	if ($action != 'editthirdparty' && $user->hasRight('adherent', 'creer')) {
+	if ($action != 'editthirdparty' && $user->hasRight('member', 'creer')) {
 		print '<td class="right"><a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=editthirdparty&token='.newToken().'&rowid='.$object->id.'">'.img_edit($langs->trans('SetLinkToThirdParty'), 1).'</a></td>';
 	}
 	print '</tr></table>';
@@ -660,7 +660,7 @@ print '<tr><td>';
 print '<table class="nobordernopadding centpercent"><tr><td>';
 print $langs->trans("LinkedToDolibarrUser");
 print '</td>';
-if ($action != 'editlogin' && $user->hasRight('adherent', 'creer')) {
+if ($action != 'editlogin' && $user->hasRight('member', 'creer')) {
 	print '<td class="right">';
 	if ($user->hasRight("user", "user", "creer")) {
 		print '<a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=editlogin&token='.newToken().'&rowid='.$object->id.'">'.img_edit($langs->trans('SetLinkToUser'), 1).'</a>';
@@ -695,7 +695,7 @@ print dol_get_fiche_end();
  */
 
 // Button to create a new subscription if member no draft (-1) neither resiliated (0) neither excluded (-2)
-if ($user->hasRight('adherent', 'cotisation', 'creer')) {
+if ($user->hasRight('member', 'cotisation', 'creer')) {
 	if ($action != 'addsubscription' && $action != 'create_thirdparty') {
 		print '<div class="tabsAction">';
 
@@ -838,7 +838,7 @@ if (($action != 'addsubscription' && $action != 'create_thirdparty')) {
 /*
  * Add new subscription form
  */
-if (($action == 'addsubscription' || $action == 'create_thirdparty') && $user->hasRight('adherent', 'cotisation', 'creer')) {
+if (($action == 'addsubscription' || $action == 'create_thirdparty') && $user->hasRight('member', 'cotisation', 'creer')) {
 	print '<br>';
 
 	print load_fiche_titre($langs->trans("NewCotisation"));

@@ -54,11 +54,11 @@ class box_members_last_subscriptions extends ModeleBoxes
 
 		// disable module for such cases
 		$listofmodulesforexternal = explode(',', getDolGlobalString('MAIN_MODULES_FOR_EXTERNAL'));
-		if (!in_array('adherent', $listofmodulesforexternal) && !empty($user->socid)) {
+		if (!in_array('member', $listofmodulesforexternal) && !empty($user->socid)) {
 			$this->enabled = 0; // disabled for external users
 		}
 
-		$this->hidden = !(isModEnabled('member') && $user->hasRight('adherent', 'lire'));
+		$this->hidden = !(isModEnabled('member') && $user->hasRight('member', 'lire'));
 
 		$this->urltoaddentry = DOL_URL_ROOT.'/members/card.php?leftmenu=members&action=create';
 		$this->msgNoRecords = 'NoRecordedMembers';
@@ -86,14 +86,14 @@ class box_members_last_subscriptions extends ModeleBoxes
 
 		$this->info_box_head = array('text' => $langs->trans("LastSubscriptionsModified", $max));
 
-		if ($user->hasRight('adherent', 'lire')) {
+		if ($user->hasRight('member', 'lire')) {
 			$sql = "SELECT a.rowid, a.statut as status, a.lastname, a.firstname, a.societe as company, a.fk_soc,";
 			$sql .= " a.gender, a.email, a.photo, a.morphy,";
 			$sql .= " a.datefin as date_end_subscription,";
 			$sql .= " ta.rowid as typeid, ta.libelle as label, ta.subscription as need_subscription,";
 			$sql .= " c.rowid as cid, c.tms as datem, c.datec as datec, c.dateadh as date_start, c.datef as date_end, c.subscription";
 			$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a, ".MAIN_DB_PREFIX."adherent_type as ta, ".MAIN_DB_PREFIX."subscription as c";
-			$sql .= " WHERE a.entity IN (".getEntity('adherent').")";
+			$sql .= " WHERE a.entity IN (".getEntity('member').")";
 			$sql .= " AND a.fk_adherent_type = ta.rowid";
 			$sql .= " AND c.fk_adherent = a.rowid";
 			$sql .= $this->db->order("c.tms", "DESC");

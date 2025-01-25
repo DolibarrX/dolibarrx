@@ -327,7 +327,7 @@ define(
 	'MODULE_MAPPING',
 	array(
 		// Map deprecated names to new names
-		'adherent' => 'member',  // Has new directory
+		'member' => 'member',  // Has new directory
 		'member_type' => 'adherent_type',   // No directory, but file called adherent_type
 		'banque' => 'bank',   // Has new directory
 		'contrat' => 'contract', // Has new directory
@@ -438,7 +438,7 @@ function getDoliDBInstance($type, $host, $user, $pass, $name, $port)
  *									'societe', 'socpeople', 'actioncomm', 'agenda', 'resource',
  *									'product', 'productprice', 'stock', 'bom', 'mo',
  *									'propal', 'supplier_proposal', 'invoice', 'supplier_invoice', 'payment_various',
- *									'categorie', 'bank_account', 'bank_account', 'adherent', 'user',
+ *									'categorie', 'bank_account', 'bank_account', 'member', 'user',
  *									'commande', 'supplier_order', 'expedition', 'intervention', 'survey',
  *									'contract', 'tax', 'expensereport', 'holiday', 'multicurrency', 'project',
  *									'email_template', 'event', 'donation'
@@ -9098,7 +9098,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 				$substitutionArray['__THIRDPARTY_NOTE_PUBLIC__'] = '__THIRDPARTY_NOTE_PUBLIC__';
 				$substitutionArray['__THIRDPARTY_NOTE_PRIVATE__'] = '__THIRDPARTY_NOTE_PRIVATE__';
 			}
-			if (isModEnabled('member') && (!is_object($object) || $object->element == 'adherent') && (empty($exclude) || !in_array('member', $exclude)) && (empty($include) || in_array('member', $include))) {
+			if (isModEnabled('member') && (!is_object($object) || $object->element == 'member') && (empty($exclude) || !in_array('member', $exclude)) && (empty($include) || in_array('member', $include))) {
 				$substitutionArray['__MEMBER_ID__'] = '__MEMBER_ID__';
 				$substitutionArray['__MEMBER_TITLE__'] = '__MEMBER_TITLE__';
 				$substitutionArray['__MEMBER_FIRSTNAME__'] = '__MEMBER_FIRSTNAME__';
@@ -9207,7 +9207,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 			$substitutionArray['__SUPPLIER_ORDER_DELAY_DELIVERY__'] = (isset($object->availability_code) ? ($outputlangs->transnoentities("AvailabilityType".$object->availability_code) != 'AvailabilityType'.$object->availability_code ? $outputlangs->transnoentities("AvailabilityType".$object->availability_code) : $outputlangs->convToOutputCharset(isset($object->availability) ? $object->availability : '')) : '');
 			$substitutionArray['__EXPIRATION_DATE__'] = (isset($object->fin_validite) ? dol_print_date($object->fin_validite, 'daytext') : '');
 
-			if (is_object($object) && ($object->element == 'adherent' || $object->element == 'member') && $object->id > 0) {
+			if (is_object($object) && ($object->element == 'member' || $object->element == 'member') && $object->id > 0) {
 				'@phan-var-force Adherent $object';
 				$birthday = (empty($object->birth) ? '' : dol_print_date($object->birth, 'day'));
 
@@ -13140,7 +13140,7 @@ function getElementProperties($elementType)
 	} elseif ($elementType == 'adherent_type') {
 		$classpath = 'members/class';
 		$classfile = 'adherent_type';
-		$module = 'adherent';
+		$module = 'member';
 		$subelement = 'adherent_type';
 		$classname = 'MemberType';
 		$table_element = 'adherent_type';
@@ -13272,11 +13272,11 @@ function getElementProperties($elementType)
 		$classfile = 'mailing';
 		$classname = 'Mailing';
 		$subelement = '';
-	} elseif ($elementType == 'member' || $elementType == 'adherent') {
+	} elseif ($elementType == 'member' || $elementType == 'member') {
 		$classpath = 'members/class';
-		$module = 'adherent';
-		$subelement = 'adherent';
-		$table_element = 'adherent';
+		$module = 'member';
+		$subelement = 'member';
+		$table_element = 'member';
 	} elseif ($elementType == 'usergroup') {
 		$classpath = 'user/class';
 		$module = 'user';

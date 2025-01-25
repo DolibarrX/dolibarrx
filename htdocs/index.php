@@ -313,7 +313,7 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 	}
 
 	// Number of foundation members
-	if (isModEnabled('member')  && !getDolGlobalString('MAIN_DISABLE_BLOCK_ADHERENT') && $user->hasRight('adherent', 'lire') && !$user->socid) {
+	if (isModEnabled('member')  && !getDolGlobalString('MAIN_DISABLE_BLOCK_ADHERENT') && $user->hasRight('member', 'lire') && !$user->socid) {
 		include_once DOL_DOCUMENT_ROOT . '/members/class/member.class.php';
 		$board = new Adherent($db);
 		$dashboardLines[$board->element . '_shift'] = $board->load_board($user, 'shift');

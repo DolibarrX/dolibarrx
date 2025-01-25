@@ -341,7 +341,7 @@ class Categories extends DolibarrApi
 			throw new RestException(403);
 		} elseif ($type == Categorie::TYPE_SUPPLIER && !DolibarrApiAccess::$user->hasRight('fournisseur', 'lire')) {
 			throw new RestException(403);
-		} elseif ($type == Categorie::TYPE_MEMBER && !DolibarrApiAccess::$user->hasRight('adherent', 'lire')) {
+		} elseif ($type == Categorie::TYPE_MEMBER && !DolibarrApiAccess::$user->hasRight('member', 'lire')) {
 			throw new RestException(403);
 		} elseif ($type == Categorie::TYPE_PROJECT && !DolibarrApiAccess::$user->hasRight('projet', 'lire')) {
 			throw new RestException(403);
@@ -407,7 +407,7 @@ class Categories extends DolibarrApi
 			}
 			$object = new Contact($this->db);
 		} elseif ($type === Categorie::TYPE_MEMBER) {
-			if (!DolibarrApiAccess::$user->hasRight('adherent', 'creer')) {
+			if (!DolibarrApiAccess::$user->hasRight('member', 'creer')) {
 				throw new RestException(403);
 			}
 			$object = new Adherent($this->db);
@@ -488,7 +488,7 @@ class Categories extends DolibarrApi
 			}
 			$object = new Contact($this->db);
 		} elseif ($type === Categorie::TYPE_MEMBER) {
-			if (!DolibarrApiAccess::$user->hasRight('adherent', 'creer')) {
+			if (!DolibarrApiAccess::$user->hasRight('member', 'creer')) {
 				throw new RestException(403);
 			}
 			$object = new Adherent($this->db);
@@ -569,7 +569,7 @@ class Categories extends DolibarrApi
 			}
 			$object = new Contact($this->db);
 		} elseif ($type === Categorie::TYPE_MEMBER) {
-			if (!DolibarrApiAccess::$user->hasRight('adherent', 'creer')) {
+			if (!DolibarrApiAccess::$user->hasRight('member', 'creer')) {
 				throw new RestException(403);
 			}
 			$object = new Adherent($this->db);
@@ -648,7 +648,7 @@ class Categories extends DolibarrApi
 			}
 			$object = new Contact($this->db);
 		} elseif ($type === Categorie::TYPE_MEMBER) {
-			if (!DolibarrApiAccess::$user->hasRight('adherent', 'creer')) {
+			if (!DolibarrApiAccess::$user->hasRight('member', 'creer')) {
 				throw new RestException(403);
 			}
 			$object = new Adherent($this->db);

@@ -57,7 +57,7 @@ if ($user->socid) {
 	$socid = $user->socid;
 }
 // Security check
-$result = restrictedArea($user, 'adherent', $id, 'adherent_type');
+$result = restrictedArea($user, 'member', $id, 'adherent_type');
 
 
 /*
@@ -69,7 +69,7 @@ if ($cancel == $langs->trans("Cancel")) {
 	$action = '';
 }
 
-if ($action == 'delete' && GETPOST('langtodelete', 'alpha') && $user->hasRight('adherent', 'configurer')) {
+if ($action == 'delete' && GETPOST('langtodelete', 'alpha') && $user->hasRight('member', 'configurer')) {
 	$object = new MemberType($db);
 	$object->fetch($id);
 	$result = $object->delMultiLangs(GETPOST('langtodelete', 'alpha'), $user);
@@ -81,7 +81,7 @@ if ($action == 'delete' && GETPOST('langtodelete', 'alpha') && $user->hasRight('
 }
 
 // Add translation
-if ($action == 'vadd' && $cancel != $langs->trans("Cancel") && $user->hasRight('adherent', 'configurer')) {
+if ($action == 'vadd' && $cancel != $langs->trans("Cancel") && $user->hasRight('member', 'configurer')) {
 	$object = new MemberType($db);
 	$object->fetch($id);
 	$current_lang = $langs->getDefaultLang();
@@ -109,7 +109,7 @@ if ($action == 'vadd' && $cancel != $langs->trans("Cancel") && $user->hasRight('
 }
 
 // Edit translation
-if ($action == 'vedit' && $cancel != $langs->trans("Cancel") && $user->hasRight('adherent', 'configurer')) {
+if ($action == 'vedit' && $cancel != $langs->trans("Cancel") && $user->hasRight('member', 'configurer')) {
 	$object = new MemberType($db);
 	$object->fetch($id);
 	$current_lang = $langs->getDefaultLang();
@@ -135,7 +135,7 @@ if ($action == 'vedit' && $cancel != $langs->trans("Cancel") && $user->hasRight(
 }
 
 // Delete translation
-if ($action == 'vdelete' && $cancel != $langs->trans("Cancel") && $user->hasRight('adherent', 'configurer')) {
+if ($action == 'vdelete' && $cancel != $langs->trans("Cancel") && $user->hasRight('member', 'configurer')) {
 	$object = new MemberType($db);
 	$object->fetch($id);
 	$langtodelete = GETPOST('langdel', 'alpha');
@@ -280,7 +280,7 @@ if ($action == 'edit') {
  * Form to add a new translation
  */
 
-if ($action == 'create' && $user->hasRight('adherent', 'configurer')) {
+if ($action == 'create' && $user->hasRight('member', 'configurer')) {
 	//WYSIWYG Editor
 	require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 

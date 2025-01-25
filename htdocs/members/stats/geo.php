@@ -51,7 +51,7 @@ if ($user->socid > 0) {
 	$action = '';
 	$socid = $user->socid;
 }
-$result = restrictedArea($user, 'adherent', '', '', 'cotisation');
+$result = restrictedArea($user, 'member', '', '', 'cotisation');
 
 $year = (int) dol_print_date(dol_now('gmt'), "%Y", 'gmt');
 $startyear = $year - (!getDolGlobalString('MAIN_STATS_GRAPHS_SHOW_N_YEARS') ? 2 : max(1, min(10, getDolGlobalString('MAIN_STATS_GRAPHS_SHOW_N_YEARS'))));
@@ -108,7 +108,7 @@ if ($mode) {
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as d";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c on d.country = c.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_adherent = d.rowid";
-		$sql .= " WHERE d.entity IN (".getEntity('adherent').")";
+		$sql .= " WHERE d.entity IN (".getEntity('member').")";
 		$sql .= " AND d.statut <> ".Adherent::STATUS_DRAFT;
 		$sql .= " GROUP BY c.label, c.code";
 		//print $sql;
@@ -126,7 +126,7 @@ if ($mode) {
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_regions as r on c.fk_region = r.code_region";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as co on d.country = co.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_adherent = d.rowid";
-		$sql .= " WHERE d.entity IN (".getEntity('adherent').")";
+		$sql .= " WHERE d.entity IN (".getEntity('member').")";
 		$sql .= " AND d.statut <> ".Adherent::STATUS_DRAFT;
 		$sql .= " GROUP BY co.label, co.code, c.nom";
 		//print $sql;
@@ -143,7 +143,7 @@ if ($mode) {
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_regions as r on c.fk_region = r.code_region";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as co on d.country = co.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_adherent = d.rowid";
-		$sql .= " WHERE d.entity IN (".getEntity('adherent').")";
+		$sql .= " WHERE d.entity IN (".getEntity('member').")";
 		$sql .= " AND d.statut <> ".Adherent::STATUS_DRAFT;
 		$sql .= " GROUP BY co.label, co.code, r.nom"; //+
 		//print $sql;
@@ -158,7 +158,7 @@ if ($mode) {
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as d";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c on d.country = c.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."subscription as s ON s.fk_adherent = d.rowid";
-		$sql .= " WHERE d.entity IN (".getEntity('adherent').")";
+		$sql .= " WHERE d.entity IN (".getEntity('member').")";
 		$sql .= " AND d.statut <> ".Adherent::STATUS_DRAFT;
 		$sql .= " GROUP BY c.label, c.code, d.town";
 		//print $sql;

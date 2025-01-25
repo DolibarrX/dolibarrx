@@ -120,7 +120,7 @@ $modules = array(
 			'img' => 'account'
 		)
 	),
-	'adherent' => array(
+	'member' => array(
 		array(
 			'code' => 'MAIN_DELAY_MEMBERS',
 			'img' => 'user'

@@ -2232,7 +2232,7 @@ abstract class CommonObject
 			$field = 'note';
 		}
 
-		if (in_array($table, array('actioncomm', 'adherent', 'advtargetemailing', 'cronjob', 'establishment'))) {
+		if (in_array($table, array('actioncomm', 'member', 'advtargetemailing', 'cronjob', 'establishment'))) {
 			$fk_user_field = 'fk_user_mod';
 		}
 		if (in_array($table, array('prelevement_bons'))) {	// TODO Add a field fk_user_modif into llx_prelevement_bons
@@ -3752,7 +3752,7 @@ abstract class CommonObject
 		if ($this->table_element == 'product' && $newsuffix == '_private') {
 			$newsuffix = '';
 		}
-		if (in_array($this->table_element, array('actioncomm', 'adherent', 'advtargetemailing', 'cronjob', 'establishment'))) {
+		if (in_array($this->table_element, array('actioncomm', 'member', 'advtargetemailing', 'cronjob', 'establishment'))) {
 			$fieldusermod =  "fk_user_mod";
 		} elseif ($this->table_element == 'ecm_files') {
 			$fieldusermod = "fk_user_m";

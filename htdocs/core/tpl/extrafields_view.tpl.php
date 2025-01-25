@@ -206,7 +206,7 @@ if (empty($resHook) && !empty($object->table_element) && isset($extrafields->att
 				$permok = $user->hasRight('salaries', 'read');
 			}
 			if ($object->element == 'member') {
-				$permok = $user->hasRight('adherent', 'creer');
+				$permok = $user->hasRight('member', 'creer');
 			}
 
 			$isdraft = ((isset($object->statut) && $object->statut == 0) || (isset($object->status) && $object->status == 0));

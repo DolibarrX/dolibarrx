@@ -358,10 +358,10 @@ class Documents extends DolibarrApi
 			}
 
 			$upload_dir = $config->user->dir_output.'/'.get_exdir(0, 0, 0, 0, $object, 'user').'/'.$object->id;
-		} elseif ($modulepart == 'adherent' || $modulepart == 'member') {
+		} elseif ($modulepart == 'member' || $modulepart == 'member') {
 			require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 
-			if (!DolibarrApiAccess::$user->hasRight('adherent', 'lire')) {
+			if (!DolibarrApiAccess::$user->hasRight('member', 'lire')) {
 				throw new RestException(403);
 			}
 
@@ -755,8 +755,8 @@ class Documents extends DolibarrApi
 			} elseif ($modulepart == 'fichinter') {
 				require_once DOL_DOCUMENT_ROOT.'/fichinter/class/fichinter.class.php';
 				$object = new Fichinter($this->db);
-			} elseif ($modulepart == 'adherent' || $modulepart == 'member') {
-				$modulepart = 'adherent';
+			} elseif ($modulepart == 'member' || $modulepart == 'member') {
+				$modulepart = 'member';
 				require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 				$object = new Adherent($this->db);
 			} elseif ($modulepart == 'proposal' || $modulepart == 'propal' || $modulepart == 'propale') {
@@ -830,7 +830,7 @@ class Documents extends DolibarrApi
 				$modulepart = 'facture';
 			}
 			if ($modulepart == 'member') {
-				$modulepart = 'adherent';
+				$modulepart = 'member';
 			}
 
 			// Test on permissions

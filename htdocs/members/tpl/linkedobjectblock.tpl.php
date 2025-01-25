@@ -46,7 +46,7 @@ foreach ($linkedObjectBlock as $key => $objectlink) {
 	echo '<td class="center"></td>';
 	echo '<td class="center">'.dol_print_date($objectlink->dateh, 'day').'</td>';
 	echo '<td class="right">';
-	if ($user->hasRight('adherent', 'lire')) {
+	if ($user->hasRight('member', 'lire')) {
 		$total += $objectlink->amount;
 		echo price($objectlink->amount);
 	}

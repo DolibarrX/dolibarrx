@@ -316,7 +316,7 @@ class modCategorie extends DolibarrModules
 		$this->export_TypeFields_array[$r] = array('cat.rowid' => "Numeric", 'cat.label' => "Text", 'cat.description' => "Text", 'cat.fk_parent' => 'Numeric', 'pcat.label' => 'Text', 'p.lastname' => 'Text', 'p.firstname' => 'Text');
 		$this->export_entities_array[$r] = array('p.rowid' => 'member', 'p.lastname' => 'member', 'p.firstname' => 'member'); // We define here only fields that use another picto
 
-		$keyforselect = 'adherent';
+		$keyforselect = 'member';
 		$keyforelement = 'member';
 		$keyforaliasextra = 'extra';
 		include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';

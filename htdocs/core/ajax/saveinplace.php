@@ -132,7 +132,7 @@ if (!empty($field) && !empty($element) && !empty($table_element) && !empty($fk_e
 	} elseif ($element == 'product') {
 		$newelement = 'produit';
 	} elseif ($element == 'member') {
-		$newelement = 'adherent';
+		$newelement = 'member';
 	} elseif ($element == 'order_supplier') {
 		$newelement = 'fournisseur';
 		$subelement = 'commande';

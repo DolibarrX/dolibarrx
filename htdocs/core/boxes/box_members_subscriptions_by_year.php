@@ -54,11 +54,11 @@ class box_members_subscriptions_by_year extends ModeleBoxes
 
 		// disable module for such cases
 		$listofmodulesforexternal = explode(',', getDolGlobalString('MAIN_MODULES_FOR_EXTERNAL'));
-		if (!in_array('adherent', $listofmodulesforexternal) && !empty($user->socid)) {
+		if (!in_array('member', $listofmodulesforexternal) && !empty($user->socid)) {
 			$this->enabled = 0; // disabled for external users
 		}
 
-		$this->hidden = !(isModEnabled('member') && $user->hasRight('adherent', 'lire'));
+		$this->hidden = !(isModEnabled('member') && $user->hasRight('member', 'lire'));
 	}
 
 	/**
@@ -81,7 +81,7 @@ class box_members_subscriptions_by_year extends ModeleBoxes
 
 		$this->info_box_head = array('text' => $langs->trans("BoxTitleMembersSubscriptionsByYear", $max));
 
-		if ($user->hasRight('adherent', 'lire')) {
+		if ($user->hasRight('member', 'lire')) {
 			$num = 0;
 			$line = 0;
 			// List of subscription by year
@@ -92,7 +92,7 @@ class box_members_subscriptions_by_year extends ModeleBoxes
 
 			$sql = "SELECT c.subscription, c.dateadh as dateh";
 			$sql .= " FROM " . MAIN_DB_PREFIX . "adherent as d, " . MAIN_DB_PREFIX . "subscription as c";
-			$sql .= " WHERE d.entity IN (" . getEntity('adherent') . ")";
+			$sql .= " WHERE d.entity IN (" . getEntity('member') . ")";
 			$sql .= " AND d.rowid = c.fk_adherent";
 
 

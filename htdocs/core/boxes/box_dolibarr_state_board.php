@@ -103,7 +103,7 @@ class box_dolibarr_state_board extends ModeleBoxes
 			);
 			$conditions = array(
 				'users' => $user->hasRight('user', 'user', 'lire'),
-				'members' => isModEnabled('member') && $user->hasRight('adherent', 'lire'),
+				'members' => isModEnabled('member') && $user->hasRight('member', 'lire'),
 				'customers' => isModEnabled('societe') && $user->hasRight('societe', 'lire') && !getDolGlobalString('SOCIETE_DISABLE_CUSTOMERS') && !getDolGlobalString('SOCIETE_DISABLE_CUSTOMERS_STATS'),
 				'prospects' => isModEnabled('societe') && $user->hasRight('societe', 'lire') && !getDolGlobalString('SOCIETE_DISABLE_PROSPECTS') && !getDolGlobalString('SOCIETE_DISABLE_PROSPECTS_STATS'),
 				'suppliers' => (

@@ -63,7 +63,7 @@ if ($result > 0) {
 }
 
 
-$permissionnote = $user->hasRight('adherent', 'creer'); // Used by the include of actions_setnotes.inc.php
+$permissionnote = $user->hasRight('member', 'creer'); // Used by the include of actions_setnotes.inc.php
 
 // Fetch object
 if ($id > 0 || !empty($ref)) {
@@ -83,16 +83,16 @@ if ($id > 0 || !empty($ref)) {
 }
 
 // Define variables to determine what the current user can do on the members
-$canaddmember = $user->hasRight('adherent', 'creer');
+$canaddmember = $user->hasRight('member', 'creer');
 // Define variables to determine what the current user can do on the properties of a member
 if ($id) {
-	$caneditfieldmember = $user->hasRight('adherent', 'creer');
+	$caneditfieldmember = $user->hasRight('member', 'creer');
 }
 
 $hookManager->initHooks(array('membernote'));
 
 // Security check
-$result = restrictedArea($user, 'adherent', $object->id, '', '', 'socid', 'rowid', 0);
+$result = restrictedArea($user, 'member', $object->id, '', '', 'socid', 'rowid', 0);
 
 /*
  * Actions
@@ -166,7 +166,7 @@ if (is_object($adht)) {
 
 
 	$cssclass = 'titlefield';
-	$permission = $user->hasRight('adherent', 'creer'); // Used by the include of notes.tpl.php
+	$permission = $user->hasRight('member', 'creer'); // Used by the include of notes.tpl.php
 	include DOL_DOCUMENT_ROOT.'/core/tpl/notes.tpl.php';
 
 

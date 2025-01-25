@@ -65,7 +65,7 @@ $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($object->table_element);
 
 // Security check
-$result = restrictedArea($user, 'adherent');
+$result = restrictedArea($user, 'member');
 
 
 /*
@@ -96,7 +96,7 @@ if ((!empty($foruserid) || !empty($foruserlogin) || !empty($mode)) && !$mesg) {
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent_extrafields as ef on (d.rowid = ef.fk_object)";
 	}
 	$sql .= " WHERE d.fk_adherent_type = t.rowid AND d.statut = 1";
-	$sql .= " AND d.entity IN (".getEntity('adherent').")";
+	$sql .= " AND d.entity IN (".getEntity('member').")";
 	if (is_numeric($foruserid)) {
 		$sql .= " AND d.rowid = ".(int) $foruserid;
 	}

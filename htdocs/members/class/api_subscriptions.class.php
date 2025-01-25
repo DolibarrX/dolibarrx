@@ -60,7 +60,7 @@ class Subscriptions extends DolibarrApi
 	 */
 	public function get($id)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'cotisation', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'cotisation', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -99,7 +99,7 @@ class Subscriptions extends DolibarrApi
 
 		$obj_ret = array();
 
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'cotisation', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'cotisation', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -177,7 +177,7 @@ class Subscriptions extends DolibarrApi
 	 */
 	public function post($request_data = null)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'cotisation', 'creer')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'cotisation', 'creer')) {
 			throw new RestException(403);
 		}
 		// Check mandatory fields
@@ -214,7 +214,7 @@ class Subscriptions extends DolibarrApi
 	 */
 	public function put($id, $request_data = null)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'creer')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'creer')) {
 			throw new RestException(403);
 		}
 
@@ -266,7 +266,7 @@ class Subscriptions extends DolibarrApi
 	public function delete($id)
 	{
 		// The right to delete a subscription comes with the right to create one.
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'cotisation', 'creer')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'cotisation', 'creer')) {
 			throw new RestException(403);
 		}
 		$subscription = new Subscription($this->db);

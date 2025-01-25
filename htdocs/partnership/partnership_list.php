@@ -512,7 +512,7 @@ if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $s
 llxHeader('', $title, $help_url, '', 0, 0, $morejs, $morecss, '', 'bodyforlist mod-partnership page-list');
 
 if ($managedfor == "member") {
-	if ($memberid > 0 && $user->hasRight('adherent', 'lire')) {
+	if ($memberid > 0 && $user->hasRight('member', 'lire')) {
 		$langs->load("members");
 
 		$adhstat = new Adherent($db);

@@ -54,7 +54,7 @@ function member_prepare_head(Adherent $object)
 		$h++;
 	}
 
-	if ($user->hasRight('adherent', 'cotisation', 'lire')) {
+	if ($user->hasRight('member', 'cotisation', 'lire')) {
 		$nbSubscription = is_array($object->subscriptions) ? count($object->subscriptions) : 0;
 		$head[$h][0] = DOL_URL_ROOT . '/members/subscription.php?rowid=' . $object->id;
 		$head[$h][1] = $langs->trans("Subscriptions");
@@ -226,7 +226,7 @@ function member_admin_prepare_head()
 	global $langs, $config, $user, $db;
 
 	$extrafields = new ExtraFields($db);
-	$extrafields->fetch_name_optionals_label('adherent');
+	$extrafields->fetch_name_optionals_label('member');
 	$extrafields->fetch_name_optionals_label('adherent_type');
 
 	$h = 0;
@@ -250,7 +250,7 @@ function member_admin_prepare_head()
 
 	$head[$h][0] = DOL_URL_ROOT . '/members/admin/member_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsMember");
-	$nbExtrafields = $extrafields->attributes['adherent']['count'];
+	$nbExtrafields = $extrafields->attributes['member']['count'];
 	if ($nbExtrafields > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}

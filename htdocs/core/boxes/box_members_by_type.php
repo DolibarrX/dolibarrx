@@ -55,11 +55,11 @@ class box_members_by_type extends ModeleBoxes
 
 		// disable module for such cases
 		$listofmodulesforexternal = explode(',', getDolGlobalString('MAIN_MODULES_FOR_EXTERNAL'));
-		if (!in_array('adherent', $listofmodulesforexternal) && !empty($user->socid)) {
+		if (!in_array('member', $listofmodulesforexternal) && !empty($user->socid)) {
 			$this->enabled = 0; // disabled for external users
 		}
 
-		$this->hidden = !(isModEnabled('member') && $user->hasRight('adherent', 'lire'));
+		$this->hidden = !(isModEnabled('member') && $user->hasRight('member', 'lire'));
 	}
 
 	/**
@@ -85,7 +85,7 @@ class box_members_by_type extends ModeleBoxes
 
 		$this->info_box_head = array('text' => $langs->trans("BoxTitleMembersByType").($numberyears ? ' ('.($year - $numberyears).' - '.$year.')' : ''));
 
-		if ($user->hasRight('adherent', 'lire')) {
+		if ($user->hasRight('member', 'lire')) {
 			require_once DOL_DOCUMENT_ROOT.'/members/class/adherentstats.class.php';
 			$stats = new AdherentStats($this->db, $user->socid, $user->id);
 			// Show array

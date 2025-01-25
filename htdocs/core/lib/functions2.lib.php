@@ -2174,8 +2174,8 @@ function dolGetElementUrl($objectid, $objecttype, $withpicto = 0, $option = '')
 	} elseif ($objecttype == 'member') {
 		$langs->load('members');
 		$classpath = 'members/class';
-		$module = 'adherent';
-		$myobject = 'adherent';
+		$module = 'member';
+		$myobject = 'member';
 	} elseif ($objecttype == 'cabinetmed_cons') {
 		$classpath = 'cabinetmed/class';
 		$module = 'cabinetmed';
@@ -2699,7 +2699,7 @@ function getModuleDirForApiClass($moduleobject)
 		$moduledirforclass = 'comm/propal';
 	} elseif ($moduleobject == 'agenda' || $moduleobject == 'agendaevents') {
 		$moduledirforclass = 'comm/action';
-	} elseif ($moduleobject == 'adherent' || $moduleobject == 'members' || $moduleobject == 'memberstypes' || $moduleobject == 'subscriptions') {
+	} elseif ($moduleobject == 'member' || $moduleobject == 'members' || $moduleobject == 'memberstypes' || $moduleobject == 'subscriptions') {
 		$moduledirforclass = 'adherents';
 	} elseif ($moduleobject == 'don' || $moduleobject == 'donations') {
 		$moduledirforclass = 'don';

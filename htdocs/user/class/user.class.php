@@ -872,7 +872,7 @@ class User extends CommonObject
 		$moduletomoduletouse = array(
 			'compta' => 'comptabilite',
 			'contract' => 'contrat',
-			'member' => 'adherent',
+			'member' => 'member',
 			'mo' => 'mrp',
 			'order' => 'commande',
 			'produit' => 'product',
@@ -956,7 +956,7 @@ class User extends CommonObject
 			$permlevel1 = 'propal';
 		}
 		if ($permlevel1 == 'member') {
-			$permlevel1 = 'adherent';
+			$permlevel1 = 'member';
 		}
 		if ($permlevel1 == 'recruitmentcandidature') {
 			$permlevel1 = 'recruitmentjobposition';
@@ -2578,7 +2578,7 @@ class User extends CommonObject
 						$result = $adh->fetch($this->fk_member);
 
 						if ($result >= 0) {
-							$result = $adh->setPassword($user, $this->pass, (!getDolGlobalString('DATABASE_PWD_ENCRYPTED') ? 0 : 1), 1); // The encryption is not managed in the 'adherent' module
+							$result = $adh->setPassword($user, $this->pass, (!getDolGlobalString('DATABASE_PWD_ENCRYPTED') ? 0 : 1), 1); // The encryption is not managed in the 'member' module
 							if (is_int($result) && $result < 0) {
 								$this->error = $adh->error;
 								dol_syslog(get_class($this)."::setPassword ".$this->error, LOG_ERR);

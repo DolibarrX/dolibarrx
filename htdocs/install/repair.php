@@ -262,7 +262,7 @@ if ($ok && GETPOST('standard', 'alpha')) {
 	$extrafields = new ExtraFields($db);
 
 	// List of tables that has an extrafield table
-	$listofmodulesextra = array('societe' => 'societe', 'adherent' => 'adherent', 'product' => 'product',
+	$listofmodulesextra = array('societe' => 'societe', 'member' => 'member', 'product' => 'product',
 				'socpeople' => 'socpeople', 'propal' => 'propal', 'commande' => 'commande',
 				'facture' => 'facture', 'facturedet' => 'facturedet', 'facture_rec' => 'facture_rec', 'facturedet_rec' => 'facturedet_rec',
 				'supplier_proposal' => 'supplier_proposal', 'commande_fournisseur' => 'commande_fournisseur',

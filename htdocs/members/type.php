@@ -128,7 +128,7 @@ foreach ($object->fields as $key => $val) {
 
 
 // Security check
-$result = restrictedArea($user, 'adherent', $rowid, 'adherent_type');
+$result = restrictedArea($user, 'member', $rowid, 'adherent_type');
 
 
 /*
@@ -162,7 +162,7 @@ if ($cancel) {
 	}
 }
 
-if ($action == 'add' && $user->hasRight('adherent', 'configurer')) {
+if ($action == 'add' && $user->hasRight('member', 'configurer')) {
 	$object->label = trim($label);
 	$object->morphy = trim($morphy);
 	$object->status = (int) $status;
@@ -219,7 +219,7 @@ if ($action == 'add' && $user->hasRight('adherent', 'configurer')) {
 	}
 }
 
-if ($action == 'update' && $user->hasRight('adherent', 'configurer')) {
+if ($action == 'update' && $user->hasRight('member', 'configurer')) {
 	$object->fetch($rowid);
 
 	$object->oldcopy = dol_clone($object, 2);
@@ -255,7 +255,7 @@ if ($action == 'update' && $user->hasRight('adherent', 'configurer')) {
 	exit;
 }
 
-if ($action == 'confirm_delete' && $user->hasRight('adherent', 'configurer')) {
+if ($action == 'confirm_delete' && $user->hasRight('member', 'configurer')) {
 	$object->fetch($rowid);
 	$res = $object->delete($user);
 
@@ -315,7 +315,7 @@ if (!$rowid && $action != 'create' && $action != 'edit') {
 		$newcardbutton .= dolGetButtonTitle($langs->trans('ViewList'), '', 'fa fa-bars imgforviewmode', $_SERVER["PHP_SELF"].'?mode=common'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ((empty($mode) || $mode == 'common') ? 2 : 1), array('morecss' => 'reposition'));
 		$newcardbutton .= dolGetButtonTitle($langs->trans('ViewKanban'), '', 'fa fa-th-list imgforviewmode', $_SERVER["PHP_SELF"].'?mode=kanban'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ($mode == 'kanban' ? 2 : 1), array('morecss' => 'reposition'));
 
-		if ($user->hasRight('adherent', 'configurer')) {
+		if ($user->hasRight('member', 'configurer')) {
 			$newcardbutton .= dolGetButtonTitleSeparator();
 			$newcardbutton .= dolGetButtonTitle($langs->trans('NewMemberType'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/members/type.php?action=create');
 		}
@@ -393,7 +393,7 @@ if (!$rowid && $action != 'create' && $action != 'edit') {
 				print '<tr class="oddeven">';
 
 				if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
-					if ($user->hasRight('adherent', 'configurer')) {
+					if ($user->hasRight('member', 'configurer')) {
 						print '<td class="center"><a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=edit&rowid='.$objp->rowid.'">'.img_edit().'</a></td>';
 					}
 				}
@@ -439,7 +439,7 @@ if (!$rowid && $action != 'create' && $action != 'edit') {
 				print '<td class="center">'.$membertype->getLibStatut(5).'</td>';
 
 				if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
-					if ($user->hasRight('adherent', 'configurer')) {
+					if ($user->hasRight('member', 'configurer')) {
 						print '<td class="right"><a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=edit&rowid='.$objp->rowid.'">'.img_edit().'</a></td>';
 					}
 				}
@@ -629,7 +629,7 @@ if ($rowid > 0) {
 		print '<div class="tabsAction">';
 
 		// Edit
-		if ($user->hasRight('adherent', 'configurer')) {
+		if ($user->hasRight('member', 'configurer')) {
 			print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER['PHP_SELF'].'?action=edit&token='.newToken().'&rowid='.$object->id.'">'.$langs->trans("Modify").'</a></div>';
 		}
 
@@ -642,14 +642,14 @@ if ($rowid > 0) {
 			$morphy = '';
 		}
 
-		if ($user->hasRight('adherent', 'configurer') && !empty($object->status)) {
+		if ($user->hasRight('member', 'configurer') && !empty($object->status)) {
 			print '<div class="inline-block divButAction"><a class="butAction" href="card.php?action=create&token='.newToken().'&typeid='.$object->id.($morphy ? '&morphy='.urlencode($morphy) : '').'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?rowid='.$object->id).'">'.$langs->trans("AddMember").'</a></div>';
 		} else {
 			print '<div class="inline-block divButAction"><a class="butActionRefused classfortooltip" href="#" title="'.dol_escape_htmltag($langs->trans("NoAddMember")).'">'.$langs->trans("AddMember").'</a></div>';
 		}
 
 		// Delete
-		if ($user->hasRight('adherent', 'configurer')) {
+		if ($user->hasRight('member', 'configurer')) {
 			print '<div class="inline-block divButAction"><a class="butActionDelete" href="'.$_SERVER['PHP_SELF'].'?action=delete&token='.newToken().'&rowid='.$object->id.'">'.$langs->trans("DeleteType").'</a></div>';
 		}
 
@@ -671,7 +671,7 @@ if ($rowid > 0) {
 
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as d, ".MAIN_DB_PREFIX."adherent_type as t";
 		$sql .= " WHERE d.fk_adherent_type = t.rowid ";
-		$sql .= " AND d.entity IN (".getEntity('adherent').")";
+		$sql .= " AND d.entity IN (".getEntity('member').")";
 		$sql .= " AND t.rowid = ".((int) $object->id);
 		if ($sall) {
 			$sql .= natural_search(array("d.firstname", "d.lastname", "d.societe", "d.email", "d.login", "d.address", "d.town", "d.note_public", "d.note_private"), $sall);
@@ -886,10 +886,10 @@ if ($rowid > 0) {
 				// Actions
 				if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 					print '<td class="center">';
-					if ($user->hasRight('adherent', 'creer')) {
+					if ($user->hasRight('member', 'creer')) {
 						print '<a class="editfielda marginleftonly" href="card.php?rowid='.$objp->rowid.'&action=edit&token='.newToken().'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?rowid='.$object->id).'">'.img_edit().'</a>';
 					}
-					if ($user->hasRight('adherent', 'supprimer')) {
+					if ($user->hasRight('member', 'supprimer')) {
 						print '<a class="marginleftonly" href="card.php?rowid='.$objp->rowid.'&action=resiliate&token='.newToken().'">'.img_picto($langs->trans("Resiliate"), 'disable.png').'</a>';
 					}
 					print "</td>";
@@ -954,10 +954,10 @@ if ($rowid > 0) {
 				// Actions
 				if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 					print '<td class="center">';
-					if ($user->hasRight('adherent', 'creer')) {
+					if ($user->hasRight('member', 'creer')) {
 						print '<a class="editfielda marginleftonly" href="card.php?rowid='.$objp->rowid.'&action=edit&token='.newToken().'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?rowid='.$object->id).'">'.img_edit().'</a>';
 					}
-					if ($user->hasRight('adherent', 'supprimer')) {
+					if ($user->hasRight('member', 'supprimer')) {
 						print '<a class="marginleftonly" href="card.php?rowid='.$objp->rowid.'&action=resiliate&token='.newToken().'">'.img_picto($langs->trans("Resiliate"), 'disable.png').'</a>';
 					}
 					print "</td>";

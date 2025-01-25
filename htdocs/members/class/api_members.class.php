@@ -66,7 +66,7 @@ class Members extends DolibarrApi
 	 */
 	public function get($id)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -80,7 +80,7 @@ class Members extends DolibarrApi
 			throw new RestException(404, 'member not found');
 		}
 
-		if (!DolibarrApi::_checkAccessToResource('adherent', $member->id) && $id > 0) {
+		if (!DolibarrApi::_checkAccessToResource('member', $member->id) && $id > 0) {
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 
@@ -103,7 +103,7 @@ class Members extends DolibarrApi
 	 */
 	public function getByThirdparty($thirdparty)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -113,7 +113,7 @@ class Members extends DolibarrApi
 			throw new RestException(404, 'member not found');
 		}
 
-		if (!DolibarrApi::_checkAccessToResource('adherent', $member->id)) {
+		if (!DolibarrApi::_checkAccessToResource('member', $member->id)) {
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 
@@ -140,7 +140,7 @@ class Members extends DolibarrApi
 
 		$sql = "SELECT rowid, fk_soc, key_account, site, date_creation, tms FROM ".MAIN_DB_PREFIX."societe_account";
 		$sql .= " WHERE site = '".$this->db->escape($site)."' AND key_account = '".$this->db->escape($key_account)."'";
-		$sql .= " AND entity IN (".getEntity('adherent').")";
+		$sql .= " AND entity IN (".getEntity('member').")";
 
 		$result = $this->db->query($sql);
 
@@ -162,7 +162,7 @@ class Members extends DolibarrApi
 			throw new RestException(404, 'This account have many thirdparties attached or does not exist.');
 		}
 
-		if (!DolibarrApi::_checkAccessToResource('adherent', $member->id)) {
+		if (!DolibarrApi::_checkAccessToResource('member', $member->id)) {
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 
@@ -185,7 +185,7 @@ class Members extends DolibarrApi
 	 */
 	public function getByThirdpartyEmail($email)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -201,7 +201,7 @@ class Members extends DolibarrApi
 			throw new RestException(404, 'member not found');
 		}
 
-		if (!DolibarrApi::_checkAccessToResource('adherent', $member->id)) {
+		if (!DolibarrApi::_checkAccessToResource('member', $member->id)) {
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 
@@ -224,7 +224,7 @@ class Members extends DolibarrApi
 	 */
 	public function getByThirdpartyBarcode($barcode)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -240,7 +240,7 @@ class Members extends DolibarrApi
 			throw new RestException(404, 'member not found');
 		}
 
-		if (!DolibarrApi::_checkAccessToResource('adherent', $member->id)) {
+		if (!DolibarrApi::_checkAccessToResource('member', $member->id)) {
 			throw new RestException(403, 'Access not allowed for login '.DolibarrApiAccess::$user->login);
 		}
 
@@ -275,7 +275,7 @@ class Members extends DolibarrApi
 	{
 		$obj_ret = array();
 
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -284,7 +284,7 @@ class Members extends DolibarrApi
 		if ($category > 0) {
 			$sql .= ", ".MAIN_DB_PREFIX."categorie_member as c";
 		}
-		$sql .= ' WHERE t.entity IN ('.getEntity('adherent').')';
+		$sql .= ' WHERE t.entity IN ('.getEntity('member').')';
 		if (!empty($typeid)) {
 			$sql .= ' AND t.fk_adherent_type='.((int) $typeid);
 		}
@@ -365,7 +365,7 @@ class Members extends DolibarrApi
 	 */
 	public function post($request_data = null)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'creer')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'creer')) {
 			throw new RestException(403);
 		}
 		// Check mandatory fields
@@ -402,7 +402,7 @@ class Members extends DolibarrApi
 	 */
 	public function put($id, $request_data = null)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'creer')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'creer')) {
 			throw new RestException(403);
 		}
 
@@ -478,7 +478,7 @@ class Members extends DolibarrApi
 	 */
 	public function delete($id)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'supprimer')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'supprimer')) {
 			throw new RestException(403);
 		}
 		$member = new Adherent($this->db);
@@ -621,7 +621,7 @@ class Members extends DolibarrApi
 	 */
 	public function getSubscriptions($id)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'cotisation', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'cotisation', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -655,7 +655,7 @@ class Members extends DolibarrApi
 	 */
 	public function createSubscription($id, $start_date, $end_date, $amount, $label = '')
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'cotisation', 'creer')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'cotisation', 'creer')) {
 			throw new RestException(403);
 		}
 
@@ -726,7 +726,7 @@ class Members extends DolibarrApi
 	 */
 	public function getType($id)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -769,7 +769,7 @@ class Members extends DolibarrApi
 	{
 		$obj_ret = array();
 
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'lire')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'lire')) {
 			throw new RestException(403);
 		}
 
@@ -851,7 +851,7 @@ class Members extends DolibarrApi
 	 */
 	public function postType($request_data = null)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'configurer')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'configurer')) {
 			throw new RestException(403);
 		}
 		// Check mandatory fields
@@ -890,7 +890,7 @@ class Members extends DolibarrApi
 	 */
 	public function putType($id, $request_data = null)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'configurer')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'configurer')) {
 			throw new RestException(403);
 		}
 
@@ -949,7 +949,7 @@ class Members extends DolibarrApi
 	 */
 	public function deleteType($id)
 	{
-		if (!DolibarrApiAccess::$user->hasRight('adherent', 'configurer')) {
+		if (!DolibarrApiAccess::$user->hasRight('member', 'configurer')) {
 			throw new RestException(403);
 		}
 		$membertype = new MemberType($this->db);

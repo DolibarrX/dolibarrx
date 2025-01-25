@@ -99,16 +99,16 @@ if ($id > 0 || !empty($ref)) {
 }
 
 // Define variables to determine what the current user can do on the members
-$canaddmember = $user->hasRight('adherent', 'creer');
+$canaddmember = $user->hasRight('member', 'creer');
 // Define variables to determine what the current user can do on the properties of a member
 if ($id) {
-	$caneditfieldmember = $user->hasRight('adherent', 'creer');
+	$caneditfieldmember = $user->hasRight('member', 'creer');
 }
 
 $permissiontoadd = $canaddmember;
 
 // Security check
-$result = restrictedArea($user, 'adherent', $object->id, '', '', 'socid', 'rowid', 0);
+$result = restrictedArea($user, 'member', $object->id, '', '', 'socid', 'rowid', 0);
 
 
 /*
@@ -196,8 +196,8 @@ if ($id > 0) {
 		print dol_get_fiche_end();
 
 		$modulepart = 'member';
-		$permissiontoadd = $user->hasRight('adherent', 'creer');
-		$permtoedit = $user->hasRight('adherent', 'creer');
+		$permissiontoadd = $user->hasRight('member', 'creer');
+		$permtoedit = $user->hasRight('member', 'creer');
 		$param = '&id='.$object->id;
 		include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';
 		print "<br><br>";

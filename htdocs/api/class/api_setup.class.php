@@ -61,7 +61,7 @@ class Setup extends DolibarrApi
 	 * @param string	$sortorder	Sort order
 	 * @param int       $limit      Number of items per page
 	 * @param int       $page       Page number {@min 0}
-	 * @param string    $elementtype       Type of element ('adherent', 'commande', 'thirdparty', 'facture', 'propal', 'product', ...)
+	 * @param string    $elementtype       Type of element ('member', 'commande', 'thirdparty', 'facture', 'propal', 'product', ...)
 	 * @param string    $lang       Code of the language the label of the type must be translated to
 	 * @param string    $sqlfilters Other criteria to filter answers separated by a comma. Syntax example "(t.label:like:'SO-%')"
 	 * @return array				List of extra fields
@@ -1190,7 +1190,7 @@ class Setup extends DolibarrApi
 	 *
 	 * @param string	$sortfield	Sort field
 	 * @param string	$sortorder	Sort order
-	 * @param string    $elementtype       Type of element ('adherent', 'commande', 'thirdparty', 'facture', 'propal', 'product', ...)
+	 * @param string    $elementtype       Type of element ('member', 'commande', 'thirdparty', 'facture', 'propal', 'product', ...)
 	 * @param string    $sqlfilters Other criteria to filter answers separated by a comma. Syntax example "(t.label:like:'SO-%')"
 	 * @return array				List of extra fields
 	 *

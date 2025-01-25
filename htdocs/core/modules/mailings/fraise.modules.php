@@ -40,7 +40,7 @@ class mailing_fraise extends MailingTargets
 	// Set to 1 if selector is available for admin users only
 	public $require_admin = 0;
 
-	public $require_module = array('adherent');
+	public $require_module = array('member');
 
 	/**
 	 * @var string condition to enable module

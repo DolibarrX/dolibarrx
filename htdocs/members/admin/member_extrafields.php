@@ -50,7 +50,7 @@ $type2label = ExtraFields::getListOfTypesLabels();
 
 $action = GETPOST('action', 'aZ09');
 $attrname = GETPOST('attrname', 'alpha');
-$elementtype = 'adherent'; //Must be the $table_element of the class that manage extrafield
+$elementtype = 'member'; //Must be the $table_element of the class that manage extrafield
 
 if (!$user->admin) {
 	accessforbidden();

@@ -101,7 +101,7 @@ $objcanvas = null;
 if (!empty($canvas)) {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/canvas.class.php';
 	$objcanvas = new Canvas($db, $action);
-	$objcanvas->getCanvas('adherent', 'membercard', $canvas);
+	$objcanvas->getCanvas('member', 'membercard', $canvas);
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
@@ -125,17 +125,17 @@ if ($id > 0 || !empty($ref)) {
 }
 
 // Define variables to determine what the current user can do on the members
-$canaddmember = $user->hasRight('adherent', 'creer');
+$canaddmember = $user->hasRight('member', 'creer');
 $caneditfieldmember = false;
 // Define variables to determine what the current user can do on the properties of a member
 if ($id) {
-	$caneditfieldmember = $user->hasRight('adherent', 'creer');
+	$caneditfieldmember = $user->hasRight('member', 'creer');
 }
 
 // Security check
-$result = restrictedArea($user, 'adherent', $object->id, '', '', 'socid', 'rowid', 0);
+$result = restrictedArea($user, 'member', $object->id, '', '', 'socid', 'rowid', 0);
 
-if (!$user->hasRight('adherent', 'creer') && $action == 'edit') {
+if (!$user->hasRight('member', 'creer') && $action == 'edit') {
 	accessforbidden('Not enough permission');
 }
 
@@ -268,7 +268,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'update' && !$cancel && $user->hasRight('adherent', 'creer')) {
+	if ($action == 'update' && !$cancel && $user->hasRight('member', 'creer')) {
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
 		$birthdate = '';
@@ -451,7 +451,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'add' && $user->hasRight('adherent', 'creer')) {
+	if ($action == 'add' && $user->hasRight('member', 'creer')) {
 		if ($canvas) {
 			$object->canvas = $canvas;
 		}
@@ -641,7 +641,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($user->hasRight('adherent', 'supprimer') && $action == 'confirm_delete' && $confirm == 'yes') {
+	if ($user->hasRight('member', 'supprimer') && $action == 'confirm_delete' && $confirm == 'yes') {
 		$result = $object->delete($user);
 		if ($result > 0) {
 			setEventMessages($langs->trans("RecordDeleted"), null, 'errors');
@@ -657,7 +657,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($user->hasRight('adherent', 'creer') && $action == 'confirm_valid' && $confirm == 'yes') {
+	if ($user->hasRight('member', 'creer') && $action == 'confirm_valid' && $confirm == 'yes') {
 		$error = 0;
 
 		$db->begin();
@@ -727,7 +727,7 @@ if (empty($resHook)) {
 		$action = '';
 	}
 
-	if ($user->hasRight('adherent', 'supprimer') && $action == 'confirm_resiliate') {
+	if ($user->hasRight('member', 'supprimer') && $action == 'confirm_resiliate') {
 		$error = 0;
 
 		if ($confirm == 'yes') {
@@ -794,7 +794,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($user->hasRight('adherent', 'supprimer') && $action == 'confirm_exclude') {
+	if ($user->hasRight('member', 'supprimer') && $action == 'confirm_exclude') {
 		$error = 0;
 
 		if ($confirm == 'yes') {
@@ -861,7 +861,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'update_extras' && $user->hasRight('adherent', 'creer')) {
+	if ($action == 'update_extras' && $user->hasRight('member', 'creer')) {
 		$object->oldcopy = dol_clone($object, 2);
 		$attribute_name = GETPOST('attribute', 'restricthtml');
 
@@ -884,7 +884,7 @@ if (empty($resHook)) {
 
 	// SPIP Management
 	if (is_object($mailmanspip)) {
-		if ($user->hasRight('adherent', 'supprimer') && $action == 'confirm_del_spip' && $confirm == 'yes') {
+		if ($user->hasRight('member', 'supprimer') && $action == 'confirm_del_spip' && $confirm == 'yes') {
 			if (!count($object->errors)) {
 				if (!$mailmanspip->del_to_spip($object)) {
 					setEventMessages($langs->trans('DeleteIntoSpipError').': '.$mailmanspip->error, null, 'errors');
@@ -892,7 +892,7 @@ if (empty($resHook)) {
 			}
 		}
 
-		if ($user->hasRight('adherent', 'creer') && $action == 'confirm_add_spip' && $confirm == 'yes') {
+		if ($user->hasRight('member', 'creer') && $action == 'confirm_add_spip' && $confirm == 'yes') {
 			if (!count($object->errors)) {
 				if (!$mailmanspip->add_to_spip($object)) {
 					setEventMessages($langs->trans('AddIntoSpipError').': '.$mailmanspip->error, null, 'errors');
@@ -906,7 +906,7 @@ if (empty($resHook)) {
 
 	// Actions to build doc
 	$upload_dir = $config->adherent->dir_output;
-	$permissiontoadd = $user->hasRight('adherent', 'creer');
+	$permissiontoadd = $user->hasRight('member', 'creer');
 	include DOL_DOCUMENT_ROOT.'/core/actions_builddoc.inc.php';
 
 	// Actions to send emails
@@ -1305,7 +1305,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 		// Type
 		print '<tr><td class="fieldrequired">'.$langs->trans("Type").'</td><td>';
-		if ($user->hasRight('adherent', 'creer')) {
+		if ($user->hasRight('member', 'creer')) {
 			print $form->selectarray("typeid", $adht->liste_array(), (GETPOSTISSET("typeid") ? GETPOSTINT("typeid") : $object->typeid), 0, 0, 0, '', 0, 0, 0, '', 'minwidth200', 1);
 		} else {
 			print $adht->getNomUrl(1);
@@ -1919,7 +1919,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		// Third party Dolibarr
 		if (isModEnabled('societe')) {
 			print '<tr><td>';
-			$editenable = $user->hasRight('adherent', 'creer');
+			$editenable = $user->hasRight('member', 'creer');
 			print $form->editfieldkey('LinkedToDolibarrThirdParty', 'thirdparty', '', $object, $editenable);
 			print '</td><td colspan="2" class="valeur">';
 			if ($action == 'editthirdparty') {
@@ -1956,7 +1956,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 		// Login Dolibarr - Link to user
 		print '<tr><td>';
-		$editenable = $user->hasRight('adherent', 'creer') && $user->hasRight('user', 'user', 'creer');
+		$editenable = $user->hasRight('member', 'creer') && $user->hasRight('user', 'user', 'creer');
 		print $form->editfieldkey('LinkedToDolibarrUser', 'login', '', $object, $editenable);
 		print '</td><td colspan="2" class="valeur">';
 		if ($action == 'editlogin') {
@@ -2000,7 +2000,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				// Send card by email
 				// TODO Remove this to replace with a template
 				/*
-				if ($user->hasRight('adherent', 'creer')) {
+				if ($user->hasRight('member', 'creer')) {
 					if (Adherent::STATUS_VALIDATED == $object->status) {
 						if ($object->email) print '<a class="butAction" href="card.php?rowid='.$object->id.'&action=sendinfo">'.$langs->trans("SendCardByMail")."</a>\n";
 						else print '<a class="butActionRefused classfortooltip" href="#" title="'.dol_escape_htmltag($langs->trans("NoEMail")).'">'.$langs->trans("SendCardByMail")."</a>\n";
@@ -2012,7 +2012,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				}*/
 
 				// Modify
-				if ($user->hasRight('adherent', 'creer')) {
+				if ($user->hasRight('member', 'creer')) {
 					print '<a class="butAction" href="card.php?rowid='.((int) $object->id).'&action=edit&token='.newToken().'">'.$langs->trans("Modify").'</a>'."\n";
 				} else {
 					print '<span class="butActionRefused classfortooltip" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans("Modify").'</span>'."\n";
@@ -2020,7 +2020,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 				// Validate
 				if (Adherent::STATUS_DRAFT == $object->status) {
-					if ($user->hasRight('adherent', 'creer')) {
+					if ($user->hasRight('member', 'creer')) {
 						print '<a class="butAction" href="card.php?rowid='.((int) $object->id).'&action=valid&token='.newToken().'">'.$langs->trans("Validate").'</a>'."\n";
 					} else {
 						print '<span class="butActionRefused classfortooltip" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans("Validate").'</span>'."\n";
@@ -2029,7 +2029,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 				// Reactivate
 				if (Adherent::STATUS_RESILIATED == $object->status || Adherent::STATUS_EXCLUDED == $object->status) {
-					if ($user->hasRight('adherent', 'creer')) {
+					if ($user->hasRight('member', 'creer')) {
 						print '<a class="butAction" href="card.php?rowid='.((int) $object->id).'&action=valid&token='.newToken().'">'.$langs->trans("Reenable")."</a>\n";
 					} else {
 						print '<span class="butActionRefused classfortooltip" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans("Reenable").'</span>'."\n";
@@ -2038,7 +2038,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 				// Resiliate
 				if (Adherent::STATUS_VALIDATED == $object->status) {
-					if ($user->hasRight('adherent', 'supprimer')) {
+					if ($user->hasRight('member', 'supprimer')) {
 						print '<a class="butAction" href="card.php?rowid='.((int) $object->id).'&action=resiliate&token='.newToken().'">'.$langs->trans("Resiliate")."</a></span>\n";
 					} else {
 						print '<span class="butActionRefused classfortooltip" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans("Resiliate").'</span>'."\n";
@@ -2047,7 +2047,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 				// Exclude
 				if (Adherent::STATUS_VALIDATED == $object->status) {
-					if ($user->hasRight('adherent', 'supprimer')) {
+					if ($user->hasRight('member', 'supprimer')) {
 						print '<a class="butAction" href="card.php?rowid='.((int) $object->id).'&action=exclude&token='.newToken().'">'.$langs->trans("Exclude")."</a></span>\n";
 					} else {
 						print '<span class="butActionRefused classfortooltip" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans("Exclude").'</span>'."\n";
@@ -2093,7 +2093,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				}
 
 				// Delete
-				if ($user->hasRight('adherent', 'supprimer')) {
+				if ($user->hasRight('member', 'supprimer')) {
 					print '<a class="butActionDelete" href="card.php?rowid='.((int) $object->id).'&action=delete&token='.newToken().'">'.$langs->trans("Delete").'</a>'."\n";
 				} else {
 					print '<span class="butActionRefused classfortooltip" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans("Delete").'</span>'."\n";
@@ -2120,8 +2120,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			$filename = dol_sanitizeFileName($object->ref);
 			$filedir = $config->adherent->dir_output.'/'.get_exdir(0, 0, 0, 1, $object, 'member');
 			$urlsource = $_SERVER['PHP_SELF'].'?id='.$object->id;
-			$genallowed = $user->hasRight('adherent', 'lire');
-			$delallowed = $user->hasRight('adherent', 'creer');
+			$genallowed = $user->hasRight('member', 'lire');
+			$delallowed = $user->hasRight('member', 'creer');
 
 			print $formfile->showdocuments('member', $filename, $filedir, $urlsource, $genallowed, $delallowed, $object->model_pdf, 1, 0, 0, 28, 0, '', '', '', (empty($object->default_lang) ? '' : $object->default_lang), '', $object);
 			$somethingshown = $formfile->numoffiles;

@@ -57,7 +57,7 @@ class Adherent extends CommonObject
 	/**
 	 * @var string Name of table without prefix where object is stored
 	 */
-	public $table_element = 'adherent';
+	public $table_element = 'member';
 
 	/**
 	 * @var string picto
@@ -1444,7 +1444,7 @@ class Adherent extends CommonObject
 		if ($rowid) {
 			$sql .= " AND d.rowid=".((int) $rowid);
 		} elseif ($ref || $fk_soc) {
-			$sql .= " AND d.entity IN (".getEntity('adherent').")";
+			$sql .= " AND d.entity IN (".getEntity('member').")";
 			if ($ref) {
 				$sql .= " AND d.ref='".$this->db->escape($ref)."'";
 			} elseif ($fk_soc > 0) {
@@ -2538,7 +2538,7 @@ class Adherent extends CommonObject
 		$sql = "SELECT count(a.rowid) as nb";
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a";
 		$sql .= " WHERE a.statut > 0";
-		$sql .= " AND a.entity IN (".getEntity('adherent').")";
+		$sql .= " AND a.entity IN (".getEntity('member').")";
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -2579,11 +2579,11 @@ class Adherent extends CommonObject
 		$sql .= " WHERE a.fk_adherent_type = t.rowid";
 		if ($mode == 'expired') {
 			$sql .= " AND a.statut = ".self::STATUS_VALIDATED;
-			$sql .= " AND a.entity IN (".getEntity('adherent').")";
+			$sql .= " AND a.entity IN (".getEntity('member').")";
 			$sql .= " AND ((a.datefin IS NULL or a.datefin < '".$this->db->idate($now)."') AND t.subscription = '1')";
 		} elseif ($mode == 'shift') {
 			$sql .= " AND a.statut = ".self::STATUS_DRAFT;
-			$sql .= " AND a.entity IN (".getEntity('adherent').")";
+			$sql .= " AND a.entity IN (".getEntity('member').")";
 		}
 
 		$resql = $this->db->query($sql);
@@ -3008,7 +3008,7 @@ class Adherent extends CommonObject
 	 */
 	public static function replaceThirdparty($db, $origin_id, $dest_id)
 	{
-		$tables = array('adherent');
+		$tables = array('member');
 
 		return CommonObject::commonReplaceThirdparty($db, $origin_id, $dest_id, $tables);
 	}
@@ -3086,8 +3086,8 @@ class Adherent extends CommonObject
 			$datetosearchfor = dol_time_plus_duree(dol_mktime(0, 0, 0, $tmp['mon'], $tmp['mday'], $tmp['year'], 'tzserver'), (int) $daysbeforeend, 'd');
 			$datetosearchforend = dol_time_plus_duree(dol_mktime(23, 59, 59, $tmp['mon'], $tmp['mday'], $tmp['year'], 'tzserver'), (int) $daysbeforeend, 'd');
 
-			$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'adherent';
-			$sql .= " WHERE entity = ".((int) $config->entity); // Do not use getEntity('adherent').")" here, we want the batch to be on its entity only;
+			$sql = 'SELECT rowid FROM '.MAIN_DB_PREFIX.'member';
+			$sql .= " WHERE entity = ".((int) $config->entity); // Do not use getEntity('member').")" here, we want the batch to be on its entity only;
 			$sql .= " AND statut = 1";
 			$sql .= " AND datefin >= '".$this->db->idate($datetosearchfor)."'";
 			$sql .= " AND datefin <= '".$this->db->idate($datetosearchforend)."'";

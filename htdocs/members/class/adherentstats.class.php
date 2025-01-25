@@ -88,7 +88,7 @@ class AdherentStats extends Stats
 		$this->field = 'subscription';
 
 		$this->where .= " m.statut != -1";
-		$this->where .= " AND p.fk_adherent = m.rowid AND m.entity IN (".getEntity('adherent').")";
+		$this->where .= " AND p.fk_adherent = m.rowid AND m.entity IN (".getEntity('member').")";
 		if ($this->memberid) {
 			$this->where .= " AND m.rowid = ".((int) $this->memberid);
 		}
@@ -207,7 +207,7 @@ class AdherentStats extends Stats
 		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_EXCLUDED, "'members_excluded'", 'NULL').") as members_excluded";
 		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_RESILIATED, "'members_resiliated'", 'NULL').") as members_resiliated";
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent_type as t";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent as d ON t.rowid = d.fk_adherent_type AND d.entity IN (" . getEntity('adherent') . ")";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent as d ON t.rowid = d.fk_adherent_type AND d.entity IN (" . getEntity('member') . ")";
 		if ($numberYears) {
 			$sql .= " AND d.datefin > '".$this->db->idate(dol_get_first_day($startYear))."'";
 		}
@@ -287,8 +287,8 @@ class AdherentStats extends Stats
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent as d ON d.rowid = ct.fk_member";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent_type as t ON t.rowid = d.fk_adherent_type";
 		$sql .= " WHERE c.entity IN (".getEntity('member_type').")";
-		$sql .= " AND d.entity IN (" . getEntity('adherent') . ")";
-		$sql .= " AND t.entity IN (" . getEntity('adherent') . ")";
+		$sql .= " AND d.entity IN (" . getEntity('member') . ")";
+		$sql .= " AND t.entity IN (" . getEntity('member') . ")";
 		if ($numberYears) {
 			$sql .= " AND d.datefin > '".$this->db->idate(dol_get_first_day($startYear))."'";
 		}

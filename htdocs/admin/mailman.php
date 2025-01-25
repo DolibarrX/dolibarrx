@@ -87,7 +87,7 @@ if ($action == 'update' || $action == 'add') {
 	}
 }
 
-// Action to activate a submodule of the 'adherent' module
+// Action to activate a submodule of the 'member' module
 if ($action == 'set') {
 	$result = dolibarr_set_const($db, GETPOST("name", 'aZ09'), GETPOST("value"), '', 0, '', $config->entity);
 	if ($result < 0) {
@@ -95,7 +95,7 @@ if ($action == 'set') {
 	}
 }
 
-// Action to deactivate a submodule of the 'adherent' module
+// Action to deactivate a submodule of the 'member' module
 if ($action == 'unset') {
 	$result = dolibarr_del_const($db, GETPOST("name", 'aZ09'), $config->entity);
 	if ($result < 0) {

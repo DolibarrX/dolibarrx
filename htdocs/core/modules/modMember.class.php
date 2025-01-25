@@ -204,7 +204,7 @@ class modMember extends DolibarrModules
 		// Permissions
 		//------------
 		$this->rights = array();
-		$this->rights_class = 'adherent';
+		$this->rights_class = 'member';
 		$r = 0;
 
 		// $this->rights[$r][0]     Id permission (unique tous modules confondus)
@@ -310,7 +310,7 @@ class modMember extends DolibarrModules
 			'c.rowid'=>'subscription', 'c.dateadh'=>'subscription', 'c.datef'=>'subscription', 'c.subscription'=>'subscription'
 		);
 		// Add extra fields
-		$keyforselect = 'adherent';
+		$keyforselect = 'member';
 		$keyforelement = 'member';
 		$keyforaliasextra = 'extra';
 		include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
@@ -336,7 +336,7 @@ class modMember extends DolibarrModules
 		$this->import_label[$r] = "Members"; // Translation key
 		$this->import_icon[$r] = $this->picto;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
-		$this->import_tables_array[$r] = array('a'=>MAIN_DB_PREFIX.'adherent', 'extra'=>MAIN_DB_PREFIX.'adherent_extrafields');
+		$this->import_tables_array[$r] = array('a'=>MAIN_DB_PREFIX.'member', 'extra'=>MAIN_DB_PREFIX.'adherent_extrafields');
 		$this->import_tables_creator_array[$r] = array('a'=>'fk_user_author'); // Fields to store import user id
 		$this->import_fields_array[$r] = array(
 			'a.ref' => 'MemberRef*',
@@ -350,7 +350,7 @@ class modMember extends DolibarrModules
 			$this->import_fields_array[$r]['a.fk_soc'] = "ThirdParty";
 		}
 		// Add extra fields
-		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'adherent' AND entity IN (0,".$config->entity.")";
+		$sql = "SELECT name, label, fieldrequired FROM ".MAIN_DB_PREFIX."extrafields WHERE type <> 'separate' AND elementtype = 'member' AND entity IN (0,".$config->entity.")";
 		$resql = $this->db->query($sql);
 		if ($resql) {    // This can fail when class is used on old database (during migration for example)
 			while ($obj = $this->db->fetch_object($resql)) {
@@ -384,7 +384,7 @@ class modMember extends DolibarrModules
 		if (isModEnabled("societe")) {
 			$this->import_convertvalue_array[$r]['a.fk_soc'] = array('rule'=>'fetchidfromref', 'classfile'=>'/societe/class/societe.class.php', 'class'=>'Societe', 'method'=>'fetch', 'element'=>'ThirdParty');
 		}
-		$this->import_fieldshidden_array[$r] = array('extra.fk_object'=>'lastrowid-'.MAIN_DB_PREFIX.'adherent'); // aliastable.field => ('user->id' or 'lastrowid-'.tableparent)
+		$this->import_fieldshidden_array[$r] = array('extra.fk_object'=>'lastrowid-'.MAIN_DB_PREFIX.'member'); // aliastable.field => ('user->id' or 'lastrowid-'.tableparent)
 		$this->import_regex_array[$r] = array(
 			'a.civility'=>'code@'.MAIN_DB_PREFIX.'c_civility', 'a.fk_adherent_type'=>'rowid@'.MAIN_DB_PREFIX.'adherent_type', 'a.morphy'=>'(phy|mor)',
 			'a.statut'=>'^[0|1]', 'a.datec'=>'^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$', 'a.datefin'=>'^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$');

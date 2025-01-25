@@ -3094,7 +3094,7 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 		$original_file = $config->deplacement->dir_temp . '/' . $original_file;
 	} elseif ($modulepart == 'memberstats' && !empty($config->member->dir_temp)) {
 		// Wrapping pour les images des stats expeditions
-		if ($fuser->hasRight('adherent', $lire)) {
+		if ($fuser->hasRight('member', $lire)) {
 			$accessallowed = 1;
 		}
 		$original_file = $config->member->dir_temp . '/' . $original_file;
@@ -3486,7 +3486,7 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 		$original_file = $config->bittorrent->dir_output . '/' . $dir . '/' . $original_file;
 	} elseif ($modulepart == 'member' && !empty($config->member->dir_output)) {
 		// Wrapping pour Foundation module
-		if ($fuser->hasRight('adherent', $lire) || preg_match('/^specimen/i', $original_file)) {
+		if ($fuser->hasRight('member', $lire) || preg_match('/^specimen/i', $original_file)) {
 			$accessallowed = 1;
 		}
 		$original_file = $config->member->dir_output . '/' . $original_file;

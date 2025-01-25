@@ -136,7 +136,7 @@ if ($id > 0 && $removeelem > 0 && $action == 'unlink') {	// Test on permission n
 		$tmpobject = new Societe($db);
 		$result = $tmpobject->fetch($removeelem);
 		$elementtype = 'customer';
-	} elseif ($type == Categorie::TYPE_MEMBER && $user->hasRight('adherent', 'creer')) {
+	} elseif ($type == Categorie::TYPE_MEMBER && $user->hasRight('member', 'creer')) {
 		require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 		$tmpobject = new Adherent($db);
 		$result = $tmpobject->fetch($removeelem);
@@ -222,7 +222,7 @@ if ($elemid && $action == 'addintocategory') {	// Test on permission not require
 		require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 		$newobject = new Project($db);
 		$elementtype = 'project';
-	} elseif ($type == Categorie::TYPE_MEMBER && $user->hasRight('adherent', 'creer')) {
+	} elseif ($type == Categorie::TYPE_MEMBER && $user->hasRight('member', 'creer')) {
 		require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 		$newobject = new Adherent($db);
 		$elementtype = 'member';
@@ -767,8 +767,8 @@ if ($type == Categorie::TYPE_MEMBER) {
 	if ($user->hasRight("adherent", "read")) {
 		require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 
-		$permission = $user->hasRight('adherent', 'creer');
-		$showclassifyform = $user->hasRight('adherent', 'creer');
+		$permission = $user->hasRight('member', 'creer');
+		$showclassifyform = $user->hasRight('member', 'creer');
 
 		$members = $object->getObjectsInCateg($type, 0, $limit, $offset, 'lastname');
 		if ($members < 0) {
@@ -789,7 +789,7 @@ if ($type == Categorie::TYPE_MEMBER) {
 			$param = '&limit='.$limit.'&id='.$id.'&type='.$type;
 			$num = count($members);
 			$nbtotalofrecords = '';
-			$newcardbutton = dolGetButtonTitle($langs->trans("AddMember"), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/members/card.php?action=create&memcats[]='.$object->id.'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?id='.$object->id), '', $user->hasRight('adherent', 'creer'));
+			$newcardbutton = dolGetButtonTitle($langs->trans("AddMember"), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/members/card.php?action=create&memcats[]='.$object->id.'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?id='.$object->id), '', $user->hasRight('member', 'creer'));
 
 			// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
 			print_barre_liste($langs->trans("Member"), $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'members', 0, $newcardbutton, '', $limit);

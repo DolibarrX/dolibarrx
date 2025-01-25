@@ -220,7 +220,7 @@ $arrayfields = dol_sort_array($arrayfields, 'position');
 '@phan-var-force array<string,array{label:string,checked?:int<0,1>,position?:int,help?:string}> $arrayfields';  // dol_sort_array looses type for Phan
 
 // Security check
-$result = restrictedArea($user, 'adherent');
+$result = restrictedArea($user, 'member');
 
 
 /*
@@ -235,9 +235,9 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
 	$massaction = '';
 }
 
-$permissiontoread = $user->hasRight('adherent', 'lire');
-$permissiontodelete = $user->hasRight('adherent', 'supprimer');
-$permissiontoadd = $user->hasRight('adherent', 'creer');
+$permissiontoread = $user->hasRight('member', 'lire');
+$permissiontodelete = $user->hasRight('member', 'supprimer');
+$permissiontoadd = $user->hasRight('member', 'creer');
 $uploaddir = $config->member->dir_output;
 $error = 0;
 
@@ -290,7 +290,7 @@ if (empty($resHook)) {
 	}
 
 	// Close
-	if ($massaction == 'close' && $user->hasRight('adherent', 'creer')) {
+	if ($massaction == 'close' && $user->hasRight('member', 'creer')) {
 		$tmpmember = new Adherent($db);
 		$nbclose = 0;
 
@@ -319,7 +319,7 @@ if (empty($resHook)) {
 	}
 
 	// Create external user
-	if ($massaction == 'createexternaluser' && $user->hasRight('adherent', 'creer') && $user->hasRight('user', 'user', 'creer')) {
+	if ($massaction == 'createexternaluser' && $user->hasRight('member', 'creer') && $user->hasRight('user', 'user', 'creer')) {
 		$tmpmember = new Adherent($db);
 		$nbcreated = 0;
 
@@ -354,7 +354,7 @@ if (empty($resHook)) {
 	}
 
 	// Create external user
-	if ($action == 'createsubscription_confirm' && $confirm == "yes" && $user->hasRight('adherent', 'creer')) {
+	if ($action == 'createsubscription_confirm' && $confirm == "yes" && $user->hasRight('member', 'creer')) {
 		$tmpmember = new Adherent($db);
 		$adht = new MemberType($db);
 		$nbcreated = 0;
@@ -481,7 +481,7 @@ if (!empty($searchCategoryContactList)) {
 	}
 }
 
-$sql .= " AND d.entity IN (".getEntity('adherent').")";
+$sql .= " AND d.entity IN (".getEntity('member').")";
 if ($search_all) {
 	$sql .= natural_search(array_keys($fieldstosearchall), $search_all);
 }
@@ -739,19 +739,19 @@ $arrayofmassactions = array(
 	//'presend'=>img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
 	//'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
 );
-if ($user->hasRight('adherent', 'creer')) {
+if ($user->hasRight('member', 'creer')) {
 	$arrayofmassactions['close'] = img_picto('', 'close_title', 'class="pictofixedwidth"').$langs->trans("Resiliate");
 }
-if ($user->hasRight('adherent', 'supprimer')) {
+if ($user->hasRight('member', 'supprimer')) {
 	$arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
 }
-if (isModEnabled('category') && $user->hasRight('adherent', 'creer')) {
+if (isModEnabled('category') && $user->hasRight('member', 'creer')) {
 	$arrayofmassactions['preaffecttag'] = img_picto('', 'category', 'class="pictofixedwidth"').$langs->trans("AffectTag");
 }
-if ($user->hasRight('adherent', 'creer') && $user->hasRight('user', 'user', 'creer')) {
+if ($user->hasRight('member', 'creer') && $user->hasRight('user', 'user', 'creer')) {
 	$arrayofmassactions['createexternaluser'] = img_picto('', 'user', 'class="pictofixedwidth"').$langs->trans("CreateExternalUser");
 }
-if ($user->hasRight('adherent', 'creer')) {
+if ($user->hasRight('member', 'creer')) {
 	$arrayofmassactions['createsubscription'] = img_picto('', 'payment', 'class="pictofixedwidth"').$langs->trans("CreateSubscription");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete', 'preaffecttag'))) {
@@ -778,7 +778,7 @@ $newcardbutton = '';
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewList'), '', 'fa fa-bars imgforviewmode', $_SERVER["PHP_SELF"].'?mode=common'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ((empty($mode) || $mode == 'common') ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewKanban'), '', 'fa fa-th-list imgforviewmode', $_SERVER["PHP_SELF"].'?mode=kanban'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ($mode == 'kanban' ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitleSeparator();
-$newcardbutton .= dolGetButtonTitle($langs->trans('NewMember'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/members/card.php?action=create', '', $user->hasRight('adherent', 'creer'));
+$newcardbutton .= dolGetButtonTitle($langs->trans('NewMember'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/members/card.php?action=create', '', $user->hasRight('member', 'creer'));
 
 print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, $object->picto, 0, $newcardbutton, '', $limit, 0, 0, 1);
 

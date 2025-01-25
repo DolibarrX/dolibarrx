@@ -75,14 +75,14 @@ class box_birthdays_members extends ModeleBoxes
 
 		$this->info_box_head = array('text' => $langs->trans("BoxTitleMemberNextBirthdays"));
 
-		if ($user->hasRight('adherent', 'lire')) {
+		if ($user->hasRight('member', 'lire')) {
 			$data = array();
 
 			$tmparray = dol_getdate(dol_now(), true);
 
 			$sql = "SELECT u.rowid, u.firstname, u.lastname, u.societe, u.birth, date_format(u.birth, '%d') as daya, u.email, u.statut as status, u.datefin";
 			$sql .= " FROM ".MAIN_DB_PREFIX."adherent as u";
-			$sql .= " WHERE u.entity IN (".getEntity('adherent').")";
+			$sql .= " WHERE u.entity IN (".getEntity('member').")";
 			$sql .= " AND u.statut = ".Adherent::STATUS_VALIDATED;
 			$sql .= dolSqlDateFilter('u.birth', 0, $tmparray['mon'], 0);
 			$sql .= " ORDER BY daya ASC";	// We want to have date of the month sorted by the day without taking into consideration the year

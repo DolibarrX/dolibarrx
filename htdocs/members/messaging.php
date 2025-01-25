@@ -89,7 +89,7 @@ if ($user->socid > 0) {
 $hookManager->initHooks(array('agendathirdparty', 'globalcard'));
 
 // Security check
-$result = restrictedArea($user, 'adherent', $id);
+$result = restrictedArea($user, 'member', $id);
 
 
 // Initialize a technical objects

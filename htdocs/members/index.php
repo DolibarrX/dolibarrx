@@ -56,7 +56,7 @@ $hookManager->initHooks(array('membersindex'));
 
 
 // Security check
-$result = restrictedArea($user, 'adherent');
+$result = restrictedArea($user, 'member');
 
 
 /*

@@ -174,7 +174,7 @@ if (!empty($triggers)) {
 			$module = 'expedition';
 		}
 		if ($module == 'member') {
-			$module = 'adherent';
+			$module = 'member';
 		}
 		if ($module == 'project') {
 			$module = 'projet';

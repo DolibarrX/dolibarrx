@@ -79,7 +79,7 @@ $arrayresult = array();
 
 // Define $searchform
 
-if (isModEnabled('member') && !getDolGlobalString('MAIN_SEARCHFORM_ADHERENT_DISABLED') && $user->hasRight('adherent', 'lire')) {
+if (isModEnabled('member') && !getDolGlobalString('MAIN_SEARCHFORM_ADHERENT_DISABLED') && $user->hasRight('member', 'lire')) {
 	$arrayresult['searchintomember'] = array('position' => 8, 'shortcut' => 'M', 'img' => 'object_member', 'label' => $langs->trans("SearchIntoMembers", $search_boxvalue), 'text' => img_picto('', 'object_member', 'class="pictofixedwidth"').' '.$langs->trans("SearchIntoMembers", $search_boxvalue), 'url' => DOL_URL_ROOT.'/members/list.php'.($search_boxvalue ? '?search_all='.urlencode($search_boxvalue) : ''));
 }
 

@@ -190,7 +190,7 @@ class Categorie extends CommonObject
 	public $MAP_OBJ_TABLE = array(
 		'customer' => 'societe',
 		'supplier' => 'societe',
-		'member' => 'adherent',
+		'member' => 'member',
 		'contact' => 'socpeople',
 		'account' => 'bank_account', // old for bank account
 		'project' => 'projet',

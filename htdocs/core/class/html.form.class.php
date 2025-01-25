@@ -8349,7 +8349,7 @@ class Form
 		$sql = "SELECT ";
 		$sql .= $selectFields;
 		$sql .= " FROM " . $this->db->prefix() . "adherent as p";
-		$sql .= ' WHERE p.entity IN (' . getEntity('adherent') . ')';
+		$sql .= ' WHERE p.entity IN (' . getEntity('member') . ')';
 
 		// Add criteria on ref/label
 		if ($filterkey != '') {

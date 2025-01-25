@@ -73,14 +73,14 @@ if ($id > 0 || !empty($ref)) {
 }
 
 // Define variables to determine what the current user can do on the members
-$canaddmember = $user->hasRight('adherent', 'creer');
+$canaddmember = $user->hasRight('member', 'creer');
 // Define variables to determine what the current user can do on the properties of a member
 if ($id) {
-	$caneditfieldmember = $user->hasRight('adherent', 'creer');
+	$caneditfieldmember = $user->hasRight('member', 'creer');
 }
 
 // Security check
-$result = restrictedArea($user, 'adherent', $object->id, '', '', 'socid', 'rowid', 0);
+$result = restrictedArea($user, 'member', $object->id, '', '', 'socid', 'rowid', 0);
 
 
 /*

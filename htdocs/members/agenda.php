@@ -87,7 +87,7 @@ $objcanvas = null;
 $hookManager->initHooks(array('memberagenda', 'globalcard'));
 
 // Security check
-$result = restrictedArea($user, 'adherent', $id);
+$result = restrictedArea($user, 'member', $id);
 
 // Initialize a technical objects
 $object = new Adherent($db);

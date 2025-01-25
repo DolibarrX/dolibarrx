@@ -120,9 +120,9 @@ $arrayfields = array(
 );
 
 // Security check
-$result = restrictedArea($user, 'adherent', '', '', 'cotisation');
+$result = restrictedArea($user, 'member', '', '', 'cotisation');
 
-$permissiontodelete = $user->hasRight('adherent', 'cotisation', 'creer');
+$permissiontodelete = $user->hasRight('member', 'cotisation', 'creer');
 
 
 /*
@@ -210,7 +210,7 @@ $sql .= " FROM ".MAIN_DB_PREFIX."adherent as d";
 $sql .= " JOIN ".MAIN_DB_PREFIX."subscription as c on d.rowid = c.fk_adherent";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent_extrafields as ef on (d.rowid = ef.fk_object)";
 $sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank as b ON c.fk_bank = b.rowid";
-$sql .= " WHERE d.entity IN (".getEntity('adherent').")";
+$sql .= " WHERE d.entity IN (".getEntity('member').")";
 if (isset($date_select) && $date_select != '') {
 	$sql .= " AND c.dateadh >= '".((int) $date_select)."-01-01 00:00:00'";
 	$sql .= " AND c.dateadh < '".((int) $date_select + 1)."-01-01 00:00:00'";
@@ -382,7 +382,7 @@ print '<input type="hidden" name="mode" value="'.$mode.'">';
 $newcardbutton = '';
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewList'), '', 'fa fa-bars imgforviewmode', $_SERVER["PHP_SELF"].'?mode=common'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ((empty($mode) || $mode == 'common') ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewKanban'), '', 'fa fa-th-list imgforviewmode', $_SERVER["PHP_SELF"].'?mode=kanban'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ($mode == 'kanban' ? 2 : 1), array('morecss' => 'reposition'));
-if ($user->hasRight('adherent', 'cotisation', 'creer')) {
+if ($user->hasRight('member', 'cotisation', 'creer')) {
 	$newcardbutton .= dolGetButtonTitleSeparator();
 	$newcardbutton .= dolGetButtonTitle($langs->trans('NewSubscription'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/members/list.php?status=-1,1');
 }

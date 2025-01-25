@@ -100,7 +100,7 @@ class ActionsAdherentCardDefault extends ActionsAdherentCardCommon
 			$head = member_prepare_head($this->object);
 			$title = $this->getTitle($action);
 
-			$this->tpl['showhead'] = dol_get_fiche_head($head, 'card', $title, 0, 'adherent');
+			$this->tpl['showhead'] = dol_get_fiche_head($head, 'card', $title, 0, 'member');
 			$this->tpl['showend'] = dol_get_fiche_end();
 
 			$objsoc = new Societe($db);
@@ -111,7 +111,7 @@ class ActionsAdherentCardDefault extends ActionsAdherentCardCommon
 			$this->tpl['actionsdone'] = show_actions_done($config, $langs, $db, $objsoc, $this->object, 1);
 		} else {
 			// Confirm delete contact
-			if ($action == 'delete' && $user->hasRight('adherent', 'supprimer')) {
+			if ($action == 'delete' && $user->hasRight('member', 'supprimer')) {
 				$this->tpl['action_delete'] = $form->formconfirm($_SERVER["PHP_SELF"]."?id=".$this->object->id, $langs->trans("DeleteAdherent"), $langs->trans("ConfirmDeleteAdherent"), "confirm_delete", '', 0, 1);
 			}
 		}
