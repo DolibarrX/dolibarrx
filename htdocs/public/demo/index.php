@@ -87,7 +87,7 @@ if (empty($resHook)) {
 	$demoprofiles = array(
 		array(
 			'default' => '1', 'key' => 'profdemoservonly', 'label' => 'DemoCompanyServiceOnly',
-			'disablemodules' => 'adherent,barcode,bom,cashdesk,don,expedition,externalsite,ftp,incoterm,mailmanspip,margin,mrp,prelevement,product,productbatch,stock,takepos',
+			'disablemodules' => 'member,barcode,bom,cashdesk,don,expedition,externalsite,ftp,incoterm,mailmanspip,margin,mrp,prelevement,product,productbatch,stock,takepos',
 			//'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot8.png',
 			'icon' => DOL_URL_ROOT.'/public/demo/demo-profile-service.jpg',
 			'url' => $url,
@@ -95,14 +95,14 @@ if (empty($resHook)) {
 		),
 		array(
 			'default' => '0', 'key' => 'profmanufacture', 'label' => 'DemoCompanyManufacturing',
-			'disablemodules' => 'adherent,contrat,don,externalsite,ficheinter,ftp,mailmanspip,prelevement,service',
+			'disablemodules' => 'member,contrat,don,externalsite,ficheinter,ftp,mailmanspip,prelevement,service',
 			'icon' => DOL_URL_ROOT.'/public/demo/demo-profile-manufacturing.jpg',
 			'url' => $url,
 			'lang' => '',
 		),
 		array(
 			'default' => '0', 'key' => 'profdemoprodstock', 'label' => 'DemoCompanyProductAndStocks',
-			'disablemodules' => 'adherent,bom,contrat,don,externalsite,ficheinter,ftp,mailmanspip,mrp,prelevement,service',
+			'disablemodules' => 'member,bom,contrat,don,externalsite,ficheinter,ftp,mailmanspip,mrp,prelevement,service',
 			//'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot2.png',
 			'icon' => DOL_URL_ROOT.'/public/demo/demo-profile-product.jpg',
 			'url' => $url,
@@ -119,7 +119,7 @@ if (empty($resHook)) {
 		// All demo profiles
 		array(
 			'default' => '0', 'key' => 'profdemoall', 'label' => 'ChooseYourDemoProfilMore',
-			'disablemodules' => 'adherent,cashdesk,don,externalsite,mailmanspip',
+			'disablemodules' => 'member,cashdesk,don,externalsite,mailmanspip',
 			//'icon'=>DOL_URL_ROOT.'/public/demo/dolibarr_screenshot9.png'
 			'icon' => DOL_URL_ROOT.'/public/demo/demo-profile-all.jpg',
 			'lang' => '',

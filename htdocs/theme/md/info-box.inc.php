@@ -111,7 +111,7 @@ if (GETPOSTISSET('THEME_SATURATE_RATIO')) {
 .bg-infobox-bank_account{
 	<?php echo $prefix; ?>color: #b0a53e  !important;
 }
-.bg-infobox-adherent, .bg-infobox-member{
+.bg-infobox-member, .bg-infobox-member{
 	<?php echo $prefix; ?>color: #79633f  !important;
 }
 .bg-infobox-expensereport{
@@ -130,7 +130,7 @@ div.login_block_other a {
 	color: var(--colortextbackvmenu);
 }
 
-.infobox-adherent, .infobox-member {
+.infobox-member, .infobox-member {
 	color: #79633f;
 }
 .infobox-project{
@@ -158,7 +158,7 @@ div.login_block_other a {
 .infobox-bank_account{
 	color: #b0a53e;
 }
-.infobox-adherent, .infobox-member {
+.infobox-member, .infobox-member {
 	color: #79633f;
 }
 .infobox-expensereport{
