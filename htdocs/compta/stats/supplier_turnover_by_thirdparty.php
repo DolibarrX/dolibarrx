@@ -409,7 +409,7 @@ print '<table class="tagtable liste'.($moreforfilter ? " listwithfilterbefore" :
 print '<tr class="liste_titre">';
 print '<td>';
 print img_picto('', 'category', 'class="paddingrightonly"');
-print $formother->select_categories(Categorie::TYPE_SUPPLIER, $selected_cat, 'search_categ', 0, $langs->trans("Category"));
+print $formother->select_categories(Category::TYPE_SUPPLIER, $selected_cat, 'search_categ', 0, $langs->trans("Category"));
 print ' ';
 print '<label for="subcat" class="marginleftonly">'.$langs->trans("SubCats").'?</label> ';
 print '<input type="checkbox" id="subcat" name="subcat" value="yes"';

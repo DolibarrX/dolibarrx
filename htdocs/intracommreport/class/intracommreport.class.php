@@ -405,7 +405,7 @@ class IntracommReport extends CommonObject
 
 			$categ_fraisdeport = null;
 			if ($exporttype == 'deb' && getDolGlobalInt('INTRACOMMREPORT_CATEG_FRAISDEPORT') > 0) {
-				$categ_fraisdeport = new Categorie($this->db);
+				$categ_fraisdeport = new Category($this->db);
 				$categ_fraisdeport->fetch(getDolGlobalString('INTRACOMMREPORT_CATEG_FRAISDEPORT'));
 				$TLinesFraisDePort = array();
 			}
@@ -545,7 +545,7 @@ class IntracommReport extends CommonObject
 	 * 	@param	SimpleXMLElement	$declaration		Reference declaration
 	 * 	@param	Object[]			$TLinesFraisDePort	Data of shipping costs line
 	 *  @param	string	    		$type				Declaration type by default - introduction or expedition (always 'expedition' for Des)
-	 *  @param	Categorie			$categ_fraisdeport	category of shipping costs
+	 *  @param	Category			$categ_fraisdeport	category of shipping costs
 	 *  @param	int		    		$i					Line Id
 	 *  @return	void
 	 */

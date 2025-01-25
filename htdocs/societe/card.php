@@ -1915,13 +1915,13 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 				// Customer
 				print '<tr class="visibleifcustomer"><td class="toptd">'.$form->editfieldkey('CustomersProspectsCategoriesShort', 'custcats', '', $object, 0).'</td><td colspan="3">';
-				$cate_arbo = $form->select_all_categories(Categorie::TYPE_CUSTOMER, '', 'parent', 64, 0, 3);
+				$cate_arbo = $form->select_all_categories(Category::TYPE_CUSTOMER, '', 'parent', 64, 0, 3);
 				print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('custcats', $cate_arbo, GETPOST('custcats', 'array'), 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 				print "</td></tr>";
 
 				if (getDolGlobalString('THIRDPARTY_SUGGEST_ALSO_ADDRESS_CREATION')) {
 					print '<tr class="individualline"><td class="toptd">'.$form->editfieldkey('ContactCategoriesShort', 'contcats', '', $object, 0).'</td><td colspan="3">';
-					$cate_arbo = $form->select_all_categories(Categorie::TYPE_CONTACT, '', 'parent', 64, 0, 3);
+					$cate_arbo = $form->select_all_categories(Category::TYPE_CONTACT, '', 'parent', 64, 0, 3);
 					print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('contcats', $cate_arbo, GETPOST('contcats', 'array'), 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 					print "</td></tr>";
 				}
@@ -1929,7 +1929,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				// Supplier
 				if (isModEnabled("supplier_proposal") || isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) {
 					print '<tr class="visibleifsupplier"><td class="toptd">'.$form->editfieldkey('SuppliersCategoriesShort', 'suppcats', '', $object, 0).'</td><td colspan="3">';
-					$cate_arbo = $form->select_all_categories(Categorie::TYPE_SUPPLIER, '', 'parent', 64, 0, 3);
+					$cate_arbo = $form->select_all_categories(Category::TYPE_SUPPLIER, '', 'parent', 64, 0, 3);
 					print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('suppcats', $cate_arbo, GETPOST('suppcats', 'array'), 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 					print "</td></tr>";
 				}
@@ -2732,9 +2732,9 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					// Customer
 					print '<tr class="visibleifcustomer"><td>'.$form->editfieldkey('CustomersCategoriesShort', 'custcats', '', $object, 0).'</td>';
 					print '<td colspan="3">';
-					$cate_arbo = $form->select_all_categories(Categorie::TYPE_CUSTOMER, '', '', 64, 0, 3);
-					$c = new Categorie($db);
-					$cats = $c->containing($object->id, Categorie::TYPE_CUSTOMER);
+					$cate_arbo = $form->select_all_categories(Category::TYPE_CUSTOMER, '', '', 64, 0, 3);
+					$c = new Category($db);
+					$cats = $c->containing($object->id, Category::TYPE_CUSTOMER);
 					$arrayselected = array();
 					foreach ($cats as $cat) {
 						$arrayselected[] = $cat->id;
@@ -2746,9 +2746,9 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					if ((isModEnabled("fournisseur") && $user->hasRight('fournisseur', 'lire') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire')) || (isModEnabled("supplier_invoice") && $user->hasRight('supplier_invoice', 'lire'))) {
 						print '<tr class="visibleifsupplier"><td>'.$form->editfieldkey('SuppliersCategoriesShort', 'suppcats', '', $object, 0).'</td>';
 						print '<td colspan="3">';
-						$cate_arbo = $form->select_all_categories(Categorie::TYPE_SUPPLIER, '', '', 64, 0, 3);
-						$c = new Categorie($db);
-						$cats = $c->containing($object->id, Categorie::TYPE_SUPPLIER);
+						$cate_arbo = $form->select_all_categories(Category::TYPE_SUPPLIER, '', '', 64, 0, 3);
+						$c = new Category($db);
+						$cats = $c->containing($object->id, Category::TYPE_SUPPLIER);
 						$arrayselected = array();
 						foreach ($cats as $cat) {
 							$arrayselected[] = $cat->id;
@@ -3192,7 +3192,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				if ($object->prospect || $object->client || getDolGlobalString('THIRDPARTY_CAN_HAVE_CUSTOMER_CATEGORY_EVEN_IF_NOT_CUSTOMER_PROSPECT')) {
 					print '<tr><td class="titlefieldmiddle">'.$langs->trans("CustomersCategoriesShort").'</td>';
 					print '<td>';
-					print $form->showCategories($object->id, Categorie::TYPE_CUSTOMER, 1);
+					print $form->showCategories($object->id, Category::TYPE_CUSTOMER, 1);
 					print "</td></tr>";
 				}
 
@@ -3200,7 +3200,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				if (((isModEnabled("fournisseur") && $user->hasRight('fournisseur', 'lire') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire')) || (isModEnabled("supplier_invoice") && $user->hasRight('supplier_invoice', 'lire'))) && $object->fournisseur) {
 					print '<tr><td class="titlefieldmiddle">'.$langs->trans("SuppliersCategoriesShort").'</td>';
 					print '<td>';
-					print $form->showCategories($object->id, Categorie::TYPE_SUPPLIER, 1);
+					print $form->showCategories($object->id, Category::TYPE_SUPPLIER, 1);
 					print "</td></tr>";
 				}
 			}

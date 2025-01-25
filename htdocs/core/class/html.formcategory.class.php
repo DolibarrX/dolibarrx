@@ -35,7 +35,7 @@ class FormCategory extends Form
 	/**
 	 * Return a HTML filter box for a list filter view
 	 *
-	 * @param 	string		$type								The categorie type (e.g Categorie::TYPE_WAREHOUSE)
+	 * @param 	string		$type								The categorie type (e.g Category::TYPE_WAREHOUSE)
 	 * @param 	array<int|string>	$preSelected				A list with the elements that should pre-selected
 	 * @param	string		$morecss							More CSS
 	 * @param	int<-1,1>	$searchCategoryProductOperator		Used only if $multiselect is 1. Set to 0 or 1 to enable the checkbox to search with a or (0=not preselected, 1=preselected), -1=Checkbox never shown.

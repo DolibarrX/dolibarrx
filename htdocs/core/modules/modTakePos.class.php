@@ -101,7 +101,7 @@ class modTakePos extends DolibarrModules
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
 		// List of module class names as string that must be enabled if this module is enabled. Example: array('always'=>array('modModuleToEnable1','modModuleToEnable2'), 'FR'=>array('modModuleToEnableFR'...))
-		$this->depends = array('always'=>array("modBank", "modFacture", "modProduct", "modCategorie"), 'FR'=>array('modBlockedLog'));
+		$this->depends = array('always'=>array("modBank", "modFacture", "modProduct", "modCategory"), 'FR'=>array('modBlockedLog'));
 		$this->requiredby = array(); // List of module ids to disable if this one is disabled
 		$this->conflictwith = array(); // List of module class names as string this module is in conflict with
 		$this->langfiles = array("cashdesk");
@@ -299,14 +299,14 @@ class modTakePos extends DolibarrModules
 		}
 
 		// Create product category DefaultPOSCatLabel if not exists
-		$categories = new Categorie($this->db);
+		$categories = new Category($this->db);
 		$cate_arbo = $categories->get_full_arbo('product', 0, 1);
 		if (is_array($cate_arbo)) {
 			if (!count($cate_arbo) || (!getDolGlobalString('TAKEPOS_ROOT_CATEGORY_ID') || getDolGlobalString('TAKEPOS_ROOT_CATEGORY_ID') == '-1')) {
-				$category = new Categorie($this->db);
+				$category = new Category($this->db);
 
 				$category->label = $langs->trans("DefaultPOSCatLabel");
-				$category->type = Categorie::TYPE_PRODUCT;
+				$category->type = Category::TYPE_PRODUCT;
 
 				$result = $category->create($user);
 

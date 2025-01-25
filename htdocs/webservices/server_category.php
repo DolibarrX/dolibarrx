@@ -70,7 +70,7 @@ $server = new nusoap_server();
 $server->soap_defencoding = 'UTF-8';
 $server->decode_utf8 = false;
 $ns = 'http://www.dolibarr.org/ns/';
-$server->configureWSDL('WebServicesDolibarrCategorie', $ns);
+$server->configureWSDL('WebServicesDolibarrCategory', $ns);
 $server->wsdl->schemaTargetNamespace = $ns;
 
 
@@ -239,7 +239,7 @@ function getCategory($authentication, $id)
 
 		$nbmax = 10;
 		if ($fuser->hasRight('categorie', 'lire')) {
-			$categorie = new Categorie($db);
+			$categorie = new Category($db);
 			$result = $categorie->fetch($id);
 			if ($result > 0) {
 				$dir = (!empty($config->categorie->dir_output) ? $config->categorie->dir_output : $config->service->dir_output);

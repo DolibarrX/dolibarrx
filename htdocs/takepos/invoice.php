@@ -759,7 +759,7 @@ if (empty($resHook)) {
 
 		if (getDolGlobalString('TAKEPOS_SUPPLEMENTS')) {
 			require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-			$cat = new Categorie($db);
+			$cat = new Category($db);
 			$categories = $cat->containing($idproduct, 'product');
 			$found = (array_search(getDolGlobalInt('TAKEPOS_SUPPLEMENTS_CATEGORY'), array_column($categories, 'id')));
 			if ($found !== false) { // If this product is a supplement
@@ -1146,8 +1146,8 @@ if (empty($resHook)) {
 			if ($line->special_code == "4") {
 				continue;
 			}
-			$c = new Categorie($db);
-			$existing = $c->containing($line->fk_product, Categorie::TYPE_PRODUCT, 'id');
+			$c = new Category($db);
+			$existing = $c->containing($line->fk_product, Category::TYPE_PRODUCT, 'id');
 			$result = array_intersect($catsprinter1, $existing);
 			$count = count($result);
 			if (!$line->fk_product) {
@@ -1187,8 +1187,8 @@ if (empty($resHook)) {
 			if ($line->special_code == "4") {
 				continue;
 			}
-			$c = new Categorie($db);
-			$existing = $c->containing($line->fk_product, Categorie::TYPE_PRODUCT, 'id');
+			$c = new Category($db);
+			$existing = $c->containing($line->fk_product, Category::TYPE_PRODUCT, 'id');
 			$result = array_intersect($catsprinter2, $existing);
 			$count = count($result);
 			if ($count > 0) {
@@ -1219,8 +1219,8 @@ if (empty($resHook)) {
 			if ($line->special_code == "4") {
 				continue;
 			}
-			$c = new Categorie($db);
-			$existing = $c->containing($line->fk_product, Categorie::TYPE_PRODUCT, 'id');
+			$c = new Category($db);
+			$existing = $c->containing($line->fk_product, Category::TYPE_PRODUCT, 'id');
 			$result = array_intersect($catsprinter3, $existing);
 			$count = count($result);
 			if ($count > 0) {
@@ -1797,7 +1797,7 @@ if (!$usediv) {
 if (!empty($_SESSION["basiclayout"]) && $_SESSION["basiclayout"] == 1) {
 	if ($mobilepage == "cats") {
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		$categorie = new Categorie($db);
+		$categorie = new Category($db);
 		$categories = $categorie->get_full_arbo('product');
 		$htmlforlines = '';
 		foreach ($categories as $row) {
@@ -1824,7 +1824,7 @@ if (!empty($_SESSION["basiclayout"]) && $_SESSION["basiclayout"] == 1) {
 
 	if ($mobilepage == "products") {
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		$object = new Categorie($db);
+		$object = new Category($db);
 		$catid = GETPOSTINT('catid');
 		$result = $object->fetch($catid);
 		$prods = $object->getObjectsInCateg("product");

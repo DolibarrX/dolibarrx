@@ -651,7 +651,7 @@ if ($id > 0 || !empty($ref)) {
 			if (isModEnabled('category')) {
 				require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 				print '<div class="inline-block">'.$langs->trans("CategoryFilter").': ';
-				print $form->select_all_categories(Categorie::TYPE_PRODUCT, $parent, 'parent').' &nbsp; </div>';
+				print $form->select_all_categories(Category::TYPE_PRODUCT, $parent, 'parent').' &nbsp; </div>';
 				print ajax_combobox('parent');
 			}
 			print '<div class="inline-block">';

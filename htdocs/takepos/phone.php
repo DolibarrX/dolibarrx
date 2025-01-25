@@ -203,7 +203,7 @@ if ($action == "productinfo" && $user->hasRight('takepos', 'run')) {
 
 	<script type="text/javascript">
 	<?php
-	$categorie = new Categorie($db);
+	$categorie = new Category($db);
 	$categories = $categorie->get_full_arbo('product', ((getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) ? $config->global->TAKEPOS_ROOT_CATEGORY_ID : 0), 1);
 
 	// Search root category to know its level

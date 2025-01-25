@@ -195,7 +195,7 @@ $search_date_modif_end = dol_mktime(23, 59, 59, $search_date_modif_endmonth, $se
 $search_category_array = array();
 
 if (isModEnabled('category')) {
-	$search_category_array = GETPOST("search_category_".Categorie::TYPE_PROJECT."_list", "array");
+	$search_category_array = GETPOST("search_category_".Category::TYPE_PROJECT."_list", "array");
 }
 
 if (GETPOSTISARRAY('search_status') || GETPOST('search_status_multiselect')) {
@@ -1224,13 +1224,13 @@ if ($user->hasRight('user', 'user', 'lire')) {
 // Filter on categories
 if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
 	$formcategory = new FormCategory($db);
-	$moreforfilter .= $formcategory->getFilterBox(Categorie::TYPE_PROJECT, $search_category_array, 'minwidth300imp minwidth300 widthcentpercentminusx');
+	$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_PROJECT, $search_category_array, 'minwidth300imp minwidth300 widthcentpercentminusx');
 }
 
 // Filter on customer categories
 if (getDolGlobalString('MAIN_SEARCH_CATEGORY_CUSTOMER_ON_PROJECT_LIST') && isModEnabled("category") && $user->hasRight('categorie', 'lire')) {
 	$formcategory = new FormCategory($db);
-	$moreforfilter .= $formcategory->getFilterBox(Categorie::TYPE_CUSTOMER, $searchCategoryCustomerList, 'minwidth300', $searchCategoryCustomerList ? $searchCategoryCustomerList : 0);
+	$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_CUSTOMER, $searchCategoryCustomerList, 'minwidth300', $searchCategoryCustomerList ? $searchCategoryCustomerList : 0);
 }
 
 // alert on late date

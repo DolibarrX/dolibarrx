@@ -2983,8 +2983,8 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 			}
 		}
 	} elseif ($object->element == 'category') {
-		/** @var Categorie $object */
-		'@phan-var-force Categorie $object';
+		/** @var Category $object */
+		'@phan-var-force Category $object';
 		$width = 80;
 		$cssclass = 'photowithmargin photoref';
 		$showimage = $object->isAnyPhotoAvailable($config->categorie->multidir_output[$entity]);

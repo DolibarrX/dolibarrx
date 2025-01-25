@@ -1290,7 +1290,7 @@ if ($action == 'create' || $action == 'presend') {
 			print '</td>';
 
 			if ($user->hasRight('ticket', 'write') && $action == 'categories') {
-				$cate_arbo = $form->select_all_categories(Categorie::TYPE_TICKET, '', 'parent', 64, 0, 3);
+				$cate_arbo = $form->select_all_categories(Category::TYPE_TICKET, '', 'parent', 64, 0, 3);
 				if (is_array($cate_arbo)) {
 					// Categories
 					print '<td colspan="3">';
@@ -1299,7 +1299,7 @@ if ($action == 'create' || $action == 'presend') {
 					print '<input type="hidden" name="track_id" value="'.$track_id.'">';
 					print '<input type="hidden" name="action" value="set_categories">';
 
-					$category = new Categorie($db);
+					$category = new Category($db);
 					$cats = $category->containing($object->id, 'ticket');
 					$arrayselected = array();
 					foreach ($cats as $cat) {
@@ -1313,7 +1313,7 @@ if ($action == 'create' || $action == 'presend') {
 				}
 			} else {
 				print '<td colspan="3">';
-				print $form->showCategories($object->id, Categorie::TYPE_TICKET, 1);
+				print $form->showCategories($object->id, Category::TYPE_TICKET, 1);
 				print "</td></tr>";
 			}
 

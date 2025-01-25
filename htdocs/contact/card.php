@@ -896,7 +896,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			// Categories
 			if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
 				print '<tr><td>'.$form->editfieldkey('Categories', 'contcats', '', $object, 0).'</td><td colspan="3">';
-				$cate_arbo = $form->select_all_categories(Categorie::TYPE_CONTACT, '', 'parent', 64, 0, 3);
+				$cate_arbo = $form->select_all_categories(Category::TYPE_CONTACT, '', 'parent', 64, 0, 3);
 				print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('contcats', $cate_arbo, GETPOST('contcats', 'array'), 0, 0, '', 0, '90%');
 				print "</td></tr>";
 			}
@@ -1204,8 +1204,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 				$arrayselected = array();
 				print '<tr><td>'.$form->editfieldkey('Categories', 'contcats', '', $object, 0).'</td>';
 				print '<td colspan="3">';
-				$cate_arbo = $form->select_all_categories(Categorie::TYPE_CONTACT, '', '', 64, 0, 3);
-				$c = new Categorie($db);
+				$cate_arbo = $form->select_all_categories(Category::TYPE_CONTACT, '', '', 64, 0, 3);
+				$c = new Category($db);
 				$cats = $c->containing($object->id, 'contact');
 				foreach ($cats as $cat) {
 					$arrayselected[] = $cat->id;
@@ -1470,7 +1470,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
 			print '<tr><td class="titlefield">'.$langs->trans("Categories").'</td>';
 			print '<td>';
-			print $form->showCategories($object->id, Categorie::TYPE_CONTACT, 1);
+			print $form->showCategories($object->id, Category::TYPE_CONTACT, 1);
 			print '</td></tr>';
 		}
 

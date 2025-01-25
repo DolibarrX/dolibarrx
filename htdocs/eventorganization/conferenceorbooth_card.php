@@ -342,7 +342,7 @@ if (!empty($withproject)) {
 	// Categories
 	if (isModEnabled('category')) {
 		print '<tr><td class="titlefield valignmiddle">'.$langs->trans("Categories").'</td><td class="valuefield">';
-		print $form->showCategories($projectstatic->id, Categorie::TYPE_PROJECT, 1);
+		print $form->showCategories($projectstatic->id, Category::TYPE_PROJECT, 1);
 		print "</td></tr>";
 	}
 

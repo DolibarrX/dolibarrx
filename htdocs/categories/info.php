@@ -56,7 +56,7 @@ if ($user->socid) {
 }
 $result = restrictedArea($user, 'categorie', $id, '&category');
 
-$object = new Categorie($db);
+$object = new Category($db);
 $result = $object->fetch($id, $label);
 if ($result <= 0) {
 	dol_print_error($db, $object->error);
@@ -65,7 +65,7 @@ if ($result <= 0) {
 
 $type = $object->type;
 if (is_numeric($type)) {
-	$type = Categorie::$MAP_ID_TO_CODE[(int) $type]; // For backward compatibility
+	$type = Category::$MAP_ID_TO_CODE[(int) $type]; // For backward compatibility
 }
 
 /*
@@ -78,7 +78,7 @@ llxHeader('', $langs->trans('Categories'), '');
 
 //$object->info($object->id);
 
-$title = Categorie::$MAP_TYPE_TITLE_AREA[$type];
+$title = Category::$MAP_TYPE_TITLE_AREA[$type];
 
 $head = categories_prepare_head($object, $type);
 print dol_get_fiche_head($head, 'info', $langs->trans($title), -1, 'category');

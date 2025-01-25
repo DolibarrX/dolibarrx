@@ -5522,9 +5522,9 @@ class Form
 			dol_syslog(__METHOD__ . ': using numeric value for parameter type is deprecated. Use string code instead.', LOG_WARNING);
 		}
 
-		if ($type === Categorie::TYPE_BANK_LINE) {
+		if ($type === Category::TYPE_BANK_LINE) {
 			// TODO Move this into common category feature after migration of llx_category_bankline into llx_categorie_bankline
-			$cat = new Categorie($this->db);
+			$cat = new Category($this->db);
 			$cate_arbo = array();
 			$sql = "SELECT c.label, c.rowid";
 			$sql .= " FROM " . $this->db->prefix() . "categorie as c";
@@ -5546,7 +5546,7 @@ class Form
 				dol_print_error($this->db);
 			}
 		} else {
-			$cat = new Categorie($this->db);
+			$cat = new Category($this->db);
 			$cate_arbo = $cat->get_full_arbo($type, $fromid, $include);
 		}
 
@@ -9567,7 +9567,7 @@ class Form
 	{
 		include_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 
-		$cat = new Categorie($this->db);
+		$cat = new Category($this->db);
 		$categories = $cat->containing($id, $type);
 
 		if ($rendermode == 1) {

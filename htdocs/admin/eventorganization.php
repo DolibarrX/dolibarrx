@@ -56,9 +56,9 @@ $type = 'myobject';
 
 $arrayofparameters = array(
 	'EVENTORGANIZATION_TASK_LABEL' => array('type' => 'textarea','enabled' => 1, 'css' => ''),
-	'EVENTORGANIZATION_CATEG_THIRDPARTY_CONF' => array('type' => 'category:'.Categorie::TYPE_CUSTOMER, 'enabled' => 1, 'css' => ''),
-	'EVENTORGANIZATION_CATEG_THIRDPARTY_BOOTH' => array('type' => 'category:'.Categorie::TYPE_CUSTOMER, 'enabled' => 1, 'css' => ''),
-	'EVENTORGANIZATION_FILTERATTENDEES_CAT' => array('type' => 'category:'.Categorie::TYPE_CUSTOMER, 'enabled' => 1, 'css' => ''),
+	'EVENTORGANIZATION_CATEG_THIRDPARTY_CONF' => array('type' => 'category:'.Category::TYPE_CUSTOMER, 'enabled' => 1, 'css' => ''),
+	'EVENTORGANIZATION_CATEG_THIRDPARTY_BOOTH' => array('type' => 'category:'.Category::TYPE_CUSTOMER, 'enabled' => 1, 'css' => ''),
+	'EVENTORGANIZATION_FILTERATTENDEES_CAT' => array('type' => 'category:'.Category::TYPE_CUSTOMER, 'enabled' => 1, 'css' => ''),
 	'EVENTORGANIZATION_FILTERATTENDEES_TYPE' => array('type' => 'thirdparty_type:', 'enabled' => 1, 'css' => ''),
 	'EVENTORGANIZATION_TEMPLATE_EMAIL_ASK_CONF' => array('type' => 'emailtemplate:conferenceorbooth', 'enabled' => 1, 'css' => ''),
 	'EVENTORGANIZATION_TEMPLATE_EMAIL_ASK_BOOTH' => array('type' => 'emailtemplate:conferenceorbooth', 'enabled' => 1, 'css' => ''),
@@ -307,7 +307,7 @@ if ($action == 'edit') {
 					}
 				} elseif (preg_match('/category:/', $val['type'])) {
 					if (getDolGlobalString($constname)) {
-						$c = new Categorie($db);
+						$c = new Category($db);
 						$result = $c->fetch(getDolGlobalString($constname));
 						if ($result < 0) {
 							setEventMessages(null, $c->errors, 'errors');

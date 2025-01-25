@@ -298,7 +298,7 @@ if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
 		print img_picto($langs->trans('AdvTgtUse'), 'ok.png@advtargetemailing');
 	}
 	print '</td><td>'."\n";
-	$cate_arbo = $form->select_all_categories(Categorie::TYPE_CUSTOMER, '', 'parent', 0, 0, 1);
+	$cate_arbo = $form->select_all_categories(Category::TYPE_CUSTOMER, '', 'parent', 0, 0, 1);
 	print $form->multiselectarray('cust_categ', $cate_arbo, GETPOST('cust_categ', 'array'), 0, 0, '', 0, "90%");
 	print '</td><td>'."\n";
 	print '</td></tr>'."\n";
@@ -493,7 +493,7 @@ if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
 		print img_picto($langs->trans('AdvTgtUse'), 'ok.png@advtargetemailing');
 	}
 	print '</td><td>'."\n";
-	$cate_arbo = $form->select_all_categories(Categorie::TYPE_CONTACT, '', 'parent', 0, 0, 1);
+	$cate_arbo = $form->select_all_categories(Category::TYPE_CONTACT, '', 'parent', 0, 0, 1);
 	print $form->multiselectarray('contact_categ', $cate_arbo, GETPOST('contact_categ', 'array'), 0, 0, '', 0, "90%");
 	print '</td><td>'."\n";
 	print '</td></tr>'."\n";

@@ -202,7 +202,7 @@ if ($action == 'create') {
 	$object->fields['answer']['enabled'] = 1;
 
 	if (isModEnabled('category')) {
-		$cate_arbo = $form->select_all_categories(Categorie::TYPE_KNOWLEDGEMANAGEMENT, '', 'parent', 64, 0, 3);
+		$cate_arbo = $form->select_all_categories(Category::TYPE_KNOWLEDGEMANAGEMENT, '', 'parent', 64, 0, 3);
 
 		if (count($cate_arbo)) {
 			// Categories
@@ -259,13 +259,13 @@ if (($id || $ref) && $action == 'edit') {
 	$object->fields['answer']['enabled'] = 1;
 
 	if (isModEnabled('category')) {
-		$cate_arbo = $form->select_all_categories(Categorie::TYPE_KNOWLEDGEMANAGEMENT, '', 'parent', 64, 0, 3);
+		$cate_arbo = $form->select_all_categories(Category::TYPE_KNOWLEDGEMANAGEMENT, '', 'parent', 64, 0, 3);
 
 		if (count($cate_arbo)) {
 			// Categories
 			print '<tr><td>'.$langs->trans("Categories").'</td><td colspan="3">';
-			$c = new Categorie($db);
-			$cats = $c->containing($object->id, Categorie::TYPE_KNOWLEDGEMANAGEMENT);
+			$c = new Category($db);
+			$cats = $c->containing($object->id, Category::TYPE_KNOWLEDGEMANAGEMENT);
 			$arrayselected = array();
 			if (is_array($cats)) {
 				foreach ($cats as $cat) {
@@ -445,7 +445,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Categories
 	if (isModEnabled('category')) {
 		print '<tr><td class="valignmiddle">'.$langs->trans("Categories").'</td><td>';
-		print $form->showCategories($object->id, Categorie::TYPE_KNOWLEDGEMANAGEMENT, 1);
+		print $form->showCategories($object->id, Category::TYPE_KNOWLEDGEMANAGEMENT, 1);
 		print "</td></tr>";
 	}
 

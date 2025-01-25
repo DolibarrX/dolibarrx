@@ -495,11 +495,11 @@ if ($action == 'create') {
 	// Tags-Categories
 	if (isModEnabled('category')) {
 		print '<tr><td>'.$langs->trans("Categories").'</td><td>';
-		$cate_arbo = $form->select_all_categories(Categorie::TYPE_ACCOUNT, '', 'parent', 64, 0, 3);
+		$cate_arbo = $form->select_all_categories(Category::TYPE_ACCOUNT, '', 'parent', 64, 0, 3);
 
 		$arrayselected = array();
-		$c = new Categorie($db);
-		$cats = $c->containing($object->id, Categorie::TYPE_ACCOUNT);
+		$c = new Category($db);
+		$cats = $c->containing($object->id, Category::TYPE_ACCOUNT);
 		if (is_array($cats)) {
 			foreach ($cats as $cat) {
 				$arrayselected[] = $cat->id;
@@ -787,7 +787,7 @@ if ($action == 'create') {
 		// Categories
 		if (isModEnabled('category')) {
 			print '<tr><td class="titlefield">'.$langs->trans("Categories").'</td><td>';
-			print $form->showCategories($object->id, Categorie::TYPE_ACCOUNT, 1);
+			print $form->showCategories($object->id, Category::TYPE_ACCOUNT, 1);
 			print "</td></tr>";
 		}
 
@@ -1063,11 +1063,11 @@ if ($action == 'create') {
 		// Tags-Categories
 		if (isModEnabled('category')) {
 			print '<tr><td>'.$langs->trans("Categories").'</td><td>';
-			$cate_arbo = $form->select_all_categories(Categorie::TYPE_ACCOUNT, '', 'parent', 64, 0, 3);
+			$cate_arbo = $form->select_all_categories(Category::TYPE_ACCOUNT, '', 'parent', 64, 0, 3);
 
 			$arrayselected = array();
-			$c = new Categorie($db);
-			$cats = $c->containing($object->id, Categorie::TYPE_ACCOUNT);
+			$c = new Category($db);
+			$cats = $c->containing($object->id, Category::TYPE_ACCOUNT);
 			if (is_array($cats)) {
 				foreach ($cats as $cat) {
 					$arrayselected[] = $cat->id;

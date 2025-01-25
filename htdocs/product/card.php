@@ -318,7 +318,7 @@ if (empty($resHook)) {
 				}
 
 				// Merge categories
-				$static_cat = new Categorie($db);
+				$static_cat = new Category($db);
 				$custcats_ori = $static_cat->containing($productOrigin->id, 'product', 'id');
 				$custcats = $static_cat->containing($object->id, 'product', 'id');
 				$custcats = array_merge($custcats, $custcats_ori);
@@ -345,8 +345,8 @@ if (empty($resHook)) {
 					$objects = array(
 						'ActionComm' => '/comm/action/class/actioncomm.class.php',
 						'Bom' => '/bom/class/bom.class.php',
-						// do not use Categorie, it cause foreign key error, merge is done before
-						//'Categorie' => '/categories/class/categorie.class.php',
+						// do not use Category, it cause foreign key error, merge is done before
+						//'Category' => '/categories/class/categorie.class.php',
 						'Commande' => '/commande/class/commande.class.php',
 						'CommandeFournisseur' => '/fourn/class/fournisseur.commande.class.php',
 						'Contrat' => '/contrat/class/contrat.class.php',
@@ -1754,7 +1754,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			if (isModEnabled('category')) {
 				// Categories
 				print '<tr><td>'.$langs->trans("Categories").'</td><td>';
-				$cate_arbo = $form->select_all_categories(Categorie::TYPE_PRODUCT, '', 'parent', 64, 0, 3);
+				$cate_arbo = $form->select_all_categories(Category::TYPE_PRODUCT, '', 'parent', 64, 0, 3);
 				print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('categories', $cate_arbo, GETPOST('categories', 'array'), 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 				print "</td></tr>";
 			}
@@ -2375,9 +2375,9 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				// Tags-Categories
 				if (isModEnabled('category')) {
 					print '<tr><td>'.$langs->trans("Categories").'</td><td>';
-					$cate_arbo = $form->select_all_categories(Categorie::TYPE_PRODUCT, '', 'parent', 64, 0, 3);
-					$c = new Categorie($db);
-					$cats = $c->containing($object->id, Categorie::TYPE_PRODUCT);
+					$cate_arbo = $form->select_all_categories(Category::TYPE_PRODUCT, '', 'parent', 64, 0, 3);
+					$c = new Category($db);
+					$cats = $c->containing($object->id, Category::TYPE_PRODUCT);
 					$arrayselected = array();
 					if (is_array($cats)) {
 						foreach ($cats as $cat) {
@@ -2920,7 +2920,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				// Categories
 				if (isModEnabled('category')) {
 					print '<tr><td class="valignmiddle">'.$langs->trans("Categories").'</td><td>';
-					print $form->showCategories($object->id, Categorie::TYPE_PRODUCT, 1);
+					print $form->showCategories($object->id, Category::TYPE_PRODUCT, 1);
 					print "</td></tr>";
 				}
 

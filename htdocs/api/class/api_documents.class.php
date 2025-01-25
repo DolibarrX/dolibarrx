@@ -539,7 +539,7 @@ class Documents extends DolibarrApi
 				throw new RestException(403);
 			}
 
-			$object = new Categorie($this->db);
+			$object = new Category($this->db);
 			$result = $object->fetch($id, $ref);
 			if (!$result) {
 				throw new RestException(404, 'Category not found');

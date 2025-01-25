@@ -1255,7 +1255,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/massactions_pre.tpl.php';
 /*
 if (!empty($search_categ_cus) || !empty($search_categ_sup)) {
 	print "<div id='ways'>";
-	$c = new Categorie($db);
+	$c = new Category($db);
 	$ways = $c->print_all_ways(' &gt; ', 'societe/list.php');
 	print " &gt; ".$ways[0]."<br>\n";
 	print "</div><br>";
@@ -1278,7 +1278,7 @@ $moreforfilter = '';
 if (empty($type) || $type == 'c' || $type == 'p') {
 	if (isModEnabled('category') && $user->hasRight('categorie', 'read')) {
 		$formcategory = new FormCategory($db);
-		$moreforfilter .= $formcategory->getFilterBox(Categorie::TYPE_CUSTOMER, $searchCategoryCustomerList, 'minwidth300', $searchCategoryCustomerOperator ? $searchCategoryCustomerOperator : 0, 1, 1, $langs->transnoentities("CustomersProspectsCategoriesShort"));
+		$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_CUSTOMER, $searchCategoryCustomerList, 'minwidth300', $searchCategoryCustomerOperator ? $searchCategoryCustomerOperator : 0, 1, 1, $langs->transnoentities("CustomersProspectsCategoriesShort"));
 	}
 }
 
@@ -1286,7 +1286,7 @@ if (empty($type) || $type == 'c' || $type == 'p') {
 if (empty($type) || $type == 'f') {
 	if (isModEnabled("fournisseur") && isModEnabled('category') && $user->hasRight('categorie', 'read')) {
 		$formcategory = new FormCategory($db);
-		$moreforfilter .= $formcategory->getFilterBox(Categorie::TYPE_SUPPLIER, $searchCategorySupplierList, 'minwidth300', $searchCategorySupplierOperator ? $searchCategorySupplierOperator : 0, 1, 1, $langs->transnoentities("SuppliersCategoriesShort"));
+		$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_SUPPLIER, $searchCategorySupplierList, 'minwidth300', $searchCategorySupplierOperator ? $searchCategorySupplierOperator : 0, 1, 1, $langs->transnoentities("SuppliersCategoriesShort"));
 	}
 }
 

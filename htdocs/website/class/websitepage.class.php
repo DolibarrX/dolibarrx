@@ -967,7 +967,7 @@ class WebsitePage extends CommonObject
 	public function setCategories($categories)
 	{
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		return $this->setCategoriesCommon($categories, Categorie::TYPE_WEBSITE_PAGE);
+		return $this->setCategoriesCommon($categories, Category::TYPE_WEBSITE_PAGE);
 	}
 
 	/**

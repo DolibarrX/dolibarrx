@@ -93,7 +93,7 @@ $search_datedelivery_end = dol_mktime(23, 59, 59, GETPOSTINT('search_datedeliver
 
 $search_product_category_array = array();
 if (isModEnabled('category')) {
-	$search_product_category_array = GETPOST("search_category_".Categorie::TYPE_PRODUCT."_list", "array");
+	$search_product_category_array = GETPOST("search_category_".Category::TYPE_PRODUCT."_list", "array");
 	$searchCategoryProductOperator = 0;
 	if (GETPOSTISSET('formfilteraction')) {
 		$searchCategoryProductOperator = GETPOSTINT('search_category_product_operator');
@@ -952,7 +952,7 @@ if ($resql) {
 	// Filter on categories
 	if (isModEnabled("category") && $user->hasRight('categorie', 'lire') && ($user->hasRight('produit', 'lire') || $user->hasRight('service', 'lire'))) {
 		$formcategory = new FormCategory($db);
-		$moreforfilter .= $formcategory->getFilterBox(Categorie::TYPE_PRODUCT, $search_product_category_array, 'minwidth300imp minwidth300', $searchCategoryProductOperator ? $searchCategoryProductOperator : 0);
+		$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_PRODUCT, $search_product_category_array, 'minwidth300imp minwidth300', $searchCategoryProductOperator ? $searchCategoryProductOperator : 0);
 	}
 	if (isModEnabled("category") && $user->hasRight('categorie', 'lire')) {
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';

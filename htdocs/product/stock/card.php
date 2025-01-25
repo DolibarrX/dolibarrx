@@ -401,7 +401,7 @@ if ($action == 'create') {
 	if (isModEnabled('category')) {
 		// Categories
 		print '<tr><td>'.$langs->trans("Categories").'</td><td colspan="3">';
-		$cate_arbo = $form->select_all_categories(Categorie::TYPE_WAREHOUSE, '', 'parent', 64, 0, 3);
+		$cate_arbo = $form->select_all_categories(Category::TYPE_WAREHOUSE, '', 'parent', 64, 0, 3);
 		print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('categories', $cate_arbo, GETPOST('categories', 'array'), '', 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 		print "</td></tr>";
 	}
@@ -580,7 +580,7 @@ if ($action == 'create') {
 			// Categories
 			if (isModEnabled('category')) {
 				print '<tr><td valign="middle">'.$langs->trans("Categories").'</td><td colspan="3">';
-				print $form->showCategories($object->id, Categorie::TYPE_WAREHOUSE, 1);
+				print $form->showCategories($object->id, Category::TYPE_WAREHOUSE, 1);
 				print "</td></tr>";
 			}
 
@@ -986,9 +986,9 @@ if ($action == 'create') {
 			// Tags-Categories
 			if (isModEnabled('category')) {
 				print '<tr><td class="tdtop">'.$langs->trans("Categories").'</td><td colspan="3">';
-				$cate_arbo = $form->select_all_categories(Categorie::TYPE_WAREHOUSE, '', 'parent', 64, 0, 3);
-				$c = new Categorie($db);
-				$cats = $c->containing($object->id, Categorie::TYPE_WAREHOUSE);
+				$cate_arbo = $form->select_all_categories(Category::TYPE_WAREHOUSE, '', 'parent', 64, 0, 3);
+				$c = new Category($db);
+				$cats = $c->containing($object->id, Category::TYPE_WAREHOUSE);
 				$arrayselected = array();
 				foreach ($cats as $cat) {
 					$arrayselected[] = $cat->id;

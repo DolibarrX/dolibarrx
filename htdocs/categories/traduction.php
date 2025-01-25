@@ -57,7 +57,7 @@ if ($id == '' && $label == '') {
 	exit();
 }
 
-$object = new Categorie($db);
+$object = new Category($db);
 $result = $object->fetch($id, $label);
 if ($result <= 0) {
 	dol_print_error($db, $object->error);
@@ -66,7 +66,7 @@ if ($result <= 0) {
 
 $type = $object->type;
 if (is_numeric($type)) {
-	$type = Categorie::$MAP_ID_TO_CODE[(int) $type];   // For backward compatibility
+	$type = Category::$MAP_ID_TO_CODE[(int) $type];   // For backward compatibility
 }
 
 // Security check
@@ -194,7 +194,7 @@ $formother = new FormOther($db);
 
 llxHeader("", "", $langs->trans("Translation"));
 
-$title = Categorie::$MAP_TYPE_TITLE_AREA[$type];
+$title = Category::$MAP_TYPE_TITLE_AREA[$type];
 
 $head = categories_prepare_head($object, $type);
 

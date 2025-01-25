@@ -1072,7 +1072,7 @@ if (isModEnabled('category') && $user->hasRight('categorie', 'lire') && ($user->
 	include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('IncludingProductWithTag');
-	$cate_arbo = $form->select_all_categories(Categorie::TYPE_PRODUCT, null, 'parent', null, null, 1);
+	$cate_arbo = $form->select_all_categories(Category::TYPE_PRODUCT, null, 'parent', null, null, 1);
 	$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"').$form->selectarray('search_product_category', $cate_arbo, $search_product_category, $tmptitle, 0, 0, '', 0, 0, 0, 0, 'maxwidth300 widthcentpercentminusx', 1);
 	$moreforfilter .= '</div>';
 }

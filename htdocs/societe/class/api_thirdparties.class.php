@@ -587,7 +587,7 @@ class Thirdparties extends DolibarrApi
 			throw new RestException(404, 'Thirdparty not found');
 		}
 
-		$categories = new Categorie($this->db);
+		$categories = new Category($this->db);
 
 		$arrayofcateg = $categories->getListForItem($id, 'customer', $sortfield, $sortorder, $limit, $page);
 
@@ -621,7 +621,7 @@ class Thirdparties extends DolibarrApi
 		if (!$result) {
 			throw new RestException(404, 'Thirdparty not found');
 		}
-		$category = new Categorie($this->db);
+		$category = new Category($this->db);
 		$result = $category->fetch($category_id);
 		if (!$result) {
 			throw new RestException(404, 'category not found');
@@ -659,7 +659,7 @@ class Thirdparties extends DolibarrApi
 		if (!$result) {
 			throw new RestException(404, 'Thirdparty not found');
 		}
-		$category = new Categorie($this->db);
+		$category = new Category($this->db);
 		$result = $category->fetch($category_id);
 		if (!$result) {
 			throw new RestException(404, 'category not found');
@@ -701,7 +701,7 @@ class Thirdparties extends DolibarrApi
 			throw new RestException(404, 'Thirdparty not found');
 		}
 
-		$categories = new Categorie($this->db);
+		$categories = new Category($this->db);
 
 		$result = $categories->getListForItem($id, 'supplier', $sortfield, $sortorder, $limit, $page);
 
@@ -736,7 +736,7 @@ class Thirdparties extends DolibarrApi
 		if (!$result) {
 			throw new RestException(404, 'Thirdparty not found');
 		}
-		$category = new Categorie($this->db);
+		$category = new Category($this->db);
 		$result = $category->fetch($category_id);
 		if (!$result) {
 			throw new RestException(404, 'category not found');
@@ -774,7 +774,7 @@ class Thirdparties extends DolibarrApi
 		if (!$result) {
 			throw new RestException(404, 'Thirdparty not found');
 		}
-		$category = new Categorie($this->db);
+		$category = new Category($this->db);
 		$result = $category->fetch($category_id);
 		if (!$result) {
 			throw new RestException(404, 'category not found');

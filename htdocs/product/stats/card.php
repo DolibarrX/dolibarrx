@@ -224,7 +224,7 @@ if ($result || !($id > 0)) {
 		if (isModEnabled('category')) {
 			print '<tr class="nooddeven"><td class="titlefield">'.$langs->trans("Categories").'</td><td>';
 			$moreforfilter .= img_picto($langs->trans("Categories"), 'category', 'class="pictofixedwidth"');
-			$moreforfilter .= $htmlother->select_categories(Categorie::TYPE_PRODUCT, $search_categ, 'search_categ', 1, 1, 'widthcentpercentminusx maxwidth400');
+			$moreforfilter .= $htmlother->select_categories(Category::TYPE_PRODUCT, $search_categ, 'search_categ', 1, 1, 'widthcentpercentminusx maxwidth400');
 			print $moreforfilter;
 			print '</td></tr>';
 		}
@@ -418,7 +418,7 @@ if ($result || !($id > 0)) {
 				} else {
 					$morefilters = '';
 					if ($search_categ > 0) {
-						$categ = new Categorie($db);
+						$categ = new Category($db);
 						$categ->fetch($search_categ);
 						$listofprodids = $categ->getObjectsInCateg('product', 1);
 						$morefilters = ' AND d.fk_product IN ('.$db->sanitize((is_array($listofprodids) && count($listofprodids)) ? implode(',', $listofprodids) : '0').')';

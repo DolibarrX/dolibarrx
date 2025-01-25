@@ -45,7 +45,7 @@ require_once DOL_DOCUMENT_ROOT.'/knowledgemanagement/class/knowledgerecord.class
 /**
  *	Class to manage categories
  */
-class Categorie extends CommonObject
+class Category extends CommonObject
 {
 	// Categories types (we use string because we want to accept any modules/types in a future)
 	const TYPE_PRODUCT   = 'product';
@@ -247,20 +247,20 @@ class Categorie extends CommonObject
 	/**
 	 * @var string	Category type
 	 *
-	 * @see Categorie::TYPE_PRODUCT
-	 * @see Categorie::TYPE_SUPPLIER
-	 * @see Categorie::TYPE_CUSTOMER
-	 * @see Categorie::TYPE_MEMBER
-	 * @see Categorie::TYPE_CONTACT
-	 * @see Categorie::TYPE_USER
-	 * @see Categorie::TYPE_PROJECT
-	 * @see Categorie::TYPE_ACCOUNT
-	 * @see Categorie::TYPE_BANK_LINE
-	 * @see Categorie::TYPE_WAREHOUSE
-	 * @see Categorie::TYPE_ACTIONCOMM
-	 * @see Categorie::TYPE_WEBSITE_PAGE
-	 * @see Categorie::TYPE_TICKET
-	 * @see Categorie::TYPE_FICHINTER
+	 * @see Category::TYPE_PRODUCT
+	 * @see Category::TYPE_SUPPLIER
+	 * @see Category::TYPE_CUSTOMER
+	 * @see Category::TYPE_MEMBER
+	 * @see Category::TYPE_CONTACT
+	 * @see Category::TYPE_USER
+	 * @see Category::TYPE_PROJECT
+	 * @see Category::TYPE_ACCOUNT
+	 * @see Category::TYPE_BANK_LINE
+	 * @see Category::TYPE_WAREHOUSE
+	 * @see Category::TYPE_ACTIONCOMM
+	 * @see Category::TYPE_WEBSITE_PAGE
+	 * @see Category::TYPE_TICKET
+	 * @see Category::TYPE_FICHINTER
 	 */
 	public $type;
 
@@ -275,7 +275,7 @@ class Categorie extends CommonObject
 	public $motherof = array();
 
 	/**
-	 * @var Categorie[] children
+	 * @var Category[] children
 	 */
 	public $childs = array();
 
@@ -795,7 +795,7 @@ class Categorie extends CommonObject
 						$objparent = $this->db->fetch_object($resql);
 
 						if (!empty($objparent->fk_parent)) {
-							$cat = new Categorie($this->db);
+							$cat = new Category($this->db);
 							$cat->id = $objparent->fk_parent;
 							if (!$cat->containsObject($type, $obj->id)) {
 								$result = $cat->add_type($obj, $type);
@@ -1078,7 +1078,7 @@ class Categorie extends CommonObject
 			$min = min($num, ($limit <= 0 ? $num : $limit));
 			while ($i < $min) {
 				$obj = $this->db->fetch_object($result);
-				$category_static = new Categorie($this->db);
+				$category_static = new Category($this->db);
 				if ($category_static->fetch($obj->rowid)) {
 					$categories[$i]['id'] = $category_static->id;
 					$categories[$i]['fk_parent'] = $category_static->fk_parent;
@@ -1115,7 +1115,7 @@ class Categorie extends CommonObject
 	/**
 	 * Return direct children ids of a category into an array
 	 *
-	 * @return	Categorie[]|int   Return integer <0 KO, array ok
+	 * @return	Category[]|int   Return integer <0 KO, array ok
 	 */
 	public function get_filles()
 	{
@@ -1128,7 +1128,7 @@ class Categorie extends CommonObject
 		if ($res) {
 			$cats = array();
 			while ($rec = $this->db->fetch_array($res)) {
-				$cat = new Categorie($this->db);
+				$cat = new Category($this->db);
 				$cat->fetch($rec['rowid']);
 				$cats[] = $cat;
 			}
@@ -1355,7 +1355,7 @@ class Categorie extends CommonObject
 	 *
 	 *	@param	?int		$type		Type of category (0, 1, ...)
 	 *	@param	boolean		$parent		Just parent categories if true
-	 *	@return	array<int,Categorie>|int<-1,-1>	Table of Object Category, -1 on error
+	 *	@return	array<int,Category>|int<-1,-1>	Table of Object Category, -1 on error
 	 */
 	public function get_all_categories($type = null, $parent = false)
 	{
@@ -1377,7 +1377,7 @@ class Categorie extends CommonObject
 		if ($res) {
 			$cats = array();
 			while ($rec = $this->db->fetch_array($res)) {
-				$cat = new Categorie($this->db);
+				$cat = new Category($this->db);
 				$cat->fetch($rec['rowid']);
 				$cats[$rec['rowid']] = $cat;
 			}
@@ -1393,7 +1393,7 @@ class Categorie extends CommonObject
 	 *	Returns the top level categories (which are not child)
 	 *
 	 *	@param	?int		$type		Type of category (0, 1, ...)
-	 *	@return	array<int,Categorie>|int<-1,-1>	Table of Object Category, -1 on error
+	 *	@return	array<int,Category>|int<-1,-1>	Table of Object Category, -1 on error
 	 */
 	public function get_main_categories($type = null)
 	{
@@ -1512,7 +1512,7 @@ class Categorie extends CommonObject
 	/**
 	 *	Returns an array containing the list of parent categories
 	 *
-	 *	@return	int|Categorie[] Return integer <0 KO, array OK
+	 *	@return	int|Category[] Return integer <0 KO, array OK
 	 */
 	public function get_meres()
 	{
@@ -1527,7 +1527,7 @@ class Categorie extends CommonObject
 		if ($res) {
 			while ($rec = $this->db->fetch_array($res)) {
 				if ($rec['fk_parent'] > 0) {
-					$cat = new Categorie($this->db);
+					$cat = new Category($this->db);
 					$cat->fetch($rec['fk_parent']);
 					$parents[] = $cat;
 				}
@@ -1544,7 +1544,7 @@ class Categorie extends CommonObject
 	 * 	Returns in a table all possible paths to get to the category
 	 * 	starting with the major categories represented by Tables of categories
 	 *
-	 *	@return	Categorie[][]
+	 *	@return	Category[][]
 	 */
 	public function get_all_ways()
 	{
@@ -1578,17 +1578,17 @@ class Categorie extends CommonObject
 	 * @param   string|int	$type               Type of category ('customer', 'supplier', 'contact', 'product', 'member') or (0, 1, 2, ...)
 	 * @param   string 		$mode               'id'=Get array of category ids, 'object'=Get array of fetched category instances, 'label'=Get array of category
 	 *                                          labels, 'id'= Get array of category IDs
-	 * @return  Categorie[]|int[]|string[]|int  Array of category objects, labels or IDs or < 0 if KO
+	 * @return  Category[]|int[]|string[]|int  Array of category objects, labels or IDs or < 0 if KO
 	 */
 	public function containing($id, $type, $mode = 'object')
 	{
 		$cats = array();
 
 		if (is_numeric($type)) {
-			$type = Categorie::$MAP_ID_TO_CODE[$type];
+			$type = Category::$MAP_ID_TO_CODE[$type];
 		}
 
-		if ($type === Categorie::TYPE_BANK_LINE) {   // TODO Remove this after migration of llx_category_bankline into llx_categorie_bankline
+		if ($type === Category::TYPE_BANK_LINE) {   // TODO Remove this after migration of llx_category_bankline into llx_categorie_bankline
 			// Load bank categories
 			$sql = "SELECT c.label, c.rowid";
 			$sql .= " FROM ".MAIN_DB_PREFIX."category_bankline as a, ".MAIN_DB_PREFIX."categorie as c";
@@ -1604,7 +1604,7 @@ class Categorie extends CommonObject
 					} elseif ($mode == 'label') {
 						$cats[] = $obj->label;
 					} else {
-						$cat = new Categorie($this->db);
+						$cat = new Category($this->db);
 						$cat->id = $obj->rowid;
 						$cat->label = $obj->label;
 						$cats[] = $cat;
@@ -1631,7 +1631,7 @@ class Categorie extends CommonObject
 					} elseif ($mode == 'label') {
 						$cats[] = $obj->label;
 					} else {
-						$cat = new Categorie($this->db);
+						$cat = new Category($this->db);
 						$cat->fetch($obj->fk_categorie);
 						$cats[] = $cat;
 					}
@@ -1654,7 +1654,7 @@ class Categorie extends CommonObject
 	 * 	@param		string		$type		Type of category ('member', 'customer', 'supplier', 'product', 'contact'). Old mode (0, 1, 2, ...) is deprecated.
 	 * 	@param		boolean		$exact		Exact string search (true/false)
 	 * 	@param		boolean		$case		Case sensitive (true/false)
-	 * 	@return		Categorie[]|int			Array of Categorie, -1 if error
+	 * 	@return		Category[]|int			Array of Category, -1 if error
 	 */
 	public function rechercher($id, $nom, $type, $exact = false, $case = false)
 	{
@@ -1694,7 +1694,7 @@ class Categorie extends CommonObject
 		$res = $this->db->query($sql);
 		if ($res) {
 			while ($rec = $this->db->fetch_array($res)) {
-				$cat = new Categorie($this->db);
+				$cat = new Category($this->db);
 				$cat->fetch($rec['rowid']);
 				$cats[] = $cat;
 			}
@@ -2208,7 +2208,7 @@ class Categorie extends CommonObject
 	/**
 	 * Return the additional SQL JOIN query for filtering a list by a category
 	 *
-	 * @param string	$type			The category type (e.g Categorie::TYPE_WAREHOUSE)
+	 * @param string	$type			The category type (e.g Category::TYPE_WAREHOUSE)
 	 * @param string	$rowIdName		The name of the row id inside the whole sql query (e.g. "e.rowid")
 	 * @return string					A additional SQL JOIN query
 	 * @deprecated	search on some categories must be done using a WHERE EXISTS or NOT EXISTS and not a LEFT JOIN. @TODO Replace with getWhereQuery($type, $searchCategoryList)
@@ -2225,7 +2225,7 @@ class Categorie extends CommonObject
 	/**
 	 * Return the additional SQL SELECT query for filtering a list by a category
 	 *
-	 * @param string	$type			The category type (e.g Categorie::TYPE_WAREHOUSE)
+	 * @param string	$type			The category type (e.g Category::TYPE_WAREHOUSE)
 	 * @param string	$rowIdName		The name of the row id inside the whole sql query (e.g. "e.rowid")
 	 * @param string[]	$searchList		A list with the selected categories
 	 * @return string					A additional SQL SELECT query

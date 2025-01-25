@@ -1207,7 +1207,7 @@ if (isModEnabled('category') && $user->hasRight('categorie', 'read') && ($user->
 	include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 	$tmptitle = $langs->trans('IncludingProductWithTag');
 	$formcategory = new FormCategory($db);
-	$moreforfilter .= $formcategory->getFilterBox(Categorie::TYPE_PRODUCT, array($search_product_category), 'maxwidth300', $searchCategoryProductOperator, 0, 0, $tmptitle);
+	$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_PRODUCT, array($search_product_category), 'maxwidth300', $searchCategoryProductOperator, 0, 0, $tmptitle);
 }
 if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
 	require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';

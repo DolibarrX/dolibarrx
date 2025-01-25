@@ -55,7 +55,7 @@ $type = 'knowledgemanagement';
 $arrayofparameters = array(
 	//'KNOWLEDGEMANAGEMENT_MYPARAM1' => array('type' => 'string', 'css' => 'minwidth500' ,'enabled' => 0),
 	//'KNOWLEDGEMANAGEMENT_MYPARAM2'=>array('type'=>'textarea','enabled'=>1),
-	//'KNOWLEDGEMANAGEMENT_MYPARAM3'=>array('type'=>'category:'.Categorie::TYPE_CUSTOMER, 'enabled'=>1),
+	//'KNOWLEDGEMANAGEMENT_MYPARAM3'=>array('type'=>'category:'.Category::TYPE_CUSTOMER, 'enabled'=>1),
 	//'KNOWLEDGEMANAGEMENT_MYPARAM4'=>array('type'=>'emailtemplate:thirdparty', 'enabled'=>1),
 	//'KNOWLEDGEMANAGEMENT_MYPARAM5'=>array('type'=>'yesno', 'enabled'=>1),
 	//'KNOWLEDGEMANAGEMENT_MYPARAM5'=>array('type'=>'thirdparty_type', 'enabled'=>1),
@@ -314,7 +314,7 @@ if ($action == 'edit') {
 					}
 					print $langs->trans($template->label);
 				} elseif (preg_match('/category:/', $val['type'])) {
-					$c = new Categorie($db);
+					$c = new Category($db);
 					$result = $c->fetch(getDolGlobalInt($constname));
 					if ($result < 0) {
 						setEventMessages(null, $c->errors, 'errors');

@@ -349,11 +349,11 @@ print '</td></tr>';
 $cat_type = 0;
 $cat_label = '';
 if ($mode == 'customer') {
-	$cat_type = Categorie::TYPE_CUSTOMER;
+	$cat_type = Category::TYPE_CUSTOMER;
 	$cat_label = $langs->trans("Category").' '.lcfirst($langs->trans("Customer"));
 }
 if ($mode == 'supplier') {
-	$cat_type = Categorie::TYPE_SUPPLIER;
+	$cat_type = Category::TYPE_SUPPLIER;
 	$cat_label = $langs->trans("Category").' '.lcfirst($langs->trans("Supplier"));
 }
 print '<tr><td>'.$cat_label.'</td><td>';

@@ -697,7 +697,7 @@ class Members extends DolibarrApi
 			throw new RestException(404, 'Member not found');
 		}
 
-		$categories = new Categorie($this->db);
+		$categories = new Category($this->db);
 
 		$result = $categories->getListForItem($id, 'member', $sortfield, $sortorder, $limit, $page);
 

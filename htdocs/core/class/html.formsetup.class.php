@@ -392,7 +392,7 @@ class FormSetup
 		 * Example from old module builder setup page
 		 * 	// 'MYMODULE_MYPARAM1'=>array('type'=>'string', 'css'=>'minwidth500' ,'enabled'=>1),
 			// 'MYMODULE_MYPARAM2'=>array('type'=>'textarea','enabled'=>1),
-			//'MYMODULE_MYPARAM3'=>array('type'=>'category:'.Categorie::TYPE_CUSTOMER, 'enabled'=>1),
+			//'MYMODULE_MYPARAM3'=>array('type'=>'category:'.Category::TYPE_CUSTOMER, 'enabled'=>1),
 			//'MYMODULE_MYPARAM4'=>array('type'=>'emailtemplate:thirdparty', 'enabled'=>1),
 			//'MYMODULE_MYPARAM5'=>array('type'=>'yesno', 'enabled'=>1),
 			//'MYMODULE_MYPARAM5'=>array('type'=>'thirdparty_type', 'enabled'=>1),
@@ -660,7 +660,7 @@ class FormSetupItem
 	 * TODO each type must have setAs{type} method to help configuration
 	 *   And set var as protected when its done configuration must be done by method
 	 *   this is important for retrocompatibility of future versions
-	 * @var string $type  'string', 'textarea', 'category:'.Categorie::TYPE_CUSTOMER', 'emailtemplate', 'thirdparty_type'
+	 * @var string $type  'string', 'textarea', 'category:'.Category::TYPE_CUSTOMER', 'emailtemplate', 'thirdparty_type'
 	 */
 	protected $type = 'string';
 
@@ -1157,7 +1157,7 @@ class FormSetupItem
 	 * because this two class will quickly evolve it's important to not set directly $this->type (will be protected) so this method exist
 	 * to be sure we can manage evolution easily
 	 *
-	 * @param 		string 	$type 	Possible values based on old module builder setup : 'string', 'textarea', 'category:'.Categorie::TYPE_CUSTOMER', 'emailtemplate', 'thirdparty_type'
+	 * @param 		string 	$type 	Possible values based on old module builder setup : 'string', 'textarea', 'category:'.Category::TYPE_CUSTOMER', 'emailtemplate', 'thirdparty_type'
 	 * @deprecated 					this setTypeFromTypeString came deprecated because it exists only for manage setup conversion
 	 * @return 		bool
 	 */
@@ -1249,7 +1249,7 @@ class FormSetupItem
 			}
 		} elseif (preg_match('/category:/', $this->type)) {
 			require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-			$c = new Categorie($this->db);
+			$c = new Category($this->db);
 			$result = $c->fetch($this->fieldValue);
 			if ($result < 0) {
 				$this->setErrors($c->errors);

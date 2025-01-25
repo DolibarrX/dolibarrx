@@ -3441,11 +3441,11 @@ function migrate_clean_association($db, $langs, $config)
 					}
 
 					if (!$error) {
-						print '<tr><td>'.$langs->trans("MigrationCategorieAssociation").'</td>';
+						print '<tr><td>'.$langs->trans("MigrationCategoryAssociation").'</td>';
 						print '<td class="right">'.$langs->trans("RemoveDuplicates").' '.$langs->trans("Success").' ('.$num.'=>'.count($couples).')</td></tr>';
 						$db->commit();
 					} else {
-						print '<tr><td>'.$langs->trans("MigrationCategorieAssociation").'</td>';
+						print '<tr><td>'.$langs->trans("MigrationCategoryAssociation").'</td>';
 						print '<td class="right">'.$langs->trans("RemoveDuplicates").' '.$langs->trans("Failed").'</td></tr>';
 						$db->rollback();
 					}
@@ -3472,7 +3472,7 @@ function migrate_categorie_association($db, $langs, $config)
 	print '<tr><td colspan="4">';
 
 	print '<br>';
-	print '<b>'.$langs->trans('MigrationCategorieAssociation')."</b><br>\n";
+	print '<b>'.$langs->trans('MigrationCategoryAssociation')."</b><br>\n";
 
 	$error = 0;
 

@@ -459,7 +459,7 @@ if ($object->id > 0) {
 		$langs->load("categories");
 		print '<tr><td>'.$langs->trans("SuppliersCategoriesShort").'</td>';
 		print '<td>';
-		print $form->showCategories($object->id, Categorie::TYPE_SUPPLIER, 1);
+		print $form->showCategories($object->id, Category::TYPE_SUPPLIER, 1);
 		print "</td></tr>";
 	}
 

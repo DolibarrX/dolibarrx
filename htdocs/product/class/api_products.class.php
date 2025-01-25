@@ -670,7 +670,7 @@ class Products extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$categories = new Categorie($this->db);
+		$categories = new Category($this->db);
 
 		$result = $categories->getListForItem($id, 'product', $sortfield, $sortorder, $limit, $page);
 

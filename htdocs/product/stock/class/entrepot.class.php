@@ -793,7 +793,7 @@ class Entrepot extends CommonObject
 		if (!$nofetch && isModEnabled('category')) {
 			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 			$form = new Form($this->db);
-			$datas['categories_warehouse'] = '<br>' . $form->showCategories($this->id, Categorie::TYPE_WAREHOUSE, 1, 1);
+			$datas['categories_warehouse'] = '<br>' . $form->showCategories($this->id, Category::TYPE_WAREHOUSE, 1, 1);
 		}
 
 		return $datas;
@@ -1032,7 +1032,7 @@ class Entrepot extends CommonObject
 	public function setCategories($categories)
 	{
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		return parent::setCategoriesCommon($categories, Categorie::TYPE_WAREHOUSE);
+		return parent::setCategoriesCommon($categories, Category::TYPE_WAREHOUSE);
 	}
 
 	/**

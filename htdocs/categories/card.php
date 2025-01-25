@@ -75,34 +75,34 @@ $idProjectOrigin = 0;
 $idProdOrigin = 0;
 
 if ($origin) {
-	if ($type == Categorie::TYPE_PRODUCT) {
+	if ($type == Category::TYPE_PRODUCT) {
 		$idProdOrigin     = $origin;
 	}
-	if ($type == Categorie::TYPE_SUPPLIER) {
+	if ($type == Category::TYPE_SUPPLIER) {
 		$idSupplierOrigin = $origin;
 	}
-	if ($type == Categorie::TYPE_CUSTOMER) {
+	if ($type == Category::TYPE_CUSTOMER) {
 		$idCompanyOrigin  = $origin;
 	}
-	if ($type == Categorie::TYPE_MEMBER) {
+	if ($type == Category::TYPE_MEMBER) {
 		$idMemberOrigin   = $origin;
 	}
-	if ($type == Categorie::TYPE_CONTACT) {
+	if ($type == Category::TYPE_CONTACT) {
 		$idContactOrigin  = $origin;
 	}
-	if ($type == Categorie::TYPE_PROJECT) {
+	if ($type == Category::TYPE_PROJECT) {
 		$idProjectOrigin  = $origin;
 	}
 }
 
-if ($catorigin && $type == Categorie::TYPE_PRODUCT) {
+if ($catorigin && $type == Category::TYPE_PRODUCT) {
 	$idCatOrigin = $catorigin;
 }
 if (!GETPOSTISSET('parent') && $catorigin) {
 	$parent = $catorigin;
 }
 
-$object = new Categorie($db);
+$object = new Category($db);
 
 $extrafields = new ExtraFields($db);
 $extrafields->fetch_name_optionals_label($object->table_element);

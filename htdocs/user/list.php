@@ -708,7 +708,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/massactions_pre.tpl.php';
 
 if (!empty($catid)) {
 	print "<div id='ways'>";
-	$c = new Categorie($db);
+	$c = new Category($db);
 	$ways = $c->print_all_ways(' &gt; ', 'user/list.php');
 	print " &gt; ".$ways[0]."<br>\n";
 	print "</div><br>";
@@ -733,7 +733,7 @@ $moreforfilter = '';
 if (isModEnabled('category') && $user->hasRight("categorie", "read")) {
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('Category');
-	$moreforfilter .= img_picto($langs->trans("Category"), 'category', 'class="pictofixedwidth"').$formother->select_categories(Categorie::TYPE_USER, $search_categ, 'search_categ', 1, $tmptitle);
+	$moreforfilter .= img_picto($langs->trans("Category"), 'category', 'class="pictofixedwidth"').$formother->select_categories(Category::TYPE_USER, $search_categ, 'search_categ', 1, $tmptitle);
 	$moreforfilter .= '</div>';
 }
 // Filter on warehouse

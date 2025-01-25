@@ -1200,7 +1200,7 @@ class Account extends CommonObject
 	public function setCategories($categories)
 	{
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		return parent::setCategoriesCommon($categories, Categorie::TYPE_ACCOUNT);
+		return parent::setCategoriesCommon($categories, Category::TYPE_ACCOUNT);
 	}
 
 	/**
@@ -1541,7 +1541,7 @@ class Account extends CommonObject
 		if (isModEnabled('category') && !$nofetch) {
 			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 			$form = new Form($this->db);
-			$datas['categories'] = '<br>' . $form->showCategories($this->id, Categorie::TYPE_ACCOUNT, 1);
+			$datas['categories'] = '<br>' . $form->showCategories($this->id, Category::TYPE_ACCOUNT, 1);
 		}
 
 		return $datas;

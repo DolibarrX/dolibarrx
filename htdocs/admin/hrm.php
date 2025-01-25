@@ -623,7 +623,7 @@ if ($action == 'edit') {
 					}
 					print $langs->trans($template->label);
 				} elseif (preg_match('/category:/', $val['type'])) {
-					$c = new Categorie($db);
+					$c = new Category($db);
 					$result = $c->fetch(getDolGlobalString($constname));
 					if ($result < 0) {
 						setEventMessages(null, $c->errors, 'errors');

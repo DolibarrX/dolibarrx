@@ -969,7 +969,7 @@ if ($warehouse->id > 0) {
 	// Categories
 	if (isModEnabled('category')) {
 		print '<tr><td valign="middle">'.$langs->trans("Categories").'</td><td colspan="3">';
-		print $form->showCategories($warehouse->id, Categorie::TYPE_WAREHOUSE, 1);
+		print $form->showCategories($warehouse->id, Category::TYPE_WAREHOUSE, 1);
 		print "</td></tr>";
 	}
 

@@ -46,13 +46,13 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 $langs->load("categories");
 
 $id = GETPOSTINT('id');
-$type = (GETPOST('type', 'aZ09') ? GETPOST('type', 'aZ09') : Categorie::TYPE_PRODUCT);
+$type = (GETPOST('type', 'aZ09') ? GETPOST('type', 'aZ09') : Category::TYPE_PRODUCT);
 $catname = GETPOST('catname', 'alpha');
 $nosearch = GETPOSTINT('nosearch');
 
-$categstatic = new Categorie($db);
+$categstatic = new Category($db);
 if (is_numeric($type)) {
-	$type = Categorie::$MAP_ID_TO_CODE[(int) $type]; // For backward compatibility
+	$type = Category::$MAP_ID_TO_CODE[(int) $type]; // For backward compatibility
 }
 
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array array
@@ -72,13 +72,13 @@ $form = new Form($db);
 $moreparam = ($nosearch ? '&nosearch=1' : '');
 
 $typetext = $type;
-if ($type == Categorie::TYPE_ACCOUNT) {
+if ($type == Category::TYPE_ACCOUNT) {
 	$title = $langs->trans('AccountsCategoriesArea');
-} elseif ($type == Categorie::TYPE_WAREHOUSE) {
+} elseif ($type == Category::TYPE_WAREHOUSE) {
 	$title = $langs->trans('StocksCategoriesArea');
-} elseif ($type == Categorie::TYPE_ACTIONCOMM) {
+} elseif ($type == Category::TYPE_ACTIONCOMM) {
 	$title = $langs->trans('ActionCommCategoriesArea');
-} elseif ($type == Categorie::TYPE_WEBSITE_PAGE) {
+} elseif ($type == Category::TYPE_WEBSITE_PAGE) {
 	$title = $langs->trans('WebsitePagesCategoriesArea');
 } else {
 	$title = $langs->trans(ucfirst($type).'sCategoriesArea');
@@ -169,16 +169,16 @@ $fulltree = $cate_arbo;
 
 // Load possible missing includes
 if (getDolGlobalString('CATEGORY_SHOW_COUNTS')) {
-	if ($type == Categorie::TYPE_MEMBER) {
+	if ($type == Category::TYPE_MEMBER) {
 		require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 	}
-	if ($type == Categorie::TYPE_ACCOUNT) {
+	if ($type == Category::TYPE_ACCOUNT) {
 		require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 	}
-	if ($type == Categorie::TYPE_PROJECT) {
+	if ($type == Category::TYPE_PROJECT) {
 		require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 	}
-	if ($type == Categorie::TYPE_USER) {
+	if ($type == Category::TYPE_USER) {
 		require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 	}
 }
@@ -196,8 +196,8 @@ foreach ($fulltree as $key => $val) {
 	$counter = '';
 	if (getDolGlobalString('CATEGORY_SHOW_COUNTS')) {
 		// we need only a count of the elements, so it is enough to consume only the id's from the database
-		$elements = $type == Categorie::TYPE_ACCOUNT
-			? $categstatic->getObjectsInCateg("account", 1)			// Categorie::TYPE_ACCOUNT is "bank_account" instead of "account"
+		$elements = $type == Category::TYPE_ACCOUNT
+			? $categstatic->getObjectsInCateg("account", 1)			// Category::TYPE_ACCOUNT is "bank_account" instead of "account"
 			: $categstatic->getObjectsInCateg($type, 1);
 
 		$counter = "<td class='left' width='40px;'>".(is_array($elements) ? count($elements) : '0')."</td>";

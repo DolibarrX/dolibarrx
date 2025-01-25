@@ -411,7 +411,7 @@ if ($resql) {
 
 	if ($search_categ > 0) {
 		print "<div id='ways'>";
-		$c = new Categorie($db);
+		$c = new Category($db);
 		$c->fetch($search_categ);
 		$ways = $c->print_all_ways(' &gt; ', 'product/reassort.php');
 		print " &gt; ".$ways[0]."<br>\n";
@@ -423,7 +423,7 @@ if ($resql) {
 	if (isModEnabled('category')) {
 		$moreforfilter .= '<div class="divsearchfield">';
 		$moreforfilter .= img_picto($langs->trans('Categories'), 'category', 'class="pictofixedwidth"');
-		$moreforfilter .= $htmlother->select_categories(Categorie::TYPE_PRODUCT, $search_categ, 'search_categ', 1);
+		$moreforfilter .= $htmlother->select_categories(Category::TYPE_PRODUCT, $search_categ, 'search_categ', 1);
 		$moreforfilter .= '</div>';
 	}
 

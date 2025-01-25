@@ -144,7 +144,7 @@ class box_members_by_tags extends ModeleBoxes
 					if ($key == 'total') {
 						break;
 					}
-					$adhtag = new Categorie($this->db);
+					$adhtag = new Category($this->db);
 					$adhtag->id = (int) $key;
 					$adhtag->label = $data['label'];
 					$MemberTag[$key] = $adhtag;

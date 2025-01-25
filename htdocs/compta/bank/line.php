@@ -324,8 +324,8 @@ llxHeader('', $langs->trans("BankTransaction"));
 
 $arrayselected = array();
 
-$c = new Categorie($db);
-$cats = $c->containing($rowid, Categorie::TYPE_BANK_LINE);
+$c = new Category($db);
+$cats = $c->containing($rowid, Category::TYPE_BANK_LINE);
 if (is_array($cats)) {
 	foreach ($cats as $cat) {
 		$arrayselected[] = $cat->id;
@@ -637,12 +637,12 @@ if ($result) {
 
 			// Bank line
 			print '<tr><td class="toptd">'.$form->editfieldkey('RubriquesTransactions', 'custcats', '', $object, 0).'</td><td>';
-			$cate_arbo = $form->select_all_categories(Categorie::TYPE_BANK_LINE, '', 'parent', 0, 0, 1);
+			$cate_arbo = $form->select_all_categories(Category::TYPE_BANK_LINE, '', 'parent', 0, 0, 1);
 
 			$arrayselected = array();
 
-			$c = new Categorie($db);
-			$cats = $c->containing($bankline->id, Categorie::TYPE_BANK_LINE);
+			$c = new Category($db);
+			$cats = $c->containing($bankline->id, Category::TYPE_BANK_LINE);
 			if (is_array($cats)) {
 				foreach ($cats as $cat) {
 					$arrayselected[] = $cat->id;

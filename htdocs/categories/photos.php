@@ -60,7 +60,7 @@ if ($id == '' && $label == '') {
 // Initialize a technical object to manage hooks. Note that conf->hooks_modules contains array array
 $hookManager->initHooks(array('categorycard'));
 
-$object = new Categorie($db);
+$object = new Category($db);
 $result = $object->fetch($id, $label);
 if ($result <= 0) {
 	dol_print_error($db, $object->error);
@@ -69,7 +69,7 @@ if ($result <= 0) {
 
 $type = $object->type;
 if (is_numeric($type)) {
-	$type = Categorie::$MAP_ID_TO_CODE[(int) $type]; // For backward compatibility
+	$type = Category::$MAP_ID_TO_CODE[(int) $type]; // For backward compatibility
 }
 
 $upload_dir = $config->categorie->multidir_output[$object->entity];
@@ -129,7 +129,7 @@ $form = new Form($db);
 $formother = new FormOther($db);
 
 if ($object->id) {
-	$title = Categorie::$MAP_TYPE_TITLE_AREA[$type];
+	$title = Category::$MAP_TYPE_TITLE_AREA[$type];
 
 	$head = categories_prepare_head($object, $type);
 	print dol_get_fiche_head($head, 'photos', $langs->trans($title), -1, 'category');

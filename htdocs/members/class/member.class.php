@@ -2320,7 +2320,7 @@ class Member extends CommonObject
 		if (isModEnabled('category') && !$nofetch) {
 			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 			$form = new Form($this->db);
-			$datas['categories'] = '<br>' . $form->showCategories($this->id, Categorie::TYPE_MEMBER, 1);
+			$datas['categories'] = '<br>' . $form->showCategories($this->id, Category::TYPE_MEMBER, 1);
 		}
 		$datas['divclose'] = '</div>';
 
@@ -2995,7 +2995,7 @@ class Member extends CommonObject
 	public function setCategories($categories)
 	{
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		return parent::setCategoriesCommon($categories, Categorie::TYPE_MEMBER);
+		return parent::setCategoriesCommon($categories, Category::TYPE_MEMBER);
 	}
 
 	/**

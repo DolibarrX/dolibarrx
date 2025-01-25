@@ -333,7 +333,7 @@ class MailmanSpip
 					$lists = explode(',', $listes);
 				}
 
-				$categstatic = new Categorie($this->db);
+				$categstatic = new Category($this->db);
 
 				foreach ($lists as $list) {
 					// Filter on type something (ADHERENT_MAILMAN_LISTS = "mailinglist0,TYPE:typevalue:mailinglist1,CATEG:categvalue:mailinglist2")
@@ -403,7 +403,7 @@ class MailmanSpip
 					$lists = explode(',', $listes);
 				}
 
-				$categstatic = new Categorie($this->db);
+				$categstatic = new Category($this->db);
 
 				foreach ($lists as $list) {
 					// Filter on type something (ADHERENT_MAILMAN_LISTS = "mailinglist0,TYPE:typevalue:mailinglist1,CATEG:categvalue:mailinglist2")

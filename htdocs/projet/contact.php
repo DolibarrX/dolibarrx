@@ -500,7 +500,7 @@ if ($id > 0 || !empty($ref)) {
 	// Categories
 	if (isModEnabled('category')) {
 		print '<tr><td class="valignmiddle">'.$langs->trans("Categories").'</td><td>';
-		print $form->showCategories($object->id, Categorie::TYPE_PROJECT, 1);
+		print $form->showCategories($object->id, Category::TYPE_PROJECT, 1);
 		print "</td></tr>";
 	}
 

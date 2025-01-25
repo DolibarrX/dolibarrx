@@ -27,11 +27,11 @@
 /**
  * Prepare array with list of tabs
  *
- * @param   Categorie	$object		Object related to tabs
+ * @param   Category	$object		Object related to tabs
  * @param	string		$type		Type of category
  * @return	array<array{0:string,1:string,2:string}>	Array of tabs to show
  */
-function categories_prepare_head(Categorie $object, $type)
+function categories_prepare_head(Category $object, $type)
 {
 	global $langs, $config, $user;
 

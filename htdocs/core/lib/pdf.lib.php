@@ -1782,9 +1782,9 @@ function pdf_getlinedesc($object, $i, $outputlangs, $hideref = 0, $hidedesc = 0,
 	// Add an additional description for the category products
 	if (getDolGlobalString('CATEGORY_ADD_DESC_INTO_DOC') && $idprod && isModEnabled('category')) {
 		include_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
-		$categstatic = new Categorie($db);
+		$categstatic = new Category($db);
 		// recovering the list of all the categories linked to product
-		$tblcateg = $categstatic->containing($idprod, Categorie::TYPE_PRODUCT);
+		$tblcateg = $categstatic->containing($idprod, Category::TYPE_PRODUCT);
 		foreach ($tblcateg as $cate) {
 			// Adding the descriptions if they are filled
 			$desccateg = $cate->description;

@@ -584,7 +584,7 @@ print '<table class="border tableforfield centpercent">';
 if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
 	print '<tr><td>'.$langs->trans("Categories").'</td>';
 	print '<td colspan="2">';
-	print $form->showCategories($object->id, Categorie::TYPE_MEMBER, 1);
+	print $form->showCategories($object->id, Category::TYPE_MEMBER, 1);
 	print '</td></tr>';
 }
 

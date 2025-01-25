@@ -138,8 +138,8 @@ if ($action != 'edit') {
 
 // Get bank line categorie ID
 include_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
-$cats = new Categorie($db);
-$catTypeID = $cats->getMapId()[Categorie::TYPE_BANK_LINE];
+$cats = new Category($db);
+$catTypeID = $cats->getMapId()[Category::TYPE_BANK_LINE];
 
 $sql = "SELECT rowid, label";
 $sql .= " FROM ".MAIN_DB_PREFIX."categorie";

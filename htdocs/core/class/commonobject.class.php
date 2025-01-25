@@ -8006,7 +8006,7 @@ abstract class CommonObject
 					}
 				} else {
 					require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-					$data = $form->select_all_categories(Categorie::$MAP_ID_TO_CODE[$InfoFieldList[5]], '', 'parent', 64, $InfoFieldList[6], 1, 1);
+					$data = $form->select_all_categories(Category::$MAP_ID_TO_CODE[$InfoFieldList[5]], '', 'parent', 64, $InfoFieldList[6], 1, 1);
 					$out .= '<option value="0">&nbsp;</option>';
 					foreach ($data as $data_key => $data_value) {
 						$out .= '<option value="' . $data_key . '"';
@@ -8240,7 +8240,7 @@ abstract class CommonObject
 					}
 				} else {
 					require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-					$data = $form->select_all_categories(Categorie::$MAP_ID_TO_CODE[(int) $InfoFieldList[5]], '', 'parent', 64, $InfoFieldList[6], 1, 1);
+					$data = $form->select_all_categories(Category::$MAP_ID_TO_CODE[(int) $InfoFieldList[5]], '', 'parent', 64, $InfoFieldList[6], 1, 1);
 					$out = $form->multiselectarray($keyprefix . $key . $keysuffix, $data, $value_arr, 0, 0, $morecss, 0, '100%');
 				}
 			}
@@ -8663,7 +8663,7 @@ abstract class CommonObject
 
 					$toprint = array();
 					$obj = $this->db->fetch_object($resql);
-					$c = new Categorie($this->db);
+					$c = new Category($this->db);
 					$c->fetch($obj->rowid);
 					$ways = $c->print_all_ways(); // $ways[0] = "ccc2 >> ccc2a >> ccc2a1" with html formatted text
 					foreach ($ways as $way) {
@@ -8766,7 +8766,7 @@ abstract class CommonObject
 					$toprint = array();
 					while ($obj = $this->db->fetch_object($resql)) {
 						if (is_array($value_arr) && in_array($obj->rowid, $value_arr)) {
-							$c = new Categorie($this->db);
+							$c = new Category($this->db);
 							$c->fetch($obj->rowid);
 							$ways = $c->print_all_ways(); // $ways[0] = "ccc2 >> ccc2a >> ccc2a1" with html formatted text
 							foreach ($ways as $way) {
@@ -11195,7 +11195,7 @@ abstract class CommonObject
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 
 		// Get current categories
-		$c = new Categorie($this->db);
+		$c = new Category($this->db);
 		$existing = $c->containing($this->id, $type_categ, 'id');
 
 		return $existing;
@@ -11209,7 +11209,7 @@ abstract class CommonObject
 	 * Existing categories are left untouch.
 	 *
 	 * @param 	int[]|int 	$categories 		Category ID or array of Categories IDs
-	 * @param 	string 		$type_categ 		Category type ('customer', 'supplier', 'website_page', ...) defined into const class Categorie type
+	 * @param 	string 		$type_categ 		Category type ('customer', 'supplier', 'website_page', ...) defined into const class Category type
 	 * @param 	boolean		$remove_existing 	True: Remove existings categories from Object if not supplies by $categories, False: let them
 	 * @return	int								Return integer <0 if KO, >0 if OK
 	 */
@@ -11230,7 +11230,7 @@ abstract class CommonObject
 		}
 
 		// Get current categories
-		$c = new Categorie($this->db);
+		$c = new Category($this->db);
 		$existing = $c->containing($this->id, $type_categ, 'id');
 		if ($remove_existing) {
 			// Diff
@@ -11297,7 +11297,7 @@ abstract class CommonObject
 		}
 
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		$categorystatic = new Categorie($this->db);
+		$categorystatic = new Category($this->db);
 
 		$sql = "INSERT INTO ".$this->db->prefix()."categorie_".(empty($categorystatic->MAP_CAT_TABLE[$type]) ? $type : $categorystatic->MAP_CAT_TABLE[$type])." (fk_categorie, fk_product)";
 		$sql .= " SELECT fk_categorie, $toId FROM ".$this->db->prefix()."categorie_".(empty($categorystatic->MAP_CAT_TABLE[$type]) ? $type : $categorystatic->MAP_CAT_TABLE[$type]);

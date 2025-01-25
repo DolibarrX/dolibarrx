@@ -100,14 +100,14 @@ $langs->loadLangs(array('propal', 'other', 'companies'));
 $picto = 'propal';
 $title = $langs->trans("ProposalsStatistics");
 $dir = $config->propal->dir_temp;
-$cat_type = Categorie::TYPE_CUSTOMER;
+$cat_type = Category::TYPE_CUSTOMER;
 $cat_label = $langs->trans("Category").' '.lcfirst($langs->trans("Customer"));
 
 if ($mode == 'supplier') {
 	$picto = 'supplier_proposal';
 	$title = $langs->trans("ProposalsStatisticsSuppliers");
 	$dir = $config->supplier_proposal->dir_temp;
-	$cat_type = Categorie::TYPE_SUPPLIER;
+	$cat_type = Category::TYPE_SUPPLIER;
 	$cat_label = $langs->trans("Category").' '.lcfirst($langs->trans("Supplier"));
 }
 

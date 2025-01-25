@@ -561,7 +561,7 @@ print_barre_liste($texte, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sort
 /*
 if ($search_categ > 0) {
 	print "<div id='ways'>";
-	$c = new Categorie($db);
+	$c = new Category($db);
 	$c->fetch($search_categ);
 	$ways = $c->print_all_ways(' &gt; ', 'product/reassortlot.php');
 	print " &gt; ".$ways[0]."<br>\n";
@@ -574,14 +574,14 @@ $moreforfilter = '';
 if (isModEnabled('category')) {
 	$moreforfilter .= '<div class="divsearchfield">';
 	$moreforfilter .= img_picto($langs->trans('ProductsCategoriesShort'), 'category', 'class="pictofixedwidth"');
-	$moreforfilter .= $htmlother->select_categories(Categorie::TYPE_PRODUCT, $search_categ, 'search_categ', 1, $langs->trans("ProductsCategoryShort"), 'maxwidth400');
+	$moreforfilter .= $htmlother->select_categories(Category::TYPE_PRODUCT, $search_categ, 'search_categ', 1, $langs->trans("ProductsCategoryShort"), 'maxwidth400');
 	$moreforfilter .= '</div>';
 }
 // Filter on warehouse categories
 if (isModEnabled('category')) {
 	$moreforfilter .= '<div class="divsearchfield">';
 	$moreforfilter .= img_picto($langs->trans('StockCategoriesShort'), 'category', 'class="pictofixedwidth"');
-	$moreforfilter .= $htmlother->select_categories(Categorie::TYPE_WAREHOUSE, $search_warehouse_categ, 'search_warehouse_categ', 1, $langs->trans("StockCategoriesShort"), 'maxwidth400');
+	$moreforfilter .= $htmlother->select_categories(Category::TYPE_WAREHOUSE, $search_warehouse_categ, 'search_warehouse_categ', 1, $langs->trans("StockCategoriesShort"), 'maxwidth400');
 	$moreforfilter .= '</div>';
 }
 

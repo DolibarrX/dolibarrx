@@ -565,7 +565,7 @@ if ($resql) {
 	$moreforfilter = '';
 	if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
 		$formcategory = new FormCategory($db);
-		$moreforfilter .= $formcategory->getFilterBox(Categorie::TYPE_PRODUCT, $searchCategoryProductList, 'minwidth300', $searchCategoryProductList ? $searchCategoryProductList : 0);
+		$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_PRODUCT, $searchCategoryProductList, 'minwidth300', $searchCategoryProductList ? $searchCategoryProductList : 0);
 	}
 
 	// Show/hide child products. Hidden by default

@@ -5746,7 +5746,7 @@ class Product extends CommonObject
 			if (isModEnabled('category') && !$nofetch) {
 				require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 				$form = new Form($this->db);
-				$datas['categories'] = '<br>' . $form->showCategories($this->id, Categorie::TYPE_PRODUCT, 1);
+				$datas['categories'] = '<br>' . $form->showCategories($this->id, Category::TYPE_PRODUCT, 1);
 			}
 		}
 
@@ -6849,7 +6849,7 @@ class Product extends CommonObject
 	public function setCategories($categories)
 	{
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		return parent::setCategoriesCommon($categories, Categorie::TYPE_PRODUCT);
+		return parent::setCategoriesCommon($categories, Category::TYPE_PRODUCT);
 	}
 
 	/**

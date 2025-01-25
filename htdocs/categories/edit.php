@@ -69,7 +69,7 @@ $hookManager->initHooks(array('categorycard'));
 // Security check
 $result = restrictedArea($user, 'categorie', $id, '&category');
 
-$object = new Categorie($db);
+$object = new Category($db);
 $result = $object->fetch($id, $label);
 if ($result <= 0) {
 	dol_print_error($db, $object->error);
@@ -78,7 +78,7 @@ if ($result <= 0) {
 
 $type = $object->type;
 if (is_numeric($type)) {
-	$type = Categorie::$MAP_ID_TO_CODE[(int) $type]; // For backward compatibility
+	$type = Category::$MAP_ID_TO_CODE[(int) $type]; // For backward compatibility
 }
 
 $extrafields = new ExtraFields($db);

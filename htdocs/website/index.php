@@ -526,7 +526,7 @@ if ($massaction == 'setcategory' && GETPOST('confirmmassaction', 'alpha') && $us
 	$categoryid = GETPOSTINT('setcategory');
 	if ($categoryid > 0) {
 		$tmpwebsitepage = new WebsitePage($db);
-		$category = new Categorie($db);
+		$category = new Category($db);
 		$category->fetch($categoryid);
 
 		foreach ($toselect as $tmpid) {
@@ -565,7 +565,7 @@ if ($massaction == 'delcategory' && GETPOST('confirmmassaction', 'alpha') && $us
 	$categoryid = GETPOSTINT('setcategory');
 	if ($categoryid > 0) {
 		$tmpwebsitepage = new WebsitePage($db);
-		$category = new Categorie($db);
+		$category = new Category($db);
 		$category->fetch($categoryid);
 
 		foreach ($toselect as $tmpid) {
@@ -3159,7 +3159,7 @@ if (!GETPOST('hide_websitemenu')) {
 
 			if (isModEnabled('category')) {
 				//print '<a href="'.DOL_URL_ROOT.'/categories/index.php?leftmenu=website&dol_hide_leftmenu=1&nosearch=1&type=website_page&website='.$website->ref.'" class="button bordertransp"'.$disabled.' title="'.dol_escape_htmltag($langs->trans("Categories")).'"><span class="fa fa-tags"></span></a>';
-				print dolButtonToOpenUrlInDialogPopup('categories', $langs->transnoentitiesnoconv("Categories"), '<span class="fa fa-tags"></span>', '/categories/index.php?leftmenu=website&nosearch=1&type='.urlencode(Categorie::TYPE_WEBSITE_PAGE).'&website='.urlencode($website->ref), $disabled);
+				print dolButtonToOpenUrlInDialogPopup('categories', $langs->transnoentitiesnoconv("Categories"), '<span class="fa fa-tags"></span>', '/categories/index.php?leftmenu=website&nosearch=1&type='.urlencode(Category::TYPE_WEBSITE_PAGE).'&website='.urlencode($website->ref), $disabled);
 			}
 
 			print '</span>';
@@ -4665,8 +4665,8 @@ if ($action == 'editmeta' || $action == 'createcontainer') {	// Edit properties 
 		$langs->load('categories');
 
 		if (!GETPOSTISSET('categories')) {
-			$c = new Categorie($db);
-			$cats = $c->containing($objectpage->id, Categorie::TYPE_WEBSITE_PAGE);
+			$c = new Category($db);
+			$cats = $c->containing($objectpage->id, Category::TYPE_WEBSITE_PAGE);
 			$arrayselected = array();
 			if (is_array($cats)) {
 				foreach ($cats as $cat) {
@@ -4674,15 +4674,15 @@ if ($action == 'editmeta' || $action == 'createcontainer') {	// Edit properties 
 				}
 			}
 
-			//$cate_arbo = $form->select_all_categories(Categorie::TYPE_WEBSITE_PAGE, '', '', 0, 0, 3);
-			$cate_arbo = $form->select_all_categories(Categorie::TYPE_WEBSITE_PAGE, '', 'parent', 0, 0, 3);
+			//$cate_arbo = $form->select_all_categories(Category::TYPE_WEBSITE_PAGE, '', '', 0, 0, 3);
+			$cate_arbo = $form->select_all_categories(Category::TYPE_WEBSITE_PAGE, '', 'parent', 0, 0, 3);
 		}
 
 		print '<tr><td class="toptd">'.$form->editfieldkey('Categories', 'categories', '', $objectpage, 0).'</td><td>';
 		print img_picto('', 'category', 'class="pictofixedwidth"');
 		print $form->multiselectarray('categories', $cate_arbo, (GETPOSTISSET('categories') ? GETPOST('categories', 'array') : $arrayselected), 0, 0, 'minwidth200 widthcentpercentminusxx');
 
-		print dolButtonToOpenUrlInDialogPopup('categories', $langs->transnoentitiesnoconv("Categories"), img_picto('', 'add'), '/categories/index.php?leftmenu=website&nosearch=1&type='.urlencode(Categorie::TYPE_WEBSITE_PAGE).'&website='.urlencode($website->ref), $disabled);
+		print dolButtonToOpenUrlInDialogPopup('categories', $langs->transnoentitiesnoconv("Categories"), img_picto('', 'add'), '/categories/index.php?leftmenu=website&nosearch=1&type='.urlencode(Category::TYPE_WEBSITE_PAGE).'&website='.urlencode($website->ref), $disabled);
 
 		print "</td></tr>";
 	}
@@ -5079,7 +5079,7 @@ if ($mode == 'replacesite' || $massaction == 'replace') {
 		print $langs->trans("Category");
 		print '</div>';
 		print '<div class="tagtd">';
-		print img_picto('', 'category', 'class="paddingrightonly"').' '.$form->select_all_categories(Categorie::TYPE_WEBSITE_PAGE, GETPOSTISSET('optioncategory') ? GETPOST('optioncategory') : '', 'optioncategory', 0, 0, 0, 0, 'minwidth125 maxwidth400 widthcentpercentminusx');
+		print img_picto('', 'category', 'class="paddingrightonly"').' '.$form->select_all_categories(Category::TYPE_WEBSITE_PAGE, GETPOSTISSET('optioncategory') ? GETPOST('optioncategory') : '', 'optioncategory', 0, 0, 0, 0, 'minwidth125 maxwidth400 widthcentpercentminusx');
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 		print ajax_combobox('optioncategory');
 		print '</div>';
@@ -5131,7 +5131,7 @@ if ($mode == 'replacesite' || $massaction == 'replace') {
 			$massactionbutton .= '</div>';
 			$massactionbutton .= '<div class="massactionother massactionsetcategory massactiondelcategory hidden">';
 			$massactionbutton .= img_picto('', 'category', 'class="pictofixedwidth"');
-			$massactionbutton .= $form->select_all_categories(Categorie::TYPE_WEBSITE_PAGE, GETPOSTISSET('setcategory') ? GETPOST('setcategory') : '', 'setcategory', 64, 0, 0, 0, 'minwidth300 alignstart');
+			$massactionbutton .= $form->select_all_categories(Category::TYPE_WEBSITE_PAGE, GETPOSTISSET('setcategory') ? GETPOST('setcategory') : '', 'setcategory', 64, 0, 0, 0, 'minwidth300 alignstart');
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 			$massactionbutton .= ajax_combobox('setcategory');
 			$massactionbutton .= '</div>';
@@ -5194,7 +5194,7 @@ if ($mode == 'replacesite' || $massaction == 'replace') {
 			print '</tr>';
 
 			require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-			$c = new Categorie($db);
+			$c = new Category($db);
 
 			$totalnbwords = 0;
 
@@ -5257,7 +5257,7 @@ if ($mode == 'replacesite' || $massaction == 'replace') {
 					print '<td class="center">';
 					if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
 						// Get current categories
-						$existing = $c->containing($answerrecord->id, Categorie::TYPE_WEBSITE_PAGE, 'object');
+						$existing = $c->containing($answerrecord->id, Category::TYPE_WEBSITE_PAGE, 'object');
 						if (is_array($existing)) {
 							foreach ($existing as $tmpcategory) {
 								//var_dump($tmpcategory);

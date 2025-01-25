@@ -87,7 +87,7 @@ $subcat = false;
 if (GETPOST('subcat', 'alpha') === 'yes') {
 	$subcat = true;
 }
-$categorie = new Categorie($db);
+$categorie = new Category($db);
 
 // product/service
 $selected_type = GETPOST('search_type', 'intcomma');
@@ -480,7 +480,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 	print '<tr class="liste_titre">';
 	print '<td>';
 	print img_picto('', 'category', 'class="pictofixedwidth"');
-	print $formother->select_categories(Categorie::TYPE_PRODUCT, $selected_cat, 'search_categ', 0, $langs->trans("Category"));
+	print $formother->select_categories(Category::TYPE_PRODUCT, $selected_cat, 'search_categ', 0, $langs->trans("Category"));
 	print ' ';
 	print '<input type="checkbox" class="marginleft" id="subcat" name="subcat" value="yes"';
 	if ($subcat) {
@@ -494,7 +494,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 	// Third party filter
 	print '<br>';
 	print img_picto('', 'category', 'class="pictofixedwidth"');
-	print $formother->select_categories(Categorie::TYPE_CUSTOMER, $selected_catsoc, 'search_categ_soc', 0, $langs->trans("CustomersProspectsCategoriesShort"));
+	print $formother->select_categories(Category::TYPE_CUSTOMER, $selected_catsoc, 'search_categ_soc', 0, $langs->trans("CustomersProspectsCategoriesShort"));
 
 	// Type of third party filter
 	print '&nbsp; &nbsp;';

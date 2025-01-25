@@ -951,7 +951,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/massactions_pre.tpl.php';
 
 if (!empty($catid)) {
 	print "<div id='ways'>";
-	$c = new Categorie($db);
+	$c = new Category($db);
 	$ways = $c->print_all_ways(' &gt; ', 'product/list.php');
 	print " &gt; ".$ways[0]."<br>\n";
 	print "</div><br>";
@@ -971,7 +971,7 @@ if ($search_all) {
 $moreforfilter = '';
 if (isModEnabled('category') && $user->hasRight('categorie', 'read')) {
 	$formcategory = new FormCategory($db);
-	$moreforfilter .= $formcategory->getFilterBox(Categorie::TYPE_PRODUCT, $searchCategoryProductList, 'minwidth300', $searchCategoryProductOperator ? $searchCategoryProductOperator : 0);
+	$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_PRODUCT, $searchCategoryProductList, 'minwidth300', $searchCategoryProductOperator ? $searchCategoryProductOperator : 0);
 }
 
 // Show/hide child variant products

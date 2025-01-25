@@ -279,7 +279,7 @@ print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sort
 
 if (!empty($catid)) {
 	print "<div id='ways'>";
-	$c = new Categorie($db);
+	$c = new Category($db);
 	$ways = $c->print_all_ways(' &gt; ', 'fourn/product/list.php');
 	print " &gt; ".$ways[0]."<br>\n";
 	print "</div><br>";

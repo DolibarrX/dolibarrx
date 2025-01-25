@@ -1561,7 +1561,7 @@ class ExtraFields
 					}
 				} else {
 					require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-					$data = $form->select_all_categories(Categorie::$MAP_ID_TO_CODE[$InfoFieldList[5]], '', 'parent', 64, $InfoFieldList[6], 1, 1);
+					$data = $form->select_all_categories(Category::$MAP_ID_TO_CODE[$InfoFieldList[5]], '', 'parent', 64, $InfoFieldList[6], 1, 1);
 					$out .= '<option value="0">&nbsp;</option>';
 					if (is_array($data)) {
 						foreach ($data as $data_key => $data_value) {
@@ -1848,7 +1848,7 @@ class ExtraFields
 					}
 				} else {
 					require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-					$data = $form->select_all_categories(Categorie::$MAP_ID_TO_CODE[$InfoFieldList[5]], '', 'parent', 64, $InfoFieldList[6], 1, 1);
+					$data = $form->select_all_categories(Category::$MAP_ID_TO_CODE[$InfoFieldList[5]], '', 'parent', 64, $InfoFieldList[6], 1, 1);
 					$out = $form->multiselectarray($keyprefix.$key.$keysuffix, $data, $value_arr, 0, 0, '', 0, '100%');
 				}
 			}
@@ -2170,7 +2170,7 @@ class ExtraFields
 					$obj = $this->db->fetch_object($resql);
 					if ($obj->rowid) {
 						require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
-						$c = new Categorie($this->db);
+						$c = new Category($this->db);
 						$result = $c->fetch($obj->rowid);
 						if ($result > 0) {
 							$ways = $c->print_all_ways(); // $ways[0] = "ccc2 >> ccc2a >> ccc2a1" with html formatted text
@@ -2282,7 +2282,7 @@ class ExtraFields
 					$toprint = array();
 					while ($obj = $this->db->fetch_object($resql)) {
 						if (is_array($value_arr) && in_array($obj->rowid, $value_arr)) {
-							$c = new Categorie($this->db);
+							$c = new Category($this->db);
 							$c->fetch($obj->rowid);
 							$ways = $c->print_all_ways(); // $ways[0] = "ccc2 >> ccc2a >> ccc2a1" with html formatted text
 							foreach ($ways as $way) {

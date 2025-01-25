@@ -464,7 +464,7 @@ print '<table class="tagtable liste'.($moreforfilter ? " listwithfilterbefore" :
 print '<tr class="liste_titre">';
 print '<td class="nowraponall">';
 print img_picto('', 'category', 'class="paddingrightonly"');
-print $formother->select_categories(Categorie::TYPE_CUSTOMER, $selected_cat, 'search_categ', 0, $langs->trans("Category"));
+print $formother->select_categories(Category::TYPE_CUSTOMER, $selected_cat, 'search_categ', 0, $langs->trans("Category"));
 print ' ';
 print $langs->trans("SubCats").'? ';
 print '<input type="checkbox" name="subcat" value="yes"';

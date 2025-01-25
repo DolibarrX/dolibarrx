@@ -64,7 +64,7 @@ $search_status = GETPOST("search_status", "intcomma");
 
 $search_category_list = array();
 if (isModEnabled('category')) {
-	$search_category_list = GETPOST("search_category_".Categorie::TYPE_WAREHOUSE."_list", "array");
+	$search_category_list = GETPOST("search_category_".Category::TYPE_WAREHOUSE."_list", "array");
 }
 
 // Load variable for pagination
@@ -510,7 +510,7 @@ $moreforfilter = '';
 
 if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
 	$formcategory = new FormCategory($db);
-	$moreforfilter .= $formcategory->getFilterBox(Categorie::TYPE_WAREHOUSE, $search_category_list);
+	$moreforfilter .= $formcategory->getFilterBox(Category::TYPE_WAREHOUSE, $search_category_list);
 }
 
 /*$moreforfilter.='<div class="divsearchfield">';

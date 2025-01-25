@@ -21,7 +21,7 @@
 /**
  *	    \file       htdocs/categories/admin/categorie.php
  *      \ingroup    categories
- *      \brief      Categorie admin pages
+ *      \brief      Category admin pages
  */
 
 // Load Dolibarr environment
@@ -102,8 +102,8 @@ $form = new Form($db);
 // Mail required for members
 
 print '<tr class="oddeven">';
-print '<td>'.$langs->trans("CategorieRecursiv").'</td>';
-print '<td align="center" width="20">'.$form->textwithpicto('', $langs->trans("CategorieRecursivHelp"), 1, 'help').'</td>';
+print '<td>'.$langs->trans("CategoryRecursiv").'</td>';
+print '<td align="center" width="20">'.$form->textwithpicto('', $langs->trans("CategoryRecursivHelp"), 1, 'help').'</td>';
 
 print '<td align="center" width="100">';
 if ($config->use_javascript_ajax) {

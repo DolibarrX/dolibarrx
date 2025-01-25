@@ -1029,7 +1029,7 @@ if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('ContactCategoriesShort');
 	$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"');
-	$moreforfilter .= $formother->select_categories(Categorie::TYPE_CONTACT, $search_categ, 'search_categ', 1, $tmptitle);
+	$moreforfilter .= $formother->select_categories(Category::TYPE_CONTACT, $search_categ, 'search_categ', 1, $tmptitle);
 	$moreforfilter .= '</div>';
 	if (empty($type) || $type == 'c' || $type == 'p') {
 		$moreforfilter .= '<div class="divsearchfield">';
@@ -1042,7 +1042,7 @@ if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
 			$tmptitle .= $langs->trans('CustomersProspectsCategoriesShort');
 		}
 		$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"');
-		$moreforfilter .= $formother->select_categories(Categorie::TYPE_CUSTOMER, $search_categ_thirdparty, 'search_categ_thirdparty', 1, $tmptitle);
+		$moreforfilter .= $formother->select_categories(Category::TYPE_CUSTOMER, $search_categ_thirdparty, 'search_categ_thirdparty', 1, $tmptitle);
 		$moreforfilter .= '</div>';
 	}
 
@@ -1050,7 +1050,7 @@ if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
 		$moreforfilter .= '<div class="divsearchfield">';
 		$tmptitle = $langs->trans('SuppliersCategoriesShort');
 		$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"');
-		$moreforfilter .= $formother->select_categories(Categorie::TYPE_SUPPLIER, $search_categ_supplier, 'search_categ_supplier', 1, $tmptitle);
+		$moreforfilter .= $formother->select_categories(Category::TYPE_SUPPLIER, $search_categ_supplier, 'search_categ_supplier', 1, $tmptitle);
 		$moreforfilter .= '</div>';
 	}
 }

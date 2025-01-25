@@ -73,7 +73,7 @@ $optioncss = GETPOST('optioncss', 'alpha');
 
 $search_category_list = "";
 if (isModEnabled('category')) {
-	$search_category_list = GETPOST("search_category_".Categorie::TYPE_ACCOUNT."_list", "array");
+	$search_category_list = GETPOST("search_category_".Category::TYPE_ACCOUNT."_list", "array");
 }
 
 $socid = 0;
@@ -414,7 +414,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/massactions_pre.tpl.php';
 $moreforfilter = '';
 
 if (isModEnabled('category') && $user->hasRight('categorie', 'lire')) {
-	$moreforfilter .= $form->getFilterBox(Categorie::TYPE_ACCOUNT, $search_category_list);
+	$moreforfilter .= $form->getFilterBox(Category::TYPE_ACCOUNT, $search_category_list);
 }
 
 // Bank accounts

@@ -184,7 +184,7 @@ if (getDolGlobalInt('TAKEPOS_BAR_RESTAURANT')) {
 		print '</td>';
 		print '<td class="nowrap">';
 		print img_picto('', 'category', 'class="pictofixedwidth"');
-		print $form->select_all_categories(Categorie::TYPE_PRODUCT, getDolGlobalString('TAKEPOS_SUPPLEMENTS_CATEGORY'), 'TAKEPOS_SUPPLEMENTS_CATEGORY', 64, 0, 0, 0, 'minwidth 200 maxwidth500 widthcentpercentminusx');
+		print $form->select_all_categories(Category::TYPE_PRODUCT, getDolGlobalString('TAKEPOS_SUPPLEMENTS_CATEGORY'), 'TAKEPOS_SUPPLEMENTS_CATEGORY', 64, 0, 0, 0, 'minwidth 200 maxwidth500 widthcentpercentminusx');
 		print ajax_combobox('TAKEPOS_SUPPLEMENTS_CATEGORY');
 		print "</td></tr>\n";
 	}

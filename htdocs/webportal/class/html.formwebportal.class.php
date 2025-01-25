@@ -945,7 +945,7 @@ class FormWebPortal extends Form
 					require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 					$categorytype = $InfoFieldList[5];
 					if (is_numeric($categorytype)) {
-						$categorytype = Categorie::$MAP_ID_TO_CODE[(int) $categorytype]; // For backward compatibility
+						$categorytype = Category::$MAP_ID_TO_CODE[(int) $categorytype]; // For backward compatibility
 					}
 					$data = $this->select_all_categories($categorytype, '', 'parent', 64, $InfoFieldList[6], 1, 1);
 					$out .= '<option value="0">&nbsp;</option>';
@@ -1217,7 +1217,7 @@ class FormWebPortal extends Form
 
 					$toprint = array();
 					$obj = $this->db->fetch_object($resql);
-					$c = new Categorie($this->db);
+					$c = new Category($this->db);
 					$c->fetch($obj->rowid);
 					$ways = $c->print_all_ways(); // $ways[0] = "ccc2 >> ccc2a >> ccc2a1" with html formatted text
 					foreach ($ways as $way) {
@@ -1320,7 +1320,7 @@ class FormWebPortal extends Form
 					$toprint = array();
 					while ($obj = $this->db->fetch_object($resql)) {
 						if (is_array($value_arr) && in_array($obj->rowid, $value_arr)) {
-							$c = new Categorie($this->db);
+							$c = new Category($this->db);
 							$c->fetch($obj->rowid);
 							$ways = $c->print_all_ways(); // $ways[0] = "ccc2 >> ccc2a >> ccc2a1" with html formatted text
 							foreach ($ways as $way) {

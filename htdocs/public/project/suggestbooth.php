@@ -329,7 +329,7 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 
 		if (!$error) {
 			// Adding supplier tag and tag from setup to thirdparty
-			$category = new Categorie($db);
+			$category = new Category($db);
 
 			$resultcategory = $category->fetch(getDolGlobalString('EVENTORGANIZATION_CATEG_THIRDPARTY_BOOTH'));
 
@@ -337,7 +337,7 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 				$error++;
 				$errmsg .= $category->error;
 			} else {
-				$resultsetcategory = $thirdparty->setCategoriesCommon(array($category->id), Categorie::TYPE_CUSTOMER, false);
+				$resultsetcategory = $thirdparty->setCategoriesCommon(array($category->id), Category::TYPE_CUSTOMER, false);
 				if ($resultsetcategory < 0) {
 					$error++;
 					$errmsg .= $thirdparty->error;

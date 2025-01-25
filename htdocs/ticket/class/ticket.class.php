@@ -1592,7 +1592,7 @@ class Ticket extends CommonObject
 		if (isModEnabled('category') && !$nofetch) {
 			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 			$form = new Form($this->db);
-			$datas['categories'] = '<br>' . $form->showCategories($this->id, Categorie::TYPE_TICKET, 1);
+			$datas['categories'] = '<br>' . $form->showCategories($this->id, Category::TYPE_TICKET, 1);
 		}
 
 		return $datas;
@@ -2631,8 +2631,8 @@ class Ticket extends CommonObject
 
 		// Get current categories
 		include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		$c = new Categorie($this->db);
-		$existing = $c->containing($this->id, Categorie::TYPE_TICKET, 'id');
+		$c = new Category($this->db);
+		$existing = $c->containing($this->id, Category::TYPE_TICKET, 'id');
 
 		// Diff
 		if (is_array($existing)) {
@@ -2646,12 +2646,12 @@ class Ticket extends CommonObject
 		// Process
 		foreach ($to_del as $del) {
 			if ($c->fetch($del) > 0) {
-				$c->del_type($this, Categorie::TYPE_TICKET);
+				$c->del_type($this, Category::TYPE_TICKET);
 			}
 		}
 		foreach ($to_add as $add) {
 			if ($c->fetch($add) > 0) {
-				$c->add_type($this, Categorie::TYPE_TICKET);
+				$c->add_type($this, Category::TYPE_TICKET);
 			}
 		}
 

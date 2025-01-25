@@ -1300,7 +1300,7 @@ if (!$error && ($action == 'affecttag' && $confirm == 'yes') && $permissiontoadd
 	if (!empty($affecttag_type_array)) {
 		//check if tag type submitted exists into Tag Map categorie class
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		$categ = new Categorie($db);
+		$categ = new Category($db);
 		$to_affecttag_type_array = array();
 		$categ_type_array = $categ->getMapList();
 		foreach ($categ_type_array as $categdef) {

@@ -783,7 +783,7 @@ class KnowledgeRecord extends CommonObject
 		if (isModEnabled('category') && !$nofetch) {
 			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 			$form = new Form($this->db);
-			$datas['categories'] = '<br>' . $form->showCategories($this->id, Categorie::TYPE_KNOWLEDGEMANAGEMENT, 1);
+			$datas['categories'] = '<br>' . $form->showCategories($this->id, Category::TYPE_KNOWLEDGEMANAGEMENT, 1);
 		}
 
 		return $datas;
@@ -1162,7 +1162,7 @@ class KnowledgeRecord extends CommonObject
 	public function setCategories($categories)
 	{
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		return parent::setCategoriesCommon($categories, Categorie::TYPE_KNOWLEDGEMANAGEMENT);
+		return parent::setCategoriesCommon($categories, Category::TYPE_KNOWLEDGEMANAGEMENT);
 	}
 
 	/**

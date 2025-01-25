@@ -1037,7 +1037,7 @@ function getProductsForCategory($authentication, $id, $lang = '')
 
 		$nbmax = 10;
 		if ($fuser->hasRight('produit', 'lire')) {
-			$categorie = new Categorie($db);
+			$categorie = new Category($db);
 			$result = $categorie->fetch($id);
 			if ($result > 0) {
 				$table = "product";

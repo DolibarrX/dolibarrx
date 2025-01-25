@@ -2281,14 +2281,14 @@ class Societe extends CommonObject
 
 			if (!$error) {
 				require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-				$static_cat = new Categorie($this->db);
+				$static_cat = new Category($this->db);
 				$toute_categs = array();
 
-				// Fill $toute_categs array with an array of (type => array of ("Categorie" instance))
-				$toute_categs['customer'] = $static_cat->containing($this->id, Categorie::TYPE_CUSTOMER);
-				$toute_categs['supplier'] = $static_cat->containing($this->id, Categorie::TYPE_SUPPLIER);
+				// Fill $toute_categs array with an array of (type => array of ("Category" instance))
+				$toute_categs['customer'] = $static_cat->containing($this->id, Category::TYPE_CUSTOMER);
+				$toute_categs['supplier'] = $static_cat->containing($this->id, Category::TYPE_SUPPLIER);
 
-				// Remove each "Categorie"
+				// Remove each "Category"
 				foreach ($toute_categs as $type => $categs_type) {
 					foreach ($categs_type as $cat) {
 						$cat->del_type($this, $type);
@@ -2985,7 +2985,7 @@ class Societe extends CommonObject
 		if (!$nofetch && isModEnabled('category') && $this->client) {
 			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 			$form = new Form($this->db);
-			$datas['categories_customer'] = '<br>' . $form->showCategories($this->id, Categorie::TYPE_CUSTOMER, 1, 1);
+			$datas['categories_customer'] = '<br>' . $form->showCategories($this->id, Category::TYPE_CUSTOMER, 1, 1);
 		}
 		if (!empty($this->code_fournisseur) && $this->fournisseur) {
 			$datas['suppliercode'] = '<br><b>'.$langs->trans('SupplierCode').':</b> '.$this->code_fournisseur;
@@ -2998,7 +2998,7 @@ class Societe extends CommonObject
 		if (!$nofetch && isModEnabled('category') && $this->fournisseur) {
 			require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 			$form = new Form($this->db);
-			$datas['categories_supplier'] = '<br>' . $form->showCategories($this->id, Categorie::TYPE_SUPPLIER, 1, 1);
+			$datas['categories_supplier'] = '<br>' . $form->showCategories($this->id, Category::TYPE_SUPPLIER, 1, 1);
 		}
 
 		$datas['divclose'] = '</div>';
@@ -4279,7 +4279,7 @@ class Societe extends CommonObject
 		$this->SupplierCategories = array();
 		$sql = "SELECT rowid, label";
 		$sql .= " FROM ".MAIN_DB_PREFIX."categorie";
-		$sql .= " WHERE type = ".Categorie::TYPE_SUPPLIER;
+		$sql .= " WHERE type = ".Category::TYPE_SUPPLIER;
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
@@ -5197,7 +5197,7 @@ class Societe extends CommonObject
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
 
 		// Decode type
-		if (!in_array($type_categ, array(Categorie::TYPE_CUSTOMER, Categorie::TYPE_SUPPLIER))) {
+		if (!in_array($type_categ, array(Category::TYPE_CUSTOMER, Category::TYPE_SUPPLIER))) {
 			dol_syslog(__METHOD__.': Type '.$type_categ.'is an unknown company category type. Done nothing.', LOG_ERR);
 			return -1;
 		}
@@ -5590,7 +5590,7 @@ class Societe extends CommonObject
 
 			// Merge categories
 			include_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-			$static_cat = new Categorie($this->db);
+			$static_cat = new Category($this->db);
 
 			$custcats_ori = $static_cat->containing($soc_origin->id, 'customer', 'id');
 			$custcats = $static_cat->containing($this->id, 'customer', 'id');
@@ -5624,7 +5624,7 @@ class Societe extends CommonObject
 			if (!$error) {
 				$objects = array(
 					'Member' => '/members/class/member.class.php',
-					//'Categorie' => '/categories/class/categorie.class.php',	// Already processed previously
+					//'Category' => '/categories/class/categorie.class.php',	// Already processed previously
 					'ActionComm' => '/comm/action/class/actioncomm.class.php',
 					'Propal' => '/comm/propal/class/propal.class.php',
 					'Commande' => '/commande/class/commande.class.php',

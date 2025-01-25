@@ -524,7 +524,7 @@ class Contacts extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$categories = new Categorie($this->db);
+		$categories = new Category($this->db);
 
 		$result = $categories->getListForItem($id, 'contact', $sortfield, $sortorder, $limit, $page);
 
@@ -558,7 +558,7 @@ class Contacts extends DolibarrApi
 		if (!$result) {
 			throw new RestException(404, 'Contact not found');
 		}
-		$category = new Categorie($this->db);
+		$category = new Category($this->db);
 		$result = $category->fetch($category_id);
 		if (!$result) {
 			throw new RestException(404, 'category not found');
@@ -598,7 +598,7 @@ class Contacts extends DolibarrApi
 		if (!$result) {
 			throw new RestException(404, 'Contact not found');
 		}
-		$category = new Categorie($this->db);
+		$category = new Category($this->db);
 		$result = $category->fetch($category_id);
 		if (!$result) {
 			throw new RestException(404, 'category not found');

@@ -86,7 +86,7 @@ if ($setcurrency != "") {
 }
 
 
-$categorie = new Categorie($db);
+$categorie = new Category($db);
 
 $maxcategbydefaultforthisdevice = 12;
 $maxproductbydefaultforthisdevice = 24;
@@ -1357,7 +1357,7 @@ if (isset($_SESSION["takeposterminal"]) && $_SESSION["takeposterminal"]) {
 
 if (count($maincategories) == 0) {
 	if (getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) {
-		$tmpcategory = new Categorie($db);
+		$tmpcategory = new Category($db);
 		$tmpcategory->fetch(getDolGlobalString('TAKEPOS_ROOT_CATEGORY_ID'));
 		setEventMessages($langs->trans("TakeposNeedsAtLeastOnSubCategoryIntoParentCategory", $tmpcategory->label), null, 'errors');
 	} else {

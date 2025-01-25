@@ -46,7 +46,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
 $langs->loadLangs(array("main", "categories", "takepos", "printing"));
 
 $id = GETPOSTINT('id');
-$type = (GETPOST('type', 'aZ09') ? GETPOST('type', 'aZ09') : Categorie::TYPE_PRODUCT);
+$type = (GETPOST('type', 'aZ09') ? GETPOST('type', 'aZ09') : Category::TYPE_PRODUCT);
 $catname = GETPOST('catname', 'alpha');
 $action = GETPOST('action', 'aZ09');
 $printer1 = GETPOST('printer1', 'alpha');
@@ -54,7 +54,7 @@ $printer2 = GETPOST('printer2', 'alpha');
 $printer3 = GETPOST('printer3', 'alpha');
 
 if (is_numeric($type)) {
-	$type = Categorie::$MAP_ID_TO_CODE[(int) $type]; // For backward compatibility
+	$type = Category::$MAP_ID_TO_CODE[(int) $type]; // For backward compatibility
 }
 
 if (!$user->hasRight('categorie', 'lire')) {
@@ -101,31 +101,31 @@ if ($action == "SavePrinter3") {
  * View
  */
 
-$categstatic = new Categorie($db);
+$categstatic = new Category($db);
 $form = new Form($db);
 
-if ($type == Categorie::TYPE_PRODUCT) {
+if ($type == Category::TYPE_PRODUCT) {
 	$title = $langs->trans("ProductsCategoriesArea");
 	$typetext = 'product';
-} elseif ($type == Categorie::TYPE_SUPPLIER) {
+} elseif ($type == Category::TYPE_SUPPLIER) {
 	$title = $langs->trans("SuppliersCategoriesArea");
 	$typetext = 'supplier';
-} elseif ($type == Categorie::TYPE_CUSTOMER) {
+} elseif ($type == Category::TYPE_CUSTOMER) {
 	$title = $langs->trans("CustomersCategoriesArea");
 	$typetext = 'customer';
-} elseif ($type == Categorie::TYPE_MEMBER) {
+} elseif ($type == Category::TYPE_MEMBER) {
 	$title = $langs->trans("MembersCategoriesArea");
 	$typetext = 'member';
-} elseif ($type == Categorie::TYPE_CONTACT) {
+} elseif ($type == Category::TYPE_CONTACT) {
 	$title = $langs->trans("ContactsCategoriesArea");
 	$typetext = 'contact';
-} elseif ($type == Categorie::TYPE_ACCOUNT) {
+} elseif ($type == Category::TYPE_ACCOUNT) {
 	$title = $langs->trans("AccountsCategoriesArea");
 	$typetext = 'bank_account';
-} elseif ($type == Categorie::TYPE_PROJECT) {
+} elseif ($type == Category::TYPE_PROJECT) {
 	$title = $langs->trans("ProjectsCategoriesArea");
 	$typetext = 'project';
-} elseif ($type == Categorie::TYPE_USER) {
+} elseif ($type == Category::TYPE_USER) {
 	$title = $langs->trans("UsersCategoriesArea");
 	$typetext = 'user';
 } else {

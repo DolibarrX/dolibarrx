@@ -1869,7 +1869,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 			if (isModEnabled('category') && $user->hasRight("categorie", "read")) {
 				print '<tr><td>'.$langs->trans("Categories").'</td>';
 				print '<td>';
-				print $form->showCategories($object->id, Categorie::TYPE_USER, 1);
+				print $form->showCategories($object->id, Category::TYPE_USER, 1);
 				print '</td></tr>';
 			}
 
@@ -2859,9 +2859,9 @@ if ($action == 'create' || $action == 'adduserldap') {
 				print '<tr><td>'.$form->editfieldkey('Categories', 'usercats', '', $object, 0).'</td>';
 				print '<td>';
 				print img_picto('', 'category', 'class="pictofixedwidth"');
-				$cate_arbo = $form->select_all_categories(Categorie::TYPE_USER, '', '', 0, 0, 1);
-				$c = new Categorie($db);
-				$cats = $c->containing($object->id, Categorie::TYPE_USER);
+				$cate_arbo = $form->select_all_categories(Category::TYPE_USER, '', '', 0, 0, 1);
+				$c = new Category($db);
+				$cats = $c->containing($object->id, Category::TYPE_USER);
 				$arrayselected = array();
 				foreach ($cats as $cat) {
 					$arrayselected[] = $cat->id;
@@ -2869,7 +2869,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				if ($permissiontoedit) {
 					print $form->multiselectarray('usercats', $cate_arbo, $arrayselected, 0, 0, '', 0, '90%');
 				} else {
-					print $form->showCategories($object->id, Categorie::TYPE_USER, 1);
+					print $form->showCategories($object->id, Category::TYPE_USER, 1);
 				}
 				print "</td></tr>";
 			}

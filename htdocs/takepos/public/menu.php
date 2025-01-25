@@ -64,7 +64,7 @@ if (!$config->global->TAKEPOS_QR_MENU) {
 			<h1><?php print $mysoc->name; ?> - <small><?php print $langs->trans('RestaurantMenu'); ?></small></h1>
 
 <?php
-$categorie = new Categorie($db);
+$categorie = new Category($db);
 $categories = $categorie->get_full_arbo('product', ((getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) ? $config->global->TAKEPOS_ROOT_CATEGORY_ID : 0), 1);
 $levelofrootcategory = 0;
 if (getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID') > 0) {
@@ -95,7 +95,7 @@ foreach ($maincategories as $cat) {
           </div>
 		  <div class="grid-x grid-padding-x">';
 
-	$object = new Categorie($db);
+	$object = new Category($db);
 	$result = $object->fetch($cat['id']);
 	$prods = $object->getObjectsInCateg("product", 0, 0, 0, $config->global->TAKEPOS_SORTPRODUCTFIELD, 'ASC');
 	/** @var Product[] $prods */

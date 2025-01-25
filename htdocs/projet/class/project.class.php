@@ -2466,7 +2466,7 @@ class Project extends CommonObject
 	public function setCategories($categories)
 	{
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-		return parent::setCategoriesCommon($categories, Categorie::TYPE_PROJECT);
+		return parent::setCategoriesCommon($categories, Category::TYPE_PROJECT);
 	}
 
 

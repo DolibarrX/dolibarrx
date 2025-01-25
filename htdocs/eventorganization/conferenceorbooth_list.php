@@ -455,7 +455,7 @@ if ($projectid > 0) {
 	// Categories
 	if (isModEnabled('category')) {
 		print '<tr><td class="titlefield valignmiddle">'.$langs->trans("Categories").'</td><td class="valuefield">';
-		print $form->showCategories($project->id, Categorie::TYPE_PROJECT, 1);
+		print $form->showCategories($project->id, Category::TYPE_PROJECT, 1);
 		print "</td></tr>";
 	}
 

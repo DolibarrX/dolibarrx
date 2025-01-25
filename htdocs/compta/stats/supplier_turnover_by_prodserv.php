@@ -398,7 +398,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 	print '<tr class="liste_titre">';
 	print '<td>';
 	print img_picto('', 'category', 'class="paddingrightonly"');
-	print $formother->select_categories(Categorie::TYPE_PRODUCT, $selected_cat, 'search_categ', 0, $langs->trans("Category"), 'maxwidth300');
+	print $formother->select_categories(Category::TYPE_PRODUCT, $selected_cat, 'search_categ', 0, $langs->trans("Category"), 'maxwidth300');
 	print ' ';
 	print '<label for="subcat" class="marginleftonly">'.$langs->trans("SubCats").'?</label> ';
 	print '<input type="checkbox" id="subcat" name="subcat" value="yes"';

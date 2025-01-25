@@ -297,7 +297,7 @@ if ($resql) {
  * List of suppliers categories
  */
 $companystatic->LoadSupplierCateg();
-$categstatic = new Categorie($db);
+$categstatic = new Category($db);
 
 if (count($companystatic->SupplierCategories)) {
 	print '<br>';

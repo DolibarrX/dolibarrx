@@ -233,7 +233,7 @@ print '</td></tr>';
 
 // Category
 if (isModEnabled('category')) {
-	$cat_type = Categorie::TYPE_CUSTOMER;
+	$cat_type = Category::TYPE_CUSTOMER;
 	$cat_label = $langs->trans("Category").' '.lcfirst($langs->trans("Customer"));
 	print '<tr><td>'.$cat_label.'</td><td>';
 	$cate_arbo = $form->select_all_categories($cat_type, '', 'parent', 0, 0, 1);

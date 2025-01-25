@@ -421,7 +421,7 @@ class FormOther
 		}
 
 		// Load list of "categories"
-		$static_categs = new Categorie($this->db);
+		$static_categs = new Category($this->db);
 		$tab_categs = $static_categs->get_full_arbo($type);
 
 		$moreforfilter = '';
