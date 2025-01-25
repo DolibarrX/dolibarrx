@@ -1175,7 +1175,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			$langs->loadLangs(array("agenda", "other", "members"));
 
 			$member = $object->context['member'];
-			if (!is_object($member)) {	// This should not happen but it happen when deleting a subscription from adherents/subscription/card.php
+			if (!is_object($member)) {	// This should not happen but it happen when deleting a subscription from members/subscription/card.php
 				dol_syslog("Execute a trigger MEMBER_SUBSCRIPTION_CREATE with context key 'member' not an object");
 				include_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 				$member = new Adherent($this->db);

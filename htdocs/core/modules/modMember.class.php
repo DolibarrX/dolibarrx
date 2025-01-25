@@ -66,7 +66,7 @@ class modMember extends DolibarrModules
 		);
 
 		// Config pages
-		$this->config_page_url = array("member.php@adherents");
+		$this->config_page_url = array("member.php@members");
 
 		// Dependencies
 		$this->hidden = false; // A condition to hide module
@@ -316,7 +316,7 @@ class modMember extends DolibarrModules
 		include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
 		// End add axtra fields
 		$this->export_sql_start[$r] = 'SELECT DISTINCT ';
-		$this->export_sql_end[$r]  = ' FROM ('.MAIN_DB_PREFIX.'member_type as ta, '.MAIN_DB_PREFIX.'adherent as a)';
+		$this->export_sql_end[$r]  = ' FROM ('.MAIN_DB_PREFIX.'member_type as ta, '.MAIN_DB_PREFIX.'member as a)';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'member_extrafields as extra ON a.rowid = extra.fk_object';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'subscription as c ON c.fk_member = a.rowid';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_departements as d ON a.state_id = d.rowid';

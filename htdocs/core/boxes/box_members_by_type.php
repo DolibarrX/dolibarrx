@@ -86,7 +86,7 @@ class box_members_by_type extends ModeleBoxes
 		$this->info_box_head = array('text' => $langs->trans("BoxTitleMembersByType").($numberyears ? ' ('.($year - $numberyears).' - '.$year.')' : ''));
 
 		if ($user->hasRight('member', 'lire')) {
-			require_once DOL_DOCUMENT_ROOT.'/members/class/adherentstats.class.php';
+			require_once DOL_DOCUMENT_ROOT.'/members/class/memberstats.class.php';
 			$stats = new AdherentStats($this->db, $user->socid, $user->id);
 			// Show array
 			$sumMembers = $stats->countMembersByTypeAndStatus($numberyears);

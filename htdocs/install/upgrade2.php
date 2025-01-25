@@ -4742,7 +4742,7 @@ function migrate_members_socialnetworks()
 	$db->begin();
 	print '<tr><td colspan="4">';
 	$sql = 'SELECT rowid, socialnetworks';
-	$sql .= ', skype, twitter, facebook, linkedin, instagram, snapchat, googleplus, youtube, whatsapp FROM '.MAIN_DB_PREFIX.'adherent WHERE ';
+	$sql .= ', skype, twitter, facebook, linkedin, instagram, snapchat, googleplus, youtube, whatsapp FROM '.MAIN_DB_PREFIX.'member WHERE ';
 	$sql .= " skype IS NOT NULL OR skype <> ''";
 	$sql .= " OR twitter IS NOT NULL OR twitter <> ''";
 	$sql .= " OR facebook IS NOT NULL OR facebook <> ''";
