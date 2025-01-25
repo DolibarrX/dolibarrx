@@ -209,9 +209,9 @@ if ($action == 'presend') {
 		$liste['thirdparty'] = $fuser->getFullName($outputlangs)." <".$fuser->email.">";
 	} elseif ($object->element == 'partnership' && getDolGlobalString('PARTNERSHIP_IS_MANAGED_FOR') == 'member') {
 		'@phan-var-force Partnership $object';
-		$fadherent = new Adherent($db);
-		$fadherent->fetch($object->fk_member);
-		$liste['member'] = $fadherent->getFullName($outputlangs)." <".$fadherent->email.">";
+		$fmember = new Adherent($db);
+		$fmember->fetch($object->fk_member);
+		$liste['member'] = $fmember->getFullName($outputlangs)." <".$fmember->email.">";
 	} elseif ($object->element == 'societe') {
 		'@phan-var-force Societe $object';
 		foreach ($object->thirdparty_and_contact_email_array(1) as $key => $value) {

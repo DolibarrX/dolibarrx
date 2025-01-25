@@ -484,23 +484,23 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	// End of subscription date
 	if ($managedfor == 'member') {
-		$fadherent = new Adherent($db);
-		$fadherent->fetch($object->fk_member);
+		$fmember = new Adherent($db);
+		$fmember->fetch($object->fk_member);
 		print '<tr><td>'.$langs->trans("SubscriptionEndDate").'</td><td class="valeur">';
-		if ($fadherent->datefin) {
-			print dol_print_date($fadherent->datefin, 'day');
-			if ($fadherent->hasDelay()) {
+		if ($fmember->datefin) {
+			print dol_print_date($fmember->datefin, 'day');
+			if ($fmember->hasDelay()) {
 				print " ".img_warning($langs->trans("Late"));
 			}
 		} else {
 			if (!$adht->subscription) {
 				print $langs->trans("SubscriptionNotRecorded");
-				if ($fadherent->statut > 0) {
+				if ($fmember->statut > 0) {
 					print " ".img_warning($langs->trans("Late")); // Display a delay picto only if it is not a draft and is not canceled
 				}
 			} else {
 				print $langs->trans("SubscriptionNotReceived");
-				if ($fadherent->statut > 0) {
+				if ($fmember->statut > 0) {
 					print " ".img_warning($langs->trans("Late")); // Display a delay picto only if it is not a draft and is not canceled
 				}
 			}

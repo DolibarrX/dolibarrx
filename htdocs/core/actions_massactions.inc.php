@@ -347,9 +347,9 @@ if (!$error && $massaction == 'confirm_presend') {
 						$fcontact->fetch($objectobj->id);
 						$sendto = $fcontact->email;
 					} elseif ($objectobj->element == 'partnership' && getDolGlobalString('PARTNERSHIP_IS_MANAGED_FOR') == 'member') {
-						$fadherent = new Adherent($db);
-						$fadherent->fetch($objectobj->fk_member);
-						$sendto = $fadherent->email;
+						$fmember = new Adherent($db);
+						$fmember->fetch($objectobj->fk_member);
+						$sendto = $fmember->email;
 					} elseif ($objectobj->element == 'holiday') {
 						$fuser = new User($db);
 						$fuser->fetch($objectobj->fk_user);
