@@ -320,7 +320,7 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 		$nb_post_ip = 0;
 		if ($nb_post_max > 0) {	// Calculate only if there is a limit to check
 			$sql = "SELECT COUNT(ref) as nb_adh";
-			$sql .= " FROM ".MAIN_DB_PREFIX."adherent";
+			$sql .= " FROM ".MAIN_DB_PREFIX."member";
 			$sql .= " WHERE ip = '".$db->escape($adh->ip)."'";
 			$sql .= " AND datec > '".$db->idate($minmonthpost)."'";
 			$resql = $db->query($sql);

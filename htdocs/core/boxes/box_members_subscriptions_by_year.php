@@ -36,7 +36,7 @@ class box_members_subscriptions_by_year extends ModeleBoxes
 	public $boxcode = "box_members_subscriptions_by_year";
 	public $boximg = "object_user";
 	public $boxlabel = "BoxTitleMembersSubscriptionsByYear";
-	public $depends = array("adherent");
+	public $depends = array("member");
 
 	public $enabled = 1;
 

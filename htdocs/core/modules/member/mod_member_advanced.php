@@ -91,7 +91,7 @@ class mod_member_advanced extends ModeleNumRefMembers
 
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent";
+		$sql .= " FROM ".MAIN_DB_PREFIX."member";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		$sql .= " AND entity = ".$config->entity;
 		$resql = $db->query($sql);
@@ -126,7 +126,7 @@ class mod_member_advanced extends ModeleNumRefMembers
 		// First, we get the max value
 		$posindice = strlen($this->prefix) + 6;
 		$sql = "SELECT MAX(CAST(SUBSTRING(ref FROM ".$posindice.") AS SIGNED)) as max";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent";
+		$sql .= " FROM ".MAIN_DB_PREFIX."member";
 		$sql .= " WHERE ref LIKE '".$db->escape($this->prefix)."____-%'";
 		$sql .= " AND entity = ".$config->entity;
 

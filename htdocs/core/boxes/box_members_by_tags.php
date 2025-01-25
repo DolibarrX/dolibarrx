@@ -37,7 +37,7 @@ class box_members_by_tags extends ModeleBoxes
 	public $boxcode  = "box_members_by_tags";
 	public $boximg   = "object_user";
 	public $boxlabel = "BoxTitleMembersByTags";
-	public $depends  = array("adherent", "categorie");
+	public $depends  = array("member", "categorie");
 
 	public $enabled = 1;
 

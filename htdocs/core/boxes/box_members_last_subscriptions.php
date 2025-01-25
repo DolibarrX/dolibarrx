@@ -36,7 +36,7 @@ class box_members_last_subscriptions extends ModeleBoxes
 	public $boxcode  = "box_members_last_subscriptions";
 	public $boximg   = "object_user";
 	public $boxlabel = "BoxLastMembersSubscriptions";
-	public $depends  = array("adherent");
+	public $depends  = array("member");
 
 	public $enabled = 1;
 

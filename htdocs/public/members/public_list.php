@@ -139,7 +139,7 @@ $sql = "SELECT rowid, firstname, lastname, societe, zip, town, email, birth, pho
 
 $sqlfields = $sql;
 
-$sql .= " FROM ".MAIN_DB_PREFIX."adherent";
+$sql .= " FROM ".MAIN_DB_PREFIX."member";
 $sql .= " WHERE entity = ".((int) $entity);
 $sql .= " AND statut = 1";
 $sql .= " AND public = 1";

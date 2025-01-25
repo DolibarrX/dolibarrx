@@ -4501,7 +4501,7 @@ class Societe extends CommonObject
 				}
 			}
 
-			$sql = "UPDATE ".MAIN_DB_PREFIX."adherent";
+			$sql = "UPDATE ".MAIN_DB_PREFIX."member";
 			$sql .= " SET fk_soc = ".((int) $this->id);
 			$sql .= " WHERE rowid = ".((int) $member->id);
 

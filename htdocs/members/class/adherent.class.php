@@ -654,7 +654,7 @@ class Adherent extends CommonObject
 		$this->db->begin();
 
 		// Insert member
-		$sql = "INSERT INTO ".MAIN_DB_PREFIX."adherent";
+		$sql = "INSERT INTO ".MAIN_DB_PREFIX."member";
 		$sql .= " (ref, datec,login,fk_user_author,fk_user_mod,fk_user_valid,morphy,fk_adherent_type,entity,import_key, ip)";
 		$sql .= " VALUES (";
 		$sql .= " '(PROV)'";
@@ -671,7 +671,7 @@ class Adherent extends CommonObject
 		dol_syslog(get_class($this)."::create", LOG_DEBUG);
 		$result = $this->db->query($sql);
 		if ($result) {
-			$id = $this->db->last_insert_id(MAIN_DB_PREFIX."adherent");
+			$id = $this->db->last_insert_id(MAIN_DB_PREFIX."member");
 			if ($id > 0) {
 				$this->id = $id;
 				if (getDolGlobalString('MEMBER_CODEMEMBER_ADDON') == '') {
@@ -1203,7 +1203,7 @@ class Adherent extends CommonObject
 		$this->db->begin();
 
 		// Mise a jour
-		$sql = "UPDATE ".MAIN_DB_PREFIX."adherent";
+		$sql = "UPDATE ".MAIN_DB_PREFIX."member";
 		$sql .= " SET pass_crypted = '".$this->db->escape($password_crypted)."'";
 		if ($isencrypted) {
 			$sql .= ", pass = null";
@@ -1360,7 +1360,7 @@ class Adherent extends CommonObject
 		// phpcs:enable
 		global $config;
 
-		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."adherent";
+		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."member";
 		$sql .= " WHERE login='".$this->db->escape($login)."'";
 		$sql .= " AND entity = ".$config->entity;
 
@@ -1388,7 +1388,7 @@ class Adherent extends CommonObject
 		// phpcs:enable
 		global $config;
 
-		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."adherent";
+		$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."member";
 		$sql .= " WHERE firstname='".$this->db->escape($firstname)."'";
 		$sql .= " AND lastname='".$this->db->escape($lastname)."'";
 		$sql .= " AND entity = ".$config->entity;

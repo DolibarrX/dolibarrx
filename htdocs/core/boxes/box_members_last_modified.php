@@ -36,7 +36,7 @@ class box_members_last_modified extends ModeleBoxes
 	public $boxcode = "box_members_last_modified";
 	public $boximg = "object_user";
 	public $boxlabel = "BoxLastModifiedMembers";
-	public $depends = array("adherent");
+	public $depends = array("member");
 
 	public $enabled = 1;
 

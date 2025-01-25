@@ -200,7 +200,7 @@ if (empty($resHook)) {
 		$error = 0;
 		if (!$error) {
 			if ($socid != $object->socid) {	// If link differs from currently in database
-				$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."adherent";
+				$sql = "SELECT rowid FROM ".MAIN_DB_PREFIX."member";
 				$sql .= " WHERE socid = ".((int) $socid);
 				$sql .= " AND entity = ".$config->entity;
 				$resql = $db->query($sql);

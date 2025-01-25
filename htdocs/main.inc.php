@@ -3003,7 +3003,7 @@ function printDropdownQuickadd($mode = 0)
 				"title" => "MenuNewMember@members",
 				"name" => "Adherent@members",
 				"picto" => "object_member",
-				"activation" => isModEnabled('member') && $user->hasRight("adherent", "write"), // vs hooking
+				"activation" => isModEnabled('member') && $user->hasRight("member", "write"), // vs hooking
 				"position" => 5,
 			),
 			array(

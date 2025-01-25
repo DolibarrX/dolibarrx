@@ -36,7 +36,7 @@ class box_birthdays_members extends ModeleBoxes
 	public $boxcode  = "birthdays_members";
 	public $boximg   = "object_user";
 	public $boxlabel = "BoxTitleMemberNextBirthdays";
-	public $depends  = array("adherent");
+	public $depends  = array("member");
 
 	public $enabled = 1;
 
@@ -52,7 +52,7 @@ class box_birthdays_members extends ModeleBoxes
 
 		$this->db = $db;
 
-		$this->hidden = !($user->hasRight("adherent", "lire") && empty($user->socid));
+		$this->hidden = !($user->hasRight("member", "lire") && empty($user->socid));
 	}
 
 	/**

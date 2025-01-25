@@ -139,7 +139,7 @@ class DataPolicy
 	{
 		global $langs, $config, $db;
 
-		$langs->load("adherent");
+		$langs->load("member");
 
 		$sql = "SELECT a.rowid";
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a";

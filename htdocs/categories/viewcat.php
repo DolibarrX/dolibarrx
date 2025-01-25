@@ -764,7 +764,7 @@ if ($type == Categorie::TYPE_SUPPLIER) {
 
 // List of members
 if ($type == Categorie::TYPE_MEMBER) {
-	if ($user->hasRight("adherent", "read")) {
+	if ($user->hasRight("member", "read")) {
 		require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 
 		$permission = $user->hasRight('member', 'creer');

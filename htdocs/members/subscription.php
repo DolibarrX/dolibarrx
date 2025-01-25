@@ -180,7 +180,7 @@ if (empty($resHook) && $action == 'setuserid' && ($user->hasRight('user', 'self'
 if (empty($resHook) && $action == 'setsocid' && $permissiontoaddmember) {
 	$error = 0;
 	if (GETPOSTINT('socid') != $object->socid) {    // If link differs from currently in database
-		$sql = "SELECT rowid FROM " . MAIN_DB_PREFIX . "adherent";
+		$sql = "SELECT rowid FROM " . MAIN_DB_PREFIX . "member";
 		$sql .= " WHERE fk_soc = " . ((int) GETPOSTINT('socid'));
 		$resql = $db->query($sql);
 		if ($resql) {

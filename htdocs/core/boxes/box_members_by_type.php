@@ -37,7 +37,7 @@ class box_members_by_type extends ModeleBoxes
 	public $boxcode = "box_members_by_type";
 	public $boximg = "object_user";
 	public $boxlabel = "BoxTitleMembersByType";
-	public $depends = array("adherent");
+	public $depends = array("member");
 
 	public $enabled = 1;
 

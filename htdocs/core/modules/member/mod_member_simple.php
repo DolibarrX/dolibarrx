@@ -90,7 +90,7 @@ class mod_member_simple extends ModeleNumRefMembers
 		$max = '';
 
 		$sql = "SELECT MAX(CAST(ref AS SIGNED)) as max";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent";
+		$sql .= " FROM ".MAIN_DB_PREFIX."member";
 		$sql .= " WHERE entity = ".$config->entity;
 		$resql = $db->query($sql);
 		if ($resql) {
@@ -123,7 +123,7 @@ class mod_member_simple extends ModeleNumRefMembers
 
 		// the ref of a member is the rowid
 		$sql = "SELECT MAX(CAST(ref AS SIGNED)) as max";
-		$sql .= " FROM ".MAIN_DB_PREFIX."adherent";
+		$sql .= " FROM ".MAIN_DB_PREFIX."member";
 		$sql .= " WHERE entity = ".(int) $config->entity;
 
 		$resql = $db->query($sql);
