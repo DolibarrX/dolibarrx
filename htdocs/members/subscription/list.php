@@ -735,7 +735,7 @@ while ($i < $imaxinloop) {
 			}
 		}
 
-		// Banque
+		// Bank
 		if (!empty($arrayfields['d.bank']['checked'])) {
 			print '<td class="tdmaxoverflow100">';
 			if ($obj->fk_account > 0) {

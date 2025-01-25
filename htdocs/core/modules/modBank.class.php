@@ -22,7 +22,7 @@
 /**
  * 	\defgroup   banque     Module bank
  * 	\brief      Module pour gerer la tenue d'un compte bancaire et rapprochements
- *	\file       htdocs/core/modules/modBanque.class.php
+ *	\file       htdocs/core/modules/modBank.class.php
  *	\ingroup    banque
  *	\brief      Description and activation file for the module bank
  */
@@ -31,9 +31,9 @@ include_once DOL_DOCUMENT_ROOT.'/core/modules/DolibarrModules.class.php';
 
 
 /**
- *	Class to describe and enable module Banque
+ *	Class to describe and enable module Bank
  */
-class modBanque extends DolibarrModules
+class modBank extends DolibarrModules
 {
 	/**
 	 *	Constructor.

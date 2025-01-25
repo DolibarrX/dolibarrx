@@ -195,7 +195,7 @@ if (empty($resHook)) {
 $form = new FormCategory($db);
 
 $title = $langs->trans('BankAccounts');
-$help_url = 'EN:Module_Banks_and_Cash|FR:Module_Banques_et_Caisses|ES:M&oacute;dulo_Bancos_y_Cajas';
+$help_url = 'EN:Module_Banks_and_Cash|FR:Module_Banks_et_Caisses|ES:M&oacute;dulo_Bancos_y_Cajas';
 
 // Load array of financial accounts (opened by default)
 $accounts = array();

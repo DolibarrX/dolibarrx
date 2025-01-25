@@ -378,7 +378,7 @@ if (isModEnabled('accounting')) {
 
 $countrynotdefined = $langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')';
 
-$help_url = 'EN:Module_Banks_and_Cash|FR:Module_Banques_et_Caisses|ES:Módulo_Bancos_y_Cajas|DE:Modul_Banken_und_Barbestände';
+$help_url = 'EN:Module_Banks_and_Cash|FR:Module_Banks_et_Caisses|ES:Módulo_Bancos_y_Cajas|DE:Modul_Banken_und_Barbestände';
 if ($action == 'create') {
 	$title = $langs->trans("NewFinancialAccount");
 } elseif (!empty($object->ref)) {

@@ -1010,7 +1010,7 @@ if ($type == Categorie::TYPE_ACCOUNT) {
 			print '</form>'."\n";
 		}
 	} else {
-		print_barre_liste($langs->trans("Banque"), null, $_SERVER["PHP_SELF"], '', '', '', '', 0, '', 'bank');
+		print_barre_liste($langs->trans("Bank"), null, $_SERVER["PHP_SELF"], '', '', '', '', 0, '', 'bank');
 		accessforbidden("NotEnoughPermissions", 0, 0);
 	}
 }

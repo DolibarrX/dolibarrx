@@ -296,7 +296,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	 * @var array<array<array{rule:string,file:string,classfile:string,class:string,method:string,method_params:string[]}>>|array<array<string,string>>
 	 *
 	 * Other example:
-	 * modBanque: [<int>]=array('-b.amount'=>'NULLIFNEG', 'b.amount'=>'NULLIFNEG')
+	 * modBank: [<int>]=array('-b.amount'=>'NULLIFNEG', 'b.amount'=>'NULLIFNEG')
 	 */
 	public $export_special_array; // special or computed field
 	/**
@@ -424,9 +424,9 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 
 	/**
 	 * @var string[]|array<string,string[]> 	List of module class names that must be enabled if this module is enabled. e.g.: array('modAnotherModule', 'FR'=>'modYetAnotherModule')
-	 * 				Another example : array('always'=>array("modBanque", "modFacture", "modProduct", "modCategorie"), 'FR'=>array('modBlockedLog'));
-	 * Note: Example in modTakePos:  array('always'=>array("modBanque", "modFacture", "modProduct", "modCategorie"), 'FR'=>array('modBlockedLog'));
-	 *       Example in modAccounting: array("modFacture", "modBanque", "modTax");
+	 * 				Another example : array('always'=>array("modBank", "modFacture", "modProduct", "modCategorie"), 'FR'=>array('modBlockedLog'));
+	 * Note: Example in modTakePos:  array('always'=>array("modBank", "modFacture", "modProduct", "modCategorie"), 'FR'=>array('modBlockedLog'));
+	 *       Example in modAccounting: array("modFacture", "modBank", "modTax");
 
 	 * @see $requiredby
 	 */

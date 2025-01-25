@@ -363,7 +363,7 @@ class BordereauChequeBlochet extends ModeleChequeReceipts
 	{
 		// phpcs:enable
 		// x=10 - Num
-		// x=30 - Banque
+		// x=30 - Bank
 		// x=100 - Emetteur
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 		$pdf->SetFont('', '', $default_font_size - 1);
