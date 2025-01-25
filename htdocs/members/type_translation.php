@@ -57,7 +57,7 @@ if ($user->socid) {
 	$socid = $user->socid;
 }
 // Security check
-$result = restrictedArea($user, 'member', $id, 'adherent_type');
+$result = restrictedArea($user, 'member', $id, 'member_type');
 
 
 /*

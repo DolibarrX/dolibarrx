@@ -227,7 +227,7 @@ function member_admin_prepare_head()
 
 	$extrafields = new ExtraFields($db);
 	$extrafields->fetch_name_optionals_label('member');
-	$extrafields->fetch_name_optionals_label('adherent_type');
+	$extrafields->fetch_name_optionals_label('member_type');
 
 	$h = 0;
 	$head = array();
@@ -259,7 +259,7 @@ function member_admin_prepare_head()
 
 	$head[$h][0] = DOL_URL_ROOT . '/members/admin/member_type_extrafields.php';
 	$head[$h][1] = $langs->trans("ExtraFieldsMemberType");
-	$nbExtrafields = $extrafields->attributes['adherent_type']['count'];
+	$nbExtrafields = $extrafields->attributes['member_type']['count'];
 	if ($nbExtrafields > 0) {
 		$head[$h][1] .= '<span class="badge marginleftonlyshort">' . $nbExtrafields . '</span>';
 	}

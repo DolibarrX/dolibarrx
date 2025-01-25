@@ -134,7 +134,7 @@ class ActionsStripeconnect extends CommonHookActions
 				$this->resprints .= $langs->trans("NoStripe");
 			}
 			$this->resprints .= '</td></tr>';
-		} elseif ($object instanceof CommonObject && $object->element == 'adherent_type') {
+		} elseif ($object instanceof CommonObject && $object->element == 'member_type') {
 			'@phan-var-force Adherent $object';
 			$this->resprints .= '<tr><td>';
 			$this->resprints .= '<table width="100%" class="nobordernopadding"><tr><td>';

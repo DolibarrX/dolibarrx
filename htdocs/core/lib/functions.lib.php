@@ -328,7 +328,7 @@ define(
 	array(
 		// Map deprecated names to new names
 		'member' => 'member',  // Has new directory
-		'member_type' => 'adherent_type',   // No directory, but file called adherent_type
+		'member_type' => 'member_type',   // No directory, but file called member_type
 		'banque' => 'bank',   // Has new directory
 		'contrat' => 'contract', // Has new directory
 		'entrepot' => 'stock',   // Has new directory
@@ -13137,13 +13137,13 @@ function getElementProperties($elementType)
 		$classpath = 'cron/class';
 		$module = 'cron';
 		$table_element = 'cron';
-	} elseif ($elementType == 'adherent_type') {
+	} elseif ($elementType == 'member_type') {
 		$classpath = 'members/class';
-		$classfile = 'adherent_type';
+		$classfile = 'member_type';
 		$module = 'member';
-		$subelement = 'adherent_type';
+		$subelement = 'member_type';
 		$classname = 'MemberType';
-		$table_element = 'adherent_type';
+		$table_element = 'member_type';
 	} elseif ($elementType == 'bank_account') {
 		$classpath = 'compta/bank/class';
 		$module = 'bank';	// We need $config->bank->dir_output and not $config->banque->dir_output

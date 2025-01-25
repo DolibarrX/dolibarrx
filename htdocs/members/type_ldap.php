@@ -49,7 +49,7 @@ $action = GETPOST('action', 'aZ09');
 $hookManager->initHooks(array('membertypeldapcard', 'globalcard'));
 
 // Security check
-$result = restrictedArea($user, 'member', $id, 'adherent_type');
+$result = restrictedArea($user, 'member', $id, 'member_type');
 
 $object = new MemberType($db);
 $object->fetch($id);

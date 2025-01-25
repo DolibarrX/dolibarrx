@@ -659,7 +659,7 @@ while ($i < $imaxinloop) {
 			$accountstatic->fetch($obj->fk_account);
 		}
 		// Output Kanban
-		print $subscription->getKanbanView('', array('selected' => in_array($object->id, $arrayofselected), 'adherent_type' => $adht, 'member' => $adherent, 'bank' => ($obj->fk_account > 0 ? $accountstatic : null)));
+		print $subscription->getKanbanView('', array('selected' => in_array($object->id, $arrayofselected), 'member_type' => $adht, 'member' => $adherent, 'bank' => ($obj->fk_account > 0 ? $accountstatic : null)));
 		if ($i == ($imaxinloop - 1)) {
 			print '</div>';
 			print '</td></tr>';

@@ -39,12 +39,12 @@ class MemberType extends CommonObject
 	/**
 	 * @var string Name of table without prefix where object is stored
 	 */
-	public $table_element = 'adherent_type';
+	public $table_element = 'member_type';
 
 	/**
 	 * @var string ID to identify managed object
 	 */
-	public $element = 'adherent_type';
+	public $element = 'member_type';
 
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png

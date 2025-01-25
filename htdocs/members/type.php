@@ -128,7 +128,7 @@ foreach ($object->fields as $key => $val) {
 
 
 // Security check
-$result = restrictedArea($user, 'member', $rowid, 'adherent_type');
+$result = restrictedArea($user, 'member', $rowid, 'member_type');
 
 
 /*

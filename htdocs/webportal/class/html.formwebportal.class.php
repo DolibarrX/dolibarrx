@@ -472,7 +472,7 @@ class FormWebPortal extends Form
 		}
 		$confkeyforautocompletemode = strtoupper($prefixforautocompletemode) . '_USE_SEARCH_TO_SELECT'; // For example COMPANY_USE_SEARCH_TO_SELECT
 
-		if (in_array($objecttmp->element, array('adherent_type'))) {
+		if (in_array($objecttmp->element, array('member_type'))) {
 			$fieldstoshow = 't.libelle';
 		}
 		if (!empty($objecttmp->fields)) {    // For object that declare it, it is better to use declared fields (like societe, contact, ...)
@@ -488,7 +488,7 @@ class FormWebPortal extends Form
 			if ($tmpfieldstoshow) {
 				$fieldstoshow = $tmpfieldstoshow;
 			}
-		} elseif (!in_array($objecttmp->element, array('adherent_type'))) {
+		} elseif (!in_array($objecttmp->element, array('member_type'))) {
 			// For backward compatibility
 			$objecttmp->fields['ref'] = array('type' => 'varchar(30)', 'label' => 'Ref', 'showoncombobox' => 1);
 		}

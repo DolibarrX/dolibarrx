@@ -10344,7 +10344,7 @@ class Form
 		} elseif (in_array($object->element, array('action', 'agenda'))) {
 			'@phan-var-force ActionComm $object';
 			$ret .= $object->ref . '<br>' . $object->label;
-		} elseif (in_array($object->element, array('adherent_type'))) {
+		} elseif (in_array($object->element, array('member_type'))) {
 			$ret .= $object->label;
 		} elseif ($object->element == 'ecm_directories') {
 			$ret .= '';

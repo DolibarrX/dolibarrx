@@ -298,7 +298,7 @@ class modMember extends DolibarrModules
 			'a.civility'=>"Text", 'a.lastname'=>"Text", 'a.firstname'=>"Text", 'a.login'=>"Text", 'a.gender'=>'Text', 'a.morphy'=>'Text', 'a.societe'=>'Text', 'a.address'=>"Text",
 			'a.zip'=>"Text", 'a.town'=>"Text", 'd.nom'=>"Text", 'co.code'=>'Text', 'co.label'=>"Text", 'a.phone'=>"Text", 'a.phone_perso'=>"Text", 'a.phone_mobile'=>"Text",
 			'a.email'=>"Text", 'a.birth'=>"Date", 'a.statut'=>"Status", 'a.note_public'=>"Text", 'a.note_private'=>"Text", 'a.datec'=>'Date', 'a.datevalid'=>'Date',
-			'a.tms'=>'Date', 'a.datefin'=>'Date', 'ta.rowid'=>'List:adherent_type:libelle::member_type', 'ta.libelle'=>'Text',
+			'a.tms'=>'Date', 'a.datefin'=>'Date', 'ta.rowid'=>'List:member_type:libelle::member_type', 'ta.libelle'=>'Text',
 			'c.rowid'=>'Numeric', 'c.dateadh'=>'Date', 'c.datef'=>'Date', 'c.subscription'=>'Numeric'
 		);
 		$this->export_entities_array[$r] = array(
@@ -316,7 +316,7 @@ class modMember extends DolibarrModules
 		include DOL_DOCUMENT_ROOT.'/core/extrafieldsinexport.inc.php';
 		// End add axtra fields
 		$this->export_sql_start[$r] = 'SELECT DISTINCT ';
-		$this->export_sql_end[$r]  = ' FROM ('.MAIN_DB_PREFIX.'adherent_type as ta, '.MAIN_DB_PREFIX.'adherent as a)';
+		$this->export_sql_end[$r]  = ' FROM ('.MAIN_DB_PREFIX.'member_type as ta, '.MAIN_DB_PREFIX.'adherent as a)';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'adherent_extrafields as extra ON a.rowid = extra.fk_object';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'subscription as c ON c.fk_member = a.rowid';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'c_departements as d ON a.state_id = d.rowid';
@@ -386,7 +386,7 @@ class modMember extends DolibarrModules
 		}
 		$this->import_fieldshidden_array[$r] = array('extra.fk_object'=>'lastrowid-'.MAIN_DB_PREFIX.'member'); // aliastable.field => ('user->id' or 'lastrowid-'.tableparent)
 		$this->import_regex_array[$r] = array(
-			'a.civility'=>'code@'.MAIN_DB_PREFIX.'c_civility', 'a.fk_member_type'=>'rowid@'.MAIN_DB_PREFIX.'adherent_type', 'a.morphy'=>'(phy|mor)',
+			'a.civility'=>'code@'.MAIN_DB_PREFIX.'c_civility', 'a.fk_member_type'=>'rowid@'.MAIN_DB_PREFIX.'member_type', 'a.morphy'=>'(phy|mor)',
 			'a.statut'=>'^[0|1]', 'a.datec'=>'^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$', 'a.datefin'=>'^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$');
 		$this->import_examplevalues_array[$r] = array(
 			'a.ref'=>"auto or MEM2010-1234",
