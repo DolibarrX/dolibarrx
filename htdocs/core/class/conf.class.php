@@ -395,7 +395,7 @@ class Conf extends stdClass
 		$this->propal = new stdClass();
 		$this->facture = new stdClass();
 		$this->user	= new stdClass();
-		$this->adherent = new stdClass();
+		$this->member = new stdClass();
 		$this->bank = new stdClass();
 		$this->mailing = new stdClass();
 		$this->notification = new stdClass();
@@ -466,7 +466,7 @@ class Conf extends stdClass
 		$this->propal = new stdClass();
 		$this->facture = new stdClass();
 		$this->user	= new stdClass();
-		$this->adherent = new stdClass();
+		$this->member = new stdClass();
 		$this->bank = new stdClass();
 		$this->notification = new stdClass();
 		$this->expensereport = new stdClass();
