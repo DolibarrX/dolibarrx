@@ -131,7 +131,7 @@ class UserBankAccount extends Account
 
 		$sql = "UPDATE ".$this->db->prefix()."user_rib SET";
 		$sql .= " bank = '".$this->db->escape($this->bank)."'";
-		$sql .= ",code_banque='".$this->db->escape($this->code_banque)."'";
+		$sql .= ",code_bank='".$this->db->escape($this->code_bank)."'";
 		$sql .= ",code_guichet='".$this->db->escape($this->code_guichet)."'";
 		$sql .= ",number='".$this->db->escape($this->number)."'";
 		$sql .= ",cle_rib='".$this->db->escape($this->cle_rib)."'";
@@ -191,7 +191,7 @@ class UserBankAccount extends Account
 			return -1;
 		}
 
-		$sql = "SELECT ur.rowid, ur.fk_user, ur.entity, ur.bank, ur.number, ur.code_banque, ur.code_guichet, ur.cle_rib, ur.bic, ur.iban_prefix as iban, ur.domiciliation as address";
+		$sql = "SELECT ur.rowid, ur.fk_user, ur.entity, ur.bank, ur.number, ur.code_bank, ur.code_guichet, ur.cle_rib, ur.bic, ur.iban_prefix as iban, ur.domiciliation as address";
 		$sql .= ", ur.proprio as owner_name, ur.owner_address, ur.label, ur.datec, ur.tms as datem";
 		$sql .= ', ur.currency_code, ur.state_id, ur.fk_country as country_id';
 		$sql .= ', c.code as country_code, c.label as country';
@@ -218,7 +218,7 @@ class UserBankAccount extends Account
 				$this->id = $obj->rowid;
 				$this->userid = $obj->fk_user;
 				$this->bank = $obj->bank;
-				$this->code_banque = $obj->code_banque;
+				$this->code_bank = $obj->code_bank;
 				$this->code_guichet = $obj->code_guichet;
 				$this->number = $obj->number;
 				$this->cle_rib = $obj->cle_rib;
@@ -323,7 +323,7 @@ class UserBankAccount extends Account
 	{
 		$rib = '';
 
-		if ($this->code_banque || $this->code_guichet || $this->number || $this->cle_rib) {
+		if ($this->code_bank || $this->code_guichet || $this->number || $this->cle_rib) {
 			if ($this->label && $displayriblabel) {
 				$rib = $this->label." : ";
 			}

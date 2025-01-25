@@ -65,7 +65,7 @@ $optioncss = GETPOST('optioncss', 'alpha');
 $param = "";
 $num = 0;
 
-$result = restrictedArea($user, 'banque');
+$result = restrictedArea($user, 'bank');
 
 
 /*

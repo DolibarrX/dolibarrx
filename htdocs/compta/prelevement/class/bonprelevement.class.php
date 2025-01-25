@@ -85,7 +85,7 @@ class BonPrelevement extends CommonObject
 	/**
 	 * @var string
 	 */
-	public $emetteur_code_banque;
+	public $emetteur_code_bank;
 	/**
 	 * @var string
 	 */
@@ -296,7 +296,7 @@ class BonPrelevement extends CommonObject
 
 		$this->emetteur_code_guichet = "";
 		$this->emetteur_number_compte = "";
-		$this->emetteur_code_banque = "";
+		$this->emetteur_code_bank = "";
 		$this->emetteur_number_key = "";
 		$this->sepa_xml_pti_in_ctti = false;
 
@@ -319,7 +319,7 @@ class BonPrelevement extends CommonObject
 	 * @param	int		$client_id  	id invoice customer
 	 * @param	string	$client_nom 	customer name
 	 * @param	int		$amount 		amount of invoice
-	 * @param	string	$code_banque 	code of bank withdrawal
+	 * @param	string	$code_bank 	code of bank withdrawal
 	 * @param	string	$code_guichet 	code of bank's office
 	 * @param	string	$number bank 	account number
 	 * @param	string	$number_key 	number key of account number
@@ -327,14 +327,14 @@ class BonPrelevement extends CommonObject
 	 * @param   string  $sourcetype     'salary' for salary, '' for invoices
 	 * @return	int						>0 if OK, <0 if KO
 	 */
-	public function AddFacture($invoice_id, $client_id, $client_nom, $amount, $code_banque, $code_guichet, $number, $number_key, $type = 'debit-order', $sourcetype = '')
+	public function AddFacture($invoice_id, $client_id, $client_nom, $amount, $code_bank, $code_guichet, $number, $number_key, $type = 'debit-order', $sourcetype = '')
 	{
 		// phpcs:enable
 		$result = 0;
 		$line_id = 0;
 
 		// Add lines into prelevement_lignes
-		$result = $this->addline($line_id, $client_id, $client_nom, $amount, $code_banque, $code_guichet, $number, $number_key, $sourcetype);
+		$result = $this->addline($line_id, $client_id, $client_nom, $amount, $code_bank, $code_guichet, $number, $number_key, $sourcetype);
 
 
 		if ($result == 0) {
@@ -382,14 +382,14 @@ class BonPrelevement extends CommonObject
 	 *	@param	int		$client_id  	ID of thirdparty for invoices, ID of user for salaries
 	 *	@param	string	$client_nom 	customer name
 	 *	@param	int		$amount 		amount of invoice
-	 *	@param	string	$code_banque 	code of bank withdrawal
+	 *	@param	string	$code_bank 	code of bank withdrawal
 	 *	@param	string	$code_guichet 	code of bank's office
 	 *	@param	string	$number 		bank account number
 	 *	@param  string	$number_key 	number key of account number
 	 *  @param  string  $sourcetype     'salary' for salary, '' for invoices
 	 *	@return	int						>0 if OK, <0 if KO
 	 */
-	public function addline(&$line_id, $client_id, $client_nom, $amount, $code_banque, $code_guichet, $number, $number_key, $sourcetype = '')
+	public function addline(&$line_id, $client_id, $client_nom, $amount, $code_bank, $code_guichet, $number, $number_key, $sourcetype = '')
 	{
 		$result = -1;
 		$concat = 0;	// ??? what is this for. Seems not used.
@@ -406,7 +406,7 @@ class BonPrelevement extends CommonObject
 			} else {
 				$sql .= " AND fk_user = " . ((int) $client_id);
 			}
-			$sql .= " AND code_banque = '" . $this->db->escape($code_banque) . "'";
+			$sql .= " AND code_bank = '" . $this->db->escape($code_bank) . "'";
 			$sql .= " AND code_guichet = '" . $this->db->escape($code_guichet) . "'";
 			$sql .= " AND number = '" . $this->db->escape($number) . "'";
 
@@ -425,7 +425,7 @@ class BonPrelevement extends CommonObject
 			$sql .= ", fk_soc";
 			$sql .= ", client_nom";
 			$sql .= ", amount";
-			$sql .= ", code_banque";
+			$sql .= ", code_bank";
 			$sql .= ", code_guichet";
 			$sql .= ", number";
 			$sql .= ", cle_rib";
@@ -435,7 +435,7 @@ class BonPrelevement extends CommonObject
 			$sql .= ", " . (($sourcetype != 'salary') ? ((int) $client_id) : "0");	// fk_soc can't be null
 			$sql .= ", '" . $this->db->escape($client_nom) . "'";
 			$sql .= ", " . ((float) price2num($amount));
-			$sql .= ", '" . $this->db->escape($code_banque) . "'";
+			$sql .= ", '" . $this->db->escape($code_bank) . "'";
 			$sql .= ", '" . $this->db->escape($code_guichet) . "'";
 			$sql .= ", '" . $this->db->escape($number) . "'";
 			$sql .= ", '" . $this->db->escape($number_key) . "'";
@@ -1049,9 +1049,9 @@ class BonPrelevement extends CommonObject
 	 *  - Check BAN values
 	 *  - Then create a direct debit order or a credit transfer order
 	 *  - Link the order with the prelevement_demande lines
-	 *  TODO delete params banque and agence when not necessary
+	 *  TODO delete params bank and agence when not necessary
 	 *
-	 *	@param 	int		$banque				dolibarr mysoc bank
+	 *	@param 	int		$bank				dolibarr mysoc bank
 	 *	@param	int		$agence				dolibarr mysoc bank office (guichet)
 	 *	@param	string	$mode				real=do action, simu=test only
 	 *  @param	string	$format				FRST, RCUR or ALL
@@ -1063,12 +1063,12 @@ class BonPrelevement extends CommonObject
 	 *  @param	string	$sourcetype			'invoice' or 'salary'
 	 *	@return	int							Return integer <0 if KO, No of invoice included into file if OK
 	 */
-	public function create($banque = 0, $agence = 0, $mode = 'real', $format = 'ALL', $executiondate = 0, $notrigger = 0, $type = 'direct-debit', $did = 0, $fk_bank_account = 0, $sourcetype = 'invoice')
+	public function create($bank = 0, $agence = 0, $mode = 'real', $format = 'ALL', $executiondate = 0, $notrigger = 0, $type = 'direct-debit', $did = 0, $fk_bank_account = 0, $sourcetype = 'invoice')
 	{
 		// phpcs:enable
 		global $config, $langs, $user;
 
-		dol_syslog(__METHOD__ . " Bank=".$banque." Office=".$agence." mode=".$mode." format=".$format." type=".$type." did=".$did." fk_bank_account=".$fk_bank_account." sourcetype=".$sourcetype, LOG_DEBUG);
+		dol_syslog(__METHOD__ . " Bank=".$bank." Office=".$agence." mode=".$mode." format=".$format." type=".$type." did=".$did." fk_bank_account=".$fk_bank_account." sourcetype=".$sourcetype, LOG_DEBUG);
 
 		require_once DOL_DOCUMENT_ROOT . "/compta/facture/class/facture.class.php";
 		require_once DOL_DOCUMENT_ROOT . "/societe/class/societe.class.php";
@@ -1150,7 +1150,7 @@ class BonPrelevement extends CommonObject
 
 			$sql = "SELECT f.rowid, pd.rowid as pfdrowid";
 			$sql .= ", f.".$this->db->sanitize($socOrUser);		// fk_soc or fk_user
-			$sql .= ", pd.code_banque, pd.code_guichet, pd.number, pd.cle_rib";
+			$sql .= ", pd.code_bank, pd.code_guichet, pd.number, pd.cle_rib";
 			$sql .= ", pd.amount";
 			if ($sourcetype != 'salary') {
 				$sql .= ", s.nom as name";
@@ -1200,7 +1200,7 @@ class BonPrelevement extends CommonObject
 					$row = $this->db->fetch_row($resql);	// TODO Replace with fetch_object()
 					'@phan-var-force array<int<0,12>,string> $row';
 
-					// All fields: 0=rowid, 1=pfdrowid, 2=$socOrUser, 3=code_banque, 4=code_guichet, 5=number, 6=key, 7=amount, 8=name, 9=ref, 10=bic, 11=iban, 12=frstrecur
+					// All fields: 0=rowid, 1=pfdrowid, 2=$socOrUser, 3=code_bank, 4=code_guichet, 5=number, 6=key, 7=amount, 8=name, 9=ref, 10=bic, 11=iban, 12=frstrecur
 					$factures[$i] = $row;
 
 					// Decode BAN
@@ -1419,7 +1419,7 @@ class BonPrelevement extends CommonObject
 						 * $fac[0] : invoice_id
 						 * $fac[1] : ???
 						 * $fac[2] : third party id
-						 * $fac[3] : banque
+						 * $fac[3] : bank
 						 * $fac[4] : guichet
 						 * $fac[5] : number
 						 * $fac[6] : cle rib
@@ -1466,7 +1466,7 @@ class BonPrelevement extends CommonObject
 
 					$account = new Account($this->db);
 					if ($account->fetch($fk_bank_account) > 0) {
-						$this->emetteur_code_banque        = $account->code_banque;
+						$this->emetteur_code_bank        = $account->code_bank;
 						$this->emetteur_code_guichet       = $account->code_guichet;
 						$this->emetteur_number_compte      = $account->number;
 						$this->emetteur_number_key         = $account->cle_rib;
@@ -1854,7 +1854,7 @@ class BonPrelevement extends CommonObject
 				 */
 
 				$sql = "SELECT soc.rowid as socid, soc.code_client as code, soc.address, soc.zip, soc.town, c.code as country_code,";
-				$sql .= " pl.client_nom as nom, pl.code_banque as cb, pl.code_guichet as cg, pl.number as cc, pl.amount as somme,";
+				$sql .= " pl.client_nom as nom, pl.code_bank as cb, pl.code_guichet as cg, pl.number as cc, pl.amount as somme,";
 				$sql .= " f.ref as reffac, p.fk_facture as idfac,";
 				$sql .= " rib.rowid, rib.datec, rib.iban_prefix as iban, rib.bic as bic, rib.rowid as drum, rib.rum, rib.date_rum";
 				$sql .= " FROM";
@@ -1982,7 +1982,7 @@ class BonPrelevement extends CommonObject
 				 */
 				if (!empty($forsalary)) {
 					$sql = "SELECT u.rowid as userId, u.address, u.zip, u.town, c.code as country_code, CONCAT(u.firstname,' ',u.lastname) as nom,";
-					$sql .= " pl.code_banque as cb, pl.code_guichet as cg, pl.number as cc, pl.amount as somme,";
+					$sql .= " pl.code_bank as cb, pl.code_guichet as cg, pl.number as cc, pl.amount as somme,";
 					$sql .= " s.ref as reffac, p.fk_salary as idfac,";
 					$sql .= " rib.rowid, rib.datec, rib.iban_prefix as iban, rib.bic as bic, rib.rowid as drum, '' as rum, '' as date_rum";
 					$sql .= " FROM";
@@ -1999,7 +1999,7 @@ class BonPrelevement extends CommonObject
 					$sql .= " AND rib.fk_user = s.fk_user";
 				} else {
 					$sql = "SELECT soc.rowid as socid, soc.code_client as code, soc.address, soc.zip, soc.town, c.code as country_code,";
-					$sql .= " pl.client_nom as nom, pl.code_banque as cb, pl.code_guichet as cg, pl.number as cc, pl.amount as somme,";
+					$sql .= " pl.client_nom as nom, pl.code_bank as cb, pl.code_guichet as cg, pl.number as cc, pl.amount as somme,";
 					$sql .= " f.ref as reffac, f.ref_supplier as fac_ref_supplier, p.fk_facture_fourn as idfac,";
 					$sql .= " rib.rowid, rib.datec, rib.iban_prefix as iban, rib.bic as bic, rib.rowid as drum, rib.rum, rib.date_rum";
 					$sql .= " FROM";
@@ -2198,7 +2198,7 @@ class BonPrelevement extends CommonObject
 	 *
 	 *	@param	int		$rowid			id of line
 	 *	@param	string	$client_nom		name of customer
-	 *	@param	string	$rib_banque		code of bank
+	 *	@param	string	$rib_bank		code of bank
 	 *	@param	string	$rib_guichet 	code of bank office
 	 *	@param	string	$rib_number		bank account
 	 *	@param	float	$amount			amount
@@ -2209,7 +2209,7 @@ class BonPrelevement extends CommonObject
 	 *	@return	void
 	 *  @see EnregDestinataireSEPA()
 	 */
-	public function EnregDestinataire($rowid, $client_nom, $rib_banque, $rib_guichet, $rib_number, $amount, $ref, $facid, $rib_dom = '', $type = 'direct-debit')
+	public function EnregDestinataire($rowid, $client_nom, $rib_bank, $rib_guichet, $rib_number, $amount, $ref, $facid, $rib_dom = '', $type = 'direct-debit')
 	{
 		// phpcs:enable
 		fwrite($this->file, "06");
@@ -2257,7 +2257,7 @@ class BonPrelevement extends CommonObject
 
 		// Code etablissement G1
 
-		fwrite($this->file, $rib_banque);
+		fwrite($this->file, $rib_bank);
 
 		// Zone Reservee G2
 
@@ -2277,7 +2277,7 @@ class BonPrelevement extends CommonObject
 	 *	@param	string		$row_zip			soc.zip
 	 *  @param	string		$row_town			soc.town
 	 *	@param	string		$row_country_code	c.code AS country,
-	 *	@param	string		$row_cb				pl.code_banque AS cb,		Not used for SEPA
+	 *	@param	string		$row_cb				pl.code_bank AS cb,		Not used for SEPA
 	 *	@param	string		$row_cg				pl.code_guichet AS cg,		Not used for SEPA
 	 *	@param	string		$row_cc				pl.number AS cc,			Not used for SEPA
 	 *	@param	float		$row_somme			pl.amount AS somme,
@@ -2514,7 +2514,7 @@ class BonPrelevement extends CommonObject
 
 		// Code etablissement
 
-		fwrite($this->file, $this->emetteur_code_banque);
+		fwrite($this->file, $this->emetteur_code_bank);
 
 		// Zone Reservee G
 
@@ -2556,7 +2556,7 @@ class BonPrelevement extends CommonObject
 		// Get data of bank account
 		$account = new Account($this->db);
 		if ($account->fetch($fk_bank_account) > 0) {
-			$this->emetteur_code_banque = $account->code_banque;
+			$this->emetteur_code_bank = $account->code_bank;
 			$this->emetteur_code_guichet = $account->code_guichet;
 			$this->emetteur_number_compte = $account->number;
 			$this->emetteur_number_key = $account->cle_rib;

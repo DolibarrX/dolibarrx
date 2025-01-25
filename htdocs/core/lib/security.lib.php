@@ -461,7 +461,7 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 		$dbt_select = 'id';
 	}
 	if ($features == 'bank') {
-		$features = 'banque';
+		$features = 'bank';
 	}
 	if ($features == 'facturerec') {
 		$features = 'facture';
@@ -603,7 +603,7 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 				$nbko++;
 			}
 		} elseif ($feature == 'cheque') {
-			if (!$user->hasRight('banque', 'cheque')) {
+			if (!$user->hasRight('bank', 'cheque')) {
 				$readok = 0;
 				$nbko++;
 			}
@@ -705,13 +705,13 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 					$createok = 0;
 					$nbko++;
 				}
-			} elseif ($feature == 'banque') {
-				if (!$user->hasRight('banque', 'modifier')) {
+			} elseif ($feature == 'bank') {
+				if (!$user->hasRight('bank', 'modifier')) {
 					$createok = 0;
 					$nbko++;
 				}
 			} elseif ($feature == 'cheque') {
-				if (!$user->hasRight('banque', 'cheque')) {
+				if (!$user->hasRight('bank', 'cheque')) {
 					$createok = 0;
 					$nbko++;
 				}
@@ -835,12 +835,12 @@ function restrictedArea(User $user, $features, $object = 0, $tableandshare = '',
 				if (!$user->hasRight('tax', 'charges', 'creer')) {
 					$deleteok = 0;
 				}
-			} elseif ($feature == 'banque') {
-				if (!$user->hasRight('banque', 'modifier')) {
+			} elseif ($feature == 'bank') {
+				if (!$user->hasRight('bank', 'modifier')) {
 					$deleteok = 0;
 				}
 			} elseif ($feature == 'cheque') {
-				if (!$user->hasRight('banque', 'cheque')) {
+				if (!$user->hasRight('bank', 'cheque')) {
 					$deleteok = 0;
 				}
 			} elseif ($feature == 'ecm') {
@@ -992,7 +992,7 @@ function checkUserAccessToObject($user, array $featuresarray, $object = 0, $tabl
 		$checkonentitydone = 0;
 
 		// Array to define rules of checks to do
-		$check = array('member', 'banque', 'bom', 'don', 'mrp', 'user', 'usergroup', 'payment', 'payment_supplier', 'payment_sc', 'product', 'produit', 'service', 'produit|service', 'categorie', 'resource', 'expensereport', 'holiday', 'salaries', 'website', 'recruitment', 'chargesociales', 'knowledgemanagement'); // Test on entity only (Objects with no link to company)
+		$check = array('member', 'bank', 'bom', 'don', 'mrp', 'user', 'usergroup', 'payment', 'payment_supplier', 'payment_sc', 'product', 'produit', 'service', 'produit|service', 'categorie', 'resource', 'expensereport', 'holiday', 'salaries', 'website', 'recruitment', 'chargesociales', 'knowledgemanagement'); // Test on entity only (Objects with no link to company)
 		$checksoc = array('societe'); // Test for object Societe
 		$checkparentsoc = array('agenda', 'contact', 'contrat'); // Test on entity + link to third party on field $dbt_keyfield. Allowed if link is empty (Ex: contacts...).
 		$checkproject = array('projet', 'project'); // Test for project object

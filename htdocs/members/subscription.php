@@ -236,7 +236,7 @@ if (empty($resHook) && $user->hasRight('member', 'cotisation', 'creer') && $acti
 	$operation = GETPOST("operation", "alphanohtml"); // Payment mode
 	$num_chq = GETPOST("num_chq", "alphanohtml");
 	$emetteur_nom = GETPOST("chqemetteur");
-	$emetteur_banque = GETPOST("chqbank");
+	$emetteur_bank = GETPOST("chqbank");
 	$option = GETPOST("paymentsave");
 	if (empty($option)) {
 		$option = 'none';
@@ -315,7 +315,7 @@ if (empty($resHook) && $user->hasRight('member', 'cotisation', 'creer') && $acti
 		$db->begin();
 
 		// Create subscription
-		$crowid = $object->subscription($datesubscription, $amount, $accountid, $operation, $label, $num_chq, $emetteur_nom, $emetteur_banque, $datesubend);
+		$crowid = $object->subscription($datesubscription, $amount, $accountid, $operation, $label, $num_chq, $emetteur_nom, $emetteur_bank, $datesubend);
 		if ($crowid <= 0) {
 			$error++;
 			$errmsg = $object->error;
@@ -323,7 +323,7 @@ if (empty($resHook) && $user->hasRight('member', 'cotisation', 'creer') && $acti
 		}
 
 		if (!$error) {
-			$result = $object->subscriptionComplementaryActions($crowid, $option, $accountid, $datesubscription, $paymentdate, $operation, $label, $amount, $num_chq, $emetteur_nom, $emetteur_banque);
+			$result = $object->subscriptionComplementaryActions($crowid, $option, $accountid, $datesubscription, $paymentdate, $operation, $label, $amount, $num_chq, $emetteur_nom, $emetteur_bank);
 			if ($result < 0) {
 				$error++;
 				setEventMessages($object->error, $object->errors, 'errors');
@@ -355,7 +355,7 @@ if (empty($resHook) && $user->hasRight('member', 'cotisation', 'creer') && $acti
 					'label' => $label,
 					'num_chq' => $num_chq,
 					'emetteur_nom' => $emetteur_nom,
-					'emetteur_banque' => $emetteur_banque,
+					'emetteur_bank' => $emetteur_bank,
 					'datesubend' => $datesubend
 				);
 				$resHook = $hookManager->executeHooks('sendMail', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks

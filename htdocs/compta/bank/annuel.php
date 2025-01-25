@@ -22,7 +22,7 @@
 
 /**
  *		\file        htdocs/compta/bank/annuel.php
- *		\ingroup     banque
+ *		\ingroup     bank
  *		\brief       Page to report input-output of a bank account
  */
 
@@ -58,7 +58,7 @@ $fieldtype = (!empty($ref) ? 'ref' : 'rowid');
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$result = restrictedArea($user, 'banque', $fieldvalue, 'bank_account&bank_account', '', '', $fieldtype);
+$result = restrictedArea($user, 'bank', $fieldvalue, 'bank_account&bank_account', '', '', $fieldtype);
 
 $year_start = GETPOST('year_start');
 //$year_current = strftime("%Y", time());
@@ -365,7 +365,7 @@ if ($result < 0) {
 
 	// Fabrication tableau 4b
 	$file = $config->bank->dir_temp."/credmovement".$id."-".$year.".png";
-	$fileurl = DOL_URL_ROOT.'/viewimage.php?modulepart=banque_temp&file='."/credmovement".$id."-".$year.".png";
+	$fileurl = DOL_URL_ROOT.'/viewimage.php?modulepart=bank_temp&file='."/credmovement".$id."-".$year.".png";
 	$title = $langs->transnoentities("Credit").' - '.$langs->transnoentities("Year").': '.($year - 2).' - '.($year - 1)." - ".$year;
 	$graph_datas = array();
 	for ($i = 0; $i < 12; $i++) {
@@ -447,7 +447,7 @@ if ($result < 0) {
 	}
 
 	$file = $config->bank->dir_temp."/debmovement".$id."-".$year.".png";
-	$fileurl = DOL_URL_ROOT.'/viewimage.php?modulepart=banque_temp&file='."/debmovement".$id."-".$year.".png";
+	$fileurl = DOL_URL_ROOT.'/viewimage.php?modulepart=bank_temp&file='."/debmovement".$id."-".$year.".png";
 	$title = $langs->transnoentities("Debit").' - '.$langs->transnoentities("Year").': '.($year - 2).' - '.($year - 1)." - ".$year;
 	$graph_datas = array();
 	for ($i = 0; $i < 12; $i++) {

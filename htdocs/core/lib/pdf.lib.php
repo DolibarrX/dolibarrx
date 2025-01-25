@@ -887,7 +887,7 @@ function pdf_bank(&$pdf, $outputlangs, $curx, $cury, $account, $onlynumber = 0, 
 
 		if (!getDolGlobalString('PDF_BANK_HIDE_NUMBER_SHOW_ONLY_BICIBAN')) {    // Note that some countries still need bank number, BIC/IBAN not enough for them
 			// Note:
-			// bank = code_banque (FR), sort code (GB, IR. Example: 12-34-56)
+			// bank = code_bank (FR), sort code (GB, IR. Example: 12-34-56)
 			// desk = code guichet (FR), used only when $usedetailedbban = 1
 			// number = account number
 			// key = check control key used only when $usedetailedbban = 1
@@ -903,7 +903,7 @@ function pdf_bank(&$pdf, $outputlangs, $curx, $cury, $account, $onlynumber = 0, 
 				if ($val == 'BankCode') {
 					// Bank code
 					$tmplength = 18;
-					$content = $account->code_banque;
+					$content = $account->code_bank;
 				} elseif ($val == 'DeskCode') {
 					// Desk
 					$tmplength = 18;

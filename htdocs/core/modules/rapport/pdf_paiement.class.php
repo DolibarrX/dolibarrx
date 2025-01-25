@@ -23,7 +23,7 @@
 
 /**
  *	\file       htdocs/core/modules/rapport/pdf_paiement.class.php
- *	\ingroup    banque
+ *	\ingroup    bank
  *	\brief      File to build payment reports
  */
 

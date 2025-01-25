@@ -628,7 +628,7 @@ if ($ispaymentok) {
 				$operation = dol_getIdFromCode($db, $paymentTypeId, 'c_paiement', 'id', 'code', 1); // Payment mode code returned from payment mode id
 				$num_chq = '';
 				$emetteur_nom = '';
-				$emetteur_banque = '';
+				$emetteur_bank = '';
 				// Define default choice for complementary actions
 				$option = '';
 				if (getDolGlobalString('ADHERENT_BANK_USE') == 'bankviainvoice' && isModEnabled("bank") && isModEnabled("societe") && isModEnabled('invoice')) {
@@ -650,7 +650,7 @@ if ($ispaymentok) {
 				if (!$error) {
 					dol_syslog("Call ->subscription to create subscription", LOG_DEBUG, 0, '_payment');
 
-					$crowid = $object->subscription($datesubscription, $amount, $accountid, $operation, $label, $num_chq, $emetteur_nom, $emetteur_banque, $datesubend, $membertypeid);
+					$crowid = $object->subscription($datesubscription, $amount, $accountid, $operation, $label, $num_chq, $emetteur_nom, $emetteur_bank, $datesubend, $membertypeid);
 					if ($crowid <= 0) {
 						$error++;
 						$errmsg = $object->error;
@@ -667,7 +667,7 @@ if ($ispaymentok) {
 
 					$autocreatethirdparty = 1; // will create thirdparty if member not yet linked to a thirdparty
 
-					$result = $object->subscriptionComplementaryActions($crowid, $option, $accountid, $datesubscription, $paymentdate, $operation, $label, $amount, $num_chq, $emetteur_nom, $emetteur_banque, $autocreatethirdparty, $TRANSACTIONID, $service);
+					$result = $object->subscriptionComplementaryActions($crowid, $option, $accountid, $datesubscription, $paymentdate, $operation, $label, $amount, $num_chq, $emetteur_nom, $emetteur_bank, $autocreatethirdparty, $TRANSACTIONID, $service);
 					if ($result < 0) {
 						dol_syslog("Error ".$object->error." ".implode(',', $object->errors), LOG_DEBUG, 0, '_payment');
 

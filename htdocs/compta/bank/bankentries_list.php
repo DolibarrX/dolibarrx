@@ -28,7 +28,7 @@
 
 /**
  *	\file       htdocs/compta/bank/bankentries_list.php
- *	\ingroup    banque
+ *	\ingroup    bank
  *	\brief      List of bank transactions
  */
 
@@ -187,12 +187,12 @@ if ($fieldvalue) {
 	if ($user->socid) {
 		$socid = $user->socid;
 	}
-	$result = restrictedArea($user, 'banque', $fieldvalue, 'bank_account&bank_account', '', '', $fieldtype);
+	$result = restrictedArea($user, 'bank', $fieldvalue, 'bank_account&bank_account', '', '', $fieldtype);
 } else {
 	if ($user->socid) {
 		$socid = $user->socid;
 	}
-	$result = restrictedArea($user, 'banque');
+	$result = restrictedArea($user, 'bank');
 }
 
 
@@ -243,8 +243,8 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
 if (empty($resHook)) {
 	$objectclass = 'Account';
 	$objectlabel = 'BankTransaction';
-	$permissiontoread = $user->hasRight('banque', 'lire');
-	$permissiontodelete = $user->hasRight('banque', 'modifier');
+	$permissiontoread = $user->hasRight('bank', 'lire');
+	$permissiontodelete = $user->hasRight('bank', 'modifier');
 	$uploaddir = $config->bank->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 }
@@ -254,7 +254,7 @@ $rowids = GETPOST('rowid', 'array');
 // Conciliation
 if ((GETPOST('confirm_savestatement', 'alpha') || GETPOST('confirm_reconcile', 'alpha'))
 	&& (GETPOST("num_releve", "alpha") || !empty($rowids))
-	&& $user->hasRight('banque', 'consolidate')
+	&& $user->hasRight('bank', 'consolidate')
 	&& (!GETPOSTISSET('pageplusone') || (GETPOST('pageplusone') == GETPOST('pageplusoneold')))) {
 	$error = 0;
 
@@ -344,7 +344,7 @@ if ((GETPOST('confirm_savestatement', 'alpha') || GETPOST('confirm_reconcile', '
 }
 
 
-if (GETPOST('save') && !$cancel && $user->hasRight('banque', 'modifier')) {
+if (GETPOST('save') && !$cancel && $user->hasRight('bank', 'modifier')) {
 	$error = 0;
 
 	if (price2num(GETPOST("addcredit")) > 0) {
@@ -404,7 +404,7 @@ if (GETPOST('save') && !$cancel && $user->hasRight('banque', 'modifier')) {
 	}
 }
 
-if ($action == 'confirm_delete' && $confirm == 'yes' && $user->hasRight('banque', 'modifier')) {
+if ($action == 'confirm_delete' && $confirm == 'yes' && $user->hasRight('bank', 'modifier')) {
 	$accline = new AccountLine($db);
 	$result = $accline->fetch(GETPOSTINT("rowid"));
 	$result = $accline->delete($user);
@@ -582,7 +582,7 @@ if ($id > 0 || !empty($ref)) {
 			}
 
 			// If not cash account and can be reconciliate
-			if ($user->hasRight('banque', 'consolidate')) {
+			if ($user->hasRight('bank', 'consolidate')) {
 				$newparam = $param;
 				$newparam = preg_replace('/search_conciliated=\d+/i', '', $newparam);
 				$buttonreconcile = '<a class="butAction" style="margin-bottom: 5px !important; margin-top: 5px !important" href="'.DOL_URL_ROOT.'/compta/bank/bankentries_list.php?action=reconcile&sortfield=b.datev,b.dateo,b.rowid&sortorder=asc,asc,asc&search_conciliated=0'.$newparam.'">'.$titletoconciliatemanual.'</a>';
@@ -592,7 +592,7 @@ if ($id > 0 || !empty($ref)) {
 
 			if ($allowautomaticconciliation) {
 				// If not cash account and can be reconciliate
-				if ($user->hasRight('banque', 'consolidate')) {
+				if ($user->hasRight('bank', 'consolidate')) {
 					$newparam = $param;
 					$newparam = preg_replace('/search_conciliated=\d+/i', '', $newparam);
 					$buttonreconcile .= ' <a class="butAction" style="margin-bottom: 5px !important; margin-top: 5px !important" href="'.DOL_URL_ROOT.'/compta/bank/bankentries_list.php?action=reconcile&sortfield=b.datev,b.dateo,b.rowid&sortorder=asc,asc,asc&search_conciliated=0'.$newparam.'">'.$titletoconciliateauto.'</a>';
@@ -835,7 +835,7 @@ if ($resql) {
 	}
 
 	// Form to add a transaction with no invoice
-	if ($user->hasRight('banque', 'modifier') && $action == 'addline' && getDolGlobalString('BANK_USE_OLD_VARIOUS_PAYMENT')) {
+	if ($user->hasRight('bank', 'modifier') && $action == 'addline' && getDolGlobalString('BANK_USE_OLD_VARIOUS_PAYMENT')) {
 		print load_fiche_titre($langs->trans("AddBankRecordLong"), '', '');
 
 		print '<table class="noborder centpercent">';
@@ -934,9 +934,9 @@ if ($resql) {
 				$newcardbutton = dolGetButtonTitle($langs->trans('AddBankRecord'), 'Bank account is closed', 'fa fa-plus-circle', $_SERVER["PHP_SELF"].'?action=addline&token='.newToken().'&page='.$page.$param, '', -2);
 			} else {
 				if (!getDolGlobalString('BANK_USE_OLD_VARIOUS_PAYMENT')) {	// Default is to record miscellaneous direct entries using miscellaneous payments
-					$newcardbutton = dolGetButtonTitle($langs->trans('AddBankRecord'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/compta/bank/various_payment/card.php?action=create&accountid='.urlencode($search_account).'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.urlencode($search_account)), '', $user->rights->banque->modifier);
+					$newcardbutton = dolGetButtonTitle($langs->trans('AddBankRecord'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/compta/bank/various_payment/card.php?action=create&accountid='.urlencode($search_account).'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.urlencode($search_account)), '', $user->rights->bank->modifier);
 				} else { // If direct entries is not done using miscellaneous payments
-					$newcardbutton = dolGetButtonTitle($langs->trans('AddBankRecord'), '', 'fa fa-plus-circle', $_SERVER["PHP_SELF"].'?action=addline&token='.newToken().'&page='.$page.$param, '', $user->rights->banque->modifier);
+					$newcardbutton = dolGetButtonTitle($langs->trans('AddBankRecord'), '', 'fa fa-plus-circle', $_SERVER["PHP_SELF"].'?action=addline&token='.newToken().'&page='.$page.$param, '', $user->rights->bank->modifier);
 				}
 			}
 		} else {
@@ -967,7 +967,7 @@ if ($resql) {
 	print_barre_liste($langs->trans("BankTransactions"), $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton.$morehtml, $num, $nbtotalofrecords, $picto, 0, $morehtmlright, '', $limit, 0, 0, 1);
 
 	// Form to reconcile
-	if ($user->hasRight('banque', 'consolidate') && $action == 'reconcile') {
+	if ($user->hasRight('bank', 'consolidate') && $action == 'reconcile') {
 		// Show last bank statements
 		$nbmax = 12; // We show last 12 receipts (so we can have more than one year)
 		$listoflastreceipts = '';
@@ -1394,7 +1394,7 @@ if ($resql) {
 			$balancecalculated = true;
 
 			// Output a line with start balance
-			if ($user->hasRight('banque', 'consolidate') && $action == 'reconcile') {
+			if ($user->hasRight('bank', 'consolidate') && $action == 'reconcile') {
 				$tmpnbfieldbeforebalance = 0;
 				$tmpnbfieldafterbalance = 0;
 				$balancefieldfound = 0;
@@ -1929,7 +1929,7 @@ if ($resql) {
 			print img_edit();
 			print '</a>';
 		} else {
-			if ($user->hasRight('banque', 'modifier') || $user->hasRight('banque', 'consolidate')) {
+			if ($user->hasRight('bank', 'modifier') || $user->hasRight('bank', 'consolidate')) {
 				print '<a class="editfielda" href="'.DOL_URL_ROOT.'/compta/bank/line.php?save_lastsearch_values=1&rowid='.$objp->rowid.($object->id > 0 ? '&account='.$object->id : '').'&page='.$page.'">';
 				print img_edit();
 				print '</a>';
@@ -1943,7 +1943,7 @@ if ($resql) {
 					print ' '.img_warning($langs->trans("ReconciliationLate"));
 				}
 			}
-			if ($user->hasRight('banque', 'modifier')) {
+			if ($user->hasRight('bank', 'modifier')) {
 				print '<a href="'.$_SERVER["PHP_SELF"].'?action=delete&token='.newToken().'&rowid='.$objp->rowid.'&page='.$page.$param.($sortfield ? '&sortfield='.$sortfield : '').($sortorder ? '&sortorder='.$sortorder : '').'">';
 				print img_delete('', 'class="marginleftonly"');
 				print '</a>';
@@ -1989,7 +1989,7 @@ if ($resql) {
 				print '<td class="right"><span class="amount">'.price($totalarray['totalcred']).'</span></td>';
 			} elseif ($i == $posconciliatecol) {
 				print '<td class="center">';
-				/*if ($user->hasRight('banque', 'consolidate') && $action == 'reconcile') {
+				/*if ($user->hasRight('bank', 'consolidate') && $action == 'reconcile') {
 					print '<input class="button smallpaddingimp" name="confirm_reconcile" type="submit" value="'.$langs->trans("Conciliate").'">';
 				}*/
 				print '</td>';

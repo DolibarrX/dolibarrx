@@ -678,8 +678,8 @@ $listofreferent = array(
 		'urlnew' => DOL_URL_ROOT.'/compta/bank/various_payment/card.php?action=create&projectid='.$id.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id),
 		'lang' => 'banks',
 		'buttonnew' => 'AddVariousPayment',
-		'testnew' => $user->hasRight('banque', 'modifier'),
-		'test' => isModEnabled("bank") && $user->hasRight('banque', 'lire') && !getDolGlobalString('BANK_USE_OLD_VARIOUS_PAYMENT')
+		'testnew' => $user->hasRight('bank', 'modifier'),
+		'test' => isModEnabled("bank") && $user->hasRight('bank', 'lire') && !getDolGlobalString('BANK_USE_OLD_VARIOUS_PAYMENT')
 	),
 		/* No need for this, available on dedicated tab "Agenda/Events"
 		 'agenda'=>array(

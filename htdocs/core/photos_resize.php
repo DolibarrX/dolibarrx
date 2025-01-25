@@ -97,8 +97,8 @@ if ($modulepart == 'produit' || $modulepart == 'product' || $modulepart == 'serv
 	}
 	$accessallowed = 1;
 } elseif ($modulepart == 'bank') {
-	$result = restrictedArea($user, 'banque', $id, 'bank_account');
-	if (!$user->hasRight('banque', 'lire')) {
+	$result = restrictedArea($user, 'bank', $id, 'bank_account');
+	if (!$user->hasRight('bank', 'lire')) {
 		accessforbidden();
 	}
 	$accessallowed = 1;

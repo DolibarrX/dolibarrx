@@ -508,10 +508,10 @@ class PaymentLoan extends CommonObject
 	 *      @param  string	$label              Label to use in bank record
 	 *      @param  int		$accountid          Id of bank account to do link with
 	 *      @param  string	$emetteur_nom       Name of transmitter
-	 *      @param  string	$emetteur_banque    Name of bank
+	 *      @param  string	$emetteur_bank    Name of bank
 	 *      @return int                 		Return integer <0 if KO, >0 if OK
 	 */
-	public function addPaymentToBank($user, $fk_loan, $mode, $label, $accountid, $emetteur_nom, $emetteur_banque)
+	public function addPaymentToBank($user, $fk_loan, $mode, $label, $accountid, $emetteur_nom, $emetteur_bank)
 	{
 		$error = 0;
 		$this->db->begin();
@@ -537,7 +537,7 @@ class PaymentLoan extends CommonObject
 				0,
 				$user,
 				$emetteur_nom,
-				$emetteur_banque
+				$emetteur_bank
 			);
 
 			// Update fk_bank into llx_paiement.

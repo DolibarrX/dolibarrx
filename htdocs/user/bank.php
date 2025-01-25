@@ -146,7 +146,7 @@ if ($action == 'add' && !$cancel && $permissiontoaddbankaccount) {
 	$account->bank            = GETPOST('bank', 'alpha');
 	$account->label           = GETPOST('label', 'alpha');
 	$account->type = GETPOSTINT('courant'); // not used
-	$account->code_banque     = GETPOST('code_banque', 'alpha');
+	$account->code_bank     = GETPOST('code_bank', 'alpha');
 	$account->code_guichet    = GETPOST('code_guichet', 'alpha');
 	$account->number          = GETPOST('number', 'alpha');
 	$account->cle_rib         = GETPOST('cle_rib', 'alpha');
@@ -179,7 +179,7 @@ if ($action == 'update' && !$cancel && $permissiontoaddbankaccount) {
 	$account->bank            = GETPOST('bank', 'alpha');
 	$account->label           = GETPOST('label', 'alpha');
 	$account->type = GETPOSTINT('courant'); // not used
-	$account->code_banque     = GETPOST('code_banque', 'alpha');
+	$account->code_bank     = GETPOST('code_bank', 'alpha');
 	$account->code_guichet    = GETPOST('code_guichet', 'alpha');
 	$account->number          = GETPOST('number', 'alpha');
 	$account->cle_rib         = GETPOST('cle_rib', 'alpha');
@@ -883,7 +883,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 		$stringescaped = '';
 		foreach ($account->getFieldsToShow() as $val) {
 			if ($val == 'BankCode') {
-				$stringescaped .= dol_escape_htmltag($account->code_banque).' ';
+				$stringescaped .= dol_escape_htmltag($account->code_bank).' ';
 			} elseif ($val == 'BankAccountNumber') {
 				$stringescaped .= dol_escape_htmltag($account->number).' ';
 			} elseif ($val == 'DeskCode') {
@@ -1026,9 +1026,9 @@ if ($id && ($action == 'edit' || $action == 'create') && $permissiontoaddbankacc
 		$require = false;
 		$tooltip = '';
 		if ($val == 'BankCode') {
-			$name = 'code_banque';
+			$name = 'code_bank';
 			$size = 8;
-			$content = $bankaccount->code_banque;
+			$content = $bankaccount->code_bank;
 		} elseif ($val == 'DeskCode') {
 			$name = 'code_guichet';
 			$size = 8;

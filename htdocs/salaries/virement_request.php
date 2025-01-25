@@ -143,7 +143,7 @@ restrictedArea($user, 'salaries', $object->id, 'salary', '');
  */
 
 // Link to a project
-if ($action == 'classin' && $user->hasRight('banque', 'modifier')) {
+if ($action == 'classin' && $user->hasRight('bank', 'modifier')) {
 	$object->fetch($id);
 	$object->setProject($projectid);
 }

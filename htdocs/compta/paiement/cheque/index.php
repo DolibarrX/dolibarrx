@@ -48,9 +48,9 @@ $accountstatic = new Account($db);
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$result = restrictedArea($user, 'banque', '', '');
+$result = restrictedArea($user, 'bank', '', '');
 
-$usercancreate = $user->hasRight('banque', 'cheque');
+$usercancreate = $user->hasRight('bank', 'cheque');
 
 // List of payment mode to support
 // Example: BANK_PAYMENT_MODES_FOR_DEPOSIT_MANAGEMENT = 'CHQ','TRA'

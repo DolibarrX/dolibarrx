@@ -21,7 +21,7 @@
 
 /**
  * 	\file       htdocs/compta/bank/document.php
- * 	\ingroup    banque
+ * 	\ingroup    bank
  * 	\brief      Page to manage documents attached to a bank account
  */
 require '../../main.inc.php';
@@ -84,9 +84,9 @@ if ($id > 0 || !empty($ref)) {
 }
 
 
-$result = restrictedArea($user, 'banque', $object->id, 'bank_account', '', '');
+$result = restrictedArea($user, 'bank', $object->id, 'bank_account', '', '');
 
-$permissiontoadd = $user->hasRight('banque', 'modifier');	// Used by the include of actions_dellink.inc.php
+$permissiontoadd = $user->hasRight('bank', 'modifier');	// Used by the include of actions_dellink.inc.php
 
 
 /*
@@ -149,8 +149,8 @@ if ($id > 0 || !empty($ref)) {
 
 
 		$modulepart = 'bank';
-		$permissiontoadd = $user->hasRight('banque', 'modifier');
-		$permtoedit = $user->hasRight('banque', 'modifier');
+		$permissiontoadd = $user->hasRight('bank', 'modifier');
+		$permtoedit = $user->hasRight('bank', 'modifier');
 		$param = '&id='.$object->id;
 		include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';
 	} else {

@@ -152,7 +152,7 @@ $listofchoices = array(
 	'selectdonations' => array('label' => 'Donations', 'picto' => 'donation', 'lang' => 'donation', 'enabled' => isModEnabled('don'), 'perms' => $user->hasRight('don', 'lire')),
 	'selectsocialcontributions' => array('label' => 'SocialContributions', 'picto' => 'bill', 'enabled' => isModEnabled('tax'), 'perms' => $user->hasRight('tax', 'charges', 'lire')),
 	'selectpaymentsofsalaries' => array('label' => 'SalariesPayments', 'picto' => 'salary', 'lang' => 'salaries', 'enabled' => isModEnabled('salaries'), 'perms' => $user->hasRight('salaries', 'read')),
-	'selectvariouspayment' => array('label' => 'VariousPayment', 'picto' => 'payment', 'enabled' => isModEnabled('bank'), 'perms' => $user->hasRight('banque', 'lire')),
+	'selectvariouspayment' => array('label' => 'VariousPayment', 'picto' => 'payment', 'enabled' => isModEnabled('bank'), 'perms' => $user->hasRight('bank', 'lire')),
 	'selectloanspayment' => array('label' => 'PaymentLoan','picto' => 'loan', 'enabled' => isModEnabled('don'), 'perms' => $user->hasRight('loan', 'read')),
 );
 
@@ -392,8 +392,8 @@ if ($action == 'searchfiles' || $action == 'dl') {	// Test on permission not req
 							$subdir = '';
 							$subdir .= ($subdir ? '/' : '').dol_sanitizeFileName($objd->id);
 							$upload_dir = $config->bank->dir_output.'/'.$subdir;
-							$link = "document.php?modulepart=banque&file=".str_replace('/', '%2F', $subdir).'%2F';
-							$modulepart = "banque";
+							$link = "document.php?modulepart=bank&file=".str_replace('/', '%2F', $subdir).'%2F';
+							$modulepart = "bank";
 							break;
 						case "LoanPayment":
 							// Loan payment has no linked file

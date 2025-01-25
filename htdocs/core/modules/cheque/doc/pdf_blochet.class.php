@@ -23,7 +23,7 @@
 
 /**
  *	\file       htdocs/core/modules/cheque/doc/pdf_blochet.class.php
- *	\ingroup    banque
+ *	\ingroup    bank
  *	\brief      File to build cheque deposit receipts
  */
 

@@ -156,7 +156,7 @@ if (((isModEnabled('fournisseur') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERM
 }
 
 // Miscellaneous payments
-if (isModEnabled('bank') && !getDolGlobalString('MAIN_SEARCHFORM_MISC_PAYMENTS_DISABLED') && $user->hasRight('banque', 'lire')) {
+if (isModEnabled('bank') && !getDolGlobalString('MAIN_SEARCHFORM_MISC_PAYMENTS_DISABLED') && $user->hasRight('bank', 'lire')) {
 	$arrayresult['searchintomiscpayments'] = array(
 		'position' => 180,
 		'img' => 'object_payment',

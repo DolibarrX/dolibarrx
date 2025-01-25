@@ -110,7 +110,7 @@ $modules = array(
 			'img' => 'service'
 		)
 	),
-	'banque' => array(
+	'bank' => array(
 		array(
 			'code' => 'MAIN_DELAY_TRANSACTIONS_TO_CONCILIATE',
 			'img' => 'account'

@@ -22,7 +22,7 @@
 
 /**
  *	    \file       htdocs/compta/bank/budget.php
- *      \ingroup    banque
+ *      \ingroup    bank
  *		\brief      Page de budget
  */
 
@@ -45,7 +45,7 @@ $langs->loadLangs(array('banks', 'categories'));
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$result = restrictedArea($user, 'banque');
+$result = restrictedArea($user, 'bank');
 
 
 /*

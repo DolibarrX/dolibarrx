@@ -3437,13 +3437,13 @@ function dol_check_secure_access_document($modulepart, $original_file, $entity, 
 		$original_file = $config->resource->dir_output . '/' . $original_file;
 	} elseif (($modulepart == 'remisecheque' || $modulepart == 'chequereceipt') && !empty($config->bank->dir_output)) {
 		// Wrapping pour les remises de cheques
-		if ($fuser->hasRight('banque', $lire) || preg_match('/^specimen/i', $original_file)) {
+		if ($fuser->hasRight('bank', $lire) || preg_match('/^specimen/i', $original_file)) {
 			$accessallowed = 1;
 		}
 		$original_file = $config->bank->dir_output . '/checkdeposits/' . $original_file; // original_file should contains relative path so include the get_exdir result
-	} elseif (($modulepart == 'banque' || $modulepart == 'bank') && !empty($config->bank->dir_output)) {
+	} elseif (($modulepart == 'bank' || $modulepart == 'bank') && !empty($config->bank->dir_output)) {
 		// Wrapping for bank
-		if ($fuser->hasRight('banque', $lire)) {
+		if ($fuser->hasRight('bank', $lire)) {
 			$accessallowed = 1;
 		}
 		$original_file = $config->bank->dir_output . '/' . $original_file;

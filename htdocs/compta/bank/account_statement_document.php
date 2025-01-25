@@ -22,7 +22,7 @@
 
 /**
  * 	\file       htdocs/compta/bankaccount_statement_document.php
- * 	\ingroup    banque
+ * 	\ingroup    bank
  * 	\brief      Page to manage document attached to a bank receipt
  */
 require '../../main.inc.php';
@@ -83,7 +83,7 @@ if ($id > 0 || !empty($ref)) {
 	$account = $object->id; // Force the search field on id of account
 }
 
-$result = restrictedArea($user, 'banque', $object->id, 'bank_account', '', '');
+$result = restrictedArea($user, 'bank', $object->id, 'bank_account', '', '');
 
 // Define number of receipt to show (current, previous or next one ?)
 $found = false;
@@ -128,7 +128,7 @@ if (GETPOST("rel") == 'prev') {
 	$found = true;
 }
 
-$permissiontoadd = $user->hasRight('banque', 'modifier');	// Used by the include of actions_dellink.inc.php
+$permissiontoadd = $user->hasRight('bank', 'modifier');	// Used by the include of actions_dellink.inc.php
 
 
 /*
@@ -193,8 +193,8 @@ if ($id > 0 || !empty($ref)) {
 
 
 		$modulepart = 'bank';
-		$permissiontoadd = $user->hasRight('banque', 'modifier');
-		$permtoedit = $user->hasRight('banque', 'modifier');
+		$permissiontoadd = $user->hasRight('bank', 'modifier');
+		$permtoedit = $user->hasRight('bank', 'modifier');
 		$param = '&id='.$object->id.'&num='.urlencode($numref);
 		$moreparam = '&num='.urlencode($numref);
 		$relativepathwithnofile = $id."/statement/".dol_sanitizeFileName($numref)."/";

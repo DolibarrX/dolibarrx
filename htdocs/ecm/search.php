@@ -189,7 +189,7 @@ if (isModEnabled('holiday')) {
 if (isModEnabled("bank")) {
 	$langs->load("banks");
 	$rowspan++;
-	$sectionauto[] = array('level' => 1, 'module' => 'banque', 'test' => isModEnabled('bank'), 'label' => $langs->trans("BankAccount"), 'desc' => $langs->trans("ECMDocsBy", $langs->transnoentitiesnoconv("BankAccount")));
+	$sectionauto[] = array('level' => 1, 'module' => 'bank', 'test' => isModEnabled('bank'), 'label' => $langs->trans("BankAccount"), 'desc' => $langs->trans("ECMDocsBy", $langs->transnoentitiesnoconv("BankAccount")));
 }
 if (isModEnabled('mrp')) {
 	$langs->load("mrp");

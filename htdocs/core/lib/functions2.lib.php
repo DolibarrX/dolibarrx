@@ -2703,7 +2703,7 @@ function getModuleDirForApiClass($moduleobject)
 		$moduledirforclass = 'members';
 	} elseif ($moduleobject == 'don' || $moduleobject == 'donations') {
 		$moduledirforclass = 'don';
-	} elseif ($moduleobject == 'banque' || $moduleobject == 'bankaccounts') {
+	} elseif ($moduleobject == 'bank' || $moduleobject == 'bankaccounts') {
 		$moduledirforclass = 'compta/bank';
 	} elseif ($moduleobject == 'category' || $moduleobject == 'categorie') {
 		$moduledirforclass = 'categories';

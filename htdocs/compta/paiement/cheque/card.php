@@ -93,11 +93,11 @@ if ($user->socid) {
 }
 $result = restrictedArea($user, 'cheque', $id, 'bordereau_cheque', '', 'fk_user_author', $fieldname);
 
-$usercanread = $user->hasRight('banque', 'cheque');
-$usercancreate = $user->hasRight('banque', 'cheque');
-$usercandelete = $user->hasRight('banque', 'cheque');
+$usercanread = $user->hasRight('bank', 'cheque');
+$usercancreate = $user->hasRight('bank', 'cheque');
+$usercandelete = $user->hasRight('bank', 'cheque');
 
-$permissiontodelete = $user->hasRight('banque', 'cheque');
+$permissiontodelete = $user->hasRight('bank', 'cheque');
 
 // List of payment mode to support
 // Example: BANK_PAYMENT_MODES_FOR_DEPOSIT_MANAGEMENT = 'CHQ','TRA'
@@ -108,7 +108,7 @@ $arrayofpaymentmodetomanage = explode(',', getDolGlobalString('BANK_PAYMENT_MODE
  * Actions
  */
 
-if ($action == 'setdate' && $user->hasRight('banque', 'cheque')) {
+if ($action == 'setdate' && $user->hasRight('bank', 'cheque')) {
 	$result = $object->fetch(GETPOSTINT('id'));
 	if ($result > 0) {
 		$date = dol_mktime(0, 0, 0, GETPOSTINT('datecreate_month'), GETPOSTINT('datecreate_day'), GETPOSTINT('datecreate_year'));
@@ -122,7 +122,7 @@ if ($action == 'setdate' && $user->hasRight('banque', 'cheque')) {
 	}
 }
 
-if ($action == 'setrefext' && $user->hasRight('banque', 'cheque')) {
+if ($action == 'setrefext' && $user->hasRight('bank', 'cheque')) {
 	$result = $object->fetch(GETPOSTINT('id'));
 	if ($result > 0) {
 		$ref_ext = GETPOST('ref_ext');
@@ -136,7 +136,7 @@ if ($action == 'setrefext' && $user->hasRight('banque', 'cheque')) {
 	}
 }
 
-if ($action == 'setref' && $user->hasRight('banque', 'cheque')) {
+if ($action == 'setref' && $user->hasRight('bank', 'cheque')) {
 	$result = $object->fetch(GETPOSTINT('id'));
 	if ($result > 0) {
 		$ref = GETPOST('ref');
@@ -150,7 +150,7 @@ if ($action == 'setref' && $user->hasRight('banque', 'cheque')) {
 	}
 }
 
-if ($action == 'create' && GETPOSTINT("accountid") > 0 && $user->hasRight('banque', 'cheque')) {
+if ($action == 'create' && GETPOSTINT("accountid") > 0 && $user->hasRight('bank', 'cheque')) {
 	if (GETPOSTISARRAY('toRemise')) {
 		$object->type = $type;
 		$object->date_bordereau = dol_now();
@@ -186,7 +186,7 @@ if ($action == 'create' && GETPOSTINT("accountid") > 0 && $user->hasRight('banqu
 	}
 }
 
-if ($action == 'remove' && $id > 0 && GETPOSTINT("lineid") > 0 && $user->hasRight('banque', 'cheque')) {
+if ($action == 'remove' && $id > 0 && GETPOSTINT("lineid") > 0 && $user->hasRight('bank', 'cheque')) {
 	$object->id = $id;
 	$result = $object->removeCheck(GETPOSTINT("lineid"));
 	if ($result === 0) {
@@ -197,7 +197,7 @@ if ($action == 'remove' && $id > 0 && GETPOSTINT("lineid") > 0 && $user->hasRigh
 	}
 }
 
-if ($action == 'confirm_delete' && $confirm == 'yes' && $user->hasRight('banque', 'cheque')) {
+if ($action == 'confirm_delete' && $confirm == 'yes' && $user->hasRight('bank', 'cheque')) {
 	$object->id = $id;
 	$result = $object->delete($user);
 	if ($result == 0) {
@@ -208,7 +208,7 @@ if ($action == 'confirm_delete' && $confirm == 'yes' && $user->hasRight('banque'
 	}
 }
 
-if ($action == 'confirm_validate' && $confirm == 'yes' && $user->hasRight('banque', 'cheque')) {
+if ($action == 'confirm_validate' && $confirm == 'yes' && $user->hasRight('bank', 'cheque')) {
 	$result = $object->fetch($id);
 	$result = $object->validate($user);
 	if ($result >= 0) {
@@ -232,7 +232,7 @@ if ($action == 'confirm_validate' && $confirm == 'yes' && $user->hasRight('banqu
 	}
 }
 
-if ($action == 'confirm_reject_check' && $confirm == 'yes' && $user->hasRight('banque', 'cheque')) {
+if ($action == 'confirm_reject_check' && $confirm == 'yes' && $user->hasRight('bank', 'cheque')) {
 	$reject_date = dol_mktime(0, 0, 0, GETPOSTINT('rejectdate_month'), GETPOSTINT('rejectdate_day'), GETPOSTINT('rejectdate_year'));
 	$rejected_check = GETPOSTINT('bankid');
 
@@ -249,7 +249,7 @@ if ($action == 'confirm_reject_check' && $confirm == 'yes' && $user->hasRight('b
 	}
 }
 
-if ($action == 'builddoc' && $user->hasRight('banque', 'cheque')) {
+if ($action == 'builddoc' && $user->hasRight('bank', 'cheque')) {
 	$result = $object->fetch($id);
 
 	// Save last template used to generate document
@@ -273,7 +273,7 @@ if ($action == 'builddoc' && $user->hasRight('banque', 'cheque')) {
 		header('Location: '.$_SERVER["PHP_SELF"].'?id='.$object->id.(!getDolGlobalString('MAIN_JUMP_TAG') ? '' : '#builddoc'));
 		exit;
 	}
-} elseif ($action == 'remove_file' && $user->hasRight('banque', 'cheque')) {
+} elseif ($action == 'remove_file' && $user->hasRight('bank', 'cheque')) {
 	// Remove file in doc form
 	if ($object->fetch($id) > 0) {
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
@@ -455,7 +455,7 @@ if ($action == 'new') {
 
 	$sql = "SELECT ba.rowid as bid, ba.label,";
 	$sql .= " b.rowid as transactionid, b.label as transactionlabel, b.datec as datec, b.dateo as date, ";
-	$sql .= " b.amount, b.emetteur, b.num_chq, b.banque,";
+	$sql .= " b.amount, b.emetteur, b.num_chq, b.bank,";
 	$sql .= " p.rowid as paymentid, p.ref as paymentref";
 	$sql .= " FROM ".MAIN_DB_PREFIX."bank as b";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."paiement as p ON p.fk_bank = b.rowid";
@@ -484,7 +484,7 @@ if ($action == 'new') {
 			$lines[$obj->bid][$i]["amount"] = $obj->amount;
 			$lines[$obj->bid][$i]["emetteur"] = $obj->emetteur;
 			$lines[$obj->bid][$i]["number"] = $obj->num_chq;
-			$lines[$obj->bid][$i]["banque"] = $obj->banque;
+			$lines[$obj->bid][$i]["bank"] = $obj->bank;
 			$lines[$obj->bid][$i]["id"] = $obj->transactionid;
 			$lines[$obj->bid][$i]["ref"] = $obj->transactionid;
 			$lines[$obj->bid][$i]["label"] = $obj->transactionlabel;
@@ -559,7 +559,7 @@ if ($action == 'new') {
 				print '<td>'.dol_print_date($value["date"], 'day').'</td>';
 				print '<td>'.$value["number"]."</td>\n";
 				print '<td>'.$value["emetteur"]."</td>\n";
-				print '<td>'.$value["banque"]."</td>\n";
+				print '<td>'.$value["bank"]."</td>\n";
 				print '<td class="right"><span class="amount">'.price($value["amount"], 0, $langs, 1, -1, -1, $config->currency).'</span></td>';
 
 				// Link to payment
@@ -594,7 +594,7 @@ if ($action == 'new') {
 		print '</div>';
 
 		print '<div class="tabsAction">';
-		if ($user->hasRight('banque', 'cheque')) {
+		if ($user->hasRight('bank', 'cheque')) {
 			print '<input type="submit" class="button" value="'.$langs->trans('NewCheckDepositOn', $account_label).'">';
 		} else {
 			print '<a class="butActionRefused classfortooltip" href="#" title="'.$langs->trans("NotEnoughPermissions").'">'.$langs->trans('NewCheckDepositOn', $account_label).'</a>';
@@ -694,7 +694,7 @@ if ($action == 'new') {
 
 	// List of bank checks
 	$sql = "SELECT b.rowid, b.rowid as ref, b.label, b.amount, b.num_chq, b.emetteur,";
-	$sql .= " b.dateo as date, b.datec as datec, b.banque,";
+	$sql .= " b.dateo as date, b.datec as datec, b.bank,";
 	$sql .= " p.rowid as pid, p.ref as pref, ba.rowid as bid, p.statut";
 	$sql .= " FROM ".MAIN_DB_PREFIX."bank_account as ba";
 	$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."bank as b ON (b.fk_account = ba.rowid)";
@@ -718,7 +718,7 @@ if ($action == 'new') {
 		print_liste_field_titre("DateChequeReceived", $_SERVER["PHP_SELF"], "b.dateo,b.rowid", "", $param, 'align="center"', $sortfield, $sortorder);
 		print_liste_field_titre("Numero", $_SERVER["PHP_SELF"], "b.num_chq", "", $param, 'align="center"', $sortfield, $sortorder);
 		print_liste_field_titre("CheckTransmitter", $_SERVER["PHP_SELF"], "b.emetteur", "", $param, "", $sortfield, $sortorder);
-		print_liste_field_titre("Bank", $_SERVER["PHP_SELF"], "b.banque", "", $param, "", $sortfield, $sortorder);
+		print_liste_field_titre("Bank", $_SERVER["PHP_SELF"], "b.bank", "", $param, "", $sortfield, $sortorder);
 		print_liste_field_titre("Amount", $_SERVER["PHP_SELF"], "b.amount", "", $param, 'class="right"', $sortfield, $sortorder);
 		print_liste_field_titre("Payment", $_SERVER["PHP_SELF"], "p.rowid", "", $param, 'align="center"', $sortfield, $sortorder);
 		print_liste_field_titre("LineRecord", $_SERVER["PHP_SELF"], "b.rowid", "", $param, 'align="center"', $sortfield, $sortorder);
@@ -739,7 +739,7 @@ if ($action == 'new') {
 				print '<td class="center">'.dol_print_date($db->jdate($objp->date), 'day').'</td>'; // Operation date
 				print '<td class="center">'.($objp->num_chq ? $objp->num_chq : '&nbsp;').'</td>';
 				print '<td>'.dol_trunc($objp->emetteur, 24).'</td>';
-				print '<td>'.dol_trunc($objp->banque, 24).'</td>';
+				print '<td>'.dol_trunc($objp->bank, 24).'</td>';
 				print '<td class="right"><span class="amount">'.price($objp->amount).'</span></td>';
 				// Link to payment
 				print '<td class="center">';
@@ -806,11 +806,11 @@ if ($action == 'new') {
 
 print '<div class="tabsAction">';
 
-if ($user->socid == 0 && !empty($object->id) && $object->statut == 0 && $user->hasRight('banque', 'cheque')) {
+if ($user->socid == 0 && !empty($object->id) && $object->statut == 0 && $user->hasRight('bank', 'cheque')) {
 	print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=valide&token='.newToken().'&sortfield='.$sortfield.'&sortorder='.$sortorder.'">'.$langs->trans('Validate').'</a>';
 }
 
-if ($user->socid == 0 && !empty($object->id) && $user->hasRight('banque', 'cheque')) {
+if ($user->socid == 0 && !empty($object->id) && $user->hasRight('bank', 'cheque')) {
 	print dolGetButtonAction($langs->trans("Delete"), '', 'delete', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken(), 'delete', $permissiontodelete);
 }
 print '</div>';

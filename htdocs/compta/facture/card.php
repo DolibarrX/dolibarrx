@@ -5303,7 +5303,7 @@ if ($action == 'create') {
 				 print '<td>' . $langs->trans('ListOfNextSituationInvoices') . '</td>';
 				 print '<td></td>';
 				 print '<td></td>';
-				 if (isModEnabled('banque')) print '<td class="right"></td>';
+				 if (isModEnabled('bank')) print '<td class="right"></td>';
 				 print '<td class="right">' . $langs->trans('AmountHT') . '</td>';
 				 print '<td class="right">' . $langs->trans('AmountTTC') . '</td>';
 				 print '<td width="18">&nbsp;</td>';

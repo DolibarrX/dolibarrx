@@ -232,7 +232,7 @@ if ($type == 'directory') {
 		'expensereport',
 		'holiday',
 		'recruitment-recruitmentcandidature',
-		'banque',
+		'bank',
 		'chequereceipt',
 		'mrp-mo'
 	);
@@ -284,7 +284,7 @@ if ($type == 'directory') {
 		$upload_dir = $config->holiday->dir_output;
 	} elseif ($module == 'recruitment-recruitmentcandidature') {
 		$upload_dir = $config->recruitment->dir_output.'/recruitmentcandidature';
-	} elseif ($module == 'banque') {
+	} elseif ($module == 'bank') {
 		$upload_dir = $config->bank->dir_output;
 	} elseif ($module == 'chequereceipt') {
 		$upload_dir = $config->bank->dir_output.'/checkdeposits';

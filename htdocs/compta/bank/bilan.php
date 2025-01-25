@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 $langs->loadLangs(array('banks', 'categories'));
 
 // Security Check Access Control
-if (!$user->hasRight('banque', 'lire')) {
+if (!$user->hasRight('bank', 'lire')) {
 	accessforbidden();
 }
 

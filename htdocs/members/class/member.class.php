@@ -1653,12 +1653,12 @@ class Member extends CommonObject
 	 *	@param	string		$label				Label operation (if Id bank account provided).
 	 *	@param	string		$num_chq			Numero cheque (if Id bank account provided)
 	 *	@param	string		$emetteur_nom		Name of cheque writer
-	 *	@param	string		$emetteur_banque	Name of bank of cheque
+	 *	@param	string		$emetteur_bank	Name of bank of cheque
 	 *	@param	int     	$datesubend			Date end subscription
 	 *	@param	int     	$fk_type 			Member type id
 	 *	@return int         					rowid of record added, <0 if KO
 	 */
-	public function subscription($date, $amount, $accountid = 0, $operation = '', $label = '', $num_chq = '', $emetteur_nom = '', $emetteur_banque = '', $datesubend = 0, $fk_type = null)
+	public function subscription($date, $amount, $accountid = 0, $operation = '', $label = '', $num_chq = '', $emetteur_nom = '', $emetteur_bank = '', $datesubend = 0, $fk_type = null)
 	{
 		global $config, $langs, $user;
 
@@ -1732,13 +1732,13 @@ class Member extends CommonObject
 	 *	@param	double		$amount     			Amount of subscription (0 accepted for some members)
 	 *	@param	string		$num_chq				Numero cheque (if Id bank account provided)
 	 *	@param	string		$emetteur_nom			Name of cheque writer
-	 *	@param	string		$emetteur_banque		Name of bank of cheque
+	 *	@param	string		$emetteur_bank		Name of bank of cheque
 	 *  @param	int			$autocreatethirdparty	Auto create new thirdparty if member not yet linked to a thirdparty and we request an option that generate invoice.
 	 *  @param  string      $ext_payment_id         External id of payment (for example Stripe charge id)
 	 *  @param  string      $ext_payment_site       Name of external paymentmode (for example 'stripe')
 	 *	@return int									Return integer <0 if KO, >0 if OK
 	 */
-	public function subscriptionComplementaryActions($subscriptionid, $option, $accountid, $datesubscription, $paymentdate, $operation, $label, $amount, $num_chq, $emetteur_nom = '', $emetteur_banque = '', $autocreatethirdparty = 0, $ext_payment_id = '', $ext_payment_site = '')
+	public function subscriptionComplementaryActions($subscriptionid, $option, $accountid, $datesubscription, $paymentdate, $operation, $label, $amount, $num_chq, $emetteur_nom = '', $emetteur_bank = '', $autocreatethirdparty = 0, $ext_payment_id = '', $ext_payment_site = '')
 	{
 		global $config, $langs, $user, $mysoc;
 
@@ -1758,7 +1758,7 @@ class Member extends CommonObject
 
 			$dateop = $paymentdate;
 
-			$insertid = $acct->addline($dateop, $operation, $label, $amount, $num_chq, 0, $user, $emetteur_nom, $emetteur_banque);
+			$insertid = $acct->addline($dateop, $operation, $label, $amount, $num_chq, 0, $user, $emetteur_nom, $emetteur_bank);
 			if ($insertid > 0) {
 				$inserturlid = $acct->add_url_line($insertid, $this->id, DOL_URL_ROOT.'/members/card.php?rowid=', $this->getFullName($langs), 'member');
 				if ($inserturlid > 0) {
@@ -1945,7 +1945,7 @@ class Member extends CommonObject
 
 				if (!$error) {
 					// Add transaction into bank account
-					$bank_line_id = $paiement->addPaymentToBank($user, 'payment', '(SubscriptionPayment)', $accountid, $emetteur_nom, $emetteur_banque);
+					$bank_line_id = $paiement->addPaymentToBank($user, 'payment', '(SubscriptionPayment)', $accountid, $emetteur_nom, $emetteur_bank);
 					if (!($bank_line_id > 0)) {
 						$this->error = $paiement->error;
 						$this->errors = $paiement->errors;

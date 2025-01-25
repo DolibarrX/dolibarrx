@@ -46,7 +46,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/dolgraph.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/invoice.lib.php';
 
 // L'espace compta/treso doit toujours etre actif car c'est un espace partage
-// par de nombreux modules (banque, facture, commande a facturer, etc...) independamment
+// par de nombreux modules (bank, facture, commande a facturer, etc...) independamment
 // de l'utilisation de la compta ou non. C'est au sein de cet espace que chaque sous fonction
 // est protegee par le droit qui va bien du module concerne.
 

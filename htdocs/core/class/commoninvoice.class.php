@@ -1159,7 +1159,7 @@ abstract class CommonInvoice extends CommonObject
 						} else {
 							$sql .= 'fk_facture, ';
 						}
-						$sql .= ' amount, date_demande, fk_user_demande, code_banque, code_guichet, number, cle_rib, sourcetype, type, entity';
+						$sql .= ' amount, date_demande, fk_user_demande, code_bank, code_guichet, number, cle_rib, sourcetype, type, entity';
 						if (empty($bac->id)) {
 							$sql .= ')';
 						} else {
@@ -1169,7 +1169,7 @@ abstract class CommonInvoice extends CommonObject
 						$sql .= ", ".((float) price2num($amount));
 						$sql .= ", '".$this->db->idate($now)."'";
 						$sql .= ", ".((int) $fuser->id);
-						$sql .= ", '".$this->db->escape($bac->code_banque)."'";
+						$sql .= ", '".$this->db->escape($bac->code_bank)."'";
 						$sql .= ", '".$this->db->escape($bac->code_guichet)."'";
 						$sql .= ", '".$this->db->escape($bac->number)."'";
 						$sql .= ", '".$this->db->escape($bac->cle_rib)."'";

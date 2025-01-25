@@ -152,7 +152,7 @@ function isValidTinForDZ($str)
  */
 function isValidTinForBE($str)
 {
-	// https://economie.fgov.be/fr/themes/entreprises/banque-carrefour-des/actualites/structure-du-number
+	// https://economie.fgov.be/fr/themes/entreprises/bank-carrefour-des/actualites/structure-du-number
 	$str = trim($str);
 	$str = preg_replace('/(\s)/', '', $str);
 

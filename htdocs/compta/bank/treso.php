@@ -23,7 +23,7 @@
 
 /**
  *	\file       htdocs/compta/bank/treso.php
- *	\ingroup    banque
+ *	\ingroup    bank
  *	\brief      Page to estimate future balance
  */
 
@@ -62,7 +62,7 @@ if ($user->socid) {
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('banktreso', 'globalcard'));
 
-$result = restrictedArea($user, 'banque', $id, 'bank_account&bank_account', '', '', $fieldid);
+$result = restrictedArea($user, 'bank', $id, 'bank_account&bank_account', '', '', $fieldid);
 
 $vline = GETPOST('vline');
 $page = GETPOSTISSET("page") ? GETPOST("page") : 0;

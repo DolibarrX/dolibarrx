@@ -59,7 +59,7 @@ $bankcateg = new BankCateg($db);
 
 
 // Security Check  Access Control
-if (!$user->hasRight('banque', 'configurer')) {
+if (!$user->hasRight('bank', 'configurer')) {
 	accessforbidden();
 }
 
@@ -87,7 +87,7 @@ if ($categid) {
 			$bankcateg->update($user);
 		}
 		//Delete category
-		if ($action == 'delete' && $user->hasRight('banque', 'configurer')) {
+		if ($action == 'delete' && $user->hasRight('bank', 'configurer')) {
 			$bankcateg->delete($user);
 		}
 	}

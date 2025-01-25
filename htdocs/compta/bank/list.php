@@ -25,7 +25,7 @@
 
 /**
  *       \file       htdocs/compta/bank/list.php
- *       \ingroup    banque
+ *       \ingroup    bank
  *       \brief      Home page of bank module
  */
 
@@ -139,15 +139,15 @@ $object->fields = dol_sort_array($object->fields, 'position');
 $arrayfields = dol_sort_array($arrayfields, 'position');
 '@phan-var-force array<string,array{label:string,checked?:int<0,1>,position?:int,help?:string}> $arrayfields';  // dol_sort_array looses type for Phan
 
-$permissiontoadd = $user->hasRight('banque', 'modifier');
-$permissiontodelete = $user->hasRight('banque', 'configurer');
+$permissiontoadd = $user->hasRight('bank', 'modifier');
+$permissiontodelete = $user->hasRight('bank', 'configurer');
 
 $allowed = 0;
 if ($user->hasRight('accounting', 'chartofaccount')) {
 	$allowed = 1; // Dictionary with list of banks accounting account allowed to manager of chart account
 }
 if (!$allowed) {
-	$result = restrictedArea($user, 'banque');
+	$result = restrictedArea($user, 'bank');
 }
 
 
@@ -184,7 +184,7 @@ if (empty($resHook)) {
 	// Mass actions
 	$objectclass = 'Account';
 	$objectlabel = 'FinancialAccount';
-	$uploaddir = $config->banque->dir_output;
+	$uploaddir = $config->bank->dir_output;
 	include DOL_DOCUMENT_ROOT . '/core/actions_massactions.inc.php';
 }
 
@@ -366,7 +366,7 @@ $arrayofmassactions = array(
 if (!empty($permissiontodelete)) {
 	$arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
 }
-if (isModEnabled('category') && $user->hasRight('banque', 'modifier')) {
+if (isModEnabled('category') && $user->hasRight('bank', 'modifier')) {
 	$arrayofmassactions['preaffecttag'] = img_picto('', 'category', 'class="pictofixedwidth"').$langs->trans("AffectTag");
 }
 if (in_array($massaction, array('presend', 'predelete','preaffecttag'))) {
@@ -394,7 +394,7 @@ $newcardbutton  = '';
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewList'), '', 'fa fa-bars imgforviewmode', $_SERVER["PHP_SELF"].'?mode=common'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ((empty($mode) || $mode == 'common') ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitle($langs->trans('ViewKanban'), '', 'fa fa-th-list imgforviewmode', $_SERVER["PHP_SELF"].'?mode=kanban'.preg_replace('/(&|\?)*mode=[^&]+/', '', $param), '', ($mode == 'kanban' ? 2 : 1), array('morecss' => 'reposition'));
 $newcardbutton .= dolGetButtonTitleSeparator();
-$newcardbutton .= dolGetButtonTitle($langs->trans('NewFinancialAccount'), '', 'fa fa-plus-circle', 'card.php?action=create', '', $user->hasRight('banque', 'configurer'));
+$newcardbutton .= dolGetButtonTitle($langs->trans('NewFinancialAccount'), '', 'fa fa-plus-circle', 'card.php?action=create', '', $user->hasRight('bank', 'configurer'));
 
 print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'bank_account', 0, $newcardbutton, '', $limit, 1);
 

@@ -96,7 +96,7 @@ class CompanyBankAccount extends Account
 		'tms' => array('type' => 'timestamp', 'label' => 'DateModification', 'enabled' => 1, 'position' => 30, 'notnull' => 1, 'visible' => -1,),
 		'label' => array('type' => 'varchar(200)', 'label' => 'Label', 'enabled' => 1, 'position' => 35, 'notnull' => 0, 'visible' => -1, 'alwayseditable' => 1, 'css' => 'minwidth300', 'cssview' => 'wordbreak', 'csslist' => 'tdoverflowmax150',),
 		'bank' => array('type' => 'varchar(255)', 'label' => 'Bank', 'enabled' => 1, 'position' => 40, 'notnull' => 0, 'visible' => -1, 'alwayseditable' => 1,),
-		'code_banque' => array('type' => 'varchar(128)', 'label' => 'Codebanque', 'enabled' => 1, 'position' => 45, 'notnull' => 0, 'visible' => -1, 'alwayseditable' => 1,),
+		'code_bank' => array('type' => 'varchar(128)', 'label' => 'Codebank', 'enabled' => 1, 'position' => 45, 'notnull' => 0, 'visible' => -1, 'alwayseditable' => 1,),
 		'code_guichet' => array('type' => 'varchar(6)', 'label' => 'Codeguichet', 'enabled' => 1, 'position' => 50, 'notnull' => 0, 'visible' => -1, 'alwayseditable' => 1,),
 		'number' => array('type' => 'varchar(255)', 'label' => 'Number', 'enabled' => 1, 'position' => 55, 'notnull' => 0, 'visible' => -1, 'alwayseditable' => 1,),
 		'cle_rib' => array('type' => 'varchar(5)', 'label' => 'Clerib', 'enabled' => 1, 'position' => 60, 'notnull' => 0, 'visible' => -1, 'alwayseditable' => 1,),
@@ -169,7 +169,7 @@ class CompanyBankAccount extends Account
 	/**
 	 * @var string
 	 */
-	public $code_banque;
+	public $code_bank;
 	/**
 	 * @var string
 	 */
@@ -460,7 +460,7 @@ class CompanyBankAccount extends Account
 
 		$sql = "UPDATE ".MAIN_DB_PREFIX."societe_rib SET";
 		$sql .= " bank = '".$this->db->escape($this->bank)."'";
-		$sql .= ",code_banque='".$this->db->escape($this->code_banque)."'";
+		$sql .= ",code_bank='".$this->db->escape($this->code_bank)."'";
 		$sql .= ",code_guichet='".$this->db->escape($this->code_guichet)."'";
 		$sql .= ",number='".$this->db->escape($this->number)."'";
 		$sql .= ",cle_rib='".$this->db->escape($this->cle_rib)."'";
@@ -530,7 +530,7 @@ class CompanyBankAccount extends Account
 			return -1;
 		}
 
-		$sql = "SELECT rowid, label, type, fk_soc as socid, bank, number, code_banque, code_guichet, cle_rib, bic, iban_prefix as iban,";
+		$sql = "SELECT rowid, label, type, fk_soc as socid, bank, number, code_bank, code_guichet, cle_rib, bic, iban_prefix as iban,";
 		$sql .= " domiciliation as address,";
 		$sql .= " proprio as owner_name, owner_address, default_rib, datec, tms as datem, rum, frstrecur, date_rum,";
 		$sql .= " stripe_card_ref, stripe_account, ext_payment_site,";
@@ -562,7 +562,7 @@ class CompanyBankAccount extends Account
 				$this->type = $obj->type;
 				$this->socid           = $obj->socid;
 				$this->bank            = $obj->bank;
-				$this->code_banque     = $obj->code_banque;
+				$this->code_bank     = $obj->code_bank;
 				$this->code_guichet    = $obj->code_guichet;
 				$this->number          = $obj->number;
 				$this->cle_rib         = $obj->cle_rib;
@@ -649,7 +649,7 @@ class CompanyBankAccount extends Account
 	{
 		$rib = '';
 
-		if ($this->code_banque || $this->code_guichet || $this->number || $this->cle_rib || $this->iban || $this->bic) {
+		if ($this->code_bank || $this->code_guichet || $this->number || $this->cle_rib || $this->iban || $this->bic) {
 			if ($this->label && $displayriblabel) {
 				$rib = $this->label." : ";
 			}
@@ -724,7 +724,7 @@ class CompanyBankAccount extends Account
 		$this->bank            = 'CustomerCorp Bank';
 		$this->type = 'ban';
 		$this->status = Account::STATUS_OPEN;
-		$this->code_banque     = '123';
+		$this->code_bank     = '123';
 		$this->code_guichet    = '456';
 		$this->number          = 'CUST12345';
 		$this->cle_rib         = '50';

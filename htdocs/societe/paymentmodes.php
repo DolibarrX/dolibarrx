@@ -185,7 +185,7 @@ if (empty($resHook)) {
 			$companybankaccount->label           = GETPOST('label', 'alpha');
 			$companybankaccount->status          = GETPOSTINT('clos');
 			$companybankaccount->clos            = $companybankaccount->status;
-			$companybankaccount->code_banque     = GETPOST('code_banque', 'alpha');
+			$companybankaccount->code_bank     = GETPOST('code_bank', 'alpha');
 			$companybankaccount->code_guichet    = GETPOST('code_guichet', 'alpha');
 			$companybankaccount->number          = GETPOST('number', 'alpha');
 			$companybankaccount->cle_rib         = GETPOST('cle_rib', 'alpha');
@@ -317,7 +317,7 @@ if (empty($resHook)) {
 
 			$companybankaccount->bank            = GETPOST('bank', 'alpha');
 			$companybankaccount->label           = GETPOST('label', 'alpha');
-			$companybankaccount->code_banque     = GETPOST('code_banque', 'alpha');
+			$companybankaccount->code_bank     = GETPOST('code_bank', 'alpha');
 			$companybankaccount->code_guichet    = GETPOST('code_guichet', 'alpha');
 			$companybankaccount->number          = GETPOST('number', 'alpha');
 			$companybankaccount->cle_rib         = GETPOST('cle_rib', 'alpha');
@@ -1630,7 +1630,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 			$string = '';
 			foreach ($rib->getFieldsToShow() as $val) {
 				if ($val == 'BankCode') {
-					$string .= $rib->code_banque.' ';
+					$string .= $rib->code_bank.' ';
 				} elseif ($val == 'BankAccountNumber') {
 					$string .= $rib->number.' ';
 				} elseif ($val == 'DeskCode') {
@@ -2011,9 +2011,9 @@ if ($socid && $action == 'edit' && $permissiontoaddupdatepaymentinformation) {
 		$size = 8;
 		$content = 'NoContent';
 		if ($val == 'BankCode') {
-			$name = 'code_banque';
+			$name = 'code_bank';
 			$size = 8;
-			$content = $bankaccount->code_banque;
+			$content = $bankaccount->code_bank;
 		} elseif ($val == 'DeskCode') {
 			$name = 'code_guichet';
 			$size = 8;
@@ -2187,9 +2187,9 @@ if ($socid && $action == 'create' && $permissiontoaddupdatepaymentinformation) {
 		$name = 'Unknown';
 		$content = 'NoContent';
 		if ($val == 'BankCode') {
-			$name = 'code_banque';
+			$name = 'code_bank';
 			$size = 8;
-			$content = $companybankaccount->code_banque;
+			$content = $companybankaccount->code_bank;
 		} elseif ($val == 'DeskCode') {
 			$name = 'code_guichet';
 			$size = 8;

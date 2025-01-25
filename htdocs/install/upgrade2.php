@@ -313,7 +313,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 
 				migrate_restore_missing_links($db, $langs, $config);
 
-				migrate_rename_directories($db, $langs, $config, '/compta', '/banque');
+				migrate_rename_directories($db, $langs, $config, '/compta', '/bank');
 
 				migrate_rename_directories($db, $langs, $config, '/societe', '/mycompany');
 			}
@@ -673,7 +673,7 @@ if (!GETPOST('action', 'aZ09') || preg_match('/upgrade/i', GETPOST('action', 'aZ
 		// Actions for all versions (no database change but create some directories)
 		dol_mkdir(DOL_DATA_ROOT.'/bank');
 		// Actions for all versions (no database change but rename some directories)
-		migrate_rename_directories($db, $langs, $config, '/banque/bordereau', '/bank/checkdeposits');
+		migrate_rename_directories($db, $langs, $config, '/bank/bordereau', '/bank/checkdeposits');
 
 
 		$parameters = array('versionfrom' => $versionfrom, 'versionto' => $versionto, 'conf' => $config);

@@ -540,10 +540,10 @@ class PaymentExpenseReport extends CommonObject
 	 *      @param  string	$label              Label to use in bank record
 	 *      @param  int		$accountid          Id of bank account to do link with
 	 *      @param  string	$emetteur_nom       Name of transmitter
-	 *      @param  string	$emetteur_banque    Name of bank
+	 *      @param  string	$emetteur_bank    Name of bank
 	 *      @return int                 		Return integer <0 if KO, >0 if OK
 	 */
-	public function addPaymentToBank($user, $mode, $label, $accountid, $emetteur_nom, $emetteur_banque)
+	public function addPaymentToBank($user, $mode, $label, $accountid, $emetteur_nom, $emetteur_bank)
 	{
 		global $langs;
 
@@ -573,7 +573,7 @@ class PaymentExpenseReport extends CommonObject
 				0,
 				$user,
 				$emetteur_nom,
-				$emetteur_banque
+				$emetteur_bank
 			);
 
 			// Update fk_bank in llx_paiement.

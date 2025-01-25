@@ -769,13 +769,13 @@ class Paiement extends CommonObject
 	 *      @param  string	$label              Label to use in bank record
 	 *      @param  int		$accountid          Id of bank account to do link with
 	 *      @param  string	$emetteur_nom       Name of transmitter
-	 *      @param  string	$emetteur_banque    Name of bank
+	 *      @param  string	$emetteur_bank    Name of bank
 	 *      @param	int		$notrigger			No trigger
 	 *  	@param	string	$accountancycode	When we record a free bank entry, we must provide accounting account if accountancy module is on.
 	 *      @param	string	$addbankurl			'direct-debit' or 'credit-transfer': Add another entry into bank_url.
 	 *      @return int                 		Return integer <0 if KO, bank_line_id if OK
 	 */
-	public function addPaymentToBank($user, $mode, $label, $accountid, $emetteur_nom, $emetteur_banque, $notrigger = 0, $accountancycode = '', $addbankurl = '')
+	public function addPaymentToBank($user, $mode, $label, $accountid, $emetteur_nom, $emetteur_bank, $notrigger = 0, $accountancycode = '', $addbankurl = '')
 	{
 		global $config, $user;
 
@@ -794,7 +794,7 @@ class Paiement extends CommonObject
 
 			$this->fk_account = $accountid;
 
-			dol_syslog("addPaymentToBank ".$user->id.", ".$mode.", ".$label.", ".$this->fk_account.", ".$emetteur_nom.", ".$emetteur_banque);
+			dol_syslog("addPaymentToBank ".$user->id.", ".$mode.", ".$label.", ".$this->fk_account.", ".$emetteur_nom.", ".$emetteur_bank);
 
 			include_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 			$acc = new Account($this->db);
@@ -848,7 +848,7 @@ class Paiement extends CommonObject
 				0,
 				$user,
 				$emetteur_nom,
-				$emetteur_banque,
+				$emetteur_bank,
 				$accountancycode,
 				0,
 				'',

@@ -329,7 +329,7 @@ define(
 		// Map deprecated names to new names
 		'member' => 'member',  // Has new directory
 		'member_type' => 'member_type',   // No directory, but file called member_type
-		'banque' => 'bank',   // Has new directory
+		'bank' => 'bank',   // Has new directory
 		'contrat' => 'contract', // Has new directory
 		'entrepot' => 'stock',   // Has new directory
 		'projet'  => 'project', // Has new directory
@@ -13146,7 +13146,7 @@ function getElementProperties($elementType)
 		$table_element = 'member_type';
 	} elseif ($elementType == 'bank_account') {
 		$classpath = 'compta/bank/class';
-		$module = 'bank';	// We need $config->bank->dir_output and not $config->banque->dir_output
+		$module = 'bank';	// We need $config->bank->dir_output and not $config->bank->dir_output
 		$classfile = 'account';
 		$classname = 'Account';
 	} elseif ($elementType == 'category') {

@@ -85,8 +85,8 @@ if ($user->socid) {
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('bankline'));
 
-$result = restrictedArea($user, 'banque', $accountoldid, 'bank_account');
-if (!$user->hasRight('banque', 'lire') && !$user->hasRight('banque', 'consolidate')) {
+$result = restrictedArea($user, 'bank', $accountoldid, 'bank_account');
+if (!$user->hasRight('bank', 'lire') && !$user->hasRight('bank', 'consolidate')) {
 	accessforbidden();
 }
 
@@ -112,21 +112,21 @@ if ($cancel) {
 }
 
 
-if ($user->hasRight('banque', 'consolidate') && $action == 'donext') {
+if ($user->hasRight('bank', 'consolidate') && $action == 'donext') {
 	$al = new AccountLine($db);
 	$al->dateo_next(GETPOSTINT("rowid"));
-} elseif ($user->hasRight('banque', 'consolidate') && $action == 'doprev') {
+} elseif ($user->hasRight('bank', 'consolidate') && $action == 'doprev') {
 	$al = new AccountLine($db);
 	$al->dateo_previous(GETPOSTINT("rowid"));
-} elseif ($user->hasRight('banque', 'consolidate') && $action == 'dvnext') {
+} elseif ($user->hasRight('bank', 'consolidate') && $action == 'dvnext') {
 	$al = new AccountLine($db);
 	$al->datev_next(GETPOSTINT("rowid"));
-} elseif ($user->hasRight('banque', 'consolidate') && $action == 'dvprev') {
+} elseif ($user->hasRight('bank', 'consolidate') && $action == 'dvprev') {
 	$al = new AccountLine($db);
 	$al->datev_previous(GETPOSTINT("rowid"));
 }
 
-if ($action == 'confirm_delete_categ' && $confirm == "yes" && $user->hasRight('banque', 'modifier')) {
+if ($action == 'confirm_delete_categ' && $confirm == "yes" && $user->hasRight('bank', 'modifier')) {
 	$cat1 = GETPOSTINT("cat1");
 	if (!empty($rowid) && !empty($cat1)) {
 		$sql = "DELETE FROM ".MAIN_DB_PREFIX."category_bankline WHERE lineid = ".((int) $rowid)." AND fk_categ = ".((int) $cat1);
@@ -138,7 +138,7 @@ if ($action == 'confirm_delete_categ' && $confirm == "yes" && $user->hasRight('b
 	}
 }
 
-if ($user->hasRight('banque', 'modifier') && $action == "update") {
+if ($user->hasRight('bank', 'modifier') && $action == "update") {
 	$result = $object->fetch($rowid);
 	if ($result <= 0) {
 		dol_syslog('Failed to read bank line with id '.$rowid, LOG_WARNING);	// This happens due to old bug that has set fk_account to null.
@@ -180,8 +180,8 @@ if ($user->hasRight('banque', 'modifier') && $action == "update") {
 		if (GETPOSTISSET('num_chq')) {
 			$sql .= " num_chq='".$db->escape(GETPOST("num_chq"))."',";
 		}
-		if (GETPOSTISSET('banque')) {
-			$sql .= " banque='".$db->escape(GETPOST("banque"))."',";
+		if (GETPOSTISSET('bank')) {
+			$sql .= " bank='".$db->escape(GETPOST("bank"))."',";
 		}
 		if (GETPOSTISSET('emetteur')) {
 			$sql .= " emetteur='".$db->escape(GETPOST("emetteur"))."',";
@@ -244,7 +244,7 @@ if ($user->hasRight('banque', 'modifier') && $action == "update") {
 }
 
 // Reconcile
-if ($user->hasRight('banque', 'consolidate') && ($action == 'num_releve' || $action == 'setreconcile')) {
+if ($user->hasRight('bank', 'consolidate') && ($action == 'num_releve' || $action == 'setreconcile')) {
 	$num_rel = trim(GETPOST("num_rel"));
 	$rappro = GETPOST('reconciled') ? 1 : 0;
 
@@ -337,7 +337,7 @@ $head = bankline_prepare_head($rowid);
 
 $sql = "SELECT b.rowid, b.dateo as do, b.datev as dv, b.amount, b.label, b.rappro,";
 $sql .= " b.num_releve, b.fk_user_author, b.num_chq, b.fk_type, b.fk_account, b.fk_bordereau as receiptid,";
-$sql .= " b.emetteur,b.banque";
+$sql .= " b.emetteur,b.bank";
 $sql .= " FROM ".MAIN_DB_PREFIX."bank as b";
 $sql .= " WHERE rowid=".((int) $rowid);
 $sql .= " ORDER BY dateo ASC";
@@ -510,7 +510,7 @@ if ($result) {
 		print "<tr><td>".$langs->trans("Type")." / ".$langs->trans("Numero");
 		print ' <em>('.$langs->trans("ChequeOrTransferNumber").')</em>';
 		print "</td>";
-		if ($user->hasRight('banque', 'modifier') || $user->hasRight('banque', 'consolidate')) {
+		if ($user->hasRight('bank', 'modifier') || $user->hasRight('bank', 'consolidate')) {
 			print '<td>';
 			$form->select_types_paiements($objp->fk_type, "value", '', 2);
 			print '<input type="text" class="flat" name="num_chq" value="'.(empty($objp->num_chq) ? '' : $objp->num_chq).'">';
@@ -530,7 +530,7 @@ if ($result) {
 		print "<tr><td>".$langs->trans("CheckTransmitter");
 		print ' <em>('.$langs->trans("ChequeMaker").')</em>';
 		print "</td>";
-		if ($user->hasRight('banque', 'modifier') || $user->hasRight('banque', 'consolidate')) {
+		if ($user->hasRight('bank', 'modifier') || $user->hasRight('bank', 'consolidate')) {
 			print '<td>';
 			print '<input type="text" class="flat minwidth200" name="emetteur" value="'.(empty($objp->emetteur) ? '' : dol_escape_htmltag($objp->emetteur)).'">';
 			print '</td>';
@@ -543,18 +543,18 @@ if ($result) {
 		print "<tr><td>".$langs->trans("Bank");
 		print ' <em>('.$langs->trans("ChequeBank").')</em>';
 		print "</td>";
-		if ($user->hasRight('banque', 'modifier') || $user->hasRight('banque', 'consolidate')) {
+		if ($user->hasRight('bank', 'modifier') || $user->hasRight('bank', 'consolidate')) {
 			print '<td>';
-			print '<input type="text" class="flat minwidth200" name="banque" value="'.(empty($objp->banque) ? '' : dol_escape_htmltag($objp->banque)).'">';
+			print '<input type="text" class="flat minwidth200" name="bank" value="'.(empty($objp->bank) ? '' : dol_escape_htmltag($objp->bank)).'">';
 			print '</td>';
 		} else {
-			print '<td>'.dol_escape_htmltag($objp->banque).'</td>';
+			print '<td>'.dol_escape_htmltag($objp->bank).'</td>';
 		}
 		print "</tr>";
 
 		// Date ope
 		print '<tr><td>'.$langs->trans("DateOperation").'</td>';
-		if ($user->hasRight('banque', 'modifier') || $user->hasRight('banque', 'consolidate')) {
+		if ($user->hasRight('bank', 'modifier') || $user->hasRight('bank', 'consolidate')) {
 			print '<td>';
 			print $form->selectDate($db->jdate($objp->do), 'dateo', 0, 0, 0, 'update', 1, 0, $objp->rappro);
 			if (!$objp->rappro) {
@@ -574,7 +574,7 @@ if ($result) {
 
 		// Value date
 		print "<tr><td>".$langs->trans("DateValue")."</td>";
-		if ($user->hasRight('banque', 'modifier') || $user->hasRight('banque', 'consolidate')) {
+		if ($user->hasRight('bank', 'modifier') || $user->hasRight('bank', 'consolidate')) {
 			print '<td>';
 			print $form->selectDate($db->jdate($objp->dv), 'datev', 0, 0, 0, 'update', 1, 0, $objp->rappro);
 			if (!$objp->rappro) {
@@ -595,7 +595,7 @@ if ($result) {
 		// Description
 		$reg = array();
 		print "<tr><td>".$langs->trans("Label")."</td>";
-		if ($user->hasRight('banque', 'modifier') || $user->hasRight('banque', 'consolidate')) {
+		if ($user->hasRight('bank', 'modifier') || $user->hasRight('bank', 'consolidate')) {
 			print '<td>';
 			print '<input name="label" class="flat minwidth300" '.($objp->rappro ? ' disabled' : '').' value="';
 			if (preg_match('/^\((.*)\)$/i', $objp->label, $reg)) {
@@ -620,7 +620,7 @@ if ($result) {
 
 		// Amount
 		print "<tr><td>".$langs->trans("Amount")."</td>";
-		if ($user->hasRight('banque', 'modifier')) {
+		if ($user->hasRight('bank', 'modifier')) {
 			print '<td>';
 			print '<input name="amount" class="flat maxwidth100" '.($objp->rappro ? ' disabled' : '').' value="'.price($objp->amount).'"> '.$langs->trans("Currency".$acct->currency_code);
 			print '</td>';
@@ -712,7 +712,7 @@ if ($result) {
 			print '<table class="border centpercent">';
 
 			print '<tr><td class="titlefieldcreate">'.$form->textwithpicto($langs->trans("AccountStatement"), $langs->trans("InputReceiptNumber"))."</td>";
-			if ($user->hasRight('banque', 'consolidate')) {
+			if ($user->hasRight('bank', 'consolidate')) {
 				print '<td>';
 				if ($objp->rappro) {
 					print '<input name="num_rel_bis" id="num_rel_bis" class="flat" type="text" value="'.$objp->num_releve.'"'.($objp->rappro ? ' disabled' : '').'>';
@@ -730,7 +730,7 @@ if ($result) {
 			print '</tr>';
 
 			print '<tr><td><label for="reconciled">'.$langs->trans("BankLineConciliated").'</label></td>';
-			if ($user->hasRight('banque', 'consolidate')) {
+			if ($user->hasRight('bank', 'consolidate')) {
 				print '<td>';
 				print '<input type="checkbox" id="reconciled" name="reconciled" class="flat" '.(GETPOSTISSET("reconciled") ? (GETPOST("reconciled") ? ' checked="checked"' : '') : ($objp->rappro ? ' checked="checked"' : '')).'">';
 

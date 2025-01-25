@@ -625,7 +625,7 @@ class RemiseCheque extends CommonObject
 			$docmodel = new $classname($this->db);
 			'@phan-var-force ModeleChequeReceipts $docmodel';
 
-			$sql = "SELECT b.banque, b.emetteur, b.amount, b.num_chq";
+			$sql = "SELECT b.bank, b.emetteur, b.amount, b.num_chq";
 			$sql .= " FROM ".MAIN_DB_PREFIX."bank as b";
 			$sql .= ", ".MAIN_DB_PREFIX."bank_account as ba";
 			$sql .= ", ".MAIN_DB_PREFIX."bordereau_cheque as bc";
@@ -641,7 +641,7 @@ class RemiseCheque extends CommonObject
 				$i = 0;
 				while ($objp = $this->db->fetch_object($result)) {
 					$docmodel->lines[$i] = new stdClass();
-					$docmodel->lines[$i]->bank_chq = $objp->banque;
+					$docmodel->lines[$i]->bank_chq = $objp->bank;
 					$docmodel->lines[$i]->emetteur_chq = $objp->emetteur;
 					$docmodel->lines[$i]->amount_chq = $objp->amount;
 					$docmodel->lines[$i]->num_chq = $objp->num_chq;
@@ -854,7 +854,7 @@ class RemiseCheque extends CommonObject
 	public function set_date($user, $date)
 	{
 		// phpcs:enable
-		if ($user->hasRight('banque', 'cheque')) {
+		if ($user->hasRight('bank', 'cheque')) {
 			$sql = "UPDATE ".MAIN_DB_PREFIX."bordereau_cheque";
 			$sql .= " SET date_bordereau = ".($date ? "'".$this->db->idate($date)."'" : 'null');
 			$sql .= " WHERE rowid = ".((int) $this->id);
@@ -884,7 +884,7 @@ class RemiseCheque extends CommonObject
 	public function set_number($user, $ref)
 	{
 		// phpcs:enable
-		if ($user->hasRight('banque', 'cheque')) {
+		if ($user->hasRight('bank', 'cheque')) {
 			$sql = "UPDATE ".MAIN_DB_PREFIX."bordereau_cheque";
 			$sql .= " SET ref = '".$this->db->escape($ref)."'";
 			$sql .= " WHERE rowid = ".((int) $this->id);

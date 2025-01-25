@@ -54,7 +54,7 @@ $socid = 0;
 if ($user->socid > 0) {
 	$socid = $user->socid;
 }
-if (!$user->hasRight('banque', 'transfer')) {
+if (!$user->hasRight('bank', 'transfer')) {
 	accessforbidden();
 }
 
@@ -72,7 +72,7 @@ $resHook = $hookManager->executeHooks('doActions', $parameters, $object, $action
 if ($resHook < 0) {
 	setEventMessages($hookManager->error, $hookManager->errors, 'errors');
 }
-if ($action == 'add' && $user->hasRight('banque', 'transfer')) {
+if ($action == 'add' && $user->hasRight('bank', 'transfer')) {
 	$langs->load('errors');
 	$i = 1;
 

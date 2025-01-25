@@ -1921,7 +1921,7 @@ class FormFile
 		} elseif ($modulepart == 'recruitment-recruitmentcandidature') {
 			include_once DOL_DOCUMENT_ROOT.'/recruitment/class/recruitmentcandidature.class.php';
 			$object_instance = new RecruitmentCandidature($this->db);
-		} elseif ($modulepart == 'banque') {
+		} elseif ($modulepart == 'bank') {
 			include_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 			$object_instance = new Account($this->db);
 		} elseif ($modulepart == 'chequereceipt') {
@@ -2010,7 +2010,7 @@ class FormFile
 					'expensereport',
 					'recruitment-recruitmentcandidature',
 					'mrp-mo',
-					'banque',
+					'bank',
 					'chequereceipt',
 					'holiday'))) {
 					preg_match('/(.*)\/[^\/]+$/', $relativefile, $reg);

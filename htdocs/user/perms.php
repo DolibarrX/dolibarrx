@@ -717,7 +717,7 @@ if ($result) {
 			}
 		}
 		// Special case for reading bank account when you have permission to manage Chart of account
-		if ($obj->module == 'banque' && $obj->perms == 'lire') {
+		if ($obj->module == 'bank' && $obj->perms == 'lire') {
 			if (isModEnabled("accounting") && $object->hasRight('accounting', 'chartofaccount')) {
 				print ' '.img_warning($langs->trans("WarningReadBankAlsoAllowedIfUserHasPermission"));
 			}

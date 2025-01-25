@@ -80,12 +80,12 @@ if ($user->socid) {
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('variouscard', 'globalcard'));
 
-$result = restrictedArea($user, 'banque', '', '', '');
+$result = restrictedArea($user, 'bank', '', '', '');
 
 $object = new PaymentVarious($db);
 
-$permissiontoadd = $user->hasRight('banque', 'modifier');
-$permissiontodelete = $user->hasRight('banque', 'modifier');
+$permissiontoadd = $user->hasRight('bank', 'modifier');
+$permissiontodelete = $user->hasRight('bank', 'modifier');
 
 
 /**
@@ -688,7 +688,7 @@ if ($id) {
 		print $form->editfieldkey('AccountAccounting', 'accountancy_code', $object->accountancy_code, $object, (!$alreadyaccounted && $permissiontoadd), 'string', '', 0);
 		print '</td><td>';
 		if ($action == 'editaccountancy_code' && (!$alreadyaccounted && $permissiontoadd)) {
-			//print $form->editfieldval('AccountAccounting', 'accountancy_code', $object->accountancy_code, $object, (!$alreadyaccounted && $user->hasRight('banque', 'modifier')), 'string', '', 0);
+			//print $form->editfieldval('AccountAccounting', 'accountancy_code', $object->accountancy_code, $object, (!$alreadyaccounted && $user->hasRight('bank', 'modifier')), 'string', '', 0);
 			print $formaccounting->formAccountingAccount($_SERVER['PHP_SELF'].'?id='.$object->id, $object->accountancy_code, 'accountancy_code', 0, 1, '', 1);
 		} else {
 			$accountingaccount = new AccountingAccount($db);

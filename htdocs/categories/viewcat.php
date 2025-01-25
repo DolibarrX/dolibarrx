@@ -146,7 +146,7 @@ if ($id > 0 && $removeelem > 0 && $action == 'unlink') {	// Test on permission n
 		$tmpobject = new Contact($db);
 		$result = $tmpobject->fetch($removeelem);
 		$elementtype = 'contact';
-	} elseif ($type == Categorie::TYPE_ACCOUNT && $user->hasRight('banque', 'configurer')) {
+	} elseif ($type == Categorie::TYPE_ACCOUNT && $user->hasRight('bank', 'configurer')) {
 		require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 		$tmpobject = new Account($db);
 		$result = $tmpobject->fetch($removeelem);
@@ -234,7 +234,7 @@ if ($elemid && $action == 'addintocategory') {	// Test on permission not require
 		require_once DOL_DOCUMENT_ROOT.'/user/class/user.class.php';
 		$newobject = new User($db);
 		$elementtype = 'user';
-	} elseif ($type == Categorie::TYPE_ACCOUNT && $user->hasRight('banque', 'configurer')) {
+	} elseif ($type == Categorie::TYPE_ACCOUNT && $user->hasRight('bank', 'configurer')) {
 		require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 		$newobject = new Account($db);
 		$elementtype = 'bank_account';
@@ -934,11 +934,11 @@ if ($type == Categorie::TYPE_CONTACT) {
 
 // List of bank accounts
 if ($type == Categorie::TYPE_ACCOUNT) {
-	if ($user->hasRight("banque", "read")) {
+	if ($user->hasRight("bank", "read")) {
 		require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 
-		$permission = $user->hasRight('banque', 'creer');
-		$showclassifyform = $user->hasRight('banque', 'creer');
+		$permission = $user->hasRight('bank', 'creer');
+		$showclassifyform = $user->hasRight('bank', 'creer');
 
 		$accounts = $object->getObjectsInCateg($type, 0, $limit, $offset);
 		if ($accounts < 0) {

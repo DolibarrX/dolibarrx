@@ -62,7 +62,7 @@ $offset = $limit * $page;
 $pageprev = $page - 1;
 $pagenext = $page + 1;
 
-$result = restrictedArea($user, 'banque');
+$result = restrictedArea($user, 'bank');
 $optioncss = GETPOST('optioncss', 'alpha');
 
 /*

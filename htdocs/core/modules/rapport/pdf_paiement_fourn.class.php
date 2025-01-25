@@ -18,7 +18,7 @@
 
 /**
  *	\file       htdocs/core/modules/rapport/pdf_paiement_fourn.class.php
- *	\ingroup    banque
+ *	\ingroup    bank
  *	\brief      File to build payment reports
  */
 require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';

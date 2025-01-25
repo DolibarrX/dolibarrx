@@ -25,7 +25,7 @@
 
 /**
  *	    \file       htdocs/compta/bank/releve.php
- *      \ingroup    banque
+ *      \ingroup    bank
  *		\brief      Page to show a bank statement report
  */
 
@@ -75,12 +75,12 @@ $backtopage = GETPOST('backtopage', 'alpha');
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('bankaccountstatement', 'globalcard'));
 
-if ($user->hasRight('banque', 'consolidate') && $action == 'dvnext' && !empty($dvid)) {
+if ($user->hasRight('bank', 'consolidate') && $action == 'dvnext' && !empty($dvid)) {
 	$al = new AccountLine($db);
 	$al->datev_next($dvid);
 }
 
-if ($user->hasRight('banque', 'consolidate') && $action == 'dvprev' && !empty($dvid)) {
+if ($user->hasRight('bank', 'consolidate') && $action == 'dvprev' && !empty($dvid)) {
 	$al = new AccountLine($db);
 	$al->datev_previous($dvid);
 }
@@ -121,7 +121,7 @@ if ($user->socid) {
 	$socid = $user->socid;
 }
 
-$result = restrictedArea($user, 'banque', $fieldid, 'bank_account', '', '', $fieldname);
+$result = restrictedArea($user, 'bank', $fieldid, 'bank_account', '', '', $fieldname);
 
 $error = 0;
 
@@ -198,7 +198,7 @@ $sqlrequestforbankline = $sql;
  * Actions
  */
 
-if ($action == 'confirm_editbankreceipt' && !empty($oldbankreceipt) && !empty($newbankreceipt) && $user->hasRight('banque', 'consolidate')) {
+if ($action == 'confirm_editbankreceipt' && !empty($oldbankreceipt) && !empty($newbankreceipt) && $user->hasRight('bank', 'consolidate')) {
 	// Test to check newbankreceipt does not exists yet
 	$sqltest = "SELECT b.rowid FROM ".MAIN_DB_PREFIX."bank as b, ".MAIN_DB_PREFIX."bank_account as ba";
 	$sqltest .= " WHERE b.fk_account = ba.rowid AND ba.entity = ".((int) $config->entity);
@@ -321,7 +321,7 @@ if (empty($numref)) {
 			}
 
 			// If not cash account and can be reconciliate
-			if ($user->hasRight('banque', 'consolidate')) {
+			if ($user->hasRight('bank', 'consolidate')) {
 				$buttonreconcile = '<a class="butAction" href="'.DOL_URL_ROOT.'/compta/bank/bankentries_list.php?action=reconcile&sortfield=b.datev,b.dateo,b.rowid&sortorder=asc,asc,asc&search_conciliated=0&search_account='.$id.$param.'">'.$titletoconciliatemanual.'</a>';
 			} else {
 				$buttonreconcile = '<a class="butActionRefused classfortooltip" title="'.$langs->trans("NotEnoughPermissions").'" href="#">'.$titletoconciliatemanual.'</a>';
@@ -330,7 +330,7 @@ if (empty($numref)) {
 
 			if ($allowautomaticconciliation) {
 				// If not cash account and can be reconciliate
-				if ($user->hasRight('banque', 'consolidate')) {
+				if ($user->hasRight('bank', 'consolidate')) {
 					$newparam = $param;
 					$newparam = preg_replace('/search_conciliated=\d+/i', '', $newparam);
 					$buttonreconcile .= ' <a class="butAction" style="margin-bottom: 5px !important; margin-top: 5px !important" href="'.DOL_URL_ROOT.'/compta/bank/bankentries_list.php?action=reconcile&sortfield=b.datev,b.dateo,b.rowid&sortorder=asc,asc,asc&search_conciliated=0'.$newparam.'">'.$titletoconciliateauto.'</a>';
@@ -421,7 +421,7 @@ if (empty($numref)) {
 			print '<td class="right"><span class="amount">'.price(($balancestart[$objp->numr] + $content[$objp->numr]), 0, $langs, 1, -1, -1, empty($object->currency_code) ? $config->currency : $object->currency_code).'</span></td>';
 
 			print '<td class="center">';
-			if ($user->hasRight('banque', 'consolidate') && $action != 'editbankreceipt') {
+			if ($user->hasRight('bank', 'consolidate') && $action != 'editbankreceipt') {
 				print '<a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?account='.$object->id.($page > 0 ? '&page='.$page : '').'&action=editbankreceipt&token='.newToken().'&brref='.urlencode($objp->numr).'">'.img_edit().'</a>';
 			}
 			print '</td>';
@@ -710,7 +710,7 @@ if (empty($numref)) {
 
 			print '<td class="nowrap right">'.price(price2num($total, 'MT'))."</td>\n";
 
-			if ($user->hasRight('banque', 'modifier') || $user->hasRight('banque', 'consolidate')) {
+			if ($user->hasRight('bank', 'modifier') || $user->hasRight('bank', 'consolidate')) {
 				print '<td class="center"><a class="editfielda reposition" href="'.DOL_URL_ROOT.'/compta/bank/line.php?rowid='.$objp->rowid.'&account='.$object->id.'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?account='.$object->id.'&num='.urlencode($numref)).'">';
 				print img_edit();
 				print "</a></td>";

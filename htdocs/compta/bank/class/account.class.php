@@ -113,7 +113,7 @@ class Account extends CommonObject
 	 * Bank number. If in SEPA area, you should move to IBAN field
 	 * @var string
 	 */
-	public $code_banque;
+	public $code_bank;
 
 	/**
 	 * Branch number. If in SEPA area, you should move to IBAN field
@@ -356,7 +356,7 @@ class Account extends CommonObject
 		'label' => array('type' => 'varchar(30)', 'label' => 'Label', 'enabled' => 1, 'visible' => -1, 'notnull' => 1, 'position' => 30),
 		'entity' => array('type' => 'integer', 'label' => 'Entity', 'default' => '1', 'enabled' => 1, 'visible' => -2, 'notnull' => 1, 'position' => 35, 'index' => 1),
 		'bank' => array('type' => 'varchar(60)', 'label' => 'Bank', 'enabled' => 1, 'visible' => -1, 'position' => 40),
-		'code_banque' => array('type' => 'varchar(128)', 'label' => 'Code banque', 'enabled' => 1, 'visible' => -1, 'position' => 45),
+		'code_bank' => array('type' => 'varchar(128)', 'label' => 'Code bank', 'enabled' => 1, 'visible' => -1, 'position' => 45),
 		'code_guichet' => array('type' => 'varchar(6)', 'label' => 'Code guichet', 'enabled' => 1, 'visible' => -1, 'position' => 50),
 		'number' => array('type' => 'varchar(255)', 'label' => 'Number', 'enabled' => 1, 'visible' => -1, 'position' => 55),
 		'cle_rib' => array('type' => 'varchar(5)', 'label' => 'Cle rib', 'enabled' => 1, 'visible' => -1, 'position' => 60),
@@ -449,7 +449,7 @@ class Account extends CommonObject
 		$string = '';
 		foreach ($this->getFieldsToShow() as $val) {
 			if ($val == 'BankCode') {
-				$string .= $this->code_banque.' ';
+				$string .= $this->code_bank.' ';
 			} elseif ($val == 'BankAccountNumber') {
 				$string .= $this->number.' ';
 			} elseif ($val == 'DeskCode') {
@@ -595,14 +595,14 @@ class Account extends CommonObject
 	 *  @param	int  		$categorie		Category id (optional)
 	 *  @param	User		$user			User that create
 	 *  @param	string		$emetteur		Name of cheque writer
-	 *  @param	string		$banque			Bank of cheque writer
+	 *  @param	string		$bank			Bank of cheque writer
 	 *  @param	string		$accountancycode	When we record a free bank entry, we must provide accounting account if accountancy module is on.
 	 *  @param	int			$datev			Date value
 	 *  @param  string      $num_releve     Label of bank receipt for reconciliation
 	 *  @param	float		$amount_main_currency	Amount
 	 *  @return	int							Rowid of added entry, <0 if KO
 	 */
-	public function addline($date, $oper, $label, $amount, $num_chq, $categorie, User $user, $emetteur = '', $banque = '', $accountancycode = '', $datev = null, $num_releve = '', $amount_main_currency = null)
+	public function addline($date, $oper, $label, $amount, $num_chq, $categorie, User $user, $emetteur = '', $bank = '', $accountancycode = '', $datev = null, $num_releve = '', $amount_main_currency = null)
 	{
 		global $langs;
 
@@ -617,7 +617,7 @@ class Account extends CommonObject
 
 		// Clean parameters
 		$emetteur = trim($emetteur);
-		$banque = trim($banque);
+		$bank = trim($bank);
 		$label = trim($label);
 
 		$now = dol_now();
@@ -677,8 +677,8 @@ class Account extends CommonObject
 			$accline->emetteur = $emetteur;
 		}
 
-		if ($banque) {
-			$accline->bank_chq = $banque;
+		if ($bank) {
+			$accline->bank_chq = $bank;
 		}
 
 		if ($accline->insert() > 0) {
@@ -780,7 +780,7 @@ class Account extends CommonObject
 		$sql .= ", account_number";
 		$sql .= ", fk_accountancy_journal";
 		$sql .= ", bank";
-		$sql .= ", code_banque";
+		$sql .= ", code_bank";
 		$sql .= ", code_guichet";
 		$sql .= ", number";
 		$sql .= ", cle_rib";
@@ -810,7 +810,7 @@ class Account extends CommonObject
 		$sql .= ", '".$this->db->escape($this->account_number)."'";
 		$sql .= ", ".($this->fk_accountancy_journal > 0 ? ((int) $this->fk_accountancy_journal) : "null");
 		$sql .= ", '".$this->db->escape($this->bank)."'";
-		$sql .= ", '".$this->db->escape($this->code_banque)."'";
+		$sql .= ", '".$this->db->escape($this->code_bank)."'";
 		$sql .= ", '".$this->db->escape($this->code_guichet)."'";
 		$sql .= ", '".$this->db->escape($this->number)."'";
 		$sql .= ", '".$this->db->escape($this->cle_rib)."'";
@@ -939,7 +939,7 @@ class Account extends CommonObject
 		$sql .= ",account_number = '".$this->db->escape($this->account_number)."'";
 		$sql .= ",fk_accountancy_journal = ".($this->fk_accountancy_journal > 0 ? ((int) $this->fk_accountancy_journal) : "null");
 		$sql .= ",bank  = '".$this->db->escape($this->bank)."'";
-		$sql .= ",code_banque='".$this->db->escape($this->code_banque)."'";
+		$sql .= ",code_bank='".$this->db->escape($this->code_bank)."'";
 		$sql .= ",code_guichet='".$this->db->escape($this->code_guichet)."'";
 		$sql .= ",number='".$this->db->escape($this->number)."'";
 		$sql .= ",cle_rib='".$this->db->escape($this->cle_rib)."'";
@@ -1038,7 +1038,7 @@ class Account extends CommonObject
 		// Load library to get BAN control function
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/bank.lib.php';
 
-		dol_syslog(get_class($this)."::update_bban $this->code_banque,$this->code_guichet,$this->number,$this->cle_rib,$this->iban");
+		dol_syslog(get_class($this)."::update_bban $this->code_bank,$this->code_guichet,$this->number,$this->cle_rib,$this->iban");
 
 		// Check parameters
 		if (!$this->ref) {
@@ -1048,7 +1048,7 @@ class Account extends CommonObject
 
 		$sql = "UPDATE ".MAIN_DB_PREFIX."bank_account SET";
 		$sql .= " bank  = '".$this->db->escape($this->bank)."'";
-		$sql .= ",code_banque='".$this->db->escape($this->code_banque)."'";
+		$sql .= ",code_bank='".$this->db->escape($this->code_bank)."'";
 		$sql .= ",code_guichet='".$this->db->escape($this->code_guichet)."'";
 		$sql .= ",number='".$this->db->escape($this->number)."'";
 		$sql .= ",cle_rib='".$this->db->escape($this->cle_rib)."'";
@@ -1093,7 +1093,7 @@ class Account extends CommonObject
 		}
 
 		$sql = "SELECT ba.rowid, ba.ref, ba.label, ba.bank, ba.number, ba.courant as type, ba.clos as status, ba.rappro, ba.url,";
-		$sql .= " ba.code_banque, ba.code_guichet, ba.cle_rib, ba.bic, ba.iban_prefix as iban,";
+		$sql .= " ba.code_bank, ba.code_guichet, ba.cle_rib, ba.bic, ba.iban_prefix as iban,";
 		$sql .= " ba.domiciliation as address, ba.pti_in_ctti, ba.proprio as owner_name, ba.owner_address, ba.owner_zip, ba.owner_town, ba.owner_country_id, ba.state_id, ba.fk_pays as country_id,";
 		$sql .= " ba.account_number, ba.fk_accountancy_journal, ba.currency_code,";
 		$sql .= " ba.min_allowed, ba.min_desired, ba.comment,";
@@ -1131,7 +1131,7 @@ class Account extends CommonObject
 				$this->rappro        = $obj->rappro;
 				$this->url           = $obj->url;
 
-				$this->code_banque   = $obj->code_banque;
+				$this->code_bank   = $obj->code_bank;
 				$this->code_guichet  = $obj->code_guichet;
 				$this->number        = $obj->number;
 				$this->cle_rib       = $obj->cle_rib;
@@ -1972,7 +1972,7 @@ class Account extends CommonObject
 		$this->clos            = Account::STATUS_OPEN;
 		$this->type            = Account::TYPE_CURRENT;
 		$this->status          = Account::STATUS_OPEN;
-		$this->code_banque     = '30001';
+		$this->code_bank     = '30001';
 		$this->code_guichet    = '00794';
 		$this->number          = '12345678901';
 		$this->cle_rib         = '85';
@@ -2232,7 +2232,7 @@ class AccountLine extends CommonObjectLine
 		$sql = "SELECT b.rowid, b.datec, b.datev, b.dateo, b.amount, b.label as label, b.fk_account,";
 		$sql .= " b.fk_user_author, b.fk_user_rappro,";
 		$sql .= " b.fk_type, b.num_releve, b.num_chq, b.rappro, b.note,";
-		$sql .= " b.fk_bordereau, b.banque, b.emetteur,";
+		$sql .= " b.fk_bordereau, b.bank, b.emetteur,";
 		$sql .= " ba.ref as bank_account_ref, ba.label as bank_account_label";
 		$sql .= " FROM ".MAIN_DB_PREFIX."bank as b,";
 		$sql .= " ".MAIN_DB_PREFIX."bank_account as ba";
@@ -2272,7 +2272,7 @@ class AccountLine extends CommonObjectLine
 				$this->num_releve = $obj->num_releve;
 
 				$this->num_chq = $obj->num_chq;
-				$this->bank_chq = $obj->banque;
+				$this->bank_chq = $obj->bank;
 				$this->fk_bordereau = $obj->fk_bordereau;
 
 				$this->fk_account = $obj->fk_account;
@@ -2314,7 +2314,7 @@ class AccountLine extends CommonObjectLine
 		$sql .= ", num_chq";
 		$sql .= ", fk_account";
 		$sql .= ", fk_type";
-		$sql .= ", emetteur,banque";
+		$sql .= ", emetteur,bank";
 		$sql .= ", rappro";
 		$sql .= ", number_compte";
 		$sql .= ", num_releve";

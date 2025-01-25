@@ -69,7 +69,7 @@ if ($action == "set") {
 			$error++;
 		}
 		/*
-		$res = dolibarr_set_const($db, "PRELEVEMENT_CODE_BANQUE", $account->code_banque,'chaine',0,'',$config->entity);
+		$res = dolibarr_set_const($db, "PRELEVEMENT_CODE_BANQUE", $account->code_bank,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;
 		$res = dolibarr_set_const($db, "PRELEVEMENT_CODE_GUICHET", $account->code_guichet,'chaine',0,'',$config->entity);
 		if (! $res > 0) $error++;

@@ -192,7 +192,7 @@ class modExpenseReport extends DolibarrModules
 			'ed.qty' => "Quantity", 'ed.value_unit' => "UnitPriceHT",
 			'ed.total_ht' => 'TotalHT', 'ed.total_tva' => 'TotalVAT', 'ed.total_ttc' => 'TotalTTC', 'ed.comments' => 'Comment', 'p.rowid' => 'ProjectId', 'p.ref' => 'Ref',
 			'u.lastname' => 'Lastname', 'u.firstname' => 'Firstname', 'u.login' => "Login",
-			'user_rib.iban_prefix' => 'IBAN', 'user_rib.bic' => 'BIC', 'user_rib.code_banque' => 'BankCode', 'user_rib.bank' => 'BankName', 'user_rib.proprio' => 'BankAccountOwner',
+			'user_rib.iban_prefix' => 'IBAN', 'user_rib.bic' => 'BIC', 'user_rib.code_bank' => 'BankCode', 'user_rib.bank' => 'BankName', 'user_rib.proprio' => 'BankAccountOwner',
 			'user_rib.owner_address' => 'BankAccountOwnerAddress'
 		);
 		$this->export_TypeFields_array[$r] = array(
@@ -204,7 +204,7 @@ class modExpenseReport extends DolibarrModules
 			'ed.qty' => 'Numeric', 'ed.value_unit' => 'Numeric',
 			'ed.total_ht' => 'Numeric', 'ed.total_tva' => 'Numeric', 'ed.total_ttc' => 'Numeric', 'ed.comments' => 'Text', 'p.rowid' => 'Numeric', 'p.ref' => 'Text',
 			'u.lastname' => 'Text', 'u.firstname' => 'Text', 'u.login' => "Text",
-			'user_rib.iban_prefix' => 'Text', 'user_rib.bic' => 'Text', 'user_rib.code_banque' => 'Text', 'user_rib.bank' => 'Text', 'user_rib.proprio' => 'Text',
+			'user_rib.iban_prefix' => 'Text', 'user_rib.bic' => 'Text', 'user_rib.code_bank' => 'Text', 'user_rib.bank' => 'Text', 'user_rib.proprio' => 'Text',
 			'user_rib.owner_address' => 'Text'
 		);
 		$this->export_entities_array[$r] = array(
@@ -213,7 +213,7 @@ class modExpenseReport extends DolibarrModules
 			'ed.tva_tx' => 'expensereport_line', 'ed.total_ht' => 'expensereport_line', 'ed.total_tva' => 'expensereport_line', 'ed.total_ttc' => 'expensereport_line',
 			'ed.comments' => 'expensereport_line', 'tf.code' => 'expensereport_line', 'p.project_ref' => 'expensereport_line', 'p.rowid' => 'project', 'p.ref' => 'project',
 			'u.lastname' => 'user', 'u.firstname' => 'user', 'u.login' => 'user',
-			'user_rib.iban_prefix' => 'user', 'user_rib.bic' => 'user', 'user_rib.code_banque' => 'user', 'user_rib.bank' => 'user', 'user_rib.proprio' => 'user',
+			'user_rib.iban_prefix' => 'user', 'user_rib.bic' => 'user', 'user_rib.code_bank' => 'user', 'user_rib.bank' => 'user', 'user_rib.proprio' => 'user',
 			'user_rib.owner_address' => 'user'
 
 		);

@@ -53,7 +53,7 @@ $socid = GETPOSTINT("socid");
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$result = restrictedArea($user, 'banque', '', '', '');
+$result = restrictedArea($user, 'bank', '', '', '');
 
 // Get parameters
 $limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
@@ -78,9 +78,9 @@ $object = new PaymentVarious($db);
 $object->fetch($id, $ref);
 
 $upload_dir = $config->bank->dir_output.'/'.dol_sanitizeFileName((string) $object->id);
-$modulepart = 'banque';
+$modulepart = 'bank';
 
-$permissiontoadd = $user->hasRight('banque', 'modifier');	// Used by the include of actions_dellink.inc.php
+$permissiontoadd = $user->hasRight('bank', 'modifier');	// Used by the include of actions_dellink.inc.php
 
 
 
@@ -110,7 +110,7 @@ if ($object->id) {
 	// Project
 	if (isModEnabled('project')) {
 		$langs->load("projects");
-		if ($user->hasRight('banque', 'modifier') && 0) {
+		if ($user->hasRight('bank', 'modifier') && 0) {
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> : ';
 			}
@@ -163,8 +163,8 @@ if ($object->id) {
 
 	print dol_get_fiche_end();
 
-	$modulepart = 'banque';
-	$permissiontoadd = $user->hasRight('banque', 'modifier');
+	$modulepart = 'bank';
+	$permissiontoadd = $user->hasRight('bank', 'modifier');
 	$param = '&id='.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/document_actions_post_headers.tpl.php';
 } else {

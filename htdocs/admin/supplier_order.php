@@ -493,7 +493,7 @@ print "</td></tr>\n";
 
 // Ask for payment bank during supplier order
 /* Kept as hidden for the moment
-if (isModEnabled('banque')) {
+if (isModEnabled('bank')) {
 
 print '<tr class="oddeven"><td>';
 print $langs->trans("BANK_ASK_PAYMENT_BANK_DURING_SUPPLIER_ORDER").'</td><td>&nbsp;</td><td align="center">';

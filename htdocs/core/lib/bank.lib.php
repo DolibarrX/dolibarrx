@@ -26,7 +26,7 @@
 /**
  * \file       htdocs/core/lib/bank.lib.php
  * \ingroup    bank
- * \brief      Ensemble de functions de base pour le module banque
+ * \brief      Ensemble de functions de base pour le module bank
  */
 
 
@@ -65,7 +65,7 @@ function bank_prepare_head(Account $object)
 		$param = '';
 
 		// If not cash account and can be reconciliate
-		if ($user->hasRight('banque', 'consolidate')) {
+		if ($user->hasRight('bank', 'consolidate')) {
 			$head[$h][0] = DOL_URL_ROOT . "/compta/bank/bankentries_list.php?id=" . $object->id . '&action=reconcile&sortfield=b.datev,b.dateo,b.rowid&sortorder=asc,asc,asc&search_conciliated=0&search_account=' . $object->id . $param;
 			$head[$h][1] = $titletoconciliatemanual;
 			$head[$h][2] = 'reconcile';
@@ -76,7 +76,7 @@ function bank_prepare_head(Account $object)
 
 		if ($allowautomaticconciliation) {
 			// If not cash account and can be reconciliate
-			if ($user->hasRight('banque', 'consolidate')) {
+			if ($user->hasRight('bank', 'consolidate')) {
 				$newparam = $param;
 				$newparam = preg_replace('/search_conciliated=\d+/i', '', $newparam);
 
@@ -417,12 +417,12 @@ function checkBanForAccount($account)
 		$account->cle = $account->cle_rib;
 	}
 
-	dol_syslog("bank.lib::checkBanForAccount account->code_banque=" . $account->code_banque . " account->code_guichet=" . $account->code_guichet . " account->number=" . $account->number . " account->cle=" . $account->cle . " account->iban=" . $account->iban . " country_code=" . $country_code, LOG_DEBUG);
+	dol_syslog("bank.lib::checkBanForAccount account->code_bank=" . $account->code_bank . " account->code_guichet=" . $account->code_guichet . " account->number=" . $account->number . " account->cle=" . $account->cle . " account->iban=" . $account->iban . " country_code=" . $country_code, LOG_DEBUG);
 
 	if ($country_code == 'FR') { // France rules
 		$coef = array(62, 34, 3);
 		// Concatenate the code parts
-		$rib = strtolower(trim($account->code_banque) . trim($account->code_guichet) . trim($account->number) . trim($account->cle));
+		$rib = strtolower(trim($account->code_bank) . trim($account->code_guichet) . trim($account->number) . trim($account->cle));
 		// On replace les eventuelles lettres par des chiffres.
 		//$rib = strtr($rib, "abcdefghijklmnopqrstuvwxyz","12345678912345678912345678");	//Ne marche pas
 		$rib = strtr($rib, "abcdefghijklmnopqrstuvwxyz", "12345678912345678923456789");
@@ -448,7 +448,7 @@ function checkBanForAccount($account)
 
 	if ($country_code == 'ES') { // Spanish rules
 		$CCC = strtolower(trim($account->number));
-		$rib = strtolower(trim($account->code_banque) . trim($account->code_guichet));
+		$rib = strtolower(trim($account->code_bank) . trim($account->code_guichet));
 		$cle_rib = strtolower(checkES($rib, $CCC));
 		if ($cle_rib == strtolower($account->cle)) {
 			return true;
@@ -456,9 +456,9 @@ function checkBanForAccount($account)
 		return false;
 	}
 	if ($country_code == 'AU') {  // Australian
-		if (strlen($account->code_banque) > 7) {
+		if (strlen($account->code_bank) > 7) {
 			return false; // Should be 6 but can be 123-456
-		} elseif (strlen($account->code_banque) < 6) {
+		} elseif (strlen($account->code_bank) < 6) {
 			return false; // Should be 6
 		} else {
 			return true;

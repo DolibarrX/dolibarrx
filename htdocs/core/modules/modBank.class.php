@@ -20,10 +20,10 @@
  */
 
 /**
- * 	\defgroup   banque     Module bank
+ * 	\defgroup   bank     Module bank
  * 	\brief      Module pour gerer la tenue d'un compte bancaire et rapprochements
  *	\file       htdocs/core/modules/modBank.class.php
- *	\ingroup    banque
+ *	\ingroup    bank
  *	\brief      Description and activation file for the module bank
  */
 
@@ -60,7 +60,7 @@ class modBank extends DolibarrModules
 		$this->picto = 'account';
 
 		// Data directories to create when module is enabled
-		$this->dirs = array("/banque/temp");
+		$this->dirs = array("/bank/temp");
 
 		// Config pages
 		//-------------
@@ -80,7 +80,7 @@ class modBank extends DolibarrModules
 
 		// Permissions
 		$this->rights = array();
-		$this->rights_class = 'banque';
+		$this->rights_class = 'bank';
 		$r = 0;
 
 		$r++;
@@ -146,7 +146,7 @@ class modBank extends DolibarrModules
 		$r++;
 		$this->export_code[$r] = $this->rights_class.'_'.$r;
 		$this->export_label[$r] = 'Ecritures bancaires et releves';
-		$this->export_permission[$r] = array(array("banque", "export"));
+		$this->export_permission[$r] = array(array("bank", "export"));
 		$this->export_fields_array[$r] = array(
 			'b.rowid'=>'IdTransaction', 'ba.ref'=>'AccountRef', 'ba.label'=>'AccountLabel', 'b.datev'=>'DateValue', 'b.dateo'=>'DateOperation', 'b.label'=>'Label',
 			'b.num_chq'=>'ChequeOrTransferNumber', 'b.fk_bordereau'=>'ChequeBordereau', '-b.amount'=>'Debit', 'b.amount'=>'Credit',
@@ -177,7 +177,7 @@ class modBank extends DolibarrModules
 		$r++;
 		$this->export_code[$r] = $this->rights_class.'_'.$r;
 		$this->export_label[$r] = 'Bordereaux remise Chq/Fact';
-		$this->export_permission[$r] = array(array("banque", "export"));
+		$this->export_permission[$r] = array(array("bank", "export"));
 		$this->export_fields_array[$r] = array("bch.rowid"=>"DepositId", "bch.ref"=>"Numero", "bch.ref_ext"=>"RefExt", 'ba.ref'=>'AccountRef', 'ba.label'=>'AccountLabel', 'b.datev'=>'DateValue', 'b.num_chq'=>'ChequeOrTransferNumber', 'b.amount'=>'Credit', 'b.num_releve'=>'AccountStatement', 'b.datec'=>"DateCreation",
 			"bch.date_bordereau"=>"Date", "bch.amount"=>"Total", "bch.nbcheque"=>"NbCheque", "bu.url_id"=>"IdThirdParty", "s.nom"=>"ThirdParty", "s.code_compta"=>"CustomerAccountancyCode", "f.ref"=>"InvoiceRef"
 			);
@@ -205,7 +205,7 @@ class modBank extends DolibarrModules
 		$r++;
 		$this->export_code[$r] = $this->rights_class.'_'.$r;
 		$this->export_label[$r] = 'VariousPayment';
-		$this->export_permission[$r] = array(array("banque", "export"));
+		$this->export_permission[$r] = array(array("bank", "export"));
 		$this->export_fields_array[$r] = array(
 			'v.rowid'=>'VariousPaymentId', 'v.label'=>'VariousPaymentLabel', 'v.datev'=>'DateValue', 'v.datep'=>'DateOperation',
 			'v.num_payment'=>'ChequeOrTransferNumber', 'v.amount'=>'Amount', 'v.sens'=>'Sens',

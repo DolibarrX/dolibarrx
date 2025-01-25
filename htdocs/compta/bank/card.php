@@ -90,7 +90,7 @@ if (GETPOSTINT("id") || GETPOST("ref")) {
 	}
 }
 
-$result = restrictedArea($user, 'banque', $id, 'bank_account&bank_account', '', '', $fieldid);
+$result = restrictedArea($user, 'bank', $id, 'bank_account&bank_account', '', '', $fieldid);
 
 
 /*
@@ -127,7 +127,7 @@ if (empty($resHook)) {
 		$action = '';
 	}
 
-	if ($action == 'add' && $user->hasRight('banque', 'configurer')) {
+	if ($action == 'add' && $user->hasRight('bank', 'configurer')) {
 		$error = 0;
 
 		$db->begin();
@@ -145,7 +145,7 @@ if (empty($resHook)) {
 		$object->url = trim(GETPOST("url", 'alpha'));
 
 		$object->bank = trim(GETPOST("bank"));
-		$object->code_banque = trim(GETPOST("code_banque"));
+		$object->code_bank = trim(GETPOST("code_bank"));
 		$object->code_guichet = trim(GETPOST("code_guichet"));
 		$object->number = trim(GETPOST("number"));
 		$object->cle_rib = trim(GETPOST("cle_rib"));
@@ -244,7 +244,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'update' && $user->hasRight('banque', 'configurer')) {
+	if ($action == 'update' && $user->hasRight('bank', 'configurer')) {
 		$error = 0;
 
 		// Update account
@@ -262,7 +262,7 @@ if (empty($resHook)) {
 		$object->url = trim(GETPOST("url", 'alpha'));
 
 		$object->bank = trim(GETPOST("bank"));
-		$object->code_banque = trim(GETPOST("code_banque"));
+		$object->code_bank = trim(GETPOST("code_bank"));
 		$object->code_guichet = trim(GETPOST("code_guichet"));
 		$object->number = trim(GETPOST("number"));
 		$object->cle_rib = trim(GETPOST("cle_rib"));
@@ -347,7 +347,7 @@ if (empty($resHook)) {
 		}
 	}
 
-	if ($action == 'confirm_delete' && GETPOST("confirm") == "yes" && $user->hasRight('banque', 'configurer')) {
+	if ($action == 'confirm_delete' && GETPOST("confirm") == "yes" && $user->hasRight('bank', 'configurer')) {
 		// Delete
 		$object = new Account($db);
 		$object->fetch(GETPOSTINT("id"));
@@ -579,9 +579,9 @@ if ($action == 'create') {
 		foreach ($object->getFieldsToShow() as $val) {
 			$content = '';
 			if ($val == 'BankCode') {
-				$name = 'code_banque';
+				$name = 'code_bank';
 				$sizecss = 'minwidth100';
-				$content = $object->code_banque;
+				$content = $object->code_bank;
 			} elseif ($val == 'DeskCode') {
 				$name = 'code_guichet';
 				$sizecss = 'minwidth100';
@@ -838,7 +838,7 @@ if ($action == 'create') {
 			foreach ($object->getFieldsToShow() as $val) {
 				$content = '';
 				if ($val == 'BankCode') {
-					$content = $object->code_banque;
+					$content = $object->code_bank;
 				} elseif ($val == 'DeskCode') {
 					$content = $object->code_guichet;
 				} elseif ($val == 'BankAccountNumber') {
@@ -910,12 +910,12 @@ if ($action == 'create') {
 		 */
 		print '<div class="tabsAction">';
 
-		if ($user->hasRight('banque', 'configurer')) {
+		if ($user->hasRight('bank', 'configurer')) {
 			print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?action=edit&token='.newToken().'&id='.$object->id.'">'.$langs->trans("Modify").'</a>';
 		}
 
 		$canbedeleted = $object->can_be_deleted(); // Return true if account without movements
-		if ($user->hasRight('banque', 'configurer') && $canbedeleted) {
+		if ($user->hasRight('bank', 'configurer') && $canbedeleted) {
 			print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?action=delete&token='.newToken().'&id='.$object->id.'">'.$langs->trans("Delete").'</a>';
 		}
 
@@ -928,7 +928,7 @@ if ($action == 'create') {
 	/*                                                                            */
 	/* ************************************************************************** */
 
-	if (GETPOSTINT('id') && $action == 'edit' && $user->hasRight('banque', 'configurer')) {
+	if (GETPOSTINT('id') && $action == 'edit' && $user->hasRight('bank', 'configurer')) {
 		print load_fiche_titre($langs->trans("EditFinancialAccount"), '', 'bank_account');
 
 		if ($config->use_javascript_ajax) {
@@ -1171,9 +1171,9 @@ if ($action == 'create') {
 			foreach ($object->getFieldsToShow() as $val) {
 				$content = '';
 				if ($val == 'BankCode') {
-					$name = 'code_banque';
+					$name = 'code_bank';
 					$css = 'width100';
-					$content = $object->code_banque;
+					$content = $object->code_bank;
 				} elseif ($val == 'DeskCode') {
 					$name = 'code_guichet';
 					$css = 'width100';

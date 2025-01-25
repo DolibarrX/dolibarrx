@@ -331,8 +331,8 @@ function print_eldy_menu($db, $atarget, $type_user, &$tabMenu, &$menu, $noout = 
 	// Bank
 	$tmpentry = array(
 		'enabled' => (isModEnabled('bank') || isModEnabled('prelevement')),
-		'perms' => ($user->hasRight('banque', 'lire') || $user->hasRight('prelevement', 'lire') || $user->hasRight('paymentbybanktransfer', 'read')),
-		'module' => 'banque|prelevement|paymentbybanktransfer'
+		'perms' => ($user->hasRight('bank', 'lire') || $user->hasRight('prelevement', 'lire') || $user->hasRight('paymentbybanktransfer', 'read')),
+		'module' => 'bank|prelevement|paymentbybanktransfer'
 	);
 	$menu_arr[] = array(
 		'name' => 'Bank',
@@ -1640,10 +1640,10 @@ function get_left_menu_billing($mainmenu, &$newmenu, $usemenuhider = 1, $leftmen
 		// Various payment
 		if (isModEnabled('bank') && !getDolGlobalString('BANK_USE_OLD_VARIOUS_PAYMENT')) {
 			$langs->load("banks");
-			$newmenu->add("/compta/bank/various_payment/list.php?leftmenu=tax_various&amp;mainmenu=billing", $langs->trans("MenuVariousPayment"), 0, $user->hasRight('banque', 'lire'), '', $mainmenu, 'tax_various', 0, '', '', '', img_picto('', 'payment', 'class="paddingright pictofixedwidth"'));
+			$newmenu->add("/compta/bank/various_payment/list.php?leftmenu=tax_various&amp;mainmenu=billing", $langs->trans("MenuVariousPayment"), 0, $user->hasRight('bank', 'lire'), '', $mainmenu, 'tax_various', 0, '', '', '', img_picto('', 'payment', 'class="paddingright pictofixedwidth"'));
 			if ($usemenuhider || empty($leftmenu) || preg_match('/^tax_various/i', $leftmenu)) {
-				$newmenu->add("/compta/bank/various_payment/card.php?leftmenu=tax_various&action=create", $langs->trans("New"), 1, $user->hasRight('banque', 'modifier'));
-				$newmenu->add("/compta/bank/various_payment/list.php?leftmenu=tax_various", $langs->trans("List"), 1, $user->hasRight('banque', 'lire'));
+				$newmenu->add("/compta/bank/various_payment/card.php?leftmenu=tax_various&action=create", $langs->trans("New"), 1, $user->hasRight('bank', 'modifier'));
+				$newmenu->add("/compta/bank/various_payment/list.php?leftmenu=tax_various", $langs->trans("List"), 1, $user->hasRight('bank', 'lire'));
 			}
 		}
 	}
@@ -2032,20 +2032,20 @@ function get_left_menu_bank($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu =
 
 		// Bank-Cash account
 		if (isModEnabled('bank')) {
-			$newmenu->add("/compta/bank/list.php?leftmenu=bank&amp;mainmenu=bank&amp;search_status=opened", $langs->trans("MenuBankCash"), 0, $user->hasRight('banque', 'lire'), '', $mainmenu, 'bank', 0, '', '', '', img_picto('', 'bank_account', 'class="paddingright pictofixedwidth"'));
+			$newmenu->add("/compta/bank/list.php?leftmenu=bank&amp;mainmenu=bank&amp;search_status=opened", $langs->trans("MenuBankCash"), 0, $user->hasRight('bank', 'lire'), '', $mainmenu, 'bank', 0, '', '', '', img_picto('', 'bank_account', 'class="paddingright pictofixedwidth"'));
 
-			$newmenu->add("/compta/bank/card.php?action=create", $langs->trans("MenuNewFinancialAccount"), 1, $user->hasRight('banque', 'configurer'));
-			$newmenu->add("/compta/bank/list.php?leftmenu=bank&amp;mainmenu=bank&amp;search_status=opened", $langs->trans("List"), 1, $user->hasRight('banque', 'lire'), '', $mainmenu, 'bank');
-			$newmenu->add("/compta/bank/bankentries_list.php", $langs->trans("ListTransactions"), 1, $user->hasRight('banque', 'lire'));
-			$newmenu->add("/compta/bank/budget.php", $langs->trans("ListTransactionsByCategory"), 1, $user->hasRight('banque', 'lire'));
+			$newmenu->add("/compta/bank/card.php?action=create", $langs->trans("MenuNewFinancialAccount"), 1, $user->hasRight('bank', 'configurer'));
+			$newmenu->add("/compta/bank/list.php?leftmenu=bank&amp;mainmenu=bank&amp;search_status=opened", $langs->trans("List"), 1, $user->hasRight('bank', 'lire'), '', $mainmenu, 'bank');
+			$newmenu->add("/compta/bank/bankentries_list.php", $langs->trans("ListTransactions"), 1, $user->hasRight('bank', 'lire'));
+			$newmenu->add("/compta/bank/budget.php", $langs->trans("ListTransactionsByCategory"), 1, $user->hasRight('bank', 'lire'));
 
-			$newmenu->add("/compta/bank/transfer.php", $langs->trans("MenuBankInternalTransfer"), 1, $user->hasRight('banque', 'transfer'));
+			$newmenu->add("/compta/bank/transfer.php", $langs->trans("MenuBankInternalTransfer"), 1, $user->hasRight('bank', 'transfer'));
 		}
 
 		if (isModEnabled('category')) {
 			$langs->load("categories");
 			$newmenu->add("/categories/index.php?type=5", $langs->trans("Rubriques"), 1, $user->hasRight('categorie', 'creer'), '', $mainmenu, 'tags');
-			$newmenu->add("/categories/index.php?type=8", $langs->trans("RubriquesTransactions"), 1, $user->hasRight('banque', 'configurer'), '', $mainmenu, 'tags');
+			$newmenu->add("/categories/index.php?type=8", $langs->trans("RubriquesTransactions"), 1, $user->hasRight('bank', 'configurer'), '', $mainmenu, 'tags');
 		}
 
 		// Direct debit order
@@ -2078,10 +2078,10 @@ function get_left_menu_bank($mainmenu, &$newmenu, $usemenuhider = 1, $leftmenu =
 
 		// Management of checks
 		if (!getDolGlobalString('BANK_DISABLE_CHECK_DEPOSIT') && isModEnabled('bank') && (isModEnabled('invoice') || getDolGlobalString('MAIN_MENU_CHEQUE_DEPOSIT_ON'))) {
-			$newmenu->add("/compta/paiement/cheque/index.php?leftmenu=checks&amp;mainmenu=bank", $langs->trans("MenuChequeDeposits"), 0, $user->hasRight('banque', 'cheque'), '', $mainmenu, 'checks', 0, '', '', '', img_picto('', 'payment', 'class="paddingright pictofixedwidth"'));
+			$newmenu->add("/compta/paiement/cheque/index.php?leftmenu=checks&amp;mainmenu=bank", $langs->trans("MenuChequeDeposits"), 0, $user->hasRight('bank', 'cheque'), '', $mainmenu, 'checks', 0, '', '', '', img_picto('', 'payment', 'class="paddingright pictofixedwidth"'));
 			if (preg_match('/checks/', $leftmenu)) {
-				$newmenu->add("/compta/paiement/cheque/card.php?leftmenu=checks_bis&amp;action=new&amp;mainmenu=bank", $langs->trans("NewChequeDeposit"), 1, $user->hasRight('banque', 'cheque'));
-				$newmenu->add("/compta/paiement/cheque/list.php?leftmenu=checks_bis&amp;mainmenu=bank", $langs->trans("List"), 1, $user->hasRight('banque', 'cheque'));
+				$newmenu->add("/compta/paiement/cheque/card.php?leftmenu=checks_bis&amp;action=new&amp;mainmenu=bank", $langs->trans("NewChequeDeposit"), 1, $user->hasRight('bank', 'cheque'));
+				$newmenu->add("/compta/paiement/cheque/list.php?leftmenu=checks_bis&amp;mainmenu=bank", $langs->trans("List"), 1, $user->hasRight('bank', 'cheque'));
 			}
 		}
 

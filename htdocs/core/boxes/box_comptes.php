@@ -22,7 +22,7 @@
 
 /**
  *      \file       htdocs/core/boxes/box_comptes.php
- *      \ingroup    banque
+ *      \ingroup    bank
  *      \brief      Module to generate box for bank accounts
  */
 include_once DOL_DOCUMENT_ROOT.'/core/boxes/modules_boxes.php';
@@ -37,7 +37,7 @@ class box_comptes extends ModeleBoxes
 	public $boxcode  = "currentaccounts";
 	public $boximg   = "bank_account";
 	public $boxlabel = "BoxCurrentAccounts";
-	public $depends  = array("banque"); // Box active if module banque active
+	public $depends  = array("bank"); // Box active if module bank active
 
 	public $enabled = 1;
 
@@ -55,11 +55,11 @@ class box_comptes extends ModeleBoxes
 
 		// disable module for such cases
 		$listofmodulesforexternal = explode(',', getDolGlobalString('MAIN_MODULES_FOR_EXTERNAL'));
-		if (!in_array('banque', $listofmodulesforexternal) && !empty($user->socid)) {
+		if (!in_array('bank', $listofmodulesforexternal) && !empty($user->socid)) {
 			$this->enabled = 0; // disabled for external users
 		}
 
-		$this->hidden = !$user->hasRight('banque', 'lire');
+		$this->hidden = !$user->hasRight('bank', 'lire');
 		$this->urltoaddentry = DOL_URL_ROOT.'/compta/bank/card.php?action=create';
 		$this->msgNoRecords = 'NoRecordedBankAccounts';
 	}
@@ -80,9 +80,9 @@ class box_comptes extends ModeleBoxes
 			'text' => $langs->trans("BoxTitleCurrentAccounts").'<a class="paddingleft" href="'.DOL_URL_ROOT.'/compta/bank/list.php?search_status=opened"><span class="badge">...</span></a>'
 		);
 
-		if ($user->hasRight('banque', 'lire')) {
+		if ($user->hasRight('bank', 'lire')) {
 			$sql = "SELECT b.rowid, b.ref, b.label, b.bank, b.number, b.courant, b.clos, b.rappro, b.url";
-			$sql .= ", b.code_banque, b.code_guichet, b.cle_rib, b.bic, b.iban_prefix as iban";
+			$sql .= ", b.code_bank, b.code_guichet, b.cle_rib, b.bic, b.iban_prefix as iban";
 			$sql .= ", b.domiciliation as address, b.proprio, b.owner_address";
 			$sql .= ", b.account_number, b.currency_code";
 			$sql .= ", b.min_allowed, b.min_desired, comment";

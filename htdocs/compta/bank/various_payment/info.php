@@ -50,7 +50,7 @@ $socid = GETPOSTINT("socid");
 if ($user->socid) {
 	$socid = $user->socid;
 }
-$result = restrictedArea($user, 'banque', '', '', '');
+$result = restrictedArea($user, 'bank', '', '', '');
 
 
 /*
@@ -79,7 +79,7 @@ $morehtmlref = '<div class="refidno">';
 // Project
 if (isModEnabled('project')) {
 	$langs->load("projects");
-	if ($user->hasRight('banque', 'modifier') && 0) {
+	if ($user->hasRight('bank', 'modifier') && 0) {
 		if ($action != 'classify') {
 			$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> : ';
 		}
