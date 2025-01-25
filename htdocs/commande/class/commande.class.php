@@ -47,7 +47,7 @@ require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 /**
  *  Class to manage customers orders
  */
-class Commande extends CommonOrder
+class Order extends CommonOrder
 {
 	/**
 	 * @var string ID to identify managed object
@@ -463,8 +463,8 @@ class Commande extends CommonOrder
 			}
 
 			$obj = new $classname();
-			/** @var ModeleNumRefCommandes $obj */
-			'@phan-var-force ModeleNumRefCommandes $obj';
+			/** @var ModeleNumRefOrders $obj */
+			'@phan-var-force ModeleNumRefOrders $obj';
 
 			$numref = $obj->getNextValue($soc, $this);
 
@@ -2720,7 +2720,7 @@ class Commande extends CommonOrder
 	{
 		global $user;
 
-		dol_syslog('Commande::availability('.$availability_id.')');
+		dol_syslog('Order::availability('.$availability_id.')');
 		if ($this->statut >= self::STATUS_DRAFT) {
 			$error = 0;
 
@@ -2784,7 +2784,7 @@ class Commande extends CommonOrder
 		// phpcs:enable
 		global $user;
 
-		dol_syslog('Commande::demand_reason('.$demand_reason_id.')');
+		dol_syslog('Order::demand_reason('.$demand_reason_id.')');
 		if ($this->statut >= self::STATUS_DRAFT) {
 			$error = 0;
 
@@ -3037,7 +3037,7 @@ class Commande extends CommonOrder
 		dol_syslog(get_class($this)."::updateline id=$rowid, desc=$desc, pu=$pu, qty=$qty, remise_percent=$remise_percent, txtva=$txtva, txlocaltax1=$txlocaltax1, txlocaltax2=$txlocaltax2, price_base_type=$price_base_type, info_bits=$info_bits, date_start=$date_start, date_end=$date_end, type=$type, fk_parent_line=$fk_parent_line, pa_ht=$pa_ht, special_code=$special_code, ref_ext=$ref_ext");
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/price.lib.php';
 
-		if ($this->statut == Commande::STATUS_DRAFT) {
+		if ($this->statut == Order::STATUS_DRAFT) {
 			// Clean parameters
 			if (empty($qty)) {
 				$qty = 0;
@@ -3545,7 +3545,7 @@ class Commande extends CommonOrder
 			$response->url_late = DOL_URL_ROOT.'/commande/list.php?search_option=late&mainmenu=commercial&leftmenu=orders';
 			$response->img = img_object('', "order");
 
-			$generic_commande = new Commande($this->db);
+			$generic_commande = new Order($this->db);
 
 			while ($obj = $this->db->fetch_object($resql)) {
 				$response->nbtodo++;
@@ -4109,7 +4109,7 @@ class Commande extends CommonOrder
 	{
 		global $config;
 
-		if (!($this->statut > Commande::STATUS_DRAFT && $this->statut < Commande::STATUS_CLOSED)) {
+		if (!($this->statut > Order::STATUS_DRAFT && $this->statut < Order::STATUS_CLOSED)) {
 			return false; // Never late if not inside this status range
 		}
 

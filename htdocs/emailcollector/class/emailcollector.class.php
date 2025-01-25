@@ -2194,7 +2194,7 @@ class EmailCollector extends CommonObject
 							$objectemail = new Propal($this->db);
 						}
 						if ($reg[1] == 'ord') {   // Sale Order
-							$objectemail = new Commande($this->db);
+							$objectemail = new Order($this->db);
 						}
 						if ($reg[1] == 'shi') {   // Shipment
 							$objectemail = new Expedition($this->db);
@@ -2203,7 +2203,7 @@ class EmailCollector extends CommonObject
 							$objectemail = new SupplierProposal($this->db);
 						}
 						if ($reg[1] == 'sord') {   // Supplier Order
-							$objectemail = new CommandeFournisseur($this->db);
+							$objectemail = new OrderFournisseur($this->db);
 						}
 						if ($reg[1] == 'rec') {   // Reception
 							$objectemail = new Reception($this->db);
@@ -3024,7 +3024,7 @@ class EmailCollector extends CommonObject
 									'commande' => array('table' => 'commande',
 										'fields' => array('ref'),
 										'class' => 'commande/class/commande.class.php',
-										'object' => 'Commande'),
+										'object' => 'Order'),
 									'expedition' => array('table' => 'expedition',
 										'fields' => array('ref'),
 										'class' => 'expedition/class/expedition.class.php',

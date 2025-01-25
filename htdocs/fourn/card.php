@@ -761,7 +761,7 @@ if ($object->id > 0) {
 	/*
 	 * Latest supplier orders
 	 */
-	$orderstatic = new CommandeFournisseur($db);
+	$orderstatic = new OrderFournisseur($db);
 
 	if ($user->hasRight("fournisseur", "commande", "lire")) {
 		// TODO move to DAO class
@@ -775,9 +775,9 @@ if ($object->id > 0) {
 		$sql2 .= ' AND s.rowid = '.((int) $object->id);
 		// Show orders we can bill
 		if (!getDolGlobalString('SUPPLIER_ORDER_TO_INVOICE_STATUS')) {
-			$sql2 .= " AND c.fk_statut IN (".$db->sanitize(CommandeFournisseur::STATUS_RECEIVED_COMPLETELY).")"; //  Must match filter in htdocs/fourn/commande/list.php
+			$sql2 .= " AND c.fk_statut IN (".$db->sanitize(OrderFournisseur::STATUS_RECEIVED_COMPLETELY).")"; //  Must match filter in htdocs/fourn/commande/list.php
 		} else {
-			// CommandeFournisseur::STATUS_ORDERSENT.", ".CommandeFournisseur::STATUS_RECEIVED_PARTIALLY.", ".CommandeFournisseur::STATUS_RECEIVED_COMPLETELY
+			// OrderFournisseur::STATUS_ORDERSENT.", ".OrderFournisseur::STATUS_RECEIVED_PARTIALLY.", ".OrderFournisseur::STATUS_RECEIVED_COMPLETELY
 			$sql2 .= " AND c.fk_statut IN (".$db->sanitize(getDolGlobalString('SUPPLIER_ORDER_TO_INVOICE_STATUS')).")";
 		}
 		$sql2 .= " AND c.billed = 0";

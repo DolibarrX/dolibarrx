@@ -165,7 +165,7 @@ $form = new Form($db);
 $title = $langs->trans('MyObject').' - '.$langs->trans("Notes");
 //$title = $object->ref." - ".$langs->trans("Notes");
 $help_url = '';
-//$help_url='EN:Customers_Orders|FR:Commandes_Clients|ES:Pedidos de clientes';
+//$help_url='EN:Customers_Orders|FR:Orders_Clients|ES:Pedidos de clientes';
 
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-mymodule page-card_notes');
 

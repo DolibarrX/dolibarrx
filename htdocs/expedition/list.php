@@ -268,7 +268,7 @@ if (empty($resHook)) {
 			$objecttmp = new Facture($db);
 
 			dol_include_once('/commande/class/commande.class.php');
-			$expdCmdSrc = new Commande($db);
+			$expdCmdSrc = new Order($db);
 			$expdCmdSrc->fetch($expd->origin_id);
 
 			if (!empty($createbills_onebythird) && !empty($TFactThird[$expd->socid])) {

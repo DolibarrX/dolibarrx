@@ -603,7 +603,7 @@ class FormFile
 					$modellist = $genallowed;
 				} else {
 					include_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
-					$modellist = ModelePDFCommandes::liste_modeles($this->db);
+					$modellist = ModelePDFOrders::liste_modeles($this->db);
 				}
 			} elseif ($modulepart == 'expedition') {
 				if (is_array($genallowed)) {
@@ -1881,10 +1881,10 @@ class FormFile
 			$object_instance = new SupplierProposal($this->db);
 		} elseif ($modulepart == 'order') {
 			include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-			$object_instance = new Commande($this->db);
+			$object_instance = new Order($this->db);
 		} elseif ($modulepart == 'order_supplier') {
 			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
-			$object_instance = new CommandeFournisseur($this->db);
+			$object_instance = new OrderFournisseur($this->db);
 		} elseif ($modulepart == 'contract') {
 			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 			$object_instance = new Contrat($this->db);

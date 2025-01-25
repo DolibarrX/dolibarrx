@@ -125,7 +125,7 @@ print load_fiche_titre($title, '', $picto);
 
 dol_mkdir($dir);
 
-$stats = new CommandeStats($db, $socid, $mode, ($userId > 0 ? $userId : 0), ($typent_id > 0 ? $typent_id : 0), ($categ_id > 0 ? $categ_id : 0));
+$stats = new OrderStats($db, $socid, $mode, ($userId > 0 ? $userId : 0), ($typent_id > 0 ? $typent_id : 0), ($categ_id > 0 ? $categ_id : 0));
 if ($mode == 'customer') {
 	if ($object_status != '' && $object_status >= -1) {
 		$stats->where .= ' AND c.fk_statut IN ('.$db->sanitize($object_status).')';
@@ -368,11 +368,11 @@ print $form->select_dolusers($userId, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0
 print '<tr><td>'.$langs->trans("Status").'</td><td>';
 if ($mode == 'customer') {
 	$liststatus = array(
-		Commande::STATUS_DRAFT => $langs->trans("StatusOrderDraft"),
-		Commande::STATUS_VALIDATED => $langs->trans("StatusOrderValidated"),
-		Commande::STATUS_SHIPMENTONPROCESS => $langs->trans("StatusOrderSent"),
-		Commande::STATUS_CLOSED => $langs->trans("StatusOrderDelivered"),
-		Commande::STATUS_CANCELED => $langs->trans("StatusOrderCanceled")
+		Order::STATUS_DRAFT => $langs->trans("StatusOrderDraft"),
+		Order::STATUS_VALIDATED => $langs->trans("StatusOrderValidated"),
+		Order::STATUS_SHIPMENTONPROCESS => $langs->trans("StatusOrderSent"),
+		Order::STATUS_CLOSED => $langs->trans("StatusOrderDelivered"),
+		Order::STATUS_CANCELED => $langs->trans("StatusOrderCanceled")
 	);
 	print $form->selectarray('object_status', $liststatus, GETPOST('object_status', 'intcomma'), -4);
 }

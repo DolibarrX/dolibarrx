@@ -1399,7 +1399,7 @@ class Facture extends CommonInvoice
 	/**
 	 *	Load an object from an order and create a new invoice into database
 	 *
-	 *	@param	Commande	$object		Object source
+	 *	@param	Order	$object		Object source
 	 *	@param	User		$user		Object user
 	 *	@return	int<-1,1>				Return integer <0 if KO, 0 if nothing done, 1 if OK
 	 */
@@ -1666,7 +1666,7 @@ class Facture extends CommonInvoice
 	/**
 	 * Creates a deposit from a proposal or an order by grouping lines by VAT rates
 	 *
-	 * @param	Propal|Commande	$origin					The original proposal or order
+	 * @param	Propal|Order	$origin					The original proposal or order
 	 * @param	int				$date					Invoice date
 	 * @param	int				$payment_terms_id		Invoice payment terms
 	 * @param	User			$user					Object user

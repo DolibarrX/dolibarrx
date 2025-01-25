@@ -347,7 +347,7 @@ if ($action == 'presend') {
 			dol_include_once('/'.$element.'/class/'.$subelement.'.class.php');
 			$classname = ucfirst($origin);
 			$objectsrc = new $classname($db);
-			'@phan-var-force Commande|Facture $objectsrc';
+			'@phan-var-force Order|Facture $objectsrc';
 			$objectsrc->fetch($origin_id);
 
 			$tmpobject = $objectsrc;

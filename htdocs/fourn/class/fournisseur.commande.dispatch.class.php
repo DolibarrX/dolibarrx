@@ -32,9 +32,9 @@ require_once DOL_DOCUMENT_ROOT."/reception/class/receptionlinebatch.class.php";
 
 /**
  *  Class to manage table ReceptionLineBatch.
- *  Old name was CommandeFournisseurDispatch. This is a transition class.
+ *  Old name was OrderFournisseurDispatch. This is a transition class.
  */
-class CommandeFournisseurDispatch extends ReceptionLineBatch
+class OrderFournisseurDispatch extends ReceptionLineBatch
 {
 	/**
 	 * @var string ID to identify managed object

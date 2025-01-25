@@ -96,7 +96,7 @@ if ($action == 'set') {
 } elseif ($action == 'specimen') {  // For orders
 	$modele = GETPOST('module', 'alpha');
 
-	$commande = new CommandeFournisseur($db);
+	$commande = new OrderFournisseur($db);
 	$commande->initAsSpecimen();
 	$specimenthirdparty = new Societe($db);
 	$specimenthirdparty->initAsSpecimen();

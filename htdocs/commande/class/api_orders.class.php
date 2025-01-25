@@ -38,7 +38,7 @@ class Orders extends DolibarrApi
 	);
 
 	/**
-	 * @var Commande $commande {@type Commande}
+	 * @var Order $commande {@type Order}
 	 */
 	public $commande;
 
@@ -50,7 +50,7 @@ class Orders extends DolibarrApi
 		global $db;
 
 		$this->db = $db;
-		$this->commande = new Commande($this->db);
+		$this->commande = new Order($this->db);
 	}
 
 	/**
@@ -240,7 +240,7 @@ class Orders extends DolibarrApi
 			$i = 0;
 			while ($i < $min) {
 				$obj = $this->db->fetch_object($result);
-				$commande_static = new Commande($this->db);
+				$commande_static = new Order($this->db);
 				if ($commande_static->fetch($obj->rowid) > 0) {
 					// Add external contacts ids
 					$tmparray = $commande_static->liste_contact(-1, 'external', 1);

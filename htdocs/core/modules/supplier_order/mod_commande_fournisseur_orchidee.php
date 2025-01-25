@@ -115,7 +115,7 @@ class mod_commande_fournisseur_orchidee extends ModeleNumRefSuppliersOrders
 		require_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.commande.class.php';
 		require_once DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php';
 
-		$supplierorder = new CommandeFournisseur($db);
+		$supplierorder = new OrderFournisseur($db);
 		$supplierorder->initAsSpecimen();
 		$thirdparty = new Societe($db);
 		$thirdparty->initAsSpecimen();
@@ -132,7 +132,7 @@ class mod_commande_fournisseur_orchidee extends ModeleNumRefSuppliersOrders
 	 * 	Return next value
 	 *
 	 *  @param	Societe|string		$objsoc		Object third party
-	 *  @param  CommandeFournisseur	$object		Object
+	 *  @param  OrderFournisseur	$object		Object
 	 *  @return string|int<-1,0>				Value if OK, <=0 if KO
 	 */
 	public function getNextValue($objsoc, $object)

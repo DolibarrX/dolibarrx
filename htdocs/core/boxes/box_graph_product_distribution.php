@@ -217,7 +217,7 @@ class box_graph_product_distribution extends ModeleBoxes
 				$showpointvalue = 1;
 				$nocolor = 0;
 				$mode = 'customer';
-				$stats_order = new CommandeStats($this->db, $socid, $mode, ($userId > 0 ? $userId : 0));
+				$stats_order = new OrderStats($this->db, $socid, $mode, ($userId > 0 ? $userId : 0));
 				$data3 = $stats_order->getAllByProductEntry($year, (GETPOST('action', 'aZ09') == $refreshaction ? -1 : (3600 * 24)), $max);
 				if (empty($data3)) {
 					$showpointvalue = 0;

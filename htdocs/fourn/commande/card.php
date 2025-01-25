@@ -120,7 +120,7 @@ if (!empty($user->socid)) {
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('ordersuppliercard', 'globalcard'));
 
-$object = new CommandeFournisseur($db);
+$object = new OrderFournisseur($db);
 $extrafields = new ExtraFields($db);
 
 // fetch optionals attributes and labels
@@ -179,7 +179,7 @@ $permissiontoadd	= $usercancreate; // Used by the include of actions_addupdatede
 // Project permission
 $caneditproject = false;
 if (isModEnabled('project')) {
-	$caneditproject = !getDolGlobalString('SUPPLIER_ORDER_FORBID_EDIT_PROJECT') || ($object->statut == CommandeFournisseur::STATUS_DRAFT && preg_match('/^[\(]?PROV/i', $object->ref));
+	$caneditproject = !getDolGlobalString('SUPPLIER_ORDER_FORBID_EDIT_PROJECT') || ($object->statut == OrderFournisseur::STATUS_DRAFT && preg_match('/^[\(]?PROV/i', $object->ref));
 }
 
 $error = 0;
@@ -287,7 +287,7 @@ if (empty($resHook)) {
 	}
 
 	// Edit Thirdparty
-	if (getDolGlobalString('MAIN_CAN_EDIT_SUPPLIER_ON_SUPPLIER_ORDER') && $action == 'set_thirdparty' && $usercancreate && $object->statut == CommandeFournisseur::STATUS_DRAFT) {
+	if (getDolGlobalString('MAIN_CAN_EDIT_SUPPLIER_ON_SUPPLIER_ORDER') && $action == 'set_thirdparty' && $usercancreate && $object->statut == OrderFournisseur::STATUS_DRAFT) {
 		$new_socid = GETPOSTINT('new_socid');
 		if (!empty($new_socid) && $new_socid != $object->thirdparty->id) {
 			$db->begin();
@@ -780,7 +780,7 @@ if (empty($resHook)) {
 		$vat_rate = (GETPOST('tva_tx') ? GETPOST('tva_tx') : 0);
 
 		if ($lineid) {
-			$line = new CommandeFournisseurLigne($db);
+			$line = new OrderFournisseurLigne($db);
 			$res = $line->fetch($lineid);
 			if (!$res) {
 				dol_print_error($db);
@@ -950,8 +950,8 @@ if (empty($resHook)) {
 
 		if (!$error) {
 			// reopen order if necessary
-			if ($object->status == CommandeFournisseur::STATUS_RECEIVED_COMPLETELY) {
-				if ($object->setStatus($user, CommandeFournisseur::STATUS_RECEIVED_PARTIALLY) < 0) {
+			if ($object->status == OrderFournisseur::STATUS_RECEIVED_COMPLETELY) {
+				if ($object->setStatus($user, OrderFournisseur::STATUS_RECEIVED_PARTIALLY) < 0) {
 					setEventMessages($object->error, $object->errors, 'errors');
 					$error++;
 					$action = '';
@@ -1150,7 +1150,7 @@ if (empty($resHook)) {
 
 			if (!empty($dispatchedLines)) {
 				foreach ($dispatchedLines as $dispatchedLine) {
-					$supplierorderdispatch = new CommandeFournisseurDispatch($db);
+					$supplierorderdispatch = new OrderFournisseurDispatch($db);
 					$result = $supplierorderdispatch->fetch($dispatchedLine['id']);
 					if ($result > 0) {
 						$result = $supplierorderdispatch->delete($user);
@@ -1363,7 +1363,7 @@ if (empty($resHook)) {
 					}
 					if ($origin == 'order' || $origin == 'commande') {
 						$element = $subelement = 'commande';
-						$classname = 'Commande';
+						$classname = 'Order';
 					}
 					if ($origin == 'supplier_proposal') {
 						$classname = 'SupplierProposal';
@@ -1602,7 +1602,7 @@ $title = $object->ref." - ".$langs->trans('Card');
 if ($action == 'create') {
 	$title = $langs->trans("NewOrderSupplier");
 }
-$help_url = 'EN:Module_Suppliers_Orders|FR:CommandeFournisseur|ES:Módulo_Pedidos_a_proveedores';
+$help_url = 'EN:Module_Suppliers_Orders|FR:OrderFournisseur|ES:Módulo_Pedidos_a_proveedores';
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-supplier-order page-card');
 
 $now = dol_now();
@@ -1638,7 +1638,7 @@ if ($action == 'create') {
 			$subelement = 'propal';
 		}
 		if ($origin == 'order' || $origin == 'commande') {
-			$classname = 'Commande';
+			$classname = 'Order';
 			$element = $subelement = 'commande';
 		}
 		if ($origin == 'supplier_proposal') {
@@ -2164,7 +2164,7 @@ if ($action == 'create') {
 		$morehtmlref .= '</form>';
 	}
 	if (!getDolGlobalString('MAIN_CAN_EDIT_SUPPLIER_ON_SUPPLIER_ORDER') || $action != 'edit_thirdparty') {
-		if (getDolGlobalString('MAIN_CAN_EDIT_SUPPLIER_ON_SUPPLIER_ORDER') && $object->statut == CommandeFournisseur::STATUS_DRAFT) {
+		if (getDolGlobalString('MAIN_CAN_EDIT_SUPPLIER_ON_SUPPLIER_ORDER') && $object->statut == OrderFournisseur::STATUS_DRAFT) {
 			$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=edit_thirdparty&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetThirdParty')).'</a>';
 		}
 		$morehtmlref .= $object->thirdparty->getNomUrl(1, 'supplier');
@@ -2508,7 +2508,7 @@ if ($action == 'create') {
 		$num = count($object->lines);
 
 		// Form to add new line
-		if ($object->statut == CommandeFournisseur::STATUS_DRAFT && $usercancreate) {
+		if ($object->statut == OrderFournisseur::STATUS_DRAFT && $usercancreate) {
 			if ($action != 'editline') {
 				// Add free products/services
 
@@ -2563,14 +2563,14 @@ if ($action == 'create') {
 				}*/
 
 				// Modify
-				if ($object->statut == CommandeFournisseur::STATUS_VALIDATED) {
+				if ($object->statut == OrderFournisseur::STATUS_VALIDATED) {
 					if ($usercanorder) {
 						print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=reopen&token='.newToken().'">'.$langs->trans("Modify").'</a>';
 					}
 				}
 
 				// Approve
-				if ($object->statut == CommandeFournisseur::STATUS_VALIDATED) {
+				if ($object->statut == OrderFournisseur::STATUS_VALIDATED) {
 					if ($usercanapprove) {
 						if (getDolGlobalString('SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED') && $object->total_ht >= $config->global->SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED && !empty($object->user_approve_id)) {
 							print '<a class="butActionRefused classfortooltip" href="#" title="'.dol_escape_htmltag($langs->trans("FirstApprovalAlreadyDone")).'">'.$langs->trans("ApproveOrder").'</a>';
@@ -2584,7 +2584,7 @@ if ($action == 'create') {
 
 				// Second approval (if option SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED is set)
 				if (getDolGlobalString('SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED') && $object->total_ht >= $config->global->SUPPLIER_ORDER_3_STEPS_TO_BE_APPROVED) {
-					if ($object->statut == CommandeFournisseur::STATUS_VALIDATED) {
+					if ($object->statut == OrderFournisseur::STATUS_VALIDATED) {
 						if ($usercanapprovesecond) {
 							if (!empty($object->user_approve_id2)) {
 								print '<a class="butActionRefused classfortooltip" href="#" title="'.dol_escape_htmltag($langs->trans("SecondApprovalAlreadyDone")).'">'.$langs->trans("Approve2Order").'</a>';
@@ -2598,7 +2598,7 @@ if ($action == 'create') {
 				}
 
 				// Refuse
-				if ($object->statut == CommandeFournisseur::STATUS_VALIDATED) {
+				if ($object->statut == OrderFournisseur::STATUS_VALIDATED) {
 					if ($usercanapprove || $usercanapprovesecond) {
 						print '<a class="butAction"	href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=refuse">'.$langs->trans("RefuseOrder").'</a>';
 					} else {
@@ -2608,7 +2608,7 @@ if ($action == 'create') {
 
 				// Send
 				if (empty($user->socid)) {
-					if (in_array($object->statut, array(CommandeFournisseur::STATUS_ACCEPTED, 3, 4, 5)) || getDolGlobalString('SUPPLIER_ORDER_SENDBYEMAIL_FOR_ALL_STATUS')) {
+					if (in_array($object->statut, array(OrderFournisseur::STATUS_ACCEPTED, 3, 4, 5)) || getDolGlobalString('SUPPLIER_ORDER_SENDBYEMAIL_FOR_ALL_STATUS')) {
 						if ($usercanorder) {
 							print '<a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=presend&mode=init#formmailbeforetitle">'.$langs->trans('SendMail').'</a>';
 						}
@@ -2616,7 +2616,7 @@ if ($action == 'create') {
 				}
 
 				// Reopen
-				if (in_array($object->statut, array(CommandeFournisseur::STATUS_ACCEPTED))) {
+				if (in_array($object->statut, array(OrderFournisseur::STATUS_ACCEPTED))) {
 					$buttonshown = 0;
 					if (!$buttonshown && $usercanapprove) {
 						if (!getDolGlobalString('SUPPLIER_ORDER_REOPEN_BY_APPROVER_ONLY')
@@ -2663,7 +2663,7 @@ if ($action == 'create') {
 					}
 				}
 
-				if ($object->statut == CommandeFournisseur::STATUS_ACCEPTED) {
+				if ($object->statut == OrderFournisseur::STATUS_ACCEPTED) {
 					if ($usercanorder) {
 						print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=createorder&token='.newToken().'#makeorder">'.$langs->trans("MakeOrder").'</a></div>';
 					} else {
@@ -2672,7 +2672,7 @@ if ($action == 'create') {
 				}
 
 				// Classify received (this does not record reception)
-				if ($object->statut == CommandeFournisseur::STATUS_ORDERSENT || $object->statut == CommandeFournisseur::STATUS_RECEIVED_PARTIALLY) {
+				if ($object->statut == OrderFournisseur::STATUS_ORDERSENT || $object->statut == OrderFournisseur::STATUS_RECEIVED_PARTIALLY) {
 					if ($usercanreceive) {
 						print '<div class="inline-block divButAction"><a class="butAction" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&token='.newToken().'&action=classifyreception#classifyreception">'.$langs->trans("ClassifyReception").'</a></div>';
 					}
@@ -2714,7 +2714,7 @@ if ($action == 'create') {
 				}
 
 				// Cancel
-				if ($object->statut == CommandeFournisseur::STATUS_ACCEPTED) {
+				if ($object->statut == OrderFournisseur::STATUS_ACCEPTED) {
 					if ($usercanorder) {
 						print '<a class="butActionDelete" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;action=cancel&amp;token='.newToken().'">'.$langs->trans("CancelOrder").'</a>';
 					}
@@ -2733,7 +2733,7 @@ if ($action == 'create') {
 			print "</div>";
 		}
 
-		if ($usercanorder && $object->statut == CommandeFournisseur::STATUS_ACCEPTED && $action == 'createorder') {
+		if ($usercanorder && $object->statut == OrderFournisseur::STATUS_ACCEPTED && $action == 'createorder') {
 			// Set status to ordered (action=commande)
 			print '<!-- form to record supplier order -->'."\n";
 			print '<form name="commande" id="makeorder" action="card.php?id='.$object->id.'&amp;action=commande" method="POST">';
@@ -2798,7 +2798,7 @@ if ($action == 'create') {
 			print '</div><div class="fichehalfright">';
 
 			if ($action == 'classifyreception') {
-				if ($usercanreceive && ($object->statut == CommandeFournisseur::STATUS_ORDERSENT || $object->statut == CommandeFournisseur::STATUS_RECEIVED_PARTIALLY)) {
+				if ($usercanreceive && ($object->statut == OrderFournisseur::STATUS_ORDERSENT || $object->statut == OrderFournisseur::STATUS_RECEIVED_PARTIALLY)) {
 					// Set status to received (action=livraison)
 					print '<!-- form to record purchase order received -->'."\n";
 					print '<form id="classifyreception" action="card.php?id='.$object->id.'" method="post">';

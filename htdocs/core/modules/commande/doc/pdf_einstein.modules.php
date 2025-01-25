@@ -43,7 +43,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/pdf.lib.php';
 /**
  *	Class to generate PDF orders with template Einstein
  */
-class pdf_einstein extends ModelePDFCommandes
+class pdf_einstein extends ModelePDFOrders
 {
 	/**
 	 * @var DoliDB Database handler
@@ -173,7 +173,7 @@ class pdf_einstein extends ModelePDFCommandes
 	/**
 	 *  Function to build pdf onto disk
 	 *
-	 *	@param		Commande	$object				Object source to build document
+	 *	@param		Order	$object				Object source to build document
 	 *  @param		Translate	$outputlangs		Lang output object
 	 *  @param		string		$srctemplatepath	Full path of source filename for generator using a template file
 	 *  @param		int<0,1>	$hidedetails		Do not show line details
@@ -696,7 +696,7 @@ class pdf_einstein extends ModelePDFCommandes
 	 *  Show payments table
 	 *
 	 *  @param	TCPDF		$pdf     		Object PDF
-	 *  @param  Commande	$object			Object order
+	 *  @param  Order	$object			Object order
 	 *	@param	int			$posy			Position y in PDF
 	 *	@param	Translate	$outputlangs	Object langs for output
 	 *	@return int							Return integer <0 if KO, >0 if OK
@@ -713,7 +713,7 @@ class pdf_einstein extends ModelePDFCommandes
 	 *   Show miscellaneous information (payment mode, payment term, ...)
 	 *
 	 *   @param		TCPDF		$pdf     		Object PDF
-	 *   @param		Commande	$object			Object to show
+	 *   @param		Order	$object			Object to show
 	 *   @param		int			$posy			Y
 	 *   @param		Translate	$outputlangs	Langs object
 	 *   @return	int
@@ -897,7 +897,7 @@ class pdf_einstein extends ModelePDFCommandes
 	 *	Show total to pay
 	 *
 	 *	@param	TCPDF		$pdf            Object PDF
-	 *	@param  Commande	$object         Object invoice
+	 *	@param  Order	$object         Object invoice
 	 *	@param  int			$deja_regle     Montant deja regle
 	 *	@param	int			$posy			Position depart
 	 *	@param	Translate	$outputlangs	Object langs
@@ -1329,7 +1329,7 @@ class pdf_einstein extends ModelePDFCommandes
 	 *  Show top header of page.
 	 *
 	 *  @param	TCPDF		$pdf     		Object PDF
-	 *  @param  Commande	$object     	Object to show
+	 *  @param  Order	$object     	Object to show
 	 *  @param  int	    	$showaddress    0=no, 1=yes
 	 *  @param  Translate	$outputlangs	Object lang for output
 	 *  @param  Translate	$outputlangsbis	Object lang for output bis
@@ -1647,7 +1647,7 @@ class pdf_einstein extends ModelePDFCommandes
 	 *   	Show footer of page. Need this->emetteur object
 	 *
 	 *   	@param	TCPDF		$pdf     			PDF
-	 * 		@param	Commande	$object				Object to show
+	 * 		@param	Order	$object				Object to show
 	 *      @param	Translate	$outputlangs		Object lang for output
 	 *      @param	int			$hidefreetext		1=Hide free text
 	 *      @return	int								Return height of bottom margin including footer text

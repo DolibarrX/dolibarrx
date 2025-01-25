@@ -576,7 +576,7 @@ if (empty($resHook)) {
 
 						$classname = ucfirst($subelement);
 						$srcobject = new $classname($db);
-						'@phan-var-force Commande|Propal|Contrat|Fichinter|Expedition $srcobject';  // Can be other class, but CommonObject is too generic
+						'@phan-var-force Order|Propal|Contrat|Fichinter|Expedition $srcobject';  // Can be other class, but CommonObject is too generic
 
 						dol_syslog("Try to find source object origin=".$object->origin." originid=".$object->origin_id." to add lines");
 						$result = $srcobject->fetch($object->origin_id);
@@ -1924,7 +1924,7 @@ if ($action == 'create') {
 
 			$classname = ucfirst($subelement);
 			$objectsrc = new $classname($db);
-			'@phan-var-force Commande|Propal|Contrat|Expedition $objectsrc';  // Can be other class, but CommonObject is too generic
+			'@phan-var-force Order|Propal|Contrat|Expedition $objectsrc';  // Can be other class, but CommonObject is too generic
 			$objectsrc->fetch($originid);
 			if (empty($objectsrc->lines) && method_exists($objectsrc, 'fetch_lines')) {
 				$objectsrc->fetch_lines();
@@ -2253,7 +2253,7 @@ if ($action == 'create') {
 			$newclassname = $classname;
 			if ($newclassname == 'Propal') {
 				$newclassname = 'CommercialProposal';
-			} elseif ($newclassname == 'Commande') {
+			} elseif ($newclassname == 'Order') {
 				$newclassname = 'Order';
 			} elseif ($newclassname == 'Expedition') {
 				$newclassname = 'Sending';

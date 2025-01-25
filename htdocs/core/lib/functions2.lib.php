@@ -387,7 +387,7 @@ function dol_print_object_info($object, $usetable = 0)
 
 	// Date approve
 	if (!empty($object->date_approve) || !empty($object->date_approval)) {
-		'@phan-var-force ExpenseReport|CommandeFournisseur $object';
+		'@phan-var-force ExpenseReport|OrderFournisseur $object';
 		if ($usetable) {
 			print '<tr><td class="titlefield">';
 		}
@@ -410,7 +410,7 @@ function dol_print_object_info($object, $usetable = 0)
 
 	// User approve
 	if (!empty($object->user_approve_id2)) {
-		'@phan-var-force CommandeFournisseur $object';
+		'@phan-var-force OrderFournisseur $object';
 		if ($usetable) {
 			print '<tr><td class="titlefield">';
 		}
@@ -2224,7 +2224,7 @@ function dolGetElementUrl($objectid, $objecttype, $withpicto = 0, $option = '')
 		$module = 'fournisseur';
 	} elseif ($objecttype == 'order_supplier') {
 		$classfile = 'fournisseur.commande';
-		$classname = 'CommandeFournisseur';
+		$classname = 'OrderFournisseur';
 		$classpath = 'fourn/class';
 		$module = 'fournisseur';
 	} elseif ($objecttype == 'supplier_proposal') {

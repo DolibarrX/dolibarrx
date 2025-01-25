@@ -83,7 +83,7 @@ include DOL_DOCUMENT_ROOT.'/core/actions_setnotes.inc.php'; // Must be 'include'
 
 $form = new Form($db);
 
-//$help_url='EN:Customers_Orders|FR:Commandes_Clients|ES:Pedidos de clientes';
+//$help_url='EN:Customers_Orders|FR:Orders_Clients|ES:Pedidos de clientes';
 $help_url = '';
 llxHeader('', $langs->trans('ModuleStockTransferName'), $help_url, '', 0, 0, '', '', '', 'mod-product page-stock-stocktransfer_stocktransfer_note');
 

@@ -198,7 +198,7 @@ if ($permission) {
 			<?php
 			$tmpobject = $object;
 			if (($object->element == 'shipping' || $object->element == 'reception') && is_object($objectsrc)) {
-				'@phan-var-force Commande|Facture $objectsrc';
+				'@phan-var-force Order|Facture $objectsrc';
 				$tmpobject = $objectsrc;
 			}
 			$formcompany->selectTypeContact($tmpobject, $preselectedtypeofcontact, 'typecontact', 'external', 'position', 0, 'minwidth150imp widthcentpercentminusx maxwidth200'); ?>
@@ -227,7 +227,7 @@ if ($permission) {
 $list = array();
 foreach (array('internal', 'external') as $source) {
 	if (($object->element == 'shipping' || $object->element == 'reception') && is_object($objectsrc)) {
-		'@phan-var-force Commande|Facture $objectsrc';
+		'@phan-var-force Order|Facture $objectsrc';
 		$contactlist = $objectsrc->liste_contact(-1, $source);
 	} else {
 		$contactlist = $object->liste_contact(-1, $source);

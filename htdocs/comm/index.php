@@ -113,10 +113,10 @@ if (isModEnabled('supplier_proposal')) {
 	$supplierproposalstatic = new SupplierProposal($db);
 }
 if (isModEnabled('order')) {
-	$orderstatic = new Commande($db);
+	$orderstatic = new Order($db);
 }
 if (isModEnabled("supplier_order")) {
-	$supplierorderstatic = new CommandeFournisseur($db);
+	$supplierorderstatic = new OrderFournisseur($db);
 }
 
 if (isModEnabled('intervention')) {
@@ -359,7 +359,7 @@ if (isModEnabled('order') && $user->hasRight('commande', 'lire') && is_object($o
 		$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	}
 	$sql .= " WHERE c.entity IN (".getEntity($orderstatic->element).")";
-	$sql .= " AND c.fk_statut = ".Commande::STATUS_DRAFT;
+	$sql .= " AND c.fk_statut = ".Order::STATUS_DRAFT;
 	$sql .= " AND c.fk_soc = s.rowid";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
 		$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
@@ -373,7 +373,7 @@ if (isModEnabled('order') && $user->hasRight('commande', 'lire') && is_object($o
 		$total = 0;
 		$num = $db->num_rows($resql);
 		$nbofloop = min($num, $maxofloop);
-		startSimpleTable("DraftOrders", "commande/list.php", "search_status=".Commande::STATUS_DRAFT, 2, $num);
+		startSimpleTable("DraftOrders", "commande/list.php", "search_status=".Order::STATUS_DRAFT, 2, $num);
 
 		if ($num > 0) {
 			$i = 0;
@@ -447,7 +447,7 @@ if (isModEnabled('order') && $user->hasRight('commande', 'lire') && is_object($o
  */
 
 if ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight("fournisseur", "commande", "lire")) || (isModEnabled("supplier_order") && $user->hasRight("supplier_order", "lire"))) {
-	$supplierorderstatic = new CommandeFournisseur($db);
+	$supplierorderstatic = new OrderFournisseur($db);
 
 	$sql = "SELECT cf.rowid, cf.ref, cf.ref_supplier, cf.total_ht, cf.total_tva, cf.total_ttc, cf.fk_statut as status";
 	$sql .= ", s.rowid as socid, s.nom as name, s.name_alias";
@@ -461,7 +461,7 @@ if ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMO
 		$sql .= ", ".MAIN_DB_PREFIX."societe_commerciaux as sc";
 	}
 	$sql .= " WHERE cf.entity IN (".getEntity($supplierorderstatic->element).")";
-	$sql .= " AND cf.fk_statut = ".CommandeFournisseur::STATUS_DRAFT;
+	$sql .= " AND cf.fk_statut = ".OrderFournisseur::STATUS_DRAFT;
 	$sql .= " AND cf.fk_soc = s.rowid";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
 		$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
@@ -475,7 +475,7 @@ if ((isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMO
 		$total = 0;
 		$num = $db->num_rows($resql);
 		$nbofloop = min($num, $maxofloop);
-		startSimpleTable("DraftSuppliersOrders", "fourn/commande/list.php", "search_status=".CommandeFournisseur::STATUS_DRAFT, 2, $num);
+		startSimpleTable("DraftSuppliersOrders", "fourn/commande/list.php", "search_status=".OrderFournisseur::STATUS_DRAFT, 2, $num);
 
 		if ($num > 0) {
 			$i = 0;
@@ -836,7 +836,7 @@ if (isModEnabled('propal') && is_object($propalstatic)) {
  */
 
 if (isModEnabled('order')) {
-	$commandestatic = new Commande($db);
+	$commandestatic = new Order($db);
 
 	$sql = "SELECT c.rowid, c.entity, c.ref, c.fk_statut as status, c.facture, c.date_cloture as datec, c.tms as datem,";
 	$sql .= " s.nom as name, s.rowid as socid";
@@ -1250,7 +1250,7 @@ if (isModEnabled('order') && $user->hasRight('commande', 'lire') && is_object($o
 	}
 	$sql .= " WHERE c.entity IN (".getEntity($orderstatic->element).")";
 	$sql .= " AND c.fk_soc = s.rowid";
-	$sql .= " AND c.fk_statut IN (".Commande::STATUS_VALIDATED.", ".Commande::STATUS_SHIPMENTONPROCESS.")";
+	$sql .= " AND c.fk_statut IN (".Order::STATUS_VALIDATED.", ".Order::STATUS_SHIPMENTONPROCESS.")";
 	if (!$user->hasRight('societe', 'client', 'voir')) {
 		$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 	}
@@ -1264,7 +1264,7 @@ if (isModEnabled('order') && $user->hasRight('commande', 'lire') && is_object($o
 		$total = $total_ttc = 0;
 		$num = $db->num_rows($resql);
 		$nbofloop = min($num, (!getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->global->MAIN_MAXLIST_OVERLOAD));
-		startSimpleTable("OrdersOpened", "commande/list.php", "search_status=".Commande::STATUS_VALIDATED, 4, $num);
+		startSimpleTable("OrdersOpened", "commande/list.php", "search_status=".Order::STATUS_VALIDATED, 4, $num);
 
 		if ($num > 0) {
 			$i = 0;

@@ -848,7 +848,7 @@ class pdf_eagle_proforma extends ModelePDFStockTransfer
 	protected function drawInfoTable(&$pdf, $object, $posy, $outputlangs)
 	{
 		global $config, $mysoc;
-		'@phan-var-force Commande|Propal|Facture $object';  // availability_code,... does not exist on Facture.
+		'@phan-var-force Order|Propal|Facture $object';  // availability_code,... does not exist on Facture.
 
 		$default_font_size = pdf_getPDFFontSize($outputlangs);
 

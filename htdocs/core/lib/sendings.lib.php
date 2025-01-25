@@ -72,7 +72,7 @@ function shipping_prepare_head($object)
 	if (!getDolGlobalString('MAIN_DISABLE_CONTACTS_TAB')) {
 		$objectsrc = $object;
 		if ($object->origin == 'commande' && $object->origin_id > 0) {
-			$objectsrc = new Commande($db);
+			$objectsrc = new Order($db);
 			$objectsrc->fetch($object->origin_id);
 		}
 		$nbContact = count($objectsrc->liste_contact(-1, 'internal')) + count($objectsrc->liste_contact(-1, 'external'));
@@ -173,7 +173,7 @@ function delivery_prepare_head($object)
 	if (!getDolGlobalString('MAIN_DISABLE_CONTACTS_TAB')) {
 		$objectsrc = $tmpobject;
 		if ($tmpobject->origin == 'commande' && $tmpobject->origin_id > 0) {
-			$objectsrc = new Commande($db);
+			$objectsrc = new Order($db);
 			$objectsrc->fetch($tmpobject->origin_id);
 		}
 		$nbContact = count($objectsrc->liste_contact(-1, 'internal')) + count($objectsrc->liste_contact(-1, 'external'));

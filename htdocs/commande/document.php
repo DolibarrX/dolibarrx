@@ -81,7 +81,7 @@ if (!$sortfield) {
 	$sortfield = "name";
 }
 
-$object = new Commande($db);
+$object = new Order($db);
 
 $usercancreate  =  $user->hasRight("commande", "creer");
 $permissiontoadd = $usercancreate;
@@ -113,7 +113,7 @@ include DOL_DOCUMENT_ROOT.'/core/actions_linkedfiles.inc.php';
  * View
  */
 $title = $object->ref." - ".$langs->trans('Documents');
-$help_url = 'EN:Customers_Orders|FR:Commandes_Clients|ES:Pedidos de clientes|DE:Modul_Kundenaufträge';
+$help_url = 'EN:Customers_Orders|FR:Orders_Clients|ES:Pedidos de clientes|DE:Modul_Kundenaufträge';
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-order page-card_documents');
 
 $form = new Form($db);

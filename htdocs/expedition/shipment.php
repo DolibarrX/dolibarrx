@@ -75,7 +75,7 @@ if (!empty($user->socid)) {
 }
 $result = restrictedArea($user, 'commande', $id);
 
-$object = new Commande($db);
+$object = new Order($db);
 $shipment = new Expedition($db);
 $extrafields = new ExtraFields($db);
 
@@ -238,12 +238,12 @@ if (isModEnabled('project')) {
 }
 
 $title = $object->ref." - ".$langs->trans('Shipments');
-$help_url = 'EN:Customers_Orders|FR:Commandes_Clients|ES:Pedidos de clientes|DE:Modul_Kundenaufträge';
+$help_url = 'EN:Customers_Orders|FR:Orders_Clients|ES:Pedidos de clientes|DE:Modul_Kundenaufträge';
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-expedition page-shipment');
 
 
 if ($id > 0 || !empty($ref)) {
-	$object = new Commande($db);
+	$object = new Order($db);
 	if ($object->fetch($id, $ref) > 0) {
 		$object->loadExpeditions(1);
 
@@ -858,7 +858,7 @@ if ($id > 0 || !empty($ref)) {
 			print '<div class="tabsAction">';
 
 			// Bouton expedier sans gestion des stocks
-			if (!isModEnabled('stock') && ($object->statut > Commande::STATUS_DRAFT && $object->statut < Commande::STATUS_CLOSED)) {
+			if (!isModEnabled('stock') && ($object->statut > Order::STATUS_DRAFT && $object->statut < Order::STATUS_CLOSED)) {
 				if ($user->hasRight('expedition', 'creer')) {
 					print '<a class="butAction" href="'.DOL_URL_ROOT.'/expedition/card.php?action=create&amp;origin=commande&amp;object_id='.$id.'">'.$langs->trans("CreateShipment").'</a>';
 					if ($toBeShippedTotal <= 0) {
@@ -874,11 +874,11 @@ if ($id > 0 || !empty($ref)) {
 
 		// Button to create a shipment
 
-		if (isModEnabled('stock') && $object->statut == Commande::STATUS_DRAFT) {
+		if (isModEnabled('stock') && $object->statut == Order::STATUS_DRAFT) {
 			print $langs->trans("ValidateOrderFirstBeforeShipment");
 		}
 
-		if (isModEnabled('stock') && ($object->statut > Commande::STATUS_DRAFT && $object->statut < Commande::STATUS_CLOSED)) {
+		if (isModEnabled('stock') && ($object->statut > Order::STATUS_DRAFT && $object->statut < Order::STATUS_CLOSED)) {
 			if ($user->hasRight('expedition', 'creer')) {
 				//print load_fiche_titre($langs->trans("CreateShipment"));
 				print '<div class="tabsAction">';

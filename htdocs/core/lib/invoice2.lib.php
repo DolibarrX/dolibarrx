@@ -235,7 +235,7 @@ function rebuild_merge_pdf($db, $langs, $config, $diroutputpdf, $newlangid, $fil
 				if ($mode == 'invoice') {
 					$fac = new Facture($db);
 				} elseif ($mode == 'order') {
-					$fac = new Commande($db);
+					$fac = new Order($db);
 				} elseif ($mode == 'proposal') {
 					$fac = new Propal($db);
 				} elseif ($mode == 'shipment') {

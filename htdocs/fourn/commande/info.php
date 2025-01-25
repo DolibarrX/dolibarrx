@@ -121,7 +121,7 @@ if (GETPOST('button_removefilter_x', 'alpha') || GETPOST('button_removefilter.x'
  */
 
 $form = new	Form($db);
-$object = new CommandeFournisseur($db);
+$object = new OrderFournisseur($db);
 
 if ($id > 0 || !empty($ref)) {
 	$object->fetch($id, $ref);
@@ -133,7 +133,7 @@ $title = $object->ref.' - '.$langs->trans('Info').' - '.$object->ref.' '.$object
 if (getDolGlobalString('MAIN_HTML_TITLE') && preg_match('/projectnameonly/', getDolGlobalString('MAIN_HTML_TITLE')) && $object->name) {
 	$title = $object->ref.' '.$object->name.' - '.$langs->trans("Info");
 }
-$help_url = 'EN:Module_Suppliers_Orders|FR:CommandeFournisseur|ES:Módulo_Pedidos_a_proveedores';
+$help_url = 'EN:Module_Suppliers_Orders|FR:OrderFournisseur|ES:Módulo_Pedidos_a_proveedores';
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-supplier-order page-info');
 
 $now = dol_now();

@@ -2684,7 +2684,7 @@ abstract class CommonObject
 				// Triggers
 				if (!$error && !$notrigger) {
 					// Call triggers
-					if (get_class($this) == 'Commande') {
+					if (get_class($this) == 'Order') {
 						$result = $this->call_trigger('ORDER_MODIFY', $user);
 					} else {
 						$result = $this->call_trigger(strtoupper(get_class($this)).'_MODIFY', $user);
@@ -2809,9 +2809,9 @@ abstract class CommonObject
 								);
 								break;
 							case 'commande':
-								/** @var Commande $this */
+								/** @var Order $this */
 								/** @var OrderLine $line */
-								'@phan-var-force Commande $this';
+								'@phan-var-force Order $this';
 								'@phan-var-force OrderLine $line';
 								$this->updateline(
 									$line->id,
@@ -2898,10 +2898,10 @@ abstract class CommonObject
 								);
 								break;
 							case 'order_supplier':
-								/** @var CommandeFournisseur $this */
-								/** @var CommandeFournisseurLigne $line */
-								'@phan-var-force CommandeFournisseur $this';
-								'@phan-var-force CommandeFournisseurLigne $line';
+								/** @var OrderFournisseur $this */
+								/** @var OrderFournisseurLigne $line */
+								'@phan-var-force OrderFournisseur $this';
+								'@phan-var-force OrderFournisseurLigne $line';
 								$this->updateline(
 									$line->id,
 									($line->description ? $line->description : $line->desc),
@@ -5873,7 +5873,7 @@ abstract class CommonObject
 		$obj = new $classname($this->db);
 
 		// TODO: Check the following classes that seem possible for $obj, but removed for compatibility:
-		//  ModeleBankAccountDoc|ModeleExpenseReport|ModelePDFBom|ModelePDFCommandes|ModelePDFContract|
+		//  ModeleBankAccountDoc|ModeleExpenseReport|ModelePDFBom|ModelePDFOrders|ModelePDFContract|
 		//  ModelePDFDeliveryOrder|ModelePDFEvaluation|ModelePDFFactures|ModelePDFFicheinter|
 		//  ModelePDFMo|ModelePDFMovement|ModelePDFProduct|ModelePDFProjects|ModelePDFPropales|
 		//  ModelePDFRecruitmentJobPosition|ModelePDFSupplierProposal|ModelePDFSuppliersInvoices|

@@ -93,7 +93,7 @@ if ($action == 'updateMask') {
 } elseif ($action == 'specimen') {
 	$modele = GETPOST('module', 'alpha');
 
-	$commande = new Commande($db);
+	$commande = new Order($db);
 	$commande->initAsSpecimen();
 
 	// Search template files
@@ -112,8 +112,8 @@ if ($action == 'updateMask') {
 		require_once $file;
 
 		$module = new $classname($db);
-		'@phan-var-force ModelePDFCommandes $module';
-		/** @var ModelePDFCommandes $module */
+		'@phan-var-force ModelePDFOrders $module';
+		/** @var ModelePDFOrders $module */
 
 		if ($module->write_file($commande, $langs) > 0) {
 			header("Location: ".DOL_URL_ROOT."/document.php?modulepart=commande&file=SPECIMEN.pdf");
@@ -308,7 +308,7 @@ foreach ($dirmodels as $reldir) {
 
 					$module = new $file($db);
 
-					'@phan-var-force ModeleNumRefCommandes $module';
+					'@phan-var-force ModeleNumRefOrders $module';
 
 					// Show modules according to features level
 					if ($module->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2) {
@@ -346,7 +346,7 @@ foreach ($dirmodels as $reldir) {
 						}
 						print '</td>';
 
-						$commande = new Commande($db);
+						$commande = new Order($db);
 						$commande->initAsSpecimen();
 
 						// Info
@@ -447,7 +447,7 @@ foreach ($dirmodels as $reldir) {
 							require_once $dir.'/'.$file;
 							$module = new $classname($db);
 
-							'@phan-var-force ModelePDFCommandes $module';
+							'@phan-var-force ModelePDFOrders $module';
 
 							$modulequalified = 1;
 							if ($module->version == 'development' && getDolGlobalInt('MAIN_FEATURES_LEVEL') < 2) {

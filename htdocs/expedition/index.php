@@ -52,7 +52,7 @@ $hookManager->initHooks(array('sendingindex'));
  *	View
  */
 
-$orderstatic = new Commande($db);
+$orderstatic = new Order($db);
 $companystatic = new Societe($db);
 $shipment = new Expedition($db);
 
@@ -224,7 +224,7 @@ if (!$user->hasRight('societe', 'client', 'voir')) {
 }
 $sql .= " WHERE c.fk_soc = s.rowid";
 $sql .= " AND c.entity IN (".getEntity('order').")";
-$sql .= " AND c.fk_statut IN (".Commande::STATUS_VALIDATED.", ".Commande::STATUS_SHIPMENTONPROCESS.")";
+$sql .= " AND c.fk_statut IN (".Order::STATUS_VALIDATED.", ".Order::STATUS_SHIPMENTONPROCESS.")";
 if ($socid > 0) {
 	$sql .= " AND c.fk_soc = ".((int) $socid);
 }
@@ -244,7 +244,7 @@ if ($resql) {
 
 	print '<tr class="liste_titre">';
 	print '<th colspan="3">'.$langs->trans("OrdersToProcess").' ';
-	print '<a href="'.DOL_URL_ROOT.'/commande/list.php?search_status='.Commande::STATUS_VALIDATED.','.Commande::STATUS_SHIPMENTONPROCESS.'">';
+	print '<a href="'.DOL_URL_ROOT.'/commande/list.php?search_status='.Order::STATUS_VALIDATED.','.Order::STATUS_SHIPMENTONPROCESS.'">';
 	print '<span class="badge">'.$num.'</span>';
 	print '</a>';
 	print '</th>';

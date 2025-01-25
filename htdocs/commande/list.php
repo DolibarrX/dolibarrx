@@ -175,7 +175,7 @@ if (!$sortorder) {
 $show_shippable_command = GETPOST('show_shippable_command', 'aZ09');
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$object = new Commande($db);
+$object = new Order($db);
 $hookManager->initHooks(array('orderlist'));
 $extrafields = new ExtraFields($db);
 
@@ -360,7 +360,7 @@ if (empty($resHook)) {
 	}
 
 	// Mass actions
-	$objectclass = 'Commande';
+	$objectclass = 'Order';
 	$objectlabel = 'Orders';
 	$permissiontoread = $user->hasRight("commande", "lire");
 	$permissiontoadd = $user->hasRight("commande", "creer");
@@ -403,7 +403,7 @@ if (empty($resHook)) {
 
 		$currentIndex = 0;
 		foreach ($orders as $id_order) {
-			$cmd = new Commande($db);
+			$cmd = new Order($db);
 			if ($cmd->fetch($id_order) <= 0) {
 				continue;
 			}
@@ -889,7 +889,7 @@ $varpage = empty($contextpage) ? $_SERVER["PHP_SELF"] : $contextpage;
 $selectedfields = $form->multiSelectArrayWithCheckbox('selectedfields', $arrayfields, $varpage); // This also change content of $arrayfields
 
 $title = $langs->trans("Orders");
-$help_url = "EN:Module_Customers_Orders|FR:Module_Commandes_Clients|ES:Módulo_Pedidos_de_clientes";
+$help_url = "EN:Module_Customers_Orders|FR:Module_Orders_Clients|ES:Módulo_Pedidos_de_clientes";
 
 // Build and execute select
 // --------------------------------------------------------------------
@@ -1489,7 +1489,7 @@ print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sort
 
 $topicmail = "SendOrderRef";
 $modelmail = "order_send";
-$objecttmp = new Commande($db);
+$objecttmp = new Order($db);
 $trackid = 'ord'.$object->id;
 include DOL_DOCUMENT_ROOT.'/core/tpl/massactions_pre.tpl.php';
 
@@ -1913,13 +1913,13 @@ if (!empty($arrayfields['c.import_key']['checked'])) {
 if (!empty($arrayfields['c.fk_statut']['checked'])) {
 	print '<td class="liste_titre center parentonrightofpage">';
 	$liststatus = array(
-		Commande::STATUS_DRAFT => $langs->trans("StatusOrderDraftShort"),
-		Commande::STATUS_VALIDATED => $langs->trans("StatusOrderValidated"),
-		Commande::STATUS_SHIPMENTONPROCESS => $langs->trans("StatusOrderSentShort"),
+		Order::STATUS_DRAFT => $langs->trans("StatusOrderDraftShort"),
+		Order::STATUS_VALIDATED => $langs->trans("StatusOrderValidated"),
+		Order::STATUS_SHIPMENTONPROCESS => $langs->trans("StatusOrderSentShort"),
 		-2 => $langs->trans("StatusOrderValidatedShort").'+'.$langs->trans("StatusOrderSentShort"),
 		-3 => $langs->trans("StatusOrderValidatedShort").'+'.$langs->trans("StatusOrderSentShort").'+'.$langs->trans("StatusOrderDelivered"),
-		Commande::STATUS_CLOSED => $langs->trans("StatusOrderDelivered"),
-		Commande::STATUS_CANCELED => $langs->trans("StatusOrderCanceledShort")
+		Order::STATUS_CLOSED => $langs->trans("StatusOrderDelivered"),
+		Order::STATUS_CANCELED => $langs->trans("StatusOrderCanceledShort")
 	);
 	// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
 	print $form->selectarray('search_status', $liststatus, $search_status, -5, 0, 0, '', 0, 0, 0, '', 'search_status width100 onrightofpage', 1);
@@ -2152,7 +2152,7 @@ $productstat_cache = array();
 $productstat_cachevirtual = array();
 $getNomUrl_cache = array();
 
-$generic_commande = new Commande($db);
+$generic_commande = new Order($db);
 $generic_product = new Product($db);
 $userstatic = new User($db);
 

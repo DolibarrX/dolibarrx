@@ -62,7 +62,7 @@ if ($id > 0 || !empty($ref)) {
 
 	// Linked documents
 	if ($typeobject == 'commande' && $object->origin_object->id && isModEnabled('order')) {
-		$objectsrc = new Commande($db);
+		$objectsrc = new Order($db);
 		$objectsrc->fetch($object->origin_object->id);
 	}
 	if ($typeobject == 'propal' && $object->origin_object->id && isModEnabled("propal")) {

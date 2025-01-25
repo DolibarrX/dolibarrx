@@ -1133,7 +1133,7 @@ if (empty($resHook)) {
 					require_once DOL_DOCUMENT_ROOT.'/'.$element.'/class/'.$subelement.'.class.php';
 					$classname = ucfirst($subelement);
 					if ($classname == 'Fournisseur.commande') {
-						$classname = 'CommandeFournisseur';
+						$classname = 'OrderFournisseur';
 					}
 					$objectsrc = new $classname($db);
 					$objectsrc->fetch($originid);
@@ -1161,7 +1161,7 @@ if (empty($resHook)) {
 						require_once DOL_DOCUMENT_ROOT.'/'.$element.'/class/'.$subelement.'.class.php';
 						$classname = ucfirst($subelement);
 						if ($classname == 'Fournisseur.commande') {
-							$classname = 'CommandeFournisseur';
+							$classname = 'OrderFournisseur';
 						}
 						$srcobject = new $classname($db);
 
@@ -2172,10 +2172,10 @@ if ($action == 'create') {
 		require_once DOL_DOCUMENT_ROOT.'/'.$element.'/class/'.$subelement.'.class.php';
 		$classname = ucfirst($subelement);
 		if ($classname == 'Fournisseur.commande') {
-			$classname = 'CommandeFournisseur';
+			$classname = 'OrderFournisseur';
 		}
 		$objectsrc = new $classname($db);
-		'@phan-var-force Project|Commande|Propal|Facture|Contrat|CommandeFournisseur|CommonObject $objectsrc';
+		'@phan-var-force Project|Order|Propal|Facture|Contrat|OrderFournisseur|CommonObject $objectsrc';
 		$objectsrc->fetch($originid);
 		$objectsrc->fetch_thirdparty();
 
@@ -2868,7 +2868,7 @@ if ($action == 'create') {
 			print '<input type="hidden" name="originid"       value="'.$objectsrc->id.'">';
 
 			$txt = $langs->trans($classname);
-			if ($classname == 'CommandeFournisseur') {
+			if ($classname == 'OrderFournisseur') {
 				$langs->load('orders');
 				$txt = $langs->trans("SupplierOrder");
 			}

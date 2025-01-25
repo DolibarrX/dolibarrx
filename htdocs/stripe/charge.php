@@ -261,7 +261,7 @@ if (!$rowid) {
 			// Origin
 			print "<td>";
 			if ($charge->metadata->dol_type == "order" || $charge->metadata->dol_type == "commande") {
-				$object = new Commande($db);
+				$object = new Order($db);
 				$object->fetch($charge->metadata->dol_id);
 				if ($object->id > 0) {
 					print "<a href='".DOL_URL_ROOT."/commande/card.php?id=".$object->id."'>".img_picto('', 'order')." ".$object->ref."</a>";

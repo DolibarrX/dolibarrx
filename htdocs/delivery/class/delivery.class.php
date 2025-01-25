@@ -210,7 +210,7 @@ class Delivery extends CommonObject
 			$resql = $this->db->query($sql);
 			if ($resql) {
 				if (!getDolGlobalInt('MAIN_SUBMODULE_EXPEDITION')) {
-					$commande = new Commande($this->db);
+					$commande = new Order($this->db);
 					$commande->id = $this->commande_id;
 					$commande->fetch_lines();
 				}

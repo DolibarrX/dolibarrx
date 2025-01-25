@@ -29,7 +29,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
 /**
  *	Class to manage Sales Order numbering rules Marbre
  */
-class mod_commande_marbre extends ModeleNumRefCommandes
+class mod_commande_marbre extends ModeleNumRefOrders
 {
 	/**
 	 * Dolibarr version of the loaded document
@@ -130,7 +130,7 @@ class mod_commande_marbre extends ModeleNumRefCommandes
 	 * 	Return next free value
 	 *
 	 *  @param	Societe		$objsoc     Object thirdparty
-	 *  @param  Commande	$object		Object we need next value for
+	 *  @param  Order	$object		Object we need next value for
 	 *  @return string|int<-1,0>		Value if OK, -1 if KO
 	 */
 	public function getNextValue($objsoc, $object)

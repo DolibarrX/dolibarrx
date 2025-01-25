@@ -60,7 +60,7 @@ $result = restrictedArea($user, 'commande', $id, '');
 
 $usercancreate  =  $user->hasRight("commande", "creer");
 
-$object = new Commande($db);
+$object = new Order($db);
 
 /*
  * Actions
@@ -136,7 +136,7 @@ if ($id > 0 || !empty($ref)) {
 		$object->fetch_thirdparty();
 
 		$title = $object->ref." - ".$langs->trans('ContactsAddresses');
-		$help_url = 'EN:Customers_Orders|FR:Commandes_Clients|ES:Pedidos de clientes|DE:Modul_Kundenaufträge';
+		$help_url = 'EN:Customers_Orders|FR:Orders_Clients|ES:Pedidos de clientes|DE:Modul_Kundenaufträge';
 		llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-order page-card_contact');
 
 		$head = commande_prepare_head($object);

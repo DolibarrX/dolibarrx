@@ -376,8 +376,8 @@ if (empty($resHook)) {
 
 					$classname = ucfirst($subelement);
 					$srcobject = new $classname($db);
-					'@phan-var-force Commande|Propal|Contrat $srcobject';  // Can be other class, but CommonObject is too generic
-					/** @var Commande|Propal|Contrat $srcobject */
+					'@phan-var-force Order|Propal|Contrat $srcobject';  // Can be other class, but CommonObject is too generic
+					/** @var Order|Propal|Contrat $srcobject */
 
 					dol_syslog("Try to find source object origin=".$object->origin." originid=".$object->origin_id." to add lines");
 					$result = $srcobject->fetch($object->origin_id);
@@ -936,7 +936,7 @@ if ($action == 'create') {
 
 			$classname = ucfirst($subelement);
 			$objectsrc = new $classname($db);
-			'@phan-var-force Commande|Propal|Contrat $objectsrc';
+			'@phan-var-force Order|Propal|Contrat $objectsrc';
 			$objectsrc->fetch(GETPOST('originid'));
 			if (empty($objectsrc->lines) && method_exists($objectsrc, 'fetch_lines')) {
 				$objectsrc->fetch_lines();

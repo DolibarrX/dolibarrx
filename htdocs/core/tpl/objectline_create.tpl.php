@@ -104,7 +104,7 @@ if (!empty($extrafields)) {
 	} elseif ($this->table_element_line == 'contratdet') {
 		$objectline = new ContratLigne($this->db);
 	} elseif ($this->table_element_line == 'commande_fournisseurdet') {
-		$objectline = new CommandeFournisseurLigne($this->db);
+		$objectline = new OrderFournisseurLigne($this->db);
 	} elseif ($this->table_element_line == 'facture_fourn_det') {
 		$objectline = new SupplierInvoiceLine($this->db);
 	} elseif ($this->table_element_line == 'facturedet_rec') {

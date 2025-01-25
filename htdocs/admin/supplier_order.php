@@ -98,7 +98,7 @@ if ($action == 'updateMask') {
 if ($action == 'specimen') {  // For orders
 	$modele = GETPOST('module', 'alpha');
 
-	$commande = new CommandeFournisseur($db);
+	$commande = new OrderFournisseur($db);
 	$commande->initAsSpecimen();
 	$commande->thirdparty = $specimenthirdparty;
 
@@ -300,7 +300,7 @@ foreach ($dirmodels as $reldir) {
 						}
 						print '</td>';
 
-						$commande = new CommandeFournisseur($db);
+						$commande = new OrderFournisseur($db);
 						$commande->initAsSpecimen();
 
 						// Info
@@ -390,7 +390,7 @@ foreach ($dirmodels as $reldir) {
 					$classname = substr($file, 0, dol_strlen($file) - 12);
 
 					require_once $dir.'/'.$file;
-					$module = new $classname($db, new CommandeFournisseur($db));
+					$module = new $classname($db, new OrderFournisseur($db));
 
 					'@phan-var-force ModelePDFSuppliersOrders $module';
 

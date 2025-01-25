@@ -201,7 +201,7 @@ class doc_generic_supplier_order_odt extends ModelePDFSuppliersOrders
 	/**
 	 *  Function to build a document on disk using the generic odt module.
 	 *
-	 *	@param	CommandeFournisseur	$object				Object source to generate (or id if old method)
+	 *	@param	OrderFournisseur	$object				Object source to generate (or id if old method)
 	 *  @param	Translate			$outputlangs		Lang output object
 	 *  @param	string				$srctemplatepath	Full path of source filename for generator using a template file
 	 *  @param	int<0,1>			$hidedetails		Do not show line details

@@ -96,7 +96,7 @@ $result = restrictedArea($user, 'produit|service', $fieldvalue, 'product&product
  * View
  */
 
-$orderstatic = new Commande($db);
+$orderstatic = new Order($db);
 $societestatic = new Societe($db);
 
 $form = new Form($db);

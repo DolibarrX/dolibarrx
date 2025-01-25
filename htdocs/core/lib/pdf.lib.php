@@ -1943,7 +1943,7 @@ function pdf_getlineref($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line ref_supplier
  *
- *	@param	Contrat|CommandeFournisseur|FactureFournisseur|Facture|Product|Reception|SupplierProposal	$object	Object
+ *	@param	Contrat|OrderFournisseur|FactureFournisseur|Facture|Product|Reception|SupplierProposal	$object	Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -1975,7 +1975,7 @@ function pdf_getlineref_supplier($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line vat rate
  *
- *	@param	SupplierProposal|CommandeFournisseur|FactureFournisseur|Propal|Facture|Commande|ExpenseReport|StockTransfer	$object	Object
+ *	@param	SupplierProposal|OrderFournisseur|FactureFournisseur|Propal|Facture|Order|ExpenseReport|StockTransfer	$object	Object
  *	@param	int				$i					Current line number
  *  @param  Translate		$outputlangs		Object langs for output
  *  @param	int<0,2>		$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2037,7 +2037,7 @@ function pdf_getlinevatrate($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line unit price excluding tax
  *
- *	@param	SupplierProposal|CommandeFournisseur|Propal|Facture|FactureFournisseur|Commande|StockTransfer	$object	Object
+ *	@param	SupplierProposal|OrderFournisseur|Propal|Facture|FactureFournisseur|Order|StockTransfer	$object	Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2080,7 +2080,7 @@ function pdf_getlineupexcltax($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line unit price including tax
  *
- *	@param	SupplierProposal|CommandeFournisseur|Propal|Facture|Commande	$object	Object
+ *	@param	SupplierProposal|OrderFournisseur|Propal|Facture|Order	$object	Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide value (0 = no,	1 = yes, 2 = just special lines)
@@ -2122,7 +2122,7 @@ function pdf_getlineupwithtax($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line quantity
  *
- *	@param	Delivery|Asset|Commande|Facture|CommandeFournisseur|FactureFournisseur|SupplierProposal|Propal|StockTransfer|MyObject	$object				Object
+ *	@param	Delivery|Asset|Order|Facture|OrderFournisseur|FactureFournisseur|SupplierProposal|Propal|StockTransfer|MyObject	$object				Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2242,7 +2242,7 @@ function pdf_getlineqty_shipped($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line keep to ship quantity
  *
- *	@param	Delivery|Asset|Commande|Facture|CommandeFournisseur|FactureFournisseur|SupplierProposal|Propal|StockTransfer|MyObject	$object		Object
+ *	@param	Delivery|Asset|Order|Facture|OrderFournisseur|FactureFournisseur|SupplierProposal|Propal|StockTransfer|MyObject	$object		Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2282,7 +2282,7 @@ function pdf_getlineqty_keeptoship($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line unit
  *
- *	@param	SupplierProposal|CommandeFournisseur|Propal|Facture|FactureFournisseur|Commande|StockTransfer	$object	Object
+ *	@param	SupplierProposal|OrderFournisseur|Propal|Facture|FactureFournisseur|Order|StockTransfer	$object	Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2325,7 +2325,7 @@ function pdf_getlineunit($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line remise percent
  *
- *	@param	SupplierProposal|CommandeFournisseur|Propal|Facture|FactureFournisseur|Commande|StockTransfer	$object	Object
+ *	@param	SupplierProposal|OrderFournisseur|Propal|Facture|FactureFournisseur|Order|StockTransfer	$object	Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2419,7 +2419,7 @@ function pdf_getlineprogress($object, $i, $outputlangs, $hidedetails = 0, $hookM
 /**
  *	Return line total excluding tax
  *
- *	@param	Commande|Facture|Propal|FactureFournisseur|CommandeFournisseur|SupplierProposal	$object				Object
+ *	@param	Order|Facture|Propal|FactureFournisseur|OrderFournisseur|SupplierProposal	$object				Object
  *	@param	int			$i					Current line number
  *  @param  Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)
@@ -2475,7 +2475,7 @@ function pdf_getlinetotalexcltax($object, $i, $outputlangs, $hidedetails = 0)
 /**
  *	Return line total including tax
  *
- *	@param	Commande|Facture|Propal|FactureFournisseur|CommandeFournisseur|SupplierProposal	$object				Object
+ *	@param	Order|Facture|Propal|FactureFournisseur|OrderFournisseur|SupplierProposal	$object				Object
  *	@param	int			$i					Current line number
  *  @param 	Translate	$outputlangs		Object langs for output
  *  @param	int<0,2>	$hidedetails		Hide value (0 = no, 1 = yes, 2 = just special lines)
@@ -2558,7 +2558,7 @@ function pdf_getLinkedObjects(&$object, $outputlangs)
 				$linkedobjects[$objecttype]['date_value'] = dol_print_date($elementobject->date, 'day', '', $outputlangs);
 			}
 		} elseif ($objecttype == 'commande' || $objecttype == 'supplier_order') {
-			'@phan-var-force array<Commande|CommandeFournisseur> $objects';
+			'@phan-var-force array<Order|OrderFournisseur> $objects';
 			$outputlangs->load('orders');
 
 			if (count($objects) > 1 && count($objects) <= (getDolGlobalInt("MAXREFONDOC") ? getDolGlobalInt("MAXREFONDOC") : 10)) {
@@ -2613,7 +2613,7 @@ function pdf_getLinkedObjects(&$object, $outputlangs)
 						$elementobject->fetchObjectLinked(null, '', null, '', 'OR', 1, 'sourcetype', 0);
 						if (!empty($elementobject->linkedObjectsIds['commande'])) {
 							include_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
-							$order = new Commande($db);
+							$order = new Order($db);
 							$ret = $order->fetch(reset($elementobject->linkedObjectsIds['commande']));
 							if ($ret < 1) {
 								$order = null;
@@ -2640,7 +2640,7 @@ function pdf_getLinkedObjects(&$object, $outputlangs)
 					$elementobject->fetchObjectLinked(null, '', null, '', 'OR', 1, 'sourcetype', 0);
 					if (!empty($elementobject->linkedObjectsIds['commande'])) {
 						include_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
-						$order = new Commande($db);
+						$order = new Order($db);
 						$ret = $order->fetch(reset($elementobject->linkedObjectsIds['commande']));
 						if ($ret < 1) {
 							$order = null;
@@ -2718,7 +2718,7 @@ function pdf_getSizeForImage($realpath)
 /**
  *	Return line total amount discount
  *
- *	@param	Commande|Facture|Propal			$object				Object
+ *	@param	Order|Facture|Propal			$object				Object
  *	@param	int								$i					Current line number
  *  @param  Translate						$outputlangs		Object langs for output
  *  @param	int<0,2>						$hidedetails		Hide details (0=no, 1=yes, 2=just special lines)

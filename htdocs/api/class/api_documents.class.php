@@ -208,7 +208,7 @@ class Documents extends DolibarrApi
 			}
 		} elseif ($modulepart == 'commande' || $modulepart == 'order') {
 			require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-			$tmpobject = new Commande($this->db);
+			$tmpobject = new Order($this->db);
 			$result = $tmpobject->fetch(0, preg_replace('/\.[^\.]+$/', '', basename($original_file)));
 			if (!$result) {
 				throw new RestException(404, 'Order not found');
@@ -407,7 +407,7 @@ class Documents extends DolibarrApi
 				throw new RestException(403);
 			}
 
-			$object = new Commande($this->db);
+			$object = new Order($this->db);
 			$result = $object->fetch($id, $ref);
 			if (!$result) {
 				throw new RestException(404, 'Order not found');
@@ -423,7 +423,7 @@ class Documents extends DolibarrApi
 				throw new RestException(403);
 			}
 
-			$object = new CommandeFournisseur($this->db);
+			$object = new OrderFournisseur($this->db);
 			$result = $object->fetch($id, $ref);
 			if (!$result) {
 				throw new RestException(404, 'Purchase order not found');
@@ -719,12 +719,12 @@ class Documents extends DolibarrApi
 				$modulepart = 'commande';
 
 				require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-				$object = new Commande($this->db);
+				$object = new Order($this->db);
 			} elseif ($modulepart == 'commande_fournisseur' || $modulepart == 'supplier_order') {
 				$modulepart = 'supplier_order';
 
 				require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
-				$object = new CommandeFournisseur($this->db);
+				$object = new OrderFournisseur($this->db);
 			} elseif ($modulepart == 'projet' || $modulepart == 'project') {
 				require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 				$object = new Project($this->db);

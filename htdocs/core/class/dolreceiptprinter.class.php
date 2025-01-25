@@ -629,7 +629,7 @@ class dolReceiptPrinter extends Printer
 	/**
 	 *  Function to Print Receipt Ticket
 	 *
-	 *  @param   Facture|Commande   $object         Order or invoice object
+	 *  @param   Facture|Order   $object         Order or invoice object
 	 *  @param   int       			$templateid     Template id
 	 *  @param   int       			$printerid      Printer id
 	 *  @return  int                				0 if OK; >0 if KO

@@ -154,7 +154,7 @@ function getProducts($order_id)
 {
 	global $db;
 
-	$order = new CommandeFournisseur($db);
+	$order = new OrderFournisseur($db);
 	$f = $order->fetch($order_id);
 	$products = array();
 	if ($f) {

@@ -223,7 +223,7 @@ class modFournisseur extends DolibarrModules
 
 		$r++;
 		$this->rights[$r][0] = 1186;
-		$this->rights[$r][1] = 'Commander une commande fournisseur';
+		$this->rights[$r][1] = 'Orderr une commande fournisseur';
 		$this->rights[$r][2] = 'w';
 		$this->rights[$r][3] = 0;
 		$this->rights[$r][4] = 'commande';
@@ -867,7 +867,7 @@ class modFournisseur extends DolibarrModules
 				'rule' => 'getrefifauto',
 				'class' => (!getDolGlobalString('COMMANDE_SUPPLIER_ADDON_NUMBER') ? 'mod_commande_fournisseur_muguet' : $config->global->COMMANDE_SUPPLIER_ADDON_NUMBER),
 				'path' => "/core/modules/supplier_order/".(!getDolGlobalString('COMMANDE_SUPPLIER_ADDON_NUMBER') ? 'mod_commande_fournisseur_muguet' : $config->global->COMMANDE_SUPPLIER_ADDON_NUMBER).'.php',
-				'classobject' => 'CommandeFournisseur',
+				'classobject' => 'OrderFournisseur',
 				'pathobject' => '/fourn/class/fournisseur.commande.class.php',
 			),
 			'c.fk_soc' => array(
@@ -947,7 +947,7 @@ class modFournisseur extends DolibarrModules
 			'cd.fk_commande' => array(
 				'rule'    => 'fetchidfromref',
 				'file'    => '/fourn/class/fournisseur.commande.class.php',
-				'class'   => 'CommandeFournisseur',
+				'class'   => 'OrderFournisseur',
 				'method'  => 'fetch',
 				'element' => 'order_supplier'
 			),

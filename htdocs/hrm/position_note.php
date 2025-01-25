@@ -101,7 +101,7 @@ if (empty($resHook)) {
 
 $form = new Form($db);
 
-//$help_url='EN:Customers_Orders|FR:Commandes_Clients|ES:Pedidos de clientes';
+//$help_url='EN:Customers_Orders|FR:Orders_Clients|ES:Pedidos de clientes';
 $help_url = '';
 llxHeader('', $langs->trans('Position'), $help_url);
 

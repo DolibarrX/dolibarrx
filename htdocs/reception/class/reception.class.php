@@ -181,7 +181,7 @@ class Reception extends CommonObject
 	public $listmeths; // List of carriers
 
 	/**
-	 * @var ReceptionLineBatch[]|CommandeFournisseurDispatch[]
+	 * @var ReceptionLineBatch[]|OrderFournisseurDispatch[]
 	 */
 	public $lines = array();
 
@@ -679,7 +679,7 @@ class Reception extends CommonObject
 				$error++;
 			} else {
 				$trigger_key = '';
-				if ($this->origin_object instanceof CommandeFournisseur && $status == CommandeFournisseur::STATUS_RECEIVED_COMPLETELY) {
+				if ($this->origin_object instanceof OrderFournisseur && $status == OrderFournisseur::STATUS_RECEIVED_COMPLETELY) {
 					$ret = $this->origin_object->Livraison($user, dol_now(), 'tot', '');
 					if ($ret < 0) {
 						$error++;
@@ -778,7 +778,7 @@ class Reception extends CommonObject
 		require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
 		require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.dispatch.class.php';
 
-		$status = CommandeFournisseur::STATUS_RECEIVED_PARTIALLY;
+		$status = OrderFournisseur::STATUS_RECEIVED_PARTIALLY;
 
 		if (!empty($this->origin) && $this->origin_id > 0 && ($this->origin == 'order_supplier' || $this->origin == 'commandeFournisseur')) {
 			if (empty($this->origin_object)) {
@@ -789,7 +789,7 @@ class Reception extends CommonObject
 					if ($res < 0) {
 						return $res;
 					}
-				} elseif ($this->origin_object instanceof CommandeFournisseur && empty($this->origin_object->lines)) {
+				} elseif ($this->origin_object instanceof OrderFournisseur && empty($this->origin_object->lines)) {
 					$res = $this->origin_object->fetch_lines();
 					$this->commandeFournisseur = $this->origin_object;	// deprecated
 					if ($res < 0) {
@@ -801,7 +801,7 @@ class Reception extends CommonObject
 			$qty_received = array();
 			$qty_wished = array();
 
-			$supplierorderdispatch = new CommandeFournisseurDispatch($this->db);
+			$supplierorderdispatch = new OrderFournisseurDispatch($this->db);
 			$filter = array('t.fk_element' => $this->origin_id);
 			if (getDolGlobalInt('SUPPLIER_ORDER_USE_DISPATCH_STATUS')) {
 				$filter['t.status'] = 1; // Restrict to lines with status validated
@@ -840,7 +840,7 @@ class Reception extends CommonObject
 				$keys_in_received_not_in_wished = array_diff(array_keys($qty_received), array_keys($qty_wished));
 
 				if (count($diff_array) == 0 && count($keys_in_wished_not_in_received) == 0 && count($keys_in_received_not_in_wished) == 0) { // no diff => mean everything is received
-					$status = CommandeFournisseur::STATUS_RECEIVED_COMPLETELY;
+					$status = OrderFournisseur::STATUS_RECEIVED_COMPLETELY;
 				} elseif (getDolGlobalInt('SUPPLIER_ORDER_MORE_THAN_WISHED')) {
 					// set totally received if more products received than ordered
 					$close = 0;
@@ -858,7 +858,7 @@ class Reception extends CommonObject
 
 					if ($close == count($diff_array)) {
 						// all the products are received equal or more than the ordered quantity
-						$status = CommandeFournisseur::STATUS_RECEIVED_COMPLETELY;
+						$status = OrderFournisseur::STATUS_RECEIVED_COMPLETELY;
 					}
 				}
 			}
@@ -888,13 +888,13 @@ class Reception extends CommonObject
 		global $config, $langs, $user;
 
 		$num = count($this->lines);
-		$line = new CommandeFournisseurDispatch($this->db);
+		$line = new OrderFournisseurDispatch($this->db);
 
 		$line->fk_entrepot = $entrepot_id;
 		$line->fk_commandefourndet = $id;
 		$line->qty = $qty;
 
-		$supplierorderline = new CommandeFournisseurLigne($this->db);
+		$supplierorderline = new OrderFournisseurLigne($this->db);
 		$result = $supplierorderline->fetch($id);
 		if ($result <= 0) {
 			$this->setErrorsFromObject($supplierorderline);
@@ -1187,7 +1187,7 @@ class Reception extends CommonObject
 						if (!empty($this->origin) && $this->origin_id > 0) {
 							$this->fetch_origin();
 							$origin_object = $this->origin_object;
-							'@phan-var-force CommandeFournisseur $origin_object';
+							'@phan-var-force OrderFournisseur $origin_object';
 							if ($origin_object->statut == 4) {     // If order source of reception is "partially received"
 								// Check if there is no more reception. If not, we can move back status of order to "validated" instead of "reception in progress"
 								$origin_object->loadReceptions();
@@ -1265,7 +1265,7 @@ class Reception extends CommonObject
 
 		if (!empty($resql)) {
 			while ($obj = $this->db->fetch_object($resql)) {
-				$line = new CommandeFournisseurDispatch($this->db);
+				$line = new OrderFournisseurDispatch($this->db);
 
 				$line->fetch($obj->rowid);
 
@@ -1498,7 +1498,7 @@ class Reception extends CommonObject
 
 		dol_syslog(get_class($this)."::initAsSpecimen");
 
-		$order = new CommandeFournisseur($this->db);
+		$order = new OrderFournisseur($this->db);
 		$order->initAsSpecimen();
 
 		// Initialise parameters
@@ -1530,7 +1530,7 @@ class Reception extends CommonObject
 		$nbp = min(1000, GETPOSTINT('nblines') ? GETPOSTINT('nblines') : 5);	// We can force the nb of lines to test from command line (but not more than 1000)
 		$xnbp = 0;
 		while ($xnbp < $nbp) {
-			$line = new CommandeFournisseurDispatch($this->db);
+			$line = new OrderFournisseurDispatch($this->db);
 			$line->desc = $langs->trans("Description")." ".$xnbp;
 			$line->libelle = $langs->trans("Description")." ".$xnbp;	// deprecated
 			$line->label = $langs->trans("Description")." ".$xnbp;
@@ -1691,7 +1691,7 @@ class Reception extends CommonObject
 		if ($resql) {
 			// Set order billed if 100% of order is received (qty in reception lines match qty in order lines)
 			if ($this->origin == 'order_supplier' && $this->origin_id > 0) {
-				$order = new CommandeFournisseur($this->db);
+				$order = new OrderFournisseur($this->db);
 				$order->fetch($this->origin_id);
 
 				$order->loadReceptions(self::STATUS_CLOSED); // Fill $order->receptions = array(orderlineid => qty)
@@ -1953,7 +1953,7 @@ class Reception extends CommonObject
 			}
 
 			if (!$error && $this->origin == 'order_supplier') {
-				$commande = new CommandeFournisseur($this->db);
+				$commande = new OrderFournisseur($this->db);
 				$commande->fetch($this->origin_id);
 				$result = $commande->setStatus($user, 4);
 				if ($result < 0) {

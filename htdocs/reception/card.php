@@ -111,7 +111,7 @@ $hidedesc = (GETPOSTINT('hidedesc') ? GETPOSTINT('hidedesc') : (getDolGlobalStri
 $hideref = (GETPOSTINT('hideref') ? GETPOSTINT('hideref') : (getDolGlobalString('MAIN_GENERATE_DOCUMENTS_HIDE_REF') ? 1 : 0));
 
 $object = new Reception($db);
-$objectorder = new CommandeFournisseur($db);
+$objectorder = new OrderFournisseur($db);
 $extrafields = new ExtraFields($db);
 
 // fetch optionals attributes and labels
@@ -318,7 +318,7 @@ if (empty($resHook)) {
 
 		if ($object->origin == "supplierorder") {
 			$object->origin = 'order_supplier';
-			$classname = 'CommandeFournisseur';
+			$classname = 'OrderFournisseur';
 		} else {
 			$classname = ucfirst($object->origin);
 		}
@@ -644,7 +644,7 @@ if (empty($resHook)) {
 	} elseif ($action == 'deleteline' && !empty($line_id) && $permissiontoread) {
 		// delete a line
 		$lines = $object->lines;
-		$line = new CommandeFournisseurDispatch($db);
+		$line = new OrderFournisseurDispatch($db);
 
 		$num_prod = count($lines);
 		for ($i = 0; $i < $num_prod; $i++) {
@@ -675,7 +675,7 @@ if (empty($resHook)) {
 		$num_prod = count($lines);
 		for ($i = 0; $i < $num_prod; $i++) {
 			if ($lines[$i]->id == $line_id) {  // we have found line to update
-				$line = new CommandeFournisseurDispatch($db);
+				$line = new OrderFournisseurDispatch($db);
 				$line->fetch($line_id);
 				// Extrafields Lines
 				$extrafields->fetch_name_optionals_label($object->table_element_line);
@@ -814,7 +814,7 @@ if ($action == 'create') {
 
 	if ($origin) {
 		if ($origin == 'supplierorder') {
-			$classname = 'CommandeFournisseur';
+			$classname = 'OrderFournisseur';
 		} else {
 			$classname = ucfirst($origin);
 		}
@@ -1326,7 +1326,7 @@ if ($action == 'create') {
 				print "</tr>\n";
 
 				// Display lines for extrafields of the Reception line
-				// $line is a 'CommandeFournisseurLigne', $dispatchLines contains values of Reception lines so properties of CommandeFournisseurDispatch
+				// $line is a 'OrderFournisseurLigne', $dispatchLines contains values of Reception lines so properties of OrderFournisseurDispatch
 				if (!empty($extrafields)) {
 					$colspan = 5;
 					if (isModEnabled('productbatch')) {
@@ -1338,9 +1338,9 @@ if ($action == 'create') {
 							$colspan += 1;
 						}
 					}
-					$recLine = new CommandeFournisseurDispatch($db);
+					$recLine = new OrderFournisseurDispatch($db);
 
-					$srcLine = new CommandeFournisseurLigne($db);
+					$srcLine = new OrderFournisseurLigne($db);
 					$srcLine->id = $line->id;
 					$srcLine->fetch_optionals(); // fetch extrafields also available in orderline
 
@@ -1386,7 +1386,7 @@ if ($action == 'create') {
 	}
 
 	if (!empty($object->origin) && $object->origin_id > 0) {
-		$object->origin = 'CommandeFournisseur';
+		$object->origin = 'OrderFournisseur';
 		$typeobject = $object->origin;
 		$origin = $object->origin;
 		$origin_id = $object->origin_id;
@@ -1461,15 +1461,15 @@ if ($action == 'create') {
 
 
 	if ($typeobject == 'commande' && $object->origin_object->id && isModEnabled('order')) {
-		$objectsrc = new Commande($db);
+		$objectsrc = new Order($db);
 		$objectsrc->fetch($object->origin_object->id);
 	}
 	if ($typeobject == 'propal' && $object->origin_object->id && isModEnabled("propal")) {
 		$objectsrc = new Propal($db);
 		$objectsrc->fetch($object->origin_object->id);
 	}
-	if ($typeobject == 'CommandeFournisseur' && $object->origin_object->id && isModEnabled("supplier_order")) {
-		$objectsrc = new CommandeFournisseur($db);
+	if ($typeobject == 'OrderFournisseur' && $object->origin_object->id && isModEnabled("supplier_order")) {
+		$objectsrc = new OrderFournisseur($db);
 		$objectsrc->fetch($object->origin_object->id);
 	}
 	// Reception card
@@ -1531,7 +1531,7 @@ if ($action == 'create') {
 		print "</td>\n";
 		print '</tr>';
 	}
-	if ($typeobject == 'CommandeFournisseur' && $object->origin_object->id && isModEnabled("propal")) {
+	if ($typeobject == 'OrderFournisseur' && $object->origin_object->id && isModEnabled("propal")) {
 		print '<tr><td>';
 		print $langs->trans("SupplierOrder").'</td>';
 		print '<td colspan="3">';
@@ -2138,7 +2138,7 @@ if ($action == 'create') {
 				$colspan++;
 			}
 
-			$line = new CommandeFournisseurDispatch($db);
+			$line = new OrderFournisseurDispatch($db);
 			$line->id = $lines[$i]->id;
 			$line->fetch_optionals();
 

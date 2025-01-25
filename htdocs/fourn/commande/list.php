@@ -171,7 +171,7 @@ if (!$sortorder) {
 }
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
-$object = new CommandeFournisseur($db);
+$object = new OrderFournisseur($db);
 $hookManager->initHooks(array('supplierorderlist'));
 $extrafields = new ExtraFields($db);
 
@@ -345,14 +345,14 @@ if (empty($resHook)) {
 	}
 
 	// Mass actions
-	$objectclass = 'CommandeFournisseur';
+	$objectclass = 'OrderFournisseur';
 	$objectlabel = 'SupplierOrders';
 	$uploaddir = $config->fournisseur->commande->dir_output;
 	include DOL_DOCUMENT_ROOT.'/core/actions_massactions.inc.php';
 
 	if ($action == 'validate' && $permissiontovalidate) {
 		if (GETPOST('confirm') == 'yes') {
-			$objecttmp = new CommandeFournisseur($db);
+			$objecttmp = new OrderFournisseur($db);
 			$db->begin();
 			$error = 0;
 
@@ -404,7 +404,7 @@ if (empty($resHook)) {
 		$default_ref_supplier = dol_print_date(dol_now(), '%Y%m%d%H%M%S');
 		$currentIndex = 0;
 		foreach ($orders as $id_order) {
-			$cmd = new CommandeFournisseur($db);
+			$cmd = new OrderFournisseur($db);
 			if ($cmd->fetch($id_order) <= 0) {
 				continue;
 			}
@@ -788,7 +788,7 @@ $now = dol_now();
 
 $form = new Form($db);
 $thirdpartytmp = new Fournisseur($db);
-$commandestatic = new CommandeFournisseur($db);
+$commandestatic = new OrderFournisseur($db);
 $formfile = new FormFile($db);
 $formorder = new FormOrder($db);
 $formother = new FormOther($db);
@@ -805,7 +805,7 @@ if ($search_billed > 0) {
 	$title .= ' - '.$langs->trans("Billed");
 }
 
-//$help_url="EN:Module_Customers_Orders|FR:Module_Commandes_Clients|ES:Módulo_Pedidos_de_clientes";
+//$help_url="EN:Module_Customers_Orders|FR:Module_Orders_Clients|ES:Módulo_Pedidos_de_clientes";
 $help_url = '';
 
 $varpage = empty($contextpage) ? $_SERVER["PHP_SELF"] : $contextpage;
@@ -1276,7 +1276,7 @@ if ($resql) {
 
 	$topicmail = "SendOrderRef";
 	$modelmail = "order_supplier_send";
-	$objecttmp = new CommandeFournisseur($db);	// in case $object is not the good object
+	$objecttmp = new OrderFournisseur($db);	// in case $object is not the good object
 	$trackid = 'sord'.$object->id;
 	include DOL_DOCUMENT_ROOT.'/core/tpl/massactions_pre.tpl.php';
 
@@ -1739,7 +1739,7 @@ if ($resql) {
 	$productstat_cache = array();
 
 	$userstatic = new User($db);
-	$objectstatic = new CommandeFournisseur($db);
+	$objectstatic = new OrderFournisseur($db);
 	$projectstatic = new Project($db);
 
 	$i = 0;

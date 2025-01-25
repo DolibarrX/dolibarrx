@@ -74,7 +74,7 @@ class box_shipments extends ModeleBoxes
 		include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 
 		$shipmentstatic = new Expedition($this->db);
-		$orderstatic = new Commande($this->db);
+		$orderstatic = new Order($this->db);
 		$societestatic = new Societe($this->db);
 
 		$this->info_box_head = array(

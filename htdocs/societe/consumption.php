@@ -292,7 +292,7 @@ if ($type_element == 'propal') {
 if ($type_element == 'order') {
 	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
 	$langs->load('sendings'); // delivery planned date
-	$documentstatic = new Commande($db);
+	$documentstatic = new Order($db);
 	$sql_select = 'SELECT c.rowid as doc_id, c.ref as doc_number, \'1\' as doc_type, c.date_commande as dateprint, c.fk_statut as status, NULL as paid, c.date_livraison as delivery_planned_date,';
 	$tables_from = MAIN_DB_PREFIX."commande as c,".MAIN_DB_PREFIX."commandedet as d";
 	$where = " WHERE c.fk_soc = s.rowid AND s.rowid = ".((int) $socid);
@@ -343,7 +343,7 @@ if ($type_element == 'supplier_proposal') {
 if ($type_element == 'supplier_order') { 	// Supplier : Show products from orders.
 	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
 	$langs->load('sendings'); // delivery planned date
-	$documentstatic = new CommandeFournisseur($db);
+	$documentstatic = new OrderFournisseur($db);
 	$sql_select = 'SELECT c.rowid as doc_id, c.ref as doc_number, \'1\' as doc_type, c.date_valid as dateprint, c.fk_statut as status, NULL as paid, c.date_livraison as delivery_planned_date, ';
 	$tables_from = MAIN_DB_PREFIX."commande_fournisseur as c,".MAIN_DB_PREFIX."commande_fournisseurdet as d";
 	$where = " WHERE c.fk_soc = s.rowid AND s.rowid = ".((int) $socid);

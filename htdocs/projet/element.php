@@ -436,7 +436,7 @@ $listofreferent = array(
 	'order' => array(
 		'name' => "CustomersOrders",
 		'title' => "ListOrdersAssociatedProject",
-		'class' => 'Commande',
+		'class' => 'Order',
 		'table' => 'commande',
 		'datefieldname' => 'date_commande',
 		'urlnew' => DOL_URL_ROOT.'/commande/card.php?action=create&projectid='.$id.'&socid='.$socid.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id),
@@ -485,7 +485,7 @@ $listofreferent = array(
 	'order_supplier' => array(
 		'name' => "SuppliersOrders",
 		'title' => "ListSupplierOrdersAssociatedProject",
-		'class' => 'CommandeFournisseur',
+		'class' => 'OrderFournisseur',
 		'table' => 'commande_fournisseur',
 		'datefieldname' => 'date_commande',
 		'urlnew' => DOL_URL_ROOT.'/fourn/commande/card.php?action=create&projectid='.$id.'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?id='.$id), // No socid parameter here, the socid is often the customer and we create a supplier object

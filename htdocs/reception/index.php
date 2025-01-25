@@ -58,7 +58,7 @@ $result = restrictedArea($user, 'reception', 0, '');
  *	View
  */
 
-$orderstatic = new CommandeFournisseur($db);
+$orderstatic = new OrderFournisseur($db);
 $companystatic = new Societe($db);
 
 $helpurl = 'EN:Module_Receptions|FR:Module_Receptions|ES:M&oacute;dulo_Receptiones';
@@ -218,7 +218,7 @@ $sql .= " FROM ".MAIN_DB_PREFIX."commande_fournisseur as c,";
 $sql .= " ".MAIN_DB_PREFIX."societe as s";
 $sql .= " WHERE c.fk_soc = s.rowid";
 $sql .= " AND c.entity IN (".getEntity('supplier_order').")";
-$sql .= " AND c.fk_statut IN (".CommandeFournisseur::STATUS_ORDERSENT.", ".CommandeFournisseur::STATUS_RECEIVED_PARTIALLY.")";
+$sql .= " AND c.fk_statut IN (".OrderFournisseur::STATUS_ORDERSENT.", ".OrderFournisseur::STATUS_RECEIVED_PARTIALLY.")";
 if ($socid > 0) {
 	$sql .= " AND c.fk_soc = ".((int) $socid);
 }

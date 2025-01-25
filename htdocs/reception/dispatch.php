@@ -101,7 +101,7 @@ if ($id > 0 || !empty($ref)) {
 	}
 	if ($origin == 'order_supplier' && $object->origin_object->id && (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') || isModEnabled("supplier_order"))) {
 		$origin_id = $object->origin_object->id;
-		$objectsrc = new CommandeFournisseur($db);
+		$objectsrc = new OrderFournisseur($db);
 		$objectsrc->fetch($origin_id);
 	}
 }
@@ -140,7 +140,7 @@ if ($action == 'updatelines' && $permissiontoreceive) {
 	$db->begin();
 	$error = 0;
 
-	$supplierorderdispatch = new CommandeFournisseurDispatch($db);
+	$supplierorderdispatch = new OrderFournisseurDispatch($db);
 	$pos = 0;
 
 	foreach ($_POST as $key => $value) {
@@ -308,10 +308,10 @@ $now = dol_now();
 $form = new Form($db);
 $formproduct = new FormProduct($db);
 $warehouse_static = new Entrepot($db);
-$supplierorderdispatch = new CommandeFournisseurDispatch($db);
+$supplierorderdispatch = new OrderFournisseurDispatch($db);
 
 $title = $object->ref." - ".$langs->trans('ReceptionDistribution');
-$help_url = 'EN:Module_Suppliers_Orders|FR:CommandeFournisseur|ES:Módulo_Pedidos_a_proveedores';
+$help_url = 'EN:Module_Suppliers_Orders|FR:OrderFournisseur|ES:Módulo_Pedidos_a_proveedores';
 $morejs = array('/fourn/js/lib_dispatch.js.php');
 $numline = 0;
 
@@ -319,7 +319,7 @@ llxHeader('', $title, $help_url, '', 0, 0, $morejs, '', '', 'mod-reception page-
 
 if ($id > 0 || !empty($ref)) {
 	if (!empty($object->origin) && $object->origin_id > 0) {
-		$object->origin = 'CommandeFournisseur';
+		$object->origin = 'OrderFournisseur';
 		$typeobject = $object->origin;
 		$origin = $object->origin;
 		$origin_id = $object->origin_id;
@@ -415,7 +415,7 @@ if ($id > 0 || !empty($ref)) {
 		print "</td>\n";
 		print '</tr>';
 	}
-	if ($typeobject == 'CommandeFournisseur' && $object->origin_object->id && isModEnabled("propal")) {
+	if ($typeobject == 'OrderFournisseur' && $object->origin_object->id && isModEnabled("propal")) {
 		print '<tr><td>';
 		print $langs->trans("SupplierOrder").'</td>';
 		print '<td colspan="3">';

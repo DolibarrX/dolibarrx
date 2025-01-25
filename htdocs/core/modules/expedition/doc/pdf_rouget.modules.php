@@ -1021,7 +1021,7 @@ class pdf_rouget extends ModelePdfExpedition
 
 			$classname = ucfirst($origin);
 			$linkedobject = new $classname($this->db);
-			'@phan-var-force Commande|Facture $linkedobject';
+			'@phan-var-force Order|Facture $linkedobject';
 			$result = $linkedobject->fetch($origin_id);
 			if ($result >= 0) {
 				//$linkedobject->fetchObjectLinked()   Get all linked object to the $linkedobject (commonly order) into $linkedobject->linkedObjects

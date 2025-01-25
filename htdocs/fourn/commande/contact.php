@@ -58,7 +58,7 @@ if ($user->socid) {
 $hookManager->initHooks(array('ordersuppliercardcontact', 'ordersuppliercontactcard', 'globalcard'));
 $result = restrictedArea($user, 'fournisseur', $id, 'commande_fournisseur', 'commande');
 
-$object = new CommandeFournisseur($db);
+$object = new OrderFournisseur($db);
 
 $usercancreate	= ($user->hasRight("fournisseur", "commande", "creer") || $user->hasRight("supplier_order", "creer"));
 $permissiontoadd	= $usercancreate; // Used by the include of actions_addupdatedelete.inc.php
@@ -143,7 +143,7 @@ if ($id > 0 || !empty($ref)) {
 		$object->fetch_thirdparty();
 
 		$title = $object->ref." - ".$langs->trans('ContactsAddresses');
-		$help_url = 'EN:Module_Suppliers_Orders|FR:CommandeFournisseur|ES:Módulo_Pedidos_a_proveedores';
+		$help_url = 'EN:Module_Suppliers_Orders|FR:OrderFournisseur|ES:Módulo_Pedidos_a_proveedores';
 		llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-supplier-order page-card_contact');
 
 		$head = ordersupplier_prepare_head($object);

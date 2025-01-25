@@ -73,7 +73,7 @@ class box_commandes extends ModeleBoxes
 		include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
 		include_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 
-		$commandestatic = new Commande($this->db);
+		$commandestatic = new Order($this->db);
 		$societestatic = new Societe($this->db);
 		$userstatic = new User($this->db);
 

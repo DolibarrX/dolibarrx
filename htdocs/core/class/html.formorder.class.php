@@ -58,7 +58,7 @@ class FormOrder extends Form
 			'9' => '9'
 		);
 
-		$tmpsupplierorder = new CommandeFournisseur($this->db);
+		$tmpsupplierorder = new OrderFournisseur($this->db);
 
 		foreach ($statustohow as $key => $value) {
 			$tmpsupplierorder->statut = $key;
@@ -98,14 +98,14 @@ class FormOrder extends Form
 		$options = array();
 
 		$statustohow = array(
-			Commande::STATUS_DRAFT,
-			Commande::STATUS_VALIDATED,
-			Commande::STATUS_SHIPMENTONPROCESS,
-			Commande::STATUS_CLOSED,
-			Commande::STATUS_CANCELED
+			Order::STATUS_DRAFT,
+			Order::STATUS_VALIDATED,
+			Order::STATUS_SHIPMENTONPROCESS,
+			Order::STATUS_CLOSED,
+			Order::STATUS_CANCELED
 		);
 
-		$tmpsupplierorder = new Commande($this->db);
+		$tmpsupplierorder = new Order($this->db);
 
 		foreach ($statustohow as $value) {
 			$tmpsupplierorder->statut = $value;

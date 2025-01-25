@@ -65,7 +65,7 @@ class box_supplier_orders_awaiting_reception extends ModeleBoxes
 		$this->max = $max;
 
 		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
-		$supplierorderstatic = new CommandeFournisseur($this->db);
+		$supplierorderstatic = new OrderFournisseur($this->db);
 		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
 		$thirdpartystatic = new Fournisseur($this->db);
 
@@ -88,7 +88,7 @@ class box_supplier_orders_awaiting_reception extends ModeleBoxes
 			$sql .= " WHERE c.fk_soc = s.rowid";
 			$sql .= " AND c.entity IN (".getEntity('supplier_order').")";
 			$sql .= " AND c.date_livraison IS NOT NULL";
-			$sql .= " AND c.fk_statut IN (".CommandeFournisseur::STATUS_ORDERSENT.", ".CommandeFournisseur::STATUS_RECEIVED_PARTIALLY.")";
+			$sql .= " AND c.fk_statut IN (".OrderFournisseur::STATUS_ORDERSENT.", ".OrderFournisseur::STATUS_RECEIVED_PARTIALLY.")";
 			if (!$user->hasRight('societe', 'client', 'voir')) {
 				$sql .= " AND s.rowid = sc.fk_soc AND sc.fk_user = ".((int) $user->id);
 			}

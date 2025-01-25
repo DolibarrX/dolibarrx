@@ -82,7 +82,7 @@ if (GETPOSTISSET("projectid")) {
 	$projectid = GETPOSTINT("projectid");
 }
 
-$object = new CommandeFournisseur($db);
+$object = new OrderFournisseur($db);
 
 if ($id > 0 || !empty($ref)) {
 	$result = $object->fetch($id, $ref);
@@ -127,7 +127,7 @@ if ($resHook < 0) {
 }
 
 if ($action == 'checkdispatchline' && $permissiontocontrol) {
-	$supplierorderdispatch = new CommandeFournisseurDispatch($db);
+	$supplierorderdispatch = new OrderFournisseurDispatch($db);
 
 	$db->begin();
 
@@ -163,7 +163,7 @@ if ($action == 'checkdispatchline' && $permissiontocontrol) {
 }
 
 if ($action == 'uncheckdispatchline' && $permissiontocontrol) {
-	$supplierorderdispatch = new CommandeFournisseurDispatch($db);
+	$supplierorderdispatch = new OrderFournisseurDispatch($db);
 
 	$db->begin();
 
@@ -198,7 +198,7 @@ if ($action == 'uncheckdispatchline' && $permissiontocontrol) {
 }
 
 if ($action == 'denydispatchline' && $permissiontocontrol) {
-	$supplierorderdispatch = new CommandeFournisseurDispatch($db);
+	$supplierorderdispatch = new OrderFournisseurDispatch($db);
 
 	$db->begin();
 
@@ -425,7 +425,7 @@ $entrepot = 0;
 if ($action == 'confirm_deleteline' && $confirm == 'yes' && $permissiontoreceive) {
 	$db->begin();
 
-	$supplierorderdispatch = new CommandeFournisseurDispatch($db);
+	$supplierorderdispatch = new OrderFournisseurDispatch($db);
 	$result = $supplierorderdispatch->fetch($lineid);
 	if ($result > 0) {
 		$qty = $supplierorderdispatch->qty;
@@ -469,7 +469,7 @@ if ($action == 'confirm_deleteline' && $confirm == 'yes' && $permissiontoreceive
 if ($action == 'updateline' && $permissiontoreceive && empty($cancel)) {
 	$db->begin();
 
-	$supplierorderdispatch = new CommandeFournisseurDispatch($db);
+	$supplierorderdispatch = new OrderFournisseurDispatch($db);
 	$result = $supplierorderdispatch->fetch($lineid);
 	if ($result > 0) {
 		$qty = $supplierorderdispatch->qty;
@@ -528,10 +528,10 @@ $now = dol_now();
 $form = new Form($db);
 $formproduct = new FormProduct($db);
 $warehouse_static = new Entrepot($db);
-$supplierorderdispatch = new CommandeFournisseurDispatch($db);
+$supplierorderdispatch = new OrderFournisseurDispatch($db);
 
 $title = $object->ref." - ".$langs->trans('OrderDispatch');
-$help_url = 'EN:Module_Suppliers_Orders|FR:CommandeFournisseur|ES:Módulo_Pedidos_a_proveedores';
+$help_url = 'EN:Module_Suppliers_Orders|FR:OrderFournisseur|ES:Módulo_Pedidos_a_proveedores';
 $morejs = array('/fourn/js/lib_dispatch.js.php');
 
 llxHeader('', $title, $help_url, '', 0, 0, $morejs, '', '', 'mod-supplier-order page-card_dispatch');
@@ -642,7 +642,7 @@ if ($id > 0 || !empty($ref)) {
 	$disabled = 0;	// This is used to disable or not the bulk selection of target warehouse. No reason to have it disabled so forced to 0.
 
 	// Line of orders
-	if ($object->statut <= CommandeFournisseur::STATUS_ACCEPTED || $object->statut >= CommandeFournisseur::STATUS_CANCELED) {
+	if ($object->statut <= OrderFournisseur::STATUS_ACCEPTED || $object->statut >= OrderFournisseur::STATUS_CANCELED) {
 		print '<br><span class="opacitymedium">'.$langs->trans("OrderStatusNotReadyToDispatch").'</span>';
 	}
 
@@ -651,9 +651,9 @@ if ($id > 0 || !empty($ref)) {
 
 	$listwarehouses = array();
 
-	if ($object->statut == CommandeFournisseur::STATUS_ORDERSENT
-		|| $object->statut == CommandeFournisseur::STATUS_RECEIVED_PARTIALLY
-		|| $object->statut == CommandeFournisseur::STATUS_RECEIVED_COMPLETELY) {
+	if ($object->statut == OrderFournisseur::STATUS_ORDERSENT
+		|| $object->statut == OrderFournisseur::STATUS_RECEIVED_PARTIALLY
+		|| $object->statut == OrderFournisseur::STATUS_RECEIVED_COMPLETELY) {
 		require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 		$formproduct = new FormProduct($db);
 		$formproduct->loadWarehouses();

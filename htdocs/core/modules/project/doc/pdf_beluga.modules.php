@@ -355,7 +355,7 @@ class pdf_beluga extends ModelePDFProjects
 					'order' => array(
 						'name' => "CustomersOrders",
 						'title' => "ListOrdersAssociatedProject",
-						'class' => 'Commande',
+						'class' => 'Order',
 						'table' => 'commande',
 						'datefieldname' => 'date_commande',
 						'test' => isModEnabled('order') && $user->hasRight('commande', 'lire'),
@@ -380,7 +380,7 @@ class pdf_beluga extends ModelePDFProjects
 					'order_supplier' => array(
 						'name' => "SuppliersOrders",
 						'title' => "ListSupplierOrdersAssociatedProject",
-						'class' => 'CommandeFournisseur',
+						'class' => 'OrderFournisseur',
 						'table' => 'commande_fournisseur',
 						'datefieldname' => 'date_commande',
 						'test' => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'commande', 'lire')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire')),

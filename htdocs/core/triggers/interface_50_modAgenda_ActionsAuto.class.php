@@ -334,7 +334,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'ORDER_VALIDATE') {
-			'@phan-var-force Commande $object';
+			'@phan-var-force Order $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "orders"));
 
@@ -351,7 +351,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'ORDER_CLOSE') {
-			'@phan-var-force Commande $object';
+			'@phan-var-force Order $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "orders"));
 
@@ -368,7 +368,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'ORDER_CLASSIFY_BILLED') {
-			'@phan-var-force Commande $object';
+			'@phan-var-force Order $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "orders"));
 
@@ -385,7 +385,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'ORDER_CANCEL') {
-			'@phan-var-force Commande $object';
+			'@phan-var-force Order $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "orders"));
 
@@ -402,7 +402,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'ORDER_SENTBYMAIL') {
-			'@phan-var-force Commande $object';
+			'@phan-var-force Order $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "orders"));
 
@@ -797,7 +797,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'ORDER_SUPPLIER_CREATE') {
-			'@phan-var-force CommandeFournisseur $object';
+			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "orders"));
 
@@ -814,7 +814,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'ORDER_SUPPLIER_VALIDATE') {
-			'@phan-var-force CommandeFournisseur $object';
+			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "orders"));
 
@@ -831,7 +831,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'ORDER_SUPPLIER_APPROVE') {
-			'@phan-var-force CommandeFournisseur $object';
+			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "orders"));
 
@@ -848,7 +848,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'ORDER_SUPPLIER_REFUSE') {
-			'@phan-var-force CommandeFournisseur $object';
+			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "orders", "main"));
 
@@ -870,7 +870,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'ORDER_SUPPLIER_CANCEL') {
-			'@phan-var-force CommandeFournisseur $object';
+			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "orders", "main"));
 
@@ -892,7 +892,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'ORDER_SUPPLIER_SUBMIT') {
-			'@phan-var-force CommandeFournisseur $object';
+			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "orders"));
 
@@ -914,7 +914,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'ORDER_SUPPLIER_RECEIVE') {
-			'@phan-var-force CommandeFournisseur $object';
+			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "orders"));
 
@@ -931,7 +931,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 
 			$object->sendtoid = array();
 		} elseif ($action == 'ORDER_SUPPLIER_SENTBYMAIL') {
-			'@phan-var-force CommandeFournisseur $object';
+			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "bills", "orders"));
 
@@ -949,7 +949,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 			// Parameters $object->sendtoid defined by caller
 			//$object->sendtoid = array();
 		} elseif ($action == 'ORDER_SUPPLIER_CLASSIFY_BILLED') {
-			'@phan-var-force CommandeFournisseur $object';
+			'@phan-var-force OrderFournisseur $object';
 			// Load translation files required by the page
 			$langs->loadLangs(array("agenda", "other", "bills", "orders"));
 

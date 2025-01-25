@@ -1943,7 +1943,7 @@ function migrate_price_commande_fournisseur($db, $langs, $config)
 				$info_bits = $obj->info_bits;
 
 				// On met a jour les 3 nouveaux champs
-				$commandeligne = new CommandeFournisseurLigne($db);
+				$commandeligne = new OrderFournisseurLigne($db);
 				$commandeligne->fetch($rowid);
 
 				$result = calcul_price_total($qty, $pu, $remise_percent, $vatrate, 0, 0, $remise_percent_global, 'HT', $info_bits, $commandeligne->product_type, $mysoc);
@@ -2019,7 +2019,7 @@ function migrate_modeles($db, $langs, $config)
 
 	if (isModEnabled('order')) {
 		include_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
-		$modellist = ModelePDFCommandes::liste_modeles($db);
+		$modellist = ModelePDFOrders::liste_modeles($db);
 		if (count($modellist) == 0) {
 			// Aucun model par default.
 			$sql = " insert into ".MAIN_DB_PREFIX."document_model(nom,type) values('einstein','order')";
@@ -4091,8 +4091,8 @@ function migrate_delete_old_files($db, $langs, $config)
 		'/core/modules/modProduit.class.php',
 		'/core/modules/modSkype.class.php',
 		'/core/triggers/interface_modWebcalendar_Webcalsynchro.class.php',
-		'/core/triggers/interface_modCommande_Ecotax.class.php',
-		'/core/triggers/interface_modCommande_fraisport.class.php',
+		'/core/triggers/interface_modOrder_Ecotax.class.php',
+		'/core/triggers/interface_modOrder_fraisport.class.php',
 		'/core/triggers/interface_modPropale_PropalWorkflow.class.php',
 		'/core/triggers/interface_99_modWebhook_WebhookTriggers.class.php',
 		'/core/triggers/interface_99_modZapier_ZapierTriggers.class.php',
@@ -4249,7 +4249,7 @@ function migrate_reload_modules($db, $langs, $config, $listofmodule = array(), $
 		'MAIN_MODULE_SOCIETE' => array('class' => 'modSociete', 'remove' => 1),
 		'MAIN_MODULE_PRODUIT' => array('class' => 'modProduct'),
 		'MAIN_MODULE_SERVICE' => array('class' => 'modService'),
-		'MAIN_MODULE_COMMANDE' => array('class' => 'modCommande'),
+		'MAIN_MODULE_COMMANDE' => array('class' => 'modOrder'),
 		'MAIN_MODULE_DON' => array('class' => 'modDon'),
 		'MAIN_MODULE_FACTURE' => array('class' => 'modFacture'),
 		'MAIN_MODULE_FICHEINTER' => array('class' => 'modFicheinter'),

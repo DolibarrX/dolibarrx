@@ -52,7 +52,7 @@ $result = restrictedArea($user, 'societe', $socid, '');
  * View
  */
 
-$commandestatic = new CommandeFournisseur($db);
+$commandestatic = new OrderFournisseur($db);
 $facturestatic = new FactureFournisseur($db);
 $companystatic = new Societe($db);
 

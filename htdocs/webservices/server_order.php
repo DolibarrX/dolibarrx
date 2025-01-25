@@ -413,7 +413,7 @@ function getOrder($authentication, $id = 0, $ref = '', $ref_ext = '')
 		$fuser->loadRights();
 
 		if ($fuser->hasRight('commande', 'lire')) {
-			$order = new Commande($db);
+			$order = new Order($db);
 			$result = $order->fetch($id, $ref, $ref_ext);
 			if ($result > 0) {
 				// Security for external user
@@ -571,7 +571,7 @@ function getOrdersForThirdParty($authentication, $idthirdparty)
 				// En attendant remplissage par boucle
 				$obj = $db->fetch_object($resql);
 
-				$order = new Commande($db);
+				$order = new Order($db);
 				$order->fetch($obj->orderid);
 
 				// Sécurité pour utilisateur externe
@@ -703,7 +703,7 @@ function createOrder($authentication, $order)
 
 
 	if (!$error) {
-		$newobject = new Commande($db);
+		$newobject = new Order($db);
 		$newobject->socid = $order['thirdparty_id'];
 		$newobject->type = $order['type'];
 		$newobject->ref_ext = $order['ref_ext'];
@@ -711,7 +711,7 @@ function createOrder($authentication, $order)
 		$newobject->date_lim_reglement = dol_stringtotime($order['date_due'], 'dayrfc');
 		$newobject->note_private = $order['note_private'];
 		$newobject->note_public = $order['note_public'];
-		$newobject->statut = Commande::STATUS_DRAFT; // We start with status draft
+		$newobject->statut = Order::STATUS_DRAFT; // We start with status draft
 		$newobject->billed = (int) $order['billed'];
 		$newobject->fk_project = (int) $order['project_id'];
 		$newobject->cond_reglement_id = (int) $order['cond_reglement_id'];
@@ -843,7 +843,7 @@ function validOrder($authentication, $id = 0, $id_warehouse = 0)
 		$fuser->loadRights();
 
 		if ($fuser->hasRight('commande', 'lire')) {
-			$order = new Commande($db);
+			$order = new Order($db);
 			$result = $order->fetch($id);
 
 			$order->fetch_thirdparty();
@@ -920,7 +920,7 @@ function updateOrder($authentication, $order)
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
-		$object = new Commande($db);
+		$object = new Order($db);
 		$result = $object->fetch($order['id'], (empty($order['id']) ? $order['ref'] : ''), (empty($order['id']) && empty($order['ref']) ? $order['ref_ext'] : ''));
 
 		if (!empty($object->id)) {

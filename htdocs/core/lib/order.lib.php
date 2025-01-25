@@ -29,10 +29,10 @@
 /**
  * Prepare array with list of tabs
  *
- * @param   Commande	$object		Object related to tabs
+ * @param   Order	$object		Object related to tabs
  * @return	array<array{0:string,1:string,2:string}>	Array of tabs to show
  */
-function commande_prepare_head(Commande $object)
+function commande_prepare_head(Order $object)
 {
 	global $db, $langs, $config, $user;
 	if (isModEnabled("shipping")) {
@@ -236,7 +236,7 @@ function getCustomerOrderPieChart($socid = 0)
 		return '';
 	}
 
-	$commandestatic = new Commande($db);
+	$commandestatic = new Order($db);
 
 	/*
 	 * Statistics
@@ -292,19 +292,19 @@ function getCustomerOrderPieChart($socid = 0)
 		$listofstatus = array(0, 1, 2, 3, -1);
 		foreach ($listofstatus as $status) {
 			$dataseries[] = array($commandestatic->LibStatut($status, 0, 1, 1), (isset($vals[$status]) ? (int) $vals[$status] : 0));
-			if ($status == Commande::STATUS_DRAFT) {
+			if ($status == Order::STATUS_DRAFT) {
 				$colorseries[$status] = '-' . $badgeStatus0;
 			}
-			if ($status == Commande::STATUS_VALIDATED) {
+			if ($status == Order::STATUS_VALIDATED) {
 				$colorseries[$status] = $badgeStatus1;
 			}
-			if ($status == Commande::STATUS_SHIPMENTONPROCESS) {
+			if ($status == Order::STATUS_SHIPMENTONPROCESS) {
 				$colorseries[$status] = $badgeStatus4;
 			}
-			if ($status == Commande::STATUS_CLOSED) {
+			if ($status == Order::STATUS_CLOSED) {
 				$colorseries[$status] = $badgeStatus6;
 			}
-			if ($status == Commande::STATUS_CANCELED) {
+			if ($status == Order::STATUS_CANCELED) {
 				$colorseries[$status] = $badgeStatus9;
 			}
 

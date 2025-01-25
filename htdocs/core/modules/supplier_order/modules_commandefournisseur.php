@@ -82,7 +82,7 @@ abstract class ModelePDFSuppliersOrders extends CommonDocGenerator
 	/**
 	 *	Function to build document
 	 *
-	 *	@param	CommandeFournisseur	$object				Object source to generate (or id if old method)
+	 *	@param	OrderFournisseur	$object				Object source to generate (or id if old method)
 	 *	@param	Translate			$outputlangs		Lang output object
 	 *	@param	string				$srctemplatepath	Full path of source filename for generator using a template file
 	 *	@param	int<0,1>			$hidedetails		Do not show line details
@@ -104,7 +104,7 @@ abstract class ModeleNumRefSuppliersOrders extends CommonNumRefGenerator
 	 * 	Return next value
 	 *
 	 *  @param	Societe|string		$objsoc		Object third party
-	 *  @param  CommandeFournisseur	$object		Object
+	 *  @param  OrderFournisseur	$object		Object
 	 *  @return string|int<-1,0>				Value if OK, <=0 if KO
 	 */
 	abstract public function getNextValue($objsoc, $object);

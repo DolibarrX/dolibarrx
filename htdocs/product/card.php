@@ -347,8 +347,8 @@ if (empty($resHook)) {
 						'Bom' => '/bom/class/bom.class.php',
 						// do not use Category, it cause foreign key error, merge is done before
 						//'Category' => '/categories/class/category.class.php',
-						'Commande' => '/commande/class/commande.class.php',
-						'CommandeFournisseur' => '/fourn/class/fournisseur.commande.class.php',
+						'Order' => '/commande/class/commande.class.php',
+						'OrderFournisseur' => '/fourn/class/fournisseur.commande.class.php',
 						'Contrat' => '/contrat/class/contrat.class.php',
 						'Delivery' => '/delivery/class/delivery.class.php',
 						'Facture' => '/compta/facture/class/facture.class.php',
@@ -1083,7 +1083,7 @@ if (empty($resHook)) {
 			$thirdpartyid = $propal->socid;
 			$permissiontoaddline = $user->hasRight('propal', 'creer');
 		} elseif (GETPOST('commandeid') > 0) {
-			$commande = new Commande($db);
+			$commande = new Order($db);
 			$result = $commande->fetch(GETPOST('commandeid'));
 			if ($result <= 0) {
 				dol_print_error($db, $commande->error);
@@ -3091,9 +3091,9 @@ if (getDolGlobalString('PRODUCT_ADD_FORM_ADD_TO') && $object->id && ($action == 
 		}
 	}
 
-	// Commande
+	// Order
 	if (isModEnabled('order') && $user->hasRight('commande', 'creer')) {
-		$commande = new Commande($db);
+		$commande = new Order($db);
 
 		$langs->load("orders");
 

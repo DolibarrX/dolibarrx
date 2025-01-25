@@ -873,10 +873,10 @@ if ($ok && GETPOST('clean_orphelin_dir', 'alpha')) {
 			$object_instance = new Propal($db);
 		} elseif ($modulepart == 'order') {
 			include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-			$object_instance = new Commande($db);
+			$object_instance = new Order($db);
 		} elseif ($modulepart == 'order_supplier') {
 			include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
-			$object_instance = new CommandeFournisseur($db);
+			$object_instance = new OrderFournisseur($db);
 		} elseif ($modulepart == 'contract') {
 			include_once DOL_DOCUMENT_ROOT.'/contrat/class/contrat.class.php';
 			$object_instance = new Contrat($db);
@@ -1780,12 +1780,12 @@ if ($ok && GETPOST('repair_supplier_order_duplicate_ref')) {
 	$sql = "SELECT * FROM " . MAIN_DB_PREFIX . "commande_fournisseur";
 	$sql .= " WHERE ref IN (SELECT cf.ref FROM " . MAIN_DB_PREFIX . "commande_fournisseur cf GROUP BY cf.ref, cf.entity HAVING COUNT(cf.rowid) > 1)";
 
-	// Build a list of ref => []CommandeFournisseur
+	// Build a list of ref => []OrderFournisseur
 	$duplicateSupplierOrders = [];
 	$resql = $db->query($sql);
 	if ($resql) {
 		while ($rawSupplierOrder = $db->fetch_object($resql)) {
-			$supplierOrder = new CommandeFournisseur($db);
+			$supplierOrder = new OrderFournisseur($db);
 			$supplierOrder->setVarsFromFetchObj($rawSupplierOrder);
 
 			$duplicateSupplierOrders[$rawSupplierOrder->ref] [] = $supplierOrder;
@@ -1796,7 +1796,7 @@ if ($ok && GETPOST('repair_supplier_order_duplicate_ref')) {
 
 	// Process all duplicate supplier order and regenerate the reference for all except the first one
 	foreach ($duplicateSupplierOrders as $ref => $supplierOrders) {
-		/** @var CommandeFournisseur $supplierOrder */
+		/** @var OrderFournisseur $supplierOrder */
 		foreach (array_slice($supplierOrders, 1) as $supplierOrder) {
 			// Definition of supplier order numbering model name
 			$soc = new Societe($db);

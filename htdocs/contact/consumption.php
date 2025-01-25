@@ -259,7 +259,7 @@ if ($type_element == 'fichinter') { 	// Customer : show products from invoices
 	$thirdTypeSelect = 'customer';
 } elseif ($type_element == 'order') {
 	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-	$documentstatic = new Commande($db);
+	$documentstatic = new Order($db);
 	$sql_select = 'SELECT c.rowid as doc_id, c.ref as doc_number, \'1\' as doc_type, c.date_commande as dateprint, c.fk_statut as status, tc.libelle as type_contact_label, ';
 	$tables_from = MAIN_DB_PREFIX.'commandedet d';
 	$tables_from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'commande as c ON d.fk_commande=c.rowid';
@@ -297,7 +297,7 @@ if ($type_element == 'fichinter') { 	// Customer : show products from invoices
 	//}
 } elseif ($type_element == 'supplier_order') { 	// Supplier : Show products from orders.
 	require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
-	$documentstatic = new CommandeFournisseur($db);
+	$documentstatic = new OrderFournisseur($db);
 	$sql_select = 'SELECT c.rowid as doc_id, c.ref as doc_number, \'1\' as doc_type, c.date_valid as dateprint, c.fk_statut as status, tc.libelle as type_contact_label, ';
 	$tables_from = MAIN_DB_PREFIX.'commande_fournisseurdet d';
 	$tables_from .= ' LEFT JOIN '.MAIN_DB_PREFIX.'commande_fournisseur as c ON d.fk_commande=c.rowid';

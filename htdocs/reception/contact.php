@@ -68,7 +68,7 @@ if ($id > 0 || !empty($ref)) {
 
 	// Linked documents
 	if ($origin == 'order_supplier' && $object->origin_object->id && isModEnabled("supplier_order")) {
-		$objectsrc = new CommandeFournisseur($db);
+		$objectsrc = new OrderFournisseur($db);
 		$objectsrc->fetch($object->origin_object->id);
 	}
 }
@@ -210,7 +210,7 @@ if ($id > 0 || !empty($ref)) {
 	// Linked documents
 	if ($origin == 'order_supplier' && $object->origin_object->id && isModEnabled("supplier_order")) {
 		print '<tr><td class="titlefield">';
-		$objectsrc = new CommandeFournisseur($db);
+		$objectsrc = new OrderFournisseur($db);
 		$objectsrc->fetch($object->origin_object->id);
 		print $langs->trans("RefOrder").'</td>';
 		print '<td colspan="3">';

@@ -60,7 +60,7 @@ if ($user->socid) {
 $hookManager->initHooks(array('ordersuppliercardnote'));
 $result = restrictedArea($user, 'fournisseur', $id, 'commande_fournisseur', 'commande');
 
-$object = new CommandeFournisseur($db);
+$object = new OrderFournisseur($db);
 $object->fetch($id, $ref);
 
 // Permissions
@@ -87,7 +87,7 @@ if (empty($resHook)) {
  */
 
 $title = $object->ref." - ".$langs->trans('Notes');
-$help_url = 'EN:Module_Suppliers_Orders|FR:CommandeFournisseur|ES:Módulo_Pedidos_a_proveedores';
+$help_url = 'EN:Module_Suppliers_Orders|FR:OrderFournisseur|ES:Módulo_Pedidos_a_proveedores';
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-supplier-order page-notes');
 
 $form = new Form($db);

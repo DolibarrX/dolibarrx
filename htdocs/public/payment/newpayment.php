@@ -1095,7 +1095,7 @@ if ($source == 'order') {
 
 	require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
 
-	$order = new Commande($db);
+	$order = new Order($db);
 	$result = $order->fetch(0, $ref);
 	if ($result <= 0) {
 		$mesg = $order->error;

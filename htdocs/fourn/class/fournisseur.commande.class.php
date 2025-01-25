@@ -49,7 +49,7 @@ if (isModEnabled('productbatch')) {
 /**
  *	Class to manage predefined suppliers products
  */
-class CommandeFournisseur extends CommonOrder
+class OrderFournisseur extends CommonOrder
 {
 	/**
 	 * @var string ID to identify managed object
@@ -69,7 +69,7 @@ class CommandeFournisseur extends CommonOrder
 	/**
 	 * @var string Name of class line
 	 */
-	public $class_element_line = 'CommandeFournisseurLigne';
+	public $class_element_line = 'OrderFournisseurLigne';
 
 	/**
 	 * @var string Field with ID of parent key if this field has a parent
@@ -287,12 +287,12 @@ class CommandeFournisseur extends CommonOrder
 	public $extraparams = array();
 
 	/**
-	 * @var CommandeFournisseurLigne[]
+	 * @var OrderFournisseurLigne[]
 	 */
 	public $lines = array();
 
 	/**
-	 * @var CommandeFournisseurLigne
+	 * @var OrderFournisseurLigne
 	 */
 	public $line;
 
@@ -664,7 +664,7 @@ class CommandeFournisseur extends CommonOrder
 			while ($i < $num) {
 				$objp = $this->db->fetch_object($result);
 
-				$line = new CommandeFournisseurLigne($this->db);
+				$line = new OrderFournisseurLigne($this->db);
 
 				$line->id                  = $objp->rowid;
 				$line->fk_commande         = $objp->fk_commande;
@@ -1463,7 +1463,7 @@ class CommandeFournisseur extends CommonOrder
 
 		$error = 0;
 
-		//dol_syslog("CommandeFournisseur::Cancel");
+		//dol_syslog("OrderFournisseur::Cancel");
 		$result = 0;
 		if ($user->hasRight("fournisseur", "commande", "commander")) {
 			$statut = self::STATUS_CANCELED;
@@ -2182,7 +2182,7 @@ class CommandeFournisseur extends CommonOrder
 			}
 
 			// Insert line
-			$this->line = new CommandeFournisseurLigne($this->db);
+			$this->line = new OrderFournisseurLigne($this->db);
 
 			$this->line->context = $this->context;
 
@@ -2387,7 +2387,7 @@ class CommandeFournisseur extends CommonOrder
 		global $user;
 
 		if ($this->statut == 0) {
-			$line = new CommandeFournisseurLigne($this->db);
+			$line = new OrderFournisseurLigne($this->db);
 
 			if ($line->fetch($idline) <= 0) {
 				return 0;
@@ -2852,9 +2852,9 @@ class CommandeFournisseur extends CommonOrder
 	 *  @param	int		$comclientid	Id of sale order to use as template
 	 *	@return	int						Return integer <0 if KO, >0 if OK
 	 */
-	public function updateFromCommandeClient($user, $idc, $comclientid)
+	public function updateFromOrderClient($user, $idc, $comclientid)
 	{
-		$comclient = new Commande($this->db);
+		$comclient = new Order($this->db);
 		$comclient->fetch($comclientid);
 
 		$this->id = $idc;
@@ -3052,7 +3052,7 @@ class CommandeFournisseur extends CommonOrder
 			$localtax2_type = empty($localtaxes_type[2]) ? '' : $localtaxes_type[2];
 
 			// Fetch current line from the database and then clone the object and set it in $oldline property
-			$this->line = new CommandeFournisseurLigne($this->db);
+			$this->line = new OrderFournisseurLigne($this->db);
 			$this->line->fetch($rowid);
 
 			$oldline = clone $this->line;
@@ -3199,7 +3199,7 @@ class CommandeFournisseur extends CommonOrder
 		$nbp = min(1000, GETPOSTINT('nblines') ? GETPOSTINT('nblines') : 5);	// We can force the nb of lines to test from command line (but not more than 1000)
 		$xnbp = 0;
 		while ($xnbp < $nbp) {
-			$line = new CommandeFournisseurLigne($this->db);
+			$line = new OrderFournisseurLigne($this->db);
 			$line->desc = $langs->trans("Description")." ".$xnbp;
 			$line->qty = 1;
 			$line->subprice = 100;
@@ -3335,7 +3335,7 @@ class CommandeFournisseur extends CommonOrder
 
 		$resql = $this->db->query($sql);
 		if ($resql) {
-			$commandestatic = new CommandeFournisseur($this->db);
+			$commandestatic = new OrderFournisseur($this->db);
 
 			$response = new WorkboardResponse();
 			$response->warning_delay = $config->commande->fournisseur->warning_delay / 60 / 60 / 24;
@@ -3601,7 +3601,7 @@ class CommandeFournisseur extends CommonOrder
 			$qtydelivered = array();
 			$qtywished = array();
 
-			$supplierorderdispatch = new CommandeFournisseurDispatch($this->db);
+			$supplierorderdispatch = new OrderFournisseurDispatch($this->db);
 
 			$filter = array('t.fk_element' => $this->id);
 			if (getDolGlobalString('SUPPLIER_ORDER_USE_DISPATCH_STATUS')) {

@@ -39,7 +39,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/doc.lib.php';
 /**
  *	Class to build documents using ODF templates generator
  */
-class doc_generic_order_odt extends ModelePDFCommandes
+class doc_generic_order_odt extends ModelePDFOrders
 {
 	/**
 	 * Dolibarr version of the loaded document
@@ -203,7 +203,7 @@ class doc_generic_order_odt extends ModelePDFCommandes
 	/**
 	 *  Function to build pdf onto disk
 	 *
-	 *	@param		Commande	$object				Object source to build document
+	 *	@param		Order	$object				Object source to build document
 	 *  @param		Translate	$outputlangs		Lang output object
 	 *  @param		string		$srctemplatepath	Full path of source filename for generator using a template file
 	 *  @param		int<0,1>	$hidedetails		Do not show line details
@@ -242,7 +242,7 @@ class doc_generic_order_odt extends ModelePDFCommandes
 			// If $object is id instead of object
 			if (!is_object($object)) {
 				$id = $object;
-				$object = new Commande($this->db);
+				$object = new Order($this->db);
 				$result = $object->fetch($id);
 				if ($result < 0) {
 					dol_print_error($this->db, $object->error);

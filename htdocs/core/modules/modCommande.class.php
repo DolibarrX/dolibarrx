@@ -27,7 +27,7 @@
 /**
  *		\defgroup   commande     Module orders
  *		\brief      Module pour gerer le suivi des commandes
- *		\file       htdocs/core/modules/modCommande.class.php
+ *		\file       htdocs/core/modules/modOrder.class.php
  *		\ingroup    order
  *		\brief      Description and activation file for the module command
  */
@@ -38,7 +38,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/modules/DolibarrModules.class.php';
 /**
  *	Class to describe module Sales Orders
  */
-class modCommande extends DolibarrModules
+class modOrder extends DolibarrModules
 {
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
@@ -357,7 +357,7 @@ class modCommande extends DolibarrModules
 				'rule' => 'getrefifauto',
 				'class' => (!getDolGlobalString('COMMANDE_ADDON') ? 'mod_commande_marbre' : $config->global->COMMANDE_ADDON),
 				'path' => "/core/modules/commande/".(!getDolGlobalString('COMMANDE_ADDON') ? 'mod_commande_marbre' : $config->global->COMMANDE_ADDON).'.php',
-				'classobject' => 'Commande',
+				'classobject' => 'Order',
 				'pathobject' => '/commande/class/commande.class.php',
 			),
 			'c.fk_soc' => array(
@@ -435,7 +435,7 @@ class modCommande extends DolibarrModules
 			'cd.fk_commande' => [
 				'rule'    => 'fetchidfromref',
 				'file'    => '/commande/class/commande.class.php',
-				'class'   => 'Commande',
+				'class'   => 'Order',
 				'method'  => 'fetch',
 				'element' => 'commande'
 			],

@@ -189,7 +189,7 @@ if ($action == 'order' && GETPOST('valid') && $user->hasRight('fournisseur', 'co
 				if ($res && $idprod > 0) {
 					if ($qty) {
 						//might need some value checks
-						$line = new CommandeFournisseurLigne($db);
+						$line = new OrderFournisseurLigne($db);
 						$line->qty = $qty;
 						$line->fk_product = $idprod;
 
@@ -252,7 +252,7 @@ if ($action == 'order' && GETPOST('valid') && $user->hasRight('fournisseur', 'co
 		$orders = array();
 		$suppliersid = array_keys($suppliers);	// array of ids of suppliers
 		foreach ($suppliers as $supplier) {
-			$order = new CommandeFournisseur($db);
+			$order = new OrderFournisseur($db);
 
 			// Check if an order for the supplier exists
 			$sql = "SELECT rowid FROM " . MAIN_DB_PREFIX . "commande_fournisseur";
@@ -450,13 +450,13 @@ $sql .= ', s.fk_product';
 
 if ($usevirtualstock) {
 	if (isModEnabled('order')) {
-		$sqlCommandesCli = "(SELECT ".$db->ifsql("SUM(cd1.qty) IS NULL", "0", "SUM(cd1.qty)")." as qty"; // We need the ifsql because if result is 0 for product p.rowid, we must return 0 and not NULL
-		$sqlCommandesCli .= " FROM ".MAIN_DB_PREFIX."commandedet as cd1, ".MAIN_DB_PREFIX."commande as c1";
-		$sqlCommandesCli .= " WHERE c1.rowid = cd1.fk_commande AND c1.entity IN (".getEntity(getDolGlobalString('STOCK_CALCULATE_VIRTUAL_STOCK_TRANSVERSE_MODE') ? 'stock' : 'commande').")";
-		$sqlCommandesCli .= " AND cd1.fk_product = p.rowid";
-		$sqlCommandesCli .= " AND c1.fk_statut IN (1,2))";
+		$sqlOrdersCli = "(SELECT ".$db->ifsql("SUM(cd1.qty) IS NULL", "0", "SUM(cd1.qty)")." as qty"; // We need the ifsql because if result is 0 for product p.rowid, we must return 0 and not NULL
+		$sqlOrdersCli .= " FROM ".MAIN_DB_PREFIX."commandedet as cd1, ".MAIN_DB_PREFIX."commande as c1";
+		$sqlOrdersCli .= " WHERE c1.rowid = cd1.fk_commande AND c1.entity IN (".getEntity(getDolGlobalString('STOCK_CALCULATE_VIRTUAL_STOCK_TRANSVERSE_MODE') ? 'stock' : 'commande').")";
+		$sqlOrdersCli .= " AND cd1.fk_product = p.rowid";
+		$sqlOrdersCli .= " AND c1.fk_statut IN (1,2))";
 	} else {
-		$sqlCommandesCli = '0';
+		$sqlOrdersCli = '0';
 	}
 
 	if (isModEnabled("shipping")) {
@@ -475,13 +475,13 @@ if ($usevirtualstock) {
 	}
 
 	if (isModEnabled("supplier_order")) {
-		$sqlCommandesFourn = "(SELECT " . $db->ifsql("SUM(cd3.qty) IS NULL", "0", "SUM(cd3.qty)") . " as qty"; // We need the ifsql because if result is 0 for product p.rowid, we must return 0 and not NULL
-		$sqlCommandesFourn .= " FROM " . MAIN_DB_PREFIX . "commande_fournisseurdet as cd3,";
-		$sqlCommandesFourn .= " " . MAIN_DB_PREFIX . "commande_fournisseur as c3";
-		$sqlCommandesFourn .= " WHERE c3.rowid = cd3.fk_commande";
-		$sqlCommandesFourn .= " AND c3.entity IN (".getEntity(getDolGlobalString('STOCK_CALCULATE_VIRTUAL_STOCK_TRANSVERSE_MODE') ? 'stock' : 'supplier_order').")";
-		$sqlCommandesFourn .= " AND cd3.fk_product = p.rowid";
-		$sqlCommandesFourn .= " AND c3.fk_statut IN (3,4))";
+		$sqlOrdersFourn = "(SELECT " . $db->ifsql("SUM(cd3.qty) IS NULL", "0", "SUM(cd3.qty)") . " as qty"; // We need the ifsql because if result is 0 for product p.rowid, we must return 0 and not NULL
+		$sqlOrdersFourn .= " FROM " . MAIN_DB_PREFIX . "commande_fournisseurdet as cd3,";
+		$sqlOrdersFourn .= " " . MAIN_DB_PREFIX . "commande_fournisseur as c3";
+		$sqlOrdersFourn .= " WHERE c3.rowid = cd3.fk_commande";
+		$sqlOrdersFourn .= " AND c3.entity IN (".getEntity(getDolGlobalString('STOCK_CALCULATE_VIRTUAL_STOCK_TRANSVERSE_MODE') ? 'stock' : 'supplier_order').")";
+		$sqlOrdersFourn .= " AND cd3.fk_product = p.rowid";
+		$sqlOrdersFourn .= " AND c3.fk_statut IN (3,4))";
 
 		$sqlReceptionFourn = "(SELECT ".$db->ifsql("SUM(fd4.qty) IS NULL", "0", "SUM(fd4.qty)")." as qty"; // We need the ifsql because if result is 0 for product p.rowid, we must return 0 and not NULL
 		$sqlReceptionFourn .= " FROM ".MAIN_DB_PREFIX."commande_fournisseur as cf4,";
@@ -490,7 +490,7 @@ if ($usevirtualstock) {
 		$sqlReceptionFourn .= " AND fd4.fk_product = p.rowid";
 		$sqlReceptionFourn .= " AND cf4.fk_statut IN (3,4))";
 	} else {
-		$sqlCommandesFourn = '0';
+		$sqlOrdersFourn = '0';
 		$sqlReceptionFourn = '0';
 	}
 
@@ -517,14 +517,14 @@ if ($usevirtualstock) {
 
 	$sql .= ' HAVING (';
 	$sql .= " (" . $sqldesiredtock . " >= 0 AND (" . $sqldesiredtock . " > SUM(" . $db->ifsql("s.reel IS NULL", "0", "s.reel") . ')';
-	$sql .= " - (" . $sqlCommandesCli . " - " . $sqlExpeditionsCli . ") + (" . $sqlCommandesFourn . " - " . $sqlReceptionFourn . ") + (" . $sqlProductionToProduce . " - " . $sqlProductionToConsume . ")))";
+	$sql .= " - (" . $sqlOrdersCli . " - " . $sqlExpeditionsCli . ") + (" . $sqlOrdersFourn . " - " . $sqlReceptionFourn . ") + (" . $sqlProductionToProduce . " - " . $sqlProductionToConsume . ")))";
 	$sql .= ' OR';
 	if ($includeproductswithoutdesiredqty == 'on') {
 		$sql .= " ((" . $sqlalertstock . " >= 0 OR " . $sqlalertstock . " IS NULL) AND (" . $db->ifsql($sqlalertstock . " IS NULL", "0", $sqlalertstock) . " > SUM(" . $db->ifsql("s.reel IS NULL", "0", "s.reel") . ")";
 	} else {
 		$sql .= " (" . $sqlalertstock . " >= 0 AND (" . $sqlalertstock . " > SUM(" . $db->ifsql("s.reel IS NULL", "0", "s.reel") . ')';
 	}
-	$sql .= " - (" . $sqlCommandesCli . " - " . $sqlExpeditionsCli . ") + (" . $sqlCommandesFourn . " - " . $sqlReceptionFourn . ") + (" . $sqlProductionToProduce . " - " . $sqlProductionToConsume . ")))";
+	$sql .= " - (" . $sqlOrdersCli . " - " . $sqlExpeditionsCli . ") + (" . $sqlOrdersFourn . " - " . $sqlReceptionFourn . ") + (" . $sqlProductionToProduce . " - " . $sqlProductionToConsume . ")))";
 	$sql .= ")";
 	if (getDolGlobalString('STOCK_ALLOW_ADD_LIMIT_STOCK_BY_WAREHOUSE') && $fk_entrepot > 0) {
 		$sql .= " AND (";
@@ -538,7 +538,7 @@ if ($usevirtualstock) {
 		} else {
 			$sql .= $sqlalertstock . " >= 0 AND (" . $sqlalertstock . " > SUM(" . $db->ifsql("s.reel IS NULL", "0", "s.reel") . ")";
 		}
-		$sql .= " - (" . $sqlCommandesCli . " - " . $sqlExpeditionsCli . ") + (" . $sqlCommandesFourn . " - " . $sqlReceptionFourn . ")  + (" . $sqlProductionToProduce . " - " . $sqlProductionToConsume . "))";
+		$sql .= " - (" . $sqlOrdersCli . " - " . $sqlExpeditionsCli . ") + (" . $sqlOrdersFourn . " - " . $sqlReceptionFourn . ")  + (" . $sqlProductionToProduce . " - " . $sqlProductionToConsume . "))";
 		$sql .= ")";
 		$alertchecked = 'checked';
 	}

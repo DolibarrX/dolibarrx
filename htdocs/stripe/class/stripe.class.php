@@ -1221,7 +1221,7 @@ class Stripe extends CommonObject
 		$description = "";
 		$ref = "";
 		if ($origin == 'order') {
-			$order = new Commande($this->db);
+			$order = new Order($this->db);
 			$order->fetch($item);
 			$ref = $order->ref;
 			$description = "ORD=".$ref.".CUS=".$societe->id.".PM=stripe";

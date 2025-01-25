@@ -65,7 +65,7 @@ $result = restrictedArea($user, 'fournisseur', $orderid, '', 'commande');
 
 llxHeader('', $langs->trans("SuppliersOrdersArea"), '', '', 0, 0, '', '', '', 'mod-supplier-order page-stats');
 
-$commandestatic = new CommandeFournisseur($db);
+$commandestatic = new OrderFournisseur($db);
 $userstatic = new User($db);
 $formfile = new FormFile($db);
 
@@ -108,7 +108,7 @@ if ($resql) {
 	while ($i < $num) {
 		$obj = $db->fetch_object($resql);
 		if ($obj) {
-			$vals[($obj->status == CommandeFournisseur::STATUS_CANCELED_AFTER_ORDER ? CommandeFournisseur::STATUS_CANCELED : $obj->status)] = $obj->nb;
+			$vals[($obj->status == OrderFournisseur::STATUS_CANCELED_AFTER_ORDER ? OrderFournisseur::STATUS_CANCELED : $obj->status)] = $obj->nb;
 
 			$total += $obj->nb;
 		}
@@ -131,28 +131,28 @@ if ($resql) {
 	$listofstatus = array(0, 1, 2, 3, 4, 5, 6, 9);
 	foreach ($listofstatus as $status) {
 		$dataseries[] = array($commandestatic->LibStatut($status, 1), (isset($vals[$status]) ? (int) $vals[$status] : 0));
-		if ($status == CommandeFournisseur::STATUS_DRAFT) {
+		if ($status == OrderFournisseur::STATUS_DRAFT) {
 			$colorseries[$status] = '-'.$badgeStatus0;
 		}
-		if ($status == CommandeFournisseur::STATUS_VALIDATED) {
+		if ($status == OrderFournisseur::STATUS_VALIDATED) {
 			$colorseries[$status] = '-'.$badgeStatus1;
 		}
-		if ($status == CommandeFournisseur::STATUS_ACCEPTED) {
+		if ($status == OrderFournisseur::STATUS_ACCEPTED) {
 			$colorseries[$status] = $badgeStatus1;
 		}
-		if ($status == CommandeFournisseur::STATUS_REFUSED) {
+		if ($status == OrderFournisseur::STATUS_REFUSED) {
 			$colorseries[$status] = $badgeStatus9;
 		}
-		if ($status == CommandeFournisseur::STATUS_ORDERSENT) {
+		if ($status == OrderFournisseur::STATUS_ORDERSENT) {
 			$colorseries[$status] = $badgeStatus4;
 		}
-		if ($status == CommandeFournisseur::STATUS_RECEIVED_PARTIALLY) {
+		if ($status == OrderFournisseur::STATUS_RECEIVED_PARTIALLY) {
 			$colorseries[$status] = '-'.$badgeStatus4;
 		}
-		if ($status == CommandeFournisseur::STATUS_RECEIVED_COMPLETELY) {
+		if ($status == OrderFournisseur::STATUS_RECEIVED_COMPLETELY) {
 			$colorseries[$status] = $badgeStatus6;
 		}
-		if ($status == CommandeFournisseur::STATUS_CANCELED || $status == CommandeFournisseur::STATUS_CANCELED_AFTER_ORDER) {
+		if ($status == OrderFournisseur::STATUS_CANCELED || $status == OrderFournisseur::STATUS_CANCELED_AFTER_ORDER) {
 			$colorseries[$status] = $badgeStatus9;
 		}
 

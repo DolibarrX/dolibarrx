@@ -30,7 +30,7 @@ require_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
 /**
  * Class for WebPortalOrder
  */
-class WebPortalOrder extends Commande
+class WebPortalOrder extends Order
 {
 	/**
 	 * @var string ID of module.
@@ -41,15 +41,15 @@ class WebPortalOrder extends Commande
 	 * Status list (short label)
 	 */
 	const ARRAY_STATUS_LABEL = array(
-		Commande::STATUS_DRAFT => 'StatusOrderDraftShort',
-		Commande::STATUS_VALIDATED => 'StatusOrderValidated',
-		Commande::STATUS_SHIPMENTONPROCESS => 'StatusOrderSentShort',
-		Commande::STATUS_CLOSED => 'StatusOrderDelivered',
-		Commande::STATUS_CANCELED => 'StatusOrderCanceledShort',
+		Order::STATUS_DRAFT => 'StatusOrderDraftShort',
+		Order::STATUS_VALIDATED => 'StatusOrderValidated',
+		Order::STATUS_SHIPMENTONPROCESS => 'StatusOrderSentShort',
+		Order::STATUS_CLOSED => 'StatusOrderDelivered',
+		Order::STATUS_CANCELED => 'StatusOrderCanceledShort',
 	);
 
 	/**
-	 * @var Commande Order for static methods
+	 * @var Order Order for static methods
 	 */
 	protected $order_static = null;
 
@@ -131,12 +131,12 @@ class WebPortalOrder extends Commande
 	/**
 	 * Get order for static method
 	 *
-	 * @return	Commande
+	 * @return	Order
 	 */
 	protected function getOrderStatic()
 	{
 		if (!$this->order_static) {
-			$this->order_static = new Commande($this->db);
+			$this->order_static = new Order($this->db);
 		}
 
 		return $this->order_static;

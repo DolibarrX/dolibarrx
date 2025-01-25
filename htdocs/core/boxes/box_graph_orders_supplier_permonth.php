@@ -132,7 +132,7 @@ class box_graph_orders_supplier_permonth extends ModeleBoxes
 			$WIDTH = (($shownb && $showtot) || !empty($config->dol_optimize_smallscreen)) ? '256' : '320';
 			$HEIGHT = '192';
 
-			$stats = new CommandeStats($this->db, $socid, $mode, 0);
+			$stats = new OrderStats($this->db, $socid, $mode, 0);
 
 			// Build graphic number of object. $data = array(array('Lib',val1,val2,val3),...)
 			if ($shownb) {

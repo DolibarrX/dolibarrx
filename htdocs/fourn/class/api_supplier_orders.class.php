@@ -37,7 +37,7 @@ class SupplierOrders extends DolibarrApi
 	);
 
 	/**
-	 * @var CommandeFournisseur $order {@type CommandeFournisseur}
+	 * @var OrderFournisseur $order {@type OrderFournisseur}
 	 */
 	public $order;
 
@@ -48,7 +48,7 @@ class SupplierOrders extends DolibarrApi
 	{
 		global $db, $config;
 		$this->db = $db;
-		$this->order = new CommandeFournisseur($this->db);
+		$this->order = new OrderFournisseur($this->db);
 	}
 
 	/**
@@ -202,7 +202,7 @@ class SupplierOrders extends DolibarrApi
 			$min = min($num, ($limit <= 0 ? $num : $limit));
 			while ($i < $min) {
 				$obj = $this->db->fetch_object($result);
-				$order_static = new CommandeFournisseur($this->db);
+				$order_static = new OrderFournisseur($this->db);
 				if ($order_static->fetch($obj->rowid)) {
 					$obj_ret[] = $this->_filterObjectProperties($this->_cleanObjectDatas($order_static), $properties);
 				}

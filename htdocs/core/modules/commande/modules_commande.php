@@ -39,7 +39,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/discount.class.php';
 /**
  *	Parent class for orders models
  */
-abstract class ModelePDFCommandes extends CommonDocGenerator
+abstract class ModelePDFOrders extends CommonDocGenerator
 {
 	public $posxpicture;
 	public $posxtva;
@@ -84,7 +84,7 @@ abstract class ModelePDFCommandes extends CommonDocGenerator
 	/**
 	 *  Function to build pdf onto disk
 	 *
-	 *	@param		Commande	$object				Object source to build document
+	 *	@param		Order	$object				Object source to build document
 	 *  @param		Translate	$outputlangs		Lang output object
 	 *  @param		string		$srctemplatepath	Full path of source filename for generator using a template file
 	 *  @param		int<0,1>	$hidedetails		Do not show line details
@@ -101,13 +101,13 @@ abstract class ModelePDFCommandes extends CommonDocGenerator
 /**
  *  Parent class to manage numbering of Sale Orders
  */
-abstract class ModeleNumRefCommandes extends CommonNumRefGenerator
+abstract class ModeleNumRefOrders extends CommonNumRefGenerator
 {
 	/**
 	 * 	Return next free value
 	 *
 	 *  @param	Societe			$objsoc     Object thirdparty
-	 *  @param  Commande		$object		Object we need next value for
+	 *  @param  Order		$object		Object we need next value for
 	 *  @return string|int<-1,0>		Value if OK, -1 if KO
 	 */
 	abstract public function getNextValue($objsoc, $object);

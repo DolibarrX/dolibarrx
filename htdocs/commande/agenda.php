@@ -78,7 +78,7 @@ if (!$sortorder) {
 }
 
 // Initialize a technical objects
-$object = new Commande($db);
+$object = new Order($db);
 $extrafields = new ExtraFields($db);
 $diroutputmassaction = $config->commande->multidir_output[$config->entity].'/temp/massgeneration/'.$user->id;
 $hookManager->initHooks(array('orderagenda', 'globalcard')); // Note that conf->hooks_modules contains array

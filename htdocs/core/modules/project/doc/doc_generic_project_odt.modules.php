@@ -932,7 +932,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 					),
 					'order' => array(
 						'title' => "ListOrdersAssociatedProject",
-						'class' => 'Commande',
+						'class' => 'Order',
 						'table' => 'commande',
 						'test' => isModEnabled('order') && $user->hasRight('commande', 'lire')
 					),
@@ -957,7 +957,7 @@ class doc_generic_project_odt extends ModelePDFProjects
 					'order_supplier' => array(
 						'title' => "ListSupplierOrdersAssociatedProject",
 						'table' => 'commande_fournisseur',
-						'class' => 'CommandeFournisseur',
+						'class' => 'OrderFournisseur',
 						'test' => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight('fournisseur', 'commande', 'lire')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire'))
 					),
 					'invoice_supplier' => array(

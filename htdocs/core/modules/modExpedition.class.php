@@ -76,7 +76,7 @@ class modExpedition extends DolibarrModules
 		$this->config_page_url = array("expedition.php");
 
 		// Dependencies
-		$this->depends = array("modCommande");
+		$this->depends = array("modOrder");
 		$this->requiredby = array();
 		$this->conflictwith = array();
 		$this->langfiles = array('deliveries', 'sendings');
@@ -231,7 +231,7 @@ class modExpedition extends DolibarrModules
 		$r = 0;
 
 		include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-		$shipment = new Commande($this->db);
+		$shipment = new Order($this->db);
 		$contact_arrays = $shipment->liste_type_contact('external', '', 0, 0, '');
 		if (is_array($contact_arrays) && count($contact_arrays) > 0) {
 			$idcontacts = implode(',', array_keys($shipment->liste_type_contact('external', '', 0, 0, '')));

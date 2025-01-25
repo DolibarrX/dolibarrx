@@ -663,7 +663,7 @@ class Receptions extends DolibarrApi
 				throw new RestException(400, 'Order ID is mandatory');
 		}
 
-		$order = new Commande($this->db);
+		$order = new Order($this->db);
 		$result = $order->fetch($proposalid);
 		if (!$result) {
 				throw new RestException(404, 'Order not found');

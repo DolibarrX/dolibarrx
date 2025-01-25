@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/modules/commande/modules_commande.php';
 /**
  *	Class to manage Sales Order numbering rules Saphir
  */
-class mod_commande_saphir extends ModeleNumRefCommandes
+class mod_commande_saphir extends ModeleNumRefOrders
 {
 	/**
 	 * Dolibarr version of the loaded document
@@ -106,7 +106,7 @@ class mod_commande_saphir extends ModeleNumRefCommandes
 		require_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
 		require_once DOL_DOCUMENT_ROOT . '/societe/class/societe.class.php';
 
-		$order = new Commande($db);
+		$order = new Order($db);
 		$order->initAsSpecimen();
 		$thirdparty = new Societe($db);
 		$thirdparty->initAsSpecimen();
@@ -124,7 +124,7 @@ class mod_commande_saphir extends ModeleNumRefCommandes
 	 * 	Return next free value
 	 *
 	 *  @param	Societe			$objsoc     Object thirdparty
-	 *  @param  Commande		$object		Object we need next value for
+	 *  @param  Order		$object		Object we need next value for
 	 *  @return string|int<-1,0>		Value if OK, -1 if KO
 	 */
 	public function getNextValue($objsoc, $object)

@@ -127,7 +127,7 @@ if ($action == 'add' && $permissiontoadd) {
 	}*/
 
 	// We loop on each line of order to complete object delivery with qty to delivery
-	$commande = new Commande($db);
+	$commande = new Order($db);
 	$commande->fetch($object->commande_id);
 	$commande->fetch_lines();
 	$num = count($commande->lines);
@@ -325,7 +325,7 @@ if ($action == 'create') {
 			 */
 
 			if ($typeobject == 'commande' && $expedition->origin_id > 0 && isModEnabled('order')) {
-				$objectsrc = new Commande($db);
+				$objectsrc = new Order($db);
 				$objectsrc->fetch($expedition->origin_id);
 			}
 			if ($typeobject == 'propal' && $expedition->origin_id > 0 && isModEnabled("propal")) {
@@ -406,7 +406,7 @@ if ($action == 'create') {
 			// Document origine
 			if ($typeobject == 'commande' && $expedition->origin_id && isModEnabled('order')) {
 				print '<tr><td class="titlefield">'.$langs->trans("RefOrder").'</td>';
-				$order = new Commande($db);
+				$order = new Order($db);
 				$order->fetch($expedition->origin_id);
 				print '<td colspan="3">';
 				print $order->getNomUrl(1, 'commande');

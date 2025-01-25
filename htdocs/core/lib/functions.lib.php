@@ -9524,7 +9524,7 @@ function getCommonSubstitutionArray($outputlangs, $onlykey = 0, $exclude = null,
 					$substitutionArray['__ONLINE_SIGN_URL__'] = getOnlineSignatureUrl(0, 'proposal', $object->ref, 1, $object);
 				}
 				if (is_object($object) && $object->element == 'commande') {
-					'@phan-var-force Commande $object';
+					'@phan-var-force Order $object';
 					$substitutionArray['__URL_ORDER__'] = DOL_MAIN_URL_ROOT."/commande/card.php?id=".$object->id;
 				}
 				if (is_object($object) && $object->element == 'facture') {
@@ -13320,7 +13320,7 @@ function getElementProperties($elementType)
 		$classfile = 'fournisseur.commande';
 		$element = 'order_supplier';
 		$subelement = '';
-		$classname = 'CommandeFournisseur';
+		$classname = 'OrderFournisseur';
 		$table_element = 'commande_fournisseur';
 	} elseif ($elementType == 'commande_fournisseurdet') {
 		$classpath = 'fourn/class';
@@ -13328,7 +13328,7 @@ function getElementProperties($elementType)
 		$classfile = 'fournisseur.commande';
 		$element = 'commande_fournisseurdet';
 		$subelement = '';
-		$classname = 'CommandeFournisseurLigne';
+		$classname = 'OrderFournisseurLigne';
 		$table_element = 'commande_fournisseurdet';
 		$parent_element = 'commande_fournisseur';
 	} elseif ($elementType == 'invoice_supplier') {
@@ -14285,7 +14285,7 @@ function getActionCommEcmList($object)
  *	@param	Conf				$conf		Object conf
  *	@param	Translate			$langs		Object langs
  *	@param	DoliDB				$db			Object db
- *	@param	?CommonObject		$filterobj	Filter on object Member|Societe|Project|Product|CommandeFournisseur|Dolresource|Ticket|... to list events linked to an object
+ *	@param	?CommonObject		$filterobj	Filter on object Member|Societe|Project|Product|OrderFournisseur|Dolresource|Ticket|... to list events linked to an object
  *	@param	?Contact			$objcon		Filter on object contact to filter events on a contact
  *	@param  int					$noprint	Return string but does not output it
  *	@param  string				$actioncode	Filter on actioncode
@@ -14346,7 +14346,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 			$sql .= ", sp.lastname, sp.firstname";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Member') {
 			$sql .= ", m.lastname, m.firstname";
-		} elseif (is_object($filterobj) && in_array(get_class($filterobj), array('Commande', 'CommandeFournisseur', 'Product', 'Ticket', 'BOM', 'Contrat', 'Facture', 'FactureFournisseur'))) {
+		} elseif (is_object($filterobj) && in_array(get_class($filterobj), array('Order', 'OrderFournisseur', 'Product', 'Ticket', 'BOM', 'Contrat', 'Facture', 'FactureFournisseur'))) {
 			$sql .= ", o.ref";
 		}
 		$sql .= " FROM ".MAIN_DB_PREFIX."actioncomm as a";
@@ -14370,7 +14370,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 			$sql .= " AND er.resource_id = ".((int) $filterobj->id);
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Member') {
 			$sql .= ", ".MAIN_DB_PREFIX."member as m";
-		} elseif (is_object($filterobj) && get_class($filterobj) == 'CommandeFournisseur') {
+		} elseif (is_object($filterobj) && get_class($filterobj) == 'OrderFournisseur') {
 			$sql .= ", ".MAIN_DB_PREFIX."commande_fournisseur as o";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Product') {
 			$sql .= ", ".MAIN_DB_PREFIX."product as o";
@@ -14397,12 +14397,12 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_element = ".((int) $filterobj->id);
 				}
-			} elseif (is_object($filterobj) && get_class($filterobj) == 'Commande') {
+			} elseif (is_object($filterobj) && get_class($filterobj) == 'Order') {
 				$sql .= " AND a.fk_element = o.rowid AND a.elementtype = 'order'";
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_element = ".((int) $filterobj->id);
 				}
-			} elseif (is_object($filterobj) && get_class($filterobj) == 'CommandeFournisseur') {
+			} elseif (is_object($filterobj) && get_class($filterobj) == 'OrderFournisseur') {
 				$sql .= " AND a.fk_element = o.rowid AND a.elementtype = 'order_supplier'";
 				if ($filterobj->id) {
 					$sql .= " AND a.fk_element = ".((int) $filterobj->id);
@@ -14494,7 +14494,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 			$sql2 .= ", '' as lastname, '' as firstname";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Member') {
 			$sql2 .= ", '' as lastname, '' as firstname";
-		} elseif (is_object($filterobj) && get_class($filterobj) == 'CommandeFournisseur') {
+		} elseif (is_object($filterobj) && get_class($filterobj) == 'OrderFournisseur') {
 			$sql2 .= ", '' as ref";
 		} elseif (is_object($filterobj) && get_class($filterobj) == 'Product') {
 			$sql2 .= ", '' as ref";

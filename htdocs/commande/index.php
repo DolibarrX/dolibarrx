@@ -74,11 +74,11 @@ $maxOpenCount = !getDolGlobalString('MAIN_MAXLIST_OVERLOAD') ? 500 : $config->gl
  * View
  */
 
-$commandestatic = new Commande($db);
+$commandestatic = new Order($db);
 $companystatic = new Societe($db);
 $form = new Form($db);
 $formfile = new FormFile($db);
-$help_url = "EN:Module_Customers_Orders|FR:Module_Commandes_Clients|ES:Módulo_Pedidos_de_clientes";
+$help_url = "EN:Module_Customers_Orders|FR:Module_Orders_Clients|ES:Módulo_Pedidos_de_clientes";
 
 llxHeader('', $langs->trans("Orders"), $help_url, '', 0, 0, '', '', '', 'mod-commande page-index');
 
@@ -262,7 +262,7 @@ if (isModEnabled('order')) {
 	}
 	$sql .= " WHERE c.fk_soc = s.rowid";
 	$sql .= " AND c.entity IN (".getEntity('commande').")";
-	$sql .= " AND c.fk_statut = ".Commande::STATUS_VALIDATED;
+	$sql .= " AND c.fk_statut = ".Order::STATUS_VALIDATED;
 	if ($socid) {
 		$sql .= " AND c.fk_soc = ".((int) $socid);
 	}
@@ -278,7 +278,7 @@ if (isModEnabled('order')) {
 		print '<div class="div-table-responsive-no-min">';
 		print '<table class="noborder centpercent">';
 		print '<tr class="liste_titre">';
-		print '<th colspan="4">'.$langs->trans("OrdersToProcess").' <a href="'.DOL_URL_ROOT.'/commande/list.php?search_status='.Commande::STATUS_VALIDATED.'"><span class="badge">'.$num.'</span></a></th></tr>';
+		print '<th colspan="4">'.$langs->trans("OrdersToProcess").' <a href="'.DOL_URL_ROOT.'/commande/list.php?search_status='.Order::STATUS_VALIDATED.'"><span class="badge">'.$num.'</span></a></th></tr>';
 
 		if ($num) {
 			$i = 0;
@@ -351,7 +351,7 @@ if (isModEnabled('order')) {
 	}
 	$sql .= " WHERE c.fk_soc = s.rowid";
 	$sql .= " AND c.entity IN (".getEntity('commande').")";
-	$sql .= " AND c.fk_statut = ".((int) Commande::STATUS_SHIPMENTONPROCESS);
+	$sql .= " AND c.fk_statut = ".((int) Order::STATUS_SHIPMENTONPROCESS);
 	if ($socid) {
 		$sql .= " AND c.fk_soc = ".((int) $socid);
 	}
@@ -367,7 +367,7 @@ if (isModEnabled('order')) {
 		print '<div class="div-table-responsive-no-min">';
 		print '<table class="noborder centpercent">';
 		print '<tr class="liste_titre">';
-		print '<th colspan="4">'.$langs->trans("OnProcessOrders").' <a href="'.DOL_URL_ROOT.'/commande/list.php?search_status='.Commande::STATUS_SHIPMENTONPROCESS.'"><span class="badge">'.$num.'</span></a></th></tr>';
+		print '<th colspan="4">'.$langs->trans("OnProcessOrders").' <a href="'.DOL_URL_ROOT.'/commande/list.php?search_status='.Order::STATUS_SHIPMENTONPROCESS.'"><span class="badge">'.$num.'</span></a></th></tr>';
 
 		if ($num) {
 			$i = 0;

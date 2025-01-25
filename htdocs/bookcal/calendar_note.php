@@ -108,7 +108,7 @@ if (empty($resHook)) {
 
 $form = new Form($db);
 
-//$help_url='EN:Customers_Orders|FR:Commandes_Clients|ES:Pedidos de clientes';
+//$help_url='EN:Customers_Orders|FR:Orders_Clients|ES:Pedidos de clientes';
 $help_url = '';
 $title = $langs->trans('Calendar').' - '.$langs->trans("Notes");
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-bookcal page-card_calendar_note');

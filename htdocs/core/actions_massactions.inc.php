@@ -89,7 +89,7 @@ $error = 0;
 
 // Note: list of strings for objectclass could be extended to accepted/expected classes
 '
-@phan-var-force "CommonObject"|"CommandeFournisseur"|"ConferenceOrBoothAttendee"|"Contrat"|"Contact"|"Expedition"|"ExpenseReport"|"Facture"|"FactureFournisseur"|"Fichinter"|"Holiday"|"Partnership"|"Project"|"Propal"|"Societe"|"SupplierProposal" $objectclass
+@phan-var-force "CommonObject"|"OrderFournisseur"|"ConferenceOrBoothAttendee"|"Contrat"|"Contact"|"Expedition"|"ExpenseReport"|"Facture"|"FactureFournisseur"|"Fichinter"|"Holiday"|"Partnership"|"Project"|"Propal"|"Societe"|"SupplierProposal" $objectclass
 @phan-var-force string $massaction
 @phan-var-force string $uploaddir
 ';
@@ -204,9 +204,9 @@ if (!$error && $massaction == 'confirm_presend') {
 							$listofobjectcontacts[$toselectid][$data_email['id']] = $data_email['email'];
 						}
 					}
-				} elseif ($objectclass == 'CommandeFournisseur') {
-					'@phan-var-force CommandeFournisseur $objecttmp';
-					/** @var CommandeFournisseur $objecttmp */
+				} elseif ($objectclass == 'OrderFournisseur') {
+					'@phan-var-force OrderFournisseur $objecttmp';
+					/** @var OrderFournisseur $objecttmp */
 					$tmparraycontact = array();
 					$tmparraycontact = $objecttmp->liste_contact(-1, 'external', 0, 'CUSTOMER');
 					if (is_array($tmparraycontact) && count($tmparraycontact) > 0) {
@@ -321,7 +321,7 @@ if (!$error && $massaction == 'confirm_presend') {
 					$resaction .= '<div class="error">'.$langs->trans('ErrorOnlyProposalNotDraftCanBeSentInMassAction', $objectobj->ref).'</div><br>';
 					continue; // Payment done or started or canceled
 				}
-				if ($objectclass == 'Commande' && $objectobj->status == Commande::STATUS_DRAFT) {
+				if ($objectclass == 'Order' && $objectobj->status == Order::STATUS_DRAFT) {
 					$langs->load("errors");
 					$nbignored++;
 					$resaction .= '<div class="error">'.$langs->trans('ErrorOnlyOrderNotDraftCanBeSentInMassAction', $objectobj->ref).'</div><br>';
@@ -503,7 +503,7 @@ if (!$error && $massaction == 'confirm_presend') {
 				if ($objectclass == 'Propal') {
 					$sendtobcc .= (!getDolGlobalString('MAIN_MAIL_AUTOCOPY_PROPOSAL_TO') ? '' : (($sendtobcc ? ", " : "") . getDolGlobalString('MAIN_MAIL_AUTOCOPY_PROPOSAL_TO')));
 				}
-				if ($objectclass == 'Commande') {
+				if ($objectclass == 'Order') {
 					$sendtobcc .= (!getDolGlobalString('MAIN_MAIL_AUTOCOPY_ORDER_TO') ? '' : (($sendtobcc ? ", " : "") . getDolGlobalString('MAIN_MAIL_AUTOCOPY_ORDER_TO')));
 				}
 				if ($objectclass == 'Facture') {
@@ -512,7 +512,7 @@ if (!$error && $massaction == 'confirm_presend') {
 				if ($objectclass == 'SupplierProposal') {
 					$sendtobcc .= (!getDolGlobalString('MAIN_MAIL_AUTOCOPY_SUPPLIER_PROPOSAL_TO') ? '' : (($sendtobcc ? ", " : "") . getDolGlobalString('MAIN_MAIL_AUTOCOPY_SUPPLIER_PROPOSAL_TO')));
 				}
-				if ($objectclass == 'CommandeFournisseur') {
+				if ($objectclass == 'OrderFournisseur') {
 					$sendtobcc .= (!getDolGlobalString('MAIN_MAIL_AUTOCOPY_SUPPLIER_ORDER_TO') ? '' : (($sendtobcc ? ", " : "") . getDolGlobalString('MAIN_MAIL_AUTOCOPY_SUPPLIER_ORDER_TO')));
 				}
 				if ($objectclass == 'FactureFournisseur') {
@@ -609,13 +609,13 @@ if (!$error && $massaction == 'confirm_presend') {
 							$trackid = 'con';
 						} elseif (get_class($objecttmp) == 'Propal') {
 							$trackid = 'pro';
-						} elseif (get_class($objecttmp) == 'Commande') {
+						} elseif (get_class($objecttmp) == 'Order') {
 							$trackid = 'ord';
 						} elseif (get_class($objecttmp) == 'Facture') {
 							$trackid = 'inv';
 						} elseif (get_class($objecttmp) == 'SupplierProposal') {
 							$trackid = 'spr';
-						} elseif (get_class($objecttmp) == 'CommandeFournisseur') {
+						} elseif (get_class($objecttmp) == 'OrderFournisseur') {
 							$trackid = 'sor';
 						} elseif (get_class($objecttmp) == 'FactureFournisseur') {
 							$trackid = 'sin';
@@ -656,10 +656,10 @@ if (!$error && $massaction == 'confirm_presend') {
 								dol_syslog("Try to insert email event into agenda for objid=".$objid2." => objectobj=".get_class($objectobj2));
 
 								/*if ($objectclass == 'Propale') $actiontypecode='AC_PROP';
-								if ($objectclass == 'Commande') $actiontypecode='AC_COM';
+								if ($objectclass == 'Order') $actiontypecode='AC_COM';
 								if ($objectclass == 'Facture') $actiontypecode='AC_FAC';
 								if ($objectclass == 'SupplierProposal') $actiontypecode='AC_SUP_PRO';
-								if ($objectclass == 'CommandeFournisseur') $actiontypecode='AC_SUP_ORD';
+								if ($objectclass == 'OrderFournisseur') $actiontypecode='AC_SUP_ORD';
 								if ($objectclass == 'FactureFournisseur') $actiontypecode='AC_SUP_INV';*/
 
 								$actionmsg = $langs->transnoentities('MailSentByTo', $from, $sendto);
@@ -773,12 +773,12 @@ if (!$error && $massaction == 'cancelorders') {
 
 	$orders = GETPOST('toselect', 'array');
 	foreach ($orders as $id_order) {
-		$cmd = new Commande($db);
+		$cmd = new Order($db);
 		if ($cmd->fetch($id_order) <= 0) {
 			continue;
 		}
 
-		if ($cmd->statut != Commande::STATUS_VALIDATED) {
+		if ($cmd->statut != Order::STATUS_VALIDATED) {
 			$langs->load('errors');
 			setEventMessages($langs->trans("ErrorObjectMustHaveStatusValidToBeCanceled", $cmd->ref), null, 'errors');
 			$error++;
@@ -1213,7 +1213,7 @@ if (!$error && ($massaction == 'delete' || ($action == 'delete' && $confirm == '
 if (!$error && $massaction == 'generate_doc' && $permissiontoread) {
 	// Complete with classes that use this massaction
 	<<<'EOPHAN'
-@phan-var-force 'Commande'|'CommandeFournisseur'|'Contrat'|'Expedition'|'ExpenseReport'|'Facture'|'FactureFournisseur'|'Fichinter'|'Project'|'Propal'|'SupplierProposal' $objectclass
+@phan-var-force 'Order'|'OrderFournisseur'|'Contrat'|'Expedition'|'ExpenseReport'|'Facture'|'FactureFournisseur'|'Fichinter'|'Project'|'Propal'|'SupplierProposal' $objectclass
 EOPHAN;
 
 	$db->begin();

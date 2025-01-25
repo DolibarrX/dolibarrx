@@ -169,10 +169,10 @@ function facturefourn_prepare_head(FactureFournisseur $object)
 /**
  * Prepare array with list of tabs
  *
- * @param   CommandeFournisseur	$object		Object related to tabs
+ * @param   OrderFournisseur	$object		Object related to tabs
  * @return	array<array{0:string,1:string,2:string}>	Array of tabs to show
  */
-function ordersupplier_prepare_head(CommandeFournisseur $object)
+function ordersupplier_prepare_head(OrderFournisseur $object)
 {
 	global $db, $langs, $config, $user;
 

@@ -231,7 +231,7 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 	// Number of sales orders
 	if (isModEnabled('order')  && !getDolGlobalString('MAIN_DISABLE_BLOCK_CUSTOMER') && $user->hasRight('commande', 'lire')) {
 		include_once DOL_DOCUMENT_ROOT . '/commande/class/commande.class.php';
-		$board = new Commande($db);
+		$board = new Order($db);
 		// Number of customer orders to be shipped (validated and in progress)
 		$dashboardLines[$board->element . '_toship'] = $board->load_board($user, 'toship');
 		// Number of customer orders to be billed (not visible by default, does not match a lot of organization).
@@ -245,7 +245,7 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 	// Number of suppliers orders
 	if (isModEnabled('supplier_order')  && !getDolGlobalString('MAIN_DISABLE_BLOCK_SUPPLIER') && $user->hasRight('fournisseur', 'commande', 'lire')) {
 		include_once DOL_DOCUMENT_ROOT . '/fourn/class/fournisseur.commande.class.php';
-		$board = new CommandeFournisseur($db);
+		$board = new OrderFournisseur($db);
 		$dashboardLines[$board->element . '_opened'] = $board->load_board($user, "opened");
 		$dashboardLines[$board->element . '_awaiting'] = $board->load_board($user, 'awaiting');
 	}

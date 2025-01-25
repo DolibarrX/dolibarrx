@@ -998,7 +998,7 @@ if ($object->id > 0) {
 
 		$resql = $db->query($sql);
 		if ($resql) {
-			$commande_static = new Commande($db);
+			$commande_static = new Order($db);
 
 			$num = $db->num_rows($resql);
 			if ($num > 0) {

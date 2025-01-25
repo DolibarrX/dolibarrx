@@ -104,7 +104,7 @@ $hidedesc = (GETPOSTINT('hidedesc') ? GETPOSTINT('hidedesc') : (getDolGlobalStri
 $hideref = (GETPOSTINT('hideref') ? GETPOSTINT('hideref') : (getDolGlobalString('MAIN_GENERATE_DOCUMENTS_HIDE_REF') ? 1 : 0));
 
 $object = new Expedition($db);
-$objectorder = new Commande($db);
+$objectorder = new Order($db);
 $extrafields = new ExtraFields($db);
 
 // fetch optionals attributes and labels
@@ -263,7 +263,7 @@ if (empty($resHook)) {
 		// We will loop on each line of the original document to complete the shipping object with various info and quantity to deliver
 		$classname = ucfirst($object->origin);
 		$objectsrc = new $classname($db);
-		'@phan-var-force Facture|Commande $objectsrc';
+		'@phan-var-force Facture|Order $objectsrc';
 		$objectsrc->fetch($object->origin_id);
 
 		$object->socid = $objectsrc->socid;
@@ -964,7 +964,7 @@ if ($action == 'create') {
 		$classname = ucfirst($origin);
 
 		$object = new $classname($db);
-		'@phan-var-force Commande|Facture $object';
+		'@phan-var-force Order|Facture $object';
 		if ($object->fetch($origin_id)) {	// This include the fetch_lines
 			$soc = new Societe($db);
 			$soc->fetch($object->socid);
@@ -1963,7 +1963,7 @@ if ($action == 'create') {
 	$totalVolume = $tmparray['volume'];
 
 	if (!empty($typeobject) && $typeobject === 'commande' && is_object($object->origin_object) && $object->origin_object->id && isModEnabled('order')) {
-		$objectsrc = new Commande($db);
+		$objectsrc = new Order($db);
 		$objectsrc->fetch($object->origin_object->id);
 	}
 	if (!empty($typeobject) && $typeobject === 'propal' && is_object($object->origin_object) && $object->origin_object->id && isModEnabled("propal")) {

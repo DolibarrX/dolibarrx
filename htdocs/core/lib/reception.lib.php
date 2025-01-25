@@ -57,7 +57,7 @@ function reception_prepare_head(Reception $object)
 	if (!getDolGlobalString('MAIN_DISABLE_CONTACTS_TAB')) {
 		$objectsrc = $object;
 		if ($object->origin == 'supplier_order' && $object->origin_id > 0) {
-			$objectsrc = new CommandeFournisseur($db);
+			$objectsrc = new OrderFournisseur($db);
 			$objectsrc->fetch($object->origin_id);
 		}
 		$nbContact = count($objectsrc->liste_contact(-1, 'internal')) + count($objectsrc->liste_contact(-1, 'external'));

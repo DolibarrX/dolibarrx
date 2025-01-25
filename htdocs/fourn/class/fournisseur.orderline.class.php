@@ -43,7 +43,7 @@ require_once DOL_DOCUMENT_ROOT.'/multicurrency/class/multicurrency.class.php';
 /**
  *  Class to manage line orders
  */
-class CommandeFournisseurLigne extends CommonOrderLine
+class OrderFournisseurLigne extends CommonOrderLine
 {
 	/**
 	 * @var string ID to identify managed object
@@ -66,7 +66,7 @@ class CommandeFournisseurLigne extends CommonOrderLine
 	public $fk_parent_attribute = 'fk_commande_fournisseur';
 
 	/**
-	 * @var CommandeFournisseurLigne
+	 * @var OrderFournisseurLigne
 	 */
 	public $oldline;
 

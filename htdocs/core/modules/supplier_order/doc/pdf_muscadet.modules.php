@@ -168,7 +168,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 	/**
 	 *	Function to build pdf onto disk
 	 *
-	 *	@param	CommandeFournisseur	$object				Object source to generate (or id if old method)
+	 *	@param	OrderFournisseur	$object				Object source to generate (or id if old method)
 	 *  @param	Translate			$outputlangs		Lang output object
 	 *  @param	string				$srctemplatepath	Full path of source filename for generator using a template file
 	 *  @param	int<0,1>			$hidedetails		Do not show line details
@@ -712,7 +712,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 	 *  Show payments table
 	 *
 	 *  @param	TCPDF		$pdf     		Object PDF
-	 *  @param  CommandeFournisseur		$object			Object order
+	 *  @param  OrderFournisseur		$object			Object order
 	 *	@param	int			$posy			Position y in PDF
 	 *	@param	Translate	$outputlangs	Object langs for output
 	 *	@return int							Return integer <0 if KO, >0 if OK
@@ -729,7 +729,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 	 *   Show miscellaneous information (payment mode, payment term, ...)
 	 *
 	 *   @param		TCPDF		$pdf     		Object PDF
-	 *   @param		CommandeFournisseur	$object	Object to show
+	 *   @param		OrderFournisseur	$object	Object to show
 	 *   @param		int			$posy			Y
 	 *   @param		Translate	$outputlangs	Langs object
 	 *   @return	integer
@@ -793,7 +793,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 	 *  Show total to pay
 	 *
 	 *  @param	TCPDF		$pdf            Object PDF
-	 *	@param  CommandeFournisseur	$object Object CommandeFournisseur
+	 *	@param  OrderFournisseur	$object Object OrderFournisseur
 	 *	@param  int			$deja_regle     Amount already paid
 	 *	@param	int			$posy			Position depart
 	 *	@param	Translate	$outputlangs	Object langs
@@ -1097,7 +1097,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 	 *  Show top header of page.
 	 *
 	 *  @param	TCPDF		$pdf     		Object PDF
-	 *  @param  CommandeFournisseur		$object     	Object to show
+	 *  @param  OrderFournisseur		$object     	Object to show
 	 *  @param  int	    	$showaddress    0=no, 1=yes
 	 *  @param  Translate	$outputlangs	Object lang for output
 	 *  @return	float|int                   Return topshift value
@@ -1372,7 +1372,7 @@ class pdf_muscadet extends ModelePDFSuppliersOrders
 	 *  Show footer of page. Need this->emetteur object
 	 *
 	 *  @param	TCPDF		$pdf     			PDF
-	 *  @param	CommandeFournisseur		$object				Object to show
+	 *  @param	OrderFournisseur		$object				Object to show
 	 *  @param	Translate	$outputlangs		Object lang for output
 	 *  @param	int			$hidefreetext		1=Hide free text
 	 *  @return	int								Return height of bottom margin including footer text

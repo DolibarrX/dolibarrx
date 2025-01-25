@@ -35,7 +35,7 @@ include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 /**
  *    Class to manage order statistics (customer and supplier)
  */
-class CommandeStats extends Stats
+class OrderStats extends Stats
 {
 	/**
 	 * @var string Name of table without prefix where object is stored
@@ -110,7 +110,7 @@ class CommandeStats extends Stats
 		$this->join = '';
 
 		if ($mode == 'customer') {
-			$object = new Commande($this->db);
+			$object = new Order($this->db);
 			$this->from = MAIN_DB_PREFIX.$object->table_element." as c";
 			$this->from_line = MAIN_DB_PREFIX.$object->table_element_line." as tl";
 			$this->field = 'total_ht';
@@ -118,7 +118,7 @@ class CommandeStats extends Stats
 			//$this->where .= " c.fk_statut > 0"; // Not draft and not cancelled
 			$this->categ_link = MAIN_DB_PREFIX.'category_societe';
 		} elseif ($mode == 'supplier') {
-			$object = new CommandeFournisseur($this->db);
+			$object = new OrderFournisseur($this->db);
 			$this->from = MAIN_DB_PREFIX.$object->table_element." as c";
 			$this->from_line = MAIN_DB_PREFIX.$object->table_element_line." as tl";
 			$this->field = 'total_ht';

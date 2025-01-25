@@ -209,7 +209,7 @@ if (!$rowid) {
 			// Origine
 			//print "<td>";
 			////if ($charge->metadata->dol_type=="order"){
-			//	$object = new Commande($db);
+			//	$object = new Order($db);
 			//	$object->fetch($charge->metadata->dol_id);
 			//	print "<a href='".DOL_URL_ROOT."/commande/card.php?id=".$charge->metadata->dol_id."'>".img_picto('', 'object_order')." ".$object->ref."</a>";
 			//} elseif ($charge->metadata->dol_type=="invoice"){

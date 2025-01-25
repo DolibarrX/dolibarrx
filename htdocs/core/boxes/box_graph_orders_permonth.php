@@ -67,7 +67,7 @@ class box_graph_orders_permonth extends ModeleBoxes
 		$refreshaction = 'refresh_'.$this->boxcode;
 
 		//include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-		//$commandestatic=new Commande($this->db);
+		//$commandestatic=new Order($this->db);
 
 		$startmonth = getDolGlobalInt('SOCIETE_FISCAL_MONTH_START', 1);
 		if (!getDolGlobalString('GRAPH_USE_FISCAL_YEAR')) {
@@ -133,7 +133,7 @@ class box_graph_orders_permonth extends ModeleBoxes
 			$WIDTH = (($shownb && $showtot) || !empty($config->dol_optimize_smallscreen)) ? '256' : '320';
 			$HEIGHT = '192';
 
-			$stats = new CommandeStats($this->db, $socid, $mode, 0);
+			$stats = new OrderStats($this->db, $socid, $mode, 0);
 
 			// Build graphic number of object. $data = array(array('Lib',val1,val2,val3),...)
 			if ($shownb) {

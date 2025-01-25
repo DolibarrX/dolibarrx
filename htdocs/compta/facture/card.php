@@ -3293,7 +3293,7 @@ if ($action == 'create') {
 
 			$classname = ucfirst($subelement);
 			$objectsrc = new $classname($db);
-			'@phan-var-force Commande|Propal|Contrat|Expedition $objectsrc';
+			'@phan-var-force Order|Propal|Contrat|Expedition $objectsrc';
 			$objectsrc->fetch($originid);
 			if (empty($objectsrc->lines) && method_exists($objectsrc, 'fetch_lines')) {
 				$objectsrc->fetch_lines();
@@ -3320,7 +3320,7 @@ if ($action == 'create') {
 
 				$expesrc = new $classname($db);
 				'@phan-var-force Expedition $expesrc';
-				dol_syslog("Is type Facture|Commande or Expedition: $element...expesrc($classname)=".get_class($expesrc));
+				dol_syslog("Is type Facture|Order or Expedition: $element...expesrc($classname)=".get_class($expesrc));
 				$expesrc->fetch($expeoriginid);
 
 				$cond_reglement_id 	= (!empty($expesrc->cond_reglement_id) ? $expesrc->cond_reglement_id : (!empty($soc->cond_reglement_id) ? $soc->cond_reglement_id : 1));
@@ -4184,7 +4184,7 @@ if ($action == 'create') {
 				case 'Propal':
 					$newclassname = 'CommercialProposal';
 					break;
-				case 'Commande':
+				case 'Order':
 					$newclassname = 'Order';
 					break;
 				case 'Expedition':

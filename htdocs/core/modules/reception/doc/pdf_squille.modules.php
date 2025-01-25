@@ -996,7 +996,7 @@ class pdf_squille extends ModelePdfReception
 		if (isModEnabled("supplier_order")) {     // commonly $origin='commande'
 			$outputlangs->load('orders');
 
-			$classname = 'CommandeFournisseur';
+			$classname = 'OrderFournisseur';
 			$linkedobject = new $classname($this->db);
 			$result = $linkedobject->fetch($origin_id);
 			if ($result >= 0) {

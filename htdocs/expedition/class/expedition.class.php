@@ -253,7 +253,7 @@ class Expedition extends CommonObject
 	public $commande_id;
 
 	/**
-	 * @var Commande order
+	 * @var Order order
 	 */
 	public $commande;
 
@@ -861,7 +861,7 @@ class Expedition extends CommonObject
 		}
 
 		// Change status of order to "shipment in process"
-		$ret = $this->setStatut(Commande::STATUS_SHIPMENTONPROCESS, $this->origin_id, $this->origin);
+		$ret = $this->setStatut(Order::STATUS_SHIPMENTONPROCESS, $this->origin_id, $this->origin);
 		if (!$ret) {
 			$error++;
 		}
@@ -1414,13 +1414,13 @@ class Expedition extends CommonObject
 						if (!empty($this->origin) && $this->origin_id > 0) {
 							$this->fetch_origin();
 							$origin_object = $this->origin_object;
-							'@phan-var-force Facture|Commande $origin_object';
-							if ($origin_object->statut == Commande::STATUS_SHIPMENTONPROCESS) {     // If order source of shipment is "shipment in progress"
+							'@phan-var-force Facture|Order $origin_object';
+							if ($origin_object->statut == Order::STATUS_SHIPMENTONPROCESS) {     // If order source of shipment is "shipment in progress"
 								// Check if there is no more shipment. If not, we can move back status of order to "validated" instead of "shipment in progress"
 								$origin_object->loadExpeditions();
 								//var_dump($this->$origin->expeditions);exit;
 								if (count($origin_object->expeditions) <= 0) {
-									$origin_object->setStatut(Commande::STATUS_VALIDATED);
+									$origin_object->setStatut(Order::STATUS_VALIDATED);
 								}
 							}
 						}
@@ -1617,13 +1617,13 @@ class Expedition extends CommonObject
 						if (!empty($this->origin) && $this->origin_id > 0) {
 							$this->fetch_origin();
 							$origin_object = $this->origin_object;
-							'@phan-var-force Facture|Commande $origin_object';
-							if ($origin_object->statut == Commande::STATUS_SHIPMENTONPROCESS) {     // If order source of shipment is "shipment in progress"
+							'@phan-var-force Facture|Order $origin_object';
+							if ($origin_object->statut == Order::STATUS_SHIPMENTONPROCESS) {     // If order source of shipment is "shipment in progress"
 								// Check if there is no more shipment. If not, we can move back status of order to "validated" instead of "shipment in progress"
 								$origin_object->loadExpeditions();
 								//var_dump($this->$origin->expeditions);exit;
 								if (count($origin_object->expeditions) <= 0) {
-									$origin_object->setStatut(Commande::STATUS_VALIDATED);
+									$origin_object->setStatut(Order::STATUS_VALIDATED);
 								}
 							}
 						}
@@ -2132,7 +2132,7 @@ class Expedition extends CommonObject
 
 		dol_syslog(get_class($this)."::initAsSpecimen");
 
-		$order = new Commande($this->db);
+		$order = new Order($this->db);
 		$order->initAsSpecimen();
 
 		// Initialise parameters
@@ -2371,7 +2371,7 @@ class Expedition extends CommonObject
 		if ($resql) {
 			// Set order billed if 100% of order is shipped (qty in shipment lines match qty in order lines)
 			if ($this->origin == 'commande' && $this->origin_id > 0) {
-				$order = new Commande($this->db);
+				$order = new Order($this->db);
 				$order->fetch($this->origin_id);
 
 				$order->loadExpeditions(self::STATUS_CLOSED); // Fill $order->expeditions = array(orderlineid => qty)

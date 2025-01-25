@@ -68,7 +68,7 @@ class box_supplier_orders extends ModeleBoxes
 		$this->max = $max;
 
 		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
-		$supplierorderstatic = new CommandeFournisseur($this->db);
+		$supplierorderstatic = new OrderFournisseur($this->db);
 		include_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
 		$thirdpartystatic = new Fournisseur($this->db);
 

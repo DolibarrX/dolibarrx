@@ -99,7 +99,7 @@ if (!$user->hasRight('produit', 'lire')) {
  * View
  */
 
-$commandefournisseurstatic = new CommandeFournisseur($db);
+$commandefournisseurstatic = new OrderFournisseur($db);
 $societestatic = new Societe($db);
 
 $form = new Form($db);

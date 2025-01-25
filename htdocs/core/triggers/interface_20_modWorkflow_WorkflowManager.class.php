@@ -84,7 +84,7 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 				}
 
 				include_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-				$newobject = new Commande($this->db);
+				$newobject = new Order($this->db);
 
 				$newobject->context['createfrompropal'] = 'createfrompropal';
 				$newobject->context['origin'] = $object->element;
@@ -164,7 +164,7 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 				if (!empty($object->linkedObjects['commande'])) {
 					$totalonlinkedelements = 0;
 					foreach ($object->linkedObjects['commande'] as $element) {
-						if ($element->statut == Commande::STATUS_VALIDATED || $element->statut == Commande::STATUS_SHIPMENTONPROCESS || $element->statut == Commande::STATUS_CLOSED) {
+						if ($element->statut == Order::STATUS_VALIDATED || $element->statut == Order::STATUS_SHIPMENTONPROCESS || $element->statut == Order::STATUS_CLOSED) {
 							$totalonlinkedelements += $element->total_ht;
 						}
 					}
@@ -283,7 +283,7 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 				if (!empty($object->linkedObjects['order_supplier'])) {
 					$totalonlinkedelements = 0;
 					foreach ($object->linkedObjects['order_supplier'] as $element) {
-						if ($element->statut == CommandeFournisseur::STATUS_ACCEPTED || $element->statut == CommandeFournisseur::STATUS_ORDERSENT || $element->statut == CommandeFournisseur::STATUS_RECEIVED_PARTIALLY || $element->statut == CommandeFournisseur::STATUS_RECEIVED_COMPLETELY) {
+						if ($element->statut == OrderFournisseur::STATUS_ACCEPTED || $element->statut == OrderFournisseur::STATUS_ORDERSENT || $element->statut == OrderFournisseur::STATUS_RECEIVED_PARTIALLY || $element->statut == OrderFournisseur::STATUS_RECEIVED_COMPLETELY) {
 							$totalonlinkedelements += $element->total_ht;
 						}
 					}
@@ -379,7 +379,7 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 				if (!empty($object->linkedObjects['commande'])) {
 					$totalonlinkedelements = 0;
 					foreach ($object->linkedObjects['commande'] as $element) {
-						if ($element->statut == Commande::STATUS_VALIDATED || $element->statut == Commande::STATUS_SHIPMENTONPROCESS || $element->statut == Commande::STATUS_CLOSED) {
+						if ($element->statut == Order::STATUS_VALIDATED || $element->statut == Order::STATUS_SHIPMENTONPROCESS || $element->statut == Order::STATUS_CLOSED) {
 							$totalonlinkedelements += $element->total_ht;
 						}
 					}
@@ -412,7 +412,7 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 
 				if (in_array($object->origin, array('order', 'commande')) && $object->origin_id > 0) {
 					require_once DOL_DOCUMENT_ROOT.'/commande/class/commande.class.php';
-					$order = new Commande($this->db);
+					$order = new Order($this->db);
 					$ret = $order->fetch($object->origin_id);
 					if ($ret < 0) {
 						$this->setErrorsFromObject($order);
@@ -466,7 +466,7 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 					$diff_array = array_diff_assoc($qtyordred, $qtyshipped);
 					if (count($diff_array) == 0) {
 						//No diff => mean everything is shipped
-						$ret = $order->setStatut(Commande::STATUS_CLOSED, $object->origin_id, $object->origin, 'ORDER_CLOSE');
+						$ret = $order->setStatut(Order::STATUS_CLOSED, $object->origin_id, $object->origin, 'ORDER_CLOSE');
 						if ($ret < 0) {
 							$this->setErrorsFromObject($order);
 							return $ret;
@@ -494,7 +494,7 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 
 				if (in_array($object->origin, array('order_supplier', 'supplier_order', 'commandeFournisseur')) && $object->origin_id > 0) {
 					require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.commande.class.php';
-					$order = new CommandeFournisseur($this->db);
+					$order = new OrderFournisseur($this->db);
 					$ret = $order->fetch($object->origin_id);
 					if ($ret < 0) {
 						$this->setErrorsFromObject($order);
@@ -541,7 +541,7 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 					$diff_array = array_diff_assoc($qtyordred, $qtyshipped);
 					if (count($diff_array) == 0) {
 						//No diff => mean everything is received
-						$ret = $order->setStatut(CommandeFournisseur::STATUS_RECEIVED_COMPLETELY, null, '', 'SUPPLIER_ORDER_CLOSE');
+						$ret = $order->setStatut(OrderFournisseur::STATUS_RECEIVED_COMPLETELY, null, '', 'SUPPLIER_ORDER_CLOSE');
 						if ($ret < 0) {
 							$this->setErrorsFromObject($order);
 							return $ret;

@@ -614,7 +614,7 @@ if (isModEnabled('tax') && $user->hasRight('tax', 'charges', 'lire')) {
  * Customers orders to be billed
  */
 if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("commande", "lire") && !getDolGlobalString('WORKFLOW_DISABLE_CREATE_INVOICE_FROM_ORDER')) {
-	$commandestatic = new Commande($db);
+	$commandestatic = new Order($db);
 	$langs->load("orders");
 
 	$sql = "SELECT sum(f.total_ht) as tot_fht, sum(f.total_ttc) as tot_fttc";
@@ -632,7 +632,7 @@ if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("command
 	if ($socid) {
 		$sql .= " AND c.fk_soc = ".((int) $socid);
 	}
-	$sql .= " AND c.fk_statut = ".((int) Commande::STATUS_CLOSED);
+	$sql .= " AND c.fk_statut = ".((int) Order::STATUS_CLOSED);
 	$sql .= " AND c.facture = 0";
 	// Filter on sale representative
 	if (!$user->hasRight('societe', 'client', 'voir')) {
@@ -660,7 +660,7 @@ if (isModEnabled('invoice') && isModEnabled('order') && $user->hasRight("command
 			print '<tr class="liste_titre">';
 			print '<th colspan="2">';
 			print $langs->trans("OrdersDeliveredToBill");
-			print '<a href="'.DOL_URL_ROOT.'/commande/list.php?search_status='.Commande::STATUS_CLOSED.'&search_billed=0">';
+			print '<a href="'.DOL_URL_ROOT.'/commande/list.php?search_status='.Order::STATUS_CLOSED.'&search_billed=0">';
 			print '<span class="badge marginleftonly">'.$num.'</span>';
 			print '</a>';
 			print '</th>';
