@@ -154,7 +154,7 @@ class DataPolicy
 			while ($i < $num) {
 				$obj = $this->db->fetch_object($resql);
 				$adherent = new Adherent($db);
-				$adherent->fetch($obj->rowid);
+				$member->fetch($obj->rowid);
 
 				DataPolicy::sendMailDataPolicyAdherent($adherent);
 				$i++;
@@ -334,11 +334,11 @@ class DataPolicy
 
 		$from = $user->getFullName($langs).' <'.$user->email.'>';
 
-		$sendto = $adherent->email;
+		$sendto = $member->email;
 
-		$code = dol_hash($adherent->email, 'md5');
-		if (!empty($adherent->default_lang)) {
-			$l = $adherent->default_lang;
+		$code = dol_hash($member->email, 'md5');
+		if (!empty($member->default_lang)) {
+			$l = $member->default_lang;
 		} else {
 			$l = $langs->defaultlang;
 		}
@@ -357,8 +357,8 @@ class DataPolicy
 		$deliveryreceipt = 0;
 
 		$substitutionArray = array(
-			'__LINKACCEPT__' => '<a href="'.dol_buildpath('/public/datapolicy/index.php?action=1&a='.$adherent->id.'&l='.$l.'&key='.$code, 3).'" target="_blank" rel="noopener noreferrer">'.$linka.'</a>',
-			'__LINKREFUSED__' => '<a href="'.dol_buildpath('/public/datapolicy/index.php?action=2&a='.$adherent->id.'&l='.$l.'&key='.$code, 3).'" target="_blank" rel="noopener noreferrer">'.$linkr.'</a>',
+			'__LINKACCEPT__' => '<a href="'.dol_buildpath('/public/datapolicy/index.php?action=1&a='.$member->id.'&l='.$l.'&key='.$code, 3).'" target="_blank" rel="noopener noreferrer">'.$linka.'</a>',
+			'__LINKREFUSED__' => '<a href="'.dol_buildpath('/public/datapolicy/index.php?action=2&a='.$member->id.'&l='.$l.'&key='.$code, 3).'" target="_blank" rel="noopener noreferrer">'.$linkr.'</a>',
 		);
 		$subject = make_substitutions($subject, $substitutionArray);
 		$message = make_substitutions($message, $substitutionArray);
@@ -387,8 +387,8 @@ class DataPolicy
 
 			if ($resultmail) {
 				$resultmasssend .= $langs->trans("MailSent").': '.$sendto."<br>";
-				$adherent->array_options['options_datapolicy_send'] = date('Y-m-d', time());
-				$adherent->update($user);
+				$member->array_options['options_datapolicy_send'] = date('Y-m-d', time());
+				$member->update($user);
 			} else {
 				dol_print_error($db);
 			}

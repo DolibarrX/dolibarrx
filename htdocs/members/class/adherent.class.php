@@ -3108,26 +3108,26 @@ class Adherent extends CommonObject
 				while ($i < $num_rows) {
 					$obj = $this->db->fetch_object($resql);
 
-					$adherent->fetch($obj->rowid, '', 0, '', true, true);
+					$member->fetch($obj->rowid, '', 0, '', true, true);
 
-					if (empty($adherent->email)) {
+					if (empty($member->email)) {
 						$nbko++;
-						$listofmembersko[$adherent->id] = $adherent->id;
+						$listofmembersko[$member->id] = $member->id;
 					} else {
-						$thirdpartyres = $adherent->fetch_thirdparty();
+						$thirdpartyres = $member->fetch_thirdparty();
 						if ($thirdpartyres === -1) {
 							$languagecodeformember = $mysoc->default_lang;
 						} else {
 							// Language code to use ($languagecodeformember) is default language of thirdparty, if no thirdparty, the language found from country of member then country of thirdparty, and if still not found we use the language of company.
-							$languagefromcountrycode = getLanguageCodeFromCountryCode($adherent->country_code ? $adherent->country_code : $adherent->thirdparty->country_code);
-							$languagecodeformember = (empty($adherent->thirdparty->default_lang) ? ($languagefromcountrycode ? $languagefromcountrycode : $mysoc->default_lang) : $adherent->thirdparty->default_lang);
+							$languagefromcountrycode = getLanguageCodeFromCountryCode($member->country_code ? $member->country_code : $member->thirdparty->country_code);
+							$languagecodeformember = (empty($member->thirdparty->default_lang) ? ($languagefromcountrycode ? $languagefromcountrycode : $mysoc->default_lang) : $member->thirdparty->default_lang);
 						}
 
 						// Send reminder email
 						$outputlangs = new Translate('', $config);
 						$outputlangs->setDefaultLang($languagecodeformember);
 						$outputlangs->loadLangs(array("main", "members"));
-						dol_syslog("sendReminderForExpiredSubscription Language for member id ".$adherent->id." set to ".$outputlangs->defaultlang." mysoc->default_lang=".$mysoc->default_lang);
+						dol_syslog("sendReminderForExpiredSubscription Language for member id ".$member->id." set to ".$outputlangs->defaultlang." mysoc->default_lang=".$mysoc->default_lang);
 
 						$arraydefaultmessage = null;
 						$labeltouse = getDolGlobalString('ADHERENT_EMAIL_TEMPLATE_REMIND_EXPIRATION');
@@ -3138,16 +3138,16 @@ class Adherent extends CommonObject
 
 						if (!empty($labeltouse) && is_object($arraydefaultmessage) && $arraydefaultmessage->id > 0) {
 							$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, null, $adherent);
-							//if (is_array($adherent->thirdparty)) $substitutionArraycomp = ...
+							//if (is_array($member->thirdparty)) $substitutionArraycomp = ...
 							complete_substitutions_array($substitutionArray, $outputlangs, $adherent);
 
 							$subject = make_substitutions($arraydefaultmessage->topic, $substitutionArray, $outputlangs);
 							$msg = make_substitutions($arraydefaultmessage->content, $substitutionArray, $outputlangs);
 							$from = getDolGlobalString('ADHERENT_MAIL_FROM');
-							$to = $adherent->email;
+							$to = $member->email;
 							$cc = getDolGlobalString('ADHERENT_CC_MAIL_FROM');
 
-							$trackid = 'mem'.$adherent->id;
+							$trackid = 'mem'.$member->id;
 							$moreinheader = 'X-Dolibarr-Info: sendReminderForExpiredSubscription'."\r\n";
 
 							include_once DOL_DOCUMENT_ROOT.'/core/class/CMailFile.class.php';
@@ -3160,10 +3160,10 @@ class Adherent extends CommonObject
 									$this->errors += $cmail->errors;
 								}
 								$nbko++;
-								$listofmembersko[$adherent->id] = $adherent->id;
+								$listofmembersko[$member->id] = $member->id;
 							} else {
 								$nbok++;
-								$listofmembersok[$adherent->id] = $adherent->id;
+								$listofmembersok[$member->id] = $member->id;
 
 								$message = $msg;
 								$sendto = $to;
@@ -3198,7 +3198,7 @@ class Adherent extends CommonObject
 								$actioncomm->datep = $now;
 								$actioncomm->datef = $now;
 								$actioncomm->percentage = -1; // Not applicable
-								$actioncomm->socid = $adherent->thirdparty->id;
+								$actioncomm->socid = $member->thirdparty->id;
 								$actioncomm->contact_id = 0;
 								$actioncomm->authorid = $user->id; // User saving action
 								$actioncomm->userownerid = $user->id; // Owner of action
@@ -3212,9 +3212,9 @@ class Adherent extends CommonObject
 								$actioncomm->email_subject = $subject;
 								$actioncomm->errors_to = '';
 
-								$actioncomm->fk_element = $adherent->id;
-								$actioncomm->elementid = $adherent->id;
-								$actioncomm->elementtype = $adherent->element;
+								$actioncomm->fk_element = $member->id;
+								$actioncomm->elementid = $member->id;
+								$actioncomm->elementtype = $member->element;
 
 								$actioncomm->extraparams = $extraparams;
 
@@ -3227,7 +3227,7 @@ class Adherent extends CommonObject
 							$this->error .= "Can't find email template with label=".$labeltouse.", to use for the reminding email ";
 
 							$nbko++;
-							$listofmembersko[$adherent->id] = $adherent->id;
+							$listofmembersko[$member->id] = $member->id;
 
 							break;
 						}

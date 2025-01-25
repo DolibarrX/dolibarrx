@@ -619,25 +619,25 @@ while ($i < $imaxinloop) {
 	$subscription->amount = $obj->subscription;
 	$subscription->fk_member = $obj->rowid;
 
-	$adherent->lastname = $obj->lastname;
-	$adherent->firstname = $obj->firstname;
-	$adherent->ref = $obj->rowid;
-	$adherent->id = $obj->rowid;
-	$adherent->statut = $obj->status;
-	$adherent->status = $obj->status;
-	$adherent->login = $obj->login;
-	$adherent->photo = $obj->photo;
-	$adherent->gender = $obj->gender;
-	$adherent->morphy = $obj->morphy;
-	$adherent->email = $obj->email;
-	$adherent->typeid = $obj->fk_type;
-	$adherent->datefin = $db->jdate($obj->datef);
+	$member->lastname = $obj->lastname;
+	$member->firstname = $obj->firstname;
+	$member->ref = $obj->rowid;
+	$member->id = $obj->rowid;
+	$member->statut = $obj->status;
+	$member->status = $obj->status;
+	$member->login = $obj->login;
+	$member->photo = $obj->photo;
+	$member->gender = $obj->gender;
+	$member->morphy = $obj->morphy;
+	$member->email = $obj->email;
+	$member->typeid = $obj->fk_type;
+	$member->datefin = $db->jdate($obj->datef);
 
-	$typeid = ($obj->fk_type > 0 ? $obj->fk_type : $adherent->typeid);
+	$typeid = ($obj->fk_type > 0 ? $obj->fk_type : $member->typeid);
 	$adht = new MemberType($db);
 	$adht->fetch($typeid);
 
-	$adherent->need_subscription = $adht->subscription;
+	$member->need_subscription = $adht->subscription;
 
 	if ($mode == 'kanban') {
 		if ($i == 0) {
@@ -704,14 +704,14 @@ while ($i < $imaxinloop) {
 
 		// Lastname
 		if (!empty($arrayfields['d.lastname']['checked'])) {
-			print '<td class="tdoverflowmax125">'.$adherent->getNomUrl(-1, 0, 'card', 'lastname').'</td>';
+			print '<td class="tdoverflowmax125">'.$member->getNomUrl(-1, 0, 'card', 'lastname').'</td>';
 			if (!$i) {
 				$totalarray['nbfield']++;
 			}
 		}
 		// Firstname
 		if (!empty($arrayfields['d.firstname']['checked'])) {
-			print '<td class="tdoverflowmax125" title="'.dol_escape_htmltag($adherent->firstname).'">'.dol_escape_htmltag($adherent->firstname).'</td>';
+			print '<td class="tdoverflowmax125" title="'.dol_escape_htmltag($member->firstname).'">'.dol_escape_htmltag($member->firstname).'</td>';
 			if (!$i) {
 				$totalarray['nbfield']++;
 			}
@@ -719,7 +719,7 @@ while ($i < $imaxinloop) {
 
 		// Login
 		if (!empty($arrayfields['d.login']['checked'])) {
-			print '<td class="tdoverflowmax150" title="'.dol_escape_htmltag($adherent->login).'">'.dol_escape_htmltag($adherent->login).'</td>';
+			print '<td class="tdoverflowmax150" title="'.dol_escape_htmltag($member->login).'">'.dol_escape_htmltag($member->login).'</td>';
 			if (!$i) {
 				$totalarray['nbfield']++;
 			}

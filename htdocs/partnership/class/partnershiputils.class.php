@@ -199,8 +199,8 @@ class PartnershipUtils
 							$fk_partner = $object->fk_member;
 
 							$adherent = new Adherent($this->db);
-							$adherent->fetch($object->fk_member);
-							$sendto = $adherent->email;
+							$member->fetch($object->fk_member);
+							$sendto = $member->email;
 
 							$trackid = 'par'.$object->id;
 							$sendcontext = 'standard';

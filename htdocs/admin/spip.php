@@ -87,7 +87,7 @@ if ($action == 'update' || $action == 'add') {
 	}
 }
 
-// Action activation d'un sous module du module adherent
+// Action activation of a sub-module of the member module
 if ($action == 'set') {
 	$result = dolibarr_set_const($db, GETPOST("name", 'aZ09'), GETPOST("value"), '', 0, '', $config->entity);
 	if ($result < 0) {

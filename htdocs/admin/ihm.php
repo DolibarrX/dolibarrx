@@ -645,7 +645,7 @@ if ($mode == 'dashboard') {
 		print '</td>';
 		print '</tr>';
 
-		// Block adherent
+		// Block member
 		print '<tr class="oddeven"><td>' . $langs->trans('DashboardDisableBlockAdherent') . '</td><td>';
 		print ajax_constantonoff("MAIN_DISABLE_BLOCK_ADHERENT", array(), $config->entity, 0, 0, 1, 0, 0, 0, '_red', 'dashboard');
 		print '</td>';

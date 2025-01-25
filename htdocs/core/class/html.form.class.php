@@ -8325,9 +8325,9 @@ class Form
 	 *    Return list of adherents.
 	 *  Called by selectMembers.
 	 *
-	 * @param string $selected Preselected adherent
+	 * @param string $selected Preselected member
 	 * @param string $htmlname Name of select html
-	 * @param string $filtertype Filter on adherent type
+	 * @param string $filtertype Filter on member type
 	 * @param int $limit Limit on number of returned lines
 	 * @param string $filterkey Filter on member status
 	 * @param int $status Member status
@@ -8337,7 +8337,7 @@ class Form
 	 * @param string $morecss Add more css on select
 	 * @return mixed[]|string      Array of keys for json or HTML string component
 	 */
-	public function selectMembersList($selected = '', $htmlname = 'adherentid', $filtertype = '', $limit = 20, $filterkey = '', $status = 1, $outputmode = 0, $showempty = '1', $forcecombo = 0, $morecss = '')
+	public function selectMembersList($selected = '', $htmlname = 'memberid', $filtertype = '', $limit = 20, $filterkey = '', $status = 1, $outputmode = 0, $showempty = '1', $forcecombo = 0, $morecss = '')
 	{
 		global $langs, $config;
 

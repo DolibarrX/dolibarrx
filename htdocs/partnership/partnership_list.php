@@ -918,7 +918,7 @@ while ($i < $imaxinloop) {
 
 	if ($managedfor == 'member') {
 		if ($obj->fk_member > 0) {
-			$result = $adherent->fetch($obj->fk_member);
+			$result = $member->fetch($obj->fk_member);
 		}
 	}
 
@@ -988,8 +988,8 @@ while ($i < $imaxinloop) {
 					print $object->getLibStatut(5);
 				} elseif ($key == 'country') {
 					if ($managedfor == 'member') {
-						if (!empty($adherent->country_code)) {
-							print  $langs->trans("Country".$adherent->country_code);
+						if (!empty($member->country_code)) {
+							print  $langs->trans("Country".$member->country_code);
 						}
 					} else {
 						if (!empty($object->thirdparty->country_code)) {
@@ -998,7 +998,7 @@ while ($i < $imaxinloop) {
 					}
 				} elseif ($key == 'town') {
 					if ($managedfor == 'member') {
-						print $adherent->town;
+						print $member->town;
 					} else {
 						print $object->thirdparty->town;
 					}
@@ -1028,19 +1028,19 @@ while ($i < $imaxinloop) {
 		// End of subscription date
 		if ($managedfor == 'member') {
 			print '<td class="nowrap center endofsubscriptiondate">';
-			$result = $adherent->fetch($object->fk_member);
+			$result = $member->fetch($object->fk_member);
 			if ($result) {
-				$datefin = $adherent->datefin;
+				$datefin = $member->datefin;
 				if ($datefin) {
 					print dol_print_date($datefin, 'day');
-					if ($adherent->hasDelay()) {
+					if ($member->hasDelay()) {
 						$textlate .= ' ('.$langs->trans("DateReference").' > '.$langs->trans("DateToday").' '.(ceil($config->member->subscription->warning_delay / 60 / 60 / 24) >= 0 ? '+' : '').ceil($config->member->subscription->warning_delay / 60 / 60 / 24).' '.$langs->trans("days").')';
 						print " ".img_warning($langs->trans("SubscriptionLate").$textlate);
 					}
 				} else {
-					if ($adherent->subscription == 'yes') {
+					if ($member->subscription == 'yes') {
 						print $langs->trans("SubscriptionNotReceived");
-						if ($adherent->statut > 0) {
+						if ($member->statut > 0) {
 							print " ".img_warning();
 						}
 					} else {
