@@ -286,7 +286,7 @@ class Members extends DolibarrApi
 		}
 		$sql .= ' WHERE t.entity IN ('.getEntity('member').')';
 		if (!empty($typeid)) {
-			$sql .= ' AND t.fk_adherent_type='.((int) $typeid);
+			$sql .= ' AND t.fk_member_type='.((int) $typeid);
 		}
 		// Select members of given category
 		if ($category > 0) {

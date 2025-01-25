@@ -8344,7 +8344,7 @@ class Form
 		$out = '';
 		$outarray = array();
 
-		$selectFields = " p.rowid, p.ref, p.firstname, p.lastname, p.fk_adherent_type";
+		$selectFields = " p.rowid, p.ref, p.firstname, p.lastname, p.fk_member_type";
 
 		$sql = "SELECT ";
 		$sql .= $selectFields;
@@ -8466,7 +8466,7 @@ class Form
 
 		$outkey = $objp->rowid;
 		$outlabel = dolGetFirstLastname($objp->firstname, $objp->lastname);
-		$outtype = $objp->fk_adherent_type;
+		$outtype = $objp->fk_member_type;
 
 		$opt = '<option value="' . $objp->rowid . '"';
 		$opt .= ($objp->rowid == $selected) ? ' selected' : '';

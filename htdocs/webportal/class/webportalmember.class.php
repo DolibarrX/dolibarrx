@@ -165,7 +165,7 @@ class WebPortalMember extends Adherent
 	/**
 	 * @var int
 	 */
-	public $fk_adherent_type;
+	public $fk_member_type;
 	//public $morphy;
 	//public $societe;
 	//public $civility_id;

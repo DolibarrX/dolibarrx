@@ -664,13 +664,13 @@ if ($rowid > 0) {
 
 		$sql = "SELECT d.rowid, d.ref, d.entity, d.login, d.firstname, d.lastname, d.societe as company, d.fk_soc,";
 		$sql .= " d.datefin,";
-		$sql .= " d.email, d.photo, d.fk_adherent_type as type_id, d.morphy, d.statut as status,";
+		$sql .= " d.email, d.photo, d.fk_member_type as type_id, d.morphy, d.statut as status,";
 		$sql .= " t.libelle as type, t.subscription, t.amount";
 
 		$sqlfields = $sql; // $sql fields to remove for count total
 
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as d, ".MAIN_DB_PREFIX."adherent_type as t";
-		$sql .= " WHERE d.fk_adherent_type = t.rowid ";
+		$sql .= " WHERE d.fk_member_type = t.rowid ";
 		$sql .= " AND d.entity IN (".getEntity('member').")";
 		$sql .= " AND t.rowid = ".((int) $object->id);
 		if ($sall) {

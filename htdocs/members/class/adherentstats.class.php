@@ -199,7 +199,7 @@ class AdherentStats extends Stats
 		$endYear = (int) date('Y');
 		$startYear = $endYear - $numberYears;
 
-		$sql = "SELECT t.rowid as fk_adherent_type, t.libelle as label";
+		$sql = "SELECT t.rowid as fk_member_type, t.libelle as label";
 		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_DRAFT, "'members_draft'", 'NULL').") as members_draft";
 		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_VALIDATED."  AND (d.datefin IS NULL AND t.subscription = '1')", "'members_pending'", 'NULL').") as members_pending";
 		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_VALIDATED."  AND (d.datefin >= '".$this->db->idate($now)."' OR t.subscription = 0)", "'members_uptodate'", 'NULL').") as members_uptodate";
@@ -207,7 +207,7 @@ class AdherentStats extends Stats
 		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_EXCLUDED, "'members_excluded'", 'NULL').") as members_excluded";
 		$sql .= ", COUNT(".$this->db->ifsql("d.statut = ".Adherent::STATUS_RESILIATED, "'members_resiliated'", 'NULL').") as members_resiliated";
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent_type as t";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent as d ON t.rowid = d.fk_adherent_type AND d.entity IN (" . getEntity('member') . ")";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent as d ON t.rowid = d.fk_member_type AND d.entity IN (" . getEntity('member') . ")";
 		if ($numberYears) {
 			$sql .= " AND d.datefin > '".$this->db->idate(dol_get_first_day($startYear))."'";
 		}
@@ -233,7 +233,7 @@ class AdherentStats extends Stats
 			);
 			while ($i < $num) {
 				$objp = $this->db->fetch_object($result);
-				$MembersCountArray[$objp->fk_adherent_type] = array(
+				$MembersCountArray[$objp->fk_member_type] = array(
 					'label' => $objp->label,
 					'members_draft' => (int) $objp->members_draft,
 					'members_pending' => (int) $objp->members_pending,
@@ -243,13 +243,13 @@ class AdherentStats extends Stats
 					'members_resiliated' => (int) $objp->members_resiliated
 				);
 				$totalrow = 0;
-				foreach ($MembersCountArray[$objp->fk_adherent_type] as $key => $nb) {
+				foreach ($MembersCountArray[$objp->fk_member_type] as $key => $nb) {
 					if ($key != 'label') {
 						$totalrow += $nb;
 						$totalstatus[$key] += $nb;
 					}
 				}
-				$MembersCountArray[$objp->fk_adherent_type]['total_adhtype'] = $totalrow;
+				$MembersCountArray[$objp->fk_member_type]['total_adhtype'] = $totalrow;
 				$i++;
 			}
 			$this->db->free($result);
@@ -285,7 +285,7 @@ class AdherentStats extends Stats
 		$sql .= " FROM ".MAIN_DB_PREFIX."categorie as c";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."categorie_member as ct ON c.rowid = ct.fk_categorie";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent as d ON d.rowid = ct.fk_member";
-		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent_type as t ON t.rowid = d.fk_adherent_type";
+		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent_type as t ON t.rowid = d.fk_member_type";
 		$sql .= " WHERE c.entity IN (".getEntity('member_type').")";
 		$sql .= " AND d.entity IN (" . getEntity('member') . ")";
 		$sql .= " AND t.entity IN (" . getEntity('member') . ")";

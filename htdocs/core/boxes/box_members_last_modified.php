@@ -88,7 +88,7 @@ class box_members_last_modified extends ModeleBoxes
 			$sql .= " t.rowid as typeid, t.subscription, t.libelle as label";
 			$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a, ".MAIN_DB_PREFIX."adherent_type as t";
 			$sql .= " WHERE a.entity IN (".getEntity('member').")";
-			$sql .= " AND a.fk_adherent_type = t.rowid";
+			$sql .= " AND a.fk_member_type = t.rowid";
 			$sql .= " ORDER BY a.tms DESC";
 			$sql .= $this->db->plimit($max, 0);
 

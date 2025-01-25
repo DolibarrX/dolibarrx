@@ -95,7 +95,7 @@ if ((!empty($foruserid) || !empty($foruserlogin) || !empty($mode)) && !$mesg) {
 	if (isset($extrafields->attributes[$object->table_element]['label']) && is_array($extrafields->attributes[$object->table_element]['label']) && count($extrafields->attributes[$object->table_element]['label'])) {
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."adherent_extrafields as ef on (d.rowid = ef.fk_object)";
 	}
-	$sql .= " WHERE d.fk_adherent_type = t.rowid AND d.statut = 1";
+	$sql .= " WHERE d.fk_member_type = t.rowid AND d.statut = 1";
 	$sql .= " AND d.entity IN (".getEntity('member').")";
 	if (is_numeric($foruserid)) {
 		$sql .= " AND d.rowid = ".(int) $foruserid;

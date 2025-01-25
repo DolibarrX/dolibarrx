@@ -225,12 +225,12 @@ if ($id > 0 || !empty($ref)) {
 			$langs->load("members");
 			$sql = "SELECT d.rowid, d.login, d.lastname, d.firstname, d.societe as company, d.fk_soc,";
 			$sql .= " d.datefin,";
-			$sql .= " d.email, d.fk_adherent_type as type_id, d.morphy, d.statut,";
+			$sql .= " d.email, d.fk_member_type as type_id, d.morphy, d.statut,";
 			$sql .= " t.libelle as type_label, t.subscription";
 			$sql .= " FROM ".MAIN_DB_PREFIX."adherent as d";
 			$sql .= ", ".MAIN_DB_PREFIX."adherent_type as t";
 			$sql .= " WHERE d.fk_soc = ".((int) $id);
-			$sql .= " AND d.fk_adherent_type = t.rowid";
+			$sql .= " AND d.fk_member_type = t.rowid";
 
 			dol_syslog("get list sql=".$sql);
 			$resql = $db->query($sql);

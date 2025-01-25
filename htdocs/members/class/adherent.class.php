@@ -331,7 +331,7 @@ class Adherent extends CommonObject
 		'pass' => array('type' => 'varchar(50)', 'label' => 'Pass', 'enabled' => 1, 'visible' => -1, 'position' => 45),
 		'pass_crypted' => array('type' => 'varchar(128)', 'label' => 'Pass crypted', 'enabled' => 1, 'visible' => -1, 'position' => 50),
 		'morphy' => array('type' => 'varchar(3)', 'label' => 'MemberNature', 'enabled' => 1, 'visible' => 1, 'notnull' => 1, 'position' => 55),
-		'fk_adherent_type' => array('type' => 'integer', 'label' => 'Fk adherent type', 'enabled' => 1, 'visible' => 1, 'notnull' => 1, 'position' => 60),
+		'fk_member_type' => array('type' => 'integer', 'label' => 'Fk adherent type', 'enabled' => 1, 'visible' => 1, 'notnull' => 1, 'position' => 60),
 		'societe' => array('type' => 'varchar(128)', 'label' => 'Societe', 'enabled' => 1, 'visible' => 1, 'position' => 65, 'showoncombobox' => 2),
 		'fk_soc' => array('type' => 'integer:Societe:societe/class/societe.class.php', 'label' => 'ThirdParty', 'enabled' => 1, 'visible' => 1, 'position' => 70),
 		'address' => array('type' => 'text', 'label' => 'Address', 'enabled' => 1, 'visible' => -1, 'position' => 75),
@@ -655,7 +655,7 @@ class Adherent extends CommonObject
 
 		// Insert member
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."member";
-		$sql .= " (ref, datec,login,fk_user_author,fk_user_mod,fk_user_valid,morphy,fk_adherent_type,entity,import_key, ip)";
+		$sql .= " (ref, datec,login,fk_user_author,fk_user_mod,fk_user_valid,morphy,fk_member_type,entity,import_key, ip)";
 		$sql .= " VALUES (";
 		$sql .= " '(PROV)'";
 		$sql .= ", '".$this->db->idate($this->datec)."'";
@@ -823,7 +823,7 @@ class Adherent extends CommonObject
 		$sql .= ", public = ".(int) $this->public;
 		$sql .= ", statut = ".(int) $this->statut;
 		$sql .= ", default_lang = ".(!empty($this->default_lang) ? "'".$this->db->escape($this->default_lang)."'" : "null");
-		$sql .= ", fk_adherent_type = ".(int) $this->typeid;
+		$sql .= ", fk_member_type = ".(int) $this->typeid;
 		$sql .= ", morphy = '".$this->db->escape($this->morphy)."'";
 		$sql .= ", birth = ".($this->birth ? "'".$this->db->idate($this->birth)."'" : "null");
 
@@ -1423,7 +1423,7 @@ class Adherent extends CommonObject
 		$sql .= " d.societe as company, d.fk_soc, d.statut, d.public, d.address, d.zip, d.town, d.note_private,";
 		$sql .= " d.note_public,";
 		$sql .= " d.email, d.url, d.socialnetworks, d.phone, d.phone_perso, d.phone_mobile, d.login, d.pass, d.pass_crypted,";
-		$sql .= " d.photo, d.fk_adherent_type, d.morphy, d.entity,";
+		$sql .= " d.photo, d.fk_member_type, d.morphy, d.entity,";
 		$sql .= " d.datec as datec,";
 		$sql .= " d.tms as datem,";
 		$sql .= " d.datefin as datefin, d.default_lang,";
@@ -1440,7 +1440,7 @@ class Adherent extends CommonObject
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON d.country = c.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."c_departements as dep ON d.state_id = dep.rowid";
 		$sql .= " LEFT JOIN ".MAIN_DB_PREFIX."user as u ON d.rowid = u.fk_member";
-		$sql .= " WHERE d.fk_adherent_type = t.rowid";
+		$sql .= " WHERE d.fk_member_type = t.rowid";
 		if ($rowid) {
 			$sql .= " AND d.rowid=".((int) $rowid);
 		} elseif ($ref || $fk_soc) {
@@ -1525,7 +1525,7 @@ class Adherent extends CommonObject
 				$this->note_public = $obj->note_public;
 				$this->morphy = $obj->morphy;
 
-				$this->typeid = $obj->fk_adherent_type;
+				$this->typeid = $obj->fk_member_type;
 				$this->type = $obj->type;
 				$this->need_subscription = $obj->subscription;
 
@@ -2576,7 +2576,7 @@ class Adherent extends CommonObject
 		$sql = "SELECT a.rowid, a.datefin, a.statut";
 		$sql .= " FROM ".MAIN_DB_PREFIX."adherent as a";
 		$sql .= ", ".MAIN_DB_PREFIX."adherent_type as t";
-		$sql .= " WHERE a.fk_adherent_type = t.rowid";
+		$sql .= " WHERE a.fk_member_type = t.rowid";
 		if ($mode == 'expired') {
 			$sql .= " AND a.statut = ".self::STATUS_VALIDATED;
 			$sql .= " AND a.entity IN (".getEntity('member').")";
@@ -3041,10 +3041,10 @@ class Adherent extends CommonObject
 	 * CAN BE A CRON TASK
 	 *
 	 * @param	string		$daysbeforeendlist		Nb of days before end of subscription (negative number = after subscription). Can be a list of delay, separated by a semicolon, for example '10;5;0;-5'
-	 * @param	int			$fk_adherent_type		Type of Member (In order to restrict the sending of emails only to this type of member)
+	 * @param	int			$fk_member_type		Type of Member (In order to restrict the sending of emails only to this type of member)
 	 * @return	int									0 if OK, <>0 if KO (this function is used also by cron so only 0 is OK)
 	 */
-	public function sendReminderForExpiredSubscription($daysbeforeendlist = '10', $fk_adherent_type = 0)
+	public function sendReminderForExpiredSubscription($daysbeforeendlist = '10', $fk_member_type = 0)
 	{
 		global $config, $langs, $mysoc, $user;
 
@@ -3091,8 +3091,8 @@ class Adherent extends CommonObject
 			$sql .= " AND statut = 1";
 			$sql .= " AND datefin >= '".$this->db->idate($datetosearchfor)."'";
 			$sql .= " AND datefin <= '".$this->db->idate($datetosearchforend)."'";
-			if ((int) $fk_adherent_type > 0) {
-				$sql .= " AND fk_adherent_type = ".((int) $fk_adherent_type);
+			if ((int) $fk_member_type > 0) {
+				$sql .= " AND fk_member_type = ".((int) $fk_member_type);
 			}
 			//$sql .= " LIMIT 10000";
 

@@ -649,7 +649,7 @@ class MemberType extends CommonObject
 		$sql = "SELECT a.rowid";
 		$sql .= " FROM " . MAIN_DB_PREFIX . "adherent as a";
 		$sql .= " WHERE a.entity IN (" . getEntity('member') . ")";
-		$sql .= " AND a.fk_adherent_type = " . ((int) $this->id);
+		$sql .= " AND a.fk_member_type = " . ((int) $this->id);
 		if (!empty($excludefilter)) {
 			$sql .= ' AND (' . $excludefilter . ')';
 		}
