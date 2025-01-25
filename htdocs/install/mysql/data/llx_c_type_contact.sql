@@ -67,7 +67,7 @@ insert into llx_c_type_contact (element, source, code, libelle, active ) values 
 insert into llx_c_type_contact (element, source, code, libelle, active ) values ('agenda', 'external', 'ACTOR', 'Responsable', 1);
 insert into llx_c_type_contact (element, source, code, libelle, active ) values ('agenda', 'external', 'GUEST', 'Guest', 1);
 
--- Customer Order / Commande
+-- Customer Order / Order
 insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order', 'internal', 'SALESREPFOLL',  'Responsable suivi de la order', 1);
 insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order', 'external', 'BILLING',       'Contact client facturation order', 1);
 insert into llx_c_type_contact (element, source, code, libelle, active ) values ('order', 'external', 'CUSTOMER',      'Contact client suivi order', 1);
