@@ -410,7 +410,7 @@ class Categories extends DolibarrApi
 			if (!DolibarrApiAccess::$user->hasRight('member', 'creer')) {
 				throw new RestException(403);
 			}
-			$object = new Adherent($this->db);
+			$object = new Member($this->db);
 		} elseif ($type === Categorie::TYPE_ACTIONCOMM) {
 			if (!DolibarrApiAccess::$user->hasRight('agenda', 'allactions', 'read')) {
 				throw new RestException(403);
@@ -491,7 +491,7 @@ class Categories extends DolibarrApi
 			if (!DolibarrApiAccess::$user->hasRight('member', 'creer')) {
 				throw new RestException(403);
 			}
-			$object = new Adherent($this->db);
+			$object = new Member($this->db);
 		} elseif ($type === Categorie::TYPE_ACTIONCOMM) {
 			if (!DolibarrApiAccess::$user->hasRight('agenda', 'allactions', 'read')) {
 				throw new RestException(403);
@@ -572,7 +572,7 @@ class Categories extends DolibarrApi
 			if (!DolibarrApiAccess::$user->hasRight('member', 'creer')) {
 				throw new RestException(403);
 			}
-			$object = new Adherent($this->db);
+			$object = new Member($this->db);
 		} elseif ($type === Categorie::TYPE_ACTIONCOMM) {
 			if (!DolibarrApiAccess::$user->hasRight('agenda', 'allactions', 'read')) {
 				throw new RestException(403);
@@ -651,7 +651,7 @@ class Categories extends DolibarrApi
 			if (!DolibarrApiAccess::$user->hasRight('member', 'creer')) {
 				throw new RestException(403);
 			}
-			$object = new Adherent($this->db);
+			$object = new Member($this->db);
 		} elseif ($type === Categorie::TYPE_ACTIONCOMM) {
 			if (!DolibarrApiAccess::$user->hasRight('agenda', 'allactions', 'read')) {
 				throw new RestException(403);

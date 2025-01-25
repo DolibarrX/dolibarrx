@@ -1762,7 +1762,7 @@ class Societe extends CommonObject
 
 						dol_syslog(get_class($this)."::update update linked member");
 
-						$lmember = new Adherent($this->db);
+						$lmember = new Member($this->db);
 						$result = $lmember->fetch(0, 0, $this->id);
 
 						if ($result > 0) {

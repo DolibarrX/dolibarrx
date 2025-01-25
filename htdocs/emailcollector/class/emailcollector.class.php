@@ -2230,7 +2230,7 @@ class EmailCollector extends CommonObject
 							$candidaturefoundby = 'TrackID dolibarr-'.$trackid.'@...';
 						}
 						if ($reg[1] == 'mem') {   // Member
-							$objectemail = new Adherent($this->db);
+							$objectemail = new Member($this->db);
 						}
 						/*if ($reg[1] == 'leav') {   // Leave / Holiday
 							$objectemail = new Holiday($db);

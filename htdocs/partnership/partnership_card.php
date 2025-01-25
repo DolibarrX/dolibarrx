@@ -484,7 +484,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	// End of subscription date
 	if ($managedfor == 'member') {
-		$fmember = new Adherent($db);
+		$fmember = new Member($db);
 		$fmember->fetch($object->fk_member);
 		print '<tr><td>'.$langs->trans("SubscriptionEndDate").'</td><td class="valeur">';
 		if ($fmember->datefin) {

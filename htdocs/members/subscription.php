@@ -84,7 +84,7 @@ if (!$sortorder) {
 	$sortorder = "DESC";
 }
 
-$object = new Adherent($db);
+$object = new Member($db);
 $extrafields = new ExtraFields($db);
 $adht = new MemberType($db);
 
@@ -186,7 +186,7 @@ if (empty($resHook) && $action == 'setsocid' && $permissiontoaddmember) {
 		if ($resql) {
 			$obj = $db->fetch_object($resql);
 			if ($obj && $obj->rowid > 0) {
-				$othermember = new Adherent($db);
+				$othermember = new Member($db);
 				$othermember->fetch($obj->rowid);
 				$thirdparty = new Societe($db);
 				$thirdparty->fetch(GETPOSTINT('socid'));
@@ -748,7 +748,7 @@ if ($action != 'addsubscription' && $action != 'create_thirdparty') {
 		print "</tr>\n";
 
 		$accountstatic = new Account($db);
-		$adh = new Adherent($db);
+		$adh = new Member($db);
 		$adht = new MemberType($db);
 
 		$i = 0;

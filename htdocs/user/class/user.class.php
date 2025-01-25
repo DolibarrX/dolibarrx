@@ -2314,7 +2314,7 @@ class User extends CommonObject
 
 					// This user is linked with a member, so we also update member information
 					// if this is an update.
-					$adh = new Adherent($this->db);
+					$adh = new Member($this->db);
 					$result = $adh->fetch($this->fk_member);
 
 					if ($result > 0) {
@@ -2574,7 +2574,7 @@ class User extends CommonObject
 
 						// This user is linked with a member, so we also update members information
 						// if this is an update.
-						$adh = new Adherent($this->db);
+						$adh = new Member($this->db);
 						$result = $adh->fetch($this->fk_member);
 
 						if ($result >= 0) {

@@ -455,7 +455,7 @@ if (getDolGlobalString('LDAP_MEMBER_ACTIVE')) {
 if (function_exists("ldap_connect")) {
 	if ($action == 'testmember') {
 		// Create object
-		$object = new Adherent($db);
+		$object = new Member($db);
 		$object->initAsSpecimen();
 
 		// Test synchro

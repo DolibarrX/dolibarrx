@@ -158,7 +158,7 @@ class Subscription extends CommonObject
 		$sql = "INSERT INTO ".MAIN_DB_PREFIX."subscription (fk_member, fk_type, datec, dateadh, datef, subscription, note)";
 
 		require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
-		$member = new Adherent($this->db);
+		$member = new Member($this->db);
 		$result = $member->fetch($this->fk_member);
 
 		if ($this->fk_type == null) {	// If type not defined, we use the type of member
@@ -313,7 +313,7 @@ class Subscription extends CommonObject
 		$resql = $this->db->query($sql);
 		if ($resql) {
 			require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
-			$member = new Adherent($this->db);
+			$member = new Member($this->db);
 			$result = $member->fetch($this->fk_member);
 			$result = $member->update_end_date($user);
 
@@ -382,7 +382,7 @@ class Subscription extends CommonObject
 				$num = $this->db->affected_rows($resql);
 				if ($num) {
 					require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
-					$member = new Adherent($this->db);
+					$member = new Member($this->db);
 					$result = $member->fetch($this->fk_member);
 					$result = $member->update_end_date($user);
 

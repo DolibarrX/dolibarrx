@@ -119,7 +119,7 @@ class pdf_standard_member extends CommonStickerGenerator
 			}
 		}
 
-		$member = new Adherent($db);
+		$member = new Member($db);
 		$member->id = $idmember;
 		$member->ref = (string) $idmember;
 

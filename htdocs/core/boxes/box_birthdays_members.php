@@ -67,7 +67,7 @@ class box_birthdays_members extends ModeleBoxes
 
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 		include_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
-		$memberstatic = new Adherent($this->db);
+		$memberstatic = new Member($this->db);
 
 		$langs->load("boxes");
 

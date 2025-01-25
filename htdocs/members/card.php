@@ -86,7 +86,7 @@ if (isModEnabled('mailmanspip')) {
 	$mailmanspip = null;
 }
 
-$object = new Adherent($db);
+$object = new Member($db);
 $extrafields = new ExtraFields($db);
 
 // fetch optionals attributes and labels
@@ -207,7 +207,7 @@ if (empty($resHook)) {
 				if ($resql) {
 					$obj = $db->fetch_object($resql);
 					if ($obj && $obj->rowid > 0) {
-						$othermember = new Adherent($db);
+						$othermember = new Member($db);
 						$othermember->fetch($obj->rowid);
 						$thirdparty = new Societe($db);
 						$thirdparty->fetch($socid);
@@ -939,7 +939,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 	// When used with CANVAS
 	// -----------------------------------------
 	if (empty($object->error) && $id) {
-		$object = new Adherent($db);
+		$object = new Member($db);
 		$result = $object->fetch($id);
 		if ($result <= 0) {
 			dol_print_error(null, $object->error);

@@ -74,7 +74,7 @@ $langs->loadLangs(array("companies", "members"));
  * View
  */
 
-$memberstatic = new Adherent($db);
+$memberstatic = new Member($db);
 $form = new Form($db);
 
 $title = $langs->trans("SubscriptionsStatistics");

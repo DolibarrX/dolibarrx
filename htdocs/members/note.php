@@ -52,7 +52,7 @@ $ref = GETPOST('ref', 'alphanohtml');
 
 
 // Initialize objects
-$object = new Adherent($db);
+$object = new Member($db);
 
 $result = $object->fetch($id);
 if ($result > 0) {

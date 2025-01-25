@@ -56,7 +56,7 @@ $backtopage = GETPOST('backtopage', 'alpha');
 $backtopageforcancel = GETPOST('backtopageforcancel', 'alpha');
 //$lineid   = GETPOST('lineid', 'int');
 
-$object = new Adherent($db);
+$object = new Member($db);
 if ($id > 0) {
 	$object->fetch($id);
 }
@@ -162,7 +162,7 @@ $form = new Form($db);
 if ($id > 0) {
 	$langs->load("members");
 
-	$object = new Adherent($db);
+	$object = new Member($db);
 	$result = $object->fetch($id);
 
 	if (isModEnabled('notification')) {
@@ -261,7 +261,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 		include DOL_DOCUMENT_ROOT.'/core/tpl/commonfields_view.tpl.php';
 
 		// End of subscription date
-		$fmember = new Adherent($db);
+		$fmember = new Member($db);
 		$fmember->fetch($object->fk_member);
 		print '<tr><td>'.$langs->trans("SubscriptionEndDate").'</td><td class="valeur">';
 		if ($fmember->datefin) {

@@ -74,7 +74,7 @@ $result = restrictedArea($user, 'banque');
 
 $form = new Form($db);
 $societestatic = new Societe($db);
-$memberstatic = new Adherent($db);
+$memberstatic = new Member($db);
 $acc = new Account($db);
 $stripe = new Stripe($db);
 

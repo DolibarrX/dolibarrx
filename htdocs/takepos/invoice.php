@@ -1636,7 +1636,7 @@ $( document ).ready(function() {
 		require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 		$langs->load("members");
 		$s .= $langs->trans("Member").': ';
-		$adh = new Adherent($db);
+		$adh = new Member($db);
 		$result = $adh->fetch('', '', $invoice->socid);
 		if ($result > 0) {
 			$adh->ref = $adh->getFullName($langs);

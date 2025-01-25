@@ -261,7 +261,7 @@ if ($massaction == 'presend') {
 			$fcontact->fetch($thirdpartyid);
 			$liste['contact'] = $fcontact->getFullName($langs)." &lt;".$fcontact->email."&gt;";
 		} elseif ($objecttmp->element == 'partnership' && getDolGlobalString('PARTNERSHIP_IS_MANAGED_FOR') == 'member') {
-			$fmember = new Adherent($db);
+			$fmember = new Member($db);
 			$fmember->fetch($objecttmp->fk_member);
 			$liste['member'] = $fmember->getFullName($langs)." &lt;".$fmember->email."&gt;";
 		} else {

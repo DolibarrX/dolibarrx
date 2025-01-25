@@ -105,7 +105,7 @@ $hookManager->initHooks(array('publicnewmembercard', 'globalcard'));
 
 $extrafields = new ExtraFields($db);
 
-$object = new Adherent($db);
+$object = new Member($db);
 
 $user->loadDefaultValues();
 
@@ -285,7 +285,7 @@ if (empty($resHook) && $action == 'add') {	// Test on permission not required he
 
 	if (!$error) {
 		// E-mail looks OK and login does not exist
-		$adh = new Adherent($db);
+		$adh = new Member($db);
 		$adh->statut      = -1;
 		$adh->status      = -1;
 		$adh->public      = $public;

@@ -8285,7 +8285,7 @@ class Form
 
 			if ($selected && empty($selected_input_value)) {
 				require_once DOL_DOCUMENT_ROOT . '/members/class/member.class.php';
-				$membertmpselect = new Adherent($this->db);
+				$membertmpselect = new Member($this->db);
 				$membertmpselect->fetch($selected);
 				$selected_input_value = $membertmpselect->ref;
 				unset($membertmpselect);

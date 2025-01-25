@@ -148,7 +148,7 @@ if (!$error && $massaction == 'confirm_presend') {
 		} elseif ($objecttmp->element == 'contact') {
 			$thirdparty = new Contact($db);
 		} elseif ($objecttmp->element == 'partnership' && getDolGlobalString('PARTNERSHIP_IS_MANAGED_FOR') == 'member') {
-			$thirdparty = new Adherent($db);
+			$thirdparty = new Member($db);
 		} elseif ($objecttmp->element == 'holiday') {
 			$thirdparty = new User($db);
 		} elseif ($objecttmp->element == 'conferenceorboothattendee') {
@@ -347,7 +347,7 @@ if (!$error && $massaction == 'confirm_presend') {
 						$fcontact->fetch($objectobj->id);
 						$sendto = $fcontact->email;
 					} elseif ($objectobj->element == 'partnership' && getDolGlobalString('PARTNERSHIP_IS_MANAGED_FOR') == 'member') {
-						$fmember = new Adherent($db);
+						$fmember = new Member($db);
 						$fmember->fetch($objectobj->fk_member);
 						$sendto = $fmember->email;
 					} elseif ($objectobj->element == 'holiday') {

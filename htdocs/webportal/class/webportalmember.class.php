@@ -183,7 +183,7 @@ class WebPortalMember extends Adherent
 	protected function getMemberStatic()
 	{
 		if (!$this->member_static) {
-			$this->member_static = new Adherent($this->db);
+			$this->member_static = new Member($this->db);
 		}
 
 		return $this->member_static;

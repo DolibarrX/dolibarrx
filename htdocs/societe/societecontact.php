@@ -220,7 +220,7 @@ if ($id > 0 || !empty($ref)) {
 			require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 
 			$membertypestatic = new MemberType($db);
-			$memberstatic = new Adherent($db);
+			$memberstatic = new Member($db);
 
 			$langs->load("members");
 			$sql = "SELECT d.rowid, d.login, d.lastname, d.firstname, d.societe as company, d.fk_soc,";

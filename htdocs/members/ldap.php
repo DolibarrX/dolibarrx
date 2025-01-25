@@ -53,7 +53,7 @@ if ($user->socid > 0) {
 	$socid = $user->socid;
 }
 
-$object = new Adherent($db);
+$object = new Member($db);
 
 // Fetch object
 if ($id > 0 || !empty($ref)) {

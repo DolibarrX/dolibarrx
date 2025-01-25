@@ -77,7 +77,7 @@ $pagenext = $page + 1;
 // Initialize a technical objects
 $object = new Partnership($db);
 $extrafields = new ExtraFields($db);
-$member = new Adherent($db);
+$member = new Member($db);
 $diroutputmassaction = $config->partnership->dir_output.'/temp/massgeneration/'.$user->id;
 if ($socid > 0) {
 	$hookManager->initHooks(array('thirdpartypartnership', 'globalcard'));
@@ -515,7 +515,7 @@ if ($managedfor == "member") {
 	if ($memberid > 0 && $user->hasRight('member', 'lire')) {
 		$langs->load("members");
 
-		$adhstat = new Adherent($db);
+		$adhstat = new Member($db);
 		$adht = new MemberType($db);
 		$result = $adhstat->fetch($memberid);
 

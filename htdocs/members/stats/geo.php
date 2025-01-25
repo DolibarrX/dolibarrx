@@ -65,7 +65,7 @@ $langs->loadLangs(array("companies", "members", "banks"));
  * View
  */
 
-$memberstatic = new Adherent($db);
+$memberstatic = new Member($db);
 
 $arrayjs = array('https://www.google.com/jsapi');
 if (!empty($config->dol_use_jmobile)) {

@@ -2614,7 +2614,7 @@ class Adherent extends CommonObject
 			$response->url = $url;
 			$response->img = img_object('', "user");
 
-			$memberstatic = new Adherent($this->db);
+			$memberstatic = new Member($this->db);
 
 			while ($obj = $this->db->fetch_object($resql)) {
 				$response->nbtodo++;
@@ -3101,7 +3101,7 @@ class Adherent extends CommonObject
 				$num_rows = $this->db->num_rows($resql);
 
 				include_once DOL_DOCUMENT_ROOT.'/core/class/html.formmail.class.php';
-				$member = new Adherent($this->db);
+				$member = new Member($this->db);
 				$formmail = new FormMail($this->db);
 
 				$i = 0;

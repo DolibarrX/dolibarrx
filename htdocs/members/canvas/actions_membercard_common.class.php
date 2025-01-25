@@ -77,7 +77,7 @@ abstract class ActionsAdherentCardCommon
 	 */
 	public function getObject($id)
 	{
-		$object = new Adherent($this->db);
+		$object = new Member($this->db);
 
 		if (!empty($id)) {
 			$object->fetch($id);

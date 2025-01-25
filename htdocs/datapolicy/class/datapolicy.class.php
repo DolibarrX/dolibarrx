@@ -153,10 +153,10 @@ class DataPolicy
 			$i = 0;
 			while ($i < $num) {
 				$obj = $this->db->fetch_object($resql);
-				$member = new Adherent($db);
+				$member = new Member($db);
 				$member->fetch($obj->rowid);
 
-				DataPolicy::sendMailDataPolicyAdherent($member);
+				DataPolicy::sendMailDataPolicyMember($member);
 				$i++;
 			}
 		} else {
@@ -326,7 +326,7 @@ class DataPolicy
 	 * @param Adherent	$member		Member
 	 * @return void
 	 */
-	public static function sendMailDataPolicyAdherent($member)
+	public static function sendMailDataPolicyMember($member)
 	{
 		global $langs, $db, $user;
 

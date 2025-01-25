@@ -861,7 +861,7 @@ if ($rowid > 0) {
 			}
 			print "</tr>\n";
 
-			$adh = new Adherent($db);
+			$adh = new Member($db);
 
 			$imaxinloop = ($limit ? min($num, $limit) : $num);
 			while ($i < $imaxinloop) {

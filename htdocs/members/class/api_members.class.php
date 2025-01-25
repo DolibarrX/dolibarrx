@@ -70,7 +70,7 @@ class Members extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$member = new Adherent($this->db);
+		$member = new Member($this->db);
 		if ($id == 0) {
 			$result = $member->initAsSpecimen();
 		} else {
@@ -107,7 +107,7 @@ class Members extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$member = new Adherent($this->db);
+		$member = new Member($this->db);
 		$result = $member->fetch(0, '', $thirdparty);
 		if (!$result) {
 			throw new RestException(404, 'member not found');
@@ -153,7 +153,7 @@ class Members extends DolibarrApi
 				throw new RestException(404, 'thirdparty not found');
 			}
 
-			$member = new Adherent($this->db);
+			$member = new Member($this->db);
 			$result = $member->fetch(0, '', $thirdparty->id);
 			if (!$result) {
 				throw new RestException(404, 'member not found');
@@ -195,7 +195,7 @@ class Members extends DolibarrApi
 			throw new RestException(404, 'thirdparty not found');
 		}
 
-		$member = new Adherent($this->db);
+		$member = new Member($this->db);
 		$result = $member->fetch(0, '', $thirdparty->id);
 		if (!$result) {
 			throw new RestException(404, 'member not found');
@@ -234,7 +234,7 @@ class Members extends DolibarrApi
 			throw new RestException(404, 'thirdparty not found');
 		}
 
-		$member = new Adherent($this->db);
+		$member = new Member($this->db);
 		$result = $member->fetch(0, '', $thirdparty->id);
 		if (!$result) {
 			throw new RestException(404, 'member not found');
@@ -322,7 +322,7 @@ class Members extends DolibarrApi
 			$min = min($num, ($limit <= 0 ? $num : $limit));
 			while ($i < $min) {
 				$obj = $this->db->fetch_object($result);
-				$member = new Adherent($this->db);
+				$member = new Member($this->db);
 				if ($member->fetch($obj->rowid)) {
 					$obj_ret[] = $this->_filterObjectProperties($this->_cleanObjectDatas($member), $properties);
 				}
@@ -371,7 +371,7 @@ class Members extends DolibarrApi
 		// Check mandatory fields
 		$result = $this->_validate($request_data);
 
-		$member = new Adherent($this->db);
+		$member = new Member($this->db);
 		foreach ($request_data as $field => $value) {
 			if ($field === 'caller') {
 				// Add a mention of caller so on trigger called after action, we can filter to avoid a loop if we try to sync back again with the caller
@@ -406,7 +406,7 @@ class Members extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$member = new Adherent($this->db);
+		$member = new Member($this->db);
 		$result = $member->fetch($id);
 		if (!$result) {
 			throw new RestException(404, 'member not found');
@@ -481,7 +481,7 @@ class Members extends DolibarrApi
 		if (!DolibarrApiAccess::$user->hasRight('member', 'supprimer')) {
 			throw new RestException(403);
 		}
-		$member = new Adherent($this->db);
+		$member = new Member($this->db);
 		$result = $member->fetch($id);
 		if (!$result) {
 			throw new RestException(404, 'member not found');
@@ -625,7 +625,7 @@ class Members extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$member = new Adherent($this->db);
+		$member = new Member($this->db);
 		$result = $member->fetch($id);
 		if (!$result) {
 			throw new RestException(404, 'member not found');
@@ -659,7 +659,7 @@ class Members extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$member = new Adherent($this->db);
+		$member = new Member($this->db);
 		$result = $member->fetch($id);
 		if (!$result) {
 			throw new RestException(404, 'member not found');
@@ -691,7 +691,7 @@ class Members extends DolibarrApi
 			throw new RestException(403);
 		}
 
-		$member = new Adherent($this->db);
+		$member = new Member($this->db);
 		$result = $member->fetch($id);
 		if (0 === $result) {
 			throw new RestException(404, 'Member not found');

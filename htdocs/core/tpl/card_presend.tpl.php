@@ -209,7 +209,7 @@ if ($action == 'presend') {
 		$liste['thirdparty'] = $fuser->getFullName($outputlangs)." <".$fuser->email.">";
 	} elseif ($object->element == 'partnership' && getDolGlobalString('PARTNERSHIP_IS_MANAGED_FOR') == 'member') {
 		'@phan-var-force Partnership $object';
-		$fmember = new Adherent($db);
+		$fmember = new Member($db);
 		$fmember->fetch($object->fk_member);
 		$liste['member'] = $fmember->getFullName($outputlangs)." <".$fmember->email.">";
 	} elseif ($object->element == 'societe') {

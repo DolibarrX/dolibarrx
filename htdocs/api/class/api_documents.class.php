@@ -365,7 +365,7 @@ class Documents extends DolibarrApi
 				throw new RestException(403);
 			}
 
-			$object = new Adherent($this->db);
+			$object = new Member($this->db);
 			$result = $object->fetch($id, $ref);
 			if (!$result) {
 				throw new RestException(404, 'Member not found');
@@ -758,7 +758,7 @@ class Documents extends DolibarrApi
 			} elseif ($modulepart == 'member' || $modulepart == 'member') {
 				$modulepart = 'member';
 				require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
-				$object = new Adherent($this->db);
+				$object = new Member($this->db);
 			} elseif ($modulepart == 'proposal' || $modulepart == 'propal' || $modulepart == 'propale') {
 				$modulepart = 'propale';
 				require_once DOL_DOCUMENT_ROOT.'/comm/propal/class/propal.class.php';

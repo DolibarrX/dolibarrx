@@ -93,7 +93,7 @@ $result = restrictedArea($user, 'member', $id);
 
 
 // Initialize a technical objects
-$object = new Adherent($db);
+$object = new Member($db);
 $result = $object->fetch($id);
 if ($result > 0) {
 	$object->fetch_thirdparty();

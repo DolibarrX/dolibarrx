@@ -372,7 +372,7 @@ abstract class ActionsCardCommon
 			// Linked member
 			if (isModEnabled('member')) {
 				$langs->load("members");
-				$adh = new Adherent($this->db);
+				$adh = new Member($this->db);
 				$result = $adh->fetch(0, '', $this->object->id);
 				if ($result > 0) {
 					$adh->ref = $adh->getFullName($langs);

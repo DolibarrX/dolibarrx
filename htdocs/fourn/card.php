@@ -473,7 +473,7 @@ if ($object->id > 0) {
 		$langs->load("users");
 		print '<tr><td>'.$langs->trans("LinkedToDolibarrMember").'</td>';
 		print '<td>';
-		$adh = new Adherent($db);
+		$adh = new Member($db);
 		$result = $adh->fetch('', '', $object->id);
 		if ($result > 0) {
 			$adh->ref = $adh->getFullName($langs);

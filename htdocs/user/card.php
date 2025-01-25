@@ -1951,7 +1951,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				print '<tr><td>'.$langs->trans("LinkedToDolibarrMember").'</td>';
 				print '<td>';
 				if ($object->fk_member) {
-					$adh = new Adherent($db);
+					$adh = new Member($db);
 					$adh->fetch($object->fk_member);
 					$adh->ref = $adh->getFullname($langs); // Force to show login instead of id
 					print $adh->getNomUrl(-1);
@@ -2917,7 +2917,7 @@ if ($action == 'create' || $action == 'adduserldap') {
 				print '<tr><td>'.$langs->trans("LinkedToDolibarrMember").'</td>';
 				print '<td>';
 				if ($object->fk_member) {
-					$adh = new Adherent($db);
+					$adh = new Member($db);
 					$adh->fetch($object->fk_member);
 					$adh->ref = $adh->login; // Force to show login instead of id
 					print $adh->getNomUrl(1);

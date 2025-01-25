@@ -80,7 +80,7 @@ class box_members_last_subscriptions extends ModeleBoxes
 		include_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
 		require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 		require_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
-		$staticmember = new Adherent($this->db);
+		$staticmember = new Member($this->db);
 		$statictype = new MemberType($this->db);
 		$subscriptionstatic = new Subscription($this->db);
 

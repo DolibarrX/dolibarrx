@@ -138,7 +138,7 @@ if ($id > 0 && $removeelem > 0 && $action == 'unlink') {	// Test on permission n
 		$elementtype = 'customer';
 	} elseif ($type == Categorie::TYPE_MEMBER && $user->hasRight('member', 'creer')) {
 		require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
-		$tmpobject = new Adherent($db);
+		$tmpobject = new Member($db);
 		$result = $tmpobject->fetch($removeelem);
 		$elementtype = 'member';
 	} elseif ($type == Categorie::TYPE_CONTACT && $user->hasRight('societe', 'creer')) {
@@ -224,7 +224,7 @@ if ($elemid && $action == 'addintocategory') {	// Test on permission not require
 		$elementtype = 'project';
 	} elseif ($type == Categorie::TYPE_MEMBER && $user->hasRight('member', 'creer')) {
 		require_once DOL_DOCUMENT_ROOT.'/members/class/member.class.php';
-		$newobject = new Adherent($db);
+		$newobject = new Member($db);
 		$elementtype = 'member';
 	} elseif ($type == Categorie::TYPE_CONTACT && $user->hasRight('societe', 'creer')) {
 		require_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';

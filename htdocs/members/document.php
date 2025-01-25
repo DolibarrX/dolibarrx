@@ -72,7 +72,7 @@ if (!$sortfield) {
 	$sortfield = "name";
 }
 
-$object = new Adherent($db);
+$object = new Member($db);
 $membert = new MemberType($db);
 $result = $object->fetch($id, $ref);
 if ($result < 0) {

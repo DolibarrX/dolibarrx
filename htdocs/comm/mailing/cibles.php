@@ -902,7 +902,7 @@ if ($object->fetch($id) >= 0) {
 			include_once DOL_DOCUMENT_ROOT.'/contact/class/contact.class.php';
 			include_once DOL_DOCUMENT_ROOT.'/eventorganization/class/conferenceorboothattendee.class.php';
 
-			$objectstaticmember = new Adherent($db);
+			$objectstaticmember = new Member($db);
 			$objectstaticuser = new User($db);
 			$objectstaticcompany = new Societe($db);
 			$objectstaticcontact = new Contact($db);

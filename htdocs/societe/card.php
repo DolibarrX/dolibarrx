@@ -3358,7 +3358,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				$langs->load("members");
 				print '<tr><td>'.$langs->trans("LinkedToDolibarrMember").'</td>';
 				print '<td>';
-				$adh = new Adherent($db);
+				$adh = new Member($db);
 				$result = $adh->fetch(0, '', $object->id);
 				if ($result > 0) {
 					$adh->ref = $adh->getFullName($langs);
@@ -3434,7 +3434,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				print dolGetButtonAction($langs->trans('ToClone'), '', 'default', $cloneSocietetUrl, $cloneButtonId, $user->hasRight('societe', 'creer'));
 
 				if (isModEnabled('member')) {
-					$adh = new Adherent($db);
+					$adh = new Member($db);
 					$result = $adh->fetch(0, '', $object->id);
 					if ($result == 0 && ($object->client == 1 || $object->client == 3) && getDolGlobalString('MEMBER_CAN_CONVERT_CUSTOMERS_TO_MEMBERS')) {
 						print '<a class="butAction" href="'.DOL_URL_ROOT.'/members/card.php?&action=create&socid='.$object->id.'" title="'.dol_escape_htmltag($langs->trans("NewMember")).'">'.$langs->trans("NewMember").'</a>'."\n";

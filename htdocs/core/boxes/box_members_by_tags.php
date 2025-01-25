@@ -76,7 +76,7 @@ class box_members_by_tags extends ModeleBoxes
 		$this->max = $max;
 
 		include_once DOL_DOCUMENT_ROOT . '/members/class/member.class.php';
-		$staticmember = new Adherent($this->db);
+		$staticmember = new Member($this->db);
 
 		$now = dol_now();
 		$year = idate('Y');

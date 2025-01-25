@@ -57,8 +57,8 @@ $model = GETPOST("model", 'aZ09'); // Doc template to use for business cards
 $modellabel = GETPOST("modellabel", 'aZ09'); // Doc template to use for address sheet
 $mesg = '';
 
-$memberstatic = new Adherent($db);
-$object = new Adherent($db);
+$memberstatic = new Member($db);
+$object = new Member($db);
 
 $extrafields = new ExtraFields($db);
 // Fetch optionals attributes and labels

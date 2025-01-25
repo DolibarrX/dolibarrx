@@ -198,7 +198,7 @@ class PartnershipUtils
 							// We are in the case of autocancellation subscription because of missing backlink
 							$fk_partner = $object->fk_member;
 
-							$member = new Adherent($this->db);
+							$member = new Member($this->db);
 							$member->fetch($object->fk_member);
 							$sendto = $member->email;
 

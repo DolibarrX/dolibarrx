@@ -660,7 +660,7 @@ class MemberType extends CommonObject
 			while ($obj = $this->db->fetch_object($resql)) {
 				if (!array_key_exists($obj->rowid, $ret)) {
 					if ($mode < 2) {
-						$memberstatic = new Adherent($this->db);
+						$memberstatic = new Member($this->db);
 						if ($mode == 1) {
 							$memberstatic->fetch($obj->rowid, '', 0, '', false, false);
 						} else {
@@ -894,7 +894,7 @@ class MemberType extends CommonObject
 		if (getDolGlobalString('LDAP_MEMBER_TYPE_FIELD_GROUPMEMBERS')) {
 			$valueofldapfield = array();
 			foreach ($this->members as $key => $val) {    // This is array of users for group into dolibarr database.
-				$member = new Adherent($this->db);
+				$member = new Member($this->db);
 				$member->fetch($val->id, '', 0, '', false, false);
 				$info2 = $member->_load_ldap_info();
 				$valueofldapfield[] = $member->_load_ldap_dn($info2);

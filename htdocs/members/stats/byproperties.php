@@ -63,7 +63,7 @@ $langs->loadLangs(array("companies", "members"));
  * View
  */
 
-$memberstatic = new Adherent($db);
+$memberstatic = new Member($db);
 
 $title = $langs->trans("MembersStatisticsByProperties");
 $help_url = 'EN:Module_Services_En|FR:Module_Services|ES:M&oacute;dulo_Servicios|DE:Modul_Mitglieder';

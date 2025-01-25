@@ -135,7 +135,7 @@ if (!$sortfield) {
 	$sortfield = ($filter == 'outofdate' ? "d.datefin" : "d.lastname");
 }
 
-$object = new Adherent($db);
+$object = new Member($db);
 
 // Initialize a technical object to manage hooks of page. Note that conf->hooks_modules contains an array of hook context
 $hookManager->initHooks(array('memberlist'));
@@ -291,7 +291,7 @@ if (empty($resHook)) {
 
 	// Close
 	if ($massaction == 'close' && $user->hasRight('member', 'creer')) {
-		$tmpmember = new Adherent($db);
+		$tmpmember = new Member($db);
 		$nbclose = 0;
 
 		$db->begin();
@@ -320,7 +320,7 @@ if (empty($resHook)) {
 
 	// Create external user
 	if ($massaction == 'createexternaluser' && $user->hasRight('member', 'creer') && $user->hasRight('user', 'user', 'creer')) {
-		$tmpmember = new Adherent($db);
+		$tmpmember = new Member($db);
 		$nbcreated = 0;
 
 		$db->begin();
@@ -355,7 +355,7 @@ if (empty($resHook)) {
 
 	// Create external user
 	if ($action == 'createsubscription_confirm' && $confirm == "yes" && $user->hasRight('member', 'creer')) {
-		$tmpmember = new Adherent($db);
+		$tmpmember = new Member($db);
 		$adht = new MemberType($db);
 		$nbcreated = 0;
 		$now = dol_now();
@@ -398,7 +398,7 @@ if (empty($resHook)) {
 $form = new Form($db);
 $formother = new FormOther($db);
 $membertypestatic = new MemberType($db);
-$memberstatic = new Adherent($db);
+$memberstatic = new Member($db);
 
 $now = dol_now();
 
@@ -785,10 +785,10 @@ print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sort
 // Add code for pre mass action (confirmation or email presend form)
 $topicmail = "Information";
 $modelmail = "member";
-$objecttmp = new Adherent($db);
+$objecttmp = new Member($db);
 $trackid = 'mem'.$object->id;
 if ($massaction == 'createsubscription') {
-	$tmpmember = new Adherent($db);
+	$tmpmember = new Member($db);
 	$adht = new MemberType($db);
 	$amount = 0;
 	foreach ($toselect as $id) {

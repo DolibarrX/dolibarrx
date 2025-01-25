@@ -1570,7 +1570,7 @@ if ($source == 'member' || $source == 'membersubscription') {
 	require_once DOL_DOCUMENT_ROOT.'/members/class/member_type.class.php';
 	require_once DOL_DOCUMENT_ROOT.'/members/class/subscription.class.php';
 
-	$member = new Adherent($db);
+	$member = new Member($db);
 	$adht = new MemberType($db);
 
 	$result = $member->fetch(0, $ref, 0, '', true, true);	// This fetch also ->last_subscription_amount

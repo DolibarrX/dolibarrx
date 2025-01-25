@@ -62,7 +62,7 @@ if (!isModEnabled('member')) {
 $langs->loadLangs(array("main", "members", "companies", "other"));
 
 $id = GETPOSTINT('id');
-$object = new Adherent($db);
+$object = new Member($db);
 $extrafields = new ExtraFields($db);
 
 

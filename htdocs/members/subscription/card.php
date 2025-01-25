@@ -44,7 +44,7 @@ if (isModEnabled("bank")) {
 // Load translation files required by the page
 $langs->loadLangs(array("companies", "members", "bills", "users", "banks"));
 
-$adh = new Adherent($db);
+$adh = new Member($db);
 $adht = new MemberType($db);
 $object = new Subscription($db);
 $errmsg = '';

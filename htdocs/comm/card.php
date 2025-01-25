@@ -685,7 +685,7 @@ if ($object->id > 0) {
 
 		print '<tr><td class="titlefield">'.$langs->trans("LinkedToDolibarrMember").'</td>';
 		print '<td>';
-		$adh = new Adherent($db);
+		$adh = new Member($db);
 		$result = $adh->fetch(0, '', $object->id);
 		if ($result > 0) {
 			$adh->ref = $adh->getFullName($langs);
