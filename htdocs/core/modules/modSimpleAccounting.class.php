@@ -19,11 +19,11 @@
  */
 
 /**
- *  \defgroup   comptabilite     Module Comptabilite
+ *  \defgroup   simpleaccounting     Module SimpleAccounting
  *  \brief      Module to include accounting functions (account management and reporting)
  *
- *  \file       htdocs/core/modules/modComptabilite.class.php
- *  \ingroup    comptabilite
+ *  \file       htdocs/core/modules/modSimpleAccounting.class.php
+ *  \ingroup    simpleaccounting
  *  \brief      Description and activation file for the module simple accountancy
  */
 
@@ -31,9 +31,9 @@ include_once DOL_DOCUMENT_ROOT.'/core/modules/DolibarrModules.class.php';
 
 
 /**
- *	Class to describe and enable module Comptabilite
+ *	Class to describe and enable module SimpleAccounting
  */
-class modComptabilite extends DolibarrModules
+class modSimpleAccounting extends DolibarrModules
 {
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
