@@ -38,7 +38,7 @@ require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.class.php';
 require_once DOL_DOCUMENT_ROOT.'/fourn/class/fournisseur.facture.class.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

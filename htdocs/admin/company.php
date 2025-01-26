@@ -47,7 +47,7 @@ $contextpage = GETPOST('contextpage', 'aZ') ? GETPOST('contextpage', 'aZ') : 'ad
 $page_y = GETPOSTINT('page_y');
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

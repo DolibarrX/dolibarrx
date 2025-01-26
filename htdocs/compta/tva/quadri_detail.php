@@ -45,7 +45,7 @@ require_once DOL_DOCUMENT_ROOT . '/expensereport/class/expensereport.class.php';
 require_once DOL_DOCUMENT_ROOT . '/expensereport/class/paymentexpensereport.class.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

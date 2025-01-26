@@ -30,7 +30,7 @@ require_once '../lib/partnership.lib.php';
 //require_once "../class/myclass.class.php";
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

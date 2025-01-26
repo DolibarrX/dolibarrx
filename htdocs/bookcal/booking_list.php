@@ -41,7 +41,7 @@ require_once DOL_DOCUMENT_ROOT.'/bookcal/lib/bookcal_calendar.lib.php';
 require_once __DIR__.'/class/calendar.class.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

@@ -19,7 +19,7 @@
 
 // variable $listofopplabel and $listofoppstatus should be defined
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var Form $form
  * @var DoliDB $db
  * @var Translate $langs

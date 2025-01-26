@@ -19,7 +19,7 @@
 
 /**
  * @var Canvas $this
- * @var Conf $conf
+ * @var Conf $config
  * @var CommonObject $this
  * @var DoliDB $db
  * @var FormFile $formfile

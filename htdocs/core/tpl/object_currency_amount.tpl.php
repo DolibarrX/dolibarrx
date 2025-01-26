@@ -25,7 +25,7 @@
  */
 /**
  * @var CommonObject $object
- * @var Conf $conf
+ * @var Conf $config
  * @var Form $form
  * @var Translate $langs
  *

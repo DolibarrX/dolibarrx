@@ -32,7 +32,7 @@ if (file_exists($conffile)) {
 	include_once $conffile;
 }
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var Translate $langs
  *
  * @var string $dolibarr_main_document_root

@@ -26,7 +26,7 @@
 
  /**
  * @var CommonObject $object
- * @var Conf $conf
+ * @var Conf $config
  * @var ExtraFields $extrafields
  * @var HookManager $hookManager
  * @var Translate $langs

@@ -44,7 +44,7 @@ if (GETPOST('CASHDESK_ID_THIRDPARTY'.$terminal.'_id', 'alpha')) {
 }
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

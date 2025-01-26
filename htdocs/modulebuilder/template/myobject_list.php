@@ -90,7 +90,7 @@ require_once __DIR__.'/class/myobject.class.php';
 //dol_include_once('/othermodule/class/otherobject.class.php');
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

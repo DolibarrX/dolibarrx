@@ -44,7 +44,7 @@ if (empty($_GET['keysearch']) && !defined('NOREQUIREHTML')) {	// Keep $_GET here
 require '../../main.inc.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

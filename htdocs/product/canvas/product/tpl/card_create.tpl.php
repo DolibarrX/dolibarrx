@@ -17,7 +17,7 @@
  */
 /**
  * @var Canvas $this
- * @var Conf $conf
+ * @var Conf $config
  * @var Form $form
  * @var Translate $langs
  * @var User $user

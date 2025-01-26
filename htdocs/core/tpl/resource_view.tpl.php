@@ -18,7 +18,7 @@
  */
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var Translate $langs
  *

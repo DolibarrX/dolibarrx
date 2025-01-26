@@ -48,7 +48,7 @@ require_once DOL_DOCUMENT_ROOT.'/societe/class/societe.class.php';
 
 global $mysoc;
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

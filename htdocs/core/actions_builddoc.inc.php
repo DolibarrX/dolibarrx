@@ -30,7 +30,7 @@
 // $upload_dir must be defined (example $config->project->dir_output . "/";)
 // $hidedetails, $hidedesc, $hideref and $moreparams may have been set or not.
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var Translate $langs
  * @var User $user
  * @var string $action

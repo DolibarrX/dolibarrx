@@ -55,7 +55,7 @@ if (!isModEnabled('bookcal')) {
 	httponly_accessforbidden('Module Bookcal isn\'t enabled');
 }
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var Translate $langs
  */

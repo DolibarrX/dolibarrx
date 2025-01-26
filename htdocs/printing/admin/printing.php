@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/printing/lib/printing.lib.php';
 use OAuth\Common\Storage\DoliStorage;
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

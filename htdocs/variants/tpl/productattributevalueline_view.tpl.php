@@ -36,7 +36,7 @@
  * @var CommonObject $this
  * @var CommonObject $object
  * @var CommonObjectLine $line
- * @var Conf $conf
+ * @var Conf $config
  * @var User $user
  *
  * @var string $action

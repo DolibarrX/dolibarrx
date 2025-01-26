@@ -71,7 +71,7 @@ require '../../main.inc.php';
 // cron jobs library
 dol_include_once("/cron/class/cronjob.class.php");
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var Translate $langs
  */

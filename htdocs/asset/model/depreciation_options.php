@@ -30,7 +30,7 @@ require_once DOL_DOCUMENT_ROOT . '/asset/class/assetmodel.class.php';
 require_once DOL_DOCUMENT_ROOT . '/asset/class/assetdepreciationoptions.class.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

@@ -72,7 +72,7 @@ require_once DOL_DOCUMENT_ROOT.'/imports/class/import.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/modules/import/modules_import.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

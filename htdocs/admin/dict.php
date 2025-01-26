@@ -94,7 +94,7 @@ const DICT_PRODUCTBATCH_QCSTATUS = 43;
 const DICT_ASSET_DISPOSAL_TYPE = 44;
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

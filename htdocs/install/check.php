@@ -32,7 +32,7 @@
 define('ALLOWED_IF_UPGRADE_UNLOCK_FOUND', 1);
 include_once 'inc.php';
 /**
- * @var Conf $conf already created in inc.php
+ * @var Conf $config already created in inc.php
  * @var Translate $langs
  *
  * @var string $dolibarr_main_db_host

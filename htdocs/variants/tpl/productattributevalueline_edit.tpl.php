@@ -31,7 +31,7 @@
  * @var CommonObject $this
  * @var CommonObject $object
  * @var CommonObjectLine $line
- * @var Conf $conf
+ * @var Conf $config
  * @var HookManager $hookManager
  * @var Translate $langs
  * @var User $user

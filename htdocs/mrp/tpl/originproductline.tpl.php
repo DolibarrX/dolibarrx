@@ -20,7 +20,7 @@
 
 /**
  * @var CommonObject $this
- * @var Conf $conf
+ * @var Conf $config
  * @var Form $form
  * @var MoLine $line
  * @var Translate $langs

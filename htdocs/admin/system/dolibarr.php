@@ -36,7 +36,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 @phan-var-force string $dolibarr_main_document_root_alt
 ';
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

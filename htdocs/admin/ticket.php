@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT."/core/lib/ticket.lib.php";
 require_once DOL_DOCUMENT_ROOT."/ticket/class/ticket.class.php";
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

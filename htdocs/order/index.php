@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/order/class/order.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/order.lib.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

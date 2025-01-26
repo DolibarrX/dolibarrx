@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var Translate $langs
  * @var string $servicename
  */

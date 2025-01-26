@@ -46,7 +46,7 @@ require_once DOL_DOCUMENT_ROOT."/opensurvey/lib/opensurvey.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var Societe $mysoc
  * @var Translate $langs

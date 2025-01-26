@@ -46,7 +46,7 @@ if (!defined('NOREQUIREAJAX')) {
 require_once __DIR__.'/../main.inc.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

@@ -28,7 +28,7 @@
  *
  */
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var CommonObject $object
  *
  * @var ?string $filepath

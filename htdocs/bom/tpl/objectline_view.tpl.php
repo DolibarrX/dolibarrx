@@ -36,7 +36,7 @@
  */
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var CommonObject $this
  * @var CommonObject $object
  * @var CommonObjectLine $line

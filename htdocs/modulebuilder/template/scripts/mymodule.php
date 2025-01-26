@@ -101,7 +101,7 @@ if (!$res) {
 // $user is created but empty.
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

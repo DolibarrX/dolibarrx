@@ -48,7 +48,7 @@ session_cache_limiter('public');
 
 require_once '../../main.inc.php';
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var Translate $langs
  *
  * @var int $dolibarr_nocache

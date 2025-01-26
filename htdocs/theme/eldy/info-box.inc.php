@@ -6,7 +6,7 @@ if (!defined('ISLOADEDBYSTEELSHEET')) {
 	die('Must be call by steelsheet');
 }
 /**
- * @var Conf $conf
+ * @var Conf $config
  */
 // Expected to be defined by including parent
 '

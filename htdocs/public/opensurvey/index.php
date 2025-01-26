@@ -36,7 +36,7 @@ if (!defined('NOBROWSERNOTIF')) {
 	define('NOBROWSERNOTIF', '1');
 }
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var Societe $mysoc
  * @var Translate $langs

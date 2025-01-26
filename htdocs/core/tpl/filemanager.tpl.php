@@ -21,7 +21,7 @@
  * $formalreadyopen can be set to 1 to avoid to open the <form> to submit files a second time
  */
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var Form $form
  * @var HookManager $hookManager

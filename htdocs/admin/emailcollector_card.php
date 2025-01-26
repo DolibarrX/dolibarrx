@@ -45,7 +45,7 @@ use OAuth\Common\Storage\DoliStorage;
 use OAuth\Common\Consumer\Credentials;
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

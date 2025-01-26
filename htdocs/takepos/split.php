@@ -43,7 +43,7 @@ if (!defined('NOREQUIREAJAX')) {
 require '../main.inc.php'; // Load $user and permissions
 require_once DOL_DOCUMENT_ROOT.'/compta/facture/class/facture.class.php';
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var Translate $langs
  * @var User $user

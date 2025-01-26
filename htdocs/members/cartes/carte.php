@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/modules/member/modules_cards.php';
 require_once DOL_DOCUMENT_ROOT.'/core/modules/printsheet/modules_labels.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

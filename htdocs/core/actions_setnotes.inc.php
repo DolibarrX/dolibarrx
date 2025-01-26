@@ -29,7 +29,7 @@
 // $id must be defined (object is loaded in this file with fetch)
 /**
  * @var CommonObject $object
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var Translate $langs
  * @var User $user

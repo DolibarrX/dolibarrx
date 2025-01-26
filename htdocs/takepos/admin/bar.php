@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 require_once DOL_DOCUMENT_ROOT."/core/lib/takepos.lib.php";
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

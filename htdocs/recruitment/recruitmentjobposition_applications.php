@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/recruitment/class/recruitmentjobposition.class.
 require_once DOL_DOCUMENT_ROOT.'/recruitment/lib/recruitment_recruitmentjobposition.lib.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

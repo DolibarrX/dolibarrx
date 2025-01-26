@@ -57,7 +57,7 @@ if (!defined('NOSESSION')) {
 require_once __DIR__.'/../../main.inc.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  */
 
 top_httphead('text/json');

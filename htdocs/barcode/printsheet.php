@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/modules/printsheet/modules_labels.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/genericobject.class.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

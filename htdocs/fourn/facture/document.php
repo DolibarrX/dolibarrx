@@ -41,7 +41,7 @@ if (isModEnabled('project')) {
 }
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

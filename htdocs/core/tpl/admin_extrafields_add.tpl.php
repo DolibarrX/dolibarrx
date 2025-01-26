@@ -27,7 +27,7 @@
  * $elementtype
  */
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var ExtraFields $extrafields
  * @var Form $form

@@ -42,7 +42,7 @@ if (!defined('NOREQUIREAJAX')) {
 
 require '../../main.inc.php'; // Load $user and permissions
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

@@ -42,7 +42,7 @@ if (getDolGlobalString('PRODUIT_PDF_MERGE_PROPAL')) {
 }
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

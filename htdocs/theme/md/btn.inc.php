@@ -5,7 +5,7 @@ if (!defined('ISLOADEDBYSTEELSHEET')) {
 	die('Must be call by steelsheet');
 }
 /**
- * @var Conf $conf
+ * @var Conf $config
  *
  * @var int $dol_optimize_smallscreen
  * @var string $colortextlink

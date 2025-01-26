@@ -29,7 +29,7 @@ require_once DOL_DOCUMENT_ROOT.'/variants/class/ProductCombination.class.php';
 require_once DOL_DOCUMENT_ROOT.'/variants/class/ProductCombination2ValuePair.class.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

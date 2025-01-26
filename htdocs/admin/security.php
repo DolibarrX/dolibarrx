@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
 $action = GETPOST('action', 'aZ09');
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

@@ -56,7 +56,7 @@ require_once DOL_DOCUMENT_ROOT.'/includes/sabre/autoload.php';
 //require_once DOL_DOCUMENT_ROOT.'/includes/autoload.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

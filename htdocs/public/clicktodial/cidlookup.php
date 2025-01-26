@@ -53,7 +53,7 @@ if (!defined('USESUFFIXINLOG')) {
 
 include '../../main.inc.php';
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  */
 $phone = GETPOST('phone');

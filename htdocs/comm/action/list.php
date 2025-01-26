@@ -40,7 +40,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
 include_once DOL_DOCUMENT_ROOT.'/core/class/html.formactions.class.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

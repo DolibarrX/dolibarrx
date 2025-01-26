@@ -31,7 +31,7 @@
 ';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var string $formatexportset
  * @var string $type_export

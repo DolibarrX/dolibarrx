@@ -28,7 +28,7 @@
 // $conf must be defined
 // $object must be defined (object is loaded in this file with fetch)
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var CommonObject $object
  * @var User $user

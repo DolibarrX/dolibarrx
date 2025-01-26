@@ -29,7 +29,7 @@ $leftmenuwidth = 240;
 
 // Variables defined in style.css.php (includes this file).
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var Translate $langs
  *
  * @var int<0,1> $dol_hide_topmenu

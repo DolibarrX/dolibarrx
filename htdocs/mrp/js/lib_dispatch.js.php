@@ -50,7 +50,7 @@ session_cache_limiter('public');
 require_once '../../main.inc.php';
 
 /**
- * @var Conf $conf
+ * @var Conf $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs
