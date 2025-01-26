@@ -66,11 +66,11 @@ $includeconferror = '';
 // Define vars
 $conffiletoshowshort = "conf.php";
 // Define localization of conf file
-$conffile = "../conf/conf.php";
-$conffiletoshow = "htdocs/conf/conf.php";
+$conffile = "../config/config.php";
+$conffiletoshow = "htdocs/config/config.php";
 // For debian/redhat like systems
-//$conffile = "/etc/dolibarr/conf.php";
-//$conffiletoshow = "/etc/dolibarr/conf.php";
+//$conffile = "/etc/dolibarr/config.php";
+//$conffiletoshow = "/etc/dolibarr/config.php";
 
 $short_options = "c:h";
 $long_options = array(

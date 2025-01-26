@@ -128,7 +128,7 @@ $conffiletoshowshort = "conf.php";
 // Define localization of conf file
 // --- Start of part replaced by Dolibarr packager makepack-dolibarr
 $conffile = "conf/conf.php";
-$conffiletoshow = "htdocs/conf/conf.php";
+$conffiletoshow = "htdocs/config/config.php";
 // For debian/redhat like systems
 //$conffile = "/etc/dolibarr/conf.php";
 //$conffiletoshow = "/etc/dolibarr/conf.php";

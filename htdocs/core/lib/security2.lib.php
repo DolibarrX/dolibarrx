@@ -387,7 +387,7 @@ function encodedecode_dbpassconf($level = 0)
 	$passwd = '';
 	$passwd_crypted = '';
 
-	if ($fp = fopen(DOL_DOCUMENT_ROOT . '/conf/conf.php', 'r')) {
+	if ($fp = fopen(DOL_DOCUMENT_ROOT . '/config/config.php', 'r')) {
 		while (!feof($fp)) {
 			$buffer = fgets($fp, 4096);
 
@@ -455,7 +455,7 @@ function encodedecode_dbpassconf($level = 0)
 		fclose($fp);
 
 		// Write new conf file
-		$file = DOL_DOCUMENT_ROOT . '/conf/conf.php';
+		$file = DOL_DOCUMENT_ROOT . '/config/config.php';
 		if ($fp = @fopen($file, 'w')) {
 			fwrite($fp, $config);
 			fflush($fp);
