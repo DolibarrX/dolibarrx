@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountancycategory.class.php
 require_once DOL_DOCUMENT_ROOT.'/accountancy/class/accountancyreport.class.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

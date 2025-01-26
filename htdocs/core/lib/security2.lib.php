@@ -129,7 +129,7 @@ if (!function_exists('dol_loginfunction')) {
 	 * Part of this code is also duplicated into main.inc.php::top_htmlhead
 	 *
 	 * @param       Translate   $langs      Lang object (must be initialized by a new).
-	 * @param       Conf        $conf       Conf object
+	 * @param       Config        $conf       Config object
 	 * @param       Societe     $mysoc      Company object
 	 * @return      void
 	 */

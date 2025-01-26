@@ -64,7 +64,7 @@ abstract class ModeleGenPassword
 	public $db;
 
 	/**
-	 * @var Conf dolibarr conf
+	 * @var Config dolibarr conf
 	 */
 	public $config;
 

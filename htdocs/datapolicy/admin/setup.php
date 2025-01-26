@@ -30,7 +30,7 @@ require_once DOL_DOCUMENT_ROOT."/core/lib/admin.lib.php";
 require_once DOL_DOCUMENT_ROOT.'/datapolicy/lib/datapolicy.lib.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var Form $form
  * @var HookManager $hookManager

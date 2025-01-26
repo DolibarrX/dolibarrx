@@ -28,7 +28,7 @@ require '../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/compta/localtax/class/localtax.class.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

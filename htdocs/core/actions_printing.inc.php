@@ -28,7 +28,7 @@
 // $db, $user, $config, $langs must be defined
 // Filename to print must be provided into 'file' parameter
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var ExtraFields $extrafields
  * @var Translate $langs

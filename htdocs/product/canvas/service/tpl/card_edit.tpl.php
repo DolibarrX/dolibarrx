@@ -16,7 +16,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 /**
- * @var Conf $config
+ * @var Config $config
  * @var Form $form
  * @var Translate $langs
  * @var User $user

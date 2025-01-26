@@ -43,7 +43,7 @@ require_once DOL_DOCUMENT_ROOT . '/core/class/html.formprojet.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/html.formintervention.class.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/holiday/class/holiday.class.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/holiday.lib.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

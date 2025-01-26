@@ -20,7 +20,7 @@
 /**
  * @var Member $object
  * @var Canvas $this
- * @var Conf $config
+ * @var Config $config
  * @var Translate $langs
  *
  * @var string $canvas

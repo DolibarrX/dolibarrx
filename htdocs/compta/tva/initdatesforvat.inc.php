@@ -23,7 +23,7 @@
  */
 
  /**
- * @var Conf $config
+ * @var Config $config
  */
 
 

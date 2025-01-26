@@ -62,7 +62,7 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 	 * @param conf		    $conf       Object conf
 	 * @return int         				Return integer <0 if KO, 0 if no triggered ran, >0 if OK
 	 */
-	public function runTrigger($action, $object, User $user, Translate $langs, Conf $config)
+	public function runTrigger($action, $object, User $user, Translate $langs, Config $config)
 	{
 		if (empty($config->workflow) || empty($config->workflow->enabled)) {
 			return 0; // Module not active, we do nothing
@@ -615,7 +615,7 @@ class InterfaceWorkflowManager extends DolibarrTriggers
 	}
 
 	/**
-	 * @param Conf  $conf                   Dolibarr settings object
+	 * @param Config  $conf                   Dolibarr settings object
 	 * @param float $totalonlinkedelements  Sum of total amounts (excl VAT) of
 	 *                                      invoices linked to $object
 	 * @param float $object_total_ht        The total amount (excl VAT) of the object

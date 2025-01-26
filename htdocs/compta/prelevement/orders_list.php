@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/compta/prelevement/class/bonprelevement.class.p
 require_once DOL_DOCUMENT_ROOT.'/compta/bank/class/account.class.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var Form $form
  * @var HookManager $hookManager

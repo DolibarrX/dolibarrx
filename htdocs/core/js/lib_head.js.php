@@ -52,7 +52,7 @@ session_cache_limiter('public');
 
 require_once '../../main.inc.php';
 /**
- * @var Conf $config
+ * @var Config $config
  * @var Translate $langs
  */
 

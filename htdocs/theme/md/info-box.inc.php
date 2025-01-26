@@ -7,7 +7,7 @@ if (!defined('ISLOADEDBYSTEELSHEET')) {
 }
 
 /**
- * @var Conf $config
+ * @var Config $config
  */
 
 // Expected to be defined by including parent

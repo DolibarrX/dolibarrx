@@ -34,7 +34,7 @@ require 'main.inc.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/html.formother.class.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs
@@ -146,7 +146,7 @@ if (!getDolGlobalString('MAIN_REMOVE_INSTALL_WARNING')) {
 		$message .= info_admin($langs->transnoentities("WarningLockFileDoesNotExists", DOL_DATA_ROOT) . ' ' . $langs->transnoentities("WarningUntilDirRemoved", DOL_DOCUMENT_ROOT . "/install"), 0, 0, '1', 'clearboth');
 	}
 
-	// Conf files must be in read only mode
+	// Config files must be in read only mode
 	if (is_writable($conffile)) {	// $conffile is defined into filefunc.inc.php
 		$langs->load("errors");
 		//$langs->load("other");

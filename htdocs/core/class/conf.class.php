@@ -31,7 +31,7 @@
 /**
  *  Class to stock current configuration
  */
-class Conf extends stdClass
+class Config extends stdClass
 {
 	/**
 	 * @var Object 	Associative array with properties found in conf file

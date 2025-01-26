@@ -17,7 +17,7 @@
  */
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var CommonObject $object
  */
 

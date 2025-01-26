@@ -37,7 +37,7 @@ require_once DOL_DOCUMENT_ROOT.'/stripe/class/stripe.class.php';
 $servicename = 'Stripe';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

@@ -41,7 +41,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/ajax.lib.php';
 @phan-var-force array{0:string,1:string} $bctag From main.inc
 ';
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

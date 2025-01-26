@@ -33,7 +33,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/fichinter.lib.php';
 
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var Form $form
  * @var HookManager $hookManager

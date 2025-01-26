@@ -44,7 +44,7 @@
  * @var CommonObject $object
  * @var CommonObject $this
  * @var CommonObjectLine $line
- * @var Conf $config
+ * @var Config $config
  * @var Form $form
  * @var HookManager $hookManager
  * @var ?Product $product_static

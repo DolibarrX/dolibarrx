@@ -51,7 +51,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/invoice.lib.php';
 // est protegee par le droit qui va bien du module concerne.
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

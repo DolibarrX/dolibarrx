@@ -30,7 +30,7 @@ require 'class/ProductAttributeValue.class.php';
 require 'lib/variants.lib.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var Form $form
  * @var HookManager $hookManager

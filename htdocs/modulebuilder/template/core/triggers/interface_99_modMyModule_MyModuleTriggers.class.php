@@ -62,10 +62,10 @@ class InterfaceMyModuleTriggers extends DolibarrTriggers
 	 * @param CommonObject 	$object 	Object
 	 * @param User 			$user 		Object user
 	 * @param Translate 	$langs 		Object langs
-	 * @param Conf 			$conf 		Object conf
+	 * @param Config 			$conf 		Object conf
 	 * @return int              		Return integer <0 if KO, 0 if no triggered ran, >0 if OK
 	 */
-	public function runTrigger($action, $object, User $user, Translate $langs, Conf $config)
+	public function runTrigger($action, $object, User $user, Translate $langs, Config $config)
 	{
 		if (!isModEnabled('mymodule')) {
 			return 0; // If module is not enabled, we do nothing
@@ -75,7 +75,7 @@ class InterfaceMyModuleTriggers extends DolibarrTriggers
 		// Data and type of action are stored into $object and $action
 
 		// You can isolate code for each action in a separate method: this method should be named like the trigger in camelCase.
-		// For example : COMPANY_CREATE => public function companyCreate($action, $object, User $user, Translate $langs, Conf $config)
+		// For example : COMPANY_CREATE => public function companyCreate($action, $object, User $user, Translate $langs, Config $config)
 		$methodName = lcfirst(str_replace(' ', '', ucwords(str_replace('_', ' ', strtolower($action)))));
 		$callback = array($this, $methodName);
 		if (is_callable($callback)) {

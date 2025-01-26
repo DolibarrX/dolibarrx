@@ -27,7 +27,7 @@
  * $htmlname
  */
 /**
- * @var Conf $config
+ * @var Config $config
  * @var ?FormMail $formmail
  * @var ?FormWebsite $formwebsite
  * @var string $htmlname

@@ -61,7 +61,7 @@ const PAY_DEBIT = 0;
 const PAY_CREDIT = 1;
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

@@ -65,7 +65,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/date.lib.php';
 global $dolibarr_main_url_root;
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

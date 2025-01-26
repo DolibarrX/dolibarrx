@@ -31,7 +31,7 @@ require_once DOL_DOCUMENT_ROOT.'/intracommreport/lib/intracommreport.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

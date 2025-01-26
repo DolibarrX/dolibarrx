@@ -36,7 +36,7 @@
 /**
  * @var CommonObject $objecttmp
  * @var CommonObject $object
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var Form $form
  * @var FormCompany $formcompany

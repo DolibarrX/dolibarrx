@@ -46,7 +46,7 @@ require_once DOL_DOCUMENT_ROOT . '/hrm/lib/hrm.lib.php';
 
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var Form $form
  * @var HookManager $hookManager

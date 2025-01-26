@@ -33,7 +33,7 @@ include_once DOL_DOCUMENT_ROOT.'/product/stock/class/mouvementstock.class.php';
 include_once DOL_DOCUMENT_ROOT.'/product/stock/class/productlot.class.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

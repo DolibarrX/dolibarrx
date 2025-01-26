@@ -32,7 +32,7 @@ require_once DOL_DOCUMENT_ROOT."/knowledgemanagement/lib/knowledgemanagement.lib
 require_once DOL_DOCUMENT_ROOT."/knowledgemanagement/class/knowledgerecord.class.php";
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

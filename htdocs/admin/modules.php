@@ -48,7 +48,7 @@ require_once DOL_DOCUMENT_ROOT.'/admin/remotestore/class/dolistore.class.php';
 ';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

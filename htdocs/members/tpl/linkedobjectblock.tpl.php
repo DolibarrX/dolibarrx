@@ -19,7 +19,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 /**
- * @var Conf $config
+ * @var Config $config
  * @var User $user
  */
 // Protection to avoid direct call of template

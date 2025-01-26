@@ -4530,7 +4530,7 @@ class Societe extends CommonObject
 	 * 	@param	Conf	$conf		Conf object (possibility to use another entity)
 	 * 	@return	void
 	 */
-	public function setMysoc(Conf $config)
+	public function setMysoc(Config $config)
 	{
 		global $langs;
 

@@ -25,7 +25,7 @@
  */
 /**
  * @var CommonObject $object
- * @var Conf $config
+ * @var Config $config
  * @var Form $form
  * @var Translate $langs
  *
@@ -43,7 +43,7 @@ if (empty($config) || !is_object($config)) {
 @phan-var-force int $usercancreate
 @phan-var-force string $action
 @phan-var-force Form $form
-@phan-var-force Conf $conf
+@phan-var-force Config $conf
 @phan-var-force Translate $langs
 ';
 

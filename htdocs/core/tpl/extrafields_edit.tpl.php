@@ -26,7 +26,7 @@
 
  /**
  * @var CommonObject $object
- * @var Conf $config
+ * @var Config $config
  * @var ExtraFields $extrafields
  * @var HookManager $hookManager
  * @var Translate $langs
@@ -43,7 +43,7 @@ if (empty($config) || !is_object($config)) {
 '
 @phan-var-force CommonObject $object
 @phan-var-force string $action
-@phan-var-force Conf $conf
+@phan-var-force Config $conf
 @phan-var-force Translate $langs
 @phan-var-force array<string,mixed> $parameters
 ';
@@ -59,7 +59,7 @@ if (!isset($parameters)) {
 '
 @phan-var-force CommonObject $object
 @phan-var-force string $action
-@phan-var-force Conf $conf
+@phan-var-force Config $conf
 @phan-var-force Translate $conf
 @phan-var-force array<string,mixed> $parameters
 ';

@@ -25,7 +25,7 @@
 
 // This script is called with a POST method or as an include.
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

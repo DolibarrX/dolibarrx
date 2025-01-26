@@ -31,7 +31,7 @@ require_once DOL_DOCUMENT_ROOT . '/eventorganization/class/conferenceorboothatte
 require_once DOL_DOCUMENT_ROOT . '/eventorganization/lib/eventorganization_conferenceorbooth.lib.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

@@ -36,7 +36,7 @@ use OAuth\Common\Consumer\Credentials;
 $supportedoauth2array = getSupportedOauth2Array();
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

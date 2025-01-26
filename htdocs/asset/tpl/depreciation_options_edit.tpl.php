@@ -28,7 +28,7 @@
  */
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var Form $form
  * @var HookManager $hookManager
@@ -37,7 +37,7 @@
  * @var ?array<array{mode_key:string,field_key:string,value:string,target:string}> $enabled_field_info
  */
 '
-@phan-var-force Conf $conf
+@phan-var-force Config $conf
 @phan-var-force DoliDB $db
 @phan-var-force ?Form $form
 @phan-var-force HookManager $hookManager

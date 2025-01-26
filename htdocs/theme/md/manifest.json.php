@@ -56,7 +56,7 @@ if (!defined('NOSESSION')) {
 
 require_once __DIR__.'/../../main.inc.php';
 /**
- * @var Conf $config
+ * @var Config $config
  */
 top_httphead('text/json');
 // Important: Following code is to avoid page request by browser and PHP CPU at each Dolibarr page access.

@@ -86,7 +86,7 @@ function llxFooter($comment = '', $zone = 'private', $disabledoutputofmessages =
 require '../../master.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var Translate $langs
  */

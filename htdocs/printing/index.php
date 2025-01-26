@@ -28,7 +28,7 @@ require '../main.inc.php';
 include_once DOL_DOCUMENT_ROOT.'/core/modules/printing/modules_printing.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

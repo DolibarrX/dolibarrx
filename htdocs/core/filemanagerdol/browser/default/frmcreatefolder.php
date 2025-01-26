@@ -24,7 +24,7 @@ define('NOTOKENRENEWAL', 1); // Disables token renewal
 // Load Dolibarr environment
 require '../../../../main.inc.php';
 /**
- * @var Conf $config
+ * @var Config $config
  * @var Translate $langs
  */
 

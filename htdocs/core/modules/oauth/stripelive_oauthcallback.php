@@ -28,7 +28,7 @@
 require '../../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT.'/includes/OAuth/bootstrap.php';
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var Translate $langs
  * @var User $user

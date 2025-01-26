@@ -32,7 +32,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 $servicename = 'PayBox';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var Form $form
  * @var HookManager $hookManager

@@ -28,7 +28,7 @@
 
 /**
  * @var CommonObject $object
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var ExtraFields $extrafields
  * @var HookManager $hookManager
@@ -49,7 +49,7 @@ if (empty($config) || !is_object($config)) {
 @phan-var-force CommonObject $object
 @phan-var-force string $action
 @phan-var-force DoliDB $db
-@phan-var-force Conf $conf
+@phan-var-force Config $conf
 @phan-var-force Translate $langs
 @phan-var-force array<string,mixed> $parameters
 @phan-var-force Societe $thirdpartytopropagateextrafieldsfrom

@@ -36,7 +36,7 @@
 // $toselect may be defined
 // $diroutputmassaction may be defined
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var Translate $langs
  *

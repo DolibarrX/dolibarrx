@@ -34,7 +34,7 @@ require_once DOL_DOCUMENT_ROOT.'/partnership/lib/partnership.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/partnership/class/partnership.class.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

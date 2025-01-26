@@ -19,7 +19,7 @@
  */
 /**
  * @var CommonObject $this
- * @var Conf $config
+ * @var Config $config
  */
 // Protection to avoid direct call of template
 if (empty($config) || !is_object($config)) {

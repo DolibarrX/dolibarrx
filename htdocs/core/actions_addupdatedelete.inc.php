@@ -41,7 +41,7 @@
 @phan-var-force string $hideref
 ';
 /**
- * @var Conf $config
+ * @var Config $config
  * @var CommonObject $object
  * @var CommonObject $this
  * @var DoliDB $db

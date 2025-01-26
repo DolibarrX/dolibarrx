@@ -15089,7 +15089,7 @@ function buildParamDate($prefix, $timestamp = null, $hourTime = '', $gm = 'auto'
  * @param int<0,1> 	$printfooter Determines if the page footer should be printed (1 = yes, 0 = no).
  * @param int<0,1> 	$showonlymessage If set to 1, only the error message is displayed without any additional information or hooks.
  * @param mixed 	$params Optional parameters to pass to hooks for further processing or customization.
- * @global Conf $conf Dolibarr configuration object (global)
+ * @global Config $conf Dolibarr configuration object (global)
  * @global DoliDB $db Database connection object (global)
  * @global Translate $langs Language translation object, initialized within the function if not already.
  * @global HookManager $hookManager Hook manager object, initialized within the function if not already for executing hooks.

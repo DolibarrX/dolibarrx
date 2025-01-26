@@ -51,7 +51,7 @@ $langs->load("main");
 class MyObjectTest extends PHPUnit\Framework\TestCase  // @phan-suppress-current-line PhanUndeclaredExtendedClass
 {
 	/**
-	 * @var Conf Saved configuration object
+	 * @var Config Saved configuration object
 	 */
 	protected $savconf;
 	/**

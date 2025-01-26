@@ -30,7 +30,7 @@
 // $nomessageinsetmoduleoptions can be set to 1
 // $formSetup may be defined
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var FormSetup $formSetup
  * @var Translate $langs

@@ -23,7 +23,7 @@ require_once DOL_DOCUMENT_ROOT.'/variants/lib/variants.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/product.lib.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var Form $form
  * @var HookManager $hookManager

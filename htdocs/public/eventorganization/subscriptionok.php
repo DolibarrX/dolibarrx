@@ -62,7 +62,7 @@ if (isModEnabled('paypal')) {
 global $dolibarr_main_url_root, $mysoc;
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

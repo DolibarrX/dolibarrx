@@ -35,7 +35,7 @@
 ';
 /**
  * @var CommonObject $object
- * @var Conf $config
+ * @var Config $config
  * @var Translate $langs
  *
  * @var string $action

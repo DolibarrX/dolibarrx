@@ -40,7 +40,7 @@ if (!defined('NOREQUIRESOC')) {
 require '../../../main.inc.php';
 require_once DOL_DOCUMENT_ROOT."/product/stock/class/entrepot.class.php";
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Translate $langs

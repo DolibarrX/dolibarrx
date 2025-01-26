@@ -56,7 +56,7 @@ require_once DOL_DOCUMENT_ROOT.'/projet/class/project.class.php';
 global $dolibarr_main_url_root;
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

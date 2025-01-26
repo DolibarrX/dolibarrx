@@ -61,10 +61,10 @@ class InterfaceWebhookTriggers extends DolibarrTriggers
 	 * @param CommonObject 	$object 	Object
 	 * @param User 			$user 		Object user
 	 * @param Translate 	$langs 		Object langs
-	 * @param Conf 			$conf 		Object conf
+	 * @param Config 			$conf 		Object conf
 	 * @return int              		Return integer <0 if KO, 0 if no triggered ran, >0 if OK
 	 */
-	public function runTrigger($action, $object, User $user, Translate $langs, Conf $config)
+	public function runTrigger($action, $object, User $user, Translate $langs, Config $config)
 	{
 		if (empty($config->webhook) || empty($config->webhook->enabled)) {
 			return 0; // If module is not enabled, we do nothing

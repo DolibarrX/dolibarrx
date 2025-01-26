@@ -35,7 +35,7 @@ require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 $servicename = 'PayPal';
 
 /**
- * @var Conf $config
+ * @var Config $config
  * @var DoliDB $db
  * @var HookManager $hookManager
  * @var Societe $mysoc

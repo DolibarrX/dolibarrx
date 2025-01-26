@@ -35,7 +35,7 @@ define('NOTOKENRENEWAL', 1); // Disables token renewal
 require_once '../../../../main.inc.php';
 
 /**
- * @var Conf $config
+ * @var Config $config
  *
  * @var string $dolibarr_main_data_root
  * @var string $dolibarr_main_url_root
