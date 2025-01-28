@@ -587,16 +587,16 @@ function showWebsiteTemplates(Website $website)
 
 	// Title
 	print '<tr class="liste_titre"><th class="titlefield">';
-	print $form->textwithpicto($langs->trans("Templates"), $langs->trans("ThemeDir") . ' : ' . implode(", ", $dirthemes));
+	print $form->textWithPicture($langs->trans("Templates"), $langs->trans("ThemeDir") . ' : ' . implode(", ", $dirthemes));
 	print ' ';
 	print '<a href="' . $_SERVER["PHP_SELF"] . '?website=' . urlencode($website->ref) . '&importsite=1" rel="noopener noreferrer external">';
-	print img_picto('', 'refresh');
+	print img_picture('', 'refresh');
 	print '</a>';
 	print '</th>';
 	print '<th class="right">';
 	$url = 'https://www.dolistore.com/43-web-site-templates';
 	print '<a href="' . $url . '" target="_blank" rel="noopener noreferrer external">';
-	print img_picto('', 'globe', 'class="pictofixedwidth"') . $langs->trans('DownloadMoreSkins');
+	print img_picture('', 'globe', 'class="picturefixedwidth"') . $langs->trans('DownloadMoreSkins');
 	print '</a>';
 	print '</th></tr>';
 
@@ -658,7 +658,7 @@ function showWebsiteTemplates(Website $website)
 							print '<br>';
 							print '<span class="opacitymedium">' . dol_print_size(dol_filesize($dirtheme . "/" . $subdir), 1, 1) . ' - ' . dol_print_date(dol_filemtime($templatedir), 'dayhour', 'tzuserrel') . '</span>';
 							if ($user->hasRight('website', 'delete')) {
-								print ' <a href="' . $_SERVER["PHP_SELF"] . '?action=deletetemplate&token=' . newToken() . '&website=' . urlencode($website->ref) . '&templateuserfile=' . urlencode($subdir) . '">' . img_picto('', 'delete') . '</a>';
+								print ' <a href="' . $_SERVER["PHP_SELF"] . '?action=deletetemplate&token=' . newToken() . '&website=' . urlencode($website->ref) . '&templateuserfile=' . urlencode($subdir) . '">' . img_picture('', 'delete') . '</a>';
 							}
 							print '<br><a href="' . $_SERVER["PHP_SELF"] . '?action=importsiteconfirm&token=' . newToken() . '&website=' . urlencode($website->ref) . '&templateuserfile=' . urlencode($subdir) . '" class="button">' . $langs->trans("Load") . '</a>';
 							print '</div>';

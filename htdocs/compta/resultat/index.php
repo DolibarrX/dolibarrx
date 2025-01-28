@@ -1032,12 +1032,12 @@ for ($annee = $year_start; $annee <= $year_end_for_table; $annee++) {
 	print '<td class="liste_titre" align="center">';
 	$htmlhelp = '';
 	// if ($modecompta == 'RECETTES-DEPENSES') $htmlhelp=$langs->trans("PurchasesPlusVATEarnedAndDue");
-	print $form->textwithpicto($langs->trans("Outcome"), $htmlhelp);
+	print $form->textWithPicture($langs->trans("Outcome"), $htmlhelp);
 	print '</td>';
 	print '<td class="liste_titre" align="center" class="borderrightlight">';
 	$htmlhelp = '';
 	// if ($modecompta == 'RECETTES-DEPENSES') $htmlhelp=$langs->trans("SalesPlusVATToRetrieve");
-	print $form->textwithpicto($langs->trans("Income"), $htmlhelp);
+	print $form->textWithPicture($langs->trans("Income"), $htmlhelp);
 	print '</td>';
 }
 print '</tr>';

@@ -143,7 +143,7 @@ if ($object->id) {
 	 */
 	$head = evaluationPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'contact', '', -1, $object->picto);
+	print dol_get_fiche_head($head, 'contact', '', -1, $object->picture);
 
 	$linkback = '<a href="'.dol_buildpath('/hrm/evaluation_list.php', 1).'?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 

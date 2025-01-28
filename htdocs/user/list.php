@@ -647,18 +647,18 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_param.tpl.php';
 // List of mass actions available
 $arrayofmassactions = array();
 if ($permissiontoadd) {
-	$arrayofmassactions['disable'] = img_picto('', 'close_title', 'class="pictofixedwidth"').$langs->trans("DisableUser");
+	$arrayofmassactions['disable'] = img_picture('', 'close_title', 'class="picturefixedwidth"').$langs->trans("DisableUser");
 }
 if ($permissiontoadd) {
-	$arrayofmassactions['reactivate'] = img_picto('', 'check', 'class="pictofixedwidth"').$langs->trans("Reactivate");
+	$arrayofmassactions['reactivate'] = img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("Reactivate");
 }
 if (isModEnabled('category') && $permissiontoadd) {
-	$arrayofmassactions['preaffecttag'] = img_picto('', 'category', 'class="pictofixedwidth"').$langs->trans("AffectTag");
+	$arrayofmassactions['preaffecttag'] = img_picture('', 'category', 'class="picturefixedwidth"').$langs->trans("AffectTag");
 }
 if ($permissiontoadd) {
-	$arrayofmassactions['presetsupervisor'] = img_picto('', 'user', 'class="pictofixedwidth"').$langs->trans("SetSupervisor");
+	$arrayofmassactions['presetsupervisor'] = img_picture('', 'user', 'class="picturefixedwidth"').$langs->trans("SetSupervisor");
 }
-//if ($permissiontodelete) $arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+//if ($permissiontodelete) $arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete', 'preaffecttag', 'presetsupervisor'))) {
 	$arrayofmassactions = array();
@@ -733,7 +733,7 @@ $moreforfilter = '';
 if (isModEnabled('category') && $user->hasRight("category", "read")) {
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('Category');
-	$moreforfilter .= img_picto($langs->trans("Category"), 'category', 'class="pictofixedwidth"').$formother->select_categories(Category::TYPE_USER, $search_categ, 'search_categ', 1, $tmptitle);
+	$moreforfilter .= img_picture($langs->trans("Category"), 'category', 'class="picturefixedwidth"').$formother->select_categories(Category::TYPE_USER, $search_categ, 'search_categ', 1, $tmptitle);
 	$moreforfilter .= '</div>';
 }
 // Filter on warehouse
@@ -742,7 +742,7 @@ if (isModEnabled('stock') && getDolGlobalString('MAIN_DEFAULT_WAREHOUSE_USER')) 
 	$formproduct = new FormProduct($db);
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('Warehouse');
-	$moreforfilter .= img_picto($tmptitle, 'stock', 'class="pictofixedwidth"').$formproduct->selectWarehouses($search_warehouse, 'search_warehouse', '', $tmptitle, 0, 0, $tmptitle);
+	$moreforfilter .= img_picture($tmptitle, 'stock', 'class="picturefixedwidth"').$formproduct->selectWarehouses($search_warehouse, 'search_warehouse', '', $tmptitle, 0, 0, $tmptitle);
 	$moreforfilter .= '</div>';
 }
 
@@ -774,8 +774,8 @@ print '<tr class="liste_titre_filter">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons('left');
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons('left');
+	print $searchPicture;
 	print '</td>';
 }
 if (!empty($arrayfields['u.rowid']['checked'])) {
@@ -876,8 +876,8 @@ if (!empty($arrayfields['u.statut']['checked'])) {
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '</tr>'."\n";
@@ -1114,9 +1114,9 @@ while ($i < $imaxinloop) {
 			print '<td class="nowraponall tdoverflowmax150">';
 			print $li;
 			if (isModEnabled('multicompany') && $obj->admin && !$obj->entity) {
-				print img_picto($langs->trans("SuperAdministratorDesc"), 'redstar', 'class="valignmiddle paddingright paddingleft"');
+				print img_picture($langs->trans("SuperAdministratorDesc"), 'redstar', 'class="valignmiddle paddingright paddingleft"');
 			} elseif ($obj->admin) {
-				print img_picto($langs->trans("AdministratorDesc"), 'star', 'class="valignmiddle paddingright paddingleft"');
+				print img_picture($langs->trans("AdministratorDesc"), 'star', 'class="valignmiddle paddingright paddingleft"');
 			}
 			print '</td>';
 			if (!$i) {
@@ -1185,9 +1185,9 @@ while ($i < $imaxinloop) {
 				$user2->statut = $obj->status2;
 				$user2->status = $obj->status2;
 				if (isModEnabled('multicompany') && $obj->admin2 && !$obj->entity2) {
-					print img_picto($langs->trans("SuperAdministratorDesc"), 'redstar', 'class="valignmiddle paddingright"');
+					print img_picture($langs->trans("SuperAdministratorDesc"), 'redstar', 'class="valignmiddle paddingright"');
 				} elseif ($obj->admin2) {
-					print img_picto($langs->trans("AdministratorDesc"), 'star', 'class="valignmiddle paddingright"');
+					print img_picture($langs->trans("AdministratorDesc"), 'star', 'class="valignmiddle paddingright"');
 				}
 				print $user2->getNomUrl(-1, '', 0, 0, 24, 0, '', '', 1);
 			}

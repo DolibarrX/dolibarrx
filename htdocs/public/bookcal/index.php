@@ -366,7 +366,7 @@ if ($action == 'afteradd') {
 			$datetimebooking = dol_time_plus_duree($datetimechosen, intval($timestartarray[0]), "h");
 			$datetimebooking = dol_time_plus_duree($datetimebooking, intval($timestartarray[1]), "i");
 		}
-		print '<span>'.img_picto("", "calendar")." ".dol_print_date($datetimebooking, 'dayhourtext').'</span>';
+		print '<span>'.img_picture("", "calendar")." ".dol_print_date($datetimebooking, 'dayhourtext').'</span>';
 		print '<div class="center"><a href="'.$_SERVER["PHP_SELF"].'?id=1&year=2024&month=2" class="small">('.$langs->trans("SelectANewDate").')</a></div>';
 		print '</td>';
 
@@ -643,7 +643,7 @@ function show_bookcal_day_events($day, $month, $year, $today = 0)
 	print dol_print_date($curtime, '%d');
 	print '<br>';
 	if ($today) {
-		print img_picto('today', 'fontawesome_circle_fas_black_7px');
+		print img_picture('today', 'fontawesome_circle_fas_black_7px');
 	} else {
 		print '<br>';
 	}

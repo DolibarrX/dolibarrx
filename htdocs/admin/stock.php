@@ -238,7 +238,7 @@ print '<td class="right">';
 if (isModEnabled('invoice')) {
 	if ($config->use_javascript_ajax) {
 		if ($disabled) {
-			print img_picto($langs->trans("Disabled"), 'off', 'class="opacitymedium"');
+			print img_picture($langs->trans("Disabled"), 'off', 'class="opacitymedium"');
 		} else {
 			print ajax_constantonoff('STOCK_CALCULATE_ON_BILL', array(), null, 0, 0, 0, 2, 1, 0, '', '', 'reposition');
 		}
@@ -260,7 +260,7 @@ print '<td class="right">';
 if (isModEnabled('order')) {
 	if ($config->use_javascript_ajax) {
 		if ($disabled) {
-			print img_picto($langs->trans("Disabled"), 'off', 'class="opacitymedium"');
+			print img_picture($langs->trans("Disabled"), 'off', 'class="opacitymedium"');
 		} else {
 			print ajax_constantonoff('STOCK_CALCULATE_ON_VALIDATE_ORDER', array(), null, 0, 0, 0, 2, 1, 0, '', 'reposition');
 		}
@@ -334,7 +334,7 @@ print '<td class="right">';
 if (isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) {
 	if ($config->use_javascript_ajax) {
 		if ($disabled) {
-			print img_picto($langs->trans("Disabled"), 'off', 'class="opacitymedium"');
+			print img_picture($langs->trans("Disabled"), 'off', 'class="opacitymedium"');
 		} else {
 			print ajax_constantonoff('STOCK_CALCULATE_ON_SUPPLIER_BILL', array(), null, 0, 0, 0, 2, 1, 0, '', 'reposition');
 		}
@@ -356,7 +356,7 @@ print '<td class="right">';
 if (isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) {
 	if ($config->use_javascript_ajax) {
 		if ($disabled) {
-			print img_picto($langs->trans("Disabled"), 'off', 'class="opacitymedium"');
+			print img_picture($langs->trans("Disabled"), 'off', 'class="opacitymedium"');
 		} else {
 			print ajax_constantonoff('STOCK_CALCULATE_ON_SUPPLIER_VALIDATE_ORDER', array(), null, 0, 0, 0, 2, 1, 0, '', 'reposition');
 		}
@@ -510,7 +510,7 @@ if ($virtualdiffersfromphysical) {
 
 	print '<tr class="oddeven">';
 	print '<td>';
-	print $form->textwithpicto($langs->trans("UseRealStockByDefault"), $langs->trans("ReplenishmentCalculation"));
+	print $form->textWithPicture($langs->trans("UseRealStockByDefault"), $langs->trans("ReplenishmentCalculation"));
 	print '</td>';
 	print '<td class="right">';
 	if ($config->use_javascript_ajax) {
@@ -624,21 +624,21 @@ foreach ($dirmodels as $reldir) {
 								if (in_array($name, $def)) {
 									print '<td class="center">'."\n";
 									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=del&token='.newToken().'&value='.urlencode($name).'">';
-									print img_picto($langs->trans("Enabled"), 'switch_on');
+									print img_picture($langs->trans("Enabled"), 'switch_on');
 									print '</a>';
 									print '</td>';
 								} else {
 									print '<td class="center">'."\n";
-									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 									print "</td>";
 								}
 
 								// Default
 								print '<td class="center">';
 								if (getDolGlobalString('STOCK_ADDON_PDF') == $name) {
-									print img_picto($langs->trans("Default"), 'on');
+									print img_picture($langs->trans("Default"), 'on');
 								} else {
-									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 								}
 								print '</td>';
 
@@ -656,7 +656,7 @@ foreach ($dirmodels as $reldir) {
 
 
 								print '<td class="center">';
-								print $form->textwithpicto('', $htmltooltip, 1, 0);
+								print $form->textWithPicture('', $htmltooltip, 1, 0);
 								print '</td>';
 
 								// Preview
@@ -786,7 +786,7 @@ print "</tr>\n";
 
 print '<tr class="oddeven">';
 print '<td>';
-print $form->textwithpicto($langs->trans("StockSupportServices"), $langs->trans("StockSupportServicesDesc"));
+print $form->textWithPicture($langs->trans("StockSupportServices"), $langs->trans("StockSupportServicesDesc"));
 print '</td>';
 print '<td class="right">';
 if ($config->use_javascript_ajax) {

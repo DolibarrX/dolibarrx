@@ -176,18 +176,18 @@ if ($action == 'edit') {
 	print '<tr class="liste_titre"><td>'.$langs->trans("Parameters").'</td><td>'.$langs->trans("Value").'</td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_MAX_DECIMALS_UNIT"), $langs->trans("ParameterActiveForNextInputOnly"));
+	print $form->textWithPicture($langs->trans("MAIN_MAX_DECIMALS_UNIT"), $langs->trans("ParameterActiveForNextInputOnly"));
 	print '</td><td><input class="flat right" name="'.$mainmaxdecimalsunit.'" size="3" value="'.(GETPOSTISSET($mainmaxdecimalsunit) ? GETPOST($mainmaxdecimalsunit) : getDolGlobalInt('MAIN_MAX_DECIMALS_UNIT', 0)).'"></td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_MAX_DECIMALS_TOT"), $langs->trans("ParameterActiveForNextInputOnly"));
+	print $form->textWithPicture($langs->trans("MAIN_MAX_DECIMALS_TOT"), $langs->trans("ParameterActiveForNextInputOnly"));
 	print '</td><td><input class="flat right" name="'.$mainmaxdecimalstot.'" size="3" value="'.(GETPOSTISSET($mainmaxdecimalstot) ? GETPOST($mainmaxdecimalstot) : getDolGlobalInt('MAIN_MAX_DECIMALS_TOT', 0)).'"></td></tr>';
 
 	print '<tr class="oddeven"><td>'.$langs->trans("MAIN_MAX_DECIMALS_SHOWN").'</td>';
 	print '<td><input class="flat right" name="'.$mainmaxdecimalsshown.'" size="3" value="'.(GETPOSTISSET($mainmaxdecimalsshown) ? GETPOST($mainmaxdecimalsshown) : getDolGlobalString('MAIN_MAX_DECIMALS_SHOWN')).'"></td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_ROUNDING_RULE_TOT"), $langs->trans("ParameterActiveForNextInputOnly"));
+	print $form->textWithPicture($langs->trans("MAIN_ROUNDING_RULE_TOT"), $langs->trans("ParameterActiveForNextInputOnly"));
 	print '</td><td><input class="flat right" name="'.$mainroundingruletot.'" size="3" value="'.(GETPOSTISSET($mainroundingruletot) ? GETPOST($mainroundingruletot) : getDolGlobalString('MAIN_ROUNDING_RULE_TOT')).'"></td></tr>';
 
 	print '</table>';
@@ -207,18 +207,18 @@ if ($action == 'edit') {
 	print '<tr class="liste_titre"><td>'.$langs->trans("Parameter").'</td><td class="right">'.$langs->trans("Value").'</td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_MAX_DECIMALS_UNIT"), $langs->trans("ParameterActiveForNextInputOnly"));
+	print $form->textWithPicture($langs->trans("MAIN_MAX_DECIMALS_UNIT"), $langs->trans("ParameterActiveForNextInputOnly"));
 	print '</td><td align="right">'.(isset($config->global->$mainmaxdecimalsunit) ? $config->global->$mainmaxdecimalsunit : $config->global->MAIN_MAX_DECIMALS_UNIT).'</td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_MAX_DECIMALS_TOT"), $langs->trans("ParameterActiveForNextInputOnly"));
+	print $form->textWithPicture($langs->trans("MAIN_MAX_DECIMALS_TOT"), $langs->trans("ParameterActiveForNextInputOnly"));
 	print '</td><td align="right">'.(isset($config->global->$mainmaxdecimalstot) ? $config->global->$mainmaxdecimalstot : $config->global->MAIN_MAX_DECIMALS_TOT).'</td></tr>';
 
 	print '<tr class="oddeven"><td>'.$langs->trans("MAIN_MAX_DECIMALS_SHOWN").'</td>';
 	print '<td align="right">'.(isset($config->global->$mainmaxdecimalsshown) ? $config->global->$mainmaxdecimalsshown : $config->global->MAIN_MAX_DECIMALS_SHOWN).'</td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_ROUNDING_RULE_TOT"), $langs->trans("ParameterActiveForNextInputOnly"));
+	print $form->textWithPicture($langs->trans("MAIN_ROUNDING_RULE_TOT"), $langs->trans("ParameterActiveForNextInputOnly"));
 	print '</td><td align="right">'.(isset($config->global->$mainroundingruletot) ? $config->global->$mainroundingruletot : (getDolGlobalString('MAIN_ROUNDING_RULE_TOT') ? $config->global->MAIN_ROUNDING_RULE_TOT : '')).'</td></tr>';
 
 	print '</table>';
@@ -237,8 +237,8 @@ if (isModEnabled('multicompany') && getDolGlobalString('MULTICURRENCY_USE_LIMIT_
 
 if (empty($mysoc->country_code)) {
 	$langs->load("errors");
-	$warnpicto = img_warning($langs->trans("WarningMandatorySetupNotComplete"));
-	print '<br><a href="'.DOL_URL_ROOT.'/admin/company.php?mainmenu=home">'.$warnpicto.' '.$langs->trans("WarningMandatorySetupNotComplete").'</a>';
+	$warnPicture = img_warning($langs->trans("WarningMandatorySetupNotComplete"));
+	print '<br><a href="'.DOL_URL_ROOT.'/admin/company.php?mainmenu=home">'.$warnPicture.' '.$langs->trans("WarningMandatorySetupNotComplete").'</a>';
 } else {
 	// Show examples
 	print load_fiche_titre($langs->trans("ExamplesWithCurrentSetup"), '', '');

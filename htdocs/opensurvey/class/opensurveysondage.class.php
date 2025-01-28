@@ -47,7 +47,7 @@ class Opensurveysondage extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'poll';
+	public $picture = 'poll';
 
 	/**
 	 * @var string Description
@@ -74,7 +74,7 @@ class Opensurveysondage extends CommonObject
 	 *  	'mail', 'phone', 'url', 'password', 'ip'
 	 *		Note: Filter must be a Dolibarr Universal Filter syntax string. Example: "(t.ref:like:'SO-%') or (t.date_creation:<:'20160101') or (t.status:!=:0) or (t.nature:is:NULL)"
 	 *  'label' the translation key.
-	 *  'picto' is code of a picto to show before value in forms
+	 *  'picture' is code of a picture to show before value in forms
 	 *  'enabled' is a condition when the field must be managed (Example: 1 or 'getDolGlobalInt("MY_SETUP_PARAM")' or 'isModEnabled("multicurrency")' ...)
 	 *  'position' is the sort order of field.
 	 *  'notnull' is set to 1 if not null in database. Set to -1 if we must set data to null if empty ('' or 0).
@@ -94,7 +94,7 @@ class Opensurveysondage extends CommonObject
 	 *  'autofocusoncreate' to have field having the focus on a create form. Only 1 field should have this property set to 1.
 	 *  'comment' is not used. You can store here any text of your choice. It is not used by application.
 	 *	'validate' is 1 if need to validate with $this->validateField()
-	 *  'copytoclipboard' is 1 or 2 to allow to add a picto to copy value into clipboard (1=picto after label, 2=picto after value)
+	 *  'copytoclipboard' is 1 or 2 to allow to add a picture to copy value into clipboard (1=picture after label, 2=picture after value)
 	 *
 	 *  Note: To have value dynamic, you can set value to 0 in definition and edit the value on the fly into the constructor.
 	 */
@@ -500,7 +500,7 @@ class Opensurveysondage extends CommonObject
 	 * getTooltipContentArray
 	 * @param array<string,mixed> $params params to construct tooltip data
 	 * @since v18
-	 * @return array{picto?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
+	 * @return array{picture?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
 	 */
 	public function getTooltipContentArray($params)
 	{
@@ -509,9 +509,9 @@ class Opensurveysondage extends CommonObject
 		$langs->load('opensurvey');
 
 		$datas = [];
-		$datas['picto'] = img_picto('', $this->picto).' <u>'.$langs->trans("ShowSurvey").'</u>';
+		$datas['picture'] = img_picture('', $this->picture).' <u>'.$langs->trans("ShowSurvey").'</u>';
 		if (isset($this->status)) {
-			$datas['picto'] .= ' '.$this->getLibStatut(5);
+			$datas['picture'] .= ' '.$this->getLibStatut(5);
 		}
 		$datas['ref'] = '<br><b>'.$langs->trans('Ref').':</b> '.$this->ref;
 		if (!empty($this->date_fin)) {
@@ -529,15 +529,15 @@ class Opensurveysondage extends CommonObject
 	}
 
 	/**
-	 *  Return a link to the object card (with optionally the picto)
+	 *  Return a link to the object card (with optionally the picture)
 	 *
-	 *	@param	int<0,2>	$withpicto					Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
+	 *	@param	int<0,2>	$withPicture					Include picture in link (0=No picture, 1=Include picture into link, 2=Only picture)
 	 *  @param	int<0,1>	$notooltip					1=Disable tooltip
 	 *  @param  string		$morecss            		Add more css on link
 	 *  @param  int<-1,1>	$save_lastsearch_value    	-1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 *	@return	string								String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
+	public function getNomUrl($withPicture = 0, $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
 		global $config, $hookManager, $langs;
 
@@ -588,10 +588,10 @@ class Opensurveysondage extends CommonObject
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), (($withpicto != 2) ? 'class="paddingright"' : ''), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), (($withPicture != 2) ? 'class="paddingright"' : ''), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 		$result .= $linkend;

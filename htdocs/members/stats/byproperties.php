@@ -70,7 +70,7 @@ $help_url = 'EN:Module_Services_En|FR:Module_Services|ES:M&oacute;dulo_Servicios
 
 llxHeader('', $title, $help_url, '', 0, 0, array('https://www.google.com/jsapi'), '', '', 'mod-member page-stats_byproperties');
 
-print load_fiche_titre($title, '', $memberstatic->picto);
+print load_fiche_titre($title, '', $memberstatic->picture);
 
 //dol_mkdir($dir);
 

@@ -53,7 +53,7 @@ class Account extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'account';
+	public $picture = 'account';
 
 	/**
 	 * @var	int
@@ -1264,7 +1264,7 @@ class Account extends CommonObject
 	/**
 	 *  Return label of object status
 	 *
-	 *  @param      int		$mode			0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picto, 6=Long label + picto
+	 *  @param      int		$mode			0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picture, 6=Long label + picture
 	 *  @return     string        		    Label
 	 */
 	public function getLibStatut($mode = 0)
@@ -1277,7 +1277,7 @@ class Account extends CommonObject
 	 *  Return label of given object status
 	 *
 	 *  @param	 int		$status        	Id status
-	 *  @param   int		$mode			0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picto, 6=Long label + picto
+	 *  @param   int		$mode			0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picture, 6=Long label + picture
 	 *  @return  string        			    Label
 	 */
 	public function LibStatut($status, $mode = 0)
@@ -1509,7 +1509,7 @@ class Account extends CommonObject
 	 * getTooltipContentArray
 	 * @param array<string,mixed> $params params to construct tooltip data
 	 * @since v18
-	 * @return array{picto?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
+	 * @return array{picture?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
 	 */
 	public function getTooltipContentArray($params)
 	{
@@ -1520,11 +1520,11 @@ class Account extends CommonObject
 		$datas = array();
 
 		$nofetch = !empty($params['nofetch']);
-		$pictos = img_picto('', $this->picto).' <u class="paddingrightnow">'.$langs->trans("BankAccount").'</u>';
+		$pictures = img_picture('', $this->picture).' <u class="paddingrightnow">'.$langs->trans("BankAccount").'</u>';
 		if (isset($this->status)) {
-			$pictos .= ' '.$this->getLibStatut(5);
+			$pictures .= ' '.$this->getLibStatut(5);
 		}
-		$datas['picto'] = $pictos;
+		$datas['picture'] = $pictures;
 		$datas['label'] = '<br><b>'.$langs->trans('Label').':</b> '.$this->label;
 		$datas['accountnumber'] = '<br><b>'.$langs->trans('AccountNumber').':</b> '.$this->number;
 		$datas['iban'] = '<br><b>'.$langs->trans('IBAN').':</b> '.getIbanHumanReadable($this);
@@ -1548,9 +1548,9 @@ class Account extends CommonObject
 	}
 
 	/**
-	 *  Return clickable name (with picto eventually)
+	 *  Return clickable name (with picture eventually)
 	 *
-	 *	@param	int		$withpicto					Include picto into link
+	 *	@param	int		$withPicture					Include picture into link
 	 *  @param  string	$mode           			''=Link to card, 'transactions'=Link to transactions card
 	 *  @param  string  $option         			''=Show ref, 'reflabel'=Show ref+label
 	 *  @param  int     $save_lastsearch_value    	-1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
@@ -1558,7 +1558,7 @@ class Account extends CommonObject
 	 *  @param  string  $morecss                    Add more css on link
 	 *	@return	string								Chaine avec URL
 	 */
-	public function getNomUrl($withpicto = 0, $mode = '', $option = '', $save_lastsearch_value = -1, $notooltip = 0, $morecss = '')
+	public function getNomUrl($withPicture = 0, $mode = '', $option = '', $save_lastsearch_value = -1, $notooltip = 0, $morecss = '')
 	{
 		global $config, $langs;
 
@@ -1629,10 +1629,10 @@ class Account extends CommonObject
 
 		$result .= $linkstart;
 
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref.($option == 'reflabel' && $this->label ? ' - '.$this->label : '');
 		}
 		$result .= $linkend;
@@ -1734,7 +1734,7 @@ class Account extends CommonObject
 			if (!empty($config->use_javascript_ajax)) {
 				// hideonsmatphone because copyToClipboard call jquery dialog that does not work with jmobile
 				$out .= '<a href="#" class="hideonsmartphone" onclick="return copyToClipboard(\''.dol_escape_js($coords).'\',\''.dol_escape_js($langs->trans("HelpCopyToClipboard")).'\');">';
-				$out .= img_picto($langs->trans("Address"), 'map-marker-alt');
+				$out .= img_picture($langs->trans("Address"), 'map-marker-alt');
 				$out .= '</a> ';
 			}
 			$address = dol_print_address($coords, 'address_'.$htmlkey.'_'.$this->id, $this->element, $this->id, 1, ', ');
@@ -2013,7 +2013,7 @@ class Account extends CommonObject
 	}
 
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
 	 *	@param      string	    			$option                 Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param		array{string,mixed}		$arraydata				Array of data
@@ -2028,7 +2028,7 @@ class Account extends CommonObject
 		$return = '<div class="box-flex-item box-flex-grow-zero">';
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<span class="info-box-icon bg-infobox-action">';
-		$return .= img_picto('', $this->picto);
+		$return .= img_picture('', $this->picture);
 		$return .= '</span>';
 		$return .= '<div class="info-box-content">';
 		$return .= '<span class="info-box-ref inline-block tdoverflowmax150 valignmiddle">'.(method_exists($this, 'getNomUrl') ? $this->getNomUrl() : $this->ref).'</span>';
@@ -2078,7 +2078,7 @@ class AccountLine extends CommonObjectLine
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'accountline';
+	public $picture = 'accountline';
 
 	/**
 	 * @var int ID
@@ -2759,21 +2759,21 @@ class AccountLine extends CommonObjectLine
 
 
 	/**
-	 *    	Return clickable name (with picto eventually)
+	 *    	Return clickable name (with picture eventually)
 	 *
-	 *		@param	int		$withpicto		0=No picto, 1=Include picto into link, 2=Only picto
+	 *		@param	int		$withPicture		0=No picture, 1=Include picture into link, 2=Only picture
 	 *		@param	int		$maxlen			Longueur max libelle
 	 *		@param	string	$option			Option ('', 'showall', 'showconciliated', 'showconciliatedandaccounted'). Options may be slow.
 	 * 		@param	int     $notooltip		1=Disable tooltip
 	 *		@return	string					Chaine avec URL
 	 */
-	public function getNomUrl($withpicto = 0, $maxlen = 0, $option = '', $notooltip = 0)
+	public function getNomUrl($withPicture = 0, $maxlen = 0, $option = '', $notooltip = 0)
 	{
 		global $config, $langs;
 
 		$result = '';
 
-		$label = img_picto('', $this->picto).' <u>'.$langs->trans("BankTransactionLine").'</u>:<br>';
+		$label = img_picture('', $this->picture).' <u>'.$langs->trans("BankTransactionLine").'</u>:<br>';
 		$label .= '<b>'.$langs->trans("Ref").':</b> '.$this->ref;
 		if ($this->amount) {
 			$label .= '<br><strong>'.$langs->trans("Amount").':</strong> '.price($this->amount, 0, $langs, 1, -1, -1, $config->currency);
@@ -2783,10 +2783,10 @@ class AccountLine extends CommonObjectLine
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'account'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'account'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= ($this->ref ? $this->ref : $this->id);
 		}
 

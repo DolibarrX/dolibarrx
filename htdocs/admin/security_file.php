@@ -173,7 +173,7 @@ print '</tr>';
 
 print '<tr class="oddeven">';
 print '<td>';
-print $form->textwithpicto($langs->trans("UMask"), $langs->trans("UMaskExplanation"));
+print $form->textWithPicture($langs->trans("UMask"), $langs->trans("UMaskExplanation"));
 print '</td>';
 print '<td class="nowrap">';
 print '<input class="flat" name="MAIN_UMASK" type="text" size="6" value="'.dol_escape_htmltag(getDolGlobalString('MAIN_UMASK')).'">';

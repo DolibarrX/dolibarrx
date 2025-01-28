@@ -288,10 +288,10 @@ foreach ($dirmodels as $reldir) {
 
 						print '<td class="center">';
 						if ($config->global->CONTRACT_ADDON == "$file") {
-							print img_picto($langs->trans("Activated"), 'switch_on');
+							print img_picture($langs->trans("Activated"), 'switch_on');
 						} else {
 							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.urlencode($file).'">';
-							print img_picto($langs->trans("Disabled"), 'switch_off');
+							print img_picture($langs->trans("Disabled"), 'switch_off');
 							print '</a>';
 						}
 						print '</td>';
@@ -316,7 +316,7 @@ foreach ($dirmodels as $reldir) {
 						}
 
 						print '<td class="center">';
-						print $form->textwithpicto('', $htmltooltip, 1, 0);
+						print $form->textWithPicture('', $htmltooltip, 1, 0);
 						print '</td>';
 
 						print '</tr>';
@@ -421,21 +421,21 @@ foreach ($dirmodels as $reldir) {
 								if (in_array($name, $def)) {
 									print '<td class="center">'."\n";
 									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=del&token='.newToken().'&value='.urlencode($name).'">';
-									print img_picto($langs->trans("Enabled"), 'switch_on');
+									print img_picture($langs->trans("Enabled"), 'switch_on');
 									print '</a>';
 									print '</td>';
 								} else {
 									print '<td class="center">'."\n";
-									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 									print "</td>";
 								}
 
 								// Default
 								print '<td class="center">';
 								if (getDolGlobalString('CONTRACT_ADDON_PDF') == $name) {
-									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=unsetdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'&type=order_supplier" alt="'.$langs->trans("Disable").'">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
+									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=unsetdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'&type=order_supplier" alt="'.$langs->trans("Disable").'">'.img_picture($langs->trans("Enabled"), 'on').'</a>';
 								} else {
-									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 								}
 								print '</td>';
 
@@ -456,7 +456,7 @@ foreach ($dirmodels as $reldir) {
 
 
 								print '<td class="center">';
-								print $form->textwithpicto('', $htmltooltip, 1, 0);
+								print $form->textWithPicture('', $htmltooltip, 1, 0);
 								print '</td>';
 
 								// Preview
@@ -509,7 +509,7 @@ foreach ($substitutionArray as $key => $val) {
 $htmltext .= '</i>';
 
 print '<tr class="oddeven"><td colspan="2">';
-print $form->textwithpicto($langs->trans("FreeLegalTextOnContracts"), $langs->trans("AddCRIfTooLong").'<br><br>'.$htmltext, 1, 'help', '', 0, 2, 'tooltiphelp');
+print $form->textWithPicture($langs->trans("FreeLegalTextOnContracts"), $langs->trans("AddCRIfTooLong").'<br><br>'.$htmltext, 1, 'help', '', 0, 2, 'tooltiphelp');
 print '<br>';
 $variablename = 'CONTRACT_FREE_TEXT';
 if (!getDolGlobalString('PDF_ALLOW_HTML_FOR_FREE_TEXT')) {
@@ -524,7 +524,7 @@ print '</td></tr>'."\n";
 //Use draft Watermark
 
 print '<tr class="oddeven"><td>';
-print $form->textwithpicto($langs->trans("WatermarkOnDraftContractCards"), $htmltext, 1, 'help', '', 0, 2, 'watermarktooltip').'<br>';
+print $form->textWithPicture($langs->trans("WatermarkOnDraftContractCards"), $htmltext, 1, 'help', '', 0, 2, 'watermarktooltip').'<br>';
 print '</td><td class="right">';
 print '<input class="flat minwidth200" type="text" name="CONTRACT_DRAFT_WATERMARK" value="'.dol_escape_htmltag(getDolGlobalString('CONTRACT_DRAFT_WATERMARK')).'">';
 print '</td></tr>'."\n";
@@ -545,11 +545,11 @@ if ($config->use_javascript_ajax) {
 } else {
 	if (getDolGlobalString('CONTRACT_ALLOW_ONLINESIGN')) {
 		print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=allowonlinesign&token='.newToken().'&value=0">';
-		print img_picto($langs->trans("Activated"), 'switch_on');
+		print img_picture($langs->trans("Activated"), 'switch_on');
 		print '</a>';
 	} else {
 		print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=allowonlinesign&token='.newToken().'&value=1">';
-		print img_picto($langs->trans("Disabled"), 'switch_off');
+		print img_picture($langs->trans("Disabled"), 'switch_off');
 		print '</a>';
 	}
 }

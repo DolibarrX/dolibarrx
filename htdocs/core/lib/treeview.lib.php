@@ -27,11 +27,11 @@
 // ------------------------------- Used by ajax tree view -----------------
 
 /**
- * Show indent and picto of a tree line. Return array with information of line.
+ * Show indent and picture of a tree line. Return array with information of line.
  *
- * @param	array<int,array{rowid:int,id:int,fk_parent:int,label:string,description:string,color:string,position:string,visible:int,ref_ext:string,picto:string,fullpath:string,fulllabel:string,level:int,cachenbofdoc?:int}>	$fulltree		Array of entries in correct order
- * @param 	int	$key			Key of entry into fulltree to show picto
- * @param	int<0,1>		$silent			Do not output indent and picto, returns only value
+ * @param	array<int,array{rowid:int,id:int,fk_parent:int,label:string,description:string,color:string,position:string,visible:int,ref_ext:string,picture:string,fullpath:string,fulllabel:string,level:int,cachenbofdoc?:int}>	$fulltree		Array of entries in correct order
+ * @param 	int	$key			Key of entry into fulltree to show picture
+ * @param	int<0,1>		$silent			Do not output indent and picture, returns only value
  * @return	array{0:int,1:int,2:int}	array(0 or 1 if at least one of this level after, 0 or 1 if at least one of higher level after, nbofdirinsub, nbofdocinsub)
  */
 function tree_showpad(&$fulltree, $key, $silent = 0)
@@ -77,15 +77,15 @@ function tree_showpad(&$fulltree, $key, $silent = 0)
 		if (!$silent) {
 			if ($atleastoneofthislevelafter) {
 				if ($fulltree[$key]['level'] == $pos) {
-					print img_picto_common('', 'treemenu/branch.gif');
+					print img_picture_common('', 'treemenu/branch.gif');
 				} else {
-					print img_picto_common('', 'treemenu/line.gif');
+					print img_picture_common('', 'treemenu/line.gif');
 				}
 			} else {
 				if ($fulltree[$key]['level'] == $pos) {
-					print img_picto_common('', 'treemenu/branchbottom.gif');
+					print img_picture_common('', 'treemenu/branchbottom.gif');
 				} else {
-					print img_picto_common('', 'treemenu/linebottom.gif');
+					print img_picture_common('', 'treemenu/linebottom.gif');
 				}
 			}
 		}

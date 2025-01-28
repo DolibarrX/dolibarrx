@@ -1924,7 +1924,7 @@ if (empty($doactionsthenredirect)) {
 		}
 
 		print '<center>';
-		print img_picto('', 'tick', 'class="green fa-2x"');
+		print img_picture('', 'tick', 'class="green fa-2x"');
 		print '</center>';
 
 		// Show a custom message

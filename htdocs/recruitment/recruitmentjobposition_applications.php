@@ -171,7 +171,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	$res = $object->fetch_optionals();
 
 	$head = recruitmentjobpositionPrepareHead($object);
-	print dol_get_fiche_head($head, 'candidatures', $langs->trans("RecruitmentCandidatures"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'candidatures', $langs->trans("RecruitmentCandidatures"), -1, $object->picture);
 
 	$formconfirm = '';
 

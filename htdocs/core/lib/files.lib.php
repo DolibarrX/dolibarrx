@@ -3733,7 +3733,7 @@ function dragAndDropFileUpload($htmlname)
 	global $object, $langs;
 
 	$out = "";
-	$out .= '<div id="' . $htmlname . 'Message" class="dragDropAreaMessage hidden"><span>' . img_picto("", 'download') . '<br>' . $langs->trans("DropFileToAddItToObject") . '</span></div>';
+	$out .= '<div id="' . $htmlname . 'Message" class="dragDropAreaMessage hidden"><span>' . img_picture("", 'download') . '<br>' . $langs->trans("DropFileToAddItToObject") . '</span></div>';
 	$out .= "\n<!-- JS CODE TO ENABLE DRAG AND DROP OF FILE -->\n";
 	$out .= "<script>";
 	$out .= '

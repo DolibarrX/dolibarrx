@@ -540,8 +540,8 @@ if ($resql) {
 
 	if ($massaction !== 'set_default_account') {
 		$arrayofmassactions = array(
-			'set_default_account' => img_picto('', 'check', 'class="pictofixedwidth"').$langs->trans("ConfirmPreselectAccount"),
-			'changeaccount' => img_picto('', 'check', 'class="pictofixedwidth"').$langs->trans("Save")	// TODO The save action should be a button "Save"
+			'set_default_account' => img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("ConfirmPreselectAccount"),
+			'changeaccount' => img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("Save")	// TODO The save action should be a button "Save"
 		);
 		$massactionbutton = $form->selectMassAction('', $arrayofmassactions, 1);
 	}
@@ -597,8 +597,8 @@ if ($resql) {
 	// Action column
 	if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="center liste_titre">';
-		$searchpicto = $form->showFilterButtons();
-		print $searchpicto;
+		$searchPicture = $form->showFilterButtons();
+		print $searchPicture;
 		print '</td>';
 	}
 	print '<td class="liste_titre"><input type="text" class="flat" size="8" name="search_ref" value="'.dol_escape_htmltag($search_ref).'"></td>';
@@ -625,8 +625,8 @@ if ($resql) {
 	// Action column
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="center liste_titre">';
-		$searchpicto = $form->showFilterButtons();
-		print $searchpicto;
+		$searchPicture = $form->showFilterButtons();
+		print $searchPicture;
 		print '</td>';
 	}
 	print '</tr>';

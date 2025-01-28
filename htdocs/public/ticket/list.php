@@ -534,8 +534,8 @@ if ($action == "view_ticketlist") {
 
 				// Action column
 				print '<td class="liste_titre maxwidthsearch">';
-				$searchpicto = $form->showFilterButtons();
-				print $searchpicto;
+				$searchPicture = $form->showFilterButtons();
+				print $searchPicture;
 				print '</td>';
 				print '</tr>';
 
@@ -620,7 +620,7 @@ if ($action == "view_ticketlist") {
 					if (!empty($arrayfields['t.ref']['checked'])) {
 						print '<td class="nowraponall">';
 						print '<a rel="nofollow" href="javascript:viewticket(\''.dol_escape_js($obj->track_id).'\',\''.dol_escape_js($_SESSION['email_customer']).'\');">';
-						print img_picto('', 'ticket', 'class="paddingrightonly"');
+						print img_picture('', 'ticket', 'class="paddingrightonly"');
 						print $obj->ref;
 						print '</a>';
 						print '</td>';
@@ -672,7 +672,7 @@ if ($action == "view_ticketlist") {
 							$user_create->id = (!empty($obj->fk_user_create) ? $obj->fk_user_create : '');
 							print $user_create->getFullName($langs);
 						} else {
-							print img_picto('', 'email', 'class="paddingrightonly"');
+							print img_picture('', 'email', 'class="paddingrightonly"');
 							print $langs->trans('Email');
 						}
 						print '</td>';
@@ -685,7 +685,7 @@ if ($action == "view_ticketlist") {
 							$user_assign->firstname = (!empty($obj->user_assign_firstname) ? $obj->user_assign_firstname : '');
 							$user_assign->lastname = (!empty($obj->user_assign_lastname) ? $obj->user_assign_lastname : '');
 							$user_assign->id = (!empty($obj->fk_user_assign) ? $obj->fk_user_assign : '');
-							print img_picto('', 'user', 'class="paddingrightonly"');
+							print img_picture('', 'user', 'class="paddingrightonly"');
 							print $user_assign->getFullName($langs);
 						}
 						print '</td>';
@@ -773,7 +773,7 @@ if ($action == "view_ticketlist") {
 	//print '<input type="hidden" name="search_fk_status" value="non_closed">';
 
 	print '<p><label for="track_id" style="display: inline-block" class="titlefieldcreate left"><span class="fieldrequired">';
-	print img_picto($langs->trans("TicketTrackId"), 'generic', 'class="pictofixedwidth"');
+	print img_picture($langs->trans("TicketTrackId"), 'generic', 'class="picturefixedwidth"');
 	print $langs->trans("OneOfTicketTrackId");
 	print '</span></label>';
 	print '<br class="showonsmartphone hidden">';
@@ -781,7 +781,7 @@ if ($action == "view_ticketlist") {
 	print '</p>';
 
 	print '<p><label for="email" style="display: inline-block" class="titlefieldcreate left"><span class="fieldrequired">';
-	print img_picto($langs->trans("Email"), 'email', 'class="pictofixedwidth"');
+	print img_picture($langs->trans("Email"), 'email', 'class="picturefixedwidth"');
 	print $langs->trans('Email').'</span></label>';
 	print '<br class="showonsmartphone hidden">';
 	print '<input class="minwidth100" id="email" name="email" value="'.(GETPOST('email', 'alpha') ? GETPOST('email', 'alpha') : (!empty($_SESSION['customer_email']) ? $_SESSION['customer_email'] : "")).'" />';

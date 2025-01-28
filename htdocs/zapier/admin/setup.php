@@ -97,7 +97,7 @@ if (!empty($arrayofparameters)) {
 
 		foreach ($arrayofparameters as $key => $val) {
 			print '<tr class="oddeven"><td>';
-			print $form->textwithpicto($langs->trans($key), $langs->trans($key . 'Tooltip'));
+			print $form->textWithPicture($langs->trans($key), $langs->trans($key . 'Tooltip'));
 			print '</td><td><input name="' . $key . '"  class="flat ' . (empty($val['css']) ? 'minwidth200' : $val['css']) . '" value="' . getDolGlobalString($key) . '"></td></tr>';
 		}
 		print '</table>';
@@ -114,7 +114,7 @@ if (!empty($arrayofparameters)) {
 
 		foreach ($arrayofparameters as $key => $val) {
 			print '<tr class="oddeven"><td>';
-			print $form->textwithpicto($langs->trans($key), $langs->trans($key . 'Tooltip'));
+			print $form->textWithPicture($langs->trans($key), $langs->trans($key . 'Tooltip'));
 			print '</td><td>' . getDolGlobalString($key) . '</td></tr>';
 		}
 

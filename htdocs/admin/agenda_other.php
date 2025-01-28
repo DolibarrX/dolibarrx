@@ -292,24 +292,24 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
 							print '<td class="center">'."\n";
 							if ($config->global->ACTION_EVENT_ADDON_PDF != "$name") {
 								print '<a href="'.$_SERVER["PHP_SELF"].'?action=del&token='.newToken().'&value='.$name.'&scan_dir='.$module->scandir.'&label='.urlencode($module->name).'&type=action">';
-								print img_picto($langs->trans("Enabled"), 'switch_on');
+								print img_picture($langs->trans("Enabled"), 'switch_on');
 								print '</a>';
 							} else {
-								print img_picto($langs->trans("Enabled"), 'switch_on');
+								print img_picture($langs->trans("Enabled"), 'switch_on');
 							}
 							print "</td>";
 						} else {
 							print '<td class="center">'."\n";
-							print '<a href="'.$_SERVER["PHP_SELF"].'?action=setmodel&token='.newToken().'&value='.$name.'&scan_dir='.$module->scandir.'&label='.urlencode($module->name).'&type=action">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+							print '<a href="'.$_SERVER["PHP_SELF"].'?action=setmodel&token='.newToken().'&value='.$name.'&scan_dir='.$module->scandir.'&label='.urlencode($module->name).'&type=action">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 							print "</td>";
 						}
 
 						// Default
 						print '<td class="center">';
 						if ($config->global->ACTION_EVENT_ADDON_PDF == "$name") {
-							print img_picto($langs->trans("Default"), 'on');
+							print img_picture($langs->trans("Default"), 'on');
 						} else {
-							print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&amp;scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'&amp;type=action"" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+							print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&amp;scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'&amp;type=action"" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 						}
 						print '</td>';
 
@@ -320,7 +320,7 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
 						$htmltooltip .= '<br><br><u>'.$langs->trans("FeaturesSupported").':</u>';
 						$htmltooltip .= '<br>'.$langs->trans("Logo").': '.yn($module->option_logo, 1, 1);
 						print '<td class="center">';
-						print $form->textwithpicto('', $htmltooltip, 1, 0);
+						print $form->textWithPicture('', $htmltooltip, 1, 0);
 						print '</td>';
 						print '<td class="center">';
 						print '<a href="'.$_SERVER["PHP_SELF"].'?action=specimen&amp;module='.$name.'">'.img_object($langs->trans("Preview"), 'pdf').'</a>';
@@ -353,7 +353,7 @@ print '</tr>'."\n";
 // AGENDA_DEFAULT_VIEW
 print '<tr class="oddeven">'."\n";
 $htmltext = $langs->trans("ThisValueCanOverwrittenOnUserLevel", $langs->transnoentitiesnoconv("UserGUISetup"));
-print '<td>'.$form->textwithpicto($langs->trans("AGENDA_DEFAULT_VIEW"), $htmltext).'</td>'."\n";
+print '<td>'.$form->textWithPicture($langs->trans("AGENDA_DEFAULT_VIEW"), $htmltext).'</td>'."\n";
 print '<td class="center">&nbsp;</td>'."\n";
 print '<td class="right">'."\n";
 $tmplist = array('' => '&nbsp;', 'show_list' => $langs->trans("ViewList"), 'show_month' => $langs->trans("ViewCal"), 'show_week' => $langs->trans("ViewWeek"), 'show_day' => $langs->trans("ViewDay"), 'show_peruser' => $langs->trans("ViewPerUser"));
@@ -368,9 +368,9 @@ print '<td class="center">&nbsp;</td>'."\n";
 print '<td class="right">'."\n";
 //print ajax_constantonoff('AGENDA_USE_EVENT_TYPE');	Do not use ajax here, we need to reload page to change other combo list
 if (!getDolGlobalString('AGENDA_USE_EVENT_TYPE')) {
-	print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_AGENDA_USE_EVENT_TYPE&token='.newToken().'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+	print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_AGENDA_USE_EVENT_TYPE&token='.newToken().'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 } else {
-	print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_AGENDA_USE_EVENT_TYPE&token='.newToken().'">'.img_picto($langs->trans("Enabled"), 'switch_on').'</a>';
+	print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_AGENDA_USE_EVENT_TYPE&token='.newToken().'">'.img_picture($langs->trans("Enabled"), 'switch_on').'</a>';
 }
 print '</td></tr>'."\n";
 

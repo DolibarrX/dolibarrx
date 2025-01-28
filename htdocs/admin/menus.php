@@ -173,10 +173,10 @@ print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
 print '<tr class="liste_titre"><td>'.$langs->trans("Menu").'</td>';
 print '<td>';
-print $form->textwithpicto($langs->trans("InternalUsers"), $langs->trans("InternalExternalDesc"));
+print $form->textWithPicture($langs->trans("InternalUsers"), $langs->trans("InternalExternalDesc"));
 print '</td>';
 print '<td>';
-print $form->textwithpicto($langs->trans("ExternalUsers"), $langs->trans("InternalExternalDesc"));
+print $form->textWithPicture($langs->trans("ExternalUsers"), $langs->trans("InternalExternalDesc"));
 print '</td>';
 print '</tr>';
 

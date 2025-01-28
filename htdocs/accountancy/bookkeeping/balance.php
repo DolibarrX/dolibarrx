@@ -410,8 +410,8 @@ if ($action != 'export_csv') {
 
 	if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre maxwidthsearch">';
-		$searchpicto = $form->showFilterButtons();
-		print $searchpicto;
+		$searchPicture = $form->showFilterButtons();
+		print $searchPicture;
 		print '</td>';
 	}
 
@@ -426,8 +426,8 @@ if ($action != 'export_csv') {
 	// Action column
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre maxwidthsearch">';
-		$searchpicto = $form->showFilterButtons();
-		print $searchpicto;
+		$searchPicture = $form->showFilterButtons();
+		print $searchPicture;
 		print '</td>';
 	}
 	print '</tr>'."\n";

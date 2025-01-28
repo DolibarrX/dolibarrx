@@ -43,7 +43,7 @@ class InterfaceActionsBlockedLog extends DolibarrTriggers
 		$this->family = "system";
 		$this->description = "Triggers of this module add action for BlockedLog module (Module of unalterable logs).";
 		$this->version = self::VERSIONS['prod'];
-		$this->picto = 'technic';
+		$this->picture = 'technic';
 	}
 
 	/**

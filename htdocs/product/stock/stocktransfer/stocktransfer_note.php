@@ -92,7 +92,7 @@ if ($id > 0 || !empty($ref)) {
 
 	$head = stocktransferPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'note', $langs->trans("StockTransfer"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'note', $langs->trans("StockTransfer"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------

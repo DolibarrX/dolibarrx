@@ -127,7 +127,7 @@ if (!isModEnabled('bookmark')) {
 		// Url to list bookmark
 		$bookmarkList .= '<br>';
 		$bookmarkList .= '<a class="top-menu-dropdown-link" title="'.$langs->trans('EditBookmarks').'" href="'.DOL_URL_ROOT.'/bookmarks/list.php" >';
-		$bookmarkList .= img_picto('', 'bookmark', 'class="paddingright"').$langs->trans('EditBookmarks').'</a>';
+		$bookmarkList .= img_picture('', 'bookmark', 'class="paddingright"').$langs->trans('EditBookmarks').'</a>';
 		$bookmarkList .= '<br>';
 		$bookmarkList .= '<br>';
 

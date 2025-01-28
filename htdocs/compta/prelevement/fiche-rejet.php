@@ -161,7 +161,7 @@ if ($id > 0 || $ref) {
 		}
 
 		print '<tr><td class="titlefieldcreate">';
-		print $form->textwithpicto($langs->trans("BankAccount"), $langs->trans($labelofbankfield));
+		print $form->textWithPicture($langs->trans("BankAccount"), $langs->trans($labelofbankfield));
 		print '</td>';
 		print '<td>';
 		if ($acc->id > 0) {
@@ -199,7 +199,7 @@ if ($id > 0 || $ref) {
 		}
 
 		print '<a data-ajax="false" href="'.DOL_URL_ROOT.'/document.php?type=text/plain&amp;modulepart='.$modulepart.'&amp;file='.urlencode($relativepath).'">'.$relativepath;
-		print img_picto('', 'download', 'class="paddingleft"');
+		print img_picture('', 'download', 'class="paddingleft"');
 		print '</a>';
 		print '</td></tr></table>';
 
@@ -281,7 +281,7 @@ if ($resql) {
 			print '<tr class="oddeven">';
 			print '<td>';
 			print '<a href="'.DOL_URL_ROOT.'/compta/prelevement/line.php?id='.$obj->rowid.'">';
-			print img_picto('', 'statut'.$obj->statut).' ';
+			print img_picture('', 'statut'.$obj->statut).' ';
 			print substr('000000'.$obj->rowid, -6);
 			print '</a></td>';
 			print '<td>';

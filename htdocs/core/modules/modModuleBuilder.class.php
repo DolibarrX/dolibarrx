@@ -55,7 +55,7 @@ class modModuleBuilder extends DolibarrModules
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
-		$this->picto = 'bug';
+		$this->picture = 'bug';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
@@ -106,7 +106,7 @@ class modModuleBuilder extends DolibarrModules
 		$this->menu[$r] = array('fk_menu'=>'fk_mainmenu=tools',
 			'type'=>'left',
 			'titre'=>'ModuleBuilder',
-			'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth"'),
+			'prefix' => img_picture('', $this->picture, 'class="paddingright picturefixedwidth"'),
 			'mainmenu'=>'tools',
 			'leftmenu'=>'devtools_modulebuilder',
 			'url'=>'/modulebuilder/index.php?mainmenu=tools&amp;leftmenu=devtools',

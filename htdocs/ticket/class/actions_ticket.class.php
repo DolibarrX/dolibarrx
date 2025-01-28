@@ -310,7 +310,7 @@ class ActionsTicket extends CommonHookActions
 					//print '<tr>';
 					print '<tr class="oddeven nohover">';
 					print '<td><strong>';
-					print img_picto('', 'object_action', 'class="paddingright"').dol_print_date($arraymsgs['datep'], 'dayhour');
+					print img_picture('', 'object_action', 'class="paddingright"').dol_print_date($arraymsgs['datep'], 'dayhour');
 					print '<strong></td>';
 					if ($show_user) {
 						print '<td>';
@@ -503,7 +503,7 @@ class ActionsTicket extends CommonHookActions
 
 				print '<a class="butAction butStatus marginbottomonly" href="'.$urlforbutton.'">';
 				print $object->LibStatut($status, 3, 1).' ';
-				//print img_picto($langs->trans($object->labelStatusShort[$status]), 'statut'.$status.'.png@ticket', '', 0, 0, 0, '', 'valignmiddle').' ';
+				//print img_picture($langs->trans($object->labelStatusShort[$status]), 'statut'.$status.'.png@ticket', '', 0, 0, 0, '', 'valignmiddle').' ';
 				print $langs->trans($object->labelStatusShort[$status]);
 				print '</a>';
 				print '</div>';

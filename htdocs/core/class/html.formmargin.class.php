@@ -239,10 +239,10 @@ class FormMargin
 			$hidemargininfos = preg_replace('/[^a-zA-Z0-9_\-]/', '', $_COOKIE['DOLUSER_MARGININFO_HIDE_SHOW'] ?? ''); // Clean cookie
 
 			$buttonToShowHideMargin = '<span id="showMarginInfos" class="linkobject valignmiddle ' . (!empty($hidemargininfos) ? '' : 'hideobject') . '">';
-			$buttonToShowHideMargin .= img_picto($langs->trans("ShowMarginInfos"), 'switch_off', '', 0, 0, 0, '', 'size15x');
+			$buttonToShowHideMargin .= img_picture($langs->trans("ShowMarginInfos"), 'switch_off', '', 0, 0, 0, '', 'size15x');
 			$buttonToShowHideMargin .= '</span>';
 			$buttonToShowHideMargin .= '<span id="hideMarginInfos" class="linkobject valignmiddle ' . (!empty($hidemargininfos) ? 'hideobject' : '') . '">';
-			$buttonToShowHideMargin .= img_picto($langs->trans("Hide"), 'switch_on_grey', '', 0, 0, 0, '', 'size15x opacitymedium');
+			$buttonToShowHideMargin .= img_picture($langs->trans("Hide"), 'switch_on_grey', '', 0, 0, 0, '', 'size15x opacitymedium');
 			$buttonToShowHideMargin .= '</span>';
 
 			$buttonToShowHideMargin .= '<script nonce="'.getNonce().'">$(document).ready(function() {';

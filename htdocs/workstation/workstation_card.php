@@ -214,7 +214,7 @@ if ($action == 'create') {
 	// Set default value of the property ref
 	$object->fields['ref']['default'] = $object->getNextNumRef();
 
-	print load_fiche_titre($title, '', 'object_'.$object->picto);
+	print load_fiche_titre($title, '', 'object_'.$object->picture);
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -238,7 +238,7 @@ if ($action == 'create') {
 	print $langs->trans('UserGroups');
 	print '</td>';
 	print '<td>';
-	print img_picto('', 'group');
+	print img_picture('', 'group');
 	print $form->select_dolgroups($groups, 'groups', 1, '', 0, '', '', $object->entity, true, 'quatrevingtpercent widthcentpercentminusx');
 	print '</td></tr>';
 
@@ -246,7 +246,7 @@ if ($action == 'create') {
 	print $langs->trans('Machines');
 	print '</td>';
 	print '<td>';
-	print img_picto('', 'resource');
+	print img_picture('', 'resource');
 	print $formresource->select_resource_list($resources, 'resources', [], '', 0, '', '', $object->entity, true, 0, 'quatrevingtpercent widthcentpercentminusx', true);
 	print '</td></tr>';
 
@@ -266,7 +266,7 @@ if ($action == 'create') {
 
 // Part to edit record
 if (($id || $ref) && $action == 'edit') {
-	print load_fiche_titre($langs->trans("Workstation"), '', 'object_'.$object->picto);
+	print load_fiche_titre($langs->trans("Workstation"), '', 'object_'.$object->picture);
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -291,7 +291,7 @@ if (($id || $ref) && $action == 'edit') {
 	print $langs->trans('UserGroups');
 	print '</td>';
 	print '<td>';
-	print img_picto('', 'group');
+	print img_picture('', 'group');
 	print $form->select_dolgroups(empty($groups) ? $object->usergroups : $groups, 'groups', 1, '', 0, '', '', $object->entity, true, 'quatrevingtpercent widthcentpercentminusx');
 	print '</td></tr>';
 
@@ -299,7 +299,7 @@ if (($id || $ref) && $action == 'edit') {
 	print $langs->trans('Machines');
 	print '</td>';
 	print '<td>';
-	print img_picto('', 'resource');
+	print img_picture('', 'resource');
 	print $formresource->select_resource_list(empty($resources) ? $object->resources : $resources, 'resources', [], '', 0, '', '', $object->entity, true, 0, 'quatrevingtpercent widthcentpercentminusx', true);
 	print '</td></tr>';
 
@@ -319,7 +319,7 @@ if (($id || $ref) && $action == 'edit') {
 if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'))) {
 	$head = workstationPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'card', $langs->trans("Workstation"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'card', $langs->trans("Workstation"), -1, $object->picture);
 
 	$formconfirm = '';
 
@@ -373,7 +373,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			$langs->load("projects");
 			$morehtmlref .= '<br>';
 			if ($permissiontoadd) {
-				$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+				$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 				if ($action != 'classify') {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 				}

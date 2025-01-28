@@ -336,9 +336,9 @@ foreach ($dirmodels as $reldir) {
 
 						print '<td class="center">';
 						if ($config->global->TICKET_ADDON == 'mod_'.$classname) {
-							print img_picto($langs->trans("Activated"), 'switch_on');
+							print img_picture($langs->trans("Activated"), 'switch_on');
 						} else {
-							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&amp;token='.newToken().'&amp;value=mod_'.$classname.'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&amp;token='.newToken().'&amp;value=mod_'.$classname.'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 						}
 						print '</td>';
 
@@ -359,7 +359,7 @@ foreach ($dirmodels as $reldir) {
 						}
 
 						print '<td class="center">';
-						print $formcategory->textwithpicto('', $htmltooltip, 1, 0);
+						print $formcategory->textWithPicture('', $htmltooltip, 1, 0);
 						print '</td>';
 
 						print '</tr>';
@@ -466,21 +466,21 @@ foreach ($dirmodels as $reldir) {
 								if (in_array($name, $def)) {
 									print '<td class="center">'."\n";
 									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=del&token='.newToken().'&value='.urlencode($name).'">';
-									print img_picto($langs->trans("Enabled"), 'switch_on');
+									print img_picture($langs->trans("Enabled"), 'switch_on');
 									print '</a>';
 									print '</td>';
 								} else {
 									print '<td class="center">'."\n";
-									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 									print "</td>";
 								}
 
 								// Default Template
 								print '<td class="center">';
 								if (getDolGlobalString("TICKET_ADDON_PDF") == $name) {
-									print img_picto($langs->trans("Default"), 'on');
+									print img_picture($langs->trans("Default"), 'on');
 								} else {
-									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&amp;token='.newToken().'&amp;value='.$name.'&amp;scan_dir='.$module->scandir.'&amp;label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&amp;token='.newToken().'&amp;value='.$name.'&amp;scan_dir='.$module->scandir.'&amp;label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 								}
 								print '</td>';
 
@@ -510,7 +510,7 @@ foreach ($dirmodels as $reldir) {
 
 
 								print '<td class="center">';
-								print $formcategory->textwithpicto('', $htmltooltip, 1, 0);
+								print $formcategory->textWithPicture('', $htmltooltip, 1, 0);
 								print '</td>';
 
 								print "</tr>\n";
@@ -557,7 +557,7 @@ if ($config->use_javascript_ajax) {
 }
 print '</td>';
 print '<td class="center">';
-print $formcategory->textwithpicto('', $langs->trans("TicketsAutoReadTicketHelp"), 1, 'help');
+print $formcategory->textWithPicture('', $langs->trans("TicketsAutoReadTicketHelp"), 1, 'help');
 print '</td>';
 print '</tr>';
 
@@ -568,7 +568,7 @@ print '<td class="left">';
 print '<input class="minwidth100" type="text" id="TICKET_AUTO_ASSIGN_USER_CREATE" name="TICKET_AUTO_ASSIGN_USER_CREATE" value="'.getDolGlobalString('TICKET_AUTO_ASSIGN_USER_CREATE').'">';
 print '</td>';
 print '<td class="center">';
-print $formcategory->textwithpicto('', $langs->trans("TicketsAutoAssignTicketHelp"), 1, 'help');
+print $formcategory->textWithPicture('', $langs->trans("TicketsAutoAssignTicketHelp"), 1, 'help');
 print '</td>';
 print '</tr>';
 
@@ -583,7 +583,7 @@ if ($config->use_javascript_ajax) {
 }
 print '</td>';
 print '<td class="center">';
-print $formcategory->textwithpicto('', $langs->trans("TicketsAutoNotifyCloseHelp"), 1, 'help');
+print $formcategory->textWithPicture('', $langs->trans("TicketsAutoNotifyCloseHelp"), 1, 'help');
 print '</td>';
 print '</tr>';
 
@@ -593,7 +593,7 @@ print '<td class="left">';
 print $formcategory->selectarray("TICKET_SET_STATUS_ON_ANSWER", $statuslist, getDolGlobalString('TICKET_SET_STATUS_ON_ANSWER'));
 print '</td>';
 print '<td class="center">';
-print $formcategory->textwithpicto('', $langs->trans("TicketAutoChangeStatusOnAnswerHelp"), 1, 'help');
+print $formcategory->textWithPicture('', $langs->trans("TicketAutoChangeStatusOnAnswerHelp"), 1, 'help');
 print '</td>';
 print '</tr>';
 
@@ -603,7 +603,7 @@ print '<td class="left">
 	<input type="number" value="'.getDolGlobalString('TICKET_DELAY_BEFORE_FIRST_RESPONSE').'" id="delay_first_response" name="delay_first_response" class="width50">
 	</td>';
 print '<td class="center">';
-print $formcategory->textwithpicto('', $langs->trans("TicketsDelayBeforeFirstAnswerHelp"), 1, 'help');
+print $formcategory->textWithPicture('', $langs->trans("TicketsDelayBeforeFirstAnswerHelp"), 1, 'help');
 print '</td>';
 print '</tr>';
 
@@ -613,7 +613,7 @@ print '<td class="left">
 	<input type="number" value="'.getDolGlobalString('TICKET_DELAY_SINCE_LAST_RESPONSE').'" id="delay_between_responses" name="delay_between_responses" class="width50">
 	</td>';
 print '<td class="center">';
-print $formcategory->textwithpicto('', $langs->trans("TicketsDelayBetweenAnswersHelp"), 1, 'help');
+print $formcategory->textWithPicture('', $langs->trans("TicketsDelayBetweenAnswersHelp"), 1, 'help');
 print '</td>';
 print '</tr>';
 
@@ -659,7 +659,7 @@ print '<tr class="oddeven"><td><label for="TICKET_NOTIFICATION_EMAIL_FROM" class
 print '<td class="left">';
 print '<input type="text" class="minwidth200" id="TICKET_NOTIFICATION_EMAIL_FROM" name="TICKET_NOTIFICATION_EMAIL_FROM" value="' . getDolGlobalString('TICKET_NOTIFICATION_EMAIL_FROM').'"></td>';
 print '<td class="center">';
-print $formcategory->textwithpicto('', $langs->trans("TicketEmailNotificationFromHelp"), 1, 'help');
+print $formcategory->textWithPicture('', $langs->trans("TicketEmailNotificationFromHelp"), 1, 'help');
 print '</td>';
 print '</tr>';
 
@@ -668,7 +668,7 @@ print '<tr class="oddeven"><td><label for="TICKET_NOTIFICATION_EMAIL_TO" class="
 print '<td class="left">';
 print '<input type="text" class="minwidth200" id="TICKET_NOTIFICATION_EMAIL_TO" name="TICKET_NOTIFICATION_EMAIL_TO" value="'.getDolGlobalString('TICKET_NOTIFICATION_EMAIL_TO').'"></td>';
 print '<td class="center">';
-print $formcategory->textwithpicto('', $langs->trans("TicketEmailNotificationToHelp"), 1, 'help');
+print $formcategory->textWithPicture('', $langs->trans("TicketEmailNotificationToHelp"), 1, 'help');
 print '</td>';
 print '</tr>';
 
@@ -683,7 +683,7 @@ if ($config->use_javascript_ajax) {
 }
 print '</td>';
 print '<td class="center">';
-print $formcategory->textwithpicto('', $langs->trans("TicketAutoCheckNotifyThirdPartyHelp"), 1, 'help');
+print $formcategory->textWithPicture('', $langs->trans("TicketAutoCheckNotifyThirdPartyHelp"), 1, 'help');
 print '</td>';
 print '</tr>';
 
@@ -696,7 +696,7 @@ $doleditor = new DolEditor('TICKET_MESSAGE_MAIL_INTRO', $mail_intro, '100%', 90,
 $doleditor->Create();
 print '</td>';
 print '<td class="center">';
-print $formcategory->textwithpicto('', $langs->trans("TicketMessageMailIntroHelpAdmin"), 1, 'help');
+print $formcategory->textWithPicture('', $langs->trans("TicketMessageMailIntroHelpAdmin"), 1, 'help');
 print '</td></tr>';
 
 // Message footer
@@ -708,7 +708,7 @@ $doleditor = new DolEditor('TICKET_MESSAGE_MAIL_SIGNATURE', $mail_signature, '10
 $doleditor->Create();
 print '</td>';
 print '<td class="center">';
-print $formcategory->textwithpicto('', $langs->trans("TicketMessageMailFooterHelpAdmin"), 1, 'help');
+print $formcategory->textWithPicture('', $langs->trans("TicketMessageMailFooterHelpAdmin"), 1, 'help');
 print '</td></tr>';
 
 print '</table>';

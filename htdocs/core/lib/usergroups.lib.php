@@ -413,13 +413,13 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 		}
 
 		print '<tr class="liste_titre"><th class="titlefieldmiddle">';
-		print $form->textwithpicto($langs->trans("DefaultSkin"), $langs->trans("ThemeDir") . ' : ' . $dirthemestring);
+		print $form->textWithPicture($langs->trans("DefaultSkin"), $langs->trans("ThemeDir") . ' : ' . $dirthemestring);
 		print '</th>';
 		print '<th class="right">';
 		$url = 'https://www.dolistore.com/9-skins';
 		print '<a href="' . $url . '" target="_blank" rel="noopener noreferrer external">';
 		print $langs->trans('DownloadMoreSkins');
-		print img_picto('', 'globe', 'class="paddingleft"');
+		print img_picture('', 'globe', 'class="paddingleft"');
 		print '</a>';
 		print '</th></tr>';
 	}
@@ -525,7 +525,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 		} else {
 			print $listofdarkmodes[getDolGlobalInt('THEME_DARKMODEENABLED')];
 		}
-		print $form->textwithpicto('', $langs->trans("DoesNotWorkWithAllThemes"));
+		print $form->textWithPicture('', $langs->trans("DoesNotWorkWithAllThemes"));
 		print '</tr>';
 	}
 
@@ -568,7 +568,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 		} else {
 			print $listoftopmenumodes[getDolGlobalInt('THEME_TOPMENU_DISABLE_IMAGE')];
 		}
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes"));
 		print '</td>';
 		print '</tr>';
 	}
@@ -586,12 +586,12 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 		} else {
 			print yn(getDolGlobalString('MAIN_SHOW_LOGO'));
 		}
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes"), 1, 'help', 'inline-block');
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes"), 1, 'help', 'inline-block');
 		print '</td>';
 		print '</tr>';
 	}
 
-	// Main menu color on pictos
+	// Main menu color on pictures
 	if ($foruserprofile) {
 		// Nothing
 	} else {
@@ -603,7 +603,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 		} else {
 			print yn(getDolGlobalString('THEME_MENU_COLORLOGO'));
 		}
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes"), 1, 'help', 'inline-block');
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes"), 1, 'help', 'inline-block');
 		print '</td>';
 		print '</tr>';
 	}
@@ -619,7 +619,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 		} else {
 			print yn(getDolGlobalString('THEME_ELDY_USEBORDERONTABLE'));
 		}
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes"), 1, 'help', 'inline-block');
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes"), 1, 'help', 'inline-block');
 		print '</td>';
 		print '</tr>';
 	}
@@ -644,7 +644,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			} else {
 				print $listofborderradius[getDolGlobalInt('THEME_ELDY_BORDER_RADIUS')];
 			}
-			print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes"), 1, 'help', 'inline-block');
+			print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes"), 1, 'help', 'inline-block');
 			print '</td>';
 			print '</tr>';
 		}
@@ -666,7 +666,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 		} else {
 			print $listoftopmenumodes[getDolGlobalString('THEME_ELDY_USECOMOACTROW')];
 		}
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes"), 1, 'help', 'inline-block');
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes"), 1, 'help', 'inline-block');
 		print '</td>';
 		print '</tr>';
 	}
@@ -711,7 +711,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			}
 		}
 		print ' &nbsp; <span class="nowraponall opacitymedium">' . $langs->trans("Default") . '</span>: <strong>' . $default . '</strong> ';
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
 	}
@@ -755,7 +755,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			}
 		}
 		print ' &nbsp; <span class="nowraponall opacitymedium">' . $langs->trans("Default") . '</span>: <strong>' . $default . '</strong> ';
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
 	}
@@ -796,7 +796,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			}
 		}
 		print ' &nbsp; <span class="nowraponall opacitymedium">' . $langs->trans("Default") . '</span>: <strong>' . $default . '</strong> ';
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
 	}
@@ -815,7 +815,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			print $formother->showColor($config->global->THEME_ELDY_TEXTTITLENOTAB, $langs->trans("Default"));
 		}
 		print ' &nbsp; <span class="nowraponall opacitymedium">' . $langs->trans("Default") . '</span>: <strong><span style="color: #' . $default . '">' . $default . '</span></strong> ';
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 
 		print '</tr>';
@@ -835,7 +835,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			print $formother->showColor($config->global->THEME_ELDY_BACKTITLE1, $langs->trans("Default"));
 		}
 		print ' &nbsp; <span class="nowraponall opacitymedium">' . $langs->trans("Default") . '</span>: <strong>' . $default . '</strong> '; // $colorbacktitle1 in CSS
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 
 		print '</tr>';
@@ -855,7 +855,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			print $formother->showColor($config->global->THEME_ELDY_TEXTTITLE, $langs->trans("Default"));
 		}
 		print ' &nbsp; <span class="nowraponall opacitymedium">' . $langs->trans("Default") . '</span>: <strong><span style="color: #' . $default . '">' . $default . '</span></strong> ';
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 
 		print '</tr>';
@@ -875,7 +875,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			print $formother->showColor($config->global->THEME_ELDY_TEXTTITLELINK, $langs->trans("Default"));
 		}
 		print ' &nbsp; <span class="nowraponall opacitymedium">' . $langs->trans("Default") . '</span>: <strong><span style="color: #' . $default . '">' . $default . '</span></strong> ';
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
 		print '</span>';
 		print '</td>';
 
@@ -901,7 +901,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			}
 		}
 		print ' &nbsp; <span class="nowraponall opacitymedium">' . $langs->trans("Default") . '</span>: <strong>' . $default . '</strong> ';
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
 	}
@@ -925,7 +925,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			}
 		}
 		print ' &nbsp; <span class="nowraponall opacitymedium">' . $langs->trans("Default") . '</span>: <strong>' . $default . '</strong> ';
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
 	}
@@ -971,7 +971,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			}
 		}
 		print ' &nbsp; <span class="nowraponall opacitymedium">' . $langs->trans("Default") . '</span>: <strong><span style="color: #' . $default . '">' . $default . '</span></strong> ';
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
 	}
@@ -1020,7 +1020,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			}
 		}
 		print ' &nbsp; <span class="nowraponall opacitymedium">' . $langs->trans("Default") . '</span>: <strong>' . $default . '</strong> ';
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 	}
 
@@ -1068,7 +1068,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			}
 		}
 		print ' &nbsp; <span class="nowraponall opacitymedium">' . $langs->trans("Default") . '</span>: <strong>' . $default . '</strong> ';
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
 	}
@@ -1114,7 +1114,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			}
 		}
 		print ' &nbsp; <span class="nowraponall opacitymedium">' . $langs->trans("Default") . '</span>: <strong><span style="color: #' . $default . '">' . $default . '</span></strong> ';
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
 	}
@@ -1160,7 +1160,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			}
 		}
 		print ' &nbsp; <span class="nowraponall opacitymedium">' . $langs->trans("Default") . '</span>: <strong><span style="color: #000">' . $default . '</span></strong> ';
-		print $form->textwithpicto('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
+		print $form->textWithPicture('', $langs->trans("NotSupportedByAllThemes") . ', ' . $langs->trans("PressF5AfterChangingThis"));
 		print '</td>';
 		print '</tr>';
 	}
@@ -1186,7 +1186,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			}
 		}
 		print ' &nbsp; <span class="opacitymedium">' . $langs->trans("Default") . '</span>: <strong>' . $default . '</strong> ';
-		print $form->textwithpicto('', $langs->trans("MAIN_OPTIMIZEFORTEXTBROWSERDesc"));
+		print $form->textWithPicture('', $langs->trans("MAIN_OPTIMIZEFORTEXTBROWSERDesc"));
 		print '</td>';
 		print '</tr>';
 	} else {
@@ -1202,7 +1202,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			print yn($config->global->MAIN_OPTIMIZEFORTEXTBROWSER);
 		}
 		print ' &nbsp; wspan class="opacitymedium">'.$langs->trans("Default").'</span>: <strong>'.$default.'</strong> ';
-		print $form->textwithpicto('', $langs->trans("MAIN_OPTIMIZEFORTEXTBROWSERDesc"));
+		print $form->textWithPicture('', $langs->trans("MAIN_OPTIMIZEFORTEXTBROWSERDesc"));
 		print '</span>';
 		print '</td>';
 		print '</tr>';
@@ -1236,7 +1236,7 @@ function showSkins($fuser, $edit = 0, $foruserprofile = false)
 			}
 		}
 		print ' &nbsp; <span class="opacitymedium">' . $langs->trans("Default") . '</span>: <strong>' . $default . '</strong> ';
-		print $form->textwithpicto('', $langs->trans("MAIN_OPTIMIZEFORCOLORBLINDDesc"));
+		print $form->textWithPicture('', $langs->trans("MAIN_OPTIMIZEFORCOLORBLINDDesc"));
 		print '</td>';
 		print '</tr>';
 	} else {

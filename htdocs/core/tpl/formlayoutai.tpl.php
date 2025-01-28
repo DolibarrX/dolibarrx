@@ -62,7 +62,7 @@ if (!isset($out)) {
 // Add link to add layout
 if ($showlinktolayout) {
 	$out .= '<a href="#" id="linkforlayouttemplates" class="notasortlink inline-block alink marginrightonly">';
-	$out .= img_picto($showlinktolayoutlabel, 'layout', 'class="paddingrightonly"');
+	$out .= img_picture($showlinktolayoutlabel, 'layout', 'class="paddingrightonly"');
 	$out .= $showlinktolayoutlabel.'...';
 	$out .= '</a> &nbsp; &nbsp; ';
 
@@ -82,7 +82,7 @@ if ($showlinktolayout) {
 // Add link to add AI content
 if ($showlinktoai) {
 	$out .= '<a href="#" id="linkforaiprompt'.$showlinktoai.'" class="notasortlink inline-block alink marginrightonly">';
-	$out .= img_picto($showlinktoailabel, 'ai', 'class="paddingrightonly"');
+	$out .= img_picture($showlinktoailabel, 'ai', 'class="paddingrightonly"');
 	$out .= $showlinktoailabel.'...';
 	$out .= '</a>';
 

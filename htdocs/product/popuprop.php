@@ -264,9 +264,9 @@ if ($mode && $mode != '-1') {
 		print '<td class="center">';
 		$s = '';
 		if ($vals['type'] == 1) {
-			$s .= img_picto($langs->trans("Service"), 'service', 'class="paddingleftonly paddingrightonly colorgrey"');
+			$s .= img_picture($langs->trans("Service"), 'service', 'class="paddingleftonly paddingrightonly colorgrey"');
 		} else {
-			$s .= img_picto($langs->trans("Product"), 'product', 'class="paddingleftonly paddingrightonly colorgrey"');
+			$s .= img_picture($langs->trans("Product"), 'product', 'class="paddingleftonly paddingrightonly colorgrey"');
 		}
 		print $s;
 		print '</td>';

@@ -514,7 +514,7 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 			$text = $langs->transnoentitiesnoconv("NoItemLate");
 		}
 		$text .= '. ' . $langs->transnoentitiesnoconv("LateDesc");
-		//$text.=$form->textwithpicto('',$langs->trans("LateDesc"));
+		//$text.=$form->textWithPicture('',$langs->trans("LateDesc"));
 		$options = 'height="24px" style="float: right"';
 		$boxwork .= showWeather($totallate, $text, $options, 'inline-block valignmiddle');
 	}
@@ -730,8 +730,8 @@ if (!getDolGlobalString('MAIN_DISABLE_GLOBAL_WORKBOARD') && getDolGlobalInt('MAI
 			if ($board->nbtodolate > 0) {
 				$boxwork .= '<div class="dashboardlinelatecoin nowrap">';
 				$boxwork .= '<a title="' . dol_escape_htmltag($textlate) . '" class="valignmiddle dashboardlineindicatorlate' . ($board->nbtodolate > 0 ? ' dashboardlineko' : ' dashboardlineok') . '" href="' . ((!$board->url_late) ? $board->url : $board->url_late) . '">';
-				//$boxwork .= img_picto($textlate, "warning_white", 'class="valigntextbottom"');
-				$boxwork .= img_picto(
+				//$boxwork .= img_picture($textlate, "warning_white", 'class="valigntextbottom"');
+				$boxwork .= img_picture(
 					$textlate,
 					"warning_white",
 					'class="inline-block hideonsmartphone valigntextbottom"'
@@ -830,7 +830,7 @@ function showWeather($totallate, $text, $options, $morecss = '')
 	global $config;
 
 	$weather = getWeatherStatus($totallate);
-	return img_weather($text, $weather->picto, $options, 0, $morecss);
+	return img_weather($text, $weather->picture, $options, 0, $morecss);
 }
 
 
@@ -843,7 +843,7 @@ function showWeather($totallate, $text, $options, $morecss = '')
 function getWeatherStatus($totallate)
 {
 	$weather = new stdClass();
-	$weather->picto = '';
+	$weather->picture = '';
 
 	$offset = 0;
 	$factor = 10; // By default
@@ -862,19 +862,19 @@ function getWeatherStatus($totallate)
 	$level3 = getDolGlobalString($usedConf . '3', $level3);
 
 	if ($totallate <= $level0) {
-		$weather->picto = 'weather-clear.png';
+		$weather->picture = 'weather-clear.png';
 		$weather->level = 0;
 	} elseif ($totallate <= $level1) {
-		$weather->picto = 'weather-few-clouds.png';
+		$weather->picture = 'weather-few-clouds.png';
 		$weather->level = 1;
 	} elseif ($totallate <= $level2) {
-		$weather->picto = 'weather-clouds.png';
+		$weather->picture = 'weather-clouds.png';
 		$weather->level = 2;
 	} elseif ($totallate <= $level3) {
-		$weather->picto = 'weather-many-clouds.png';
+		$weather->picture = 'weather-many-clouds.png';
 		$weather->level = 3;
 	} else {
-		$weather->picto = 'weather-storm.png';
+		$weather->picture = 'weather-storm.png';
 		$weather->level = 4;
 	}
 

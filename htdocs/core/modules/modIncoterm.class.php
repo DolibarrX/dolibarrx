@@ -57,7 +57,7 @@ class modIncoterm extends DolibarrModules
 		$this->version = 'dolibarr';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'incoterm';
+		$this->picture = 'incoterm';
 
 		$this->module_parts = array();
 		$this->dirs = array();

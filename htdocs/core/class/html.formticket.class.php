@@ -577,7 +577,7 @@ class FormTicket
 			if (count($cate_arbo)) {
 				// Categories
 				print '<tr><td class="wordbreak"></td><td>';
-				print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('categories', $cate_arbo, GETPOST('categories', 'array'), 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0, '', '', $langs->transnoentitiesnoconv("Categories"));
+				print img_picture('', 'category', 'class="picturefixedwidth"').$form->multiselectarray('categories', $cate_arbo, GETPOST('categories', 'array'), 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0, '', '', $langs->transnoentitiesnoconv("Categories"));
 				print "</td></tr>";
 			}
 		}
@@ -660,7 +660,7 @@ class FormTicket
 				print '<tr><td class="titlefield">'.$langs->trans("ThirdParty").'</td><td>';
 				$events = array();
 				$events[] = array('method' => 'getContacts', 'url' => dol_buildpath('/core/ajax/contacts.php', 1), 'htmlname' => 'contactid', 'params' => array('add-customer-contact' => 'disabled'));
-				print img_picto('', 'company', 'class="paddingright"');
+				print img_picture('', 'company', 'class="paddingright"');
 				print $form->select_company($this->withfromsocid, 'socid', '', 1, 1, 0, $events, 0, 'minwidth200');
 				print '</td></tr>';
 				if (!empty($config->use_javascript_ajax) && getDolGlobalString('COMPANY_USE_SEARCH_TO_SELECT')) {
@@ -723,7 +723,7 @@ class FormTicket
 					print '<tr><td>'.$langs->trans("Contact").'</td><td>';
 					// If no socid, set to -1 to avoid full contacts list
 					$selectedCompany = ($this->withfromsocid > 0) ? $this->withfromsocid : -1;
-					print img_picto('', 'contact', 'class="paddingright"');
+					print img_picture('', 'contact', 'class="paddingright"');
 					// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
 					print $form->select_contact($selectedCompany, $this->withfromcontactid, 'contactid', 3, '', '', 1, 'maxwidth300 widthcentpercentminusx', true);
 
@@ -748,7 +748,7 @@ class FormTicket
 			print '<tr><td>';
 			print $langs->trans("AssignedTo");
 			print '</td><td>';
-			print img_picto('', 'user', 'class="pictofixedwidth"');
+			print img_picture('', 'user', 'class="picturefixedwidth"');
 			print $form->select_dolusers($user_assign, 'fk_user_assign', 1);
 			print '</td>';
 			print '</tr>';
@@ -758,7 +758,7 @@ class FormTicket
 			if (isModEnabled('project') && !$this->ispublic) {
 				$formproject = new FormProjets($this->db);
 				print '<tr><td><label for="project"><span class="">'.$langs->trans("Project").'</span></label></td><td>';
-				print img_picto('', 'project', 'class="pictofixedwidth"').$formproject->select_projects(-1, $projectid, 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 0, 'maxwidth500');
+				print img_picture('', 'project', 'class="picturefixedwidth"').$formproject->select_projects(-1, $projectid, 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 0, 'maxwidth500');
 				print '</td></tr>';
 			}
 		}
@@ -768,7 +768,7 @@ class FormTicket
 				$langs->load('contracts');
 				$formcontract = new FormContract($this->db);
 				print '<tr><td><label for="contract"><span class="">'.$langs->trans("Contract").'</span></label></td><td>';
-				print img_picto('', 'contract', 'class="pictofixedwidth"');
+				print img_picture('', 'contract', 'class="picturefixedwidth"');
 				// socid is for internal users null and not 0 or -1
 				print $formcontract->select_contract($user->socid ?? -1, GETPOSTINT('contactid'), 'contractid', 0, 1, 1, 1);
 				print '</td></tr>';
@@ -1646,7 +1646,7 @@ class FormTicket
 				$texttooltip .= ' '.$langs->trans("TicketMessageSendEmailHelp2a", '{s1}');
 			}
 			$texttooltip = str_replace('{s1}', $langs->trans('MarkMessageAsPrivate'), $texttooltip);
-			print ' '.$form->textwithpicto('', $texttooltip, 1, 'help');
+			print ' '.$form->textWithPicture('', $texttooltip, 1, 'help');
 			print '</td></tr>';
 
 			// Private message (not visible by customer/external user)
@@ -1655,7 +1655,7 @@ class FormTicket
 				$checkbox_selected = (GETPOST('private_message', 'alpha') == "1" ? ' checked' : '');
 				print '<input type="checkbox" name="private_message" value="1" id="private_message" '.$checkbox_selected.'/> ';
 				print '<label for="private_message">'.$langs->trans('MarkMessageAsPrivate').'</label>';
-				print ' '.$form->textwithpicto('', $langs->trans("TicketMessagePrivateHelp"), 1, 'help');
+				print ' '.$form->textWithPicture('', $langs->trans("TicketMessagePrivateHelp"), 1, 'help');
 				print '</td></tr>';
 			}
 
@@ -1674,7 +1674,7 @@ class FormTicket
 			// From
 			$from = getDolGlobalString('TICKET_NOTIFICATION_EMAIL_FROM');
 			print '<tr class="email_line"><td><span class="">'.$langs->trans("MailFrom").'</span></td>';
-			print '<td><span class="">'.img_picto('', 'email', 'class="pictofixedwidth"').$from.'</span></td></tr>';
+			print '<td><span class="">'.img_picture('', 'email', 'class="picturefixedwidth"').$from.'</span></td></tr>';
 
 			// Subject/topic
 			$topic = "";
@@ -1694,7 +1694,7 @@ class FormTicket
 
 			// Recipients / adressed-to
 			print '<tr class="email_line"><td>'.$langs->trans('MailRecipients');
-			print ' '.$form->textwithpicto('', $langs->trans("TicketMessageRecipientsHelp"), 1, 'help');
+			print ' '.$form->textWithPicture('', $langs->trans("TicketMessageRecipientsHelp"), 1, 'help');
 			print '</td><td>';
 			if ($res) {
 				// Retrieve email of all contacts (internal and external)
@@ -1733,7 +1733,7 @@ class FormTicket
 
 				// Print recipient list
 				if (is_array($sendto) && count($sendto) > 0) {
-					print img_picto('', 'email', 'class="pictofixedwidth"');
+					print img_picture('', 'email', 'class="picturefixedwidth"');
 					print implode(', ', $sendto);
 				} else {
 					print '<div class="warning">'.$langs->trans('WarningNoEMailsAdded').' '.$langs->trans('TicketGoIntoContactTab').'</div>';
@@ -1750,7 +1750,7 @@ class FormTicket
 		if ($user->rights->ticket->write && !$user->socid && !empty($config->global->TICKET_MESSAGE_MAIL_INTRO)) {
 			$mail_intro = GETPOST('mail_intro') ? GETPOST('mail_intro') : $config->global->TICKET_MESSAGE_MAIL_INTRO;
 			print '<tr class="email_line"><td><label for="mail_intro">';
-			print $form->textwithpicto($langs->trans("TicketMessageMailIntro"), $langs->trans("TicketMessageMailIntroHelp"), 1, 'help');
+			print $form->textWithPicture($langs->trans("TicketMessageMailIntro"), $langs->trans("TicketMessageMailIntroHelp"), 1, 'help');
 			print '</label>';
 
 			print '</td><td>';
@@ -1847,7 +1847,7 @@ class FormTicket
 				print '<input type="hidden" name="mail_signature" value="'.$mail_signature.'">';
 				$texttooltip .= '<br><br><u>'.$langs->trans("TicketMessageMailFooter").'</u><br>'.$mail_signature;
 			}
-			print $form->textwithpicto('', $texttooltip, 1, 'help');
+			print $form->textWithPicture('', $texttooltip, 1, 'help');
 		}
 		print '</label></td></tr>';
 
@@ -1865,7 +1865,7 @@ class FormTicket
 		/*if ($user->rights->ticket->write && !$user->socid && !empty($config->global->TICKET_MESSAGE_MAIL_SIGNATURE)) {
 			$mail_signature = GETPOST('mail_signature') ? GETPOST('mail_signature') : $config->global->TICKET_MESSAGE_MAIL_SIGNATURE;
 			print '<tr class="email_line"><td><label for="mail_intro">'.$langs->trans("TicketMessageMailFooter").'</label>';
-			print $form->textwithpicto('', $langs->trans("TicketMessageMailFooterHelp"), 1, 'help');
+			print $form->textWithPicture('', $langs->trans("TicketMessageMailFooterHelp"), 1, 'help');
 			print '</td><td>';
 			include_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
 			$doleditor = new DolEditor('mail_signature', $mail_signature, '100%', 90, 'dolibarr_details', '', false, $uselocalbrowser, getDolGlobalInt('FCKEDITOR_ENABLE_SOCIETE'), ROWS_2, 70);

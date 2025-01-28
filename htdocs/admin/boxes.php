@@ -341,9 +341,9 @@ foreach ($boxtoadd as $box) {
 
 	print "\n".'<!-- Box '.$box->boxcode.' -->'."\n";
 	print '<tr class="oddeven" style="height:3em !important;">'."\n";
-	print '<td class="tdoverflowmax300" title="'.dol_escape_htmltag($langs->transnoentitiesnoconv($box->boxlabel)).'">'.img_object("", $logo, 'class="pictofixedwidth" height="14px"').' '.$langs->transnoentitiesnoconv($box->boxlabel);
+	print '<td class="tdoverflowmax300" title="'.dol_escape_htmltag($langs->transnoentitiesnoconv($box->boxlabel)).'">'.img_object("", $logo, 'class="picturefixedwidth" height="14px"').' '.$langs->transnoentitiesnoconv($box->boxlabel);
 	if (!empty($box->class) && preg_match('/graph_/', $box->class)) {
-		print img_picto('', 'graph', 'class="paddingleft"');
+		print img_picture('', 'graph', 'class="paddingleft"');
 	}
 	if (!empty($box->version)) {
 		if ($box->version == 'experimental') {
@@ -362,7 +362,7 @@ foreach ($boxtoadd as $box) {
 	}
 	print '</td>'."\n";
 	print '<td>';
-	print $form->textwithpicto('', $langs->trans("SourceFile").' : '.$box->sourcefile);
+	print $form->textWithPicture('', $langs->trans("SourceFile").' : '.$box->sourcefile);
 	print '</td>'."\n";
 
 	// For each possible position, an activation link is displayed if the box is not already active for that position
@@ -397,9 +397,9 @@ foreach ($boxactivated as $key => $box) {
 
 	print "\n".'<!-- Box '.$box->boxcode.' -->'."\n";
 	print '<tr class="oddeven" style="height:3em !important;">';
-	print '<td>'.img_object("", $logo, 'class="pictofixedwidth" height="14px"').' '.$langs->transnoentitiesnoconv($box->boxlabel);
+	print '<td>'.img_object("", $logo, 'class="picturefixedwidth" height="14px"').' '.$langs->transnoentitiesnoconv($box->boxlabel);
 	if (!empty($box->class) && preg_match('/graph_/', $box->class)) {
-		print img_picto('', 'graph', 'class="paddingleft"');
+		print img_picture('', 'graph', 'class="paddingleft"');
 	}
 	if (!empty($box->version)) {
 		if ($box->version == 'experimental') {
@@ -418,7 +418,7 @@ foreach ($boxactivated as $key => $box) {
 	}
 	print '</td>';
 	print '<td>';
-	print $form->textwithpicto('', $langs->trans("SourceFile").' : '.$box->sourcefile);
+	print $form->textWithPicture('', $langs->trans("SourceFile").' : '.$box->sourcefile);
 	print '</td>'."\n";
 	print '<td class="center">'.(empty($arrayofhomepages[$box->position]) ? '' : $langs->trans($arrayofhomepages[$box->position])).'</td>';
 	$hasnext = ($key < (count($boxactivated) - 1));

@@ -50,20 +50,20 @@ function ecm_prepare_dasboard_head()
 	}
 
 	$head[$h][0] = DOL_URL_ROOT . '/ecm/index.php';
-	$head[$h][1] = $langs->trans("ECMSectionsManual") . $form->textwithpicto('', $helptext, 1, 'info', '', 0, 3);
+	$head[$h][1] = $langs->trans("ECMSectionsManual") . $form->textWithPicture('', $helptext, 1, 'info', '', 0, 3);
 	$head[$h][2] = 'index';
 	$h++;
 
 	if (!getDolGlobalString('ECM_AUTO_TREE_HIDEN')) {
 		$head[$h][0] = DOL_URL_ROOT . '/ecm/index_auto.php';
-		$head[$h][1] = $langs->trans("ECMSectionsAuto") . $form->textwithpicto('', $helptext, 1, 'info', '', 0, 3);
+		$head[$h][1] = $langs->trans("ECMSectionsAuto") . $form->textWithPicture('', $helptext, 1, 'info', '', 0, 3);
 		$head[$h][2] = 'index_auto';
 		$h++;
 	}
 
 	if ($showmediasection && getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
 		$head[$h][0] = DOL_URL_ROOT . '/ecm/index_medias.php?file_manager=1';
-		$head[$h][1] = $langs->trans("ECMSectionsMedias") . $form->textwithpicto('', $helptext, 1, 'info', '', 0, 3);
+		$head[$h][1] = $langs->trans("ECMSectionsMedias") . $form->textWithPicture('', $helptext, 1, 'info', '', 0, 3);
 		$head[$h][2] = 'index_medias';
 		$h++;
 	}

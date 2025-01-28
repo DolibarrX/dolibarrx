@@ -494,12 +494,12 @@ if ($step == 1 || !$datatoexport) {
 			$entityicon = strtolower(!empty($entitytoicon[$entity]) ? $entitytoicon[$entity] : $entity);
 			$label = $objexport->array_export_label[$key];
 			print '<div class="twolinesmax-normallineheight minwidth200onall">';
-			print img_object($objexport->array_export_module[$key]->getName(), $entityicon, 'class="pictofixedwidth"');
+			print img_object($objexport->array_export_module[$key]->getName(), $entityicon, 'class="picturefixedwidth"');
 			print dolPrintHTML($label);
 			print '</div>';
 			print '</td><td class="right">';
 			if ($objexport->array_export_perms[$key]) {
-				print '<a href="'.DOL_URL_ROOT.'/exports/export.php?step=2&module_position='.$objexport->array_export_module[$key]->module_position.'&datatoexport='.$objexport->array_export_code[$key].'">'.img_picto($langs->trans("NewExport"), 'next', 'class="fa-15"').'</a>';
+				print '<a href="'.DOL_URL_ROOT.'/exports/export.php?step=2&module_position='.$objexport->array_export_module[$key]->module_position.'&datatoexport='.$objexport->array_export_code[$key].'">'.img_picture($langs->trans("NewExport"), 'next', 'class="fa-15"').'</a>';
 			} else {
 				print '<span class="opacitymedium">'.$langs->trans("NotEnoughPermissions").'</span>';
 			}
@@ -666,14 +666,14 @@ if ($step == 2 && $datatoexport) {
 			print '<td class="center"><a class="reposition'.$morecss.'" href="'.$_SERVER["PHP_SELF"].'?step=2&datatoexport='.urlencode($datatoexport).'&action=unselectfield&token='.newToken().'&field='.urlencode($code).'">'.img_left($moretitle, 0, 'style="max-width: 20px"').'</a></td>';
 			print '<td>';
 			//print $text.'-'.$htmltext."<br>";
-			print $form->textwithpicto($text, $htmltext);
+			print $form->textWithPicture($text, $htmltext);
 			//print ' ('.$code.')';
 			print '</td>';
 		} else {
 			// Fields not selected
 			print '<td>';
 			//print $text.'-'.$htmltext."<br>";
-			print $form->textwithpicto($text, $htmltext);
+			print $form->textWithPicture($text, $htmltext);
 			//print ' ('.$code.')';
 			print '</td>';
 			print '<td class="center"><a class="reposition'.$morecss.'" href="'.$_SERVER["PHP_SELF"].'?step=2&datatoexport='.urlencode($datatoexport).'&action=selectfield&token='.newToken().'&field='.urlencode($code).'">'.img_right($moretitle, 0, 'style="max-width: 20px"').'</a></td>';
@@ -743,7 +743,7 @@ if ($step == 3 && $datatoexport) {
 	// Module
 	print '<tr><td class="titlefield">'.$langs->trans("Module").'</td>';
 	print '<td>';
-	//print img_object($objexport->array_export_module[0]->getName(),$objexport->array_export_module[0]->picto).' ';
+	//print img_object($objexport->array_export_module[0]->getName(),$objexport->array_export_module[0]->picture).' ';
 	print $objexport->array_export_module[0]->getName();
 	print '</td></tr>';
 
@@ -857,7 +857,7 @@ if ($step == 3 && $datatoexport) {
 		}
 
 		print '<td>';
-		print $form->textwithpicto($text, $htmltext);
+		print $form->textWithPicture($text, $htmltext);
 		print '</td>';
 
 		// Filter value
@@ -866,7 +866,7 @@ if ($step == 3 && $datatoexport) {
 			$szInfoFiltre = $objexport->genDocFilter($Typefieldsarray[$code]);
 			if ($szInfoFiltre) {	// Is there an info help for this filter ?
 				$tmp = $objexport->build_filterField($Typefieldsarray[$code], $code, $ValueFilter);
-				print $form->textwithpicto($tmp, $szInfoFiltre);
+				print $form->textWithPicture($tmp, $szInfoFiltre);
 			} else {
 				print $objexport->build_filterField($Typefieldsarray[$code], $code, $ValueFilter);
 			}
@@ -939,7 +939,7 @@ if ($step == 4 && $datatoexport) {
 	// Module
 	print '<tr><td class="titlefield tableforfield">'.$langs->trans("Module").'</td>';
 	print '<td>';
-	//print img_object($objexport->array_export_module[0]->getName(),$objexport->array_export_module[0]->picto).' ';
+	//print img_object($objexport->array_export_module[0]->getName(),$objexport->array_export_module[0]->picture).' ';
 	print $objexport->array_export_module[0]->getName();
 	print '</td></tr>';
 
@@ -1066,7 +1066,7 @@ if ($step == 4 && $datatoexport) {
 		}
 
 		print '<td>';
-		print $form->textwithpicto($text, $htmltext);
+		print $form->textWithPicture($text, $htmltext);
 		//print ' ('.$code.')';
 		print '</td>';
 
@@ -1244,7 +1244,7 @@ if ($step == 5 && $datatoexport) {
 	// Module
 	print '<tr><td class="titlefield">'.$langs->trans("Module").'</td>';
 	print '<td>';
-	//print img_object($objexport->array_export_module[0]->getName(),$objexport->array_export_module[0]->picto).' ';
+	//print img_object($objexport->array_export_module[0]->getName(),$objexport->array_export_module[0]->picture).' ';
 	print $objexport->array_export_module[0]->getName();
 	print '</td></tr>';
 
@@ -1323,18 +1323,18 @@ if ($step == 5 && $datatoexport) {
 		}
 
 		$htmltabloflibs .= '<tr class="oddeven">';
-		$htmltabloflibs .= '<td>'.img_picto_common($key, $objmodelexport->getPictoForKey($key)).' ';
+		$htmltabloflibs .= '<td>'.img_picture_common($key, $objmodelexport->getPictoForKey($key)).' ';
 		$text = $objmodelexport->getDriverDescForKey($key);
 		$label = $listeall[$key];
 		// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
-		$htmltabloflibs .= $form->textwithpicto($label, $text).'</td>';
+		$htmltabloflibs .= $form->textWithPicture($label, $text).'</td>';
 		$htmltabloflibs .= '<td>'.$objmodelexport->getLibLabelForKey($key).'</td>';
 		$htmltabloflibs .= '<td class="right">'.$objmodelexport->getLibVersionForKey($key).'</td>';
 		$htmltabloflibs .= '</tr>'."\n";
 	}
 	$htmltabloflibs .= '</table><br>';
 
-	print '<span class="opacitymedium">'.$form->textwithpicto($langs->trans("NowClickToGenerateToBuildExportFile"), $htmltabloflibs, 1, 'help', '', 0, 2, 'helphonformat').'</span>';
+	print '<span class="opacitymedium">'.$form->textWithPicture($langs->trans("NowClickToGenerateToBuildExportFile"), $htmltabloflibs, 1, 'help', '', 0, 2, 'helphonformat').'</span>';
 	//print $htmltabloflibs;
 	print '<br>';
 

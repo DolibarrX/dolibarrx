@@ -45,7 +45,7 @@ class PaymentLoan extends CommonObject
 	/**
 	 * @var string String with name of icon for PaymentLoan
 	 */
-	public $picto = 'money-bill-alt';
+	public $picture = 'money-bill-alt';
 
 	/**
 	 * @var int Loan ID
@@ -625,16 +625,16 @@ class PaymentLoan extends CommonObject
 	}
 
 	/**
-	 *  Return clickable name (with eventually a picto)
+	 *  Return clickable name (with eventually a picture)
 	 *
-	 *	@param	int		$withpicto					0=No picto, 1=Include picto into link, 2=No picto
+	 *	@param	int		$withPicture					0=No picture, 1=Include picture into link, 2=No picture
 	 * 	@param	int		$maxlen						Max length label
 	 *	@param	int  	$notooltip					1=Disable tooltip
 	 *	@param	string	$moretitle					Add more text to title tooltip
 	 *  @param  int     $save_lastsearch_value    	-1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 *	@return	string								String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $maxlen = 0, $notooltip = 0, $moretitle = '', $save_lastsearch_value = -1)
+	public function getNomUrl($withPicture = 0, $maxlen = 0, $notooltip = 0, $moretitle = '', $save_lastsearch_value = -1)
 	{
 		global $langs, $config, $hookManager;
 
@@ -665,10 +665,10 @@ class PaymentLoan extends CommonObject
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), $this->picto, ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), $this->picture, ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 		$result .= $linkend;

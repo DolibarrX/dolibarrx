@@ -50,7 +50,7 @@ abstract class DolibarrTriggers
 	 * Image of the trigger
 	 * @var string
 	 */
-	public $picto;
+	public $picture;
 
 	/**
 	 * Category of the trigger
@@ -113,7 +113,7 @@ abstract class DolibarrTriggers
 		$this->name = preg_replace('/^Interface/i', '', get_class($this));
 		$this->description = '';
 		$this->version = self::VERSIONS['dev'];
-		$this->picto = 'technic';
+		$this->picture = 'technic';
 		$this->family = '';
 		$this->error = '';
 		$this->errors = [];

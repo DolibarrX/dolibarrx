@@ -354,7 +354,7 @@ foreach ($dirproduct as $dirroot) {
 
 				if (getDolGlobalString('PRODUCT_CODEPRODUCT_ADDON') == $file) {
 					print '<td class="center">'."\n";
-					print img_picto($langs->trans("Activated"), 'switch_on');
+					print img_picture($langs->trans("Activated"), 'switch_on');
 					print "</td>\n";
 				} else {
 					$disabled = false;
@@ -364,7 +364,7 @@ foreach ($dirproduct as $dirroot) {
 					if (!$disabled) {
 						print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setcodeproduct&token='.newToken().'&value='.urlencode($file).'">';
 					}
-					print img_picto($langs->trans("Disabled"), 'switch_off');
+					print img_picture($langs->trans("Disabled"), 'switch_off');
 					if (!$disabled) {
 						print '</a>';
 					}
@@ -373,7 +373,7 @@ foreach ($dirproduct as $dirroot) {
 
 				print '<td class="center">';
 				$s = $modCodeProduct->getToolTip($langs, '', -1);
-				print $form->textwithpicto('', $s, 1);
+				print $form->textWithPicture('', $s, 1);
 				print '</td>';
 
 				print '</tr>';
@@ -469,21 +469,21 @@ foreach ($dirmodels as $reldir) {
 								if (in_array($name, $def)) {
 									print '<td class="center">'."\n";
 									print '<a href="'.$_SERVER["PHP_SELF"].'?action=del&token='.newToken().'&value='.urlencode($name).'">';
-									print img_picto($langs->trans("Enabled"), 'switch_on');
+									print img_picture($langs->trans("Enabled"), 'switch_on');
 									print '</a>';
 									print '</td>';
 								} else {
 									print '<td class="center">'."\n";
-									print '<a href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+									print '<a href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 									print "</td>";
 								}
 
 								// Default
 								print '<td class="center">';
 								if (getDolGlobalString('PRODUCT_ADDON_PDF') == $name) {
-									print img_picto($langs->trans("Default"), 'on');
+									print img_picture($langs->trans("Default"), 'on');
 								} else {
-									print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+									print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 								}
 								print '</td>';
 
@@ -499,7 +499,7 @@ foreach ($dirmodels as $reldir) {
 
 
 								print '<td class="center">';
-								print $form->textwithpicto('', $htmltooltip, 1, 0);
+								print $form->textWithPicture('', $htmltooltip, 1, 0);
 								print '</td>';
 
 								// Preview
@@ -583,7 +583,7 @@ print '<tr class="oddeven">';
 if (!isModEnabled('multicompany')) {
 	print '<td>'.$langs->trans("PricingRule").'</td>';
 } else {
-	print '<td>'.$form->textwithpicto($langs->trans("PricingRule"), $langs->trans("SamePriceAlsoForSharedCompanies"), 1).'</td>';
+	print '<td>'.$form->textWithPicture($langs->trans("PricingRule"), $langs->trans("SamePriceAlsoForSharedCompanies"), 1).'</td>';
 }
 print '<td class="right">';
 $current_rule = 'PRODUCT_PRICE_UNIQ';
@@ -626,7 +626,7 @@ print '</tr>';
 // Use conditionnement in buying
 if (isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) {
 	print '<tr class="oddeven">';
-	print '<td>'.$form->textwithpicto($langs->trans("UseProductSupplierPackaging"), $langs->trans("PackagingForThisProductDesc")).'</td>';
+	print '<td>'.$form->textWithPicture($langs->trans("UseProductSupplierPackaging"), $langs->trans("PackagingForThisProductDesc")).'</td>';
 	print '<td align="right">';
 	print ajax_constantonoff("PRODUCT_USE_SUPPLIER_PACKAGING", array(), $config->entity, 0, 0, 0, 0);
 	//print $form->selectyesno("activate_useProdSupplierPackaging", (!empty($config->global->PRODUCT_USE_SUPPLIER_PACKAGING) ? $config->global->PRODUCT_USE_SUPPLIER_PACKAGING : 0), 1);
@@ -666,7 +666,7 @@ print '</tr>'."\n";
 // Use Ajax form to select a product
 
 print '<tr class="oddeven">';
-print '<td>'.$form->textwithpicto($langs->trans("UseSearchToSelectProduct"), $langs->trans('UseSearchToSelectProductTooltip'), 1).'</td>';
+print '<td>'.$form->textWithPicture($langs->trans("UseSearchToSelectProduct"), $langs->trans('UseSearchToSelectProductTooltip'), 1).'</td>';
 if (empty($config->use_javascript_ajax)) {
 	print '<td class="nowrap right">';
 	print $langs->trans("NotAvailableWhenAjaxDisabled");
@@ -790,7 +790,7 @@ if (getDolGlobalString('PRODUCT_CANVAS_ABILITY')) {
 						$const = "PRODUCT_SPECIAL_".strtoupper($file);
 
 						if (getDolGlobalString($const)) {
-							print img_picto($langs->trans("Active"), 'tick');
+							print img_picture($langs->trans("Active"), 'tick');
 							print '</td><td class="right">';
 							print '<a href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&spe='.urlencode($file).'&value=0">'.$langs->trans("Disable").'</a>';
 						} else {

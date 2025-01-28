@@ -980,7 +980,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 		$adht = new MemberType($db);
 
-		print load_fiche_titre($langs->trans("NewMember"), '', $object->picto);
+		print load_fiche_titre($langs->trans("NewMember"), '', $object->picture);
 
 		if ($config->use_javascript_ajax) {
 			print "\n".'<script type="text/javascript">'."\n";
@@ -1039,7 +1039,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		// Type
 		print '<tr><td class="fieldrequired">'.$langs->trans("MemberType").'</td><td>';
 		$listetype = $adht->liste_array(1);
-		print img_picto('', $adht->picto, 'class="pictofixedwidth"');
+		print img_picture('', $adht->picture, 'class="picturefixedwidth"');
 		if (count($listetype)) {
 			print $form->selectarray("typeid", $listetype, (GETPOSTINT('typeid') ? GETPOSTINT('typeid') : $typeid), (count($listetype) > 1 ? 1 : 0), 0, 0, '', 0, 0, 0, '', 'minwidth200', 1);
 		} else {
@@ -1112,11 +1112,11 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 		// EMail
 		print '<tr><td>'.(getDolGlobalString('ADHERENT_MAIL_REQUIRED') ? '<span class="fieldrequired">' : '').$langs->trans("EMail").(getDolGlobalString('ADHERENT_MAIL_REQUIRED') ? '</span>' : '').'</td>';
-		print '<td>'.img_picto('', 'object_email').' <input type="text" name="member_email" class="minwidth300" maxlength="255" value="'.(GETPOSTISSET('member_email') ? GETPOST('member_email', 'alpha') : $soc->email).'"></td></tr>';
+		print '<td>'.img_picture('', 'object_email').' <input type="text" name="member_email" class="minwidth300" maxlength="255" value="'.(GETPOSTISSET('member_email') ? GETPOST('member_email', 'alpha') : $soc->email).'"></td></tr>';
 
 		// Website
 		print '<tr><td>'.$form->editfieldkey('Web', 'member_url', GETPOST('member_url', 'alpha'), $object, 0).'</td>';
-		print '<td>'.img_picto('', 'globe').' <input type="text" class="maxwidth500 widthcentpercentminusx" name="member_url" id="member_url" value="'.(GETPOSTISSET('member_url') ? GETPOST('member_url', 'alpha') : $object->url).'"></td></tr>';
+		print '<td>'.img_picture('', 'globe').' <input type="text" class="maxwidth500 widthcentpercentminusx" name="member_url" id="member_url" value="'.(GETPOSTISSET('member_url') ? GETPOST('member_url', 'alpha') : $object->url).'"></td></tr>';
 
 		// Address
 		print '<tr><td class="tdtop">'.$langs->trans("Address").'</td><td>';
@@ -1137,7 +1137,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			$soc->state_id = $mysoc->state_id;
 		}
 		print '<tr><td>'.$langs->trans('Country').'</td><td>';
-		print img_picto('', 'country', 'class="pictofixedwidth"');
+		print img_picture('', 'country', 'class="picturefixedwidth"');
 		print $form->select_country(GETPOSTISSET('country_id') ? GETPOST('country_id', 'alpha') : $soc->country_id, 'country_id');
 		if ($user->admin) {
 			print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);
@@ -1148,7 +1148,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		if (!getDolGlobalString('MEMBER_DISABLE_STATE')) {
 			print '<tr><td>'.$langs->trans('State').'</td><td>';
 			if ($soc->country_id || GETPOSTISSET('country_id')) {
-				print img_picto('', 'state', 'class="pictofixedwidth"');
+				print img_picture('', 'state', 'class="picturefixedwidth"');
 				print $formcompany->select_state(GETPOSTISSET('state_id') ? GETPOSTINT('state_id') : $soc->state_id, GETPOSTISSET('country_id') ? GETPOSTINT('country_id') : $soc->country_code);
 			} else {
 				print $countrynotdefined;
@@ -1158,15 +1158,15 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 		// Pro phone
 		print '<tr><td>'.$langs->trans("PhonePro").'</td>';
-		print '<td>'.img_picto('', 'object_phoning', 'class="pictofixedwidth"').'<input type="text" name="phone" size="20" value="'.(GETPOSTISSET('phone') ? GETPOST('phone', 'alpha') : $soc->phone).'"></td></tr>';
+		print '<td>'.img_picture('', 'object_phoning', 'class="picturefixedwidth"').'<input type="text" name="phone" size="20" value="'.(GETPOSTISSET('phone') ? GETPOST('phone', 'alpha') : $soc->phone).'"></td></tr>';
 
 		// Personal phone
 		print '<tr><td>'.$langs->trans("PhonePerso").'</td>';
-		print '<td>'.img_picto('', 'object_phoning', 'class="pictofixedwidth"').'<input type="text" name="phone_perso" size="20" value="'.(GETPOSTISSET('phone_perso') ? GETPOST('phone_perso', 'alpha') : $object->phone_perso).'"></td></tr>';
+		print '<td>'.img_picture('', 'object_phoning', 'class="picturefixedwidth"').'<input type="text" name="phone_perso" size="20" value="'.(GETPOSTISSET('phone_perso') ? GETPOST('phone_perso', 'alpha') : $object->phone_perso).'"></td></tr>';
 
 		// Mobile phone
 		print '<tr><td>'.$langs->trans("PhoneMobile").'</td>';
-		print '<td>'.img_picto('', 'object_phoning_mobile', 'class="pictofixedwidth"').'<input type="text" name="phone_mobile" size="20" value="'.(GETPOSTISSET('phone_mobile') ? GETPOST('phone_mobile', 'alpha') : $object->phone_mobile).'"></td></tr>';
+		print '<td>'.img_picture('', 'object_phoning_mobile', 'class="picturefixedwidth"').'<input type="text" name="phone_mobile" size="20" value="'.(GETPOSTISSET('phone_mobile') ? GETPOST('phone_mobile', 'alpha') : $object->phone_mobile).'"></td></tr>';
 
 		if (isModEnabled('socialnetworks')) {
 			foreach ($socialnetworks as $key => $value) {
@@ -1180,13 +1180,13 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 		// Birth Date
 		print "<tr><td>".$langs->trans("DateOfBirth")."</td><td>\n";
-		print img_picto('', 'object_calendar', 'class="pictofixedwidth"').$form->selectDate(($object->birth ? $object->birth : -1), 'birth', 0, 0, 1, 'formsoc');
+		print img_picture('', 'object_calendar', 'class="picturefixedwidth"').$form->selectDate(($object->birth ? $object->birth : -1), 'birth', 0, 0, 1, 'formsoc');
 		print "</td></tr>\n";
 
 		// Public profil
 		print "<tr><td>";
 		$htmltext = $langs->trans("Public", getDolGlobalString('MAIN_INFO_SOCIETE_NOM'), $linkofpubliclist);
-		print $form->textwithpicto($langs->trans("MembershipPublic"), $htmltext, 1, 'help', '', 0, 3, 'membershippublic');
+		print $form->textWithPicture($langs->trans("MembershipPublic"), $htmltext, 1, 'help', '', 0, 3, 'membershippublic');
 		print "</td><td>\n";
 		print $form->selectyesno("public", $object->public, 1, false, 0, 1);
 		print "</td></tr>\n";
@@ -1195,7 +1195,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 			print '<tr><td>'.$form->editfieldkey("Categories", 'memcats', '', $object, 0).'</td><td>';
 			$cate_arbo = $form->select_all_categories(Category::TYPE_MEMBER, '', 'parent', 64, 0, 3);
-			print img_picto('', 'category').$form->multiselectarray('memcats', $cate_arbo, GETPOST('memcats', 'array'), 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
+			print img_picture('', 'category').$form->multiselectarray('memcats', $cate_arbo, GETPOST('memcats', 'array'), 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 			print "</td></tr>";
 		}
 
@@ -1372,11 +1372,11 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 		// EMail
 		print '<tr><td>'.(getDolGlobalString("ADHERENT_MAIL_REQUIRED") ? '<span class="fieldrequired">' : '').$langs->trans("EMail").(getDolGlobalString("ADHERENT_MAIL_REQUIRED") ? '</span>' : '').'</td>';
-		print '<td>'.img_picto('', 'object_email', 'class="pictofixedwidth"').'<input type="text" name="member_email" class="minwidth300" maxlength="255" value="'.(GETPOSTISSET("member_email") ? GETPOST("member_email", 'alphanohtml', 2) : $object->email).'"></td></tr>';
+		print '<td>'.img_picture('', 'object_email', 'class="picturefixedwidth"').'<input type="text" name="member_email" class="minwidth300" maxlength="255" value="'.(GETPOSTISSET("member_email") ? GETPOST("member_email", 'alphanohtml', 2) : $object->email).'"></td></tr>';
 
 		// Website
 		print '<tr><td>'.$form->editfieldkey('Web', 'member_url', GETPOST('member_url', 'alpha'), $object, 0).'</td>';
-		print '<td>'.img_picto('', 'globe', 'class="pictofixedwidth"').'<input type="text" name="member_url" id="member_url" class="maxwidth200onsmartphone maxwidth500 widthcentpercentminusx " value="'.(GETPOSTISSET('member_url') ? GETPOST('member_url', 'alpha') : $object->url).'"></td></tr>';
+		print '<td>'.img_picture('', 'globe', 'class="picturefixedwidth"').'<input type="text" name="member_url" id="member_url" class="maxwidth200onsmartphone maxwidth500 widthcentpercentminusx " value="'.(GETPOSTISSET('member_url') ? GETPOST('member_url', 'alpha') : $object->url).'"></td></tr>';
 
 		// Address
 		print '<tr><td>'.$langs->trans("Address").'</td><td>';
@@ -1393,7 +1393,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		// Country
 		//$object->country_id=$object->country_id?$object->country_id:$mysoc->country_id;    // In edit mode we don't force to company country if not defined
 		print '<tr><td>'.$langs->trans('Country').'</td><td>';
-		print img_picto('', 'country', 'class="pictofixedwidth"');
+		print img_picture('', 'country', 'class="picturefixedwidth"');
 		print $form->select_country(GETPOSTISSET("country_id") ? GETPOST("country_id", "alpha") : $object->country_id, 'country_id');
 		if ($user->admin) {
 			print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);
@@ -1403,22 +1403,22 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		// State
 		if (!getDolGlobalString('MEMBER_DISABLE_STATE')) {
 			print '<tr><td>'.$langs->trans('State').'</td><td>';
-			print img_picto('', 'state', 'class="pictofixedwidth"');
+			print img_picture('', 'state', 'class="picturefixedwidth"');
 			print $formcompany->select_state($object->state_id, GETPOSTISSET("country_id") ? GETPOST("country_id", "alpha") : $object->country_id);
 			print '</td></tr>';
 		}
 
 		// Pro phone
 		print '<tr><td>'.$langs->trans("PhonePro").'</td>';
-		print '<td>'.img_picto('', 'object_phoning', 'class="pictofixedwidth"').'<input type="text" name="phone" value="'.(GETPOSTISSET("phone") ? GETPOST("phone") : $object->phone).'"></td></tr>';
+		print '<td>'.img_picture('', 'object_phoning', 'class="picturefixedwidth"').'<input type="text" name="phone" value="'.(GETPOSTISSET("phone") ? GETPOST("phone") : $object->phone).'"></td></tr>';
 
 		// Personal phone
 		print '<tr><td>'.$langs->trans("PhonePerso").'</td>';
-		print '<td>'.img_picto('', 'object_phoning', 'class="pictofixedwidth"').'<input type="text" name="phone_perso" value="'.(GETPOSTISSET("phone_perso") ? GETPOST("phone_perso") : $object->phone_perso).'"></td></tr>';
+		print '<td>'.img_picture('', 'object_phoning', 'class="picturefixedwidth"').'<input type="text" name="phone_perso" value="'.(GETPOSTISSET("phone_perso") ? GETPOST("phone_perso") : $object->phone_perso).'"></td></tr>';
 
 		// Mobile phone
 		print '<tr><td>'.$langs->trans("PhoneMobile").'</td>';
-		print '<td>'.img_picto('', 'object_phoning_mobile', 'class="pictofixedwidth"').'<input type="text" name="phone_mobile" value="'.(GETPOSTISSET("phone_mobile") ? GETPOST("phone_mobile") : $object->phone_mobile).'"></td></tr>';
+		print '<td>'.img_picture('', 'object_phoning_mobile', 'class="picturefixedwidth"').'<input type="text" name="phone_mobile" value="'.(GETPOSTISSET("phone_mobile") ? GETPOST("phone_mobile") : $object->phone_mobile).'"></td></tr>';
 
 		if (isModEnabled('socialnetworks')) {
 			foreach ($socialnetworks as $key => $value) {
@@ -1431,13 +1431,13 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 
 		// Birth Date
 		print "<tr><td>".$langs->trans("DateOfBirth")."</td><td>\n";
-		print img_picto('', 'object_calendar', 'class="pictofixedwidth"').$form->selectDate(($object->birth ? $object->birth : -1), 'birth', 0, 0, 1, 'formsoc');
+		print img_picture('', 'object_calendar', 'class="picturefixedwidth"').$form->selectDate(($object->birth ? $object->birth : -1), 'birth', 0, 0, 1, 'formsoc');
 		print "</td></tr>\n";
 
 		// Default language
 		if (getDolGlobalInt('MAIN_MULTILANGS')) {
 			print '<tr><td>'.$form->editfieldkey('DefaultLang', 'default_lang', '', $object, 0).'</td><td colspan="3">'."\n";
-			print img_picto('', 'language', 'class="pictofixedwidth"').$formadmin->select_language($object->default_lang, 'default_lang', 0, array(), 1);
+			print img_picture('', 'language', 'class="picturefixedwidth"').$formadmin->select_language($object->default_lang, 'default_lang', 0, array(), 1);
 			print '</td>';
 			print '</tr>';
 		}
@@ -1445,7 +1445,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		// Public profil
 		print "<tr><td>";
 		$htmltext = $langs->trans("Public", getDolGlobalString('MAIN_INFO_SOCIETE_NOM'), $linkofpubliclist);
-		print $form->textwithpicto($langs->trans("MembershipPublic"), $htmltext, 1, 'help', '', 0, 3, 'membershippublic');
+		print $form->textWithPicture($langs->trans("MembershipPublic"), $htmltext, 1, 'help', '', 0, 3, 'membershippublic');
 		print "</td><td>\n";
 		print $form->selectyesno("public", (GETPOSTISSET("public") ? GETPOST("public", 'alphanohtml', 2) : $object->public), 1, false, 0, 1);
 		print "</td></tr>\n";
@@ -1463,7 +1463,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 					$arrayselected[] = $cat->id;
 				}
 			}
-			print img_picto('', 'category', 'class="pictofixedwidth"');
+			print img_picture('', 'category', 'class="picturefixedwidth"');
 			print $form->multiselectarray('memcats', $cate_arbo, $arrayselected, 0, 0, 'widthcentpercentminusx', 0, '100%');
 			print "</td></tr>";
 		}
@@ -1631,7 +1631,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			$helpcontent .= '<b>'.$langs->trans("Content").'</b>:<br>';
 			$helpcontent .= dol_htmlentitiesbr($texttosend)."\n";
 			// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
-			$label = $form->textwithpicto($tmp, $helpcontent, 1, 'help');
+			$label = $form->textWithPicture($tmp, $helpcontent, 1, 'help');
 
 			// Create form popup
 			$formquestion = array();
@@ -1695,7 +1695,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			$helpcontent .= '<b>'.$langs->trans("Content").'</b>:<br>';
 			$helpcontent .= dol_htmlentitiesbr($texttosend)."\n";
 			// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
-			$label = $form->textwithpicto($tmp, $helpcontent, 1, 'help');
+			$label = $form->textWithPicture($tmp, $helpcontent, 1, 'help');
 
 			// Create an array
 			$formquestion = array();
@@ -1756,7 +1756,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			$helpcontent .= '<b>'.$langs->trans("Content").'</b>:<br>';
 			$helpcontent .= dol_htmlentitiesbr($texttosend)."\n";
 			// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
-			$label = $form->textwithpicto($tmp, $helpcontent, 1, 'help');
+			$label = $form->textWithPicture($tmp, $helpcontent, 1, 'help');
 
 			// Create an array
 			$formquestion = array();
@@ -1798,7 +1798,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		$linkback = '<a href="'.DOL_URL_ROOT.'/members/list.php?restore_lastsearch_values=1">'.$langs->trans("BackToList").'</a>';
 
 		$morehtmlref = '<a href="'.DOL_URL_ROOT.'/members/vcard.php?id='.$object->id.'" class="refid">';
-		$morehtmlref .= img_picto($langs->trans("Download").' '.$langs->trans("VCard"), 'vcard.png', 'class="valignmiddle marginleftonly paddingrightonly"');
+		$morehtmlref .= img_picture($langs->trans("Download").' '.$langs->trans("VCard"), 'vcard.png', 'class="valignmiddle marginleftonly paddingrightonly"');
 		$morehtmlref .= '</a>';
 
 
@@ -1845,7 +1845,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 			if (!empty($object->pass_indatabase) && empty($object->user_id)) {	// Show warning only for old password still in clear (does not happen anymore)
 				$langs->load("errors");
 				$htmltext = $langs->trans("WarningPasswordSetWithNoAccount");
-				print ' '.$form->textwithpicto('', $htmltext, 1, 'warning');
+				print ' '.$form->textWithPicture('', $htmltext, 1, 'warning');
 			}
 			print '</td></tr>';
 		}
@@ -1898,11 +1898,11 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		if (getDolGlobalInt('MAIN_MULTILANGS')) {
 			require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 			print '<tr><td>'.$langs->trans("DefaultLang").'</td><td>';
-			//$s=picto_from_langcode($object->default_lang);
+			//$s=picture_from_langcode($object->default_lang);
 			//print ($s?$s.' ':'');
 			$langs->load("languages");
 			$labellang = ($object->default_lang ? $langs->trans('Language_'.$object->default_lang) : '');
-			print picto_from_langcode($object->default_lang, 'class="paddingrightonly saturatemedium opacitylow"');
+			print picture_from_langcode($object->default_lang, 'class="paddingrightonly saturatemedium opacitylow"');
 			print $labellang;
 			print '</td></tr>';
 		}
@@ -1910,7 +1910,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 		// Public
 		print '<tr><td>';
 		$htmltext = $langs->trans("Public", getDolGlobalString('MAIN_INFO_SOCIETE_NOM'), $linkofpubliclist);
-		print $form->textwithpicto($langs->trans("MembershipPublic"), $htmltext, 1, 'help', '', 0, 3, 'membershippublic');
+		print $form->textWithPicture($langs->trans("MembershipPublic"), $htmltext, 1, 'help', '', 0, 3, 'membershippublic');
 		print '</td><td class="valeur">'.yn($object->public).'</td></tr>';
 
 		// Other attributes
@@ -1943,7 +1943,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($action)) {
 					// Show link to invoices
 					$tmparray = $company->getOutstandingBills('customer');
 					if (!empty($tmparray['refs'])) {
-						print ' - '.img_picto($langs->trans("Invoices"), 'bill', 'class="paddingright"').'<a href="'.DOL_URL_ROOT.'/compta/facture/list.php?socid='.$object->socid.'">'.$langs->trans("Invoices").' ('.count($tmparray['refs']).')';
+						print ' - '.img_picture($langs->trans("Invoices"), 'bill', 'class="paddingright"').'<a href="'.DOL_URL_ROOT.'/compta/facture/list.php?socid='.$object->socid.'">'.$langs->trans("Invoices").' ('.count($tmparray['refs']).')';
 						// TODO Add alert if warning on at least one invoice late
 						print '</a>';
 					}

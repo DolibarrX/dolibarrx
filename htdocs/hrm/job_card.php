@@ -250,7 +250,7 @@ llxHeader('', $title, $help_url);
 
 // Part to create
 if ($action == 'create') {
-	print load_fiche_titre($langs->trans("NewJobProfile", $langs->transnoentities('Job')), '', 'object_' . $object->picto);
+	print load_fiche_titre($langs->trans("NewJobProfile", $langs->transnoentities('Job')), '', 'object_' . $object->picture);
 
 	print '<form method="POST" action="' . $_SERVER["PHP_SELF"] . '">';
 	print '<input type="hidden" name="token" value="' . newToken() . '">';
@@ -289,7 +289,7 @@ if ($action == 'create') {
 
 // Part to edit record
 if (($id || $ref) && $action == 'edit') {
-	print load_fiche_titre($langs->trans("JobProfile"), '', 'object_' . $object->picto);
+	print load_fiche_titre($langs->trans("JobProfile"), '', 'object_' . $object->picture);
 
 	print '<form method="POST" action="' . $_SERVER["PHP_SELF"] . '">';
 	print '<input type="hidden" name="token" value="' . newToken() . '">';
@@ -328,8 +328,8 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	$res = $object->fetch_optionals();
 
 	$head = jobPrepareHead($object);
-	$picto = 'company.png';
-	print dol_get_fiche_head($head, 'job_card', $langs->trans("Workstation"), -1, $object->picto);
+	$picture = 'company.png';
+	print dol_get_fiche_head($head, 'job_card', $langs->trans("Workstation"), -1, $object->picture);
 
 	$formconfirm = '';
 

@@ -264,27 +264,27 @@ if (is_resource($handle)) {
 				if (in_array($name, $def)) {
 					if ($config->global->DON_ADDON_MODEL == $name) {
 						print "<td class=\"center\">\n";
-						print img_picto($langs->trans("Enabled"), 'switch_on');
+						print img_picture($langs->trans("Enabled"), 'switch_on');
 						print '</td>';
 					} else {
 						print "<td class=\"center\">\n";
-						print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picto($langs->trans("Enabled"), 'switch_on').'</a>';
+						print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picture($langs->trans("Enabled"), 'switch_on').'</a>';
 						print '</td>';
 					}
 				} else {
 					print "<td class=\"center\">\n";
-					print '<a href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+					print '<a href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 					print "</td>";
 				}
 
 				// Default
 				if ($config->global->DON_ADDON_MODEL == "$name") {
 					print "<td class=\"center\">";
-					print img_picto($langs->trans("Default"), 'on');
+					print img_picture($langs->trans("Default"), 'on');
 					print '</td>';
 				} else {
 					print "<td class=\"center\">";
-					print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+					print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 					print '</td>';
 				}
 
@@ -298,7 +298,7 @@ if (is_resource($handle)) {
 				$htmltooltip .= '<br>'.$langs->trans("Logo").': '.yn($module->option_logo, 1, 1);
 				$htmltooltip .= '<br>'.$langs->trans("MultiLanguage").': '.yn($module->option_multilang, 1, 1);
 				print '<td class="center">';
-				print $form->textwithpicto('', $htmltooltip, -1, 0);
+				print $form->textWithPicture('', $htmltooltip, -1, 0);
 				print '</td>';
 
 				// Preview

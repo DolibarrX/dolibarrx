@@ -48,7 +48,7 @@ class Dolresource extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'resource';
+	public $picture = 'resource';
 
 	/**
 	 * @var string 		Description
@@ -888,7 +888,7 @@ class Dolresource extends CommonObject
 	 * getTooltipContentArray
 	 * @param array<string,mixed> $params params to construct tooltip data
 	 * @since v18
-	 * @return array{picto?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
+	 * @return array{picture?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
 	 */
 	public function getTooltipContentArray($params)
 	{
@@ -898,7 +898,7 @@ class Dolresource extends CommonObject
 
 		$datas = [];
 
-		$datas['picto'] = img_picto('', $this->picto).' <u>'.$langs->trans("Resource").'</u>';
+		$datas['picture'] = img_picture('', $this->picture).' <u>'.$langs->trans("Resource").'</u>';
 		$datas['ref'] = '<br><b>'.$langs->trans('Ref').':</b> '.$this->ref;
 		/*if (isset($this->status)) {
 		 $datas['status'] = '<br><b>' . $langs->trans("Status").":</b> ".$this->getLibStatut(5);
@@ -911,9 +911,9 @@ class Dolresource extends CommonObject
 	}
 
 	/**
-	 * Return clickable link of object (with optional picto)
+	 * Return clickable link of object (with optional picture)
 	 *
-	 *	@param		int		$withpicto					Add picto into link
+	 *	@param		int		$withPicture					Add picture into link
 	 *	@param		string	$option						Where point the link ('compta', 'expedition', 'document', ...)
 	 *	@param		string	$get_params					Parameters added to url
 	 *	@param		int		$notooltip					1=Disable tooltip
@@ -921,7 +921,7 @@ class Dolresource extends CommonObject
 	 *  @param		int		$save_lastsearch_value      -1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 *	@return		string								String with URL
 	 */
-	public function getNomUrl($withpicto = 0, string $option = '', string $get_params = '', int $notooltip = 0, string $morecss = '', int $save_lastsearch_value = -1)
+	public function getNomUrl($withPicture = 0, string $option = '', string $get_params = '', int $notooltip = 0, string $morecss = '', int $save_lastsearch_value = -1)
 	{
 		global $langs, $hookManager, $action;
 
@@ -972,10 +972,10 @@ class Dolresource extends CommonObject
 		 $linkend = '</a>';*/
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ?: 'generic'), (($withpicto != 2) ? 'class="paddingright"' : ''), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($this->picture ?: 'generic'), (($withPicture != 2) ? 'class="paddingright"' : ''), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 		$result .= $linkend;

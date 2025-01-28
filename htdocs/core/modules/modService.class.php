@@ -58,7 +58,7 @@ class modService extends DolibarrModules
 		$this->version = 'dolibarr';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'service';
+		$this->picture = 'service';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/product/temp");
@@ -434,7 +434,7 @@ class modService extends DolibarrModules
 		$r++;
 		$this->import_code[$r] = $this->rights_class.'_'.$r;
 		$this->import_label[$r] = "Products"; // Translation key
-		$this->import_icon[$r] = $this->picto;
+		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use a different icon from the one defined in import_icon
 		$this->import_tables_array[$r] = array('p' => MAIN_DB_PREFIX.'product', 'extra' => MAIN_DB_PREFIX.'product_extrafields');
 		$this->import_tables_creator_array[$r] = array('p' => 'fk_user_author'); // Fields to store import user id
@@ -711,7 +711,7 @@ class modService extends DolibarrModules
 				$r++;
 				$this->import_code[$r] = $this->rights_class.'_supplierprices';
 				$this->import_label[$r] = "SuppliersPricesOfProductsOrServices"; // Translation key
-				$this->import_icon[$r] = $this->picto;
+				$this->import_icon[$r] = $this->picture;
 				$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 				$this->import_tables_array[$r] = array('sp' => MAIN_DB_PREFIX.'product_fournisseur_price');
 				$this->import_tables_creator_array[$r] = array('sp' => 'fk_user');
@@ -806,7 +806,7 @@ class modService extends DolibarrModules
 				$r++;
 				$this->import_code[$r] = $this->rights_class.'_multiprice';
 				$this->import_label[$r] = "ProductsOrServiceMultiPrice"; // Translation key
-				$this->import_icon[$r] = $this->picto;
+				$this->import_icon[$r] = $this->picture;
 				$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 				$this->import_tables_array[$r] = array('pr' => MAIN_DB_PREFIX.'product_price');
 				$this->import_tables_creator_array[$r] = array('pr' => 'fk_user_author'); // Fields to store import user id
@@ -839,7 +839,7 @@ class modService extends DolibarrModules
 				$r++;
 				$this->import_code[$r] = $this->rights_class.'_languages';
 				$this->import_label[$r] = "ProductsOrServicesTranslations";
-				$this->import_icon[$r] = $this->picto;
+				$this->import_icon[$r] = $this->picture;
 				$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 				$this->import_tables_array[$r] = array('l' => MAIN_DB_PREFIX.'product_lang');
 				// multiline translation, one line per translation

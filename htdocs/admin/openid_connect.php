@@ -137,7 +137,7 @@ print dol_get_fiche_head($head, 'settings', $langs->trans("Parameters"), -1, 'ac
 
 print $langs->trans("SeeWikiDocForHelpInSetupOpenIDCOnnect");
 print ' - ';
-print img_picto('', 'url', 'class="pictofixedwidth"').'<a target="_blank" href="https://wiki.dolibarr.org/index.php?title=Authentication,_SSO_and_SSL#Mode_openid_connect">';
+print img_picture('', 'url', 'class="picturefixedwidth"').'<a target="_blank" href="https://wiki.dolibarr.org/index.php?title=Authentication,_SSO_and_SSL#Mode_openid_connect">';
 print $langs->trans("SeeHere");
 print '</a>';
 

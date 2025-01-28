@@ -1108,22 +1108,22 @@ $param .= $hookManager->resPrint;
 
 // List of mass actions available
 $arrayofmassactions = array(
-	'generate_doc' => img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("ReGeneratePDF"),
-	'builddoc' => img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
+	'generate_doc' => img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("ReGeneratePDF"),
+	'builddoc' => img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 );
 if ($permissiontosendbymail) {
-	$arrayofmassactions['presend'] = img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail");
+	$arrayofmassactions['presend'] = img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail");
 }
 if ($permissiontovalidate) {
-	$arrayofmassactions['prevalidate'] = img_picto('', 'check', 'class="pictofixedwidth"').$langs->trans("Validate");
+	$arrayofmassactions['prevalidate'] = img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("Validate");
 }
 if ($permissiontoclose) {
-	$arrayofmassactions['presign'] = img_picto('', 'propal', 'class="pictofixedwidth"').$langs->trans("Sign");
-	$arrayofmassactions['nopresign'] = img_picto('', 'propal', 'class="pictofixedwidth"').$langs->trans("NoSign");
-	$arrayofmassactions['setbilled'] = img_picto('', 'bill', 'class="pictofixedwidth"').$langs->trans("ClassifyBilled");
+	$arrayofmassactions['presign'] = img_picture('', 'propal', 'class="picturefixedwidth"').$langs->trans("Sign");
+	$arrayofmassactions['nopresign'] = img_picture('', 'propal', 'class="picturefixedwidth"').$langs->trans("NoSign");
+	$arrayofmassactions['setbilled'] = img_picture('', 'bill', 'class="picturefixedwidth"').$langs->trans("ClassifyBilled");
 }
 if ($permissiontodelete) {
-	$arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 
 if (in_array($massaction, array('presend', 'predelete', 'closed'))) {
@@ -1191,14 +1191,14 @@ if ($user->hasRight('user', 'user', 'lire')) {
 	$langs->load("commercial");
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('ThirdPartiesOfSaleRepresentative');
-	$moreforfilter .= img_picto($tmptitle, 'user', 'class="pictofixedwidth"').$formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $tmptitle, 'maxwidth250 widthcentpercentminusx', 1);
+	$moreforfilter .= img_picture($tmptitle, 'user', 'class="picturefixedwidth"').$formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $tmptitle, 'maxwidth250 widthcentpercentminusx', 1);
 	$moreforfilter .= '</div>';
 }
 // If the user can view prospects other than his'
 if ($user->hasRight('user', 'user', 'lire')) {
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('LinkedToSpecificUsers');
-	$moreforfilter .= img_picto($tmptitle, 'user', 'class="pictofixedwidth"').$form->select_dolusers((empty($search_user) ? -2 : 0), 'search_user', $tmptitle, '', 0, '', '', 0, 0, 0, '', 0, '', 'maxwidth250 widthcentpercentminusx');
+	$moreforfilter .= img_picture($tmptitle, 'user', 'class="picturefixedwidth"').$form->select_dolusers((empty($search_user) ? -2 : 0), 'search_user', $tmptitle, '', 0, '', '', 0, 0, 0, '', 0, '', 'maxwidth250 widthcentpercentminusx');
 	$moreforfilter .= '</div>';
 }
 // If the user can view products
@@ -1213,7 +1213,7 @@ if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('CustomersProspectsCategoriesShort');
-	$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"').$formother->select_categories('customer', $search_categ_cus, 'search_categ_cus', 1, $tmptitle, (empty($config->dol_optimize_smallscreen) ? 'maxwidth300 widthcentpercentminusx' : 'maxwidth250 widthcentpercentminusx'));
+	$moreforfilter .= img_picture($tmptitle, 'category', 'class="picturefixedwidth"').$formother->select_categories('customer', $search_categ_cus, 'search_categ_cus', 1, $tmptitle, (empty($config->dol_optimize_smallscreen) ? 'maxwidth300 widthcentpercentminusx' : 'maxwidth250 widthcentpercentminusx'));
 	$moreforfilter .= '</div>';
 }
 if (isModEnabled('stock') && getDolGlobalString('WAREHOUSE_ASK_WAREHOUSE_DURING_PROPAL')) {
@@ -1221,7 +1221,7 @@ if (isModEnabled('stock') && getDolGlobalString('WAREHOUSE_ASK_WAREHOUSE_DURING_
 	$formproduct = new FormProduct($db);
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('Warehouse');
-	$moreforfilter .= img_picto($tmptitle, 'stock', 'class="pictofixedwidth"').$formproduct->selectWarehouses($search_warehouse, 'search_warehouse', '', $tmptitle, 0, 0, $tmptitle);
+	$moreforfilter .= img_picture($tmptitle, 'stock', 'class="picturefixedwidth"').$formproduct->selectWarehouses($search_warehouse, 'search_warehouse', '', $tmptitle, 0, 0, $tmptitle);
 	$moreforfilter .= '</div>';
 }
 $parameters = array();
@@ -1250,8 +1250,8 @@ print '<tr class="liste_titre_filter">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre" align="middle">';
-	$searchpicto = $form->showFilterButtons('left');
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons('left');
+	print $searchPicture;
 	print '</td>';
 }
 
@@ -1526,8 +1526,8 @@ if (!empty($arrayfields['p.fk_statut']['checked'])) {
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre" align="middle">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print "</tr>\n";
@@ -1888,7 +1888,7 @@ while ($i < $imaxinloop) {
 				print $warnornote;
 				print '</td>';
 			}
-			// Other picto tool
+			// Other picture tool
 			print '<td width="16" class="nobordernopadding right">';
 			$filename = dol_sanitizeFileName($obj->ref);
 			$filedir = $config->propal->multidir_output[$obj->propal_entity].'/'.dol_sanitizeFileName($obj->ref);

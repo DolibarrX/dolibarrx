@@ -113,8 +113,8 @@ print load_fiche_titre($langs->trans("HRMArea"), '', 'hrm');
 
 if (!empty($setupcompanynotcomplete)) {
 	$langs->load("errors");
-	$warnpicto = img_warning($langs->trans("WarningMandatorySetupNotComplete"));
-	print '<br><div class="warning"><a href="'.DOL_URL_ROOT.'/admin/company.php?mainmenu=home'.(empty($setupcompanynotcomplete) ? '' : '&action=edit&token='.newToken()).'">'.$warnpicto.' '.$langs->trans("WarningMandatorySetupNotComplete").'</a></div>';
+	$warnPicture = img_warning($langs->trans("WarningMandatorySetupNotComplete"));
+	print '<br><div class="warning"><a href="'.DOL_URL_ROOT.'/admin/company.php?mainmenu=home'.(empty($setupcompanynotcomplete) ? '' : '&action=edit&token='.newToken()).'">'.$warnPicture.' '.$langs->trans("WarningMandatorySetupNotComplete").'</a></div>';
 
 	llxFooter();
 	exit;
@@ -187,7 +187,7 @@ if (isModEnabled('holiday')) {
 			$out .= ' - '.($langs->trans($val['code']) != $val['code'] ? $langs->trans($val['code']) : $val['label']).': <strong>'.($nb_type ? price2num($nb_type) : 0).'</strong><br>';
 		}
 		$balancetoshow = $langs->trans('SoldeCPUser', '{s1}');
-		print '<div class="valignmiddle div-balanceofleave">'.str_replace('{s1}', img_picto('', 'holiday', 'class="paddingleft pictofixedwidth"').'<span class="balanceofleave valignmiddle'.($nb_holiday > 0 ? ' amountpaymentcomplete' : ($nb_holiday < 0 ? ' amountremaintopay' : ' amountpaymentneutral')).'">'.round($nb_holiday, 5).'</span>', $balancetoshow).'</div>';
+		print '<div class="valignmiddle div-balanceofleave">'.str_replace('{s1}', img_picture('', 'holiday', 'class="paddingleft picturefixedwidth"').'<span class="balanceofleave valignmiddle'.($nb_holiday > 0 ? ' amountpaymentcomplete' : ($nb_holiday < 0 ? ' amountremaintopay' : ' amountpaymentneutral')).'">'.round($nb_holiday, 5).'</span>', $balancetoshow).'</div>';
 		print '<span class="opacitymedium">'.$out.'</span>';
 
 		print '</td>';
@@ -335,7 +335,7 @@ if (isModEnabled('expensereport') && $user->hasRight('expensereport', 'read')) {
 		print '<th colspan="2">'.$langs->trans("BoxTitleLastModifiedExpenses", min($max, $num));
 		print '<a href="'.DOL_URL_ROOT.'/expensereport/list.php?sortfield=d.tms&sortorder=DESC" title="'.$langs->trans("FullList").'">';
 		print '<span class="badge marginleftonlyshort">...</span>';
-		//print img_picto($langs->trans("FullList"), 'expensereport');
+		//print img_picture($langs->trans("FullList"), 'expensereport');
 		print '</a>';
 		print '</th>';
 		print '<th class="right">'.$langs->trans("AmountHT").'</th>';
@@ -421,7 +421,7 @@ if (isModEnabled('recruitment') && $user->hasRight('recruitment', 'recruitmentjo
 		print $langs->trans("BoxTitleLatestModifiedCandidatures", min($max, $num));
 		print '<a href="'.DOL_URL_ROOT.'/recruitment/recruitmentcandidature_list.php?sortfield=t.tms&sortorder=DESC" title="'.$langs->trans("FullList").'">';
 		print '<span class="badge marginleftonlyshort">...</span>';
-		//print img_picto($langs->trans("FullList"), 'recruitmentcandidature');
+		//print img_picture($langs->trans("FullList"), 'recruitmentcandidature');
 		print '</a>';
 		print '</th>';
 		print '<th></th>';

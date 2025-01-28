@@ -61,7 +61,7 @@ class modOrder extends DolibarrModules
 		$this->version = 'dolibarr';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'order';
+		$this->picture = 'order';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/order/temp");
@@ -305,7 +305,7 @@ class modOrder extends DolibarrModules
 		$r++;
 		$this->import_code[$r] = 'order_'.$r;
 		$this->import_label[$r] = 'CustomersOrders';
-		$this->import_icon[$r] = $this->picto;
+		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array();
 		$this->import_tables_array[$r] = array('c' => MAIN_DB_PREFIX.'order', 'extra' => MAIN_DB_PREFIX.'order_extrafields');
 		$this->import_tables_creator_array[$r] = array('c' => 'fk_user_author'); // Fields to store import user id
@@ -387,7 +387,7 @@ class modOrder extends DolibarrModules
 		$r++;
 		$this->import_code[$r] = 'order_lines_'.$r;
 		$this->import_label[$r] = 'SaleOrderLines';
-		$this->import_icon[$r] = $this->picto;
+		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array();
 		$this->import_tables_array[$r] = array('cd' => MAIN_DB_PREFIX.'orderdet', 'extra' => MAIN_DB_PREFIX.'orderdet_extrafields');
 		$this->import_fields_array[$r] = array(

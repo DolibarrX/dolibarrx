@@ -60,7 +60,7 @@ class FormCategory extends Form
 
 		$filter = '';
 		$filter .= '<div class="divsearchfield">';
-		$filter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"');
+		$filter .= img_picture($tmptitle, 'category', 'class="picturefixedwidth"');
 		if ($multiselect) {
 			$categoryArray = $this->select_all_categories($type, '', '', 64, 0, 2);
 			if ($nocateg) {

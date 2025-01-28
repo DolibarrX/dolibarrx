@@ -183,11 +183,11 @@ function showDirectPublicLink($object)
 		$langs->load('errors');
 		$out .= '<span class="opacitymedium">' . $langs->trans("ErrorPublicInterfaceNotEnabled") . '</span>';
 	} else {
-		$out .= img_picto('', 'object_globe.png') . ' <span class="opacitymedium">' . $langs->trans("TicketPublicAccess") . '</span><br>';
+		$out .= img_picture('', 'object_globe.png') . ' <span class="opacitymedium">' . $langs->trans("TicketPublicAccess") . '</span><br>';
 		if ($url) {
 			$out .= '<div class="urllink">';
 			$out .= '<input type="text" id="directpubliclink" class="quatrevingtpercentminusx" spellcheck="false" value="' . $url . '">';
-			$out .= '<a href="' . $url . '" target="_blank" rel="noopener noreferrer">' . img_picto('', 'object_globe.png', 'class="paddingleft"') . '</a>';
+			$out .= '<a href="' . $url . '" target="_blank" rel="noopener noreferrer">' . img_picture('', 'object_globe.png', 'class="paddingleft"') . '</a>';
 			$out .= '</div>';
 			$out .= ajax_autoselect("directpubliclink", '');
 		} else {

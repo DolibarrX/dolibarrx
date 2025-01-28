@@ -227,7 +227,7 @@ if (getDolGlobalString('PRODUCT_QUICKSEARCH_ON_FIELDS')) {
 if (!getDolGlobalString('PRODUIT_MULTIPRICES')) {
 	$titlesellprice = $langs->trans("SellingPrice");
 	if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES')) {
-		$titlesellprice = $form->textwithpicto($langs->trans("SellingPrice"), $langs->trans("DefaultPriceRealPriceMayDependOnCustomer"));
+		$titlesellprice = $form->textWithPicture($langs->trans("SellingPrice"), $langs->trans("DefaultPriceRealPriceMayDependOnCustomer"));
 	}
 }
 
@@ -868,27 +868,27 @@ $param .= $hookManager->resPrint;
 
 // List of mass actions available
 $arrayofmassactions = array(
-	'generate_doc' => img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("ReGeneratePDF"),
-	'edit_extrafields' => img_picto('', 'edit', 'class="pictofixedwidth"').$langs->trans("ModifyValueExtrafields"),
-	//'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
-	//'presend'=>img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
+	'generate_doc' => img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("ReGeneratePDF"),
+	'edit_extrafields' => img_picture('', 'edit', 'class="picturefixedwidth"').$langs->trans("ModifyValueExtrafields"),
+	//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
+	//'presend'=>img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
 );
 if ($user->hasRight($rightskey, 'creer')) {
 	if (getDolGlobalString('PRODUCT_PRICE_UNIQ') || getDolGlobalString('PRODUIT_CUSTOMER_PRICES')) {
-		$arrayofmassactions['preupdateprice'] = img_picto('', 'edit', 'class="pictofixedwidth"').$langs->trans("UpdatePrice");
+		$arrayofmassactions['preupdateprice'] = img_picture('', 'edit', 'class="picturefixedwidth"').$langs->trans("UpdatePrice");
 	}
 
-	$arrayofmassactions['switchonsalestatus'] = img_picto('', 'stop-circle', 'class="pictofixedwidth"').$langs->trans("SwitchOnSaleStatus");
-	$arrayofmassactions['switchonpurchasestatus'] = img_picto('', 'stop-circle', 'class="pictofixedwidth"').$langs->trans("SwitchOnPurchaseStatus");
+	$arrayofmassactions['switchonsalestatus'] = img_picture('', 'stop-circle', 'class="picturefixedwidth"').$langs->trans("SwitchOnSaleStatus");
+	$arrayofmassactions['switchonpurchasestatus'] = img_picture('', 'stop-circle', 'class="picturefixedwidth"').$langs->trans("SwitchOnPurchaseStatus");
 }
 if (isModEnabled('category') && $user->hasRight($rightskey, 'creer')) {
-	$arrayofmassactions['preaffecttag'] = img_picto('', 'category', 'class="pictofixedwidth"').$langs->trans("AffectTag");
+	$arrayofmassactions['preaffecttag'] = img_picture('', 'category', 'class="picturefixedwidth"').$langs->trans("AffectTag");
 }
 if (in_array($massaction, array('presend', 'predelete','preaffecttag', 'edit_extrafields', 'preupdateprice'))) {
 	$arrayofmassactions = array();
 }
 if ($user->hasRight($rightskey, 'supprimer')) {
-	$arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -936,12 +936,12 @@ if (empty($arrayfields['p.fk_product_type']['checked'])) {
 	print '<input type="hidden" name="search_type" value="'.dol_escape_htmltag($search_type).'">';
 }
 
-$picto = 'product';
+$picture = 'product';
 if ($type == 1) {
-	$picto = 'service';
+	$picture = 'service';
 }
 
-print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, $picto, 0, $newcardbutton, '', $limit, 0, 0, 1);
+print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, $picture, 0, $newcardbutton, '', $limit, 0, 0, 1);
 
 $topicmail = "Information";
 $modelmail = "product";
@@ -1010,8 +1010,8 @@ print '<tr class="liste_titre_filter">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons('left');
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons('left');
+	print $searchPicture;
 	print '</td>';
 }
 if (!empty($arrayfields['p.rowid']['checked'])) {
@@ -1297,8 +1297,8 @@ if (!empty($arrayfields['p.tobuy']['checked'])) {
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '</tr>'."\n";
@@ -1742,9 +1742,9 @@ while ($i < $imaxinloop) {
 			print '<td class="center">';
 			$s = '';
 			if ($product_static->type == 0) {
-				$s .= img_picto($langs->trans("Product"), 'product', 'class="paddingleftonly paddingrightonly colorgrey"');
+				$s .= img_picture($langs->trans("Product"), 'product', 'class="paddingleftonly paddingrightonly colorgrey"');
 			} else {
-				$s .= img_picto($langs->trans("Service"), 'service', 'class="paddingleftonly paddingrightonly colorgrey"');
+				$s .= img_picture($langs->trans("Service"), 'service', 'class="paddingleftonly paddingrightonly colorgrey"');
 			}
 			print $s;
 			print '</td>';
@@ -2052,7 +2052,7 @@ while ($i < $imaxinloop) {
 					if ($product_fourn->product_fourn_price_id > 0) {
 						if ((isModEnabled("fournisseur") && $user->hasRight('fournisseur', 'lire') && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD')) || (isModEnabled("supplier_order") && $user->hasRight('supplier_order', 'lire')) || (isModEnabled("supplier_invoice") && $user->hasRight('supplier_invoice', 'lire'))) {
 							$htmltext = $product_fourn->display_price_product_fournisseur(1, 1, 0, 1);
-							print '<span class="amount">'.$form->textwithpicto(price($product_fourn->fourn_unitprice * (1 - $product_fourn->fourn_remise_percent / 100) - $product_fourn->fourn_remise).' '.$langs->trans("HT"), $htmltext).'</span>';
+							print '<span class="amount">'.$form->textWithPicture(price($product_fourn->fourn_unitprice * (1 - $product_fourn->fourn_remise_percent / 100) - $product_fourn->fourn_remise).' '.$langs->trans("HT"), $htmltext).'</span>';
 						} else {
 							print '<span class="amount">'.price($product_fourn->fourn_unitprice).' '.$langs->trans("HT").'</span>';
 						}
@@ -2071,7 +2071,7 @@ while ($i < $imaxinloop) {
 			if ($product_static->status_buy && $usercancreadprice) {
 				if (count($productFournList = $product_fourn->list_product_fournisseur_price($obj->rowid)) > 0) {
 					$htmltext = $product_fourn->display_price_product_fournisseur(1, 1, 0, 1, $productFournList);
-					print $form->textwithpicto(count($productFournList), $htmltext);
+					print $form->textWithPicture(count($productFournList), $htmltext);
 				}
 			}
 			print '</td>';

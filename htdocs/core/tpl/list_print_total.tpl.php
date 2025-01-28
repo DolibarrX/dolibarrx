@@ -86,7 +86,7 @@ if (isset($totalarray['pos'])) {
 				} else {
 					print '<td>';
 					if (is_object($form)) {
-						print $form->textwithpicto($langs->trans("Total"), $langs->transnoentitiesnoconv("Totalforthispage"));
+						print $form->textWithPicture($langs->trans("Total"), $langs->transnoentitiesnoconv("Totalforthispage"));
 					} else {
 						print $langs->trans("Totalforthispage");
 					}
@@ -131,7 +131,7 @@ if (isset($totalarray['pos'])) {
 						if ($i == 1) {
 							print '<td>';
 							if (is_object($form)) {
-								print $form->textwithpicto($langs->trans("GrandTotal"), $langs->transnoentitiesnoconv("TotalforAllPages"));
+								print $form->textWithPicture($langs->trans("GrandTotal"), $langs->transnoentitiesnoconv("TotalforAllPages"));
 							} else {
 								print $langs->trans("GrandTotal");
 							}

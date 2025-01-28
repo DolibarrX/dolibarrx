@@ -59,7 +59,7 @@ class Don extends CommonObject
 	/**
 	 * @var string String with name of icon for object don. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'donation';
+	public $picture = 'donation';
 
 	/**
 	 * @var int|'' Date of the donation
@@ -923,15 +923,15 @@ class Don extends CommonObject
 	}
 
 	/**
-	 *	Return clickable name (with picto eventually)
+	 *	Return clickable name (with picture eventually)
 	 *
-	 *	@param	int		$withpicto					0=No picto, 1=Include picto into link, 2=Only picto
+	 *	@param	int		$withPicture					0=No picture, 1=Include picture into link, 2=Only picture
 	 *	@param	int  	$notooltip					1=Disable tooltip
 	 *	@param	string	$moretitle					Add more text to title tooltip
 	 *  @param  int     $save_lastsearch_value    	-1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 *	@return	string								Chaine avec URL
 	 */
-	public function getNomUrl($withpicto = 0, $notooltip = 0, $moretitle = '', $save_lastsearch_value = -1)
+	public function getNomUrl($withPicture = 0, $notooltip = 0, $moretitle = '', $save_lastsearch_value = -1)
 	{
 		global $config, $langs, $hookManager;
 
@@ -940,7 +940,7 @@ class Don extends CommonObject
 		}
 
 		$result = '';
-		$label = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("Donation").'</u>';
+		$label = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("Donation").'</u>';
 		if (isset($this->status)) {
 			$label .= ' '.$this->getLibStatut(5);
 		}
@@ -966,10 +966,10 @@ class Don extends CommonObject
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), $this->picto, ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), $this->picture, ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 		$result .= $linkend;
@@ -1167,7 +1167,7 @@ class Don extends CommonObject
 	}
 
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
 	 *	@param      string	    			$option                 Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param		array{string,mixed}		$arraydata				Array of data
@@ -1182,7 +1182,7 @@ class Don extends CommonObject
 		$return = '<div class="box-flex-item box-flex-grow-zero">';
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<span class="info-box-icon bg-infobox-action">';
-		$return .= img_picto('', $this->picto);
+		$return .= img_picture('', $this->picture);
 		$return .= '</span>';
 		$return .= '<div class="info-box-content">';
 		$return .= '<span class="info-box-ref inline-block tdoverflowmax150 valignmiddle">' . $this->getNomUrl(1) . '</span>';

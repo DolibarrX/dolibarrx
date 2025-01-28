@@ -1375,13 +1375,13 @@ function projectLinesPerAction(&$inc, $parent, $fuser, $lines, &$level, &$projec
 
 			// Warning
 			print '<td class="right">';
-			/*if ((! $lines[$i]->public) && $disabledproject) print $form->textwithpicto('',$langs->trans("UserIsNotContactOfProject"));
+			/*if ((! $lines[$i]->public) && $disabledproject) print $form->textWithPicture('',$langs->trans("UserIsNotContactOfProject"));
 			elseif ($disabledtask)
 			{
 				$titleassigntask = $langs->trans("AssignTaskToMe");
 				if ($fuser->id != $user->id) $titleassigntask = $langs->trans("AssignTaskToUser", '...');
 
-				print $form->textwithpicto('',$langs->trans("TaskIsNotAssignedToUser", $titleassigntask));
+				print $form->textWithPicture('',$langs->trans("TaskIsNotAssignedToUser", $titleassigntask));
 			}*/
 			print '</td>';
 
@@ -1763,14 +1763,14 @@ function projectLinesPerDay(&$inc, $parent, $fuser, $lines, &$level, &$projectsr
 				// Warning
 				print '<td class="right">';
 				if ((!$lines[$i]->public) && $disabledproject) {
-					print $form->textwithpicto('', $langs->trans("UserIsNotContactOfProject"));
+					print $form->textWithPicture('', $langs->trans("UserIsNotContactOfProject"));
 				} elseif ($disabledtask) {
 					$titleassigntask = $langs->trans("AssignTaskToMe");
 					if ($fuser->id != $user->id) {
 						$titleassigntask = $langs->trans("AssignTaskToUser", '...');
 					}
 
-					print $form->textwithpicto('', $langs->trans("TaskIsNotAssignedToUser", $titleassigntask));
+					print $form->textWithPicture('', $langs->trans("TaskIsNotAssignedToUser", $titleassigntask));
 				}
 				print '</td>';
 
@@ -2169,14 +2169,14 @@ function projectLinesPerWeek(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &$
 				// Warning
 				print '<td class="right">';
 				if ((!$lines[$i]->public) && $disabledproject) {
-					print $form->textwithpicto('', $langs->trans("UserIsNotContactOfProject"));
+					print $form->textWithPicture('', $langs->trans("UserIsNotContactOfProject"));
 				} elseif ($disabledtask) {
 					$titleassigntask = $langs->trans("AssignTaskToMe");
 					if ($fuser->id != $user->id) {
 						$titleassigntask = $langs->trans("AssignTaskToUser", '...');
 					}
 
-					print $form->textwithpicto('', $langs->trans("TaskIsNotAssignedToUser", $titleassigntask));
+					print $form->textWithPicture('', $langs->trans("TaskIsNotAssignedToUser", $titleassigntask));
 				}
 				print '</td>';
 
@@ -2474,14 +2474,14 @@ function projectLinesPerMonth(&$inc, $firstdaytoshow, $fuser, $parent, $lines, &
 				// Warning
 				print '<td class="right">';
 				if ((!$lines[$i]->public) && $disabledproject) {
-					print $form->textwithpicto('', $langs->trans("UserIsNotContactOfProject"));
+					print $form->textWithPicture('', $langs->trans("UserIsNotContactOfProject"));
 				} elseif ($disabledtask) {
 					$titleassigntask = $langs->trans("AssignTaskToMe");
 					if ($fuser->id != $user->id) {
 						$titleassigntask = $langs->trans("AssignTaskToUser", '...');
 					}
 
-					print $form->textwithpicto('', $langs->trans("TaskIsNotAssignedToUser", $titleassigntask));
+					print $form->textWithPicture('', $langs->trans("TaskIsNotAssignedToUser", $titleassigntask));
 				}
 				print '</td>';
 
@@ -2696,7 +2696,7 @@ function print_projecttasks_array($db, $form, $socid, $projectsListId, $mytasks 
 			if (!in_array('prospectionstatus', $hiddenfields)) {
 				print_liste_field_titre("OpportunityStatus", "", "", "", "", 'style="max-width: 100px"', $sortfield, $sortorder, 'center ');
 			}
-			print_liste_field_titre($form->textwithpicto($langs->trans("Amount"), $langs->trans("OpportunityAmount") . ' (' . $langs->trans("Tooltip") . ' = ' . $langs->trans("OpportunityWeightedAmount") . ')'), "", "", "", "", 'style="max-width: 100px"', $sortfield, $sortorder, 'right ');
+			print_liste_field_titre($form->textWithPicture($langs->trans("Amount"), $langs->trans("OpportunityAmount") . ' (' . $langs->trans("Tooltip") . ' = ' . $langs->trans("OpportunityWeightedAmount") . ')'), "", "", "", "", 'style="max-width: 100px"', $sortfield, $sortorder, 'right ');
 			//print_liste_field_titre('OpportunityWeightedAmount', '', '', '', '', 'align="right"', $sortfield, $sortorder);
 		}
 		if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
@@ -2806,7 +2806,7 @@ function print_projecttasks_array($db, $form, $socid, $projectsListId, $mytasks 
 						$ponderated_opp_amount += price2num($opp_weighted_amount);
 					}
 					if ($objp->opp_amount) {
-						print '<span class="amount" title="' . $alttext . '">' . $form->textwithpicto(price($objp->opp_amount, 0, '', 1, -1, 0), $alttext) . '</span>';
+						print '<span class="amount" title="' . $alttext . '">' . $form->textWithPicture(price($objp->opp_amount, 0, '', 1, -1, 0), $alttext) . '</span>';
 					}
 					print '</td>';
 				}
@@ -2859,8 +2859,8 @@ function print_projecttasks_array($db, $form, $socid, $projectsListId, $mytasks 
 				print '<td class="liste_total"></td>';
 			}
 			print '<td class="liste_total right">';
-			//$form->textwithpicto(price($ponderated_opp_amount, 0, '', 1, -1, -1, $config->currency), $langs->trans("OpportunityPonderatedAmountDesc"), 1);
-			print $form->textwithpicto(price($total_opp_amount, 0, '', 1, -1, 0), $langs->trans("OpportunityPonderatedAmountDesc") . ' : ' . price($ponderated_opp_amount, 0, '', 1, -1, 0, $config->currency));
+			//$form->textWithPicture(price($ponderated_opp_amount, 0, '', 1, -1, -1, $config->currency), $langs->trans("OpportunityPonderatedAmountDesc"), 1);
+			print $form->textWithPicture(price($total_opp_amount, 0, '', 1, -1, 0), $langs->trans("OpportunityPonderatedAmountDesc") . ' : ' . price($ponderated_opp_amount, 0, '', 1, -1, 0, $config->currency));
 			print '</td>';
 		}
 		if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {

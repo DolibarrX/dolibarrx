@@ -183,7 +183,7 @@ if ($action == 'create') {
 	print '</td></tr>';
 
 	// End date of period
-	print '<tr><td class="fieldrequired">'.$form->textwithpicto($langs->trans("PeriodEndDate"), $langs->trans("LastDayTaxIsRelatedTo")).'</td><td>';
+	print '<tr><td class="fieldrequired">'.$form->textWithPicture($langs->trans("PeriodEndDate"), $langs->trans("LastDayTaxIsRelatedTo")).'</td><td>';
 	print $form->selectDate($datev, "datev", 0, 0, 0, 'add', 1, 1);
 	print '</td></tr>';
 
@@ -202,7 +202,7 @@ if ($action == 'create') {
 
 		// Bank account
 		print '<tr><td class="fieldrequired" id="label_fk_account">'.$langs->trans("BankAccount").'</td><td>';
-		print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+		print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 		$form->select_comptes(GETPOSTINT("accountid"), "accountid", 0, "courant=1", 2, '', 0, 'maxwidth500 widthcentpercentminusx'); // Affiche liste des comptes courant
 		print '</td></tr>';
 
@@ -257,7 +257,7 @@ if ($id) {
 	print dol_print_date($object->datep, 'day');
 	print '</td></tr>';
 
-	print '<tr><td>'.$form->textwithpicto($langs->trans("PeriodEndDate"), $langs->trans("LastDayTaxIsRelatedTo")).'</td><td>';
+	print '<tr><td>'.$form->textWithPicture($langs->trans("PeriodEndDate"), $langs->trans("LastDayTaxIsRelatedTo")).'</td><td>';
 	print dol_print_date($object->datev, 'day');
 	print '</td></tr>';
 

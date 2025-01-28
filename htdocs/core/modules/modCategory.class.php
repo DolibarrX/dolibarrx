@@ -58,7 +58,7 @@ class modCategory extends DolibarrModules
 		$this->version = 'dolibarr';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'category';
+		$this->picture = 'category';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
@@ -125,7 +125,7 @@ class modCategory extends DolibarrModules
 		$r++;
 		$this->export_code[$r] = $this->rights_class.'_list';
 		$this->export_label[$r] = 'CatListAll';
-		$this->export_icon[$r] = $this->picto;
+		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = 'true';
 		$this->export_permission[$r] = array(array("category", "lire"));
 
@@ -170,7 +170,7 @@ class modCategory extends DolibarrModules
 		// Definition of vars
 		$this->export_fields_array[$r] = array('cat.rowid' => "CategId", 'cat.label' => "Label", 'cat.type' => "Type", 'cat.description' => "Description", 'cat.fk_parent' => "ParentCategoryID", 'pcat.label' => "ParentCategoryLabel", 'cat.color' => "Color", 'cat.date_creation' => "DateCreation", 'cat.tms' => "DateLastModification");
 		$this->export_TypeFields_array[$r] = array('cat.rowid' => 'Numeric', 'cat.label' => "Text", 'cat.type' => "Numeric", 'cat.description' => "Text", 'cat.fk_parent' => 'Numeric', 'pcat.label' => 'Text');
-		$this->export_entities_array[$r] = array(); // We define here only fields that use another picto
+		$this->export_entities_array[$r] = array(); // We define here only fields that use another picture
 		$this->export_help_array[$r] = array('cat.type' => $typeexample);
 
 		$this->export_sql_start[$r] = 'SELECT DISTINCT ';
@@ -182,7 +182,7 @@ class modCategory extends DolibarrModules
 		$r++;
 		$this->export_code[$r] = $this->rights_class.'_0_'.Category::$MAP_ID_TO_CODE[0];
 		$this->export_label[$r] = 'CatProdList';
-		$this->export_icon[$r] = $this->picto;
+		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = 'isModEnabled("product") || isModEnabled("service")';
 		if (isModEnabled('product')) {
 			$this->export_permission[$r] = array(array("category", "lire"), array("produit", "export"));
@@ -191,7 +191,7 @@ class modCategory extends DolibarrModules
 		}
 		$this->export_fields_array[$r] = array('cat.rowid' => "CategId", 'cat.label' => "Label", 'cat.description' => "Description", 'cat.fk_parent' => "ParentCategoryID", 'pcat.label' => "ParentCategoryLabel", 'cat.color' => "Color", 'cat.date_creation' => "DateCreation", 'cat.tms' => "DateLastModification", 'p.rowid' => 'ProductId', 'p.ref' => 'Ref', 'p.label' => 'Label');
 		$this->export_TypeFields_array[$r] = array('cat.rowid' => 'Numeric', 'cat.label' => "Text", 'cat.description' => "Text", 'cat.fk_parent' => 'Numeric', 'pcat.label' => 'Text', 'p.rowid' => 'Numeric', 'p.ref' => 'Text', 'p.label' => 'Text');
-		$this->export_entities_array[$r] = array('p.rowid' => 'product', 'p.ref' => 'product', 'p.label' => 'product'); // We define here only fields that use another picto
+		$this->export_entities_array[$r] = array('p.rowid' => 'product', 'p.ref' => 'product', 'p.label' => 'product'); // We define here only fields that use another picture
 
 		$keyforselect = 'product';
 		$keyforelement = 'product';
@@ -211,7 +211,7 @@ class modCategory extends DolibarrModules
 		$r++;
 		$this->export_code[$r] = $this->rights_class.'_1_'.Category::$MAP_ID_TO_CODE[1];
 		$this->export_label[$r] = 'CatSupList';
-		$this->export_icon[$r] = $this->picto;
+		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = 'isModEnabled("supplier_order") || isModEnabled("supplier_invoice")';
 		$this->export_permission[$r] = array(array("category", "lire"), array("fournisseur", "lire"));
 		$this->export_fields_array[$r] = array(
@@ -237,7 +237,7 @@ class modCategory extends DolibarrModules
 			's.phone' => "company", 's.fax' => "company", 's.url' => "company", 's.email' => "company",
 			's.siret' => "company", 's.siren' => "company", 's.ape' => "company", 's.idprof4' => "company", 's.tva_intra' => "company", 's.capital' => "company", 's.note_public' => "company",
 			't.libelle' => 'company'
-		); // We define here only fields that use another picto
+		); // We define here only fields that use another picture
 
 		$keyforselect = 'societe';
 		$keyforelement = 'company';
@@ -259,7 +259,7 @@ class modCategory extends DolibarrModules
 		$r++;
 		$this->export_code[$r] = $this->rights_class.'_2_'.Category::$MAP_ID_TO_CODE[2];
 		$this->export_label[$r] = 'CatCusList';
-		$this->export_icon[$r] = $this->picto;
+		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = 'isModEnabled("societe")';
 		$this->export_permission[$r] = array(array("category", "lire"), array("societe", "export"));
 		$this->export_fields_array[$r] = array(
@@ -285,7 +285,7 @@ class modCategory extends DolibarrModules
 			's.phone' => "company", 's.fax' => "company", 's.url' => "company", 's.email' => "company",
 			's.siret' => "company", 's.siren' => "company", 's.ape' => "company", 's.idprof4' => "company", 's.tva_intra' => "company", 's.capital' => "company", 's.note_public' => "company",
 			't.libelle' => 'company', 'pl.code' => 'company', 'st.code' => 'company'
-		); // We define here only fields that use another picto
+		); // We define here only fields that use another picture
 
 		$keyforselect = 'societe';
 		$keyforelement = 'company';
@@ -309,12 +309,12 @@ class modCategory extends DolibarrModules
 		$r++;
 		$this->export_code[$r] = $this->rights_class.'_3_'.Category::$MAP_ID_TO_CODE[3];
 		$this->export_label[$r] = 'CatMemberList';
-		$this->export_icon[$r] = $this->picto;
+		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = 'isModEnabled("member")';
 		$this->export_permission[$r] = array(array("category", "lire"), array("member", "export"));
 		$this->export_fields_array[$r] = array('cat.rowid' => "CategId", 'cat.label' => "Label", 'cat.description' => "Description", 'cat.fk_parent' => "ParentCategoryID", 'pcat.label' => "ParentCategoryLabel", 'p.rowid' => 'MemberId', 'p.lastname' => 'LastName', 'p.firstname' => 'Firstname');
 		$this->export_TypeFields_array[$r] = array('cat.rowid' => "Numeric", 'cat.label' => "Text", 'cat.description' => "Text", 'cat.fk_parent' => 'Numeric', 'pcat.label' => 'Text', 'p.lastname' => 'Text', 'p.firstname' => 'Text');
-		$this->export_entities_array[$r] = array('p.rowid' => 'member', 'p.lastname' => 'member', 'p.firstname' => 'member'); // We define here only fields that use another picto
+		$this->export_entities_array[$r] = array('p.rowid' => 'member', 'p.lastname' => 'member', 'p.firstname' => 'member'); // We define here only fields that use another picture
 
 		$keyforselect = 'member';
 		$keyforelement = 'member';
@@ -334,7 +334,7 @@ class modCategory extends DolibarrModules
 		$r++;
 		$this->export_code[$r] = $this->rights_class.'_4_'.Category::$MAP_ID_TO_CODE[4];
 		$this->export_label[$r] = 'CatContactList';
-		$this->export_icon[$r] = $this->picto;
+		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = 'isModEnabled("societe")';
 		$this->export_permission[$r] = array(array("category", "lire"), array("societe", "contact", "export"));
 		$this->export_fields_array[$r] = array(
@@ -369,7 +369,7 @@ class modCategory extends DolibarrModules
 			's.nom' => "company", 's.client' => "company", 's.fournisseur' => "company", 's.status' => "company",
 			's.address' => "company", 's.zip' => "company", 's.town' => "company",
 			's.phone' => "company", 's.fax' => "company", 's.url' => "company", 's.email' => "company"
-		); // We define here only fields that use another picto
+		); // We define here only fields that use another picture
 
 		$keyforselect = 'socpeople';
 		$keyforelement = 'contact';
@@ -394,12 +394,12 @@ class modCategory extends DolibarrModules
 		$r++;
 		$this->export_code[$r] = $this->rights_class.'_6_'.Category::$MAP_ID_TO_CODE[6];
 		$this->export_label[$r] = 'CatProjectsList';
-		$this->export_icon[$r] = $this->picto;
+		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = "isModEnabled('project')";
 		$this->export_permission[$r] = array(array("category", "lire"), array("projet", "export"));
 		$this->export_fields_array[$r] = array('cat.rowid' => "CategId", 'cat.label' => "Label", 'cat.description' => "Description", 'cat.fk_parent' => "ParentCategory", 'pcat.label' => "ParentCategoryLabel", 'cat.color' => "Color", 'cat.date_creation' => "DateCreation", 'cat.tms' => "DateLastModification", 'p.rowid' => 'ProjectId', 'p.ref' => 'Ref', 's.rowid' => "IdThirdParty", 's.nom' => "Name");
 		$this->export_TypeFields_array[$r] = array('cat.rowid' => 'Numeric', 'cat.label' => "Text", 'cat.description' => "Text", 'cat.fk_parent' => 'Numeric', 'pcat.label' => 'Text', 'p.rowid' => 'Numeric', 'p.ref' => 'Text', 's.rowid' => "Numeric", 's.nom' => "Text");
-		$this->export_entities_array[$r] = array('p.rowid' => 'project', 'p.ref' => 'project', 's.rowid' => "company", 's.nom' => "company"); // We define here only fields that use another picto
+		$this->export_entities_array[$r] = array('p.rowid' => 'project', 'p.ref' => 'project', 's.rowid' => "company", 's.nom' => "company"); // We define here only fields that use another picture
 
 		$keyforselect = 'projet';
 		$keyforelement = 'project';
@@ -420,12 +420,12 @@ class modCategory extends DolibarrModules
 		$r++;
 		$this->export_code[$r] = $this->rights_class.'_7_'.Category::$MAP_ID_TO_CODE[7];
 		$this->export_label[$r] = 'CatUsersList';
-		$this->export_icon[$r] = $this->picto;
+		$this->export_icon[$r] = $this->picture;
 		$this->export_enabled[$r] = 'isModEnabled("user")';
 		$this->export_permission[$r] = array(array("category", "lire"), array("user", "export"));
 		$this->export_fields_array[$r] = array('cat.rowid' => "CategId", 'cat.label' => "Label", 'cat.description' => "Description", 'cat.fk_parent' => "ParentCategory", 'pcat.label' => "ParentCategoryLabel", 'cat.color' => "Color", 'cat.date_creation' => "DateCreation", 'cat.tms' => "DateLastModification", 'p.rowid' => 'UserID', 'p.login' => 'Login', 'p.lastname' => 'Lastname', 'p.firstname' => 'Firstname');
 		$this->export_TypeFields_array[$r] = array('cat.rowid' => "Numeric", 'cat.label' => "Text", 'cat.description' => "Text", 'cat.fk_parent' => 'Numeric', 'pcat.label' => 'Text', 'p.rowid' => 'Numeric', 'p.login' => 'Text', 'p.lastname' => 'Text', 'p.firstname' => 'Text');
-		$this->export_entities_array[$r] = array('p.rowid' => 'user', 'p.login' => 'user', 'p.lastname' => 'user', 'p.firstname' => 'user'); // We define here only fields that use another picto
+		$this->export_entities_array[$r] = array('p.rowid' => 'user', 'p.login' => 'user', 'p.lastname' => 'user', 'p.firstname' => 'user'); // We define here only fields that use another picture
 
 		$keyforselect = 'user';
 		$keyforelement = 'user';
@@ -458,7 +458,7 @@ class modCategory extends DolibarrModules
 		$r++;
 		$this->import_code[$r] = $this->rights_class.'_list';
 		$this->import_label[$r] = "CatList"; // Translation key
-		$this->import_icon[$r] = $this->picto;
+		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('ca' => MAIN_DB_PREFIX.'category');
 		$this->import_fields_array[$r] = array(
@@ -488,7 +488,7 @@ class modCategory extends DolibarrModules
 			$r++;
 			$this->import_code[$r] = $this->rights_class.'_0_'.Category::$MAP_ID_TO_CODE[0];
 			$this->import_label[$r] = "CatProdLinks"; // Translation key
-			$this->import_icon[$r] = $this->picto;
+			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('cp' => MAIN_DB_PREFIX.'category_product');
 			$this->import_fields_array[$r] = array('cp.fk_category' => "Category*", 'cp.fk_product' => "Product*");
@@ -507,7 +507,7 @@ class modCategory extends DolibarrModules
 			$r++;
 			$this->import_code[$r] = $this->rights_class.'_1_'.Category::$MAP_ID_TO_CODE[1];
 			$this->import_label[$r] = "CatSupLinks"; // Translation key
-			$this->import_icon[$r] = $this->picto;
+			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('cs' => MAIN_DB_PREFIX.'category_fournisseur');
 			$this->import_fields_array[$r] = array('cs.fk_category' => "Category*", 'cs.fk_soc' => "Supplier*");
@@ -528,7 +528,7 @@ class modCategory extends DolibarrModules
 			$r++;
 			$this->import_code[$r] = $this->rights_class.'_2_'.Category::$MAP_ID_TO_CODE[2];
 			$this->import_label[$r] = "CatCusLinks"; // Translation key
-			$this->import_icon[$r] = $this->picto;
+			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('cs' => MAIN_DB_PREFIX.'category_societe');
 			$this->import_fields_array[$r] = array('cs.fk_category' => "Category*", 'cs.fk_soc' => "Customer*");
@@ -549,7 +549,7 @@ class modCategory extends DolibarrModules
 			$r++;
 			$this->import_code[$r] = $this->rights_class.'_3_'.Category::$MAP_ID_TO_CODE[3];
 			$this->import_label[$r] = "CatMembersLinks"; // Translation key
-			$this->import_icon[$r] = $this->picto;
+			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('cm' => MAIN_DB_PREFIX.'category_contact');
 			$this->import_fields_array[$r] = array('cm.fk_category' => "Category*", 'cm.fk_member' => "Member*");
@@ -567,7 +567,7 @@ class modCategory extends DolibarrModules
 			$r++;
 			$this->import_code[$r] = $this->rights_class.'_4_'.Category::$MAP_ID_TO_CODE[4];
 			$this->import_label[$r] = "CatContactsLinks"; // Translation key
-			$this->import_icon[$r] = $this->picto;
+			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('cc' => MAIN_DB_PREFIX.'category_contact');
 			$this->import_fields_array[$r] = array('cc.fk_category' => "Category*", 'cc.fk_socpeople' => "IdContact*");
@@ -590,7 +590,7 @@ class modCategory extends DolibarrModules
 			$r++;
 			$this->import_code[$r] = $this->rights_class.'_6_'.Category::$MAP_ID_TO_CODE[6];
 			$this->import_label[$r] = "CatProjectsLinks"; // Translation key
-			$this->import_icon[$r] = $this->picto;
+			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('cp' => MAIN_DB_PREFIX.'category_project');
 			$this->import_fields_array[$r] = array('cp.fk_category' => "Category*", 'cp.fk_project' => "Project*");
@@ -608,7 +608,7 @@ class modCategory extends DolibarrModules
 			$r++;
 			$this->import_code[$r] = $this->rights_class.'_7_'.Category::$MAP_ID_TO_CODE[7];
 			$this->import_label[$r] = "CatUsersLinks"; // Translation key
-			$this->import_icon[$r] = $this->picto;
+			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('cu' => MAIN_DB_PREFIX.'category_user');
 			$this->import_fields_array[$r] = array('cu.fk_category' => "Category*", 'cu.fk_user' => "User*");

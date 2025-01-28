@@ -527,10 +527,10 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_param.tpl.php';
 
 // List of mass actions available
 $arrayofmassactions = array(
-	//'presend'=>img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
-	//'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
+	//'presend'=>img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
+	//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 );
-//if ($user->hasRight('contrat', 'supprimer')) $arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+//if ($user->hasRight('contrat', 'supprimer')) $arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 //if (in_array($massaction, array('presend','predelete'))) $arrayofmassactions=array();
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -570,7 +570,7 @@ if (isModEnabled('category') && ($user->hasRight('produit', 'lire') || $user->ha
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('IncludingProductWithTag');
 	$cate_arbo = $form->select_all_categories(Category::TYPE_PRODUCT, '', 'parent', 0, 0, 1);
-	$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"').$form->selectarray('search_product_category', $cate_arbo, $search_product_category, $tmptitle, 0, 0, '', 0, 0, 0, 0, 'widthcentpercentminusx maxwidth300', 1);
+	$moreforfilter .= img_picture($tmptitle, 'category', 'class="picturefixedwidth"').$form->selectarray('search_product_category', $cate_arbo, $search_product_category, $tmptitle, 0, 0, '', 0, 0, 0, 0, 'widthcentpercentminusx maxwidth300', 1);
 	$moreforfilter .= '</div>';
 }
 // alert on late date
@@ -608,8 +608,8 @@ print '<tr class="liste_titre_filter">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons('left');
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons('left');
+	print $searchPicture;
 	print '</td>';
 }
 if (!empty($arrayfields['c.ref']['checked'])) {
@@ -729,8 +729,8 @@ if (!empty($arrayfields['status']['checked'])) {
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '</tr>'."\n";
@@ -960,7 +960,7 @@ while ($i < $imaxinloop) {
 		print '<td class="center nowraponall">';
 		print($obj->date_ouverture_prevue ? dol_print_date($db->jdate($obj->date_ouverture_prevue), 'dayhour') : '&nbsp;');
 		if ($db->jdate($obj->date_ouverture_prevue) && ($db->jdate($obj->date_ouverture_prevue) < ($now - $config->contrat->services->inactifs->warning_delay)) && $obj->statut == 0) {
-			print ' '.img_picto($langs->trans("Late"), "warning");
+			print ' '.img_picture($langs->trans("Late"), "warning");
 		} else {
 			print '&nbsp;&nbsp;&nbsp;&nbsp;';
 		}

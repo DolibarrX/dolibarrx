@@ -81,7 +81,7 @@ $morehtmlref .= $langs->trans("LocationSummary").' : '.$object->lieu;
 // Project
 if (isModEnabled('project')) {
 	$langs->load("projects");
-	$morehtmlref .= '<br>'.img_picto('', 'project').' '.$langs->trans('Project').' ';
+	$morehtmlref .= '<br>'.img_picture('', 'project').' '.$langs->trans('Project').' ';
 	if ($usercancreate) {
 		if ($action != 'classify') {
 			$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> : ';

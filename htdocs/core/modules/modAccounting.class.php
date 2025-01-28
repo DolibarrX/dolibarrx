@@ -52,7 +52,7 @@ class modAccounting extends DolibarrModules
 		$this->version = 'dolibarr';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'accountancy';
+		$this->picture = 'accountancy';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array('/accounting/temp', '/accounting/export');
@@ -242,11 +242,11 @@ class modAccounting extends DolibarrModules
 		$r++;
 		$this->export_code[$r] = $this->rights_class.'_'.$r;
 		$this->export_label[$r] = 'Chartofaccounts';
-		$this->export_icon[$r] = $this->picto;
+		$this->export_icon[$r] = $this->picture;
 		$this->export_permission[$r] = array(array("accounting", "chartofaccount"));
 		$this->export_fields_array[$r] = array('ac.rowid'=>'ChartofaccountsId', 'ac.pcg_version'=>'Chartofaccounts', 'aa.rowid'=>'ID', 'aa.account_number'=>"AccountAccounting", 'aa.label'=>"Label", 'aa2.account_number'=>"Accountparent", 'aa.pcg_type'=>"Pcgtype", 'aa.active'=>'Status');
 		$this->export_TypeFields_array[$r] = array('ac.rowid'=>'List:accounting_system:pcg_version', 'ac.pcg_version'=>'Text', 'aa.rowid'=>'Numeric', 'aa.account_number'=>"Text", 'aa.label'=>"Text", 'aa2.account_number'=>"Text", 'aa.pcg_type'=>'Text', 'aa.active'=>'Status');
-		$this->export_entities_array[$r] = array(); // We define here only fields that use another picto
+		$this->export_entities_array[$r] = array(); // We define here only fields that use another picture
 
 		$this->export_sql_start[$r] = 'SELECT DISTINCT ';
 		$this->export_sql_end[$r]  = ' FROM '.MAIN_DB_PREFIX.'accounting_account as aa';
@@ -264,7 +264,7 @@ class modAccounting extends DolibarrModules
 		$r++;
 		$this->import_code[$r] = $this->rights_class.'_'.$r;
 		$this->import_label[$r] = "Chartofaccounts"; // Translation key
-		$this->import_icon[$r] = $this->picto;
+		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('aa'=>MAIN_DB_PREFIX.'accounting_account');
 		$this->import_tables_creator_array[$r] = array('aa'=>'fk_user_author'); // Fields to store import user id
@@ -282,7 +282,7 @@ class modAccounting extends DolibarrModules
 		$r++;
 		$this->import_code[$r] = $this->rights_class.'_'.$r;
 		$this->import_label[$r] = 'ImportAccountingEntries';
-		$this->import_icon[$r] = $this->picto;
+		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('b'=>MAIN_DB_PREFIX.'accounting_bookkeeping'); // List of tables to insert into (insert done in same order)
 		$this->import_fields_array[$r] = array(
@@ -328,7 +328,7 @@ class modAccounting extends DolibarrModules
 		$r++;
 		$this->import_code[$r] = $this->rights_class.'_'.$r;
 		$this->import_label[$r] = 'ImportAccountingEntriesFECFormat';
-		$this->import_icon[$r] = $this->picto;
+		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('b'=>MAIN_DB_PREFIX.'accounting_bookkeeping'); // List of tables to insert into (insert done in same order)
 		$this->import_fields_array[$r] = array(

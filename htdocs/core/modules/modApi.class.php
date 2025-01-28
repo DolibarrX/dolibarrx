@@ -66,9 +66,9 @@ class modApi extends DolibarrModules
 		// Can be enabled / disabled only in the main company with superadmin account
 		$this->core_enabled = 1;
 		// Name of image file used for this module.
-		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto = 'technic';
+		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
+		// If file is in module/img directory under name object_picturevalue.png, use this->picture='picturevalue@module'
+		$this->picture = 'technic';
 
 		$this->module_parts = array();
 
@@ -156,7 +156,7 @@ class modApi extends DolibarrModules
 		$this->menu[$r] = array('fk_menu'=>'fk_mainmenu=tools',
 			'type'=>'left',
 			'titre'=>'ApiExplorer',
-			'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth"'),
+			'prefix' => img_picture('', $this->picture, 'class="paddingright picturefixedwidth"'),
 			'mainmenu'=>'tools',
 			'leftmenu'=>'devtools_api',
 			'url'=>'/api/index.php/explorer',

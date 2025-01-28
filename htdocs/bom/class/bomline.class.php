@@ -56,7 +56,7 @@ class BOMLine extends CommonObjectLine
 	/**
 	 * @var string String with name of icon for bomline. Must be the part after the 'object_' into object_bomline.png
 	 */
-	public $picto = 'bomline';
+	public $picture = 'bomline';
 
 
 	/**
@@ -347,16 +347,16 @@ class BOMLine extends CommonObjectLine
 	}
 
 	/**
-	 *  Return a link to the object card (with optionally the picto)
+	 *  Return a link to the object card (with optionally the picture)
 	 *
-	 *	@param	int<0,2>	$withpicto				Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
+	 *	@param	int<0,2>	$withPicture				Include picture in link (0=No picture, 1=Include picture into link, 2=Only picture)
 	 *	@param	string		$option					On what the link point to ('nolink', ...)
 	 *  @param	int<0,1>  	$notooltip				1=Disable tooltip
 	 *  @param  string		$morecss				Add more css on link
 	 *  @param  int<-1,1>	$save_lastsearch_value	-1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 *  @return	string								String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
+	public function getNomUrl($withPicture = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
 		global $db, $config, $langs, $hookManager;
 
@@ -400,14 +400,14 @@ class BOMLine extends CommonObjectLine
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 		$result .= $linkend;
-		//if ($withpicto != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
+		//if ($withPicture != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
 
 		global $action, $hookManager;
 		$hookManager->initHooks(array('bomlinedao'));

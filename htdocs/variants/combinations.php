@@ -420,9 +420,9 @@ if (!empty($id) || !empty($ref)) {
 
 	$head = product_prepare_head($object);
 	$titre = $langs->trans("CardProduct".$object->type);
-	$picto = $object->isService() ? 'service' : 'product';
+	$picture = $object->isService() ? 'service' : 'product';
 
-	print dol_get_fiche_head($head, 'combinations', $titre, -1, $picto);
+	print dol_get_fiche_head($head, 'combinations', $titre, -1, $picture);
 
 	$linkback = '<a href="'.DOL_URL_ROOT.'/product/list.php?type='.((int) $object->type).'">'.$langs->trans("BackToList").'</a>';
 	$object->next_prev_filter = "fk_product_type:=:".((int) $object->type); // usf filter
@@ -646,7 +646,7 @@ if (!empty($id) || !empty($ref)) {
 			}
 
 			$htmltext = $langs->trans("GoOnMenuToCreateVairants", $langs->transnoentities("Product"), $langs->transnoentities("VariantAttributes"));
-			print $form->textwithpicto('', $htmltext);
+			print $form->textWithPicture('', $htmltext);
 			/*print ' &nbsp; &nbsp; <a href="'.DOL_URL_ROOT.'/variants/create.php?action=create&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=add&token='.newToken().'&id='.$object->id).'">';
 			print $langs->trans("Create");
 			print '</a>';*/
@@ -662,7 +662,7 @@ if (!empty($id) || !empty($ref)) {
 					</select>
 					<?php
 					$htmltext = $langs->trans("GoOnMenuToCreateVairants", $langs->transnoentities("Product"), $langs->transnoentities("VariantAttributes"));
-					print $form->textwithpicto('', $htmltext);
+					print $form->textWithPicture('', $htmltext);
 					/*
 					print ' &nbsp; &nbsp; <a href="'.DOL_URL_ROOT.'/variants/create.php?action=create&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=add&token='.newToken().'&id='.$object->id).'">';
 					print $langs->trans("Create");
@@ -875,11 +875,11 @@ if (!empty($id) || !empty($ref)) {
 		if (count($productCombinations)) {
 			$aaa = '<select id="bulk_action" name="massaction" class="flat">';
 			$aaa .= '	<option value="nothing">&nbsp;</option>';
-			$aaa .= '	<option value="not_buy" data-html="'.dol_escape_htmltag(img_picto($langs->trans("SetToStatus"), 'stop-circle', 'class="pictofixedwidth"').$langs->trans('SetToStatus', $langs->transnoentitiesnoconv('ProductStatusNotOnBuy'))).'">'.$langs->trans('ProductStatusNotOnBuy').'</option>';
-			$aaa .= '	<option value="not_sell" data-html="'.dol_escape_htmltag(img_picto($langs->trans("SetToStatus"), 'stop-circle', 'class="pictofixedwidth"').$langs->trans('SetToStatus', $langs->transnoentitiesnoconv('ProductStatusNotOnSell'))).'">'.$langs->trans('ProductStatusNotOnSell').'</option>';
-			$aaa .= '	<option value="on_buy" data-html="'.dol_escape_htmltag(img_picto($langs->trans("SetToStatus"), 'stop-circle', 'class="pictofixedwidth"').$langs->trans('SetToStatus', $langs->transnoentitiesnoconv('ProductStatusOnBuy'))).'">'.$langs->trans('ProductStatusOnBuy').'</option>';
-			$aaa .= '	<option value="on_sell" data-html="'.dol_escape_htmltag(img_picto($langs->trans("SetToStatus"), 'stop-circle', 'class="pictofixedwidth"').$langs->trans('SetToStatus', $langs->transnoentitiesnoconv('ProductStatusOnSell'))).'">'.$langs->trans('ProductStatusOnSell').'</option>';
-			$aaa .= '	<option value="delete" data-html="'.dol_escape_htmltag(img_picto($langs->trans("Delete"), 'delete', 'class="pictofixedwidth"').$langs->trans('Delete')).'">'.$langs->trans('Delete').'</option>';
+			$aaa .= '	<option value="not_buy" data-html="'.dol_escape_htmltag(img_picture($langs->trans("SetToStatus"), 'stop-circle', 'class="picturefixedwidth"').$langs->trans('SetToStatus', $langs->transnoentitiesnoconv('ProductStatusNotOnBuy'))).'">'.$langs->trans('ProductStatusNotOnBuy').'</option>';
+			$aaa .= '	<option value="not_sell" data-html="'.dol_escape_htmltag(img_picture($langs->trans("SetToStatus"), 'stop-circle', 'class="picturefixedwidth"').$langs->trans('SetToStatus', $langs->transnoentitiesnoconv('ProductStatusNotOnSell'))).'">'.$langs->trans('ProductStatusNotOnSell').'</option>';
+			$aaa .= '	<option value="on_buy" data-html="'.dol_escape_htmltag(img_picture($langs->trans("SetToStatus"), 'stop-circle', 'class="picturefixedwidth"').$langs->trans('SetToStatus', $langs->transnoentitiesnoconv('ProductStatusOnBuy'))).'">'.$langs->trans('ProductStatusOnBuy').'</option>';
+			$aaa .= '	<option value="on_sell" data-html="'.dol_escape_htmltag(img_picture($langs->trans("SetToStatus"), 'stop-circle', 'class="picturefixedwidth"').$langs->trans('SetToStatus', $langs->transnoentitiesnoconv('ProductStatusOnSell'))).'">'.$langs->trans('ProductStatusOnSell').'</option>';
+			$aaa .= '	<option value="delete" data-html="'.dol_escape_htmltag(img_picture($langs->trans("Delete"), 'delete', 'class="picturefixedwidth"').$langs->trans('Delete')).'">'.$langs->trans('Delete').'</option>';
 			$aaa .= '</select>';
 			$aaa .= ajax_combobox("bulk_action");
 			$aaa .= '<input type="submit" value="'.dol_escape_htmltag($langs->trans("Apply")).'" class="button small">';
@@ -897,8 +897,8 @@ if (!empty($id) || !empty($ref)) {
 				// Action column
 				if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 					print '<td class="liste_titre center">';
-					$searchpicto = $form->showCheckAddButtons('checkforselect', 1);
-					print $searchpicto;
+					$searchPicture = $form->showCheckAddButtons('checkforselect', 1);
+					print $searchPicture;
 					print '</td>';
 				} ?>
 				<td class="liste_titre"><?php echo $langs->trans('Product') ?></td>
@@ -914,8 +914,8 @@ if (!empty($id) || !empty($ref)) {
 				// Action column
 				if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 					print '<td class="liste_titre center">';
-					$searchpicto = $form->showCheckAddButtons('checkforselect', 1);
-					print $searchpicto;
+					$searchPicture = $form->showCheckAddButtons('checkforselect', 1);
+					print $searchPicture;
 					print '</td>';
 				} ?>
 			</tr>

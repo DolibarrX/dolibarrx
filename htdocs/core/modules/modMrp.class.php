@@ -70,9 +70,9 @@ class modMrp extends DolibarrModules
 		// Key used in llx_const table to save module status enabled/disabled (where MRP is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
-		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto = 'mrp';
+		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
+		// If file is in module/img directory under name object_picturevalue.png, use this->picture='picturevalue@module'
+		$this->picture = 'mrp';
 		// Define some features supported by module (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array(
 			// Set this to 1 if module has its own trigger directory (core/triggers)

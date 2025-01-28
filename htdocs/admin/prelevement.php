@@ -171,7 +171,7 @@ print "</tr>";
 // Bank account (from Banks module)
 print '<tr class="oddeven"><td class="fieldrequired">'.$langs->trans("BankToReceiveWithdraw").'</td>';
 print '<td>';
-print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 print $form->select_comptes(getDolGlobalInt('PRELEVEMENT_ID_BANKACCOUNT'), 'PRELEVEMENT_ID_BANKACCOUNT', 0, "courant=1", 1, '', 0, 'minwidth200 widthcentpercentminusxx maxwidth300', 1);
 // TODO Add plus to add a bank account
 print ' <a href="'.DOL_URL_ROOT.'/compta/bank/card.php?action=create&backtopage='.DOL_URL_ROOT.'/admin/prelevement.php"><span class="fa fa-plus-circle"></span></a>';
@@ -182,7 +182,7 @@ print '</td></tr>';
 
 print '<tr class="oddeven"><td class="fieldrequired">';
 $htmltext = $langs->trans("AskThisIDToYourBank");
-print $form->textwithpicto($langs->trans("ICS"), $htmltext);
+print $form->textWithPicture($langs->trans("ICS"), $htmltext);
 print '</td>';
 print '<td class="left">';
 print '<input type="text" name="PRELEVEMENT_ICS" value="'.$config->global->PRELEVEMENT_ICS.'" size="15" >';
@@ -193,7 +193,7 @@ print '</td></tr>';
 //User
 print '<tr class="oddeven"><td class="fieldrequired">'.$langs->trans("ResponsibleUser").'</td>';
 print '<td>';
-print img_picto('', 'user', 'class="pictofixedwidth"');
+print img_picture('', 'user', 'class="picturefixedwidth"');
 print $form->select_dolusers(getDolGlobalInt('PRELEVEMENT_USER'), 'PRELEVEMENT_USER', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'minwidth200 maxwidth500');
 print '</td>';
 print '</tr>';
@@ -201,7 +201,7 @@ print '</tr>';
 //EntToEnd
 print '<tr class="oddeven"><td>';
 $htmltext = $langs->trans("KeepThisEmptyInMostCases");
-print $form->textwithpicto($langs->trans("END_TO_END"), $htmltext);
+print $form->textWithPicture($langs->trans("END_TO_END"), $htmltext);
 print '</td>';
 print '<td>';
 print '<input type="text" name="PRELEVEMENT_END_TO_END" value="'.getDolGlobalString('PRELEVEMENT_END_TO_END').'" class="width100"></td>';
@@ -210,7 +210,7 @@ print '</td></tr>';
 //USTRD
 print '<tr class="oddeven"><td>';
 $htmltext = $langs->trans("KeepThisEmptyInMostCases");
-print $form->textwithpicto($langs->trans("USTRD"), $htmltext);
+print $form->textWithPicture($langs->trans("USTRD"), $htmltext);
 print '</td>';
 print '<td class="left">';
 print '<input type="text" name="PRELEVEMENT_USTRD" value="'.getDolGlobalString('PRELEVEMENT_USTRD').'" class="width100"></td>';
@@ -325,14 +325,14 @@ foreach ($dirmodels as $reldir)
 								{
 									print '<td class="center">'."\n";
 									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=del&token='.newToken().'&value='.urlencode($name).'">';
-									print img_picto($langs->trans("Enabled"),'switch_on');
+									print img_picture($langs->trans("Enabled"),'switch_on');
 									print '</a>';
 									print '</td>';
 								}
 								else
 								{
 									print '<td class="center">'."\n";
-									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picto($langs->trans("Disabled"),'switch_off').'</a>';
+									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picture($langs->trans("Disabled"),'switch_off').'</a>';
 									print "</td>";
 								}
 
@@ -340,11 +340,11 @@ foreach ($dirmodels as $reldir)
 								print '<td class="center">';
 								if ($config->global->PAYMENTORDER_ADDON_PDF == $name)
 								{
-									print img_picto($langs->trans("Default"),'on');
+									print img_picture($langs->trans("Default"),'on');
 								}
 								else
 								{
-									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.$name.'&scan_dir='.$module->scandir.'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"),'off').'</a>';
+									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.$name.'&scan_dir='.$module->scandir.'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"),'off').'</a>';
 								}
 								print '</td>';
 
@@ -366,7 +366,7 @@ foreach ($dirmodels as $reldir)
 
 
 								print '<td class="center">';
-								print $form->textwithpicto('',$htmltooltip,1,0);
+								print $form->textWithPicture('',$htmltooltip,1,0);
 								print '</td>';
 
 								// Preview

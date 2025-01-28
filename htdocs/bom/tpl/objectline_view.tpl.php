@@ -125,7 +125,7 @@ if ($tmpbom->id > 0) {
 	print ' '.$langs->trans("or").' ';
 	print $tmpbom->getNomUrl(1);
 	print ' <a class="collapse_bom" id="collapse-'.$line->id.'" href="#">';
-	print(!getDolGlobalString('BOM_SHOW_ALL_BOM_BY_DEFAULT') ? img_picto('', 'folder') : img_picto('', 'folder-open'));
+	print(!getDolGlobalString('BOM_SHOW_ALL_BOM_BY_DEFAULT') ? img_picture('', 'folder') : img_picture('', 'folder-open'));
 	print '</a>';
 } else {
 	print $tmpproduct->getNomUrl(1);

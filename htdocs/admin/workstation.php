@@ -201,7 +201,7 @@ if ($action == 'edit') {
 	foreach ($arrayofparameters as $key => $val) {
 		print '<tr class="oddeven"><td>';
 		$tooltiphelp = (($langs->trans($key.'Tooltip') != $key.'Tooltip') ? $langs->trans($key.'Tooltip') : '');
-		print $form->textwithpicto($langs->trans($key), $tooltiphelp);
+		print $form->textWithPicture($langs->trans($key), $tooltiphelp);
 		print '</td><td><input name="'.$key.'"  class="flat '.(empty($val['css']) ? 'minwidth200' : $val['css']).'" value="'.getDolGlobalString($key).'"></td></tr>';
 	}
 	print '</table>';
@@ -222,7 +222,7 @@ if ($action == 'edit') {
 
 			print '<tr class="oddeven"><td>';
 			$tooltiphelp = (($langs->trans($key.'Tooltip') != $key.'Tooltip') ? $langs->trans($key.'Tooltip') : '');
-			print $form->textwithpicto($langs->trans($key), $tooltiphelp);
+			print $form->textWithPicture($langs->trans($key), $tooltiphelp);
 			print '</td><td>'.getDolGlobalString($key).'</td></tr>';
 		}
 
@@ -301,10 +301,10 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 								print '<td class="center">';
 								$constforvar = 'WORKSTATION_'.strtoupper($myTmpObjectKey).'_ADDON';
 								if (getDolGlobalString($constforvar, 'mod_workstation_standard') == $file) {
-									print img_picto($langs->trans("Activated"), 'switch_on');
+									print img_picture($langs->trans("Activated"), 'switch_on');
 								} else {
 									print '<a href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&object='.strtolower($myTmpObjectKey).'&value='.urlencode($file).'">';
-									print img_picto($langs->trans("Disabled"), 'switch_off');
+									print img_picture($langs->trans("Disabled"), 'switch_off');
 									print '</a>';
 								}
 								print '</td>';
@@ -332,7 +332,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 								}
 
 								print '<td class="center">';
-								print $form->textwithpicto('', $htmltooltip, 1, 0);
+								print $form->textWithPicture('', $htmltooltip, 1, 0);
 								print '</td>';
 
 								print "</tr>\n";
@@ -434,12 +434,12 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 										if (in_array($name, $def)) {
 											print '<td class="center">'."\n";
 											print '<a href="'.$_SERVER["PHP_SELF"].'?action=del&token='.newToken().'&value='.urlencode($name).'">';
-											print img_picto($langs->trans("Enabled"), 'switch_on');
+											print img_picture($langs->trans("Enabled"), 'switch_on');
 											print '</a>';
 											print '</td>';
 										} else {
 											print '<td class="center">'."\n";
-											print '<a href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+											print '<a href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 											print "</td>";
 										}
 
@@ -447,9 +447,9 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 										print '<td class="center">';
 										$constforvar = 'WORKSTATION_'.strtoupper($myTmpObjectKey).'_ADDON';
 										if (getDolGlobalString($constforvar, 'mod_workstation_standard') == $name) {
-											print img_picto($langs->trans("Default"), 'on');
+											print img_picture($langs->trans("Default"), 'on');
 										} else {
-											print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+											print '<a href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 										}
 										print '</td>';
 
@@ -466,7 +466,7 @@ foreach ($myTmpObjects as $myTmpObjectKey => $myTmpObjectArray) {
 										$htmltooltip .= '<br>'.$langs->trans("MultiLanguage").': '.yn($module->option_multilang, 1, 1);
 
 										print '<td class="center">';
-										print $form->textwithpicto('', $htmltooltip, 1, 0);
+										print $form->textWithPicture('', $htmltooltip, 1, 0);
 										print '</td>';
 
 										// Preview

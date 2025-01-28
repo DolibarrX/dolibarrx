@@ -94,7 +94,7 @@ $head = tax_prepare_head($object);
 
 $alreadypayed = $object->getSommePaiement();
 
-print dol_get_fiche_head($head, 'info', $langs->trans("SocialContribution"), -1, $object->picto);
+print dol_get_fiche_head($head, 'info', $langs->trans("SocialContribution"), -1, $object->picture);
 
 $morehtmlref = '<div class="refidno">';
 // Label of social contribution

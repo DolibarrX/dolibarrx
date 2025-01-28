@@ -43,7 +43,7 @@ class InterfaceZapierTriggers extends DolibarrTriggers
 		$this->family = "technic";
 		$this->description = "Zapier triggers.";
 		$this->version = self::VERSIONS['dev'];
-		$this->picto = 'zapier';
+		$this->picture = 'zapier';
 	}
 
 	/**
@@ -477,7 +477,7 @@ function cleanObjectDatas($toclean)
 	unset($toclean->fk_element);
 	unset($toclean->table_element);
 	unset($toclean->table_element_line);
-	unset($toclean->picto);
+	unset($toclean->picture);
 
 	unset($toclean->skip_update_total);
 	unset($toclean->context);

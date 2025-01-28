@@ -400,7 +400,7 @@ if ($action == 'create') {
 	// Date end period
 	print '<tr>';
 	print '<td class="fieldrequired">';
-	print $form->textwithpicto($langs->trans("PeriodEndDate"), $langs->trans("LastDayTaxIsRelatedTo"));
+	print $form->textWithPicture($langs->trans("PeriodEndDate"), $langs->trans("LastDayTaxIsRelatedTo"));
 	print '</td>';
 	print '<td>';
 	print $form->selectDate(!empty($dateperiod) ? $dateperiod : '-1', 'period', 0, 0, 0, 'charge', 1);
@@ -419,7 +419,7 @@ if ($action == 'create') {
 	print '<tr><td>';
 	print $langs->trans('Employee');
 	print '</td>';
-	print '<td>'.img_picto('', 'user', 'class="pictofixedwidth"').$form->select_dolusers('', 'userid', 1).'</td></tr>';
+	print '<td>'.img_picture('', 'user', 'class="picturefixedwidth"').$form->select_dolusers('', 'userid', 1).'</td></tr>';
 
 	// Project
 	if (isModEnabled('project')) {
@@ -430,7 +430,7 @@ if ($action == 'create') {
 
 		print '<tr><td>'.$langs->trans("Project").'</td><td>';
 
-		print img_picto('', 'project', 'class="pictofixedwidth"').$formproject->select_projects(-1, $fk_project, 'fk_project', 0, 0, 1, 1, 0, 0, 0, '', 1);
+		print img_picture('', 'project', 'class="picturefixedwidth"').$formproject->select_projects(-1, $fk_project, 'fk_project', 0, 0, 1, 1, 0, 0, 0, '', 1);
 
 		print '</td></tr>';
 	}
@@ -443,7 +443,7 @@ if ($action == 'create') {
 	// Bank Account
 	if (isModEnabled("bank")) {
 		print '<tr><td>'.$langs->trans('DefaultBankAccount').'</td><td colspan="2">';
-		print img_picto('', 'bank_account', 'class="pictofixedwidth"').$form->select_comptes(GETPOSTINT('fk_account'), 'fk_account', 0, '', 2, '', 0, '', 1);
+		print img_picture('', 'bank_account', 'class="picturefixedwidth"').$form->select_comptes(GETPOSTINT('fk_account'), 'fk_account', 0, '', 2, '', 0, '', 1);
 		print '</td></tr>';
 	}
 
@@ -562,7 +562,7 @@ if ($id > 0) {
 			$langs->load("projects");
 			$morehtmlref .= '<br>';
 			if ($permissiontoadd) {
-				$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+				$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 				if ($action != 'classify') {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.((int) $object->id).'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 				}
@@ -618,7 +618,7 @@ if ($id > 0) {
 		}
 
 		// Period end date
-		print "<tr><td>".$form->textwithpicto($langs->trans("PeriodEndDate"), $langs->trans("LastDayTaxIsRelatedTo"))."</td>";
+		print "<tr><td>".$form->textWithPicture($langs->trans("PeriodEndDate"), $langs->trans("LastDayTaxIsRelatedTo"))."</td>";
 		print "<td>";
 		if ($action == 'edit') {
 			print $form->selectDate($object->period, 'period', 0, 0, 0, 'charge', 1);

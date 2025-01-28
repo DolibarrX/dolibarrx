@@ -223,7 +223,7 @@ abstract class ActionsMemberCardCommon
 
 			$this->tpl['zip'] = ($this->object->zip ? $this->object->zip.'&nbsp;' : '');
 
-			$img = picto_from_langcode($this->object->country_code);
+			$img = picture_from_langcode($this->object->country_code);
 			$this->tpl['country'] = ($img ? $img.' ' : '').$this->object->country;
 
 			$this->tpl['phone_perso'] = dol_print_phone($this->object->phone_perso, $this->object->country_code, 0, $this->object->id, 'AC_TEL');

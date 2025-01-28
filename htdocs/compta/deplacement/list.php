@@ -189,8 +189,8 @@ if ($resql) {
 	// print '<input class="flat" size="10" type="text" name="search_amount" value="'.$search_amount.'">';
 	print '</td>';
 	print '<td class="liste_titre maxwidthsearch">';
-	$searchpicto = $form->showFilterAndCheckAddButtons(0);
-	print $searchpicto;
+	$searchPicture = $form->showFilterAndCheckAddButtons(0);
+	print $searchPicture;
 	print '</td>';
 	print "</tr>\n";
 

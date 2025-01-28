@@ -317,8 +317,8 @@ print $langs->trans("ProductVatMassChangeDesc").'<br><br>';
 
 if (empty($mysoc->country_code)) {
 	$langs->load("errors");
-	$warnpicto = img_error($langs->trans("WarningMandatorySetupNotComplete"));
-	print '<br><a href="'.DOL_URL_ROOT.'/admin/company.php?mainmenu=home">'.$warnpicto.' '.$langs->trans("WarningMandatorySetupNotComplete").'</a>';
+	$warnPicture = img_error($langs->trans("WarningMandatorySetupNotComplete"));
+	print '<br><a href="'.DOL_URL_ROOT.'/admin/company.php?mainmenu=home">'.$warnPicture.' '.$langs->trans("WarningMandatorySetupNotComplete").'</a>';
 } else {
 	print '<form method="POST" action="'.$_SERVER['PHP_SELF'].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'" />';

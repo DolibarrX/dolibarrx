@@ -59,7 +59,7 @@ class modProductBatch extends DolibarrModules
 		// Key used in llx_const table to save module status enabled/disabled (where dluo is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 
-		$this->picto = 'lot';
+		$this->picture = 'lot';
 
 		$this->module_parts = array();
 

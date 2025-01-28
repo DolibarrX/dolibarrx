@@ -54,7 +54,7 @@ class mailing_thirdparties extends MailingTargets
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'company';
+	public $picture = 'company';
 
 
 	/**
@@ -383,7 +383,7 @@ class mailing_thirdparties extends MailingTargets
 			// Choose language
 			require_once DOL_DOCUMENT_ROOT.'/core/class/html.formadmin.class.php';
 			$formadmin = new FormAdmin($this->db);
-			$s .= img_picto($langs->trans("DefaultLang"), 'language', 'class="pictofixedwidth"');
+			$s .= img_picture($langs->trans("DefaultLang"), 'language', 'class="picturefixedwidth"');
 			//$s .= '<span class="opacitymedium">'.$langs->trans("DefaultLang").':</span> ';
 			$s .= $formadmin->select_language(GETPOST('filter_lang_thirdparties', 'aZ09'), 'filter_lang_thirdparties', 0, null, $langs->trans("DefaultLang"), 0, 0, '', 0, 0, 0, null, 1);
 		}

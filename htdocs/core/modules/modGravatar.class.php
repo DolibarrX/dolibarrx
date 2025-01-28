@@ -61,9 +61,9 @@ class modGravatar extends DolibarrModules
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
-		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-		// If file is in module/images directory, use this->picto=DOL_URL_ROOT.'/module/images/file.png'
-		$this->picto = 'gravatar';
+		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
+		// If file is in module/images directory, use this->picture=DOL_URL_ROOT.'/module/images/file.png'
+		$this->picture = 'gravatar';
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/mymodule/temp");

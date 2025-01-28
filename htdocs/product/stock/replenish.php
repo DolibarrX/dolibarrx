@@ -797,7 +797,7 @@ print '<td class="liste_titre"><input class="flat" type="text" name="search_labe
 if (isModEnabled("service") && $type == 1) {
 	print '<td class="liste_titre">&nbsp;</td>';
 }
-print '<td class="liste_titre right">' . $form->textwithpicto($langs->trans('IncludeEmptyDesiredStock'), $langs->trans('IncludeProductWithUndefinedAlerts')) . '&nbsp;<input type="checkbox" id="includeproductswithoutdesiredqty" name="includeproductswithoutdesiredqty" ' . (!empty($includeproductswithoutdesiredqtychecked) ? $includeproductswithoutdesiredqtychecked : '') . '></td>';
+print '<td class="liste_titre right">' . $form->textWithPicture($langs->trans('IncludeEmptyDesiredStock'), $langs->trans('IncludeProductWithUndefinedAlerts')) . '&nbsp;<input type="checkbox" id="includeproductswithoutdesiredqty" name="includeproductswithoutdesiredqty" ' . (!empty($includeproductswithoutdesiredqtychecked) ? $includeproductswithoutdesiredqtychecked : '') . '></td>';
 print '<td class="liste_titre right"></td>';
 print '<td class="liste_titre right">'.$langs->trans('AlertOnly').'&nbsp;<input type="checkbox" id="salert" name="salert" '.(!empty($alertchecked) ? $alertchecked : '').'></td>';
 if (getDolGlobalString('STOCK_ALLOW_ADD_LIMIT_STOCK_BY_WAREHOUSE') && $fk_entrepot > 0) {
@@ -815,8 +815,8 @@ $resHook = $hookManager->executeHooks('printFieldListOption', $parameters); // N
 print $hookManager->resPrint;
 
 print '<td class="liste_titre maxwidthsearch right">';
-$searchpicto = $form->showFilterAndCheckAddButtons(0);
-print $searchpicto;
+$searchPicture = $form->showFilterAndCheckAddButtons(0);
+print $searchPicture;
 print '</td>';
 print '</tr>';
 
@@ -935,17 +935,17 @@ while ($i < ($limit ? min($num, $limit) : $num)) {
 			$stocktobuywarehouse = max(max($desiredstockwarehouse, $alertstockwarehouse) - $stockwarehouse, 0); //ordered is already in $stock in virtual mode
 		}
 
-		$picto = '';
+		$picture = '';
 		if ($ordered > 0) {
 			$stockforcompare = ($usevirtualstock ? $stock : $stock + $ordered);
 			/*if ($stockforcompare >= $desiredstock)
 			{
-			$picto = img_picto('', 'help');
+			$picture = img_picture('', 'help');
 			} else {
-			$picto = img_picto('', 'help');
+			$picture = img_picture('', 'help');
 			}*/
 		} else {
-			$picto = img_picto($langs->trans("NoPendingReceptionOnSupplierOrder"), 'help');
+			$picture = img_picture($langs->trans("NoPendingReceptionOnSupplierOrder"), 'help');
 		}
 
 		print '<tr class="oddeven">';
@@ -991,7 +991,7 @@ while ($i < ($limit ? min($num, $limit) : $num)) {
 		}
 
 		// Already ordered
-		print '<td class="right"><a href="replenishorders.php?search_product=' . $prod->id . '">' . $ordered . '</a> ' . $picto . '</td>';
+		print '<td class="right"><a href="replenishorders.php?search_product=' . $prod->id . '">' . $ordered . '</a> ' . $picture . '</td>';
 
 		// To order
 		$tobuy = ((getDolGlobalString('STOCK_ALLOW_ADD_LIMIT_STOCK_BY_WAREHOUSE') && $fk_entrepot > 0) > 0 ? $stocktobuywarehouse : $stocktobuy);

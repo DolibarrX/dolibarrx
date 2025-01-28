@@ -181,7 +181,7 @@ if ($config->dol_use_jmobile) {
 	$ret .= '<input type="hidden" name="savelogin" value="'.dol_escape_htmltag($user->login).'">';
 	$ret .= '<input type="hidden" name="action" value="redirect">';
 	$ret .= '<div class="tagtd">';
-	$ret .= img_picto('', 'url', '', 0, 0, 0, '', 'paddingright width20');
+	$ret .= img_picture('', 'url', '', 0, 0, 0, '', 'paddingright width20');
 	$ret .= '<input type="text" class="flat minwidth200"';
 	$ret .= ' style="background-repeat: no-repeat; background-position: 3px;"';
 	$ret .= ' placeholder="'.strip_tags($langs->trans("OrPasteAnURL")).'"';

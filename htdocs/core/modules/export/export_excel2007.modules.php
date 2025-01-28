@@ -92,7 +92,7 @@ class ExportExcel2007 extends ModeleExports
 		$this->label = 'Excel 2007'; // Label of driver
 		$this->desc = $langs->trans('Excel2007FormatDesc');
 		$this->extension = 'xlsx'; // Extension for generated file by this driver
-		$this->picto = 'mime/xls'; // Picto
+		$this->picture = 'mime/xls'; // Picto
 		$this->version = '1.30'; // Driver version
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 

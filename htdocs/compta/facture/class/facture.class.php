@@ -85,7 +85,7 @@ class Facture extends CommonInvoice
 	/**
 	 * @var string String with name of icon for myobject.
 	 */
-	public $picto = 'bill';
+	public $picture = 'bill';
 
 	/**
 	 * 0=Default, 1=View may be restricted to sales representative only if no permission to see all or to company of external user if external user
@@ -1964,21 +1964,21 @@ class Facture extends CommonInvoice
 		$datas = [];
 		$moretitle = $params['moretitle'] ?? '';
 
-		$picto = $this->picto;
+		$picture = $this->picture;
 		if ($this->type == self::TYPE_REPLACEMENT) {
-			$picto .= 'r'; // Replacement invoice
+			$picture .= 'r'; // Replacement invoice
 		}
 		if ($this->type == self::TYPE_CREDIT_NOTE) {
-			$picto .= 'a'; // Credit note
+			$picture .= 'a'; // Credit note
 		}
 		if ($this->type == self::TYPE_DEPOSIT) {
-			$picto .= 'd'; // Deposit invoice
+			$picture .= 'd'; // Deposit invoice
 		}
 
 		if ($user->hasRight("facture", "read")) {
-			$datas['picto'] = img_picto('', $picto).' <u class="paddingrightonly">'.$langs->trans("Invoice").'</u>';
+			$datas['picture'] = img_picture('', $picture).' <u class="paddingrightonly">'.$langs->trans("Invoice").'</u>';
 
-			$datas['picto'] .= '&nbsp;'.$this->getLibType(1);
+			$datas['picture'] .= '&nbsp;'.$this->getLibType(1);
 
 			// Complete datas
 			if (!empty($params['fromajaxtooltip']) && !isset($this->totalpaid)) {
@@ -1991,10 +1991,10 @@ class Facture extends CommonInvoice
 				$this->totaldeposits = $this->getSumDepositsUsed(0);
 			}
 			if (isset($this->status) && isset($this->totalpaid) && isset($this->totalcreditnotes) && isset($this->totaldeposits)) {
-				$datas['picto'] .= ' '.$this->getLibStatut(5, $this->totalpaid + $this->totalcreditnotes + $this->totaldeposits);
+				$datas['picture'] .= ' '.$this->getLibStatut(5, $this->totalpaid + $this->totalcreditnotes + $this->totaldeposits);
 			}
 			if ($moretitle) {
-				$datas['picto'] .= ' - '.$moretitle;
+				$datas['picture'] .= ' - '.$moretitle;
 			}
 			if (!empty($this->ref)) {
 				$datas['ref'] = '<br><b>'.$langs->trans('Ref').':</b> '.$this->ref;
@@ -2030,9 +2030,9 @@ class Facture extends CommonInvoice
 	}
 
 	/**
-	 *  Return clickable link of object (with eventually picto)
+	 *  Return clickable link of object (with eventually picture)
 	 *
-	 *  @param	int		$withpicto       			Add picto into link
+	 *  @param	int		$withPicture       			Add picture into link
 	 *  @param  string	$option          			Where point the link
 	 *  @param  int		$max             			Maxlength of ref
 	 *  @param  int		$short           			1=Return just URL
@@ -2043,7 +2043,7 @@ class Facture extends CommonInvoice
 	 *  @param  string  $target                     Target of link ('', '_self', '_blank', '_parent', '_backoffice', ...)
 	 *  @return string 			         			String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $short = 0, $moretitle = '', $notooltip = 0, $addlinktonotes = 0, $save_lastsearch_value = -1, $target = '')
+	public function getNomUrl($withPicture = 0, $option = '', $max = 0, $short = 0, $moretitle = '', $notooltip = 0, $addlinktonotes = 0, $save_lastsearch_value = -1, $target = '')
 	{
 		global $langs, $config, $user;
 
@@ -2078,15 +2078,15 @@ class Facture extends CommonInvoice
 			return $url;
 		}
 
-		$picto = $this->picto;
+		$picture = $this->picture;
 		if ($this->type == self::TYPE_REPLACEMENT) {
-			$picto .= 'r'; // Replacement invoice
+			$picture .= 'r'; // Replacement invoice
 		}
 		if ($this->type == self::TYPE_CREDIT_NOTE) {
-			$picto .= 'a'; // Credit note
+			$picture .= 'a'; // Credit note
 		}
 		if ($this->type == self::TYPE_DEPOSIT) {
-			$picto .= 'd'; // Deposit invoice
+			$picture .= 'd'; // Deposit invoice
 		}
 
 		$params = [
@@ -2125,10 +2125,10 @@ class Facture extends CommonInvoice
 		}
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($picto ? $picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($picture ? $picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= ($max ? dol_trunc($this->ref, $max) : $this->ref);
 		}
 		$result .= $linkend;
@@ -2140,9 +2140,9 @@ class Facture extends CommonInvoice
 				$notetoshow = $langs->trans("ViewPrivateNote").':<br>'.$txttoshow;
 				$result .= ' <span class="note inline-block">';
 				$result .= '<a href="'.DOL_URL_ROOT.'/compta/facture/note.php?id='.$this->id.'" class="classfortooltip" title="'.dol_escape_htmltag($notetoshow, 1, 1).'">';
-				$result .= img_picto('', 'note');
+				$result .= img_picture('', 'note');
 				$result .= '</a>';
-				//$result.=img_picto($langs->trans("ViewNote"),'object_generic');
+				//$result.=img_picture($langs->trans("ViewNote"),'object_generic');
 				//$result.='</a>';
 				$result .= '</span>';
 			}
@@ -6076,7 +6076,7 @@ class Facture extends CommonInvoice
 	}
 
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
 	 *	@param	string	    			$option			Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param	array{string,mixed}		$arraydata		Array of data
@@ -6088,21 +6088,21 @@ class Facture extends CommonInvoice
 
 		$selected = (empty($arraydata['selected']) ? 0 : $arraydata['selected']);
 
-		$picto = $this->picto;
+		$picture = $this->picture;
 		if ($this->type == self::TYPE_REPLACEMENT) {
-			$picto .= 'r'; // Replacement invoice
+			$picture .= 'r'; // Replacement invoice
 		}
 		if ($this->type == self::TYPE_CREDIT_NOTE) {
-			$picto .= 'a'; // Credit note
+			$picture .= 'a'; // Credit note
 		}
 		if ($this->type == self::TYPE_DEPOSIT) {
-			$picto .= 'd'; // Deposit invoice
+			$picture .= 'd'; // Deposit invoice
 		}
 
 		$return = '<div class="box-flex-item box-flex-grow-zero">';
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<span class="info-box-icon bg-infobox-action">';
-		$return .= img_picto('', $picto);
+		$return .= img_picture('', $picture);
 		$return .= '</span>';
 		$return .= '<div class="info-box-content">';
 		$return .= '<span class="info-box-ref inline-block tdoverflowmax150 valignmiddle">'.(method_exists($this, 'getNomUrl') ? $this->getNomUrl(1) : $this->ref).'</span>';

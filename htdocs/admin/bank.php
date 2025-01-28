@@ -274,11 +274,11 @@ while ($i < $nbofbank) {
 
 	if (getDolGlobalInt('BANK_SHOW_ORDER_OPTION') == $i) {
 		print '<td class="center">';
-		print img_picto($langs->trans("Activated"), 'on');
+		print img_picture($langs->trans("Activated"), 'on');
 		print '</td>';
 	} else {
 		print '<td class="center"><a href="'.$_SERVER['PHP_SELF'].'?action=setbankorder&token='.newToken().'&value='.((int) $i).'">';
-		print img_picto($langs->trans("Disabled"), 'off');
+		print img_picture($langs->trans("Disabled"), 'off');
 		print '</a></td>';
 	}
 	print '</tr>'."\n";
@@ -379,21 +379,21 @@ foreach ($dirmodels as $reldir) {
 								if (in_array($name, $def)) {
 									print '<td class="center">'."\n";
 									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=del&token='.newToken().'&value='.$name.'">';
-									print img_picto($langs->trans("Enabled"), 'switch_on');
+									print img_picture($langs->trans("Enabled"), 'switch_on');
 									print '</a>';
 									print '</td>';
 								} else {
 									print '<td class="center">'."\n";
-									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=set&value='.$name.'&token='.newToken().'&scan_dir='.$module->scandir.'&label='.urlencode($module->name).'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=set&value='.$name.'&token='.newToken().'&scan_dir='.$module->scandir.'&label='.urlencode($module->name).'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 									print "</td>";
 								}
 
 								// Default
 								print '<td class="center">';
 								if (getDolGlobalString('BANKADDON_PDF') == $name) {
-									print img_picto($langs->trans("Default"), 'on');
+									print img_picture($langs->trans("Default"), 'on');
 								} else {
-									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.$name.'&scan_dir='.$module->scandir.'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.$name.'&scan_dir='.$module->scandir.'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 								}
 								print '</td>';
 
@@ -413,7 +413,7 @@ foreach ($dirmodels as $reldir) {
 								//$htmltooltip .= '<br>' . $langs->trans("WatermarkOnDraftOrders") . ': ' . yn($module->option_draft_watermark, 1, 1);
 
 								print '<td class="center">';
-								print $form->textwithpicto('', $htmltooltip, 1, 0);
+								print $form->textWithPicture('', $htmltooltip, 1, 0);
 								print '</td>';
 
 								// Preview
@@ -455,12 +455,12 @@ print "</td>";
 if (getDolGlobalInt('BANK_COLORIZE_MOVEMENT')) {
 	print '<td class="center">'."\n";
 	print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=unsetbankcolorizemovement&token='.newToken().'">';
-	print img_picto($langs->trans("Enabled"), 'switch_on');
+	print img_picture($langs->trans("Enabled"), 'switch_on');
 	print '</a>';
 	print '</td>';
 } else {
 	print '<td class="center">'."\n";
-	print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setbankcolorizemovement&token='.newToken().'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+	print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setbankcolorizemovement&token='.newToken().'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 	print "</td>";
 }
 
@@ -508,11 +508,11 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("BANK_DISABLE_DIRECT_INPUT").'</td>';
 if (getDolGlobalString('BANK_DISABLE_DIRECT_INPUT')) {
 	print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setBANK_DISABLE_DIRECT_INPUT&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 	print '</a></td>';
 } else {
 	print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setBANK_DISABLE_DIRECT_INPUT&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 print '</tr>';
@@ -525,12 +525,12 @@ print '</td>';
 if (getDolGlobalString('BANK_REPORT_LAST_NUM_RELEVE')) {
 	print '<td class="center">'."\n";
 	print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=unsetreportlastnumreleve&token='.newToken().'">';
-	print img_picto($langs->trans("Enabled"), 'switch_on');
+	print img_picture($langs->trans("Enabled"), 'switch_on');
 	print '</a>';
 	print '</td>';
 } else {
 	print '<td class="center">'."\n";
-	print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setreportlastnumreleve&token='.newToken().'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+	print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setreportlastnumreleve&token='.newToken().'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 	print "</td>";
 }
 print "</tr>\n";
@@ -538,7 +538,7 @@ print "</tr>\n";
 // Allow SEPA Mandate OnLine Sign
 if (!getDolGlobalInt('SOCIETE_DISABLE_BANKACCOUNT')) {
 	print '<tr class="oddeven">';
-	print '<td>'.$form->textwithpicto($langs->trans("AllowOnLineSign"), $langs->trans("AllowOnLineSignDesc")).'</td>';
+	print '<td>'.$form->textWithPicture($langs->trans("AllowOnLineSign"), $langs->trans("AllowOnLineSignDesc")).'</td>';
 	print '<td class="center">';
 	print ajax_constantonoff('SOCIETE_RIB_ALLOW_ONLINESIGN', array(), null, 0, 0, 0, 2, 0, 1, '', '', 'inline-block', 0, $langs->trans("WarningOnlineSignature"));
 	print '</td></tr>';

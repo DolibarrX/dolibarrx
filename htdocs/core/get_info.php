@@ -105,12 +105,12 @@ if (!getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 		$logouthtmltext .= $langs->trans("Logout").'<br>';
 
 		$logouttext .= '<a href="'.DOL_URL_ROOT.'/user/logout.php?token='.newToken().'">';
-		//$logouttext .= img_picto($langs->trans('Logout').":".$langs->trans('Logout'), 'logout_top.png', 'class="login"', 0, 0, 1);
+		//$logouttext .= img_picture($langs->trans('Logout').":".$langs->trans('Logout'), 'logout_top.png', 'class="login"', 0, 0, 1);
 		$logouttext .= '<span class="fa fa-sign-out atoplogin"></span>';
 		$logouttext .= '</a>';
 	} else {
 		$logouthtmltext .= $langs->trans("NoLogoutProcessWithAuthMode", $_SESSION["dol_authmode"]);
-		$logouttext .= img_picto($langs->trans('Logout').":".$langs->trans('Logout'), 'logout_top.png', 'class="login"', 0, 0, 1);
+		$logouttext .= img_picture($langs->trans('Logout').":".$langs->trans('Logout'), 'logout_top.png', 'class="login"', 0, 0, 1);
 	}
 }
 
@@ -120,9 +120,9 @@ print '<div class="login_block_getinfo">'."\n";
 $toprightmenu .= '<div class="login_block_user">';
 
 // Login name with photo and tooltip
-$picto = -1;
+$picture = -1;
 $toprightmenu .= '<div class="inline-block nowrap"><div class="inline-block login_block_elem login_block_elem_name" style="padding: 0px;">';
-$toprightmenu .= $user->getNomUrl($picto, '', -1, 0, 11, 0, ($user->firstname ? 'firstname' : -1), 'atoplogin');
+$toprightmenu .= $user->getNomUrl($picture, '', -1, 0, 11, 0, ($user->firstname ? 'firstname' : -1), 'atoplogin');
 $toprightmenu .= '</div></div>';
 
 $toprightmenu .= '</div>'."\n";
@@ -150,7 +150,7 @@ if (!isset($form) || !is_object($form)) {
 // Link to module builder
 if (isModEnabled('modulebuilder')) {
 	$text = '<a href="'.DOL_URL_ROOT.'/modulebuilder/index.php?mainmenu=home&leftmenu=admintools" target="modulebuilder">';
-	//$text.= img_picto(":".$langs->trans("ModuleBuilder"), 'printer_top.png', 'class="printer"');
+	//$text.= img_picture(":".$langs->trans("ModuleBuilder"), 'printer_top.png', 'class="printer"');
 	$text .= '<span class="fa fa-bug atoplogin"></span>';
 	$text .= '</a>';
 	// @phan-suppress-next-line PhanPluginSuspiciousParamPosition

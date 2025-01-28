@@ -456,7 +456,7 @@ if ($object->fetch($id) >= 0) {
 		}
 		if ($text) {
 			// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
-			print $form->textwithpicto($nbemail, $text, 1, 'warning');
+			print $form->textWithPicture($nbemail, $text, 1, 'warning');
 		} else {
 			print $nbemail;
 		}
@@ -603,10 +603,10 @@ if ($object->fetch($id) >= 0) {
 					}
 
 					print '<div class="tagtd paddingleftimp marginleftonly paddingrightimp marginrightonly valignmiddle center">';
-					if (empty($obj->picto)) {
-						$obj->picto = 'generic';
+					if (empty($obj->picture)) {
+						$obj->picture = 'generic';
 					}
-					print img_object($langs->trans("EmailingTargetSelector").': '.get_class($obj), $obj->picto, 'class="valignmiddle width25 size15x"');
+					print img_object($langs->trans("EmailingTargetSelector").': '.get_class($obj), $obj->picture, 'class="valignmiddle width25 size15x"');
 					print '</div>';
 					print '<div class="tagtd valignmiddle">';	//  style="height: 4em"
 					print $obj->getDesc();
@@ -772,7 +772,7 @@ if ($object->fetch($id) >= 0) {
 		$morehtmlcenter = '';
 		$arrayofmassactions = array();
 		if ($permissiontocreate) {
-			$arrayofmassactions['reset_target'] = img_picto('', 'refresh', 'class="pictofixedwidth"').$langs->trans("ResetMailingTargetMassaction");
+			$arrayofmassactions['reset_target'] = img_picture('', 'refresh', 'class="picturefixedwidth"').$langs->trans("ResetMailingTargetMassaction");
 		}
 		$massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 		$morehtmlcenter .= $massactionbutton .'<br>';
@@ -780,7 +780,7 @@ if ($object->fetch($id) >= 0) {
 		if ($object->status == $object::STATUS_DRAFT) {
 			$morehtmlcenter = '<span class="opacitymedium hideonsmartphone">'.$langs->trans("ToClearAllRecipientsClickHere").'</span> <a href="'.$_SERVER["PHP_SELF"].'?clearlist=1&id='.$object->id.'" class="button reposition smallpaddingimp">'.$langs->trans("TargetsReset").'</a>';
 		}
-		$morehtmlcenter .= ' &nbsp; <a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=exportcsv&token='.newToken().'&exportcsv=1&id='.$object->id.'">'.img_picto('', 'download', 'class="pictofixedwidth"').$langs->trans("Download").'</a>';
+		$morehtmlcenter .= ' &nbsp; <a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=exportcsv&token='.newToken().'&exportcsv=1&id='.$object->id.'">'.img_picture('', 'download', 'class="picturefixedwidth"').$langs->trans("Download").'</a>';
 
 		print '</form>';
 
@@ -816,8 +816,8 @@ if ($object->fetch($id) >= 0) {
 		// Action column
 		if ($config->main_checkbox_left_column) {
 			print '<td class="liste_titre maxwidthsearch">';
-			$searchpicto = $form->showFilterButtons('left');
-			print $searchpicto;
+			$searchPicture = $form->showFilterButtons('left');
+			print $searchPicture;
 			print '</td>';
 		}
 		// EMail
@@ -859,8 +859,8 @@ if ($object->fetch($id) >= 0) {
 		// Action column
 		if (empty($config->main_checkbox_left_column)) {
 			print '<td class="liste_titre maxwidthsearch">';
-			$searchpicto = $form->showFilterButtons();
-			print $searchpicto;
+			$searchPicture = $form->showFilterButtons();
+			print $searchPicture;
 			print '</td>';
 		}
 
@@ -937,9 +937,9 @@ if ($object->fetch($id) >= 0) {
 				}
 
 				print '<td class="tdoverflowmax150">';
-				print img_picto($obj->email, 'email', 'class="paddingright"');
+				print img_picture($obj->email, 'email', 'class="paddingright"');
 				if ($obj->nb > 0) {
-					print img_warning($langs->trans("EmailOptedOut"), 'warning', 'pictofixedwidth');
+					print img_warning($langs->trans("EmailOptedOut"), 'warning', 'picturefixedwidth');
 				}
 				print dol_escape_htmltag($obj->email);
 				print '</td>';

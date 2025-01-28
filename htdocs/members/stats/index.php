@@ -82,7 +82,7 @@ $help_url = 'EN:Module_Services_En|FR:Module_Services|ES:M&oacute;dulo_Servicios
 
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-member page-stats');
 
-print load_fiche_titre($title, '', $memberstatic->picto);
+print load_fiche_titre($title, '', $memberstatic->picture);
 
 $dir = $config->member->dir_temp;
 
@@ -171,11 +171,11 @@ print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<table class="border centpercent">';
 print '<tr class="liste_titre"><td class="liste_titre" colspan="2">'.$langs->trans("Filter").'</td></tr>';
 print '<tr><td>'.$langs->trans("Member").'</td><td>';
-print img_picto('', 'company', 'class="pictofixedwidth"');
+print img_picture('', 'company', 'class="picturefixedwidth"');
 print $form->select_company($id,'memberid','',1);
 print '</td></tr>';
 print '<tr><td>'.$langs->trans("User").'</td><td>';
-print img_picto('', 'user', 'class="pictofixedwidth"');
+print img_picture('', 'user', 'class="picturefixedwidth"');
 print $form->select_dolusers($userId, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 print '</td></tr>';
 print '<tr><td class="center" colspan="2"><input type="submit" name="submit" class="button small" value="'.$langs->trans("Refresh").'"></td></tr>';

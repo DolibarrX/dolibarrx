@@ -102,7 +102,7 @@ if ($context->userIsLog()) {
 		'id' => 'user_logout',
 		'rank' => 99999,
 		'url' => $context->getControllerUrl() . 'logout.php',
-		'name' => img_picto($langs->trans('Logout'), 'logout', 'class="pictofixedwidth"'),
+		'name' => img_picture($langs->trans('Logout'), 'logout', 'class="picturefixedwidth"'),
 	);
 }
 

@@ -355,8 +355,8 @@ if ($result) {
 	print '<td class="liste_titre center"><input type="text" class="flat maxwidth50" name="search_vat" size="1" placeholder="%" value="'.dol_escape_htmltag($search_vat).'"></td>';
 	print '<td class="liste_titre"><input type="text" class="flat maxwidth50" name="search_account" value="'.dol_escape_htmltag($search_account).'"></td>';
 	print '<td class="liste_titre center">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 	print "</tr>\n";
 
@@ -373,8 +373,8 @@ if ($result) {
 	print_liste_field_titre("Amount", $_SERVER["PHP_SELF"], "erd.total_ht", "", $param, '', $sortfield, $sortorder, 'right ');
 	print_liste_field_titre("VATRate", $_SERVER["PHP_SELF"], "erd.tva_tx", "", $param, '', $sortfield, $sortorder, 'center ');
 	print_liste_field_titre("AccountAccounting", $_SERVER["PHP_SELF"], "aa.account_number", "", $param, '', $sortfield, $sortorder);
-	$checkpicto = $form->showCheckAddButtons();
-	print_liste_field_titre($checkpicto, '', '', '', '', '', '', '', 'center ');
+	$checkPicture = $form->showCheckAddButtons();
+	print_liste_field_titre($checkPicture, '', '', '', '', '', '', '', 'center ');
 	print "</tr>\n";
 
 	$expensereportstatic = new ExpenseReport($db);

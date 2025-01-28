@@ -131,7 +131,7 @@ print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("PasswordTogetVCalExport")."</td>";
 print '<td><input required="required" type="text" class="flat minwidth100 maxwidth300 widthcentpercentminusx" id="MAIN_FICHINTER_XCAL_EXPORTKEY" name="MAIN_FICHINTER_XCAL_EXPORTKEY" value="'.dol_escape_htmltag($MAIN_FICHINTER_XCAL_EXPORTKEY).'">';
 if (!empty($config->use_javascript_ajax)) {
-	print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
+	print '&nbsp;'.img_picture($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
 }
 print '</td>';
 print "<td>&nbsp;</td>";
@@ -196,11 +196,11 @@ $message = '';
 
 $urlvcal = '<a href="'.$urlwithroot.'/public/fichinter/agendaexport.php?format=vcal'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : '...').'" target="_blank" rel="noopener noreferrer">';
 $urlvcal .= $urlwithroot.'/public/fichinter/agendaexport.php?format=vcal'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : 'KEYNOTDEFINED').'</a>';
-$message .= img_picto('', 'globe').' '.str_replace('{url}', $urlvcal, '<span class="opacitymedium">'.$langs->trans("WebCalUrlForVCalExport", 'vcal', '').'</span>');
+$message .= img_picture('', 'globe').' '.str_replace('{url}', $urlvcal, '<span class="opacitymedium">'.$langs->trans("WebCalUrlForVCalExport", 'vcal', '').'</span>');
 $message .= '<div class="urllink">';
 $message .= '<input type="text" id="onlinepaymenturl1" class="quatrevingtpercent" spellcheck="false" value="'.$urlwithroot.'/public/fichinter/agendaexport.php?format=vcal'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : '...').'">';
 if (getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) {
-	$message .= ' <a href="'.$urlwithroot.'/public/fichinter/agendaexport.php?format=vcal'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : '...').'">'.img_picto('', 'download').'</a>';
+	$message .= ' <a href="'.$urlwithroot.'/public/fichinter/agendaexport.php?format=vcal'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : '...').'">'.img_picture('', 'download').'</a>';
 }
 $message .= '</div>';
 $message .= ajax_autoselect('onlinepaymenturl1');
@@ -208,11 +208,11 @@ $message .= '<br>';
 
 $urlical = '<a href="'.$urlwithroot.'/public/fichinter/agendaexport.php?format=ical&type=event'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : '...').'" target="_blank" rel="noopener noreferrer">';
 $urlical .= $urlwithroot.'/public/fichinter/agendaexport.php?format=ical&type=event'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : 'KEYNOTDEFINED').'</a>';
-$message .= img_picto('', 'globe').' '.str_replace('{url}', $urlical, '<span class="opacitymedium">'.$langs->trans("WebCalUrlForVCalExport", 'ical/ics', '').'</span>');
+$message .= img_picture('', 'globe').' '.str_replace('{url}', $urlical, '<span class="opacitymedium">'.$langs->trans("WebCalUrlForVCalExport", 'ical/ics', '').'</span>');
 $message .= '<div class="urllink">';
 $message .= '<input type="text" id="onlinepaymenturl2" class="quatrevingtpercent" spellcheck="false" value="'.$urlwithroot.'/public/fichinter/agendaexport.php?format=ical'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : '...').'">';
 if (getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) {
-	$message .= ' <a href="'.$urlwithroot.'/public/fichinter/agendaexport.php?format=ical'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : '...').'">'.img_picto('', 'download').'</a>';
+	$message .= ' <a href="'.$urlwithroot.'/public/fichinter/agendaexport.php?format=ical'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : '...').'">'.img_picture('', 'download').'</a>';
 }
 $message .= '</div>';
 $message .= ajax_autoselect('onlinepaymenturl2');
@@ -220,11 +220,11 @@ $message .= '<br>';
 
 $urlrss = '<a href="'.$urlwithroot.'/public/fichinter/agendaexport.php?format=rss'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : '...').'" target="_blank" rel="noopener noreferrer">';
 $urlrss .= $urlwithroot.'/public/fichinter/agendaexport.php?format=rss'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : 'KEYNOTDEFINED').'</a>';
-$message .= img_picto('', 'globe').' '.str_replace('{url}', $urlrss, '<span class="opacitymedium">'.$langs->trans("WebCalUrlForVCalExport", 'rss', '').'</span>');
+$message .= img_picture('', 'globe').' '.str_replace('{url}', $urlrss, '<span class="opacitymedium">'.$langs->trans("WebCalUrlForVCalExport", 'rss', '').'</span>');
 $message .= '<div class="urllink">';
 $message .= '<input type="text" id="onlinepaymenturl3" class="quatrevingtpercent" spellcheck="false" value="'.$urlwithroot.'/public/fichinter/agendaexport.php?format=rss'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : '...').'">';
 if (getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) {
-	$message .= ' <a href="'.$urlwithroot.'/public/fichinter/agendaexport.php?format=rss'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : '...').'">'.img_picto('', 'download').'</a>';
+	$message .= ' <a href="'.$urlwithroot.'/public/fichinter/agendaexport.php?format=rss'.$getentity.'&exportkey='.($config->global->MAIN_FICHINTER_XCAL_EXPORTKEY ? urlencode(getDolGlobalString('MAIN_FICHINTER_XCAL_EXPORTKEY')) : '...').'">'.img_picture('', 'download').'</a>';
 }
 $message .= '</div>';
 $message .= ajax_autoselect('onlinepaymenturl3');

@@ -50,7 +50,7 @@ class InterfaceWebhookTriggers extends DolibarrTriggers
 		$this->family = "demo";
 		$this->description = "Webhook triggers.";
 		$this->version = self::VERSIONS['dev'];
-		$this->picto = 'webhook';
+		$this->picture = 'webhook';
 	}
 
 	/**

@@ -82,7 +82,7 @@ class mod_partnership_advanced extends ModeleNumRefPartnership
 
 		// Parametrage du prefix
 		$text .= '<tr><td>'.$langs->trans("Mask").':</td>';
-		$text .= '<td class="right">'.$form->textwithpicto('<input type="text" class="flat minwidth175" name="maskPartnership" value="'.getDolGlobalString('PARTNERSHIP_ADVANCED_MASK').'">', $tooltip, 1, 1).'</td>';
+		$text .= '<td class="right">'.$form->textWithPicture('<input type="text" class="flat minwidth175" name="maskPartnership" value="'.getDolGlobalString('PARTNERSHIP_ADVANCED_MASK').'">', $tooltip, 1, 1).'</td>';
 
 		$text .= '<td class="left" rowspan="2">&nbsp; <input type="submit" class="button button-edit" name="Button"value="'.$langs->trans("Modify").'"></td>';
 

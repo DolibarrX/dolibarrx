@@ -165,14 +165,14 @@ if (!$rowid) {
 			}
 
 			if ($charge->refunded == '1') {
-				$status = img_picto($langs->trans("refunded"), 'statut6');
+				$status = img_picture($langs->trans("refunded"), 'statut6');
 			} elseif ($charge->paid == '1') {
-				$status = img_picto($langs->trans((string) $charge->status), 'statut4');
+				$status = img_picture($langs->trans((string) $charge->status), 'statut4');
 			} else {
 				$label = $langs->trans("Message").": ".$charge->failure_message."<br>";
 				$label .= $langs->trans("Network").": ".$charge->outcome->network_status."<br>";
 				$label .= $langs->trans("Status").": ".$langs->trans((string) $charge->outcome->seller_message);
-				$status = $form->textwithpicto(img_picto($langs->trans((string) $charge->status), 'statut8'), $label, -1);
+				$status = $form->textWithPicture(img_picture($langs->trans((string) $charge->status), 'statut8'), $label, -1);
 			}
 
 			if (isset($charge->payment_method_details->type) && $charge->payment_method_details->type == 'card') {
@@ -229,7 +229,7 @@ if (!$rowid) {
 				$url = 'https://dashboard.stripe.com/'.$connect.'payments/'.$charge->id;
 			}
 			print "<td>";
-			print "<a href='".$url."' target='_stripe'>".img_picto($langs->trans('ShowInStripe'), 'globe')." ".$charge->id."</a>";
+			print "<a href='".$url."' target='_stripe'>".img_picture($langs->trans('ShowInStripe'), 'globe')." ".$charge->id."</a>";
 			if ($charge->payment_intent) {
 				print '<br><span class="opacitymedium">'.$charge->payment_intent.'</span>';
 			}
@@ -245,7 +245,7 @@ if (!$rowid) {
 				$url = 'https://dashboard.stripe.com/'.$connect.'customers/'.$charge->customer;
 			}
 			if (!empty($charge->customer)) {
-				print '<a href="'.$url.'" target="_stripe">'.img_picto($langs->trans('ShowInStripe'), 'globe').' '.$charge->customer.'</a>';
+				print '<a href="'.$url.'" target="_stripe">'.img_picture($langs->trans('ShowInStripe'), 'globe').' '.$charge->customer.'</a>';
 			}
 			print "</td>\n";
 
@@ -264,7 +264,7 @@ if (!$rowid) {
 				$object = new Order($db);
 				$object->fetch($charge->metadata->dol_id);
 				if ($object->id > 0) {
-					print "<a href='".DOL_URL_ROOT."/order/card.php?id=".$object->id."'>".img_picto('', 'order')." ".$object->ref."</a>";
+					print "<a href='".DOL_URL_ROOT."/order/card.php?id=".$object->id."'>".img_picture('', 'order')." ".$object->ref."</a>";
 				} else {
 					print $FULLTAG;
 				}
@@ -272,7 +272,7 @@ if (!$rowid) {
 				$object = new Facture($db);
 				$object->fetch($charge->metadata->dol_id);
 				if ($object->id > 0) {
-					print "<a href='".DOL_URL_ROOT."/compta/facture/card.php?facid=".$charge->metadata->dol_id."'>".img_picto('', 'bill')." ".$object->ref."</a>";
+					print "<a href='".DOL_URL_ROOT."/compta/facture/card.php?facid=".$charge->metadata->dol_id."'>".img_picture('', 'bill')." ".$object->ref."</a>";
 				} else {
 					print $FULLTAG;
 				}

@@ -135,7 +135,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-bookcal page-card_do
 // Show tabs
 $head = calendarPrepareHead($object);
 
-print dol_get_fiche_head($head, 'document', $langs->trans("Calendar"), -1, $object->picto);
+print dol_get_fiche_head($head, 'document', $langs->trans("Calendar"), -1, $object->picture);
 
 
 // Build file list

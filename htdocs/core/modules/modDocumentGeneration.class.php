@@ -52,7 +52,7 @@ class modDocumentGeneration extends DolibarrModules
 		$this->version = 'development';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'email';
+		$this->picture = 'email';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/documentgeneration/temp");

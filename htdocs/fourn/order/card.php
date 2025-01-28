@@ -1768,7 +1768,7 @@ if ($action == 'create') {
 			print '<input type="hidden" name="socid" value="'.$societe->id.'">';
 		} else {
 			$filter = '((s.fournisseur:=:1) AND (s.status:=:1))';
-			print img_picto('', 'company', 'class="pictofixedwidth"').$form->select_company((empty($socid) ? '' : $socid), 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth175 maxwidth500 widthcentpercentminusxx');
+			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company((empty($socid) ? '' : $socid), 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth175 maxwidth500 widthcentpercentminusxx');
 			// reload page to retrieve customer information
 			if (!getDolGlobalString('RELOAD_PAGE_ON_SUPPLIER_CHANGE_DISABLED')) {
 				print '<script>
@@ -1806,13 +1806,13 @@ if ($action == 'create') {
 
 		// Payment term
 		print '<tr><td class="nowrap">'.$langs->trans('PaymentConditionsShort').'</td><td>';
-		print img_picto('', 'payment', 'class="pictofixedwidth"');
+		print img_picture('', 'payment', 'class="picturefixedwidth"');
 		print $form->getSelectConditionsPaiements((GETPOSTISSET('cond_reglement_id') &&  GETPOST('cond_reglement_id') != 0) ? GETPOST('cond_reglement_id') : $cond_reglement_id, 'cond_reglement_id', -1, 1);
 		print '</td></tr>';
 
 		// Payment mode
 		print '<tr><td>'.$langs->trans('PaymentMode').'</td><td>';
-		print img_picto('', 'bank', 'class="pictofixedwidth"');
+		print img_picture('', 'bank', 'class="picturefixedwidth"');
 		$form->select_types_paiements((GETPOSTISSET('mode_reglement_id') && GETPOSTINT('mode_reglement_id') != 0) ? GETPOST('mode_reglement_id') : $mode_reglement_id, 'mode_reglement_id');
 		print '</td></tr>';
 
@@ -1825,7 +1825,7 @@ if ($action == 'create') {
 		if (getDolGlobalString('SUPPLIER_ORDER_USE_HOUR_FOR_DELIVERY_DATE')) {
 			$usehourmin = 1;
 		}
-		print img_picto('', 'action', 'class="pictofixedwidth"');
+		print img_picture('', 'action', 'class="picturefixedwidth"');
 
 		print $form->selectDate($datelivraison ? $datelivraison : -1, 'liv_', $usehourmin, $usehourmin, 0, "set");
 
@@ -1835,7 +1835,7 @@ if ($action == 'create') {
 		if (getDolGlobalString('BANK_ASK_PAYMENT_BANK_DURING_SUPPLIER_ORDER') && isModEnabled("bank")) {
 			$langs->load("bank");
 			print '<tr><td>'.$langs->trans('BankAccount').'</td><td>';
-			print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+			print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 			$form->select_comptes($fk_account, 'fk_account', 0, '', 1);
 			print '</td></tr>';
 		}
@@ -1846,7 +1846,7 @@ if ($action == 'create') {
 
 			$langs->load('projects');
 			print '<tr><td>'.$langs->trans('Project').'</td><td>';
-			print img_picto('', 'project', 'class="pictofixedwidth"').$formproject->select_projects((!getDolGlobalString('PROJECT_CAN_ALWAYS_LINK_TO_ALL_SUPPLIERS') ? $societe->id : -1), $projectid, 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 0, 'maxwidth500');
+			print img_picture('', 'project', 'class="picturefixedwidth"').$formproject->select_projects((!getDolGlobalString('PROJECT_CAN_ALWAYS_LINK_TO_ALL_SUPPLIERS') ? $societe->id : -1), $projectid, 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 0, 'maxwidth500');
 			print ' &nbsp; <a href="'.DOL_URL_ROOT.'/projet/card.php?action=create&status=1'.(!empty($societe->id) ? '&socid='.$societe->id : "").'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create'.(!empty($societe->id) ? '&socid='.$societe->id : "")).'"><span class="fa fa-plus-circle valignmiddle" title="'.$langs->trans("AddProject").'"></span></a>';
 			print '</td></tr>';
 		}
@@ -1856,9 +1856,9 @@ if ($action == 'create') {
 			$fkincoterms = (!empty($object->fk_incoterms) ? $object->fk_incoterms : ($socid > 0 ? $societe->fk_incoterms : ''));
 			$locincoterms = (!empty($object->location_incoterms) ? $object->location_incoterms : ($socid > 0 ? $societe->location_incoterms : ''));
 			print '<tr>';
-			print '<td><label for="incoterm_id">'.$form->textwithpicto($langs->trans("IncotermLabel"), $object->label_incoterms, 1).'</label></td>';
+			print '<td><label for="incoterm_id">'.$form->textWithPicture($langs->trans("IncotermLabel"), $object->label_incoterms, 1).'</label></td>';
 			print '<td class="maxwidthonsmartphone">';
-			print img_picto('', 'incoterm', 'class="pictofixedwidth"');
+			print img_picture('', 'incoterm', 'class="picturefixedwidth"');
 			print $form->select_incoterms($fkincoterms, $locincoterms);
 			print '</td></tr>';
 		}
@@ -1868,7 +1868,7 @@ if ($action == 'create') {
 			print '<tr>';
 			print '<td>'.$form->editfieldkey('Currency', 'multicurrency_code', '', $object, 0).'</td>';
 			print '<td class="maxwidthonsmartphone">';
-			print img_picto('', 'currency', 'class="pictofixedwidth"');
+			print img_picture('', 'currency', 'class="picturefixedwidth"');
 			print $form->selectMultiCurrency($currency_code, 'multicurrency_code');
 			print '</td></tr>';
 		}
@@ -2178,7 +2178,7 @@ if ($action == 'create') {
 		$langs->load("projects");
 		$morehtmlref .= '<br>';
 		if ($permissiontoadd) {
-			$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify' && $caneditproject) {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 			}
@@ -2219,7 +2219,7 @@ if ($action == 'create') {
 			print '<tr><td class="titlefield">'.$langs->trans("Date").'</td><td>';
 			print $object->date_order ? dol_print_date($object->date_order, $usehourmin ? 'dayhour' : 'day') : '';
 			if ($object->hasDelay() && !empty($object->delivery_date) && !empty($object->date_order)) {
-				print ' '.img_picto($langs->trans("Late").' : '.$object->showDelay(), "warning");
+				print ' '.img_picture($langs->trans("Late").' : '.$object->showDelay(), "warning");
 			}
 			print "</td></tr>";
 
@@ -2315,7 +2315,7 @@ if ($action == 'create') {
 
 		// Delivery delay (in days)
 		print '<tr>';
-		print '<td>'.$langs->trans('NbDaysToDelivery').'&nbsp;'.img_picto($langs->trans('DescNbDaysToDelivery'), 'info', 'style="cursor:help"').'</td>';
+		print '<td>'.$langs->trans('NbDaysToDelivery').'&nbsp;'.img_picture($langs->trans('DescNbDaysToDelivery'), 'info', 'style="cursor:help"').'</td>';
 		print '<td>'.$object->getMaxDeliveryTimeDay($langs).'</td>';
 		print '</tr>';
 
@@ -2347,7 +2347,7 @@ if ($action == 'create') {
 			}
 			print $object->delivery_date ? dol_print_date($object->delivery_date, $usehourmin) : '&nbsp;';
 			if ($object->hasDelay() && !empty($object->delivery_date) && ($object->statut == $object::STATUS_ORDERSENT || $object->statut == $object::STATUS_RECEIVED_PARTIALLY)) {
-				print ' '.img_picto($langs->trans("Late").' : '.$object->showDelay(), "warning");
+				print ' '.img_picture($langs->trans("Late").' : '.$object->showDelay(), "warning");
 			}
 		}
 		print '</td></tr>';
@@ -2367,7 +2367,7 @@ if ($action == 'create') {
 			print '</td>';
 			print '<td>';
 			if ($action != 'editincoterm') {
-				print $form->textwithpicto(dol_escape_htmltag($object->display_incoterms()), $object->label_incoterms, 1);
+				print $form->textWithPicture(dol_escape_htmltag($object->display_incoterms()), $object->label_incoterms, 1);
 			} else {
 				print $form->select_incoterms((!empty($object->fk_incoterms) ? $object->fk_incoterms : ''), (!empty($object->location_incoterms) ? $object->location_incoterms : ''), $_SERVER['PHP_SELF'].'?id='.$object->id);
 			}

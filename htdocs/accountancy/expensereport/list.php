@@ -374,7 +374,7 @@ if ($result) {
 	}
 
 	$arrayofmassactions = array(
-		'ventil' => img_picto('', 'check', 'class="pictofixedwidth"').$langs->trans("Ventilate")
+		'ventil' => img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("Ventilate")
 	);
 	$massactionbutton = '';
 	if ($massaction !== 'set_default_account') {
@@ -427,8 +427,8 @@ if ($result) {
 	print '<td class="liste_titre"></td>';
 	print '<td class="liste_titre"></td>';
 	print '<td class="center liste_titre">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 	print '</tr>';
 
@@ -446,11 +446,11 @@ if ($result) {
 	print_liste_field_titre("VATRate", $_SERVER["PHP_SELF"], "erd.tva_tx", "", $param, '', $sortfield, $sortorder, 'right ');
 	print_liste_field_titre("DataUsedToSuggestAccount", '', '', '', '', '', '', '', 'nowraponall ');
 	print_liste_field_titre("AccountAccountingSuggest", '', '', '', '', '', '', '', '');
-	$checkpicto = '';
+	$checkPicture = '';
 	if ($massactionbutton) {
-		$checkpicto = $form->showCheckAddButtons('checkforselect', 1);
+		$checkPicture = $form->showCheckAddButtons('checkforselect', 1);
 	}
-	print_liste_field_titre($checkpicto, '', '', '', '', '', '', '', 'center ');
+	print_liste_field_titre($checkPicture, '', '', '', '', '', '', '', 'center ');
 	print "</tr>\n";
 
 

@@ -416,7 +416,7 @@ if ($res > 0 && $object->product) {
 }
 // Part to create
 if ($action == 'create') {
-	print load_fiche_titre($langs->trans("Batch"), '', 'object_'.$object->picto);
+	print load_fiche_titre($langs->trans("Batch"), '', 'object_'.$object->picture);
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -455,7 +455,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	$res = $object->fetch_optionals();
 
 	$head = productlot_prepare_head($object);
-	print dol_get_fiche_head($head, 'card', $langs->trans("Batch"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'card', $langs->trans("Batch"), -1, $object->picture);
 
 	$formconfirm = '';
 
@@ -558,9 +558,9 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	print dol_get_fiche_end();
 
 	// Link to other lists
-	print '<a href="'.DOL_URL_ROOT.'/product/reassortlot.php?sref='.urlencode($producttmp->ref).'&search_batch='.urlencode($object->batch).'">'.img_object('', 'stock', 'class="pictofixedwidth"').$langs->trans("ShowCurrentStockOfLot").'</a><br>';
+	print '<a href="'.DOL_URL_ROOT.'/product/reassortlot.php?sref='.urlencode($producttmp->ref).'&search_batch='.urlencode($object->batch).'">'.img_object('', 'stock', 'class="picturefixedwidth"').$langs->trans("ShowCurrentStockOfLot").'</a><br>';
 	print '<br>';
-	print '<a href="'.DOL_URL_ROOT.'/product/stock/movement_list.php?search_product_ref='.urlencode($producttmp->ref).'&search_batch='.urlencode($object->batch).'">'.img_object('', 'movement', 'class="pictofixedwidth"').$langs->trans("ShowLogOfMovementIfLot").'</a><br>';
+	print '<a href="'.DOL_URL_ROOT.'/product/stock/movement_list.php?search_product_ref='.urlencode($producttmp->ref).'&search_batch='.urlencode($object->batch).'">'.img_object('', 'movement', 'class="picturefixedwidth"').$langs->trans("ShowLogOfMovementIfLot").'</a><br>';
 
 	print '<br>';
 

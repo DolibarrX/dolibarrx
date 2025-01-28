@@ -232,10 +232,10 @@ if (function_exists("ldap_connect")) {
 			$result3 = $ldap->delete($dn); // Clean what we did
 
 			if ($result2 > 0) {
-				print img_picto('', 'info').' ';
+				print img_picture('', 'info').' ';
 				print '<span class="ok">'.$langs->trans("LDAPSynchroOK").'</span><br>';
 			} else {
-				print img_picto('', 'error').' ';
+				print img_picture('', 'error').' ';
 				print '<span class="error">'.$langs->trans("LDAPSynchroKOMayBePermissions");
 				print ': '.$ldap->error;
 				print '</span><br>';
@@ -247,7 +247,7 @@ if (function_exists("ldap_connect")) {
 			print nl2br($ldap->dumpContent($dn, $info));
 			print "\n<br>";
 		} else {
-			print img_picto('', 'error').' ';
+			print img_picture('', 'error').' ';
 			print '<span class="error">'.$langs->trans("LDAPSynchroKO");
 			print ': '.$ldap->error;
 			print '</span><br>';

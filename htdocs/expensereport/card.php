@@ -1496,7 +1496,7 @@ if ($action == 'create') {
 			$defaultselectuser = GETPOSTINT('fk_user_validator');
 		}
 		$s = $form->select_dolusers($defaultselectuser, "fk_user_validator", 1, "", ((empty($defaultselectuser) || !getDolGlobalString('EXPENSEREPORT_DEFAULT_VALIDATOR_UNCHANGEABLE')) ? 0 : 1), $include_users);
-		print $form->textwithpicto($s, $langs->trans("AnyOtherInThisListCanValidate"));
+		print $form->textWithPicture($s, $langs->trans("AnyOtherInThisListCanValidate"));
 	}
 	print '</td>';
 	print '</tr>';
@@ -1635,7 +1635,7 @@ if ($action == 'create') {
 				print '<td>';
 				$include_users = $object->fetch_users_approver_expensereport();
 				$s = $form->select_dolusers($object->fk_user_validator, "fk_user_validator", 1, "", 0, $include_users);
-				print $form->textwithpicto($s, $langs->trans("AnyOtherInThisListCanValidate"));
+				print $form->textWithPicture($s, $langs->trans("AnyOtherInThisListCanValidate"));
 				print '</td>';
 				print '</tr>';
 			} else {
@@ -2339,11 +2339,11 @@ if ($action == 'create') {
 
 						print '<td colspan="'.($colspan - 1).'" class="liste_titre"> ';
 						print '<a href="" class="commonlink auploadnewfilenow reposition">'.$langs->trans("UploadANewFileNow");
-						print img_picto($langs->trans("UploadANewFileNow"), 'chevron-down', '', 0, 0, 0, '', 'marginleftonly');
+						print img_picture($langs->trans("UploadANewFileNow"), 'chevron-down', '', 0, 0, 0, '', 'marginleftonly');
 						print '</a>';
 						if (!getDolGlobalString('EXPENSEREPORT_DISABLE_ATTACHMENT_ON_LINES')) {
 							print ' &nbsp; - &nbsp; <a href="" class="commonlink aattachtodoc reposition">'.$langs->trans("AttachTheNewLineToTheDocument");
-							print img_picto($langs->trans("AttachTheNewLineToTheDocument"), 'chevron-down', '', 0, 0, 0, '', 'marginleftonly');
+							print img_picture($langs->trans("AttachTheNewLineToTheDocument"), 'chevron-down', '', 0, 0, 0, '', 'marginleftonly');
 							print '</a>';
 						}
 
@@ -2494,11 +2494,11 @@ if ($action == 'create') {
 				print '<tr class="liste_titre">';
 				print '<td colspan="'.$colspan.'" class="liste_titre expensereportautoload">';
 				print '<a href="" class="commonlink auploadnewfilenow reposition">'.$langs->trans("UploadANewFileNow");
-				print img_picto($langs->trans("UploadANewFileNow"), 'chevron-down', '', 0, 0, 0, '', 'marginleftonly');
+				print img_picture($langs->trans("UploadANewFileNow"), 'chevron-down', '', 0, 0, 0, '', 'marginleftonly');
 				print '</a>';
 				if (!getDolGlobalString('EXPENSEREPORT_DISABLE_ATTACHMENT_ON_LINES')) {
 					print ' &nbsp; - &nbsp; <a href="" class="commonlink aattachtodoc reposition">'.$langs->trans("AttachTheNewLineToTheDocument");
-					print img_picto($langs->trans("AttachTheNewLineToTheDocument"), 'chevron-down', '', 0, 0, 0, '', 'marginleftonly');
+					print img_picture($langs->trans("AttachTheNewLineToTheDocument"), 'chevron-down', '', 0, 0, 0, '', 'marginleftonly');
 					print '</a>';
 				}
 
@@ -2552,7 +2552,7 @@ if ($action == 'create') {
 				print '<td></td>';
 				print '<td class="center expensereportcreatedate">'.$langs->trans('Date').'</td>';
 				if (isModEnabled('project')) {
-					print '<td class="minwidth100imp">'.$form->textwithpicto($langs->trans('Project'), $langs->trans("ClosedProjectsAreHidden")).'</td>';
+					print '<td class="minwidth100imp">'.$form->textWithPicture($langs->trans('Project'), $langs->trans("ClosedProjectsAreHidden")).'</td>';
 				}
 				print '<td class="center expensereportcreatetype">'.$langs->trans('Type').'</td>';
 				if (getDolGlobalString('MAIN_USE_EXPENSE_IK')) {

@@ -149,7 +149,7 @@ if ($massaction == 'presetsupervisor') {
 	$formquestion = array();
 
 	$valuefield = '<div style="display: flex; align-items: center; justify-content: flex-end; padding-right: 150px">';
-	$valuefield .= img_picto('', 'user').' ';
+	$valuefield .= img_picture('', 'user').' ';
 	$valuefield .= $form->select_dolusers('', 'supervisortoset', 1, $arrayofselected, 0, '', 0, $object->entity, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 	$valuefield .= '</div>';
 
@@ -167,7 +167,7 @@ if ($massaction == 'preaffectuser') {
 	$formquestion = array();
 
 	$valuefielduser = '<div style="display: flex; align-items: center; justify-content: flex-end; padding-right: 165px; padding-bottom: 6px; gap: 5px">';
-	$valuefielduser .= img_picto('', 'user').' ';
+	$valuefielduser .= img_picture('', 'user').' ';
 	$valuefielduser .= $form->select_dolusers('', 'usertoaffect', 1, $arrayofselected, 0, '', 0, $object->entity, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 	$valuefielduser .= '</div>';
 

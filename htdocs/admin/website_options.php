@@ -136,7 +136,7 @@ print '</tr>';
 
 print '<tr class="oddeven">';
 print '<td>';
-print $form->textwithpicto($langs->trans('WEBSITE_USE_WEBSITE_ACCOUNTS'), $langs->trans('WEBSITE_USE_WEBSITE_ACCOUNTSTooltip'));
+print $form->textWithPicture($langs->trans('WEBSITE_USE_WEBSITE_ACCOUNTS'), $langs->trans('WEBSITE_USE_WEBSITE_ACCOUNTSTooltip'));
 print '</td>';
 print '<td align="center" width="20">&nbsp;</td>';
 
@@ -145,9 +145,9 @@ if (!empty($config->use_javascript_ajax)) {
 	print ajax_constantonoff('WEBSITE_USE_WEBSITE_ACCOUNTS');
 } else {
 	if (!getDolGlobalString('WEBSITE_USE_WEBSITE_ACCOUNTS')) {
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_WEBSITE_USE_WEBSITE_ACCOUNTS&token='.newToken().'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_WEBSITE_USE_WEBSITE_ACCOUNTS&token='.newToken().'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 	} else {
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_WEBSITE_USE_WEBSITE_ACCOUNTS&token='.newToken().'">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_WEBSITE_USE_WEBSITE_ACCOUNTS&token='.newToken().'">'.img_picture($langs->trans("Enabled"), 'on').'</a>';
 	}
 }
 print '</td></tr>';

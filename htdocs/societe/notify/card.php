@@ -281,7 +281,7 @@ if ($result > 0) {
 	$newcardbutton = '';
 	$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', $_SERVER["PHP_SELF"].'?socid='.$object->id.'&action=create&backtopage='.urlencode($_SERVER['PHP_SELF']), '', $user->hasRight("societe", "creer"));
 
-	$titlelist = $form->textwithpicto($langs->trans("ListOfActiveNotifications"), $langs->trans("ListOfActiveNotificationsHelp", $langs->transnoentitiesnoconv("Target"), $langs->transnoentitiesnoconv("Event")));
+	$titlelist = $form->textWithPicture($langs->trans("ListOfActiveNotifications"), $langs->trans("ListOfActiveNotificationsHelp", $langs->transnoentitiesnoconv("Target"), $langs->transnoentitiesnoconv("Event")));
 
 	$num = $nbtotalofrecords;
 
@@ -329,11 +329,11 @@ if ($result > 0) {
 
 			print '<tr class="oddeven nohover">';
 			print '<td class="nowraponall">';
-			print img_picto('', 'contact', '', 0, 0, 0, '', 'paddingright');
+			print img_picture('', 'contact', '', 0, 0, 0, '', 'paddingright');
 			print $form->selectarray("contactid", $newlistofemails, '', 1, 0, 0, '', 0, 0, 0, '', 'minwidth100imp maxwidthonsmartphone');
 			print '</td>';
 			print '<td class="tdoverflowmax200">';
-			print img_picto('', 'object_action', '', 0, 0, 0, '', 'paddingright');
+			print img_picture('', 'object_action', '', 0, 0, 0, '', 'paddingright');
 			print $form->selectarray("actionid", $actions, '', 1, 0, 0, '', 0, 0, 0, '', 'minwidth100imp maxwidthonsmartphone');
 			print '</td>';
 			print '<td>';
@@ -378,7 +378,7 @@ if ($result > 0) {
 
 				$label = ($langs->trans("Notify_".$obj->code) != "Notify_".$obj->code ? $langs->trans("Notify_".$obj->code) : $obj->label);
 				print '<td class="tdoverflowmax200" title="'.dol_escape_htmltag($label).'">';
-				print img_picto('', 'object_action', '', 0, 0, 0, '', 'pictofixedwidth').$label;
+				print img_picture('', 'object_action', '', 0, 0, 0, '', 'picturefixedwidth').$label;
 				print '</td>';
 				print '<td>';
 				if ($obj->type == 'email') {
@@ -457,7 +457,7 @@ if ($result > 0) {
 	print '<input type="hidden" name="page" value="'.$page.'">';
 	print '<input type="hidden" name="socid" value="'.$object->id.'">';
 
-	$titlelist = $form->textwithpicto($langs->trans("ListOfNotificationsDone"), $langs->trans("ListOfNotificationsDoneHelp"));
+	$titlelist = $form->textWithPicture($langs->trans("ListOfNotificationsDone"), $langs->trans("ListOfNotificationsDoneHelp"));
 
 	// List of active notifications  @phan-suppress-next-line PhanPluginSuspiciousParamOrder
 	print_barre_liste($titlelist, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, '', $num, empty($nbtotalofrecords) ? -1 : $nbtotalofrecords, 'email', 0, '', '', $limit, '');

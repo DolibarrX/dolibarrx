@@ -291,24 +291,24 @@ if (function_exists("ldap_connect")) {
 		$result = $ldap->connectBind();
 		if ($result > 0) {
 			// Test ldap connect and bind
-			print img_picto('', 'info').' ';
+			print img_picture('', 'info').' ';
 			print '<span class="ok">'.$langs->trans("LDAPTCPConnectOK", $ldap->connectedServer, getDolGlobalString('LDAP_SERVER_PORT')).'</span>';
 			print '<br>';
 
 			if (getDolGlobalString('LDAP_ADMIN_DN') && getDolGlobalString('LDAP_ADMIN_PASS')) {
 				if ($result == 2) {
-					print img_picto('', 'info').' ';
+					print img_picture('', 'info').' ';
 					print '<span class="ok">'.$langs->trans("LDAPBindOK", $ldap->connectedServer, getDolGlobalString('LDAP_SERVER_PORT'), getDolGlobalString('LDAP_ADMIN_DN'), preg_replace('/./i', '*', $config->global->LDAP_ADMIN_PASS)).'</span>';
 					print '<br>';
 				} else {
-					print img_picto('', 'error').' ';
+					print img_picture('', 'error').' ';
 					print '<span class="error">'.$langs->trans("LDAPBindKO", $ldap->connectedServer, getDolGlobalString('LDAP_SERVER_PORT'), getDolGlobalString('LDAP_ADMIN_DN'), preg_replace('/./i', '*', $config->global->LDAP_ADMIN_PASS)).'</span>';
 					print '<br>';
 					print $langs->trans("Error").' '.$ldap->error;
 					print '<br>';
 				}
 			} else {
-				print img_picto('', 'warning').' ';
+				print img_picture('', 'warning').' ';
 				print '<span class="warning">'.$langs->trans("LDAPNoUserOrPasswordProvidedAccessIsReadOnly").'</span>';
 				print '<br>';
 			}
@@ -316,18 +316,18 @@ if (function_exists("ldap_connect")) {
 
 			// Test ldap_getversion
 			if (($ldap->getVersion() == 3)) {
-				print img_picto('', 'info').' ';
+				print img_picture('', 'info').' ';
 				print '<span class="ok">'.$langs->trans("LDAPSetupForVersion3").'</span>';
 				print '<br>';
 			} else {
-				print img_picto('', 'info').' ';
+				print img_picture('', 'info').' ';
 				print '<span class="ok">'.$langs->trans("LDAPSetupForVersion2").'</span>';
 				print '<br>';
 			}
 
 			$ldap->unbind();
 		} else {
-			print img_picto('', 'error').' ';
+			print img_picture('', 'error').' ';
 			print '<span class="error">'.$langs->trans("LDAPTCPConnectKO", $ldap->connectedServer, getDolGlobalString('LDAP_SERVER_PORT')).'</span>';
 			print '<br>';
 			print $langs->trans("Error").' '.$ldap->error;

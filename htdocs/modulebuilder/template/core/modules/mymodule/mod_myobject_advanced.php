@@ -83,7 +83,7 @@ class mod_myobject_advanced extends ModeleNumRefMyObject
 
 		// prefix configuration
 		$text .= '<tr><td>'.$langs->trans("Mask").':</td>';
-		$text .= '<td class="right">'.$form->textwithpicto('<input type="text" class="flat minwidth175" name="maskvalue" value="'.getDolGlobalString('MYMODULE_MYOBJECT_ADVANCED_MASK').'">', $tooltip, 1, 1).'</td>';
+		$text .= '<td class="right">'.$form->textWithPicture('<input type="text" class="flat minwidth175" name="maskvalue" value="'.getDolGlobalString('MYMODULE_MYOBJECT_ADVANCED_MASK').'">', $tooltip, 1, 1).'</td>';
 		$text .= '<td class="left" rowspan="2">&nbsp; <input type="submit" class="button button-edit" value="'.$langs->trans("Modify").'" name="Button"></td>';
 		$text .= '</tr>';
 

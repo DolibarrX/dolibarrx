@@ -527,7 +527,7 @@ $extrafields->fetch_name_optionals_label($object->table_element); // fetch optio
 llxHeaderVierge($langs->trans("NewSubscription"));
 
 print '<br>';
-print load_fiche_titre(img_picto('', 'member_nocolor', 'class="pictofixedwidth"').' &nbsp; '.$langs->trans("NewSubscription"), '', '', 0, '', 'center');
+print load_fiche_titre(img_picture('', 'member_nocolor', 'class="picturefixedwidth"').' &nbsp; '.$langs->trans("NewSubscription"), '', '', 0, '', 'center');
 
 
 print '<div align="center">';
@@ -625,7 +625,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 
 	// Company   // TODO : optional hide
 	print '<tr id="trcompany" class="trcompany"><td>'.$langs->trans("Company").'</td><td>';
-	print img_picto('', 'company', 'class="pictofixedwidth paddingright"');
+	print img_picture('', 'company', 'class="picturefixedwidth paddingright"');
 	print '<input type="text" name="societe" class="minwidth150 widthcentpercentminusx" value="'.dol_escape_htmltag(GETPOST('societe')).'"></td></tr>'."\n";
 
 	// Title
@@ -642,7 +642,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 
 	// EMail
 	print '<tr><td class="'.(getDolGlobalString("ADHERENT_MAIL_REQUIRED") ? 'classfortooltip' : '').'" title="'.dol_escape_htmltag($messagemandatory).'">'.$langs->trans("Email").(getDolGlobalString("ADHERENT_MAIL_REQUIRED") ? ' <span class="star">*</span>' : '').'</td><td>';
-	//print img_picto('', 'email', 'class="pictofixedwidth"');
+	//print img_picture('', 'email', 'class="picturefixedwidth"');
 	print '<input type="email" name="email" maxlength="255" class="minwidth200" value="'.dol_escape_htmltag(GETPOST('email', "aZ09arobase")).'"></td></tr>'."\n";
 
 	// Login
@@ -672,7 +672,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 
 	// Country
 	print '<tr><td>'.$langs->trans('Country').'</td><td>';
-	print img_picto('', 'country', 'class="pictofixedwidth paddingright"');
+	print img_picture('', 'country', 'class="picturefixedwidth paddingright"');
 	$country_id = GETPOSTINT('country_id');
 	if (!$country_id && getDolGlobalString('MEMBER_NEWFORM_FORCECOUNTRYCODE')) {
 		$country_id = getCountry($config->global->MEMBER_NEWFORM_FORCECOUNTRYCODE, '2', $db, $langs);
@@ -696,7 +696,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 	if (!getDolGlobalString('SOCIETE_DISABLE_STATE')) {
 		print '<tr><td>'.$langs->trans('State').'</td><td>';
 		if ($country_code) {
-			print img_picto('', 'state', 'class="pictofixedwidth paddingright"');
+			print img_picture('', 'state', 'class="picturefixedwidth paddingright"');
 			print $formcompany->select_state(GETPOST("state_id"), $country_code);
 		}
 		print '</td></tr>';
@@ -714,7 +714,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 	if (getDolGlobalString('MEMBER_PUBLIC_ENABLED')) {
 		$linkofpubliclist = DOL_MAIN_URL_ROOT.'/public/members/public_list.php'.((isModEnabled('multicompany')) ? '?entity='.$config->entity : '');
 		$publiclabel = $langs->trans("Public", getDolGlobalString('MAIN_INFO_SOCIETE_NOM'), $linkofpubliclist);
-		print '<tr><td>'.$form->textwithpicto($langs->trans("MembershipPublic"), $publiclabel).'</td><td><input type="checkbox" name="public"></td></tr>'."\n";
+		print '<tr><td>'.$form->textWithPicture($langs->trans("MembershipPublic"), $publiclabel).'</td><td><input type="checkbox" name="public"></td></tr>'."\n";
 	}
 
 	// Other attributes
@@ -831,7 +831,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 		print '</span>';
 		print '<span class="nowrap inline-block">';
 		print '<img class="inline-block valignmiddle" src="'.DOL_URL_ROOT.'/core/antispamimage.php" border="0" width="80" height="32" id="img_securitycode" />';
-		print '<a class="inline-block valignmiddle" href="'.$php_self.'" tabindex="4" data-role="button">'.img_picto($langs->trans("Refresh"), 'refresh', 'id="captcha_refresh_img"').'</a>';
+		print '<a class="inline-block valignmiddle" href="'.$php_self.'" tabindex="4" data-role="button">'.img_picture($langs->trans("Refresh"), 'refresh', 'id="captcha_refresh_img"').'</a>';
 		print '</span>';
 		print '</td></tr>';
 	}
@@ -934,7 +934,7 @@ if (getDolGlobalString('MEMBER_SKIP_TABLE') || getDolGlobalString('MEMBER_NEWFOR
 					print price($displayedamount, 1, $langs, 1, 0, -1, $config->currency);
 				}
 				if ($caneditamount && $displayedamount > 0) {
-					print $form->textwithpicto('', $langs->transnoentities("CanEditAmountShortForValues"), 1, 'help', '', 0, 3);
+					print $form->textWithPicture('', $langs->transnoentities("CanEditAmountShortForValues"), 1, 'help', '', 0, 3);
 				} elseif ($caneditamount) {
 					print $langs->transnoentities("CanEditAmountShort");
 				}

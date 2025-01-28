@@ -112,12 +112,12 @@ $enabledisablehtml = $langs->trans("EnablePublicRecruitmentPages").' ';
 if (!getDolGlobalString('RECRUITMENT_ENABLE_PUBLIC_INTERFACE')) {
 	// Button off, click to enable
 	$enabledisablehtml .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?action=setRECRUITMENT_ENABLE_PUBLIC_INTERFACE&token='.newToken().'&value=1'.$param.'">';
-	$enabledisablehtml .= img_picto($langs->trans("Disabled"), 'switch_off');
+	$enabledisablehtml .= img_picture($langs->trans("Disabled"), 'switch_off');
 	$enabledisablehtml .= '</a>';
 } else {
 	// Button on, click to disable
 	$enabledisablehtml .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?action=setRECRUITMENT_ENABLE_PUBLIC_INTERFACE&token='.newToken().'&value=0'.$param.'">';
-	$enabledisablehtml .= img_picto($langs->trans("Activated"), 'switch_on');
+	$enabledisablehtml .= img_picture($langs->trans("Activated"), 'switch_on');
 	$enabledisablehtml .= '</a>';
 }
 print $enabledisablehtml;
@@ -153,7 +153,7 @@ print '</form>';
 if (getDolGlobalString('RECRUITMENT_ENABLE_PUBLIC_INTERFACE')) {
 	print '<br>';
 	//print $langs->trans('FollowingLinksArePublic').'<br>';
-	print img_picto('', 'globe').' <span class="opacitymedium">'.$langs->trans('BlankSubscriptionForm').'</span><br>';
+	print img_picture('', 'globe').' <span class="opacitymedium">'.$langs->trans('BlankSubscriptionForm').'</span><br>';
 	if (isModEnabled('multicompany')) {
 		$entity_qr = '?entity='.$config->entity;
 	} else {
@@ -167,7 +167,7 @@ if (getDolGlobalString('RECRUITMENT_ENABLE_PUBLIC_INTERFACE')) {
 
 	print '<div class="urllink">';
 	print '<input type="text" id="publicurlmember" class="quatrevingtpercentminusx" value="'.$urlwithroot.'/public/recruitment/index.php'.$entity_qr.'">';
-	print '<a target="_blank" rel="noopener noreferrer" href="'.$urlwithroot.'/public/recruitment/index.php'.$entity_qr.'">'.img_picto('', 'globe', 'class="paddingleft"').'</a>';
+	print '<a target="_blank" rel="noopener noreferrer" href="'.$urlwithroot.'/public/recruitment/index.php'.$entity_qr.'">'.img_picture('', 'globe', 'class="paddingleft"').'</a>';
 	print '</div>';
 	print ajax_autoselect('publicurlmember');
 }

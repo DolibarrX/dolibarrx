@@ -331,12 +331,12 @@ if ($action == 'create') {
 
 			print '<table class="border centpercent tableforfield">';
 
-			// Name (already in dol_banner, we keep it to have the GlobalGroup picto, but we should move it in dol_banner)
+			// Name (already in dol_banner, we keep it to have the GlobalGroup picture, but we should move it in dol_banner)
 			if (isModEnabled('multicompany')) {
 				print '<tr><td class="titlefield">'.$langs->trans("Name").'</td>';
 				print '<td class="valeur">'.dol_escape_htmltag($object->name);
 				if (empty($object->entity)) {
-					print img_picto($langs->trans("GlobalGroup"), 'redstar');
+					print img_picture($langs->trans("GlobalGroup"), 'redstar');
 				}
 				print "</td></tr>\n";
 			}
@@ -448,9 +448,9 @@ if ($action == 'create') {
 						print '<td class="tdoverflowmax150">';
 						print $useringroup->getNomUrl(-1, '', 0, 0, 24, 0, 'login');
 						if (isModEnabled('multicompany') && $useringroup->admin && empty($useringroup->entity)) {
-							print img_picto($langs->trans("SuperAdministratorDesc"), 'redstar');
+							print img_picture($langs->trans("SuperAdministratorDesc"), 'redstar');
 						} elseif ($useringroup->admin) {
-							print img_picto($langs->trans("AdministratorDesc"), 'star');
+							print img_picture($langs->trans("AdministratorDesc"), 'star');
 						}
 						print '</td>';
 						print '<td>'.$useringroup->lastname.'</td>';
@@ -459,7 +459,7 @@ if ($action == 'create') {
 						print '<td class="right">';
 						if (!empty($user->admin)) {
 							print '<a href="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'&action=removeuser&token='.newToken().'&user='.$useringroup->id.'">';
-							print img_picto($langs->trans("RemoveFromGroup"), 'unlink');
+							print img_picture($langs->trans("RemoveFromGroup"), 'unlink');
 							print '</a>';
 						} else {
 							print "-";

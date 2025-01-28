@@ -39,7 +39,7 @@ class mailing_mailing_mymodule_selector1 extends MailingTargets
 	/**
 	 * @var string 	String with the name of icon for myobject. Can be an image filename like 'object_myobject.png' of a font awesome code 'fa-...'.
 	 */
-	public $picto = 'generic';
+	public $picture = 'generic';
 
 	/**
 	 * @var DoliDB Database handler.

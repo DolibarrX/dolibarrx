@@ -41,7 +41,7 @@ class modCaptchaStandard extends ModeleCaptcha
 	/**
 	 * @var string
 	 */
-	public $picto = 'fa-shield-alt';
+	public $picture = 'fa-shield-alt';
 
 	/**
 	 *	Constructor
@@ -123,7 +123,7 @@ class modCaptchaStandard extends ModeleCaptcha
 		</span>
 		<span class="nowrap inline-block">
 		<img class="inline-block valignmiddle" src="'.DOL_URL_ROOT.'/core/antispamimage.php" border="0" width="80" height="32" id="img_securitycode" />
-		<a class="inline-block valignmiddle" href="'.$php_self.'" tabindex="4" data-role="button" onclick="submitFormFromCaptcha(event)">'.img_picto($langs->trans("Refresh"), 'refresh', 'id="captcha_refresh_img"').'</a>
+		<a class="inline-block valignmiddle" href="'.$php_self.'" tabindex="4" data-role="button" onclick="submitFormFromCaptcha(event)">'.img_picture($langs->trans("Refresh"), 'refresh', 'id="captcha_refresh_img"').'</a>
 		</span>
 
 		</div>

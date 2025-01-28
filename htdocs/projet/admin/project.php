@@ -365,9 +365,9 @@ foreach ($dirmodels as $reldir) {
 
 						print '<td class="center">';
 						if (getDolGlobalString('PROJECT_ADDON') == 'mod_'.$classname) {
-							print img_picto($langs->trans("Activated"), 'switch_on');
+							print img_picture($langs->trans("Activated"), 'switch_on');
 						} else {
-							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value=mod_'.$classname.'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value=mod_'.$classname.'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 						}
 						print '</td>';
 
@@ -388,7 +388,7 @@ foreach ($dirmodels as $reldir) {
 						}
 
 						print '<td class="center">';
-						print $form->textwithpicto('', $htmltooltip, 1, 0);
+						print $form->textWithPicture('', $htmltooltip, 1, 0);
 						print '</td>';
 
 						print '</tr>';
@@ -465,9 +465,9 @@ if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
 
 							print '<td class="center">';
 							if ($config->global->PROJECT_TASK_ADDON == 'mod_'.$classname) {
-								print img_picto($langs->trans("Activated"), 'switch_on');
+								print img_picture($langs->trans("Activated"), 'switch_on');
 							} else {
-								print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmodtask&token='.newToken().'&value=mod_'.$classname.'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+								print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmodtask&token='.newToken().'&value=mod_'.$classname.'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 							}
 							print '</td>';
 
@@ -488,7 +488,7 @@ if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
 							}
 
 							print '<td class="center">';
-							print $form->textwithpicto('', $htmltooltip, 1, 0);
+							print $form->textWithPicture('', $htmltooltip, 1, 0);
 							print '</td>';
 
 							print '</tr>';
@@ -596,21 +596,21 @@ foreach ($dirmodels as $reldir) {
 								if (in_array($name, $def)) {
 									print "<td class=\"center\">\n";
 									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=del&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">';
-									print img_picto($langs->trans("Enabled"), 'switch_on');
+									print img_picture($langs->trans("Enabled"), 'switch_on');
 									print '</a>';
 									print "</td>";
 								} else {
 									print "<td class=\"center\">\n";
-									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 									print "</td>";
 								}
 
 								// Default
 								print "<td class=\"center\">";
 								if (getDolGlobalString('PROJECT_ADDON_PDF') == "$name") {
-									print img_picto($langs->trans("Default"), 'on');
+									print img_picture($langs->trans("Default"), 'on');
 								} else {
-									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+									print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoc&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 								}
 								print '</td>';
 
@@ -624,7 +624,7 @@ foreach ($dirmodels as $reldir) {
 								$htmltooltip .= '<br>'.$langs->trans("Logo").': '.yn($module->option_logo, 1, 1);
 
 								print '<td class="center">';
-								print $form->textwithpicto('', $htmltooltip, 1, 0);
+								print $form->textWithPicture('', $htmltooltip, 1, 0);
 								print '</td>';
 
 								// Preview
@@ -742,21 +742,21 @@ if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
 									if (in_array($name, $def)) {
 										print '<td class="center">'."\n";
 										print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=deltask&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">';
-										print img_picto($langs->trans("Enabled"), 'switch_on');
+										print img_picture($langs->trans("Enabled"), 'switch_on');
 										print '</a>';
 										print "</td>";
 									} else {
 										print '<td class="center">'."\n";
-										print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=settask&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+										print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=settask&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 										print "</td>";
 									}
 
 									// Default
 									print '<td class="center">';
 									if ($config->global->PROJECT_TASK_ADDON_PDF == "$name") {
-										print img_picto($langs->trans("Default"), 'on');
+										print img_picture($langs->trans("Default"), 'on');
 									} else {
-										print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoctask&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+										print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setdoctask&token='.newToken().'&value='.urlencode($name).'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 									}
 									print '</td>';
 
@@ -770,7 +770,7 @@ if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
 									$htmltooltip .= '<br>'.$langs->trans("Logo").': '.yn($module->option_logo, 1, 1);
 
 									print '<td class="center">';
-									print $form->textwithpicto('', $htmltooltip, 1, 0);
+									print $form->textWithPicture('', $htmltooltip, 1, 0);
 									print '</td>';
 
 									// Preview
@@ -839,7 +839,7 @@ print '<td>'.$langs->trans("AllowToSelectProjectFromOtherCompany").'</td>';
 
 print '<td class="right" width="60" colspan="2">';
 print '<input type="text" id="projectToSelect" name="projectToSelect" value="' . getDolGlobalString('PROJECT_ALLOW_TO_LINK_FROM_OTHER_COMPANY').'"/>&nbsp;';
-print $form->textwithpicto('', $langs->trans('AllowToLinkFromOtherCompany'));
+print $form->textWithPicture('', $langs->trans('AllowToLinkFromOtherCompany'));
 print '<input type="submit" class="button small reposition" name="PROJECT_ALLOW_TO_LINK_FROM_OTHER_COMPANY" value="'.$langs->trans("Modify").'">';
 print '</td>';
 print '</tr>';
@@ -847,7 +847,7 @@ print '</tr>';
 $key = 'PROJECT_CLASSIFY_CLOSED_WHEN_ALL_TASKS_DONE';
 echo '<tr class="oddeven">',
 '<td class="left">',
-$form->textwithpicto($langs->transnoentities($key), $langs->transnoentities($key . '_help')),
+$form->textWithPicture($langs->transnoentities($key), $langs->transnoentities($key . '_help')),
 '</td>',
 '<td class="right" colspan="2">',
 ajax_constantonoff($key),
@@ -865,7 +865,7 @@ print '</tr>';
 
 print '<tr class="oddeven">';
 print '<td class="left">';
-print $form->textwithpicto($langs->transnoentities('PROJECT_DISPLAY_LINKED_BY_CONTACT'), $langs->transnoentities('PROJECT_DISPLAY_LINKED_BY_CONTACT_help'));
+print $form->textWithPicture($langs->transnoentities('PROJECT_DISPLAY_LINKED_BY_CONTACT'), $langs->transnoentities('PROJECT_DISPLAY_LINKED_BY_CONTACT_help'));
 print '</td>';
 print '<td class="right" colspan="2">';
 print ajax_constantonoff('PROJECT_DISPLAY_LINKED_BY_CONTACT');

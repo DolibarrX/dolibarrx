@@ -210,7 +210,7 @@ print '</td></tr>';
 if (!getDolGlobalString('TAKEPOS_FORBID_SALES_TO_DEFAULT_CUSTOMER')) {
 	print '<tr class="oddeven"><td class="fieldrequired">'.$langs->trans("CashDeskThirdPartyForSell").'</td>';
 	print '<td>';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	$filter = '((s.client:IN:1,2,3) AND (s.status:=:1))';
 	print $form->select_company(getDolGlobalInt('CASHDESK_ID_THIRDPARTY'.$terminaltouse), 'socid', $filter, 1, 0, 0, array(), 0, 'maxwidth500 widthcentpercentminusx');
 	print '</td></tr>';
@@ -220,7 +220,7 @@ $atleastonefound = 0;
 if (isModEnabled("bank")) {
 	print '<tr class="oddeven"><td>'.$langs->trans("CashDeskBankAccountForSell").'</td>';
 	print '<td>';
-	print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+	print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 	print $form->select_comptes(getDolGlobalInt('CASHDESK_ID_BANKACCOUNT_CASH'.$terminaltouse), 'CASHDESK_ID_BANKACCOUNT_CASH'.$terminaltouse, 0, "courant=2", 1, '', 0, 'maxwidth500 widthcentpercentminusxx', 1);
 	print ' <a href="'.DOL_URL_ROOT.'/compta/bank/card.php?action=create&type=2&backtopage='.urlencode($_SERVER["PHP_SELF"].'?terminal='.$terminal).'"><span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("NewBankAccount").'"></span></a>';
 	if (getDolGlobalInt('CASHDESK_ID_BANKACCOUNT_CASH'.$terminaltouse)) {
@@ -229,7 +229,7 @@ if (isModEnabled("bank")) {
 	print '</td></tr>';
 	print '<tr class="oddeven"><td>'.$langs->trans("CashDeskBankAccountForCheque").'</td>';
 	print '<td>';
-	print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+	print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 	print $form->select_comptes(getDolGlobalInt('CASHDESK_ID_BANKACCOUNT_CHEQUE'.$terminaltouse), 'CASHDESK_ID_BANKACCOUNT_CHEQUE'.$terminaltouse, 0, "courant=1", 1, '', 0, 'maxwidth500 widthcentpercentminusxx', 1);
 	print ' <a href="'.DOL_URL_ROOT.'/compta/bank/card.php?action=create&type=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?terminal='.$terminal).'"><span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("NewBankAccount").'"></span></a>';
 	if (getDolGlobalInt('CASHDESK_ID_BANKACCOUNT_CHEQUE'.$terminaltouse)) {
@@ -238,7 +238,7 @@ if (isModEnabled("bank")) {
 	print '</td></tr>';
 	print '<tr class="oddeven"><td>'.$langs->trans("CashDeskBankAccountForCB").'</td>';
 	print '<td>';
-	print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+	print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 	print $form->select_comptes(getDolGlobalInt('CASHDESK_ID_BANKACCOUNT_CB'.$terminaltouse), 'CASHDESK_ID_BANKACCOUNT_CB'.$terminaltouse, 0, "courant=1", 1, '', 0, 'maxwidth500 widthcentpercentminusxx', 1);
 	print ' <a href="'.DOL_URL_ROOT.'/compta/bank/card.php?action=create&type=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?terminal='.$terminal).'"><span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("NewBankAccount").'"></span></a>';
 	if (getDolGlobalInt('CASHDESK_ID_BANKACCOUNT_CB'.$terminaltouse)) {
@@ -286,7 +286,7 @@ if (isModEnabled("bank")) {
 	if (getDolGlobalInt('TAKEPOS_ENABLE_SUMUP')) {
 		print '<tr class="oddeven"><td>'.$langs->trans("CashDeskBankAccountForSumup").'</td>';
 		print '<td>';
-		print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+		print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 		print $form->select_comptes(getDolGlobalInt('CASHDESK_ID_BANKACCOUNT_SUMUP'.$terminaltouse), 'CASHDESK_ID_BANKACCOUNT_SUMUP'.$terminaltouse, 0, "courant=1", 1, '', 0, 'maxwidth500 widthcentpercentminusxx', 1);
 		print ' <a href="'.DOL_URL_ROOT.'/compta/bank/card.php?action=create&type=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?terminal='.$terminal).'"><span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("NewBankAccount").'"></span></a>';
 		if (getDolGlobalInt('CASHDESK_ID_BANKACCOUNT_SUMUP'.$terminaltouse)) {
@@ -306,7 +306,7 @@ if (isModEnabled("bank")) {
 			$atleastonefound++;
 		}
 		$cour = preg_match('/^LIQ.*/', $modep->code) ? 2 : 1;
-		print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+		print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 		print $form->select_comptes(getDolGlobalInt($name), $name, 0, "courant=".$cour, 1, '', 0, 'maxwidth500 widthcentpercentminusxx', 1);
 		print ' <a href="'.DOL_URL_ROOT.'/compta/bank/card.php?action=create&type=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?terminal='.$terminal).'"><span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("NewBankAccount").'"></span></a>';
 		print '</td></tr>';
@@ -315,7 +315,7 @@ if (isModEnabled("bank")) {
 
 if (isModEnabled('stock')) {
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("CashDeskDoNotDecreaseStock"), $langs->trans("CashDeskDoNotDecreaseStockHelp"));
+	print $form->textWithPicture($langs->trans("CashDeskDoNotDecreaseStock"), $langs->trans("CashDeskDoNotDecreaseStockHelp"));
 	print '</td>'; // Force warehouse (this is not a default value)
 	print '<td>';
 	//print $form->selectyesno('CASHDESK_NO_DECREASE_STOCK'.$terminal, getDolGlobalInt('CASHDESK_NO_DECREASE_STOCK'.$terminal), 1);
@@ -340,7 +340,7 @@ if (isModEnabled('stock')) {
 	print '</td>'; // Force warehouse (this is not a default value)
 	print '<td class="minwidth300">';
 	if (!$disabled) {
-		print img_picto('', 'stock', 'class="pictofixedwidth"');
+		print img_picture('', 'stock', 'class="picturefixedwidth"');
 		print $formproduct->selectWarehouses(getDolGlobalString('CASHDESK_ID_WAREHOUSE'.$terminal), 'CASHDESK_ID_WAREHOUSE'.$terminal, '', 1, $disabled, 0, '', 0, 0, array(), 'maxwidth500 widthcentpercentminusxx');
 		print ' <a href="'.DOL_URL_ROOT.'/product/stock/card.php?action=create&backtopage='.urlencode($_SERVER["PHP_SELF"].'?&terminal='.$terminal).'"><span class="fa fa-plus-circle valignmiddle"></span></a>';
 	} else {
@@ -361,7 +361,7 @@ if (isModEnabled('project')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/class/html.formprojet.class.php';
 	$formproject = new FormProjets($db);
 	print '<tr class="oddeven"><td>'.$langs->trans("CashDeskDefaultProject").'</td><td>';
-	print img_picto('', 'project', 'class="pictofixedwidth"');
+	print img_picture('', 'project', 'class="picturefixedwidth"');
 	// select_projects($socid = -1, $selected = '', $htmlname = 'projectid', $maxlength = 16, $option_only = 0, $show_empty = 1, $discard_closed = 0, $forcefocus = 0, $disabled = 0, $mode = 0, $filterkey = '', $nooutput = 0, $forceaddid = 0, $morecss = '', $htmlid = '', $morefilter = '')
 	$projectid = getDolGlobalInt('CASHDESK_ID_PROJECT'.$terminaltouse);
 	print $formproject->select_projects(-1, $projectid, 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 1, 'maxwidth500 widthcentpercentminusxx');
@@ -514,7 +514,7 @@ print '</tr>';
 // free text on header
 print '<tr class="oddeven">';
 print '<td>';
-print $form->textwithpicto($langs->trans('Header'), $htmltext, 1, 'help', '', 0, 2, 'freetexttooltip').'<br>';
+print $form->textWithPicture($langs->trans('Header'), $htmltext, 1, 'help', '', 0, 2, 'freetexttooltip').'<br>';
 print '</td>';
 print '<td>';
 $variablename = 'TAKEPOS_HEADER'.$terminaltouse;
@@ -530,7 +530,7 @@ print '</td></tr>';
 // free text on footer
 print '<tr class="oddeven">';
 print '<td>';
-print $form->textwithpicto($langs->trans('Footer'), $htmltext, 1, 'help', '', 0, 2, 'freetexttooltip').'<br>';
+print $form->textWithPicture($langs->trans('Footer'), $htmltext, 1, 'help', '', 0, 2, 'freetexttooltip').'<br>';
 print '</td>';
 print '<td>';
 $variablename = 'TAKEPOS_FOOTER'.$terminaltouse;

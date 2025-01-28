@@ -129,9 +129,9 @@ $help_url = 'EN:Module_Double_Entry_Accounting#Setup|FR:Module_Comptabilit&eacut
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-accountancy page-admin_categories');
 
 $linkback = '<a href="'.DOL_URL_ROOT.'/accountancy/admin/categories_list.php?restore_lastsearch_values=1">'.$langs->trans("BackToList").'</a>';
-$titlepicto = 'setup';
+$titlePicture = 'setup';
 
-print load_fiche_titre($langs->trans('AccountingCategory'), $linkback, $titlepicto);
+print load_fiche_titre($langs->trans('AccountingCategory'), $linkback, $titlePicture);
 
 print '<form name="add" action="'.$_SERVER["PHP_SELF"].'" method="POST">'."\n";
 print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -173,7 +173,7 @@ if (!empty($cat_id)) {
 	}
 
 	if (is_array($accountingcategory->lines_cptbk) && count($accountingcategory->lines_cptbk) > 0) {
-		print img_picto($langs->trans("AccountingAccount"), 'accounting_account', 'class="pictofixedwidth"');
+		print img_picture($langs->trans("AccountingAccount"), 'accounting_account', 'class="picturefixedwidth"');
 		print $form->multiselectarray('cpt_bk', $arraykeyvalue, GETPOST('cpt_bk', 'array'), 0, 0, '', 0, "80%", '', '', $langs->transnoentitiesnoconv("AddAccountFromBookKeepingWithNoCategories"));
 		print '<input type="submit" class="button button-add small" id="" class="action-delete" value="'.$langs->trans("Add").'"> ';
 	}
@@ -209,7 +209,7 @@ if ((empty($action) || $action == 'display' || $action == 'delete') && $cat_id >
 				print '<td class="right">';
 				print '<a href="'.$_SERVER['PHP_SELF'].'?action=delete&token='.newToken().'&account_category='.$cat_id.'&cptid='.$cpt->rowid.'">';
 				print $langs->trans("DeleteFromCat");
-				print img_picto($langs->trans("DeleteFromCat"), 'unlink', 'class="paddingleft"');
+				print img_picture($langs->trans("DeleteFromCat"), 'unlink', 'class="paddingleft"');
 				print "</a>";
 				print "</td>";
 				print "</tr>\n";

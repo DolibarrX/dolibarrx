@@ -382,12 +382,12 @@ class Deplacement extends CommonObject
 	}
 
 	/**
-	 *	Return clickable name (with picto eventually)
+	 *	Return clickable name (with picture eventually)
 	 *
-	 *	@param		int		$withpicto		0=No picto, 1=Include picto into link, 2=Only picto
+	 *	@param		int		$withPicture		0=No picture, 1=Include picture into link, 2=Only picture
 	 *	@return		string					Chaine avec URL
 	 */
-	public function getNomUrl($withpicto = 0)
+	public function getNomUrl($withPicture = 0)
 	{
 		global $langs;
 
@@ -397,16 +397,16 @@ class Deplacement extends CommonObject
 		$link = '<a href="'.DOL_URL_ROOT.'/compta/deplacement/card.php?id='.$this->id.'" title="'.dol_escape_htmltag($label, 1).'" class="classfortooltip">';
 		$linkend = '</a>';
 
-		$picto = 'trip';
+		$picture = 'trip';
 
 
-		if ($withpicto) {
-			$result .= ($link.img_object($label, $picto, 'class="classfortooltip"').$linkend);
+		if ($withPicture) {
+			$result .= ($link.img_object($label, $picture, 'class="classfortooltip"').$linkend);
 		}
-		if ($withpicto && $withpicto != 2) {
+		if ($withPicture && $withPicture != 2) {
 			$result .= ' ';
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $link.$this->ref.$linkend;
 		}
 		return $result;

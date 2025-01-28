@@ -48,7 +48,7 @@ class EmailSenderProfile extends CommonObject
 	/**
 	 * @var string String with name of icon for emailsenderprofile
 	 */
-	public $picto = 'emailsenderprofile';
+	public $picture = 'emailsenderprofile';
 
 	/**
 	 * @var int
@@ -280,12 +280,12 @@ class EmailSenderProfile extends CommonObject
 	}
 
 	/**
-	 *  Return a link to the object card (with optionally the picto)
+	 *  Return a link to the object card (with optionally the picture)
 	 *
-	 *	@param	int		$withpicto					Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
+	 *	@param	int		$withPicture					Include picture in link (0=No picture, 1=Include picture into link, 2=Only picture)
 	 *	@return	string								String with URL
 	 */
-	public function getNomUrl($withpicto = 0)
+	public function getNomUrl($withPicture = 0)
 	{
 		global $db, $config, $langs;
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
@@ -302,9 +302,9 @@ class EmailSenderProfile extends CommonObject
 		$linkstart = '';
 		$linkend = '';
 
-		if ($withpicto) {
+		if ($withPicture) {
 			$result .= ($linkstart.img_object($label, 'label', 'class="classfortooltip"').$linkend);
-			if ($withpicto != 2) {
+			if ($withPicture != 2) {
 				$result .= ' ';
 			}
 		}

@@ -60,9 +60,9 @@ class modOpenSurvey extends DolibarrModules
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
-		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto = 'poll';
+		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
+		// If file is in module/img directory under name object_picturevalue.png, use this->picture='picturevalue@module'
+		$this->picture = 'poll';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();
@@ -124,7 +124,7 @@ class modOpenSurvey extends DolibarrModules
 			'fk_menu' => 'fk_mainmenu=tools', // Use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type' => 'left',
 			'titre' => 'Survey',
-			'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth"'),
+			'prefix' => img_picture('', $this->picture, 'class="paddingright picturefixedwidth"'),
 			'mainmenu' => 'tools',
 			'leftmenu' => 'opensurvey',
 			'url' => '/opensurvey/list.php?mainmenu=tools&leftmenu=opensurvey',

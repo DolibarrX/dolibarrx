@@ -117,7 +117,7 @@ if ($object->id) {
 	 */
 	$head = workstationPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'document', $langs->trans("Workstation"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'document', $langs->trans("Workstation"), -1, $object->picture);
 
 
 	// Build file list

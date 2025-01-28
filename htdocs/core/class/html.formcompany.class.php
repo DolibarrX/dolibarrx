@@ -1171,10 +1171,10 @@ class FormCompany extends Form
 
 		if ($mode === "html") {
 			$actioncode = empty($prospectstatic->cacheprospectstatus[$statusprospect]) ? '' : $prospectstatic->cacheprospectstatus[$statusprospect]['code'];
-			$actionpicto = empty($prospectstatic->cacheprospectstatus[$statusprospect]['picto']) ? '' : $prospectstatic->cacheprospectstatus[$statusprospect]['picto'];
+			$actionPicture = empty($prospectstatic->cacheprospectstatus[$statusprospect]['picture']) ? '' : $prospectstatic->cacheprospectstatus[$statusprospect]['picture'];
 
-			//print $prospectstatic->LibProspCommStatut($statusprospect, 2, $prospectstatic->cacheprospectstatus[$statusprospect]['label'], $prospectstatic->cacheprospectstatus[$statusprospect]['picto']);
-			print img_action('', $actioncode, $actionpicto, 'class="inline-block valignmiddle paddingright pictoprospectstatus"');
+			//print $prospectstatic->LibProspCommStatut($statusprospect, 2, $prospectstatic->cacheprospectstatus[$statusprospect]['label'], $prospectstatic->cacheprospectstatus[$statusprospect]['picture']);
+			print img_action('', $actioncode, $actionPicture, 'class="inline-block valignmiddle paddingright pictureprospectstatus"');
 			print '<select class="flat selectprospectstatus maxwidth150" id="'. $htmlname.$idprospect .'" data-socid="'.$idprospect.'" name="' . $htmlname .'"';
 			if (!$user->hasRight('societe', 'creer')) {
 				print ' disabled';
@@ -1189,7 +1189,7 @@ class FormCompany extends Form
 				} else {
 					$label = (($langs->trans("StatusProspect".$val['id']) != "StatusProspect".$val['id']) ? $langs->trans("StatusProspect".$val['id']) : $label);
 				}
-				print '<option value="'.$val['id'].'" data-html="'.dol_escape_htmltag(img_action('', $val['code'], $val['picto']).' '.$label).'" title="'.dol_escape_htmltag($label).'"'.($statusprospect == $val['id'] ? ' selected' : '').'>';
+				print '<option value="'.$val['id'].'" data-html="'.dol_escape_htmltag(img_action('', $val['code'], $val['picture']).' '.$label).'" title="'.dol_escape_htmltag($label).'"'.($statusprospect == $val['id'] ? ' selected' : '').'>';
 				print dol_escape_htmltag($label);
 				print '</option>';
 			}
@@ -1202,7 +1202,7 @@ class FormCompany extends Form
 						console.log("We change a value into a field selectprospectstatus");
 						var statusid = $(this).val();
 						var prospectid = $(this).attr("data-socid");
-						var image = $(this).prev(".pictoprospectstatus");
+						var image = $(this).prev(".pictureprospectstatus");
 						$.ajax({
 							type: "POST",
 							url: \'' . DOL_URL_ROOT . '/core/ajax/ajaxstatusprospect.php\',

@@ -147,7 +147,7 @@ print '<input name="town" class="minwidth100" id="town" value="'.dol_escape_html
 
 // Country
 print '<tr class="oddeven"><td><label for="selectcountry_id">'.$langs->trans("Country").'</label></td><td class="maxwidthonsmartphone">';
-print img_picto('', 'globe-americas', 'class="pictofixedwidth"');
+print img_picture('', 'globe-americas', 'class="picturefixedwidth"');
 print $form->select_country((GETPOSTISSET('country_id') ? GETPOSTINT('country_id') : getDolGlobalString('MAIN_INFO_ACCOUNTANT_COUNTRY')), 'country_id');
 if ($user->admin) {
 	print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);
@@ -156,31 +156,31 @@ print '</td></tr>'."\n";
 
 // State
 print '<tr class="oddeven"><td><label for="state_id">'.$langs->trans("State").'</label></td><td class="maxwidthonsmartphone">';
-print img_picto('', 'state', 'class="pictofixedwidth"');
+print img_picture('', 'state', 'class="picturefixedwidth"');
 print $formcompany->select_state((GETPOSTISSET('state_id') ? GETPOSTINT('state_id') : getDolGlobalString('MAIN_INFO_ACCOUNTANT_STATE')), (GETPOSTISSET('country_id') ? GETPOSTINT('country_id') : getDolGlobalString('MAIN_INFO_ACCOUNTANT_COUNTRY')), 'state_id');
 print '</td></tr>'."\n";
 
 // Telephone
 print '<tr class="oddeven"><td><label for="phone">'.$langs->trans("Phone").'</label></td><td>';
-print img_picto('', 'object_phoning', '', 0, 0, 0, '', 'pictofixedwidth');
+print img_picture('', 'object_phoning', '', 0, 0, 0, '', 'picturefixedwidth');
 print '<input name="phone" id="phone" class="maxwidth150 widthcentpercentminusx" value="'.dol_escape_htmltag(GETPOSTISSET('phone') ? GETPOST('phone', 'alphanohtml') : getDolGlobalString('MAIN_INFO_ACCOUNTANT_PHONE')).'"></td></tr>';
 print '</td></tr>'."\n";
 
 // Fax
 print '<tr class="oddeven"><td><label for="fax">'.$langs->trans("Fax").'</label></td><td>';
-print img_picto('', 'object_phoning_fax', '', 0, 0, 0, '', 'pictofixedwidth');
+print img_picture('', 'object_phoning_fax', '', 0, 0, 0, '', 'picturefixedwidth');
 print '<input name="fax" id="fax" class="maxwidth150 widthcentpercentminusx" value="'.dol_escape_htmltag(GETPOSTISSET('fax') ? GETPOST('fax', 'alphanohtml') : getDolGlobalString('MAIN_INFO_ACCOUNTANT_FAX')).'"></td></tr>';
 print '</td></tr>'."\n";
 
 // eMail
 print '<tr class="oddeven"><td><label for="email">'.$langs->trans("EMail").'</label></td><td>';
-print img_picto('', 'object_email', '', 0, 0, 0, '', 'pictofixedwidth');
+print img_picture('', 'object_email', '', 0, 0, 0, '', 'picturefixedwidth');
 print '<input name="mail" id="email" class="maxwidth300 widthcentpercentminusx" value="'.dol_escape_htmltag(GETPOSTISSET('mail') ? GETPOST('mail', 'alphanohtml') : getDolGlobalString('MAIN_INFO_ACCOUNTANT_MAIL')).'"></td></tr>';
 print '</td></tr>'."\n";
 
 // Web
 print '<tr class="oddeven"><td><label for="web">'.$langs->trans("Web").'</label></td><td>';
-print img_picto('', 'globe', '', 0, 0, 0, '', 'pictofixedwidth');
+print img_picture('', 'globe', '', 0, 0, 0, '', 'picturefixedwidth');
 print '<input name="web" id="web" class="maxwidth300 widthcentpercentminusx" value="'.dol_escape_htmltag(GETPOSTISSET('web') ? GETPOST('web', 'alphanohtml') : getDolGlobalString('MAIN_INFO_ACCOUNTANT_WEB')).'"></td></tr>';
 print '</td></tr>'."\n";
 

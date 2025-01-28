@@ -367,7 +367,7 @@ if (($action == "create") || ($action == "edit")) {
 	print '<input type="text" class="width200" name="module_name" value="'.dol_escape_htmltag($object->module_name).'"> ';
 	print "</td>";
 	print "<td>";
-	print $form->textwithpicto('', $langs->trans("CronModuleHelp"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("CronModuleHelp"), 1, 'help');
 	print "</td>";
 	print "</tr>\n";
 
@@ -376,7 +376,7 @@ if (($action == "create") || ($action == "edit")) {
 	print '<input type="text" class="minwidth300" name="classesname" value="'.dol_escape_htmltag($object->classesname).'"> ';
 	print "</td>";
 	print "<td>";
-	print $form->textwithpicto('', $langs->trans("CronClassFileHelp"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("CronClassFileHelp"), 1, 'help');
 	print "</td>";
 	print "</tr>\n";
 
@@ -385,7 +385,7 @@ if (($action == "create") || ($action == "edit")) {
 	print '<input type="text" class="width200" name="objectname" value="'.dol_escape_htmltag($object->objectname).'"> ';
 	print "</td>";
 	print "<td>";
-	print $form->textwithpicto('', $langs->trans("CronObjectHelp"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("CronObjectHelp"), 1, 'help');
 	print "</td>";
 	print "</tr>\n";
 
@@ -394,7 +394,7 @@ if (($action == "create") || ($action == "edit")) {
 	print '<input type="text" class="minwidth300" name="methodename" value="'.dol_escape_htmltag($object->methodename).'" /> ';
 	print "</td>";
 	print "<td>";
-	print $form->textwithpicto('', $langs->trans("CronMethodHelp"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("CronMethodHelp"), 1, 'help');
 	print "</td>";
 	print "</tr>\n";
 
@@ -403,7 +403,7 @@ if (($action == "create") || ($action == "edit")) {
 	print '<input type="text" class="quatrevingtpercent" name="params" value="'.$object->params.'" /> ';
 	print "</td>";
 	print "<td>";
-	print $form->textwithpicto('', $langs->trans("CronArgsHelp"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("CronArgsHelp"), 1, 'help');
 	print "</td>";
 	print "</tr>\n";
 
@@ -412,7 +412,7 @@ if (($action == "create") || ($action == "edit")) {
 	print '<input type="text" class="minwidth150" name="command" value="'.$object->command.'" /> ';
 	print "</td>";
 	print "<td>";
-	print $form->textwithpicto('', $langs->trans("CronCommandHelp"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("CronCommandHelp"), 1, 'help');
 	print "</td>";
 	print "</tr>\n";
 
@@ -430,7 +430,7 @@ if (($action == "create") || ($action == "edit")) {
 	print '<input type="text" class="minwidth150" name="email_alert" value="'.dol_escape_htmltag($object->email_alert).'" /> ';
 	print "</td>";
 	print "<td>";
-	//print $form->textwithpicto('', $langs->trans("CronCommandHelp"), 1, 'help');
+	//print $form->textWithPicture('', $langs->trans("CronCommandHelp"), 1, 'help');
 	print "</td>";
 	print "</tr>\n";
 
@@ -650,10 +650,10 @@ if (($action == "create") || ($action == "edit")) {
 		print '<tr><td>';
 		print $langs->trans('Entity')."</td><td>";
 		if (empty($object->entity)) {
-			print img_picto($langs->trans("AllEntities"), 'entity', 'class="pictofixedwidth"').$langs->trans("AllEntities");
+			print img_picture($langs->trans("AllEntities"), 'entity', 'class="picturefixedwidth"').$langs->trans("AllEntities");
 		} else {
 			$mc->getInfo($object->entity);
-			print img_picto($langs->trans("AllEntities"), 'entity', 'class="pictofixedwidth"').$mc->label;
+			print img_picture($langs->trans("AllEntities"), 'entity', 'class="picturefixedwidth"').$mc->label;
 		}
 		print "</td></tr>";
 	}
@@ -695,14 +695,14 @@ if (($action == "create") || ($action == "edit")) {
 	print '<tr><td>';
 	print $langs->trans('CronDtStart')."</td><td>";
 	if (!empty($object->datestart)) {
-		print $form->textwithpicto(dol_print_date($object->datestart, 'dayhoursec'), $langs->trans("CurrentTimeZone"));
+		print $form->textWithPicture(dol_print_date($object->datestart, 'dayhoursec'), $langs->trans("CurrentTimeZone"));
 	}
 	print "</td></tr>";
 
 	print "<tr><td>";
 	print $langs->trans('CronDtEnd')."</td><td>";
 	if (!empty($object->dateend)) {
-		print $form->textwithpicto(dol_print_date($object->dateend, 'dayhoursec'), $langs->trans("CurrentTimeZone"));
+		print $form->textWithPicture(dol_print_date($object->dateend, 'dayhoursec'), $langs->trans("CurrentTimeZone"));
 	}
 	print "</td></tr>";
 
@@ -723,10 +723,10 @@ if (($action == "create") || ($action == "edit")) {
 	print ' ('.$langs->trans('CronFrom').')';
 	print "</td><td>";
 	if (!$object->status) {
-		print img_picto('', 'object_calendarday').' <span class="opacitymedium strikefordisabled">'.$form->textwithpicto(dol_print_date($object->datenextrun, 'dayhoursec'), $langs->trans("CurrentTimeZone")).'</span> ';
+		print img_picture('', 'object_calendarday').' <span class="opacitymedium strikefordisabled">'.$form->textWithPicture(dol_print_date($object->datenextrun, 'dayhoursec'), $langs->trans("CurrentTimeZone")).'</span> ';
 		print $langs->trans("Disabled");
 	} elseif (!empty($object->datenextrun)) {
-		print img_picto('', 'object_calendarday').' '.$form->textwithpicto(dol_print_date($object->datenextrun, 'dayhoursec'), $langs->trans("CurrentTimeZone"));
+		print img_picture('', 'object_calendarday').' '.$form->textWithPicture(dol_print_date($object->datenextrun, 'dayhoursec'), $langs->trans("CurrentTimeZone"));
 	} else {
 		print '<span class="opacitymedium">'.$langs->trans('CronNone').'</span>';
 	}
@@ -751,7 +751,7 @@ if (($action == "create") || ($action == "edit")) {
 	print '<tr><td class="titlefieldmiddle">';
 	print $langs->trans('CronDtLastLaunch')."</td><td>";
 	if (!empty($object->datelastrun)) {
-		print $form->textwithpicto(dol_print_date($object->datelastrun, 'dayhoursec'), $langs->trans("CurrentTimeZone"));
+		print $form->textWithPicture(dol_print_date($object->datelastrun, 'dayhoursec'), $langs->trans("CurrentTimeZone"));
 	} else {
 		print '<span class="opacitymedium">'.$langs->trans('CronNotYetRan').'</span>';
 	}
@@ -760,7 +760,7 @@ if (($action == "create") || ($action == "edit")) {
 	print '<tr><td>';
 	print $langs->trans('CronDtLastResult')."</td><td>";
 	if (!empty($object->datelastresult)) {
-		print $form->textwithpicto(dol_print_date($object->datelastresult, 'dayhoursec'), $langs->trans("CurrentTimeZone"));
+		print $form->textWithPicture(dol_print_date($object->datelastresult, 'dayhoursec'), $langs->trans("CurrentTimeZone"));
 	} else {
 		if (empty($object->datelastrun)) {
 			print '<span class="opacitymedium">'.$langs->trans('CronNotYetRan').'</span>';

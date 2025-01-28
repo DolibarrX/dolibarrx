@@ -55,7 +55,7 @@ class Website extends CommonObject
 	/**
 	 * @var string String with name of icon for website. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'globe';
+	public $picture = 'globe';
 
 	/**
 	 * @var int Entity
@@ -885,17 +885,17 @@ class Website extends CommonObject
 	}
 
 	/**
-	 *  Return a link to the user card (with optionally the picto)
+	 *  Return a link to the user card (with optionally the picture)
 	 * 	Use this->id,this->lastname, this->firstname
 	 *
-	 *	@param	int		$withpicto			Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
+	 *	@param	int		$withPicture			Include picture in link (0=No picture, 1=Include picture into link, 2=Only picture)
 	 *	@param	string	$option				On what the link point to
 	 *  @param	integer	$notooltip			1=Disable tooltip
 	 *  @param	int		$maxlen				Max length of visible user name
 	 *  @param  string  $morecss            Add more css on link
 	 *	@return	string						String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $maxlen = 24, $morecss = '')
+	public function getNomUrl($withPicture = 0, $option = '', $notooltip = 0, $maxlen = 24, $morecss = '')
 	{
 		global $langs;
 
@@ -913,9 +913,9 @@ class Website extends CommonObject
 
 		$linkstart = $linkend = '';
 
-		if ($withpicto) {
-			$result .= ($linkstart.img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? '' : 'class="classfortooltip"')).$linkend);
-			if ($withpicto != 2) {
+		if ($withPicture) {
+			$result .= ($linkstart.img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? '' : 'class="classfortooltip"')).$linkend);
+			if ($withPicture != 2) {
 				$result .= ' ';
 			}
 		}

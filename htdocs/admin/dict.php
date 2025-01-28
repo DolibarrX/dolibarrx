@@ -118,8 +118,8 @@ $acts = array();
 $actl = array();
 $acts[0] = "activate";
 $acts[1] = "disable";
-$actl[0] = img_picto($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
-$actl[1] = img_picto($langs->trans("Activated"), 'switch_on', 'class="size15x"');
+$actl[0] = img_picture($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
+$actl[1] = img_picture($langs->trans("Activated"), 'switch_on', 'class="size15x"');
 
 // Load variable for pagination
 $listoffset = GETPOST('listoffset');
@@ -292,7 +292,7 @@ $tabsql[DICT_REVENUESTAMP] = "SELECT t.rowid as rowid, t.taux, t.revenuestamp_ty
 $tabsql[DICT_TYPE_RESOURCE] = "SELECT t.rowid as rowid, t.code, t.label, t.active FROM ".MAIN_DB_PREFIX."c_type_resource as t";
 $tabsql[DICT_TYPE_CONTAINER] = "SELECT t.rowid as rowid, t.code, t.label, t.active, t.module FROM ".MAIN_DB_PREFIX."c_type_container as t WHERE t.entity IN (".getEntity($tabname[DICT_TYPE_CONTAINER]).")";
 //$tabsql[DICT_UNITS]= "SELECT t.rowid as rowid, t.code, t.label, t.short_label, t.active FROM ".MAIN_DB_PREFIX."c_units as t";
-$tabsql[DICT_STCOMM] = "SELECT t.id    as rowid, t.code, t.libelle, t.picto, t.active FROM ".MAIN_DB_PREFIX."c_stcomm as t";
+$tabsql[DICT_STCOMM] = "SELECT t.id    as rowid, t.code, t.libelle, t.picture, t.active FROM ".MAIN_DB_PREFIX."c_stcomm as t";
 $tabsql[DICT_HOLIDAY_TYPES] = "SELECT h.rowid as rowid, h.code, h.label, h.affect, h.delay, h.newbymonth, h.fk_country as country_id, c.code as country_code, c.label as country, h.block_if_negative, h.sortorder, h.active FROM ".MAIN_DB_PREFIX."c_holiday_types as h LEFT JOIN ".MAIN_DB_PREFIX."c_country as c ON h.fk_country=c.rowid WHERE h.entity IN (".getEntity($tabname[DICT_HOLIDAY_TYPES]).")";
 $tabsql[DICT_LEAD_STATUS] = "SELECT t.rowid as rowid, t.code, t.label, percent, t.position, t.active FROM ".MAIN_DB_PREFIX."c_lead_status as t";
 $tabsql[DICT_FORMAT_CARDS] = "SELECT t.rowid, t.code, t.name, t.paper_size, t.orientation, t.metric, t.leftmargin, t.topmargin, t.nx, t.ny, t.spacex, t.spacey, t.width, t.height, t.font_size, t.custom_x, t.custom_y, t.active FROM ".MAIN_DB_PREFIX."c_format_cards as t";
@@ -305,7 +305,7 @@ $tabsql[DICT_EXP_TAX_RANGE] = "SELECT r.rowid, r.fk_c_exp_tax_cat, r.range_ik, r
 $tabsql[DICT_UNITS] = "SELECT r.rowid, r.code, r.sortorder, r.label, r.short_label, r.unit_type, r.scale, r.active FROM ".MAIN_DB_PREFIX."c_units r";
 $tabsql[DICT_SOCIALNETWORKS] = "SELECT s.rowid, s.entity, s.code, s.label, s.url, s.icon, s.active FROM ".MAIN_DB_PREFIX."c_socialnetworks as s WHERE s.entity IN (".getEntity($tabname[DICT_SOCIALNETWORKS]).")";
 $tabsql[DICT_PROSPECTCONTACTLEVEL] = "SELECT t.code, t.label as libelle, t.sortorder, t.active FROM ".MAIN_DB_PREFIX."c_prospectcontactlevel as t";
-$tabsql[DICT_STCOMMCONTACT] = "SELECT t.id as rowid, t.code, t.libelle, t.picto, t.active FROM ".MAIN_DB_PREFIX."c_stcommcontact as t";
+$tabsql[DICT_STCOMMCONTACT] = "SELECT t.id as rowid, t.code, t.libelle, t.picture, t.active FROM ".MAIN_DB_PREFIX."c_stcommcontact as t";
 $tabsql[DICT_TRANSPORT_MODE] = "SELECT t.rowid as rowid, t.code, t.label, t.active FROM ".MAIN_DB_PREFIX."c_transport_mode as t";
 $tabsql[DICT_PRODUCT_NATURE] = "SELECT t.rowid as rowid, t.code, t.label, t.active FROM ".MAIN_DB_PREFIX."c_product_nature as t";
 $tabsql[DICT_PRODUCTBATCH_QCSTATUS] = "SELECT t.rowid, t.code, t.label, t.active FROM ".MAIN_DB_PREFIX."c_productbatch_qcstatus as t";
@@ -386,7 +386,7 @@ $tabfield[DICT_REVENUESTAMP] = "country_id,country,taux,revenuestamp_type,accoun
 $tabfield[DICT_TYPE_RESOURCE] = "code,label";
 $tabfield[DICT_TYPE_CONTAINER] = "code,label";
 //$tabfield[DICT_UNITS]= "code,label,short_label";
-$tabfield[DICT_STCOMM] = "code,libelle,picto";
+$tabfield[DICT_STCOMM] = "code,libelle,picture";
 $tabfield[DICT_HOLIDAY_TYPES] = "code,label,affect,delay,newbymonth,country_id,country,block_if_negative,sortorder";
 $tabfield[DICT_LEAD_STATUS] = "code,label,percent,position";
 $tabfield[DICT_FORMAT_CARDS] = "code,name,paper_size,orientation,metric,leftmargin,topmargin,nx,ny,spacex,spacey,width,height,font_size,custom_x,custom_y";
@@ -399,7 +399,7 @@ $tabfield[DICT_EXP_TAX_RANGE] = "range_ik,fk_c_exp_tax_cat";
 $tabfield[DICT_UNITS] = "code,label,short_label,unit_type,scale,sortorder";
 $tabfield[DICT_SOCIALNETWORKS] = "code,label,url,icon";
 $tabfield[DICT_PROSPECTCONTACTLEVEL] = "code,libelle,sortorder";
-$tabfield[DICT_STCOMMCONTACT] = "code,libelle,picto";
+$tabfield[DICT_STCOMMCONTACT] = "code,libelle,picture";
 $tabfield[DICT_TRANSPORT_MODE] = "code,label";
 $tabfield[DICT_PRODUCT_NATURE] = "code,label";
 $tabfield[DICT_PRODUCTBATCH_QCSTATUS] = "code,label";
@@ -433,7 +433,7 @@ $tabfieldvalue[DICT_REVENUESTAMP] = "country,taux,revenuestamp_type,accountancy_
 $tabfieldvalue[DICT_TYPE_RESOURCE] = "code,label";
 $tabfieldvalue[DICT_TYPE_CONTAINER] = "code,label";
 //$tabfieldvalue[DICT_UNITS]= "code,label,short_label";
-$tabfieldvalue[DICT_STCOMM] = "code,libelle,picto";
+$tabfieldvalue[DICT_STCOMM] = "code,libelle,picture";
 $tabfieldvalue[DICT_HOLIDAY_TYPES] = "code,label,affect,delay,newbymonth,country,block_if_negative,sortorder";
 $tabfieldvalue[DICT_LEAD_STATUS] = "code,label,percent,position";
 $tabfieldvalue[DICT_FORMAT_CARDS] = "code,name,paper_size,orientation,metric,leftmargin,topmargin,nx,ny,spacex,spacey,width,height,font_size,custom_x,custom_y";
@@ -446,7 +446,7 @@ $tabfieldvalue[DICT_EXP_TAX_RANGE] = "range_ik,fk_c_exp_tax_cat";
 $tabfieldvalue[DICT_UNITS] = "code,label,short_label,unit_type,scale,sortorder";
 $tabfieldvalue[DICT_SOCIALNETWORKS] = "code,label,url,icon";
 $tabfieldvalue[DICT_PROSPECTCONTACTLEVEL] = "code,libelle,sortorder";
-$tabfieldvalue[DICT_STCOMMCONTACT] = "code,libelle,picto";
+$tabfieldvalue[DICT_STCOMMCONTACT] = "code,libelle,picture";
 $tabfieldvalue[DICT_TRANSPORT_MODE] = "code,label";
 $tabfieldvalue[DICT_PRODUCT_NATURE] = "code,label";
 $tabfieldvalue[DICT_PRODUCTBATCH_QCSTATUS] = "code,label";
@@ -480,7 +480,7 @@ $tabfieldinsert[DICT_REVENUESTAMP] = "fk_pays,taux,revenuestamp_type,accountancy
 $tabfieldinsert[DICT_TYPE_RESOURCE] = "code,label";
 $tabfieldinsert[DICT_TYPE_CONTAINER] = "code,label,entity";
 //$tabfieldinsert[DICT_UNITS]= "code,label,short_label";
-$tabfieldinsert[DICT_STCOMM] = "code,libelle,picto";
+$tabfieldinsert[DICT_STCOMM] = "code,libelle,picture";
 $tabfieldinsert[DICT_HOLIDAY_TYPES] = "code,label,affect,delay,newbymonth,fk_country,block_if_negative,sortorder,entity";
 $tabfieldinsert[DICT_LEAD_STATUS] = "code,label,percent,position";
 $tabfieldinsert[DICT_FORMAT_CARDS] = "code,name,paper_size,orientation,metric,leftmargin,topmargin,nx,ny,spacex,spacey,width,height,font_size,custom_x,custom_y";
@@ -493,7 +493,7 @@ $tabfieldinsert[DICT_EXP_TAX_RANGE] = "range_ik,fk_c_exp_tax_cat";
 $tabfieldinsert[DICT_UNITS] = "code,label,short_label,unit_type,scale,sortorder";
 $tabfieldinsert[DICT_SOCIALNETWORKS] = "code,label,url,icon,entity";
 $tabfieldinsert[DICT_PROSPECTCONTACTLEVEL] = "code,label,sortorder";
-$tabfieldinsert[DICT_STCOMMCONTACT] = "code,libelle,picto";
+$tabfieldinsert[DICT_STCOMMCONTACT] = "code,libelle,picture";
 $tabfieldinsert[DICT_TRANSPORT_MODE] = "code,label";
 $tabfieldinsert[DICT_PRODUCT_NATURE] = "code,label";
 $tabfieldinsert[DICT_PRODUCTBATCH_QCSTATUS] = "code,label";
@@ -601,57 +601,57 @@ $tabhelp = array();
 // Table to store complete information (will replace all other tables). Key is table name.
 $tabcomplete = array(
 	'c_forme_juridique' => array(
-		'picto' => 'company',
+		'picture' => 'company',
 		'help' => array('code' => $langs->trans("EnterAnyCode"))
 	),
 	'c_departements' => array(
-		'picto' => 'state',
+		'picture' => 'state',
 		'help' => array('code' => $langs->trans("EnterAnyCode"))
 	),
 	'c_regions' => array(
-		'picto' => 'region',
+		'picture' => 'region',
 		'help' => array('code' => $langs->trans("EnterAnyCode"))
 	),
-	'c_country' => array('picto' => 'country', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_civility' => array('picto' => 'contact', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_actioncomm' => array('picto' => 'action', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'color' => $langs->trans("ColorFormat"), 'position' => $langs->trans("PositionIntoComboList"))),
-	'c_chargesociales' => array('picto' => 'bill', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_typent' => array('picto' => 'company', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'position' => $langs->trans("PositionIntoComboList"))),
-	'c_currencies' => array('picto' => 'multicurrency', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'unicode' => $langs->trans("UnicodeCurrency"))),
-	'c_tva' => array('picto' => 'bill', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'taux' => $langs->trans("SellTaxRate"), 'recuperableonly' => $langs->trans("RecuperableOnly"), 'localtax1_type' => $langs->trans("LocalTaxDesc"), 'localtax2_type' => $langs->trans("LocalTaxDesc"))),
-	'c_type_contact' => array('picto' => 'contact', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'position' => $langs->trans("PositionIntoComboList"))),
-	'c_payment_term' => array('picto' => 'bill', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'type_cdr' => $langs->trans("TypeCdr", $langs->transnoentitiesnoconv("NbOfDays"), $langs->transnoentitiesnoconv("Offset"), $langs->transnoentitiesnoconv("NbOfDays"), $langs->transnoentitiesnoconv("Offset")))),
-	'c_paiement' => array('picto' => 'bill', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_ecotaxe' => array('picto' => 'bill', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_paper_format' => array('picto' => 'generic', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_prospectlevel' => array('picto' => 'company', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_type_fees' => array('picto' => 'trip', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_shipment_mode' => array('picto' => 'shipment', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'tracking' => $langs->trans("UrlTrackingDesc"))),
-	'c_effectif' => array('picto' => 'company', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_input_method' => array('picto' => 'order', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_input_reason' => array('picto' => 'order', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'position' => $langs->trans("PositionIntoComboList"))),
-	'c_availability' => array('picto' => 'shipment', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_revenuestamp' => array('picto' => 'bill', 'help' => array('revenuestamp_type' => $langs->trans('FixedOrPercent'))),
-	'c_type_resource' => array('picto' => 'resource', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_type_container' => array('picto' => 'website', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_stcomm' => array('picto' => 'company', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'picto' => $langs->trans("PictoHelp"))),
-	'c_holiday_types' => array('picto' => 'holiday', 'help' => array('affect' => $langs->trans("FollowedByACounter"), 'delay' => $langs->trans("MinimumNoticePeriod"), 'newbymonth' => $langs->trans("NbAddedAutomatically"))),
-	'c_lead_status' => array('picto' => 'project', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'percent' => $langs->trans("OpportunityPercent"), 'position' => $langs->trans("PositionIntoComboList"))),
-	'c_format_cards' => array('picto' => 'generic', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'name' => $langs->trans("LabelName"), 'paper_size' => $langs->trans("LabelPaperSize"))),
-	'c_hrm_public_holiday' => array('picto' => 'holiday', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'dayrule' => "Keep empty for a date defined with month and day (most common case).<br>Use a keyword like 'easter', 'eastermonday', ... for a date predefined by complex rules.", 'country' => $langs->trans("CountryIfSpecificToOneCountry"), 'year' => $langs->trans("ZeroMeansEveryYear"))),
-	'c_hrm_department' => array('picto' => 'hrm', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_hrm_function' => array('picto' => 'hrm', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_exp_tax_cat' => array('picto' => 'expensereport', 'help' => array()),
-	'c_exp_tax_range' => array('picto' => 'expensereport', 'help' => array('range_ik' => $langs->trans('PrevRangeToThisRange'))),
-	'c_units' => array('picto' => 'product', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'unit_type' => $langs->trans('Measuringtype_durationDesc'), 'scale' => $langs->trans('MeasuringScaleDesc'))),
-	'c_socialnetworks' => array('picto' => 'share-alt', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'url' => $langs->trans('UrlSocialNetworksDesc'), 'icon' => $langs->trans('FafaIconSocialNetworksDesc'))),
-	'c_prospectcontactlevel' => array('picto' => 'company', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_stcommcontact' => array('picto' => 'company', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'picto' => $langs->trans("PictoHelp"))),
-	'c_transport_mode' => array('picto' => 'incoterm', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_product_nature' => array('picto' => 'product', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_productbatch_qcstatus' => array('picto' => 'lot', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_asset_disposal_type' => array('picto' => 'asset', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
-	'c_invoice_subtype' => array('picto' => 'bill', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_country' => array('picture' => 'country', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_civility' => array('picture' => 'contact', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_actioncomm' => array('picture' => 'action', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'color' => $langs->trans("ColorFormat"), 'position' => $langs->trans("PositionIntoComboList"))),
+	'c_chargesociales' => array('picture' => 'bill', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_typent' => array('picture' => 'company', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'position' => $langs->trans("PositionIntoComboList"))),
+	'c_currencies' => array('picture' => 'multicurrency', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'unicode' => $langs->trans("UnicodeCurrency"))),
+	'c_tva' => array('picture' => 'bill', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'taux' => $langs->trans("SellTaxRate"), 'recuperableonly' => $langs->trans("RecuperableOnly"), 'localtax1_type' => $langs->trans("LocalTaxDesc"), 'localtax2_type' => $langs->trans("LocalTaxDesc"))),
+	'c_type_contact' => array('picture' => 'contact', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'position' => $langs->trans("PositionIntoComboList"))),
+	'c_payment_term' => array('picture' => 'bill', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'type_cdr' => $langs->trans("TypeCdr", $langs->transnoentitiesnoconv("NbOfDays"), $langs->transnoentitiesnoconv("Offset"), $langs->transnoentitiesnoconv("NbOfDays"), $langs->transnoentitiesnoconv("Offset")))),
+	'c_paiement' => array('picture' => 'bill', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_ecotaxe' => array('picture' => 'bill', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_paper_format' => array('picture' => 'generic', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_prospectlevel' => array('picture' => 'company', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_type_fees' => array('picture' => 'trip', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_shipment_mode' => array('picture' => 'shipment', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'tracking' => $langs->trans("UrlTrackingDesc"))),
+	'c_effectif' => array('picture' => 'company', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_input_method' => array('picture' => 'order', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_input_reason' => array('picture' => 'order', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'position' => $langs->trans("PositionIntoComboList"))),
+	'c_availability' => array('picture' => 'shipment', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_revenuestamp' => array('picture' => 'bill', 'help' => array('revenuestamp_type' => $langs->trans('FixedOrPercent'))),
+	'c_type_resource' => array('picture' => 'resource', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_type_container' => array('picture' => 'website', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_stcomm' => array('picture' => 'company', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'picture' => $langs->trans("PictoHelp"))),
+	'c_holiday_types' => array('picture' => 'holiday', 'help' => array('affect' => $langs->trans("FollowedByACounter"), 'delay' => $langs->trans("MinimumNoticePeriod"), 'newbymonth' => $langs->trans("NbAddedAutomatically"))),
+	'c_lead_status' => array('picture' => 'project', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'percent' => $langs->trans("OpportunityPercent"), 'position' => $langs->trans("PositionIntoComboList"))),
+	'c_format_cards' => array('picture' => 'generic', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'name' => $langs->trans("LabelName"), 'paper_size' => $langs->trans("LabelPaperSize"))),
+	'c_hrm_public_holiday' => array('picture' => 'holiday', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'dayrule' => "Keep empty for a date defined with month and day (most common case).<br>Use a keyword like 'easter', 'eastermonday', ... for a date predefined by complex rules.", 'country' => $langs->trans("CountryIfSpecificToOneCountry"), 'year' => $langs->trans("ZeroMeansEveryYear"))),
+	'c_hrm_department' => array('picture' => 'hrm', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_hrm_function' => array('picture' => 'hrm', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_exp_tax_cat' => array('picture' => 'expensereport', 'help' => array()),
+	'c_exp_tax_range' => array('picture' => 'expensereport', 'help' => array('range_ik' => $langs->trans('PrevRangeToThisRange'))),
+	'c_units' => array('picture' => 'product', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'unit_type' => $langs->trans('Measuringtype_durationDesc'), 'scale' => $langs->trans('MeasuringScaleDesc'))),
+	'c_socialnetworks' => array('picture' => 'share-alt', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'url' => $langs->trans('UrlSocialNetworksDesc'), 'icon' => $langs->trans('FafaIconSocialNetworksDesc'))),
+	'c_prospectcontactlevel' => array('picture' => 'company', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_stcommcontact' => array('picture' => 'company', 'help' => array('code' => $langs->trans("EnterAnyCode"), 'picture' => $langs->trans("PictoHelp"))),
+	'c_transport_mode' => array('picture' => 'incoterm', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_product_nature' => array('picture' => 'product', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_productbatch_qcstatus' => array('picture' => 'lot', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_asset_disposal_type' => array('picture' => 'asset', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
+	'c_invoice_subtype' => array('picture' => 'bill', 'help' => array('code' => $langs->trans("EnterAnyCode"))),
 );
 
 
@@ -677,7 +677,7 @@ foreach ($tabcomplete as $key => $value) {
 	$tabcomplete[$key]['sql'] = $tabsql[$i];
 	$tabcomplete[$key]['sqlsort'] = $tabsqlsort[$i];
 	$tabcomplete[$key]['field'] = $tabfield[$i];
-	//$tabcomplete[$key]['picto'] = $tabpicto[$i];		// array picto already loaded into tabcomplete
+	//$tabcomplete[$key]['picture'] = $tabPicture[$i];		// array picture already loaded into tabcomplete
 	//$tabcomplete[$key]['help'] = $tabhelp[$i];		// array help already loaded into tabcomplete
 }
 
@@ -704,26 +704,26 @@ $sourceList = array();
 if ($id == DICT_TYPE_CONTACT) {
 	$elementList = array(
 		'' => '',
-		'agenda' => img_picto('', 'action', 'class="pictofixedwidth"').$langs->trans('Agenda'),
-		'dolresource' => img_picto('', 'resource', 'class="pictofixedwidth"').$langs->trans('Resource'),
-		'societe' => img_picto('', 'company', 'class="pictofixedwidth"').$langs->trans('ThirdParty'),
+		'agenda' => img_picture('', 'action', 'class="picturefixedwidth"').$langs->trans('Agenda'),
+		'dolresource' => img_picture('', 'resource', 'class="picturefixedwidth"').$langs->trans('Resource'),
+		'societe' => img_picture('', 'company', 'class="picturefixedwidth"').$langs->trans('ThirdParty'),
 		// 'proposal' => $langs->trans('Proposal'),
 		// 'order' => $langs->trans('Order'),
 		// 'invoice' => $langs->trans('Bill'),
 		// 'intervention' => $langs->trans('InterventionCard'),
 		// 'contract' => $langs->trans('Contract'),
-		'project' => img_picto('', 'project', 'class="pictofixedwidth"').$langs->trans('Project'),
-		'project_task' => img_picto('', 'projecttask', 'class="pictofixedwidth"').$langs->trans('Task'),
-		'propal' => img_picto('', 'propal', 'class="pictofixedwidth"').$langs->trans('Proposal'),
-		'order' => img_picto('', 'order', 'class="pictofixedwidth"').$langs->trans('Order'),
-		'facture' => img_picto('', 'bill', 'class="pictofixedwidth"').$langs->trans('Bill'),
-		'fichinter' => img_picto('', 'intervention', 'class="pictofixedwidth"').$langs->trans('InterventionCard'),
-		'contrat' => img_picto('', 'contract', 'class="pictofixedwidth"').$langs->trans('Contract'),
-		'ticket' => img_picto('', 'ticket', 'class="pictofixedwidth"').$langs->trans('Ticket'),
-		'supplier_proposal' => img_picto('', 'supplier_proposal', 'class="pictofixedwidth"').$langs->trans('SupplierProposal'),
-		'order_supplier' => img_picto('', 'supplier_order', 'class="pictofixedwidth"').$langs->trans('SupplierOrder'),
-		'invoice_supplier' => img_picto('', 'supplier_invoice', 'class="pictofixedwidth"').$langs->trans('SupplierBill'),
-		'conferenceorbooth' => img_picto('', 'eventorganization', 'class="pictofixedwidth"').$langs->trans('ConferenceOrBooth'),
+		'project' => img_picture('', 'project', 'class="picturefixedwidth"').$langs->trans('Project'),
+		'project_task' => img_picture('', 'projecttask', 'class="picturefixedwidth"').$langs->trans('Task'),
+		'propal' => img_picture('', 'propal', 'class="picturefixedwidth"').$langs->trans('Proposal'),
+		'order' => img_picture('', 'order', 'class="picturefixedwidth"').$langs->trans('Order'),
+		'facture' => img_picture('', 'bill', 'class="picturefixedwidth"').$langs->trans('Bill'),
+		'fichinter' => img_picture('', 'intervention', 'class="picturefixedwidth"').$langs->trans('InterventionCard'),
+		'contrat' => img_picture('', 'contract', 'class="picturefixedwidth"').$langs->trans('Contract'),
+		'ticket' => img_picture('', 'ticket', 'class="picturefixedwidth"').$langs->trans('Ticket'),
+		'supplier_proposal' => img_picture('', 'supplier_proposal', 'class="picturefixedwidth"').$langs->trans('SupplierProposal'),
+		'order_supplier' => img_picture('', 'supplier_order', 'class="picturefixedwidth"').$langs->trans('SupplierOrder'),
+		'invoice_supplier' => img_picture('', 'supplier_invoice', 'class="picturefixedwidth"').$langs->trans('SupplierBill'),
+		'conferenceorbooth' => img_picture('', 'eventorganization', 'class="picturefixedwidth"').$langs->trans('ConferenceOrBooth'),
 	);
 
 	complete_elementList_with_modules($elementList);
@@ -837,7 +837,7 @@ if (empty($resHook)) {
 			}
 			if ((!GETPOSTISSET($value) || GETPOST($value) == '')
 				&& (
-					!in_array($value, array('decalage', 'module', 'accountancy_code', 'accountancy_code_sell', 'accountancy_code_buy', 'tracking', 'picto', 'deposit_percent'))  // Fields that are not mandatory
+					!in_array($value, array('decalage', 'module', 'accountancy_code', 'accountancy_code_sell', 'accountancy_code_buy', 'tracking', 'picture', 'deposit_percent'))  // Fields that are not mandatory
 					&& ($id != DICT_TVA || ($value != 'code' && $value != 'note')) // Field code and note is not mandatory for dictionary table 10
 				)
 			) {
@@ -1327,16 +1327,16 @@ if (GETPOSTINT('id') == DICT_SOCIALNETWORKS && $from == 'socialnetworksetup') {
 $linkback = '';
 if ($id && empty($from)) {
 	$title .= ' - '.$langs->trans($tablib[$id]);
-	$linkback = '<a href="'.$_SERVER['PHP_SELF'].'">'.img_picto($langs->trans("BackToDictionaryList"), 'back', 'class="pictofixedwidth"').'<span class="hideonsmartphone">'.$langs->trans("BackToDictionaryList").'</span></a>';
+	$linkback = '<a href="'.$_SERVER['PHP_SELF'].'">'.img_picture($langs->trans("BackToDictionaryList"), 'back', 'class="picturefixedwidth"').'<span class="hideonsmartphone">'.$langs->trans("BackToDictionaryList").'</span></a>';
 }
-$titlepicto = 'title_setup';
+$titlePicture = 'title_setup';
 if ($id == DICT_TVA && GETPOST('from') == 'accountancy') {
 	$title = $langs->trans("MenuVatAccounts");
-	$titlepicto = 'accountancy';
+	$titlePicture = 'accountancy';
 }
 if ($id == DICT_CHARGESOCIALES && GETPOST('from') == 'accountancy') {
 	$title = $langs->trans("MenuTaxAccounts");
-	$titlepicto = 'accountancy';
+	$titlePicture = 'accountancy';
 }
 
 $param = '&id='.urlencode((string) ($id));
@@ -1766,7 +1766,7 @@ if ($id > 0) {
 						if ($tooltiphelp && preg_match('/^http(s*):/i', $tooltiphelp)) {
 							$tdsoffields .= '<a href="'.$tooltiphelp.'" target="_blank">'.$valuetoshow.' '.img_help(1, $valuetoshow).'</a>';
 						} elseif ($tooltiphelp) {
-							$tdsoffields .= $form->textwithpicto($valuetoshow, $tooltiphelp);
+							$tdsoffields .= $form->textWithPicture($valuetoshow, $tooltiphelp);
 						} else {
 							$tdsoffields .= $valuetoshow;
 						}
@@ -1878,8 +1878,8 @@ if ($id > 0) {
 		if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 			print '<td class="liste_titre center">';
 			if ($filterfound) {
-				$searchpicto = $form->showFilterAndCheckAddButtons(0);
-				print $searchpicto;
+				$searchPicture = $form->showFilterAndCheckAddButtons(0);
+				print $searchPicture;
 			}
 			print '</td>';
 			$colspan++;
@@ -1935,8 +1935,8 @@ if ($id > 0) {
 		if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 			print '<td class="liste_titre center">';
 			if ($filterfound) {
-				$searchpicto = $form->showFilterAndCheckAddButtons(0);
-				print $searchpicto;
+				$searchPicture = $form->showFilterAndCheckAddButtons(0);
+				print $searchPicture;
 			}
 			print '</td>';
 			$colspan++;
@@ -2198,7 +2198,7 @@ if ($id > 0) {
 				if ($tooltiphelp && preg_match('/^http(s*):/i', $tooltiphelp)) {
 					$newvaluetoshow = '<a href="'.$tooltiphelp.'" target="_blank">'.$valuetoshow.' '.img_help(1, $valuetoshow).'</a>';
 				} elseif ($tooltiphelp) {
-					$newvaluetoshow = $form->textwithpicto($valuetoshow, $tooltiphelp);
+					$newvaluetoshow = $form->textWithPicture($valuetoshow, $tooltiphelp);
 				} else {
 					$newvaluetoshow = $valuetoshow;
 				}
@@ -2438,11 +2438,11 @@ if ($id > 0) {
 								$key = $langs->trans("PaymentType".strtoupper($obj->code));
 								$valuetoshow = $obj->$value;
 								if ($obj->code && $transavailableforcode) {
-									$htmltext = $form->textwithpicto($langs->trans("TranslationFound").': '.$key, $langs->trans("TheTranslationIsSearchedFromKey", "PaymentType".strtoupper($obj->code)));
+									$htmltext = $form->textWithPicture($langs->trans("TranslationFound").': '.$key, $langs->trans("TheTranslationIsSearchedFromKey", "PaymentType".strtoupper($obj->code)));
 								} else {
-									$htmltext = $form->textwithpicto($langs->trans("TranslationFound").': '.$langs->trans("No"), $langs->trans("TheTranslationIsSearchedFromKey", "PaymentType".strtoupper($obj->code)));
+									$htmltext = $form->textWithPicture($langs->trans("TranslationFound").': '.$langs->trans("No"), $langs->trans("TheTranslationIsSearchedFromKey", "PaymentType".strtoupper($obj->code)));
 								}
-								//$valuetoshow = $form->textwithpicto($valuetoshow, $htmltext);
+								//$valuetoshow = $form->textWithPicture($valuetoshow, $htmltext);
 								$valuetoshow .= '<br><span class="opacitymedium">'.$htmltext.'</span>';
 							} elseif ($value == 'type' && $tabname[$id] == 'c_paiement') {
 								$payment_type_list = array(0 => $langs->trans('PaymentTypeCustomer'), 1 => $langs->trans('PaymentTypeSupplier'), 2 => $langs->trans('PaymentTypeBoth'));
@@ -2539,7 +2539,7 @@ if ($id > 0) {
 							} elseif ($value == 'block_if_negative') {
 								$valuetoshow = yn($obj->{$value});
 							} elseif ($value == 'icon') {
-								$valuetoshow = $obj->{$value}." ".img_picto("", $obj->{$value});
+								$valuetoshow = $obj->{$value}." ".img_picture("", $obj->{$value});
 							} elseif ($value == 'type_duration') {
 								$TDurationTypes = array('y' => $langs->trans('Years'), 'm' => $langs->trans('Month'), 'w' => $langs->trans('Weeks'), 'd' => $langs->trans('Days'), 'h' => $langs->trans('Hours'), 'i' => $langs->trans('Minutes'));
 								if (!empty($obj->{$value}) && array_key_exists($obj->{$value}, $TDurationTypes)) {
@@ -2649,7 +2649,7 @@ if ($id > 0) {
 	/*
 	 * Show list of dictionary to show
 	 */
-	print load_fiche_titre($title, $linkback, $titlepicto);
+	print load_fiche_titre($title, $linkback, $titlePicture);
 
 	print '<span class="opacitymedium">'.$langs->trans("DictionaryDesc");
 	print " ".$langs->trans("OnlyActiveElementsAreShown")."<br>\n";
@@ -2688,8 +2688,8 @@ if ($id > 0) {
 					print '&search_country_id='.$mysoc->country_id;
 				}
 				print '">';
-				if (!empty($tabcomplete[$tabnamenoprefix]['picto'])) {
-					print img_picto('', $tabcomplete[$tabnamenoprefix]['picto'], 'class="pictofixedwidth paddingrightonly"');
+				if (!empty($tabcomplete[$tabnamenoprefix]['picture'])) {
+					print img_picture('', $tabcomplete[$tabnamenoprefix]['picture'], 'class="picturefixedwidth paddingrightonly"');
 				}
 				print $langs->trans($tablib[$i]);
 				print '</a>';
@@ -2699,11 +2699,11 @@ if ($id > 0) {
 			print '</td>';
 			print '<td>';
 			print '<a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?id='.$i.'">';
-			print img_picto('Edit', 'edit', '');
+			print img_picture('Edit', 'edit', '');
 			print '</a>';
 			print '</td>';
 			print '<td class="right hideonsmartphone">';
-			print $form->textwithpicto('', $langs->trans("Table").': '.MAIN_DB_PREFIX.$tabname[$i]);
+			print $form->textWithPicture('', $langs->trans("Table").': '.MAIN_DB_PREFIX.$tabname[$i]);
 			print '</td>';
 			print '</tr>';
 			$lastlineisempty = false;
@@ -2877,7 +2877,7 @@ function dictFieldList($fieldlist, $obj = null, $tabname = '', $context = '')
 					$transkey = "PaymentCondition" . strtoupper($obj->code);
 					if ($langs->trans($transkey) != $transkey) {
 						$transfound = 1;
-						print $form->textwithpicto($langs->trans($transkey), $langs->trans("GoIntoTranslationMenuToChangeThis"));
+						print $form->textWithPicture($langs->trans($transkey), $langs->trans("GoIntoTranslationMenuToChangeThis"));
 					}
 				}
 			}
@@ -3023,7 +3023,7 @@ function dictFieldList($fieldlist, $obj = null, $tabname = '', $context = '')
 				}
 				if ($transkey && $langs->trans($transkey) != $transkey) {
 					$transfound = 1;
-					print $form->textwithpicto($langs->trans($transkey), $langs->trans("GoIntoTranslationMenuToChangeThis"));
+					print $form->textWithPicture($langs->trans($transkey), $langs->trans("GoIntoTranslationMenuToChangeThis"));
 				}
 			}
 			if (!$transfound) {

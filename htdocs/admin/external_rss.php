@@ -296,7 +296,7 @@ if ($resql) {
 		print "<td>".$langs->trans("Status")."</td>";
 		print "<td>";
 		if ($result > 0 && empty($rssparser->error)) {
-			print '<span class="ok">'.img_picto($langs->trans("Online"), 'tick', 'class="pictofixedwidth"').$langs->trans("Online").'</div>';
+			print '<span class="ok">'.img_picture($langs->trans("Online"), 'tick', 'class="picturefixedwidth"').$langs->trans("Online").'</div>';
 		} else {
 			print '<span class="error">'.$langs->trans("Offline");
 			$langs->load("errors");

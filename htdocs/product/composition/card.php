@@ -232,9 +232,9 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-product page-composi
 $head = product_prepare_head($object);
 
 $titre = $langs->trans("CardProduct".$object->type);
-$picto = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
+$picture = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
 
-print dol_get_fiche_head($head, 'subproduct', $titre, -1, $picto);
+print dol_get_fiche_head($head, 'subproduct', $titre, -1, $picture);
 
 
 if ($id > 0 || !empty($ref)) {
@@ -278,7 +278,7 @@ if ($id > 0 || !empty($ref)) {
 			// Nature
 			if ($object->type != Product::TYPE_SERVICE) {
 				if (!getDolGlobalString('PRODUCT_DISABLE_NATURE')) {
-					print '<tr><td>'.$form->textwithpicto($langs->trans("NatureOfProductShort"), $langs->trans("NatureOfProductDesc")).'</td><td>';
+					print '<tr><td>'.$form->textWithPicture($langs->trans("NatureOfProductShort"), $langs->trans("NatureOfProductDesc")).'</td><td>';
 					print $object->getLibFinished();
 					//print $formproduct->selectProductNature('finished', $object->finished);
 					print '</td></tr>';

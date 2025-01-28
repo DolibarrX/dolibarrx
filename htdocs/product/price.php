@@ -1002,9 +1002,9 @@ llxHeader('', $title, $helpurl, '', 0, 0, '', '', '', 'classforhorizontalscrollo
 
 $head = product_prepare_head($object);
 $titre = $langs->trans("CardProduct".$object->type);
-$picto = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
+$picture = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
 
-print dol_get_fiche_head($head, 'price', $titre, -1, $picto);
+print dol_get_fiche_head($head, 'price', $titre, -1, $picture);
 
 $linkback = '<a href="'.DOL_URL_ROOT.'/product/list.php?restore_lastsearch_values=1&type='.$object->type.'">'.$langs->trans("BackToList").'</a>';
 $object->next_prev_filter = "fk_product_type:=:".((int) $object->type);
@@ -1193,7 +1193,7 @@ if (getDolGlobalString('PRODUIT_MULTIPRICES') || getDolGlobalString('PRODUIT_CUS
 							$langs->load($extrafields->attributes["product_price"]['langfile'][$key]);
 						}
 						if (!empty($extrafields->attributes["product_price"]['help'][$key])) {
-							$extratitle = $form->textwithpicto($langs->trans($value), $langs->trans($extrafields->attributes["product_price"]['help'][$key]));
+							$extratitle = $form->textWithPicture($langs->trans($value), $langs->trans($extrafields->attributes["product_price"]['help'][$key]));
 						} else {
 							$extratitle = $langs->trans($value);
 						}
@@ -1538,7 +1538,7 @@ if (getDolGlobalString('PRODUIT_MULTIPRICES') || getDolGlobalString('PRODUIT_CUS
 
 				print '<tr><td'.($extrafields->attributes["product"]['required'][$key] ? ' class="fieldrequired"' : '').'>';
 				if (!empty($extrafields->attributes["product"]['help'][$key])) {
-					print $form->textwithpicto($langs->trans($value), $langs->trans($extrafields->attributes["product"]['help'][$key]));
+					print $form->textWithPicture($langs->trans($value), $langs->trans($extrafields->attributes["product"]['help'][$key]));
 				} else {
 					print $langs->trans($value);
 				}
@@ -1680,7 +1680,7 @@ if (($action == 'edit_price' || $action == 'edit_level_price') && $object->getRi
 			// Price mode selector
 			print '<!-- Show price mode of dynamicprices editor -->'."\n";
 			print '<tr><td>'.$langs->trans("PriceMode").'</td><td>';
-			print img_picto('', 'dynamicprice', 'class="pictofixedwidth"');
+			print img_picture('', 'dynamicprice', 'class="picturefixedwidth"');
 			$price_expression = new PriceExpression($db);
 			$price_expression_list = array(0 => $langs->trans("Numeric").' <span class="opacitymedium">('.$langs->trans("NoDynamicPrice").')</span>'); //Put the numeric mode as first option
 			foreach ($price_expression->list_price_expression() as $entry) {
@@ -1718,7 +1718,7 @@ if (($action == 'edit_price' || $action == 'edit_level_price') && $object->getRi
 		$product->fetch($id, $ref, '', 1); //Ignore the math expression when getting the price
 		print '<tr id="price_numeric"><td>';
 		$text = $langs->trans('SellingPrice');
-		print $form->textwithpicto($text, $langs->trans("PrecisionUnitIsLimitedToXDecimals", getDolGlobalString('MAIN_MAX_DECIMALS_UNIT')), 1, 1);
+		print $form->textWithPicture($text, $langs->trans("PrecisionUnitIsLimitedToXDecimals", getDolGlobalString('MAIN_MAX_DECIMALS_UNIT')), 1, 1);
 		print '</td><td>';
 		if ($object->price_base_type == 'TTC') {
 			print '<input name="price" size="10" value="'.price($product->price_ttc).'">';
@@ -1730,7 +1730,7 @@ if (($action == 'edit_price' || $action == 'edit_level_price') && $object->getRi
 		// Price minimum
 		print '<tr><td>';
 		$text = $langs->trans('MinPrice');
-		print $form->textwithpicto($text, $langs->trans("PrecisionUnitIsLimitedToXDecimals", getDolGlobalString('MAIN_MAX_DECIMALS_UNIT')), 1, 1);
+		print $form->textWithPicture($text, $langs->trans("PrecisionUnitIsLimitedToXDecimals", getDolGlobalString('MAIN_MAX_DECIMALS_UNIT')), 1, 1);
 		print '</td><td>';
 		if ($object->price_base_type == 'TTC') {
 			print '<input name="price_min" size="10" value="'.price($object->price_min_ttc).'">';
@@ -1765,7 +1765,7 @@ if (($action == 'edit_price' || $action == 'edit_level_price') && $object->getRi
 
 						print '<tr><td'.($extrafields->attributes["product"]['required'][$key] ? ' class="fieldrequired"' : '').'>';
 						if (!empty($extrafields->attributes["product"]['help'][$key])) {
-							print $form->textwithpicto($langs->trans($value), $langs->trans($extrafields->attributes["product"]['help'][$key]));
+							print $form->textWithPicture($langs->trans($value), $langs->trans($extrafields->attributes["product"]['help'][$key]));
 						} else {
 							print $langs->trans($value);
 						}
@@ -1791,7 +1791,7 @@ if (($action == 'edit_price' || $action == 'edit_level_price') && $object->getRi
 
 							print '<tr><td'.($extrafields->attributes["product"]['required'][$key] ? ' class="fieldrequired"' : '').'>';
 							if (!empty($extrafields->attributes["product"]['help'][$key])) {
-								print $form->textwithpicto($langs->trans($value), $langs->trans($extrafields->attributes["product"]['help'][$key]));
+								print $form->textWithPicture($langs->trans($value), $langs->trans($extrafields->attributes["product"]['help'][$key]));
 							} else {
 								print $langs->trans($value);
 							}
@@ -1883,7 +1883,7 @@ if (($action == 'edit_price' || $action == 'edit_level_price') && $object->getRi
 							$langs->load($extrafields->attributes["product_price"]['langfile'][$key]);
 						}
 						if (!empty($extrafields->attributes["product_price"]['help'][$key])) {
-							$extratitle = $form->textwithpicto($langs->trans($value), $langs->trans($extrafields->attributes["product_price"]['help'][$key]));
+							$extratitle = $form->textWithPicture($langs->trans($value), $langs->trans($extrafields->attributes["product_price"]['help'][$key]));
 						} else {
 							$extratitle = $langs->trans($value);
 						}
@@ -1902,7 +1902,7 @@ if (($action == 'edit_price' || $action == 'edit_level_price') && $object->getRi
 			print '<td>';
 			$keyforlabel = 'PRODUIT_MULTIPRICES_LABEL'.$i;
 			$text = $langs->trans('SellingPrice').' '.$i.' - '.getDolGlobalString($keyforlabel);
-			print $form->textwithpicto($text, $langs->trans("PrecisionUnitIsLimitedToXDecimals", getDolGlobalString('MAIN_MAX_DECIMALS_UNIT')), 1, 1);
+			print $form->textWithPicture($text, $langs->trans("PrecisionUnitIsLimitedToXDecimals", getDolGlobalString('MAIN_MAX_DECIMALS_UNIT')), 1, 1);
 			print '</td>';
 
 			// VAT
@@ -2055,7 +2055,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 		print '<td class="fieldrequired">'.$langs->trans('ThirdParty').'</td>';
 		print '<td>';
 		$filter = '(s.client:IN:1,2,3)';
-		print img_picto('', 'company').$form->select_company('', 'socid', $filter, 'SelectThirdParty', 0, 0, array(), 0, 'minwidth300');
+		print img_picture('', 'company').$form->select_company('', 'socid', $filter, 'SelectThirdParty', 0, 0, array(), 0, 'minwidth300');
 		print '</td>';
 		print '</tr>';
 
@@ -2080,7 +2080,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 		// Price
 		print '<tr><td class="fieldrequired">';
 		$text = $langs->trans('SellingPrice');
-		print $form->textwithpicto($text, $langs->trans("PrecisionUnitIsLimitedToXDecimals", getDolGlobalString('MAIN_MAX_DECIMALS_UNIT')), 1, 1);
+		print $form->textWithPicture($text, $langs->trans("PrecisionUnitIsLimitedToXDecimals", getDolGlobalString('MAIN_MAX_DECIMALS_UNIT')), 1, 1);
 		print '</td><td>';
 		if ($object->price_base_type == 'TTC') {
 			print '<input name="price" size="10" value="'.price($object->price_ttc).'">';
@@ -2092,7 +2092,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 		// Price minimum
 		print '<tr><td>';
 		$text = $langs->trans('MinPrice');
-		print $form->textwithpicto($text, $langs->trans("PrecisionUnitIsLimitedToXDecimals", getDolGlobalString('MAIN_MAX_DECIMALS_UNIT')), 1, 1);
+		print $form->textWithPicture($text, $langs->trans("PrecisionUnitIsLimitedToXDecimals", getDolGlobalString('MAIN_MAX_DECIMALS_UNIT')), 1, 1);
 		if ($object->price_base_type == 'TTC') {
 			print '<td><input name="price_min" size="10" value="'.price($object->price_min_ttc).'">';
 		} else {
@@ -2125,7 +2125,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 
 						print '<tr><td'.($extrafields->attributes["product_customer_price"]['required'][$key] ? ' class="fieldrequired"' : '').'>';
 						if (!empty($extrafields->attributes["product_customer_price"]['help'][$key])) {
-							print $form->textwithpicto($langs->trans($value), $langs->trans($extrafields->attributes["product_customer_price"]['help'][$key]));
+							print $form->textWithPicture($langs->trans($value), $langs->trans($extrafields->attributes["product_customer_price"]['help'][$key]));
 						} else {
 							print $langs->trans($value);
 						}
@@ -2197,7 +2197,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 		// Price
 		print '<tr><td class="fieldrequired">';
 		$text = $langs->trans('SellingPrice');
-		print $form->textwithpicto($text, $langs->trans("PrecisionUnitIsLimitedToXDecimals", getDolGlobalString('MAIN_MAX_DECIMALS_UNIT')), 1, 1);
+		print $form->textWithPicture($text, $langs->trans("PrecisionUnitIsLimitedToXDecimals", getDolGlobalString('MAIN_MAX_DECIMALS_UNIT')), 1, 1);
 		print '</td><td>';
 		if ($prodcustprice->price_base_type == 'TTC') {
 			print '<input name="price" size="10" value="'.price($prodcustprice->price_ttc).'">';
@@ -2209,7 +2209,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 		// Price minimum
 		print '<tr><td>';
 		$text = $langs->trans('MinPrice');
-		print $form->textwithpicto($text, $langs->trans("PrecisionUnitIsLimitedToXDecimals", getDolGlobalString('MAIN_MAX_DECIMALS_UNIT')), 1, 1);
+		print $form->textWithPicture($text, $langs->trans("PrecisionUnitIsLimitedToXDecimals", getDolGlobalString('MAIN_MAX_DECIMALS_UNIT')), 1, 1);
 		print '</td><td>';
 		if ($prodcustprice->price_base_type == 'TTC') {
 			print '<input name="price_min" size="10" value="'.price($prodcustprice->price_min_ttc).'">';
@@ -2246,7 +2246,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 
 						print '<tr><td'.($extrafields->attributes["product_customer_price"]['required'][$key] ? ' class="fieldrequired"' : '').'>';
 						if (!empty($extrafields->attributes["product_customer_price"]['help'][$key])) {
-							print $form->textwithpicto($langs->trans($value), $langs->trans($extrafields->attributes["product_customer_price"]['help'][$key]));
+							print $form->textWithPicture($langs->trans($value), $langs->trans($extrafields->attributes["product_customer_price"]['help'][$key]));
 						} else {
 							print $langs->trans($value);
 						}
@@ -2272,7 +2272,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 
 							print '<tr><td'.($extrafields->attributes["product_customer_price"]['required'][$key] ? ' class="fieldrequired"' : '').'>';
 							if (!empty($extrafields->attributes["product_customer_price"]['help'][$key])) {
-								print $form->textwithpicto($langs->trans($value), $langs->trans($extrafields->attributes["product_customer_price"]['help'][$key]));
+								print $form->textWithPicture($langs->trans($value), $langs->trans($extrafields->attributes["product_customer_price"]['help'][$key]));
 							} else {
 								print $langs->trans($value);
 							}
@@ -2475,8 +2475,8 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 			print '<td class="liste_titre" colspan="'.$colspan.'">&nbsp;</td>';
 			// Print the search button
 			print '<td class="liste_titre maxwidthsearch">';
-			$searchpicto = $form->showFilterAndCheckAddButtons(0);
-			print $searchpicto;
+			$searchPicture = $form->showFilterAndCheckAddButtons(0);
+			print $searchPicture;
 			print '</td>';
 			print '</tr>';
 		}
@@ -2507,7 +2507,7 @@ if (getDolGlobalString('PRODUIT_CUSTOMER_PRICES') || getDolGlobalString('PRODUIT
 							$langs->load($extrafields->attributes["product_customer_price"]['langfile'][$key]);
 						}
 						if (!empty($extrafields->attributes["product_customer_price"]['help'][$key])) {
-							$extratitle = $form->textwithpicto($langs->trans($value), $langs->trans($extrafields->attributes["product_customer_price"]['help'][$key]));
+							$extratitle = $form->textWithPicture($langs->trans($value), $langs->trans($extrafields->attributes["product_customer_price"]['help'][$key]));
 						} else {
 							$extratitle = $langs->trans($value);
 						}

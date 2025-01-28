@@ -79,7 +79,7 @@ class box_graph_invoices_peryear extends ModeleBoxes
 			'graph' => 1,
 			'sublink' => '',
 			'subtext' => $langs->trans("Filter"),
-			'subpicto' => 'filter.png',
+			'subpicture' => 'filter.png',
 			'subclass' => 'linkobject boxfilter',
 			'target' => 'none'	// Set '' to get target="_blank"
 		);
@@ -190,7 +190,7 @@ class box_graph_invoices_peryear extends ModeleBoxes
 				$stringtoshow .= '<input type="hidden" name="page_y" value="">';
 				$stringtoshow .= '<input type="hidden" name="DOL_AUTOSET_COOKIE" value="DOLUSER_box_'.$this->boxcode.':year,showtot">';
 				$stringtoshow .= $langs->trans("Year").' <input class="flat" size="4" type="text" name="'.$param_year.'" value="'.$endyear.'">';
-				$stringtoshow .= '<input class="reposition inline-block valigntextbottom" type="image" alt="'.$langs->trans("Refresh").'" src="'.img_picto($langs->trans("Refresh"), 'refresh.png', '', 0, 1).'">';
+				$stringtoshow .= '<input class="reposition inline-block valigntextbottom" type="image" alt="'.$langs->trans("Refresh").'" src="'.img_picture($langs->trans("Refresh"), 'refresh.png', '', 0, 1).'">';
 				$stringtoshow .= '</form>';
 				$stringtoshow .= '</div>';
 				$stringtoshow .= $px2->show();
@@ -211,7 +211,7 @@ class box_graph_invoices_peryear extends ModeleBoxes
 	/**
 	 *	Method to show box.  Called when the box needs to be displayed.
 	 *
-	 *	@param	?array<array{text?:string,sublink?:string,subtext?:string,subpicto?:?string,picto?:string,nbcol?:int,limit?:int,subclass?:string,graph?:int<0,1>,target?:string}>   $head       Array with properties of box title
+	 *	@param	?array<array{text?:string,sublink?:string,subtext?:string,subpicture?:?string,picture?:string,nbcol?:int,limit?:int,subclass?:string,graph?:int<0,1>,target?:string}>   $head       Array with properties of box title
 	 *	@param	?array<array{tr?:string,td?:string,target?:string,text?:string,text2?:string,textnoformat?:string,tooltip?:string,logo?:string,url?:string,maxlength?:int,asis?:int<0,1>}>   $contents   Array with properties of box lines
 	 *	@param	int<0,1>	$nooutput	No print, only return string
 	 *	@return	string

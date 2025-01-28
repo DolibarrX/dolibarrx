@@ -138,7 +138,7 @@ if (is_resource($handle)) {
 							$i = 0;
 							while ($i < $num) {
 								$obj = $db->fetch_object($result);
-								print '<td>'.img_object('', $mailmodule->picto).' '.dol_escape_htmltag($obj->label).'</td>';
+								print '<td>'.img_object('', $mailmodule->picture).' '.dol_escape_htmltag($obj->label).'</td>';
 								print '<td class="right">'.$obj->nb.'</td>';
 								$i++;
 							}

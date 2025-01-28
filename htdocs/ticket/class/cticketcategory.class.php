@@ -52,7 +52,7 @@ class CTicketCategory extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'ticket';
+	public $picture = 'ticket';
 
 
 	const STATUS_DISABLED = 0;
@@ -63,7 +63,7 @@ class CTicketCategory extends CommonObject
 	 *  'type' field format ('integer', 'integer:ObjectClass:PathToClass[:AddCreateButtonOrNot[:Filter]]', 'sellist:TableName:LabelFieldName[:KeyFieldName[:KeyFieldParent[:Filter]]]', 'varchar(x)', 'double(24,8)', 'real', 'price', 'text', 'text:none', 'html', 'date', 'datetime', 'timestamp', 'duration', 'mail', 'phone', 'url', 'password')
 	 *         Note: Filter can be a string like "(t.ref:like:'SO-%') or (t.date_creation:<:'20160101') or (t.nature:is:NULL)"
 	 *  'label' the translation key.
-	 *  'picto' is code of a picto to show before value in forms
+	 *  'picture' is code of a picture to show before value in forms
 	 *  'enabled' is a condition when the field must be managed (Example: 1 or 'getDolGlobalString('MY_SETUP_PARAM'))
 	 *  'position' is the sort order of field.
 	 *  'notnull' is set to 1 if not null in database. Set to -1 if we must set data to null if empty ('' or 0).
@@ -453,16 +453,16 @@ class CTicketCategory extends CommonObject
 
 
 	/**
-	 *  Return a link to the object card (with optionally the picto)
+	 *  Return a link to the object card (with optionally the picture)
 	 *
-	 *  @param  int     $withpicto                  Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
+	 *  @param  int     $withPicture                  Include picture in link (0=No picture, 1=Include picture into link, 2=Only picture)
 	 *  @param  string  $option                     On what the link point to ('nolink', ...)
 	 *  @param  int     $notooltip                  1=Disable tooltip
 	 *  @param  string  $morecss                    Add more css on link
 	 *  @param  int     $save_lastsearch_value      -1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 *  @return	string                              String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
+	public function getNomUrl($withPicture = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
 		global $config, $langs, $hookManager;
 
@@ -472,7 +472,7 @@ class CTicketCategory extends CommonObject
 
 		$result = '';
 
-		/*$label = img_picto('', $this->picto).' <u>'.$langs->trans("MyObject").'</u>';
+		/*$label = img_picture('', $this->picture).' <u>'.$langs->trans("MyObject").'</u>';
 		if (isset($this->status)) {
 			$label .= ' '.$this->getLibStatut(5);
 		}

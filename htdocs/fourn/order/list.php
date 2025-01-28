@@ -1223,24 +1223,24 @@ if ($resql) {
 
 	// List of mass actions available
 	$arrayofmassactions = array(
-		'generate_doc' => img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("ReGeneratePDF"),
-		'builddoc' => img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
-		'presend' => img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
+		'generate_doc' => img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("ReGeneratePDF"),
+		'builddoc' => img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
+		'presend' => img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
 	);
 
 	if ($permissiontovalidate) {
 		if ($permissiontoapprove && !getDolGlobalString('SUPPLIER_ORDER_NO_DIRECT_APPROVE')) {
-			$arrayofmassactions['prevalidate'] = img_picto('', 'check', 'class="pictofixedwidth"').$langs->trans("ValidateAndApprove");
+			$arrayofmassactions['prevalidate'] = img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("ValidateAndApprove");
 		} else {
-			$arrayofmassactions['prevalidate'] = img_picto('', 'check', 'class="pictofixedwidth"').$langs->trans("Validate");
+			$arrayofmassactions['prevalidate'] = img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("Validate");
 		}
 	}
 
 	if ($user->hasRight('fournisseur', 'facture', 'creer') || $user->hasRight("supplier_invoice", "creer")) {
-		$arrayofmassactions['createbills'] = img_picto('', 'supplier_invoice', 'class="pictofixedwidth"').$langs->trans("CreateInvoiceForThisSupplier");
+		$arrayofmassactions['createbills'] = img_picture('', 'supplier_invoice', 'class="picturefixedwidth"').$langs->trans("CreateInvoiceForThisSupplier");
 	}
 	if ($permissiontodelete) {
-		$arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+		$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 	}
 	if (in_array($massaction, array('presend', 'predelete', 'createbills'))) {
 		$arrayofmassactions = array();
@@ -1337,14 +1337,14 @@ if ($resql) {
 		$langs->load("commercial");
 		$moreforfilter .= '<div class="divsearchfield">';
 		$tmptitle = $langs->trans('ThirdPartiesOfSaleRepresentative');
-		$moreforfilter .= img_picto($tmptitle, 'user', 'class="pictofixedwidth"').$formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $tmptitle, 'maxwidth250 widthcentpercentminusx');
+		$moreforfilter .= img_picture($tmptitle, 'user', 'class="picturefixedwidth"').$formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $tmptitle, 'maxwidth250 widthcentpercentminusx');
 		$moreforfilter .= '</div>';
 	}
 	// If the user can view other users
 	if ($user->hasRight("user", "user", "lire")) {
 		$moreforfilter .= '<div class="divsearchfield">';
 		$tmptitle = $langs->trans('LinkedToSpecificUsers');
-		$moreforfilter .= img_picto($tmptitle, 'user', 'class="pictofixedwidth"').$form->select_dolusers($search_user, 'search_user', $tmptitle, '', 0, '', '', 0, 0, 0, '', 0, '', 'maxwidth250 widthcentpercentminusx');
+		$moreforfilter .= img_picture($tmptitle, 'user', 'class="picturefixedwidth"').$form->select_dolusers($search_user, 'search_user', $tmptitle, '', 0, '', '', 0, 0, 0, '', 0, '', 'maxwidth250 widthcentpercentminusx');
 		$moreforfilter .= '</div>';
 	}
 	// If the user can view prospects other than his'
@@ -1353,7 +1353,7 @@ if ($resql) {
 		$moreforfilter .= '<div class="divsearchfield">';
 		$tmptitle = $langs->trans('IncludingProductWithTag');
 		$cate_arbo = $form->select_all_categories(Category::TYPE_PRODUCT, null, 'parent', null, null, 1);
-		$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"').$form->selectarray('search_product_category', $cate_arbo, $search_product_category, $tmptitle, 0, 0, '', 0, 0, 0, 0, 'maxwidth300 widthcentpercentminusx', 1);
+		$moreforfilter .= img_picture($tmptitle, 'category', 'class="picturefixedwidth"').$form->selectarray('search_product_category', $cate_arbo, $search_product_category, $tmptitle, 0, 0, '', 0, 0, 0, 0, 'maxwidth300 widthcentpercentminusx', 1);
 		$moreforfilter .= '</div>';
 	}
 	// alert on late date
@@ -1395,8 +1395,8 @@ if ($resql) {
 	// Action column
 	if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre middle">';
-		$searchpicto = $form->showFilterButtons('left');
-		print $searchpicto;
+		$searchPicture = $form->showFilterButtons('left');
+		print $searchPicture;
 		print '</td>';
 	}
 	// Ref
@@ -1585,8 +1585,8 @@ if ($resql) {
 	// Action column
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre center">';
-		$searchpicto = $form->showFilterButtons();
-		print $searchpicto;
+		$searchPicture = $form->showFilterButtons();
+		print $searchPicture;
 		print '</td>';
 	}
 
@@ -1813,7 +1813,7 @@ if ($resql) {
 
 				// Picto + Ref
 				print $objectstatic->getNomUrl(1, '', 0, -1, 1);
-				// Other picto tool
+				// Other picture tool
 				$filename = dol_sanitizeFileName($obj->ref);
 				$filedir = $config->fournisseur->order->dir_output.'/'.dol_sanitizeFileName($obj->ref);
 				print $formfile->getDocumentsLink($objectstatic->element, $filename, $filedir);
@@ -1940,7 +1940,7 @@ if ($resql) {
 				print dol_print_date($db->jdate($obj->date_order), 'day');
 				if ($objectstatic->statut != $objectstatic::STATUS_ORDERSENT && $objectstatic->statut != $objectstatic::STATUS_RECEIVED_PARTIALLY) {
 					if ($objectstatic->hasDelay()) {
-						print ' '.img_picto($langs->trans("Late").' : '.$objectstatic->showDelay(), "warning");
+						print ' '.img_picture($langs->trans("Late").' : '.$objectstatic->showDelay(), "warning");
 					}
 				}
 				print '</td>';
@@ -1954,7 +1954,7 @@ if ($resql) {
 				print dol_print_date($db->jdate($obj->delivery_date), 'day');
 				if ($objectstatic->statut == $objectstatic::STATUS_ORDERSENT || $objectstatic->statut == $objectstatic::STATUS_RECEIVED_PARTIALLY) {
 					if ($objectstatic->hasDelay()) {
-						print ' '.img_picto($langs->trans("Late").' : '.$objectstatic->showDelay(), "warning");
+						print ' '.img_picture($langs->trans("Late").' : '.$objectstatic->showDelay(), "warning");
 					}
 				}
 				print '</td>';

@@ -225,7 +225,7 @@ if ($object->id > 0) {
 		}
 		$out .= (!empty($objcon->id) ? '&amp;contactid='.$objcon->id : '').'&amp;backtopage=1';
 		//$out.=$langs->trans("AddAnAction").' ';
-		//$out.=img_picto($langs->trans("AddAnAction"),'filenew');
+		//$out.=img_picture($langs->trans("AddAnAction"),'filenew');
 		//$out.="</a>";
 	}
 

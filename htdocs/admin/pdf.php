@@ -279,7 +279,7 @@ $head = pdf_admin_prepare_head();
 
 print dol_get_fiche_head($head, 'general', '', -1, '');
 
-print '<span class="opacitymedium">'.$form->textwithpicto($langs->trans("PDFDesc"), $s)."</span><br>\n";
+print '<span class="opacitymedium">'.$form->textWithPicture($langs->trans("PDFDesc"), $s)."</span><br>\n";
 print "<br>\n";
 
 $noCountryCode = empty($mysoc->country_code);
@@ -520,7 +520,7 @@ print '<tr class="liste_titre"><td>'.$langs->trans("Parameter").'</td><td>'.$lan
 // Use 2 languages into PDF
 
 print '<tr class="oddeven"><td>';
-print $form->textwithpicto($langs->trans("PDFIn2Languages"), $langs->trans("PDF_USE_ALSO_LANGUAGE_CODE"));
+print $form->textWithPicture($langs->trans("PDFIn2Languages"), $langs->trans("PDF_USE_ALSO_LANGUAGE_CODE"));
 print '</td><td>';
 $selected = GETPOSTISSET('PDF_USE_ALSO_LANGUAGE_CODE') ? GETPOST('PDF_USE_ALSO_LANGUAGE_CODE') : getDolGlobalString('PDF_USE_ALSO_LANGUAGE_CODE');
 print $formadmin->select_language($selected, 'PDF_USE_ALSO_LANGUAGE_CODE', 0, array(), 1);
@@ -533,7 +533,7 @@ print '</td></tr>';
 
 // Frame corner radius
 print '<tr class="oddeven"><td>';
-print $form->textwithpicto($langs->trans("PDFBoxFrameRoundedCorners"), $langs->trans("MAIN_PDF_FRAME_CORNER_RADIUS"));
+print $form->textWithPicture($langs->trans("PDFBoxFrameRoundedCorners"), $langs->trans("MAIN_PDF_FRAME_CORNER_RADIUS"));
 print '</td><td>';
 $arrval = array('0', '1', '2', '3');
 print $form->selectarray("MAIN_PDF_FRAME_CORNER_RADIUS", $arrval, getDolGlobalInt('MAIN_PDF_FRAME_CORNER_RADIUS', 0));

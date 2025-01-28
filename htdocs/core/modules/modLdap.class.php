@@ -52,9 +52,9 @@ class modLdap extends DolibarrModules
 		$this->version = 'dolibarr';
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
-		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-		// If file is in module/images directory, use this->picto=DOL_URL_ROOT.'/module/images/file.png'
-		$this->picto = 'technic';
+		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
+		// If file is in module/images directory, use this->picture=DOL_URL_ROOT.'/module/images/file.png'
+		$this->picture = 'technic';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/ldap/temp");

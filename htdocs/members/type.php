@@ -500,7 +500,7 @@ if ($action == 'create') {
 	print $form->selectarray("morphy", $morphys, GETPOSTISSET("morphy") ? GETPOST("morphy", 'aZ09') : 'morphy');
 	print "</td></tr>";
 
-	print '<tr><td>'.$form->textwithpicto($langs->trans("SubscriptionRequired"), $langs->trans("SubscriptionRequiredDesc")).'</td><td>';
+	print '<tr><td>'.$form->textWithPicture($langs->trans("SubscriptionRequired"), $langs->trans("SubscriptionRequiredDesc")).'</td><td>';
 	print $form->selectyesno("subscription", 1, 1);
 	print '</td></tr>';
 
@@ -508,7 +508,7 @@ if ($action == 'create') {
 	print '<input name="amount" size="5" value="'.(GETPOSTISSET('amount') ? GETPOST('amount') : price($amount)).'">';
 	print '</td></tr>';
 
-	print '<tr><td>'.$form->textwithpicto($langs->trans("CanEditAmountShort"), $langs->transnoentities("CanEditAmount")).'</td><td>';
+	print '<tr><td>'.$form->textWithPicture($langs->trans("CanEditAmountShort"), $langs->transnoentities("CanEditAmount")).'</td><td>';
 	print $form->selectyesno("caneditamount", GETPOSTISSET('caneditamount') ? GETPOST('caneditamount') : 0, 1);
 	print '</td></tr>';
 
@@ -576,7 +576,7 @@ if ($rowid > 0) {
 		print '<tr><td>'.$langs->trans("MembersNature").'</td><td class="valeur" >'.$object->getmorphylib($object->morphy).'</td>';
 		print '</tr>';
 
-		print '<tr><td>'.$form->textwithpicto($langs->trans("SubscriptionRequired"), $langs->trans("SubscriptionRequiredDesc")).'</td><td>';
+		print '<tr><td>'.$form->textWithPicture($langs->trans("SubscriptionRequired"), $langs->trans("SubscriptionRequiredDesc")).'</td><td>';
 		print yn($object->subscription);
 		print '</tr>';
 
@@ -585,7 +585,7 @@ if ($rowid > 0) {
 		print((is_null($object->amount) || $object->amount === '') ? '' : '<span class="amount">'.price($object->amount).'</span>');
 		print '</tr>';
 
-		print '<tr><td>'.$form->textwithpicto($langs->trans("CanEditAmountShort"), $langs->transnoentities("CanEditAmount")).'</td><td>';
+		print '<tr><td>'.$form->textWithPicture($langs->trans("CanEditAmountShort"), $langs->transnoentities("CanEditAmount")).'</td><td>';
 		print yn($object->caneditamount);
 		print '</td></tr>';
 
@@ -812,8 +812,8 @@ if ($rowid > 0) {
 
 			if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 				print '<td class="liste_titre center maxwidthsearch">';
-				$searchpicto = $form->showFilterButtons('left');
-				print $searchpicto;
+				$searchPicture = $form->showFilterButtons('left');
+				print $searchPicture;
 				print '</td>';
 			}
 
@@ -890,7 +890,7 @@ if ($rowid > 0) {
 						print '<a class="editfielda marginleftonly" href="card.php?rowid='.$objp->rowid.'&action=edit&token='.newToken().'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?rowid='.$object->id).'">'.img_edit().'</a>';
 					}
 					if ($user->hasRight('member', 'supprimer')) {
-						print '<a class="marginleftonly" href="card.php?rowid='.$objp->rowid.'&action=resiliate&token='.newToken().'">'.img_picto($langs->trans("Resiliate"), 'disable.png').'</a>';
+						print '<a class="marginleftonly" href="card.php?rowid='.$objp->rowid.'&action=resiliate&token='.newToken().'">'.img_picture($langs->trans("Resiliate"), 'disable.png').'</a>';
 					}
 					print "</td>";
 				}
@@ -958,7 +958,7 @@ if ($rowid > 0) {
 						print '<a class="editfielda marginleftonly" href="card.php?rowid='.$objp->rowid.'&action=edit&token='.newToken().'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?rowid='.$object->id).'">'.img_edit().'</a>';
 					}
 					if ($user->hasRight('member', 'supprimer')) {
-						print '<a class="marginleftonly" href="card.php?rowid='.$objp->rowid.'&action=resiliate&token='.newToken().'">'.img_picto($langs->trans("Resiliate"), 'disable.png').'</a>';
+						print '<a class="marginleftonly" href="card.php?rowid='.$objp->rowid.'&action=resiliate&token='.newToken().'">'.img_picture($langs->trans("Resiliate"), 'disable.png').'</a>';
 					}
 					print "</td>";
 				}
@@ -1026,7 +1026,7 @@ if ($rowid > 0) {
 		print '">';
 		print '</td></tr>';
 
-		print '<tr><td>'.$form->textwithpicto($langs->trans("CanEditAmountShort"), $langs->transnoentities("CanEditAmountDetail")).'</td><td>';
+		print '<tr><td>'.$form->textWithPicture($langs->trans("CanEditAmountShort"), $langs->transnoentities("CanEditAmountDetail")).'</td><td>';
 		print $form->selectyesno("caneditamount", $object->caneditamount, 1);
 		print '</td></tr>';
 

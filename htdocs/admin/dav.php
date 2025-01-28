@@ -116,7 +116,7 @@ if ($action == 'edit') {
 			$label = $langs->trans("RESTRICT_ON_IP");
 			$tooltiphelp .= ' '.$langs->trans("Example").': '.$langs->trans("IPListExample");
 		}
-		print $form->textwithpicto($label, $tooltiphelp);
+		print $form->textWithPicture($label, $tooltiphelp);
 		print '</td><td>';
 		if ($key == 'DAV_ALLOW_PRIVATE_DIR') {
 			print $langs->trans("AlwaysActive");
@@ -152,7 +152,7 @@ if ($action == 'edit') {
 			$label = $langs->trans("RESTRICT_ON_IP");
 			$tooltiphelp .= ' <span class="opacitymedium">'.$langs->trans("Example").': '.$langs->trans("IPListExample").'</span>';
 		}
-		print $form->textwithpicto($label, $tooltiphelp);
+		print $form->textWithPicture($label, $tooltiphelp);
 		print '</td><td class="minwidth200">';
 		if ($key == 'DAV_ALLOW_PRIVATE_DIR') {
 			print $langs->trans("AlwaysActive");
@@ -197,10 +197,10 @@ $urlwithroot = $urlwithouturlroot.DOL_URL_ROOT; // This is to use external domai
 $message = '';
 $url = '<a href="'.$urlwithroot.'/dav/fileserver.php" target="_blank" rel="noopener noreferrer">'.$urlwithroot.'/dav/fileserver.php</a>';
 
-$message .= img_picto('', 'globe').' '.str_replace('{url}', $url, $langs->trans("WebDavServer", 'WebDAV', ''));
+$message .= img_picture('', 'globe').' '.str_replace('{url}', $url, $langs->trans("WebDavServer", 'WebDAV', ''));
 $message .= '<div class="urllink"><input type="text" id="webdavpublicurl" class="quatrevingtpercent" value="'.$urlwithroot.'/dav/fileserver.php">';
 $message .= '<a href="'.$urlwithroot.'/dav/fileserver.php" target="_blank" rel="noopener noreferrer">';
-$message .= ' '.img_picto('', 'globe');
+$message .= ' '.img_picture('', 'globe');
 $message .= '</a>';
 $message .= '</div>';
 $message .= ajax_autoselect('webdavpublicurl');
@@ -210,10 +210,10 @@ if (getDolGlobalString('DAV_ALLOW_PUBLIC_DIR')) {
 	$urlEntity = (isModEnabled('multicompany') ? '?entity=' . $config->entity : '');
 	$url = '<a href="' . $urlwithroot . '/dav/fileserver.php/public/' . $urlEntity . '" target="_blank" rel="noopener noreferrer">' . $urlwithroot . '/dav/fileserver.php/public/' . $urlEntity . '</a>';
 
-	$message .= img_picto('', 'globe') . ' ' . str_replace('{url}', $url, $langs->trans("WebDavServer", 'WebDAV public', ''));
+	$message .= img_picture('', 'globe') . ' ' . str_replace('{url}', $url, $langs->trans("WebDavServer", 'WebDAV public', ''));
 	$message .= '<div class="urllink"><input type="text" id="webdavurl" class="quatrevingtpercent" value="' . $urlwithroot . '/dav/fileserver.php/public/' . $urlEntity . '">';
 	$message .= '<a href="' . $urlwithroot . '/dav/fileserver.php/public/' . $urlEntity . '" target="_blank" rel="noopener noreferrer">';
-	$message .= ' ' . img_picto('', 'globe');
+	$message .= ' ' . img_picture('', 'globe');
 	$message .= '</a>';
 	$message .= '</div>';
 	$message .= ajax_autoselect('webdavurl');

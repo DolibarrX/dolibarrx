@@ -343,8 +343,8 @@ if (empty($numref)) {
 
 		// List of mass actions available
 		$arrayofmassactions = array(
-			//'presend'=>img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
-			//'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
+			//'presend'=>img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
+			//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 		);
 		//if (in_array($massaction, array('presend', 'predelete'))) {
 		//	$arrayofmassactions = array();
@@ -735,7 +735,7 @@ if (empty($numref)) {
 	print "</tr>\n";
 	print "</table>";
 
-	// Code to adjust value date with plus and less picto using an Ajax call instead of a full reload of page
+	// Code to adjust value date with plus and less picture using an Ajax call instead of a full reload of page
 	$urlajax = DOL_URL_ROOT.'/core/ajax/bankconciliate.php?token='.currentToken();
 	print '
     <script type="text/javascript">

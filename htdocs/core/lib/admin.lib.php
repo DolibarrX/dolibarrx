@@ -764,19 +764,19 @@ function modules_prepare_head($nbofactivatedmodules, $nboftotalmodules, $nbModul
 {
 	global $langs, $form;
 
-	$desc = $langs->trans("ModulesDesc", '{picto}');
-	$desc = str_replace('{picto}', img_picto('', 'switch_off'), $desc);
+	$desc = $langs->trans("ModulesDesc", '{picture}');
+	$desc = str_replace('{picture}', img_picture('', 'switch_off'), $desc);
 
 	$h = 0;
 	$head = array();
 	$mode = getDolGlobalString('MAIN_MODULE_SETUP_ON_LIST_BY_DEFAULT', 'commonkanban');
 	$head[$h][0] = DOL_URL_ROOT . "/admin/modules.php?mode=" . $mode;
 	if ($nbModulesNotAutoEnabled <= getDolGlobalInt('MAIN_MIN_NB_ENABLED_MODULE_FOR_WARNING', 1)) {	// If only minimal initial modules enabled)
-		//$head[$h][1] = $form->textwithpicto($langs->trans("AvailableModules"), $desc);
+		//$head[$h][1] = $form->textWithPicture($langs->trans("AvailableModules"), $desc);
 		$head[$h][1] = $langs->trans("AvailableModules");
-		$head[$h][1] .= $form->textwithpicto('', $langs->trans("YouMustEnableOneModule") . '.<br><br><span class="opacitymedium">' . $desc . '</span>', 1, 'warning');
+		$head[$h][1] .= $form->textWithPicture('', $langs->trans("YouMustEnableOneModule") . '.<br><br><span class="opacitymedium">' . $desc . '</span>', 1, 'warning');
 	} else {
-		//$head[$h][1] = $langs->trans("AvailableModules").$form->textwithpicto('<span class="badge marginleftonly">'.$nbofactivatedmodules.' / '.$nboftotalmodules.'</span>', $desc, 1, 'help', '', 1, 3);
+		//$head[$h][1] = $langs->trans("AvailableModules").$form->textWithPicture('<span class="badge marginleftonly">'.$nbofactivatedmodules.' / '.$nboftotalmodules.'</span>', $desc, 1, 'help', '', 1, 3);
 		$head[$h][1] = $langs->trans("AvailableModules") . '<span class="badge marginleftonly">' . $nbofactivatedmodules . ' / ' . $nboftotalmodules . '</span>';
 	}
 	$head[$h][2] = 'modules';
@@ -1462,7 +1462,7 @@ function complete_dictionary_with_modules(&$taborder, &$tabname, &$tablib, &$tab
 									$taborder[] = max($taborder) + 1;
 									$tabname[] = $val;
 									$tabnamerelwithkey[$key] = $val;
-									$tabcomplete[$tmptablename]['picto'] = $objMod->picto;
+									$tabcomplete[$tmptablename]['picture'] = $objMod->picture;
 								}		// Position
 								foreach ($objMod->dictionaries['tablib'] as $key => $val) {
 									$tmptablename = preg_replace('/' . MAIN_DB_PREFIX . '/', '', $tabnamerelwithkey[$key]);
@@ -1753,7 +1753,7 @@ function form_constantes($tableau, $strictw3c = 2, $helptext = '', $text = 'Valu
 	print '<td class="">' . $langs->trans("Description") . '</td>';
 	print '<td>';
 	$text = $langs->trans($text);
-	print $form->textwithpicto($text, $helptext, 1, 'help', '', 0, 2, 'idhelptext');
+	print $form->textWithPicture($text, $helptext, 1, 'help', '', 0, 2, 'idhelptext');
 	print '</td>';
 	if (empty($strictw3c)) {
 		print '<td class="center" width="80">' . $langs->trans("Action") . '</td>';
@@ -1813,15 +1813,15 @@ function form_constantes($tableau, $strictw3c = 2, $helptext = '', $text = 'Valu
 			print '<input type="hidden" name="constnote_' . $obj->name . '" value="' . nl2br(dol_escape_htmltag($obj->note)) . '">';
 			print '<input type="hidden" name="consttype_' . $obj->name . '" value="' . ($obj->type ? $obj->type : 'string') . '">';
 
-			$picto = 'generic';
+			$picture = 'generic';
 			$tmparray = explode(':', $obj->type);
 			if (!empty($tmparray[1])) {
-				$picto = preg_replace('/_send$/', '', $tmparray[1]);
+				$picture = preg_replace('/_send$/', '', $tmparray[1]);
 			}
-			print img_picto('', $picto, 'class="pictofixedwidth"');
+			print img_picture('', $picture, 'class="picturefixedwidth"');
 
 			if (!empty($tableau[$key]['tooltip'])) {
-				print $form->textwithpicto($label ? $label : $langs->trans('Desc' . $const), $tableau[$key]['tooltip']);
+				print $form->textWithPicture($label ? $label : $langs->trans('Desc' . $const), $tableau[$key]['tooltip']);
 			} else {
 				print($label ? $label : $langs->trans('Desc' . $const));
 			}
@@ -1906,7 +1906,7 @@ function form_constantes($tableau, $strictw3c = 2, $helptext = '', $text = 'Valu
 					//var_dump($arrayofmessagename);
 					print $form->selectarray('constvalue' . (empty($strictw3c) ? '' : ($strictw3c == 3 ? '_' . $const : '[]')), $arrayofmessagename, $obj->value . ':' . $tmp[1], 'None', 0, 0, '', 0, 0, 0, '', '', 1);
 				} elseif (preg_match('/MAIL_FROM$/i', $const)) {
-					print img_picto('', 'email', 'class="pictofixedwidth"') . '<input type="text" class="flat minwidth300" name="constvalue' . (empty($strictw3c) ? '' : ($strictw3c == 3 ? '_' . $const : '[]')) . '" value="' . dol_escape_htmltag($obj->value) . '">';
+					print img_picture('', 'email', 'class="picturefixedwidth"') . '<input type="text" class="flat minwidth300" name="constvalue' . (empty($strictw3c) ? '' : ($strictw3c == 3 ? '_' . $const : '[]')) . '" value="' . dol_escape_htmltag($obj->value) . '">';
 				} else { // type = 'string' ou 'chaine'
 					print '<input type="text" class="flat minwidth300" name="constvalue' . (empty($strictw3c) ? '' : ($strictw3c == 3 ? '_' . $const : '[]')) . '" value="' . dol_escape_htmltag($obj->value) . '">';
 				}

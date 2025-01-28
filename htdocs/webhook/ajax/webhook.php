@@ -108,7 +108,7 @@ if ($action == "getjsonformtrigger") {
 				unset($obj->db);
 				unset($obj->fields);
 				unset($obj->table_element);
-				unset($obj->picto);
+				unset($obj->picture);
 				unset($obj->isextrafieldmanaged);
 				unset($obj->ismultientitymanaged);
 

@@ -479,7 +479,7 @@ print '<table class="border tableforfield centpercent">';
 // Type
 $type = ($object->format == "A") ? 'classic' : 'date';
 print '<tr><td class="titlefield">'.$langs->trans("Type").'</td><td>';
-print img_picto('', dol_buildpath('/opensurvey/img/'.($type == 'classic' ? 'chart-32.png' : 'calendar-32.png'), 1), 'width="16"', 1);
+print img_picture('', dol_buildpath('/opensurvey/img/'.($type == 'classic' ? 'chart-32.png' : 'calendar-32.png'), 1), 'width="16"', 1);
 print ' '.$langs->trans($type == 'classic' ? "TypeClassic" : "TypeDate").'</td></tr>';
 
 // Title
@@ -673,7 +673,7 @@ if (GETPOST('ajoutsujet')) {
 if ($user->hasRight('opensurvey', 'write')) {
 	print '<span class="opacitymedium">';
 	$s = $langs->trans("PollAdminDesc", '{s1}', $langs->trans("Add"));
-	print str_replace('{s1}', img_picto('', 'delete'), $s);
+	print str_replace('{s1}', img_picture('', 'delete'), $s);
 	print '</span><br>';
 }
 
@@ -699,7 +699,7 @@ print '<td></td>'."\n";
 // loop to show the delete link
 if ($user->hasRight('opensurvey', 'write')) {
 	for ($i = 0; isset($toutsujet[$i]); $i++) {
-		print '<td class=somme><input type="image" class="buttonwebsite" name="effacecolonne'.$i.'" src="'.img_picto('', 'delete.png', '', 0, 1).'"></td>'."\n";
+		print '<td class=somme><input type="image" class="buttonwebsite" name="effacecolonne'.$i.'" src="'.img_picture('', 'delete.png', '', 0, 1).'"></td>'."\n";
 	}
 }
 
@@ -846,7 +846,7 @@ while ($compteur < $num) {
 	print '<tr><td>'."\n";
 
 	if ($user->hasRight('opensurvey', 'write')) {
-		print '<input type="image" class="reposition" name="effaceligne'.$compteur.'" src="'.img_picto('', 'delete.png', '', 0, 1).'">'."\n";
+		print '<input type="image" class="reposition" name="effaceligne'.$compteur.'" src="'.img_picture('', 'delete.png', '', 0, 1).'">'."\n";
 	}
 
 	// Name
@@ -1058,7 +1058,7 @@ if (empty($testligneamodifier)) {
 	}
 
 	// Affichage du bouton de formulaire pour inscrire un nouvel utilisateur dans la base
-	print '<td><input type="image" name="boutonp" class="borderimp classfortooltip" title="'.dolPrintHTML($langs->trans("AddTheVote")).'" value="'.$langs->trans("Vote").'" src="'.img_picto('', 'edit_add', '', 0, 1).'"></td>'."\n";
+	print '<td><input type="image" name="boutonp" class="borderimp classfortooltip" title="'.dolPrintHTML($langs->trans("AddTheVote")).'" value="'.$langs->trans("Vote").'" src="'.img_picture('', 'edit_add', '', 0, 1).'"></td>'."\n";
 	print '</tr>'."\n";
 }
 
@@ -1106,7 +1106,7 @@ for ($i = 0; $i < $nbcolonnes; $i++) {
 	print '</td>'."\n";
 }
 print '</tr>';
-// Show picto winner
+// Show picture winner
 if ($nbofcheckbox >= 2) {
 	print '<tr>'."\n";
 	print '<td></td>'."\n";

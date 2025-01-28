@@ -239,9 +239,9 @@ $title = $langs->trans("EMailsSetup");
 llxHeader('', $title, '', '', 0, 0, '', '', '', 'mod-admin page-mails_senderprofile_list');
 
 $linkback = '';
-$titlepicto = 'title_setup';
+$titlePicture = 'title_setup';
 
-print load_fiche_titre($title, $linkback, $titlepicto);
+print load_fiche_titre($title, $linkback, $titlePicture);
 
 $head = email_admin_prepare_head();
 
@@ -422,10 +422,10 @@ $param .= $hookManager->resPrint;
 
 // List of mass actions available
 $arrayofmassactions = array(
-	//'presend'=>img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
-	//'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
+	//'presend'=>img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
+	//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 );
-//if ($permissiontodelete) $arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+//if ($permissiontodelete) $arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 //if (GETPOST('nomassaction', 'int') || in_array($massaction, array('presend', 'predelete'))) $arrayofmassactions = array();
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -453,7 +453,7 @@ if ($action != 'create') {
 		print '<table class="border centpercent tableforfield">';
 		print '<tr><td class="fieldrequired">'.$langs->trans("Label").'</td><td><input type="text" name="label" class="width300" value="'.(GETPOSTISSET('label') ? GETPOST('label', 'alphanohtml') : $object->label).'"></td></tr>';
 		print '<tr><td>'.$langs->trans("Email").'</td><td>';
-		print img_picto('', 'email', 'class="pictofixedwidth"');
+		print img_picture('', 'email', 'class="picturefixedwidth"');
 		print '<input type="text" name="email" value="'.(GETPOSTISSET('email') ? GETPOST('email', 'alphanohtml') : $object->email).'"></td></tr>';
 		print '<tr><td>'.$langs->trans("Signature").'</td><td>';
 		require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
@@ -461,7 +461,7 @@ if ($action != 'create') {
 		print $doleditor->Create(1);
 		print '</td></tr>';
 		print '<tr><td>'.$langs->trans("User").'</td><td>';
-		print img_picto('', 'user', 'class="pictofixedwidth"');
+		print img_picture('', 'user', 'class="picturefixedwidth"');
 		print $form->select_dolusers((GETPOSTISSET('private') ? GETPOSTINT('private') : $object->private), 'private', 1, null, 0, ($user->admin ? '' : $user->id));
 		print '</td></tr>';
 		print '<tr><td>'.$langs->trans("Position").'</td><td><input type="text" name="position" class="maxwidth50" value="'.(GETPOSTISSET('position') ? GETPOSTINT('position') : $object->position).'"></td></tr>';
@@ -485,7 +485,7 @@ if ($action != 'create') {
 	print '<table class="border centpercent tableforfield">';
 	print '<tr><td class="fieldrequired">'.$langs->trans("Label").'</td><td><input type="text" name="label" class="width300" value="'.GETPOST('label', 'alphanohtml').'" autofocus></td></tr>';
 	print '<tr><td class="fieldrequired">'.$langs->trans("Email").'</td><td>';
-	print img_picto('', 'email', 'class="pictofixedwidth"');
+	print img_picture('', 'email', 'class="picturefixedwidth"');
 	print '<input type="text" name="email" class="width300" value="'.GETPOST('email', 'alphanohtml').'"></td></tr>';
 	print '<tr><td>'.$langs->trans("Signature").'</td><td>';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
@@ -493,7 +493,7 @@ if ($action != 'create') {
 	print $doleditor->Create(1);
 	print '</td></tr>';
 	print '<tr><td>'.$langs->trans("User").'</td><td>';
-	print img_picto('', 'user', 'class="pictofixedwidth"');
+	print img_picture('', 'user', 'class="picturefixedwidth"');
 	print $form->select_dolusers((GETPOSTISSET('private') ? GETPOSTINT('private') : -1), 'private', 1, null, 0, ($user->admin ? '' : $user->id));
 	print '</td></tr>';
 	print '<tr><td>'.$langs->trans("Position").'</td><td><input type="text" name="position" class="maxwidth50" value="'.GETPOSTINT('position').'"></td></tr>';
@@ -556,8 +556,8 @@ print '<tr class="liste_titre">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons('left');
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons('left');
+	print $searchPicture;
 	print '</td>';
 }
 foreach ($object->fields as $key => $val) {
@@ -604,8 +604,8 @@ print $hookManager->resPrint;
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '</tr>'."\n";

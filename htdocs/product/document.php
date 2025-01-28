@@ -222,9 +222,9 @@ llxHeader('', $title, $helpurl, '', 0, 0, '', '', '', 'mod-product page-card_doc
 if ($object->id > 0) {
 	$head = product_prepare_head($object);
 	$titre = $langs->trans("CardProduct".$object->type);
-	$picto = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
+	$picture = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
 
-	print dol_get_fiche_head($head, 'documents', $titre, -1, $picto);
+	print dol_get_fiche_head($head, 'documents', $titre, -1, $picture);
 
 	$parameters = array();
 	$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $object, $action); // Note that $action and $object may have been modified by hook

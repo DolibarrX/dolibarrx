@@ -54,7 +54,7 @@ class modExpenseReport extends DolibarrModules
 		$this->description = "Manage and claim expense reports (transportation, meal, ...)";
 		$this->version = 'dolibarr';
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'trip';
+		$this->picture = 'trip';
 
 		// Data directories to create when module is enabled.
 		$this->dirs = array("/expensereport/temp");

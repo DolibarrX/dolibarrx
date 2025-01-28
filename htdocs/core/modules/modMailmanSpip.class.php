@@ -55,7 +55,7 @@ class modMailmanSpip extends DolibarrModules
 		$this->version = 'dolibarr_deprecated';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'technic';
+		$this->picture = 'technic';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();

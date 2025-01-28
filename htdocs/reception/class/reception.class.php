@@ -72,7 +72,7 @@ class Reception extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'dollyrevert';
+	public $picture = 'dollyrevert';
 
 	/**
 	 * @var int
@@ -1327,21 +1327,21 @@ class Reception extends CommonObject
 	}
 
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
-	 *	@param      int			$withpicto      Add picto into link
+	 *	@param      int			$withPicture      Add picture into link
 	 *	@param      int			$option         Where point the link
 	 *	@param      int			$max          	Max length to show
 	 *	@param      int			$short			Use short labels
 	 *  @param      int         $notooltip      1=No tooltip
 	 *	@return     string          			String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = 0, $max = 0, $short = 0, $notooltip = 0)
+	public function getNomUrl($withPicture = 0, $option = 0, $max = 0, $short = 0, $notooltip = 0)
 	{
 		global $langs, $hookManager;
 
 		$result = '';
-		$label = img_picto('', $this->picto).' <u>'.$langs->trans("Reception").'</u>';
+		$label = img_picture('', $this->picture).' <u>'.$langs->trans("Reception").'</u>';
 		$label .= '<br><b>'.$langs->trans('Ref').':</b> '.$this->ref;
 		$label .= '<br><b>'.$langs->trans('RefSupplier').':</b> '.($this->ref_supplier ? $this->ref_supplier : '');
 
@@ -1366,10 +1366,10 @@ class Reception extends CommonObject
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), $this->picto, '', 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), $this->picture, '', 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 
@@ -1445,7 +1445,7 @@ class Reception extends CommonObject
 	}
 
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
 	 *	@param      string	    			$option                 Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param		array{string,mixed}		$arraydata				Array of data
@@ -1458,7 +1458,7 @@ class Reception extends CommonObject
 		$return = '<div class="box-flex-item box-flex-grow-zero">';
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<div class="info-box-icon bg-infobox-action">';
-		$return .= img_picto('', 'order');
+		$return .= img_picture('', 'order');
 		$return .= '</div>';
 		$return .= '<div class="info-box-content">';
 		$return .= '<span class="info-box-ref inline-block tdoverflowmax150 valignmiddle">'.(method_exists($this, 'getNomUrl') ? $this->getNomUrl() : $this->ref).'</span>';

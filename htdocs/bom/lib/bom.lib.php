@@ -163,7 +163,7 @@ function mrpCollapseBomManagement()
 
 				if(element.html().indexOf('folder-open') <= 0 && onClose < 1) {
 					$('[parentid="'+ id_bom_line +'"]').show();
-					element.html('<?php echo dol_escape_js(img_picto('', 'folder-open')); ?>');
+					element.html('<?php echo dol_escape_js(img_picture('', 'folder-open')); ?>');
 				}
 				else {
 					for (let i = 0; i < TSubLines.length; i++) {
@@ -175,7 +175,7 @@ function mrpCollapseBomManagement()
 						}
 					}
 					TSubLines.hide();
-					element.html('<?php echo dol_escape_js(img_picto('', 'folder')); ?>');
+					element.html('<?php echo dol_escape_js(img_picture('', 'folder')); ?>');
 				}
 			}
 
@@ -189,7 +189,7 @@ function mrpCollapseBomManagement()
 			$("#show_all").click(function() {
 				console.log("We click on show all");
 				$("[class^=sub_bom_lines]").show();
-				$("[class^=collapse_bom]").html('<?php echo dol_escape_js(img_picto('', 'folder-open')); ?>');
+				$("[class^=collapse_bom]").html('<?php echo dol_escape_js(img_picture('', 'folder-open')); ?>');
 				return false;
 			});
 
@@ -197,7 +197,7 @@ function mrpCollapseBomManagement()
 			$("#hide_all").click(function() {
 				console.log("We click on hide all");
 				$("[class^=sub_bom_lines]").hide();
-				$("[class^=collapse_bom]").html('<?php echo dol_escape_js(img_picto('', 'folder')); ?>');
+				$("[class^=collapse_bom]").html('<?php echo dol_escape_js(img_picture('', 'folder')); ?>');
 				return false;
 			});
 		});

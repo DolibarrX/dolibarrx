@@ -118,12 +118,12 @@ print '<div class="underbanner clearboth"></div>';
 
 print '<table class="border centpercent tableforfield">';
 
-// Name (already in dol_banner, we keep it to have the GlobalGroup picto, but we should move it in dol_banner)
+// Name (already in dol_banner, we keep it to have the GlobalGroup picture, but we should move it in dol_banner)
 if (isModEnabled('multicompany')) {
 	print '<tr><td class="titlefield">'.$langs->trans("Name").'</td>';
 	print '<td class="valeur">'.$object->name;
 	if (!$object->entity) {
-		print img_picto($langs->trans("GlobalGroup"), 'redstar');
+		print img_picture($langs->trans("GlobalGroup"), 'redstar');
 	}
 	print "</td></tr>\n";
 }

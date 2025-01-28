@@ -979,25 +979,25 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 				if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 					print '<input type="checkbox" disabled name="usage_opportunity"' . (GETPOSTISSET('usage_opportunity') ? (GETPOST('usage_opportunity', 'alpha') != '' ? ' checked="checked"' : '') : ($projectstatic->usage_opportunity ? ' checked="checked"' : '')) . '"> ';
 					$htmltext = $langs->trans("ProjectFollowOpportunity");
-					print $form->textwithpicto($langs->trans("ProjectFollowOpportunity"), $htmltext);
+					print $form->textWithPicture($langs->trans("ProjectFollowOpportunity"), $htmltext);
 					print '<br>';
 				}
 				if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
 					print '<input type="checkbox" disabled name="usage_task"' . (GETPOSTISSET('usage_task') ? (GETPOST('usage_task', 'alpha') != '' ? ' checked="checked"' : '') : ($projectstatic->usage_task ? ' checked="checked"' : '')) . '"> ';
 					$htmltext = $langs->trans("ProjectFollowTasks");
-					print $form->textwithpicto($langs->trans("ProjectFollowTasks"), $htmltext);
+					print $form->textWithPicture($langs->trans("ProjectFollowTasks"), $htmltext);
 					print '<br>';
 				}
 				if (!getDolGlobalString('PROJECT_HIDE_TASKS') && getDolGlobalString('PROJECT_BILL_TIME_SPENT')) {
 					print '<input type="checkbox" disabled name="usage_bill_time"' . (GETPOSTISSET('usage_bill_time') ? (GETPOST('usage_bill_time', 'alpha') != '' ? ' checked="checked"' : '') : ($projectstatic->usage_bill_time ? ' checked="checked"' : '')) . '"> ';
 					$htmltext = $langs->trans("ProjectBillTimeDescription");
-					print $form->textwithpicto($langs->trans("BillTime"), $htmltext);
+					print $form->textWithPicture($langs->trans("BillTime"), $htmltext);
 					print '<br>';
 				}
 				if (isModEnabled('eventorganization')) {
 					print '<input type="checkbox" disabled name="usage_organize_event"' . (GETPOSTISSET('usage_organize_event') ? (GETPOST('usage_organize_event', 'alpha') != '' ? ' checked="checked"' : '') : ($projectstatic->usage_organize_event ? ' checked="checked"' : '')) . '"> ';
 					$htmltext = $langs->trans("EventOrganizationDescriptionLong");
-					print $form->textwithpicto($langs->trans("ManageOrganizeEvent"), $htmltext);
+					print $form->textWithPicture($langs->trans("ManageOrganizeEvent"), $htmltext);
 				}
 				print '</td></tr>';
 			}
@@ -1005,10 +1005,10 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 			// Visibility
 			print '<tr><td class="titlefield">' . $langs->trans("Visibility") . '</td><td>';
 			if ($projectstatic->public) {
-				print img_picto($langs->trans('SharedProject'), 'world', 'class="paddingrightonly"');
+				print img_picture($langs->trans('SharedProject'), 'world', 'class="paddingrightonly"');
 				print $langs->trans('SharedProject');
 			} else {
-				print img_picto($langs->trans('PrivateProject'), 'private', 'class="paddingrightonly"');
+				print img_picture($langs->trans('PrivateProject'), 'private', 'class="paddingrightonly"');
 				print $langs->trans('PrivateProject');
 			}
 			print '</td></tr>';
@@ -1529,7 +1529,7 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 				print '<table class="noborder centpercent">';
 				print '<tr>';
 				print '<td class="titlefield">';
-				print img_picto('', 'intervention', 'class="pictofixedwidth"') . $langs->trans('InterToUse');
+				print img_picture('', 'intervention', 'class="picturefixedwidth"') . $langs->trans('InterToUse');
 				print '</td>';
 				print '<td>';
 				$forminter = new FormIntervention($db);
@@ -1862,7 +1862,7 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 
 				if (isModEnabled("service") && !empty($projectstatic->thirdparty) && $projectstatic->thirdparty->id > 0 && $projectstatic->usage_bill_time) {
 					print '<td class="nowraponall">';
-					print img_picto('', 'service');
+					print img_picture('', 'service');
 					print $form->select_produits((GETPOSTISSET('fk_product') ? GETPOSTINT("fk_product") : ''), 'fk_product', '1', 0, $projectstatic->thirdparty->price_level, 1, 2, '', 1, array(), $projectstatic->thirdparty->id, 'None', 0, 'maxwidth150', 0, '', null, 1);
 					print '</td>';
 				}
@@ -1914,8 +1914,8 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 		// Action column
 		if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 			print '<td class="liste_titre center">';
-			$searchpicto = $form->showFilterButtons('left');
-			print $searchpicto;
+			$searchPicture = $form->showFilterButtons('left');
+			print $searchPicture;
 			print '</td>';
 		}
 		// Date
@@ -2011,8 +2011,8 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 		// Action column
 		if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 			print '<td class="liste_titre center">';
-			$searchpicto = $form->showFilterButtons();
-			print $searchpicto;
+			$searchPicture = $form->showFilterButtons();
+			print $searchPicture;
 			print '</td>';
 		}
 		print '</tr>' . "\n";
@@ -2140,17 +2140,17 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 				} elseif ($user->hasRight('projet', 'time') || $user->hasRight('projet', 'all', 'creer')) {	 // Read project and enter time consumed on assigned tasks
 					if (in_array($task_time->fk_user, $childids) || $user->hasRight('projet', 'all', 'creer')) {
 						print '<a class="reposition editfielda" href="'.$_SERVER["PHP_SELF"].'?'.($withproject ? 'id='.$task_time->fk_element : '').'&action=editline&token='.newToken().'&lineid='.$task_time->rowid.$param.((empty($id) || $tab == 'timespent') ? '&tab=timespent' : '').'">';
-						print img_edit('default', 0, 'class="pictofixedwidth paddingleft"');
+						print img_edit('default', 0, 'class="picturefixedwidth paddingleft"');
 						print '</a>';
 
 						if (getDolGlobalString('PROJECT_ALLOW_SPLIT_TIMESPENT')) {
 							print '<a class="reposition editfielda paddingleft" href="' . $_SERVER["PHP_SELF"] . '?action=splitline&token=' . newToken() . '&lineid=' . $task_time->rowid . $param . ((empty($id) || $tab == 'timespent') ? '&tab=timespent' : '') . '">';
-							print img_split('', 'class="pictofixedwidth paddingleft"');
+							print img_split('', 'class="picturefixedwidth paddingleft"');
 							print '</a>';
 						}
 
 						print '<a class="reposition paddingleft" href="'.$_SERVER["PHP_SELF"].'?'.($withproject ? 'id='.$task_time->fk_element : '').'&action=deleteline&token='.newToken().'&lineid='.$task_time->rowid.$param.((empty($id) || $tab == 'timespent') ? '&tab=timespent' : '').'">';
-						print img_delete('default', 'class="pictodelete paddingleft"');
+						print img_delete('default', 'class="picturedelete paddingleft"');
 						print '</a>';
 
 						if ($massactionbutton || $massaction) {    // If we are in select mode (massactionbutton defined) or if we have already selected and sent an action ($massaction) defined
@@ -2317,7 +2317,7 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 						$contactsoftask[] = $task_time->fk_user;
 					}
 					if (count($contactsoftask) > 0) {
-						print img_object('', 'user', 'class="pictofixedwidth hideonsmartphone"');
+						print img_object('', 'user', 'class="picturefixedwidth hideonsmartphone"');
 						print $form->select_dolusers($task_time->fk_user, 'userid_line', 0, null, 0, '', $contactsoftask, '0', 0, 0, '', 0, '', 'minwidth100 maxwidth100');	// maxwidth must be lowed than minwidth of the td
 					} else {
 						print img_error($langs->trans('FirstAddRessourceToAllocateTime')) . $langs->trans('FirstAddRessourceToAllocateTime');
@@ -2391,7 +2391,7 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 			if (!empty($arrayfields['t.fk_product']['checked'])) {
 				print '<td class="nowraponall">';
 				if ($action == 'editline' && GETPOSTINT('lineid') == $task_time->rowid) {
-					print img_picto('', 'service');
+					print img_picture('', 'service');
 					print $form->select_produits($task_time->fk_product, 'fk_product', '1', 0, $projectstatic->thirdparty->price_level, 1, 2, '', 1, array(), $projectstatic->thirdparty->id, 'None', 0, 'maxwidth500', 0, '', null, 1);
 				} elseif (!empty($task_time->fk_product)) {
 					$product = new Product($db);
@@ -2500,17 +2500,17 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 				} elseif ($user->hasRight('projet', 'time') || $user->hasRight('projet', 'all', 'creer')) {	 // Read project and enter time consumed on assigned tasks
 					if (in_array($task_time->fk_user, $childids) || $user->hasRight('projet', 'all', 'creer')) {
 						print '<a class="reposition editfielda" href="'.$_SERVER["PHP_SELF"].'?'.($withproject ? 'id='.$task_time->fk_element : '').'&action=editline&token='.newToken().'&lineid='.$task_time->rowid.$param.((empty($id) || $tab == 'timespent') ? '&tab=timespent' : '').'">';
-						print img_edit('default', 0, 'class="pictofixedwidth paddingleft"');
+						print img_edit('default', 0, 'class="picturefixedwidth paddingleft"');
 						print '</a>';
 
 						if (getDolGlobalString('PROJECT_ALLOW_SPLIT_TIMESPENT')) {
 							print '<a class="reposition editfielda paddingleft" href="' . $_SERVER["PHP_SELF"] . '?action=splitline&token=' . newToken() . '&lineid=' . $task_time->rowid . $param . ((empty($id) || $tab == 'timespent') ? '&tab=timespent' : '') . '">';
-							print img_split('', 'class="pictofixedwidth paddingleft"');
+							print img_split('', 'class="picturefixedwidth paddingleft"');
 							print '</a>';
 						}
 
 						print '<a class="reposition paddingleft" href="'.$_SERVER["PHP_SELF"].'?'.($withproject ? 'id='.$task_time->fk_element : '').'&action=deleteline&token='.newToken().'&lineid='.$task_time->rowid.$param.((empty($id) || $tab == 'timespent') ? '&tab=timespent' : '').'">';
-						print img_delete('default', 'class="pictodelete paddingleft"');
+						print img_delete('default', 'class="picturedelete paddingleft"');
 						print '</a>';
 
 						if ($massactionbutton || $massaction) {    // If we are in select mode (massactionbutton defined) or if we have already selected and sent an action ($massaction) defined
@@ -2890,7 +2890,7 @@ if (($id > 0 || !empty($ref)) || $projectidforalltimes > 0 || $allprojectforuser
 					if ($num < $limit && empty($offset)) {
 						print '<td class="left">' . $langs->trans("Total") . '</td>';
 					} else {
-						print '<td class="left">'.$form->textwithpicto($langs->trans("Total"), $langs->trans("Totalforthispage")).'</td>';
+						print '<td class="left">'.$form->textWithPicture($langs->trans("Total"), $langs->trans("Totalforthispage")).'</td>';
 					}
 				} elseif (isset($totalarray['totaldurationfield']) && $totalarray['totaldurationfield'] == $i) {
 					print '<td class="right">' . convertSecondToTime($totalarray['totalduration'], 'allhourmin') . '</td>';

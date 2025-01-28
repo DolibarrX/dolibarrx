@@ -202,8 +202,8 @@ class ActionsCardProduct
 			$this->tpl['showrefnav'] = $form->showrefnav($this->object, 'ref', '', 1, 'ref');
 
 			$titre = $langs->trans("CardProduct".$this->object->type);
-			$picto = ($this->object->type == Product::TYPE_SERVICE ? 'service' : 'product');
-			$this->tpl['showhead'] = dol_get_fiche_head($head, 'card', $titre, 0, $picto);
+			$picture = ($this->object->type == Product::TYPE_SERVICE ? 'service' : 'product');
+			$this->tpl['showhead'] = dol_get_fiche_head($head, 'card', $titre, 0, $picture);
 			$this->tpl['showend'] = dol_get_fiche_end();
 
 			// Accountancy buy code

@@ -596,7 +596,7 @@ class FormCardWebPortal
 			if ($key == 'lang') {
 				$langs->load('languages');
 				$labellang = ($value ? $langs->trans('Language_' . $value) : '');
-				//$html .= picto_from_langcode($value, 'class="paddingrightonly saturatemedium opacitylow"');
+				//$html .= picture_from_langcode($value, 'class="paddingrightonly saturatemedium opacitylow"');
 				$html .= $labellang;
 			} else {
 				$html .= $this->form->showOutputFieldForObject($object, $val, $key, $value, '', '', '', 0);
@@ -765,7 +765,7 @@ class FormCardWebPortal
 		// Part to edit record
 		if (($id || $ref) && $action == 'edit') {
 			$html .= '<article>';
-			//$html .= load_fiche_titre($title, '', 'object_'.$object->picto);
+			//$html .= load_fiche_titre($title, '', 'object_'.$object->picture);
 			$html .= '<header>';
 			$html .= '<h2>' . $title . '</h2>';
 			$html .= '</header>';

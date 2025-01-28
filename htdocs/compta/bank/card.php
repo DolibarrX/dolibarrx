@@ -459,7 +459,7 @@ if ($action == 'create') {
 
 	print '<tr><td class="fieldrequired">'.$langs->trans("BankAccountCountry").'</td>';
 	print '<td>';
-	print img_picto('', 'country', 'class="pictofixedwidth"');
+	print img_picture('', 'country', 'class="picturefixedwidth"');
 	print $form->select_country($selectedcode, 'account_country_id');
 	if ($user->admin) {
 		print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);
@@ -469,7 +469,7 @@ if ($action == 'create') {
 	// Bank state
 	print '<tr><td>'.$langs->trans('State').'</td><td>';
 	if ($selectedcode) {
-		print img_picto('', 'state', 'class="pictofixedwidth"');
+		print img_picture('', 'state', 'class="picturefixedwidth"');
 		print $formcompany->select_state(GETPOSTISSET("account_state_id") ? GETPOST("account_state_id") : '', $selectedcode, 'account_state_id');
 	} else {
 		print $countrynotdefined;
@@ -488,7 +488,7 @@ if ($action == 'create') {
 	// Web
 	print '<tr><td>'.$langs->trans("Web").'</td>';
 	print '<td>';
-	print img_picto('', 'globe', 'class="pictofixedwidth"');
+	print img_picture('', 'globe', 'class="picturefixedwidth"');
 	print '<input class="minwidth300 widthcentpercentminusx maxwidth500" type="text" class="flat" name="url" value="'.GETPOST("url").'">';
 	print '</td></tr>';
 
@@ -505,7 +505,7 @@ if ($action == 'create') {
 				$arrayselected[] = $cat->id;
 			}
 		}
-		print img_picto('', 'category').$form->multiselectarray('categories', $cate_arbo, $arrayselected, 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
+		print img_picture('', 'category').$form->multiselectarray('categories', $cate_arbo, $arrayselected, 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 		print "</td></tr>";
 	}
 
@@ -607,7 +607,7 @@ if ($action == 'create') {
 
 		if (isModEnabled('paymentbybanktransfer')) {
 			if ($mysoc->isInEEC()) {
-				print '<tr><td>'.$form->textwithpicto($langs->trans("SEPAXMLPlacePaymentTypeInformationInCreditTransfertransactionInformation"), $langs->trans("SEPAXMLPlacePaymentTypeInformationInCreditTransfertransactionInformationHelp")).'</td>';
+				print '<tr><td>'.$form->textWithPicture($langs->trans("SEPAXMLPlacePaymentTypeInformationInCreditTransfertransactionInformation"), $langs->trans("SEPAXMLPlacePaymentTypeInformationInCreditTransfertransactionInformationHelp")).'</td>';
 				print '<td><input type="checkbox" class="flat" name="pti_in_ctti"'. (empty(GETPOST('pti_in_ctti')) ? '' : ' checked ') . '>';
 				print '</td></tr>';
 			}
@@ -635,7 +635,7 @@ if ($action == 'create') {
 
 		print '<tr><td class="tdtop">'.$langs->trans("BankAccountOwnerCountry").'</td>';
 		print '<td>';
-		print img_picto('', 'country', 'class="pictofixedwidth"');
+		print img_picture('', 'country', 'class="picturefixedwidth"');
 		print $form->select_country(GETPOSTISSET('owner_country_id') ? GETPOST('owner_country_id', 'alpha') : $object->owner_country_id, 'owner_country_id');
 		print '</td></tr>';
 
@@ -654,12 +654,12 @@ if ($action == 'create') {
 		/** @var FormAccounting $formaccounting */
 		print '<tr><td class="'.$fieldrequired.'titlefieldcreate">'.$langs->trans("AccountancyCode").'</td>';
 		print '<td>';
-		print img_picto('', 'accounting_account', 'class="pictofixedwidth"');
+		print img_picture('', 'accounting_account', 'class="picturefixedwidth"');
 		print $formaccounting->select_account($object->account_number, 'account_number', 1, array(), 1, 1);
 		if ($formaccounting->nbaccounts == 0) {
 			$langs->load("errors");
 			$htmltext = $langs->transnoentitiesnoconv("WarningGoOnAccountancySetupToAddAccounts", $langs->transnoentitiesnoconv("MenuAccountancy"), $langs->transnoentitiesnoconv("Setup"), $langs->transnoentitiesnoconv("Chartofaccounts"));
-			print $form->textwithpicto('', $htmltext);
+			print $form->textWithPicture('', $htmltext);
 		}
 		print '</td></tr>';
 	} else {
@@ -813,9 +813,9 @@ if ($action == 'create') {
 			print '<td>'.getIbanHumanReadable($object).'&nbsp;';
 			if (!empty($object->iban)) {
 				if (!checkIbanForAccount($object)) {
-					print img_picto($langs->trans("IbanNotValid"), 'warning');
+					print img_picture($langs->trans("IbanNotValid"), 'warning');
 				} else {
-					print img_picto($langs->trans("IbanValid"), 'tick');
+					print img_picture($langs->trans("IbanValid"), 'tick');
 				}
 			}
 			print '</td></tr>';
@@ -825,9 +825,9 @@ if ($action == 'create') {
 			print '<td>'.$object->bic.'&nbsp;';
 			if (!empty($object->bic)) {
 				if (!checkSwiftForAccount($object)) {
-					print img_picto($langs->trans("SwiftNotValid"), 'warning');
+					print img_picture($langs->trans("SwiftNotValid"), 'warning');
 				} else {
-					print img_picto($langs->trans("SwiftValid"), 'tick');
+					print img_picture($langs->trans("SwiftValid"), 'tick');
 				}
 			}
 			print '</td></tr>';
@@ -853,19 +853,19 @@ if ($action == 'create') {
 			}
 
 			if (isModEnabled('prelevement')) {
-				print '<tr><td>'.$form->textwithpicto($langs->trans("ICS"), $langs->trans("ICS").' ('.$langs->trans("UsedFor", $langs->transnoentitiesnoconv("StandingOrder")).')').'</td>';
+				print '<tr><td>'.$form->textWithPicture($langs->trans("ICS"), $langs->trans("ICS").' ('.$langs->trans("UsedFor", $langs->transnoentitiesnoconv("StandingOrder")).')').'</td>';
 				print '<td>'.$object->ics.'</td>';
 				print '</tr>';
 			}
 
 			if (isModEnabled('paymentbybanktransfer')) {
 				if (getDolGlobalString("SEPA_USE_IDS")) {	// Use another ICS for bank transfer
-					print '<tr><td>'.$form->textwithpicto($langs->trans("IDS"), $langs->trans("IDS").' ('.$langs->trans("UsedFor", $langs->transnoentitiesnoconv("BankTransfer")).')').'</td>';
+					print '<tr><td>'.$form->textWithPicture($langs->trans("IDS"), $langs->trans("IDS").' ('.$langs->trans("UsedFor", $langs->transnoentitiesnoconv("BankTransfer")).')').'</td>';
 					print '<td>'.$object->ics_transfer.'</td>';
 					print '</tr>';
 				}
 				if ($mysoc->isInEEC()) {
-					print '<tr><td>'.$form->textwithpicto($langs->trans("SEPAXMLPlacePaymentTypeInformationInCreditTransfertransactionInformation"), $langs->trans("SEPAXMLPlacePaymentTypeInformationInCreditTransfertransactionInformationHelp")).'</td><td>';
+					print '<tr><td>'.$form->textWithPicture($langs->trans("SEPAXMLPlacePaymentTypeInformationInCreditTransfertransactionInformation"), $langs->trans("SEPAXMLPlacePaymentTypeInformationInCreditTransfertransactionInformationHelp")).'</td><td>';
 					print(empty($object->pti_in_ctti) ? $langs->trans("No") : $langs->trans("Yes"));
 					print "</td></tr>\n";
 				}
@@ -984,7 +984,7 @@ if ($action == 'create') {
 		if (!$selectedcode) {
 			$selectedcode = $config->currency;
 		}
-		print img_picto('', 'multicurrency', 'class="pictofixedwidth"');
+		print img_picture('', 'multicurrency', 'class="picturefixedwidth"');
 		print $form->selectCurrency((GETPOSTISSET("account_currency_code") ? GETPOST("account_currency_code") : $selectedcode), 'account_currency_code');
 		//print $langs->trans("Currency".$config->currency);
 		//print '<input type="hidden" name="account_currency_code" value="'.$config->currency.'">';
@@ -1008,7 +1008,7 @@ if ($action == 'create') {
 
 		print '<tr><td class="fieldrequired">'.$langs->trans("Country").'</td>';
 		print '<td class="maxwidth200onsmartphone">';
-		print img_picto('', 'country', 'class="pictofixedwidth"').$form->select_country($selectedcode, 'account_country_id');
+		print img_picture('', 'country', 'class="picturefixedwidth"').$form->select_country($selectedcode, 'account_country_id');
 		if ($user->admin) {
 			print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);
 		}
@@ -1017,7 +1017,7 @@ if ($action == 'create') {
 		// Bank state
 		print '<tr><td>'.$langs->trans('State').'</td><td class="maxwidth200onsmartphone">';
 		if ($selectedcode) {
-			print img_picto('', 'state', 'class="pictofixedwidth"');
+			print img_picture('', 'state', 'class="picturefixedwidth"');
 			print $formcompany->select_state(GETPOSTISSET("account_state_id") ? GETPOST("account_state_id") : $object->state_id, $selectedcode, 'account_state_id');
 		} else {
 			print $countrynotdefined;
@@ -1056,7 +1056,7 @@ if ($action == 'create') {
 		// Web
 		print '<tr><td>'.$langs->trans("Web").'</td>';
 		print '<td>';
-		print img_picto('', 'globe', 'class="pictofixedwidth"');
+		print img_picture('', 'globe', 'class="picturefixedwidth"');
 		print '<input class="maxwidth200onsmartphone" type="text" class="flat" name="url" value="'.(GETPOSTISSET("url") ? GETPOST("url") : $object->url).'">';
 		print '</td></tr>';
 
@@ -1073,7 +1073,7 @@ if ($action == 'create') {
 					$arrayselected[] = $cat->id;
 				}
 			}
-			print img_picto('', 'category').$form->multiselectarray('categories', $cate_arbo, $arrayselected, 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
+			print img_picture('', 'category').$form->multiselectarray('categories', $cate_arbo, $arrayselected, 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 			print "</td></tr>";
 		}
 
@@ -1113,12 +1113,12 @@ if ($action == 'create') {
 		print '<td>';
 		if (isModEnabled('accounting')) {
 			/** @var FormAccounting $formaccounting */
-			print img_picto('', 'accounting_account', 'class="pictofixedwidth"');
+			print img_picture('', 'accounting_account', 'class="picturefixedwidth"');
 			print $formaccounting->select_account($object->account_number, 'account_number', 1, array(), 1, 1);
 			if ($formaccounting->nbaccounts == 0) {
 				$langs->load("errors");
 				$htmltext = $langs->transnoentitiesnoconv("WarningGoOnAccountancySetupToAddAccounts", $langs->transnoentitiesnoconv("MenuAccountancy"), $langs->transnoentitiesnoconv("Setup"), $langs->transnoentitiesnoconv("Chartofaccounts"));
-				print $form->textwithpicto('', $htmltext);
+				print $form->textWithPicture('', $htmltext);
 			}
 		} else {
 			print '<input type="text" name="account_number" value="'.(GETPOST("account_number") ? GETPOST("account_number") : $object->account_number).'">';
@@ -1156,14 +1156,14 @@ if ($action == 'create') {
 			// IBAN
 			print '<tr><td>';
 			$tooltip = $langs->trans("Example").':<br>CH93 0076 2011 6238 5295 7<br>LT12 1000 0111 0100 1000<br>FR14 2004 1010 0505 0001 3M02 606<br>LU28 0019 4006 4475 0000<br>DE89 3704 0044 0532 0130 00';
-			print $form->textwithpicto($langs->trans($ibankey), $tooltip, 1, 'help', '', 0, 3, 'iban');
+			print $form->textWithPicture($langs->trans($ibankey), $tooltip, 1, 'help', '', 0, 3, 'iban');
 			print '</td>';
 			print '<td><input class="minwidth300 maxwidth200onsmartphone" maxlength="34" type="text" class="flat" name="iban" value="'.(GETPOSTISSET('iban') ? GETPOST('iban', 'alphanohtml') : $object->iban).'"></td></tr>';
 
 			// BIC
 			print '<tr><td>';
 			$tooltip = $langs->trans("Example").': LIABLT2XXXX';
-			print $form->textwithpicto($langs->trans($bickey), $tooltip, 1, 'help', '', 0, 3, 'bic');
+			print $form->textWithPicture($langs->trans($bickey), $tooltip, 1, 'help', '', 0, 3, 'bic');
 			print '</td>';
 			print '<td><input class="minwidth150 maxwidth200onsmartphone" maxlength="11" type="text" class="flat" name="bic" value="'.(GETPOSTISSET('bic') ? GETPOST('bic', 'alphanohtml') : $object->bic).'"></td></tr>';
 
@@ -1198,17 +1198,17 @@ if ($action == 'create') {
 			}
 
 			if (isModEnabled('prelevement')) {
-				print '<tr><td>'.$form->textwithpicto($langs->trans("ICS"), $langs->trans("ICS").' ('.$langs->trans("UsedFor", $langs->transnoentitiesnoconv("StandingOrder")).')').'</td>';
+				print '<tr><td>'.$form->textWithPicture($langs->trans("ICS"), $langs->trans("ICS").' ('.$langs->trans("UsedFor", $langs->transnoentitiesnoconv("StandingOrder")).')').'</td>';
 				print '<td><input class="minwidth150 maxwidth200onsmartphone" maxlength="32" type="text" class="flat" name="ics" value="'.(GETPOSTISSET('ics') ? GETPOST('ics', 'alphanohtml') : $object->ics).'"></td></tr>';
 			}
 
 			if (isModEnabled('paymentbybanktransfer')) {
 				if (getDolGlobalString("SEPA_USE_IDS")) {	// ICS is not used with bank transfer !
-					print '<tr><td>'.$form->textwithpicto($langs->trans("IDS"), $langs->trans("IDS").' ('.$langs->trans("UsedFor", $langs->transnoentitiesnoconv("BankTransfer")).')').'</td>';
+					print '<tr><td>'.$form->textWithPicture($langs->trans("IDS"), $langs->trans("IDS").' ('.$langs->trans("UsedFor", $langs->transnoentitiesnoconv("BankTransfer")).')').'</td>';
 					print '<td><input class="minwidth150 maxwidth200onsmartphone" maxlength="32" type="text" class="flat" name="ics_transfer" value="'.(GETPOSTISSET('ics_transfer') ? GETPOST('ics_transfer', 'alphanohtml') : $object->ics_transfer).'"></td></tr>';
 				}
 				if ($mysoc->isInEEC()) {
-					print '<tr><td>'.$form->textwithpicto($langs->trans("SEPAXMLPlacePaymentTypeInformationInCreditTransfertransactionInformation"), $langs->trans("SEPAXMLPlacePaymentTypeInformationInCreditTransfertransactionInformationHelp")).'</td>';
+					print '<tr><td>'.$form->textWithPicture($langs->trans("SEPAXMLPlacePaymentTypeInformationInCreditTransfertransactionInformation"), $langs->trans("SEPAXMLPlacePaymentTypeInformationInCreditTransfertransactionInformationHelp")).'</td>';
 					print '<td><input type="checkbox" class="flat" name="pti_in_ctti"'. ($object->pti_in_ctti ? ' checked ' : '') . '>';
 					print '</td></tr>';
 				}
@@ -1239,7 +1239,7 @@ if ($action == 'create') {
 
 			print '<tr><td class="tdtop">'.$langs->trans("BankAccountOwnerCountry").'</td>';
 			print '<td>';
-			print img_picto('', 'country', 'class="pictofixedwidth"');
+			print img_picture('', 'country', 'class="picturefixedwidth"');
 			print $form->select_country(GETPOSTISSET('owner_country_id') ? GETPOST('owner_country_id', 'alpha') : $object->owner_country_id, 'owner_country_id');
 			print '</td></tr>';
 

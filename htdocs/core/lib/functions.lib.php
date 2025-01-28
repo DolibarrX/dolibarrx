@@ -2496,7 +2496,7 @@ function dolButtonToOpenExportDialog($name, $label, $buttonstring, $exportSiteNa
 	$dialogcontent .= '        </div>';
 	$dialogcontent .= '        <br>';
 	$dialogcontent .= '        <div style="margin-top: 20px;">';
-	$dialogcontent .= '          <strong>'.$langs->trans("ExportSiteGitLabel").' '.$form->textwithpicto('', $langs->trans("SourceFiles"), 1, 'help', '', 0, 3, '').'</strong><br>';
+	$dialogcontent .= '          <strong>'.$langs->trans("ExportSiteGitLabel").' '.$form->textWithPicture('', $langs->trans("SourceFiles"), 1, 'help', '', 0, 3, '').'</strong><br>';
 	$dialogcontent .= '     		<form action="'.dol_escape_htmltag($overwriteGitUrl).'" method="POST">';
 	$dialogcontent .= '        		<input type="hidden" name="action" value="overwritesite">';
 	$dialogcontent .= '        		<input type="hidden" name="token" value="'.newToken().'">';
@@ -2654,8 +2654,8 @@ function dolButtonToOpenUrlInDialogPopup($name, $label, $buttonstring, $url, $di
  *	@param	string	$active     		Active tab name (document', 'info', 'ldap', ....)
  *	@param  string	$title      		Title
  *	@param  int		$notab				-1 or 0=Add tab header, 1=no tab header (if you set this to 1, using print dol_get_fiche_end() to close tab is not required), -2=Add tab header with no sepaaration under tab (to start a tab just after), -3=Add tab header but no footer separation
- * 	@param	string	$picto				Add a picto on tab title
- *	@param	int		$pictoisfullpath	If 1, image path is a full path. If you set this to 1, you can use url returned by dol_buildpath('/mymodyle/img/myimg.png',1) for $picto.
+ * 	@param	string	$picture				Add a picture on tab title
+ *	@param	int		$pictureIsFullPath	If 1, image path is a full path. If you set this to 1, you can use url returned by dol_buildpath('/mymodyle/img/myimg.png',1) for $picture.
  *  @param	string	$morehtmlright		Add more html content on right of tabs title
  *  @param	string	$morecss			More Css
  *  @param	int		$limittoshow		Limit number of tabs to show. Use 0 to use automatic default value.
@@ -2663,9 +2663,9 @@ function dolButtonToOpenUrlInDialogPopup($name, $label, $buttonstring, $url, $di
  * 	@return	void
  *  @deprecated Use print dol_get_fiche_head() instead
  */
-function dol_fiche_head($links = array(), $active = '0', $title = '', $notab = 0, $picto = '', $pictoisfullpath = 0, $morehtmlright = '', $morecss = '', $limittoshow = 0, $moretabssuffix = '')
+function dol_fiche_head($links = array(), $active = '0', $title = '', $notab = 0, $picture = '', $pictureIsFullPath = 0, $morehtmlright = '', $morecss = '', $limittoshow = 0, $moretabssuffix = '')
 {
-	print dol_get_fiche_head($links, $active, $title, $notab, $picto, $pictoisfullpath, $morehtmlright, $morecss, $limittoshow, $moretabssuffix);
+	print dol_get_fiche_head($links, $active, $title, $notab, $picture, $pictureIsFullPath, $morehtmlright, $morecss, $limittoshow, $moretabssuffix);
 }
 
 /**
@@ -2675,8 +2675,8 @@ function dol_fiche_head($links = array(), $active = '0', $title = '', $notab = 0
  *	@param	string	$active     		Active tab name (using the old numeric int is deprecated)
  *	@param  string	$title      		Title
  *	@param  int		$notab				-1 or 0=Add tab header, 1=no tab header (if you set this to 1, using print dol_get_fiche_end() to close tab is not required), -2=Add tab header with no separation under tab (to start a tab just after), -3=-2+'noborderbottom'
- * 	@param	string	$picto				Add a picto on tab title
- *	@param	int		$pictoisfullpath	If 1, image path is a full path. If you set this to 1, you can use url returned by dol_buildpath('/mymodyle/img/myimg.png',1) for $picto.
+ * 	@param	string	$picture				Add a picture on tab title
+ *	@param	int		$pictureIsFullPath	If 1, image path is a full path. If you set this to 1, you can use url returned by dol_buildpath('/mymodyle/img/myimg.png',1) for $picture.
  *  @param	string	$morehtmlright		Add more html content on right of tabs title
  *  @param	string	$morecss			More CSS on the link <a>
  *  @param	int		$limittoshow		Limit number of tabs to show. Use 0 to use automatic default value.
@@ -2684,7 +2684,7 @@ function dol_fiche_head($links = array(), $active = '0', $title = '', $notab = 0
  *  @param	int     $dragdropfile       0 (default) or 1. 1 enable a drop zone for file to be upload, 0 disable it
  * 	@return	string
  */
-function dol_get_fiche_head($links = array(), $active = '', $title = '', $notab = 0, $picto = '', $pictoisfullpath = 0, $morehtmlright = '', $morecss = '', $limittoshow = 0, $moretabssuffix = '', $dragdropfile = 0)
+function dol_get_fiche_head($links = array(), $active = '', $title = '', $notab = 0, $picture = '', $pictureIsFullPath = 0, $morehtmlright = '', $morecss = '', $limittoshow = 0, $moretabssuffix = '', $dragdropfile = 0)
 {
 	global $config, $langs, $hookManager;
 
@@ -2697,7 +2697,7 @@ function dol_get_fiche_head($links = array(), $active = '', $title = '', $notab 
 	$out = "\n".'<!-- dol_fiche_head - dol_get_fiche_head -->';
 
 	if ((!empty($title) && $showtitle) || $morehtmlright || !empty($links)) {
-		$out .= '<div class="tabs'.($picto ? '' : ' nopaddingleft').'" data-role="controlgroup" data-type="horizontal">'."\n";
+		$out .= '<div class="tabs'.($picture ? '' : ' nopaddingleft').'" data-role="controlgroup" data-type="horizontal">'."\n";
 	}
 
 	// Show right part
@@ -2710,12 +2710,12 @@ function dol_get_fiche_head($links = array(), $active = '', $title = '', $notab 
 	if (!empty($title) && $showtitle && !getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 		$limittitle = 30;
 		$out .= '<a class="tabTitle">';
-		if ($picto) {
-			$noprefix = $pictoisfullpath;
-			if (strpos($picto, 'fontawesome_') !== false) {
+		if ($picture) {
+			$noprefix = $pictureIsFullPath;
+			if (strpos($picture, 'fontawesome_') !== false) {
 				$noprefix = 1;
 			}
-			$out .= img_picto($title, ($noprefix ? '' : 'object_').$picto, '', $pictoisfullpath, 0, 0, '', 'imgTabTitle').' ';
+			$out .= img_picture($title, ($noprefix ? '' : 'object_').$picture, '', $pictureIsFullPath, 0, 0, '', 'imgTabTitle').' ';
 		}
 		$out .= '<span class="tabTitleText">'.dol_escape_htmltag(dol_trunc($title, $limittitle)).'</span>';
 		$out .= '</a>';
@@ -2781,8 +2781,8 @@ function dol_get_fiche_head($links = array(), $active = '', $title = '', $notab 
 					$out .= '<a'.(!empty($links[$i][2]) ? ' id="'.$links[$i][2].'"' : '').' class="tab inline-block valignmiddle'.($morecss ? ' '.$morecss : '').(!empty($links[$i][5]) ? ' '.$links[$i][5] : '').'" href="'.$links[$i][0].'" title="'.dol_escape_htmltag($titletoshow).'">';
 				}
 
-				if ($displaytab == 0 && $picto) {
-					$out .= img_picto($title, $picto, '', $pictoisfullpath, 0, 0, '', 'imgTabTitle paddingright marginrightonlyshort');
+				if ($displaytab == 0 && $picture) {
+					$out .= img_picture($title, $picture, '', $pictureIsFullPath, 0, 0, '', 'imgTabTitle paddingright marginrightonlyshort');
 				}
 
 				$out .= $links[$i][1];
@@ -2830,7 +2830,7 @@ function dol_get_fiche_head($links = array(), $active = '', $title = '', $notab 
 
 		$tabsname = $moretabssuffix;
 		if (empty($tabsname)) {
-			$tabsname = str_replace("@", "", $picto);
+			$tabsname = str_replace("@", "", $picture);
 		}
 		$out .= '<div id="moretabs'.$tabsname.'" class="inline-block tabsElem valignmiddle">';
 		if (getDolGlobalInt('MAIN_OPTIMIZEFORTEXTBROWSER') < 2) {
@@ -3048,7 +3048,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 				$nophoto = '';
 				$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref"></div>';
 			} else {    // Show no photo link
-				$nophoto = img_picto('No photo', 'object_ticket');
+				$nophoto = img_picture('No photo', 'object_ticket');
 				$morehtmlleft .= '<!-- No photo to show -->';
 				$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref">';
 				$morehtmlleft .= $nophoto;
@@ -3121,23 +3121,23 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 				}
 			}
 
-			if (empty($phototoshow)) {      // Show No photo link (picto of object)
+			if (empty($phototoshow)) {      // Show No photo link (picture of object)
 				if ($object->element == 'action') {
 					$width = 80;
 					$cssclass = 'photorefcenter';
-					$nophoto = img_picto('No photo', 'title_agenda');
+					$nophoto = img_picture('No photo', 'title_agenda');
 				} else {
 					$width = 14;
 					$cssclass = 'photorefcenter';
-					$picto = $object->picto;  // @phan-suppress-current-line PhanUndeclaredProperty
+					$picture = $object->picture;  // @phan-suppress-current-line PhanUndeclaredProperty
 					$prefix = 'object_';
 					if ($object->element == 'project' && !$object->public) {  // @phan-suppress-current-line PhanUndeclaredProperty
-						$picto = 'project'; // instead of projectpub
+						$picture = 'project'; // instead of projectpub
 					}
-					if (strpos($picto, 'fontawesome_') !== false) {
+					if (strpos($picture, 'fontawesome_') !== false) {
 						$prefix = '';
 					}
-					$nophoto = img_picto('No photo', $prefix.$picto);
+					$nophoto = img_picture('No photo', $prefix.$picture);
 				}
 				$morehtmlleft .= '<!-- No photo to show -->';
 				$morehtmlleft .= '<div class="floatleft inline-block valignmiddle divphotoref"><div class="photoref">';
@@ -3276,7 +3276,7 @@ function dol_banner_tab($object, $paramid, $morehtml = '', $shownav = 1, $fieldi
 	}
 
 	// $morehtml is the right part (link "Back to list")
-	// $morehtmlleft is the picto or photo of banner
+	// $morehtmlleft is the picture or photo of banner
 	// $morehtmlstatus is part under the status
 	// $morehtmlright is part of htmlright
 
@@ -3910,11 +3910,11 @@ function dol_print_size($size, $shortvalue = 0, $shortunit = 0)
  * @param	string		$url		Url to show
  * @param	string		$target		Target for link
  * @param	int			$max		Max number of characters to show
- * @param	int			$withpicto	With picto
+ * @param	int			$withPicture	With picture
  * @param	string		$morecss	More CSS
  * @return	string					HTML Link
  */
-function dol_print_url($url, $target = '_blank', $max = 32, $withpicto = 0, $morecss = '')
+function dol_print_url($url, $target = '_blank', $max = 32, $withPicture = 0, $morecss = '')
 {
 	global $langs;
 
@@ -3943,9 +3943,9 @@ function dol_print_url($url, $target = '_blank', $max = 32, $withpicto = 0, $mor
 	$linkend = '</a>';
 
 	if ($morecss == 'float') {	// deprecated
-		return '<div class="nospan'.($morecss ? ' '.$morecss : '').'" style="margin-right: 10px">'.($withpicto ? img_picto($langs->trans("Url"), 'globe', 'class="paddingrightonly"') : '').$link.'</div>';
+		return '<div class="nospan'.($morecss ? ' '.$morecss : '').'" style="margin-right: 10px">'.($withPicture ? img_picture($langs->trans("Url"), 'globe', 'class="paddingrightonly"') : '').$link.'</div>';
 	} else {
-		return $linkstart.'<span class="nospan'.($morecss ? ' '.$morecss : '').'" style="margin-right: 10px">'.($withpicto ? img_picto('', 'globe', 'class="paddingrightonly"') : '').$link.'</span>'.$linkend;
+		return $linkstart.'<span class="nospan'.($morecss ? ' '.$morecss : '').'" style="margin-right: 10px">'.($withPicture ? img_picture('', 'globe', 'class="paddingrightonly"') : '').$link.'</span>'.$linkend;
 	}
 }
 
@@ -3956,13 +3956,13 @@ function dol_print_url($url, $target = '_blank', $max = 32, $withpicto = 0, $mor
  * @param 	int			$cid 			Id of contact if known
  * @param 	int			$socid 			Id of third party if known
  * @param 	int|string	$addlink		0=no link, 1=email has a html email link (+ link to create action if constant AGENDA_ADDACTIONFOREMAIL is on), 'thirdparty'=link to the thirdparty presend email
- * @param	int			$max			Max number of characters to show. Use -1 to hide the mail text and show only the picto.
+ * @param	int			$max			Max number of characters to show. Use -1 to hide the mail text and show only the picture.
  * @param	int			$showinvalid	1=Show warning if syntax email is wrong
- * @param	int|string	$withpicto		0=Show email, 1=Show picto of email + email, 2=Show only picto
+ * @param	int|string	$withPicture		0=Show email, 1=Show picture of email + email, 2=Show only picture
  * @param	string		$morecss		More CSS
  * @return	string						HTML Link
  */
-function dol_print_email($email, $cid = 0, $socid = 0, $addlink = 0, $max = 64, $showinvalid = 1, $withpicto = 0, $morecss = 'paddingrightonly')
+function dol_print_email($email, $cid = 0, $socid = 0, $addlink = 0, $max = 64, $showinvalid = 1, $withPicture = 0, $morecss = 'paddingrightonly')
 {
 	global $user, $langs, $hookManager;
 
@@ -3971,8 +3971,8 @@ function dol_print_email($email, $cid = 0, $socid = 0, $addlink = 0, $max = 64, 
 
 	$newemail = dol_escape_htmltag($email);
 
-	if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') && $withpicto) {
-		$withpicto = 0;
+	if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') && $withPicture) {
+		$withPicture = 0;
 	}
 
 	if (empty($email)) {
@@ -3987,7 +3987,7 @@ function dol_print_email($email, $cid = 0, $socid = 0, $addlink = 0, $max = 64, 
 		$newemail .= $email;
 		$newemail .= '" target="_blank">';
 
-		$newemail .= ($withpicto ? img_picto($langs->trans("EMail").' : '.$email, (is_numeric($withpicto) ? 'email' : $withpicto), 'class="paddingrightonly"') : '');
+		$newemail .= ($withPicture ? img_picture($langs->trans("EMail").' : '.$email, (is_numeric($withPicture) ? 'email' : $withPicture), 'class="paddingrightonly"') : '');
 
 		if ($max > 0) {
 			$newemail .= dol_trunc($email, $max);
@@ -4012,15 +4012,15 @@ function dol_print_email($email, $cid = 0, $socid = 0, $addlink = 0, $max = 64, 
 		}
 	} elseif ($addlink === 'thirdparty') {
 		$tmpnewemail = '<a class="'.($morecss ? $morecss : '').'" style="text-overflow: ellipsis;" href="'.DOL_URL_ROOT.'/societe/card.php?socid='.$socid.'&action=presend&mode=init#formmailbeforetitle">';
-		$tmpnewemail .= ($withpicto ? img_picto($langs->trans("EMail").' : '.$email, (is_numeric($withpicto) ? 'email' : $withpicto), 'class="paddingrightonly"') : '');
-		if ($withpicto == 1) {
+		$tmpnewemail .= ($withPicture ? img_picture($langs->trans("EMail").' : '.$email, (is_numeric($withPicture) ? 'email' : $withPicture), 'class="paddingrightonly"') : '');
+		if ($withPicture == 1) {
 			$tmpnewemail .= $newemail;
 		}
 		$tmpnewemail .= '</a>';
 
 		$newemail = $tmpnewemail;
 	} else {
-		$newemail = ($withpicto ? img_picto($langs->trans("EMail").' : '.$email, (is_numeric($withpicto) ? 'email' : $withpicto), 'class="paddingrightonly"') : '').$newemail;
+		$newemail = ($withPicture ? img_picture($langs->trans("EMail").' : '.$email, (is_numeric($withPicture) ? 'email' : $withPicture), 'class="paddingrightonly"') : '').$newemail;
 
 		if ($showinvalid && !isValidEmail($email)) {
 			$langs->load("errors");
@@ -4029,12 +4029,12 @@ function dol_print_email($email, $cid = 0, $socid = 0, $addlink = 0, $max = 64, 
 	}
 
 	//$rep = '<div class="nospan" style="margin-right: 10px">';
-	//$rep = ($withpicto ? img_picto($langs->trans("EMail").' : '.$email, (is_numeric($withpicto) ? 'email' : $withpicto), 'class="paddingrightonly"') : '').$newemail;
+	//$rep = ($withPicture ? img_picture($langs->trans("EMail").' : '.$email, (is_numeric($withPicture) ? 'email' : $withPicture), 'class="paddingrightonly"') : '').$newemail;
 	//$rep .= '</div>';
 	$rep = $newemail;
 
 	if ($hookManager) {
-		$parameters = array('cid' => $cid, 'socid' => $socid, 'addlink' => $addlink, 'picto' => $withpicto);
+		$parameters = array('cid' => $cid, 'socid' => $socid, 'addlink' => $addlink, 'picture' => $withPicture);
 
 		$resHook = $hookManager->executeHooks('printEmail', $parameters, $email);
 		if ($resHook > 0) {
@@ -4104,8 +4104,8 @@ function dol_print_socialnetworks($value, $cid, $socid, $type, $dictsocialnetwor
 
 	if (!empty($type)) {
 		$htmllink = '<div class="divsocialnetwork inline-block valignmiddle">';
-		// Use dictionary definition for picto $dictsocialnetworks[$type]['icon']
-		$htmllink .= '<span class="fab pictofixedwidth '.($dictsocialnetworks[$type]['icon'] ? $dictsocialnetworks[$type]['icon'] : 'fa-link').'"></span>';
+		// Use dictionary definition for picture $dictsocialnetworks[$type]['icon']
+		$htmllink .= '<span class="fab picturefixedwidth '.($dictsocialnetworks[$type]['icon'] ? $dictsocialnetworks[$type]['icon'] : 'fa-link').'"></span>';
 		if ($type == 'skype') {
 			$htmllink .= dol_escape_htmltag($value);
 			$htmllink .= '&nbsp; <a href="skype:';
@@ -4246,14 +4246,14 @@ function dol_print_profids($profID, $profIDtype, $countrycode = '', $addcpButton
  * 	@param 	int		$cid 		    Id of contact if known
  * 	@param 	int		$socid          Id of third party if known
  * 	@param 	string	$addlink	    ''=no link to create action, 'AC_TEL'=add link to clicktodial (if module enabled) and add link to create event (if conf->global->AGENDA_ADDACTIONFORPHONE set), 'tel'=Force "tel:..." link
- * 	@param 	string	$separ 		    Separation between numbers for a better visibility example : xx.xx.xx.xx.xx. You can also use 'hidenum' to hide the number, keep only the picto.
- *  @param	string  $withpicto      Show picto ('fax', 'phone', 'mobile')
+ * 	@param 	string	$separ 		    Separation between numbers for a better visibility example : xx.xx.xx.xx.xx. You can also use 'hidenum' to hide the number, keep only the picture.
+ *  @param	string  $withPicture      Show picture ('fax', 'phone', 'mobile')
  *  @param	string	$titlealt	    Text to show on alt
  *  @param  int     $adddivfloat    Add div float around phone.
  *  @param	string	$morecss		Add more css
  * 	@return string 				    Formatted phone number
  */
-function dol_print_phone($phone, $countrycode = '', $cid = 0, $socid = 0, $addlink = '', $separ = "&nbsp;", $withpicto = '', $titlealt = '', $adddivfloat = 0, $morecss = 'paddingright')
+function dol_print_phone($phone, $countrycode = '', $cid = 0, $socid = 0, $addlink = '', $separ = "&nbsp;", $withPicture = '', $titlealt = '', $adddivfloat = 0, $morecss = 'paddingright')
 {
 	global $config, $user, $langs, $mysoc, $hookManager;
 
@@ -4526,33 +4526,33 @@ function dol_print_phone($phone, $countrycode = '', $cid = 0, $socid = 0, $addli
 		}
 	}
 
-	if (getDolGlobalString('CONTACT_PHONEMOBILE_SHOW_LINK_TO_WHATSAPP') && $withpicto == 'mobile') {
+	if (getDolGlobalString('CONTACT_PHONEMOBILE_SHOW_LINK_TO_WHATSAPP') && $withPicture == 'mobile') {
 		// Link to Whatsapp
 		$newphone .= ' <a href="https://wa.me/'.$newphonewa.'" target="_blank"';// Use api to whatasapp contacts
 		$newphone .= '><span class="paddingright fab fa-whatsapp" style="color:#25D366;" title="WhatsApp"></span></a>';
 	}
 
 	if (empty($titlealt)) {
-		$titlealt = ($withpicto == 'fax' ? $langs->trans("Fax") : $langs->trans("Phone"));
+		$titlealt = ($withPicture == 'fax' ? $langs->trans("Fax") : $langs->trans("Phone"));
 	}
 	$rep = '';
 
 	if ($hookManager) {
-		$parameters = array('countrycode' => $countrycode, 'cid' => $cid, 'socid' => $socid, 'titlealt' => $titlealt, 'picto' => $withpicto);
+		$parameters = array('countrycode' => $countrycode, 'cid' => $cid, 'socid' => $socid, 'titlealt' => $titlealt, 'picture' => $withPicture);
 		$resHook = $hookManager->executeHooks('printPhone', $parameters, $phone);
 		$rep .= $hookManager->resPrint;
 	}
 	if (empty($resHook)) {
-		$picto = '';
-		if ($withpicto) {
-			if ($withpicto == 'fax') {
-				$picto = 'phoning_fax';
-			} elseif ($withpicto == 'phone') {
-				$picto = 'phoning';
-			} elseif ($withpicto == 'mobile') {
-				$picto = 'phoning_mobile';
+		$picture = '';
+		if ($withPicture) {
+			if ($withPicture == 'fax') {
+				$picture = 'phoning_fax';
+			} elseif ($withPicture == 'phone') {
+				$picture = 'phoning';
+			} elseif ($withPicture == 'mobile') {
+				$picture = 'phoning_mobile';
 			} else {
-				$picto = '';
+				$picture = '';
 			}
 		}
 		if ($adddivfloat == 1) {
@@ -4562,9 +4562,9 @@ function dol_print_phone($phone, $countrycode = '', $cid = 0, $socid = 0, $addli
 		}
 
 		$rep .= $newphoneastart;
-		$rep .= ($withpicto ? img_picto($titlealt, 'object_'.$picto.'.png') : '');
+		$rep .= ($withPicture ? img_picture($titlealt, 'object_'.$picture.'.png') : '');
 		if ($separ != 'hidenum') {
-			$rep .= ($withpicto ? ' ' : '').$newphone;
+			$rep .= ($withPicture ? ' ' : '').$newphone;
 		}
 		$rep .= $newphoneaend;
 
@@ -4599,7 +4599,7 @@ function dol_print_ip($ip, $mode = 0)
 		$countrycode = dolGetCountryCodeFromIp($ip);
 		if ($countrycode) {	// If success, countrycode is us, fr, ...
 			if (file_exists(DOL_DOCUMENT_ROOT.'/theme/common/flags/'.$countrycode.'.png')) {
-				$ret .= ' '.img_picto($countrycode.' '.$langs->trans("AccordingToGeoIPDatabase"), DOL_URL_ROOT.'/theme/common/flags/'.$countrycode.'.png', '', 1);
+				$ret .= ' '.img_picture($countrycode.' '.$langs->trans("AccordingToGeoIPDatabase"), DOL_URL_ROOT.'/theme/common/flags/'.$countrycode.'.png', '', 1);
 			} else {
 				$ret .= ' ('.$countrycode.')';
 			}
@@ -5000,7 +5000,7 @@ function dol_trunc($string, $size = 40, $trunc = 'right', $stringencoding = 'UTF
 }
 
 /**
- * Return the picto for a data type
+ * Return the picture for a data type
  *
  * @param 	string		$key		Key
  * @param	string		$morecss	Add more css to the object
@@ -5008,8 +5008,8 @@ function dol_trunc($string, $size = 40, $trunc = 'right', $stringencoding = 'UTF
  */
 function getPictoForType($key, $morecss = '')
 {
-	// Set array with type -> picto
-	$type2picto = array(
+	// Set array with type -> picture
+	$type2Picture = array(
 		'varchar' => 'font',
 		'text' => 'font',
 		'html' => 'code',
@@ -5041,93 +5041,93 @@ function getPictoForType($key, $morecss = '')
 		'separate' => 'minus'
 	);
 
-	if (!empty($type2picto[$key])) {
-		return img_picto('', $type2picto[$key], 'class="pictofixedwidth'.($morecss ? ' '.$morecss : '').'"');
+	if (!empty($type2Picture[$key])) {
+		return img_picture('', $type2Picture[$key], 'class="picturefixedwidth'.($morecss ? ' '.$morecss : '').'"');
 	}
 
-	return img_picto('', 'generic', 'class="pictofixedwidth'.($morecss ? ' '.$morecss : '').'"');
+	return img_picture('', 'generic', 'class="picturefixedwidth'.($morecss ? ' '.$morecss : '').'"');
 }
 
 
 /**
- *	Show picto whatever it's its name (generic function)
+ *	Show picture whatever it's its name (generic function)
  *
  *	@param      string		$titlealt         		Text on title tag for tooltip. Not used if param notitle is set to 1.
- *	@param      string		$picto       			Name of image file to show ('filenew', ...).
- *													For font awesome icon (example 'user'), you can use picto_nocolor to not have the color of picto forced.
+ *	@param      string		$picture       			Name of image file to show ('filenew', ...).
+ *													For font awesome icon (example 'user'), you can use picture_nocolor to not have the color of picture forced.
  *													If no extension provided and it is not a font awesome icon, we use '.png'. Image must be stored into theme/xxx/img directory.
- *                                  				Example: picto.png                  if picto.png is stored into htdocs/theme/mytheme/img
- *                                  				Example: picto.png@mymodule         if picto.png is stored into htdocs/mymodule/img
- *                                  				Example: /mydir/mysubdir/picto.png  if picto.png is stored into htdocs/mydir/mysubdir (pictoisfullpath must be set to 1)
+ *                                  				Example: picture.png                  if picture.png is stored into htdocs/theme/mytheme/img
+ *                                  				Example: picture.png@mymodule         if picture.png is stored into htdocs/mymodule/img
+ *                                  				Example: /mydir/mysubdir/picture.png  if picture.png is stored into htdocs/mydir/mysubdir (pictureisfullpath must be set to 1)
  *                                                  Example: fontawesome_envelope-open-text_fas_red_1em if you want to use fontaweseome icons: fontawesome_<icon-name>_<style>_<color>_<size> (only icon-name is mandatory)
- *	@param		string		$moreatt				Add more attribute on img tag (For example 'class="pictofixedwidth"')
- *	@param		int<0,1>    $pictoisfullpath		If true or 1, image path is a full path, 0 if not
+ *	@param		string		$moreatt				Add more attribute on img tag (For example 'class="picturefixedwidth"')
+ *	@param		int<0,1>    $pictureIsFullPath		If true or 1, image path is a full path, 0 if not
  *	@param		int			$srconly				Return only content of the src attribute of img.
  *  @param		int			$notitle				1=Disable tag title. Use it if you add js tooltip, to avoid duplicate tooltip.
  *  @param		string		$alt					Force alt for blind people
  *  @param		string		$morecss				Add more class css on img tag (For example 'myclascss').
- *  @param		int 		$marginleftonlyshort	1 = Add a short left margin on picto, 2 = Add a larger left margin on picto, 0 = No margin left. Works for fontawesome picto only.
+ *  @param		int 		$marginleftonlyshort	1 = Add a short left margin on picture, 2 = Add a larger left margin on picture, 0 = No margin left. Works for fontawesome picture only.
  *  @return     string       				    	Return img tag
- *  @see        img_object(), img_picto_common()
+ *  @see        img_object(), img_picture_common()
  */
-function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srconly = 0, $notitle = 0, $alt = '', $morecss = '', $marginleftonlyshort = 2)
+function img_picture($titlealt, $picture, $moreatt = '', $pictureIsFullPath = 0, $srconly = 0, $notitle = 0, $alt = '', $morecss = '', $marginleftonlyshort = 2)
 {
 	global $config;
 
-	// We forge fullpathpicto for image to $path/img/$picto. By default, we take DOL_URL_ROOT/theme/$config->theme/img/$picto
+	// We forge fullpathpicture for image to $path/img/$picture. By default, we take DOL_URL_ROOT/theme/$config->theme/img/$picture
 	$url = DOL_URL_ROOT;
 	$theme = isset($config->theme) ? $config->theme : null;
 	$path = 'theme/'.$theme;
-	if (empty($picto)) {
-		$picto = 'generic';
+	if (empty($picture)) {
+		$picture = 'generic';
 	}
 
-	// Define fullpathpicto to use into src
-	if ($pictoisfullpath) {
+	// Define fullpathpicture to use into src
+	if ($pictureIsFullPath) {
 		// Clean parameters
-		if (!preg_match('/(\.png|\.gif|\.svg)$/i', $picto)) {
-			$picto .= '.png';
+		if (!preg_match('/(\.png|\.gif|\.svg)$/i', $picture)) {
+			$picture .= '.png';
 		}
-		$fullpathpicto = $picto;
+		$fullpathpicture = $picture;
 		$reg = array();
 		if (preg_match('/class="([^"]+)"/', $moreatt, $reg)) {
 			$morecss .= ($morecss ? ' ' : '').$reg[1];
 			$moreatt = str_replace('class="'.$reg[1].'"', '', $moreatt);
 		}
 	} else {
-		// $picto can not be null since replaced with 'generic' in that case
-		//$pictowithouttext = preg_replace('/(\.png|\.gif|\.svg)$/', '', (is_null($picto) ? '' : $picto));
-		$pictowithouttext = preg_replace('/(\.png|\.gif|\.svg)$/', '', $picto);
-		$pictowithouttext = str_replace('object_', '', $pictowithouttext);
-		$pictowithouttext = str_replace('_nocolor', '', $pictowithouttext);
+		// $picture can not be null since replaced with 'generic' in that case
+		//$pictureWithoutText = preg_replace('/(\.png|\.gif|\.svg)$/', '', (is_null($picture) ? '' : $picture));
+		$pictureWithoutText = preg_replace('/(\.png|\.gif|\.svg)$/', '', $picture);
+		$pictureWithoutText = str_replace('object_', '', $pictureWithoutText);
+		$pictureWithoutText = str_replace('_nocolor', '', $pictureWithoutText);
 
-		// Fix some values of $pictowithouttext
-		$pictoconvertkey = array('facture' => 'bill', 'shipping' => 'shipment', 'fichinter' => 'intervention', 'agenda' => 'calendar', 'invoice_supplier' => 'supplier_invoice', 'order_supplier' => 'supplier_order');
-		if (in_array($pictowithouttext, array_keys($pictoconvertkey))) {
-			$pictowithouttext = $pictoconvertkey[$pictowithouttext];
+		// Fix some values of $pictureWithoutText
+		$pictureconvertkey = array('facture' => 'bill', 'shipping' => 'shipment', 'fichinter' => 'intervention', 'agenda' => 'calendar', 'invoice_supplier' => 'supplier_invoice', 'order_supplier' => 'supplier_order');
+		if (in_array($pictureWithoutText, array_keys($pictureconvertkey))) {
+			$pictureWithoutText = $pictureconvertkey[$pictureWithoutText];
 		}
 
-		if (strpos($pictowithouttext, 'fontawesome_') === 0 || strpos($pictowithouttext, 'fa-') === 0) {
+		if (strpos($pictureWithoutText, 'fontawesome_') === 0 || strpos($pictureWithoutText, 'fa-') === 0) {
 			// This is a font awesome image 'fontawesome_xxx' or 'fa-xxx'
-			$pictowithouttext = str_replace('fontawesome_', '', $pictowithouttext);
-			$pictowithouttext = str_replace('fa-', '', $pictowithouttext);
+			$pictureWithoutText = str_replace('fontawesome_', '', $pictureWithoutText);
+			$pictureWithoutText = str_replace('fa-', '', $pictureWithoutText);
 
 			// Compatibility with old fontawesome versions
-			if ($pictowithouttext == 'file-o') {
-				$pictowithouttext = 'file';
+			if ($pictureWithoutText == 'file-o') {
+				$pictureWithoutText = 'file';
 			}
 
-			$pictowithouttextarray = explode('_', $pictowithouttext);
+			$pictureWithoutTextarray = explode('_', $pictureWithoutText);
 			$marginleftonlyshort = 0;
 
-			if (!empty($pictowithouttextarray[1])) {
+			if (!empty($pictureWithoutTextarray[1])) {
 				// Syntax is 'fontawesome_fakey_faprefix_facolor_fasize' or 'fa-fakey_faprefix_facolor_fasize'
-				$fakey      = 'fa-'.$pictowithouttextarray[0];
-				$faprefix   = empty($pictowithouttextarray[1]) ? 'fas' : $pictowithouttextarray[1];
-				$facolor    = empty($pictowithouttextarray[2]) ? '' : $pictowithouttextarray[2];
-				$fasize     = empty($pictowithouttextarray[3]) ? '' : $pictowithouttextarray[3];
+				$fakey      = 'fa-'.$pictureWithoutTextarray[0];
+				$faprefix   = empty($pictureWithoutTextarray[1]) ? 'fas' : $pictureWithoutTextarray[1];
+				$facolor    = empty($pictureWithoutTextarray[2]) ? '' : $pictureWithoutTextarray[2];
+				$fasize     = empty($pictureWithoutTextarray[3]) ? '' : $pictureWithoutTextarray[3];
 			} else {
-				$fakey      = 'fa-'.$pictowithouttext;
+				$fakey      = 'fa-'.$pictureWithoutText;
 				$faprefix   = 'fas';
 				$facolor    = '';
 				$fasize     = '';
@@ -5154,7 +5154,7 @@ function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srco
 			return $enabledisablehtml;
 		}
 
-		if (empty($srconly) && in_array($pictowithouttext, array(
+		if (empty($srconly) && in_array($pictureWithoutText, array(
 				'1downarrow', '1uparrow', '1leftarrow', '1rightarrow', '1uparrow_selected', '1downarrow_selected', '1leftarrow_selected', '1rightarrow_selected',
 				'accountancy', 'accounting_account', 'account', 'accountline', 'action', 'add', 'address', 'ai', 'angle-double-down', 'angle-double-up', 'asset',
 				'back', 'bank_account', 'barcode', 'bank', 'bell', 'bill', 'billa', 'billr', 'billd', 'birthday-cake', 'bom', 'bookcal', 'bookmark', 'briefcase-medical', 'bug', 'building',
@@ -5179,7 +5179,7 @@ function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srco
 				'security', 'setup', 'share-alt', 'sign-out', 'split', 'stripe', 'stripe-s', 'switch_off', 'switch_on', 'switch_on_grey', 'switch_on_warning', 'switch_on_red', 'tools', 'unlink', 'uparrow', 'user', 'user-tie', 'vcard', 'wrench',
 				'github', 'google', 'jabber', 'microsoft', 'skype', 'twitter', 'facebook', 'linkedin', 'instagram', 'snapchat', 'youtube', 'google-plus-g', 'whatsapp',
 				'generic', 'home', 'hrm', 'members', 'products', 'invoicing',
-				'partnership', 'payment', 'payment_vat', 'pencil-ruler', 'pictoconfirm', 'preview', 'project', 'projectpub', 'projecttask', 'question', 'refresh', 'region',
+				'partnership', 'payment', 'payment_vat', 'pencil-ruler', 'pictureconfirm', 'preview', 'project', 'projectpub', 'projecttask', 'question', 'refresh', 'region',
 				'salary', 'shipment', 'state', 'supplier_invoice', 'supplier_invoicea', 'supplier_invoicer', 'supplier_invoiced',
 				'technic', 'ticket',
 				'error', 'warning',
@@ -5191,18 +5191,18 @@ function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srco
 				'stamp', 'signature',
 				'webportal'
 			))) {
-			$fakey = $pictowithouttext;
+			$fakey = $pictureWithoutText;
 			$facolor = '';
 			$fasize = '';
 			$fa = getDolGlobalString('MAIN_FONTAWESOME_ICON_STYLE', 'fas');
-			if (in_array($pictowithouttext, array('card', 'bell', 'clock', 'establishment', 'file', 'file-o', 'generic', 'minus-square', 'object_generic', 'pdf', 'plus-square', 'timespent', 'note', 'off', 'on', 'object_bookmark', 'bookmark', 'vcard'))) {
+			if (in_array($pictureWithoutText, array('card', 'bell', 'clock', 'establishment', 'file', 'file-o', 'generic', 'minus-square', 'object_generic', 'pdf', 'plus-square', 'timespent', 'note', 'off', 'on', 'object_bookmark', 'bookmark', 'vcard'))) {
 				$fa = 'far';
 			}
-			if (in_array($pictowithouttext, array('black-tie', 'github', 'google', 'microsoft', 'skype', 'twitter', 'facebook', 'linkedin', 'instagram', 'snapchat', 'stripe', 'stripe-s', 'youtube', 'google-plus-g', 'whatsapp'))) {
+			if (in_array($pictureWithoutText, array('black-tie', 'github', 'google', 'microsoft', 'skype', 'twitter', 'facebook', 'linkedin', 'instagram', 'snapchat', 'stripe', 'stripe-s', 'youtube', 'google-plus-g', 'whatsapp'))) {
 				$fa = 'fab';
 			}
 
-			$arrayconvpictotofa = array(
+			$arrayconvpicturetofa = array(
 				'account' => 'university', 'accounting_account' => 'clipboard-list', 'accountline' => 'receipt', 'accountancy' => 'search-dollar', 'action' => 'calendar-alt', 'add' => 'plus-circle', 'address' => 'address-book', 'ai' => 'magic',
 				'asset' => 'money-check-alt', 'autofill' => 'fill',
 				'back' => 'arrow-left', 'bank_account' => 'university',
@@ -5232,7 +5232,7 @@ function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srco
 				'error' => 'exclamation-triangle', 'warning' => 'exclamation-triangle',
 				'other' => 'square',
 				'playdisabled' => 'play', 'pdf' => 'file-pdf', 'poll' => 'check-double', 'pos' => 'cash-register', 'preview' => 'binoculars', 'project' => 'project-diagram', 'projectpub' => 'project-diagram', 'projecttask' => 'tasks', 'propal' => 'file-signature', 'proposal' => 'file-signature',
-				'partnership' => 'handshake', 'payment' => 'money-check-alt', 'payment_vat' => 'money-check-alt', 'pictoconfirm' => 'check-square', 'phoning' => 'phone', 'phoning_mobile' => 'mobile-alt', 'phoning_fax' => 'fax', 'previous' => 'arrow-alt-circle-left', 'printer' => 'print', 'product' => 'cube', 'puce' => 'angle-right',
+				'partnership' => 'handshake', 'payment' => 'money-check-alt', 'payment_vat' => 'money-check-alt', 'pictureconfirm' => 'check-square', 'phoning' => 'phone', 'phoning_mobile' => 'mobile-alt', 'phoning_fax' => 'fax', 'previous' => 'arrow-alt-circle-left', 'printer' => 'print', 'product' => 'cube', 'puce' => 'angle-right',
 				'recent' => 'check-square', 'reception' => 'dolly', 'recruitmentjobposition' => 'id-card-alt', 'recruitmentcandidature' => 'id-badge',
 				'resize' => 'crop', 'supplier_order' => 'dol-order_supplier', 'supplier_proposal' => 'file-signature',
 				'refresh' => 'redo', 'region' => 'map-marked', 'replacement' => 'exchange-alt', 'resource' => 'laptop-house', 'recurring' => 'history',
@@ -5249,62 +5249,62 @@ function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srco
 				'webportal' => 'door-open'
 			);
 			if ($config->currency == 'EUR') {
-				$arrayconvpictotofa['currency'] = 'euro-sign';
-				$arrayconvpictotofa['multicurrency'] = 'dollar-sign';
+				$arrayconvpicturetofa['currency'] = 'euro-sign';
+				$arrayconvpicturetofa['multicurrency'] = 'dollar-sign';
 			} else {
-				$arrayconvpictotofa['currency'] = 'dollar-sign';
-				$arrayconvpictotofa['multicurrency'] = 'euro-sign';
+				$arrayconvpicturetofa['currency'] = 'dollar-sign';
+				$arrayconvpicturetofa['multicurrency'] = 'euro-sign';
 			}
-			if ($pictowithouttext == 'off') {
+			if ($pictureWithoutText == 'off') {
 				$fakey = 'fa-square';
 				$fasize = '1.3em';
-			} elseif ($pictowithouttext == 'on') {
+			} elseif ($pictureWithoutText == 'on') {
 				$fakey = 'fa-check-square';
 				$fasize = '1.3em';
-			} elseif ($pictowithouttext == 'listlight') {
+			} elseif ($pictureWithoutText == 'listlight') {
 				$fakey = 'fa-download';
 				$marginleftonlyshort = 1;
-			} elseif ($pictowithouttext == 'printer') {
+			} elseif ($pictureWithoutText == 'printer') {
 				$fakey = 'fa-print';
 				$fasize = '1.2em';
-			} elseif ($pictowithouttext == 'note') {
+			} elseif ($pictureWithoutText == 'note') {
 				$fakey = 'fa-sticky-note';
 				$marginleftonlyshort = 1;
-			} elseif (in_array($pictowithouttext, array('1uparrow', '1downarrow', '1leftarrow', '1rightarrow', '1uparrow_selected', '1downarrow_selected', '1leftarrow_selected', '1rightarrow_selected'))) {
+			} elseif (in_array($pictureWithoutText, array('1uparrow', '1downarrow', '1leftarrow', '1rightarrow', '1uparrow_selected', '1downarrow_selected', '1leftarrow_selected', '1rightarrow_selected'))) {
 				$convertarray = array('1uparrow' => 'caret-up', '1downarrow' => 'caret-down', '1leftarrow' => 'caret-left', '1rightarrow' => 'caret-right', '1uparrow_selected' => 'caret-up', '1downarrow_selected' => 'caret-down', '1leftarrow_selected' => 'caret-left', '1rightarrow_selected' => 'caret-right');
-				$fakey = 'fa-'.$convertarray[$pictowithouttext];
-				if (preg_match('/selected/', $pictowithouttext)) {
+				$fakey = 'fa-'.$convertarray[$pictureWithoutText];
+				if (preg_match('/selected/', $pictureWithoutText)) {
 					$facolor = '#888';
 				}
 				$marginleftonlyshort = 1;
-			} elseif (!empty($arrayconvpictotofa[$pictowithouttext])) {
-				$fakey = 'fa-'.$arrayconvpictotofa[$pictowithouttext];
+			} elseif (!empty($arrayconvpicturetofa[$pictureWithoutText])) {
+				$fakey = 'fa-'.$arrayconvpicturetofa[$pictureWithoutText];
 			} else {
-				$fakey = 'fa-'.$pictowithouttext;
+				$fakey = 'fa-'.$pictureWithoutText;
 			}
 
-			if (in_array($pictowithouttext, array('dollyrevert', 'member', 'members', 'contract', 'group', 'resource', 'shipment', 'reception'))) {
+			if (in_array($pictureWithoutText, array('dollyrevert', 'member', 'members', 'contract', 'group', 'resource', 'shipment', 'reception'))) {
 				$morecss .= ' em092';
 			}
-			if (in_array($pictowithouttext, array('conferenceorbooth', 'collab', 'eventorganization', 'holiday', 'info', 'project', 'workstation'))) {
+			if (in_array($pictureWithoutText, array('conferenceorbooth', 'collab', 'eventorganization', 'holiday', 'info', 'project', 'workstation'))) {
 				$morecss .= ' em088';
 			}
-			if (in_array($pictowithouttext, array('asset', 'intervention', 'payment', 'loan', 'partnership', 'stock', 'technic'))) {
+			if (in_array($pictureWithoutText, array('asset', 'intervention', 'payment', 'loan', 'partnership', 'stock', 'technic'))) {
 				$morecss .= ' em080';
 			}
 
 			// Define $marginleftonlyshort
-			$arrayconvpictotomarginleftonly = array(
+			$arrayConvPictureToMarginLeftOnly = array(
 				'bank', 'check', 'delete', 'generic', 'grip', 'grip_title', 'jabber',
 				'grip_title', 'grip', 'listlight', 'note', 'on', 'off', 'playdisabled', 'printer', 'resize', 'sign-out', 'stats', 'switch_on', 'switch_on_grey', 'switch_on_red', 'switch_off',
 				'uparrow', '1uparrow', '1downarrow', '1leftarrow', '1rightarrow', '1uparrow_selected', '1downarrow_selected', '1leftarrow_selected', '1rightarrow_selected'
 			);
-			if (!array_key_exists($pictowithouttext, $arrayconvpictotomarginleftonly)) {
+			if (!array_key_exists($pictureWithoutText, $arrayConvPictureToMarginLeftOnly)) {
 				$marginleftonlyshort = 0;
 			}
 
 			// Add CSS
-			$arrayconvpictotomorcess = array(
+			$arrayConvPictureToMorcess = array(
 				'action' => 'infobox-action', 'account' => 'infobox-bank_account', 'accounting_account' => 'infobox-bank_account', 'accountline' => 'infobox-bank_account', 'accountancy' => 'infobox-bank_account', 'asset' => 'infobox-bank_account',
 				'bank_account' => 'infobox-bank_account',
 				'bill' => 'infobox-order', 'billa' => 'infobox-order', 'billr' => 'infobox-order', 'billd' => 'infobox-order',
@@ -5319,7 +5319,7 @@ function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srco
 				'members' => 'infobox-member', 'member' => 'infobox-member', 'money-bill-alt' => 'infobox-bank_account',
 				'order' => 'infobox-order',
 				'user' => 'infobox-member', 'users' => 'infobox-member',
-				'error' => 'pictoerror', 'warning' => 'pictowarning', 'switch_on' => 'font-status4', 'switch_on_warning' => 'font-status4 warning', 'switch_on_red' => 'font-status8',
+				'error' => 'pictureerror', 'warning' => 'picturewarning', 'switch_on' => 'font-status4', 'switch_on_warning' => 'font-status4 warning', 'switch_on_red' => 'font-status8',
 				'holiday' => 'infobox-holiday', 'info' => 'opacityhigh', 'invoice' => 'infobox-order',
 				'knowledgemanagement' => 'infobox-contrat rotate90', 'loan' => 'infobox-bank_account',
 				'payment' => 'infobox-bank_account', 'payment_vat' => 'infobox-bank_account', 'poll' => 'infobox-member', 'pos' => 'infobox-bank_account', 'project' => 'infobox-project', 'projecttask' => 'infobox-project',
@@ -5333,12 +5333,12 @@ function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srco
 				//'title_setup'=>'infobox-action', 'tools'=>'infobox-action',
 				'list-alt' => 'imgforviewmode', 'calendar' => 'imgforviewmode', 'calendarweek' => 'imgforviewmode', 'calendarmonth' => 'imgforviewmode', 'calendarday' => 'imgforviewmode', 'calendarperuser' => 'imgforviewmode'
 			);
-			if (!empty($arrayconvpictotomorcess[$pictowithouttext]) && strpos($picto, '_nocolor') === false) {
-				$morecss .= ($morecss ? ' ' : '').$arrayconvpictotomorcess[$pictowithouttext];
+			if (!empty($arrayConvPictureToMorcess[$pictureWithoutText]) && strpos($picture, '_nocolor') === false) {
+				$morecss .= ($morecss ? ' ' : '').$arrayConvPictureToMorcess[$pictureWithoutText];
 			}
 
 			// Define $color
-			$arrayconvpictotocolor = array(
+			$arrayConvPictureToColor = array(
 				'address' => '#6c6aa8', 'building' => '#6c6aa8', 'bom' => '#a69944',
 				'clone' => '#999', 'cog' => '#999', 'companies' => '#6c6aa8', 'company' => '#6c6aa8', 'contact' => '#6c6aa8', 'cron' => '#555',
 				'dynamicprice' => '#a69944',
@@ -5354,8 +5354,8 @@ function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srco
 				'uncheck' => '#800', 'uparrow' => '#555', 'user-cog' => '#999', 'country' => '#aaa', 'globe-americas' => '#aaa', 'region' => '#aaa', 'state' => '#aaa',
 				'website' => '#304', 'workstation' => '#a69944'
 			);
-			if (isset($arrayconvpictotocolor[$pictowithouttext]) && strpos($picto, '_nocolor') === false) {
-				$facolor = $arrayconvpictotocolor[$pictowithouttext];
+			if (isset($arrayConvPictureToColor[$pictureWithoutText]) && strpos($picture, '_nocolor') === false) {
+				$facolor = $arrayConvPictureToColor[$pictureWithoutText];
 			}
 
 			// This snippet only needed since function img_edit accepts only one additional parameter: no separate one for css only.
@@ -5389,14 +5389,14 @@ function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srco
 
 		// If we ask an image into $url/$mymodule/img (instead of default path)
 		$regs = array();
-		if (preg_match('/^([^@]+)@([^@]+)$/i', $picto, $regs)) {
-			$picto = $regs[1];
+		if (preg_match('/^([^@]+)@([^@]+)$/i', $picture, $regs)) {
+			$picture = $regs[1];
 			$path = $regs[2]; // $path is $mymodule
 		}
 
 		// Clean parameters
-		if (!preg_match('/(\.png|\.gif|\.svg)$/i', $picto)) {
-			$picto .= '.png';
+		if (!preg_match('/(\.png|\.gif|\.svg)$/i', $picture)) {
+			$picture .= '.png';
 		}
 		// If alt path are defined, define url where img file is, according to physical path
 		// ex: array(["main"]=>"/home/maindir/htdocs", ["alt0"]=>"/home/moddir0/htdocs", ...)
@@ -5405,100 +5405,100 @@ function img_picto($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srco
 				continue;
 			}
 			// This need a lot of time, that's why enabling alternative dir like "custom" dir is not recommended
-			if (file_exists($dirroot.'/'.$path.'/img/'.$picto)) {
+			if (file_exists($dirroot.'/'.$path.'/img/'.$picture)) {
 				$url = DOL_URL_ROOT.$config->file->dol_url_root[$type];
 				break;
 			}
 		}
 
 		// $url is '' or '/custom', $path is current theme or
-		$fullpathpicto = $url.'/'.$path.'/img/'.$picto;
+		$fullpathpicture = $url.'/'.$path.'/img/'.$picture;
 	}
 
 	if ($srconly) {
-		return $fullpathpicto;
+		return $fullpathpicture;
 	}
 
 	// tag title is used for tooltip on <a>, tag alt can be used with very simple text on image for blind people
-	return '<img src="'.$fullpathpicto.'"'.($notitle ? '' : ' alt="'.dol_escape_htmltag($alt).'"').(($notitle || empty($titlealt)) ? '' : ' title="'.dol_escape_htmltag($titlealt).'"').($moreatt ? ' '.$moreatt.($morecss ? ' class="'.$morecss.'"' : '') : ' class="inline-block'.($morecss ? ' '.$morecss : '').'"').'>'; // Alt is used for accessibility, title for popup
+	return '<img src="'.$fullpathpicture.'"'.($notitle ? '' : ' alt="'.dol_escape_htmltag($alt).'"').(($notitle || empty($titlealt)) ? '' : ' title="'.dol_escape_htmltag($titlealt).'"').($moreatt ? ' '.$moreatt.($morecss ? ' class="'.$morecss.'"' : '') : ' class="inline-block'.($morecss ? ' '.$morecss : '').'"').'>'; // Alt is used for accessibility, title for popup
 }
 
 /**
- *	Show a picto called object_picto (generic function)
+ *	Show a picture called object_picture (generic function)
  *
  *	@param	string	$titlealt			Text on alt and title of image. Alt only if param notitle is set to 1. If text is "TextA:TextB", use Text A on alt and Text B on title.
- *	@param	string	$picto				Name of image to show object_picto (example: user, group, action, bill, contract, propal, product, ...)
+ *	@param	string	$picture				Name of image to show object_picture (example: user, group, action, bill, contract, propal, product, ...)
  *										For external modules use imagename@mymodule to search into directory "img" of module.
  *	@param	string	$moreatt			Add more attribute on img tag (ie: class="datecallink")
- *	@param	int		$pictoisfullpath	If 1, image path is a full path
+ *	@param	int		$pictureIsFullPath	If 1, image path is a full path
  *	@param	int		$srconly			Return only content of the src attribute of img.
  *  @param	int		$notitle			1=Disable tag title. Use it if you add js tooltip, to avoid duplicate tooltip.
  *	@return	string						Return img tag
- *	@see	img_picto(), img_picto_common()
+ *	@see	img_picture(), img_picture_common()
  */
-function img_object($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $srconly = 0, $notitle = 0)
+function img_object($titlealt, $picture, $moreatt = '', $pictureIsFullPath = 0, $srconly = 0, $notitle = 0)
 {
-	if (strpos($picto, '^') === 0) {
-		return img_picto($titlealt, str_replace('^', '', $picto), $moreatt, $pictoisfullpath, $srconly, $notitle);
+	if (strpos($picture, '^') === 0) {
+		return img_picture($titlealt, str_replace('^', '', $picture), $moreatt, $pictureIsFullPath, $srconly, $notitle);
 	} else {
-		return img_picto($titlealt, 'object_'.$picto, $moreatt, $pictoisfullpath, $srconly, $notitle);
+		return img_picture($titlealt, 'object_'.$picture, $moreatt, $pictureIsFullPath, $srconly, $notitle);
 	}
 }
 
 /**
- *	Show weather picto
+ *	Show weather picture
  *
  *	@param      string		$titlealt         	Text on alt and title of image. Alt only if param notitle is set to 1. If text is "TextA:TextB", use Text A on alt and Text B on title.
- *	@param      string|int	$picto       		Name of image file to show (If no extension provided, we use '.png'). Image must be stored into htdocs/theme/common directory. Or level of meteo image (0-4).
+ *	@param      string|int	$picture       		Name of image file to show (If no extension provided, we use '.png'). Image must be stored into htdocs/theme/common directory. Or level of meteo image (0-4).
  *	@param		string		$moreatt			Add more attribute on img tag
- *	@param		int			$pictoisfullpath	If 1, image path is a full path
+ *	@param		int			$pictureIsFullPath	If 1, image path is a full path
  *  @param      string      $morecss            More CSS
  *	@return     string      					Return img tag
- *  @see        img_object(), img_picto()
+ *  @see        img_object(), img_picture()
  */
-function img_weather($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $morecss = '')
+function img_weather($titlealt, $picture, $moreatt = '', $pictureIsFullPath = 0, $morecss = '')
 {
 	global $config;
 
-	if (is_numeric($picto)) {
-		//$leveltopicto = array(0=>'weather-clear.png', 1=>'weather-few-clouds.png', 2=>'weather-clouds.png', 3=>'weather-many-clouds.png', 4=>'weather-storm.png');
-		//$picto = $leveltopicto[$picto];
-		return '<i class="fa fa-weather-level'.$picto.'"></i>';
-	} elseif (!preg_match('/(\.png|\.gif)$/i', $picto)) {
-		$picto .= '.png';
+	if (is_numeric($picture)) {
+		//$leveltopicture = array(0=>'weather-clear.png', 1=>'weather-few-clouds.png', 2=>'weather-clouds.png', 3=>'weather-many-clouds.png', 4=>'weather-storm.png');
+		//$picture = $leveltopicture[$picture];
+		return '<i class="fa fa-weather-level'.$picture.'"></i>';
+	} elseif (!preg_match('/(\.png|\.gif)$/i', $picture)) {
+		$picture .= '.png';
 	}
 
-	$path = DOL_URL_ROOT.'/theme/'.$config->theme.'/img/weather/'.$picto;
+	$path = DOL_URL_ROOT.'/theme/'.$config->theme.'/img/weather/'.$picture;
 
-	return img_picto($titlealt, $path, $moreatt, 1, 0, 0, '', $morecss);
+	return img_picture($titlealt, $path, $moreatt, 1, 0, 0, '', $morecss);
 }
 
 /**
- *	Show picto (generic function)
+ *	Show picture (generic function)
  *
  *	@param      string		$titlealt         	Text on alt and title of image. Alt only if param notitle is set to 1. If text is "TextA:TextB", use Text A on alt and Text B on title.
- *	@param      string		$picto       		Name of image file to show (If no extension provided, we use '.png'). Image must be stored into htdocs/theme/common directory.
+ *	@param      string		$picture       		Name of image file to show (If no extension provided, we use '.png'). Image must be stored into htdocs/theme/common directory.
  *	@param		string		$moreatt			Add more attribute on img tag
- *	@param		int			$pictoisfullpath	If 1, image path is a full path
+ *	@param		int			$pictureIsFullPath	If 1, image path is a full path
  *  @param		int			$notitle			1=Disable tag title. Use it if you add js tooltip, to avoid duplicate tooltip.
  *	@return     string      					Return img tag
- *  @see        img_object(), img_picto()
+ *  @see        img_object(), img_picture()
  */
-function img_picto_common($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0, $notitle = 0)
+function img_picture_common($titlealt, $picture, $moreatt = '', $pictureIsFullPath = 0, $notitle = 0)
 {
 	global $config;
 
-	if (!preg_match('/(\.png|\.gif)$/i', $picto)) {
-		$picto .= '.png';
+	if (!preg_match('/(\.png|\.gif)$/i', $picture)) {
+		$picture .= '.png';
 	}
 
-	if ($pictoisfullpath) {
-		$path = $picto;
+	if ($pictureIsFullPath) {
+		$path = $picture;
 	} else {
-		$path = DOL_URL_ROOT.'/theme/common/'.$picto;
+		$path = DOL_URL_ROOT.'/theme/common/'.$picture;
 
 		if (getDolGlobalInt('MAIN_MODULE_CAN_OVERWRITE_COMMONICONS')) {
-			$themepath = DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/img/'.$picto;
+			$themepath = DOL_DOCUMENT_ROOT.'/theme/'.$config->theme.'/img/'.$picture;
 
 			if (file_exists($themepath)) {
 				$path = $themepath;
@@ -5506,7 +5506,7 @@ function img_picto_common($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0
 		}
 	}
 
-	return img_picto($titlealt, $path, $moreatt, 1, 0, $notitle);
+	return img_picture($titlealt, $path, $moreatt, 1, 0, $notitle);
 }
 
 /**
@@ -5514,15 +5514,15 @@ function img_picto_common($titlealt, $picto, $moreatt = '', $pictoisfullpath = 0
  *
  *	@param	string		$titlealt       Text on alt and title of image. Alt only if param notitle is set to 1. If text is "TextA:TextB", use Text A on alt and Text B on title.
  *	@param  string		$numaction   	Action id or code to show
- *	@param 	string		$picto      	Name of image file to show ('filenew', ...)
+ *	@param 	string		$picture      	Name of image file to show ('filenew', ...)
  *                                      If no extension provided, we use '.png'. Image must be stored into theme/xxx/img directory.
- *                                      Example: picto.png                  if picto.png is stored into htdocs/theme/mytheme/img
- *                                      Example: picto.png@mymodule         if picto.png is stored into htdocs/mymodule/img
- *                                      Example: /mydir/mysubdir/picto.png  if picto.png is stored into htdocs/mydir/mysubdir (pictoisfullpath must be set to 1)
+ *                                      Example: picture.png                  if picture.png is stored into htdocs/theme/mytheme/img
+ *                                      Example: picture.png@mymodule         if picture.png is stored into htdocs/mymodule/img
+ *                                      Example: /mydir/mysubdir/picture.png  if picture.png is stored into htdocs/mydir/mysubdir (pictureisfullpath must be set to 1)
  *  @param	string		$moreatt		More attributes
  *	@return string      				Return an img tag
  */
-function img_action($titlealt, $numaction, $picto = '', $moreatt = '')
+function img_action($titlealt, $numaction, $picture = '', $moreatt = '')
 {
 	global $langs;
 
@@ -5551,7 +5551,7 @@ function img_action($titlealt, $numaction, $picto = '', $moreatt = '')
 		$numaction = 0;
 	}
 
-	return img_picto($titlealt, (empty($picto) ? 'stcomm'.$numaction.'.png' : $picto), $moreatt);
+	return img_picture($titlealt, (empty($picture) ? 'stcomm'.$numaction.'.png' : $picture), $moreatt);
 }
 
 /**
@@ -5569,7 +5569,7 @@ function img_pdf($titlealt = 'default', $size = 3)
 		$titlealt = $langs->trans('Show');
 	}
 
-	return img_picto($titlealt, 'pdf'.$size.'.png');
+	return img_picture($titlealt, 'pdf'.$size.'.png');
 }
 
 /**
@@ -5587,7 +5587,7 @@ function img_edit_add($titlealt = 'default', $other = '')
 		$titlealt = $langs->trans('Add');
 	}
 
-	return img_picto($titlealt, 'edit_add.png', $other);
+	return img_picture($titlealt, 'edit_add.png', $other);
 }
 /**
  *	Show logo -
@@ -5604,7 +5604,7 @@ function img_edit_remove($titlealt = 'default', $other = '')
 		$titlealt = $langs->trans('Remove');
 	}
 
-	return img_picto($titlealt, 'edit_remove.png', $other);
+	return img_picture($titlealt, 'edit_remove.png', $other);
 }
 
 /**
@@ -5623,7 +5623,7 @@ function img_edit($titlealt = 'default', $float = 0, $other = '')
 		$titlealt = $langs->trans('Modify');
 	}
 
-	return img_picto($titlealt, 'edit.png', ($float ? 'style="float: '.($langs->tab_translate["DIRECTION"] == 'rtl' ? 'left' : 'right').'"' : "").($other ? ' '.$other : ''));
+	return img_picture($titlealt, 'edit.png', ($float ? 'style="float: '.($langs->tab_translate["DIRECTION"] == 'rtl' ? 'left' : 'right').'"' : "").($other ? ' '.$other : ''));
 }
 
 /**
@@ -5644,7 +5644,7 @@ function img_view($titlealt = 'default', $float = 0, $other = 'class="valignmidd
 
 	$moreatt = ($float ? 'style="float: right" ' : '').$other;
 
-	return img_picto($titlealt, 'eye', $moreatt);
+	return img_picture($titlealt, 'eye', $moreatt);
 }
 
 /**
@@ -5655,7 +5655,7 @@ function img_view($titlealt = 'default', $float = 0, $other = 'class="valignmidd
  *  @param	string	$morecss	More CSS
  *  @return string      		Retourne tag img
  */
-function img_delete($titlealt = 'default', $other = 'class="pictodelete"', $morecss = '')
+function img_delete($titlealt = 'default', $other = 'class="picturedelete"', $morecss = '')
 {
 	global $langs;
 
@@ -5663,7 +5663,7 @@ function img_delete($titlealt = 'default', $other = 'class="pictodelete"', $more
 		$titlealt = $langs->trans('Delete');
 	}
 
-	return img_picto($titlealt, 'delete.png', $other, 0, 0, 0, '', $morecss);
+	return img_picture($titlealt, 'delete.png', $other, 0, 0, 0, '', $morecss);
 }
 
 /**
@@ -5679,7 +5679,7 @@ function img_printer($titlealt = "default", $other = '')
 	if ($titlealt == "default") {
 		$titlealt = $langs->trans("Print");
 	}
-	return img_picto($titlealt, 'printer.png', $other);
+	return img_picture($titlealt, 'printer.png', $other);
 }
 
 /**
@@ -5689,7 +5689,7 @@ function img_printer($titlealt = "default", $other = '')
  *	@param  string	$other      Add more attributes on img
  *  @return string      		Retourne tag img
  */
-function img_split($titlealt = 'default', $other = 'class="pictosplit"')
+function img_split($titlealt = 'default', $other = 'class="picturesplit"')
 {
 	global $langs;
 
@@ -5697,7 +5697,7 @@ function img_split($titlealt = 'default', $other = 'class="pictosplit"')
 		$titlealt = $langs->trans('Split');
 	}
 
-	return img_picto($titlealt, 'split.png', $other);
+	return img_picture($titlealt, 'split.png', $other);
 }
 
 /**
@@ -5719,7 +5719,7 @@ function img_help($usehelpcursor = 1, $usealttitle = 1)
 		}
 	}
 
-	return img_picto($usealttitle, 'info.png', 'style="vertical-align: middle;'.($usehelpcursor == 1 ? ' cursor: help' : ($usehelpcursor == 2 ? ' cursor: pointer' : '')).'"');
+	return img_picture($usealttitle, 'info.png', 'style="vertical-align: middle;'.($usehelpcursor == 1 ? ' cursor: help' : ($usehelpcursor == 2 ? ' cursor: pointer' : '')).'"');
 }
 
 /**
@@ -5736,7 +5736,7 @@ function img_info($titlealt = 'default')
 		$titlealt = $langs->trans('Informations');
 	}
 
-	return img_picto($titlealt, 'info.png', 'style="vertical-align: middle;"');
+	return img_picture($titlealt, 'info.png', 'style="vertical-align: middle;"');
 }
 
 /**
@@ -5747,7 +5747,7 @@ function img_info($titlealt = 'default')
  *  @param	string  $morecss	Add more CSS
  *	@return string      		Return img tag
  */
-function img_warning($titlealt = 'default', $moreatt = '', $morecss = 'pictowarning')
+function img_warning($titlealt = 'default', $moreatt = '', $morecss = 'picturewarning')
 {
 	global $langs;
 
@@ -5755,8 +5755,8 @@ function img_warning($titlealt = 'default', $moreatt = '', $morecss = 'pictowarn
 		$titlealt = $langs->trans('Warning');
 	}
 
-	//return '<div class="imglatecoin">'.img_picto($titlealt, 'warning_white.png', 'class="pictowarning valignmiddle"'.($moreatt ? ($moreatt == '1' ? ' style="float: right"' : ' '.$moreatt): '')).'</div>';
-	return img_picto($titlealt, 'warning.png', 'class="'.$morecss.'"'.($moreatt ? ($moreatt == '1' ? ' style="float: right"' : ' '.$moreatt) : ''));
+	//return '<div class="imglatecoin">'.img_picture($titlealt, 'warning_white.png', 'class="picturewarning valignmiddle"'.($moreatt ? ($moreatt == '1' ? ' style="float: right"' : ' '.$moreatt): '')).'</div>';
+	return img_picture($titlealt, 'warning.png', 'class="'.$morecss.'"'.($moreatt ? ($moreatt == '1' ? ' style="float: right"' : ' '.$moreatt) : ''));
 }
 
 /**
@@ -5773,7 +5773,7 @@ function img_error($titlealt = 'default')
 		$titlealt = $langs->trans('Error');
 	}
 
-	return img_picto($titlealt, 'error.png');
+	return img_picture($titlealt, 'error.png');
 }
 
 /**
@@ -5791,7 +5791,7 @@ function img_next($titlealt = 'default', $moreatt = '')
 		$titlealt = $langs->trans('Next');
 	}
 
-	//return img_picto($titlealt, 'next.png', $moreatt);
+	//return img_picture($titlealt, 'next.png', $moreatt);
 	return '<span class="fa fa-chevron-right paddingright paddingleft" title="'.dol_escape_htmltag($titlealt).'"></span>';
 }
 
@@ -5810,7 +5810,7 @@ function img_previous($titlealt = 'default', $moreatt = '')
 		$titlealt = $langs->trans('Previous');
 	}
 
-	//return img_picto($titlealt, 'previous.png', $moreatt);
+	//return img_picture($titlealt, 'previous.png', $moreatt);
 	return '<span class="fa fa-chevron-left paddingright paddingleft" title="'.dol_escape_htmltag($titlealt).'"></span>';
 }
 
@@ -5830,7 +5830,7 @@ function img_down($titlealt = 'default', $selected = 0, $moreclass = '')
 		$titlealt = $langs->trans('Down');
 	}
 
-	return img_picto($titlealt, ($selected ? '1downarrow_selected.png' : '1downarrow.png'), 'class="imgdown'.($moreclass ? " ".$moreclass : "").'"');
+	return img_picture($titlealt, ($selected ? '1downarrow_selected.png' : '1downarrow.png'), 'class="imgdown'.($moreclass ? " ".$moreclass : "").'"');
 }
 
 /**
@@ -5849,7 +5849,7 @@ function img_up($titlealt = 'default', $selected = 0, $moreclass = '')
 		$titlealt = $langs->trans('Up');
 	}
 
-	return img_picto($titlealt, ($selected ? '1uparrow_selected.png' : '1uparrow.png'), 'class="imgup'.($moreclass ? " ".$moreclass : "").'"');
+	return img_picture($titlealt, ($selected ? '1uparrow_selected.png' : '1uparrow.png'), 'class="imgup'.($moreclass ? " ".$moreclass : "").'"');
 }
 
 /**
@@ -5868,7 +5868,7 @@ function img_left($titlealt = 'default', $selected = 0, $moreatt = '')
 		$titlealt = $langs->trans('Left');
 	}
 
-	return img_picto($titlealt, ($selected ? '1leftarrow_selected.png' : '1leftarrow.png'), $moreatt);
+	return img_picture($titlealt, ($selected ? '1leftarrow_selected.png' : '1leftarrow.png'), $moreatt);
 }
 
 /**
@@ -5887,7 +5887,7 @@ function img_right($titlealt = 'default', $selected = 0, $moreatt = '')
 		$titlealt = $langs->trans('Right');
 	}
 
-	return img_picto($titlealt, ($selected ? '1rightarrow_selected.png' : '1rightarrow.png'), $moreatt);
+	return img_picture($titlealt, ($selected ? '1rightarrow_selected.png' : '1rightarrow.png'), $moreatt);
 }
 
 /**
@@ -5906,7 +5906,7 @@ function img_allow($allow, $titlealt = 'default')
 	}
 
 	if ($allow == 1) {
-		return img_picto($titlealt, 'tick.png');
+		return img_picture($titlealt, 'tick.png');
 	}
 
 	return '-';
@@ -5964,7 +5964,7 @@ function img_mime($file, $titlealt = '', $morecss = '')
 		$titlealt = 'Mime type: '.$mimetype;
 	}
 
-	//return img_picto_common($titlealt, 'mime/'.$mimeimg, 'class="'.$morecss.'"');
+	//return img_picture_common($titlealt, 'mime/'.$mimeimg, 'class="'.$morecss.'"');
 	return '<i class="fa fa-'.$mimefa.' paddingright'.($morecss ? ' '.$morecss : '').'"'.($titlealt ? ' title="'.$titlealt.'"' : '').'></i>';
 }
 
@@ -5984,7 +5984,7 @@ function img_search($titlealt = 'default', $other = '')
 		$titlealt = $langs->trans('Search');
 	}
 
-	$img = img_picto($titlealt, 'search.png', $other, 0, 1);
+	$img = img_picture($titlealt, 'search.png', $other, 0, 1);
 
 	$input = '<input type="image" class="liste_titre" name="button_search" src="'.$img.'" ';
 	$input .= 'value="'.dol_escape_htmltag($titlealt).'" title="'.dol_escape_htmltag($titlealt).'" >';
@@ -6007,7 +6007,7 @@ function img_searchclear($titlealt = 'default', $other = '')
 		$titlealt = $langs->trans('Search');
 	}
 
-	$img = img_picto($titlealt, 'searchclear.png', $other, 0, 1);
+	$img = img_picture($titlealt, 'searchclear.png', $other, 0, 1);
 
 	$input = '<input type="image" class="liste_titre" name="button_removefilter" src="'.$img.'" ';
 	$input .= 'value="'.dol_escape_htmltag($titlealt).'" title="'.dol_escape_htmltag($titlealt).'" >';
@@ -6019,20 +6019,20 @@ function img_searchclear($titlealt = 'default', $other = '')
  *	Show information in HTML for admin users or standard users
  *
  *	@param	string	$text				Text info
- *	@param  integer	$infoonimgalt		Info is shown only on alt of star picto, otherwise it is show on output after the star picto
+ *	@param  integer	$infoonimgalt		Info is shown only on alt of star picture, otherwise it is show on output after the star picture
  *	@param	int		$nodiv				No div
  *  @param  string  $admin      	    '1'=Info for admin users. '0'=Info for standard users (change only the look), 'error', 'warning', 'xxx'=Other
  *  @param	string	$morecss			More CSS ('', 'warning', 'error')
  *  @param	string	$textfordropdown	Show a text to click to dropdown the info box.
- *  @param	string	$picto				'' or 'warning'
+ *  @param	string	$picture				'' or 'warning'
  *	@return	string						String with info text
  */
-function info_admin($text, $infoonimgalt = 0, $nodiv = 0, $admin = '1', $morecss = 'hideonsmartphone', $textfordropdown = '', $picto = '')
+function info_admin($text, $infoonimgalt = 0, $nodiv = 0, $admin = '1', $morecss = 'hideonsmartphone', $textfordropdown = '', $picture = '')
 {
 	global $config, $langs;
 
 	if ($infoonimgalt) {
-		$result = img_picto($text, 'info', 'class="'.($morecss ? ' '.$morecss : '').'"');
+		$result = img_picture($text, 'info', 'class="'.($morecss ? ' '.$morecss : '').'"');
 	} else {
 		if (empty($config->use_javascript_ajax)) {
 			$textfordropdown = '';
@@ -6040,7 +6040,7 @@ function info_admin($text, $infoonimgalt = 0, $nodiv = 0, $admin = '1', $morecss
 
 		$class = (empty($admin) ? 'undefined' : ($admin == '1' ? 'info' : $admin));
 		$fa = 'info-circle';
-		if ($picto == 'warning') {
+		if ($picture == 'warning') {
 			$fa = 'exclamation-triangle';
 		}
 		$result = ($nodiv ? '' : '<div class="wordbreak '.$class.($morecss ? ' '.$morecss : '').($textfordropdown ? ' hidden' : '').'">').'<span class="fa fa-'.$fa.'" title="'.dol_escape_htmltag($admin ? $langs->trans('InfoAdmin') : $langs->trans('Note')).'"></span> ';
@@ -6048,7 +6048,7 @@ function info_admin($text, $infoonimgalt = 0, $nodiv = 0, $admin = '1', $morecss
 		$result .= ($nodiv ? '' : '</div>');
 
 		if ($textfordropdown) {
-			$tmpresult = '<span class="'.$class.'text opacitymedium cursorpointer">'.$langs->trans($textfordropdown).' '.img_picto($langs->trans($textfordropdown), '1downarrow').'</span>';
+			$tmpresult = '<span class="'.$class.'text opacitymedium cursorpointer">'.$langs->trans($textfordropdown).' '.img_picture($langs->trans($textfordropdown), '1downarrow').'</span>';
 			$tmpresult .= '<script nonce="'.getNonce().'" type="text/javascript">
 				jQuery(document).ready(function() {
 					jQuery(".'.$class.'text").click(function() {
@@ -6257,7 +6257,7 @@ function dol_print_error_email($prefixcode, $errormessage = '', $errormessages =
  *	Show title line of an array
  *
  *	@param	string	$name        Label of field
- *	@param	string	$file        Url used when we click on sort picto
+ *	@param	string	$file        Url used when we click on sort picture
  *	@param	string	$field       Field to use for new sorting
  *	@param	string	$begin       ("" by default)
  *	@param	string	$moreparam   Add more parameters on sort url links ("" by default)
@@ -6279,7 +6279,7 @@ function print_liste_field_titre($name, $file = "", $field = "", $begin = "", $m
  *
  *	@param	string	$name        		Translation key of field to show or complete HTML string to show
  *	@param	int		$thead		 		0=To use with standard table format, 1=To use inside <thead><tr>, 2=To use with <div>
- *	@param	string	$file        		Url used when we click on sort picto
+ *	@param	string	$file        		Url used when we click on sort picture
  *	@param	string	$field       		Field to use for new sorting. Empty if this field is not sortable. Example "t.abc" or "t.abc,t.def"
  *	@param	string	$begin       		("" by default)
  *	@param	string	$moreparam   		Add more parameters on sort url links ("" by default)
@@ -6366,7 +6366,7 @@ function getTitleFieldOfList($name, $thead = 0, $file = "", $field = "", $begin 
 		} else {
 			$tmptooltip = array($tooltip);
 		}
-		$out .= $form->textwithpicto($langs->trans($name), $langs->trans($tmptooltip[0]), 1, 'help', '', 0, 3, (empty($tmptooltip[1]) ? '' : 'extra_'.str_replace('.', '_', $field).'_'.$tmptooltip[1]));
+		$out .= $form->textWithPicture($langs->trans($name), $langs->trans($tmptooltip[0]), 1, 'help', '', 0, 3, (empty($tmptooltip[1]) ? '' : 'extra_'.str_replace('.', '_', $field).'_'.$tmptooltip[1]));
 	} else {
 		$out .= $langs->trans($name);
 	}
@@ -6423,47 +6423,47 @@ function print_titre($title)
 }
 
 /**
- *	Show a title with picto
+ *	Show a title with picture
  *
  *	@param	string	$title				Title to show
  *	@param	string	$mesg				Added message to show on right
- *	@param	string	$picto				Icon to use before title (should be a 32x32 transparent png file)
- *	@param	int		$pictoisfullpath	1=Icon name is a full absolute url of image
+ *	@param	string	$picture				Icon to use before title (should be a 32x32 transparent png file)
+ *	@param	int		$pictureIsFullPath	1=Icon name is a full absolute url of image
  * 	@param	string	$id					To force an id on html objects by example id="name" where name is id
  * 	@return	void
  *  @deprecated Use print load_fiche_titre instead
  */
-function print_fiche_titre($title, $mesg = '', $picto = 'generic', $pictoisfullpath = 0, $id = '')
+function print_fiche_titre($title, $mesg = '', $picture = 'generic', $pictureIsFullPath = 0, $id = '')
 {
-	print load_fiche_titre($title, $mesg, $picto, $pictoisfullpath, $id);
+	print load_fiche_titre($title, $mesg, $picture, $pictureIsFullPath, $id);
 }
 
 /**
- *	Load a title with picto
+ *	Load a title with picture
  *
  *	@param	string	$title				Title to show (HTML sanitized content)
  *	@param	string	$morehtmlright		Added message to show on right
- *	@param	string	$picto				Icon to use before title (should be a 32x32 transparent png file)
- *	@param	int<0,1>	$pictoisfullpath	1=Icon name is a full absolute url of image
+ *	@param	string	$picture				Icon to use before title (should be a 32x32 transparent png file)
+ *	@param	int<0,1>	$pictureIsFullPath	1=Icon name is a full absolute url of image
  * 	@param	string	$id					To force an id on html objects
  *  @param  string  $morecssontable     More css on table
  *	@param	string	$morehtmlcenter		Added message to show on center
  * 	@return	string
  *  @see print_barre_liste()
  */
-function load_fiche_titre($title, $morehtmlright = '', $picto = 'generic', $pictoisfullpath = 0, $id = '', $morecssontable = '', $morehtmlcenter = '')
+function load_fiche_titre($title, $morehtmlright = '', $picture = 'generic', $pictureIsFullPath = 0, $id = '', $morecssontable = '', $morehtmlcenter = '')
 {
 	$return = '';
 
-	if ($picto == 'setup') {
-		$picto = 'generic';
+	if ($picture == 'setup') {
+		$picture = 'generic';
 	}
 
 	$return .= "\n";
 	$return .= '<table '.($id ? 'id="'.$id.'" ' : '').'class="centpercent notopnoleftnoright table-fiche-title'.($morecssontable ? ' '.$morecssontable : '').'">'; // margin bottom must be same than into print_barre_list
 	$return .= '<tr class="toptitle">';
-	if ($picto) {
-		$return .= '<td class="nobordernopadding widthpictotitle valignmiddle col-picto">'.img_picto('', $picto, 'class="valignmiddle widthpictotitle pictotitle"', $pictoisfullpath).'</td>';
+	if ($picture) {
+		$return .= '<td class="nobordernopadding widthpicturetitle valignmiddle col-picture">'.img_picture('', $picture, 'class="valignmiddle widthpicturetitle picturetitle"', $pictureIsFullPath).'</td>';
 	}
 	$return .= '<td class="nobordernopadding valignmiddle col-title">';
 	$return .= '<div class="titre inline-block">';
@@ -6493,8 +6493,8 @@ function load_fiche_titre($title, $morehtmlright = '', $picto = 'generic', $pict
  *	@param	string	    $morehtmlcenter     String in the middle ('' by default). We often find here string $massaction coming from $form->selectMassAction()
  *	@param	int		    $num				Number of records found by select with limit+1
  *	@param	int|string  $totalnboflines		Total number of records/lines for all pages (if known). Use a negative value of number to not show number. Use '' if unknown.
- *	@param	string	    $picto				Icon to use before title (should be a 32x32 transparent png file)
- *	@param	int		    $pictoisfullpath	1=Icon name is a full absolute url of image
+ *	@param	string	    $picture				Icon to use before title (should be a 32x32 transparent png file)
+ *	@param	int		    $pictureIsFullPath	1=Icon name is a full absolute url of image
  *  @param	string	    $morehtmlright		More html to show (after arrows)
  *  @param  string      $morecss            More css to the table
  *  @param  int         $limit              Max number of lines (-1 = use default, 0 = no limit, > 0 = limit).
@@ -6504,7 +6504,7 @@ function load_fiche_titre($title, $morehtmlright = '', $picto = 'generic', $pict
  *  @param	string		$morehtmlrightbeforearrow	More html to show (before arrows)
  *	@return	void
  */
-function print_barre_liste($title, $page, $file, $options = '', $sortfield = '', $sortorder = '', $morehtmlcenter = '', $num = -1, $totalnboflines = '', $picto = 'generic', $pictoisfullpath = 0, $morehtmlright = '', $morecss = '', $limit = -1, $selectlimitsuffix = 0, $hidenavigation = 0, $pagenavastextinput = 0, $morehtmlrightbeforearrow = '')
+function print_barre_liste($title, $page, $file, $options = '', $sortfield = '', $sortorder = '', $morehtmlcenter = '', $num = -1, $totalnboflines = '', $picture = 'generic', $pictureIsFullPath = 0, $morehtmlright = '', $morecss = '', $limit = -1, $selectlimitsuffix = 0, $hidenavigation = 0, $pagenavastextinput = 0, $morehtmlrightbeforearrow = '')
 {
 	global $config, $langs;
 
@@ -6524,11 +6524,11 @@ function print_barre_liste($title, $page, $file, $options = '', $sortfield = '',
 
 	$page = (int) $page;
 
-	if ($picto == 'setup') {
-		$picto = 'title_setup.png';
+	if ($picture == 'setup') {
+		$picture = 'title_setup.png';
 	}
-	if (($config->browser->name == 'ie') && $picto == 'generic') {
-		$picto = 'title.gif';
+	if (($config->browser->name == 'ie') && $picture == 'generic') {
+		$picture = 'title.gif';
 	}
 	if ($limit < 0) {
 		$limit = $config->liste_limit;
@@ -6548,9 +6548,9 @@ function print_barre_liste($title, $page, $file, $options = '', $sortfield = '',
 
 	// Left
 
-	if ($picto && $title) {
-		print '<td class="nobordernopadding widthpictotitle valignmiddle col-picto">';
-		print img_picto('', $picto, 'class="valignmiddle pictotitle widthpictotitle"', $pictoisfullpath);
+	if ($picture && $title) {
+		print '<td class="nobordernopadding widthpicturetitle valignmiddle col-picture">';
+		print img_picture('', $picture, 'class="valignmiddle picturetitle widthpicturetitle"', $pictureIsFullPath);
 		print '</td>';
 	}
 
@@ -7863,7 +7863,7 @@ function get_default_localtax($thirdparty_seller, $thirdparty_buyer, $local, $id
  *	Return yes or no in current language
  *
  *	@param	int<0, 1>|'yes'|'true'|'no'|'false'	$yesno	Value to test (1, 'yes', 'true' or 0, 'no', 'false')
- *	@param	integer|string	$format						1=Yes/No, 0=yes/no, 2=Disabled checkbox, 3=Disabled checkbox + Yes/No, 4 or Text=Use picto
+ *	@param	integer|string	$format						1=Yes/No, 0=yes/no, 2=Disabled checkbox, 3=Disabled checkbox + Yes/No, 4 or Text=Use picture
  *	@param	int				$color						0=texte only, 1=Text is formatted with a color font style ('ok' or 'error'), 2=Text is formatted with 'ok' color.
  *	@return	string										HTML string
  */
@@ -7885,7 +7885,7 @@ function yn($yesno, $format = 1, $color = 0)
 			$result = '<input type="checkbox" value="1" checked disabled> '.$result;
 		}
 		if ($format == 4 || !is_numeric($format)) {
-			$result = img_picto(is_numeric($format) ? '' : $format, 'check');
+			$result = img_picture(is_numeric($format) ? '' : $format, 'check');
 		}
 
 		$classname = 'ok';
@@ -7901,7 +7901,7 @@ function yn($yesno, $format = 1, $color = 0)
 			$result = '<input type="checkbox" value="0" disabled> '.$result;
 		}
 		if ($format == 4 || !is_numeric($format)) {
-			$result = img_picto(is_numeric($format) ? '' : $format, 'uncheck');
+			$result = img_picture(is_numeric($format) ? '' : $format, 'uncheck');
 		}
 
 		if ($color == 2) {
@@ -8084,11 +8084,11 @@ function dolChmod($filepath, $newmask = '')
 
 
 /**
- *	Return picto saying a field is required
+ *	Return picture saying a field is required
  *
- *	@return  string		Chaine avec picto obligatoire
+ *	@return  string		Chaine avec picture obligatoire
  */
-function picto_required()
+function picture_required()
 {
 	return '<span class="fieldrequired">*</span>';
 }
@@ -10860,7 +10860,7 @@ function dol_validElement($element)
  *  @param	int<0,1>	$notitlealt	No title alt
  * 	@return	string				HTML img string with flag.
  */
-function picto_from_langcode($codelang, $moreatt = '', $notitlealt = 0)
+function picture_from_langcode($codelang, $moreatt = '', $notitlealt = 0)
 {
 	if (empty($codelang)) {
 		return '';
@@ -10900,7 +10900,7 @@ function picto_from_langcode($codelang, $moreatt = '', $notitlealt = 0)
 		$moreatt = "";
 	}
 
-	// return img_picto_common($codelang, 'flags/'.strtolower($flagImage).'.png', $moreatt, 0, $notitlealt);
+	// return img_picture_common($codelang, 'flags/'.strtolower($flagImage).'.png', $moreatt, 0, $notitlealt);
 	return '<span class="flag-sprite '.strtolower($flagImage).($morecss ? ' '.$morecss : '').'"'.($moreatt ? ' '.$moreatt : '').(!$notitlealt ? ' title="'.$codelang.'"' : '').'></span>';
 }
 
@@ -11857,7 +11857,7 @@ function showDirectDownloadLink($object)
 	$out = '';
 	$url = $object->getLastMainDocLink($object->element);
 
-	$out .= img_picto($langs->trans("PublicDownloadLinkDesc"), 'globe').' <span class="opacitymedium">'.$langs->trans("DirectDownloadLink").'</span><br>';
+	$out .= img_picture($langs->trans("PublicDownloadLinkDesc"), 'globe').' <span class="opacitymedium">'.$langs->trans("DirectDownloadLink").'</span><br>';
 	if ($url) {
 		$out .= '<div class="urllink"><input type="text" id="directdownloadlink" class="quatrevingtpercent" value="'.$url.'"></div>';
 		$out .= ajax_autoselect("directdownloadlink", '');
@@ -12003,7 +12003,7 @@ function ajax_autoselect($htmlname, $addlink = '', $textonlink = 'Link')
 		    </script>';
 	if ($addlink) {
 		if ($textonlink === 'image') {
-			$out .= ' <a href="'.$addlink.'" target="_blank" rel="noopener noreferrer">'.img_picto('', 'globe').'</a>';
+			$out .= ' <a href="'.$addlink.'" target="_blank" rel="noopener noreferrer">'.img_picture('', 'globe').'</a>';
 		} else {
 			$out .= ' <a href="'.$addlink.'" target="_blank" rel="noopener noreferrer">'.$langs->trans("Link").'</a>';
 		}
@@ -12622,9 +12622,9 @@ function dolGetStatus($statusLabel = '', $statusLabelShort = '', $html = '', $st
 		);
 
 		if (!empty($statusImg[$statusType])) {
-			$htmlImg = img_picto($statusLabel, $statusImg[$statusType]);
+			$htmlImg = img_picture($statusLabel, $statusImg[$statusType]);
 		} else {
-			$htmlImg = img_picto($statusLabel, $statusType);
+			$htmlImg = img_picture($statusLabel, $statusType);
 		}
 
 		if ($displayMode === 2) {
@@ -13666,12 +13666,12 @@ function getNonce()
  * @param string	$arguments		(optional) Additional arguments for the link (e.g. "search_status=0")
  * @param integer	$emptyColumns	(optional) Number of empty columns to add after the first column
  * @param integer	$number			(optional) The number that is shown right after the first header, when -1 the link is shown as '...'
- * @param string	$pictofulllist 	(optional) The picto to use for the full list link
+ * @param string	$picturefulllist 	(optional) The picture to use for the full list link
  * @return void
  *
  * @see finishSimpleTable()
  */
-function startSimpleTable($header, $link = "", $arguments = "", $emptyColumns = 0, $number = -1, $pictofulllist = '')
+function startSimpleTable($header, $link = "", $arguments = "", $emptyColumns = 0, $number = -1, $picturefulllist = '')
 {
 	global $langs;
 
@@ -13838,7 +13838,7 @@ function readfileLowMemory($fullpath_original_file_osencoded, $method = -1)
  *
  * @param 	string 		$valuetocopy 		The value to print
  * @param	int<0,1>	$showonlyonhover	Show the copy-paste button only on hover
- * @param	string		$textToShow			Replace the value to show with this text. Use 'none' to show no text (only the copy-paste picto)
+ * @param	string		$textToShow			Replace the value to show with this text. Use 'none' to show no text (only the copy-paste picture)
  * @return 	string 							The string to print for the button
  */
 function showValueWithClipboardCPButton($valuetocopy, $showonlyonhover = 1, $textToShow = '')
@@ -13857,8 +13857,8 @@ function showValueWithClipboardCPButton($valuetocopy, $showonlyonhover = 1, $tex
 	} else {
 		$result .= '<'.$tag.' class="clipboardCPValue">'.dol_escape_htmltag($valuetocopy, 1, 1).'</'.$tag.'>';
 	}
-	$result .= '<span class="clipboardCPButton far fa-clipboard opacitymedium paddingleft pictomodule" title="'.dolPrintHTML($langs->trans("ClickToCopyToClipboard")).'"></span>';
-	$result .= img_picto('', 'tick', 'class="clipboardCPTick hidden paddingleft pictomodule"');
+	$result .= '<span class="clipboardCPButton far fa-clipboard opacitymedium paddingleft picturemodule" title="'.dolPrintHTML($langs->trans("ClickToCopyToClipboard")).'"></span>';
+	$result .= img_picture('', 'tick', 'class="clipboardCPTick hidden paddingleft picturemodule"');
 	$result .= '<span class="clipboardCPText"></span>';
 	$result .= '</span>';
 
@@ -14195,22 +14195,22 @@ function getTimelineIcon($actionstatic, &$histo, $key)
 
 	$out = '<!-- timeline icon -->'."\n";
 	$iconClass = 'fa fa-comments';
-	$img_picto = '';
+	$img_picture = '';
 	$colorClass = '';
-	$pictoTitle = '';
+	$pictureTitle = '';
 
 	if ($histo[$key]['percent'] == -1) {
 		$colorClass = 'timeline-icon-not-applicble';
-		$pictoTitle = $langs->trans('StatusNotApplicable');
+		$pictureTitle = $langs->trans('StatusNotApplicable');
 	} elseif ($histo[$key]['percent'] == 0) {
 		$colorClass = 'timeline-icon-todo';
-		$pictoTitle = $langs->trans('StatusActionToDo').' (0%)';
+		$pictureTitle = $langs->trans('StatusActionToDo').' (0%)';
 	} elseif ($histo[$key]['percent'] > 0 && $histo[$key]['percent'] < 100) {
 		$colorClass = 'timeline-icon-in-progress';
-		$pictoTitle = $langs->trans('StatusActionInProcess').' ('.$histo[$key]['percent'].'%)';
+		$pictureTitle = $langs->trans('StatusActionInProcess').' ('.$histo[$key]['percent'].'%)';
 	} elseif ($histo[$key]['percent'] >= 100) {
 		$colorClass = 'timeline-icon-done';
-		$pictoTitle = $langs->trans('StatusActionDone').' (100%)';
+		$pictureTitle = $langs->trans('StatusActionDone').' (100%)';
 	}
 
 	if ($actionstatic->code == 'AC_TICKET_CREATE') {
@@ -14222,8 +14222,8 @@ function getTimelineIcon($actionstatic, &$histo, $key)
 	} elseif (preg_match('/^TICKET_MSG_PRIVATE/', $actionstatic->code)) {
 		$iconClass = 'fa fa-mask';
 	} elseif (getDolGlobalString('AGENDA_USE_EVENT_TYPE')) {
-		if ($actionstatic->type_picto) {
-			$img_picto = img_picto('', $actionstatic->type_picto);
+		if ($actionstatic->type_picture) {
+			$img_picture = img_picture('', $actionstatic->type_picture);
 		} else {
 			if ($actionstatic->type_code == 'AC_RDV') {
 				$iconClass = 'fa fa-handshake';
@@ -14243,7 +14243,7 @@ function getTimelineIcon($actionstatic, &$histo, $key)
 		}
 	}
 
-	$out .= '<i class="'.$iconClass.' '.$colorClass.'" title="'.$pictoTitle.'">'.$img_picto.'</i>'."\n";
+	$out .= '<i class="'.$iconClass.' '.$colorClass.'" title="'.$pictureTitle.'">'.$img_picture.'</i>'."\n";
 	return $out;
 }
 
@@ -14310,7 +14310,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 	}
 
 	$histo = array();
-	'@phan-var-force array<int,array{type:string,tododone:string,id:string,datestart:int|string,dateend:int|string,note:string,message:string,percent:string,userid:string,login:string,userfirstname:string,userlastname:string,userphoto:string,msg_from?:string,contact_id?:string,socpeopleassigned?:int[],lastname?:string,firstname?:string,fk_element?:int,elementtype?:string,acode:string,alabel?:string,libelle?:string,apicto?:string}> $histo';
+	'@phan-var-force array<int,array{type:string,tododone:string,id:string,datestart:int|string,dateend:int|string,note:string,message:string,percent:string,userid:string,login:string,userfirstname:string,userlastname:string,userphoto:string,msg_from?:string,contact_id?:string,socpeopleassigned?:int[],lastname?:string,firstname?:string,fk_element?:int,elementtype?:string,acode:string,alabel?:string,libelle?:string,apicture?:string}> $histo';
 
 	$numaction = 0;
 	$now = dol_now();
@@ -14340,7 +14340,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 		$sql .= " a.fk_element, a.elementtype,";
 		$sql .= " a.fk_contact,";
 		$sql .= " a.email_from as msg_from,";
-		$sql .= " c.code as acode, c.libelle as alabel, c.picto as apicto,";
+		$sql .= " c.code as acode, c.libelle as alabel, c.picture as apicture,";
 		$sql .= " u.rowid as user_id, u.login as user_login, u.photo as user_photo, u.firstname as user_firstname, u.lastname as user_lastname";
 		if (is_object($filterobj) && get_class($filterobj) == 'Societe') {
 			$sql .= ", sp.lastname, sp.firstname";
@@ -14488,7 +14488,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 
 		$sql2 = "SELECT m.rowid as id, m.titre as label, mc.date_envoi as dp, mc.date_envoi as dp2, '100' as percent, 'mailing' as type";
 		$sql2 .= ", null as fk_element, '' as elementtype, null as contact_id";
-		$sql2 .= ", 'AC_EMAILING' as acode, '' as alabel, '' as apicto";
+		$sql2 .= ", 'AC_EMAILING' as acode, '' as alabel, '' as apicture";
 		$sql2 .= ", u.rowid as user_id, u.login as user_login, u.photo as user_photo, u.firstname as user_firstname, u.lastname as user_lastname"; // User that valid action
 		if (is_object($filterobj) && get_class($filterobj) == 'Societe') {
 			$sql2 .= ", '' as lastname, '' as firstname";
@@ -14578,7 +14578,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 						'acode' => $obj->acode,
 						'alabel' => $obj->alabel,
 						'libelle' => $obj->alabel, // deprecated
-						'apicto' => $obj->apicto
+						'apicture' => $obj->apicture
 					);
 				} else {
 					$histo[$numaction] = array(
@@ -14658,8 +14658,8 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 		// Action column
 		if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 			$out .= '<th class="liste_titre width50 middle">';
-			$searchpicto = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
-			$out .= $searchpicto;
+			$searchPicture = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
+			$out .= $searchPicture;
 			$out .= '</th>';
 		}
 
@@ -14683,8 +14683,8 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 		// Action column
 		if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 			$out .= '<th class="liste_titre width50 middle">';
-			$searchpicto = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
-			$out .= $searchpicto;
+			$searchPicture = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
+			$out .= $searchPicture;
 			$out .= '</th>';
 		}
 
@@ -14730,7 +14730,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 		foreach ($histo as $key => $value) {
 			$actionstatic->fetch($histo[$key]['id']); // TODO Do we need this, we already have a lot of data of line into $histo
 
-			$actionstatic->type_picto = $histo[$key]['apicto'];
+			$actionstatic->type_picture = $histo[$key]['apicture'];
 			$actionstatic->type_code = $histo[$key]['acode'];
 
 			$labeltype = $actionstatic->type_code;
@@ -14768,7 +14768,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 			$out .= '<li class="timeline-code-'.(!empty($actionstatic->code) ? strtolower($actionstatic->code) : "none").'">';
 
 			//$timelineicon = getTimelineIcon($actionstatic, $histo, $key);
-			$typeicon = $actionstatic->getTypePicto('pictofixedwidth timeline-icon-not-applicble', $labeltype);
+			$typeicon = $actionstatic->getTypePicto('picturefixedwidth timeline-icon-not-applicble', $labeltype);
 			//$out .= $timelineicon;
 			//var_dump($timelineicon);
 			$out .= $typeicon;
@@ -14789,7 +14789,7 @@ function show_actions_messaging($config, $langs, $db, $filterobj, $objcon = null
 				(($actionstatic->authorid == $user->id || $actionstatic->userownerid == $user->id) && $user->hasRight('agenda', 'myactions', 'create'))) {
 				$out .= '<a class="paddingleft paddingright timeline-btn2 editfielda" href="'.DOL_MAIN_URL_ROOT.'/comm/action/card.php?action=edit&token='.newToken().'&id='.$actionstatic->id.'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?'.$param).'">';
 				//$out .= '<i class="fa fa-pencil" title="'.$langs->trans("Modify").'" ></i>';
-				$out .= img_picto($langs->trans("Modify"), 'edit', 'class="edita"');
+				$out .= img_picture($langs->trans("Modify"), 'edit', 'class="edita"');
 				$out .= '</a>';
 			}
 

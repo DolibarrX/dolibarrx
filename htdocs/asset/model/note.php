@@ -109,7 +109,7 @@ if ($id > 0 || !empty($ref)) {
 
 	$head = assetModelPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'note', $langs->trans("AssetModel"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'note', $langs->trans("AssetModel"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------

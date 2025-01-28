@@ -326,14 +326,14 @@ if ($action == 'create') {
 
 	// Parent entrepot
 	print '<tr><td>'.$langs->trans("AddIn").'</td><td>';
-	print img_picto('', 'stock').$formproduct->selectWarehouses((GETPOSTISSET('fk_parent') ? GETPOSTINT('fk_parent') : 'ifone'), 'fk_parent', '', 1);
+	print img_picture('', 'stock').$formproduct->selectWarehouses((GETPOSTISSET('fk_parent') ? GETPOSTINT('fk_parent') : 'ifone'), 'fk_parent', '', 1);
 	print '</td></tr>';
 
 	// Project
 	if (isModEnabled('project')) {
 		$langs->load('projects');
 		print '<tr><td>'.$langs->trans('Project').'</td><td colspan="2">';
-		print img_picto('', 'project').$formproject->select_projects(($socid > 0 ? $socid : -1), $projectid, 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 0, 'maxwidth500');
+		print img_picture('', 'project').$formproject->select_projects(($socid > 0 ? $socid : -1), $projectid, 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 0, 'maxwidth500');
 		print ' <a href="'.DOL_URL_ROOT.'/projet/card.php?socid='.$socid.'&action=create&status=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create&socid='.$socid).'"><span class="fa fa-plus-circle valignmiddle" title="'.$langs->trans("AddProject").'"></span></a>';
 		print '</td></tr>';
 	}
@@ -360,7 +360,7 @@ if ($action == 'create') {
 
 	// Country
 	print '<tr><td>'.$langs->trans('Country').'</td><td>';
-	print img_picto('', 'globe-americas', 'class="paddingright"');
+	print img_picture('', 'globe-americas', 'class="paddingright"');
 	print $form->select_country((!empty($object->country_id) ? $object->country_id : $mysoc->country_code), 'country_id');
 	if ($user->admin) {
 		print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);
@@ -369,11 +369,11 @@ if ($action == 'create') {
 
 	// Phone / Fax
 	print '<tr><td class="titlefieldcreate">'.$form->editfieldkey('Phone', 'phone', '', $object, 0).'</td><td>';
-	print img_picto('', 'object_phoning', 'class="paddingright"');
+	print img_picture('', 'object_phoning', 'class="paddingright"');
 	print '<input name="phone" size="20" value="'.$object->phone.'"></td></tr>';
 	print '<tr><td class="titlefieldcreate">'.$form->editfieldkey('Fax', 'fax', '', $object, 0).'</td>';
 	print '<td>';
-	print img_picto('', 'object_phoning_fax', 'class="paddingright"');
+	print img_picture('', 'object_phoning_fax', 'class="paddingright"');
 	print '<input name="fax" size="20" value="'.$object->fax.'"></td></tr>';
 
 	// Warehouse usage
@@ -402,7 +402,7 @@ if ($action == 'create') {
 		// Categories
 		print '<tr><td>'.$langs->trans("Categories").'</td><td colspan="3">';
 		$cate_arbo = $form->select_all_categories(Category::TYPE_WAREHOUSE, '', 'parent', 64, 0, 3);
-		print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('categories', $cate_arbo, GETPOST('categories', 'array'), '', 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
+		print img_picture('', 'category', 'class="picturefixedwidth"').$form->multiselectarray('categories', $cate_arbo, GETPOST('categories', 'array'), '', 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 		print "</td></tr>";
 	}
 	print '</table>';
@@ -459,7 +459,7 @@ if ($action == 'create') {
 			// Project
 			if (isModEnabled('project')) {
 				$langs->load("projects");
-				$morehtmlref .= '<br>'.img_picto('', 'project').' '.$langs->trans('Project').' ';
+				$morehtmlref .= '<br>'.img_picture('', 'project').' '.$langs->trans('Project').' ';
 				if ($usercancreate) {
 					if ($action != 'classify') {
 						$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> : ';
@@ -566,7 +566,7 @@ if ($action == 'create') {
 				if ($lastmovementdate) {
 					print dol_print_date($lastmovementdate, 'dayhour');
 					print ' &nbsp; &nbsp; ';
-					print img_picto($langs->trans('LastMovement'), 'movement', 'class="pictofixedwidth"');
+					print img_picture($langs->trans('LastMovement'), 'movement', 'class="picturefixedwidth"');
 					print '<a href="'.DOL_URL_ROOT.'/product/stock/movement_list.php?id='.$object->id.'">'.$langs->trans("FullList").'</a>';
 				} else {
 					print $langs->trans("None");
@@ -652,7 +652,7 @@ if ($action == 'create') {
 				$totalarray['type'][$totalarray['nbfield']] = 'string';
 			}
 
-			print_liste_field_titre($form->textwithpicto($langs->trans("AverageUnitPricePMPShort"), $langs->trans("AverageUnitPricePMPDesc")), "", "p.pmp", "&amp;id=".$id, "", '', $sortfield, $sortorder, 'right ');
+			print_liste_field_titre($form->textWithPicture($langs->trans("AverageUnitPricePMPShort"), $langs->trans("AverageUnitPricePMPDesc")), "", "p.pmp", "&amp;id=".$id, "", '', $sortfield, $sortorder, 'right ');
 			$totalarray['nbfield']++;
 
 			print_liste_field_titre("EstimatedStockValueShort", "", "svalue", "&amp;id=".$id, "", '', $sortfield, $sortorder, 'right ');
@@ -834,7 +834,7 @@ if ($action == 'create') {
 					// Link to transfer
 					if ($user->hasRight('stock', 'mouvement', 'creer')) {
 						print '<td class="center"><a href="'.DOL_URL_ROOT.'/product/stock/product.php?dwid='.$object->id.'&id='.$objp->rowid.'&action=transfert&token='.newToken().'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?id='.$id).'">';
-						print img_picto($langs->trans("TransferStock"), 'add', 'class="hideonsmartphone pictofixedwidth" style="color: #a69944"');
+						print img_picture($langs->trans("TransferStock"), 'add', 'class="hideonsmartphone picturefixedwidth" style="color: #a69944"');
 						print $langs->trans("TransferStock");
 						print "</a></td>";
 					}
@@ -842,7 +842,7 @@ if ($action == 'create') {
 					// Link to stock
 					if ($user->hasRight('stock', 'creer')) {
 						print '<td class="center"><a href="'.DOL_URL_ROOT.'/product/stock/product.php?dwid='.$object->id.'&id='.$objp->rowid.'&action=correction&token='.newToken().'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?id='.$id).'">';
-						print img_picto($langs->trans("CorrectStock"), 'add', 'class="hideonsmartphone pictofixedwidth" style="color: #a69944"');
+						print img_picture($langs->trans("CorrectStock"), 'add', 'class="hideonsmartphone picturefixedwidth" style="color: #a69944"');
 						print $langs->trans("CorrectStock");
 						print "</a></td>";
 					}
@@ -918,7 +918,7 @@ if ($action == 'create') {
 				$projectid = $object->fk_project;
 				$langs->load('projects');
 				print '<tr><td>'.$langs->trans('Project').'</td><td colspan="2">';
-				print img_picto('', 'project').$formproject->select_projects(($socid > 0 ? $socid : -1), $projectid, 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 0, 'maxwidth500');
+				print img_picture('', 'project').$formproject->select_projects(($socid > 0 ? $socid : -1), $projectid, 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 0, 'maxwidth500');
 				print ' <a href="'.DOL_URL_ROOT.'/projet/card.php?socid='.($socid > 0 ? $socid : "").'&action=create&status=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create'.($socid > 0 ? '&socid='.$socid : "")).'"><span class="fa fa-plus-circle valignmiddle" title="'.$langs->trans("AddProject").'"></span></a>';
 				print '</td></tr>';
 			}
@@ -945,7 +945,7 @@ if ($action == 'create') {
 
 			// Country
 			print '<tr><td>'.$langs->trans('Country').'</td><td>';
-			print img_picto('', 'globe-americas', 'class="paddingright"');
+			print img_picture('', 'globe-americas', 'class="paddingright"');
 			print $form->select_country($object->country_id ? $object->country_id : $mysoc->country_code, 'country_id');
 			if ($user->admin) {
 				print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);
@@ -954,10 +954,10 @@ if ($action == 'create') {
 
 			// Phone / Fax
 			print '<tr><td class="titlefieldcreate">'.$form->editfieldkey('Phone', 'phone', '', $object, 0).'</td><td>';
-			print img_picto('', 'object_phoning', 'class="paddingright"');
+			print img_picture('', 'object_phoning', 'class="paddingright"');
 			print '<input name="phone" size="20" value="'.$object->phone.'"></td></tr>';
 			print '<tr><td class="titlefieldcreate">'.$form->editfieldkey('Fax', 'fax', '', $object, 0).'</td><td>';
-			print img_picto('', 'object_phoning_fax', 'class="paddingright"');
+			print img_picture('', 'object_phoning_fax', 'class="paddingright"');
 			print '<input name="fax" size="20" value="'.$object->fax.'"></td></tr>';
 
 			// Status
@@ -993,7 +993,7 @@ if ($action == 'create') {
 				foreach ($cats as $cat) {
 					$arrayselected[] = $cat->id;
 				}
-				print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('categories', $cate_arbo, $arrayselected, '', 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
+				print img_picture('', 'category', 'class="picturefixedwidth"').$form->multiselectarray('categories', $cate_arbo, $arrayselected, '', 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 				print "</td></tr>";
 			}
 

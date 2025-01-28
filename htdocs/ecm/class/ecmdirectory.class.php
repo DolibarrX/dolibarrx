@@ -42,7 +42,7 @@ class EcmDirectory extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'folder-open';
+	public $picture = 'folder-open';
 
 	/**
 	 * @var int ID
@@ -469,23 +469,23 @@ class EcmDirectory extends CommonObject
 
 
 	/**
-	 *  Return directory name you can click (and picto)
+	 *  Return directory name you can click (and picture)
 	 *
-	 *  @param	int		$withpicto		0=Pas de picto, 1=Include picto into link, 2=Only picto
+	 *  @param	int		$withPicture		0=Pas de picture, 1=Include picture into link, 2=Only picture
 	 *  @param	string	$option			What is the link pointing to
 	 *  @param	int		$max			Max length
 	 *  @param	string	$more			Add more param on a link
 	 *  @param	int		$notooltip		1=Disable tooltip
 	 *  @return	string					Chaine avec URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $more = '', $notooltip = 0)
+	public function getNomUrl($withPicture = 0, $option = '', $max = 0, $more = '', $notooltip = 0)
 	{
 		global $langs, $hookManager;
 
 		$result = '';
 		//$newref=str_replace('_',' ',$this->ref);
 		$newref = $this->ref;
-		$label = img_picto('', $this->picto, '', 0, 0, 0, '', 'paddingrightonly') . $langs->trans("ShowECMSection") . ': ' . $newref;
+		$label = img_picture('', $this->picture, '', 0, 0, 0, '', 'paddingrightonly') . $langs->trans("ShowECMSection") . ': ' . $newref;
 		$linkclose = '"'.($more ? ' '.$more : '').' title="'.dol_escape_htmltag($label, 1).'" class="classfortooltip">';
 
 		$linkstart = '<a href="'.DOL_URL_ROOT.'/ecm/dir_card.php?section='.$this->id.$linkclose;
@@ -501,10 +501,10 @@ class EcmDirectory extends CommonObject
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), $this->picto, ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), $this->picture, ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= ($max ? dol_trunc($newref, $max, 'middle') : $newref);
 		}
 		$result .= $linkend;

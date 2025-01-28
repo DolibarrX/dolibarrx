@@ -83,14 +83,14 @@ $dirmodels = array_merge(array('/'), (array) $config->modules_parts['models']);
 
 // List of AI features
 $arrayofaifeatures = array(
-	'textgenerationemail' => array('label' => $langs->trans('TextGeneration').' ('.$langs->trans("EmailContent").')', 'picto'=>'', 'status'=>'development'),
-	'textgenerationwebpage' => array('label' => $langs->trans('TextGeneration').' ('.$langs->trans("WebsitePage").')', 'picto'=>'', 'status'=>'development'),
-	'textgeneration' => array('label' => $langs->trans('TextGeneration').' ('.$langs->trans("Other").')', 'picto'=>'', 'status'=>'notused'),
-	'imagegeneration' => array('label' => 'ImageGeneration', 'picto'=>'', 'status'=>'notused'),
-	'videogeneration' => array('label' => 'VideoGeneration', 'picto'=>'', 'status'=>'notused'),
-	'audiogeneration' => array('label' => 'AudioGeneration', 'picto'=>'', 'status'=>'notused'),
-	'transcription' => array('label' => 'Transcription', 'picto'=>'', 'status'=>'notused'),
-	'translation' => array('label' => 'Translation', 'picto'=>'', 'status'=>'notused')
+	'textgenerationemail' => array('label' => $langs->trans('TextGeneration').' ('.$langs->trans("EmailContent").')', 'picture'=>'', 'status'=>'development'),
+	'textgenerationwebpage' => array('label' => $langs->trans('TextGeneration').' ('.$langs->trans("WebsitePage").')', 'picture'=>'', 'status'=>'development'),
+	'textgeneration' => array('label' => $langs->trans('TextGeneration').' ('.$langs->trans("Other").')', 'picture'=>'', 'status'=>'notused'),
+	'imagegeneration' => array('label' => 'ImageGeneration', 'picture'=>'', 'status'=>'notused'),
+	'videogeneration' => array('label' => 'VideoGeneration', 'picture'=>'', 'status'=>'notused'),
+	'audiogeneration' => array('label' => 'AudioGeneration', 'picture'=>'', 'status'=>'notused'),
+	'transcription' => array('label' => 'Transcription', 'picture'=>'', 'status'=>'notused'),
+	'translation' => array('label' => 'Translation', 'picture'=>'', 'status'=>'notused')
 );
 
 
@@ -282,7 +282,7 @@ if ($action == 'edit' || $action == 'deleteproperty') {
 	$out .= '<tr class="oddeven">';
 	$out .= '<td class="col-setup-title">';
 	$out .= '<span id="prePrompt" class="spanforparamtooltip">';
-	$out .= $form->textwithpicto($langs->trans("Pre-Prompt"), $langs->trans("Pre-PromptHelp"));
+	$out .= $form->textWithPicture($langs->trans("Pre-Prompt"), $langs->trans("Pre-PromptHelp"));
 	$out .= '</span>';
 	$out .= '</td>';
 	$out .= '<td>';
@@ -292,7 +292,7 @@ if ($action == 'edit' || $action == 'deleteproperty') {
 	$out .= '<tr class="oddeven">';
 	$out .= '<td class="col-setup-title">';
 	$out .= '<span id="postPrompt" class="spanforparamtooltip">';
-	$out .= $form->textwithpicto($langs->trans("Post-Prompt"), $langs->trans("Post-PromptHelp"));
+	$out .= $form->textWithPicture($langs->trans("Post-Prompt"), $langs->trans("Post-PromptHelp"));
 	$out .= '</span>';
 	$out .= '</td>';
 	$out .= '<td>';
@@ -302,7 +302,7 @@ if ($action == 'edit' || $action == 'deleteproperty') {
 	$out .= '<tr class="oddeven">';
 	$out .= '<td class="col-setup-title">';
 	$out .= '<span id="blacklists" class="spanforparamtooltip">';
-	$out .= $form->textwithpicto($langs->trans("BlackListWords"), $langs->trans("BlackListWordsAIHelp").'.<br>'.$langs->trans("BlackListWordsHelp"));
+	$out .= $form->textWithPicture($langs->trans("BlackListWords"), $langs->trans("BlackListWordsAIHelp").'.<br>'.$langs->trans("BlackListWordsHelp"));
 	$out .= '</span>';
 	$out .= '</td>';
 	$out .= '<td>';
@@ -338,7 +338,7 @@ if ($action == 'edit' || $action == 'create' || $action == 'deleteproperty') {
 			$out .= '<table class="noborder centpercent">';
 			$out .= '<thead>';
 			$out .= '<tr class="liste_titre">';
-			$out .= '<td class="titlefield">'.$arrayofaifeatures[$key]['picto'].' '.$langs->trans($arrayofaifeatures[$key]['label']);
+			$out .= '<td class="titlefield">'.$arrayofaifeatures[$key]['picture'].' '.$langs->trans($arrayofaifeatures[$key]['label']);
 			$out .= '<a class="deletefielda reposition marginleftonly right" href="'.$_SERVER["PHP_SELF"].'?action=deleteproperty&token='.newToken().'&key='.urlencode($key).'">'.img_delete().'</a>';
 			$out .= '</td>';
 			$out .= '<td></td>';

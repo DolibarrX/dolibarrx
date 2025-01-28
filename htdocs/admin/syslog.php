@@ -239,7 +239,7 @@ foreach ($syslogModules as $moduleName) {
 	if ($moduleName == 'mod_syslog_syslog') {
 		if (!$module->isActive()) {
 			$langs->load("errors");
-			print $form->textwithpicto('', $langs->trans("ErrorPHPNeedModule", 'SysLog'));
+			print $form->textWithPicture('', $langs->trans("ErrorPHPNeedModule", 'SysLog'));
 		}
 	}
 	print '</td>';
@@ -269,7 +269,7 @@ foreach ($syslogModules as $moduleName) {
 			if ($option['constant'] == 'SYSLOG_FILE' && preg_match('/^DOL_DATA_ROOT\/[^\/]*$/', $value)) {
 				$filelogparam = ' &nbsp; &nbsp; <a href="'.DOL_URL_ROOT.'/document.php?modulepart=logs&file='.basename($value).'">';
 				$filelogparam .= $langs->trans('Download');
-				$filelogparam .= img_picto($langs->trans('Download').' '.basename($value), 'download', 'class="paddingleft"');
+				$filelogparam .= img_picture($langs->trans('Download').' '.basename($value), 'download', 'class="paddingleft"');
 				$filelogparam .= '</a>';
 				print $filelogparam;
 			}
@@ -279,10 +279,10 @@ foreach ($syslogModules as $moduleName) {
 
 	print '<td class="center">';
 	if ($module->getInfo()) {
-		print $form->textwithpicto('', $module->getInfo(), 1, 'help');
+		print $form->textWithPicture('', $module->getInfo(), 1, 'help');
 	}
 	if ($module->getWarning()) {
-		print $form->textwithpicto('', $module->getWarning(), 1, 'warning');
+		print $form->textWithPicture('', $module->getWarning(), 1, 'warning');
 	}
 	print '</td>';
 	print "</tr>\n";

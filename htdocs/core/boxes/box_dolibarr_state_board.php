@@ -273,7 +273,7 @@ class box_dolibarr_state_board extends ModeleBoxes
 					$boxstatItem .= '<a href="' . $links[$val] . '" class="boxstatsindicator thumbstat nobold nounderline">';
 					$boxstatItem .= '<div class="boxstats">';
 					$boxstatItem .= '<span class="boxstatstext" title="' . dol_escape_htmltag($text) . '">' . $text . '</span><br>';
-					$boxstatItem .= '<span class="boxstatsindicator">' . img_object("", $board->picto, 'class="inline-block"') . ' ' . (!empty($board->nb[$val]) ? $board->nb[$val] : 0) . '</span>';
+					$boxstatItem .= '<span class="boxstatsindicator">' . img_object("", $board->picture, 'class="inline-block"') . ' ' . (!empty($board->nb[$val]) ? $board->nb[$val] : 0) . '</span>';
 					$boxstatItem .= '</div>';
 					$boxstatItem .= '</a>';
 
@@ -317,7 +317,7 @@ class box_dolibarr_state_board extends ModeleBoxes
 	/**
 	 *	Method to show box.  Called when the box needs to be displayed.
 	 *
-	 *	@param	?array<array{text?:string,sublink?:string,subtext?:string,subpicto?:?string,picto?:string,nbcol?:int,limit?:int,subclass?:string,graph?:int<0,1>,target?:string}>   $head       Array with properties of box title
+	 *	@param	?array<array{text?:string,sublink?:string,subtext?:string,subpicture?:?string,picture?:string,nbcol?:int,limit?:int,subclass?:string,graph?:int<0,1>,target?:string}>   $head       Array with properties of box title
 	 *	@param	?array<array{tr?:string,td?:string,target?:string,text?:string,text2?:string,textnoformat?:string,tooltip?:string,logo?:string,url?:string,maxlength?:int,asis?:int<0,1>}>   $contents   Array with properties of box lines
 	 *	@param	int<0,1>	$nooutput	No print, only return string
 	 *	@return	string

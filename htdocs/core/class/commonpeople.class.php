@@ -190,7 +190,7 @@ trait CommonPeople
 		$coords = $this->getFullAddress(1, ', ', getDolGlobalInt('MAIN_SHOW_REGION_IN_STATE_SELECT'));
 		if ($coords) {
 			if (!empty($config->use_javascript_ajax)) {
-				// Add picto with tooltip on map
+				// Add picture with tooltip on map
 				$namecoords = '';
 				if ($this->element == 'contact' && getDolGlobalString('MAIN_SHOW_COMPANY_NAME_IN_BANNER_ADDRESS')) {
 					$namecoords .= $object->name.'<br>';
@@ -198,7 +198,7 @@ trait CommonPeople
 				$namecoords .= $this->getFullName($langs, 1).'<br>'.$coords;
 				// hideonsmatphone because copyToClipboard call jquery dialog that does not work with jmobile
 				$out .= '<a href="#" class="hideonsmartphone" onclick="return copyToClipboard(\''.dol_escape_js($namecoords).'\',\''.dol_escape_js($langs->trans("HelpCopyToClipboard")).'\');">';
-				$out .= img_picto($langs->trans("Address"), 'map-marker-alt');
+				$out .= img_picture($langs->trans("Address"), 'map-marker-alt');
 				$out .= '</a> ';
 			}
 			$address = dol_print_address($coords, 'address_'.$htmlkey.'_'.$this->id, $this->element, $this->id, 1, ', ');
@@ -230,12 +230,12 @@ trait CommonPeople
 					$htmltext = '';
 					// If there is extra languages
 					foreach ($arrayoflangcode as $extralangcode) {
-						$s = picto_from_langcode($extralangcode, 'class="pictoforlang paddingright"');
+						$s = picture_from_langcode($extralangcode, 'class="pictureforlang paddingright"');
 						// This also call dol_format_address()
 						$coords = $this->getFullAddress(1, ', ', $config->global->MAIN_SHOW_REGION_IN_STATE_SELECT, $extralangcode);
 						$htmltext .= $s.dol_print_address($coords, 'address_'.$htmlkey.'_'.$this->id, $this->element, $this->id, 1, ', ');
 					}
-					$out .= $form->textwithpicto('', $htmltext, -1, 'language', 'opacitymedium paddingleft');
+					$out .= $form->textWithPicture('', $htmltext, -1, 'language', 'opacitymedium paddingleft');
 				}
 			}
 		}

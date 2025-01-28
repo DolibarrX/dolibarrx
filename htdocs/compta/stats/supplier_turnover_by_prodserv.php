@@ -397,7 +397,7 @@ if ($modecompta == 'CREANCES-DETTES') {
 	// Category filter
 	print '<tr class="liste_titre">';
 	print '<td>';
-	print img_picto('', 'category', 'class="paddingrightonly"');
+	print img_picture('', 'category', 'class="paddingrightonly"');
 	print $formother->select_categories(Category::TYPE_PRODUCT, $selected_cat, 'search_categ', 0, $langs->trans("Category"), 'maxwidth300');
 	print ' ';
 	print '<label for="subcat" class="marginleftonly">'.$langs->trans("SubCats").'?</label> ';
@@ -412,12 +412,12 @@ if ($modecompta == 'CREANCES-DETTES') {
 
 	//select thirdparty
 	print '<br>';
-	print img_picto('', 'company', 'class="paddingrightonly"');
+	print img_picture('', 'company', 'class="paddingrightonly"');
 	print $form->select_thirdparty_list($selected_soc, 'search_soc', '', $langs->trans("ThirdParty"), 0, 0, [], '', 0, 0, 'maxwidth250');
 	print '</td>';
 
 	print '<td colspan="5" class="right">';
-	print '<input type="image" class="liste_titre" name="button_search" src="'.img_picto($langs->trans("Search"), 'search.png', '', 0, 1).'"  value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
+	print '<input type="image" class="liste_titre" name="button_search" src="'.img_picture($langs->trans("Search"), 'search.png', '', 0, 1).'"  value="'.dol_escape_htmltag($langs->trans("Search")).'" title="'.dol_escape_htmltag($langs->trans("Search")).'">';
 	print '</td></tr>';
 
 	// Array header

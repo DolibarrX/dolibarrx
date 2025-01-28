@@ -175,7 +175,7 @@ llxHeader('', $title, $help_url);
 
 // Part to create
 if ($action == 'create') {
-	print load_fiche_titre($langs->trans("NewObject", $langs->transnoentitiesnoconv("ProductAttribute")), '', 'object_' . $object->picto);
+	print load_fiche_titre($langs->trans("NewObject", $langs->transnoentitiesnoconv("ProductAttribute")), '', 'object_' . $object->picture);
 
 	print '<form method="POST" action="' . $_SERVER["PHP_SELF"] . '">';
 	print '<input type="hidden" name="token" value="' . newToken() . '">';
@@ -212,7 +212,7 @@ if ($action == 'create') {
 	dol_set_focus('input[name="ref"]');
 } elseif (($id || $ref) && $action == 'edit') {
 	// Part to edit record
-	print load_fiche_titre($langs->trans("ProductAttribute"), '', 'object_' . $object->picto);
+	print load_fiche_titre($langs->trans("ProductAttribute"), '', 'object_' . $object->picture);
 
 	print '<form method="POST" action="' . $_SERVER["PHP_SELF"] . '">';
 	print '<input type="hidden" name="token" value="' . newToken() . '">';
@@ -252,7 +252,7 @@ if ($action == 'create') {
 	$res = $object->fetch_optionals();
 
 	$head = productAttributePrepareHead($object);
-	print dol_get_fiche_head($head, 'card', $langs->trans("ProductAttribute"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'card', $langs->trans("ProductAttribute"), -1, $object->picture);
 
 	$formconfirm = '';
 

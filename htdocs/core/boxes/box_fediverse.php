@@ -112,7 +112,7 @@ class box_fediverse extends ModeleBoxes
 				'text' => $title,
 				'sublink' => $socialNetworkUrl,
 				'subtext' => $langs->trans("LastRefreshDate").': '.($fediverseParser->getLastFetchDate() ? dol_print_date($fediverseParser->getLastFetchDate(), "dayhourtext") : $langs->trans("Unknown")),
-				'subpicto' => 'globe',
+				'subpicture' => 'globe',
 				'target' => '_blank',
 			);
 		}
@@ -130,7 +130,7 @@ class box_fediverse extends ModeleBoxes
 
 			$this->info_box_contents[$line][0] = array(
 				'td' => 'class="left" width="16"',
-				'text' => img_picto('', 'share-alt'),
+				'text' => img_picture('', 'share-alt'),
 				'url' => $href,
 				'tooltip' => $tooltip,
 				'target' => 'newfediverse',
@@ -165,7 +165,7 @@ class box_fediverse extends ModeleBoxes
 	/**
 	 *	Method to show box.  Called when the box needs to be displayed.
 	 *
-	 *	@param	?array<array{text?:string,sublink?:string,subtext?:string,subpicto?:?string,picto?:string,nbcol?:int,limit?:int,subclass?:string,graph?:int<0,1>,target?:string}>   $head       Array with properties of box title
+	 *	@param	?array<array{text?:string,sublink?:string,subtext?:string,subpicture?:?string,picture?:string,nbcol?:int,limit?:int,subclass?:string,graph?:int<0,1>,target?:string}>   $head       Array with properties of box title
 	 *	@param	?array<array{tr?:string,td?:string,target?:string,text?:string,text2?:string,textnoformat?:string,tooltip?:string,logo?:string,url?:string,maxlength?:int,asis?:int<0,1>}>   $contents   Array with properties of box lines
 	 *	@param	int<0,1>	$nooutput	No print, only return string
 	 *	@return	string

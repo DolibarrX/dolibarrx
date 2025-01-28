@@ -677,7 +677,7 @@ ALTER TABLE llx_actioncomm ADD COLUMN recurid varchar(128);
 ALTER TABLE llx_actioncomm ADD COLUMN recurrule varchar(128);
 ALTER TABLE llx_actioncomm ADD COLUMN recurdateend datetime;
 
-ALTER TABLE llx_c_stcomm ADD COLUMN picto varchar(128);
+ALTER TABLE llx_c_stcomm ADD COLUMN picture varchar(128);
 
 -- New trigger for Supplier invoice unvalidation
 INSERT INTO llx_c_action_trigger (code, label, description, elementtype, rang) VALUES ('BILL_SUPPLIER_UNVALIDATE','Supplier invoice unvalidated','Executed when a supplier invoice status is set back to draft','invoice_supplier',15);

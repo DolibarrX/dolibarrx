@@ -111,7 +111,7 @@ class MailingTargets // This can't be abstract as it is used for some method
 		}
 
 		if ($this->tooltip && is_object($form)) {
-			$s .= ' '.$form->textwithpicto('', $langs->trans($this->tooltip), 1, 1);
+			$s .= ' '.$form->textWithPicture('', $langs->trans($this->tooltip), 1, 1);
 		}
 		return $s;
 	}
@@ -307,7 +307,7 @@ class MailingTargets // This can't be abstract as it is used for some method
 	 *  List is sorted by widget filename so by priority to run.
 	 *
 	 *  @param	?array<string>	$forcedir	null=All default directories. This parameter is used by modulebuilder module only.
-	 *  @return array<array{picto:string,file:string,fullpath:string,relpath:string,iscoreorexternal:'external'|'internal',version:string,status:string,info:string}>	Array list of widgets
+	 *  @return array<array{picture:string,file:string,fullpath:string,relpath:string,iscoreorexternal:'external'|'internal',version:string,status:string,info:string}>	Array list of widgets
 	 */
 	public static function getEmailingSelectorsList($forcedir = null)
 	{
@@ -407,13 +407,13 @@ class MailingTargets // This can't be abstract as it is used for some method
 				}
 
 				// We set info of modules @phan-suppress-next-line PhanUndeclaredProperty
-				$widget[$j]['picto'] = (empty($objMod->picto) ? (empty($objMod->boximg) ? img_object('', 'generic') : $objMod->boximg) : img_object('', $objMod->picto));
+				$widget[$j]['picture'] = (empty($objMod->picture) ? (empty($objMod->boximg) ? img_object('', 'generic') : $objMod->boximg) : img_object('', $objMod->picture));
 				$widget[$j]['file'] = $files[$key];
 				$widget[$j]['fullpath'] = $fullpath[$key];
 				$widget[$j]['relpath'] = $relpath[$key];
 				$widget[$j]['iscoreorexternal'] = $iscoreorexternal[$key];
 				$widget[$j]['version'] = empty($objMod->version) ? '' : $objMod->version;
-				$widget[$j]['status'] = img_picto($langs->trans("Active"), 'tick');
+				$widget[$j]['status'] = img_picture($langs->trans("Active"), 'tick');
 				if ($disabledbyname > 0 || $disabledbymodule > 1) {
 					$widget[$j]['status'] = '';
 				}

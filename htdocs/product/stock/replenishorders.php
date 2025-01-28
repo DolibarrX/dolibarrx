@@ -242,8 +242,8 @@ if ($resql) {
 	print $form->selectDate($search_date, 'search_date', 0, 0, 1, '', 1, 0, 0, '');
 	print '</td>';
 	print '<td class="liste_titre right">';
-	$searchpicto = $form->showFilterAndCheckAddButtons(0);
-	print $searchpicto;
+	$searchPicture = $form->showFilterAndCheckAddButtons(0);
+	print $searchPicture;
 	print '</td>';
 	print '</tr>';
 

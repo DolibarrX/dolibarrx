@@ -143,7 +143,7 @@ foreach ($list_account_main as $key) {
 
 	$htmltext = $langs->trans($keydesc);
 	print '<td class="fieldrequired" width="50%">';
-	print $form->textwithpicto($label, $htmltext);
+	print $form->textWithPicture($label, $htmltext);
 	print '</td>';
 	// Value
 	print '<td>'; // Do not force class=right, or it align also the content of the select box
@@ -163,7 +163,7 @@ print '</td></tr>';
 // Accounting groups used for the balance sheet account
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">';
-print $form->textwithpicto($langs->trans("ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_BALANCE_SHEET_ACCOUNT"), $langs->trans("ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_BALANCE_SHEET_ACCOUNTHelp"));
+print $form->textWithPicture($langs->trans("ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_BALANCE_SHEET_ACCOUNT"), $langs->trans("ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_BALANCE_SHEET_ACCOUNTHelp"));
 print '</td>';
 print '<td>';
 print '<input type="text" class="quatrevingtpercent" id="ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_BALANCE_SHEET_ACCOUNT" name="ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_BALANCE_SHEET_ACCOUNT" value="' . dol_escape_htmltag(getDolGlobalString('ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_BALANCE_SHEET_ACCOUNT')). '">';
@@ -172,7 +172,7 @@ print '</td></tr>';
 // Accounting groups used for the income statement
 print '<tr class="oddeven">';
 print '<td class="fieldrequired">';
-print $form->textwithpicto($langs->trans("ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_INCOME_STATEMENT"), $langs->trans("ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_INCOME_STATEMENTHelp"));
+print $form->textWithPicture($langs->trans("ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_INCOME_STATEMENT"), $langs->trans("ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_INCOME_STATEMENTHelp"));
 print '</td>';
 print '<td>';
 print '<input type="text" class="quatrevingtpercent" id="ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_INCOME_STATEMENT" name="ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_INCOME_STATEMENT" value="' . dol_escape_htmltag(getDolGlobalString('ACCOUNTING_CLOSURE_ACCOUNTING_GROUPS_USED_FOR_INCOME_STATEMENT')). '">';

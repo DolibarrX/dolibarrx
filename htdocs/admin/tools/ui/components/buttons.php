@@ -270,20 +270,20 @@ $documentation->showSidebar(); ?>
 			<div class="documentation-example">
 				<?php
 					$btnLabel = $langs->trans('Label');
-					print ' <button class="btn-low-emphasis --btn-icon" title="'.dol_escape_htmltag($btnLabel).'" aria-label="'.dol_escape_htmltag($btnLabel).'" >'.img_picto($btnLabel, 'fa-arrow-right', 'aria-hidden="true"', 0, 0, 1).'</button>';
+					print ' <button class="btn-low-emphasis --btn-icon" title="'.dol_escape_htmltag($btnLabel).'" aria-label="'.dol_escape_htmltag($btnLabel).'" >'.img_picture($btnLabel, 'fa-arrow-right', 'aria-hidden="true"', 0, 0, 1).'</button>';
 
 					$btnLabel = $langs->trans('Reset');
-					print ' <button class="btn-low-emphasis --btn-icon"  title="'.dol_escape_htmltag($btnLabel).'" aria-label="'.dol_escape_htmltag($btnLabel).'" >'.img_picto($btnLabel, 'eraser', 'aria-hidden="true"', 0, 0, 1).'</button>';
+					print ' <button class="btn-low-emphasis --btn-icon"  title="'.dol_escape_htmltag($btnLabel).'" aria-label="'.dol_escape_htmltag($btnLabel).'" >'.img_picture($btnLabel, 'eraser', 'aria-hidden="true"', 0, 0, 1).'</button>';
 				?>
 			</div>
 			<?php
 			$lines = array(
 				'<?php',
 				'$btnLabel = $langs->trans(\'Label\');',
-				'print \' <button class="btn-low-emphasis --btn-icon" title="\'.dol_escape_htmltag($btnLabel).\'" aria-label="\'.dol_escape_htmltag($btnLabel).\'" >\'.img_picto($btnLabel, \'fa-arrow-right\', \'aria-hidden="true"\', 0, 0, 1).\'</button>\';',
+				'print \' <button class="btn-low-emphasis --btn-icon" title="\'.dol_escape_htmltag($btnLabel).\'" aria-label="\'.dol_escape_htmltag($btnLabel).\'" >\'.img_picture($btnLabel, \'fa-arrow-right\', \'aria-hidden="true"\', 0, 0, 1).\'</button>\';',
 				'',
 				'$btnLabel = $langs->trans(\'Reset\');',
-				'print \' <button class="btn-low-emphasis --btn-icon" title="\'.dol_escape_htmltag($btnLabel).\'" aria-label="\'.dol_escape_htmltag($btnLabel).\'" >\'.img_picto($btnLabel, \'eraser\', \'aria-hidden="true"\', 0, 0, 1).\'</button>\';',
+				'print \' <button class="btn-low-emphasis --btn-icon" title="\'.dol_escape_htmltag($btnLabel).\'" aria-label="\'.dol_escape_htmltag($btnLabel).\'" >\'.img_picture($btnLabel, \'eraser\', \'aria-hidden="true"\', 0, 0, 1).\'</button>\';',
 
 			);
 			echo $documentation->showCode($lines, 'php'); ?>

@@ -5565,7 +5565,7 @@ abstract class CommonObject
 
 		$this->tpl['label'] = '';
 		if (!empty($line->fk_parent_line)) {
-			$this->tpl['label'] .= img_picto('', 'rightarrow');
+			$this->tpl['label'] .= img_picture('', 'rightarrow');
 		}
 
 		if (($line->info_bits & 2) == 2) {  // TODO Not sure this is used for source object
@@ -7724,7 +7724,7 @@ abstract class CommonObject
 			$out .= '<div class="star-selection" id="'.$keyprefix.$key.$keysuffix.'_selection">';
 			$i = 1;
 			while ($i <= $size) {
-				$out .= '<span class="star" data-value="'.$i.'">'.img_picto('', 'fontawesome_star_fas').'</span>';
+				$out .= '<span class="star" data-value="'.$i.'">'.img_picture('', 'fontawesome_star_fas').'</span>';
 				$i++;
 			}
 			$out .= '</div>';
@@ -8255,14 +8255,14 @@ abstract class CommonObject
 			if (!preg_match('/search_/', $keyprefix)) {
 				if (!empty($param_list_array[2])) {		// If the entry into $fields is set to add a create button
 					// @phan-suppress-next-line PhanTypeMismatchProperty
-					if (!empty($this->fields[$key]['picto'])) {
+					if (!empty($this->fields[$key]['picture'])) {
 						$morecss .= ' widthcentpercentminusxx';
 					} else {
 						$morecss .= ' widthcentpercentminusx';
 					}
 				} else {
 					// @phan-suppress-next-line PhanTypeMismatchProperty
-					if (!empty($this->fields[$key]['picto'])) {
+					if (!empty($this->fields[$key]['picture'])) {
 						$morecss .= ' widthcentpercentminusx';
 					}
 				}
@@ -8520,7 +8520,7 @@ abstract class CommonObject
 			$value .= '<div class="star-selection" id="'.$keyprefix.$key.$keysuffix.$this->id.'_selection">';
 			$i = 1;
 			while ($i <= $size) {
-				$value .= '<span class="star" data-value="'.$i.'">'.img_picto('', 'fontawesome_star_fas').'</span>';
+				$value .= '<span class="star" data-value="'.$i.'">'.img_picture('', 'fontawesome_star_fas').'</span>';
 				$i++;
 			}
 			$value .= '</div>';
@@ -9400,7 +9400,7 @@ abstract class CommonObject
 						$out .= '">';
 						if ($tpl_context == "public") {	// Public page : red dot instead of fieldrequired characters
 							if (!empty($extrafields->attributes[$this->table_element]['help'][$key])) {
-								$out .= $form->textwithpicto($labeltoshow, $helptoshow);
+								$out .= $form->textWithPicture($labeltoshow, $helptoshow);
 							} else {
 								$out .= $labeltoshow;
 							}
@@ -9409,7 +9409,7 @@ abstract class CommonObject
 							}
 						} else {
 							if (!empty($extrafields->attributes[$this->table_element]['help'][$key])) {
-								$out .= $form->textwithpicto($labeltoshow, $helptoshow);
+								$out .= $form->textWithPicture($labeltoshow, $helptoshow);
 							} else {
 								$out .= $labeltoshow;
 							}
@@ -9433,16 +9433,16 @@ abstract class CommonObject
 								$out .= $extrafields->showOutputField($key, $value, '', $this->table_element);
 								break;
 							case "create":
-								$listoftypestoshowpicto = explode(',', getDolGlobalString('MAIN_TYPES_TO_SHOW_PICTO', 'email,phone,ip,password'));
-								if (in_array($extrafields->attributes[$this->table_element]['type'][$key], $listoftypestoshowpicto)) {
+								$listOfTypesToShowPicture = explode(',', getDolGlobalString('MAIN_TYPES_TO_SHOW_PICTO', 'email,phone,ip,password'));
+								if (in_array($extrafields->attributes[$this->table_element]['type'][$key], $listOfTypesToShowPicture)) {
 									$out .= getPictoForType($extrafields->attributes[$this->table_element]['type'][$key], ($extrafields->attributes[$this->table_element]['type'][$key] == 'text' ? 'tdtop' : ''));
 								}
 								//$out .= '<!-- type = '.$extrafields->attributes[$this->table_element]['type'][$key].' -->';
 								$out .= $extrafields->showInputField($key, $value, '', $keysuffix, '', 0, $this, $this->table_element);
 								break;
 							case "edit":
-								$listoftypestoshowpicto = explode(',', getDolGlobalString('MAIN_TYPES_TO_SHOW_PICTO', 'email,phone,ip,password'));
-								if (in_array($extrafields->attributes[$this->table_element]['type'][$key], $listoftypestoshowpicto)) {
+								$listOfTypesToShowPicture = explode(',', getDolGlobalString('MAIN_TYPES_TO_SHOW_PICTO', 'email,phone,ip,password'));
+								if (in_array($extrafields->attributes[$this->table_element]['type'][$key], $listOfTypesToShowPicture)) {
 									$out .= getPictoForType($extrafields->attributes[$this->table_element]['type'][$key], ($extrafields->attributes[$this->table_element]['type'][$key] == 'text' ? 'tdtop' : ''));
 								}
 								$out .= $extrafields->showInputField($key, $value, '', $keysuffix, '', '', $this, $this->table_element);
@@ -9899,12 +9899,12 @@ abstract class CommonObject
 							$return .= '<br>';
 							// If $photo_vignette set, we add a link to generate thumbs if file is an image and width or height higher than limits
 							if ($photo_vignette && (image_format_supported($photo) > 0) && ((isset($imgarray['width']) && $imgarray['width'] > $maxWidth) || (isset($imgarray['width']) && $imgarray['width'] > $maxHeight))) {
-								$return .= '<a href="'.$_SERVER["PHP_SELF"].'?id='.$this->id.'&action=addthumb&token='.newToken().'&file='.urlencode($pdir.$viewfilename).'">'.img_picto($langs->trans('GenerateThumb'), 'refresh').'&nbsp;&nbsp;</a>';
+								$return .= '<a href="'.$_SERVER["PHP_SELF"].'?id='.$this->id.'&action=addthumb&token='.newToken().'&file='.urlencode($pdir.$viewfilename).'">'.img_picture($langs->trans('GenerateThumb'), 'refresh').'&nbsp;&nbsp;</a>';
 							}
 							// Special case for product
 							if ($modulepart == 'product' && ($user->hasRight('produit', 'creer') || $user->hasRight('service', 'creer'))) {
 								// Link to resize
-								$return .= '<a href="'.DOL_URL_ROOT.'/core/photos_resize.php?modulepart='.urlencode('produit|service').'&id='.$this->id.'&file='.urlencode($pdir.$viewfilename).'" title="'.dol_escape_htmltag($langs->trans("Resize")).'">'.img_picto($langs->trans("Resize"), 'resize', '').'</a> &nbsp; ';
+								$return .= '<a href="'.DOL_URL_ROOT.'/core/photos_resize.php?modulepart='.urlencode('produit|service').'&id='.$this->id.'&file='.urlencode($pdir.$viewfilename).'" title="'.dol_escape_htmltag($langs->trans("Resize")).'">'.img_picture($langs->trans("Resize"), 'resize', '').'</a> &nbsp; ';
 
 								// Link to delete
 								$return .= '<a href="'.$_SERVER["PHP_SELF"].'?id='.$this->id.'&action=delete&token='.newToken().'&file='.urlencode($pdir.$viewfilename).'">';
@@ -9933,7 +9933,7 @@ abstract class CommonObject
 							// Special case for product
 							if ($modulepart == 'product' && ($user->hasRight('produit', 'creer') || $user->hasRight('service', 'creer'))) {
 								// Link to resize
-								$return .= '<a href="'.DOL_URL_ROOT.'/core/photos_resize.php?modulepart='.urlencode('produit|service').'&id='.$this->id.'&file='.urlencode($pdir.$viewfilename).'" title="'.dol_escape_htmltag($langs->trans("Resize")).'">'.img_picto($langs->trans("Resize"), 'resize', '').'</a> &nbsp; ';
+								$return .= '<a href="'.DOL_URL_ROOT.'/core/photos_resize.php?modulepart='.urlencode('produit|service').'&id='.$this->id.'&file='.urlencode($pdir.$viewfilename).'" title="'.dol_escape_htmltag($langs->trans("Resize")).'">'.img_picture($langs->trans("Resize"), 'resize', '').'</a> &nbsp; ';
 
 								// Link to delete
 								$return .= '<a href="'.$_SERVER["PHP_SELF"].'?id='.$this->id.'&action=delete&token='.newToken().'&file='.urlencode($pdir.$viewfilename).'">';

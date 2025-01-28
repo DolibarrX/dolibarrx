@@ -210,7 +210,7 @@ $formadmin = new FormAdmin($db);
 
 $head = product_prepare_head($object);
 $titre = $langs->trans("CardProduct".$object->type);
-$picto = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
+$picture = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
 
 
 // Calculate $cnt_trans
@@ -222,7 +222,7 @@ if (!empty($object->multilangs)) {
 }
 
 
-print dol_get_fiche_head($head, 'translation', $titre, 0, $picto);
+print dol_get_fiche_head($head, 'translation', $titre, 0, $picture);
 
 $linkback = '<a href="'.DOL_URL_ROOT.'/product/list.php?restore_lastsearch_values=1&type='.$object->type.'">'.$langs->trans("BackToList").'</a>';
 
@@ -273,7 +273,7 @@ if ($action == 'edit') {
 		foreach ($object->multilangs as $key => $value) {
 			$i++;
 
-			$s = picto_from_langcode((string) $key);
+			$s = picture_from_langcode((string) $key);
 			print($i > 1 ? "<br>" : "").($s ? $s.' ' : '').' <div class="inline-block margintop marginbottomonly"><b>'.$langs->trans('Language_'.$key).'</b></div><div class="inline-block floatright"><a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken().'&langtodelete='.$key.'">'.img_delete('', 'class="valigntextbottom marginrightonly"').'</a></div>';
 
 			print '<div class="underbanner clearboth"></div>';
@@ -307,7 +307,7 @@ if ($action == 'edit') {
 		foreach ($object->multilangs as $key => $value) {
 			$i++;
 
-			$s = picto_from_langcode((string) $key);
+			$s = picture_from_langcode((string) $key);
 			print($i > 1 ? "<br>" : "").($s ? $s.' ' : '').' <div class="inline-block marginbottomonly"><b>'.$langs->trans('Language_'.$key).'</b></div><div class="inline-block floatright"><a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken().'&langtodelete='.$key.'">'.img_delete('', 'class="valigntextbottom marginrightonly"').'</a></div>';
 
 			print '<div class="fichecenter">';

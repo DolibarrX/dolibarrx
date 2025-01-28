@@ -463,7 +463,7 @@ if (!empty($object->ext_payment_id)) {
 		if (!empty($stripearrayofkeysbyenv[1]['publishable_key']) && $stripearrayofkeysbyenv[1]['publishable_key'] == $site_account_payment) {
 			$url = 'https://dashboard.stripe.com/'.$connect.'customers/'.$stripecu;
 		}
-		print ' <a href="'.$url.'" target="_stripe">'.img_picto($langs->trans('ShowInStripe').' - Publishable key = '.$site_account_payment, 'globe').'</a>';
+		print ' <a href="'.$url.'" target="_stripe">'.img_picture($langs->trans('ShowInStripe').' - Publishable key = '.$site_account_payment, 'globe').'</a>';
 	} else {
 		print dol_escape_htmltag($object->ext_payment_id);
 	}

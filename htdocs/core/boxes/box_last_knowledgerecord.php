@@ -144,7 +144,7 @@ class box_last_knowledgerecord extends ModeleBoxes
 					$labellang = ($objp->lang ? $langs->trans('Language_'.$objp->lang) : '');
 					$this->info_box_contents[$i][$r] = array(
 						'td' => 'class="tdoverflowmax100"',
-						'text' => picto_from_langcode($objp->lang, 'class="paddingrightonly saturatemedium opacitylow"') . $labellang,
+						'text' => picture_from_langcode($objp->lang, 'class="paddingrightonly saturatemedium opacitylow"') . $labellang,
 						'asis' => 1,
 					);
 					$r++;
@@ -188,7 +188,7 @@ class box_last_knowledgerecord extends ModeleBoxes
 	/**
 	 *	Method to show box.  Called when the box needs to be displayed.
 	 *
-	 *	@param	?array<array{text?:string,sublink?:string,subtext?:string,subpicto?:?string,picto?:string,nbcol?:int,limit?:int,subclass?:string,graph?:int<0,1>,target?:string}>   $head       Array with properties of box title
+	 *	@param	?array<array{text?:string,sublink?:string,subtext?:string,subpicture?:?string,picture?:string,nbcol?:int,limit?:int,subclass?:string,graph?:int<0,1>,target?:string}>   $head       Array with properties of box title
 	 *	@param	?array<array{tr?:string,td?:string,target?:string,text?:string,text2?:string,textnoformat?:string,tooltip?:string,logo?:string,url?:string,maxlength?:int,asis?:int<0,1>}>   $contents   Array with properties of box lines
 	 *	@param	int<0,1>	$nooutput	No print, only return string
 	 *	@return	string

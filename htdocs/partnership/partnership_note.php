@@ -118,7 +118,7 @@ if ($id > 0 || !empty($ref)) {
 
 	$head = partnershipPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'note', $langs->trans("Partnership"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'note', $langs->trans("Partnership"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------

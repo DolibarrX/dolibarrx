@@ -316,7 +316,7 @@ $formadmin = new FormAdmin($db);
 llxHeaderVierge($langs->trans("ContactUs"));
 
 print '<br>';
-print load_fiche_titre(img_picto('', 'member_nocolor', 'class="pictofixedwidth"') . ' &nbsp; ' . $langs->trans("ContactUs"), '', '', 0, '', 'center');
+print load_fiche_titre(img_picture('', 'member_nocolor', 'class="picturefixedwidth"') . ' &nbsp; ' . $langs->trans("ContactUs"), '', '', 0, '', 'center');
 
 
 print '<div align="center">';
@@ -410,7 +410,7 @@ print '</td></tr>';
 
 // Country
 print '<tr><td>' . $form->editfieldkey('Country', 'selectcountry_id', '', $objectsoc, 0) . '</td><td class="maxwidthonsmartphone">';
-print img_picto('', 'country', 'class="pictofixedwidth"');
+print img_picture('', 'country', 'class="picturefixedwidth"');
 print $form->select_country((GETPOSTISSET('country_id') ? GETPOST('country_id') : $objectsoc->country_id), 'country_id', '', 0, 'minwidth300 maxwidth500 widthcentpercentminusx');
 if ($user->admin) {
 	print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);
@@ -419,17 +419,17 @@ print '</td></tr>';
 
 // Phone / Fax
 print '<tr><td>' . $form->editfieldkey('Phone', 'phone', '', $objectsoc, 0) . '</td>';
-print '<td>' . img_picto('', 'object_phoning', 'class="pictofixedwidth"') . ' <input type="text" name="phone" id="phone" class="maxwidth200 widthcentpercentminusx" value="' . (GETPOSTISSET('phone') ? GETPOST('phone', 'alpha') : $objectsoc->phone) . '"></td>';
+print '<td>' . img_picture('', 'object_phoning', 'class="picturefixedwidth"') . ' <input type="text" name="phone" id="phone" class="maxwidth200 widthcentpercentminusx" value="' . (GETPOSTISSET('phone') ? GETPOST('phone', 'alpha') : $objectsoc->phone) . '"></td>';
 print '</tr>';
 
 print '<tr>';
 print '<td>' . $form->editfieldkey('Fax', 'fax', '', $objectsoc, 0) . '</td>';
-print '<td>' . img_picto('', 'object_phoning_fax', 'class="pictofixedwidth"') . ' <input type="text" name="fax" id="fax" class="maxwidth200 widthcentpercentminusx" value="' . (GETPOSTISSET('fax') ? GETPOST('fax', 'alpha') : $objectsoc->fax) . '"></td>';
+print '<td>' . img_picture('', 'object_phoning_fax', 'class="picturefixedwidth"') . ' <input type="text" name="fax" id="fax" class="maxwidth200 widthcentpercentminusx" value="' . (GETPOSTISSET('fax') ? GETPOST('fax', 'alpha') : $objectsoc->fax) . '"></td>';
 print '</tr>';
 
 // Email / Web
 print '<tr><td>' . $form->editfieldkey('EMail', 'email', '', $objectsoc, 0, 'string', '', !getDolGlobalString('SOCIETE_EMAIL_MANDATORY') ? '' : $config->global->SOCIETE_EMAIL_MANDATORY) . '</td>';
-print '<td>' . img_picto('', 'object_email', 'class="pictofixedwidth"') . ' <input type="text" class="maxwidth200 widthcentpercentminusx" name="email" id="email" value="' . $objectsoc->email . '"></td>';
+print '<td>' . img_picture('', 'object_email', 'class="picturefixedwidth"') . ' <input type="text" class="maxwidth200 widthcentpercentminusx" name="email" id="email" value="' . $objectsoc->email . '"></td>';
 if (isModEnabled('mailing') && getDolGlobalString('THIRDPARTY_SUGGEST_ALSO_ADDRESS_CREATION')) {
 	if ($config->browser->layout == 'phone') {
 		print '</tr><tr>';
@@ -440,7 +440,7 @@ if (isModEnabled('mailing') && getDolGlobalString('THIRDPARTY_SUGGEST_ALSO_ADDRE
 print '</tr>';
 
 print '<tr><td>' . $form->editfieldkey('Web', 'url', '', $objectsoc, 0) . '</td>';
-print '<td>' . img_picto('', 'globe', 'class="pictofixedwidth"') . ' <input type="text" class="maxwidth500 widthcentpercentminusx" name="url" id="url" value="' . $objectsoc->url . '"></td></tr>';
+print '<td>' . img_picture('', 'globe', 'class="picturefixedwidth"') . ' <input type="text" class="maxwidth500 widthcentpercentminusx" name="url" id="url" value="' . $objectsoc->url . '"></td></tr>';
 
 
 // Comments
@@ -466,7 +466,7 @@ if (getDolGlobalString('MAIN_SECURITY_ENABLECAPTCHA')) {
 	print '</span>';
 	print '<span class="nowrap inline-block">';
 	print '<img class="inline-block valignmiddle" src="' . DOL_URL_ROOT . '/core/antispamimage.php" border="0" width="80" height="32" id="img_securitycode" />';
-	print '<a class="inline-block valignmiddle" href="' . $_SERVER['PHP_SELF'] . '" tabindex="4" data-role="button">' . img_picto($langs->trans("Refresh"), 'refresh', 'id="captcha_refresh_img"') . '</a>';
+	print '<a class="inline-block valignmiddle" href="' . $_SERVER['PHP_SELF'] . '" tabindex="4" data-role="button">' . img_picture($langs->trans("Refresh"), 'refresh', 'id="captcha_refresh_img"') . '</a>';
 	print '</span>';
 	print '</td></tr>';
 }

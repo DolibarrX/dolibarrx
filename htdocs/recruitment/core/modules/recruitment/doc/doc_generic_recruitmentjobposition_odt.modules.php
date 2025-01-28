@@ -159,7 +159,7 @@ class doc_generic_recruitmentjobposition_odt extends ModelePDFRecruitmentJobPosi
 		$texthelp .= '<br>'.$langs->trans("FollowingSubstitutionKeysCanBeUsed").'<br>';
 		$texthelp .= $langs->transnoentitiesnoconv("FullListOnOnlineDocumentation"); // This contains an url, we don't modify it
 
-		$texte .= $form->textwithpicto($texttitle, $texthelp, 1, 'help', '', 1);
+		$texte .= $form->textWithPicture($texttitle, $texthelp, 1, 'help', '', 1);
 		$texte .= '<div><div style="display: inline-block; min-width: 100px; vertical-align: middle;">';
 		$texte .= '<textarea class="flat" cols="60" name="value1">';
 		$texte .= getDolGlobalString('RECRUITMENT_RECRUITMENTJOBPOSITION_ADDON_PDF_ODT_PATH');
@@ -182,8 +182,8 @@ class doc_generic_recruitmentjobposition_odt extends ModelePDFRecruitmentJobPosi
 			$texte .= '<div id="div_'.get_class($this).'" class="hidden">';
 			foreach ($listoffiles as $file) {
 				$texte .= '- '.$file['name'];
-				//$texte .= ' <a href="'.DOL_URL_ROOT.'/document.php?modulepart=doctemplates&file=recruitementjobposition/'.urlencode(basename($file['name'])).'">'.img_picto('', 'listlight').'</a>';
-				//$texte .= ' &nbsp; <a class="reposition" href="'.$_SERVER["PHP_SELF"].'?modulepart=doctemplates&keyforuploaddir=RECRUITMENT_RECRUITMENTJOBPOSITION_ADDON_PDF_ODT_PATH&action=deletefile&token='.newToken().'&file='.urlencode(basename($file['name'])).'">'.img_picto('', 'delete').'</a>';
+				//$texte .= ' <a href="'.DOL_URL_ROOT.'/document.php?modulepart=doctemplates&file=recruitementjobposition/'.urlencode(basename($file['name'])).'">'.img_picture('', 'listlight').'</a>';
+				//$texte .= ' &nbsp; <a class="reposition" href="'.$_SERVER["PHP_SELF"].'?modulepart=doctemplates&keyforuploaddir=RECRUITMENT_RECRUITMENTJOBPOSITION_ADDON_PDF_ODT_PATH&action=deletefile&token='.newToken().'&file='.urlencode(basename($file['name'])).'">'.img_picture('', 'delete').'</a>';
 				$texte .= '<br>';
 			}
 			$texte .= '</div>';

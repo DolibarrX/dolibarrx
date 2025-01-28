@@ -196,18 +196,18 @@ if (!$base || $sql === null) {
 				// type
 				print "<td>";
 				$proptype = $row[1];
-				$pictoType = '';
+				$pictureType = '';
 				$matches = array();
 				if (preg_match('/^varchar/', $proptype, $matches)) {
-					$pictoType = 'varchar';
+					$pictureType = 'varchar';
 				} elseif (strpos($proptype, 'int') === 0 || strpos($proptype, 'tinyint') === 0 || strpos($proptype, 'bigint') === 0) {
-					$pictoType = 'int';
+					$pictureType = 'int';
 				} elseif (strpos($proptype, 'timestamp') === 0) {
-					$pictoType = 'datetime';
+					$pictureType = 'datetime';
 				} elseif (strpos($proptype, 'real') === 0) {
-					$pictoType = 'double';
+					$pictureType = 'double';
 				}
-				print(!empty($pictoType) ? getPictoForType($pictoType) : getPictoForType($proptype)).'<span title="'.dol_escape_htmltag($proptype).'">'.dol_escape_htmltag($proptype).'</span>';
+				print(!empty($pictureType) ? getPictoForType($pictureType) : getPictoForType($proptype)).'<span title="'.dol_escape_htmltag($proptype).'">'.dol_escape_htmltag($proptype).'</span>';
 				print "</td>";
 
 				// collation

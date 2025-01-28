@@ -2045,7 +2045,7 @@ if ($action == 'create') {
 		} else {
 			print '<td class="valuefieldcreate">';
 			$filter = '((s.client:IN:1,2,3) AND (s.status:=:1))';
-			print img_picto('', 'company', 'class="pictofixedwidth"').$form->select_company('', 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth300 maxwidth500 widthcentpercentminusxx');
+			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company('', 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth300 maxwidth500 widthcentpercentminusxx');
 			// reload page to retrieve customer information
 			if (!getDolGlobalString('RELOAD_PAGE_ON_CUSTOMER_CHANGE_DISABLED')) {
 				print '<script>
@@ -2069,7 +2069,7 @@ if ($action == 'create') {
 		if ($socid > 0) {
 			// Contacts (ask contact only if thirdparty already defined).
 			print '<tr class="field_contactid"><td class="titlefieldcreate">'.$langs->trans("DefaultContact").'</td><td class="valuefieldcreate">';
-			print img_picto('', 'contact', 'class="pictofixedwidth"');
+			print img_picture('', 'contact', 'class="picturefixedwidth"');
 			//print $form->selectcontacts($soc->id, $contactid, 'contactid', 1, '', '', 0, 'minwidth300 widthcentpercentminusx');
 			print $form->select_contact($soc->id, $contactid, 'contactid', 1, '', '', 1, 'maxwidth300 widthcentpercentminusx', true);
 			print '</td></tr>';
@@ -2089,36 +2089,36 @@ if ($action == 'create') {
 		$newdatepropal = dol_mktime(0, 0, 0, GETPOSTINT('remonth'), GETPOSTINT('reday'), GETPOSTINT('reyear'), 'tzserver');
 		// Date
 		print '<tr class="field_addprop"><td class="titlefieldcreate fieldrequired">'.$langs->trans('DatePropal').'</td><td class="valuefieldcreate">';
-		print img_picto('', 'action', 'class="pictofixedwidth"');
+		print img_picture('', 'action', 'class="picturefixedwidth"');
 		print $form->selectDate($newdatepropal ? $newdatepropal : $datepropal, '', 0, 0, 0, "addprop", 1, 1);
 		print '</td></tr>';
 
 		// Validaty duration
-		print '<tr class="field_duree_validitee"><td class="titlefieldcreate fieldrequired">'.$langs->trans("ValidityDuration").'</td><td class="valuefieldcreate">'.img_picto('', 'clock', 'class="pictofixedwidth"').'<input name="duree_validite" class="width50" value="'.(GETPOSTISSET('duree_validite') ? GETPOST('duree_validite', 'alphanohtml') : $config->global->PROPALE_VALIDITY_DURATION).'"> '.$langs->trans("days").'</td></tr>';
+		print '<tr class="field_duree_validitee"><td class="titlefieldcreate fieldrequired">'.$langs->trans("ValidityDuration").'</td><td class="valuefieldcreate">'.img_picture('', 'clock', 'class="picturefixedwidth"').'<input name="duree_validite" class="width50" value="'.(GETPOSTISSET('duree_validite') ? GETPOST('duree_validite', 'alphanohtml') : $config->global->PROPALE_VALIDITY_DURATION).'"> '.$langs->trans("days").'</td></tr>';
 
 		// Terms of payment
 		print '<tr class="field_cond_reglement_id"><td class="nowrap">'.$langs->trans('PaymentConditionsShort').'</td><td>';
-		print img_picto('', 'payment', 'class="pictofixedwidth"');
+		print img_picture('', 'payment', 'class="picturefixedwidth"');
 		// at last resort we take the payment term id which may be filled by default values set (if not getpostisset)
 		print $form->getSelectConditionsPaiements($cond_reglement_id, 'cond_reglement_id', 1, 1, 0, '', $deposit_percent);
 		print '</td></tr>';
 
 		// Mode of payment
 		print '<tr class="field_mode_reglement_id"><td class="titlefieldcreate">'.$langs->trans('PaymentMode').'</td><td class="valuefieldcreate">';
-		print img_picto('', 'bank', 'class="pictofixedwidth"');
+		print img_picture('', 'bank', 'class="picturefixedwidth"');
 		print $form->select_types_paiements($mode_reglement_id, 'mode_reglement_id', 'CRDT', 0, 1, 0, 0, 1, 'maxwidth200 widthcentpercentminusx', 1);
 		print '</td></tr>';
 
 		// Bank Account
 		if (getDolGlobalString('BANK_ASK_PAYMENT_BANK_DURING_PROPOSAL') && isModEnabled("bank")) {
 			print '<tr class="field_fk_account"><td class="titlefieldcreate">'.$langs->trans('BankAccount').'</td><td class="valuefieldcreate">';
-			print img_picto('', 'bank_account', 'class="pictofixedwidth"').$form->select_comptes($fk_account, 'fk_account', 0, '', 1, '', 0, 'maxwidth200 widthcentpercentminusx', 1);
+			print img_picture('', 'bank_account', 'class="picturefixedwidth"').$form->select_comptes($fk_account, 'fk_account', 0, '', 1, '', 0, 'maxwidth200 widthcentpercentminusx', 1);
 			print '</td></tr>';
 		}
 
 		// Source / Channel - What trigger creation
 		print '<tr class="field_demand_reason_id"><td class="titlefieldcreate">'.$langs->trans('Source').'</td><td class="valuefieldcreate">';
-		print img_picto('', 'question', 'class="pictofixedwidth"');
+		print img_picture('', 'question', 'class="picturefixedwidth"');
 		$form->selectInputReason((GETPOSTISSET('demand_reason_id') ? GETPOSTINT('demand_reason_id') : ''), 'demand_reason_id', "SRC_PROP", 1, 'maxwidth200 widthcentpercentminusx');
 		print '</td></tr>';
 
@@ -2128,7 +2128,7 @@ if ($action == 'create') {
 				$shipping_method_id = $soc->shipping_method_id;
 			}
 			print '<tr class="field_shipping_method_id"><td class="titlefieldcreate">'.$langs->trans('SendingMethod').'</td><td class="valuefieldcreate">';
-			print img_picto('', 'dolly', 'class="pictofixedwidth"');
+			print img_picture('', 'dolly', 'class="picturefixedwidth"');
 			$form->selectShippingMethod((GETPOSTISSET('shipping_method_id') ? GETPOSTINT('shipping_method_id') : $shipping_method_id), 'shipping_method_id', '', 1, '', 0, 'maxwidth200 widthcentpercentminusx');
 			print '</td></tr>';
 		}
@@ -2139,7 +2139,7 @@ if ($action == 'create') {
 			require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 			$formproduct = new FormProduct($db);
 			print '<tr class="field_warehouse_id"><td class="titlefieldcreate">'.$langs->trans('Warehouse').'</td><td class="valuefieldcreate">';
-			print img_picto('', 'stock', 'class="pictofixedwidth"').$formproduct->selectWarehouses($warehouse_id, 'warehouse_id', '', 1, 0, 0, '', 0, 0, array(), 'maxwidth500 widthcentpercentminusxx');
+			print img_picture('', 'stock', 'class="picturefixedwidth"').$formproduct->selectWarehouses($warehouse_id, 'warehouse_id', '', 1, 0, 0, '', 0, 0, array(), 'maxwidth500 widthcentpercentminusxx');
 			print '</td></tr>';
 		}
 
@@ -2149,14 +2149,14 @@ if ($action == 'create') {
 			print ' ('.$langs->trans('AfterOrder').')';
 		}
 		print '</td><td class="valuefieldcreate">';
-		print img_picto('', 'clock', 'class="pictofixedwidth"');
+		print img_picture('', 'clock', 'class="picturefixedwidth"');
 		$form->selectAvailabilityDelay((GETPOSTISSET('availability_id') ? GETPOSTINT('availability_id') : ''), 'availability_id', '', 1, 'maxwidth200 widthcentpercentminusx');
 		print '</td></tr>';
 
 		// Delivery date (or manufacturing)
 		print '<tr class="field_date_livraison"><td class="titlefieldcreate">'.$langs->trans("DeliveryDate").'</td>';
 		print '<td class="valuefieldcreate">';
-		print img_picto('', 'action', 'class="pictofixedwidth"');
+		print img_picture('', 'action', 'class="picturefixedwidth"');
 		if (is_numeric(getDolGlobalString('DATE_LIVRAISON_WEEK_DELAY'))) {	// If value set to 0 or a num, not empty
 			$tmpdte = time() + (7 * getDolGlobalInt('DATE_LIVRAISON_WEEK_DELAY') * 24 * 60 * 60);
 			$syear = date("Y", $tmpdte);
@@ -2174,7 +2174,7 @@ if ($action == 'create') {
 			$langs->load("projects");
 			print '<tr class="field_projectid">';
 			print '<td class="titlefieldcreate">'.$langs->trans("Project").'</td><td class="valuefieldcreate">';
-			print img_picto('', 'project', 'class="pictofixedwidth"').$formproject->select_projects(($soc->id > 0 ? $soc->id : -1), $projectid, 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 0, 'maxwidth500 widthcentpercentminusxx');
+			print img_picture('', 'project', 'class="picturefixedwidth"').$formproject->select_projects(($soc->id > 0 ? $soc->id : -1), $projectid, 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 0, 'maxwidth500 widthcentpercentminusxx');
 			print ' <a href="'.DOL_URL_ROOT.'/projet/card.php?socid='.$soc->id.'&action=create&status=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create&socid='.$soc->id).'"><span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("AddProject").'"></span></a>';
 			print '</td>';
 			print '</tr>';
@@ -2183,9 +2183,9 @@ if ($action == 'create') {
 		// Incoterms
 		if (isModEnabled('incoterm')) {
 			print '<tr class="field_incoterm_id">';
-			print '<td class="titlefieldcreate"><label for="incoterm_id">'.$form->textwithpicto($langs->trans("IncotermLabel"), $soc->label_incoterms, 1).'</label></td>';
+			print '<td class="titlefieldcreate"><label for="incoterm_id">'.$form->textWithPicture($langs->trans("IncotermLabel"), $soc->label_incoterms, 1).'</label></td>';
 			print '<td  class="valuefieldcreate maxwidthonsmartphone">';
-			print img_picto('', 'incoterm', 'class="pictofixedwidth"');
+			print img_picture('', 'incoterm', 'class="picturefixedwidth"');
 			print $form->select_incoterms((!empty($soc->fk_incoterms) ? $soc->fk_incoterms : ''), (!empty($soc->location_incoterms) ? $soc->location_incoterms : ''));
 			print '</td></tr>';
 		}
@@ -2194,7 +2194,7 @@ if ($action == 'create') {
 		print '<tr class="field_model">';
 		print '<td class="titlefieldcreate">'.$langs->trans("DefaultModel").'</td>';
 		print '<td class="valuefieldcreate">';
-		print img_picto('', 'pdf', 'class="pictofixedwidth"');
+		print img_picture('', 'pdf', 'class="picturefixedwidth"');
 		$liste = ModelePDFPropales::liste_modeles($db);
 		$preselected = (getDolGlobalString('PROPALE_ADDON_PDF_ODT_DEFAULT') ? $config->global->PROPALE_ADDON_PDF_ODT_DEFAULT : getDolGlobalString("PROPALE_ADDON_PDF"));
 		print $form->selectarray('model', $liste, $preselected, 0, 0, 0, '', 0, 0, 0, '', 'maxwidth200 widthcentpercentminusx', 1);
@@ -2205,7 +2205,7 @@ if ($action == 'create') {
 			print '<tr class="field_currency">';
 			print '<td class="titlefieldcreate">'.$form->editfieldkey('Currency', 'multicurrency_code', '', $object, 0).'</td>';
 			print '<td class="valuefieldcreate maxwidthonsmartphone">';
-			print img_picto('', 'currency', 'class="pictofixedwidth"').$form->selectMultiCurrency(((GETPOSTISSET('multicurrency_code') && !GETPOST('changecompany')) ? GETPOST('multicurrency_code') : $currency_code), 'multicurrency_code', 0);
+			print img_picture('', 'currency', 'class="picturefixedwidth"').$form->selectMultiCurrency(((GETPOSTISSET('multicurrency_code') && !GETPOST('changecompany')) ? GETPOST('multicurrency_code') : $currency_code), 'multicurrency_code', 0);
 			print '</td></tr>';
 		}
 
@@ -2445,7 +2445,7 @@ if ($action == 'create') {
 						'tdclass' => 'showonlyifsigned',
 						'name' => 'generate_deposit',
 						'morecss' => 'margintoponly marginbottomonly',
-						'label' => $form->textwithpicto($langs->trans('GenerateDeposit', $object->deposit_percent), $langs->trans('DepositGenerationPermittedByThePaymentTermsSelected'))
+						'label' => $form->textWithPicture($langs->trans('GenerateDeposit', $object->deposit_percent), $langs->trans('DepositGenerationPermittedByThePaymentTermsSelected'))
 					);
 
 					$formquestion[] = array(
@@ -2634,7 +2634,7 @@ if ($action == 'create') {
 		$langs->load("projects");
 		$morehtmlref .= '<br>';
 		if ($usercancreate) {
-			$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 			}
@@ -2803,7 +2803,7 @@ if ($action == 'create') {
 		print '<tr class="fielddeliverydelay"><td>';
 		print '<table class="nobordernopadding centpercent"><tr><td>';
 		if (isModEnabled('order')) {
-			print $form->textwithpicto($langs->trans('AvailabilityPeriod'), $langs->trans('AvailabilityPeriod').' ('.$langs->trans('AfterOrder').')');
+			print $form->textWithPicture($langs->trans('AvailabilityPeriod'), $langs->trans('AvailabilityPeriod').' ('.$langs->trans('AfterOrder').')');
 		} else {
 			print $langs->trans('AvailabilityPeriod');
 		}
@@ -2946,7 +2946,7 @@ if ($action == 'create') {
 			if ($action == 'editincoterm' && $usercancreate && $caneditfield) {
 				print $form->select_incoterms((!empty($object->fk_incoterms) ? $object->fk_incoterms : ''), (!empty($object->location_incoterms) ? $object->location_incoterms : ''), $_SERVER['PHP_SELF'].'?id='.$object->id);
 			} else {
-				print $form->textwithpicto($object->display_incoterms(), $object->label_incoterms, 1);
+				print $form->textWithPicture($object->display_incoterms(), $object->label_incoterms, 1);
 			}
 			print '</td></tr>';
 		}

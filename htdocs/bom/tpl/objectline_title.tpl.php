@@ -72,13 +72,13 @@ if (getDolGlobalString('MAIN_VIEW_LINE_NUMBER')) {
 // Product or sub-bom
 print '<td class="linecoldescription bomline">'.$langs->trans('Description');
 if (getDolGlobalString('BOM_SUB_BOM') && $filtertype != 1) {
-	print ' &nbsp; <a id="show_all" href="#">'.img_picto('', 'folder-open', 'class="paddingright"').$langs->trans("ExpandAll").'</a>&nbsp;&nbsp;';
-	print '<a id="hide_all" href="#">'.img_picto('', 'folder', 'class="paddingright"').$langs->trans("UndoExpandAll").'</a>&nbsp;';
+	print ' &nbsp; <a id="show_all" href="#">'.img_picture('', 'folder-open', 'class="paddingright"').$langs->trans("ExpandAll").'</a>&nbsp;&nbsp;';
+	print '<a id="hide_all" href="#">'.img_picture('', 'folder', 'class="paddingright"').$langs->trans("UndoExpandAll").'</a>&nbsp;';
 }
 print '</td>';
 
 // Qty
-print '<td class="linecolqty width100 right">'.$form->textwithpicto($langs->trans('Qty'), ($filtertype != 1) ? $langs->trans("QtyRequiredIfNoLoss") : '').'</td>';
+print '<td class="linecolqty width100 right">'.$form->textWithPicture($langs->trans('Qty'), ($filtertype != 1) ? $langs->trans("QtyRequiredIfNoLoss") : '').'</td>';
 
 if ($filtertype != 1) { // Product
 	if (getDolGlobalInt('PRODUCT_USE_UNITS')) {
@@ -89,25 +89,25 @@ if ($filtertype != 1) { // Product
 }
 if ($filtertype != 1 || getDolGlobalString('STOCK_SUPPORTS_SERVICES')) { // Product or stock support for Services is active
 	// Qty frozen
-	print '<td class="linecolqtyfrozen right">' . $form->textwithpicto($langs->trans('QtyFrozen'), $langs->trans("QuantityConsumedInvariable")) . '</td>';
+	print '<td class="linecolqtyfrozen right">' . $form->textWithPicture($langs->trans('QtyFrozen'), $langs->trans("QuantityConsumedInvariable")) . '</td>';
 
 	// Disable stock change
-	print '<td class="linecoldisablestockchange right">' . $form->textwithpicto($langs->trans('DisableStockChange'), $langs->trans('DisableStockChangeHelp')) . '</td>';
+	print '<td class="linecoldisablestockchange right">' . $form->textWithPicture($langs->trans('DisableStockChange'), $langs->trans('DisableStockChangeHelp')) . '</td>';
 
 	// Efficiency
-	print '<td class="linecolefficiency right">' . $form->textwithpicto($langs->trans('ManufacturingEfficiency'), $langs->trans('ValueOfMeansLoss')) . '</td>';
+	print '<td class="linecolefficiency right">' . $form->textWithPicture($langs->trans('ManufacturingEfficiency'), $langs->trans('ValueOfMeansLoss')) . '</td>';
 }
 
 // Service and workstations are active
 if ($filtertype == 1 && isModEnabled('workstation')) {
 	// Workstation
 	if (isModEnabled('workstation')) {
-		print '<td class="linecolworkstation">' .img_picto('', 'workstation', 'class="pictofixedwidth"').  $form->textwithpicto($langs->trans('DefaultWorkstation'), '') . '</td>';
+		print '<td class="linecolworkstation">' .img_picture('', 'workstation', 'class="picturefixedwidth"').  $form->textWithPicture($langs->trans('DefaultWorkstation'), '') . '</td>';
 	}
 }
 
 // Cost
-print '<td class="linecolcost right">'.$form->textwithpicto($langs->trans("TotalCost"), $langs->trans("BOMTotalCost")).'</td>';
+print '<td class="linecolcost right">'.$form->textWithPicture($langs->trans("TotalCost"), $langs->trans("BOMTotalCost")).'</td>';
 
 print '<td class="linecoledit" style="width: 10px"></td>'; // No width to allow autodim
 

@@ -291,7 +291,7 @@ if ($action == 'create') {
 		accessforbidden('NotEnoughPermissions', 0, 1);
 	}
 
-	print load_fiche_titre($langs->trans("NewPartnership"), '', 'object_'.$object->picto);
+	print load_fiche_titre($langs->trans("NewPartnership"), '', 'object_'.$object->picture);
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -326,7 +326,7 @@ if ($action == 'create') {
 
 // Part to edit record
 if (($id || $ref) && $action == 'edit') {
-	print load_fiche_titre($langs->trans("Partnership"), '', 'object_'.$object->picto);
+	print load_fiche_titre($langs->trans("Partnership"), '', 'object_'.$object->picture);
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -362,7 +362,7 @@ if (($id || $ref) && $action == 'edit') {
 if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'))) {
 	$head = partnershipPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'card', $langs->trans("Partnership"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'card', $langs->trans("Partnership"), -1, $object->picture);
 
 	$formconfirm = '';
 
@@ -443,7 +443,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			$langs->load("projects");
 			$morehtmlref .= '<br>';
 			if ($permissiontoadd) {
-				$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+				$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 				if ($action != 'classify') {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 				}
@@ -496,12 +496,12 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			if (!$adht->subscription) {
 				print $langs->trans("SubscriptionNotRecorded");
 				if ($fmember->statut > 0) {
-					print " ".img_warning($langs->trans("Late")); // Display a delay picto only if it is not a draft and is not canceled
+					print " ".img_warning($langs->trans("Late")); // Display a delay picture only if it is not a draft and is not canceled
 				}
 			} else {
 				print $langs->trans("SubscriptionNotReceived");
 				if ($fmember->statut > 0) {
-					print " ".img_warning($langs->trans("Late")); // Display a delay picto only if it is not a draft and is not canceled
+					print " ".img_warning($langs->trans("Late")); // Display a delay picture only if it is not a draft and is not canceled
 				}
 			}
 		}

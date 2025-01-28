@@ -231,7 +231,7 @@ if ($result) {
 	print '<th class="right">'.$langs->trans("DateModificationShort").'</th>';
 	print '<th>';
 	print '<a href="'.DOL_URL_ROOT.'/expensereport/list.php?sortfield=d.tms&sortorder=DESC">';
-	print img_picto($langs->trans("FullList"), 'expensereport');
+	print img_picture($langs->trans("FullList"), 'expensereport');
 	print '</a>';
 	print '</th>';
 	print '</tr>';

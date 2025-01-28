@@ -288,25 +288,25 @@ if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES') || !getDolGlobalString('PROJ
 	if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 		print '<input type="checkbox" disabled name="usage_opportunity"'.(GETPOSTISSET('usage_opportunity') ? (GETPOST('usage_opportunity', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_opportunity ? ' checked="checked"' : '')).'"> ';
 		$htmltext = $langs->trans("ProjectFollowOpportunity");
-		print $form->textwithpicto($langs->trans("ProjectFollowOpportunity"), $htmltext);
+		print $form->textWithPicture($langs->trans("ProjectFollowOpportunity"), $htmltext);
 		print '<br>';
 	}
 	if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
 		print '<input type="checkbox" disabled name="usage_task"'.(GETPOSTISSET('usage_task') ? (GETPOST('usage_task', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_task ? ' checked="checked"' : '')).'"> ';
 		$htmltext = $langs->trans("ProjectFollowTasks");
-		print $form->textwithpicto($langs->trans("ProjectFollowTasks"), $htmltext);
+		print $form->textWithPicture($langs->trans("ProjectFollowTasks"), $htmltext);
 		print '<br>';
 	}
 	if (!getDolGlobalString('PROJECT_HIDE_TASKS') && getDolGlobalString('PROJECT_BILL_TIME_SPENT')) {
 		print '<input type="checkbox" disabled name="usage_bill_time"'.(GETPOSTISSET('usage_bill_time') ? (GETPOST('usage_bill_time', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_bill_time ? ' checked="checked"' : '')).'"> ';
 		$htmltext = $langs->trans("ProjectBillTimeDescription");
-		print $form->textwithpicto($langs->trans("BillTime"), $htmltext);
+		print $form->textWithPicture($langs->trans("BillTime"), $htmltext);
 		print '<br>';
 	}
 	if (isModEnabled('eventorganization')) {
 		print '<input type="checkbox" disabled name="usage_organize_event"'.(GETPOSTISSET('usage_organize_event') ? (GETPOST('usage_organize_event', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_organize_event ? ' checked="checked"' : '')).'"> ';
 		$htmltext = $langs->trans("EventOrganizationDescriptionLong");
-		print $form->textwithpicto($langs->trans("ManageOrganizeEvent"), $htmltext);
+		print $form->textWithPicture($langs->trans("ManageOrganizeEvent"), $htmltext);
 	}
 	print '</td></tr>';
 }
@@ -314,10 +314,10 @@ if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES') || !getDolGlobalString('PROJ
 // Visibility
 print '<tr><td class="titlefield">'.$langs->trans("Visibility").'</td><td>';
 if ($object->public) {
-	print img_picto($langs->trans('SharedProject'), 'world', 'class="paddingrightonly"');
+	print img_picture($langs->trans('SharedProject'), 'world', 'class="paddingrightonly"');
 	print $langs->trans('SharedProject');
 } else {
-	print img_picto($langs->trans('PrivateProject'), 'private', 'class="paddingrightonly"');
+	print img_picture($langs->trans('PrivateProject'), 'private', 'class="paddingrightonly"');
 	print $langs->trans('PrivateProject');
 }
 print '</td></tr>';
@@ -811,7 +811,7 @@ foreach ($listofreferent as $key => $value) {
 }
 $tooltiponprofit .= $tooltiponprofitplus;
 $tooltiponprofit .= $tooltiponprofitminus;
-print $form->textwithpicto($langs->trans("Element"), $tooltiponprofit);
+print $form->textWithPicture($langs->trans("Element"), $tooltiponprofit);
 print '</td>';
 print '<td class="right" width="100">'.$langs->trans("Number").'</td>';
 print '<td class="right" width="100">'.$langs->trans("AmountHT").'</td>';
@@ -994,10 +994,10 @@ foreach ($listofreferent as $key => $value) {
 			// Amount HT
 			print '<td class="right">';
 			if ($key == 'intervention' && !$margin) {
-				print '<span class="opacitymedium">'.$form->textwithpicto($langs->trans("NA"), $langs->trans("AmountOfInteventionNotIncludedByDefault")).'</span>';
+				print '<span class="opacitymedium">'.$form->textWithPicture($langs->trans("NA"), $langs->trans("AmountOfInteventionNotIncludedByDefault")).'</span>';
 			} else {
 				if ($key == 'propal') {
-					print '<span class="opacitymedium">'.$form->textwithpicto('', $langs->trans("SignedOnly")).'</span>';
+					print '<span class="opacitymedium">'.$form->textWithPicture('', $langs->trans("SignedOnly")).'</span>';
 				}
 				print price($total_ht);
 			}
@@ -1005,10 +1005,10 @@ foreach ($listofreferent as $key => $value) {
 			// Amount TTC
 			print '<td class="right">';
 			if ($key == 'intervention' && !$margin) {
-				print '<span class="opacitymedium">'.$form->textwithpicto($langs->trans("NA"), $langs->trans("AmountOfInteventionNotIncludedByDefault")).'</span>';
+				print '<span class="opacitymedium">'.$form->textWithPicture($langs->trans("NA"), $langs->trans("AmountOfInteventionNotIncludedByDefault")).'</span>';
 			} else {
 				if ($key == 'propal') {
-					print '<span class="opacitymedium">'.$form->textwithpicto('', $langs->trans("SignedOnly")).'</span>';
+					print '<span class="opacitymedium">'.$form->textWithPicture('', $langs->trans("SignedOnly")).'</span>';
 				}
 				print price($total_ttc);
 			}
@@ -1317,7 +1317,7 @@ foreach ($listofreferent as $key => $value) {
 				if ($tablename != 'projet_task' && $tablename != 'stock_mouvement') {
 					if (!getDolGlobalString('PROJECT_DISABLE_UNLINK_FROM_OVERVIEW') || $user->admin) {		// PROJECT_DISABLE_UNLINK_FROM_OVERVIEW is empty by default, so this test true
 						print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=unlink&tablename='.$tablename.'&elementselect='.$element->id.($project_field ? '&projectfield='.$project_field : '').'" class="reposition">';
-						print img_picto($langs->trans('Unlink'), 'unlink');
+						print img_picture($langs->trans('Unlink'), 'unlink');
 						print '</a>';
 					}
 				}
@@ -1502,7 +1502,7 @@ foreach ($listofreferent as $key => $value) {
 								$warning = $langs->trans("WarningSomeLinesWithNullHourlyRate", $config->currency);
 							}
 						} else {
-							$othermessage = $form->textwithpicto($langs->trans("NotAvailable"), $langs->trans("ModuleSalaryToDefineHourlyRateMustBeEnabled"));
+							$othermessage = $form->textWithPicture($langs->trans("NotAvailable"), $langs->trans("ModuleSalaryToDefineHourlyRateMustBeEnabled"));
 						}
 					} elseif ($key == 'loan') {
 						$total_ht_by_line = $element->capital;
@@ -1553,7 +1553,7 @@ foreach ($listofreferent as $key => $value) {
 							$defaultvat = get_default_tva($mysoc, $mysoc);
 							$total_ttc_by_line = price2num($total_ht_by_line * (1 + ($defaultvat / 100)), 'MT');
 						} else {
-							$othermessage = $form->textwithpicto($langs->trans("NotAvailable"), $langs->trans("ModuleSalaryToDefineHourlyRateMustBeEnabled"));
+							$othermessage = $form->textWithPicture($langs->trans("NotAvailable"), $langs->trans("ModuleSalaryToDefineHourlyRateMustBeEnabled"));
 						}
 					} elseif ($key == 'loan') {
 						$total_ttc_by_line = $element->capital - $element->getSumPayment();

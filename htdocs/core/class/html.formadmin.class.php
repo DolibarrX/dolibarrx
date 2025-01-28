@@ -160,7 +160,7 @@ class FormAdmin
 				continue;
 			}
 
-			$valuetoshow = picto_from_langcode($key, 'class="saturatemedium"').' '.$valuetoshow;
+			$valuetoshow = picture_from_langcode($key, 'class="saturatemedium"').' '.$valuetoshow;
 			if ((is_string($selected) && (string) $selected == (string) $keytouse) || (is_array($selected) && in_array($keytouse, $selected))) {
 				$out .= '<option value="'.$keytouse.'" selected data-html="'.dol_escape_htmltag($valuetoshow).'">'.$valuetoshow.'</option>';
 			} else {
@@ -522,7 +522,7 @@ class FormAdmin
 				$selected = ' selected="selected"';
 			}
 
-			// Set $valhtml with the picto for the type
+			// Set $valhtml with the picture for the type
 			$valhtml = ($key ? getPictoForType($key) : '').$val;
 
 			if (empty($typewecanchangeinto) || in_array($key, $typewecanchangeinto[$type])) {

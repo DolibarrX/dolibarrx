@@ -84,8 +84,8 @@ $acts = array();
 $actl = array();
 $acts[0] = "activate";
 $acts[1] = "disable";
-$actl[0] = img_picto($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
-$actl[1] = img_picto($langs->trans("Activated"), 'switch_on', 'class="size15x"');
+$actl[0] = img_picture($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
+$actl[1] = img_picture($langs->trans("Activated"), 'switch_on', 'class="size15x"');
 
 $listoffset = GETPOST('listoffset', 'alpha');
 $listlimit = GETPOST('listlimit', 'alpha') > 0 ? GETPOST('listlimit', 'alpha') : 1000;
@@ -191,66 +191,66 @@ $elementList = array();
 
 $elementList['all'] = '-- '.dol_escape_htmltag($langs->trans("All")).' --';
 $elementList['none'] = '-- '.dol_escape_htmltag($langs->trans("None")).' --';
-$elementList['user'] = img_picto('', 'user', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToUser'));
+$elementList['user'] = img_picture('', 'user', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToUser'));
 if (isModEnabled('member') && $user->hasRight('member', 'lire')) {
-	$elementList['member'] = img_picto('', 'object_member', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToMember'));
+	$elementList['member'] = img_picture('', 'object_member', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToMember'));
 }
 if (isModEnabled('recruitment') && $user->hasRight('recruitment', 'recruitmentjobposition', 'read')) {
-	$elementList['recruitmentcandidature_send'] = img_picto('', 'recruitmentcandidature', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('RecruitmentCandidatures'));
+	$elementList['recruitmentcandidature_send'] = img_picture('', 'recruitmentcandidature', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('RecruitmentCandidatures'));
 }
 if (isModEnabled("societe") && $user->hasRight('societe', 'lire')) {
-	$elementList['thirdparty'] = img_picto('', 'company', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToThirdparty'));
+	$elementList['thirdparty'] = img_picture('', 'company', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToThirdparty'));
 }
 if (isModEnabled("societe") && $user->hasRight('societe', 'contact', 'lire')) {
-	$elementList['contact'] = img_picto('', 'contact', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToContact'));
+	$elementList['contact'] = img_picture('', 'contact', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToContact'));
 }
 if (isModEnabled('project')) {
-	$elementList['project'] = img_picto('', 'project', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToProject'));
+	$elementList['project'] = img_picture('', 'project', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToProject'));
 }
 if (isModEnabled("propal") && $user->hasRight('propal', 'lire')) {
-	$elementList['propal_send'] = img_picto('', 'propal', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendProposal'));
+	$elementList['propal_send'] = img_picture('', 'propal', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToSendProposal'));
 }
 if (isModEnabled('order') && $user->hasRight('order', 'lire')) {
-	$elementList['order_send'] = img_picto('', 'order', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendOrder'));
+	$elementList['order_send'] = img_picture('', 'order', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToSendOrder'));
 }
 if (isModEnabled('invoice') && $user->hasRight('facture', 'lire')) {
-	$elementList['facture_send'] = img_picto('', 'bill', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendInvoice'));
+	$elementList['facture_send'] = img_picture('', 'bill', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToSendInvoice'));
 }
 if (isModEnabled("shipping")) {
-	$elementList['shipping_send'] = img_picto('', 'dolly', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendShipment'));
+	$elementList['shipping_send'] = img_picture('', 'dolly', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToSendShipment'));
 }
 if (isModEnabled("reception")) {
-	$elementList['reception_send'] = img_picto('', 'dollyrevert', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendReception'));
+	$elementList['reception_send'] = img_picture('', 'dollyrevert', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToSendReception'));
 }
 if (isModEnabled('intervention')) {
-	$elementList['fichinter_send'] = img_picto('', 'intervention', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendIntervention'));
+	$elementList['fichinter_send'] = img_picture('', 'intervention', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToSendIntervention'));
 }
 if (isModEnabled('supplier_proposal')) {
-	$elementList['supplier_proposal_send'] = img_picto('', 'propal', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendSupplierRequestForQuotation'));
+	$elementList['supplier_proposal_send'] = img_picture('', 'propal', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToSendSupplierRequestForQuotation'));
 }
 if (isModEnabled("supplier_order") && ($user->hasRight('fournisseur', 'order', 'lire') || $user->hasRight('supplier_order', 'read'))) {
-	$elementList['order_supplier_send'] = img_picto('', 'order', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendSupplierOrder'));
+	$elementList['order_supplier_send'] = img_picture('', 'order', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToSendSupplierOrder'));
 }
 if (isModEnabled("supplier_invoice") && ($user->hasRight('fournisseur', 'facture', 'lire') || $user->hasRight('supplier_invoice', 'read'))) {
-	$elementList['invoice_supplier_send'] = img_picto('', 'bill', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendSupplierInvoice'));
+	$elementList['invoice_supplier_send'] = img_picture('', 'bill', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToSendSupplierInvoice'));
 }
 if (isModEnabled('contract') && $user->hasRight('contrat', 'lire')) {
-	$elementList['contract'] = img_picto('', 'contract', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendContract'));
+	$elementList['contract'] = img_picture('', 'contract', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToSendContract'));
 }
 if (isModEnabled('ticket') && $user->hasRight('ticket', 'read')) {
-	$elementList['ticket_send'] = img_picto('', 'ticket', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToTicket'));
+	$elementList['ticket_send'] = img_picture('', 'ticket', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToTicket'));
 }
 if (isModEnabled('expensereport') && $user->hasRight('expensereport', 'lire')) {
-	$elementList['expensereport_send'] = img_picto('', 'trip', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToExpenseReport'));
+	$elementList['expensereport_send'] = img_picture('', 'trip', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToExpenseReport'));
 }
 if (isModEnabled('agenda')) {
-	$elementList['actioncomm_send'] = img_picto('', 'action', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendEventPush'));
+	$elementList['actioncomm_send'] = img_picture('', 'action', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToSendEventPush'));
 }
 if (isModEnabled('eventorganization') && $user->hasRight('eventorganization', 'read')) {
-	$elementList['conferenceorbooth'] = img_picto('', 'action', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToSendEventOrganization'));
+	$elementList['conferenceorbooth'] = img_picture('', 'action', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToSendEventOrganization'));
 }
 if (isModEnabled('partnership') && $user->hasRight('partnership', 'read')) {
-	$elementList['partnership_send'] = img_picto('', 'partnership', 'class="pictofixedwidth"').dol_escape_htmltag($langs->trans('MailToPartnership'));
+	$elementList['partnership_send'] = img_picture('', 'partnership', 'class="picturefixedwidth"').dol_escape_htmltag($langs->trans('MailToPartnership'));
 }
 
 $parameters = array('elementList' => $elementList);
@@ -688,7 +688,7 @@ $param .= $hookManager->resPrint;
 
 
 $linkback = '';
-$titlepicto = 'title_setup';
+$titlePicture = 'title_setup';
 
 
 $url = DOL_URL_ROOT.'/admin/mails_templates.php?action=create';
@@ -697,9 +697,9 @@ $newcardbutton .= dolGetButtonTitle($langs->trans('NewEMailTemplate'), '', 'fa f
 
 
 if (!empty($user->admin) && (empty($_SESSION['leftmenu']) || $_SESSION['leftmenu'] != 'email_templates')) {
-	print load_fiche_titre($title, '', $titlepicto);
+	print load_fiche_titre($title, '', $titlePicture);
 } else {
-	print load_fiche_titre($title, $newcardbutton, $titlepicto);
+	print load_fiche_titre($title, $newcardbutton, $titlePicture);
 }
 
 if (!empty($user->admin) && (empty($_SESSION['leftmenu']) || $_SESSION['leftmenu'] != 'email_templates')) {
@@ -799,9 +799,9 @@ if ($action == 'create') {
 				print '<a href="'.$tabhelp[25][$value].'" target="_blank" rel="noopener noreferrer">'.$valuetoshow.' '.img_help(1, $valuetoshow).'</a>';
 			} elseif (!empty($tabhelp[25][$value])) {
 				if (in_array($value, array('topic'))) {
-					print $form->textwithpicto($valuetoshow, $tabhelp[25][$value], 1, 'help', '', 0, 2, $value); // Tooltip on click
+					print $form->textWithPicture($valuetoshow, $tabhelp[25][$value], 1, 'help', '', 0, 2, $value); // Tooltip on click
 				} else {
-					print $form->textwithpicto($valuetoshow, $tabhelp[25][$value], 1, 'help', '', 0, 2); // Tooltip on hover
+					print $form->textWithPicture($valuetoshow, $tabhelp[25][$value], 1, 'help', '', 0, 2); // Tooltip on hover
 				}
 			} else {
 				print $valuetoshow;
@@ -848,19 +848,19 @@ if ($action == 'create') {
 	foreach ($fieldsforcontent as $tmpfieldlist) {
 		// Topic of email
 		if ($tmpfieldlist == 'topic') {
-			print '<strong>'.$form->textwithpicto($langs->trans("Topic"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist).'</strong> ';
+			print '<strong>'.$form->textWithPicture($langs->trans("Topic"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist).'</strong> ';
 		}
 		if ($tmpfieldlist == 'email_from') {
-			print $form->textwithpicto($langs->trans("MailFrom"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist);
+			print $form->textWithPicture($langs->trans("MailFrom"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist);
 		}
 		if ($tmpfieldlist == 'joinfiles') {
-			print '<strong>'.$form->textwithpicto($langs->trans("FilesAttachedToEmail"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist).'</strong> ';
+			print '<strong>'.$form->textWithPicture($langs->trans("FilesAttachedToEmail"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist).'</strong> ';
 		}
 		if ($tmpfieldlist == 'content') {
-			print $form->textwithpicto($langs->trans("Content"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist).'<br>';
+			print $form->textWithPicture($langs->trans("Content"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist).'<br>';
 		}
 		if ($tmpfieldlist == 'content_lines') {
-			print $form->textwithpicto($langs->trans("ContentForLines"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist).'<br>';
+			print $form->textWithPicture($langs->trans("ContentForLines"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist).'<br>';
 		}
 
 		// Input field
@@ -961,8 +961,8 @@ print '<tr class="liste_titre">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center" width="64">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 foreach ($fieldlist as $field => $value) {
@@ -997,8 +997,8 @@ print '<td></td>';
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center" width="64">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '</tr>';
@@ -1068,9 +1068,9 @@ foreach ($fieldlist as $field => $value) {
 	if ($showfield) {
 		if (!empty($tabhelp[25][$value])) {
 			if (in_array($value, array('topic'))) {
-				$valuetoshow = $form->textwithpicto($valuetoshow, $tabhelp[25][$value], 1, 'help', '', 0, 2, 'tooltip'.$value, $forcenowrap); // Tooltip on click
+				$valuetoshow = $form->textWithPicture($valuetoshow, $tabhelp[25][$value], 1, 'help', '', 0, 2, 'tooltip'.$value, $forcenowrap); // Tooltip on click
 			} else {
-				$valuetoshow = $form->textwithpicto($valuetoshow, $tabhelp[25][$value], 1, 'help', '', 0, 2, '', $forcenowrap); // Tooltip on hover
+				$valuetoshow = $form->textWithPicture($valuetoshow, $tabhelp[25][$value], 1, 'help', '', 0, 2, '', $forcenowrap); // Tooltip on hover
 			}
 		}
 		$sortfieldtouse = ($sortable ? $fieldlist[$field] : '');
@@ -1155,23 +1155,23 @@ if ($num) {
 					if ($showfield) {
 						// Show line for topic, joinfiles and content
 						if ($tmpfieldlist == 'topic') {
-							print '<div class="minwidth150 inline-block bold">'.$form->textwithpicto($langs->trans("Topic"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist).'</div> ';
+							print '<div class="minwidth150 inline-block bold">'.$form->textWithPicture($langs->trans("Topic"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist).'</div> ';
 							print '<input type="text" class="flat minwidth500" name="'.$tmpfieldlist.'-'.$rowid.'" value="'.(!empty($obj->{$tmpfieldlist}) ? $obj->{$tmpfieldlist} : '').'"'.($action != 'edit' ? ' disabled' : '').'>';
 							print '<br>'."\n";
 						}
 						if ($tmpfieldlist == 'email_from') {
-							print '<div class="minwidth150 inline-block bold">'.$form->textwithpicto($langs->trans("MailFrom"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist).'</div> ';
+							print '<div class="minwidth150 inline-block bold">'.$form->textWithPicture($langs->trans("MailFrom"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist).'</div> ';
 							print '<input type="text" class="flat minwidth500" name="'.$tmpfieldlist.'-'.$rowid.'" value="'.(!empty($obj->{$tmpfieldlist}) ? $obj->{$tmpfieldlist} : '').'"'.($action != 'edit' ? ' disabled' : '').'>';
 							print '<br>'."\n";
 						}
 						if ($tmpfieldlist == 'joinfiles') {
-							print '<div class="minwidth150 inline-block bold">'.$form->textwithpicto($langs->trans("FilesAttachedToEmail"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist).'</div> ';
+							print '<div class="minwidth150 inline-block bold">'.$form->textWithPicture($langs->trans("FilesAttachedToEmail"), $tabhelp[25][$tmpfieldlist], 1, 'help', '', 0, 2, $tmpfieldlist).'</div> ';
 							print $form->selectyesno($tmpfieldlist.'-'.$rowid, (isset($obj->$tmpfieldlist) ? $obj->$tmpfieldlist : '0'), 1, ($action != 'edit'), 0, 1);
 							print '<br>'."\n";
 						}
 
 						if ($tmpfieldlist == 'content') {
-							print $form->textwithpicto($langs->trans("Content"), $tabhelp[25][$tmpfieldlist], 1, 'help', 'margintoponly', 0, 2, $tmpfieldlist).'<br>';
+							print $form->textWithPicture($langs->trans("Content"), $tabhelp[25][$tmpfieldlist], 1, 'help', 'margintoponly', 0, 2, $tmpfieldlist).'<br>';
 							$okforextended = true;
 							if (!getDolGlobalString('FCKEDITOR_ENABLE_MAIL')) {
 								$okforextended = false;
@@ -1181,7 +1181,7 @@ if ($num) {
 						}
 						if ($tmpfieldlist == 'content_lines') {
 							print '<br>'."\n";
-							print $form->textwithpicto($langs->trans("ContentForLines"), $tabhelp[25][$tmpfieldlist], 1, 'help', 'margintoponly', 0, 2, $tmpfieldlist).'<br>';
+							print $form->textWithPicture($langs->trans("ContentForLines"), $tabhelp[25][$tmpfieldlist], 1, 'help', 'margintoponly', 0, 2, $tmpfieldlist).'<br>';
 							$okforextended = true;
 							if (!getDolGlobalString('FCKEDITOR_ENABLE_MAIL')) {
 								$okforextended = false;

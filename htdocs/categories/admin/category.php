@@ -103,16 +103,16 @@ $form = new Form($db);
 
 print '<tr class="oddeven">';
 print '<td>'.$langs->trans("CategoryRecursiv").'</td>';
-print '<td align="center" width="20">'.$form->textwithpicto('', $langs->trans("CategoryRecursivHelp"), 1, 'help').'</td>';
+print '<td align="center" width="20">'.$form->textWithPicture('', $langs->trans("CategoryRecursivHelp"), 1, 'help').'</td>';
 
 print '<td align="center" width="100">';
 if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('CATEGORIE_RECURSIV_ADD');
 } else {
 	if (!getDolGlobalString('CATEGORIE_RECURSIV_ADD')) {
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_CATEGORIE_RECURSIV_ADD&token='.newToken().'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_CATEGORIE_RECURSIV_ADD&token='.newToken().'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 	} else {
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_CATEGORIE_RECURSIV_ADD&token='.newToken().'">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_CATEGORIE_RECURSIV_ADD&token='.newToken().'">'.img_picture($langs->trans("Enabled"), 'on').'</a>';
 	}
 }
 print '</td></tr>';

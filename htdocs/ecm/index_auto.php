@@ -440,7 +440,7 @@ print '<div class="inline-block toolbarbutton centpercent">';
 // Toolbar
 $url = ((!empty($config->use_javascript_ajax) && !getDolGlobalString('MAIN_ECM_DISABLE_JS')) ? '#' : ($_SERVER["PHP_SELF"].'?action=refreshmanual'.($module ? '&amp;module='.$module : '').($section ? '&amp;section='.$section : '')));
 print '<a href="'.$url.'" class="inline-block valignmiddle toolbarbutton paddingtop" title="'.dol_escape_htmltag($langs->trans('Refresh')).'">';
-print img_picto('', 'refresh', 'id="refreshbutton"', 0, 0, 0, '', 'size15x marginrightonly');
+print img_picture('', 'refresh', 'id="refreshbutton"', 0, 0, 0, '', 'size15x marginrightonly');
 print '</a>';
 
 print '</div>';
@@ -512,7 +512,7 @@ if (empty($action) || $action == 'file_manager' || preg_match('/refresh/i', $act
 			$htmltooltip .= '<b>'.$langs->trans("Type").'</b>: '.$langs->trans("ECMSectionAuto").'<br>';
 			$htmltooltip .= '<b>'.$langs->trans("ECMCreationUser").'</b>: '.$langs->trans("ECMTypeAuto").'<br>';
 			$htmltooltip .= '<b>'.$langs->trans("Description").'</b>: '.$val['desc'];
-			print $form->textwithpicto('', $htmltooltip, 1, 'info');
+			print $form->textWithPicture('', $htmltooltip, 1, 'info');
 			print '</div>';
 
 			print '</li>';

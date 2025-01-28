@@ -422,7 +422,7 @@ if ($resql) {
 	$moreforfilter = '';
 	if (isModEnabled('category')) {
 		$moreforfilter .= '<div class="divsearchfield">';
-		$moreforfilter .= img_picto($langs->trans('Categories'), 'category', 'class="pictofixedwidth"');
+		$moreforfilter .= img_picture($langs->trans('Categories'), 'category', 'class="picturefixedwidth"');
 		$moreforfilter .= $htmlother->select_categories(Category::TYPE_PRODUCT, $search_categ, 'search_categ', 1);
 		$moreforfilter .= '</div>';
 	}
@@ -455,8 +455,8 @@ if ($resql) {
 	// Action column
 	if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre maxwidthsearch">';
-		$searchpicto = $form->showFilterAndCheckAddButtons(0);
-		print $searchpicto;
+		$searchPicture = $form->showFilterAndCheckAddButtons(0);
+		print $searchPicture;
 		print '</td>';
 	}
 	print '<td class="liste_titre">';
@@ -489,8 +489,8 @@ if ($resql) {
 	print $hookManager->resPrint;
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre maxwidthsearch">';
-		$searchpicto = $form->showFilterAndCheckAddButtons(0);
-		print $searchpicto;
+		$searchPicture = $form->showFilterAndCheckAddButtons(0);
+		print $searchPicture;
 		print '</td>';
 	}
 	print '</tr>';
@@ -620,7 +620,7 @@ if ($resql) {
 			print '<td class="left">'.dol_escape_htmltag($objp->unit_short).'</td>';
 		}
 		print '<td class="center nowraponall">';
-		print img_picto($langs->trans("StockMovement"), 'movement', 'class="pictofixedwidth"');
+		print img_picture($langs->trans("StockMovement"), 'movement', 'class="picturefixedwidth"');
 		print '<a href="'.DOL_URL_ROOT.'/product/stock/movement_list.php?idproduct='.$product->id.'">'.$langs->trans("Movements").'</a>';
 		print '</td>';
 		print '<td class="right nowrap">'.$product->LibStatut($objp->statut, 5, 0).'</td>';

@@ -2369,11 +2369,11 @@ function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead
 			if ($_SESSION["dol_authmode"] != 'forceuser' && $_SESSION["dol_authmode"] != 'http') {
 				$logouthtmltext .= $langs->trans("Logout").'<br>';
 				$logouttext .= '<a accesskey="l" href="'.DOL_URL_ROOT.'/user/logout.php?token='.newToken().'">';
-				$logouttext .= img_picto($langs->trans('Logout').' ('.$stringforfirstkey.' l)', 'sign-out', '', 0, 0, 0, '', 'atoplogin valignmiddle');
+				$logouttext .= img_picture($langs->trans('Logout').' ('.$stringforfirstkey.' l)', 'sign-out', '', 0, 0, 0, '', 'atoplogin valignmiddle');
 				$logouttext .= '</a>';
 			} else {
 				$logouthtmltext .= $langs->trans("NoLogoutProcessWithAuthMode", $_SESSION["dol_authmode"]);
-				$logouttext .= img_picto($langs->trans('Logout').' ('.$stringforfirstkey.' l)', 'sign-out', '', 0, 0, 0, '', 'atoplogin valignmiddle opacitymedium');
+				$logouttext .= img_picture($langs->trans('Logout').' ('.$stringforfirstkey.' l)', 'sign-out', '', 0, 0, 0, '', 'atoplogin valignmiddle opacitymedium');
 			}
 		}
 
@@ -2429,7 +2429,7 @@ function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead
 		// Link to module builder
 		if (isModEnabled('modulebuilder')) {
 			$text = '<a href="'.DOL_URL_ROOT.'/modulebuilder/index.php?mainmenu=home&leftmenu=admintools" target="modulebuilder">';
-			//$text.= img_picto(":".$langs->trans("ModuleBuilder"), 'printer_top.png', 'class="printer"');
+			//$text.= img_picture(":".$langs->trans("ModuleBuilder"), 'printer_top.png', 'class="printer"');
 			$text .= '<span class="fa fa-bug atoplogin valignmiddle"></span>';
 			$text .= '</a>';
 			// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
@@ -2461,7 +2461,7 @@ function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead
 			}
 			$qs .= (($qs && $morequerystring) ? '&' : '').$morequerystring;
 			$text = '<a href="'.dol_escape_htmltag($_SERVER["PHP_SELF"]).'?'.$qs.($qs ? '&' : '').'optioncss=print" target="_blank" rel="noopener noreferrer">';
-			//$text.= img_picto(":".$langs->trans("PrintContentArea"), 'printer_top.png', 'class="printer"');
+			//$text.= img_picture(":".$langs->trans("PrintContentArea"), 'printer_top.png', 'class="printer"');
 			$text .= '<span class="fa fa-print atoplogin valignmiddle"></span>';
 			$text .= '</a>';
 			// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
@@ -2494,7 +2494,7 @@ function top_menu($head, $title = '', $target = '', $disablejs = 0, $disablehead
 				$text = '';
 				$title = $langs->trans($mode == 'wiki' ? 'GoToWikiHelpPage' : 'GoToHelpPage').', ';
 				if ($mode == 'wiki') {
-					$title .= '<br>'.img_picto('', 'globe', 'class="pictofixedwidth"').$langs->trans("PageWiki").' '.dol_escape_htmltag('"'.strtr($helppage, '_', ' ').'"');
+					$title .= '<br>'.img_picture('', 'globe', 'class="picturefixedwidth"').$langs->trans("PageWiki").' '.dol_escape_htmltag('"'.strtr($helppage, '_', ' ').'"');
 					if ($helppresent) {
 						$title .= ' <span class="opacitymedium">('.$langs->trans("DedicatedPageAvailable").')</span>';
 					} else {
@@ -2655,7 +2655,7 @@ function top_menu_user($hideloginname = 0, $urllogout = '')
 	if (!empty($user->socid)) {	// Add third party for external users
 		$thirdpartystatic = new Societe($db);
 		$thirdpartystatic->fetch($user->socid);
-		$companylink = ' '.$thirdpartystatic->getNomUrl(2); // picto only of company
+		$companylink = ' '.$thirdpartystatic->getNomUrl(2); // picture only of company
 		$company = ' ('.$langs->trans("Company").': '.$thirdpartystatic->name.')';
 	}
 	$type = ($user->socid ? $langs->trans("External").$company : $langs->trans("Internal"));
@@ -2674,7 +2674,7 @@ function top_menu_user($hideloginname = 0, $urllogout = '')
 	$dropdownBody .= '<br><b>'.$langs->trans("CurrentTheme").':</b> '.$config->theme;
 	// @phan-suppress-next-line PhanRedefinedClassReference
 	$dropdownBody .= '<br><b>'.$langs->trans("CurrentMenuManager").':</b> '.(isset($menumanager) ? $menumanager->name : 'unknown');
-	$langFlag = picto_from_langcode($langs->getDefaultLang());
+	$langFlag = picture_from_langcode($langs->getDefaultLang());
 	$dropdownBody .= '<br><b>'.$langs->trans("CurrentUserLanguage").':</b> '.($langFlag ? $langFlag.' ' : '').$langs->getDefaultLang();
 
 	$tz = (int) $_SESSION['dol_tz'] + (int) $_SESSION['dol_dst'];
@@ -2724,8 +2724,8 @@ function top_menu_user($hideloginname = 0, $urllogout = '')
 	// Defined the links for bottom of card
 	$profilLink = '<a accesskey="u" href="'.DOL_URL_ROOT.'/user/card.php?id='.$user->id.'" class="button-top-menu-dropdown" title="'.dol_escape_htmltag($langs->trans("YourUserFile").' ('.$stringforfirstkey.' u)').'"><i class="fa fa-user"></i>  '.$langs->trans("Card").'</a>';
 	$urltovirtualcard = '/user/virtualcard.php?id='.((int) $user->id);
-	$virtuelcardLink = dolButtonToOpenUrlInDialogPopup('publicvirtualcardmenu', $langs->transnoentitiesnoconv("PublicVirtualCardUrl").(is_object($user) ? ' - '.$user->getFullName($langs) : '').' ('.$stringforfirstkey.' v)', img_picto($langs->trans("PublicVirtualCardUrl").' ('.$stringforfirstkey.' v)', 'card', ''), $urltovirtualcard, '', 'button-top-menu-dropdown marginleftonly nohover', "closeTopMenuLoginDropdown()", '', 'v');
-	$logoutLink = '<a accesskey="l" href="'.$urllogout.'" class="button-top-menu-dropdown" title="'.dol_escape_htmltag($langs->trans("Logout").' ('.$stringforfirstkey.' l)').'"><i class="fa fa-sign-out-alt pictofixedwidth"></i><span class="hideonsmartphone">'.$langs->trans("Logout").'</span></a>';
+	$virtuelcardLink = dolButtonToOpenUrlInDialogPopup('publicvirtualcardmenu', $langs->transnoentitiesnoconv("PublicVirtualCardUrl").(is_object($user) ? ' - '.$user->getFullName($langs) : '').' ('.$stringforfirstkey.' v)', img_picture($langs->trans("PublicVirtualCardUrl").' ('.$stringforfirstkey.' v)', 'card', ''), $urltovirtualcard, '', 'button-top-menu-dropdown marginleftonly nohover', "closeTopMenuLoginDropdown()", '', 'v');
+	$logoutLink = '<a accesskey="l" href="'.$urllogout.'" class="button-top-menu-dropdown" title="'.dol_escape_htmltag($langs->trans("Logout").' ('.$stringforfirstkey.' l)').'"><i class="fa fa-sign-out-alt picturefixedwidth"></i><span class="hideonsmartphone">'.$langs->trans("Logout").'</span></a>';
 
 	$profilName = $user->getFullName($langs).' ('.$user->login.')';
 	if (!empty($user->admin)) {
@@ -3002,7 +3002,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/members/card.php?action=create&amp;mainmenu=members",
 				"title" => "MenuNewMember@members",
 				"name" => "Member@members",
-				"picto" => "object_member",
+				"picture" => "object_member",
 				"activation" => isModEnabled('member') && $user->hasRight("member", "write"), // vs hooking
 				"position" => 5,
 			),
@@ -3010,7 +3010,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/societe/card.php?action=create&amp;mainmenu=companies",
 				"title" => "MenuNewThirdParty@companies",
 				"name" => "ThirdParty@companies",
-				"picto" => "object_company",
+				"picture" => "object_company",
 				"activation" => isModEnabled("societe") && $user->hasRight("societe", "write"), // vs hooking
 				"position" => 10,
 			),
@@ -3018,7 +3018,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/contact/card.php?action=create&amp;mainmenu=companies",
 				"title" => "NewContactAddress@companies",
 				"name" => "Contact@companies",
-				"picto" => "object_contact",
+				"picture" => "object_contact",
 				"activation" => isModEnabled("societe") && $user->hasRight("societe", "contact", "write"), // vs hooking
 				"position" => 20,
 			),
@@ -3026,7 +3026,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/comm/propal/card.php?action=create&amp;mainmenu=commercial",
 				"title" => "NewPropal@propal",
 				"name" => "Proposal@propal",
-				"picto" => "object_propal",
+				"picture" => "object_propal",
 				"activation" => isModEnabled("propal") && $user->hasRight("propal", "write"), // vs hooking
 				"position" => 30,
 			),
@@ -3035,7 +3035,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/order/card.php?action=create&amp;mainmenu=commercial",
 				"title" => "NewOrder@orders",
 				"name" => "Order@orders",
-				"picto" => "object_order",
+				"picture" => "object_order",
 				"activation" => isModEnabled('order') && $user->hasRight("order", "write"), // vs hooking
 				"position" => 40,
 			),
@@ -3043,7 +3043,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/compta/facture/card.php?action=create&amp;mainmenu=billing",
 				"title" => "NewBill@bills",
 				"name" => "Bill@bills",
-				"picto" => "object_bill",
+				"picture" => "object_bill",
 				"activation" => isModEnabled('invoice') && $user->hasRight("facture", "write"), // vs hooking
 				"position" => 50,
 			),
@@ -3051,7 +3051,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/contrat/card.php?action=create&amp;mainmenu=commercial",
 				"title" => "NewContractSubscription@contracts",
 				"name" => "Contract@contracts",
-				"picto" => "object_contract",
+				"picture" => "object_contract",
 				"activation" => isModEnabled('contract') && $user->hasRight("contrat", "write"), // vs hooking
 				"position" => 60,
 			),
@@ -3059,7 +3059,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/supplier_proposal/card.php?action=create&amp;mainmenu=commercial",
 				"title" => "SupplierProposalNew@supplier_proposal",
 				"name" => "SupplierProposal@supplier_proposal",
-				"picto" => "supplier_proposal",
+				"picture" => "supplier_proposal",
 				"activation" => isModEnabled('supplier_proposal') && $user->hasRight("supplier_invoice", "write"), // vs hooking
 				"position" => 70,
 			),
@@ -3067,7 +3067,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/fourn/order/card.php?action=create&amp;mainmenu=commercial",
 				"title" => "NewSupplierOrderShort@orders",
 				"name" => "SupplierOrder@orders",
-				"picto" => "supplier_order",
+				"picture" => "supplier_order",
 				"activation" => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight("fournisseur", "order", "write")) || (isModEnabled("supplier_order") && $user->hasRight("supplier_invoice", "write")), // vs hooking
 				"position" => 80,
 			),
@@ -3075,7 +3075,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/fourn/facture/card.php?action=create&amp;mainmenu=billing",
 				"title" => "NewBill@bills",
 				"name" => "SupplierBill@bills",
-				"picto" => "supplier_invoice",
+				"picture" => "supplier_invoice",
 				"activation" => (isModEnabled("fournisseur") && !getDolGlobalString('MAIN_USE_NEW_SUPPLIERMOD') && $user->hasRight("fournisseur", "facture", "write")) || (isModEnabled("supplier_invoice") && $user->hasRight("supplier_invoice", "write")), // vs hooking
 				"position" => 90,
 			),
@@ -3083,7 +3083,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/ticket/card.php?action=create&amp;mainmenu=ticket",
 				"title" => "NewTicket@ticket",
 				"name" => "Ticket@ticket",
-				"picto" => "ticket",
+				"picture" => "ticket",
 				"activation" => isModEnabled('ticket') && $user->hasRight("ticket", "write"), // vs hooking
 				"position" => 100,
 			),
@@ -3091,7 +3091,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/fichinter/card.php?action=create&mainmenu=commercial",
 				"title" => "NewIntervention@interventions",
 				"name" => "Intervention@interventions",
-				"picto" => "intervention",
+				"picture" => "intervention",
 				"activation" => isModEnabled('intervention') && $user->hasRight("ficheinter", "creer"), // vs hooking
 				"position" => 110,
 			),
@@ -3099,7 +3099,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/product/card.php?action=create&amp;type=0&amp;mainmenu=products",
 				"title" => "NewProduct@products",
 				"name" => "Product@products",
-				"picto" => "object_product",
+				"picture" => "object_product",
 				"activation" => isModEnabled("product") && $user->hasRight("produit", "write"), // vs hooking
 				"position" => 400,
 			),
@@ -3107,7 +3107,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/product/card.php?action=create&amp;type=1&amp;mainmenu=products",
 				"title" => "NewService@products",
 				"name" => "Service@products",
-				"picto" => "object_service",
+				"picture" => "object_service",
 				"activation" => isModEnabled("service") && $user->hasRight("service", "write"), // vs hooking
 				"position" => 410,
 			),
@@ -3115,7 +3115,7 @@ function printDropdownQuickadd($mode = 0)
 				"url" => "/user/card.php?action=create&amp;type=1&amp;mainmenu=home",
 				"title" => "AddUser@users",
 				"name" => "User@users",
-				"picto" => "user",
+				"picture" => "user",
 				"activation" => $user->hasRight("user", "user", "write"), // vs hooking
 				"position" => 500,
 			),
@@ -3158,7 +3158,7 @@ function printDropdownQuickadd($mode = 0)
 		$langs->load(explode('@', $item['name'])[1]);
 		$dropDownQuickAddHtml .= '
 			<a class="dropdown-item quickadd-item" href="'.DOL_URL_ROOT.$item['url'].'" title="'.$langs->trans(explode('@', $item['title'])[0]).'">
-			'. img_picto('', $item['picto'], 'style="width:18px;"') . ' ' . $langs->trans(explode('@', $item['name'])[0]) . '</a>
+			'. img_picture('', $item['picture'], 'style="width:18px;"') . ' ' . $langs->trans(explode('@', $item['name'])[0]) . '</a>
 		';
 	}
 
@@ -3497,7 +3497,7 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
 				}
 
 				//$textsearch = $langs->trans("Search");
-				$textsearch = '<span class="fa fa-search paddingright pictofixedwidth"></span>'.$langs->trans("Search");
+				$textsearch = '<span class="fa fa-search paddingright picturefixedwidth"></span>'.$langs->trans("Search");
 				$searchform .= $form->selectArrayFilter('searchselectcombo', $arrayresult, $selected, 'accesskey="s"', 1, 0, (getDolGlobalString('MAIN_SEARCHBOX_CONTENT_LOADED_BEFORE_KEY') ? 0 : 1), 'vmenusearchselectcombo', 1, $textsearch, 1, $stringforfirstkey.' s');
 			} else {
 				if (is_array($arrayresult)) {
@@ -3576,7 +3576,7 @@ function left_menu($menu_array_before, $helppagename = '', $notused = '', $menu_
 		print '<div id="blockvmenuhelp" class="blockvmenuhelp">'."\n";
 
 		// Version
-		if (getDolGlobalString('MAIN_SHOW_VERSION')) {    // Version is already on help picto and on login page.
+		if (getDolGlobalString('MAIN_SHOW_VERSION')) {    // Version is already on help picture and on login page.
 			$doliurl = 'https://www.dolibarr.org';
 			//local communities
 			if (preg_match('/fr/i', $langs->defaultlang)) {
@@ -3848,7 +3848,7 @@ function printSearchForm($urlaction, $urlobject, $title, $htmlmorecss, $htmlinpu
 		$ret .= '<div class="tagtd left">'.$title.'</div> ';
 	}
 	$ret .= '<div class="tagtd">';
-	$ret .= img_picto('', $img, '', 0, 0, 0, '', 'paddingright width20');
+	$ret .= img_picture('', $img, '', 0, 0, 0, '', 'paddingright width20');
 	$ret .= '<input type="text" class="flat '.$htmlmorecss.'"';
 	$ret .= ' style="background-repeat: no-repeat; background-position: 3px;"';
 	$ret .= ($accesskey ? ' accesskey="'.$accesskey.'"' : '');

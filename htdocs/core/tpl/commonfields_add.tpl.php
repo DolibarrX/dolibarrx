@@ -70,14 +70,14 @@ foreach ($object->fields as $key => $val) {
 	print '"';
 	print '>';
 	if (!empty($val['help'])) {
-		print $form->textwithpicto($langs->trans($val['label']), $langs->trans($val['help']));
+		print $form->textWithPicture($langs->trans($val['label']), $langs->trans($val['help']));
 	} else {
 		print $langs->trans($val['label']);
 	}
 	print '</td>';
 	print '<td class="valuefieldcreate">';
-	if (!empty($val['picto'])) {
-		print img_picto('', $val['picto'], '', 0, 0, 0, '', 'pictofixedwidth');
+	if (!empty($val['picture'])) {
+		print img_picture('', $val['picture'], '', 0, 0, 0, '', 'picturefixedwidth');
 	}
 	if (in_array($val['type'], array('int', 'integer'))) {
 		$value = GETPOST($key);	// We must not use GETPOSTINT in creation form because value can still be ""
@@ -116,7 +116,7 @@ foreach ($object->fields as $key => $val) {
 		print $object->showOutputField($val, $key, $value, '', '', '', 0);
 	} else {
 		if ($key == 'lang') {
-			print img_picto('', 'language', 'class="pictofixedwidth"');
+			print img_picture('', 'language', 'class="picturefixedwidth"');
 			print $formadmin->select_language($value, $key, 0, array(), 1, 0, 0, 'minwidth300', 2);
 		} else {
 			print $object->showInputField($val, $key, $value, '', '', '', 0);

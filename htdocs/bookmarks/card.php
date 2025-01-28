@@ -196,7 +196,7 @@ if ($action == 'create') {
 
 	// Visibility / Owner
 	print '<tr><td>'.$langs->trans("Visibility").'</td><td>';
-	print img_picto('', 'user', 'class="pictofixedwidth"');
+	print img_picture('', 'user', 'class="picturefixedwidth"');
 	print $form->select_dolusers(GETPOSTISSET('userid') ? GETPOSTINT('userid') : $user->id, 'userid', 0, '', 0, ($user->admin ? '' : array($user->id)), '', 0, 0, 0, '', ($user->admin) ? 1 : 0, '', 'maxwidth300 widthcentpercentminusx');
 	print '</td><td class="hideonsmartphone"></td></tr>';
 
@@ -270,7 +270,7 @@ if ($id > 0 && !preg_match('/^add/i', $action)) {
 		print '<input class="flat minwidth500 quatrevingtpercent" name="url" value="'.(GETPOSTISSET("url") ? GETPOST("url") : $object->url).'">';
 	} else {
 		print '<a href="'.(preg_match('/^http/i', $object->url) ? $object->url : DOL_URL_ROOT.$object->url).'"'.($object->target ? ' target="_blank" rel="noopener noreferrer"' : '').'>';
-		print img_picto('', 'globe', 'class="paddingright"');
+		print img_picture('', 'globe', 'class="paddingright"');
 		print $object->url;
 		print '</a>';
 	}
@@ -293,7 +293,7 @@ if ($id > 0 && !preg_match('/^add/i', $action)) {
 	// Visibility / owner
 	print '<tr><td>'.$langs->trans("Visibility").'</td><td>';
 	if ($action == 'edit' && $user->admin) {
-		print img_picto('', 'user', 'class="pictofixedwidth"');
+		print img_picture('', 'user', 'class="picturefixedwidth"');
 		print $form->select_dolusers(GETPOSTISSET('userid') ? GETPOSTINT('userid') : ($object->fk_user ? $object->fk_user : ''), 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'maxwidth300 widthcentpercentminusx');
 	} else {
 		if ($object->fk_user > 0) {

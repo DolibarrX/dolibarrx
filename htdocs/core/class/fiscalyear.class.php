@@ -37,9 +37,9 @@ class Fiscalyear extends CommonObject
 	public $element = 'fiscalyear';
 
 	/**
-	 * @var string picto
+	 * @var string picture
 	 */
-	public $picto = 'calendar';
+	public $picture = 'calendar';
 
 	/**
 	 * @var string Name of table without prefix where object is stored
@@ -275,7 +275,7 @@ class Fiscalyear extends CommonObject
 	 * getTooltipContentArray
 	 * @param array<string,mixed> $params params to construct tooltip data
 	 * @since v18
-	 * @return array{picto?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
+	 * @return array{picture?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
 	 */
 	public function getTooltipContentArray($params)
 	{
@@ -284,9 +284,9 @@ class Fiscalyear extends CommonObject
 		$langs->load('compta');
 
 		$datas = [];
-		$datas['picto'] = img_picto('', $this->picto).' <b><u>'.$langs->trans("FiscalPeriod").'</u></b>';
+		$datas['picture'] = img_picture('', $this->picture).' <b><u>'.$langs->trans("FiscalPeriod").'</u></b>';
 		if (isset($this->status)) {
-			$datas['picto'] .= ' '.$this->getLibStatut(5);
+			$datas['picture'] .= ' '.$this->getLibStatut(5);
 		}
 		$datas['ref'] = '<br><b>'.$langs->trans('Ref').':</b> '.$this->ref;
 		if (isset($this->date_start)) {
@@ -300,14 +300,14 @@ class Fiscalyear extends CommonObject
 	}
 
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
-	 *	@param      int			$withpicto                Add picto into link
+	 *	@param      int			$withPicture                Add picture into link
 	 *  @param	    int   	    $notooltip		          1=Disable tooltip
 	 *  @param      int         $save_lastsearch_value    -1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 *	@return     string          			          String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $notooltip = 0, $save_lastsearch_value = -1)
+	public function getNomUrl($withPicture = 0, $notooltip = 0, $save_lastsearch_value = -1)
 	{
 		global $config, $langs, $user;
 
@@ -371,10 +371,10 @@ class Fiscalyear extends CommonObject
 		}
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), $this->picto, ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : $dataparams.' class="'.(($withpicto != 2) ? 'paddingright ' : '').$classfortooltip.'"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), $this->picture, ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : $dataparams.' class="'.(($withPicture != 2) ? 'paddingright ' : '').$classfortooltip.'"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 		$result .= $linkend;

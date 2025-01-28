@@ -103,7 +103,7 @@ if ($id > 0 || !empty($ref)) {
 
 	$head = recruitmentjobpositionPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'note', $langs->trans("RecruitmentJobPosition"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'note', $langs->trans("RecruitmentJobPosition"), -1, $object->picture);
 
 	// Object card
 	$linkback = '<a href="'.dol_buildpath('/recruitment/recruitmentjobposition_list.php', 1).'?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';

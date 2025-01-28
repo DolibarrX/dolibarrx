@@ -37,7 +37,7 @@ class Client extends Societe
 	public $next_prev_filter = "te.client:in:1,2,3";
 
 	/**
-	 * @var array<int,array{id:int,code:string,label:string,picto:string}>
+	 * @var array<int,array{id:int,code:string,label:string,picture:string}>
 	 */
 	public $cacheprospectstatus = array();
 
@@ -139,7 +139,7 @@ class Client extends Societe
 	{
 		global $langs;
 
-		$sql = "SELECT id, code, libelle as label, picto, sortorder";
+		$sql = "SELECT id, code, libelle as label, picture, sortorder";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_stcomm";
 		if ($active >= 0) {
 			$sql .= " WHERE active = ".((int) $active);
@@ -151,7 +151,7 @@ class Client extends Societe
 		$i = 0;
 		while ($i < $num) {
 			$obj = $this->db->fetch_object($resql);
-			$this->cacheprospectstatus[$obj->id] = array('id'=>$obj->id, 'code'=>$obj->code, 'label'=>($langs->trans("ST_".strtoupper($obj->code)) == "ST_".strtoupper($obj->code)) ? $obj->label : $langs->trans("ST_".strtoupper($obj->code)), 'picto'=>$obj->picto);
+			$this->cacheprospectstatus[$obj->id] = array('id'=>$obj->id, 'code'=>$obj->code, 'label'=>($langs->trans("ST_".strtoupper($obj->code)) == "ST_".strtoupper($obj->code)) ? $obj->label : $langs->trans("ST_".strtoupper($obj->code)), 'picture'=>$obj->picture);
 			$i++;
 		}
 		return 1;

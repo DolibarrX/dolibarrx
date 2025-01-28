@@ -94,13 +94,13 @@ function printDropdownBookmarksList()
 			//$urltoadd=DOL_URL_ROOT.'/bookmarks/card.php?action=create&amp;urlsource='.urlencode($url).'&amp;url='.urlencode($url);
 			$urltoadd = DOL_URL_ROOT.'/bookmarks/card.php?action=create&amp;url='.urlencode($url);
 			$newbtn .= '<a class="top-menu-dropdown-link" title="'.$langs->trans('AddThisPageToBookmarks').'" href="'.dol_escape_htmltag($urltoadd).'" >';
-			$newbtn .= img_picto('', 'add', '', 0, 0, 0, '', 'pictofixedwidth paddingright').dol_escape_htmltag($langs->trans('AddThisPageToBookmarks')).'</a>';
+			$newbtn .= img_picture('', 'add', '', 0, 0, 0, '', 'picturefixedwidth paddingright').dol_escape_htmltag($langs->trans('AddThisPageToBookmarks')).'</a>';
 		}
 	}
 
 	// Url to list/edit bookmark
 	$listbtn = '<a class="top-menu-dropdown-link" title="'.dol_escape_htmltag($langs->trans('Bookmarks')).'" href="'.DOL_URL_ROOT.'/bookmarks/list.php">';
-	$listbtn .= img_picto('', 'edit', 'class="pictofixedwidth paddingright opacitymedium"').$langs->trans('EditBookmarks').'</a>';
+	$listbtn .= img_picture('', 'edit', 'class="picturefixedwidth paddingright opacitymedium"').$langs->trans('EditBookmarks').'</a>';
 
 	$bookmarkList = '';
 	$bookmarkNb = 0;
@@ -127,14 +127,14 @@ function printDropdownBookmarksList()
 			$searchForm .= '<select name="bookmark" id="boxbookmark" class="topmenu-bookmark-dropdown .dropdown-toggle maxwidth100">';
 			$searchForm .= '<option hidden value="listbookmarks" class="optiongrey" selected rel="'.DOL_URL_ROOT.'/bookmarks/list.php">'.$langs->trans('Bookmarks').'</option>';
 			$searchForm .= '<option value="listbookmark" class="optionblue" rel="'.dol_escape_htmltag(DOL_URL_ROOT.'/bookmarks/list.php').'" ';
-			$searchForm .= ' data-html="'.dol_escape_htmltag(img_picto('', 'bookmark').' '.($user->hasRight('bookmark', 'creer') ? $langs->trans('EditBookmarks') : $langs->trans('ListOfBookmarks')).'...').'">';
+			$searchForm .= ' data-html="'.dol_escape_htmltag(img_picture('', 'bookmark').' '.($user->hasRight('bookmark', 'creer') ? $langs->trans('EditBookmarks') : $langs->trans('ListOfBookmarks')).'...').'">';
 			$searchForm .= dol_escape_htmltag($user->hasRight('bookmark', 'creer') ? $langs->trans('EditBookmarks') : $langs->trans('ListOfBookmarks')).'...</option>';
 			// Url to go on create new bookmark page
 			if ($user->hasRight('bookmark', 'creer')) {
 				if (!preg_match('/bookmarks\/card.php/', $_SERVER['PHP_SELF'])) {
 					$urltoadd = DOL_URL_ROOT.'/bookmarks/card.php?action=create&amp;url='.urlencode($url);
 					$searchForm .= '<option value="newbookmark" class="optionblue" rel="'.dol_escape_htmltag($urltoadd).'"';
-					$searchForm .= ' data-html="'.dol_escape_htmltag(img_picto('', 'bookmark').' '.$langs->trans('AddThisPageToBookmarks').'...').'">'.dol_escape_htmltag($langs->trans('AddThisPageToBookmarks').'...').'</option>';
+					$searchForm .= ' data-html="'.dol_escape_htmltag(img_picture('', 'bookmark').' '.$langs->trans('AddThisPageToBookmarks').'...').'">'.dol_escape_htmltag($langs->trans('AddThisPageToBookmarks').'...').'</option>';
 				}
 			}
 			$i = 0;

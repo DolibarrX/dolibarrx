@@ -959,8 +959,8 @@ if ($action == 'create' || $action == 'presend') {
 			$htmltooptip .= '<br>'.$langs->trans("IP").': '.$object->ip;
 			$morehtmlref .= ($createdbyshown ? ' - ' : '<br>');
 			$morehtmlref .= ($createdbyshown ? '' : $langs->trans("CreatedBy").' : ');
-			$morehtmlref .= img_picto('', 'email', 'class="paddingrightonly"');
-			$morehtmlref .= dol_escape_htmltag($object->origin_email).' <small class="hideonsmartphone opacitymedium">- '.$form->textwithpicto($langs->trans("CreatedByPublicPortal"), $htmltooptip, 1, 'help', '', 0, 3, 'tooltip').'</small>';
+			$morehtmlref .= img_picture('', 'email', 'class="paddingrightonly"');
+			$morehtmlref .= dol_escape_htmltag($object->origin_email).' <small class="hideonsmartphone opacitymedium">- '.$form->textWithPicture($langs->trans("CreatedByPublicPortal"), $htmltooptip, 1, 'help', '', 0, 3, 'tooltip').'</small>';
 		} elseif ($createdfromemailcollector) {
 			$langs->load("mails");
 			$htmltooltip = $langs->trans("EmailMsgID").': '.$object->email_msgid;
@@ -970,8 +970,8 @@ if ($action == 'create' || $action == 'presend') {
 			$htmltooltip .= '<br>'.$langs->trans("MailReferences").': '.$object->origin_references;
 			$morehtmlref .= ($createdbyshown ? ' - ' : '<br>');
 			$morehtmlref .= ($createdbyshown ? '' : $langs->trans("CreatedBy").' : ');
-			$morehtmlref .= img_picto('', 'email', 'class="paddingrightonly"');
-			$morehtmlref .= dol_escape_htmltag($object->origin_email).' <small class="hideonsmartphone opacitymedium">- '.$form->textwithpicto($langs->trans("CreatedByEmailCollector"), $htmltooltip, 1, 'help', '', 0, 3, 'tooltip').'</small>';
+			$morehtmlref .= img_picture('', 'email', 'class="paddingrightonly"');
+			$morehtmlref .= dol_escape_htmltag($object->origin_email).' <small class="hideonsmartphone opacitymedium">- '.$form->textWithPicture($langs->trans("CreatedByEmailCollector"), $htmltooltip, 1, 'help', '', 0, 3, 'tooltip').'</small>';
 		}
 
 		$permissiontoedit = $object->status < 8 && !$user->socid && $user->hasRight('ticket', 'write');
@@ -980,13 +980,13 @@ if ($action == 'create' || $action == 'presend') {
 		// Thirdparty
 		if (isModEnabled("societe")) {
 			$morehtmlref .= '<br>';
-			$morehtmlref .= img_picto($langs->trans("ThirdParty"), 'company', 'class="pictofixedwidth"');
+			$morehtmlref .= img_picture($langs->trans("ThirdParty"), 'company', 'class="picturefixedwidth"');
 			if ($action != 'editcustomer' && $permissiontoedit) {
 				$morehtmlref .= '<a class="editfielda" href="'.$url_page_current.'?action=editcustomer&token='.newToken().'&track_id='.$object->track_id.'">'.img_edit($langs->transnoentitiesnoconv('SetThirdParty'), 0).'</a> ';
 			}
 			$morehtmlref .= $form->form_thirdparty($url_page_current.'?track_id='.$object->track_id, $object->socid, $action == 'editcustomer' ? 'editcustomer' : 'none', '', 1, 0, 0, array(), 1);
 			if (!empty($object->socid)) {
-				$morehtmlref .= ' - <a href="'.DOL_URL_ROOT.'/ticket/list.php?socid='.$object->socid.'&sortfield=t.datec&sortorder=desc'.(getDolGlobalBool('TICKET_CLIENT_OTHER_TICKET_ONLY_OPEN')?'&search_fk_statut[]=openall':'').'">'.img_picto($langs->trans("Tickets"), 'ticket', 'class="pictofixedwidth"').' '.$langs->trans("TicketHistory").'</a>';
+				$morehtmlref .= ' - <a href="'.DOL_URL_ROOT.'/ticket/list.php?socid='.$object->socid.'&sortfield=t.datec&sortorder=desc'.(getDolGlobalBool('TICKET_CLIENT_OTHER_TICKET_ONLY_OPEN')?'&search_fk_statut[]=openall':'').'">'.img_picture($langs->trans("Tickets"), 'ticket', 'class="picturefixedwidth"').' '.$langs->trans("TicketHistory").'</a>';
 			}
 		}
 
@@ -996,7 +996,7 @@ if ($action == 'create' || $action == 'presend') {
 			$morehtmlref .= '<br>';
 			if ($permissiontoedit) {
 				$object->fetchProject();
-				$morehtmlref .= img_picto($langs->trans("Project"), 'project'.((is_object($object->project) && $object->project->public) ? 'pub' : ''), 'class="pictofixedwidth"');
+				$morehtmlref .= img_picture($langs->trans("Project"), 'project'.((is_object($object->project) && $object->project->public) ? 'pub' : ''), 'class="picturefixedwidth"');
 				if ($action != 'classify') {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 				}
@@ -1019,7 +1019,7 @@ if ($action == 'create' || $action == 'presend') {
 				$langs->load('contracts');
 				$morehtmlref .= '<br>';
 				if ($permissiontoedit) {
-					$morehtmlref .= img_picto($langs->trans("Contract"), 'contract', 'class="pictofixedwidth"');
+					$morehtmlref .= img_picture($langs->trans("Contract"), 'contract', 'class="picturefixedwidth"');
 					if ($action == 'edit_contrat') {
 						$formcontract = new FormContract($db);
 						$morehtmlref .= $formcontract->formSelectContract($_SERVER["PHP_SELF"].'?id='.$object->id, $object->socid, $object->fk_contract, 'contratid', 0, 1, 1, 1);
@@ -1183,7 +1183,7 @@ if ($action == 'create' || $action == 'presend') {
 				}
 			}
 			print '<tr><td>';
-			print $form->textwithpicto($langs->trans("TicketDurationAuto"), $langs->trans("TicketDurationAutoInfos"), 1);
+			print $form->textWithPicture($langs->trans("TicketDurationAuto"), $langs->trans("TicketDurationAutoInfos"), 1);
 			print '</td><td>';
 			print $foundinter ? convertSecondToTime($timing, 'all', getDolGlobalInt('MAIN_DURATION_OF_WORKDAY')) : '';
 			print '</td></tr>';
@@ -1306,7 +1306,7 @@ if ($action == 'create' || $action == 'presend') {
 						$arrayselected[] = $cat->id;
 					}
 
-					print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('categories', $cate_arbo, $arrayselected, 0, 0, 'maxwidth500 widthcentpercentminusx', 0, 0);
+					print img_picture('', 'category', 'class="picturefixedwidth"').$form->multiselectarray('categories', $cate_arbo, $arrayselected, 0, 0, 'maxwidth500 widthcentpercentminusx', 0, 0);
 					print '<input type="submit" class="button button-edit smallpaddingimp" value="'.$langs->trans('Save').'">';
 					print '</form>';
 					print "</td>";
@@ -1404,11 +1404,11 @@ if ($action == 'create' || $action == 'presend') {
 					print dol_print_phone($tab[$i]['phone'], '', 0, 0, 'AC_TEL').'<br>';
 
 					if (!empty($tab[$i]['phone_perso'])) {
-						//print img_picto($langs->trans('PhonePerso'),'object_phoning.png','',0,0,0).' ';
+						//print img_picture($langs->trans('PhonePerso'),'object_phoning.png','',0,0,0).' ';
 						print '<br>'.dol_print_phone($tab[$i]['phone_perso'], '', 0, 0, 'AC_TEL').'<br>';
 					}
 					if (!empty($tab[$i]['phone_mobile'])) {
-						//print img_picto($langs->trans('PhoneMobile'),'object_phoning.png','',0,0,0).' ';
+						//print img_picture($langs->trans('PhoneMobile'),'object_phoning.png','',0,0,0).' ';
 						print dol_print_phone($tab[$i]['phone_mobile'], '', 0, 0, 'AC_TEL').'<br>';
 					}
 					print '</div>';
@@ -1546,7 +1546,7 @@ if ($action == 'create' || $action == 'presend') {
 			$help = "";
 			$substitutionArray = getCommonSubstitutionArray($outputlangs, 0, $arrayoffamiliestoexclude, $object);
 			complete_substitutions_array($substitutionArray, $outputlangs, $object);
-			$morehtmlright .= $form->textwithpicto('<span class="opacitymedium">'.$langs->trans("TicketMessageSubstitutionReplacedByGenericValues").'</span>', $help, 1, 'helpclickable', '', 0, 3, 'helpsubstitution');
+			$morehtmlright .= $form->textWithPicture('<span class="opacitymedium">'.$langs->trans("TicketMessageSubstitutionReplacedByGenericValues").'</span>', $help, 1, 'helpclickable', '', 0, 3, 'helpsubstitution');
 
 			print '<div>';
 

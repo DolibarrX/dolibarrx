@@ -58,7 +58,7 @@ class modFicheinter extends DolibarrModules
 		$this->version = 'dolibarr';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = "intervention";
+		$this->picture = "intervention";
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/ficheinter/temp");

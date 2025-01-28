@@ -45,7 +45,7 @@ class PaymentExpenseReport extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'payment';
+	public $picture = 'payment';
 
 	/**
 	 * @var int ID
@@ -658,13 +658,13 @@ class PaymentExpenseReport extends CommonObject
 	}
 
 	/**
-	 *  Return clickable name (with picto eventually)
+	 *  Return clickable name (with picture eventually)
 	 *
-	 *  @param	int		$withpicto		0=No picto, 1=Include picto into link, 2=Only picto
+	 *  @param	int		$withPicture		0=No picture, 1=Include picture into link, 2=Only picture
 	 *  @param	int		$maxlen			Longueur max libelle
 	 *  @return	string					Chaine avec URL
 	 */
-	public function getNomUrl($withpicto = 0, $maxlen = 0)
+	public function getNomUrl($withPicture = 0, $maxlen = 0)
 	{
 		global $langs, $hookManager;
 
@@ -673,7 +673,7 @@ class PaymentExpenseReport extends CommonObject
 		if (empty($this->ref)) {
 			$this->ref = $this->label;
 		}
-		$label = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("Payment").'</u>';
+		$label = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("Payment").'</u>';
 		if (isset($this->status)) {
 			$label .= ' '.$this->getLibStatut(5);
 		}
@@ -688,13 +688,13 @@ class PaymentExpenseReport extends CommonObject
 			$link = '<a href="'.DOL_URL_ROOT.'/expensereport/payment/card.php?id='.$this->id.'" title="'.dol_escape_htmltag($label, 1).'" class="classfortooltip">';
 			$linkend = '</a>';
 
-			if ($withpicto) {
+			if ($withPicture) {
 				$result .= ($link.img_object($label, 'payment', 'class="classfortooltip"').$linkend.' ');
 			}
-			if ($withpicto && $withpicto != 2) {
+			if ($withPicture && $withPicture != 2) {
 				$result .= ' ';
 			}
-			if ($withpicto != 2) {
+			if ($withPicture != 2) {
 				$result .= $link.($maxlen ? dol_trunc($this->ref, $maxlen) : $this->ref).$linkend;
 			}
 		}
@@ -743,7 +743,7 @@ class PaymentExpenseReport extends CommonObject
 	}
 
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
 	 *	@param      string	    			$option                 Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param		array{string,mixed}		$arraydata				Array of data
@@ -758,7 +758,7 @@ class PaymentExpenseReport extends CommonObject
 		$return = '<div class="box-flex-item box-flex-grow-zero">';
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<span class="info-box-icon bg-infobox-action">';
-		$return .= img_picto('', $this->picto);
+		$return .= img_picture('', $this->picture);
 		$return .= '</span>';
 		$return .= '<div class="info-box-content">';
 		$return .= '<span class="info-box-ref inline-block tdoverflowmax150 valignmiddle">'.(method_exists($this, 'getNomUrl') ? $this->getNomUrl(1) : $this->ref).'</span>';

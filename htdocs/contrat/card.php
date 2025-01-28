@@ -1249,7 +1249,7 @@ if ($action == 'create') {
 		print '</td>';
 	} else {
 		print '<td>';
-		print img_picto('', 'company', 'class="pictofixedwidth"');
+		print img_picture('', 'company', 'class="picturefixedwidth"');
 		print $form->select_company('', 'socid', '', 'SelectThirdParty', 1, 0, array(), 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
 		print ' <a href="'.DOL_URL_ROOT.'/societe/card.php?action=create&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create').'"><span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("AddThirdParty").'"></span></a>';
 		print '</td>';
@@ -1275,18 +1275,18 @@ if ($action == 'create') {
 
 	// Commercial suivi
 	print '<tr><td class="nowrap"><span class="fieldrequired">'.$langs->trans("TypeContact_contrat_internal_SALESREPFOLL").'</span></td><td>';
-	print img_picto('', 'user', 'class="pictofixedwidth"');
+	print img_picture('', 'user', 'class="picturefixedwidth"');
 	print $form->select_dolusers(GETPOST("commercial_suivi_id") ? GETPOST("commercial_suivi_id") : $user->id, 'commercial_suivi_id', 1, '');
 	print '</td></tr>';
 
 	// Commercial signature
 	print '<tr><td class="nowrap"><span class="fieldrequired">'.$langs->trans("TypeContact_contrat_internal_SALESREPSIGN").'</span></td><td>';
-	print img_picto('', 'user', 'class="pictofixedwidth"');
+	print img_picture('', 'user', 'class="picturefixedwidth"');
 	print $form->select_dolusers(GETPOST("commercial_signature_id") ? GETPOST("commercial_signature_id") : $user->id, 'commercial_signature_id', 1, '');
 	print '</td></tr>';
 
 	print '<tr><td><span class="fieldrequired">'.$langs->trans("Date").'</span></td><td>';
-	print img_picto('', 'action', 'class="pictofixedwidth"');
+	print img_picture('', 'action', 'class="picturefixedwidth"');
 	print $form->selectDate($datecontrat, '', 0, 0, 0, "contrat");
 	print "</td></tr>";
 
@@ -1297,7 +1297,7 @@ if ($action == 'create') {
 		$formproject = new FormProjets($db);
 
 		print '<tr><td>'.$langs->trans("Project").'</td><td>';
-		print img_picto('', 'project', 'class="pictofixedwidth"');
+		print img_picture('', 'project', 'class="picturefixedwidth"');
 		$formproject->select_projects(($soc->id > 0 ? $soc->id : -1), $projectid, "projectid", 0, 0, 1, 1);
 		print ' &nbsp; <a href="'.DOL_URL_ROOT.'/projet/card.php?socid='.$soc->id.'&action=create&status=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create&socid='.$soc->id).'"><span class="fa fa-plus-circle valignmiddle" title="'.$langs->trans("AddProject").'"></span></a>';
 		print "</td></tr>";
@@ -1487,7 +1487,7 @@ if ($action == 'create') {
 			$langs->load("projects");
 			$morehtmlref .= '<br>';
 			if ($permissiontoadd) {
-				$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+				$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 				if ($action != 'classify') {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 				}
@@ -1694,7 +1694,7 @@ if ($action == 'create') {
 							$description = ''; // Already added into main visible desc
 						}
 
-						print $form->textwithtooltip($text, $description, 3, 0, 0, $cursorline, 3, (!empty($line->fk_parent_line) ? img_picto('', 'rightarrow') : ''));
+						print $form->textwithtooltip($text, $description, 3, 0, 0, $cursorline, 3, (!empty($line->fk_parent_line) ? img_picture('', 'rightarrow') : ''));
 
 						print '</td>';
 					} else {
@@ -1733,7 +1733,7 @@ if ($action == 'create') {
 					if ($user->hasRight('contrat', 'creer') && is_array($arrayothercontracts) && count($arrayothercontracts) && ($object->status >= 0)) {
 						print '<!-- link to move service line into another contract -->';
 						print '<a class="reposition marginrightonly" style="padding-left: 5px;" href="'.$_SERVER['PHP_SELF'].'?id='.$object->id.'&action=move&token='.newToken().'&elrowid='.$objp->rowid.'">';
-						print img_picto($langs->trans("MoveToAnotherContract"), 'uparrow');
+						print img_picture($langs->trans("MoveToAnotherContract"), 'uparrow');
 						print '</a>';
 					}
 					if ($user->hasRight('contrat', 'creer') && ($object->statut >= 0)) {
@@ -1982,16 +1982,16 @@ if ($action == 'create') {
 				if ($user->socid == 0) {
 					if ($object->statut > 0 && $action != 'activateline' && $action != 'unactivateline' && is_object($objp)) {
 						$tmpaction = 'activateline';
-						$tmpactionpicto = 'play';
+						$tmpActionPicture = 'play';
 						$tmpactiontext = $langs->trans("Activate");
 						if ($objp->statut == 4) {
 							$tmpaction = 'unactivateline';
-							$tmpactionpicto = 'playstop';
+							$tmpActionPicture = 'playstop';
 							$tmpactiontext = $langs->trans("Disable");
 						}
 						if (($tmpaction == 'activateline' && $user->hasRight('contrat', 'activer')) || ($tmpaction == 'unactivateline' && $user->hasRight('contrat', 'desactiver'))) {
 							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&amp;ligne='.$object->lines[$cursorline - 1]->id.'&amp;action='.$tmpaction.'&token='.newToken().'">';
-							print img_picto($tmpactiontext, $tmpactionpicto);
+							print img_picture($tmpactiontext, $tmpActionPicture);
 							print '</a>';
 						}
 					}

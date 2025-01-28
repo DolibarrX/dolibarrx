@@ -229,7 +229,7 @@ function displayPositionCard(&$object)
 
 	// Part to edit record
 	if (($id || $ref) && $action == 'edit') {
-		print load_fiche_titre($langs->trans("Position"), '', 'object_' . $object->picto);
+		print load_fiche_titre($langs->trans("Position"), '', 'object_' . $object->picture);
 
 		print '<form method="POST" action="' . $_SERVER["PHP_SELF"] . '?id=' . $object->id . '">';
 		print '<input type="hidden" name="token" value="' . newToken() . '">';
@@ -271,7 +271,7 @@ function displayPositionCard(&$object)
 
 
 		$head = positionCardPrepareHead($object);
-		print dol_get_fiche_head($head, 'position', $langs->trans("Workstation"), -1, $object->picto);
+		print dol_get_fiche_head($head, 'position', $langs->trans("Workstation"), -1, $object->picture);
 
 		$formconfirm = '';
 

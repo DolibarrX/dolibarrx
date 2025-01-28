@@ -372,7 +372,7 @@ if ($source == 'proposal') {
 	// Creditor
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("Creditor");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$creditor.'</b>';
 	print '<input type="hidden" name="creditor" value="'.$creditor.'">';
 	print '</td></tr>'."\n";
@@ -380,7 +380,7 @@ if ($source == 'proposal') {
 	// Debitor
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("ThirdParty");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$object->thirdparty->name.'</b>';
 	print '</td></tr>'."\n";
 
@@ -465,7 +465,7 @@ if ($source == 'proposal') {
 	// Proposer
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("Proposer");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$creditor.'</b>';
 	print '<input type="hidden" name="creditor" value="'.$creditor.'">';
 	print '</td></tr>'."\n";
@@ -473,7 +473,7 @@ if ($source == 'proposal') {
 	// Target
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("ThirdParty");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$object->thirdparty->name.'</b>';
 	print '</td></tr>'."\n";
 
@@ -516,7 +516,7 @@ if ($source == 'proposal') {
 	// Proposer
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("Proposer");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$creditor.'</b>';
 	print '<input type="hidden" name="creditor" value="'.$creditor.'">';
 	print '</td></tr>'."\n";
@@ -524,7 +524,7 @@ if ($source == 'proposal') {
 	// Target
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("ThirdParty");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$object->thirdparty->name.'</b>';
 	print '</td></tr>'."\n";
 
@@ -564,7 +564,7 @@ if ($source == 'proposal') {
 	// Proposer
 	print '<tr class="CTableRow2"><td class="CTableRow2">' . $langs->trans("Proposer");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>' . $creditor . '</b>';
 	print '<input type="hidden" name="creditor" value="' . $creditor . '">';
 	print '</td></tr>' . "\n";
@@ -572,7 +572,7 @@ if ($source == 'proposal') {
 	// Target
 	print '<tr class="CTableRow2"><td class="CTableRow2">' . $langs->trans("ThirdParty");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>' . $object->thirdparty->name . '</b>';
 	print '</td></tr>' . "\n";
 
@@ -621,7 +621,7 @@ if ($source == 'proposal') {
 	// Proposer
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("Proposer");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$creditor.'</b>';
 	print '<input type="hidden" name="creditor" value="'.$creditor.'">';
 	print '</td></tr>'."\n";
@@ -629,7 +629,7 @@ if ($source == 'proposal') {
 	// Target
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("ThirdParty");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$object->thirdparty->name.'</b>';
 	print '</td></tr>'."\n";
 
@@ -669,7 +669,7 @@ if ($source == 'proposal') {
 	// Proposer
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("Proposer");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$creditor.'</b>';
 	print '<input type="hidden" name="creditor" value="'.$creditor.'">';
 	print '</td></tr>'."\n";
@@ -677,7 +677,7 @@ if ($source == 'proposal') {
 	// Target
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("ThirdParty");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$object->thirdparty->name.'</b>';
 	print '</td></tr>'."\n";
 
@@ -815,19 +815,19 @@ if ($action == "dosign" && empty($cancel)) {
 		if ($object->status == $object::STATUS_SIGNED) {
 			print '<br>';
 			if ($message == 'signed') {
-				print img_picto('', 'check', '', 0, 0, 0, '', 'size2x').'<br>';
+				print img_picture('', 'check', '', 0, 0, 0, '', 'size2x').'<br>';
 				print '<span class="ok">'.$langs->trans("PropalSigned").'</span>';
 			} else {
-				print img_picto('', 'check', '', 0, 0, 0, '', 'size2x').'<br>';
+				print img_picture('', 'check', '', 0, 0, 0, '', 'size2x').'<br>';
 				print '<span class="ok">'.$langs->trans("PropalAlreadySigned").'</span>';
 			}
 		} elseif ($object->status == $object::STATUS_NOTSIGNED) {
 			print '<br>';
 			if ($message == 'refused') {
-				print img_picto('', 'cross', '', 0, 0, 0, '', 'size2x').'<br>';
+				print img_picture('', 'cross', '', 0, 0, 0, '', 'size2x').'<br>';
 				print '<span class="ok">'.$langs->trans("PropalRefused").'</span>';
 			} else {
-				print img_picto('', 'cross', '', 0, 0, 0, '', 'size2x').'<br>';
+				print img_picture('', 'cross', '', 0, 0, 0, '', 'size2x').'<br>';
 				print '<span class="warning">'.$langs->trans("PropalAlreadyRefused").'</span>';
 			}
 		} else {

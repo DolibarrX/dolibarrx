@@ -260,7 +260,7 @@ if ($action == 'create') {
 	$object = new Position($db);
 	// Fetch optionals attributes and labels
 	$extrafields->fetch_name_optionals_label($object->table_element);
-	print load_fiche_titre($langs->trans("NewObject", $langs->transnoentitiesnoconv("Position")), '', 'object_' . $object->picto);
+	print load_fiche_titre($langs->trans("NewObject", $langs->transnoentitiesnoconv("Position")), '', 'object_' . $object->picture);
 
 	print '<form method="POST" action="' . $_SERVER["PHP_SELF"] . '">';
 	print '<input type="hidden" name="token" value="' . newToken() . '">';
@@ -306,7 +306,7 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 
 	$head = jobPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'position', $langs->trans("Workstation"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'position', $langs->trans("Workstation"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------
@@ -485,13 +485,13 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 
 	// List of mass actions available
 	$arrayofmassactions = array(
-		//'validate'=>img_picto('', 'check', 'class="pictofixedwidth"').$langs->trans("Validate"),
-		//'generate_doc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("ReGeneratePDF"),
-		//'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
-		//'presend'=>img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
+		//'validate'=>img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("Validate"),
+		//'generate_doc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("ReGeneratePDF"),
+		//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
+		//'presend'=>img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
 	);
 	if ($permissiontodelete) {
-		$arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"') . $langs->trans("Delete");
+		$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"') . $langs->trans("Delete");
 	}
 	if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
 		$arrayofmassactions = array();
@@ -514,7 +514,7 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 	$newcardbutton = '';
 	$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', dol_buildpath('/hrm/position.php', 1).'?action=create&backtopage='.urlencode($_SERVER['PHP_SELF']).'&fk_job='.((int) $fk_job), '', $permissiontoadd);
 
-	print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'object_' . $object->picto, 0, $newcardbutton, '', $limit, 0, 0, 1);
+	print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'object_' . $object->picture, 0, $newcardbutton, '', $limit, 0, 0, 1);
 
 	// Add code for pre mass action (confirmation or email presend form)
 	$topicmail = "SendPositionRef";
@@ -598,8 +598,8 @@ if ($job->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'
 	print $hookManager->resPrint;
 	// Action column
 	print '<td class="liste_titre maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 	print '</tr>' . "\n";
 

@@ -1390,7 +1390,7 @@ if ($action == 'create') {
 	if (getDolGlobalString('AGENDA_USE_EVENT_TYPE')) {
 		print '<tr><td class="titlefieldcreate"><span class="fieldrequired">'.$langs->trans("Type").'</span></b></td><td>';
 		$default = getDolGlobalString('AGENDA_USE_EVENT_TYPE_DEFAULT', 'AC_RDV');
-		print img_picto($langs->trans("ActionType"), 'square', 'class="fawidth30 inline-block" style="color: #ddd;"');
+		print img_picture($langs->trans("ActionType"), 'square', 'class="fawidth30 inline-block" style="color: #ddd;"');
 		$selectedvalue = GETPOSTISSET("actioncode") ? GETPOST("actioncode", 'aZ09') : ($object->type_code ? $object->type_code : $default);
 		print $formactions->select_type_actions($selectedvalue, "actioncode", "systemauto", 0, -1, 0, 1);	// TODO Replace 0 with -2 in onlyautoornot
 		print '</td></tr>';
@@ -1438,7 +1438,7 @@ if ($action == 'create') {
 		// Repeat
 		//print ' &nbsp; &nbsp; &nbsp; &nbsp; ';
 		print '<div class="opacitymedium inline-block small">';
-		print img_picto($langs->trans("Recurrence"), 'recurring', 'style="margin-left: 6px" class="paddingright2"');
+		print img_picture($langs->trans("Recurrence"), 'recurring', 'style="margin-left: 6px" class="paddingright2"');
 		print '<input type="hidden" name="recurid" value="'.(empty($object->recurid) ? '' : $object->recurid).'">';
 
 		$selectedrecurrulefreq = 'no';
@@ -1560,7 +1560,7 @@ if ($action == 'create') {
 		// Categories
 		print '<tr><td>'.$langs->trans("Categories").'</td><td>';
 		$cate_arbo = $form->select_all_categories(Category::TYPE_ACTIONCOMM, '', 'parent', 64, 0, 3);
-		print img_picto('', 'category').$form->multiselectarray('categories', $cate_arbo, GETPOST('categories', 'array'), 0, 0, 'minwidth300 quatrevingtpercent widthcentpercentminusx', 0, 0);
+		print img_picture('', 'category').$form->multiselectarray('categories', $cate_arbo, GETPOST('categories', 'array'), 0, 0, 'minwidth300 quatrevingtpercent widthcentpercentminusx', 0, 0);
 		print "</td></tr>";
 	}
 
@@ -1632,9 +1632,9 @@ if ($action == 'create') {
 			$events[] = array('method' => 'getContacts', 'url' => dol_buildpath('/core/ajax/contacts.php?showempty=1&token='.currentToken(), 1), 'htmlname' => 'contactid', 'params' => array('add-customer-contact' => 'disabled'));
 			//For external user force the company to user company
 			if (!empty($user->socid)) {
-				print img_picto('', 'company', 'class="paddingrightonly"').$form->select_company($user->socid, 'socid', '', 1, 1, 0, $events, 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
+				print img_picture('', 'company', 'class="paddingrightonly"').$form->select_company($user->socid, 'socid', '', 1, 1, 0, $events, 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
 			} else {
-				print img_picto('', 'company', 'class="paddingrightonly"').$form->select_company('', 'socid', '', $langs->trans('SelectThirdParty'), 1, 0, $events, 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
+				print img_picture('', 'company', 'class="paddingrightonly"').$form->select_company('', 'socid', '', $langs->trans('SelectThirdParty'), 1, 0, $events, 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
 			}
 		}
 		print '</td></tr>';
@@ -1655,7 +1655,7 @@ if ($action == 'create') {
 		} else {
 			$select_contact_default = -1; // select "none" by default
 		}
-		print img_picto('', 'contact', 'class="paddingrightonly"');
+		print img_picture('', 'contact', 'class="paddingrightonly"');
 
 		if (getDolGlobalString('CONTACT_USE_SEARCH_TO_SELECT') && $config->use_javascript_ajax) {
 			// FIXME Use a select without the "multiple" (not supported when CONTACT_USE_SEARCH_TO_SELECT is on) or allow use only when $object->socid is set...
@@ -1681,7 +1681,7 @@ if ($action == 'create') {
 		$projectid = GETPOSTINT('projectid');
 
 		print '<tr><td class="titlefieldcreate">'.$langs->trans("Project").'</td><td id="project-input-container">';
-		print img_picto('', 'project', 'class="pictofixedwidth"');
+		print img_picture('', 'project', 'class="picturefixedwidth"');
 		print $formproject->select_projects(($object->socid > 0 ? $object->socid : -1), $projectid, 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 0, 'maxwidth500 widthcentpercentminusxx maxwidth500');
 
 		print '&nbsp;<a href="'.DOL_URL_ROOT.'/projet/card.php?socid='.(empty($societe->id) ? '' : $societe->id).'&action=create&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create').'">';
@@ -1707,7 +1707,7 @@ if ($action == 'create') {
 
 		// Task
 		print '<tr><td class="titlefieldcreate">'.$langs->trans("Task").'</td><td id="project-task-input-container" >';
-		print img_picto('', 'projecttask', 'class="paddingrightonly"');
+		print img_picture('', 'projecttask', 'class="paddingrightonly"');
 		$projectsListId = false;
 		if (!empty($projectid)) {
 			$projectsListId = $projectid;
@@ -1777,7 +1777,7 @@ if ($action == 'create') {
 		//checkbox create reminder
 		print '<hr>';
 		print '<br>';
-		print '<label for="addreminder">'.img_picto('', 'bell', 'class="pictofixedwidth"').$langs->trans("AddReminder").'</label> <input type="checkbox" id="addreminder" name="addreminder"><br><br>';
+		print '<label for="addreminder">'.img_picture('', 'bell', 'class="picturefixedwidth"').$langs->trans("AddReminder").'</label> <input type="checkbox" id="addreminder" name="addreminder"><br><br>';
 
 		print '<div class="reminderparameters" style="display: none;">';
 
@@ -2035,7 +2035,7 @@ if ($id > 0) {
 		if (getDolGlobalString('AGENDA_USE_EVENT_TYPE') && $object->elementtype != "ticket") {
 			print '<tr><td class="fieldrequired">'.$langs->trans("Type").'</td><td colspan="3">';
 			if ($object->type_code != 'AC_OTH_AUTO') {
-				print img_picto($langs->trans("ActionType"), 'square', 'class="fawidth30 inline-block" style="color: #ddd;"');
+				print img_picture($langs->trans("ActionType"), 'square', 'class="fawidth30 inline-block" style="color: #ddd;"');
 				print $formactions->select_type_actions(GETPOST("actioncode", 'aZ09') ? GETPOST("actioncode", 'aZ09') : $object->type_code, "actioncode", "systemauto", 0, 0, 0, 1);
 			} else {
 				print '<input type="hidden" name="actioncode" value="'.$object->type_code.'">';
@@ -2048,7 +2048,7 @@ if ($id > 0) {
 		// Private
 		if ($object->elementtype == 'ticket') {
 			print '<tr><td>'.$langs->trans("MarkMessageAsPrivate");
-			print ' '.$form->textwithpicto('', $langs->trans("TicketMessagePrivateHelp"), 1, 'help');
+			print ' '.$form->textWithPicture('', $langs->trans("TicketMessagePrivateHelp"), 1, 'help');
 			print '</td><td colspan="3"><input type="checkbox" id="private" name="private" '.(preg_match('/^TICKET_MSG_PRIVATE/', $object->code) ? ' checked' : '').'></td></tr>';
 		}
 
@@ -2066,7 +2066,7 @@ if ($id > 0) {
 		// 	// Repeat
 		// 	//print '<tr><td></td><td colspan="3">';
 		// 	print ' &nbsp; &nbsp; &nbsp; &nbsp; <div class="opacitymedium inline-block">';
-		// 	print img_picto($langs->trans("Recurrence"), 'recurring', 'class="paddingright2"');
+		// 	print img_picture($langs->trans("Recurrence"), 'recurring', 'class="paddingright2"');
 		// 	print '<input type="hidden" name="recurid" value="'.$object->recurid.'">';
 		// 	$selectedrecurrulefreq = 'no';
 		// 	$selectedrecurrulebymonthday = '';
@@ -2200,7 +2200,7 @@ if ($id > 0) {
 			foreach ($cats as $cat) {
 				$arrayselected[] = $cat->id;
 			}
-			print img_picto('', 'category').$form->multiselectarray('categories', $cate_arbo, $arrayselected, 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
+			print img_picture('', 'category').$form->multiselectarray('categories', $cate_arbo, $arrayselected, 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 			print "</td></tr>";
 		}
 
@@ -2221,7 +2221,7 @@ if ($id > 0) {
 			$events[] = array('method' => 'getContacts', 'url' => dol_buildpath('/core/ajax/contacts.php?showempty=1&token='.currentToken(), 1), 'htmlname' => 'contactid', 'params' => array('add-customer-contact' => 'disabled'));
 			// TODO Refresh also list of project if conf PROJECT_ALLOW_TO_LINK_FROM_OTHER_COMPANY not defined with list linked to socid ?
 			// FIXME If we change company, we may get a project that does not match
-			print img_picto('', 'company', 'class="pictofixedwidth"').$form->select_company($object->socid, 'socid', '', 'SelectThirdParty', 1, 0, $events, 0, 'minwidth300');
+			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company($object->socid, 'socid', '', 'SelectThirdParty', 1, 0, $events, 0, 'minwidth300');
 			print '</div>';
 			print '</td></tr>';
 
@@ -2229,7 +2229,7 @@ if ($id > 0) {
 			print '<tr><td>'.$langs->trans("ActionOnContact").'</td><td>';
 			print '<div class="maxwidth200onsmartphone">';
 
-			print img_picto('', 'contact', 'class="paddingrightonly"');
+			print img_picture('', 'contact', 'class="paddingrightonly"');
 			if (getDolGlobalString('CONTACT_USE_SEARCH_TO_SELECT') && $config->use_javascript_ajax) {
 				// FIXME Use the select_contact supporting the "multiple"
 				/*
@@ -2254,7 +2254,7 @@ if ($id > 0) {
 			$langs->load("projects");
 
 			print '<tr><td class="titlefieldcreate">'.$langs->trans("Project").'</td><td>';
-			print img_picto('', 'project', 'class="pictofixedwidth"');
+			print img_picture('', 'project', 'class="picturefixedwidth"');
 			$numprojet = $formproject->select_projects(($object->socid > 0 ? $object->socid : -1), $object->fk_project, 'projectid', 0, 0, 1, 0, 0, 0, 0, '', 0, 0, 'maxwidth500 widthcentpercentminusxx');
 			if ($numprojet == 0) {
 				print ' &nbsp; <a href="'.DOL_URL_ROOT.'/projet/card.php?socid='.$object->socid.'&action=create&token='.newToken().'&backtopage='.urlencode($_SERVER["PHP_SELF"].'?id='.$object->id.'&action=edit').'"><span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("AddProject").'"></span></a>';
@@ -2357,7 +2357,7 @@ if ($id > 0) {
 			}
 			*/
 
-			print '<label for="addreminder">'.img_picto('', 'bell', 'class="pictofixedwidth"').$langs->trans("AddReminder").'</label> <input type="checkbox" id="addreminder" name="addreminder"'.($checked ? ' '.$checked : '').($disabled ? ' '.$disabled : '').'><br>';
+			print '<label for="addreminder">'.img_picture('', 'bell', 'class="picturefixedwidth"').$langs->trans("AddReminder").'</label> <input type="checkbox" id="addreminder" name="addreminder"'.($checked ? ' '.$checked : '').($disabled ? ' '.$disabled : '').'><br>';
 
 			print '<div class="reminderparameters" '.(empty($checked) ? 'style="display: none;"' : '').'>';
 
@@ -2479,31 +2479,31 @@ if ($id > 0) {
 		$linkback = '';
 		// Link to other agenda views
 		$linkback .= '<a href="'.DOL_URL_ROOT.'/comm/action/list.php?mode=show_list&restore_lastsearch_values=1">';
-		$linkback .= img_picto($langs->trans("BackToList"), 'object_calendarlist', 'class="pictoactionview pictofixedwidth"');
+		$linkback .= img_picture($langs->trans("BackToList"), 'object_calendarlist', 'class="pictureactionview picturefixedwidth"');
 		$linkback .= '<span class="hideonsmartphone">'.$langs->trans("BackToList").'</span>';
 		$linkback .= '</a>';
 		$linkback .= '</li>';
 		$linkback .= '<li class="noborder litext">';
 		$linkback .= '<a href="'.DOL_URL_ROOT.'/comm/action/index.php?mode=show_month&year='.dol_print_date($object->datep, '%Y').'&month='.dol_print_date($object->datep, '%m').'&day='.dol_print_date($object->datep, '%d').'">';
-		$linkback .= img_picto($langs->trans("ViewCal"), 'object_calendar', 'class="pictoactionview pictofixedwidth"');
+		$linkback .= img_picture($langs->trans("ViewCal"), 'object_calendar', 'class="pictureactionview picturefixedwidth"');
 		$linkback .= '<span class="hideonsmartphone">'.$langs->trans("ViewCal").'</span>';
 		$linkback .= '</a>';
 		$linkback .= '</li>';
 		$linkback .= '<li class="noborder litext">';
 		$linkback .= '<a href="'.DOL_URL_ROOT.'/comm/action/index.php?mode=show_week&year='.dol_print_date($object->datep, '%Y').'&month='.dol_print_date($object->datep, '%m').'&day='.dol_print_date($object->datep, '%d').'">';
-		$linkback .= img_picto($langs->trans("ViewWeek"), 'object_calendarweek', 'class="pictoactionview pictofixedwidth"');
+		$linkback .= img_picture($langs->trans("ViewWeek"), 'object_calendarweek', 'class="pictureactionview picturefixedwidth"');
 		$linkback .= '<span class="hideonsmartphone">'.$langs->trans("ViewWeek").'</span>';
 		$linkback .= '</a>';
 		$linkback .= '</li>';
 		$linkback .= '<li class="noborder litext">';
 		$linkback .= '<a href="'.DOL_URL_ROOT.'/comm/action/index.php?mode=show_day&year='.dol_print_date($object->datep, '%Y').'&month='.dol_print_date($object->datep, '%m').'&day='.dol_print_date($object->datep, '%d').'">';
-		$linkback .= img_picto($langs->trans("ViewDay"), 'object_calendarday', 'class="pictoactionview pictofixedwidth"');
+		$linkback .= img_picture($langs->trans("ViewDay"), 'object_calendarday', 'class="pictureactionview picturefixedwidth"');
 		$linkback .= '<span class="hideonsmartphone">'.$langs->trans("ViewDay").'</span>';
 		$linkback .= '</a>';
 		$linkback .= '</li>';
 		$linkback .= '<li class="noborder litext">';
 		$linkback .= '<a href="'.DOL_URL_ROOT.'/comm/action/peruser.php?mode=show_peruser&year='.dol_print_date($object->datep, '%Y').'&month='.dol_print_date($object->datep, '%m').'&day='.dol_print_date($object->datep, '%d').'">';
-		$linkback .= img_picto($langs->trans("ViewPerUser"), 'object_calendarperuser', 'class="pictoactionview pictofixedwidth"');
+		$linkback .= img_picture($langs->trans("ViewPerUser"), 'object_calendarperuser', 'class="pictureactionview picturefixedwidth"');
 		$linkback .= '<span class="hideonsmartphone">'.$langs->trans("ViewPerUser").'</span>';
 		$linkback .= '</a>';
 
@@ -2526,7 +2526,7 @@ if ($id > 0) {
 			$langs->load("projects");
 			//$morehtmlref .= '<br>';
 			if ($usercancreate) {
-				$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+				$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 				if ($action != 'classify') {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 				}
@@ -2563,7 +2563,7 @@ if ($id > 0) {
 			if ($object->code) {
 				$labeltoshow .= ' ('.$object->code.')';
 			}
-			print $object->getTypePicto('pictofixedwidth paddingright', $labeltoshow);
+			print $object->getTypePicto('picturefixedwidth paddingright', $labeltoshow);
 			print $labeltype;
 			print '</td></tr>';
 		}
@@ -2791,7 +2791,7 @@ if ($id > 0) {
 						print ' </span>';
 					} elseif ($actioncommreminder->status == $actioncommreminder::STATUS_ERROR) {
 						print ' - <span class="opacitymedium">';
-						print $form->textwithpicto($langs->trans("Error"), $actioncommreminder->lasterror);
+						print $form->textWithPicture($langs->trans("Error"), $actioncommreminder->lasterror);
 						print ' </span>';
 					}
 					print '<br>';

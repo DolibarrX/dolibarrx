@@ -202,7 +202,7 @@ $head = pdf_admin_prepare_head();
 print dol_get_fiche_head($head, 'other', '', -1, '');
 
 $tooltiptext = '';
-print '<span class="opacitymedium">'.$form->textwithpicto($langs->trans("PDFOtherDesc"), $tooltiptext)."</span><br>\n";
+print '<span class="opacitymedium">'.$form->textWithPicture($langs->trans("PDFOtherDesc"), $tooltiptext)."</span><br>\n";
 print "<br>\n";
 
 print '<form enctype="multipart/form-data" method="post" action="'.$_SERVER["PHP_SELF"].'">';
@@ -218,7 +218,7 @@ if (isModEnabled('propal')) {
 
 	/* This feature seems not yet used into Dolibarr. So option is kept hidden and enabled by default
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_PDF_PROPAL_USE_ELECTRONIC_SIGNING"), '');
+	print $form->textWithPicture($langs->trans("MAIN_PDF_PROPAL_USE_ELECTRONIC_SIGNING"), '');
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_PDF_PROPAL_USE_ELECTRONIC_SIGNING');
@@ -230,7 +230,7 @@ if (isModEnabled('propal')) {
 	*/
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_PDF_ADD_TERMSOFSALE_PROPAL"), $langs->trans("PdfAddTermOfSaleHelp"));
+	print $form->textWithPicture($langs->trans("MAIN_PDF_ADD_TERMSOFSALE_PROPAL"), $langs->trans("PdfAddTermOfSaleHelp"));
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_PDF_ADD_TERMSOFSALE_PROPAL');
@@ -241,7 +241,7 @@ if (isModEnabled('propal')) {
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_GENERATE_PROPOSALS_WITH_PICTURE"), $langs->trans("RandomlySelectedIfSeveral"));
+	print $form->textWithPicture($langs->trans("MAIN_GENERATE_PROPOSALS_WITH_PICTURE"), $langs->trans("RandomlySelectedIfSeveral"));
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_GENERATE_PROPOSALS_WITH_PICTURE');
@@ -262,7 +262,7 @@ if (isModEnabled('order')) {
 	print '<table summary="more" class="noborder centpercent">';
 	print '<tr class="liste_titre"><td class="titlefieldmiddle">'.$langs->trans("Parameters").'</td><td width="200px">'.$langs->trans("Value").'</td></tr>';
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_PDF_ADD_TERMSOFSALE_ORDER"), $langs->trans("PdfAddTermOfSaleHelp"));
+	print $form->textWithPicture($langs->trans("MAIN_PDF_ADD_TERMSOFSALE_ORDER"), $langs->trans("PdfAddTermOfSaleHelp"));
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_PDF_ADD_TERMSOFSALE_ORDER');
@@ -284,7 +284,7 @@ if (isModEnabled('order')) {
 	print '<tr class="liste_titre"><td class="titlefieldmiddle">'.$langs->trans("Parameter").'</td><td width="200px">'.$langs->trans("Value").'</td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("SALES_ORDER_SHOW_SHIPPING_ADDRESS"), $langs->trans("SALES_ORDER_SHOW_SHIPPING_ADDRESSMore"));
+	print $form->textWithPicture($langs->trans("SALES_ORDER_SHOW_SHIPPING_ADDRESS"), $langs->trans("SALES_ORDER_SHOW_SHIPPING_ADDRESSMore"));
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('SALES_ORDER_SHOW_SHIPPING_ADDRESS');
@@ -308,7 +308,7 @@ if (isModEnabled('supplier_proposal')) {
 	print '<tr class="liste_titre"><td class="titlefieldmiddle">'.$langs->trans("Parameter").'</td><td width="200px">'.$langs->trans("Value").'</td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_UNIT_PRICE"), '');
+	print $form->textWithPicture($langs->trans("MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_UNIT_PRICE"), '');
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_UNIT_PRICE');
@@ -319,7 +319,7 @@ if (isModEnabled('supplier_proposal')) {
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_TOTAL_COLUMN"), '');
+	print $form->textWithPicture($langs->trans("MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_TOTAL_COLUMN"), '');
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_GENERATE_DOCUMENTS_SUPPLIER_PROPOSAL_WITHOUT_TOTAL_COLUMN');
@@ -343,7 +343,7 @@ if (isModEnabled('supplier_order')) {
 	print '<tr class="liste_titre"><td class="titlefieldmiddle">'.$langs->trans("Parameter").'</td><td width="200px">'.$langs->trans("Value").'</td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_UNIT_PRICE"), '');
+	print $form->textWithPicture($langs->trans("MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_UNIT_PRICE"), '');
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_UNIT_PRICE');
@@ -354,7 +354,7 @@ if (isModEnabled('supplier_order')) {
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_TOTAL_COLUMN"), '');
+	print $form->textWithPicture($langs->trans("MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_TOTAL_COLUMN"), '');
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_GENERATE_DOCUMENTS_PURCHASE_ORDER_WITHOUT_TOTAL_COLUMN');
@@ -376,7 +376,7 @@ if (isModEnabled('invoice')) {
 	print '<tr class="liste_titre"><td class="titlefieldmiddle">'.$langs->trans("Parameters").'</td><td width="200px">'.$langs->trans("Value").'</td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("MAIN_PDF_ADD_TERMSOFSALE_INVOICE"), $langs->trans("PdfAddTermOfSaleHelp"));
+	print $form->textWithPicture($langs->trans("MAIN_PDF_ADD_TERMSOFSALE_INVOICE"), $langs->trans("PdfAddTermOfSaleHelp"));
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('MAIN_PDF_ADD_TERMSOFSALE_INVOICE');
@@ -386,7 +386,7 @@ if (isModEnabled('invoice')) {
 	}
 	print '</td></tr>';
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("INVOICE_ADD_ZATCA_QR_CODE"), $langs->trans("INVOICE_ADD_ZATCA_QR_CODEMore"));
+	print $form->textWithPicture($langs->trans("INVOICE_ADD_ZATCA_QR_CODE"), $langs->trans("INVOICE_ADD_ZATCA_QR_CODEMore"));
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('INVOICE_ADD_ZATCA_QR_CODE');
@@ -397,7 +397,7 @@ if (isModEnabled('invoice')) {
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("INVOICE_ADD_EPC_QR_CODE"), $langs->trans("INVOICE_ADD_EPC_QR_CODEMore"));
+	print $form->textWithPicture($langs->trans("INVOICE_ADD_EPC_QR_CODE"), $langs->trans("INVOICE_ADD_EPC_QR_CODEMore"));
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('INVOICE_ADD_EPC_QR_CODE');
@@ -409,7 +409,7 @@ if (isModEnabled('invoice')) {
 
 	print '<tr class="oddeven"><td>';
 	if (getDolGlobalString('INVOICE_ADD_SWISS_QR_CODE') == 'bottom') {
-		print $form->textwithpicto($langs->trans("INVOICE_ADD_SWISS_QR_CODE"), $langs->trans("INVOICE_ADD_SWISS_QR_CODEMore"));
+		print $form->textWithPicture($langs->trans("INVOICE_ADD_SWISS_QR_CODE"), $langs->trans("INVOICE_ADD_SWISS_QR_CODEMore"));
 	} else {
 		print $langs->trans("INVOICE_ADD_SWISS_QR_CODE");
 	}
@@ -424,7 +424,7 @@ if (isModEnabled('invoice')) {
 	// Mention category of operations
 	// French Decret n°2099-1299 2022-10-07
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("InvoiceOptionCategoryOfOperations"), $langs->trans('InvoiceOptionCategoryOfOperationsHelp'), 1);
+	print $form->textWithPicture($langs->trans("InvoiceOptionCategoryOfOperations"), $langs->trans('InvoiceOptionCategoryOfOperationsHelp'), 1);
 	print '</td><td>';
 	$arrval = array('0'=>$langs->trans("No"),
 		'1'=>$langs->trans("InvoiceOptionCategoryOfOperationsYes1"),
@@ -434,7 +434,7 @@ if (isModEnabled('invoice')) {
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("INVOICE_SHOW_SHIPPING_ADDRESS"), $langs->trans("INVOICE_SHOW_SHIPPING_ADDRESSMore"));
+	print $form->textWithPicture($langs->trans("INVOICE_SHOW_SHIPPING_ADDRESS"), $langs->trans("INVOICE_SHOW_SHIPPING_ADDRESSMore"));
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('INVOICE_SHOW_SHIPPING_ADDRESS');
@@ -446,7 +446,7 @@ if (isModEnabled('invoice')) {
 
 	/* too late to have it enabled by default in v21
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("PDF_INVOICE_SHOW_VAT_ANALYSIS"), '');
+	print $form->textWithPicture($langs->trans("PDF_INVOICE_SHOW_VAT_ANALYSIS"), '');
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('PDF_INVOICE_SHOW_VAT_ANALYSIS');
@@ -459,7 +459,7 @@ if (isModEnabled('invoice')) {
 
 	/* Keep this option hidden for the moment to avoid options inflation. We'll see later if it is used enough...
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("SUPPLIER_PROPOSAL_ADD_BILLING_CONTACT"), $langs->trans("SUPPLIER_PROPOSAL_ADD_BILLING_CONTACTMore"));
+	print $form->textWithPicture($langs->trans("SUPPLIER_PROPOSAL_ADD_BILLING_CONTACT"), $langs->trans("SUPPLIER_PROPOSAL_ADD_BILLING_CONTACTMore"));
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('SUPPLIER_PROPOSAL_ADD_BILLING_CONTACT');
@@ -470,7 +470,7 @@ if (isModEnabled('invoice')) {
 	print '</td></tr>';
 	*/
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("INVOICE_HIDE_LINKED_OBJECT"), $langs->trans("INVOICE_HIDE_LINKED_OBJECTMore"));
+	print $form->textWithPicture($langs->trans("INVOICE_HIDE_LINKED_OBJECT"), $langs->trans("INVOICE_HIDE_LINKED_OBJECTMore"));
 	print '</td><td>';
 	if ($config->use_javascript_ajax) {
 		print ajax_constantonoff('INVOICE_HIDE_LINKED_OBJECT');
@@ -586,7 +586,7 @@ if (isset($config->global->DOL_URL_ROOT_DOCUMENT_PHP)) {
 }
 $modulepart = 'mycompany';
 
-print '<tr class="oddeven"><td><label for="logo">'.$form->textwithpicto($langs->trans("TERMSOFSALE"), $tooltiptermsofsale).'</label></td><td>';
+print '<tr class="oddeven"><td><label for="logo">'.$form->textWithPicture($langs->trans("TERMSOFSALE"), $tooltiptermsofsale).'</label></td><td>';
 print '<div class="centpercent nobordernopadding valignmiddle "><div class="inline-block marginrightonly">';
 print '<input type="file" class="flat minwidth100 maxwidthinputfileonsmartphone" name="termsofsale" id="termsofsale" accept="application/pdf">';
 

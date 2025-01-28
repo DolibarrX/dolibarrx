@@ -135,9 +135,9 @@ if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
 		print ajax_constantonoff('MODULEBUILDER_USE_ABOUT');
 	} else {
 		if (!getDolGlobalString('MODULEBUILDER_USE_ABOUT')) {
-			print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=set_MODULEBUILDER_USE_ABOUT&token='.newToken().'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+			print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=set_MODULEBUILDER_USE_ABOUT&token='.newToken().'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 		} else {
-			print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=del_MODULEBUILDER_USE_ABOUT&token='.newToken().'">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
+			print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=del_MODULEBUILDER_USE_ABOUT&token='.newToken().'">'.img_picture($langs->trans("Enabled"), 'on').'</a>';
 		}
 	}
 	print '</td></tr>';

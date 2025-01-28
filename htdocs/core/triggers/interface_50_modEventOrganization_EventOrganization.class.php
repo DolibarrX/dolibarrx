@@ -44,7 +44,7 @@ class InterfaceEventOrganization extends DolibarrTriggers
 		$this->family = "eventorganization";
 		$this->description = "Triggers of this module to manage event organization triggers action";
 		$this->version = self::VERSIONS['prod'];
-		$this->picto = 'action';
+		$this->picture = 'action';
 	}
 
 	/**

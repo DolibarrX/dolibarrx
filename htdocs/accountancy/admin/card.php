@@ -255,7 +255,7 @@ if ($action == 'create') {
 
 	// Chart of accounts type
 	print '<tr><td>';
-	print $form->textwithpicto($langs->trans("Pcgtype"), $langs->transnoentitiesnoconv("PcgtypeDesc"));
+	print $form->textWithPicture($langs->trans("Pcgtype"), $langs->transnoentitiesnoconv("PcgtypeDesc"));
 	print '</td>';
 	print '<td>';
 	print '<input type="text" name="pcg_type" list="pcg_type_datalist" value="'.dol_escape_htmltag(GETPOSTISSET('pcg_type') ? GETPOST('pcg_type', 'alpha') : $object->pcg_type).'">';
@@ -276,7 +276,7 @@ if ($action == 'create') {
 
 	// Category
 	print '<tr><td>';
-	print $form->textwithpicto($langs->trans("AccountingCategory"), $langs->transnoentitiesnoconv("AccountingAccountGroupsDesc"));
+	print $form->textWithPicture($langs->trans("AccountingCategory"), $langs->transnoentitiesnoconv("AccountingAccountGroupsDesc"));
 	print '</td>';
 	print '<td>';
 	print $formaccounting->select_accounting_category($object->account_category, 'account_category', 1, 0, 1);
@@ -332,7 +332,7 @@ if ($action == 'create') {
 
 			// Chart of accounts type
 			print '<tr><td>';
-			print $form->textwithpicto($langs->trans("Pcgtype"), $langs->transnoentitiesnoconv("PcgtypeDesc"));
+			print $form->textWithPicture($langs->trans("Pcgtype"), $langs->transnoentitiesnoconv("PcgtypeDesc"));
 			print '</td>';
 			print '<td>';
 			print '<input type="text" name="pcg_type" list="pcg_type_datalist" value="'.dol_escape_htmltag(GETPOSTISSET('pcg_type') ? GETPOST('pcg_type', 'alpha') : $object->pcg_type).'">';
@@ -353,7 +353,7 @@ if ($action == 'create') {
 
 			// Category
 			print '<tr><td>';
-			print $form->textwithpicto($langs->trans("AccountingCategory"), $langs->transnoentitiesnoconv("AccountingAccountGroupsDesc"));
+			print $form->textWithPicture($langs->trans("AccountingCategory"), $langs->transnoentitiesnoconv("AccountingAccountGroupsDesc"));
 			print '</td>';
 			print '<td>';
 			print $formaccounting->select_accounting_category($object->account_category, 'account_category', 1);
@@ -398,13 +398,13 @@ if ($action == 'create') {
 
 			// Group of accounting account
 			print '<tr><td>';
-			print $form->textwithpicto($langs->trans("Pcgtype"), $langs->transnoentitiesnoconv("PcgtypeDesc"));
+			print $form->textWithPicture($langs->trans("Pcgtype"), $langs->transnoentitiesnoconv("PcgtypeDesc"));
 			print '</td>';
 			print '<td colspan="2">'.$object->pcg_type.'</td></tr>';
 
 			// Custom group of accounting account
 			print "<tr><td>";
-			print $form->textwithpicto($langs->trans("AccountingCategory"), $langs->transnoentitiesnoconv("AccountingAccountGroupsDesc"));
+			print $form->textWithPicture($langs->trans("AccountingCategory"), $langs->transnoentitiesnoconv("AccountingAccountGroupsDesc"));
 			print "</td><td colspan='2'>".$object->account_category_label."</td>";
 
 			print '</table>';

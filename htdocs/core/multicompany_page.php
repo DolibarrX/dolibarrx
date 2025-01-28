@@ -173,7 +173,7 @@ if (!isModEnabled('multicompany')) {
 
 		$multicompanyList .= dol_escape_htmltag($entitycursor);
 		if ($config->entity == $entityid) {
-			$multicompanyList .= ' <span class="opacitymedium">'.img_picto($langs->trans("Currently"), 'tick').'</span>';
+			$multicompanyList .= ' <span class="opacitymedium">'.img_picture($langs->trans("Currently"), 'tick').'</span>';
 		}
 		$multicompanyList .= '</a>';
 		$multicompanyList .= '</li>';

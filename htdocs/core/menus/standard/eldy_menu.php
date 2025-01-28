@@ -220,9 +220,9 @@ class MenuManager
 					// Add font-awesome
 					if ($val['level'] == 0 && !empty($val['prefix'])) {
 						if (preg_match('/^fa\-[a-zA-Z0-9\-_]+$/', $val['prefix'])) {
-							print '<span class="fas '.$val['prefix'].' paddingright pictofixedwidth"></span>';
+							print '<span class="fas '.$val['prefix'].' paddingright picturefixedwidth"></span>';
 						} else {
-							print str_replace('<span class="', '<span class="paddingright pictofixedwidth ', $val['prefix']);
+							print str_replace('<span class="', '<span class="paddingright picturefixedwidth ', $val['prefix']);
 						}
 					}
 					print $val['titre'];
@@ -255,7 +255,7 @@ class MenuManager
 						print '<a href="'.$relurl.'">';
 
 						if ($val['level'] == 0) {
-							print '<span class="fas fa-home fa-fw paddingright pictofixedwidth" aria-hidden="true"></span>';
+							print '<span class="fas fa-home fa-fw paddingright picturefixedwidth" aria-hidden="true"></span>';
 						}
 
 						if ($langs->trans(ucfirst($val['mainmenu'])."Dashboard") == ucfirst($val['mainmenu'])."Dashboard") {  // No translation
@@ -351,7 +351,7 @@ class MenuManager
 
 							// Add font-awesome (if $val2['level'] == 0, we are on level2
 							if ($val2['level'] == 0 && !empty($val2['prefix'])) {
-								print $val2['prefix'];	// the picto must have class="pictofixedwidth paddingright"
+								print $val2['prefix'];	// the picture must have class="picturefixedwidth paddingright"
 							}
 
 							print $val2['titre'];

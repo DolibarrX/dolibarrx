@@ -474,8 +474,8 @@ print '<tr class="liste_titre_filter">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 
@@ -527,8 +527,8 @@ print '<td class="liste_titre"></td>';
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 
@@ -547,7 +547,7 @@ print getTitleFieldOfList($langs->trans('Ref'), 0, $_SERVER["PHP_SELF"], 'ref_ob
 print getTitleFieldOfList($langs->trans('Amount'), 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'right ')."\n";
 print getTitleFieldOfList($langs->trans('DataOfArchivedEvent'), 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'center ', 0, $langs->trans('DataOfArchivedEventHelp'), 1)."\n";
 print getTitleFieldOfList($langs->trans('Fingerprint'), 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, '')."\n";
-print getTitleFieldOfList($form->textwithpicto($langs->trans('Status'), $langs->trans('DataOfArchivedEventHelp2')), 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'center ')."\n";
+print getTitleFieldOfList($form->textWithPicture($langs->trans('Status'), $langs->trans('DataOfArchivedEventHelp2')), 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'center ')."\n";
 //print getTitleFieldOfList('', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, 'center ')."\n";
 print getTitleFieldOfList('', 0, $_SERVER["PHP_SELF"], '', '', $param, '', $sortfield, $sortorder, '')."\n";
 // Action column
@@ -647,7 +647,7 @@ if (is_array($blocks)) {
 			$textToShow .= '<br><br>'.$langs->trans("Fingerprint").' - Recalculated sha256('.$langs->trans("PreviousHash").' on previous line + data) =<br>'.$checkdetail[$block->id]['calculatedsignature'];
 			$textToShow .= '<br><span class="opacitymedium">'.$langs->trans("PreviousHash").'='.$checkdetail[$block->id]['previoushash'].'</span>';
 			//$textToShow .= '<br>keyforsignature='.$checkdetail[$block->id]['keyforsignature'];
-			print $form->textwithpicto(dol_trunc($block->signature, 8), $textToShow, 1, 'help', '', 0, 2, 'fingerprint'.$block->id);
+			print $form->textWithPicture(dol_trunc($block->signature, 8), $textToShow, 1, 'help', '', 0, 2, 'fingerprint'.$block->id);
 			print '</td>';
 
 			// Status
@@ -667,16 +667,16 @@ if (is_array($blocks)) {
 			//print '<td class="center">';
 			if (!$checkresult[$block->id] || ($loweridinerror && $block->id >= $loweridinerror)) {	// If error
 				if ($checkresult[$block->id]) {
-					print $form->textwithpicto('', $langs->trans('OkCheckFingerprintValidityButChainIsKo'));
+					print $form->textWithPicture('', $langs->trans('OkCheckFingerprintValidityButChainIsKo'));
 				} else {
-					//print $form->textwithpicto('', $langs->trans('KoCheckFingerprintValidity'));
+					//print $form->textWithPicture('', $langs->trans('KoCheckFingerprintValidity'));
 				}
 			} else {
-				//print $form->textwithpicto('', $langs->trans('DataOfArchivedEventHelp2'));
+				//print $form->textWithPicture('', $langs->trans('DataOfArchivedEventHelp2'));
 			}
 
 			if (getDolGlobalString('BLOCKEDLOG_USE_REMOTE_AUTHORITY') && getDolGlobalString('BLOCKEDLOG_AUTHORITY_URL')) {
-				print ' '.($block->certified ? img_picto($langs->trans('AddedByAuthority'), 'info') : img_picto($langs->trans('NotAddedByAuthorityYet'), 'info_black'));
+				print ' '.($block->certified ? img_picture($langs->trans('AddedByAuthority'), 'info') : img_picture($langs->trans('NotAddedByAuthorityYet'), 'info_black'));
 			}
 			print '</td>';
 
@@ -749,10 +749,10 @@ if (getDolGlobalString('BLOCKEDLOG_USE_REMOTE_AUTHORITY') && getDolGlobalString(
 				dataType: 'html'
 			}).done(function(data) {
 				if(data == 'hashisok') {
-					$('#blockchainstatus').html('<?php echo $langs->trans('AuthorityReconizeFingerprintConformity').' '.img_picto($langs->trans('SignatureOK'), 'on') ?>');
+					$('#blockchainstatus').html('<?php echo $langs->trans('AuthorityReconizeFingerprintConformity').' '.img_picture($langs->trans('SignatureOK'), 'on') ?>');
 				}
 				else{
-					$('#blockchainstatus').html('<?php echo $langs->trans('AuthorityDidntReconizeFingerprintConformity').' '.img_picto($langs->trans('SignatureKO'), 'off') ?>');
+					$('#blockchainstatus').html('<?php echo $langs->trans('AuthorityDidntReconizeFingerprintConformity').' '.img_picture($langs->trans('SignatureKO'), 'off') ?>');
 				}
 
 			});

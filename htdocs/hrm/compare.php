@@ -147,7 +147,7 @@ $fk_usergroup1 = GETPOSTINT('fk_usergroup1');
 						<tr>
 							<td><?php
 							print $langs->trans('group1ToCompare').'</td><td>';
-							print img_picto('', 'group', 'class="pictofixedwidth"');
+							print img_picture('', 'group', 'class="picturefixedwidth"');
 							print $form->select_dolgroups($fk_usergroup1, 'fk_usergroup1', 1);
 							?></td>
 						</tr>
@@ -155,7 +155,7 @@ $fk_usergroup1 = GETPOSTINT('fk_usergroup1');
 						<tr>
 							<td><?php
 							print $langs->trans('group2ToCompare').'</td><td>';
-							print img_picto('', 'group', 'class="pictofixedwidth"');
+							print img_picture('', 'group', 'class="picturefixedwidth"');
 							print $form->select_dolgroups($fk_usergroup2, 'fk_usergroup2', 1);
 							?></td>
 						</tr>
@@ -173,7 +173,7 @@ $fk_usergroup1 = GETPOSTINT('fk_usergroup1');
 								$TJobs[$j->id] = $j->label;
 							}
 
-							print img_picto('', 'jobprofile', 'class="pictofixedwidth"').$form->selectarray('fk_job', $TJobs, $fk_job, 1);
+							print img_picture('', 'jobprofile', 'class="picturefixedwidth"').$form->selectarray('fk_job', $TJobs, $fk_job, 1);
 							?></td>
 						</tr>
 					</table>
@@ -298,7 +298,7 @@ $db->close();
  *
  * 	Return a html list element with diff  between required rank  and user rank
  *
- * 		@param array<int,stdClass> $TMergedSkills skill list with all rate to add good picto
+ * 		@param array<int,stdClass> $TMergedSkills skill list with all rate to add good picture
  * 		@return string
  */
 function diff(&$TMergedSkills)
@@ -427,7 +427,7 @@ function mergeSkills($TSkill1, $TSkill2)
 }
 
 /**
- * 	Display a list of User with picto
+ * 	Display a list of User with picture
  *
  * 	@param 	int[] 	$TUser 			list of users (employees) in selected usergroup of a column
  * 	@param 	int 	$fk_usergroup 	selected usergroup id

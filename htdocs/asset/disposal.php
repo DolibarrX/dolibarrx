@@ -107,7 +107,7 @@ if ($id > 0 || !empty($ref)) {
 
 	$head = assetPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'disposal', $langs->trans("Asset"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'disposal', $langs->trans("Asset"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------

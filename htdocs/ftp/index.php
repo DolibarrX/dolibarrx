@@ -443,7 +443,7 @@ if (!function_exists('ftp_connect')) {
 		if ($config->use_javascript_ajax) {
 			print '<a href="#" id="checkall">'.$langs->trans("All").'</a> / <a href="#" id="checknone">'.$langs->trans("None").'</a> ';
 		}
-		print '<a href="'.$_SERVER["PHP_SELF"].'?action=refreshmanual&number_ftp='.$number_ftp.($section ? '&section='.urlencode($section) : '').'">'.img_picto($langs->trans("Refresh"), 'refresh').'</a>&nbsp;';
+		print '<a href="'.$_SERVER["PHP_SELF"].'?action=refreshmanual&number_ftp='.$number_ftp.($section ? '&section='.urlencode($section) : '').'">'.img_picture($langs->trans("Refresh"), 'refresh').'</a>&nbsp;';
 		print '</td>'."\n";
 		print '</tr>'."\n";
 
@@ -596,7 +596,7 @@ if (!function_exists('ftp_connect')) {
 					$newfile = preg_replace('/ ->.*/', '', $newfile);
 					print '<a href="'.$_SERVER["PHP_SELF"].'?action=delete&token='.newToken().'&number_ftp='.$number_ftp.'&section='.urlencode($section).'&file='.urlencode($newfile).'">'.img_delete().'</a>';
 				} else {
-					print '<a href="'.$_SERVER["PHP_SELF"].'?action=download&token='.newToken().'&number_ftp='.$number_ftp.'&section='.urlencode($section).'&file='.urlencode($file).'">'.img_picto('', 'file').'</a>';
+					print '<a href="'.$_SERVER["PHP_SELF"].'?action=download&token='.newToken().'&number_ftp='.$number_ftp.'&section='.urlencode($section).'&file='.urlencode($file).'">'.img_picture('', 'file').'</a>';
 					print ' &nbsp; ';
 					print '<input type="checkbox" class="flat checkboxfordelete" id="check_'.$i.'" name="const['.$i.'][check]" value="1">';
 					print ' &nbsp; ';

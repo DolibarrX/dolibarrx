@@ -133,9 +133,9 @@ function ordered($product_id)
 	if ($resql) {
 		$exists = $db->num_rows($resql);
 		if ($exists && $obj = $db->fetch_array($resql)) {
-			return $obj['qty']; //. ' ' . img_picto('','tick');
+			return $obj['qty']; //. ' ' . img_picture('','tick');
 		} else {
-			return null; //img_picto('', 'stcomm-1');
+			return null; //img_picture('', 'stcomm-1');
 		}
 	} else {
 		dol_print_error($db);

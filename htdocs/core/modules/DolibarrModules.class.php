@@ -408,10 +408,10 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 	/**
 	 * @var string Name of image file used for this module
 	 *
-	 * If file is in theme/yourtheme/img directory under name object_pictoname.png use 'pictoname'
-	 * If file is in module/img directory under name object_pictoname.png use 'pictoname@module'
+	 * If file is in theme/yourtheme/img directory under name object_picturename.png use 'picturename'
+	 * If file is in module/img directory under name object_picturename.png use 'picturename@module'
 	 */
-	public $picto;
+	public $picture;
 
 	/**
 	 * @var string[]|string 	List of config pages (Old modules uses a string. New one must use an array)
@@ -2435,8 +2435,8 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$error = 0;
 
 		if (is_array($this->module_parts)) {
-			if (empty($this->module_parts['icon']) && !empty($this->picto) && preg_match('/^fa\-/', $this->picto)) {
-				$this->module_parts['icon'] = $this->picto;
+			if (empty($this->module_parts['icon']) && !empty($this->picture) && preg_match('/^fa\-/', $this->picture)) {
+				$this->module_parts['icon'] = $this->picture;
 			}
 
 			foreach ($this->module_parts as $key => $value) {
@@ -2550,8 +2550,8 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		if (is_array($this->module_parts)) {
 			dol_syslog(get_class($this)."::delete_module_parts", LOG_DEBUG);
 
-			if (empty($this->module_parts['icon']) && !empty($this->picto) && preg_match('/^fa\-/', $this->picto)) {
-				$this->module_parts['icon'] = $this->picto;
+			if (empty($this->module_parts['icon']) && !empty($this->picture) && preg_match('/^fa\-/', $this->picture)) {
+				$this->module_parts['icon'] = $this->picture;
 			}
 
 			foreach ($this->module_parts as $key => $value) {
@@ -2646,11 +2646,11 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 		$alttext = '';
 		//if (is_array($objMod->need_dolibarr_version)) $alttext.=($alttext?' - ':'').'Dolibarr >= '.join('.',$objMod->need_dolibarr_version);
 		//if (is_array($objMod->phpmin)) $alttext.=($alttext?' - ':'').'PHP >= '.join('.',$objMod->phpmin);
-		if (!empty($this->picto)) {
-			if (preg_match('/^\//i', $this->picto)) {
-				$return .= img_picto($alttext, $this->picto, 'class="inline-block valignmiddle"', 1);
+		if (!empty($this->picture)) {
+			if (preg_match('/^\//i', $this->picture)) {
+				$return .= img_picture($alttext, $this->picture, 'class="inline-block valignmiddle"', 1);
 			} else {
-				$return .= img_object($alttext, $this->picto, 'class="inline-block valignmiddle"');
+				$return .= img_object($alttext, $this->picture, 'class="inline-block valignmiddle"');
 			}
 		} else {
 			$return .= img_object($alttext, 'generic', 'class="inline-block valignmiddle"');
@@ -2674,7 +2674,7 @@ class DolibarrModules // Can not be abstract, because we need to instantiate it 
 
 		$return .=  '<div class="valignmiddle inline-block info-box-more">';
 		//if ($versiontrans) print img_warning($langs->trans("Version").' '.$this->getVersion(1)).' ';
-		$return .=  '<a class="valignmiddle inline-block" href="javascript:document_preview(\''.DOL_URL_ROOT.'/admin/modulehelp.php?id='.((int) $this->number).'\',\'text/html\',\''.dol_escape_js($langs->trans("Module")).'\')">'.img_picto(($this->isCoreOrExternalModule() == 'external' ? $langs->trans("ExternalModule").' - ' : '').$langs->trans("ClickToShowDescription"), $imginfo).'</a>';
+		$return .=  '<a class="valignmiddle inline-block" href="javascript:document_preview(\''.DOL_URL_ROOT.'/admin/modulehelp.php?id='.((int) $this->number).'\',\'text/html\',\''.dol_escape_js($langs->trans("Module")).'\')">'.img_picture(($this->isCoreOrExternalModule() == 'external' ? $langs->trans("ExternalModule").' - ' : '').$langs->trans("ClickToShowDescription"), $imginfo).'</a>';
 		$return .=  '</div><br>';
 
 		$return .=  '<div class="valignmiddle inline-block info-box-actions">';

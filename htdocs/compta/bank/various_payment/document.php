@@ -104,7 +104,7 @@ llxHeader("", $title, $help_url);
 if ($object->id) {
 	$head = various_payment_prepare_head($object);
 
-	print dol_get_fiche_head($head, 'documents', $langs->trans("VariousPayment"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'documents', $langs->trans("VariousPayment"), -1, $object->picture);
 
 	$morehtmlref = '<div class="refidno">';
 	// Project

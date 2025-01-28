@@ -133,9 +133,9 @@ class ModeleImports
 	public $charset;
 
 	/**
-	 * @var array<string,string>|string picto
+	 * @var array<string,string>|string picture
 	 */
-	public $picto;
+	public $picture;
 
 	/**
 	 * @var string description
@@ -282,7 +282,7 @@ class ModeleImports
 					'@phan-var-force ModeleImports $module';
 
 					// Picto
-					$this->picto[$module->id] = $module->picto;
+					$this->picture[$module->id] = $module->picture;
 					// Driver properties
 					$this->driverlabel[$module->id] = $module->getDriverLabel();
 					$this->driverdesc[$module->id] = $module->getDriverDesc();
@@ -300,14 +300,14 @@ class ModeleImports
 
 
 	/**
-	 *  Return picto of import driver
+	 *  Return picture of import driver
 	 *
 	 *	@param	string	$key	Key
 	 *	@return	string
 	 */
 	public function getPictoForKey($key)
 	{
-		return	$this->picto[$key];
+		return	$this->picture[$key];
 	}
 
 	/**

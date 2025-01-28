@@ -143,9 +143,9 @@ if (!empty($config->use_javascript_ajax)) {
 	print ajax_constantonoff('MAIN_USE_ADVANCED_PERMS');
 } else {
 	if (!getDolGlobalString('MAIN_USE_ADVANCED_PERMS')) {
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MAIN_USE_ADVANCED_PERMS&token='.newToken().'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MAIN_USE_ADVANCED_PERMS&token='.newToken().'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 	} else {
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MAIN_USE_ADVANCED_PERMS&token='.newToken().'">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MAIN_USE_ADVANCED_PERMS&token='.newToken().'">'.img_picture($langs->trans("Enabled"), 'on').'</a>';
 	}
 }
 print "</td></tr>";
@@ -172,9 +172,9 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("SessionTimeOut").'</td><td class="right">';
 if (ini_get("session.gc_probability") == 0) {
 	// For external cleaning of session, the delay used may be the one into the ini file, so get_cfg_var("session.gc_maxlifetime"), not the one overloaded in runtime.
-	print $form->textwithpicto('', $langs->trans("SessionsPurgedByExternalSystem", get_cfg_var("session.gc_maxlifetime")));
+	print $form->textWithPicture('', $langs->trans("SessionsPurgedByExternalSystem", get_cfg_var("session.gc_maxlifetime")));
 } else {
-	print $form->textwithpicto('', $langs->trans("SessionExplanation", ini_get("session.gc_probability"), ini_get("session.gc_divisor"), ini_get("session.gc_maxlifetime")));
+	print $form->textWithPicture('', $langs->trans("SessionExplanation", ini_get("session.gc_probability"), ini_get("session.gc_divisor"), ini_get("session.gc_maxlifetime")));
 }
 print '</td>';
 print '<td class="nowrap">';

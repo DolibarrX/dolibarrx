@@ -125,12 +125,12 @@ if (!($id > 0) && empty($ref) || $notab) {
 		$title = $langs->trans("Statistics");
 	}
 
-	$picto = 'product';
+	$picture = 'product';
 	if ($type == 1) {
-		$picto = 'service';
+		$picture = 'service';
 	}
 
-	print load_fiche_titre($title, $mesg, $picto);
+	print load_fiche_titre($title, $mesg, $picture);
 } else {
 	$result = $object->fetch($id, $ref);
 
@@ -154,9 +154,9 @@ if (!($id > 0) && empty($ref) || $notab) {
 if ($result && ($id > 0 || !empty($ref)) && empty($notab)) {
 	$head = product_prepare_head($object);
 	$titre = $langs->trans("CardProduct".$object->type);
-	$picto = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
+	$picture = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
 
-	print dol_get_fiche_head($head, 'stats', $titre, -1, $picto);
+	print dol_get_fiche_head($head, 'stats', $titre, -1, $picture);
 
 	$linkback = '<a href="'.DOL_URL_ROOT.'/product/list.php?restore_lastsearch_values=1&type='.$object->type.'">'.$langs->trans("BackToList").'</a>';
 
@@ -216,14 +216,14 @@ if ($result || !($id > 0)) {
 
 		// Product
 		print '<tr class="nooddeven"><td class="titlefield">'.$langs->trans("ProductOrService").'</td><td>';
-		print img_picto('', 'product', 'class="pictofixedwidth"');
+		print img_picture('', 'product', 'class="picturefixedwidth"');
 		print $form->select_produits($id, 'id', '', 0, 0, 1, 2, '', 0, array(), 0, $langs->trans("RefOrLabel"), 0, 'widthcentpercentminusx maxwidth400');
 		print '</td></tr>';
 
 		// Tag
 		if (isModEnabled('category')) {
 			print '<tr class="nooddeven"><td class="titlefield">'.$langs->trans("Categories").'</td><td>';
-			$moreforfilter .= img_picto($langs->trans("Categories"), 'category', 'class="pictofixedwidth"');
+			$moreforfilter .= img_picture($langs->trans("Categories"), 'category', 'class="picturefixedwidth"');
 			$moreforfilter .= $htmlother->select_categories(Category::TYPE_PRODUCT, $search_categ, 'search_categ', 1, 1, 'widthcentpercentminusx maxwidth400');
 			print $moreforfilter;
 			print '</td></tr>';
@@ -250,7 +250,7 @@ if ($result || !($id > 0)) {
 
 	// thirdparty
 	print '<tr class="nooddeven"><td class="titlefield">'.$langs->trans("ThirdParty").'</td><td>';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print $form->select_company($socid, 'socid', '', 1, 0, 0, array(), 0, 'widthcentpercentminusx maxwidth400');
 	print '</td></tr>';
 
@@ -529,7 +529,7 @@ if ($result || !($id > 0)) {
 				$dategenerated = ($mesg ? '<span class="error">'.$mesg.'</span>' : $langs->trans("ChartNotGenerated"));
 			}
 			$linktoregenerate = '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?'.(GETPOSTISSET('id') ? 'id='.GETPOSTINT('id') : 'id='.$object->id).(((string) $type != '' && $type != '-1') ? '&type='.((int) $type) : '').'&action=recalcul&mode='.urlencode($mode).'&search_year='.((int) $search_year).($search_categ > 0 ? '&search_categ='.((int) $search_categ) : '').'">';
-			$linktoregenerate .= img_picto($langs->trans("ReCalculate").' ('.$dategenerated.')', 'refresh');
+			$linktoregenerate .= img_picture($langs->trans("ReCalculate").' ('.$dategenerated.')', 'refresh');
 			$linktoregenerate .= '</a>';
 
 

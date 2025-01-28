@@ -40,7 +40,7 @@ function showOnlineSignatureUrl($type, $ref, $obj = null, $mode = '')
 
 	$out = '';
 	if ($mode != 'short') {
-		$out .= img_picto('', 'globe', 'class="pictofixedwidth"');
+		$out .= img_picture('', 'globe', 'class="picturefixedwidth"');
 	}
 	$out .= '<span class="opacitymedium">' . $langs->trans("ToOfferALinkForOnlineSignature", $servicename) . '</span><br>';
 	$url = getOnlineSignatureUrl(0, $type, $ref, 1, $obj);
@@ -50,7 +50,7 @@ function showOnlineSignatureUrl($type, $ref, $obj = null, $mode = '')
 	} else {
 		$out .= '<input type="text" id="onlinesignatureurl" class="' . ($mode == 'short' ? 'centpercentminusx' : 'quatrevingtpercentminusx') . '" value="' . $url . '">';
 	}
-	$out .= '<a class="" href="' . $url . '" target="_blank" rel="noopener noreferrer">' . img_picto('', 'globe', 'class="paddingleft"') . '</a>';
+	$out .= '<a class="" href="' . $url . '" target="_blank" rel="noopener noreferrer">' . img_picture('', 'globe', 'class="paddingleft"') . '</a>';
 	$out .= '</div>';
 	$out .= ajax_autoselect("onlinesignatureurl", '');
 	return $out;

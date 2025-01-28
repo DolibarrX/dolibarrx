@@ -398,9 +398,9 @@ if ($id > 0 || $ref) {
 		if ($action != 'edit' && $action != 're-edit') {
 			$head = product_prepare_head($object);
 			$titre = $langs->trans("CardProduct".$object->type);
-			$picto = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
+			$picture = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
 
-			print dol_get_fiche_head($head, 'suppliers', $titre, -1, $picto);
+			print dol_get_fiche_head($head, 'suppliers', $titre, -1, $picture);
 
 			$linkback = '<a href="'.DOL_URL_ROOT.'/product/list.php?restore_lastsearch_values=1&type='.$object->type.'">'.$langs->trans("BackToList").'</a>';
 			$object->next_prev_filter = "fk_product_type:=:".((int) $object->type); // usf filter
@@ -431,7 +431,7 @@ if ($id > 0 || $ref) {
 			print '<tr><td>';
 			$textdesc = $langs->trans("CostPriceDescription");
 			$textdesc .= "<br>".$langs->trans("CostPriceUsage");
-			$text = $form->textwithpicto($langs->trans("CostPrice"), $textdesc, 1, 'help', '');
+			$text = $form->textWithPicture($langs->trans("CostPrice"), $textdesc, 1, 'help', '');
 			print $form->editfieldkey($text, 'cost_price', $object->cost_price, $object, $usercancreate, 'amount:6');
 			print '</td><td>';
 			print $form->editfieldval($text, 'cost_price', $object->cost_price, $object, $usercancreate, 'amount:6');
@@ -444,7 +444,7 @@ if ($id > 0 || $ref) {
 			}
 			print '<tr><td class="titlefieldcreate">';
 			$textdesc = $langs->trans("AverageUnitPricePMPDesc");
-			$text = $form->textwithpicto($langs->trans("AverageUnitPricePMPShort"), $textdesc, 1, 'help', '');
+			$text = $form->textWithPicture($langs->trans("AverageUnitPricePMPShort"), $textdesc, 1, 'help', '');
 			print $form->editfieldkey($text, 'pmp', $object->pmp, $object, $usercaneditpmp, 'amount:6');
 			print '</td><td>';
 			print $form->editfieldval($text, 'pmp', ($object->pmp > 0 ? $object->pmp : ''), $object, $usercaneditpmp, 'amount:6');
@@ -452,7 +452,7 @@ if ($id > 0 || $ref) {
 				print ' '.$langs->trans("HT");
 			}
 			/*
-			.$form->textwithpicto($langs->trans("AverageUnitPricePMPShort"), $langs->trans("AverageUnitPricePMPDesc")).'</td>';
+			.$form->textWithPicture($langs->trans("AverageUnitPricePMPShort"), $langs->trans("AverageUnitPricePMPDesc")).'</td>';
 			print '<td>';
 			if ($object->pmp > 0) {
 				print price($object->pmp).' '.$langs->trans("HT");
@@ -517,14 +517,14 @@ if ($id > 0 || $ref) {
 					$events = array();
 					$events[] = array('method' => 'getVatRates', 'url' => dol_buildpath('/core/ajax/vatrates.php', 1), 'htmlname' => 'tva_tx', 'params' => array());
 					$filter = '(fournisseur:=:1) AND (status:=:1)';
-					print img_picto('', 'company', 'class="pictofixedwidth"').$form->select_company(GETPOST("id_fourn", 'alpha'), 'id_fourn', $filter, $langs->transnoentitiesnoconv('SelectThirdParty'), 0, 0, $events);
+					print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company(GETPOST("id_fourn", 'alpha'), 'id_fourn', $filter, $langs->transnoentitiesnoconv('SelectThirdParty'), 0, 0, $events);
 
 					$parameters = array('filter'=>$filter, 'html_name'=>'id_fourn', 'selected'=>GETPOST("id_fourn"), 'showempty'=>1, 'prod_id'=>$object->id);
 					$resHook = $hookManager->executeHooks('formCreateThirdpartyOptions', $parameters, $object, $action);
 					if (empty($resHook)) {
 						if (empty($form->result)) {
 							print '<a href="'.DOL_URL_ROOT.'/societe/card.php?action=create&type=f&backtopage='.urlencode($_SERVER["PHP_SELF"].'?id='.((int) $object->id).'&action='.urlencode($action).($action == 'create_price' ? '&token='.newToken() : '')).'">';
-							print img_picto($langs->trans("CreateDolibarrThirdPartySupplier"), 'add', 'class="marginleftonly"');
+							print img_picture($langs->trans("CreateDolibarrThirdPartySupplier"), 'add', 'class="marginleftonly"');
 							print '</a>';
 						}
 					}
@@ -612,7 +612,7 @@ if ($id > 0 || $ref) {
 					// Packaging/Conditionnement
 					print '<tr>';
 
-					print '<td class="fieldrequired">'.$form->textwithpicto($langs->trans("PackagingForThisProduct"), $langs->trans("PackagingForThisProductDesc")).'</td>';
+					print '<td class="fieldrequired">'.$form->textWithPicture($langs->trans("PackagingForThisProduct"), $langs->trans("PackagingForThisProductDesc")).'</td>';
 					print '<td>';
 					$packaging = GETPOSTISSET('packaging') ? price2num(GETPOST('packaging', 'alphanohtml'), 'MS') : ((empty($rowid)) ? "1" : price2num($object->packaging, 'MS'));
 					print '<input class="flat" name="packaging" size="5" value="'.$packaging.'">';
@@ -711,7 +711,7 @@ if ($id > 0 || $ref) {
 					print '</tr>';
 
 					// Currency price qty min
-					print '<tr><td class="fieldrequired">'.$form->textwithpicto($langs->trans("PriceQtyMinCurrency"), $langs->transnoentitiesnoconv("WithoutDiscount")).'</td>';
+					print '<tr><td class="fieldrequired">'.$form->textWithPicture($langs->trans("PriceQtyMinCurrency"), $langs->transnoentitiesnoconv("WithoutDiscount")).'</td>';
 					$pricesupplierincurrencytouse = (GETPOST('multicurrency_price') ? GETPOST('multicurrency_price') : (isset($object->fourn_multicurrency_price) ? $object->fourn_multicurrency_price : ''));
 					print '<td><input class="flat" name="multicurrency_price" size="8" value="'.price($pricesupplierincurrencytouse).'">';
 					print '&nbsp;';
@@ -719,7 +719,7 @@ if ($id > 0 || $ref) {
 					print '</td></tr>';
 
 					// Price qty min
-					print '<tr><td class="fieldrequired">'.$form->textwithpicto($langs->trans("PriceQtyMin"), $langs->transnoentitiesnoconv("WithoutDiscount")).'</td>';
+					print '<tr><td class="fieldrequired">'.$form->textWithPicture($langs->trans("PriceQtyMin"), $langs->transnoentitiesnoconv("WithoutDiscount")).'</td>';
 					print '<td><input class="flat" name="disabled_price" size="8" value="">';
 					print '<input type="hidden" name="price" value="">';
 					print '<input type="hidden" name="price_base_type" value="">';
@@ -824,7 +824,7 @@ if ($id > 0 || $ref) {
 					print '<tr>';
 					print '<td>'.$langs->trans('GencodBuyPrice').'</td>';
 					print '<td>';
-					print img_picto('', 'barcode', 'class="pictofixedwidth"');
+					print img_picture('', 'barcode', 'class="picturefixedwidth"');
 					print $formbarcode->selectBarcodeType((GETPOSTISSET('fk_barcode_type') ? GETPOSTINT('fk_barcode_type') : ($rowid ? $object->supplier_fk_barcode_type : getDolGlobalInt("PRODUIT_DEFAULT_BARCODE_TYPE"))), 'fk_barcode_type', 1);
 					print ' <input class="flat" name="barcode"  value="'.(GETPOSTISSET('barcode') ? GETPOST('barcode') : ($rowid ? $object->supplier_barcode : '')).'"></td>';
 					print '</tr>';
@@ -860,7 +860,7 @@ if ($id > 0 || $ref) {
 
 								print '<tr><td'.($extrafields->attributes["product_fournisseur_price"]['required'][$key] ? ' class="fieldrequired"' : '').'>';
 								if (!empty($extrafields->attributes["product_fournisseur_price"]['help'][$key])) {
-									print $form->textwithpicto($langs->trans($value), $langs->trans($extrafields->attributes["product_fournisseur_price"]['help'][$key]));
+									print $form->textWithPicture($langs->trans($value), $langs->trans($extrafields->attributes["product_fournisseur_price"]['help'][$key]));
 								} else {
 									print $langs->trans($value);
 								}
@@ -886,7 +886,7 @@ if ($id > 0 || $ref) {
 
 									print '<tr><td'.($extrafields->attributes["product_fournisseur_price"]['required'][$key] ? ' class="fieldrequired"' : '').'>';
 									if (!empty($extrafields->attributes["product_fournisseur_price"]['help'][$key])) {
-										print $form->textwithpicto($langs->trans($value), $langs->trans($extrafields->attributes["product_fournisseur_price"]['help'][$key]));
+										print $form->textWithPicture($langs->trans($value), $langs->trans($extrafields->attributes["product_fournisseur_price"]['help'][$key]));
 									} else {
 										print $langs->trans($value);
 									}
@@ -1116,7 +1116,7 @@ if ($id > 0 || $ref) {
 									$langs->load($extrafields->attributes["product_fournisseur_price"]['langfile'][$key]);
 								}
 								if (!empty($extrafields->attributes["product_fournisseur_price"]['help'][$key])) {
-									$extratitle = $form->textwithpicto($langs->trans($value), $langs->trans($extrafields->attributes["product_fournisseur_price"]['help'][$key]));
+									$extratitle = $form->textWithPicture($langs->trans($value), $langs->trans($extrafields->attributes["product_fournisseur_price"]['help'][$key]));
 								} else {
 									$extratitle = $langs->trans($value);
 								}
@@ -1149,7 +1149,7 @@ if ($id > 0 || $ref) {
 							if ($usercancreate) {
 								print '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?id='.((int) $object->id).'&socid='.((int) $productfourn->fourn_id).'&action=edit_price&token='.newToken().'&rowid='.((int) $productfourn->product_fourn_price_id).'">'.img_edit()."</a>";
 								print ' &nbsp; ';
-								print '<a href="'.$_SERVER['PHP_SELF'].'?id='.((int) $object->id).'&socid='.((int) $productfourn->fourn_id).'&action=ask_remove_pf&token='.newToken().'&rowid='.((int) $productfourn->product_fourn_price_id).'">'.img_picto($langs->trans("Remove"), 'delete').'</a>';
+								print '<a href="'.$_SERVER['PHP_SELF'].'?id='.((int) $object->id).'&socid='.((int) $productfourn->fourn_id).'&action=ask_remove_pf&token='.newToken().'&rowid='.((int) $productfourn->product_fourn_price_id).'">'.img_picture($langs->trans("Remove"), 'delete').'</a>';
 							}
 
 							print '</td>';
@@ -1339,7 +1339,7 @@ if ($id > 0 || $ref) {
 							if ($usercancreate) {
 								print '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?id='.((int) $object->id).'&socid='.((int) $productfourn->fourn_id).'&action=edit_price&token='.newToken().'&rowid='.((int) $productfourn->product_fourn_price_id).'">'.img_edit()."</a>";
 								print ' &nbsp; ';
-								print '<a href="'.$_SERVER['PHP_SELF'].'?id='.((int) $object->id).'&socid='.((int) $productfourn->fourn_id).'&action=ask_remove_pf&token='.newToken().'&rowid='.((int) $productfourn->product_fourn_price_id).'">'.img_picto($langs->trans("Remove"), 'delete').'</a>';
+								print '<a href="'.$_SERVER['PHP_SELF'].'?id='.((int) $object->id).'&socid='.((int) $productfourn->fourn_id).'&action=ask_remove_pf&token='.newToken().'&rowid='.((int) $productfourn->product_fourn_price_id).'">'.img_picture($langs->trans("Remove"), 'delete').'</a>';
 							}
 
 							print '</td>';

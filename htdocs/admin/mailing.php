@@ -170,7 +170,7 @@ print '<td class="hideonsmartphone"><span class="opacitymedium">'.dol_escape_htm
 print '</tr>';
 
 print '<tr class="oddeven"><td>';
-print $form->textwithpicto($langs->trans("MailingDelay"), $langs->trans("IfDefinedUseAValueBeetween", '0.001', '10')).'</td><td>';
+print $form->textWithPicture($langs->trans("MailingDelay"), $langs->trans("IfDefinedUseAValueBeetween", '0.001', '10')).'</td><td>';
 print '<input class="width75" type="text" name="MAILING_DELAY" value="'.getDolGlobalString('MAILING_DELAY').'">';
 print '</td>';
 print '<td class="hideonsmartphone"></td>';
@@ -184,7 +184,7 @@ print '<tr class="oddeven"><td>';
 print $langs->trans("ActivateCheckReadKey").'</td><td>';
 print '<input class="minwidth100 maxwdith250 widthcentpercentminusx" type="text" name="MAILING_EMAIL_UNSUBSCRIBE_KEY" id="MAILING_EMAIL_UNSUBSCRIBE_KEY" value="'.getDolGlobalString('MAILING_EMAIL_UNSUBSCRIBE_KEY').'">';
 if (!empty($config->use_javascript_ajax)) {
-	print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
+	print '&nbsp;'.img_picture($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
 }
 print '</td>';
 print '<td class="hideonsmartphone"></td>';

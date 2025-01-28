@@ -185,11 +185,11 @@ if (!$base) {
 						$img = "info";
 					} else {
 						$img = "info_black";
-						print img_picto($langs->trans("NotAvailableByDefaultEnabledOnModuleActivation"), $img, 'class="small opacitymedium"');
+						print img_picture($langs->trans("NotAvailableByDefaultEnabledOnModuleActivation"), $img, 'class="small opacitymedium"');
 					}
 				} else {
 					$img = "info_black";
-					print img_picto($langs->trans("ExternalModule"), $img, 'class="small"');
+					print img_picture($langs->trans("ExternalModule"), $img, 'class="small"');
 				}
 				print '</td>';
 				print '<td>'.$obj->Engine.'</td>';

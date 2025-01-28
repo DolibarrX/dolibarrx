@@ -53,7 +53,7 @@ class modLoan extends DolibarrModules
 		$this->version = 'dolibarr';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'money-bill-alt';
+		$this->picture = 'money-bill-alt';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/loan/temp");

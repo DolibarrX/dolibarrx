@@ -419,14 +419,14 @@ if ($ext == 'csv') {
 	print '<span class="fieldrequired">'.$langs->trans('Date').'</span> '.$form->selectDate(($date ? $date : -1), 'date');
 
 	print ' <span class="clearbothonsmartphone marginleftonly paddingleftonly marginrightonly paddingrightonly">&nbsp;</span> ';
-	print img_picto('', 'product', 'class="pictofixedwidth"').' ';
+	print img_picture('', 'product', 'class="picturefixedwidth"').' ';
 	print '</span> ';
 	print $form->select_produits($productid, 'productid', '', 0, 0, -1, 2, '', 0, array(), 0, $langs->trans('Product'), 0, 'maxwidth300', 0, '', null, 1);
 
 	if ($mode != 'future') {
 		// A virtual stock in future has no sense on a per warehouse view, so no filter on warehouse is available for stock at date in future
 		print ' <span class="clearbothonsmartphone marginleftonly paddingleftonly marginrightonly paddingrightonly">&nbsp;</span> ';
-		print img_picto('', 'stock', 'class="pictofixedwidth"').$langs->trans("Warehouse").' :';
+		print img_picture('', 'stock', 'class="picturefixedwidth"').$langs->trans("Warehouse").' :';
 		print '</span> ';
 		$selected = ((GETPOSTISSET('search_fk_warehouse') || GETPOSTISSET('fk_warehouse')) ? $search_fk_warehouse : 'ifonenodefault');
 		print $formproduct->selectWarehouses($selected, 'search_fk_warehouse', '', 1, 0, 0, $langs->trans('Warehouse'), 0, 0, array(), 'minwidth200', array(), 1, false, 'e.ref', 1);
@@ -489,7 +489,7 @@ if ($ext == 'csv') {
 			(GETPOSTISSET('datemonth') ? "&datemonth=".GETPOSTINT('datemonth') : '').
 			(GETPOSTISSET('dateyear') ? "&dateyear=".GETPOSTINT('dateyear') : '').
 			'" title="Download CSV" />';
-		print img_picto('', 'download', 'class="pictofixedwidth"');
+		print img_picture('', 'download', 'class="picturefixedwidth"');
 		print 'Download CSV';
 		print '</a>';
 		print '</p>';
@@ -521,8 +521,8 @@ if ($ext == 'csv') {
 	print $hookManager->resPrint;
 
 	print '<td class="liste_titre maxwidthsearch">';
-	$searchpicto = $form->showFilterAndCheckAddButtons(0);
-	print $searchpicto;
+	$searchPicture = $form->showFilterAndCheckAddButtons(0);
+	print $searchPicture;
 	print '</td>';
 	print '</tr>';
 

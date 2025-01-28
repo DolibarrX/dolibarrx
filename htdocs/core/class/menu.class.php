@@ -68,7 +68,7 @@ class Menu
 	 * @param	string	$id			Id
 	 * @param	string	$idsel		Id sel
 	 * @param	string	$classname	Class name
-	 * @param	string	$prefix		Prefix to title (image or picto)
+	 * @param	string	$prefix		Prefix to title (image or picture)
 	 * @return	void
 	 */
 	public function add($url, $titre, $level = 0, $enabled = 1, $target = '', $mainmenu = '', $leftmenu = '', $position = 0, $id = '', $idsel = '', $classname = '', $prefix = '')
@@ -91,7 +91,7 @@ class Menu
 	 * @param	string	$id			Id
 	 * @param	string	$idsel		Id sel
 	 * @param	string	$classname	Class name
-	 * @param	string	$prefix		Prefix to title (image or picto)
+	 * @param	string	$prefix		Prefix to title (image or picture)
 	 * @return	void
 	 */
 	public function insert($idafter, $url, $titre, $level = 0, $enabled = 1, $target = '', $mainmenu = '', $leftmenu = '', $position = 0, $id = '', $idsel = '', $classname = '', $prefix = '')

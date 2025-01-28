@@ -371,11 +371,11 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 	}
 
 	$morehtmlref = '<a href="'.DOL_URL_ROOT.'/user/vcard.php?id='.$object->id.'&output=file&file='.urlencode(dol_sanitizeFileName($object->getFullName($langs).'.vcf')).'" class="refid" rel="noopener">';
-	$morehtmlref .= img_picto($langs->trans("Download").' '.$langs->trans("VCard"), 'vcard.png', 'class="valignmiddle marginleftonly paddingrightonly"');
+	$morehtmlref .= img_picture($langs->trans("Download").' '.$langs->trans("VCard"), 'vcard.png', 'class="valignmiddle marginleftonly paddingrightonly"');
 	$morehtmlref .= '</a>';
 
 	$urltovirtualcard = '/user/virtualcard.php?id='.((int) $object->id);
-	$morehtmlref .= dolButtonToOpenUrlInDialogPopup('publicvirtualcard', $langs->transnoentitiesnoconv("PublicVirtualCardUrl").' - '.$object->getFullName($langs), img_picto($langs->trans("PublicVirtualCardUrl"), 'card', 'class="valignmiddle marginleftonly paddingrightonly"'), $urltovirtualcard, '', 'nohover');
+	$morehtmlref .= dolButtonToOpenUrlInDialogPopup('publicvirtualcard', $langs->transnoentitiesnoconv("PublicVirtualCardUrl").' - '.$object->getFullName($langs), img_picture($langs->trans("PublicVirtualCardUrl"), 'card', 'class="valignmiddle marginleftonly paddingrightonly"'), $urltovirtualcard, '', 'nohover');
 
 	dol_banner_tab($object, 'id', $linkback, $user->hasRight('user', 'user', 'lire') || $user->admin, 'rowid', 'ref', $morehtmlref);
 
@@ -395,9 +395,9 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 		$addadmin = '';
 		if (property_exists($object, 'admin')) {
 			if (isModEnabled('multicompany') && !empty($object->admin) && empty($object->entity)) {
-				$addadmin .= img_picto($langs->trans("SuperAdministratorDesc"), "redstar", 'class="paddingleft"');
+				$addadmin .= img_picture($langs->trans("SuperAdministratorDesc"), "redstar", 'class="paddingleft"');
 			} elseif (!empty($object->admin)) {
-				$addadmin .= img_picto($langs->trans("AdministratorDesc"), "star", 'class="paddingleft"');
+				$addadmin .= img_picture($langs->trans("AdministratorDesc"), "star", 'class="paddingleft"');
 			}
 		}
 		print showValueWithClipboardCPButton($object->login).$addadmin;
@@ -427,7 +427,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 	if (isModEnabled('expensereport')) {
 		print '<tr><td>';
 		$text = $langs->trans("ForceUserExpenseValidator");
-		print $form->textwithpicto($text, $langs->trans("ValidatorIsSupervisorByDefault"), 1, 'help');
+		print $form->textWithPicture($text, $langs->trans("ValidatorIsSupervisorByDefault"), 1, 'help');
 		print '</td>';
 		print '<td>';
 		if (!empty($object->fk_user_expense_validator)) {
@@ -443,7 +443,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 	if (isModEnabled('holiday')) {
 		print '<tr><td>';
 		$text = $langs->trans("ForceUserHolidayValidator");
-		print $form->textwithpicto($text, $langs->trans("ValidatorIsSupervisorByDefault"), 1, 'help');
+		print $form->textWithPicture($text, $langs->trans("ValidatorIsSupervisorByDefault"), 1, 'help');
 		print '</td>';
 		print '<td>';
 		if (!empty($object->fk_user_holiday_validator)) {
@@ -476,14 +476,14 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 		// Salary
 		print '<tr><td>'.$langs->trans("Salary").'</td>';
 		print '<td>';
-		print($object->salary != '' ? img_picto('', 'salary', 'class="pictofixedwidth paddingright"').'<span class="amount">'.price($object->salary, 0, $langs, 1, -1, -1, $config->currency) : '').'</span>';
+		print($object->salary != '' ? img_picture('', 'salary', 'class="picturefixedwidth paddingright"').'<span class="amount">'.price($object->salary, 0, $langs, 1, -1, -1, $config->currency) : '').'</span>';
 		print '</td>';
 		print "</tr>\n";
 
 		// THM
 		print '<tr><td>';
 		$text = $langs->trans("THM");
-		print $form->textwithpicto($text, $langs->trans("THMDescription"), 1, 'help', 'classthm');
+		print $form->textWithPicture($text, $langs->trans("THMDescription"), 1, 'help', 'classthm');
 		print '</td>';
 		print '<td>';
 		print($object->thm != '' ? price($object->thm, 0, $langs, 1, -1, -1, $config->currency) : '');
@@ -493,7 +493,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 		// TJM
 		print '<tr><td>';
 		$text = $langs->trans("TJM");
-		print $form->textwithpicto($text, $langs->trans("TJMDescription"), 1, 'help', 'classtjm');
+		print $form->textWithPicture($text, $langs->trans("TJMDescription"), 1, 'help', 'classtjm');
 		print '</td>';
 		print '<td>';
 		print($object->tjm != '' ? price($object->tjm, 0, $langs, 1, -1, -1, $config->currency) : '');
@@ -894,9 +894,9 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 		}
 		if (!empty($account->label) && $account->number) {
 			if (!checkBanForAccount($account)) {
-				$stringescaped .= ' '.img_picto($langs->trans("ValueIsNotValid"), 'warning');
+				$stringescaped .= ' '.img_picture($langs->trans("ValueIsNotValid"), 'warning');
 			} else {
-				$stringescaped .= ' '.img_picto($langs->trans("ValueIsValid"), 'info');
+				$stringescaped .= ' '.img_picture($langs->trans("ValueIsValid"), 'info');
 			}
 		}
 
@@ -906,7 +906,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 		print '<td class="tdoverflowmax200" title="'.dol_escape_htmltag(getIbanHumanReadable($account)).'">';
 		if (!empty($account->iban)) {
 			if (!checkIbanForAccount($account)) {
-				print ' '.img_picto($langs->trans("IbanNotValid"), 'warning');
+				print ' '.img_picture($langs->trans("IbanNotValid"), 'warning');
 			}
 		}
 		print getIbanHumanReadable($account);
@@ -915,7 +915,7 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 		print '<td class="tdoverflowmax150" title="'.dol_escape_htmltag($account->bic).'">';
 		if (!empty($account->bic)) {
 			if (!checkSwiftForAccount($account)) {
-				print ' '.img_picto($langs->trans("SwiftNotValid"), 'warning');
+				print ' '.img_picture($langs->trans("SwiftNotValid"), 'warning');
 			}
 		}
 		print dol_escape_htmltag($account->bic);
@@ -928,11 +928,11 @@ if ($action != 'edit' && $action != 'create') {		// If not bank account yet, $ac
 		print '<td class="right nowraponall">';
 		if ($permissiontoaddbankaccount) {
 			print '<a class="editfielda marginleftonly marginrightonly" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&bankid='.$account->id.'&action=edit&token='.newToken().'">';
-			print img_picto($langs->trans("Modify"), 'edit');
+			print img_picture($langs->trans("Modify"), 'edit');
 			print '</a>';
 
 			print '<a class="editfielda marginleftonly marginrightonly reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&bankid='.$account->id.'&action=delete_confirmed&token='.newToken().'">';
-			print img_picto($langs->trans("Delete"), 'delete');
+			print img_picture($langs->trans("Delete"), 'delete');
 			print '</a>';
 		}
 		print '</td>';
@@ -985,7 +985,7 @@ if ($id && ($action == 'edit' || $action == 'create') && $permissiontoaddbankacc
 	if (!$selectedcode) {
 		$selectedcode = $config->currency;
 	}
-	print img_picto('', 'multicurrency', 'class="pictofixedwidth"');
+	print img_picture('', 'multicurrency', 'class="picturefixedwidth"');
 	print $form->selectCurrency((GETPOSTISSET("account_currency_code") ? GETPOST("account_currency_code") : $selectedcode), 'account_currency_code');
 	print '</td></tr>';
 
@@ -1001,7 +1001,7 @@ if ($id && ($action == 'edit' || $action == 'create') && $permissiontoaddbankacc
 
 	print '<tr><td class="fieldrequired">'.$langs->trans("Country").'</td>';
 	print '<td class="maxwidth200onsmartphone">';
-	print img_picto('', 'country', 'class="pictofixedwidth"').$form->select_country($selectedcode, 'account_country_id');
+	print img_picture('', 'country', 'class="picturefixedwidth"').$form->select_country($selectedcode, 'account_country_id');
 	if ($user->admin) {
 		print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);
 	}
@@ -1010,7 +1010,7 @@ if ($id && ($action == 'edit' || $action == 'create') && $permissiontoaddbankacc
 	// State
 	print '<tr><td>'.$langs->trans('State').'</td><td class="maxwidth200onsmartphone">';
 	if ($selectedcode) {
-		print img_picto('', 'state', 'class="pictofixedwidth"');
+		print img_picture('', 'state', 'class="picturefixedwidth"');
 		print $formcompany->select_state(GETPOSTISSET("account_state_id") ? GETPOST("account_state_id") : $account->state_id, $selectedcode, 'account_state_id');
 	} else {
 		print $countrynotdefined;
@@ -1061,7 +1061,7 @@ if ($id && ($action == 'edit' || $action == 'create') && $permissiontoaddbankacc
 		print '<tr>';
 		print '<td'.($require ? ' class="fieldrequired" ' : '').'>';
 		if ($tooltip) {
-			print $form->textwithpicto($langs->trans($val), $tooltip, 4, 'help', '', 0, 3, $name);
+			print $form->textWithPicture($langs->trans($val), $tooltip, 4, 'help', '', 0, 3, $name);
 		} else {
 			print $langs->trans($val);
 		}

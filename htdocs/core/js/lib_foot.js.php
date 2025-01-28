@@ -230,7 +230,7 @@ if (!defined('JS_JQUERY_DISABLE_DROPDOWN')) {
 if ($config->browser->layout != 'phone') {
 	print "\n/* JS CODE TO ENABLE document_preview */\n"; // Function document_preview is into header
 	print '		jQuery(document).ready(function () {
-					// Click on the preview picto
+					// Click on the preview picture
 			        jQuery(".documentpreview").click(function () {
             		    console.log("We click on preview for element with href="+$(this).attr(\'href\')+" mime="+$(this).attr(\'mime\'));
             		    document_preview($(this).attr(\'href\'), $(this).attr(\'mime\'), \''.dol_escape_js($langs->transnoentities("Preview")).'\');

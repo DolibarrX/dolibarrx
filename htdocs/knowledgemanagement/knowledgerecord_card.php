@@ -180,7 +180,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-knowledgemanagement 
 
 // Part to create
 if ($action == 'create') {
-	print load_fiche_titre($langs->trans("NewKnowledgeRecord"), '', 'object_'.$object->picto);
+	print load_fiche_titre($langs->trans("NewKnowledgeRecord"), '', 'object_'.$object->picture);
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -207,7 +207,7 @@ if ($action == 'create') {
 		if (count($cate_arbo)) {
 			// Categories
 			print '<tr><td>'.$langs->trans("Categories").'</td><td colspan="3">';
-			print img_picto('', 'category').$form->multiselectarray('categories', $cate_arbo, GETPOST('categories', 'array'), '', 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
+			print img_picture('', 'category').$form->multiselectarray('categories', $cate_arbo, GETPOST('categories', 'array'), '', 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 			print "</td></tr>";
 		}
 	}
@@ -236,7 +236,7 @@ if ($action == 'create') {
 
 // Part to edit record
 if (($id || $ref) && $action == 'edit') {
-	print load_fiche_titre($langs->trans("KnowledgeRecord"), '', 'object_'.$object->picto);
+	print load_fiche_titre($langs->trans("KnowledgeRecord"), '', 'object_'.$object->picture);
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -302,7 +302,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	$res = $object->fetch_optionals();
 
 	$head = knowledgerecordPrepareHead($object);
-	print dol_get_fiche_head($head, 'card', $langs->trans("KnowledgeRecord"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'card', $langs->trans("KnowledgeRecord"), -1, $object->picture);
 
 	$formconfirm = '';
 

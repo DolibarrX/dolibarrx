@@ -275,11 +275,11 @@ if ($user->hasRight("user", "user", "read") || $user->admin) {
 }
 
 $morehtmlref = '<a href="'.DOL_URL_ROOT.'/user/vcard.php?id='.$object->id.'&output=file&file='.urlencode(dol_sanitizeFileName($object->getFullName($langs).'.vcf')).'" class="refid" rel="noopener">';
-$morehtmlref .= img_picto($langs->trans("Download").' '.$langs->trans("VCard"), 'vcard.png', 'class="valignmiddle marginleftonly paddingrightonly"');
+$morehtmlref .= img_picture($langs->trans("Download").' '.$langs->trans("VCard"), 'vcard.png', 'class="valignmiddle marginleftonly paddingrightonly"');
 $morehtmlref .= '</a>';
 
 $urltovirtualcard = '/user/virtualcard.php?id='.((int) $object->id);
-$morehtmlref .= dolButtonToOpenUrlInDialogPopup('publicvirtualcard', $langs->transnoentitiesnoconv("PublicVirtualCardUrl").' - '.$object->getFullName($langs), img_picto($langs->trans("PublicVirtualCardUrl"), 'card', 'class="valignmiddle marginleftonly paddingrightonly"'), $urltovirtualcard, '', 'nohover');
+$morehtmlref .= dolButtonToOpenUrlInDialogPopup('publicvirtualcard', $langs->transnoentitiesnoconv("PublicVirtualCardUrl").' - '.$object->getFullName($langs), img_picture($langs->trans("PublicVirtualCardUrl"), 'card', 'class="valignmiddle marginleftonly paddingrightonly"'), $urltovirtualcard, '', 'nohover');
 
 dol_banner_tab($object, 'id', $linkback, $user->hasRight("user", "user", "read") || $user->admin, 'rowid', 'ref', $morehtmlref);
 
@@ -300,9 +300,9 @@ if (!empty($object->ldap_sid) && $object->statut == 0) {
 	$addadmin = '';
 	if (property_exists($object, 'admin')) {
 		if (isModEnabled('multicompany') && !empty($object->admin) && empty($object->entity)) {
-			$addadmin .= img_picto($langs->trans("SuperAdministratorDesc"), "redstar", 'class="paddingleft"');
+			$addadmin .= img_picture($langs->trans("SuperAdministratorDesc"), "redstar", 'class="paddingleft"');
 		} elseif (!empty($object->admin)) {
-			$addadmin .= img_picto($langs->trans("AdministratorDesc"), "star", 'class="paddingleft"');
+			$addadmin .= img_picture($langs->trans("AdministratorDesc"), "star", 'class="paddingleft"');
 		}
 	}
 	print showValueWithClipboardCPButton($object->login).$addadmin;
@@ -313,7 +313,7 @@ print '</tr>'."\n";
 // Type
 print '<tr><td>';
 $text = $langs->trans("Type");
-print $form->textwithpicto($text, $langs->trans("InternalExternalDesc"));
+print $form->textWithPicture($text, $langs->trans("InternalExternalDesc"));
 print '</td><td>';
 $type = $langs->trans("Internal");
 if ($object->socid > 0) {
@@ -367,9 +367,9 @@ if ($caneditperms) {
 print '<td></td>';
 //print '<td></td>';
 print '<td class="right nowrap" colspan="2">';
-print '<a class="showallperms" title="'.dol_escape_htmltag($langs->trans("ShowAllPerms")).'" alt="'.dol_escape_htmltag($langs->trans("ShowAllPerms")).'" href="#">'.img_picto('', 'folder-open', 'class="paddingright"').'<span class="hideonsmartphone">'.$langs->trans("ExpandAll").'</span></a>';
+print '<a class="showallperms" title="'.dol_escape_htmltag($langs->trans("ShowAllPerms")).'" alt="'.dol_escape_htmltag($langs->trans("ShowAllPerms")).'" href="#">'.img_picture('', 'folder-open', 'class="paddingright"').'<span class="hideonsmartphone">'.$langs->trans("ExpandAll").'</span></a>';
 print ' | ';
-print '<a class="hideallperms" title="'.dol_escape_htmltag($langs->trans("HideAllPerms")).'" alt="'.dol_escape_htmltag($langs->trans("HideAllPerms")).'" href="#">'.img_picto('', 'folder', 'class="paddingright"').'<span class="hideonsmartphone">'.$langs->trans("UndoExpandAll").'</span></a>';
+print '<a class="hideallperms" title="'.dol_escape_htmltag($langs->trans("HideAllPerms")).'" alt="'.dol_escape_htmltag($langs->trans("HideAllPerms")).'" href="#">'.img_picture('', 'folder', 'class="paddingright"').'<span class="hideonsmartphone">'.$langs->trans("UndoExpandAll").'</span></a>';
 print '</td>';
 print '</tr>'."\n";
 
@@ -545,14 +545,14 @@ if ($result) {
 
 			// Break detected, we get objMod
 			$objMod = $modules[$obj->module];
-			$picto = ($objMod->picto ? $objMod->picto : 'generic');
+			$picture = ($objMod->picture ? $objMod->picture : 'generic');
 
 			// Show break line
 			print '<tr class="oddeven trforbreakperms" data-hide-perms="'.$obj->module.'" data-j="'.$j.'">';
 			// Picto and label of module
 			print '<td class="maxwidthonsmartphone tdoverflowmax150 tdforbreakperms" data-hide-perms="'.dol_escape_htmltag($obj->module).'" title="'.dol_escape_htmltag($objMod->getName()).'">';
 			print '<input type="hidden" name="forbreakperms_'.$obj->module.'" id="idforbreakperms_'.$obj->module.'" css="cssforfieldishiden" data-j="'.$j.'" value="'.($isexpanded ? '0' : "1").'">';
-			print img_object('', $picto, 'class="pictoobjectwidth paddingright"').' '.$objMod->getName();
+			print img_object('', $picture, 'class="pictureobjectwidth paddingright"').' '.$objMod->getName();
 			print '<a name="'.$objMod->getName().'"></a>';
 			print '</td>';
 			// Permission and tick (2 columns)
@@ -590,12 +590,12 @@ if ($result) {
 			print '<td class="tdforbreakperms" data-hide-perms="'.dol_escape_htmltag($obj->module).'">&nbsp;</td>';
 			print '<td class="maxwidthonsmartphone right tdforbreakperms" data-hide-perms="'.dol_escape_htmltag($obj->module).'">';
 			print '<div class="switchfolderperms folderperms_'.$obj->module.'"'.($isexpanded ? ' style="display:none;"' : '').'>';
-			print img_picto('', 'folder', 'class="marginright"');
+			print img_picture('', 'folder', 'class="marginright"');
 			print '</div>';
 			print '<div class="switchfolderperms folderopenperms_'.$obj->module.'"'.(!$isexpanded ? ' style="display:none;"' : '').'>';
-			print img_picto('', 'folder-open', 'class="marginright"');
+			print img_picture('', 'folder-open', 'class="marginright"');
 			print '</div>';
-			print '</td>'; //Add picto + / - when open en closed
+			print '</td>'; //Add picture + / - when open en closed
 			print '</tr>'."\n";
 		}
 
@@ -610,10 +610,10 @@ if ($result) {
 		if (!empty($object->admin) && !empty($objMod->rights_admin_allowed)) {    // Permission granted because admin
 			print '<!-- perm is a perm allowed to any admin -->';
 			if ($caneditperms) {
-				print '<td class="center">'.img_picto($langs->trans("AdministratorDesc"), 'star').'</td>';
+				print '<td class="center">'.img_picture($langs->trans("AdministratorDesc"), 'star').'</td>';
 			} else {
 				print '<td class="center nowrap">';
-				print img_picto($langs->trans("Active"), 'switch_on', '', 0, 0, 0, '', 'opacitymedium');
+				print img_picture($langs->trans("Active"), 'switch_on', '', 0, 0, 0, '', 'opacitymedium');
 				print '</td>';
 			}
 			print '<td>';
@@ -624,11 +624,11 @@ if ($result) {
 				print '<td class="center">';
 				print '<a class="reposition addexpandedmodulesinparamlist" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delrights&token='.newToken().'&entity='.$entity.'&rights='.$obj->id.'&confirm=yes&updatedmodulename='.$obj->module.'">';
 				//print img_edit_remove($langs->trans("Remove"));
-				print img_picto($langs->trans("Remove"), 'switch_on');
+				print img_picture($langs->trans("Remove"), 'switch_on');
 				print '</a></td>';
 			} else {
 				print '<td class="center nowrap">';
-				print img_picto($langs->trans("Active"), 'switch_on', '', 0, 0, 0, '', 'opacitymedium');
+				print img_picture($langs->trans("Active"), 'switch_on', '', 0, 0, 0, '', 'opacitymedium');
 				print '</td>';
 			}
 			print '<td>';
@@ -637,8 +637,8 @@ if ($result) {
 			print '<!-- permsgroupbyentitypluszero -->';
 			if (in_array($obj->id, $permsgroupbyentitypluszero)) {	// Permission granted by group
 				print '<td class="center nowrap">';
-				print img_picto($langs->trans("Active"), 'switch_on', '', 0, 0, 0, '', 'opacitymedium');
-				//print img_picto($langs->trans("Active"), 'tick');
+				print img_picture($langs->trans("Active"), 'switch_on', '', 0, 0, 0, '', 'opacitymedium');
+				//print img_picture($langs->trans("Active"), 'tick');
 				print '</td>';
 				print '<td>';
 				print $form->textwithtooltip($langs->trans("Inherited"), $langs->trans("PermissionInheritedFromAGroup"));
@@ -649,11 +649,11 @@ if ($result) {
 					print '<td class="center nowrap">';
 					print '<a class="reposition addexpandedmodulesinparamlist" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addrights&entity='.$entity.'&rights='.$obj->id.'&confirm=yes&token='.newToken().'&updatedmodulename='.$obj->module.'">';
 					//print img_edit_add($langs->trans("Add"));
-					print img_picto($langs->trans("Add"), 'switch_off');
+					print img_picture($langs->trans("Add"), 'switch_off');
 					print '</a></td>';
 				} else {
 					print '<td class="center nowrap">';
-					print img_picto($langs->trans("Disabled"), 'switch_off', '', 0, 0, 0, '', 'opacitymedium');
+					print img_picture($langs->trans("Disabled"), 'switch_off', '', 0, 0, 0, '', 'opacitymedium');
 					print '</td>';
 				}
 				print '<td>';
@@ -666,11 +666,11 @@ if ($result) {
 				print '<td class="center">';
 				print '<a class="reposition addexpandedmodulesinparamlist" href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=addrights&entity='.$entity.'&rights='.$obj->id.'&confirm=yes&token='.newToken().'&updatedmodulename='.$obj->module.'">';
 				//print img_edit_add($langs->trans("Add"));
-				print img_picto($langs->trans("Add"), 'switch_off');
+				print img_picture($langs->trans("Add"), 'switch_off');
 				print '</a></td>';
 			} else {
 				print '<td>';
-				print img_picto($langs->trans("Disabled"), 'switch_off', '', 0, 0, 0, '', 'opacitymedium');
+				print img_picture($langs->trans("Disabled"), 'switch_off', '', 0, 0, 0, '', 'opacitymedium');
 				print '</td>';
 			}
 			print '<td class="center">';
@@ -730,7 +730,7 @@ if ($result) {
 			print '<td class="right">';
 			$htmltext = $langs->trans("ID").': '.$obj->id;
 			$htmltext .= '<br>'.$langs->trans("Permission").': user->hasRight(\''.dol_escape_htmltag($obj->module).'\', \''.dol_escape_htmltag($obj->perms).'\''.($obj->subperms ? ', \''.dol_escape_htmltag($obj->subperms).'\'' : '').')';
-			print $form->textwithpicto('', $htmltext);
+			print $form->textWithPicture('', $htmltext);
 			//print '<span class="opacitymedium">'.$obj->id.'</span>';
 			print '</td>';
 		}

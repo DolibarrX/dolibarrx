@@ -429,7 +429,7 @@ function show_list_sending_receive($origin, $origin_id, $filter = '')
 								$detail.= ' - '.$langs->trans("Qty").': '.$dbatch->qty;
 								$detail.= '<br>';
 							}
-							print $form->textwithtooltip(img_picto('', 'object_barcode').' '.$langs->trans("DetailBatchNumber"),$detail);
+							print $form->textwithtooltip(img_picture('', 'object_barcode').' '.$langs->trans("DetailBatchNumber"),$detail);
 						}
 						else
 						{

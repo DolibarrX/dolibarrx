@@ -428,7 +428,7 @@ if (GETPOSTISSET('THEME_SATURATE_RATIO')) {
 
 /* Disable colors on left vmenu */
 a.vmenu span, span.vmenu, span.vmenu span {
-	/* To force no color on picto in left menu */
+	/* To force no color on picture in left menu */
 	/* color: var(--colortextbackvmenu) !important; */
 }
 

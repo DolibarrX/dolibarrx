@@ -86,7 +86,7 @@ if (isModEnabled("propal")) {
  * Prospects par statut
  */
 
-$sql = "SELECT count(*) as cc, st.libelle as stcomm, st.picto, st.id";
+$sql = "SELECT count(*) as cc, st.libelle as stcomm, st.picture, st.id";
 $sql .= " FROM ".MAIN_DB_PREFIX."societe as s";
 $sql .= ", ".MAIN_DB_PREFIX."c_stcomm as st ";
 $sql .= " WHERE s.fk_stcomm = st.id";
@@ -125,7 +125,7 @@ if ($resql) {
 
 			print '<tr class="oddeven"><td>';
 			print '<a href="prospects.php?page=0&amp;stcomm='.$obj->id.'">';
-			print img_action($langs->trans("Show"), $obj->id, $obj->picto).' ';
+			print img_action($langs->trans("Show"), $obj->id, $obj->picture).' ';
 			print $langs->trans("StatusProspect".$obj->id);
 			print '</a></td><td class="right">'.$obj->cc.'</td></tr>';
 			$i++;

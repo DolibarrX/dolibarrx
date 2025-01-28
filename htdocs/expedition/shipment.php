@@ -297,7 +297,7 @@ if ($id > 0 || !empty($ref)) {
 			$langs->load("projects");
 			$morehtmlref .= '<br>';
 			if (0) {	// Do not change on shipment
-				$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+				$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 				if ($action != 'classify') {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 				}
@@ -353,7 +353,7 @@ if ($id > 0 || !empty($ref)) {
 		print '<td colspan="2">';
 		print dol_print_date($object->date, 'day');
 		if ($object->hasDelay() && empty($object->delivery_date)) {	// If there is a delivery date planned, warning should be on this date
-			print ' '.img_picto($langs->trans("Late").' : '.$object->showDelay(), "warning");
+			print ' '.img_picture($langs->trans("Late").' : '.$object->showDelay(), "warning");
 		}
 		print '</td>';
 		print '</tr>';
@@ -379,7 +379,7 @@ if ($id > 0 || !empty($ref)) {
 		} else {
 			print dol_print_date($object->delivery_date, 'dayhour');
 			if ($object->hasDelay() && !empty($object->delivery_date)) {
-				print ' '.img_picto($langs->trans("Late").' : '.$object->showDelay(), "warning");
+				print ' '.img_picture($langs->trans("Late").' : '.$object->showDelay(), "warning");
 			}
 		}
 		print '</td>';
@@ -527,7 +527,7 @@ if ($id > 0 || !empty($ref)) {
 			print '</td>';
 			print '<td colspan="2">';
 			if ($action != 'editincoterm') {
-				print $form->textwithpicto($object->display_incoterms(), $object->label_incoterms, 1);
+				print $form->textWithPicture($object->display_incoterms(), $object->label_incoterms, 1);
 			} else {
 				print $form->select_incoterms((!empty($object->fk_incoterms) ? $object->fk_incoterms : ''), (!empty($object->location_incoterms) ? $object->location_incoterms : ''), $_SERVER['PHP_SELF'].'?id='.$object->id);
 			}

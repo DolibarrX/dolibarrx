@@ -205,7 +205,7 @@ $help_url = 'EN:Module_Double_Entry_Accounting#Setup|FR:Module_Comptabilit&eacut
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-accountancy page-fiscalyear');
 
 if ($action == 'create') {
-	print load_fiche_titre($title, '', 'object_'.$object->picto);
+	print load_fiche_titre($title, '', 'object_'.$object->picture);
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -257,7 +257,7 @@ if ($action == 'create') {
 
 // Part to edit record
 if (($id || $ref) && $action == 'edit') {
-	print load_fiche_titre($langs->trans("Fiscalyear"), '', 'object_'.$object->picto);
+	print load_fiche_titre($langs->trans("Fiscalyear"), '', 'object_'.$object->picture);
 
 	print '<form method="POST" name="update" action="'.$_SERVER["PHP_SELF"].'">'."\n";
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -319,7 +319,7 @@ if (($id || $ref) && $action == 'edit') {
 if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'))) {
 	$head = fiscalyear_prepare_head($object);
 
-	print dol_get_fiche_head($head, 'card', $langs->trans("Fiscalyear"), -1, $object->picto, 0, '', '', 0, '', 1);
+	print dol_get_fiche_head($head, 'card', $langs->trans("Fiscalyear"), -1, $object->picture, 0, '', '', 0, '', 1);
 
 	$morehtmlref = '';
 	//$morehtmlref .= '<div class="refidno">';

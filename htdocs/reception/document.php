@@ -143,7 +143,7 @@ if ($id > 0 || !empty($ref)) {
 		$upload_dir = $config->reception->dir_output.'/'.dol_sanitizeFileName($object->ref);
 
 		$head = reception_prepare_head($object);
-		print dol_get_fiche_head($head, 'documents', $langs->trans("Shipment"), -1, $object->picto);
+		print dol_get_fiche_head($head, 'documents', $langs->trans("Shipment"), -1, $object->picture);
 
 
 		// Build file list
@@ -169,7 +169,7 @@ if ($id > 0 || !empty($ref)) {
 			$langs->load("projects");
 			$morehtmlref .= '<br>';
 			if (0) {    // Do not change on reception
-				$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+				$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 				if ($action != 'classify' && $permissiontoadd) {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 				}

@@ -30,7 +30,7 @@
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
+require_once DOL_DOCUMENT_ROOT . '/core/lib/admin.lib.php';
 
 /**
  * @var Config $config
@@ -41,7 +41,11 @@ require_once DOL_DOCUMENT_ROOT.'/core/lib/admin.lib.php';
  */
 
 // Load translation files required by the page
-$langs->loadLangs(array('admin', 'compta', 'accountancy'));
+$langs->loadLangs([
+	'admin',
+	'compta',
+	'accountancy'
+]);
 
 if (!$user->admin) {
 	accessforbidden();
@@ -50,7 +54,7 @@ if (!$user->admin) {
 $action = GETPOST('action', 'aZ09');
 
 // Other parameters ACCOUNTING_*
-$list = array(
+$list = [
 	'ACCOUNTING_PRODUCT_BUY_ACCOUNT',
 	'ACCOUNTING_PRODUCT_SOLD_ACCOUNT',
 	'ACCOUNTING_SERVICE_BUY_ACCOUNT',
@@ -59,7 +63,7 @@ $list = array(
 	'ACCOUNTING_VAT_BUY_ACCOUNT',
 	'ACCOUNTING_ACCOUNT_CUSTOMER',
 	'ACCOUNTING_ACCOUNT_SUPPLIER'
-);
+];
 
 /*
  * Actions
@@ -137,13 +141,13 @@ llxHeader('', '', '', '', 0, 0, '', '', '', 'mod-admin page-compta');
 
 $form = new Form($db);
 
-$linkback = '<a href="'.DOL_URL_ROOT.'/admin/modules.php?restore_lastsearch_values=1">'.$langs->trans("BackToModuleList").'</a>';
+$linkback = '<a href="' . DOL_URL_ROOT . '/admin/modules.php?restore_lastsearch_values=1">' . $langs->trans("BackToModuleList") . '</a>';
 print load_fiche_titre($langs->trans('ComptaSetup'), $linkback, 'title_setup');
 
 print '<br>';
 
-print '<form action="'.$_SERVER["PHP_SELF"].'" method="post">';
-print '<input type="hidden" name="token" value="'.newToken().'">';
+print '<form action="' . $_SERVER["PHP_SELF"] . '" method="post">';
+print '<input type="hidden" name="token" value="' . newToken() . '">';
 print '<input type="hidden" name="action" value="update">';
 
 print '<table class="noborder centpercent">';
@@ -151,13 +155,13 @@ print '<table class="noborder centpercent">';
 // case of the parameter ACCOUNTING_MODE
 
 print '<tr class="liste_titre">';
-print '<td>'.$langs->trans('OptionMode').'</td><td>'.$langs->trans('Description').'</td>';
+print '<td>' . $langs->trans('OptionMode') . '</td><td>' . $langs->trans('Description') . '</td>';
 print "</tr>\n";
-print '<tr class="oddeven"><td width="200"><input type="radio" name="accounting_mode" value="RECETTES-DEPENSES"'.($accounting_mode != 'CREANCES-DETTES' ? ' checked' : '').'> '.$langs->trans('OptionModeTrue').'</td>';
-print '<td colspan="2">'.nl2br($langs->trans('OptionModeTrueDesc'));
+print '<tr class="oddeven"><td width="200"><input type="radio" name="accounting_mode" value="RECETTES-DEPENSES"' . ($accounting_mode != 'CREANCES-DETTES' ? ' checked' : '') . '> ' . $langs->trans('OptionModeTrue') . '</td>';
+print '<td colspan="2">' . nl2br($langs->trans('OptionModeTrueDesc'));
 print "</td></tr>\n";
-print '<tr class="oddeven"><td width="200"><input type="radio" name="accounting_mode" value="CREANCES-DETTES"'.($accounting_mode == 'CREANCES-DETTES' ? ' checked' : '').'> '.$langs->trans('OptionModeVirtual').'</td>';
-print '<td colspan="2">'.nl2br($langs->trans('OptionModeVirtualDesc'))."</td></tr>\n";
+print '<tr class="oddeven"><td width="200"><input type="radio" name="accounting_mode" value="CREANCES-DETTES"' . ($accounting_mode == 'CREANCES-DETTES' ? ' checked' : '') . '> ' . $langs->trans('OptionModeVirtual') . '</td>';
+print '<td colspan="2">' . nl2br($langs->trans('OptionModeVirtualDesc')) . "</td></tr>\n";
 
 print "</table>\n";
 
@@ -165,7 +169,7 @@ print "<br>\n";
 
 print '<table class="noborder centpercent">';
 print '<tr class="liste_titre">';
-print '<td colspan="3">'.$langs->trans('OtherOptions').'</td>';
+print '<td colspan="3">' . $langs->trans('OtherOptions') . '</td>';
 print "</tr>\n";
 
 
@@ -174,31 +178,31 @@ foreach ($list as $key) {
 
 	// Param
 	$libelle = $langs->trans($key);
-	print '<td><label for="'.$key.'">'.$libelle.'</label></td>';
+	print '<td><label for="' . $key . '">' . $libelle . '</label></td>';
 
 	// Value
 	print '<td>';
-	print '<input type="text" size="20" id="'.$key.'" name="'.$key.'" value="'.getDolGlobalString($key).'">';
+	print '<input type="text" size="20" id="' . $key . '" name="' . $key . '" value="' . getDolGlobalString($key) . '">';
 	print '</td></tr>';
 }
 
 // Option to include various payment in results
-print '<tr class="oddeven value">'."\n";
-print '<td><label for="ACCOUNTING_REPORTS_INCLUDE_VARPAY">'.$langs->trans('IncludeVarpaysInResults').'</label></td>'."\n";
-print '<td class="center">'."\n";
+print '<tr class="oddeven value">' . "\n";
+print '<td><label for="ACCOUNTING_REPORTS_INCLUDE_VARPAY">' . $langs->trans('IncludeVarpaysInResults') . '</label></td>' . "\n";
+print '<td class="center">' . "\n";
 print $form->selectyesno('ACCOUNTING_REPORTS_INCLUDE_VARPAY', (getDolGlobalString('ACCOUNTING_REPORTS_INCLUDE_VARPAY')));
 print '</td></tr>';
 
 // Option to include loan in results
-print '<tr class="oddeven value">'."\n";
-print '<td><label for="ACCOUNTING_REPORTS_INCLUDE_LOAN">'.$langs->trans('IncludeLoansInResults').'</label></td>'."\n";
-print '<td class="center">'."\n";
+print '<tr class="oddeven value">' . "\n";
+print '<td><label for="ACCOUNTING_REPORTS_INCLUDE_LOAN">' . $langs->trans('IncludeLoansInResults') . '</label></td>' . "\n";
+print '<td class="center">' . "\n";
 print $form->selectyesno('ACCOUNTING_REPORTS_INCLUDE_LOAN', (getDolGlobalString('ACCOUNTING_REPORTS_INCLUDE_LOAN')));
 print '</td></tr>';
 
 print "</table>\n";
 
-print '<br><br><div style="text-align:center"><input type="submit" class="button button-edit" name="button" value="'.$langs->trans('Modify').'"></div>';
+print '<br><br><div style="text-align:center"><input type="submit" class="button button-edit" name="button" value="' . $langs->trans('Modify') . '"></div>';
 print '</form>';
 
 // End of page

@@ -79,7 +79,7 @@ class FactureFournisseur extends CommonInvoice
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'supplier_invoice';
+	public $picture = 'supplier_invoice';
 
 	/**
 	 * 0=Default, 1=View may be restricted to sales representative only if no permission to see all or to company of external user if external user
@@ -2768,7 +2768,7 @@ class FactureFournisseur extends CommonInvoice
 	 *
 	 * @param array{moretitle?:string} $params ex option, infologin
 	 * @since v18
-	 * @return array{picto:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}
+	 * @return array{picture:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}
 	 */
 	public function getTooltipContentArray($params)
 	{
@@ -2779,24 +2779,24 @@ class FactureFournisseur extends CommonInvoice
 		$datas = [];
 		$moretitle = $params['moretitle'] ?? '';
 
-		$picto = $this->picto;
+		$picture = $this->picture;
 		if ($this->type == self::TYPE_REPLACEMENT) {
-			$picto .= 'r'; // Replacement invoice
+			$picture .= 'r'; // Replacement invoice
 		}
 		if ($this->type == self::TYPE_CREDIT_NOTE) {
-			$picto .= 'a'; // Credit note
+			$picture .= 'a'; // Credit note
 		}
 		if ($this->type == self::TYPE_DEPOSIT) {
-			$picto .= 'd'; // Deposit invoice
+			$picture .= 'd'; // Deposit invoice
 		}
 
-		$datas['picto'] = img_picto('', $picto).' <u class="paddingrightonly">'.$langs->trans("SupplierInvoice").'</u>';
+		$datas['picture'] = img_picture('', $picture).' <u class="paddingrightonly">'.$langs->trans("SupplierInvoice").'</u>';
 		if ($this->type == self::TYPE_REPLACEMENT) {
-			$datas['picto'] .= '<u class="paddingrightonly">'.$langs->transnoentitiesnoconv("InvoiceReplace").'</u>';
+			$datas['picture'] .= '<u class="paddingrightonly">'.$langs->transnoentitiesnoconv("InvoiceReplace").'</u>';
 		} elseif ($this->type == self::TYPE_CREDIT_NOTE) {
-			$datas['picto'] .= '<u class="paddingrightonly">'.$langs->transnoentitiesnoconv("CreditNote").'</u>';
+			$datas['picture'] .= '<u class="paddingrightonly">'.$langs->transnoentitiesnoconv("CreditNote").'</u>';
 		} elseif ($this->type == self::TYPE_DEPOSIT) {
-			$datas['picto'] .= '<u class="paddingrightonly">'.$langs->transnoentitiesnoconv("Deposit").'</u>';
+			$datas['picture'] .= '<u class="paddingrightonly">'.$langs->transnoentitiesnoconv("Deposit").'</u>';
 		}
 		if (isset($this->status)) {
 			$alreadypaid = -1;
@@ -2804,10 +2804,10 @@ class FactureFournisseur extends CommonInvoice
 				$alreadypaid = $this->totalpaid;
 			}
 
-			$datas['picto'] .= ' '.$this->getLibStatut(5, $alreadypaid);
+			$datas['picture'] .= ' '.$this->getLibStatut(5, $alreadypaid);
 		}
 		if ($moretitle) {
-			$datas['picto'] .= ' - '.$moretitle;
+			$datas['picture'] .= ' - '.$moretitle;
 		}
 		if (!empty($this->ref)) {
 			$datas['ref'] = '<br><b>'.$langs->trans('Ref').':</b> '.$this->ref;
@@ -2847,9 +2847,9 @@ class FactureFournisseur extends CommonInvoice
 	}
 
 	/**
-	 *	Return clickable name (with picto eventually)
+	 *	Return clickable name (with picture eventually)
 	 *
-	 *	@param		int		$withpicto					0=No picto, 1=Include picto into link, 2=Only picto
+	 *	@param		int		$withPicture					0=No picture, 1=Include picture into link, 2=Only picture
 	 *	@param		string	$option						Where point the link
 	 *	@param		int		$max						Max length of shown ref
 	 *	@param		int		$short						1=Return just URL
@@ -2859,7 +2859,7 @@ class FactureFournisseur extends CommonInvoice
 	 *  @param		int		$addlinktonotes				Add link to show notes
 	 * 	@return		string								String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $short = 0, $moretitle = '', $notooltip = 0, $save_lastsearch_value = -1, $addlinktonotes = 0)
+	public function getNomUrl($withPicture = 0, $option = '', $max = 0, $short = 0, $moretitle = '', $notooltip = 0, $save_lastsearch_value = -1, $addlinktonotes = 0)
 	{
 		global $langs, $config, $user, $hookManager;
 
@@ -2888,15 +2888,15 @@ class FactureFournisseur extends CommonInvoice
 			}
 		}
 
-		$picto = $this->picto;
+		$picture = $this->picture;
 		if ($this->type == self::TYPE_REPLACEMENT) {
-			$picto .= 'r'; // Replacement invoice
+			$picture .= 'r'; // Replacement invoice
 		}
 		if ($this->type == self::TYPE_CREDIT_NOTE) {
-			$picto .= 'a'; // Credit note
+			$picture .= 'a'; // Credit note
 		}
 		if ($this->type == self::TYPE_DEPOSIT) {
-			$picto .= 'd'; // Deposit invoice
+			$picture .= 'd'; // Deposit invoice
 		}
 
 		$params = [
@@ -2935,10 +2935,10 @@ class FactureFournisseur extends CommonInvoice
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($picto ? $picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($picture ? $picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= ($max ? dol_trunc($ref, $max) : $ref);
 		}
 		$result .= $linkend;
@@ -2949,7 +2949,7 @@ class FactureFournisseur extends CommonInvoice
 				$notetoshow = $langs->trans("ViewPrivateNote").':<br>'.dol_string_nohtmltag($txttoshow, 1);
 				$result .= ' <span class="note inline-block">';
 				$result .= '<a href="'.DOL_URL_ROOT.'/fourn/facture/note.php?id='.$this->id.'" class="classfortooltip" title="'.dol_escape_htmltag($notetoshow).'">';
-				$result .= img_picto('', 'note');
+				$result .= img_picture('', 'note');
 				$result .= '</a>';
 				$result .= '</span>';
 			}
@@ -3357,7 +3357,7 @@ class FactureFournisseur extends CommonInvoice
 		return $isUsed;
 	}
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
 	 *	@param      string	    $option                 Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param		?array{selected?:int<0,1>}	$arraydata	Array of data
@@ -3369,21 +3369,21 @@ class FactureFournisseur extends CommonInvoice
 
 		$selected = (empty($arraydata['selected']) ? 0 : $arraydata['selected']);
 
-		$picto = $this->picto;
+		$picture = $this->picture;
 		if ($this->type == self::TYPE_REPLACEMENT) {
-			$picto .= 'r'; // Replacement invoice
+			$picture .= 'r'; // Replacement invoice
 		}
 		if ($this->type == self::TYPE_CREDIT_NOTE) {
-			$picto .= 'a'; // Credit note
+			$picture .= 'a'; // Credit note
 		}
 		if ($this->type == self::TYPE_DEPOSIT) {
-			$picto .= 'd'; // Deposit invoice
+			$picture .= 'd'; // Deposit invoice
 		}
 
 		$return = '<div class="box-flex-item box-flex-grow-zero">';
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<span class="info-box-icon bg-infobox-action">';
-		$return .= img_picto('', $picto);
+		$return .= img_picture('', $picture);
 		$return .= '</span>';
 		$return .= '<div class="info-box-content">';
 		$return .= '<span class="info-box-ref inline-block tdoverflowmax150 valignmiddle">'.(method_exists($this, 'getNomUrl') ? $this->getNomUrl(1) : $this->ref).'</span>';

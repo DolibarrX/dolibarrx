@@ -1830,7 +1830,7 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 		$sql .= " a.fk_element, a.elementtype,";
 		$sql .= " a.fk_contact,";
 		$sql .= " a.code,";
-		$sql .= " c.code as acode, c.libelle as alabel, c.picto as apicto,";
+		$sql .= " c.code as acode, c.libelle as alabel, c.picture as apicture,";
 		$sql .= " u.rowid as user_id, u.login as user_login, u.photo as user_photo, u.firstname as user_firstname, u.lastname as user_lastname";
 		if (is_object($filterobj) && in_array(get_class($filterobj), array('Societe', 'Client', 'Fournisseur'))) {
 			$sql .= ", sp.lastname, sp.firstname";
@@ -2120,7 +2120,7 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 						'acode' => $obj->acode,
 						'alabel' => $obj->alabel,
 						'libelle' => $obj->alabel, // deprecated
-						'apicto' => $obj->apicto
+						'apicture' => $obj->apicture
 					);
 				} else {
 					$histo[$numaction] = array(
@@ -2153,7 +2153,7 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 		}
 	}
 
-	'@phan-var-force array<int,array{userid:int,type:string,tododone:string,apicto:string,acode:string,alabel:string,note:string,id:int,percent:int<0,100>,datestart:int,dateend:int,fk_element:string,elementtype:string,contact_id:int,lastname:string,firstname:string,contact_photo:string,socpeopleassigned:int[],login:string,userfirstname:string,userlastname:string,userphoto:string}> $histo';
+	'@phan-var-force array<int,array{userid:int,type:string,tododone:string,apicture:string,acode:string,alabel:string,note:string,id:int,percent:int<0,100>,datestart:int,dateend:int,fk_element:string,elementtype:string,contact_id:int,lastname:string,firstname:string,contact_photo:string,socpeopleassigned:int[],login:string,userfirstname:string,userlastname:string,userphoto:string}> $histo';
 
 	if (isModEnabled('agenda') || (isModEnabled('mailing') && !empty($objcon->email))) {
 		$delay_warning = getDolGlobalInt('MAIN_DELAY_ACTIONS_TODO') * 24 * 60 * 60;
@@ -2197,8 +2197,8 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 		// Action column
 		if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 			$out .= '<th class="liste_titre width50 middle">';
-			$searchpicto = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
-			$out .= $searchpicto;
+			$searchPicture = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
+			$out .= $searchPicture;
 			$out .= '</th>';
 		}
 
@@ -2226,8 +2226,8 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 		// Action column
 		if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 			$out .= '<td class="liste_titre" align="middle">';
-			$searchpicto = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
-			$out .= $searchpicto;
+			$searchPicture = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
+			$out .= $searchPicture;
 			$out .= '</td>';
 		}
 		$out .= '</tr>';
@@ -2281,7 +2281,7 @@ function show_actions_done($config, $langs, $db, $filterobj, $objcon = null, $no
 			if (empty($actionstatic->code)) {
 				$actionstatic->code = $histo[$key]['acode'];
 			}
-			$actionstatic->type_picto = $histo[$key]['apicto'] ?? '';
+			$actionstatic->type_picture = $histo[$key]['apicture'] ?? '';
 			$actionstatic->type_code = $histo[$key]['acode'];
 
 			$out .= '<tr class="oddeven">';
@@ -2658,7 +2658,7 @@ function addMailingEventTypeSQL($actioncode, $objcon, $filterobj)
 	if (isModEnabled('mailing') && !empty($objcon->email) && (empty($actioncode) || $actioncode == 'AC_OTH_AUTO' || $actioncode == 'AC_EMAILING')) {
 		$sql2 = "SELECT m.rowid as id, m.titre as label, mc.date_envoi as dp, mc.date_envoi as dp2, '100' as percent, 'mailing' as type";
 		$sql2 .= ", null as fk_element, '' as elementtype, null as contact_id";
-		$sql2 .= ", 'AC_EMAILING' as code, 'AC_EMAILING' as acode, '' as alabel, '' as apicto";
+		$sql2 .= ", 'AC_EMAILING' as code, 'AC_EMAILING' as acode, '' as alabel, '' as apicture";
 		$sql2 .= ", u.rowid as user_id, u.login as user_login, u.photo as user_photo, u.firstname as user_firstname, u.lastname as user_lastname"; // User that valid action
 		if (is_object($filterobj) && get_class($filterobj) == 'Societe') {
 			$sql2 .= ", '' as lastname, '' as firstname";

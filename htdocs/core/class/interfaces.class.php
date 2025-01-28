@@ -254,7 +254,7 @@ class Interfaces
 	 *  List is sorted by trigger filename so by priority to run.
 	 *
 	 *  @param	?array<int,string>	$forcedirtriggers	null=All default directories. This parameter is used by modulebuilder module only.
-	 *	@return array<array{picto:string,file:string,fullpath:string,relpath:string,iscoreorexternal?:'internal'|'external',version?:string,status?:string,module?:string,info:string}>		Array list of triggers
+	 *	@return array<array{picture:string,file:string,fullpath:string,relpath:string,iscoreorexternal?:'internal'|'external',version?:string,status?:string,module?:string,info:string}>		Array list of triggers
 	 */
 	public function getTriggersList($forcedirtriggers = null)
 	{
@@ -363,13 +363,13 @@ class Interfaces
 					}
 
 					// We set info of modules
-					$triggers[$j]['picto'] = (!empty($objMod->picto)) ? img_object('', $objMod->picto, 'class="valignmiddle pictomodule "') : img_object('', 'generic', 'class="valignmiddle pictomodule "');
+					$triggers[$j]['picture'] = (!empty($objMod->picture)) ? img_object('', $objMod->picture, 'class="valignmiddle picturemodule "') : img_object('', 'generic', 'class="valignmiddle picturemodule "');
 					$triggers[$j]['file'] = $files[$key];
 					$triggers[$j]['fullpath'] = $fullpath[$key];
 					$triggers[$j]['relpath'] = $relpath[$key];
 					$triggers[$j]['iscoreorexternal'] = $iscoreorexternal[$key];
 					$triggers[$j]['version'] = $objMod->getVersion();
-					$triggers[$j]['status'] = img_picto($langs->trans("Active"), 'tick');
+					$triggers[$j]['status'] = img_picture($langs->trans("Active"), 'tick');
 					if ($disabledbyname > 0 || $disabledbymodule > 1) {
 						$triggers[$j]['status'] = '';
 					}
@@ -394,11 +394,11 @@ class Interfaces
 						}
 					}
 				} else {
-					$triggers[$j]['picto'] = (!empty($objMod->picto)) ? img_object('', $objMod->picto, 'class="valignmiddle pictomodule "') : img_object('', 'generic', 'class="valignmiddle pictomodule "');
+					$triggers[$j]['picture'] = (!empty($objMod->picture)) ? img_object('', $objMod->picture, 'class="valignmiddle picturemodule "') : img_object('', 'generic', 'class="valignmiddle picturemodule "');
 					$triggers[$j]['file'] = $files[$key];
 					$triggers[$j]['fullpath'] = $fullpath[$key];
 					$triggers[$j]['relpath'] = $relpath[$key];
-					$triggers[$j]['status'] = img_picto('Error: Trigger '.$modName.' does not extends DolibarrTriggers', 'warning');
+					$triggers[$j]['status'] = img_picture('Error: Trigger '.$modName.' does not extends DolibarrTriggers', 'warning');
 
 					//print 'Error: Trigger '.$modName.' does not extends DolibarrTriggers<br>';
 					$text = 'Error: Trigger '.$modName.' does not extend DolibarrTriggers';

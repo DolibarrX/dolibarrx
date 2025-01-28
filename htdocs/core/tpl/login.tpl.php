@@ -478,7 +478,7 @@ if (isset($config->file->main_authentication) && preg_match('/google/', $config-
 	print '<input type="hidden" name="beforeoauthloginredirect" id="beforeoauthloginredirect" value="">';
 	print '<a class="alogin" href="#" onclick="console.log(\'Set beforeoauthloginredirect value\'); jQuery(\'#beforeoauthloginredirect\').val(\'google\'); $(this).closest(\'form\').submit(); return false;">';
 	print '<div class="loginbuttonexternal">';
-	print img_picto('', 'google', 'class="pictofixedwidth"');
+	print img_picture('', 'google', 'class="picturefixedwidth"');
 	print $langs->trans("LoginWith", "Google");
 	print '</div>';
 	print '</a>';

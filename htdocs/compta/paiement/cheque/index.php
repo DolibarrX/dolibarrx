@@ -81,7 +81,7 @@ if ($usercancreate) {
 	$newcardbutton .= dolGetButtonTitle($langs->trans('NewDeposit'), '', 'fa fa-plus-circle', DOL_URL_ROOT.'/compta/paiement/cheque/card.php?action=new');
 }
 
-print load_fiche_titre($title, $newcardbutton, $checkdepositstatic->picto);
+print load_fiche_titre($title, $newcardbutton, $checkdepositstatic->picture);
 
 print '<div class="fichecenter"><div class="fichethirdleft">';
 

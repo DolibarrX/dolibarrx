@@ -57,7 +57,7 @@ class modTax extends DolibarrModules
 		$this->version = 'dolibarr';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'bill';
+		$this->picture = 'bill';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/tax/temp");

@@ -398,11 +398,11 @@ print '<tr>';
 print '<td>'.$langs->trans("ACCOUNTING_ENABLE_EXPORT_DRAFT_JOURNAL").'</td>';
 if (getDolGlobalString('ACCOUNTING_ENABLE_EXPORT_DRAFT_JOURNAL')) {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&enabledraftexport&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 	print '</a></td>';
 } else {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&enabledraftexport&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 print '</tr>';
@@ -412,11 +412,11 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("BANK_DISABLE_DIRECT_INPUT").'</td>';
 if (getDolGlobalString('BANK_DISABLE_DIRECT_INPUT')) {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setBANK_DISABLE_DIRECT_INPUT&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 	print '</a></td>';
 } else {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setBANK_DISABLE_DIRECT_INPUT&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 print '</tr>';
@@ -428,11 +428,11 @@ print '</td>';
 
 if (getDolGlobalString('ACCOUNTANCY_COMBO_FOR_AUX')) {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setACCOUNTANCY_COMBO_FOR_AUX&value=0">';
-	print img_picto($langs->trans("Activated").' - '.$langs->trans("NotRecommended"), 'switch_on', 'class="warning"');
+	print img_picture($langs->trans("Activated").' - '.$langs->trans("NotRecommended"), 'switch_on', 'class="warning"');
 	print '</a></td>';
 } else {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setACCOUNTANCY_COMBO_FOR_AUX&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 print '</tr>';
@@ -441,11 +441,11 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("ACCOUNTING_MANAGE_ZERO").'</td>';
 if (getDolGlobalInt('ACCOUNTING_MANAGE_ZERO')) {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setACCOUNTING_MANAGE_ZERO&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 	print '</a></td>';
 } else {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setACCOUNTING_MANAGE_ZERO&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 print '</tr>';
@@ -517,11 +517,11 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("ACCOUNTING_DISABLE_BINDING_ON_SALES").'</td>';
 if (getDolGlobalString('ACCOUNTING_DISABLE_BINDING_ON_SALES')) {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setdisablebindingonsales&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on', '', 0, 0, 0, '', 'warning');
+	print img_picture($langs->trans("Activated"), 'switch_on', '', 0, 0, 0, '', 'warning');
 	print '</a></td>';
 } else {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setdisablebindingonsales&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 print '</tr>';
@@ -530,11 +530,11 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("ACCOUNTING_DISABLE_BINDING_ON_PURCHASES").'</td>';
 if (getDolGlobalString('ACCOUNTING_DISABLE_BINDING_ON_PURCHASES')) {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setdisablebindingonpurchases&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on', '', 0, 0, 0, '', 'warning');
+	print img_picture($langs->trans("Activated"), 'switch_on', '', 0, 0, 0, '', 'warning');
 	print '</a></td>';
 } else {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setdisablebindingonpurchases&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 print '</tr>';
@@ -543,11 +543,11 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("ACCOUNTING_DISABLE_BINDING_ON_EXPENSEREPORTS").'</td>';
 if (getDolGlobalString('ACCOUNTING_DISABLE_BINDING_ON_EXPENSEREPORTS')) {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setdisablebindingonexpensereports&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on', '', 0, 0, 0, '', 'warning');
+	print img_picture($langs->trans("Activated"), 'switch_on', '', 0, 0, 0, '', 'warning');
 	print '</a></td>';
 } else {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setdisablebindingonexpensereports&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 print '</tr>';
@@ -557,11 +557,11 @@ if (!getDolGlobalString('ACCOUNTING_DISABLE_BINDING_ON_EXPENSEREPORTS')) {
 	print '<td>'.$langs->trans("ACCOUNTANCY_ER_DATE_RECORD").'</td>';
 	if (getDolGlobalInt('ACCOUNTANCY_ER_DATE_RECORD')) {
 		print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setACCOUNTANCY_ER_DATE_RECORD&value=0">';
-		print img_picto($langs->trans("Activated"), 'switch_on');
+		print img_picture($langs->trans("Activated"), 'switch_on');
 		print '</a></td>';
 	} else {
 		print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setACCOUNTANCY_ER_DATE_RECORD&value=1">';
-		print img_picto($langs->trans("Disabled"), 'switch_off');
+		print img_picture($langs->trans("Disabled"), 'switch_off');
 		print '</a></td>';
 	}
 	print '</tr>';
@@ -571,11 +571,11 @@ print '<tr class="oddeven">';
 print '<td>'.$langs->trans("ACCOUNTING_BANK_CONCILIATED").'</td>';
 if (getDolGlobalInt('ACCOUNTING_BANK_CONCILIATED') == 2) {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setACCOUNTING_BANK_CONCILIATED&value=1">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 	print '</a></td>';
 } else {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setACCOUNTING_BANK_CONCILIATED&value=2">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 print '</tr>';
@@ -600,14 +600,14 @@ print "</tr>\n";
 
 print '<tr class="oddeven">';
 print '<td>';
-print $form->textwithpicto($langs->trans("ACCOUNTING_ENABLE_LETTERING"), $langs->trans("ACCOUNTING_ENABLE_LETTERING_DESC", $langs->transnoentitiesnoconv("NumMvts")).'<br>'.$langs->trans("EnablingThisFeatureIsNotNecessary")).'</td>';
+print $form->textWithPicture($langs->trans("ACCOUNTING_ENABLE_LETTERING"), $langs->trans("ACCOUNTING_ENABLE_LETTERING_DESC", $langs->transnoentitiesnoconv("NumMvts")).'<br>'.$langs->trans("EnablingThisFeatureIsNotNecessary")).'</td>';
 if (getDolGlobalInt('ACCOUNTING_ENABLE_LETTERING')) {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setenablelettering&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 	print '</a></td>';
 } else {
 	print '<td class="right"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?token='.newToken().'&action=setenablelettering&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 print '</tr>';
@@ -616,7 +616,7 @@ if (getDolGlobalInt('ACCOUNTING_ENABLE_LETTERING')) {
 	// Number of letters for lettering (3 by default (AAA), min 2 (AA))
 	print '<tr class="oddeven">';
 	print '<td>';
-	print $form->textwithpicto($langs->trans("ACCOUNTING_LETTERING_NBLETTERS"), $langs->trans("ACCOUNTING_LETTERING_NBLETTERS_DESC")) . '</td>';
+	print $form->textWithPicture($langs->trans("ACCOUNTING_LETTERING_NBLETTERS"), $langs->trans("ACCOUNTING_LETTERING_NBLETTERS_DESC")) . '</td>';
 	print '<td class="right">';
 
 	if (empty($letter)) {
@@ -633,14 +633,14 @@ if (getDolGlobalInt('ACCOUNTING_ENABLE_LETTERING')) {
 	// Auto Lettering when transfer in accountancy is realized
 	print '<tr class="oddeven">';
 	print '<td>';
-	print $form->textwithpicto($langs->trans("ACCOUNTING_ENABLE_AUTOLETTERING"), $langs->trans("ACCOUNTING_ENABLE_AUTOLETTERING_DESC")) . '</td>';
+	print $form->textWithPicture($langs->trans("ACCOUNTING_ENABLE_AUTOLETTERING"), $langs->trans("ACCOUNTING_ENABLE_AUTOLETTERING_DESC")) . '</td>';
 	if (getDolGlobalInt('ACCOUNTING_ENABLE_AUTOLETTERING')) {
 		print '<td class="right"><a class="reposition" href="' . $_SERVER['PHP_SELF'] . '?token=' . newToken() . '&action=setenableautolettering&value=0">';
-		print img_picto($langs->trans("Activated"), 'switch_on');
+		print img_picture($langs->trans("Activated"), 'switch_on');
 		print '</a></td>';
 	} else {
 		print '<td class="right"><a class="reposition" href="' . $_SERVER['PHP_SELF'] . '?token=' . newToken() . '&action=setenableautolettering&value=1">';
-		print img_picto($langs->trans("Disabled"), 'switch_off');
+		print img_picture($langs->trans("Disabled"), 'switch_off');
 		print '</a></td>';
 	}
 	print '</tr>';
@@ -648,28 +648,28 @@ if (getDolGlobalInt('ACCOUNTING_ENABLE_LETTERING')) {
 
 print '<tr class="oddeven">';
 print '<td>';
-print $form->textwithpicto($langs->trans("ACCOUNTING_FORCE_ENABLE_VAT_REVERSE_CHARGE"), $langs->trans("ACCOUNTING_FORCE_ENABLE_VAT_REVERSE_CHARGE_DESC", $langs->transnoentities("MenuDefaultAccounts"))).'</td>';
+print $form->textWithPicture($langs->trans("ACCOUNTING_FORCE_ENABLE_VAT_REVERSE_CHARGE"), $langs->trans("ACCOUNTING_FORCE_ENABLE_VAT_REVERSE_CHARGE_DESC", $langs->transnoentities("MenuDefaultAccounts"))).'</td>';
 if (getDolGlobalString('ACCOUNTING_FORCE_ENABLE_VAT_REVERSE_CHARGE')) {
 	print '<td class="right"><a class="reposition" href="' . $_SERVER['PHP_SELF'] . '?token=' . newToken() . '&action=setenablevatreversecharge&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 	print '</a></td>';
 } else {
 	print '<td class="right"><a class="reposition" href="' . $_SERVER['PHP_SELF'] . '?token=' . newToken() . '&action=setenablevatreversecharge&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 print '</tr>';
 
 print '<tr class="oddeven">';
 print '<td>';
-print $form->textwithpicto($langs->trans("ACCOUNTING_ENABLE_TABONTHIRDPARTY"), $langs->trans("ACCOUNTING_ENABLE_TABONTHIRDPARTY_DESC")).'</td>';
+print $form->textWithPicture($langs->trans("ACCOUNTING_ENABLE_TABONTHIRDPARTY"), $langs->trans("ACCOUNTING_ENABLE_TABONTHIRDPARTY_DESC")).'</td>';
 if (getDolGlobalString('ACCOUNTING_ENABLE_TABONTHIRDPARTY')) {
 	print '<td class="right"><a class="reposition" href="' . $_SERVER['PHP_SELF'] . '?token=' . newToken() . '&action=setenabletabonthirdparty&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 	print '</a></td>';
 } else {
 	print '<td class="right"><a class="reposition" href="' . $_SERVER['PHP_SELF'] . '?token=' . newToken() . '&action=setenabletabonthirdparty&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 print '</tr>';

@@ -61,7 +61,7 @@ class ExpenseReport extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'trip';
+	public $picture = 'trip';
 
 	/**
 	 * @var ExpenseReportLine[] array of expensereport lines
@@ -1061,28 +1061,28 @@ class ExpenseReport extends CommonObject
 
 					switch ($objp->fk_c_expensereport_status) {
 						case 4:
-							print img_picto($langs->trans('StatusOrderCanceled'), 'statut5');
+							print img_picture($langs->trans('StatusOrderCanceled'), 'statut5');
 							break;
 						case 1:
-							print $langs->trans('Draft').' '.img_picto($langs->trans('Draft'), 'statut0');
+							print $langs->trans('Draft').' '.img_picture($langs->trans('Draft'), 'statut0');
 							break;
 						case 2:
-							print $langs->trans('TripForValid').' '.img_picto($langs->trans('TripForValid'), 'statut3');
+							print $langs->trans('TripForValid').' '.img_picture($langs->trans('TripForValid'), 'statut3');
 							break;
 						case 5:
-							print $langs->trans('TripForPaid').' '.img_picto($langs->trans('TripForPaid'), 'statut3');
+							print $langs->trans('TripForPaid').' '.img_picture($langs->trans('TripForPaid'), 'statut3');
 							break;
 						case 6:
-							print $langs->trans('TripPaid').' '.img_picto($langs->trans('TripPaid'), 'statut4');
+							print $langs->trans('TripPaid').' '.img_picture($langs->trans('TripPaid'), 'statut4');
 							break;
 					}
 					/*
-					 if ($status==4) return img_picto($langs->trans('StatusOrderCanceled'),'statut5');
-					if ($status==1) return img_picto($langs->trans('StatusOrderDraft'),'statut0');
-					if ($status==2) return img_picto($langs->trans('StatusOrderValidated'),'statut1');
-					if ($status==2) return img_picto($langs->trans('StatusOrderOnProcess'),'statut3');
-					if ($status==5) return img_picto($langs->trans('StatusOrderToBill'),'statut4');
-					if ($status==6) return img_picto($langs->trans('StatusOrderOnProcess'),'statut6');
+					 if ($status==4) return img_picture($langs->trans('StatusOrderCanceled'),'statut5');
+					if ($status==1) return img_picture($langs->trans('StatusOrderDraft'),'statut0');
+					if ($status==2) return img_picture($langs->trans('StatusOrderValidated'),'statut1');
+					if ($status==2) return img_picture($langs->trans('StatusOrderOnProcess'),'statut3');
+					if ($status==5) return img_picture($langs->trans('StatusOrderToBill'),'statut4');
+					if ($status==6) return img_picture($langs->trans('StatusOrderOnProcess'),'statut6');
 					*/
 					print '</td>';
 					print '</tr>';
@@ -1768,7 +1768,7 @@ class ExpenseReport extends CommonObject
 	 * getTooltipContentArray
 	 * @param array<string,mixed> $params params to construct tooltip data
 	 * @since v18
-	 * @return array{picto?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
+	 * @return array{picture?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
 	 */
 	public function getTooltipContentArray($params)
 	{
@@ -1780,12 +1780,12 @@ class ExpenseReport extends CommonObject
 		$moretitle = $params['moretitle'] ?? '';
 
 		$datas = array();
-		$datas['picto'] = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("ExpenseReport").'</u>';
+		$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("ExpenseReport").'</u>';
 		if (isset($this->status)) {
-			$datas['picto'] .= ' '.$this->getLibStatut(5);
+			$datas['picture'] .= ' '.$this->getLibStatut(5);
 		}
 		if ($moretitle) {
-			$datas['picto'] .= ' - '.$moretitle;
+			$datas['picture'] .= ' - '.$moretitle;
 		}
 		if (!empty($this->ref)) {
 			$datas['ref'] = '<br><b>'.$langs->trans('Ref').':</b> '.$this->ref;
@@ -1804,9 +1804,9 @@ class ExpenseReport extends CommonObject
 	}
 
 	/**
-	 *  Return clickable name (with picto eventually)
+	 *  Return clickable name (with picture eventually)
 	 *
-	 *	@param		int<0,2>	$withpicto					0=No picto, 1=Include picto into link, 2=Only picto
+	 *	@param		int<0,2>	$withPicture					0=No picture, 1=Include picture into link, 2=Only picture
 	 *  @param  	string		$option                		Where points the link ('', 'document', ..)
 	 *	@param		int			$max						Max length of shown ref
 	 *	@param		int<0,1>	$short						1=Return just URL
@@ -1815,7 +1815,7 @@ class ExpenseReport extends CommonObject
 	 *  @param  	int<-1,1>	$save_lastsearch_value    	-1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 *	@return		string								String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $short = 0, $moretitle = '', $notooltip = 0, $save_lastsearch_value = -1)
+	public function getNomUrl($withPicture = 0, $option = '', $max = 0, $short = 0, $moretitle = '', $notooltip = 0, $save_lastsearch_value = -1)
 	{
 		global $langs, $hookManager;
 
@@ -1875,10 +1875,10 @@ class ExpenseReport extends CommonObject
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= ($max ? dol_trunc($ref, $max) : $ref);
 		}
 		$result .= $linkend;
@@ -2824,7 +2824,7 @@ class ExpenseReport extends CommonObject
 	}
 
 	/**
-	 *	Return clickable link of object (with optional picto)
+	 *	Return clickable link of object (with optional picture)
 	 *
 	 *	@param      string	    			$option                 Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param		array{string,mixed}		$arraydata				Array of data
@@ -2839,7 +2839,7 @@ class ExpenseReport extends CommonObject
 		$return = '<div class="box-flex-item box-flex-grow-zero">';
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<span class="info-box-icon bg-infobox-action">';
-		$return .= img_picto('', $this->picto);
+		$return .= img_picture('', $this->picture);
 		$return .= '</span>';
 		$return .= '<div class="info-box-content">';
 		$return .= '<span class="info-box-ref inline-block tdoverflowmax150 valignmiddle">'.(method_exists($this, 'getNomUrl') ? $this->getNomUrl(1) : $this->ref).'</span>';

@@ -210,7 +210,7 @@ abstract class ActionsCardCommon
 			}
 			$this->tpl['ismodifiable_customercode'] = $this->object->codeclient_modifiable();
 			$s = $modCodeClient->getToolTip($langs, $this->object, 0);
-			$this->tpl['help_customercode'] = $form->textwithpicto('', $s, 1);
+			$this->tpl['help_customercode'] = $form->textWithPicture('', $s, 1);
 
 			if (isModEnabled("supplier_order") || isModEnabled("supplier_invoice")) {
 				$this->tpl['supplier_enabled'] = 1;
@@ -243,7 +243,7 @@ abstract class ActionsCardCommon
 				}
 				$this->tpl['ismodifiable_suppliercode'] = $this->object->codefournisseur_modifiable();
 				$s = $modCodeFournisseur->getToolTip($langs, $this->object, 1);
-				$this->tpl['help_suppliercode'] = $form->textwithpicto('', $s, 1);
+				$this->tpl['help_suppliercode'] = $form->textWithPicture('', $s, 1);
 
 				$this->object->LoadSupplierCateg();
 				$this->tpl['suppliercategory'] = $this->object->SupplierCategories;
@@ -316,9 +316,9 @@ abstract class ActionsCardCommon
 			$this->tpl['checksuppliercode'] = $this->object->check_codefournisseur();
 			$this->tpl['address'] = dol_nl2br($this->object->address);
 
-			$img = picto_from_langcode($this->object->country_code);
+			$img = picture_from_langcode($this->object->country_code);
 			if ($this->object->isInEEC()) {
-				$this->tpl['country'] = $form->textwithpicto(($img ? $img.' ' : '').$this->object->country, $langs->trans("CountryIsInEEC"), 1, 0);
+				$this->tpl['country'] = $form->textWithPicture(($img ? $img.' ' : '').$this->object->country, $langs->trans("CountryIsInEEC"), 1, 0);
 			}
 			$this->tpl['country'] = ($img ? $img.' ' : '').$this->object->country;
 
@@ -336,7 +336,7 @@ abstract class ActionsCardCommon
 
 			if (getDolGlobalInt('MAIN_MULTILANGS')) {
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
-				//$s=picto_from_langcode($this->default_lang);
+				//$s=picture_from_langcode($this->default_lang);
 				//print ($s?$s.' ':'');
 				$langs->load("languages");
 				$this->tpl['default_lang'] = (empty($this->object->default_lang) ? '' : $langs->trans('Language_'.$this->object->default_lang));

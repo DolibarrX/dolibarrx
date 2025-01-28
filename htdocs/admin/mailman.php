@@ -161,10 +161,10 @@ if (getDolGlobalString('ADHERENT_USE_MAILMAN')) {
 
 	print dol_get_fiche_head($head, 'mailman', $langs->trans("Setup"), -1, 'user');
 
-	//$link=img_picto($langs->trans("Active"),'tick').' ';
+	//$link=img_picture($langs->trans("Active"),'tick').' ';
 	$link = '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=unset&token='.newToken().'&value=0&name=ADHERENT_USE_MAILMAN">';
 	//$link.=$langs->trans("Disable");
-	$link .= img_picto($langs->trans("Activated"), 'switch_on');
+	$link .= img_picture($langs->trans("Activated"), 'switch_on');
 	$link .= '</a>';
 	// Edit the global variables
 	$constantes = array(
@@ -214,7 +214,7 @@ if (getDolGlobalString('ADHERENT_USE_MAILMAN')) {
 
 	$link = '<a href="'.$_SERVER["PHP_SELF"].'?action=set&token='.newToken().'&value=1&name=ADHERENT_USE_MAILMAN">';
 	//$link.=img_$langs->trans("Activate")
-	$link .= img_picto($langs->trans("Disabled"), 'switch_off');
+	$link .= img_picture($langs->trans("Disabled"), 'switch_off');
 	$link .= '</a>';
 	print load_fiche_titre($langs->trans('MailmanTitle'), $link, '');
 

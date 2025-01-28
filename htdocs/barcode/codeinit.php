@@ -303,7 +303,7 @@ print '<br>';
 print '<span class="opacitymedium">'.$langs->trans("MassBarcodeInitDesc").'</span><br>';
 print '<br>';
 
-//print img_picto('','puce').' '.$langs->trans("PrintsheetForOneBarCode").'<br>';
+//print img_picture('','puce').' '.$langs->trans("PrintsheetForOneBarCode").'<br>';
 //print '<br>';
 
 print '<br>';

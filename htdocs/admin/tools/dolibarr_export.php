@@ -212,7 +212,7 @@ print '<tr>';
 print '<td class="tdtop nopaddingleftimp">';
 
 print '<div class="centpercent center margintoponly marginbottomonly">';
-print img_picto('', 'setup', 'class="pictofixedwidth"').'<a class="classlink" id="lnk">'.$langs->trans("ShowAdvancedOptions").'...</a>';
+print img_picture('', 'setup', 'class="picturefixedwidth"').'<a class="classlink" id="lnk">'.$langs->trans("ShowAdvancedOptions").'...</a>';
 print '</div>';
 
 print '<script type="text/javascript">
@@ -284,13 +284,13 @@ if (in_array($type, array('mysql', 'mysqli'))) {
 
 	print '<input type="checkbox" name="use_mysql_quick_param" value="yes" id="checkbox_use_quick" checked="checked" />';
 	print '<label for="checkbox_use_quick">';
-	print $form->textwithpicto($langs->trans('ExportUseMySQLQuickParameter'), $langs->trans('ExportUseMySQLQuickParameterHelp'));
+	print $form->textWithPicture($langs->trans('ExportUseMySQLQuickParameter'), $langs->trans('ExportUseMySQLQuickParameterHelp'));
 	print '</label>';
 	print '<br>';
 
 	print '<input type="checkbox" name="use_force" value="no" id="checkbox_use_force" />';
 	print '<label for="checkbox_use_force">';
-	print $form->textwithpicto($langs->trans('ExportUseForce'), $langs->trans('ExportUseForceHelp'));
+	print $form->textWithPicture($langs->trans('ExportUseForce'), $langs->trans('ExportUseForceHelp'));
 	print '</label>';
 	print '<br>';
 
@@ -305,7 +305,7 @@ if (in_array($type, array('mysql', 'mysqli'))) {
 		// If we use the "exec" method for shell, we ask if we need to use the alternative low memory exec mode.
 		print '<input type="checkbox" name="lowmemorydump" value="yes" id="lowmemorydump"'.((GETPOSTISSET('lowmemorydump') ? GETPOST('lowmemorydump', 'alpha') : getDolGlobalString('MAIN_LOW_MEMORY_DUMP')) ? ' checked="checked"' : '').'" />';
 		print '<label for="lowmemorydump">';
-		print $form->textwithpicto($langs->trans('ExportUseLowMemoryMode'), $langs->trans('ExportUseLowMemoryModeHelp'));
+		print $form->textWithPicture($langs->trans('ExportUseLowMemoryMode'), $langs->trans('ExportUseLowMemoryModeHelp'));
 		print '</label>';
 		print '<br>';
 	}

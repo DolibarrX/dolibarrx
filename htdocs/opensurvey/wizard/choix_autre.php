@@ -158,7 +158,7 @@ print '<table><tr>'."\n";
 print '<td class="center">'.$langs->trans("5MoreChoices").'... ';
 if ($config->use_javascript_ajax) {
 	print '<div id="addchoice" class="inline-block">';
-	print img_picto('', 'add', '', 0, 0, 0, '', 'valignmiddle btnTitle-icon cursorpointer');
+	print img_picture('', 'add', '', 0, 0, 0, '', 'valignmiddle btnTitle-icon cursorpointer');
 	print '</div>';
 
 	print '<input type="hidden" name="ajoutcases" id="ajoutcases" value="">';

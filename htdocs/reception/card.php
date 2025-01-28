@@ -887,7 +887,7 @@ if ($action == 'create') {
 				$langs->load("projects");
 				print '<tr>';
 				print '<td>'.$langs->trans("Project").'</td><td colspan="2">';
-				print img_picto('', 'project', 'class="paddingright"');
+				print img_picture('', 'project', 'class="paddingright"');
 				print $formproject->select_projects((!getDolGlobalString('PROJECT_CAN_ALWAYS_LINK_TO_ALL_SUPPLIERS') ? $soc->id : -1), $projectid, 'projectid', 0, 0, 1, 0, 1, 0, 0, '', 1, 0, 'maxwidth500');
 				print ' &nbsp; <a href="'.DOL_URL_ROOT.'/projet/card.php?socid='.$soc->id.'&action=create&status=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create&socid='.$soc->id).'"><span class="fa fa-plus-circle valignmiddle" title="'.$langs->trans("AddProject").'"></span></a>';
 				print '</td>';
@@ -924,7 +924,7 @@ if ($action == 'create') {
 			print '</td><td colspan="3"><input name="weight" size="4" value="'.GETPOSTINT('weight').'"> ';
 			$text = $formproduct->selectMeasuringUnits("weight_units", "weight", GETPOSTINT('weight_units'), 0, 2);
 			$htmltext = $langs->trans("KeepEmptyForAutoCalculation");
-			print $form->textwithpicto($text, $htmltext);
+			print $form->textWithPicture($text, $htmltext);
 			print '</td></tr>';
 			// Dim
 			print '<tr><td>';
@@ -935,7 +935,7 @@ if ($action == 'create') {
 			print ' ';
 			$text = $formproduct->selectMeasuringUnits("size_units", "size", GETPOSTINT('size_units'), 0, 2);
 			$htmltext = $langs->trans("KeepEmptyForAutoCalculation");
-			print $form->textwithpicto($text, $htmltext);
+			print $form->textWithPicture($text, $htmltext);
 			print '</td></tr>';
 
 			// Delivery method
@@ -972,7 +972,7 @@ if ($action == 'create') {
 			// Incoterms
 			if (isModEnabled('incoterm')) {
 				print '<tr>';
-				print '<td><label for="incoterm_id">'.$form->textwithpicto($langs->trans("IncotermLabel"), $objectsrc->label_incoterms, 1).'</label></td>';
+				print '<td><label for="incoterm_id">'.$form->textWithPicture($langs->trans("IncotermLabel"), $objectsrc->label_incoterms, 1).'</label></td>';
 				print '<td colspan="3" class="maxwidthonsmartphone">';
 				print $form->select_incoterms((!empty($objectsrc->fk_incoterms) ? $objectsrc->fk_incoterms : ''), (!empty($objectsrc->location_incoterms) ? $objectsrc->location_incoterms : ''));
 				print '</td></tr>';
@@ -1114,8 +1114,8 @@ if ($action == 'create') {
 					print '<td>'.$langs->trans("BuyingPrice").'</td>';
 				}
 				if (!isModEnabled('productbatch')) {
-					print ' <br><center><a href="#" id="autofill"><span class="fas fa-fill pictofixedwidth" style=""></span> '.$langs->trans("Fill").'</a>';
-					print ' &nbsp; &nbsp; <a href="#" id="autoreset"><span class="fas fa-eraser pictofixedwidth" style=""></span>'.$langs->trans("Reset").'</a></center><br>';
+					print ' <br><center><a href="#" id="autofill"><span class="fas fa-fill picturefixedwidth" style=""></span> '.$langs->trans("Fill").'</a>';
+					print ' &nbsp; &nbsp; <a href="#" id="autoreset"><span class="fas fa-eraser picturefixedwidth" style=""></span>'.$langs->trans("Reset").'</a></center><br>';
 				}
 				print '</td>';
 				if (isModEnabled('stock')) {
@@ -1419,9 +1419,9 @@ if ($action == 'create') {
 
 		$text = $langs->trans("ConfirmValidateReception", $numref);
 		if (getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION')) {
-			$text .= '<br>'.img_picto('', 'movement', 'class="pictofixedwidth"').$langs->trans("StockMovementWillBeRecorded").'.';
+			$text .= '<br>'.img_picture('', 'movement', 'class="picturefixedwidth"').$langs->trans("StockMovementWillBeRecorded").'.';
 		} elseif (getDolGlobalString('STOCK_CALCULATE_ON_RECEPTION_CLOSE')) {
-			$text .= '<br>'.img_picto('', 'movement', 'class="pictofixedwidth"').$langs->trans("StockMovementNotYetRecorded").'.';
+			$text .= '<br>'.img_picture('', 'movement', 'class="picturefixedwidth"').$langs->trans("StockMovementNotYetRecorded").'.';
 		}
 
 		if (isModEnabled('notification')) {
@@ -1487,7 +1487,7 @@ if ($action == 'create') {
 		$langs->load("projects");
 		$morehtmlref .= '<br>';
 		if (0) {    // Do not change on reception
-			$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify' && $permissiontoadd) {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 			}
@@ -1729,7 +1729,7 @@ if ($action == 'create') {
 		print '</td>';
 		print '<td colspan="3">';
 		if ($action != 'editincoterm') {
-			print $form->textwithpicto($object->display_incoterms(), $object->label_incoterms, 1);
+			print $form->textWithPicture($object->display_incoterms(), $object->label_incoterms, 1);
 		} else {
 			print $form->select_incoterms((!empty($object->fk_incoterms) ? $object->fk_incoterms : ''), (!empty($object->location_incoterms) ? $object->location_incoterms : ''), $_SERVER['PHP_SELF'].'?id='.$object->id);
 		}
@@ -1982,7 +1982,7 @@ if ($action == 'create') {
 								$warehousestatic->fetch($receptionline_var['warehouse']);
 								$htmltext .= '<br>'.$langs->trans("From").' : '.$warehousestatic->getNomUrl(1, '', 0, 1);
 							}
-							$htmltooltip .= ' '.$form->textwithpicto('', $htmltext, 1);
+							$htmltooltip .= ' '.$form->textWithPicture('', $htmltext, 1);
 
 							$qtyalreadyreceived += $receptionline_var['qty'];
 						}
@@ -1992,7 +1992,7 @@ if ($action == 'create') {
 					}
 				}
 			}
-			print $form->textwithpicto($qtyalreadyreceived, $htmltooltip, 1, 'info', '', 0, 3, 'tooltip'.$lines[$i]->id);
+			print $form->textWithPicture($qtyalreadyreceived, $htmltooltip, 1, 'info', '', 0, 3, 'tooltip'.$lines[$i]->id);
 			print '</td>';
 		}
 
@@ -2073,7 +2073,7 @@ if ($action == 'create') {
 							if (!getDolGlobalString('PRODUCT_DISABLE_EATBY')) {
 								$batchinfo .= ' - '.$langs->trans("EatByDate").': '.dol_print_date($lines[$i]->eatby, "day");
 							}
-							$detail = $form->textwithtooltip(img_picto('', 'object_barcode').' '.$langs->trans("DetailBatchNumber"), $batchinfo);
+							$detail = $form->textwithtooltip(img_picture('', 'object_barcode').' '.$langs->trans("DetailBatchNumber"), $batchinfo);
 						}
 					}
 					print $detail . '</td>';

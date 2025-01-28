@@ -81,7 +81,7 @@ class WebPortalMember extends Member
 	 *    'mail', 'phone', 'url', 'password'
 	 *        Note: Filter must be a Dolibarr Universal Filter syntax string. Example: "(t.ref:like:'SO-%') or (t.date_creation:<:'20160101') or (t.status:!=:0) or (t.nature:is:NULL)"
 	 *  'label' the translation key.
-	 *  'picto' is code of a picto to show before value in forms
+	 *  'picture' is code of a picture to show before value in forms
 	 *  'enabled' is a condition when the field must be managed (Example: 1 or 'getDolGlobalInt('MY_SETUP_PARAM') or 'isModEnabled("multicurrency")' ...)
 	 *  'position' is the sort order of field.
 	 *  'notnull' is set to 1 if not null in database. Set to -1 if we must set data to null if empty ('' or 0).
@@ -101,7 +101,7 @@ class WebPortalMember extends Member
 	 *  'autofocusoncreate' to have field having the focus on a create form. Only 1 field should have this property set to 1.
 	 *  'comment' is not used. You can store here any text of your choice. It is not used by application.
 	 *    'validate' is 1 if need to validate with $this->validateField()
-	 *  'copytoclipboard' is 1 or 2 to allow to add a picto to copy value into clipboard (1=picto after label, 2=picto after value)
+	 *  'copytoclipboard' is 1 or 2 to allow to add a picture to copy value into clipboard (1=picture after label, 2=picture after value)
 	 *  'showonheader' is 1 to show on the top of the card (header section)
 	 *
 	 *  Note: To have value dynamic, you can set value to 0 in definition and edit the value on the fly into the constructor.
@@ -128,7 +128,7 @@ class WebPortalMember extends Member
 		'phone' => array('type' => 'varchar(30)', 'label' => 'Phone', 'enabled' => 1, 'visible' => 4, 'position' => 115, 'showonheader' => 1,),
 		'phone_perso' => array('type' => 'varchar(30)', 'label' => 'Phone perso', 'enabled' => 1, 'visible' => 4, 'position' => 120, 'showonheader' => 1,),
 		'phone_mobile' => array('type' => 'varchar(30)', 'label' => 'Phone mobile', 'enabled' => 1, 'visible' => 4, 'position' => 125, 'showonheader' => 1,),
-		'email' => array('type' => 'varchar(255)', 'label' => 'Email', 'enabled' => 1, 'visible' => 4, 'position' => 200, 'showonheader' => 1, 'picto' => 'email'),
+		'email' => array('type' => 'varchar(255)', 'label' => 'Email', 'enabled' => 1, 'visible' => 4, 'position' => 200, 'showonheader' => 1, 'picture' => 'email'),
 		'url' => array('type' => 'varchar(255)', 'label' => 'Url', 'enabled' => 1, 'visible' => 4, 'position' => 210, 'showonheader' => 1,),
 
 		'login' => array('type' => 'varchar(50)', 'label' => 'Login', 'enabled' => 1, 'visible' => 4, 'position' => 240,),
@@ -220,7 +220,7 @@ class WebPortalMember extends Member
 	 * getTooltipContentArray
 	 * @param array<string,mixed> $params params to construct tooltip data
 	 * @since v18
-	 * @return array{picto?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
+	 * @return array{picture?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
 	 */
 	public function getTooltipContentArray($params)
 	{
@@ -231,9 +231,9 @@ class WebPortalMember extends Member
 		if (getDolGlobalInt('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 			return ['optimize' => $langs->trans("WebPortalMember")];
 		}
-		$datas['picto'] = img_picto('', $this->picto) . ' <u>' . $langs->trans("WebPortalMember") . '</u>';
+		$datas['picture'] = img_picture('', $this->picture) . ' <u>' . $langs->trans("WebPortalMember") . '</u>';
 		if (isset($this->status)) {
-			$datas['picto'] .= ' ' . $this->getLibStatut(5);
+			$datas['picture'] .= ' ' . $this->getLibStatut(5);
 		}
 		$datas['ref'] .= '<br><b>' . $langs->trans('Ref') . ':</b> ' . $this->ref;
 
@@ -241,9 +241,9 @@ class WebPortalMember extends Member
 	}
 
 	/**
-	 *  Return clickable name (with picto eventually)
+	 *  Return clickable name (with picture eventually)
 	 *
-	 * @param	int		$withpictoimg			0=No picto, 1=Include picto into link, 2=Only picto, -1=Include photo into link, -2=Only picto photo, -3=Only photo very small)
+	 * @param	int		$withPictureimg			0=No picture, 1=Include picture into link, 2=Only picture, -1=Include photo into link, -2=Only picture photo, -3=Only photo very small)
 	 * @param	int		$maxlen					Length max label
 	 * @param	string	$option					Page for link ('card', 'category', 'subscription', ...)
 	 * @param	string	$mode					''=Show firstname+lastname as label (using default order), 'firstname'=Show only firstname, 'lastname'=Show only lastname, 'login'=Show login, 'ref'=Show ref
@@ -253,12 +253,12 @@ class WebPortalMember extends Member
 	 * @param	int		$addlinktonotes			1=Add link to notes
 	 * @return	string 	String with Url
 	 */
-	public function getNomUrl($withpictoimg = 0, $maxlen = 0, $option = 'card', $mode = '', $morecss = '', $save_lastsearch_value = -1, $notooltip = 0, $addlinktonotes = 0)
+	public function getNomUrl($withPictureimg = 0, $maxlen = 0, $option = 'card', $mode = '', $morecss = '', $save_lastsearch_value = -1, $notooltip = 0, $addlinktonotes = 0)
 	{
 		global $langs, $hookManager;
 
-		if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') && $withpictoimg) {
-			$withpictoimg = 0;
+		if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') && $withPictureimg) {
+			$withPictureimg = 0;
 		}
 
 		$option = 'nolink';
@@ -320,26 +320,26 @@ class WebPortalMember extends Member
 		}
 
 		$result .= $linkstart;
-		if ($withpictoimg) {
+		if ($withPictureimg) {
 			$result .= '<div class="inline-block nopadding valignmiddle">';
 		}
-		if ($withpictoimg) {
+		if ($withPictureimg) {
 			$paddafterimage = '';
-			if (abs($withpictoimg) == 1 || abs($withpictoimg) == 4) {
+			if (abs($withPictureimg) == 1 || abs($withPictureimg) == 4) {
 				$morecss .= ' paddingrightonly';
 			}
-			// Only picto
-			if ($withpictoimg > 0) {
-				$picto = '<span class="nopadding' . ($morecss ? ' userimg' . $morecss : '') . '">' . img_object('', 'user', $paddafterimage . ' ' . ($notooltip ? '' : $dataparams), 0, 0, $notooltip ? 0 : 1) . '</span>';
+			// Only picture
+			if ($withPictureimg > 0) {
+				$picture = '<span class="nopadding' . ($morecss ? ' userimg' . $morecss : '') . '">' . img_object('', 'user', $paddafterimage . ' ' . ($notooltip ? '' : $dataparams), 0, 0, $notooltip ? 0 : 1) . '</span>';
 			} else {
 				// Picto must be a photo
-				$picto = '<span class="nopadding' . ($morecss ? ' userimg' . $morecss : '') . '"' . ($paddafterimage ? ' ' . $paddafterimage : '') . '>';
-				$picto .= Form::showphoto('memberphoto', $this, 0, 0, 0, 'userphoto' . (($withpictoimg == -3 || $withpictoimg == -4) ? 'small' : ''), 'mini', 0, 1);
-				$picto .= '</span>';
+				$picture = '<span class="nopadding' . ($morecss ? ' userimg' . $morecss : '') . '"' . ($paddafterimage ? ' ' . $paddafterimage : '') . '>';
+				$picture .= Form::showphoto('memberphoto', $this, 0, 0, 0, 'userphoto' . (($withPictureimg == -3 || $withPictureimg == -4) ? 'small' : ''), 'mini', 0, 1);
+				$picture .= '</span>';
 			}
-			$result .= $picto;
+			$result .= $picture;
 		}
-		if (($withpictoimg > -2 && $withpictoimg != 2) || $withpictoimg == -4) {
+		if (($withPictureimg > -2 && $withPictureimg != 2) || $withPictureimg == -4) {
 			if (!getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 				$result .= '<span class="nopadding valignmiddle' . ((!isset($this->statut) || $this->statut) ? '' : ' strikefordisabled') .
 					($morecss ? ' usertext' . $morecss : '') . '">';
@@ -355,7 +355,7 @@ class WebPortalMember extends Member
 				$result .= '</span>';
 			}
 		}
-		if ($withpictoimg) {
+		if ($withPictureimg) {
 			$result .= '</div>';
 		}
 		$result .= $linkend;
@@ -365,7 +365,7 @@ class WebPortalMember extends Member
 		//        $notetoshow = $langs->trans("ViewPrivateNote").':<br>'.dol_string_nohtmltag($this->note_private, 1);
 		//        $result .= ' <span class="note inline-block">';
 		//        $result .= '<a href="'.DOL_URL_ROOT.'/members/note.php?id='.$this->id.'" class="classfortooltip" title="'.dol_escape_htmltag($notetoshow).'">';
-		//        $result .= img_picto('', 'note');
+		//        $result .= img_picture('', 'note');
 		//        $result .= '</a>';
 		//        $result .= '</span>';
 		//    }
@@ -460,12 +460,12 @@ class WebPortalMember extends Member
 					$htmltext = '';
 					// If there is extra languages
 					foreach ($arrayoflangcode as $extralangcode) {
-						$s = picto_from_langcode($extralangcode, 'class="pictoforlang paddingright"');
+						$s = picture_from_langcode($extralangcode, 'class="pictureforlang paddingright"');
 						// This also call dol_format_address()
 						$coords = $this->getFullAddress(1, ', ', $config->global->MAIN_SHOW_REGION_IN_STATE_SELECT, $extralangcode);
 						$htmltext .= $s . dol_print_address($coords, 'address_' . $htmlkey . '_' . $this->id, $this->element, $this->id, 1, ', ');
 					}
-					$out .= $form->textwithpicto('', $htmltext, -1, 'language', 'opacitymedium paddingleft');
+					$out .= $form->textWithPicture('', $htmltext, -1, 'language', 'opacitymedium paddingleft');
 				}
 			}
 		}

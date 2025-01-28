@@ -29,6 +29,6 @@ create table llx_c_actioncomm
   active     tinyint DEFAULT 1 NOT NULL,
   todo       tinyint,						-- deprecated
   color      varchar(9),
-  picto      varchar(48),
+  picture      varchar(48),
   position   integer NOT NULL DEFAULT 0
 )ENGINE=innodb;

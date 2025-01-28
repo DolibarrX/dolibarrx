@@ -60,9 +60,9 @@ class Member extends CommonObject
 	public $table_element = 'member';
 
 	/**
-	 * @var string picto
+	 * @var string picture
 	 */
-	public $picto = 'member';
+	public $picture = 'member';
 
 	/**
 	 * @var string[] array of messages
@@ -2273,7 +2273,7 @@ class Member extends CommonObject
 	 * getTooltipContentArray
 	 * @param array<string,mixed> $params params to construct tooltip data
 	 * @since v18
-	 * @return array{picto?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
+	 * @return array{picture?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
 	 */
 	public function getTooltipContentArray($params)
 	{
@@ -2296,9 +2296,9 @@ class Member extends CommonObject
 		}
 
 		$datas['divopen'] = '<div class="centpercent">';
-		$datas['picto'] = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("Member").'</u> '.$this->getLibStatut(4);
+		$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("Member").'</u> '.$this->getLibStatut(4);
 		if (!empty($this->morphy)) {
-			$datas['picto'] .= '&nbsp;' . $this->getmorphylib('', 1);
+			$datas['picture'] .= '&nbsp;' . $this->getmorphylib('', 1);
 		}
 		if (!empty($this->ref)) {
 			$datas['ref'] = '<br><b>'.$langs->trans('Ref').':</b> '.$this->ref;
@@ -2328,9 +2328,9 @@ class Member extends CommonObject
 	}
 
 	/**
-	 *  Return clickable name (with picto eventually)
+	 *  Return clickable name (with picture eventually)
 	 *
-	 *	@param	int		$withpictoimg				0=No picto, 1=Include picto into link, 2=Only picto, -1=Include photo into link, -2=Only picto photo, -3=Only photo very small, -4=???)
+	 *	@param	int		$withPictureimg				0=No picture, 1=Include picture into link, 2=Only picture, -1=Include photo into link, -2=Only picture photo, -3=Only photo very small, -4=???)
 	 *	@param	int		$maxlen						length max label
 	 *	@param	string	$option						Page for link ('card', 'category', 'subscription', ...)
 	 *	@param  string  $mode           			''=Show firstname+lastname as label (using default order), 'firstname'=Show only firstname, 'lastname'=Show only lastname, 'login'=Show login, 'ref'=Show ref
@@ -2340,12 +2340,12 @@ class Member extends CommonObject
 	 *	@param  int		$addlinktonotes				1=Add link to notes
 	 *	@return	string								Chaine avec URL
 	 */
-	public function getNomUrl($withpictoimg = 0, $maxlen = 0, $option = 'card', $mode = '', $morecss = '', $save_lastsearch_value = -1, $notooltip = 0, $addlinktonotes = 0)
+	public function getNomUrl($withPictureimg = 0, $maxlen = 0, $option = 'card', $mode = '', $morecss = '', $save_lastsearch_value = -1, $notooltip = 0, $addlinktonotes = 0)
 	{
 		global $config, $langs, $hookManager;
 
-		if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') && $withpictoimg) {
-			$withpictoimg = 0;
+		if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') && $withPictureimg) {
+			$withPictureimg = 0;
 		}
 
 		$result = '';
@@ -2400,23 +2400,23 @@ class Member extends CommonObject
 
 		$result .= $linkstart;
 
-		if ($withpictoimg) {
+		if ($withPictureimg) {
 			$paddafterimage = '';
-			if (abs($withpictoimg) == 1 || abs($withpictoimg) == 4) {
+			if (abs($withPictureimg) == 1 || abs($withPictureimg) == 4) {
 				$morecss .= ' paddingrightonly';
 			}
-			// Only picto
-			if ($withpictoimg > 0) {
-				$picto = '<span class="nopadding'.($morecss ? ' userimg'.$morecss : '').'">'.img_object('', 'user', $paddafterimage.' '.($notooltip ? '' : $dataparams), 0, 0, $notooltip ? 0 : 1).'</span>';
+			// Only picture
+			if ($withPictureimg > 0) {
+				$picture = '<span class="nopadding'.($morecss ? ' userimg'.$morecss : '').'">'.img_object('', 'user', $paddafterimage.' '.($notooltip ? '' : $dataparams), 0, 0, $notooltip ? 0 : 1).'</span>';
 			} else {
 				// Picto must be a photo
-				$picto = '<span class="nopadding'.($morecss ? ' userimg'.$morecss : '').'"'.($paddafterimage ? ' '.$paddafterimage : '').'>';
-				$picto .= Form::showphoto('memberphoto', $this, 0, 0, 0, 'userphoto'.(($withpictoimg == -3 || $withpictoimg == -4) ? 'small' : ''), 'mini', 0, 1);
-				$picto .= '</span>';
+				$picture = '<span class="nopadding'.($morecss ? ' userimg'.$morecss : '').'"'.($paddafterimage ? ' '.$paddafterimage : '').'>';
+				$picture .= Form::showphoto('memberphoto', $this, 0, 0, 0, 'userphoto'.(($withPictureimg == -3 || $withPictureimg == -4) ? 'small' : ''), 'mini', 0, 1);
+				$picture .= '</span>';
 			}
-			$result .= $picto;
+			$result .= $picture;
 		}
-		if (($withpictoimg > -2 && $withpictoimg != 2) || $withpictoimg == -4) {
+		if (($withPictureimg > -2 && $withPictureimg != 2) || $withPictureimg == -4) {
 			if (!getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 				$result .= '<span class="nopadding valignmiddle'.((!isset($this->statut) || $this->statut) ? '' : ' strikefordisabled').
 				($morecss ? ' usertext'.$morecss : '').'">';
@@ -2440,7 +2440,7 @@ class Member extends CommonObject
 				$notetoshow = $langs->trans("ViewPrivateNote").':<br>'.dol_string_nohtmltag($this->note_private, 1);
 				$result .= ' <span class="note inline-block">';
 				$result .= '<a href="'.DOL_URL_ROOT.'/members/note.php?id='.$this->id.'" class="classfortooltip" title="'.dol_escape_htmltag($notetoshow).'">';
-				$result .= img_picto('', 'note');
+				$result .= img_picture('', 'note');
 				$result .= '</a>';
 				$result .= '</span>';
 			}
@@ -3299,7 +3299,7 @@ class Member extends CommonObject
 	}
 
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
 	 *	@param      string	    			$option                 Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param		array{string,mixed}		$arraydata				Array of data
@@ -3315,7 +3315,7 @@ class Member extends CommonObject
 		if (property_exists($this, 'photo') || !empty($this->photo)) {
 			$return .= Form::showphoto('memberphoto', $this, 0, 60, 0, 'photokanban photowithmargin photologintooltip', 'small', 0, 1);
 		} else {
-			$return .= img_picto('', 'user');
+			$return .= img_picture('', 'user');
 		}
 		$return .= '</span>';
 		$return .= '<div class="info-box-content">';

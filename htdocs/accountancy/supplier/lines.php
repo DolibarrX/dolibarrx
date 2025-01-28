@@ -442,8 +442,8 @@ if ($result) {
 	print '<td class="liste_titre"><input type="text" class="flat maxwidth50" name="search_tvaintra" value="'.dol_escape_htmltag($search_tvaintra).'"></td>';
 	print '<td class="liste_titre"><input type="text" class="flat maxwidth50" name="search_account" value="'.dol_escape_htmltag($search_account).'"></td>';
 	print '<td class="liste_titre center">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print "</td></tr>\n";
 
 	print '<tr class="liste_titre">';
@@ -461,8 +461,8 @@ if ($result) {
 	print_liste_field_titre("Country", $_SERVER["PHP_SELF"], "co.label", "", $param, '', $sortfield, $sortorder);
 	print_liste_field_titre("VATIntraShort", $_SERVER["PHP_SELF"], "s.tva_intra", "", $param, '', $sortfield, $sortorder);
 	print_liste_field_titre("AccountAccounting", $_SERVER["PHP_SELF"], "aa.account_number", "", $param, '', $sortfield, $sortorder);
-	$checkpicto = $form->showCheckAddButtons();
-	print_liste_field_titre($checkpicto, '', '', '', '', '', '', '', 'center ');
+	$checkPicture = $form->showCheckAddButtons();
+	print_liste_field_titre($checkPicture, '', '', '', '', '', '', '', 'center ');
 	print "</tr>\n";
 
 	$thirdpartystatic = new Societe($db);

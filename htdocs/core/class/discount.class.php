@@ -778,13 +778,13 @@ class DiscountAbsolute extends CommonObject
 	}
 
 	/**
-	 *  Return clickable ref of object (with picto or not)
+	 *  Return clickable ref of object (with picture or not)
 	 *
-	 *  @param	int<0,1>	$withpicto		0=No picto, 1=Include picto into link, 2=Picto only
+	 *  @param	int<0,1>	$withPicture		0=No picture, 1=Include picture into link, 2=Picto only
 	 *  @param	string		$option			Where to link to ('invoice' or 'discount')
 	 *  @return	string						String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = 'invoice')
+	public function getNomUrl($withPicture = 0, $option = 'invoice')
 	{
 		global $langs;
 
@@ -792,7 +792,7 @@ class DiscountAbsolute extends CommonObject
 		$link = '';
 		$linkend = '';
 		$label = '';
-		$picto = '';
+		$picture = '';
 		$ref = '';
 
 		if ($option == 'invoice') {
@@ -802,21 +802,21 @@ class DiscountAbsolute extends CommonObject
 			$link = '<a href="'.DOL_URL_ROOT.$link.'?facid='.$facid.'" title="'.dol_escape_htmltag($label, 1).'" class="classfortooltip">';
 			$linkend = '</a>';
 			$ref = !empty($this->discount_type) ? $this->ref_invoice_supplier_source : $this->ref_facture_source;
-			$picto = 'bill';
+			$picture = 'bill';
 		}
 		if ($option == 'discount') {
 			$label = $langs->trans("Discount");
 			$link = '<a href="'.DOL_URL_ROOT.'/comm/remx.php?id='.$this->socid.'" title="'.dol_escape_htmltag($label, 1).'" class="classfortooltip">';
 			$linkend = '</a>';
 			$ref = $langs->trans("Discount");
-			$picto = 'generic';
+			$picture = 'generic';
 		}
 
 
-		if ($withpicto) {
-			$result .= ($link.img_object($label, $picto, 'class="classfortooltip"').$linkend);
+		if ($withPicture) {
+			$result .= ($link.img_object($label, $picture, 'class="classfortooltip"').$linkend);
 		}
-		if ($withpicto && $withpicto != 2) {
+		if ($withPicture && $withPicture != 2) {
 			$result .= ' ';
 		}
 		$result .= $link.$ref.$linkend;

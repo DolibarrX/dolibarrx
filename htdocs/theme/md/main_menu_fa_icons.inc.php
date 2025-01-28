@@ -45,7 +45,7 @@ div.mainmenu.generic4::before {
 	content: "\f249";
 }
 
-/* Define color of some picto */
+/* Define color of some picture */
 
 .fa-phone, .fa-mobile-alt, .fa-fax {
 	opacity: 0.7;

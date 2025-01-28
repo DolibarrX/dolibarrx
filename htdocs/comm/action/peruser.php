@@ -368,7 +368,7 @@ $lastdaytoshow = dol_time_plus_duree($firstdaytoshow, $nb_weeks_to_show, 'd');
 $max_day_in_month = idate("t", dol_mktime(0, 0, 0, $month, 1, $year, 'gmt'));
 
 $tmpday = $first_day;
-$picto = 'calendarweek';
+$picture = 'calendarweek';
 
 // Show navigation bar
 $nav = '<div class="navselectiondate inline-block nowraponall">';
@@ -446,31 +446,31 @@ $viewmode = '<div class="navmode inline-block">';
 
 $viewmode .= '<a class="btnTitle'.($mode == 'list' ? ' btnTitleSelected' : '').' reposition" href="'.DOL_URL_ROOT.'/comm/action/list.php?mode=show_list&restore_lastsearch_values=1'.$paramnoactionodate.'">';
 //$viewmode .= '<span class="fa paddingleft imgforviewmode valignmiddle btnTitle-icon">';
-$viewmode .= img_picto($langs->trans("List"), 'object_calendarlist', 'class="imgforviewmode pictoactionview block"');
+$viewmode .= img_picture($langs->trans("List"), 'object_calendarlist', 'class="imgforviewmode pictureactionview block"');
 //$viewmode .= '</span>';
 $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsmartphone inline-block width75 divoverflow">'.$langs->trans("ViewList").'</span></a>';
 
 $viewmode .= '<a class="btnTitle'.($mode == 'show_month' ? ' btnTitleSelected' : '').' reposition" href="'.DOL_URL_ROOT.'/comm/action/index.php?mode=show_month&year='.dol_print_date($object->datep, '%Y').'&month='.dol_print_date($object->datep, '%m').'&day='.dol_print_date($object->datep, '%d').$paramnoactionodate.'">';
 //$viewmode .= '<span class="fa paddingleft imgforviewmode valignmiddle btnTitle-icon">';
-$viewmode .= img_picto($langs->trans("ViewCal"), 'object_calendarmonth', 'class="pictoactionview block"');
+$viewmode .= img_picture($langs->trans("ViewCal"), 'object_calendarmonth', 'class="pictureactionview block"');
 //$viewmode .= '</span>';
 $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsmartphone inline-block width75 divoverflow">'.$langs->trans("ViewCal").'</span></a>';
 
 $viewmode .= '<a class="btnTitle'.($mode == 'show_week' ? ' btnTitleSelected' : '').' reposition" href="'.DOL_URL_ROOT.'/comm/action/index.php?mode=show_week&year='.dol_print_date($object->datep, '%Y').'&month='.dol_print_date($object->datep, '%m').'&day='.dol_print_date($object->datep, '%d').$paramnoactionodate.'">';
 //$viewmode .= '<span class="fa paddingleft imgforviewmode valignmiddle btnTitle-icon">';
-$viewmode .= img_picto($langs->trans("ViewWeek"), 'object_calendarweek', 'class="pictoactionview block"');
+$viewmode .= img_picture($langs->trans("ViewWeek"), 'object_calendarweek', 'class="pictureactionview block"');
 //$viewmode .= '</span>';
 $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsmartphone inline-block width75 divoverflow">'.$langs->trans("ViewWeek").'</span></a>';
 
 $viewmode .= '<a class="btnTitle'.($mode == 'show_day' ? ' btnTitleSelected' : '').' reposition" href="'.DOL_URL_ROOT.'/comm/action/index.php?mode=show_day&year='.dol_print_date($object->datep, '%Y').'&month='.dol_print_date($object->datep, '%m').'&day='.dol_print_date($object->datep, '%d').$paramnoactionodate.'">';
 //$viewmode .= '<span class="fa paddingleft imgforviewmode valignmiddle btnTitle-icon">';
-$viewmode .= img_picto($langs->trans("ViewDay"), 'object_calendarday', 'class="pictoactionview block"');
+$viewmode .= img_picture($langs->trans("ViewDay"), 'object_calendarday', 'class="pictureactionview block"');
 //$viewmode .= '</span>';
 $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsmartphone inline-block width75 divoverflow">'.$langs->trans("ViewDay").'</span></a>';
 
 $viewmode .= '<a class="btnTitle'.($mode == 'show_peruser' ? ' btnTitleSelected' : '').' reposition marginrightonly" href="'.DOL_URL_ROOT.'/comm/action/peruser.php?mode=show_peruser&year='.dol_print_date($object->datep, '%Y').'&month='.dol_print_date($object->datep, '%m').'&day='.dol_print_date($object->datep, '%d').$paramnoactionodate.'">';
 //$viewmode .= '<span class="fa paddingleft imgforviewmode valignmiddle btnTitle-icon">';
-$viewmode .= img_picto($langs->trans("ViewPerUser"), 'object_calendarperuser', 'class="pictoactionview block"');
+$viewmode .= img_picture($langs->trans("ViewPerUser"), 'object_calendarperuser', 'class="pictureactionview block"');
 //$viewmode .= '</span>';
 $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsmartphone inline-block width75 divoverflow" title="'.dolPrintHTML($langs->trans("ViewPerUser")).'">'.$langs->trans("ViewPerUser").'</span></a>';
 
@@ -567,7 +567,7 @@ $sql .= " a.percent,";
 $sql .= " a.fk_user_author,a.fk_user_action,";
 $sql .= " a.transparency, a.priority, a.fulldayevent, a.location,";
 $sql .= " a.fk_soc, a.fk_contact, a.fk_element, a.elementtype, a.fk_project,";
-$sql .= " ca.code, ca.libelle as type_label, ca.color, ca.type as type_type, ca.picto as type_picto";
+$sql .= " ca.code, ca.libelle as type_label, ca.color, ca.type as type_type, ca.picture as type_picture";
 $sql .= " FROM ".MAIN_DB_PREFIX."c_actioncomm as ca, ".MAIN_DB_PREFIX."actioncomm as a";
 // We must filter on resource table
 if ($resourceid > 0) {
@@ -851,7 +851,7 @@ while ($currentdaytoshow < $lastdaytoshow) {
 	if ($canedit && $mode == 'show_peruser') {
 		// Filter on days
 		print '<span class="hideonsmartphone" title="'.$langs->trans("VisibleDaysRange").'">';
-		print img_picto('', 'clock', 'class="fawidth30 inline-block marginleftonly"');
+		print img_picture('', 'clock', 'class="fawidth30 inline-block marginleftonly"');
 		print $langs->trans("DaysOfWeek").'</span>';
 		print "\n";
 		print '<div class="ui-grid-a  inline-block"><div class="ui-block-a nowraponall">';
@@ -890,7 +890,7 @@ while ($currentdaytoshow < $lastdaytoshow) {
 
 	// Filter on hours
 	print '<span class="hideonsmartphone" title="'.$langs->trans("VisibleTimeRange").'">';
-	print img_picto('', 'clock', 'class="fawidth30 inline-block marginleftonly"');
+	print img_picture('', 'clock', 'class="fawidth30 inline-block marginleftonly"');
 	print $langs->trans("Hours").'</span>';
 	print "\n";
 	print '<div class="ui-grid-a inline-block"><div class="ui-block-a nowraponall">';

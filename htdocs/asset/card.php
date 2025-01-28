@@ -185,7 +185,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-asset page-card');
 
 // Part to create
 if ($action == 'create') {
-	print load_fiche_titre($langs->trans("NewObject", $langs->transnoentitiesnoconv("Asset")), '', 'object_'.$object->picto);
+	print load_fiche_titre($langs->trans("NewObject", $langs->transnoentitiesnoconv("Asset")), '', 'object_'.$object->picture);
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -225,7 +225,7 @@ if ($action == 'create') {
 
 // Part to edit record
 if (($id || $ref) && $action == 'edit') {
-	print load_fiche_titre($langs->trans("Asset"), '', 'object_'.$object->picto);
+	print load_fiche_titre($langs->trans("Asset"), '', 'object_'.$object->picture);
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -262,7 +262,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	$res = $object->fetch_optionals();
 
 	$head = assetPrepareHead($object);
-	print dol_get_fiche_head($head, 'card', $langs->trans("Asset"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'card', $langs->trans("Asset"), -1, $object->picture);
 
 	$formconfirm = '';
 

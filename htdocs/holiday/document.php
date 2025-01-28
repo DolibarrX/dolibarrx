@@ -191,7 +191,7 @@ if ($object->id) {
 
 	print '<tr>';
 	print '<td>';
-	print $form->textwithpicto($langs->trans('DateDebCP'), $langs->trans("FirstDayOfHoliday"));
+	print $form->textWithPicture($langs->trans('DateDebCP'), $langs->trans("FirstDayOfHoliday"));
 	print '</td>';
 	print '<td>'.dol_print_date($object->date_debut, 'day');
 	print ' &nbsp; &nbsp; ';
@@ -201,7 +201,7 @@ if ($object->id) {
 
 	print '<tr>';
 	print '<td>';
-	print $form->textwithpicto($langs->trans('DateFinCP'), $langs->trans("LastDayOfHoliday"));
+	print $form->textWithPicture($langs->trans('DateFinCP'), $langs->trans("LastDayOfHoliday"));
 	print '</td>';
 	print '<td>'.dol_print_date($object->date_fin, 'day');
 	print ' &nbsp; &nbsp; ';
@@ -221,7 +221,7 @@ if ($object->id) {
 	if ($includesunday) {
 		$htmlhelp .= '<br>'.$langs->trans("DayIsANonWorkingDay", $langs->trans("Sunday"));
 	}
-	print $form->textwithpicto($langs->trans('NbUseDaysCP'), $htmlhelp);
+	print $form->textWithPicture($langs->trans('NbUseDaysCP'), $htmlhelp);
 	print '</td>';
 	print '<td>'.num_open_day($object->date_debut_gmt, $object->date_fin_gmt, 0, 1, $object->halfday).'</td>';
 	print '</tr>';

@@ -800,8 +800,8 @@ if ($resql) {
 
 	// List of mass actions available
 	$arrayofmassactions = array(
-		//'presend'=>img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
-		//'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
+		//'presend'=>img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
+		//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 	);
 	if (in_array($massaction, array('presend', 'predelete'))) {
 		$arrayofmassactions = array();
@@ -899,7 +899,7 @@ if ($resql) {
 		print '<br>';
 	}
 
-	// Code to adjust value date with plus and less picto using an Ajax call instead of a full reload of page
+	// Code to adjust value date with plus and less picture using an Ajax call instead of a full reload of page
 	$urlajax = DOL_URL_ROOT.'/core/ajax/bankconciliate.php?format=dayreduceformat&token='.currentToken();
 	print '
     <script type="text/javascript">
@@ -958,13 +958,13 @@ if ($resql) {
 
 	$morehtmlright = '<!-- Add New button -->'.$newcardbutton;
 
-	$picto = 'bank_account';
+	$picture = 'bank_account';
 	if ($id > 0 || !empty($ref)) {
-		$picto = '';
+		$picture = '';
 	}
 
 	// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
-	print_barre_liste($langs->trans("BankTransactions"), $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton.$morehtml, $num, $nbtotalofrecords, $picto, 0, $morehtmlright, '', $limit, 0, 0, 1);
+	print_barre_liste($langs->trans("BankTransactions"), $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton.$morehtml, $num, $nbtotalofrecords, $picture, 0, $morehtmlright, '', $limit, 0, 0, 1);
 
 	// Form to reconcile
 	if ($user->hasRight('bank', 'consolidate') && $action == 'reconcile') {
@@ -1046,7 +1046,7 @@ if ($resql) {
 
 		foreach ($last_receipts as $num_releve) {
 			$newentreyinlist = '<a target="_blank" href="'.DOL_URL_ROOT.'/compta/bank/releve.php?account='.((int) $id).'&num='.urlencode($num_releve).'">';
-			$newentreyinlist .= img_picto($num_releve, 'generic', 'class="paddingright"');
+			$newentreyinlist .= img_picture($num_releve, 'generic', 'class="paddingright"');
 			$newentreyinlist .= dol_escape_htmltag($num_releve).'</a> &nbsp; ';
 			$listoflastreceipts = $newentreyinlist.$listoflastreceipts;
 		}
@@ -1108,7 +1108,7 @@ if ($resql) {
 			$moreforfilter .= '<div class="divsearchfield">';
 			$tmptitle = $langs->trans('RubriquesTransactions');
 			$cate_arbo = $form->select_all_categories(Category::TYPE_BANK_LINE, $search_bid, 'parent', 0, 0, 1);
-			$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"').$form->selectarray('search_bid', $cate_arbo, $search_bid, $tmptitle, 0, 0, '', 0, 0, 0, '', '', 1);
+			$moreforfilter .= img_picture($tmptitle, 'category', 'class="picturefixedwidth"').$form->selectarray('search_bid', $cate_arbo, $search_bid, $tmptitle, 0, 0, '', 0, 0, 0, '', '', 1);
 			$moreforfilter .= '</div>';
 		}
 	}
@@ -1146,10 +1146,10 @@ if ($resql) {
 	// Actions and select
 	if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre valignmiddle center">';
-		$searchpicto = $form->showFilterButtons('left');
-		print $searchpicto;
-		//$searchpicto = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
-		//print $searchpicto;
+		$searchPicture = $form->showFilterButtons('left');
+		print $searchPicture;
+		//$searchPicture = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
+		//print $searchPicture;
 		print '</td>';
 	}
 	if (!empty($arrayfields['b.rowid']['checked'])) {
@@ -1208,14 +1208,14 @@ if ($resql) {
 	if (!empty($arrayfields['balancebefore']['checked'])) {
 		print '<td class="liste_titre right">';
 		$htmltext = $langs->trans("BalanceVisibilityDependsOnSortAndFilters", $langs->transnoentitiesnoconv("DateValue"));
-		print $form->textwithpicto('', $htmltext, 1);
+		print $form->textWithPicture('', $htmltext, 1);
 		print '</td>';
 	}
 	// Balance
 	if (!empty($arrayfields['balance']['checked'])) {
 		print '<td class="liste_titre right">';
 		$htmltext = $langs->trans("BalanceVisibilityDependsOnSortAndFilters", $langs->transnoentitiesnoconv("DateValue"));
-		print $form->textwithpicto('', $htmltext, 1);
+		print $form->textWithPicture('', $htmltext, 1);
 		print '</td>';
 	}
 	// Numero statement
@@ -1237,10 +1237,10 @@ if ($resql) {
 	// Actions and select
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre valignmiddle center">';
-		//$searchpicto = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
-		//print $searchpicto;
-		$searchpicto = $form->showFilterButtons();
-		print $searchpicto;
+		//$searchPicture = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
+		//print $searchPicture;
+		$searchPicture = $form->showFilterButtons();
+		print $searchPicture;
 		print '</td>';
 	}
 	print "</tr>\n";

@@ -194,7 +194,7 @@ if ($action == 'edit') {
 			print '<tr class="oddeven"><td><!-- '.$constname.' -->';
 			$tooltiphelp = (($langs->trans($constname . 'Tooltip') != $constname . 'Tooltip') ? $langs->trans($constname . 'Tooltip') : '');
 			$tooltiphelp .= (($langs->trans($constname . 'Tooltip2') && $langs->trans($constname . 'Tooltip2') != $constname . 'Tooltip2') ? '<br><br>'."\n".$langs->trans($constname . 'Tooltip2') : '');
-			print '<span id="helplink'.$constname.'" class="spanforparamtooltip">'.$form->textwithpicto($langs->trans($constname), $tooltiphelp, 1, 'info', '', 0, 3, 'tootips'.$constname).'</span>';
+			print '<span id="helplink'.$constname.'" class="spanforparamtooltip">'.$form->textWithPicture($langs->trans($constname), $tooltiphelp, 1, 'info', '', 0, 3, 'tootips'.$constname).'</span>';
 			print '</td><td>';
 
 			if ($val['type'] == 'textarea') {
@@ -233,7 +233,7 @@ if ($action == 'edit') {
 				$formother = new FormOther($db);
 
 				$tmp = explode(':', $val['type']);
-				print img_picto('', 'category', 'class="pictofixedwidth"');
+				print img_picture('', 'category', 'class="picturefixedwidth"');
 				print $formother->select_categories($tmp[1], getDolGlobalString($constname), $constname, 0, $langs->trans('CustomersProspectsCategoriesShort'));
 			} elseif (preg_match('/thirdparty_type/', $val['type'])) {
 				require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
@@ -242,7 +242,7 @@ if ($action == 'edit') {
 			} elseif ($val['type'] == 'securekey') {
 				print '<input type="text" class="flat" id="'.$constname.'" name="'.$constname.'" value="'.(GETPOST($constname, 'alpha') ? GETPOST($constname, 'alpha') : getDolGlobalString($constname)).'" size="40">';
 				if (!empty($config->use_javascript_ajax)) {
-					print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token'.$constname.'" class="linkobject"');
+					print '&nbsp;'.img_picture($langs->trans('Generate'), 'refresh', 'id="generate_token'.$constname.'" class="linkobject"');
 				}
 
 				// Add button to autosuggest a key
@@ -251,7 +251,7 @@ if ($action == 'edit') {
 			} elseif ($val['type'] == 'product') {
 				if (isModEnabled("product") || isModEnabled("service")) {
 					$selected = getDolGlobalString($constname);
-					print img_picto('', 'product', 'class="pictofixedwidth"');
+					print img_picture('', 'product', 'class="picturefixedwidth"');
 					print $form->select_produits($selected, $constname, '', 0, 0, 1, 2, '', 0, array(), 0, '1', 0, 'maxwidth500 widthcentpercentminusx', 0, '', null, 1);
 				}
 			} else {
@@ -278,7 +278,7 @@ if ($action == 'edit') {
 				print '<td><!-- '.$constname.' -->';
 				$tooltiphelp = (($langs->trans($constname . 'Tooltip') != $constname . 'Tooltip') ? $langs->trans($constname . 'Tooltip') : '');
 				$tooltiphelp .= (($langs->trans($constname . 'Tooltip2') && $langs->trans($constname . 'Tooltip2') != $constname . 'Tooltip2') ? '<br><br>'."\n".$langs->trans($constname . 'Tooltip2') : '');
-				print $form->textwithpicto($langs->trans($constname), $tooltiphelp);
+				print $form->textWithPicture($langs->trans($constname), $tooltiphelp);
 				print '</td><td>';
 
 				if ($val['type'] == 'textarea') {

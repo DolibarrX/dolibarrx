@@ -49,7 +49,7 @@ class AccountingAccount extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'billr';
+	public $picture = 'billr';
 
 	/**
 	 * 0=Default, 1=View may be restricted to sales representative only if no permission to see all or to company of external user if external user
@@ -466,9 +466,9 @@ class AccountingAccount extends CommonObject
 	}
 
 	/**
-	 * Return clickable name (with picto eventually)
+	 * Return clickable name (with picture eventually)
 	 *
-	 * @param int $withpicto 0=No picto, 1=Include picto into link, 2=Only picto
+	 * @param int $withPicture 0=No picture, 1=Include picture into link, 2=Only picture
 	 * @param int $withlabel 0=No label, 1=Include label of account
 	 * @param int $nourl 1=Disable url
 	 * @param string $moretitle Add more text to title tooltip
@@ -478,7 +478,7 @@ class AccountingAccount extends CommonObject
 	 * @param string $option 'ledger', 'journals', 'accountcard'
 	 * @return  string    String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $withlabel = 0, $nourl = 0, $moretitle = '', $notooltip = 0, $save_lastsearch_value = -1, $withcompletelabel = 0, $option = '')
+	public function getNomUrl($withPicture = 0, $withlabel = 0, $nourl = 0, $moretitle = '', $notooltip = 0, $save_lastsearch_value = -1, $withcompletelabel = 0, $option = '')
 	{
 		global $langs, $config, $hookManager;
 		require_once DOL_DOCUMENT_ROOT . '/core/lib/accounting.lib.php';
@@ -511,7 +511,7 @@ class AccountingAccount extends CommonObject
 			$url .= '&save_lastsearch_values=1';
 		}
 
-		$picto = 'accounting_account';
+		$picture = 'accounting_account';
 		$label = '';
 
 		if (empty($this->labelshort) || $withcompletelabel == 1) {
@@ -556,13 +556,13 @@ class AccountingAccount extends CommonObject
 			$label_link .= ' - ' . ($nourl ? '<span class="opacitymedium">' : '') . $labeltoshow . ($nourl ? '</span>' : '');
 		}
 
-		if ($withpicto) {
-			$result .= ($linkstart . img_object(($notooltip ? '' : $label), $picto, ($notooltip ? '' : 'class="classfortooltip"'), 0, 0, $notooltip ? 0 : 1) . $linkend);
+		if ($withPicture) {
+			$result .= ($linkstart . img_object(($notooltip ? '' : $label), $picture, ($notooltip ? '' : 'class="classfortooltip"'), 0, 0, $notooltip ? 0 : 1) . $linkend);
 		}
-		if ($withpicto && $withpicto != 2) {
+		if ($withPicture && $withPicture != 2) {
 			$result .= ' ';
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $linkstart . $label_link . $linkend;
 		}
 		global $action;

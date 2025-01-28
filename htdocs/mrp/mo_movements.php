@@ -285,7 +285,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	$head = moPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'stockmovement', $langs->trans("ManufacturingOrder"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'stockmovement', $langs->trans("ManufacturingOrder"), -1, $object->picture);
 
 	$formconfirm = '';
 
@@ -356,7 +356,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			$morehtmlref .= '<br>';
 		}
 		if ($permissiontoadd) {
-			$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 			}
@@ -623,8 +623,8 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Actions
 	if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre maxwidthsearch">';
-		$searchpicto = $form->showFilterAndCheckAddButtons(0);
-		print $searchpicto;
+		$searchPicture = $form->showFilterAndCheckAddButtons(0);
+		print $searchPicture;
 		print '</td>';
 	}
 	if (!empty($arrayfields['m.rowid']['checked'])) {
@@ -756,8 +756,8 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	// Actions
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre maxwidthsearch">';
-		$searchpicto = $form->showFilterAndCheckAddButtons(0);
-		print $searchpicto;
+		$searchPicture = $form->showFilterAndCheckAddButtons(0);
+		print $searchPicture;
 		print '</td>';
 	}
 	print "</tr>\n";

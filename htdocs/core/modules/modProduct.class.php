@@ -62,7 +62,7 @@ class modProduct extends DolibarrModules
 		$this->version = 'dolibarr';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'product';
+		$this->picture = 'product';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/product/temp");
@@ -487,7 +487,7 @@ class modProduct extends DolibarrModules
 		$r++;
 		$this->import_code[$r] = $this->rights_class.'_'.$r;
 		$this->import_label[$r] = "Products"; // Translation key
-		$this->import_icon[$r] = $this->picto;
+		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use a different icon from the one defined in import_icon
 		$this->import_tables_array[$r] = array('p' => MAIN_DB_PREFIX.'product', 'extra' => MAIN_DB_PREFIX.'product_extrafields');
 		$this->import_tables_creator_array[$r] = array('p' => 'fk_user_author'); // Fields to store import user id
@@ -766,7 +766,7 @@ class modProduct extends DolibarrModules
 			$r++;
 			$this->import_code[$r] = $this->rights_class.'_stock_by_warehouse';
 			$this->import_label[$r] = "ProductStockWarehouse"; // Translation key
-			$this->import_icon[$r] = $this->picto;
+			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('pwp' => MAIN_DB_PREFIX.'product_warehouse_properties');
 			$this->import_fields_array[$r] = array('pwp.fk_product' => "Product*",
@@ -793,7 +793,7 @@ class modProduct extends DolibarrModules
 			$r++;
 			$this->import_code[$r] = $this->rights_class.'_supplierprices';
 			$this->import_label[$r] = "SuppliersPricesOfProductsOrServices"; // Translation key
-			$this->import_icon[$r] = $this->picto;
+			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('sp' => MAIN_DB_PREFIX.'product_fournisseur_price', 'extra' => MAIN_DB_PREFIX.'product_fournisseur_price_extrafields');
 			$this->import_tables_creator_array[$r] = array('sp' => 'fk_user');
@@ -910,7 +910,7 @@ class modProduct extends DolibarrModules
 			$r++;
 			$this->import_code[$r] = $this->rights_class.'_multiprice';
 			$this->import_label[$r] = "ProductsOrServiceMultiPrice"; // Translation key
-			$this->import_icon[$r] = $this->picto;
+			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('pr' => MAIN_DB_PREFIX.'product_price');
 			$this->import_tables_creator_array[$r] = array('pr' => 'fk_user_author'); // Fields to store import user id
@@ -943,7 +943,7 @@ class modProduct extends DolibarrModules
 			$r++;
 			$this->import_code[$r] = $this->rights_class.'_languages';
 			$this->import_label[$r] = "ProductsOrServicesTranslations";
-			$this->import_icon[$r] = $this->picto;
+			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('l' => MAIN_DB_PREFIX.'product_lang');
 			// multiline translation, one line per translation
@@ -961,7 +961,7 @@ class modProduct extends DolibarrModules
 			$r++;
 			$this->import_code[$r] = $this->rights_class . '_' . $r;
 			$this->import_label[$r] = "AssociatedProducts"; // Translation key
-			$this->import_icon[$r] = $this->picto;
+			$this->import_icon[$r] = $this->picture;
 			$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 			$this->import_tables_array[$r] = array('pa' => MAIN_DB_PREFIX . 'product_association');
 			$this->import_fields_array[$r] = array('pa.fk_product_pere' => 'ParentProducts', 'pa.fk_product_fils' => 'ComposedProduct', 'pa.qty' => 'Qty', 'pa.incdec' => 'ComposedProductIncDecStock', 'pa.rang' => 'rang');

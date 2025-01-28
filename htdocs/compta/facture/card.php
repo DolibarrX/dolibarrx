@@ -3478,7 +3478,7 @@ if ($action == 'create') {
 			print '<tr><td class="fieldrequired">'.$langs->trans('Customer').'</td>';
 			print '<td colspan="2">';
 			$filter = '((s.client:IN:1,2,3) AND (s.status:=:1))';
-			print img_picto('', 'company', 'class="pictofixedwidth"').$form->select_company($soc->id, 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
+			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company($soc->id, 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
 			// Option to reload page to retrieve customer information.
 			if (!getDolGlobalString('RELOAD_PAGE_ON_CUSTOMER_CHANGE_DISABLED')) {
 				print '<script>
@@ -3587,7 +3587,7 @@ if ($action == 'create') {
 		$tmp = '<input type="radio" id="radio_standard" name="type" value="0"'.(GETPOSTINT('type') ? '' : ' checked').'> ';
 		$tmp  = $tmp.'<label for="radio_standard" >'.$langs->trans("InvoiceStandardAsk").'</label>';
 		// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
-		$desc = $form->textwithpicto($tmp, $langs->transnoentities("InvoiceStandardDesc"), 1, 'help', 'nowraponall', 0, 3, 'standardonsmartphone');
+		$desc = $form->textWithPicture($tmp, $langs->transnoentities("InvoiceStandardDesc"), 1, 'help', 'nowraponall', 0, 3, 'standardonsmartphone');
 		print '<table class="nobordernopadding"><tr>';
 		print '<td>';
 		print $desc;
@@ -3650,7 +3650,7 @@ if ($action == 'create') {
 				print '<td>';
 				$tmp  = $tmp.'<label for="radio_deposit">'.$langs->trans("InvoiceDeposit").'</label>';
 				// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
-				$desc = $form->textwithpicto($tmp, $langs->transnoentities("InvoiceDepositDesc"), 1, 'help', '', 0, 3, 'depositonsmartphone');
+				$desc = $form->textWithPicture($tmp, $langs->transnoentities("InvoiceDepositDesc"), 1, 'help', '', 0, 3, 'depositonsmartphone');
 				print $desc;
 				print '</td>';
 				if (($origin == 'propal') || ($origin == 'order')) {
@@ -3690,7 +3690,7 @@ if ($action == 'create') {
 				$tmp = '<input id="radio_situation" type="radio" name="type" value="5"'.(GETPOST('type') == 5 ? ' checked' : '').'> ';
 				$tmp  = $tmp.'<label for="radio_situation" >'.$langs->trans("InvoiceFirstSituationAsk").'</label>';
 				// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
-				$desc = $form->textwithpicto($tmp, $langs->transnoentities("InvoiceFirstSituationDesc"), 1, 'help', '', 0, 3, 'firstsituationonsmartphone');
+				$desc = $form->textWithPicture($tmp, $langs->transnoentities("InvoiceFirstSituationDesc"), 1, 'help', '', 0, 3, 'firstsituationonsmartphone');
 				print $desc;
 				print '</div></div>';
 
@@ -3711,7 +3711,7 @@ if ($action == 'create') {
 				$text .= '>';
 				$text .= $opt;
 				$text .= '</select>';
-				$desc = $form->textwithpicto($text, $langs->transnoentities("InvoiceSituationDesc"), 1, 'help', '', 0, 3);
+				$desc = $form->textWithPicture($text, $langs->transnoentities("InvoiceSituationDesc"), 1, 'help', '', 0, 3);
 				print $desc;
 				print '</div></div>';
 			}
@@ -3764,7 +3764,7 @@ if ($action == 'create') {
 					$text .= '<option value="-1">'.$langs->trans("NoReplacableInvoice").'</option>';
 				}
 				$text .= '</select>';
-				$desc = $form->textwithpicto($text, $langs->transnoentities("InvoiceReplacementDesc"), 1, 'help', '', 0, 3);
+				$desc = $form->textWithPicture($text, $langs->transnoentities("InvoiceReplacementDesc"), 1, 'help', '', 0, 3);
 				print $desc;
 				print '</div></div>';
 			}
@@ -3774,7 +3774,7 @@ if ($action == 'create') {
 				$tmp = '<input type="radio" name="type" id="radio_situation" value="0" disabled> ';
 				$text = $tmp.'<label>'.$langs->trans("InvoiceSituationAsk").'</label> ';
 				$text .= '<span class="opacitymedium">('.$langs->trans("YouMustCreateInvoiceFromThird").')</span> ';
-				$desc = $form->textwithpicto($text, $langs->transnoentities("InvoiceFirstSituationDesc"), 1, 'help', 'nowraponall', 0, 3, 'firstsituationonsmartphone');
+				$desc = $form->textWithPicture($text, $langs->transnoentities("InvoiceFirstSituationDesc"), 1, 'help', 'nowraponall', 0, 3, 'firstsituationonsmartphone');
 				print $desc;
 				print '</div></div>';
 			}
@@ -3783,7 +3783,7 @@ if ($action == 'create') {
 			$tmp = '<input type="radio" name="type" id="radio_replacement" value="0" disabled> ';
 			$text = $tmp.'<label for="radio_replacement" class="opacitymedium">'.$langs->trans("InvoiceReplacement").'</label> ';
 			//$text .= '<span class="opacitymedium hideonsmartphone">('.$langs->trans("YouMustCreateInvoiceFromThird").')</span> ';
-			$desc = $form->textwithpicto($text, $langs->transnoentities("InvoiceReplacementDesc").'<br><br>'.$langs->trans("YouMustCreateInvoiceFromThird"), 1, 'help', 'nowraponall', 0, 3, 'replacementonsmartphone');
+			$desc = $form->textWithPicture($text, $langs->transnoentities("InvoiceReplacementDesc").'<br><br>'.$langs->trans("YouMustCreateInvoiceFromThird"), 1, 'help', 'nowraponall', 0, 3, 'replacementonsmartphone');
 			print $desc;
 			print '</div></div>';
 		}
@@ -3862,7 +3862,7 @@ if ($action == 'create') {
 						$text .= '<option value="-1">'.$langs->trans("NoInvoiceToCorrect").'</option>';
 					}
 					$text .= '</select>';
-					$desc = $form->textwithpicto($text, $langs->transnoentities("InvoiceAvoirDesc"), 1, 'help', '', 0, 3);
+					$desc = $form->textWithPicture($text, $langs->transnoentities("InvoiceAvoirDesc"), 1, 'help', '', 0, 3);
 					print $desc;
 
 					print '<div id="credit_note_options" class="clearboth paddingtop marginbottomonly">';
@@ -3881,7 +3881,7 @@ if ($action == 'create') {
 				}
 				$text = $tmp.'<label class="opacitymedium" for="radio_creditnote">'.$langs->trans("InvoiceAvoir").'</label> ';
 				//$text .= '<span class="opacitymedium hideonsmartphone">('.$langs->trans("YouMustCreateInvoiceFromThird").')</span> ';
-				$desc = $form->textwithpicto($text, $langs->transnoentities("InvoiceAvoirDesc").'<br><br>'.$langs->trans("CreateCreditNoteWhenClientInvoiceExists"), 1, 'help', '', 0, 3, 'creditnoteonsmartphone');
+				$desc = $form->textWithPicture($text, $langs->transnoentities("InvoiceAvoirDesc").'<br><br>'.$langs->trans("CreateCreditNoteWhenClientInvoiceExists"), 1, 'help', '', 0, 3, 'creditnoteonsmartphone');
 				print $desc;
 				print '</div></div>'."\n";
 			}
@@ -3891,7 +3891,7 @@ if ($action == 'create') {
 		print '<div class="tagtr listofinvoicetype"><div class="tagtd listofinvoicetype">';
 		$tmp = '<input type="radio" name="type" id="radio_template" value="0" disabled> ';
 		$text = $tmp.'<label class="opacitymedium" for="radio_template">'.$langs->trans("RepeatableInvoice").'</label> ';
-		$desc = $form->textwithpicto($text, $langs->transnoentities("YouMustCreateStandardInvoiceFirstDesc"), 1, 'help', '', 0, 3, 'templateonsmartphone');
+		$desc = $form->textWithPicture($text, $langs->transnoentities("YouMustCreateStandardInvoiceFirstDesc"), 1, 'help', '', 0, 3, 'templateonsmartphone');
 		print $desc;
 		print '</div></div>';
 
@@ -3956,21 +3956,21 @@ if ($action == 'create') {
 
 		// Date invoice
 		print '<tr><td class="fieldrequired">'.$langs->trans('DateInvoice').'</td><td colspan="2">';
-		print img_picto('', 'action', 'class="pictofixedwidth"');
+		print img_picture('', 'action', 'class="picturefixedwidth"');
 		print $form->selectDate($newdateinvoice ? $newdateinvoice : $dateinvoice, '', 0, 0, 0, "add", 1, 1);
 		print '</td></tr>';
 
 		// Date point of tax
 		if (getDolGlobalString('INVOICE_POINTOFTAX_DATE')) {
 			print '<tr><td class="fieldrequired">'.$langs->trans('DatePointOfTax').'</td><td colspan="2">';
-			print img_picto('', 'action', 'class="pictofixedwidth"');
+			print img_picture('', 'action', 'class="picturefixedwidth"');
 			print $form->selectDate($date_pointoftax ? $date_pointoftax : -1, 'date_pointoftax', 0, 0, 0, "add", 1, 1);
 			print '</td></tr>';
 		}
 
 		// Payment term
 		print '<tr><td class="nowrap fieldrequired">'.$langs->trans('PaymentConditionsShort').'</td><td colspan="2">';
-		print img_picto('', 'payment', 'class="pictofixedwidth"');
+		print img_picture('', 'payment', 'class="picturefixedwidth"');
 		print $form->getSelectConditionsPaiements($cond_reglement_id, 'cond_reglement_id', -1, 1, 0, 'maxwidth500 widthcentpercentminusx');
 		print '</td></tr>';
 
@@ -4028,14 +4028,14 @@ if ($action == 'create') {
 
 		// Payment mode
 		print '<tr><td>'.$langs->trans('PaymentMode').'</td><td colspan="2">';
-		print img_picto('', 'bank', 'class="pictofixedwidth"');
+		print img_picture('', 'bank', 'class="picturefixedwidth"');
 		print $form->select_types_paiements($mode_reglement_id, 'mode_reglement_id', 'CRDT', 0, 1, 0, 0, 1, 'maxwidth250 widthcentpercentminusx', 1);
 		print '</td></tr>';
 
 		// Bank Account
 		if (isModEnabled("bank")) {
 			print '<tr><td>'.$langs->trans('BankAccount').'</td><td colspan="2">';
-			print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+			print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 			print $form->select_comptes($fk_account, 'fk_account', 0, '', 1, '', 0, 'maxwidth250 widthcentpercentminusx', 1);
 			//print ' <a href="'.DOL_URL_ROOT.'/compta/bank/card.php?socid='.$soc->id.'&action=create&status=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create&socid='.$soc->id.($fac_rec ? '&fac_rec='.$fac_rec : '')).'"><span class="fa fa-plus-circle valignmiddle" title="'.$langs->trans("NewBankAccount").'"></span></a>';
 			print '</td></tr>';
@@ -4045,7 +4045,7 @@ if ($action == 'create') {
 		if (isModEnabled('project') && is_object($formproject)) {
 			$langs->load('projects');
 			print '<tr><td>'.$langs->trans('Project').'</td><td colspan="2">';
-			print img_picto('', 'project', 'class="pictofixedwidth"');
+			print img_picture('', 'project', 'class="picturefixedwidth"');
 			print $formproject->select_projects(($socid > 0 ? $socid : -1), $projectid, 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 0, 'maxwidth500 widthcentpercentminusxx');
 			print ' <a href="'.DOL_URL_ROOT.'/projet/card.php?socid='.$soc->id.'&action=create&status=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create&socid='.$soc->id.($fac_rec ? '&fac_rec='.$fac_rec : '')).'"><span class="fa fa-plus-circle valignmiddle" title="'.$langs->trans("AddProject").'"></span></a>';
 			print '</td></tr>';
@@ -4054,7 +4054,7 @@ if ($action == 'create') {
 		// Incoterms
 		if (isModEnabled('incoterm')) {
 			print '<tr>';
-			print '<td><label for="incoterm_id">'.$form->textwithpicto($langs->trans("IncotermLabel"), !empty($objectsrc->label_incoterms) ? $objectsrc->label_incoterms : '', 1).'</label></td>';
+			print '<td><label for="incoterm_id">'.$form->textWithPicture($langs->trans("IncotermLabel"), !empty($objectsrc->label_incoterms) ? $objectsrc->label_incoterms : '', 1).'</label></td>';
 			print '<td colspan="2" class="maxwidthonsmartphone">';
 			$incoterm_id = GETPOST('incoterm_id');
 			$location_incoterms = GETPOST('location_incoterms');
@@ -4062,7 +4062,7 @@ if ($action == 'create') {
 				$incoterm_id = (!empty($objectsrc->fk_incoterms) ? $objectsrc->fk_incoterms : $soc->fk_incoterms);
 				$location_incoterms = (!empty($objectsrc->location_incoterms) ? $objectsrc->location_incoterms : $soc->location_incoterms);
 			}
-			print img_picto('', 'incoterm', 'class="pictofixedwidth"');
+			print img_picture('', 'incoterm', 'class="picturefixedwidth"');
 			print $form->select_incoterms($incoterm_id, $location_incoterms);
 			print '</td></tr>';
 		}
@@ -4087,7 +4087,7 @@ if ($action == 'create') {
 		// Template to use by default
 		print '<tr><td>'.$langs->trans('Model').'</td>';
 		print '<td colspan="2">';
-		print img_picto('', 'pdf', 'class="pictofixedwidth"');
+		print img_picture('', 'pdf', 'class="picturefixedwidth"');
 		include_once DOL_DOCUMENT_ROOT.'/core/modules/facture/modules_facture.php';
 		$liste = ModelePDFFactures::liste_modeles($db);
 		if (getDolGlobalString('INVOICE_USE_DEFAULT_DOCUMENT')) {
@@ -4106,7 +4106,7 @@ if ($action == 'create') {
 			print '<tr>';
 			print '<td>'.$form->editfieldkey('Currency', 'multicurrency_code', '', $object, 0).'</td>';
 			print '<td colspan="2" class="maxwidthonsmartphone">';
-			print img_picto('', 'currency', 'class="pictofixedwidth"');
+			print img_picture('', 'currency', 'class="picturefixedwidth"');
 			print $form->selectMultiCurrency(((GETPOSTISSET('multicurrency_code') && !GETPOST('changecompany')) ? GETPOST('multicurrency_code') : $currency_code), 'multicurrency_code', 0, '', false, 'maxwidth100 widthcentpercentminusx');
 			print '</td></tr>';
 		}
@@ -4142,7 +4142,7 @@ if ($action == 'create') {
 		// Public note
 		print '<tr>';
 		print '<td class="tdtop">';
-		print $form->textwithpicto($langs->trans('NotePublic'), $htmltext);
+		print $form->textWithPicture($langs->trans('NotePublic'), $htmltext);
 		print '</td>';
 		print '<td valign="top" colspan="2">';
 		$doleditor = new DolEditor('note_public', $note_public, '', 80, 'dolibarr_notes', 'In', false, false, !getDolGlobalString('FCKEDITOR_ENABLE_NOTE_PUBLIC') ? 0 : 1, ROWS_3, '90%');
@@ -4152,7 +4152,7 @@ if ($action == 'create') {
 		if (empty($user->socid)) {
 			print '<tr>';
 			print '<td class="tdtop">';
-			print $form->textwithpicto($langs->trans('NotePrivate'), $htmltext);
+			print $form->textWithPicture($langs->trans('NotePrivate'), $htmltext);
 			print '</td>';
 			print '<td valign="top" colspan="2">';
 			$doleditor = new DolEditor('note_private', $note_private, '', 80, 'dolibarr_notes', 'In', false, false, !getDolGlobalString('FCKEDITOR_ENABLE_NOTE_PRIVATE') ? 0 : 1, ROWS_3, '90%');
@@ -4557,15 +4557,15 @@ if ($action == 'create') {
 		$i++;
 		// Texte
 		$i = 0;
-		$close[$i]['reason'] = $form->textwithpicto($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonDiscount", $resteapayer, $langs->trans("Currency".$config->currency)), $close[$i]['label'], 1);
+		$close[$i]['reason'] = $form->textWithPicture($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonDiscount", $resteapayer, $langs->trans("Currency".$config->currency)), $close[$i]['label'], 1);
 		$i++;
-		$close[$i]['reason'] = $form->textwithpicto($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonBadCustomer", $resteapayer, $langs->trans("Currency".$config->currency)), $close[$i]['label'], 1);
+		$close[$i]['reason'] = $form->textWithPicture($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonBadCustomer", $resteapayer, $langs->trans("Currency".$config->currency)), $close[$i]['label'], 1);
 		$i++;
-		$close[$i]['reason'] = $form->textwithpicto($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonBankCharge", $resteapayer, $langs->trans("Currency".$config->currency)), $close[$i]['label'], 1);
+		$close[$i]['reason'] = $form->textWithPicture($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonBankCharge", $resteapayer, $langs->trans("Currency".$config->currency)), $close[$i]['label'], 1);
 		$i++;
-		$close[$i]['reason'] = $form->textwithpicto($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonWithholdingTax"), $close[$i]['label'], 1);
+		$close[$i]['reason'] = $form->textWithPicture($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonWithholdingTax"), $close[$i]['label'], 1);
 		$i++;
-		$close[$i]['reason'] = $form->textwithpicto($langs->transnoentities("Other"), $close[$i]['label'], 1);
+		$close[$i]['reason'] = $form->textWithPicture($langs->transnoentities("Other"), $close[$i]['label'], 1);
 		$i++;
 		// arrayreasons[code]=reason
 		$arrayreasons = [];
@@ -4601,8 +4601,8 @@ if ($action == 'create') {
 			$close[1]['label'] = $langs->trans("ConfirmClassifyPaidPartiallyReasonBadCustomerDesc");
 			$close[2]['label'] = $langs->trans("ConfirmClassifyAbandonReasonOtherDesc");
 			// Text
-			$close[1]['reason'] = $form->textwithpicto($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonBadCustomer", $object->ref), $close[1]['label'], 1);
-			$close[2]['reason'] = $form->textwithpicto($langs->transnoentities("ConfirmClassifyAbandonReasonOther"), $close[2]['label'], 1);
+			$close[1]['reason'] = $form->textWithPicture($langs->transnoentities("ConfirmClassifyPaidPartiallyReasonBadCustomer", $object->ref), $close[1]['label'], 1);
+			$close[2]['reason'] = $form->textWithPicture($langs->transnoentities("ConfirmClassifyAbandonReasonOther"), $close[2]['label'], 1);
 			// arrayreasons
 			$arrayreasons = [];
 			$arrayreasons[$close[1]['code']] = $close[1]['reason'];
@@ -4687,7 +4687,7 @@ if ($action == 'create') {
 		$langs->load("projects");
 		$morehtmlref .= '<br>';
 		if ($usercancreate) {
-			$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 			}
@@ -4937,7 +4937,7 @@ if ($action == 'create') {
 			print '</td>';
 			print '<td>';
 			if ($action != 'editincoterm') {
-				print $form->textwithpicto($object->display_incoterms(), $object->label_incoterms, 1);
+				print $form->textWithPicture($object->display_incoterms(), $object->label_incoterms, 1);
 			} else {
 				print $form->select_incoterms((!empty($object->fk_incoterms) ? $object->fk_incoterms : ''), (!empty($object->location_incoterms) ? $object->location_incoterms : ''), $_SERVER['PHP_SELF'].'?id='.$object->id);
 			}
@@ -5010,7 +5010,7 @@ if ($action == 'create') {
 				} else {
 					$form->form_conditions_reglement($_SERVER['PHP_SELF'].'?facid='.$object->id, $object->retained_warranty_fk_cond_reglement, 'none');
 					if (!$displayWarranty) {
-						print img_picto($langs->trans('RetainedWarrantyNeed100Percent'), 'warning.png', 'class="pictowarning valignmiddle" ');
+						print img_picture($langs->trans('RetainedWarrantyNeed100Percent'), 'warning.png', 'class="picturewarning valignmiddle" ');
 					}
 				}
 				print '</td></tr>';
@@ -5499,7 +5499,7 @@ if ($action == 'create') {
 					print '<td class="right"><span class="amount">'.price($obj->amount_ttc).'</span></td>';
 					print '<td class="right">';
 					print '<a href="'.$_SERVER["PHP_SELF"].'?facid='.$object->id.'&action=unlinkdiscount&token='.newToken().'&discountid='.$obj->rowid.'">';
-					print img_picto($langs->transnoentitiesnoconv("RemoveDiscount"), 'unlink');
+					print img_picture($langs->transnoentitiesnoconv("RemoveDiscount"), 'unlink');
 					print '</a>';
 					print '</td></tr>';
 					$i++;
@@ -5518,7 +5518,7 @@ if ($action == 'create') {
 			if (($object->status == Facture::STATUS_CLOSED || $object->status == Facture::STATUS_ABANDONED) && $object->close_code == 'discount_vat') {
 				print '<tr><td colspan="'.$nbcols.'" class="nowrap right">';
 				print '<span class="opacitymedium">';
-				print $form->textwithpicto($langs->trans("Discount"), $langs->trans("HelpEscompte"), - 1);
+				print $form->textWithPicture($langs->trans("Discount"), $langs->trans("HelpEscompte"), - 1);
 				print '</span>';
 				print '</td><td class="right"><span class="amount">'.price(price2num($object->total_ttc - $creditnoteamount - $depositamount - $totalpaid, 'MT')).'</span></td><td>&nbsp;</td></tr>';
 				$resteapayeraffiche = 0;
@@ -5528,7 +5528,7 @@ if ($action == 'create') {
 			if (($object->status == Facture::STATUS_CLOSED || $object->status == Facture::STATUS_ABANDONED) && $object->close_code == 'badcustomer') {
 				print '<tr><td colspan="'.$nbcols.'" class="nowrap right">';
 				print '<span class="opacitymedium">';
-				print $form->textwithpicto($langs->trans("Abandoned"), $langs->trans("HelpAbandonBadCustomer"), - 1);
+				print $form->textWithPicture($langs->trans("Abandoned"), $langs->trans("HelpAbandonBadCustomer"), - 1);
 				print '</span>';
 				print '</td><td class="right">'.price(price2num($object->total_ttc - $creditnoteamount - $depositamount - $totalpaid, 'MT')).'</td><td>&nbsp;</td></tr>';
 				// $resteapayeraffiche=0;
@@ -5538,7 +5538,7 @@ if ($action == 'create') {
 			if (($object->status == Facture::STATUS_CLOSED || $object->status == Facture::STATUS_ABANDONED) && $object->close_code == 'product_returned') {
 				print '<tr><td colspan="'.$nbcols.'" class="nowrap right">';
 				print '<span class="opacitymedium">';
-				print $form->textwithpicto($langs->trans("ProductReturned"), $langs->trans("HelpAbandonProductReturned"), - 1);
+				print $form->textWithPicture($langs->trans("ProductReturned"), $langs->trans("HelpAbandonProductReturned"), - 1);
 				print '</span>';
 				print '</td><td class="right"><span class="amount">'.price(price2num($object->total_ttc - $creditnoteamount - $depositamount - $totalpaid, 'MT')).'</span></td><td>&nbsp;</td></tr>';
 				$resteapayeraffiche = 0;
@@ -5553,7 +5553,7 @@ if ($action == 'create') {
 				}
 				print '<span class="opacitymedium">';
 				// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
-				print $form->textwithpicto($langs->trans("Abandoned"), $text, - 1);
+				print $form->textWithPicture($langs->trans("Abandoned"), $text, - 1);
 				print '</span>';
 				print '</td><td class="right"><span class="amount">'.price(price2num($object->total_ttc - $creditnoteamount - $depositamount - $totalpaid, 'MT')).'</span></td><td>&nbsp;</td></tr>';
 				$resteapayeraffiche = 0;

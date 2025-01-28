@@ -56,7 +56,7 @@ class modContrat extends DolibarrModules
 		$this->version = 'dolibarr';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'contract';
+		$this->picture = 'contract';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/contract/temp");

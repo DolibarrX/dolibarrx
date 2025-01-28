@@ -55,8 +55,8 @@ $id = 1;
 
 $acts[0] = "activate";
 $acts[1] = "disable";
-$actl[0] = img_picto($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
-$actl[1] = img_picto($langs->trans("Activated"), 'switch_on', 'class="size15x"');
+$actl[0] = img_picture($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
+$actl[1] = img_picture($langs->trans("Activated"), 'switch_on', 'class="size15x"');
 
 // Load variable for pagination
 $limit = GETPOSTINT('limit') ? GETPOSTINT('limit') : $config->liste_limit;
@@ -483,9 +483,9 @@ if ($id) {
 					print '<a href="'.$tabhelp[$id][$value].'" target="_blank" rel="noopener noreferrer">'.$valuetoshow.' '.img_help(1, $valuetoshow).'</a>';
 				} elseif (!empty($tabhelp[$id][$value])) {
 					if ($value == 'virtualhost') {
-						print $form->textwithpicto($valuetoshow, $tabhelp[$id][$value], 1, 'help', '', 0, 2, 'tooltipvirtual');
+						print $form->textWithPicture($valuetoshow, $tabhelp[$id][$value], 1, 'help', '', 0, 2, 'tooltipvirtual');
 					} else {
-						print $form->textwithpicto($valuetoshow, $tabhelp[$id][$value]);
+						print $form->textWithPicture($valuetoshow, $tabhelp[$id][$value]);
 					}
 				} else {
 					print $valuetoshow;

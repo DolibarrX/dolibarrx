@@ -101,18 +101,18 @@ $formother = new FormOther($db);
 
 llxHeader();
 
-$picto = 'bill';
+$picture = 'bill';
 $title = $langs->trans("BillsStatistics");
 $dir = $config->facture->dir_temp;
 
 if ($mode == 'supplier') {
-	$picto = 'supplier_invoice';
+	$picture = 'supplier_invoice';
 	$title = $langs->trans("BillsStatisticsSuppliers");
 	$dir = $config->fournisseur->facture->dir_temp;
 }
 
 
-print load_fiche_titre($title, '', $picto);
+print load_fiche_titre($title, '', $picture);
 
 dol_mkdir($dir);
 
@@ -306,7 +306,7 @@ if ($mode == 'customer') {
 if ($mode == 'supplier') {
 	$filter = '(s.fournisseur:=:1)';
 }
-print img_picto('', 'company', 'class="pictofixedwidth"');
+print img_picture('', 'company', 'class="picturefixedwidth"');
 print $form->select_company($socid, 'socid', $filter, 1, 0, 0, array(), 0, 'widthcentpercentminusx maxwidth300');
 print '</td></tr>';
 
@@ -333,7 +333,7 @@ if (isModEnabled('category')) {
 	}
 	print '<tr><td>'.$cat_label.'</td><td>';
 	$cate_arbo = $form->select_all_categories($cat_type, '', 'parent', 0, 0, 1);
-	print img_picto('', 'category', 'class="pictofixedwidth"');
+	print img_picture('', 'category', 'class="picturefixedwidth"');
 	print $form->multiselectarray('select_categ_categ_id', $cate_arbo, GETPOST('select_categ_categ_id', 'array'), 0, 0, 'widthcentpercentminusx maxwidth300');
 	//print $formother->select_categories($cat_type, $categ_id, 'categ_id', true);
 	print '</td></tr>';
@@ -341,7 +341,7 @@ if (isModEnabled('category')) {
 
 // User
 print '<tr><td>'.$langs->trans("CreatedBy").'</td><td>';
-print img_picto('', 'user', 'class="pictofixedwidth"');
+print img_picture('', 'user', 'class="picturefixedwidth"');
 print $form->select_dolusers($userId ? $userId : -1, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 print '</td></tr>';
 // Status

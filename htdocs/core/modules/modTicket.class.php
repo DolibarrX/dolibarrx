@@ -72,11 +72,11 @@ class modTicket extends DolibarrModules
 		// (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
-		// If file is in theme/yourtheme/img directory under name object_pictovalue.png
-		// use this->picto='pictovalue'
-		// If file is in module/img directory under name object_pictovalue.png
-		// use this->picto='pictovalue@module'
-		$this->picto = 'ticket'; // mypicto@ticket
+		// If file is in theme/yourtheme/img directory under name object_picturevalue.png
+		// use this->picture='picturevalue'
+		// If file is in module/img directory under name object_picturevalue.png
+		// use this->picture='picturevalue@module'
+		$this->picture = 'ticket'; // mypicture@ticket
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		// for default path (eg: /ticket/core/xxxxx) (0=disable, 1=enable)
 		// for specific path of parts (eg: /ticket/core/modules/barcode)
@@ -272,7 +272,7 @@ class modTicket extends DolibarrModules
 		/*$this->menu[$r] = array('fk_menu' => 0, // Put 0 if this is a top menu
 			'type' => 'top', // This is a Top menu entry
 			'titre' => 'Ticket',
-			'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth em092"'),
+			'prefix' => img_picture('', $this->picture, 'class="paddingright picturefixedwidth em092"'),
 			'mainmenu' => 'ticket',
 			'leftmenu' => '1', // Use 1 if you also want to add left menu entries using this descriptor.
 			'url' => '/ticket/index.php',
@@ -287,7 +287,7 @@ class modTicket extends DolibarrModules
 		$this->menu[$r] = array('fk_menu' => 'fk_mainmenu=ticket',
 			'type' => 'left',
 			'titre' => 'Ticket',
-			'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth em092"'),
+			'prefix' => img_picture('', $this->picture, 'class="paddingright picturefixedwidth em092"'),
 			'mainmenu' => 'ticket',
 			'leftmenu' => 'ticket',
 			'url' => '/ticket/index.php',

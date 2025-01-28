@@ -47,7 +47,7 @@ class PaymentSocialContribution extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'payment';
+	public $picture = 'payment';
 
 	/**
 	 * @var string	Label
@@ -731,40 +731,40 @@ class PaymentSocialContribution extends CommonObject
 			}
 			if ($mode == 2)
 			{
-			if ($status == 0) return img_picto($langs->trans('ToValidate'),'statut1').' '.$langs->trans('ToValidate');
-			if ($status == 1) return img_picto($langs->trans('Validated'),'statut4').' '.$langs->trans('Validated');
+			if ($status == 0) return img_picture($langs->trans('ToValidate'),'statut1').' '.$langs->trans('ToValidate');
+			if ($status == 1) return img_picture($langs->trans('Validated'),'statut4').' '.$langs->trans('Validated');
 			}
 			if ($mode == 3)
 			{
-			if ($status == 0) return img_picto($langs->trans('ToValidate'),'statut1');
-			if ($status == 1) return img_picto($langs->trans('Validated'),'statut4');
+			if ($status == 0) return img_picture($langs->trans('ToValidate'),'statut1');
+			if ($status == 1) return img_picture($langs->trans('Validated'),'statut4');
 			}
 			if ($mode == 4)
 			{
-			if ($status == 0) return img_picto($langs->trans('ToValidate'),'statut1').' '.$langs->trans('ToValidate');
-			if ($status == 1) return img_picto($langs->trans('Validated'),'statut4').' '.$langs->trans('Validated');
+			if ($status == 0) return img_picture($langs->trans('ToValidate'),'statut1').' '.$langs->trans('ToValidate');
+			if ($status == 1) return img_picture($langs->trans('Validated'),'statut4').' '.$langs->trans('Validated');
 			}
 			if ($mode == 5)
 			{
-			if ($status == 0) return $langs->trans('ToValidate').' '.img_picto($langs->trans('ToValidate'),'statut1');
-			if ($status == 1) return $langs->trans('Validated').' '.img_picto($langs->trans('Validated'),'statut4');
+			if ($status == 0) return $langs->trans('ToValidate').' '.img_picture($langs->trans('ToValidate'),'statut1');
+			if ($status == 1) return $langs->trans('Validated').' '.img_picture($langs->trans('Validated'),'statut4');
 			}
 			if ($mode == 6)
 			{
-			if ($status == 0) return $langs->trans('ToValidate').' '.img_picto($langs->trans('ToValidate'),'statut1');
-			if ($status == 1) return $langs->trans('Validated').' '.img_picto($langs->trans('Validated'),'statut4');
+			if ($status == 0) return $langs->trans('ToValidate').' '.img_picture($langs->trans('ToValidate'),'statut1');
+			if ($status == 1) return $langs->trans('Validated').' '.img_picture($langs->trans('Validated'),'statut4');
 			}*/
 		return '';
 	}
 
 	/**
-	 *  Return clickable name (with picto eventually)
+	 *  Return clickable name (with picture eventually)
 	 *
-	 *	@param	int		$withpicto		0=No picto, 1=Include picto into link, 2=Only picto
+	 *	@param	int		$withPicture		0=No picture, 1=Include picture into link, 2=Only picture
 	 * 	@param	int		$maxlen			Longueur max libelle
 	 *	@return	string					Chaine avec URL
 	 */
-	public function getNomUrl($withpicto = 0, $maxlen = 0)
+	public function getNomUrl($withPicture = 0, $maxlen = 0)
 	{
 		global $langs;
 
@@ -774,7 +774,7 @@ class PaymentSocialContribution extends CommonObject
 			$this->ref = $this->label;
 		}
 
-		$label = img_picto('', $this->picto).' <u>'.$langs->trans("SocialContributionPayment").'</u>';
+		$label = img_picture('', $this->picture).' <u>'.$langs->trans("SocialContributionPayment").'</u>';
 		$label .= '<br><b>'.$langs->trans('Ref').':</b> '.$this->ref;
 		if (!empty($this->label)) {
 			$labeltoshow = $this->label;
@@ -796,13 +796,13 @@ class PaymentSocialContribution extends CommonObject
 			$link = '<a href="'.DOL_URL_ROOT.'/compta/payment_sc/card.php?id='.$this->id.'" title="'.dol_escape_htmltag($label, 1).'" class="classfortooltip">';
 			$linkend = '</a>';
 
-			if ($withpicto) {
+			if ($withPicture) {
 				$result .= ($link.img_object($label, 'payment', 'class="classfortooltip"').$linkend.' ');
 			}
-			if ($withpicto && $withpicto != 2) {
+			if ($withPicture && $withPicture != 2) {
 				$result .= ' ';
 			}
-			if ($withpicto != 2) {
+			if ($withPicture != 2) {
 				$result .= $link.($maxlen ? dol_trunc($this->ref, $maxlen) : $this->ref).$linkend;
 			}
 		}

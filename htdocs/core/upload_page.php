@@ -144,10 +144,10 @@ $uploadform = '<div class="display-flex">';
 if (isModEnabled('supplier_invoice')) {
 	$langs->load("bills");
 	$uploadform .= '
-	<div id="supplierinvoice" class="flex-item flex-item-uploadfile">'.img_picto('', 'bill', 'class="fa-2x"').'<br>
+	<div id="supplierinvoice" class="flex-item flex-item-uploadfile">'.img_picture('', 'bill', 'class="fa-2x"').'<br>
 	<div>'.$langs->trans("SupplierInvoice").'<br><br>';
 
-	$uploadform .= img_picto('', 'company', 'class="pictofixedwidth"');
+	$uploadform .= img_picture('', 'company', 'class="picturefixedwidth"');
 	$uploadform .= $form->select_company(GETPOSTINT('socid'), 'socid', 'statut=0', $langs->transnoentitiesnoconv("Supplier"));
 
 	$uploadform .= '<br><br>
@@ -159,7 +159,7 @@ if (isModEnabled('supplier_invoice')) {
 if (isModEnabled('salaries')) {
 	$langs->load("salaries");
 	$uploadform .= '
-	<div id="userpayroll" class="flex-item flex-item-uploadfile">'.img_picto('', 'salary', 'class="fa-2x"').'<br>
+	<div id="userpayroll" class="flex-item flex-item-uploadfile">'.img_picture('', 'salary', 'class="fa-2x"').'<br>
 	<div>'.$langs->trans("UserPaySlip").'<br>
 	<small>('.$langs->trans("OrClickToSelectAFile").')</small>
 	</div>

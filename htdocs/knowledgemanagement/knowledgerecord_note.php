@@ -99,7 +99,7 @@ if ($id > 0 || !empty($ref)) {
 
 	$head = knowledgerecordPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'note', $langs->trans("KnowledgeRecord"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'note', $langs->trans("KnowledgeRecord"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------

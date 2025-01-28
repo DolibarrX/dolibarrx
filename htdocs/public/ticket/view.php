@@ -266,7 +266,7 @@ if ($action == "view_ticket" || $action == "presend" || $action == "close" || $a
 
 		// Ref
 		print '<tr><td class="titlefield">'.$langs->trans("Ref").'</td><td>';
-		print img_picto('', 'ticket', 'class="pictofixedwidth"');
+		print img_picture('', 'ticket', 'class="picturefixedwidth"');
 		print dol_escape_htmltag($object->dao->ref);
 		print '</td></tr>';
 
@@ -295,7 +295,7 @@ if ($action == "view_ticket" || $action == "presend" || $action == "close" || $a
 		// Category
 		print '<tr><td>'.$langs->trans("Category").'</td><td>';
 		if ($object->dao->category_label) {
-			print img_picto('', 'category', 'class="pictofixedwidth"');
+			print img_picture('', 'category', 'class="picturefixedwidth"');
 			print dol_escape_htmltag($object->dao->category_label);
 		}
 		print '</td></tr>';
@@ -316,10 +316,10 @@ if ($action == "view_ticket" || $action == "presend" || $action == "close" || $a
 			$langs->load("users");
 			$fuser = new User($db);
 			$fuser->fetch($object->dao->fk_user_create);
-			print img_picto('', 'user', 'class="pictofixedwidth"');
+			print img_picture('', 'user', 'class="picturefixedwidth"');
 			print $fuser->getFullName($langs);
 		} else {
-			print img_picto('', 'email', 'class="pictofixedwidth"');
+			print img_picture('', 'email', 'class="picturefixedwidth"');
 			print dol_escape_htmltag($object->dao->origin_email);
 		}
 
@@ -344,7 +344,7 @@ if ($action == "view_ticket" || $action == "presend" || $action == "close" || $a
 		if ($object->dao->fk_user_assign > 0) {
 			$fuser = new User($db);
 			$fuser->fetch($object->dao->fk_user_assign);
-			print img_picto('', 'user', 'class="pictofixedwidth"');
+			print img_picture('', 'user', 'class="picturefixedwidth"');
 			print $fuser->getFullName($langs, 0);
 		}
 		print '</td></tr>';
@@ -355,7 +355,7 @@ if ($action == "view_ticket" || $action == "presend" || $action == "close" || $a
 			if ($object->dao->id > 0) {
 				$contactlist = $object->dao->liste_contact(-1, 'external');
 				foreach ($contactlist as $externalContributor) {
-					print img_picto('', 'contact', 'class="pictofixedwidth"');
+					print img_picture('', 'contact', 'class="picturefixedwidth"');
 					print $externalContributor["lastname"]." ".$externalContributor["firstname"]."<br>";
 				}
 			}
@@ -472,14 +472,14 @@ if ($action == "view_ticket" || $action == "presend" || $action == "close" || $a
 	print '<input type="hidden" name="action" value="view_ticket">';
 
 	print '<p><label for="track_id" style="display: inline-block;" class="titlefieldcreate left"><span class="fieldrequired">';
-	print img_picto($langs->trans("TicketTrackId"), 'generic', 'class="pictofixedwidth"');
+	print img_picture($langs->trans("TicketTrackId"), 'generic', 'class="picturefixedwidth"');
 	print $langs->trans("TicketTrackId").'</span></label>';
 	print '<br class="showonsmartphone hidden">';
 	print '<input class="minwidth100" id="track_id" name="track_id" value="'.(GETPOST('track_id', 'alpha') ? GETPOST('track_id', 'alpha') : '').'" />';
 	print '</p>';
 
 	print '<p><label for="email" style="display: inline-block;" class="titlefieldcreate left"><span class="fieldrequired">';
-	print img_picto($langs->trans("Email"), 'email', 'class="pictofixedwidth"');
+	print img_picture($langs->trans("Email"), 'email', 'class="picturefixedwidth"');
 	print $langs->trans('Email').'</span></label>';
 	print '<br class="showonsmartphone hidden">';
 	print '<input class="minwidth100" id="email" name="email" value="'.(GETPOST('email', 'alpha') ? GETPOST('email', 'alpha') : (!empty($_SESSION['customer_email']) ? $_SESSION['customer_email'] : "")).'" />';

@@ -446,7 +446,7 @@ $nav .= '<a class="inline-block valignmiddle" href="?year='.$next_year."&month="
 $nav .= ' '.$form->selectDate(-1, '', 0, 0, 2, "addtime", 1, ($config->dol_optimize_smallscreen ? 0 : 1)).' ';
 $nav .= ' <button type="submit" name="button_search_x" value="x" class="bordertransp nobordertransp button_search"><span class="fa fa-search"></span></button>';
 
-$picto = 'clock';
+$picture = 'clock';
 
 print '<form name="addtime" method="POST" action="'.$_SERVER["PHP_SELF"].($project->id > 0 ? '?id='.$project->id : '').'">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -460,7 +460,7 @@ print '<input type="hidden" name="addtimemonth" value="'.$tmp['mon'].'">';
 print '<input type="hidden" name="addtimeday" value="'.$tmp['mday'].'">';
 
 $head = project_timesheet_prepare_head($mode, $usertoprocess);
-print dol_get_fiche_head($head, 'inputperday', $langs->trans('TimeSpent'), -1, $picto);
+print dol_get_fiche_head($head, 'inputperday', $langs->trans('TimeSpent'), -1, $picture);
 
 // Show description of content
 print '<div class="hideonsmartphone opacitymedium">';
@@ -493,7 +493,7 @@ if ($usertoprocess->id != $user->id) {
 	$titleassigntask = $langs->transnoentities("AssignTaskToUser", $usertoprocess->getFullName($langs));
 }
 print '<div class="taskiddiv inline-block">';
-print img_picto('', 'projecttask', 'class="pictofixedwidth"');
+print img_picture('', 'projecttask', 'class="picturefixedwidth"');
 $formproject->selectTasks($socid ? $socid : -1, $taskid, 'taskid', 32, 0, '-- '.$langs->trans("ChooseANotYetAssignedTask").' --', 1, 0, 0, 'widthcentpercentminusx', '', 'all', $usertoprocess);
 print '</div>';
 print ' ';
@@ -525,7 +525,7 @@ $moreforfiltertmp = $form->select_dolusers($selecteduser, 'search_usertoprocessi
 if ($form->num > 1 || empty($config->dol_optimize_smallscreen)) {
 	$moreforfilter .= '<div class="divsearchfield">';
 	$moreforfilter .= '<div class="inline-block hideonsmartphone"></div>';
-	$moreforfilter .= img_picto($langs->trans('Filter').' '.$langs->trans('User'), 'user', 'class="paddingright pictofixedwidth"');
+	$moreforfilter .= img_picture($langs->trans('Filter').' '.$langs->trans('User'), 'user', 'class="paddingright picturefixedwidth"');
 	$moreforfilter .= $moreforfiltertmp;
 	$moreforfilter .= '</div>';
 } else {
@@ -535,12 +535,12 @@ if ($form->num > 1 || empty($config->dol_optimize_smallscreen)) {
 if (!getDolGlobalString('PROJECT_TIMESHEET_DISABLEBREAK_ON_PROJECT')) {
 	$moreforfilter .= '<div class="divsearchfield">';
 	$moreforfilter .= '<div class="inline-block"></div>';
-	$moreforfilter .= img_picto($langs->trans('Filter').' '.$langs->trans('Project'), 'project', 'class="paddingright pictofixedwidth"').'<input type="text" name="search_project_ref" class="maxwidth100" value="'.dol_escape_htmltag($search_project_ref).'">';
+	$moreforfilter .= img_picture($langs->trans('Filter').' '.$langs->trans('Project'), 'project', 'class="paddingright picturefixedwidth"').'<input type="text" name="search_project_ref" class="maxwidth100" value="'.dol_escape_htmltag($search_project_ref).'">';
 	$moreforfilter .= '</div>';
 
 	$moreforfilter .= '<div class="divsearchfield">';
 	$moreforfilter .= '<div class="inline-block"></div>';
-	$moreforfilter .= img_picto($langs->trans('Filter').' '.$langs->trans('ThirdParty'), 'company', 'class="paddingright pictofixedwidth"').'<input type="text" name="search_thirdparty" class="maxwidth100" value="'.dol_escape_htmltag($search_thirdparty).'">';
+	$moreforfilter .= img_picture($langs->trans('Filter').' '.$langs->trans('ThirdParty'), 'company', 'class="paddingright picturefixedwidth"').'<input type="text" name="search_thirdparty" class="maxwidth100" value="'.dol_escape_htmltag($search_thirdparty).'">';
 	$moreforfilter .= '</div>';
 }
 
@@ -601,8 +601,8 @@ print '<td class="liste_titre"></td>';
 print '<td class="liste_titre"></td>';
 // Action column
 print '<td class="liste_titre nowrap right">';
-$searchpicto = $form->showFilterAndCheckAddButtons(0);
-print $searchpicto;
+$searchPicture = $form->showFilterAndCheckAddButtons(0);
+print $searchPicture;
 print '</td>';
 print "</tr>\n";
 
@@ -619,7 +619,7 @@ $extrafieldsobjectkey = 'projet_task';
 $extrafieldsobjectprefix = 'efpt.';
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_title.tpl.php';
 if (!empty($arrayfields['t.planned_workload']['checked'])) {
-	print '<th class="leftborder plannedworkload minwidth75 maxwidth100 right" title="'.dol_escape_htmltag($langs->trans("PlannedWorkload")).'">'.$form->textwithpicto($langs->trans("PlannedWorkloadShort"), $langs->trans("PlannedWorkload")).'</th>';
+	print '<th class="leftborder plannedworkload minwidth75 maxwidth100 right" title="'.dol_escape_htmltag($langs->trans("PlannedWorkload")).'">'.$form->textWithPicture($langs->trans("PlannedWorkloadShort"), $langs->trans("PlannedWorkload")).'</th>';
 }
 if (!empty($arrayfields['t.progress']['checked'])) {
 	print '<th class="right minwidth75 maxwidth100 title="'.dol_escape_htmltag($langs->trans("ProgressDeclared")).'">'.$langs->trans("ProgressDeclared").'</th>';

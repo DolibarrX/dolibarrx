@@ -573,14 +573,14 @@ if ($search_categ > 0) {
 $moreforfilter = '';
 if (isModEnabled('category')) {
 	$moreforfilter .= '<div class="divsearchfield">';
-	$moreforfilter .= img_picto($langs->trans('ProductsCategoriesShort'), 'category', 'class="pictofixedwidth"');
+	$moreforfilter .= img_picture($langs->trans('ProductsCategoriesShort'), 'category', 'class="picturefixedwidth"');
 	$moreforfilter .= $htmlother->select_categories(Category::TYPE_PRODUCT, $search_categ, 'search_categ', 1, $langs->trans("ProductsCategoryShort"), 'maxwidth400');
 	$moreforfilter .= '</div>';
 }
 // Filter on warehouse categories
 if (isModEnabled('category')) {
 	$moreforfilter .= '<div class="divsearchfield">';
-	$moreforfilter .= img_picto($langs->trans('StockCategoriesShort'), 'category', 'class="pictofixedwidth"');
+	$moreforfilter .= img_picture($langs->trans('StockCategoriesShort'), 'category', 'class="picturefixedwidth"');
 	$moreforfilter .= $htmlother->select_categories(Category::TYPE_WAREHOUSE, $search_warehouse_categ, 'search_warehouse_categ', 1, $langs->trans("StockCategoriesShort"), 'maxwidth400');
 	$moreforfilter .= '</div>';
 }
@@ -604,8 +604,8 @@ print '<tr class="liste_titre_filter">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '<td class="liste_titre">';
@@ -657,8 +657,8 @@ print $hookManager->resPrint;
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '</tr>'."\n";
@@ -865,7 +865,7 @@ while ($i < $imaxinloop) {
 	}
 
 	print '<td class="right">';
-	print img_picto($langs->trans("StockMovement"), 'movement', 'class="pictofixedwidth"');
+	print img_picture($langs->trans("StockMovement"), 'movement', 'class="picturefixedwidth"');
 	print '<a href="'.DOL_URL_ROOT.'/product/stock/movement_list.php?idproduct='.$product_static->id.'&search_warehouse='.$objp->fk_entrepot.'&search_batch='.($objp->batch != 'Undefined' ? $objp->batch : 'Undefined').'">'.$langs->trans("Movements").'</a>';
 	print '</td>';
 	if (!$i) {

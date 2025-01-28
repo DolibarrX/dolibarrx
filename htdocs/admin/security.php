@@ -250,7 +250,7 @@ foreach ($arrayhandler as $key => $module) {
 
 	if ($module->isEnabled()) {
 		print '<tr class="oddeven"><td>';
-		print img_picto('', $module->picto, 'class="width25 size15x marginrightonly"').' ';
+		print img_picture('', $module->picture, 'class="width25 size15x marginrightonly"').' ';
 		print ucfirst($key);
 		print "</td><td>\n";
 		print $module->getDescription().'<br>';
@@ -272,12 +272,12 @@ foreach ($arrayhandler as $key => $module) {
 
 		print '<td class="center">';
 		if ($config->global->USER_PASSWORD_GENERATED == $key) {
-			//print img_picto('', 'tick');
-			print img_picto($langs->trans("Enabled"), 'switch_on');
+			//print img_picture('', 'tick');
+			print img_picture($langs->trans("Enabled"), 'switch_on');
 		} else {
 			print '<a href="'.$_SERVER['PHP_SELF'].'?action=setgeneraterule&token='.newToken().'&value='.$key.'">';
 			//print $langs->trans("Activate");
-			print img_picto($langs->trans("Disabled"), 'switch_off');
+			print img_picture($langs->trans("Disabled"), 'switch_off');
 			print '</a>';
 		}
 		print "</td></tr>\n";
@@ -417,7 +417,7 @@ print '<tr class="oddeven">';
 print '<td colspan="3">'.$langs->trans("DoNotStoreClearPassword").'</td>';
 print '<td class="center" width="60">';
 if (getDolGlobalString('DATABASE_PWD_ENCRYPTED')) {
-	print img_picto($langs->trans("Active"), 'tick');
+	print img_picture($langs->trans("Active"), 'tick');
 }
 print '</td>';
 if (!getDolGlobalString('DATABASE_PWD_ENCRYPTED')) {
@@ -445,7 +445,7 @@ print '<tr class="oddeven">';
 print '<td colspan="3">'.$langs->trans("MainDbPasswordFileConfEncrypted").'</td>';
 print '<td align="center" width="60">';
 if (preg_match('/crypted:/i', $dolibarr_main_db_pass) || !empty($dolibarr_main_db_encrypted_pass)) {
-	print img_picto($langs->trans("Active"), 'tick');
+	print img_picture($langs->trans("Active"), 'tick');
 }
 
 print '</td>';
@@ -474,7 +474,7 @@ print '<tr class="oddeven">';
 print '<td colspan="3">'.$langs->trans("DisableForgetPasswordLinkOnLogonPage").'</td>';
 print '<td class="center" width="60">';
 if (getDolGlobalString('MAIN_SECURITY_DISABLEFORGETPASSLINK')) {
-	print img_picto($langs->trans("Active"), 'tick');
+	print img_picture($langs->trans("Active"), 'tick');
 }
 print '</td>';
 if (!getDolGlobalString('MAIN_SECURITY_DISABLEFORGETPASSLINK')) {

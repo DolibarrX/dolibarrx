@@ -111,12 +111,12 @@ class mymodulewidget1 extends ModeleBoxes
 			// Add a link
 			'sublink' => 'https://example.com',
 			// Sublink icon placed after the text
-			'subpicto' => 'object_mymodule@mymodule',
+			'subpicture' => 'object_mymodule@mymodule',
 			// Sublink icon HTML alt text
 			'subtext' => '',
 			// Sublink HTML target
 			'target' => '',
-			// HTML class attached to the picto and link
+			// HTML class attached to the picture and link
 			'subclass' => 'center',
 			// Limit and truncate with "…" the displayed text length, 0 = disabled
 			'limit' => 0,
@@ -191,7 +191,7 @@ class mymodulewidget1 extends ModeleBoxes
 	/**
 	 *	Method to show box.  Called when the box needs to be displayed.
 	 *
-	 *	@param	?array<array{text?:string,sublink?:string,subtext?:string,subpicto?:?string,picto?:string,nbcol?:int,limit?:int,subclass?:string,graph?:int<0,1>,target?:string}>   $head       Array with properties of box title
+	 *	@param	?array<array{text?:string,sublink?:string,subtext?:string,subpicture?:?string,picture?:string,nbcol?:int,limit?:int,subclass?:string,graph?:int<0,1>,target?:string}>   $head       Array with properties of box title
 	 *	@param	?array<array{tr?:string,td?:string,target?:string,text?:string,text2?:string,textnoformat?:string,tooltip?:string,logo?:string,url?:string,maxlength?:int,asis?:int<0,1>}>   $contents   Array with properties of box lines
 	 *	@param	int<0,1>	$nooutput	No print, only return string
 	 *	@return	string

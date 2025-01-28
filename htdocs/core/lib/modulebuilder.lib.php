@@ -137,8 +137,8 @@ function rebuildObjectClass($destdir, $module, $objectname, $newmask, $readdir =
 				$texttoinsert .= "\t\t" . '"' . $key . '" => array(';
 				$texttoinsert .= '"type" => "' . dol_escape_php($val['type']) . '",';
 				$texttoinsert .= ' "label" => "' . dol_escape_php($val['label']) . '",';
-				if (!empty($val['picto'])) {
-					$texttoinsert .= ' "picto" => "' . dol_escape_php($val['picto']) . '",';
+				if (!empty($val['picture'])) {
+					$texttoinsert .= ' "picture" => "' . dol_escape_php($val['picture']) . '",';
 				}
 				$texttoinsert .= ' "enabled" => "' . ($val['enabled'] !== '' ? dol_escape_php($val['enabled']) : 1) . '",';
 				$texttoinsert .= " 'position' => " . ($val['position'] !== '' ? (int) $val['position'] : 50) . ",";
@@ -752,7 +752,7 @@ function writePropsInAsciiDoc($file, $objectname, $destfile)
 {
 
 	// stock all properties in array
-	$attributesUnique = array('type', 'label', 'enabled', 'position', 'notnull', 'visible', 'noteditable', 'index', 'default', 'foreignkey', 'arrayofkeyval', 'alwayseditable', 'validate', 'searchall', 'comment', 'isameasure', 'css', 'cssview', 'csslist', 'help', 'showoncombobox', 'picto');
+	$attributesUnique = array('type', 'label', 'enabled', 'position', 'notnull', 'visible', 'noteditable', 'index', 'default', 'foreignkey', 'arrayofkeyval', 'alwayseditable', 'validate', 'searchall', 'comment', 'isameasure', 'css', 'cssview', 'csslist', 'help', 'showoncombobox', 'picture');
 
 	$start = "public \$fields = array(";
 	$end = ");";

@@ -97,25 +97,25 @@ if ($nolinesbefore) {
 			print '</span></td>';
 		}
 	} else { // Service
-		print '<td class="linecolunit left">' . $form->textwithpicto($langs->trans('Unit'), '').'</td>';
+		print '<td class="linecolunit left">' . $form->textWithPicture($langs->trans('Unit'), '').'</td>';
 	}
 	if ($filtertype != 1 || getDolGlobalString('STOCK_SUPPORTS_SERVICES')) { // Product or stock support for Services is active
 		// Qty frozen
-		print '<td class="linecolqtyfrozen right">' . $form->textwithpicto($langs->trans('QtyFrozen'), $langs->trans("QuantityConsumedInvariable")) . '</td>';
+		print '<td class="linecolqtyfrozen right">' . $form->textWithPicture($langs->trans('QtyFrozen'), $langs->trans("QuantityConsumedInvariable")) . '</td>';
 
 		// Disable stock change
-		print '<td class="linecoldisablestockchange right">' . $form->textwithpicto($langs->trans('DisableStockChange'), $langs->trans('DisableStockChangeHelp')) . '</td>';
+		print '<td class="linecoldisablestockchange right">' . $form->textWithPicture($langs->trans('DisableStockChange'), $langs->trans('DisableStockChangeHelp')) . '</td>';
 
 		// Efficiency
-		print '<td class="linecollost right">' . $form->textwithpicto($langs->trans('ManufacturingEfficiency'), $langs->trans('ValueOfMeansLoss')) . '</td>';
+		print '<td class="linecollost right">' . $form->textWithPicture($langs->trans('ManufacturingEfficiency'), $langs->trans('ValueOfMeansLoss')) . '</td>';
 	}
 
 	// Service and workstations are active
 	if ($filtertype == 1 && isModEnabled('workstation')) {
-		print '<td class="linecolworkstation">' .  $form->textwithpicto($langs->trans('Workstation'), '') . '</td>';
+		print '<td class="linecolworkstation">' .  $form->textWithPicture($langs->trans('Workstation'), '') . '</td>';
 	}
 	// Cost
-	print '<td class="linecoltotalcost right">' .  $form->textwithpicto($langs->trans('TotalCost'), '') . '</td>';
+	print '<td class="linecoltotalcost right">' .  $form->textWithPicture($langs->trans('TotalCost'), '') . '</td>';
 
 	print '<td class="linecoledit" colspan="' . $colspan . '">&nbsp;</td>';
 	print '</tr>';

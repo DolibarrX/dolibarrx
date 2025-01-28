@@ -117,7 +117,7 @@ if (empty($resHook)) {
 			}
 			print '">';
 			if (!empty($field_info['help'])) {
-				print $form->textwithpicto($langs->trans($field_info['label']), $langs->trans($field_info['help']));
+				print $form->textWithPicture($langs->trans($field_info['label']), $langs->trans($field_info['help']));
 			} else {
 				if (isset($field_info['copytoclipboard']) && $field_info['copytoclipboard'] == 1) {  // @phan-suppress-current-line PhanTypeInvalidDimOffset
 					print showValueWithClipboardCPButton($value, 0, $langs->transnoentitiesnoconv($field_info['label']));
@@ -140,7 +140,7 @@ if (empty($resHook)) {
 			if ($field_key == 'lang') {
 				$langs->load("languages");
 				$labellang = ($value ? $langs->trans('Language_' . $value) : '');
-				print picto_from_langcode($value, 'class="paddingrightonly saturatemedium opacitylow"');
+				print picture_from_langcode($value, 'class="paddingrightonly saturatemedium opacitylow"');
 				print $labellang;
 			} else {
 				if (isset($field_info['copytoclipboard']) && $field_info['copytoclipboard'] == 2) {

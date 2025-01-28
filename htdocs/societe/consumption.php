@@ -513,8 +513,8 @@ if ($sql_select) {
 	print '<th class="liste_titre center">';
 	print '</th>';
 	print '<th class="liste_titre maxwidthsearch">';
-	$searchpicto = $form->showFilterAndCheckAddButtons(0);
-	print $searchpicto;
+	$searchPicture = $form->showFilterAndCheckAddButtons(0);
+	print $searchPicture;
 	print '</th>';
 	print '</tr>';
 

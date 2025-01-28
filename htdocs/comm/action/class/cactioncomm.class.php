@@ -79,7 +79,7 @@ class CActionComm
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto;
+	public $picture;
 
 	/**
 	 * @var array array of type_actions  // TODO: Remove or explain
@@ -88,7 +88,7 @@ class CActionComm
 
 
 	/**
-	 * @var array{id:array<int,string>,code:array<string,string>,all:array<string,array{id:string,label:string,type:string,color:mixed,picto:string}>}	Used to return value by some methods
+	 * @var array{id:array<int,string>,code:array<string,string>,all:array<string,array{id:string,label:string,type:string,color:mixed,picture:string}>}	Used to return value by some methods
 	 */
 	public $liste_array;
 
@@ -111,7 +111,7 @@ class CActionComm
 	 */
 	public function fetch($id)
 	{
-		$sql = "SELECT id, code, type, libelle as label, color, active, picto";
+		$sql = "SELECT id, code, type, libelle as label, color, active, picture";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_actioncomm";
 		if (is_numeric($id)) {
 			$sql .= " WHERE id=".(int) $id;
@@ -155,7 +155,7 @@ class CActionComm
 	 *  @param  int<-2,1>	$onlyautoornot  1=Group all type AC_XXX into 1 line AC_MANUAL. 0=Keep details of type, -1 or -2=Keep details and add a combined line per calendar (Default, Auto, BoothConf, ...)
 	 *  @param  string      $morefilter     Add more SQL filter
 	 *  @param  int<0,1>	$shortlabel     1=Get short label instead of long label
-	 *	@return	int<-1,-1>|array{id:array<int,string>,code:array<string,string>,all:array<string,array{id:string,label:string,type:string,color:mixed,picto:string}>,AC_OTH_AUTO?:mixed}	Array of all event types if OK, <0 if KO. Key of array is id or code depending on parameter $idorcode.
+	 *	@return	int<-1,-1>|array{id:array<int,string>,code:array<string,string>,all:array<string,array{id:string,label:string,type:string,color:mixed,picture:string}>,AC_OTH_AUTO?:mixed}	Array of all event types if OK, <0 if KO. Key of array is id or code depending on parameter $idorcode.
 	 */
 	public function liste_array($active = '', $idorcode = 'id', $excludetype = '', $onlyautoornot = 0, $morefilter = '', $shortlabel = 0)
 	{
@@ -171,7 +171,7 @@ class CActionComm
 		$rep_all = array();
 		*/
 
-		$sql = "SELECT id, code, libelle as label, module, type, color, picto";
+		$sql = "SELECT id, code, libelle as label, module, type, color, picture";
 		$sql .= " FROM ".MAIN_DB_PREFIX."c_actioncomm";
 		$sql .= " WHERE 1=1";
 		if ($active != '') {
@@ -301,10 +301,10 @@ class CActionComm
 						$label = (($transcode != $keyfortrans) ? $transcode : $langs->trans($obj->label));
 						/*
 						$actionstatic->type_color = $obj->type_color;
-						$actionstatic->type_picto = $obj->type_picto;
+						$actionstatic->type_picture = $obj->type_picture;
 						$actionstatic->type = $obj->type;
-						$picto = $actionstatic->getTypePicto();
-						$label = $picto.$label;
+						$picture = $actionstatic->getTypePicto();
+						$label = $picture.$label;
 						*/
 
 						if (($onlyautoornot == -1 || $onlyautoornot == -2) && getDolGlobalString('AGENDA_USE_EVENT_TYPE')) {
@@ -334,16 +334,16 @@ class CActionComm
 						if ($typecalendar == 'system' || $typecalendar == 'user') {
 							$TSystem['id'][$obj->id] = $label;
 							$TSystem['code'][$obj->code] = $label;
-							$TSystem['all'][$obj->code] = array('id' => $label, 'label' => $label, 'type' => $typecalendar, 'color' => $obj->color, 'picto' => $obj->picto);
+							$TSystem['all'][$obj->code] = array('id' => $label, 'label' => $label, 'type' => $typecalendar, 'color' => $obj->color, 'picture' => $obj->picture);
 						} elseif ($typecalendar == 'systemauto') {
 							$TSystemAuto['id'][$obj->id] = $label;
 							$TSystemAuto['code'][$obj->code] = $label;
-							$TSystemAuto['all'][$obj->code] = array('id' => $label, 'label' => $label, 'type' => $typecalendar, 'color' => $obj->color, 'picto' => $obj->picto);
+							$TSystemAuto['all'][$obj->code] = array('id' => $label, 'label' => $label, 'type' => $typecalendar, 'color' => $obj->color, 'picture' => $obj->picture);
 						} elseif ($typecalendar == 'module') {	// Can be automatic or manual
 							$module = preg_replace('/^[^@]+@/', '', $obj->module);
 							$TModule['id'][$obj->id] = $label;
 							$TModule['code'][$obj->code] = $label;
-							$TModule['all'][$obj->code] = array('id' => $label, 'label' => $langs->trans("Module").' '.ucfirst($module).' - '.$label, 'type' => $typecalendar, 'color' => $obj->color, 'picto' => $obj->picto);
+							$TModule['all'][$obj->code] = array('id' => $label, 'label' => $langs->trans("Module").' '.ucfirst($module).' - '.$label, 'type' => $typecalendar, 'color' => $obj->color, 'picture' => $obj->picture);
 						}
 
 						if ($onlyautoornot > 0 && preg_match('/^module/', $obj->type) && $obj->module) {
@@ -381,10 +381,10 @@ class CActionComm
 	/**
 	 *  Return name of action type as a label translated
 	 *
-	 *	@param	int		$withpicto		0=No picto, 1=Include picto into link, 2=Picto only
+	 *	@param	int		$withPicture		0=No picture, 1=Include picture into link, 2=Picto only
 	 *  @return string|-1		      	Label of action type, or -1 if error
 	 */
-	public function getNomUrl($withpicto = 0)
+	public function getNomUrl($withPicture = 0)
 	{
 		global $langs;
 

@@ -1903,7 +1903,7 @@ class ExtraFields
 			$out .= '<div class="star-selection" id="'.$keyprefix.$key.$keysuffix.'_selection">';
 			$i = 1;
 			while ($i <= $size) {
-				$out .= '<span class="star" data-value="'.$i.'">'.img_picto('', 'fontawesome_star_fas').'</span>';
+				$out .= '<span class="star" data-value="'.$i.'">'.img_picture('', 'fontawesome_star_fas').'</span>';
 				$i++;
 			}
 			$out .= '</div>';
@@ -1952,7 +1952,7 @@ class ExtraFields
 		 elseif ($type == 'datetime') $out.=' (YYYY-MM-DD HH:MM:SS)';
 		 */
 		/*if (!empty($help) && $keyprefix != 'search_options_') {
-		 $out .= $form->textwithpicto('', $help, 1, 'help', '', 0, 3);
+		 $out .= $form->textWithPicture('', $help, 1, 'help', '', 0, 3);
 		 }*/
 		return $out;
 	}
@@ -2353,7 +2353,7 @@ class ExtraFields
 			$value .= '<div class="star-selection" id="'.$key.$objectid.'_selection">';
 			$i = 1;
 			while ($i <= $size) {
-				$value .= '<span class="star" data-value="'.$i.'">'.img_picto('', 'fontawesome_star_fas').'</span>';
+				$value .= '<span class="star" data-value="'.$i.'">'.img_picture('', 'fontawesome_star_fas').'</span>';
 				$i++;
 			}
 			$value .= '</div>';
@@ -2504,7 +2504,7 @@ class ExtraFields
 		$out = '<'.$tagtype.' id="trextrafieldseparator'.$key.(!empty($object->id) ? '_'.$object->id : '').'" class="trextrafieldseparator trextrafieldseparator'.$key.(!empty($object->id) ? '_'.$object->id : '').'">';
 		$out .= '<'.$tagtype_dyn.' '.(!empty($colspan) ? 'colspan="' . $colspan . '"' : '').'>';
 		// Some js code will be injected here to manage the collapsing of extrafields
-		// Output the picto
+		// Output the picture
 		$out .= '<span class="'.($extrafield_collapse_display_value ? 'cursorpointer ' : '').($extrafield_collapse_display_value == 0 ? 'fas fa-square opacitymedium' : 'far fa-'.(($expand_display ? 'minus' : 'plus').'-square')).'"></span>';
 		$out .= '&nbsp;';
 		$out .= '<strong>';

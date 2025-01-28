@@ -342,7 +342,7 @@ if ($object->email && !getDolUserInt('USER_PUBLIC_HIDE_EMAIL', 0, $object)) {
 // User url
 if ($object->url && !getDolUserInt('USER_PUBLIC_HIDE_URL', 0, $object)) {
 	$usersection .= '<div class="flexitemsmall">';
-	$usersection .= img_picto('', 'globe', 'class="pictofixedwidth"');
+	$usersection .= img_picture('', 'globe', 'class="picturefixedwidth"');
 	$usersection .= dol_print_url($object->url, '_blank', 0, 0, '');
 	$usersection .= '</div>';
 }
@@ -350,33 +350,33 @@ if ($object->url && !getDolUserInt('USER_PUBLIC_HIDE_URL', 0, $object)) {
 // Office phone
 if ($object->office_phone && !getDolUserInt('USER_PUBLIC_HIDE_OFFICE_PHONE', 0, $object)) {
 	$usersection .= '<div class="flexitemsmall">';
-	$usersection .= img_picto('', 'phone', 'class="pictofixedwidth"');
+	$usersection .= img_picture('', 'phone', 'class="picturefixedwidth"');
 	$usersection .= dol_print_phone($object->office_phone, $object->country_code, 0, $mysoc->id, 'tel', ' ', '', '');
 	$usersection .= '</div>';
 }
 // Office fax
 if ($object->office_fax && !getDolUserInt('USER_PUBLIC_HIDE_OFFICE_FAX', 0, $object)) {
 	$usersection .= '<div class="flexitemsmall">';
-	$usersection .= img_picto('', 'phoning_fax', 'class="pictofixedwidth"');
+	$usersection .= img_picture('', 'phoning_fax', 'class="picturefixedwidth"');
 	$usersection .= dol_print_phone($object->office_fax, $object->country_code, 0, $mysoc->id, 'fax', ' ', '', '');
 	$usersection .= '</div>';
 }
 // Mobile
 if ($object->user_mobile && !getDolUserInt('USER_PUBLIC_HIDE_USER_MOBILE', 0, $object)) {
 	$usersection .= '<div class="flexitemsmall">';
-	$usersection .= img_picto('', 'phoning_mobile', 'class="pictofixedwidth"');
+	$usersection .= img_picture('', 'phoning_mobile', 'class="picturefixedwidth"');
 	$usersection .= dol_print_phone($object->user_mobile, $object->country_code, 0, $mysoc->id, 'tel', ' ', '', '');
 	$usersection .= '</div>';
 }
 if (getDolUserInt('USER_PUBLIC_SHOW_BIRTH', 0, $object) && !is_null($object->birth)) {
 	$usersection .= '<div class="flexitemsmall">';
-	$usersection .= img_picto('', 'calendar', 'class="pictofixedwidth"');
+	$usersection .= img_picture('', 'calendar', 'class="picturefixedwidth"');
 	$usersection .= dol_print_date($object->birth);
 	$usersection .= '</div>';
 }
 if (getDolUserInt('USER_PUBLIC_SHOW_ADDRESS', 0, $object) && $object->address) {
 	$usersection .= '<div class="flexitemsmall">';
-	$usersection .= img_picto('', 'state', 'class="pictofixedwidth"');
+	$usersection .= img_picture('', 'state', 'class="picturefixedwidth"');
 	$usersection .= dol_print_address(dol_format_address($object, 0, "\n", $langs), 'map', 'user', $object->id, 1);
 	$usersection .= '</div>';
 }
@@ -429,27 +429,27 @@ if (!getDolUserInt('USER_PUBLIC_HIDE_COMPANY', 0, $object)) {
 
 	if ($mysoc->email) {
 		$companysection .= '<div class="flexitemsmall">';
-		$companysection .= img_picto('', 'email', 'class="pictofixedwidth"');
+		$companysection .= img_picture('', 'email', 'class="picturefixedwidth"');
 		$companysection .= dol_print_email($mysoc->email, 0, 0, 1);
 		$companysection .= '</div>';
 	}
 
 	if ($mysoc->url) {
 		$companysection .= '<div class="flexitemsmall">';
-		$companysection .= img_picto('', 'globe', 'class="pictofixedwidth"');
+		$companysection .= img_picture('', 'globe', 'class="picturefixedwidth"');
 		$companysection .= dol_print_url($mysoc->url, '_blank', 0, 0, '');
 		$companysection .= '</div>';
 	}
 
 	if ($mysoc->phone) {
 		$companysection .= '<div class="flexitemsmall">';
-		$companysection .= img_picto('', 'phone', 'class="pictofixedwidth"');
+		$companysection .= img_picture('', 'phone', 'class="picturefixedwidth"');
 		$companysection .= dol_print_phone($mysoc->phone, $mysoc->country_code, 0, $mysoc->id, 'tel', ' ', '', '');
 		$companysection .= '</div>';
 	}
 	if ($mysoc->fax) {
 		$companysection .= '<div class="flexitemsmall">';
-		$companysection .= img_picto('', 'phoning_fax', 'class="pictofixedwidth"');
+		$companysection .= img_picture('', 'phoning_fax', 'class="picturefixedwidth"');
 		$companysection .= dol_print_phone($mysoc->fax, $mysoc->country_code, 0, $mysoc->id, 'fax', ' ', '', '');
 		$companysection .= '</div>';
 	}
@@ -538,7 +538,7 @@ print '<div class="backgreypublicpayment">';
 print '<div class="center">';
 print '<a href="'.$urlforqrcode.'">';
 // Download / AddToContacts
-print img_picto($langs->trans("Download").' VCF', 'add').' ';
+print img_picture($langs->trans("Download").' VCF', 'add').' ';
 print $langs->trans("Download").' VCF';
 print '</a>';
 print '</div>';

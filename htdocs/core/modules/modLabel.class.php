@@ -50,7 +50,7 @@ class modLabel extends DolibarrModules
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'development';
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'generic';
+		$this->picture = 'generic';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/label/temp");

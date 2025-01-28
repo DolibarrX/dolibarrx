@@ -52,7 +52,7 @@ class PaiementFourn extends Paiement
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'payment';
+	public $picture = 'payment';
 
 	/**
 	 * @var int	Status of payment. 0 = unvalidated; 1 = validated
@@ -639,44 +639,44 @@ class PaiementFourn extends Paiement
 		}
 		if ($mode == 2)
 		{
-			if ($status == 0) return img_picto($langs->trans('ToValidate'),'statut1').' '.$langs->trans('ToValidate');
-			if ($status == 1) return img_picto($langs->trans('Validated'),'statut4').' '.$langs->trans('Validated');
+			if ($status == 0) return img_picture($langs->trans('ToValidate'),'statut1').' '.$langs->trans('ToValidate');
+			if ($status == 1) return img_picture($langs->trans('Validated'),'statut4').' '.$langs->trans('Validated');
 		}
 		if ($mode == 3)
 		{
-			if ($status == 0) return img_picto($langs->trans('ToValidate'),'statut1');
-			if ($status == 1) return img_picto($langs->trans('Validated'),'statut4');
+			if ($status == 0) return img_picture($langs->trans('ToValidate'),'statut1');
+			if ($status == 1) return img_picture($langs->trans('Validated'),'statut4');
 		}
 		if ($mode == 4)
 		{
-			if ($status == 0) return img_picto($langs->trans('ToValidate'),'statut1').' '.$langs->trans('ToValidate');
-			if ($status == 1) return img_picto($langs->trans('Validated'),'statut4').' '.$langs->trans('Validated');
+			if ($status == 0) return img_picture($langs->trans('ToValidate'),'statut1').' '.$langs->trans('ToValidate');
+			if ($status == 1) return img_picture($langs->trans('Validated'),'statut4').' '.$langs->trans('Validated');
 		}
 		if ($mode == 5)
 		{
-			if ($status == 0) return $langs->trans('ToValidate').' '.img_picto($langs->trans('ToValidate'),'statut1');
-			if ($status == 1) return $langs->trans('Validated').' '.img_picto($langs->trans('Validated'),'statut4');
+			if ($status == 0) return $langs->trans('ToValidate').' '.img_picture($langs->trans('ToValidate'),'statut1');
+			if ($status == 1) return $langs->trans('Validated').' '.img_picture($langs->trans('Validated'),'statut4');
 		}
 		if ($mode == 6)
 		{
-			if ($status == 0) return $langs->trans('ToValidate').' '.img_picto($langs->trans('ToValidate'),'statut1');
-			if ($status == 1) return $langs->trans('Validated').' '.img_picto($langs->trans('Validated'),'statut4');
+			if ($status == 0) return $langs->trans('ToValidate').' '.img_picture($langs->trans('ToValidate'),'statut1');
+			if ($status == 1) return $langs->trans('Validated').' '.img_picture($langs->trans('Validated'),'statut4');
 		}*/
 		return '';
 	}
 
 
 	/**
-	 *	Return clickable name (with picto eventually)
+	 *	Return clickable name (with picture eventually)
 	 *
-	 *	@param		int		$withpicto		0=No picto, 1=Include picto into link, 2=Only picto
+	 *	@param		int		$withPicture		0=No picture, 1=Include picture into link, 2=Only picture
 	 *	@param		string	$option			What is the link pointing to
 	 *  @param		string  $mode           'withlistofinvoices'=Include list of invoices into tooltip
 	 *  @param		int  	$notooltip		1=Disable tooltip
 	 *  @param		string	$morecss		Add more CSS
 	 *	@return		string					Chaine avec URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $mode = 'withlistofinvoices', $notooltip = 0, $morecss = '')
+	public function getNomUrl($withPicture = 0, $option = '', $mode = 'withlistofinvoices', $notooltip = 0, $morecss = '')
 	{
 		global $langs, $config, $hookManager;
 
@@ -696,7 +696,7 @@ class PaiementFourn extends Paiement
 			$text = $langs->trans($reg[1]);
 		}
 
-		$label = img_picto('', $this->picto).' <u>'.$langs->trans("Payment").'</u><br>';
+		$label = img_picture('', $this->picture).' <u>'.$langs->trans("Payment").'</u><br>';
 		$label .= '<strong>'.$langs->trans("Ref").':</strong> '.$text;
 		$dateofpayment = ($this->datepaye ? $this->datepaye : $this->date);
 		if ($dateofpayment) {
@@ -723,10 +723,10 @@ class PaiementFourn extends Paiement
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 		$result .= $linkend;

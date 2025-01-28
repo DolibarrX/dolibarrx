@@ -64,8 +64,8 @@ $acts = array();
 $acts[0] = "activate";
 $acts[1] = "disable";
 $actl = array();
-$actl[0] = img_picto($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
-$actl[1] = img_picto($langs->trans("Activated"), 'switch_on', 'class="size15x"');
+$actl[0] = img_picture($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
+$actl[1] = img_picture($langs->trans("Activated"), 'switch_on', 'class="size15x"');
 
 $listoffset = GETPOST('listoffset', 'alpha');
 $listlimit = GETPOSTINT('listlimit') > 0 ? GETPOSTINT('listlimit') : 1000;
@@ -368,12 +368,12 @@ $titre = $langs->trans("DictionarySetup");
 $linkback = '';
 if ($id) {
 	$titre .= ' - '.$langs->trans($tablib[$id]);
-	$titlepicto = 'title_accountancy';
+	$titlePicture = 'title_accountancy';
 } else {
-	$titlepicto = '';
+	$titlePicture = '';
 }
 
-print load_fiche_titre($titre, $linkback, $titlepicto);
+print load_fiche_titre($titre, $linkback, $titlePicture);
 
 
 // Confirmation de la suppression de la ligne
@@ -432,7 +432,7 @@ if ($id) {
 				if (!empty($tabhelp[$id][$value]) && preg_match('/^http(s*):/i', $tabhelp[$id][$value])) {
 					print '<a href="'.$tabhelp[$id][$value].'">'.$valuetoshow.' '.img_help(1, $valuetoshow).'</a>';
 				} elseif (!empty($tabhelp[$id][$value])) {
-					print $form->textwithpicto($valuetoshow, $tabhelp[$id][$value]);
+					print $form->textWithPicture($valuetoshow, $tabhelp[$id][$value]);
 				} else {
 					print $valuetoshow;
 				}
@@ -519,8 +519,8 @@ if ($id) {
 		print '<td class="liste_titre"></td>';
 		print '<td class="liste_titre"></td>';
 		print '<td class="liste_titre center">';
-		$searchpicto=$form->showFilterButtons();
-		print $searchpicto;
+		$searchPicture=$form->showFilterButtons();
+		print $searchPicture;
 		print '</td>';
 		print '</tr>';
 		*/

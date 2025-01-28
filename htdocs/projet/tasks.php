@@ -585,10 +585,10 @@ if ($id > 0 || !empty($ref)) {
 
 	$arrayofmassactions = array();
 	if ($user->hasRight('projet', 'creer')) {
-		$arrayofmassactions['preclonetasks'] = img_picto('', 'clone', 'class="pictofixedwidth"').$langs->trans("Clone");
+		$arrayofmassactions['preclonetasks'] = img_picture('', 'clone', 'class="picturefixedwidth"').$langs->trans("Clone");
 	}
 	if ($permissiontodelete) {
-		$arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+		$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 	}
 	if (in_array($massaction, array('presend', 'predelete'))) {
 		$arrayofmassactions = array();
@@ -637,25 +637,25 @@ if ($id > 0 || !empty($ref)) {
 		if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 			print '<input type="checkbox" disabled name="usage_opportunity"'.(GETPOSTISSET('usage_opportunity') ? (GETPOST('usage_opportunity', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_opportunity ? ' checked="checked"' : '')).'"> ';
 			$htmltext = $langs->trans("ProjectFollowOpportunity");
-			print $form->textwithpicto($langs->trans("ProjectFollowOpportunity"), $htmltext);
+			print $form->textWithPicture($langs->trans("ProjectFollowOpportunity"), $htmltext);
 			print '<br>';
 		}
 		if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
 			print '<input type="checkbox" disabled name="usage_task"'.(GETPOSTISSET('usage_task') ? (GETPOST('usage_task', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_task ? ' checked="checked"' : '')).'"> ';
 			$htmltext = $langs->trans("ProjectFollowTasks");
-			print $form->textwithpicto($langs->trans("ProjectFollowTasks"), $htmltext);
+			print $form->textWithPicture($langs->trans("ProjectFollowTasks"), $htmltext);
 			print '<br>';
 		}
 		if (!getDolGlobalString('PROJECT_HIDE_TASKS') && getDolGlobalString('PROJECT_BILL_TIME_SPENT')) {
 			print '<input type="checkbox" disabled name="usage_bill_time"'.(GETPOSTISSET('usage_bill_time') ? (GETPOST('usage_bill_time', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_bill_time ? ' checked="checked"' : '')).'"> ';
 			$htmltext = $langs->trans("ProjectBillTimeDescription");
-			print $form->textwithpicto($langs->trans("BillTime"), $htmltext);
+			print $form->textWithPicture($langs->trans("BillTime"), $htmltext);
 			print '<br>';
 		}
 		if (isModEnabled('eventorganization')) {
 			print '<input type="checkbox" disabled name="usage_organize_event"'.(GETPOSTISSET('usage_organize_event') ? (GETPOST('usage_organize_event', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_organize_event ? ' checked="checked"' : '')).'"> ';
 			$htmltext = $langs->trans("EventOrganizationDescriptionLong");
-			print $form->textwithpicto($langs->trans("ManageOrganizeEvent"), $htmltext);
+			print $form->textWithPicture($langs->trans("ManageOrganizeEvent"), $htmltext);
 		}
 		print '</td></tr>';
 	}
@@ -663,10 +663,10 @@ if ($id > 0 || !empty($ref)) {
 	// Visibility
 	print '<tr><td class="titlefield">'.$langs->trans("Visibility").'</td><td>';
 	if ($object->public) {
-		print img_picto($langs->trans('SharedProject'), 'world', 'class="paddingrightonly"');
+		print img_picture($langs->trans('SharedProject'), 'world', 'class="paddingrightonly"');
 		print $langs->trans('SharedProject');
 	} else {
-		print img_picto($langs->trans('PrivateProject'), 'private', 'class="paddingrightonly"');
+		print img_picture($langs->trans('PrivateProject'), 'private', 'class="paddingrightonly"');
 		print $langs->trans('PrivateProject');
 	}
 	print '</td></tr>';
@@ -793,7 +793,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer') && (empty($object-
 
 	// Project
 	print '<tr><td class="fieldrequired">'.$langs->trans("ChildOfProjectTask").'</td><td>';
-	print img_picto('', 'project', 'class="pictofixedwidth"');
+	print img_picture('', 'project', 'class="picturefixedwidth"');
 	if ($projectoktoentertime) {
 		$formother->selectProjectTasks(GETPOST('task_parent'), empty($projectid) ? $object->id : $projectid, 'task_parent', 0, 0, 1, 1, 0, '0,1', 'maxwidth500 widthcentpercentminusxx');
 	} else {
@@ -805,7 +805,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer') && (empty($object-
 
 	// Assigned to
 	print '<tr><td>'.$langs->trans("AffectedTo").'</td><td>';
-	print img_picto('', 'user', 'class="pictofixedwidth"');
+	print img_picture('', 'user', 'class="picturefixedwidth"');
 	if (is_array($contactsofproject) && count($contactsofproject)) {
 		print $form->select_dolusers($user->id, 'userid', 0, '', 0, '', $contactsofproject, 0, 0, 0, '', 0, '', 'maxwidth500 widthcentpercentminusx');
 	} else {
@@ -824,25 +824,25 @@ if ($action == 'create' && $user->hasRight('projet', 'creer') && (empty($object-
 
 	// Date start task
 	print '<tr><td>'.$langs->trans("DateStart").'</td><td>';
-	print img_picto('', 'action', 'class="pictofixedwidth"');
+	print img_picture('', 'action', 'class="picturefixedwidth"');
 	print $form->selectDate((!empty($date_start) ? $date_start : ''), 'date_start', 1, 1, 0, '', 1, 1);
 	print '</td></tr>';
 
 	// Date end task
 	print '<tr><td>'.$langs->trans("DateEnd").'</td><td>';
-	print img_picto('', 'action', 'class="pictofixedwidth"');
+	print img_picture('', 'action', 'class="picturefixedwidth"');
 	print $form->selectDate((!empty($date_end) ? $date_end : -1), 'date_end', -1, 1, 0, '', 1, 1);
 	print '</td></tr>';
 
 	// Planned workload
 	print '<tr><td>'.$langs->trans("PlannedWorkload").'</td><td>';
-	print img_picto('', 'clock', 'class="pictofixedwidth"');
+	print img_picture('', 'clock', 'class="picturefixedwidth"');
 	print $form->select_duration('planned_workload', $planned_workload, 0, 'text');
 	print '</td></tr>';
 
 	// Progress
 	print '<tr><td>'.$langs->trans("ProgressDeclared").'</td><td colspan="3">';
-	print img_picto('', 'fa-percent', 'class="pictofixedwidth"');
+	print img_picture('', 'fa-percent', 'class="picturefixedwidth"');
 	print $formother->select_percent($progress, 'progress', 0, 5, 0, 100, 1);
 	print '</td></tr>';
 
@@ -862,7 +862,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer') && (empty($object-
 	print '</td></tr>';
 
 	print '<tr><td>'.$langs->trans("Budget").'</td><td>';
-	print img_picto('', 'currency', 'class="pictofixedwidth"');
+	print img_picture('', 'currency', 'class="picturefixedwidth"');
 	print '<input size="8" type="text" name="budget_amount" value="'.dol_escape_htmltag(GETPOSTISSET('budget_amount') ? GETPOST('budget_amount') : '').'"></td>';
 	print '</tr>';
 
@@ -946,7 +946,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer') && (empty($object-
 	// Filter on assigned users
 	$moreforfilter = '';
 	$moreforfilter .= '<div class="divsearchfield">';
-	$moreforfilter .= img_picto('', 'user', 'class="pictofixedwidth"');
+	$moreforfilter .= img_picture('', 'user', 'class="picturefixedwidth"');
 	$moreforfilter .= $form->select_dolusers($tmpuser->id > 0 ? $tmpuser->id : '', 'search_user_id', $langs->trans("TasksAssignedTo"), null, 0, '', '');
 	$moreforfilter .= '</div>';
 	if ($moreforfilter) {
@@ -969,8 +969,8 @@ if ($action == 'create' && $user->hasRight('projet', 'creer') && (empty($object-
 	// Action column
 	if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre maxwidthsearch">';
-		$searchpicto = $form->showFilterButtons();
-		print $searchpicto;
+		$searchPicture = $form->showFilterButtons();
+		print $searchPicture;
 		print '</td>';
 	}
 
@@ -1090,8 +1090,8 @@ if ($action == 'create' && $user->hasRight('projet', 'creer') && (empty($object-
 	// Action column
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre maxwidthsearch">';
-		$searchpicto = $form->showFilterButtons();
-		print $searchpicto;
+		$searchPicture = $form->showFilterButtons();
+		print $searchPicture;
 		print '</td>';
 	}
 

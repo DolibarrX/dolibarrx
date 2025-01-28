@@ -426,17 +426,17 @@ class Cchargesociales
 	}*/
 
 	/**
-	 *  Return a link to the user card (with optionally the picto)
+	 *  Return a link to the user card (with optionally the picture)
 	 * 	Use this->id,this->lastname, this->firstname
 	 *
-	 *	@param	int		$withpicto			Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
+	 *	@param	int		$withPicture			Include picture in link (0=No picture, 1=Include picture into link, 2=Only picture)
 	 *	@param	string	$option				On what the link point to
 	 *  @param	integer	$notooltip			1=Disable tooltip
 	 *  @param	int		$maxlen				Max length of visible user name
 	 *  @param  string  $morecss            Add more css on link
 	 *	@return	string						String with URL
 	 */
-	/*public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $maxlen = 24, $morecss = '')
+	/*public function getNomUrl($withPicture = 0, $option = '', $notooltip = 0, $maxlen = 24, $morecss = '')
 	{
 		global $langs, $config, $db;
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
@@ -455,9 +455,9 @@ class Cchargesociales
 		$link .= '>';
 		$linkend = '</a>';
 
-		if ($withpicto) {
+		if ($withPicture) {
 			$result .= ($link.img_object(($notooltip ? '' : $label), 'label', ($notooltip ? '' : 'class="classfortooltip"'), 0, 0, $notooltip ? 0 : 1).$linkend);
-			if ($withpicto != 2) {
+			if ($withPicture != 2) {
 				$result .= ' ';
 			}
 		}
@@ -503,27 +503,27 @@ class Cchargesociales
 			}
 		} elseif ($mode == 2) {
 			if ($status == 1) {
-				return img_picto($langs->trans('Enabled'), 'statut4').' '.$langs->trans('Enabled');
+				return img_picture($langs->trans('Enabled'), 'statut4').' '.$langs->trans('Enabled');
 			} elseif ($status == 0) {
-				return img_picto($langs->trans('Disabled'), 'statut5').' '.$langs->trans('Disabled');
+				return img_picture($langs->trans('Disabled'), 'statut5').' '.$langs->trans('Disabled');
 			}
 		} elseif ($mode == 3) {
 			if ($status == 1) {
-				return img_picto($langs->trans('Enabled'), 'statut4');
+				return img_picture($langs->trans('Enabled'), 'statut4');
 			} elseif ($status == 0) {
-				return img_picto($langs->trans('Disabled'), 'statut5');
+				return img_picture($langs->trans('Disabled'), 'statut5');
 			}
 		} elseif ($mode == 4) {
 			if ($status == 1) {
-				return img_picto($langs->trans('Enabled'), 'statut4').' '.$langs->trans('Enabled');
+				return img_picture($langs->trans('Enabled'), 'statut4').' '.$langs->trans('Enabled');
 			} elseif ($status == 0) {
-				return img_picto($langs->trans('Disabled'), 'statut5').' '.$langs->trans('Disabled');
+				return img_picture($langs->trans('Disabled'), 'statut5').' '.$langs->trans('Disabled');
 			}
 		} elseif ($mode == 5) {
 			if ($status == 1) {
-				return $langs->trans('Enabled').' '.img_picto($langs->trans('Enabled'), 'statut4');
+				return $langs->trans('Enabled').' '.img_picture($langs->trans('Enabled'), 'statut4');
 			} elseif ($status == 0) {
-				return $langs->trans('Disabled').' '.img_picto($langs->trans('Disabled'), 'statut5');
+				return $langs->trans('Disabled').' '.img_picture($langs->trans('Disabled'), 'statut5');
 			}
 		}
 		return "";

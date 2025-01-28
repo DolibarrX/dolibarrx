@@ -217,7 +217,7 @@ print '<tr class="liste_titre"><td class="liste_titre" colspan="2">'.$langs->tra
 // Company
 if (empty(!$config->global->DONATION_USE_THIRDPARTIES)) {
 	print '<tr><td>'.$langs->trans("ThirdParty").'</td><td>';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print $form->select_company($socid, 'socid', '', 1, 0, 0, array(), 0, 'widthcentpercentminusx maxwidth300', '');
 	print '</td></tr>';
 }
@@ -237,14 +237,14 @@ if (isModEnabled('category')) {
 	$cat_label = $langs->trans("Category").' '.lcfirst($langs->trans("Customer"));
 	print '<tr><td>'.$cat_label.'</td><td>';
 	$cate_arbo = $form->select_all_categories($cat_type, '', 'parent', 0, 0, 1);
-	print img_picto('', 'category', 'class="pictofixedwidth"');
+	print img_picture('', 'category', 'class="picturefixedwidth"');
 	print $form->multiselectarray('custcats', $cate_arbo, GETPOST('custcats', 'array'), 0, 0, 'widthcentpercentminusx maxwidth300');
 	print '</td></tr>';
 }
 
 // User
 print '<tr><td>'.$langs->trans("CreatedBy").'</td><td>';
-print img_picto('', 'user', 'class="pictofixedwidth"');
+print img_picture('', 'user', 'class="picturefixedwidth"');
 print $form->select_dolusers($userId, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 print '</td></tr>';
 

@@ -280,8 +280,8 @@ if ($optioncss != '') {
 }
 
 $arrayofmassactions = array(
-	//'presend'=>img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
-	//'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
+	//'presend'=>img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
+	//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 );
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -342,8 +342,8 @@ print '<tr class="liste_titre_filter">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons('left');
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons('left');
+	print $searchPicture;
 	print '</td>';
 }
 print '<td class="liste_titre"><input type="text" class="flat" name="search_line" value="'.dol_escape_htmltag($search_line).'" size="6"></td>';
@@ -356,8 +356,8 @@ print '<td class="liste_titre">&nbsp;</td>';
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '</tr>'."\n";
@@ -488,20 +488,20 @@ while ($i < $imaxinloop) {
 		print '<td class="nowraponall">';
 		$link_to_bill = '/compta/facture/card.php?facid=';
 		$link_title = 'Invoice';
-		$link_picto = 'bill';
+		$link_picture = 'bill';
 		if ($type == 'bank-transfer') {
 			if ($bon->checkIfSalaryBonPrelevement()) {
 				$link_to_bill = '/salaries/card.php?id=';
 				$link_title = 'SalaryInvoice';
-				$link_picto = 'salary';
+				$link_picture = 'salary';
 			} else {
 				$link_to_bill = '/fourn/facture/card.php?facid=';
 				$link_title = 'SupplierInvoice';
-				$link_picto = 'supplier_invoice';
+				$link_picture = 'supplier_invoice';
 			}
 		}
 		print '<a href="'.DOL_URL_ROOT.$link_to_bill.$obj->facid.'">';
-		print img_object($langs->trans($link_title), $link_picto);
+		print img_object($langs->trans($link_title), $link_picture);
 		if (!$bon->checkIfSalaryBonPrelevement()) {
 			print '&nbsp;'.$obj->invoiceref."</td>\n";
 		} else {

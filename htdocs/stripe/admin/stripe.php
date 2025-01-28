@@ -243,7 +243,7 @@ if (empty($config->stripeconnect->enabled)) {
 		print '<br>';
 	}
 	print '<input class="minwidth300" type="text" name="STRIPE_TEST_WEBHOOK_KEY" value="'.getDolGlobalString('STRIPE_TEST_WEBHOOK_KEY').'" placeholder="'.$langs->trans("Example").': whsec_xxxxxxxxxxxxxxxxxxxxxxxx">';
-	$out = img_picto('', 'globe').' <span class="opacitymedium">'.$langs->trans("ToOfferALinkForTestWebhook").'</span> ';
+	$out = img_picture('', 'globe').' <span class="opacitymedium">'.$langs->trans("ToOfferALinkForTestWebhook").'</span> ';
 	$url = dol_buildpath('/public/stripe/ipn.php', 3);
 	$url .= '?test=1';
 	//global $dolibarr_main_instance_unique_id;
@@ -272,10 +272,10 @@ if (empty($config->stripeconnect->enabled)) {
 
 					if ($endpoint->status == 'enabled') {
 						print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=ipn&webhook='.$endpoint->id.'&status=0">';
-						print img_picto($langs->trans("Activated"), 'switch_on');
+						print img_picture($langs->trans("Activated"), 'switch_on');
 					} else {
 						print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=ipn&webhook='.$endpoint->id.'&status=1">';
-						print img_picto($langs->trans("Disabled"), 'switch_off');
+						print img_picture($langs->trans("Disabled"), 'switch_off');
 					}
 				} catch (Exception $e) {
 					print $e->getMessage();
@@ -284,7 +284,7 @@ if (empty($config->stripeconnect->enabled)) {
 				print 'Bad value for the secret key. Reenter and save it again to fix this.';
 			}
 		} else {
-			print img_picto($langs->trans("Inactive"), 'statut5');
+			print img_picture($langs->trans("Inactive"), 'statut5');
 		}
 	}
 	print'</td></tr>';
@@ -317,7 +317,7 @@ if (empty($config->stripeconnect->enabled)) {
 		print '<br>';
 	}
 	print '<input class="minwidth300" type="text" name="STRIPE_LIVE_WEBHOOK_KEY" value="'.getDolGlobalString('STRIPE_LIVE_WEBHOOK_KEY').'" placeholder="'.$langs->trans("Example").': whsec_xxxxxxxxxxxxxxxxxxxxxxxx">';
-	$out = img_picto('', 'globe', 'class="pictofixedwidth"').' <span class="opacitymedium">'.$langs->trans("ToOfferALinkForLiveWebhook").'</span> ';
+	$out = img_picture('', 'globe', 'class="picturefixedwidth"').' <span class="opacitymedium">'.$langs->trans("ToOfferALinkForLiveWebhook").'</span> ';
 	$url = dol_buildpath('/public/stripe/ipn.php', 3);
 	//global $dolibarr_main_instance_unique_id;
 	//$url .= '?securitykey='.dol_hash('stripeipn-'.$dolibarr_main_instance_unique_id.'-'.$config->global->STRIPE_LIVE_PUBLISHABLE_KEY, 'md5');
@@ -344,17 +344,17 @@ if (empty($config->stripeconnect->enabled)) {
 					$endpoint->save();
 					if ($endpoint->status == 'enabled') {
 						print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=ipn&webhook='.$endpoint->id.'&status=0">';
-						print img_picto($langs->trans("Activated"), 'switch_on');
+						print img_picture($langs->trans("Activated"), 'switch_on');
 					} else {
 						print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=ipn&webhook='.$endpoint->id.'&status=1">';
-						print img_picto($langs->trans("Disabled"), 'switch_off');
+						print img_picture($langs->trans("Disabled"), 'switch_off');
 					}
 				} catch (Exception $e) {
 					print $e->getMessage();
 				}
 			}
 		} else {
-			print img_picto($langs->trans("Inactive"), 'statut5');
+			print img_picture($langs->trans("Inactive"), 'statut5');
 		}
 	}
 	print '</td></tr>';
@@ -381,7 +381,7 @@ print '</td></tr>';
 
 print '<tr class="oddeven"><td>';
 print $langs->trans("BankAccount").'</td><td>';
-print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 $form->select_comptes(getDolGlobalString('STRIPE_BANK_ACCOUNT_FOR_PAYMENTS'), 'STRIPE_BANK_ACCOUNT_FOR_PAYMENTS', 0, '', 1);
 print '</td></tr>';
 
@@ -400,12 +400,12 @@ print '</td></tr>';
 if (getDolGlobalInt('STRIPE_AUTO_RECORD_PAYOUT')) {
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("StripeUserAccountForActions").'</td><td>';
-	print img_picto('', 'user', 'class="pictofixedwidth"').$form->select_dolusers(getDolGlobalString('STRIPE_USER_ACCOUNT_FOR_ACTIONS'), 'STRIPE_USER_ACCOUNT_FOR_ACTIONS', 0);
+	print img_picture('', 'user', 'class="picturefixedwidth"').$form->select_dolusers(getDolGlobalString('STRIPE_USER_ACCOUNT_FOR_ACTIONS'), 'STRIPE_USER_ACCOUNT_FOR_ACTIONS', 0);
 	print '</td></tr>';
 
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("BankAccountForBankTransfer").'</td><td>';
-	print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+	print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 	$form->select_comptes(getDolGlobalString('STRIPE_BANK_ACCOUNT_FOR_BANKTRANSFERS'), 'STRIPE_BANK_ACCOUNT_FOR_BANKTRANSFERS', 0, '', 1);
 	print '</td></tr>';
 }
@@ -581,7 +581,7 @@ print '</td></tr>';
 
 print '<tr class="oddeven"><td>';
 print $langs->trans("ONLINE_PAYMENT_SENDEMAIL").'</td><td>';
-print img_picto('', 'email', 'class="pictofixedwidth"');
+print img_picture('', 'email', 'class="picturefixedwidth"');
 print '<input class="minwidth200" type="text" name="ONLINE_PAYMENT_SENDEMAIL" value="' . getDolGlobalString('ONLINE_PAYMENT_SENDEMAIL').'">';
 print ' &nbsp; <span class="opacitymedium">'.$langs->trans("Example").': myemail@myserver.com, Payment service &lt;myemail2@myserver2.com&gt;</span>';
 print '</td></tr>';
@@ -604,11 +604,11 @@ print '<tr class="oddeven"><td>';
 print $langs->trans("SecurityToken").'</td><td>';
 print '<input class="minwidth300"  type="text" id="PAYMENT_SECURITY_TOKEN" name="PAYMENT_SECURITY_TOKEN" value="' . getDolGlobalString('PAYMENT_SECURITY_TOKEN').'">';
 if (!empty($config->use_javascript_ajax)) {
-	print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
+	print '&nbsp;'.img_picture($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
 }
 if (getDolGlobalString('PAYMENT_SECURITY_ACCEPT_ANY_TOKEN')) {
 	$langs->load("errors");
-	print img_warning($langs->trans("WarningTheHiddenOptionIsOn", 'PAYMENT_SECURITY_ACCEPT_ANY_TOKEN'), '', 'pictowarning marginleftonly');
+	print img_warning($langs->trans("WarningTheHiddenOptionIsOn", 'PAYMENT_SECURITY_ACCEPT_ANY_TOKEN'), '', 'picturewarning marginleftonly');
 }
 print '</td></tr>';
 

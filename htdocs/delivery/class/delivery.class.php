@@ -71,7 +71,7 @@ class Delivery extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'sending';
+	public $picture = 'sending';
 
 	/**
 	 * @var int draft status
@@ -751,7 +751,7 @@ class Delivery extends CommonObject
 	 * getTooltipContentArray
 	 * @param array<string,mixed> $params params to construct tooltip data
 	 * @since v18
-	 * @return array{picto?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
+	 * @return array{picture?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
 	 */
 	public function getTooltipContentArray($params)
 	{
@@ -761,20 +761,20 @@ class Delivery extends CommonObject
 
 		$datas = [];
 
-		$datas['picto'] = img_picto('', $this->picto, '', 0, 0, 0, '', 'paddingrightonly').' <u>'.$langs->trans("ShowReceiving").'</u>:<br>';
+		$datas['picture'] = img_picture('', $this->picture, '', 0, 0, 0, '', 'paddingrightonly').' <u>'.$langs->trans("ShowReceiving").'</u>:<br>';
 		$datas['ref'] = '<b>'.$langs->trans("Ref").'</b>: '.$this->ref;
 
 		return $datas;
 	}
 
 	/**
-	 *	Return clickable name (with picto eventually)
+	 *	Return clickable name (with picture eventually)
 	 *
-	 *	@param	int		$withpicto					0=No picto, 1=Include picto into link, 2=Only picto
+	 *	@param	int		$withPicture					0=No picture, 1=Include picture into link, 2=Only picture
 	 *  @param  int     $save_lastsearch_value		-1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 *	@return	string								Chaine avec URL
 	 */
-	public function getNomUrl($withpicto = 0, $save_lastsearch_value = -1)
+	public function getNomUrl($withPicture = 0, $save_lastsearch_value = -1)
 	{
 		global $langs, $hookManager;
 
@@ -813,10 +813,10 @@ class Delivery extends CommonObject
 		$linkstart .= $dataparams.' class="'.$classfortooltip.'">';
 		$linkend = '</a>';
 
-		if ($withpicto) {
-			$result .= ($linkstart.img_object($label, $this->picto, $dataparams.' class="'.$classfortooltip.'"').$linkend);
+		if ($withPicture) {
+			$result .= ($linkstart.img_object($label, $this->picture, $dataparams.' class="'.$classfortooltip.'"').$linkend);
 		}
-		if ($withpicto && $withpicto != 2) {
+		if ($withPicture && $withPicture != 2) {
 			$result .= ' ';
 		}
 		$result .= $linkstart.$this->ref.$linkend;

@@ -245,12 +245,12 @@ if ($result < 0) {
 
 // List of mass actions available
 $arrayofmassactions = array(
-	//'generate_doc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("ReGeneratePDF"),
-	//'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
-	//'presend'=>img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
+	//'generate_doc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("ReGeneratePDF"),
+	//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
+	//'presend'=>img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
 );
 if ($permissiontosetup) {
-	$arrayofmassactions['preincreaseholiday'] = img_picto('', 'add', 'class="pictofixedwidth"').$langs->trans("IncreaseHolidays");
+	$arrayofmassactions['preincreaseholiday'] = img_picture('', 'add', 'class="picturefixedwidth"').$langs->trans("IncreaseHolidays");
 }
 $massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -359,8 +359,8 @@ if (count($typeleaves) == 0) {
 	// Action column
 	if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre maxwidthsearch center">';
-		$searchpicto = $form->showFilterButtons();
-		print $searchpicto;
+		$searchPicture = $form->showFilterButtons();
+		print $searchPicture;
 		print '</td>';
 	}
 
@@ -394,8 +394,8 @@ if (count($typeleaves) == 0) {
 	// Action column
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre maxwidthsearch center">';
-		$searchpicto = $form->showFilterButtons();
-		print $searchpicto;
+		$searchPicture = $form->showFilterButtons();
+		print $searchPicture;
 		print '</td>';
 	}
 

@@ -47,7 +47,7 @@ class AccountingJournal extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'generic';
+	public $picture = 'generic';
 
 	/**
 	 * @var int ID
@@ -198,16 +198,16 @@ class AccountingJournal extends CommonObject
 	}
 
 	/**
-	 * Return clickable name (with picto eventually)
+	 * Return clickable name (with picture eventually)
 	 *
-	 * @param	int		$withpicto		0=No picto, 1=Include picto into link, 2=Only picto
+	 * @param	int		$withPicture		0=No picture, 1=Include picture into link, 2=Only picture
 	 * @param	int		$withlabel		0=No label, 1=Include label of journal, 2=Include nature of journal
 	 * @param	int  	$nourl			1=Disable url
 	 * @param	string  $moretitle		Add more text to title tooltip
 	 * @param	int  	$notooltip		1=Disable tooltip
 	 * @return	string	String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $withlabel = 0, $nourl = 0, $moretitle = '', $notooltip = 0)
+	public function getNomUrl($withPicture = 0, $withlabel = 0, $nourl = 0, $moretitle = '', $notooltip = 0)
 	{
 		global $langs, $config, $hookManager;
 
@@ -261,10 +261,10 @@ class AccountingJournal extends CommonObject
 		}
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="' . (($withpicto != 2) ? 'paddingright ' : '') . 'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="' . (($withPicture != 2) ? 'paddingright ' : '') . 'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $label_link;
 		}
 		$result .= $linkend;

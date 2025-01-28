@@ -614,7 +614,7 @@ class ReceptionLineBatch extends CommonObjectLine
 	/**
 	 *  Return label of the status of object
 	 *
-	 *  @param      int		$mode			0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picto
+	 *  @param      int		$mode			0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picture
 	 *  @return 	string        			Label
 	 */
 	public function getLibStatut($mode = 0)
@@ -644,27 +644,27 @@ class ReceptionLineBatch extends CommonObjectLine
 			return $langs->trans($this->labelStatus[$status]);
 		} elseif ($mode == 3) {
 			if ($status == 0) {
-				return img_picto($langs->trans($this->labelStatus[$status]), 'statut0');
+				return img_picture($langs->trans($this->labelStatus[$status]), 'statut0');
 			} elseif ($status == 1) {
-				return img_picto($langs->trans($this->labelStatus[$status]), 'statut4');
+				return img_picture($langs->trans($this->labelStatus[$status]), 'statut4');
 			} elseif ($status == 2) {
-				return img_picto($langs->trans($this->labelStatus[$status]), 'statut8');
+				return img_picture($langs->trans($this->labelStatus[$status]), 'statut8');
 			}
 		} elseif ($mode == 4) {
 			if ($status == 0) {
-				return img_picto($langs->trans($this->labelStatus[$status]), 'statut0').' '.$langs->trans($this->labelStatus[$status]);
+				return img_picture($langs->trans($this->labelStatus[$status]), 'statut0').' '.$langs->trans($this->labelStatus[$status]);
 			} elseif ($status == 1) {
-				return img_picto($langs->trans($this->labelStatus[$status]), 'statut4').' '.$langs->trans($this->labelStatus[$status]);
+				return img_picture($langs->trans($this->labelStatus[$status]), 'statut4').' '.$langs->trans($this->labelStatus[$status]);
 			} elseif ($status == 2) {
-				return img_picto($langs->trans($this->labelStatus[$status]), 'statut8').' '.$langs->trans($this->labelStatus[$status]);
+				return img_picture($langs->trans($this->labelStatus[$status]), 'statut8').' '.$langs->trans($this->labelStatus[$status]);
 			}
 		} elseif ($mode == 5) {
 			if ($status == 0) {
-				return '<span class="hideonsmartphone">'.$langs->trans($this->labelStatusShort[$status]).' </span>'.img_picto($langs->trans($this->labelStatus[$status]), 'statut0');
+				return '<span class="hideonsmartphone">'.$langs->trans($this->labelStatusShort[$status]).' </span>'.img_picture($langs->trans($this->labelStatus[$status]), 'statut0');
 			} elseif ($status == 1) {
-				return '<span class="hideonsmartphone">'.$langs->trans($this->labelStatusShort[$status]).' </span>'.img_picto($langs->trans($this->labelStatus[$status]), 'statut4');
+				return '<span class="hideonsmartphone">'.$langs->trans($this->labelStatusShort[$status]).' </span>'.img_picture($langs->trans($this->labelStatus[$status]), 'statut4');
 			} elseif ($status == 2) {
-				return '<span class="hideonsmartphone">'.$langs->trans($this->labelStatusShort[$status]).' </span>'.img_picto($langs->trans($this->labelStatus[$status]), 'statut8');
+				return '<span class="hideonsmartphone">'.$langs->trans($this->labelStatusShort[$status]).' </span>'.img_picture($langs->trans($this->labelStatus[$status]), 'statut8');
 			}
 		}
 		return "";

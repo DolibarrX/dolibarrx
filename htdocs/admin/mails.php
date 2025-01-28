@@ -397,7 +397,7 @@ if ($action == 'edit') {
 			$text = $langs->trans("Undefined");
 		}
 		$htmltext = $langs->trans("ContactSuperAdminForChange");
-		print $form->textwithpicto($text, $htmltext, 1, 'superadmin');
+		print $form->textWithPicture($text, $htmltext, 1, 'superadmin');
 		print '<input type="hidden" name="MAIN_MAIL_SENDMODE" value="'.getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail').'">';
 	}
 	print '</td></tr>';
@@ -429,7 +429,7 @@ if ($action == 'edit') {
 		} else {
 			$text = !empty($mainserver) ? $mainserver : $smtpserver;
 			$htmltext = $langs->trans("ContactSuperAdminForChange");
-			print $form->textwithpicto($text, $htmltext, 1, 'superadmin');
+			print $form->textWithPicture($text, $htmltext, 1, 'superadmin');
 			print '<input type="hidden" id="MAIN_MAIL_SMTP_SERVER" name="MAIN_MAIL_SMTP_SERVER" value="'.$mainserver.'">';
 		}
 		print '</td>';
@@ -459,7 +459,7 @@ if ($action == 'edit') {
 		} else {
 			$text = (!empty($mainport) ? $mainport : $smtpport);
 			$htmltext = $langs->trans("ContactSuperAdminForChange");
-			print $form->textwithpicto($text, $htmltext, 1, 'superadmin');
+			print $form->textWithPicture($text, $htmltext, 1, 'superadmin');
 			print '<input type="hidden" id="MAIN_MAIL_SMTP_PORT" name="MAIN_MAIL_SMTP_PORT" value="'.$mainport.'">';
 		}
 	}
@@ -478,7 +478,7 @@ if ($action == 'edit') {
 			print '<label for="radio_plain" >'.$langs->trans("UseAUTHPLAIN").'</label>';
 			print '<br>';
 			print '<input type="radio" id="radio_oauth" name="'.$vartosmtpstype.'" value="XOAUTH2"'.(getDolGlobalString($vartosmtpstype) == 'XOAUTH2' ? ' checked' : '').(isModEnabled('oauth') ? '' : ' disabled').'> ';
-			print '<label for="radio_oauth" >'.$form->textwithpicto($langs->trans("UseOauth"), $langs->trans("OauthNotAvailableForAllAndHadToBeCreatedBefore")).'</label>';
+			print '<label for="radio_oauth" >'.$form->textWithPicture($langs->trans("UseOauth"), $langs->trans("OauthNotAvailableForAllAndHadToBeCreatedBefore")).'</label>';
 			if (!isModEnabled('oauth')) {
 				print ' &nbsp; <a href="'.DOL_URL_ROOT.'/admin/modules.php?search_keyword=oauth">'.$langs->trans("EnableModuleX", "OAuth").'</a>';
 			} else {
@@ -487,7 +487,7 @@ if ($action == 'edit') {
 		} else {
 			$value = getDolGlobalString($vartosmtpstype, 'LOGIN');
 			$htmltext = $langs->trans("ContactSuperAdminForChange");
-			print $form->textwithpicto($langs->trans("MAIN_MAIL_SMTPS_AUTH_TYPE"), $htmltext, 1, 'superadmin');
+			print $form->textWithPicture($langs->trans("MAIN_MAIL_SMTPS_AUTH_TYPE"), $htmltext, 1, 'superadmin');
 			print '<input type="hidden" id="MAIN_MAIL_SMTPS_AUTH_TYPE" name="MAIN_MAIL_SMTPS_AUTH_TYPE" value="'.$value.'">';
 		}
 		print '</td></tr>';
@@ -502,7 +502,7 @@ if ($action == 'edit') {
 			print '<input class="flat" name="MAIN_MAIL_SMTPS_ID" size="32" value="'.$mainstmpid.'">';
 		} else {
 			$htmltext = $langs->trans("ContactSuperAdminForChange");
-			print $form->textwithpicto(getDolGlobalString('MAIN_MAIL_SMTPS_ID'), $htmltext, 1, 'superadmin');
+			print $form->textWithPicture(getDolGlobalString('MAIN_MAIL_SMTPS_ID'), $htmltext, 1, 'superadmin');
 			print '<input type="hidden" name="MAIN_MAIL_SMTPS_ID" value="'.$mainstmpid.'">';
 		}
 		print '</td></tr>';
@@ -513,14 +513,14 @@ if ($action == 'edit') {
 	if (!empty($config->use_javascript_ajax) || (in_array(getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail'), array('smtps', 'swiftmailer')))) {
 		$mainsmtppw = getDolGlobalString('MAIN_MAIL_SMTPS_PW');
 		print '<tr class="drag drop oddeven smtp_pw"><td>';
-		print $form->textwithpicto($langs->trans("MAIN_MAIL_SMTPS_PW"), $langs->trans("WithGMailYouCanCreateADedicatedPassword"));
+		print $form->textWithPicture($langs->trans("MAIN_MAIL_SMTPS_PW"), $langs->trans("WithGMailYouCanCreateADedicatedPassword"));
 		print '</td><td>';
 		// SuperAdministrator access only
 		if (!isModEnabled('multicompany') || ($user->admin && !$user->entity)) {
 			print '<input class="flat" type="password" name="MAIN_MAIL_SMTPS_PW" size="32" value="' . htmlspecialchars($mainsmtppw, ENT_COMPAT, 'UTF-8') . '" autocomplete="off">';
 		} else {
 			$htmltext = $langs->trans("ContactSuperAdminForChange");
-			print $form->textwithpicto(getDolGlobalString('MAIN_MAIL_SMTPS_PW'), $htmltext, 1, 'superadmin');
+			print $form->textWithPicture(getDolGlobalString('MAIN_MAIL_SMTPS_PW'), $htmltext, 1, 'superadmin');
 			print '<input type="hidden" name="MAIN_MAIL_SMTPS_PW" value="' . htmlspecialchars($mainsmtppw, ENT_COMPAT, 'UTF-8') . '">';
 		}
 		print '</td></tr>';
@@ -539,7 +539,7 @@ if ($action == 'edit') {
 				$text = $langs->trans("Undefined");
 			}
 			$htmltext = $langs->trans("ContactSuperAdminForChange");
-			print $form->textwithpicto($text, $htmltext, 1, 'superadmin');
+			print $form->textWithPicture($text, $htmltext, 1, 'superadmin');
 			print '<input type="hidden" name="MAIN_MAIL_SMTPS_OAUTH_SERVICE" value="' . getDolGlobalString('MAIN_MAIL_SMTPS_OAUTH_SERVICE').'">';
 		}
 		print '</td></tr>';
@@ -627,7 +627,7 @@ if ($action == 'edit') {
 	print '</td></tr>';
 
 	// From
-	$help = $form->textwithpicto('', $langs->trans("EMailHelpMsgSPFDKIM"));
+	$help = $form->textWithPicture('', $langs->trans("EMailHelpMsgSPFDKIM"));
 	print '<tr class="oddeven"><td class="fieldrequired">';
 	print $langs->trans("MAIN_MAIL_EMAIL_FROM", ini_get('sendmail_from') ? ini_get('sendmail_from') : $langs->transnoentities("Undefined"));
 	print ' '.$help;
@@ -707,7 +707,7 @@ if ($action == 'edit') {
 		// Note MAIN_HIDE_WARNING_TO_ENCOURAGE_SMTP_SETUP is set to 1 by default if not set
 		if (getDolGlobalString('MAIN_MAIL_SENDMODE', 'mail') == 'mail' && getDolGlobalString('MAIN_HIDE_WARNING_TO_ENCOURAGE_SMTP_SETUP')) {
 			$textwarning = $langs->trans("WarningPHPMail", $listofmethods['mail'], $listofmethods['smtps']).'<br>'.$langs->trans("WarningPHPMailA").'<br>'.$langs->trans("WarningPHPMailB").'<br>'.$langs->trans("WarningPHPMailC").'<br><br>'.$langs->trans("WarningPHPMailD");
-			print $form->textwithpicto('', '<span class="small">'.$textwarning.'</span>', 1, 'help', 'nomargintop');
+			print $form->textWithPicture('', '<span class="small">'.$textwarning.'</span>', 1, 'help', 'nomargintop');
 		}
 
 		print '</td></tr>';
@@ -901,7 +901,7 @@ if ($action == 'edit') {
 	}
 
 	// From
-	$help = $form->textwithpicto('', $langs->trans("EMailHelpMsgSPFDKIM"));
+	$help = $form->textWithPicture('', $langs->trans("EMailHelpMsgSPFDKIM"));
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("MAIN_MAIL_EMAIL_FROM", ini_get('sendmail_from') ? ini_get('sendmail_from') : $langs->transnoentities("Undefined"));
 	print ' '.$help;

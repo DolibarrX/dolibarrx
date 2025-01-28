@@ -344,7 +344,7 @@ print '<span class="opacitymedium">'.$langs->trans("OpenSurveyHowTo").'</span><b
 if (empty($object->allow_spy)) {
 	print '<span class="opacitymedium">'.$langs->trans("YourVoteIsPrivate").'</span><br>';
 } else {
-	print $form->textwithpicto('<span class="opacitymedium">'.$langs->trans("YourVoteIsPublic").'</span>', $langs->trans("CanSeeOthersVote")).'<br>';
+	print $form->textWithPicture('<span class="opacitymedium">'.$langs->trans("YourVoteIsPublic").'</span>', $langs->trans("CanSeeOthersVote")).'<br>';
 }
 print '</div>';
 print '<br>';
@@ -357,7 +357,7 @@ if (empty($object->description)) {
 
 // show title of survey
 $titre = str_replace("\\", "", $object->title);
-print '<div class="survey_title">'.img_picto('', 'poll', 'class="size15x paddingright"').' <strong>'.dol_htmlentities($titre).'</strong></div>';
+print '<div class="survey_title">'.img_picture('', 'poll', 'class="size15x paddingright"').' <strong>'.dol_htmlentities($titre).'</strong></div>';
 
 if (!empty($object->description)) {
 	print '<br><div class="corps">'."\n";
@@ -510,7 +510,7 @@ while ($compteur < $num) {
 	print '<tr>'."\n";
 
 	// Name
-	print '<td class="nom">'.img_picto($obj->name, 'user', 'class="pictofixedwidth"').dol_htmlentities($obj->name).'</td>'."\n";
+	print '<td class="nom">'.img_picture($obj->name, 'user', 'class="picturefixedwidth"').dol_htmlentities($obj->name).'</td>'."\n";
 
 	// si la ligne n'est pas a changer, on affiche les données
 	if (!$testligneamodifier) {
@@ -720,7 +720,7 @@ if ($ligneamodifier < 0 && (!isset($_SESSION['nom']))) {
 	}
 
 	// Show button to add a new line into database
-	print '<td><input type="image" class="borderimp classfortooltip" title="'.dolPrintHTML($langs->trans("AddTheVote")).'" name="boutonp" value="'.$langs->trans("Vote").'" src="'.img_picto('', 'edit_add', '', 0, 1).'"></td>'."\n";
+	print '<td><input type="image" class="borderimp classfortooltip" title="'.dolPrintHTML($langs->trans("AddTheVote")).'" name="boutonp" value="'.$langs->trans("Vote").'" src="'.img_picture('', 'edit_add', '', 0, 1).'"></td>'."\n";
 	print '</tr>'."\n";
 }
 
@@ -767,7 +767,7 @@ if ($object->allow_spy) {
 		print '</td>'."\n";
 	}
 	print '</tr>';
-	// Show picto winner
+	// Show picture winner
 	if ($nbofcheckbox >= 2) {
 		print '<tr>'."\n";
 		print '<td class="somme"></td>'."\n";
@@ -838,7 +838,7 @@ print '<br>';
 $comments = $object->getComments();
 
 if ($comments) {
-	print '<br>'.img_picto('', 'note', 'class="pictofixedwidth"').'<span class="bold opacitymedium">'.$langs->trans("CommentsOfVoters").':</span><br>'."\n";
+	print '<br>'.img_picture('', 'note', 'class="picturefixedwidth"').'<span class="bold opacitymedium">'.$langs->trans("CommentsOfVoters").':</span><br>'."\n";
 
 	foreach ($comments as $obj) {
 		// ligne d'un usager pré-authentifié
@@ -846,10 +846,10 @@ if ($comments) {
 
 		print '<div class="comment"><span class="usercomment">';
 		if (in_array($obj->usercomment, $listofvoters)) {
-			print '<a href="'.$_SERVER["PHP_SELF"].'?deletecomment='.$obj->id_comment.'&sondage='.$numsondage.'"> '.img_picto('', 'delete.png', '', 0, 0, 0, '', 'nomarginleft').'</a> ';
+			print '<a href="'.$_SERVER["PHP_SELF"].'?deletecomment='.$obj->id_comment.'&sondage='.$numsondage.'"> '.img_picture('', 'delete.png', '', 0, 0, 0, '', 'nomarginleft').'</a> ';
 		}
-		//else print img_picto('', 'ellipsis-h', '', 0, 0, 0, '', 'nomarginleft').' ';
-		print img_picto('', 'user', 'class="pictofixedwidth"').dol_htmlentities($obj->usercomment).':</span> <span class="comment">'.dol_nl2br(dol_htmlentities($obj->comment))."</span></div>";
+		//else print img_picture('', 'ellipsis-h', '', 0, 0, 0, '', 'nomarginleft').' ';
+		print img_picture('', 'user', 'class="picturefixedwidth"').dol_htmlentities($obj->usercomment).':</span> <span class="comment">'.dol_nl2br(dol_htmlentities($obj->comment))."</span></div>";
 	}
 }
 

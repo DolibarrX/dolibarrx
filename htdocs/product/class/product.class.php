@@ -88,11 +88,11 @@ class Product extends CommonObject
 	);
 
 	/**
-	 * Label of the pictogram used for this object ('product' or 'service')
+	 * Label of the picturegram used for this object ('product' or 'service')
 	 * @var string
-	 * @see img_picto()
+	 * @see img_picture()
 	 */
-	public $picto = 'product';
+	public $picture = 'product';
 
 	/**
 	 * {@inheritdoc}
@@ -5647,9 +5647,9 @@ class Product extends CommonObject
 		}
 
 		if ($this->isProduct()) {
-			$datas['picto'] = img_picto('', 'product').' <u class="paddingrightonly">'.$langs->trans("Product").'</u>';
+			$datas['picture'] = img_picture('', 'product').' <u class="paddingrightonly">'.$langs->trans("Product").'</u>';
 		} elseif ($this->isService()) {
-			$datas['picto'] = img_picto('', 'service').' <u class="paddingrightonly">'.$langs->trans("Service").'</u>';
+			$datas['picture'] = img_picture('', 'service').' <u class="paddingrightonly">'.$langs->trans("Service").'</u>';
 		}
 		if (isset($this->status) && isset($this->status_buy)) {
 			$datas['status'] = ' '.$this->getLibStatut(5, 0) . ' '.$this->getLibStatut(5, 1);
@@ -5754,9 +5754,9 @@ class Product extends CommonObject
 	}
 
 	/**
-	 *    Return clickable link of object (with eventually picto)
+	 *    Return clickable link of object (with eventually picture)
 	 *
-	 * @param	int		$withpicto				Add picto into link
+	 * @param	int		$withPicture				Add picture into link
 	 * @param	string	$option					Where point the link ('stock', 'composition', 'category', 'supplier', '')
 	 * @param	int		$maxlength				Maxlength of ref
 	 * @param 	int		$save_lastsearch_value	-1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values when clicking
@@ -5766,7 +5766,7 @@ class Product extends CommonObject
 	 * @param	string	$sep					' - '=Separator between ref and label if option 'add_label' is set
 	 * @return	string							String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $maxlength = 0, $save_lastsearch_value = -1, $notooltip = 0, $morecss = '', $add_label = 0, $sep = ' - ')
+	public function getNomUrl($withPicture = 0, $option = '', $maxlength = 0, $save_lastsearch_value = -1, $notooltip = 0, $morecss = '', $add_label = 0, $sep = ' - ')
 	{
 		global $langs, $hookManager;
 
@@ -5832,7 +5832,7 @@ class Product extends CommonObject
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
+		if ($withPicture) {
 			if ($this->isProduct()) {
 				$result .= (img_object(($notooltip ? '' : $label), 'product', 'class="paddingright"', 0, 0, $notooltip ? 0 : 1));
 			}
@@ -5842,7 +5842,7 @@ class Product extends CommonObject
 		}
 		$result .= '<span class="aaa">'.dol_escape_htmltag($newref).'</span>';
 		$result .= $linkend;
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= (($add_label && $this->label) ? $sep.dol_trunc($this->label, ($add_label > 1 ? $add_label : 0)) : '');
 		}
 
@@ -7017,7 +7017,7 @@ class Product extends CommonObject
 
 
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
 	 *	@param	string	    $option					Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param	?array{string,mixed}	$arraydata	Array of data
@@ -7038,9 +7038,9 @@ class Product extends CommonObject
 			$return .= $label;
 		} else {
 			if ($this->isProduct()) {
-				$label .= img_picto('', 'product');
+				$label .= img_picture('', 'product');
 			} elseif ($this->isService()) {
-				$label .= img_picto('', 'service');
+				$label .= img_picture('', 'service');
 			}
 			$return .= $label;
 		}
@@ -7064,7 +7064,7 @@ class Product extends CommonObject
 		}
 		$br = 1;
 		if (property_exists($this, 'stock_reel') && $this->isProduct()) {
-			$return .= '<br><div class="info-box-status opacitymedium inline-block valignmiddle">'.img_picto($langs->trans('PhysicalStock'), 'stock').'</div><div class="inline-block valignmiddle paddingleft" title="'.$langs->trans('PhysicalStock').'">'.$this->stock_reel.'</div>';
+			$return .= '<br><div class="info-box-status opacitymedium inline-block valignmiddle">'.img_picture($langs->trans('PhysicalStock'), 'stock').'</div><div class="inline-block valignmiddle paddingleft" title="'.$langs->trans('PhysicalStock').'">'.$this->stock_reel.'</div>';
 			$br = 0;
 		}
 		if (method_exists($this, 'getLibStatut')) {
@@ -7132,5 +7132,5 @@ class Product extends CommonObject
  */
 class ProductService extends Product
 {
-	public $picto = 'service';
+	public $picture = 'service';
 }

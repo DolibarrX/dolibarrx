@@ -60,7 +60,7 @@ abstract class CommonObjectLine extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'line';
+	public $picture = 'line';
 
 	/**
 	 * @var ?int		ID of the unit of measurement (rowid in llx_c_units table)
@@ -332,14 +332,14 @@ abstract class CommonObjectLine extends CommonObject
 	}
 
 	/**
-	 * Return clicable link of object line (with eventually picto)
+	 * Return clicable link of object line (with eventually picture)
 	 * May (should) also return information about the associated "parent" object.
 	 * To overload
 	 *
-	 * @param      int			$withpicto                Add picto into link
+	 * @param      int			$withPicture                Add picture into link
 	 * @return     string          			          String with URL
 	 */
-	public function getNomUrl($withpicto = 0)
+	public function getNomUrl($withPicture = 0)
 	{
 		$parentattribute = $this->fk_parent_attribute;
 
@@ -360,6 +360,6 @@ abstract class CommonObjectLine extends CommonObject
 			$parent_element->fetch($this->$parentattribute); // @phan-suppress-current-line PhanPluginUnknownObjectMethodCall
 		}
 
-		return $parent_element->getNomUrl($withpicto).' - Line #'.$this->id; // @phan-suppress-current-line PhanPluginUnknownObjectMethodCall
+		return $parent_element->getNomUrl($withPicture).' - Line #'.$this->id; // @phan-suppress-current-line PhanPluginUnknownObjectMethodCall
 	}
 }

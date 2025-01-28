@@ -2112,11 +2112,11 @@ function getSoapParams()
  *
  * @param 	int		$objectid		Id of record
  * @param 	string	$objecttype		Type of object ('invoice', 'order', 'expedition_bon', 'myobject@mymodule', ...)
- * @param 	int		$withpicto		Picto to show
+ * @param 	int		$withPicture		Picto to show
  * @param 	string	$option			More options
  * @return	string					URL of link to object id/type
  */
-function dolGetElementUrl($objectid, $objecttype, $withpicto = 0, $option = '')
+function dolGetElementUrl($objectid, $objecttype, $withPicture = 0, $option = '')
 {
 	global $db, $config, $langs;
 
@@ -2254,7 +2254,7 @@ function dolGetElementUrl($objectid, $objecttype, $withpicto = 0, $option = '')
 				$object = new $classname($db);
 				$res = $object->fetch($objectid);
 				if ($res > 0) {
-					$ret = $object->getNomUrl($withpicto, $option);
+					$ret = $object->getNomUrl($withPicture, $option);
 				} elseif ($res == 0) {
 					$ret = $langs->trans('Deleted');
 				}

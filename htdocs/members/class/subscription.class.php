@@ -47,7 +47,7 @@ class Subscription extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'payment';
+	public $picture = 'payment';
 
 	/**
 	 * Date creation record (datec)
@@ -422,16 +422,16 @@ class Subscription extends CommonObject
 
 
 	/**
-	 *  Return clickable name (with picto eventually)
+	 *  Return clickable name (with picture eventually)
 	 *
-	 *	@param	int		$withpicto					0=No picto, 1=Include picto into link, 2=Only picto
+	 *	@param	int		$withPicture					0=No picture, 1=Include picture into link, 2=Only picture
 	 *  @param	int  	$notooltip					1=Disable tooltip
 	 *	@param	string	$option						Page for link ('', 'nolink', ...)
 	 *  @param  string  $morecss        			Add more css on link
 	 *  @param  int     $save_lastsearch_value    	-1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 *	@return	string								Chaine avec URL
 	 */
-	public function getNomUrl($withpicto = 0, $notooltip = 0, $option = '', $morecss = '', $save_lastsearch_value = -1)
+	public function getNomUrl($withPicture = 0, $notooltip = 0, $option = '', $morecss = '', $save_lastsearch_value = -1)
 	{
 		global $langs;
 
@@ -439,7 +439,7 @@ class Subscription extends CommonObject
 
 		$langs->load("members");
 
-		$label = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("Subscription").'</u>';
+		$label = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("Subscription").'</u>';
 		/*if (isset($this->statut)) {
 			$label .= ' '.$this->getLibStatut(5);
 		}*/
@@ -468,10 +468,10 @@ class Subscription extends CommonObject
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 		$result .= $linkend;
@@ -538,7 +538,7 @@ class Subscription extends CommonObject
 	}
 
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
 	 *	@param      string	    $option                 Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param		array{selected:?int,member:?Member,bank:?Account}	$arraydata	Array of data
@@ -551,7 +551,7 @@ class Subscription extends CommonObject
 		$return = '<div class="box-flex-item box-flex-grow-zero">';
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<span class="info-box-icon bg-infobox-action">';
-		$return .= img_picto('', $this->picto);
+		$return .= img_picture('', $this->picture);
 		$return .= '</span>';
 
 		$return .= '<div class="info-box-content">';

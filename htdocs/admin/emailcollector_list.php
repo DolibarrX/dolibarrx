@@ -370,11 +370,11 @@ $param .= $hookManager->resPrint;
 
 // List of mass actions available
 $arrayofmassactions = array(
-	//'presend'=>img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
-	//'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
+	//'presend'=>img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
+	//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 );
 if ($permissiontodelete) {
-	$arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
 	$arrayofmassactions = array();
@@ -438,8 +438,8 @@ print '<tr class="liste_titre">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons('left');
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons('left');
+	print $searchPicture;
 	print '</td>';
 }
 foreach ($object->fields as $key => $val) {
@@ -486,8 +486,8 @@ print $hookManager->resPrint;
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '</tr>'."\n";
@@ -712,7 +712,7 @@ print "</tr>\n";
 
 // MAIN_IMAP_USE_PHPIMAP: Enable use of the PHP Imap library
 print '<tr class="oddeven"><td>';
-//print $form->textwithpicto($langs->trans("MAIN_IMAP_USE_PHPIMAP"), $langs->transnoentitiesnoconv("MAIN_IMAP_USE_PHPIMAPDesc"));
+//print $form->textWithPicture($langs->trans("MAIN_IMAP_USE_PHPIMAP"), $langs->transnoentitiesnoconv("MAIN_IMAP_USE_PHPIMAPDesc"));
 print $langs->trans("MAIN_IMAP_USE_PHPIMAP");
 print '</td>';
 print '<td class="left">';
@@ -726,7 +726,7 @@ print '</td>';
 print '</tr>';
 
 // MAIN_EMAILCOLLECTOR_MAIL_WITHOUT_HEADER: Hide e-mail headers from collected messages
-print '<tr class="oddeven"><td>'.$form->textwithpicto($langs->trans("EmailCollectorHideMailHeaders"), $langs->transnoentitiesnoconv("EmailCollectorHideMailHeadersHelp")).'</td>';
+print '<tr class="oddeven"><td>'.$form->textWithPicture($langs->trans("EmailCollectorHideMailHeaders"), $langs->transnoentitiesnoconv("EmailCollectorHideMailHeadersHelp")).'</td>';
 print '<td class="left">';
 if ($config->use_javascript_ajax) {
 	print ajax_constantonoff('MAIN_EMAILCOLLECTOR_MAIL_WITHOUT_HEADER');

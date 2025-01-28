@@ -39,7 +39,7 @@ class modGeneratePassPerso extends ModeleGenPassword
 	 */
 	public $id;
 
-	public $picto = 'fa-shield-alt';
+	public $picture = 'fa-shield-alt';
 
 	/**
 	 * @var string

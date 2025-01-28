@@ -74,19 +74,19 @@ $workflowcodes = array(
 		'family' => 'create',
 		'position' => 10,
 		'enabled' => (isModEnabled("propal") && isModEnabled('order')),
-		'picto' => 'order'
+		'picture' => 'order'
 	),
 	'WORKFLOW_ORDER_AUTOCREATE_INVOICE' => array(
 		'family' => 'create',
 		'position' => 20,
 		'enabled' => (isModEnabled('order') && isModEnabled('invoice')),
-		'picto' => 'bill'
+		'picture' => 'bill'
 	),
 	'WORKFLOW_TICKET_CREATE_INTERVENTION' => array(
 		'family' => 'create',
 		'position' => 25,
 		'enabled' => (isModEnabled('ticket') && isModEnabled('intervention')),
-		'picto' => 'ticket'
+		'picture' => 'ticket'
 	),
 
 	'separator1' => array('family' => 'separator', 'position' => 25, 'title' => '', 'enabled' => ((isModEnabled("propal") && isModEnabled('order')) || (isModEnabled('order') && isModEnabled('invoice')) || (isModEnabled('ticket') && isModEnabled('intervention')))),
@@ -96,14 +96,14 @@ $workflowcodes = array(
 		'family' => 'classify_proposal',
 		'position' => 30,
 		'enabled' => (isModEnabled("propal") && isModEnabled('order')),
-		'picto' => 'propal',
+		'picture' => 'propal',
 		'warning' => ''
 	),
 	'WORKFLOW_INVOICE_CLASSIFY_BILLED_PROPAL' => array(
 		'family' => 'classify_proposal',
 		'position' => 31,
 		'enabled' => (isModEnabled("propal") && isModEnabled('invoice')),
-		'picto' => 'propal',
+		'picture' => 'propal',
 		'warning' => ''
 	),
 
@@ -112,19 +112,19 @@ $workflowcodes = array(
 		'family' => 'classify_order',
 		'position' => 40,
 		'enabled' => (isModEnabled("shipping") && isModEnabled('order')),
-		'picto' => 'order'
+		'picture' => 'order'
 	),
 	'WORKFLOW_ORDER_CLASSIFY_SHIPPED_SHIPPING_CLOSED' => array( // when shipping closed
 		'family' => 'classify_order',
 		'position' => 41,
 		'enabled' => (isModEnabled("shipping") && isModEnabled('order')),
-		'picto' => 'order'
+		'picture' => 'order'
 	),
 	'WORKFLOW_INVOICE_AMOUNT_CLASSIFY_BILLED_ORDER' => array(
 		'family' => 'classify_order',
 		'position' => 42,
 		'enabled' => (isModEnabled('invoice') && isModEnabled('order')),
-		'picto' => 'order',
+		'picture' => 'order',
 		'warning' => ''
 	), // For this option, if module invoice is disabled, it does not exists, so "Classify billed" for order must be done manually from order card.
 
@@ -132,7 +132,7 @@ $workflowcodes = array(
 		'family' => 'classify_order',
 		'position' => 43,
 		'enabled' => (isModEnabled('invoice') && isModEnabled('order')),
-		'picto' => 'order',
+		'picture' => 'order',
 		'warning' => ''
 	), // For this option, if module invoice is disabled, it does not exists, so "Classify billed" for order must be done manually from order card.
 
@@ -141,7 +141,7 @@ $workflowcodes = array(
 		'family' => 'classify_supplier_proposal',
 		'position' => 60,
 		'enabled' => (isModEnabled('supplier_proposal') && (isModEnabled("supplier_order") || isModEnabled("supplier_invoice"))),
-		'picto' => 'supplier_proposal',
+		'picture' => 'supplier_proposal',
 		'warning' => ''
 	),
 
@@ -150,7 +150,7 @@ $workflowcodes = array(
 		'family' => 'classify_supplier_order',
 		'position' => 63,
 		'enabled' => (getDolGlobalString('MAIN_FEATURES_LEVEL') && isModEnabled("reception") && isModEnabled('supplier_order')),
-		'picto' => 'supplier_order',
+		'picture' => 'supplier_order',
 		'warning' => ''
 	),
 
@@ -158,7 +158,7 @@ $workflowcodes = array(
 		'family' => 'classify_supplier_order',
 		'position' => 64,
 		'enabled' => (getDolGlobalString('MAIN_FEATURES_LEVEL') && isModEnabled("reception") && isModEnabled('supplier_order')),
-		'picto' => 'supplier_order',
+		'picture' => 'supplier_order',
 		'warning' => ''
 	),
 
@@ -166,7 +166,7 @@ $workflowcodes = array(
 		'family' => 'classify_supplier_order',
 		'position' => 65,
 		'enabled' => (isModEnabled("supplier_order") || isModEnabled("supplier_invoice")),
-		'picto' => 'supplier_order',
+		'picture' => 'supplier_order',
 		'warning' => ''
 	),
 
@@ -176,7 +176,7 @@ $workflowcodes = array(
 		'family' => 'classify_shipping',
 		'position' => 90,
 		'enabled' => isModEnabled("shipping") && isModEnabled("invoice"),
-		'picto' => 'shipment',
+		'picture' => 'shipment',
 		'deprecated' => 1
 	),
 	*/
@@ -185,7 +185,7 @@ $workflowcodes = array(
 		'family' => 'classify_shipping',
 		'position' => 91,
 		'enabled' => isModEnabled("shipping") && isModEnabled("invoice") && getDolGlobalString('WORKFLOW_BILL_ON_SHIPMENT') !== '0',
-		'picto' => 'shipment'
+		'picture' => 'shipment'
 	),
 
 	// Automatic classification reception
@@ -194,7 +194,7 @@ $workflowcodes = array(
 		'family'=>'classify_reception',
 		'position'=>95,
 		'enabled'=>(isModEnabled("reception") && (isModEnabled("supplier_order") || isModEnabled("supplier_invoice"))),
-		'picto'=>'reception'
+		'picture'=>'reception'
 	),
 	*/
 
@@ -202,7 +202,7 @@ $workflowcodes = array(
 		'family' => 'classify_reception',
 		'position' => 91,
 		'enabled' => isModEnabled("reception") && isModEnabled("supplier_invoice") && getDolGlobalString('WORKFLOW_BILL_ON_RECEPTION') !== '0',
-		'picto' => 'shipment'
+		'picture' => 'shipment'
 	),
 
 
@@ -213,7 +213,7 @@ $workflowcodes = array(
 		'family' => 'link_ticket',
 		'position' => 500,
 		'enabled' => (isModEnabled('ticket') && isModEnabled('contract')),
-		'picto' => 'ticket',
+		'picture' => 'ticket',
 		'reloadpage' => 1		// So next option can be shown
 	),
 	// This one depends on previous one WORKFLOW_TICKET_LINK_CONTRACT
@@ -221,7 +221,7 @@ $workflowcodes = array(
 		'family' => 'link_ticket',
 		'position' => 501,
 		'enabled' => (isModEnabled('ticket') && isModEnabled('contract') && getDolGlobalString('WORKFLOW_TICKET_LINK_CONTRACT')),
-		'picto' => 'ticket'
+		'picture' => 'ticket'
 	),
 );
 
@@ -346,7 +346,7 @@ foreach ($workflowcodes as $key => $params) {
 
 	print '<tr class="oddeven">';
 	print '<td>';
-	print img_object('', $params['picto'], 'class="pictofixedwidth"');
+	print img_object('', $params['picture'], 'class="picturefixedwidth"');
 	print ' '.$langs->trans('desc'.$key);
 
 	if (!empty($params['warning'])) {
@@ -363,9 +363,9 @@ foreach ($workflowcodes as $key => $params) {
 
 		$htmlname = "product_category_id";
 		print '<br>';
-		print $formcategory->textwithpicto($langs->trans("TicketChooseProductCategory"), $langs->trans("TicketChooseProductCategoryHelp"), 1, 'help');
+		print $formcategory->textWithPicture($langs->trans("TicketChooseProductCategory"), $langs->trans("TicketChooseProductCategoryHelp"), 1, 'help');
 		if (isModEnabled('category')) {
-			print ' &nbsp; '.img_picto('', 'category', 'class="pictofixedwidth"');
+			print ' &nbsp; '.img_picture('', 'category', 'class="picturefixedwidth"');
 			$formcategory->selectProductCategory(getDolGlobalInt('TICKET_PRODUCT_CATEGORY'), $htmlname, 1);
 			if ($config->use_javascript_ajax) {
 				print ajax_combobox('select_'.$htmlname);
@@ -389,11 +389,11 @@ foreach ($workflowcodes as $key => $params) {
 	} else {
 		if (getDolGlobalString($key)) {
 			print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=del'.$key.'&token='.newToken().'">';
-			print img_picto($langs->trans("Activated"), 'switch_on');
+			print img_picture($langs->trans("Activated"), 'switch_on');
 			print '</a>';
 		} else {
 			print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=set'.$key.'&token='.newToken().'">';
-			print img_picto($langs->trans("Disabled"), 'switch_off');
+			print img_picture($langs->trans("Disabled"), 'switch_off');
 			print '</a>';
 		}
 	}

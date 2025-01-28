@@ -671,7 +671,7 @@ if ($action == 'create') {
 		// Due date (if invoice)
 		//if (in_array($object->doc_type, array('customer_invoice', 'supplier_invoice'))) {
 		print '<tr>';
-		print '<td class="titlefield">' . $form->textwithpicto($langs->trans('DateDue'), $langs->trans("IfTransactionHasDueDate")) . '</td>';
+		print '<td class="titlefield">' . $form->textWithPicture($langs->trans('DateDue'), $langs->trans("IfTransactionHasDueDate")) . '</td>';
 		print '<td>';
 		print $object->date_lim_reglement ? dol_print_date($object->date_lim_reglement, 'day') : '&nbsp;';
 		print '</td>';
@@ -714,11 +714,11 @@ if ($action == 'create') {
 		print '<td>';
 			if (empty($object->validated)) {
 				print '<a class="reposition" href="' . $_SERVER["PHP_SELF"] . '?piece_num=' . $line->id . '&action=enable&token='.newToken().'">';
-				print img_picto($langs->trans("Disabled"), 'switch_off');
+				print img_picture($langs->trans("Disabled"), 'switch_off');
 				print '</a>';
 			} else {
 				print '<a class="reposition" href="' . $_SERVER["PHP_SELF"] . '?piece_num=' . $line->id . '&action=disable&token='.newToken().'">';
-				print img_picto($langs->trans("Activated"), 'switch_on');
+				print img_picture($langs->trans("Activated"), 'switch_on');
 				print '</a>';
 			}
 			print '</td>';

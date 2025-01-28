@@ -216,10 +216,10 @@ function showOnlinePaymentUrl($type, $ref, $amount = 0)
 
 	$servicename = '';	// Link is a generic link for all payments services (paypal, stripe, ...)
 
-	$out = img_picto('', 'globe') . ' <span class="opacitymedium">' . $langs->trans("ToOfferALinkForOnlinePayment", $servicename) . '</span><br>';
+	$out = img_picture('', 'globe') . ' <span class="opacitymedium">' . $langs->trans("ToOfferALinkForOnlinePayment", $servicename) . '</span><br>';
 	$url = getOnlinePaymentUrl(0, $type, $ref, $amount);
 	$out .= '<div class="urllink"><input type="text" id="onlinepaymenturl" spellcheck="false" class="quatrevingtpercentminusx" value="' . $url . '">';
-	$out .= '<a class="" href="' . $url . '" target="_blank" rel="noopener noreferrer">' . img_picto('', 'globe', 'class="paddingleft"') . '</a>';
+	$out .= '<a class="" href="' . $url . '" target="_blank" rel="noopener noreferrer">' . img_picture('', 'globe', 'class="paddingleft"') . '</a>';
 	$out .= '</div>';
 	$out .= ajax_autoselect("onlinepaymenturl", '');
 	return $out;

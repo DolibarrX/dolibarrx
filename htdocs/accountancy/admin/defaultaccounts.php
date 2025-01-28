@@ -243,13 +243,13 @@ foreach ($list_account_main as $key) {
 	$htmltext = $langs->trans($keydesc);
 	print '<td class="fieldrequired">';
 	if ($key == 'ACCOUNTING_ACCOUNT_CUSTOMER') {
-		print img_picto('', 'company', 'class="pictofixedwidth"');
+		print img_picture('', 'company', 'class="picturefixedwidth"');
 	} elseif ($key == 'ACCOUNTING_ACCOUNT_SUPPLIER') {
-		print img_picto('', 'company', 'class="pictofixedwidth"');
+		print img_picture('', 'company', 'class="picturefixedwidth"');
 	} else {
-		print img_picto('', 'user', 'class="pictofixedwidth"');
+		print img_picture('', 'user', 'class="picturefixedwidth"');
 	}
-	print $form->textwithpicto($label, $htmltext);
+	print $form->textWithPicture($label, $htmltext);
 	print '</td>';
 	// Value
 	print '<td class="right">'; // Do not force class=right, or it align also the content of the select box
@@ -275,25 +275,25 @@ foreach ($list_account as $key) {
 		$label = $langs->trans($key);
 		print '<td>';
 		if (preg_match('/^ACCOUNTING_PRODUCT/', $key)) {
-			print img_picto('', 'product', 'class="pictofixedwidth"');
+			print img_picture('', 'product', 'class="picturefixedwidth"');
 		} elseif (preg_match('/^ACCOUNTING_SERVICE/', $key)) {
-			print img_picto('', 'service', 'class="pictofixedwidth"');
+			print img_picture('', 'service', 'class="picturefixedwidth"');
 		} elseif (preg_match('/^ACCOUNTING_VAT_PAY_ACCOUNT/', $key)) {
-			print img_picto('', 'payment_vat', 'class="pictofixedwidth"');
+			print img_picture('', 'payment_vat', 'class="picturefixedwidth"');
 		} elseif (preg_match('/^ACCOUNTING_VAT/', $key)) {
-			print img_picto('', 'vat', 'class="pictofixedwidth"');
+			print img_picture('', 'vat', 'class="picturefixedwidth"');
 		} elseif (preg_match('/^ACCOUNTING_ACCOUNT_CUSTOMER/', $key)) {
-			print img_picto('', 'bill', 'class="pictofixedwidth"');
+			print img_picture('', 'bill', 'class="picturefixedwidth"');
 		} elseif (preg_match('/^LOAN_ACCOUNTING_ACCOUNT/', $key)) {
-			print img_picto('', 'loan', 'class="pictofixedwidth"');
+			print img_picture('', 'loan', 'class="picturefixedwidth"');
 		} elseif (preg_match('/^DONATION_ACCOUNTING/', $key)) {
-			print img_picto('', 'donation', 'class="pictofixedwidth"');
+			print img_picture('', 'donation', 'class="picturefixedwidth"');
 		} elseif (preg_match('/^ADHERENT_SUBSCRIPTION/', $key)) {
-			print img_picto('', 'member', 'class="pictofixedwidth"');
+			print img_picture('', 'member', 'class="picturefixedwidth"');
 		} elseif (preg_match('/^ACCOUNTING_ACCOUNT_TRANSFER/', $key)) {
-			print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+			print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 		} elseif (preg_match('/^ACCOUNTING_ACCOUNT_SUSPENSE/', $key)) {
-			print img_picto('', 'question', 'class="pictofixedwidth"');
+			print img_picture('', 'question', 'class="picturefixedwidth"');
 		}
 		// Note: account for revenue stamp are store into dictionary of revenue stamp. There is no default value.
 		print $label;
@@ -311,7 +311,7 @@ foreach ($list_account as $key) {
 print '<tr class="oddeven value">';
 // Param
 print '<td>';
-print img_picto('', 'bill', 'class="pictofixedwidth"') . $langs->trans('ACCOUNTING_ACCOUNT_CUSTOMER_DEPOSIT');
+print img_picture('', 'bill', 'class="picturefixedwidth"') . $langs->trans('ACCOUNTING_ACCOUNT_CUSTOMER_DEPOSIT');
 print '</td>';
 // Value
 print '<td class="right">'; // Do not force class=right, or it align also the content of the select box
@@ -321,14 +321,14 @@ print '</tr>';
 
 if (isModEnabled('societe') && getDolGlobalString('ACCOUNTING_ACCOUNT_CUSTOMER_DEPOSIT') && getDolGlobalString('ACCOUNTING_ACCOUNT_CUSTOMER_DEPOSIT') != '-1') {
 	print '<tr class="oddeven">';
-	print '<td>' . img_picto('', 'bill', 'class="pictofixedwidth"') . $langs->trans("UseAuxiliaryAccountOnCustomerDeposit") . '</td>';
+	print '<td>' . img_picture('', 'bill', 'class="picturefixedwidth"') . $langs->trans("UseAuxiliaryAccountOnCustomerDeposit") . '</td>';
 	if (getDolGlobalInt('ACCOUNTING_ACCOUNT_CUSTOMER_USE_AUXILIARY_ON_DEPOSIT')) {
 		print '<td class="right"><a class="reposition" href="' . $_SERVER['PHP_SELF'] . '?token=' . newToken() . '&action=setACCOUNTING_ACCOUNT_CUSTOMER_USE_AUXILIARY_ON_DEPOSIT&value=0">';
-		print img_picto($langs->trans("Activated"), 'switch_on', '', 0, 0, 0, '', 'warning');
+		print img_picture($langs->trans("Activated"), 'switch_on', '', 0, 0, 0, '', 'warning');
 		print '</a></td>';
 	} else {
 		print '<td class="right"><a class="reposition" href="' . $_SERVER['PHP_SELF'] . '?token=' . newToken() . '&action=setACCOUNTING_ACCOUNT_CUSTOMER_USE_AUXILIARY_ON_DEPOSIT&value=1">';
-		print img_picto($langs->trans("Disabled"), 'switch_off');
+		print img_picture($langs->trans("Disabled"), 'switch_off');
 		print '</a></td>';
 	}
 	print '</tr>';
@@ -338,7 +338,7 @@ if (isModEnabled('societe') && getDolGlobalString('ACCOUNTING_ACCOUNT_CUSTOMER_D
 print '<tr class="oddeven value">';
 // Param
 print '<td>';
-print img_picto('', 'supplier_invoice', 'class="pictofixedwidth"') . $langs->trans('ACCOUNTING_ACCOUNT_SUPPLIER_DEPOSIT');
+print img_picture('', 'supplier_invoice', 'class="picturefixedwidth"') . $langs->trans('ACCOUNTING_ACCOUNT_SUPPLIER_DEPOSIT');
 print '</td>';
 // Value
 print '<td class="right">'; // Do not force class=right, or it align also the content of the select box
@@ -348,14 +348,14 @@ print '</tr>';
 
 if (isModEnabled('societe') && getDolGlobalString('ACCOUNTING_ACCOUNT_SUPPLIER_DEPOSIT') && getDolGlobalString('ACCOUNTING_ACCOUNT_SUPPLIER_DEPOSIT') != '-1') {
 	print '<tr class="oddeven">';
-	print '<td>' . img_picto('', 'supplier_invoice', 'class="pictofixedwidth"') . $langs->trans("UseAuxiliaryAccountOnSupplierDeposit") . '</td>';
+	print '<td>' . img_picture('', 'supplier_invoice', 'class="picturefixedwidth"') . $langs->trans("UseAuxiliaryAccountOnSupplierDeposit") . '</td>';
 	if (getDolGlobalInt('ACCOUNTING_ACCOUNT_SUPPLIER_USE_AUXILIARY_ON_DEPOSIT')) {
 		print '<td class="right"><a class="reposition" href="' . $_SERVER['PHP_SELF'] . '?token=' . newToken() . '&action=setACCOUNTING_ACCOUNT_SUPPLIER_USE_AUXILIARY_ON_DEPOSIT&value=0">';
-		print img_picto($langs->trans("Activated"), 'switch_on', '', 0, 0, 0, '', 'warning');
+		print img_picture($langs->trans("Activated"), 'switch_on', '', 0, 0, 0, '', 'warning');
 		print '</a></td>';
 	} else {
 		print '<td class="right"><a class="reposition" href="' . $_SERVER['PHP_SELF'] . '?token=' . newToken() . '&action=setACCOUNTING_ACCOUNT_SUPPLIER_USE_AUXILIARY_ON_DEPOSIT&value=1">';
-		print img_picto($langs->trans("Disabled"), 'switch_off');
+		print img_picture($langs->trans("Disabled"), 'switch_off');
 		print '</a></td>';
 	}
 	print '</tr>';

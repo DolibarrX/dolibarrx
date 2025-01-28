@@ -324,7 +324,7 @@ if ($action == 'create' || $object->fetch($id, $ref) > 0) {
 			}
 
 			if ($country_id > 0) {
-				print img_picto('', 'state', 'class="pictofixedwidth"');
+				print img_picture('', 'state', 'class="picturefixedwidth"');
 				print $formresource->select_state($countryid, $country_id);
 			} else {
 				print '<span class="opacitymedium">'.$langs->trans("ErrorSetACountryFirst").' ('.$langs->trans("SeeAbove").')</span>';
@@ -335,28 +335,28 @@ if ($action == 'create' || $object->fetch($id, $ref) > 0) {
 		// Phone
 		print '<td>'.$form->editfieldkey('Phone', 'phone', '', $object, 0).'</td>';
 		print '<td>';
-		print img_picto('', 'object_phoning', 'class="pictofixedwidth"');
+		print img_picture('', 'object_phoning', 'class="picturefixedwidth"');
 		print '<input type="tel" name="phone" id="phone" value="'.(GETPOSTISSET('phone') ? GETPOST('phone', 'alpha') : $object->phone).'"></td>';
 		print '</tr>';
 
 		// Email
 		print '<tr><td>'.$form->editfieldkey('EMail', 'email', '', $object, 0).'</td>';
 		print '<td>';
-		print img_picto('', 'object_email', 'class="pictofixedwidth"');
+		print img_picture('', 'object_email', 'class="picturefixedwidth"');
 		print '<input type="email" name="email" id="email" value="'.(GETPOSTISSET('email') ? GETPOST('email', 'alpha') : $object->email).'"></td>';
 		print '</tr>';
 
 		// Max users
 		print '<tr><td>'.$form->editfieldkey('MaxUsers', 'max_users', '', $object, 0).'</td>';
 		print '<td>';
-		print img_picto('', 'object_user', 'class="pictofixedwidth"');
+		print img_picture('', 'object_user', 'class="picturefixedwidth"');
 		print '<input type="text" class="width75 right" name="max_users" id="max_users" value="'.(GETPOSTISSET('max_users') ? GETPOST('max_users', 'int') : $object->max_users).'"></td>';
 		print '</tr>';
 
 		// URL
 		print '<tr><td>'.$form->editfieldkey('URL', 'url', '', $object, 0).'</td>';
 		print '<td>';
-		print img_picto('', 'object_url', 'class="pictofixedwidth"');
+		print img_picture('', 'object_url', 'class="picturefixedwidth"');
 		print '<input type="url" name="url" id="url" value="'.(GETPOSTISSET('url') ? GETPOST('url', 'alpha') : $object->url).'"></td>';
 		print '</tr>';
 

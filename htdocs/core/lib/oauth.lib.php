@@ -283,7 +283,7 @@ function getSupportedOauth2Array()
 	$supportedoauth2array = array(
 		'OAUTH_GOOGLE_NAME' => array(
 			'callbackfile' => 'google',		// used to generate the filename: google_oauthcallback.php
-			'picto' => 'google',
+			'picture' => 'google',
 			'urlforapp' => 'OAUTH_GOOGLE_DESC',
 			'name' => 'Google',
 			'urlforcredentials' => 'https://console.developers.google.com/',
@@ -294,7 +294,7 @@ function getSupportedOauth2Array()
 	if (isModEnabled('stripe')) {
 		$supportedoauth2array['OAUTH_STRIPETEST_NAME'] = array(
 			'callbackfile' => 'stripetest',
-			'picto' => 'stripe',
+			'picture' => 'stripe',
 			'urlforapp' => '',
 			'name' => 'StripeTest',
 			'urlforcredentials' => 'https://dashboard.stripe.com/settings/connect',
@@ -303,7 +303,7 @@ function getSupportedOauth2Array()
 		);
 		$supportedoauth2array['OAUTH_STRIPELIVE_NAME'] = array(
 			'callbackfile' => 'stripelive',
-			'picto' => 'stripe',
+			'picture' => 'stripe',
 			'urlforapp' => '',
 			'name' => 'StripeLive',
 			'urlforcredentials' => 'https://dashboard.stripe.com/settings/connect',
@@ -313,7 +313,7 @@ function getSupportedOauth2Array()
 	}
 	$supportedoauth2array['OAUTH_GITHUB_NAME'] = array(
 		'callbackfile' => 'github',
-		'picto' => 'github',
+		'picture' => 'github',
 		'urlforapp' => 'OAUTH_GITHUB_DESC',
 		'name' => 'GitHub',
 		'urlforcredentials' => 'https://github.com/settings/developers',
@@ -323,7 +323,7 @@ function getSupportedOauth2Array()
 	// See https://learn.microsoft.com/fr-fr/azure/active-directory/develop/quickstart-register-app#register-an-application
 	$supportedoauth2array['OAUTH_MICROSOFT_NAME'] = array(
 		'callbackfile' => 'microsoft',
-		'picto' => 'microsoft',
+		'picture' => 'microsoft',
 		'urlforapp' => 'OAUTH_MICROSOFT_DESC',
 		'name' => 'Microsoft [outlook.office365]',
 		'urlforcredentials' => 'https://portal.azure.com/',
@@ -333,7 +333,7 @@ function getSupportedOauth2Array()
 	);
 	$supportedoauth2array['OAUTH_MICROSOFT2_NAME'] = array(
 		'callbackfile' => 'microsoft2',
-		'picto' => 'microsoft',
+		'picture' => 'microsoft',
 		'urlforapp' => 'OAUTH_MICROSOFT2_DESC',
 		'name' => 'Microsoft [outlook.office]',
 		'urlforcredentials' => 'https://portal.azure.com/',
@@ -345,7 +345,7 @@ function getSupportedOauth2Array()
 	// Add a generic Oauth token handler. Tested with Mastodon.
 	$supportedoauth2array['OAUTH_GENERIC_NAME'] = array(
 		'callbackfile' => 'generic',
-		'picto' => 'generic',
+		'picture' => 'generic',
 		'urlforapp' => 'OAUTH_GENERIC_DESC',
 		'name' => 'Generic',
 		'urlforcredentials' => '',

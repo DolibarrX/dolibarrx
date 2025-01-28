@@ -55,9 +55,9 @@ class modReceiptPrinter extends DolibarrModules
 		$this->version = 'dolibarr';
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
-		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto = 'printer';
+		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
+		// If file is in module/img directory under name object_picturevalue.png, use this->picture='picturevalue@module'
+		$this->picture = 'printer';
 
 		// Data directories to create when module is enabled.
 		$this->dirs = array();

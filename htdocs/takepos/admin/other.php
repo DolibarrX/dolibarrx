@@ -107,7 +107,7 @@ print '<td class="titlefield"><a href="'.$url.'" target="_blank" rel="noopener n
 print '<td>'.$langs->trans("DolistorePosCategory").'</td>';
 print '<td>';
 print '<a href="'.$url.'" target="_blank" rel="noopener noreferrer external">';
-print img_picto('', 'url', 'class="pictofixedwidth"');
+print img_picture('', 'url', 'class="picturefixedwidth"');
 print $url.'</a></td>';
 print '</tr>';
 
@@ -134,7 +134,7 @@ print '<td class="titlefield"><a href="'.$url.'" target="_blank" rel="noopener n
 print '<td>TakePOS original developers</td>';
 print '<td>';
 print '<a href="'.$url.'" target="_blank" rel="noopener noreferrer external">';
-print img_picto('', 'url', 'class="pictofixedwidth"');
+print img_picture('', 'url', 'class="picturefixedwidth"');
 print $url.'</a></td>';
 print '</tr>';
 

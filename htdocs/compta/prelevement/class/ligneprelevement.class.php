@@ -168,27 +168,27 @@ class LignePrelevement
 			return $langs->trans($this->labelStatus[$status]);
 		} elseif ($mode == 1) {
 			if ($status == 0) {
-				return img_picto($langs->trans($this->labelStatus[$status]), 'statut1', 'class="valignmiddle"').' '.$langs->transnoentitiesnoconv($this->labelStatus[$status]); // Waiting
+				return img_picture($langs->trans($this->labelStatus[$status]), 'statut1', 'class="valignmiddle"').' '.$langs->transnoentitiesnoconv($this->labelStatus[$status]); // Waiting
 			} elseif ($status == 2) {
-				return img_picto($langs->trans($this->labelStatus[$status]), 'statut6', 'class="valignmiddle"').' '.$langs->transnoentitiesnoconv($this->labelStatus[$status]); // Credited
+				return img_picture($langs->trans($this->labelStatus[$status]), 'statut6', 'class="valignmiddle"').' '.$langs->transnoentitiesnoconv($this->labelStatus[$status]); // Credited
 			} elseif ($status == 3) {
-				return img_picto($langs->trans($this->labelStatus[$status]), 'statut8', 'class="valignmiddle"').' '.$langs->transnoentitiesnoconv($this->labelStatus[$status]); // Refused
+				return img_picture($langs->trans($this->labelStatus[$status]), 'statut8', 'class="valignmiddle"').' '.$langs->transnoentitiesnoconv($this->labelStatus[$status]); // Refused
 			}
 		} elseif ($mode == 2) {
 			if ($status == 0) {
-				return img_picto($langs->trans($this->labelStatus[$status]), 'statut1', 'class="valignmiddle"');
+				return img_picture($langs->trans($this->labelStatus[$status]), 'statut1', 'class="valignmiddle"');
 			} elseif ($status == 2) {
-				return img_picto($langs->trans($this->labelStatus[$status]), 'statut6', 'class="valignmiddle"');
+				return img_picture($langs->trans($this->labelStatus[$status]), 'statut6', 'class="valignmiddle"');
 			} elseif ($status == 3) {
-				return img_picto($langs->trans($this->labelStatus[$status]), 'statut8', 'class="valignmiddle"');
+				return img_picture($langs->trans($this->labelStatus[$status]), 'statut8', 'class="valignmiddle"');
 			}
 		} elseif ($mode == 3) {
 			if ($status == 0) {
-				return $langs->trans($this->labelStatus[$status]).' '.img_picto($langs->transnoentitiesnoconv($this->labelStatus[$status]), 'statut1', 'class="valignmiddle"');
+				return $langs->trans($this->labelStatus[$status]).' '.img_picture($langs->transnoentitiesnoconv($this->labelStatus[$status]), 'statut1', 'class="valignmiddle"');
 			} elseif ($status == 2) {
-				return $langs->trans($this->labelStatus[$status]).' '.img_picto($langs->transnoentitiesnoconv($this->labelStatus[$status]), 'statut6', 'class="valignmiddle"');
+				return $langs->trans($this->labelStatus[$status]).' '.img_picture($langs->transnoentitiesnoconv($this->labelStatus[$status]), 'statut6', 'class="valignmiddle"');
 			} elseif ($status == 3) {
-				return $langs->trans($this->labelStatus[$status]).' '.img_picto($langs->transnoentitiesnoconv($this->labelStatus[$status]), 'statut8', 'class="valignmiddle"');
+				return $langs->trans($this->labelStatus[$status]).' '.img_picture($langs->transnoentitiesnoconv($this->labelStatus[$status]), 'statut8', 'class="valignmiddle"');
 			}
 		}
 		// return dolGetStatus($this->labelStatus[$status], $this->labelStatusShort[$status], '', $statusType, $mode);

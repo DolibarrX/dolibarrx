@@ -43,7 +43,7 @@ class Localtax extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'payment';
+	public $picture = 'payment';
 
 	/**
 	 * @var int
@@ -612,11 +612,11 @@ class Localtax extends CommonObject
 	/**
 	 *	Returns clickable name
 	 *
-	 *	@param		int		$withpicto		0=Link, 1=Picto into link, 2=Picto
+	 *	@param		int		$withPicture		0=Link, 1=Picto into link, 2=Picto
 	 *	@param		string	$option			What the link points to
 	 *	@return		string					Chaine avec URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '')
+	public function getNomUrl($withPicture = 0, $option = '')
 	{
 		global $langs;
 
@@ -626,15 +626,15 @@ class Localtax extends CommonObject
 		$link = '<a href="'.DOL_URL_ROOT.'/compta/localtax/card.php?id='.$this->id.'" title="'.dol_escape_htmltag($label, 1).'" class="classfortooltip">';
 		$linkend = '</a>';
 
-		$picto = 'payment';
+		$picture = 'payment';
 
-		if ($withpicto) {
-			$result .= ($link.img_object($label, $picto, 'class="classfortooltip"').$linkend);
+		if ($withPicture) {
+			$result .= ($link.img_object($label, $picture, 'class="classfortooltip"').$linkend);
 		}
-		if ($withpicto && $withpicto != 2) {
+		if ($withPicture && $withPicture != 2) {
 			$result .= ' ';
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $link.$this->ref.$linkend;
 		}
 		return $result;
@@ -668,7 +668,7 @@ class Localtax extends CommonObject
 	}
 
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
 	 *	@param      string	    			$option                 Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param		array{string,mixed}		$arraydata				Array of data
@@ -683,7 +683,7 @@ class Localtax extends CommonObject
 		$return = '<div class="box-flex-item box-flex-grow-zero">';
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<span class="info-box-icon bg-infobox-action">';
-		$return .= img_picto('', $this->picto);
+		$return .= img_picture('', $this->picture);
 		$return .= '</span>';
 		$return .= '<div class="info-box-content">';
 		$return .= '<span class="info-box-ref inline-block tdoverflowmax150 valignmiddle">'.(method_exists($this, 'getNomUrl') ? $this->getNomUrl() : $this->ref).'</span>';

@@ -496,7 +496,7 @@ print dol_get_fiche_head($head, 'subscription', $langs->trans("Member"), -1, 'us
 $linkback = '<a href="'.DOL_URL_ROOT.'/members/list.php?restore_lastsearch_values=1">'.$langs->trans("BackToList").'</a>';
 
 $morehtmlref = '<a href="'.DOL_URL_ROOT.'/members/vcard.php?id='.$object->id.'" class="refid">';
-$morehtmlref .= img_picto($langs->trans("Download").' '.$langs->trans("VCard"), 'vcard.png', 'class="valignmiddle marginleftonly paddingrightonly"');
+$morehtmlref .= img_picture($langs->trans("Download").' '.$langs->trans("VCard"), 'vcard.png', 'class="valignmiddle marginleftonly paddingrightonly"');
 $morehtmlref .= '</a>';
 
 dol_banner_tab($object, 'rowid', $linkback, 1, 'rowid', 'ref', $morehtmlref);
@@ -542,7 +542,7 @@ if (!getDolGlobalString('ADHERENT_LOGIN_NOT_REQUIRED')) {
 	if (!empty($object->pass_indatabase) && empty($object->user_id)) {	// Show warning only for old password still in clear (does not happen anymore)
 		$langs->load("errors");
 		$htmltext = $langs->trans("WarningPasswordSetWithNoAccount");
-		print ' '.$form->textwithpicto('', $htmltext, 1, 'warning');
+		print ' '.$form->textWithPicture('', $htmltext, 1, 'warning');
 	}
 	print '</td></tr>';
 }
@@ -595,18 +595,18 @@ print '<tr><td class="titlefield">'.$langs->trans("DateOfBirth").'</td><td class
 if (getDolGlobalInt('MAIN_MULTILANGS')) {
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 	print '<tr><td>'.$langs->trans("DefaultLang").'</td><td>';
-	//$s=picto_from_langcode($object->default_lang);
+	//$s=picture_from_langcode($object->default_lang);
 	//print ($s?$s.' ':'');
 	$langs->load("languages");
 	$labellang = ($object->default_lang ? $langs->trans('Language_'.$object->default_lang) : '');
-	print picto_from_langcode($object->default_lang, 'class="paddingrightonly saturatemedium opacitylow"');
+	print picture_from_langcode($object->default_lang, 'class="paddingrightonly saturatemedium opacitylow"');
 	print $labellang;
 	print '</td></tr>';
 }
 
 // Public
 $linkofpubliclist = DOL_MAIN_URL_ROOT.'/public/members/public_list.php'.((isModEnabled('multicompany')) ? '?entity='.$config->entity : '');
-print '<tr><td>'.$form->textwithpicto($langs->trans("MembershipPublic"), $langs->trans("Public", getDolGlobalString('MAIN_INFO_SOCIETE_NOM'), $linkofpubliclist), 1, 'help', '', 0, 3, 'publicfile').'</td><td class="valeur">'.yn($object->public).'</td></tr>';
+print '<tr><td>'.$form->textWithPicture($langs->trans("MembershipPublic"), $langs->trans("Public", getDolGlobalString('MAIN_INFO_SOCIETE_NOM'), $linkofpubliclist), 1, 'help', '', 0, 3, 'publicfile').'</td><td class="valeur">'.yn($object->public).'</td></tr>';
 
 // Other attributes
 $cols = 2;
@@ -644,7 +644,7 @@ if (isModEnabled('societe')) {
 			// Show link to invoices
 			$tmparray = $company->getOutstandingBills('customer');
 			if (!empty($tmparray['refs'])) {
-				print ' - '.img_picto($langs->trans("Invoices"), 'bill', 'class="paddingright"').'<a href="'.DOL_URL_ROOT.'/compta/facture/list.php?socid='.$object->socid.'">'.$langs->trans("Invoices").' ('.count($tmparray['refs']).')';
+				print ' - '.img_picture($langs->trans("Invoices"), 'bill', 'class="paddingright"').'<a href="'.DOL_URL_ROOT.'/compta/facture/list.php?socid='.$object->socid.'">'.$langs->trans("Invoices").' ('.count($tmparray['refs']).')';
 				// TODO Add alert if warning on at least one invoice late
 				print '</a>';
 			}
@@ -1108,7 +1108,7 @@ if (($action == 'addsubscription' || $action == 'create_thirdparty') && $user->h
 
 			// Bank account
 			print '<tr class="bankswitchclass"><td class="fieldrequired">'.$langs->trans("FinancialAccount").'</td><td>';
-			print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+			print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 			$form->select_comptes(GETPOST('accountid'), 'accountid', 0, '', 2, '', 0, 'minwidth200');
 			print "</td></tr>\n";
 
@@ -1199,7 +1199,7 @@ if (($action == 'addsubscription' || $action == 'create_thirdparty') && $user->h
 			$helpcontent .= '<span class="error">'.$langs->trans("ErrorModuleSetupNotComplete", $langs->transnoentitiesnoconv("Module310Name")).'</span>'."\n";
 		}
 		// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
-		print $form->textwithpicto($tmp, $helpcontent, 1, 'help', '', 0, 2, 'helpemailtosend');
+		print $form->textWithPicture($tmp, $helpcontent, 1, 'help', '', 0, 2, 'helpemailtosend');
 	}
 	print '</td></tr>';
 	print '</tbody>';

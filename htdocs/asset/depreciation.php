@@ -114,7 +114,7 @@ llxHeader('', $langs->trans('Asset'), $help_url, '', 0, 0, '', '', '', 'mod-asse
 
 if ($id > 0 || !empty($ref)) {
 	$head = assetPrepareHead($object);
-	print dol_get_fiche_head($head, 'depreciation', $langs->trans("Asset"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'depreciation', $langs->trans("Asset"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------

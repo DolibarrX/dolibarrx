@@ -251,9 +251,9 @@ print '<table class="liste nohover centpercent noborder">';
 print '<tr class="liste_titre"><td>'.$langs->trans("Categories").'</td><td></td><td class="right">';
 if ($morethan1level && !empty($config->use_javascript_ajax)) {
 	print '<div id="iddivjstreecontrol">';
-	print '<a class="notasortlink" href="#">'.img_picto('', 'folder', 'class="paddingright"').'<span class="hideonsmartphone">'.$langs->trans("UndoExpandAll").'</span></a>';
+	print '<a class="notasortlink" href="#">'.img_picture('', 'folder', 'class="paddingright"').'<span class="hideonsmartphone">'.$langs->trans("UndoExpandAll").'</span></a>';
 	print ' | ';
-	print '<a class="notasortlink" href="#">'.img_picto('', 'folder-open', 'class="paddingright"').'<span class="hideonsmartphone">'.$langs->trans("ExpandAll").'</span></a>';
+	print '<a class="notasortlink" href="#">'.img_picture('', 'folder-open', 'class="paddingright"').'<span class="hideonsmartphone">'.$langs->trans("ExpandAll").'</span></a>';
 	print '</div>';
 }
 print '</td></tr>';
@@ -264,7 +264,7 @@ if ($nbofentries > 0) {
 	print '</td></tr>';
 } else {
 	print '<tr class="oddeven">';
-	print '<td colspan="3"><table class="nobordernopadding"><tr class="nobordernopadding"><td>'.img_picto_common('', 'treemenu/branchbottom.gif').'</td>';
+	print '<td colspan="3"><table class="nobordernopadding"><tr class="nobordernopadding"><td>'.img_picture_common('', 'treemenu/branchbottom.gif').'</td>';
 	print '<td class="valignmiddle">';
 	print $langs->trans("NoCategoryYet");
 	print '</td>';

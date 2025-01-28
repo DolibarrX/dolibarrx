@@ -141,7 +141,7 @@ if ($action == 'add') {
 		$menu->menu_handler = preg_replace('/_menu$/', '', GETPOST('menu_handler', 'aZ09'));
 		$menu->type = (string) GETPOST('type', 'alphanohtml');
 		$menu->title = (string) GETPOST('titre', 'alphanohtml');
-		$menu->prefix = (string) GETPOST('picto', 'restricthtmlallowclass');
+		$menu->prefix = (string) GETPOST('picture', 'restricthtmlallowclass');
 		$menu->url = (string) GETPOST('url', 'alphanohtml');
 		$menu->langs = (string) GETPOST('langs', 'alphanohtml');
 		$menu->position = GETPOSTINT('position');
@@ -201,7 +201,7 @@ if ($action == 'update') {
 			$result = $menu->fetch(GETPOSTINT('menuId'));
 			if ($result > 0) {
 				$menu->title = (string) GETPOST('titre', 'alphanohtml');
-				$menu->prefix = (string) GETPOST('picto', 'restricthtmlallowclass');
+				$menu->prefix = (string) GETPOST('picture', 'restricthtmlallowclass');
 				$menu->leftmenu = (string) GETPOST('leftmenu', 'aZ09');
 				$menu->url = (string) GETPOST('url', 'alphanohtml');
 				$menu->langs = (string) GETPOST('langs', 'alphanohtml');
@@ -378,7 +378,7 @@ if ($action == 'create') {
 
 	// Picto
 	print '<tr><td>'.$langs->trans('Image').'</td>';
-	print '<td><input type="text" class="minwidth300" name="picto" value="'.dol_escape_htmltag(GETPOST("picto", 'alphanohtml')).'"></td><td>'.$langs->trans('Example').': fa-global</td></tr>';
+	print '<td><input type="text" class="minwidth300" name="picture" value="'.dol_escape_htmltag(GETPOST("picture", 'alphanohtml')).'"></td><td>'.$langs->trans('Example').': fa-global</td></tr>';
 
 	// Langs
 	print '<tr><td>'.$langs->trans('LangFile').'</td>';
@@ -505,7 +505,7 @@ if ($action == 'create') {
 
 	// Picto
 	print '<tr><td class="fieldrequired">'.$langs->trans('Image').'</td>';
-	print '<td><input type="text" class="minwidth300" name="picto" value="'.dol_escape_htmltag($menu->prefix).'"></td><td>'.$langs->trans('Example').': fa-global</td></tr>';
+	print '<td><input type="text" class="minwidth300" name="picture" value="'.dol_escape_htmltag($menu->prefix).'"></td><td>'.$langs->trans('Example').': fa-global</td></tr>';
 
 	// Langs
 	print '<tr><td>'.$langs->trans('LangFile').'</td>';

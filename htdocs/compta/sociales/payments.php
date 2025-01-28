@@ -240,8 +240,8 @@ if (isModEnabled("bank")) {
 }
 print '<td class="liste_titre"></td>';
 print '<td class="liste_titre center">';
-$searchpicto = $form->showFilterButtons();
-print $searchpicto;
+$searchPicture = $form->showFilterButtons();
+print $searchPicture;
 print '</td>';
 print "</tr>\n";
 

@@ -245,7 +245,7 @@ llxHeader('', $title, $help_url);
 
 // Part to create
 if ($action == 'create') {
-	print load_fiche_titre($langs->trans("NewSkill"), '', 'object_' . $object->picto);
+	print load_fiche_titre($langs->trans("NewSkill"), '', 'object_' . $object->picture);
 
 	print '<form method="POST" action="' . $_SERVER["PHP_SELF"] . '">';
 	print '<input type="hidden" name="token" value="' . newToken() . '">';
@@ -299,7 +299,7 @@ if ($action == 'create') {
 // Part to edit record
 // and skilldet edition
 if (($id || $ref) && $action == 'edit') {
-	print load_fiche_titre($langs->trans("Skill"), '', 'object_' . $object->picto);
+	print load_fiche_titre($langs->trans("Skill"), '', 'object_' . $object->picture);
 
 	print '<form method="POST" action="' . $_SERVER["PHP_SELF"] . '">';
 	print '<input type="hidden" name="token" value="' . newToken() . '">';
@@ -362,14 +362,14 @@ if (($id || $ref) && $action == 'edit') {
 				}
 				print '">';
 				//              if (!empty($val['help'])) {
-				//                  print $form->textwithpicto($langs->trans($val['label']), $langs->trans($val['help']));
+				//                  print $form->textWithPicture($langs->trans($val['label']), $langs->trans($val['help']));
 				//              } else {
 				print $langs->trans($val['label']).'&nbsp;'.$langs->trans('rank').'&nbsp;'.$sk->rankorder;
 				//              }
 				print '</td>';
 				print '<td class="valuefieldcreate">';
-				//              if (!empty($val['picto'])) {
-				//                  print img_picto('', $val['picto'], '', 0, 0, 0, '', 'pictofixedwidth');
+				//              if (!empty($val['picture'])) {
+				//                  print img_picture('', $val['picture'], '', 0, 0, 0, '', 'picturefixedwidth');
 				//              }
 				//              if (in_array($val['type'], array('int', 'integer'))) {
 				//                  $value = GETPOSTISSET($key) ? GETPOST($key, 'int') : $sk->$key;
@@ -425,7 +425,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	$res = $object->fetch_optionals();
 
 	$head = skillPrepareHead($object);
-	print dol_get_fiche_head($head, 'card', $langs->trans("Workstation"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'card', $langs->trans("Workstation"), -1, $object->picture);
 
 	$formconfirm = '';
 
@@ -681,7 +681,7 @@ if ($action != "create" && $action != "edit") {
 	$massactionbutton = "";
 	//$newcardbutton = dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', dol_buildpath('/hrm/skilldet_card.php', 1) . '?action=create&backtopage=' . urlencode($_SERVER['PHP_SELF']) . $param_fk . '&backtopage=' . $backtopage, '', $permissiontoadd);
 
-	print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'object_' . $object->picto, 0, '', '', 0, 0, 0, 1);
+	print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, 'object_' . $object->picture, 0, '', '', 0, 0, 0, 1);
 
 	// Add code for pre mass action (confirmation or email presend form)
 	$topicmail = "SendSkilldetRef";

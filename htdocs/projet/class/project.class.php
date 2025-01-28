@@ -66,7 +66,7 @@ class Project extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'project';
+	public $picture = 'project';
 
 	/**
 	 * {@inheritdoc}
@@ -312,7 +312,7 @@ class Project extends CommonObject
 	 *		Note: Filter must be a Dolibarr Universal Filter syntax string. Example: "(t.ref:like:'SO-%') or (t.date_creation:<:'20160101') or (t.status:!=:0) or (t.nature:is:NULL)"
 	 *  'label' the translation key.
 	 *  'alias' the alias used into some old hard coded SQL requests
-	 *  'picto' is code of a picto to show before value in forms
+	 *  'picture' is code of a picture to show before value in forms
 	 *  'enabled' is a condition when the field must be managed (Example: 1 or 'getDolGlobalInt("MY_SETUP_PARAM")' or 'isModEnabled("multicurrency")' ...)
 	 *  'position' is the sort order of field.
 	 *  'notnull' is set to 1 if not null in database. Set to -1 if we must set data to null if empty ('' or 0).
@@ -332,7 +332,7 @@ class Project extends CommonObject
 	 *  'autofocusoncreate' to have field having the focus on a create form. Only 1 field should have this property set to 1.
 	 *  'comment' is not used. You can store here any text of your choice. It is not used by application.
 	 *	'validate' is 1 if you need to validate the field with $this->validateField(). Need MAIN_ACTIVATE_VALIDATION_RESULT.
-	 *  'copytoclipboard' is 1 or 2 to allow to add a picto to copy value into clipboard (1=picto after label, 2=picto after value)
+	 *  'copytoclipboard' is 1 or 2 to allow to add a picture to copy value into clipboard (1=picture after label, 2=picture after value)
 	 *
 	 *  Note: To have value dynamic, you can set value to 0 in definition and edit the value on the fly into the constructor.
 	 */
@@ -1371,7 +1371,7 @@ class Project extends CommonObject
 	 * getTooltipContentArray
 	 * @param array<string,mixed> $params params to construct tooltip data
 	 * @since v18
-	 * @return array{picto?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
+	 * @return array{picture?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
 	 */
 	public function getTooltipContentArray($params)
 	{
@@ -1383,25 +1383,25 @@ class Project extends CommonObject
 
 		$datas = [];
 		if ($option != 'nolink') {
-			$datas['picto'] = img_picto('', $this->picto, 'class="pictofixedwidth"').' <u class="paddingrightonly">'.$langs->trans("Project").'</u>';
+			$datas['picture'] = img_picture('', $this->picture, 'class="picturefixedwidth"').' <u class="paddingrightonly">'.$langs->trans("Project").'</u>';
 		}
 		if (isset($this->status)) {
-			$datas['picto'] .= ' '.$this->getLibStatut(5);
+			$datas['picture'] .= ' '.$this->getLibStatut(5);
 		}
-		$datas['ref'] = (isset($datas['picto']) ? '<br>' : '').'<b>'.$langs->trans('Ref').': </b>'.$this->ref; // The space must be after the : to not being explode when showing the title in img_picto
-		$datas['label'] = '<br><b>'.$langs->trans('Label').': </b>'.$this->title; // The space must be after the : to not being explode when showing the title in img_picto
+		$datas['ref'] = (isset($datas['picture']) ? '<br>' : '').'<b>'.$langs->trans('Ref').': </b>'.$this->ref; // The space must be after the : to not being explode when showing the title in img_picture
+		$datas['label'] = '<br><b>'.$langs->trans('Label').': </b>'.$this->title; // The space must be after the : to not being explode when showing the title in img_picture
 		if (isset($this->public)) {
 			$datas['visibility'] = '<br><b>'.$langs->trans("Visibility").":</b> ";
-			$datas['visibility'] .= ($this->public ? img_picto($langs->trans('SharedProject'), 'world', 'class="pictofixedwidth"').$langs->trans("SharedProject") : img_picto($langs->trans('PrivateProject'), 'private', 'class="pictofixedwidth"').$langs->trans("PrivateProject"));
+			$datas['visibility'] .= ($this->public ? img_picture($langs->trans('SharedProject'), 'world', 'class="picturefixedwidth"').$langs->trans("SharedProject") : img_picture($langs->trans('PrivateProject'), 'private', 'class="picturefixedwidth"').$langs->trans("PrivateProject"));
 		}
 		if (!empty($this->thirdparty_name)) {
-			$datas['thirdparty'] = '<br><b>'.$langs->trans('ThirdParty').': </b>'.$this->thirdparty_name; // The space must be after the : to not being explode when showing the title in img_picto
+			$datas['thirdparty'] = '<br><b>'.$langs->trans('ThirdParty').': </b>'.$this->thirdparty_name; // The space must be after the : to not being explode when showing the title in img_picture
 		}
 		if (!empty($this->date_start)) {
-			$datas['datestart'] = '<br><b>'.$langs->trans('DateStart').': </b>'.dol_print_date($this->date_start, 'day'); // The space must be after the : to not being explode when showing the title in img_picto
+			$datas['datestart'] = '<br><b>'.$langs->trans('DateStart').': </b>'.dol_print_date($this->date_start, 'day'); // The space must be after the : to not being explode when showing the title in img_picture
 		}
 		if (!empty($this->date_end)) {
-			$datas['dateend'] = '<br><b>'.$langs->trans('DateEnd').': </b>'.dol_print_date($this->date_end, 'day'); // The space must be after the : to not being explode when showing the title in img_picto
+			$datas['dateend'] = '<br><b>'.$langs->trans('DateEnd').': </b>'.dol_print_date($this->date_end, 'day'); // The space must be after the : to not being explode when showing the title in img_picture
 		}
 		if ($moreinpopup) {
 			$datas['moreinpopup'] = '<br>'.$moreinpopup;
@@ -1411,9 +1411,9 @@ class Project extends CommonObject
 	}
 
 	/**
-	 * 	Return clickable name (with picto eventually)
+	 * 	Return clickable name (with picture eventually)
 	 *
-	 * 	@param	int		$withpicto		          0=No picto, 1=Include picto into link, 2=Only picto
+	 * 	@param	int		$withPicture		          0=No picture, 1=Include picture into link, 2=Only picture
 	 * 	@param	string	$option			          Variant where the link point to ('', 'nolink')
 	 * 	@param	int		$addlabel		          0=Default, 1=Add label into string, >1=Add first chars into string
 	 *  @param	string	$moreinpopup	          Text to add into popup
@@ -1424,7 +1424,7 @@ class Project extends CommonObject
 	 *  @param	string	$save_pageforbacktolist		  Back to this page 'context:url'
 	 * 	@return	string					          String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $addlabel = 0, $moreinpopup = '', $sep = ' - ', $notooltip = 0, $save_lastsearch_value = -1, $morecss = '', $save_pageforbacktolist = '')
+	public function getNomUrl($withPicture = 0, $option = '', $addlabel = 0, $moreinpopup = '', $sep = ' - ', $notooltip = 0, $save_lastsearch_value = -1, $morecss = '', $save_pageforbacktolist = '')
 	{
 		global $config, $langs, $user, $hookManager;
 
@@ -1491,9 +1491,9 @@ class Project extends CommonObject
 			$linkclose = ($morecss ? ' class="'.$morecss.'"' : '');
 		}
 
-		$picto = 'projectpub';
+		$picture = 'projectpub';
 		if (!$this->public) {
-			$picto = 'project';
+			$picture = 'project';
 		}
 
 		$linkstart = '<a href="'.$url.'"';
@@ -1501,14 +1501,14 @@ class Project extends CommonObject
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), $picto, 'class="pictofixedwidth em088"', 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), $picture, 'class="picturefixedwidth em088"', 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 		$result .= $linkend;
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= (($addlabel && $this->title) ? '<span class="opacitymedium">'.$sep.dol_trunc($this->title, ($addlabel > 1 ? $addlabel : 0)).'</span>' : '');
 		}
 
@@ -2512,7 +2512,7 @@ class Project extends CommonObject
 	}
 
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
 	 *	@param      string	    			$option                 Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param		array{string,mixed}		$arraydata				Array of data
@@ -2536,7 +2536,7 @@ class Project extends CommonObject
 		$return = '<div class="box-flex-item '.($size == 'small' ? 'box-flex-item-small' : '').' box-flex-grow-zero">';
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<span class="info-box-icon bg-infobox-action">';
-		$return .= img_picto('', $this->public ? 'projectpub' : $this->picto);
+		$return .= img_picture('', $this->public ? 'projectpub' : $this->picture);
 		//$return .= '<i class="fa fa-dol-action"></i>'; // Can be image
 		$return .= '</span>';
 		$return .= '<div class="info-box-content">';
@@ -2578,10 +2578,10 @@ class Project extends CommonObject
 		if (!empty($arraydata['assignedusers'])) {
 			$return .= '<br>';
 			if ($this->public) {
-				$return .= img_picto($langs->trans('Visibility').': '.$langs->trans('SharedProject'), 'world', 'class="paddingrightonly valignmiddle"');
+				$return .= img_picture($langs->trans('Visibility').': '.$langs->trans('SharedProject'), 'world', 'class="paddingrightonly valignmiddle"');
 				//print $langs->trans('SharedProject');
 			} else {
-				$return .= img_picto($langs->trans('Visibility').': '.$langs->trans('PrivateProject'), 'private', 'class="paddingrightonly valignmiddle"');
+				$return .= img_picture($langs->trans('Visibility').': '.$langs->trans('PrivateProject'), 'private', 'class="paddingrightonly valignmiddle"');
 				//print $langs->trans('PrivateProject');
 			}
 

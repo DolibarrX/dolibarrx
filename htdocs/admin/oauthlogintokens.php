@@ -389,7 +389,7 @@ if ($mode == 'setup' && $user->admin) {
 			$label = $langs->trans($keyforsupportedoauth2array);
 			print '<tr class="liste_titre">';
 			print '<th class="titlefieldcreate">';
-			print img_picto('', $supportedoauth2array[$keyforsupportedoauth2array]['picto'], 'class="pictofixedwidth"');
+			print img_picture('', $supportedoauth2array[$keyforsupportedoauth2array]['picture'], 'class="picturefixedwidth"');
 			if ($label == $keyforsupportedoauth2array) {
 				print $supportedoauth2array[$keyforsupportedoauth2array]['name'];
 			} else {
@@ -432,7 +432,7 @@ if ($mode == 'setup' && $user->admin) {
 			print '<td>';
 			if ($keyforprovider != 'Login') {
 				if (is_object($tokenobj)) {
-					print $form->textwithpicto(yn(1), $langs->trans("HasAccessToken").' : '.dol_print_date($storage->date_modification, 'dayhour').' state='.dol_escape_htmltag($storage->state));
+					print $form->textWithPicture(yn(1), $langs->trans("HasAccessToken").' : '.dol_print_date($storage->date_modification, 'dayhour').' state='.dol_escape_htmltag($storage->state));
 				} else {
 					print '<span class="opacitymedium">'.$langs->trans("NoAccessToken").'</span>';
 				}
@@ -587,7 +587,7 @@ if ($mode == 'userconf' && $user->admin) {
 		print '<td>'.$obj->printer_location.'</td>';
 		print '<td>'.$obj->printer_id.'</td>';
 		print '<td>'.$obj->copy.'</td>';
-		print '<td class="center">'.img_picto($langs->trans("Delete"), 'delete').'</td>';
+		print '<td class="center">'.img_picture($langs->trans("Delete"), 'delete').'</td>';
 		print "</tr>\n";
 	}
 	print '</table>';

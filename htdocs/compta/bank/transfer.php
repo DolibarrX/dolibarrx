@@ -328,12 +328,12 @@ for ($i = 1 ; $i < $MAXLINESFORTRANSFERT; $i++) {
 	}
 
 	print '<tr class="oddeven nowraponall '.$classi.'"><td>';
-	print img_picto('', 'bank_account', 'class="paddingright"');
+	print img_picture('', 'bank_account', 'class="paddingright"');
 	$form->select_comptes(($error ? GETPOSTINT($i.'_account_from') : ''), $i.'_account_from', 0, '', 1, '', isModEnabled('multicurrency') ? 1 : 0, 'minwidth100');
 	print '</td>';
 
 	print '<td class="nowraponall">';
-	print img_picto('', 'bank_account', 'class="paddingright"');
+	print img_picture('', 'bank_account', 'class="paddingright"');
 	$form->select_comptes(($error ? GETPOSTINT($i.'_account_to') : ''), $i.'_account_to', 0, '', 1, '', isModEnabled('multicurrency') ? 1 : 0, 'minwidth100');
 	print "</td>\n";
 

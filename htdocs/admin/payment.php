@@ -204,9 +204,9 @@ foreach ($dirmodels as $reldir) {
 							print '<td class="center">';
 							//print "> ".$config->global->PAYMENT_ADDON." - ".$file;
 							if ($config->global->PAYMENT_ADDON == $file || getDolGlobalString('PAYMENT_ADDON') . '.php' == $file) {
-								print img_picto($langs->trans("Activated"), 'switch_on');
+								print img_picture($langs->trans("Activated"), 'switch_on');
 							} else {
-								print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.preg_replace('/\.php$/', '', $file).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+								print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=setmod&token='.newToken().'&value='.preg_replace('/\.php$/', '', $file).'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 							}
 							print '</td>';
 
@@ -230,7 +230,7 @@ foreach ($dirmodels as $reldir) {
 							}
 
 							print '<td class="center">';
-							print $form->textwithpicto('', $htmltooltip, 1, 0);
+							print $form->textWithPicture('', $htmltooltip, 1, 0);
 
 							if (getDolGlobalString('PAYMENT_ADDON') . '.php' == $file) {  // If module is the one used, we show existing errors
 								if (!empty($module->error)) {

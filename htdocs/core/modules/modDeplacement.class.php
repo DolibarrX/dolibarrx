@@ -53,7 +53,7 @@ class modDeplacement extends DolibarrModules
 		$this->version = 'dolibarr_deprecated';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = "trip";
+		$this->picture = "trip";
 
 		// Data directories to create when module is enabled
 		$this->dirs = array();

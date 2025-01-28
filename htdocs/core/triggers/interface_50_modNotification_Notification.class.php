@@ -51,7 +51,7 @@ class InterfaceNotification extends DolibarrTriggers
 		$this->family = "notification";
 		$this->description = "Triggers of this module send Email notifications according to Notification module setup.";
 		$this->version = self::VERSIONS['prod'];
-		$this->picto = 'email';
+		$this->picture = 'email';
 
 		$this->listofmanagedevents = Notify::$arrayofnotifsupported;
 	}

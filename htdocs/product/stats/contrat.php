@@ -103,8 +103,8 @@ if ($id > 0 || !empty($ref)) {
 	if ($result > 0) {
 		$head = product_prepare_head($product);
 		$titre = $langs->trans("CardProduct".$product->type);
-		$picto = ($product->type == Product::TYPE_SERVICE ? 'service' : 'product');
-		print dol_get_fiche_head($head, 'referers', $titre, -1, $picto);
+		$picture = ($product->type == Product::TYPE_SERVICE ? 'service' : 'product');
+		print dol_get_fiche_head($head, 'referers', $titre, -1, $picture);
 
 		$resHook = $hookManager->executeHooks('formObjectOptions', $parameters, $product, $action); // Note that $action and $object may have been modified by hook
 		print $hookManager->resPrint;

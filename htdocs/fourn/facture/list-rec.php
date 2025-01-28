@@ -534,10 +534,10 @@ $param .= $hookManager->resPrint;
 
 // List of mass actions available
 $arrayofmassactions = array(
-	//'validate'=>img_picto('', 'check', 'class="pictofixedwidth"').$langs->trans("Validate"),
-	//'generate_doc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("ReGeneratePDF"),
-	//'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
-	//'presend'=>img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
+	//'validate'=>img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("Validate"),
+	//'generate_doc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("ReGeneratePDF"),
+	//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
+	//'presend'=>img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
 );
 
 $massactionbutton = $form->selectMassAction('', $massaction == 'presend' ? array() : array('presend' => $langs->trans("SendByMail"), 'builddoc' => $langs->trans("PDFMerge")));
@@ -598,8 +598,8 @@ print '<tr class="liste_titre_filter">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre maxwidthsearch center">';
-	$searchpicto = $form->showFilterButtons('left');
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons('left');
+	print $searchPicture;
 	print '</td>';
 }
 // Ref
@@ -730,8 +730,8 @@ if (!empty($arrayfields['status']['checked'])) {
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre maxwidthsearch center">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '</tr>'."\n";
@@ -869,11 +869,11 @@ while ($i < $imaxinloop) {
 				print $langs->trans("MaxNumberOfGenerationReached");
 			} elseif (empty($objp->frequency) || $db->jdate($objp->date_when) <= $today) {
 				print '<a href="'.DOL_URL_ROOT.'/fourn/facture/card.php?action=create&amp;socid='.$objp->socid.'&amp;fac_rec='.$objp->facid.'">';
-				print img_picto($langs->trans("CreateBill"), 'add', 'class="paddingrightonly"');
+				print img_picture($langs->trans("CreateBill"), 'add', 'class="paddingrightonly"');
 				//print $langs->trans("CreateBill");
 				print '</a>';
 			} else {
-				print $form->textwithpicto('', $langs->trans("DateIsNotEnough"));
+				print $form->textWithPicture('', $langs->trans("DateIsNotEnough"));
 			}
 		}
 		print "</td>";
@@ -946,7 +946,7 @@ while ($i < $imaxinloop) {
 	}
 	// Is it a recurring invoice
 	if (!empty($arrayfields['recurring']['checked'])) {
-		print '<td class="center">'.($objp->frequency ? img_picto($langs->trans("Frequency").': '.$objp->frequency.' '.$objp->unit_frequency, 'recurring', 'class="opacitymedium"').' ' : '').yn($objp->frequency ? 1 : 0).'</td>';
+		print '<td class="center">'.($objp->frequency ? img_picture($langs->trans("Frequency").': '.$objp->frequency.' '.$objp->unit_frequency, 'recurring', 'class="opacitymedium"').' ' : '').yn($objp->frequency ? 1 : 0).'</td>';
 		if (!$i) {
 			$totalarray['nbfield']++;
 		}
@@ -1070,11 +1070,11 @@ while ($i < $imaxinloop) {
 				print $langs->trans("MaxNumberOfGenerationReached");
 			} elseif (empty($objp->frequency) || $db->jdate($objp->date_when) <= $today) {
 				print '<a href="'.DOL_URL_ROOT.'/fourn/facture/card.php?action=create&amp;socid='.$objp->socid.'&amp;fac_rec='.$objp->facid.'">';
-				print img_picto($langs->trans("CreateBill"), 'add', 'class="paddingrightonly"');
+				print img_picture($langs->trans("CreateBill"), 'add', 'class="paddingrightonly"');
 				//print $langs->trans("CreateBill");
 				print '</a>';
 			} else {
-				print $form->textwithpicto('', $langs->trans("DateIsNotEnough"));
+				print $form->textWithPicture('', $langs->trans("DateIsNotEnough"));
 			}
 		}
 		print '</td>';

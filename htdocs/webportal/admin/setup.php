@@ -77,7 +77,7 @@ $userList = $formSetup->form->select_dolusers(getDolGlobalInt('WEBPORTAL_USER_LO
 
 $item = $formSetup->newItem('WEBPORTAL_USER_LOGGED');
 $item->setAsSelect($userList);
-$item->picto = 'user';
+$item->picture = 'user';
 $item->helpText = $langs->transnoentities('WebPortalUserLoggedHelp');
 // TODO Add a property mandatory to set style to "fieldrequired" and to add a check in submit
 
@@ -91,7 +91,7 @@ $item->fieldAttr = array('placeholder' => 'https://');
 $item->helpText = $langs->transnoentities('UrlPublicInterfaceHelpAdmin');
 require_once __DIR__ . '/../class/context.class.php';
 //$context = Context::getInstance();
-//$item->fieldOutputOverride = '<a target="_blank" href="'.Context::getRootConfigUrl().'" >'.img_picto('', 'globe', 'class="pictofixedwidth"').Context::getRootConfigUrl().'</a>';
+//$item->fieldOutputOverride = '<a target="_blank" href="'.Context::getRootConfigUrl().'" >'.img_picture('', 'globe', 'class="picturefixedwidth"').Context::getRootConfigUrl().'</a>';
 
 
 $formSetup->newItem('WEBPORTAL_TITLE')->defaultFieldValue = getDolGlobalString('MAIN_INFO_SOCIETE_NOM');
@@ -185,7 +185,7 @@ print dol_get_fiche_head($head, 'settings', $langs->trans($title), -1, "webporta
 print '<br>';
 
 // URL For webportal
-print img_picto('', 'globe').' <span class="opacitymedium">'.$langs->trans('WebPortalURL').'</span><br>';
+print img_picture('', 'globe').' <span class="opacitymedium">'.$langs->trans('WebPortalURL').'</span><br>';
 if (isModEnabled('multicompany')) {
 	$entity_qr = '?entity='.((int) $config->entity);
 } else {
@@ -199,10 +199,10 @@ $urlwithroot = $urlwithouturlroot.DOL_URL_ROOT; // This is to use external domai
 
 print '<div class="urllink">';
 print '<input type="text" id="publicurlmember" class="quatrevingtpercentminusx" value="'.$urlwithroot.'/public/webportal/index.php'.$entity_qr.'">';
-print '<a target="_blank" rel="noopener noreferrer" href="'.$urlwithroot.'/public/webportal/index.php'.$entity_qr.'">'.img_picto('', 'globe', 'class="paddingleft"').'</a>';
+print '<a target="_blank" rel="noopener noreferrer" href="'.$urlwithroot.'/public/webportal/index.php'.$entity_qr.'">'.img_picture('', 'globe', 'class="paddingleft"').'</a>';
 print '</div>';
 print ajax_autoselect('publicurlmember');
-//print '<a target="_blank" href="'.Context::getRootConfigUrl().'" >'.img_picto('', 'globe', 'class="pictofixedwidth"').Context::getRootConfigUrl().'</a>';
+//print '<a target="_blank" href="'.Context::getRootConfigUrl().'" >'.img_picture('', 'globe', 'class="picturefixedwidth"').Context::getRootConfigUrl().'</a>';
 
 // Setup page goes here
 print info_admin($langs->trans("UserAccountForWebPortalAreInThirdPartyTabHelp"));

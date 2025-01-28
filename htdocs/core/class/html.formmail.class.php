@@ -597,7 +597,7 @@ class FormMail extends Form
 					// We escape the $labeltouse to store it into $modelmail_array.
 					$modelmail_array[$line->id] = dol_escape_htmltag($labeltouse);
 					if ($line->lang) {
-						$modelmail_array[$line->id] .= ' '.picto_from_langcode($line->lang);
+						$modelmail_array[$line->id] .= ' '.picture_from_langcode($line->lang);
 					}
 					if ($line->private) {
 						$modelmail_array[$line->id] .= ' - <span class="opacitymedium">'.dol_escape_htmltag($langs->trans("Private")).'</span>';
@@ -664,9 +664,9 @@ class FormMail extends Form
 			if (!empty($this->withsubstit)) {	// Unset or set ->withsubstit=0 to disable this.
 				$out .= '<tr><td colspan="2" class="right">';
 				if (is_numeric($this->withsubstit)) {
-					$out .= $form->textwithpicto($langs->trans("EMailTestSubstitutionReplacedByGenericValues"), $helpforsubstitution, 1, 'help', '', 0, 2, 'substittooltip'); // Old usage
+					$out .= $form->textWithPicture($langs->trans("EMailTestSubstitutionReplacedByGenericValues"), $helpforsubstitution, 1, 'help', '', 0, 2, 'substittooltip'); // Old usage
 				} else {
-					$out .= $form->textwithpicto($langs->trans('AvailableVariables'), $helpforsubstitution, 1, 'help', '', 0, 2, 'substittooltip'); // New usage
+					$out .= $form->textWithPicture($langs->trans('AvailableVariables'), $helpforsubstitution, 1, 'help', '', 0, 2, 'substittooltip'); // New usage
 				}
 				$out .= "</td></tr>\n";
 			}*/
@@ -824,7 +824,7 @@ class FormMail extends Form
 					$out .= '</td><td>';
 					$out .= ' <input type="checkbox" id="oneemailperrecipient" value="1" name="oneemailperrecipient"'.($this->withoptiononeemailperrecipient > 0 ? ' checked="checked"' : '').'> ';
 					$out .= '<label for="oneemailperrecipient">';
-					$out .= $form->textwithpicto($langs->trans("OneEmailPerRecipient"), $langs->trans("WarningIfYouCheckOneRecipientPerEmail"), 1, 'help');
+					$out .= $form->textWithPicture($langs->trans("OneEmailPerRecipient"), $langs->trans("WarningIfYouCheckOneRecipientPerEmail"), 1, 'help');
 					$out .= '</label>';
 					//$out .= '<span class="hideonsmartphone opacitymedium">';
 					//$out .= ' - ';
@@ -1088,7 +1088,7 @@ class FormMail extends Form
 
 				$out .= '<tr>';
 				$out .= '<td class="tdtop">';
-				$out .= $form->textwithpicto($langs->trans('MailText'), $helpforsubstitution, 1, 'help', '', 0, 2, 'substittooltipfrombody');
+				$out .= $form->textWithPicture($langs->trans('MailText'), $helpforsubstitution, 1, 'help', '', 0, 2, 'substittooltipfrombody');
 				$out .= '</td>';
 				$out .= '<td class="tdtop">';
 
@@ -1184,7 +1184,7 @@ class FormMail extends Form
 		global $langs, $form;
 		$out = '<tr><td class="fieldrequired">';
 		if ($this->withtofree) {
-			$out .= $form->textwithpicto($langs->trans("MailTo"), $langs->trans("YouCanUseCommaSeparatorForSeveralRecipients"));
+			$out .= $form->textWithPicture($langs->trans("MailTo"), $langs->trans("YouCanUseCommaSeparatorForSeveralRecipients"));
 		} else {
 			$out .= $langs->trans("MailTo");
 		}
@@ -1267,7 +1267,7 @@ class FormMail extends Form
 	{
 		global $langs, $form;
 		$out = '<tr><td>';
-		$out .= $form->textwithpicto($langs->trans("MailCC"), $langs->trans("YouCanUseCommaSeparatorForSeveralRecipients"));
+		$out .= $form->textWithPicture($langs->trans("MailCC"), $langs->trans("YouCanUseCommaSeparatorForSeveralRecipients"));
 		$out .= '</td><td>';
 		if ($this->withtoccreadonly) {
 			$out .= (!is_array($this->withtocc) && !is_numeric($this->withtocc)) ? $this->withtocc : "";
@@ -1317,7 +1317,7 @@ class FormMail extends Form
 		global $langs, $form;
 
 		$out = '<tr><td>';
-		$out .= $form->textwithpicto($langs->trans("MailCCC"), $langs->trans("YouCanUseCommaSeparatorForSeveralRecipients"));
+		$out .= $form->textWithPicture($langs->trans("MailCCC"), $langs->trans("YouCanUseCommaSeparatorForSeveralRecipients"));
 		$out .= '</td><td>';
 		if (!empty($this->withtocccreadonly)) {
 			$out .= (!is_array($this->withtoccc) && !is_numeric($this->withtoccc)) ? $this->withtoccc : "";
@@ -1473,7 +1473,7 @@ class FormMail extends Form
 
 		$out = '<tr>';
 		$out .= '<td class="fieldrequired">';
-		$out .= $form->textwithpicto($langs->trans('MailTopic'), $helpforsubstitution, 1, 'help', '', 0, 2, 'substittooltipfromtopic');
+		$out .= $form->textWithPicture($langs->trans('MailTopic'), $helpforsubstitution, 1, 'help', '', 0, 2, 'substittooltipfromtopic');
 		$out .= '</td>';
 		$out .= '<td>';
 		if ($this->withtopicreadonly) {

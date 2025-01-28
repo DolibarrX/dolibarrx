@@ -347,7 +347,7 @@ if (!$ret) {
 			print dol_get_fiche_head($head, 'resources', $langs->trans("Action"), -1, 'action');
 
 			$linkback = '<a href="'.DOL_URL_ROOT.'/comm/action/list.php?mode=show_list&restore_lastsearch_values=1">';
-			$linkback .= img_picto($langs->trans("BackToList"), 'object_calendarlist', 'class="pictoactionview pictofixedwidth"');
+			$linkback .= img_picture($langs->trans("BackToList"), 'object_calendarlist', 'class="pictureactionview picturefixedwidth"');
 			$linkback .= '<span class="hideonsmartphone">'.$langs->trans("BackToList").'</span>';
 			$linkback .= '</a>';
 
@@ -355,22 +355,22 @@ if (!$ret) {
 			$out = '';
 			$out .= '</li><li class="noborder litext">';
 			$out .= '<a href="'.DOL_URL_ROOT.'/comm/action/index.php?mode=show_month&year='.dol_print_date($act->datep, '%Y').'&month='.dol_print_date($act->datep, '%m').'&day='.dol_print_date($act->datep, '%d').'">';
-			$out .= img_picto($langs->trans("ViewCal"), 'object_calendar', 'class="pictofixedwidth pictoactionview"');
+			$out .= img_picture($langs->trans("ViewCal"), 'object_calendar', 'class="picturefixedwidth pictureactionview"');
 			$out .= '<span class="hideonsmartphone">'.$langs->trans("ViewCal").'</span>';
 			$out .= '</a>';
 			$out .= '</li><li class="noborder litext">';
 			$out .= '<a href="'.DOL_URL_ROOT.'/comm/action/index.php?mode=show_day&year='.dol_print_date($act->datep, '%Y').'&month='.dol_print_date($act->datep, '%m').'&day='.dol_print_date($act->datep, '%d').'">';
-			$out .= img_picto($langs->trans("ViewWeek"), 'object_calendarweek', 'class="pictofixedwidth pictoactionview"');
+			$out .= img_picture($langs->trans("ViewWeek"), 'object_calendarweek', 'class="picturefixedwidth pictureactionview"');
 			$out .= '<span class="hideonsmartphone">'.$langs->trans("ViewWeek").'</span>';
 			$out .= '</a>';
 			$out .= '</li><li class="noborder litext">';
 			$out .= '<a href="'.DOL_URL_ROOT.'/comm/action/index.php?mode=show_day&year='.dol_print_date($act->datep, '%Y').'&month='.dol_print_date($act->datep, '%m').'&day='.dol_print_date($act->datep, '%d').'">';
-			$out .= img_picto($langs->trans("ViewDay"), 'object_calendarday', 'class="pictofixedwidth pictoactionview"');
+			$out .= img_picture($langs->trans("ViewDay"), 'object_calendarday', 'class="picturefixedwidth pictureactionview"');
 			$out .= '<span class="hideonsmartphone">'.$langs->trans("ViewDay").'</span>';
 			$out .= '</a>';
 			$out .= '</li><li class="noborder litext">';
 			$out .= '<a href="'.DOL_URL_ROOT.'/comm/action/peruser.php?mode=show_peruser&year='.dol_print_date($act->datep, '%Y').'&month='.dol_print_date($act->datep, '%m').'&day='.dol_print_date($act->datep, '%d').'">';
-			$out .= img_picto($langs->trans("ViewPerUser"), 'object_calendarperuser', 'class="pictofixedwidth pictoactionview"');
+			$out .= img_picture($langs->trans("ViewPerUser"), 'object_calendarperuser', 'class="picturefixedwidth pictureactionview"');
 			$out .= '<span class="hideonsmartphone">'.$langs->trans("ViewPerUser").'</span>';
 			$out .= '</a>';
 
@@ -395,7 +395,7 @@ if (!$ret) {
 				$langs->load("projects");
 				//$morehtmlref .= '<br>';
 				if (0) {
-					$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+					$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 					if ($action != 'classify') {
 						$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 					}
@@ -576,7 +576,7 @@ if (!$ret) {
 				$langs->load("projects");
 				$morehtmlref .= '<br>';
 				if ($usercancreate && 0) {
-					$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+					$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 					if ($action != 'classify') {
 						$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$fichinter->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 					}
@@ -610,9 +610,9 @@ if (!$ret) {
 		if (is_object($product)) {
 			$head = product_prepare_head($product);
 			$titre = $langs->trans("CardProduct".$product->type);
-			$picto = ($product->type == Product::TYPE_SERVICE ? 'service' : 'product');
+			$picture = ($product->type == Product::TYPE_SERVICE ? 'service' : 'product');
 
-			print dol_get_fiche_head($head, 'resources', $titre, -1, $picto);
+			print dol_get_fiche_head($head, 'resources', $titre, -1, $picture);
 
 			$shownav = 1;
 			if ($user->socid && !in_array('product', explode(',', getDolGlobalString('MAIN_MODULES_FOR_EXTERNAL')))) {

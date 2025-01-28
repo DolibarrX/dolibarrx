@@ -97,14 +97,14 @@ $formother = new FormOther($db);
 
 $langs->loadLangs(array('propal', 'other', 'companies'));
 
-$picto = 'propal';
+$picture = 'propal';
 $title = $langs->trans("ProposalsStatistics");
 $dir = $config->propal->dir_temp;
 $cat_type = Category::TYPE_CUSTOMER;
 $cat_label = $langs->trans("Category").' '.lcfirst($langs->trans("Customer"));
 
 if ($mode == 'supplier') {
-	$picto = 'supplier_proposal';
+	$picture = 'supplier_proposal';
 	$title = $langs->trans("ProposalsStatisticsSuppliers");
 	$dir = $config->supplier_proposal->dir_temp;
 	$cat_type = Category::TYPE_SUPPLIER;
@@ -113,7 +113,7 @@ if ($mode == 'supplier') {
 
 llxHeader('', $title);
 
-print load_fiche_titre($title, '', $picto);
+print load_fiche_titre($title, '', $picture);
 
 
 dol_mkdir($dir);
@@ -280,7 +280,7 @@ print '<table class="noborder centpercent">';
 print '<tr class="liste_titre"><td class="liste_titre" colspan="2">'.$langs->trans("Filter").'</td></tr>';
 // Company
 print '<tr><td class="left">'.$langs->trans("ThirdParty").'</td><td class="left">';
-print img_picto('', 'company', 'class="pictofixedwidth"');
+print img_picture('', 'company', 'class="picturefixedwidth"');
 $filter = '(s.client:IN:1,2,3)';
 print $form->select_company($socid, 'socid', $filter, 1, 0, 0, array(), 0, 'widthcentpercentminusx maxwidth300', '');
 print '</td></tr>';
@@ -294,12 +294,12 @@ if ($user->admin) {
 print '</td></tr>';
 // Category
 print '<tr><td>'.$cat_label.'</td><td>';
-print img_picto('', 'category', 'class="pictofixedwidth"');
+print img_picture('', 'category', 'class="picturefixedwidth"');
 print $formother->select_categories($cat_type, $categ_id, 'categ_id', 0, 1, 'widthcentpercentminusx maxwidth300');
 print '</td></tr>';
 // User
 print '<tr><td>'.$langs->trans("CreatedBy").'</td><td>';
-print img_picto('', 'user', 'class="pictofixedwidth"');
+print img_picture('', 'user', 'class="picturefixedwidth"');
 print $form->select_dolusers($userId, 'userid', 1, '', 0, '', '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 print '</td></tr>';
 // Status

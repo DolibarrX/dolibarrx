@@ -95,7 +95,7 @@ print '<tr class="oddeven">';
 print '<td class="fieldrequired">'.$langs->trans("KeyForWebServicesAccess").'</td>';
 print '<td><input type="text" class="flat" id="WEBSERVICES_KEY" name="WEBSERVICES_KEY" value="'.(GETPOST('WEBSERVICES_KEY') ? GETPOST('WEBSERVICES_KEY') : (getDolGlobalString('WEBSERVICES_KEY') ? $config->global->WEBSERVICES_KEY : '')).'" size="40">';
 if (!empty($config->use_javascript_ajax)) {
-	print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
+	print '&nbsp;'.img_picture($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
 }
 print '</td>';
 print '<td>&nbsp;</td>';
@@ -132,7 +132,7 @@ foreach ($webservices as $name => $right) {
 		continue;
 	}
 	$url = DOL_MAIN_URL_ROOT.'/webservices/server_'.$name.'.php?wsdl';
-	print img_picto('', 'globe').' <a href="'.$url.'" target="_blank" rel="noopener noreferrer">'.$url."</a><br>\n";
+	print img_picture('', 'globe').' <a href="'.$url.'" target="_blank" rel="noopener noreferrer">'.$url."</a><br>\n";
 }
 print '<br>';
 
@@ -144,7 +144,7 @@ foreach ($webservices as $name => $right) {
 		continue;
 	}
 	$url = DOL_MAIN_URL_ROOT.'/webservices/server_'.$name.'.php';
-	print img_picto('', 'globe').' <a href="'.$url.'" target="_blank" rel="noopener noreferrer">'.$url."</a><br>\n";
+	print img_picture('', 'globe').' <a href="'.$url.'" target="_blank" rel="noopener noreferrer">'.$url."</a><br>\n";
 }
 print '<br>';
 

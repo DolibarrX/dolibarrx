@@ -44,7 +44,7 @@ class PaymentDonation extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'payment';
+	public $picture = 'payment';
 
 	/**
 	 * @var int ID
@@ -705,13 +705,13 @@ class PaymentDonation extends CommonObject
 	}
 
 	/**
-	 *  Return clickable name (with picto eventually)
+	 *  Return clickable name (with picture eventually)
 	 *
-	 *	@param	int		$withpicto		0=No picto, 1=Include picto into link, 2=Only picto
+	 *	@param	int		$withPicture		0=No picture, 1=Include picture into link, 2=Only picture
 	 * 	@param	int		$maxlen			Max length
 	 *	@return	string					String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $maxlen = 0)
+	public function getNomUrl($withPicture = 0, $maxlen = 0)
 	{
 		global $langs, $hookManager;
 
@@ -725,13 +725,13 @@ class PaymentDonation extends CommonObject
 			$link = '<a href="'.DOL_URL_ROOT.'/don/payment/card.php?id='.$this->id.'" title="'.dol_escape_htmltag($label, 1).'" class="classfortooltip">';
 			$linkend = '</a>';
 
-			if ($withpicto) {
+			if ($withPicture) {
 				$result .= ($link.img_object($label, 'payment', 'class="classfortooltip"').$linkend.' ');
 			}
-			if ($withpicto && $withpicto != 2) {
+			if ($withPicture && $withPicture != 2) {
 				$result .= ' ';
 			}
-			if ($withpicto != 2) {
+			if ($withPicture != 2) {
 				$result .= $link.($maxlen ? dol_trunc($this->ref, $maxlen) : $this->ref).$linkend;
 			}
 		}

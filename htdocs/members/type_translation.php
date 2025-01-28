@@ -222,7 +222,7 @@ if ($action == 'edit') {
 
 	if (!empty($object->multilangs)) {
 		foreach ($object->multilangs as $key => $value) {
-			$s = picto_from_langcode((string) $key);
+			$s = picture_from_langcode((string) $key);
 			print '<br>';
 			print '<div class="inline-block marginbottomonly">';
 			print($s ? $s.' ' : '').'<b>'.$langs->trans('Language_'.$key).':</b>';
@@ -249,7 +249,7 @@ if ($action == 'edit') {
 } elseif ($action != 'create') {
 	if (!empty($object->multilangs)) {
 		foreach ($object->multilangs as $key => $value) {
-			$s = picto_from_langcode((string) $key);
+			$s = picture_from_langcode((string) $key);
 			print '<div class="inline-block marginbottomonly">';
 			print($s ? $s.' ' : '').'<b>'.$langs->trans('Language_'.$key).':</b>';
 			print '</div>';

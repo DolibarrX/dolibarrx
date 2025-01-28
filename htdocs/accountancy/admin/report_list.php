@@ -58,8 +58,8 @@ $acts = array();
 $acts[0] = "activate";
 $acts[1] = "disable";
 $actl = array();
-$actl[0] = img_picto($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
-$actl[1] = img_picto($langs->trans("Activated"), 'switch_on', 'class="size15x"');
+$actl[0] = img_picture($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
+$actl[1] = img_picture($langs->trans("Activated"), 'switch_on', 'class="size15x"');
 
 $listoffset = GETPOST('listoffset', 'alpha');
 $listlimit = GETPOSTINT('listlimit') > 0 ? GETPOSTINT('listlimit') : 1000;
@@ -355,9 +355,9 @@ llxHeader('', $langs->trans('DictionaryAccountancyCategory'), $help_url, '', 0, 
 
 $titre = $langs->trans($tablib[$id]);
 $linkback = '';
-$titlepicto = 'setup';
+$titlePicture = 'setup';
 
-print load_fiche_titre($titre, $linkback, $titlepicto);
+print load_fiche_titre($titre, $linkback, $titlePicture);
 
 print '<span class="opacitymedium">'.$langs->trans("AccountingAccountReportsDesc", $langs->transnoentitiesnoconv("ByPersonalizedAccountGroups")).'</span><br><br>';
 
@@ -448,7 +448,7 @@ if ($tabname[$id]) {
 			if (!empty($tabhelp[$id][$value]) && preg_match('/^http(s*):/i', $tabhelp[$id][$value])) {
 				print '<a href="'.$tabhelp[$id][$value].'">'.$valuetoshow.' '.img_help(1, $valuetoshow).'</a>';
 			} elseif (!empty($tabhelp[$id][$value])) {
-				print $form->textwithpicto($valuetoshow, $tabhelp[$id][$value]);
+				print $form->textWithPicture($valuetoshow, $tabhelp[$id][$value]);
 			} else {
 				print $valuetoshow;
 			}
@@ -552,8 +552,8 @@ if ($resql) {
 	if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre center">';
 		if ($filterfound) {
-			$searchpicto = $form->showFilterAndCheckAddButtons(0);
-			print $searchpicto;
+			$searchPicture = $form->showFilterAndCheckAddButtons(0);
+			print $searchPicture;
 		}
 		print '</td>';
 	}
@@ -582,8 +582,8 @@ if ($resql) {
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre center">';
 		if ($filterfound) {
-			$searchpicto = $form->showFilterAndCheckAddButtons(0);
-			print $searchpicto;
+			$searchPicture = $form->showFilterAndCheckAddButtons(0);
+			print $searchPicture;
 		}
 		print '</td>';
 	}

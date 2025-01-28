@@ -58,7 +58,7 @@ class modPaymentByBankTransfer extends DolibarrModules
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of png file (without png) used for this module
-		$this->picto = 'payment';
+		$this->picture = 'payment';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/paymentbybanktransfer/temp", "/paymentbybanktransfer/receipts");

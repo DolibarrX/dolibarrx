@@ -617,9 +617,9 @@ if ($id > 0 || $ref) {
 	if ($result > 0) {
 		$head = product_prepare_head($object);
 		$titre = $langs->trans("CardProduct".$object->type);
-		$picto = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
+		$picture = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
 
-		print dol_get_fiche_head($head, 'stock', $titre, -1, $picto);
+		print dol_get_fiche_head($head, 'stock', $titre, -1, $picture);
 
 		dol_htmloutput_events();
 
@@ -660,7 +660,7 @@ if ($id > 0 || $ref) {
 			print '<tr><td>';
 			$textdesc = $langs->trans("CostPriceDescription");
 			$textdesc .= "<br>".$langs->trans("CostPriceUsage");
-			$text = $form->textwithpicto($langs->trans("CostPrice"), $textdesc, 1, 'help', '');
+			$text = $form->textWithPicture($langs->trans("CostPrice"), $textdesc, 1, 'help', '');
 			if (!$usercancreadprice) {
 				print $form->editfieldkey($text, 'cost_price', '', $object, 0, 'amount:6');
 				print '</td><td>';
@@ -676,7 +676,7 @@ if ($id > 0 || $ref) {
 
 			// AWP
 			print '<tr><td class="titlefield">';
-			print $form->textwithpicto($langs->trans("AverageUnitPricePMPShort"), $langs->trans("AverageUnitPricePMPDesc"));
+			print $form->textWithPicture($langs->trans("AverageUnitPricePMPShort"), $langs->trans("AverageUnitPricePMPDesc"));
 			print '</td>';
 			print '<td>';
 			if ($object->pmp > 0 && $usercancreadprice) {
@@ -745,12 +745,12 @@ if ($id > 0 || $ref) {
 			print '<table class="border tableforfield centpercent">';
 
 			// Stock alert threshold
-			print '<tr><td>'.$form->editfieldkey($form->textwithpicto($langs->trans("StockLimit"), $langs->trans("StockLimitDesc"), 1), 'seuil_stock_alerte', $object->seuil_stock_alerte, $object, $user->hasRight('produit', 'creer')).'</td><td>';
+			print '<tr><td>'.$form->editfieldkey($form->textWithPicture($langs->trans("StockLimit"), $langs->trans("StockLimitDesc"), 1), 'seuil_stock_alerte', $object->seuil_stock_alerte, $object, $user->hasRight('produit', 'creer')).'</td><td>';
 			print $form->editfieldval("StockLimit", 'seuil_stock_alerte', $object->seuil_stock_alerte, $object, $user->hasRight('produit', 'creer'), 'string');
 			print '</td></tr>';
 
 			// Desired stock
-			print '<tr><td>'.$form->editfieldkey($form->textwithpicto($langs->trans("DesiredStock"), $langs->trans("DesiredStockDesc"), 1), 'desiredstock', $object->desiredstock, $object, $user->hasRight('produit', 'creer'));
+			print '<tr><td>'.$form->editfieldkey($form->textWithPicture($langs->trans("DesiredStock"), $langs->trans("DesiredStockDesc"), 1), 'desiredstock', $object->desiredstock, $object, $user->hasRight('produit', 'creer'));
 			print '</td><td>';
 			print $form->editfieldval("DesiredStock", 'desiredstock', $object->desiredstock, $object, $user->hasRight('produit', 'creer'), 'string');
 			print '</td></tr>';
@@ -776,7 +776,7 @@ if ($id > 0 || $ref) {
 			}
 
 			print '<tr><td>';
-			print $form->textwithpicto($langs->trans("PhysicalStock"), $text_stock_options, 1);
+			print $form->textWithPicture($langs->trans("PhysicalStock"), $text_stock_options, 1);
 			print '</td>';
 			print '<td>'.price2num($object->stock_reel, 'MS');
 			if ($object->seuil_stock_alerte != '' && ($object->stock_reel < $object->seuil_stock_alerte)) {
@@ -873,11 +873,11 @@ if ($id > 0 || $ref) {
 
 			// Calculating a theoretical value
 			print '<tr><td>';
-			print $form->textwithpicto($langs->trans("VirtualStock"), $langs->trans("VirtualStockDesc"));
+			print $form->textWithPicture($langs->trans("VirtualStock"), $langs->trans("VirtualStockDesc"));
 			print '</td>';
 			print "<td>";
 			//print (empty($stocktheo)?0:$stocktheo);
-			print $form->textwithpicto((empty($stocktheo) ? 0 : $stocktheo), $helpondiff);
+			print $form->textWithPicture((empty($stocktheo) ? 0 : $stocktheo), $helpondiff);
 			if ($object->seuil_stock_alerte != '' && ($object->stock_theorique < $object->seuil_stock_alerte)) {
 				print ' '.img_warning($langs->trans("StockLowerThanLimit", $object->seuil_stock_alerte));
 			}
@@ -901,10 +901,10 @@ if ($id > 0 || $ref) {
 				if ($lastmovementdate) {
 					print dol_print_date($lastmovementdate, 'dayhour').' ';
 					print ' &nbsp; &nbsp; ';
-					print img_picto($langs->trans("StockMovement"), 'movement', 'class="pictofixedwidth"');
+					print img_picture($langs->trans("StockMovement"), 'movement', 'class="picturefixedwidth"');
 					print '<a href="'.DOL_URL_ROOT.'/product/stock/movement_list.php?idproduct='.$object->id.'">'.$langs->trans("FullList").'</a>';
 				} else {
-					print img_picto($langs->trans("StockMovement"), 'movement', 'class="pictofixedwidth"');
+					print img_picture($langs->trans("StockMovement"), 'movement', 'class="picturefixedwidth"');
 					print '<a href="'.DOL_URL_ROOT.'/product/stock/movement_list.php?idproduct='.$object->id.'">'.$langs->trans("None").'</a>';
 				}
 				print "</td></tr>";
@@ -982,7 +982,7 @@ if (!$variants || getDolGlobalString('VARIANT_ALLOW_STOCK_MOVEMENT_ON_VARIANT_PA
 	print '<tr class="liste_titre">';
 	print '<td colspan="4">'.$langs->trans("Warehouse").'</td>';
 	print '<td class="right">'.$langs->trans("NumberOfUnit").'</td>';
-	print '<td class="right">'.$form->textwithpicto($langs->trans("AverageUnitPricePMPShort"), $langs->trans("AverageUnitPricePMPDesc")).'</td>';
+	print '<td class="right">'.$form->textWithPicture($langs->trans("AverageUnitPricePMPShort"), $langs->trans("AverageUnitPricePMPDesc")).'</td>';
 	print '<td class="right">'.$langs->trans("EstimatedStockValueShort").'</td>';
 	print '<td class="right">'.$langs->trans("SellPriceMin").'</td>';
 	print '<td class="right">'.$langs->trans("EstimatedStockValueSellShort").'</td>';
@@ -994,10 +994,10 @@ if (!$variants || getDolGlobalString('VARIANT_ALLOW_STOCK_MOVEMENT_ON_VARIANT_PA
 		$colspan = 3;
 		print '<tr class="liste_titre"><td class="minwidth200">';
 		if (!empty($config->use_javascript_ajax)) {
-			print '<a id="show_all" href="#" class="hideobject">'.img_picto('', 'folder-open', 'class="paddingright"').$langs->trans("ShowAllLots").'</a>';
+			print '<a id="show_all" href="#" class="hideobject">'.img_picture('', 'folder-open', 'class="paddingright"').$langs->trans("ShowAllLots").'</a>';
 			//print ' &nbsp; ';
-			print '<a id="hide_all" href="#">'.img_picto('', 'folder', 'class="paddingright"').$langs->trans("HideLots").'</a>';
-			//print '&nbsp;'.$form->textwithpicto('', $langs->trans('CollapseBatchDetailHelp'), 1, 'help', '');
+			print '<a id="hide_all" href="#">'.img_picture('', 'folder', 'class="paddingright"').$langs->trans("HideLots").'</a>';
+			//print '&nbsp;'.$form->textWithPicture('', $langs->trans('CollapseBatchDetailHelp'), 1, 'help', '');
 		}
 		print '</td>';
 		print '<td class="right">'.$langs->trans("batch_number").'</td>';
@@ -1103,7 +1103,7 @@ if (!$variants || getDolGlobalString('VARIANT_ALLOW_STOCK_MOVEMENT_ON_VARIANT_PA
 					}
 				}
 				print '</span>';
-				print $form->textwithpicto('', $langs->trans("Variable"));
+				print $form->textWithPicture('', $langs->trans("Variable"));
 			} elseif ($usercancreadprice) {
 				print price(price2num($object->price, 'MU'), 1);
 			}
@@ -1121,7 +1121,7 @@ if (!$variants || getDolGlobalString('VARIANT_ALLOW_STOCK_MOVEMENT_ON_VARIANT_PA
 					}
 				}
 				print '</span>';
-				print $form->textwithpicto('', $langs->trans("Variable"));
+				print $form->textWithPicture('', $langs->trans("Variable"));
 			} else {
 				if ($usercancreadprice) {
 					print price(price2num($object->price * $obj->reel, 'MT'), 1);
@@ -1199,7 +1199,7 @@ if (!$variants || getDolGlobalString('VARIANT_ALLOW_STOCK_MOVEMENT_ON_VARIANT_PA
 						print '<td class="center tdoverflowmax125" title="'.dol_escape_htmltag($langs->trans("TransferStock")).'">';
 						if ($entrepotstatic->status != $entrepotstatic::STATUS_CLOSED) {
 							print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&id_entrepot='.$entrepotstatic->id.'&action=transfert&pdluoid='.$pdluo->id.'&token='.newToken().'">';
-							print img_picto($langs->trans("TransferStock"), 'add', 'class="hideonsmartphone paddingright" style="color: #a69944"');
+							print img_picture($langs->trans("TransferStock"), 'add', 'class="hideonsmartphone paddingright" style="color: #a69944"');
 							print $langs->trans("TransferStock");
 							print '</a>';
 							// Disabled, because edition of stock content must use the "Correct stock menu".
@@ -1211,7 +1211,7 @@ if (!$variants || getDolGlobalString('VARIANT_ALLOW_STOCK_MOVEMENT_ON_VARIANT_PA
 						print '<td class="center tdoverflowmax125" title="'.dol_escape_htmltag($langs->trans("CorrectStock")).'">';
 						if ($entrepotstatic->status != $entrepotstatic::STATUS_CLOSED) {
 							print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&id_entrepot='.$entrepotstatic->id.'&action=correction&pdluoid='.$pdluo->id.'&token='.newToken().'">';
-							print img_picto($langs->trans("CorrectStock"), 'add', 'class="hideonsmartphone paddingright" style="color: #a69944"');
+							print img_picture($langs->trans("CorrectStock"), 'add', 'class="hideonsmartphone paddingright" style="color: #a69944"');
 							print $langs->trans("CorrectStock");
 							print '</a>';
 							// Disabled, because edition of stock content must use the "Correct stock menu".
@@ -1249,7 +1249,7 @@ if (!$variants || getDolGlobalString('VARIANT_ALLOW_STOCK_MOVEMENT_ON_VARIANT_PA
 		if ($total) {
 			print '<span class="valignmiddle">';
 			if (getDolGlobalString('PRODUIT_MULTIPRICES')) {
-				print $form->textwithpicto('', $langs->trans("Variable"));
+				print $form->textWithPicture('', $langs->trans("Variable"));
 			} elseif ($usercancreadprice) {
 				print price($totalvaluesell / $total, 1);
 			}
@@ -1264,7 +1264,7 @@ if (!$variants || getDolGlobalString('VARIANT_ALLOW_STOCK_MOVEMENT_ON_VARIANT_PA
 		if (!getDolGlobalString('PRODUIT_MULTIPRICES') && $usercancreadprice) {
 			print price(price2num($totalvaluesell, 'MT'), 1);
 		} else {
-			print $form->textwithpicto('', $langs->trans("Variable"));
+			print $form->textWithPicture('', $langs->trans("Variable"));
 		}
 		print '</span>';
 	}

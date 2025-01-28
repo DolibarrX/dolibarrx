@@ -78,7 +78,7 @@ foreach ($object->fields as $key => $val) {
 
 	$labeltoshow = '';
 	if (!empty($val['help'])) {
-		$labeltoshow .= $form->textwithpicto($langs->trans($val['label']), $langs->trans($val['help']));
+		$labeltoshow .= $form->textWithPicture($langs->trans($val['label']), $langs->trans($val['help']));
 	} else {
 		if (isset($val['copytoclipboard']) && $val['copytoclipboard'] == 1) {
 			$labeltoshow .= showValueWithClipboardCPButton($value, 0, $langs->transnoentitiesnoconv($val['label']));
@@ -108,7 +108,7 @@ foreach ($object->fields as $key => $val) {
 		if ($key == 'lang') {
 			$langs->load("languages");
 			$labellang = ($value ? $langs->trans('Language_'.$value) : '');
-			print picto_from_langcode($value, 'class="paddingrightonly saturatemedium opacitylow"');
+			print picture_from_langcode($value, 'class="paddingrightonly saturatemedium opacitylow"');
 			print $labellang;
 		} else {
 			if (isset($val['copytoclipboard']) && $val['copytoclipboard'] == 2) {
@@ -169,7 +169,7 @@ foreach ($object->fields as $key => $val) {
 	$rightpart.= '">';
 	$labeltoshow = '';
 	if (!empty($val['help'])) {
-		$labeltoshow .= $form->textwithpicto($langs->trans($val['label']), $langs->trans($val['help']));
+		$labeltoshow .= $form->textWithPicture($langs->trans($val['label']), $langs->trans($val['help']));
 	} else {
 		if (isset($val['copytoclipboard']) && $val['copytoclipboard'] == 1) {
 			$labeltoshow .= showValueWithClipboardCPButton($value, 0, $langs->transnoentitiesnoconv($val['label']));
@@ -199,7 +199,7 @@ foreach ($object->fields as $key => $val) {
 		if ($key == 'lang') {
 			$langs->load("languages");
 			$labellang = ($value ? $langs->trans('Language_'.$value) : '');
-			$rightpart .= picto_from_langcode($value, 'class="paddingrightonly saturatemedium opacitylow"');
+			$rightpart .= picture_from_langcode($value, 'class="paddingrightonly saturatemedium opacitylow"');
 			$rightpart .= $labellang;
 		} else {
 			if (isset($val['copytoclipboard']) && $val['copytoclipboard'] == 2) {

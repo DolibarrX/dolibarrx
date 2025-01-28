@@ -122,7 +122,7 @@ print '<table class="noborder centpercent editmode">';
 print '<tr class="liste_titre">';
 print '<td class="titlefieldcreate">'.$langs->trans("SocialNetworksInformation").'</td>';
 print '<td>'.$langs->trans("SocialNetworkId").'</td>';
-print '<td>'.$form->textwithpicto($langs->trans("Url"), $langs->trans("KeepEmptyToUseDefault")).'</td>';
+print '<td>'.$form->textWithPicture($langs->trans("Url"), $langs->trans("KeepEmptyToUseDefault")).'</td>';
 print '<td></td>';
 print "</tr>\n";
 

@@ -66,9 +66,9 @@ class User extends CommonObject
 	public $fk_element = 'fk_user';
 
 	/**
-	 * @var string picto
+	 * @var string picture
 	 */
-	public $picto = 'user';
+	public $picture = 'user';
 
 	/**
 	 * @var int
@@ -3002,7 +3002,7 @@ class User extends CommonObject
 	 * getTooltipContentArray
 	 * @param array<string,mixed> $params params to construct tooltip data
 	 * @since v18
-	 * @return array{picto?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
+	 * @return array{picture?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
 	 */
 	public function getTooltipContentArray($params)
 	{
@@ -3023,7 +3023,7 @@ class User extends CommonObject
 
 		// Info Login
 		$data['opendiv'] = '<div class="centpercent divtooltip">';
-		$data['picto'] = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("User").'</u> '.$this->getLibStatut(4);
+		$data['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("User").'</u> '.$this->getLibStatut(4);
 		$data['name'] = '<br><b>'.$langs->trans('Name').':</b> '.dol_string_nohtmltag($this->getFullName($langs));
 		if (!empty($this->login)) {
 			$data['login'] = '<br><b>'.$langs->trans('Login').':</b> '.dol_string_nohtmltag($this->login);
@@ -3058,9 +3058,9 @@ class User extends CommonObject
 			$thirdpartystatic->fetch($this->socid);
 			$companyimg = '';
 			if (empty($params['hidethirdpartylogo'])) {
-				$companyimg = ' '.$thirdpartystatic->getNomUrl(2, 'nolink', 0, 1); // picto only of company
+				$companyimg = ' '.$thirdpartystatic->getNomUrl(2, 'nolink', 0, 1); // picture only of company
 			}
-			$company = ' ('.$langs->trans("Company").': '.($companyimg ? $companyimg : img_picto('', 'company')).' '.dol_string_nohtmltag($thirdpartystatic->name).')';
+			$company = ' ('.$langs->trans("Company").': '.($companyimg ? $companyimg : img_picture('', 'company')).' '.dol_string_nohtmltag($thirdpartystatic->name).')';
 		}
 		$type = ($this->socid ? $langs->trans("ExternalUser").$company : $langs->trans("InternalUser"));
 		$data['type'] = '<br><b>'.$langs->trans("Type").':</b> '.$type;
@@ -3079,7 +3079,7 @@ class User extends CommonObject
 			$data['currenttheme'] = '<br><b>'.$langs->trans("CurrentTheme").':</b> '.dol_string_nohtmltag($config->theme);
 			// @phan-suppress-next-line PhanRedefinedClassReference
 			$data['currentmenumanager'] = '<br><b>'.$langs->trans("CurrentMenuManager").':</b> '.dol_string_nohtmltag($menumanager->name);
-			$s = picto_from_langcode($langs->getDefaultLang());
+			$s = picture_from_langcode($langs->getDefaultLang());
 			$data['currentuserlang'] = '<br><b>'.$langs->trans("CurrentUserLanguage").':</b> '.dol_string_nohtmltag(($s ? $s.' ' : '').$langs->getDefaultLang());
 			$data['browser'] = '<br><b>'.$langs->trans("Browser").':</b> '.dol_string_nohtmltag($config->browser->name.($config->browser->version ? ' '.$config->browser->version : '').' ('.$_SERVER['HTTP_USER_AGENT'].')');
 			$data['layout'] = '<br><b>'.$langs->trans("Layout").':</b> '.dol_string_nohtmltag($config->browser->layout);
@@ -3096,13 +3096,13 @@ class User extends CommonObject
 	}
 
 	/**
-	 *  Return a HTML link to the user card (with optionally the picto)
+	 *  Return a HTML link to the user card (with optionally the picture)
 	 * 	Use this->id,this->lastname, this->firstname
 	 *
-	 *	@param	int		$withpictoimg				Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto, -1=Include photo into link, -2=Only picto photo, -3=Only photo very small)
+	 *	@param	int		$withPictureimg				Include picture in link (0=No picture, 1=Include picture into link, 2=Only picture, -1=Include photo into link, -2=Only picture photo, -3=Only photo very small)
 	 *	@param	string	$option						On what the link point to ('leave', 'accountancy', 'nolink', )
 	 *  @param  integer $infologin      			0=Add default info tooltip, 1=Add complete info tooltip, -1=No info tooltip
-	 *  @param	integer	$notooltip					1=Disable tooltip on picto and name
+	 *  @param	integer	$notooltip					1=Disable tooltip on picture and name
 	 *  @param	int		$maxlen						Max length of visible user name
 	 *  @param	int		$hidethirdpartylogo			Hide logo of thirdparty if user is external user
 	 *  @param  string  $mode               		''=Show firstname and lastname, 'firstname'=Show only firstname, 'firstelselast'=Show firstname or lastname if not defined, 'login'=Show login
@@ -3110,7 +3110,7 @@ class User extends CommonObject
 	 *  @param  int<-1,1>	$save_lastsearch_value    	-1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 *	@return	string								String with URL
 	 */
-	public function getNomUrl($withpictoimg = 0, $option = '', $infologin = 0, $notooltip = 0, $maxlen = 24, $hidethirdpartylogo = 0, $mode = '', $morecss = '', $save_lastsearch_value = -1)
+	public function getNomUrl($withPictureimg = 0, $option = '', $infologin = 0, $notooltip = 0, $maxlen = 24, $hidethirdpartylogo = 0, $mode = '', $morecss = '', $save_lastsearch_value = -1)
 	{
 		global $langs, $hookManager, $user;
 
@@ -3118,8 +3118,8 @@ class User extends CommonObject
 			$option = 'nolink';
 		}
 
-		if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') && $withpictoimg) {
-			$withpictoimg = 0;
+		if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER') && $withPictureimg) {
+			$withPictureimg = 0;
 		}
 
 		$result = '';
@@ -3145,7 +3145,7 @@ class User extends CommonObject
 			$thirdpartystatic = new Societe($this->db);
 			$thirdpartystatic->fetch($this->socid);
 			if (empty($hidethirdpartylogo)) {
-				$companylink = ' '.$thirdpartystatic->getNomUrl(2, 'nolink', 0, 1); // picto only of company
+				$companylink = ' '.$thirdpartystatic->getNomUrl(2, 'nolink', 0, 1); // picture only of company
 			}
 		}
 
@@ -3186,23 +3186,23 @@ class User extends CommonObject
 		$linkstart .= $linkclose.'>';
 		$linkend = '</a>';
 
-		//if ($withpictoimg == -1) $result.='<div class="nowrap">';
+		//if ($withPictureimg == -1) $result.='<div class="nowrap">';
 		$result .= (($option == 'nolink') ? '' : $linkstart);
-		if ($withpictoimg) {
+		if ($withPictureimg) {
 			$paddafterimage = '';
-			if (abs((int) $withpictoimg) == 1) {
+			if (abs((int) $withPictureimg) == 1) {
 				$paddafterimage = 'style="margin-'.($langs->trans("DIRECTION") == 'rtl' ? 'left' : 'right').': 3px;"';
 			}
-			// Only picto
-			if ($withpictoimg > 0) {
-				$picto = '<!-- picto user --><span class="nopadding userimg'.($morecss ? ' '.$morecss : '').'"><div class="valignmiddle userphoto inline-block center marginrightonlyshort"'.($paddafterimage ? ' '.$paddafterimage : '').'>'.img_object('', 'user', 'class=""', 0, 0, $notooltip ? 0 : 1).'</div></span>';
+			// Only picture
+			if ($withPictureimg > 0) {
+				$picture = '<!-- picture user --><span class="nopadding userimg'.($morecss ? ' '.$morecss : '').'"><div class="valignmiddle userphoto inline-block center marginrightonlyshort"'.($paddafterimage ? ' '.$paddafterimage : '').'>'.img_object('', 'user', 'class=""', 0, 0, $notooltip ? 0 : 1).'</div></span>';
 			} else {
 				// Picto must be a photo
-				$picto = '<!-- picto photo user --><span class="nopadding userimg'.($morecss ? ' '.$morecss : '').'"'.($paddafterimage ? ' '.$paddafterimage : '').'>'.Form::showphoto('userphoto', $this, 0, 0, 0, 'userphoto'.($withpictoimg == -3 ? 'small' : ''), 'mini', 0, 1).'</span>';
+				$picture = '<!-- picture photo user --><span class="nopadding userimg'.($morecss ? ' '.$morecss : '').'"'.($paddafterimage ? ' '.$paddafterimage : '').'>'.Form::showphoto('userphoto', $this, 0, 0, 0, 'userphoto'.($withPictureimg == -3 ? 'small' : ''), 'mini', 0, 1).'</span>';
 			}
-			$result .= $picto;
+			$result .= $picture;
 		}
-		if ($withpictoimg > -2 && $withpictoimg != 2) {
+		if ($withPictureimg > -2 && $withPictureimg != 2) {
 			if (!getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 				$result .= '<span class="nopadding usertext'.((!isset($this->status) || $this->status) ? '' : ' strikefordisabled').($morecss ? ' '.$morecss : '').'">';
 			}
@@ -3216,7 +3216,7 @@ class User extends CommonObject
 			}
 		}
 		$result .= (($option == 'nolink') ? '' : $linkend);
-		//if ($withpictoimg == -1) $result.='</div>';
+		//if ($withPictureimg == -1) $result.='</div>';
 
 		$result .= $companylink;
 
@@ -3234,15 +3234,15 @@ class User extends CommonObject
 	}
 
 	/**
-	 *  Return clickable link of login (optionally with picto)
+	 *  Return clickable link of login (optionally with picture)
 	 *
-	 *	@param	int		$withpictoimg		Include picto into link (1=picto, -1=photo)
+	 *	@param	int		$withPictureimg		Include picture into link (1=picture, -1=photo)
 	 *	@param	string	$option				On what the link point to ('leave', 'accountancy', 'nolink', )
-	 *  @param	integer	$notooltip			1=Disable tooltip on picto and name
+	 *  @param	integer	$notooltip			1=Disable tooltip on picture and name
 	 *  @param  string  $morecss       		Add more css on link
 	 *	@return	string						String with URL
 	 */
-	public function getLoginUrl($withpictoimg = 0, $option = '', $notooltip = 0, $morecss = '')
+	public function getLoginUrl($withPictureimg = 0, $option = '', $notooltip = 0, $morecss = '')
 	{
 		global $langs, $user;
 
@@ -3267,19 +3267,19 @@ class User extends CommonObject
 		}
 
 		$result .= $linkstart;
-		if ($withpictoimg) {
+		if ($withPictureimg) {
 			$paddafterimage = '';
-			if (abs($withpictoimg) == 1) {
+			if (abs($withPictureimg) == 1) {
 				$paddafterimage = 'style="margin-'.($langs->trans("DIRECTION") == 'rtl' ? 'left' : 'right').': 3px;"';
 			}
-			// Only picto
-			if ($withpictoimg > 0) {
-				$picto = '<!-- picto user --><span class="nopadding userimg'.($morecss ? ' '.$morecss : '').'">'.img_object('', 'user', $paddafterimage.' '.($notooltip ? '' : 'class="paddingright classfortooltip"'), 0, 0, $notooltip ? 0 : 1).'</span>';
+			// Only picture
+			if ($withPictureimg > 0) {
+				$picture = '<!-- picture user --><span class="nopadding userimg'.($morecss ? ' '.$morecss : '').'">'.img_object('', 'user', $paddafterimage.' '.($notooltip ? '' : 'class="paddingright classfortooltip"'), 0, 0, $notooltip ? 0 : 1).'</span>';
 			} else {
 				// Picto must be a photo
-				$picto = '<!-- picto photo user --><span class="nopadding userimg'.($morecss ? ' '.$morecss : '').'"'.($paddafterimage ? ' '.$paddafterimage : '').'>'.Form::showphoto('userphoto', $this, 0, 0, 0, 'userphoto'.($withpictoimg == -3 ? 'small' : ''), 'mini', 0, 1).'</span>';
+				$picture = '<!-- picture photo user --><span class="nopadding userimg'.($morecss ? ' '.$morecss : '').'"'.($paddafterimage ? ' '.$paddafterimage : '').'>'.Form::showphoto('userphoto', $this, 0, 0, 0, 'userphoto'.($withPictureimg == -3 ? 'small' : ''), 'mini', 0, 1).'</span>';
 			}
-			$result .= $picto;
+			$result .= $picture;
 		}
 		$result .= $this->login;
 		$result .= $linkend;
@@ -3343,7 +3343,7 @@ class User extends CommonObject
 
 
 	/**
-	 *	Return clickable link of object (optionally with picto)
+	 *	Return clickable link of object (optionally with picture)
 	 *
 	 *	@param      string	    			$option                 Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param		array{string,mixed}		$arraydata				Array of data
@@ -3367,7 +3367,7 @@ class User extends CommonObject
 			//$label .= '<div style="clear: both;"></div>';
 			$return .= $label;
 		} else {
-			$return .= img_picto('', $this->picto);
+			$return .= img_picture('', $this->picture);
 		}
 
 		//$return .= '<i class="fa fa-dol-action"></i>'; // Can be image
@@ -3375,9 +3375,9 @@ class User extends CommonObject
 		$return .= '<div class="info-box-content">';
 		$return .= '<span class="info-box-ref inline-block tdoverflowmax150 valignmiddle">'.(method_exists($this, 'getNomUrl') ? $this->getNomUrl(0, '', 0, 0, 24, 0, '', 'valignmiddle') : $this->ref);
 		if (isModEnabled('multicompany') && $this->admin && !$this->entity) {
-			$return .= img_picto($langs->trans("SuperAdministratorDesc"), 'redstar', 'class="valignmiddle paddingright paddingleft"');
+			$return .= img_picture($langs->trans("SuperAdministratorDesc"), 'redstar', 'class="valignmiddle paddingright paddingleft"');
 		} elseif ($this->admin) {
-			$return .= img_picto($langs->trans("AdministratorDesc"), 'star', 'class="valignmiddle paddingright paddingleft"');
+			$return .= img_picture($langs->trans("AdministratorDesc"), 'star', 'class="valignmiddle paddingright paddingleft"');
 		}
 		$return .= '</span>';
 		if ($selected >= 0) {
@@ -3387,7 +3387,7 @@ class User extends CommonObject
 			$return .= '<br><span class="info-box-label opacitymedium">'.$this->label.'</span>';
 		}
 		if ($this->email) {
-			$return .= '<br><span class="info-box-label opacitymedium small">'.img_picto('', 'email').' '.$this->email.'</span>';
+			$return .= '<br><span class="info-box-label opacitymedium small">'.img_picture('', 'email').' '.$this->email.'</span>';
 		}
 		if (method_exists($this, 'getLibStatut')) {
 			$return .= '<br><div class="info-box-status">'.$this->getLibStatut(3).'</div>';

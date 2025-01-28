@@ -52,26 +52,26 @@ if (empty($action)) {
 $arrayofparameters = array();
 // ThirdParty
 $arrayofparameters['ThirdParty'] = array(
-		'DATAPOLICY_TIERS_CLIENT'=>array('css'=>'minwidth200', 'picto'=>img_picto('', 'company', 'class="pictofixedwidth"')),
-		'DATAPOLICY_TIERS_PROSPECT'=>array('css'=>'minwidth200', 'picto'=>img_picto('', 'company', 'class="pictofixedwidth"')),
-		'DATAPOLICY_TIERS_PROSPECT_CLIENT'=>array('css'=>'minwidth200', 'picto'=>img_picto('', 'company', 'class="pictofixedwidth"')),
-		'DATAPOLICY_TIERS_NIPROSPECT_NICLIENT'=>array('css'=>'minwidth200', 'picto'=>img_picto('', 'company', 'class="pictofixedwidth"')),
-		'DATAPOLICY_TIERS_FOURNISSEUR'=>array('css'=>'minwidth200', 'picto'=>img_picto('', 'supplier', 'class="pictofixedwidth"')),
+		'DATAPOLICY_TIERS_CLIENT'=>array('css'=>'minwidth200', 'picture'=>img_picture('', 'company', 'class="picturefixedwidth"')),
+		'DATAPOLICY_TIERS_PROSPECT'=>array('css'=>'minwidth200', 'picture'=>img_picture('', 'company', 'class="picturefixedwidth"')),
+		'DATAPOLICY_TIERS_PROSPECT_CLIENT'=>array('css'=>'minwidth200', 'picture'=>img_picture('', 'company', 'class="picturefixedwidth"')),
+		'DATAPOLICY_TIERS_NIPROSPECT_NICLIENT'=>array('css'=>'minwidth200', 'picture'=>img_picture('', 'company', 'class="picturefixedwidth"')),
+		'DATAPOLICY_TIERS_FOURNISSEUR'=>array('css'=>'minwidth200', 'picture'=>img_picture('', 'supplier', 'class="picturefixedwidth"')),
 	);
 // Contact
 if (getDolGlobalString('DATAPOLICY_USE_SPECIFIC_DELAY_FOR_CONTACT')) {
 	$arrayofparameters['Contact'] = array(
-		'DATAPOLICY_CONTACT_CLIENT' => array('css' => 'minwidth200', 'picto' => img_picto('', 'contact', 'class="pictofixedwidth"')),
-		'DATAPOLICY_CONTACT_PROSPECT' => array('css' => 'minwidth200', 'picto' => img_picto('', 'contact', 'class="pictofixedwidth"')),
-		'DATAPOLICY_CONTACT_PROSPECT_CLIENT' => array('css' => 'minwidth200', 'picto' => img_picto('', 'contact', 'class="pictofixedwidth"')),
-		'DATAPOLICY_CONTACT_NIPROSPECT_NICLIENT' => array('css' => 'minwidth200', 'picto' => img_picto('', 'contact', 'class="pictofixedwidth"')),
-		'DATAPOLICY_CONTACT_FOURNISSEUR' => array('css' => 'minwidth200', 'picto' => img_picto('', 'contact', 'class="pictofixedwidth"')),
+		'DATAPOLICY_CONTACT_CLIENT' => array('css' => 'minwidth200', 'picture' => img_picture('', 'contact', 'class="picturefixedwidth"')),
+		'DATAPOLICY_CONTACT_PROSPECT' => array('css' => 'minwidth200', 'picture' => img_picture('', 'contact', 'class="picturefixedwidth"')),
+		'DATAPOLICY_CONTACT_PROSPECT_CLIENT' => array('css' => 'minwidth200', 'picture' => img_picture('', 'contact', 'class="picturefixedwidth"')),
+		'DATAPOLICY_CONTACT_NIPROSPECT_NICLIENT' => array('css' => 'minwidth200', 'picture' => img_picture('', 'contact', 'class="picturefixedwidth"')),
+		'DATAPOLICY_CONTACT_FOURNISSEUR' => array('css' => 'minwidth200', 'picture' => img_picture('', 'contact', 'class="picturefixedwidth"')),
 	);
 }
 // Member
 if (isModEnabled('member')) {
 	$arrayofparameters['Member'] = array(
-		'DATAPOLICY_ADHERENT' => array('css' => 'minwidth200', 'picto' => img_picto('', 'member', 'class="pictofixedwidth"')),
+		'DATAPOLICY_ADHERENT' => array('css' => 'minwidth200', 'picture' => img_picture('', 'member', 'class="picturefixedwidth"')),
 	);
 }
 
@@ -97,7 +97,7 @@ if (!$user->admin) {
 }
 
 
-'@phan-var-force array<string,array<string,array{type?:string,css?:string,picto?:string}>> $arrayofparameters';
+'@phan-var-force array<string,array<string,array{type?:string,css?:string,picture?:string}>> $arrayofparameters';
 
 /*
  * Actions
@@ -157,7 +157,7 @@ print dol_get_fiche_head($head, 'settings', '', -1, '');
 
 // Setup page goes here
 print '<span class="opacitymedium">'.$langs->trans("datapolicySetupPage").'</span>';
-print $form->textwithpicto('', $langs->trans('DATAPOLICY_Tooltip_SETUP', $langs->trans("DATAPOLICYJob"), $langs->transnoentities("CronList")));
+print $form->textWithPicture('', $langs->trans('DATAPOLICY_Tooltip_SETUP', $langs->trans("DATAPOLICYJob"), $langs->transnoentities("CronList")));
 print '<br>';
 print '<br>';
 print '<br>';
@@ -189,7 +189,7 @@ if ($action == 'edit') {
 
 		foreach ($tab as $key => $val) {
 			print '<tr class="oddeven"><td>';
-			print $val['picto'];
+			print $val['picture'];
 			print $langs->trans($key);
 			print '</td><td>';
 			print '<select name="'.$key.'" id="'.$key.'" class="flat '.(empty($val['css']) ? 'minwidth200' : $val['css']).'">';
@@ -225,7 +225,7 @@ if ($action == 'edit') {
 		print '<tr class="trforbreak"><td class="titlefield trforbreak" colspan="2">'.$langs->trans($title).'</td></tr>';
 		foreach ($tab as $key => $val) {
 			print '<tr class="oddeven"><td>';
-			print $val['picto'];
+			print $val['picture'];
 			print $langs->trans($key);
 			print '</td><td>'.(getDolGlobalString($key) == '' ? '<span class="opacitymedium">'.$valTab[''].'</span>' : $valTab[getDolGlobalString($key)]).'</td></tr>';
 		}

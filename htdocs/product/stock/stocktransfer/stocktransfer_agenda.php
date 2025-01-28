@@ -155,7 +155,7 @@ if ($object->id > 0) {
 	$head = stocktransferPrepareHead($object);
 
 
-	print dol_get_fiche_head($head, 'agenda', $langs->trans("StockTransfer"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'agenda', $langs->trans("StockTransfer"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------
@@ -230,7 +230,7 @@ if ($object->id > 0) {
 		}
 		$out .= (!empty($objcon->id) ? '&amp;contactid='.$objcon->id : '').'&amp;backtopage=1';
 		//$out.=$langs->trans("AddAnAction").' ';
-		//$out.=img_picto($langs->trans("AddAnAction"),'filenew');
+		//$out.=img_picture($langs->trans("AddAnAction"),'filenew');
 		//$out.="</a>";
 	}
 

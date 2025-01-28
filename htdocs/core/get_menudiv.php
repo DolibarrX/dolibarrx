@@ -138,7 +138,7 @@ print '
 		text-decoration: none;
 	}
 
-	.pictofixedwidth {
+	.picturefixedwidth {
     	text-align: left;
     	padding-right: 10px !important;
 	}

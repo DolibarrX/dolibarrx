@@ -84,10 +84,10 @@ class modMyModule extends DolibarrModules
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 
 		// Name of image file used for this module.
-		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		// To use a supported fa-xxx css style of font awesome, use this->picto='xxx'
-		$this->picto = 'generic';
+		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
+		// If file is in module/img directory under name object_picturevalue.png, use this->picture='picturevalue@module'
+		// To use a supported fa-xxx css style of font awesome, use this->picture='xxx'
+		$this->picture = 'generic';
 
 		// Define some features supported by module (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array(
@@ -322,7 +322,7 @@ class modMyModule extends DolibarrModules
 			'fk_menu' => '', // Will be stored into mainmenu + leftmenu. Use '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type' => 'top', // This is a Top menu entry
 			'titre' => 'ModuleMyModuleName',
-			'prefix' => img_picto('', $this->picto, 'class="pictofixedwidth valignmiddle"'),
+			'prefix' => img_picture('', $this->picture, 'class="picturefixedwidth valignmiddle"'),
 			'mainmenu' => 'mymodule',
 			'leftmenu' => '',
 			'url' => '/mymodule/mymoduleindex.php',
@@ -341,7 +341,7 @@ class modMyModule extends DolibarrModules
 			'fk_menu' => 'fk_mainmenu=mymodule',      // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type' => 'left',                          // This is a Left menu entry
 			'titre' => 'MyObject',
-			'prefix' => img_picto('', $this->picto, 'class="pictofixedwidth valignmiddle paddingright"'),
+			'prefix' => img_picture('', $this->picture, 'class="picturefixedwidth valignmiddle paddingright"'),
 			'mainmenu' => 'mymodule',
 			'leftmenu' => 'myobject',
 			'url' => '/mymodule/mymoduleindex.php',
@@ -394,7 +394,7 @@ class modMyModule extends DolibarrModules
 		$langs->load("mymodule@mymodule");
 		$this->export_code[$r] = $this->rights_class.'_'.$r;
 		$this->export_label[$r] = 'MyObjectLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
-		$this->export_icon[$r] = $this->picto;
+		$this->export_icon[$r] = $this->picture;
 		// Define $this->export_fields_array, $this->export_TypeFields_array and $this->export_entities_array
 		$keyforclass = 'MyObject'; $keyforclassfile='/mymodule/class/myobject.class.php'; $keyforelement='myobject@mymodule';
 		include DOL_DOCUMENT_ROOT.'/core/commonfieldsinexport.inc.php';
@@ -425,7 +425,7 @@ class modMyModule extends DolibarrModules
 		$langs->load("mymodule@mymodule");
 		$this->import_code[$r] = $this->rights_class.'_'.$r;
 		$this->import_label[$r] = 'MyObjectLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
-		$this->import_icon[$r] = $this->picto;
+		$this->import_icon[$r] = $this->picture;
 		$this->import_tables_array[$r] = array('t' => $this->db->prefix().'mymodule_myobject', 'extra' => $this->db->prefix().'mymodule_myobject_extrafields');
 		$this->import_tables_creator_array[$r] = array('t' => 'fk_user_author'); // Fields to store import user id
 		$import_sample = array();

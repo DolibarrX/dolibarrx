@@ -58,7 +58,7 @@ class FormSocialContrib
 	 *	@param  string		$htmlname       Name of field in form
 	 * 	@param	int<0,1>	$useempty		Set to 1 if we want an empty value
 	 * 	@param	int			$maxlen			Max length of text in combo box
-	 * 	@param	int<0,1>	$help			Add or not the admin help picto
+	 * 	@param	int<0,1>	$help			Add or not the admin help picture
 	 *  @param	string		$morecss		Add more CSS on select
 	 *  @param	int<0,1>	$noerrorifempty	No print error if list is empty for the country
 	 * 	@return	void

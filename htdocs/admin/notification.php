@@ -209,7 +209,7 @@ print "</tr>\n";
 print '<tr class="oddeven"><td>';
 print $langs->trans("NotificationEMailFrom").'</td>';
 print '<td>';
-print img_picto('', 'email', 'class="pictofixedwidth"');
+print img_picture('', 'email', 'class="picturefixedwidth"');
 print '<input class="width150 quatrevingtpercentminusx" type="email" name="email_from" value="'.getDolGlobalString('NOTIFICATION_EMAIL_FROM').'">';
 if (getDolGlobalString('NOTIFICATION_EMAIL_FROM') && !isValidEmail(getDolGlobalString('NOTIFICATION_EMAIL_FROM'))) {
 	print ' '.img_warning($langs->trans("ErrorBadEMail"));
@@ -463,7 +463,7 @@ foreach ($listofnotifiedevents as $notifiedevent) {
 
 	print '<tr class="oddeven">';
 	print '<td>';
-	print img_picto('', $elementPicto, 'class="pictofixedwidth"');
+	print img_picture('', $elementPicto, 'class="picturefixedwidth"');
 	print $elementLabel;
 	print '</td>';
 	print '<td>'.$notifiedevent['code'].'</td>';
@@ -491,7 +491,7 @@ foreach ($listofnotifiedevents as $notifiedevent) {
 		if (getDolGlobalString($param) && $showwarning) {
 			$s .= ' '.img_warning($langs->trans("ErrorBadEMail"));
 		}
-		print $form->textwithpicto($s, $langs->trans("YouCanUseCommaSeparatorForSeveralRecipients").'<br>'.$langs->trans("YouCanAlsoUseSupervisorKeyword"), 1, 'help', '', 0, 2);
+		print $form->textWithPicture($s, $langs->trans("YouCanUseCommaSeparatorForSeveralRecipients").'<br>'.$langs->trans("YouCanAlsoUseSupervisorKeyword"), 1, 'help', '', 0, 2);
 		print '<br>';
 
 		$inputfieldalreadyshown++;
@@ -499,7 +499,7 @@ foreach ($listofnotifiedevents as $notifiedevent) {
 	// New entry input fields
 	if (empty($inputfieldalreadyshown) || !$codehasnotrigger) {
 		$s = '<input type="text" class="minwidth200" name="NOTIF_'.$notifiedevent['code'].'_new_key" value="">'; // Do not use type="email" here, we must be able to enter a list of email with , separator.
-		print $form->textwithpicto($s, $langs->trans("YouCanUseCommaSeparatorForSeveralRecipients").'<br>'.$langs->trans("YouCanAlsoUseSupervisorKeyword"), 1, 'help', '', 0, 2);
+		print $form->textWithPicture($s, $langs->trans("YouCanUseCommaSeparatorForSeveralRecipients").'<br>'.$langs->trans("YouCanAlsoUseSupervisorKeyword"), 1, 'help', '', 0, 2);
 	}
 	print '</td>';
 

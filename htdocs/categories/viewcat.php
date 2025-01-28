@@ -390,9 +390,9 @@ print '<td class="right">';
 
 if (!empty($config->use_javascript_ajax)) {
 	print '<div id="iddivjstreecontrol">';
-	print '<a class="notasortlink" href="#">'.img_picto('', 'folder').' '.$langs->trans("UndoExpandAll").'</a>';
+	print '<a class="notasortlink" href="#">'.img_picture('', 'folder').' '.$langs->trans("UndoExpandAll").'</a>';
 	print " | ";
-	print '<a class="notasortlink" href="#">'.img_picto('', 'folder-open').' '.$langs->trans("ExpandAll").'</a>';
+	print '<a class="notasortlink" href="#">'.img_picture('', 'folder-open').' '.$langs->trans("ExpandAll").'</a>';
 	print '</div>';
 }
 
@@ -494,7 +494,7 @@ if ($cats < 0) {
 		print '<table class="nobordernopadding">';
 
 		print '<tr class="nobordernopadding">';
-		print '<td>'.img_picto_common('', 'treemenu/branchbottom.gif').'</td>';
+		print '<td>'.img_picture_common('', 'treemenu/branchbottom.gif').'</td>';
 		print '<td class="valignmiddle"><span class="opacitymedium">'.$langs->trans("NoCategoryYet").'</span></td>';
 		print '<td>&nbsp;</td>';
 		print '</tr>';
@@ -581,7 +581,7 @@ if ($type == Category::TYPE_PRODUCT) {
 					if ($permission) {
 						print '<a class="reposition" href= "'.$_SERVER['PHP_SELF']."?".(empty($socid) ? 'id' : 'socid')."=".((int) $object->id)."&type=".urlencode($typeid)."&action=unlink&token=".newToken()."&removeelem=".$prod->id.'">';
 						//print $langs->trans("DeleteFromCat");
-						print img_picto($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
+						print img_picture($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
 						print "</a>";
 					}
 					print '</td>';
@@ -661,7 +661,7 @@ if ($type == Category::TYPE_CUSTOMER) {
 					if ($permission) {
 						print "<a href= '".$_SERVER['PHP_SELF']."?".(empty($socid) ? 'id' : 'socid')."=".$object->id."&type=".$typeid."&action=unlink&token=".newToken()."&removeelem=".$soc->id."'>";
 						//print $langs->trans("DeleteFromCat");
-						print img_picto($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
+						print img_picture($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
 						print "</a>";
 					}
 					print '</td>';
@@ -742,7 +742,7 @@ if ($type == Category::TYPE_SUPPLIER) {
 					if ($permission) {
 						print '<a class="reposition" href="'.$_SERVER['PHP_SELF']."?".(empty($socid) ? 'id' : 'socid')."=".$object->id."&type=".$typeid."&action=unlink&token=".newToken()."&removeelem=".$soc->id.($limit ? '&limit='.$limit : '').'">';
 						//print $langs->trans("DeleteFromCat");
-						print img_picto($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
+						print img_picture($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
 						print "</a>";
 					}
 					print '</td>';
@@ -827,7 +827,7 @@ if ($type == Category::TYPE_MEMBER) {
 					if ($permission) {
 						print "<a href= '".$_SERVER['PHP_SELF']."?".(empty($socid) ? 'id' : 'socid')."=".$object->id."&type=".$typeid."&action=unlink&token=".newToken()."&removeelem=".$member->id."'>";
 						//print $langs->trans("DeleteFromCat");
-						print img_picto($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
+						print img_picture($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
 						print "</a>";
 					}
 					print '</td>';
@@ -913,7 +913,7 @@ if ($type == Category::TYPE_CONTACT) {
 					if ($permission) {
 						print "<a href= '".$_SERVER['PHP_SELF']."?".(empty($socid) ? 'id' : 'socid')."=".$object->id."&type=".$typeid."&action=unlink&token=".newToken()."&removeelem=".$contact->id."'>";
 						//print $langs->trans("DeleteFromCat");
-						print img_picto($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
+						print img_picture($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
 						print "</a>";
 					}
 					print '</td>';
@@ -996,7 +996,7 @@ if ($type == Category::TYPE_ACCOUNT) {
 					if ($permission) {
 						print "<a href= '".$_SERVER['PHP_SELF']."?".(empty($socid) ? 'id' : 'socid')."=".$object->id."&type=".$typeid."&action=unlink&token=".newToken()."&removeelem=".$account->id."'>";
 						//print $langs->trans("DeleteFromCat");
-						print img_picto($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
+						print img_picture($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
 						print "</a>";
 					}
 					print '</td>';
@@ -1078,7 +1078,7 @@ if ($type == Category::TYPE_PROJECT) {
 					if ($permission) {
 						print "<a href= '".$_SERVER['PHP_SELF']."?".(empty($socid) ? 'id' : 'socid')."=".$object->id."&type=".$typeid."&action=unlink&token=".newToken()."&removeelem=".$project->id."'>";
 						//print $langs->trans("DeleteFromCat");
-						print img_picto($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
+						print img_picture($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
 						print "</a>";
 					}
 					print '</td>';
@@ -1132,7 +1132,7 @@ if ($type == Category::TYPE_USER) {
 				print '<table class="noborder centpercent">';
 				print '<tr class="liste_titre"><td>';
 				$force_entity = getEntity($object->element);	// So we will get same filter than the getObjectsInCateg()
-				print img_picto('', $type, 'class="pictofixedwidth"');
+				print img_picture('', $type, 'class="picturefixedwidth"');
 				print $form->select_dolusers('', 'elemid', 1, null, 0, '', '', $force_entity);
 				print '<input type="submit" class="button buttongen" name="addintocategory" value="'.$langs->trans("ClassifyInCategory").'"></td>';
 				print '</tr>';
@@ -1156,7 +1156,7 @@ if ($type == Category::TYPE_USER) {
 					if ($user->hasRight('user', 'user', 'creer')) {
 						print "<a href= '".$_SERVER['PHP_SELF']."?".(empty($socid) ? 'id' : 'socid')."=".$object->id."&type=".$typeid."&action=unlink&token=".newToken()."&removeelem=".$userentry->id."'>";
 						//print $langs->trans("DeleteFromCat");
-						print img_picto($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
+						print img_picture($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
 						print "</a>";
 					}
 					print '</td>';
@@ -1227,7 +1227,7 @@ if ($type == Category::TYPE_WAREHOUSE) {
 					if ($permission) {
 						print "<a href= '".$_SERVER['PHP_SELF']."?".(empty($socid) ? 'id' : 'socid')."=".$object->id."&type=".$typeid."&action=unlink&token=".newToken()."&removeelem=".$warehouse->id."'>";
 						//print $langs->trans("DeleteFromCat");
-						print img_picto($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
+						print img_picture($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
 						print "</a>";
 					}
 					print '</td>';
@@ -1307,7 +1307,7 @@ if ($type == Category::TYPE_TICKET) {
 					if ($permission) {
 						print "<a href= '".$_SERVER['PHP_SELF']."?".(empty($socid) ? 'id' : 'socid')."=".$object->id."&type=".$typeid."&action=unlink&token=".newToken()."&removeelem=".$ticket->id."'>";
 						//print $langs->trans("DeleteFromCat");
-						print img_picto($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
+						print img_picture($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
 						print "</a>";
 					}
 					print '</td>';
@@ -1393,7 +1393,7 @@ if ($type == Category::TYPE_FICHINTER) {
 					if ($permission) {
 						print "<a href= '".$_SERVER['PHP_SELF']."?".(empty($socid) ? 'id' : 'socid')."=".$object->id."&type=".$typeid."&action=unlink&token=".newToken()."&removeelem=".$fichinter->id."'>";
 						print $langs->trans("DeleteFromCat");
-						print img_picto($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
+						print img_picture($langs->trans("DeleteFromCat"), 'unlink', '', 0, 0, 0, '', 'paddingleft');
 						print "</a>";
 					}
 					print '</td>';

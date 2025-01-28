@@ -286,7 +286,7 @@ $help_url = 'EN:Module_Services_En|FR:Module_Services|ES:M&oacute;dulo_Servicios
 
 llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-member page-cards');
 
-print load_fiche_titre($langs->trans("LinkToGeneratedPages"), '', $memberStatic->picto);
+print load_fiche_titre($langs->trans("LinkToGeneratedPages"), '', $memberStatic->picture);
 
 print '<span class="opacitymedium">'.$langs->trans("LinkToGeneratedPagesDesc").'</span><br>';
 print '<br>';
@@ -295,7 +295,7 @@ dol_htmloutput_errors($mesg);
 
 print '<br>';
 
-print img_picto('', 'card').' '.$langs->trans("DocForAllMembersCards", getDolGlobalString('ADHERENT_CARD_TYPE', $langs->transnoentitiesnoconv("None"))).' ';
+print img_picture('', 'card').' '.$langs->trans("DocForAllMembersCards", getDolGlobalString('ADHERENT_CARD_TYPE', $langs->transnoentitiesnoconv("None"))).' ';
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="foruserid" value="all">';
@@ -314,7 +314,7 @@ print '</form>';
 
 print '<br><br>';
 
-print img_picto('', 'card').' '.$langs->trans("DocForOneMemberCards", getDolGlobalString('ADHERENT_CARD_TYPE', $langs->transnoentitiesnoconv("None"))).' ';
+print img_picture('', 'card').' '.$langs->trans("DocForOneMemberCards", getDolGlobalString('ADHERENT_CARD_TYPE', $langs->transnoentitiesnoconv("None"))).' ';
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="mode" value="cardlogin">';
@@ -333,7 +333,7 @@ print '</form>';
 
 print '<br><br>';
 
-print img_picto('', 'card').' '.$langs->trans("DocForLabels", getDolGlobalString('ADHERENT_ETIQUETTE_TYPE')).' ';
+print img_picture('', 'card').' '.$langs->trans("DocForLabels", getDolGlobalString('ADHERENT_ETIQUETTE_TYPE')).' ';
 print '<form action="'.$_SERVER["PHP_SELF"].'" method="POST">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 print '<input type="hidden" name="mode" value="label">';

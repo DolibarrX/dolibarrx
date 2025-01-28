@@ -557,7 +557,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 	$head = moPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'production', $langs->trans("ManufacturingOrder"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'production', $langs->trans("ManufacturingOrder"), -1, $object->picture);
 
 	$formconfirm = '';
 
@@ -676,7 +676,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			$morehtmlref .= '<br>';
 		}
 		if ($permissiontoadd) {
-			$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 			}
@@ -1173,11 +1173,11 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 						$help = '';
 						if ($line->qty_frozen) {
 							$help = ($help ? '<br>' : '') . '<strong>' . $langs->trans("QuantityFrozen") . '</strong>: ' . yn(1) . ' (' . $langs->trans("QuantityConsumedInvariable") . ')';
-							print $form->textwithpicto('', $help, -1, 'lock') . ' ';
+							print $form->textWithPicture('', $help, -1, 'lock') . ' ';
 						}
 						if ($line->disable_stock_change) {
 							$help = ($help ? '<br>' : '') . '<strong>' . $langs->trans("DisableStockChange") . '</strong>: ' . yn(1) . ' (' . (($tmpproduct->type == Product::TYPE_SERVICE && !getDolGlobalString('STOCK_SUPPORTS_SERVICES')) ? $langs->trans("NoStockChangeOnServices") : $langs->trans("DisableStockChangeHelp")) . ')';
-							print $form->textwithpicto('', $help, -1, 'help') . ' ';
+							print $form->textWithPicture('', $help, -1, 'help') . ' ';
 						}
 						print price2num($line->qty, 'MS');
 						print '</td>';
@@ -1215,7 +1215,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 							if (empty($config->use_javascript_ajax)) {
 								print '<a href="' . $_SERVER["PHP_SELF"] . '?collapse=' . $collapse . ',' . $line->id . '">';
 							}
-							print img_picto($langs->trans("ShowDetails"), "chevron-down", 'id="expandtoproduce' . $line->id . '"');
+							print img_picture($langs->trans("ShowDetails"), "chevron-down", 'id="expandtoproduce' . $line->id . '"');
 							if (empty($config->use_javascript_ajax)) {
 								print '</a>';
 							}
@@ -1232,7 +1232,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 						if ($tmpproduct->isStockManaged()) {
 							// When STOCK_CONSUMPTION_FROM_MANUFACTURING_WAREHOUSE is set, we always use the warehouse of the MO, the same than production.
 							if (getDolGlobalString('STOCK_CONSUMPTION_FROM_MANUFACTURING_WAREHOUSE') && $tmpwarehouse->id > 0) {
-								print img_picto('', $tmpwarehouse->picto) . " " . $tmpwarehouse->label;
+								print img_picture('', $tmpwarehouse->picture) . " " . $tmpwarehouse->label;
 							} else {
 								if ($line->fk_warehouse > 0) {
 									$warehouseline = new Entrepot($db);
@@ -1287,7 +1287,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 							$href = $_SERVER["PHP_SELF"] . '?id=' . ((int) $object->id) . '&action=editline&token=' . newToken() . '&lineid=' . ((int) $line->id);
 							print '<td class="center">';
 							print '<a class="reposition editfielda" href="' . $href . '">';
-							print img_picto($langs->trans('TooltipEditAndRevertStockMovement'), 'edit');
+							print img_picture($langs->trans('TooltipEditAndRevertStockMovement'), 'edit');
 							print '</a>';
 							print '</td>';
 						}
@@ -1297,7 +1297,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 							$href = $_SERVER["PHP_SELF"] . '?id=' . ((int) $object->id) . '&action=deleteline&token=' . newToken() . '&lineid=' . ((int) $line->id);
 							print '<td class="center">';
 							print '<a class="reposition" href="' . $href . '">';
-							print img_picto($langs->trans('TooltipDeleteAndRevertStockMovement'), 'delete');
+							print img_picture($langs->trans('TooltipDeleteAndRevertStockMovement'), 'delete');
 							print '</a>';
 							print '</td>';
 						}
@@ -1324,7 +1324,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 						// Date
 						print '<td>';
 						$tmpstockmovement->id = $line2['fk_stock_movement'];
-						print '<a href="'.DOL_URL_ROOT.'/product/stock/movement_list.php?search_ref='.$tmpstockmovement->id.'">'.img_picto($langs->trans("StockMovement"), 'movement', 'class="paddingright"').'</a>';
+						print '<a href="'.DOL_URL_ROOT.'/product/stock/movement_list.php?search_ref='.$tmpstockmovement->id.'">'.img_picture($langs->trans("StockMovement"), 'movement', 'class="paddingright"').'</a>';
 						print dol_print_date($line2['date'], 'dayhour', 'tzuserrel');
 						print '</td>';
 
@@ -1378,7 +1378,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 							$href = $_SERVER["PHP_SELF"] . '?id=' . ((int) $object->id) . '&action=editline&token=' . newToken() . '&lineid=' . ((int) $line2['rowid']);
 							print '<td class="center">';
 							print '<a class="reposition" href="' . $href . '">';
-							print img_picto($langs->trans('TooltipEditAndRevertStockMovement'), 'edit');
+							print img_picture($langs->trans('TooltipEditAndRevertStockMovement'), 'edit');
 							print '</a>';
 							print '</td>';
 						}
@@ -1388,7 +1388,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 							$href = $_SERVER["PHP_SELF"].'?id='.((int) $object->id).'&action=deleteline&token='.newToken().'&lineid='.((int) $line2['rowid']).'&fk_movement='.((int) $line2['fk_stock_movement']);
 							print '<td class="center">';
 							print '<a class="reposition" href="'.$href.'">';
-							print img_picto($langs->trans('TooltipDeleteAndRevertStockMovement'), 'delete');
+							print img_picture($langs->trans('TooltipDeleteAndRevertStockMovement'), 'delete');
 							print '</a>';
 							print '</td>';
 						}
@@ -1463,13 +1463,13 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 						// Split
 						$type = 'batch';
 						print '<td align="right" class="split">';
-						print ' '.img_picto($langs->trans('AddStockLocationLine'), 'split.png', 'class="splitbutton" onClick="addDispatchLine('.((int) $line->id).', \''.dol_escape_js($type).'\', \'qtymissingconsume\')"');
+						print ' '.img_picture($langs->trans('AddStockLocationLine'), 'split.png', 'class="splitbutton" onClick="addDispatchLine('.((int) $line->id).', \''.dol_escape_js($type).'\', \'qtymissingconsume\')"');
 						print '</td>';
 
 						// Split All
 						print '<td align="right" class="splitall">';
 						if (($action == 'consumeorproduce' || $action == 'consumeandproduceall') && $tmpproduct->status_batch == 2) {
-							print img_picto($langs->trans('SplitAllQuantity'), 'split.png', 'class="splitbutton splitallbutton field-error-icon" data-max-qty="1" onClick="addDispatchLine('.$line->id.', \'batch\', \'allmissingconsume\')"');
+							print img_picture($langs->trans('SplitAllQuantity'), 'split.png', 'class="splitbutton splitallbutton field-error-icon" data-max-qty="1" onClick="addDispatchLine('.$line->id.', \'batch\', \'allmissingconsume\')"');
 						}
 						print '</td>';
 
@@ -1719,7 +1719,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 						if (empty($config->use_javascript_ajax)) {
 							print '<a href="'.$_SERVER["PHP_SELF"].'?collapse='.$collapse.','.$line->id.'">';
 						}
-						print img_picto($langs->trans("ShowDetails"), "chevron-down", 'id="expandtoproduce'.$line->id.'"');
+						print img_picture($langs->trans("ShowDetails"), "chevron-down", 'id="expandtoproduce'.$line->id.'"');
 						if (empty($config->use_javascript_ajax)) {
 							print '</a>';
 						}
@@ -1749,7 +1749,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 							$href .= '&lineid='.$line->id;
 							print '<td class="center">';
 							print '<a class="reposition" href="'.$href.'">';
-							print img_picto($langs->trans('TooltipDeleteAndRevertStockMovement'), "delete");
+							print img_picture($langs->trans('TooltipDeleteAndRevertStockMovement'), "delete");
 							print '</a>';
 							print '</td>';
 						} else {
@@ -1764,7 +1764,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 						// Product
 						print '<td>';
 						$tmpstockmovement->id = $line2['fk_stock_movement'];
-						print '<a href="'.DOL_URL_ROOT.'/product/stock/movement_list.php?search_ref='.$tmpstockmovement->id.'">'.img_picto($langs->trans("StockMovement"), 'movement', 'class="paddingright"').'</a>';
+						print '<a href="'.DOL_URL_ROOT.'/product/stock/movement_list.php?search_ref='.$tmpstockmovement->id.'">'.img_picture($langs->trans("StockMovement"), 'movement', 'class="paddingright"').'</a>';
 						print dol_print_date($line2['date'], 'dayhour', 'tzuserrel');
 						print '</td>';
 						// Qty
@@ -1874,16 +1874,16 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 								print '<input type="text" class="width75" name="batchtoproduce-'.$line->id.'-'.$i.'" value="'.$preselected.'">';
 							}
 							print '</td>';
-							// Batch number in same column than the stock movement picto
+							// Batch number in same column than the stock movement picture
 							if ($tmpproduct->status_batch) {
 								$type = 'batch';
 								print '<td align="right" class="split">';
-								print img_picto($langs->trans('AddStockLocationLine'), 'split.png', 'class="splitbutton" onClick="addDispatchLine('.$line->id.', \''.$type.'\', \'qtymissing\')"');
+								print img_picture($langs->trans('AddStockLocationLine'), 'split.png', 'class="splitbutton" onClick="addDispatchLine('.$line->id.', \''.$type.'\', \'qtymissing\')"');
 								print '</td>';
 
 								print '<td align="right"  class="splitall">';
 								if (($action == 'consumeorproduce' || $action == 'consumeandproduceall') && $tmpproduct->status_batch == 2) {
-									print img_picto($langs->trans('SplitAllQuantity'), 'split.png', 'class="splitbutton splitallbutton field-error-icon" onClick="addDispatchLine('.$line->id.', \'batch\', \'alltoproduce\')"');
+									print img_picture($langs->trans('SplitAllQuantity'), 'split.png', 'class="splitbutton splitallbutton field-error-icon" onClick="addDispatchLine('.$line->id.', \'batch\', \'alltoproduce\')"');
 								} //
 								print '</td>';
 							} else {

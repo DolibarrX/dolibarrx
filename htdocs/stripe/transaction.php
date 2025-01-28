@@ -192,7 +192,7 @@ if (!$rowid) {
 			if ($txn->type == 'stripe_fee' || $txn->type == 'reserve_transaction') {
 				print "<td>".$txn->type."</td>";
 			} else {
-				print "<td><a href='".$url."' target='_stripe'>".img_picto($langs->trans('ShowInStripe'), 'globe')." ".$txn->source."</a></td>\n";
+				print "<td><a href='".$url."' target='_stripe'>".img_picture($langs->trans('ShowInStripe'), 'globe')." ".$txn->source."</a></td>\n";
 			}
 
 			// Stripe customer
@@ -211,11 +211,11 @@ if (!$rowid) {
 			////if ($charge->metadata->dol_type=="order"){
 			//	$object = new Order($db);
 			//	$object->fetch($charge->metadata->dol_id);
-			//	print "<a href='".DOL_URL_ROOT."/order/card.php?id=".$charge->metadata->dol_id."'>".img_picto('', 'object_order')." ".$object->ref."</a>";
+			//	print "<a href='".DOL_URL_ROOT."/order/card.php?id=".$charge->metadata->dol_id."'>".img_picture('', 'object_order')." ".$object->ref."</a>";
 			//} elseif ($charge->metadata->dol_type=="invoice"){
 			//	$object = new Facture($db);
 			//	$object->fetch($charge->metadata->dol_id);
-			//	print "<a href='".DOL_URL_ROOT."/compta/facture/card.php?facid=".$charge->metadata->dol_id."'>".img_picto('', 'object_invoice')." ".$object->ref."</a>";
+			//	print "<a href='".DOL_URL_ROOT."/compta/facture/card.php?facid=".$charge->metadata->dol_id."'>".img_picture('', 'object_invoice')." ".$object->ref."</a>";
 			//}
 			//print "</td>\n";
 			// Date payment
@@ -228,11 +228,11 @@ if (!$rowid) {
 			// Status
 			print "<td class='right'>";
 			if ($txn->status == 'available') {
-				print img_picto($langs->trans($txn->status), 'statut4');
+				print img_picture($langs->trans($txn->status), 'statut4');
 			} elseif ($txn->status == 'pending') {
-				print img_picto($langs->trans($txn->status), 'statut7');
+				print img_picture($langs->trans($txn->status), 'statut7');
 			} elseif ($txn->status == 'failed') {
-				print img_picto($langs->trans($txn->status), 'statut8');
+				print img_picture($langs->trans($txn->status), 'statut8');
 			}
 			print '</td>';
 			print "</tr>\n";

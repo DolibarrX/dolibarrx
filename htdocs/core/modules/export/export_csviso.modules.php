@@ -56,7 +56,7 @@ class ExportCsvIso extends ExportCsv
 		$this->label = 'CSV ISO-8859-1'; // Label of driver
 		$this->desc = $langs->trans("CSVFormatDesc", $this->separator, $this->enclosure, $this->escape);
 		$this->extension = 'csv'; // Extension for generated file by this driver
-		$this->picto = 'mime/other'; // Picto
+		$this->picture = 'mime/other'; // Picto
 		$this->version = '1.32'; // Driver version
 
 		// If driver use an external library, put its name here

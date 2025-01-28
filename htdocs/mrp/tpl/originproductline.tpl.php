@@ -71,7 +71,7 @@ if ($res) {
 		print ' ' . $langs->trans("or") . ' ';
 		print $tmpbom->getNomUrl(1);
 		print ' <a class="collapse_bom" id="collapse-' . $line->id . '" href="#">';
-		print(!getDolGlobalString('BOM_SHOW_ALL_BOM_BY_DEFAULT') ? img_picto('', 'folder') : img_picto('', 'folder-open'));
+		print(!getDolGlobalString('BOM_SHOW_ALL_BOM_BY_DEFAULT') ? img_picture('', 'folder') : img_picture('', 'folder-open'));
 	}
 	print '</a>';
 } else {
@@ -79,7 +79,7 @@ if ($res) {
 }
 print '</td>';
 // Qty
-print '<td class="right">'.$this->tpl['qty'].(($this->tpl['efficiency'] > 0 && $this->tpl['efficiency'] < 1) ? ' / '.$form->textwithpicto($this->tpl['efficiency'], $langs->trans("ValueOfMeansLoss")).' = '.$qtytoconsumeforline : '').'</td>';
+print '<td class="right">'.$this->tpl['qty'].(($this->tpl['efficiency'] > 0 && $this->tpl['efficiency'] < 1) ? ' / '.$form->textWithPicture($this->tpl['efficiency'], $langs->trans("ValueOfMeansLoss")).' = '.$qtytoconsumeforline : '').'</td>';
 // Unit
 print '<td class="right">'.measuringUnitString($this->tpl['fk_unit'], '', '', 1).'</td>';
 // Stock

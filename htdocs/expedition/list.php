@@ -1035,13 +1035,13 @@ $resHook = $hookManager->executeHooks('printFieldListSearchParam', $parameters, 
 $param .= $hookManager->resPrint;
 
 $arrayofmassactions = array(
-	'generate_doc' => img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("ReGeneratePDF"),
-	'builddoc' => img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
-	'classifyclose' => img_picto('', 'stop-circle', 'class="pictofixedwidth"').$langs->trans("Close"),
-	'presend'  => img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
+	'generate_doc' => img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("ReGeneratePDF"),
+	'builddoc' => img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
+	'classifyclose' => img_picture('', 'stop-circle', 'class="picturefixedwidth"').$langs->trans("Close"),
+	'presend'  => img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
 );
 if ($user->hasRight('facture', 'creer')) {
-	$arrayofmassactions['createbills'] = img_picto('', 'bill', 'class="pictofixedwidth"').$langs->trans("CreateInvoiceForThisCustomerFromSendings");
+	$arrayofmassactions['createbills'] = img_picture('', 'bill', 'class="picturefixedwidth"').$langs->trans("CreateInvoiceForThisCustomerFromSendings");
 }
 if (in_array($massaction, array('presend', 'createbills'))) {
 	$arrayofmassactions = array();
@@ -1143,7 +1143,7 @@ if ($user->hasRight('user', 'user', 'lire')) {
 	$langs->load("commercial");
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('ThirdPartiesOfSaleRepresentative');
-	$moreforfilter .= img_picto($tmptitle, 'user', 'class="pictofixedwidth"');
+	$moreforfilter .= img_picture($tmptitle, 'user', 'class="picturefixedwidth"');
 	$moreforfilter .= $formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $tmptitle, 'maxwidth200');
 	$moreforfilter .= '</div>';
 }
@@ -1151,7 +1151,7 @@ if ($user->hasRight('user', 'user', 'lire')) {
 if ($user->hasRight('user', 'user', 'lire')) {
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('LinkedToSpecificUsers');
-	$moreforfilter .= img_picto($tmptitle, 'user', 'class="pictofixedwidth"');
+	$moreforfilter .= img_picture($tmptitle, 'user', 'class="picturefixedwidth"');
 	$moreforfilter .= $form->select_dolusers($search_user, 'search_user', $tmptitle, '', 0, '', '', 0, 0, 0, '', 0, '', 'maxwidth200');
 	$moreforfilter .= '</div>';
 }
@@ -1160,7 +1160,7 @@ if (isModEnabled('category') && $user->hasRight('category', 'lire') && ($user->h
 	include_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('IncludingProductWithTag');
-	$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"');
+	$moreforfilter .= img_picture($tmptitle, 'category', 'class="picturefixedwidth"');
 	//$cate_arbo = $form->select_all_categories(Category::TYPE_PRODUCT, null, 'parent', null, null, 1);
 	//$moreforfilter .= $form->selectarray('search_product_category', $cate_arbo, $search_product_category, 1, 0, 0, '', 0, 0, 0, 0, 'maxwidth300', 1);
 	$moreforfilter .= $formother->select_categories(Category::TYPE_PRODUCT, $search_product_category, 'search_product_category', 1, $tmptitle);
@@ -1171,7 +1171,7 @@ if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('CustomersProspectsCategoriesShort');
-	$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"');
+	$moreforfilter .= img_picture($tmptitle, 'category', 'class="picturefixedwidth"');
 	$moreforfilter .= $formother->select_categories('customer', $search_categ_cus, 'search_categ_cus', 1, $tmptitle);
 	$moreforfilter .= '</div>';
 }
@@ -1204,8 +1204,8 @@ print '<tr class="liste_titre_filter">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons('left');
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons('left');
+	print $searchPicture;
 	print '</td>';
 }
 // Ref
@@ -1359,8 +1359,8 @@ if (!empty($arrayfields['e.billed']['checked'])) {
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '</tr>'."\n";
@@ -1619,7 +1619,7 @@ while ($i < $imaxinloop) {
 			if (empty($object->trueWeight)) {
 				$tmparray = $object->getTotalWeightVolume();
 				print showDimensionInBestUnit($tmparray['weight'], 0, "weight", $langs, getDolGlobalInt('MAIN_WEIGHT_DEFAULT_ROUND', -1), isset($config->global->MAIN_WEIGHT_DEFAULT_UNIT) ? $config->global->MAIN_WEIGHT_DEFAULT_UNIT : 'no');
-				print $form->textwithpicto('', $langs->trans('EstimatedWeight'), 1);
+				print $form->textWithPicture('', $langs->trans('EstimatedWeight'), 1);
 			} else {
 				print $object->trueWeight;
 				print ($object->trueWeight && $object->weight_units != '') ? ' '.measuringUnitString(0, "weight", (string) $object->weight_units) : '';

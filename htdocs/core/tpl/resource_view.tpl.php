@@ -110,7 +110,7 @@ if ((array) $linked_resources && count($linked_resources) > 0) {
 			print '</a>';
 			print '&nbsp;';
 			print '<a class="marginleftonly marginrightonly" href="'.$_SERVER['PHP_SELF'].'?action=delete_resource&token='.newToken().'&id='.$linked_resource['resource_id'].'&element='.$element.'&element_id='.$element_id.'&lineid='.$linked_resource['rowid'].'">';
-			print img_picto($langs->trans("Unlink"), 'unlink');
+			print img_picture($langs->trans("Unlink"), 'unlink');
 			print '</a>';
 			print '</div>';
 

@@ -121,7 +121,7 @@ $coldisplay++;
 		<?php
 		if (empty($canchangeproduct)) {
 			if ($line->fk_parent_line > 0) {
-				echo img_picto('', 'rightarrow');
+				echo img_picture('', 'rightarrow');
 			} ?>
 			<a href="<?php echo DOL_URL_ROOT.'/product/card.php?id='.$line->fk_product; ?>">
 			<?php
@@ -271,7 +271,7 @@ $coldisplay++;
 		// I comment warning of stock because it shows the info even when it should not.
 		// for example always visible on invoice but must be visible only if stock module on and stock decrease option is on invoice validation and status is not validated
 		// must also not be output for most entities (proposal, intervention, ...)
-		//if($line->qty > $line->stock) print img_picto($langs->trans("StockTooLow"),"warning", 'style="vertical-align: bottom;"')." ";
+		//if($line->qty > $line->stock) print img_picture($langs->trans("StockTooLow"),"warning", 'style="vertical-align: bottom;"')." ";
 		print '<input size="3" type="text" class="flat right" name="qty" id="qty" value="'.(GETPOSTISSET('qty') ? GETPOST('qty') : $line->qty).'"';
 		if ($situationinvoicelinewithparent) {	// Do not allow editing during a situation cycle
 			print ' readonly';

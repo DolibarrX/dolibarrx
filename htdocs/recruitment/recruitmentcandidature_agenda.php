@@ -146,7 +146,7 @@ if ($object->id > 0) {
 	$head = recruitmentCandidaturePrepareHead($object);
 
 
-	print dol_get_fiche_head($head, 'agenda', $langs->trans("RecruitmentCandidature"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'agenda', $langs->trans("RecruitmentCandidature"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------
@@ -224,7 +224,7 @@ if ($object->id > 0) {
 		$backtopageurl = urlencode($_SERVER['PHP_SELF'].'?id='.$objthirdparty->id);
 		$out .= (!empty($objcon->id) ? '&amp;contactid='.$objcon->id : '').'&amp;backtopage='.$backtopageurl;
 		//$out.=$langs->trans("AddAnAction").' ';
-		//$out.=img_picto($langs->trans("AddAnAction"),'filenew');
+		//$out.=img_picture($langs->trans("AddAnAction"),'filenew');
 		//$out.="</a>";
 	}
 

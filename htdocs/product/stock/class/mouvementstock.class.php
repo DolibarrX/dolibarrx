@@ -1118,7 +1118,7 @@ class MouvementStock extends CommonObject
 	}
 
 	/**
-	 *  Return html string with picto for type of movement
+	 *  Return html string with picture for type of movement
 	 *
 	 *	@param	int		$withlabel			With label
 	 *	@return	string					    String with URL
@@ -1159,23 +1159,23 @@ class MouvementStock extends CommonObject
 	}
 
 	/**
-	 *  Return a link (with optionally the picto)
+	 *  Return a link (with optionally the picture)
 	 * 	Use this->id,this->lastname, this->firstname
 	 *
-	 *	@param	int		$withpicto			Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
+	 *	@param	int		$withPicture			Include picture in link (0=No picture, 1=Include picture into link, 2=Only picture)
 	 *	@param	string	$option				On what the link point to ('' = Tab of stock movement of warehouse, 'movements' = list of movements)
 	 *  @param	integer	$notooltip			1=Disable tooltip
 	 *  @param	int		$maxlen				Max length of visible user name
 	 *  @param  string  $morecss            Add more css on link
 	 *	@return	string						String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $maxlen = 24, $morecss = '')
+	public function getNomUrl($withPicture = 0, $option = '', $notooltip = 0, $maxlen = 24, $morecss = '')
 	{
 		global $langs, $config, $db;
 
 		$result = '';
 
-		$label = img_picto('', 'stock', 'class="pictofixedwidth"').'<u>'.$langs->trans("StockMovement").'</u>';
+		$label = img_picture('', 'stock', 'class="picturefixedwidth"').'<u>'.$langs->trans("StockMovement").'</u>';
 		$label .= '<div width="100%">';
 		$label .= '<b>'.$langs->trans('Ref').':</b> '.$this->id;
 		$label .= '<br><b>'.$langs->trans('Label').':</b> '.$this->label;
@@ -1204,9 +1204,9 @@ class MouvementStock extends CommonObject
 		$link .= '>';
 		$linkend = '</a>';
 
-		if ($withpicto) {
+		if ($withPicture) {
 			$result .= ($link.img_object(($notooltip ? '' : $label), 'stock', ($notooltip ? '' : 'class="classfortooltip"')).$linkend);
-			if ($withpicto != 2) {
+			if ($withPicture != 2) {
 				$result .= ' ';
 			}
 		}
@@ -1240,13 +1240,13 @@ class MouvementStock extends CommonObject
 		if ($mode == 0 || $mode == 1) {
 			return $langs->trans('StatusNotApplicable');
 		} elseif ($mode == 2) {
-			return img_picto($langs->trans('StatusNotApplicable'), 'statut9').' '.$langs->trans('StatusNotApplicable');
+			return img_picture($langs->trans('StatusNotApplicable'), 'statut9').' '.$langs->trans('StatusNotApplicable');
 		} elseif ($mode == 3) {
-			return img_picto($langs->trans('StatusNotApplicable'), 'statut9');
+			return img_picture($langs->trans('StatusNotApplicable'), 'statut9');
 		} elseif ($mode == 4) {
-			return img_picto($langs->trans('StatusNotApplicable'), 'statut9').' '.$langs->trans('StatusNotApplicable');
+			return img_picture($langs->trans('StatusNotApplicable'), 'statut9').' '.$langs->trans('StatusNotApplicable');
 		} elseif ($mode == 5) {
-			return $langs->trans('StatusNotApplicable').' '.img_picto($langs->trans('StatusNotApplicable'), 'statut9');
+			return $langs->trans('StatusNotApplicable').' '.img_picture($langs->trans('StatusNotApplicable'), 'statut9');
 		}
 
 		return 'Bad value for mode';

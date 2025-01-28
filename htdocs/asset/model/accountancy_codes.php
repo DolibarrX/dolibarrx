@@ -144,7 +144,7 @@ llxHeader('', $langs->trans('AssetModel'), $help_url, '', 0, 0, '', '', '', 'mod
 
 if ($id > 0 || !empty($ref)) {
 	$head = assetModelPrepareHead($object);
-	print dol_get_fiche_head($head, 'accountancy_codes', $langs->trans("AssetModel"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'accountancy_codes', $langs->trans("AssetModel"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------

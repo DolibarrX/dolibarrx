@@ -140,9 +140,9 @@ if (!empty($config->use_javascript_ajax)) {
 	print ajax_constantonoff('MAIN_SECURITY_ENABLECAPTCHA', array(), null, 0, 0, 1);
 } else {
 	if (!getDolGlobalString('MAIN_SECURITY_ENABLECAPTCHA')) {
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MAIN_SECURITY_ENABLECAPTCHA&token='.newToken().'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MAIN_SECURITY_ENABLECAPTCHA&token='.newToken().'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 	} else {
-		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MAIN_SECURITY_ENABLECAPTCHA&token='.newToken().'">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
+		print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MAIN_SECURITY_ENABLECAPTCHA&token='.newToken().'">'.img_picture($langs->trans("Enabled"), 'on').'</a>';
 	}
 }
 
@@ -153,9 +153,9 @@ if (isModEnabled('ticket')) {
 		print ajax_constantonoff('MAIN_SECURITY_ENABLECAPTCHA_TICKET', array(), null, 0, 0, 1);
 	} else {
 		if (!getDolGlobalString('MAIN_SECURITY_ENABLECAPTCHA_TICKET')) {
-			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MAIN_SECURITY_ENABLECAPTCHA_TICKET&token='.newToken().'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+			print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MAIN_SECURITY_ENABLECAPTCHA_TICKET&token='.newToken().'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 		} else {
-			print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MAIN_SECURITY_ENABLECAPTCHA_TICKET&token='.newToken().'">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
+			print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MAIN_SECURITY_ENABLECAPTCHA_TICKET&token='.newToken().'">'.img_picture($langs->trans("Enabled"), 'on').'</a>';
 		}
 	}
 }
@@ -187,7 +187,7 @@ if ($showavailablecaptcha) {
 	foreach ($arrayhandler as $key => $module) {
 		print '<tr class="oddeven">';
 		print '<td>';
-		print img_picto('', $module->picto, 'class="width25 size15x marginrightonly"').' ';
+		print img_picture('', $module->picture, 'class="width25 size15x marginrightonly"').' ';
 		print ucfirst($key);
 		print '</td>';
 		print '<td>';
@@ -201,13 +201,13 @@ if ($showavailablecaptcha) {
 		if (function_exists("imagecreatefrompng")) {
 			if ($key != $selectedcaptcha) {
 				print '<a href="'.$_SERVER['PHP_SELF'].'?action=setcaptchahandler&token='.newToken().'&value='.$key.'">';
-				print img_picto($langs->trans("Disabled"), 'switch_off');
+				print img_picture($langs->trans("Disabled"), 'switch_off');
 				print '</a>';
 			} else {
-				print img_picto($langs->trans("Enabled"), 'switch_on');
+				print img_picture($langs->trans("Enabled"), 'switch_on');
 			}
 		} else {
-			$desc = $form->textwithpicto('', $langs->transnoentities("EnableGDLibraryDesc"), 1, 'warning');
+			$desc = $form->textWithPicture('', $langs->transnoentities("EnableGDLibraryDesc"), 1, 'warning');
 			print $desc;
 		}
 

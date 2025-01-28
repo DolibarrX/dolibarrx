@@ -164,7 +164,7 @@ while ($tmpecmdir && $result > 0) {
 
 $urlfiletoshow = preg_replace('/\.noexe$/', '', $urlfile);
 
-$s = img_picto('', 'object_dir').' <a href="'.DOL_URL_ROOT.'/ecm/index.php">'.$langs->trans("ECMRoot").'</a> -> '.$s.' -> ';
+$s = img_picture('', 'object_dir').' <a href="'.DOL_URL_ROOT.'/ecm/index.php">'.$langs->trans("ECMRoot").'</a> -> '.$s.' -> ';
 if ($action == 'edit') {
 	$s .= '<input type="text" name="label" class="quatrevingtpercent" value="'.$urlfiletoshow.'">';
 } else {

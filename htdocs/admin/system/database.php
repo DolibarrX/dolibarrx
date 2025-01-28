@@ -94,7 +94,7 @@ print '<tr class="oddeven"><td width="300">'.$langs->trans("Password").'</td><td
 print '<tr class="oddeven"><td width="300">'.$langs->trans("DBStoringCharset").'</td><td>'.$db->getDefaultCharacterSetDatabase();
 if ($db->type == 'mysqli') {
 	$tooltipexample = "<br>SHOW VARIABLES LIKE 'character_set_database' (cached)<br>You can avoid cache effect with:<br>SELECT DEFAULT_CHARACTER_SET_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = '".$db->escape($config->db->name)."'";
-	print ' '.$form->textwithpicto('', $langs->transnoentitiesnoconv("HelpMariaDBToGetValue", $tooltipexample.'<br>'.$langs->transnoentitiesnoconv("HelpMariaDBToGetPossibleValues", "<br>SHOW CHARSET")));
+	print ' '.$form->textWithPicture('', $langs->transnoentitiesnoconv("HelpMariaDBToGetValue", $tooltipexample.'<br>'.$langs->transnoentitiesnoconv("HelpMariaDBToGetPossibleValues", "<br>SHOW CHARSET")));
 	// We can use $db->getDefaultCharacterSetDatabase(),  $db->getListOfCharacterSet(),
 }
 print '</td></tr>'."\n";
@@ -107,7 +107,7 @@ if ($db->type == 'mysqli') {
 		print img_warning('The database default value of collation '.$defaultcollation.' differs from conf setup '.$config->db->dolibarr_main_db_collation);
 	}
 	$tooltipexample = "<br>SHOW VARIABLES LIKE 'collation_database' (cached)<br>You can avoid cache effect with:<br>SELECT DEFAULT_COLLATION_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME = '".$db->escape($config->db->name)."'";
-	print ' '.$form->textwithpicto('', $langs->transnoentitiesnoconv("HelpMariaDBToGetValue", $tooltipexample.'<br>'.$langs->transnoentitiesnoconv("HelpMariaDBToGetPossibleValues", "<br>SHOW COLLATION")));
+	print ' '.$form->textWithPicture('', $langs->transnoentitiesnoconv("HelpMariaDBToGetValue", $tooltipexample.'<br>'.$langs->transnoentitiesnoconv("HelpMariaDBToGetPossibleValues", "<br>SHOW COLLATION")));
 	// We can use $db->getDefaultCollationDatabase(), $db->getListOfCollation();
 
 	print ' &nbsp; &nbsp; &nbsp; <span class="opacitymedium small">'.$langs->trans("ConvertInto");
@@ -133,7 +133,7 @@ print '<br>';
 print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent">';
 print '<tr class="liste_titre"><td colspan="2">'.$langs->trans("Tables").'</td></tr>'."\n";
-print '<tr class="oddeven"><td class=""><a href="'.DOL_URL_ROOT.'/admin/system/database-tables.php?mainmenu=home">'.img_picto('', 'list', 'class="pictofixedwidth"').$langs->trans("List").'</a></td></tr>'."\n";
+print '<tr class="oddeven"><td class=""><a href="'.DOL_URL_ROOT.'/admin/system/database-tables.php?mainmenu=home">'.img_picture('', 'list', 'class="picturefixedwidth"').$langs->trans("List").'</a></td></tr>'."\n";
 print '</table>';
 print '</div>';
 
@@ -192,11 +192,11 @@ if (!count($listofvars) && !count($listofstatus)) {
 			}
 			if ($show == 1) {
 				// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
-				print $form->textwithpicto($paramval, $text);
+				print $form->textWithPicture($paramval, $text);
 			}
 			if ($show == 2) {
 				// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
-				print $form->textwithpicto($paramval, $text, 1, 'warning');
+				print $form->textWithPicture($paramval, $text, 1, 'warning');
 			}
 			print '</td>';
 			print '</tr>'."\n";

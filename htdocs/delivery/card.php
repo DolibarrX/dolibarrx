@@ -348,7 +348,7 @@ if ($action == 'create') {
 				$langs->load("projects");
 				$morehtmlref .= '<br>';
 				if (0) {	// Do not change on shipment
-					$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+					$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 					if ($action != 'classify') {
 						$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 					}
@@ -467,7 +467,7 @@ if ($action == 'create') {
 				print '</td>';
 				print '<td colspan="3">';
 				if ($action != 'editincoterm') {
-					print $form->textwithpicto($object->display_incoterms(), $object->label_incoterms, 1);
+					print $form->textWithPicture($object->display_incoterms(), $object->label_incoterms, 1);
 				} else {
 					print $form->select_incoterms((!empty($object->fk_incoterms) ? $object->fk_incoterms : ''), (!empty($object->location_incoterms) ? $object->location_incoterms : ''), $_SERVER['PHP_SELF'].'?id='.$object->id);
 				}

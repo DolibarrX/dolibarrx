@@ -96,7 +96,7 @@ class box_graph_nb_ticket_last_x_days extends ModeleBoxes
 			$days = 7;
 		}
 		require_once DOL_DOCUMENT_ROOT."/ticket/class/ticket.class.php";
-		$text = $langs->trans("BoxTicketLastXDays", $days).'&nbsp;'.img_picto('', 'filter.png', 'id="idsubimgDOLUSER_ticket_last_days" class="linkobject"');
+		$text = $langs->trans("BoxTicketLastXDays", $days).'&nbsp;'.img_picture('', 'filter.png', 'id="idsubimgDOLUSER_ticket_last_days" class="linkobject"');
 		$this->info_box_head = array(
 			'text' => $text,
 			'limit' => dol_strlen($text)
@@ -151,7 +151,7 @@ class box_graph_nb_ticket_last_x_days extends ModeleBoxes
 			$stringtoshow .= '<input type="hidden" name="action" value="refresh">';
 			$stringtoshow .= '<input type="hidden" name="DOL_AUTOSET_COOKIE" value="DOLUSER_ticket_last_days:days">';
 			$stringtoshow .= ' <input class="flat" size="4" type="text" name="'.$param_day.'" value="'.$days.'">'.$langs->trans("Days");
-			$stringtoshow .= '<input type="image" alt="'.$langs->trans("Refresh").'" src="'.img_picto($langs->trans("Refresh"), 'refresh.png', '', 0, 1).'">';
+			$stringtoshow .= '<input type="image" alt="'.$langs->trans("Refresh").'" src="'.img_picture($langs->trans("Refresh"), 'refresh.png', '', 0, 1).'">';
 			$stringtoshow .= '</form>';
 			$stringtoshow .= '</div>';
 
@@ -209,7 +209,7 @@ class box_graph_nb_ticket_last_x_days extends ModeleBoxes
 	/**
 	 *	Method to show box.  Called when the box needs to be displayed.
 	 *
-	 *	@param	?array<array{text?:string,sublink?:string,subtext?:string,subpicto?:?string,picto?:string,nbcol?:int,limit?:int,subclass?:string,graph?:int<0,1>,target?:string}>   $head       Array with properties of box title
+	 *	@param	?array<array{text?:string,sublink?:string,subtext?:string,subpicture?:?string,picture?:string,nbcol?:int,limit?:int,subclass?:string,graph?:int<0,1>,target?:string}>   $head       Array with properties of box title
 	 *	@param	?array<array{tr?:string,td?:string,target?:string,text?:string,text2?:string,textnoformat?:string,tooltip?:string,logo?:string,url?:string,maxlength?:int,asis?:int<0,1>}>   $contents   Array with properties of box lines
 	 *	@param	int<0,1>	$nooutput	No print, only return string
 	 *	@return	string

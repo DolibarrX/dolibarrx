@@ -57,7 +57,7 @@ class modSimpleAccounting extends DolibarrModules
 		$this->version = 'dolibarr';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'accountancy';
+		$this->picture = 'accountancy';
 
 		// Config pages
 		$this->config_page_url = array("compta.php");

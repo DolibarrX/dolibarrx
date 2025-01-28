@@ -60,7 +60,7 @@ class modAgenda extends DolibarrModules
 		$this->version = 'dolibarr';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'action';
+		$this->picture = 'action';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/agenda/temp");
@@ -217,7 +217,7 @@ class modAgenda extends DolibarrModules
 			'fk_menu' => 0,
 			'type' => 'top',
 			'titre' => 'TMenuAgenda',
-			'prefix' => img_picto('', $this->picto, 'class="pictofixedwidth"'),
+			'prefix' => img_picture('', $this->picture, 'class="picturefixedwidth"'),
 			'mainmenu' => 'agenda',
 			'url' => '/comm/action/index.php',
 			'langs' => 'agenda',
@@ -233,7 +233,7 @@ class modAgenda extends DolibarrModules
 			'fk_menu' => 'r=0',
 			'type' => 'left',
 			'titre' => 'Actions',
-			'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth"'),
+			'prefix' => img_picture('', $this->picture, 'class="paddingright picturefixedwidth"'),
 			'mainmenu' => 'agenda',
 			'url' => '/comm/action/index.php?mainmenu=agenda&amp;leftmenu=agenda',
 			'langs' => 'agenda',
@@ -512,7 +512,7 @@ class modAgenda extends DolibarrModules
 		$r++;
 		$this->import_code[$r] = $this->rights_class.'_'.$r;
 		$this->import_label[$r] = "ExportDataset_event1";
-		$this->import_icon[$r] = $this->picto;
+		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array();
 		$this->import_tables_array[$r] = array('ac' => MAIN_DB_PREFIX.'actioncomm', 'extra' => MAIN_DB_PREFIX.'actioncomm_extrafields');
 		$this->import_tables_creator_array[$r] = array('ac' => 'fk_user_author'); // Fields to store import user id

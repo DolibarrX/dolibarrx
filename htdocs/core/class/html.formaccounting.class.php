@@ -237,7 +237,7 @@ class FormAccounting extends Form
 	 *	@param  string	$htmlname       Name of field in form
 	 * 	@param	int		$useempty		Set to 1 if we want an empty value
 	 * 	@param	int		$maxlen			Max length of text in combo box
-	 * 	@param	int		$help			Add or not the admin help picto
+	 * 	@param	int		$help			Add or not the admin help picture
 	 *  @param  int     $allcountries   All countries
 	 * 	@return	void|string				HTML component with the select
 	 */

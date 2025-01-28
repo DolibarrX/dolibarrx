@@ -129,7 +129,7 @@ if (getDolGlobalString('TAKEPOS_PRINT_METHOD') == "browser" || getDolGlobalStrin
 	$htmltext .= '</i>';
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("FreeLegalTextOnInvoices")." - ".$langs->trans("Header"), $htmltext, 1, 'help', '', 0, 2, 'freetexttooltip').'<br>';
+	print $form->textWithPicture($langs->trans("FreeLegalTextOnInvoices")." - ".$langs->trans("Header"), $htmltext, 1, 'help', '', 0, 2, 'freetexttooltip').'<br>';
 	print '</td><td>';
 	$variablename = 'TAKEPOS_HEADER';
 	if (!getDolGlobalString('PDF_ALLOW_HTML_FOR_FREE_TEXT')) {
@@ -142,7 +142,7 @@ if (getDolGlobalString('TAKEPOS_PRINT_METHOD') == "browser" || getDolGlobalStrin
 	print "</td></tr>\n";
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("FreeLegalTextOnInvoices")." - ".$langs->trans("Footer"), $htmltext, 1, 'help', '', 0, 2, 'freetexttooltip').'<br>';
+	print $form->textWithPicture($langs->trans("FreeLegalTextOnInvoices")." - ".$langs->trans("Footer"), $htmltext, 1, 'help', '', 0, 2, 'freetexttooltip').'<br>';
 	print '</td><td>';
 	$variablename = 'TAKEPOS_FOOTER';
 	if (!getDolGlobalString('PDF_ALLOW_HTML_FOR_FREE_TEXT')) {

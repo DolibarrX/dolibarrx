@@ -150,7 +150,7 @@ if (empty($resHook) && !empty($object->table_element) && isset($extrafields->att
 			if (!empty($extrafields->attributes[$object->table_element]['help'][$tmpkeyextra])) {
 				// You can also use 'TranslationString:keyfortooltiponlick' for a tooltip on click.
 				$tmptooltip = explode(':', $extrafields->attributes[$object->table_element]['help'][$tmpkeyextra]);
-				print $form->textwithpicto($langs->trans($tmplabelextra), $langs->trans($tmptooltip[0]), 1, 'help', '', 0, 3, (empty($tmptooltip[1]) ? '' : 'extra_'.$tmpkeyextra.'_'.$tmptooltip[1]));
+				print $form->textWithPicture($langs->trans($tmplabelextra), $langs->trans($tmptooltip[0]), 1, 'help', '', 0, 3, (empty($tmptooltip[1]) ? '' : 'extra_'.$tmpkeyextra.'_'.$tmptooltip[1]));
 			} else {
 				print $langs->trans($tmplabelextra);
 			}

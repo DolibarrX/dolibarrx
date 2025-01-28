@@ -68,9 +68,9 @@ class FormCron extends Form
 		$out = '';
 		if (!empty($readonly)) {
 			if ($selected == 'command') {
-				$out = img_picto('', 'terminal', 'class="pictofixedwidth marginrightonly"').'<span class="">'.$langs->trans('CronType_command').'</span>';
+				$out = img_picture('', 'terminal', 'class="picturefixedwidth marginrightonly"').'<span class="">'.$langs->trans('CronType_command').'</span>';
 			} elseif ($selected == 'method') {
-				$out = img_picto('', 'code', 'class="pictofixedwidth marginrightonly"').'<span class="">'.$langs->trans('CronType_method').'</span>';
+				$out = img_picture('', 'code', 'class="picturefixedwidth marginrightonly"').'<span class="">'.$langs->trans('CronType_method').'</span>';
 			}
 		} else {
 			$out = '<SELECT class="flat" name="'.$htmlname.'" id="'.$htmlname.'" />';

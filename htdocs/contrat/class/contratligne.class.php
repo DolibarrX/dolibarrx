@@ -422,13 +422,13 @@ class ContratLigne extends CommonObjectLine
 	}
 
 	/**
-	 *	Return clickable name (with picto eventually) for ContratLigne
+	 *	Return clickable name (with picture eventually) for ContratLigne
 	 *
-	 *  @param	int		$withpicto		0=No picto, 1=Include picto into link, 2=Only picto
+	 *  @param	int		$withPicture		0=No picture, 1=Include picture into link, 2=Only picture
 	 *  @param	int		$maxlength		Max length
 	 *  @return	string					Chaine avec URL
 	 */
-	public function getNomUrl($withpicto = 0, $maxlength = 0)
+	public function getNomUrl($withPicture = 0, $maxlength = 0)
 	{
 		global $langs;
 
@@ -454,18 +454,18 @@ class ContratLigne extends CommonObjectLine
 		$link .= $dataparams.' class="'.$classfortooltip.'">';
 		$linkend = '</a>';
 
-		$picto = 'service';
+		$picture = 'service';
 		if ($this->type == 0) {
-			$picto = 'product';
+			$picture = 'product';
 		}
 
-		if ($withpicto) {
-			$result .= ($link.img_object($label, $picto, $dataparams.' class="'.$classfortooltip.'"').$linkend);
+		if ($withPicture) {
+			$result .= ($link.img_object($label, $picture, $dataparams.' class="'.$classfortooltip.'"').$linkend);
 		}
-		if ($withpicto && $withpicto != 2) {
+		if ($withPicture && $withPicture != 2) {
 			$result .= ' ';
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $link.($this->product_ref ? $this->product_ref.' ' : '').($this->label ? $this->label : $this->description).$linkend;
 		}
 		return $result;

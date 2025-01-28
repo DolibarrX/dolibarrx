@@ -1031,7 +1031,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 					$connect = $stripeacc.'/';
 				}
 				$url = 'https://dashboard.stripe.com/'.$connect.'test/customers/'.$tmpstripecu;
-				print ' <a href="'.$url.'" target="_stripe">'.img_picto($langs->trans('ShowInStripe').' - Publishable key = '.$tmpsite_account, 'globe').'</a>';
+				print ' <a href="'.$url.'" target="_stripe">'.img_picture($langs->trans('ShowInStripe').' - Publishable key = '.$tmpsite_account, 'globe').'</a>';
 			}
 			print '</td><td class="right">';
 			if (empty($tmpstripecu)) {
@@ -1039,7 +1039,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 				print '<input type="hidden" name="action" value="synccustomertostripetest">';
 				print '<input type="hidden" name="token" value="'.newToken().'">';
 				print '<input type="hidden" name="socid" value="'.$object->id.'">';
-				print img_picto($langs->trans("CreateCustomerOnStripe"), 'stripe');
+				print img_picture($langs->trans("CreateCustomerOnStripe"), 'stripe');
 				print '<input type="submit" class="buttonlink nomargintop nomarginbottom noborderbottom nopaddingtopimp nopaddingbottomimp" name="syncstripecustomertest" value="'.$langs->trans("CreateCustomerOnStripe").'">';
 				print '</form>';
 			}
@@ -1061,7 +1061,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 					$connect = $stripeacc.'/';
 				}
 				$url = 'https://dashboard.stripe.com/'.$connect.'customers/'.$tmpstripecu;
-				print ' <a href="'.$url.'" target="_stripe">'.img_picto($langs->trans('ShowInStripe').' - Publishable key = '.$tmpsite_account, 'globe').'</a>';
+				print ' <a href="'.$url.'" target="_stripe">'.img_picture($langs->trans('ShowInStripe').' - Publishable key = '.$tmpsite_account, 'globe').'</a>';
 			}
 			print '</td><td class="right">';
 			if (empty($tmpstripecu)) {
@@ -1069,7 +1069,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 				print '<input type="hidden" name="action" value="synccustomertostripe">';
 				print '<input type="hidden" name="token" value="'.newToken().'">';
 				print '<input type="hidden" name="socid" value="'.$object->id.'">';
-				print img_picto($langs->trans("CreateCustomerOnStripe"), 'stripe');
+				print img_picture($langs->trans("CreateCustomerOnStripe"), 'stripe');
 				print '<input type="submit" class="buttonlink nomargintop nomarginbottom noborderbottom nopaddingtopimp nopaddingbottomimp" name="syncstripecustomer" value="'.$langs->trans("CreateCustomerOnStripe").'">';
 				print '</form>';
 			}
@@ -1124,7 +1124,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 			if ($servicestatus) {
 				$url = 'https://dashboard.stripe.com/connect/accounts/'.$stripesupplieracc;
 			}
-			print ' <a href="'.$url.'" target="_stripe">'.img_picto($langs->trans('ShowInStripe').' - Publishable key '.$site_account, 'globe').'</a>';
+			print ' <a href="'.$url.'" target="_stripe">'.img_picture($langs->trans('ShowInStripe').' - Publishable key '.$site_account, 'globe').'</a>';
 		}
 		print '</td><td class="right">';
 		if (empty($stripesupplieracc)) {
@@ -1216,7 +1216,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 		print '<table class="liste centpercent noborder">'."\n";
 		print '<tr class="liste_titre">';
 		print '<td>'.$langs->trans('Label').'</td>';
-		print '<td>'.$form->textwithpicto($langs->trans('ExternalSystemID'), $langs->trans("IDOfPaymentInAnExternalSystem")).'</td>';	// external system ID
+		print '<td>'.$form->textWithPicture($langs->trans('ExternalSystemID'), $langs->trans("IDOfPaymentInAnExternalSystem")).'</td>';	// external system ID
 		print '<td>'.$langs->trans('Type').'</td>';
 		print '<td>'.$langs->trans('Informations').'</td>';
 		print '<td></td>';
@@ -1277,7 +1277,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 									} else {
 										$url = 'https://dashboard.stripe.com/'.$connect.'test/search?query='.$companypaymentmodetemp->stripe_card_ref;
 									}
-									print "<a href='".$url."' target='_stripe'>".img_picto($langs->trans('ShowInStripe').' - '.$companypaymentmodetemp->stripe_account, 'globe')."</a> ";
+									print "<a href='".$url."' target='_stripe'>".img_picture($langs->trans('ShowInStripe').' - '.$companypaymentmodetemp->stripe_account, 'globe')."</a> ";
 								}
 								// TODO Add hook here for other payment services
 							}
@@ -1302,7 +1302,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 							// Country
 							print '<td class="tdoverflowmax100">';
 							if ($companypaymentmodetemp->country_code) {
-								$img = picto_from_langcode($companypaymentmodetemp->country_code);
+								$img = picture_from_langcode($companypaymentmodetemp->country_code);
 								print $img ? $img.' ' : '';
 								print getCountry($companypaymentmodetemp->country_code, '1');
 							} else {
@@ -1313,10 +1313,10 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 							print '<td class="center">';
 							if (empty($companypaymentmodetemp->default_rib)) {
 								print '<a href="'.DOL_URL_ROOT.'/societe/paymentmodes.php?socid='.$object->id.'&id='.$companypaymentmodetemp->id.'&action=setlocalassourcedefault&token='.newToken().'">';
-								print img_picto($langs->trans("Default"), 'off');
+								print img_picture($langs->trans("Default"), 'off');
 								print '</a>';
 							} else {
-								print img_picto($langs->trans("Default"), 'on');
+								print img_picture($langs->trans("Default"), 'on');
 							}
 							print '</td>';
 							if (empty($companypaymentmodetemp->stripe_card_ref)) {
@@ -1342,10 +1342,10 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 								}
 
 								print '<a class="editfielda marginleftonly marginrightonly" href="'.DOL_URL_ROOT.'/societe/paymentmodes.php?socid='.$object->id.'&id='.$companypaymentmodetemp->id.'&action=editcard&token='.newToken().'">';
-								print img_picto($langs->trans("Modify"), 'edit');
+								print img_picture($langs->trans("Modify"), 'edit');
 								print '</a>';
 								print '<a class="marginleftonly marginrightonly" href="'.DOL_URL_ROOT.'/societe/paymentmodes.php?socid='.$object->id.'&id='.$companypaymentmodetemp->id.'&action=deletecard&token='.newToken().'">'; // source='.$companypaymentmodetemp->stripe_card_ref.'&
-								print img_picto($langs->trans("Delete"), 'delete');
+								print img_picture($langs->trans("Delete"), 'delete');
 								print '</a>';
 							}
 							print '</td>';
@@ -1396,7 +1396,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 					//$url='https://dashboard.stripe.com/'.$connect.'sources/'.$src->id;
 					$url = 'https://dashboard.stripe.com/'.$connect.'search?query='.$src->id;
 				}
-				print "<a href='".$url."' target='_stripe'>".img_picto($langs->trans('ShowInStripe'), 'globe')."</a> ";
+				print "<a href='".$url."' target='_stripe'>".img_picture($langs->trans('ShowInStripe'), 'globe')."</a> ";
 				print $src->id;
 				print '</td>';
 				// Img
@@ -1409,7 +1409,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 					print '....'.$src->last4.' - '.$src->exp_month.'/'.$src->exp_year;
 					print '</td><td>';
 					if ($src->country) {
-						$img = picto_from_langcode($src->country);
+						$img = picture_from_langcode($src->country);
 						print $img ? $img.' ' : '';
 						print getCountry($src->country, '1');
 					} else {
@@ -1420,7 +1420,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 					print '</td><td>';
 
 					if ($src->card->country) {
-						$img = picto_from_langcode($src->card->country);
+						$img = picture_from_langcode($src->card->country);
 						print $img ? $img.' ' : '';
 						print getCountry($src->card->country, '1');
 					} else {
@@ -1430,7 +1430,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 					print '<span class="opacitymedium">'.$src->billing_details->name.'</span><br>....'.$src->sepa_debit->last4;
 					print '</td><td>';
 					if ($src->sepa_debit->country) {
-						$img = picto_from_langcode($src->sepa_debit->country);
+						$img = picture_from_langcode($src->sepa_debit->country);
 						print $img ? $img.' ' : '';
 						print getCountry($src->sepa_debit->country, '1');
 					} else {
@@ -1441,7 +1441,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 					print '</td><td>';
 
 					if ($src->card->country) {
-						$img = picto_from_langcode($src->card->country);
+						$img = picture_from_langcode($src->card->country);
 						print $img ? $img.' ' : '';
 						print getCountry($src->card->country, '1');
 					} else {
@@ -1451,7 +1451,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 					print '<span class="opacitymedium">'.$src->billing_details->name.'</span><br>....'.$src->sepa_debit->last4;
 					print '</td><td>';
 					if ($src->sepa_debit->country) {
-						$img = picto_from_langcode($src->sepa_debit->country);
+						$img = picture_from_langcode($src->sepa_debit->country);
 						print $img ? $img.' ' : '';
 						print getCountry($src->sepa_debit->country, '1');
 					} else {
@@ -1466,10 +1466,10 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 				if ((empty($customerstripe->invoice_settings) && $customerstripe->default_source != $src->id) ||
 					(!empty($customerstripe->invoice_settings) && $customerstripe->invoice_settings->default_payment_method != $src->id)) {
 					print '<a href="'.DOL_URL_ROOT.'/societe/paymentmodes.php?socid='.$object->id.'&source='.$src->id.'&action=setassourcedefault&token='.newToken().'">';
-					print img_picto($langs->trans("Default"), 'off');
+					print img_picture($langs->trans("Default"), 'off');
 					print '</a>';
 				} else {
-					print img_picto($langs->trans("Default"), 'on');
+					print img_picture($langs->trans("Default"), 'on');
 				}
 				print '</td>';
 				print '<td>';
@@ -1490,7 +1490,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 				print '<td class="right nowraponall">';
 				if ($permissiontoaddupdatepaymentinformation) {
 					print '<a class="marginleftonly marginrightonly" href="'.DOL_URL_ROOT.'/societe/paymentmodes.php?socid='.$object->id.'&source='.$src->id.'&action=deletecard&token='.newToken().'">';
-					print img_picto($langs->trans("Delete"), 'delete');
+					print img_picture($langs->trans("Delete"), 'delete');
 					print '</a>';
 				}
 				print '</td>';
@@ -1574,7 +1574,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 
 		print '<tr class="liste_titre">';
 		print_liste_field_titre("Label");
-		print_liste_field_titre($form->textwithpicto($langs->trans('ExternalSystemID'), $langs->trans("IDOfPaymentInAnExternalSystem")));		// external system ID
+		print_liste_field_titre($form->textWithPicture($langs->trans('ExternalSystemID'), $langs->trans("IDOfPaymentInAnExternalSystem")));		// external system ID
 		print_liste_field_titre("Bank");
 		print_liste_field_titre("RIB");
 		print_liste_field_titre("IBAN");
@@ -1618,7 +1618,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 					} else {
 						$url = 'https://dashboard.stripe.com/'.$connect.'test/search?query='.$rib->stripe_card_ref;
 					}
-					print "<a href='".$url."' target='_stripe'>".img_picto($langs->trans('ShowInStripe'), 'globe')."</a> ";
+					print "<a href='".$url."' target='_stripe'>".img_picture($langs->trans('ShowInStripe'), 'globe')."</a> ";
 				}
 				// TODO Add hook here for other payment services
 			}
@@ -1646,9 +1646,9 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 				//}
 				if (!empty($rib->label) && $rib->number) {
 					if (!checkBanForAccount($rib)) {
-						$string .= ' '.img_picto($langs->trans("ValueIsNotValid"), 'warning');
+						$string .= ' '.img_picture($langs->trans("ValueIsNotValid"), 'warning');
 					} else {
-						$string .= ' '.img_picto($langs->trans("ValueIsValid"), 'info');
+						$string .= ' '.img_picture($langs->trans("ValueIsValid"), 'info');
 					}
 				}
 			}  // EndFor $rib_list as $rib
@@ -1659,7 +1659,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 			print '<td class="tdoverflowmax100" title="'.dol_escape_htmltag($rib->iban).'">';
 			if (!empty($rib->iban)) {
 				if (!checkIbanForAccount($rib)) {
-					print img_picto($langs->trans("IbanNotValid"), 'warning').' ';
+					print img_picture($langs->trans("IbanNotValid"), 'warning').' ';
 				}
 			}
 			print dol_escape_htmltag($rib->iban);
@@ -1668,7 +1668,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 			print '<td>';
 			if (!empty($rib->bic)) {
 				if (!checkSwiftForAccount($rib)) {
-					print img_picto($langs->trans("SwiftNotValid"), 'warning').' ';
+					print img_picture($langs->trans("SwiftNotValid"), 'warning').' ';
 				}
 			}
 			print dol_escape_htmltag($rib->bic);
@@ -1689,10 +1689,10 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 			print '<td class="center" width="70">';
 			if (!$rib->default_rib) {
 				print '<a href="'.$_SERVER["PHP_SELF"].'?socid='.((int) $object->id).'&ribid='.((int) $rib->id).'&action=setasbankdefault&token='.newToken().'">';
-				print img_picto($langs->trans("Disabled"), 'off');
+				print img_picture($langs->trans("Disabled"), 'off');
 				print '</a>';
 			} else {
-				print img_picto($langs->trans("Enabled"), 'on');
+				print img_picture($langs->trans("Enabled"), 'on');
 			}
 			print '</td>';
 
@@ -1769,22 +1769,22 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 						if ($object->client) {
 							// Add link to create BAN on Stripe
 							print '<a class="editfielda marginrightonly marginleftonly" href="'.$_SERVER["PHP_SELF"].'?socid='.$object->id.'&id='.$rib->id.'&action=syncsepatostripe&token='.newToken().'">';
-							print img_picto($langs->trans("CreateBANOnStripe"), 'stripe');
+							print img_picture($langs->trans("CreateBANOnStripe"), 'stripe');
 							print '</a>';
 						} else {
 							print '<span class="opacitymedium marginrightonly marginleftonly">';
-							print img_picto($langs->trans("ThirdPartyMustBeACustomerToCreateBANOnStripe"), 'stripe');
+							print img_picture($langs->trans("ThirdPartyMustBeACustomerToCreateBANOnStripe"), 'stripe');
 							print '</span>';
 						}
 					}
 				}
 
 				print '<a class="editfielda marginrightonly marginleftonly" href="'.$_SERVER["PHP_SELF"].'?socid='.$object->id.'&id='.$rib->id.'&action=edit">';
-				print img_picto($langs->trans("Modify"), 'edit');
+				print img_picture($langs->trans("Modify"), 'edit');
 				print '</a>';
 
 				print '<a class="marginrightonly marginleftonly reposition" href="'.$_SERVER["PHP_SELF"].'?socid='.$object->id.'&id='.$rib->id.'&action=deletebank&token='.newToken().'">';
-				print img_picto($langs->trans("Delete"), 'delete');
+				print img_picture($langs->trans("Delete"), 'delete');
 				print '</a>';
 			}
 			print '</td>';
@@ -1825,7 +1825,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 				//$url='https://dashboard.stripe.com/'.$connect.'sources/'.$src->id;
 				$url = 'https://dashboard.stripe.com/'.$connect.'search?query='.$src->id;
 			}
-			print "<a href='".$url."' target='_stripe'>".img_picto($langs->trans('ShowInStripe'), 'globe')."</a> ";
+			print "<a href='".$url."' target='_stripe'>".img_picture($langs->trans('ShowInStripe'), 'globe')."</a> ";
 			print $src->id;
 			print '</td>';
 			// Bank
@@ -1863,10 +1863,10 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 			if ((empty($customerstripe->invoice_settings) && $customerstripe->default_source != $src->id) ||
 				(!empty($customerstripe->invoice_settings) && $customerstripe->invoice_settings->default_payment_method != $src->id)) {
 				print '<a href="'.DOL_URL_ROOT.'/societe/paymentmodes.php?socid='.$object->id.'&source='.$src->id.'&action=setassourcedefault&token='.newToken().'">';
-				print img_picto($langs->trans("Default"), 'off');
+				print img_picture($langs->trans("Default"), 'off');
 				print '</a>';
 			} else {
-				print img_picto($langs->trans("Default"), 'on');
+				print img_picture($langs->trans("Default"), 'on');
 			}
 			print '</td>';
 
@@ -1889,7 +1889,7 @@ if ($socid && $action != 'edit' && $action != 'create' && $action != 'editcard' 
 			print '<td class="right nowraponall">';
 			if ($permissiontoaddupdatepaymentinformation) {
 				print '<a class="marginleftonly marginrightonly reposition" href="'.DOL_URL_ROOT.'/societe/paymentmodes.php?socid='.$object->id.'&source='.$src->id.'&action=deletebank&token='.newToken().'">';
-				print img_picto($langs->trans("Delete"), 'delete');
+				print img_picture($langs->trans("Delete"), 'delete');
 				print '</a>';
 			}
 			print '</td>';
@@ -2048,7 +2048,7 @@ if ($socid && $action == 'edit' && $permissiontoaddupdatepaymentinformation) {
 		print '<td'.($require ? ' class="fieldrequired" ' : '').'>';
 		if ($tooltip) {
 			// $tooltip looks like $tooltiptrigger so: @phan-suppress-next-line PhanPluginSuspiciousParamOrder
-			print $form->textwithpicto($langs->trans($val), $tooltip, 4, 'help', '', 0, 3, $name);
+			print $form->textWithPicture($langs->trans($val), $tooltip, 4, 'help', '', 0, 3, $name);
 		} else {
 			print $langs->trans($val);
 		}
@@ -2223,7 +2223,7 @@ if ($socid && $action == 'create' && $permissiontoaddupdatepaymentinformation) {
 		print '<tr><td'.($require ? ' class="fieldrequired" ' : '').'>';
 		if ($tooltip) {
 			// tooltip lookslike tooltip trigger so @phan-suppress-next-line PhanPluginSuspiciousParamOrder
-			print $form->textwithpicto($langs->trans($val), $tooltip, 4, 'help', '', 0, 3, $name);
+			print $form->textWithPicture($langs->trans($val), $tooltip, 4, 'help', '', 0, 3, $name);
 		} else {
 			print $langs->trans($val);
 		}
@@ -2254,7 +2254,7 @@ if ($socid && $action == 'create' && $permissiontoaddupdatepaymentinformation) {
 		print '<table class="border centpercent">';
 
 		// RUM
-		print '<tr><td class="titlefieldcreate">'.$form->textwithpicto($langs->trans("RUM"), $langs->trans("RUMLong").'<br>'.$langs->trans("RUMWillBeGenerated")).'</td>';
+		print '<tr><td class="titlefieldcreate">'.$form->textWithPicture($langs->trans("RUM"), $langs->trans("RUMLong").'<br>'.$langs->trans("RUMWillBeGenerated")).'</td>';
 		print '<td colspan="4"><input type="text" class="minwidth300" name="rum" value="'.GETPOST('rum', 'alpha').'"></td></tr>';
 
 		$date_rum = GETPOSTDATE('date_rum', '00:00:00');

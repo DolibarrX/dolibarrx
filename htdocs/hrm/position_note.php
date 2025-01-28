@@ -110,7 +110,7 @@ if ($id > 0 || !empty($ref)) {
 
 	$head = positionCardPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'note', $langs->trans("Notes"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'note', $langs->trans("Notes"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------

@@ -89,11 +89,11 @@ foreach ($liste as $key => $val) {
 	}
 
 	print '<tr class="oddeven">';
-	print '<td width="16">'.img_picto_common($model->getDriverLabelForKey($key), $model->getPictoForKey($key)).'</td>';
+	print '<td width="16">'.img_picture_common($model->getDriverLabelForKey($key), $model->getPictoForKey($key)).'</td>';
 	$text = $model->getDriverDescForKey($key);
 	$label = $liste[$key];
 	// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
-	print '<td>'.$form->textwithpicto($label, $text).'</td>';
+	print '<td>'.$form->textWithPicture($label, $text).'</td>';
 	print '<td>'.$model->getLibLabelForKey($key).'</td>';
 	print '<td class="nowrap right">'.$model->getLibVersionForKey($key).'</td>';
 	print '</tr>';

@@ -657,11 +657,11 @@ if ($object->status == Inventory::STATUS_VALIDATED) {
 		if ($permissiontoupdatestock) {
 			// Link to launch scan tool
 			if (isModEnabled('barcode') || isModEnabled('productbatch')) {
-				print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=updatebyscaning&token='.currentToken().'" class="marginrightonly paddingright marginleftonly paddingleft">'.img_picto('', 'barcode', 'class="paddingrightonly"').$langs->trans("UpdateByScaning").'</a>';
+				print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=updatebyscaning&token='.currentToken().'" class="marginrightonly paddingright marginleftonly paddingleft">'.img_picture('', 'barcode', 'class="paddingrightonly"').$langs->trans("UpdateByScaning").'</a>';
 			}
 
 			// Link to autofill
-			print '<a id="fillwithexpected" class="marginrightonly paddingright marginleftonly paddingleft" href="#">'.img_picto('', 'autofill', 'class="paddingrightonly"').$langs->trans('AutofillWithExpected').'</a>';
+			print '<a id="fillwithexpected" class="marginrightonly paddingright marginleftonly paddingleft" href="#">'.img_picture('', 'autofill', 'class="paddingrightonly"').$langs->trans('AutofillWithExpected').'</a>';
 			print '<script>';
 			print '$( document ).ready(function() {';
 			print '	$("#fillwithexpected").on("click",function fillWithExpected(){
@@ -679,7 +679,7 @@ if ($object->status == Inventory::STATUS_VALIDATED) {
 			print '</script>';
 
 			// Link to reset qty
-			print '<a href="#" id="clearqty" class="marginrightonly paddingright marginleftonly paddingleft">'.img_picto('', 'eraser', 'class="paddingrightonly"').$langs->trans("ClearQtys").'</a>';
+			print '<a href="#" id="clearqty" class="marginrightonly paddingright marginleftonly paddingleft">'.img_picture('', 'eraser', 'class="paddingrightonly"').$langs->trans("ClearQtys").'</a>';
 		} else {
 			print '<a class="classfortooltip marginrightonly paddingright marginleftonly paddingleft" href="#" title="'.dol_escape_htmltag($langs->trans("NotEnoughPermissions")).'">'.$langs->trans("Save").'</a>'."\n";
 		}
@@ -961,20 +961,20 @@ if (isModEnabled('productbatch')) {
 }
 if ($object->status == $object::STATUS_DRAFT || $object->status == $object::STATUS_VALIDATED) {
 	// Expected quantity = If inventory is open: Quantity currently in stock (may change if stock movement are done during the inventory)
-	print '<td class="right">'.$form->textwithpicto($langs->trans("ExpectedQty"), $langs->trans("QtyCurrentlyKnownInStock")).'</td>';
+	print '<td class="right">'.$form->textWithPicture($langs->trans("ExpectedQty"), $langs->trans("QtyCurrentlyKnownInStock")).'</td>';
 } else {
 	// Expected quantity = If inventory is closed: Quantity we had in stock when we start the inventory.
-	print '<td class="right">'.$form->textwithpicto($langs->trans("ExpectedQty"), $langs->trans("QtyInStockWhenInventoryWasValidated")).'</td>';
+	print '<td class="right">'.$form->textWithPicture($langs->trans("ExpectedQty"), $langs->trans("QtyInStockWhenInventoryWasValidated")).'</td>';
 }
 if (getDolGlobalString('INVENTORY_MANAGE_REAL_PMP')) {
 	print '<td class="right">'.$langs->trans('PMPExpected').'</td>';
 	print '<td class="right">'.$langs->trans('ExpectedValuation').'</td>';
-	print '<td class="right">'.$form->textwithpicto($langs->trans("RealQty"), $langs->trans("InventoryRealQtyHelp")).'</td>';
+	print '<td class="right">'.$form->textWithPicture($langs->trans("RealQty"), $langs->trans("InventoryRealQtyHelp")).'</td>';
 	print '<td class="right">'.$langs->trans('PMPReal').'</td>';
 	print '<td class="right">'.$langs->trans('RealValuation').'</td>';
 } else {
 	print '<td class="right">';
-	print $form->textwithpicto($langs->trans("RealQty"), $langs->trans("InventoryRealQtyHelp"));
+	print $form->textWithPicture($langs->trans("RealQty"), $langs->trans("InventoryRealQtyHelp"));
 	print '</td>';
 }
 if ($object->status == $object::STATUS_DRAFT || $object->status == $object::STATUS_VALIDATED) {
@@ -1157,7 +1157,7 @@ if ($resql) {
 
 				print '<td class="right">';
 				print '<a id="undochangesqty_'.$obj->rowid.'" href="#" class="undochangesqty reposition marginrightonly" title="'.dol_escape_htmltag($langs->trans("Clear")).'">';
-				print img_picto('', 'eraser', 'class="opacitymedium"');
+				print img_picture('', 'eraser', 'class="opacitymedium"');
 				print '</a>';
 				print '<input type="text" class="maxwidth50 right realqty" name="id_'.$obj->rowid.'" id="id_'.$obj->rowid.'_input" value="'.$qty_view.'">';
 				print '</td>';
@@ -1181,7 +1181,7 @@ if ($resql) {
 			} else {
 				print '<td class="right">';
 				print '<a id="undochangesqty_'.$obj->rowid.'" href="#" class="undochangesqty reposition marginrightonly" title="'.dol_escape_htmltag($langs->trans("Clear")).'">';
-				print img_picto('', 'eraser', 'class="opacitymedium"');
+				print img_picture('', 'eraser', 'class="opacitymedium"');
 				print '</a>';
 				print '<input type="text" class="maxwidth50 right realqty" name="id_'.$obj->rowid.'" id="id_'.$obj->rowid.'_input" value="'.$qty_view.'">';
 				print '</td>';

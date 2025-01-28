@@ -274,7 +274,7 @@ print '<div class="div-table-responsive-no-min">';
 print '<table class="noborder centpercent nomarginbottom">';
 
 print '<tr class="liste_titre">';
-print '<td>'.$form->textwithpicto($langs->trans("CurrenciesUsed"), $langs->transnoentitiesnoconv("CurrenciesUsed_help_to_add")).'</td>'."\n";
+print '<td>'.$form->textWithPicture($langs->trans("CurrenciesUsed"), $langs->transnoentitiesnoconv("CurrenciesUsed_help_to_add")).'</td>'."\n";
 print '<td class="right">'.$langs->trans("Rate").' / '.$langs->getCurrencySymbol($config->currency).'</td>'."\n";
 print '</tr>';
 
@@ -296,7 +296,7 @@ print '</form>';
 print '<tr class="oddeven">';
 print '<td>'.$config->currency;
 print ' ('.$langs->getCurrencySymbol($config->currency).')';
-print $form->textwithpicto(' ', $langs->trans("BaseCurrency"));
+print $form->textWithPicture(' ', $langs->trans("BaseCurrency"));
 if (!empty($TAvailableCurrency[$config->currency]) && empty($TAvailableCurrency[$config->currency]['active'])) {
 	print img_warning('Warning: This code has been disabled into Home - Setup - Dictionaries - Currencies');
 }
@@ -355,7 +355,7 @@ if (!getDolGlobalString('MULTICURRENCY_DISABLE_SYNC_CURRENCYLAYER')) {
 	$urlforapilayer = 'https://currencylayer.com'; //https://apilayer.net
 
 	print '<tr class="liste_titre">';
-	print '<td>'.$form->textwithpicto($langs->trans("CurrencyLayerAccount"), $langs->trans("CurrencyLayerAccount_help_to_synchronize", $urlforapilayer)).'</td>'."\n";
+	print '<td>'.$form->textWithPicture($langs->trans("CurrencyLayerAccount"), $langs->trans("CurrencyLayerAccount_help_to_synchronize", $urlforapilayer)).'</td>'."\n";
 	print '<td class="right">';
 	print '<textarea id="response" class="hideobject" name="response"></textarea>';
 	print '<input type="submit" name="modify_apilayer" class="button buttongen" value="'.$langs->trans("Modify").'">';

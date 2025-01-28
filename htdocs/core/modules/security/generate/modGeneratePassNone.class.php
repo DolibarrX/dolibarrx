@@ -36,7 +36,7 @@ class modGeneratePassNone extends ModeleGenPassword
 	 */
 	public $id;
 
-	public $picto = 'fa-keyboard';
+	public $picture = 'fa-keyboard';
 
 	/**
 	 *	Constructor

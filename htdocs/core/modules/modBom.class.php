@@ -77,9 +77,9 @@ class modBom extends DolibarrModules
 		// Key used in llx_const table to save module status enabled/disabled (where BILLOFMATERIALS is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
-		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
-		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto = 'bom';
+		// If file is in theme/yourtheme/img directory under name object_picturevalue.png, use this->picture='picturevalue'
+		// If file is in module/img directory under name object_picturevalue.png, use this->picture='picturevalue@module'
+		$this->picture = 'bom';
 
 		// Define some features supported by module (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array(
@@ -315,7 +315,7 @@ class modBom extends DolibarrModules
 		$r++;
 		$this->import_code[$r] = 'bom_'.$r;
 		$this->import_label[$r] = 'BillOfMaterials';
-		$this->import_icon[$r] = $this->picto;
+		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array();
 		$this->import_tables_array[$r] = array('b' => MAIN_DB_PREFIX.'bom_bom', 'extra' => MAIN_DB_PREFIX.'bom_bom_extrafields');
 		$this->import_tables_creator_array[$r] = array('b' => 'fk_user_creat'); // Fields to store import user id
@@ -397,7 +397,7 @@ class modBom extends DolibarrModules
 		$r++;
 		$this->import_code[$r] = 'bom_lines_'.$r;
 		$this->import_label[$r] = 'BillOfMaterialsLines';
-		$this->import_icon[$r] = $this->picto;
+		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array();
 		$this->import_tables_array[$r] = array('bd' => MAIN_DB_PREFIX.'bom_bomline', 'extra' => MAIN_DB_PREFIX.'bom_bomline_extrafields');
 		$this->import_fields_array[$r] = array(

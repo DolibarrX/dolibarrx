@@ -138,7 +138,7 @@ if ($action == 'edit') {
 echo '<table class="noborder centpercent">';
 
 foreach ($rangesbycateg as $fk_c_exp_tax_cat => $Tab) {
-	$title = ($Tab['active'] == 1) ? $langs->trans($Tab['label']) : $form->textwithpicto($langs->trans($Tab['label']), $langs->trans('expenseReportCatDisabled'), 1, 'help', '', 0, 3);
+	$title = ($Tab['active'] == 1) ? $langs->trans($Tab['label']) : $form->textWithPicture($langs->trans($Tab['label']), $langs->trans('expenseReportCatDisabled'), 1, 'help', '', 0, 3);
 	echo '<tr class="liste_titre">';
 	echo '<td>'.$title.'</td>';
 	echo '<td>'.$langs->trans('expenseReportOffset').'</td>';
@@ -163,7 +163,7 @@ foreach ($rangesbycateg as $fk_c_exp_tax_cat => $Tab) {
 		}
 
 		if ($range->range_active == 0) {
-			$label = $form->textwithpicto($label, $langs->trans('expenseReportRangeDisabled'), 1, 'help', '', 0, 3);
+			$label = $form->textWithPicture($label, $langs->trans('expenseReportRangeDisabled'), 1, 'help', '', 0, 3);
 		}
 
 		echo '<tr class="oddeven">';

@@ -633,10 +633,10 @@ function ajax_event($htmlname, $events)
  *  @param  int<0,1>    $revertonoff            1=Revert on/off
  *  @param  int<0,1>    $strict                 0=Default, 1=Only the complementary actions "disabled and "enabled" (found into $input) are processed. Use only "disabled" with delConstant and "enabled" with setConstant.
  *  @param  int         $forcereload            Force to reload page if we click/change value (this is supported only when there is no 'alert' option in input)
- *  @param  int<0,2>    $marginleftonlyshort    1 = Add a short left margin on picto, 2 = Add a larger left margin on picto, 0 = No left margin.
+ *  @param  int<0,2>    $marginleftonlyshort    1 = Add a short left margin on picture, 2 = Add a larger left margin on picture, 0 = No left margin.
  *  @param  int<0,1>    $forcenoajax            1 = Force to use a ahref link instead of ajax code.
  *  @param  int<0,1>    $setzeroinsteadofdel    1 = Set constant to '0' instead of deleting it when $input is empty.
- *  @param  string      $suffix                 Suffix to use on the name of the switch picto when option is on. Example: '', '_red'
+ *  @param  string      $suffix                 Suffix to use on the name of the switch picture when option is on. Example: '', '_red'
  *  @param  string      $mode                   Add parameter &mode= to the href link (Used for href link)
  *  @param  string      $morecss                More CSS
  *  @param	User|int	$userconst				If set, use the ajax On/Off for user or user ID $userconst
@@ -655,9 +655,9 @@ function ajax_constantonoff($code, $input = array(), $entity = null, $revertonof
 
 	if (empty($config->use_javascript_ajax) || $forcenoajax) {
 		if (!getDolGlobalString($code)) {
-			$out = '<a ' . ($morecss ? 'class="' . $morecss . '" ' : '') . 'href="' . $_SERVER['PHP_SELF'] . '?action=set_' . $code . '&token=' . newToken() . '&entity=' . $entity . ($mode ? '&mode=' . $mode : '') . ($forcereload ? '&dol_resetcache=1' : '') . '">' . img_picto($langs->trans("Disabled"), 'off') . '</a>';
+			$out = '<a ' . ($morecss ? 'class="' . $morecss . '" ' : '') . 'href="' . $_SERVER['PHP_SELF'] . '?action=set_' . $code . '&token=' . newToken() . '&entity=' . $entity . ($mode ? '&mode=' . $mode : '') . ($forcereload ? '&dol_resetcache=1' : '') . '">' . img_picture($langs->trans("Disabled"), 'off') . '</a>';
 		} else {
-			$out = '<a ' . ($morecss ? 'class="' . $morecss . '" ' : '') . ' href="' . $_SERVER['PHP_SELF'] . '?action=del_' . $code . '&token=' . newToken() . '&entity=' . $entity . ($mode ? '&mode=' . $mode : '') . ($forcereload ? '&dol_resetcache=1' : '') . '">' . img_picto($langs->trans("Enabled"), 'on') . '</a>';
+			$out = '<a ' . ($morecss ? 'class="' . $morecss . '" ' : '') . ' href="' . $_SERVER['PHP_SELF'] . '?action=del_' . $code . '&token=' . newToken() . '&entity=' . $entity . ($mode ? '&mode=' . $mode : '') . ($forcereload ? '&dol_resetcache=1' : '') . '">' . img_picture($langs->trans("Enabled"), 'on') . '</a>';
 		}
 	} else {
 		$userconstid = 0;
@@ -722,8 +722,8 @@ function ajax_constantonoff($code, $input = array(), $entity = null, $revertonof
 			$value = getDolGlobalString($code);
 		}
 		$out .= '<div id="confirm_' . $code . '" title="" style="display: none;"></div>';
-		$out .= '<span id="set_' . $code . '" class="valignmiddle inline-block linkobject ' . ($value ? 'hideobject' : '') . ($morecss ? ' ' . $morecss : '') . '">' . ($revertonoff ? img_picto($langs->trans("Enabled"), 'switch_on', '', 0, 0, 0, '', '', $marginleftonlyshort) : img_picto($langs->trans("Disabled"), 'switch_off', '', 0, 0, 0, '', '', $marginleftonlyshort)) . '</span>';
-		$out .= '<span id="del_' . $code . '" class="valignmiddle inline-block linkobject ' . ($value ? '' : 'hideobject') . ($morecss ? ' ' . $morecss : '') . '">' . ($revertonoff ? img_picto($langs->trans("Disabled"), 'switch_off' . $suffix, '', 0, 0, 0, '', '', $marginleftonlyshort) : img_picto($langs->trans("Enabled"), 'switch_on' . $suffix, '', 0, 0, 0, '', '', $marginleftonlyshort)) . '</span>';
+		$out .= '<span id="set_' . $code . '" class="valignmiddle inline-block linkobject ' . ($value ? 'hideobject' : '') . ($morecss ? ' ' . $morecss : '') . '">' . ($revertonoff ? img_picture($langs->trans("Enabled"), 'switch_on', '', 0, 0, 0, '', '', $marginleftonlyshort) : img_picture($langs->trans("Disabled"), 'switch_off', '', 0, 0, 0, '', '', $marginleftonlyshort)) . '</span>';
+		$out .= '<span id="del_' . $code . '" class="valignmiddle inline-block linkobject ' . ($value ? '' : 'hideobject') . ($morecss ? ' ' . $morecss : '') . '">' . ($revertonoff ? img_picture($langs->trans("Disabled"), 'switch_off' . $suffix, '', 0, 0, 0, '', '', $marginleftonlyshort) : img_picture($langs->trans("Enabled"), 'switch_on' . $suffix, '', 0, 0, 0, '', '', $marginleftonlyshort)) . '</span>';
 		$out .= "\n";
 	}
 
@@ -737,8 +737,8 @@ function ajax_constantonoff($code, $input = array(), $entity = null, $revertonof
  *  @param  CommonObject  $object     Object to set
  *  @param  string  $code       Name of property in object : 'status' or 'status_buy' for product by example
  *  @param  string  $field      Name of database field : 'tosell' or 'tobuy' for product by example
- *  @param  string  $text_on    Text if on ('Text' or 'Text:Picto on:Css picto on')
- *  @param  string  $text_off   Text if off ('Text' or 'Text:Picto off:Css picto off')
+ *  @param  string  $text_on    Text if on ('Text' or 'Text:Picto on:Css picture on')
+ *  @param  string  $text_off   Text if off ('Text' or 'Text:Picto off:Css picture off')
  *  @param  array<string,string[]>   $input      Array of type->list of CSS element to switch. Example: array('disabled'=>array(0=>'cssid'))
  *  @param	string	$morecss	More CSS
  *  @param	string	$htmlname	Name of HTML component. Keep '' or use a different value if you need to use this component several time on the same page for the same field.
@@ -851,11 +851,11 @@ function ajax_object_onoff($object, $code, $field, $text_on, $text_off, $input =
 	}
 
 	if (empty($config->use_javascript_ajax) || $forcenojs) {
-		$out .= '<a id="set_' . $htmlname . '_' . $object->id . '" class="linkobject ' . ($object->$code == 1 ? 'hideobject' : '') . ($morecss ? ' ' . $morecss : '') . '" href="' . DOL_URL_ROOT . '/core/ajax/objectonoff.php?action=set&token=' . newToken() . '&id=' . ((int) $object->id) . '&element=' . urlencode($object->element) . '&field=' . urlencode($field) . '&value=1&backtopage=' . urlencode($_SERVER["PHP_SELF"] . '?id=' . $object->id . ($moreparam ? '&' . $moreparam : '')) . '">' . img_picto($langs->trans($text_off), $switchoff, '', 0, 0, 0, '', $cssswitchoff) . '</a>';
-		$out .= '<a id="del_' . $htmlname . '_' . $object->id . '" class="linkobject ' . ($object->$code == 1 ? '' : 'hideobject') . ($morecss ? ' ' . $morecss : '') . '" href="' . DOL_URL_ROOT . '/core/ajax/objectonoff.php?action=set&token=' . newToken() . '&id=' . ((int) $object->id) . '&element=' . urlencode($object->element) . '&field=' . urlencode($field) . '&value=0&backtopage=' . urlencode($_SERVER["PHP_SELF"] . '?id=' . $object->id . ($moreparam ? '&' . $moreparam : '')) . '">' . img_picto($langs->trans($text_on), $switchon, '', 0, 0, 0, '', $cssswitchon) . '</a>';
+		$out .= '<a id="set_' . $htmlname . '_' . $object->id . '" class="linkobject ' . ($object->$code == 1 ? 'hideobject' : '') . ($morecss ? ' ' . $morecss : '') . '" href="' . DOL_URL_ROOT . '/core/ajax/objectonoff.php?action=set&token=' . newToken() . '&id=' . ((int) $object->id) . '&element=' . urlencode($object->element) . '&field=' . urlencode($field) . '&value=1&backtopage=' . urlencode($_SERVER["PHP_SELF"] . '?id=' . $object->id . ($moreparam ? '&' . $moreparam : '')) . '">' . img_picture($langs->trans($text_off), $switchoff, '', 0, 0, 0, '', $cssswitchoff) . '</a>';
+		$out .= '<a id="del_' . $htmlname . '_' . $object->id . '" class="linkobject ' . ($object->$code == 1 ? '' : 'hideobject') . ($morecss ? ' ' . $morecss : '') . '" href="' . DOL_URL_ROOT . '/core/ajax/objectonoff.php?action=set&token=' . newToken() . '&id=' . ((int) $object->id) . '&element=' . urlencode($object->element) . '&field=' . urlencode($field) . '&value=0&backtopage=' . urlencode($_SERVER["PHP_SELF"] . '?id=' . $object->id . ($moreparam ? '&' . $moreparam : '')) . '">' . img_picture($langs->trans($text_on), $switchon, '', 0, 0, 0, '', $cssswitchon) . '</a>';
 	} else {
-		$out .= '<span id="set_' . $htmlname . '_' . $object->id . '" class="linkobject ' . ($object->$code == 1 ? 'hideobject' : '') . ($morecss ? ' ' . $morecss : '') . '">' . img_picto($langs->trans($text_off), $switchoff, '', 0, 0, 0, '', $cssswitchoff) . '</span>';
-		$out .= '<span id="del_' . $htmlname . '_' . $object->id . '" class="linkobject ' . ($object->$code == 1 ? '' : 'hideobject') . ($morecss ? ' ' . $morecss : '') . '">' . img_picto($langs->trans($text_on), $switchon, '', 0, 0, 0, '', $cssswitchon) . '</span>';
+		$out .= '<span id="set_' . $htmlname . '_' . $object->id . '" class="linkobject ' . ($object->$code == 1 ? 'hideobject' : '') . ($morecss ? ' ' . $morecss : '') . '">' . img_picture($langs->trans($text_off), $switchoff, '', 0, 0, 0, '', $cssswitchoff) . '</span>';
+		$out .= '<span id="del_' . $htmlname . '_' . $object->id . '" class="linkobject ' . ($object->$code == 1 ? '' : 'hideobject') . ($morecss ? ' ' . $morecss : '') . '">' . img_picture($langs->trans($text_on), $switchon, '', 0, 0, 0, '', $cssswitchon) . '</span>';
 	}
 
 	return $out;

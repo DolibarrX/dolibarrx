@@ -255,7 +255,7 @@ if ($id) {
 
 		//Facturer
 		print '<tr><td class="fieldrequired valid">';
-		print $form->textwithpicto($langs->trans("RefusedInvoicing"), $langs->trans("DirectDebitRefusedInvoicingDesc"));
+		print $form->textWithPicture($langs->trans("RefusedInvoicing"), $langs->trans("DirectDebitRefusedInvoicingDesc"));
 		print '</td>';
 		print '<td class="valid">';
 		print $form->selectarray("facturer", $rej->labelsofinvoicing, GETPOSTISSET('facturer') ? GETPOSTINT('facturer') : '', 0);

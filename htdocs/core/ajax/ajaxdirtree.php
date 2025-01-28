@@ -283,7 +283,7 @@ if (empty($config->use_javascript_ajax) || getDolGlobalString('MAIN_ECM_DISABLE_
 
 			print '<li class="directory collapsed">';
 
-			// Show tree graph pictos
+			// Show tree graph pictures
 			$cpt = 1;
 			while ($cpt < $sqltree[$key]['level']) {
 				print ' &nbsp; &nbsp;';
@@ -331,7 +331,7 @@ if (empty($config->use_javascript_ajax) || getDolGlobalString('MAIN_ECM_DISABLE_
 			} else {
 				$htmltooltip .= '<b>'.$langs->trans("ECMNbOfSubDir").'</b>: '.$nbofsubdir.'<br>';
 			}
-			print $form->textwithpicto('', $htmltooltip, 1, 'info');
+			print $form->textWithPicture('', $htmltooltip, 1, 'info');
 			print "</td>";
 
 			print '</tr></table>';
@@ -516,7 +516,7 @@ function treeOutputForAbsoluteDir($sqltree, $selecteddir, $fullpathselecteddir, 
 							} else {
 								$htmltooltip .= '<b>'.$langs->trans("ECMNbOfSubDir").'</b>: '.($nbofsubdir >= 0 ? $nbofsubdir : $langs->trans("NeedRefresh")).'<br>';
 							}
-							print $form->textwithpicto('', $htmltooltip, 1, "info");
+							print $form->textWithPicture('', $htmltooltip, 1, "info");
 							print "</td>";
 						}
 

@@ -113,7 +113,7 @@ class ImportCsv extends ModeleImports
 		$this->label = 'Csv'; // Label of driver
 		$this->desc = $langs->trans("CSVFormatDesc", $this->separator, $this->enclosure, $this->escape);
 		$this->extension = 'csv'; // Extension for generated file by this driver
-		$this->picto = 'mime/other'; // Picto
+		$this->picture = 'mime/other'; // Picto
 		$this->version = '1.34'; // Driver version
 		$this->phpmin = array(7, 0); // Minimum version of PHP required by module
 

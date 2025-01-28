@@ -301,19 +301,19 @@ if ($mode == 'config' && $user->admin) {
 		//print '<pre>'.print_r($printer, true).'</pre>';
 
 		print '<tr class="oddeven">';
-		print '<td>'.img_picto('', $printer->picto).' '.$langs->trans($printer->desc).'</td>';
+		print '<td>'.img_picture('', $printer->picture).' '.$langs->trans($printer->desc).'</td>';
 		print '<td class="center">';
 		if (!empty($config->use_javascript_ajax)) {
 			print ajax_constantonoff($printer->active);
 		} else {
 			if (!getDolGlobalString($printer->conf)) {
-				print '<a href="'.$_SERVER['PHP_SELF'].'?action=setvalue&token='.newToken().'&varname='.urlencode($printer->active).'&value=1">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+				print '<a href="'.$_SERVER['PHP_SELF'].'?action=setvalue&token='.newToken().'&varname='.urlencode($printer->active).'&value=1">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 			} else {
-				print '<a href="'.$_SERVER['PHP_SELF'].'?action=setvalue&token='.newToken().'&varname='.urlencode($printer->active).'&value=0">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
+				print '<a href="'.$_SERVER['PHP_SELF'].'?action=setvalue&token='.newToken().'&varname='.urlencode($printer->active).'&value=0">'.img_picture($langs->trans("Enabled"), 'on').'</a>';
 			}
 		}
-		print '<td class="center"><a href="'.$_SERVER['PHP_SELF'].'?mode=setup&token='.newToken().'&driver='.urlencode($printer->name).'">'.img_picto('', 'setup').'</a></td>';
-		print '<td class="center"><a href="'.$_SERVER['PHP_SELF'].'?mode=test&token='.newToken().'&driver='.urlencode($printer->name).'">'.img_picto('', 'setup').'</a></td>';
+		print '<td class="center"><a href="'.$_SERVER['PHP_SELF'].'?mode=setup&token='.newToken().'&driver='.urlencode($printer->name).'">'.img_picture('', 'setup').'</a></td>';
+		print '<td class="center"><a href="'.$_SERVER['PHP_SELF'].'?mode=test&token='.newToken().'&driver='.urlencode($printer->name).'">'.img_picture('', 'setup').'</a></td>';
 		print '</tr>'."\n";
 	}
 
@@ -393,7 +393,7 @@ if ($mode == 'userconf' && $user->admin) {
 		print '<td>'.$row['printer_location'].'</td>';
 		print '<td>'.$row['printer_id'].'</td>';
 		print '<td>'.$row['copy'].'</td>';
-		print '<td class="center">'.img_picto($langs->trans("Delete"), 'delete').'</td>';
+		print '<td class="center">'.img_picture($langs->trans("Delete"), 'delete').'</td>';
 		print "</tr>\n";
 	}
 	print '</table>';

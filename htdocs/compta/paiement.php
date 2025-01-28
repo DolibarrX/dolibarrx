@@ -521,7 +521,7 @@ if ($result >= 0) {
 		}
 
 		print '<td>';
-		print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+		print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 		print $form->select_comptes($accountid, 'accountid', 0, '', 2, '', (isModEnabled('multicurrency') ? 1 : 0), 'widthcentpercentminusx maxwidth500', 1);
 		print '</td>';
 	} else {
@@ -759,7 +759,7 @@ if ($result >= 0) {
 					if ($objp->multicurrency_code && $objp->multicurrency_code != $config->currency) {
 						if ($action != 'add_paiement') {
 							if (!empty($config->use_javascript_ajax)) {
-								print img_picto("Auto fill", 'rightarrow', "class='AutoFillAmount' data-rowname='".$namef."' data-value='".($sign * (float) $multicurrency_remaintopay)."'");
+								print img_picture("Auto fill", 'rightarrow', "class='AutoFillAmount' data-rowname='".$namef."' data-value='".($sign * (float) $multicurrency_remaintopay)."'");
 							}
 							print '<input type="text" class="maxwidth75 multicurrency_amount" name="'.$namef.'" value="'.(GETPOST($namef) != '0' ? GETPOST($namef) : '').'">';
 							print '<input type="hidden" class="multicurrency_remain" name="'.$nameRemain.'" value="'.$multicurrency_remaintopay.'">';
@@ -821,7 +821,7 @@ if ($result >= 0) {
 
 				if ($action != 'add_paiement') {
 					if (!empty($config->use_javascript_ajax)) {
-						print img_picto("Auto fill", 'rightarrow', "class='AutoFillAmount' data-rowname='".$namef."' data-value='".($sign * (float) $remaintopay)."'");
+						print img_picture("Auto fill", 'rightarrow', "class='AutoFillAmount' data-rowname='".$namef."' data-value='".($sign * (float) $remaintopay)."'");
 					}
 					print '<input type="text" class="maxwidth75 amount" id="'.$namef.'" name="'.$namef.'" value="'.dol_escape_htmltag(GETPOST($namef)).'">';
 					print '<input type="hidden" class="remain" name="'.$nameRemain.'" value="'.$remaintopay.'">';

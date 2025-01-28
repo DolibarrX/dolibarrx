@@ -50,7 +50,7 @@ class InterfaceMyModuleTriggers extends DolibarrTriggers
 		$this->family = "demo";
 		$this->description = "MyModule triggers.";
 		$this->version = self::VERSIONS['dev'];
-		$this->picto = 'mymodule@mymodule';
+		$this->picture = 'mymodule@mymodule';
 	}
 
 	/**

@@ -151,7 +151,7 @@ if (!empty($consts) && $action == 'delete') {
 	$action = '';
 }
 
-// Delete line from delete picto
+// Delete line from delete picture
 if ($action == 'delete') {
 	if (dolibarr_del_const($db, $rowid, $entity) >= 0) {
 		setEventMessages($langs->trans("RecordDeleted"), null, 'mesgs');

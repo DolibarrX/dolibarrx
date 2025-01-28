@@ -331,7 +331,7 @@ class FormSetup
 
 			$out .= '<td class="col-setup-title">';
 			$out .= '<span id="helplink'.$item->confKey.'" class="spanforparamtooltip">';
-			$out .= $this->form->textwithpicto($item->getNameText(), $item->getHelpText(), 1, 'info', '', 0, 3, 'tootips'.$item->confKey);
+			$out .= $this->form->textWithPicture($item->getNameText(), $item->getHelpText(), 1, 'info', '', 0, 3, 'tootips'.$item->confKey);
 			$out .= '</span>';
 			$out .= '</td>';
 
@@ -615,8 +615,8 @@ class FormSetupItem
 	/** @var string $helpText */
 	public $helpText = '';
 
-	/** @var string $picto */
-	public $picto = '';
+	/** @var string $picture */
+	public $picture = '';
 
 	/** @var ?string $fieldValue */
 	public $fieldValue;
@@ -639,10 +639,10 @@ class FormSetupItem
 	/** @var int $rank  */
 	public $rank = 0;
 
-	/** @var array<string,string|array{id:string,label:string,color:string,picto:string,labelhtml:string}> set this var for options on select and multiselect items   */
+	/** @var array<string,string|array{id:string,label:string,color:string,picture:string,labelhtml:string}> set this var for options on select and multiselect items   */
 	public $fieldOptions = array();
 
-	/** @var array<string,string|int|array{id:string,label:string,color:string,picto:string,labelhtml:string}> set this var to add more parameters */
+	/** @var array<string,string|int|array{id:string,label:string,color:string,picture:string,labelhtml:string}> set this var to add more parameters */
 	public $fieldParams = array();
 
 	/** @var callable $saveCallBack  */
@@ -852,9 +852,9 @@ class FormSetupItem
 		}
 		$out = (($this->langs->trans($this->confKey) != $this->confKey) ? $this->langs->trans($this->confKey) : $this->langs->trans('MissingTranslationForConfKey', $this->confKey));
 
-		// if conf defined on entity 0, prepend a picto to indicate it will apply across all entities
+		// if conf defined on entity 0, prepend a picture to indicate it will apply across all entities
 		if (isModEnabled('multicompany') && $this->entity == 0) {
-			$out = img_picto($this->langs->trans('AllEntities'), 'fa-globe-americas em088 opacityhigh') . '&nbsp;' . $out;
+			$out = img_picture($this->langs->trans('AllEntities'), 'fa-globe-americas em088 opacityhigh') . '&nbsp;' . $out;
 		}
 
 		return $out;
@@ -995,7 +995,7 @@ class FormSetupItem
 		$formother = new FormOther($this->db);
 
 		$tmp = explode(':', $this->type);
-		$out = img_picto('', 'category', 'class="pictofixedwidth"');
+		$out = img_picture('', 'category', 'class="picturefixedwidth"');
 
 		$label = 'Categories';
 		if ($this->type == 'customer') {
@@ -1050,7 +1050,7 @@ class FormSetupItem
 		$out = '<input type="text" class="flat minwidth150'.($this->cssClass ? ' '.$this->cssClass : '').'" id="'.$this->confKey.'" name="'.$this->confKey.'" value="'.(GETPOST($this->confKey, 'alpha') ? GETPOST($this->confKey, 'alpha') : $this->fieldValue).'">';
 
 		if (!empty($config->use_javascript_ajax) && empty($this->fieldParams['hideGenerateButton'])) {
-			$out .= '&nbsp;'.img_picto($this->langs->trans('Generate'), 'refresh', 'id="generate_token'.$this->confKey.'" class="linkobject"');
+			$out .= '&nbsp;'.img_picture($this->langs->trans('Generate'), 'refresh', 'id="generate_token'.$this->confKey.'" class="linkobject"');
 
 			// Add button to autosuggest a key
 			include_once DOL_DOCUMENT_ROOT.'/core/lib/security2.lib.php';
@@ -1123,8 +1123,8 @@ class FormSetupItem
 	public function generateInputFieldSelect()
 	{
 		$s = '';
-		if ($this->picto) {
-			$s .= img_picto('', $this->picto, 'class="pictofixedwidth"');
+		if ($this->picture) {
+			$s .= img_picture('', $this->picture, 'class="picturefixedwidth"');
 		}
 
 		$s .= $this->form->selectarray($this->confKey, $this->fieldOptions, $this->fieldValue, 0, 0, 0, '', 0, 0, 0, '', $this->cssClass);
@@ -1526,7 +1526,7 @@ class FormSetupItem
 	/**
 	 * Set type of input as a simple title. No data to store
 	 *
-	 * @param array<string,string|array{id:string,label:string,color:string,picto:string,labelhtml:string}> $fieldOptions A table of field options
+	 * @param array<string,string|array{id:string,label:string,color:string,picture:string,labelhtml:string}> $fieldOptions A table of field options
 	 * @return self
 	 */
 	public function setAsMultiSelect($fieldOptions)
@@ -1542,7 +1542,7 @@ class FormSetupItem
 	/**
 	 * Set type of input as a simple title. No data to store
 	 *
-	 * @param array<string,string|array{id:string,label:string,color:string,picto:string,labelhtml:string}>  $fieldOptions  A table of field options
+	 * @param array<string,string|array{id:string,label:string,color:string,picture:string,labelhtml:string}>  $fieldOptions  A table of field options
 	 * @return self
 	 */
 	public function setAsSelect($fieldOptions)

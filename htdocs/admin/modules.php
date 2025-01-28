@@ -562,7 +562,7 @@ foreach ($modulesdir as $dir) {
 										// Check if there is a logo forpublisher
 										/* Do not show the company logo in combo. Make combo list dirty.
 										if (!empty($objMod->editor_squarred_logo)) {
-											$publisherlogoarray['external_'.$publisher] = img_picto('', $objMod->editor_squarred_logo, 'class="publisherlogoinline"');
+											$publisherlogoarray['external_'.$publisher] = img_picture('', $objMod->editor_squarred_logo, 'class="publisherlogoinline"');
 										}
 										$publisherlogo = empty($publisherlogoarray['external_'.$publisher]) ? '' : $publisherlogoarray['external_'.$publisher];
 										*/
@@ -692,10 +692,10 @@ print load_fiche_titre($langs->trans("ModulesSetup"), '', 'title_setup');
 // Start to show page
 $deschelp  = '';
 if ($mode == 'common' || $mode == 'commonkanban') {
-	$desc = $langs->trans("ModulesDesc", '{picto}');
-	$desc .= ' '.$langs->trans("ModulesDesc2", '{picto2}');
-	$desc = str_replace('{picto}', img_picto('', 'switch_off', 'class="size15x"'), $desc);
-	$desc = str_replace('{picto2}', img_picto('', 'setup', 'class="size15x"'), $desc);
+	$desc = $langs->trans("ModulesDesc", '{picture}');
+	$desc .= ' '.$langs->trans("ModulesDesc2", '{picture2}');
+	$desc = str_replace('{picture}', img_picture('', 'switch_off', 'class="size15x"'), $desc);
+	$desc = str_replace('{picture2}', img_picture('', 'setup', 'class="size15x"'), $desc);
 	if ($nbModulesNotAutoEnabled <= getDolGlobalInt('MAIN_MIN_NB_ENABLED_MODULE_FOR_WARNING', 1)) {	// If only minimal initial modules enabled
 		$deschelp .= '<div class="info hideonsmartphone">'.$desc."<br></div>\n";
 	}
@@ -753,7 +753,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 
 	$moreforfilter .= '<div class="divfilteralone colorbacktimesheet float valignmiddle">';
 	$moreforfilter .= '<div class="divsearchfield paddingtop paddingbottom valignmiddle inline-block">';
-	$moreforfilter .= img_picto($langs->trans("Filter"), 'filter', 'class="paddingright opacityhigh hideonsmartphone"').'<input type="text" id="search_keyword" name="search_keyword" class="maxwidth125" value="'.dol_escape_htmltag($search_keyword).'" placeholder="'.dol_escape_htmltag($langs->trans('Keyword')).'">';
+	$moreforfilter .= img_picture($langs->trans("Filter"), 'filter', 'class="paddingright opacityhigh hideonsmartphone"').'<input type="text" id="search_keyword" name="search_keyword" class="maxwidth125" value="'.dol_escape_htmltag($search_keyword).'" placeholder="'.dol_escape_htmltag($langs->trans('Keyword')).'">';
 	$moreforfilter .= '</div>';
 	$moreforfilter .= '<div class="divsearchfield paddingtop paddingbottom valignmiddle inline-block">';
 	$moreforfilter .= $form->selectarray('search_nature', $arrayofnatures, dol_escape_htmltag($search_nature), $langs->trans('Origin'), 0, 0, '', 0, 0, 0, '', 'maxwidth250', 1);
@@ -946,7 +946,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 			$oldfamily = $familykey;
 		}
 
-		// Version (with picto warning or not)
+		// Version (with picture warning or not)
 		$version = $objMod->getVersion(0);
 		$versiontrans = '';
 		$warningstring = '';
@@ -1014,7 +1014,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 				if (method_exists($objMod, 'alreadyUsed') && $objMod->alreadyUsed()) {
 					$codeenabledisable .= $langs->trans("Used");
 				} else {
-					$codeenabledisable .= img_picto($langs->trans("Required"), 'switch_on', '', 0, 0, 0, '', 'opacitymedium valignmiddle');
+					$codeenabledisable .= img_picture($langs->trans("Required"), 'switch_on', '', 0, 0, 0, '', 'opacitymedium valignmiddle');
 					//print $langs->trans("Required");
 				}
 				if (isModEnabled('multicompany') && $user->entity) {
@@ -1024,22 +1024,22 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 				// @phan-suppress-next-line PhanUndeclaredMethod
 				if (is_object($objMod) && !empty($objMod->warnings_unactivation[$mysoc->country_code]) && method_exists($objMod, 'alreadyUsed') && $objMod->alreadyUsed()) {
 					$codeenabledisable .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&amp;token='.newToken().'&amp;module_position='.$module_position.'&amp;action=reset_confirm&amp;confirm_message_code='.urlencode($objMod->warnings_unactivation[$mysoc->country_code]).'&amp;value='.$modName.'&amp;mode='.$mode.$param.'">';
-					$codeenabledisable .= img_picto($langs->trans("Activated").($warningstring ? ' '.$warningstring : ''), 'switch_on');
+					$codeenabledisable .= img_picture($langs->trans("Activated").($warningstring ? ' '.$warningstring : ''), 'switch_on');
 					$codeenabledisable .= '</a>';
 					if (getDolGlobalInt("MAIN_FEATURES_LEVEL") > 1) {
 						$codeenabledisable .= '&nbsp;';
 						$codeenabledisable .= '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&amp;token='.newToken().'&amp;module_position='.$module_position.'&amp;action=reload_confirm&amp;value='.$modName.'&amp;mode='.$mode.'&amp;confirm=yes'.$param.'">';
-						$codeenabledisable .= img_picto($langs->trans("Reload"), 'refresh', 'class="opacitymedium"');
+						$codeenabledisable .= img_picture($langs->trans("Reload"), 'refresh', 'class="opacitymedium"');
 						$codeenabledisable .= '</a>';
 					}
 				} else {
 					$codeenabledisable .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&amp;token='.newToken().'&amp;module_position='.$module_position.'&amp;action=reset&amp;value='.$modName.'&amp;mode='.$mode.'&amp;confirm=yes'.$param.'">';
-					$codeenabledisable .= img_picto($langs->trans("Activated").($warningstring ? ' '.$warningstring : ''), 'switch_on');
+					$codeenabledisable .= img_picture($langs->trans("Activated").($warningstring ? ' '.$warningstring : ''), 'switch_on');
 					$codeenabledisable .= '</a>';
 					if (getDolGlobalInt("MAIN_FEATURES_LEVEL") > 1) {
 						$codeenabledisable .= '&nbsp;';
 						$codeenabledisable .= '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&amp;token='.newToken().'&amp;module_position='.$module_position.'&amp;action=reload&amp;value='.$modName.'&amp;mode='.$mode.'&amp;confirm=yes'.$param.'">';
-						$codeenabledisable .= img_picto($langs->trans("Reload"), 'refresh', 'class="opacitymedium"');
+						$codeenabledisable .= img_picture($langs->trans("Reload"), 'refresh', 'class="opacitymedium"');
 						$codeenabledisable .= '</a>';
 					}
 				}
@@ -1068,25 +1068,25 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 					foreach ($objMod->config_page_url as $page) {
 						$urlpage = $page;
 						if ($i++) {
-							$codetoconfig .= '<a href="'.$urlpage.'" title="'.$langs->trans($page).'">'.img_picto(ucfirst($page), "setup").'</a>';
+							$codetoconfig .= '<a href="'.$urlpage.'" title="'.$langs->trans($page).'">'.img_picture(ucfirst($page), "setup").'</a>';
 							//    print '<a href="'.$page.'">'.ucfirst($page).'</a>&nbsp;';
 						} else {
 							if (preg_match('/^([^@]+)@([^@]+)$/i', $urlpage, $regs)) {
 								$urltouse = dol_buildpath('/'.$regs[2].'/admin/'.$regs[1], 1);
-								$codetoconfig .= '<a href="'.$urltouse.(preg_match('/\?/', $urltouse) ? '&' : '?').'save_lastsearch_values=1&backtopage='.urlencode($backtourl).'" title="'.$langs->trans("Setup").'">'.img_picto($langs->trans("Setup"), "setup", 'style="padding-right: 6px"', 0, 0, 0, '', 'fa-15').'</a>';
+								$codetoconfig .= '<a href="'.$urltouse.(preg_match('/\?/', $urltouse) ? '&' : '?').'save_lastsearch_values=1&backtopage='.urlencode($backtourl).'" title="'.$langs->trans("Setup").'">'.img_picture($langs->trans("Setup"), "setup", 'style="padding-right: 6px"', 0, 0, 0, '', 'fa-15').'</a>';
 							} else {
 								$urltouse = $urlpage;
-								$codetoconfig .= '<a href="'.$urltouse.(preg_match('/\?/', $urltouse) ? '&' : '?').'save_lastsearch_values=1&backtopage='.urlencode($backtourl).'" title="'.$langs->trans("Setup").'">'.img_picto($langs->trans("Setup"), "setup", 'style="padding-right: 6px"', 0, 0, 0, '', 'fa-15').'</a>';
+								$codetoconfig .= '<a href="'.$urltouse.(preg_match('/\?/', $urltouse) ? '&' : '?').'save_lastsearch_values=1&backtopage='.urlencode($backtourl).'" title="'.$langs->trans("Setup").'">'.img_picture($langs->trans("Setup"), "setup", 'style="padding-right: 6px"', 0, 0, 0, '', 'fa-15').'</a>';
 							}
 						}
 					}
 				} elseif (preg_match('/^([^@]+)@([^@]+)$/i', (string) $objMod->config_page_url, $regs)) {
-					$codetoconfig .= '<a class="valignmiddle" href="'.dol_buildpath('/'.$regs[2].'/admin/'.$regs[1], 1).'?save_lastsearch_values=1&backtopage='.urlencode($backtourl).'" title="'.$langs->trans("Setup").'">'.img_picto($langs->trans("Setup"), "setup", 'style="padding-right: 6px"', 0, 0, 0, '', 'fa-15').'</a>';
+					$codetoconfig .= '<a class="valignmiddle" href="'.dol_buildpath('/'.$regs[2].'/admin/'.$regs[1], 1).'?save_lastsearch_values=1&backtopage='.urlencode($backtourl).'" title="'.$langs->trans("Setup").'">'.img_picture($langs->trans("Setup"), "setup", 'style="padding-right: 6px"', 0, 0, 0, '', 'fa-15').'</a>';
 				} else {
-					$codetoconfig .= '<a class="valignmiddle" href="'.((string) $objMod->config_page_url).'?save_lastsearch_values=1&backtopage='.urlencode($backtourl).'" title="'.$langs->trans("Setup").'">'.img_picto($langs->trans("Setup"), "setup", 'style="padding-right: 6px"', 0, 0, 0, '', 'fa-15').'</a>';
+					$codetoconfig .= '<a class="valignmiddle" href="'.((string) $objMod->config_page_url).'?save_lastsearch_values=1&backtopage='.urlencode($backtourl).'" title="'.$langs->trans("Setup").'">'.img_picture($langs->trans("Setup"), "setup", 'style="padding-right: 6px"', 0, 0, 0, '', 'fa-15').'</a>';
 				}
 			} else {
-				$codetoconfig .= img_picto($langs->trans("NothingToSetup"), "setup", 'class="opacitytransp" style="padding-right: 6px"', 0, 0, 0, '', 'fa-15');
+				$codetoconfig .= img_picture($langs->trans("NothingToSetup"), "setup", 'class="opacitytransp" style="padding-right: 6px"', 0, 0, 0, '', 'fa-15');
 			}
 		} else { // Module not yet activated
 			// Set $codeenabledisable
@@ -1095,7 +1095,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 				$codeenabledisable .= '<!-- Message to show: an always_enabled module has been disabled -->'."\n";
 				$codeenabledisable .= '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$objMod->number.'&token='.newToken().'&module_position='.$module_position.'&action=set&token='.newToken().'&value='.$modName.'&mode='.$mode.$param.'"';
 				$codeenabledisable .= '>';
-				$codeenabledisable .= img_picto($langs->trans("Disabled"), 'switch_off');
+				$codeenabledisable .= img_picture($langs->trans("Disabled"), 'switch_off');
 				$codeenabledisable .= "</a>\n";
 			} elseif (!empty($objMod->disabled)) {
 				$codeenabledisable .= $langs->trans("Disabled");
@@ -1136,12 +1136,12 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 					$codeenabledisable .= ' onclick="return confirm(\''.dol_escape_js($warningmessage).'\');"';
 				}
 				$codeenabledisable .= '>';
-				$codeenabledisable .= img_picto($langs->trans("Disabled"), 'switch_off');
+				$codeenabledisable .= img_picture($langs->trans("Disabled"), 'switch_off');
 				$codeenabledisable .= "</a>\n";
 			}
 
 			// Set $codetoconfig
-			$codetoconfig .= img_picto($langs->trans("NothingToSetup"), "setup", 'class="opacitytransp" style="padding-right: 6px"');
+			$codetoconfig .= img_picture($langs->trans("NothingToSetup"), "setup", 'class="opacitytransp" style="padding-right: 6px"');
 		}
 
 		if ($mode == 'commonkanban') {
@@ -1158,11 +1158,11 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 			$alttext = '';
 			//if (is_array($objMod->need_dolibarr_version)) $alttext.=($alttext?' - ':'').'Dolibarr >= '.join('.',$objMod->need_dolibarr_version);
 			//if (is_array($objMod->phpmin)) $alttext.=($alttext?' - ':'').'PHP >= '.join('.',$objMod->phpmin);
-			if (!empty($objMod->picto)) {
-				if (preg_match('/^\//i', $objMod->picto)) {
-					print img_picto($alttext, $objMod->picto, 'class="valignmiddle pictomodule paddingrightonly"', 1);
+			if (!empty($objMod->picture)) {
+				if (preg_match('/^\//i', $objMod->picture)) {
+					print img_picture($alttext, $objMod->picture, 'class="valignmiddle picturemodule paddingrightonly"', 1);
 				} else {
-					print img_object($alttext, $objMod->picto, 'class="valignmiddle pictomodule paddingrightonly"');
+					print img_object($alttext, $objMod->picture, 'class="valignmiddle picturemodule paddingrightonly"');
 				}
 			} else {
 				print img_object($alttext, 'generic', 'class="valignmiddle paddingrightonly"');
@@ -1177,8 +1177,8 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 
 			// Help
 			print '<td class="center nowrap" style="width: 82px;">';
-			//print $form->textwithpicto('', $text, 1, $imginfo, 'minheight20', 0, 2, 1);
-			print '<a href="javascript:document_preview(\''.DOL_URL_ROOT.'/admin/modulehelp.php?id='.((int) $objMod->number).'\',\'text/html\',\''.dol_escape_js($langs->trans("Module")).'\')">'.img_picto(($objMod->isCoreOrExternalModule() == 'external' ? $langs->trans("ExternalModule").' - ' : '').$langs->trans("ClickToShowDescription"), $imginfo).'</a>';
+			//print $form->textWithPicture('', $text, 1, $imginfo, 'minheight20', 0, 2, 1);
+			print '<a href="javascript:document_preview(\''.DOL_URL_ROOT.'/admin/modulehelp.php?id='.((int) $objMod->number).'\',\'text/html\',\''.dol_escape_js($langs->trans("Module")).'\')">'.img_picture(($objMod->isCoreOrExternalModule() == 'external' ? $langs->trans("ExternalModule").' - ' : '').$langs->trans("ClickToShowDescription"), $imginfo).'</a>';
 			print '</td>';
 
 			// Version
@@ -1197,7 +1197,7 @@ if ($mode == 'common' || $mode == 'commonkanban') {
 			print "</td>\n";
 
 			// Link config
-			print '<td class="tdsetuppicto right valignmiddle" width="60px">';
+			print '<td class="tdsetuppicture right valignmiddle" width="60px">';
 			print $codetoconfig;
 			print '</td>';
 
@@ -1250,7 +1250,7 @@ if ($mode == 'marketplace') {
 	print '<div class="div-table-responsive-no-min">';
 	print '<table summary="list_of_modules" class="noborder centpercent">'."\n";
 	print '<tr class="liste_titre">'."\n";
-	print '<td class="hideonsmartphone">'.$form->textwithpicto($langs->trans("Provider"), $langs->trans("WebSiteDesc")).'</td>';
+	print '<td class="hideonsmartphone">'.$form->textWithPicture($langs->trans("Provider"), $langs->trans("WebSiteDesc")).'</td>';
 	print '<td></td>';
 	print '<td>'.$langs->trans("URL").'</td>';
 	print '</tr>';
@@ -1398,7 +1398,7 @@ if ($mode == 'deploy') {
 			print $langs->trans("YouCanSubmitFile").'<br><br><br>';
 
 			print '<span class="opacitymedium"><input class="paddingright" type="checkbox" name="checkforcompliance" id="checkforcompliance"'.(getDolGlobalString('DISABLE_CHECK_ON_MALWARE_MODULES') ? ' disabled="disabled"' : 'checked="checked"').'>';
-			print '<label for="checkforcompliance">'.$form->textwithpicto($langs->trans("CheckIfModuleIsNotBlackListed"), $langs->trans("CheckIfModuleIsNotBlackListedHelp")).'</label>';
+			print '<label for="checkforcompliance">'.$form->textWithPicture($langs->trans("CheckIfModuleIsNotBlackListed"), $langs->trans("CheckIfModuleIsNotBlackListedHelp")).'</label>';
 			print '</span><br><br>';
 
 			$max = getDolGlobalString('MAIN_UPLOAD_DOC'); // In Kb
@@ -1541,7 +1541,7 @@ if ($mode == 'develop') {
 	print '</td>';
 	print '<td>'.$langs->trans("DoliPartnersDesc").'</td>';
 	print '<td><a href="'.$url.'" target="_blank" rel="noopener noreferrer external">';
-	print img_picto('', 'url', 'class="pictofixedwidth"');
+	print img_picture('', 'url', 'class="picturefixedwidth"');
 	print $url.'</a></td>';
 	print '</tr>';
 

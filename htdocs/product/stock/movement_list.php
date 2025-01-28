@@ -864,7 +864,7 @@ if ($warehouse->id > 0) {
 	// Project
 	if (isModEnabled('project') && $formproject !== null) {
 		$langs->load("projects");
-		$morehtmlref .= '<br>'.img_picto('', 'project').' '.$langs->trans('Project').' ';
+		$morehtmlref .= '<br>'.img_picture('', 'project').' '.$langs->trans('Project').' ';
 		if ($usercancreate && 1 == 2) {
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$warehouse->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> : ';
@@ -1093,14 +1093,14 @@ $param .= $hookManager->resPrint;
 // List of mass actions available
 $arrayofmassactions = array();
 if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
-	$arrayofmassactions['builddoc'] = img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("GeneratePDF");
+	$arrayofmassactions['builddoc'] = img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("GeneratePDF");
 }
 // By default, we should never accept deletion of stock movement
 if (getDolGlobalString('STOCK_ALLOW_DELETE_OF_MOVEMENT') && $permissiontodelete) {
-	$arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (!empty($permissiontoadd)) {
-	$arrayofmassactions['prereverse'] = img_picto('', 'add', 'class="pictofixedwidth"').$langs->trans("Reverse");
+	$arrayofmassactions['prereverse'] = img_picture('', 'add', 'class="picturefixedwidth"').$langs->trans("Reverse");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete', 'prereverse'))) {
 	$arrayofmassactions = array();
@@ -1186,8 +1186,8 @@ print '<tr class="liste_titre_filter">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons('left');
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons('left');
+	print $searchPicture;
 	print '</td>';
 }
 if (!empty($arrayfields['m.rowid']['checked'])) {
@@ -1317,8 +1317,8 @@ if (!empty($arrayfields['m.tms']['checked'])) {
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '</tr>'."\n";
@@ -1522,7 +1522,7 @@ while ($i < $imaxinloop) {
 		// Id movement
 		if (!empty($arrayfields['m.rowid']['checked'])) {
 			print '<td class="nowraponall">';
-			//print img_picto($langs->trans("StockMovement"), 'movement', 'class="pictofixedwidth"');
+			//print img_picture($langs->trans("StockMovement"), 'movement', 'class="picturefixedwidth"');
 			print $object->getNomUrl(1);
 			;
 			print '</td>'; // This is primary not movement id
@@ -1577,7 +1577,7 @@ while ($i < $imaxinloop) {
 		if (!empty($arrayfields['m.inventorycode']['checked'])) {
 			print '<td class="tdoverflowmax150" title="'.dolPrintHTML($obj->inventorycode).'">';
 			if ($obj->inventorycode) {
-				print img_picto('', 'movement', 'class="pictofixedwidth"');
+				print img_picture('', 'movement', 'class="picturefixedwidth"');
 				print '<a href="'.$_SERVER["PHP_SELF"].'?search_inventorycode='.urlencode('^'.$obj->inventorycode.'$').'">'.dol_escape_htmltag($obj->inventorycode).'</a>';
 			}
 			print '</td>';

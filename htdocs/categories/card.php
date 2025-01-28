@@ -285,7 +285,7 @@ if ($user->hasRight('category', 'creer')) {
 
 		// Parent category
 		print '<tr><td>'.$langs->trans("AddIn").'</td><td>';
-		print img_picto($langs->trans("ParentCategory"), 'category', 'class="pictofixedwidth"');
+		print img_picture($langs->trans("ParentCategory"), 'category', 'class="picturefixedwidth"');
 		print $form->select_all_categories($type, $parent, 'parent');
 		print ajax_combobox('parent');
 		print '</td></tr>';

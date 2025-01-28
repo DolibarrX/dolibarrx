@@ -255,7 +255,7 @@ class Import
 						// Permission
 						$this->array_import_perms[$i] = $user->hasRight('import', 'run');
 						// Icon
-						$this->array_import_icon[$i] = (isset($module->import_icon[$r]) ? $module->import_icon[$r] : $module->picto);
+						$this->array_import_icon[$i] = (isset($module->import_icon[$r]) ? $module->import_icon[$r] : $module->picture);
 						// Code of dataset export
 						$this->array_import_code[$i] = $module->import_code[$r];
 						// Label of dataset export

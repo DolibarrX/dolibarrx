@@ -437,14 +437,14 @@ class FormFile
 	 * 		@param		string				$title				Title to show on top of form. Example: '' (Default to "Documents") or 'none'
 	 * 		@param		string				$buttonlabel		Label on submit button
 	 * 		@param		string				$codelang			Default language code to use on lang combo box if multilang is enabled
-	 * 		@param		string				$morepicto			Add more HTML content into cell with picto
+	 * 		@param		string				$morePicture			Add more HTML content into cell with picture
 	 *      @param      Object|null         $object             Object when method is called from an object card.
 	 *      @param		int					$hideifempty		Hide section of generated files if there is no file
 	 *      @param      string              $removeaction       (optional) The action to remove a file
 	 *      @param		string				$tooltipontemplatecombo		Text to show on a tooltip after the combo list of templates
 	 * 		@return		string|int             					Output string with HTML array of documents (might be empty string)
 	 */
-	public function showdocuments($modulepart, $modulesubdir, $filedir, $urlsource, $genallowed, $delallowed = 0, $modelselected = '', $allowgenifempty = 1, $forcenomultilang = 0, $iconPDF = 0, $notused = 0, $noform = 0, $param = '', $title = '', $buttonlabel = '', $codelang = '', $morepicto = '', $object = null, $hideifempty = 0, $removeaction = 'remove_file', $tooltipontemplatecombo = '')
+	public function showdocuments($modulepart, $modulesubdir, $filedir, $urlsource, $genallowed, $delallowed = 0, $modelselected = '', $allowgenifempty = 1, $forcenomultilang = 0, $iconPDF = 0, $notused = 0, $noform = 0, $param = '', $title = '', $buttonlabel = '', $codelang = '', $morePicture = '', $object = null, $hideifempty = 0, $removeaction = 'remove_file', $tooltipontemplatecombo = '')
 	{
 		global $dolibarr_main_url_root;
 
@@ -473,7 +473,7 @@ class FormFile
 				'title' => &$title,
 				'buttonlabel' => &$buttonlabel,
 				'codelang' => &$codelang,
-				'morepicto' => &$morepicto,
+				'morepicture' => &$morePicture,
 				'hideifempty' => &$hideifempty,
 				'removeaction' => &$removeaction
 			);
@@ -568,8 +568,8 @@ class FormFile
 			$submodulepart = $tmp[1];
 		}
 
-		$addcolumforpicto = ($delallowed || $printer || $morepicto);
-		$colspan = (4 + ($addcolumforpicto ? 1 : 0));
+		$addColumnForPicture = ($delallowed || $printer || $morePicture);
+		$colspan = (4 + ($addColumnForPicture ? 1 : 0));
 		$colspanmore = 0;
 
 		// Show table
@@ -821,8 +821,8 @@ class FormFile
 			$out .= '<table class="liste formdoc noborder centpercent">';
 
 			$out .= '<tr class="liste_titre">';
-			$addcolumforpicto = ($delallowed || $printer || $morepicto);
-			$colspan = (4 + ($addcolumforpicto ? 1 : 0));
+			$addColumnForPicture = ($delallowed || $printer || $morePicture);
+			$colspan = (4 + ($addColumnForPicture ? 1 : 0));
 			$colspanmore = 0;
 
 			$out .= '<th colspan="'.$colspan.'" class="formdoc liste_titre maxwidthonsmartphone center">';
@@ -843,7 +843,7 @@ class FormFile
 				if ($config->use_javascript_ajax) {
 					$out .= ajax_combobox('model');
 				}
-				$out .= $form->textwithpicto('', $tooltipontemplatecombo, 1, 'help', 'marginrightonly', 0, 3, '', 0);
+				$out .= $form->textWithPicture('', $tooltipontemplatecombo, 1, 'help', 'marginrightonly', 0, 3, '', 0);
 			} else {
 				$out .= '<div class="float">'.$langs->trans("Files").'</div>';
 			}
@@ -1034,7 +1034,7 @@ class FormFile
 
 						$fulllink = $urlwithroot.'/document.php'.($paramlink ? '?'.$paramlink : '');
 
-						$out .= '<a href="'.$fulllink.'" target="_blank" rel="noopener">'.img_picto($langs->trans("FileSharedViaALink"), 'globe').'</a> ';
+						$out .= '<a href="'.$fulllink.'" target="_blank" rel="noopener">'.img_picture($langs->trans("FileSharedViaALink"), 'globe').'</a> ';
 						$out .= '<input type="text" class="quatrevingtpercentminusx width75 nopadding small" id="downloadlink'.$file['rowid'].'" name="downloadexternallink" title="'.dol_escape_htmltag($langs->trans("FileSharedViaALink")).'" value="'.dol_escape_htmltag($fulllink).'">';
 						$out .= ajax_autoselect('downloadlink'.$file['rowid']);
 					} else {
@@ -1042,8 +1042,8 @@ class FormFile
 					}
 					$out .= '</td>';
 
-					// Show picto delete, print...
-					if ($delallowed || $printer || $morepicto) {
+					// Show picture delete, print...
+					if ($delallowed || $printer || $morePicture) {
 						$out .= '<td class="right nowraponall">';
 						if ($delallowed) {
 							$tmpurlsource = preg_replace('/#[a-zA-Z0-9_]*$/', '', $urlsource);
@@ -1051,23 +1051,23 @@ class FormFile
 							$out .= ($param ? '&'.$param : '');
 							//$out.= '&modulepart='.$modulepart; // TODO obsolete ?
 							//$out.= '&urlsource='.urlencode($urlsource); // TODO obsolete ?
-							$out .= '">'.img_picto($langs->trans("Delete"), 'delete').'</a>';
+							$out .= '">'.img_picture($langs->trans("Delete"), 'delete').'</a>';
 						}
 						if ($printer) {
 							$out .= '<a class="marginleftonly reposition" href="'.$urlsource.(strpos($urlsource, '?') ? '&' : '?').'action=print_file&token='.newToken().'&printer='.urlencode($modulepart).'&file='.urlencode($relativepath);
 							$out .= ($param ? '&'.$param : '');
-							$out .= '">'.img_picto($langs->trans("PrintFile", $relativepath), 'printer.png').'</a>';
+							$out .= '">'.img_picture($langs->trans("PrintFile", $relativepath), 'printer.png').'</a>';
 						}
-						if ($morepicto) {
-							$morepicto = preg_replace('/__FILENAMEURLENCODED__/', urlencode($relativepath), $morepicto);
-							$out .= $morepicto;
+						if ($morePicture) {
+							$morePicture = preg_replace('/__FILENAMEURLENCODED__/', urlencode($relativepath), $morePicture);
+							$out .= $morePicture;
 						}
 						$out .= '</td>';
 					}
 
 					if (is_object($hookManager)) {
-						$addcolumforpicto = ($delallowed || $printer || $morepicto);
-						$colspan = (4 + ($addcolumforpicto ? 1 : 0));
+						$addColumnForPicture = ($delallowed || $printer || $morePicture);
+						$colspan = (4 + ($addColumnForPicture ? 1 : 0));
 						$colspanmore = 0;
 						$parameters = array('colspan' => ($colspan + $colspanmore), 'socid' => (isset($GLOBALS['socid']) ? $GLOBALS['socid'] : ''), 'id' => (isset($GLOBALS['id']) ? $GLOBALS['id'] : ''), 'modulepart' => $modulepart, 'relativepath' => $relativepath);
 						$res = $hookManager->executeHooks('formBuilddocLineOptions', $parameters, $file);
@@ -1098,7 +1098,7 @@ class FormFile
 					$out .= '</td>';
 					// for share link of files
 					$out .= '<td></td>';
-					if ($delallowed || $printer || $morepicto) {
+					if ($delallowed || $printer || $morePicture) {
 						$out .= '<td></td>';
 					}
 					$out .= '</tr>'."\n";
@@ -1107,7 +1107,7 @@ class FormFile
 			}
 
 			if (count($file_list) == 0 && count($link_list) == 0 && $headershown) {
-				$out .= '<tr><td colspan="'.(3 + ($addcolumforpicto ? 1 : 0)).'"><span class="opacitymedium">'.$langs->trans("None").'</span></td></tr>'."\n";
+				$out .= '<tr><td colspan="'.(3 + ($addColumnForPicture ? 1 : 0)).'"><span class="opacitymedium">'.$langs->trans("None").'</span></td></tr>'."\n";
 			}
 		}
 
@@ -1147,7 +1147,7 @@ class FormFile
 	 *	@param	string	$modulesubdir	Sub-directory to scan (Example: '0/1/10', 'FA/DD/MM/YY/9999'). Use '' if file is not into subdir of module.
 	 *	@param	string	$filedir		Full path to directory to scan
 	 *  @param	string	$filter			Filter filenames on this regex string (Example: '\.pdf$')
-	 *  @param	string	$morecss		Add more css to the download picto
+	 *  @param	string	$morecss		Add more css to the download picture
 	 *  @param	int 	$allfiles		0=Only generated docs, 1=All files
 	 *	@return	string              	Output string with HTML link of documents (might be empty string). This also fill the array ->infofiles
 	 */
@@ -1182,7 +1182,7 @@ class FormFile
 		$out .= '<!-- html.formfile::getDocumentsLink -->'."\n";
 		if (!empty($file_list)) {
 			$out = '<dl class="dropdown inline-block">
-				<dt><a data-ajax="false" href="#" onClick="return false;">'.img_picto('', 'listlight', '', 0, 0, 0, '', $morecss).'</a></dt>
+				<dt><a data-ajax="false" href="#" onClick="return false;">'.img_picture('', 'listlight', '', 0, 0, 0, '', $morecss).'</a></dt>
 				<dd><div class="multichoicedoc" style="position:absolute;left:100px;" ><ul class="ulselectedfields">';
 			$tmpout = '';
 
@@ -1223,14 +1223,14 @@ class FormFile
 					$tmparray = getAdvancedPreviewUrl($modulepart, $relativepath, 1, '&entity='.$entity);
 					if ($tmparray && $tmparray['url']) {
 						$tmpout .= '<li><a href="'.$tmparray['url'].'"'.($tmparray['css'] ? ' class="'.$tmparray['css'].'"' : '').($tmparray['mime'] ? ' mime="'.$tmparray['mime'].'"' : '').($tmparray['target'] ? ' target="'.$tmparray['target'].'"' : '').'>';
-						//$tmpout.= img_picto('','detail');
+						//$tmpout.= img_picture('','detail');
 						$tmpout .= '<i class="fa fa-search-plus paddingright" style="color: gray"></i>';
 						$tmpout .= $langs->trans("Preview").' '.$ext.'</a></li>';
 					}
 				}
 
 				// Download
-				$tmpout .= '<li class="nowrap"><a class="pictopreview nowrap" ';
+				$tmpout .= '<li class="nowrap"><a class="picturepreview nowrap" ';
 				if (getDolGlobalInt('MAIN_DISABLE_FORCE_SAVEAS') == 2) {
 					$tmpout .= 'target="_blank" ';
 				}
@@ -1253,7 +1253,7 @@ class FormFile
 			}
 		} else {
 			// TODO Add link to regenerate doc ?
-			//$out.= '<div id="gen_pdf_'.$modulesubdir.'" class="linkobject hideobject">'.img_picto('', 'refresh').'</div>'."\n";
+			//$out.= '<div id="gen_pdf_'.$modulesubdir.'" class="linkobject hideobject">'.img_picture('', 'refresh').'</div>'."\n";
 		}
 
 		return $out;
@@ -1562,7 +1562,7 @@ class FormFile
 					if ($sizetoshow == $sizetoshowbytes) {
 						print $sizetoshow;
 					} else {
-						print $form->textwithpicto($sizetoshow, $sizetoshowbytes, -1);
+						print $form->textWithPicture($sizetoshow, $sizetoshowbytes, -1);
 					}
 					print '</td>';
 
@@ -1637,7 +1637,7 @@ class FormFile
 
 								$fulllink = $urlwithroot.'/document.php'.($paramlink ? '?'.$paramlink : '');
 
-								print '<a href="'.$fulllink.'" target="_blank" rel="noopener">'.img_picto($langs->trans("FileSharedViaALink"), 'globe').'</a> ';
+								print '<a href="'.$fulllink.'" target="_blank" rel="noopener">'.img_picture($langs->trans("FileSharedViaALink"), 'globe').'</a> ';
 								print '<input type="text" class="quatrevingtpercent minwidth200imp nopadding small" id="downloadlink'.$filearray[$key]['rowid'].'" name="downloadexternallink" title="'.dol_escape_htmltag($langs->trans("FileSharedViaALink")).'" value="'.dol_escape_htmltag($fulllink).'">';
 							} else {
 								//print '<span class="opacitymedium">'.$langs->trans("FileNotShared").'</span>';
@@ -1678,9 +1678,9 @@ class FormFile
 									// Link to convert into webp
 									if (!preg_match('/\.webp$/i', $file['name'])) {
 										if ($modulepart == 'medias' && !GETPOST('website')) {
-											print '<a href="'.DOL_URL_ROOT.'/ecm/index_medias.php?action=confirmconvertimgwebp&token='.newToken().'&section_dir='.urlencode($relativepath).'&filetoregenerate='.urlencode($fileinfo['basename']).'&module='.$modulepart.$param.$moreparaminurl.'" title="'.dol_escape_htmltag($langs->trans("GenerateChosenImgWebp")).'">'.img_picto('', 'images', 'class="flip marginrightonly"').'</a>';
+											print '<a href="'.DOL_URL_ROOT.'/ecm/index_medias.php?action=confirmconvertimgwebp&token='.newToken().'&section_dir='.urlencode($relativepath).'&filetoregenerate='.urlencode($fileinfo['basename']).'&module='.$modulepart.$param.$moreparaminurl.'" title="'.dol_escape_htmltag($langs->trans("GenerateChosenImgWebp")).'">'.img_picture('', 'images', 'class="flip marginrightonly"').'</a>';
 										} elseif ($modulepart == 'medias' && GETPOST('website')) {
-											print '<a href="'.DOL_URL_ROOT.'/website/index.php?action=confirmconvertimgwebp&token='.newToken().'&section_dir='.urlencode($relativepath).'&filetoregenerate='.urlencode($fileinfo['basename']).'&module='.$modulepart.$param.$moreparaminurl.'" title="'.dol_escape_htmltag($langs->trans("GenerateChosenImgWebp")).'">'.img_picto('', 'images', 'class="flip marginrightonly"').'</a>';
+											print '<a href="'.DOL_URL_ROOT.'/website/index.php?action=confirmconvertimgwebp&token='.newToken().'&section_dir='.urlencode($relativepath).'&filetoregenerate='.urlencode($fileinfo['basename']).'&module='.$modulepart.$param.$moreparaminurl.'" title="'.dol_escape_htmltag($langs->trans("GenerateChosenImgWebp")).'">'.img_picture('', 'images', 'class="flip marginrightonly"').'</a>';
 										}
 									}
 								}
@@ -1699,7 +1699,7 @@ class FormFile
 										$moreparaminurl .= '&backtourl='.urlencode(DOL_URL_ROOT.'/ecm/index_medias.php?file_manager=1&modulepart='.$modulepart.'&section_dir='.$relativepath);
 									}
 									//var_dump($moreparaminurl);
-									print '<a class="editfielda" href="'.DOL_URL_ROOT.'/core/photos_resize.php?modulepart='.urlencode($newmodulepart).$moreparaminurl.'&file='.urlencode($relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension'])).'" title="'.dol_escape_htmltag($langs->trans("ResizeOrCrop")).'">'.img_picto($langs->trans("ResizeOrCrop"), 'resize', 'class="paddingrightonly"').'</a>';
+									print '<a class="editfielda" href="'.DOL_URL_ROOT.'/core/photos_resize.php?modulepart='.urlencode($newmodulepart).$moreparaminurl.'&file='.urlencode($relativepath.$fileinfo['filename'].'.'.strtolower($fileinfo['extension'])).'" title="'.dol_escape_htmltag($langs->trans("ResizeOrCrop")).'">'.img_picture($langs->trans("ResizeOrCrop"), 'resize', 'class="paddingrightonly"').'</a>';
 								}
 							}
 
@@ -1844,8 +1844,8 @@ class FormFile
 			print '<td class="liste_titre"></td>';
 			// Action column
 			print '<td class="liste_titre right">';
-			$searchpicto = $form->showFilterButtons();
-			print $searchpicto;
+			$searchPicture = $form->showFilterButtons();
+			print $searchPicture;
 			print '</td>';
 			print "</tr>\n";
 		}
@@ -2125,7 +2125,7 @@ class FormFile
 				if ($sizetoshow == $sizetoshowbytes) {
 					print $sizetoshow;
 				} else {
-					print $form->textwithpicto($sizetoshow, $sizetoshowbytes, -1);
+					print $form->textWithPicture($sizetoshow, $sizetoshowbytes, -1);
 				}
 				print '</td>';
 
@@ -2152,7 +2152,7 @@ class FormFile
 
 					$fulllink = $urlwithroot.'/document.php'.($paramlink ? '?'.$paramlink : '');
 
-					print img_picto($langs->trans("FileSharedViaALink"), 'globe').' ';
+					print img_picture($langs->trans("FileSharedViaALink"), 'globe').' ';
 					print '<input type="text" class="quatrevingtpercent width100 nopadding nopadding small" id="downloadlink" name="downloadexternallink" value="'.dol_escape_htmltag($fulllink).'">';
 				}
 				//if (!empty($useinecm) && $useinecm != 6)  print '<a data-ajax="false" href="'.DOL_URL_ROOT.'/document.php?modulepart='.$modulepart;
@@ -2310,7 +2310,7 @@ class FormFile
 				print '</td>';
 			} else {
 				print '<td>';
-				print img_picto('', 'globe').' ';
+				print img_picture('', 'globe').' ';
 				print '<a data-ajax="false" href="'.$link->url.'" target="_blank" rel="noopener noreferrer">';
 				print dol_escape_htmltag($link->label);
 				print '</a>';
@@ -2348,11 +2348,11 @@ class FormFile
 	 * @param   array{name:string,path:string,level1name:string,relativename:string,fullname:string,date:string,size:int,perm:int,type:string}     $file           Array with data of file. Example: array('name'=>...)
 	 * @param   string    $modulepart     propal, facture, facture_fourn, ...
 	 * @param   string    $relativepath   Relative path of docs
-	 * @param   integer   $ruleforpicto   Rule for picto: 0=Use the generic preview picto, 1=Use the picto of mime type of file). Use a negative value to show a generic picto even if preview not available.
+	 * @param   integer   $ruleforPicture   Rule for picture: 0=Use the generic preview picture, 1=Use the picture of mime type of file). Use a negative value to show a generic picture even if preview not available.
 	 * @param	string	  $param		  More param on http links
 	 * @return  string    $out            Output string with HTML
 	 */
-	public function showPreview($file, $modulepart, $relativepath, $ruleforpicto = 0, $param = '')
+	public function showPreview($file, $modulepart, $relativepath, $ruleforPicture = 0, $param = '')
 	{
 		global $langs, $config;
 
@@ -2360,18 +2360,18 @@ class FormFile
 		if ($config->browser->layout != 'phone' && !empty($config->use_javascript_ajax)) {
 			$urladvancedpreview = getAdvancedPreviewUrl($modulepart, $relativepath, 1, $param); // Return if a file is qualified for preview.
 			if (count($urladvancedpreview)) {
-				$out .= '<a class="pictopreview '.$urladvancedpreview['css'].'" href="'.$urladvancedpreview['url'].'"'.(empty($urladvancedpreview['mime']) ? '' : ' mime="'.$urladvancedpreview['mime'].'"').' '.(empty($urladvancedpreview['target']) ? '' : ' target="'.$urladvancedpreview['target'].'"').'>';
-				//$out.= '<a class="pictopreview">';
-				if (empty($ruleforpicto)) {
-					//$out.= img_picto($langs->trans('Preview').' '.$file['name'], 'detail');
-					$out .= '<span class="fa fa-search-plus pictofixedwidth" style="color: gray"></span>';
+				$out .= '<a class="picturepreview '.$urladvancedpreview['css'].'" href="'.$urladvancedpreview['url'].'"'.(empty($urladvancedpreview['mime']) ? '' : ' mime="'.$urladvancedpreview['mime'].'"').' '.(empty($urladvancedpreview['target']) ? '' : ' target="'.$urladvancedpreview['target'].'"').'>';
+				//$out.= '<a class="picturepreview">';
+				if (empty($ruleforPicture)) {
+					//$out.= img_picture($langs->trans('Preview').' '.$file['name'], 'detail');
+					$out .= '<span class="fa fa-search-plus picturefixedwidth" style="color: gray"></span>';
 				} else {
-					$out .= img_mime($relativepath, $langs->trans('Preview').' '.$file['name'], 'pictofixedwidth');
+					$out .= img_mime($relativepath, $langs->trans('Preview').' '.$file['name'], 'picturefixedwidth');
 				}
 				$out .= '</a>';
 			} else {
-				if ($ruleforpicto < 0) {
-					$out .= img_picto('', 'generic', '', 0, 0, 0, '', 'paddingright pictofixedwidth');
+				if ($ruleforPicture < 0) {
+					$out .= img_picture('', 'generic', '', 0, 0, 0, '', 'paddingright picturefixedwidth');
 				}
 			}
 		}

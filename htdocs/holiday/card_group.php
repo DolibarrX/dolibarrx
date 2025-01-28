@@ -496,10 +496,10 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 		// Groups of users
 		print '<tr>';
 		print '<td class="titlefield fieldrequired">';
-		print $form->textwithpicto($langs->trans("groups"), $langs->trans("fusionGroupsUsers"));
+		print $form->textWithPicture($langs->trans("groups"), $langs->trans("fusionGroupsUsers"));
 		print '</td>';
 		print '<td>';
-		print img_picto($langs->trans("groups"), 'group', 'class="pictofixedwidth"');
+		print img_picture($langs->trans("groups"), 'group', 'class="picturefixedwidth"');
 
 		$sql = ' SELECT rowid, nom from '.MAIN_DB_PREFIX.'usergroup WHERE entity IN ('.getEntity('usergroup').')';
 		$resql = $db->query($sql);
@@ -515,9 +515,9 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 		// Users
 		print '<tr>';
 		print '<td class="titlefield fieldrequired">';
-		print $form->textwithpicto($langs->trans("users"), $langs->trans("fusionGroupsUsers"));
+		print $form->textWithPicture($langs->trans("users"), $langs->trans("fusionGroupsUsers"));
 		print '<td>';
-		print img_picto($langs->trans("users"), 'user', 'class="pictofixedwidth"');
+		print img_picture($langs->trans("users"), 'user', 'class="picturefixedwidth"');
 
 		$sql = 'SELECT u.rowid, u.lastname, u.firstname, u.login, u.photo FROM '.MAIN_DB_PREFIX.'user as u';
 		$sql .= ' WHERE 1 = 1';
@@ -543,7 +543,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 			}
 		}
 
-		print img_picto('', 'users', 'class="pictofixedwidth"') . $form->multiselectarray('users', $userlist, GETPOST('users', 'array'), '', 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
+		print img_picture('', 'users', 'class="picturefixedwidth"') . $form->multiselectarray('users', $userlist, GETPOST('users', 'array'), '', 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 		print '</td>';
 
 		// Type
@@ -567,7 +567,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 		// Date start
 		print '<tr>';
 		print '<td class="fieldrequired">';
-		print $form->textwithpicto($langs->trans("DateDebCP"), $langs->trans("FirstDayOfHoliday"));
+		print $form->textWithPicture($langs->trans("DateDebCP"), $langs->trans("FirstDayOfHoliday"));
 		print '</td>';
 		print '<td>';
 		// Si la demande ne vient pas de l'agenda
@@ -585,7 +585,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 		// Date end
 		print '<tr>';
 		print '<td class="fieldrequired">';
-		print $form->textwithpicto($langs->trans("DateFinCP"), $langs->trans("LastDayOfHoliday"));
+		print $form->textWithPicture($langs->trans("DateFinCP"), $langs->trans("LastDayOfHoliday"));
 		print '</td>';
 		print '<td>';
 		if (!GETPOST('date_fin_')) {
@@ -619,7 +619,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 				$defaultselectuser = GETPOSTINT('valideur');
 			}
 			$s = $form->select_dolusers($defaultselectuser, "valideur", 1, '', 0, $include_users, '', '0,'.$config->entity, 0, 0, '', 0, '', 'minwidth200 maxwidth500');
-			print img_picto('', 'user').$form->textwithpicto($s, $langs->trans("AnyOtherInThisListCanValidate"));
+			print img_picture('', 'user').$form->textWithPicture($s, $langs->trans("AnyOtherInThisListCanValidate"));
 		}
 
 

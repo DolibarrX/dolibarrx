@@ -193,7 +193,7 @@ llxHeader('', $title, $help_url);
 
 // Part to create
 if ($action == 'create') {
-	print load_fiche_titre($langs->trans("NewPositionToBeFilled"), '', 'object_'.$object->picto);
+	print load_fiche_titre($langs->trans("NewPositionToBeFilled"), '', 'object_'.$object->picture);
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -233,7 +233,7 @@ if ($action == 'create') {
 
 // Part to edit record
 if (($id || $ref) && $action == 'edit') {
-	print load_fiche_titre($langs->trans("PositionToBeFilled"), '', 'object_'.$object->picto);
+	print load_fiche_titre($langs->trans("PositionToBeFilled"), '', 'object_'.$object->picture);
 
 	print '<form method="POST" action="'.$_SERVER["PHP_SELF"].'">';
 	print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -268,7 +268,7 @@ if (($id || $ref) && $action == 'edit') {
 // Part to show record
 if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'create'))) {
 	$head = recruitmentjobpositionPrepareHead($object);
-	print dol_get_fiche_head($head, 'card', $langs->trans("RecruitmentJobPosition"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'card', $langs->trans("RecruitmentJobPosition"), -1, $object->picture);
 
 	$formconfirm = '';
 
@@ -502,11 +502,11 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			// Load translation files required by the page
 			$langs->loadLangs(array('recruitment'));
 
-			$out = img_picto('', 'globe').' <span class="opacitymedium">'.$langs->trans("PublicUrl").'</span><br>';
+			$out = img_picture('', 'globe').' <span class="opacitymedium">'.$langs->trans("PublicUrl").'</span><br>';
 
 			$url = getPublicJobPositionUrl(0, $object->ref);
 			$out .= '<div class="urllink"><input type="text" id="recruitmentjobpositionurl" class="quatrevingtpercent" value="'.$url.'">';
-			$out .= '<a href="'.$url.'" target="_blank" rel="noopener noreferrer">'.img_picto('', 'globe').'</a></div>';
+			$out .= '<a href="'.$url.'" target="_blank" rel="noopener noreferrer">'.img_picture('', 'globe').'</a></div>';
 			$out .= ajax_autoselect("recruitmentjobpositionurl", '0');
 
 			print $out;

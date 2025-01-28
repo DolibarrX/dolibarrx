@@ -67,14 +67,14 @@ class ModeleExports extends CommonDocGenerator    // This class can't be abstrac
 	public $libversion = array();
 
 	/**
-	 * @var string picto
+	 * @var string picture
 	 */
-	public $picto;
+	public $picture;
 
 	/**
-	 * @var array<string,string> Module key/picto pairs
+	 * @var array<string,string> Module key/picture pairs
 	 */
-	public $pictos;
+	public $pictures;
 
 	/**
 	 * @var string description
@@ -139,7 +139,7 @@ class ModeleExports extends CommonDocGenerator    // This class can't be abstrac
 						// var_dump($classname);
 
 						// Picto
-						$this->pictos[$module->id] = $module->picto;
+						$this->pictures[$module->id] = $module->picture;
 						// Driver properties
 						$this->driverlabel[$module->id] = $module->getDriverLabel().(empty($module->disabled) ? '' : ' __(Disabled)__'); // '__(Disabled)__' is a key
 						if (method_exists($module, 'getDriverLabelBis')) {
@@ -168,14 +168,14 @@ class ModeleExports extends CommonDocGenerator    // This class can't be abstrac
 
 
 	/**
-	 *  Return picto of export driver
+	 *  Return picture of export driver
 	 *
 	 *  @param	string	$key	Key of driver
 	 *  @return	string			Picto string
 	 */
 	public function getPictoForKey($key)
 	{
-		return $this->pictos[$key];
+		return $this->pictures[$key];
 	}
 
 	/**

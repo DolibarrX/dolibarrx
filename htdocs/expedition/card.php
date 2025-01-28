@@ -1034,7 +1034,7 @@ if ($action == 'create') {
 				$langs->load("projects");
 				print '<tr>';
 				print '<td>'.$langs->trans("Project").'</td><td colspan="2">';
-				print img_picto('', 'project', 'class="pictofixedwidth"');
+				print img_picture('', 'project', 'class="picturefixedwidth"');
 				$numprojet = $formproject->select_projects($soc->id, $projectid, 'projectid', 0);
 				print ' <a class="paddingleft" href="'.DOL_URL_ROOT.'/projet/card.php?socid='.$soc->id.'&action=create&status=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create&socid='.$soc->id).'"><span class="fa fa-plus-circle valignmiddle"></span></a>';
 				print '</td>';
@@ -1044,7 +1044,7 @@ if ($action == 'create') {
 			// Date delivery planned
 			print '<tr><td>'.$langs->trans("DateDeliveryPlanned").'</td>';
 			print '<td colspan="3">';
-			print img_picto('', 'action', 'class="pictofixedwidth"');
+			print img_picture('', 'action', 'class="picturefixedwidth"');
 			$date_delivery = ($date_delivery ? $date_delivery : $object->delivery_date); // $date_delivery comes from GETPOST
 			print $form->selectDate($date_delivery ? $date_delivery : -1, 'date_delivery', 1, 1, 1);
 			print "</td>\n";
@@ -1053,7 +1053,7 @@ if ($action == 'create') {
 			// Date sending
 			print '<tr><td>'.$langs->trans("DateShipping").'</td>';
 			print '<td colspan="3">';
-			print img_picto('', 'action', 'class="pictofixedwidth"');
+			print img_picture('', 'action', 'class="picturefixedwidth"');
 			$date_shipping = ($date_shipping ? $date_shipping : $object->date_shipping); // $date_shipping comes from GETPOST
 			print $form->selectDate($date_shipping ? $date_shipping : -1, 'date_shipping', 1, 1, 1);
 			print "</td>\n";
@@ -1079,31 +1079,31 @@ if ($action == 'create') {
 			print '<tr><td>';
 			print $langs->trans("Weight");
 			print '</td><td colspan="3">';
-			print img_picto('', 'fa-balance-scale', 'class="pictofixedwidth"');
+			print img_picture('', 'fa-balance-scale', 'class="picturefixedwidth"');
 			print '<input name="weight" size="4" value="'.GETPOSTINT('weight').'"> ';
 			$text = $formproduct->selectMeasuringUnits("weight_units", "weight", GETPOSTINT('weight_units'), 0, 2);
 			$htmltext = $langs->trans("KeepEmptyForAutoCalculation");
-			print $form->textwithpicto($text, $htmltext);
+			print $form->textWithPicture($text, $htmltext);
 			print '</td></tr>';
 			// Dim
 			print '<tr><td>';
 			print $langs->trans("Width").' x '.$langs->trans("Height").' x '.$langs->trans("Depth");
 			print ' </td><td colspan="3">';
-			print img_picto('', 'fa-ruler', 'class="pictofixedwidth"');
+			print img_picture('', 'fa-ruler', 'class="picturefixedwidth"');
 			print '<input name="sizeW" size="4" value="'.GETPOSTINT('sizeW').'">';
 			print ' x <input name="sizeH" size="4" value="'.GETPOSTINT('sizeH').'">';
 			print ' x <input name="sizeS" size="4" value="'.GETPOSTINT('sizeS').'">';
 			print ' ';
 			$text = $formproduct->selectMeasuringUnits("size_units", "size", GETPOSTINT('size_units'), 0, 2);
 			$htmltext = $langs->trans("KeepEmptyForAutoCalculation");
-			print $form->textwithpicto($text, $htmltext);
+			print $form->textWithPicture($text, $htmltext);
 			print '</td></tr>';
 
 			// Delivery method
 			print "<tr><td>".$langs->trans("DeliveryMethod")."</td>";
 			print '<td colspan="3">';
 			$expe->fetch_delivery_methods();
-			print img_picto('', 'dolly', 'class="pictofixedwidth"');
+			print img_picture('', 'dolly', 'class="picturefixedwidth"');
 			print $form->selectarray("shipping_method_id", $expe->meths, GETPOSTINT('shipping_method_id'), 1, 0, 0, "", 1);
 			if ($user->admin) {
 				print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);
@@ -1113,7 +1113,7 @@ if ($action == 'create') {
 			// Tracking number
 			print "<tr><td>".$langs->trans("TrackingNumber")."</td>";
 			print '<td colspan="3">';
-			print img_picto('', 'barcode', 'class="pictofixedwidth"');
+			print img_picture('', 'barcode', 'class="picturefixedwidth"');
 			print '<input name="tracking_number" size="20" value="'.GETPOST('tracking_number', 'alpha').'">';
 			print "</td></tr>\n";
 
@@ -1134,9 +1134,9 @@ if ($action == 'create') {
 			// Incoterms
 			if (isModEnabled('incoterm')) {
 				print '<tr>';
-				print '<td><label for="incoterm_id">'.$form->textwithpicto($langs->trans("IncotermLabel"), $object->label_incoterms, 1).'</label></td>';
+				print '<td><label for="incoterm_id">'.$form->textWithPicture($langs->trans("IncotermLabel"), $object->label_incoterms, 1).'</label></td>';
 				print '<td colspan="3" class="maxwidthonsmartphone">';
-				print img_picto('', 'incoterm', 'class="pictofixedwidth"');
+				print img_picture('', 'incoterm', 'class="picturefixedwidth"');
 				print $form->select_incoterms((!empty($object->fk_incoterms) ? $object->fk_incoterms : ''), (!empty($object->location_incoterms) ? $object->location_incoterms : ''));
 				print '</td></tr>';
 			}
@@ -1147,7 +1147,7 @@ if ($action == 'create') {
 			if (is_countable($list) && count($list) > 1) {
 				print "<tr><td>".$langs->trans("DefaultModel")."</td>";
 				print '<td colspan="3">';
-				print img_picto('', 'pdf', 'class="pictofixedwidth"');
+				print img_picture('', 'pdf', 'class="picturefixedwidth"');
 				print $form->selectarray('model', $list, $config->global->EXPEDITION_ADDON_PDF);
 				print "</td></tr>\n";
 			}
@@ -1195,12 +1195,12 @@ if ($action == 'create') {
 				print '<td class="center">'.$langs->trans("QtyShipped").'</td>';
 				print '<td class="center">'.$langs->trans("QtyToShip");
 				if (empty($config->productbatch->enabled)) {
-					print '<br><a href="#" id="autofill" class="opacitymedium link cursor cursorpointer">'.img_picto($langs->trans("Autofill"), 'autofill', 'class="paddingrightonly"').'</a>';
+					print '<br><a href="#" id="autofill" class="opacitymedium link cursor cursorpointer">'.img_picture($langs->trans("Autofill"), 'autofill', 'class="paddingrightonly"').'</a>';
 					print ' / ';
 				} else {
 					print '<br>';
 				}
-				print '<span id="autoreset" class="opacitymedium link cursor cursorpointer">'.img_picto($langs->trans("Reset"), 'eraser').'</span>';
+				print '<span id="autoreset" class="opacitymedium link cursor cursorpointer">'.img_picture($langs->trans("Reset"), 'eraser').'</span>';
 				print '</td>';
 				if (isModEnabled('stock')) {
 					if (empty($config->productbatch->enabled)) {
@@ -1886,7 +1886,7 @@ if ($action == 'create') {
 	$res = $object->fetch_optionals();
 
 	$head = shipping_prepare_head($object);
-	print dol_get_fiche_head($head, 'shipping', $langs->trans("Shipment"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'shipping', $langs->trans("Shipment"), -1, $object->picture);
 
 	$formconfirm = '';
 
@@ -1925,9 +1925,9 @@ if ($action == 'create') {
 
 		$text = $langs->trans("ConfirmValidateSending", $numref);
 		if (getDolGlobalString('STOCK_CALCULATE_ON_SHIPMENT')) {
-			$text .= '<br>'.img_picto('', 'movement', 'class="pictofixedwidth"').$langs->trans("StockMovementWillBeRecorded").'.';
+			$text .= '<br>'.img_picture('', 'movement', 'class="picturefixedwidth"').$langs->trans("StockMovementWillBeRecorded").'.';
 		} elseif (getDolGlobalString('STOCK_CALCULATE_ON_SHIPMENT_CLOSE')) {
-			$text .= '<br>'.img_picto('', 'movement', 'class="pictofixedwidth"').$langs->trans("StockMovementNotYetRecorded").'.';
+			$text .= '<br>'.img_picture('', 'movement', 'class="picturefixedwidth"').$langs->trans("StockMovementNotYetRecorded").'.';
 		}
 
 		if (isModEnabled('notification')) {
@@ -1984,7 +1984,7 @@ if ($action == 'create') {
 		$langs->load("projects");
 		$morehtmlref .= '<br>';
 		if (0) {	// Do not change on shipment
-			$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 			}
@@ -2240,7 +2240,7 @@ if ($action == 'create') {
 		print '</td>';
 		print '<td colspan="3">';
 		if ($action != 'editincoterm') {
-			print $form->textwithpicto($object->display_incoterms(), $object->label_incoterms, 1);
+			print $form->textWithPicture($object->display_incoterms(), $object->label_incoterms, 1);
 		} else {
 			print $form->select_incoterms((!empty($object->fk_incoterms) ? $object->fk_incoterms : ''), (!empty($object->location_incoterms) ? $object->location_incoterms : ''), $_SERVER['PHP_SELF'].'?id='.$object->id);
 		}
@@ -2505,7 +2505,7 @@ if ($action == 'create') {
 								$warehousestatic->fetch($shipmentline_var['warehouse']);
 								$htmltext .= '<br>'.$langs->trans("FromLocation").' : '.$warehousestatic->getNomUrl(1, '', 0, 1);
 							}*/
-							//print ' '.$form->textwithpicto('', $htmltext, 1);
+							//print ' '.$form->textWithPicture('', $htmltext, 1);
 
 							$qtyalreadysent += $shipmentline_var['qty_shipped'];
 						}
@@ -2514,7 +2514,7 @@ if ($action == 'create') {
 						}
 					}
 				}
-				print $form->textwithpicto($qtyalreadysent, $htmltooltip, 1, 'info', '', 0, 3, 'tooltip'.$lines[$i]->id);
+				print $form->textWithPicture($qtyalreadysent, $htmltooltip, 1, 'info', '', 0, 3, 'tooltip'.$lines[$i]->id);
 				print '</td>';
 			}
 
@@ -2626,7 +2626,7 @@ if ($action == 'create') {
 								$detail .= $langs->trans("DetailWarehouseFormat", $entrepot->label, $detail_entrepot->qty_shipped).'<br>';
 							}
 						}
-						print $form->textwithtooltip(img_picto('', 'object_stock').' '.$langs->trans("DetailWarehouseNumber"), $detail);
+						print $form->textwithtooltip(img_picture('', 'object_stock').' '.$langs->trans("DetailWarehouseNumber"), $detail);
 					}
 					print '</td>';
 				}
@@ -2649,7 +2649,7 @@ if ($action == 'create') {
 								$detail .= ' - '.$langs->trans("Qty").': '.$dbatch->qty;
 								$detail .= '<br>';
 							}
-							print $form->textwithtooltip(img_picto('', 'object_barcode').' '.$langs->trans("DetailBatchNumber"), $detail);
+							print $form->textwithtooltip(img_picture('', 'object_barcode').' '.$langs->trans("DetailBatchNumber"), $detail);
 						} else {
 							print $langs->trans("NA");
 						}

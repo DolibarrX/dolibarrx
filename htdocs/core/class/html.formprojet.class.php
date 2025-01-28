@@ -119,7 +119,7 @@ class FormProjets extends Form
 		}
 		if ($discard_closed > 0) {
 			if (!empty($form)) {
-				$out .= $form->textwithpicto('', $langs->trans("ClosedProjectsAreHidden"));
+				$out .= $form->textWithPicture('', $langs->trans("ClosedProjectsAreHidden"));
 			}
 		}
 

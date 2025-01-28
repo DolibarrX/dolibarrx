@@ -59,7 +59,7 @@ class modPropale extends DolibarrModules
 		$this->version = 'dolibarr';
 
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'propal';
+		$this->picture = 'propal';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/propale/temp");
@@ -307,7 +307,7 @@ class modPropale extends DolibarrModules
 		$r++;
 		$this->import_code[$r] = $this->rights_class.'_'.$r;
 		$this->import_label[$r] = 'Proposals'; // Translation key
-		$this->import_icon[$r] = $this->picto;
+		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array('c' => MAIN_DB_PREFIX.'propal', 'extra' => MAIN_DB_PREFIX.'propal_extrafields');
 		$this->import_tables_creator_array[$r] = array('c'=>'fk_user_author'); // Fields to store import user id
@@ -391,7 +391,7 @@ class modPropale extends DolibarrModules
 		$r++;
 		$this->import_code[$r] = $this->rights_class.'line_'.$r;
 		$this->import_label[$r] = "ProposalLines"; // Translation key
-		$this->import_icon[$r] = $this->picto;
+		$this->import_icon[$r] = $this->picture;
 		$this->import_entities_array[$r] = array(); // We define here only fields that use another icon that the one defined into import_icon
 		$this->import_tables_array[$r] = array(
 			'cd' => MAIN_DB_PREFIX.'propaldet',

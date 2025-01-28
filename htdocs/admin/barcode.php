@@ -246,16 +246,16 @@ if (isModEnabled('product')) {
 
 					if (getDolGlobalString('BARCODE_PRODUCT_ADDON_NUM') == "$file") {
 						print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setbarcodeproductoff&token='.newToken().'&amp;value='.urlencode($file).'">';
-						print img_picto($langs->trans("Activated"), 'switch_on');
+						print img_picture($langs->trans("Activated"), 'switch_on');
 						print '</a></td>';
 					} else {
 						print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setbarcodeproducton&token='.newToken().'&amp;value='.urlencode($file).'">';
-						print img_picto($langs->trans("Disabled"), 'switch_off');
+						print img_picture($langs->trans("Disabled"), 'switch_off');
 						print '</a></td>';
 					}
 					print '<td class="center">';
 					$s = $modBarCode->getToolTip($langs, null, -1);
-					print $form->textwithpicto('', $s, 1);
+					print $form->textWithPicture('', $s, 1);
 					print '</td>';
 					print "</tr>\n";
 				}
@@ -310,16 +310,16 @@ if (isModEnabled('societe')) {
 
 					if (getDolGlobalString('BARCODE_THIRDPARTY_ADDON_NUM') && $config->global->BARCODE_THIRDPARTY_ADDON_NUM == "$file") {
 						print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setbarcodethirdpartyoff&token='.newToken().'&amp;value='.urlencode($file).'">';
-						print img_picto($langs->trans("Activated"), 'switch_on');
+						print img_picture($langs->trans("Activated"), 'switch_on');
 						print '</a></td>';
 					} else {
 						print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setbarcodethirdpartyon&token='.newToken().'&amp;value='.urlencode($file).'">';
-						print img_picto($langs->trans("Disabled"), 'switch_off');
+						print img_picture($langs->trans("Disabled"), 'switch_off');
 						print '</a></td>';
 					}
 					print '<td class="center">';
 					$s = $modBarCode->getToolTip($langs, null, -1);
-					print $form->textwithpicto('', $s, 1);
+					print $form->textWithPicture('', $s, 1);
 					print '</td>';
 					print "</tr>\n";
 				}

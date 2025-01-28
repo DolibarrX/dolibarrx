@@ -108,7 +108,7 @@ function pt($db, $sql, $date)
 		print '<tr class="liste_titre">';
 		print '<td class="nowrap">'.$date.'</td>';
 		print '<td class="right">'.$langs->trans("ClaimedForThisPeriod").'</td>';
-		print '<td class="right">'.$langs->trans("PaidDuringThisPeriod").$form->textwithpicto('', $langs->trans('PaidDuringThisPeriodDesc'), 1).'</td>';
+		print '<td class="right">'.$langs->trans("PaidDuringThisPeriod").$form->textWithPicture('', $langs->trans('PaidDuringThisPeriodDesc'), 1).'</td>';
 		print "</tr>\n";
 
 		$totalclaimed = 0;

@@ -190,11 +190,11 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	include DOL_DOCUMENT_ROOT.'/core/tpl/commonfields_view.tpl.php';
 
 	// Manufacturing cost
-	print '<tr><td>'.$form->textwithpicto($langs->trans("ManufacturingCost"), $langs->trans("BOMTotalCost")).'</td><td><span class="amount">';
+	print '<tr><td>'.$form->textWithPicture($langs->trans("ManufacturingCost"), $langs->trans("BOMTotalCost")).'</td><td><span class="amount">';
 	print price($object->total_cost);
 	print '</span>';
 	if ($object->total_cost != $object->unit_cost) {
-		print '&nbsp; &nbsp; <span class="opacitymedium">('.$form->textwithpicto(price($object->unit_cost), $langs->trans("ManufacturingUnitCost"), 1, 'help', '').')</span>';
+		print '&nbsp; &nbsp; <span class="opacitymedium">('.$form->textWithPicture(price($object->unit_cost), $langs->trans("ManufacturingUnitCost"), 1, 'help', '').')</span>';
 	}
 	print '</td></tr>';
 
@@ -242,8 +242,8 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	print '<tr class="liste_titre nodrag nodrop">';
 	print '<td class="linecoldescription">'.$langs->trans('Product');
 	if (getDolGlobalString('BOM_SUB_BOM')  && $action == 'treeview') {
-		print ' &nbsp; <a id="show_all" href="#">'.img_picto('', 'folder-open', 'class="paddingright"').$langs->trans("ExpandAll").'</a>&nbsp;&nbsp;';
-		print '<a id="hide_all" href="#">'.img_picto('', 'folder', 'class="paddingright"').$langs->trans("UndoExpandAll").'</a>&nbsp;';
+		print ' &nbsp; <a id="show_all" href="#">'.img_picture('', 'folder-open', 'class="paddingright"').$langs->trans("ExpandAll").'</a>&nbsp;&nbsp;';
+		print '<a id="hide_all" href="#">'.img_picture('', 'folder', 'class="paddingright"').$langs->trans("UndoExpandAll").'</a>&nbsp;';
 	}
 	print '</td>';
 	if ($action == 'treeview') {
@@ -251,8 +251,8 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	}
 	print '<td class="linecolqty right">'.$langs->trans('Quantity').'</td>';
 	print '<td></td>';	// For unit
-	print '<td class="linecolstock right">'.$form->textwithpicto($langs->trans("PhysicalStock"), $text_stock_options, 1).'</td>';
-	print '<td class="linecoltheoricalstock right">'.$form->textwithpicto($langs->trans("VirtualStock"), $langs->trans("VirtualStockDesc")).'</td>';
+	print '<td class="linecolstock right">'.$form->textWithPicture($langs->trans("PhysicalStock"), $text_stock_options, 1).'</td>';
+	print '<td class="linecoltheoricalstock right">'.$form->textWithPicture($langs->trans("VirtualStock"), $langs->trans("VirtualStockDesc")).'</td>';
 	print  '</tr>';
 
 	print '</thead>';
@@ -275,7 +275,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 						print '<td class="linecoldescription">'.str_repeat($repeatChar, $TProduct['level']).$TProduct['bom']->getNomUrl(1);
 					}
 					print ' <a class="collapse_bom" id="collapse-'.$fk_bom.'" href="#">';
-					print img_picto('', 'folder-open');
+					print img_picture('', 'folder-open');
 					print '</a>';
 					print  '</td>';
 					if ($action == 'treeview') {
@@ -365,7 +365,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 					if(element.html().indexOf('folder-open') <= 0) {
 						$('[parentid="'+ id_bom_line +'"]').show();
-						element.html('<?php echo dol_escape_js(img_picto('', 'folder-open')); ?>');
+						element.html('<?php echo dol_escape_js(img_picture('', 'folder-open')); ?>');
 					}
 					else {
 						for (let i = 0; i < TSubLines.length; i++) {
@@ -375,7 +375,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 							}
 						}
 						TSubLines.hide();
-						element.html('<?php echo dol_escape_js(img_picto('', 'folder')); ?>');
+						element.html('<?php echo dol_escape_js(img_picture('', 'folder')); ?>');
 					}
 				}
 
@@ -389,7 +389,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 				$("#show_all").click(function() {
 					console.log("We click on show all");
 					$("[class^=sub_bom_lines]").show();
-					$("[class^=collapse_bom]").html('<?php echo dol_escape_js(img_picto('', 'folder-open')); ?>');
+					$("[class^=collapse_bom]").html('<?php echo dol_escape_js(img_picture('', 'folder-open')); ?>');
 					return false;
 				});
 
@@ -397,7 +397,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 				$("#hide_all").click(function() {
 					console.log("We click on hide all");
 					$("[class^=sub_bom_lines]").hide();
-					$("[class^=collapse_bom]").html('<?php echo dol_escape_js(img_picto('', 'folder')); ?>');
+					$("[class^=collapse_bom]").html('<?php echo dol_escape_js(img_picture('', 'folder')); ?>');
 					return false;
 				});
 

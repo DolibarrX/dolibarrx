@@ -65,7 +65,7 @@ class modEventOrganization extends DolibarrModules
 		// Key used in llx_const table to save module status enabled/disabled (where EVENTORGANIZATION is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 
-		$this->picto = 'conferenceorbooth';
+		$this->picture = 'conferenceorbooth';
 
 		// Define some features supported by module (triggers, login, substitutions, menus, css, etc...)
 		$this->module_parts = array(
@@ -234,7 +234,7 @@ class modEventOrganization extends DolibarrModules
 			'fk_menu' => 'fk_mainmenu=project',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type' => 'left',			                // This is a Left menu entry
 			'titre' => 'EventOrganizationMenuLeft',
-			'prefix' => img_picto('', 'eventorganization', 'class="paddingright pictofixedwidth"'),
+			'prefix' => img_picture('', 'eventorganization', 'class="paddingright picturefixedwidth"'),
 			'mainmenu' => 'project',
 			'leftmenu' => 'eventorganization',
 			'url' => '',
@@ -273,7 +273,7 @@ class modEventOrganization extends DolibarrModules
 			'fk_menu' => 'fk_mainmenu=project',	    // '' if this is a top menu. For left menu, use 'fk_mainmenu=xxx' or 'fk_mainmenu=xxx,fk_leftmenu=yyy' where xxx is mainmenucode and yyy is a leftmenucode
 			'type' => 'left',			                // This is a Left menu entry
 			'titre' => 'ConferenceOrBooth',
-			'prefix' => img_picto('', 'conferenceorbooth', 'class="paddingright pictofixedwidth"'),
+			'prefix' => img_picture('', 'conferenceorbooth', 'class="paddingright picturefixedwidth"'),
 			'mainmenu' => 'project',
 			'leftmenu' => 'eventorganizationconforbooth',
 			'url' => '',
@@ -317,7 +317,7 @@ class modEventOrganization extends DolibarrModules
 		$langs->load("eventorganization");
 		$this->export_code[$r] = $this->rights_class.'_'.$r;
 		$this->export_label[$r] = 'ListOfAttendeesOfEvent';	// Translation key (used only if key ExportDataset_xxx_z not found)
-		$this->export_icon[$r] = $this->picto;
+		$this->export_icon[$r] = $this->picture;
 		// Define $this->export_fields_array, $this->export_TypeFields_array and $this->export_entities_array
 		$keyforclass = 'ConferenceOrBoothAttendee';
 		$keyforclassfile = '/eventorganization/class/conferenceorboothattendee.class.php';

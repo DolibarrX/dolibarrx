@@ -74,7 +74,7 @@ print load_fiche_titre($title, $linkback, 'title_setup');
 print "<br>\n";
 $textToShow = $langs->trans("AccountancySetupDoneFromAccountancyMenu", '{s1}'.$langs->transnoentitiesnoconv("Accounting").' - '.$langs->transnoentitiesnoconv("Setup").'{s2}');
 $textToShow = str_replace('{s1}', '<a href="'.DOL_URL_ROOT.'/accountancy/index.php?mainmenu=accountancy&leftmenu=accountancy_admin">', $textToShow);
-$textToShow = str_replace('{s2}', '</a>'.img_picto("", "url", 'class="paddingleft"'), $textToShow);
+$textToShow = str_replace('{s2}', '</a>'.img_picture("", "url", 'class="paddingleft"'), $textToShow);
 print '<span class="opacitymedium">'.$textToShow."</span><br>\n";
 print "<br>\n";
 

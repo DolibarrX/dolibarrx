@@ -153,8 +153,8 @@ print '<td class="liste_titre"><input type="text" name="search_event" value="'.d
 print '<td class="liste_titre"></td>';
 // Action column
 print '<td class="liste_titre maxwidthsearch">';
-$searchpicto = $form->showFilterButtons();
-print $searchpicto;
+$searchPicture = $form->showFilterButtons();
+print $searchPicture;
 print '</td>';
 print '</tr>';
 print '</tr>'."\n";

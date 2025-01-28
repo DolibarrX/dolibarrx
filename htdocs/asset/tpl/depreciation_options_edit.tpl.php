@@ -136,14 +136,14 @@ if (empty($resHook)) {
 			print '<tr class="field_' . $html_name . '" id="field_' . $html_name . '"><td';
 			print ' class="' . $more_class . '">';
 			if (!empty($field_info['help'])) {
-				print $form->textwithpicto($langs->trans($field_info['label']), $langs->trans($field_info['help']));
+				print $form->textWithPicture($langs->trans($field_info['label']), $langs->trans($field_info['help']));
 			} else {
 				print $langs->trans($field_info['label']);
 			}
 			print '</td>';
 			print '<td class="valuefieldcreate">';
-			if (!empty($field_info['picto'])) {
-				print img_picto('', $field_info['picto'], '', 0, 0, 0, '', 'pictofixedwidth');
+			if (!empty($field_info['picture'])) {
+				print img_picture('', $field_info['picture'], '', 0, 0, 0, '', 'picturefixedwidth');
 			}
 			if (in_array($field_info['type'], array('int', 'integer'))) {
 				$value = GETPOSTISSET($html_name) ? GETPOSTINT($html_name) : $assetdepreciationoptions->$field_key;
@@ -168,7 +168,7 @@ if (empty($resHook)) {
 				print $assetdepreciationoptions->showOutputField($field_info, $field_key, $value, '', '', $prefix_html_name, 0);
 			} else {
 				if ($field_key == 'lang') {
-					print img_picto('', 'language', 'class="pictofixedwidth"');
+					print img_picture('', 'language', 'class="picturefixedwidth"');
 					print $formadmin->select_language($value, $html_name, 0, null, 1, 0, 0, 'minwidth300', 2);
 				} else {
 					print $assetdepreciationoptions->showInputField($field_info, $field_key, $value, '', '', $prefix_html_name, 0);

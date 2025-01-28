@@ -162,7 +162,7 @@ print '<br>';
 print $langs->trans("AddExtensionThemeModuleOrOther").'<br>';
 print '<hr>';
 $textToShow = $langs->trans("GoModuleSetupArea", DOL_URL_ROOT.'/admin/modules.php?mode=deploy', '{s2}');
-$textToShow = str_replace('{s2}', img_picto('', 'tools', 'class="pictofixedwidth"').$langs->transnoentities("Home").' - '.$langs->transnoentities("Setup").' - '.$langs->transnoentities("Modules"), $textToShow);
+$textToShow = str_replace('{s2}', img_picture('', 'tools', 'class="picturefixedwidth"').$langs->transnoentities("Home").' - '.$langs->transnoentities("Setup").' - '.$langs->transnoentities("Modules"), $textToShow);
 print $textToShow;
 
 // End of page

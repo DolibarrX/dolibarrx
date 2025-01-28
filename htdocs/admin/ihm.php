@@ -405,7 +405,7 @@ if ($mode == 'other') {
 
 	// Default language
 	print '<tr class="oddeven"><td>'.$langs->trans("DefaultLanguage").'</td><td>';
-	print img_picto('', 'language', 'class="pictofixedwidth"');
+	print img_picture('', 'language', 'class="picturefixedwidth"');
 	print $formadmin->select_language(getDolGlobalString('MAIN_LANG_DEFAULT'), 'MAIN_LANG_DEFAULT', 1, array(), '', 0, 0, 'minwidth300', 2);
 	//print '<input class="button button-save smallpaddingimp" type="submit" name="submit" value="'.$langs->trans("Save").'">';
 	print '</td>';
@@ -447,8 +447,8 @@ if ($mode == 'other') {
 	}
 
 	// Hide wiki link on login page
-	$pictohelp = '<span class="fa fa-question-circle"></span>';
-	print '<tr class="oddeven"><td>' . str_replace('{picto}', $pictohelp, $langs->trans("DisableLinkToHelp", '{picto}')) . '</td><td>';
+	$pictureHelp = '<span class="fa fa-question-circle"></span>';
+	print '<tr class="oddeven"><td>' . str_replace('{picture}', $pictureHelp, $langs->trans("DisableLinkToHelp", '{picture}')) . '</td><td>';
 	print ajax_constantonoff("MAIN_HELP_DISABLELINK", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
 	//print $form->selectyesno('MAIN_HELP_DISABLELINK', isset($config->global->MAIN_HELP_DISABLELINK) ? $config->global->MAIN_HELP_DISABLELINK : 0, 1);
 	print '</td>';
@@ -533,14 +533,14 @@ if ($mode == 'other') {
 
 	// Show bugtrack link
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("ShowBugTrackLink", $langs->transnoentitiesnoconv("FindBug")), $langs->trans("ShowBugTrackLinkDesc"));
+	print $form->textWithPicture($langs->trans("ShowBugTrackLink", $langs->transnoentitiesnoconv("FindBug")), $langs->trans("ShowBugTrackLinkDesc"));
 	print '</td><td>';
 	print '<input type="text" name="MAIN_BUGTRACK_ENABLELINK" value="' . getDolGlobalString('MAIN_BUGTRACK_ENABLELINK') . '">';
 	print '</td>';
 	print '</tr>';
 
 	// Disable javascript and ajax
-	print '<tr class="oddeven"><td>' . $form->textwithpicto($langs->trans("DisableJavascript"), $langs->trans("DisableJavascriptNote")) . '</td><td>';
+	print '<tr class="oddeven"><td>' . $form->textWithPicture($langs->trans("DisableJavascript"), $langs->trans("DisableJavascriptNote")) . '</td><td>';
 	print ajax_constantonoff("MAIN_DISABLE_JAVASCRIPT", array(), $config->entity, 0, 0, 1, 0, 0, 0, '', 'other');
 	print '</td>';
 	print '</tr>';
@@ -569,7 +569,7 @@ if ($mode == 'dashboard') {
 	foreach ($substitutionArray as $key => $val) {
 		$texthelp .= $key . '<br>';
 	}
-	print $form->textwithpicto($langs->trans("MessageOfDay"), $texthelp, 1, 'help', '', 0, 2, 'tooltipmessageofday');
+	print $form->textWithPicture($langs->trans("MessageOfDay"), $texthelp, 1, 'help', '', 0, 2, 'tooltipmessageofday');
 
 	print '</td><td>';
 
@@ -696,7 +696,7 @@ if ($mode == 'login') {
 	foreach ($substitutionArray as $key => $val) {
 		$texthelp .= $key . '<br>';
 	}
-	print $form->textwithpicto($langs->trans("MessageLogin"), $texthelp, 1, 'help', '', 0, 2, 'tooltipmessagelogin');
+	print $form->textWithPicture($langs->trans("MessageLogin"), $texthelp, 1, 'help', '', 0, 2, 'tooltipmessagelogin');
 	print '</td><td>';
 	$doleditor = new DolEditor('main_home', (isset($config->global->MAIN_HOME) ? $config->global->MAIN_HOME : ''), '', 142, 'dolibarr_notes', 'In', false, true, true, ROWS_4, '90%');
 	$doleditor->Create();

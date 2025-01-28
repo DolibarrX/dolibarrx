@@ -114,37 +114,37 @@ $arrayphpminversionerror = array(5, 5, 0);
 $arrayphpminversionwarning = array(5, 6, 0);
 
 if (versioncompare(versionphparray(), $arrayphpminversionerror) < 0) {
-	print img_picto('Error', 'error').' '.$langs->trans("ErrorPHPVersionTooLow", versiontostring($arrayphpminversionerror));
+	print img_picture('Error', 'error').' '.$langs->trans("ErrorPHPVersionTooLow", versiontostring($arrayphpminversionerror));
 } elseif (versioncompare(versionphparray(), $arrayphpminversionwarning) < 0) {
-	print img_picto('Warning', 'warning').' '.$langs->trans("ErrorPHPVersionTooLow", versiontostring($arrayphpminversionwarning));
+	print img_picture('Warning', 'warning').' '.$langs->trans("ErrorPHPVersionTooLow", versiontostring($arrayphpminversionwarning));
 } else {
-	print img_picto('Ok', 'tick').' '.versiontostring(versionphparray());
+	print img_picture('Ok', 'tick').' '.versiontostring(versionphparray());
 }
 
 print '</td></tr>';
 print '<tr><td>GET and POST support</td><td>';
 
 if (!isset($_GET["testget"]) && !isset($_POST["testpost"]) && !isset($_GET["mainmenu"])) {	// We must keep $_GET and $_POST here. This is a specific test.
-	print img_picto('Warning', 'warning').' '.$langs->trans("PHPSupportPOSTGETKo");
+	print img_picture('Warning', 'warning').' '.$langs->trans("PHPSupportPOSTGETKo");
 	print ' (<a href="'.$_SERVER["PHP_SELF"].'?testget=ok">'.$langs->trans("Recheck").'</a>)';
 } else {
-	print img_picto('Ok', 'tick').' '.$langs->trans("PHPSupportPOSTGETOk");
+	print img_picture('Ok', 'tick').' '.$langs->trans("PHPSupportPOSTGETOk");
 }
 
 print '</td></tr>';
 print '<tr><td>Sessions support</td><td>';
 if (!function_exists("session_id")) {
-	print img_picto('Error', 'error').' '.$langs->trans("ErrorPHPDoesNotSupportSessions");
+	print img_picture('Error', 'error').' '.$langs->trans("ErrorPHPDoesNotSupportSessions");
 } else {
-	print img_picto('Ok', 'tick').' '.$langs->trans("PHPSupportSessions");
+	print img_picture('Ok', 'tick').' '.$langs->trans("PHPSupportSessions");
 }
 print '</td></tr>';
 
 print '<tr><td>UTF-8 support</td><td>';
 if (!function_exists("utf8_encode")) {
-	print img_picto('Warning', 'warning').' '.$langs->trans("ErrorPHPDoesNotSupport", "UTF8");
+	print img_picture('Warning', 'warning').' '.$langs->trans("ErrorPHPDoesNotSupport", "UTF8");
 } else {
-	print img_picto('Ok', 'tick').' '.$langs->trans("PHPSupport", "UTF8");
+	print img_picture('Ok', 'tick').' '.$langs->trans("PHPSupport", "UTF8");
 }
 print '</td></tr>';
 
@@ -349,7 +349,7 @@ function getResultColumn($name, array $activated, array $loaded, array $function
 		if (strtolower($name) == 'xdebug') {
 			$html .= img_warning($langs->trans("ModuleActivated", "xdebug"));
 		} else {
-			$html .= img_picto($langs->trans("Ok"), 'tick');
+			$html .= img_picture($langs->trans("Ok"), 'tick');
 		}
 		if (in_array(strtolower($name), $loaded)) {
 			$html .= ' '.$langs->trans("Loaded").' - ';

@@ -222,39 +222,39 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-user page-card_param
 
 // List of possible landing pages
 $tmparray = array();
-$tmparray['index.php'] = array('label' => 'Dashboard', 'picto' => 'graph');
+$tmparray['index.php'] = array('label' => 'Dashboard', 'picture' => 'graph');
 if (isModEnabled("societe")) {
-	$tmparray['societe/index.php?mainmenu=companies&leftmenu='] = array('label' => 'ThirdPartiesArea', 'picto' => 'company');
+	$tmparray['societe/index.php?mainmenu=companies&leftmenu='] = array('label' => 'ThirdPartiesArea', 'picture' => 'company');
 }
 if (isModEnabled('project')) {
-	$tmparray['projet/index.php?mainmenu=project&leftmenu='] = array('label' => 'ProjectsArea', 'picto' => 'project');
+	$tmparray['projet/index.php?mainmenu=project&leftmenu='] = array('label' => 'ProjectsArea', 'picture' => 'project');
 	if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
-		$tmparray['projet/list.php?mainmenu=project&leftmenu=&search_usage_opportunity=1&search_status=99&search_opp_status=openedopp&contextpage=lead'] = array('label' => 'ListOpenLeads', 'picto' => 'project');
+		$tmparray['projet/list.php?mainmenu=project&leftmenu=&search_usage_opportunity=1&search_status=99&search_opp_status=openedopp&contextpage=lead'] = array('label' => 'ListOpenLeads', 'picture' => 'project');
 	}
 }
 if (isModEnabled('holiday') || isModEnabled('expensereport')) {
-	$tmparray['hrm/index.php?mainmenu=hrm&leftmenu='] = array('label' => 'HRMArea', 'picto' => 'user'); // TODO Complete list with first level of menus
+	$tmparray['hrm/index.php?mainmenu=hrm&leftmenu='] = array('label' => 'HRMArea', 'picture' => 'user'); // TODO Complete list with first level of menus
 }
 if (isModEnabled("product") || isModEnabled("service")) {
-	$tmparray['product/index.php?mainmenu=products&leftmenu='] = array('label' => 'ProductsAndServicesArea', 'picto' => 'product');
+	$tmparray['product/index.php?mainmenu=products&leftmenu='] = array('label' => 'ProductsAndServicesArea', 'picture' => 'product');
 }
 if (isModEnabled("propal") || isModEnabled('order') || isModEnabled('intervention') || isModEnabled('contract')) {
-	$tmparray['comm/index.php?mainmenu=commercial&leftmenu='] = array('label' => 'CommercialArea', 'picto' => 'commercial');
+	$tmparray['comm/index.php?mainmenu=commercial&leftmenu='] = array('label' => 'CommercialArea', 'picture' => 'commercial');
 }
 if (isModEnabled('invoice')) {
-	$tmparray['compta/index.php?mainmenu=billing&leftmenu='] = array('label' => 'InvoicesArea', 'picto' => 'bill');
+	$tmparray['compta/index.php?mainmenu=billing&leftmenu='] = array('label' => 'InvoicesArea', 'picture' => 'bill');
 }
 if (isModEnabled('comptabilite') || isModEnabled('accounting')) {
-	$tmparray['compta/index.php?mainmenu=accountancy&leftmenu='] = array('label' => 'AccountancyTreasuryArea', 'picto' => 'bill');
+	$tmparray['compta/index.php?mainmenu=accountancy&leftmenu='] = array('label' => 'AccountancyTreasuryArea', 'picture' => 'bill');
 }
 if (isModEnabled('member')) {
-	$tmparray['members/index.php?mainmenu=members&leftmenu='] = array('label' => 'MembersArea', 'picto' => 'member');
+	$tmparray['members/index.php?mainmenu=members&leftmenu='] = array('label' => 'MembersArea', 'picture' => 'member');
 }
 if (isModEnabled('agenda')) {
-	$tmparray['comm/action/index.php?mainmenu=agenda&leftmenu='] = array('label' => 'Agenda', 'picto' => 'action');
+	$tmparray['comm/action/index.php?mainmenu=agenda&leftmenu='] = array('label' => 'Agenda', 'picture' => 'action');
 }
 if (isModEnabled('ticket')) {
-	$tmparray['ticket/list.php?mainmenu=ticket&leftmenu='] = array('label' => 'Tickets', 'picto' => 'ticket');
+	$tmparray['ticket/list.php?mainmenu=ticket&leftmenu='] = array('label' => 'Tickets', 'picture' => 'ticket');
 }
 // add bookmarks to available landing pages
 if (!getDolGlobalString('MAIN_NO_BOOKMARKS_FOR_LANDING_PAGES')) {
@@ -273,13 +273,13 @@ if (!getDolGlobalString('MAIN_NO_BOOKMARKS_FOR_LANDING_PAGES')) {
 			$tmparray['sep'.$i] = array(
 				'data-html' => '<span class="opacitymedium">--- '.$langs->trans("Bookmarks").'</span>',
 				'label' => '--- '.$langs->trans("Bookmarks"),
-				'picto' => '',
+				'picture' => '',
 			);
 			while ($i < $num_rows) {
 				$obj = $db->fetch_object($resql);
 
 				$landing_url = str_replace(DOL_URL_ROOT, '', $obj->url);
-				$tmparray[$landing_url] = array('label' => $obj->title, 'picto' => 'generic');
+				$tmparray[$landing_url] = array('label' => $obj->title, 'picture' => 'generic');
 				$i++;
 			}
 		}
@@ -297,9 +297,9 @@ if ($resHook < 0) {
 }
 
 foreach ($tmparray as $key => $val) {
-	$tmparray[$key]['data-html'] = img_picto($langs->trans($val['label']), empty($val['picto']) ? 'generic' : $val['picto'], 'class="pictofixedwidth"').$langs->trans($val['label']);
+	$tmparray[$key]['data-html'] = img_picture($langs->trans($val['label']), empty($val['picture']) ? 'generic' : $val['picture'], 'class="picturefixedwidth"').$langs->trans($val['label']);
 	$tmparray[$key]['label'] = $langs->trans($val['label']);
-	$tmparray[$key]['picto'] = empty($val['picto']) ? 'generic' : $val['picto'];
+	$tmparray[$key]['picture'] = empty($val['picture']) ? 'generic' : $val['picture'];
 }
 
 $head = user_prepare_head($object);
@@ -382,9 +382,9 @@ if ($action == 'edit') {
 	// Language by default
 	print '<tr class="oddeven"><td class="titlefieldmiddle">'.$langs->trans("Language").'</td>';
 	print '<td>';
-	$s = picto_from_langcode(getDolGlobalString('MAIN_LANG_DEFAULT'));
+	$s = picture_from_langcode(getDolGlobalString('MAIN_LANG_DEFAULT'));
 	print $s ? $s.' ' : '';
-	print(getDolGlobalString('MAIN_LANG_DEFAULT') == 'auto' ? $form->textwithpicto($langs->trans("Automatic"), $langs->trans("AutoDetectLang")) : $langs->trans("Language_" . getDolGlobalString('MAIN_LANG_DEFAULT')));
+	print(getDolGlobalString('MAIN_LANG_DEFAULT') == 'auto' ? $form->textWithPicture($langs->trans("Automatic"), $langs->trans("AutoDetectLang")) : $langs->trans("Language_" . getDolGlobalString('MAIN_LANG_DEFAULT')));
 	print '</td>';
 	print '<td class="nowrap" width="20%"><input class="oddeven" name="check_MAIN_LANG_DEFAULT" id="check_MAIN_LANG_DEFAULT" type="checkbox" '.(!empty($object->conf->MAIN_LANG_DEFAULT) ? " checked" : "");
 	print empty($dolibarr_main_demo) ? '' : ' disabled="disabled"'; // Disabled for demo
@@ -456,11 +456,11 @@ if ($action == 'edit') {
 	$linkback = '<a href="'.DOL_URL_ROOT.'/user/list.php?restore_lastsearch_values=1">'.$langs->trans("BackToList").'</a>';
 
 	$morehtmlref = '<a href="'.DOL_URL_ROOT.'/user/vcard.php?id='.$object->id.'&output=file&file='.urlencode(dol_sanitizeFileName($object->getFullName($langs).'.vcf')).'" class="refid" rel="noopener">';
-	$morehtmlref .= img_picto($langs->trans("Download").' '.$langs->trans("VCard"), 'vcard.png', 'class="valignmiddle marginleftonly paddingrightonly"');
+	$morehtmlref .= img_picture($langs->trans("Download").' '.$langs->trans("VCard"), 'vcard.png', 'class="valignmiddle marginleftonly paddingrightonly"');
 	$morehtmlref .= '</a>';
 
 	$urltovirtualcard = '/user/virtualcard.php?id='.((int) $object->id);
-	$morehtmlref .= dolButtonToOpenUrlInDialogPopup('publicvirtualcard', $langs->transnoentitiesnoconv("PublicVirtualCardUrl").' - '.$object->getFullName($langs), img_picto($langs->trans("PublicVirtualCardUrl"), 'card', 'class="valignmiddle marginleftonly paddingrightonly"'), $urltovirtualcard, '', 'nohover');
+	$morehtmlref .= dolButtonToOpenUrlInDialogPopup('publicvirtualcard', $langs->transnoentitiesnoconv("PublicVirtualCardUrl").' - '.$object->getFullName($langs), img_picture($langs->trans("PublicVirtualCardUrl"), 'card', 'class="valignmiddle marginleftonly paddingrightonly"'), $urltovirtualcard, '', 'nohover');
 
 	dol_banner_tab($object, 'id', $linkback, $user->hasRight("user", "user", "read") || $user->admin, 'rowid', 'ref', $morehtmlref);
 
@@ -480,9 +480,9 @@ if ($action == 'edit') {
 		$addadmin = '';
 		if (property_exists($object, 'admin')) {
 			if (isModEnabled('multicompany') && !empty($object->admin) && empty($object->entity)) {
-				$addadmin .= img_picto($langs->trans("SuperAdministratorDesc"), "redstar", 'class="paddingleft"');
+				$addadmin .= img_picture($langs->trans("SuperAdministratorDesc"), "redstar", 'class="paddingleft"');
 			} elseif (!empty($object->admin)) {
-				$addadmin .= img_picto($langs->trans("AdministratorDesc"), "star", 'class="paddingleft"');
+				$addadmin .= img_picture($langs->trans("AdministratorDesc"), "star", 'class="paddingleft"');
 			}
 		}
 		print showValueWithClipboardCPButton($object->login).$addadmin;
@@ -504,13 +504,13 @@ if ($action == 'edit') {
 	// Language
 	print '<tr class="oddeven"><td>'.$langs->trans("Language").'</td>';
 	print '<td>';
-	$s = picto_from_langcode(getDolGlobalString('MAIN_LANG_DEFAULT'));
+	$s = picture_from_langcode(getDolGlobalString('MAIN_LANG_DEFAULT'));
 	print($s ? $s.' ' : '');
-	print(getDolGlobalString('MAIN_LANG_DEFAULT') == 'auto' ? $form->textwithpicto($langs->trans("Automatic"), $langs->trans("AutoDetectLang")) : $langs->trans("Language_" . getDolGlobalString('MAIN_LANG_DEFAULT')));
+	print(getDolGlobalString('MAIN_LANG_DEFAULT') == 'auto' ? $form->textWithPicture($langs->trans("Automatic"), $langs->trans("AutoDetectLang")) : $langs->trans("Language_" . getDolGlobalString('MAIN_LANG_DEFAULT')));
 	print '</td>';
 	print '<td class="nowrap"><input class="oddeven" type="checkbox" disabled '.(!empty($object->conf->MAIN_LANG_DEFAULT) ? " checked" : "").'> '.$langs->trans("UsePersonalValue").'</td>';
 	print '<td>';
-	$s = (isset($object->conf->MAIN_LANG_DEFAULT) ? picto_from_langcode($object->conf->MAIN_LANG_DEFAULT) : '');
+	$s = (isset($object->conf->MAIN_LANG_DEFAULT) ? picture_from_langcode($object->conf->MAIN_LANG_DEFAULT) : '');
 	print($s ? $s.' ' : '');
 	print(isset($object->conf->MAIN_LANG_DEFAULT) && $object->conf->MAIN_LANG_DEFAULT == 'auto' ? $langs->trans("AutoDetectLang") : (!empty($object->conf->MAIN_LANG_DEFAULT) ? $langs->trans("Language_".$object->conf->MAIN_LANG_DEFAULT) : ''));
 	print '</td></tr>';
@@ -537,11 +537,11 @@ if ($action == 'edit') {
 		}
 		print '<a href="'.DOL_URL_ROOT.'/'.$object->conf->MAIN_LANDING_PAGE.'" target="_blank" rel="noopener">';
 		$s = '';
-		if (isset($tmparray[$object->conf->MAIN_LANDING_PAGE]['picto']) && !empty($tmparray[$object->conf->MAIN_LANDING_PAGE]['picto'])) {
-			$s = img_picto($urltoshow, $tmparray[$object->conf->MAIN_LANDING_PAGE]['picto'], 'class="pictofixedwidth"');
+		if (isset($tmparray[$object->conf->MAIN_LANDING_PAGE]['picture']) && !empty($tmparray[$object->conf->MAIN_LANDING_PAGE]['picture'])) {
+			$s = img_picture($urltoshow, $tmparray[$object->conf->MAIN_LANDING_PAGE]['picture'], 'class="picturefixedwidth"');
 		}
 		if (empty($s)) {
-			print img_picto($urltoshow, 'globe', 'class="pictofixedwidth"');
+			print img_picture($urltoshow, 'globe', 'class="picturefixedwidth"');
 		} else {
 			print $s;
 		}

@@ -44,7 +44,7 @@ class printing_printipp extends PrintingDriver
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'printer';
+	public $picture = 'printer';
 
 	/**
 	 * @var string Constant name
@@ -226,9 +226,9 @@ class printing_printipp extends PrintingDriver
 			// Default
 			$html .= '<td class="center">';
 			if ($config->global->PRINTIPP_URI_DEFAULT == $value) {
-				$html .= img_picto($langs->trans("Default"), 'on');
+				$html .= img_picture($langs->trans("Default"), 'on');
 			} else {
-				$html .= '<a href="'.$_SERVER["PHP_SELF"].'?action=setvalue&token='.newToken().'&mode=test&varname=PRINTIPP_URI_DEFAULT&driver=printipp&value='.urlencode($value).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+				$html .= '<a href="'.$_SERVER["PHP_SELF"].'?action=setvalue&token='.newToken().'&mode=test&varname=PRINTIPP_URI_DEFAULT&driver=printipp&value='.urlencode($value).'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 			}
 			$html .= '</td>';
 			$html .= '</tr>'."\n";

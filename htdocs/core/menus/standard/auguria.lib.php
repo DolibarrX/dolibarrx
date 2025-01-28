@@ -601,7 +601,7 @@ function print_left_auguria_menu($db, $menu_array_before, $menu_array_after, &$t
 					}
 					if (!empty($menu_array[$i]['prefix'])) {
 						if (preg_match('/^fa\-[a-zA-Z0-9\-_]+$/', $menu_array[$i]['prefix'])) {
-							print '<span class="fas '.$menu_array[$i]['prefix'].' paddingright pictofixedwidth"></span>';
+							print '<span class="fas '.$menu_array[$i]['prefix'].' paddingright picturefixedwidth"></span>';
 						} else {
 							print $menu_array[$i]['prefix'];
 						}

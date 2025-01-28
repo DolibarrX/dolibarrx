@@ -365,7 +365,7 @@ if ($action == 'edit') {
 			$text = $langs->trans("Undefined");
 		}
 		$htmltext = $langs->trans("ContactSuperAdminForChange");
-		print $form->textwithpicto($text, $htmltext, 1, 'superadmin');
+		print $form->textWithPicture($text, $htmltext, 1, 'superadmin');
 		print '<input type="hidden" name="MAIN_MAIL_SENDMODE_TICKET" value="' . getDolGlobalString('MAIN_MAIL_SENDMODE_TICKET').'">';
 	}
 	print '</td></tr>';
@@ -398,7 +398,7 @@ if ($action == 'edit') {
 		} else {
 			$text = !empty($mainserver) ? $mainserver : $smtpserver;
 			$htmltext = $langs->trans("ContactSuperAdminForChange");
-			print $form->textwithpicto($text, $htmltext, 1, 'superadmin');
+			print $form->textWithPicture($text, $htmltext, 1, 'superadmin');
 			print '<input type="hidden" id="MAIN_MAIL_SMTP_SERVER_TICKET" name="MAIN_MAIL_SMTP_SERVER_TICKET" value="'.$mainserver.'">';
 		}
 		print '</td>';
@@ -429,7 +429,7 @@ if ($action == 'edit') {
 		} else {
 			$text = (!empty($mainport) ? $mainport : $smtpport);
 			$htmltext = $langs->trans("ContactSuperAdminForChange");
-			print $form->textwithpicto($text, $htmltext, 1, 'superadmin');
+			print $form->textWithPicture($text, $htmltext, 1, 'superadmin');
 			print '<input type="hidden" id="MAIN_MAIL_SMTP_PORT_TICKET" name="MAIN_MAIL_SMTP_PORT_TICKET" value="'.$mainport.'">';
 		}
 	}
@@ -448,7 +448,7 @@ if ($action == 'edit') {
 			print '<label for="radio_plain" >'.$langs->trans("UseAUTHPLAIN").'</label>';
 			print '<br>';
 			print '<input type="radio" id="radio_oauth" name="'.$vartosmtpstype.'" value="XOAUTH2"'.(getDolGlobalString($vartosmtpstype) == 'XOAUTH2' ? ' checked' : '').(isModEnabled('oauth') ? '' : ' disabled').'> ';
-			print '<label for="radio_oauth" >'.$form->textwithpicto($langs->trans("UseOauth"), $langs->trans("OauthNotAvailableForAllAndHadToBeCreatedBefore")).'</label>';
+			print '<label for="radio_oauth" >'.$form->textWithPicture($langs->trans("UseOauth"), $langs->trans("OauthNotAvailableForAllAndHadToBeCreatedBefore")).'</label>';
 			if (!isModEnabled('oauth')) {
 				print ' &nbsp; <a href="'.DOL_URL_ROOT.'/admin/modules.php?search_keyword=oauth">'.$langs->trans("EnableModuleX", "OAuth").'</a>';
 			} else {
@@ -457,7 +457,7 @@ if ($action == 'edit') {
 		} else {
 			$value = getDolGlobalString($vartosmtpstype, 'LOGIN');
 			$htmltext = $langs->trans("ContactSuperAdminForChange");
-			print $form->textwithpicto($langs->trans("MAIN_MAIL_SMTPS_AUTH_TYPE"), $htmltext, 1, 'superadmin');
+			print $form->textWithPicture($langs->trans("MAIN_MAIL_SMTPS_AUTH_TYPE"), $htmltext, 1, 'superadmin');
 			print '<input type="hidden" id="MAIN_MAIL_SMTPS_AUTH_TYPE" name="MAIN_MAIL_SMTPS_AUTH_TYPE_TICKET" value="'.$value.'">';
 		}
 		print '</td></tr>';
@@ -472,7 +472,7 @@ if ($action == 'edit') {
 			print '<input class="flat" name="MAIN_MAIL_SMTPS_ID_TICKET" size="32" value="'.$mainstmpid.'">';
 		} else {
 			$htmltext = $langs->trans("ContactSuperAdminForChange");
-			print $form->textwithpicto(getDolGlobalString('MAIN_MAIL_SMTPS_ID_TICKET'), $htmltext, 1, 'superadmin');
+			print $form->textWithPicture(getDolGlobalString('MAIN_MAIL_SMTPS_ID_TICKET'), $htmltext, 1, 'superadmin');
 			print '<input type="hidden" name="MAIN_MAIL_SMTPS_ID_TICKET" value="'.$mainstmpid.'">';
 		}
 		print '</td></tr>';
@@ -487,7 +487,7 @@ if ($action == 'edit') {
 			print '<input class="flat" type="password" name="MAIN_MAIL_SMTPS_PW_TICKET" size="32" value="'.$mainsmtppw.'">';
 		} else {
 			$htmltext = $langs->trans("ContactSuperAdminForChange");
-			print $form->textwithpicto(getDolGlobalString('MAIN_MAIL_SMTPS_PW_TICKET'), $htmltext, 1, 'superadmin');
+			print $form->textWithPicture(getDolGlobalString('MAIN_MAIL_SMTPS_PW_TICKET'), $htmltext, 1, 'superadmin');
 			print '<input type="hidden" name="MAIN_MAIL_SMTPS_PW_TICKET" value="'.$mainsmtppw.'">';
 		}
 		print '</td></tr>';
@@ -505,7 +505,7 @@ if ($action == 'edit') {
 				$text = $langs->trans("Undefined");
 			}
 			$htmltext = $langs->trans("ContactSuperAdminForChange");
-			print $form->textwithpicto($text, $htmltext, 1, 'superadmin');
+			print $form->textWithPicture($text, $htmltext, 1, 'superadmin');
 			print '<input type="hidden" name="MAIN_MAIL_SMTPS_OAUTH_SERVICE_TICKET" value="' . getDolGlobalString('MAIN_MAIL_SMTPS_OAUTH_SERVICE_TICKET').'">';
 		}
 		print '</td></tr>';

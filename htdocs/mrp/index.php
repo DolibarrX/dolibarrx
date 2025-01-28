@@ -190,7 +190,7 @@ if ($resql) {
 	print $lastmodified;
 	print '</th>';
 	print '<th class="right">';
-	//print '<a href="'.DOL_URL_ROOT.'/bom/bom_list.php?sortfield=t.tms&sortorder=DESC">'.img_picto($langs->trans("FullList"), 'bom');
+	//print '<a href="'.DOL_URL_ROOT.'/bom/bom_list.php?sortfield=t.tms&sortorder=DESC">'.img_picture($langs->trans("FullList"), 'bom');
 	print '</th>';
 	print '</tr>';
 
@@ -247,7 +247,7 @@ if ($resql) {
 	print $lastmodified;
 	print '</th>';
 	print '<th class="right">';
-	//print '<a href="'.DOL_URL_ROOT.'/mrp/mo_list.php?sortfield=t.tms&sortorder=DESC">'.img_picto($langs->trans("FullList"), 'mrp');
+	//print '<a href="'.DOL_URL_ROOT.'/mrp/mo_list.php?sortfield=t.tms&sortorder=DESC">'.img_picture($langs->trans("FullList"), 'mrp');
 	print '</th>';
 	print '</tr>';
 

@@ -51,7 +51,7 @@ class Inventory extends CommonObject
 	/**
 	 * @var string String with name of icon for inventory
 	 */
-	public $picto = 'inventory';
+	public $picture = 'inventory';
 
 	const STATUS_DRAFT     = 0;		// Draft
 	const STATUS_VALIDATED = 1;		// Inventory is in process
@@ -62,7 +62,7 @@ class Inventory extends CommonObject
 	 *  'type' field format ('integer', 'integer:ObjectClass:PathToClass[:AddCreateButtonOrNot[:Filter]]', 'sellist:TableName:LabelFieldName[:KeyFieldName[:KeyFieldParent[:Filter]]]', 'varchar(x)', 'double(24,8)', 'real', 'price', 'text', 'text:none', 'html', 'date', 'datetime', 'timestamp', 'duration', 'mail', 'phone', 'url', 'password')
 	 *         Note: Filter can be a string like "(t.ref:like:'SO-%') or (t.date_creation:<:'20160101') or (t.nature:is:NULL)"
 	 *  'label' the translation key.
-	 *  'picto' is code of a picto to show before value in forms
+	 *  'picture' is code of a picture to show before value in forms
 	 *  'enabled' is a condition when the field must be managed (Example: 1 or 'getDolGlobalString("MY_SETUP_PARAM")'
 	 *  'position' is the sort order of field.
 	 *  'notnull' is set to 1 if not null in database. Set to -1 if we must set data to null if empty ('' or 0).
@@ -93,9 +93,9 @@ class Inventory extends CommonObject
 		'ref'                => array('type' => 'varchar(64)', 'label' => 'Ref', 'visible' => 1, 'enabled' => 1, 'position' => 10, 'notnull' => 1, 'index' => 1, 'searchall' => 1, 'comment' => 'Reference of object', 'css' => 'maxwidth150'),
 		'entity'             => array('type' => 'integer', 'label' => 'Entity', 'visible' => 0, 'enabled' => 1, 'position' => 20, 'notnull' => 1, 'index' => 1,),
 		'title'              => array('type' => 'varchar(255)', 'label' => 'Label', 'visible' => 1, 'enabled' => 1, 'position' => 25, 'css' => 'minwidth300', 'csslist' => 'tdoverflowmax150', 'alwayseditable' => 1),
-		'fk_warehouse'       => array('type' => 'integer:Entrepot:product/stock/class/entrepot.class.php', 'label' => 'Warehouse', 'visible' => 1, 'enabled' => 1, 'position' => 30, 'index' => 1, 'help' => 'InventoryForASpecificWarehouse', 'picto' => 'stock', 'css' => 'minwidth300 maxwidth500 widthcentpercentminusx', 'csslist' => 'tdoverflowmax150'),
-		'fk_product'         => array('type' => 'integer:Product:product/class/product.class.php', 'label' => 'Product', 'get_name_url_params' => '0::0:-1:0::1', 'visible' => 1, 'enabled' => 1, 'position' => 32, 'index' => 1, 'help' => 'InventoryForASpecificProduct', 'picto' => 'product', 'css' => 'minwidth300 maxwidth500 widthcentpercentminusx', 'csslist' => 'tdoverflowmax150'),
-		'categories_product' => array('type' => 'chkbxlst:category:label:rowid::type=0:0:', 'label' => 'OrProductsWithCategories', 'visible' => 3, 'enabled' => 1, 'position' => 33, 'help' => '', 'picto' => 'category', 'css' => 'minwidth300 maxwidth500 widthcentpercentminusx'),
+		'fk_warehouse'       => array('type' => 'integer:Entrepot:product/stock/class/entrepot.class.php', 'label' => 'Warehouse', 'visible' => 1, 'enabled' => 1, 'position' => 30, 'index' => 1, 'help' => 'InventoryForASpecificWarehouse', 'picture' => 'stock', 'css' => 'minwidth300 maxwidth500 widthcentpercentminusx', 'csslist' => 'tdoverflowmax150'),
+		'fk_product'         => array('type' => 'integer:Product:product/class/product.class.php', 'label' => 'Product', 'get_name_url_params' => '0::0:-1:0::1', 'visible' => 1, 'enabled' => 1, 'position' => 32, 'index' => 1, 'help' => 'InventoryForASpecificProduct', 'picture' => 'product', 'css' => 'minwidth300 maxwidth500 widthcentpercentminusx', 'csslist' => 'tdoverflowmax150'),
+		'categories_product' => array('type' => 'chkbxlst:category:label:rowid::type=0:0:', 'label' => 'OrProductsWithCategories', 'visible' => 3, 'enabled' => 1, 'position' => 33, 'help' => '', 'picture' => 'category', 'css' => 'minwidth300 maxwidth500 widthcentpercentminusx'),
 		'date_inventory'     => array('type' => 'date', 'label' => 'DateValue', 'visible' => 1, 'enabled' => '$config->global->STOCK_INVENTORY_ADD_A_VALUE_DATE', 'position' => 35, 'csslist' => 'nowraponall'),	// This date is not used so disabled by default.
 		'date_creation'      => array('type' => 'datetime', 'label' => 'DateCreation', 'enabled' => 1, 'visible' => -2, 'notnull' => 1, 'position' => 500, 'csslist' => 'nowraponall'),
 		'tms'                => array('type' => 'timestamp', 'label' => 'DateModification', 'enabled' => 1, 'visible' => -2, 'notnull' => 1, 'position' => 501, 'csslist' => 'nowraponall'),
@@ -570,16 +570,16 @@ class Inventory extends CommonObject
 	}
 
 	/**
-	 *  Return a link to the object card (with optionally the picto)
+	 *  Return a link to the object card (with optionally the picture)
 	 *
-	 *	@param	int		$withpicto					Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
+	 *	@param	int		$withPicture					Include picture in link (0=No picture, 1=Include picture into link, 2=Only picture)
 	 *	@param	string	$option						On what the link point to
 	 *  @param	int  	$notooltip					1=Disable tooltip
 	 *  @param  string  $morecss            		Add more css on link
 	 *  @param  int     $save_lastsearch_value    	-1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 *	@return	string								String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
+	public function getNomUrl($withPicture = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
 		global $db, $config, $langs;
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
@@ -615,14 +615,14 @@ class Inventory extends CommonObject
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 		$result .= $linkend;
-		//if ($withpicto != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
+		//if ($withPicture != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
 
 		return $result;
 	}
@@ -691,7 +691,7 @@ class Inventory extends CommonObject
 		$return = '<div class="box-flex-item box-flex-grow-zero">';
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<span class="info-box-icon bg-infobox-action">';
-		$return .= img_picto('', $this->picto);
+		$return .= img_picture('', $this->picture);
 		$return .= '</span>';
 		$return .= '<div class="info-box-content">';
 		$return .= '<span class="info-box-ref inline-block tdoverflowmax150 valignmiddle">'.(method_exists($this, 'getNomUrl') ? $this->getNomUrl() : $this->ref).'</span>';
@@ -816,7 +816,7 @@ class InventoryLine extends CommonObjectLine
 	/**
 	 * @var string String with name of icon for inventory
 	 */
-	public $picto = 'stock';
+	public $picture = 'stock';
 
 	/**
 	 *  'type' if the field format.

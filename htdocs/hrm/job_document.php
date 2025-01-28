@@ -129,7 +129,7 @@ if ($object->id) {
 	 */
 	$head = jobPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'document', $langs->trans("Document"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'document', $langs->trans("Document"), -1, $object->picture);
 
 
 	// Build file list

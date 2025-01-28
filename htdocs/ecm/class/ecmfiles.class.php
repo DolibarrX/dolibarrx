@@ -49,7 +49,7 @@ class EcmFiles extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'folder-open';
+	public $picture = 'folder-open';
 
 	/**
 	 * @var string Ref hash of file path
@@ -935,7 +935,7 @@ class EcmFiles extends CommonObject
 	 * getTooltipContentArray
 	 *
 	 * @param 	array<string,mixed> 	$params 		params to construct tooltip data
-	 * @return 	array{picto?:string,ref?:string,gen_or_upload?:string}|array{optimize:string}
+	 * @return 	array{picture?:string,ref?:string,gen_or_upload?:string}|array{optimize:string}
 	 * @since v21
 	 */
 	public function getTooltipContentArray($params)
@@ -949,7 +949,7 @@ class EcmFiles extends CommonObject
 		if (getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 			return ['optimize' => $langs->trans("ShowFile")];
 		}
-		$datas['picto'] = img_picto('', $this->picto, '', 0, 0, 0, '', 'paddingrightonly') . '<u>' . $langs->trans("File") . '</u>';
+		$datas['picture'] = img_picture('', $this->picture, '', 0, 0, 0, '', 'paddingrightonly') . '<u>' . $langs->trans("File") . '</u>';
 		if (!empty($this->filename)) {
 			$datas['name'] = '<br><b>'.$langs->trans('Name').':</b> '.basename($this->filename);
 		}
@@ -972,16 +972,16 @@ class EcmFiles extends CommonObject
 	}
 
 	/**
-	 *  Return a link to the object card (with optionally the picto)
+	 *  Return a link to the object card (with optionally the picture)
 	 *
-	 *	@param	int		$withpicto			Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
+	 *	@param	int		$withPicture			Include picture in link (0=No picture, 1=Include picture into link, 2=Only picture)
 	 *	@param	string	$option				On what the link point to (propal, etc) module name
 	 *  @param	int  	$notooltip			1=Disable tooltip
 	 *  @param	int		$maxlen				Max length of visible user name
 	 *  @param  string  $morecss            Add more css on link
 	 *	@return	string						String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $maxlen = 24, $morecss = '')
+	public function getNomUrl($withPicture = 0, $option = '', $notooltip = 0, $maxlen = 24, $morecss = '')
 	{
 		global $config, $hookManager, $langs;
 
@@ -1039,13 +1039,13 @@ class EcmFiles extends CommonObject
 		$linkstart .= $linkclose.'>';
 		$linkend = '</a>';
 
-		if ($withpicto) {
+		if ($withPicture) {
 			if (empty($this->filename)) {
 				$result .= ($linkstart.img_object(($notooltip ? '' : $label), 'label', ($notooltip ? '' : 'class="paddingright"')).$linkend);
 			} else {
 				$result .= ($linkstart.img_mime($this->filename, ($notooltip ? '' : dol_escape_htmltag($label, 1)), ($notooltip ? '' : ' paddingright')).$linkend);
 			}
-			if ($withpicto != 2) {
+			if ($withPicture != 2) {
 				$result .= ' ';
 			}
 		}

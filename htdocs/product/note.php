@@ -125,9 +125,9 @@ if ($id > 0 || !empty($ref)) {
 
 	$head = product_prepare_head($object);
 	$titre = $langs->trans("CardProduct".$object->type);
-	$picto = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
+	$picture = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
 
-	print dol_get_fiche_head($head, 'note', $titre, -1, $picto);
+	print dol_get_fiche_head($head, 'note', $titre, -1, $picture);
 
 	$linkback = '<a href="'.DOL_URL_ROOT.'/product/list.php?restore_lastsearch_values=1&type='.$object->type.'">'.$langs->trans("BackToList").'</a>';
 	$object->next_prev_filter = "fk_product_type:=:".((int) $object->type); // usf filter

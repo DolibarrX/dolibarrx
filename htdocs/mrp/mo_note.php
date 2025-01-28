@@ -105,7 +105,7 @@ if ($id > 0 || !empty($ref)) {
 
 	$head = moPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'note', $langs->trans("ManufacturingOrder"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'note', $langs->trans("ManufacturingOrder"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------
@@ -129,7 +129,7 @@ if ($id > 0 || !empty($ref)) {
 			$morehtmlref .= '<br>';
 		}
 		if (0) {
-			$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 			}

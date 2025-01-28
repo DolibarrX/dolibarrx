@@ -225,7 +225,7 @@ function limitChars(textarea, limit, infodiv)
 			foreach ($this->substit as $key => $val) {
 				$help .= $key.' -> '.$langs->trans($val).'<br>';
 			}
-			print $form->textwithpicto($langs->trans("SmsTestSubstitutionReplacedByGenericValues"), $help);
+			print $form->textWithPicture($langs->trans("SmsTestSubstitutionReplacedByGenericValues"), $help);
 			print "</td></tr>\n";
 		}
 
@@ -310,7 +310,7 @@ function limitChars(textarea, limit, infodiv)
 			print '<tr><td>';
 			//$moretext=$langs->trans("YouCanUseCommaSeparatorForSeveralRecipients");
 			$moretext = '';
-			print $form->textwithpicto($langs->trans("SmsTo"), $moretext);
+			print $form->textWithPicture($langs->trans("SmsTo"), $moretext);
 			print '</td><td>';
 			if ($this->withtoreadonly) {
 				print (!is_array($this->withto) && !is_numeric($this->withto)) ? $this->withto : "";

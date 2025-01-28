@@ -284,7 +284,7 @@ print '<tr class="oddeven"><td>';
 print $langs->trans("SecurityToken").'</td><td>';
 print '<input size="48" type="text" id="PAYMENT_SECURITY_TOKEN" name="PAYMENT_SECURITY_TOKEN" value="' . getDolGlobalString('PAYMENT_SECURITY_TOKEN').'">';
 if (!empty($config->use_javascript_ajax)) {
-	print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
+	print '&nbsp;'.img_picture($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
 }
 print '</td></tr>';
 

@@ -388,13 +388,13 @@ if ($action == 'delete' && empty($toselect)) {	// Used when we make a delete on 
 
 // List of mass actions available
 $arrayofmassactions = array(
-//'presend'=>img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
-//'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
-	'enable' => img_picto('', 'check', 'class="pictofixedwidth"').$langs->trans("CronStatusActiveBtn"),
-	'disable' => img_picto('', 'uncheck', 'class="pictofixedwidth"').$langs->trans("CronStatusInactiveBtn"),
+//'presend'=>img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
+//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
+	'enable' => img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("CronStatusActiveBtn"),
+	'disable' => img_picture('', 'uncheck', 'class="picturefixedwidth"').$langs->trans("CronStatusInactiveBtn"),
 );
 if ($user->hasRight('cron', 'delete')) {
-	$arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete'))) {
 	$arrayofmassactions = array();
@@ -461,8 +461,8 @@ print '<tr class="liste_titre_filter">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre right">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '<td class="liste_titre">&nbsp;</td>';
@@ -488,8 +488,8 @@ print '<td class="liste_titre">&nbsp;</td>';
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre right">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '</tr>';
@@ -602,7 +602,7 @@ if ($num > 0) {
 		// Class/Method
 		print '<td class="nowraponall">';
 		if ($obj->jobtype == 'method') {
-			$text = img_picto('', 'code');
+			$text = img_picture('', 'code');
 			$textToShow = '<b>'.$langs->trans("CronType_method").'</b><br><br>';
 			$textToShow .= $langs->trans('CronModule').': '.$obj->module_name.'<br>';
 			$textToShow .= $langs->trans('CronClass').': '.$obj->classesname.'<br>';
@@ -611,7 +611,7 @@ if ($num > 0) {
 			$textToShow .= '<br>'.$langs->trans('CronArgs').': '.$obj->params;
 			$textToShow .= '<br>'.$langs->trans('Comment').': '.$langs->trans($obj->note);
 		} elseif ($obj->jobtype == 'command') {
-			$text = img_picto('', 'terminal');
+			$text = img_picture('', 'terminal');
 			$textToShow = '<b>'.$langs->trans('CronType_command').'</b><br><br>';
 			$textToShow .= $langs->trans('CronCommand').': '.dol_trunc($obj->command);
 			$textToShow .= '<br>'.$langs->trans('CronArgs').': '.$obj->params;
@@ -730,13 +730,13 @@ if ($num > 0) {
 		$backtopage = urlencode($_SERVER["PHP_SELF"].'?'.$param.($sortfield ? '&sortfield='.$sortfield : '').($sortorder ? '&sortorder='.$sortorder : ''));
 		if ($user->hasRight('cron', 'create')) {
 			print '<a class="editfielda" href="'.DOL_URL_ROOT."/cron/card.php?id=".$obj->rowid.'&action=edit&token='.newToken().($sortfield ? '&sortfield='.$sortfield : '').($sortorder ? '&sortorder='.$sortorder : '').$param;
-			print "&backtopage=".$backtopage."\" title=\"".dol_escape_htmltag($langs->trans('Edit'))."\">".img_picto($langs->trans('Edit'), 'edit')."</a> &nbsp;";
+			print "&backtopage=".$backtopage."\" title=\"".dol_escape_htmltag($langs->trans('Edit'))."\">".img_picture($langs->trans('Edit'), 'edit')."</a> &nbsp;";
 		}
 		if ($user->hasRight('cron', 'delete')) {
 			print '<a class="reposition" href="'.$_SERVER["PHP_SELF"]."?id=".$obj->rowid.'&action=delete&token='.newToken().($page ? '&page='.$page : '').($sortfield ? '&sortfield='.$sortfield : '').($sortorder ? '&sortorder='.$sortorder : '').$param;
-			print '" title="'.dol_escape_htmltag($langs->trans('CronDelete')).'">'.img_picto($langs->trans('CronDelete'), 'delete', '', 0, 0, 0, '', 'marginleftonly').'</a> &nbsp; ';
+			print '" title="'.dol_escape_htmltag($langs->trans('CronDelete')).'">'.img_picture($langs->trans('CronDelete'), 'delete', '', 0, 0, 0, '', 'marginleftonly').'</a> &nbsp; ';
 		} else {
-			print '<a href="#" title="'.dol_escape_htmltag($langs->trans('NotEnoughPermissions')).'">'.img_picto($langs->trans('NotEnoughPermissions'), 'delete', '', 0, 0, 0, '', 'marginleftonly').'</a> &nbsp; ';
+			print '<a href="#" title="'.dol_escape_htmltag($langs->trans('NotEnoughPermissions')).'">'.img_picture($langs->trans('NotEnoughPermissions'), 'delete', '', 0, 0, 0, '', 'marginleftonly').'</a> &nbsp; ';
 		}
 		if ($user->hasRight('cron', 'execute')) {
 			if (!empty($obj->status)) {
@@ -744,12 +744,12 @@ if ($num > 0) {
 				print(!getDolGlobalString('CRON_KEY') ? '' : '&securitykey=' . getDolGlobalString('CRON_KEY'));
 				print($sortfield ? '&sortfield='.$sortfield : '');
 				print($sortorder ? '&sortorder='.$sortorder : '');
-				print $param."\" title=\"".dol_escape_htmltag($langs->trans('CronExecute'))."\">".img_picto($langs->trans('CronExecute'), "play", '', 0, 0, 0, '', 'marginleftonly').'</a>';
+				print $param."\" title=\"".dol_escape_htmltag($langs->trans('CronExecute'))."\">".img_picture($langs->trans('CronExecute'), "play", '', 0, 0, 0, '', 'marginleftonly').'</a>';
 			} else {
-				print '<a href="#" class="cursordefault" title="'.dol_escape_htmltag($langs->trans('JobDisabled')).'">'.img_picto($langs->trans('JobDisabled'), "playdisabled", '', 0, 0, 0, '', 'marginleftonly').'</a>';
+				print '<a href="#" class="cursordefault" title="'.dol_escape_htmltag($langs->trans('JobDisabled')).'">'.img_picture($langs->trans('JobDisabled'), "playdisabled", '', 0, 0, 0, '', 'marginleftonly').'</a>';
 			}
 		} else {
-			print '<a href="#" class="cursornotallowed" title="'.dol_escape_htmltag($langs->trans('NotEnoughPermissions')).'">'.img_picto($langs->trans('NotEnoughPermissions'), "playdisabled", '', 0, 0, 0, '', 'marginleftonly').'</a>';
+			print '<a href="#" class="cursornotallowed" title="'.dol_escape_htmltag($langs->trans('NotEnoughPermissions')).'">'.img_picture($langs->trans('NotEnoughPermissions'), "playdisabled", '', 0, 0, 0, '', 'marginleftonly').'</a>';
 		}
 
 		print '</td>';

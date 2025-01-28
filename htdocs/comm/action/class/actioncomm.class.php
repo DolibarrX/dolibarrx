@@ -57,7 +57,7 @@ class ActionComm extends CommonObject
 	/**
 	 * @var string Name of icon for actioncomm object. Filename of icon is object_action.png
 	 */
-	public $picto = 'action';
+	public $picture = 'action';
 
 	/**
 	 * @var int<0,2> 0=Default
@@ -107,7 +107,7 @@ class ActionComm extends CommonObject
 	/**
 	 * @var string Picto for type of event (used only if option to use type is set)
 	 */
-	public $type_picto;
+	public $type_picture;
 
 	/**
 	 * @var string Free code to identify action. Ie: Agenda trigger add here AC_TRIGGERNAME ('AC_COMPANY_CREATE', 'AC_PROPAL_VALIDATE', ...)
@@ -819,7 +819,7 @@ class ActionComm extends CommonObject
 		$sql .= " a.fk_element as elementid, a.elementtype,";
 		$sql .= " a.priority, a.fulldayevent, a.location, a.transparency,";
 		$sql .= " a.email_msgid, a.email_subject, a.email_from, a.email_sender, a.email_to, a.email_tocc, a.email_tobcc, a.errors_to,";
-		$sql .= " c.id as type_id, c.type as type_type, c.code as type_code, c.libelle as type_label, c.color as type_color, c.picto as type_picto,";
+		$sql .= " c.id as type_id, c.type as type_type, c.code as type_code, c.libelle as type_label, c.color as type_color, c.picture as type_picture,";
 		$sql .= " s.nom as socname,";
 		$sql .= " u.firstname, u.lastname as lastname,";
 		$sql .= " num_vote, event_paid, a.status";
@@ -854,7 +854,7 @@ class ActionComm extends CommonObject
 				$this->type_id    = $obj->type_id;
 				$this->type_code  = $obj->type_code;
 				$this->type_color = $obj->type_color;
-				$this->type_picto = $obj->type_picto;
+				$this->type_picture = $obj->type_picture;
 				$this->type       = $obj->type_type;
 				$this->type_label = $obj->type_label;
 
@@ -1596,7 +1596,7 @@ class ActionComm extends CommonObject
 	 * getTooltipContentArray
 	 * @param array<string,mixed> $params params to construct tooltip data
 	 * @since v18
-	 * @return array{picto:string,ref?:string,title?:string,labeltype?:string,location?:string,transparency?:string,space?:string,mailtopic?:string,mailfrom?:string,mailto?:string,mailcc?:string,description?:string,note?:string,categories?:string}
+	 * @return array{picture:string,ref?:string,title?:string,labeltype?:string,location?:string,transparency?:string,space?:string,mailtopic?:string,mailfrom?:string,mailto?:string,mailcc?:string,description?:string,note?:string,categories?:string}
 	 */
 	public function getTooltipContentArray($params)
 	{
@@ -1618,7 +1618,7 @@ class ActionComm extends CommonObject
 				$labeltype = $langs->trans('ActionAC_MANUAL');
 			}
 		}
-		$datas['picto'] = img_picto('', $this->picto).' <u>'.$langs->trans('Action').'</u>';
+		$datas['picture'] = img_picture('', $this->picture).' <u>'.$langs->trans('Action').'</u>';
 		if (!empty($this->ref)) {
 			$datas['ref'] = '<br><b>'.$langs->trans('Ref').':</b> '.dol_escape_htmltag($this->ref);
 		}
@@ -1637,7 +1637,7 @@ class ActionComm extends CommonObject
 		if (!empty($this->email_msgid)) {
 			$langs->load("mails");
 			$datas['space'] = '<br>';
-			// $datas['email'] = '<br><b>'.img_picto('', 'email').' '.$langs->trans("Email").'</b>';
+			// $datas['email'] = '<br><b>'.img_picture('', 'email').' '.$langs->trans("Email").'</b>';
 			$datas['mailtopic'] = '<br><b>'.$langs->trans('MailTopic').':</b> '.dol_escape_htmltag($this->email_subject);
 			$datas['mailfrom'] = '<br><b>'.$langs->trans('MailFrom').':</b> '.str_replace(array('<', '>'), array('&amp;lt', '&amp;gt'), $this->email_from);
 			$datas['mailto'] = '<br><b>'.$langs->trans('MailTo').':</b> '.str_replace(array('<', '>'), array('&amp;lt', '&amp;gt'), $this->email_to);
@@ -1679,16 +1679,16 @@ class ActionComm extends CommonObject
 	 *  Return URL of event
 	 *  Use $this->id, $this->type_code, $this->label and $this->type_label
 	 *
-	 *  @param	int<0,2>	$withpicto				0 = No picto, 1 = Include picto into link, 2 = Only picto
+	 *  @param	int<0,2>	$withPicture				0 = No picture, 1 = Include picture into link, 2 = Only picture
 	 *  @param	int			$maxlength				Max number of characters into label. If negative, use the ref as label.
 	 *  @param	string		$classname				Force style class on a link
 	 *  @param	string		$option					'' = Link to action, 'birthday'= Link to contact, 'holiday' = Link to leave
-	 *  @param	int<0,1>	$overwritepicto			1 = Overwrite picto with this one
+	 *  @param	int<0,1>	$overwritePicture			1 = Overwrite picture with this one
 	 *  @param	int<0,1>	$notooltip		    	1 = Disable tooltip
 	 *  @param  int<-1,1>	$save_lastsearch_value  -1 = Auto, 0 = No save of lastsearch_values when clicking, 1 = Save lastsearch_values whenclicking
 	 *  @return	string							Chaine avec URL
 	 */
-	public function getNomUrl($withpicto = 0, $maxlength = 0, $classname = '', $option = '', $overwritepicto = 0, $notooltip = 0, $save_lastsearch_value = -1)
+	public function getNomUrl($withPicture = 0, $maxlength = 0, $classname = '', $option = '', $overwritePicture = 0, $notooltip = 0, $save_lastsearch_value = -1)
 	{
 		global $config, $langs, $user, $hookManager, $action;
 
@@ -1717,9 +1717,9 @@ class ActionComm extends CommonObject
 		// Set label of type
 		$labeltype = $this->getTypeLabel(1);
 
-		$tooltip = img_picto('', $this->picto).' <u>'.$langs->trans('Action').'</u>';
+		$tooltip = img_picture('', $this->picture).' <u>'.$langs->trans('Action').'</u>';
 
-		$tooltip .= ' &nbsp; - &nbsp; '.$this->getTypePicto('pictofixedwidth paddingright valignmiddle').$labeltype;
+		$tooltip .= ' &nbsp; - &nbsp; '.$this->getTypePicto('picturefixedwidth paddingright valignmiddle').$labeltype;
 		if (!empty($this->ref)) {
 			$tooltip .= '<br><b>'.$langs->trans('Ref').':</b> '.dol_escape_htmltag($this->ref);
 		}
@@ -1749,7 +1749,7 @@ class ActionComm extends CommonObject
 		if (!empty($this->email_msgid)) {
 			$langs->load("mails");
 			$tooltip .= '<br>';
-			//$tooltip .= '<br><b>'.img_picto('', 'email').' '.$langs->trans("Email").'</b>';
+			//$tooltip .= '<br><b>'.img_picture('', 'email').' '.$langs->trans("Email").'</b>';
 			$tooltip .= '<br><b>'.$langs->trans('MailTopic').':</b> '.dol_escape_htmltag($this->email_subject);
 			$tooltip .= '<br><b>'.$langs->trans('MailFrom').':</b> '.str_replace(array('<', '>'), array('&amp;lt', '&amp;gt'), !empty($this->email_from) ? $this->email_from : '');
 			$tooltip .= '<br><b>'.$langs->trans('MailTo').':</b> '.str_replace(array('<', '>'), array('&amp;lt', '&amp;gt'), !empty($this->email_to) ? $this->email_to : '');
@@ -1823,7 +1823,7 @@ class ActionComm extends CommonObject
 			$linkend = '';
 		}
 
-		if ($withpicto == 2) {
+		if ($withPicture == 2) {
 			if (getDolGlobalString('AGENDA_USE_EVENT_TYPE')) {
 				$label = $labeltype;
 			}
@@ -1839,7 +1839,7 @@ class ActionComm extends CommonObject
 			}
 		}
 
-		if ($withpicto) {
+		if ($withPicture) {
 			if (getDolGlobalString('AGENDA_USE_EVENT_TYPE')) {	// Add code into ()
 				if ($labeltype) {
 					$label .= (preg_match('/'.preg_quote($labeltype, '/').'/', $label) ? '' : ' ('.$langs->transnoentities("Action".$this->type_code).')');
@@ -1848,8 +1848,8 @@ class ActionComm extends CommonObject
 		}
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $langs->trans("ShowAction").': '.$label), ($overwritepicto ? $overwritepicto : 'action'), (($this->type_color && $overwritepicto) ? 'style="color: #'.$this->type_color.' !important;" ' : '').($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : ' class="'.(($withpicto != 2) ? 'paddingright ' : '').'"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $langs->trans("ShowAction").': '.$label), ($overwritePicture ? $overwritePicture : 'action'), (($this->type_color && $overwritePicture) ? 'style="color: #'.$this->type_color.' !important;" ' : '').($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : ' class="'.(($withPicture != 2) ? 'paddingright ' : '').'"'), 0, 0, $notooltip ? 0 : 1);
 		}
 		$result .= dol_escape_htmltag($labelshort);
 		$result .= $linkend;
@@ -1874,45 +1874,45 @@ class ActionComm extends CommonObject
 	 *  @param	string		$titlealt			Title alt
 	 *  @return	string							HTML String
 	 */
-	public function getTypePicto($morecss = 'pictofixedwidth paddingright valignmiddle', $titlealt = '')
+	public function getTypePicto($morecss = 'picturefixedwidth paddingright valignmiddle', $titlealt = '')
 	{
-		$imgpicto = '';
+		$imgPicture = '';
 		if (getDolGlobalString('AGENDA_USE_EVENT_TYPE')) {
 			$color = '';
 			if ($this->type_color) {
 				$color = 'style="color: #'.$this->type_color.' !important;"';
 			}
-			if ($this->type_picto) {
-				$imgpicto = img_picto($titlealt.'rr', $this->type_picto, '', 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
+			if ($this->type_picture) {
+				$imgPicture = img_picture($titlealt.'rr', $this->type_picture, '', 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
 			} else {
 				if ($this->type_code == 'AC_RDV') {
-					$imgpicto = img_picto($titlealt, 'meeting', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
+					$imgPicture = img_picture($titlealt, 'meeting', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
 				} elseif ($this->type_code == 'AC_TEL') {
-					$imgpicto = img_picto($titlealt, 'object_phoning', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
+					$imgPicture = img_picture($titlealt, 'object_phoning', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
 				} elseif ($this->type_code == 'AC_FAX') {
-					$imgpicto = img_picto($titlealt, 'object_phoning_fax', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
+					$imgPicture = img_picture($titlealt, 'object_phoning_fax', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
 				} elseif ($this->type_code == 'AC_EMAIL' || $this->type_code == 'AC_EMAIL_IN' || $this->type_code == 'AC_EMAILING' || (!empty($this->code) && preg_match('/_SENTBYMAIL/', $this->code))) {
-					$imgpicto = img_picto($titlealt, 'object_email', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
+					$imgPicture = img_picture($titlealt, 'object_email', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
 				} elseif ($this->type_code == 'AC_INT') {
-					$imgpicto = img_picto($titlealt, 'object_intervention', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
+					$imgPicture = img_picture($titlealt, 'object_intervention', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
 				} elseif (!empty($this->code) && preg_match('/^TICKET_MSG/', $this->code)) {
-					$imgpicto = img_picto($titlealt, 'object_conversation', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
+					$imgPicture = img_picture($titlealt, 'object_conversation', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
 				} elseif ($this->type != 'systemauto') {
-					$imgpicto = img_picto($titlealt, 'user-cog', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
+					$imgPicture = img_picture($titlealt, 'user-cog', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
 				} else {
-					$imgpicto = img_picto($titlealt, 'cog', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
+					$imgPicture = img_picture($titlealt, 'cog', $color, 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
 				}
 			}
 		} else {
-			// 2 picto: 1 for auto, 1 for manual
+			// 2 picture: 1 for auto, 1 for manual
 			if ($this->type != 'systemauto') {
-				$imgpicto = img_picto($titlealt, 'user-cog', '', 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
+				$imgPicture = img_picture($titlealt, 'user-cog', '', 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
 			} else {
-				$imgpicto = img_picto($titlealt, 'cog', '', 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
+				$imgPicture = img_picture($titlealt, 'cog', '', 0, 0, 0, '', ($morecss ? ' '.$morecss : ''));
 			}
 		}
 
-		return $imgpicto;
+		return $imgPicture;
 	}
 
 

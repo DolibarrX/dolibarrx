@@ -126,11 +126,11 @@ if ($id > 0) {
 	}
 
 	$morehtmlref = '<a href="'.DOL_URL_ROOT.'/user/vcard.php?id='.$object->id.'&output=file&file='.urlencode(dol_sanitizeFileName($object->getFullName($langs).'.vcf')).'" class="refid" rel="noopener">';
-	$morehtmlref .= img_picto($langs->trans("Download").' '.$langs->trans("VCard"), 'vcard.png', 'class="valignmiddle marginleftonly paddingrightonly"');
+	$morehtmlref .= img_picture($langs->trans("Download").' '.$langs->trans("VCard"), 'vcard.png', 'class="valignmiddle marginleftonly paddingrightonly"');
 	$morehtmlref .= '</a>';
 
 	$urltovirtualcard = '/user/virtualcard.php?id='.((int) $object->id);
-	$morehtmlref .= dolButtonToOpenUrlInDialogPopup('publicvirtualcard', $langs->transnoentitiesnoconv("PublicVirtualCardUrl").' - '.$object->getFullName($langs), img_picto($langs->trans("PublicVirtualCardUrl"), 'card', 'class="valignmiddle marginleftonly paddingrightonly"'), $urltovirtualcard, '', 'nohover');
+	$morehtmlref .= dolButtonToOpenUrlInDialogPopup('publicvirtualcard', $langs->transnoentitiesnoconv("PublicVirtualCardUrl").' - '.$object->getFullName($langs), img_picture($langs->trans("PublicVirtualCardUrl"), 'card', 'class="valignmiddle marginleftonly paddingrightonly"'), $urltovirtualcard, '', 'nohover');
 
 	dol_banner_tab($object, 'id', $linkback, $user->hasRight('user', 'user', 'lire') || $user->admin, 'rowid', 'ref', $morehtmlref);
 
@@ -149,7 +149,7 @@ if ($id > 0) {
 				$langs->load("errors");
 				print '<span class="error">'.$langs->trans("ErrorModuleSetupNotComplete", $langs->transnoentitiesnoconv("ClickToDial")).'</span>';
 			} else {
-				print '<br>'.$form->textwithpicto('<span class="opacitymedium">'.$langs->trans("KeepEmptyToUseDefault").'</span>:<br>' . getDolGlobalString('CLICKTODIAL_URL'), $langs->trans("ClickToDialUrlDesc"));
+				print '<br>'.$form->textWithPicture('<span class="opacitymedium">'.$langs->trans("KeepEmptyToUseDefault").'</span>:<br>' . getDolGlobalString('CLICKTODIAL_URL'), $langs->trans("ClickToDialUrlDesc"));
 			}
 			print '</td>';
 			print '</tr>';
@@ -187,7 +187,7 @@ if ($id > 0) {
 				$langs->load("errors");
 				print '<span class="error">'.$langs->trans("ErrorModuleSetupNotComplete", $langs->transnoentitiesnoconv("ClickToDial")).'</span>';
 			} else {
-				print $form->textwithpicto((empty($object->clicktodial_url) ? '<span class="opacitymedium">'.$langs->trans("DefaultLink").':</span> ' : '').$url, $langs->trans("ClickToDialUrlDesc"));
+				print $form->textWithPicture((empty($object->clicktodial_url) ? '<span class="opacitymedium">'.$langs->trans("DefaultLink").':</span> ' : '').$url, $langs->trans("ClickToDialUrlDesc"));
 			}
 			print '</td>';
 			print '</tr>';

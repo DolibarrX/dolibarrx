@@ -1412,14 +1412,14 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 		print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
 
 		if ($type == 1) {
-			$picto = 'service';
+			$picture = 'service';
 			$title = $langs->trans("NewService");
 		} else {
-			$picto = 'product';
+			$picture = 'product';
 			$title = $langs->trans("NewProduct");
 		}
 		$linkback = "";
-		print load_fiche_titre($title, $linkback, $picto);
+		print load_fiche_titre($title, $linkback, $picture);
 
 		// We set country_id, country_code and country for the selected country
 		$object->country_id = GETPOSTISSET('country_id') ? GETPOSTINT('country_id') : null;
@@ -1489,7 +1489,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 						$inherited_mask_lot = getDolGlobalString('LOT_ADVANCED_MASK');
 						$inherited_mask_sn = getDolGlobalString('SN_ADVANCED_MASK');
 						print '<td id="field_mask">';
-						print $form->textwithpicto('<input type="text" class="flat minwidth175" name="batch_mask" id="batch_mask_input">', $tooltip, 1, 1);
+						print $form->textWithPicture('<input type="text" class="flat minwidth175" name="batch_mask" id="batch_mask_input">', $tooltip, 1, 1);
 						print '<script type="text/javascript">
 									$(document).ready(function() {
 										$("#field_mask, #mask_option").addClass("hideobject");
@@ -1557,7 +1557,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				if (empty($tmpcode) && !empty($modBarCodeProduct->code_auto)) {
 					$tmpcode = $modBarCodeProduct->getNextValue($object, $fk_barcode_type);
 				}
-				print img_picto('', 'barcode', 'class="pictofixedwidth"');
+				print img_picture('', 'barcode', 'class="picturefixedwidth"');
 				print '<input class="maxwidth100" type="text" name="barcode" value="'.dol_escape_htmltag($tmpcode).'">';
 				print '</td></tr>';
 			}
@@ -1571,7 +1571,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			if (!getDolGlobalString('PRODUCT_DISABLE_PUBLIC_URL')) {
 				// Public URL
 				print '<tr><td>'.$langs->trans("PublicUrl").'</td><td>';
-				print img_picto('', 'globe', 'class="pictofixedwidth"');
+				print img_picture('', 'globe', 'class="picturefixedwidth"');
 				print '<input type="text" name="url" class="quatrevingtpercent" value="'.GETPOST('url').'">';
 				print '</td></tr>';
 			}
@@ -1579,7 +1579,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			if (($type != 1 || getDolGlobalInt('STOCK_SUPPORTS_SERVICES')) && isModEnabled('stock')) {
 				// Default warehouse
 				print '<tr><td>'.$langs->trans("DefaultWarehouse").'</td><td>';
-				print img_picto($langs->trans("DefaultWarehouse"), 'stock', 'class="pictofixedwidth"');
+				print img_picture($langs->trans("DefaultWarehouse"), 'stock', 'class="picturefixedwidth"');
 				print $formproduct->selectWarehouses(GETPOSTINT('fk_default_warehouse'), 'fk_default_warehouse', 'warehouseopen', 1, 0, 0, '', 0, 0, array(), 'minwidth300 widthcentpercentminusxx maxwidth500');
 				print ' <a href="'.DOL_URL_ROOT.'/product/stock/card.php?action=create&token='.newToken().'&backtopage='.urlencode($_SERVER['PHP_SELF'].'?&action=create&type='.GETPOSTINT('type')).'">';
 				print '<span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("AddWarehouse").'"></span>';
@@ -1590,13 +1590,13 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 				if (!getDolGlobalString('PRODUCT_DISABLE_STOCK_LEVELS')) {
 					// Stock min level
-					print '<tr><td>'.$form->textwithpicto($langs->trans("StockLimit"), $langs->trans("StockLimitDesc"), 1).'</td><td>';
+					print '<tr><td>'.$form->textWithPicture($langs->trans("StockLimit"), $langs->trans("StockLimitDesc"), 1).'</td><td>';
 					print '<input name="seuil_stock_alerte" class="maxwidth50" value="'.GETPOST('seuil_stock_alerte').'">';
 					print '</td>';
 					print '</tr>';
 
 					// Stock desired level
-					print '<tr><td>'.$form->textwithpicto($langs->trans("DesiredStock"), $langs->trans("DesiredStockDesc"), 1).'</td><td>';
+					print '<tr><td>'.$form->textWithPicture($langs->trans("DesiredStock"), $langs->trans("DesiredStockDesc"), 1).'</td><td>';
 					print '<input name="desiredstock" class="maxwidth50" value="'.GETPOST('desiredstock').'">';
 					print '</td></tr>';
 				}
@@ -1610,7 +1610,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			if ($type == $object::TYPE_SERVICE && isModEnabled("workstation")) {
 				// Default workstation
 				print '<tr><td>'.$langs->trans("DefaultWorkstation").'</td><td>';
-				print img_picto($langs->trans("DefaultWorkstation"), 'workstation', 'class="pictofixedwidth"');
+				print img_picture($langs->trans("DefaultWorkstation"), 'workstation', 'class="picturefixedwidth"');
 				print $formproduct->selectWorkstations($object->fk_default_workstation, 'fk_default_workstation', 1);
 				print '</td></tr>';
 			}
@@ -1618,7 +1618,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			// Duration
 			if ($type == 1) {
 				print '<tr><td>'.$langs->trans("Duration").'</td><td>';
-				print img_picto('', 'clock', 'class="pictofixedwidth"');
+				print img_picture('', 'clock', 'class="picturefixedwidth"');
 				print '<input name="duration_value" class="width50" value="'.(GETPOSTISSET('duration_value') ? GETPOST('duration_value') : '').'">';
 				print $formproduct->selectMeasuringUnits("duration_unit", "time", (GETPOSTISSET('duration_unit') ? GETPOST('duration_unit', 'alpha') : 'h'), 0, 1);
 
@@ -1632,7 +1632,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				if (!getDolGlobalString('SERVICE_STRICT_MANDATORY_PERIOD')) {
 					$htmltooltip .= '<br>'.$langs->trans("mandatoryHelper2");
 				}
-				print $form->textwithpicto($langs->trans("mandatoryperiod"), $htmltooltip, 1, 0);
+				print $form->textWithPicture($langs->trans("mandatoryperiod"), $htmltooltip, 1, 0);
 				print '</label>';
 
 				print '</td></tr>';
@@ -1641,7 +1641,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			if ($type != 1) {	// Nature, Weight and volume only applies to products and not to services
 				if (!getDolGlobalString('PRODUCT_DISABLE_NATURE')) {
 					// Nature
-					print '<tr><td>'.$form->textwithpicto($langs->trans("NatureOfProductShort"), $langs->trans("NatureOfProductDesc")).'</td><td>';
+					print '<tr><td>'.$form->textWithPicture($langs->trans("NatureOfProductShort"), $langs->trans("NatureOfProductDesc")).'</td><td>';
 					print $formproduct->selectProductNature('finished', $object->finished);
 					print '</td></tr>';
 				}
@@ -1651,7 +1651,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				if (!getDolGlobalString('PRODUCT_DISABLE_WEIGHT')) {
 					// Brut Weight
 					print '<tr><td>'.$langs->trans("Weight").'</td><td>';
-					print img_picto('', 'fa-balance-scale', 'class="pictofixedwidth"');
+					print img_picture('', 'fa-balance-scale', 'class="picturefixedwidth"');
 					print '<input name="weight" size="4" value="'.GETPOST('weight').'">';
 					print $formproduct->selectMeasuringUnits("weight_units", "weight", GETPOSTISSET('weight_units') ? GETPOST('weight_units', 'alpha') : (GETPOST('weight_units', 'alpha') ?: getDolGlobalString('MAIN_WEIGHT_DEFAULT_UNIT', 0)), 0, 2);
 					print '</td></tr>';
@@ -1660,7 +1660,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				// Brut Length
 				if (!getDolGlobalString('PRODUCT_DISABLE_SIZE')) {
 					print '<tr><td>'.$langs->trans("Length").' x '.$langs->trans("Width").' x '.$langs->trans("Height").'</td><td>';
-					print img_picto('', 'fa-ruler', 'class="pictofixedwidth"');
+					print img_picture('', 'fa-ruler', 'class="picturefixedwidth"');
 					print '<input name="size" class="width50" value="'.GETPOST('size').'"> x ';
 					print '<input name="sizewidth" class="width50" value="'.GETPOST('sizewidth').'"> x ';
 					print '<input name="sizeheight" class="width50" value="'.GETPOST('sizeheight').'">';
@@ -1706,7 +1706,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				// Origin country
 				print '<tr><td>'.$langs->trans("CountryOrigin").'</td>';
 				print '<td>';
-				print img_picto('', 'globe-americas', 'class="pictofixedwidth"');
+				print img_picture('', 'globe-americas', 'class="picturefixedwidth"');
 				print $form->select_country((GETPOSTISSET('country_id') ? GETPOST('country_id') : $object->country_id), 'country_id', '', 0, 'minwidth300 widthcentpercentminusx maxwidth500');
 				if ($user->admin) {
 					print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);
@@ -1722,7 +1722,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 						print '<td>'.$form->editfieldkey('StateOrigin', 'state_id', '', $object, 0).'</td><td>';
 					}
 
-					print img_picto('', 'state', 'class="pictofixedwidth"');
+					print img_picture('', 'state', 'class="picturefixedwidth"');
 					print $formcompany->select_state($object->state_id, $object->country_code);
 					print '</tr>';
 				}
@@ -1755,7 +1755,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				// Categories
 				print '<tr><td>'.$langs->trans("Categories").'</td><td>';
 				$cate_arbo = $form->select_all_categories(Category::TYPE_PRODUCT, '', 'parent', 64, 0, 3);
-				print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('categories', $cate_arbo, GETPOST('categories', 'array'), 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
+				print img_picture('', 'category', 'class="picturefixedwidth"').$form->multiselectarray('categories', $cate_arbo, GETPOST('categories', 'array'), 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 				print "</td></tr>";
 			}
 
@@ -1989,8 +1989,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 			$head = product_prepare_head($object);
 			$titre = $langs->trans("CardProduct".$object->type);
-			$picto = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
-			print dol_get_fiche_head($head, 'card', $titre, 0, $picto, 0, '', '', 0, '', 1);
+			$picture = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
+			print dol_get_fiche_head($head, 'card', $titre, 0, $picture, 0, '', '', 0, '', 1);
 
 			// Call Hook tabContentEditProduct
 			$parameters = array();
@@ -2101,7 +2101,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 							$inherited_mask_lot = getDolGlobalString('LOT_ADVANCED_MASK');
 							$inherited_mask_sn = getDolGlobalString('SN_ADVANCED_MASK');
 							print '<td id="field_mask">';
-							print $form->textwithpicto('<input type="text" class="flat minwidth175" name="batch_mask" id="batch_mask_input" value="'.$mask.'">', $tooltip, 1, 1);
+							print $form->textWithPicture('<input type="text" class="flat minwidth175" name="batch_mask" id="batch_mask_input" value="'.$mask.'">', $tooltip, 1, 1);
 							// Add javascript to sho/hide field for custom mask
 							if (!empty($config->use_javascript_ajax)) {
 								print '<script type="text/javascript">
@@ -2203,7 +2203,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				// Public Url
 				if (!getDolGlobalString('PRODUCT_DISABLE_PUBLIC_URL')) {
 					print '<tr><td>'.$langs->trans("PublicUrl").'</td><td>';
-					print img_picto('', 'globe', 'class="pictofixedwidth"');
+					print img_picture('', 'globe', 'class="picturefixedwidth"');
 					print '<input type="text" name="url" class="maxwidth500 widthcentpercentminusx" value="'.(GETPOSTISSET('url') ? GETPOST('url') : $object->url).'">';
 					print '</td></tr>';
 				}
@@ -2212,7 +2212,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				if (($object->isProduct() || getDolGlobalInt('STOCK_SUPPORTS_SERVICES')) && isModEnabled('stock')) {
 					// Default warehouse
 					print '<tr><td>'.$langs->trans("DefaultWarehouse").'</td><td>';
-					print img_picto($langs->trans("DefaultWarehouse"), 'stock', 'class="pictofixedwidth"');
+					print img_picture($langs->trans("DefaultWarehouse"), 'stock', 'class="picturefixedwidth"');
 					print $formproduct->selectWarehouses((GETPOSTISSET('fk_default_warehouse') ? GETPOST('fk_default_warehouse') : $object->fk_default_warehouse), 'fk_default_warehouse', 'warehouseopen', 1, 0, 0, '', 0, 0, array(), 'maxwidth500 widthcentpercentminusxx');
 					print ' <a href="'.DOL_URL_ROOT.'/product/stock/card.php?action=create&amp;backtopage='.urlencode($_SERVER['PHP_SELF'].'?action=edit&id='.((int) $object->id)).'">';
 					print '<span class="fa fa-plus-circle valignmiddle paddingleft" title="'.$langs->trans("AddWarehouse").'"></span></a>';
@@ -2231,7 +2231,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				if ($object->isService() && isModEnabled('workstation')) {
 					// Default workstation
 					print '<tr><td>'.$langs->trans("DefaultWorkstation").'</td><td>';
-					print img_picto($langs->trans("DefaultWorkstation"), 'workstation', 'class="pictofixedwidth"');
+					print img_picture($langs->trans("DefaultWorkstation"), 'workstation', 'class="picturefixedwidth"');
 					print $formproduct->selectWorkstations($object->fk_default_workstation, 'fk_default_workstation', 1);
 					print '</td></tr>';
 				}
@@ -2260,21 +2260,21 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					if (!getDolGlobalString('SERVICE_STRICT_MANDATORY_PERIOD')) {
 						$htmltooltip .= '<br>'.$langs->trans("mandatoryHelper2");
 					}
-					print $form->textwithpicto($langs->trans("mandatoryperiod"), $htmltooltip, 1, 0);
+					print $form->textWithPicture($langs->trans("mandatoryperiod"), $htmltooltip, 1, 0);
 					print '</label>';
 
 					print '</td></tr>';
 				} else {
 					if (!getDolGlobalString('PRODUCT_DISABLE_NATURE')) {
 						// Nature
-						print '<tr><td>'.$form->textwithpicto($langs->trans("NatureOfProductShort"), $langs->trans("NatureOfProductDesc")).'</td><td>';
+						print '<tr><td>'.$form->textWithPicture($langs->trans("NatureOfProductShort"), $langs->trans("NatureOfProductDesc")).'</td><td>';
 						print $formproduct->selectProductNature('finished', (GETPOSTISSET('finished') ? GETPOST('finished') : $object->finished));
 						print '</td></tr>';
 					}
 				}
 
 				if (!$object->isService() && isModEnabled('bom')) {
-					print '<tr><td>'.$form->textwithpicto($langs->trans("DefaultBOM"), $langs->trans("DefaultBOMDesc", $langs->transnoentitiesnoconv("Finished"))).'</td><td>';
+					print '<tr><td>'.$form->textWithPicture($langs->trans("DefaultBOM"), $langs->trans("DefaultBOMDesc", $langs->transnoentitiesnoconv("Finished"))).'</td><td>';
 					$bomkey = "Bom:bom/class/bom.class.php:0:(t.status:=:1) AND (t.fk_product:=:".((int) $object->id).')';
 					print $form->selectForForms($bomkey, 'fk_default_bom', (GETPOSTISSET('fk_default_bom') ? GETPOST('fk_default_bom') : $object->fk_default_bom), 1);
 					print '</td></tr>';
@@ -2335,7 +2335,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					// Origin country
 					print '<tr><td>'.$langs->trans("CountryOrigin").'</td>';
 					print '<td>';
-					print img_picto('', 'globe-americas', 'class="paddingrightonly"');
+					print img_picture('', 'globe-americas', 'class="paddingrightonly"');
 					print $form->select_country(GETPOSTISSET('country_id') ? GETPOSTINT('country_id') : $object->country_id, 'country_id', '', 0, 'minwidth100 maxwidthonsmartphone');
 					if ($user->admin) {
 						print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);
@@ -2351,7 +2351,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 							print '<td>'.$form->editfieldkey('StateOrigin', 'state_id', '', $object, 0).'</td><td>';
 						}
 
-						print img_picto('', 'state', 'class="pictofixedwidth"');
+						print img_picture('', 'state', 'class="picturefixedwidth"');
 						print $formcompany->select_state(GETPOSTISSET('state_id') ? GETPOSTINT('state_id') : $object->state_id, $object->country_code);
 						print '</td>';
 						print '</tr>';
@@ -2389,7 +2389,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 							$arrayselected[] = $cat;
 						}
 					}
-					print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('categories', $cate_arbo, $arrayselected, 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
+					print img_picture('', 'category', 'class="picturefixedwidth"').$form->multiselectarray('categories', $cate_arbo, $arrayselected, 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 					print "</td></tr>";
 				}
 
@@ -2506,9 +2506,9 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 			$head = product_prepare_head($object);
 			$titre = $langs->trans("CardProduct".$object->type);
-			$picto = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
+			$picture = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
 
-			print dol_get_fiche_head($head, 'card', $titre, -1, $picto, 0, '', '', 0, '', 1);
+			print dol_get_fiche_head($head, 'card', $titre, -1, $picture, 0, '', '', 0, '', 1);
 
 			$linkback = '<a href="'.DOL_URL_ROOT.'/product/list.php?restore_lastsearch_values=1&type='.$object->type.'">'.$langs->trans("BackToList").'</a>';
 			$object->next_prev_filter = "fk_product_type:=:".((int) $object->type);
@@ -2800,20 +2800,20 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 						print ' &nbsp; &nbsp; ';
 					}
 					print '<input type="checkbox" class="valignmiddle" name="mandatoryperiod"'.($object->mandatory_period == 1 ? ' checked="checked"' : '').' disabled>';
-					print $form->textwithpicto($langs->trans("mandatoryperiod"), $htmltooltip, 1, 0);
+					print $form->textWithPicture($langs->trans("mandatoryperiod"), $htmltooltip, 1, 0);
 
 					print '</td></tr>';
 				} else {
 					if (!getDolGlobalString('PRODUCT_DISABLE_NATURE')) {
 						// Nature
-						print '<tr><td class="titlefieldmiddle">'.$form->textwithpicto($langs->trans("NatureOfProductShort"), $langs->trans("NatureOfProductDesc")).'</td><td>';
+						print '<tr><td class="titlefieldmiddle">'.$form->textWithPicture($langs->trans("NatureOfProductShort"), $langs->trans("NatureOfProductDesc")).'</td><td>';
 						print $object->getLibFinished();
 						print '</td></tr>';
 					}
 				}
 
 				if (!$object->isService() && isModEnabled('bom') && $object->finished) {
-					print '<tr><td class="titlefieldmiddle">'.$form->textwithpicto($langs->trans("DefaultBOM"), $langs->trans("DefaultBOMDesc", $langs->transnoentitiesnoconv("Finished"))).'</td><td>';
+					print '<tr><td class="titlefieldmiddle">'.$form->textWithPicture($langs->trans("DefaultBOM"), $langs->trans("DefaultBOMDesc", $langs->transnoentitiesnoconv("Finished"))).'</td><td>';
 					if ($object->fk_default_bom) {
 						$bom_static = new BOM($db);
 						$bom_static->fetch($object->fk_default_bom);

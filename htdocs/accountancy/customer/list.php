@@ -456,12 +456,12 @@ if ($result) {
 	}
 
 	$arrayofmassactions = array(
-		'set_default_account' => img_picto('', 'check', 'class="pictofixedwidth"').$langs->trans("ConfirmPreselectAccount"),
-		'ventil' => img_picto('', 'check', 'class="pictofixedwidth"').$langs->trans("Ventilate")
-		//'presend'=>img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
-		//'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
+		'set_default_account' => img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("ConfirmPreselectAccount"),
+		'ventil' => img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("Ventilate")
+		//'presend'=>img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
+		//'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 	);
-	//if ($user->hasRight('mymodule', 'supprimer')) $arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+	//if ($user->hasRight('mymodule', 'supprimer')) $arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 	//if (in_array($massaction, array('presend','predelete'))) $arrayofmassactions=array();
 	$massactionbutton = '';
 	if ($massaction !== 'set_default_account') {
@@ -525,8 +525,8 @@ if ($result) {
 	print '<td class="liste_titre"></td>';
 	print '<td class="liste_titre"></td>';
 	print '<td class="center liste_titre">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 	print "</tr>\n";
 
@@ -544,11 +544,11 @@ if ($result) {
 	print_liste_field_titre("VATIntraShort", $_SERVER["PHP_SELF"], "s.tva_intra", "", $param, '', $sortfield, $sortorder);
 	print_liste_field_titre("DataUsedToSuggestAccount", '', '', '', '', '', '', '', 'nowraponall ');
 	print_liste_field_titre("AccountAccountingSuggest", '', '', '', '', '', '', '', 'center ');
-	$checkpicto = '';
+	$checkPicture = '';
 	if ($massactionbutton) {
-		$checkpicto = $form->showCheckAddButtons('checkforselect', 1);
+		$checkPicture = $form->showCheckAddButtons('checkforselect', 1);
 	}
-	print_liste_field_titre($checkpicto, '', '', '', '', '', '', '', 'center ');
+	print_liste_field_titre($checkPicture, '', '', '', '', '', '', '', 'center ');
 	print "</tr>\n";
 
 	$thirdpartystatic = new Societe($db);
@@ -744,7 +744,7 @@ if ($result) {
 			$shelp .= $langs->trans("SaleExport");
 		}
 		$s .= ($code_sell_l > 0 ? length_accountg($code_sell_l) : '<span style="'.$code_sell_p_notset.'">'.$langs->trans("NotDefined").'</span>');
-		print $form->textwithpicto($s, $shelp, 1, $ttype, '', 0, 2, '', 1);
+		print $form->textWithPicture($s, $shelp, 1, $ttype, '', 0, 2, '', 1);
 		// Now show account for product
 		if ($product_static->id > 0) {
 			print '<br>';
@@ -762,20 +762,20 @@ if ($result) {
 				$shelp = $langs->trans("SaleExport");
 			}
 			$s .= (empty($code_sell_p) ? '<span style="'.$code_sell_p_notset.'">'.$langs->trans("NotDefined").'</span>' : length_accountg($code_sell_p));
-			print $form->textwithpicto($s, $shelp, 1, $ttype, '', 0, 2, '', 1);
+			print $form->textWithPicture($s, $shelp, 1, $ttype, '', 0, 2, '', 1);
 		} else {
 			print '<br>';
 			$s = '2. '.(($objp->type_l == 1) ? $langs->trans("ThisService") : $langs->trans("ThisProduct")).': ';
 			$shelp = '';
 			$s .= $langs->trans("NotDefined");
-			print $form->textwithpicto($s, $shelp, 1, 'help', '', 0, 2, '', 1);
+			print $form->textWithPicture($s, $shelp, 1, 'help', '', 0, 2, '', 1);
 		}
 		if (getDolGlobalString('ACCOUNTANCY_USE_PRODUCT_ACCOUNT_ON_THIRDPARTY')) {
 			print '<br>';
 			$s = '3. '.(($facture_static_det->product_type == 1) ? $langs->trans("ServiceForThisThirdparty") : $langs->trans("ProductForThisThirdparty")).': ';
 			$shelp = '';
 			$s .= ($code_sell_t > 0 ? length_accountg($code_sell_t) : '<span style="'.$code_sell_t_notset.'">'.$langs->trans("NotDefined").'</span>');
-			print $form->textwithpicto($s, $shelp, 1, 'help', '', 0, 2, '', 1);
+			print $form->textWithPicture($s, $shelp, 1, 'help', '', 0, 2, '', 1);
 		}
 		print '</td>';
 

@@ -163,7 +163,7 @@ if (isset($this->situation_cycle_ref) && $this->situation_cycle_ref) {
 	if (getDolGlobalInt('INVOICE_USE_SITUATION') == 2) {
 		print '<th class="linecolcycleref2 right">' . $langs->trans('SituationInvoiceProgressCurrent') . '</th>';
 	}
-	print '<th class="linecolcycleref2 right">'.$form->textwithpicto($langs->trans('TotalHT100Short'), $langs->trans('UnitPriceXQtyLessDiscount')).'</th>';
+	print '<th class="linecolcycleref2 right">'.$form->textWithPicture($langs->trans('TotalHT100Short'), $langs->trans('UnitPriceXQtyLessDiscount')).'</th>';
 }
 
 // Purchase price

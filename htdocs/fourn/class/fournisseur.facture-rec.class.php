@@ -66,7 +66,7 @@ class FactureFournisseurRec extends CommonInvoice
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'bill';
+	public $picture = 'bill';
 
 	/**
 	 * {@inheritdoc}
@@ -1502,9 +1502,9 @@ class FactureFournisseurRec extends CommonInvoice
 	}
 
 	/**
-	 *	Return clickable name (with picto eventually)
+	 *	Return clickable name (with picture eventually)
 	 *
-	 * @param	int		$withpicto       			Add picto into link
+	 * @param	int		$withPicture       			Add picture into link
 	 * @param  string	$option          			Where point the link
 	 * @param  int		$max             			Maxlength of ref
 	 * @param  int		$short           			1=Return just URL
@@ -1513,7 +1513,7 @@ class FactureFournisseurRec extends CommonInvoice
 	 * @param  int		$save_lastsearch_value    	-1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 * @return string 			         			String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $short = 0, $moretitle = '', $notooltip = 0, $save_lastsearch_value = -1)
+	public function getNomUrl($withPicture = 0, $option = '', $max = 0, $short = 0, $moretitle = '', $notooltip = 0, $save_lastsearch_value = -1)
 	{
 		global $langs, $hookManager;
 
@@ -1560,10 +1560,10 @@ class FactureFournisseurRec extends CommonInvoice
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 		$result .= $linkend;
@@ -1582,7 +1582,7 @@ class FactureFournisseurRec extends CommonInvoice
 	/**
 	 *  Return label of object status
 	 *
-	 *  @param      int		$mode			0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picto, 6=Long label + picto
+	 *  @param      int		$mode			0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picture, 6=Long label + picture
 	 *  @param      integer	$alreadypaid    Not used on recurring invoices
 	 *  @return     string			        Label of status
 	 */
@@ -1597,7 +1597,7 @@ class FactureFournisseurRec extends CommonInvoice
 	 *
 	 *	@param	int			$recur         	Is it a recurring invoice ?
 	 *	@param	int			$status        	Id status (suspended or not)
-	 *	@param	int<0,6>	$mode          	0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picto, 6=long label + picto
+	 *	@param	int<0,6>	$mode          	0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=short label + picture, 6=long label + picture
 	 *	@param	int			$alreadypaid	Not used for recurring invoices
 	 *	@param	int			$type			Type invoice
 	 *  @param	int			$nbofopendirectdebitorcredittransfer	@unused-param Nb of open direct debit or credit transfer

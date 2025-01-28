@@ -276,7 +276,7 @@ if ((!empty($id) || !empty($ref)) && $action == 'edit') {
 		$head = establishment_prepare_head($object);
 
 		if ($action == 'edit') {
-			print dol_get_fiche_head($head, 'card', $langs->trans("Establishment"), 0, $object->picto);
+			print dol_get_fiche_head($head, 'card', $langs->trans("Establishment"), 0, $object->picture);
 
 			print '<form name="update" action="'.$_SERVER["PHP_SELF"].'" method="POST">'."\n";
 			print '<input type="hidden" name="token" value="'.newToken().'">';
@@ -355,7 +355,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	$res = $object->fetch_optionals();
 
 	$head = establishment_prepare_head($object);
-	print dol_get_fiche_head($head, 'card', $langs->trans("Establishment"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'card', $langs->trans("Establishment"), -1, $object->picture);
 
 	// Confirmation to delete
 	if ($action == 'delete') {
@@ -417,7 +417,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	print '<td>'.$langs->trans("Country").'</td>';
 	print '<td>';
 	if ($object->country_id > 0) {
-		$img = picto_from_langcode($object->country_code);
+		$img = picture_from_langcode($object->country_code);
 		print $img ? $img.' ' : '';
 		print getCountry($object->getCountryCode(), '', $db);
 	}

@@ -53,7 +53,7 @@ class modNotification extends DolibarrModules
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'email';
+		$this->picture = 'email';
 
 		// Data directories to create when module is enabled.
 		$this->dirs = array();

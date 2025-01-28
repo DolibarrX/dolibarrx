@@ -280,7 +280,7 @@ class ActionsMyModule extends CommonHookActions
 			$h++;
 
 			$this->results['title'] = $langs->trans("MyModule");
-			$this->results['picto'] = 'mymodule@mymodule';
+			$this->results['picture'] = 'mymodule@mymodule';
 		}
 
 		$head[$h][0] = 'customreports.php?objecttype='.$parameters['objecttype'].(empty($parameters['tabfamily']) ? '' : '&tabfamily='.$parameters['tabfamily']);
@@ -290,7 +290,7 @@ class ActionsMyModule extends CommonHookActions
 		$this->results['head'] = $head;
 
 		$arrayoftypes = array();
-		//$arrayoftypes['mymodule_myobject'] = array('label' => 'MyObject', 'picto'=>'myobject@mymodule', 'ObjectClassName' => 'MyObject', 'enabled' => isModEnabled('mymodule'), 'ClassPath' => "/mymodule/class/myobject.class.php", 'langs'=>'mymodule@mymodule')
+		//$arrayoftypes['mymodule_myobject'] = array('label' => 'MyObject', 'picture'=>'myobject@mymodule', 'ObjectClassName' => 'MyObject', 'enabled' => isModEnabled('mymodule'), 'ClassPath' => "/mymodule/class/myobject.class.php", 'langs'=>'mymodule@mymodule')
 
 		$this->results['arrayoftype'] = $arrayoftypes;
 

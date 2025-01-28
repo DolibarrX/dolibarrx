@@ -213,12 +213,12 @@ if ($result) {
 
 			// Break detected, we get objMod
 			$objMod = $modules[$obj->module];
-			$picto = ($objMod->picto ? $objMod->picto : 'generic');
+			$picture = ($objMod->picture ? $objMod->picture : 'generic');
 
 			// Show break line
 			print '<tr class="oddeven trforbreak">';
 			print '<td class="maxwidthonsmartphone tdoverflowmax200" title="'.dol_escape_htmltag($objMod->getName()).'">';
-			print img_object('', $picto, 'class="pictoobjectwidth paddingright"').' '.$objMod->getName();
+			print img_object('', $picture, 'class="pictureobjectwidth paddingright"').' '.$objMod->getName();
 			print '<a name="'.$objMod->getName().'"></a>';
 			print '</td>';
 			print '<td>&nbsp;</td>';
@@ -236,7 +236,7 @@ if ($result) {
 
 		// Picto and label of module
 		print '<td class="maxwidthonsmartphone tdoverflowmax200">';
-		//print img_object('', $picto, 'class="pictoobjectwidth"').' '.$objMod->getName();
+		//print img_object('', $picture, 'class="pictureobjectwidth"').' '.$objMod->getName();
 		print '</td>';
 
 		// Tick
@@ -244,17 +244,17 @@ if ($result) {
 			print '<td class="center">';
 			print '<a class="reposition" href="perms.php?pid='.$obj->id.'&action=remove&token='.newToken().'">';
 			//print img_edit_remove();
-			print img_picto('', 'switch_on');
+			print img_picture('', 'switch_on');
 			print '</a>';
 			print '</td>';
 			print '<td class="center">';
-			//print img_picto($langs->trans("Active"), 'tick');
+			//print img_picture($langs->trans("Active"), 'tick');
 			print '</td>';
 		} else {
 			print '<td class="center">';
 			print '<a class="reposition" href="perms.php?pid='.$obj->id.'&action=add&token='.newToken().'">';
 			//print img_edit_add();
-			print img_picto('', 'switch_off');
+			print img_picture('', 'switch_off');
 			print '</a>';
 			print '</td>';
 			print '<td class="center">';
@@ -284,7 +284,7 @@ if ($result) {
 			print '<td class="right">';
 			$htmltext = $langs->trans("ID").': '.$obj->id;
 			$htmltext .= '<br>'.$langs->trans("Permission").': user->hasRight(\''.dol_escape_htmltag($obj->module).'\', \''.dol_escape_htmltag($obj->perms).'\''.($obj->subperms ? ', \''.dol_escape_htmltag($obj->subperms).'\'' : '').')';
-			print $form->textwithpicto('', $htmltext);
+			print $form->textWithPicture('', $htmltext);
 			//print '<span class="opacitymedium">'.$obj->id.'</span>';
 			print '</td>';
 		}

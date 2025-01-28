@@ -1098,19 +1098,19 @@ class ProductFournisseur extends Product
 	/**
 	 *	Display supplier of product
 	 *
-	 *	@param	int		$withpicto		Add picto
+	 *	@param	int		$withPicture		Add picture
 	 *	@param	string	$option			Target of link ('', 'customer', 'prospect', 'supplier')
 	 *	@param	int		$maxlen			Max length of name
 	 *  @param	integer	$notooltip		1=Disable tooltip
 	 *	@return	string					String with supplier price
 	 *  TODO Remove this method. Use getNomUrl directly.
 	 */
-	public function getSocNomUrl($withpicto = 0, $option = 'supplier', $maxlen = 0, $notooltip = 0)
+	public function getSocNomUrl($withPicture = 0, $option = 'supplier', $maxlen = 0, $notooltip = 0)
 	{
 		$thirdparty = new Fournisseur($this->db);
 		$thirdparty->fetch($this->fourn_id);
 
-		return $thirdparty->getNomUrl($withpicto, $option, $maxlen, $notooltip);
+		return $thirdparty->getNomUrl($withPicture, $option, $maxlen, $notooltip);
 	}
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
@@ -1287,10 +1287,10 @@ class ProductFournisseur extends Product
 
 
 	/**
-	 *  Return a link to the object card (with optionally the picto).
+	 *  Return a link to the object card (with optionally the picture).
 	 *  Used getNomUrl of ProductFournisseur if a specific supplier ref is loaded. Otherwise use Product->getNomUrl().
 	 *
-	 *	@param	int		$withpicto					Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
+	 *	@param	int		$withPicture					Include picture in link (0=No picture, 1=Include picture into link, 2=Only picture)
 	 *	@param	string	$option						On what the link point to ('nolink', ...)
 	 *  @param	int		$maxlength					Maxlength of ref
 	 *  @param  int     $save_lastsearch_value    	-1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
@@ -1300,7 +1300,7 @@ class ProductFournisseur extends Product
 	 *  @param	string	$sep						' - '=Separator between ref and label if option 'add_label' is set
 	 *	@return	string								String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $maxlength = 0, $save_lastsearch_value = -1, $notooltip = 0, $morecss = '', $add_label = 0, $sep = ' - ')
+	public function getNomUrl($withPicture = 0, $option = '', $maxlength = 0, $save_lastsearch_value = -1, $notooltip = 0, $morecss = '', $add_label = 0, $sep = ' - ')
 	{
 		global $db, $config, $langs, $hookManager;
 
@@ -1326,9 +1326,9 @@ class ProductFournisseur extends Product
 		}
 
 		if ($this->type == Product::TYPE_PRODUCT) {
-			$label .= img_picto('', 'product').' <u class="paddingrightonly">'.$langs->trans("Product").'</u>';
+			$label .= img_picture('', 'product').' <u class="paddingrightonly">'.$langs->trans("Product").'</u>';
 		} elseif ($this->type == Product::TYPE_SERVICE) {
-			$label .= img_picto('', 'service').' <u class="paddingrightonly">'.$langs->trans("Service").'</u>';
+			$label .= img_picture('', 'service').' <u class="paddingrightonly">'.$langs->trans("Service").'</u>';
 		}
 		if (isset($this->status) && isset($this->status_buy)) {
 			$label .= ' '.$this->getLibStatut(5, 0);
@@ -1433,14 +1433,14 @@ class ProductFournisseur extends Product
 		$linkend = '</a>';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $newref.($this->ref_supplier ? ' ('.$this->ref_supplier.')' : '');
 		}
 		$result .= $linkend;
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= (($add_label && $this->label) ? $sep.dol_trunc($this->label, ($add_label > 1 ? $add_label : 0)) : '');
 		}
 

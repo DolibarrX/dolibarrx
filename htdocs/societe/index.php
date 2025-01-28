@@ -342,7 +342,7 @@ if ($result) {
 		$lastmodified .= '<table class="noborder centpercent">';
 
 		$lastmodified .= '<tr class="liste_titre"><th colspan="2">';
-		//$lastmodified .= img_picto('', 'company', 'class="pictofixedwidth"');
+		//$lastmodified .= img_picture('', 'company', 'class="picturefixedwidth"');
 		$lastmodified .= '<span class="valignmiddle">'.$transRecordedType.'</span>';
 		$lastmodified .= '<a class="marginleftonlyshort" href="'.DOL_URL_ROOT.'/societe/list.php?sortfield=s.tms&sortorder=DESC" title="'.$langs->trans("FullList").'">';
 		$lastmodified .= '<span class="badge marginleftonlyshort">...</span>';
@@ -466,15 +466,15 @@ if ($result) {
 		$lastmodifiedcontact .= '<table class="noborder centpercent">';
 
 		$lastmodifiedcontact .= '<tr class="liste_titre"><th colspan="2">';
-		//$lastmodifiedcontact .= img_picto('', 'contact', 'class="pictofixedwidth"');
+		//$lastmodifiedcontact .= img_picture('', 'contact', 'class="picturefixedwidth"');
 		$lastmodifiedcontact .= '<span class="valignmiddle">'.$transRecordedType.'</div>';
 		$lastmodifiedcontact .= '<a class="marginleftonlyshort" href="'.DOL_URL_ROOT.'/contact/list.php?sortfield=p.tms&sortorder=DESC" title="'.$langs->trans("FullList").'">';
-		//$lastmodifiedcontact .= img_picto($langs->trans("FullList"), 'contact');
+		//$lastmodifiedcontact .= img_picture($langs->trans("FullList"), 'contact');
 		$lastmodifiedcontact .= '<span class="badge marginleftonlyshort">...</span>';
 		$lastmodifiedcontact .= '</th>';
 		$lastmodifiedcontact .= '<th>&nbsp;</th>';
 		$lastmodifiedcontact .= '<th class="right">';
-		//$lastmodifiedcontact .= '<a href="'.DOL_URL_ROOT.'/contact/list.php?sortfield=s.tms&sortorder=DESC">'.img_picto($langs->trans("FullList"), 'contact');
+		//$lastmodifiedcontact .= '<a href="'.DOL_URL_ROOT.'/contact/list.php?sortfield=s.tms&sortorder=DESC">'.img_picture($langs->trans("FullList"), 'contact');
 		$lastmodifiedcontact .= '</th>';
 		$lastmodifiedcontact .= '</tr>'."\n";
 

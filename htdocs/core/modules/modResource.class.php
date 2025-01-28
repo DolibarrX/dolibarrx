@@ -71,11 +71,11 @@ class modResource extends DolibarrModules
 		// (where MYMODULE is value of property name of module in uppercase)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of image file used for this module.
-		// If file is in theme/yourtheme/img directory under name object_pictovalue.png
-		// use this->picto='pictovalue'
-		// If file is in module/img directory under name object_pictovalue.png
-		// use this->picto='pictovalue@module'
-		$this->picto = 'resource'; // mypicto@resource
+		// If file is in theme/yourtheme/img directory under name object_picturevalue.png
+		// use this->picture='picturevalue'
+		// If file is in module/img directory under name object_picturevalue.png
+		// use this->picture='picturevalue@module'
+		$this->picture = 'resource'; // mypicture@resource
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		// for default path (eg: /resource/core/xxxxx) (0=disable, 1=enable)
 		// for specific path of parts (eg: /resource/core/modules/barcode)
@@ -189,7 +189,7 @@ class modResource extends DolibarrModules
 			'fk_menu' => 'fk_mainmenu=agenda',
 			'type' => 'left',
 			'titre' => 'MenuResourceIndex',
-			'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth em92"'),
+			'prefix' => img_picture('', $this->picture, 'class="paddingright picturefixedwidth em92"'),
 			'mainmenu' => 'agenda',
 			'leftmenu' => 'resource',
 			'url' => '/resource/list.php',

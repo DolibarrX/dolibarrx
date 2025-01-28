@@ -448,7 +448,7 @@ foreach ($arrayofmodules as $file => $modCodeTiers) {
 
 	if ($config->global->SOCIETE_CODECLIENT_ADDON == "$file") {
 		print '<td class="center">'."\n";
-		print img_picto($langs->trans("Activated"), 'switch_on');
+		print img_picture($langs->trans("Activated"), 'switch_on');
 		print "</td>\n";
 	} else {
 		$disabled = (isModEnabled('multicompany') && ((is_object($mc) && !empty($mc->sharings['referent'])) && ($mc->sharings['referent'] != $config->entity)));
@@ -456,7 +456,7 @@ foreach ($arrayofmodules as $file => $modCodeTiers) {
 		if (!$disabled) {
 			print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setcodeclient&token='.newToken().'&value='.urlencode($file).'">';
 		}
-		print img_picto($langs->trans("Disabled"), 'switch_off');
+		print img_picture($langs->trans("Disabled"), 'switch_off');
 		if (!$disabled) {
 			print '</a>';
 		}
@@ -465,7 +465,7 @@ foreach ($arrayofmodules as $file => $modCodeTiers) {
 
 	print '<td class="center">';
 	$s = $modCodeTiers->getToolTip($langs, null, -1);
-	print $form->textwithpicto('', $s, 1);
+	print $form->textWithPicture('', $s, 1);
 	print '</td>';
 
 	print '</tr>';
@@ -530,16 +530,16 @@ foreach ($arrayofmodules as $file => $modCodeCompta) {
 
 	if ($config->global->SOCIETE_CODECOMPTA_ADDON == "$file") {
 		print '<td class="center">';
-		print img_picto($langs->trans("Activated"), 'switch_on');
+		print img_picture($langs->trans("Activated"), 'switch_on');
 		print '</td>';
 	} else {
 		print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setcodecompta&token='.newToken().'&value='.urlencode($file).'">';
-		print img_picto($langs->trans("Disabled"), 'switch_off');
+		print img_picture($langs->trans("Disabled"), 'switch_off');
 		print '</a></td>';
 	}
 	print '<td class="center">';
 	$s = $modCodeCompta->getToolTip($langs, null, -1);
-	print $form->textwithpicto('', $s, 1);
+	print $form->textWithPicture('', $s, 1);
 	print '</td>';
 	print "</tr>\n";
 }
@@ -629,22 +629,22 @@ foreach ($dirsociete as $dirroot) {
 						//if ($config->global->COMPANY_ADDON_PDF != "$name")
 						//{
 						print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=del&token='.newToken().'&value='.urlencode($name).'&token='.newToken().'&scan_dir='.$module->scandir.'&label='.urlencode($module->name).'">';
-						print img_picto($langs->trans("Enabled"), 'switch_on');
+						print img_picture($langs->trans("Enabled"), 'switch_on');
 						print '</a>';
 						//}
 						//else
 						//{
-						//	print img_picto($langs->trans("Enabled"),'on');
+						//	print img_picture($langs->trans("Enabled"),'on');
 						//}
 						print "</td>";
 					} else {
 						if (versioncompare($module->phpmin, versionphparray()) > 0) {
 							print '<td class="center">'."\n";
-							print img_picto(dol_escape_htmltag($langs->trans("ErrorModuleRequirePHPVersion", implode('.', $module->phpmin))), 'switch_off');
+							print img_picture(dol_escape_htmltag($langs->trans("ErrorModuleRequirePHPVersion", implode('.', $module->phpmin))), 'switch_off');
 							print "</td>";
 						} else {
 							print '<td class="center">'."\n";
-							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=set&value='.urlencode($name).'&token='.newToken().'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+							print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?action=set&value='.urlencode($name).'&token='.newToken().'&scan_dir='.urlencode($module->scandir).'&label='.urlencode($module->name).'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 							print "</td>";
 						}
 					}
@@ -659,7 +659,7 @@ foreach ($dirsociete as $dirroot) {
 					$htmltooltip .= '<br>'.$langs->trans("WatermarkOnDraft").': '.yn((isset($module->option_draft_watermark) ? $module->option_draft_watermark : ''), 1, 1);
 
 					print '<td class="center nowrap">';
-					print $form->textwithpicto('', $htmltooltip, 1, 0);
+					print $form->textWithPicture('', $htmltooltip, 1, 0);
 					print '</td>';
 
 					// Preview
@@ -739,31 +739,31 @@ foreach ($profid as $key => $val) {
 
 		if ($verif) {
 			print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setprofid&token='.newToken().'&value='.$key.'&status=0">';
-			print img_picto($langs->trans("Activated"), 'switch_on');
+			print img_picture($langs->trans("Activated"), 'switch_on');
 			print '</a></td>';
 		} else {
 			print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setprofid&token='.newToken().'&value='.$key.'&status=1">';
-			print img_picto($langs->trans("Disabled"), 'switch_off');
+			print img_picture($langs->trans("Disabled"), 'switch_off');
 			print '</a></td>';
 		}
 
 		if ($mandatory) {
 			print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setprofidmandatory&token='.newToken().'&value='.$key.'&status=0">';
-			print img_picto($langs->trans("Activated"), 'switch_on');
+			print img_picture($langs->trans("Activated"), 'switch_on');
 			print '</a></td>';
 		} else {
 			print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setprofidmandatory&token='.newToken().'&value='.$key.'&status=1">';
-			print img_picto($langs->trans("Disabled"), 'switch_off');
+			print img_picture($langs->trans("Disabled"), 'switch_off');
 			print '</a></td>';
 		}
 
 		if ($invoice_mandatory) {
 			print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setprofidinvoicemandatory&token='.newToken().'&value='.$key.'&status=0">';
-			print img_picto($langs->trans("Activated"), 'switch_on');
+			print img_picture($langs->trans("Activated"), 'switch_on');
 			print '</a></td>';
 		} else {
 			print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setprofidinvoicemandatory&token='.newToken().'&value='.$key.'&status=1">';
-			print img_picto($langs->trans("Disabled"), 'switch_off');
+			print img_picture($langs->trans("Disabled"), 'switch_off');
 			print '</a></td>';
 		}
 
@@ -777,29 +777,29 @@ print '<td colspan="2">'.$langs->trans('VATIntra')."</td>\n";
 $key = 'VAT_INTRA';
 if (getDolGlobalString('SOCIETE_VAT_INTRA_UNIQUE')) {
 	print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setprofid&token='.newToken().'&value='.$key.'&status=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 	print '</a></td>';
 } else {
 	print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setprofid&token='.newToken().'&value='.$key.'&status=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 if (getDolGlobalString('SOCIETE_VAT_INTRA_MANDATORY')) {
 	print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setprofidmandatory&token='.newToken().'&value='.$key.'&status=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 	print '</a></td>';
 } else {
 	print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setprofidmandatory&token='.newToken().'&value='.$key.'&status=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 if (getDolGlobalString('SOCIETE_VAT_INTRA_INVOICE_MANDATORY')) {
 	print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setprofidinvoicemandatory&token='.newToken().'&value='.$key.'&status=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 	print '</a></td>';
 } else {
 	print '<td class="center"><a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setprofidinvoicemandatory&token='.newToken().'&value='.$key.'&status=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 	print '</a></td>';
 }
 print "</tr>\n";
@@ -829,7 +829,7 @@ print '<td width="80">&nbsp;</td></tr>'."\n";
 // Utilisation formulaire Ajax sur choix societe
 
 print '<tr class="oddeven">';
-print '<td width="80%">'.$form->textwithpicto($langs->trans("DelaiedFullListToSelectCompany"), $langs->trans('UseSearchToSelectCompanyTooltip'), 1).' </td>';
+print '<td width="80%">'.$form->textWithPicture($langs->trans("DelaiedFullListToSelectCompany"), $langs->trans('UseSearchToSelectCompanyTooltip'), 1).' </td>';
 if (!$config->use_javascript_ajax) {
 	print '<td class="nowrap right" colspan="2">';
 	print $langs->trans("NotAvailableWhenAjaxDisabled");
@@ -850,7 +850,7 @@ print '</tr>';
 
 
 print '<tr class="oddeven">';
-print '<td width="80%">'.$form->textwithpicto($langs->trans("DelaiedFullListToSelectContact"), $langs->trans('UseSearchToSelectContactTooltip'), 1).'</td>';
+print '<td width="80%">'.$form->textWithPicture($langs->trans("DelaiedFullListToSelectContact"), $langs->trans('UseSearchToSelectContactTooltip'), 1).'</td>';
 if (!$config->use_javascript_ajax) {
 	print '<td class="nowrap right" colspan="2">';
 	print $langs->trans("NotAvailableWhenAjaxDisabled");
@@ -877,10 +877,10 @@ print '<td>&nbsp;</td>';
 print '<td class="center">';
 if (getDolGlobalString('SOCIETE_ADD_REF_IN_LIST')) {
 	print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setaddrefinlist&token='.newToken().'&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 } else {
 	print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setaddrefinlist&token='.newToken().'&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 }
 print '</a></td>';
 print '</tr>';
@@ -891,10 +891,10 @@ print '<td>&nbsp;</td>';
 print '<td class="center">';
 if (getDolGlobalString('SOCIETE_SHOW_VAT_IN_LIST')) {
 	print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setvatinlist&token='.newToken().'&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 } else {
 	print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setvatinlist&token='.newToken().'&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 }
 print '</a></td>';
 print '</tr>';
@@ -905,10 +905,10 @@ print '<td>&nbsp;</td>';
 print '<td class="center">';
 if (getDolGlobalString('COMPANY_SHOW_ADDRESS_SELECTLIST')) {
 	print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setaddadressinlist&token='.newToken().'&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 } else {
 	print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setaddadressinlist&token='.newToken().'&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 }
 print '</a></td>';
 print '</tr>';
@@ -919,10 +919,10 @@ print '<td>&nbsp;</td>';
 print '<td class="center">';
 if (getDolGlobalString('CONTACT_SHOW_EMAIL_PHONE_TOWN_SELECTLIST')) {
 	print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setaddemailphonetownincontactlist&token='.newToken().'&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 } else {
 	print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setaddemailphonetownincontactlist&token='.newToken().'&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 }
 print '</a></td>';
 print '</tr>';
@@ -935,10 +935,10 @@ if (isModEnabled("shipping")) {
 		print '<td class="center">';
 		if (getDolGlobalString('SOCIETE_ASK_FOR_SHIPPING_METHOD')) {
 			print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setaskforshippingmet&token='.newToken().'&value=0">';
-			print img_picto($langs->trans("Activated"), 'switch_on');
+			print img_picture($langs->trans("Activated"), 'switch_on');
 		} else {
 			print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setaskforshippingmet&token='.newToken().'&value=1">';
-			print img_picto($langs->trans("Disabled"), 'switch_off');
+			print img_picture($langs->trans("Disabled"), 'switch_off');
 		}
 		print '</a></td>';
 		print '</tr>';
@@ -952,10 +952,10 @@ print '<td>&nbsp;</td>';
 print '<td class="center">';
 if (getDolGlobalString('SOCIETE_DISABLE_PROSPECTSCUSTOMERS')) {
 	print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setdisableprospectcustomer&token='.newToken().'&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 } else {
 	print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setdisableprospectcustomer&token='.newToken().'&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 }
 print '</a></td>';
 print '</tr>';

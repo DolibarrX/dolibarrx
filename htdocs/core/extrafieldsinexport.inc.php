@@ -7,7 +7,7 @@
 ';
 
 // $keyforselect = name of main table
-// keyforelement = name of picto
+// keyforelement = name of picture
 // $keyforaliasextra = a key to avoid conflict with extrafields of other objects
 
 if (empty($keyforselect) || empty($keyforelement) || empty($keyforaliasextra)) {

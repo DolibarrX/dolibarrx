@@ -346,7 +346,7 @@ if ($mode == 'config' && $user->admin) {
 	$htmltext .= $langs->trans("PROFILE_P822D").' = '.$langs->trans("PROFILE_P822D_HELP").'<br>';
 	$htmltext .= $langs->trans("PROFILE_STAR").' = '.$langs->trans("PROFILE_STAR_HELP").'<br>';
 
-	print $form->textwithpicto($langs->trans("Profile"), $htmltext);
+	print $form->textWithPicture($langs->trans("Profile"), $htmltext);
 	print '</th>';
 	print '<th>'.$langs->trans("Parameters").'</th>';
 	print '<th></th>';
@@ -396,19 +396,19 @@ if ($mode == 'config' && $user->admin) {
 				// edit icon
 				print '<td class="center">';
 				print '<a class="editfielda marginrightonly" href="'.$_SERVER['PHP_SELF'].'?mode=config&action=editprinter&token='.newToken().'&printerid='.$printer->listprinters[$line]['rowid'].'">';
-				print img_picto($langs->trans("Edit"), 'edit', 'class="paddingright"');
+				print img_picture($langs->trans("Edit"), 'edit', 'class="paddingright"');
 				print '</a>';
 				// delete icon
 				print '<a class="marginrightonly" href="'.$_SERVER['PHP_SELF'].'?mode=config&action=deleteprinter&token='.newToken().'&printerid='.$printer->listprinters[$line]['rowid'].'&printername='.urlencode($printer->listprinters[$line]['name']).'">';
-				print img_picto($langs->trans("Delete"), 'delete', 'class="paddingright"');
+				print img_picture($langs->trans("Delete"), 'delete', 'class="paddingright"');
 				print '</a>';
 				// test icon
 				print '<a class="marginrightonly nowraponall" href="'.$_SERVER['PHP_SELF'].'?mode=config&action=testprinter&token='.newToken().'&printerid='.$printer->listprinters[$line]['rowid'].'&printername='.urlencode($printer->listprinters[$line]['name']).'">';
-				print img_picto($langs->trans("TestPrinterDesc"), 'printer', 'class="paddingright paddingleft"').'TXT';
+				print img_picture($langs->trans("TestPrinterDesc"), 'printer', 'class="paddingright paddingleft"').'TXT';
 				print '</a>';
 				// test icon
 				print '<a class="marginrightonly nowraponall" href="'.$_SERVER['PHP_SELF'].'?mode=config&action=testprinter2&token='.newToken().'&printerid='.$printer->listprinters[$line]['rowid'].'&printername='.urlencode($printer->listprinters[$line]['name']).'">';
-				print img_picto($langs->trans("TestPrinterDesc2"), 'printer', 'class="paddingright paddingleft"').'IMG';
+				print img_picture($langs->trans("TestPrinterDesc2"), 'printer', 'class="paddingright paddingleft"').'IMG';
 				print '</a>';
 				print '</td>';
 				print '</tr>';
@@ -431,10 +431,10 @@ if ($mode == 'config' && $user->admin) {
 	print '<div class="div-table-responsive">'; // You can use div-table-responsive-no-min if you don't need reserved height for your table
 	print '<table class="noborder centpercent">'."\n";
 	print '<tr class="oddeven"><td>'.$langs->trans("CONNECTOR_DUMMY").'</td><td>'.$langs->trans("CONNECTOR_DUMMY_HELP").'</td></tr>';
-	print '<tr class="oddeven"><td>'.$form->textwithpicto($langs->trans("CONNECTOR_NETWORK_PRINT"), $langs->trans("FromServerPointOfView")).'</td><td>'.$langs->trans("CONNECTOR_NETWORK_PRINT_HELP").'</td></tr>';
-	print '<tr class="oddeven"><td>'.$form->textwithpicto($langs->trans("CONNECTOR_FILE_PRINT"), $langs->trans("FromServerPointOfView")).'</td><td>'.$langs->trans("CONNECTOR_FILE_PRINT_HELP").'</td></tr>';
-	print '<tr class="oddeven"><td>'.$form->textwithpicto($langs->trans("CONNECTOR_WINDOWS_PRINT"), $langs->trans("FromServerPointOfView")).'</td><td>'.$langs->trans("CONNECTOR_WINDOWS_PRINT_HELP").'</td></tr>';
-	print '<tr class="oddeven"><td>'.$form->textwithpicto($langs->trans("CONNECTOR_CUPS_PRINT"), $langs->trans("FromServerPointOfView")).'</td><td>'.$langs->trans("CONNECTOR_CUPS_PRINT_HELP").'</td></tr>';
+	print '<tr class="oddeven"><td>'.$form->textWithPicture($langs->trans("CONNECTOR_NETWORK_PRINT"), $langs->trans("FromServerPointOfView")).'</td><td>'.$langs->trans("CONNECTOR_NETWORK_PRINT_HELP").'</td></tr>';
+	print '<tr class="oddeven"><td>'.$form->textWithPicture($langs->trans("CONNECTOR_FILE_PRINT"), $langs->trans("FromServerPointOfView")).'</td><td>'.$langs->trans("CONNECTOR_FILE_PRINT_HELP").'</td></tr>';
+	print '<tr class="oddeven"><td>'.$form->textWithPicture($langs->trans("CONNECTOR_WINDOWS_PRINT"), $langs->trans("FromServerPointOfView")).'</td><td>'.$langs->trans("CONNECTOR_WINDOWS_PRINT_HELP").'</td></tr>';
+	print '<tr class="oddeven"><td>'.$form->textWithPicture($langs->trans("CONNECTOR_CUPS_PRINT"), $langs->trans("FromServerPointOfView")).'</td><td>'.$langs->trans("CONNECTOR_CUPS_PRINT_HELP").'</td></tr>';
 	print '</table>';
 	print '</div>';
 
@@ -489,15 +489,15 @@ if ($mode == 'template' && $user->admin) {
 				print '<td class="wordbreak">'.dol_htmlentitiesbr($printer->listprinterstemplates[$line]['template'] ?? '').'</td>';
 				// edit icon
 				print '<td class="center"><a class="editfielda paddingleftonly marginrightonly" href="'.$_SERVER['PHP_SELF'].'?mode=template&action=edittemplate&token='.newToken().'&templateid='.($printer->listprinterstemplates[$line]['rowid'] ?? '').'">';
-				print img_picto($langs->trans("Edit"), 'edit');
+				print img_picture($langs->trans("Edit"), 'edit');
 				print '</a>';
 				// delete icon
 				print '<a class="paddingleftonly marginrightonly" href="'.$_SERVER['PHP_SELF'].'?mode=template&action=deletetemplate&token='.newToken().'&templateid='.($printer->listprinterstemplates[$line]['rowid'] ?? '').'&templatename='.urlencode($printer->listprinterstemplates[$line]['name'] ?? '').'">';
-				print img_picto($langs->trans("Delete"), 'delete');
+				print img_picture($langs->trans("Delete"), 'delete');
 				print '</a>';
 				// test icon
 				print '<a class="paddingleftonly marginrightonly" href="'.$_SERVER['PHP_SELF'].'?mode=template&action=testtemplate&token='.newToken().'&templateid='.($printer->listprinterstemplates[$line]['rowid'] ?? '').'&templatename='.urlencode($printer->listprinterstemplates[$line]['name'] ?? '').'">';
-				print img_picto($langs->trans("TestPrinterTemplate"), 'printer');
+				print img_picture($langs->trans("TestPrinterTemplate"), 'printer');
 				print '</a></td>';
 			}
 			print '</tr>';

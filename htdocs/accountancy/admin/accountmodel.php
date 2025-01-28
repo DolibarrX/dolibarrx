@@ -67,8 +67,8 @@ $acts = array();
 $actl = array();
 $acts[0] = "activate";
 $acts[1] = "disable";
-$actl[0] = img_picto($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
-$actl[1] = img_picto($langs->trans("Activated"), 'switch_on', 'class="size15x"');
+$actl[0] = img_picture($langs->trans("Disabled"), 'switch_off', 'class="size15x"');
+$actl[1] = img_picture($langs->trans("Activated"), 'switch_on', 'class="size15x"');
 
 $listoffset = GETPOST('listoffset', 'alpha');
 $listlimit = GETPOSTINT('listlimit') > 0 ? GETPOSTINT('listlimit') : 1000;
@@ -430,7 +430,7 @@ foreach ($fieldlist as $field => $value) {
 		if (!empty($tabhelp[$id][$value]) && preg_match('/^http(s*):/i', $tabhelp[$id][$value])) {
 			print '<a href="'.$tabhelp[$id][$value].'">'.$valuetoshow.' '.img_help(1, $valuetoshow).'</a>';
 		} elseif (!empty($tabhelp[$id][$value])) {
-			print $form->textwithpicto($valuetoshow, $tabhelp[$id][$value]);
+			print $form->textWithPicture($valuetoshow, $tabhelp[$id][$value]);
 		} else {
 			print $valuetoshow;
 		}
@@ -526,8 +526,8 @@ if ($resql) {
 	}
 	print '<td class="liste_titre"></td>';
 	print '<td class="liste_titre right" colspan="2">';
-	$searchpicto = $form->showFilterAndCheckAddButtons(0);
-	print $searchpicto;
+	$searchPicture = $form->showFilterAndCheckAddButtons(0);
+	print $searchPicture;
 	print '</td>';
 	print '</tr>';
 

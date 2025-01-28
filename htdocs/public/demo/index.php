@@ -414,11 +414,11 @@ foreach ($demoprofiles as $profilearray) {
 					}
 					print '>';
 					/*
-					$s = img_picto('', $modulekeyname, 'class="pictofixedwidth paddingleft"');
+					$s = img_picture('', $modulekeyname, 'class="picturefixedwidth paddingleft"');
 					if ($s) {
 						print $s;
 					} else {
-						print img_picto('', 'generic', 'class="pictofixedwidth paddingleft"');
+						print img_picture('', 'generic', 'class="picturefixedwidth paddingleft"');
 					}*/
 					print '<label for="id'.$modulekeyname.'" class="inline-block demomaxoveflow valignmiddle paddingleft'.($disabled ? ' opacitymedium' : '').'" title="'.dol_escape_htmltag($val->getName()).'">'.$val->getName().'</label><br>';
 					print '</div>';

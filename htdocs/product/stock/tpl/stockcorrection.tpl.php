@@ -168,14 +168,14 @@ if ($object->element == 'product') {
 	if (empty($ident) && getDolGlobalString('MAIN_DEFAULT_WAREHOUSE')) {
 		$ident = getDolGlobalString('MAIN_DEFAULT_WAREHOUSE');
 	}
-	print img_picto('', 'stock', 'class="pictofixedwidth"').$formproduct->selectWarehouses($ident, 'id_entrepot', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, array(), 'minwidth100 maxwidth300 widthcentpercentminusx');
+	print img_picture('', 'stock', 'class="picturefixedwidth"').$formproduct->selectWarehouses($ident, 'id_entrepot', 'warehouseopen,warehouseinternal', 1, 0, 0, '', 0, 0, array(), 'minwidth100 maxwidth300 widthcentpercentminusx');
 	print '</td>';
 }
 if ($object->element == 'stockmouvement') {
 	/** @var MouvementStock $object */
 	print '<td class="fieldrequired">'.$langs->trans("Product").'</td>';
 	print '<td>';
-	print img_picto('', 'product');
+	print img_picture('', 'product');
 	$form->select_produits(GETPOSTINT('product_id'), 'product_id', (!getDolGlobalString('STOCK_SUPPORTS_SERVICES') ? '0' : ''), 0, 0, -1, 2, '', 0, array(), 0, 1, 0, 'maxwidth500');
 	print '</td>';
 }
@@ -218,7 +218,7 @@ if (isModEnabled('productbatch') &&
 		print '<input type="text" name="batch_number_bis" size="40" disabled="disabled" value="'.(GETPOST('batch_number') ? GETPOST('batch_number') : $pdluo->batch).'">';
 		print '<input type="hidden" name="batch_number" value="'.(GETPOST('batch_number') ? GETPOST('batch_number') : $pdluo->batch).'">';
 	} else {
-		print img_picto('', 'barcode', 'class="pictofixedwidth"').'<input type="text" id="batch_number" name="batch_number" class="minwidth300" value="'.(GETPOST('batch_number') ? GETPOST('batch_number') : $pdluo->batch).'">';
+		print img_picture('', 'barcode', 'class="picturefixedwidth"').'<input type="text" id="batch_number" name="batch_number" class="minwidth300" value="'.(GETPOST('batch_number') ? GETPOST('batch_number') : $pdluo->batch).'">';
 	}
 	print '</td>';
 	print '</tr>';
@@ -248,7 +248,7 @@ print '<td colspan="'.(isModEnabled('project') ? '1' : '3').'"><input name="unit
 if (isModEnabled('project')) {
 	print '<td>'.$langs->trans('Project').'</td>';
 	print '<td>';
-	print img_picto('', 'project');
+	print img_picture('', 'project');
 	$formproject->select_projects(-1, '', 'projectid', 0, 0, 1, 0, 0, 0, 0, '', 0, 0, 'maxwidth300 widthcentpercentminusx');
 	print '</td>';
 }

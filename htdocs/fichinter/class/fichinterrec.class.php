@@ -53,7 +53,7 @@ class FichinterRec extends Fichinter
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'intervention';
+	public $picture = 'intervention';
 
 	/**
 	 * @var string title
@@ -629,16 +629,16 @@ class FichinterRec extends Fichinter
 	}
 
 	/**
-	 *  Return clickable name (with picto eventually)
+	 *  Return clickable name (with picture eventually)
 	 *
-	 *  @param	int		$withpicto      Add picto into link
+	 *  @param	int		$withPicture      Add picture into link
 	 *  @param  string	$option		    Where point the link
 	 *  @param  int		$max			Maxlength of ref
 	 *  @param  int		$short		    1=Return just URL
 	 *  @param  string   $moretitle     Add more text to title tooltip
 	 *  @return string 					String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $short = 0, $moretitle = '')
+	public function getNomUrl($withPicture = 0, $option = '', $max = 0, $short = 0, $moretitle = '')
 	{
 		global $action, $langs, $hookManager;
 
@@ -654,13 +654,13 @@ class FichinterRec extends Fichinter
 		$link = '<a href="'.$url.'" title="'.dol_escape_htmltag($label, 1).'" class="classfortooltip">';
 		$linkend = '</a>';
 
-		if ($withpicto) {
-			$result .= $link.img_object($label, $this->picto, 'class="classfortooltip"').$linkend;
+		if ($withPicture) {
+			$result .= $link.img_object($label, $this->picture, 'class="classfortooltip"').$linkend;
 		}
-		if ($withpicto && $withpicto != 2) {
+		if ($withPicture && $withPicture != 2) {
 			$result .= ' ';
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $link.$this->ref.$linkend;
 		}
 

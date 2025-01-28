@@ -47,7 +47,7 @@ class InterfaceContactRoles extends DolibarrTriggers
 		$this->family = "agenda";
 		$this->description = "Triggers of this module auto link contact to company.";
 		$this->version = self::VERSIONS['prod'];
-		$this->picto = 'company';
+		$this->picture = 'company';
 	}
 
 	/**

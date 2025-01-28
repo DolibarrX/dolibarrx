@@ -459,13 +459,13 @@ print '<input name="name" id="name" maxlength="'.$mysoc->fields['nom']['length']
 
 // Main currency
 print '<tr class="oddeven"><td class="fieldrequired"><label for="currency">'.$langs->trans("CompanyCurrency").'</label></td><td>';
-print img_picto('', 'multicurrency', 'class="pictofixedwidth"');
+print img_picture('', 'multicurrency', 'class="picturefixedwidth"');
 print $form->selectCurrency($config->currency, "currency");
 print '</td></tr>'."\n";
 
 // Country
 print '<tr class="oddeven"><td class="fieldrequired"><label for="selectcountry_id">'.$langs->trans("Country").'</label></td><td>';
-print img_picto('', 'globe-americas', 'class="pictofixedwidth"');
+print img_picture('', 'globe-americas', 'class="picturefixedwidth"');
 print $form->select_country($mysoc->country_id, 'country_id', '', 0);
 if ($user->admin) {
 	print info_admin($langs->trans("YouCanChangeValuesForThisListFromDictionarySetup"), 1);
@@ -490,37 +490,37 @@ if (getDolGlobalString('MAIN_INFO_SOCIETE_STATE')) {
 	$tmp = explode(':', getDolGlobalString('MAIN_INFO_SOCIETE_STATE'));
 	$state_id = $tmp[0];
 }
-print img_picto('', 'state', 'class="pictofixedwidth"');
+print img_picture('', 'state', 'class="picturefixedwidth"');
 print $formcompany->select_state($state_id, $mysoc->country_code, 'state_id', 'maxwidth200onsmartphone minwidth300');
 print '</td></tr>'."\n";
 
 // Phone
 print '<tr class="oddeven"><td><label for="phone">'.$langs->trans("Phone").'</label></td><td>';
-print img_picto('', 'object_phoning', '', 0, 0, 0, '', 'pictofixedwidth');
+print img_picture('', 'object_phoning', '', 0, 0, 0, '', 'picturefixedwidth');
 print '<input class="maxwidth150 widthcentpercentminusx" name="phone" id="phone" value="'.dol_escape_htmltag((GETPOSTISSET('phone') ? GETPOST('phone', 'alphanohtml') : (getDolGlobalString('MAIN_INFO_SOCIETE_TEL')))).'"></td></tr>';
 print '</td></tr>'."\n";
 
 // Phone mobile
 print '<tr class="oddeven"><td><label for="phone">'.$langs->trans("PhoneMobile").'</label></td><td>';
-print img_picto('', 'object_phoning_mobile', '', 0, 0, 0, '', 'pictofixedwidth');
+print img_picture('', 'object_phoning_mobile', '', 0, 0, 0, '', 'picturefixedwidth');
 print '<input class="maxwidth150 widthcentpercentminusx" name="phone_mobile" id="phone_mobile" value="'.dol_escape_htmltag((GETPOSTISSET('phone_mobile') ? GETPOST('phone_mobile', 'alphanohtml') : (getDolGlobalString('MAIN_INFO_SOCIETE_MOBILE')))).'"></td></tr>';
 print '</td></tr>'."\n";
 
 // Fax
 print '<tr class="oddeven"><td><label for="fax">'.$langs->trans("Fax").'</label></td><td>';
-print img_picto('', 'object_phoning_fax', '', 0, 0, 0, '', 'pictofixedwidth');
+print img_picture('', 'object_phoning_fax', '', 0, 0, 0, '', 'picturefixedwidth');
 print '<input class="maxwidth150" name="fax" id="fax" value="'.dol_escape_htmltag((GETPOSTISSET('fax') ? GETPOST('fax', 'alphanohtml') : (getDolGlobalString('MAIN_INFO_SOCIETE_FAX')))).'"></td></tr>';
 print '</td></tr>'."\n";
 
 // Email
 print '<tr class="oddeven"><td><label for="email">'.$langs->trans("EMail").'</label></td><td>';
-print img_picto('', 'object_email', '', 0, 0, 0, '', 'pictofixedwidth');
+print img_picture('', 'object_email', '', 0, 0, 0, '', 'picturefixedwidth');
 print '<input class="minwidth300 maxwidth500 widthcentpercentminusx" name="mail" id="email" value="'.dol_escape_htmltag((GETPOSTISSET('mail') ? GETPOST('mail', 'alphanohtml') : (getDolGlobalString('MAIN_INFO_SOCIETE_MAIL') ? $config->global->MAIN_INFO_SOCIETE_MAIL : ''))).'"></td></tr>';
 print '</td></tr>'."\n";
 
 // Web
 print '<tr class="oddeven"><td><label for="web">'.$langs->trans("Web").'</label></td><td>';
-print img_picto('', 'globe', '', 0, 0, 0, '', 'pictofixedwidth');
+print img_picture('', 'globe', '', 0, 0, 0, '', 'picturefixedwidth');
 print '<input class="maxwidth300 widthcentpercentminusx" name="web" id="web" value="'.dol_escape_htmltag((GETPOSTISSET('web') ? GETPOST('web', 'alphanohtml') : (getDolGlobalString('MAIN_INFO_SOCIETE_WEB') ? $config->global->MAIN_INFO_SOCIETE_WEB : ''))).'"></td></tr>';
 print '</td></tr>'."\n";
 
@@ -528,7 +528,7 @@ print '</td></tr>'."\n";
 if (isModEnabled('barcode')) {
 	print '<tr class="oddeven"><td>';
 	print '<label for="barcode">'.$langs->trans("Gencod").'</label></td><td>';
-	print '<span class="fa fa-barcode pictofixedwidth"></span>';
+	print '<span class="fa fa-barcode picturefixedwidth"></span>';
 	print '<input name="barcode" id="barcode" class="minwidth150 widthcentpercentminusx maxwidth300" value="'.dol_escape_htmltag(GETPOSTISSET('barcode') ? GETPOST('barcode', 'alphanohtml') : getDolGlobalString('MAIN_INFO_SOCIETE_GENCOD', '')).'"></td></tr>';
 	print '</td></tr>';
 }
@@ -540,7 +540,7 @@ $tooltiplogo = $langs->trans('AvailableFormats').' : png, jpg, jpeg';
 $tooltiplogo .= ($maxmin > 0) ? '<br>'.$langs->trans('MaxSize').' : '.$maxmin.' '.$langs->trans('Kb') : '';
 
 // Logo
-print '<tr class="oddeven"><td><label for="logo">'.$form->textwithpicto($langs->trans("Logo"), $tooltiplogo).'</label></td><td>';
+print '<tr class="oddeven"><td><label for="logo">'.$form->textWithPicture($langs->trans("Logo"), $tooltiplogo).'</label></td><td>';
 
 $modulepart = 'mycompany';
 $dirformainimage = $config->mycompany->dir_output;
@@ -552,7 +552,7 @@ print $formfile->showImageToEdit('logo', $modulepart, $dirformainimage, $subdirf
 print '</td></tr>';
 
 // Logo (squarred)
-print '<tr class="oddeven"><td><label for="logo_squarred">'.$form->textwithpicto($langs->trans("LogoSquarred"), $tooltiplogo).'</label></td><td>';
+print '<tr class="oddeven"><td><label for="logo_squarred">'.$form->textWithPicture($langs->trans("LogoSquarred"), $tooltiplogo).'</label></td><td>';
 
 $modulepart = 'mycompany';
 $dirformainimage = $config->mycompany->dir_output;
@@ -588,7 +588,7 @@ print '<input name="MAIN_INFO_SOCIETE_MANAGERS" id="directors" class="minwidth30
 
 // GDPR contact
 print '<tr class="oddeven"><td>';
-print $form->textwithpicto($langs->trans("GDPRContact"), $langs->trans("GDPRContactDesc"));
+print $form->textWithPicture($langs->trans("GDPRContact"), $langs->trans("GDPRContactDesc"));
 print '</td><td>';
 print '<input name="MAIN_INFO_GDPR" id="infodirector" class="minwidth300" value="'.dol_escape_htmltag((GETPOSTISSET("MAIN_INFO_GDPR") ? GETPOST("MAIN_INFO_GDPR", 'alphanohtml') : (getDolGlobalString('MAIN_INFO_GDPR') ? $config->global->MAIN_INFO_GDPR : ''))).'"></td></tr>';
 
@@ -762,7 +762,7 @@ $tooltiphelp = $langs->trans("VATIsUsedDesc");
 if ($mysoc->country_code == 'FR') {
 	$tooltiphelp .= '<br><br><i>'.$langs->trans("Example").': '.$langs->trans("VATIsUsedExampleFR")."</i>";
 }
-print '<label for="use_vat">'.$form->textwithpicto($langs->trans("VATIsUsedStandard"), $tooltiphelp)."</label>";
+print '<label for="use_vat">'.$form->textWithPicture($langs->trans("VATIsUsedStandard"), $tooltiphelp)."</label>";
 print "</td></tr>\n";
 
 
@@ -772,7 +772,7 @@ $tooltiphelp = '';
 if ($mysoc->country_code == 'FR') {
 	$tooltiphelp = "<i>".$langs->trans("Example").': '.$langs->trans("VATIsNotUsedExampleFR")."</i>\n";
 }
-print '<label for="no_vat">'.$form->textwithpicto($langs->trans("VATIsNotUsedDesc"), $tooltiphelp)."</label>";
+print '<label for="no_vat">'.$form->textWithPicture($langs->trans("VATIsNotUsedDesc"), $tooltiphelp)."</label>";
 print "</td></tr>\n";
 
 print "</table>";
@@ -781,7 +781,7 @@ print "</table>";
 print '<br>';
 print '<table class="noborder centpercent editmode">';
 print '<tr class="liste_titre">';
-print '<td class="titlefieldcreate">'.$form->textwithpicto($langs->transcountry("LocalTax1Management", $mysoc->country_code), $langs->transcountry("LocalTax1IsUsedDesc", $mysoc->country_code)).'</td><td></td>';
+print '<td class="titlefieldcreate">'.$form->textWithPicture($langs->transcountry("LocalTax1Management", $mysoc->country_code), $langs->transcountry("LocalTax1IsUsedDesc", $mysoc->country_code)).'</td><td></td>';
 print '<td class="right">&nbsp;</td>';
 print "</tr>\n";
 
@@ -792,7 +792,7 @@ if ($mysoc->useLocalTax(1)) {
 	print '<div class="nobordernopadding">';
 	$tooltiphelp = $langs->transcountry("LocalTax1IsUsedExample", $mysoc->country_code);
 	$tooltiphelp = ($tooltiphelp != "LocalTax1IsUsedExample" ? "<i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax1IsUsedExample", $mysoc->country_code)."</i>\n" : "");
-	print $form->textwithpicto($langs->transcountry("LocalTax1IsUsedDesc", $mysoc->country_code), $tooltiphelp);
+	print $form->textWithPicture($langs->transcountry("LocalTax1IsUsedDesc", $mysoc->country_code), $tooltiphelp);
 	if (!isOnlyOneLocalTax(1)) {
 		print '<br><label for="lt1">'.$langs->trans("LTRate").'</label>: ';
 		$formcompany->select_localtax(1, $config->global->MAIN_INFO_VALUE_LOCALTAX1, "lt1");
@@ -809,7 +809,7 @@ if ($mysoc->useLocalTax(1)) {
 	print '<td colspan="2">';
 	$tooltiphelp = $langs->transcountry("LocalTax1IsNotUsedExample", $mysoc->country_code);
 	$tooltiphelp = ($tooltiphelp != "LocalTax1IsNotUsedExample" ? "<i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax1IsNotUsedExample", $mysoc->country_code)."</i>\n" : "");
-	print $form->textwithpicto($langs->transcountry("LocalTax1IsNotUsedDesc", $mysoc->country_code), $tooltiphelp);
+	print $form->textWithPicture($langs->transcountry("LocalTax1IsNotUsedDesc", $mysoc->country_code), $tooltiphelp);
 	print "</td></tr>\n";
 } else {
 	if (empty($mysoc->country_code)) {
@@ -825,7 +825,7 @@ print "</table>";
 print '<br>';
 print '<table class="noborder centpercent editmode">';
 print '<tr class="liste_titre">';
-print '<td class="titlefieldcreate">'.$form->textwithpicto($langs->transcountry("LocalTax2Management", $mysoc->country_code), $langs->transcountry("LocalTax2IsUsedDesc", $mysoc->country_code)).'</td><td></td>';
+print '<td class="titlefieldcreate">'.$form->textWithPicture($langs->transcountry("LocalTax2Management", $mysoc->country_code), $langs->transcountry("LocalTax2IsUsedDesc", $mysoc->country_code)).'</td><td></td>';
 print '<td class="right">&nbsp;</td>';
 print "</tr>\n";
 
@@ -854,7 +854,7 @@ if ($mysoc->useLocalTax(2)) {
 	print "<div>";
 	$tooltiphelp = $langs->transcountry("LocalTax2IsNotUsedExample", $mysoc->country_code);
 	$tooltiphelp = ($tooltiphelp != "LocalTax2IsNotUsedExample" ? "<i>".$langs->trans("Example").': '.$langs->transcountry("LocalTax2IsNotUsedExample", $mysoc->country_code)."</i>\n" : "");
-	print "<label for=\"nolt2\">".$form->textwithpicto($langs->transcountry("LocalTax2IsNotUsedDesc", $mysoc->country_code), $tooltiphelp)."</label>";
+	print "<label for=\"nolt2\">".$form->textWithPicture($langs->transcountry("LocalTax2IsNotUsedDesc", $mysoc->country_code), $tooltiphelp)."</label>";
 	print "</div>";
 	print "</td></tr>\n";
 } else {
@@ -872,7 +872,7 @@ print "</table>";
 print '<br>';
 print '<table class="noborder centpercent editmode">';
 print '<tr class="liste_titre">';
-print '<td>'.$form->textwithpicto($langs->trans("RevenueStamp"), $langs->trans("RevenueStampDesc")).'</td><td></td>';
+print '<td>'.$form->textWithPicture($langs->trans("RevenueStamp"), $langs->trans("RevenueStampDesc")).'</td><td></td>';
 print '<td class="right">&nbsp;</td>';
 print "</tr>\n";
 if ($mysoc->useRevenueStamp()) {

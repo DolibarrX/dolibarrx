@@ -739,7 +739,7 @@ print '</div>';
 print '<div class="justify subscriptionformhelptext">';
 
 if ($project->date_start_event || $project->date_end_event) {
-	print '<br><span class="fa fa-calendar pictofixedwidth opacitymedium"></span>';
+	print '<br><span class="fa fa-calendar picturefixedwidth opacitymedium"></span>';
 }
 if ($project->date_start_event) {
 	$format = 'day';
@@ -764,7 +764,7 @@ if ($project->date_start_event || $project->date_end_event) {
 	print '<br>';
 }
 if ($project->location) {
-	print '<span class="fa fa-map-marked-alt pictofixedwidth opacitymedium"></span>'.dol_escape_htmltag($project->location).'<br>';
+	print '<span class="fa fa-map-marked-alt picturefixedwidth opacitymedium"></span>'.dol_escape_htmltag($project->location).'<br>';
 }
 if ($project->note_public) {
 	print '<br><span class="opacitymedium">'.dol_htmlentitiesbr($project->note_public).'</span><br>';
@@ -838,18 +838,18 @@ if ((!empty($conference->id) && $conference->status == ConferenceOrBooth::STATUS
 		// Firstname
 		print '<tr><td><span class="fieldrequired">';
 		print $langs->trans("Firstname") . '</span></td><td>';
-		print img_picto('', 'user', 'class="pictofixedwidth"');
+		print img_picture('', 'user', 'class="picturefixedwidth"');
 		print '<input type="text" name="firstname" maxlength="255" class="minwidth200 maxwidth300" value="' . dol_escape_htmltag($firstname) . '" required autofocus></td></tr>' . "\n";
 
 		// Lastname
 		print '<tr><td><span class="fieldrequired">';
 		print $langs->trans("Lastname") . '</span></td><td>';
-		print img_picto('', 'user', 'class="pictofixedwidth"');
+		print img_picture('', 'user', 'class="picturefixedwidth"');
 		print '<input type="text" name="lastname" maxlength="255" class="minwidth200 maxwidth300" value="' . dol_escape_htmltag($lastname) . '" required></td></tr>' . "\n";
 
 		// Email
 		print '<tr><td><span class="fieldrequired">' . $langs->trans("EmailAttendee") . '</span></td><td>';
-		print img_picto('', 'email', 'class="pictofixedwidth"');
+		print img_picture('', 'email', 'class="picturefixedwidth"');
 		print '<input type="text" name="email" maxlength="255" class="minwidth200 widthcentpercentminusx maxwidth300" value="' . dol_escape_htmltag(GETPOST('email')) . '" required></td></tr>' . "\n";
 
 		// Company
@@ -862,13 +862,13 @@ if ((!empty($conference->id) && $conference->status == ConferenceOrBooth::STATUS
 			print '</span>';
 		}
 		print '</td><td>';
-		print img_picto('', 'company', 'class="pictofixedwidth"');
+		print img_picture('', 'company', 'class="picturefixedwidth"');
 		print '<input type="text" name="societe" class="minwidth200 widthcentpercentminusx maxwidth300" value="' . dol_escape_htmltag(GETPOST('societe')) . '"'.(empty((float) $project->price_registration) ? '' : ' required').'></td></tr>' . "\n";
 
 		// Email company for invoice
 		if ($project->price_registration) {
-			print '<tr><td>' . $form->textwithpicto($langs->trans("EmailCompany"), $langs->trans("EmailCompanyForInvoice")) . '</td><td>';
-			print img_picto('', 'email', 'class="pictofixedwidth"');
+			print '<tr><td>' . $form->textWithPicture($langs->trans("EmailCompany"), $langs->trans("EmailCompanyForInvoice")) . '</td><td>';
+			print img_picture('', 'email', 'class="picturefixedwidth"');
 			print '<input type="text" name="emailcompany" maxlength="255" class="minwidth200 widthcentpercentminusx maxwidth300" value="' . dol_escape_htmltag(GETPOST('emailcompany')) . '"></td></tr>' . "\n";
 		}
 
@@ -885,7 +885,7 @@ if ((!empty($conference->id) && $conference->status == ConferenceOrBooth::STATUS
 
 		// Country
 		print '<tr><td><span class="fieldrequired">'.$langs->trans('Country').'</span></td><td>';
-		print img_picto('', 'country', 'class="pictofixedwidth"');
+		print img_picture('', 'country', 'class="picturefixedwidth"');
 		$country_id = GETPOST('country_id');
 		if (!$country_id && getDolGlobalString('MEMBER_NEWFORM_FORCECOUNTRYCODE')) {
 			$country_id = getCountry($config->global->MEMBER_NEWFORM_FORCECOUNTRYCODE, '2', $db, $langs);
@@ -908,7 +908,7 @@ if ((!empty($conference->id) && $conference->status == ConferenceOrBooth::STATUS
 		if (!getDolGlobalString('SOCIETE_DISABLE_STATE')) {
 			print '<tr><td>' . $langs->trans('State') . '</td><td>';
 			if ($country_code) {
-				print img_picto('', 'state', 'class="pictofixedwidth"');
+				print img_picture('', 'state', 'class="picturefixedwidth"');
 				print $formcompany->select_state(GETPOST("state_id"), $country_code);
 			} else {
 				print '';

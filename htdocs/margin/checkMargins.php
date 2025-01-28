@@ -193,12 +193,12 @@ if ($optioncss != '') {
 // Show tabs
 $head = marges_prepare_head();
 
-$picto = 'margin';
+$picture = 'margin';
 
 print '<form method="post" name="sel" action="'.$_SERVER['PHP_SELF'].'">';
 print '<input type="hidden" name="token" value="'.newToken().'">';
 
-print dol_get_fiche_head($head, $langs->trans('checkMargins'), $title, 0, $picto);
+print dol_get_fiche_head($head, $langs->trans('checkMargins'), $title, 0, $picture);
 
 print '<table class="border centpercent">';
 
@@ -345,10 +345,10 @@ if ($result) {
 			}
 		} else {
 			if ($objp->product_type == $productstatic::TYPE_PRODUCT) {
-				print img_picto('', 'product');
+				print img_picture('', 'product');
 			}
 			if ($objp->product_type == $productstatic::TYPE_SERVICE) {
-				print img_picto('', 'service');
+				print img_picture('', 'service');
 			}
 			print $objp->label;
 			print '&nbsp;';

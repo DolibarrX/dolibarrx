@@ -525,7 +525,7 @@ print '</div>';
 print '<div class="justify subscriptionformhelptext">';
 
 if ($project->date_start_event || $project->date_end_event) {
-	print '<br><span class="fa fa-calendar pictofixedwidth opacitymedium"></span>';
+	print '<br><span class="fa fa-calendar picturefixedwidth opacitymedium"></span>';
 }
 if ($project->date_start_event) {
 	$format = 'day';
@@ -550,7 +550,7 @@ if ($project->date_start_event || $project->date_end_event) {
 	print '<br>';
 }
 if ($project->location) {
-	print '<span class="fa fa-map-marked-alt pictofixedwidth opacitymedium"></span>'.dol_escape_htmltag($project->location).'<br>';
+	print '<span class="fa fa-map-marked-alt picturefixedwidth opacitymedium"></span>'.dol_escape_htmltag($project->location).'<br>';
 }
 if ($project->note_public) {
 	print '<br><!-- note public --><span class="opacitymedium">'.dol_htmlentitiesbr($project->note_public).'</span><br>';

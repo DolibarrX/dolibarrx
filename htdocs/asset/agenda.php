@@ -147,7 +147,7 @@ if ($object->id > 0) {
 	$head = assetPrepareHead($object);
 
 
-	print dol_get_fiche_head($head, 'agenda', $langs->trans("Asset"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'agenda', $langs->trans("Asset"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------
@@ -186,7 +186,7 @@ if ($object->id > 0) {
 		}
 		$out .= (!empty($objcon->id) ? '&contactid=' . urlencode($objcon->id) : '');
 		//$out.=$langs->trans("AddAnAction").' ';
-		//$out.=img_picto($langs->trans("AddAnAction"),'filenew');
+		//$out.=img_picture($langs->trans("AddAnAction"),'filenew');
 		//$out.="</a>";
 	}
 

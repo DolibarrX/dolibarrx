@@ -106,7 +106,7 @@ if ($permission) {
 	print '<div class="tagtable tableforcontact centpercent noborder nobordertop allwidth">'."\n"; ?>
 	<form class="tagtr liste_titre">
 		<div class="tagtd liste_titre"><?php echo img_object('', 'company', 'class="optiongrey paddingright"').$langs->trans("ThirdParty"); ?></div>
-		<div class="tagtd liste_titre"><?php echo img_picto($langs->trans("Users"), 'user', 'class="optiongrey paddingright"').$langs->trans("Users").' | '.img_picto($langs->trans("Contacts"), 'contact', 'class="optiongrey paddingright"').$langs->trans("Contacts"); ?></div>
+		<div class="tagtd liste_titre"><?php echo img_picture($langs->trans("Users"), 'user', 'class="optiongrey paddingright"').$langs->trans("Users").' | '.img_picture($langs->trans("Contacts"), 'contact', 'class="optiongrey paddingright"').$langs->trans("Contacts"); ?></div>
 		<div class="tagtd liste_titre"><?php echo $langs->trans("ContactType"); ?></div>
 		<div class="tagtd liste_titre">&nbsp;</div>
 		<div class="tagtd liste_titre">&nbsp;</div>
@@ -128,10 +128,10 @@ if ($permission) {
 		<div class="tagtd"><span class="paddingleft"><?php echo getDolGlobalString('MAIN_INFO_SOCIETE_NOM'); ?></span></div>
 		<!--  <div class="nowrap tagtd"><?php echo img_object('', 'user').' '.$langs->trans("Users"); ?></div> -->
 		<div class="tagtd maxwidthonsmartphone">
-		<?php echo img_object('', 'user', 'class="pictofixedwidth"').$form->select_dolusers($user->id, 'userid', 1, (!empty($userAlreadySelected) ? $userAlreadySelected : null), 0, '', '', 0, 56, 0, '', 0, '', 'minwidth100imp widthcentpercentminusxx maxwidth400 userselectcontact');
+		<?php echo img_object('', 'user', 'class="picturefixedwidth"').$form->select_dolusers($user->id, 'userid', 1, (!empty($userAlreadySelected) ? $userAlreadySelected : null), 0, '', '', 0, 56, 0, '', 0, '', 'minwidth100imp widthcentpercentminusxx maxwidth400 userselectcontact');
 		if (empty($hideaddcontactforgroups) && $module == 'project') {
 			print '<span> '.$langs->trans("or").' </span>';
-			echo img_object('', 'group', 'class="pictofixedwidth"').$form->select_dolgroups(0, 'groupid', 1, '', 0, '', array(), '0', false, 'minwidth100imp widthcentpercentminusxx maxwidth400 groupselectcontact');
+			echo img_object('', 'group', 'class="picturefixedwidth"').$form->select_dolgroups(0, 'groupid', 1, '', 0, '', array(), '0', false, 'minwidth100imp widthcentpercentminusxx maxwidth400 groupselectcontact');
 		}
 		?>
 		<script>
@@ -182,7 +182,7 @@ if ($permission) {
 		</div>
 		<div class="tagtd noborderbottom minwidth500imp">
 			<?php
-			print img_object('', 'contact', 'class="pictofixedwidth"');
+			print img_object('', 'contact', 'class="picturefixedwidth"');
 			//print $form->selectcontacts(($selectedCompany > 0 ? $selectedCompany : -1), '', 'contactid', 3, '', '', 1, 'minwidth100imp widthcentpercentminusxx maxwidth400');
 			print $form->select_contact(($selectedCompany > 0 ? $selectedCompany : -1), '', 'contactid', 3, '', '', 1, 'minwidth100imp maxwidth400 widthcentpercentminusx', true);
 
@@ -357,7 +357,7 @@ foreach ($list as $entry) {
 
 		print '<td class="center">';
 		print '<a href="'.$href.'">';
-		print img_picto($langs->trans("Unlink"), "unlink");
+		print img_picture($langs->trans("Unlink"), "unlink");
 		print "</a>";
 		print "</td>";
 	}
@@ -368,7 +368,7 @@ if (empty($list)) {
 	$colspan = 5 + ($permission ? 1 : 0);
 	print '<tr><td colspan="'.$colspan.'"><span class="opacitymedium">';
 	if (is_object($object) && !empty($object->thirdparty)) {
-		print $form->textwithpicto($langs->trans("NoSpecificContactAddress"), $langs->trans("NoSpecificContactAddressBis"));
+		print $form->textWithPicture($langs->trans("NoSpecificContactAddress"), $langs->trans("NoSpecificContactAddressBis"));
 	} else {
 		print $langs->trans("NoSpecificContactAddress");
 	}

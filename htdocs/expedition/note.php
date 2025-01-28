@@ -107,7 +107,7 @@ $form = new Form($db);
 
 if ($id > 0 || !empty($ref)) {
 	$head = shipping_prepare_head($object);
-	print dol_get_fiche_head($head, 'note', $langs->trans("Shipment"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'note', $langs->trans("Shipment"), -1, $object->picture);
 
 
 	// Shipment card
@@ -124,7 +124,7 @@ if ($id > 0 || !empty($ref)) {
 		$langs->load("projects");
 		$morehtmlref .= '<br>';
 		if (0) {	// Do not change on shipment
-			$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 			}

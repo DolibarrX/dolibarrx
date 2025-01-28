@@ -281,7 +281,7 @@ class FormWebsite
 		}
 
 		/*if (!empty($config->use_javascript_ajax)) {
-			$valueoption = '<span class="classlink">'.img_picto('', 'add', 'class="paddingrightonly"').$langs->trans("AddPage").'</span>';
+			$valueoption = '<span class="classlink">'.img_picture('', 'add', 'class="paddingrightonly"').$langs->trans("AddPage").'</span>';
 			$out .= '<option value="-2" data-html="'.dol_escape_htmltag($valueoption).'">'.$valueoption.'</option>';
 		}*/
 

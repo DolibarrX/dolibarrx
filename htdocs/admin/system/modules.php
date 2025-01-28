@@ -155,15 +155,15 @@ foreach ($modules as $key => $module) {
 
 	$alt = $module->name.' - '.$modules_files[$key];
 
-	if (!empty($module->picto)) {
-		if (preg_match('/^\//', $module->picto)) {
+	if (!empty($module->picture)) {
+		if (preg_match('/^\//', $module->picture)) {
 			// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
-			$newModule->picto = img_picto($alt, $module->picto, 'width="14px"', 1);
+			$newModule->picture = img_picture($alt, $module->picture, 'width="14px"', 1);
 		} else {
-			$newModule->picto = img_object($alt, $module->picto, 'width="14px"');
+			$newModule->picture = img_object($alt, $module->picture, 'width="14px"');
 		}
 	} else {
-		$newModule->picto = img_object($alt, 'generic', 'width="14px"');
+		$newModule->picture = img_object($alt, 'generic', 'width="14px"');
 	}
 
 	$permission = array();
@@ -253,8 +253,8 @@ print '<tr class="liste_titre_filter">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 if ($arrayfields['name']['checked']) {
@@ -284,8 +284,8 @@ if ($arrayfields['module_position']['checked']) {
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '</tr>';
@@ -375,7 +375,7 @@ foreach ($moduleList as $module) {
 
 	if ($arrayfields['name']['checked']) {
 		print '<td width="300" class="nowrap">';
-		print $module->picto;
+		print $module->picture;
 		print ' '.dolPrintHTML($module->name);
 		print "</td>";
 	}

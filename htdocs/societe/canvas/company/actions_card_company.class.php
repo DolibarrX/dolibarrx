@@ -134,9 +134,9 @@ class ActionsCardCompany extends ActionsCardCommon
 
 				if ($config->use_javascript_ajax) {
 					$s .= '<a href="#" onclick="CheckVAT(document.formsoc.tva_intra.value);">'.$langs->trans("VATIntraCheck").'</a>';
-					$this->tpl['tva_intra'] = $form->textwithpicto($s, $langs->trans("VATIntraCheckDesc", $langs->transnoentitiesnoconv("VATIntraCheck")), 1);
+					$this->tpl['tva_intra'] = $form->textWithPicture($s, $langs->trans("VATIntraCheckDesc", $langs->transnoentitiesnoconv("VATIntraCheck")), 1);
 				} else {
-					$this->tpl['tva_intra'] = $s.'<a href="'.$langs->transcountry("VATIntraCheckURL", $this->object->country_id).'" target="_blank">'.img_picto($langs->trans("VATIntraCheckableOnEUSite"), 'help').'</a>';
+					$this->tpl['tva_intra'] = $s.'<a href="'.$langs->transcountry("VATIntraCheckURL", $this->object->country_id).'" target="_blank">'.img_picture($langs->trans("VATIntraCheckableOnEUSite"), 'help').'</a>';
 				}
 			} else {
 				$this->tpl['tva_intra'] = $s;
@@ -162,9 +162,9 @@ class ActionsCardCompany extends ActionsCardCommon
 
 					if ($config->use_javascript_ajax) {
 						$s .= '<a href="#" onclick="CheckVAT(document.formsoc.tva_intra.value);">'.$langs->trans("VATIntraCheck").'</a>';
-						$this->tpl['tva_intra'] = $form->textwithpicto($s, $langs->trans("VATIntraCheckDesc", $langs->transnoentitiesnoconv("VATIntraCheck")), 1);
+						$this->tpl['tva_intra'] = $form->textWithPicture($s, $langs->trans("VATIntraCheckDesc", $langs->transnoentitiesnoconv("VATIntraCheck")), 1);
 					} else {
-						$this->tpl['tva_intra'] = $s.'<a href="'.$langs->transcountry("VATIntraCheckURL", $this->object->country_id).'" target="_blank">'.img_picto($langs->trans("VATIntraCheckableOnEUSite"), 'help').'</a>';
+						$this->tpl['tva_intra'] = $s.'<a href="'.$langs->transcountry("VATIntraCheckURL", $this->object->country_id).'" target="_blank">'.img_picture($langs->trans("VATIntraCheckableOnEUSite"), 'help').'</a>';
 					}
 				} else {
 					$this->tpl['tva_intra'] = $s;

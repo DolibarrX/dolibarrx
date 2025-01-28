@@ -488,7 +488,7 @@ $sql .= " p.rowid, p.ref_ext, p.lastname as lastname, p.statut, p.firstname, p.a
 $sql .= " p.socialnetworks, p.photo,";
 $sql .= " p.phone as phone_pro, p.phone_mobile, p.phone_perso, p.fax, p.fk_pays, p.priv, p.ip, p.datec as date_creation, p.tms as date_modification,";
 $sql .= " p.import_key, p.fk_stcommcontact as stcomm_id, p.fk_prospectlevel,";
-$sql .= " st.libelle as stcomm, st.picto as stcomm_picto,";
+$sql .= " st.libelle as stcomm, st.picture as stcomm_picture,";
 $sql .= " co.label as country, co.code as country_code";
 // Add fields from extrafields
 if (!empty($extrafields->attributes[$object->table_element]['label'])) {
@@ -945,15 +945,15 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_param.tpl.php';
 
 // List of mass actions available
 $arrayofmassactions = array(
-	'presend' => img_picto('', 'email', 'class="pictofixedwidth"').$langs->trans("SendByMail"),
-//    'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
+	'presend' => img_picture('', 'email', 'class="picturefixedwidth"').$langs->trans("SendByMail"),
+//    'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 );
 //if($user->rights->societe->creer) $arrayofmassactions['createbills']=$langs->trans("CreateInvoiceForThisCustomer");
 if (!empty($permissiontodelete)) {
-	$arrayofmassactions['predelete'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+	$arrayofmassactions['predelete'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (isModEnabled('category') && $user->hasRight('societe', 'creer')) {
-	$arrayofmassactions['preaffecttag'] = img_picto('', 'category', 'class="pictofixedwidth"').$langs->trans("AffectTag");
+	$arrayofmassactions['preaffecttag'] = img_picture('', 'category', 'class="picturefixedwidth"').$langs->trans("AffectTag");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('presend', 'predelete','preaffecttag'))) {
 	$arrayofmassactions = array();
@@ -1020,7 +1020,7 @@ if ($user->hasRight('societe', 'client', 'voir')) {
 	$langs->load('commercial');
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('ThirdPartiesOfSaleRepresentative');
-	$moreforfilter .= img_picto($tmptitle, 'user', 'class="pictofixedwidth"').$formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $tmptitle, 'maxwidth250 widthcentpercentminusx', 1);
+	$moreforfilter .= img_picture($tmptitle, 'user', 'class="picturefixedwidth"').$formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $tmptitle, 'maxwidth250 widthcentpercentminusx', 1);
 	$moreforfilter .= '</div>';
 }
 
@@ -1028,7 +1028,7 @@ if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 	require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 	$moreforfilter .= '<div class="divsearchfield">';
 	$tmptitle = $langs->trans('ContactCategoriesShort');
-	$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"');
+	$moreforfilter .= img_picture($tmptitle, 'category', 'class="picturefixedwidth"');
 	$moreforfilter .= $formother->select_categories(Category::TYPE_CONTACT, $search_categ, 'search_categ', 1, $tmptitle);
 	$moreforfilter .= '</div>';
 	if (empty($type) || $type == 'c' || $type == 'p') {
@@ -1041,7 +1041,7 @@ if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 		} else {
 			$tmptitle .= $langs->trans('CustomersProspectsCategoriesShort');
 		}
-		$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"');
+		$moreforfilter .= img_picture($tmptitle, 'category', 'class="picturefixedwidth"');
 		$moreforfilter .= $formother->select_categories(Category::TYPE_CUSTOMER, $search_categ_thirdparty, 'search_categ_thirdparty', 1, $tmptitle);
 		$moreforfilter .= '</div>';
 	}
@@ -1049,7 +1049,7 @@ if (isModEnabled('category') && $user->hasRight('category', 'lire')) {
 	if (isModEnabled("fournisseur") && (empty($type) || $type == 'f')) {
 		$moreforfilter .= '<div class="divsearchfield">';
 		$tmptitle = $langs->trans('SuppliersCategoriesShort');
-		$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"');
+		$moreforfilter .= img_picture($tmptitle, 'category', 'class="picturefixedwidth"');
 		$moreforfilter .= $formother->select_categories(Category::TYPE_SUPPLIER, $search_categ_supplier, 'search_categ_supplier', 1, $tmptitle);
 		$moreforfilter .= '</div>';
 	}
@@ -1079,8 +1079,8 @@ print '<tr class="liste_titre_filter">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch actioncolumn">';
-	$searchpicto = $form->showFilterButtons('left');
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons('left');
+	print $searchPicture;
 	print '</td>';
 }
 if (!empty($arrayfields['p.rowid']['checked'])) {
@@ -1269,8 +1269,8 @@ if (!empty($arrayfields['p.import_key']['checked'])) {
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center maxwidthsearch">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print '</tr>'."\n";
@@ -1731,7 +1731,7 @@ while ($i < $imaxinloop) {
 		// Prospect status
 		if (!empty($arrayfields['p.fk_stcommcontact']['checked'])) {
 			print '<td class="center nowrap"><div class="nowrap">';
-			print '<div class="inline-block">'.$contactstatic->libProspCommStatut($obj->stcomm_id, 2, $contactstatic->cacheprospectstatus[$obj->stcomm_id]['label'], $obj->stcomm_picto);
+			print '<div class="inline-block">'.$contactstatic->libProspCommStatut($obj->stcomm_id, 2, $contactstatic->cacheprospectstatus[$obj->stcomm_id]['label'], $obj->stcomm_picture);
 			print '</div> - <div class="inline-block">';
 			foreach ($contactstatic->cacheprospectstatus as $key => $val) {
 				$titlealt = 'default';
@@ -1739,7 +1739,7 @@ while ($i < $imaxinloop) {
 					$titlealt = $val['label'];
 				}
 				if ($obj->stcomm_id != $val['id']) {
-					print '<a class="pictosubstatus" href="'.$_SERVER["PHP_SELF"].'?stcommcontactid='.$obj->rowid.'&stcomm='.urlencode((string) ($val['code'])).'&action=setstcomm&token='.newToken().$param.($page ? '&page='.urlencode((string) ($page)) : '').'">'.img_action($titlealt, $val['code'], $val['picto']).'</a>';
+					print '<a class="picturesubstatus" href="'.$_SERVER["PHP_SELF"].'?stcommcontactid='.$obj->rowid.'&stcomm='.urlencode((string) ($val['code'])).'&action=setstcomm&token='.newToken().$param.($page ? '&page='.urlencode((string) ($page)) : '').'">'.img_action($titlealt, $val['code'], $val['picture']).'</a>';
 				}
 			}
 			print '</div></div></td>';

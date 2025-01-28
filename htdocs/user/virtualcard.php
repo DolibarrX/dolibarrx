@@ -128,14 +128,14 @@ $enabledisablehtml = $langs->trans("EnablePublicVirtualCard").' ';
 if (!getDolUserInt('USER_ENABLE_PUBLIC', 0, $object)) {
 	// Button off, click to enable
 	$enabledisablehtml .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?action=setUSER_ENABLE_PUBLIC&token='.newToken().'&value=1'.$param.'">';
-	$enabledisablehtml .= img_picto($langs->trans("Disabled"), 'switch_off');
+	$enabledisablehtml .= img_picture($langs->trans("Disabled"), 'switch_off');
 	$enabledisablehtml .= '</a>';
 
 	$enabledisablehtml .= '<br><br><div class="opacitymedium justify">'.$langs->trans("UserPublicPageDesc").'</div>';
 } else {
 	// Button on, click to disable
 	$enabledisablehtml .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?action=setUSER_ENABLE_PUBLIC&token='.newToken().'&value=0'.$param.'">';
-	$enabledisablehtml .= img_picto($langs->trans("Activated"), 'switch_on');
+	$enabledisablehtml .= img_picture($langs->trans("Activated"), 'switch_on');
 	$enabledisablehtml .= '</a>';
 }
 print $enabledisablehtml;
@@ -152,7 +152,7 @@ if (getDolUserInt('USER_ENABLE_PUBLIC', 0, $object)) {
 	print '<input type="hidden" name="token" value="'.newToken().'">';
 
 	//print $langs->trans('FollowingLinksArePublic').'<br>';
-	print img_picto('', 'globe').' <span class="opacitymedium">'.$langs->trans('PublicVirtualCardUrl').'</span><br>';
+	print img_picture('', 'globe').' <span class="opacitymedium">'.$langs->trans('PublicVirtualCardUrl').'</span><br>';
 
 	$fullexternaleurltovirtualcard = $object->getOnlineVirtualCardUrl('', 'external');
 	$fullinternalurltovirtualcard = $object->getOnlineVirtualCardUrl('', 'internal');
@@ -162,7 +162,7 @@ if (getDolUserInt('USER_ENABLE_PUBLIC', 0, $object)) {
 
 	print '<div class="urllink">';
 	print '<input type="text" id="publicurluser" class="quatrevingtpercentminusx" value="'.$fullexternaleurltovirtualcard.'">';
-	print '<a target="_blank" rel="noopener noreferrer" href="'.$fullexternaleurltovirtualcard.'">'.img_picto('', 'globe', 'class="paddingleft marginrightonly paddingright"').$langs->trans("GoTo").'...</a>';
+	print '<a target="_blank" rel="noopener noreferrer" href="'.$fullexternaleurltovirtualcard.'">'.img_picture('', 'globe', 'class="paddingleft marginrightonly paddingright"').$langs->trans("GoTo").'...</a>';
 	print '</div>';
 	print ajax_autoselect('publicurluser');
 
@@ -171,7 +171,7 @@ if (getDolUserInt('USER_ENABLE_PUBLIC', 0, $object)) {
 
 	// Show/Hide options
 	print '<div class="centpercent margintoponly marginbottomonly">';
-	print img_picto('', 'setup', 'class="pictofixedwidth"').'<a id="lnk" href="#">'.$langs->trans("ShowAdvancedOptions").'...</a>';
+	print img_picture('', 'setup', 'class="picturefixedwidth"').'<a id="lnk" href="#">'.$langs->trans("ShowAdvancedOptions").'...</a>';
 	print '</div>';
 
 	print '<script type="text/javascript">

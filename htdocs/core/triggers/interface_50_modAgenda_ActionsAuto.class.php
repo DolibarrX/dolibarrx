@@ -51,7 +51,7 @@ class InterfaceActionsAuto extends DolibarrTriggers
 		$this->family = "agenda";
 		$this->description = "Triggers of this module add actions in agenda according to setup made in agenda setup.";
 		$this->version = self::VERSIONS['prod'];
-		$this->picto = 'action';
+		$this->picture = 'action';
 	}
 
 	/**

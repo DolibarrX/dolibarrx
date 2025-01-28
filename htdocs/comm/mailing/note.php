@@ -99,7 +99,7 @@ if ($id > 0 || !empty($ref)) {
 
 	$head = emailing_prepare_head($object);
 
-	print dol_get_fiche_head($head, 'note', $langs->trans("Mailing"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'note', $langs->trans("Mailing"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------

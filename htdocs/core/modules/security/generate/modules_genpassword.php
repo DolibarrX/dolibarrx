@@ -44,7 +44,7 @@ abstract class ModeleGenPassword
 	/**
 	 * @var string
 	 */
-	public $picto = 'generic';
+	public $picture = 'generic';
 
 	/**
 	 * Flag to 1 if we must clean ambiguous characters for the autogeneration of password (List of ambiguous char is in $this->Ambi)

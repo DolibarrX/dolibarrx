@@ -372,11 +372,11 @@ if ((isModEnabled("product") || isModEnabled("service")) && ($user->hasRight("pr
 			$lastmodified .= '</a>';
 			/*$lastmodified .= '<a href="'.DOL_URL_ROOT.'/product/list.php?sortfield=p.tms&sortorder=DESC&type=0" title="'.$langs->trans("FullList").' - '.$langs->trans("Products").'">';
 			$lastmodified .= '<span class="badge marginleftonlyshort">...</span>';
-			//$lastmodified .= img_picto($langs->trans("FullList").' - '.$langs->trans("Products"), 'product');
+			//$lastmodified .= img_picture($langs->trans("FullList").' - '.$langs->trans("Products"), 'product');
 			$lastmodified .= '</a> &nbsp; ';
 			$lastmodified .= '<a href="'.DOL_URL_ROOT.'/product/list.php?sortfield=p.tms&sortorder=DESC&type=1" title="'.$langs->trans("FullList").' - '.$langs->trans("Services").'">';
 			$lastmodified .= '<span class="badge marginleftonlyshort">...</span>';
-			//$lastmodified .= img_picto($langs->trans("FullList").' - '.$langs->trans("Services"), 'service');
+			//$lastmodified .= img_picture($langs->trans("FullList").' - '.$langs->trans("Services"), 'service');
 			*/
 			$lastmodified .= '</th>';
 			$lastmodified .= '<th>';
@@ -572,7 +572,7 @@ if (isModEnabled('stock') && $user->hasRight('stock', 'mouvement', 'read')) {
 		$latestmovement .= '<th colspan="3">'.$langs->trans("LatestStockMovements", min($num, $max));
 		$latestmovement .= '<a class="notasortlink" href="'.DOL_URL_ROOT.'/product/stock/movement_list.php">';
 		$latestmovement .= '<span class="badge marginleftonlyshort">...</span>';
-		//$latestmovement .= img_picto($langs->trans("FullList"), 'movement');
+		//$latestmovement .= img_picture($langs->trans("FullList"), 'movement');
 		$latestmovement .= '</a>';
 		$latestmovement .= '</th>';
 		if (isModEnabled('productbatch')) {
@@ -616,7 +616,7 @@ if (isModEnabled('stock') && $user->hasRight('stock', 'mouvement', 'read')) {
 			$latestmovement .= '<tr class="oddeven">';
 			$latestmovement .= '<td class="nowraponall">';
 			$latestmovement .= $tmpstockmovement->getNomUrl(1);
-			//$latestmovement .= img_picto($langs->trans("Ref").' '.$objp->mid, 'movement', 'class="pictofixedwidth"').dol_print_date($db->jdate($objp->datem), 'dayhour');
+			//$latestmovement .= img_picture($langs->trans("Ref").' '.$objp->mid, 'movement', 'class="picturefixedwidth"').dol_print_date($db->jdate($objp->datem), 'dayhour');
 			$latestmovement .= '</td>';
 			$latestmovement .= '<td class="nowraponall">';
 			$latestmovement .= dol_print_date($tmpstockmovement->date, 'dayhour', 'tzuserrel');

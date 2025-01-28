@@ -309,7 +309,7 @@ if ($action == 'edit') {
 
 	if (!empty($object->multilangs)) {
 		foreach ($object->multilangs as $key => $value) {
-			$s = picto_from_langcode((string) $key);
+			$s = picture_from_langcode((string) $key);
 			print '<table class="border centpercent">';
 			print '<tr class="liste_titre"><td colspan="2">'.($s ? $s.' ' : '')." <b>".$langs->trans('Language_'.$key).":</b> ".'<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken().'&langtodelete='.$key.'&type='.$type.'">'.img_delete('', '').'</a></td></tr>';
 			print '<tr><td class="titlefield">'.$langs->trans('Label').'</td><td>'.($object->multilangs[$key]["label"] ?? '').'</td></tr>';

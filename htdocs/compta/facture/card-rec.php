@@ -1103,7 +1103,7 @@ if ($action == 'create') {
 
 		// Payment mode
 		print "<tr><td>".$langs->trans("PaymentMode")."</td><td>";
-		print img_picto('', 'payment', 'class="pictofixedwidth"');
+		print img_picture('', 'payment', 'class="picturefixedwidth"');
 		print $form->select_types_paiements(GETPOSTISSET('mode_reglement_id') ? GETPOSTINT('mode_reglement_id') : $object->mode_reglement_id, 'mode_reglement_id', '', 0, 1, 0, 0, 1, '', 1);
 		//$form->form_modes_reglement($_SERVER['PHP_SELF'].'?id='.$object->id, $object->mode_reglement_id, 'mode_reglement_id', '', 1);
 		print "</td></tr>";
@@ -1164,7 +1164,7 @@ if ($action == 'create') {
 			$projectid = GETPOST('projectid') ? GETPOST('projectid') : $object->fk_project;
 			$langs->load('projects');
 			print '<tr><td>'.$langs->trans('Project').'</td><td>';
-			print img_picto('', 'project', 'class="pictofixedwidth"');
+			print img_picture('', 'project', 'class="picturefixedwidth"');
 			$numprojet = $formproject->select_projects($object->thirdparty->id, $projectid, 'projectid', 0, 0, 1, 0, 0, 0, 0, '', 0, 0, '');
 			print ' &nbsp; <a href="'.DOL_URL_ROOT.'/projet/card.php?socid='.$object->thirdparty->id.'&action=create&status=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create&socid='.$object->thirdparty->id.(!empty($id) ? '&id='.$id : '')).'">'.img_object($langs->trans("AddProject"), 'add').'</a>';
 			print '</td></tr>';
@@ -1174,7 +1174,7 @@ if ($action == 'create') {
 		print "<tr><td>".$langs->trans('Model')."</td><td>";
 		include_once DOL_DOCUMENT_ROOT.'/core/modules/facture/modules_facture.php';
 		$list = ModelePDFFactures::liste_modeles($db);
-		print img_picto('', 'generic', 'class="pictofixedwidth"');
+		print img_picture('', 'generic', 'class="picturefixedwidth"');
 		// @phan-suppress-next-line PhanPluginSuspiciousParamOrder
 		print $form->selectarray('modelpdf', $list, $config->global->FACTURE_ADDON_PDF);
 		print "</td></tr>";
@@ -1182,7 +1182,7 @@ if ($action == 'create') {
 		// Public note
 		print '<tr>';
 		print '<td class="tdtop">';
-		print $form->textwithpicto($langs->trans('NotePublic'), $htmltext, 1, 'help', '', 0, 2, 'notepublic');
+		print $form->textWithPicture($langs->trans('NotePublic'), $htmltext, 1, 'help', '', 0, 2, 'notepublic');
 		print '</td>';
 		print '<td>';
 		$doleditor = new DolEditor('note_public', $note_public, '', 80, 'dolibarr_notes', 'In', false, false, !getDolGlobalString('FCKEDITOR_ENABLE_NOTE_PUBLIC') ? 0 : 1, ROWS_3, '90%');
@@ -1192,7 +1192,7 @@ if ($action == 'create') {
 		if (empty($user->socid)) {
 			print '<tr>';
 			print '<td class="tdtop">';
-			print $form->textwithpicto($langs->trans('NotePrivate'), $htmltext, 1, 'help', '', 0, 2, 'noteprivate');
+			print $form->textWithPicture($langs->trans('NotePrivate'), $htmltext, 1, 'help', '', 0, 2, 'noteprivate');
 			print '</td>';
 			print '<td>';
 			$doleditor = new DolEditor('note_private', $note_private, '', 80, 'dolibarr_notes', 'In', false, false, !getDolGlobalString('FCKEDITOR_ENABLE_NOTE_PRIVATE') ? 0 : 1, ROWS_3, '90%');
@@ -1207,7 +1207,7 @@ if ($action == 'create') {
 
 		// Autogeneration
 		$title = $langs->trans("Recurrence");
-		print load_fiche_titre(img_picto('', 'recurring', 'class="pictofixedwidth"').$title, '', '');
+		print load_fiche_titre(img_picture('', 'recurring', 'class="picturefixedwidth"').$title, '', '');
 
 		print '<span class="opacitymedium">'.$langs->trans("ToCreateARecurringInvoiceGeneAuto", $langs->transnoentitiesnoconv('Module2300Name')).'</span><br><br>';
 
@@ -1216,7 +1216,7 @@ if ($action == 'create') {
 		print '<table class="border centpercent">';
 
 		// Frequency + unit
-		print '<tr><td class="titlefieldcreate">'.$form->textwithpicto($langs->trans("Frequency"), $langs->transnoentitiesnoconv('toolTipFrequency'))."</td><td>";
+		print '<tr><td class="titlefieldcreate">'.$form->textWithPicture($langs->trans("Frequency"), $langs->transnoentitiesnoconv('toolTipFrequency'))."</td><td>";
 		print '<input type="text" class="width50" name="frequency" value="'.GETPOST('frequency', 'int').'">&nbsp;';
 		print $form->selectarray('unit_frequency', array('d' => $langs->trans('Day'), 'm' => $langs->trans('Month'), 'y' => $langs->trans('Year')), (GETPOST('unit_frequency') ? GETPOST('unit_frequency') : 'm'));
 		print "</td></tr>";
@@ -1350,7 +1350,7 @@ if ($action == 'create') {
 			$langs->load("projects");
 			$morehtmlref .= '<br>';
 			if ($user->hasRight('facture', 'creer')) {
-				$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+				$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 				if ($action != 'classify') {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 				}
@@ -1543,7 +1543,7 @@ if ($action == 'create') {
 
 		include DOL_DOCUMENT_ROOT.'/core/tpl/object_currency_amount.tpl.php';
 
-		print '<tr><td colspan="2">'.img_picto('', 'recurring', 'class="pictofixedwidth"').$title.'</td></tr>';
+		print '<tr><td colspan="2">'.img_picture('', 'recurring', 'class="picturefixedwidth"').$title.'</td></tr>';
 
 		// if "frequency" is empty or = 0, the recurrence is disabled
 		print '<tr><td style="width: 50%">';

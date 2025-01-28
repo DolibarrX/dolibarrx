@@ -562,7 +562,7 @@ $extrafields->fetch_name_optionals_label($object->table_element); // fetch optio
 llxHeaderVierge($langs->trans("NewPartnershipRequest"));
 
 print '<br>';
-print load_fiche_titre(img_picto('', 'hands-helping', 'class="pictofixedwidth"').' &nbsp; '.$langs->trans("NewPartnershipRequest"), '', '', 0, '', 'center');
+print load_fiche_titre(img_picture('', 'hands-helping', 'class="picturefixedwidth"').' &nbsp; '.$langs->trans("NewPartnershipRequest"), '', '', 0, '', 'center');
 
 
 print '<div align="center">';
@@ -625,7 +625,7 @@ if (!getDolGlobalInt('PARTNERSHIP_NEWFORM_FORCETYPE')) {
 }
 // Company
 print '<tr id="trcompany" class="trcompany"><td class="classfortooltip" title="'.dol_escape_htmltag($messagemandatory).'">'.$langs->trans("Company").' <span class="star">*</span></td><td>';
-print img_picto('', 'company', 'class="pictofixedwidth"');
+print img_picture('', 'company', 'class="picturefixedwidth"');
 print '<input type="text" name="societe" class="minwidth150 maxwidth300 widthcentpercentminusxx" value="'.dol_escape_htmltag(GETPOST('societe')).'"></td></tr>'."\n";
 // Lastname
 print '<tr><td class="classfortooltip" title="'.dol_escape_htmltag($messagemandatory).'">'.$langs->trans("Lastname").' <span class="star">*</span></td><td><input type="text" name="lastname" class="minwidth150" value="'.dol_escape_htmltag(GETPOST('lastname')).'"></td></tr>'."\n";
@@ -633,7 +633,7 @@ print '<tr><td class="classfortooltip" title="'.dol_escape_htmltag($messagemanda
 print '<tr><td class="classfortooltip" title="'.dol_escape_htmltag($messagemandatory).'">'.$langs->trans("Firstname").' <span class="star">*</span></td><td><input type="text" name="firstname" class="minwidth150" value="'.dol_escape_htmltag(GETPOST('firstname')).'"></td></tr>'."\n";
 // EMail
 print '<tr><td class="classfortooltip" title="'.dol_escape_htmltag($messagemandatory).'">'.$langs->trans("Email").' <span class="star">*</span></td><td>';
-//print img_picto('', 'email', 'class="pictofixedwidth"');
+//print img_picture('', 'email', 'class="picturefixedwidth"');
 print '<input type="text" name="email" maxlength="255" class="minwidth150" value="'.dol_escape_htmltag(GETPOST('email')).'"></td></tr>'."\n";
 // Url
 print '<tr><td class="tdtop">'.$langs->trans("Url").' <span class="star">*</span></td><td>';
@@ -660,7 +660,7 @@ print $formcompany->select_ziptown(GETPOST('town'), 'town', array('zipcode', 'se
 print '</td></tr>';
 // Country
 print '<tr><td>'.$langs->trans('Country').'</td><td>';
-print img_picto('', 'country', 'class="pictofixedwidth"');
+print img_picture('', 'country', 'class="picturefixedwidth"');
 $country_id = GETPOSTINT('country_id');
 if (!$country_id && getDolGlobalString('PARTNERSHIP_NEWFORM_FORCECOUNTRYCODE')) {
 	$country_id = getCountry($config->global->PARTNERSHIP_NEWFORM_FORCECOUNTRYCODE, '2', $db, $langs);

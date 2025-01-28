@@ -744,16 +744,16 @@ print $formconfirm;
 // List of mass actions available
 $arrayofmassactions = array();
 if (getDolGlobalInt('ACCOUNTING_ENABLE_LETTERING') && $user->hasRight('accounting', 'mouvements', 'creer')) {
-	$arrayofmassactions['letteringauto'] = img_picto('', 'check', 'class="pictofixedwidth"') . $langs->trans('LetteringAuto');
-	$arrayofmassactions['preunletteringauto'] = img_picto('', 'uncheck', 'class="pictofixedwidth"') . $langs->trans('UnletteringAuto');
-	$arrayofmassactions['letteringmanual'] = img_picto('', 'check', 'class="pictofixedwidth"') . $langs->trans('LetteringManual');
+	$arrayofmassactions['letteringauto'] = img_picture('', 'check', 'class="picturefixedwidth"') . $langs->trans('LetteringAuto');
+	$arrayofmassactions['preunletteringauto'] = img_picture('', 'uncheck', 'class="picturefixedwidth"') . $langs->trans('UnletteringAuto');
+	$arrayofmassactions['letteringmanual'] = img_picture('', 'check', 'class="picturefixedwidth"') . $langs->trans('LetteringManual');
 	if ($type == 'sub') {
-		$arrayofmassactions['letteringpartial'] = img_picto('', 'check', 'class="pictofixedwidth"') . $langs->trans('LetteringPartial');
+		$arrayofmassactions['letteringpartial'] = img_picture('', 'check', 'class="picturefixedwidth"') . $langs->trans('LetteringPartial');
 	}
-	$arrayofmassactions['preunletteringmanual'] = img_picto('', 'uncheck', 'class="pictofixedwidth"') . $langs->trans('UnletteringManual');
+	$arrayofmassactions['preunletteringmanual'] = img_picture('', 'uncheck', 'class="picturefixedwidth"') . $langs->trans('UnletteringManual');
 }
 if ($user->hasRight('accounting', 'mouvements', 'supprimer')) {
-	$arrayofmassactions['predeletebookkeepingwriting'] = img_picto('', 'delete', 'class="pictofixedwidth"').$langs->trans("Delete");
+	$arrayofmassactions['predeletebookkeepingwriting'] = img_picture('', 'delete', 'class="picturefixedwidth"').$langs->trans("Delete");
 }
 if (GETPOSTINT('nomassaction') || in_array($massaction, array('preunletteringauto', 'preunletteringmanual', 'predeletebookkeepingwriting'))) {
 	$arrayofmassactions = array();
@@ -922,8 +922,8 @@ print '<tr class="liste_titre_filter">';
 // Action column
 if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center">';
-	$searchpicto = $form->showFilterButtons('left');
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons('left');
+	print $searchPicture;
 	print '</td>';
 }
 // Movement number
@@ -1021,8 +1021,8 @@ print $hookManager->resPrint;
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print '<td class="liste_titre center">';
-	$searchpicto = $form->showFilterButtons();
-	print $searchpicto;
+	$searchPicture = $form->showFilterButtons();
+	print $searchPicture;
 	print '</td>';
 }
 print "</tr>\n";
@@ -1216,7 +1216,7 @@ while ($i < min($num, $limit)) {
 				} else {
 					$htmltext = 'EmptyStringForSubledgerAccountAndSubledgerLabel';
 				}
-				print $form->textwithpicto('', $htmltext);
+				print $form->textWithPicture('', $htmltext);
 				print '</span>';
 			}
 		} else {

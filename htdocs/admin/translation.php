@@ -189,7 +189,7 @@ if ($action == 'add') {
 	}
 }
 
-// Delete line from delete picto
+// Delete line from delete picture
 if ($action == 'delete') {
 	$sql = "DELETE FROM ".MAIN_DB_PREFIX."overwrite_trans WHERE rowid = ".((int) $id);
 	$result = $db->query($sql);
@@ -221,20 +221,20 @@ $enabledisablehtml .= $langs->trans("EnableOverwriteTranslation").' ';
 if (!getDolGlobalString('MAIN_ENABLE_OVERWRITE_TRANSLATION')) {
 	// Button off, click to enable
 	$enabledisablehtml .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?action=setMAIN_ENABLE_OVERWRITE_TRANSLATION&token='.newToken().'&value=1'.$param.'">';
-	$enabledisablehtml .= img_picto($langs->trans("Disabled"), 'switch_off');
+	$enabledisablehtml .= img_picture($langs->trans("Disabled"), 'switch_off');
 	$enabledisablehtml .= '</a>';
 } else {
 	// Button on, click to disable
 	$enabledisablehtml .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?action=setMAIN_ENABLE_OVERWRITE_TRANSLATION&token='.newToken().'&value=0'.$param.'">';
-	$enabledisablehtml .= img_picto($langs->trans("Activated"), 'switch_on');
+	$enabledisablehtml .= img_picture($langs->trans("Activated"), 'switch_on');
 	$enabledisablehtml .= '</a>';
 }
 
 print load_fiche_titre($langs->trans("Translation"), $enabledisablehtml, 'title_setup');
 
 $current_language_code = $langs->defaultlang;
-$s = picto_from_langcode($current_language_code);
-print $form->textwithpicto('<span class="opacitymedium">'.$langs->trans("CurrentUserLanguage").':</span> <strong>'.$s.' '.$current_language_code.'</strong>', $langs->trans("TranslationDesc")).'</span><br>';
+$s = picture_from_langcode($current_language_code);
+print $form->textWithPicture('<span class="opacitymedium">'.$langs->trans("CurrentUserLanguage").':</span> <strong>'.$s.' '.$current_language_code.'</strong>', $langs->trans("TranslationDesc")).'</span><br>';
 
 print '<br>';
 
@@ -542,8 +542,8 @@ if ($mode == 'searchkey') {
 	print '</td>';
 	// Action column
 	print '<td class="right nowraponall">';
-	$searchpicto = $form->showFilterAndCheckAddButtons(!empty($massactionbutton) ? 1 : 0, 'checkforselect', 1);
-	print $searchpicto;
+	$searchPicture = $form->showFilterAndCheckAddButtons(!empty($massactionbutton) ? 1 : 0, 'checkforselect', 1);
+	print $searchPicture;
 	print '</td>';
 	print '</tr>';
 
@@ -616,7 +616,7 @@ if ($mode == 'searchkey') {
 					print '<a class="marginleftonly marginrightonly" href="'.$_SERVER['PHP_SELF'].'?rowid='.$obj->rowid.'&entity='.$config->entity.'&mode='.urlencode($mode).'&action=delete&token='.newToken().'&mode='.urlencode($mode).'">'.img_delete().'</a>';
 					print '&nbsp;&nbsp;';
 					$htmltext = $langs->trans("OriginalValueWas", '<i>'.$newlangfileonly->tab_translate[$key].'</i>');
-					print $form->textwithpicto('', $htmltext, 1, 'info');
+					print $form->textWithPicture('', $htmltext, 1, 'info');
 				}
 			} elseif (getDolGlobalString('MAIN_ENABLE_OVERWRITE_TRANSLATION')) {
 				//print $key.'-'.$val;
@@ -628,7 +628,7 @@ if ($mode == 'searchkey') {
 				//$transifexurl = 'https://www.transifex.com/dolibarr-association/dolibarr/translate/#'.$langcode.'/'.$transifexlangfile.'?key='.$key;
 				$transifexurl = 'https://www.transifex.com/dolibarr-association/dolibarr/translate/#'.$langcode.'/'.$transifexlangfile.'?q=key%3A'.$key;
 
-				print ' &nbsp; <a href="'.$transifexurl.'" target="transifex">'.img_picto($langs->trans('FixOnTransifex'), 'globe').'</a>';
+				print ' &nbsp; <a href="'.$transifexurl.'" target="transifex">'.img_picture($langs->trans('FixOnTransifex'), 'globe').'</a>';
 			}
 		} else {
 			// retrieve rowid
@@ -650,7 +650,7 @@ if ($mode == 'searchkey') {
 
 				// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
 				$htmltext = $langs->trans("TransKeyWithoutOriginalValue", $key);
-				print $form->textwithpicto('', $htmltext, 1, 'warning');
+				print $form->textWithPicture('', $htmltext, 1, 'warning');
 			}
 		}
 		/*if (isModEnabled('multicompany') && !$user->entity)

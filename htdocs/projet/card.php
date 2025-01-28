@@ -656,7 +656,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 	$suggestedref = (GETPOST("ref") ? GETPOST("ref") : $defaultref);
 	print '<tr><td class="titlefieldcreate"><span class="fieldrequired">'.$langs->trans("Ref").'</span></td><td class><input class="maxwidth150onsmartphone" type="text" name="ref" value="'.dol_escape_htmltag($suggestedref).'">';
 	if ($suggestedref) {
-		print ' '.$form->textwithpicto('', $langs->trans("YouCanCompleteRef", $suggestedref));
+		print ' '.$form->textWithPicture('', $langs->trans("YouCanCompleteRef", $suggestedref));
 	}
 	print '</td></tr>';
 
@@ -666,7 +666,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 	// Parent
 	if (getDolGlobalInt('PROJECT_ENABLE_SUB_PROJECT')) {
 		print '<tr><td>'.$langs->trans("Parent").'</td><td class="maxwidthonsmartphone">';
-		print img_picto('', 'project', 'class="pictofixedwidth"');
+		print img_picture('', 'project', 'class="picturefixedwidth"');
 		$formproject->select_projects(-1, '', 'fk_project', 64, 0, 1, 1, 0, 0, 0, '', 0, 0, '', '', '');
 		print '</td></tr>';
 	}
@@ -680,7 +680,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 			print '<input type="checkbox" id="usage_opportunity" name="usage_opportunity"'.(GETPOSTISSET('usage_opportunity') ? (GETPOST('usage_opportunity', 'alpha') ? ' checked="checked"' : '') : ' checked="checked"').'"> ';
 			$htmltext = $langs->trans("ProjectFollowOpportunity");
-			print '<label for="usage_opportunity">'.$form->textwithpicto($langs->trans("ProjectFollowOpportunity"), $htmltext).'</label>';
+			print '<label for="usage_opportunity">'.$form->textWithPicture($langs->trans("ProjectFollowOpportunity"), $htmltext).'</label>';
 			print '<script>';
 			print '$( document ).ready(function() {
 					jQuery("#usage_opportunity").change(function() {
@@ -703,7 +703,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
 			print '<input type="checkbox" id="usage_task" name="usage_task"'.(GETPOSTISSET('usage_task') ? (GETPOST('usage_task', 'alpha') ? ' checked="checked"' : '') : ' checked="checked"').'"> ';
 			$htmltext = $langs->trans("ProjectFollowTasks");
-			print '<label for="usage_task">'.$form->textwithpicto($langs->trans("ProjectFollowTasks"), $htmltext).'</label>';
+			print '<label for="usage_task">'.$form->textWithPicture($langs->trans("ProjectFollowTasks"), $htmltext).'</label>';
 			print '<script>';
 			print '$( document ).ready(function() {
 					jQuery("#usage_task").change(function() {
@@ -726,7 +726,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		if (!getDolGlobalString('PROJECT_HIDE_TASKS') && getDolGlobalString('PROJECT_BILL_TIME_SPENT')) {
 			print '<input type="checkbox" id="usage_bill_time" name="usage_bill_time"'.(GETPOSTISSET('usage_bill_time') ? (GETPOST('usage_bill_time', 'alpha') ? ' checked="checked"' : '') : '').'"> ';
 			$htmltext = $langs->trans("ProjectBillTimeDescription");
-			print '<label for="usage_bill_time">'.$form->textwithpicto($langs->trans("BillTime"), $htmltext).'</label>';
+			print '<label for="usage_bill_time">'.$form->textWithPicture($langs->trans("BillTime"), $htmltext).'</label>';
 			print '<script>';
 			print '$( document ).ready(function() {
 					jQuery("#usage_bill_time").change(function() {
@@ -749,7 +749,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		if (isModEnabled('eventorganization')) {
 			print '<input type="checkbox" id="usage_organize_event" name="usage_organize_event"'.(GETPOSTISSET('usage_organize_event') ? (GETPOST('usage_organize_event', 'alpha') ? ' checked="checked"' : '') : '').'"> ';
 			$htmltext = $langs->trans("EventOrganizationDescriptionLong");
-			print '<label for="usage_organize_event">'.$form->textwithpicto($langs->trans("ManageOrganizeEvent"), $htmltext).'</label>';
+			print '<label for="usage_organize_event">'.$form->textWithPicture($langs->trans("ManageOrganizeEvent"), $htmltext).'</label>';
 			print '<script>';
 			print '$( document ).ready(function() {
 					jQuery("#usage_organize_event").change(function() {
@@ -783,7 +783,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		if (getDolGlobalString('PROJECT_FILTER_FOR_THIRDPARTY_LIST')) {
 			$filter = getDolGlobalString('PROJECT_FILTER_FOR_THIRDPARTY_LIST');
 		}
-		$text = img_picto('', 'company', 'class="pictofixedwidth"').$form->select_company(GETPOSTINT('socid'), 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
+		$text = img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company(GETPOSTINT('socid'), 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth300 widthcentpercentminusxx maxwidth500');
 		if (!getDolGlobalString('PROJECT_CAN_ALWAYS_LINK_TO_ALL_SUPPLIERS') && empty($config->dol_use_jmobile)) {
 			$texthelp = $langs->trans("IfNeedToUseOtherObjectKeepEmpty");
 			print $form->textwithtooltip($text.' '.img_help(), $texthelp, 1);
@@ -828,10 +828,10 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		print '<input type="hidden" name="public" id="public" value="'.(GETPOSTINT('public') ? 1 : 0).'">';
 
 		if (GETPOSTINT('public') == 0) {
-			print img_picto($langs->trans('PrivateProject'), 'private', 'class="paddingrightonly"');
+			print img_picture($langs->trans('PrivateProject'), 'private', 'class="paddingrightonly"');
 			print $langs->trans("PrivateProject");
 		} else {
-			print img_picto($langs->trans('SharedProject'), 'world', 'class="paddingrightonly"');
+			print img_picture($langs->trans('SharedProject'), 'world', 'class="paddingrightonly"');
 			print $langs->trans("SharedProject");
 		}
 	}
@@ -897,7 +897,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		print '<tr><td>'.$langs->trans("Categories").'</td><td colspan="3">';
 		$cate_arbo = $form->select_all_categories(Category::TYPE_PROJECT, '', 'parent', 64, 0, 3);
 		$arrayselected = GETPOST('categories', 'array');
-		print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('categories', $cate_arbo, $arrayselected, 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
+		print img_picture('', 'category', 'class="picturefixedwidth"').$form->multiselectarray('categories', $cate_arbo, $arrayselected, 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, 0);
 		print "</td></tr>";
 	}
 
@@ -1046,7 +1046,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		$suggestedref = $object->ref;
 		print '<tr><td class="titlefield fieldrequired">'.$langs->trans("Ref").'</td>';
 		print '<td><input class="width200" name="ref" value="'.$suggestedref.'">';
-		print ' '.$form->textwithpicto('', $langs->trans("YouCanCompleteRef", $suggestedref));
+		print ' '.$form->textWithPicture('', $langs->trans("YouCanCompleteRef", $suggestedref));
 		print '</td></tr>';
 
 		// Label
@@ -1070,7 +1070,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		// Parent
 		if (getDolGlobalInt('PROJECT_ENABLE_SUB_PROJECT')) {
 			print '<tr><td>'.$langs->trans("Parent").'</td><td class="maxwidthonsmartphone">';
-			print img_picto('', 'project', 'class="pictofixedwidth"');
+			print img_picture('', 'project', 'class="picturefixedwidth"');
 			$formproject->select_projects(-1, $object->fk_project, 'fk_project', 64, 0, 1, 1, 0, 0, 0, '', 0, 0, '', '', '');
 			print '</td></tr>';
 		}
@@ -1084,7 +1084,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 			if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 				print '<input type="checkbox" id="usage_opportunity" name="usage_opportunity"'.(GETPOSTISSET('usage_opportunity') ? (GETPOST('usage_opportunity', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_opportunity ? ' checked="checked"' : '')).'> ';
 				$htmltext = $langs->trans("ProjectFollowOpportunity");
-				print '<label for="usage_opportunity">'.$form->textwithpicto($langs->trans("ProjectFollowOpportunity"), $htmltext).'</label>';
+				print '<label for="usage_opportunity">'.$form->textWithPicture($langs->trans("ProjectFollowOpportunity"), $htmltext).'</label>';
 				print '<script>';
 				print '$( document ).ready(function() {
 					jQuery("#usage_opportunity").change(function() {
@@ -1110,7 +1110,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 			if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
 				print '<input type="checkbox" id="usage_task" name="usage_task"' . (GETPOSTISSET('usage_task') ? (GETPOST('usage_task', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_task ? ' checked="checked"' : '')) . '> ';
 				$htmltext = $langs->trans("ProjectFollowTasks");
-				print '<label for="usage_task">'.$form->textwithpicto($langs->trans("ProjectFollowTasks"), $htmltext).'</label>';
+				print '<label for="usage_task">'.$form->textWithPicture($langs->trans("ProjectFollowTasks"), $htmltext).'</label>';
 				print '<script>';
 				print '$( document ).ready(function() {
 					jQuery("#usage_task").change(function() {
@@ -1136,7 +1136,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 			if (!getDolGlobalString('PROJECT_HIDE_TASKS') && getDolGlobalString('PROJECT_BILL_TIME_SPENT')) {
 				print '<input type="checkbox" id="usage_bill_time" name="usage_bill_time"' . (GETPOSTISSET('usage_bill_time') ? (GETPOST('usage_bill_time', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_bill_time ? ' checked="checked"' : '')) . '> ';
 				$htmltext = $langs->trans("ProjectBillTimeDescription");
-				print '<label for="usage_bill_time">'.$form->textwithpicto($langs->trans("BillTime"), $htmltext).'</label>';
+				print '<label for="usage_bill_time">'.$form->textWithPicture($langs->trans("BillTime"), $htmltext).'</label>';
 				print '<script>';
 				print '$( document ).ready(function() {
 					jQuery("#usage_bill_time").change(function() {
@@ -1162,7 +1162,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 			if (isModEnabled('eventorganization')) {
 				print '<input type="checkbox" id="usage_organize_event" name="usage_organize_event"'. (GETPOSTISSET('usage_organize_event') ? (GETPOST('usage_organize_event', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_organize_event ? ' checked="checked"' : '')) . '> ';
 				$htmltext = $langs->trans("EventOrganizationDescriptionLong");
-				print '<label for="usage_organize_event">'.$form->textwithpicto($langs->trans("ManageOrganizeEvent"), $htmltext).'</label>';
+				print '<label for="usage_organize_event">'.$form->textWithPicture($langs->trans("ManageOrganizeEvent"), $htmltext).'</label>';
 				print '<script>';
 				print '$( document ).ready(function() {
 					jQuery("#usage_organize_event").change(function() {
@@ -1199,7 +1199,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 			if (getDolGlobalString('PROJECT_FILTER_FOR_THIRDPARTY_LIST')) {
 				$filter = getDolGlobalString('PROJECT_FILTER_FOR_THIRDPARTY_LIST');
 			}
-			$text = img_picto('', 'company', 'class="pictofixedwidth"');
+			$text = img_picture('', 'company', 'class="picturefixedwidth"');
 			$text .= $form->select_company(!empty($object->thirdparty->id) ? $object->thirdparty->id : "", 'socid', $filter, 'None', 1, 0, array(), 0, 'minwidth300');
 			if (!getDolGlobalString('PROJECT_CAN_ALWAYS_LINK_TO_ALL_SUPPLIERS') && empty($config->dol_use_jmobile)) {
 				$texthelp = $langs->trans("IfNeedToUseOtherObjectKeepEmpty");
@@ -1226,10 +1226,10 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 			print '<input type="hidden" id="public" name="public" value="'.$object->public.'">';
 
 			if ($object->public == 0) {
-				print img_picto($langs->trans('PrivateProject'), 'private', 'class="paddingrightonly"');
+				print img_picture($langs->trans('PrivateProject'), 'private', 'class="paddingrightonly"');
 				print $langs->trans("PrivateProject");
 			} else {
-				print img_picto($langs->trans('SharedProject'), 'world', 'class="paddingrightonly"');
+				print img_picture($langs->trans('SharedProject'), 'world', 'class="paddingrightonly"');
 				print $langs->trans("SharedProject");
 			}
 		}
@@ -1251,7 +1251,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 			print '<div id="divtocloseproject" class="inline-block valign clearboth paddingtop" style="display: none;">';
 			print '<input type="checkbox" id="inputcloseproject" name="closeproject" />';
 			print '<label for="inputcloseproject">';
-			print $form->textwithpicto($langs->trans("AlsoCloseAProject"), $langs->trans("AlsoCloseAProjectTooltip")).'</label>';
+			print $form->textWithPicture($langs->trans("AlsoCloseAProject"), $langs->trans("AlsoCloseAProjectTooltip")).'</label>';
 			print ' </div>';
 
 			print '</td>';
@@ -1318,7 +1318,7 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 			foreach ($cats as $cat) {
 				$arrayselected[] = $cat->id;
 			}
-			print img_picto('', 'category', 'class="pictofixedwidth"').$form->multiselectarray('categories', $cate_arbo, $arrayselected, 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, '0');
+			print img_picture('', 'category', 'class="picturefixedwidth"').$form->multiselectarray('categories', $cate_arbo, $arrayselected, 0, 0, 'quatrevingtpercent widthcentpercentminusx', 0, '0');
 			print "</td></tr>";
 		}
 
@@ -1385,26 +1385,26 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 			if (getDolGlobalString('PROJECT_USE_OPPORTUNITIES')) {
 				print '<input type="checkbox" disabled name="usage_opportunity"'.(GETPOSTISSET('usage_opportunity') ? (GETPOST('usage_opportunity', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_opportunity ? ' checked="checked"' : '')).'> ';
 				$htmltext = $langs->trans("ProjectFollowOpportunity");
-				print $form->textwithpicto($langs->trans("ProjectFollowOpportunity"), $htmltext);
+				print $form->textWithPicture($langs->trans("ProjectFollowOpportunity"), $htmltext);
 				print '<br>';
 			}
 			if (!getDolGlobalString('PROJECT_HIDE_TASKS')) {
 				print '<input type="checkbox" disabled name="usage_task"'.(GETPOSTISSET('usage_task') ? (GETPOST('usage_task', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_task ? ' checked="checked"' : '')).'> ';
 				$htmltext = $langs->trans("ProjectFollowTasks");
-				print $form->textwithpicto($langs->trans("ProjectFollowTasks"), $htmltext);
+				print $form->textWithPicture($langs->trans("ProjectFollowTasks"), $htmltext);
 				print '<br>';
 			}
 			if (!getDolGlobalString('PROJECT_HIDE_TASKS') && getDolGlobalString('PROJECT_BILL_TIME_SPENT')) {
 				print '<input type="checkbox" disabled name="usage_bill_time"'.(GETPOSTISSET('usage_bill_time') ? (GETPOST('usage_bill_time', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_bill_time ? ' checked="checked"' : '')).'> ';
 				$htmltext = $langs->trans("ProjectBillTimeDescription");
-				print $form->textwithpicto($langs->trans("BillTime"), $htmltext);
+				print $form->textWithPicture($langs->trans("BillTime"), $htmltext);
 				print '<br>';
 			}
 
 			if (isModEnabled('eventorganization')) {
 				print '<input type="checkbox" disabled name="usage_organize_event"'.(GETPOSTISSET('usage_organize_event') ? (GETPOST('usage_organize_event', 'alpha') != '' ? ' checked="checked"' : '') : ($object->usage_organize_event ? ' checked="checked"' : '')).'> ';
 				$htmltext = $langs->trans("EventOrganizationDescriptionLong");
-				print $form->textwithpicto($langs->trans("ManageOrganizeEvent"), $htmltext);
+				print $form->textWithPicture($langs->trans("ManageOrganizeEvent"), $htmltext);
 			}
 			print '</td></tr>';
 		}
@@ -1412,10 +1412,10 @@ if ($action == 'create' && $user->hasRight('projet', 'creer')) {
 		// Visibility
 		print '<tr><td class="titlefield">'.$langs->trans("Visibility").'</td><td>';
 		if ($object->public) {
-			print img_picto($langs->trans('SharedProject'), 'world', 'class="paddingrightonly"');
+			print img_picture($langs->trans('SharedProject'), 'world', 'class="paddingrightonly"');
 			print $langs->trans('SharedProject');
 		} else {
-			print img_picto($langs->trans('PrivateProject'), 'private', 'class="paddingrightonly"');
+			print img_picture($langs->trans('PrivateProject'), 'private', 'class="paddingrightonly"');
 			print $langs->trans('PrivateProject');
 		}
 		print '</td></tr>';

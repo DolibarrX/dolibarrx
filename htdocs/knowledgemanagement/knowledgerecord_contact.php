@@ -125,7 +125,7 @@ if ($object->id) {
 	// Show tabs
 	$head = knowledgerecordPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'contact', $langs->trans("KnowledgeRecord"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'contact', $langs->trans("KnowledgeRecord"), -1, $object->picture);
 
 	$linkback = '<a href="'.dol_buildpath('/knowledgemanagement/knowledgerecord_list.php', 1).'?restore_lastsearch_values=1'.(!empty($socid) ? '&socid='.$socid : '').'">'.$langs->trans("BackToList").'</a>';
 

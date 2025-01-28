@@ -81,7 +81,7 @@ print '</tr>';
 
 foreach ($triggers as $trigger) {
 	print '<tr class="oddeven">';
-	print '<td class=" width="32">'.$trigger['picto'].'</td>';
+	print '<td class=" width="32">'.$trigger['picture'].'</td>';
 	print '<td>'.$trigger['file'].'</td>';
 	print '<td class="center">'.$trigger['status'].'</td>';
 	print '<td>';
@@ -89,7 +89,7 @@ foreach ($triggers as $trigger) {
 	$text .= "<br>\n<strong>".$langs->trans("File")."</strong>:<br>\n".$trigger['relpath'];
 	//$text.="\n".$langs->trans("ExternalModule",$trigger['isocreorexternal']);
 	// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
-	print $form->textwithpicto('', $text);
+	print $form->textWithPicture('', $text);
 	print '</td>';
 	print '</tr>';
 }

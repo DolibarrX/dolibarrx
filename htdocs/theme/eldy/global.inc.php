@@ -914,7 +914,7 @@ th .button {
 	-webkit-border-radius:0px !important;
 	border-radius:0px !important;
 }
-.maxwidthsearch {		/* Max width of column with the search picto */
+.maxwidthsearch {		/* Max width of column with the search picture */
 	width: 54px;
 	min-width: 54px;
 }
@@ -2114,7 +2114,7 @@ datalist {
 
 	.margintoponsmartphone { margin-top: 6px; }
 
-	span.pictotitle {
+	span.picturetitle {
 		margin-<?php echo $left; ?>: 0 !important;
 	}
 	div.fiche>table.table-fiche-title {
@@ -2736,22 +2736,22 @@ div.nopadding {
 	margin : 0px auto;
 }
 
-td.nobordernopadding.widthpictotitle.col-picto {
+td.nobordernopadding.widthpicturetitle.col-picture {
 	color: var(--colortexttitlenotab);
 	opacity: 0.85;
 }
-.table-list-of-attached-files .col-picto, .table-list-of-links .col-picto {
+.table-list-of-attached-files .col-picture, .table-list-of-links .col-picture {
 	opacity: 0.7 !important;
 	font-size: 0.7em;
 	width: 20px;
 }
-.table-list-of-attached-files .col-picto .widthpictotitle, .table-list-of-links .col-picto .widthpictotitle {
+.table-list-of-attached-files .col-picture .widthpicturetitle, .table-list-of-links .col-picture .widthpicturetitle {
 	width: unset;
 	color: #999;
 }
 
 /*
-span.widthpictotitle.pictotitle {
+span.widthpicturetitle.picturetitle {
 	background: var(--colortexttitlenotab);
 	opacity: 0.8;
 	color: #fff !important;
@@ -2761,50 +2761,50 @@ span.widthpictotitle.pictotitle {
 	text-align: center;
 }
 */
-.pictotitle {
+.picturetitle {
 	margin-<?php echo $right; ?>: 8px;
 	/* margin-bottom: 4px; */
 }
 
-.pictoobjectwidth {
+.pictureobjectwidth {
 	width: 14px;
 }
-.pictosubstatus {
+.picturesubstatus {
 	padding-left: 2px;
 	padding-right: 2px;
 }
-.pictostatus {
+.picturestatus {
 	width: 15px;
 	vertical-align: middle;
 	margin-top: -3px
 }
-.pictowarning, .pictoerror, .pictopreview, .pictonopreview, .picto.error {
+.picturewarning, .pictureerror, .picturepreview, .picturenopreview, .picture.error {
 	padding-<?php echo $left; ?>: 3px;
 }
-.pictowarning {
+.picturewarning {
 	/* vertical-align: text-bottom; */
 	color: <?php echo $badgeWarning ?>;
 }
-.pictoerror {
+.pictureerror {
 	color: <?php echo $badgeDanger ?>;
 }
-.pictomodule {
+.picturemodule {
 	width: 14px;
 }
-.pictomodule {
+.picturemodule {
 	width: 14px;
 }
-.fiche .arearef img.pictoedit, .fiche .arearef span.pictoedit,
-.fiche .fichecenter img.pictoedit, .fiche .fichecenter span.pictoedit,
-.tagtdnote span.pictoedit {
+.fiche .arearef img.pictureedit, .fiche .arearef span.pictureedit,
+.fiche .fichecenter img.pictureedit, .fiche .fichecenter span.pictureedit,
+.tagtdnote span.pictureedit {
 	opacity: 0.4;
 }
-.pictofixedwidth {
+.picturefixedwidth {
 	text-align: start;
 	width: 20px;
 	/* padding-right: 0; */
 }
-img.pictofixedwidth {
+img.picturefixedwidth {
 	width: 18px;
 	padding-right: 2px;
 }
@@ -3168,7 +3168,7 @@ div.tmenucenter {	/* we must have a field length of top menu to avoid size to ch
 }
 <?php } ?>
 
-/* Test of picto visible on hover, for all picto */
+/* Test of picture visible on hover, for all picture */
 <?php if (getDolGlobalInt('THEME_TOPMENU_DISABLE_IMAGE') == 2) { ?>
 ul.tmenu:hover .tmenulabel:not(.menuhider), .ul.tmenu:hover .tmenulabel:not(.menuhider)::before {
 	display: block;
@@ -3193,7 +3193,7 @@ ul.tmenu:hover .tmenuimage:not(.menuhider), ul.tmenu:hover .tmenuimage:not(.menu
 }
 <?php } ?>
 
-/* Text of picto visible on hover the picto only */
+/* Text of picture visible on hover the picture only */
 <?php if (getDolGlobalInt('THEME_TOPMENU_DISABLE_IMAGE') == 3) { ?>
 li.tmenu:hover .tmenulabel:not(.menuhider), li.tmenu:hover .tmenulabel:not(.menuhider)::before {
 	display: initial !important;
@@ -3707,7 +3707,7 @@ a.help:link, a.help:visited, a.help:hover, a.help:active, span.help {
 {
 	border-top: 1px solid #BBB;
 }
-a.vsmenu.addbookmarkpicto {
+a.vsmenu.addbookmarkpicture {
 	padding-right: 10px;
 }
 div.blockvmenusearchphone
@@ -5508,9 +5508,9 @@ div.boximport {
 
 .fieldrequired { font-weight: bold; color: var(--fieldrequiredcolor) !important; }
 
-td.widthpictotitle, .table-fiche-title img.widthpictotitle { width: 38px; text-align: <?php echo $left; ?>; }
-span.widthpictotitle { font-size: 1.7em; }
-table.titlemodulehelp tr td img.widthpictotitle { width: 80px; }
+td.widthpicturetitle, .table-fiche-title img.widthpicturetitle { width: 38px; text-align: <?php echo $left; ?>; }
+span.widthpicturetitle { font-size: 1.7em; }
+table.titlemodulehelp tr td img.widthpicturetitle { width: 80px; }
 
 .dolgraphtitle { margin-top: 6px; margin-bottom: 4px; }
 .dolgraphtitlecssboxes { /* margin: 0px; */ }
@@ -6559,7 +6559,7 @@ div.cke_notifications_area .cke_notification_warning {
 	visibility: hidden;
 }
 
-/* CSS To hide the picto menu on smartphone, except when maximize */
+/* CSS To hide the picture menu on smartphone, except when maximize */
 @media only screen and (max-width: 768px)
 {
 	.cke_inner:not(.cke_maximized) .cke_toolbar_separator,
@@ -8594,7 +8594,7 @@ table.jPicker {
 		border-left: none;
 	}
 
-	td.widthpictotitle { width: 30px; }
+	td.widthpicturetitle { width: 30px; }
 
 	.logopublicpayment #dolpaymentlogo {
 		max-width: 260px;

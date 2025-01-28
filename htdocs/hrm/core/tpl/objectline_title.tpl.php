@@ -70,7 +70,7 @@ print '<th class="linecollabel">'.$langs->trans('Label').'</th>';
 print '<th class="linecolcomment"></th>';
 
 // Note
-print '<th class="linecolrank right" style="width: 80px">'.$form->textwithpicto($langs->trans("Level"), $langs->trans('EmployeeRank')).'</th>';
+print '<th class="linecolrank right" style="width: 80px">'.$form->textWithPicture($langs->trans("Level"), $langs->trans('EmployeeRank')).'</th>';
 
 
 print "</tr>\n";

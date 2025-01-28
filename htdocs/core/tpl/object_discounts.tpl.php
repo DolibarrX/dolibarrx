@@ -76,7 +76,7 @@ if ($absolute_discount > 0) {
 		$text = $langs->trans($translationKey, price($absolute_discount, 0, $langs, 1, -1, -1, $config->currency)).'.';
 
 		if ($isInvoice && !$isNewObject && $object->statut > $objclassname::STATUS_DRAFT && $object->type != $objclassname::TYPE_CREDIT_NOTE && $object->type != $objclassname::TYPE_DEPOSIT) {
-			$text = $form->textwithpicto($text, $langs->trans('AbsoluteDiscountUse'));
+			$text = $form->textWithPicture($text, $langs->trans('AbsoluteDiscountUse'));
 		}
 
 		if ($isNewObject) {
@@ -105,7 +105,7 @@ if ($absolute_creditnote > 0) {
 		$text = $langs->trans($translationKey, price($absolute_creditnote, 0, $langs, 1, -1, -1, $config->currency));
 
 		if ($isInvoice && !$isNewObject && $object->statut == $objclassname::STATUS_DRAFT && $object->type != $objclassname::TYPE_DEPOSIT) {
-			$text = $form->textwithpicto($text, $langs->trans('CreditNoteDepositUse'));
+			$text = $form->textWithPicture($text, $langs->trans('CreditNoteDepositUse'));
 		}
 
 		if ($absolute_discount <= 0 || $isNewObject) {

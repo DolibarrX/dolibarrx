@@ -1052,7 +1052,7 @@ if (!$source) {
 	// Creditor
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("Creditor");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$creditor.'</b>';
 	print '<input type="hidden" name="creditor" value="'.$creditor.'">';
 	print '</td></tr>'."\n";
@@ -1128,7 +1128,7 @@ if ($source == 'order') {
 	// Creditor
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("Creditor");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$creditor.'</b>';
 	print '<input type="hidden" name="creditor" value="'.$creditor.'">';
 	print '</td></tr>'."\n";
@@ -1136,7 +1136,7 @@ if ($source == 'order') {
 	// Debitor
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("ThirdParty");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$order->thirdparty->name.'</b>';
 	print '</td></tr>'."\n";
 
@@ -1258,7 +1258,7 @@ if ($source == 'invoice') {
 	// Creditor
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("Creditor");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$creditor.'</b>';
 	print '<input type="hidden" name="creditor" value="'.dol_escape_htmltag($creditor).'">';
 	print '</td></tr>'."\n";
@@ -1266,7 +1266,7 @@ if ($source == 'invoice') {
 	// Debitor
 	print '<tr class="CTableRow2"><td class="CTableRow2">'.$langs->trans("ThirdParty");
 	print '</td><td class="CTableRow2">';
-	print img_picto('', 'company', 'class="pictofixedwidth"');
+	print img_picture('', 'company', 'class="picturefixedwidth"');
 	print '<b>'.$invoice->thirdparty->name.'</b>';
 	print '</td></tr>'."\n";
 
@@ -1619,10 +1619,10 @@ if ($source == 'member' || $source == 'membersubscription') {
 	print '</td><td class="CTableRow2">';
 	print '<b>';
 	if ($member->morphy == 'mor' && !empty($member->company)) {
-		print img_picto('', 'company', 'class="pictofixedwidth"');
+		print img_picture('', 'company', 'class="picturefixedwidth"');
 		print $member->company;
 	} else {
-		print img_picto('', 'member', 'class="pictofixedwidth"');
+		print img_picture('', 'member', 'class="picturefixedwidth"');
 		print $member->getFullName($langs);
 	}
 	print '</b>';

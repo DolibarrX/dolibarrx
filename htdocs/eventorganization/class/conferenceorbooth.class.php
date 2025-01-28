@@ -51,7 +51,7 @@ class ConferenceOrBooth extends ActionComm
 	/**
 	 * @var string String with name of icon for conferenceorbooth. Must be the part after the 'object_' into object_conferenceorbooth.png
 	 */
-	public $picto = 'conferenceorbooth';
+	public $picture = 'conferenceorbooth';
 
 
 	const STATUS_DRAFT = 0;
@@ -76,7 +76,7 @@ class ConferenceOrBooth extends ActionComm
 	 *  	'mail', 'phone', 'url', 'password', 'ip'
 	 *		Note: Filter must be a Dolibarr Universal Filter syntax string. Example: "(t.ref:like:'SO-%') or (t.date_creation:<:'20160101') or (t.status:!=:0) or (t.nature:is:NULL)"
 	 *  'label' the translation key.
-	 *  'picto' is code of a picto to show before value in forms
+	 *  'picture' is code of a picture to show before value in forms
 	 *  'enabled' is a condition when the field must be managed (Example: 1 or 'getDolGlobalString("MY_SETUP_PARAM")'
 	 *  'position' is the sort order of field.
 	 *  'notnull' is set to 1 if not null in database. Set to -1 if we must set data to null if empty ('' or 0).
@@ -106,8 +106,8 @@ class ConferenceOrBooth extends ActionComm
 		'id' => array('type' => 'integer', 'label' => 'TechnicalID', 'enabled' => 1, 'position' => 1, 'notnull' => 1, 'visible' => 0, 'noteditable' => 1, 'index' => 1, 'css' => 'left', 'csslist' => 'left', 'comment' => "Id"),
 		'ref' => array('type' => 'integer', 'label' => 'Ref', 'enabled' => 1, 'position' => 1, 'notnull' => 1, 'visible' => 2, 'noteditable' => 1, 'index' => 1, 'css' => 'left', 'csslist' => 'left', 'comment' => "Id"),
 		'label' => array('type' => 'varchar(255)', 'label' => 'Label', 'enabled' => 1, 'position' => 30, 'notnull' => 1, 'visible' => 1, 'searchall' => 1, 'css' => 'minwidth300', 'csslist' => 'tdoverflowmax150', 'help' => "OrganizationEvenLabelName", 'showoncombobox' => 1, 'autofocusoncreate' => 1),
-		'fk_project' => array('type' => 'integer:Project:projet/class/project.class.php:1:(t.usage_organize_event:=:1)', 'label' => 'Project', 'enabled' => "isModEnabled('project')", 'position' => 52, 'notnull' => -1, 'visible' => 1, 'index' => 1, 'picto' => 'project', 'css' => 'maxwidth500', 'csslist' => 'tdoverflowmax100'),
-		'fk_soc' => array('type' => 'integer:Societe:societe/class/societe.class.php:1:((status:=:1) AND (entity:IN:__SHARED_ENTITIES__))', 'label' => 'ThirdParty', 'enabled' => '$config->societe->enabled', 'position' => 50, 'notnull' => -1, 'visible' => 1, 'index' => 1, 'help' => "OrganizationEventLinkToThirdParty", 'picto' => 'company', 'csslist' => 'tdoverflowmax100', 'css' => 'maxwidth500'),
+		'fk_project' => array('type' => 'integer:Project:projet/class/project.class.php:1:(t.usage_organize_event:=:1)', 'label' => 'Project', 'enabled' => "isModEnabled('project')", 'position' => 52, 'notnull' => -1, 'visible' => 1, 'index' => 1, 'picture' => 'project', 'css' => 'maxwidth500', 'csslist' => 'tdoverflowmax100'),
+		'fk_soc' => array('type' => 'integer:Societe:societe/class/societe.class.php:1:((status:=:1) AND (entity:IN:__SHARED_ENTITIES__))', 'label' => 'ThirdParty', 'enabled' => '$config->societe->enabled', 'position' => 50, 'notnull' => -1, 'visible' => 1, 'index' => 1, 'help' => "OrganizationEventLinkToThirdParty", 'picture' => 'company', 'csslist' => 'tdoverflowmax100', 'css' => 'maxwidth500'),
 		'note' => array('type' => 'html', 'label' => 'Description', 'enabled' => 1, 'position' => 60, 'notnull' => 0, 'visible' => 3),
 		'fk_action' => array('type' => "sellist:c_actioncomm:libelle:id::(module:LIKE:'%@eventorganization')", 'label' => 'ConferenceOrBoothFormat', 'enabled' => 1, 'position' => 60, 'notnull' => 1, 'visible' => 1, 'css' => 'width200', 'csslist' => 'tdoverflowmax100'),
 		'datep' => array('type' => 'datetime', 'label' => 'DateStart', 'enabled' => 1, 'position' => 70, 'notnull' => 0, 'visible' => 1, 'showoncombobox' => 2,),
@@ -560,19 +560,19 @@ class ConferenceOrBooth extends ActionComm
 	}
 
 	/**
-	 *  Return a link to the object card (with optionally the picto)
+	 *  Return a link to the object card (with optionally the picture)
 	 *
-	 *  @param  int     $withpicto                  Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
+	 *  @param  int     $withPicture                  Include picture in link (0=No picture, 1=Include picture into link, 2=Only picture)
 	 *  @param	int		$maxlength					Not use here just for declaration method compatibility with parent classes
 	 *  @param	string	$classname					Not use here just for declaration method compatibility with parent classes
 	 *  @param  string  $option                     On what the link point to ('nolink', ...)
-	 *  @param	int		$overwritepicto				Not use here just for declaration method compatibility with parent classes
+	 *  @param	int		$overwritePicture				Not use here just for declaration method compatibility with parent classes
 	 *  @param  int     $notooltip                  1=Disable tooltip
 	 *  @param  int     $save_lastsearch_value      -1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 *  @param  string  $morecss                    Add more css on link
 	 *  @return	string                              String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $maxlength = 0, $classname = '', $option = '', $overwritepicto = 0, $notooltip = 0, $save_lastsearch_value = -1, $morecss = '')
+	public function getNomUrl($withPicture = 0, $maxlength = 0, $classname = '', $option = '', $overwritePicture = 0, $notooltip = 0, $save_lastsearch_value = -1, $morecss = '')
 	{
 		global $config, $langs, $hookManager;
 
@@ -582,7 +582,7 @@ class ConferenceOrBooth extends ActionComm
 
 		$result = '';
 
-		$label = img_picto('', $this->picto).' <u>'.$langs->trans("ConferenceOrBooth").'</u>';
+		$label = img_picture('', $this->picture).' <u>'.$langs->trans("ConferenceOrBooth").'</u>';
 		if (isset($this->status)) {
 			$label .= ' '.$this->getLibStatut(5);
 		}
@@ -624,16 +624,16 @@ class ConferenceOrBooth extends ActionComm
 		$result .= $linkstart;
 
 		if (empty($this->showphoto_on_popup)) {
-			if ($withpicto) {
-				$picto = img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
-				//              var_dump($picto);
-				$result .= $picto;
+			if ($withPicture) {
+				$picture = img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+				//              var_dump($picture);
+				$result .= $picture;
 			}
 		} else {
-			if ($withpicto) {
+			if ($withPicture) {
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
-				//list($class, $module) = explode('@', $this->picto);
+				//list($class, $module) = explode('@', $this->picture);
 				$upload_dir = $config->eventorganisation->multidir_output[$config->entity]."/".dol_sanitizeFileName($this->ref);
 				$filearray = dol_dir_list($upload_dir, "files");
 				$filename = $filearray[0]['name'];
@@ -645,17 +645,17 @@ class ConferenceOrBooth extends ActionComm
 
 					$result .= '</div>';
 				} else {
-					$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+					$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 				}
 			}
 		}
 
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 
 		$result .= $linkend;
-		//if ($withpicto != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
+		//if ($withPicture != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
 
 		global $action, $hookManager;
 		$hookManager->initHooks(array('conferenceorboothdao'));
@@ -735,7 +735,7 @@ class ConferenceOrBooth extends ActionComm
 		$return = '<div class="box-flex-item box-flex-grow-zero">';
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<span class="info-box-icon bg-infobox-action">';
-		$return .= img_picto('', $this->picto);
+		$return .= img_picture('', $this->picture);
 		$return .= '</span>';
 		$return .= '<div class="info-box-content">';
 		$return .= '<span class="info-box-ref inline-block tdoverflowmax150 valignmiddle">'.(method_exists($this, 'getNomUrl') ? $this->getNomUrl() : $this->ref).'</span>';

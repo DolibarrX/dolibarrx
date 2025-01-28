@@ -169,18 +169,18 @@ if ($object->id) {
 		$morehtmlref .= $fuser->getNomUrl(-1);
 	} elseif (!empty($object->email_msgid)) {
 		$morehtmlref .= '<br>'.$langs->trans("CreatedBy").' : ';
-		$morehtmlref .= img_picto('', 'email', 'class="paddingrightonly"');
-		$morehtmlref .= dol_escape_htmltag($object->origin_email).' <small class="hideonsmartphone opacitymedium">('.$form->textwithpicto($langs->trans("CreatedByEmailCollector"), $langs->trans("EmailMsgID").': '.$object->email_msgid).')</small>';
+		$morehtmlref .= img_picture('', 'email', 'class="paddingrightonly"');
+		$morehtmlref .= dol_escape_htmltag($object->origin_email).' <small class="hideonsmartphone opacitymedium">('.$form->textWithPicture($langs->trans("CreatedByEmailCollector"), $langs->trans("EmailMsgID").': '.$object->email_msgid).')</small>';
 	} elseif (!empty($object->origin_email)) {
 		$morehtmlref .= '<br>'.$langs->trans("CreatedBy").' : ';
-		$morehtmlref .= img_picto('', 'email', 'class="paddingrightonly"');
+		$morehtmlref .= img_picture('', 'email', 'class="paddingrightonly"');
 		$morehtmlref .= dol_escape_htmltag($object->origin_email).' <small class="hideonsmartphone opacitymedium">('.$langs->trans("CreatedByPublicPortal").')</small>';
 	}
 
 	// Thirdparty
 	if (isModEnabled("societe")) {
 		$morehtmlref .= '<br>';
-		$morehtmlref .= img_picto($langs->trans("ThirdParty"), 'company', 'class="pictofixedwidth"');
+		$morehtmlref .= img_picture($langs->trans("ThirdParty"), 'company', 'class="picturefixedwidth"');
 		if ($action != 'editcustomer' && $permissiontoadd) {
 			$morehtmlref .= '<a class="editfielda" href="'.$url_page_current.'?action=editcustomer&token='.newToken().'&track_id='.$object->track_id.'">'.img_edit($langs->transnoentitiesnoconv('SetThirdParty'), 0).'</a> ';
 		}
@@ -192,7 +192,7 @@ if ($object->id) {
 		$langs->load("projects");
 		if (0) {
 			$morehtmlref .= '<br>';
-			$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 			}

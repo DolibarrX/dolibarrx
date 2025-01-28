@@ -377,8 +377,8 @@ if ($result) {
 	// Action column
 	if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre maxwidthsearch center">';
-		$searchpicto = $form->showFilterAndCheckAddButtons(0);
-		print $searchpicto;
+		$searchPicture = $form->showFilterAndCheckAddButtons(0);
+		print $searchPicture;
 		print '</td>';
 	}
 
@@ -423,8 +423,8 @@ if ($result) {
 	// Action column
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre maxwidthsearch">';
-		$searchpicto = $form->showFilterAndCheckAddButtons(0);
-		print $searchpicto;
+		$searchPicture = $form->showFilterAndCheckAddButtons(0);
+		print $searchPicture;
 		print '</td>';
 	}
 
@@ -462,7 +462,7 @@ if ($result) {
 			print '<td class="center">';
 			$htmltext = '<b>'.$langs->trans("UserAgent").'</b>: '.($obj->user_agent ? dol_string_nohtmltag($obj->user_agent) : $langs->trans("Unknown"));
 			$htmltext .= '<br><b>'.$langs->trans("SuffixSessionName").' (DOLSESSID_...)</b>: '.($obj->prefix_session ? dol_string_nohtmltag($obj->prefix_session) : $langs->trans("Unknown"));
-			print $form->textwithpicto('', $htmltext);
+			print $form->textWithPicture('', $htmltext);
 			print '</td>';
 		}
 
@@ -495,9 +495,9 @@ if ($result) {
 			$userstatic->email = $obj->email;
 
 			if (isModEnabled('multicompany') && $userstatic->admin && !$userstatic->entity) {
-				print img_picto($langs->trans("SuperAdministratorDesc"), 'redstar', 'class="valignmiddle paddingright"');
+				print img_picture($langs->trans("SuperAdministratorDesc"), 'redstar', 'class="valignmiddle paddingright"');
 			} elseif ($userstatic->admin) {
-				print img_picto($langs->trans("AdministratorDesc"), 'star', 'class="valignmiddle paddingright"');
+				print img_picture($langs->trans("AdministratorDesc"), 'star', 'class="valignmiddle paddingright"');
 			}
 
 			//print $userstatic->getLoginUrl(-1);
@@ -542,7 +542,7 @@ if ($result) {
 			print '<td class="right">';
 			$htmltext = '<b>'.$langs->trans("UserAgent").'</b>: '.($obj->user_agent ? dol_string_nohtmltag($obj->user_agent) : $langs->trans("Unknown"));
 			$htmltext .= '<br><b>'.$langs->trans("SuffixSessionName").' (DOLSESSID_...)</b>: '.($obj->prefix_session ? dol_string_nohtmltag($obj->prefix_session) : $langs->trans("Unknown"));
-			print $form->textwithpicto('', $htmltext);
+			print $form->textWithPicture('', $htmltext);
 			print '</td>';
 		}
 

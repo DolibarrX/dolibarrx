@@ -295,7 +295,7 @@ class DolibarrApi
 		unset($object->table_element);
 		unset($object->table_element_line);
 		unset($object->class_element_line);
-		unset($object->picto);
+		unset($object->picture);
 		unset($object->linked_objects);
 
 		// Remove the $oldcopy property because it is not supported by the JSON

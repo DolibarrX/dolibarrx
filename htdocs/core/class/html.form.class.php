@@ -128,7 +128,7 @@ class Form
 					$ret .= '<span class="fieldrequired">';
 				}
 				if ($help) {
-					$ret .= $this->textwithpicto($langs->trans($text), $help);
+					$ret .= $this->textWithPicture($langs->trans($text), $help);
 				} else {
 					$ret .= $langs->trans($text);
 				}
@@ -141,7 +141,7 @@ class Form
 					$ret .= '<span class="fieldrequired">';
 				}
 				if ($help) {
-					$ret .= $this->textwithpicto($langs->trans($text), $help);
+					$ret .= $this->textWithPicture($langs->trans($text), $help);
 				} else {
 					$ret .= $langs->trans($text);
 				}
@@ -157,7 +157,7 @@ class Form
 				$ret .= '<span class="fieldrequired">';
 			}
 			if ($help) {
-				$ret .= $this->textwithpicto($langs->trans($text), $help);
+				$ret .= $this->textWithPicture($langs->trans($text), $help);
 			} else {
 				$ret .= $langs->trans($text);
 			}
@@ -375,9 +375,9 @@ class Form
 					$ret .= $arraylist[$value];
 					if ($htmlname == 'fk_product_type') {
 						if ($value == 0) {
-							$ret = img_picto($langs->trans("Product"), 'product', 'class="paddingleftonly paddingrightonly colorgrey"') . $ret;
+							$ret = img_picture($langs->trans("Product"), 'product', 'class="paddingleftonly paddingrightonly colorgrey"') . $ret;
 						} else {
-							$ret = img_picto($langs->trans("Service"), 'service', 'class="paddingleftonly paddingrightonly colorgrey"') . $ret;
+							$ret = img_picture($langs->trans("Service"), 'service', 'class="paddingleftonly paddingrightonly colorgrey"') . $ret;
 						}
 					}
 				} elseif (preg_match('/^ckeditor/', $typeofdata)) {
@@ -443,7 +443,7 @@ class Form
 
 			$result .= '<!-- Widget for translation -->' . "\n";
 			$result .= '<div class="inline-block paddingleft image-' . $object->element . '-' . $fieldname . '">';
-			$s = img_picto($langs->trans("ShowOtherLanguages"), 'language', '', 0, 0, 0, '', 'fa-15 editfieldlang');
+			$s = img_picture($langs->trans("ShowOtherLanguages"), 'language', '', 0, 0, 0, '', 'fa-15 editfieldlang');
 			$result .= $s;
 			$result .= '</div>';
 
@@ -458,7 +458,7 @@ class Form
 					$valuetoshow = $object->array_languages[$fieldname][$langcode];
 				}
 
-				$s = picto_from_langcode($langcode, 'class="pictoforlang paddingright"');
+				$s = picture_from_langcode($langcode, 'class="pictureforlang paddingright"');
 				$resultforextrlang .= $s;
 
 				// TODO Use the showInputField() method of ExtraLanguages object
@@ -620,7 +620,7 @@ class Form
 	}
 
 	/**
-	 *  Show a text and picto with tooltip on text or picto.
+	 *  Show a text and picture with tooltip on text or picture.
 	 *  Can be called by an instancied $form->textwithtooltip or by a static call Form::textwithtooltip
 	 *
 	 * 	@param 	string 	$text 				Text to show
@@ -633,9 +633,9 @@ class Form
 	 * 	@param 	string 	$incbefore 			Include code before the text
 	 * 	@param 	int 	$noencodehtmltext 	Do not encode into html entity the htmltext
 	 * 	@param 	string 	$tooltiptrigger 	''=Tooltip on hover, 'abc'=Tooltip on click (abc is a unique key)
-	 * 	@param 	int 	$forcenowrap 		Force no wrap between text and picto (works with notabs=2 only)
-	 * 	@return string                      Code html du tooltip (texte+picto)
-	 * 	@see    textwithpicto() 			Use textwithpicto() instead of textwithtooltip if you can.
+	 * 	@param 	int 	$forcenowrap 		Force no wrap between text and picture (works with notabs=2 only)
+	 * 	@return string                      Code html du tooltip (texte+picture)
+	 * 	@see    textWithPicture() 			Use textWithPicture() instead of textwithtooltip if you can.
 	 */
 	public function textwithtooltip($text, $htmltext, $tooltipon = 1, $direction = 0, $img = '', $extracss = '', $notabs = 3, $incbefore = '', $noencodehtmltext = 0, $tooltiptrigger = '', $forcenowrap = 0)
 	{
@@ -734,20 +734,20 @@ class Form
 	}
 
 	/**
-	 * Show a text with a picto and a tooltip on picto
+	 * Show a text with a picture and a tooltip on picture
 	 *
 	 * @param 	string 		$text 				Text to show
 	 * @param 	string 		$htmltooltip 		Content of tooltip
 	 * @param 	int<-1,1>	$direction 			1=Icon is after text, -1=Icon is before text, 0=no icon
-	 * @param 	string 		$type 				Type of picto ('info', 'infoclickable', 'help', 'helpclickable', 'warning', 'superadmin', 'mypicto@mymodule', ...) or image filepath or 'none'
+	 * @param 	string 		$type 				Type of picture ('info', 'infoclickable', 'help', 'helpclickable', 'warning', 'superadmin', 'mypicture@mymodule', ...) or image filepath or 'none'
 	 * @param 	string 		$extracss 			Add a CSS style to td, div or span tag
 	 * @param 	int<0,1>	$noencodehtmltext 	Do not encode into html entity the htmltext
 	 * @param 	int<0,3>	$notabs 			0=Include table and tr tags, 1=Do not include table and tr tags, 2=use div, 3=use span
 	 * @param 	string 		$tooltiptrigger 	''=Tooltip on hover and hidden on smartphone, 'abconsmartphone'=Tooltip on hover and on click on smartphone, 'abc'=Tooltip on click (abc is a unique key, clickable link is on image or on link if param $type='none' or on both if $type='xxxclickable')
-	 * @param 	int<0,1>	$forcenowrap 		Force no wrap between text and picto (works with notabs=2 only)
-	 * @return	string                        	HTML code of text, picto, tooltip
+	 * @param 	int<0,1>	$forcenowrap 		Force no wrap between text and picture (works with notabs=2 only)
+	 * @return	string                        	HTML code of text, picture, tooltip
 	 */
-	public function textwithpicto($text, $htmltooltip, $direction = 1, $type = 'help', $extracss = 'valignmiddle', $noencodehtmltext = 0, $notabs = 3, $tooltiptrigger = '', $forcenowrap = 0)
+	public function textWithPicture($text, $htmltooltip, $direction = 1, $type = 'help', $extracss = 'valignmiddle', $noencodehtmltext = 0, $notabs = 3, $tooltiptrigger = '', $forcenowrap = 0)
 	{
 		global $config, $langs;
 
@@ -799,15 +799,15 @@ class Form
 			$img = img_help(($tooltiptrigger != '' ? 2 : 1), $alt);
 		} elseif ($type == 'superadmin') {
 			// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
-			$img = img_picto($alt, 'redstar');
+			$img = img_picture($alt, 'redstar');
 		} elseif ($type == 'admin') {
 			// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
-			$img = img_picto($alt, 'star');
+			$img = img_picture($alt, 'star');
 		} elseif ($type == 'warning') {
 			$img = img_warning($alt);
 		} elseif ($type != 'none') {
 			// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
-			$img = img_picto($alt, $type); // $type can be an image path
+			$img = img_picture($alt, $type); // $type can be an image path
 		}
 
 		return $this->textwithtooltip($text, $htmltooltip, ((($tooltiptrigger && !$img) || strpos($type, 'clickable')) ? 3 : 2), $direction, $img, $extracss, $notabs, '', $noencodehtmltext, $tooltiptrigger, $forcenowrap);
@@ -1027,7 +1027,7 @@ class Form
 					if ($row['code_iso']) {
 						$labeltoshow .= ' <span class="opacitymedium">(' . $row['code_iso'] . ')</span>';
 						if (empty($hideflags)) {
-							$tmpflag = picto_from_langcode($row['code_iso'], 'class="saturatemedium paddingrightonly"', 1);
+							$tmpflag = picture_from_langcode($row['code_iso'], 'class="saturatemedium paddingrightonly"', 1);
 							$labeltoshow = $tmpflag . ' ' . $labeltoshow;
 						}
 					}
@@ -1368,12 +1368,12 @@ class Form
 			} elseif ($hidelabel > 1) {
 				$placeholder = $langs->trans("RefOrLabel");
 				if ($hidelabel == 2) {
-					$out .= img_picto($langs->trans("Search"), 'search');
+					$out .= img_picture($langs->trans("Search"), 'search');
 				}
 			}
 			$out .= '<input type="text" class="' . $morecss . '" name="search_' . $htmlname . '" id="search_' . $htmlname . '" value="' . $selected_input_value . '"' . ($placeholder ? ' placeholder="' . dol_escape_htmltag($placeholder) . '"' : '') . ' ' . (getDolGlobalString('THIRDPARTY_SEARCH_AUTOFOCUS') ? 'autofocus' : '') . ' />';
 			if ($hidelabel == 3) {
-				$out .= img_picto($langs->trans("Search"), 'search');
+				$out .= img_picture($langs->trans("Search"), 'search');
 			}
 
 			$out .= ajax_event($htmlname, $events);
@@ -2143,7 +2143,7 @@ class Form
 	 * @param int<0,2>			$outputmode 	0=HTML select string, 1=Array, 2=Detailed array
 	 * @param bool 				$multiple 		add [] in the name of element and add 'multiple' attribute
 	 * @param int<0,1> 			$forcecombo 	Force the component to be a simple combo box without ajax
-	 * @return string|array<int,string|array{id:int,label:string,labelhtml:string,color:string,picto:string}>	HTML select string
+	 * @return string|array<int,string|array{id:int,label:string,labelhtml:string,color:string,picture:string}>	HTML select string
 	 * @see select_dolgroups()
 	 */
 	public function select_dolusers($selected = '', $htmlname = 'userid', $show_empty = 0, $exclude = null, $disabled = 0, $include = '', $enableonly = '', $force_entity = '', $maxlength = 0, $showstatus = 0, $morefilter = '', $show_every = 0, $enableonlytext = '', $morecss = '', $notdisabled = 0, $outputmode = 0, $multiple = false, $forcecombo = 0)
@@ -2284,7 +2284,7 @@ class Form
 						'label' => $textforempty,
 						'labelhtml' => $textforempty,
 						'color' => '',
-						'picto' => ''
+						'picture' => ''
 					);
 				}
 				if ($show_every) {
@@ -2296,7 +2296,7 @@ class Form
 						'label' => '-- ' . $langs->trans("Everybody") . ' --',
 						'labelhtml' => '-- ' . $langs->trans("Everybody") . ' --',
 						'color' => '',
-						'picto' => ''
+						'picture' => ''
 					);
 				}
 
@@ -2404,7 +2404,7 @@ class Form
 						'label' => $labeltoshow,
 						'labelhtml' => $labeltoshowhtml,
 						'color' => '',
-						'picto' => ''
+						'picture' => ''
 					);
 
 					$i++;
@@ -2496,7 +2496,7 @@ class Form
 				$ownerid = $value['id'];
 				$out .= ' (' . $langs->trans("Owner") . ')';
 			}
-			// Add picto to delete owner/assignee
+			// Add picture to delete owner/assignee
 			if ($nbassignetouser > 1 && $action != 'view') {
 				$canremoveassignee = 1;
 				if ($i == 0) {
@@ -2513,7 +2513,7 @@ class Form
 				if ($canremoveassignee) {
 					// If user has all permission, he should be ableto remove a assignee.
 					// If user has not all permission, he can onlyremove assignee of other (he can't remove itself)
-					$out .= ' <input type="image" style="border: 0px;" src="' . img_picto($langs->trans("Remove"), 'delete', '', 0, 1) . '" value="' . $userstatic->id . '" class="removedassigned reposition" id="removedassigned_' . $userstatic->id . '" name="removedassigned_' . $userstatic->id . '">';
+					$out .= ' <input type="image" style="border: 0px;" src="' . img_picture($langs->trans("Remove"), 'delete', '', 0, 1) . '" value="' . $userstatic->id . '" class="removedassigned reposition" id="removedassigned_' . $userstatic->id . '" name="removedassigned_' . $userstatic->id . '">';
 				}
 			}
 			// Show my availability
@@ -2604,7 +2604,7 @@ class Form
 			$resourcestatic->fetch($value['id']);
 			$out .= $resourcestatic->getNomUrl(-1);
 			if ($nbassignetoresource >= 1 && $action != 'view') {
-				$out .= ' <input type="image" style="border: 0px;" src="' . img_picto($langs->trans("Remove"), 'delete', '', 0, 1) . '" value="' . $resourcestatic->id . '" class="removedassignedresource reposition" id="removedassignedresource_' . $resourcestatic->id . '" name="removedassignedresource_' . $resourcestatic->id . '">';
+				$out .= ' <input type="image" style="border: 0px;" src="' . img_picture($langs->trans("Remove"), 'delete', '', 0, 1) . '" value="' . $resourcestatic->id . '" class="removedassignedresource reposition" id="removedassignedresource_' . $resourcestatic->id . '" name="removedassignedresource_' . $resourcestatic->id . '">';
 			}
 			// Show my availability
 			if ($showproperties) {
@@ -2636,7 +2636,7 @@ class Form
 			$out .= '})</script>';
 
 			$events = array();
-			$out .= img_picto('', 'resource', 'class="pictofixedwidth"');
+			$out .= img_picture('', 'resource', 'class="picturefixedwidth"');
 			$out .= $formresources->select_resource_list(0, $htmlname, [], 1, 1, 0, $events, array(), 2, 0);
 			//$out .= $this->select_dolusers('', $htmlname, $show_empty, $exclude, $disabled, $include, $enableonly, $force_entity, $maxlength, $showstatus, $morefilter);
 			$out .= ' <input type="submit" disabled class="button valignmiddle smallpaddingimp reposition" id="' . $action . 'assignedtoresource" name="' . $action . 'assignedtoresource" value="' . dol_escape_htmltag($langs->trans("Add")) . '">';
@@ -2805,13 +2805,13 @@ class Form
 			} elseif ($hidelabel > 1) {
 				$placeholder = ' placeholder="' . dolPrintHTMLForAttribute($langs->trans("RefOrLabel")) . '"';
 				if ($hidelabel == 2) {
-					$out .= img_picto($langs->trans("Search"), 'search');
+					$out .= img_picture($langs->trans("Search"), 'search');
 				}
 			}
 
 			$out .= '<input type="text" class="minwidth100' . ($morecss ? ' ' . $morecss : '') . '" name="search_' . $htmlname . '" id="search_' . $htmlname . '" value="' . $selected_input_value . '"' . $placeholder . ' ' . (getDolGlobalString('PRODUCT_SEARCH_AUTOFOCUS') ? 'autofocus' : '') . ' />';
 			if ($hidelabel == 3) {
-				$out .= img_picto($langs->trans("Search"), 'search');
+				$out .= img_picture($langs->trans("Search"), 'search');
 			}
 		} else {
 			$out .= $this->select_produits_list($selected, $htmlname, $filtertype, $limit, $price_level, '', $status, $finished, 0, $socid, $showempty, $forcecombo, $morecss, $hidepriceinlabel, $warehouseStatus, $status_purchase, $warehouseId);
@@ -3923,20 +3923,20 @@ class Form
 
 				switch ($objp->fk_product_type) {
 					case Product::TYPE_PRODUCT:
-						$picto = 'product';
+						$picture = 'product';
 						break;
 					case Product::TYPE_SERVICE:
-						$picto = 'service';
+						$picture = 'service';
 						break;
 					default:
-						$picto = '';
+						$picture = '';
 						break;
 				}
 
-				if (empty($picto)) {
+				if (empty($picture)) {
 					$optlabel = '';
 				} else {
-					$optlabel = img_object('', $picto, 'class="paddingright classfortooltip"', 0, 0, 1);
+					$optlabel = img_object('', $picture, 'class="paddingright classfortooltip"', 0, 0, 1);
 				}
 
 				$optlabel .= $objp->ref;
@@ -5424,7 +5424,7 @@ class Form
 			print '<form method="POST" action="' . $page . '">';
 			print '<input type="hidden" name="action" value="setbankaccount">';
 			print '<input type="hidden" name="token" value="' . newToken() . '">';
-			print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+			print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 			$nbaccountfound = $this->select_comptes($selected, $htmlname, 0, '', $addempty);
 			if ($nbaccountfound > 0) {
 				print '<input type="submit" class="button smallpaddingimp valignmiddle" value="' . $langs->trans("Modify") . '">';
@@ -5502,11 +5502,11 @@ class Form
 	 *                                 	    	 	- int (id of category)
 	 *                                 		 		- string (categories ids separated by comma)
 	 * 	                                  	 		- array (list of categories ids)
-	 * @param 	int<0,3>			$outputmode 	0=HTML select string, 1=Array with full label only, 2=Array extended, 3=Array with full picto + label
+	 * @param 	int<0,3>			$outputmode 	0=HTML select string, 1=Array with full label only, 2=Array extended, 3=Array with full picture + label
 	 * @param 	int<0,1>			$include 		[=0] Removed or 1=Keep only
 	 * @param 	string 				$morecss 		More CSS
 	 * @param	int<0,2>			$useempty		0=No empty value, 1=Add an empty value in list, 2=Add an empty value in list only if there is more than 2 entries. Default is 1.
-	 * @return	string|array<int,string>|array<int,array{id:int,fulllabel:string,color:string,picto:string}>|array<int,array{rowid:int,id:int,fk_parent:int,label:string,description:string,color:string,position:string,visible:int,ref_ext:string,picto:string,fullpath:string,fulllabel:string}>		String list or Array of categories
+	 * @return	string|array<int,string>|array<int,array{id:int,fulllabel:string,color:string,picture:string}>|array<int,array{rowid:int,id:int,fk_parent:int,label:string,description:string,color:string,position:string,visible:int,ref_ext:string,picture:string,fullpath:string,fulllabel:string}>		String list or Array of categories
 	 * @see select_categories()
 	 */
 	public function select_all_categories($type, $selected = '', $htmlname = "parent", $maxlength = 64, $fromid = 0, $outputmode = 0, $include = 0, $morecss = '', $useempty = 1)
@@ -5537,7 +5537,7 @@ class Form
 				while ($i < $num) {
 					$objp = $this->db->fetch_object($result);
 					if ($objp) {
-						$cate_arbo[$objp->rowid] = array('id' => $objp->rowid, 'fulllabel' => $objp->label, 'color' => '', 'picto' => 'category');
+						$cate_arbo[$objp->rowid] = array('id' => $objp->rowid, 'fulllabel' => $objp->label, 'color' => '', 'picture' => 'category');
 					}
 					$i++;
 				}
@@ -5571,7 +5571,7 @@ class Form
 						$add = '';
 					}
 
-					$labeltoshow = img_picto('', 'category', 'class="pictofixedwidth" style="color: #' . $cate_arbo[$key]['color'] . '"');
+					$labeltoshow = img_picture('', 'category', 'class="picturefixedwidth" style="color: #' . $cate_arbo[$key]['color'] . '"');
 					$labeltoshow .= dol_trunc($cate_arbo[$key]['fulllabel'], $maxlength, 'middle');
 
 					$outarray[$cate_arbo[$key]['id']] = $cate_arbo[$key]['fulllabel'];
@@ -6000,7 +6000,7 @@ class Form
 
 			// Line title
 			$formconfirm .= '<tr class="validtitre"><td class="validtitre" colspan="2">';
-			$formconfirm .= img_picto('', 'pictoconfirm') . ' ' . $title;
+			$formconfirm .= img_picture('', 'pictureconfirm') . ' ' . $title;
 			$formconfirm .= '</td></tr>' . "\n";
 
 			// Line text
@@ -7224,11 +7224,11 @@ class Form
 	 * @param string 				$labeladddateof Label to use for the $adddateof parameter. Deprecated. Used only when $adddateof is not an array.
 	 * @param string 				$placeholder 	Placeholder
 	 * @param 'auto'|'gmt'|'tzserver'|'tzuserrel'	$gm 	'auto' (for backward compatibility, avoid this), 'gmt' or 'tzserver' or 'tzuserrel'
-	 * @param string				$calendarpicto 	URL of the icon/image used to display the calendar
+	 * @param string				$calendarpicture 	URL of the icon/image used to display the calendar
 	 * @return string               	         	Html for selectDate
 	 * @see    form_date(), select_month(), select_year(), select_dayofweek()
 	 */
-	public function selectDate($set_time = '', $prefix = 're', $h = 0, $m = 0, $empty = 0, $form_name = "", $d = 1, $addnowlink = 0, $disabled = 0, $fullday = '', $addplusone = '', $adddateof = '', $openinghours = '', $stepminutes = 1, $labeladddateof = '', $placeholder = '', $gm = 'auto', $calendarpicto = '')
+	public function selectDate($set_time = '', $prefix = 're', $h = 0, $m = 0, $empty = 0, $form_name = "", $d = 1, $addnowlink = 0, $disabled = 0, $fullday = '', $addplusone = '', $adddateof = '', $openinghours = '', $stepminutes = 1, $labeladddateof = '', $placeholder = '', $gm = 'auto', $calendarpicture = '')
 	{
 		global $config, $langs;
 
@@ -7379,7 +7379,7 @@ class Form
 						}
 						// Note: We don't need monthNames, monthNamesShort, dayNames, dayNamesShort, dayNamesMin, they are set globally on datepicker component in lib_head.js.php
 						if (!getDolGlobalString('MAIN_POPUP_CALENDAR_ON_FOCUS')) {
-							$buttonImage = $calendarpicto ?: DOL_URL_ROOT . "/theme/" . dol_escape_js($config->theme) . "/img/object_calendarday.png";
+							$buttonImage = $calendarpicture ?: DOL_URL_ROOT . "/theme/" . dol_escape_js($config->theme) . "/img/object_calendarday.png";
 							$retstring .= "
 								showOn: 'button',	/* both has problem with autocompletion */
 								buttonImage: '" . $buttonImage . "',
@@ -7844,12 +7844,12 @@ class Form
 			} elseif ($hidelabel > 1) {
 				$placeholder = ' placeholder="' . $langs->trans("RefOrLabel") . '"';
 				if ($hidelabel == 2) {
-					$out .= img_picto($langs->trans("Search"), 'search');
+					$out .= img_picture($langs->trans("Search"), 'search');
 				}
 			}
 			$out .= '<input type="text" class="minwidth100" name="search_' . $htmlname . '" id="search_' . $htmlname . '" value="' . $selected_input_value . '"' . $placeholder . ' ' . (getDolGlobalString('PRODUCT_SEARCH_AUTOFOCUS') ? 'autofocus' : '') . ' />';
 			if ($hidelabel == 3) {
-				$out .= img_picto($langs->trans("Search"), 'search');
+				$out .= img_picture($langs->trans("Search"), 'search');
 			}
 		} else {
 			$out .= $this->selectTicketsList($selected, $htmlname, $filtertype, $limit, '', $status, 0, $showempty, $forcecombo, $morecss);
@@ -8070,12 +8070,12 @@ class Form
 			} elseif ($hidelabel > 1) {
 				$placeholder = ' placeholder="' . $langs->trans("RefOrLabel") . '"';
 				if ($hidelabel == 2) {
-					$out .= img_picto($langs->trans("Search"), 'search');
+					$out .= img_picture($langs->trans("Search"), 'search');
 				}
 			}
 			$out .= '<input type="text" class="minwidth100" name="search_' . $htmlname . '" id="search_' . $htmlname . '" value="' . $selected_input_value . '"' . $placeholder . ' ' . (getDolGlobalString('PRODUCT_SEARCH_AUTOFOCUS') ? 'autofocus' : '') . ' />';
 			if ($hidelabel == 3) {
-				$out .= img_picto($langs->trans("Search"), 'search');
+				$out .= img_picture($langs->trans("Search"), 'search');
 			}
 		} else {
 			$out .= $this->selectProjectsList($selected, $htmlname, $filtertype, $limit, '', $status, 0, $showempty, $forcecombo, $morecss);
@@ -8300,12 +8300,12 @@ class Form
 			} elseif ($hidelabel > 1) {
 				$placeholder = ' placeholder="' . $langs->trans("RefOrLabel") . '"';
 				if ($hidelabel == 2) {
-					$out .= img_picto($langs->trans("Search"), 'search');
+					$out .= img_picture($langs->trans("Search"), 'search');
 				}
 			}
 			$out .= '<input type="text" class="minwidth100" name="search_' . $htmlname . '" id="search_' . $htmlname . '" value="' . $selected_input_value . '"' . $placeholder . ' ' . (getDolGlobalString('PRODUCT_SEARCH_AUTOFOCUS') ? 'autofocus' : '') . ' />';
 			if ($hidelabel == 3) {
-				$out .= img_picto($langs->trans("Search"), 'search');
+				$out .= img_picture($langs->trans("Search"), 'search');
 			}
 		} else {
 			$filterkey = '';
@@ -9282,7 +9282,7 @@ class Form
 	 * Show a multiselect form from an array. WARNING: Use this only for short lists.
 	 *
 	 * @param 	string 		$htmlname 		Name of select
-	 * @param 	array<string,string|array{id:string,label:string,color:string,picto:string,labelhtml:string}>	$array 			Array(key=>value) or Array(key=>array('id'=>key, 'label'=>value, 'color'=> , 'picto'=> , 'labelhtml'=> ))
+	 * @param 	array<string,string|array{id:string,label:string,color:string,picture:string,labelhtml:string}>	$array 			Array(key=>value) or Array(key=>array('id'=>key, 'label'=>value, 'color'=> , 'picture'=> , 'labelhtml'=> ))
 	 * @param 	string[]	$selected 		Array of keys preselected
 	 * @param 	int<0,1>	$key_in_label 	1 to show key like in "[key] value"
 	 * @param 	int<0,1>	$value_as_key 	1 to use value as key
@@ -9332,13 +9332,13 @@ class Form
 					$tmpkey = $key;
 					$tmpvalue = $value;
 					$tmpcolor = '';
-					$tmppicto = '';
+					$tmpPicture = '';
 					$tmplabelhtml = '';
 					if (is_array($value) && array_key_exists('id', $value) && array_key_exists('label', $value)) {
 						$tmpkey = $value['id'];
 						$tmpvalue = empty($value['label']) ? '' : $value['label'];
 						$tmpcolor = empty($value['color']) ? '' : $value['color'];
-						$tmppicto = empty($value['picto']) ? '' : $value['picto'];
+						$tmpPicture = empty($value['picture']) ? '' : $value['picture'];
 						$tmplabelhtml = empty($value['labelhtml']) ? (empty($value['data-html']) ? '' : $value['data-html']) : $value['labelhtml'];
 					}
 					$newval = ($translate ? $langs->trans($tmpvalue) : $tmpvalue);
@@ -9351,7 +9351,7 @@ class Form
 					if (!empty($tmplabelhtml)) {
 						$out .= ' data-html="' . dol_escape_htmltag($tmplabelhtml, 0, 0, '', 0, 1) . '"';
 					} else {
-						$tmplabelhtml = ($tmppicto ? img_picto('', $tmppicto, 'class="pictofixedwidth" style="color: #' . $tmpcolor . '"') : '') . $newval;
+						$tmplabelhtml = ($tmpPicture ? img_picture('', $tmpPicture, 'class="picturefixedwidth" style="color: #' . $tmpcolor . '"') : '') . $newval;
 						$out .= ' data-html="' . dol_escape_htmltag($tmplabelhtml, 0, 0, '', 0, 1) . '"';
 					}
 					$out .= '>';
@@ -9508,7 +9508,7 @@ class Form
         <dl class="dropdown">
             <dt>
             <a href="#' . $htmlname . '">
-              ' . img_picto('', 'list') . '
+              ' . img_picture('', 'list') . '
             </a>
             <input type="hidden" class="' . $htmlname . '" name="' . $htmlname . '" value="' . $listcheckedstring . '">
             </dt>
@@ -9978,7 +9978,7 @@ class Form
 							$htmltoenteralink .= '<tr class="oddeven">';
 							$htmltoenteralink .= '<td>';
 							if ($alreadylinked) {
-								$htmltoenteralink .= img_picto('', 'link');
+								$htmltoenteralink .= img_picture('', 'link');
 							} else {
 								$htmltoenteralink .= '<input type="checkbox" name="idtolinkto[' . $key . '_' . $objp->rowid . ']" id="' . $key . '_' . $objp->rowid . '" value="' . $objp->rowid . '">';
 							}
@@ -9987,7 +9987,7 @@ class Form
 							$htmltoenteralink .= '<td>' . (!empty($objp->ref_client) ? $objp->ref_client : (!empty($objp->ref_supplier) ? $objp->ref_supplier : '')) . '</td>';
 							$htmltoenteralink .= '<td class="right">';
 							if ($possiblelink['label'] == 'LinkToContract') {
-								$htmltoenteralink .= $form->textwithpicto('', $langs->trans("InformationOnLinkToContract")) . ' ';
+								$htmltoenteralink .= $form->textWithPicture('', $langs->trans("InformationOnLinkToContract")) . ' ';
 							}
 							$htmltoenteralink .= '<span class="amount">' . (isset($objp->total_ht) ? price($objp->total_ht) : '') . '</span>';
 							$htmltoenteralink .= '</td>';
@@ -10317,7 +10317,7 @@ class Form
 					$htmltext = '';
 					// If there is extra languages
 					foreach ($arrayoflangcode as $extralangcode) {
-						$htmltext .= picto_from_langcode($extralangcode, 'class="pictoforlang paddingright"');
+						$htmltext .= picture_from_langcode($extralangcode, 'class="pictureforlang paddingright"');
 						if ($object->array_languages['name'][$extralangcode]) {
 							$htmltext .= $object->array_languages['name'][$extralangcode];
 						} else {
@@ -10325,7 +10325,7 @@ class Form
 						}
 					}
 					$ret .= '<!-- Show translations of name -->' . "\n";
-					$ret .= $this->textwithpicto('', $htmltext, -1, 'language', 'opacitymedium paddingleft');
+					$ret .= $this->textWithPicture('', $htmltext, -1, 'language', 'opacitymedium paddingleft');
 				}
 			}
 		} elseif ($object->element == 'member') {
@@ -10573,7 +10573,7 @@ class Form
 					$ret .= '<img class="photo' . $modulepart . ($cssclass ? ' ' . $cssclass : '') . '" alt="" title="' . $email . ' Gravatar avatar" ' . ($width ? ' width="' . $width . '"' : '') . ($height ? ' height="' . $height . '"' : '') . ' src="https://www.gravatar.com/avatar/' . dol_hash(strtolower(trim($email)), 'sha256', 1) . '?s=' . $width . '&d=' . $defaultimg . '">'; // gravatar need md5 hash
 				} else {
 					if ($nophoto == 'company') {
-						$ret .= '<div class="divforspanimg valignmiddle center photo' . $modulepart . ($cssclass ? ' ' . $cssclass : '') . '" alt="" ' . ($width ? ' width="' . $width . '"' : '') . ($height ? ' height="' . $height . '"' : '') . '>' . img_picto('', 'company') . '</div>';
+						$ret .= '<div class="divforspanimg valignmiddle center photo' . $modulepart . ($cssclass ? ' ' . $cssclass : '') . '" alt="" ' . ($width ? ' width="' . $width . '"' : '') . ($height ? ' height="' . $height . '"' : '') . '>' . img_picture('', 'company') . '</div>';
 						//$ret .= '<div class="difforspanimgright"></div>';
 					} else {
 						$ret .= '<img class="photo' . $modulepart . ($cssclass ? ' ' . $cssclass : '') . '" alt="" ' . ($width ? ' width="' . $width . '"' : '') . ($height ? ' height="' . $height . '"' : '') . ' src="' . DOL_URL_ROOT . $nophoto . '">';
@@ -10814,7 +10814,7 @@ class Form
 	 * @param string 	$target 		htmlname of target select to bind event
 	 * @param int 		$default_selected default category to select if fk_c_type_fees change = EX_KME
 	 * @param array<string,int|string>	$params	param to give
-	 * @param int<0,1>	$info_admin 	Show the tooltip help picto to setup list
+	 * @param int<0,1>	$info_admin 	Show the tooltip help picture to setup list
 	 * @return    string
 	 */
 	public function selectExpenseCategories($selected = '', $htmlname = 'fk_c_exp_tax_cat', $useempty = 0, $excludeid = array(), $target = '', $default_selected = 0, $params = array(), $info_admin = 1)
@@ -11254,7 +11254,7 @@ class Form
 
 		$ret .= '<div class="divadvancedsearchfieldcomp centpercent inline-block">';
 		$ret .= '<a href="#" class="dropdownsearch-toggle unsetcolor">';
-		$ret .= '<span class="fas fa-filter linkobject boxfilter paddingright pictofixedwidth" title="' . dol_escape_htmltag($langs->trans("Filters")) . '" id="idsubimgproductdistribution"></span>';
+		$ret .= '<span class="fas fa-filter linkobject boxfilter paddingright picturefixedwidth" title="' . dol_escape_htmltag($langs->trans("Filters")) . '" id="idsubimgproductdistribution"></span>';
 		$ret .= '</a>';
 
 		$ret .= '<div class="divadvancedsearchfieldcompinput inline-block minwidth500 maxwidth300onsmartphone">';
@@ -11400,7 +11400,7 @@ class Form
 		$ret .= '<div class="search-component-assistance">';
 		$ret .= '<div>';
 
-		$ret .= '<p class="assistance-title">' . img_picto('', 'filter') . ' ' . $langs->trans('FilterAssistance') . ' </p>';
+		$ret .= '<p class="assistance-title">' . img_picture('', 'filter') . ' ' . $langs->trans('FilterAssistance') . ' </p>';
 
 		$ret .= '<p class="assistance-errors error" style="display:none">' . $langs->trans('AllFieldsRequired') . ' </p>';
 

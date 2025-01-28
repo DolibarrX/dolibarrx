@@ -123,7 +123,7 @@ if (GETPOSTISSET('THEME_SATURATE_RATIO')) {
 
 /* Disable colors on left vmenu */
 a.vmenu span, span.vmenu, span.vmenu span {
-	/* To force no color on picto in left menu */
+	/* To force no color on picture in left menu */
 	/* color: var(--colortextbackvmenu) !important; */
 }
 div.login_block_other a {
@@ -140,15 +140,15 @@ div.login_block_other a {
 	color: #a47080;
 }
 /* Color for customer object */
-.infobox-propal:not(.pictotitle):not(.error),
-.infobox-facture:not(.pictotitle):not(.error),
-.infobox-order:not(.pictotitle):not(.error) {
+.infobox-propal:not(.picturetitle):not(.error),
+.infobox-facture:not(.picturetitle):not(.error),
+.infobox-order:not(.picturetitle):not(.error) {
 	color: #65953d;
 }
 /* Color for vendor object */
-.infobox-supplier_proposal:not(.pictotitle):not(.error),
-.infobox-invoice_supplier:not(.pictotitle):not(.error),
-.infobox-order_supplier:not(.pictotitle):not(.error) {
+.infobox-supplier_proposal:not(.picturetitle):not(.error),
+.infobox-invoice_supplier:not(.picturetitle):not(.error),
+.infobox-order_supplier:not(.picturetitle):not(.error) {
 	color: #599caf;
 }
 

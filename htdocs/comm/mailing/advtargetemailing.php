@@ -463,7 +463,7 @@ if ($object->fetch($id) >= 0) {
 	if (getDolGlobalString('MAILING_LIMIT_SENDBYWEB') && $config->global->MAILING_LIMIT_SENDBYWEB < $nbemail) {
 		$text = $langs->trans('LimitSendingEmailing', getDolGlobalString('MAILING_LIMIT_SENDBYWEB'));
 		// @phan-suppress-next-line PhanPluginSuspiciousParamPosition
-		print $form->textwithpicto($nbemail, $text, 1, 'warning');
+		print $form->textWithPicture($nbemail, $text, 1, 'warning');
 	} else {
 		print $nbemail;
 	}

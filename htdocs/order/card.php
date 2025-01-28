@@ -1971,7 +1971,7 @@ if ($action == 'create' && $usercancreate) {
 		} else {
 			print '<td class="valuefieldcreate">';
 			$filter = '((s.client:IN:1,2,3) AND (s.status:=:1))';
-			print img_picto('', 'company', 'class="pictofixedwidth"').$form->select_company('', 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth175 maxwidth500 widthcentpercentminusxx');
+			print img_picture('', 'company', 'class="picturefixedwidth"').$form->select_company('', 'socid', $filter, 'SelectThirdParty', 1, 0, array(), 0, 'minwidth175 maxwidth500 widthcentpercentminusxx');
 			// reload page to retrieve customer information
 			if (!getDolGlobalString('RELOAD_PAGE_ON_CUSTOMER_CHANGE_DISABLED')) {
 				print '<script>
@@ -1996,7 +1996,7 @@ if ($action == 'create' && $usercancreate) {
 		if ($socid > 0) {
 			// Contacts (ask contact only if thirdparty already defined).
 			print "<tr><td>".$langs->trans("DefaultContact").'</td><td>';
-			print img_picto('', 'contact', 'class="pictofixedwidth"');
+			print img_picture('', 'contact', 'class="picturefixedwidth"');
 			//print $form->selectcontacts($soc->id, $contactid, 'contactid', 1, empty($srccontactslist) ? "" : $srccontactslist, '', 1, 'maxwidth300 widthcentpercentminusx');
 			print $form->select_contact($soc->id, $contactid, 'contactid', 1, empty($srccontactslist) ? "" : $srccontactslist, '', 1, 'maxwidth300 widthcentpercentminusx', true);
 			print '</td></tr>';
@@ -2016,7 +2016,7 @@ if ($action == 'create' && $usercancreate) {
 
 		// Date
 		print '<tr><td class="fieldrequired">'.$langs->trans('Date').'</td><td>';
-		print img_picto('', 'action', 'class="pictofixedwidth"');
+		print img_picture('', 'action', 'class="picturefixedwidth"');
 		print $form->selectDate('', 're', 0, 0, 0, "crea_order", 1, 1); // Always autofill date with current date
 		print '</td></tr>';
 
@@ -2024,40 +2024,40 @@ if ($action == 'create' && $usercancreate) {
 		print '<tr><td>'.$langs->trans("DateDeliveryPlanned").'</td>';
 		print '<td colspan="3">';
 		$date_delivery = ($date_delivery ? $date_delivery : $object->delivery_date);
-		print img_picto('', 'action', 'class="pictofixedwidth"');
+		print img_picture('', 'action', 'class="picturefixedwidth"');
 		print $form->selectDate($date_delivery ? $date_delivery : -1, 'liv_', 1, 1, 1);
 		print "</td>\n";
 		print '</tr>';
 
 		// Delivery delay
 		print '<tr class="fielddeliverydelay"><td>'.$langs->trans('AvailabilityPeriod').'</td><td>';
-		print img_picto('', 'clock', 'class="pictofixedwidth"');
+		print img_picture('', 'clock', 'class="picturefixedwidth"');
 		$form->selectAvailabilityDelay((GETPOSTISSET('availability_id') ? GETPOST('availability_id') : $availability_id), 'availability_id', '', 1, 'maxwidth200 widthcentpercentminusx');
 		print '</td></tr>';
 
 		// Terms of payment
 		print '<tr><td class="nowrap">'.$langs->trans('PaymentConditionsShort').'</td><td>';
-		print img_picto('', 'payment', 'class="pictofixedwidth"');
+		print img_picture('', 'payment', 'class="picturefixedwidth"');
 		print $form->getSelectConditionsPaiements($cond_reglement_id, 'cond_reglement_id', 1, 1, 0, 'maxwidth200 widthcentpercentminusx', $deposit_percent);
 		print '</td></tr>';
 
 		// Payment mode
 		print '<tr><td>'.$langs->trans('PaymentMode').'</td><td>';
-		print img_picto('', 'bank', 'class="pictofixedwidth"');
+		print img_picture('', 'bank', 'class="picturefixedwidth"');
 		print $form->select_types_paiements($mode_reglement_id, 'mode_reglement_id', 'CRDT', 0, 1, 0, 0, 1, 'maxwidth200 widthcentpercentminusx', 1);
 		print '</td></tr>';
 
 		// Bank Account
 		if (getDolGlobalString('BANK_ASK_PAYMENT_BANK_DURING_ORDER') && isModEnabled("bank")) {
 			print '<tr><td>'.$langs->trans('BankAccount').'</td><td>';
-			print img_picto('', 'bank_account', 'class="pictofixedwidth"').$form->select_comptes($fk_account, 'fk_account', 0, '', 1, '', 0, 'maxwidth200 widthcentpercentminusx', 1);
+			print img_picture('', 'bank_account', 'class="picturefixedwidth"').$form->select_comptes($fk_account, 'fk_account', 0, '', 1, '', 0, 'maxwidth200 widthcentpercentminusx', 1);
 			print '</td></tr>';
 		}
 
 		// Shipping Method
 		if (isModEnabled('shipping')) {
 			print '<tr><td>'.$langs->trans('SendingMethod').'</td><td>';
-			print img_picto('', 'object_dolly', 'class="pictofixedwidth"');
+			print img_picture('', 'object_dolly', 'class="picturefixedwidth"');
 			$form->selectShippingMethod(((GETPOSTISSET('shipping_method_id') && GETPOSTINT('shipping_method_id') != 0) ? GETPOST('shipping_method_id') : $shipping_method_id), 'shipping_method_id', '', 1, '', 0, 'maxwidth200 widthcentpercentminusx');
 			print '</td></tr>';
 		}
@@ -2067,13 +2067,13 @@ if ($action == 'create' && $usercancreate) {
 			require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 			$formproduct = new FormProduct($db);
 			print '<tr><td>'.$langs->trans('Warehouse').'</td><td>';
-			print img_picto('', 'stock', 'class="pictofixedwidth"').$formproduct->selectWarehouses((GETPOSTISSET('warehouse_id') ? GETPOST('warehouse_id') : $warehouse_id), 'warehouse_id', '', 1, 0, 0, '', 0, 0, array(), 'maxwidth500 widthcentpercentminusxx');
+			print img_picture('', 'stock', 'class="picturefixedwidth"').$formproduct->selectWarehouses((GETPOSTISSET('warehouse_id') ? GETPOST('warehouse_id') : $warehouse_id), 'warehouse_id', '', 1, 0, 0, '', 0, 0, array(), 'maxwidth500 widthcentpercentminusxx');
 			print '</td></tr>';
 		}
 
 		// Source / Channel - What trigger creation
 		print '<tr><td>'.$langs->trans('Source').'</td><td>';
-		print img_picto('', 'question', 'class="pictofixedwidth"');
+		print img_picture('', 'question', 'class="picturefixedwidth"');
 		$form->selectInputReason((GETPOSTISSET('demand_reason_id') ? GETPOST('demand_reason_id') : $demand_reason_id), 'demand_reason_id', '', 1, 'maxwidth200 widthcentpercentminusx');
 		print '</td></tr>';
 
@@ -2084,7 +2084,7 @@ if ($action == 'create' && $usercancreate) {
 			$langs->load("projects");
 			print '<tr>';
 			print '<td>'.$langs->trans("Project").'</td><td>';
-			print img_picto('', 'project', 'class="pictofixedwidth"').$formproject->select_projects(($soc->id > 0 ? $soc->id : -1), (GETPOSTISSET('projectid') ? GETPOST('projectid') : $projectid), 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 0, 'maxwidth500 widthcentpercentminusxx');
+			print img_picture('', 'project', 'class="picturefixedwidth"').$formproject->select_projects(($soc->id > 0 ? $soc->id : -1), (GETPOSTISSET('projectid') ? GETPOST('projectid') : $projectid), 'projectid', 0, 0, 1, 1, 0, 0, 0, '', 1, 0, 'maxwidth500 widthcentpercentminusxx');
 			print ' <a href="'.DOL_URL_ROOT.'/projet/card.php?socid='.$soc->id.'&action=create&status=1&backtopage='.urlencode($_SERVER["PHP_SELF"].'?action=create&socid='.$soc->id).'"><span class="fa fa-plus-circle valignmiddle" title="'.$langs->trans("AddProject").'"></span></a>';
 			print '</td>';
 			print '</tr>';
@@ -2093,7 +2093,7 @@ if ($action == 'create' && $usercancreate) {
 		// Incoterms
 		if (isModEnabled('incoterm')) {
 			print '<tr>';
-			print '<td><label for="incoterm_id">'.$form->textwithpicto($langs->trans("IncotermLabel"), !empty($objectsrc->fk_incoterms) ? $objectsrc->fk_incoterms : $soc->fk_incoterms, 1).'</label></td>';
+			print '<td><label for="incoterm_id">'.$form->textWithPicture($langs->trans("IncotermLabel"), !empty($objectsrc->fk_incoterms) ? $objectsrc->fk_incoterms : $soc->fk_incoterms, 1).'</label></td>';
 			print '<td class="maxwidthonsmartphone">';
 			$incoterm_id = GETPOST('incoterm_id');
 			$location_incoterms = GETPOST('location_incoterms');
@@ -2101,7 +2101,7 @@ if ($action == 'create' && $usercancreate) {
 				$incoterm_id = (!empty($objectsrc->fk_incoterms) ? $objectsrc->fk_incoterms : $soc->fk_incoterms);
 				$location_incoterms = (!empty($objectsrc->location_incoterms) ? $objectsrc->location_incoterms : $soc->location_incoterms);
 			}
-			print img_picto('', 'incoterm', 'class="pictofixedwidth"');
+			print img_picture('', 'incoterm', 'class="picturefixedwidth"');
 			print $form->select_incoterms($incoterm_id, $location_incoterms);
 			print '</td></tr>';
 		}
@@ -2135,7 +2135,7 @@ if ($action == 'create' && $usercancreate) {
 		include_once DOL_DOCUMENT_ROOT.'/core/modules/order/modules_order.php';
 		$liste = ModelePDFOrders::liste_modeles($db);
 		$preselected = getDolGlobalString('COMMANDE_ADDON_PDF');
-		print img_picto('', 'pdf', 'class="pictofixedwidth"');
+		print img_picture('', 'pdf', 'class="picturefixedwidth"');
 		print $form->selectarray('model', $liste, $preselected, 0, 0, 0, '', 0, 0, 0, '', 'maxwidth200 widthcentpercentminusx', 1);
 		print "</td></tr>";
 
@@ -2144,7 +2144,7 @@ if ($action == 'create' && $usercancreate) {
 			print '<tr>';
 			print '<td>'.$form->editfieldkey("Currency", 'multicurrency_code', '', $object, 0).'</td>';
 			print '<td class="maxwidthonsmartphone">';
-			print img_picto('', 'currency', 'class="pictofixedwidth"').$form->selectMultiCurrency(((GETPOSTISSET('multicurrency_code') && !GETPOST('changecompany')) ? GETPOST('multicurrency_code') : $currency_code), 'multicurrency_code', 0, '', 0, 'maxwidth200 widthcentpercentminusx');
+			print img_picture('', 'currency', 'class="picturefixedwidth"').$form->selectMultiCurrency(((GETPOSTISSET('multicurrency_code') && !GETPOST('changecompany')) ? GETPOST('multicurrency_code') : $currency_code), 'multicurrency_code', 0, '', 0, 'maxwidth200 widthcentpercentminusx');
 			print '</td></tr>';
 		}
 
@@ -2387,7 +2387,7 @@ if ($action == 'create' && $usercancreate) {
 							'type' => 'checkbox',
 							'tdclass' => '',
 							'name' => 'generate_deposit',
-							'label' => $form->textwithpicto($langs->trans('GenerateDeposit', $object->deposit_percent), $langs->trans('DepositGenerationPermittedByThePaymentTermsSelected'))
+							'label' => $form->textWithPicture($langs->trans('GenerateDeposit', $object->deposit_percent), $langs->trans('DepositGenerationPermittedByThePaymentTermsSelected'))
 						);
 
 						$formquestion[] = array(
@@ -2574,7 +2574,7 @@ if ($action == 'create' && $usercancreate) {
 			$langs->load("projects");
 			$morehtmlref .= '<br>';
 			if ($usercancreate) {
-				$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+				$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 				if ($action != 'classify') {
 					$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 				}
@@ -2661,7 +2661,7 @@ if ($action == 'create' && $usercancreate) {
 			} else {
 				print $object->date ? dol_print_date($object->date, 'day') : '&nbsp;';
 				if ($object->hasDelay() && empty($object->delivery_date)) {	// If there is a delivery date planned, warning should be on this date
-					print ' '.img_picto($langs->trans("Late").' : '.$object->showDelay(), "warning");
+					print ' '.img_picture($langs->trans("Late").' : '.$object->showDelay(), "warning");
 				}
 			}
 			print '</td>';
@@ -2683,7 +2683,7 @@ if ($action == 'create' && $usercancreate) {
 			} else {
 				print $object->delivery_date ? dol_print_date($object->delivery_date, 'dayhour') : '&nbsp;';
 				if ($object->hasDelay() && !empty($object->delivery_date)) {
-					print ' '.img_picto($langs->trans("Late").' : '.$object->showDelay(), "warning");
+					print ' '.img_picture($langs->trans("Late").' : '.$object->showDelay(), "warning");
 				}
 			}
 			print '</td>';
@@ -2812,7 +2812,7 @@ if ($action == 'create' && $usercancreate) {
 				print '</td>';
 				print '<td class="valuefield">';
 				if ($action != 'editincoterm') {
-					print $form->textwithpicto($object->display_incoterms(), $object->label_incoterms, 1);
+					print $form->textWithPicture($object->display_incoterms(), $object->label_incoterms, 1);
 				} else {
 					print $form->select_incoterms((!empty($object->fk_incoterms) ? $object->fk_incoterms : ''), (!empty($object->location_incoterms) ? $object->location_incoterms : ''), $_SERVER['PHP_SELF'].'?id='.$object->id);
 				}

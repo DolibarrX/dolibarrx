@@ -464,21 +464,21 @@ if (empty($mode) || $mode == 'show_month') {
 	$nav .= " <span id=\"month_name\">".dol_print_date(dol_mktime(0, 0, 0, $month, 1, $year), "%b %Y");
 	$nav .= " </span>\n";
 	$nav .= " &nbsp; <a href=\"?year=".$next_year."&month=".$next_month.$param."\"><i class=\"fa fa-chevron-right\"></i></a>\n";
-	$picto = 'calendar';
+	$picture = 'calendar';
 }
 if ($mode == 'show_week') {
 	$nav .= "<a href=\"?year=".$prev_year."&month=".$prev_month."&day=".$prev_day.$param."\"><i class=\"fa fa-chevron-left\" title=\"".dol_escape_htmltag($langs->trans("Previous"))."\"></i></a> &nbsp;\n";
 	$nav .= " <span id=\"month_name\">".dol_print_date(dol_mktime(0, 0, 0, $first_month, $first_day, $first_year), "%Y").", ".$langs->trans("WeekShort")." ".$week;
 	$nav .= " </span>\n";
 	$nav .= " &nbsp; <a href=\"?year=".$next_year."&month=".$next_month."&day=".$next_day.$param."\"><i class=\"fa fa-chevron-right\" title=\"".dol_escape_htmltag($langs->trans("Next"))."\"></i></a>\n";
-	$picto = 'calendarweek';
+	$picture = 'calendarweek';
 }
 if ($mode == 'show_day') {
 	$nav .= "<a href=\"?year=".$prev_year."&month=".$prev_month."&day=".$prev_day.$param."\"><i class=\"fa fa-chevron-left\"></i></a> &nbsp;\n";
 	$nav .= " <span id=\"month_name\">".dol_print_date(dol_mktime(0, 0, 0, $month, $day, $year), "daytextshort");
 	$nav .= " </span>\n";
 	$nav .= " &nbsp; <a href=\"?year=".$next_year."&month=".$next_month."&day=".$next_day.$param."\"><i class=\"fa fa-chevron-right\"></i></a>\n";
-	$picto = 'calendarday';
+	$picture = 'calendarday';
 }
 if (empty($config->dol_optimize_smallscreen)) {
 	$nav .= ' &nbsp; <a href="?year='.$nowyear.'&month='.$nowmonth.'&day='.$nowday.$param.'" class="datenowlink">'.$langs->trans("Today").'</a> ';
@@ -523,31 +523,31 @@ $viewmode = '<div class="navmode inline-block">';
 
 $viewmode .= '<a class="btnTitle'.($mode == 'list' ? ' btnTitleSelected' : '').' reposition" href="'.DOL_URL_ROOT.'/comm/action/list.php?mode=show_list&restore_lastsearch_values=1'.$paramnoactionodate.'">';
 //$viewmode .= '<span class="fa paddingleft imgforviewmode valignmiddle btnTitle-icon">';
-$viewmode .= img_picto($langs->trans("List"), 'object_calendarlist', 'class="imgforviewmode pictoactionview block"');
+$viewmode .= img_picture($langs->trans("List"), 'object_calendarlist', 'class="imgforviewmode pictureactionview block"');
 //$viewmode .= '</span>';
 $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsmartphone inline-block width75 divoverflow">'.$langs->trans("ViewList").'</span></a>';
 
 $viewmode .= '<a class="btnTitle'.($mode == 'show_month' ? ' btnTitleSelected' : '').' reposition" href="'.DOL_URL_ROOT.'/comm/action/index.php?mode=show_month&year='.(isset($object->datep) ? dol_print_date($object->datep, '%Y') : $year).'&month='.(isset($object->datep) ? dol_print_date($object->datep, '%m') : $month).'&day='.(isset($object->datep) ? dol_print_date($object->datep, '%d') : $day).$paramnoactionodate.'">';
 //$viewmode .= '<span class="fa paddingleft imgforviewmode valignmiddle btnTitle-icon">';
-$viewmode .= img_picto($langs->trans("ViewCal"), 'object_calendarmonth', 'class="pictoactionview block"');
+$viewmode .= img_picture($langs->trans("ViewCal"), 'object_calendarmonth', 'class="pictureactionview block"');
 //$viewmode .= '</span>';
 $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsmartphone inline-block width75 divoverflow">'.$langs->trans("ViewCal").'</span></a>';
 
 $viewmode .= '<a class="btnTitle'.($mode == 'show_week' ? ' btnTitleSelected' : '').' reposition" href="'.DOL_URL_ROOT.'/comm/action/index.php?mode=show_week&year='.(isset($object->datep) ? dol_print_date($object->datep, '%Y') : $year).'&month='.(isset($object->datep) ? dol_print_date($object->datep, '%m') : $month).'&day='.(isset($object->datep) ? dol_print_date($object->datep, '%d') : $day).$paramnoactionodate.'">';
 //$viewmode .= '<span class="fa paddingleft imgforviewmode valignmiddle btnTitle-icon">';
-$viewmode .= img_picto($langs->trans("ViewWeek"), 'object_calendarweek', 'class="pictoactionview block"');
+$viewmode .= img_picture($langs->trans("ViewWeek"), 'object_calendarweek', 'class="pictureactionview block"');
 //$viewmode .= '</span>';
 $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsmartphone inline-block width75 divoverflow">'.$langs->trans("ViewWeek").'</span></a>';
 
 $viewmode .= '<a class="btnTitle'.($mode == 'show_day' ? ' btnTitleSelected' : '').' reposition" href="'.DOL_URL_ROOT.'/comm/action/index.php?mode=show_day&year='.(isset($object->datep) ? dol_print_date($object->datep, '%Y') : $year).'&month='.(isset($object->datep) ? dol_print_date($object->datep, '%m') : $month).'&day='.(isset($object->datep) ? dol_print_date($object->datep, '%d') : $day).$paramnoactionodate.'">';
 //$viewmode .= '<span class="fa paddingleft imgforviewmode valignmiddle btnTitle-icon">';
-$viewmode .= img_picto($langs->trans("ViewDay"), 'object_calendarday', 'class="pictoactionview block"');
+$viewmode .= img_picture($langs->trans("ViewDay"), 'object_calendarday', 'class="pictureactionview block"');
 //$viewmode .= '</span>';
 $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsmartphone inline-block width75 divoverflow">'.$langs->trans("ViewDay").'</span></a>';
 
 $viewmode .= '<a class="btnTitle'.($mode == 'show_peruser' ? ' btnTitleSelected' : '').' reposition" href="'.DOL_URL_ROOT.'/comm/action/peruser.php?mode=show_peruser&year='.(isset($object->datep) ? dol_print_date($object->datep, '%Y') : $year).'&month='.(isset($object->datep) ? dol_print_date($object->datep, '%m') : $month).'&day='.(isset($object->datep) ? dol_print_date($object->datep, '%d') : $day).$paramnoactionodate.'">';
 //$viewmode .= '<span class="fa paddingleft imgforviewmode valignmiddle btnTitle-icon">';
-$viewmode .= img_picto($langs->trans("ViewPerUser"), 'object_calendarperuser', 'class="pictoactionview block"');
+$viewmode .= img_picture($langs->trans("ViewPerUser"), 'object_calendarperuser', 'class="pictureactionview block"');
 //$viewmode .= '</span>';
 $viewmode .= '<span class="valignmiddle text-plus-circle btnTitle-label hideonsmartphone inline-block width75 divoverflow" title="'.dolPrintHTML($langs->trans("ViewPerUser")).'">'.$langs->trans("ViewPerUser").'</span></a>';
 
@@ -758,7 +758,7 @@ $sql .= ' a.fk_user_author,a.fk_user_action,';
 $sql .= ' a.transparency, a.priority, a.fulldayevent, a.location,';
 $sql .= ' a.fk_soc, a.fk_contact, a.fk_project, a.fk_bookcal_calendar,';
 $sql .= ' a.fk_element, a.elementtype,';
-$sql .= ' ca.code as type_code, ca.libelle as type_label, ca.color as type_color, ca.type as type_type, ca.picto as type_picto';
+$sql .= ' ca.code as type_code, ca.libelle as type_label, ca.color as type_color, ca.type as type_type, ca.picture as type_picture';
 
 $parameters = array();
 $resHook = $hookManager->executeHooks('printFieldListSelect', $parameters); // Note that $action and $object may have been modified by hook
@@ -947,7 +947,7 @@ if ($resql) {
 		$event->type_label = $obj->type_label;
 		$event->type_color = $obj->type_color;
 		$event->type = $obj->type_type;
-		$event->type_picto = $obj->type_picto;
+		$event->type_picture = $obj->type_picture;
 
 		$event->label = $obj->label;
 		$event->percentage = $obj->percent;
@@ -1093,7 +1093,7 @@ if ($showbirthday) {
 			$event->type_label = '';
 			$event->type_color = '';
 			$event->type = 'birthdate';
-			$event->type_picto = 'birthdate';
+			$event->type_picture = 'birthdate';
 
 			$event->label = $langs->trans("Birthday").' '.dolGetFirstLastname($obj->firstname, $obj->lastname);
 			$event->percentage = 100;
@@ -1168,7 +1168,7 @@ if ($user->hasRight("holiday", "read")) {
 			$event->type_label = '';
 			$event->type_color = '';
 			$event->type = 'holiday';
-			$event->type_picto = 'holiday';
+			$event->type_picture = 'holiday';
 
 			$event->datep                   = $db->jdate($obj->date_start) + (empty($halfday) || $halfday == 1 ? 0 : 12 * 60 * 60 - 1);
 			$event->datef                   = $db->jdate($obj->date_end) + (empty($halfday) || $halfday == -1 ? 24 : 12) * 60 * 60 - 1;
@@ -1408,7 +1408,7 @@ if (count($listofextcals)) {
 					$event->type_label = $namecal;
 					$event->type_color = $colorcal;
 					$event->type = 'icalevent';
-					$event->type_picto = 'rss';
+					$event->type_picture = 'rss';
 
 					$event->icalname = $namecal;
 					$event->icalcolor = $colorcal;
@@ -1887,7 +1887,7 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 		print '</div><div class="nowrap floatright inline-block marginrightonly">';
 		if ($user->hasRight('agenda', 'myactions', 'create') || $user->hasRight('agenda', 'allactions', 'create')) {
 			print '<a class="cursoradd" href="'.$urltocreate.'">'; // Explicit link, useful for nojs interfaces
-			print img_picto($langs->trans("NewAction"), 'edit_add.png');
+			print img_picture($langs->trans("NewAction"), 'edit_add.png');
 			print '</a>';
 		}
 		print '</div></div></div>'."\n";
@@ -2125,7 +2125,7 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 						//$typea = ($objp->typea == 'birth') ? $picb : $pice;
 						//var_dump($event);
 						print $picb.' '.$langs->trans("Birthday").'<br>';
-						//print img_picto($langs->trans("Birthday"), 'birthday-cake').' ';
+						//print img_picture($langs->trans("Birthday"), 'birthday-cake').' ';
 
 						$tmpid = $event->id;
 
@@ -2136,7 +2136,7 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 						}
 						print $cachecontacts[$tmpid]->getNomUrl(1, '', 0, '', -1, 0, 'valignmiddle inline-block');
 
-						//$event->picto = 'birthday-cake';
+						//$event->picture = 'birthday-cake';
 						//print $event->getNomUrl(1, $maxnbofchar, 'cal_event', 'birthday', 'contact');
 						/*$listofcontacttoshow = '';
 						$listofcontacttoshow .= '<br>'.$cacheusers[$tmpid]->getNomUrl(-1, '', 0, 0, 0, 0, '', 'paddingright valignmiddle');
@@ -2220,7 +2220,7 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 								$savlabel = $event->label;
 								$event->label = $titletoshow;
 								// Note: List of users are inside $event->userassigned. Link may be clickable depending on permissions of user.
-								$titletoshow = (($event->type_picto || $event->type_code) ? $event->getTypePicto() : '');
+								$titletoshow = (($event->type_picture || $event->type_code) ? $event->getTypePicto() : '');
 								$titletoshow .= $event->getNomUrl(0, $maxnbofchar, 'cal_event cal_event_title valignmiddle', '', 0, 0);	// do not add 'inline-block' in css here: it makes the title transformed completely into '...'
 								$event->label = $savlabel;
 							}
@@ -2329,7 +2329,7 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 					print($filtert ? '&search_filtert='.urlencode((string) $filtert) : '');
 					print($usergroup ? '&search_usergroup='.urlencode($usergroup) : '');
 					print($actioncode != '' ? '&search_actioncode='.urlencode($actioncode) : '');
-					print '">'.img_picto("all", "1downarrow_selected.png").' ...';
+					print '">'.img_picture("all", "1downarrow_selected.png").' ...';
 					print ' +'.(count($eventarray[$daykey]) - $maxprint);
 					print '</a>';
 					break;
@@ -2345,7 +2345,7 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 	}
 
 	if (getDolGlobalString('MAIN_JS_SWITCH_AGENDA') && $itoshow > $ireallyshown && $maxprint) {
-		print '<div class="center cursorpointer" id="more_'.$ymd.'">'.img_picto("All", "angle-double-down", 'class="warning"').' +'.($itoshow - $ireallyshown).'</div>';
+		print '<div class="center cursorpointer" id="more_'.$ymd.'">'.img_picture("All", "angle-double-down", 'class="warning"').' +'.($itoshow - $ireallyshown).'</div>';
 		//print ' +'.(count($eventarray[$daykey])-$maxprint);
 
 		print '<script type="text/javascript">'."\n";
@@ -2356,9 +2356,9 @@ function show_day_events($db, $day, $month, $year, $monthshown, $style, &$eventa
 		print '  jQuery(".eventday_'.$ymd.'.showifmore").toggle();'."\n";
 		print '  open = open + 1; if (open > 1) { open = 0; }'."\n";
 		print '  if (open) { ';
-		print '   jQuery("#more_'.$ymd.'").html(\''.img_picto("All", "angle-double-up", 'class="warning"').'\');'."\n";
+		print '   jQuery("#more_'.$ymd.'").html(\''.img_picture("All", "angle-double-up", 'class="warning"').'\');'."\n";
 		print '  } else { ';
-		print '   jQuery("#more_'.$ymd.'").html(\''.img_picto("All", "angle-double-down", 'class="warning"').' +'.($itoshow - $ireallyshown).'\');'."\n";
+		print '   jQuery("#more_'.$ymd.'").html(\''.img_picture("All", "angle-double-down", 'class="warning"').' +'.($itoshow - $ireallyshown).'\');'."\n";
 		print '  }'."\n";
 		print ' }'."\n";
 		print '});'."\n";

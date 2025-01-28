@@ -87,7 +87,7 @@ class Documentation
 		// Go back to Dolibarr
 		$this->menu['BackToDolibarr'] = array(
 			'url' => DOL_URL_ROOT,
-			'icon' => 'fas fa-arrow-left pictofixedwidth',
+			'icon' => 'fas fa-arrow-left picturefixedwidth',
 			'submenu' => array(),
 		);
 
@@ -105,7 +105,7 @@ class Documentation
 			'submenu' => array(
 				'Badges' => array(
 					'url' => dol_buildpath($baseUrl.'/components/badges.php', 1),
-					'icon' => 'fas fa-certificate pictofixedwidth',
+					'icon' => 'fas fa-certificate picturefixedwidth',
 					'submenu' => array(),
 					'summary' => array(
 						'DocBasicUsage' => '#badgesection-basicusage',
@@ -119,7 +119,7 @@ class Documentation
 				),
 				'Buttons' => array(
 					'url' => dol_buildpath($baseUrl.'/components/buttons.php', 1),
-					'icon' => 'fas fa-mouse pictofixedwidth',
+					'icon' => 'fas fa-mouse picturefixedwidth',
 					'submenu' => array(),
 					'summary' => array(
 						'DocBasicUsage' => '#buttonsection-basicusage',
@@ -129,7 +129,7 @@ class Documentation
 				),
 				'Progress' => array(
 					'url' => dol_buildpath($baseUrl.'/components/progress-bars.php', 1),
-					'icon' => 'fas fa-battery-half pictofixedwidth',
+					'icon' => 'fas fa-battery-half picturefixedwidth',
 					'submenu' => array(),
 					'summary' => array(
 						'DocBasicUsage' => '#progresse-section-basic-usage',
@@ -139,7 +139,7 @@ class Documentation
 				),
 				'Event Message' => array(
 					'url' => dol_buildpath($baseUrl.'/components/event-message.php', 1),
-					'icon' => 'fas fa-comments pictofixedwidth',
+					'icon' => 'fas fa-comments picturefixedwidth',
 					'submenu' => array(),
 					'summary' => array(
 						'DocBasicUsage' => '#seteventmessagesection-basicusage',
@@ -159,7 +159,7 @@ class Documentation
 			'submenu' => array(
 				'Tables' => array(
 					'url' => dol_buildpath('admin/tools/ui/content/tables.php', 1),
-					'icon' => 'fas fa-table pictofixedwidth',
+					'icon' => 'fas fa-table picturefixedwidth',
 					'submenu' => array(),
 					'summary' => array(
 						'DocBasicUsage' => '#tablesection-basicusage',

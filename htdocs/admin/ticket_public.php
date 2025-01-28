@@ -247,12 +247,12 @@ $enabledisablehtml = $langs->trans("TicketsActivatePublicInterface").' ';
 if (!getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	// Button off, click to enable
 	$enabledisablehtml .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?action=setTICKET_ENABLE_PUBLIC_INTERFACE&token='.newToken().'&value=1'.$param.'">';
-	$enabledisablehtml .= img_picto($langs->trans("Disabled"), 'switch_off');
+	$enabledisablehtml .= img_picture($langs->trans("Disabled"), 'switch_off');
 	$enabledisablehtml .= '</a>';
 } else {
 	// Button on, click to disable
 	$enabledisablehtml .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?action=setTICKET_ENABLE_PUBLIC_INTERFACE&token='.newToken().'&value=0'.$param.'">';
-	$enabledisablehtml .= img_picto($langs->trans("Activated"), 'switch_on');
+	$enabledisablehtml .= img_picture($langs->trans("Activated"), 'switch_on');
 	$enabledisablehtml .= '</a>';
 }
 print $enabledisablehtml;
@@ -274,7 +274,7 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	print '<span class="opacitymedium">'.$langs->trans("TicketPublicAccess").'</span> :<br>';
 	print '<div class="urllink">';
 	print '<input type="text" id="publicurlmember" class="quatrevingtpercentminusx" value="'.$urlwithroot.'/public/ticket/index.php?entity='.$config->entity.'">';
-	print '<a target="_blank" rel="noopener noreferrer" href="'.$urlwithroot.'/public/ticket/index.php?entity='.$config->entity.'">'.img_picto('', 'globe', 'class="paddingleft"').'</a>';
+	print '<a target="_blank" rel="noopener noreferrer" href="'.$urlwithroot.'/public/ticket/index.php?entity='.$config->entity.'">'.img_picture('', 'globe', 'class="paddingleft"').'</a>';
 	print '</div>';
 	print ajax_autoselect('publicurlmember');
 
@@ -304,18 +304,18 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 			print ajax_constantonoff('MAIN_SECURITY_ENABLECAPTCHA_TICKET');
 		} else {
 			if (!getDolGlobalInt('MAIN_SECURITY_ENABLECAPTCHA_TICKET')) {
-				print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MAIN_SECURITY_ENABLECAPTCHA_TICKET&token='.newToken().'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+				print '<a href="'.$_SERVER['PHP_SELF'].'?action=set_MAIN_SECURITY_ENABLECAPTCHA_TICKET&token='.newToken().'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 			} else {
-				print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MAIN_SECURITY_ENABLECAPTCHA_TICKET&token='.newToken().'">'.img_picto($langs->trans("Enabled"), 'on').'</a>';
+				print '<a href="'.$_SERVER['PHP_SELF'].'?action=del_MAIN_SECURITY_ENABLECAPTCHA_TICKET&token='.newToken().'">'.img_picture($langs->trans("Enabled"), 'on').'</a>';
 			}
 		}
 	} else {
-		$desc = $form->textwithpicto('', $langs->transnoentities("EnableGDLibraryDesc"), 1, 'warning');
+		$desc = $form->textWithPicture('', $langs->transnoentities("EnableGDLibraryDesc"), 1, 'warning');
 		print $desc;
 	}
 	print '</td>';
 	print '<td class="center width75">';
-	print $form->textwithpicto('', $langs->trans("TicketUseCaptchaCodeHelp"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("TicketUseCaptchaCodeHelp"), 1, 'help');
 	print '</td>';
 	print '</tr>';
 
@@ -323,13 +323,13 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	print '<tr class="oddeven"><td>'.$langs->trans("TicketsEmailMustExist").'</td>';
 	print '<td class="left">';
 	if (!getDolGlobalInt('TICKET_EMAIL_MUST_EXISTS')) {
-		print '<a href="' . $_SERVER['PHP_SELF'] . '?action=set_TICKET_EMAIL_MUST_EXISTS&token='.newToken().'">' . img_picto($langs->trans('Disabled'), 'switch_off') . '</a>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?action=set_TICKET_EMAIL_MUST_EXISTS&token='.newToken().'">' . img_picture($langs->trans('Disabled'), 'switch_off') . '</a>';
 	} else {
-		print '<a href="' . $_SERVER['PHP_SELF'] . '?action=del_TICKET_EMAIL_MUST_EXISTS&token='.newToken().'">' . img_picto($langs->trans('Enabled'), 'switch_on') . '</a>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?action=del_TICKET_EMAIL_MUST_EXISTS&token='.newToken().'">' . img_picture($langs->trans('Enabled'), 'switch_on') . '</a>';
 	}
 	print '</td>';
 	print '<td class="center width75">';
-	print $form->textwithpicto('', $langs->trans("TicketsEmailMustExistHelp"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("TicketsEmailMustExistHelp"), 1, 'help');
 	print '</td>';
 	print '</tr>';
 
@@ -339,13 +339,13 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	print '<tr class="oddeven"><td>'.$langs->trans("TicketCreateThirdPartyWithContactIfNotExist").'</td>';
 	print '<td class="left">';
 	if (!getDolGlobalInt('TICKET_CREATE_THIRD_PARTY_WITH_CONTACT_IF_NOT_EXIST')) {
-		print '<a href="' . $_SERVER['PHP_SELF'] . '?action=set_TICKET_CREATE_THIRD_PARTY_WITH_CONTACT_IF_NOT_EXIST&token='.newToken().'">' . img_picto($langs->trans('Disabled'), 'switch_off') . '</a>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?action=set_TICKET_CREATE_THIRD_PARTY_WITH_CONTACT_IF_NOT_EXIST&token='.newToken().'">' . img_picture($langs->trans('Disabled'), 'switch_off') . '</a>';
 	} else {
-		print '<a href="' . $_SERVER['PHP_SELF'] . '?action=del_TICKET_CREATE_THIRD_PARTY_WITH_CONTACT_IF_NOT_EXIST&token='.newToken().'">' . img_picto($langs->trans('Enabled'), 'switch_on') . '</a>';
+		print '<a href="' . $_SERVER['PHP_SELF'] . '?action=del_TICKET_CREATE_THIRD_PARTY_WITH_CONTACT_IF_NOT_EXIST&token='.newToken().'">' . img_picture($langs->trans('Enabled'), 'switch_on') . '</a>';
 	}
 	print '</td>';
 	print '<td class="center width75">';
-	print $form->textwithpicto('', $langs->trans("TicketCreateThirdPartyWithContactIfNotExistHelp"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("TicketCreateThirdPartyWithContactIfNotExistHelp"), 1, 'help');
 	print '</td>';
 	print '</tr>';
 	*/
@@ -362,7 +362,7 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	}
 	print '</td>';
 	print '<td class="center width75">';
-	print $form->textwithpicto('', $langs->trans("TicketsShowCompanyLogoHelp"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("TicketsShowCompanyLogoHelp"), 1, 'help');
 	print '</td>';
 	print '</tr>';
 
@@ -377,7 +377,7 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	}
 	print '</td>';
 	print '<td class="center width75">';
-	print $form->textwithpicto('', $langs->trans("TicketsShowCompanyFooterHelp"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("TicketsShowCompanyFooterHelp"), 1, 'help');
 	print '</td>';
 	print '</tr>';
 
@@ -388,14 +388,14 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 		print ajax_constantonoff('TICKET_SHOW_PROGRESSION');
 	} else {
 		if (!getDolGlobalInt('TICKET_SHOW_PROGRESSION')) {
-			print '<a href="' . $_SERVER['PHP_SELF'] . '?action=set_TICKET_SHOW_PROGRESSION&token='.newToken().'">' . img_picto($langs->trans('Disabled'), 'switch_off') . '</a>';
+			print '<a href="' . $_SERVER['PHP_SELF'] . '?action=set_TICKET_SHOW_PROGRESSION&token='.newToken().'">' . img_picture($langs->trans('Disabled'), 'switch_off') . '</a>';
 		} else {
-			print '<a href="' . $_SERVER['PHP_SELF'] . '?action=del_TICKET_SHOW_PROGRESSION&token='.newToken().'">' . img_picto($langs->trans('Enabled'), 'switch_on') . '</a>';
+			print '<a href="' . $_SERVER['PHP_SELF'] . '?action=del_TICKET_SHOW_PROGRESSION&token='.newToken().'">' . img_picture($langs->trans('Enabled'), 'switch_on') . '</a>';
 		}
 	}
 	print '</td>';
 	print '<td class="center width75">';
-	print $form->textwithpicto('', $langs->trans("TicketsShowProgressionHelp"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("TicketsShowProgressionHelp"), 1, 'help');
 	print '</td>';
 	print '</tr>';
 
@@ -417,7 +417,7 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	print '<input type="text"   name="TICKET_PUBLIC_INTERFACE_TOPIC" value="'.$url_interface.'" size="40" ></td>';
 	print '</td>';
 	print '<td class="center width75">';
-	print $form->textwithpicto('', $langs->trans("TicketPublicInterfaceTopicHelp"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("TicketPublicInterfaceTopicHelp"), 1, 'help');
 	print '</td></tr>';
 
 	// Text on home page
@@ -429,7 +429,7 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	$doleditor->Create();
 	print '</td>';
 	print '<td class="center">';
-	print $form->textwithpicto('', $langs->trans("TicketPublicInterfaceTextHomeHelpAdmin"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("TicketPublicInterfaceTextHomeHelpAdmin"), 1, 'help');
 	print '</td></tr>';
 
 	// Text to help to enter a ticket
@@ -441,7 +441,7 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	$doleditor->Create();
 	print '</td>';
 	print '<td class="center">';
-	print $form->textwithpicto('', $langs->trans("TicketPublicInterfaceTextHelpMessageHelpAdmin"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("TicketPublicInterfaceTextHelpMessageHelpAdmin"), 1, 'help');
 	print '</td></tr>';
 
 	// Add first contact id found in database from submitter email entered into public interface
@@ -459,7 +459,7 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	}
 	print '</td>';
 	print '<td class="center">';
-	print $formcategory->textwithpicto('', $langs->trans("TicketAssignContactToMessageHelp"), 1, 'help');
+	print $formcategory->textWithPicture('', $langs->trans("TicketAssignContactToMessageHelp"), 1, 'help');
 	print '</td>';
 	print '</tr>';
 	*/
@@ -471,7 +471,7 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	print '<input type="text" class="minwidth500" name="TICKET_URL_PUBLIC_INTERFACE" value="'.$url_interface.'" placeholder="https://..."></td>';
 	print '</td>';
 	print '<td class="center">';
-	print $form->textwithpicto('', $langs->trans("UrlPublicInterfaceHelpAdmin"), 1, 'help');
+	print $form->textWithPicture('', $langs->trans("UrlPublicInterfaceHelpAdmin"), 1, 'help');
 	print '</td></tr>';
 
 	print '</table>';
@@ -493,7 +493,7 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	// Text of email after creatio of a ticket
 	$mail_mesg_new = getDolGlobalString("TICKET_MESSAGE_MAIL_NEW", $langs->trans('TicketNewEmailBody'));
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("TicketNewEmailBodyLabel"), $langs->trans("TicketNewEmailBodyHelp"), 1, 'help');
+	print $form->textWithPicture($langs->trans("TicketNewEmailBodyLabel"), $langs->trans("TicketNewEmailBodyHelp"), 1, 'help');
 	print '</label>';
 	print '</td><td>';
 	require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
@@ -504,7 +504,7 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 
 	// Activate email notification when a new message is added
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("TicketsPublicNotificationNewMessage"), $langs->trans("TicketsPublicNotificationNewMessageHelp"), 1, 'help');
+	print $form->textWithPicture($langs->trans("TicketsPublicNotificationNewMessage"), $langs->trans("TicketsPublicNotificationNewMessageHelp"), 1, 'help');
 	print '</td>';
 	print '<td class="left">';
 	if ($config->use_javascript_ajax) {
@@ -518,7 +518,7 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 
 	// Send notification when a new message is added to a email if a user is not assigned to the ticket
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("TicketPublicNotificationNewMessageDefaultEmail"), $langs->trans("TicketPublicNotificationNewMessageDefaultEmailHelp"), 1, 'help');
+	print $form->textWithPicture($langs->trans("TicketPublicNotificationNewMessageDefaultEmail"), $langs->trans("TicketPublicNotificationNewMessageDefaultEmailHelp"), 1, 'help');
 	print '</td><td>';
 	print '<input type="text" name="TICKET_PUBLIC_NOTIFICATION_NEW_MESSAGE_DEFAULT_EMAIL" value="'.getDolGlobalString("TICKET_PUBLIC_NOTIFICATION_NEW_MESSAGE_DEFAULT_EMAIL").'" size="40" ></td>';
 	print '</td>';
@@ -527,7 +527,7 @@ if (getDolGlobalInt('TICKET_ENABLE_PUBLIC_INTERFACE')) {
 	// Also send to main email address
 	if (getDolGlobalInt('MAIN_FEATURES_LEVEL') >= 2) {
 		print '<tr class="oddeven"><td>'.$langs->trans("TicketsEmailAlsoSendToMainAddress");
-		print $form->textwithpicto('', $langs->trans("TicketsEmailAlsoSendToMainAddressHelp", $langs->transnoentitiesnoconv("TicketEmailNotificationTo").' ('.$langs->transnoentitiesnoconv("Creation").')', $langs->trans("Settings")), 1, 'help');
+		print $form->textWithPicture('', $langs->trans("TicketsEmailAlsoSendToMainAddressHelp", $langs->transnoentitiesnoconv("TicketEmailNotificationTo").' ('.$langs->transnoentitiesnoconv("Creation").')', $langs->trans("Settings")), 1, 'help');
 		print '</td>';
 		print '<td class="left">';
 		if (!empty($config->use_javascript_ajax)) {

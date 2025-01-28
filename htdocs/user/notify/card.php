@@ -171,11 +171,11 @@ if ($result > 0) {
 	$linkback = '<a href="'.DOL_URL_ROOT.'/user/list.php?restore_lastsearch_values=1">'.$langs->trans("BackToList").'</a>';
 
 	$morehtmlref = '<a href="'.DOL_URL_ROOT.'/user/vcard.php?id='.$object->id.'&output=file&file='.urlencode(dol_sanitizeFileName($object->getFullName($langs).'.vcf')).'" class="refid" rel="noopener">';
-	$morehtmlref .= img_picto($langs->trans("Download").' '.$langs->trans("VCard"), 'vcard.png', 'class="valignmiddle marginleftonly paddingrightonly"');
+	$morehtmlref .= img_picture($langs->trans("Download").' '.$langs->trans("VCard"), 'vcard.png', 'class="valignmiddle marginleftonly paddingrightonly"');
 	$morehtmlref .= '</a>';
 
 	$urltovirtualcard = '/user/virtualcard.php?id='.((int) $object->id);
-	$morehtmlref .= dolButtonToOpenUrlInDialogPopup('publicvirtualcard', $langs->transnoentitiesnoconv("PublicVirtualCardUrl").' - '.$object->getFullName($langs), img_picto($langs->trans("PublicVirtualCardUrl"), 'card', 'class="valignmiddle marginleftonly paddingrightonly"'), $urltovirtualcard, '', 'nohover');
+	$morehtmlref .= dolButtonToOpenUrlInDialogPopup('publicvirtualcard', $langs->transnoentitiesnoconv("PublicVirtualCardUrl").' - '.$object->getFullName($langs), img_picture($langs->trans("PublicVirtualCardUrl"), 'card', 'class="valignmiddle marginleftonly paddingrightonly"'), $urltovirtualcard, '', 'nohover');
 
 	dol_banner_tab($object, 'id', $linkback, $user->hasRight('user', 'user', 'lire') || $user->admin, 'rowid', 'ref', $morehtmlref, '', 0, '', '', 0, '');
 
@@ -195,9 +195,9 @@ if ($result > 0) {
 		$addadmin = '';
 		if (property_exists($object, 'admin')) {
 			if (isModEnabled('multicompany') && !empty($object->admin) && empty($object->entity)) {
-				$addadmin .= img_picto($langs->trans("SuperAdministratorDesc"), "redstar", 'class="paddingleft"');
+				$addadmin .= img_picture($langs->trans("SuperAdministratorDesc"), "redstar", 'class="paddingleft"');
 			} elseif (!empty($object->admin)) {
-				$addadmin .= img_picto($langs->trans("AdministratorDesc"), "star", 'class="paddingleft"');
+				$addadmin .= img_picture($langs->trans("AdministratorDesc"), "star", 'class="paddingleft"');
 			}
 		}
 		print showValueWithClipboardCPButton($object->login).$addadmin;
@@ -261,7 +261,7 @@ if ($result > 0) {
 	$newcardbutton = '';
 	$newcardbutton .= dolGetButtonTitle($langs->trans('New'), '', 'fa fa-plus-circle', $_SERVER["PHP_SELF"].'?id='.$object->id.'&action=create&backtopage='.urlencode($_SERVER['PHP_SELF']), '', (int) $permissiontoadd);
 
-	$titlelist = $form->textwithpicto($langs->trans("ListOfActiveNotifications"), $langs->trans("ListOfActiveNotificationsHelp", $langs->transnoentitiesnoconv("Target"), $langs->transnoentitiesnoconv("Event")));
+	$titlelist = $form->textWithPicture($langs->trans("ListOfActiveNotifications"), $langs->trans("ListOfActiveNotificationsHelp", $langs->transnoentitiesnoconv("Target"), $langs->transnoentitiesnoconv("Event")));
 
 	$limitforsubscription = 0;	// We show all subscription of user. Pagination will be reserved for the section of notifications sent.
 	// List of active notifications
@@ -302,7 +302,7 @@ if ($result > 0) {
 			}
 			print '</td>';
 			print '<td class="tdoverflowmax200">';
-			print img_picto('', 'object_action', '', 0, 0, 0, '', 'paddingright').$form->selectarray("actionid", $actions, '', 1);
+			print img_picture('', 'object_action', '', 0, 0, 0, '', 'paddingright').$form->selectarray("actionid", $actions, '', 1);
 			print '</td>';
 			print '<td>';
 			$type = array('email' => $langs->trans("EMail"));
@@ -350,7 +350,7 @@ if ($result > 0) {
 
 				$label = ($langs->trans("Notify_".$obj->code) != "Notify_".$obj->code ? $langs->trans("Notify_".$obj->code) : $obj->label);
 				print '<td class="tdoverflowmax200" title="'.dol_escape_htmltag($label).'">';
-				print img_picto('', 'object_action', '', 0, 0, 0, '', 'pictofixedwidth').$label;
+				print img_picture('', 'object_action', '', 0, 0, 0, '', 'picturefixedwidth').$label;
 				print '</td>';
 
 				print '<td>';
@@ -470,7 +470,7 @@ if ($result > 0) {
 	print '<input type="hidden" name="page" value="'.$page.'">';
 	print '<input type="hidden" name="id" value="'.$object->id.'">';
 
-	$titlelist = $form->textwithpicto($langs->trans("ListOfNotificationsDone"), $langs->trans("ListOfNotificationsDoneHelp"));
+	$titlelist = $form->textWithPicture($langs->trans("ListOfNotificationsDone"), $langs->trans("ListOfNotificationsDoneHelp"));
 
 	// List of notifications done  @phan-suppress-next-line PhanPluginSuspiciousParamOrder
 	print_barre_liste($titlelist, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, '', $num, $nbtotalofrecords, 'email', 0, '', '', $limit, '');
@@ -513,7 +513,7 @@ if ($result > 0) {
 
 			$label = ($langs->trans("Notify_".$obj->code) != "Notify_".$obj->code ? $langs->trans("Notify_".$obj->code) : $obj->label);
 			print '<td class="tdoverflowmax200" title="'.dol_escape_htmltag($label).'">';
-			print img_picto('', 'object_action', '', 0, 0, 0, '', 'pictofixedwidth').$label;
+			print img_picture('', 'object_action', '', 0, 0, 0, '', 'picturefixedwidth').$label;
 			print '</td>';
 			print '<td>';
 			if ($obj->type == 'email') {

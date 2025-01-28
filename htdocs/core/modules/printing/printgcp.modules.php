@@ -48,7 +48,7 @@ class printing_printgcp extends PrintingDriver
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'printer';
+	public $picture = 'printer';
 
 	/**
 	 * @var string module description
@@ -230,9 +230,9 @@ class printing_printgcp extends PrintingDriver
 			// Default
 			$html .= '<td class="center">';
 			if ($config->global->PRINTING_GCP_DEFAULT == $printer_det['id']) {
-				$html .= img_picto($langs->trans("Default"), 'on');
+				$html .= img_picture($langs->trans("Default"), 'on');
 			} else {
-				$html .= '<a href="'.$_SERVER["PHP_SELF"].'?action=setvalue&token='.newToken().'&mode=test&varname=PRINTING_GCP_DEFAULT&driver=printgcp&value='.urlencode($printer_det['id']).'" alt="'.$langs->trans("Default").'">'.img_picto($langs->trans("Disabled"), 'off').'</a>';
+				$html .= '<a href="'.$_SERVER["PHP_SELF"].'?action=setvalue&token='.newToken().'&mode=test&varname=PRINTING_GCP_DEFAULT&driver=printgcp&value='.urlencode($printer_det['id']).'" alt="'.$langs->trans("Default").'">'.img_picture($langs->trans("Disabled"), 'off').'</a>';
 			}
 			$html .= '</td>';
 			$html .= '</tr>'."\n";

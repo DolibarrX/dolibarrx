@@ -50,7 +50,7 @@ class modBarcode extends DolibarrModules
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'barcode';
+		$this->picture = 'barcode';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/barcode/temp");
@@ -110,7 +110,7 @@ class modBarcode extends DolibarrModules
 			'leftmenu'=>'barcodeprint',
 			'type'=>'left', // This is a Left menu entry
 			'titre'=>'BarCodePrintsheet',
-			'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth"'),
+			'prefix' => img_picture('', $this->picture, 'class="paddingright picturefixedwidth"'),
 			'url'=>'/barcode/printsheet.php?mainmenu=tools&leftmenu=barcodeprint',
 			'langs'=>'products', // Lang file to use (without .lang) by module. File must be in langs/code_CODE/ directory.
 			'position'=>200,

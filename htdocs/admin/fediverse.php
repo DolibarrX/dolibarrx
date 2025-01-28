@@ -323,7 +323,7 @@ $(document).ready(function() {
 print '<tr><td>'.$langs->trans("MAIN_MAIL_SMTPS_AUTH_TYPE").'</td>';
 print '<td>';
 print '<input type="radio" id="radio_oauth" name="'.$vartosmtpstype.'" value="XOAUTH2"'.(getDolGlobalString($vartosmtpstype) == 'XOAUTH2' ? ' checked' : '').(isModEnabled('oauth') ? '' : ' disabled').'>';
-print '<label for="radio_oauth">'.$form->textwithpicto($langs->trans("UseOauth"), $langs->trans("OauthNotAvailableForAllAndHadToBeCreatedBefore")).'</label>';
+print '<label for="radio_oauth">'.$form->textWithPicture($langs->trans("UseOauth"), $langs->trans("OauthNotAvailableForAllAndHadToBeCreatedBefore")).'</label>';
 if (!isModEnabled('oauth')) {
 	print ' &nbsp; <a href="'.DOL_URL_ROOT.'/admin/modules.php?search_keyword=oauth">'.$langs->trans("EnableModuleX", "OAuth").'</a>';
 } else {
@@ -352,15 +352,15 @@ if (!isModEnabled('multicompany') || ($user->admin && !$user->entity)) {
 		$text = $langs->trans("Undefined");
 	}
 	$htmltext = $langs->trans("ContactSuperAdminForChange");
-	print $form->textwithpicto($text, $htmltext, 1, 'superadmin');
+	print $form->textWithPicture($text, $htmltext, 1, 'superadmin');
 	print '<input type="hidden" name="OAUTH_SERVICE_SOCIAL_NETWORK" value="'.$selectedKey.'">';
 }
 print '</td>';
 print '</tr>';
 
 print '<tr class="oddeven" id="add_param_row"><td>';
-print $form->textwithpicto($langs->trans("Others"), $langs->trans("AddMoreParams"));
-print '</td><td><button type="button" id="addParamButton">'.img_picto($langs->trans("AddMoreParams"), 'add', 'pictofixedwidth').'</button></td>';
+print $form->textWithPicture($langs->trans("Others"), $langs->trans("AddMoreParams"));
+print '</td><td><button type="button" id="addParamButton">'.img_picture($langs->trans("AddMoreParams"), 'add', 'picturefixedwidth').'</button></td>';
 print '<td>Token : ****<br>Cookie : ****</td>';
 print '</tr>';
 
@@ -512,7 +512,7 @@ if ($resql) {
 		print "<td>".$langs->trans("Status")."</td>";
 		print "<td>";
 		if ($result > 0 && empty($fediverseparser->error)) {
-			print '<span class="ok">'.img_picto($langs->trans("Online"), 'tick', 'class="pictofixedwidth"').$langs->trans("Online").'</div>';
+			print '<span class="ok">'.img_picture($langs->trans("Online"), 'tick', 'class="picturefixedwidth"').$langs->trans("Online").'</div>';
 		} else {
 			print '<span class="error">'.$langs->trans("Offline");
 			$langs->load("errors");

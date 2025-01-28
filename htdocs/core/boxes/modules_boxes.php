@@ -52,7 +52,7 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 	public $param;
 
 	/**
-	 * @var array<array{text:string,nbcol?:int,limit?:int,graph?:int<0,1>,sublink?:string,subtext?:string,picto?:string,target?:string,td?:string}>|array{text:string,nbcol?:int,limit?:int,graph?:int<0,1>,sublink?:string,subtext?:string,picto?:string,target?:string,td?:string} box info heads. Example: array('text' => $langs->trans("BoxScheduledJobs", $max), 'nbcol' => 4);
+	 * @var array<array{text:string,nbcol?:int,limit?:int,graph?:int<0,1>,sublink?:string,subtext?:string,picture?:string,target?:string,td?:string}>|array{text:string,nbcol?:int,limit?:int,graph?:int<0,1>,sublink?:string,subtext?:string,picture?:string,target?:string,td?:string} box info heads. Example: array('text' => $langs->trans("BoxScheduledJobs", $max), 'nbcol' => 4);
 	 */
 	public $info_box_head = array();
 
@@ -145,7 +145,7 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 
 	//! Must be provided in child classes
 	/**
-	 * Note $picto is deprecated
+	 * Note $picture is deprecated
 	 *
 	 * @var string  Example "accountancy"
 	 */
@@ -248,7 +248,7 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 	/**
 	 * Standard method to show a box (usage by boxes not mandatory, a box can still use its own showBox function)
 	 *
-	 * @param   ?array<array{text?:string,sublink?:string,subtext?:string,subpicto?:?string,picto?:string,nbcol?:int,limit?:int,subclass?:string,graph?:int<0,1>,target?:string}>   $head       Array with properties of box title
+	 * @param   ?array<array{text?:string,sublink?:string,subtext?:string,subpicture?:?string,picture?:string,nbcol?:int,limit?:int,subclass?:string,graph?:int<0,1>,target?:string}>   $head       Array with properties of box title
 	 * @param   ?array<array{tr?:string,td?:string,target?:string,text?:string,text2?:string,textnoformat?:string,tooltip?:string,logo?:string,url?:string,maxlength?:int,asis?:int<0,1>}>   $contents   Array with properties of box lines
 	 * @param	int<0,1>	$nooutput	No print, only return string
 	 * @return  string
@@ -289,12 +289,12 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 			$out .= "\n<!-- Box ".get_class($this)." start -->\n";
 
 			$out .= '<div class="box divboxtable boxdraggable" id="boxto_'.$this->box_id.'">'."\n";
-			if (!empty($head['text']) || !empty($head['sublink']) || !empty($head['subpicto']) || $nblines) {
+			if (!empty($head['text']) || !empty($head['sublink']) || !empty($head['subpicture']) || $nblines) {
 				$out .= '<table summary="boxtable'.$this->box_id.'" class="noborder boxtable centpercent">'."\n";
 			}
 
 			// Show box title
-			if (!empty($head['text']) || !empty($head['sublink']) || !empty($head['subpicto'])) {
+			if (!empty($head['text']) || !empty($head['sublink']) || !empty($head['subpicture'])) {
 				$out .= '<tr class="liste_titre box_titre">';
 				$out .= '<th';
 				if (!empty($head['nbcol'])) {
@@ -322,8 +322,8 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 					if (!empty($head['sublink'])) {
 						$sublink .= '<a href="'.$head['sublink'].'"'.(empty($head['target']) ? '' : ' target="'.$head['target'].'"').'>';
 					}
-					if (!empty($head['subpicto']) && !is_array($head['subtext']) && !is_array($head['subpicto'])) {
-						$sublink .= img_picto($head['subtext'], $head['subpicto'], 'class="opacitymedium marginleftonly '.(empty($head['subclass']) ? '' : $head['subclass']).'" id="idsubimg'.$this->boxcode.'"');
+					if (!empty($head['subpicture']) && !is_array($head['subtext']) && !is_array($head['subpicture'])) {
+						$sublink .= img_picture($head['subtext'], $head['subpicture'], 'class="opacitymedium marginleftonly '.(empty($head['subclass']) ? '' : $head['subclass']).'" id="idsubimg'.$this->boxcode.'"');
 					}
 					if (!empty($head['sublink'])) {
 						$sublink .= '</a>';
@@ -333,8 +333,8 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 					$out .= '<div class="nocellnopadd boxclose floatright nowraponall">';
 					$out .= $sublink;
 					// The image must have the class 'boxhandle' because it's value used in DOM draggable objects to define the area used to catch the full object
-					$out .= img_picto($langs->trans("MoveBox", $this->box_id), 'grip_title', 'class="opacitymedium boxhandle hideonsmartphone cursormove marginleftonly"');
-					$out .= img_picto($langs->trans("CloseBox", $this->box_id), 'close_title', 'class="opacitymedium boxclose cursorpointer marginleftonly" rel="x:y" id="imgclose'.$this->box_id.'"');
+					$out .= img_picture($langs->trans("MoveBox", $this->box_id), 'grip_title', 'class="opacitymedium boxhandle hideonsmartphone cursormove marginleftonly"');
+					$out .= img_picture($langs->trans("CloseBox", $this->box_id), 'close_title', 'class="opacitymedium boxclose cursorpointer marginleftonly" rel="x:y" id="imgclose'.$this->box_id.'"');
 					$label = $head['text'];
 					//if (!empty($head['graph'])) $label.=' ('.$langs->trans("Graph").')';
 					if (!empty($head['graph'])) {
@@ -438,24 +438,24 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 					}
 				}
 			} else {
-				if (!empty($head['text']) || !empty($head['sublink']) || !empty($head['subpicto']) || $nblines) {
+				if (!empty($head['text']) || !empty($head['sublink']) || !empty($head['subpicture']) || $nblines) {
 					$out .= '<tr><td colspan="2" class="center"><span class="opacitymedium">'.$langs->trans($this->msgNoRecords).' </span>';
 
 					// Check if $urltoaddentry is defined for the widget
 					if (!empty($this->urltoaddentry)) {
-						$out .= '<a href="'.$this->urltoaddentry.'">'.img_picto($langs->trans("New"), 'add', 'pictofixedwidth').'</a>';
+						$out .= '<a href="'.$this->urltoaddentry.'">'.img_picture($langs->trans("New"), 'add', 'picturefixedwidth').'</a>';
 					}
 
 					$out .= '</td></tr>';
 				}
 			}
 
-			if (!empty($head['text']) || !empty($head['sublink']) || !empty($head['subpicto']) || $nblines) {
+			if (!empty($head['text']) || !empty($head['sublink']) || !empty($head['subpicture']) || $nblines) {
 				$out .= "</table>\n";
 			}
 
 			// If invisible box with no contents
-			if (empty($head['text']) && empty($head['sublink']) && empty($head['subpicto']) && !$nblines) {
+			if (empty($head['text']) && empty($head['sublink']) && empty($head['subpicture']) && !$nblines) {
 				$out .= "<br>\n";
 			}
 
@@ -486,7 +486,7 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 	 *  List is sorted by widget filename so by priority to run.
 	 *
 	 *  @param	?string[]	$forcedirwidget		null=All default directories. This parameter is used by modulebuilder module only.
-	 *	@return	array<array{picto:string,file:string,fullpath:string,relpath:string,iscoreorexternal:'external'|'internal',version:string,status:string,info:string}>	Array list of widgets
+	 *	@return	array<array{picture:string,file:string,fullpath:string,relpath:string,iscoreorexternal:'external'|'internal',version:string,status:string,info:string}>	Array list of widgets
 	 *
 	 */
 	public static function getWidgetsList($forcedirwidget = null)
@@ -586,13 +586,13 @@ class ModeleBoxes // Can't be abstract as it is instantiated to build "empty" bo
 				}
 
 				// We set info of modules  @phan-suppress-next-line PhanUndeclaredProperty
-				$widget[$j]['picto'] = ((!property_exists($objMod, 'picto') || empty($objMod->picto)) ? (empty($objMod->boximg) ? img_object('', 'generic') : $objMod->boximg) : img_object('', $objMod->picto));
+				$widget[$j]['picture'] = ((!property_exists($objMod, 'picture') || empty($objMod->picture)) ? (empty($objMod->boximg) ? img_object('', 'generic') : $objMod->boximg) : img_object('', $objMod->picture));
 				$widget[$j]['file'] = $files[$key];
 				$widget[$j]['fullpath'] = $fullpath[$key];
 				$widget[$j]['relpath'] = $relpath[$key];
 				$widget[$j]['iscoreorexternal'] = $iscoreorexternal[$key];
 				$widget[$j]['version'] = empty($objMod->version) ? '' : $objMod->version;
-				$widget[$j]['status'] = img_picto($langs->trans("Active"), 'tick');
+				$widget[$j]['status'] = img_picture($langs->trans("Active"), 'tick');
 				if ($disabledbyname > 0 || $disabledbymodule > 1) {
 					$widget[$j]['status'] = '';
 				}

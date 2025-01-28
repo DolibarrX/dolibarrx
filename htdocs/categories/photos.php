@@ -257,7 +257,7 @@ if ($object->id) {
 
 				// On propose la generation de la vignette si elle n'existe pas et si la taille est superieure aux limites
 				if (!$obj['photo_vignette'] && preg_match('/(\.bmp|\.gif|\.jpg|\.jpeg|\.png)$/i', $obj['photo']) && ($object->imgWidth > $maxWidth || $object->imgHeight > $maxHeight)) {
-					print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&token='.newToken().'&action=addthumb&type='.$type.'&file='.urlencode($pdir.$viewfilename).'">'.img_picto($langs->trans('GenerateThumb'), 'refresh').'&nbsp;&nbsp;</a>';
+					print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&token='.newToken().'&action=addthumb&type='.$type.'&file='.urlencode($pdir.$viewfilename).'">'.img_picture($langs->trans('GenerateThumb'), 'refresh').'&nbsp;&nbsp;</a>';
 				}
 				if ($user->hasRight('category', 'creer')) {
 					print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=delete&token='.newToken().'&type='.$type.'&file='.urlencode($pdir.$viewfilename).'">';

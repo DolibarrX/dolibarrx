@@ -77,7 +77,7 @@ class Order extends CommonOrder
 	/**
 	 * @var string String with name of icon for order class. Here is object_order.png
 	 */
-	public $picto = 'order';
+	public $picture = 'order';
 
 	/**
 	 * 0=Default, 1=View may be restricted to sales representative only if no permission to see all or to company of external user if external user
@@ -3669,7 +3669,7 @@ class Order extends CommonOrder
 	 * getTooltipContentArray
 	 * @param array<string,mixed> $params params to construct tooltip data
 	 * @since v18
-	 * @return array{picto?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
+	 * @return array{picture?:string,ref?:string,refsupplier?:string,label?:string,date?:string,date_echeance?:string,amountht?:string,total_ht?:string,totaltva?:string,amountlt1?:string,amountlt2?:string,amountrevenustamp?:string,totalttc?:string}|array{optimize:string}
 	 */
 	public function getTooltipContentArray($params)
 	{
@@ -3684,7 +3684,7 @@ class Order extends CommonOrder
 		}
 
 		if ($user->hasRight('order', 'lire')) {
-			$datas['picto'] = img_picto('', $this->picto, '', 0, 0, 0, '', 'paddingrightonly').'<u>'.$langs->trans("Order").'</u>';
+			$datas['picture'] = img_picture('', $this->picture, '', 0, 0, 0, '', 'paddingrightonly').'<u>'.$langs->trans("Order").'</u>';
 			if (isset($this->statut)) {
 				$datas['status'] = ' '.$this->getLibStatut(5);
 			}
@@ -3727,9 +3727,9 @@ class Order extends CommonOrder
 	}
 
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
-	 *	@param      int			$withpicto                Add picto into link
+	 *	@param      int			$withPicture                Add picture into link
 	 *	@param      string	    $option                   Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *	@param      int			$max          	          Max length to show
 	 *	@param      int			$short			          ???
@@ -3739,7 +3739,7 @@ class Order extends CommonOrder
 	 *  @param		string		$target			  		  attribute target for link
 	 *	@return     string          			          String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $max = 0, $short = 0, $notooltip = 0, $save_lastsearch_value = -1, $addlinktonotes = 0, $target = '')
+	public function getNomUrl($withPicture = 0, $option = '', $max = 0, $short = 0, $notooltip = 0, $save_lastsearch_value = -1, $addlinktonotes = 0, $target = '')
 	{
 		global $config, $langs, $user, $hookManager;
 
@@ -3814,10 +3814,10 @@ class Order extends CommonOrder
 		}
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), $this->picto, (($withpicto != 2) ? 'class="paddingright"' : ''), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), $this->picture, (($withPicture != 2) ? 'class="paddingright"' : ''), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 		$result .= $linkend;
@@ -3828,9 +3828,9 @@ class Order extends CommonOrder
 				$notetoshow = $langs->trans("ViewPrivateNote").':<br>'.dol_string_nohtmltag($txttoshow, 1);
 				$result .= ' <span class="note inline-block">';
 				$result .= '<a href="'.DOL_URL_ROOT.'/order/note.php?id='.$this->id.'" class="classfortooltip" title="'.dol_escape_htmltag($notetoshow).'">';
-				$result .= img_picto('', 'note');
+				$result .= img_picture('', 'note');
 				$result .= '</a>';
-				//$result.=img_picto($langs->trans("ViewNote"),'object_generic');
+				//$result.=img_picture($langs->trans("ViewNote"),'object_generic');
 				//$result.='</a>';
 				$result .= '</span>';
 			}

@@ -211,10 +211,10 @@ foreach ($dirmodels as $reldir) {
 
 						print '<td class="center">';
 						if (getDolGlobalString('TAKEPOS_REF_ADDON') == "$file") {
-							print img_picto($langs->trans("Activated"), 'switch_on');
+							print img_picture($langs->trans("Activated"), 'switch_on');
 						} else {
 							print '<a href="'.$_SERVER["PHP_SELF"].'?action=setrefmod&token='.newToken().'&value='.urlencode($file).'">';
-							print img_picto($langs->trans("Disabled"), 'switch_off');
+							print img_picture($langs->trans("Disabled"), 'switch_off');
 							print '</a>';
 						}
 						print '</td>';
@@ -242,7 +242,7 @@ foreach ($dirmodels as $reldir) {
 						}
 
 						print '<td align="center">';
-						print $form->textwithpicto('', $htmltooltip, 1, 0);
+						print $form->textWithPicture('', $htmltooltip, 1, 0);
 						print '</td>';
 
 						print "</tr>\n";
@@ -293,7 +293,7 @@ if (isModEnabled("service")) {
 
 // Root category for products
 print '<tr class="oddeven"><td>';
-print $form->textwithpicto($langs->trans("RootCategoryForProductsToSell"), $langs->trans("RootCategoryForProductsToSellDesc"));
+print $form->textWithPicture($langs->trans("RootCategoryForProductsToSell"), $langs->trans("RootCategoryForProductsToSellDesc"));
 print '<td>';
 print img_object('', 'category', 'class="paddingright"').$form->select_all_categories(Category::TYPE_PRODUCT, getDolGlobalInt('TAKEPOS_ROOT_CATEGORY_ID'), 'TAKEPOS_ROOT_CATEGORY_ID', 64, 0, 0, 0, 'maxwidth500 widthcentpercentminusx');
 print ajax_combobox('TAKEPOS_ROOT_CATEGORY_ID');
@@ -416,7 +416,7 @@ print "</td></tr>\n";
 // Barcode rule to insert product
 if (isModEnabled('barcode')) {
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("TakeposBarcodeRuleToInsertProduct"), $langs->trans("TakeposBarcodeRuleToInsertProductDesc"), 1, 'help', '', 0, 3, 'barcoderuleonsmartphone');
+	print $form->textWithPicture($langs->trans("TakeposBarcodeRuleToInsertProduct"), $langs->trans("TakeposBarcodeRuleToInsertProductDesc"), 1, 'help', '', 0, 3, 'barcoderuleonsmartphone');
 	print '<td>';
 	print '<input type="text" name="TAKEPOS_BARCODE_RULE_TO_INSERT_PRODUCT" value="' . (getDolGlobalString('TAKEPOS_BARCODE_RULE_TO_INSERT_PRODUCT')) . '">';
 	print "</td></tr>\n";

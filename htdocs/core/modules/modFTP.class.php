@@ -57,7 +57,7 @@ class modFTP extends DolibarrModules
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of png file (without png) used for this module
-		$this->picto = 'folder';
+		$this->picture = 'folder';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/ftp/temp");
@@ -113,7 +113,7 @@ class modFTP extends DolibarrModules
 		$this->menu[$r] = array('fk_menu'=>0,
 							  'type'=>'top',
 							  'titre'=>'FTP',
-							  'prefix' => img_picto('', $this->picto, 'class="pictofixedwidth em092"'),
+							  'prefix' => img_picture('', $this->picture, 'class="picturefixedwidth em092"'),
 							  'mainmenu'=>'ftp',
 							  'url'=>'/ftp/index.php',
 							  'langs'=>'ftp',

@@ -305,9 +305,9 @@ $title = ($modulename ? $modulename : $moduledesc);
 
 print '<div class="centpercent">';
 
-$picto = 'object_'.$objMod->picto;
+$picture = 'object_'.$objMod->picture;
 
-print load_fiche_titre(($modulename ? $modulename : $moduledesc), $moreinfo, $picto, 0, '', 'titlemodulehelp');
+print load_fiche_titre(($modulename ? $modulename : $moduledesc), $moreinfo, $picture, 0, '', 'titlemodulehelp');
 print '<br>';
 
 print dol_get_fiche_head($head, $mode, '', -1);
@@ -326,7 +326,7 @@ if (isset($objMod->langfiles) && is_array($objMod->langfiles)) {
 
 
 
-// Version (with picto warning or not)
+// Version (with picture warning or not)
 $version = $objMod->getVersion(0);
 $versiontrans = '';
 if (preg_match('/development/i', $version)) {
@@ -367,7 +367,7 @@ if ($mode == 'desc') {
 		global $dolibarr_allow_download_external_modules;
 		if (!empty($dolibarr_allow_download_external_modules) && preg_match('/\/custom\//', (string) $dirofmodule)) {
 			// Add a link to download a zip of the module
-			$textexternal .= ' <a href="'.DOL_URL_ROOT.'/admin/tools/export_files.php?export_type=externalmodule&what='.urlencode($moduledir).'&compression=zip&zipfilename_template=module_'.$moduledir.'-'.$version.'.notorig" target="_blank" rel="noopener">'.img_picto('', 'download').'</a>';
+			$textexternal .= ' <a href="'.DOL_URL_ROOT.'/admin/tools/export_files.php?export_type=externalmodule&what='.urlencode($moduledir).'&compression=zip&zipfilename_template=module_'.$moduledir.'-'.$version.'.notorig" target="_blank" rel="noopener">'.img_picture('', 'download').'</a>';
 		}
 
 		if ($objMod->editor_name != 'dolibarr') {
@@ -378,7 +378,7 @@ if ($mode == 'desc') {
 			$editor_url = 'http://'.$editor_url;
 		}
 		if (!empty($objMod->editor_url) && !preg_match('/dolibarr\.org/i', $objMod->editor_url)) {
-			$textexternal .= ($objMod->editor_name != 'dolibarr' ? ' - ' : '').img_picto('', 'globe').' <a href="'.$editor_url.'" target="_blank" rel="noopener noreferrer external">'.$objMod->editor_url.'</a>';
+			$textexternal .= ($objMod->editor_name != 'dolibarr' ? ' - ' : '').img_picture('', 'globe').' <a href="'.$editor_url.'" target="_blank" rel="noopener noreferrer external">'.$objMod->editor_url.'</a>';
 		}
 		$text .= $textexternal;
 	} else {

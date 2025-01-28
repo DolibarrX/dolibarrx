@@ -148,7 +148,7 @@ if ($mine) {
 	}
 }
 
-print_barre_liste($form->textwithpicto($title, $htmltooltip), 0, $_SERVER["PHP_SELF"], '', '', '', '', 0, -1, 'project', 0, $morehtml);
+print_barre_liste($form->textWithPicture($title, $htmltooltip), 0, $_SERVER["PHP_SELF"], '', '', '', '', 0, -1, 'project', 0, $morehtml);
 
 
 // Get list of ponderated percent and colors for each status

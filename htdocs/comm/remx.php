@@ -301,7 +301,7 @@ if ($socid > 0) {
 		print '<tr><td class="titlefieldmiddle">'.$langs->trans("CustomerAbsoluteDiscountAllUsers").'</td>';
 		print '<td class="amount">'.price($remise_all, 1, $langs, 1, -1, -1, $config->currency).' '.$langs->trans("HT");
 		if (empty($user->fk_soc)) {    // No need to show this for external users
-			print $form->textwithpicto('', $langs->trans("CustomerAbsoluteDiscountMy").': '.price($remise_user, 1, $langs, 1, -1, -1, $config->currency).' '.$langs->trans("HT"));
+			print $form->textWithPicture('', $langs->trans("CustomerAbsoluteDiscountMy").': '.price($remise_user, 1, $langs, 1, -1, -1, $config->currency).' '.$langs->trans("HT"));
 		}
 		print '</td></tr>';
 	}
@@ -330,7 +330,7 @@ if ($socid > 0) {
 		print '<tr><td class="titlefieldmiddle">'.$langs->trans("SupplierAbsoluteDiscountAllUsers").'</td>';
 		print '<td class="amount">'.price($remise_all, 1, $langs, 1, -1, -1, $config->currency).' '.$langs->trans("HT");
 		if (empty($user->fk_soc)) {    // No need to show this for external users
-			print $form->textwithpicto('', $langs->trans("SupplierAbsoluteDiscountMy").' : '.price($remise_user, 1, $langs, 1, -1, -1, $config->currency).' '.$langs->trans("HT"));
+			print $form->textWithPicture('', $langs->trans("SupplierAbsoluteDiscountMy").' : '.price($remise_user, 1, $langs, 1, -1, -1, $config->currency).' '.$langs->trans("HT"));
 		}
 		print '</td></tr>';
 	}

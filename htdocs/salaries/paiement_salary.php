@@ -236,7 +236,7 @@ if ($action == 'create') {
 	print '<tr>';
 	print '<td class="fieldrequired">'.$langs->trans('AccountToDebit').'</td>';
 	print '<td>';
-	print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+	print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 	$form->select_comptes(GETPOSTISSET("accountid") ? GETPOSTINT("accountid") : $salary->accountid, "accountid", 0, '', 1); // Show opend bank account list
 	print '</td></tr>';
 
@@ -300,7 +300,7 @@ if ($action == 'create') {
 			$nameRemain = "remain_".$objp->id;
 			/* Disabled, we autofil the amount with remain to pay by default
 			if (!empty($config->use_javascript_ajax)) {
-				print img_picto("Auto fill", 'rightarrow', "class='AutoFillAmount' data-rowid='".$namef."' data-value='".($objp->amount - $sumpaid)."'");
+				print img_picture("Auto fill", 'rightarrow', "class='AutoFillAmount' data-rowid='".$namef."' data-value='".($objp->amount - $sumpaid)."'");
 			} */
 			$valuetoshow = GETPOSTISSET($namef) ? GETPOST($namef) : ((float) $objp->amount - $sumpaid);
 

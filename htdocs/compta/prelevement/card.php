@@ -307,7 +307,7 @@ if ($id > 0 || $ref) {
 	*/
 	print '<tr><td class="titlefieldcreate">';
 	print '<table class="nobordernopadding centpercent"><tr><td class="nowrap">';
-	print $form->textwithpicto($langs->trans("BankAccount"), $langs->trans($labelofbankfield));
+	print $form->textWithPicture($langs->trans("BankAccount"), $langs->trans($labelofbankfield));
 	print '<td>';
 	if (($action != 'editbankaccount') && $caneditbank) {
 		print '<td class="right"><a class="editfielda" href="'.$_SERVER["PHP_SELF"].'?action=editfkbankaccount&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->trans('SetBankAccount'), 1).'</a></td>';
@@ -352,7 +352,7 @@ if ($id > 0 || $ref) {
 	}
 
 	print '<a data-ajax="false" href="'.DOL_URL_ROOT.'/document.php?type=text/plain&amp;modulepart='.$modulepart.'&amp;file='.urlencode($relativepath).'">'.$relativepath;
-	print img_picto('', 'download', 'class="paddingleft"');
+	print img_picture('', 'download', 'class="paddingleft"');
 	print '</a>';
 	print '</td></tr>';
 

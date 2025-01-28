@@ -287,7 +287,7 @@ while ($tmpecmdir && $result > 0) {
 
 $urlfiletoshow = preg_replace('/\.noexe$/', '', $urlfile);
 
-$s = img_picto('', 'object_dir').' <a href="'.DOL_URL_ROOT.'/ecm/index.php">'.$langs->trans("ECMRoot").'</a> -> '.$s.' -> ';
+$s = img_picture('', 'object_dir').' <a href="'.DOL_URL_ROOT.'/ecm/index.php">'.$langs->trans("ECMRoot").'</a> -> '.$s.' -> ';
 if ($action == 'edit') {
 	$s .= '<input type="text" name="label" class="quatrevingtpercent" value="'.$urlfiletoshow.'">';
 } else {
@@ -338,7 +338,7 @@ $urlwithroot = $urlwithouturlroot.DOL_URL_ROOT; // This is to use external domai
 
 // Link for internal download
 print '<tr><td>';
-print $form->textwithpicto($langs->trans("DirectDownloadInternalLink"), $langs->trans("PrivateDownloadLinkDesc"));
+print $form->textWithPicture($langs->trans("DirectDownloadInternalLink"), $langs->trans("PrivateDownloadLinkDesc"));
 print '</td><td>';
 $modulepart = 'ecm';
 $forcedownload = 1;
@@ -351,23 +351,23 @@ if (!empty($object->entity)) {
 }
 $rellink .= '&file='.urlencode($filepath);
 $fulllink = $urlwithroot.$rellink;
-print img_picto('', 'globe').' ';
+print img_picture('', 'globe').' ';
 if ($action != 'edit') {
 	print '<input type="text" class="maxquatrevingtpercent widthcentpercentminusxx" id="downloadinternallink" name="downloadinternellink" value="'.dol_escape_htmltag($fulllink).'">';
 } else {
 	print $fulllink;
 }
 if ($action != 'edit') {
-	print ' <a href="'.$fulllink.'">'.img_picto($langs->trans("Download"), 'download', 'class="opacitymedium paddingrightonly"').'</a>'; // No target here.
+	print ' <a href="'.$fulllink.'">'.img_picture($langs->trans("Download"), 'download', 'class="opacitymedium paddingrightonly"').'</a>'; // No target here.
 }
 print '</td></tr>';
 
 // Link for direct external download
 print '<tr><td>';
 if ($action != 'edit') {
-	print $form->textwithpicto($langs->trans("DirectDownloadLink"), $langs->trans("PublicDownloadLinkDesc"));
+	print $form->textWithPicture($langs->trans("DirectDownloadLink"), $langs->trans("PublicDownloadLinkDesc"));
 } else {
-	print $form->textwithpicto($langs->trans("FileSharedViaALink"), $langs->trans("PublicDownloadLinkDesc"));
+	print $form->textWithPicture($langs->trans("FileSharedViaALink"), $langs->trans("PublicDownloadLinkDesc"));
 }
 print '</td><td>';
 if (!empty($object->share)) {
@@ -386,7 +386,7 @@ if (!empty($object->share)) {
 		//if (!empty($object->ref))       $fulllink.='&hashn='.$object->ref;		// Hash of file path
 		//elseif (!empty($object->label)) $fulllink.='&hashc='.$object->label;		// Hash of file content
 
-		print img_picto('', 'globe').' ';
+		print img_picture('', 'globe').' ';
 		if ($action != 'edit') {
 			print '<input type="text" class="quatrevingtpercent nopadding small" id="downloadlink" name="downloadexternallink" value="'.dol_escape_htmltag($fulllink).'">';
 		} else {

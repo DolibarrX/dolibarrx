@@ -922,8 +922,8 @@ if ($resql) {
 	}
 	// Actions
 	print '<td class="liste_titre maxwidthsearch">';
-	$searchpicto = $form->showFilterAndCheckAddButtons(0);
-	print $searchpicto;
+	$searchPicture = $form->showFilterAndCheckAddButtons(0);
+	print $searchPicture;
 	print '</td>';
 	print "</tr>\n";
 

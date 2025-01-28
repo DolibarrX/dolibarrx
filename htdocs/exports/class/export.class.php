@@ -268,7 +268,7 @@ class Export
 									// Permission
 									$this->array_export_perms[$i] = $bool;
 									// Icon
-									$this->array_export_icon[$i] = (isset($module->export_icon[$r]) ? $module->export_icon[$r] : $module->picto);
+									$this->array_export_icon[$i] = (isset($module->export_icon[$r]) ? $module->export_icon[$r] : $module->picture);
 									// Code of the export dataset / Code du dataset export
 									$this->array_export_code[$i] = $module->export_code[$r];
 									// Define a key for sort

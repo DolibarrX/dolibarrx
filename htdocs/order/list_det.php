@@ -880,10 +880,10 @@ if ($resql) {
 	// List of mass actions available
 	$arrayofmassactions = array(
 		// TODO add mass action here
-		// 'builddoc'=>img_picto('', 'pdf', 'class="pictofixedwidth"').$langs->trans("PDFMerge"),
+		// 'builddoc'=>img_picture('', 'pdf', 'class="picturefixedwidth"').$langs->trans("PDFMerge"),
 	);
 	// if ($permissiontovalidate) {
-	// 	$arrayofmassactions['prevalidate'] = img_picto('', 'check', 'class="pictofixedwidth"').$langs->trans("Validate");
+	// 	$arrayofmassactions['prevalidate'] = img_picture('', 'check', 'class="picturefixedwidth"').$langs->trans("Validate");
 	// }
 	$massactionbutton = $form->selectMassAction('', $arrayofmassactions);
 
@@ -939,14 +939,14 @@ if ($resql) {
 		$langs->load("commercial");
 		$moreforfilter .= '<div class="divsearchfield">';
 		$tmptitle = $langs->trans('ThirdPartiesOfSaleRepresentative');
-		$moreforfilter .= img_picto($tmptitle, 'user', 'class="pictofixedwidth"').$formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $tmptitle, 'maxwidth250 widthcentpercentminusx');
+		$moreforfilter .= img_picture($tmptitle, 'user', 'class="picturefixedwidth"').$formother->select_salesrepresentatives($search_sale, 'search_sale', $user, 0, $tmptitle, 'maxwidth250 widthcentpercentminusx');
 		$moreforfilter .= '</div>';
 	}
 	// If the user can view other users
 	if ($user->hasRight('user', 'user', 'lire')) {
 		$moreforfilter .= '<div class="divsearchfield">';
 		$tmptitle = $langs->trans('LinkedToSpecificUsers');
-		$moreforfilter .= img_picto($tmptitle, 'user', 'class="pictofixedwidth"').$form->select_dolusers($search_user, 'search_user', $tmptitle, '', 0, '', '', 0, 0, 0, '', 0, '', 'maxwidth250 widthcentpercentminusx');
+		$moreforfilter .= img_picture($tmptitle, 'user', 'class="picturefixedwidth"').$form->select_dolusers($search_user, 'search_user', $tmptitle, '', 0, '', '', 0, 0, 0, '', 0, '', 'maxwidth250 widthcentpercentminusx');
 		$moreforfilter .= '</div>';
 	}
 	// Filter on categories
@@ -958,7 +958,7 @@ if ($resql) {
 		require_once DOL_DOCUMENT_ROOT.'/categories/class/category.class.php';
 		$moreforfilter .= '<div class="divsearchfield">';
 		$tmptitle = $langs->trans('CustomersProspectsCategoriesShort');
-		$moreforfilter .= img_picto($tmptitle, 'category', 'class="pictofixedwidth"').$formother->select_categories('customer', $search_categ_cus, 'search_categ_cus', 1, $tmptitle, 'maxwidth300 widthcentpercentminusx');
+		$moreforfilter .= img_picture($tmptitle, 'category', 'class="picturefixedwidth"').$formother->select_categories('customer', $search_categ_cus, 'search_categ_cus', 1, $tmptitle, 'maxwidth300 widthcentpercentminusx');
 		$moreforfilter .= '</div>';
 	}
 	if (isModEnabled('stock') && getDolGlobalString('WAREHOUSE_ASK_WAREHOUSE_DURING_ORDER')) {
@@ -966,7 +966,7 @@ if ($resql) {
 		$formproduct = new FormProduct($db);
 		$moreforfilter .= '<div class="divsearchfield">';
 		$tmptitle = $langs->trans('Warehouse');
-		$moreforfilter .= img_picto($tmptitle, 'stock', 'class="pictofixedwidth"').$formproduct->selectWarehouses($search_warehouse, 'search_warehouse', '', 1, 0, 0, $tmptitle, 0, 0, array(), 'maxwidth250 widthcentpercentminusx');
+		$moreforfilter .= img_picture($tmptitle, 'stock', 'class="picturefixedwidth"').$formproduct->selectWarehouses($search_warehouse, 'search_warehouse', '', 1, 0, 0, $tmptitle, 0, 0, array(), 'maxwidth250 widthcentpercentminusx');
 		$moreforfilter .= '</div>';
 	}
 
@@ -1007,8 +1007,8 @@ if ($resql) {
 	// Action column
 	if (getDolGlobalInt('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre" align="middle">';
-		$searchpicto = $form->showFilterButtons('left');
-		print $searchpicto;
+		$searchPicture = $form->showFilterButtons('left');
+		print $searchPicture;
 		print '</td>';
 	}
 	// ID
@@ -1293,8 +1293,8 @@ if ($resql) {
 	// Action column
 	if (!getDolGlobalInt('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre" align="middle">';
-		$searchpicto = $form->showFilterButtons();
-		print $searchpicto;
+		$searchPicture = $form->showFilterButtons();
+		print $searchPicture;
 		print '</td>';
 	}
 	print "</tr>\n";
@@ -1701,7 +1701,7 @@ if ($resql) {
 				if ($user->hasRight('facture', 'creer')) {
 					if (($obj->fk_statut > 0 && $obj->fk_statut < 3) || ($obj->fk_statut == 3 && $obj->billed == 0)) {
 						print '&nbsp;<a href="'.DOL_URL_ROOT.'/order/list.php?socid='.$companystatic->id.'&search_billed=0&autoselectall=1">';
-						print img_picto($langs->trans("CreateInvoiceForThisCustomer").' : '.$companystatic->name, 'object_bill', 'hideonsmartphone').'</a>';
+						print img_picture($langs->trans("CreateInvoiceForThisCustomer").' : '.$companystatic->name, 'object_bill', 'hideonsmartphone').'</a>';
 					}
 				}
 			}
@@ -1773,7 +1773,7 @@ if ($resql) {
 			print dol_print_date($db->jdate($obj->date_order), 'day');
 			// Warning late icon and note
 			if ($generic_order->hasDelay()) {
-				print img_picto($langs->trans("Late").' : '.$generic_order->showDelay(), "warning");
+				print img_picture($langs->trans("Late").' : '.$generic_order->showDelay(), "warning");
 			}
 			print '</td>';
 			if (!$i) {
@@ -1873,7 +1873,7 @@ if ($resql) {
 		if (!empty($arrayfields['c.fk_warehouse']['checked'])) {
 			print '<td class="nowrap">';
 			if ($obj->warehouse > 0) {
-				print img_picto('', 'stock', 'class="paddingrightonly"');
+				print img_picture('', 'stock', 'class="paddingrightonly"');
 			}
 			$formproduct->formSelectWarehouses($_SERVER['PHP_SELF'], $obj->warehouse, 'none');
 			print "</td>\n";
@@ -2182,10 +2182,10 @@ if ($resql) {
 						}
 					}
 					if ($notshippable == 0) {
-						$text_icon = img_picto('', 'dolly', '', 0, 0, 0, '', 'green paddingleft');
+						$text_icon = img_picture('', 'dolly', '', 0, 0, 0, '', 'green paddingleft');
 						$text_info = $text_icon.' '.$langs->trans('Shippable').'<br>'.$text_info;
 					} else {
-						$text_icon = img_picto('', 'dolly', '', 0, 0, 0, '', 'error paddingleft');
+						$text_icon = img_picture('', 'dolly', '', 0, 0, 0, '', 'error paddingleft');
 						$text_info = $text_icon.' '.$langs->trans('NonShippable').'<br>'.$text_info;
 					}
 				}
@@ -2194,7 +2194,7 @@ if ($resql) {
 					print $form->textwithtooltip('', $text_info, 2, 1, $text_icon, '', 2);
 				}
 				if ($warning) {     // Always false in default mode
-					print $form->textwithtooltip('', $langs->trans('NotEnoughForAllOrders').'<br>'.$text_warning, 2, 1, img_picto('', 'error'), '', 2);
+					print $form->textwithtooltip('', $langs->trans('NotEnoughForAllOrders').'<br>'.$text_warning, 2, 1, img_picture('', 'error'), '', 2);
 				}
 			}
 			print '</td>';

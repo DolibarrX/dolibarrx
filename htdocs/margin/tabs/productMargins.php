@@ -164,8 +164,8 @@ if ($id > 0 || !empty($ref)) {
 	if ($result > 0) {
 		$head = product_prepare_head($object);
 		$titre = $langs->trans("CardProduct".$object->type);
-		$picto = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
-		print dol_get_fiche_head($head, 'margin', $titre, -1, $picto);
+		$picture = ($object->type == Product::TYPE_SERVICE ? 'service' : 'product');
+		print dol_get_fiche_head($head, 'margin', $titre, -1, $picture);
 
 		$linkback = '<a href="'.DOL_URL_ROOT.'/product/list.php?restore_lastsearch_values=1">'.$langs->trans("BackToList").'</a>';
 
@@ -300,8 +300,8 @@ if ($id > 0 || !empty($ref)) {
 				// Action column
 				if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 					print '<th class="liste_titre center maxwidthsearch">';
-					$searchpicto = $form->showFilterButtons('left');
-					print $searchpicto;
+					$searchPicture = $form->showFilterButtons('left');
+					print $searchPicture;
 					print '</th>';
 				}
 
@@ -362,8 +362,8 @@ if ($id > 0 || !empty($ref)) {
 				// Action column
 				if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 					print '<th class="liste_titre center maxwidthsearch">';
-					$searchpicto = $form->showFilterButtons();
-					print $searchpicto;
+					$searchPicture = $form->showFilterButtons();
+					print $searchPicture;
 					print '</th>';
 				}
 

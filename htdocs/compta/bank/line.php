@@ -392,7 +392,7 @@ if ($result) {
 		if (($objp->rappro || $bankline->getVentilExportCompta()) && $objp->fk_account > 0) {
 			print $acct->getNomUrl(1, 'transactions', 'reflabel');
 		} else {
-			print img_picto('', 'bank_account', 'class="paddingright"');
+			print img_picture('', 'bank_account', 'class="paddingright"');
 			print $form->select_comptes($acct->id, 'accountid', 0, '', ($acct->id > 0 ? $acct->id : 1), '', 0, '', 1);
 		}
 		print '</td>';
@@ -648,7 +648,7 @@ if ($result) {
 					$arrayselected[] = $cat->id;
 				}
 			}
-			print img_picto('', 'category', 'class="paddingright"').$form->multiselectarray('custcats', $cate_arbo, $arrayselected, 0, 0, '', 0, "90%");
+			print img_picture('', 'category', 'class="paddingright"').$form->multiselectarray('custcats', $cate_arbo, $arrayselected, 0, 0, '', 0, "90%");
 			print "</td></tr>";
 		}
 
@@ -661,7 +661,7 @@ if ($result) {
 		}
 		print "</table>";
 
-		// Code to adjust value date with plus and less picto using an Ajax call instead of a full reload of page
+		// Code to adjust value date with plus and less picture using an Ajax call instead of a full reload of page
 		/* Not yet ready. We must manage inline replacement of input date field
 		$urlajax = DOL_URL_ROOT.'/core/ajax/bankconciliate.php?token='.currentToken();
 		print '
@@ -711,7 +711,7 @@ if ($result) {
 
 			print '<table class="border centpercent">';
 
-			print '<tr><td class="titlefieldcreate">'.$form->textwithpicto($langs->trans("AccountStatement"), $langs->trans("InputReceiptNumber"))."</td>";
+			print '<tr><td class="titlefieldcreate">'.$form->textWithPicture($langs->trans("AccountStatement"), $langs->trans("InputReceiptNumber"))."</td>";
 			if ($user->hasRight('bank', 'consolidate')) {
 				print '<td>';
 				if ($objp->rappro) {

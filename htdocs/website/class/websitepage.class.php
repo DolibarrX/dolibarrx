@@ -50,7 +50,7 @@ class WebsitePage extends CommonObject
 	/**
 	 * @var string String with name of icon for websitepage. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'file-code';
+	public $picture = 'file-code';
 
 	/**
 	 * @var string 	Field with ID of parent key if this field has a parent or for child tables
@@ -856,17 +856,17 @@ class WebsitePage extends CommonObject
 	}
 
 	/**
-	 *  Return a link to the user card (with optionally the picto)
+	 *  Return a link to the user card (with optionally the picture)
 	 * 	Use this->id,this->lastname, this->firstname
 	 *
-	 *	@param	int<0,2>	$withpicto			Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
+	 *	@param	int<0,2>	$withPicture			Include picture in link (0=No picture, 1=Include picture into link, 2=Only picture)
 	 *	@param	string		$option				On what the link point to
 	 *  @param	int<0,1>	$notooltip			1=Disable tooltip
 	 *  @param	int			$maxlen				Max length of visible user name
 	 *  @param  string		$morecss            Add more css on link
 	 *	@return	string							String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $maxlen = 24, $morecss = '')
+	public function getNomUrl($withPicture = 0, $option = '', $notooltip = 0, $maxlen = 24, $morecss = '')
 	{
 		global $langs, $config, $db;
 		global $dolibarr_main_authentication, $dolibarr_main_demo;
@@ -902,10 +902,10 @@ class WebsitePage extends CommonObject
 		//$linkstart = $linkend = '';
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_picto(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_picture(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 		$result .= $linkend;

@@ -44,7 +44,7 @@ abstract class ModeleCaptcha
 	/**
 	 * @var string
 	 */
-	public $picto = 'generic';
+	public $picture = 'generic';
 
 	/**
 	 * @var string Error code (or message)

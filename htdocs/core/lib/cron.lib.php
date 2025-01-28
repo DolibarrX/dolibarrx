@@ -103,13 +103,13 @@ function dol_print_cron_urls()
 	$url = $urlwithroot . '/public/cron/cron_run_jobs_by_url.php?' . (!getDolGlobalString('CRON_KEY') ? '' : 'securitykey=' . getDolGlobalString('CRON_KEY') . '&') . 'userlogin=' . $user->login;
 	print '<div class="urllink">';
 	print '<input type="text" id="publicurlmember" class="quatrevingtpercentminusx" value="' . $url . '">';
-	print ' <a href="' . $url . '" target="_blank" rel="noopener noreferrer">' . img_picto('', 'globe') . "</a>\n";
+	print ' <a href="' . $url . '" target="_blank" rel="noopener noreferrer">' . img_picture('', 'globe') . "</a>\n";
 	print '</div>';
 	print '<br> ' . $langs->trans("OrToLaunchASpecificJob") . '<br>';
 	$url = $urlwithroot . '/public/cron/cron_run_jobs_by_url.php?' . (!getDolGlobalString('CRON_KEY') ? '' : 'securitykey=' . getDolGlobalString('CRON_KEY') . '&') . 'userlogin=' . $user->login . '&id=cronjobid';
 	print '<div class="urllink">';
 	print '<input type="text" id="publicurlmemberall" class="quatrevingtpercentminusx" value="' . $url . '">';
-	print ' <a href="' . $url . '" target="_blank" rel="noopener noreferrer">' . img_picto('', 'globe') . "</a>\n";
+	print ' <a href="' . $url . '" target="_blank" rel="noopener noreferrer">' . img_picture('', 'globe') . "</a>\n";
 	print '</div>';
 	print '</div>';
 	print '<br>';

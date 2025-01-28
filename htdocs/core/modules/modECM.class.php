@@ -60,7 +60,7 @@ class modECM extends DolibarrModules
 		// Key used in llx_const table to save module status enabled/disabled (XXX is id value)
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		// Name of png file (without png) used for this module
-		$this->picto = 'folder-open';
+		$this->picture = 'folder-open';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/ecm/temp");
@@ -123,7 +123,7 @@ class modECM extends DolibarrModules
 			'fk_menu' => 0,
 			'type' => 'top',
 			'titre' => 'MenuECM',
-			'prefix' => img_picto('', $this->picto, 'class="pictofixedwidth"'),
+			'prefix' => img_picture('', $this->picture, 'class="picturefixedwidth"'),
 			'mainmenu' => 'ecm',
 			'url' => '/ecm/index.php',
 			'langs' => 'ecm',
@@ -140,7 +140,7 @@ class modECM extends DolibarrModules
 			'fk_menu' => 'fk_mainmenu=ecm',
 			'type' => 'left',
 			'titre' => 'ECMArea',
-			'prefix' => img_picto('', $this->picto, 'class="paddingright pictofixedwidth"'),
+			'prefix' => img_picture('', $this->picture, 'class="paddingright picturefixedwidth"'),
 			'mainmenu' => 'ecm',
 			'leftmenu' => 'ecm',
 			'url' => '/ecm/index.php?mainmenu=ecm&leftmenu=ecm',

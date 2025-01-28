@@ -792,8 +792,8 @@ if ($action == 'create') {	// aaa
 	$htmltext .= '</span></i>';
 
 
-	$availablelink = $form->textwithpicto('<span class="opacitymedium">'.$langs->trans("AvailableVariables").'</span>', $htmltext, 1, 'helpclickable', '', 0, 2, 'availvar');
-	//print '<a href="javascript:document_preview(\''.DOL_URL_ROOT.'/admin/modulehelp.php?id='.$objMod->number.'\',\'text/html\',\''.dol_escape_js($langs->trans("Module")).'\')">'.img_picto($langs->trans("ClickToShowDescription"), $imginfo).'</a>';
+	$availablelink = $form->textWithPicture('<span class="opacitymedium">'.$langs->trans("AvailableVariables").'</span>', $htmltext, 1, 'helpclickable', '', 0, 2, 'availvar');
+	//print '<a href="javascript:document_preview(\''.DOL_URL_ROOT.'/admin/modulehelp.php?id='.$objMod->number.'\',\'text/html\',\''.dol_escape_js($langs->trans("Module")).'\')">'.img_picture($langs->trans("ClickToShowDescription"), $imginfo).'</a>';
 
 
 	// Print mail form
@@ -1109,7 +1109,7 @@ if ($action == 'create') {	// aaa
 					$nbemail .= ' '.img_warning('').' <span class="warning">'.$langs->trans("NoTargetYet").'</span>';
 				}
 				if ($text) {
-					print $form->textwithpicto($nbemail, $text, 1, 'warning');
+					print $form->textWithPicture($nbemail, $text, 1, 'warning');
 				} else {
 					print $nbemail;
 				}
@@ -1289,7 +1289,7 @@ if ($action == 'create') {	// aaa
 			$htmltext .= '</span></i>';
 
 			// Print mail content
-			print load_fiche_titre($langs->trans("EMail"), $form->textwithpicto('<span class="opacitymedium hideonsmartphone">'.$langs->trans("AvailableVariables").'</span>', $htmltext, 1, 'helpclickable', '', 0, 3, 'emailsubstitionhelp'), 'generic');
+			print load_fiche_titre($langs->trans("EMail"), $form->textWithPicture('<span class="opacitymedium hideonsmartphone">'.$langs->trans("AvailableVariables").'</span>', $htmltext, 1, 'helpclickable', '', 0, 3, 'emailsubstitionhelp'), 'generic');
 
 			print dol_get_fiche_head([], '', '', -1);
 
@@ -1417,7 +1417,7 @@ if ($action == 'create') {	// aaa
 					$nbemail .= ' '.img_warning('').' <span class="warning">'.$langs->trans("NoTargetYet").'</span>';
 				}
 				if ($text) {
-					print $form->textwithpicto($nbemail, $text, 1, 'warning');
+					print $form->textWithPicture($nbemail, $text, 1, 'warning');
 				} else {
 					print $nbemail;
 				}
@@ -1476,7 +1476,7 @@ if ($action == 'create') {	// aaa
 			$htmltext .= '</span></i>';
 
 			// Print mail content
-			print load_fiche_titre($langs->trans("EMail"), '<span class="opacitymedium">'.$form->textwithpicto($langs->trans("AvailableVariables").'</span>', $htmltext, 1, 'help', '', 0, 2, 'emailsubstitionhelp'), 'generic');
+			print load_fiche_titre($langs->trans("EMail"), '<span class="opacitymedium">'.$form->textWithPicture($langs->trans("AvailableVariables").'</span>', $htmltext, 1, 'help', '', 0, 2, 'emailsubstitionhelp'), 'generic');
 
 			print dol_get_fiche_head([], '', '', -1);
 
@@ -1514,7 +1514,7 @@ if ($action == 'create') {	// aaa
 					foreach ($listofpaths as $key => $val) {
 						$out .= '<div id="attachfile_'.$key.'">';
 						$out .= img_mime($listofpaths[$key]['name']).' '.$listofpaths[$key]['name'];
-						$out .= ' <input type="image" style="border: 0px;" src="'.img_picto($langs->trans("Search"), 'delete.png', '', 0, 1).'" value="'.($key + 1).'" class="removedfile" id="removedfile_'.$key.'" name="removedfile_'.$key.'" />';
+						$out .= ' <input type="image" style="border: 0px;" src="'.img_picture($langs->trans("Search"), 'delete.png', '', 0, 1).'" value="'.($key + 1).'" class="removedfile" id="removedfile_'.$key.'" name="removedfile_'.$key.'" />';
 						$out .= '<br></div>';
 					}
 				} else {

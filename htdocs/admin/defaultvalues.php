@@ -191,7 +191,7 @@ if (($action == 'add' || (GETPOST('add') && $action != 'update')) || GETPOST('ac
 	}
 }
 
-// Delete line from delete picto
+// Delete line from delete picture
 if ($action == 'delete') {
 	$object->id = $id;
 	$result = $object->delete($user);
@@ -219,12 +219,12 @@ $enabledisablehtml = $langs->trans("EnableDefaultValues").' ';
 if (!getDolGlobalString('MAIN_ENABLE_DEFAULT_VALUES')) {
 	// Button off, click to enable
 	$enabledisablehtml .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?action=setMAIN_ENABLE_DEFAULT_VALUES&token='.newToken().'&value=1'.$param.'">';
-	$enabledisablehtml .= img_picto($langs->trans("Disabled"), 'switch_off');
+	$enabledisablehtml .= img_picture($langs->trans("Disabled"), 'switch_off');
 	$enabledisablehtml .= '</a>';
 } else {
 	// Button on, click to disable
 	$enabledisablehtml .= '<a class="reposition valignmiddle" href="'.$_SERVER["PHP_SELF"].'?action=setMAIN_ENABLE_DEFAULT_VALUES&token='.newToken().'&value=0'.$param.'">';
-	$enabledisablehtml .= img_picto($langs->trans("Activated"), 'switch_on');
+	$enabledisablehtml .= img_picture($langs->trans("Activated"), 'switch_on');
 	$enabledisablehtml .= '</a>';
 }
 
@@ -290,15 +290,15 @@ if ($mode == 'createform') {
 	$texthelp .= $langs->trans("PageUrlForDefaultValuesList", 'societe/list.php', 'societe/list.php?abc=val1&def=val2');
 }
 $texthelp .= '<br><br>'.$langs->trans("AlsoDefaultValuesAreEffectiveForActionCreate");
-$texturl = $form->textwithpicto($langs->trans("RelativeURL"), $texthelp);
+$texturl = $form->textWithPicture($langs->trans("RelativeURL"), $texthelp);
 print_liste_field_titre($texturl, $_SERVER["PHP_SELF"], 'page,param', '', $param, '', $sortfield, $sortorder);
 // Field
 $texthelp = $langs->trans("TheKeyIsTheNameOfHtmlField");
 if ($mode != 'sortorder') {
-	$textkey = $form->textwithpicto($langs->trans("Field"), $texthelp);
+	$textkey = $form->textWithPicture($langs->trans("Field"), $texthelp);
 } else {
 	$texthelp = 'field or alias.field';
-	$textkey = $form->textwithpicto($langs->trans("Field"), $texthelp);
+	$textkey = $form->textWithPicture($langs->trans("Field"), $texthelp);
 }
 print_liste_field_titre($textkey, $_SERVER["PHP_SELF"], 'param', '', $param, '', $sortfield, $sortorder);
 // Value
@@ -311,10 +311,10 @@ if ($mode != 'focus' && $mode != 'mandatory') {
 		foreach ($substitutionArray as $key => $val) {
 			$texthelp .= $key.' -> '.$val.'<br>';
 		}
-		$textvalue = $form->textwithpicto($langs->trans("Value"), $texthelp, 1, 'help', '', 0, 2, 'subsitutiontooltip');
+		$textvalue = $form->textWithPicture($langs->trans("Value"), $texthelp, 1, 'help', '', 0, 2, 'subsitutiontooltip');
 	} else {
 		$texthelp = 'ASC or DESC';
-		$textvalue = $form->textwithpicto($langs->trans("SortOrder"), $texthelp);
+		$textvalue = $form->textWithPicture($langs->trans("SortOrder"), $texthelp);
 	}
 	print_liste_field_titre($textvalue, $_SERVER["PHP_SELF"], 'value', '', $param, '', $sortfield, $sortorder);
 }

@@ -365,8 +365,8 @@ if ($resql) {
 	// Action column
 	if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre center maxwidthsearch">';
-		$searchpicto = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
-		print $searchpicto;
+		$searchPicture = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
+		print $searchPicture;
 		print '</td>';
 	}
 	if (!empty($arrayfields['subaccount']['checked'])) {
@@ -386,8 +386,8 @@ if ($resql) {
 	// Action column
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre maxwidthsearch">';
-		$searchpicto = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
-		print $searchpicto;
+		$searchPicture = $form->showFilterAndCheckAddButtons($massactionbutton ? 1 : 0, 'checkforselect', 1);
+		print $searchPicture;
 		print '</td>';
 	}
 	print '</tr>';
@@ -513,11 +513,11 @@ if ($resql) {
 				print '<td class="center">';
 				if (empty($obj->reconcilable)) {
 					print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'&action=enable&mode=1&page='.$page.'&token='.newToken().'">';
-					print img_picto($langs->trans("Disabled"), 'switch_off');
+					print img_picture($langs->trans("Disabled"), 'switch_off');
 					print '</a>';
 				} else {
 					print '<a class="reposition" href="'.$_SERVER["PHP_SELF"].'?id='.$obj->rowid.'&action=disable&mode=1&page='.$page.'&token='.newToken().'">';
-					print img_picto($langs->trans("Activated"), 'switch_on');
+					print img_picture($langs->trans("Activated"), 'switch_on');
 					print '</a>';
 				}
 				print '</td>';

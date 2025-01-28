@@ -38,7 +38,7 @@ ALTER TABLE llx_bank_account ADD COLUMN extraparams		varchar(255);
 
 ALTER TABLE llx_societe ALTER COLUMN fk_stcomm SET DEFAULT 0;
 
-ALTER TABLE llx_c_actioncomm ADD COLUMN picto varchar(48);
+ALTER TABLE llx_c_actioncomm ADD COLUMN picture varchar(48);
 
 ALTER TABLE llx_facturedet ADD INDEX idx_facturedet_fk_code_ventilation (fk_code_ventilation);
 ALTER TABLE llx_facture_fourn_det ADD INDEX idx_facture_fourn_det_fk_code_ventilation (fk_code_ventilation);

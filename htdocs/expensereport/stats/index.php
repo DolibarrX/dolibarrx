@@ -247,7 +247,7 @@ $include = '';
 if (!$user->hasRight('expensereport', 'readall') && !$user->hasRight('expensereport', 'lire_tous')) {
 	$include = 'hierarchy';
 }
-print img_picto('', 'user', 'class="pictofixedwidth"');
+print img_picture('', 'user', 'class="picturefixedwidth"');
 print $form->select_dolusers($userId, 'userid', 1, '', 0, $include, '', 0, 0, 0, '', 0, '', 'widthcentpercentminusx maxwidth300');
 print '</td></tr>';
 // Status
@@ -257,7 +257,7 @@ print $form->selectarray('object_status', $liststatus, GETPOST('object_status', 
 print '</td></tr>';
 // Year
 print '<tr><td>';
-print $form->textwithpicto($langs->trans("Year"), $langs->trans("DateValidation"));
+print $form->textWithPicture($langs->trans("Year"), $langs->trans("DateValidation"));
 print '</td><td>';
 if (!in_array($year, $arrayyears)) {
 	$arrayyears[$year] = $year;

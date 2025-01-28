@@ -62,7 +62,7 @@ class modSociete extends DolibarrModules
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
 		$this->config_page_url = array("societe.php@societe");
 		// Name of image file used for this module.
-		$this->picto = 'company';
+		$this->picture = 'company';
 
 		// Data directories to create when module is enabled
 		$this->dirs = array("/societe/temp");
@@ -329,7 +329,7 @@ class modSociete extends DolibarrModules
 			's.accountancy_code_sell' => 'Text', 's.accountancy_code_buy' => 'Text'
 		);
 
-		$this->export_entities_array[$r] = array(	// We define here only fields that use another picto
+		$this->export_entities_array[$r] = array(	// We define here only fields that use another picture
 			'u.login' => 'user',
 			'u.firstname' => 'user',
 			'u.lastname' => 'user');
@@ -407,7 +407,7 @@ class modSociete extends DolibarrModules
 			'c.entity' => 'List:entity:label:rowid',
 			's.entity' => 'List:entity:label:rowid',
 		);
-		$this->export_entities_array[$r] = array(	// We define here only fields that use another picto
+		$this->export_entities_array[$r] = array(	// We define here only fields that use another picture
 			's.rowid' => "company", 's.nom' => "company", 's.status' => 'company', 's.code_client' => "company", 's.code_fournisseur' => "company",
 			's.code_compta' => "company", 's.code_compta_fournisseur' => "company",
 			's.client' => "company", 's.fournisseur' => "company",
@@ -415,7 +415,7 @@ class modSociete extends DolibarrModules
 			's.note_private' => 'company', 's.note_public' => "company",
 			't.code' => "company",
 			's.entity' => 'company',
-		); // We define here only fields that use another picto
+		); // We define here only fields that use another picture
 		if (!isModEnabled("supplier_order") && !isModEnabled("supplier_invoice")) {
 			unset($this->export_fields_array[$r]['s.code_fournisseur']);
 			unset($this->export_entities_array[$r]['s.code_fournisseur']);
@@ -520,7 +520,7 @@ class modSociete extends DolibarrModules
 		$this->export_entities_array[$r] = array(
 			's.nom' => "company",
 			's.entity' => 'company'
-		); // We define here only fields that use another picto
+		); // We define here only fields that use another picture
 		$this->export_sql_start[$r] = 'SELECT DISTINCT ';
 		$this->export_sql_end[$r]  = ' FROM '.MAIN_DB_PREFIX.'societe_rib as b';
 		$this->export_sql_end[$r] .= ' LEFT JOIN '.MAIN_DB_PREFIX.'societe as s ON b.fk_soc = s.rowid';

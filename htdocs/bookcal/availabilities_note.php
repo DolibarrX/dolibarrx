@@ -106,7 +106,7 @@ if ($id > 0 || !empty($ref)) {
 
 	$head = availabilitiesPrepareHead($object);
 
-	print dol_get_fiche_head($head, 'note', $langs->trans("Availabilities"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'note', $langs->trans("Availabilities"), -1, $object->picture);
 
 	// Object card
 	// ------------------------------------------------------------

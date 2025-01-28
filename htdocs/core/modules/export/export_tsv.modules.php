@@ -84,7 +84,7 @@ class ExportTsv extends ModeleExports
 		$this->label = 'TSV'; // Label of driver
 		$this->desc = $langs->trans('TsvFormatDesc');
 		$this->extension = 'tsv'; // Extension for generated file by this driver
-		$this->picto = 'mime/other'; // Picto
+		$this->picture = 'mime/other'; // Picto
 		$this->version = '1.15'; // Driver version
 
 		// If driver use an external library, put its name here

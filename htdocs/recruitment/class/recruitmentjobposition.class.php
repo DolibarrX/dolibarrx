@@ -52,7 +52,7 @@ class RecruitmentJobPosition extends CommonObject
 	/**
 	 * @var string String with name of icon for recruitmentjobposition. Must be the part after the 'object_' into object_recruitmentjobposition.png
 	 */
-	public $picto = 'recruitmentjobposition';
+	public $picture = 'recruitmentjobposition';
 
 	/**
 	 * Draft status
@@ -110,12 +110,12 @@ class RecruitmentJobPosition extends CommonObject
 		'ref' => array('type' => 'varchar(128)', 'label' => 'Ref', 'enabled' => 1, 'position' => 10, 'notnull' => 1, 'visible' => 4, 'noteditable' => 1, 'default' => '(PROV)', 'index' => 1, 'searchall' => 1, 'showoncombobox' => 1, 'comment' => "Reference of object", 'css' => 'nowraponall'),
 		'label' => array('type' => 'varchar(255)', 'label' => 'JobLabel', 'enabled' => 1, 'position' => 30, 'notnull' => 1, 'visible' => 1, 'searchall' => 1, 'css' => 'minwidth500', 'csslist' => 'tdoverflowmax300', 'showoncombobox' => 2, 'autofocusoncreate' => 1),
 		'qty' => array('type' => 'integer', 'label' => 'NbOfEmployeesExpected', 'enabled' => 1, 'position' => 45, 'notnull' => 1, 'visible' => 1, 'default' => '1', 'isameasure' => 1, 'css' => 'maxwidth75imp'),
-		'fk_project' => array('type' => 'integer:Project:projet/class/project.class.php:1', 'label' => 'Project', 'enabled' => '$config->project->enabled', 'position' => 52, 'notnull' => -1, 'visible' => -1, 'index' => 1, 'css' => 'maxwidth500', 'picto' => 'project'),
-		'fk_user_recruiter' => array('type' => 'integer:User:user/class/user.class.php:1:(statut:=:1)', 'label' => 'ResponsibleOfRecruitement', 'enabled' => 1, 'position' => 54, 'notnull' => 1, 'visible' => 1, 'foreignkey' => 'user.rowid', 'css' => 'maxwidth500', 'csslist' => 'tdoverflowmax150', 'picto' => 'user'),
-		'email_recruiter' => array('type' => 'varchar(255)', 'label' => 'EmailRecruiter', 'enabled' => 1, 'position' => 54, 'notnull' => 0, 'visible' => -1, 'help' => 'ToUseAGenericEmail', 'picto' => 'email'),
-		'fk_user_supervisor' => array('type' => 'integer:User:user/class/user.class.php:1:(statut:=:1)', 'label' => 'FutureManager', 'enabled' => 1, 'position' => 55, 'notnull' => 0, 'visible' => -1, 'foreignkey' => 'user.rowid', 'css' => 'maxwidth500', 'csslist' => 'tdoverflowmax150', 'picto' => 'user'),
+		'fk_project' => array('type' => 'integer:Project:projet/class/project.class.php:1', 'label' => 'Project', 'enabled' => '$config->project->enabled', 'position' => 52, 'notnull' => -1, 'visible' => -1, 'index' => 1, 'css' => 'maxwidth500', 'picture' => 'project'),
+		'fk_user_recruiter' => array('type' => 'integer:User:user/class/user.class.php:1:(statut:=:1)', 'label' => 'ResponsibleOfRecruitement', 'enabled' => 1, 'position' => 54, 'notnull' => 1, 'visible' => 1, 'foreignkey' => 'user.rowid', 'css' => 'maxwidth500', 'csslist' => 'tdoverflowmax150', 'picture' => 'user'),
+		'email_recruiter' => array('type' => 'varchar(255)', 'label' => 'EmailRecruiter', 'enabled' => 1, 'position' => 54, 'notnull' => 0, 'visible' => -1, 'help' => 'ToUseAGenericEmail', 'picture' => 'email'),
+		'fk_user_supervisor' => array('type' => 'integer:User:user/class/user.class.php:1:(statut:=:1)', 'label' => 'FutureManager', 'enabled' => 1, 'position' => 55, 'notnull' => 0, 'visible' => -1, 'foreignkey' => 'user.rowid', 'css' => 'maxwidth500', 'csslist' => 'tdoverflowmax150', 'picture' => 'user'),
 		'fk_establishment' => array('type' => 'integer:Establishment:hrm/class/establishment.class.php', 'label' => 'Establishment', 'enabled' => '$config->hrm->enabled', 'position' => 56, 'notnull' => 0, 'visible' => -1, 'foreignkey' => 'establishment.rowid',),
-		'fk_soc' => array('type' => 'integer:Societe:societe/class/societe.class.php:1:((status:=:1) AND (entity:IN:__SHARED_ENTITIES__))', 'label' => 'WorkPlace', 'enabled' => 'isModEnabled("societe")', 'position' => 57, 'notnull' => -1, 'visible' => -1, 'css' => 'maxwidth500', 'index' => 1, 'help' => "IfJobIsLocatedAtAPartner", 'picto' => 'company'),
+		'fk_soc' => array('type' => 'integer:Societe:societe/class/societe.class.php:1:((status:=:1) AND (entity:IN:__SHARED_ENTITIES__))', 'label' => 'WorkPlace', 'enabled' => 'isModEnabled("societe")', 'position' => 57, 'notnull' => -1, 'visible' => -1, 'css' => 'maxwidth500', 'index' => 1, 'help' => "IfJobIsLocatedAtAPartner", 'picture' => 'company'),
 		'date_planned' => array('type' => 'date', 'label' => 'DateExpected', 'enabled' => 1, 'position' => 60, 'notnull' => 0, 'visible' => 1,),
 		'remuneration_suggested' => array('type' => 'varchar(255)', 'label' => 'Remuneration', 'enabled' => 1, 'position' => 62, 'notnull' => 0, 'visible' => 1,),
 		'description' => array('type' => 'html', 'label' => 'Description', 'enabled' => 1, 'position' => 65, 'notnull' => 0, 'visible' => 3,),
@@ -814,16 +814,16 @@ class RecruitmentJobPosition extends CommonObject
 	}
 
 	/**
-	 *  Return a link to the object card (with optionally the picto)
+	 *  Return a link to the object card (with optionally the picture)
 	 *
-	 *  @param  int     $withpicto                  Include picto in link (0=No picto, 1=Include picto into link, 2=Only picto)
+	 *  @param  int     $withPicture                  Include picture in link (0=No picture, 1=Include picture into link, 2=Only picture)
 	 *  @param  string  $option                     On what the link point to ('nolink', ...)
 	 *  @param  int     $notooltip                  1=Disable tooltip
 	 *  @param  string  $morecss                    Add more css on link
 	 *  @param  int     $save_lastsearch_value      -1=Auto, 0=No save of lastsearch_values when clicking, 1=Save lastsearch_values whenclicking
 	 *  @return	string                              String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
+	public function getNomUrl($withPicture = 0, $option = '', $notooltip = 0, $morecss = '', $save_lastsearch_value = -1)
 	{
 		global $config, $langs, $hookManager;
 
@@ -833,7 +833,7 @@ class RecruitmentJobPosition extends CommonObject
 
 		$result = '';
 
-		$label = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("PositionToBeFilled").'</u>';
+		$label = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("PositionToBeFilled").'</u>';
 		if (isset($this->status)) {
 			$label .= ' '.$this->getLibStatut(5);
 		}
@@ -873,14 +873,14 @@ class RecruitmentJobPosition extends CommonObject
 		$result .= $linkstart;
 
 		if (empty($this->showphoto_on_popup)) {
-			if ($withpicto) {
-				$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+			if ($withPicture) {
+				$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 			}
 		} else {
-			if ($withpicto) {
+			if ($withPicture) {
 				require_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
 
-				list($class, $module) = explode('@', $this->picto);
+				list($class, $module) = explode('@', $this->picture);
 				$upload_dir = $config->$module->multidir_output[$config->entity]."/$class/".dol_sanitizeFileName($this->ref);
 				$filearray = dol_dir_list($upload_dir, "files");
 				$filename = $filearray[0]['name'];
@@ -896,17 +896,17 @@ class RecruitmentJobPosition extends CommonObject
 
 					$result .= '</div>';
 				} else {
-					$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), ($notooltip ? (($withpicto != 2) ? 'class="paddingright"' : '') : 'class="'.(($withpicto != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
+					$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), ($notooltip ? (($withPicture != 2) ? 'class="paddingright"' : '') : 'class="'.(($withPicture != 2) ? 'paddingright ' : '').'classfortooltip"'), 0, 0, $notooltip ? 0 : 1);
 				}
 			}
 		}
 
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= $this->ref;
 		}
 
 		$result .= $linkend;
-		//if ($withpicto != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
+		//if ($withPicture != 2) $result.=(($addlabel && $this->label) ? $sep . dol_trunc($this->label, ($addlabel > 1 ? $addlabel : 0)) : '');
 
 		global $action, $hookManager;
 		$hookManager->initHooks(array('recruitmentjobpositiondao'));
@@ -1149,7 +1149,7 @@ class RecruitmentJobPosition extends CommonObject
 
 
 	/**
-	 *	Return clickable link of object (with eventually picto)
+	 *	Return clickable link of object (with eventually picture)
 	 *
 	 *	@param      string	    			$option                 Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param		array{string,mixed}		$arraydata				Array of data
@@ -1164,7 +1164,7 @@ class RecruitmentJobPosition extends CommonObject
 		$return = '<div class="box-flex-item box-flex-grow-zero">';
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<span class="info-box-icon bg-infobox-action">';
-		$return .= img_picto('', $this->picto);
+		$return .= img_picture('', $this->picture);
 		$return .= '</span>';
 		$return .= '<div class="info-box-content">';
 		$return .= '<span class="info-box-ref inline-block tdoverflowmax150 valignmiddle">'.(method_exists($this, 'getNomUrl') ? $this->getNomUrl(1) : $this->ref).($this->qty > 1 ? ' <span title="'.$langs->trans("NbOfEmployeesExpected").'">('.$this->qty.')</span>' : '').'</span>';

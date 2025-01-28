@@ -78,7 +78,7 @@ class FormOther
 
 		$out .= '<!-- Popup for mass barcode scanning -->'."\n";
 		$out .= '<div class="div-for-modal-topright" style="padding: 15px">';
-		$out .= '<center>'.img_picto('', 'barcode', 'class="pictofixedwidth"').'<strong>Barcode scanner tool...</strong></center><br>';
+		$out .= '<center>'.img_picture('', 'barcode', 'class="picturefixedwidth"').'<strong>Barcode scanner tool...</strong></center><br>';
 
 		if ($mode == 'product') {
 			$out .= '<input type="hidden" name="barcodemode" value="barcodeforproduct" id="barcodeforproduct">';
@@ -97,7 +97,7 @@ class FormOther
 			require_once DOL_DOCUMENT_ROOT.'/product/class/html.formproduct.class.php';
 			$formproduct = new FormProduct($this->db);
 			$formproduct->loadWarehouses();
-			$out .= img_picto('', 'stock', 'class="pictofixedwidth"');
+			$out .= img_picture('', 'stock', 'class="picturefixedwidth"');
 			$out .= $formproduct->selectWarehouses('', "warehousenew", '', 0, 0, 0, '', 0, 1);
 			$out .= '<br>';
 			$out .= '<br>';
@@ -447,7 +447,7 @@ class FormOther
 				if ($categ['id'] == $selected) {
 					$moreforfilter .= ' selected';
 				}
-				$moreforfilter .= ' data-html="'.dol_escape_htmltag(img_picto('', 'category', 'class="pictofixedwidth" style="color: #'.$categ['color'].'"').dol_trunc($categ['fulllabel'], 50, 'middle')).'"';
+				$moreforfilter .= ' data-html="'.dol_escape_htmltag(img_picture('', 'category', 'class="picturefixedwidth" style="color: #'.$categ['color'].'"').dol_trunc($categ['fulllabel'], 50, 'middle')).'"';
 				$moreforfilter .= '>'.dol_trunc($categ['fulllabel'], 50, 'middle').'</option>';
 			}
 		}
@@ -730,10 +730,10 @@ class FormOther
 						//$labeltoshow .= ' '.$lines[$i]->projectlabel;
 						if (empty($lines[$i]->public)) {
 							//$labeltoshow .= ' <span class="opacitymedium">('.$langs->trans("Visibility").': '.$langs->trans("PrivateProject").')</span>';
-							$labeltoshow = img_picto($lines[$i]->projectlabel, 'project', 'class="pictofixedwidth"').$labeltoshow;
+							$labeltoshow = img_picture($lines[$i]->projectlabel, 'project', 'class="picturefixedwidth"').$labeltoshow;
 						} else {
 							//$labeltoshow .= ' <span class="opacitymedium">('.$langs->trans("Visibility").': '.$langs->trans("SharedProject").')</span>';
-							$labeltoshow = img_picto($lines[$i]->projectlabel, 'projectpub', 'class="pictofixedwidth"').$labeltoshow;
+							$labeltoshow = img_picture($lines[$i]->projectlabel, 'projectpub', 'class="picturefixedwidth"').$labeltoshow;
 						}
 
 						print ' data-html="'.dol_escape_htmltag($labeltoshow).'"';
@@ -771,10 +771,10 @@ class FormOther
 					//$labeltoshow .= ' '.$lines[$i]->projectlabel;
 					if (empty($lines[$i]->public)) {
 						//$labeltoshow .= ' <span class="opacitymedium">('.$langs->trans("Visibility").': '.$langs->trans("PrivateProject").')</span>';
-						$labeltoshow = img_picto($lines[$i]->projectlabel, 'project', 'class="pictofixedwidth"').$labeltoshow;
+						$labeltoshow = img_picture($lines[$i]->projectlabel, 'project', 'class="picturefixedwidth"').$labeltoshow;
 					} else {
 						//$labeltoshow .= ' <span class="opacitymedium">('.$langs->trans("Visibility").': '.$langs->trans("SharedProject").')</span>';
-						$labeltoshow = img_picto($lines[$i]->projectlabel, 'projectpub', 'class="pictofixedwidth"').$labeltoshow;
+						$labeltoshow = img_picture($lines[$i]->projectlabel, 'projectpub', 'class="picturefixedwidth"').$labeltoshow;
 					}
 					if ($lines[$i]->id) {
 						$labeltoshow .= ' > ';
@@ -1270,7 +1270,7 @@ class FormOther
 				if (preg_match('/graph/', $box->class) && $config->browser->layout != 'phone') {
 					$label .= ' <span class="fas fa-chart-bar"></span>';
 				}
-				$arrayboxtoactivatelabel[$box->id] = array('label' => $label, 'data-html' => img_picto('', $box->boximg, 'class="pictofixedwidth valignmiddle"').'<span class="valignmiddle">'.$langs->trans($label).'</span>'); // We keep only boxes not shown for user, to show into combo list
+				$arrayboxtoactivatelabel[$box->id] = array('label' => $label, 'data-html' => img_picture('', $box->boximg, 'class="picturefixedwidth valignmiddle"').'<span class="valignmiddle">'.$langs->trans($label).'</span>'); // We keep only boxes not shown for user, to show into combo list
 			}
 			foreach ($boxidactivatedforuser as $boxid) {
 				if (empty($boxOrder)) {

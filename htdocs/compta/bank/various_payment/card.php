@@ -474,7 +474,7 @@ if ($action == 'create') {
 	if (isModEnabled("bank")) {
 		print '<tr><td>';
 		print $form->editfieldkey('BankAccount', 'selectaccountid', '', $object, 0, 'string', '', 1).'</td><td>';
-		print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+		print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 		print $form->select_comptes($accountid, "accountid", 0, '', 2, '', (isModEnabled('multicurrency') ? 1 : 0), '', 1); // Show list of main accounts (comptes courants)
 		print '</td></tr>';
 	}
@@ -513,7 +513,7 @@ if ($action == 'create') {
 		$langs->load("projects");
 
 		print '<tr><td>'.$langs->trans("Project").'</td><td>';
-		print img_picto('', 'project', 'class="pictofixedwidth"');
+		print img_picture('', 'project', 'class="picturefixedwidth"');
 		print $formproject->select_projects(-1, $projectid, 'fk_project', 0, 0, 1, 1, 0, 0, 0, '', 1);
 		print '</td></tr>';
 	}
@@ -526,7 +526,7 @@ if ($action == 'create') {
 	// Category
 	if (is_array($options) && count($options) && $config->category->enabled) {
 		print '<tr><td>'.$langs->trans("RubriquesTransactions").'</td><td>';
-		print img_picto('', 'category').Form::selectarray('category_transaction', $options, GETPOST('category_transaction'), 1, 0, 0, '', 0, 0, 0, '', 'minwidth300', 1);
+		print img_picture('', 'category').Form::selectarray('category_transaction', $options, GETPOST('category_transaction'), 1, 0, 0, '', 0, 0, 0, '', 'minwidth300', 1);
 		print '</td></tr>';
 	}
 
@@ -565,7 +565,7 @@ if ($action == 'create') {
 
 	// Sens
 	print '<tr><td>';
-	$labelsens = $form->textwithpicto($langs->trans('Sens'), $langs->trans("AccountingDirectionHelp"));
+	$labelsens = $form->textWithPicture($langs->trans('Sens'), $langs->trans("AccountingDirectionHelp"));
 	print $form->editfieldkey($labelsens, 'sens', '', $object, 0, 'string', '', 1).'</td><td>';
 	$sensarray = array('0' => $langs->trans("Debit"), '1' => $langs->trans("Credit"));
 	print $form->selectarray('sens', $sensarray, $sens, 1, 0, 0, '', 0, 0, 0, '', 'minwidth100', 1);
@@ -588,7 +588,7 @@ if ($id) {
 
 	// Clone confirmation
 	if ($action === 'clone') {
-		$set_value_help = $form->textwithpicto('', $langs->trans($langs->trans("AccountingDirectionHelp")));
+		$set_value_help = $form->textWithPicture('', $langs->trans($langs->trans("AccountingDirectionHelp")));
 		$sensarray = array('0' => $langs->trans("Debit"), '1' => $langs->trans("Credit"));
 
 		$formquestion = array(
@@ -609,7 +609,7 @@ if ($id) {
 		print $form->formconfirm($_SERVER['PHP_SELF'].'?id='.$object->id, $langs->trans('DeleteVariousPayment'), $text, 'confirm_delete', '', '', 2);
 	}
 
-	print dol_get_fiche_head($head, 'card', $langs->trans("VariousPayment"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'card', $langs->trans("VariousPayment"), -1, $object->picture);
 
 	$morehtmlref = '<div class="refidno">';
 	// Project
@@ -617,7 +617,7 @@ if ($id) {
 		$langs->load("projects");
 		//$morehtmlref .= '<br>';
 		if ($permissiontoadd) {
-			$morehtmlref .= img_picto($langs->trans("Project"), 'project', 'class="pictofixedwidth"');
+			$morehtmlref .= img_picture($langs->trans("Project"), 'project', 'class="picturefixedwidth"');
 			if ($action != 'classify') {
 				$morehtmlref .= '<a class="editfielda" href="'.$_SERVER['PHP_SELF'].'?action=classify&token='.newToken().'&id='.$object->id.'">'.img_edit($langs->transnoentitiesnoconv('SetProject')).'</a> ';
 			}

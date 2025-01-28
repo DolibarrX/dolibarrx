@@ -83,7 +83,7 @@ $conditions = array(
 	//'SPECIALCHAR' => 1,
 );
 // Picto
-$picto = array(
+$picture = array(
 	'NOTE_PUBLIC' => 'generic',
 	'NOTE_PRIVATE' => 'generic',
 	'SOCIETE' => 'generic',
@@ -178,22 +178,22 @@ if (empty($config->use_javascript_ajax)) {
 		$constante = 'FCKEDITOR_ENABLE_'.$const;
 		print '<!-- constant = '.$constante.' -->'."\n";
 		print '<tr class="oddeven">';
-		print '<td class="width20">'.img_object("", $picto[$const]).'</td>';
+		print '<td class="width20">'.img_object("", $picture[$const]).'</td>';
 		print '<td>';
 		print $langs->trans($desc);
 		if ($const == 'DETAILS') {
-			print $form->textwithpicto('', '<span class="warning">'.$langs->trans("FCKeditorForProductDetails2").'</span>');
+			print $form->textWithPicture('', '<span class="warning">'.$langs->trans("FCKeditorForProductDetails2").'</span>');
 		}
 		print '</td>';
 		print '<td class="center centpercent width100">';
 		$value = getDolGlobalInt($constante, 0);
 		if ($value == 0) {
-			print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=enable_'.strtolower($const).'&token='.newToken().'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+			print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=enable_'.strtolower($const).'&token='.newToken().'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 		} elseif ($value == 1) {
 			if ($const == 'DETAILS') {
-				print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=disable_'.strtolower($const).'&token='.newToken().'">'.img_picto($langs->trans("Enabled").' - '.$langs->trans("FCKeditorForProductDetails2"), 'switch_on', '', 0, 0, 0, '', 'warning').'</a>';
+				print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=disable_'.strtolower($const).'&token='.newToken().'">'.img_picture($langs->trans("Enabled").' - '.$langs->trans("FCKeditorForProductDetails2"), 'switch_on', '', 0, 0, 0, '', 'warning').'</a>';
 			} else {
-				print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=disable_'.strtolower($const).'&token='.newToken().'">'.img_picto($langs->trans("Enabled"), 'switch_on').'</a>';
+				print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=disable_'.strtolower($const).'&token='.newToken().'">'.img_picture($langs->trans("Enabled"), 'switch_on').'</a>';
 			}
 		}
 
@@ -222,9 +222,9 @@ if (empty($config->use_javascript_ajax)) {
 	print '<td class="center width100">';
 	$value = getDolGlobalInt($constante, 0);
 	if ($value == 0) {
-		print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=enable_'.strtolower($const).'&token='.newToken().'">'.img_picto($langs->trans("Disabled"), 'switch_off').'</a>';
+		print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=enable_'.strtolower($const).'&token='.newToken().'">'.img_picture($langs->trans("Disabled"), 'switch_off').'</a>';
 	} elseif ($value == 1) {
-		print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=disable_'.strtolower($const).'&token='.newToken().'">'.img_picto($langs->trans("Enabled"), 'switch_on').'</a>';
+		print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=disable_'.strtolower($const).'&token='.newToken().'">'.img_picture($langs->trans("Enabled"), 'switch_on').'</a>';
 	}
 
 	print "</td>";

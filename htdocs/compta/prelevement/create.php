@@ -246,7 +246,7 @@ llxHeader('', $title);
 // @phan-suppress-next-line PhanPluginSuspiciousParamPosition
 $head = bon_prelevement_prepare_head($bprev, $bprev->nbOfInvoiceToPay($type), $bprev->nbOfInvoiceToPay($type, 'salary'));
 if ($type) {
-	print dol_get_fiche_head($head, (!GETPOSTISSET('sourcetype') ? 'invoice' : 'salary'), $langs->trans("Invoices"), -1, $bprev->picto);
+	print dol_get_fiche_head($head, (!GETPOSTISSET('sourcetype') ? 'invoice' : 'salary'), $langs->trans("Invoices"), -1, $bprev->picture);
 } else {
 	print load_fiche_titre($title);
 	print dol_get_fiche_head();
@@ -302,7 +302,7 @@ if ($nb) {
 			$title = $langs->trans('BankToPayCreditTransfer').': ';
 		}
 		print '<span class="hideonsmartphone">'.$title.'</span>';
-		print img_picto('', 'bank_account', 'class="pictofixedwidth"');
+		print img_picture('', 'bank_account', 'class="picturefixedwidth"');
 
 		$default_account = ($type == 'bank-transfer' ? 'PAYMENTBYBANKTRANSFER_ID_BANKACCOUNT' : 'PRELEVEMENT_ID_BANKACCOUNT');
 
@@ -484,16 +484,16 @@ if ($resql) {
 		print '<input type="hidden" name="type" value="'.$type.'">';
 	}
 	$title = $langs->trans("InvoiceWaitingWithdraw");
-	$picto = 'bill';
+	$picture = 'bill';
 	if ($type == 'bank-transfer') {
 		if ($sourcetype != 'salary') {
 			$title = $langs->trans("InvoiceWaitingPaymentByBankTransfer");
 		} else {
 			$title = $langs->trans("SalaryWaitingWithdraw");
-			$picto = 'salary';
+			$picture = 'salary';
 		}
 	}
-	print_barre_liste($title, $page, $_SERVER['PHP_SELF'], $param, '', '', $massactionbutton, $num, $nbtotalofrecords, $picto, 0, '', '', $limit);
+	print_barre_liste($title, $page, $_SERVER['PHP_SELF'], $param, '', '', $massactionbutton, $num, $nbtotalofrecords, $picture, 0, '', '', $limit);
 
 
 	$tradinvoice = "Invoice";

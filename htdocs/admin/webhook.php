@@ -190,7 +190,7 @@ if ($action == 'edit') {
 				$setupnotempty++;
 				print '<tr class="oddeven"><td>';
 				$tooltiphelp = (($langs->trans($constname . 'Tooltip') != $constname . 'Tooltip') ? $langs->trans($constname . 'Tooltip') : '');
-				print '<span id="helplink'.$constname.'" class="spanforparamtooltip">'.$form->textwithpicto($langs->trans($constname), $tooltiphelp, 1, 'info', '', 0, 3, 'tootips'.$constname).'</span>';
+				print '<span id="helplink'.$constname.'" class="spanforparamtooltip">'.$form->textWithPicture($langs->trans($constname), $tooltiphelp, 1, 'info', '', 0, 3, 'tootips'.$constname).'</span>';
 				print '</td><td>';
 
 				if ($val['type'] == 'textarea') {
@@ -229,7 +229,7 @@ if ($action == 'edit') {
 					$formother = new FormOther($db);
 
 					$tmp = explode(':', $val['type']);
-					print img_picto('', 'category', 'class="pictofixedwidth"');
+					print img_picture('', 'category', 'class="picturefixedwidth"');
 					print $formother->select_categories($tmp[1], getDolGlobalString($constname), $constname, 0, $langs->trans('CustomersProspectsCategoriesShort'));
 				} elseif (preg_match('/thirdparty_type/', $val['type'])) {
 					require_once DOL_DOCUMENT_ROOT.'/core/class/html.formcompany.class.php';
@@ -238,7 +238,7 @@ if ($action == 'edit') {
 				} elseif ($val['type'] == 'securekey') {
 					print '<input required="required" type="text" class="flat" id="'.$constname.'" name="'.$constname.'" value="'.(GETPOST($constname, 'alpha') ? GETPOST($constname, 'alpha') : getDolGlobalString($constname)).'" size="40">';
 					if (!empty($config->use_javascript_ajax)) {
-						print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token'.$constname.'" class="linkobject"');
+						print '&nbsp;'.img_picture($langs->trans('Generate'), 'refresh', 'id="generate_token'.$constname.'" class="linkobject"');
 					}
 
 					// Add button to autosuggest a key
@@ -280,7 +280,7 @@ if ($action == 'edit') {
 					$setupnotempty++;
 					print '<tr class="oddeven"><td>';
 					$tooltiphelp = (($langs->trans($constname . 'Tooltip') != $constname . 'Tooltip') ? $langs->trans($constname . 'Tooltip') : '');
-					print $form->textwithpicto($langs->trans($constname), $tooltiphelp);
+					print $form->textWithPicture($langs->trans($constname), $tooltiphelp);
 					print '</td><td>';
 
 					if ($val['type'] == 'textarea') {

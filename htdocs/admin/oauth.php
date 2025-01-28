@@ -359,7 +359,7 @@ if (count($listinsetup) > 0) {
 		$label = $langs->trans($keyforsupportedoauth2array);
 		print '<tr class="liste_titre'.($i > 1 ? ' liste_titre_add' : '').'">';
 		print '<td class="titlefieldcreate">';
-		print img_picto('', $supportedoauth2array[$keyforsupportedoauth2array]['picto'], 'class="pictofixedwidth"');
+		print img_picture('', $supportedoauth2array[$keyforsupportedoauth2array]['picture'], 'class="picturefixedwidth"');
 		if ($label == $keyforsupportedoauth2array) {
 			print $supportedoauth2array[$keyforsupportedoauth2array]['name'];
 		} else {
@@ -386,7 +386,7 @@ if (count($listinsetup) > 0) {
 		print '<td>';
 		$label = preg_replace('/_NAME$/', '', $keyforsupportedoauth2array);
 		print '<a href="'.$_SERVER["PHP_SELF"].'?action=delete&token='.newToken().'&provider='.urlencode($keyforprovider).'&label='.urlencode($label).'">';
-		print img_picto('', 'delete');
+		print img_picture('', 'delete');
 		print '</a>';
 
 		print '</form>';
@@ -397,7 +397,7 @@ if (count($listinsetup) > 0) {
 		if ($supported) {
 			$redirect_uri = $urlwithroot.'/core/modules/oauth/'.$supportedoauth2array[$keyforsupportedoauth2array]['callbackfile'].'_oauthcallback.php';
 			print '<tr class="oddeven value">';
-			print '<td>'.$form->textwithpicto($langs->trans("RedirectURL"), $langs->trans("UseTheFollowingUrlAsRedirectURI")).'</td>';
+			print '<td>'.$form->textWithPicture($langs->trans("RedirectURL"), $langs->trans("UseTheFollowingUrlAsRedirectURI")).'</td>';
 			print '<td><input style="width: 80%" type="text" name="uri'.$keyforsupportedoauth2array.'" id="uri'.$keyforsupportedoauth2array.$keyforprovider.'" value="'.$redirect_uri.'" disabled>';
 			print ajax_autoselect('uri'.$keyforsupportedoauth2array.$keyforprovider);
 			print '</td>';
@@ -408,7 +408,7 @@ if (count($listinsetup) > 0) {
 				print '<tr class="oddeven value">';
 				print '<td>';
 				$tooltiphelp = $langs->trans("Example").'<br>https://mastodon.example.com<br>https://mastodon.social';
-				print $form->textwithpicto($langs->trans("URLOfOAuthServiceEndpoints"), $tooltiphelp);
+				print $form->textWithPicture($langs->trans("URLOfOAuthServiceEndpoints"), $tooltiphelp);
 				print '</td>';
 				print '<td><input style="width: 80%" type="text" name="'.$key[3].'" value="'.getDolGlobalString($key[3]).'" >';
 				print '</td>';
@@ -455,7 +455,7 @@ if (count($listinsetup) > 0) {
 			if ($keyforsupportedoauth2array == 'OAUTH_GENERIC_NAME') {
 				print '<tr class="oddeven value">';
 				print '<td>';
-				print $form->textwithpicto($langs->trans("Scopes"), $langs->trans("ScopesDesc"));
+				print $form->textWithPicture($langs->trans("Scopes"), $langs->trans("ScopesDesc"));
 				print '</td>';
 				print '<td>';
 				print '<input style="width: 80%" type"text" name="'.$key[4].'" value="'.getDolGlobalString($key[4]).'" >';

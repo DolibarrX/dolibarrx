@@ -53,7 +53,7 @@ class modDebugBar extends DolibarrModules
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
 		$this->version = 'dolibarr';
 		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
-		$this->picto = 'bug';
+		$this->picture = 'bug';
 
 		$this->module_parts = array('moduleforexternal' => 0);
 

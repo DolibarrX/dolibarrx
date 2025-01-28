@@ -98,7 +98,7 @@ class mod_codeproduct_elephant extends ModeleProductCode
 
 		// Parametrage du prefix customers
 		$texte .= '<tr><td>'.$langs->trans("ProductCodeModel").'</td>';
-		$texte .= '<td class="right nowraponall">'.$form->textwithpicto('<input type="text" class="flat minwidth175" name="value1" placeholder="'.$langs->trans("Mask").'" value="'.getDolGlobalString('PRODUCT_ELEPHANT_MASK_PRODUCT').'"'.$disabled.'>', $tooltip, 1, 'help', 'valignmiddle', 0, 3, $this->name).'</td>';
+		$texte .= '<td class="right nowraponall">'.$form->textWithPicture('<input type="text" class="flat minwidth175" name="value1" placeholder="'.$langs->trans("Mask").'" value="'.getDolGlobalString('PRODUCT_ELEPHANT_MASK_PRODUCT').'"'.$disabled.'>', $tooltip, 1, 'help', 'valignmiddle', 0, 3, $this->name).'</td>';
 
 		$texte .= '<td class="left" rowspan="2">&nbsp; <input type="submit" class="button button-edit reposition smallpaddingimp" name="modify" value="'.$langs->trans("Modify").'"'.$disabled.'></td>';
 
@@ -106,7 +106,7 @@ class mod_codeproduct_elephant extends ModeleProductCode
 
 		// Parametrage du prefix suppliers
 		$texte .= '<tr><td>'.$langs->trans("ServiceCodeModel").'</td>';
-		$texte .= '<td class="right nowraponall">'.$form->textwithpicto('<input type="text" class="flat minwidth175" name="value2" placeholder="'.$langs->trans("Mask").'" value="'.getDolGlobalString('PRODUCT_ELEPHANT_MASK_SERVICE').'"'.$disabled.'>', $tooltip, 1, 'help', 'valignmiddle', 0, 3, $this->name).'</td>';
+		$texte .= '<td class="right nowraponall">'.$form->textWithPicture('<input type="text" class="flat minwidth175" name="value2" placeholder="'.$langs->trans("Mask").'" value="'.getDolGlobalString('PRODUCT_ELEPHANT_MASK_SERVICE').'"'.$disabled.'>', $tooltip, 1, 'help', 'valignmiddle', 0, 3, $this->name).'</td>';
 		$texte .= '</tr>';
 
 		$texte .= '</table>';

@@ -127,7 +127,7 @@ class Societe extends CommonObject
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'company';
+	public $picture = 'company';
 
 	/**
 	 * 0=Default, 1=View may be restricted to sales representative only if no permission to see all or to company of external user if external user
@@ -151,7 +151,7 @@ class Societe extends CommonObject
 	 *  'type' field format ('integer', 'integer:ObjectClass:PathToClass[:AddCreateButtonOrNot[:Filter]]', 'sellist:TableName:LabelFieldName[:KeyFieldName[:KeyFieldParent[:Filter]]]', 'varchar(x)', 'double(24,8)', 'real', 'price', 'text', 'text:none', 'html', 'date', 'datetime', 'timestamp', 'duration', 'mail', 'phone', 'url', 'password')
 	 *         Note: Filter can be a string like "(t.ref:like:'SO-%') or (t.date_creation:<:'20160101') or (t.nature:is:NULL)"
 	 *  'label' the translation key.
-	 *  'picto' is code of a picto to show before value in forms
+	 *  'picture' is code of a picture to show before value in forms
 	 *  'enabled' is a condition when the field must be managed (Example: 1 or 'getDolGlobalString("MY_SETUP_PARAM")'
 	 *  'position' is the sort order of field.
 	 *  'notnull' is set to 1 if not null in database. Set to -1 if we must set data to null if empty ('' or 0).
@@ -722,10 +722,10 @@ class Societe extends CommonObject
 	public $stcomm_id;
 
 	/**
-	 * Status prospect picto
+	 * Status prospect picture
 	 * @var string
 	 */
-	public $stcomm_picto;
+	public $stcomm_picture;
 
 	/**
 	 * Status prospect label
@@ -1944,7 +1944,7 @@ class Societe extends CommonObject
 		$sql .= ', c.code as country_code, c.label as country';
 		$sql .= ', d.code_departement as state_code, d.nom as state';
 		$sql .= ', r.rowid as region_id, r.code_region as region_code';
-		$sql .= ', st.libelle as stcomm, st.picto as stcomm_picto';
+		$sql .= ', st.libelle as stcomm, st.picture as stcomm_picture';
 		$sql .= ', te.code as typent_code';
 		$sql .= ', i.libelle as label_incoterms';
 		if (!isModEnabled('multicompany')) {
@@ -2060,7 +2060,7 @@ class Societe extends CommonObject
 				$label = ($transcode != 'StatusProspect'.$obj->fk_stcomm ? $transcode : $obj->stcomm);
 				$this->stcomm_id = $obj->fk_stcomm; // id status prospect
 				$this->status_prospect_label = $label; // label status prospect
-				$this->stcomm_picto = $obj->stcomm_picto; // picto statut commercial
+				$this->stcomm_picture = $obj->stcomm_picture; // picture statut commercial
 
 				$this->email = $obj->email;
 				$this->socialnetworks = ($obj->socialnetworks ? (array) json_decode($obj->socialnetworks, true) : array());
@@ -2890,26 +2890,26 @@ class Societe extends CommonObject
 		$datas['divopen'] = '<div class="centpercent">';
 
 		if ($option == 'customer' || $option == 'compta' || $option == 'category') {
-			$datas['picto'] = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("Customer").'</u>';
+			$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("Customer").'</u>';
 		} elseif ($option == 'prospect' && !getDolGlobalString('SOCIETE_DISABLE_PROSPECTS')) {
-			$datas['picto'] = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("Prospect").'</u>';
+			$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("Prospect").'</u>';
 		} elseif ($option == 'supplier' || $option == 'category_supplier') {
-			$datas['picto'] = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("Supplier").'</u>';
+			$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("Supplier").'</u>';
 		} elseif ($option == 'agenda') {
-			$datas['picto'] = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("ThirdParty").'</u>';
+			$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("ThirdParty").'</u>';
 		} elseif ($option == 'project') {
-			$datas['picto'] = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("ThirdParty").'</u>';
+			$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("ThirdParty").'</u>';
 		} elseif ($option == 'margin') {
-			$datas['picto'] = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("ThirdParty").'</u>';
+			$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("ThirdParty").'</u>';
 		} elseif ($option == 'contact') {
-			$datas['picto'] = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("ThirdParty").'</u>';
+			$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("ThirdParty").'</u>';
 		} elseif ($option == 'ban') {
-			$datas['picto'] = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("ThirdParty").'</u>';
+			$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("ThirdParty").'</u>';
 		}
 
 		// By default
-		if (empty($datas['picto'])) {
-			$datas['picto'] = img_picto('', $this->picto).' <u class="paddingrightonly">'.$langs->trans("ThirdParty").'</u>';
+		if (empty($datas['picture'])) {
+			$datas['picture'] = img_picture('', $this->picture).' <u class="paddingrightonly">'.$langs->trans("ThirdParty").'</u>';
 		}
 		if (isset($this->status)) {
 			$datas['status'] = ' '.$this->getLibStatut(5);
@@ -2922,10 +2922,10 @@ class Societe extends CommonObject
 			$datas['namealias'] = ' ('.dol_escape_htmltag(dol_string_nohtmltag($this->name_alias)).')';
 		}
 		if (!empty($this->email)) {
-			$datas['email'] = '<br>'.img_picto('', 'email', 'class="pictofixedwidth"').$this->email;
+			$datas['email'] = '<br>'.img_picture('', 'email', 'class="picturefixedwidth"').$this->email;
 		}
 		if (!empty($this->url)) {
-			$datas['url'] = '<br>'.img_picto('', 'globe', 'class="pictofixedwidth"').$this->url;
+			$datas['url'] = '<br>'.img_picture('', 'globe', 'class="picturefixedwidth"').$this->url;
 		}
 		if (!empty($this->phone) || !empty($this->phone_mobile) || !empty($this->fax)) {
 			$phonelist = array();
@@ -3007,9 +3007,9 @@ class Societe extends CommonObject
 	}
 
 	/**
-	 *    	Return a link on thirdparty (with picto)
+	 *    	Return a link on thirdparty (with picture)
 	 *
-	 *		@param	int		$withpicto		          	Add picto into link (0=No picto, 1=Include picto with link, 2=Picto only)
+	 *		@param	int		$withPicture		          	Add picture into link (0=No picture, 1=Include picture with link, 2=Picto only)
 	 *		@param	string	$option			          	Target of link (''=auto, 'nolink'=no link, 'customer', 'prospect', 'supplier', 'project', 'agenda', ...)
 	 *		@param	int		$maxlen			          	Max length of name
 	 *      @param	int  	$notooltip		          	1=Disable tooltip
@@ -3019,7 +3019,7 @@ class Societe extends CommonObject
 	 *      @param	string	$morecss					More CSS
 	 *		@return	string					          	String with URL
 	 */
-	public function getNomUrl($withpicto = 0, $option = '', $maxlen = 0, $notooltip = 0, $save_lastsearch_value = -1, $noaliasinname = 0, $target = '', $morecss = '')
+	public function getNomUrl($withPicture = 0, $option = '', $maxlen = 0, $notooltip = 0, $save_lastsearch_value = -1, $noaliasinname = 0, $target = '', $morecss = '')
 	{
 		global $config, $langs, $hookManager, $user;
 
@@ -3038,7 +3038,7 @@ class Societe extends CommonObject
 			}
 		}
 
-		if (getDolGlobalString('SOCIETE_ADD_REF_IN_LIST') && (!empty($withpicto))) {
+		if (getDolGlobalString('SOCIETE_ADD_REF_IN_LIST') && (!empty($withPicture))) {
 			$code = '';
 			if (($this->client) && (!empty($this->code_client)) && (getDolGlobalInt('SOCIETE_ADD_REF_IN_LIST') == 1 || getDolGlobalInt('SOCIETE_ADD_REF_IN_LIST') == 2)) {
 				$code = $this->code_client.' - ';
@@ -3141,10 +3141,10 @@ class Societe extends CommonObject
 		}
 
 		$result .= $linkstart;
-		if ($withpicto) {
-			$result .= img_object(($notooltip ? '' : $label), ($this->picto ? $this->picto : 'generic'), (' class="'.(($withpicto != 2) ? 'paddingright' : '').'"'), 0, 0, $notooltip ? 0 : 1);
+		if ($withPicture) {
+			$result .= img_object(($notooltip ? '' : $label), ($this->picture ? $this->picture : 'generic'), (' class="'.(($withPicture != 2) ? 'paddingright' : '').'"'), 0, 0, $notooltip ? 0 : 1);
 		}
-		if ($withpicto != 2) {
+		if ($withPicture != 2) {
 			$result .= dol_escape_htmltag($maxlen ? dol_trunc($name, $maxlen) : $name);
 		}
 		$result .= $linkend;
@@ -3154,7 +3154,7 @@ class Societe extends CommonObject
 		$parameters = array(
 			'id' => $this->id,
 			'getnomurl' => &$result,
-			'withpicto ' => $withpicto,
+			'withpicture ' => $withPicture,
 			'option' => $option,
 			'maxlen' => $maxlen,
 			'notooltip' => $notooltip,
@@ -3171,15 +3171,15 @@ class Societe extends CommonObject
 	}
 
 	/**
-	 *    	Return link(s) on type of thirdparty (with picto)
+	 *    	Return link(s) on type of thirdparty (with picture)
 	 *
-	 *		@param	int		$withpicto		        Add picto into link (0=No picto, 1=Include picto with link, 2=Picto only)
+	 *		@param	int		$withPicture		        Add picture into link (0=No picture, 1=Include picture with link, 2=Picto only)
 	 *		@param	string	$option					''=All
 	 *      @param	int  	$notooltip		        1=Disable tooltip
 	 *      @param	string	$tag					Tag 'a' or 'span'
 	 *		@return	string					        String with URL
 	 */
-	public function getTypeUrl($withpicto = 0, $option = '', $notooltip = 0, $tag = 'a')
+	public function getTypeUrl($withPicture = 0, $option = '', $notooltip = 0, $tag = 'a')
 	{
 		global $langs;
 
@@ -4835,7 +4835,7 @@ class Societe extends CommonObject
 	 */
 	public function getLibProspCommStatut($mode = 0, $label = '')
 	{
-		return $this->LibProspCommStatut($this->stcomm_id, $mode, $label, $this->stcomm_picto);
+		return $this->LibProspCommStatut($this->stcomm_id, $mode, $label, $this->stcomm_picture);
 	}
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
@@ -4845,14 +4845,14 @@ class Societe extends CommonObject
 	 *  @param	int|string	$status        	Id or code for prospection status
 	 *  @param  int			$mode          	0=long label, 1=short label, 2=Picto + short label, 3=Picto, 4=Picto + long label, 5=Short label + Picto
 	 *  @param	string		$label			Label to use for status for added status
-	 *	@param 	string		$picto      	Name of image file to show ('filenew', ...)
+	 *	@param 	string		$picture      	Name of image file to show ('filenew', ...)
 	 *                                      If no extension provided, we use '.png'. Image must be stored into theme/xxx/img directory.
-	 *                                      Example: picto.png                  if picto.png is stored into htdocs/theme/mytheme/img
-	 *                                      Example: picto.png@mymodule         if picto.png is stored into htdocs/mymodule/img
-	 *                                      Example: /mydir/mysubdir/picto.png  if picto.png is stored into htdocs/mydir/mysubdir (pictoisfullpath must be set to 1)
+	 *                                      Example: picture.png                  if picture.png is stored into htdocs/theme/mytheme/img
+	 *                                      Example: picture.png@mymodule         if picture.png is stored into htdocs/mymodule/img
+	 *                                      Example: /mydir/mysubdir/picture.png  if picture.png is stored into htdocs/mydir/mysubdir (pictureisfullpath must be set to 1)
 	 *  @return string       	 			Label of prospection status
 	 */
-	public function LibProspCommStatut($status, $mode = 0, $label = '', $picto = '')
+	public function LibProspCommStatut($status, $mode = 0, $label = '', $picture = '')
 	{
 		// phpcs:enable
 		global $langs;
@@ -4861,45 +4861,45 @@ class Societe extends CommonObject
 
 		if ($mode == 2) {
 			if ($status == '-1' || $status == 'ST_NO') {
-				return img_action($langs->trans("StatusProspect-1"), '-1', $picto, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect-1");
+				return img_action($langs->trans("StatusProspect-1"), '-1', $picture, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect-1");
 			} elseif ($status == '0' || $status == 'ST_NEVER') {
-				return img_action($langs->trans("StatusProspect0"), '0', $picto, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect0");
+				return img_action($langs->trans("StatusProspect0"), '0', $picture, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect0");
 			} elseif ($status == '1' || $status == 'ST_TODO') {
-				return img_action($langs->trans("StatusProspect1"), '1', $picto, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect1");
+				return img_action($langs->trans("StatusProspect1"), '1', $picture, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect1");
 			} elseif ($status == '2' || $status == 'ST_PEND') {
-				return img_action($langs->trans("StatusProspect2"), '2', $picto, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect2");
+				return img_action($langs->trans("StatusProspect2"), '2', $picture, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect2");
 			} elseif ($status == '3' || $status == 'ST_DONE') {
-				return img_action($langs->trans("StatusProspect3"), '3', $picto, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect3");
+				return img_action($langs->trans("StatusProspect3"), '3', $picture, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect3");
 			} else {
-				return img_action(($langs->trans("StatusProspect".$status) != "StatusProspect".$status) ? $langs->trans("StatusProspect".$status) : $label, '0', $picto, 'class="inline-block valignmiddle"').' '.(($langs->trans("StatusProspect".$status) != "StatusProspect".$status) ? $langs->trans("StatusProspect".$status) : $label);
+				return img_action(($langs->trans("StatusProspect".$status) != "StatusProspect".$status) ? $langs->trans("StatusProspect".$status) : $label, '0', $picture, 'class="inline-block valignmiddle"').' '.(($langs->trans("StatusProspect".$status) != "StatusProspect".$status) ? $langs->trans("StatusProspect".$status) : $label);
 			}
 		} elseif ($mode == 3) {
 			if ($status == '-1' || $status == 'ST_NO') {
-				return img_action($langs->trans("StatusProspect-1"), '-1', $picto, 'class="inline-block valignmiddle"');
+				return img_action($langs->trans("StatusProspect-1"), '-1', $picture, 'class="inline-block valignmiddle"');
 			} elseif ($status == '0' || $status == 'ST_NEVER') {
-				return img_action($langs->trans("StatusProspect0"), '0', $picto, 'class="inline-block valignmiddle"');
+				return img_action($langs->trans("StatusProspect0"), '0', $picture, 'class="inline-block valignmiddle"');
 			} elseif ($status == '1' || $status == 'ST_TODO') {
-				return img_action($langs->trans("StatusProspect1"), '1', $picto, 'class="inline-block valignmiddle"');
+				return img_action($langs->trans("StatusProspect1"), '1', $picture, 'class="inline-block valignmiddle"');
 			} elseif ($status == '2' || $status == 'ST_PEND') {
-				return img_action($langs->trans("StatusProspect2"), '2', $picto, 'class="inline-block valignmiddle"');
+				return img_action($langs->trans("StatusProspect2"), '2', $picture, 'class="inline-block valignmiddle"');
 			} elseif ($status == '3' || $status == 'ST_DONE') {
-				return img_action($langs->trans("StatusProspect3"), '3', $picto, 'class="inline-block valignmiddle"');
+				return img_action($langs->trans("StatusProspect3"), '3', $picture, 'class="inline-block valignmiddle"');
 			} else {
-				return img_action(($langs->trans("StatusProspect".$status) != "StatusProspect".$status) ? $langs->trans("StatusProspect".$status) : $label, '0', $picto, 'class="inline-block valignmiddle"');
+				return img_action(($langs->trans("StatusProspect".$status) != "StatusProspect".$status) ? $langs->trans("StatusProspect".$status) : $label, '0', $picture, 'class="inline-block valignmiddle"');
 			}
 		} elseif ($mode == 4) {
 			if ($status == '-1' || $status == 'ST_NO') {
-				return img_action($langs->trans("StatusProspect-1"), '-1', $picto, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect-1");
+				return img_action($langs->trans("StatusProspect-1"), '-1', $picture, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect-1");
 			} elseif ($status == '0' || $status == 'ST_NEVER') {
-				return img_action($langs->trans("StatusProspect0"), '0', $picto, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect0");
+				return img_action($langs->trans("StatusProspect0"), '0', $picture, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect0");
 			} elseif ($status == '1' || $status == 'ST_TODO') {
-				return img_action($langs->trans("StatusProspect1"), '1', $picto, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect1");
+				return img_action($langs->trans("StatusProspect1"), '1', $picture, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect1");
 			} elseif ($status == '2' || $status == 'ST_PEND') {
-				return img_action($langs->trans("StatusProspect2"), '2', $picto, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect2");
+				return img_action($langs->trans("StatusProspect2"), '2', $picture, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect2");
 			} elseif ($status == '3' || $status == 'ST_DONE') {
-				return img_action($langs->trans("StatusProspect3"), '3', $picto, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect3");
+				return img_action($langs->trans("StatusProspect3"), '3', $picture, 'class="inline-block valignmiddle"').' '.$langs->trans("StatusProspect3");
 			} else {
-				return img_action(($langs->trans("StatusProspect".$status) != "StatusProspect".$status) ? $langs->trans("StatusProspect".$status) : $label, '0', $picto, 'class="inline-block valignmiddle"').' '.(($langs->trans("StatusProspect".$status) != "StatusProspect".$status) ? $langs->trans("StatusProspect".$status) : $label);
+				return img_action(($langs->trans("StatusProspect".$status) != "StatusProspect".$status) ? $langs->trans("StatusProspect".$status) : $label, '0', $picture, 'class="inline-block valignmiddle"').' '.(($langs->trans("StatusProspect".$status) != "StatusProspect".$status) ? $langs->trans("StatusProspect".$status) : $label);
 			}
 		}
 
@@ -5391,7 +5391,7 @@ class Societe extends CommonObject
 	}
 
 	/**
-	 *	Return clickable link of object (with optional picto)
+	 *	Return clickable link of object (with optional picture)
 	 *
 	 *	@param	string				$option			Where point the link (0=> main card, 1,2 => shipment, 'nolink'=>No link)
 	 *  @param	array<string,mixed>	$arraydata		Array of data
@@ -5404,7 +5404,7 @@ class Societe extends CommonObject
 		$return = '<div class="box-flex-item box-flex-grow-zero">';
 		$return .= '<div class="info-box info-box-sm">';
 		$return .= '<span class="info-box-icon bg-infobox-action">';
-		$return .= img_picto('', $this->picto);
+		$return .= img_picture('', $this->picture);
 		$return .= '</span>';
 		$return .= '<div class="info-box-content">';
 		$return .= '<div class="info-box-ref inline-block tdoverflowmax125 valignmiddle">'.(method_exists($this, 'getNomUrl') ? $this->getNomUrl(1) : $this->ref);

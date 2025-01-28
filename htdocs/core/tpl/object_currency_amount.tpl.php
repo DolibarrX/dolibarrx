@@ -102,7 +102,7 @@ if (isModEnabled('multicurrency')) {
 				print '<div class="inline-block"> &nbsp; &nbsp; &nbsp; &nbsp; ';
 				print '<a href="'.$_SERVER["PHP_SELF"].'?id='.$object->id.'&action=actualizemulticurrencyrate&token='.newToken().'" title="'.$langs->trans("ActualizeCurrency").'">';
 				//print $langs->trans("ActualizeCurrency");
-				print img_picto($langs->trans("ActualizeCurrency"), 'undo');
+				print img_picture($langs->trans("ActualizeCurrency"), 'undo');
 				print '</a>';
 				print '</div>';
 			}

@@ -137,26 +137,26 @@ $extrafields = new ExtraFields($db);
 $hookManager->initHooks(array('customreport')); // Note that conf->hooks_modules contains array
 
 $title = '';
-$picto = '';
+$picture = '';
 $errormessage = null;
 $keyforlabeloffield = null;
 $head = array();
 $ObjectClassName = '';
 // Objects available by default
 $arrayoftype = array(
-	'thirdparty' => array('langs' => 'companies', 'label' => 'ThirdParties', 'picto' => 'company', 'ObjectClassName' => 'Societe', 'enabled' => isModEnabled('societe'), 'ClassPath' => "/societe/class/societe.class.php"),
-	'contact' => array('label' => 'Contacts', 'picto' => 'contact', 'ObjectClassName' => 'Contact', 'enabled' => isModEnabled('societe'), 'ClassPath' => "/contact/class/contact.class.php"),
-	'proposal' => array('label' => 'Proposals', 'picto' => 'proposal', 'ObjectClassName' => 'Propal', 'enabled' => isModEnabled('propal'), 'ClassPath' => "/comm/propal/class/propal.class.php"),
-	'order' => array('label' => 'Orders', 'picto' => 'order', 'ObjectClassName' => 'Order', 'enabled' => isModEnabled('order'), 'ClassPath' => "/order/class/order.class.php"),
-	'invoice' => array('langs' => 'facture', 'label' => 'Invoices', 'picto' => 'bill', 'ObjectClassName' => 'Facture', 'enabled' => isModEnabled('invoice'), 'ClassPath' => "/compta/facture/class/facture.class.php"),
-	'invoice_template' => array('label' => 'PredefinedInvoices', 'picto' => 'bill', 'ObjectClassName' => 'FactureRec', 'enabled' => isModEnabled('invoice'), 'ClassPath' => "/compta/class/facturerec.class.php", 'langs' => 'bills'),
-	'contract' => array('label' => 'Contracts', 'picto' => 'contract', 'ObjectClassName' => 'Contrat', 'enabled' => isModEnabled('contract'), 'ClassPath' => "/contrat/class/contrat.class.php", 'langs' => 'contracts'),
-	'contractdet' => array('label' => 'ContractLines', 'picto' => 'contract', 'ObjectClassName' => 'ContratLigne', 'enabled' => isModEnabled('contract'), 'ClassPath' => "/contrat/class/contrat.class.php", 'langs' => 'contracts'),
-	'bom' => array('label' => 'BOM', 'picto' => 'bom', 'ObjectClassName' => 'Bom', 'enabled' => isModEnabled('bom')),
-	'mrp' => array('label' => 'MO', 'picto' => 'mrp', 'ObjectClassName' => 'Mo', 'enabled' => isModEnabled('mrp'), 'ClassPath' => "/mrp/class/mo.class.php"),
-	'ticket' => array('label' => 'Ticket', 'picto' => 'ticket', 'ObjectClassName' => 'Ticket', 'enabled' => isModEnabled('ticket')),
-	'member' => array('label' => 'Member', 'picto' => 'member', 'ObjectClassName' => 'Member', 'enabled' => isModEnabled('member'), 'ClassPath' => "/members/class/member.class.php", 'langs' => 'members'),
-	'cotisation' => array('label' => 'Subscriptions', 'picto' => 'member', 'ObjectClassName' => 'Subscription', 'enabled' => isModEnabled('member'), 'ClassPath' => "/members/class/subscription.class.php", 'langs' => 'members'),
+	'thirdparty' => array('langs' => 'companies', 'label' => 'ThirdParties', 'picture' => 'company', 'ObjectClassName' => 'Societe', 'enabled' => isModEnabled('societe'), 'ClassPath' => "/societe/class/societe.class.php"),
+	'contact' => array('label' => 'Contacts', 'picture' => 'contact', 'ObjectClassName' => 'Contact', 'enabled' => isModEnabled('societe'), 'ClassPath' => "/contact/class/contact.class.php"),
+	'proposal' => array('label' => 'Proposals', 'picture' => 'proposal', 'ObjectClassName' => 'Propal', 'enabled' => isModEnabled('propal'), 'ClassPath' => "/comm/propal/class/propal.class.php"),
+	'order' => array('label' => 'Orders', 'picture' => 'order', 'ObjectClassName' => 'Order', 'enabled' => isModEnabled('order'), 'ClassPath' => "/order/class/order.class.php"),
+	'invoice' => array('langs' => 'facture', 'label' => 'Invoices', 'picture' => 'bill', 'ObjectClassName' => 'Facture', 'enabled' => isModEnabled('invoice'), 'ClassPath' => "/compta/facture/class/facture.class.php"),
+	'invoice_template' => array('label' => 'PredefinedInvoices', 'picture' => 'bill', 'ObjectClassName' => 'FactureRec', 'enabled' => isModEnabled('invoice'), 'ClassPath' => "/compta/class/facturerec.class.php", 'langs' => 'bills'),
+	'contract' => array('label' => 'Contracts', 'picture' => 'contract', 'ObjectClassName' => 'Contrat', 'enabled' => isModEnabled('contract'), 'ClassPath' => "/contrat/class/contrat.class.php", 'langs' => 'contracts'),
+	'contractdet' => array('label' => 'ContractLines', 'picture' => 'contract', 'ObjectClassName' => 'ContratLigne', 'enabled' => isModEnabled('contract'), 'ClassPath' => "/contrat/class/contrat.class.php", 'langs' => 'contracts'),
+	'bom' => array('label' => 'BOM', 'picture' => 'bom', 'ObjectClassName' => 'Bom', 'enabled' => isModEnabled('bom')),
+	'mrp' => array('label' => 'MO', 'picture' => 'mrp', 'ObjectClassName' => 'Mo', 'enabled' => isModEnabled('mrp'), 'ClassPath' => "/mrp/class/mo.class.php"),
+	'ticket' => array('label' => 'Ticket', 'picture' => 'ticket', 'ObjectClassName' => 'Ticket', 'enabled' => isModEnabled('ticket')),
+	'member' => array('label' => 'Member', 'picture' => 'member', 'ObjectClassName' => 'Member', 'enabled' => isModEnabled('member'), 'ClassPath' => "/members/class/member.class.php", 'langs' => 'members'),
+	'cotisation' => array('label' => 'Subscriptions', 'picture' => 'member', 'ObjectClassName' => 'Subscription', 'enabled' => isModEnabled('member'), 'ClassPath' => "/members/class/subscription.class.php", 'langs' => 'members'),
 );
 
 
@@ -169,8 +169,8 @@ if ($resHook < 0) {
 	if (!empty($hookManager->resArray['title'])) {		// Add entries for tabs
 		$title = $hookManager->resArray['title'];
 	}
-	if (!empty($hookManager->resArray['picto'])) {		// Add entries for tabs
-		$picto = $hookManager->resArray['picto'];
+	if (!empty($hookManager->resArray['picture'])) {		// Add entries for tabs
+		$picture = $hookManager->resArray['picture'];
 	}
 	if (!empty($hookManager->resArray['head'])) {		// Add entries for tabs
 		$head = array_merge($head, $hookManager->resArray['head']);
@@ -360,9 +360,9 @@ if (!defined('USE_CUSTOM_REPORT_AS_INCLUDE')) {
 	llxHeader('', $langs->transnoentitiesnoconv('CustomReports'), '');
 
 	if (empty($head)) {
-		print dol_get_fiche_head($head, 'customreports', $title, -2, $picto);
+		print dol_get_fiche_head($head, 'customreports', $title, -2, $picture);
 	} else {
-		print dol_get_fiche_head($head, 'customreports', $title, -1, $picto);
+		print dol_get_fiche_head($head, 'customreports', $title, -1, $picture);
 	}
 }
 
@@ -605,7 +605,7 @@ if (!defined('MAIN_CUSTOM_REPORT_KEEP_GRAPH_ONLY')) {
 
 
 	foreach ($newarrayoftype as $tmpkey => $tmpval) {
-		$newarrayoftype[$tmpkey]['label'] = img_picto('', $tmpval['picto'], 'class="pictofixedwidth"').$langs->trans($tmpval['label']);
+		$newarrayoftype[$tmpkey]['label'] = img_picture('', $tmpval['picture'], 'class="picturefixedwidth"').$langs->trans($tmpval['label']);
 	}
 
 	print '<div class="liste_titre liste_titre_bydiv liste_titre_bydiv_inlineblock liste_titre_bydiv_nothingafter centpercent">';
@@ -640,7 +640,7 @@ if (!defined('MAIN_CUSTOM_REPORT_KEEP_GRAPH_ONLY')) {
 	$count = 0;
 	//var_dump($arrayofmesures);
 	print '<div class="divadvancedsearchfield clearboth">';
-	print '<div class="inline-block"><span class="fas fa-ruler-combined paddingright pictofixedwidth" title="'.dol_escape_htmltag($langs->trans("Measures")).'"></span><span class="fas fa-caret-left caretleftaxis" title="'.dol_escape_htmltag($langs->trans("Measures")).'"></span></div>';
+	print '<div class="inline-block"><span class="fas fa-ruler-combined paddingright picturefixedwidth" title="'.dol_escape_htmltag($langs->trans("Measures")).'"></span><span class="fas fa-caret-left caretleftaxis" title="'.dol_escape_htmltag($langs->trans("Measures")).'"></span></div>';
 	$simplearrayofmesures = array();
 	foreach ($arrayofmesures as $key => $val) {
 		$simplearrayofmesures[$key] = $arrayofmesures[$key]['label'];
@@ -651,7 +651,7 @@ if (!defined('MAIN_CUSTOM_REPORT_KEEP_GRAPH_ONLY')) {
 	// XAxis
 	$count = 0;
 	print '<div class="divadvancedsearchfield">';
-	print '<div class="inline-block"><span class="fas fa-ruler-combined paddingright pictofixedwidth" title="'.dol_escape_htmltag($langs->trans("XAxis")).'"></span><span class="fas fa-caret-down caretdownaxis" title="'.dol_escape_htmltag($langs->trans("XAxis")).'"></span></div>';
+	print '<div class="inline-block"><span class="fas fa-ruler-combined paddingright picturefixedwidth" title="'.dol_escape_htmltag($langs->trans("XAxis")).'"></span><span class="fas fa-caret-down caretdownaxis" title="'.dol_escape_htmltag($langs->trans("XAxis")).'"></span></div>';
 	//var_dump($arrayofxaxis);
 	print $formother->selectXAxisField($object, $search_xaxis, $arrayofxaxis, $langs->trans("XAxis"), 'minwidth300 maxwidth400 widthcentpercentminusx');	// Fill the array $arrayofxaxis with possible fields
 	print '</div>';
@@ -659,7 +659,7 @@ if (!defined('MAIN_CUSTOM_REPORT_KEEP_GRAPH_ONLY')) {
 	// Group by
 	$count = 0;
 	print '<div class="divadvancedsearchfield">';
-	print '<div class="inline-block opacitymedium"><span class="fas fa-ruler-horizontal paddingright pictofixedwidth" title="'.dol_escape_htmltag($langs->trans("GroupBy")).'"></span></div>';
+	print '<div class="inline-block opacitymedium"><span class="fas fa-ruler-horizontal paddingright picturefixedwidth" title="'.dol_escape_htmltag($langs->trans("GroupBy")).'"></span></div>';
 	print $formother->selectGroupByField($object, $search_groupby, $arrayofgroupby, 'minwidth250 maxwidth300 widthcentpercentminusx', $langs->trans("GroupBy"));	// Fill the array $arrayofgroupby with possible fields
 	print '</div>';
 

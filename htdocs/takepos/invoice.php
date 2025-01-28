@@ -1893,7 +1893,7 @@ if ($placeid > 0) {
 				}
 				$htmlsupplements[$line->fk_parent_line] .= '>';
 				$htmlsupplements[$line->fk_parent_line] .= '<td class="left">';
-				$htmlsupplements[$line->fk_parent_line] .= img_picto('', 'rightarrow');
+				$htmlsupplements[$line->fk_parent_line] .= img_picture('', 'rightarrow');
 				if ($line->product_label) {
 					$htmlsupplements[$line->fk_parent_line] .= $line->product_label;
 				}
@@ -1903,7 +1903,7 @@ if ($placeid > 0) {
 				if ($line->product_label != $line->desc) {
 					$firstline = dolGetFirstLineOfText($line->desc);
 					if ($firstline != $line->desc) {
-						$htmlsupplements[$line->fk_parent_line] .= $form->textwithpicto(dolGetFirstLineOfText($line->desc), $line->desc);
+						$htmlsupplements[$line->fk_parent_line] .= $form->textWithPicture(dolGetFirstLineOfText($line->desc), $line->desc);
 					} else {
 						$htmlsupplements[$line->fk_parent_line] .= $line->desc;
 					}
@@ -1967,11 +1967,11 @@ if ($placeid > 0) {
 					}
 				}
 				if (getDolGlobalInt('TAKEPOS_SHOW_PRODUCT_REFERENCE') == 1) {
-					$htmlforlines .= $form->textwithpicto($line->product_label ? '<b>' . $line->product_ref . '</b> - ' . $line->product_label : dolGetFirstLineOfText($line->desc, 1), $tooltiptext);
+					$htmlforlines .= $form->textWithPicture($line->product_label ? '<b>' . $line->product_ref . '</b> - ' . $line->product_label : dolGetFirstLineOfText($line->desc, 1), $tooltiptext);
 				} elseif (getDolGlobalInt('TAKEPOS_SHOW_PRODUCT_REFERENCE') == 2) {
-					$htmlforlines .= $form->textwithpicto($line->product_ref ? '<b>'.$line->product_ref.'<b>' : dolGetFirstLineOfText($line->desc, 1), $tooltiptext);
+					$htmlforlines .= $form->textWithPicture($line->product_ref ? '<b>'.$line->product_ref.'<b>' : dolGetFirstLineOfText($line->desc, 1), $tooltiptext);
 				} else {
-					$htmlforlines .= $form->textwithpicto($line->product_label ? $line->product_label : ($line->product_ref ? $line->product_ref : dolGetFirstLineOfText($line->desc, 1)), $tooltiptext);
+					$htmlforlines .= $form->textWithPicture($line->product_label ? $line->product_label : ($line->product_ref ? $line->product_ref : dolGetFirstLineOfText($line->desc, 1)), $tooltiptext);
 				}
 			} else {
 				if ($line->product_ref) {
@@ -1994,7 +1994,7 @@ if ($placeid > 0) {
 					}
 					$firstline = dolGetFirstLineOfText($line->desc, getDolGlobalInt('TAKEPOS_SHOW_N_FIRST_LINES'));
 					if ($firstline != $line->desc) {
-						$htmlforlines .= $form->textwithpicto(dolGetFirstLineOfText($line->desc), $line->desc);
+						$htmlforlines .= $form->textWithPicture(dolGetFirstLineOfText($line->desc), $line->desc);
 					} else {
 						$htmlforlines .= $line->desc;
 					}
@@ -2061,7 +2061,7 @@ if ($placeid > 0) {
 							if ($line->qty && $line->qty > $stock_real) {
 								$htmlforlines .= '<span style="color: var(--amountremaintopaycolor)">';
 							}
-							$htmlforlines .= img_picto('', 'stock', 'class="pictofixedwidth"').price($stock_real, 1, '', 1, 0);
+							$htmlforlines .= img_picture('', 'stock', 'class="picturefixedwidth"').price($stock_real, 1, '', 1, 0);
 							if ($line->qty && $line->qty > $stock_real) {
 								$htmlforlines .= "</span>";
 							}

@@ -139,7 +139,7 @@ if ($object->id > 0) {
 	require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 	require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 
-	$picto = 'resource';
+	$picture = 'resource';
 
 	$title = $langs->trans("Agenda");
 	if (getDolGlobalString('MAIN_HTML_TITLE') && preg_match('/productnameonly/', getDolGlobalString('MAIN_HTML_TITLE')) && $object->name) {
@@ -156,7 +156,7 @@ if ($object->id > 0) {
 	$head = resource_prepare_head($object);
 
 	$titre = $langs->trans("ResourceSingular");
-	print dol_get_fiche_head($head, 'agenda', $titre, -1, $picto);
+	print dol_get_fiche_head($head, 'agenda', $titre, -1, $picture);
 
 	$linkback = '<a href="'.DOL_URL_ROOT.'/resource/list.php?restore_lastsearch_values=1">'.$langs->trans("BackToList").'</a>';
 

@@ -3,7 +3,7 @@ if (!defined('ISLOADEDBYSTEELSHEET')) {
 	die('Must be call by steelsheet');
 }
 
-// When no photo, we show the login name, so we need an offset to output picto at a fixed position.
+// When no photo, we show the login name, so we need an offset to output picture at a fixed position.
 $atoploginusername = empty($user->photo) ? 52 : 0;
 
 ?>

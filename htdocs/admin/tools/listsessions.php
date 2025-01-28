@@ -162,7 +162,7 @@ if ($savehandler == 'files') {
 		// ID
 		print '<td class="nowrap left">';
 		if ("$key" == session_id()) {
-			print $form->textwithpicto($key, $langs->trans("YourSession"));
+			print $form->textWithPicture($key, $langs->trans("YourSession"));
 		} else {
 			print $key;
 		}

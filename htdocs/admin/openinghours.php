@@ -105,37 +105,37 @@ if (empty($action) || $action == 'edit' || $action == 'updateedit') {
 	print '<tr class="liste_titre"><th class="titlefieldcreate wordbreak">'.$langs->trans("Day").'</th><th>'.$langs->trans("Value").'</th></tr>'."\n";
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("Monday"), $langs->trans("OpeningHoursFormatDesc"));
+	print $form->textWithPicture($langs->trans("Monday"), $langs->trans("OpeningHoursFormatDesc"));
 	print '</td><td>';
 	print '<input name="monday" id="monday" class="minwidth100" value="'.(getDolGlobalString('MAIN_INFO_OPENINGHOURS_MONDAY') ? $config->global->MAIN_INFO_OPENINGHOURS_MONDAY : GETPOST("monday", 'alpha')).'"'.(!getDolGlobalString('MAIN_INFO_OPENINGHOURS_MONDAY') ? ' autofocus="autofocus"' : '').'></td></tr>'."\n";
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("Tuesday"), $langs->trans("OpeningHoursFormatDesc"));
+	print $form->textWithPicture($langs->trans("Tuesday"), $langs->trans("OpeningHoursFormatDesc"));
 	print '</td><td>';
 	print '<input name="tuesday" id="tuesday" class="minwidth100" value="'.(getDolGlobalString('MAIN_INFO_OPENINGHOURS_TUESDAY') ? $config->global->MAIN_INFO_OPENINGHOURS_TUESDAY : GETPOST("tuesday", 'alpha')).'"></td></tr>'."\n";
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("Wednesday"), $langs->trans("OpeningHoursFormatDesc"));
+	print $form->textWithPicture($langs->trans("Wednesday"), $langs->trans("OpeningHoursFormatDesc"));
 	print '</td><td>';
 	print '<input name="wednesday" id="wednesday" class="minwidth100" value="'.(getDolGlobalString('MAIN_INFO_OPENINGHOURS_WEDNESDAY') ? $config->global->MAIN_INFO_OPENINGHOURS_WEDNESDAY : GETPOST("wednesday", 'alpha')).'"></td></tr>'."\n";
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("Thursday"), $langs->trans("OpeningHoursFormatDesc"));
+	print $form->textWithPicture($langs->trans("Thursday"), $langs->trans("OpeningHoursFormatDesc"));
 	print '</td><td>';
 	print '<input name="thursday" id="thursday" class="minwidth100" value="'.(getDolGlobalString('MAIN_INFO_OPENINGHOURS_THURSDAY') ? $config->global->MAIN_INFO_OPENINGHOURS_THURSDAY : GETPOST("thursday", 'alpha')).'"></td></tr>'."\n";
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("Friday"), $langs->trans("OpeningHoursFormatDesc"));
+	print $form->textWithPicture($langs->trans("Friday"), $langs->trans("OpeningHoursFormatDesc"));
 	print '</td><td>';
 	print '<input name="friday" id="friday" class="minwidth100" value="'.(getDolGlobalString('MAIN_INFO_OPENINGHOURS_FRIDAY') ? $config->global->MAIN_INFO_OPENINGHOURS_FRIDAY : GETPOST("friday", 'alpha')).'"></td></tr>'."\n";
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("Saturday"), $langs->trans("OpeningHoursFormatDesc"));
+	print $form->textWithPicture($langs->trans("Saturday"), $langs->trans("OpeningHoursFormatDesc"));
 	print '</td><td>';
 	print '<input name="saturday" id="saturday" class="minwidth100" value="'.(getDolGlobalString('MAIN_INFO_OPENINGHOURS_SATURDAY') ? $config->global->MAIN_INFO_OPENINGHOURS_SATURDAY : GETPOST("saturday", 'alpha')).'"></td></tr>'."\n";
 
 	print '<tr class="oddeven"><td>';
-	print $form->textwithpicto($langs->trans("Sunday"), $langs->trans("OpeningHoursFormatDesc"));
+	print $form->textWithPicture($langs->trans("Sunday"), $langs->trans("OpeningHoursFormatDesc"));
 	print '</td><td>';
 	print '<input name="sunday" id="sunday" class="minwidth100" value="'.(getDolGlobalString('MAIN_INFO_OPENINGHOURS_SUNDAY') ? $config->global->MAIN_INFO_OPENINGHOURS_SUNDAY : GETPOST("sunday", 'alpha')).'"></td></tr>'."\n";
 

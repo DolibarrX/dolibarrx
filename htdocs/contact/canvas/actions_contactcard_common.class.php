@@ -260,7 +260,7 @@ abstract class ActionsContactCardCommon
 
 			$this->tpl['zip'] = ($this->object->zip ? $this->object->zip.'&nbsp;' : '');
 
-			$img = picto_from_langcode($this->object->country_code);
+			$img = picture_from_langcode($this->object->country_code);
 			$this->tpl['country'] = ($img ? $img.' ' : '').$this->object->country;
 
 			$this->tpl['phone_pro'] = dol_print_phone($this->object->phone_pro, $this->object->country_code, 0, $this->object->id, 'AC_TEL');

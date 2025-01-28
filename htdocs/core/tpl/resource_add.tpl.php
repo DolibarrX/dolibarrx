@@ -55,7 +55,7 @@ $out .= '<div class="noborder borderbottom">';
 $out .= '<div class="divsearchfield paddingtop paddingbottom valignmiddle inline-block">'.$langs->trans("SelectResource").'</div>';
 $out .= '<div class="divsearchfield paddingtop paddingbottom valignmiddle inline-block">';
 $events = array();
-$out .= img_picto('', 'resource', 'class="pictofixedwidth"');
+$out .= img_picture('', 'resource', 'class="picturefixedwidth"');
 $out .= $formresources->select_resource_list(0, 'fk_resource', [], 1, 1, 0, $events, '', 2, 0);
 $out .= '</div>';
 

@@ -175,7 +175,7 @@ llxHeader('', $title, $help_url, '', 0, 0, '', '', '', 'mod-asset page-model-car
 
 // Part to create
 if ($action == 'create') {
-	print load_fiche_titre($langs->trans("NewObject", $langs->transnoentitiesnoconv("AssetModel")), '', 'object_' . $object->picto);
+	print load_fiche_titre($langs->trans("NewObject", $langs->transnoentitiesnoconv("AssetModel")), '', 'object_' . $object->picture);
 
 	print '<form method="POST" action="' . $_SERVER["PHP_SELF"] . '">';
 	print '<input type="hidden" name="token" value="' . newToken() . '">';
@@ -219,7 +219,7 @@ if ($action == 'create') {
 
 // Part to edit record
 if (($id || $ref) && $action == 'edit') {
-	print load_fiche_titre($langs->trans("AssetModel"), '', 'object_' . $object->picto);
+	print load_fiche_titre($langs->trans("AssetModel"), '', 'object_' . $object->picture);
 
 	print '<form method="POST" action="' . $_SERVER["PHP_SELF"] . '">';
 	print '<input type="hidden" name="token" value="' . newToken() . '">';
@@ -264,7 +264,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 	$res = $object->fetch_optionals();
 
 	$head = assetModelPrepareHead($object);
-	print dol_get_fiche_head($head, 'card', $langs->trans("AssetModel"), -1, $object->picto);
+	print dol_get_fiche_head($head, 'card', $langs->trans("AssetModel"), -1, $object->picture);
 
 	$formconfirm = '';
 
@@ -338,7 +338,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 
 		$labeltoshow = '';
 		if (!empty($val['help'])) {
-			$labeltoshow .= $form->textwithpicto($langs->trans($val['label']), $langs->trans($val['help']));
+			$labeltoshow .= $form->textWithPicture($langs->trans($val['label']), $langs->trans($val['help']));
 		} else {
 			if (isset($val['copytoclipboard']) && $val['copytoclipboard'] == 1) {
 				$labeltoshow .= showValueWithClipboardCPButton($value, 0, $langs->transnoentitiesnoconv($val['label']));
@@ -368,7 +368,7 @@ if ($object->id > 0 && (empty($action) || ($action != 'edit' && $action != 'crea
 			if ($key == 'lang') {
 				$langs->load("languages");
 				$labellang = ($value ? $langs->trans('Language_'.$value) : '');
-				print picto_from_langcode($value, 'class="paddingrightonly saturatemedium opacitylow"');
+				print picture_from_langcode($value, 'class="paddingrightonly saturatemedium opacitylow"');
 				print $labellang;
 			} else {
 				if (isset($val['copytoclipboard']) && $val['copytoclipboard'] == 2) {

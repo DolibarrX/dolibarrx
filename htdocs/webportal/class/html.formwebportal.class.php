@@ -252,7 +252,7 @@ class FormWebPortal extends Form
 	 * @param string $modulesubdir Sub-directory to scan (Example: '0/1/10', 'FA/DD/MM/YY/9999'). Use '' if file is not into subdir of module.
 	 * @param string $filedir Full path to directory to scan
 	 * @param string $filter Filter filenames on this regex string (Example: '\.pdf$')
-	 * @param string $morecss Add more css to the download picto
+	 * @param string $morecss Add more css to the download picture
 	 * @param int<0,1> $allfiles 0=Only generated docs, 1=All files
 	 * @return    string                Output string with HTML link of documents (might be empty string). This also fill the array ->infofiles
 	 */
@@ -353,7 +353,7 @@ class FormWebPortal extends Form
 	 *
 	 * @param string $modulepart 'proposal', 'facture', 'facture_fourn', ...
 	 * @param Object $object Object linked to the document to be signed
-	 * @param string $morecss Add more css to the download picto
+	 * @param string $morecss Add more css to the download picture
 	 * @return    string                Output string with HTML link of signature (might be empty string).
 	 */
 	public function getSignatureLink($modulepart, $object, $morecss = '')
@@ -996,7 +996,7 @@ class FormWebPortal extends Form
 		$label = empty($val['label']) ? '' : $val['label'];
 		$type = empty($val['type']) ? '' : $val['type'];
 		$css = empty($val['css']) ? '' : $val['css'];
-		$picto = empty($val['picto']) ? '' : $val['picto'];
+		$picture = empty($val['picture']) ? '' : $val['picture'];
 		$reg = array();
 
 		// Convert var to be able to share same code than showOutputField of extrafields

@@ -189,10 +189,10 @@ print '<td>';
 print $langs->trans("PaypalLiveEnabled").'</td><td>';
 if (!(getDolGlobalInt('PAYPAL_API_SANDBOX'))) {
 	print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setlive&token='.newToken().'&value=0">';
-	print img_picto($langs->trans("Activated"), 'switch_on');
+	print img_picture($langs->trans("Activated"), 'switch_on');
 } else {
 	print '<a class="reposition" href="'.$_SERVER['PHP_SELF'].'?action=setlive&token='.newToken().'&value=1">';
-	print img_picto($langs->trans("Disabled"), 'switch_off');
+	print img_picture($langs->trans("Disabled"), 'switch_off');
 }
 print '</td></tr>';
 
@@ -259,7 +259,7 @@ print '</td></tr>';
 if (isModEnabled("bank")) {
 	print '<tr class="oddeven"><td>';
 	print $langs->trans("BankAccount").'</td><td>';
-	print img_picto('', 'bank_account').' ';
+	print img_picture('', 'bank_account').' ';
 	$form->select_comptes(getDolGlobalString('PAYPAL_BANK_ACCOUNT_FOR_PAYMENTS'), 'PAYPAL_BANK_ACCOUNT_FOR_PAYMENTS', 0, '', 1);
 	print '</td></tr>';
 }
@@ -322,11 +322,11 @@ print '<tr class="oddeven"><td>';
 print $langs->trans("SecurityToken").'</td><td>';
 print '<input class="minwidth300" type="text" id="PAYMENT_SECURITY_TOKEN" name="PAYMENT_SECURITY_TOKEN" value="'.getDolGlobalString('PAYMENT_SECURITY_TOKEN').'">';
 if (!empty($config->use_javascript_ajax)) {
-	print '&nbsp;'.img_picto($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
+	print '&nbsp;'.img_picture($langs->trans('Generate'), 'refresh', 'id="generate_token" class="linkobject"');
 }
 if (getDolGlobalString('PAYMENT_SECURITY_ACCEPT_ANY_TOKEN')) {
 	$langs->load("errors");
-	print img_warning($langs->trans("WarningTheHiddenOptionIsOn", 'PAYMENT_SECURITY_ACCEPT_ANY_TOKEN'), '', 'pictowarning marginleftonly');
+	print img_warning($langs->trans("WarningTheHiddenOptionIsOn", 'PAYMENT_SECURITY_ACCEPT_ANY_TOKEN'), '', 'picturewarning marginleftonly');
 }
 print '</td></tr>';
 

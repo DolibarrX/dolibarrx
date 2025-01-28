@@ -301,8 +301,8 @@ if ($resql) {
 	// Action column
 	if (getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre center maxwidthsearch actioncolumn">';
-		$searchpicto = $form->showFilterButtons('left');
-		print $searchpicto;
+		$searchPicture = $form->showFilterButtons('left');
+		print $searchPicture;
 		print '</td>';
 	}
 
@@ -363,8 +363,8 @@ if ($resql) {
 	// Action column
 	if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 		print '<td class="liste_titre center maxwidthsearch actioncolumn">';
-		$searchpicto = $form->showFilterButtons();
-		print $searchpicto;
+		$searchPicture = $form->showFilterButtons();
+		print $searchPicture;
 		print '</td>';
 	}
 

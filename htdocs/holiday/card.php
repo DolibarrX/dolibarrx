@@ -1079,10 +1079,10 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 		print '<td class="titlefield fieldrequired tdtop">'.$langs->trans("User").'</td>';
 		print '<td><div class="inline-block">';
 		if ($permissiontoadd && !$permissiontoaddall) {
-			print img_picto('', 'user', 'class="pictofixedwidth"').$form->select_dolusers(($fuserid ? $fuserid : $user->id), 'fuserid', 0, '', 0, 'hierarchyme', '', '0,'.$config->entity, 0, 0, $morefilter, 0, '', 'minwidth200 maxwidth500 inline-block');
+			print img_picture('', 'user', 'class="picturefixedwidth"').$form->select_dolusers(($fuserid ? $fuserid : $user->id), 'fuserid', 0, '', 0, 'hierarchyme', '', '0,'.$config->entity, 0, 0, $morefilter, 0, '', 'minwidth200 maxwidth500 inline-block');
 			//print '<input type="hidden" name="fuserid" value="'.($fuserid?$fuserid:$user->id).'">';
 		} else {
-			print img_picto('', 'user', 'class="pictofixedwidth"').$form->select_dolusers($fuserid ? $fuserid : $user->id, 'fuserid', 0, '', 0, '', '', '0,'.$config->entity, 0, 0, $morefilter, 0, '', 'minwidth200 maxwidth500 inline-block');
+			print img_picture('', 'user', 'class="picturefixedwidth"').$form->select_dolusers($fuserid ? $fuserid : $user->id, 'fuserid', 0, '', 0, '', '', '0,'.$config->entity, 0, 0, $morefilter, 0, '', 'minwidth200 maxwidth500 inline-block');
 		}
 		print '</div>';
 
@@ -1104,7 +1104,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 			$htmltooltip = $langs->trans("Detail").'<br>';
 			$htmltooltip .= $out;
 
-			print $form->textwithtooltip($langs->trans('SoldeCPUser', round($nb_holiday, 5)).' '.img_picto('', 'help'), $htmltooltip);
+			print $form->textwithtooltip($langs->trans('SoldeCPUser', round($nb_holiday, 5)).' '.img_picture('', 'help'), $htmltooltip);
 
 			print '</div>';
 			if (!empty($config->use_javascript_ajax)) {
@@ -1151,9 +1151,9 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 		// Date start
 		print '<tr>';
 		print '<td class="fieldrequired">';
-		print $form->textwithpicto($langs->trans("DateDebCP"), $langs->trans("FirstDayOfHoliday"));
+		print $form->textWithPicture($langs->trans("DateDebCP"), $langs->trans("FirstDayOfHoliday"));
 		print '</td>';
-		print '<td>'.img_picto('', 'action', 'class="pictofixedwidth"');
+		print '<td>'.img_picture('', 'action', 'class="picturefixedwidth"');
 		if (!GETPOST('date_debut_')) {	// If visitor does not come from agenda
 			print $form->selectDate(-1, 'date_debut_', 0, 0, 0, '', 1, 1);
 		} else {
@@ -1168,9 +1168,9 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 		// Date end
 		print '<tr>';
 		print '<td class="fieldrequired">';
-		print $form->textwithpicto($langs->trans("DateFinCP"), $langs->trans("LastDayOfHoliday"));
+		print $form->textWithPicture($langs->trans("DateFinCP"), $langs->trans("LastDayOfHoliday"));
 		print '</td>';
-		print '<td>'.img_picto('', 'action', 'class="pictofixedwidth"');
+		print '<td>'.img_picture('', 'action', 'class="picturefixedwidth"');
 		if (!GETPOST('date_fin_')) {
 			print $form->selectDate(-1, 'date_fin_', 0, 0, 0, '', 1, 1);
 		} else {
@@ -1202,7 +1202,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 				$defaultselectuser = GETPOSTINT('valideur');
 			}
 			$s = $form->select_dolusers($defaultselectuser, "valideur", 1, '', 0, $include_users, '', '0,'.$config->entity, 0, 0, '', 0, '', 'minwidth200 maxwidth500');
-			print img_picto('', 'user', 'class="pictofixedwidth"').$form->textwithpicto($s, $langs->trans("AnyOtherInThisListCanValidate"));
+			print img_picture('', 'user', 'class="picturefixedwidth"').$form->textWithPicture($s, $langs->trans("AnyOtherInThisListCanValidate"));
 		}
 
 		//print $form->select_dolusers((GETPOST('valideur','int')>0?GETPOST('valideur','int'):$user->fk_user), "valideur", 1, ($user->admin ? '' : array($user->id)), 0, '', 0, 0, 0, 0, '', 0, '', '', 1);	// By default, hierarchical parent
@@ -1339,7 +1339,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 				if (!$edit) {
 					print '<tr>';
 					print '<td class="nowrap">';
-					print $form->textwithpicto($langs->trans('DateDebCP'), $langs->trans("FirstDayOfHoliday"));
+					print $form->textWithPicture($langs->trans('DateDebCP'), $langs->trans("FirstDayOfHoliday"));
 					print '</td>';
 					print '<td>'.dol_print_date($object->date_debut, 'day');
 					print ' &nbsp; &nbsp; ';
@@ -1349,7 +1349,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 				} else {
 					print '<tr>';
 					print '<td class="nowrap">';
-					print $form->textwithpicto($langs->trans('DateDebCP'), $langs->trans("FirstDayOfHoliday"));
+					print $form->textWithPicture($langs->trans('DateDebCP'), $langs->trans("FirstDayOfHoliday"));
 					print '</td>';
 					print '<td>';
 					$tmpdate = GETPOSTDATE('date_debut_', '00:00:00');
@@ -1363,7 +1363,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 				if (!$edit) {
 					print '<tr>';
 					print '<td class="nowrap">';
-					print $form->textwithpicto($langs->trans('DateFinCP'), $langs->trans("LastDayOfHoliday"));
+					print $form->textWithPicture($langs->trans('DateFinCP'), $langs->trans("LastDayOfHoliday"));
 					print '</td>';
 					print '<td>'.dol_print_date($object->date_fin, 'day');
 					print ' &nbsp; &nbsp; ';
@@ -1373,7 +1373,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 				} else {
 					print '<tr>';
 					print '<td class="nowrap">';
-					print $form->textwithpicto($langs->trans('DateFinCP'), $langs->trans("LastDayOfHoliday"));
+					print $form->textWithPicture($langs->trans('DateFinCP'), $langs->trans("LastDayOfHoliday"));
 					print '</td>';
 					print '<td>';
 					print $form->selectDate($object->date_fin, 'date_fin_');
@@ -1395,7 +1395,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 				if ($includesunday) {
 					$htmlhelp .= '<br>'.$langs->trans("DayIsANonWorkingDay", $langs->trans("Sunday"));
 				}
-				print $form->textwithpicto($langs->trans('NbUseDaysCP'), $htmlhelp);
+				print $form->textWithPicture($langs->trans('NbUseDaysCP'), $htmlhelp);
 				print '</td>';
 				print '<td>';
 				print num_open_day($object->date_debut_gmt, $object->date_fin_gmt, 0, 1, $object->halfday);
@@ -1487,7 +1487,7 @@ if ((empty($id) && empty($ref)) || $action == 'create' || $action == 'add') {
 					} else {
 						$arrayofvalidatorstoexclude = (($user->admin || ($user->id != $userRequest->id)) ? '' : array($user->id)); // Nobody if we are admin or if we are not the user of the leave.
 						$s = $form->select_dolusers($object->fk_validator, "valideur", (($action == 'editvalidator') ? 0 : 1), $arrayofvalidatorstoexclude, 0, $include_users);
-						print $form->textwithpicto($s, $langs->trans("AnyOtherInThisListCanValidate"));
+						print $form->textWithPicture($s, $langs->trans("AnyOtherInThisListCanValidate"));
 					}
 					if ($action == 'editvalidator') {
 						print '<input type="submit" class="button button-save" name="savevalidator" value="'.$langs->trans("Save").'">';

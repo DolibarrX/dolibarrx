@@ -52,7 +52,7 @@ class mailing_thirdparties_services_expired extends MailingTargets
 	/**
 	 * @var string String with name of icon for myobject. Must be the part after the 'object_' into object_myobject.png
 	 */
-	public $picto = 'company';
+	public $picture = 'company';
 
 	/**
 	 * @var array<int,string>
@@ -243,7 +243,7 @@ class mailing_thirdparties_services_expired extends MailingTargets
 	{
 		global $langs;
 
-		$s = img_picto('', 'product', 'class="pictofixedwidth"').'<select id="filter_services_expired" name="filter" class="flat">';
+		$s = img_picture('', 'product', 'class="picturefixedwidth"').'<select id="filter_services_expired" name="filter" class="flat">';
 		if (count($this->arrayofproducts)) {
 			$langs->loadLangs(array("products"));
 			$s .= '<option value="-1">'.$langs->trans("ProductOrService").'</option>';
